@@ -1,3 +1,4 @@
+/// Abstract classes for typed-prop UI components.
 part of w_ui_platform.ui_core;
 
 /// A component definition used as the base for all w_ui_platform components.
