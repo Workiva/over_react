@@ -1,4 +1,4 @@
-library ui_core;
+library w_ui_platform.ui_core;
 
 ///
 /// Core UI Library

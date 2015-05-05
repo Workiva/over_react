@@ -1,4 +1,4 @@
-part of ui_core;
+part of w_ui_platform.ui_core;
 
 ///
 /// Utilities for manipulating and generating CSS class names.

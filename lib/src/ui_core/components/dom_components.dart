@@ -1,4 +1,4 @@
-part of ui_core;
+part of w_ui_platform.ui_core;
 
 ///
 /// [ComponentDefinition]-based api with typed props for react-dart DOM components.
