@@ -1,4 +1,5 @@
-part of ui_core;
+/// Various prop related mixins to be used with [ComponentDefinition] descendants.
+part of w_ui_platform.ui_core;
 
 /// Typed getters/setters for reserved React props.
 /// To be used as a mixin for React components and builders.
