@@ -1,4 +1,4 @@
-part of ui_core;
+part of w_ui_platform.ui_core;
 
 /// Typed getters/setters for reserved React props.
 /// To be used as a mixin for React components and builders.
