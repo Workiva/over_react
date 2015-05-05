@@ -1,5 +1,5 @@
-part of ui_core;
 /// Mixins for adding generic typed prop/state getters to components.
+part of w_ui_platform.ui_core;
 
 /// Mixin for easy use of generic typed props within a component.
 /// Designed for MapView-like typed props that are backed by Maps.
