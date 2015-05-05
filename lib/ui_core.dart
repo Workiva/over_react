@@ -8,8 +8,8 @@ import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart' show ReactComponentFactory;
 
 //parts
-part 'src/ui_core/components/base_component.dart';
-part 'src/ui_core/components/base_mixins.dart';
-part 'src/ui_core/components/dom_components.dart';
-part 'src/ui_core/components/prop_mixins.dart';
-part 'src/ui_core/utils/class_names.dart';
+part 'src/ui_core/component/base_component.dart';
+part 'src/ui_core/component/dom_components.dart';
+part 'src/ui_core/component/prop_mixins.dart';
+part 'src/ui_core/component/typed_mixins.dart';
+part 'src/ui_core/util/class_names.dart';
