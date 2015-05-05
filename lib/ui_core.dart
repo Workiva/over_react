@@ -1,13 +1,9 @@
-library ui_core;
-
-///
-/// Core UI Library
-///   contains base classes for UI components and related utilities
-///
+/// Base classes for UI components and related utilities.
+library w_ui_platform.ui_core;
 
 //imports
 import 'dart:collection' show MapView;
-import 'dart:js';
+import 'dart:js' show JsObject;
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart' show ReactComponentFactory;
 
@@ -16,5 +12,4 @@ part 'src/ui_core/components/base_component.dart';
 part 'src/ui_core/components/base_mixins.dart';
 part 'src/ui_core/components/dom_components.dart';
 part 'src/ui_core/components/prop_mixins.dart';
-part 'src/ui_core/react_utils/valid_component_children.dart';
 part 'src/ui_core/utils/class_names.dart';
