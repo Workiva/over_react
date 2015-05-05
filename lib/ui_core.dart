@@ -7,7 +7,7 @@ library ui_core;
 
 //imports
 import 'dart:collection' show MapView;
-import 'dart:js' show JsObject;
+import 'dart:js';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart' show ReactComponentFactory;
 
@@ -16,4 +16,5 @@ part 'src/ui_core/components/base_component.dart';
 part 'src/ui_core/components/base_mixins.dart';
 part 'src/ui_core/components/dom_components.dart';
 part 'src/ui_core/components/prop_mixins.dart';
+part 'src/ui_core/react_utils/valid_component_children.dart';
 part 'src/ui_core/utils/class_names.dart';
