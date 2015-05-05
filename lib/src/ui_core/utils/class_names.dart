@@ -1,8 +1,5 @@
-part of w_ui_platform.ui_core;
-
-///
 /// Utilities for manipulating and generating CSS class names.
-///
+part of w_ui_platform.ui_core;
 
 /// Converts a map of className->bool entries to a className, similar to React.addons.classSet.
 /// See <http://facebook.github.io/react/docs/class-name-manipulation.html>.

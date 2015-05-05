@@ -1,9 +1,5 @@
+/// Base classes for UI components and related utilities.
 library w_ui_platform.ui_core;
-
-///
-/// Core UI Library
-///   contains base classes for UI components and related utilities
-///
 
 //imports
 import 'dart:collection' show MapView;

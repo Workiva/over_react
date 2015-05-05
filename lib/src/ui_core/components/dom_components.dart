@@ -1,8 +1,5 @@
-part of w_ui_platform.ui_core;
-
-///
 /// [ComponentDefinition]-based api with typed props for react-dart DOM components.
-///
+part of w_ui_platform.ui_core;
 
 /// A component builder with typed props for built-in DOM components.
 class DomComponentDefinition extends ComponentDefinition with DomProps {
