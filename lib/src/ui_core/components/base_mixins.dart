@@ -1,4 +1,4 @@
-part of ui_core;
+part of w_ui_platform.ui_core;
 /// Mixins for adding generic typed prop/state getters to components.
 
 /// Mixin for easy use of generic typed props within a component.
