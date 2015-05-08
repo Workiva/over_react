@@ -51,8 +51,16 @@ abstract class ComponentDefinition extends MapView implements Function {
     props.addAll(propMap);
   }
 
+  /// abstract method for component validation.  (called in checked mode only)
+  bool validate() {
+    return true;
+  }
+
   /// Create a new component with this builder's props and the specified children.
-  JsObject build([dynamic children]) => componentFactory(props, children);
+  JsObject build([dynamic children]) {
+    assert(validate());
+    return componentFactory(props, children);
+  }
 
   /// Create a new component with this builder's props and the specified children. (alias for [build])
   JsObject call([dynamic children]) => build(children);
