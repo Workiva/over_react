@@ -93,9 +93,13 @@ class TextColor {
 abstract class ColorProps {
   Map get props;
 
+  /// Prop for specifying the background color for components that support it.
   BackgroundColor get backgroundColor => props[_ColorPropsKey.BACKGROUND_COLOR];
   set backgroundColor(BackgroundColor value) => props[_ColorPropsKey.BACKGROUND_COLOR] = value;
 
+  /// Prop for specifying the border color for components that support it.
+  /// This prop will only work if the element already has a 'border-width'
+  /// and 'border-style' CSS property set.
   BorderColor get borderColor => props[_ColorPropsKey.BORDER_COLOR];
   set borderColor(BorderColor value) => props[_ColorPropsKey.BORDER_COLOR] = value;
 
