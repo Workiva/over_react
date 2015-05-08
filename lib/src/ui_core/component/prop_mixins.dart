@@ -71,6 +71,8 @@ abstract class DomProps {
   // Accessibility
   String get role              => props['role'];
   set role(String value)       => props['role'] = value;
+  String get scope             => props['scope'];
+  set scope(String value)      => props['scope'] = value;
 }
 
 class DomPropsMapView extends MapView with DomProps {
