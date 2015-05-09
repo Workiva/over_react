@@ -9,6 +9,7 @@ import 'package:react/react_client.dart' show ReactComponentFactory;
 
 //parts
 part 'src/ui_core/component/base_component.dart';
+part 'src/ui_core/component/color_props.dart';
 part 'src/ui_core/component/dom_components.dart';
 part 'src/ui_core/component/prop_mixins.dart';
 part 'src/ui_core/component/typed_mixins.dart';
