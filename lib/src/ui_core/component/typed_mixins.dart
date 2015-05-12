@@ -3,12 +3,13 @@ part of w_ui_platform.ui_core;
 
 /// Mixin for easy use of generic typed props within a component.
 /// Designed for MapView-like typed props that are backed by Maps.
-abstract class TypedPropsGetter<P> extends Object {
-  Expando<P> _typedPropsCache = new Expando<P>();
+abstract class TypedPropsGetter<TProps> extends Object {
+  // Keep this Expando unparameterized to work around this bug: https://code.google.com/p/dart/issues/detail?id=18713
+  Expando _typedPropsCache = new Expando();
 
   /// Create, or get from cache, a typed props object corresponding to the current props Map.
-  P get tProps {
-    P typedProps = _typedPropsCache[props];
+  TProps get tProps {
+    TProps typedProps = _typedPropsCache[props];
     if (typedProps == null) {
       typedProps = typedPropsFactory(props);
       _typedPropsCache[props] = typedProps;
@@ -17,23 +18,28 @@ abstract class TypedPropsGetter<P> extends Object {
   }
 
   /// The props that will be used to create the typed props object.
-  /// React.Component subclasses will automatically implement this (via duck-typing).
+  /// react.Component subclasses will automatically implement this (via duck-typing).
   Map get props;
 
   /// Returns a typed props object backed by the specified Map.
   /// Required to properly instantiate the generic class parameter.
-  P typedPropsFactory(Map propsMap);
+  TProps typedPropsFactory(Map propsMap);
+
+  /// Returns a typed props object backed by a new Map.
+  /// Convenient for use with getDefaultProps.
+  TProps newProps() => typedPropsFactory({});
 }
 
 
 /// Mixin for easy use of generic typed state within a component.
 /// Designed for MapView-like typed state that are backed by Maps.
-abstract class TypedStateGetter<P> extends Object {
-  Expando<P> _typedStateCache = new Expando<P>();
+abstract class TypedStateGetter<TState> extends Object {
+  // Keep this Expando unparameterized to work around this bug: https://code.google.com/p/dart/issues/detail?id=18713
+  Expando _typedStateCache = new Expando();
 
-  /// Create, or get from cache, a typed props object corresponding to the current state Map.
-  P get tState {
-    P typedState = _typedStateCache[state];
+  /// Create, or get from cache, a typed state object corresponding to the current state Map.
+  TState get tState {
+    TState typedState = _typedStateCache[state];
     if (typedState == null) {
       typedState = typedStateFactory(state);
       _typedStateCache[state] = typedState;
@@ -42,10 +48,14 @@ abstract class TypedStateGetter<P> extends Object {
   }
 
   /// The state that will be used to create the typed state object.
-  /// React.Component subclasses will automatically implement this (via duck-typing).
+  /// react.Component subclasses will automatically implement this (via duck-typing).
   Map get state;
 
-  /// Returns a typed props object backed by the specified Map.
+  /// Returns a typed state object backed by the specified Map.
   /// Required to properly instantiate the generic class parameter.
-  P typedStateFactory(Map propsMap);
+  TState typedStateFactory(Map stateMap);
+
+  /// Returns a typed state object backed by a new Map.
+  /// Convenient for use with getInitialState and setState.
+  TState newState() => typedStateFactory({});
 }

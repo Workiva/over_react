@@ -11,8 +11,8 @@ abstract class ReactProps {
   String get key        => props['key'];
   set key(String value) => props['key'] = value;
 
-  String get ref        => props['ref'];
-  set ref(String value) => props['ref'] = value;
+  dynamic get ref        => props['ref'];
+  set ref(dynamic value) => props['ref'] = value;
 }
 
 /// Typed getters/setters for props related to CSS class manipulation, and used by all UIP components.
