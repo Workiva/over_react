@@ -8,8 +8,8 @@ abstract class ReactProps {
 
   List get children     => props['children'];
 
-  dynamic get key        => props['key'];
-  set key(dynamic value) => props['key'] = value;
+  String get key        => props['key'];
+  set key(String value) => props['key'] = value;
 
   dynamic get ref        => props['ref'];
   set ref(dynamic value) => props['ref'] = value;
