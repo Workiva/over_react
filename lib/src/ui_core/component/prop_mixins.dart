@@ -11,8 +11,8 @@ abstract class ReactProps {
   String get key        => props['key'];
   set key(String value) => props['key'] = value;
 
-  String get ref        => props['ref'];
-  set ref(String value) => props['ref'] = value;
+  dynamic get ref        => props['ref'];
+  set ref(dynamic value) => props['ref'] = value;
 }
 
 /// Typed getters/setters for props related to CSS class manipulation, and used by all UIP components.
@@ -71,6 +71,8 @@ abstract class DomProps {
   // Accessibility
   String get role              => props['role'];
   set role(String value)       => props['role'] = value;
+  String get scope             => props['scope'];
+  set scope(String value)      => props['scope'] = value;
 }
 
 class DomPropsMapView extends MapView with DomProps {
