@@ -23,6 +23,14 @@ abstract class BaseComponent<T extends ComponentDefinition> extends react.Compon
     }
     return newMap;
   }
+
+  /// Returns a new ClassNameBuilder with className and blacklist values added from [CssClassProps.className] and
+  /// [CssClassProps.classNameBlackList], if they are specified.
+  ///
+  /// This method should be used as the basis for the classNames of components receiving forwarded props.
+  ClassNameBuilder newClassNameBuilder() {
+    return new ClassNameBuilder.fromProps(props);
+  }
 }
 
 typedef ComponentDefinition ComponentDefinitionFactory();
