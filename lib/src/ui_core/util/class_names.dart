@@ -38,7 +38,7 @@ String classNames(dynamic classDefinition, [dynamic classDefinition2, dynamic cl
 /// StringBuffer-backed className builder optimized for adding classNames, with support for blacklisting CSS classes.
 class ClassNameBuilder {
   StringBuffer _classNamesBuffer = new StringBuffer();
-  StringBuffer _blacklistBuffer = new StringBuffer();
+  StringBuffer _blacklistBuffer = null;
 
   /// Creates a new, empty ClassNameBuilder.
   ClassNameBuilder();
@@ -51,7 +51,8 @@ class ClassNameBuilder {
       ..blacklist(props[CssClassPropsKey.CLASS_NAME_BLACKLIST]);
   }
 
-  /// Add a className string. May be a single CSS class 'token', or multiple space-delimited classes.
+  /// Adds a className string. May be a single CSS class 'token', or multiple space-delimited classes,
+  /// IF [should] is true, otherwise, does nothing (convenience for helping to inline addition conditionals).
   ///
   /// There is no checking for duplicate CSS classes.
   void add(String className, [bool should = true]) {
@@ -65,7 +66,8 @@ class ClassNameBuilder {
     _classNamesBuffer.write(className);
   }
 
-  /// Adds all of the CSS classes represented by [className] (a space-delimited list) to the blacklist.
+  /// Adds all of the CSS classes represented by [className] (a space-delimited list) to the blacklist,
+  /// IF [should] is true, otherwise, does nothing (convenience for helping to inline blacklisting conditionals).
   ///
   /// Classes added to the blacklist will not appear in the result of [toClassName].
   void blacklist(String className, [bool should = true]) {
@@ -100,39 +102,40 @@ class ClassNameBuilder {
     return className;
   }
 
-  /// Returns a List of CSS class token Strings efficiently split from the specified [className].
-  static List<String> splitClassName(String className) {
-    List<String> classNames = [];
-
-    int start = 0;
-
-    while (start != className.length) {
-      while (className.codeUnitAt(start) == 32) {
-        start++;
-        if (start == className.length) {
-          return classNames;
-        }
-      }
-
-      int end = start;
-      while (className.codeUnitAt(end) != 32) {
-        end++;
-        if (end == className.length) {
-          classNames.add(className.substring(start, end));
-          return classNames;
-        }
-      }
-
-      classNames.add(className.substring(start, end));
-
-      start = end;
-    }
-
-    return classNames;
-  }
-
   @override
   String toString() {
     return '${runtimeType} _classNamesBuffer: ${_classNamesBuffer}, _blacklistBuffer: ${_blacklistBuffer}, toClassName(): ${toClassName()}';
   }
+}
+
+
+/// Returns a List of CSS class token Strings efficiently split from the specified [className].
+List<String> splitClassName(String className) {
+  List<String> classNames = [];
+
+  int start = 0;
+
+  while (start != className.length) {
+    while (className.codeUnitAt(start) == 32) {
+      start++;
+      if (start == className.length) {
+        return classNames;
+      }
+    }
+
+    int end = start;
+    while (className.codeUnitAt(end) != 32) {
+      end++;
+      if (end == className.length) {
+        classNames.add(className.substring(start, end));
+        return classNames;
+      }
+    }
+
+    classNames.add(className.substring(start, end));
+
+    start = end;
+  }
+
+  return classNames;
 }
