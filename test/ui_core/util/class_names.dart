@@ -5,7 +5,7 @@ import 'package:w_ui_platform/ui_core.dart';
 
 /// Main entrypoint for class_names testing
 main() {
-  solo_group('class_names part', () {
+  group('class_names part', () {
     group('ClassNameBuilder', () {
       group('created with default constructor', () {
         ClassNameBuilder builder;

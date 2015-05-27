@@ -111,12 +111,13 @@ class ClassNameBuilder {
 
 /// Returns a List of CSS class token Strings efficiently split from the specified [className].
 List<String> splitClassName(String className) {
-  List<String> classNames = [];
+  const int SPACE = 32; // ' '.codeUnits.first;
 
+  List<String> classNames = [];
   int start = 0;
 
   while (start != className.length) {
-    while (className.codeUnitAt(start) == 32) {
+    while (className.codeUnitAt(start) == SPACE) {
       start++;
       if (start == className.length) {
         return classNames;
@@ -124,7 +125,7 @@ List<String> splitClassName(String className) {
     }
 
     int end = start;
-    while (className.codeUnitAt(end) != 32) {
+    while (className.codeUnitAt(end) != SPACE) {
       end++;
       if (end == className.length) {
         classNames.add(className.substring(start, end));
