@@ -7,16 +7,26 @@ String classNameFromMap(Map<String, bool> classMap) {
   return classMap.keys.where((key) => classMap[key]).join(' ');
 }
 
+Map<String, bool> mapFromClassName(String className, [Map<String, bool> classMap]) {
+  if (classMap == null) {
+    classMap = {};
+  }
+  if (className != null) {
+    className = className.trim();
+    if (className.isNotEmpty) {
+      className.split(' ').forEach((singleClass) => classMap[singleClass] = true);
+    }
+  }
+  return classMap;
+}
+
 /// Merges className definitions of different formats together.
 /// Accepts single classes, className strings, and Map<String, bool> class maps.
 Map<String, bool> mergeClassDefinitions(Iterable<dynamic> classes) {
   Map<String, bool> mergedClassMap = {};
   classes.forEach((dynamic classDefinition) {
     if (classDefinition is String) {
-      String className = (classDefinition as String).trim();
-      if (className.isNotEmpty) {
-        className.split(' ').forEach((singleClass) => mergedClassMap[singleClass] = true);
-      }
+      mapFromClassName(classDefinition, mergedClassMap);
     } else if (classDefinition is Map) {
       mergedClassMap.addAll(classDefinition);
     }
