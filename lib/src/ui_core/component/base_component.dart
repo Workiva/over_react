@@ -28,7 +28,7 @@ abstract class BaseComponent<T extends ComponentDefinition> extends react.Compon
   /// [CssClassProps.classNameBlackList], if they are specified.
   ///
   /// This method should be used as the basis for the classNames of components receiving forwarded props.
-  ClassNameBuilder newClassNameBuilder() {
+  ClassNameBuilder forwardingClassNameBuilder() {
     return new ClassNameBuilder.fromProps(props);
   }
 }
