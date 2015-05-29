@@ -7,7 +7,7 @@ part of w_ui_platform.ui_core;
 ///
 /// Serves as a builder for fluent-style component consumption with typed getters and setters for props.
 /// Also functions as a MapView, for use internally and externally for typed prop consumption and manipulation.
-abstract class BaseComponentDefinition extends ComponentDefinition with ReactProps, CssClassProps, DomProps {
+abstract class BaseComponentDefinition extends ComponentDefinition with ReactProps, CssClassProps {
   BaseComponentDefinition(ReactComponentFactory componentFactory, Map props) : super(componentFactory, props);
 }
 
