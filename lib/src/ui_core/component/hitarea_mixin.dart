@@ -87,10 +87,6 @@ abstract class HitAreaProps {
   bool get isDisabled => props[_HitAreaPropsKeys.IS_DISABLED];
   set isDisabled(bool value) => props[_HitAreaPropsKeys.IS_DISABLED] = value;
 
-  /// prop: isSelected
-  bool get isSelected => props[_HitAreaPropsKeys.IS_SELECTED];
-  set isSelected(bool value) => props[_HitAreaPropsKeys.IS_SELECTED] = value;
-
   /// Whether the button is a nav-item.
   bool get isNavItem => props[_HitAreaPropsKeys.IS_NAV_ITEM];
   set isNavItem(bool value) => props[_HitAreaPropsKeys.IS_NAV_ITEM] = value;
@@ -101,16 +97,12 @@ abstract class HitAreaProps {
       props[_HitAreaPropsKeys.IS_NAV_DROPDOWN] = value;
 
   /// Returns a [Map] instance containing key/value pairs for the standard HitAreaProps defaults.
-  static Map getDefaults() {
-    var props = {};
-
-    props[_HitAreaPropsKeys.IS_ACTIVE] = false;
-    props[_HitAreaPropsKeys.IS_DISABLED] = false;
-    props[_HitAreaPropsKeys.IS_NAV_DROPDOWN] = false;
-    props[_HitAreaPropsKeys.IS_NAV_ITEM] = false;
-
-    return props;
-  }
+  static Map getDefaults() => {
+    _HitAreaPropsKeys.IS_ACTIVE: false,
+    _HitAreaPropsKeys.IS_DISABLED: false,
+    _HitAreaPropsKeys.IS_NAV_ITEM: false,
+    _HitAreaPropsKeys.IS_NAV_DROPDOWN: false,
+  };
 }
 
 abstract class HitAreaMixin<P extends HitAreaProps> {
@@ -142,6 +134,31 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
         tProps.isNavDropdown == true);
     classes['navItem'] = isNavItemHitArea;
     classes['navDropdown'] = tProps.isNavDropdown == true;
+
+
+    //
+    // set active props
+    //
+
+    bool renderActive = tProps.isActive == true ||
+                        hitAreaProps['checked'] == true ||
+                        hitAreaProps['defaultChecked'] == true;
+
+    // check for 'active' class being set without isActive prop
+    if (!renderActive && classes['active'] == true) {
+      assert(ValidationUtil.warn(
+          '`active` className was detected, but the `isActive` prop is `false`.  Should use the `isActive` prop instead.'));
+      renderActive = true;
+    }
+
+    // set active class
+    if (renderActive) { //TODO: All element types?
+      hitAreaProps['aria-selected'] = 'true';
+
+      if (!isNavItemHitArea) {
+        classes['active'] = true;
+      }
+    }
 
     //
     // <a>
@@ -186,13 +203,9 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       hitAreaProps['inputRef'] = tProps.type;
       hitAreaProps['buttonRef'] = tProps.type + '_button';
 
-      bool renderChecked = tProps.isSelected == true ||
-          hitAreaProps['checked'] == true ||
-          hitAreaProps['defaultChecked'] == true;
-
       // set defaultChecked based on resolved `renderChecked` value.
-      hitAreaProps['defaultChecked'] = renderChecked;
-      hitAreaProps.remove('checked');
+      hitAreaProps['checked'] = renderActive;
+      hitAreaProps['defaultChecked'] = renderActive;
 
       if (tProps.id == null) {
         // TODO: Add 'id' to inherited props for all components
@@ -209,12 +222,6 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
         hitAreaProps['name'] = 'undefined_radio_group';
       } else {
         hitAreaProps['name'] = tProps.name;
-      }
-
-      // set checked for active inputs
-      // TODO: Not sure if this still makes sense to do? HitareaMixin.jsx:140
-      if (tProps.isActive == true && !renderChecked) {
-        hitAreaProps['defaultChecked'] = true;
       }
     }
 
@@ -248,27 +255,6 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     }
 
     //
-    // set active props
-    //
-    var renderActive = tProps.isActive == true ||
-        hitAreaProps['checked'] == true ||
-        hitAreaProps['defaultChecked'] == true;
-    // check for 'active' class being set without isActive prop
-    if (!renderActive && classes['active'] == true) {
-      assert(ValidationUtil.warn(
-          '`active` className was detected, but the `isActive` prop is `false`.  Should use the `isActive` prop instead.'));
-      renderActive = true;
-    }
-    // set active class
-    if (renderActive) {
-      hitAreaProps['aria-selected'] = 'true';
-
-      if (!isNavItemHitArea) {
-        classes['active'] = true;
-      }
-    }
-
-    //
     // set disabled props
     //
     var renderDisabled = tProps.isDisabled == true;
@@ -297,6 +283,11 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     // assign renderer
     hitAreaProps['renderer'] = renderer;
 
+    // use 'hitarea' as ref unless one has already been set
+    if (!hitAreaProps.containsKey('ref')) {
+      hitAreaProps['ref'] = 'hitarea';
+    }
+
     return hitAreaProps;
   }
 
@@ -308,7 +299,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
         renderer.componentBuilderFactory();
     componentBuilder.addProps(props);
 
-    if (isClickable()) {
+    if (isClickable()) { // TODO: Investigate
       componentBuilder.onClick = handleClick;
     }
 
@@ -361,6 +352,10 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
   }
 }
 
+abstract class HitAreaBaseComponent<T extends HitAreaProps> extends BaseComponent with HitAreaMixin {
+
+}
+
 class DomNodeName {
   final String name;
   final Function renderer;
@@ -387,8 +382,7 @@ class HitAreaRenderer {
       DomComponentDefinitionFactory this.componentBuilderFactory);
 
   static final HitAreaRenderer ANCHOR = new HitAreaRenderer._internal(Dom.a);
-  static final HitAreaRenderer BUTTON =
-      new HitAreaRenderer._internal(Dom.button);
+  static final HitAreaRenderer BUTTON = new HitAreaRenderer._internal(Dom.button);
   static final HitAreaRenderer DIV = new HitAreaRenderer._internal(Dom.div);
   static final HitAreaRenderer INPUT = new HitAreaRenderer._internal(Dom.input);
 }
