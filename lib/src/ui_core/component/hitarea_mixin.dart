@@ -18,9 +18,6 @@ enum _HitAreaPropsKeys {
   TYPE,
 }
 
-/// Method signature for callbacks assignable to
-typedef bool SyntheticEventCallback(react.SyntheticEvent event);
-
 /// Method signature for onSelect callbacks
 typedef bool OnSelectCallback(dynamic eventKey, String href, String target);
 
@@ -34,8 +31,8 @@ abstract class HitAreaProps {
   Map get props;
 
   // TODO: Doc string
-  SyntheticEventCallback get onClick => props[_HitAreaPropsKeys.ON_CLICK];
-  set onClick(SyntheticEventCallback value) =>
+  DomEventCallback get onClick => props[_HitAreaPropsKeys.ON_CLICK];
+  set onClick(DomEventCallback value) =>
       props[_HitAreaPropsKeys.ON_CLICK] = value;
 
   // TODO: Fix doc string below
@@ -147,7 +144,8 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     // check for 'active' class being set without isActive prop
     if (!renderActive && classes['active'] == true) {
       assert(ValidationUtil.warn(
-          '`active` className was detected, but the `isActive` prop is `false`.  Should use the `isActive` prop instead.'));
+          '`active` className was detected, but the `isActive` prop is `false`. '
+          'Should use the `isActive` prop instead.'));
       renderActive = true;
     }
 
@@ -173,17 +171,25 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       if (tProps.domNodeName == DomNodeName.A) {
         if (!hasAnchorProps) {
           assert(ValidationUtil.warn(
-              'You are explicitly requesting that a `<a>` element is rendered via your React component, but you have no `href`, `target` or `name` props defined, meaning its usage is as a button, triggering in-page functionality. It is recommended that you omit the `domNodeName` prop so that a `<button>` element will be rendered instead.'));
+              'You are explicitly requesting that a `<a>` element is rendered via your React component, '
+              'but you have no `href`, `target` or `name` props defined, meaning its usage is as a button, '
+              'triggering in-page functionality. It is recommended that you omit the `domNodeName` prop so '
+              'that a `<button>` element will be rendered instead.'));
           // Signify that this anchor triggers in-page functionality despite using an `<a>` tag.
           hitAreaProps['role'] = 'button';
         }
       } else if (hasAnchorProps && tProps.domNodeName != null) {
         assert(ValidationUtil.warn(
-            'You are explicitly requesting that a `<${tProps.domNodeName.name}>` element is rendered via your React component, but you also have declared either an `href` or `target` prop (or both). An `<a>` will be rendered since `href` and `target` are both invalid properties for a `<${tProps.domNodeName.name}>`.'));
+            'You are explicitly requesting that a `<${tProps.domNodeName.name}>` element is rendered '
+            'via your React component, but you also have declared either an `href` or `target` prop '
+            '(or both). An `<a>` will be rendered since `href` and `target` are both invalid '
+            'properties for a `<${tProps.domNodeName.name}>`.'));
       }
       if (tProps.href == '#') {
         assert(ValidationUtil.warn(
-            'You are using an `href` attribute with a value of `#`. To trigger in-page functionality, it is recommended that you omit the `href` attribute altogether, so that this React component will produce a `<button>` element instead.'));
+            'You are using an `href` attribute with a value of `#`. To trigger in-page functionality, '
+            'it is recommended that you omit the `href` attribute altogether, so that this React '
+            'component will produce a `<button>` element instead.'));
         // Signify that this anchor triggers in-page functionality despite using an `<a>` tag.
         hitAreaProps['role'] = 'button';
       }
@@ -204,8 +210,11 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       hitAreaProps['buttonRef'] = tProps.type + '_button';
 
       // set defaultChecked based on resolved `renderChecked` value.
-      hitAreaProps['checked'] = renderActive;
       hitAreaProps['defaultChecked'] = renderActive;
+      // remove checked prop if set (transferred to defaultChecked)
+      if (hitAreaProps.containsKey('checked')) {
+        hitAreaProps.remove('checked');
+      }
 
       if (tProps.id == null) {
         // TODO: Add 'id' to inherited props for all components
@@ -218,7 +227,9 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
 
       if (tProps.type == DomInputType.RADIO && tProps.name == null) {
         assert(ValidationUtil.warn(
-            'radio buttons require a `name` prop value that matches all the other radio buttons in the group in order to function correctly. WSR will apply a default name of "undefined_radio_group".'));
+            'radio buttons require a `name` prop value that matches all the other '
+            'radio buttons in the group in order to function correctly. WSR will '
+            'apply a default name of "undefined_radio_group".'));
         hitAreaProps['name'] = 'undefined_radio_group';
       } else {
         hitAreaProps['name'] = tProps.name;
@@ -231,7 +242,10 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     //
     else if (tProps.domNodeName == DomNodeName.INPUT) {
       assert(ValidationUtil.warn(
-          'You are explicitly requesting that a `<input>` element is rendered via your React component, but you have not set the `type` prop to either `checkbox` or `radio`, which are the only two type values that require the use of the `<input>` element. A `<button>` will be rendered instead.'));
+          'You are explicitly requesting that a `<input>` element is rendered via your '
+          'React component, but you have not set the `type` prop to either `checkbox` or '
+          '`radio`, which are the only two type values that require the use of the '
+          '`<input>` element. A `<button>` will be rendered instead.'));
       renderer = HitAreaRenderer.BUTTON;
       hitAreaProps['type'] = tProps.type;
     }
@@ -261,14 +275,16 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     // Check first to see if they are trying to disable without using the correct disabled prop
     if (classes['disabled'] == true) {
       if (renderer == HitAreaRenderer.ANCHOR) assert(ValidationUtil.warn(
-          'You are trying to make an element look disabled by adding the "disabled" CSS class. This will make it appear disabled but may not prevent click events from firing in most browsers.'));
+          'You are trying to make an element look disabled by adding the "disabled" CSS class. '
+          'This will make it appear disabled but may not prevent click events from firing in most browsers.'));
       renderDisabled = true;
     }
     // set render props
     if (renderDisabled) {
       if (renderer == HitAreaRenderer.ANCHOR) {
         assert(ValidationUtil.warn(
-            'You are trying to make an <a> HTML element look disabled. This will make it appear disabled but will not prevent click events from firing in most browsers.'));
+            'You are trying to make an <a> HTML element look disabled. This will make it appear '
+            'disabled but will not prevent click events from firing in most browsers.'));
         classes['disabled'] = true;
       } else {
         hitAreaProps['disabled'] = true;
@@ -329,7 +345,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     bool preventSelect = false;
     // call consumer onClick callback if provided
     if (tProps.onClick != null) {
-      assert(tProps.onClick is SyntheticEventCallback);
+      assert(tProps.onClick is DomEventCallback);
       preventSelect = tProps.onClick(event) == false;
     }
     // call consumer onSelect callback if provided
