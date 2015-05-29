@@ -8,6 +8,9 @@ class DomComponentDefinition extends ComponentDefinition with DomProps, ReactPro
 
 typedef DomComponentDefinition DomComponentDefinitionFactory();
 
+/// Method type for standard react dom event callbacks
+typedef DomEventCallback(react.SyntheticEvent event);
+
 class Dom {
   static DomComponentDefinition a() => new DomComponentDefinition(react.a);
   static DomComponentDefinition abbr() => new DomComponentDefinition(react.abbr);
