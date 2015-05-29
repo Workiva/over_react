@@ -1,4 +1,4 @@
-library react_wrappers;
+library react_wrappers_test;
 
 import 'package:unittest/unittest.dart';
 import 'package:react/react_client.dart';
