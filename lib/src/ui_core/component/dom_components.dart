@@ -2,7 +2,7 @@
 part of w_ui_platform.ui_core;
 
 /// A component builder with typed props for built-in DOM components.
-class DomComponentDefinition extends ComponentDefinition with DomProps {
+class DomComponentDefinition extends ComponentDefinition with DomProps, ReactProps {
   DomComponentDefinition(ReactComponentFactory componentFactory, [Map props]) : super(componentFactory, props);
 }
 
