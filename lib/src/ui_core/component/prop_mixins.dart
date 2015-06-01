@@ -3,7 +3,7 @@ part of w_ui_platform.ui_core;
 
 /// Typed getters/setters for reserved React props.
 /// To be used as a mixin for React components and builders.
-@GenerateProps.fromTemplate(destination: #ReactProps)
+@GenerateProps.fromTemplate(#ReactProps)
 abstract class $template_ReactProps {
   List children;
   String key;
@@ -12,7 +12,7 @@ abstract class $template_ReactProps {
 
 /// Typed getters/setters for props related to CSS class manipulation, and used by all UIP components.
 /// To be used as a mixin for React components and builders.
-@GenerateProps.fromTemplate(destination: #CssClassProps)
+@GenerateProps.fromTemplate(#CssClassProps)
 abstract class $template_CssClassProps {
   /// Map of class names to be added/omitted (true/false) to the resultant DOM.
   /// Used within components with [w_ui_platform.class_names.classNames].
@@ -27,7 +27,7 @@ abstract class $template_CssClassProps {
 
 /// Typed getters/setters for reserved DOM-related props.
 /// To be used as a mixin for React components and builders.
-@GenerateProps.fromTemplate(destination: #DomProps)
+@GenerateProps.fromTemplate(#DomProps)
 abstract class $template_DomProps {
   int cols, rows, size, span, start;
 
