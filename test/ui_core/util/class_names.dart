@@ -1,6 +1,6 @@
 library class_names_test;
 
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 import 'package:w_ui_platform/ui_core.dart';
 
 /// Main entrypoint for class_names testing
