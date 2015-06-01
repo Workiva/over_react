@@ -129,8 +129,8 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     isNavItemHitArea = (isNavItemHitArea == true ||
         tProps.isNavItem == true ||
         tProps.isNavDropdown == true);
-    classes['navItem'] = isNavItemHitArea;
-    classes['navDropdown'] = tProps.isNavDropdown == true;
+    hitAreaProps['navItem'] = isNavItemHitArea;
+    hitAreaProps['navDropdown'] = tProps.isNavDropdown == true;
 
 
     //
