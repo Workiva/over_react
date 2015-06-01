@@ -114,6 +114,8 @@ main() {
         test('for a Dart component', () {
           var original, clone;
 
+          // The 'ref' property can only be used from within a render() method, so use RenderingContainerComponent
+          // to clone and render the test component.
           var holder = RenderingContainerComponentFactory({
             'renderer': () {
               original = TestComponentFactory(originalKeyRefProps, testChildren);
@@ -124,16 +126,11 @@ main() {
           });
           var renderedHolder = render(holder);
 
-          // We want to do the following line... but test utils are currently broken.
-          // TODO swap out when https://github.com/cleandart/react-dart/pull/55 merges and gets released.
-          // var renderedClone = react_test_utils.findRenderedComponentWithType(renderedHolder, TestComponentFactory);
-          var renderedClone = getRef(renderedHolder, 'clone');
-          // If we can't get the element by ref here, then it probably didn't work...
-          expect(renderedClone, isNotNull);
-
           // Verify that "key" and "ref" are overridden according to React
           expect(clone['key'], equals(overrideKeyRefProps['key']));
           expect(clone['ref'], equals(overrideKeyRefProps['ref']));
+
+          var renderedClone = react_test_utils.findRenderedComponentWithType(renderedHolder, TestComponentFactory);
 
           // Verify that the "key" and "ref" props are overridden according the Dart component.
           Map cloneDartProps = getDartComponent(renderedClone).props;
