@@ -6,7 +6,7 @@ import 'dart:collection' show MapView;
 import 'dart:js' show JsObject;
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart' show ReactComponentFactory;
-import 'package:w_ui_platform/utils/prop_annotations.dart';
+import 'package:w_ui_platform/code_generation/annotations.dart';
 
 //parts
 part 'src/ui_core/component/base_component.dart';
