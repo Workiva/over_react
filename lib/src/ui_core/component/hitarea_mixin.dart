@@ -23,21 +23,22 @@ typedef bool OnSelectCallback(dynamic eventKey, String href, String target);
 
 /// Mixin for component definitions that provides hitarea related props.
 /// To use:
-/// - add [HitAreaProps] to component definition
-/// - add [HitAreaMixin] to component class
+/// - add [HitAreaProps] mixin class to component definition.
+/// - add [HitAreaMixin] mixin class to component class.
 /// - add defaults to getDefaultProps method of component class using getDefaults() call:
 ///   ..addProps(HitAreaProps.getDefaults())
+/// - call the inherited `renderHitArea` method with `render` method of your component.
 abstract class HitAreaProps {
   Map get props;
 
-  // TODO: Doc string
+  /// Callback triggered by click events on the hitarea
   DomEventCallback get onClick => props[_HitAreaPropsKeys.ON_CLICK];
   set onClick(DomEventCallback value) =>
       props[_HitAreaPropsKeys.ON_CLICK] = value;
 
-  // TODO: Fix doc string below
-  /// Will return a callback containing the `eventKey` of the selected item
-  /// along with an optional `href` and `target` prop (if present)
+  /// Callback triggered when a selectable hitarea item is clicked.
+  /// Valid callbacks must be of type [OnSelectCallback], which include the `eventKey`
+  /// of the selected item along with the optional `href` and `target` props.
   OnSelectCallback get onSelect => props[_HitAreaPropsKeys.ON_SELECT];
   set onSelect(OnSelectCallback value) =>
       props[_HitAreaPropsKeys.ON_SELECT] = value;
@@ -59,7 +60,7 @@ abstract class HitAreaProps {
   set domNodeName(DomNodeName value) =>
       props[_HitAreaPropsKeys.DOM_NODE_NAME] = value;
 
-  /// prop: id
+  /// DomProp
   String get id => props[_HitAreaPropsKeys.ID];
   set id(String value) => props[_HitAreaPropsKeys.ID] = value;
 
@@ -77,7 +78,7 @@ abstract class HitAreaProps {
   set type(String value) => props[_HitAreaPropsKeys.TYPE] = value;
 
   /// Whether the hitarea is active
-  bool get isActive => props[_HitAreaPropsKeys.IS_ACTIVE]; //TODO: == true
+  bool get isActive => props[_HitAreaPropsKeys.IS_ACTIVE];
   set isActive(bool value) => props[_HitAreaPropsKeys.IS_ACTIVE] = value;
 
   /// Whether the hitarea is disabled.
@@ -208,7 +209,6 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       }
 
       if (tProps.id == null) {
-        // TODO: Add 'id' to inherited props for all components
         assert(ValidationUtil.warn(
             '${tProps.type} buttons require a unique `id` to function correctly.'));
         hitAreaProps['inputId'] = null;
@@ -394,9 +394,4 @@ class DomInputType {
   static const String TEXT = 'text';
   static const String SUBMIT = 'submit';
   static const String RESET = 'reset';
-}
-
-class DomNodeRole {
-  static const String BUTTON = 'button';
-  static const String PRESENTATION = 'presentation';
 }
