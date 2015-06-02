@@ -121,9 +121,8 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     hitAreaProps['id'] = tProps.id;
     hitAreaProps['role'] = tProps.role;
 
-    Map classes = mergeClassDefinitions(
-        [hitAreaProps['classMap'], hitAreaProps['className']]);
-    classes['hitarea'] = true;
+    ClassNameBuilder classes = new ClassNameBuilder.fromProps(hitAreaProps);
+    classes.add('hitarea');
 
     // resolve isNavItemHitArea
     isNavItemHitArea = (isNavItemHitArea == true ||
@@ -141,20 +140,12 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
                         hitAreaProps['checked'] == true ||
                         hitAreaProps['defaultChecked'] == true;
 
-    // check for 'active' class being set without isActive prop
-    if (!renderActive && classes['active'] == true) {
-      assert(ValidationUtil.warn(
-          '`active` className was detected, but the `isActive` prop is `false`. '
-          'Should use the `isActive` prop instead.'));
-      renderActive = true;
-    }
-
     // set active class
-    if (renderActive) { //TODO: All element types?
+    if (renderActive) {
       hitAreaProps['aria-selected'] = 'true';
 
       if (!isNavItemHitArea) {
-        classes['active'] = true;
+        classes.add('active');
       }
     }
 
@@ -272,20 +263,13 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     // set disabled props
     //
     var renderDisabled = tProps.isDisabled == true;
-    // Check first to see if they are trying to disable without using the correct disabled prop
-    if (classes['disabled'] == true) {
-      if (renderer == HitAreaRenderer.ANCHOR) assert(ValidationUtil.warn(
-          'You are trying to make an element look disabled by adding the "disabled" CSS class. '
-          'This will make it appear disabled but may not prevent click events from firing in most browsers.'));
-      renderDisabled = true;
-    }
     // set render props
     if (renderDisabled) {
       if (renderer == HitAreaRenderer.ANCHOR) {
         assert(ValidationUtil.warn(
             'You are trying to make an <a> HTML element look disabled. This will make it appear '
             'disabled but will not prevent click events from firing in most browsers.'));
-        classes['disabled'] = true;
+        classes.add('disabled');
       } else {
         hitAreaProps['disabled'] = true;
       }
@@ -294,7 +278,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     }
 
     // concatenate classes and assign className
-    hitAreaProps['className'] = classNames(classes);
+    hitAreaProps['className'] = classes.toClassName();
 
     // assign renderer
     hitAreaProps['renderer'] = renderer;
@@ -315,7 +299,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
         renderer.componentBuilderFactory();
     componentBuilder.addProps(props);
 
-    if (isClickable()) { // TODO: Investigate
+    if (isClickable()) {
       componentBuilder.onClick = handleClick;
     }
 
