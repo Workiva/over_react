@@ -110,20 +110,6 @@ main() {
         expect(hitarea.getAttribute('aria-disabled'), equals('true'));
       });
     });
-    //
-    // `disabled` class
-    //
-    group('`disabled` class being set', () {
-      test('should set `aria-disabled` prop without isDisabled prop for `A` elements', () {
-        hitarea = render((MenuItem()..isDisabled = false ..href = '/url' ..className = 'disabled'));
-        expect(hitarea.getAttribute('aria-disabled'), equals('true'));
-        expect(ValidationUtil.WARNING_COUNT, greaterThan(warningCount));
-      });
-      test('should set `disabled` prop without isDisabled prop for non-`A` elements', () {
-        hitarea = render((MenuItem()..isDisabled = false ..className = 'disabled'));
-        expect(hitarea.disabled, equals(true));
-      });
-    });
 
     //
     // isNavItem
