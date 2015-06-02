@@ -316,13 +316,13 @@ main() {
         expect(hitarea.getAttribute('aria-selected'), equals('true'));
       });
     });
-    group('when `isSelected` prop is set', () {
+    group('when `checked` prop is set', () {
       test('should set defaultChecked prop for checkbox/radio elements', () {
         // checkbox
         hitarea = render((MenuItem()
           ..type = DomInputType.CHECKBOX
           ..id = 'checkbox1'
-          ..isSelected = true
+          ..addProp('checked', true)
         ));
         expect(hitarea.checked, equals(true));
         expect(hitarea.defaultChecked, equals(true));
@@ -330,7 +330,7 @@ main() {
         hitarea = render((MenuItem()
           ..type = DomInputType.RADIO
           ..id = 'radio1'
-          ..isSelected = true
+          ..addProp('checked', true)
         ));
         expect(hitarea.checked, equals(true));
         expect(hitarea.defaultChecked, equals(true));
@@ -342,7 +342,7 @@ main() {
         hitarea = render((MenuItem()
           ..type = DomInputType.CHECKBOX
           ..id = 'checkbox1'
-          ..isSelected = true
+          ..addProp('checked', true)
         ));
         expect(hitarea.checked, equals(true));
         expect(hitarea.defaultChecked, equals(true));
@@ -352,7 +352,7 @@ main() {
         hitarea = render((MenuItem()
           ..type = DomInputType.RADIO
           ..id = 'radio1'
-          ..isSelected = true
+          ..addProp('checked', true)
         ));
         expect(hitarea.defaultChecked, equals(true));
         expect(hitarea, hasClasses(['active']));
