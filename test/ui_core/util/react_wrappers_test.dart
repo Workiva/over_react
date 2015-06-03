@@ -41,8 +41,8 @@ main() {
           // If these JsObject are equal, then they proxy the same JS props object.
           expect(clone[PROPS], isNot(equals(original[PROPS])));
 
-          Map originalProps = getJsProps(clone);
-          Map cloneProps = getJsProps(original);
+          Map originalProps = getJsProps(original);
+          Map cloneProps = getJsProps(clone);
 
           // Verify all props (children and react-dart internals included) are equal.
           expect(cloneProps, equals(originalProps));
