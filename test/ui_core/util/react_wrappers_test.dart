@@ -8,7 +8,7 @@ import 'package:w_ui_platform/ui_core.dart';
 
 import '../../test_util/react_util.dart';
 
-/// Main entry point for button group testing
+/// Main entry point for react wrappers testing
 main() {
   group('Dart wrappers for React:', () {
     group('cloneElement()', () {
@@ -27,8 +27,8 @@ main() {
           // If these JsObject are equal, then they proxy the same JS props object.
           expect(clone[PROPS], isNot(equals(original[PROPS])));
 
-          Map originalProps = getJsProps(clone);
-          Map cloneProps = getJsProps(original);
+          Map originalProps = getJsProps(original);
+          Map cloneProps = getJsProps(clone);
 
           // Verify all props (children included) are equal.
           expect(cloneProps, equals(originalProps));
