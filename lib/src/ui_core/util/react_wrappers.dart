@@ -58,6 +58,6 @@ JsObject cloneElement(JsObject element, [Map props, List children]) {
     jsMethodArgs.add(new JsArray.from(children));
   }
 
-  return _React.callMethod('cloneElement', jsMethodArgs);;
+  return _React.callMethod('cloneElement', jsMethodArgs);
 }
 
