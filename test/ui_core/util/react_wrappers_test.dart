@@ -132,7 +132,7 @@ main() {
 
           var renderedClone = react_test_utils.findRenderedComponentWithType(renderedHolder, TestComponentFactory);
 
-          // Verify that the "key" and "ref" props are overridden according the Dart component.
+          // Verify that the "key" and "ref" props are overridden according to the Dart component.
           Map cloneDartProps = getDartComponent(renderedClone).props;
           expect(cloneDartProps['key'], equals(overrideKeyRefProps['key']));
           expect(cloneDartProps['ref'], equals(overrideKeyRefProps['ref']));
@@ -161,7 +161,7 @@ main() {
           Map cloneProps = getJsProps(renderedClone);
           expect(cloneProps['children'], equals(testOverrideChildren));
 
-          // Verify that children are overridden according the Dart component.
+          // Verify that children are overridden according to the Dart component.
           Map cloneDartProps = getDartComponent(renderedClone).props;
           expect(cloneDartProps['children'], equals(testOverrideChildren));
         });
