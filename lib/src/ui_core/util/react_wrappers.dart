@@ -40,9 +40,9 @@ JsObject cloneElement(JsObject element, [Map props, List children]) {
     convertedProps = props != null ? newJsMap(props) : null;
   } else {
     // react-dart component
-    Map oldConfig = internal[PROPS];
+    Map oldExtendedProps = internal[PROPS];
 
-    Map extendedProps = new Map.from(oldConfig);
+    Map extendedProps = new Map.from(oldExtendedProps);
     if (props != null) {
       extendedProps.addAll(props);
     }
