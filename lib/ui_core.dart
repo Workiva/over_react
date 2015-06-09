@@ -3,9 +3,9 @@ library w_ui_platform.ui_core;
 
 //imports
 import 'dart:collection' show MapView;
-import 'dart:js' show JsObject;
+import 'dart:js';
 import 'package:react/react.dart' as react;
-import 'package:react/react_client.dart' show ReactComponentFactory;
+import 'package:react/react_client.dart';
 
 //parts
 part 'src/ui_core/component/base_component.dart';
@@ -15,3 +15,4 @@ part 'src/ui_core/component/dom_components.dart';
 part 'src/ui_core/component/prop_mixins.dart';
 part 'src/ui_core/component/typed_mixins.dart';
 part 'src/ui_core/util/class_names.dart';
+part 'src/ui_core/util/react_wrappers.dart';
