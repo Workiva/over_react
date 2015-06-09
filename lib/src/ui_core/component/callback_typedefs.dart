@@ -1,6 +1,7 @@
 part of w_ui_platform.ui_core;
 
-// React Event callbacks
+// Callbacks for React's DOM event system
+typedef DomEventCallback(react.SyntheticEvent event);
 typedef ClipboardEventCallback(react.SyntheticClipboardEvent event);
 typedef KeyboardEventCallback(react.SyntheticKeyboardEvent event);
 typedef FocusEventCallback(react.SyntheticFocusEvent event);
