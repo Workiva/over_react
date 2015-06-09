@@ -27,7 +27,7 @@ abstract class $template_CssClassProps {
 
 /// Typed getters/setters for reserved DOM-related props.
 /// To be used as a mixin for React components and builders.
-@GenerateProps.fromTemplate(#DomProps)
+@GenerateProps.fromTemplate(#DomProps, enumerateValues: false)
 abstract class $template_DomProps {
   int cols, rows, size, span, start;
 
