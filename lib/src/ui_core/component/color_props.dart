@@ -100,15 +100,16 @@ abstract class ColorProps {
   set textColor(TextColor value) => props[ColorPropsKey.TEXT_COLOR] = value;
 
   /// Returns a [Map] of classnames based on existence of values of color props.
-  static Map getClassNames(MapView props) {
-    var colorClasses = {};
+  static String getClassNames(Map props) {
+    ClassNameBuilder classes = new ClassNameBuilder();
 
     ColorPropsKey.values.forEach((propKey) {
-      if (props.containsKey(propKey) && props[propKey] != null)
-        colorClasses[props[propKey].className] = true;
+      if (props.containsKey(propKey) && props[propKey] != null) {
+        classes.add(props[propKey].className);
+      }
     });
 
-    return colorClasses;
+    return classes.toClassName();
   }
 
 }

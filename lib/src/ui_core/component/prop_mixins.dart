@@ -17,12 +17,16 @@ abstract class $template_CssClassProps {
   /// Map of class names to be added/omitted (true/false) to the resultant DOM.
   /// Used within components with [w_ui_platform.class_names.classNames].
   /// Precedence: props.classMap, props.className, added component props
-  Map<String, bool> classMap;
+  @deprecated
+  Map<String, bool> get classMap;
 
   /// Class name to be added to the resultant DOM.
   /// Used within components with [w_ui_platform.class_names.classNames].
   /// Precedence: props.classMap, props.className, added component props
-  String className;
+  @deprecated
+  String get className;
+
+  String get classNameBlacklist;
 }
 
 /// Typed getters/setters for reserved DOM-related props.
