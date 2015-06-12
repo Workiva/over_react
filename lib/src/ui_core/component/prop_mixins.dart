@@ -3,17 +3,17 @@ part of w_ui_platform.ui_core;
 
 /// Typed getters/setters for reserved React props.
 /// To be used as a mixin for React components and builders.
-@GenerateProps.fromTemplate(#ReactProps)
-abstract class $template_ReactProps {
-  List children;
-  String key;
-  dynamic ref;
+@GenerateProps(#ReactProps, keyType: AccessorsGenerationConfig.KEY_TYPE_STRING)
+abstract class _$template_ReactProps {
+  List get children;
+  String get key;
+  dynamic get ref;
 }
 
 /// Typed getters/setters for props related to CSS class manipulation, and used by all UIP components.
 /// To be used as a mixin for React components and builders.
-@GenerateProps.fromTemplate(#CssClassProps)
-abstract class $template_CssClassProps {
+@GenerateProps(#CssClassProps, keyType: AccessorsGenerationConfig.KEY_TYPE_STRING)
+abstract class _$template_CssClassProps {
   /// Map of class names to be added/omitted (true/false) to the resultant DOM.
   /// Used within components with [w_ui_platform.class_names.classNames].
   /// Precedence: props.classMap, props.className, added component props
@@ -31,8 +31,12 @@ abstract class $template_CssClassProps {
 
 /// Typed getters/setters for reserved DOM-related props.
 /// To be used as a mixin for React components and builders.
-@GenerateProps.fromTemplate(#DomProps, enumerateValues: false)
-abstract class $template_DomProps {
+@GenerateProps(#DomProps,
+  keyType: AccessorsGenerationConfig.KEY_TYPE_STRING,
+  enumerateValues: false,
+  fromSyntheticGetters: true
+)
+abstract class _$template_DomProps {
   int cols, rows, size, span, start;
 
   bool allowFullScreen, async, autoPlay, checked, controls, defer, disabled, formNoValidate, hidden, loop, multiple,
