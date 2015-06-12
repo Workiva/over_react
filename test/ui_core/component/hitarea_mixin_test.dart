@@ -56,13 +56,13 @@ main() {
       test('should set `defaultChecked` prop for checkbox/radio elements', () {
         hitarea = render((MenuItem()
             ..isActive = true
-            ..type = DomInputType.CHECKBOX
+            ..type = ClickableDomInputType.CHECKBOX
             ..id = 'checkbox1'
         ));
         expect(hitarea.defaultChecked, equals(true));
         hitarea = render((MenuItem()
             ..isActive = true
-            ..type = DomInputType.RADIO
+            ..type = ClickableDomInputType.RADIO
             ..id = 'radio1'
         ));
         expect(hitarea.defaultChecked, equals(true));
@@ -105,8 +105,11 @@ main() {
           ..isDisabled = true));
         expect(hitarea, excludesClasses(['disabled']));
       });
-      test('should set `aria-disabled` prop to make active hitarea accessible', () {
-        hitarea = render((MenuItem()..isDisabled = true));
+      test('should set `aria-disabled` prop to make disabled hitarea accessible when `disabled` CSS class is applied', () {
+        hitarea = render((MenuItem()
+          ..href = '/url'
+          ..isDisabled = true
+        ));
         expect(hitarea.getAttribute('aria-disabled'), equals('true'));
       });
     });
@@ -190,39 +193,39 @@ main() {
       test('should set `role` prop to "button"', () {
         hitarea = render((MenuItem()
           ..id = 'test_hitarea_component2'
-          ..type = DomInputType.CHECKBOX
+          ..type = ClickableDomInputType.CHECKBOX
         ));
         expect(hitarea.getAttribute('role'), equals('button'));
       });
       test('should warn the consumer if `id` prop is not set', () {
         hitarea = render((MenuItem()
-          ..type = DomInputType.CHECKBOX
+          ..type = ClickableDomInputType.CHECKBOX
         ));
         expect(ValidationUtil.WARNING_COUNT, greaterThan(warningCount));
       });
       test('should add a `inputId` prop and set it to null (when `id` prop is not set)', () {
         component = new HitAreaTestComponent();
-        component.tProps.type = DomInputType.CHECKBOX;
+        component.tProps.type = ClickableDomInputType.CHECKBOX;
         Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
         expect(hitAreaProps, containsPair('inputId', null));
       });
       test('should add a `inputRef` prop and set it equal to the `type` prop', () {
         component = new HitAreaTestComponent();
-        component.tProps.type = DomInputType.CHECKBOX;
+        component.tProps.type = ClickableDomInputType.CHECKBOX;
         component.tProps.id = 'test_hitarea_component_3';
         Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
         expect(hitAreaProps['inputRef'], equals(component.tProps.type));
       });
       test('should add a `inputId` prop and set it equal to the `id` prop with a _{type} suffix', () {
         component = new HitAreaTestComponent();
-        component.tProps.type = DomInputType.CHECKBOX;
+        component.tProps.type = ClickableDomInputType.CHECKBOX;
         component.tProps.id = 'test_hitarea_component_3';
         Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
         expect(hitAreaProps['inputId'], equals("${hitAreaProps['id']}_${hitAreaProps['type']}"));
       });
       test('should add a `buttonRef` prop and set it equal to the `inputRef` prop with a "_button" suffix', () {
         component = new HitAreaTestComponent();
-        component.tProps.type = DomInputType.CHECKBOX;
+        component.tProps.type = ClickableDomInputType.CHECKBOX;
         component.tProps.id = 'test_hitarea_component_3';
         Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
         expect(hitAreaProps['buttonRef'], equals("${hitAreaProps['inputRef']}_button"));
@@ -237,33 +240,33 @@ main() {
       test('should set `role` prop to "button"', () {
         hitarea = render((MenuItem()
           ..id = 'test_hitarea_component'
-          ..type = DomInputType.RADIO
+          ..type = ClickableDomInputType.RADIO
         ));
         expect(hitarea.getAttribute('role'), equals('button'));
       });
       test('should warn the consumer if `id` prop is not set', () {
         hitarea = render((MenuItem()
-          ..type = DomInputType.RADIO
+          ..type = ClickableDomInputType.RADIO
           ..name = 'test_hitarea_radio_group'
         ));
         expect(ValidationUtil.WARNING_COUNT, greaterThan(warningCount));
       });
       test('should warn the consumer if `name` prop is not set', () {
         hitarea = render((MenuItem()
-          ..type = DomInputType.RADIO
+          ..type = ClickableDomInputType.RADIO
           ..id = 'test_hitarea_component'
         ));
         expect(ValidationUtil.WARNING_COUNT, greaterThan(warningCount));
       });
       test('should add a `inputId` prop and set it to null (when `id` prop is not set)', () {
         component = new HitAreaTestComponent();
-        component.tProps.type = DomInputType.RADIO;
+        component.tProps.type = ClickableDomInputType.RADIO;
         Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
         expect(hitAreaProps, containsPair('inputId', null));
       });
       test('should add a `inputRef` prop and set it equal to the `type` prop', () {
         component = new HitAreaTestComponent();
-        component.tProps.type = DomInputType.RADIO;
+        component.tProps.type = ClickableDomInputType.RADIO;
         component.tProps.id = 'test_hitarea_component_3';
         component.tProps.name = 'test_hitarea_component_3_group';
         Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
@@ -271,7 +274,7 @@ main() {
       });
       test('should add a `inputId` prop and set it equal to the `id` prop with a _{type} suffix', () {
         component = new HitAreaTestComponent();
-        component.tProps.type = DomInputType.RADIO;
+        component.tProps.type = ClickableDomInputType.RADIO;
         component.tProps.id = 'test_hitarea_component_3';
         component.tProps.name = 'test_hitarea_component_3_group';
         Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
@@ -279,7 +282,7 @@ main() {
       });
       test('should add a `buttonRef` prop and set it equal to the `inputRef` prop with a "_button" suffix', () {
         component = new HitAreaTestComponent();
-        component.tProps.type = DomInputType.RADIO;
+        component.tProps.type = ClickableDomInputType.RADIO;
         component.tProps.id = 'test_hitarea_component_3';
         component.tProps.name = 'test_hitarea_component_3_group';
         Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
@@ -295,7 +298,7 @@ main() {
       test('should add `active` class and `aria-selected` attribute for checkbox/radio elements', () {
         // checkbox
         hitarea = render((MenuItem()
-          ..type = DomInputType.CHECKBOX
+          ..type = ClickableDomInputType.CHECKBOX
           ..id = 'checkbox1'
           ..isActive = false
           ..addProp('checked', true)
@@ -307,7 +310,7 @@ main() {
         // radio
         hitarea = render((MenuItem()
           ..isActive = false
-          ..type = DomInputType.RADIO
+          ..type = ClickableDomInputType.RADIO
           ..id = 'radio1'
           ..addProp('defaultChecked', true)
         ));
@@ -320,7 +323,7 @@ main() {
       test('should set defaultChecked prop for checkbox/radio elements', () {
         // checkbox
         hitarea = render((MenuItem()
-          ..type = DomInputType.CHECKBOX
+          ..type = ClickableDomInputType.CHECKBOX
           ..id = 'checkbox1'
           ..addProp('checked', true)
         ));
@@ -328,7 +331,7 @@ main() {
         expect(hitarea.defaultChecked, equals(true));
         // radio
         hitarea = render((MenuItem()
-          ..type = DomInputType.RADIO
+          ..type = ClickableDomInputType.RADIO
           ..id = 'radio1'
           ..addProp('checked', true)
         ));
@@ -340,7 +343,7 @@ main() {
       test('should add `active` class and `aria-selected` attribute for checkbox/radio elements', () {
         // checkbox
         hitarea = render((MenuItem()
-          ..type = DomInputType.CHECKBOX
+          ..type = ClickableDomInputType.CHECKBOX
           ..id = 'checkbox1'
           ..addProp('checked', true)
         ));
@@ -350,7 +353,7 @@ main() {
         expect(hitarea.getAttribute('aria-selected'), equals('true'));
         // radio
         hitarea = render((MenuItem()
-          ..type = DomInputType.RADIO
+          ..type = ClickableDomInputType.RADIO
           ..id = 'radio1'
           ..addProp('checked', true)
         ));
@@ -388,11 +391,11 @@ main() {
         component = new HitAreaTestComponent();
         component.tProps.id = 'test_id_1';
         // checkbox
-        component.tProps.type = DomInputType.CHECKBOX;
+        component.tProps.type = ClickableDomInputType.CHECKBOX;
         Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
         expect(hitAreaProps['renderer'], equals(HitAreaRenderer.INPUT));
         // radio
-        component.tProps.type = DomInputType.RADIO;
+        component.tProps.type = ClickableDomInputType.RADIO;
         hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
         expect(hitAreaProps['renderer'], equals(HitAreaRenderer.INPUT));
       });
@@ -429,7 +432,7 @@ main() {
       test('should render `button` when prop type == DomInputType.SUBMIT', () {
         component = new HitAreaTestComponent();
         component.tProps.domNodeName = DomNodeName.INPUT;
-        component.tProps.type = DomInputType.SUBMIT;
+        component.tProps.type = ClickableDomInputType.SUBMIT;
         Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
         expect(hitAreaProps['renderer'], equals(HitAreaRenderer.BUTTON));
         expect(ValidationUtil.WARNING_COUNT, greaterThan(warningCount));
@@ -437,28 +440,28 @@ main() {
       test('should render `button` when prop type == DomInputType.RESET', () {
         component = new HitAreaTestComponent();
         component.tProps.domNodeName = DomNodeName.INPUT;
-        component.tProps.type = DomInputType.RESET;
+        component.tProps.type = ClickableDomInputType.RESET;
         Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
         expect(hitAreaProps['renderer'], equals(HitAreaRenderer.BUTTON));
-        expect(hitAreaProps['type'], equals(DomInputType.RESET));
+        expect(hitAreaProps['type'], equals(ClickableDomInputType.RESET));
         expect(ValidationUtil.WARNING_COUNT, greaterThan(warningCount));
       });
       test('should render `button` when prop type == DomInputType.BUTTON', () {
         component = new HitAreaTestComponent();
         component.tProps.domNodeName = DomNodeName.INPUT;
-        component.tProps.type = DomInputType.BUTTON;
+        component.tProps.type = ClickableDomInputType.BUTTON;
         Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
         expect(hitAreaProps['renderer'], equals(HitAreaRenderer.BUTTON));
-        expect(hitAreaProps['type'], equals(DomInputType.BUTTON));
+        expect(hitAreaProps['type'], equals(ClickableDomInputType.BUTTON));
         expect(ValidationUtil.WARNING_COUNT, greaterThan(warningCount));
       });
       test('type prop should pass through even when domNodeName is changed', () {
         component = new HitAreaTestComponent();
         component.tProps.domNodeName = DomNodeName.INPUT;
-        component.tProps.type = DomInputType.SUBMIT;
+        component.tProps.type = ClickableDomInputType.SUBMIT;
         Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
         expect(hitAreaProps['renderer'], equals(HitAreaRenderer.BUTTON));
-        expect(hitAreaProps['type'], equals(DomInputType.SUBMIT));
+        expect(hitAreaProps['type'], equals(ClickableDomInputType.SUBMIT));
       });
     });
 
@@ -517,19 +520,19 @@ main() {
       });
       test('should be set to "button" when type prop == DomInputType.BUTTON', () {
         hitarea = render((MenuItem()
-          ..type = DomInputType.BUTTON
+          ..type = ClickableDomInputType.BUTTON
         ));
         expect(hitarea.type, equals('button'));
       });
       test('should be set to "submit" when type prop == DomInputType.SUBMIT', () {
         hitarea = render((MenuItem()
-          ..type = DomInputType.SUBMIT
+          ..type = ClickableDomInputType.SUBMIT
         ));
         expect(hitarea.type, equals('submit'));
       });
       test('should be set to "reset" when type prop == DomInputType.RESET', () {
         hitarea = render((MenuItem()
-          ..type = DomInputType.RESET
+          ..type = ClickableDomInputType.RESET
         ));
         expect(hitarea.type, equals('reset'));
       });
@@ -568,6 +571,20 @@ main() {
         JsObject renderedDOMComponent = react_test_utils.findRenderedDOMComponentWithTag(reactInstance, "button");
         react_test_utils.Simulate.click(renderedDOMComponent);
         expect(onClickCalled, equals(true));
+      });
+      test('should NOT fire callback defined in `onClick` prop when `isDisabled == true`', () {
+        bool onClickCalled = false;
+        var hitarea = (MenuItem()
+          ..href = '/url'
+          ..isDisabled = true
+          ..onClick = (event) {
+            onClickCalled = true;
+          }
+        )();
+        JsObject reactInstance = react_test_utils.renderIntoDocument(hitarea);
+        JsObject renderedDOMComponent = react_test_utils.findRenderedDOMComponentWithTag(reactInstance, "a");
+        react_test_utils.Simulate.click(renderedDOMComponent);
+        expect(onClickCalled, equals(false));
       });
       test('should fire both `onClick` and `onSelect` callbacks if `onClick` callback returns `true`', () {
         bool onClickCalled = false;
@@ -661,14 +678,14 @@ main() {
       test('should send a warning message to the console', () {
         hitarea = render((MenuItem()
           ..domNodeName = DomNodeName.DIV
-          ..type = DomInputType.SUBMIT
+          ..type = ClickableDomInputType.SUBMIT
         ));
         expect(ValidationUtil.WARNING_COUNT, greaterThan(warningCount));
       });
       test('should add a data- prefixed attribute equal to the invalid `type`', () {
         hitarea = render((MenuItem()
           ..domNodeName = DomNodeName.DIV
-          ..type = DomInputType.SUBMIT
+          ..type = ClickableDomInputType.SUBMIT
         ));
         expect(hitarea.getAttribute('data-wsr-invalid-type'), equals('submit')); // TODO: What should we use in place of `wsr`?
       });
