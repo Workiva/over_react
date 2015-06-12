@@ -73,7 +73,7 @@ abstract class HitAreaProps {
   String get role => props[_HitAreaPropsKeys.ROLE];
   set role(String value) => props[_HitAreaPropsKeys.ROLE] = value;
 
-  /// prop: type
+  /// DomProp
   String get type => props[_HitAreaPropsKeys.TYPE];
   set type(String value) => props[_HitAreaPropsKeys.TYPE] = value;
 
@@ -146,6 +146,10 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       hitAreaProps['aria-selected'] = 'true';
 
       if (!isNavItemHitArea) {
+        // If a hitarea is within a NavItem or MenuItem, the active CSS class must be applied to the
+        // parent item, not the hitarea. (it is the responsibility of the consumer/parent component to
+        // do so) Otherwise, it's just a standard "toggle" button implementation, and the active CSS
+        // class can go directly on the hitarea.
         classes.add('active');
       }
     }
@@ -201,10 +205,10 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       hitAreaProps['inputRef'] = tProps.type;
       hitAreaProps['buttonRef'] = tProps.type + '_button';
 
-      // set defaultChecked based on resolved `renderChecked` value.
+      // set defaultChecked based on resolved `renderActive` value.
       hitAreaProps['defaultChecked'] = renderActive;
       // remove checked prop if set (transferred to defaultChecked)
-      if (hitAreaProps.containsKey('checked')) {
+      if (hitAreaProps.containsKey('checked') && hitAreaProps['checked'] != renderActive) {
         hitAreaProps.remove('checked');
       }
 
@@ -213,7 +217,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
             '${tProps.type} buttons require a unique `id` to function correctly.'));
         hitAreaProps['inputId'] = null;
       } else {
-        hitAreaProps['inputId'] = "${tProps.id}_${tProps.type}";
+        hitAreaProps['inputId'] = '${tProps.id}_${tProps.type}';
       }
 
       if (tProps.type == DomInputType.RADIO && tProps.name == null) {
@@ -238,6 +242,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
           '`radio`, which are the only two type values that require the use of the '
           '`<input>` element. A `<button>` will be rendered instead.'));
       renderer = HitAreaRenderer.BUTTON;
+      assert(tProps.type == DomInputType.BUTTON || tProps.type == DomInputType.SUBMIT);
       hitAreaProps['type'] = tProps.type;
     }
 
@@ -256,7 +261,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     //
     else {
       renderer = HitAreaRenderer.BUTTON;
-      hitAreaProps['type'] = tProps.type == null ? 'button' : tProps.type;
+      hitAreaProps['type'] = tProps.type == null ? DomInputType.BUTTON : tProps.type;
     }
 
     //
