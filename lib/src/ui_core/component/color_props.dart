@@ -2,7 +2,7 @@ part of w_ui_platform.ui_core;
 
 /// Options for background color property
 @GenerateConstants(#BackgroundColor, #className)
-class $template_BackgroundColor {
+class _$template_BackgroundColor {
   // default
   static const DEFAULT      = null;
 
@@ -35,7 +35,7 @@ class $template_BackgroundColor {
 
 /// Options for border color property
 @GenerateConstants(#BorderColor, #className)
-class $template_BorderColor {
+class _$template_BorderColor {
   // default
   static const DEFAULT      = null;
 
@@ -58,7 +58,7 @@ class $template_BorderColor {
 
 /// Options for text color property
 @GenerateConstants(#TextColor, #className)
-class $template_TextColor {
+class _$template_TextColor {
   // application state colors
   static const ALTERNATE    = 'text-alt';
   static const SUCCESS      = 'text-success';
