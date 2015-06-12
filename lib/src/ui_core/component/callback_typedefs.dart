@@ -10,3 +10,6 @@ typedef MouseEventCallback(react.SyntheticMouseEvent event);
 typedef TouchEventCallback(react.SyntheticTouchEvent event);
 typedef UIEventCallback(react.SyntheticUIEvent event);
 typedef WheelEventCallback(react.SyntheticWheelEvent event);
+
+// Callback for hitarea selection events
+typedef bool HitAreaSelectCallback(dynamic eventKey, String href, String target);

@@ -18,9 +18,6 @@ enum _HitAreaPropsKeys {
   TYPE,
 }
 
-/// Method signature for onSelect callbacks
-typedef bool OnSelectCallback(dynamic eventKey, String href, String target);
-
 /// Mixin for component definitions that provides hitarea related props.
 /// To use:
 /// - add [HitAreaProps] mixin class to component definition.
@@ -39,8 +36,8 @@ abstract class HitAreaProps {
   /// Callback triggered when a selectable hitarea item is clicked.
   /// Valid callbacks must be of type [OnSelectCallback], which include the `eventKey`
   /// of the selected item along with the optional `href` and `target` props.
-  OnSelectCallback get onSelect => props[_HitAreaPropsKeys.ON_SELECT];
-  set onSelect(OnSelectCallback value) =>
+  HitAreaSelectCallback get onSelect => props[_HitAreaPropsKeys.ON_SELECT];
+  set onSelect(HitAreaSelectCallback value) =>
       props[_HitAreaPropsKeys.ON_SELECT] = value;
 
   /// Used alongside `props.onSelect` for basic controller behavior of clickable elements
@@ -197,8 +194,8 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     //
     // <input>
     //
-    else if (tProps.type == DomInputType.CHECKBOX ||
-        tProps.type == DomInputType.RADIO) {
+    else if (tProps.type == ClickableDomInputType.CHECKBOX ||
+        tProps.type == ClickableDomInputType.RADIO) {
       renderer = HitAreaRenderer.INPUT;
       hitAreaProps['type'] = tProps.type;
       hitAreaProps['role'] = 'button';
@@ -220,7 +217,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
         hitAreaProps['inputId'] = '${tProps.id}_${tProps.type}';
       }
 
-      if (tProps.type == DomInputType.RADIO && tProps.name == null) {
+      if (tProps.type == ClickableDomInputType.RADIO && tProps.name == null) {
         assert(ValidationUtil.warn(
             'radio buttons require a `name` prop value that matches all the other '
             'radio buttons in the group in order to function correctly. WSR will '
@@ -242,7 +239,9 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
           '`radio`, which are the only two type values that require the use of the '
           '`<input>` element. A `<button>` will be rendered instead.'));
       renderer = HitAreaRenderer.BUTTON;
-      assert(tProps.type == DomInputType.BUTTON || tProps.type == DomInputType.SUBMIT);
+      assert(tProps.type == ClickableDomInputType.BUTTON
+             || tProps.type == ClickableDomInputType.SUBMIT
+             || tProps.type == ClickableDomInputType.RESET);
       hitAreaProps['type'] = tProps.type;
     }
 
@@ -261,7 +260,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     //
     else {
       renderer = HitAreaRenderer.BUTTON;
-      hitAreaProps['type'] = tProps.type == null ? DomInputType.BUTTON : tProps.type;
+      hitAreaProps['type'] = tProps.type == null ? ClickableDomInputType.BUTTON : tProps.type;
     }
 
     //
@@ -271,15 +270,11 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     // set render props
     if (renderDisabled) {
       if (renderer == HitAreaRenderer.ANCHOR) {
-        assert(ValidationUtil.warn(
-            'You are trying to make an <a> HTML element look disabled. This will make it appear '
-            'disabled but will not prevent click events from firing in most browsers.'));
         classes.add('disabled');
+        hitAreaProps['aria-disabled'] = 'true';
       } else {
         hitAreaProps['disabled'] = true;
       }
-      hitAreaProps['aria-disabled'] =
-          'true'; // TODO: Do we want this for all types of elements?
     }
 
     // concatenate classes and assign className
@@ -296,8 +291,8 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     return hitAreaProps;
   }
 
-  /// Main function that renders the hitarea item with the given props
-  renderHitAreaComponent(
+  /// Internal method which renders the actual hitarea DOM element.
+  _renderHitAreaComponent(
       HitAreaRenderer renderer, Map props, dynamic children) {
     assert(props != null);
     DomComponentDefinition componentBuilder =
@@ -311,6 +306,9 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     return componentBuilder(children);
   }
 
+  /// Primary method for rendering a hitarea component which returns a react component instance.
+  /// This should be called from within consuming component's [render] method with
+  /// the props/children that should be used for rendering the hitarea element.
   renderHitArea(Map hitAreaProps, dynamic children,
       [bool isNavItemHitArea = false]) {
     // consumer must pass initial props
@@ -321,7 +319,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     // extract renderer from props
     assert(hitAreaProps['renderer'] != null);
     var renderer = hitAreaProps.remove('renderer');
-    return renderHitAreaComponent(renderer, hitAreaProps, children);
+    return _renderHitAreaComponent(renderer, hitAreaProps, children);
   }
 
   /// Click handler for the hitarea.
@@ -339,7 +337,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     }
     // call consumer onSelect callback if provided
     if (tProps.onSelect != null && !preventSelect) {
-      assert(tProps.onSelect is OnSelectCallback);
+      assert(tProps.onSelect is HitAreaSelectCallback);
       tProps.onSelect(tProps.eventKey, tProps.href, tProps.target);
     }
   }
@@ -355,10 +353,6 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     }
     return true;
   }
-}
-
-abstract class HitAreaBaseComponent<T extends HitAreaProps> extends BaseComponent with HitAreaMixin {
-
 }
 
 class DomNodeName {
@@ -379,7 +373,7 @@ class DomNodeName {
   static bool isClickable(DomNodeName t) => t != null ? t._isClickable : false;
 }
 
-/// Rendering options for a [ListGroupItem], specifying its DOM representation.
+/// Rendering options for a hitarea element, specifying its DOM representation.
 class HitAreaRenderer {
   final DomComponentDefinitionFactory componentBuilderFactory;
 
@@ -392,11 +386,10 @@ class HitAreaRenderer {
   static final HitAreaRenderer INPUT = new HitAreaRenderer._internal(Dom.input);
 }
 
-class DomInputType {
+class ClickableDomInputType {
   static const String BUTTON = 'button';
   static const String CHECKBOX = 'checkbox';
   static const String RADIO = 'radio';
-  static const String TEXT = 'text';
   static const String SUBMIT = 'submit';
   static const String RESET = 'reset';
 }
