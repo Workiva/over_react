@@ -23,6 +23,14 @@ abstract class BaseComponent<T extends ComponentDefinition> extends react.Compon
     }
     return newMap;
   }
+
+  /// Returns a new ClassNameBuilder with className and blacklist values added from [CssClassProps.className] and
+  /// [CssClassProps.classNameBlackList], if they are specified.
+  ///
+  /// This method should be used as the basis for the classNames of components receiving forwarded props.
+  ClassNameBuilder forwardingClassNameBuilder() {
+    return new ClassNameBuilder.fromProps(props);
+  }
 }
 
 typedef ComponentDefinition ComponentDefinitionFactory();
@@ -51,8 +59,16 @@ abstract class ComponentDefinition extends MapView implements Function {
     props.addAll(propMap);
   }
 
+  /// abstract method for component validation.  (called in checked mode only)
+  bool validate() {
+    return true;
+  }
+
   /// Create a new component with this builder's props and the specified children.
-  JsObject build([dynamic children]) => componentFactory(props, children);
+  JsObject build([dynamic children]) {
+    assert(validate());
+    return componentFactory(props, children);
+  }
 
   /// Create a new component with this builder's props and the specified children. (alias for [build])
   JsObject call([dynamic children]) => build(children);

@@ -11,8 +11,8 @@ abstract class ReactProps {
   String get key        => props['key'];
   set key(String value) => props['key'] = value;
 
-  String get ref        => props['ref'];
-  set ref(String value) => props['ref'] = value;
+  dynamic get ref        => props['ref'];
+  set ref(dynamic value) => props['ref'] = value;
 }
 
 /// Typed getters/setters for props related to CSS class manipulation, and used by all UIP components.
@@ -23,14 +23,25 @@ abstract class CssClassProps {
   /// Map of class names to be added/omitted (true/false) to the resultant DOM.
   /// Used within components with [w_ui_platform.class_names.classNames].
   /// Precedence: props.classMap, props.className, added component props
-  Map<String, bool> get classMap        => props['classMap'];
-  set classMap(Map<String, bool> value) => props['classMap'] = value;
+  @deprecated
+  Map<String, bool> get classMap        => props[CssClassPropsKey.CLASS_MAP];
+  @deprecated
+  set classMap(Map<String, bool> value) => props[CssClassPropsKey.CLASS_MAP] = value;
 
   /// Class name to be added to the resultant DOM.
   /// Used within components with [w_ui_platform.class_names.classNames].
   /// Precedence: props.classMap, props.className, added component props
-  String get className                  => props['className'];
-  set className(String value)           => props['className'] = value;
+  String get className                  => props[CssClassPropsKey.CLASS_NAME];
+  set className(String value)           => props[CssClassPropsKey.CLASS_NAME] = value;
+
+  String get classNameBlacklist         => props[CssClassPropsKey.CLASS_NAME_BLACKLIST];
+  set classNameBlacklist(String value)  => props[CssClassPropsKey.CLASS_NAME_BLACKLIST] = value;
+}
+
+abstract class CssClassPropsKey {
+  static const String CLASS_MAP = 'classMap';
+  static const String CLASS_NAME = 'className';
+  static const String CLASS_NAME_BLACKLIST = 'classNameBlacklist';
 }
 
 /// Typed getters/setters for reserved DOM-related props.
@@ -71,6 +82,8 @@ abstract class DomProps {
   // Accessibility
   String get role              => props['role'];
   set role(String value)       => props['role'] = value;
+  String get scope             => props['scope'];
+  set scope(String value)      => props['scope'] = value;
 }
 
 class DomPropsMapView extends MapView with DomProps {
