@@ -3,7 +3,7 @@ part of w_ui_platform.ui_core;
 
 /// Typed getters/setters for reserved React props.
 /// To be used as a mixin for React components and builders.
-@GenerateProps(#ReactProps, keyType: AccessorsGenerationConfig.KEY_TYPE_STRING)
+@GenerateProps(#ReactProps, keyType: TypedMapKeyType.STRING)
 abstract class _$template_ReactProps {
   List get children;
   String get key;
@@ -12,7 +12,7 @@ abstract class _$template_ReactProps {
 
 /// Typed getters/setters for props related to CSS class manipulation, and used by all UIP components.
 /// To be used as a mixin for React components and builders.
-@GenerateProps(#CssClassProps, keyType: AccessorsGenerationConfig.KEY_TYPE_STRING)
+@GenerateProps(#CssClassProps, keyType: TypedMapKeyType.STRING)
 abstract class _$template_CssClassProps {
   /// Map of class names to be added/omitted (true/false) to the resultant DOM.
   /// Used within components with [w_ui_platform.class_names.classNames].
@@ -32,8 +32,8 @@ abstract class _$template_CssClassProps {
 /// Typed getters/setters for reserved DOM-related props.
 /// To be used as a mixin for React components and builders.
 @GenerateProps(#DomProps,
-  keyType: AccessorsGenerationConfig.KEY_TYPE_STRING,
-  enumerateValues: false,
+  keyType: TypedMapKeyType.STRING,
+  enumerateKeys: false,
   fromSyntheticGetters: true
 )
 abstract class _$template_DomProps {
