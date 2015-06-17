@@ -38,9 +38,6 @@ main() {
         // value not specified
         hitarea = render((MenuItem()));
         expect(hitarea, excludesClasses(['active']));
-        // value = null
-        hitarea = render((MenuItem()..isActive = null));
-        expect(hitarea, excludesClasses(['active']));
         // value = false
         hitarea = render((MenuItem()..isActive = false));
         expect(hitarea, excludesClasses(['active']));
@@ -86,9 +83,6 @@ main() {
         // value not specified
         hitarea = render((MenuItem()));
         expect(hitarea, excludesClasses(['disabled']));
-        // value = null
-        hitarea = render((MenuItem()
-          ..isDisabled = null));
         expect(hitarea, excludesClasses(['disabled']));
         // value = false
         hitarea = render((MenuItem()
@@ -125,8 +119,8 @@ main() {
       test('when "true" should cause `getValidatedHitAreaProps` to add the "navItem" prop', () {
         component = new HitAreaTestComponent();
         component.tProps.isNavItem = true;
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['navItem'], equals(true));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.navItem, equals(true));
       });
       test('when "true" should not apply "active" class to hitarea', () {
         // isNavItem not specified
@@ -160,9 +154,9 @@ main() {
       test('when "true" should cause `getValidatedHitAreaProps` to add the "navItem" and "navDropdown" props', () {
         component = new HitAreaTestComponent();
         component.tProps.isNavDropdown = true;
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['navItem'], equals(true));
-        expect(hitAreaProps['navDropdown'], equals(true));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.navItem, equals(true));
+        expect(hitAreaProps.navDropdown, equals(true));
       });
       test('when "true" should not apply "active" class', () {
         // isNavItem not specified
@@ -205,29 +199,29 @@ main() {
       test('should add a `inputId` prop and set it to null (when `id` prop is not set)', () {
         component = new HitAreaTestComponent();
         component.tProps.type = ClickableDomInputType.CHECKBOX;
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps, containsPair('inputId', null));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.inputId, isNull);
       });
       test('should add a `inputRef` prop and set it equal to the `type` prop', () {
         component = new HitAreaTestComponent();
         component.tProps.type = ClickableDomInputType.CHECKBOX;
         component.tProps.id = 'test_hitarea_component_3';
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['inputRef'], equals(component.tProps.type));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.inputRef, equals(component.tProps.type));
       });
       test('should add a `inputId` prop and set it equal to the `id` prop with a _{type} suffix', () {
         component = new HitAreaTestComponent();
         component.tProps.type = ClickableDomInputType.CHECKBOX;
         component.tProps.id = 'test_hitarea_component_3';
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['inputId'], equals("${hitAreaProps['id']}_${hitAreaProps['type']}"));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.inputId, equals("${hitAreaProps['id']}_${hitAreaProps['type']}"));
       });
       test('should add a `buttonRef` prop and set it equal to the `inputRef` prop with a "_button" suffix', () {
         component = new HitAreaTestComponent();
         component.tProps.type = ClickableDomInputType.CHECKBOX;
         component.tProps.id = 'test_hitarea_component_3';
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['buttonRef'], equals("${hitAreaProps['inputRef']}_button"));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.buttonRef, equals("${hitAreaProps.inputRef}_button"));
       });
 
     });
@@ -260,32 +254,32 @@ main() {
       test('should add a `inputId` prop and set it to null (when `id` prop is not set)', () {
         component = new HitAreaTestComponent();
         component.tProps.type = ClickableDomInputType.RADIO;
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps, containsPair('inputId', null));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.inputId, isNull);
       });
       test('should add a `inputRef` prop and set it equal to the `type` prop', () {
         component = new HitAreaTestComponent();
         component.tProps.type = ClickableDomInputType.RADIO;
         component.tProps.id = 'test_hitarea_component_3';
         component.tProps.name = 'test_hitarea_component_3_group';
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['inputRef'], equals(component.tProps.type));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.inputRef, equals(component.tProps.type));
       });
       test('should add a `inputId` prop and set it equal to the `id` prop with a _{type} suffix', () {
         component = new HitAreaTestComponent();
         component.tProps.type = ClickableDomInputType.RADIO;
         component.tProps.id = 'test_hitarea_component_3';
         component.tProps.name = 'test_hitarea_component_3_group';
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['inputId'], equals("${hitAreaProps['id']}_${hitAreaProps['type']}"));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.inputId, equals("${hitAreaProps['id']}_${hitAreaProps['type']}"));
       });
       test('should add a `buttonRef` prop and set it equal to the `inputRef` prop with a "_button" suffix', () {
         component = new HitAreaTestComponent();
         component.tProps.type = ClickableDomInputType.RADIO;
         component.tProps.id = 'test_hitarea_component_3';
         component.tProps.name = 'test_hitarea_component_3_group';
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['buttonRef'], equals("${hitAreaProps['inputRef']}_button"));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.buttonRef, equals("${hitAreaProps.inputRef}_button"));
       });
 
     });
@@ -391,76 +385,76 @@ main() {
         component.tProps.id = 'test_id_1';
         // checkbox
         component.tProps.type = ClickableDomInputType.CHECKBOX;
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['renderer'], equals(HitAreaRenderer.INPUT));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.renderer, equals(HitAreaRenderer.INPUT));
         // radio
         component.tProps.type = ClickableDomInputType.RADIO;
         hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['renderer'], equals(HitAreaRenderer.INPUT));
+        expect(hitAreaProps.renderer, equals(HitAreaRenderer.INPUT));
       });
       test('should render a `button` element by default', () {
         component = new HitAreaTestComponent();
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['renderer'], equals(HitAreaRenderer.BUTTON));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.renderer, equals(HitAreaRenderer.BUTTON));
       });
       test('should render an `a` element when domNodeName == `DomNodeName.A`', () {
         component = new HitAreaTestComponent();
         component.tProps.domNodeName = DomNodeName.A;
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['renderer'], equals(HitAreaRenderer.ANCHOR));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.renderer, equals(HitAreaRenderer.ANCHOR));
       });
       test('should render an `a` element when href prop is present', () {
         component = new HitAreaTestComponent();
         component.tProps.href = '/url';
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['renderer'], equals(HitAreaRenderer.ANCHOR));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.renderer, equals(HitAreaRenderer.ANCHOR));
       });
       test('should overrides domNodeName value when href is set', () {
         component = new HitAreaTestComponent();
         component.tProps.href = '/url';
         component.tProps.domNodeName = DomNodeName.INPUT;
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['renderer'], equals(HitAreaRenderer.ANCHOR));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.renderer, equals(HitAreaRenderer.ANCHOR));
       });
       test('should render an `a` element when target prop is present', () {
         component = new HitAreaTestComponent();
         component.tProps.target = '_blank';
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['renderer'], equals(HitAreaRenderer.ANCHOR));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.renderer, equals(HitAreaRenderer.ANCHOR));
       });
       test('should render `button` when prop type == DomInputType.SUBMIT', () {
         component = new HitAreaTestComponent();
         component.tProps.domNodeName = DomNodeName.INPUT;
         component.tProps.type = ClickableDomInputType.SUBMIT;
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['renderer'], equals(HitAreaRenderer.BUTTON));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.renderer, equals(HitAreaRenderer.BUTTON));
         expect(ValidationUtil.WARNING_COUNT, greaterThan(warningCount));
       });
       test('should render `button` when prop type == DomInputType.RESET', () {
         component = new HitAreaTestComponent();
         component.tProps.domNodeName = DomNodeName.INPUT;
         component.tProps.type = ClickableDomInputType.RESET;
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['renderer'], equals(HitAreaRenderer.BUTTON));
-        expect(hitAreaProps['type'], equals(ClickableDomInputType.RESET));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.renderer, equals(HitAreaRenderer.BUTTON));
+        expect(hitAreaProps.type, equals(ClickableDomInputType.RESET));
         expect(ValidationUtil.WARNING_COUNT, greaterThan(warningCount));
       });
       test('should render `button` when prop type == DomInputType.BUTTON', () {
         component = new HitAreaTestComponent();
         component.tProps.domNodeName = DomNodeName.INPUT;
         component.tProps.type = ClickableDomInputType.BUTTON;
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['renderer'], equals(HitAreaRenderer.BUTTON));
-        expect(hitAreaProps['type'], equals(ClickableDomInputType.BUTTON));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.renderer, equals(HitAreaRenderer.BUTTON));
+        expect(hitAreaProps.type, equals(ClickableDomInputType.BUTTON));
         expect(ValidationUtil.WARNING_COUNT, greaterThan(warningCount));
       });
       test('type prop should pass through even when domNodeName is changed', () {
         component = new HitAreaTestComponent();
         component.tProps.domNodeName = DomNodeName.INPUT;
         component.tProps.type = ClickableDomInputType.SUBMIT;
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['renderer'], equals(HitAreaRenderer.BUTTON));
-        expect(hitAreaProps['type'], equals(ClickableDomInputType.SUBMIT));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.renderer, equals(HitAreaRenderer.BUTTON));
+        expect(hitAreaProps.type, equals(ClickableDomInputType.SUBMIT));
       });
     });
 
@@ -472,16 +466,16 @@ main() {
         component = new HitAreaTestComponent();
         component.tProps.domNodeName = DomNodeName.DIV;
         component.tProps.href = '/url';
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['renderer'], equals(HitAreaRenderer.ANCHOR));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.renderer, equals(HitAreaRenderer.ANCHOR));
         expect(ValidationUtil.WARNING_COUNT, greaterThan(warningCount));
       });
       test('should render "a" when target prop is present', () {
         component = new HitAreaTestComponent();
         component.tProps.domNodeName = DomNodeName.DIV;
         component.tProps.target = '_blank';
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['renderer'], equals(HitAreaRenderer.ANCHOR));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.renderer, equals(HitAreaRenderer.ANCHOR));
         expect(ValidationUtil.WARNING_COUNT, greaterThan(warningCount));
       });
     });
@@ -490,16 +484,16 @@ main() {
         component = new HitAreaTestComponent();
         component.tProps.domNodeName = DomNodeName.BUTTON;
         component.tProps.href = '/url';
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['renderer'], equals(HitAreaRenderer.ANCHOR));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.renderer, equals(HitAreaRenderer.ANCHOR));
         expect(ValidationUtil.WARNING_COUNT, greaterThan(warningCount));
       });
       test('should render "a" when target prop is present', () {
         component = new HitAreaTestComponent();
         component.tProps.domNodeName = DomNodeName.BUTTON;
         component.tProps.target = '_blank';
-        Map hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
-        expect(hitAreaProps['renderer'], equals(HitAreaRenderer.ANCHOR));
+        var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
+        expect(hitAreaProps.renderer, equals(HitAreaRenderer.ANCHOR));
         expect(ValidationUtil.WARNING_COUNT, greaterThan(warningCount));
       });
     });
