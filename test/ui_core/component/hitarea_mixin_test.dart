@@ -1,5 +1,6 @@
 import 'package:test/test.dart';
 import '../../test_util/react_util.dart';
+import '../../test_util/zone.dart';
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:react/react.dart';
 import 'package:w_ui_platform/ui_core.dart';
@@ -18,6 +19,9 @@ main() {
     HitAreaTestComponent component;
 
     setUp(() {
+      // Perform setup needed for using 'zonedExpect'.
+      storeZone();
+
       // prevent component warnings from printing to console
       ValidationUtil.WARNINGS_ENABLED = false;
       warningCount = ValidationUtil.WARNING_COUNT;
@@ -543,7 +547,7 @@ main() {
         var hitarea = (MenuItem()
           ..eventKey = '123'
           ..onSelect = (key, href, target) {
-            expect(key, equals('123'));
+            zonedExpect(key, equals('123'));
             onSelectCalled = true;
           }
         )();
@@ -556,7 +560,7 @@ main() {
         bool onClickCalled = false;
         var hitarea = (MenuItem()
           ..onClick = (event) {
-            expect(event is SyntheticEvent, equals(true));
+            zonedExpect(event is SyntheticEvent, equals(true));
             onClickCalled = true;
           }
         )();
@@ -585,12 +589,12 @@ main() {
         var hitarea = (MenuItem()
           ..eventKey = '123'
           ..onClick = (event) {
-            expect(event is SyntheticEvent, equals(true));
+            zonedExpect(event is SyntheticEvent, equals(true));
             onClickCalled = true;
             return true;
           }
           ..onSelect = (key, href, target) {
-            expect(key, equals('123'));
+            zonedExpect(key, equals('123'));
             onSelectCalled = true;
           }
         )();
@@ -606,12 +610,12 @@ main() {
         var hitarea = (MenuItem()
           ..eventKey = '123'
           ..onClick = (event) {
-            expect(event is SyntheticEvent, equals(true));
+            zonedExpect(event is SyntheticEvent, equals(true));
             onClickCalled = true;
             return false;
           }
           ..onSelect = (key, href, target) {
-            expect(key, equals('123'));
+            zonedExpect(key, equals('123'));
             onSelectCalled = true;
           }
         )();
@@ -627,11 +631,11 @@ main() {
         var hitarea = (MenuItem()
           ..eventKey = '123'
           ..onClick = (event) {
-            expect(event is SyntheticEvent, equals(true));
+            zonedExpect(event is SyntheticEvent, equals(true));
             onClickCalled = true;
           }
           ..onSelect = (key, href, target) {
-            expect(key, equals('123'));
+            zonedExpect(key, equals('123'));
             onSelectCalled = true;
           }
         )();
@@ -648,11 +652,11 @@ main() {
           ..isDisabled = true
           ..eventKey = '123'
           ..onClick = (event) {
-            expect(event is SyntheticEvent, equals(true));
+            zonedExpect(event is SyntheticEvent, equals(true));
             onClickCalled = true;
           }
           ..onSelect = (key, href, target) {
-            expect(key, equals('123'));
+            zonedExpect(key, equals('123'));
             onSelectCalled = true;
           }
         )();
