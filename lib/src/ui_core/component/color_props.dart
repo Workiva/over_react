@@ -106,6 +106,12 @@ abstract class ColorProps {
   TextColor get textColor => props[_ColorPropsKey.TEXT_COLOR];
   set textColor(TextColor value) => props[_ColorPropsKey.TEXT_COLOR] = value;
 
+  static Map getDefaults() => {
+    _ColorPropsKey.BACKGROUND_COLOR: null,
+    _ColorPropsKey.BORDER_COLOR: null,
+    _ColorPropsKey.TEXT_COLOR: null,
+  };
+
   /// Returns a [Map] of classnames based on existence of values of color props.
   static String getClassNames(Map props) {
     ClassNameBuilder classes = new ClassNameBuilder();
