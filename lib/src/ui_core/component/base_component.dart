@@ -17,11 +17,7 @@ abstract class BaseComponentDefinition extends ComponentDefinition with ReactPro
 abstract class BaseComponent<T extends ComponentDefinition> extends react.Component with TypedPropsGetter<T> {
   /// Utility function used for prop transfer
   Map copyProps({Iterable keysToOmit}) {
-    Map newMap = new Map.from(props);
-    if (keysToOmit != null) {
-      keysToOmit.forEach((key) => newMap.remove(key));
-    }
-    return newMap;
+    return copyMap(props, keysToOmit);
   }
 
   /// Returns a new ClassNameBuilder with className and blacklist values added from [CssClassProps.className] and
