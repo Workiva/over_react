@@ -100,43 +100,81 @@ abstract class HitAreaProps {
   };
 }
 
+enum _ValidatedHitareaPropsKey {
+  RENDERER,
+  INPUT_REF,
+  BUTTON_REF,
+  INPUT_ID,
+  NAV_ITEM,
+  NAV_DROPDOWN
+}
+
+/// Props used and set in [HitareaMixin.getValidatedHitAreaProps].
+class _ValidatedHitareaPropsMapView extends MapView with DomProps, ReactProps {
+  _ValidatedHitareaPropsMapView(Map map) : super(map);
+
+  Map get props => this;
+
+  /// Renderer determined by getValidatedHitAreaProps used to render the hitarea.
+  HitAreaRenderer get renderer => props[_ValidatedHitareaPropsKey.RENDERER];
+  set renderer(HitAreaRenderer value) => props[_ValidatedHitareaPropsKey.RENDERER] = value;
+
+  /// TODO: leftover from input component support?
+  String get inputRef => props[_ValidatedHitareaPropsKey.INPUT_REF];
+  set inputRef(String value) => props[_ValidatedHitareaPropsKey.INPUT_REF] = value;
+
+  /// TODO: leftover from input component support?
+  String get inputId => props[_ValidatedHitareaPropsKey.INPUT_ID];
+  set inputId(String value) => props[_ValidatedHitareaPropsKey.INPUT_ID] = value;
+
+  /// TODO: leftover from WSR port?
+  String get buttonRef => props[_ValidatedHitareaPropsKey.BUTTON_REF];
+  set buttonRef(String value) => props[_ValidatedHitareaPropsKey.BUTTON_REF] = value;
+
+  /// TODO: leftover from WSR port?
+  bool get navItem => props[_ValidatedHitareaPropsKey.NAV_ITEM];
+  set navItem(bool value) => props[_ValidatedHitareaPropsKey.NAV_ITEM] = value;
+
+  /// TODO: leftover from WSR port?
+  bool get navDropdown => props[_ValidatedHitareaPropsKey.NAV_DROPDOWN];
+  set navDropdown(bool value) => props[_ValidatedHitareaPropsKey.NAV_DROPDOWN] = value;
+}
+
 abstract class HitAreaMixin<P extends HitAreaProps> {
   P get tProps;
   Map get props;
 
-  bool isClickable() => !(tProps.isDisabled == true) && (tProps.href != null ||
+  bool isClickable() => !tProps.isDisabled && (tProps.href != null ||
       tProps.target != null ||
       tProps.name != null || //TODO: should name be here??
       tProps.onClick != null ||
       tProps.onSelect != null ||
       DomNodeName.isClickable(tProps.domNodeName));
 
-  Map getValidatedHitAreaProps(Map hitAreaProps, dynamic children,
+  _ValidatedHitareaPropsMapView getValidatedHitAreaProps(Map hitAreaPropsMap, dynamic children,
       [bool isNavItemHitArea = false]) {
-    assert(hitAreaProps != null);
+    assert(hitAreaPropsMap != null);
     HitAreaRenderer renderer = null;
-    hitAreaProps = MapUtil.copyMap(hitAreaProps);
-    hitAreaProps['id'] = tProps.id;
-    hitAreaProps['role'] = tProps.role;
+    var hitAreaProps = new _ValidatedHitareaPropsMapView(new Map.from(hitAreaPropsMap));
+    hitAreaProps.id = tProps.id;
+    hitAreaProps.role = tProps.role;
 
     ClassNameBuilder classes = new ClassNameBuilder.fromProps(hitAreaProps);
     classes.add('hitarea');
 
     // resolve isNavItemHitArea
-    isNavItemHitArea = (isNavItemHitArea == true ||
-        tProps.isNavItem == true ||
-        tProps.isNavDropdown == true);
-    hitAreaProps['navItem'] = isNavItemHitArea;
-    hitAreaProps['navDropdown'] = tProps.isNavDropdown == true;
+    isNavItemHitArea = (isNavItemHitArea || tProps.isNavItem || tProps.isNavDropdown);
+    hitAreaProps.navItem = isNavItemHitArea;
+    hitAreaProps.navDropdown = tProps.isNavDropdown;
 
 
     //
     // set active props
     //
 
-    bool renderActive = tProps.isActive == true ||
-                        hitAreaProps['checked'] == true ||
-                        hitAreaProps['defaultChecked'] == true;
+    bool renderActive = tProps.isActive ||
+                        hitAreaProps.checked == true ||
+                        hitAreaProps.defaultChecked == true;
 
     // set active class
     if (renderActive) {
@@ -154,12 +192,13 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     //
     // <a>
     //
-    var hasAnchorProps = (tProps.href != null || tProps.target != null);
+    bool hasAnchorProps = (tProps.href != null || tProps.target != null);
     if (hasAnchorProps || tProps.domNodeName == DomNodeName.A) {
       renderer = HitAreaRenderer.ANCHOR;
-      hitAreaProps['href'] = tProps.href;
-      hitAreaProps['target'] = tProps.target;
-      hitAreaProps['name'] = tProps.name;
+      hitAreaProps
+        ..href = tProps.href
+        ..target = tProps.target
+        ..name = tProps.name;
 
       if (tProps.domNodeName == DomNodeName.A) {
         if (!hasAnchorProps) {
@@ -169,7 +208,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
               'triggering in-page functionality. It is recommended that you omit the `domNodeName` prop so '
               'that a `<button>` element will be rendered instead.'));
           // Signify that this anchor triggers in-page functionality despite using an `<a>` tag.
-          hitAreaProps['role'] = 'button';
+          hitAreaProps.role = 'button';
         }
       } else if (hasAnchorProps && tProps.domNodeName != null) {
         assert(ValidationUtil.warn(
@@ -184,7 +223,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
             'it is recommended that you omit the `href` attribute altogether, so that this React '
             'component will produce a `<button>` element instead.'));
         // Signify that this anchor triggers in-page functionality despite using an `<a>` tag.
-        hitAreaProps['role'] = 'button';
+        hitAreaProps.role = 'button';
       }
       // strip `type` prop if exists (checked mode only)
       assert(_validateTypeForNonFormElem(
@@ -197,24 +236,26 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     else if (tProps.type == ClickableDomInputType.CHECKBOX ||
         tProps.type == ClickableDomInputType.RADIO) {
       renderer = HitAreaRenderer.INPUT;
-      hitAreaProps['type'] = tProps.type;
-      hitAreaProps['role'] = 'button';
-      hitAreaProps['inputRef'] = tProps.type;
-      hitAreaProps['buttonRef'] = tProps.type + '_button';
 
-      // set defaultChecked based on resolved `renderActive` value.
-      hitAreaProps['defaultChecked'] = renderActive;
+      hitAreaProps
+        ..type = tProps.type
+        ..role = 'button'
+        ..inputRef = tProps.type
+        ..buttonRef = tProps.type + '_button'
+        // set defaultChecked based on resolved `renderActive` value.
+        ..defaultChecked = renderActive;
+
       // remove checked prop if set (transferred to defaultChecked)
-      if (hitAreaProps.containsKey('checked') && hitAreaProps['checked'] != renderActive) {
+      if (hitAreaProps.containsKey('checked') && hitAreaProps.checked != renderActive) {
         hitAreaProps.remove('checked');
       }
 
       if (tProps.id == null) {
         assert(ValidationUtil.warn(
             '${tProps.type} buttons require a unique `id` to function correctly.'));
-        hitAreaProps['inputId'] = null;
+        hitAreaProps.inputId = null;
       } else {
-        hitAreaProps['inputId'] = '${tProps.id}_${tProps.type}';
+        hitAreaProps.inputId = '${tProps.id}_${tProps.type}';
       }
 
       if (tProps.type == ClickableDomInputType.RADIO && tProps.name == null) {
@@ -222,9 +263,9 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
             'radio buttons require a `name` prop value that matches all the other '
             'radio buttons in the group in order to function correctly. WSR will '
             'apply a default name of "undefined_radio_group".'));
-        hitAreaProps['name'] = 'undefined_radio_group';
+        hitAreaProps.name = 'undefined_radio_group';
       } else {
-        hitAreaProps['name'] = tProps.name;
+        hitAreaProps.name = tProps.name;
       }
     }
 
@@ -242,7 +283,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       assert(tProps.type == ClickableDomInputType.BUTTON
              || tProps.type == ClickableDomInputType.SUBMIT
              || tProps.type == ClickableDomInputType.RESET);
-      hitAreaProps['type'] = tProps.type;
+      hitAreaProps.type = tProps.type;
     }
 
     //
@@ -250,7 +291,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     //
     else if (tProps.domNodeName == DomNodeName.DIV) {
       renderer = HitAreaRenderer.DIV;
-      hitAreaProps['role'] = 'button';
+      hitAreaProps.role = 'button';
       assert(_validateTypeForNonFormElem(
           tProps.type, hitAreaProps, DomNodeName.DIV.name));
     }
@@ -260,43 +301,41 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     //
     else {
       renderer = HitAreaRenderer.BUTTON;
-      hitAreaProps['type'] = tProps.type == null ? ClickableDomInputType.BUTTON : tProps.type;
+      hitAreaProps.type = tProps.type == null ? ClickableDomInputType.BUTTON : tProps.type;
     }
 
     //
     // set disabled props
     //
-    var renderDisabled = tProps.isDisabled == true;
+    bool renderDisabled = tProps.isDisabled;
     // set render props
     if (renderDisabled) {
       if (renderer == HitAreaRenderer.ANCHOR) {
         classes.add('disabled');
         hitAreaProps['aria-disabled'] = 'true';
       } else {
-        hitAreaProps['disabled'] = true;
+        hitAreaProps.disabled = true;
       }
     }
 
     // concatenate classes and assign className
-    hitAreaProps['className'] = classes.toClassName();
+    hitAreaProps.className = classes.toClassName();
 
     // assign renderer
-    hitAreaProps['renderer'] = renderer;
+    hitAreaProps.renderer = renderer;
 
     // use 'hitarea' as ref unless one has already been set
     if (!hitAreaProps.containsKey('ref')) {
-      hitAreaProps['ref'] = 'hitarea';
+      hitAreaProps.ref = 'hitarea';
     }
 
     return hitAreaProps;
   }
 
   /// Internal method which renders the actual hitarea DOM element.
-  _renderHitAreaComponent(
-      HitAreaRenderer renderer, Map props, dynamic children) {
+  _renderHitAreaComponent(HitAreaRenderer renderer, Map props, dynamic children) {
     assert(props != null);
-    DomComponentDefinition componentBuilder =
-        renderer.componentBuilderFactory();
+    DomComponentDefinition componentBuilder = renderer.componentBuilderFactory();
     componentBuilder.addProps(props);
 
     if (isClickable()) {
@@ -309,23 +348,23 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
   /// Primary method for rendering a hitarea component which returns a react component instance.
   /// This should be called from within consuming component's [render] method with
   /// the props/children that should be used for rendering the hitarea element.
-  renderHitArea(Map hitAreaProps, dynamic children,
+  renderHitArea(Map hitAreaPropsMap, dynamic children,
       [bool isNavItemHitArea = false]) {
     // consumer must pass initial props
-    assert(hitAreaProps != null);
+    assert(hitAreaPropsMap != null);
     // validate and supplement props
-    hitAreaProps =
-        getValidatedHitAreaProps(hitAreaProps, children, isNavItemHitArea);
+    var hitAreaProps =
+        getValidatedHitAreaProps(hitAreaPropsMap, children, isNavItemHitArea);
     // extract renderer from props
-    assert(hitAreaProps['renderer'] != null);
-    var renderer = hitAreaProps.remove('renderer');
+    assert(hitAreaProps.renderer != null);
+    var renderer = hitAreaProps.remove(_ValidatedHitareaPropsKey.RENDERER);
     return _renderHitAreaComponent(renderer, hitAreaProps, children);
   }
 
   /// Click handler for the hitarea.
   void handleClick(react.SyntheticEvent event) {
     // prevent click events if disabled
-    if (tProps.isDisabled == true) {
+    if (tProps.isDisabled) {
       return;
     }
     // flag to prevent select if onClick handler returns `false`
@@ -349,7 +388,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       assert(ValidationUtil.warn(
           'The `type` prop is not valid on an `<${nodeName}>` element. Try using a `<button>` instead.'));
       props['data-wsr-invalid-type'] = type;
-      props['type'] = null;
+      new DomPropsMapView(props).type = null;
     }
     return true;
   }
