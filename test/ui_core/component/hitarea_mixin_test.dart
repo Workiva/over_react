@@ -1,4 +1,4 @@
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 import '../../test_util/react_util.dart';
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:react/react.dart';
@@ -11,25 +11,24 @@ import 'dart:js';
 render(definition) => renderDefinition(definition).firstChild;
 
 main() {
-  // shared vars
-  int warningCount;
-  var hitarea;
-  HitAreaTestComponent component;
-
-  setUp(() {
-    // prevent component warnings from printing to console
-    ValidationUtil.WARNINGS_ENABLED = false;
-    warningCount = ValidationUtil.WARNING_COUNT;
-  });
-
-  tearDown(() {
-    // restore component validation warnings
-    ValidationUtil.WARNINGS_ENABLED = true;
-    hitarea = null;
-    component = null;
-  });
-
   group('HitAreaMixin', () {
+    // shared vars
+    int warningCount;
+    var hitarea;
+    HitAreaTestComponent component;
+
+    setUp(() {
+      // prevent component warnings from printing to console
+      ValidationUtil.WARNINGS_ENABLED = false;
+      warningCount = ValidationUtil.WARNING_COUNT;
+    });
+
+    tearDown(() {
+      // restore component validation warnings
+      ValidationUtil.WARNINGS_ENABLED = true;
+      hitarea = null;
+      component = null;
+    });
 
     //
     // isActive
