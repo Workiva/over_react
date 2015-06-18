@@ -6,13 +6,14 @@ part of w_ui_platform.ui_core;
 abstract class ReactProps {
   Map get props;
 
-  List get children     => props['children'];
+  List get children        => props['children'];
+  set children(List value) => props['children'] = value;
 
-  String get key        => props['key'];
-  set key(String value) => props['key'] = value;
+  String get key           => props['key'];
+  set key(String value)    => props['key'] = value;
 
-  dynamic get ref        => props['ref'];
-  set ref(dynamic value) => props['ref'] = value;
+  dynamic get ref          => props['ref'];
+  set ref(dynamic value)   => props['ref'] = value;
 }
 
 /// Typed getters/setters for props related to CSS class manipulation, and used by all UIP components.
