@@ -167,6 +167,26 @@ main() {
         });
       });
     });
+
+    group('isValidElement', () {
+      group('retruns expected result when given', (){
+        test('null', () {
+          expect(isValidElement(null), isFalse);
+        });
+
+        test('a String', () {
+          expect(isValidElement('Test String'), isFalse);
+        });
+
+        test('a List', () {
+          expect(isValidElement(['item1', 'item2']), isFalse);
+        });
+
+        test('a ReactComponent', () {
+          expect(isValidElement(Dom.div()()), isTrue);
+        });
+      });
+    });
   });
 }
 

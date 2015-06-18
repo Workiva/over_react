@@ -61,3 +61,6 @@ JsObject cloneElement(JsObject element, [Map props, List children]) {
   return _React.callMethod('cloneElement', jsMethodArgs);
 }
 
+bool isValidElement(dynamic object) {
+  return _React.callMethod('isValidElement', [object]);
+}
