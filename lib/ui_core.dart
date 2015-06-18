@@ -17,5 +17,5 @@ part 'src/ui_core/component/prop_mixins.dart';
 part 'src/ui_core/component/typed_mixins.dart';
 part 'src/ui_core/util/class_names.dart';
 part 'src/ui_core/util/map_util.dart';
-part 'src/ui_core/util/validation_util.dart';
 part 'src/ui_core/util/react_wrappers.dart';
+part 'src/ui_core/util/validation_util.dart';
