@@ -1,7 +1,7 @@
 part of w_ui_platform.ui_core;
 
 /// All of the keys used in [ColorProps].
-enum _ColorPropsKey {
+enum ColorPropsKey {
   BACKGROUND_COLOR,
   BORDER_COLOR,
   TEXT_COLOR
@@ -94,23 +94,23 @@ abstract class ColorProps {
   Map get props;
 
   /// Prop for specifying the background color for components that support it.
-  BackgroundColor get backgroundColor => props[_ColorPropsKey.BACKGROUND_COLOR];
-  set backgroundColor(BackgroundColor value) => props[_ColorPropsKey.BACKGROUND_COLOR] = value;
+  BackgroundColor get backgroundColor => props[ColorPropsKey.BACKGROUND_COLOR];
+  set backgroundColor(BackgroundColor value) => props[ColorPropsKey.BACKGROUND_COLOR] = value;
 
   /// Prop for specifying the border color for components that support it.
   /// This prop will only work if the element already has a 'border-width'
   /// and 'border-style' CSS property set.
-  BorderColor get borderColor => props[_ColorPropsKey.BORDER_COLOR];
-  set borderColor(BorderColor value) => props[_ColorPropsKey.BORDER_COLOR] = value;
+  BorderColor get borderColor => props[ColorPropsKey.BORDER_COLOR];
+  set borderColor(BorderColor value) => props[ColorPropsKey.BORDER_COLOR] = value;
 
-  TextColor get textColor => props[_ColorPropsKey.TEXT_COLOR];
-  set textColor(TextColor value) => props[_ColorPropsKey.TEXT_COLOR] = value;
+  TextColor get textColor => props[ColorPropsKey.TEXT_COLOR];
+  set textColor(TextColor value) => props[ColorPropsKey.TEXT_COLOR] = value;
 
   /// Returns a [Map] of classnames based on existence of values of color props.
   static String getClassNames(Map props) {
     ClassNameBuilder classes = new ClassNameBuilder();
 
-    _ColorPropsKey.values.forEach((propKey) {
+    ColorPropsKey.values.forEach((propKey) {
       if (props.containsKey(propKey) && props[propKey] != null) {
         classes.add(props[propKey].className);
       }
