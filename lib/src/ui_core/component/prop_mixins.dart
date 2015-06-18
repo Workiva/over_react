@@ -61,6 +61,10 @@ abstract class _$template_DomProps {
   TouchEventCallback onTouchCancel, onTouchEnd, onTouchMove, onTouchStart;
   UIEventCallback onScroll;
   WheelEventCallback onWheel;
+
+  // props specific to React.INPUT
+  bool defaultChecked;
+  dynamic defaultValue;
 }
 
 class DomPropsMapView extends MapView with DomProps {
