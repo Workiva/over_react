@@ -61,6 +61,11 @@ JsObject cloneElement(JsObject element, [Map props, List children]) {
   return _React.callMethod('cloneElement', jsMethodArgs);
 }
 
+/// Dart wrapper for React.isValidElement.
+///
+/// _From the JS docs:_
+/// > Verifies the object is a ReactElement
+
 bool isValidElement(dynamic object) {
   return _React.callMethod('isValidElement', [object]);
 }
