@@ -56,10 +56,12 @@ abstract class DomProps {
   set id(String value)         => props['id'] = value;
   String get className         => props['className'];
   set className(String value)  => props['className'] = value;
-  int get tabIndex             => props['tabIndex'];
-  set tabIndex(int value)      => props['tabIndex'] = value;
+  String get tabIndex          => props['tabIndex'];
+  set tabIndex(String value)   => props['tabIndex'] = value;
   bool get disabled            => props['disabled'];
   set disabled(bool value)     => props['disabled'] = value;
+  String get title             => props['title'];
+  set title(String value)      => props['title'] = value;
 
   // Event handlers
   Function get onClick         => props['onClick'];
@@ -74,10 +76,14 @@ abstract class DomProps {
   set type(String value)       => props['type'] = value;
   bool get checked             => props['checked'];
   set checked(bool value)      => props['checked'] = value;
+  bool get defaultChecked             => props['defaultChecked'];
+  set defaultChecked(bool value)      => props['defaultChecked'] = value;
   String get href              => props['href'];
   set href(String value)       => props['href'] = value;
   String get target            => props['target'];
   set target(String value)     => props['target'] = value;
+  String get name            => props['name'];
+  set name(String value)     => props['name'] = value;
 
   // Accessibility
   String get role              => props['role'];
