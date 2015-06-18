@@ -169,7 +169,7 @@ main() {
     });
 
     group('isValidElement', () {
-      group('retruns expected result when given', (){
+      group('returns expected result when given', (){
         test('null', () {
           expect(isValidElement(null), isFalse);
         });
