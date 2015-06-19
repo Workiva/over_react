@@ -56,8 +56,8 @@ abstract class DomProps {
   set id(String value)         => props['id'] = value;
   String get className         => props['className'];
   set className(String value)  => props['className'] = value;
-  int get tabIndex             => props['tabIndex'];
-  set tabIndex(int value)      => props['tabIndex'] = value;
+  dynamic get tabIndex         => props['tabIndex'];
+  set tabIndex(dynamic value)  => props['tabIndex'] = value;
   bool get disabled            => props['disabled'];
   set disabled(bool value)     => props['disabled'] = value;
   String get title             => props['title'];
