@@ -11,45 +11,17 @@ import 'dart:collection' show MapView;
 main() {
   // Testing for ReactProps within prop_mixins.dart
   group('ReactProps', () {
-    List keys = [
-      'children',
-      'key',
-      'ref'
-    ];
-
-    testKeys(keys, (() => new ReactPropMixinsTest({})));
+    testKeys(ReactProps, (() => new ReactPropMixinsTest({})));
   });
 
   // Testing for CssClassProps within prop_mixins.dart
   group('CssClassProps', () {
-    List keys = [
-      'className',
-      'classNameBlacklist'
-    ];
-
-    testKeys(keys, (() => new CssClassPropMixinsTest({})));
+    testKeys(CssClassProps, (() => new CssClassPropMixinsTest({})));
   });
 
   // Testing for DomProps within prop_mixins.dart
   group('DomProps', () {
-    List keys = [
-      'style',
-      'id',
-      'className',
-      'tabIndex',
-      'disabled',
-      'onClick',
-      'onChange',
-      'htmlFor',
-      'type',
-      'checked',
-      'href',
-      'target',
-      'role',
-      'scope'
-    ];
-
-    testKeys(keys, (() => new DomPropMixinsTest({})));
+    testKeys(DomProps, (() => new DomPropMixinsTest({})));
   });
 }
 
