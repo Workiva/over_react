@@ -546,7 +546,7 @@ main() {
         bool onSelectCalled = false;
         var hitarea = (MenuItem()
           ..eventKey = '123'
-          ..onSelect = (key, href, target) {
+          ..onSelect = (event, key, {href, target}) {
             zonedExpect(key, equals('123'));
             onSelectCalled = true;
           }
@@ -593,7 +593,7 @@ main() {
             onClickCalled = true;
             return true;
           }
-          ..onSelect = (key, href, target) {
+          ..onSelect = (event, key, {href, target}) {
             zonedExpect(key, equals('123'));
             onSelectCalled = true;
           }
@@ -614,7 +614,7 @@ main() {
             onClickCalled = true;
             return false;
           }
-          ..onSelect = (key, href, target) {
+          ..onSelect = (event, key, {href, target}) {
             zonedExpect(key, equals('123'));
             onSelectCalled = true;
           }
@@ -634,7 +634,7 @@ main() {
             zonedExpect(event is SyntheticEvent, equals(true));
             onClickCalled = true;
           }
-          ..onSelect = (key, href, target) {
+          ..onSelect = (event, key, {href, target}) {
             zonedExpect(key, equals('123'));
             onSelectCalled = true;
           }
@@ -655,7 +655,7 @@ main() {
             zonedExpect(event is SyntheticEvent, equals(true));
             onClickCalled = true;
           }
-          ..onSelect = (key, href, target) {
+          ..onSelect = (event, key, {href, target}) {
             zonedExpect(key, equals('123'));
             onSelectCalled = true;
           }

@@ -29,13 +29,13 @@ JsObject _convertDartProps(Map extendedProps) {
 }
 
 /// Helper function for getting the 'key' of a JsObject
-dynamic getKey(JsObject object) {
-  return object['key'];
+dynamic getInstanceKey(JsObject instance) {
+  return instance['key'];
 }
 
 /// Helper function for getting the 'ref' of a JsObject
-dynamic getRef(JsObject object) {
-  return object['key'];
+dynamic getInstanceRef(JsObject instance) {
+  return instance['key'];
 }
 
 /// Returns whether a component is a native Dart component.

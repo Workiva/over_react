@@ -377,7 +377,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     // call consumer onSelect callback if provided
     if (tProps.onSelect != null && !preventSelect) {
       assert(tProps.onSelect is HitAreaSelectCallback);
-      tProps.onSelect(tProps.eventKey, tProps.href, tProps.target);
+      tProps.onSelect(event, tProps.eventKey, href: tProps.href, target: tProps.target);
     }
   }
 
