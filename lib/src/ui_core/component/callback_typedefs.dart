@@ -12,4 +12,5 @@ typedef UIEventCallback(react.SyntheticUIEvent event);
 typedef WheelEventCallback(react.SyntheticWheelEvent event);
 
 // Callback for hitarea selection events
-typedef bool HitAreaSelectCallback(dynamic eventKey, String href, String target);
+typedef EventKeyCallback(react.SyntheticEvent event, dynamic eventKey);
+typedef HitAreaSelectCallback(react.SyntheticEvent event, dynamic eventKey, {String href, String target});
