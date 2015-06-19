@@ -1,7 +1,13 @@
 part of w_ui_platform.ui_core;
 
 JsObject _React = context['React'];
-Map _getInternal(JsObject jsThis) => jsThis[PROPS][INTERNAL];
+
+/// Returns the internal Map used by react-dart to maintain the native Dart component.
+Map _getInternal(JsObject instance) => instance[PROPS][INTERNAL];
+
+Map _getExtendedProps(JsObject instance) {
+  return _getInternal(instance)[PROPS];
+}
 
 /// Helper with logic borrowed from react-dart that returns a JsObject version of props,
 /// preprocessed for consumption by React JS and prepared for consumption by the react-dart wrapper internals/
@@ -20,6 +26,48 @@ JsObject _convertDartProps(Map extendedProps) {
   convertedProps[INTERNAL] = {PROPS: extendedProps};
 
   return convertedProps;
+}
+
+/// Helper function for getting the 'key' of a JsObject
+dynamic getKey(JsObject object) {
+  return object['key'];
+}
+
+/// Helper function for getting the 'ref' of a JsObject
+dynamic getRef(JsObject object) {
+  return object['key'];
+}
+
+/// Returns whether a component is a native Dart component.
+bool isDartComponent(JsObject instance) {
+  return _getInternal(instance) != null;
+}
+
+/// Returns the props for a React JS component instance, shallow-converted to a Dart Map for convenience.
+Map getJsProps(JsObject instance) {
+  JsObject props = instance[PROPS];
+
+  Map convertedProps = {};
+
+  JsArray keys = (context['Object'] as JsObject).callMethod('keys', [props]);
+  keys.forEach((key) {
+    convertedProps[key] = props[key];
+  });
+
+  return convertedProps;
+}
+
+/// Returns the props for a component.
+///
+/// For a native Dart component, this returns its [react.Component.props] Map.
+/// For a JS component, this returns the result of [getJsProps].
+Map getProps(JsObject instance) {
+  return isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
+}
+/// Returns whether the instance was created using the specified Dart factory
+/// TODO: Find better way of determining the type of rendered components
+bool isComponentOfType(JsObject instance, ReactComponentFactory factory) {
+  return factory is ReactComponentFactoryProxy && instance['type'] == factory.reactComponentFactory['type'];
 }
 
 /// Dart wrapper for React.cloneElement.
@@ -60,4 +108,3 @@ JsObject cloneElement(JsObject element, [Map props, List children]) {
 
   return _React.callMethod('cloneElement', jsMethodArgs);
 }
-
