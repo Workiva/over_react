@@ -47,8 +47,8 @@ class ClassNameBuilder {
   /// [CssClassProps.classNameBlackList], if they are specified.
   ClassNameBuilder.fromProps(Map props) {
     this
-      ..add(props[CssClassPropsKey.CLASS_NAME])
-      ..blacklist(props[CssClassPropsKey.CLASS_NAME_BLACKLIST]);
+      ..add(props[CssClassProps.Z_$KEY__CLASS_NAME])
+      ..blacklist(props[CssClassProps.Z_$KEY__CLASS_NAME_BLACKLIST]);
   }
 
   /// Adds a className string. May be a single CSS class 'token', or multiple space-delimited classes,
