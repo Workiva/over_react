@@ -3,93 +3,67 @@ part of w_ui_platform.ui_core;
 
 /// Typed getters/setters for reserved React props.
 /// To be used as a mixin for React components and builders.
-abstract class ReactProps {
-  Map get props;
-
-  List get children     => props['children'];
-
-  String get key        => props['key'];
-  set key(String value) => props['key'] = value;
-
-  dynamic get ref        => props['ref'];
-  set ref(dynamic value) => props['ref'] = value;
+@GenerateProps(#ReactProps, keyType: TypedMapKeyType.STRING)
+abstract class _$template_ReactProps {
+  List get children;
+  String get key;
+  dynamic get ref;
 }
 
 /// Typed getters/setters for props related to CSS class manipulation, and used by all UIP components.
 /// To be used as a mixin for React components and builders.
-abstract class CssClassProps {
-  Map get props;
-
+@GenerateProps(#CssClassProps, keyType: TypedMapKeyType.STRING)
+abstract class _$template_CssClassProps {
   /// Map of class names to be added/omitted (true/false) to the resultant DOM.
   /// Used within components with [w_ui_platform.class_names.classNames].
   /// Precedence: props.classMap, props.className, added component props
   @deprecated
-  Map<String, bool> get classMap        => props[CssClassPropsKey.CLASS_MAP];
-  @deprecated
-  set classMap(Map<String, bool> value) => props[CssClassPropsKey.CLASS_MAP] = value;
+  Map<String, bool> get classMap;
 
   /// Class name to be added to the resultant DOM.
   /// Used within components with [w_ui_platform.class_names.classNames].
   /// Precedence: props.classMap, props.className, added component props
-  String get className                  => props[CssClassPropsKey.CLASS_NAME];
-  set className(String value)           => props[CssClassPropsKey.CLASS_NAME] = value;
+  @deprecated
+  String get className;
 
-  String get classNameBlacklist         => props[CssClassPropsKey.CLASS_NAME_BLACKLIST];
-  set classNameBlacklist(String value)  => props[CssClassPropsKey.CLASS_NAME_BLACKLIST] = value;
-}
-
-abstract class CssClassPropsKey {
-  static const String CLASS_MAP = 'classMap';
-  static const String CLASS_NAME = 'className';
-  static const String CLASS_NAME_BLACKLIST = 'classNameBlacklist';
+  String get classNameBlacklist;
 }
 
 /// Typed getters/setters for reserved DOM-related props.
 /// To be used as a mixin for React components and builders.
-abstract class DomProps {
-  Map get props;
+@GenerateProps(#DomProps,
+  keyType: TypedMapKeyType.STRING,
+  fromSyntheticGetters: true
+)
+abstract class _$template_DomProps {
+  int cols, rows, size, span, start;
 
-  // Universal attributes
-  Map<String, dynamic> get style        => props['style'];
-  set style(Map<String, dynamic> value) => props['style'] = value;
-  String get id                => props['id'];
-  set id(String value)         => props['id'] = value;
-  String get className         => props['className'];
-  set className(String value)  => props['className'] = value;
-  dynamic get tabIndex         => props['tabIndex'];
-  set tabIndex(dynamic value)  => props['tabIndex'] = value;
-  bool get disabled            => props['disabled'];
-  set disabled(bool value)     => props['disabled'] = value;
-  String get title             => props['title'];
-  set title(String value)      => props['title'] = value;
+  bool allowFullScreen, async, autoPlay, checked, controls, defer, disabled, formNoValidate, hidden, loop, multiple,
+    muted, noValidate, readOnly, required, seamless, selected;
 
-  // Event handlers
-  Function get onClick         => props['onClick'];
-  set onClick(Function value)  => props['onClick'] = value;
-  Function get onChange        => props['onChange'];
-  set onChange(Function value) => props['onChange'] = value;
+  Map<String, dynamic> style;
 
-  // Input elements
-  String get htmlFor           => props['htmlFor'];
-  set htmlFor(String value)    => props['htmlFor'] = value;
-  String get type              => props['type'];
-  set type(String value)       => props['type'] = value;
-  bool get checked             => props['checked'];
-  set checked(bool value)      => props['checked'] = value;
-  bool get defaultChecked             => props['defaultChecked'];
-  set defaultChecked(bool value)      => props['defaultChecked'] = value;
-  String get href              => props['href'];
-  set href(String value)       => props['href'] = value;
-  String get target            => props['target'];
-  set target(String value)     => props['target'] = value;
-  String get name            => props['name'];
-  set name(String value)     => props['name'] = value;
+  dynamic accept, acceptCharset, accessKey, action, allowTransparency, alt, autoComplete, cellPadding, cellSpacing,
+    charSet, classID, className, colSpan, content, contentEditable, contextMenu, coords, crossOrigin, data, dateTime,
+    dir, download, draggable, encType, form, frameBorder, height, href, hrefLang, htmlFor, httpEquiv, icon, id, label,
+    lang, list, manifest, max, maxLength, media, mediaGroup, method, min, name, open, pattern, placeholder, poster,
+    preload, radioGroup, rel, role, rowSpan, sandbox, scope, scrolling, shape, sizes, spellCheck, src, srcDoc, srcSet,
+    step, tabIndex, target, title, type, useMap, value, width, wmode;
 
-  // Accessibility
-  String get role              => props['role'];
-  set role(String value)       => props['role'] = value;
-  String get scope             => props['scope'];
-  set scope(String value)      => props['scope'] = value;
+  ClipboardEventCallback onCopy, onCut, onPaste;
+  KeyboardEventCallback onKeyDown, onKeyPress, onKeyUp;
+  FocusEventCallback onFocus, onBlur;
+  FormEventCallback onChange, onInput, onSubmit;
+  MouseEventCallback
+    onClick, onContextMenu, onDoubleClick, onDrag, onDragEnd, onDragEnter, onDragExit, onDragLeave, onDragOver,
+    onDragStart, onDrop, onMouseDown, onMouseEnter, onMouseLeave, onMouseMove, onMouseOut, onMouseOver, onMouseUp;
+  TouchEventCallback onTouchCancel, onTouchEnd, onTouchMove, onTouchStart;
+  UIEventCallback onScroll;
+  WheelEventCallback onWheel;
+
+  // props specific to React.INPUT
+  bool defaultChecked;
+  dynamic defaultValue;
 }
 
 class DomPropsMapView extends MapView with DomProps {
