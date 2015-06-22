@@ -3,14 +3,13 @@ library dom_components_test;
 import 'package:test/test.dart';
 import 'package:w_ui_platform/ui_core.dart';
 
-
 import '../../test_util/react_util.dart';
 
 import 'dart:js';
 import 'dart:mirrors';
 
 main() {
-  group('Dom Components', () {
+  group('Dom component:', () {
     ClassMirror domClassMirror = reflectClass(Dom);
 
     Iterable<MethodMirror> methods = domClassMirror.staticMembers.values;
@@ -21,7 +20,7 @@ main() {
       if (expectedTagName == 'variable') {
         expectedTagName = 'var';
       }
-      test('Dom.$name', () {
+      test('Dom.$name generates the correct tagName', () {
         var domComponent = domClassMirror.invoke(element.simpleName, []).reflectee;
         JsObject component = render(domComponent());
         expect(component['tagName'], equalsIgnoringCase(expectedTagName));
