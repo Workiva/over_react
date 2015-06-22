@@ -116,7 +116,7 @@ main() {
         test('initializes by adding from the "className" prop', () {
           const addedClass = 'class';
           const Map props = const {
-            CssClassPropsKey.CLASS_NAME: addedClass
+            CssClassProps.Z_$KEY__CLASS_NAME: addedClass
           };
 
           ClassNameBuilder builder = new ClassNameBuilder.fromProps(props);
@@ -127,7 +127,7 @@ main() {
         test('initializes by blacklisting from the "classNameBlacklist" prop', () {
           const blacklistedClass = 'class';
           const Map props = const {
-            CssClassPropsKey.CLASS_NAME_BLACKLIST: blacklistedClass
+            CssClassProps.Z_$KEY__CLASS_NAME_BLACKLIST: blacklistedClass
           };
 
           ClassNameBuilder builder = new ClassNameBuilder.fromProps(props);
