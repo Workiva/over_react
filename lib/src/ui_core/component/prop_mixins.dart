@@ -33,7 +33,6 @@ abstract class _$template_CssClassProps {
 /// To be used as a mixin for React components and builders.
 @GenerateProps(#DomProps,
   keyType: TypedMapKeyType.STRING,
-  enumerateKeys: false,
   fromSyntheticGetters: true
 )
 abstract class _$template_DomProps {
