@@ -64,10 +64,17 @@ Map getJsProps(JsObject instance) {
 Map getProps(JsObject instance) {
   return isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
 }
+
 /// Returns whether the instance was created using the specified Dart factory
 /// TODO: Find better way of determining the type of rendered components
 bool isComponentOfType(JsObject instance, ReactComponentFactory factory) {
   return factory is ReactComponentFactoryProxy && instance['type'] == factory.reactComponentFactory['type'];
+}
+
+/// Returns whether the instance is a valid ReactElement and was created using the specified Dart factory
+bool isValidElementOfType(JsObject instance, ReactComponentFactory factory) {
+  // TODO: Add isValidElement() from UIP-284
+  return true ? isComponentOfType(instance, factory) : false;
 }
 
 /// Dart wrapper for React.cloneElement.
