@@ -1,92 +1,85 @@
 part of w_ui_platform.ui_core;
 
+/// Options for background color property
+@GenerateConstants(#BackgroundColor, #className)
+class _$template_BackgroundColor {
+  // default
+  static const DEFAULT      = null;
+
+  // application state colors
+  static const ALTERNATE    = 'bg-alt';
+  static const SUCCESS      = 'bg-success';
+  static const WARNING      = 'bg-warning';
+  static const DANGER       = 'bg-danger';
+
+  // zesty crayon colors
+  static const GREEN        = 'bg-green';
+  static const GREEN_ALT    = 'bg-green-alt';
+  static const GREEN_ALT_2  = 'bg-green-alt2';
+  static const BLUE         = 'bg-blue';
+  static const ORANGE       = 'bg-orange';
+  static const RED          = 'bg-red';
+  static const GRAY         = 'bg-gray';
+
+  // doc type colors
+  static const DOC_TYPE_BLUE        = 'bg-doctype-blue';
+  static const DOC_TYPE_LIGHT_BLUE  = 'bg-doctype-blue-light';
+  static const DOC_TYPE_TEAL        = 'bg-doctype-teal';
+  static const DOC_TYPE_GRAY        = 'bg-doctype-gray';
+  static const DOC_TYPE_RED         = 'bg-doctype-red';
+  static const DOC_TYPE_GREEN       = 'bg-doctype-green';
+  static const DOC_TYPE_PURPLE      = 'bg-doctype-purple';
+  static const DOC_TYPE_ORANGE      = 'bg-doctype-orange';
+  static const DOC_TYPE_MAGENTA     = 'bg-doctype-magenta';
+}
+
+/// Options for border color property
+@GenerateConstants(#BorderColor, #className)
+class _$template_BorderColor {
+  // default
+  static const DEFAULT      = null;
+
+  // application state colors
+  static const ALTERNATE    = 'bd-alt';
+  static const SUCCESS      = 'bd-success';
+  static const WARNING      = 'bd-warning';
+  static const DANGER       = 'bd-danger';
+
+  // zesty crayon colors
+  static const GREEN        = 'bd-green';
+  static const GREEN_ALT    = 'bd-green-alt';
+  static const GREEN_ALT_2  = 'bd-green-alt2';
+  static const BLUE         = 'bd-blue';
+  static const ORANGE       = 'bd-orange';
+  static const RED          = 'bd-red';
+  static const GRAY         = 'bd-gray';
+  static const whaha        = 'djldsjkld';
+}
+
+/// Options for text color property
+@GenerateConstants(#TextColor, #className)
+class _$template_TextColor {
+  // application state colors
+  static const ALTERNATE    = 'text-alt';
+  static const SUCCESS      = 'text-success';
+  static const WARNING      = 'text-warning';
+  static const DANGER       = 'text-danger';
+
+  // zesty crayon colors
+  static const GREEN        = 'text-green';
+  static const GREEN_ALT    = 'text-green-alt';
+  static const GREEN_ALT_2  = 'text-green-alt2';
+  static const BLUE         = 'text-blue';
+  static const ORANGE       = 'text-orange';
+  static const RED          = 'text-red';
+  static const GRAY         = 'text-gray';
+}
+
 /// All of the keys used in [ColorProps].
 enum ColorPropsKey {
   BACKGROUND_COLOR,
   BORDER_COLOR,
   TEXT_COLOR
-}
-
-/// Options for background color property
-class BackgroundColor {
-  final String className;
-
-  const BackgroundColor._internal(this.className);
-
-  // default
-  static const BackgroundColor DEFAULT      = null;
-
-  // application state colors
-  static const BackgroundColor ALTERNATE    = const BackgroundColor._internal('bg-alt');
-  static const BackgroundColor SUCCESS      = const BackgroundColor._internal('bg-success');
-  static const BackgroundColor WARNING      = const BackgroundColor._internal('bg-warning');
-  static const BackgroundColor DANGER       = const BackgroundColor._internal('bg-danger');
-
-  // zesty crayon colors
-  static const BackgroundColor GREEN        = const BackgroundColor._internal('bg-green');
-  static const BackgroundColor GREEN_ALT    = const BackgroundColor._internal('bg-green-alt');
-  static const BackgroundColor GREEN_ALT_2  = const BackgroundColor._internal('bg-green-alt2');
-  static const BackgroundColor BLUE         = const BackgroundColor._internal('bg-blue');
-  static const BackgroundColor ORANGE       = const BackgroundColor._internal('bg-orange');
-  static const BackgroundColor RED          = const BackgroundColor._internal('bg-red');
-  static const BackgroundColor GRAY         = const BackgroundColor._internal('bg-gray');
-
-  // doc type colors
-  static const BackgroundColor DOC_TYPE_BLUE        = const BackgroundColor._internal('bg-doctype-blue');
-  static const BackgroundColor DOC_TYPE_LIGHT_BLUE  = const BackgroundColor._internal('bg-doctype-blue-light');
-  static const BackgroundColor DOC_TYPE_TEAL        = const BackgroundColor._internal('bg-doctype-teal');
-  static const BackgroundColor DOC_TYPE_GRAY        = const BackgroundColor._internal('bg-doctype-gray');
-  static const BackgroundColor DOC_TYPE_RED         = const BackgroundColor._internal('bg-doctype-red');
-  static const BackgroundColor DOC_TYPE_GREEN       = const BackgroundColor._internal('bg-doctype-green');
-  static const BackgroundColor DOC_TYPE_PURPLE      = const BackgroundColor._internal('bg-doctype-purple');
-  static const BackgroundColor DOC_TYPE_ORANGE      = const BackgroundColor._internal('bg-doctype-orange');
-}
-
-/// Options for border color property
-class BorderColor {
-  final String className;
-
-  const BorderColor._internal(this.className);
-
-  // default
-  static const BorderColor DEFAULT      = null;
-
-  // application state colors
-  static const BorderColor ALTERNATE    = const BorderColor._internal('bd-alt');
-  static const BorderColor SUCCESS      = const BorderColor._internal('bd-success');
-  static const BorderColor WARNING      = const BorderColor._internal('bd-warning');
-  static const BorderColor DANGER       = const BorderColor._internal('bd-danger');
-
-  // zesty crayon colors
-  static const BorderColor GREEN        = const BorderColor._internal('bd-green');
-  static const BorderColor GREEN_ALT    = const BorderColor._internal('bd-green-alt');
-  static const BorderColor GREEN_ALT_2  = const BorderColor._internal('bd-green-alt2');
-  static const BorderColor BLUE         = const BorderColor._internal('bd-blue');
-  static const BorderColor ORANGE       = const BorderColor._internal('bd-orange');
-  static const BorderColor RED          = const BorderColor._internal('bd-red');
-  static const BorderColor GRAY         = const BorderColor._internal('bd-gray');
-}
-
-/// Options for text color property
-class TextColor {
-  final String className;
-
-  const TextColor._internal(this.className);
-
-  // application state colors
-  static const TextColor ALTERNATE    = const TextColor._internal('text-alt');
-  static const TextColor SUCCESS      = const TextColor._internal('text-success');
-  static const TextColor WARNING      = const TextColor._internal('text-warning');
-  static const TextColor DANGER       = const TextColor._internal('text-danger');
-
-  // zesty crayon colors
-  static const TextColor GREEN        = const TextColor._internal('text-green');
-  static const TextColor GREEN_ALT    = const TextColor._internal('text-green-alt');
-  static const TextColor GREEN_ALT_2  = const TextColor._internal('text-green-alt2');
-  static const TextColor BLUE         = const TextColor._internal('text-blue');
-  static const TextColor ORANGE       = const TextColor._internal('text-orange');
-  static const TextColor RED          = const TextColor._internal('text-red');
-  static const TextColor GRAY         = const TextColor._internal('text-gray');
 }
 
 /// Mixin for component definitions with color props for background, border, and text.
