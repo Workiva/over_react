@@ -1,146 +1,78 @@
 part of w_ui_platform.ui_core;
 
-enum _HitAreaPropsKeys {
-  DOM_NODE_NAME,
-  EVENT_KEY,
-  HREF,
-  IS_ACTIVE,
-  IS_DISABLED,
-  IS_NAV_ITEM,
-  IS_NAV_DROPDOWN,
-  IS_SELECTED,
-  ID,
-  NAME,
-  ON_CLICK,
-  ON_SELECT,
-  ROLE,
-  TARGET,
-  TYPE,
-}
-
 /// Mixin for component definitions that provides hitarea related props.
 /// To use:
 /// - add [HitAreaProps] mixin class to component definition.
 /// - add [HitAreaMixin] mixin class to component class.
 /// - add defaults to getDefaultProps method of component class using getDefaults() call:
-///   ..addProps(HitAreaProps.getDefaults())
+///   ..addProps(HitAreaMixin.defaultProps)
 /// - call the inherited `renderHitArea` method with `render` method of your component.
-abstract class HitAreaProps {
-  Map get props;
-
+@GenerateProps(#HitAreaProps)
+abstract class _$template_HitAreaProps {
   /// Callback triggered by click events on the hitarea
-  DomEventCallback get onClick => props[_HitAreaPropsKeys.ON_CLICK];
-  set onClick(DomEventCallback value) =>
-      props[_HitAreaPropsKeys.ON_CLICK] = value;
-
+  DomEventCallback get onClick;
   /// Callback triggered when a selectable hitarea item is clicked.
   /// Valid callbacks must be of type [OnSelectCallback], which include the `eventKey`
   /// of the selected item along with the optional `href` and `target` props.
-  HitAreaSelectCallback get onSelect => props[_HitAreaPropsKeys.ON_SELECT];
-  set onSelect(HitAreaSelectCallback value) =>
-      props[_HitAreaPropsKeys.ON_SELECT] = value;
-
+  HitAreaSelectCallback get onSelect;
   /// Used alongside `props.onSelect` for basic controller behavior of clickable elements
-  dynamic get eventKey => props[_HitAreaPropsKeys.EVENT_KEY];
-  set eventKey(dynamic value) => props[_HitAreaPropsKeys.EVENT_KEY] = value;
-
+  dynamic get eventKey;
   /// DomProp
-  String get href => props[_HitAreaPropsKeys.HREF];
-  set href(String value) => props[_HitAreaPropsKeys.HREF] = value;
-
+  String get href;
   /// DomProp
-  String get target => props[_HitAreaPropsKeys.TARGET];
-  set target(String value) => props[_HitAreaPropsKeys.TARGET] = value;
-
+  String get target;
   /// Use to explicitly define the node name you want to see in the rendered DOM
-  DomNodeName get domNodeName => props[_HitAreaPropsKeys.DOM_NODE_NAME];
-  set domNodeName(DomNodeName value) =>
-      props[_HitAreaPropsKeys.DOM_NODE_NAME] = value;
-
+  DomNodeName get domNodeName;
   /// DomProp
-  String get id => props[_HitAreaPropsKeys.ID];
-  set id(String value) => props[_HitAreaPropsKeys.ID] = value;
-
+  String get id;
   /// DomProp
-  String get name => props[_HitAreaPropsKeys.NAME];
-  set name(String value) => props[_HitAreaPropsKeys.NAME] = value;
-
+  String get name;
   /// Attribute to support the role classification of elements.
   /// primarily used for the purposes of accessibility
-  String get role => props[_HitAreaPropsKeys.ROLE];
-  set role(String value) => props[_HitAreaPropsKeys.ROLE] = value;
-
+  String get role;
   /// DomProp
-  String get type => props[_HitAreaPropsKeys.TYPE];
-  set type(String value) => props[_HitAreaPropsKeys.TYPE] = value;
-
+  String get type;
   /// Whether the hitarea is active
-  bool get isActive => props[_HitAreaPropsKeys.IS_ACTIVE];
-  set isActive(bool value) => props[_HitAreaPropsKeys.IS_ACTIVE] = value;
-
+  bool get isActive;
   /// Whether the hitarea is disabled.
-  bool get isDisabled => props[_HitAreaPropsKeys.IS_DISABLED];
-  set isDisabled(bool value) => props[_HitAreaPropsKeys.IS_DISABLED] = value;
-
+  bool get isDisabled;
   /// Whether the button is a nav-item.
-  bool get isNavItem => props[_HitAreaPropsKeys.IS_NAV_ITEM];
-  set isNavItem(bool value) => props[_HitAreaPropsKeys.IS_NAV_ITEM] = value;
-
+  bool get isNavItem;
   /// Whether the button is a nav-dropdown.
-  bool get isNavDropdown => props[_HitAreaPropsKeys.IS_NAV_DROPDOWN];
-  set isNavDropdown(bool value) =>
-      props[_HitAreaPropsKeys.IS_NAV_DROPDOWN] = value;
-
-  /// Returns a [Map] instance containing key/value pairs for the standard HitAreaProps defaults.
-  static Map getDefaults() => {
-    _HitAreaPropsKeys.IS_ACTIVE: false,
-    _HitAreaPropsKeys.IS_DISABLED: false,
-    _HitAreaPropsKeys.IS_NAV_ITEM: false,
-    _HitAreaPropsKeys.IS_NAV_DROPDOWN: false,
-  };
-}
-
-enum _ValidatedHitareaPropsKey {
-  RENDERER,
-  INPUT_REF,
-  BUTTON_REF,
-  INPUT_ID,
-  NAV_ITEM,
-  NAV_DROPDOWN
+  bool get isNavDropdown;
 }
 
 /// Props used and set in [HitareaMixin.getValidatedHitAreaProps].
-class _ValidatedHitareaPropsMapView extends MapView with DomProps, ReactProps {
-  _ValidatedHitareaPropsMapView(Map map) : super(map);
-
-  Map get props => this;
-
+@GenerateProps(#_ValidatedHitareaProps)
+abstract class $template__ValidatedHitareaProps {
   /// Renderer determined by getValidatedHitAreaProps used to render the hitarea.
-  HitAreaRenderer get renderer => props[_ValidatedHitareaPropsKey.RENDERER];
-  set renderer(HitAreaRenderer value) => props[_ValidatedHitareaPropsKey.RENDERER] = value;
-
+  HitAreaRenderer get renderer;
   /// TODO: leftover from input component support?
-  String get inputRef => props[_ValidatedHitareaPropsKey.INPUT_REF];
-  set inputRef(String value) => props[_ValidatedHitareaPropsKey.INPUT_REF] = value;
-
+  String get inputRef;
   /// TODO: leftover from input component support?
-  String get inputId => props[_ValidatedHitareaPropsKey.INPUT_ID];
-  set inputId(String value) => props[_ValidatedHitareaPropsKey.INPUT_ID] = value;
-
+  String get inputId;
   /// TODO: leftover from WSR port?
-  String get buttonRef => props[_ValidatedHitareaPropsKey.BUTTON_REF];
-  set buttonRef(String value) => props[_ValidatedHitareaPropsKey.BUTTON_REF] = value;
-
+  String get buttonRef;
   /// TODO: leftover from WSR port?
-  bool get navItem => props[_ValidatedHitareaPropsKey.NAV_ITEM];
-  set navItem(bool value) => props[_ValidatedHitareaPropsKey.NAV_ITEM] = value;
-
+  bool get navItem;
   /// TODO: leftover from WSR port?
-  bool get navDropdown => props[_ValidatedHitareaPropsKey.NAV_DROPDOWN];
-  set navDropdown(bool value) => props[_ValidatedHitareaPropsKey.NAV_DROPDOWN] = value;
+  bool get navDropdown;
+}
+
+class _ValidatedHitareaPropsMapView extends MapView with DomProps, ReactProps, _ValidatedHitareaProps {
+  _ValidatedHitareaPropsMapView(Map map) : super(map);
+  Map get props => this;
 }
 
 abstract class HitAreaMixin<P extends HitAreaProps> {
+  /// Standard HitAreaProps defaults.
+  static const Map defaultProps = const {
+    HitAreaProps.Z_$KEY__IS_ACTIVE: false,
+    HitAreaProps.Z_$KEY__IS_DISABLED: false,
+    HitAreaProps.Z_$KEY__IS_NAV_ITEM: false,
+    HitAreaProps.Z_$KEY__IS_NAV_DROPDOWN: false,
+  };
+
   P get tProps;
   Map get props;
 
@@ -336,7 +268,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
   _renderHitAreaComponent(HitAreaRenderer renderer, Map props, dynamic children) {
     assert(props != null);
     DomComponentDefinition componentBuilder = renderer.componentBuilderFactory();
-    componentBuilder.addProps(props);
+    componentBuilder.addProps(copyMap(props, HitAreaProps.Z_$propKeys));
 
     if (isClickable()) {
       componentBuilder.onClick = handleClick;
@@ -357,7 +289,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
         getValidatedHitAreaProps(hitAreaPropsMap, children, isNavItemHitArea);
     // extract renderer from props
     assert(hitAreaProps.renderer != null);
-    var renderer = hitAreaProps.remove(_ValidatedHitareaPropsKey.RENDERER);
+    var renderer = hitAreaProps.remove(_ValidatedHitareaProps.Z_$KEY__RENDERER);
     return _renderHitAreaComponent(renderer, hitAreaProps, children);
   }
 

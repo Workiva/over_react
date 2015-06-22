@@ -535,9 +535,9 @@ main() {
       });
 
     });
-    
-    
-    
+
+
+
     //
     // click handling
     //
@@ -706,8 +706,8 @@ class HitAreaTestComponent extends BaseComponent<HitAreaTestComponentDefinition>
   }
 
   @override
-  Map getDefaultProps() => (typedPropsFactory({})
-    ..addProps(HitAreaProps.getDefaults())
+  Map getDefaultProps() => (newProps()
+    ..addProps(HitAreaMixin.defaultProps)
   );
   @override
   HitAreaTestComponentDefinition typedPropsFactory(Map propsMap) => new HitAreaTestComponentDefinition(propsMap);
