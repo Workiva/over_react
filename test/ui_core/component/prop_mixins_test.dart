@@ -4,7 +4,6 @@ import 'package:test/test.dart';
 import 'package:w_ui_platform/ui_core.dart';
 
 import 'prop_utils.dart';
-import 'dart:mirrors';
 
 import 'dart:collection' show MapView;
 
