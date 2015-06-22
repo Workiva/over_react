@@ -6,6 +6,7 @@ import 'dart:collection' show MapView;
 import 'dart:js';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
+import 'package:w_ui_platform/code_generation/annotations.dart';
 
 //parts
 part 'src/ui_core/component/base_component.dart';
@@ -19,3 +20,5 @@ part 'src/ui_core/util/class_names.dart';
 part 'src/ui_core/util/map_util.dart';
 part 'src/ui_core/util/react_wrappers.dart';
 part 'src/ui_core/util/validation_util.dart';
+
+part 'ui_core.g.dart';
