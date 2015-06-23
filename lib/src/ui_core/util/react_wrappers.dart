@@ -66,7 +66,7 @@ Map getProps(JsObject instance) {
 }
 
 /// Returns whether the instance is a valid ReactElement and was created using the specified Dart factory
-bool isValidElementOfType(JsObject instance, ReactComponentFactory factory) {
+bool isValidElementOfType(dynamic instance, ReactComponentFactory factory) {
   // TODO: Add isValidElement() from UIP-284
   return isValidElement(instance) ? isComponentOfType(instance, factory) : false;
 }
@@ -74,7 +74,10 @@ bool isValidElementOfType(JsObject instance, ReactComponentFactory factory) {
 /// Returns whether the instance was created using the specified Dart factory
 /// TODO: Find better way of determining the type of rendered components
 bool isComponentOfType(JsObject instance, ReactComponentFactory factory) {
-  return factory is ReactComponentFactoryProxy && instance['type'] == factory.reactComponentFactory['type'];
+  if (instance != null && factory != null) {
+    return factory is ReactComponentFactoryProxy && instance['type'] == factory.reactComponentFactory['type'];
+  }
+   return false;
 }
 
 /// Dart wrapper for React.isValidElement.
