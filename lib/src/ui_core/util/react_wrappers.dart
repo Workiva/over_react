@@ -67,7 +67,6 @@ Map getProps(JsObject instance) {
 
 /// Returns whether the instance is a valid ReactElement and was created using the specified Dart factory
 bool isValidElementOfType(dynamic instance, ReactComponentFactory factory) {
-  // TODO: Add isValidElement() from UIP-284
   return isValidElement(instance) ? isComponentOfType(instance, factory) : false;
 }
 
