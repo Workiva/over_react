@@ -268,7 +268,9 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
   _renderHitAreaComponent(HitAreaRenderer renderer, Map props, dynamic children) {
     assert(props != null);
     DomComponentDefinition componentBuilder = renderer.componentBuilderFactory();
-    componentBuilder.addProps(copyMap(props, HitAreaProps.Z_$propKeys));
+    componentBuilder.addProps(
+        getPropsToForward(props, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys)
+    );
 
     if (isClickable()) {
       componentBuilder.onClick = handleClick;
