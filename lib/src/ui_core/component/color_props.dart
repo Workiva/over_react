@@ -99,7 +99,7 @@ abstract class ColorProps {
   TextColor get textColor => props[ColorPropsKey.TEXT_COLOR];
   set textColor(TextColor value) => props[ColorPropsKey.TEXT_COLOR] = value;
 
-  static Map getDefaults() => {
+  static const Map defaultProps = const {
     ColorPropsKey.BACKGROUND_COLOR: null,
     ColorPropsKey.BORDER_COLOR: null,
     ColorPropsKey.TEXT_COLOR: null,
