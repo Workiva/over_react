@@ -5,6 +5,8 @@ JsObject _React = context['React'];
 /// Returns the internal Map used by react-dart to maintain the native Dart component.
 Map _getInternal(JsObject instance) => instance[PROPS][INTERNAL];
 
+/// Returns the internal representation of a Dart component's props as maintained by react-dart
+/// Similar to ReactElement.props in JS, but also includes `key`, `ref` and `children`
 Map _getExtendedProps(JsObject instance) {
   return _getInternal(instance)[PROPS];
 }
