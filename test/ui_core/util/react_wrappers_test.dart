@@ -197,9 +197,3 @@ class TestComponent extends react.Component {
   render() => Dom.div()();
 }
 
-/// Helper component that renders whatever you tell it to. Necessary for rendering components with the 'ref' prop.
-ReactComponentFactory RenderingContainerComponentFactory = react.registerComponent(() => new RenderingContainerComponent());
-class RenderingContainerComponent extends react.Component {
-  @override
-  render() => props['renderer']();
-}
