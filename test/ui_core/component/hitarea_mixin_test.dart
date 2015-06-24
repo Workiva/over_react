@@ -9,7 +9,7 @@ import 'package:w_ui_platform/ui_components.dart';
 import '../../test_util/custom_matchers.dart';
 import 'dart:js';
 
-render(definition) => renderDefinition(definition).firstChild;
+render(definition) => renderAndGetDom(definition).firstChild;
 
 main() {
   group('HitAreaMixin', () {
