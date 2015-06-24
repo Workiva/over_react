@@ -4,7 +4,7 @@ part of w_ui_platform.ui_core;
 /// To use:
 /// - add [HitAreaProps] mixin class to component definition.
 /// - add [HitAreaMixin] mixin class to component class.
-/// - add defaults to getDefaultProps method of component class using getDefaults() call:
+/// - add defaults to getDefaultProps method of component class using [HitAreaMixin.defaultProps]
 ///   ..addProps(HitAreaMixin.defaultProps)
 /// - call the inherited `renderHitArea` method with `render` method of your component.
 @GenerateProps(#HitAreaProps)

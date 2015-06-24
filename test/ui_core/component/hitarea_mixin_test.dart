@@ -182,7 +182,6 @@ main() {
       });
     });
 
-
     //
     // checkbox elements
     //
@@ -227,7 +226,6 @@ main() {
         var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
         expect(hitAreaProps.buttonRef, equals("${hitAreaProps.inputRef}_button"));
       });
-
     });
 
     //
@@ -285,7 +283,6 @@ main() {
         var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
         expect(hitAreaProps.buttonRef, equals("${hitAreaProps.inputRef}_button"));
       });
-
     });
 
     //
@@ -533,10 +530,7 @@ main() {
         ));
         expect(hitarea.type, equals('reset'));
       });
-
     });
-
-
 
     //
     // click handling
@@ -689,10 +683,7 @@ main() {
     });
 
     // TODO: Test isClickable method
-
   });
-
-
 }
 
 class HitAreaTestComponentDefinition extends BaseComponentDefinition with HitAreaProps {
@@ -700,7 +691,6 @@ class HitAreaTestComponentDefinition extends BaseComponentDefinition with HitAre
 }
 
 class HitAreaTestComponent extends BaseComponent<HitAreaTestComponentDefinition> with HitAreaMixin<HitAreaTestComponentDefinition> {
-
   HitAreaTestComponent():super() {
     props = getDefaultProps();
   }
