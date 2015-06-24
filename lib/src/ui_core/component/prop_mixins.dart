@@ -14,16 +14,9 @@ abstract class _$template_ReactProps {
 /// To be used as a mixin for React components and builders.
 @GenerateProps(#CssClassProps, keyType: TypedMapKeyType.STRING)
 abstract class _$template_CssClassProps {
-  /// Map of class names to be added/omitted (true/false) to the resultant DOM.
-  /// Used within components with [w_ui_platform.class_names.classNames].
-  /// Precedence: props.classMap, props.className, added component props
-  @deprecated
-  Map<String, bool> get classMap;
-
   /// Class name to be added to the resultant DOM.
   /// Used within components with [w_ui_platform.class_names.classNames].
   /// Precedence: props.classMap, props.className, added component props
-  @deprecated
   String get className;
 
   String get classNameBlacklist;
