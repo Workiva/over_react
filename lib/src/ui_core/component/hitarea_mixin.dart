@@ -43,8 +43,8 @@ abstract class _$template_HitAreaProps {
 }
 
 /// Props used and set in [HitareaMixin.getValidatedHitAreaProps].
-@GenerateProps(#_ValidatedHitareaProps)
-abstract class $template__ValidatedHitareaProps {
+@GenerateProps(#ValidatedHitareaProps)
+abstract class $template_ValidatedHitareaProps {
   /// Renderer determined by getValidatedHitAreaProps used to render the hitarea.
   HitAreaRenderer get renderer;
   /// TODO: leftover from input component support?
@@ -59,8 +59,8 @@ abstract class $template__ValidatedHitareaProps {
   bool get navDropdown;
 }
 
-class _ValidatedHitareaPropsMapView extends MapView with DomProps, ReactProps, _ValidatedHitareaProps {
-  _ValidatedHitareaPropsMapView(Map map) : super(map);
+class ValidatedHitareaPropsMapView extends MapView with DomProps, ReactProps, ValidatedHitareaProps {
+  ValidatedHitareaPropsMapView(Map map) : super(map);
   Map get props => this;
 }
 
@@ -83,11 +83,11 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       tProps.onSelect != null ||
       DomNodeName.isClickable(tProps.domNodeName));
 
-  _ValidatedHitareaPropsMapView getValidatedHitAreaProps(Map hitAreaPropsMap, dynamic children,
+  ValidatedHitareaPropsMapView getValidatedHitAreaProps(Map hitAreaPropsMap, dynamic children,
       [bool isNavItemHitArea = false]) {
     assert(hitAreaPropsMap != null);
     HitAreaRenderer renderer = null;
-    var hitAreaProps = new _ValidatedHitareaPropsMapView(new Map.from(hitAreaPropsMap));
+    var hitAreaProps = new ValidatedHitareaPropsMapView(new Map.from(hitAreaPropsMap));
     hitAreaProps.id = tProps.id;
     hitAreaProps.role = tProps.role;
 
@@ -291,7 +291,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
         getValidatedHitAreaProps(hitAreaPropsMap, children, isNavItemHitArea);
     // extract renderer from props
     assert(hitAreaProps.renderer != null);
-    var renderer = hitAreaProps.remove(_ValidatedHitareaProps.Z_$KEY__RENDERER);
+    var renderer = hitAreaProps.remove(ValidatedHitareaProps.Z_$KEY__RENDERER);
     return _renderHitAreaComponent(renderer, hitAreaProps, children);
   }
 
