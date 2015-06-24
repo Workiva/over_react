@@ -16,7 +16,7 @@ abstract class _$template_ReactProps {
 abstract class _$template_CssClassProps {
   /// Class name to be added to the resultant DOM.
   /// Used within components with [w_ui_platform.class_names.classNames].
-  /// Precedence: props.classMap, props.className, added component props
+  /// Precedence: props.className, added component props
   String get className;
 
   String get classNameBlacklist;
