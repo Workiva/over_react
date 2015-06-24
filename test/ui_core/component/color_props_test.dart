@@ -15,15 +15,15 @@ main() {
     });
 
     test('backgroundColor', () {
-      testProp(#backgroundColor, ColorPropsKey.BACKGROUND_COLOR, instance, BackgroundColor.ALTERNATE);
+      testProp(#backgroundColor, ColorProps.Z_$KEY__BACKGROUND_COLOR, instance, BackgroundColor.ALTERNATE);
     });
 
     test('borderColor', () {
-      testProp(#borderColor, ColorPropsKey.BORDER_COLOR, instance, BorderColor.ALTERNATE);
+      testProp(#borderColor, ColorProps.Z_$KEY__BORDER_COLOR, instance, BorderColor.ALTERNATE);
     });
 
     test('textColor', () {
-      testProp(#textColor, ColorPropsKey.TEXT_COLOR, instance, TextColor.ALTERNATE);
+      testProp(#textColor, ColorProps.Z_$KEY__TEXT_COLOR, instance, TextColor.ALTERNATE);
     });
   });
 }
