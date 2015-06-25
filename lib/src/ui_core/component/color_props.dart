@@ -75,43 +75,47 @@ class _$template_TextColor {
   static const GRAY         = 'text-gray';
 }
 
-/// All of the keys used in [ColorProps].
-enum ColorPropsKey {
-  BACKGROUND_COLOR,
-  BORDER_COLOR,
-  TEXT_COLOR
-}
-
 /// Mixin for component definitions with color props for background, border, and text.
 abstract class ColorProps {
   Map get props;
 
   /// Prop for specifying the background color for components that support it.
-  BackgroundColor get backgroundColor => props[ColorPropsKey.BACKGROUND_COLOR];
-  set backgroundColor(BackgroundColor value) => props[ColorPropsKey.BACKGROUND_COLOR] = value;
+  BackgroundColor get backgroundColor        => props[Z_$KEY__BACKGROUND_COLOR];
+  set backgroundColor(BackgroundColor value) => props[Z_$KEY__BACKGROUND_COLOR] = value;
 
   /// Prop for specifying the border color for components that support it.
   /// This prop will only work if the element already has a 'border-width'
   /// and 'border-style' CSS property set.
-  BorderColor get borderColor => props[ColorPropsKey.BORDER_COLOR];
-  set borderColor(BorderColor value) => props[ColorPropsKey.BORDER_COLOR] = value;
+  BorderColor get borderColor                => props[Z_$KEY__BORDER_COLOR];
+  set borderColor(BorderColor value)         => props[Z_$KEY__BORDER_COLOR] = value;
 
-  TextColor get textColor => props[ColorPropsKey.TEXT_COLOR];
-  set textColor(TextColor value) => props[ColorPropsKey.TEXT_COLOR] = value;
+  TextColor get textColor                    => props[Z_$KEY__TEXT_COLOR];
+  set textColor(TextColor value)             => props[Z_$KEY__TEXT_COLOR] = value;
 
-  static Map getDefaults() => {
-    ColorPropsKey.BACKGROUND_COLOR: null,
-    ColorPropsKey.BORDER_COLOR: null,
-    ColorPropsKey.TEXT_COLOR: null,
+  static const String Z_$KEY__BACKGROUND_COLOR = 'uip_ColorProps.backgroundColor';
+  static const String Z_$KEY__BORDER_COLOR     = 'uip_ColorProps.borderColor';
+  static const String Z_$KEY__TEXT_COLOR       = 'uip_ColorProps.textColor';
+
+  /// All the keys used for props in [ColorProps].
+  static const List<String> Z_$propKeys = const [
+    Z_$KEY__BACKGROUND_COLOR,
+    Z_$KEY__BORDER_COLOR,
+    Z_$KEY__TEXT_COLOR,
+  ];
+
+  static const Map defaultProps = const {
+    Z_$KEY__BACKGROUND_COLOR: null,
+    Z_$KEY__BORDER_COLOR: null,
+    Z_$KEY__TEXT_COLOR: null,
   };
 
-  /// Returns a [Map] of classnames based on existence of values of color props.
-  static String getClassNames(Map props) {
+  /// Returns a className corresponding to the [ColorProps] set in the specified [props] Map.
+  static String getClassName(Map props) {
     ClassNameBuilder classes = new ClassNameBuilder();
 
-    ColorPropsKey.values.forEach((propKey) {
-      if (props.containsKey(propKey) && props[propKey] != null) {
-        classes.add(props[propKey].className);
+    Z_$propKeys.forEach((key) {
+      if (props[key] != null) {
+        classes.add(props[key].className);
       }
     });
 
