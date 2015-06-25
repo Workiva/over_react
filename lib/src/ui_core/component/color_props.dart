@@ -103,12 +103,6 @@ abstract class ColorProps {
     Z_$KEY__TEXT_COLOR,
   ];
 
-  static const Map defaultProps = const {
-    Z_$KEY__BACKGROUND_COLOR: null,
-    Z_$KEY__BORDER_COLOR: null,
-    Z_$KEY__TEXT_COLOR: null,
-  };
-
   /// Returns a className corresponding to the [ColorProps] set in the specified [props] Map.
   static String getClassName(Map props) {
     ClassNameBuilder classes = new ClassNameBuilder();
