@@ -9,264 +9,264 @@ class DomComponentDefinition extends ComponentDefinition with DomProps, ReactPro
 typedef DomComponentDefinition DomComponentDefinitionFactory();
 
 class Dom {
-  /// Returns a DomComponentDefinition of nodeName: <a>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<a>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition a() => new DomComponentDefinition(react.a);
-  /// Returns a DomComponentDefinition of nodeName: <abbr>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<abbr>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition abbr() => new DomComponentDefinition(react.abbr);
-  /// Returns a DomComponentDefinition of nodeName: <address>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<address>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition address() => new DomComponentDefinition(react.address);
-  /// Returns a DomComponentDefinition of nodeName: <area>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<area>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition area() => new DomComponentDefinition(react.area);
-  /// Returns a DomComponentDefinition of nodeName: <article>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<article>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition article() => new DomComponentDefinition(react.article);
-  /// Returns a DomComponentDefinition of nodeName: <aside>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<aside>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition aside() => new DomComponentDefinition(react.aside);
-  /// Returns a DomComponentDefinition of nodeName: <audio>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<audio>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition audio() => new DomComponentDefinition(react.audio);
-  /// Returns a DomComponentDefinition of nodeName: <b>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<b>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition b() => new DomComponentDefinition(react.b);
-  /// Returns a DomComponentDefinition of nodeName: <base>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<base>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition base() => new DomComponentDefinition(react.base);
-  /// Returns a DomComponentDefinition of nodeName: <bdi>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<bdi>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition bdi() => new DomComponentDefinition(react.bdi);
-  /// Returns a DomComponentDefinition of nodeName: <bdo>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<bdo>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition bdo() => new DomComponentDefinition(react.bdo);
-  /// Returns a DomComponentDefinition of nodeName: <big>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<big>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition big() => new DomComponentDefinition(react.big);
-  /// Returns a DomComponentDefinition of nodeName: <blockquote>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<blockquote>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition blockquote() => new DomComponentDefinition(react.blockquote);
-  /// Returns a DomComponentDefinition of nodeName: <body>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<body>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition body() => new DomComponentDefinition(react.body);
-  /// Returns a DomComponentDefinition of nodeName: <br>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<br>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition br() => new DomComponentDefinition(react.br);
-  /// Returns a DomComponentDefinition of nodeName: <button>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<button>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition button() => new DomComponentDefinition(react.button);
-  /// Returns a DomComponentDefinition of nodeName: <canvas>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<canvas>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition canvas() => new DomComponentDefinition(react.canvas);
-  /// Returns a DomComponentDefinition of nodeName: <caption>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<caption>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition caption() => new DomComponentDefinition(react.caption);
-  /// Returns a DomComponentDefinition of nodeName: <cite>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<cite>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition cite() => new DomComponentDefinition(react.cite);
-  /// Returns a DomComponentDefinition of nodeName: <code>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<code>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition code() => new DomComponentDefinition(react.code);
-  /// Returns a DomComponentDefinition of nodeName: <col>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<col>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition col() => new DomComponentDefinition(react.col);
-  /// Returns a DomComponentDefinition of nodeName: <colgroup>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<colgroup>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition colgroup() => new DomComponentDefinition(react.colgroup);
-  /// Returns a DomComponentDefinition of nodeName: <data>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<data>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition data() => new DomComponentDefinition(react.data);
-  /// Returns a DomComponentDefinition of nodeName: <datalist>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<datalist>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition datalist() => new DomComponentDefinition(react.datalist);
-  /// Returns a DomComponentDefinition of nodeName: <dd>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<dd>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition dd() => new DomComponentDefinition(react.dd);
-  /// Returns a DomComponentDefinition of nodeName: <del>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<del>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition del() => new DomComponentDefinition(react.del);
-  /// Returns a DomComponentDefinition of nodeName: <details>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<details>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition details() => new DomComponentDefinition(react.details);
-  /// Returns a DomComponentDefinition of nodeName: <dfn>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<dfn>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition dfn() => new DomComponentDefinition(react.dfn);
-  /// Returns a DomComponentDefinition of nodeName: <dialog>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<dialog>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition dialog() => new DomComponentDefinition(react.dialog);
-  /// Returns a DomComponentDefinition of nodeName: <div>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<div>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition div() => new DomComponentDefinition(react.div);
-  /// Returns a DomComponentDefinition of nodeName: <dl>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<dl>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition dl() => new DomComponentDefinition(react.dl);
-  /// Returns a DomComponentDefinition of nodeName: <dt>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<dt>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition dt() => new DomComponentDefinition(react.dt);
-  /// Returns a DomComponentDefinition of nodeName: <em>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<em>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition em() => new DomComponentDefinition(react.em);
-  /// Returns a DomComponentDefinition of nodeName: <embed>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<embed>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition embed() => new DomComponentDefinition(react.embed);
-  /// Returns a DomComponentDefinition of nodeName: <fieldset>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<fieldset>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition fieldset() => new DomComponentDefinition(react.fieldset);
-  /// Returns a DomComponentDefinition of nodeName: <figcaption>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<figcaption>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition figcaption() => new DomComponentDefinition(react.figcaption);
-  /// Returns a DomComponentDefinition of nodeName: <figure>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<figure>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition figure() => new DomComponentDefinition(react.figure);
-  /// Returns a DomComponentDefinition of nodeName: <footer>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<footer>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition footer() => new DomComponentDefinition(react.footer);
-  /// Returns a DomComponentDefinition of nodeName: <form>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<form>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition form() => new DomComponentDefinition(react.form);
-  /// Returns a DomComponentDefinition of nodeName: <h1>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<h1>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition h1() => new DomComponentDefinition(react.h1);
-  /// Returns a DomComponentDefinition of nodeName: <h2>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<h2>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition h2() => new DomComponentDefinition(react.h2);
-  /// Returns a DomComponentDefinition of nodeName: <h3>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<h3>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition h3() => new DomComponentDefinition(react.h3);
-  /// Returns a DomComponentDefinition of nodeName: <h4>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<h4>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition h4() => new DomComponentDefinition(react.h4);
-  /// Returns a DomComponentDefinition of nodeName: <h5>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<h5>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition h5() => new DomComponentDefinition(react.h5);
-  /// Returns a DomComponentDefinition of nodeName: <h6>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<h6>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition h6() => new DomComponentDefinition(react.h6);
-  /// Returns a DomComponentDefinition of nodeName: <head>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<head>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition head() => new DomComponentDefinition(react.head);
-  /// Returns a DomComponentDefinition of nodeName: <header>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<header>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition header() => new DomComponentDefinition(react.header);
-  /// Returns a DomComponentDefinition of nodeName: <hr>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<hr>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition hr() => new DomComponentDefinition(react.hr);
-  /// Returns a DomComponentDefinition of nodeName: <html>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<html>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition html() => new DomComponentDefinition(react.html);
-  /// Returns a DomComponentDefinition of nodeName: <i>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<i>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition i() => new DomComponentDefinition(react.i);
-  /// Returns a DomComponentDefinition of nodeName: <iframe>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<iframe>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition iframe() => new DomComponentDefinition(react.iframe);
-  /// Returns a DomComponentDefinition of nodeName: <img>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<img>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition img() => new DomComponentDefinition(react.img);
-  /// Returns a DomComponentDefinition of nodeName: <input>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<input>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition input() => new DomComponentDefinition(react.input);
-  /// Returns a DomComponentDefinition of nodeName: <ins>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<ins>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition ins() => new DomComponentDefinition(react.ins);
-  /// Returns a DomComponentDefinition of nodeName: <kbd>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<kbd>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition kbd() => new DomComponentDefinition(react.kbd);
-  /// Returns a DomComponentDefinition of nodeName: <keygen>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<keygen>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition keygen() => new DomComponentDefinition(react.keygen);
-  /// Returns a DomComponentDefinition of nodeName: <label>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<label>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition label() => new DomComponentDefinition(react.label);
-  /// Returns a DomComponentDefinition of nodeName: <legend>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<legend>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition legend() => new DomComponentDefinition(react.legend);
-  /// Returns a DomComponentDefinition of nodeName: <li>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<li>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition li() => new DomComponentDefinition(react.li);
-  /// Returns a DomComponentDefinition of nodeName: <link>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<link>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition link() => new DomComponentDefinition(react.link);
-  /// Returns a DomComponentDefinition of nodeName: <main>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<main>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition main() => new DomComponentDefinition(react.main);
-  /// Returns a DomComponentDefinition of nodeName: <map>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<map>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition map() => new DomComponentDefinition(react.map);
-  /// Returns a DomComponentDefinition of nodeName: <mark>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<mark>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition mark() => new DomComponentDefinition(react.mark);
-  /// Returns a DomComponentDefinition of nodeName: <menu>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<menu>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition menu() => new DomComponentDefinition(react.menu);
-  /// Returns a DomComponentDefinition of nodeName: <menuitem>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<menuitem>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition menuitem() => new DomComponentDefinition(react.menuitem);
-  /// Returns a DomComponentDefinition of nodeName: <meta>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<meta>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition meta() => new DomComponentDefinition(react.meta);
-  /// Returns a DomComponentDefinition of nodeName: <meter>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<meter>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition meter() => new DomComponentDefinition(react.meter);
-  /// Returns a DomComponentDefinition of nodeName: <nav>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<nav>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition nav() => new DomComponentDefinition(react.nav);
-  /// Returns a DomComponentDefinition of nodeName: <noscript>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<noscript>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition noscript() => new DomComponentDefinition(react.noscript);
-  /// Returns a DomComponentDefinition of nodeName: <object>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<object>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition object() => new DomComponentDefinition(react.object);
-  /// Returns a DomComponentDefinition of nodeName: <ol>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<ol>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition ol() => new DomComponentDefinition(react.ol);
-  /// Returns a DomComponentDefinition of nodeName: <optgroup>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<optgroup>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition optgroup() => new DomComponentDefinition(react.optgroup);
-  /// Returns a DomComponentDefinition of nodeName: <option>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<option>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition option() => new DomComponentDefinition(react.option);
-  /// Returns a DomComponentDefinition of nodeName: <output>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<output>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition output() => new DomComponentDefinition(react.output);
-  /// Returns a DomComponentDefinition of nodeName: <p>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<p>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition p() => new DomComponentDefinition(react.p);
-  /// Returns a DomComponentDefinition of nodeName: <param>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<param>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition param() => new DomComponentDefinition(react.param);
-  /// Returns a DomComponentDefinition of nodeName: <picture>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<picture>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition picture() => new DomComponentDefinition(react.picture);
-  /// Returns a DomComponentDefinition of nodeName: <pre>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<pre>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition pre() => new DomComponentDefinition(react.pre);
-  /// Returns a DomComponentDefinition of nodeName: <progress>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<progress>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition progress() => new DomComponentDefinition(react.progress);
-  /// Returns a DomComponentDefinition of nodeName: <q>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<q>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition q() => new DomComponentDefinition(react.q);
-  /// Returns a DomComponentDefinition of nodeName: <rp>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<rp>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition rp() => new DomComponentDefinition(react.rp);
-  /// Returns a DomComponentDefinition of nodeName: <rt>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<rt>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition rt() => new DomComponentDefinition(react.rt);
-  /// Returns a DomComponentDefinition of nodeName: <ruby>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<ruby>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition ruby() => new DomComponentDefinition(react.ruby);
-  /// Returns a DomComponentDefinition of nodeName: <s>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<s>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition s() => new DomComponentDefinition(react.s);
-  /// Returns a DomComponentDefinition of nodeName: <samp>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<samp>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition samp() => new DomComponentDefinition(react.samp);
-  /// Returns a DomComponentDefinition of nodeName: <script>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<script>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition script() => new DomComponentDefinition(react.script);
-  /// Returns a DomComponentDefinition of nodeName: <section>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<section>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition section() => new DomComponentDefinition(react.section);
-  /// Returns a DomComponentDefinition of nodeName: <select>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<select>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition select() => new DomComponentDefinition(react.select);
-  /// Returns a DomComponentDefinition of nodeName: <small>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<small>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition small() => new DomComponentDefinition(react.small);
-  /// Returns a DomComponentDefinition of nodeName: <source>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<source>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition source() => new DomComponentDefinition(react.source);
-  /// Returns a DomComponentDefinition of nodeName: <span>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<span>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition span() => new DomComponentDefinition(react.span);
-  /// Returns a DomComponentDefinition of nodeName: <strong>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<strong>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition strong() => new DomComponentDefinition(react.strong);
-  /// Returns a DomComponentDefinition of nodeName: <style>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<style>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition style() => new DomComponentDefinition(react.style);
-  /// Returns a DomComponentDefinition of nodeName: <sub>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<sub>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition sub() => new DomComponentDefinition(react.sub);
-  /// Returns a DomComponentDefinition of nodeName: <summary>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<summary>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition summary() => new DomComponentDefinition(react.summary);
-  /// Returns a DomComponentDefinition of nodeName: <sup>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<sup>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition sup() => new DomComponentDefinition(react.sup);
-  /// Returns a DomComponentDefinition of nodeName: <table>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<table>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition table() => new DomComponentDefinition(react.table);
-  /// Returns a DomComponentDefinition of nodeName: <tbody>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<tbody>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition tbody() => new DomComponentDefinition(react.tbody);
-  /// Returns a DomComponentDefinition of nodeName: <td>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<td>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition td() => new DomComponentDefinition(react.td);
-  /// Returns a DomComponentDefinition of nodeName: <textarea>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<textarea>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition textarea() => new DomComponentDefinition(react.textarea);
-  /// Returns a DomComponentDefinition of nodeName: <tfoot>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<tfoot>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition tfoot() => new DomComponentDefinition(react.tfoot);
-  /// Returns a DomComponentDefinition of nodeName: <th>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<th>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition th() => new DomComponentDefinition(react.th);
-  /// Returns a DomComponentDefinition of nodeName: <thead>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<thead>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition thead() => new DomComponentDefinition(react.thead);
-  /// Returns a DomComponentDefinition of nodeName: <time>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<time>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition time() => new DomComponentDefinition(react.time);
-  /// Returns a DomComponentDefinition of nodeName: <title>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<title>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition title() => new DomComponentDefinition(react.title);
-  /// Returns a DomComponentDefinition of nodeName: <tr>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<tr>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition tr() => new DomComponentDefinition(react.tr);
-  /// Returns a DomComponentDefinition of nodeName: <track>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<track>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition track() => new DomComponentDefinition(react.track);
-  /// Returns a DomComponentDefinition of nodeName: <u>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<u>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition u() => new DomComponentDefinition(react.u);
-  /// Returns a DomComponentDefinition of nodeName: <ul>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<ul>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition ul() => new DomComponentDefinition(react.ul);
-  /// Returns a DomComponentDefinition of nodeName: <variable>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<var>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition variable() => new DomComponentDefinition(react.variable);
-  /// Returns a DomComponentDefinition of nodeName: <video>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<video>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition video() => new DomComponentDefinition(react.video);
-  /// Returns a DomComponentDefinition of nodeName: <wbr>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<wbr>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition wbr() => new DomComponentDefinition(react.wbr);
 
   // SVG Elements
-  /// Returns a DomComponentDefinition of nodeName: <circle>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<circle>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition circle() => new DomComponentDefinition(react.circle);
-  /// Returns a DomComponentDefinition of nodeName: <g>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<g>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition g() => new DomComponentDefinition(react.g);
-  /// Returns a DomComponentDefinition of nodeName: <defs>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<defs>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition defs() => new DomComponentDefinition(react.defs);
-  /// Returns a DomComponentDefinition of nodeName: <ellipse>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders an `<ellipse>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition ellipse() => new DomComponentDefinition(react.ellipse);
-  /// Returns a DomComponentDefinition of nodeName: <line>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<line>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition line() => new DomComponentDefinition(react.line);
-  /// Returns a DomComponentDefinition of nodeName: <linearGradient>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<linearGradient>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition linearGradient() => new DomComponentDefinition(react.linearGradient);
-  /// Returns a DomComponentDefinition of nodeName: <mask>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<mask>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition mask() => new DomComponentDefinition(react.mask);
-  /// Returns a DomComponentDefinition of nodeName: <path>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<path>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition path() => new DomComponentDefinition(react.path);
-  /// Returns a DomComponentDefinition of nodeName: <pattern>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<pattern>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition pattern() => new DomComponentDefinition(react.pattern);
-  /// Returns a DomComponentDefinition of nodeName: <polygon>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<polygon>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition polygon() => new DomComponentDefinition(react.polygon);
-  /// Returns a DomComponentDefinition of nodeName: <polyline>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<polyline>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition polyline() => new DomComponentDefinition(react.polyline);
-  /// Returns a DomComponentDefinition of nodeName: <radialGradient>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<radialGradient>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition radialGradient() => new DomComponentDefinition(react.radialGradient);
-  /// Returns a DomComponentDefinition of nodeName: <rect>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<rect>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition rect() => new DomComponentDefinition(react.rect);
-  /// Returns a DomComponentDefinition of nodeName: <svg>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<svg>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition svg() => new DomComponentDefinition(react.svg);
-  /// Returns a DomComponentDefinition of nodeName: <stop>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<stop>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition stop() => new DomComponentDefinition(react.stop);
-  /// Returns a DomComponentDefinition of nodeName: <text>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<text>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition text() => new DomComponentDefinition(react.text);
-  /// Returns a DomComponentDefinition of nodeName: <tspan>, which can have any attribute of [DomProps] added to it.
+  /// Returns a new [DomComponentDefinition] that renders a `<tspan>` tag with getters/setters for all DOM-related React props
   static DomComponentDefinition tspan() => new DomComponentDefinition(react.tspan);
 }
