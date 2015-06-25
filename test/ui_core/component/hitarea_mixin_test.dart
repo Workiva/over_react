@@ -9,7 +9,7 @@ import 'package:w_ui_platform/ui_components.dart';
 import '../../test_util/custom_matchers.dart';
 import 'dart:js';
 
-render(definition) => renderDefinition(definition).firstChild;
+render(definition) => renderAndGetDom(definition).firstChild;
 
 main() {
   group('HitAreaMixin', () {
@@ -182,7 +182,6 @@ main() {
       });
     });
 
-
     //
     // checkbox elements
     //
@@ -227,7 +226,6 @@ main() {
         var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
         expect(hitAreaProps.buttonRef, equals("${hitAreaProps.inputRef}_button"));
       });
-
     });
 
     //
@@ -285,7 +283,6 @@ main() {
         var hitAreaProps = component.getValidatedHitAreaProps(component.props, []);
         expect(hitAreaProps.buttonRef, equals("${hitAreaProps.inputRef}_button"));
       });
-
     });
 
     //
@@ -533,11 +530,8 @@ main() {
         ));
         expect(hitarea.type, equals('reset'));
       });
-
     });
-    
-    
-    
+
     //
     // click handling
     //
@@ -546,7 +540,7 @@ main() {
         bool onSelectCalled = false;
         var hitarea = (MenuItem()
           ..eventKey = '123'
-          ..onSelect = (key, href, target) {
+          ..onSelect = (event, key, href, target) {
             zonedExpect(key, equals('123'));
             onSelectCalled = true;
           }
@@ -593,7 +587,7 @@ main() {
             onClickCalled = true;
             return true;
           }
-          ..onSelect = (key, href, target) {
+          ..onSelect = (event, key, href, target) {
             zonedExpect(key, equals('123'));
             onSelectCalled = true;
           }
@@ -614,7 +608,7 @@ main() {
             onClickCalled = true;
             return false;
           }
-          ..onSelect = (key, href, target) {
+          ..onSelect = (event, key, href, target) {
             zonedExpect(key, equals('123'));
             onSelectCalled = true;
           }
@@ -634,7 +628,7 @@ main() {
             zonedExpect(event is SyntheticEvent, equals(true));
             onClickCalled = true;
           }
-          ..onSelect = (key, href, target) {
+          ..onSelect = (event, key, href, target) {
             zonedExpect(key, equals('123'));
             onSelectCalled = true;
           }
@@ -655,7 +649,7 @@ main() {
             zonedExpect(event is SyntheticEvent, equals(true));
             onClickCalled = true;
           }
-          ..onSelect = (key, href, target) {
+          ..onSelect = (event, key, href, target) {
             zonedExpect(key, equals('123'));
             onSelectCalled = true;
           }
@@ -689,10 +683,7 @@ main() {
     });
 
     // TODO: Test isClickable method
-
   });
-
-
 }
 
 class HitAreaTestComponentDefinition extends BaseComponentDefinition with HitAreaProps {
@@ -700,14 +691,13 @@ class HitAreaTestComponentDefinition extends BaseComponentDefinition with HitAre
 }
 
 class HitAreaTestComponent extends BaseComponent<HitAreaTestComponentDefinition> with HitAreaMixin<HitAreaTestComponentDefinition> {
-
   HitAreaTestComponent():super() {
     props = getDefaultProps();
   }
 
   @override
-  Map getDefaultProps() => (typedPropsFactory({})
-    ..addProps(HitAreaProps.getDefaults())
+  Map getDefaultProps() => (newProps()
+    ..addProps(HitAreaMixin.defaultProps)
   );
   @override
   HitAreaTestComponentDefinition typedPropsFactory(Map propsMap) => new HitAreaTestComponentDefinition(propsMap);
