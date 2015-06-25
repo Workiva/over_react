@@ -282,8 +282,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
   /// Primary method for rendering a hitarea component which returns a react component instance.
   /// This should be called from within consuming component's [render] method with
   /// the props/children that should be used for rendering the hitarea element.
-  renderHitArea(Map hitAreaPropsMap, dynamic children,
-      [bool isNavItemHitArea = false]) {
+  renderHitArea(Map hitAreaPropsMap, dynamic children, {bool isNavItemHitArea: false}) {
     // consumer must pass initial props
     assert(hitAreaPropsMap != null);
     // validate and supplement props
