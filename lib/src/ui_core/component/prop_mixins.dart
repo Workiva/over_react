@@ -14,11 +14,14 @@ abstract class _$template_ReactProps {
 /// To be used as a mixin for React components and builders.
 @GenerateProps(#CssClassProps, keyType: TypedMapKeyType.STRING)
 abstract class _$template_CssClassProps {
-  /// Class name to be added to the resultant DOM.
-  /// Used within components with [w_ui_platform.class_names.classNames].
-  /// Precedence: props.className, added component props
+  /// String of space-delimited CSS classes to be added to the resultant DOM.
+  ///
+  /// All w_ui_platform components merge any added classes with this prop and the [classNameBlacklist] prop (see [BaseComponent.forwardingClassNameBuilder]).
   String get className;
 
+  /// String of space-delimited CSS classes to be blacklisted from being added to the resultant DOM.
+  ///
+  /// All w_ui_platform components merge any added classes with this prop and the [className] prop (see [BaseComponent.forwardingClassNameBuilder]).
   String get classNameBlacklist;
 }
 
