@@ -1,6 +1,19 @@
 /// [ComponentDefinition]-based api with typed props for react-dart DOM components.
 part of w_ui_platform.ui_core;
 
+
+class DomPropsMapView extends MapView with DomProps {
+  /// Create a new instance backed by the specified map.
+  DomPropsMapView(Map map) : super(map);
+
+  /// The props to be manipulated via the getters/setters.
+  /// In this case, it's the current MapView object.
+  @override
+  Map get props => this;
+}
+
+DomPropsMapView domProps([Map backingMap]) => new DomPropsMapView(backingMap == null ? {} : backingMap);
+
 /// A component builder with typed props for built-in DOM components.
 class DomComponentDefinition extends ComponentDefinition with DomProps, ReactProps {
   DomComponentDefinition(ReactComponentFactory componentFactory, [Map props]) : super(componentFactory, props);
