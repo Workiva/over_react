@@ -58,13 +58,3 @@ abstract class _$template_DomProps {
   bool defaultChecked;
   dynamic defaultValue;
 }
-
-class DomPropsMapView extends MapView with DomProps {
-  /// Create a new instance backed by the specified map.
-  DomPropsMapView(Map map) : super(map);
-
-  /// The props to be manipulated via the getters/setters.
-  /// In this case, it's the current MapView object.
-  @override
-  Map get props => this;
-}
