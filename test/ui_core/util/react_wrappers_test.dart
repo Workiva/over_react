@@ -5,6 +5,7 @@ import 'package:react/react_client.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:w_ui_platform/ui_core.dart';
+import 'package:w_ui_platform/ui_components.dart';
 
 import '../../test_util/react_util.dart';
 
@@ -168,7 +169,7 @@ main() {
       });
     });
 
-    group('isValidElement', () {
+    group('isValidElement()', () {
       group('returns expected result when given', (){
         test('null', () {
           expect(isValidElement(null), isFalse);
@@ -187,6 +188,42 @@ main() {
         });
       });
     });
+
+    group('isComponentOfType()', () {
+      group('returns expected result when given', (){
+        test('null', () {
+          expect(isComponentOfType(null, Icon().componentFactory), isFalse);
+        });
+
+        test('a component and a component factory for a different component', () {
+          expect(isComponentOfType(MenuItem()(), Icon().componentFactory), isFalse);
+        });
+
+        test('a component and its component factory', () {
+          expect(isComponentOfType(Icon()(), Icon().componentFactory), isTrue);
+        });
+      });
+    });
+
+    group('isValidElementOfType()', () {
+      group('returns expected result when given', (){
+        test('null', () {
+          expect(isValidElementOfType(null, Icon().componentFactory), isFalse);
+        });
+
+        test('a String', () {
+          expect(isValidElementOfType('Test String', Icon().componentFactory), isFalse);
+        });
+
+        test('a List', () {
+          expect(isValidElementOfType(['item1', 'item2'], Icon().componentFactory), isFalse);
+        });
+
+        test('a ReactComponent', () {
+          expect(isValidElementOfType(Dom.div()(), Dom.div().componentFactory), isTrue);
+        });
+      });
+    });
   });
 }
 
@@ -197,9 +234,3 @@ class TestComponent extends react.Component {
   render() => Dom.div()();
 }
 
-/// Helper component that renders whatever you tell it to. Necessary for rendering components with the 'ref' prop.
-ReactComponentFactory RenderingContainerComponentFactory = react.registerComponent(() => new RenderingContainerComponent());
-class RenderingContainerComponent extends react.Component {
-  @override
-  render() => props['renderer']();
-}
