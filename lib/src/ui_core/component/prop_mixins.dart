@@ -14,11 +14,14 @@ abstract class _$template_ReactProps {
 /// To be used as a mixin for React components and builders.
 @GenerateProps(#CssClassProps, keyType: TypedMapKeyType.STRING)
 abstract class _$template_CssClassProps {
-  /// Class name to be added to the resultant DOM.
-  /// Used within components with [w_ui_platform.class_names.classNames].
-  /// Precedence: props.className, added component props
+  /// String of space-delimited CSS classes to be added to the resultant DOM.
+  ///
+  /// All w_ui_platform components merge any added classes with this prop and the [classNameBlacklist] prop (see [BaseComponent.forwardingClassNameBuilder]).
   String get className;
 
+  /// String of space-delimited CSS classes to be blacklisted from being added to the resultant DOM.
+  ///
+  /// All w_ui_platform components merge any added classes with this prop and the [className] prop (see [BaseComponent.forwardingClassNameBuilder]).
   String get classNameBlacklist;
 }
 
@@ -57,14 +60,4 @@ abstract class _$template_DomProps {
   // props specific to React.INPUT
   bool defaultChecked;
   dynamic defaultValue;
-}
-
-class DomPropsMapView extends MapView with DomProps {
-  /// Create a new instance backed by the specified map.
-  DomPropsMapView(Map map) : super(map);
-
-  /// The props to be manipulated via the getters/setters.
-  /// In this case, it's the current MapView object.
-  @override
-  Map get props => this;
 }

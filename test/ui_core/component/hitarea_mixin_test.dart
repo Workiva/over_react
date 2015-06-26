@@ -295,7 +295,7 @@ main() {
           ..type = ClickableDomInputType.CHECKBOX
           ..id = 'checkbox1'
           ..isActive = false
-          ..addProp('checked', true)
+          ..addProps(domProps()..checked = true)
         ));
         expect(hitarea.checked, equals(true));
         expect(hitarea.defaultChecked, equals(true));
@@ -306,7 +306,7 @@ main() {
           ..isActive = false
           ..type = ClickableDomInputType.RADIO
           ..id = 'radio1'
-          ..addProp('defaultChecked', true)
+          ..addProps(domProps()..defaultChecked = true)
         ));
         expect(hitarea.defaultChecked, equals(true));
         expect(hitarea, hasClasses(['active']));
@@ -319,7 +319,7 @@ main() {
         hitarea = render((MenuItem()
           ..type = ClickableDomInputType.CHECKBOX
           ..id = 'checkbox1'
-          ..addProp('checked', true)
+          ..addProps(domProps()..checked = true)
         ));
         expect(hitarea.checked, equals(true));
         expect(hitarea.defaultChecked, equals(true));
@@ -327,7 +327,7 @@ main() {
         hitarea = render((MenuItem()
           ..type = ClickableDomInputType.RADIO
           ..id = 'radio1'
-          ..addProp('checked', true)
+          ..addProps(domProps()..checked = true)
         ));
         expect(hitarea.checked, equals(true));
         expect(hitarea.defaultChecked, equals(true));
@@ -339,7 +339,7 @@ main() {
         hitarea = render((MenuItem()
           ..type = ClickableDomInputType.CHECKBOX
           ..id = 'checkbox1'
-          ..addProp('checked', true)
+          ..addProps(domProps()..checked = true)
         ));
         expect(hitarea.checked, equals(true));
         expect(hitarea.defaultChecked, equals(true));
@@ -349,7 +349,7 @@ main() {
         hitarea = render((MenuItem()
           ..type = ClickableDomInputType.RADIO
           ..id = 'radio1'
-          ..addProp('checked', true)
+          ..addProps(domProps()..checked = true)
         ));
         expect(hitarea.defaultChecked, equals(true));
         expect(hitarea, hasClasses(['active']));
