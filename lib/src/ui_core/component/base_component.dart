@@ -33,7 +33,7 @@ abstract class BaseComponent<T extends ComponentDefinition> extends react.Compon
   }
 }
 
-/// A component used as the base for all state w_ui_platform components.
+/// A component used as the base for all stateful w_ui_platform components.
 ///
 /// Contains built-in support for generic typed props/state and other utility methods.
 abstract class BaseComponentWithState<T extends ComponentDefinition, S extends Map> extends BaseComponent<T> with TypedStateGetter<S> {}
