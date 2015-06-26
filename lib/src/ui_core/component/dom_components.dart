@@ -22,6 +22,7 @@ class DomPropsMapView extends MapView with DomProps {
 /// <!>    ..title = 'tooltip for my component'
 /// <!>  )
 /// </pre>
+/// <!-- use pre tags and HTML markup until WebStorm fully supports Dart doc comment markdown -->
 DomPropsMapView domProps([Map backingMap]) => new DomPropsMapView(backingMap == null ? {} : backingMap);
 
 /// A component builder with typed props for built-in DOM components.
