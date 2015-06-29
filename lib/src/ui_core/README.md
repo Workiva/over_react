@@ -34,7 +34,7 @@ Usage involves:
   2. Setting props on it via the typed setters 
   3. Invoking the `build()` function to get a `JsObject` React component
   
-See [Fluent-style component consumption](fluent-style-component-consumption) for more examples on builder usage.
+See [Fluent-style component consumption](#fluent-style-component-consumption) for more examples on builder usage.
  
 ## Fluent-style component consumption
 
