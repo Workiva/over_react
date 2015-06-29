@@ -8,6 +8,7 @@ w_ui_platform also provides a framework for building strongly-typed React compon
     * [As a builder](#as-a-builder)
   * __[`BaseComponent`](#basecomponent)__
     * [`TypedPropsGetter` and `TypedStateGetter`](#typedpropsgetter-and-typedstategetter)
+* __[`DomProps` and `DomComponentDefinition`](#domprops-and-domcomponentdefinition)__
 * __[Fluent-style component consumption](#fluent-style-component-consumption)__
 * __[Building your own components](#building-your-own-components)__
 
@@ -17,7 +18,7 @@ w_ui_platform also provides a framework for building strongly-typed React compon
 ### ComponentDefinition
 The abstract `ComponentDefinition` class serves as the basis for implementing and consuming strongly-typed props.
 
-(An abstract subclass `BaseComponentDefinition`, is also available, which just mixes in `ReactProps` and `CssClassProps`.)
+(An abstract subclass `BaseComponentDefinition`, is also available, which mixes in `ReactProps` and `CssClassProps` for convenience.)
 
 ##### As a props map
 `ComponentDefinition` extends [`MapView`](https://api.dartlang.org/apidocs/channels/stable/dartdoc-viewer/dart:collection.MapView), so each instance of it proxies the specified props `Map`. And, since `MapView` implements `Map`, you can use `ComponentDefinition` anywhere you can use a plain `Map`.
@@ -75,6 +76,10 @@ _toggleExpanded() => setState(newState()
 );
 ```
 
+## DomProps and DomComponentDefinition
+w_ui_platform also wraps each available React DOM component (`react.div`, `react.a`, etc.) with a convenience method that each returns an appropriate `DomComponentDefinition` instance.
+
+The returned instances have getters/setters for all available DOM/attribute-related props available in React (`className`, `href`, `onClick`, etc.), for convenience.
  
 ## Fluent-style component consumption
 
@@ -115,9 +120,9 @@ Note how you might render the same DOM in JSX, react-dart, and w_ui_platform:
 * w_ui_platform fluent interface:
 
     ```dart
-    (div()..className='container')([
-      h1()('Click the button!'),
-      (button()
+    (Dom.div()..className='container')([
+      Dom.h1()('Click the button!'),
+      (Dom.button()
         ..id = 'myButton'
         ..className = 'fancy-button'
         ..tabIndex = 1
@@ -126,7 +131,7 @@ Note how you might render the same DOM in JSX, react-dart, and w_ui_platform:
     ]);
     ```
     
-    A more verbose version:
+    A more verbose version of the `button` usage:
     ```dart
     (() {
       // Create a new ComponentDefinition that can render a button,
