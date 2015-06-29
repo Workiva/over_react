@@ -1,21 +1,23 @@
-# The `ui_core` library
+# Core Component Framework
 
 w_ui_platform also provides a framework for building strongly-typed React components, on which all of w_ui_platform's reusable UI components are built.
 
-Core framework is available in `ui_core.dart`. You can include it in your own project with the following line:
-```dart
-import 'package:w_ui_platform/ui_core.dart';
-```
-
-* __[`ComponentDefinition`](#componentdefinition)__
-  * [As a props map](#as-a-props-map)
-  * [As a builder](#as-a-builder)
+* __[What makes a w_ui_platform component](#what-makes-a-w_ui_platform-component)__
+  * __[`ComponentDefinition`](#componentdefinition)__
+    * [As a props map](#as-a-props-map)
+    * [As a builder](#as-a-builder)
+  * __[`BaseComponent`](#basecomponent)__
+    * [`TypedPropsGetter` and `TypedStateGetter`](#typedpropsgetter-and-typedstategetter)
 * __[Fluent-style component consumption](#fluent-style-component-consumption)__
-* __[Using it in your own project](#using-it-in-your-own-project)__
+* __[Building your own components](#building-your-own-components)__
 
 
-### `ComponentDefinition`
-The abstract `ComponentDefinition` class serves as the basis for implementing and consuming components with strongly-typed props.
+## What makes a w_ui_platform component
+
+### ComponentDefinition
+The abstract `ComponentDefinition` class serves as the basis for implementing and consuming strongly-typed props.
+
+(An abstract subclass `BaseComponentDefinition`, is also available, which just mixes in `ReactProps` and `CssClassProps`.)
 
 ##### As a props map
 `ComponentDefinition` extends [`MapView`](https://api.dartlang.org/apidocs/channels/stable/dartdoc-viewer/dart:collection.MapView), so each instance of it proxies the specified props `Map`. And, since `MapView` implements `Map`, you can use `ComponentDefinition` anywhere you can use a plain `Map`.
@@ -35,6 +37,44 @@ Usage involves:
   3. Invoking the `build()` function to get a `JsObject` React component
   
 See [Fluent-style component consumption](#fluent-style-component-consumption) for more examples on builder usage.
+ 
+### BaseComponent
+
+The abstract `BaseComponent` class extends `react.Component` with convenience methods relating to prop forwarding and CSS className merging, and also mixes in `TypedPropsGetter`, which makes it easy to use typed props within components. (`BaseComponentWithState` does the same thing, but also with `TypedStateGetter`.)
+ 
+##### TypedPropsGetter and TypedStateGetter
+
+These generic mixins make it easy to access typed props and state from within a component.
+ 
+Each of them requires implementation of a factory (`typedPropsFactory`/`typedStateFactory`) that creates a typed "view" into the specified Map. 
+
+This is used internally by the mixin so it can provide `tProps`/`tState` getters, which return typed views into the current `props`/`state` Maps.
+
+This lets you access state and props using the same typed getters/setters defined in the component's `ComponentDefinition` subclass, or `MapView` state subclass. 
+
+```dart
+render() {
+  assert(identical(tProps.children, props['children']);
+}
+```
+
+`newState()` and `newProps` are also exposed for convenience, and are useful for easily creating new typed Maps:
+```dart
+@override
+getDefaultProps() => (newProps()
+  ..isSelected = false
+);
+
+@override
+getInitialState() => (newState()
+  isExpanded = true
+);
+
+_toggleExpanded() => setState(newState()
+  ..isExpanded = !tState.isExpanded
+);
+```
+
  
 ## Fluent-style component consumption
 
@@ -86,9 +126,9 @@ Note how you might render the same DOM in JSX, react-dart, and w_ui_platform:
     ]);
     ```
     
-    (A more verbose version:)
+    A more verbose version:
     ```dart
-    JsObject verboseExample() {
+    (() {
       // Create a new ComponentDefinition that can render a button,
       // with props backed by the specified Map.
       var builder = new DomComponentDefinition(react.button, {});
@@ -101,5 +141,103 @@ Note how you might render the same DOM in JSX, react-dart, and w_ui_platform:
       
       // Invoke the builder to return a new JsObject React component.
       return builder.build(['Click']);
-    }
+    })()
     ```
+
+## Building your own components
+
+1. Add the following lines to import the necessary core pieces:
+```dart
+// Import w_ui_platform core component framework 
+import 'package:w_ui_platform/ui_core.dart';
+
+// Import code_generation annotations so we can use @GenerateProps
+import 'package:w_ui_platform/code_generation/annotations.dart';
+```
+
+2. Start with this template for a component:
+```dart
+/// Returns a new builder for the Foo component.
+FooDefinition Foo() => new FooDefinition({});
+
+/// Builder for the Foo component, with typed getters/setters for each prop that the component accepts.
+/// Also functions as a MapView, for use internally by the Foo component, as well as for Button component prop manipulation.
+@GenerateProps(#FooProps)
+class FooDefinition extends BaseComponentDefinition with FooProps {
+  FooDefinition(Map backingMap) : super(_FooComponentFactory, backingMap);
+  
+  // Add abstract prop getters, and run code_generation to update the 'FooProps' mixin
+}
+
+ReactComponentFactory _FooComponentFactory = react.registerComponent(() => new _Foo());
+class _Foo extends BaseComponent<FooDefinition> {
+  @override
+  Map getDefaultProps() => (newProps()
+    // Use cascades (.. operator) to set default props here
+  );
+
+  @override
+  render() {
+    
+  }
+
+  @override
+  FooDefinition typedPropsFactory(Map propsMap) => new FooDefinition(propsMap);
+}
+```
+
+3. Fill in props, set up the [code_generation][code-generation] tool, and run it.
+ 
+4. Start consuming your component with strongly-typed props!
+
+#### Stateful components
+
+Making stateful components is similar, except you'll need to define a MapView subclass for your typed state and use it within the component:
+
+```dart
+/// Returns a new builder for the Foo component.
+FooDefinition Foo() => new FooDefinition({});
+
+/// Builder for the Foo component, with typed getters/setters for each prop that the component accepts.
+/// Also functions as a MapView, for use internally by the Foo component, as well as for Button component prop manipulation.
+@GenerateProps(#FooProps)
+class FooDefinition extends BaseComponentDefinition with FooProps {
+  FooDefinition(Map backingMap) : super(_FooComponentFactory, backingMap);
+  
+  // Add abstract prop getters, and run code_generation to update the 'FooProps' mixin
+}
+
+@GenerateState(#FooStateMixin)
+class FooState extends MapView with FooStateMixin {
+  FooState(Map backingMap) : super(backingMap);
+  
+  // Add abstract state getters, and run code_generation to update the 'FooStateMixin' mixin
+}
+
+ReactComponentFactory _FooComponentFactory = react.registerComponent(() => new _Foo());
+class _Foo extends BaseComponentWithState<FooDefinition, FooState> {
+  @override
+  Map getDefaultProps() => (newProps()
+    // Use cascades (.. operator) to set default props here
+  );
+  
+  @override
+  Map getInitialState() => (newState()
+    // Use cascades (.. operator) to set initial state here
+  );
+
+  @override
+  render() {
+    
+  }
+
+  @override
+  FooDefinition typedPropsFactory(Map propsMap) => new FooDefinition(propsMap);
+
+  @override
+  FooState typedStateFactory(Map stateMap) => new FooState(stateMap);
+}
+```
+
+
+[code-generation]: /lib/src/code_generation/README.md
