@@ -59,12 +59,12 @@ abstract class ComponentDefinition extends MapView implements Function {
     props[propKey] = value;
   }
 
-  /// Add a Map of arbitrary of props.
+  /// Add a Map of arbitrary props.
   void addProps(Map propMap) {
     props.addAll(propMap);
   }
 
-  /// abstract method for component validation.  (called in checked mode only)
+  /// Default method for component validation. (Called in checked mode only, during [build].)
   bool validate() {
     return true;
   }
