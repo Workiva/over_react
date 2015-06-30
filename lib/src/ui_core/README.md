@@ -11,6 +11,8 @@ w_ui_platform also provides a framework for building strongly-typed React compon
 * __[`DomProps` and `DomComponentDefinition`](#domprops-and-domcomponentdefinition)__
 * __[Fluent-style component consumption](#fluent-style-component-consumption)__
 * __[Building your own components](#building-your-own-components)__
+  * [Stateless components](#stateless-components)
+  * [Stateful components](#stateful-components)
 
 
 ## What makes a w_ui_platform component
@@ -59,7 +61,7 @@ render() {
 }
 ```
 
-`newState()` and `newProps` are also exposed for convenience, and are useful for easily creating new typed Maps:
+`newState()` and `newProps()` are also exposed for convenience, and are useful for easily creating new typed Maps:
 ```dart
 @override
 getDefaultProps() => (newProps()
@@ -151,45 +153,47 @@ Note how you might render the same DOM in JSX, react-dart, and w_ui_platform:
 
 ## Building your own components
 
-1. Add the following lines to import the necessary core pieces:
-```dart
-// Import w_ui_platform core component framework 
-import 'package:w_ui_platform/ui_core.dart';
+#### Stateless components
 
-// Import code_generation annotations so we can use @GenerateProps
-import 'package:w_ui_platform/code_generation/annotations.dart';
-```
+1. Add the following lines to import the necessary core pieces:
+    ```dart
+    // Import w_ui_platform core component framework 
+    import 'package:w_ui_platform/ui_core.dart';
+    
+    // Import code_generation annotations so we can use @GenerateProps
+    import 'package:w_ui_platform/code_generation/annotations.dart';
+    ```
 
 2. Start with this template for a component:
-```dart
-/// Returns a new builder for the Foo component.
-FooDefinition Foo() => new FooDefinition({});
-
-/// Builder for the Foo component, with typed getters/setters for each prop that the component accepts.
-/// Also functions as a MapView, for use internally by the Foo component, as well as for Button component prop manipulation.
-@GenerateProps(#FooProps)
-class FooDefinition extends BaseComponentDefinition with FooProps {
-  FooDefinition(Map backingMap) : super(_FooComponentFactory, backingMap);
-  
-  // Add abstract prop getters, and run code_generation to update the 'FooProps' mixin
-}
-
-ReactComponentFactory _FooComponentFactory = react.registerComponent(() => new _Foo());
-class _Foo extends BaseComponent<FooDefinition> {
-  @override
-  Map getDefaultProps() => (newProps()
-    // Use cascades (.. operator) to set default props here
-  );
-
-  @override
-  render() {
+    ```dart
+    /// Returns a new builder for the Foo component.
+    FooDefinition Foo() => new FooDefinition({});
     
-  }
-
-  @override
-  FooDefinition typedPropsFactory(Map propsMap) => new FooDefinition(propsMap);
-}
-```
+    /// Builder for the Foo component, with typed getters/setters for each prop that the component accepts.
+    /// Also functions as a MapView, for use internally by the Foo component, as well as for Button component prop manipulation.
+    @GenerateProps(#FooProps)
+    class FooDefinition extends BaseComponentDefinition with FooProps {
+      FooDefinition(Map backingMap) : super(_FooComponentFactory, backingMap);
+      
+      // Add abstract prop getters, and run code_generation to update the 'FooProps' mixin
+    }
+    
+    ReactComponentFactory _FooComponentFactory = react.registerComponent(() => new _Foo());
+    class _Foo extends BaseComponent<FooDefinition> {
+      @override
+      Map getDefaultProps() => (newProps()
+        // Use cascades (.. operator) to set default props here
+      );
+    
+      @override
+      render() {
+        
+      }
+    
+      @override
+      FooDefinition typedPropsFactory(Map propsMap) => new FooDefinition(propsMap);
+    }
+    ```
 
 3. Fill in props, set up the [code_generation][code-generation] tool, and run it.
  
