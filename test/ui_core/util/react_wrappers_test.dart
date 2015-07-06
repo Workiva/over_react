@@ -130,7 +130,7 @@ main() {
           expect(clone['key'], equals(overrideKeyRefProps['key']));
           expect(clone['ref'], equals(overrideKeyRefProps['ref']));
 
-          var renderedClone = findRenderedComponentWithType(renderedHolder, TestComponentFactory);
+          var renderedClone = findRenderedDOMComponentWithType(renderedHolder, TestComponentFactory);
 
           // Verify that the "key" and "ref" props are overridden according to the Dart component.
           Map cloneDartProps = getDartComponent(renderedClone).props;
