@@ -16,7 +16,13 @@ main() {
     });
 
     group('isValueCssNumericValue', () {
+      test('return true for double value 123.5', () {
+        expect(isValueCssNumericValue(123.5), isTrue);
+      });
       test('return true for string value "123"', () {
+        expect(isValueCssNumericValue('123'), isTrue);
+      });
+      test('return true for string value "123.5"', () {
         expect(isValueCssNumericValue('123'), isTrue);
       });
       test('return true for string value "123px"', () {
@@ -24,6 +30,9 @@ main() {
       });
       test('return false for string value "123blarb"', () {
         expect(isValueCssNumericValue('123blarb'), isFalse);
+      });
+      test('return false for non-string/non-num value', () {
+        expect(isValueCssNumericValue({}), isFalse);
       });
     });
   });
