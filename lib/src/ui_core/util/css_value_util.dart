@@ -2,24 +2,18 @@ part of w_ui_platform.ui_core;
 
 /// Determines if a value will produce a valid CSS style for offset / size properties.
 bool isValueCssNumericValue(dynamic value) {
-  if (value is int) {
+  if (value is num) {
     return true;
   }
 
-  if (!(value is String)) {
+  if (value is! String) {
     return false;
   }
 
   // value is a String, but can it can be interpreted as a numerical value?
   String stripped = stripCssUnit(value);
 
-  try {
-    int.parse(stripped);
-    return true;
-  } catch (exception) {
-    //assert(ValidateUtil.warn(exception));
-    return false;
-  }
+  return double.parse(stripped, (source) => null) != null ? true : false;
 }
 
 /// Strip the units off of the given value.  Returns a unit-less String.
