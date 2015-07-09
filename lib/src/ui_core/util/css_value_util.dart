@@ -1,11 +1,17 @@
 part of w_ui_platform.ui_core;
 
+/// Class for handling CSS values
 class CssValue implements Comparable {
   final num number;
   final String unit;
 
+  /// Constructor
   const CssValue(this.number, [this.unit = 'px']);
 
+  /// Parse a value into a CssValue.
+  /// If the value provided is not a valid [CssValue] the 'onError' function will
+  /// be called.
+  /// If no 'onError' function was specified then null will be returned.
   factory CssValue.parse(dynamic value, {CssValue onError(value, error)}) {
     num number;
     String unit;
@@ -49,42 +55,70 @@ class CssValue implements Comparable {
     return result;
   }
 
+  /// Internal function to check that units match
   void _checkMatchingUnits(CssValue other) {
     if (unit != other.unit) {
       throw new ArgumentError('Cannot compare CSS unit values of units $unit and ${other.unit}');
     }
   }
 
+  /// Get the remainder [CssValue] divided by a number.
   CssValue operator %(num other) => new CssValue(number % other, unit);
+
+  /// Multiply the [CssValue] by a number.
   CssValue operator *(num other) => new CssValue(number * other, unit);
-  CssValue operator +(num other) => new CssValue(number + other, unit);
-  CssValue operator -(num other) => new CssValue(number - other, unit);
+
+  /// Divide the [CssValue] by a number.
   CssValue operator /(num other) => new CssValue(number / other, unit);
 
+  /// Add two [CssValue] objects.
+  CssValue operator +(CssValue other) {
+    _checkMatchingUnits(other);
+    return new CssValue(number + other, unit);
+  }
+
+  /// Subtract two [CssValue] objects.
+  /// If the units of the two [CssValue] object doesn't match an ArgumentError will be thrown.
+  CssValue operator -(CssValue other) {
+    _checkMatchingUnits(other);
+    return new CssValue(number - other, unit);
+  }
+
+  /// Check if this [CssValue] is less than the provided [CssValue].
+  /// If the units of the two [CssValue] object doesn't match an ArgumentError will be thrown.
   bool operator <(CssValue other) {
     _checkMatchingUnits(other);
     return number < other.number;
   }
 
+  /// Check if this [CssValue] is less than or equal to the provided [CssValue].
+  /// If the units of the two [CssValue] object doesn't match an ArgumentError will be thrown.
   bool operator <=(CssValue other) {
     _checkMatchingUnits(other);
     return number <= other.number;
   }
 
+  /// Check if this [CssValue] is equal to the provided [CssValue].
+  /// Compares both the value and the units.
   bool operator ==(dynamic other) {
     return identical(this, other) || (other is CssValue && number == other.number && unit == other.unit);
   }
 
+  /// Check if this [CssValue] is less than or equal to the provided [CssValue].
+  /// If the units of the two [CssValue] object doesn't match an ArgumentError will be thrown.
   bool operator >(CssValue other) {
     _checkMatchingUnits(other);
     return number > other.number;
   }
 
+  /// Check if this [CssValue] is less than or equal to the provided [CssValue].
+  /// If the units of the two [CssValue] object doesn't match an ArgumentError will be thrown.
   bool operator >=(CssValue other) {
     _checkMatchingUnits(other);
     return number >= other.number;
   }
 
+  /// Negate this [CssValue].
   CssValue operator -() {
     return new CssValue(-number, unit);
   }
