@@ -74,14 +74,14 @@ class CssValue implements Comparable {
   /// Add two [CssValue] objects.
   CssValue operator +(CssValue other) {
     _checkMatchingUnits(other);
-    return new CssValue(number + other, unit);
+    return new CssValue(number + other.number, unit);
   }
 
   /// Subtract two [CssValue] objects.
   /// If the units of the two [CssValue] object doesn't match an ArgumentError will be thrown.
   CssValue operator -(CssValue other) {
     _checkMatchingUnits(other);
-    return new CssValue(number - other, unit);
+    return new CssValue(number - other.number, unit);
   }
 
   /// Check if this [CssValue] is less than the provided [CssValue].
