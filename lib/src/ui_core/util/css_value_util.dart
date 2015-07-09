@@ -6,41 +6,52 @@ class CssValue implements Comparable {
 
   const CssValue(this.number, [this.unit = 'px']);
 
-  factory CssValue.parse(dynamic value, {CssValue onError(dynamic value)}) {
-    try {
-      double number;
-      String unit;
-      if (value is num) {
-        number = value.toDouble();
-        unit = 'px';
-      } else {
-        var match = new RegExp(r'(.*\d)(em|ex|rem|vh|vw|vmin|vmax|%|px|cm|mm|in|pt|pc|ch)?$').firstMatch(value.toString());
-        if (match == null) {
-          throw 'Invalid CSS value: $value';
-        }
+  factory CssValue.parse(dynamic value, {CssValue onError(value, error)}) {
+    num number;
+    String unit;
 
-        number = double.parse(match.group(1));
-        unit = match.group(2);
+    var error = null;
 
-        if (unit == null) {
+    if (value == null) {
+      error = new ArgumentError.notNull('value');
+    } else if (value is num) {
+      number = value;
+      unit = 'px';
+    } else {
+      var unitMatch = new RegExp(r'(?:rem|em|ex|vh|vw|vmin|vmax|%|px|cm|mm|in|pt|pc|ch)?$').firstMatch(value.toString());
+      try {
+        number = double.parse(unitMatch.input.substring(0, unitMatch.start));
+        unit = unitMatch.group(0);
+        if (unit == '') {
           unit = 'px';
         }
-      }
-
-      return new CssValue(number, unit);
-    } catch(e) {
-      if (onError == null) {
-        assert(ValidationUtil.warn(e));
-        return null;
-      } else {
-        return onError(value);
+      } catch(e) {
+        error = new ArgumentError.value(value, 'value', 'Invalid number/unit for CSS value');
       }
     }
+
+    if (number != null && !number.isFinite) {
+      // Rule out -Infinity, Infinity, and NaN.
+      error = new ArgumentError.value(number, 'value', 'Number portion of CSS value ($value) must be finite');
+    }
+
+    var result;
+    if (error != null) {
+      if (onError == null) {
+        result = null;
+      } else {
+        result = onError(value, error);
+      }
+    } else {
+      result = new CssValue(number, unit);
+    }
+
+    return result;
   }
 
-  void checkMatchingUnits(CssValue other) {
+  void _checkMatchingUnits(CssValue other) {
     if (unit != other.unit) {
-      throw 'Cannot compare CSS unit values of units $unit and ${other.unit}';
+      throw new ArgumentError('Cannot compare CSS unit values of units $unit and ${other.unit}');
     }
   }
 
@@ -51,12 +62,12 @@ class CssValue implements Comparable {
   CssValue operator /(num other) => new CssValue(number / other, unit);
 
   bool operator <(CssValue other) {
-    checkMatchingUnits(other);
+    _checkMatchingUnits(other);
     return number < other.number;
   }
 
   bool operator <=(CssValue other) {
-    checkMatchingUnits(other);
+    _checkMatchingUnits(other);
     return number <= other.number;
   }
 
@@ -65,12 +76,12 @@ class CssValue implements Comparable {
   }
 
   bool operator >(CssValue other) {
-    checkMatchingUnits(other);
+    _checkMatchingUnits(other);
     return number > other.number;
   }
 
   bool operator >=(CssValue other) {
-    checkMatchingUnits(other);
+    _checkMatchingUnits(other);
     return number >= other.number;
   }
 
@@ -80,7 +91,7 @@ class CssValue implements Comparable {
 
   @override
   int compareTo(other) {
-    checkMatchingUnits(other);
+    _checkMatchingUnits(other);
     return number.compareTo(other);
   }
 
