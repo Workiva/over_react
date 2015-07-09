@@ -15,8 +15,17 @@ main() {
         }
       });
 
-      test('invalid unit', () {
-        expect(new CssValue.parse('123blarb', onError: (source) => null), isNull);
+      group('invalid unit', () {
+        test('with an onError function specified', () {
+          var retValue = new CssValue(34, '%');
+          var val = new CssValue.parse('123blarb', onError: (source, error) => retValue);
+          expect(val, equals(retValue));
+        });
+
+        test('without an onError function specified', () {
+          var val = new CssValue.parse('123blarb');
+          expect(val, isNull);
+        });
       });
 
       test('no unit', () {
@@ -24,75 +33,103 @@ main() {
         expect(cssValue.number, equals(double.parse('123')));
         expect(cssValue.unit, equals('px'));
       });
-    });
 
-    group('checkMatchingUnits', () {
-      test('same units', () {
-        var val1 = new CssValue(123, '%');
-        var val2 = new CssValue(456, '%');
-        try {
-          val1.checkMatchingUnits(val2);
-        } catch (exception) {
-          fail('unit were the same and should not have caused an error to be thrown');
+      test('null value', () {
+        ArgumentError error = null;
+        new CssValue.parse(null, onError: (value, e) {
+          error = e;
+        });
+
+        expect(error, isNotNull);
+        expect(error.message, equals('Must not be null'));
+      });
+
+      test('infinte values', () {
+        var invalidValues = [
+          double.INFINITY, double.NEGATIVE_INFINITY, double.NAN,
+          double.INFINITY.toString(), double.NEGATIVE_INFINITY.toString(), double.NAN.toString()
+        ];
+
+        for (var value in invalidValues) {
+          ArgumentError error = null;
+          new CssValue.parse(value, onError: (val, err) {
+            error = err;
+          });
+          expect(error, isNotNull);
+          expect(error.message, endsWith('must be finite'));
         }
       });
 
-      test('different units', () {
-        var val1 = new CssValue(123, '%');
-        var val2 = new CssValue(456, 'em');
-        try {
-          val1.checkMatchingUnits(val2);
-        } catch (exception) {
-          return;
-        }
-        fail('unit were different and should have caused an error to be thrown');
+      test('invalid string "aa123px"', () {
+        ArgumentError error = null;
+        new CssValue.parse('aa123px', onError: (value, e) {
+          error = e;
+        });
+
+        expect(error, isNotNull);
+        expect(error.message, endsWith('Invalid number/unit for CSS value'));
       });
     });
 
     group('compare', () {
-      test('less than', () {
-        var val1 = new CssValue(123);
-        var val2 = new CssValue(456);
-        expect(val1 < val2, isTrue);
-        expect(val2 < val1, isFalse);
+      group('with matching units', () {
+        test('less than', () {
+          var val1 = new CssValue(123);
+          var val2 = new CssValue(456);
+          expect(val1 < val2, isTrue);
+          expect(val2 < val1, isFalse);
+        });
+        test('less than or equal', () {
+          var val1 = new CssValue(123);
+          var val2 = new CssValue(456);
+          var val3 = new CssValue(123);
+          expect(val1 <= val2, isTrue);
+          expect(val1 <= val3, isTrue);
+          expect(val2 <= val1, isFalse);
+        });
+        test('greater than', () {
+          var val1 = new CssValue(123);
+          var val2 = new CssValue(456);
+          expect(val1 > val2, isFalse);
+          expect(val2 > val1, isTrue);
+        });
+        test('greater than or equal', () {
+          var val1 = new CssValue(123);
+          var val2 = new CssValue(456);
+          var val3 = new CssValue(123);
+          expect(val1 >= val2, isFalse);
+          expect(val1 >= val3, isTrue);
+          expect(val2 >= val1, isTrue);
+        });
+        test('equal', () {
+          var val1 = new CssValue(123);
+          var val2 = new CssValue(456);
+          var val3 = new CssValue(123);
+          expect(val1 == val2, isFalse);
+          expect(val1 == val3, isTrue);
+          expect(val2 == val1, isFalse);
+        });
       });
-      test('less than or equal', () {
-        var val1 = new CssValue(123);
-        var val2 = new CssValue(456);
-        var val3 = new CssValue(123);
-        expect(val1 <= val2, isTrue);
-        expect(val1 <= val3, isTrue);
-        expect(val2 <= val1, isFalse);
-      });
-      test('greater than', () {
-        var val1 = new CssValue(123);
-        var val2 = new CssValue(456);
-        expect(val1 > val2, isFalse);
-        expect(val2 > val1, isTrue);
-      });
-      test('greater than or equal', () {
-        var val1 = new CssValue(123);
-        var val2 = new CssValue(456);
-        var val3 = new CssValue(123);
-        expect(val1 >= val2, isFalse);
-        expect(val1 >= val3, isTrue);
-        expect(val2 >= val1, isTrue);
-      });
-      test('equal', () {
-        var val1 = new CssValue(123);
-        var val2 = new CssValue(456);
-        var val3 = new CssValue(123);
-        expect(val1 == val2, isFalse);
-        expect(val1 == val3, isTrue);
-        expect(val2 == val1, isFalse);
-      });
-      test('negation', () {
-        var val1 = new CssValue(123);
-        expect(-val1.number, equals(-123));
+      group('with non-matching units', () {
+        test('less than', () {
+          expect(() => (new CssValue.parse('10px') < new CssValue.parse('10%')), throwsArgumentError);
+        });
+        test('less than or equal', () {
+          expect(() => (new CssValue.parse('10px') <= new CssValue.parse('10%')), throwsArgumentError);
+        });
+        test('greater than', () {
+          expect(() => (new CssValue.parse('10px') > new CssValue.parse('10%')), throwsArgumentError);
+        });
+        test('greater than or equal', () {
+          expect(() => (new CssValue.parse('10px') >= new CssValue.parse('10%')), throwsArgumentError);
+        });
+        test('equal', () {
+          expect((new CssValue.parse('10px') == new CssValue.parse('10%')), isFalse);
+        });
       });
     });
 
-    group('operator', () {
+    group('math operations', () {
       test('addition', () {
         var val1 = new CssValue(25);
         expect(val1 + 5, equals(new CssValue(30)));
@@ -113,8 +150,10 @@ main() {
         var val1 = new CssValue(25);
         expect(val1 % 4, equals(new CssValue(1)));
       });
-
+      test('negation', () {
+        var val1 = new CssValue(123);
+        expect(-(val1.number), equals(-123));
+      });
     });
-
   });
 }
