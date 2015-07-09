@@ -132,11 +132,13 @@ main() {
     group('math operations', () {
       test('addition', () {
         var val1 = new CssValue(25);
-        expect(val1 + 5, equals(new CssValue(30)));
+        var val2 = new CssValue(5);
+        expect(val1 + val2, equals(new CssValue(30)));
       });
       test('subtraction', () {
         var val1 = new CssValue(25);
-        expect(val1 - 5, equals(new CssValue(20)));
+        var val2 = new CssValue(5);
+        expect(val1 - val2, equals(new CssValue(20)));
       });
       test('division', () {
         var val1 = new CssValue(25);
