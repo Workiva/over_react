@@ -3,6 +3,7 @@ library react_wrappers_test;
 import 'package:test/test.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react.dart' as react;
+import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:w_ui_platform/ui_core.dart';
 import 'package:w_ui_platform/ui_components.dart';
 
@@ -130,7 +131,7 @@ main() {
           expect(clone['key'], equals(overrideKeyRefProps['key']));
           expect(clone['ref'], equals(overrideKeyRefProps['ref']));
 
-          var renderedClone = findRenderedDOMComponentWithType(renderedHolder, TestComponentFactory);
+          var renderedClone = react_test_utils.findRenderedComponentWithType(renderedHolder, TestComponentFactory);
 
           // Verify that the "key" and "ref" props are overridden according to the Dart component.
           Map cloneDartProps = getDartComponent(renderedClone).props;
