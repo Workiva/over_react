@@ -11,12 +11,12 @@ void testProp (Symbol name, dynamic expectedKey, instance, testValue) {
 }
 
 void testKeys (List<String> keys, dynamic instanceBuilder()) {
-  test('set up', () {
+  test('cannot set / read values that are not its prop map', () {
     var instance = instanceBuilder();
     expect(() {instance['notThere'];}, throws);
   });
   for (var propKey in keys) {
-    test('prop: $propKey', () {
+    test('prop: $propKey can have its value set / read', () {
       var instance = instanceBuilder();
       testProp(new Symbol(propKey), propKey, instance, null);
     });
