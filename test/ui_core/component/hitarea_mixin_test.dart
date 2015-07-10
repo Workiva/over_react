@@ -15,7 +15,6 @@ getHitArea(instance) => findDomNode(getRef(instance, 'hitarea'));
 
 main() {
   group('HitAreaMixin', () {
-    // shared vars
     int warningCount;
 
     setUp(() {
@@ -32,7 +31,6 @@ main() {
       ValidationUtil.WARNINGS_ENABLED = true;
     });
 
-    // Tests for 'isActive' prop
     group('isActive prop', () {
       group('renders with apprpriate CSS classes and html attributes when ', () {
         test('true', () {
@@ -76,7 +74,6 @@ main() {
       });
     });
 
-    // Tests for 'isDisabled' prop
     group('isDisabled prop', () {
       test('renders with `disabled` prop false by default', () {
         var renderedNode = renderAndGetHitArea((MenuItem()));
@@ -139,7 +136,6 @@ main() {
       });
     });
 
-    // Tests for 'isNavItem' prop
     group('isNavItem prop', () {
       test('renders hitarea without nav-item CSS classes', () {
         var renderedNode = renderAndGetHitArea((MenuItem()..isNavItem = true));
@@ -175,7 +171,6 @@ main() {
       });
     });
 
-    // Tests for 'isNavDropdown' prop
     group('isNavDropdown prop', () {
       test('renders hitarea without nav-item or nav-item CSS classes', () {
         var renderedNode = renderAndGetHitArea(MenuItem()..isNavDropdown = true);
@@ -212,7 +207,6 @@ main() {
       });
     });
 
-    // Test for 'type' prop
     group('type prop set to', () {
       group('checkbox', () {
         test('sets `role` html attribute to "button"', () {
@@ -224,7 +218,7 @@ main() {
         });
 
         test('warns the consumer if `id` prop is not set', () {
-          var renderedNode = renderAndGetHitArea((MenuItem()..type = ClickableDomInputType.CHECKBOX));
+          renderAndGetHitArea((MenuItem()..type = ClickableDomInputType.CHECKBOX));
           expect(ValidationUtil.WARNING_COUNT, greaterThan(warningCount));
         });
 
@@ -269,7 +263,7 @@ main() {
         });
 
         test('should warn the consumer if `id` prop is not set', () {
-          var renderedNode = renderAndGetHitArea((MenuItem()
+          renderAndGetHitArea((MenuItem()
             ..type = ClickableDomInputType.RADIO
             ..name = 'test_hitarea_radio_group'
           ));
@@ -277,7 +271,7 @@ main() {
         });
 
         test('should warn the consumer if `name` prop is not set', () {
-          var renderedNode = renderAndGetHitArea((MenuItem()
+          renderAndGetHitArea((MenuItem()
             ..type = ClickableDomInputType.RADIO
             ..id = 'test_hitarea_component'
           ));
@@ -320,7 +314,6 @@ main() {
       });
     });
 
-    // Tests for 'defaultChecked' prop
     group('defaultChecked prop being set', () {
       test('adds the `active` class and `aria-selected` html attribute for checkbox elements', () {
         var renderedNode = renderAndGetHitArea((MenuItem()
@@ -349,7 +342,6 @@ main() {
       });
     });
 
-    // Tests for 'checked' props
     group('checked prop being set', () {
       test('adds the `active` class and `aria-selected` html attribute for checkbox elements', () {
         var renderedNode = renderAndGetHitArea((MenuItem()
@@ -378,7 +370,6 @@ main() {
       });
     });
 
-    // Tests for Anchor elements
     group('with anchor elements', () {
       test('sets `role` prop to "button" when `href` prop is "#"', () {
         var renderedNode = renderAndGetHitArea((MenuItem()..href = "#"));
@@ -392,7 +383,6 @@ main() {
       });
     });
 
-    // Tests for renderer assignment
     group('renders', () {
       group('an input when type is', () {
         test('checkbox', () {
@@ -528,7 +518,7 @@ main() {
     });
 
     // Tests for html attributes
-    group('renders with', () {
+    group('renders with correct html attribute:', () {
       test('role prop set to "button" when type prop == DomNodeNode.DIV', () {
         var renderedNode = renderAndGetHitArea((MenuItem()..domNodeName = DomNodeName.DIV));
         expect(renderedNode, hasAttr('role', 'button'));
@@ -557,7 +547,6 @@ main() {
       });
     });
 
-    // Tests for click handling
     group('handles clicks correctly:', () {
       test('should fire callback defined in `onSelect` prop', () {
         bool onSelectCalled = false;
@@ -569,8 +558,8 @@ main() {
               }
         )();
         var renderedInstance = render(instance);
-        var buttonTag = findRenderedDOMComponentWithTag(renderedInstance, 'button');
-        click(buttonTag);
+        var buttonRef = getRef(renderedInstance, 'hitarea');
+        click(buttonRef);
         expect(onSelectCalled, isTrue);
       });
 
@@ -583,8 +572,8 @@ main() {
               }
         )();
         var renderedInstance = render(instance);
-        var buttonTag = findRenderedDOMComponentWithTag(renderedInstance, 'button');
-        click(buttonTag);
+        var buttonRef = getRef(renderedInstance, 'hitarea');
+        click(buttonRef);
         expect(onClickCalled, isTrue);
       });
 
@@ -598,10 +587,11 @@ main() {
               }
         )();
         var renderedInstance = render(instance);
-        var anchorTag = findRenderedDOMComponentWithTag(renderedInstance, "a");
-        click(anchorTag);
+        var anchorRef = getRef(renderedInstance, 'hitarea');
+        click(anchorRef);
         expect(onClickCalled, isFalse);
       });
+
       test('should fire both `onClick` and `onSelect` callbacks if `onClick` callback returns `true`', () {
         bool onClickCalled = false;
         bool onSelectCalled = false;
@@ -618,11 +608,12 @@ main() {
               }
         )();
         var renderedInstance = render(instance);
-        var buttonTag = findRenderedDOMComponentWithTag(renderedInstance, 'button');
-        click(buttonTag);
+        var buttonRef = getRef(renderedInstance, 'hitarea');
+        click(buttonRef);
         expect(onClickCalled, isTrue);
         expect(onSelectCalled, isTrue);
       });
+
       test('should not call `onSelect` callback if `onClick` callback returns `false`', () {
         bool onClickCalled = false;
         bool onSelectCalled = false;
@@ -639,11 +630,12 @@ main() {
               }
         )();
         var renderedInstance = render(instance);
-        var buttonTag = findRenderedDOMComponentWithTag(renderedInstance, 'button');
-        click(buttonTag);
+        var buttonRef = getRef(renderedInstance, 'hitarea');
+        click(buttonRef);
         expect(onClickCalled, isTrue);
         expect(onSelectCalled, isFalse);
       });
+
       test('should fire both `onClick` and `onSelect` callbacks if `onClick` callback does not return a value', () {
         bool onClickCalled = false;
         bool onSelectCalled = false;
@@ -659,11 +651,12 @@ main() {
               }
         )();
         var renderedInstance = render(instance);
-        var buttonTag = findRenderedDOMComponentWithTag(renderedInstance, 'button');
-        click(buttonTag);
+        var buttonRef = getRef(renderedInstance, 'hitarea');
+        click(buttonRef);
         expect(onClickCalled, isTrue);
         expect(onSelectCalled, isTrue);
       });
+
       test('should not fire `onClick` or `onSelect` callbacks if `isDisabled` prop is set to `true`', () {
         bool onClickCalled = false;
         bool onSelectCalled = false;
@@ -680,17 +673,16 @@ main() {
               }
         )();
         var renderedInstance = render(instance);
-        var buttonTag = findRenderedDOMComponentWithTag(renderedInstance, 'button');
-        click(buttonTag);
+        var buttonRef = getRef(renderedInstance, 'hitarea');
+        click(buttonRef);
         expect(onClickCalled, isFalse);
         expect(onSelectCalled, isFalse);
       });
     });
 
-    // Test for _validateTypeForNonFormElem warning
     group('_validateTypeForNonFormElem', () {
       test('should send a warning message to the console', () {
-        var renderedNode = renderAndGetHitArea((MenuItem()
+        renderAndGetHitArea((MenuItem()
           ..domNodeName = DomNodeName.DIV
           ..type = ClickableDomInputType.SUBMIT
         ));
