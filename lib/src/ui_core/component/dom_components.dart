@@ -2,7 +2,7 @@
 part of w_ui_platform.ui_core;
 
 /// A MapView with the typed getters/setters for all DOM-related React props.
-class DomPropsMapView extends MapView with DomProps {
+class DomPropsMapView extends MapView with DomProps, ReactProps {
   /// Create a new instance backed by the specified map.
   DomPropsMapView(Map map) : super(map);
 
