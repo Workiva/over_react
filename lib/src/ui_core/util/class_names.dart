@@ -22,7 +22,7 @@ class ClassNameBuilder {
   ///
   /// There is no checking for duplicate CSS classes.
   void add(String className, [bool should = true]) {
-    if (!should || className == null) {
+    if (!should || className == null || className == '') {
       return;
     }
 
