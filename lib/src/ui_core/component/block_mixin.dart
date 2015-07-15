@@ -1,6 +1,6 @@
 part of w_ui_platform.ui_core;
 
-/// Mixin for GridBlock props
+/// Mixin for [GridBlock] props
 /// To use:
 /// - add [BlockProps] mixin class to component definition.
 /// - add [BlockProps] mixin class to component class.
@@ -23,25 +23,25 @@ abstract class _$template_BlockProps {
   /// The size of the [GridBlock] at any screen size.
   @Prop("'$_SIZE'") int get size;
 
-  /// The size of the [GridBlock] on viewport widths below 768px.
+  /// The size of the [GridBlock] above the 'sm' responsive breakpoint.
   @Prop("'$_SIZE$_BLOCK_SM'") int get smSize;
 
-  /// The size of the [GridBlock] on viewport widths below 992px.
+  /// The size of the [GridBlock] above the 'md' responsive breakpoint.
   @Prop("'$_SIZE$_BLOCK_MD'") int get mdSize;
 
-  /// The size of the [GridBlock] on viewport widths below 1200px.
+  /// The size of the [GridBlock] above the 'lg' responsive breakpoint.
   @Prop("'$_SIZE$_BLOCK_LG'") int get lgSize;
 
   /// The order that the [GridBlock] should display in at any screen size.
   @Prop("'$_ORDER'") int get order;
 
-  /// The order that the [GridBlock] should display in on viewport widths below 768px.
+  /// The order that the [GridBlock] should display in above the 'sm' responsive breakpoint.
   @Prop("'$_ORDER$_BLOCK_SM'") int get smOrder;
 
-  /// The order that the [GridBlock] should display in on viewport widths below 992px.
+  /// The order that the [GridBlock] should display in above the 'md' responsive breakpoint.
   @Prop("'$_ORDER$_BLOCK_MD'") int get mdOrder;
 
-  /// The order that the [GridBlock] should display in on viewport widths below 1200px.
+  /// The order that the [GridBlock] should display in above the 'lg' responsive breakpoint.
   @Prop("'$_ORDER$_BLOCK_LG'") int get lgOrder;
 
   /// The offset of the [GridBlock] at any screen size.
@@ -50,19 +50,19 @@ abstract class _$template_BlockProps {
   /// See: https://api.atl.workiva.net/WebSkinReact/docs/build/html/components.html#grid-v2-options-offsets
   @Prop("'$_OFFSET'") int get offset;
 
-  /// The offset of the [GridBlock] on viewport widths below 768px.
+  /// The offset of the [GridBlock] above the 'sm' responsive breakpoint.
   /// Move a [GridBlock] to the right using the Offset prop.
   /// This prop increases the left margin of a small [GridBlock] by n blocks. For example, smOffset=4 moves it over four blocks.
   /// See: https://api.atl.workiva.net/WebSkinReact/docs/build/html/components.html#grid-v2-options-offsets
   @Prop("'$_OFFSET$_BLOCK_SM'") int get smOffset;
 
-  /// The offset of the [GridBlock] on viewport widths below 992px.
+  /// The offset of the [GridBlock] above the 'md' responsive breakpoint.
   /// Move a [GridBlock] to the right using the Offset prop.
   /// This prop increases the left margin of a medium [GridBlock] by n blocks. For example, mdOffset=4 moves it over four blocks.
   /// See: https://api.atl.workiva.net/WebSkinReact/docs/build/html/components.html#grid-v2-options-offsets
   @Prop("'$_OFFSET$_BLOCK_MD'") int get mdOffset;
 
-  /// The offset of the [GridBlock] on viewport widths below 1200px.
+  /// The offset of the [GridBlock] above the 'lg' responsive breakpoint.
   /// Move a [GridBlock] to the right using the Offset prop.
   /// This prop increases the left margin of a large [GridBlock] by n blocks. For example, lgOffset=4 moves it over four blocks.
   /// See: https://api.atl.workiva.net/WebSkinReact/docs/build/html/components.html#grid-v2-options-offsets
@@ -72,28 +72,28 @@ abstract class _$template_BlockProps {
   /// See: https://api.atl.workiva.net/WebSkinReact/docs/build/html/components.html#grid-v2-block-content
   @Prop("'$_CONTENT'") bool get content;
 
-  /// Whether this [GridBlock] is a content [GridBlock] on viewport widths below 768px.
+  /// Whether this [GridBlock] is a content [GridBlock] above the 'sm' responsive breakpoint.
   /// See: https://api.atl.workiva.net/WebSkinReact/docs/build/html/components.html#grid-v2-block-content
   @Prop("'$_CONTENT$_BLOCK_SM'") bool get smContent;
 
-  /// Whether this [GridBlock] is a content [GridBlock] on viewport widths below 992px.
+  /// Whether this [GridBlock] is a content [GridBlock] above the 'md' responsive breakpoint.
   /// See: https://api.atl.workiva.net/WebSkinReact/docs/build/html/components.html#grid-v2-block-content
   @Prop("'$_CONTENT$_BLOCK_MD'") bool get mdContent;
 
-  /// Whether this [GridBlock] is a content [GridBlock] on viewport widths below 1200px.
+  /// Whether this [GridBlock] is a content [GridBlock] above the 'lg' responsive breakpoint.
   /// See: https://api.atl.workiva.net/WebSkinReact/docs/build/html/components.html#grid-v2-block-content
   @Prop("'$_CONTENT$_BLOCK_LG'") bool get lgContent;
 
   /// Whether this [GridBlock] should shrink to the size of its content at any screen size.
   @Prop("'$_SHRINK'") bool get shrink;
 
-  /// Whether this [GridBlock] should shrink to the size of its content on viewport widths below 768px.
+  /// Whether this [GridBlock] should shrink to the size of its content above the 'sm' responsive breakpoint.
   @Prop("'$_SHRINK$_BLOCK_SM'") bool get smShrink;
 
-  /// Whether this [GridBlock] should shrink to the size of its content on viewport widths below 992px.
+  /// Whether this [GridBlock] should shrink to the size of its content above the 'md' responsive breakpoint.
   @Prop("'$_SHRINK$_BLOCK_MD'") bool get mdShrink;
 
-  /// Whether this [GridBlock] should shrink to the size of its content on viewport widths below 1200px.
+  /// Whether this [GridBlock] should shrink to the size of its content above the 'lg' responsive breakpoint.
   @Prop("'$_SHRINK$_BLOCK_LG'") bool get lgShrink;
 
   /// Whether to collapse some or all of the sides of the [GridBlock].
