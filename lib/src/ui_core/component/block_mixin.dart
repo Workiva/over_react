@@ -98,15 +98,21 @@ abstract class _$template_BlockProps {
 
   /// Whether to collapse some or all of the sides of the [GridBlock].
   /// Valid values are:
-  ///    1. false - no collapse (default).
+  ///    1. false - same as BlockCollapse.NONE (default).
   ///    2. BlockCollapse.ALL, BlockCollapse.HORIZONTAL or BlockCollapse.VERTICAL.
   ///    3. BlockCollapse.LEFT, BlockCollapse.RIGHT, BlockCollapse.TOP, BlockCollapse.BOTTOM.
   ///    4. List with any combination of the four [BlockCollapse] sides.
   ///
-  /// Default: false
+  /// Default: BlockCollapse.NONE
   dynamic get collapse;
 
   /// Whether to add a gutter around the [GridBlock]
+  /// Valid values are:
+  ///    1. BlockGutter.NONE (default).
+  ///    2. BlockGutter.ALL.
+  ///    3. BlockGutter.HORIZONTAL or BlockGutter.VERTICAL.
+  ///
+  /// Default: BlockCollapse.NONE
   BlockGutter get gutter;
 
   /// Whether the [GridBlock] should enable scrolling.
@@ -118,7 +124,7 @@ abstract class _$template_BlockProps {
 abstract class GridBlockMixin<P extends BlockProps> {
   /// Standard HitAreaProps defaults.
   static const Map defaultProps = const {
-    BlockProps.Z_$KEY__COLLAPSE: false,
+    BlockProps.Z_$KEY__COLLAPSE: BlockCollapse.NONE,
     BlockProps.Z_$KEY__CONTENT: false,
     BlockProps.Z_$KEY__SM_CONTENT: false,
     BlockProps.Z_$KEY__MD_CONTENT: false,
@@ -176,7 +182,7 @@ abstract class GridBlockMixin<P extends BlockProps> {
 
   /// Get the classNames for the collapsing the padding of the [GridBlock].
   String _getCollapseClasses() {
-    if (tProps.collapse == false) {
+    if (tProps.collapse == false || tProps.collapse == BlockCollapse.NONE) {
       return null;
     }
 
@@ -189,6 +195,7 @@ abstract class GridBlockMixin<P extends BlockProps> {
       // ensure the values are valid BlockCollapse values
       for (var item in tProps.collapse) {
         if (item is! BlockCollapse
+            || item == BlockCollapse.NONE
             || item == BlockCollapse.ALL
             || item == BlockCollapse.HORIZONTAL
             || item == BlockCollapse.VERTICAL) {
@@ -221,6 +228,7 @@ abstract class GridBlockMixin<P extends BlockProps> {
 /// The collapse options for the [GridBlock]
 @GenerateConstants(#BlockCollapse, #className)
 class _$template_GridBlockCollapse {
+  static const NONE = null;
   static const ALL = 'grid-collapse';
   static const HORIZONTAL = 'grid-collapse-horizontal';
   static const VERTICAL = 'grid-collapse-vertical';
