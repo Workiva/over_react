@@ -44,6 +44,8 @@ abstract class _$template_LayoutProps {
   @Prop("'$_WRAP$_BLOCK_LG'") int get lgWrap;
 
   /// Alignment for child blocks at any screen size.
+  ///
+  /// Default: [BlockLayout.LEFT]
   @Prop("'$_ALIGN-?'") BlockAlign get align;
 
   /// Alignment for child blocks above the 'sm' responsive breakpoint.
