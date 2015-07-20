@@ -96,6 +96,42 @@ bool isValidElement(dynamic object) {
   return _React.callMethod('isValidElement', [object]);
 }
 
+/// Returns a new JS map with the specified props and children changes, properly prepared for consumption by
+/// React JS methods such as cloneWithProps(), setProps(), and other methods that accept changesets of props to be
+/// merged into existing props.
+///
+/// Handles both Dart and JS React components, returning the appropriate props structure for each type:
+///
+/// * For Dart components, existing props are read from the "__internal__" props map, which are then merged with
+///   the new [newProps] and saved in a new JS map with the expected "__internal__" structure.
+///   Children are likewise copied/overwritten as expected.
+///
+/// * For JS components, a copy of [newProps] is returned, since React will merge the props without any special handling.
+JsObject preparePropsChangeset(JsObject element, Map newProps, [List newChildren]) {
+  JsObject propsChangeset;
+
+  Map internal = _getInternal(element);
+  if (internal == null) {
+    // Plain JS component
+    propsChangeset = newProps != null ? newJsMap(newProps) : null;
+  } else {
+    // react-dart component
+    Map oldExtendedProps = internal[PROPS];
+
+    Map extendedProps = new Map.from(oldExtendedProps);
+    if (newProps != null) {
+      extendedProps.addAll(newProps);
+    }
+    if (newChildren != null) {
+      extendedProps['children'] = newChildren;
+    }
+
+    propsChangeset = _convertDartProps(extendedProps);
+  }
+
+  return propsChangeset;
+}
+
 /// Dart wrapper for React.cloneElement.
 ///
 /// _From the JS docs:_
@@ -106,28 +142,9 @@ bool isValidElement(dynamic object) {
 /// > There is no special behavior for merging any props (unlike cloneWithProps).
 /// > See the [v0.13 RC2 blog post](https://facebook.github.io/react/blog/2015/03/03/react-v0.13-rc2.html) for additional details.
 JsObject cloneElement(JsObject element, [Map props, List children]) {
-  JsObject convertedProps;
+  JsObject propsChangeset = preparePropsChangeset(element, props, children);
 
-  Map internal = _getInternal(element);
-  if (internal == null) {
-    // Plain JS component
-    convertedProps = props != null ? newJsMap(props) : null;
-  } else {
-    // react-dart component
-    Map oldExtendedProps = internal[PROPS];
-
-    Map extendedProps = new Map.from(oldExtendedProps);
-    if (props != null) {
-      extendedProps.addAll(props);
-    }
-    if (children != null) {
-      extendedProps['children'] = children;
-    }
-
-    convertedProps = _convertDartProps(extendedProps);
-  }
-
-  List jsMethodArgs = [element, convertedProps];
+  List jsMethodArgs = [element, propsChangeset];
   if (children != null) {
     jsMethodArgs.add(new JsArray.from(children));
   }
