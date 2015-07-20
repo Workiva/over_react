@@ -69,7 +69,7 @@ Map getProps(JsObject instance) {
 
 /// Returns the DOM node associated with a rendered React component.
 ///
-/// This is a polyfill for [findDomNode] added in react 0.7.0 (React.js 0.13).
+/// Dart wrapper for React.finDOMNode.
 Element findDomNode(JsObject instance) {
   return _React.callMethod('findDOMNode', [instance]);
 }
