@@ -9,65 +9,55 @@ part of w_ui_platform.ui_core;
 /// - call `getLayoutClasses` function to retrieve a list of classNames to be added
 @GenerateProps(#LayoutProps)
 abstract class _$template_LayoutProps {
-
-  static const String _ALIGN = 'grid-align';
-  static const String _UP = 'grid-up';
-  static const String _WRAP = 'grid-wrap';
-  static const String _LAYOUT = 'grid';
-
-  static const String _BLOCK_SM = '-sm';
-  static const String _BLOCK_MD = '-md';
-  static const String _BLOCK_LG = '-lg';
-
   /// The number of blocks can fit horizontally in one "row" at any screen size.
-  @Prop("'$_UP'") int get up;
+  int get up;
 
   /// The number of blocks can fit horizontally in one "row" above the 'sm' responsive breakpoint.
-  @Prop("'$_UP$_BLOCK_SM'") int get smUp;
+  int get smUp;
 
   /// The number of blocks can fit horizontally in one "row" above the 'md' responsive breakpoint.
-  @Prop("'$_UP$_BLOCK_MD'") int get mdUp;
+  int get mdUp;
 
   /// The number of blocks can fit horizontally in one "row" above the 'lg' responsive breakpoint.
-  @Prop("'$_UP$_BLOCK_LG'") int get lgUp;
+  int get lgUp;
 
   /// Make child blocks wrap to the next line if they take up too much space at any screen size.
-  @Prop("'$_WRAP'") int get wrap;
+  int get wrap;
 
   /// Make child blocks wrap to the next line if they take up too much space above the 'sm' responsive breakpoint.
-  @Prop("'$_WRAP$_BLOCK_SM'") int get smWrap;
+  int get smWrap;
 
   /// Make child blocks wrap to the next line if they take up too much space above the 'md' responsive breakpoint.
-  @Prop("'$_WRAP$_BLOCK_MD'") int get mdWrap;
+  int get mdWrap;
 
   /// Make child blocks wrap to the next line if they take up too much space above the 'lg' responsive breakpoint.
-  @Prop("'$_WRAP$_BLOCK_LG'") int get lgWrap;
+  int get lgWrap;
 
   /// Alignment for child blocks at any screen size.
   ///
   /// Default: [BlockLayout.LEFT]
-  @Prop("'$_ALIGN-?'") BlockAlign get align;
+  BlockAlign get align;
 
   /// Alignment for child blocks above the 'sm' responsive breakpoint.
-  @Prop("'$_ALIGN-?$_BLOCK_SM'") BlockAlign get smAlign;
+  BlockAlign get smAlign;
 
   /// Alignment for child blocks above the 'md' responsive breakpoint.
-  @Prop("'$_ALIGN-?$_BLOCK_MD'") BlockAlign get mdAlign;
+  BlockAlign get mdAlign;
 
   /// Alignment for child blocks above the 'lg' responsive breakpoint.
-  @Prop("'$_ALIGN-?$_BLOCK_LG'") BlockAlign get lgAlign;
+  BlockAlign get lgAlign;
 
   /// Alignment for child blocks at any screen size.
-  @Prop("'$_LAYOUT-?'") BlockLayout get layout;
+  BlockLayout get layout;
 
   /// Alignment for child blocks above the 'sm' responsive breakpoint.
-  @Prop("'$_LAYOUT-?$_BLOCK_SM'") BlockLayout get smLayout;
+  BlockLayout get smLayout;
 
   /// Alignment for child blocks above the 'md' responsive breakpoint.
-  @Prop("'$_LAYOUT-?$_BLOCK_MD'") BlockLayout get mdLayout;
+  BlockLayout get mdLayout;
 
   /// Alignment for child blocks above the 'lg' responsive breakpoint.
-  @Prop("'$_LAYOUT-?$_BLOCK_LG'") BlockLayout get lgLayout;
+  BlockLayout get lgLayout;
 
   /// Whether this [GridBlock] is nested inside of another [GridBlock].
   ///
@@ -79,7 +69,7 @@ abstract class _$template_LayoutProps {
 }
 
 abstract class LayoutMixin<P extends LayoutProps> {
-  /// Standard HitAreaProps defaults.
+  /// Standard LayoutMixin defaults.
   static const Map defaultProps = const {
     LayoutProps.Z_$KEY__IS_NESTED: false,
     LayoutProps.Z_$KEY__ALIGN: BlockAlign.LEFT,
@@ -90,43 +80,31 @@ abstract class LayoutMixin<P extends LayoutProps> {
 
   /// Get all the required classNames for the block mixin
   String getBlockLayoutClasses() {
-    ClassNameBuilder layoutClasses = new ClassNameBuilder();
+    const String gridAlign = 'grid-align';
+    const String gridUp = 'grid-up';
+    const String gridWrap = 'grid-wrap';
+    const String gridLayout = 'grid';
+    const String blockSm = 'sm';
+    const String blockMd = 'md';
+    const String blockLg = 'lg';
 
-    // Copy over the prop keys and remove any that we
-    // do not want to iterate over
-    List<String> keys = new List()
-      ..addAll(LayoutProps.Z_$propKeys)
-      ..remove(LayoutProps.Z_$KEY__IS_NESTED);
-
-    // Iterate the props keys: (keys should be the class name required)
-    // - For int props append the provided value with a hyphen to complete the full class name
-    // - For bool props add the key directly.
-    // - For BlockLayout and BlockAlign we need to replace the '?' with the value
-    for (String classPrefix in keys) {
-      var value = props[classPrefix];
-      if (value != null) {
-        var className;
-        if (value is int && value >= 0) {
-          className = (classPrefix + '-' + value.toString());
-        } else if (value is bool && value == true) {
-          className = classPrefix;
-        } else if (value is BlockAlign) {
-          var align = (value as BlockAlign);
-          if (align.classPart != null) {
-            className = classPrefix.replaceFirst('?', align.classPart);
-          }
-        } else if (value is BlockLayout) {
-          var layout = (value as BlockLayout);
-          if (layout.classPart != null) {
-            className = classPrefix.replaceFirst('?', layout.classPart);
-          }
-        }
-
-        if (className != null) {
-          layoutClasses.add(className);
-        }
-      }
-    }
+    ClassNameBuilder layoutClasses = new ClassNameBuilder()
+      ..add(tProps.up       == null ? null : '$gridUp-${tProps.up}')
+      ..add(tProps.smUp     == null ? null : '$gridUp-$blockSm-${tProps.smUp}')
+      ..add(tProps.mdUp     == null ? null : '$gridUp-$blockMd-${tProps.mdUp}')
+      ..add(tProps.lgUp     == null ? null : '$gridUp-$blockLg-${tProps.lgUp}')
+      ..add(tProps.wrap     == null ? null : '$gridWrap-${tProps.wrap}')
+      ..add(tProps.smWrap   == null ? null : '$gridWrap-$blockSm-${tProps.smWrap}')
+      ..add(tProps.mdWrap   == null ? null : '$gridWrap-$blockMd-${tProps.mdWrap}')
+      ..add(tProps.lgWrap   == null ? null : '$gridWrap-$blockLg-${tProps.lgWrap}')
+      ..add(tProps.align    == null || tProps.align.classPart    == null ? null : '$gridAlign-${tProps.align.classPart}')
+      ..add(tProps.smAlign  == null || tProps.smAlign.classPart  == null ? null : '$gridAlign-${tProps.smAlign.classPart}-$blockSm')
+      ..add(tProps.mdAlign  == null || tProps.mdAlign.classPart  == null ? null : '$gridAlign-${tProps.mdAlign.classPart}-$blockMd')
+      ..add(tProps.lgAlign  == null || tProps.lgAlign.classPart  == null ? null : '$gridAlign-${tProps.lgAlign.classPart}-$blockLg')
+      ..add(tProps.layout   == null || tProps.layout.classPart   == null ? null : '$gridLayout-${tProps.layout.classPart}')
+      ..add(tProps.smLayout == null || tProps.smLayout.classPart == null ? null : '$gridLayout-${tProps.smLayout.classPart}-$blockSm')
+      ..add(tProps.mdLayout == null || tProps.mdLayout.classPart == null ? null : '$gridLayout-${tProps.mdLayout.classPart}-$blockMd')
+      ..add(tProps.lgLayout == null || tProps.lgLayout.classPart == null ? null : '$gridLayout-${tProps.lgLayout.classPart}-$blockLg');
 
     return layoutClasses.toClassName();
   }
@@ -142,7 +120,7 @@ class _$template_BlockAlign {
   static const SPACED = 'spaced';
 }
 
-/// The alignment options for the [GridBlock]
+/// The alignment options for the [LayoutMixin]
 @GenerateConstants(#BlockLayout, #classPart)
 class _$template_BlockLayout {
   static const NONE = null;
