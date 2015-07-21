@@ -24,6 +24,10 @@ abstract class BaseComponent<T extends ComponentDefinition> extends react.Compon
     );
   }
 
+  nestedChildren(List children) {
+    return new JsArray.from(children);
+  }
+
   /// Returns a new ClassNameBuilder with className and blacklist values added from [CssClassProps.className] and
   /// [CssClassProps.classNameBlackList], if they are specified.
   ///
