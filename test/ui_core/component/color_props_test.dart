@@ -8,21 +8,21 @@ import 'prop_utils.dart';
 import 'dart:collection' show MapView;
 
 main() {
-  group('ColorProps', () {
+  group('The ColorProps prop', () {
     ColorPropsTest instance;
     setUp(() {
       instance = new ColorPropsTest({});
     });
 
-    test('backgroundColor', () {
+    test('backgroundColor is able to have its value set and read', () {
       testProp(#backgroundColor, ColorProps.Z_$KEY__BACKGROUND_COLOR, instance, BackgroundColor.ALTERNATE);
     });
 
-    test('borderColor', () {
+    test('borderColor is able to have its value set and read', () {
       testProp(#borderColor, ColorProps.Z_$KEY__BORDER_COLOR, instance, BorderColor.ALTERNATE);
     });
 
-    test('textColor', () {
+    test('textColor is able to have its value set and read', () {
       testProp(#textColor, ColorProps.Z_$KEY__TEXT_COLOR, instance, TextColor.ALTERNATE);
     });
   });
