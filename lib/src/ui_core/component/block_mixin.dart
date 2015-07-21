@@ -176,10 +176,7 @@ abstract class BlockMixin<P extends BlockProps> {
 
     blockClasses.add(_getCollapseClasses());
     blockClasses.add(tProps.gutter.className);
-
-    if (!tProps.scroll) {
-      blockClasses.add('no-scroll');
-    }
+    blockClasses.add('no-scroll', !tProps.scroll);
 
     return blockClasses.toClassName();
   }
@@ -193,10 +190,12 @@ abstract class BlockMixin<P extends BlockProps> {
     var collapseClasses = new ClassNameBuilder();
 
     // Determine the type for the collapse prop
-    if ((tProps.collapse & BlockCollapse.ALL) != 0) {
+    if (tProps.collapse == BlockCollapse.ALL) {
       collapseClasses.add('grid-collapse');
     } else {
-      if ((tProps.collapse & BlockCollapse.VERTICAL) != 0) {
+      if ((tProps.collapse & BlockCollapse.VERTICAL) != 0 &&
+          (tProps.collapse & BlockCollapse.VERTICAL) != 8 &&
+          (tProps.collapse & BlockCollapse.VERTICAL) != 2) {
         collapseClasses.add('grid-collapse-vertical');
       } else {
         if ((tProps.collapse & BlockCollapse.RIGHT) != 0) {
@@ -208,7 +207,9 @@ abstract class BlockMixin<P extends BlockProps> {
         }
       }
 
-      if ((tProps.collapse & BlockCollapse.HORIZONTAL) != 0) {
+      if ((tProps.collapse & BlockCollapse.HORIZONTAL) != 0 &&
+          (tProps.collapse & BlockCollapse.HORIZONTAL) != 4 &&
+          (tProps.collapse & BlockCollapse.HORIZONTAL) != 1) {
         collapseClasses.add('grid-collapse-horizontal');
       } else {
         if ((tProps.collapse & BlockCollapse.TOP) != 0) {

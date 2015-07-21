@@ -48,8 +48,6 @@ abstract class _$template_LayoutProps {
   BlockAlign get lgAlign;
 
   /// Primary axis that child blocks display along.
-  ///
-  /// Default: [BlockLayout.HORIZONTAL]
   BlockLayout get layout;
 
   /// Primary axis that child blocks display along above the 'sm' responsive breakpoint.
@@ -74,7 +72,7 @@ abstract class LayoutMixin<P extends LayoutProps> {
   static const Map defaultProps = const {
     LayoutProps.Z_$KEY__IS_NESTED: false,
     LayoutProps.Z_$KEY__ALIGN: BlockAlign.LEFT,
-    LayoutProps.Z_$KEY__LAYOUT: BlockLayout.HORIZONTAL,
+    LayoutProps.Z_$KEY__LAYOUT: BlockLayout.NONE,
   };
 
   P get tProps;
@@ -91,14 +89,14 @@ abstract class LayoutMixin<P extends LayoutProps> {
     const String blockLg = 'lg';
 
     ClassNameBuilder layoutClasses = new ClassNameBuilder()
-      ..add(tProps.up       == null ? null : '$gridUp-${tProps.up}')
-      ..add(tProps.smUp     == null ? null : '$gridUp-$blockSm-${tProps.smUp}')
-      ..add(tProps.mdUp     == null ? null : '$gridUp-$blockMd-${tProps.mdUp}')
-      ..add(tProps.lgUp     == null ? null : '$gridUp-$blockLg-${tProps.lgUp}')
-      ..add(tProps.wrap     == null ? null : '$gridWrap-${tProps.wrap}')
-      ..add(tProps.smWrap   == null ? null : '$gridWrap-$blockSm-${tProps.smWrap}')
-      ..add(tProps.mdWrap   == null ? null : '$gridWrap-$blockMd-${tProps.mdWrap}')
-      ..add(tProps.lgWrap   == null ? null : '$gridWrap-$blockLg-${tProps.lgWrap}')
+      ..add(tProps.up       == null || tProps.up     < 0 ? null : '$gridUp-${tProps.up}')
+      ..add(tProps.smUp     == null || tProps.smUp   < 0 ? null : '$gridUp-$blockSm-${tProps.smUp}')
+      ..add(tProps.mdUp     == null || tProps.mdUp   < 0 ? null : '$gridUp-$blockMd-${tProps.mdUp}')
+      ..add(tProps.lgUp     == null || tProps.lgUp   < 0 ? null : '$gridUp-$blockLg-${tProps.lgUp}')
+      ..add(tProps.wrap     == null || tProps.wrap   < 0 ? null : '$gridWrap-${tProps.wrap}')
+      ..add(tProps.smWrap   == null || tProps.smWrap < 0 ? null : '$gridWrap-$blockSm-${tProps.smWrap}')
+      ..add(tProps.mdWrap   == null || tProps.mdWrap < 0 ? null : '$gridWrap-$blockMd-${tProps.mdWrap}')
+      ..add(tProps.lgWrap   == null || tProps.lgWrap < 0 ? null : '$gridWrap-$blockLg-${tProps.lgWrap}')
       ..add(tProps.align    == null || tProps.align.classPart    == null ? null : '$gridAlign-${tProps.align.classPart}')
       ..add(tProps.smAlign  == null || tProps.smAlign.classPart  == null ? null : '$gridAlign-${tProps.smAlign.classPart}-$blockSm')
       ..add(tProps.mdAlign  == null || tProps.mdAlign.classPart  == null ? null : '$gridAlign-${tProps.mdAlign.classPart}-$blockMd')
