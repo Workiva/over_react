@@ -24,7 +24,7 @@ class ValidationUtil {
       throw new ValidationWarning(message);
     }
 
-    print('VALIDATION WARNING: ${message}');
+    window.console.warn('VALIDATION WARNING: ${message}');
     return true;
   }
 
