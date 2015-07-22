@@ -32,23 +32,23 @@ main() {
       });
 
       test('wrap prop is set', () {
-        var renderedNode = renderAndGetDom(Block()..wrap = 1);
-        expect(renderedNode, hasExactClasses('grid-block grid-wrap-1'));
+        var renderedNode = renderAndGetDom(Block()..wrap = true);
+        expect(renderedNode, hasExactClasses('grid-block grid-wrap'));
       });
 
       test('smWrap prop is set', () {
-        var renderedNode = renderAndGetDom(Block()..smWrap = 1);
-        expect(renderedNode, hasExactClasses('grid-block grid-wrap-sm-1'));
+        var renderedNode = renderAndGetDom(Block()..smWrap = true);
+        expect(renderedNode, hasExactClasses('grid-block grid-wrap-sm'));
       });
 
       test('mdWrap prop is set', () {
-        var renderedNode = renderAndGetDom(Block()..mdWrap = 1);
-        expect(renderedNode, hasExactClasses('grid-block grid-wrap-md-1'));
+        var renderedNode = renderAndGetDom(Block()..mdWrap = true);
+        expect(renderedNode, hasExactClasses('grid-block grid-wrap-md'));
       });
 
       test('lgWrap prop is set', () {
-        var renderedNode = renderAndGetDom(Block()..lgWrap = 1);
-        expect(renderedNode, hasExactClasses('grid-block grid-wrap-lg-1'));
+        var renderedNode = renderAndGetDom(Block()..lgWrap = true);
+        expect(renderedNode, hasExactClasses('grid-block grid-wrap-lg'));
       });
 
       group('align prop is', () {
@@ -67,9 +67,9 @@ main() {
           expect(renderedNode, hasExactClasses('grid-block grid-align-center'));
         });
 
-        test('BlockAlign.JUSTIFIED', () {
-          var renderedNode = renderAndGetDom(Block()..align = BlockAlign.JUSTIFIED);
-          expect(renderedNode, hasExactClasses('grid-block grid-align-justified'));
+        test('BlockAlign.JUSTIFY', () {
+          var renderedNode = renderAndGetDom(Block()..align = BlockAlign.JUSTIFY);
+          expect(renderedNode, hasExactClasses('grid-block grid-align-justify'));
         });
 
         test('BlockAlign.SPACED', () {
@@ -94,9 +94,9 @@ main() {
           expect(renderedNode, hasExactClasses('grid-block grid-align-center-sm'));
         });
 
-        test('BlockAlign.JUSTIFIED', () {
-          var renderedNode = renderAndGetDom(Block()..smAlign = BlockAlign.JUSTIFIED);
-          expect(renderedNode, hasExactClasses('grid-block grid-align-justified-sm'));
+        test('BlockAlign.JUSTIFY', () {
+          var renderedNode = renderAndGetDom(Block()..smAlign = BlockAlign.JUSTIFY);
+          expect(renderedNode, hasExactClasses('grid-block grid-align-justify-sm'));
         });
 
         test('BlockAlign.SPACED', () {
@@ -121,9 +121,9 @@ main() {
           expect(renderedNode, hasExactClasses('grid-block grid-align-center-md'));
         });
 
-        test('BlockAlign.JUSTIFIED', () {
-          var renderedNode = renderAndGetDom(Block()..mdAlign = BlockAlign.JUSTIFIED);
-          expect(renderedNode, hasExactClasses('grid-block grid-align-justified-md'));
+        test('BlockAlign.JUSTIFY', () {
+          var renderedNode = renderAndGetDom(Block()..mdAlign = BlockAlign.JUSTIFY);
+          expect(renderedNode, hasExactClasses('grid-block grid-align-justify-md'));
         });
 
         test('BlockAlign.SPACED', () {
@@ -148,9 +148,9 @@ main() {
           expect(renderedNode, hasExactClasses('grid-block grid-align-center-lg'));
         });
 
-        test('BlockAlign.JUSTIFIED', () {
-          var renderedNode = renderAndGetDom(Block()..lgAlign = BlockAlign.JUSTIFIED);
-          expect(renderedNode, hasExactClasses('grid-block grid-align-justified-lg'));
+        test('BlockAlign.JUSTIFY', () {
+          var renderedNode = renderAndGetDom(Block()..lgAlign = BlockAlign.JUSTIFY);
+          expect(renderedNode, hasExactClasses('grid-block grid-align-justify-lg'));
         });
 
         test('BlockAlign.SPACED', () {
