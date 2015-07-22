@@ -22,16 +22,16 @@ abstract class _$template_LayoutProps {
   int get lgUp;
 
   /// Make child blocks wrap to the next line if they take up too much space at any screen size.
-  int get wrap;
+  bool get wrap;
 
   /// Make child blocks wrap to the next line if they take up too much space above the 'sm' responsive breakpoint.
-  int get smWrap;
+  bool get smWrap;
 
   /// Make child blocks wrap to the next line if they take up too much space above the 'md' responsive breakpoint.
-  int get mdWrap;
+  bool get mdWrap;
 
   /// Make child blocks wrap to the next line if they take up too much space above the 'lg' responsive breakpoint.
-  int get lgWrap;
+  bool get lgWrap;
 
   /// Alignment for child blocks at any screen size.
   ///
@@ -93,10 +93,10 @@ abstract class LayoutMixin<P extends LayoutProps> {
       ..add(tProps.smUp     == null || tProps.smUp   < 0 ? null : '$gridUp-$blockSm-${tProps.smUp}')
       ..add(tProps.mdUp     == null || tProps.mdUp   < 0 ? null : '$gridUp-$blockMd-${tProps.mdUp}')
       ..add(tProps.lgUp     == null || tProps.lgUp   < 0 ? null : '$gridUp-$blockLg-${tProps.lgUp}')
-      ..add(tProps.wrap     == null || tProps.wrap   < 0 ? null : '$gridWrap-${tProps.wrap}')
-      ..add(tProps.smWrap   == null || tProps.smWrap < 0 ? null : '$gridWrap-$blockSm-${tProps.smWrap}')
-      ..add(tProps.mdWrap   == null || tProps.mdWrap < 0 ? null : '$gridWrap-$blockMd-${tProps.mdWrap}')
-      ..add(tProps.lgWrap   == null || tProps.lgWrap < 0 ? null : '$gridWrap-$blockLg-${tProps.lgWrap}')
+      ..add(tProps.wrap     == null ? null : '$gridWrap')
+      ..add(tProps.smWrap   == null ? null : '$gridWrap-$blockSm')
+      ..add(tProps.mdWrap   == null ? null : '$gridWrap-$blockMd')
+      ..add(tProps.lgWrap   == null ? null : '$gridWrap-$blockLg')
       ..add(tProps.align    == null || tProps.align.classPart    == null ? null : '$gridAlign-${tProps.align.classPart}')
       ..add(tProps.smAlign  == null || tProps.smAlign.classPart  == null ? null : '$gridAlign-${tProps.smAlign.classPart}-$blockSm')
       ..add(tProps.mdAlign  == null || tProps.mdAlign.classPart  == null ? null : '$gridAlign-${tProps.mdAlign.classPart}-$blockMd')
@@ -113,10 +113,15 @@ abstract class LayoutMixin<P extends LayoutProps> {
 /// The alignment options for the [Block]
 @GenerateConstants(#BlockAlign, #classPart)
 class _$template_BlockAlign {
+  /// > Aggregate on the left side of the primary axis.
   static const LEFT = null;
+  /// > Aggregate on the right side of the primary axis.
   static const RIGHT = 'right';
+  /// > Aggregate in the middle of the primary axis.
   static const CENTER = 'center';
-  static const JUSTIFIED = 'justified';
+  /// > Spread out along the primary axis with equal space between them.
+  static const JUSTIFY = 'justify';
+  /// > Spread out along the primary axis with equal space around them.
   static const SPACED = 'spaced';
 }
 
