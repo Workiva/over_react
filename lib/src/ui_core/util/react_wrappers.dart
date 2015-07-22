@@ -67,12 +67,12 @@ Map getProps(JsObject instance) {
   return isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
 }
 
-/// Returns the DOM node associated with a rendered React component.
+/// Returns the DOM node associated with a mounted React component [instance],
+/// which can be a [JsObject] or [react.Component].
 ///
-/// Dart wrapper for React.finDOMNode.
-Element findDomNode(JsObject instance) {
-  return _React.callMethod('findDOMNode', [instance]);
-}
+/// This method simply wraps react.findDOMNode with strong typing for the return value
+/// (and for the function itself, which is declared using `var` in react-dart).
+Element findDomNode(JsObject instance) => react.findDOMNode(instance);
 
 /// Returns whether the instance is a valid ReactElement and was created using the specified Dart factory
 bool isValidElementOfType(dynamic instance, ReactComponentFactory factory) {
