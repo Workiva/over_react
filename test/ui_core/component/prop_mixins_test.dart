@@ -21,7 +21,7 @@ main() {
   });
 
   group('UbiquitousProps', () {
-    testKeys(UbiquitousProps.Z_$propKeys, (() => new UbiquitousPropMixinsTest({})));
+    testKeys(UbiquitousDomProps.Z_$propKeys, (() => new UbiquitousPropMixinsTest({})));
   });
 }
 
@@ -79,7 +79,7 @@ class CssClassPropMixinsTest extends MapView with CssClassProps {
   }
 }
 
-class UbiquitousPropMixinsTest extends MapView with UbiquitousProps {
+class UbiquitousPropMixinsTest extends MapView with UbiquitousDomProps {
   UbiquitousPropMixinsTest(Map map) : super (map);
 
   /// The props to be manipulated via the getters/setters.
