@@ -92,13 +92,15 @@ main() {
           expect(builder.toClassName(), isEmpty);
         });
 
-        test('does not blacklist null', () {
+        test('does nothing when null is blacklisted', () {
           builder.blacklist(null);
-          builder.add('class1');
-          expect(builder.toClassName(), equals('class1'));
+          builder
+            ..add('class1')
+            ..add('null');
+          expect(builder.toClassName(), equals('class1 null'));
         });
 
-        test('does not blacklist the empty string', () {
+        test('does nothing when the empty string is blacklisted', () {
           builder.blacklist('');
           builder.add('class1');
           expect(builder.toClassName(), equals('class1'));
@@ -124,13 +126,17 @@ main() {
         });
 
         test('does not add classes when className is null', () {
-          builder.add(null);
-          expect(builder.toClassName(), equals(''));
+          builder
+            ..add('class1')
+            ..add(null);
+          expect(builder.toClassName(), equals('class1'));
         });
 
         test('does not add classes when className is an empty string', () {
-          builder.add('');
-          expect(builder.toClassName(), equals(''));
+          builder
+            ..add('class1')
+            ..add('');
+          expect(builder.toClassName(), equals('class1'));
         });
       });
 
