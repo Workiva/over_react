@@ -164,13 +164,11 @@ abstract class BlockMixin<P extends BlockProps> {
 
         if (value is int && value >= 0) {
           className = (classPrefix + '-' + value.toString());
-        } else if (value) {
+        } else if (value == true) {
           className = classPrefix;
         }
 
-        if (className != null) {
-          blockClasses.add(className);
-        }
+        blockClasses.add(className, className != null);
       }
     }
 
@@ -193,32 +191,18 @@ abstract class BlockMixin<P extends BlockProps> {
     if (tProps.collapse == BlockCollapse.ALL) {
       collapseClasses.add('grid-collapse');
     } else {
-      if ((tProps.collapse & BlockCollapse.VERTICAL) != 0 &&
-          (tProps.collapse & BlockCollapse.VERTICAL) != 8 &&
-          (tProps.collapse & BlockCollapse.VERTICAL) != 2) {
+      if ((tProps.collapse & BlockCollapse.VERTICAL) == BlockCollapse.VERTICAL) {
         collapseClasses.add('grid-collapse-vertical');
       } else {
-        if ((tProps.collapse & BlockCollapse.RIGHT) != 0) {
-          collapseClasses.add('grid-collapse-right');
-        }
-
-        if ((tProps.collapse & BlockCollapse.LEFT) != 0) {
-          collapseClasses.add('grid-collapse-left');
-        }
+        collapseClasses.add('grid-collapse-top', (tProps.collapse & BlockCollapse.TOP) != 0);
+        collapseClasses.add('grid-collapse-bottom', (tProps.collapse & BlockCollapse.BOTTOM) != 0);
       }
 
-      if ((tProps.collapse & BlockCollapse.HORIZONTAL) != 0 &&
-          (tProps.collapse & BlockCollapse.HORIZONTAL) != 4 &&
-          (tProps.collapse & BlockCollapse.HORIZONTAL) != 1) {
+      if ((tProps.collapse & BlockCollapse.HORIZONTAL) == BlockCollapse.HORIZONTAL) {
         collapseClasses.add('grid-collapse-horizontal');
       } else {
-        if ((tProps.collapse & BlockCollapse.TOP) != 0) {
-          collapseClasses.add('grid-collapse-top');
-        }
-
-        if ((tProps.collapse & BlockCollapse.BOTTOM) != 0) {
-          collapseClasses.add('grid-collapse-bottom');
-        }
+        collapseClasses.add('grid-collapse-right', (tProps.collapse & BlockCollapse.RIGHT) != 0);
+        collapseClasses.add('grid-collapse-left', (tProps.collapse & BlockCollapse.LEFT) != 0);
       }
     }
 
@@ -251,12 +235,12 @@ abstract class BlockCollapse {
   static const int RIGHT = 1 << 3;
 
   /// > Collapses the top and bottom padding.
-  // Value = 0001 | 0100 = 0101
-  static const int HORIZONTAL = (TOP | BOTTOM);
+  // Value = 0010 | 1000 = 1010
+  static const int HORIZONTAL = (LEFT | RIGHT);
 
   /// > Collapses the left and right padding.
-  // Value = 0010 | 1000 = 1010
-  static const int VERTICAL = (LEFT | RIGHT);
+  // Value = 0100 | 0100 = 0101
+  static const int VERTICAL = (TOP | BOTTOM);
 
   /// > Collapses top, bottom, left, and right padding.
   // Value = 0101 | 1010 = 1111

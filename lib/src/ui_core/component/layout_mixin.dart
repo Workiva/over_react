@@ -89,22 +89,25 @@ abstract class LayoutMixin<P extends LayoutProps> {
     const String blockLg = 'lg';
 
     ClassNameBuilder layoutClasses = new ClassNameBuilder()
-      ..add(tProps.up       == null || tProps.up     < 0 ? null : '$gridUp-${tProps.up}')
-      ..add(tProps.smUp     == null || tProps.smUp   < 0 ? null : '$gridUp-$blockSm-${tProps.smUp}')
-      ..add(tProps.mdUp     == null || tProps.mdUp   < 0 ? null : '$gridUp-$blockMd-${tProps.mdUp}')
-      ..add(tProps.lgUp     == null || tProps.lgUp   < 0 ? null : '$gridUp-$blockLg-${tProps.lgUp}')
-      ..add(tProps.wrap     == null ? null : '$gridWrap')
-      ..add(tProps.smWrap   == null ? null : '$gridWrap-$blockSm')
-      ..add(tProps.mdWrap   == null ? null : '$gridWrap-$blockMd')
-      ..add(tProps.lgWrap   == null ? null : '$gridWrap-$blockLg')
-      ..add(tProps.align    == null || tProps.align.classPart    == null ? null : '$gridAlign-${tProps.align.classPart}')
-      ..add(tProps.smAlign  == null || tProps.smAlign.classPart  == null ? null : '$gridAlign-${tProps.smAlign.classPart}-$blockSm')
-      ..add(tProps.mdAlign  == null || tProps.mdAlign.classPart  == null ? null : '$gridAlign-${tProps.mdAlign.classPart}-$blockMd')
-      ..add(tProps.lgAlign  == null || tProps.lgAlign.classPart  == null ? null : '$gridAlign-${tProps.lgAlign.classPart}-$blockLg')
-      ..add(tProps.layout   == null || tProps.layout.classPart   == null ? null : '$gridBase-${tProps.layout.classPart}')
-      ..add(tProps.smLayout == null || tProps.smLayout.classPart == null ? null : '$gridBase-${tProps.smLayout.classPart}-$blockSm')
-      ..add(tProps.mdLayout == null || tProps.mdLayout.classPart == null ? null : '$gridBase-${tProps.mdLayout.classPart}-$blockMd')
-      ..add(tProps.lgLayout == null || tProps.lgLayout.classPart == null ? null : '$gridBase-${tProps.lgLayout.classPart}-$blockLg');
+      ..add((tProps.up   == null || tProps.up   < 0) ? null : '$gridUp-${tProps.up}')
+      ..add((tProps.smUp == null || tProps.smUp < 0) ? null : '$gridUp-$blockSm-${tProps.smUp}')
+      ..add((tProps.mdUp == null || tProps.mdUp < 0) ? null : '$gridUp-$blockMd-${tProps.mdUp}')
+      ..add((tProps.lgUp == null || tProps.lgUp < 0) ? null : '$gridUp-$blockLg-${tProps.lgUp}')
+
+      ..add(tProps.wrap   == null ? null : '$gridWrap')
+      ..add(tProps.smWrap == null ? null : '$gridWrap-$blockSm')
+      ..add(tProps.mdWrap == null ? null : '$gridWrap-$blockMd')
+      ..add(tProps.lgWrap == null ? null : '$gridWrap-$blockLg')
+
+      ..add((tProps.align   == null || tProps.align.classPart   == null) ? null : '$gridAlign-${tProps.align.classPart}')
+      ..add((tProps.smAlign == null || tProps.smAlign.classPart == null) ? null : '$gridAlign-${tProps.smAlign.classPart}-$blockSm')
+      ..add((tProps.mdAlign == null || tProps.mdAlign.classPart == null) ? null : '$gridAlign-${tProps.mdAlign.classPart}-$blockMd')
+      ..add((tProps.lgAlign == null || tProps.lgAlign.classPart == null) ? null : '$gridAlign-${tProps.lgAlign.classPart}-$blockLg')
+
+      ..add((tProps.layout   == null || tProps.layout.classPart   == null) ? null : '$gridBase-${tProps.layout.classPart}')
+      ..add((tProps.smLayout == null || tProps.smLayout.classPart == null) ? null : '$gridBase-${tProps.smLayout.classPart}-$blockSm')
+      ..add((tProps.mdLayout == null || tProps.mdLayout.classPart == null) ? null : '$gridBase-${tProps.mdLayout.classPart}-$blockMd')
+      ..add((tProps.lgLayout == null || tProps.lgLayout.classPart == null) ? null : '$gridBase-${tProps.lgLayout.classPart}-$blockLg');
 
     return layoutClasses.toClassName();
   }
