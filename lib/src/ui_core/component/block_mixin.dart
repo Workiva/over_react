@@ -168,7 +168,7 @@ abstract class BlockMixin<P extends BlockProps> {
           className = classPrefix;
         }
 
-        blockClasses.add(className, className != null);
+        blockClasses.add(className);
       }
     }
 
