@@ -154,12 +154,12 @@ main() {
 
         test('BlockCollapse.TOP | BlockCollapse.BOTTOM', () {
           var renderedNode = renderAndGetDom(Block()..collapse = BlockCollapse.TOP | BlockCollapse.BOTTOM);
-          expect(renderedNode, hasExactClasses('grid-block grid-collapse-horizontal'));
+          expect(renderedNode, hasExactClasses('grid-block grid-collapse-vertical'));
         });
 
         test('BlockCollapse.RIGHT | BlockCollapse.LEFT', () {
           var renderedNode = renderAndGetDom(Block()..collapse = BlockCollapse.RIGHT | BlockCollapse.LEFT);
-          expect(renderedNode, hasExactClasses('grid-block grid-collapse-vertical'));
+          expect(renderedNode, hasExactClasses('grid-block grid-collapse-horizontal'));
         });
 
         test('BlockCollapse.TOP | BlockCollapse.RIGHT', () {
@@ -182,23 +182,23 @@ main() {
           expect(renderedNode, hasExactClasses('grid-block grid-collapse-bottom grid-collapse-left'));
         });
 
-        test('BlockCollapse.TOP | BlockCollapse.HORIZONTAL', () {
-          var renderedNode = renderAndGetDom(Block()..collapse = BlockCollapse.TOP | BlockCollapse.HORIZONTAL);
+        test('BlockCollapse.RIGHT | BlockCollapse.HORIZONTAL', () {
+          var renderedNode = renderAndGetDom(Block()..collapse = BlockCollapse.RIGHT | BlockCollapse.HORIZONTAL);
           expect(renderedNode, hasExactClasses('grid-block grid-collapse-horizontal'));
         });
 
-        test('BlockCollapse.BOTTOM | BlockCollapse.HORIZONTAL', () {
-          var renderedNode = renderAndGetDom(Block()..collapse = BlockCollapse.BOTTOM | BlockCollapse.HORIZONTAL);
+        test('BlockCollapse.LEFT | BlockCollapse.HORIZONTAL', () {
+          var renderedNode = renderAndGetDom(Block()..collapse = BlockCollapse.LEFT | BlockCollapse.HORIZONTAL);
           expect(renderedNode, hasExactClasses('grid-block grid-collapse-horizontal'));
         });
 
-        test('BlockCollapse.RIGHT | BlockCollapse.VERTICAL', () {
-          var renderedNode = renderAndGetDom(Block()..collapse = BlockCollapse.RIGHT | BlockCollapse.VERTICAL);
+        test('BlockCollapse.TOP | BlockCollapse.VERTICAL', () {
+          var renderedNode = renderAndGetDom(Block()..collapse = BlockCollapse.TOP | BlockCollapse.VERTICAL);
           expect(renderedNode, hasExactClasses('grid-block grid-collapse-vertical'));
         });
 
-        test('BlockCollapse.LEFT | BlockCollapse.VERTICAL', () {
-          var renderedNode = renderAndGetDom(Block()..collapse = BlockCollapse.LEFT | BlockCollapse.VERTICAL);
+        test('BlockCollapse.BOTTOM | BlockCollapse.VERTICAL', () {
+          var renderedNode = renderAndGetDom(Block()..collapse = BlockCollapse.BOTTOM | BlockCollapse.VERTICAL);
           expect(renderedNode, hasExactClasses('grid-block grid-collapse-vertical'));
         });
       });
