@@ -110,6 +110,16 @@ main() {
 
           expect(builder.toClassName(), equals('class3'));
         });
+
+        test('does not add classes when className is null', () {
+          builder.add(null);
+          expect(builder.toClassName(), equals(''));
+        });
+
+        test('does not add classes when className is an empty string', () {
+          builder.add('');
+          expect(builder.toClassName(), equals(''));
+        });
       });
 
       group('created with .fromProps() constructor', () {
