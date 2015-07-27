@@ -65,12 +65,19 @@ abstract class _$template_DomProps {
 
 /// Typed getters/setters for reserved DOM-related props that can be used by all UIP components.
 /// To be used as a mixin for React components and builders.
-@GenerateProps(#UbiquitousProps,
-  keyType: TypedMapKeyType.STRING,
-  fromSyntheticGetters: true
-)
-abstract class _$template_UbiquitousProps {
-  dynamic id, title, tabIndex;
+@GenerateProps(#UbiquitousDomProps, keyType: TypedMapKeyType.STRING)
+abstract class _$template_UbiquitousDomProps {
+  /// Whether the element if focusable.
+  /// Must be a valid integer or String of valid integer.
+  dynamic get tabIndex;
 
-  Map<String, dynamic> style;
+  /// Unique identifier.
+  /// Must to unique amongst all the ids, and contain at least one character.
+  String get id;
+
+  /// Represents advisory information about the element.
+  String get title;
+
+  /// Specifies an inline CSS style of the element.
+  Map<String, dynamic> get style;
 }
