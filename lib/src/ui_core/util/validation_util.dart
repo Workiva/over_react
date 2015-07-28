@@ -1,5 +1,7 @@
 part of w_ui_platform.ui_core;
 
+typedef void ValidationUtilWarningCallback(String message);
+
 /// Utility for logging validation errors or warning.
 class ValidationUtil {
 
@@ -16,7 +18,9 @@ class ValidationUtil {
   static bool warn(String message) {
     WARNING_COUNT += 1;
 
-    _warningsStreamController.add(message);
+    if (onWarning != null) {
+      onWarning(message);
+    }
 
     if (WARNINGS_ENABLED) {
       if (THROW_ON_WARNING) {
@@ -29,12 +33,10 @@ class ValidationUtil {
     return true;
   }
 
-  static final StreamController<String> _warningsStreamController = new StreamController.broadcast(sync: true);
-
-  /// A stream of the input to the [warn] method.
+  /// Callback for when warnings are logged.
   ///
   /// Useful for verifying warnings in unit tests.
-  static Stream<String> get warnings => _warningsStreamController.stream;
+  static ValidationUtilWarningCallback onWarning;
 }
 
 class ValidationWarning extends Error {
