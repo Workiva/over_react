@@ -16,18 +16,25 @@ class ValidationUtil {
   static bool warn(String message) {
     WARNING_COUNT += 1;
 
-    if (!WARNINGS_ENABLED) {
-      return true;
+    _warningsStreamController.add(message);
+
+    if (WARNINGS_ENABLED) {
+      if (THROW_ON_WARNING) {
+        throw new ValidationWarning(message);
+      }
+
+      window.console.warn('VALIDATION WARNING: ${message}');
     }
 
-    if (THROW_ON_WARNING) {
-      throw new ValidationWarning(message);
-    }
-
-    window.console.warn('VALIDATION WARNING: ${message}');
     return true;
   }
 
+  static final StreamController<String> _warningsStreamController = new StreamController.broadcast(sync: true);
+
+  /// A stream of the input to the [warn] method.
+  ///
+  /// Useful for verifying warnings in unit tests.
+  static Stream<String> get warnings => _warningsStreamController.stream;
 }
 
 class ValidationWarning extends Error {
