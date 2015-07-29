@@ -72,12 +72,12 @@ abstract class _$template_UbiquitousDomProps {
   dynamic get tabIndex;
 
   /// Unique identifier.
-  /// Must to unique amongst all the ids, and contain at least one character.
+  /// Must be unique amongst all the ids, and contain at least one character.
   String get id;
 
   /// Represents advisory information about the element.
   String get title;
 
-  /// Specifies an inline CSS style of the element.
+  /// Specifies an inline CSS style for the element
   Map<String, dynamic> get style;
 }
