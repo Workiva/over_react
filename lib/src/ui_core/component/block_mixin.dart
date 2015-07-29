@@ -235,15 +235,15 @@ abstract class BlockCollapse {
   static const int RIGHT = 1 << 3;
 
   /// > Collapses the top and bottom padding.
-  // Value = 0010 | 1000 = 1010
+  // Value = [LEFT] | [RIGHT] = 1010
   static const int HORIZONTAL = (LEFT | RIGHT);
 
   /// > Collapses the left and right padding.
-  // Value = 0100 | 0100 = 0101
+  // Value = [TOP] | [BOTTOM] = 0101
   static const int VERTICAL = (TOP | BOTTOM);
 
   /// > Collapses top, bottom, left, and right padding.
-  // Value = 0101 | 1010 = 1111
+  // Value = [HORIZONTAL] | [VERTICAL] = 1111
   static const int ALL = (HORIZONTAL | VERTICAL);
 }
 
