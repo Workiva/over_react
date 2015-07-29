@@ -162,7 +162,7 @@ abstract class BlockMixin<P extends BlockProps> {
       if (value != null) {
         var className;
 
-        if (value is int && value >= 0) {
+        if (value is int && value >= 1) {
           className = (classPrefix + '-' + value.toString());
         } else if (value == true) {
           className = classPrefix;

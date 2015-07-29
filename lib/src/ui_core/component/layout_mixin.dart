@@ -89,10 +89,10 @@ abstract class LayoutMixin<P extends LayoutProps> {
     const String blockLg = 'lg';
 
     ClassNameBuilder layoutClasses = new ClassNameBuilder()
-      ..add((tProps.up   == null || tProps.up   < 0) ? null : '$gridUp-${tProps.up}')
-      ..add((tProps.smUp == null || tProps.smUp < 0) ? null : '$gridUp-$blockSm-${tProps.smUp}')
-      ..add((tProps.mdUp == null || tProps.mdUp < 0) ? null : '$gridUp-$blockMd-${tProps.mdUp}')
-      ..add((tProps.lgUp == null || tProps.lgUp < 0) ? null : '$gridUp-$blockLg-${tProps.lgUp}')
+      ..add((tProps.up   == null || tProps.up   < 1) ? null : '$gridUp-${tProps.up}')
+      ..add((tProps.smUp == null || tProps.smUp < 1) ? null : '$gridUp-$blockSm-${tProps.smUp}')
+      ..add((tProps.mdUp == null || tProps.mdUp < 1) ? null : '$gridUp-$blockMd-${tProps.mdUp}')
+      ..add((tProps.lgUp == null || tProps.lgUp < 1) ? null : '$gridUp-$blockLg-${tProps.lgUp}')
 
       ..add(tProps.wrap   == null ? null : '$gridWrap')
       ..add(tProps.smWrap == null ? null : '$gridWrap-$blockSm')

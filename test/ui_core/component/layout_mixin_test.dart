@@ -11,24 +11,72 @@ import '../../test_util/custom_matchers.dart';
 main() {
   group('LayoutMixin', () {
     group('renders with correct CSS classes when the', () {
-      test('up prop is set', () {
-        var renderedNode = renderAndGetDom(Block()..up = 1);
-        expect(renderedNode, hasExactClasses('grid-block grid-up-1'));
+      group('up prop is set', () {
+        test('to 0', () {
+          var renderedNode = renderAndGetDom(Block()..up = 0);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to null', () {
+          var renderedNode = renderAndGetDom(Block()..up = null);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to an int larger than 0', () {
+          var renderedNode = renderAndGetDom(Block()..up = 1);
+          expect(renderedNode, hasExactClasses('grid-block grid-up-1'));
+        });
       });
 
-      test('smUp prop is set', () {
-        var renderedNode = renderAndGetDom(Block()..smUp = 1);
-        expect(renderedNode, hasExactClasses('grid-block grid-up-sm-1'));
+      group('smUp prop is set', () {
+        test('to 0', () {
+          var renderedNode = renderAndGetDom(Block()..smUp = 0);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to null', () {
+          var renderedNode = renderAndGetDom(Block()..smUp = null);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to an int larger than 0', () {
+          var renderedNode = renderAndGetDom(Block()..smUp = 1);
+          expect(renderedNode, hasExactClasses('grid-block grid-up-sm-1'));
+        });
       });
 
-      test('mdUp prop is set', () {
-        var renderedNode = renderAndGetDom(Block()..mdUp = 1);
-        expect(renderedNode, hasExactClasses('grid-block grid-up-md-1'));
+      group('mdUp prop is set', () {
+        test('to 0', () {
+          var renderedNode = renderAndGetDom(Block()..mdUp = 0);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to null', () {
+          var renderedNode = renderAndGetDom(Block()..mdUp = null);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to an int larger than 0', () {
+          var renderedNode = renderAndGetDom(Block()..mdUp = 1);
+          expect(renderedNode, hasExactClasses('grid-block grid-up-md-1'));
+        });
       });
 
-      test('lgUp prop is set', () {
-        var renderedNode = renderAndGetDom(Block()..lgUp = 1);
-        expect(renderedNode, hasExactClasses('grid-block grid-up-lg-1'));
+      group('lgUp prop is set', () {
+        test('to 0', () {
+          var renderedNode = renderAndGetDom(Block()..lgUp = 0);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to null', () {
+          var renderedNode = renderAndGetDom(Block()..lgUp = null);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to an int larger than 0', () {
+          var renderedNode = renderAndGetDom(Block()..lgUp = 1);
+          expect(renderedNode, hasExactClasses('grid-block grid-up-lg-1'));
+        });
       });
 
       test('wrap prop is set', () {
