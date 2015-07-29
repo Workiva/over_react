@@ -11,64 +11,208 @@ import '../../test_util/custom_matchers.dart';
 main() {
   group('BlockMixin', () {
     group('has the correct CSS class names when the', () {
-      test('size prop is set', () {
-        var renderedNode = renderAndGetDom(Block()..size = 1);
-        expect(renderedNode, hasExactClasses('grid-block grid-block-1'));
+      group('size prop is set', () {
+        test('to 0', () {
+          var renderedNode = renderAndGetDom(Block()..size = 0);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to null', () {
+          var renderedNode = renderAndGetDom(Block()..size = null);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to an int larger than 0', () {
+          var renderedNode = renderAndGetDom(Block()..size = 1);
+          expect(renderedNode, hasExactClasses('grid-block grid-block-1'));
+        });
       });
 
-      test('smSize prop is set', () {
-        var renderedNode = renderAndGetDom(Block()..smSize = 1);
-        expect(renderedNode, hasExactClasses('grid-block grid-block-sm-1'));
+      group('smSize prop is set', () {
+        test('to 0', () {
+          var renderedNode = renderAndGetDom(Block()..smSize = 0);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to null', () {
+          var renderedNode = renderAndGetDom(Block()..smSize = null);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to an int larger than 0', () {
+          var renderedNode = renderAndGetDom(Block()..smSize = 1);
+          expect(renderedNode, hasExactClasses('grid-block grid-block-sm-1'));
+        });
       });
 
-      test('mdSize prop is set', () {
-        var renderedNode = renderAndGetDom(Block()..mdSize = 1);
-        expect(renderedNode, hasExactClasses('grid-block grid-block-md-1'));
+      group('mdSize prop is set', () {
+        test('to 0', () {
+          var renderedNode = renderAndGetDom(Block()..mdSize = 0);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to null', () {
+          var renderedNode = renderAndGetDom(Block()..mdSize = null);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to an int larger than 0', () {
+          var renderedNode = renderAndGetDom(Block()..mdSize = 1);
+          expect(renderedNode, hasExactClasses('grid-block grid-block-md-1'));
+        });
       });
 
-      test('lgSize prop is set', () {
-        var renderedNode = renderAndGetDom(Block()..lgSize = 1);
-        expect(renderedNode, hasExactClasses('grid-block grid-block-lg-1'));
+      group('lgSize prop is set', () {
+        test('to 0', () {
+          var renderedNode = renderAndGetDom(Block()..lgSize = 0);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to null', () {
+          var renderedNode = renderAndGetDom(Block()..lgSize = null);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to an int larger than 0', () {
+          var renderedNode = renderAndGetDom(Block()..lgSize = 1);
+          expect(renderedNode, hasExactClasses('grid-block grid-block-lg-1'));
+        });
       });
 
-      test('order prop is set', () {
-        var renderedNode = renderAndGetDom(Block()..order = 1);
-        expect(renderedNode, hasExactClasses('grid-block grid-order-1'));
+      group('order prop is set', () {
+        test('to 0', () {
+          var renderedNode = renderAndGetDom(Block()..order = 0);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to null', () {
+          var renderedNode = renderAndGetDom(Block()..order = null);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to an int larger than 0', () {
+          var renderedNode = renderAndGetDom(Block()..order = 1);
+          expect(renderedNode, hasExactClasses('grid-block grid-order-1'));
+        });
       });
 
-      test('smOrder prop is set', () {
-        var renderedNode = renderAndGetDom(Block()..smOrder = 1);
-        expect(renderedNode, hasExactClasses('grid-block grid-order-sm-1'));
+      group('smOrder prop is set', () {
+        test('to 0', () {
+          var renderedNode = renderAndGetDom(Block()..smOrder = 0);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to null', () {
+          var renderedNode = renderAndGetDom(Block()..smOrder = null);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to an int larger than 0', () {
+          var renderedNode = renderAndGetDom(Block()..smOrder = 1);
+          expect(renderedNode, hasExactClasses('grid-block grid-order-sm-1'));
+        });
       });
 
-      test('mdOrder prop is set', () {
-        var renderedNode = renderAndGetDom(Block()..mdOrder = 1);
-        expect(renderedNode, hasExactClasses('grid-block grid-order-md-1'));
+      group('mdOrder prop is set', () {
+        test('to 0', () {
+          var renderedNode = renderAndGetDom(Block()..mdOrder = 0);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to null', () {
+          var renderedNode = renderAndGetDom(Block()..mdOrder = null);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to an int larger than 0', () {
+          var renderedNode = renderAndGetDom(Block()..mdOrder = 1);
+          expect(renderedNode, hasExactClasses('grid-block grid-order-md-1'));
+        });
       });
 
-      test('lgOrder prop is set', () {
-        var renderedNode = renderAndGetDom(Block()..lgOrder = 1);
-        expect(renderedNode, hasExactClasses('grid-block grid-order-lg-1'));
+      group('lgOrder prop is set', () {
+        test('to 0', () {
+          var renderedNode = renderAndGetDom(Block()..lgOrder = 0);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to null', () {
+          var renderedNode = renderAndGetDom(Block()..lgOrder = null);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to an int larger than 0', () {
+          var renderedNode = renderAndGetDom(Block()..lgOrder = 1);
+          expect(renderedNode, hasExactClasses('grid-block grid-order-lg-1'));
+        });
       });
 
-      test('offset prop is set', () {
-        var renderedNode = renderAndGetDom(Block()..offset = 1);
-        expect(renderedNode, hasExactClasses('grid-block grid-offset-1'));
+      group('offset prop is set', () {
+        test('to 0', () {
+          var renderedNode = renderAndGetDom(Block()..offset = 0);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to null', () {
+          var renderedNode = renderAndGetDom(Block()..offset = null);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to an int larger than 0', () {
+          var renderedNode = renderAndGetDom(Block()..offset = 1);
+          expect(renderedNode, hasExactClasses('grid-block grid-offset-1'));
+        });
       });
 
-      test('smOffset prop is set', () {
-        var renderedNode = renderAndGetDom(Block()..smOffset = 1);
-        expect(renderedNode, hasExactClasses('grid-block grid-offset-sm-1'));
+      group('smOffset prop is set', () {
+        test('to 0', () {
+          var renderedNode = renderAndGetDom(Block()..smOffset = 0);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to null', () {
+          var renderedNode = renderAndGetDom(Block()..smOffset = null);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to an int larger than 0', () {
+          var renderedNode = renderAndGetDom(Block()..smOffset = 1);
+          expect(renderedNode, hasExactClasses('grid-block grid-offset-sm-1'));
+        });
       });
 
-      test('mdOffset prop is set', () {
-        var renderedNode = renderAndGetDom(Block()..mdOffset = 1);
-        expect(renderedNode, hasExactClasses('grid-block grid-offset-md-1'));
+      group('mdOffset prop is set', () {
+        test('to 0', () {
+          var renderedNode = renderAndGetDom(Block()..mdOffset = 0);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to null', () {
+          var renderedNode = renderAndGetDom(Block()..mdOffset = null);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to an int larger than 0', () {
+          var renderedNode = renderAndGetDom(Block()..mdOffset = 1);
+          expect(renderedNode, hasExactClasses('grid-block grid-offset-md-1'));
+        });
       });
 
-      test('lgOffset prop is set', () {
-        var renderedNode = renderAndGetDom(Block()..lgOffset = 1);
-        expect(renderedNode, hasExactClasses('grid-block grid-offset-lg-1'));
+      group('lgOffset prop is set', () {
+        test('to 0', () {
+          var renderedNode = renderAndGetDom(Block()..lgOffset = 0);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to null', () {
+          var renderedNode = renderAndGetDom(Block()..lgOffset = null);
+          expect(renderedNode, hasExactClasses('grid-block'));
+        });
+
+        test('to an int larger than 0', () {
+          var renderedNode = renderAndGetDom(Block()..lgOffset = 1);
+          expect(renderedNode, hasExactClasses('grid-block grid-offset-lg-1'));
+        });
       });
 
       test('content prop is set', () {
