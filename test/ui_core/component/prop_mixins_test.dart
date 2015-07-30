@@ -19,6 +19,10 @@ main() {
   group('DomProps', () {
     testKeys(DomProps.Z_$propKeys, (() => new DomPropMixinsTest({})));
   });
+
+  group('UbiquitousProps', () {
+    testKeys(UbiquitousDomProps.Z_$propKeys, (() => new UbiquitousPropMixinsTest({})));
+  });
 }
 
 class DomPropMixinsTest extends MapView with DomProps {
@@ -60,6 +64,23 @@ class ReactPropMixinsTest extends MapView with ReactProps {
 class CssClassPropMixinsTest extends MapView with CssClassProps {
   /// Create a new instance backed by the specified map.
   CssClassPropMixinsTest(Map map) : super(map);
+
+  /// The props to be manipulated via the getters/setters.
+  /// In this case, it's the current MapView object.
+  @override
+  Map get props => this;
+
+  @override
+  operator [](key) {
+    if (!this.containsKey(key)) {
+      throw 'Map does not contain this key: $key';
+    }
+    return super[key];
+  }
+}
+
+class UbiquitousPropMixinsTest extends MapView with UbiquitousDomProps {
+  UbiquitousPropMixinsTest(Map map) : super (map);
 
   /// The props to be manipulated via the getters/setters.
   /// In this case, it's the current MapView object.
