@@ -67,6 +67,13 @@ Map getProps(JsObject instance) {
   return isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
 }
 
+/// Returns the DOM node associated with a rendered React component.
+///
+/// Dart wrapper for React.findDOMNode.
+Element findDomNode(JsObject instance) {
+  return _React.callMethod('findDOMNode', [instance]);
+}
+
 /// Returns whether the instance is a valid ReactElement and was created using the specified Dart factory
 bool isValidElementOfType(dynamic instance, ReactComponentFactory factory) {
   return isValidElement(instance) ? isComponentOfType(instance, factory) : false;
@@ -126,4 +133,11 @@ JsObject cloneElement(JsObject element, [Map props, List children]) {
   }
 
   return _React.callMethod('cloneElement', jsMethodArgs);
+}
+
+/// Returns a new JsArray from the specified List, so that non-flat children can be used with react-dart.
+///
+/// Workaround until <https://github.com/cleandart/react-dart/issues/60> is fixed.
+JsArray prepareNestedChildren(List children) {
+  return children == null ? null : new JsArray.from(children);
 }
