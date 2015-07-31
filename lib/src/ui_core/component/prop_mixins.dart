@@ -62,6 +62,26 @@ abstract class _$template_DomProps {
   dynamic defaultValue;
 
   /// Polyfills/normalizes the `autofocus` attribute via AutoFocusMixin
-  /// (mixed in byReact DOM <input>, <textarea>, and <select>).
+  /// (mixed in by React DOM <input>, <textarea>, and <select>).
   bool autoFocus;
+}
+
+
+/// Typed getters/setters for reserved DOM-related props that can be used by all UIP components.
+/// To be used as a mixin for React components and builders.
+@GenerateProps(#UbiquitousDomProps, keyType: TypedMapKeyType.STRING)
+abstract class _$template_UbiquitousDomProps {
+  /// Whether the element if focusable.
+  /// Must be a valid integer or String of valid integer.
+  dynamic get tabIndex;
+
+  /// Unique identifier.
+  /// Must be unique amongst all the ids, and contain at least one character.
+  String get id;
+
+  /// Represents advisory information about the element.
+  String get title;
+
+  /// Specifies an inline CSS style for the element
+  Map<String, dynamic> get style;
 }
