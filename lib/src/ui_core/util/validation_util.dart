@@ -1,5 +1,7 @@
 part of w_ui_platform.ui_core;
 
+typedef void ValidationUtilWarningCallback(String message);
+
 /// Utility for logging validation errors or warning.
 class ValidationUtil {
 
@@ -16,18 +18,25 @@ class ValidationUtil {
   static bool warn(String message) {
     WARNING_COUNT += 1;
 
-    if (!WARNINGS_ENABLED) {
-      return true;
+    if (onWarning != null) {
+      onWarning(message);
     }
 
-    if (THROW_ON_WARNING) {
-      throw new ValidationWarning(message);
+    if (WARNINGS_ENABLED) {
+      if (THROW_ON_WARNING) {
+        throw new ValidationWarning(message);
+      }
+
+      window.console.warn('VALIDATION WARNING: ${message}');
     }
 
-    print('VALIDATION WARNING: ${message}');
     return true;
   }
 
+  /// Callback for when warnings are logged.
+  ///
+  /// Useful for verifying warnings in unit tests.
+  static ValidationUtilWarningCallback onWarning;
 }
 
 class ValidationWarning extends Error {
