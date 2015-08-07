@@ -31,7 +31,7 @@ abstract class _$template_HitAreaProps {
   /// primarily used for the purposes of accessibility
   String get role;
   /// DomProp
-  String get type;
+  HitAreaButtonType get type;
   /// Whether the hitarea is active
   bool get isActive;
   /// Whether the hitarea is disabled.
@@ -40,28 +40,6 @@ abstract class _$template_HitAreaProps {
   bool get isNavItem;
   /// Whether the button is a nav-dropdown.
   bool get isNavDropdown;
-}
-
-/// Props used and set in [HitareaMixin.getValidatedHitAreaProps].
-@GenerateProps(#ValidatedHitareaProps)
-abstract class $template_ValidatedHitareaProps {
-  /// Renderer determined by getValidatedHitAreaProps used to render the hitarea.
-  HitAreaRenderer get renderer;
-  /// TODO: leftover from input component support?
-  String get inputRef;
-  /// TODO: leftover from input component support?
-  String get inputId;
-  /// TODO: leftover from WSR port?
-  String get buttonRef;
-  /// TODO: leftover from WSR port?
-  bool get navItem;
-  /// TODO: leftover from WSR port?
-  bool get navDropdown;
-}
-
-class ValidatedHitareaPropsMapView extends MapView with DomProps, ReactProps, ValidatedHitareaProps {
-  ValidatedHitareaPropsMapView(Map map) : super(map);
-  Map get props => this;
 }
 
 abstract class HitAreaMixin<P extends HitAreaProps> {
@@ -76,41 +54,63 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
   P get tProps;
   Map get props;
 
-  bool isClickable() => !tProps.isDisabled && (tProps.href != null ||
-      tProps.target != null ||
-      tProps.name != null || //TODO: should name be here??
-      tProps.onClick != null ||
-      tProps.onSelect != null ||
-      DomNodeName.isClickable(tProps.domNodeName));
-
-  ValidatedHitareaPropsMapView getValidatedHitAreaProps(Map hitAreaPropsMap, dynamic children,
-      [bool isNavItemHitArea = false]) {
+  /// Method for rendering a [HitAreaMixin] component which returns a react component instance.
+  /// This should be called from within consuming component's [render] method with
+  /// the props/children that should be used for rendering the [HitAreaMixin] element.
+  renderHitArea(Map hitAreaPropsMap, dynamic children, {bool isNavItemHitArea: false}) {
     assert(hitAreaPropsMap != null);
-    HitAreaRenderer renderer = null;
-    var hitAreaProps = new ValidatedHitareaPropsMapView(new Map.from(hitAreaPropsMap));
-    hitAreaProps.id = tProps.id;
-    hitAreaProps.role = tProps.role;
 
-    ClassNameBuilder classes = new ClassNameBuilder.fromProps(hitAreaProps);
-    classes.add('hitarea');
+    DomComponentDefinition renderer;
+    bool hasAnchorProps = (tProps.href != null || tProps.target != null);
+    if (hasAnchorProps || tProps.domNodeName == DomNodeName.A) {
+      renderer = Dom.a()
+        ..href = tProps.href
+        ..target = tProps.target
+        ..name = tProps.name;
 
-    // resolve isNavItemHitArea
+      if (tProps.domNodeName == DomNodeName.A && !hasAnchorProps) {
+        assert(ValidationUtil.warn(
+          'You are explicitly requesting that a `<a>` element is rendered via your React component, '
+          'but you have no `href`, `target` or `name` props defined, meaning its usage is as a button, '
+          'triggering in-page functionality. It is recommended that you omit the `domNodeName` prop so '
+          'that a `<button>` element will be rendered instead.'));
+        // Signify that this anchor triggers in-page functionality despite using an `<a>` tag.
+        renderer.role = 'button';
+      } else if (hasAnchorProps && tProps.domNodeName != null) {
+        assert(ValidationUtil.warn(
+          'You are explicitly requesting that a `<${tProps.domNodeName.nodeName}>` element is rendered '
+          'via your React component, but you also have declared either an `href` or `target` prop '
+          '(or both). An `<a>` will be rendered since `href` and `target` are both invalid '
+          'properties for a `${tProps.domNodeName.nodeName}`.'));
+      }
+
+      if (tProps.href == '#') {
+        assert(ValidationUtil.warn(
+          'You are using an `href` attribute with a value of `#`. To trigger in-page functionality, '
+          'it is recommended that you omit the `href` attribute altogether, so that this React '
+          'component will produce a `<button>` element instead.'));
+        // Signify that this anchor triggers in-page functionality despite using an `<a>` tag.
+        renderer.role = 'button';
+      }
+    } else if (tProps.domNodeName == DomNodeName.BUTTON) {
+      renderer = Dom.button()
+        ..type = tProps.type == null ? 'button' : tProps.type.typeName;
+    } else {
+      renderer = Dom.div()
+        ..role = 'button';
+    }
+
+    ClassNameBuilder classes = new ClassNameBuilder.fromProps(hitAreaPropsMap)
+      ..add('hitarea');
+
+    renderer
+      ..id = tProps.id
+      ..role = tProps.role;
+
     isNavItemHitArea = (isNavItemHitArea || tProps.isNavItem || tProps.isNavDropdown);
-    hitAreaProps.navItem = isNavItemHitArea;
-    hitAreaProps.navDropdown = tProps.isNavDropdown;
 
-
-    //
-    // set active props
-    //
-
-    bool renderActive = tProps.isActive ||
-                        hitAreaProps.checked == true ||
-                        hitAreaProps.defaultChecked == true;
-
-    // set active class
-    if (renderActive) {
-      hitAreaProps['aria-selected'] = 'true';
+    if (tProps.isActive) {
+      renderer..addProp('aria-selected', 'true');
 
       if (!isNavItemHitArea) {
         // If a hitarea is within a NavItem or MenuItem, the active CSS class must be applied to the
@@ -121,247 +121,45 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       }
     }
 
-    //
-    // <a>
-    //
-    bool hasAnchorProps = (tProps.href != null || tProps.target != null);
-    if (hasAnchorProps || tProps.domNodeName == DomNodeName.A) {
-      renderer = HitAreaRenderer.ANCHOR;
-      hitAreaProps
-        ..href = tProps.href
-        ..target = tProps.target
-        ..name = tProps.name;
-
-      if (tProps.domNodeName == DomNodeName.A) {
-        if (!hasAnchorProps) {
-          assert(ValidationUtil.warn(
-              'You are explicitly requesting that a `<a>` element is rendered via your React component, '
-              'but you have no `href`, `target` or `name` props defined, meaning its usage is as a button, '
-              'triggering in-page functionality. It is recommended that you omit the `domNodeName` prop so '
-              'that a `<button>` element will be rendered instead.'));
-          // Signify that this anchor triggers in-page functionality despite using an `<a>` tag.
-          hitAreaProps.role = 'button';
-        }
-      } else if (hasAnchorProps && tProps.domNodeName != null) {
-        assert(ValidationUtil.warn(
-            'You are explicitly requesting that a `<${tProps.domNodeName.name}>` element is rendered '
-            'via your React component, but you also have declared either an `href` or `target` prop '
-            '(or both). An `<a>` will be rendered since `href` and `target` are both invalid '
-            'properties for a `<${tProps.domNodeName.name}>`.'));
-      }
-      if (tProps.href == '#') {
-        assert(ValidationUtil.warn(
-            'You are using an `href` attribute with a value of `#`. To trigger in-page functionality, '
-            'it is recommended that you omit the `href` attribute altogether, so that this React '
-            'component will produce a `<button>` element instead.'));
-        // Signify that this anchor triggers in-page functionality despite using an `<a>` tag.
-        hitAreaProps.role = 'button';
-      }
-      // strip `type` prop if exists (checked mode only)
-      assert(_validateTypeForNonFormElem(
-          tProps.type, hitAreaProps, DomNodeName.A.name));
-    }
-
-    //
-    // <input>
-    //
-    else if (tProps.type == ClickableDomInputType.CHECKBOX ||
-        tProps.type == ClickableDomInputType.RADIO) {
-      renderer = HitAreaRenderer.INPUT;
-
-      hitAreaProps
-        ..type = tProps.type
-        ..role = 'button'
-        ..inputRef = tProps.type
-        ..buttonRef = tProps.type + '_button'
-        // set defaultChecked based on resolved `renderActive` value.
-        ..defaultChecked = renderActive;
-
-      // remove checked prop if set (transferred to defaultChecked)
-      if (hitAreaProps.containsKey('checked') && hitAreaProps.checked != renderActive) {
-        hitAreaProps.remove('checked');
-      }
-
-      if (tProps.id == null) {
-        assert(ValidationUtil.warn(
-            '${tProps.type} buttons require a unique `id` to function correctly.'));
-        hitAreaProps.inputId = null;
-      } else {
-        hitAreaProps.inputId = '${tProps.id}_${tProps.type}';
-      }
-
-      if (tProps.type == ClickableDomInputType.RADIO && tProps.name == null) {
-        assert(ValidationUtil.warn(
-            'radio buttons require a `name` prop value that matches all the other '
-            'radio buttons in the group in order to function correctly. WSR will '
-            'apply a default name of "undefined_radio_group".'));
-        hitAreaProps.name = 'undefined_radio_group';
-      } else {
-        hitAreaProps.name = tProps.name;
-      }
-    }
-
-    //
-    // <input> that will be rendered as a <button>
-    // since it is not a checkbox or radio
-    //
-    else if (tProps.domNodeName == DomNodeName.INPUT) {
-      assert(ValidationUtil.warn(
-          'You are explicitly requesting that a `<input>` element is rendered via your '
-          'React component, but you have not set the `type` prop to either `checkbox` or '
-          '`radio`, which are the only two type values that require the use of the '
-          '`<input>` element. A `<button>` will be rendered instead.'));
-      renderer = HitAreaRenderer.BUTTON;
-      assert(tProps.type == ClickableDomInputType.BUTTON
-             || tProps.type == ClickableDomInputType.SUBMIT
-             || tProps.type == ClickableDomInputType.RESET);
-      hitAreaProps.type = tProps.type;
-    }
-
-    //
-    // <button>
-    //
-    else if (tProps.domNodeName == DomNodeName.BUTTON) {
-      renderer = HitAreaRenderer.BUTTON;
-      hitAreaProps.type = tProps.type == null ? ClickableDomInputType.BUTTON : tProps.type;
-    }
-
-    //
-    // <div> (default)
-    //
-    else {
-      renderer = HitAreaRenderer.DIV;
-      hitAreaProps.role = 'button';
-      assert(_validateTypeForNonFormElem(
-        tProps.type, hitAreaProps, DomNodeName.DIV.name));
-    }
-
-    //
-    // set disabled props
-    //
-    bool renderDisabled = tProps.isDisabled;
-    // set render props
-    if (renderDisabled) {
-      if (renderer == HitAreaRenderer.ANCHOR) {
-        classes.add('disabled');
-        hitAreaProps['aria-disabled'] = 'true';
-      } else {
-        hitAreaProps.disabled = true;
-      }
-    }
-
-    // concatenate classes and assign className
-    hitAreaProps.className = classes.toClassName();
-
-    // assign renderer
-    hitAreaProps.renderer = renderer;
-
-    // use 'hitarea' as ref unless one has already been set
-    if (!hitAreaProps.containsKey('ref')) {
-      hitAreaProps.ref = 'hitarea';
-    }
-
-    return hitAreaProps;
-  }
-
-  /// Internal method which renders the actual hitarea DOM element.
-  _renderHitAreaComponent(HitAreaRenderer renderer, Map props, dynamic children) {
-    assert(props != null);
-    DomComponentDefinition componentBuilder = renderer.componentBuilderFactory();
-    componentBuilder.addProps(
-        getPropsToForward(props, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys)
-    );
-
-    if (isClickable()) {
-      componentBuilder.onClick = handleClick;
-    }
-
-    return componentBuilder(children);
-  }
-
-  /// Primary method for rendering a hitarea component which returns a react component instance.
-  /// This should be called from within consuming component's [render] method with
-  /// the props/children that should be used for rendering the hitarea element.
-  renderHitArea(Map hitAreaPropsMap, dynamic children, {bool isNavItemHitArea: false}) {
-    // consumer must pass initial props
-    assert(hitAreaPropsMap != null);
-    // validate and supplement props
-    var hitAreaProps =
-        getValidatedHitAreaProps(hitAreaPropsMap, children, isNavItemHitArea);
-    // extract renderer from props
-    assert(hitAreaProps.renderer != null);
-    var renderer = hitAreaProps.remove(ValidatedHitareaProps.Z_$KEY__RENDERER);
-    return _renderHitAreaComponent(renderer, hitAreaProps, children);
-  }
-
-  /// Click handler for the hitarea.
-  void handleClick(react.SyntheticEvent event) {
-    // prevent click events if disabled
     if (tProps.isDisabled) {
-      return;
+      if (renderer == Dom.a()) {
+        classes.add('disabled');
+        renderer..addProp('aria-disabled', 'true');
+      } else {
+        renderer.disabled = true;
+      }
     }
-    // flag to prevent select if onClick handler returns `false`
+
+    renderer
+      ..addProps(getPropsToForward(props, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
+      ..className = classes.toClassName()
+      ..ref = hitAreaPropsMap.containsKey('ref') ? hitAreaPropsMap['ref'] : 'hitarea'
+      ..onClick = _handleClick;
+
+    return renderer(children);
+  }
+
+  _handleClick(react.SyntheticEvent event) {
     bool preventSelect = false;
-    // call consumer onClick callback if provided
     if (tProps.onClick != null) {
-      assert(tProps.onClick is DomEventCallback);
       preventSelect = tProps.onClick(event) == false;
     }
-    // call consumer onSelect callback if provided
     if (tProps.onSelect != null && !preventSelect) {
-      assert(tProps.onSelect is HitAreaSelectCallback);
       tProps.onSelect(event, tProps.eventKey, tProps.href, tProps.target);
     }
   }
-
-  /// Static utility used to strip `type` prop from non `<input>` elements.
-  static bool _validateTypeForNonFormElem(
-      String type, Map props, String nodeName) {
-    if (type != null) {
-      assert(ValidationUtil.warn(
-          'The `type` prop is not valid on an `<${nodeName}>` element. Try using a `<button>` instead.'));
-      props['data-wsr-invalid-type'] = type;
-      new DomPropsMapView(props).type = null;
-    }
-    return true;
-  }
 }
 
-class DomNodeName {
-  final String name;
-  final Function renderer;
-  final bool _isClickable;
-
-  const DomNodeName._internal(this.name, this.renderer, this._isClickable);
-
-  static const DomNodeName A = const DomNodeName._internal('a', Dom.a, true);
-  static const DomNodeName BUTTON =
-      const DomNodeName._internal('button', Dom.button, true);
-  static const DomNodeName DIV =
-      const DomNodeName._internal('div', Dom.div, false);
-  static const DomNodeName INPUT =
-      const DomNodeName._internal('input', Dom.input, true);
-
-  static bool isClickable(DomNodeName t) => t != null ? t._isClickable : false;
+@GenerateConstants(#DomNodeName, #nodeName)
+class _$template_DomNodeName {
+  static const A = '<a>';
+  static const BUTTON = '<button>';
+  static const DIV = '<div>';
 }
 
-/// Rendering options for a hitarea element, specifying its DOM representation.
-class HitAreaRenderer {
-  final DomComponentDefinitionFactory componentBuilderFactory;
-
-  HitAreaRenderer._internal(
-      DomComponentDefinitionFactory this.componentBuilderFactory);
-
-  static final HitAreaRenderer ANCHOR = new HitAreaRenderer._internal(Dom.a);
-  static final HitAreaRenderer BUTTON = new HitAreaRenderer._internal(Dom.button);
-  static final HitAreaRenderer DIV = new HitAreaRenderer._internal(Dom.div);
-  static final HitAreaRenderer INPUT = new HitAreaRenderer._internal(Dom.input);
-}
-
-class ClickableDomInputType {
-  static const String BUTTON = 'button';
-  static const String CHECKBOX = 'checkbox';
-  static const String RADIO = 'radio';
-  static const String SUBMIT = 'submit';
-  static const String RESET = 'reset';
+@GenerateConstants(#HitAreaButtonType, #typeName)
+class _$template_HitAreaButtonType {
+  static const BUTTON  = 'button';
+  static const SUBMIT  = 'submit';
+  static const RESET   = 'reset';
 }
