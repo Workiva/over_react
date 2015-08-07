@@ -78,6 +78,8 @@ abstract class _$template_HitAreaProps {
   /// This will only be applied if [domNodeName] is set to [DomNodeName.BUTTON].
   ///
   /// _Proxies [DomProps.type]_
+  ///
+  /// Default: HitAreaButtonType.BUTTON
   HitAreaButtonType get type;
 }
 
@@ -88,6 +90,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     HitAreaProps.Z_$KEY__IS_DISABLED: false,
     HitAreaProps.Z_$KEY__IS_NAV_ITEM: false,
     HitAreaProps.Z_$KEY__IS_NAV_DROPDOWN: false,
+    HitAreaProps.Z_$KEY__TYPE: HitAreaButtonType.BUTTON
   };
 
   P get tProps;
@@ -134,7 +137,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     } else if (tProps.domNodeName == DomNodeName.BUTTON) {
       renderer = Dom.button()
         ..name = tProps.name
-        ..type = tProps.type == null ? 'button' : tProps.type.typeName;
+        ..type = tProps.type;
     } else {
       renderer = Dom.div()
         ..role = 'button';
