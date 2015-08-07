@@ -1,45 +1,84 @@
 part of w_ui_platform.ui_core;
 
-/// Mixin for component definitions that provides hitarea related props.
+/// Mixin for component definitions that provides [HitAreaProps].
 /// To use:
-/// - add [HitAreaProps] mixin class to component definition.
-/// - add [HitAreaMixin] mixin class to component class.
-/// - add defaults to getDefaultProps method of component class using [HitAreaMixin.defaultProps]
+/// - Add [HitAreaProps] mixin class to component definition.
+/// - Add [HitAreaMixin] mixin class to component class.
+/// - Add default [HitAreaProps] to getDefaultProps method of component class using [HitAreaMixin.defaultProps]:
 ///   ..addProps(HitAreaMixin.defaultProps)
-/// - call the inherited `renderHitArea` method with `render` method of your component.
+/// - Call the inherited `renderHitArea` method within the `render` method of your component.
 @GenerateProps(#HitAreaProps)
 abstract class _$template_HitAreaProps {
-  /// Callback triggered by click events on the hitarea
-  DomEventCallback get onClick;
-  /// Callback triggered when a selectable hitarea item is clicked.
-  /// Valid callbacks must be of type [OnSelectCallback], which include the `eventKey`
-  /// of the selected item along with the optional `href` and `target` props.
-  HitAreaSelectCallback get onSelect;
-  /// Used alongside `props.onSelect` for basic controller behavior of clickable elements
+  /// Callback triggered by click events on the [HitAreaMixin].
+  /// To prevent [onSelect] have this function return false.
+  MouseEventCallback get onClick;
+
+  /// Callback triggered when a selectable [HitAreaMixin] item is clicked.
+  /// To prevent this from being called return false from [onClick].
+  EventKeyCallback get onSelect;
+
+  /// Used alongside [onSelect] for basic controller behavior.
   dynamic get eventKey;
-  /// DomProp
-  String get href;
-  /// DomProp
-  String get target;
-  /// Use to explicitly define the node name you want to see in the rendered DOM
+
+  /// Use to explicitly define the node name you want to see in the rendered DOM.
+  /// We recommend against setting this unless you know what you are doing.
+  ///
+  /// Default: DomNodeName.DIV
   DomNodeName get domNodeName;
-  /// DomProp
-  String get id;
-  /// DomProp
-  String get name;
-  /// Attribute to support the role classification of elements.
-  /// primarily used for the purposes of accessibility
-  String get role;
-  /// DomProp
-  HitAreaButtonType get type;
-  /// Whether the hitarea is active
+
+  /// Whether the [HitAreaMixin] is active.
+  ///
+  /// Default: false
   bool get isActive;
-  /// Whether the hitarea is disabled.
+
+  /// Whether the [HitAreaMixin] is disabled.
+  /// If disabled [HitAreaMixin] will not fire click events.
+  ///
+  /// Default: false
   bool get isDisabled;
-  /// Whether the button is a nav-item.
+
+  /// Whether the [HitAreaMixin] is a [NavItem].
+  ///
+  /// Default: false
   bool get isNavItem;
-  /// Whether the button is a nav-dropdown.
+
+  /// Whether the [HitAreaMixin] is a [NavDropdown].
+  ///
+  /// Default: false
   bool get isNavDropdown;
+
+  // --------------------------------------------------------------------------
+  // Proxied [DomProps].
+  // --------------------------------------------------------------------------
+
+  /// The href for the [HitAreaMixin].
+  /// If set [HitAreaMixin] will render as [Dom.a()].
+  ///
+  /// _Proxies [DomProps.href]_
+  String get href;
+
+  /// The targer for the [HitAreaMixin].
+  /// If set [HitAreaMixin] will render as [Dom.a()].
+  ///
+  /// _Proxies [DomProps.target]_
+  String get target;
+
+  /// The id for the [HitAreaMixin].
+  ///
+  /// _Proxies [DomProps.id]_
+  String get id;
+
+  /// The name for the [HitAreaMixin].
+  /// Is not applied if a [Dom.div()] is rendered.
+  ///
+  /// _Proxies [DomProps.name]_
+  String get name;
+
+  /// The type for the [HitAreaMixin].
+  /// This will only be applied if [domNodeName] is set to [DomNodeName.BUTTON].
+  ///
+  /// _Proxies [DomProps.type]_
+  HitAreaButtonType get type;
 }
 
 abstract class HitAreaMixin<P extends HitAreaProps> {
@@ -94,6 +133,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       }
     } else if (tProps.domNodeName == DomNodeName.BUTTON) {
       renderer = Dom.button()
+        ..name = tProps.name
         ..type = tProps.type == null ? 'button' : tProps.type.typeName;
     } else {
       renderer = Dom.div()
@@ -104,8 +144,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       ..add('hitarea');
 
     renderer
-      ..id = tProps.id
-      ..role = tProps.role;
+      ..id = tProps.id;
 
     isNavItemHitArea = (isNavItemHitArea || tProps.isNavItem || tProps.isNavDropdown);
 
@@ -122,11 +161,11 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     }
 
     if (tProps.isDisabled) {
-      if (renderer == Dom.a()) {
-        classes.add('disabled');
-        renderer..addProp('aria-disabled', 'true');
-      } else {
+      if (renderer == Dom.button()) {
         renderer.disabled = true;
+      } else {
+        classes.add('disabled');
+        renderer.addProp('aria-disabled', 'true');
       }
     }
 
@@ -140,6 +179,10 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
   }
 
   _handleClick(react.SyntheticEvent event) {
+    if (tProps.isDisabled) {
+      return;
+    }
+
     bool preventSelect = false;
     if (tProps.onClick != null) {
       preventSelect = tProps.onClick(event) == false;
