@@ -1,32 +1,19 @@
 library hitarea_mixin_test;
 
 import 'package:test/test.dart';
-import '../../test_util/react_util.dart';
-import '../../test_util/zone.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart' show ReactComponentFactory;
 import 'package:w_ui_platform/ui_core.dart';
 import 'package:w_ui_platform/ui_components.dart';
 
 import '../../test_util/custom_matchers.dart';
+import '../../test_util/react_util.dart';
+import '../../test_util/validation_util_helpers.dart';
 
 getHitArea(instance) => getRef(instance, 'hitarea');
 
 main() {
   group('HitAreaMixin', () {
-    int warningCount;
-
-    setUp(() {
-      // prevent component warnings from printing to console
-      ValidationUtil.WARNINGS_ENABLED = false;
-      warningCount = ValidationUtil.WARNING_COUNT;
-    });
-
-    tearDown(() {
-      // restore component validation warnings
-      ValidationUtil.WARNINGS_ENABLED = true;
-    });
-
     test('renders with appropriate base CSS classes and node name', () {
       var renderedNode = renderAndGetDom(HitAreaTest());
       expect(renderedNode, hasExactClasses('hitarea'));
@@ -396,8 +383,18 @@ main() {
       });
     });
 
-    group('validates correctly when', () {
+    group('warns', () {
+      bool warningsWereEnabled;
+      setUp(() {
+        warningsWereEnabled = ValidationUtil.WARNINGS_ENABLED;
+        ValidationUtil.WARNINGS_ENABLED = false;
+        startRecordingValidationWarnings();
+      });
 
+      tearDown(() {
+        ValidationUtil.WARNINGS_ENABLED = warningsWereEnabled;
+        stopRecordingValidationWarnings();
+      });
     });
   });
 }
