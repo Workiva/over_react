@@ -137,7 +137,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     } else if (tProps.domNodeName == DomNodeName.BUTTON) {
       renderer = Dom.button()
         ..name = tProps.name
-        ..type = tProps.type;
+        ..type = tProps.type.typeName;
     } else {
       renderer = Dom.div()
         ..role = 'button';
@@ -155,7 +155,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       renderer..addProp('aria-selected', 'true');
 
       if (!isNavItemHitArea) {
-        // If a hitarea is within a NavItem or MenuItem, the active CSS class must be applied to the
+        // If a hitarea is within a NavItem or NavDropdown, the active CSS class must be applied to the
         // parent item, not the hitarea. (it is the responsibility of the consumer/parent component to
         // do so) Otherwise, it's just a standard "toggle" button implementation, and the active CSS
         // class can go directly on the hitarea.
@@ -173,7 +173,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     }
 
     renderer
-      ..addProps(getPropsToForward(props, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
+      ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
       ..className = classes.toClassName()
       ..ref = hitAreaPropsMap.containsKey('ref') ? hitAreaPropsMap['ref'] : 'hitarea'
       ..onClick = _handleClick;
@@ -191,7 +191,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       preventSelect = tProps.onClick(event) == false;
     }
     if (tProps.onSelect != null && !preventSelect) {
-      tProps.onSelect(event, tProps.eventKey, tProps.href, tProps.target);
+      tProps.onSelect(event, tProps.eventKey);
     }
   }
 }
