@@ -60,6 +60,10 @@ abstract class _$template_DomProps {
   // props specific to React.INPUT
   bool defaultChecked;
   dynamic defaultValue;
+
+  /// Polyfills/normalizes the `autofocus` attribute via AutoFocusMixin
+  /// (mixed in by React DOM <input>, <textarea>, and <select>).
+  bool autoFocus;
 }
 
 
