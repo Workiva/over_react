@@ -92,6 +92,20 @@ main() {
           expect(builder.toClassName(), isEmpty);
         });
 
+        test('does nothing when null is blacklisted', () {
+          builder.blacklist(null);
+          builder
+            ..add('class1')
+            ..add('null');
+          expect(builder.toClassName(), equals('class1 null'));
+        });
+
+        test('does nothing when the empty string is blacklisted', () {
+          builder.blacklist('');
+          builder.add('class1');
+          expect(builder.toClassName(), equals('class1'));
+        });
+
         test('only adds classes if the [should] argument is true or unspecified', () {
           builder
             ..add('class1')
@@ -109,6 +123,20 @@ main() {
           builder.add('class1 class2 class3');
 
           expect(builder.toClassName(), equals('class3'));
+        });
+
+        test('does not add classes when className is null', () {
+          builder
+            ..add('class1')
+            ..add(null);
+          expect(builder.toClassName(), equals('class1'));
+        });
+
+        test('does not add classes when className is an empty string', () {
+          builder
+            ..add('class1')
+            ..add('');
+          expect(builder.toClassName(), equals('class1'));
         });
       });
 
