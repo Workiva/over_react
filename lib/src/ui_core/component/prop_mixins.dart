@@ -66,7 +66,6 @@ abstract class _$template_DomProps {
   bool autoFocus;
 }
 
-
 /// Typed getters/setters for reserved DOM-related props that can be used by all UIP components.
 /// To be used as a mixin for React components and builders.
 @GenerateProps(#UbiquitousDomProps, keyType: TypedMapKeyType.STRING)
