@@ -151,3 +151,10 @@ JsObject cloneElement(JsObject element, [Map props, List children]) {
 
   return _React.callMethod('cloneElement', jsMethodArgs);
 }
+
+/// Returns a new JsArray from the specified List, so that non-flat children can be used with react-dart.
+///
+/// Workaround until <https://github.com/cleandart/react-dart/issues/60> is fixed.
+JsArray prepareNestedChildren(List children) {
+  return children == null ? null : new JsArray.from(children);
+}
