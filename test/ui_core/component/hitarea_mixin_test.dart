@@ -383,7 +383,7 @@ main() {
       });
     });
 
-    group('warns', () {
+    group('validates', () {
       bool warningsWereEnabled;
       setUp(() {
         warningsWereEnabled = ValidationUtil.WARNINGS_ENABLED;
@@ -394,6 +394,47 @@ main() {
       tearDown(() {
         ValidationUtil.WARNINGS_ENABLED = warningsWereEnabled;
         stopRecordingValidationWarnings();
+      });
+
+      group('the `domNodeName` prop,', () {
+        test('warning when it is set to DomNodeName.A and href and target are null', () {
+          render(HitAreaTest()..domNodeName = DomNodeName.A);
+          verifyValidationWarning(contains('You are explicitly requesting that a `<a>` element is rendered via your React'));
+        });
+
+        test('not warning when it is set to DomNodeName.A and href or target are not null', () {
+          render(HitAreaTest()
+            ..domNodeName = DomNodeName.A
+            ..href = 'link'
+          );
+          rejectValidationWarning(contains('You are explicitly requesting that a `<a>` element is rendered via your React'));
+        });
+      });
+
+      group('the `href` and `target` prop', () {
+        test('warning when either is set and domNodeName is something other than DomNodeName.A', () {
+          render(HitAreaTest()
+            ..domNodeName = DomNodeName.DIV
+            ..href = '#');
+          verifyValidationWarning(contains('You are explicitly requesting that a'));
+        });
+
+        test('not warning when it is set to something other than \'#\'', () {
+          render(HitAreaTest()..href = 'link');
+          rejectValidationWarning(contains('You are using an `href` attribute with a value of `#`.'));
+        });
+      });
+
+      group('the `href` prop', () {
+        test('warning when it is set to \'#\'', () {
+          render(HitAreaTest()..href = '#');
+          verifyValidationWarning(contains('You are using an `href` attribute with a value of `#`.'));
+        });
+
+        test('not warning when it is set to something other than \'#\'', () {
+          render(HitAreaTest()..href = 'link');
+          rejectValidationWarning(contains('You are using an `href` attribute with a value of `#`.'));
+        });
       });
     });
   });
