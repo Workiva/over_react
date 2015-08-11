@@ -38,7 +38,7 @@ DomPropsMapView domProps([Map backingMap]) => new DomPropsMapView(backingMap == 
 
 /// Returns a new [AriaPropsMapView], optionally backed by a specified Map.
 ///
-/// Convenient for adding aria props inline to non-DOM components:
+/// Convenient for adding aria props inline to DOM and non-DOM components:
 /// <pre>
 /// <!>  ..addProps(ariaProps()..disabled = true)
 /// <!>  ..addProps(ariaProps()
