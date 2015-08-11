@@ -77,11 +77,11 @@ main() {
     group('isDisabled prop', () {
       test('renders with `disabled` prop false by default', () {
         var renderedNode = renderAndGetHitArea((MenuItem()));
-        expect(renderedNode.disabled, isFalse);
+        expect(renderedNode, isNot(hasAttr('disabled', '')));
       });
       test('when `true` should set `disabled` prop for non-`A` elements', () {
         var renderedNode = renderAndGetHitArea((MenuItem()..isDisabled = true));
-        expect(renderedNode.disabled, isTrue);
+        expect(renderedNode, hasAttr('disabled', ''));
       });
 
       group('renders with appropriate CSS classes when isDisabled is', () {
@@ -410,10 +410,12 @@ main() {
         });
       });
 
-      test('a `button` element by default', () {
+      test('a `div` element by default', () {
+        // We do not want HitAreaMixin to render a <button> by default because this does not allow
+        // elements nested within it to receive click events.
         var instance = new HitAreaTestComponent();
         var hitAreaProps = instance.getValidatedHitAreaProps(instance.props, []);
-        expect(hitAreaProps.renderer, equals(HitAreaRenderer.BUTTON));
+        expect(hitAreaProps.renderer, equals(HitAreaRenderer.DIV));
       });
 
       test('an `a` element when domNodeName == `DomNodeName.A`', () {
@@ -538,25 +540,10 @@ main() {
         expect(renderedNode, hasAttr('role', 'button'));
       });
 
-      group('type prop', () {
-        test('set to "button" by default', () {
+      group('type, ', () {
+        test('not set by default', () {
           var renderedNode = renderAndGetHitArea(MenuItem());
-          expect(renderedNode.type, equals('button'));
-        });
-
-        test('set to "button" when type prop == DomInputType.BUTTON', () {
-          var renderedNode = renderAndGetHitArea(MenuItem()..type = ClickableDomInputType.BUTTON);
-          expect(renderedNode.type, equals('button'));
-        });
-
-        test('set to "submit" when type prop == DomInputType.SUBMIT', () {
-          var renderedNode = renderAndGetHitArea(MenuItem()..type = ClickableDomInputType.SUBMIT);
-          expect(renderedNode.type, equals('submit'));
-        });
-
-        test('set to "reset" when type prop == DomInputType.RESET', () {
-          var renderedNode = renderAndGetHitArea(MenuItem()..type = ClickableDomInputType.RESET);
-          expect(renderedNode.type, equals('reset'));
+          expect(renderedNode, hasAttr('type', isNull));
         });
       });
     });
