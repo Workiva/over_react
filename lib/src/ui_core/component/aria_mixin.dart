@@ -2,9 +2,7 @@ part of w_ui_platform.ui_core;
 
 /// Typed getters/setters for accessibility props.
 /// To be used as a mixin for React components and builders.
-@GenerateProps(#AriaProps,
-  keyType: TypedMapKeyType.STRING
-)
+@GenerateProps(#AriaProps, keyType: TypedMapKeyType.STRING)
 abstract class _$template_AriaProps {
   /// Identifies the currently active descendant of a compositewidget.
   ///
@@ -98,8 +96,7 @@ abstract class _$template_AriaProps {
   @Prop('aria-controls') List get controls;
 
   /// Identifies the element (or elements) that describes the object. See related aria-labelledby.
-
-  ///  ///
+  ///
   /// The aria-labelledby attribute is similar to aria-describedby in that both reference other
   /// elements to calculate a text alternative, but a label should be concise, where a description
   /// is intended to provide more verbose information.
