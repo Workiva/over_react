@@ -12,6 +12,17 @@ class DomPropsMapView extends MapView with DomProps, ReactProps {
   Map get props => this;
 }
 
+/// A MapView with the typed getters/setters for all aria props.
+class AriaPropsMapView extends MapView with AriaProps {
+  /// Create a new instance backed by the specified map.
+  AriaPropsMapView(Map map) : super(map);
+
+  /// The props to be manipulated via the getters/setters.
+  /// In this case, it's the current MapView object.
+  @override
+  Map get props => this;
+}
+
 /// Returns a new [DomPropsMapView], optionally backed by a specified Map.
 ///
 /// Convenient for adding DOM props inline to non-DOM components:
@@ -24,6 +35,19 @@ class DomPropsMapView extends MapView with DomProps, ReactProps {
 /// </pre>
 /// <!-- use pre tags and HTML markup until WebStorm fully supports Dart doc comment markdown -->
 DomPropsMapView domProps([Map backingMap]) => new DomPropsMapView(backingMap == null ? {} : backingMap);
+
+/// Returns a new [AriaPropsMapView], optionally backed by a specified Map.
+///
+/// Convenient for adding aria props inline to non-DOM components:
+/// <pre>
+/// <!>  ..addProps(ariaProps()..disabled = true)
+/// <!>  ..addProps(ariaProps()
+/// <!>    ..expanded = false
+/// <!>    ..labeledby = 'label-btn'
+/// <!>  )
+/// </pre>
+/// <!-- use pre tags and HTML markup until WebStorm fully supports Dart doc comment markdown -->
+AriaPropsMapView ariaProps([Map backingMap]) => new AriaPropsMapView(backingMap == null ? {} : backingMap);
 
 /// A component builder with typed props for built-in DOM components.
 class DomComponentDefinition extends ComponentDefinition with DomProps, ReactProps {
