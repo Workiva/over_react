@@ -1,5 +1,7 @@
 part of w_ui_platform.ui_core;
 
+typedef void ValidationUtilWarningCallback(String message);
+
 /// Utility for logging validation errors or warning.
 class ValidationUtil {
 
@@ -16,18 +18,25 @@ class ValidationUtil {
   static bool warn(String message) {
     WARNING_COUNT += 1;
 
-    if (!WARNINGS_ENABLED) {
-      return true;
+    if (onWarning != null) {
+      onWarning(message);
     }
 
-    if (THROW_ON_WARNING) {
-      throw new ValidationWarning(message);
+    if (WARNINGS_ENABLED) {
+      if (THROW_ON_WARNING) {
+        throw new ValidationWarning(message);
+      }
+
+      window.console.warn('VALIDATION WARNING: ${message}');
     }
 
-    print('VALIDATION WARNING: ${message}');
     return true;
   }
 
+  /// Callback for when warnings are logged.
+  ///
+  /// Useful for verifying warnings in unit tests.
+  static ValidationUtilWarningCallback onWarning;
 }
 
 class ValidationWarning extends Error {
@@ -35,4 +44,27 @@ class ValidationWarning extends Error {
   final message;
 
   ValidationWarning([this.message]);
+}
+
+/// Returns whether the current page detects touch support via the 'touch'/'no-touch' classes on the <html> element.
+/// Prints an error message if detection is not enabled.
+///
+/// This detection is necessary for proper CSS behavior for checkboxes, radios, and switches.
+bool validateTouchSupportDetection() {
+  var htmlClasses = document.documentElement.classes;
+  var detectsTouchSupport = htmlClasses.contains('touch') || htmlClasses.contains('no-touch');
+
+  if (! detectsTouchSupport) {
+    window.console.error(
+      'Detection of touch support with addition of the "touch"/"no-touch" CSS classes is not enabled. '
+      'This detection is necessary for proper CSS behavior for checkboxes, radios, and switches.\n'
+      'See: https://github.com/Workiva/web-skin/search?l=scss&q=no-touch\n\n'
+      'Make sure to include Modernizr, or some other library that adds the "touch"/"no-touch" CSS classes to the <html> element.\n'
+      'To use the copy in Web Skin, add `'
+      '<script src="packages/web_skin/dist/js/core/modernizr/modernizr-custom.js"></script>'
+      '` at the end of this page\'s <head> tag.\n'
+    );
+  }
+
+  return detectsTouchSupport;
 }
