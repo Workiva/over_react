@@ -68,6 +68,16 @@ class ClassNameBuilder {
     return className;
   }
 
+  /// Returns a String representation of only the blacklisted classes.
+  /// Useful for blacklist forwarding.
+  ///
+  /// Duplicate classes will be added.
+  String toClassNameBlacklist() {
+    return _blacklistBuffer == null || _blacklistBuffer.isEmpty
+      ? null
+      : _blacklistBuffer.toString();
+  }
+
   @override
   String toString() {
     return '${runtimeType} _classNamesBuffer: ${_classNamesBuffer}, _blacklistBuffer: ${_blacklistBuffer}, toClassName(): ${toClassName()}';
