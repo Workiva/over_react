@@ -57,7 +57,7 @@ abstract class _$template_HitAreaProps {
   /// _Proxies [DomProps.href]_
   String get href;
 
-  /// The targer for the [HitAreaMixin].
+  /// The target for the [HitAreaMixin].
   /// If set [HitAreaMixin] will render as [Dom.a()].
   ///
   /// _Proxies [DomProps.target]_
