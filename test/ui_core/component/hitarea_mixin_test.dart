@@ -171,7 +171,7 @@ main() {
       });
 
       test('target is set', () {
-        var renderedNode = renderAndGetDom(HitAreaTest()..target = '/url');
+        var renderedNode = renderAndGetDom(HitAreaTest()..target = '_blank');
         expect(renderedNode, hasNodeName('A'));
       });
 
@@ -179,6 +179,13 @@ main() {
         var renderedNode = renderAndGetDom(HitAreaTest()
           ..domNodeName = DomNodeName.DIV
           ..href = '/url');
+        expect(renderedNode, hasNodeName('A'));
+      });
+
+      test('target is set and domNodeName is set to something other than DomNodeName.A', () {
+        var renderedNode = renderAndGetDom(HitAreaTest()
+          ..domNodeName = DomNodeName.DIV
+          ..target = '_blank');
         expect(renderedNode, hasNodeName('A'));
       });
     });
@@ -412,16 +419,18 @@ main() {
       });
 
       group('the `href` and `target` prop', () {
-        test('warning when either is set and domNodeName is something other than DomNodeName.A', () {
+        test('warning when `href` is set and domNodeName is something other than DomNodeName.A', () {
           render(HitAreaTest()
             ..domNodeName = DomNodeName.DIV
             ..href = '#');
           verifyValidationWarning(contains('You are explicitly requesting that a'));
         });
 
-        test('not warning when it is set to something other than \'#\'', () {
-          render(HitAreaTest()..href = 'link');
-          rejectValidationWarning(contains('You are using an `href` attribute with a value of `#`.'));
+        test('warning when `target` is set and domNodeName is something other than DomNodeName.A', () {
+          render(HitAreaTest()
+            ..domNodeName = DomNodeName.DIV
+            ..target = '_blank');
+          verifyValidationWarning(contains('You are explicitly requesting that a'));
         });
       });
 
