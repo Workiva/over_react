@@ -219,21 +219,21 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     }
 
     //
-    // <div>
+    // <button>
     //
-    else if (tProps.domNodeName == DomNodeName.DIV) {
-      renderer = HitAreaRenderer.DIV;
-      hitAreaProps.role = Role.button;
-      assert(_validateTypeForNonFormElem(
-          tProps.type, hitAreaProps, DomNodeName.DIV.name));
+    else if (tProps.domNodeName == DomNodeName.BUTTON) {
+      renderer = HitAreaRenderer.BUTTON;
+      hitAreaProps.type = tProps.type == null ? ClickableDomInputType.BUTTON : tProps.type;
     }
 
     //
-    // <button> (default)
+    // <div> (default)
     //
     else {
-      renderer = HitAreaRenderer.BUTTON;
-      hitAreaProps.type = tProps.type == null ? ClickableDomInputType.BUTTON : tProps.type;
+      renderer = HitAreaRenderer.DIV;
+      hitAreaProps.role = Role.button;
+      assert(_validateTypeForNonFormElem(
+        tProps.type, hitAreaProps, DomNodeName.DIV.name));
     }
 
     //
