@@ -140,7 +140,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
               'triggering in-page functionality. It is recommended that you omit the `domNodeName` prop so '
               'that a `<button>` element will be rendered instead.'));
           // Signify that this anchor triggers in-page functionality despite using an `<a>` tag.
-          hitAreaProps.role = 'button';
+          hitAreaProps.role = Role.button;
         }
       } else if (hasAnchorProps && tProps.domNodeName != null) {
         assert(ValidationUtil.warn(
@@ -155,7 +155,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
             'it is recommended that you omit the `href` attribute altogether, so that this React '
             'component will produce a `<button>` element instead.'));
         // Signify that this anchor triggers in-page functionality despite using an `<a>` tag.
-        hitAreaProps.role = 'button';
+        hitAreaProps.role = Role.button;
       }
       // strip `type` prop if exists (checked mode only)
       assert(_validateTypeForNonFormElem(
@@ -171,7 +171,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
 
       hitAreaProps
         ..type = tProps.type
-        ..role = 'button'
+        ..role = Role.button
         ..inputRef = tProps.type
         ..buttonRef = tProps.type + '_button'
         // set defaultChecked based on resolved `renderActive` value.
@@ -223,7 +223,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     //
     else if (tProps.domNodeName == DomNodeName.DIV) {
       renderer = HitAreaRenderer.DIV;
-      hitAreaProps.role = 'button';
+      hitAreaProps.role = Role.button;
       assert(_validateTypeForNonFormElem(
           tProps.type, hitAreaProps, DomNodeName.DIV.name));
     }
