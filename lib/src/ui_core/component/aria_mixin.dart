@@ -523,6 +523,12 @@ abstract class _$template_AriaProps {
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-required>
   @Prop('"aria-required"') bool get required;
 
+  /// Specifies the the type defining a user interface element. Enriches the semantics of markup and
+  /// gives assistive technologies information about how to handle each element.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/usage#usage_intro>
+  String get role;
+
   /// Indicates the current "selected" state of various widgets. See related aria-checked and aria-pressed.
   ///
   /// This attribute is used with single-selection and multiple-selection widgets:
@@ -649,4 +655,1040 @@ abstract class _$template_AriaProps {
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuetext>
   @Prop('"aria-valuetext"') String get valuetext;
+}
+
+/// Options for WAI-ARIA role values.
+///
+/// See <http://www.w3.org/TR/wai-aria/roles>
+class Role {
+  /// A message with important, and usually time-sensitive, information. See related alertdialog
+  /// and status.
+  ///
+  /// Alerts are used to convey messages to alert the user. In the case of audio warnings this is
+  /// an accessible alternative for a hearing-impaired user. The alert role goes on the node containing
+  /// the alert message. Alerts are specialized forms of the status role, which will be processed
+  /// as an atomic live region.
+  ///
+  /// Alerts are assertive live regions and will be processed as such by assistive technologies.
+  /// Neither authors nor user agents are required to set or manage focus to them in order for them
+  /// to be processed. Since alerts are not required to receive focus, content authors SHOULD NOT
+  /// require users to close an alert. If the operating system allows, the user agent SHOULD fire
+  /// a system alert event through the accessibility API when the WAI-ARIA alert is created. If an
+  /// alert requires focus to close the alert, then content authors SHOULD use alertdialog instead.
+  ///
+  /// Note: Elements with the role alert have an implicit aria-live value of assertive, and an implicit
+  /// aria-atomic value of true.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#alert>
+  static const String alert = "alert";
+
+  /// A type of dialog that contains an alert message, where initial focus goes to an element within
+  /// the dialog. See related alert and dialog.
+  ///
+  /// Alert dialogs are used to convey messages to alert the user. The alertdialog role goes on the
+  /// node containing both the alert message and the rest of the dialog. Content authors SHOULD make
+  /// alert dialogs modal by ensuring that, while the alertdialog is shown, keyboard and mouse interactions
+  /// only operate within the dialog.
+  ///
+  /// Unlike alert, alertdialog can receive a response from the user. For example, to confirm that
+  /// the user understands the alert being generated. When the alert dialog is displayed, authors
+  /// SHOULD set focus to an active element within the alert dialog, such as a form edit field or
+  /// an OK button. The user agent SHOULD fire a system alert event through the accessibility API
+  /// when the alert is created, provided one is specified by the intended accessibility API.
+  ///
+  /// Authors SHOULD use aria-describedby on an alertdialog to point to the alert message element
+  /// in the dialog. If they do not, assistive technologies will resort to their internal recovery
+  /// mechanism to determine the contents of an alert message.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#alertdialog>
+  static const String alertdialog = "alertdialog";
+
+  /// A region declared as a web application, as opposed to a web document.
+  ///
+  /// When the user navigates an element assigned the role of application, assistive technologies
+  /// that typically intercept standard keyboard events SHOULD switch to an application browsing
+  /// mode, and pass keyboard events through to the web application. The intent is to hint to certain
+  /// assistive technologies to switch from normal browsing mode into a mode more appropriate for
+  /// interacting with a web application; some user agents have a browse navigation mode where keys,
+  /// such as up and down arrows, are used to browse the document, and this native behavior prevents
+  /// the use of these keys by a web application.
+  ///
+  /// Note: Where appropriate, assistive technologies that typically intercept other standard device
+  /// input events, such as touch screen input, could switch to an application browsing mode that
+  /// passes some or all of those events through to the web application.
+  ///
+  /// Authors SHOULD set the role of application on the element that encompasses the entire application.
+  /// If the application role applies to the entire web page, authors SHOULD set the role of application
+  /// on the root node for content, such as the body element in HTML or svg element in SVG.
+  ///
+  /// For example, an email application has a document and an application in it. The author would
+  /// want to use typical application navigation mode to cycle through the list of emails, and much
+  /// of this navigation would be defined by the application author. However, when reading an email
+  /// message the content will appear in a region with a document role in order to use browsing navigation.
+  ///
+  /// For all instances of non-decorative static text or image content inside an application, authors
+  /// SHOULD either associate the text with a form widget or group (via aria-label, aria-labelledby,
+  /// or aria-describedby) or separate the text into an element with role of document or article.
+  ///
+  /// Authors SHOULD provide a title or label for applications. Authors SHOULD use label text that
+  /// is suitable for use as a navigation preview or table-of-contents entry for the page section.
+  /// Content authors SHOULD provide the label through one of the following methods:
+  ///
+  /// If the application includes the entire contents of the web page, use the host language feature
+  /// for title or label, such as the title element in both HTML and SVG. This has the effect of
+  /// labeling the entire application.Otherwise, provide a visible label referenced by the application
+  /// using aria-labelledby.
+  /// User agents SHOULD treat elements with the role of application as navigational landmarks.
+  ///
+  /// Authors MAY use the application role on the primary content element of the host language (such
+  /// as the body element in HTML) to define an entire page as an application. However, if the primary
+  /// content element is defined as having a role of application, user agents MUST NOT use the element
+  /// as a navigational landmark. If assistive technologies use an interaction mode that intercepts
+  /// standard keyboard events, when encountering the application role, those assistive technologies
+  /// SHOULD switch to an interaction mode that passes keyboard events through to the web application.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#application>
+  static const String application = "application";
+
+  /// A section of a page that consists of a composition that forms an independent part of a document,
+  /// page, or site.
+  ///
+  /// An article is not a navigational landmark, but may be nested to form a discussion where assistive
+  /// technologies could pay attention to article nesting to assist the user in following the discussion.
+  /// An article could be a forum post, a magazine or newspaper article, a web log entry, a user-submitted
+  /// comment, or any other independent item of content. It is independent in that its contents could
+  /// stand alone, for example in syndication. However, the element is still associated with its
+  /// ancestors; for instance, contact information that applies to a parent body element still covers
+  /// the article as well. When nesting articles, the child articles represent content that is related to
+  /// the content of the parent article. For instance, a web log entry on a site that accepts user-submitted
+  /// comments could represent the comments as articles nested within the article for the web log entry.
+  /// Author, heading, date, or other information associated with an article does not apply to nested articles.
+  ///
+  /// When the user navigates an element assigned the role of article, assistive technologies that
+  /// typically intercept standard keyboard events SHOULD switch to document browsing mode, as opposed
+  /// to passing keyboard events through to the web application. Assistive technologies MAY provide
+  /// a feature allowing the user to navigate the hierarchy of any nested article elements.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#article>
+  static const String article = "article";
+
+  /// A region that contains mostly site-oriented content, rather than page-specific content.
+  ///
+  /// Site-oriented content typically includes things such as the logo or identity of the site sponsor,
+  /// and site-specific search tool. A banner usually appears at the top of the page and typically
+  /// spans the full width.
+  ///
+  /// User agents SHOULD treat elements with the role of banner as navigational landmarks.
+  ///
+  /// Within any document or application, the author SHOULD mark no more than one element with the
+  /// banner role.
+  ///
+  /// Note: Because document and application elements can be nested in the DOM, they may have multiple
+  /// banner elements as DOM descendants, assuming each of those is associated with different document
+  /// nodes, either by a DOM nesting (e.g., document within document) or by use of the aria-owns
+  /// attribute.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#banner>
+  static const String banner = "banner";
+
+  /// An input that allows for user-triggered actions when clicked or pressed. See related link.
+  ///
+  /// Buttons are mostly used for discrete actions. Standardizing the appearance of buttons enhances
+  /// the user's recognition of the widgets as buttons and allows for a more compact display in toolbars.
+  ///
+  /// Buttons support the optional attribute aria-pressed. Buttons with a non-empty aria-pressed
+  /// attribute are toggle buttons. When aria-pressed is true the button is in a "pressed" state,
+  /// when aria-pressed is false it is not pressed. If the attribute is not present, the button is
+  /// a simple command button.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#button>
+  static const String button = "button";
+
+  /// A checkable input that has three possible values: true, false, or mixed.
+  ///
+  /// The aria-checked attribute of a checkbox indicates whether the input is checked (true), unchecked
+  /// (false), or represents a group of elements that have a mixture of checked and unchecked values
+  /// (mixed). Many checkboxes do not use the mixed value, and thus are effectively boolean checkboxes.
+  ///
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#checkbox>
+  static const String checkbox = "checkbox";
+
+  /// A cell containing header information for a column.
+  ///
+  /// columnheader can be used as a column header in a table or grid. It could also be used in a
+  /// pie chart to show a similar relationship in the data.
+  ///
+  /// The columnheader establishes a relationship between it and all cells in the corresponding column.
+  /// It is the structural equivalent to an HTML th element with a column scope.
+  ///
+  /// Authors MUST ensure elements with role columnheader are contained in, or owned by, an element
+  /// with the role row.
+  ///
+  /// Note: Because cells are organized into rows, there is not a single container element for the
+  /// column. The column is the set of gridcell elements in a particular position within their respective
+  /// row containers.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#columnheader>
+  static const String columnheader = "columnheader";
+
+  /// A presentation of a select; usually similar to a textbox where users can type ahead to select
+  /// an option, or type to enter arbitrary text as a new item in the list. See related listbox.
+  ///
+  /// combobox is the combined presentation of a single line textfield with a listbox popup. The
+  /// combobox may be editable. Typically editable combo boxes are used for autocomplete behavior,
+  /// and authors SHOULD set aria-autocomplete attribute on the textfield.
+  ///
+  /// If an author sets a combobox's value of aria-autocomplete to 'none' (default), authors MUST
+  /// manage and set focus on the associated listbox, so assistive technologies can follow the currently
+  /// selected value.If an author sets a combobox's value of aria-autocomplete to 'inline' or 'both',
+  /// authors MUST update the value of the focused textfield, so assistive technologies can announce
+  /// the currently selected value.If an author sets a combobox's value of aria-autocomplete to 'list',
+  /// user agents MUST expose changes to the aria-activedescendant attribute on the combobox while
+  /// the combobox remains focused. If a change to the aria-activedescendant attribute occurs while
+  /// the combobox is focused, assistive technologies SHOULD alert the user of that change, for example,
+  ///  by speaking the text alternative of the new active descendant element. Authors SHOULD associate
+  ///  the combobox textfield with its listbox using aria-owns.
+  ///
+  /// Note: In XForms [XFORMS] the same select can have one of 3 appearances: combo-box, drop-down
+  /// box, or group of radio-buttons. Many browsers allow users to type ahead to existing choices
+  /// in a drop-down select widget. This specification does not constrain the presentation of the
+  /// combo box.
+  ///
+  /// To be keyboard accessible, authors SHOULD manage focus of descendants for all instances of
+  /// this role, as described in Managing Focus.
+  ///
+  /// Note: Elements with the role combobox have an implicit aria-haspopup value of true.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#combobox>
+  static const String combobox = "combobox";
+
+  /// A supporting section of the document, designed to be complementary to the main content at a
+  /// similar level in the DOM hierarchy, but remains meaningful when separated from the main content.
+  ///
+  /// There are various types of content that would appropriately have this role. For example, in
+  /// the case of a portal, this may include but not be limited to show times, current weather, related
+  /// articles, or stocks to watch. The complementary role indicates that contained content is relevant
+  /// to the main content. If the complementary content is completely separable main content, it
+  /// may be appropriate to use a more general role.
+  ///
+  /// User agents SHOULD treat elements with the role of complementary as navigational landmarks.
+  ///
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#complementary>
+  static const String complementary = "complementary";
+
+  /// A large perceivable region that contains information about the parent document.
+  ///
+  /// Examples of information included in this region of the page are copyrights and links to privacy
+  /// statements.
+  ///
+  /// User agents SHOULD treat elements with the role of contentinfo as navigational landmarks.
+  ///
+  /// Within any document or application, the author SHOULD mark no more than one element with the
+  /// contentinfo role.
+  ///
+  /// Note: Because document and application elements can be nested in the DOM, they may have multiple
+  /// contentinfo elements as DOM descendants, assuming each of those is associated with different
+  /// document nodes, either by a DOM nesting (e.g., document within document) or by use of the aria-owns
+  /// attribute.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#contentinfo>
+  static const String contentinfo = "contentinfo";
+
+  /// A definition of a term or concept.
+  ///
+  /// The WAI-ARIA specification does not provide a role to specify the definition term, but host
+  /// languages may provide such an element. If a host language has an appropriate element for the
+  /// term (e.g., dfn or dt in HTML), authors SHOULD include the term in that element. Authors SHOULD
+  /// identify the definition term by using an aria-labelledby attribute on each element with a role
+  /// of definition.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#definition>
+  static const String definition = "definition";
+
+  /// A dialog is an application window that is designed to interrupt the current processing of an
+  /// application in order to prompt the user to enter information or require a response. See related
+  /// alertdialog.
+  ///
+  /// Authors SHOULD provide a dialog label. Labels may be provided with the aria-label or aria-labelledby
+  /// attribute if other mechanisms are not available. Authors SHOULD ensure each active dialog has
+  /// a focused descendant element that has keyboard focus.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#dialog>
+  static const String dialog = "dialog";
+
+  /// A list of references to members of a group, such as a static table of contents.
+  ///
+  /// Authors SHOULD use this role for a static table of contents, whether linked or unlinked. This
+  /// includes tables of contents built with lists, including nested lists. Dynamic tables of contents,
+  /// however, might use a tree role instead.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#directory>
+  static const String directory = "directory";
+
+  /// A region containing related information that is declared as document content, as opposed to
+  /// a web application.
+  ///
+  /// When the user navigates an element assigned the role of document, assistive technologies that
+  /// typically intercept standard keyboard events SHOULD switch to document browsing mode, as opposed
+  /// to passing keyboard events through to the web application. The document role informs user agents
+  /// of the need to augment browser keyboard support in order to allow users to visit and read any
+  /// content within the document region. In contrast, additional commands are not necessary for
+  /// screen reader users to read text within a region with the application role, where if coded
+  /// in an accessible manner, all text will be semantically associated with focusable elements.
+  /// An important trait of documents is that they have text which is not associated with widgets
+  /// or groups thereof.
+  ///
+  /// Authors SHOULD set the role of document on the element that encompasses the entire document.
+  /// If the document role applies to the entire web page, authors SHOULD set the role of document
+  /// on the root node for content, such as the body element in HTML or svg element in SVG.
+  ///
+  /// For example, an email application has a document and an application in it. The author would
+  /// want to use typical application navigation mode to cycle through the list of emails, and much
+  /// of this navigation would be defined by the application author. However, when reading an email
+  /// message, the content will appear in a region with a document role in order to use browsing
+  /// navigation.
+  ///
+  /// Authors SHOULD provide a title or label for documents. Authors SHOULD use label text that suitable
+  /// for use as a navigation preview or table-of-contents entry for the page section. Content authors
+  /// SHOULD provide the label through one of the following methods:
+  ///
+  /// If the document includes the entire contents of the web page, use the host language feature
+  /// for title or label, such as the title element in both HTML and SVG. This has the effect of
+  /// labeling the entire document.Otherwise, provide a visible label referenced by the document
+  /// using aria-labelledby.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#document>
+  static const String document = "document";
+
+  /// A landmark region that contains a collection of items and objects that, as a whole, combine
+  /// to create a form. See related search.
+  ///
+  /// A form may be a mix of host language form controls, scripted controls, and hyperlinks. Authors
+  /// are reminded to use native host language semantics to create form controls, whenever possible.
+  /// For search facilities, authors SHOULD use the search role and not the generic form role. Authors
+  /// SHOULD provide a visible label for the form referenced with aria-labelledby. If an author uses
+  /// a script to submit a form based on a user action that would otherwise not trigger an onsubmit
+  /// event (for example, a form submission triggered by the user changing a form element's value),
+  /// the author SHOULD provide the user with advance notification of the behavior. Authors are
+  /// reminded to use native host language semantics to create form controls, whenever possible.
+  ///
+  /// User agents SHOULD treat elements with the role of form as navigational landmarks.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#form>
+  static const String form = "form";
+
+  /// A grid is an interactive control which contains cells of tabular data arranged in rows and
+  /// columns, like a table.
+  ///
+  /// Grids do not necessarily imply presentation. The grid construct describes relationships between
+  /// data such that it may be used for different presentations. Grids allow the user to move focus
+  /// between cells using two dimensional navigation. For example, grid might be used as the invisible
+  /// data model (hidden with CSS but still operable by assistive technologies) for a presentational
+  /// chart.
+  ///
+  /// Authors MUST ensure that elements with role gridcell are owned by elements with role row, which
+  /// in turn are owned by an element with role rowgroup, grid or treegrid. If the author applies
+  /// any non-global WAI-ARIA states or properties to a native markup element that is acting as a
+  /// row (such as the tr element in HTML), the author MUST also apply the role of row, as stated
+  /// in the section on Implementation in Host Languages. Authors MAY make cells focusable. Authors
+  /// MAY provide row and column headers for grids, by using rowheader and columnheader roles.
+  ///
+  /// Since WAI-ARIA can augment an element in the host language, grids can reuse existing functionality
+  /// of native table grids. When WAI-ARIA grid or gridcell roles overlay host language table elements
+  /// they reuse the host language semantics for that table. For instance, WAI-ARIA does not specify
+  /// general attributes for gridcell elements that span multiple rows or columns. When the author
+  /// needs a gridcell to span multiple rows or columns, use the host language markup, such as the
+  /// colspan and rowspan attributes in HTML.
+  ///
+  /// Authors MAY determine the contents of a gridcell through calculation of a mathematical formula.
+  /// Authors MAY make a cell's formula editable by the user. In a spreadsheet application for example,
+  /// the text alternative of a cell may be the calculated value of a formula. However, when the
+  /// cell is being edited, the text alternative may be the formula itself.
+  ///
+  /// gridcell elements with the aria-selected attribute set can be selected for user interaction,
+  /// and if the aria-multiselectable attribute of the grid is set to true, multiple cells in the
+  /// grid may be selected. Grids may be used for spreadsheets like those in desktop spreadsheet
+  /// applications.
+  ///
+  /// A grid is considered editable unless otherwise specified. To make a grid read-only, set the
+  /// aria-readonly attribute of the grid to true. The value of the grid element's aria-readonly
+  /// attribute is implicitly propagated to all of its owned gridcell elements, and will be exposed
+  /// through the accessibility API. An author may override an individual gridcell element's propagated
+  /// aria-readonly value by setting the aria-readonly attribute on the gridcell.
+  ///
+  /// To be keyboard accessible, authors SHOULD manage focus of descendants for all instances of
+  /// this role, as described in Managing Focus.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#grid>
+  static const String grid = "grid";
+
+  /// A cell in a grid or treegrid.
+  ///
+  /// Cells may be active, editable, and selectable. Cells may have relationships such as aria-controls
+  /// to address the application of functional relationships.
+  ///
+  /// If relevant headers cannot be determined from the DOM structure, authors SHOULD explicitly
+  /// indicate which header cells are relevant to the cell by referencing elements with role rowheader
+  /// or columnheader using the aria-describedby attribute.
+  ///
+  /// In a treegrid, authors MAY define cells as expandable by using the aria-expanded attribute.
+  /// If the aria-expanded attribute is provided, it applies only to the individual cell. It is not
+  /// a proxy for the container row, which also can be expanded. The main use case for providing
+  /// this attribute on a cell is pivot table behavior.
+  ///
+  /// Authors MUST ensure elements with role gridcell are contained in, or owned by, an element with
+  /// the role row.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#gridcell>
+  static const String gridcell = "gridcell";
+
+  /// A set of user interface objects which are not intended to be included in a page summary or
+  /// table of contents by assistive technologies.
+  ///
+  /// Contrast with region which is a grouping of user interface objects that will be included in
+  /// a page summary or table of contents.
+  ///
+  /// Authors SHOULD use a group to form logical collection of items in a widget such as children
+  /// in a tree widget forming a collection of siblings in a hierarchy, or a collection of items
+  /// having the same container in a directory. However, when a group is used in the context of list,
+  /// authors MUST limit its children to listitem elements. Therefore, proper handling of group by
+  /// authors and assistive technologies is determined by the context in which it is provided.
+  ///
+  /// Authors MAY nest group elements. If a section is significant enough to warrant inclusion in
+  /// the web page's table of contents, the author SHOULD assign the section a role of region or
+  /// a standard landmark role.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#group>
+  static const String group = "group";
+
+  /// A heading for a section of the page.
+  ///
+  /// Often, heading elements will be referenced with the aria-labelledby attribute of the section
+  /// for which they serve as a heading. If headings are organized into a logical outline, the aria-level
+  /// attribute can be used to indicate the nesting level.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#heading>
+  static const String heading = "heading";
+
+  /// A container for a collection of elements that form an image.
+  ///
+  /// An img can contain captions and descriptive text, as well as multiple image files that when
+  /// viewed together give the impression of a single image. An img represents a single graphic within
+  /// a document, whether or not it is formed by a collection of drawing objects. In order for elements
+  /// with a role of img be perceivable, authors MUST provide alternative text or a label determined
+  /// by the accessible name calculation.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#img>
+  static const String img = "img";
+
+  /// A generic type of widget that allows user input.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#input>
+  static const String input = "input";
+
+  /// An interactive reference to an internal or external resource that, when activated, causes the
+  /// user agent to navigate to that resource. See related button.
+  ///
+  /// If this is a native link in the host language (such as an HTML anchor with an href value),
+  /// activating the link causes the user agent to navigate to that resource. If this is a simulated
+  /// link, the web application author is responsible for managing navigation.
+  ///
+  /// Note: If pressing the link triggers an action but does not change browser focus or page location,
+  /// authors are advised to consider using the button role instead of the link role.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#link>
+  static const String link = "link";
+
+  /// A group of non-interactive list items. See related listbox.
+  ///
+  /// Lists contain children whose role is listitem, or elements whose role is group which in turn
+  /// contains children whose role is listitem.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#list>
+  static const String list = "list";
+
+  /// A widget that allows the user to select one or more items from a list of choices. See related
+  /// combobox and list.
+  ///
+  /// Items within the list are static and, unlike standard HTML select elements, may contain images.
+  /// List boxes contain children whose role is option.
+  ///
+  /// To be keyboard accessible, authors SHOULD manage focus of descendants for all instances of
+  /// this role, as described in Managing Focus.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#listbox>
+  static const String listbox = "listbox";
+
+  /// A single item in a list or directory.
+  ///
+  /// Authors MUST ensure elements with role listitem are contained in, or owned by, an element with
+  /// the role list or group.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#listitem>
+  static const String listitem = "listitem";
+
+  /// A type of live region where new information is added in meaningful order and old information
+  /// may disappear. See related marquee.
+  ///
+  /// Examples include chat logs, messaging history, game log, or an error log. In contrast to other
+  /// live regions, in this role there is a relationship between the arrival of new items in the
+  /// log and the reading order. The log contains a meaningful sequence and new information is added
+  /// only to the end of the log, not at arbitrary points.
+  ///
+  /// Note: Elements with the role log have an implicit aria-live value of polite.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#log>
+  static const String log = "log";
+
+  /// The main content of a document.
+  ///
+  /// This marks the content that is directly related to or expands upon the central topic of the
+  /// document. The main role is a non-obtrusive alternative for "skip to main content" links, where
+  /// the navigation option to go to the main content (or other landmarks) is provided by the user
+  /// agent through a dialog or by assistive technologies.
+  ///
+  /// User agents SHOULD treat elements with the role of main as navigational landmarks.
+  ///
+  /// Within any document or application, the author SHOULD mark no more than one element with the
+  /// main role.
+  ///
+  /// Note: Because document and application elements can be nested in the DOM, they may have multiple
+  /// main elements as DOM descendants, assuming each of those is associated with different document
+  /// nodes, either by a DOM nesting (e.g., document within document) or by use of the aria-owns
+  /// attribute.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#main>
+  static const String main = "main";
+
+  /// A type of live region where non-essential information changes frequently. See related log.
+  ///
+  /// Common usages of marquee include stock tickers and ad banners. The primary difference between
+  /// a marquee and a log is that logs usually have a meaningful order or sequence of important content
+  /// changes.
+  ///
+  /// Note: Elements with the role marquee maintain the default aria-live value of off.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#marquee>
+  static const String marquee = "marquee";
+
+  /// Content that represents a mathematical expression.
+  ///
+  /// Content with the role math is intended to be marked up in an accessible format such as MathML
+  /// [MATHML], or with another type of textual representation such as TeX or LaTeX, which can be
+  /// readily converted to an accessible format by assistive technologies.
+  ///
+  /// This role provides a hook whereby a plug-in mechanism can provide multi-modal access to compliant
+  /// MathML, as well as enabling support for MathML in "mainstream" user agents.
+  ///
+  /// While it is inappropriate to use an image of a mathematical expression in the math role, there
+  /// exists a significant amount of legacy content where images are used to represent mathematical
+  /// expressions. For purposes of repair, if an image has been used to represent a mathematical
+  /// expression, the text equivalent defined for that image SHOULD be valid MathML or TeX. Such
+  /// images SHOULD also be labeled by text that describes the mathematical expression as it might
+  /// be spoken, using the  aria-describedby attribute.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#math>
+  static const String math = "math";
+
+  /// A type of widget that offers a list of choices to the user.
+  ///
+  /// A menu is often a list of common actions or functions that the user can invoke. The menu role
+  /// is appropriate when a list of menu items is presented in a manner similar to a menu on a desktop
+  /// application.
+  ///
+  /// To be keyboard accessible, authors SHOULD manage focus of descendants for all instances of
+  /// this role, as described in Managing Focus.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#menu>
+  static const String menu = "menu";
+
+  /// A presentation of menu that usually remains visible and is usually presented horizontally.
+  ///
+  /// The menubar role is used to create a menu bar similar to those found in Windows, Mac, and Gnome
+  /// desktop applications. A menu bar is used to create a consistent set of frequently used commands.
+  /// Authors SHOULD ensure that menubar interaction is similar to the typical menu bar interaction
+  /// in a desktop graphical user interface.
+  ///
+  /// To be keyboard accessible, authors SHOULD manage focus of descendants for all instances of
+  /// this role, as described in Managing Focus.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#menubar>
+  static const String menubar = "menubar";
+
+  /// An option in a set of choices contained by a menu or menubar.
+  ///
+  /// Authors MAY disable a menu item with the aria-disabled attribute. If the menu item has its
+  /// aria-haspopup attribute set to true, it indicates that the menu item may be used to launch
+  /// a sub-level menu, and authors SHOULD display a new sub-level menu when the menu item is activated.
+  ///
+  /// Authors MUST ensure that menu items are owned by an element with role menu or menubar in order
+  /// to identify that they are related widgets. Authors MAY separate menu items into sets by use
+  /// of a separator or an element with an equivalent role from the native markup language.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#menuitem>
+  static const String menuitem = "menuitem";
+
+  /// A menuitem with a checkable state whose possible values are true, false, or mixed.
+  ///
+  /// The aria-checked attribute of a menuitemcheckbox indicates whether the menu item is checked
+  /// (true), unchecked (false), or represents a sub-level menu of other menu items that have a mixture
+  /// of checked and unchecked values (mixed).
+  ///
+  /// Authors MUST ensure that menu item checkboxes are owned by an element with role menu or menubar
+  /// in order to identify that they are related widgets. Authors MAY separate menu items into sets
+  /// by use of a separator or an element with an equivalent role from the native markup language.
+  ///
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#menuitemcheckbox>
+  static const String menuitemcheckbox = "menuitemcheckbox";
+
+  /// A checkable menuitem in a set of elements with role menuitemradio, only one of which can be
+  /// checked at a time.
+  ///
+  /// Authors SHOULD enforce that only one menuitemradio in a group can be checked at the same time.
+  /// When one item in the group is checked, the previously checked item becomes unchecked (its
+  /// aria-checked attribute becomes false).
+  ///
+  /// Authors MUST ensure that menu item radios are owned by an element with role group, menu, or
+  /// menubar in order to identify that they are related widgets. Authors MAY separate menu items
+  /// into sets by use of a separator or an element with an equivalent role from the native markup
+  /// language.
+  ///
+  /// If a menu or menubar contains more than one group of menuitemradio elements, or if the menu
+  /// contains one group and other, unrelated menu items, authors SHOULD nest each set of related
+  /// menuitemradio elements in an element using the group role, and authors SHOULD delimit the group
+  /// from other menu items with an element using the separator role.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#menuitemradio>
+  static const String menuitemradio = "menuitemradio";
+
+  /// A collection of navigational elements (usually links) for navigating the document or related
+  /// documents.
+  ///
+  /// User agents SHOULD treat elements with the role of navigation as navigational landmarks.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#navigation>
+  static const String navigation = "navigation";
+
+  /// A section whose content is parenthetic or ancillary to the main content of the resource.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#note>
+  static const String note = "note";
+
+  /// A selectable item in a select list.
+  ///
+  /// Authors MUST ensure elements with role option are contained in, or owned by, an element with
+  /// the role listbox. Options not associated with a listbox might not be correctly mapped to an
+  /// accessibility API.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#option>
+  static const String option = "option";
+
+  /// An element whose implicit native role semantics will not be mapped to the accessibility API.
+  ///
+  /// The intended use is when an element is used to change the look of the page but does not have
+  /// all the functional, interactive, or structural relevance implied by the element type, or may
+  /// be used to provide for an accessible fallback in older browsers that do not support WAI-ARIA.
+  ///
+  /// Example use cases:
+  ///
+  /// An element whose content is completely presentational (like a spacer image, decorative graphic,
+  /// or clearing element); An image that is in a container with the img role and where the full
+  /// text
+  /// alternative is available and is marked up with aria-labelledby and (if needed) aria-describedby;An
+  /// element used as an additional markup "hook" for CSS; orA layout table and/or any of its associated
+  /// rows, cells, etc.
+  /// For any element with a role of presentation and which is not focusable, the user agent MUST
+  /// NOT expose the implicit native semantics of the element (the role and its states and properties)
+  /// to accessibility APIs. However, the user agent MUST expose content and descendant elements
+  /// that do not have an explicit or inherited role of presentation. Thus, the presentation role
+  /// causes a given element to be treated as having no role or to be removed from the accessibility
+  /// tree, but does not cause the content contained within the element to be removed from the accessibility tree.
+  ///
+  /// The presentation role is used on an element that has implicit native semantics, meaning that
+  /// there is a default accessibility API role for the element. Some elements are only complete
+  /// when additional descendant elements are provided. For example, in HTML, table elements (matching
+  /// the grid role) require tr descendants (the row role), which in turn require th or td children
+  /// (the gridcell, columnheader, rowheader roles). Similarly, lists require list item children.
+  /// The descendant elements that complete the semantics of an element are described in WAI-ARIA as
+  /// required owned elements.
+  ///
+  /// When an explicit or inherited role of presentation is applied to an element with the implicit
+  /// semantic of a WAI-ARIA role that has required owned elements, in addition to the element with
+  /// the explicit role of presentation, the user agent MUST apply an inherited role of presentation
+  /// to any owned elements that do not have an explicit role defined. Also, when an explicit or
+  /// inherited role of presentation is applied to a host language element which has required children
+  /// as defined by the host language specification, in addition to the element with the explicit role
+  /// of presentation, the user agent MUST apply an inherited role of presentation to any required
+  /// children that do not have an explicit role defined. For any element with an explicit or inherited
+  /// role of presentation and which is not focusable, user agents MUST ignore role-specific WAI-ARIA states
+  /// and properties for that element. For example, in HTML, a ul or ol element with a role of presentation
+  /// will have the implicit native semantics of its li elements removed because the list role to which
+  /// the ul or ol corresponds has a required owned element of listitem. Likewise, although an HTML table
+  /// element does not have an implicit native semantic role corresponding directly to a WAI-ARIA role,
+  /// the implicit native semantics of its thead/tbody/tfoot/tr/th/td descendants will also be removed,
+  /// because the HTML specification indicates that these are required structural descendants of the
+  /// table element. Explicit roles on a descendant or owned element override the inherited role of
+  /// presentation, and cause the owned element to behave as any other element with an explicit role.
+  /// If the action of exposing the implicit role causes the accessibility tree to be malformed, the
+  /// expected results are undefined and the user agent MAY resort to an internal recovery mechanism
+  /// to repair the accessibility tree.
+  ///
+  /// Note: Only the implicit native semantics of elements that correspond to WAI-ARIA required owned
+  /// elements are removed. All other content remains intact, including nested tables or lists, unless
+  /// those elements also have a explicit role of presentation applied.
+  ///
+  /// For any element with an explicit or inherited role of presentation, user agents MUST apply
+  /// an inherited role of presentation to all host-language-specific labeling elements for the presentational
+  /// element. For example, a table element with a role of presentation will have the implicit native
+  /// semantics of its caption element removed, because the caption is merely a label for the presentational
+  /// table.
+  ///
+  /// For any element with an explicit or inherited role of presentation, user agents MUST ignore
+  /// any non-global, role-specific WAI-ARIA states and properties. However, the user agent MUST
+  /// always expose global WAI-ARIA states and properties to accessibility APIs, even if an element
+  /// has an explicit or inherited role of presentation.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#presentation>
+  static const String presentation = "presentation";
+
+  /// An element that displays the progress status for tasks that take a long time.
+  ///
+  /// A progressbar indicates that the user's request has been received and the application is making
+  /// progress toward completing the requested action. The author SHOULD supply values for aria-valuenow,
+  /// aria-valuemin, and aria-valuemax, unless the value is indeterminate, in which case the author
+  /// SHOULD omit the aria-valuenow attribute. Authors SHOULD update these values when the visual
+  /// progress indicator is updated. If the progressbar is describing the loading progress of a particular
+  /// region of a page, the author SHOULD use aria-describedby to point to the status, and set the aria-busy
+  /// attribute to true on the region until it is finished loading. It is not possible for the user to alter
+  /// the value of a progressbar because it is always readonly.
+  ///
+  /// Note: Assistive technologies generally will render the value of aria-valuenow as a percent
+  /// of the range between the value of aria-valuemin and aria-valuemax, unless aria-valuetext is
+  /// specified. It is best to set the values for aria-valuemin, aria-valuemax, and aria-valuenow
+  /// in a manner that is appropriate for this calculation.
+  ///
+  /// Note: Elements with the role progressbar have an implicit aria-readonly value of true.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#progressbar>
+  static const String progressbar = "progressbar";
+
+  /// A checkable input in a group of radio roles, only one of which can be checked at a time.
+  ///
+  /// Authors SHOULD ensure that elements with role radio are explicitly grouped in order to indicate
+  /// which ones affect the same value. This is achieved by enclosing the radio elements in an element
+  /// with role radiogroup. If it is not possible to make the radio buttons DOM children of the radiogroup,
+  /// authors SHOULD use the aria-owns attribute on the radiogroup element to indicate the relationship
+  /// to its children.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#radio>
+  static const String radio = "radio";
+
+  /// A group of radio buttons.
+  ///
+  /// A radiogroup is a type of select list that can only have a single entry checked at any one
+  /// time. Authors SHOULD enforce that only one radio button in a group can be checked at the same
+  /// time. When one item in the group is checked, the previously checked item becomes unchecked
+  /// (its aria-checked attribute becomes false).
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#radiogroup>
+  static const String radiogroup = "radiogroup";
+
+  /// A large perceivable section of a web page or document, that is important enough to be included
+  /// in a page summary or table of contents, for example, an area of the page containing live sporting
+  /// event statistics.
+  ///
+  /// The 'page summary' referenced above is a structure created dynamically from the page after
+  /// it is loaded as a means of quickly describing its overall organization. It may be created by
+  /// the author using a script, or by assistive technologies.
+  ///
+  /// Authors SHOULD ensure that a region has a heading referenced by aria-labelledby. This heading
+  /// is provided by an instance of the standard host language heading element or an instance of
+  /// an element with role heading that contains the heading text.
+  ///
+  /// When defining regions of a web page, authors are advised to consider using standard document
+  /// landmark roles. If the definitions of these regions are inadequate, authors can use the region
+  /// role and provide the appropriate accessible name.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#region>
+  static const String region = "region";
+
+  /// A row of cells in a grid.
+  ///
+  /// Rows contain gridcell elements, and thus serve to organize the grid.
+  ///
+  /// In a treegrid, authors MAY mark rows as expandable, using the aria-expanded attribute to indicate
+  /// the present status. This is not the case for an ordinary grid, in which the aria-expanded attribute
+  /// is not present.
+  ///
+  /// Authors MUST ensure elements with role row are contained in, or owned by, an element with the
+  /// role grid, rowgroup, treegrid.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#row>
+  static const String row = "row";
+
+  /// A group containing one or more row elements in a grid.
+  ///
+  /// The rowgroup role establishes a relationship between owned row elements. It is a structural
+  /// equivalent to the thead, tfoot, and tbody elements in an HTML table element.
+  ///
+  /// Authors MUST ensure elements with role rowgroup are contained in, or owned by, an element with
+  /// the role grid.
+  ///
+  /// Note: The rowgroup role exists, in part, to support role symmetry in HTML, and allows for the
+  /// propagation of presentation inheritance on HTML table elements with an explicit presentation
+  /// role applied.
+  ///
+  /// Note: This role does not differentiate between types of row groups (e.g., thead vs. tbody),
+  /// but an issue has been raised for WAI-ARIA 2.0.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#rowgroup>
+  static const String rowgroup = "rowgroup";
+
+  /// A cell containing header information for a row in a grid.
+  ///
+  /// Rowheader can be used as a row header in a table or grid. The rowheader establishes a relationship
+  /// between it and all cells in the corresponding row. It is a structural equivalent to setting
+  /// scope="row" on an HTML th element.
+  ///
+  /// Authors MUST ensure elements with role rowheader are contained in, or owned by, an element
+  /// with the role row.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#rowheader>
+  static const String rowheader = "rowheader";
+
+  /// A landmark region that contains a collection of items and objects that, as a whole, combine
+  /// to create a search facility. See related form.
+  ///
+  /// A search region may be a mix of host language form controls, scripted controls, and hyperlinks.
+  ///
+  /// User agents SHOULD treat elements with the role of search as navigational landmarks.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#search>
+  static const String search = "search";
+
+  /// A divider that separates and distinguishes sections of content or groups of menuitems.
+  ///
+  /// This is a visual separator between sections of content. For example, separators are found between
+  /// groups of menu items in a menu or as the moveable separator between two regions in a split
+  /// pane.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#separator>
+  static const String separator = "separator";
+
+  /// A graphical object that controls the scrolling of content within a viewing area, regardless
+  /// of whether the content is fully displayed within the viewing area.
+  ///
+  /// A scrollbar represents the current value and range of possible values via the size of the scrollbar
+  /// and position of the thumb with respect to the visible range of the orientation (horizontal
+  /// or vertical) it controls. Its orientation represents the orientation of the scrollbar and the
+  /// scrolling effect on the viewing area controlled by the scrollbar. It is typically possible
+  /// to add or subtract to the current value by using directional keys such as arrow keys.
+  ///
+  /// Authors MUST set the aria-controls attribute on the scrollbar element to reference the scrollable
+  /// area it controls.
+  ///
+  /// Note: Elements with the role scrollbar have an implicit aria-orientation value of vertical.
+  ///
+  /// Note: Assistive technologies generally will render the value of aria-valuenow as a percent
+  /// of the range between the value of aria-valuemin and aria-valuemax, unless aria-valuetext is
+  /// specified. It is best to set the values for aria-valuemin, aria-valuemax, and aria-valuenow
+  /// in a manner that is appropriate for this calculation.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#scrollbar>
+  static const String scrollbar = "scrollbar";
+
+  /// A user input where the user selects a value from within a given range.
+  ///
+  /// A slider represents the current value and range of possible values via the size of the slider
+  /// and position of the thumb. It is typically possible to add or subtract to the value by using
+  /// directional keys such as arrow keys.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#slider>
+  static const String slider = "slider";
+
+  /// A form of range that expects the user to select from among discrete choices.
+  ///
+  /// A spinbutton typically allows the user to select from the given range through the use of an
+  /// up and down button on the keyboard. Visibly, the current value is incremented or decremented
+  /// until a maximum or minimum value is reached. Authors SHOULD ensure this functionality is accomplished
+  /// programmatically through the use of up and down arrows on the keyboard.
+  ///
+  /// Although a spinbutton is similar in appearance to many presentations of select, it is advisable
+  /// to use spinbutton when working with known ranges (especially in the case of large ranges) as
+  /// opposed to distinct options. For example, a spinbutton representing a range from 1 to 1,000,000
+  /// would provide much better performance than a select widget representing the same values.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#spinbutton>
+  static const String spinbutton = "spinbutton";
+
+  /// A container whose content is advisory information for the user but is not important enough
+  /// to justify an alert, often but not necessarily presented as a status bar. See related alert.
+  ///
+  /// Authors MUST provide status information content within an element with role status. Authors
+  /// SHOULD ensure this object does not receive focus.
+  ///
+  /// Status is a form of live region. If another part of the page controls what appears in the status,
+  /// authors SHOULD make the relationship explicit with the aria-controls attribute.
+  ///
+  /// Assistive technologies MAY reserve some cells of a Braille display to render the status.
+  ///
+  /// Note: Elements with the role status have an implicit aria-live value of polite, and an implicit
+  /// aria-atomic value of true.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#status>
+  static const String status = "status";
+
+  /// A grouping label providing a mechanism for selecting the tab content that is to be rendered
+  /// to the user.
+  ///
+  /// If a tabpanel or item in a tabpanel has focus, the associated tab is the currently active tab
+  /// in the tablist, as defined in Managing Focus. tablist elements, which contain a set of associated
+  /// tab elements, are typically placed near a series of tabpanel elements, usually preceding it.
+  /// See the WAI-ARIA Authoring Practices Guide [ARIA-PRACTICES] for details on implementing a tab
+  /// set design pattern.
+  ///
+  /// Authors MUST ensure elements with role tab are contained in, or owned by, an element with the
+  /// role tablist.
+  ///
+  /// Authors SHOULD ensure the tabpanel associated with the currently active tab is perceivable
+  /// to the user.
+  ///
+  /// For a single-selectable tablist, authors SHOULD hide other tabpanel elements from the user
+  /// until the user selects the tab associated with that tabpanel. For a multi-selectable tablist,
+  /// authors SHOULD ensure each visible tabpanel has its aria-expanded attribute set to true, and
+  /// that the remaining hidden tabpanel elements have their aria-expanded attributes set to false.
+  ///
+  /// In either case, authors SHOULD ensure that a selected tab has its aria-selected attribute set
+  /// to true, that inactive tab elements have their aria-selected attribute set to false, and that
+  /// the currently selected tab provides a visual indication that it is selected. In the absence
+  /// of an aria-selected attribute on the current tab, user agents SHOULD indicate to assistive
+  /// technologies through the platform accessibility API that the currently focused tab is selected.
+  ///
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#tab>
+  static const String tab = "tab";
+
+  /// A list of tab elements, which are references to tabpanel elements.
+  ///
+  /// To be keyboard accessible, authors SHOULD manage focus of descendants for all instances of
+  /// this role, as described in Managing Focus.
+  ///
+  /// For a single-selectable tablist, authors SHOULD hide other tabpanel elements from the user
+  /// until the user selects the tab associated with that tabpanel. For a multi-selectable tablist,
+  /// authors SHOULD ensure each visible tabpanel has its aria-expanded attribute set to true, and
+  /// that the remaining hidden tabpanel elements have their aria-expanded attributes set to false.
+  ///
+  /// tablist elements are typically placed near, usually preceding, a series of tabpanel elements.
+  /// See the WAI-ARIA Authoring Practices Guide [ARIA-PRACTICES] for details on implementing a tab
+  /// set design pattern.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#tablist>
+  static const String tablist = "tablist";
+
+  /// A container for the resources associated with a tab, where each tab is contained in a tablist.
+  ///
+  /// Authors SHOULD associate a tabpanel element with its tab, either by using the aria-controls
+  /// attribute on the tab to reference the tab panel, or by using the aria-labelledby attribute
+  /// on the tab panel to reference the tab.
+  ///
+  /// tablist elements are typically placed near, usually preceding, a series of tabpanel elements.
+  /// See the WAI-ARIA Authoring Practices Guide [ARIA-PRACTICES] for details on implementing a tab
+  /// set design pattern.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#tabpanel>
+  static const String tabpanel = "tabpanel";
+
+  /// Input that allows free-form text as its value.
+  ///
+  /// If the aria-multiline attribute is true, the widget accepts line breaks within the input, as
+  /// in an HTML textarea. Otherwise, this is a simple text box. The intended use is for languages
+  /// that do not have a text input element, or cases in which an element with different semantics
+  /// is repurposed as a text field.
+  ///
+  /// Note: In most user agent implementations, the default behavior of the ENTER or RETURN key is
+  /// different between the single-line and multi-line text fields in HTML. When user has focus in
+  /// a single-line &lt;input type="text"&gt; element, the keystroke usually submits the form. When
+  /// user has focus in a multi-line &lt;textarea&gt; element, the keystroke inserts a line break.
+  /// The WAI-ARIA textbox role differentiates these types of boxes with the aria-multiline attribute,
+  /// so authors are advised to be aware of this distinction when designing the field.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#textbox>
+  static const String textbox = "textbox";
+
+  /// A type of live region containing a numerical counter which indicates an amount of elapsed time
+  /// from a start point, or the time remaining until an end point.
+  ///
+  /// The text contents of the timer object indicate the current time measurement, and are updated
+  /// as that amount changes. The timer value is not necessarily machine parsable, but authors SHOULD
+  /// update the text contents at fixed intervals, except when the timer is paused or reaches an
+  /// end-point.
+  ///
+  /// Note: Elements with the role timer maintain the default aria-live value of off.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#timer>
+  static const String timer = "timer";
+
+  /// A collection of commonly used function buttons or controls represented in compact visual form.
+  ///
+  /// The toolbar is often a subset of functions found in a menubar, designed to reduce user effort
+  /// in using these functions. Authors MUST supply an aria-label property on each toolbar when the
+  /// application contains more than one toolbar.
+  ///
+  /// Authors MAY manage focus of descendants for all instances of this role, as described in Managing
+  /// Focus.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#toolbar>
+  static const String toolbar = "toolbar";
+
+  /// A contextual popup that displays a description for an element.
+  ///
+  /// The tooltip typically becomes visible in response to a mouse hover, or after the owning element
+  /// receives keyboard focus. In each of these cases, authors SHOULD display the tooltip after a
+  /// short delay. The use of a WAI-ARIA tooltip is a supplement to the normal tooltip behavior of
+  /// the user agent.
+  ///
+  /// Note: Typical tooltip delays last from one to five seconds.
+  ///
+  /// Authors SHOULD ensure that elements with the role tooltip are referenced through the use of
+  /// aria-describedby by the time the tooltip is displayed.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#tooltip>
+  static const String tooltip = "tooltip";
+
+  /// A type of list that may contain sub-level nested groups that can be collapsed and expanded.
+  ///
+  /// To be keyboard accessible, authors SHOULD manage focus of descendants for all instances of
+  /// this role, as described in Managing Focus.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#tree>
+  static const String tree = "tree";
+
+  /// A grid whose rows can be expanded and collapsed in the same manner as for a tree.
+  ///
+  /// A treegrid is considered editable unless otherwise specified. To make a treegrid read-only,
+  /// set the aria-readonly attribute of the treegrid to true. The value of the treegrid element's
+  /// aria-readonly attribute is implicitly propagated to all of its owned gridcell elements, and
+  /// will be exposed through the accessibility API. An author may override an individual gridcell
+  /// element's propagated aria-readonly value by setting the aria-readonly attribute on the gridcell.
+  ///
+  /// To be keyboard accessible, authors SHOULD manage focus of descendants for all instances of
+  /// this role, as described in Managing Focus.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#treegrid>
+  static const String treegrid = "treegrid";
+
+  /// An option item of a tree. This is an element within a tree that may be expanded or collapsed
+  /// if it contains a sub-level group of treeitem elements.
+  ///
+  /// A collection of treeitem elements to be expanded and collapsed are enclosed in an element with
+  /// the group role.
+  ///
+  /// Authors MUST ensure elements with role treeitem are contained in, or owned by, an element with
+  /// the role group or tree.
+  ///
+  /// See: <http://www.w3.org/TR/wai-aria/roles#treeitem>
+  static const String treeitem = "treeitem";
 }
