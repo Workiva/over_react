@@ -30,3 +30,10 @@ Map getPropsToForward(Map props, {bool omitReactProps: true, Iterable keysToOmit
 
   return propsToForward;
 }
+
+/// Copies the value for [key] in [source] to [destination] if it exists.
+void copyValueIfPresent(Map source, Map destination, dynamic key) {
+  if (source.containsKey(key)) {
+    destination[key] = source[key];
+  }
+}
