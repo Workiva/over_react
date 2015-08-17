@@ -14,11 +14,10 @@ getHitArea(instance) => getRef(instance, 'hitarea');
 
 main() {
   group('HitAreaMixin', () {
-    test('renders with appropriate base CSS classes, node name, and role attribue by default', () {
+    test('renders with appropriate base CSS classes and node name', () {
       var renderedNode = renderAndGetDom(HitAreaTest());
       expect(renderedNode, hasExactClasses('hitarea'));
       expect(renderedNode, hasNodeName('DIV'));
-      expect(renderedNode, hasAttr('role', 'button'));
     });
 
     group('renders with the appropriate node name when domNodeName is', () {
@@ -197,14 +196,12 @@ main() {
           ..name = 'someName'
           ..id = 'someId'
           ..type = HitAreaButtonType.BUTTON
-          ..role = 'tab'
           ..domNodeName = DomNodeName.A);
 
         expect(renderedNode, hasNodeName('A'));
         expect(renderedNode, hasAttr('name', 'someName'));
         expect(renderedNode, hasAttr('type', isNull));
         expect(renderedNode, hasAttr('id', 'someId'));
-        expect(renderedNode, hasAttr('role', 'tab'));
       });
 
       test('a <button>', () {
@@ -212,14 +209,12 @@ main() {
           ..name = 'someName'
           ..id = 'someId'
           ..type = HitAreaButtonType.BUTTON
-          ..role = 'tab'
           ..domNodeName = DomNodeName.BUTTON);
 
         expect(renderedNode, hasNodeName('BUTTON'));
         expect(renderedNode, hasAttr('name', 'someName'));
         expect(renderedNode, hasAttr('type', 'button'));
         expect(renderedNode, hasAttr('id', 'someId'));
-        expect(renderedNode, hasAttr('role', isNull));
       });
 
       test('a <div>', () {
@@ -227,14 +222,60 @@ main() {
           ..name = 'someName'
           ..id = 'someId'
           ..type = HitAreaButtonType.BUTTON
-          ..role = 'tab'
           ..domNodeName = DomNodeName.DIV);
 
         expect(renderedNode, hasNodeName('DIV'));
         expect(renderedNode, hasAttr('name', isNull));
         expect(renderedNode, hasAttr('type', isNull));
         expect(renderedNode, hasAttr('id', 'someId'));
-        expect(renderedNode, hasAttr('role', 'tab'));
+      });
+    });
+
+    group('renders with the appropriate role attribute when the role prop is', () {
+      group('set and domNodeName is', () {
+        test('DomNodeName.A', () {
+          var renderedNode = renderAndGetDom(HitAreaTest()
+            ..role = 'tab'
+            ..domNodeName = DomNodeName.A);
+
+          expect(renderedNode, hasAttr('role', 'tab'));
+        });
+
+        test('DomNodeName.DIV', () {
+          var renderedNode = renderAndGetDom(HitAreaTest()
+            ..role = 'tab'
+            ..domNodeName = DomNodeName.DIV);
+
+          expect(renderedNode, hasAttr('role', 'tab'));
+        });
+
+        test('DomNodeName.BUTTON', () {
+          var renderedNode = renderAndGetDom(HitAreaTest()
+            ..role = 'tab'
+            ..domNodeName = DomNodeName.BUTTON);
+
+          expect(renderedNode, hasAttr('role', isNull));
+        });
+      });
+
+      group('not set and domNodeName is', () {
+        test('DomNodeName.A', () {
+          var renderedNode = renderAndGetDom(HitAreaTest()..domNodeName = DomNodeName.A);
+
+          expect(renderedNode, hasAttr('role', 'button'));
+        });
+
+        test('DomNodeName.DIV', () {
+          var renderedNode = renderAndGetDom(HitAreaTest()..domNodeName = DomNodeName.DIV);
+
+          expect(renderedNode, hasAttr('role', 'button'));
+        });
+
+        test('DomNodeName.BUTTON', () {
+          var renderedNode = renderAndGetDom(HitAreaTest()..domNodeName = DomNodeName.BUTTON);
+
+          expect(renderedNode, hasAttr('role', isNull));
+        });
       });
     });
 
@@ -271,7 +312,6 @@ main() {
       group('when onClick', () {
         test('set', () {
           bool onSelectCalled = false;
-          String selectedKey;
           var instance = (HitAreaTest()
             ..eventKey = '123'
             ..onClick = (event) {
@@ -328,7 +368,6 @@ main() {
       group('when isDisabled is true and onClick is', () {
         test('set', () {
           bool onSelectCalled = false;
-          String selectedKey;
           var instance = (HitAreaTest()
             ..isDisabled = true
             ..eventKey = '123'
