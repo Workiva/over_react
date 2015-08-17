@@ -110,7 +110,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
 
     // set active class
     if (renderActive) {
-      hitAreaProps['aria-selected'] = 'true';
+      hitAreaProps.addAll(ariaProps()..selected = true);
 
       if (!isNavItemHitArea) {
         // If a hitarea is within a NavItem or MenuItem, the active CSS class must be applied to the
@@ -244,7 +244,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     if (renderDisabled) {
       if (renderer == HitAreaRenderer.ANCHOR) {
         classes.add('disabled');
-        hitAreaProps['aria-disabled'] = 'true';
+        hitAreaProps..addAll(ariaProps()..disabled = true);
       } else {
         hitAreaProps.disabled = true;
       }
