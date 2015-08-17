@@ -102,10 +102,10 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
   renderHitArea(Map hitAreaPropsMap, dynamic children, {bool isNavItemHitArea: false}) {
     assert(hitAreaPropsMap != null);
 
-    DomComponentDefinition renderer;
+    var builder;
     bool hasAnchorProps = (tProps.href != null || tProps.target != null);
     if (hasAnchorProps || tProps.domNodeName == DomNodeName.A) {
-      renderer = Dom.a()
+      builder = Dom.a()
         ..href = tProps.href
         ..target = tProps.target
         ..name = tProps.name;
@@ -117,7 +117,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
           'triggering in-page functionality. It is recommended that you omit the `domNodeName` prop so '
           'that a `<button>` element will be rendered instead.'));
         // Signify that this anchor triggers in-page functionality despite using an `<a>` tag.
-        renderer.role = 'button';
+        builder.role = 'button';
       } else if (hasAnchorProps && tProps.domNodeName != null) {
         assert(ValidationUtil.warn(
           'You are explicitly requesting that a `<${tProps.domNodeName.nodeName}>` element is rendered '
@@ -132,27 +132,27 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
           'it is recommended that you omit the `href` attribute altogether, so that this React '
           'component will produce a `<button>` element instead.'));
         // Signify that this anchor triggers in-page functionality despite using an `<a>` tag.
-        renderer.role = 'button';
+        builder.role = 'button';
       }
     } else if (tProps.domNodeName == DomNodeName.BUTTON) {
-      renderer = Dom.button()
+      builder = Dom.button()
         ..name = tProps.name
         ..type = tProps.type.typeName;
     } else {
-      renderer = Dom.div()
+      builder = Dom.div()
         ..role = 'button';
     }
 
     ClassNameBuilder classes = new ClassNameBuilder.fromProps(hitAreaPropsMap)
       ..add('hitarea');
 
-    renderer
+    builder
       ..id = tProps.id;
 
     isNavItemHitArea = (isNavItemHitArea || tProps.isNavItem || tProps.isNavDropdown);
 
     if (tProps.isActive) {
-      renderer..addProp('aria-selected', 'true');
+      builder..addProp('aria-selected', 'true');
 
       if (!isNavItemHitArea) {
         // If a hitarea is within a NavItem or NavDropdown, the active CSS class must be applied to the
@@ -164,21 +164,21 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     }
 
     if (tProps.isDisabled) {
-      if (renderer == Dom.button()) {
-        renderer.disabled = true;
+      if (builder == Dom.button()) {
+        builder.disabled = true;
       } else {
         classes.add('disabled');
-        renderer.addProp('aria-disabled', 'true');
+        builder.addProp('aria-disabled', 'true');
       }
     }
 
-    renderer
+    builder
       ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
       ..className = classes.toClassName()
       ..ref = hitAreaPropsMap.containsKey('ref') ? hitAreaPropsMap['ref'] : 'hitarea'
       ..onClick = _handleClick;
 
-    return renderer(children);
+    return builder(children);
   }
 
   _handleClick(react.SyntheticEvent event) {
