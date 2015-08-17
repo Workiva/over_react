@@ -81,6 +81,14 @@ abstract class _$template_HitAreaProps {
   ///
   /// Default: HitAreaButtonType.BUTTON
   HitAreaButtonType get type;
+
+  /// The role for the [HitAreaMixin].
+  /// This will obly be applied if [domNodeName] is not set to [DomNodeName.BUTTON].
+  ///
+  /// _Proxies [DomProps.role]_
+  ///
+  /// Default: 'button'
+  String get role;
 }
 
 abstract class HitAreaMixin<P extends HitAreaProps> {
@@ -90,7 +98,8 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     HitAreaProps.Z_$KEY__IS_DISABLED: false,
     HitAreaProps.Z_$KEY__IS_NAV_ITEM: false,
     HitAreaProps.Z_$KEY__IS_NAV_DROPDOWN: false,
-    HitAreaProps.Z_$KEY__TYPE: HitAreaButtonType.BUTTON
+    HitAreaProps.Z_$KEY__TYPE: HitAreaButtonType.BUTTON,
+    HitAreaProps.Z_$KEY__ROLE: 'button'
   };
 
   P get tProps;
@@ -117,7 +126,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
           'triggering in-page functionality. It is recommended that you omit the `domNodeName` prop so '
           'that a `<button>` element will be rendered instead.'));
         // Signify that this anchor triggers in-page functionality despite using an `<a>` tag.
-        builder.role = 'button';
+        builder.role = tProps.role;
       } else if (hasAnchorProps && tProps.domNodeName != null) {
         assert(ValidationUtil.warn(
           'You are explicitly requesting that a `<${tProps.domNodeName.nodeName}>` element is rendered '
@@ -132,7 +141,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
           'it is recommended that you omit the `href` attribute altogether, so that this React '
           'component will produce a `<button>` element instead.'));
         // Signify that this anchor triggers in-page functionality despite using an `<a>` tag.
-        builder.role = 'button';
+        builder.role = tProps.role;
       }
     } else if (tProps.domNodeName == DomNodeName.BUTTON) {
       builder = Dom.button()
@@ -140,7 +149,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
         ..type = tProps.type.typeName;
     } else {
       builder = Dom.div()
-        ..role = 'button';
+        ..role = tProps.role;
     }
 
     ClassNameBuilder classes = new ClassNameBuilder.fromProps(hitAreaPropsMap)

@@ -14,10 +14,11 @@ getHitArea(instance) => getRef(instance, 'hitarea');
 
 main() {
   group('HitAreaMixin', () {
-    test('renders with appropriate base CSS classes and node name', () {
+    test('renders with appropriate base CSS classes, node name, and role attribue by default', () {
       var renderedNode = renderAndGetDom(HitAreaTest());
       expect(renderedNode, hasExactClasses('hitarea'));
       expect(renderedNode, hasNodeName('DIV'));
+      expect(renderedNode, hasAttr('role', 'button'));
     });
 
     group('renders with the appropriate node name when domNodeName is', () {
@@ -196,13 +197,14 @@ main() {
           ..name = 'someName'
           ..id = 'someId'
           ..type = HitAreaButtonType.BUTTON
+          ..role = 'tab'
           ..domNodeName = DomNodeName.A);
 
         expect(renderedNode, hasNodeName('A'));
         expect(renderedNode, hasAttr('name', 'someName'));
         expect(renderedNode, hasAttr('type', isNull));
         expect(renderedNode, hasAttr('id', 'someId'));
-        expect(renderedNode, hasAttr('role', 'button'));
+        expect(renderedNode, hasAttr('role', 'tab'));
       });
 
       test('a <button>', () {
@@ -210,6 +212,7 @@ main() {
           ..name = 'someName'
           ..id = 'someId'
           ..type = HitAreaButtonType.BUTTON
+          ..role = 'tab'
           ..domNodeName = DomNodeName.BUTTON);
 
         expect(renderedNode, hasNodeName('BUTTON'));
@@ -224,13 +227,14 @@ main() {
           ..name = 'someName'
           ..id = 'someId'
           ..type = HitAreaButtonType.BUTTON
+          ..role = 'tab'
           ..domNodeName = DomNodeName.DIV);
 
         expect(renderedNode, hasNodeName('DIV'));
         expect(renderedNode, hasAttr('name', isNull));
         expect(renderedNode, hasAttr('type', isNull));
         expect(renderedNode, hasAttr('id', 'someId'));
-        expect(renderedNode, hasAttr('role', 'button'));
+        expect(renderedNode, hasAttr('role', 'tab'));
       });
     });
 
