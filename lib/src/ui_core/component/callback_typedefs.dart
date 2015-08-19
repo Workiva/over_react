@@ -11,9 +11,8 @@ typedef TouchEventCallback(react.SyntheticTouchEvent event);
 typedef UIEventCallback(react.SyntheticUIEvent event);
 typedef WheelEventCallback(react.SyntheticWheelEvent event);
 
-// Callback for hitarea selection events
+// Callback for item selection events
 typedef EventKeyCallback(react.SyntheticEvent event, dynamic eventKey);
-typedef HitAreaSelectCallback(react.SyntheticEvent event, dynamic eventKey, String href, String target);
 
 // Callback for state changes
 typedef StateDidChangeCallback(react.SyntheticEvent event, Map oldState);
