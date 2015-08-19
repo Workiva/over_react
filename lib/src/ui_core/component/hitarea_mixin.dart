@@ -99,7 +99,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     HitAreaProps.Z_$KEY__IS_NAV_ITEM: false,
     HitAreaProps.Z_$KEY__IS_NAV_DROPDOWN: false,
     HitAreaProps.Z_$KEY__TYPE: HitAreaButtonType.BUTTON,
-    HitAreaProps.Z_$KEY__ROLE: 'button'
+    HitAreaProps.Z_$KEY__ROLE: Role.button
   };
 
   P get tProps;
