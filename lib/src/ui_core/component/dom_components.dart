@@ -1,5 +1,5 @@
 /// [ComponentDefinition]-based api with typed props for react-dart DOM components.
-part of w_ui_platform.ui_core;
+part of web_skin_dart.ui_core;
 
 /// A MapView with the typed getters/setters for all DOM-related React props.
 class DomPropsMapView extends MapView with DomProps, ReactProps {
