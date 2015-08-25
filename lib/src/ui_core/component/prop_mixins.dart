@@ -46,6 +46,7 @@ abstract class _$template_DomProps {
     preload, radioGroup, rel, role, rowSpan, sandbox, scope, scrolling, shape, sizes, spellCheck, src, srcDoc, srcSet,
     step, tabIndex, target, title, type, useMap, value, width, wmode;
 
+  // TODO: [BJR] Remove these
   ClipboardEventCallback onCopy, onCut, onPaste;
   KeyboardEventCallback onKeyDown, onKeyPress, onKeyUp;
   FocusEventCallback onFocus, onBlur;
@@ -83,4 +84,110 @@ abstract class _$template_UbiquitousDomProps {
 
   /// Specifies an inline CSS style for the element
   Map<String, dynamic> get style;
+
+  /// Callback for when the user copies the content of an element
+  ClipboardEventCallback get onCopy;
+
+  /// Callback for when the user cuts the content of an element
+  ClipboardEventCallback get onCut;
+
+  /// Callback for when the user pastes some content in an element
+  ClipboardEventCallback get onPaste;
+
+  /// Callback for when the user is pressing a key
+  KeyboardEventCallback get onKeyDown;
+
+  /// Callback for when the user presses a key
+  KeyboardEventCallback get onKeyPress;
+
+  /// Callback for when the user releases a key
+  KeyboardEventCallback get onKeyUp;
+
+  /// Callback for when an element gets focus
+  FocusEventCallback get onFocus;
+
+  /// Callback for when an element loses focus
+  FocusEventCallback get onBlur;
+
+  /// Callback for  when the content of a form element, the selection, or the checked state have changed (for <input>,
+  /// <keygen>, <select>, and <textarea>)
+  FormEventCallback get onChange;
+
+  /// Callback for when an element gets user input
+  FormEventCallback get onInput;
+
+  /// Callback for when a form is submitted
+  FormEventCallback get onSubmit;
+
+  /// Callback for when the user clicks on an element
+  MouseEventCallback get onClick;
+
+  /// Callback for when the user right-clicks on an element to open a context menu
+  MouseEventCallback get onContextMenu;
+
+  /// Callback for when the user double-clicks on an element
+  MouseEventCallback get onDoubleClick;
+
+  /// Callback for when an element is being dragged
+  MouseEventCallback get onDrag;
+
+  /// Callback for when the user has finished dragging an element
+  MouseEventCallback get onDragEnd;
+
+  /// Callback for when the dragged element enters the drop target
+  MouseEventCallback get onDragEnter;
+
+  /// Callback for
+  MouseEventCallback get onDragExit;
+
+  /// Callback for when the dragged element leaves the drop target
+  MouseEventCallback get onDragLeave;
+
+  /// Callback for when the dragged element is over the drop target
+  MouseEventCallback get onDragOver;
+
+  /// Callback for when the user starts to drag an element
+  MouseEventCallback get onDragStart;
+
+  /// Callback for when the dragged element is dropped on the drop target
+  MouseEventCallback get onDrop;
+
+  /// Callback for when the user presses a mouse button over an element
+  MouseEventCallback get onMouseDown;
+
+  /// Callback for when the pointer is moved onto an element
+  MouseEventCallback get onMouseEnter;
+
+  /// Callback for when the pointer is moved out of an element
+  MouseEventCallback get onMouseLeave;
+
+  /// Callback for when the pointer is moving while it is over an element
+  MouseEventCallback get onMouseMove;
+
+  /// Callback for when a user moves the mouse pointer out of an element, or out of one of its children
+  MouseEventCallback get onMouseOut;
+
+  /// Callback for when the pointer is moved onto an element, or onto one of its children
+  MouseEventCallback get onMouseOver;
+
+  /// Callback for when a user releases a mouse button over an element
+  MouseEventCallback get onMouseUp;
+
+  /// Callback for when the touch is interrupted
+  TouchEventCallback get onTouchCancel;
+
+  /// Callback for when a finger is removed from a touch screen
+  TouchEventCallback get onTouchEnd;
+
+  /// Callback for when a finger is dragged across the screen
+  TouchEventCallback get onTouchMove;
+
+  /// Callback for when a finger is placed on a touch screen
+  TouchEventCallback get onTouchStart;
+
+  /// Callback for when an element's scrollbar is being scrolled
+  UIEventCallback get onScroll;
+
+  /// Callback for when the mouse wheel rolls up or down over an element
+  WheelEventCallback get onWheel;
 }
