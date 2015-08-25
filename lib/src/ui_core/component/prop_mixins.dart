@@ -16,12 +16,12 @@ abstract class _$template_ReactProps {
 abstract class _$template_CssClassProps {
   /// String of space-delimited CSS classes to be added to the resultant DOM.
   ///
-  /// All w_ui_platform components merge any added classes with this prop and the [classNameBlacklist] prop (see [BaseComponent.forwardingClassNameBuilder]).
+  /// All web_skin_dart components merge any added classes with this prop and the [classNameBlacklist] prop (see [BaseComponent.forwardingClassNameBuilder]).
   String get className;
 
   /// String of space-delimited CSS classes to be blacklisted from being added to the resultant DOM.
   ///
-  /// All w_ui_platform components merge any added classes with this prop and the [className] prop (see [BaseComponent.forwardingClassNameBuilder]).
+  /// All web_skin_dart components merge any added classes with this prop and the [className] prop (see [BaseComponent.forwardingClassNameBuilder]).
   String get classNameBlacklist;
 }
 

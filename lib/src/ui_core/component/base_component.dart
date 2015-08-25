@@ -1,7 +1,7 @@
 /// Abstract classes for typed-prop UI components.
 part of web_skin_dart.ui_core;
 
-/// A component definition used as the base for all w_ui_platform components.
+/// A component definition used as the base for all web_skin_dart components.
 ///
 /// Mixes in React-specific props (key, ref, etc.) as well as CSS-class-related props used by components internally.
 ///
@@ -11,7 +11,7 @@ abstract class BaseComponentDefinition extends ComponentDefinition with ReactPro
   BaseComponentDefinition(ReactComponentFactory componentFactory, Map props) : super(componentFactory, props);
 }
 
-/// A component used as the base for all w_ui_platform components.
+/// A component used as the base for all web_skin_dart components.
 ///
 /// Contains built-in support for generic typed props and other utility methods.
 abstract class BaseComponent<T extends ComponentDefinition> extends react.Component with TypedPropsGetter<T> {
@@ -33,7 +33,7 @@ abstract class BaseComponent<T extends ComponentDefinition> extends react.Compon
   }
 }
 
-/// A component used as the base for all stateful w_ui_platform components.
+/// A component used as the base for all stateful web_skin_dart components.
 ///
 /// Contains built-in support for generic typed props/state and other utility methods.
 abstract class BaseComponentWithState<T extends ComponentDefinition, S extends Map> extends BaseComponent<T> with TypedStateGetter<S> {}
