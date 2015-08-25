@@ -1,7 +1,7 @@
 library dom_components_test;
 
 import 'package:test/test.dart';
-import 'package:w_ui_platform/ui_core.dart';
+import 'package:web_skin_dart/ui_core.dart';
 
 import '../../test_util/react_util.dart';
 

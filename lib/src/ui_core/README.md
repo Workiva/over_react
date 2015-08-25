@@ -158,10 +158,10 @@ Note how you might render the same DOM in JSX, react-dart, and w_ui_platform:
 1. Add the following lines to import the necessary core pieces:
     ```dart
     // Import w_ui_platform core component framework 
-    import 'package:w_ui_platform/ui_core.dart';
+    import 'package:web_skin_dart/ui_core.dart';
     
     // Import code_generation annotations so we can use @GenerateProps
-    import 'package:w_ui_platform/code_generation/annotations.dart';
+    import 'package:web_skin_dart/code_generation/annotations.dart';
     ```
 
 2. Start with this template for a component:
