@@ -46,7 +46,6 @@ abstract class _$template_DomProps {
     preload, radioGroup, rel, role, rowSpan, sandbox, scope, scrolling, shape, sizes, spellCheck, src, srcDoc, srcSet,
     step, tabIndex, target, title, type, useMap, value, width, wmode;
 
-  // TODO: [BJR] Remove these
   ClipboardEventCallback onCopy, onCut, onPaste;
   KeyboardEventCallback onKeyDown, onKeyPress, onKeyUp;
   FocusEventCallback onFocus, onBlur;
