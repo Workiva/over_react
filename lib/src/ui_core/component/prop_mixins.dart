@@ -136,7 +136,7 @@ abstract class _$template_UbiquitousDomProps {
   /// Callback for when the dragged element enters the drop target
   MouseEventCallback get onDragEnter;
 
-  /// Callback for
+  /// Callback for when the dragged element exits the drop target
   MouseEventCallback get onDragExit;
 
   /// Callback for when the dragged element leaves the drop target
