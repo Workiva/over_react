@@ -1,7 +1,7 @@
 library class_names_test;
 
 import 'package:test/test.dart';
-import 'package:w_ui_platform/ui_core.dart';
+import 'package:web_skin_dart/ui_core.dart';
 
 /// Main entrypoint for class_names testing
 main() {
@@ -16,6 +16,10 @@ main() {
 
         test('returns an empty className when nothing is added', () {
           expect(builder.toClassName(), isEmpty);
+        });
+
+        test('returns null from classNameBlacklist when nothing is blacklisted', () {
+          expect(builder.toClassNameBlacklist(), isNull);
         });
 
         test('returns a className with the added single classes', () {
@@ -38,6 +42,28 @@ main() {
             'classname2-class1 classname2-class2',
             'classname3-single-class'
           ].join(' ')));
+        });
+
+        test('returns a classNameBlacklist with the blacklisted single classes', () {
+          builder
+            ..blacklist('class1')
+            ..blacklist('class2')
+            ..blacklist('class3');
+
+          expect(builder.toClassNameBlacklist(), equals('class1 class2 class3'));
+        });
+
+        test('returns a classNameBlacklist with the blacklisted classes', () {
+          builder
+            ..blacklist('classname1-class1 classname1-class2')
+            ..blacklist('classname2-class1 classname2-class2')
+            ..blacklist('classname3-single-class');
+
+          expect(builder.toClassNameBlacklist(), equals(
+            'classname1-class1 classname1-class2 '
+            'classname2-class1 classname2-class2 '
+            'classname3-single-class'
+          ));
         });
 
         test('doesn\'t trim spaces on inputs', () {
@@ -98,12 +124,14 @@ main() {
             ..add('class1')
             ..add('null');
           expect(builder.toClassName(), equals('class1 null'));
+          expect(builder.toClassNameBlacklist(), isNull);
         });
 
         test('does nothing when the empty string is blacklisted', () {
           builder.blacklist('');
           builder.add('class1');
           expect(builder.toClassName(), equals('class1'));
+          expect(builder.toClassNameBlacklist(), isNull);
         });
 
         test('only adds classes if the [should] argument is true or unspecified', () {
@@ -123,6 +151,7 @@ main() {
           builder.add('class1 class2 class3');
 
           expect(builder.toClassName(), equals('class3'));
+          expect(builder.toClassNameBlacklist(), equals('class1 class2'));
         });
 
         test('does not add classes when className is null', () {
