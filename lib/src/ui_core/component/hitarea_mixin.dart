@@ -1,4 +1,4 @@
-part of w_ui_platform.ui_core;
+part of web_skin_dart.ui_core;
 
 /// Mixin for component definitions that provides [HitAreaProps].
 /// To use:
@@ -99,7 +99,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     HitAreaProps.Z_$KEY__IS_NAV_ITEM: false,
     HitAreaProps.Z_$KEY__IS_NAV_DROPDOWN: false,
     HitAreaProps.Z_$KEY__TYPE: HitAreaButtonType.BUTTON,
-    HitAreaProps.Z_$KEY__ROLE: 'button'
+    HitAreaProps.Z_$KEY__ROLE: Role.button
   };
 
   P get tProps;
