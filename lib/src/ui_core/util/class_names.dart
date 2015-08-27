@@ -1,5 +1,5 @@
 /// Utilities for manipulating and generating CSS class names.
-part of w_ui_platform.ui_core;
+part of web_skin_dart.ui_core;
 
 /// StringBuffer-backed className builder optimized for adding classNames, with support for blacklisting CSS classes.
 class ClassNameBuilder {
