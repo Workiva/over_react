@@ -1,10 +1,9 @@
-/// Utility class that helps with dependency injection when mocking document events.
 library document_event_helper;
 
 import 'dart:html' as html;
 
-class DocumentEventHelper {
-  DocumentEventHelper._();
+/// Utility class that helps with dependency injection when mocking document events.
+abstract class DocumentEventHelper {
   static html.Document _document = html.document;
   /// Singleton that can be used to listen to events like you would with `document`.
   ///
