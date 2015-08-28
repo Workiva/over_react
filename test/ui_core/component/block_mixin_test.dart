@@ -11,71 +11,167 @@ import '../../test_util/custom_matchers.dart';
 main() {
   group('BlockMixin', () {
     group('has the correct CSS class names when the', () {
-      group('size prop is set', () {
-        test('to 0', () {
-          var renderedNode = renderAndGetDom(Block()..size = 0);
-          expect(renderedNode, hasExactClasses('grid-block'));
+      group('size prop is set,', () {
+        group('omitting the base class name when the value is', () {
+          test('false', () {
+            var renderedNode = renderAndGetDom(Block()..size = false);
+            expect(renderedNode, hasExactClasses(''));
+          });
         });
 
-        test('to null', () {
-          var renderedNode = renderAndGetDom(Block()..size = null);
-          expect(renderedNode, hasExactClasses('grid-block'));
-        });
+        group('adding the base class name when the value is', () {
+          test('an int larger than 0, in addition to a size class for that breakpoint', () {
+            var renderedNode = renderAndGetDom(Block()..size = 1);
+            expect(renderedNode, hasExactClasses('grid-block grid-block-1'));
+          });
 
-        test('to an int larger than 0', () {
-          var renderedNode = renderAndGetDom(Block()..size = 1);
-          expect(renderedNode, hasExactClasses('grid-block grid-block-1'));
-        });
-      });
+          test('0', () {
+            var renderedNode = renderAndGetDom(Block()..size = 0);
+            expect(renderedNode, hasExactClasses('grid-block'));
+          });
 
-      group('smSize prop is set', () {
-        test('to 0', () {
-          var renderedNode = renderAndGetDom(Block()..smSize = 0);
-          expect(renderedNode, hasExactClasses('grid-block'));
-        });
+          test('ant int less than 0', () {
+            var renderedNode = renderAndGetDom(Block()..size = -1);
+            expect(renderedNode, hasExactClasses('grid-block'));
+          });
 
-        test('to null', () {
-          var renderedNode = renderAndGetDom(Block()..smSize = null);
-          expect(renderedNode, hasExactClasses('grid-block'));
-        });
+          test('null', () {
+            var renderedNode = renderAndGetDom(Block()..size = null);
+            expect(renderedNode, hasExactClasses('grid-block'));
+          });
 
-        test('to an int larger than 0', () {
-          var renderedNode = renderAndGetDom(Block()..smSize = 1);
-          expect(renderedNode, hasExactClasses('grid-block grid-block-sm-1'));
-        });
-      });
+          test('true', () {
+            var renderedNode = renderAndGetDom(Block()..size = true);
+            expect(renderedNode, hasExactClasses('grid-block'));
+          });
 
-      group('mdSize prop is set', () {
-        test('to 0', () {
-          var renderedNode = renderAndGetDom(Block()..mdSize = 0);
-          expect(renderedNode, hasExactClasses('grid-block'));
-        });
-
-        test('to null', () {
-          var renderedNode = renderAndGetDom(Block()..mdSize = null);
-          expect(renderedNode, hasExactClasses('grid-block'));
-        });
-
-        test('to an int larger than 0', () {
-          var renderedNode = renderAndGetDom(Block()..mdSize = 1);
-          expect(renderedNode, hasExactClasses('grid-block grid-block-md-1'));
+          test('some other value', () {
+            var renderedNode = renderAndGetDom(Block()..size = '');
+            expect(renderedNode, hasExactClasses('grid-block'));
+          });
         });
       });
 
-      group('lgSize prop is set', () {
-        test('to 0', () {
-          var renderedNode = renderAndGetDom(Block()..lgSize = 0);
-          expect(renderedNode, hasExactClasses('grid-block'));
+      group('smSize prop is set,', () {
+        group('omitting the breakpoint-specific class name when the value is', () {
+          test('null', () {
+            var renderedNode = renderAndGetDom(Block()..smSize = null);
+            expect(renderedNode, hasExactClasses('grid-block'));
+          });
+
+          test('false', () {
+            var renderedNode = renderAndGetDom(Block()..smSize = false);
+            expect(renderedNode, hasExactClasses('grid-block'));
+          });
         });
 
-        test('to null', () {
-          var renderedNode = renderAndGetDom(Block()..lgSize = null);
-          expect(renderedNode, hasExactClasses('grid-block'));
+        group('adding the breakpoint-specific class name when the value is', () {
+          test('an int larger than 0, in addition to a size class for that breakpoint', () {
+            var renderedNode = renderAndGetDom(Block()..smSize = 1);
+            expect(renderedNode, hasExactClasses('grid-block grid-block-sm grid-block-sm-1'));
+          });
+
+          test('0', () {
+            var renderedNode = renderAndGetDom(Block()..smSize = 0);
+            expect(renderedNode, hasExactClasses('grid-block grid-block-sm'));
+          });
+
+          test('ant int less than 0', () {
+            var renderedNode = renderAndGetDom(Block()..smSize = -1);
+            expect(renderedNode, hasExactClasses('grid-block grid-block-sm'));
+          });
+
+          test('true', () {
+            var renderedNode = renderAndGetDom(Block()..smSize = true);
+            expect(renderedNode, hasExactClasses('grid-block grid-block-sm'));
+          });
+
+          test('some other value', () {
+            var renderedNode = renderAndGetDom(Block()..smSize = '');
+            expect(renderedNode, hasExactClasses('grid-block grid-block-sm'));
+          });
+        });
+      });
+
+      group('mdSize prop is set,', () {
+        group('omitting the breakpoint-specific class name when the value is', () {
+          test('null', () {
+            var renderedNode = renderAndGetDom(Block()..mdSize = null);
+            expect(renderedNode, hasExactClasses('grid-block'));
+          });
+
+          test('false', () {
+            var renderedNode = renderAndGetDom(Block()..mdSize = false);
+            expect(renderedNode, hasExactClasses('grid-block'));
+          });
         });
 
-        test('to an int larger than 0', () {
-          var renderedNode = renderAndGetDom(Block()..lgSize = 1);
-          expect(renderedNode, hasExactClasses('grid-block grid-block-lg-1'));
+        group('adding the breakpoint-specific class name when the value is', () {
+          test('an int larger than 0, in addition to a size class for that breakpoint', () {
+            var renderedNode = renderAndGetDom(Block()..mdSize = 1);
+            expect(renderedNode, hasExactClasses('grid-block grid-block-md grid-block-md-1'));
+          });
+
+          test('0', () {
+            var renderedNode = renderAndGetDom(Block()..mdSize = 0);
+            expect(renderedNode, hasExactClasses('grid-block grid-block-md'));
+          });
+
+          test('ant int less than 0', () {
+            var renderedNode = renderAndGetDom(Block()..mdSize = -1);
+            expect(renderedNode, hasExactClasses('grid-block grid-block-md'));
+          });
+
+          test('true', () {
+            var renderedNode = renderAndGetDom(Block()..mdSize = true);
+            expect(renderedNode, hasExactClasses('grid-block grid-block-md'));
+          });
+
+          test('some other value', () {
+            var renderedNode = renderAndGetDom(Block()..mdSize = '');
+            expect(renderedNode, hasExactClasses('grid-block grid-block-md'));
+          });
+        });
+      });
+
+      group('lgSize prop is set,', () {
+        group('omitting the breakpoint-specific class name when the value is', () {
+          test('null', () {
+            var renderedNode = renderAndGetDom(Block()..lgSize = null);
+            expect(renderedNode, hasExactClasses('grid-block'));
+          });
+
+          test('false', () {
+            var renderedNode = renderAndGetDom(Block()..lgSize = false);
+            expect(renderedNode, hasExactClasses('grid-block'));
+          });
+        });
+
+        group('adding the breakpoint-specific class name when the value is', () {
+          test('an int larger than 0, in addition to a size class for that breakpoint', () {
+            var renderedNode = renderAndGetDom(Block()..lgSize = 1);
+            expect(renderedNode, hasExactClasses('grid-block grid-block-lg grid-block-lg-1'));
+          });
+
+          test('0', () {
+            var renderedNode = renderAndGetDom(Block()..lgSize = 0);
+            expect(renderedNode, hasExactClasses('grid-block grid-block-lg'));
+          });
+
+          test('ant int less than 0', () {
+            var renderedNode = renderAndGetDom(Block()..lgSize = -1);
+            expect(renderedNode, hasExactClasses('grid-block grid-block-lg'));
+          });
+
+          test('true', () {
+            var renderedNode = renderAndGetDom(Block()..lgSize = true);
+            expect(renderedNode, hasExactClasses('grid-block grid-block-lg'));
+          });
+
+          test('some other value', () {
+            var renderedNode = renderAndGetDom(Block()..lgSize = '');
+            expect(renderedNode, hasExactClasses('grid-block grid-block-lg'));
+          });
         });
       });
 
