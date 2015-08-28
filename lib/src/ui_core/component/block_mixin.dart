@@ -10,16 +10,16 @@ part of web_skin_dart.ui_core;
 @GenerateProps(#BlockProps)
 abstract class _$template_BlockProps {
   /// The size of the [Block] at any screen size.
-  int get size;
+  dynamic get size;
 
   /// The size of the [Block] above the 'sm' responsive breakpoint.
-  int get smSize;
+  dynamic get smSize;
 
   /// The size of the [Block] above the 'md' responsive breakpoint.
-  int get mdSize;
+  dynamic get mdSize;
 
   /// The size of the [Block] above the 'lg' responsive breakpoint.
-  int get lgSize;
+  dynamic get lgSize;
 
   /// The order that the [Block] should display in at any screen size.
   int get order;
@@ -143,20 +143,25 @@ abstract class BlockMixin<P extends BlockProps> {
     const String blockLg = 'lg';
 
     ClassNameBuilder blockClasses = new ClassNameBuilder()
-      ..add((tProps.size   == null || tProps.size   < 1) ? null : '$gridBlock-${tProps.size}')
-      ..add((tProps.smSize == null || tProps.smSize < 1) ? null : '$gridBlock-$blockSm-${tProps.smSize}')
-      ..add((tProps.mdSize == null || tProps.mdSize < 1) ? null : '$gridBlock-$blockMd-${tProps.mdSize}')
-      ..add((tProps.lgSize == null || tProps.lgSize < 1) ? null : '$gridBlock-$blockLg-${tProps.lgSize}')
+      ..add('$gridBlock',          tProps.size != false)
+      ..add('$gridBlock-$blockSm', tProps.smSize != false && tProps.smSize != null)
+      ..add('$gridBlock-$blockMd', tProps.mdSize != false && tProps.mdSize != null)
+      ..add('$gridBlock-$blockLg', tProps.lgSize != false && tProps.lgSize != null)
 
-      ..add((tProps.order   == null || tProps.order   < 1) ? null : '$gridOrder-${tProps.order}')
-      ..add((tProps.smOrder == null || tProps.smOrder < 1) ? null : '$gridOrder-$blockSm-${tProps.smOrder}')
-      ..add((tProps.mdOrder == null || tProps.mdOrder < 1) ? null : '$gridOrder-$blockMd-${tProps.mdOrder}')
-      ..add((tProps.lgOrder == null || tProps.lgOrder < 1) ? null : '$gridOrder-$blockLg-${tProps.lgOrder}')
+      ..add((tProps.size   is int && tProps.size   >= 1) ? '$gridBlock-${tProps.size}'            : null)
+      ..add((tProps.smSize is int && tProps.smSize >= 1) ? '$gridBlock-$blockSm-${tProps.smSize}' : null)
+      ..add((tProps.mdSize is int && tProps.mdSize >= 1) ? '$gridBlock-$blockMd-${tProps.mdSize}' : null)
+      ..add((tProps.lgSize is int && tProps.lgSize >= 1) ? '$gridBlock-$blockLg-${tProps.lgSize}' : null)
 
-      ..add((tProps.offset   == null || tProps.offset   < 1) ? null : '$gridOffset-${tProps.offset}')
-      ..add((tProps.smOffset == null || tProps.smOffset < 1) ? null : '$gridOffset-$blockSm-${tProps.smOffset}')
-      ..add((tProps.mdOffset == null || tProps.mdOffset < 1) ? null : '$gridOffset-$blockMd-${tProps.mdOffset}')
-      ..add((tProps.lgOffset == null || tProps.lgOffset < 1) ? null : '$gridOffset-$blockLg-${tProps.lgOffset}')
+      ..add((tProps.order   != null && tProps.order   >= 1) ? '$gridOrder-${tProps.order}'            : null)
+      ..add((tProps.smOrder != null && tProps.smOrder >= 1) ? '$gridOrder-$blockSm-${tProps.smOrder}' : null)
+      ..add((tProps.mdOrder != null && tProps.mdOrder >= 1) ? '$gridOrder-$blockMd-${tProps.mdOrder}' : null)
+      ..add((tProps.lgOrder != null && tProps.lgOrder >= 1) ? '$gridOrder-$blockLg-${tProps.lgOrder}' : null)
+
+      ..add((tProps.offset   != null && tProps.offset   >= 1) ? '$gridOffset-${tProps.offset}'            : null)
+      ..add((tProps.smOffset != null && tProps.smOffset >= 1) ? '$gridOffset-$blockSm-${tProps.smOffset}' : null)
+      ..add((tProps.mdOffset != null && tProps.mdOffset >= 1) ? '$gridOffset-$blockMd-${tProps.mdOffset}' : null)
+      ..add((tProps.lgOffset != null && tProps.lgOffset >= 1) ? '$gridOffset-$blockLg-${tProps.lgOffset}' : null)
 
       ..add('$gridContent',          tProps.content)
       ..add('$gridContent-$blockSm', tProps.smContent)
