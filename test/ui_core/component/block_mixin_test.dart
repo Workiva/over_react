@@ -30,7 +30,7 @@ main() {
             expect(renderedNode, hasExactClasses('grid-block'));
           });
 
-          test('ant int less than 0', () {
+          test('an int less than 0', () {
             var renderedNode = renderAndGetDom(Block()..size = -1);
             expect(renderedNode, hasExactClasses('grid-block'));
           });
@@ -76,7 +76,7 @@ main() {
             expect(renderedNode, hasExactClasses('grid-block grid-block-sm'));
           });
 
-          test('ant int less than 0', () {
+          test('an int less than 0', () {
             var renderedNode = renderAndGetDom(Block()..smSize = -1);
             expect(renderedNode, hasExactClasses('grid-block grid-block-sm'));
           });
@@ -117,7 +117,7 @@ main() {
             expect(renderedNode, hasExactClasses('grid-block grid-block-md'));
           });
 
-          test('ant int less than 0', () {
+          test('an int less than 0', () {
             var renderedNode = renderAndGetDom(Block()..mdSize = -1);
             expect(renderedNode, hasExactClasses('grid-block grid-block-md'));
           });
@@ -158,7 +158,7 @@ main() {
             expect(renderedNode, hasExactClasses('grid-block grid-block-lg'));
           });
 
-          test('ant int less than 0', () {
+          test('an int less than 0', () {
             var renderedNode = renderAndGetDom(Block()..lgSize = -1);
             expect(renderedNode, hasExactClasses('grid-block grid-block-lg'));
           });
