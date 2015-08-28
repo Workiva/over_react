@@ -10,15 +10,61 @@ part of web_skin_dart.ui_core;
 @GenerateProps(#BlockProps)
 abstract class _$template_BlockProps {
   /// The size of the [Block] at any screen size.
+  ///
+  /// When this prop is a positive integer, a CSS class for the specified size will be added.
+  ///
+  /// If this prop is set to `false`, the base grid class will be omitted.
+  ///
+  /// Example:
+  /// <code><pre>
+  ///     (Block()..size = 2)()      ->  adds 'grid-block grid-block-2'
+  ///     Block()()                  ->  only adds 'grid-block'
+  ///     (Block()..size = false)()  ->  does not add 'grid-block'
   dynamic get size;
 
   /// The size of the [Block] above the 'sm' responsive breakpoint.
+  ///
+  /// When this prop is a positive integer, a breakpoint-specific CSS class for the specified size will be added,
+  /// in addition to the breakpoint-specific base class.
+  ///
+  /// When this prop is any other value besides `false` or `null`, only the breakpoint-specific base class will be added.
+  ///
+  /// Example:
+  /// <code><pre>
+  ///     (Block()..smSize = 2)()      ->  adds 'grid-block-sm' and 'grid-block-sm-2'
+  ///     (Block()..smSize = true)()   ->  only adds 'grid-block-sm'
+  ///     (Block()..smSize = false)()  ->  does not add 'grid-block-sm'
+  /// </pre></code>
   dynamic get smSize;
 
   /// The size of the [Block] above the 'md' responsive breakpoint.
+  ///
+  /// When this prop is a positive integer, a breakpoint-specific CSS class for the specified size will be added,
+  /// in addition to the breakpoint-specific base class.
+  ///
+  /// When this prop is any other value besides `false` or `null`, only the breakpoint-specific base class will be added.
+  ///
+  /// Example:
+  /// <code><pre>
+  ///     (Block()..smSize = 2)()      ->  adds 'grid-block-md' and 'grid-block-md-2'
+  ///     (Block()..mdSize = true)()   ->  only adds 'grid-block-md'
+  ///     (Block()..mdSize = false)()  ->  does not add 'grid-block-md'
+  /// </pre></code>
   dynamic get mdSize;
 
   /// The size of the [Block] above the 'lg' responsive breakpoint.
+  ///
+  /// When this prop is a positive integer, a breakpoint-specific CSS class for the specified size will be added,
+  /// in addition to the breakpoint-specific base class.
+  ///
+  /// When this prop is any other value besides `false` or `null`, only the breakpoint-specific base class will be added.
+  ///
+  /// Example:
+  /// <code><pre>
+  ///     (Block()..lgSize = 2)()      ->  adds 'grid-block-lg' and 'grid-block-lg-2'
+  ///     (Block()..lgSize = true)()   ->  only adds 'grid-block-lg'
+  ///     (Block()..lgSize = false)()  ->  does not add 'grid-block-lg'
+  /// </pre></code>
   dynamic get lgSize;
 
   /// The order that the [Block] should display in at any screen size.
