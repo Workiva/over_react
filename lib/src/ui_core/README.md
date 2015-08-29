@@ -1,8 +1,8 @@
 # Core Component Framework
 
-w_ui_platform also provides a framework for building strongly-typed React components, on which all of w_ui_platform's reusable UI components are built.
+web_skin_dart also provides a framework for building strongly-typed React components, on which all of web_skin_dart's reusable UI components are built.
 
-* __[What makes a w_ui_platform component](#what-makes-a-w_ui_platform-component)__
+* __[What makes a web_skin_dart component](#what-makes-a-web_skin_dart-component)__
   * __[`ComponentDefinition`](#componentdefinition)__
     * [As a props map](#as-a-props-map)
     * [As a builder](#as-a-builder)
@@ -15,7 +15,7 @@ w_ui_platform also provides a framework for building strongly-typed React compon
   * [Stateful components](#stateful-components)
 
 
-## What makes a w_ui_platform component
+## What makes a web_skin_dart component
 
 ### ComponentDefinition
 The abstract `ComponentDefinition` class serves as the basis for implementing and consuming strongly-typed props.
@@ -79,17 +79,17 @@ _toggleExpanded() => setState(newState()
 ```
 
 ## DomProps and DomComponentDefinition
-w_ui_platform also wraps each available React DOM component (`react.div`, `react.a`, etc.) with a convenience method that each returns an appropriate `DomComponentDefinition` instance.
+web_skin_dart also wraps each available React DOM component (`react.div`, `react.a`, etc.) with a convenience method that each returns an appropriate `DomComponentDefinition` instance.
 
 The returned instances have getters/setters for all available DOM/attribute-related props available in React (`className`, `href`, `onClick`, etc.), for convenience.
  
 ## Fluent-style component consumption
 
-In w_ui_platform, `ComponentDefinition` subclasses are used to consume components, and not the ReactComponentFactory functions directly.
+In web_skin_dart, `ComponentDefinition` subclasses are used to consume components, and not the ReactComponentFactory functions directly.
  
 Typically, components expose a factory to create new `ComponentDefinition` instances, which aids in consumption.
  
-Note how you might render the same DOM in JSX, react-dart, and w_ui_platform:
+Note how you might render the same DOM in JSX, react-dart, and web_skin_dart:
 
 * JSX:
 
@@ -119,7 +119,7 @@ Note how you might render the same DOM in JSX, react-dart, and w_ui_platform:
     ]);
     ```
 
-* w_ui_platform fluent interface:
+* web_skin_dart fluent interface:
 
     ```dart
     (Dom.div()..className='container')([
@@ -157,11 +157,11 @@ Note how you might render the same DOM in JSX, react-dart, and w_ui_platform:
 
 1. Add the following lines to import the necessary core pieces:
     ```dart
-    // Import w_ui_platform core component framework 
-    import 'package:w_ui_platform/ui_core.dart';
+    // Import web_skin_dart core component framework 
+    import 'package:web_skin_dart/ui_core.dart';
     
     // Import code_generation annotations so we can use @GenerateProps
-    import 'package:w_ui_platform/code_generation/annotations.dart';
+    import 'package:web_skin_dart/code_generation/annotations.dart';
     ```
 
 2. Start with this template for a component:

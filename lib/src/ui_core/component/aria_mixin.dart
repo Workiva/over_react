@@ -1,4 +1,4 @@
-part of w_ui_platform.ui_core;
+part of web_skin_dart.ui_core;
 
 /// Typed getters/setters for accessibility props.
 /// To be used as a mixin for React components and builders.

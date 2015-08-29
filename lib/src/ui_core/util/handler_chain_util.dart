@@ -1,4 +1,4 @@
-part of w_ui_platform.ui_core;
+part of web_skin_dart.ui_core;
 
 /// Creates a EventKeyCallback that calls through to the two provided callbacks in order.
 /// Useful for executing multiple callbacks where only a single callback is accepted.
