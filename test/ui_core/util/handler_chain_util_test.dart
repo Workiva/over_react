@@ -1,8 +1,8 @@
 library handler_chain_util_test;
 
 import 'package:test/test.dart';
-import 'package:w_ui_platform/ui_components.dart';
-import 'package:w_ui_platform/ui_core.dart';
+import 'package:web_skin_dart/ui_components.dart';
+import 'package:web_skin_dart/ui_core.dart';
 
 import '../../test_util/react_util.dart';
 import '../../test_util/custom_matchers.dart';
