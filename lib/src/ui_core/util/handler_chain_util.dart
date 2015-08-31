@@ -1,4 +1,8 @@
-part of web_skin_dart.ui_core;
+library handler_chain_util;
+
+import 'package:react/react.dart' as react;
+
+import '../component/callback_typedefs.dart';
 
 /// Creates a EventKeyCallback that calls through to the two provided callbacks in order.
 /// Useful for executing multiple callbacks where only a single callback is accepted.

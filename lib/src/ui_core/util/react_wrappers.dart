@@ -1,4 +1,9 @@
-part of web_skin_dart.ui_core;
+library react_wrappers.dart;
+
+import 'dart:js';
+import 'dart:html';
+import 'package:react/react.dart' as react;
+import 'package:react/react_client.dart';
 
 JsObject _React = context['React'];
 
