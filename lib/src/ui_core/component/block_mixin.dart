@@ -46,7 +46,7 @@ abstract class _$template_BlockProps {
   ///
   /// Example:
   /// <code><pre>
-  ///     (Block()..smSize = 2)()      ->  adds 'grid-block-md' and 'grid-block-md-2'
+  ///     (Block()..mdSize = 2)()      ->  adds 'grid-block-md' and 'grid-block-md-2'
   ///     (Block()..mdSize = true)()   ->  only adds 'grid-block-md'
   ///     (Block()..mdSize = false)()  ->  does not add 'grid-block-md'
   /// </pre></code>
