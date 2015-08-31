@@ -1,5 +1,5 @@
 /// Mixins for adding generic typed prop/state getters to components.
-part of web_skin_dart.ui_core;
+library typed_mixins.dart;
 
 /// Mixin for easy use of generic typed props within a component.
 /// Designed for MapView-like typed props that are backed by Maps.
