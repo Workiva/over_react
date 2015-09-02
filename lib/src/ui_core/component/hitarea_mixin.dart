@@ -18,7 +18,7 @@ abstract class _$template_HitAreaProps {
   EventKeyCallback get onSelect;
 
   /// Used alongside [onSelect] for basic controller behavior.
-  dynamic get eventKey;
+  Object get eventKey;
 
   /// Use to explicitly define the node name you want to see in the rendered DOM.
   /// We recommend against setting this unless you know what you are doing.
