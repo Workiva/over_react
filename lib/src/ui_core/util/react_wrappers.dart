@@ -1,4 +1,4 @@
-library react_wrappers.dart;
+library react_wrappers;
 
 import 'dart:js';
 import 'dart:html';
