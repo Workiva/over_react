@@ -11,15 +11,20 @@ part of web_skin_dart.ui_core;
 abstract class _$template_BlockProps {
   /// The size of the [Block] at any screen size.
   ///
-  /// When this prop is a positive integer, a CSS class for the specified size will be added.
+  /// When this prop is a positive integer, a CSS class for the specified size will be added,
+  /// in addition to the base class.
   ///
-  /// If this prop is set to `false`, the base grid class will be omitted.
+  /// When this prop is any other value besides `false` or `null`, only the base class will be added.
   ///
   /// Example:
   /// <code><pre>
   ///     (Block()..size = 2)()      ->  adds 'grid-block grid-block-2'
-  ///     Block()()                  ->  only adds 'grid-block'
+  ///     (Block()..size = true)()   ->  only adds 'grid-block'
+  ///     (Block())()                ->  only adds 'grid-block' (default of [size] is true)
   ///     (Block()..size = false)()  ->  does not add 'grid-block'
+  ///
+  ///
+  /// Default: true
   dynamic get size;
 
   /// The size of the [Block] above the 'sm' responsive breakpoint.
@@ -160,6 +165,8 @@ abstract class _$template_BlockProps {
 abstract class BlockMixin<P extends BlockProps> {
   /// Standard BlockMixin defaults.
   static const Map defaultProps = const {
+    // Default the base size to true so 'grid-block' is added by default.
+    BlockProps.Z_$KEY__SIZE: true,
     BlockProps.Z_$KEY__COLLAPSE: BlockCollapse.NONE,
     BlockProps.Z_$KEY__CONTENT: false,
     BlockProps.Z_$KEY__SM_CONTENT: false,
@@ -189,7 +196,7 @@ abstract class BlockMixin<P extends BlockProps> {
     const String blockLg = 'lg';
 
     ClassNameBuilder blockClasses = new ClassNameBuilder()
-      ..add('$gridBlock',          tProps.size != false)
+      ..add('$gridBlock',          tProps.size   != false && tProps.size   != null)
       ..add('$gridBlock-$blockSm', tProps.smSize != false && tProps.smSize != null)
       ..add('$gridBlock-$blockMd', tProps.mdSize != false && tProps.mdSize != null)
       ..add('$gridBlock-$blockLg', tProps.lgSize != false && tProps.lgSize != null)
