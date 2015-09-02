@@ -15,7 +15,7 @@ typedef UIEventCallback(react.SyntheticUIEvent event);
 typedef WheelEventCallback(react.SyntheticWheelEvent event);
 
 // Callback for item selection events
-typedef EventKeyCallback(react.SyntheticEvent event, dynamic eventKey);
+typedef EventKeyCallback(react.SyntheticEvent event, Object eventKey);
 
 // Callback for Collapse events
 typedef CollapseCallback();

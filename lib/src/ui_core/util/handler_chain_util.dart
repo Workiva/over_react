@@ -9,7 +9,7 @@ import '../component/callback_typedefs.dart';
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
 EventKeyCallback createChainedEventKeyCallback(EventKeyCallback a, EventKeyCallback b) {
-  return (react.SyntheticEvent event, dynamic eventKey) {
+  return (react.SyntheticEvent event, Object eventKey) {
     var aDidReturnFalse = a != null ? a(event, eventKey) == false : false;
     var bDidReturnFalse = b != null ? b(event, eventKey) == false : false;
 
