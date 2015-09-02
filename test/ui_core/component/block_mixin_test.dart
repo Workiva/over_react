@@ -11,20 +11,20 @@ import '../../test_util/custom_matchers.dart';
 main() {
   group('BlockMixin', () {
     group('has the correct CSS class names when the', () {
-      group('size prop is unset,', () {
+      test('size prop is unset,', () {
         var renderedNode = renderAndGetDom(Block()());
         expect(renderedNode, hasExactClasses('grid-block'));
       });
 
       group('size prop is set,', () {
         group('omitting the base class name when the value is', () {
-          test('false', () {
-            var renderedNode = renderAndGetDom(Block()..size = false);
+          test('null', () {
+            var renderedNode = renderAndGetDom(Block()..size = null);
             expect(renderedNode, hasExactClasses(''));
           });
 
-          test('null', () {
-            var renderedNode = renderAndGetDom(Block()..size = null);
+          test('false', () {
+            var renderedNode = renderAndGetDom(Block()..size = false);
             expect(renderedNode, hasExactClasses(''));
           });
         });
