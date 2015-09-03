@@ -1,4 +1,4 @@
-part of w_ui_platform.ui_core;
+part of web_skin_dart.ui_core;
 
 // Callbacks for React's DOM event system
 typedef DomEventCallback(react.SyntheticEvent event);
@@ -12,7 +12,7 @@ typedef UIEventCallback(react.SyntheticUIEvent event);
 typedef WheelEventCallback(react.SyntheticWheelEvent event);
 
 // Callback for item selection events
-typedef EventKeyCallback(react.SyntheticEvent event, dynamic eventKey);
+typedef EventKeyCallback(react.SyntheticEvent event, Object eventKey);
 
 // Callback for Collapse events
 typedef CollapseCallback();

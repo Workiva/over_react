@@ -1,4 +1,4 @@
-part of w_ui_platform.ui_core;
+part of web_skin_dart.ui_core;
 
 /// Mixin for [Block] props
 /// To use:
@@ -9,92 +9,132 @@ part of w_ui_platform.ui_core;
 /// - call `getBlockClasses` function to retrieve a list of classNames to be added
 @GenerateProps(#BlockProps)
 abstract class _$template_BlockProps {
-
-  static const String _CONTENT = 'grid-content';
-  static const String _OFFSET = 'grid-offset';
-  static const String _ORDER = 'grid-order';
-  static const String _SHRINK = 'grid-shrink';
-  static const String _SIZE = 'grid-block';
-
-  static const String _BLOCK_SM = '-sm';
-  static const String _BLOCK_MD = '-md';
-  static const String _BLOCK_LG = '-lg';
-
   /// The size of the [Block] at any screen size.
-  @Prop("'$_SIZE'") int get size;
+  ///
+  /// When this prop is a positive integer, a CSS class for the specified size will be added,
+  /// in addition to the base class.
+  ///
+  /// When this prop is any other value besides `false` or `null`, only the base class will be added.
+  ///
+  /// Example:
+  /// <code><pre>
+  ///     (Block()..size = 2)()      ->  adds 'grid-block grid-block-2'
+  ///     (Block()..size = true)()   ->  only adds 'grid-block'
+  ///     (Block())()                ->  only adds 'grid-block' (default of [size] is true)
+  ///     (Block()..size = false)()  ->  does not add 'grid-block'
+  ///
+  ///
+  /// Default: true
+  dynamic get size;
 
   /// The size of the [Block] above the 'sm' responsive breakpoint.
-  @Prop("'$_SIZE$_BLOCK_SM'") int get smSize;
+  ///
+  /// When this prop is a positive integer, a breakpoint-specific CSS class for the specified size will be added,
+  /// in addition to the breakpoint-specific base class.
+  ///
+  /// When this prop is any other value besides `false` or `null`, only the breakpoint-specific base class will be added.
+  ///
+  /// Example:
+  /// <code><pre>
+  ///     (Block()..smSize = 2)()      ->  adds 'grid-block-sm' and 'grid-block-sm-2'
+  ///     (Block()..smSize = true)()   ->  only adds 'grid-block-sm'
+  ///     (Block()..smSize = false)()  ->  does not add 'grid-block-sm'
+  /// </pre></code>
+  dynamic get smSize;
 
   /// The size of the [Block] above the 'md' responsive breakpoint.
-  @Prop("'$_SIZE$_BLOCK_MD'") int get mdSize;
+  ///
+  /// When this prop is a positive integer, a breakpoint-specific CSS class for the specified size will be added,
+  /// in addition to the breakpoint-specific base class.
+  ///
+  /// When this prop is any other value besides `false` or `null`, only the breakpoint-specific base class will be added.
+  ///
+  /// Example:
+  /// <code><pre>
+  ///     (Block()..mdSize = 2)()      ->  adds 'grid-block-md' and 'grid-block-md-2'
+  ///     (Block()..mdSize = true)()   ->  only adds 'grid-block-md'
+  ///     (Block()..mdSize = false)()  ->  does not add 'grid-block-md'
+  /// </pre></code>
+  dynamic get mdSize;
 
   /// The size of the [Block] above the 'lg' responsive breakpoint.
-  @Prop("'$_SIZE$_BLOCK_LG'") int get lgSize;
+  ///
+  /// When this prop is a positive integer, a breakpoint-specific CSS class for the specified size will be added,
+  /// in addition to the breakpoint-specific base class.
+  ///
+  /// When this prop is any other value besides `false` or `null`, only the breakpoint-specific base class will be added.
+  ///
+  /// Example:
+  /// <code><pre>
+  ///     (Block()..lgSize = 2)()      ->  adds 'grid-block-lg' and 'grid-block-lg-2'
+  ///     (Block()..lgSize = true)()   ->  only adds 'grid-block-lg'
+  ///     (Block()..lgSize = false)()  ->  does not add 'grid-block-lg'
+  /// </pre></code>
+  dynamic get lgSize;
 
   /// The order that the [Block] should display in at any screen size.
-  @Prop("'$_ORDER'") int get order;
+  int get order;
 
   /// The order that the [Block] should display in above the 'sm' responsive breakpoint.
-  @Prop("'$_ORDER$_BLOCK_SM'") int get smOrder;
+  int get smOrder;
 
   /// The order that the [Block] should display in above the 'md' responsive breakpoint.
-  @Prop("'$_ORDER$_BLOCK_MD'") int get mdOrder;
+  int get mdOrder;
 
   /// The order that the [Block] should display in above the 'lg' responsive breakpoint.
-  @Prop("'$_ORDER$_BLOCK_LG'") int get lgOrder;
+  int get lgOrder;
 
   /// The offset of the [Block] at any screen size.
   /// Move a [Block] to the right using the offset prop.
   /// This prop increases the left margin of a [Block] by n blocks. For example, offset=4 moves it over four blocks.
   /// See: https://api.atl.workiva.net/WebSkinReact/docs/build/html/components.html#grid-v2-options-offsets
-  @Prop("'$_OFFSET'") int get offset;
+  int get offset;
 
   /// The offset of the [Block] above the 'sm' responsive breakpoint.
   /// Move a [Block] to the right using the smOffset prop.
   /// This prop increases the left margin of a small [Block] by n blocks. For example, smOffset=4 moves it over four blocks.
   /// See: https://api.atl.workiva.net/WebSkinReact/docs/build/html/components.html#grid-v2-options-offsets
-  @Prop("'$_OFFSET$_BLOCK_SM'") int get smOffset;
+  int get smOffset;
 
   /// The offset of the [Block] above the 'md' responsive breakpoint.
   /// Move a [Block] to the right using the mdOffset prop.
   /// This prop increases the left margin of a medium [Block] by n blocks. For example, mdOffset=4 moves it over four blocks.
   /// See: https://api.atl.workiva.net/WebSkinReact/docs/build/html/components.html#grid-v2-options-offsets
-  @Prop("'$_OFFSET$_BLOCK_MD'") int get mdOffset;
+  int get mdOffset;
 
   /// The offset of the [Block] above the 'lg' responsive breakpoint.
   /// Move a [Block] to the right using the lgOffset prop.
   /// This prop increases the left margin of a large [Block] by n blocks. For example, lgOffset=4 moves it over four blocks.
   /// See: https://api.atl.workiva.net/WebSkinReact/docs/build/html/components.html#grid-v2-options-offsets
-  @Prop("'$_OFFSET$_BLOCK_LG'") int get lgOffset;
+  int get lgOffset;
 
   /// Whether this [Block] is a content [Block] at any screen size
   /// See: https://api.atl.workiva.net/WebSkinReact/docs/build/html/components.html#grid-v2-block-content
-  @Prop("'$_CONTENT'") bool get content;
+  bool get content;
 
   /// Whether this [Block] is a content [Block] above the 'sm' responsive breakpoint.
   /// See: https://api.atl.workiva.net/WebSkinReact/docs/build/html/components.html#grid-v2-block-content
-  @Prop("'$_CONTENT$_BLOCK_SM'") bool get smContent;
+  bool get smContent;
 
   /// Whether this [Block] is a content [Block] above the 'md' responsive breakpoint.
   /// See: https://api.atl.workiva.net/WebSkinReact/docs/build/html/components.html#grid-v2-block-content
-  @Prop("'$_CONTENT$_BLOCK_MD'") bool get mdContent;
+  bool get mdContent;
 
   /// Whether this [Block] is a content [Block] above the 'lg' responsive breakpoint.
   /// See: https://api.atl.workiva.net/WebSkinReact/docs/build/html/components.html#grid-v2-block-content
-  @Prop("'$_CONTENT$_BLOCK_LG'") bool get lgContent;
+  bool get lgContent;
 
   /// Whether this [Block] should shrink to the size of its content at any screen size.
-  @Prop("'$_SHRINK'") bool get shrink;
+  bool get shrink;
 
   /// Whether this [Block] should shrink to the size of its content above the 'sm' responsive breakpoint.
-  @Prop("'$_SHRINK$_BLOCK_SM'") bool get smShrink;
+  bool get smShrink;
 
   /// Whether this [Block] should shrink to the size of its content above the 'md' responsive breakpoint.
-  @Prop("'$_SHRINK$_BLOCK_MD'") bool get mdShrink;
+  bool get mdShrink;
 
   /// Whether this [Block] should shrink to the size of its content above the 'lg' responsive breakpoint.
-  @Prop("'$_SHRINK$_BLOCK_LG'") bool get lgShrink;
+  bool get lgShrink;
 
   /// Determines what sides of the [Block] to collapse.
   /// Valid values are:
@@ -125,11 +165,10 @@ abstract class _$template_BlockProps {
 abstract class BlockMixin<P extends BlockProps> {
   /// Standard BlockMixin defaults.
   static const Map defaultProps = const {
+    // Default the base size to true so 'grid-block' is added by default.
+    BlockProps.Z_$KEY__SIZE: true,
     BlockProps.Z_$KEY__COLLAPSE: BlockCollapse.NONE,
     BlockProps.Z_$KEY__CONTENT: false,
-    BlockProps.Z_$KEY__SM_CONTENT: false,
-    BlockProps.Z_$KEY__MD_CONTENT: false,
-    BlockProps.Z_$KEY__LG_CONTENT: false,
     BlockProps.Z_$KEY__SHRINK: false,
     BlockProps.Z_$KEY__SM_SHRINK: false,
     BlockProps.Z_$KEY__MD_SHRINK: false,
@@ -143,38 +182,57 @@ abstract class BlockMixin<P extends BlockProps> {
 
   /// Get all the CSS classes generated by the [BlockMixin]
   String getBlockClasses() {
-    ClassNameBuilder blockClasses = new ClassNameBuilder();
+    const String gridBlock   = 'grid-block';
+    const String gridOrder   = 'grid-order';
+    const String gridOffset  = 'grid-offset';
+    const String gridContent = 'grid-content';
+    const String gridShrink  = 'grid-shrink';
 
-    // Copy over the prop keys and remove any that we
-    // do not want to iterate over
-    List<String> keys = new List()
-      ..addAll(BlockProps.Z_$propKeys)
-      ..remove(BlockProps.Z_$KEY__SCROLL)
-      ..remove(BlockProps.Z_$KEY__COLLAPSE)
-      ..remove(BlockProps.Z_$KEY__GUTTER);
+    const String blockSm = 'sm';
+    const String blockMd = 'md';
+    const String blockLg = 'lg';
 
-    // Iterate the props keys: (keys should be the class name required)
-    // - For int props append the provided value with a hyphen to complete the full class name
-    // - For bool props add the key directly.
-    for (String classPrefix in keys) {
-      var value = props[classPrefix];
+    final bool applyBaseGridClass   = tProps.size   != false && tProps.size   != null;
+    final bool applyBaseGridSmClass = tProps.smSize != false && tProps.smSize != null;
+    final bool applyBaseGridMdClass = tProps.mdSize != false && tProps.mdSize != null;
+    final bool applyBaseGridLgClass = tProps.lgSize != false && tProps.lgSize != null;
 
-      if (value != null) {
-        var className;
+    ClassNameBuilder blockClasses = new ClassNameBuilder()
+      ..add('$gridBlock',          applyBaseGridClass)
+      ..add('$gridBlock-$blockSm', applyBaseGridSmClass)
+      ..add('$gridBlock-$blockMd', applyBaseGridMdClass)
+      ..add('$gridBlock-$blockLg', applyBaseGridLgClass)
 
-        if (value is int && value >= 1) {
-          className = (classPrefix + '-' + value.toString());
-        } else if (value == true) {
-          className = classPrefix;
-        }
+      ..add((tProps.size   is int && tProps.size   >= 1) ? '$gridBlock-${tProps.size}'            : null)
+      ..add((tProps.smSize is int && tProps.smSize >= 1) ? '$gridBlock-$blockSm-${tProps.smSize}' : null)
+      ..add((tProps.mdSize is int && tProps.mdSize >= 1) ? '$gridBlock-$blockMd-${tProps.mdSize}' : null)
+      ..add((tProps.lgSize is int && tProps.lgSize >= 1) ? '$gridBlock-$blockLg-${tProps.lgSize}' : null)
 
-        blockClasses.add(className);
-      }
-    }
+      ..add((tProps.order   != null && tProps.order   >= 1) ? '$gridOrder-${tProps.order}'            : null)
+      ..add((tProps.smOrder != null && tProps.smOrder >= 1) ? '$gridOrder-$blockSm-${tProps.smOrder}' : null)
+      ..add((tProps.mdOrder != null && tProps.mdOrder >= 1) ? '$gridOrder-$blockMd-${tProps.mdOrder}' : null)
+      ..add((tProps.lgOrder != null && tProps.lgOrder >= 1) ? '$gridOrder-$blockLg-${tProps.lgOrder}' : null)
 
-    blockClasses.add(_getCollapseClasses());
-    blockClasses.add(tProps.gutter.className);
-    blockClasses.add('no-scroll', !tProps.scroll);
+      ..add((tProps.offset   != null && tProps.offset   >= 1) ? '$gridOffset-${tProps.offset}'            : null)
+      ..add((tProps.smOffset != null && tProps.smOffset >= 1) ? '$gridOffset-$blockSm-${tProps.smOffset}' : null)
+      ..add((tProps.mdOffset != null && tProps.mdOffset >= 1) ? '$gridOffset-$blockMd-${tProps.mdOffset}' : null)
+      ..add((tProps.lgOffset != null && tProps.lgOffset >= 1) ? '$gridOffset-$blockLg-${tProps.lgOffset}' : null)
+
+      ..add('$gridContent',          tProps.content)
+      // As a workaround until https://github.com/Workiva/web-skin/issues/1121 is fixed,
+      // apply the breakpoint-specific content classes when `content` is true so content styles can override base class styles.
+      ..add('$gridContent-$blockSm', tProps.smContent != null ? tProps.smContent : tProps.content && applyBaseGridSmClass)
+      ..add('$gridContent-$blockMd', tProps.mdContent != null ? tProps.mdContent : tProps.content && applyBaseGridMdClass)
+      ..add('$gridContent-$blockLg', tProps.lgContent != null ? tProps.lgContent : tProps.content && applyBaseGridLgClass)
+
+      ..add('$gridShrink',          tProps.shrink)
+      ..add('$gridShrink-$blockSm', tProps.smShrink)
+      ..add('$gridShrink-$blockMd', tProps.mdShrink)
+      ..add('$gridShrink-$blockLg', tProps.lgShrink)
+
+      ..add(_getCollapseClasses())
+      ..add(tProps.gutter.className)
+      ..add('no-scroll', !tProps.scroll);
 
     return blockClasses.toClassName();
   }
