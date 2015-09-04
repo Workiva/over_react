@@ -1,7 +1,6 @@
 library callback_typedefs;
 
 import 'package:react/react.dart' as react;
-import 'package:react/react_client.dart';
 
 // Callbacks for React's DOM event system
 typedef DomEventCallback(react.SyntheticEvent event);
