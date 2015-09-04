@@ -1,4 +1,4 @@
-library validation_util;
+library ui_core.validation_util;
 
 import 'dart:html';
 
