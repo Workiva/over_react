@@ -1,4 +1,4 @@
-library handler_chain_util;
+library ui_core.handler_chain_util;
 
 import 'package:react/react.dart' as react;
 
