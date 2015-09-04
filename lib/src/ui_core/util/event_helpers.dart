@@ -50,8 +50,8 @@ react.SyntheticMouseEvent wrapNativeMouseEvent(MouseEvent nativeMouseEvent) {
     nativeMouseEvent.altKey,
     nativeMouseEvent.button,
     null, // buttons
-    nativeMouseEvent.clientX,
-    nativeMouseEvent.clientY,
+    null, // clientX
+    null, // clientY
 
     nativeMouseEvent.ctrlKey,
     null, // dataTransfer
@@ -59,7 +59,7 @@ react.SyntheticMouseEvent wrapNativeMouseEvent(MouseEvent nativeMouseEvent) {
     null, // pageX
     null, // pageY
     nativeMouseEvent.relatedTarget,
-    nativeMouseEvent.screenX,
-    nativeMouseEvent.screenY,
+    null, // screenX
+    null, // screenY
     nativeMouseEvent.shiftKey);
 }
