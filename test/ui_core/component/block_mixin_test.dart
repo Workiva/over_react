@@ -11,8 +11,18 @@ import '../../test_util/react_util.dart';
 main() {
   group('BlockMixin', () {
     group('has the correct CSS class names when the', () {
+      test('size prop is unset,', () {
+        var renderedNode = renderAndGetDom(Block()());
+        expect(renderedNode, hasExactClasses('grid-block'));
+      });
+
       group('size prop is set,', () {
         group('omitting the base class name when the value is', () {
+          test('null', () {
+            var renderedNode = renderAndGetDom(Block()..size = null);
+            expect(renderedNode, hasExactClasses(''));
+          });
+
           test('false', () {
             var renderedNode = renderAndGetDom(Block()..size = false);
             expect(renderedNode, hasExactClasses(''));
@@ -32,11 +42,6 @@ main() {
 
           test('an int less than 0', () {
             var renderedNode = renderAndGetDom(Block()..size = -1);
-            expect(renderedNode, hasExactClasses('grid-block'));
-          });
-
-          test('null', () {
-            var renderedNode = renderAndGetDom(Block()..size = null);
             expect(renderedNode, hasExactClasses('grid-block'));
           });
 
@@ -329,6 +334,33 @@ main() {
       test('lgContent prop is set', () {
         var renderedNode = renderAndGetDom(Block()..lgContent = true);
         expect(renderedNode, hasExactClasses('grid-block grid-content-lg'));
+      });
+
+      test('content prop is set when the base "sm" grid class is applied', () {
+        var renderedNode = renderAndGetDom(Block()
+          ..content = true
+          ..smSize = true
+        );
+        // Expect breakpoint-specific content class to be added as a workaround for https://github.com/Workiva/web-skin/issues/1121
+        expect(renderedNode, hasExactClasses('grid-block grid-block-sm grid-content grid-content-sm'));
+      });
+
+      test('content prop is set when the base "md" grid class is applied', () {
+        var renderedNode = renderAndGetDom(Block()
+          ..content = true
+          ..mdSize = true
+        );
+        // Expect breakpoint-specific content class to be added as a workaround for https://github.com/Workiva/web-skin/issues/1121
+        expect(renderedNode, hasExactClasses('grid-block grid-block-md grid-content grid-content-md'));
+      });
+
+      test('content prop is set when the base "lg" grid class is applied', () {
+        var renderedNode = renderAndGetDom(Block()
+          ..content = true
+          ..lgSize = true
+        );
+        // Expect breakpoint-specific content class to be added as a workaround for https://github.com/Workiva/web-skin/issues/1121
+        expect(renderedNode, hasExactClasses('grid-block grid-block-lg grid-content grid-content-lg'));
       });
 
       test('shrink prop is set', () {
