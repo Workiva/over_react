@@ -1,4 +1,4 @@
-library callback_typedefs;
+library ui_core.callback_typedefs;
 
 import 'package:react/react.dart' as react;
 
