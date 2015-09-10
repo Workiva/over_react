@@ -102,8 +102,12 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     HitAreaProps.Z_$KEY__ROLE: Role.button
   };
 
+  Function get ref;
+
   P get tProps;
   Map get props;
+
+  Element findHitareaDomNode() => findDomNode(ref('hitarea'));
 
   /// Method for rendering a [HitAreaMixin] component which returns a react component instance.
   /// This should be called from within consuming component's [render] method with
@@ -148,8 +152,15 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
         ..name = tProps.name
         ..type = tProps.type.typeName;
     } else {
+      var domPropsMapView = domProps(hitAreaPropsMap);
+
+      // tabIndex is required on a DIV type='button' in order to gain focus
+      // Add key handlers to allow 'click' via keyboard spacebar and enter keys
       builder = Dom.div()
-        ..role = tProps.role;
+        ..role = tProps.role
+        ..tabIndex = domPropsMapView.tabIndex == null ? domPropsMapView.tabIndex : '0'
+        ..onKeyPress = createChainedKeyboardEventCallback(domPropsMapView.onKeyPress, _handleKeyPress)
+        ..onKeyUp = createChainedKeyboardEventCallback(domPropsMapView.onKeyUp, _handleKeyUp);
     }
 
     ClassNameBuilder classes = new ClassNameBuilder.fromProps(hitAreaPropsMap)
@@ -202,6 +213,24 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     if (tProps.onSelect != null && !preventSelect) {
       tProps.onSelect(event, tProps.eventKey);
     }
+  }
+
+  _handleKeyPress(react.SyntheticKeyboardEvent event) {
+    var keyCode = event.nativeEvent.keyCode;
+    if (tProps.isDisabled || keyCode != KeyCode.ENTER) {
+      return;
+    }
+
+    findHitareaDomNode().click();
+  }
+
+  _handleKeyUp(react.SyntheticKeyboardEvent event) {
+    var keyCode = event.nativeEvent.keyCode;
+    if (tProps.isDisabled || keyCode != KeyCode.SPACE) {
+      return;
+    }
+
+    findHitareaDomNode().click();
   }
 }
 
