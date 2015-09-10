@@ -285,13 +285,13 @@ main() {
 
     group('handles keyUp correctly',() {
       bool clicked;
-      var renderedInstance;
+      var instance;
       bool keyUpOccurred;
       setUp(() {
         clicked = false;
         keyUpOccurred = false;
 
-        var instance = (HitAreaTest()
+        instance = (HitAreaTest()
           ..eventKey = '123'
           ..onClick = (event) {
             clicked = true;
@@ -302,21 +302,33 @@ main() {
             return true;
           }
         );
-        renderedInstance = renderAttachedToDocument(instance);
       });
 
       tearDown(() {
         tearDownAttachedNode();
       });
 
-      test('when spacebar key fires keyUp',(){
-        react_test_utils.Simulate.keyUp(getHitArea(renderedInstance), {'key': 'Space', 'keyCode': KeyCode.SPACE, 'which': 32});
-        expect(keyUpOccurred, isTrue, reason: 'keyUp was not invoked');
-        expect(clicked, isTrue, reason: 'click was not invoked');
+      group('when spacebar key is pressed and isDisabled is',() {
+        test('false', () {
+          var renderedInstance = renderAttachedToDocument(instance);
+          react_test_utils.Simulate.keyUp(getHitArea(renderedInstance), {'key': 'Space', 'keyCode': KeyCode.SPACE, 'which': KeyCode.SPACE});
+          expect(keyUpOccurred, isTrue, reason: 'keyUp was not invoked');
+          expect(clicked, isTrue, reason: 'click was not invoked');
+        });
+
+        test('true', () {
+          instance..isDisabled = true;
+          var renderedInstance = renderAttachedToDocument(instance);
+          react_test_utils.Simulate.keyUp(getHitArea(renderedInstance), {'key': 'Space', 'keyCode': KeyCode.SPACE, 'which': KeyCode.SPACE});
+          expect(keyUpOccurred, isTrue, reason: 'keyUp was not invoked');
+          expect(clicked, isFalse, reason: 'click was incorrectly invoked');
+        });
       });
 
-      test('when non-spacebar key fires keyUp',(){
-        react_test_utils.Simulate.keyUp(getHitArea(renderedInstance), {'key': 'B', 'keyCode': 66, 'which': 66});
+      test('when non-spacebar key is pressed',() {
+        instance..isDisabled = false;
+        var renderedInstance = renderAttachedToDocument(instance);
+        react_test_utils.Simulate.keyUp(getHitArea(renderedInstance), {'key': 'B', 'keyCode': KeyCode.B, 'which': KeyCode.B});
         expect(keyUpOccurred, isTrue, reason: 'keyUp was not invoked');
         expect(clicked, isFalse, reason: 'click was incorrectly invoked');
       });
@@ -325,12 +337,12 @@ main() {
     group('handles keyPress correctly',() {
       bool clicked;
       bool keyPressOccurred;
-      var renderedInstance;
+      var instance;
       setUp(() {
         clicked = false;
         keyPressOccurred = false;
 
-        var instance = (HitAreaTest()
+        instance = (HitAreaTest()
           ..eventKey = '123'
           ..onClick = (event) {
             clicked = true;
@@ -341,21 +353,32 @@ main() {
             return true;
           }
         );
-        renderedInstance = renderAttachedToDocument(instance);
       });
 
       tearDown(() {
         tearDownAttachedNode();
       });
 
-      test('when enter key fires keyPressed',(){
-        react_test_utils.Simulate.keyPress(getHitArea(renderedInstance), {'key': 'Enter', 'keyCode': 13, 'which': 13});
-        expect(keyPressOccurred, isTrue, reason: 'keyPress was not invoked');
-        expect(clicked, isTrue, reason: 'click was not invoked');
+      group('when enter key is pressed and isDisabled is',() {
+        test('true',(){
+          instance..isDisabled = true;
+          var renderedInstance = renderAttachedToDocument(instance);
+          react_test_utils.Simulate.keyPress(getHitArea(renderedInstance), {'key': 'Enter', 'keyCode': KeyCode.ENTER, 'which': KeyCode.ENTER});
+          expect(keyPressOccurred, isTrue, reason: 'keyPress was not invoked');
+          expect(clicked, isFalse, reason: 'click was incorrectly invoked');
+        });
+
+        test('false',(){
+          var renderedInstance = renderAttachedToDocument(instance);
+          react_test_utils.Simulate.keyPress(getHitArea(renderedInstance), {'key': 'Enter', 'keyCode': KeyCode.ENTER, 'which': KeyCode.ENTER});
+          expect(keyPressOccurred, isTrue, reason: 'keyPress was not invoked');
+          expect(clicked, isTrue, reason: 'click was not invoked');
+        });
       });
 
-      test('when non-enter key fires keyPressed',(){
-        react_test_utils.Simulate.keyPress(getHitArea(renderedInstance), {'key': 'B', 'keyCode': 66, 'which': 66});
+      test('when non-enter key is pressed',() {
+        var renderedInstance = renderAttachedToDocument(instance);
+        react_test_utils.Simulate.keyPress(getHitArea(renderedInstance), {'key': 'B', 'keyCode': KeyCode.B, 'which': KeyCode.B});
         expect(keyPressOccurred, isTrue, reason: 'keyPress was not invoked');
         expect(clicked, isFalse, reason: 'click was incorrectly invoked');
       });
