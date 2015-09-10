@@ -83,7 +83,7 @@ abstract class _$template_HitAreaProps {
   HitAreaButtonType get type;
 
   /// The role for the [HitAreaMixin].
-  /// This will obly be applied if [domNodeName] is not set to [DomNodeName.BUTTON].
+  /// This will only be applied if [domNodeName] is not set to [DomNodeName.BUTTON].
   ///
   /// _Proxies [DomProps.role]_
   ///
@@ -107,7 +107,9 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
   P get tProps;
   Map get props;
 
-  Element findHitareaDomNode() => findDomNode(ref('hitarea'));
+  String _hitAreaRef;
+
+  Element findHitareaDomNode() => findDomNode(ref(_hitAreaRef));
 
   /// Method for rendering a [HitAreaMixin] component which returns a react component instance.
   /// This should be called from within consuming component's [render] method with
@@ -119,6 +121,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     bool hasAnchorProps = (tProps.href != null || tProps.target != null);
     if (hasAnchorProps || tProps.domNodeName == DomNodeName.A) {
       builder = Dom.a()
+        ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
         ..href = tProps.href
         ..target = tProps.target
         ..name = tProps.name;
@@ -149,6 +152,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       }
     } else if (tProps.domNodeName == DomNodeName.BUTTON) {
       builder = Dom.button()
+        ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
         ..name = tProps.name
         ..type = tProps.type.typeName;
     } else {
@@ -157,6 +161,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       // tabIndex is required on a DIV type='button' in order to gain focus
       // Add key handlers to allow 'click' via keyboard spacebar and enter keys
       builder = Dom.div()
+        ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
         ..role = tProps.role
         ..tabIndex = (domPropsMapView.tabIndex == null) ? 0 : domPropsMapView.tabIndex
         ..onKeyPress = createChainedKeyboardEventCallback(domPropsMapView.onKeyPress, _handleKeyPress)
@@ -192,10 +197,11 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       }
     }
 
+    _hitAreaRef = hitAreaPropsMap.containsKey('ref') ? hitAreaPropsMap['ref'] : 'hitarea';
+
     builder
-      ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
       ..className = classes.toClassName()
-      ..ref = hitAreaPropsMap.containsKey('ref') ? hitAreaPropsMap['ref'] : 'hitarea'
+      ..ref = _hitAreaRef
       ..onClick = _handleClick;
 
     return builder(children);
@@ -216,7 +222,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
   }
 
   _handleKeyPress(react.SyntheticKeyboardEvent event) {
-    var keyCode = event.nativeEvent.keyCode;
+    var keyCode = event.keyCode;
     if (tProps.isDisabled || keyCode != KeyCode.ENTER) {
       return;
     }
@@ -225,7 +231,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
   }
 
   _handleKeyUp(react.SyntheticKeyboardEvent event) {
-    var keyCode = event.nativeEvent.keyCode;
+    var keyCode = event.keyCode;
     if (tProps.isDisabled || keyCode != KeyCode.SPACE) {
       return;
     }
