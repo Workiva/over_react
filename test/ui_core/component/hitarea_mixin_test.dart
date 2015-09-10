@@ -228,6 +228,7 @@ main() {
         expect(renderedNode, hasAttr('name', isNull));
         expect(renderedNode, hasAttr('type', isNull));
         expect(renderedNode, hasAttr('id', 'someId'));
+        expect(renderedNode, hasAttr('tabIndex', '0'));
       });
     });
 

@@ -158,7 +158,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       // Add key handlers to allow 'click' via keyboard spacebar and enter keys
       builder = Dom.div()
         ..role = tProps.role
-        ..tabIndex = domPropsMapView.tabIndex == null ? domPropsMapView.tabIndex : '0'
+        ..tabIndex = (domPropsMapView.tabIndex == null) ? 0 : domPropsMapView.tabIndex
         ..onKeyPress = createChainedKeyboardEventCallback(domPropsMapView.onKeyPress, _handleKeyPress)
         ..onKeyUp = createChainedKeyboardEventCallback(domPropsMapView.onKeyUp, _handleKeyUp);
     }
