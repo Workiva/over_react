@@ -295,11 +295,9 @@ main() {
           ..eventKey = '123'
           ..onClick = (event) {
             clicked = true;
-            return true;
           }
           ..onKeyUp = (event) {
             keyUpOccurred = true;
-            return true;
           }
         );
       });
@@ -345,11 +343,9 @@ main() {
           ..eventKey = '123'
           ..onClick = (event) {
             clicked = true;
-            return true;
           }
           ..onKeyPress = (event) {
             keyPressOccurred = true;
-            return true;
           }
         );
       });
