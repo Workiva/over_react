@@ -379,6 +379,43 @@ main() {
       });
     });
 
+    group('handles keyDown correctly', () {
+      var instance;
+      bool keyDownOccurred;
+      react.SyntheticKeyboardEvent event;
+
+      setUp(() {
+        keyDownOccurred = false;
+        event = null;
+
+        instance = (HitAreaTest()
+          ..eventKey = '123'
+          ..onKeyDown = (e) {
+            keyDownOccurred = true;
+            event = e;
+          }
+        );
+      });
+
+      tearDown(() {
+        tearDownAttachedNode();
+      });
+
+      test('when spacebar key is pressed', () {
+          var renderedInstance = renderAttachedToDocument(instance);
+          react_test_utils.Simulate.keyDown(getHitArea(renderedInstance), {'key': ' ', 'keyCode': KeyCode.SPACE});
+          expect(keyDownOccurred, isTrue, reason: 'keyDown was not invoked');
+          expect(event.defaultPrevented, isTrue, reason: 'default was not prevented');
+      });
+
+      test('when non-spacebar key is pressed', () {
+        var renderedInstance = renderAttachedToDocument(instance);
+        react_test_utils.Simulate.keyDown(getHitArea(renderedInstance), {'key': 'B', 'keyCode': KeyCode.B});
+        expect(keyDownOccurred, isTrue, reason: 'keyDown was not invoked');
+        expect(event.defaultPrevented, anyOf(isNull, isFalse), reason: 'default was incorrectly prevented');
+      });
+    });
+
     group('handles clicks correctly:', () {
       group('when onSelect is', () {
         test('set', () {
