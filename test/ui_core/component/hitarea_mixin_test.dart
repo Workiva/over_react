@@ -309,7 +309,7 @@ main() {
       group('when spacebar key is pressed and isDisabled is', () {
         test('false', () {
           var renderedInstance = renderAttachedToDocument(instance);
-          react_test_utils.Simulate.keyUp(getHitArea(renderedInstance), {'key': 'Space', 'keyCode': KeyCode.SPACE, 'which': KeyCode.SPACE});
+          react_test_utils.Simulate.keyUp(getHitArea(renderedInstance), {'key': ' ', 'keyCode': KeyCode.SPACE});
           expect(keyUpOccurred, isTrue, reason: 'keyUp was not invoked');
           expect(clicked, isTrue, reason: 'click was not invoked');
         });
@@ -317,7 +317,7 @@ main() {
         test('true', () {
           instance.isDisabled = true;
           var renderedInstance = renderAttachedToDocument(instance);
-          react_test_utils.Simulate.keyUp(getHitArea(renderedInstance), {'key': 'Space', 'keyCode': KeyCode.SPACE, 'which': KeyCode.SPACE});
+          react_test_utils.Simulate.keyUp(getHitArea(renderedInstance), {'key': ' ', 'keyCode': KeyCode.SPACE});
           expect(keyUpOccurred, isTrue, reason: 'keyUp was not invoked');
           expect(clicked, isFalse, reason: 'click was incorrectly invoked');
         });
@@ -325,7 +325,7 @@ main() {
 
       test('when non-spacebar key is pressed', () {
         var renderedInstance = renderAttachedToDocument(instance);
-        react_test_utils.Simulate.keyUp(getHitArea(renderedInstance), {'key': 'B', 'keyCode': KeyCode.B, 'which': KeyCode.B});
+        react_test_utils.Simulate.keyUp(getHitArea(renderedInstance), {'key': 'B', 'keyCode': KeyCode.B});
         expect(keyUpOccurred, isTrue, reason: 'keyUp was not invoked');
         expect(clicked, isFalse, reason: 'click was incorrectly invoked');
       });
