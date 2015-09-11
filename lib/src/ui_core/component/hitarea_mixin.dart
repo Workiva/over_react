@@ -109,7 +109,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
 
   String _hitAreaRef;
 
-  Element findHitareaDomNode() => findDomNode(ref(_hitAreaRef));
+  Element findHitAreaDomNode() => findDomNode(ref(_hitAreaRef));
 
   /// Method for rendering a [HitAreaMixin] component which returns a react component instance.
   /// This should be called from within consuming component's [render] method with
@@ -223,37 +223,27 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
   }
 
   void _handleKeyDown(react.SyntheticKeyboardEvent event) {
-    // React doesn't properly normalize keyCode/charCode in SyntheticKeyboardEvent,
-    // so we should use event.nativeEvent since it's more reliable.
-    var keyCode = event.nativeEvent.keyCode;
-
     // To prevent odd behavior in Chrome where pressing the SPACE key scrolls the page
     // we will preventDefault here if and only if the SPACE is pressed.
-    if (keyCode == KeyCode.SPACE) {
+    if (event.key == ' ') {
       event.preventDefault();
     }
   }
 
   void _handleKeyPress(react.SyntheticKeyboardEvent event) {
-    // React doesn't properly normalize keyCode/charCode in SyntheticKeyboardEvent,
-    // so we should use event.nativeEvent since it's more reliable.
-    var keyCode = event.nativeEvent.keyCode;
-    if (tProps.isDisabled || keyCode != KeyCode.ENTER) {
+    if (tProps.isDisabled || event.key != 'Enter') {
       return;
     }
 
-    findHitareaDomNode().click();
+    findHitAreaDomNode().click();
   }
 
   void _handleKeyUp(react.SyntheticKeyboardEvent event) {
-    // React doesn't properly normalize keyCode/charCode in SyntheticKeyboardEvent,
-    // so we should use event.nativeEvent since it's more reliable.
-    var keyCode = event.nativeEvent.keyCode;
-    if (tProps.isDisabled || keyCode != KeyCode.SPACE) {
+    if (tProps.isDisabled || event.key != ' ') {
       return;
     }
 
-    findHitareaDomNode().click();
+    findHitAreaDomNode().click();
   }
 }
 
