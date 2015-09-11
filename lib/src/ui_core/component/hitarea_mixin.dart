@@ -164,6 +164,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
         ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
         ..role = tProps.role
         ..tabIndex = (domPropsMapView.tabIndex == null) ? 0 : domPropsMapView.tabIndex
+        ..onKeyDown = createChainedKeyboardEventCallback(domPropsMapView.onKeyDown, _handleKeyDown)
         ..onKeyPress = createChainedKeyboardEventCallback(domPropsMapView.onKeyPress, _handleKeyPress)
         ..onKeyUp = createChainedKeyboardEventCallback(domPropsMapView.onKeyUp, _handleKeyUp);
     }
@@ -207,7 +208,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     return builder(children);
   }
 
-  _handleClick(react.SyntheticEvent event) {
+  void _handleClick(react.SyntheticEvent event) {
     if (tProps.isDisabled) {
       return;
     }
@@ -221,8 +222,22 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     }
   }
 
-  _handleKeyPress(react.SyntheticKeyboardEvent event) {
-    var keyCode = event.keyCode;
+  void _handleKeyDown(react.SyntheticKeyboardEvent event) {
+    // React doesn't properly normalize keyCode/charCode in SyntheticKeyboardEvent,
+    // so we should use event.nativeEvent since it's more reliable.
+    var keyCode = event.nativeEvent.keyCode;
+
+    // To prevent odd behavior in Chrome where pressing the SPACE key scrolls the page
+    // we will preventDefault here if and only if the SPACE is pressed.
+    if (keyCode == KeyCode.SPACE) {
+      event.preventDefault();
+    }
+  }
+
+  void _handleKeyPress(react.SyntheticKeyboardEvent event) {
+    // React doesn't properly normalize keyCode/charCode in SyntheticKeyboardEvent,
+    // so we should use event.nativeEvent since it's more reliable.
+    var keyCode = event.nativeEvent.keyCode;
     if (tProps.isDisabled || keyCode != KeyCode.ENTER) {
       return;
     }
@@ -230,8 +245,10 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     findHitareaDomNode().click();
   }
 
-  _handleKeyUp(react.SyntheticKeyboardEvent event) {
-    var keyCode = event.keyCode;
+  void _handleKeyUp(react.SyntheticKeyboardEvent event) {
+    // React doesn't properly normalize keyCode/charCode in SyntheticKeyboardEvent,
+    // so we should use event.nativeEvent since it's more reliable.
+    var keyCode = event.nativeEvent.keyCode;
     if (tProps.isDisabled || keyCode != KeyCode.SPACE) {
       return;
     }
