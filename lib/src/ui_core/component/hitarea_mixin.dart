@@ -223,8 +223,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
   }
 
   void _handleKeyDown(react.SyntheticKeyboardEvent event) {
-    // To prevent odd behavior in Chrome where pressing the SPACE key scrolls the page
-    // we will preventDefault here if and only if the SPACE is pressed.
+    // Prevent the page from scrolling when the space key is pressed.
     if (event.key == ' ') {
       event.preventDefault();
     }
