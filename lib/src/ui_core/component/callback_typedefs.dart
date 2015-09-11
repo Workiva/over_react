@@ -14,5 +14,9 @@ typedef WheelEventCallback(react.SyntheticWheelEvent event);
 // Callback for item selection events
 typedef EventKeyCallback(react.SyntheticEvent event, Object eventKey);
 
+// Callback for state changes
+typedef StateDidChangeCallback(react.SyntheticEvent event, Map oldState);
+typedef StateWillChangeCallback(react.SyntheticEvent event, Map newState);
+
 // Callback for Collapse events
 typedef CollapseCallback();
