@@ -309,7 +309,7 @@ main() {
       group('when spacebar key is pressed and isDisabled is', () {
         test('false', () {
           var renderedInstance = renderAttachedToDocument(instance);
-          react_test_utils.Simulate.keyUp(getHitArea(renderedInstance), {'key': ' ', 'keyCode': KeyCode.SPACE});
+          react_test_utils.Simulate.keyUp(getHitArea(renderedInstance), {'key': ' '});
           expect(keyUpOccurred, isTrue, reason: 'keyUp was not invoked');
           expect(clicked, isTrue, reason: 'click was not invoked');
         });
@@ -317,7 +317,7 @@ main() {
         test('true', () {
           instance.isDisabled = true;
           var renderedInstance = renderAttachedToDocument(instance);
-          react_test_utils.Simulate.keyUp(getHitArea(renderedInstance), {'key': ' ', 'keyCode': KeyCode.SPACE});
+          react_test_utils.Simulate.keyUp(getHitArea(renderedInstance), {'key': ' '});
           expect(keyUpOccurred, isTrue, reason: 'keyUp was not invoked');
           expect(clicked, isFalse, reason: 'click was incorrectly invoked');
         });
@@ -325,7 +325,7 @@ main() {
 
       test('when non-spacebar key is pressed', () {
         var renderedInstance = renderAttachedToDocument(instance);
-        react_test_utils.Simulate.keyUp(getHitArea(renderedInstance), {'key': 'B', 'keyCode': KeyCode.B});
+        react_test_utils.Simulate.keyUp(getHitArea(renderedInstance), {'key': 'B'});
         expect(keyUpOccurred, isTrue, reason: 'keyUp was not invoked');
         expect(clicked, isFalse, reason: 'click was incorrectly invoked');
       });
@@ -358,14 +358,14 @@ main() {
         test('true', () {
           instance.isDisabled = true;
           var renderedInstance = renderAttachedToDocument(instance);
-          react_test_utils.Simulate.keyPress(getHitArea(renderedInstance), {'key': 'Enter', 'keyCode': KeyCode.ENTER, 'which': KeyCode.ENTER});
+          react_test_utils.Simulate.keyPress(getHitArea(renderedInstance), {'key': 'Enter'});
           expect(keyPressOccurred, isTrue, reason: 'keyPress was not invoked');
           expect(clicked, isFalse, reason: 'click was incorrectly invoked');
         });
 
         test('false', () {
           var renderedInstance = renderAttachedToDocument(instance);
-          react_test_utils.Simulate.keyPress(getHitArea(renderedInstance), {'key': 'Enter', 'keyCode': KeyCode.ENTER, 'which': KeyCode.ENTER});
+          react_test_utils.Simulate.keyPress(getHitArea(renderedInstance), {'key': 'Enter'});
           expect(keyPressOccurred, isTrue, reason: 'keyPress was not invoked');
           expect(clicked, isTrue, reason: 'click was not invoked');
         });
@@ -373,7 +373,7 @@ main() {
 
       test('when non-enter key is pressed', () {
         var renderedInstance = renderAttachedToDocument(instance);
-        react_test_utils.Simulate.keyPress(getHitArea(renderedInstance), {'key': 'B', 'keyCode': KeyCode.B, 'which': KeyCode.B});
+        react_test_utils.Simulate.keyPress(getHitArea(renderedInstance), {'key': 'B'});
         expect(keyPressOccurred, isTrue, reason: 'keyPress was not invoked');
         expect(clicked, isFalse, reason: 'click was incorrectly invoked');
       });
@@ -403,14 +403,14 @@ main() {
 
       test('when spacebar key is pressed', () {
         var renderedInstance = renderAttachedToDocument(instance);
-        react_test_utils.Simulate.keyDown(getHitArea(renderedInstance), {'key': ' ', 'keyCode': KeyCode.SPACE});
+        react_test_utils.Simulate.keyDown(getHitArea(renderedInstance), {'key': ' '});
         expect(keyDownOccurred, isTrue, reason: 'keyDown was not invoked');
         expect(event.defaultPrevented, isTrue, reason: 'default was not prevented');
       });
 
       test('when non-spacebar key is pressed', () {
         var renderedInstance = renderAttachedToDocument(instance);
-        react_test_utils.Simulate.keyDown(getHitArea(renderedInstance), {'key': 'B', 'keyCode': KeyCode.B});
+        react_test_utils.Simulate.keyDown(getHitArea(renderedInstance), {'key': 'B'});
         expect(keyDownOccurred, isTrue, reason: 'keyDown was not invoked');
         expect(event.defaultPrevented, anyOf(isNull, isFalse), reason: 'default was incorrectly prevented');
       });
