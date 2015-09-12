@@ -402,10 +402,10 @@ main() {
       });
 
       test('when spacebar key is pressed', () {
-          var renderedInstance = renderAttachedToDocument(instance);
-          react_test_utils.Simulate.keyDown(getHitArea(renderedInstance), {'key': ' ', 'keyCode': KeyCode.SPACE});
-          expect(keyDownOccurred, isTrue, reason: 'keyDown was not invoked');
-          expect(event.defaultPrevented, isTrue, reason: 'default was not prevented');
+        var renderedInstance = renderAttachedToDocument(instance);
+        react_test_utils.Simulate.keyDown(getHitArea(renderedInstance), {'key': ' ', 'keyCode': KeyCode.SPACE});
+        expect(keyDownOccurred, isTrue, reason: 'keyDown was not invoked');
+        expect(event.defaultPrevented, isTrue, reason: 'default was not prevented');
       });
 
       test('when non-spacebar key is pressed', () {
