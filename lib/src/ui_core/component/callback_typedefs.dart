@@ -1,4 +1,6 @@
-part of web_skin_dart.ui_core;
+library ui_core.callback_typedefs;
+
+import 'package:react/react.dart' as react;
 
 // Callbacks for React's DOM event system
 typedef DomEventCallback(react.SyntheticEvent event);
