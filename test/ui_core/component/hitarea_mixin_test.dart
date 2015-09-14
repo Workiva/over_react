@@ -1,7 +1,5 @@
 library hitarea_mixin_test;
 
-import 'dart:html';
-
 import 'package:test/test.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart' show ReactComponentFactory;

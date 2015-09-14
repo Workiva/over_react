@@ -158,8 +158,8 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     } else {
       var domPropsMapView = domProps(hitAreaPropsMap);
 
-      // tabIndex is required on a DIV type='button' in order to gain focus
-      // Add key handlers to allow 'click' via keyboard spacebar and enter keys
+      // Prop 'tabIndex' is required on a DIV of type='button' in order to gain focus.
+      // Key handlers are added to allow 'click' via keyboard spacebar and enter keys.
       builder = Dom.div()
         ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
         ..role = tProps.role
