@@ -1,4 +1,4 @@
-part of web_skin_dart.ui_core;
+library ui_core.css_value_util;
 
 /// A CSS length value, with a number and unit component, for use in CSS properties such as `width`, `top`, `padding`, etc.
 class CssValue implements Comparable<CssValue> {
