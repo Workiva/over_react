@@ -105,6 +105,21 @@ MouseEventCallback createChainedMouseEventCallback(MouseEventCallback a, MouseEv
   };
 }
 
+/// Creates a MouseEnterLeaveEventCallback that calls through to the two provided callbacks in order.
+/// Useful for executing multiple callbacks where only a single callback is accepted.
+///
+/// Returns `false` if one or more of the provided callback returns `false`.
+MouseEnterLeaveEventCallback createChainedMouseEnterLeaveEventCallback(MouseEnterLeaveEventCallback a, MouseEnterLeaveEventCallback b) {
+  return (/* String|JsObject */ eventOrInstance, [String reactId]) {
+    var aDidReturnFalse = a != null ? a(eventOrInstance, reactId) == false : false;
+    var bDidReturnFalse = b != null ? b(eventOrInstance, reactId) == false : false;
+
+    if (aDidReturnFalse || bDidReturnFalse) {
+      return false;
+    }
+  };
+}
+
 /// Creates a TouchEventCallback that calls through to the two provided callbacks in order.
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
