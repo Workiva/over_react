@@ -4,8 +4,8 @@ import 'package:test/test.dart';
 import 'package:web_skin_dart/ui_components.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
-import '../../test_util/react_util.dart';
 import '../../test_util/custom_matchers.dart';
+import '../../test_util/react_util.dart';
 
 /// Main entry point for LayoutMixin testing
 main() {
