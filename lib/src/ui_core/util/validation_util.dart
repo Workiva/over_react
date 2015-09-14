@@ -1,4 +1,6 @@
-part of web_skin_dart.ui_core;
+library ui_core.validation_util;
+
+import 'dart:html';
 
 typedef void ValidationUtilWarningCallback(String message);
 
