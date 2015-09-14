@@ -1,4 +1,6 @@
-part of web_skin_dart.ui_core;
+library guid_util;
+
+import 'dart:math' show Random;
 
 /// Randomly generate a GUID with the give length
 /// Possibly in the future this could be replaced by the uuid lib.
