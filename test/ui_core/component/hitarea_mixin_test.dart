@@ -194,40 +194,40 @@ main() {
       test('a <a>', () {
         var renderedNode = renderAndGetDom(HitAreaTest()
           ..name = 'someName'
-          ..id = 'someId'
+          ..id = 'some_id'
           ..type = HitAreaButtonType.BUTTON
           ..domNodeName = DomNodeName.A);
 
         expect(renderedNode, hasNodeName('A'));
         expect(renderedNode, hasAttr('name', 'someName'));
         expect(renderedNode, hasAttr('type', isNull));
-        expect(renderedNode, hasAttr('id', 'someId'));
+        expect(renderedNode, hasAttr('id', 'some_id'));
       });
 
       test('a <button>', () {
         var renderedNode = renderAndGetDom(HitAreaTest()
           ..name = 'someName'
-          ..id = 'someId'
+          ..id = 'some_id'
           ..type = HitAreaButtonType.BUTTON
           ..domNodeName = DomNodeName.BUTTON);
 
         expect(renderedNode, hasNodeName('BUTTON'));
         expect(renderedNode, hasAttr('name', 'someName'));
         expect(renderedNode, hasAttr('type', 'button'));
-        expect(renderedNode, hasAttr('id', 'someId'));
+        expect(renderedNode, hasAttr('id', 'some_id'));
       });
 
       test('a <div>', () {
         var renderedNode = renderAndGetDom(HitAreaTest()
           ..name = 'someName'
-          ..id = 'someId'
+          ..id = 'some_id'
           ..type = HitAreaButtonType.BUTTON
           ..domNodeName = DomNodeName.DIV);
 
         expect(renderedNode, hasNodeName('DIV'));
         expect(renderedNode, hasAttr('name', isNull));
         expect(renderedNode, hasAttr('type', isNull));
-        expect(renderedNode, hasAttr('id', 'someId'));
+        expect(renderedNode, hasAttr('id', 'some_id'));
       });
     });
 
