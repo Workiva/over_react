@@ -367,15 +367,17 @@ class TestComponent extends react.Component {
 }
 
 JsFunction _testJsComponentFactory;
-JsFunction get testJsComponentFactory => _testJsComponentFactory ?? () {
-  JsObject React = context['React'];
+JsFunction get testJsComponentFactory {
+  if (_testJsComponentFactory == null) {
+    JsObject React = context['React'];
 
-  var componentClass = React.callMethod('createClass', [new JsObject.jsify({
-    'displayName': 'testJsComponent',
-    'render': () => Dom.div()('test js component')
-  })]);
+    var componentClass = React.callMethod('createClass', [new JsObject.jsify({
+      'displayName': 'testJsComponent',
+      'render': () => Dom.div()('test js component')
+    })]);
 
-  var componentFactory = React.callMethod('createFactory', [componentClass]);
+    _testJsComponentFactory = React.callMethod('createFactory', [componentClass]);
+  }
 
-  return componentFactory;
-}();
+  return _testJsComponentFactory;
+}
