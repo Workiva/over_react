@@ -101,6 +101,10 @@ bool isValidElement(dynamic object) {
   return _React.callMethod('isValidElement', [object]);
 }
 
+bool isDomComponent(JsObject instance) {
+  return (instance != null && instance['type'] is String);
+}
+
 /// Returns a new JS map with the specified props and children changes, properly prepared for consumption by
 /// React JS methods such as cloneWithProps(), setProps(), and other methods that accept changesets of props to be
 /// merged into existing props.
@@ -118,7 +122,19 @@ JsObject preparePropsChangeset(JsObject element, Map newProps, [List newChildren
   Map internal = _getInternal(element);
   if (internal == null) {
     // Plain JS component
-    propsChangeset = newProps != null ? newJsMap(newProps) : null;
+    if (newProps == null) {
+      propsChangeset = null;
+    } else {
+      if (isDomComponent(element)) {
+        // Convert props for DOM components so that style Maps and event handlers
+        // are properly converted.
+        Map convertedProps = new Map.from(newProps);
+        ReactDomComponentFactoryProxy.convertProps(convertedProps);
+        propsChangeset = newJsMap(convertedProps);
+      } else {
+        propsChangeset = newJsMap(newProps);
+      }
+    }
   } else {
     // react-dart component
     Map oldExtendedProps = internal[PROPS];
