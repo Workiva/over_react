@@ -157,7 +157,7 @@ main() {
             var clone = cloneElement(original, testPropsToAdd);
 
             var renderedClone = react_test_utils.renderIntoDocument(clone);
-            
+
             expect(() {
               react_test_utils.Simulate.click(renderedClone);
             }, isNot(throws), reason: 'should not throw due to mismatched arguments or otherwise');
@@ -171,7 +171,7 @@ main() {
 
               var renderedClone = react_test_utils.renderIntoDocument(clone);
               Map cloneProps = getJsProps(renderedClone);
-              
+
               expect(() {
                 // Retrieve an automatically JS-proxied version of the callback passed to the component.
                 JsFunction callback = cloneProps['onClick'];
@@ -187,7 +187,7 @@ main() {
 
               var renderedClone = react_test_utils.renderIntoDocument(clone);
               Map cloneProps = getDartComponent(renderedClone).props;
-              
+
               expect(() {
                 // Retrieve the callback passed to the component.
                 Function callback = cloneProps['onClick'];
@@ -329,6 +329,30 @@ main() {
 
         test('a ReactComponent', () {
           expect(isValidElementOfType(Dom.div()(), Dom.div().componentFactory), isTrue);
+        });
+      });
+    });
+
+    group('isDomComponent()', () {
+      group('returns expected result when given', (){
+        test('a DOM component', () {
+          expect(isDomComponent(Dom.div()()), isTrue);
+        });
+
+        test('a Dart component', () {
+          expect(isDomComponent(TestComponentFactory({})), isFalse);
+        });
+
+        test('a JS composite component', () {
+          expect(isDomComponent(testJsComponentFactory.apply([])), isFalse);
+        });
+
+        test('null', () {
+          expect(isDomComponent(null), isFalse);
+        });
+
+        test('a String', () {
+          expect(isDomComponent('Test String'), isFalse);
         });
       });
     });
