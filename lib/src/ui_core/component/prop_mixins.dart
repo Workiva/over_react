@@ -52,8 +52,7 @@ abstract class _$template_DomProps {
   FormEventCallback onChange, onInput, onSubmit;
   MouseEventCallback
     onClick, onContextMenu, onDoubleClick, onDrag, onDragEnd, onDragEnter, onDragExit, onDragLeave, onDragOver,
-    onDragStart, onDrop, onMouseDown, onMouseMove, onMouseOut, onMouseOver, onMouseUp;
-  MouseEnterLeaveEventCallback onMouseEnter, onMouseLeave;
+    onDragStart, onDrop, onMouseDown, onMouseEnter, onMouseLeave, onMouseMove, onMouseOut, onMouseOver, onMouseUp;
   TouchEventCallback onTouchCancel, onTouchEnd, onTouchMove, onTouchStart;
   UIEventCallback onScroll;
   WheelEventCallback onWheel;
@@ -156,10 +155,10 @@ abstract class _$template_UbiquitousDomProps {
   MouseEventCallback get onMouseDown;
 
   /// Callback for when the pointer is moved onto an element
-  MouseEnterLeaveEventCallback get onMouseEnter;
+  MouseEventCallback get onMouseEnter;
 
   /// Callback for when the pointer is moved out of an element
-  MouseEnterLeaveEventCallback get onMouseLeave;
+  MouseEventCallback get onMouseLeave;
 
   /// Callback for when the pointer is moving while it is over an element
   MouseEventCallback get onMouseMove;
