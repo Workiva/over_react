@@ -1,5 +1,7 @@
 library react_wrappers_test;
 
+import 'dart:js';
+
 import 'package:test/test.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react.dart' as react;
@@ -89,6 +91,112 @@ main() {
           // Verify all props are equal.
           Map cloneDartProps = getDartComponent(renderedClone).props;
           expect(cloneDartProps, equals(expectedPropsMerge));
+        });
+      });
+
+      group('properly converts props for', () {
+        group('style Maps', () {
+          const Map testPropsToAdd = const {
+            'style': const {'property': 'value'}
+          };
+
+          test('for DOM components', () {
+            var original = (Dom.div()..addProps(testProps))(testChildren);
+            var clone = cloneElement(original, testPropsToAdd);
+
+            var renderedClone = react_test_utils.renderIntoDocument(clone);
+            Map cloneProps = getJsProps(renderedClone);
+
+            var convertedStyle = cloneProps['style'];
+            expect(convertedStyle, new isInstanceOf<JsObject>(), reason: 'style should have been converted to a JS map for React JS consumption');
+            expect(convertedStyle['property'], equals('value'));
+          });
+
+          test('for JS composite components', () {
+            var original = testJsComponentFactory.apply([testProps, testChildren]);
+            var clone = cloneElement(original, testPropsToAdd);
+
+            var renderedClone = react_test_utils.renderIntoDocument(clone);
+            Map cloneProps = getJsProps(renderedClone);
+
+            var convertedStyle = cloneProps['style'];
+            expect(convertedStyle, new isInstanceOf<JsObject>(), reason: 'style should have been converted to a JS map for React JS consumption');
+            expect(convertedStyle['property'], equals('value'));
+          });
+
+          group(', except', () {
+            test('for Dart components', () {
+              var original = TestComponentFactory(testProps, testChildren);
+              var clone = cloneElement(original, testPropsToAdd);
+
+              var renderedClone = react_test_utils.renderIntoDocument(clone);
+              Map cloneProps = getDartComponent(renderedClone).props;
+
+              var style = cloneProps['style'];
+              expect(style, same(testPropsToAdd['style']), reason: 'style should be the same object passed in, unaltered');
+            });
+          });
+        });
+
+        group('event callbacks', () {
+          Map testPropsToAdd;
+          bool onClickWasCalled;
+
+          setUp(() {
+            onClickWasCalled = false;
+
+            testPropsToAdd = {
+              'onClick': (_) {
+                onClickWasCalled = true;
+              }
+            };
+          });
+
+          test('for DOM components', () {
+            var original = (Dom.div()..addProps(testProps))(testChildren);
+            var clone = cloneElement(original, testPropsToAdd);
+
+            var renderedClone = react_test_utils.renderIntoDocument(clone);
+            
+            expect(() {
+              react_test_utils.Simulate.click(renderedClone);
+            }, isNot(throws), reason: 'should not throw due to mismatched arguments or otherwise');
+            expect(onClickWasCalled, isTrue, reason: 'event handler that was added via cloning was not called');
+          });
+
+          group(', except', () {
+            test('for JS composite components', () {
+              var original = testJsComponentFactory.apply([testProps, testChildren]);
+              var clone = cloneElement(original, testPropsToAdd);
+
+              var renderedClone = react_test_utils.renderIntoDocument(clone);
+              Map cloneProps = getJsProps(renderedClone);
+              
+              expect(() {
+                // Retrieve an automatically JS-proxied version of the callback passed to the component.
+                JsFunction callback = cloneProps['onClick'];
+                // Call the method with one arg.
+                callback.apply([null]);
+              }, isNot(throws), reason: 'should not throw due to mismatched arguments or otherwise');
+              expect(onClickWasCalled, isTrue, reason: 'event handler that was added via cloning was not called');
+            });
+
+            test('for Dart components', () {
+              var original = TestComponentFactory(testProps, testChildren);
+              var clone = cloneElement(original, testPropsToAdd);
+
+              var renderedClone = react_test_utils.renderIntoDocument(clone);
+              Map cloneProps = getDartComponent(renderedClone).props;
+              
+              expect(() {
+                // Retrieve the callback passed to the component.
+                Function callback = cloneProps['onClick'];
+                // Call the method with one arg.
+                callback(null);
+              }, isNot(throws), reason: 'should not throw due to mismatched arguments or otherwise');
+              expect(onClickWasCalled, isTrue, reason: 'event handler that was added via cloning was not called');
+            });
+          });
         });
       });
 
@@ -234,3 +342,16 @@ class TestComponent extends react.Component {
   render() => Dom.div()();
 }
 
+JsFunction _testJsComponentFactory;
+JsFunction get testJsComponentFactory => _testJsComponentFactory ?? () {
+  JsObject React = context['React'];
+
+  var componentClass = React.callMethod('createClass', [new JsObject.jsify({
+    'displayName': 'testJsComponent',
+    'render': () => Dom.div()('test js component')
+  })]);
+
+  var componentFactory = React.callMethod('createFactory', [componentClass]);
+
+  return componentFactory;
+}();
