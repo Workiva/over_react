@@ -101,8 +101,9 @@ bool isValidElement(dynamic object) {
   return _React.callMethod('isValidElement', [object]);
 }
 
-bool isDomComponent(JsObject instance) {
-  return (instance != null && instance['type'] is String);
+/// Returns whether [instance] is a React DOM component.
+bool isDomComponent(dynamic instance) {
+  return (instance is JsObject && instance['type'] is String);
 }
 
 /// Returns a new JS map with the specified props and children changes, properly prepared for consumption by
