@@ -83,7 +83,7 @@ abstract class _$template_HitAreaProps {
   HitAreaButtonType get type;
 
   /// The role for the [HitAreaMixin].
-  /// This will obly be applied if [domNodeName] is not set to [DomNodeName.BUTTON].
+  /// This will only be applied if [domNodeName] is not set to [DomNodeName.BUTTON].
   ///
   /// _Proxies [DomProps.role]_
   ///
@@ -102,8 +102,14 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     HitAreaProps.Z_$KEY__ROLE: Role.button
   };
 
+  Function get ref;
+
   P get tProps;
   Map get props;
+
+  String _hitAreaRef;
+
+  Element findHitAreaDomNode() => findDomNode(ref(_hitAreaRef));
 
   /// Method for rendering a [HitAreaMixin] component which returns a react component instance.
   /// This should be called from within consuming component's [render] method with
@@ -115,6 +121,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     bool hasAnchorProps = (tProps.href != null || tProps.target != null);
     if (hasAnchorProps || tProps.domNodeName == DomNodeName.A) {
       builder = Dom.a()
+        ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
         ..href = tProps.href
         ..target = tProps.target
         ..name = tProps.name;
@@ -145,11 +152,21 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       }
     } else if (tProps.domNodeName == DomNodeName.BUTTON) {
       builder = Dom.button()
+        ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
         ..name = tProps.name
         ..type = tProps.type.typeName;
     } else {
+      var domPropsMapView = domProps(hitAreaPropsMap);
+
+      // Prop 'tabIndex' is required on a DIV of type='button' in order to gain focus.
+      // Key handlers are added to allow 'click' via keyboard spacebar and enter keys.
       builder = Dom.div()
-        ..role = tProps.role;
+        ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
+        ..role = tProps.role
+        ..tabIndex = (domPropsMapView.tabIndex == null) ? 0 : domPropsMapView.tabIndex
+        ..onKeyDown = createChainedKeyboardEventCallback(domPropsMapView.onKeyDown, _handleKeyDown)
+        ..onKeyPress = createChainedKeyboardEventCallback(domPropsMapView.onKeyPress, _handleKeyPress)
+        ..onKeyUp = createChainedKeyboardEventCallback(domPropsMapView.onKeyUp, _handleKeyUp);
     }
 
     ClassNameBuilder classes = new ClassNameBuilder.fromProps(hitAreaPropsMap)
@@ -181,16 +198,17 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       }
     }
 
+    _hitAreaRef = hitAreaPropsMap.containsKey('ref') ? hitAreaPropsMap['ref'] : 'hitarea';
+
     builder
-      ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
       ..className = classes.toClassName()
-      ..ref = hitAreaPropsMap.containsKey('ref') ? hitAreaPropsMap['ref'] : 'hitarea'
+      ..ref = _hitAreaRef
       ..onClick = _handleClick;
 
     return builder(children);
   }
 
-  _handleClick(react.SyntheticEvent event) {
+  void _handleClick(react.SyntheticEvent event) {
     if (tProps.isDisabled) {
       return;
     }
@@ -202,6 +220,29 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     if (tProps.onSelect != null && !preventSelect) {
       tProps.onSelect(event, tProps.eventKey);
     }
+  }
+
+  void _handleKeyDown(react.SyntheticKeyboardEvent event) {
+    // Prevent the page from scrolling when the space key is pressed.
+    if (event.key == ' ') {
+      event.preventDefault();
+    }
+  }
+
+  void _handleKeyPress(react.SyntheticKeyboardEvent event) {
+    if (tProps.isDisabled || event.key != 'Enter') {
+      return;
+    }
+
+    findHitAreaDomNode().click();
+  }
+
+  void _handleKeyUp(react.SyntheticKeyboardEvent event) {
+    if (tProps.isDisabled || event.key != ' ') {
+      return;
+    }
+
+    findHitAreaDomNode().click();
   }
 }
 
