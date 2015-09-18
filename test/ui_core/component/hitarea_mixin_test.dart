@@ -228,7 +228,7 @@ main() {
         expect(renderedNode, hasNodeName('DIV'));
         expect(renderedNode, hasAttr('name', isNull));
         expect(renderedNode, hasAttr('type', isNull));
-        expect(renderedNode, hasAttr('id', 'someId'));
+        expect(renderedNode, hasAttr('id', 'some_id'));
         expect(renderedNode, hasAttr('tabIndex', '0'));
       });
     });
