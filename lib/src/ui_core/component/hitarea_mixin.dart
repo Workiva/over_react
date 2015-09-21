@@ -99,7 +99,8 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     HitAreaProps.Z_$KEY__IS_NAV_ITEM: false,
     HitAreaProps.Z_$KEY__IS_NAV_DROPDOWN: false,
     HitAreaProps.Z_$KEY__TYPE: HitAreaButtonType.BUTTON,
-    HitAreaProps.Z_$KEY__ROLE: Role.button
+    HitAreaProps.Z_$KEY__ROLE: Role.button,
+    HitAreaProps.Z_$KEY__DOM_NODE_NAME: DomNodeName.DIV
   };
 
   Function get ref;
@@ -160,7 +161,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
 
       // Prop 'tabIndex' is required on a DIV of type='button' in order to gain focus.
       // Key handlers are added to allow 'click' via keyboard spacebar and enter keys.
-      builder = Dom.div()
+      builder = tProps.domNodeName == DomNodeName.LI ? Dom.li() : Dom.div()
         ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
         ..role = tProps.role
         ..tabIndex = (domPropsMapView.tabIndex == null) ? 0 : domPropsMapView.tabIndex
@@ -251,6 +252,7 @@ class _$template_DomNodeName {
   static const A = '<a>';
   static const BUTTON = '<button>';
   static const DIV = '<div>';
+  static const LI = '<li>';
 }
 
 @GenerateConstants(#HitAreaButtonType, #typeName)
