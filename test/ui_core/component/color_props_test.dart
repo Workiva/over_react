@@ -1,11 +1,11 @@
 library color_props_test;
 
+import 'dart:collection' show MapView;
+
 import 'package:test/test.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
-import 'prop_utils.dart';
-
-import 'dart:collection' show MapView;
+import '../../test_util/prop_utils.dart';
 
 main() {
   group('The ColorProps prop', () {
