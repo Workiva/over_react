@@ -111,6 +111,10 @@ abstract class LayoutMixin<P extends LayoutProps> {
 
     return layoutClasses.toClassName();
   }
+
+  bool shouldRenderNestedBlock() {
+    return tProps.layout == BlockLayout.VERTICAL && tProps.isNested != false;
+  }
 }
 
 /// The alignment options for the [Block]
