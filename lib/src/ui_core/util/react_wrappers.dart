@@ -1,7 +1,8 @@
 library ui_core.react_wrappers;
 
-import 'dart:js';
 import 'dart:html';
+import 'dart:js';
+
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 
