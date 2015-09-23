@@ -208,7 +208,6 @@ abstract class BlockMixin<P extends BlockProps> {
   }
 
   String getBlockSizeClasses() {
-
     ClassNameBuilder sizeClasses = new ClassNameBuilder()
 
       // Size classes
