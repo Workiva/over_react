@@ -219,7 +219,7 @@ main() {
         });
 
         test('BlockAlign.VERTICAL', () {
-          var renderedNode = renderAndGetDom(Block()..layout = BlockLayout.VERTICAL);
+          var renderedNode = renderAndGetDom(Block()..layout = BlockLayout.VERTICAL..isNested = false);
           expect(renderedNode, hasExactClasses('grid-block grid-vertical'));
         });
       });

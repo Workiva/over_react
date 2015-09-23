@@ -70,7 +70,7 @@ abstract class _$template_LayoutProps {
 abstract class LayoutMixin<P extends LayoutProps> {
   /// Standard LayoutMixin defaults.
   static const Map defaultProps = const {
-    LayoutProps.Z_$KEY__IS_NESTED: false,
+    LayoutProps.Z_$KEY__IS_NESTED: true,
     LayoutProps.Z_$KEY__ALIGN: BlockAlign.LEFT,
     LayoutProps.Z_$KEY__LAYOUT: BlockLayout.NONE,
   };
