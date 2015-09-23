@@ -159,9 +159,15 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     } else {
       var domPropsMapView = domProps(hitAreaPropsMap);
 
-      // Prop 'tabIndex' is required on a DIV of type='button' in order to gain focus.
+      if (tProps.domNodeName == DomNodeName.LI) {
+        builder = Dom.li();
+      } else if (tProps.domNodeName == DomNodeName.DIV) {
+        builder = Dom.div();
+      }
+
+      // Prop 'tabIndex' is required on a DIV or LI of type='button' in order to gain focus.
       // Key handlers are added to allow 'click' via keyboard spacebar and enter keys.
-      builder = tProps.domNodeName == DomNodeName.LI ? Dom.li() : Dom.div()
+      builder
         ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
         ..role = tProps.role
         ..tabIndex = (domPropsMapView.tabIndex == null) ? 0 : domPropsMapView.tabIndex
