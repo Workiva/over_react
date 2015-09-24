@@ -112,7 +112,7 @@ abstract class LayoutMixin<P extends LayoutProps> {
     return layoutClasses.toClassName();
   }
 
-  /// A [Block] should be rendered nested if its layoutr is [BlockLayout.VERTICAL] and
+  /// A [Block] should be rendered nested if its layout is [BlockLayout.VERTICAL] and
   /// its isNested prop is true.
   ///
   /// This is true of a [VBlock] by default.
