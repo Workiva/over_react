@@ -215,6 +215,16 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     return builder(children);
   }
 
+  /// Evaluate whether any props that denote a hitarea have been set in the provided [hitAreaPropsMap].
+  bool isHitArea(Map hitAreaPropsMap) {
+    return hitAreaPropsMap[HitAreaProps.Z_$KEY__DOM_NODE_NAME] == DomNodeName.A
+        || hitAreaPropsMap[HitAreaProps.Z_$KEY__DOM_NODE_NAME] == DomNodeName.BUTTON
+        || hitAreaPropsMap[HitAreaProps.Z_$KEY__HREF] != null
+        || hitAreaPropsMap[HitAreaProps.Z_$KEY__ON_CLICK] != null
+        || hitAreaPropsMap[HitAreaProps.Z_$KEY__ON_SELECT] != null
+        || hitAreaPropsMap[HitAreaProps.Z_$KEY__TARGET] != null;
+  }
+
   void _handleClick(react.SyntheticEvent event) {
     if (tProps.isDisabled) {
       return;
