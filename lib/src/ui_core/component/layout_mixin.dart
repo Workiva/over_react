@@ -61,10 +61,15 @@ abstract class _$template_LayoutProps {
 
   /// Whether this [Block] is nested inside of another [Block].
   ///
-  /// * This must be set to `true` when nesting a [VBlock] component within another [VBlock], or when nesting a [VBlock] within a [Block] that is a child of another [VBlock].
+  /// * This must be set to `true` when nesting a [VBlock] component within another [VBlock],
+  ///   or when nesting a [VBlock] within a [Block] that is a child of another [VBlock].
   ///
   /// Default: false
   bool get isNested;
+
+  /// className for use on the [Block] that wraps around a [VBlock] and its parent `.grid-reset`
+  /// element when `iNested` is `true`.
+  String get hBlockClassName;
 }
 
 abstract class LayoutMixin<P extends LayoutProps> {
