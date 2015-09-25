@@ -169,6 +169,9 @@ abstract class BlockMixin<P extends BlockProps> {
     BlockProps.Z_$KEY__SIZE: true,
     BlockProps.Z_$KEY__COLLAPSE: BlockCollapse.NONE,
     BlockProps.Z_$KEY__CONTENT: false,
+    BlockProps.Z_$KEY__SM_CONTENT: false,
+    BlockProps.Z_$KEY__MD_CONTENT: false,
+    BlockProps.Z_$KEY__LG_CONTENT: false,
     BlockProps.Z_$KEY__SHRINK: false,
     BlockProps.Z_$KEY__SM_SHRINK: false,
     BlockProps.Z_$KEY__MD_SHRINK: false,
@@ -191,18 +194,12 @@ abstract class BlockMixin<P extends BlockProps> {
   Map get props;
 
   String getBlockBaseClasses() {
-
-    final bool applyBaseGridClass   = tProps.size   != false && tProps.size   != null;
-    final bool applyBaseGridSmClass = tProps.smSize != false && tProps.smSize != null;
-    final bool applyBaseGridMdClass = tProps.mdSize != false && tProps.mdSize != null;
-    final bool applyBaseGridLgClass = tProps.lgSize != false && tProps.lgSize != null;
-
     ClassNameBuilder baseClasses = new ClassNameBuilder()
       // Base classes
-      ..add('$gridBlock',          applyBaseGridClass)
-      ..add('$gridBlock-$blockSm', applyBaseGridSmClass)
-      ..add('$gridBlock-$blockMd', applyBaseGridMdClass)
-      ..add('$gridBlock-$blockLg', applyBaseGridLgClass);
+      ..add('$gridBlock', tProps.size != false && tProps.size != null)
+      ..add('$gridBlock-$blockSm', tProps.smSize != false && tProps.smSize != null)
+      ..add('$gridBlock-$blockMd', tProps.mdSize != false && tProps.mdSize != null)
+      ..add('$gridBlock-$blockLg', tProps.lgSize != false && tProps.lgSize != null);
 
     return baseClasses.toClassName();
   }
@@ -244,10 +241,6 @@ abstract class BlockMixin<P extends BlockProps> {
   }
 
   String getBlockContentClasses() {
-    final bool applyBaseGridSmClass = tProps.smSize != false && tProps.smSize != null;
-    final bool applyBaseGridMdClass = tProps.mdSize != false && tProps.mdSize != null;
-    final bool applyBaseGridLgClass = tProps.lgSize != false && tProps.lgSize != null;
-
     ClassNameBuilder contentClasses = new ClassNameBuilder()
 
       // Collapse classes
@@ -261,11 +254,9 @@ abstract class BlockMixin<P extends BlockProps> {
 
       // Content classes
       ..add('$gridContent',          tProps.content)
-      // As a workaround until https://github.com/Workiva/web-skin/issues/1121 is fixed,
-      // apply the breakpoint-specific content classes when `content` is true so content styles can override base class styles.
-      ..add('$gridContent-$blockSm', tProps.smContent != null ? tProps.smContent : tProps.content && applyBaseGridSmClass)
-      ..add('$gridContent-$blockMd', tProps.mdContent != null ? tProps.mdContent : tProps.content && applyBaseGridMdClass)
-      ..add('$gridContent-$blockLg', tProps.lgContent != null ? tProps.lgContent : tProps.content && applyBaseGridLgClass);
+      ..add('$gridContent-$blockSm', tProps.smContent)
+      ..add('$gridContent-$blockMd', tProps.mdContent)
+      ..add('$gridContent-$blockLg', tProps.lgContent);
 
     return contentClasses.toClassName();
   }
