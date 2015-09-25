@@ -121,7 +121,7 @@ abstract class LayoutMixin<P extends LayoutProps> {
   /// its isNested prop is true.
   ///
   /// This is true of a [VBlock] by default.
-  bool shouldRenderNestedBlock() {
+  bool get shouldRenderNestedBlock {
     return tProps.layout == BlockLayout.VERTICAL && tProps.isNested != false;
   }
 }
