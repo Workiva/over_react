@@ -604,14 +604,14 @@ main() {
           render(HitAreaTest()
             ..domNodeFactory = Dom.div
             ..href = '#');
-          verifyValidationWarning(contains('You are explicitly requesting that a'));
+          verifyValidationWarning(contains('You are providing a DomComponentDefinitionFactory that is not a Dom.a'));
         });
 
         test('warning when `target` is set and domNodeFactory is something other than Dom.a', () {
           render(HitAreaTest()
             ..domNodeFactory = Dom.div
             ..target = '_blank');
-          verifyValidationWarning(contains('You are explicitly requesting that a'));
+          verifyValidationWarning(contains('You are providing a DomComponentDefinitionFactory that is not a Dom.a'));
         });
       });
 
