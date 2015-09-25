@@ -20,11 +20,11 @@ abstract class _$template_HitAreaProps {
   /// Used alongside [onSelect] for basic controller behavior.
   Object get eventKey;
 
-  /// Use to explicitly define the node name you want to see in the rendered DOM.
+  /// Use to explicitly define the component definition factory you want used to render the hitarea.
   /// We recommend against setting this unless you know what you are doing.
   ///
-  /// Default: DomNodeName.DIV
-  DomNodeName get domNodeName;
+  /// Default: Dom.div
+  DomComponentDefinitionFactory get domNodeFactory;
 
   /// Whether the [HitAreaMixin] is active.
   ///
@@ -75,7 +75,7 @@ abstract class _$template_HitAreaProps {
   String get name;
 
   /// The type for the [HitAreaMixin].
-  /// This will only be applied if [domNodeName] is set to [DomNodeName.BUTTON].
+  /// This will only be applied if [domNodeFactory] is set to [Dom.button].
   ///
   /// _Proxies [DomProps.type]_
   ///
@@ -83,7 +83,7 @@ abstract class _$template_HitAreaProps {
   HitAreaButtonType get type;
 
   /// The role for the [HitAreaMixin].
-  /// This will only be applied if [domNodeName] is not set to [DomNodeName.BUTTON].
+  /// This will only be applied if [domNodeFactory] is not set to [Dom.button].
   ///
   /// _Proxies [DomProps.role]_
   ///
@@ -100,7 +100,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     HitAreaProps.Z_$KEY__IS_NAV_DROPDOWN: false,
     HitAreaProps.Z_$KEY__TYPE: HitAreaButtonType.BUTTON,
     HitAreaProps.Z_$KEY__ROLE: Role.button,
-    HitAreaProps.Z_$KEY__DOM_NODE_NAME: DomNodeName.DIV
+    HitAreaProps.Z_$KEY__DOM_NODE_FACTORY: Dom.div
   };
 
   Function get ref;
@@ -120,27 +120,27 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
 
     var builder;
     bool hasAnchorProps = (tProps.href != null || tProps.target != null);
-    if (hasAnchorProps || tProps.domNodeName == DomNodeName.A) {
+    if (hasAnchorProps || tProps.domNodeFactory == Dom.a) {
       builder = Dom.a()
         ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
         ..href = tProps.href
         ..target = tProps.target
         ..name = tProps.name;
 
-      if (tProps.domNodeName == DomNodeName.A && !hasAnchorProps) {
+      if (tProps.domNodeFactory == Dom.a && !hasAnchorProps) {
         assert(ValidationUtil.warn(
           'You are explicitly requesting that a `<a>` element is rendered via your React component, '
           'but you have no `href`, `target` or `name` props defined, meaning its usage is as a button, '
-          'triggering in-page functionality. It is recommended that you omit the `domNodeName` prop so '
+          'triggering in-page functionality. It is recommended that you omit the `domNodeFactory` prop so '
           'that a `<button>` element will be rendered instead.'));
         // Signify that this anchor triggers in-page functionality despite using an `<a>` tag.
         builder.role = tProps.role;
-      } else if (hasAnchorProps && tProps.domNodeName != null) {
+      } else if (hasAnchorProps && tProps.domNodeFactory != null) {
         assert(ValidationUtil.warn(
-          'You are explicitly requesting that a `<${tProps.domNodeName.nodeName}>` element is rendered '
+          'You are providing a DomComponentDefinitionFactory that is not a Dom.a to render a hitarea '
           'via your React component, but you also have declared either an `href` or `target` prop '
           '(or both). An `<a>` will be rendered since `href` and `target` are both invalid '
-          'properties for a `${tProps.domNodeName.nodeName}`.'));
+          'properties for a different dom node.'));
       }
 
       if (tProps.href == '#') {
@@ -151,7 +151,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
         // Signify that this anchor triggers in-page functionality despite using an `<a>` tag.
         builder.role = tProps.role;
       }
-    } else if (tProps.domNodeName == DomNodeName.BUTTON) {
+    } else if (tProps.domNodeFactory == Dom.button) {
       builder = Dom.button()
         ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
         ..name = tProps.name
@@ -159,10 +159,10 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     } else {
       var domPropsMapView = domProps(hitAreaPropsMap);
 
-      if (tProps.domNodeName == DomNodeName.LI) {
-        builder = Dom.li();
-      } else if (tProps.domNodeName == DomNodeName.DIV) {
+      if (tProps.domNodeFactory == null) {
         builder = Dom.div();
+      } else {
+        builder = tProps.domNodeFactory();
       }
 
       // Prop 'tabIndex' is required on a DIV or LI of type='button' in order to gain focus.
@@ -217,8 +217,8 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
 
   /// Evaluate whether any props that denote a hitarea have been set in the provided [hitAreaPropsMap].
   bool isHitArea(Map hitAreaPropsMap) {
-    return hitAreaPropsMap[HitAreaProps.Z_$KEY__DOM_NODE_NAME] == DomNodeName.A
-        || hitAreaPropsMap[HitAreaProps.Z_$KEY__DOM_NODE_NAME] == DomNodeName.BUTTON
+    return hitAreaPropsMap[HitAreaProps.Z_$KEY__DOM_NODE_FACTORY] == Dom.a
+        || hitAreaPropsMap[HitAreaProps.Z_$KEY__DOM_NODE_FACTORY] == Dom.button
         || hitAreaPropsMap[HitAreaProps.Z_$KEY__HREF] != null
         || hitAreaPropsMap[HitAreaProps.Z_$KEY__ON_CLICK] != null
         || hitAreaPropsMap[HitAreaProps.Z_$KEY__ON_SELECT] != null
@@ -261,14 +261,6 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
 
     findHitAreaDomNode().click();
   }
-}
-
-@GenerateConstants(#DomNodeName, #nodeName)
-class _$template_DomNodeName {
-  static const A = '<a>';
-  static const BUTTON = '<button>';
-  static const DIV = '<div>';
-  static const LI = '<li>';
 }
 
 @GenerateConstants(#HitAreaButtonType, #typeName)
