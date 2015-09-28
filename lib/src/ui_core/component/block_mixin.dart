@@ -196,7 +196,7 @@ abstract class BlockMixin<P extends BlockProps> {
   String getBlockBaseClasses() {
     ClassNameBuilder baseClasses = new ClassNameBuilder()
       // Base classes
-      ..add('$gridBlock', tProps.size != false && tProps.size != null)
+      ..add('$gridBlock'         , tProps.size   != false && tProps.size   != null)
       ..add('$gridBlock-$blockSm', tProps.smSize != false && tProps.smSize != null)
       ..add('$gridBlock-$blockMd', tProps.mdSize != false && tProps.mdSize != null)
       ..add('$gridBlock-$blockLg', tProps.lgSize != false && tProps.lgSize != null);
