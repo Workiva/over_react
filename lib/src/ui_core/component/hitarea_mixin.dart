@@ -165,7 +165,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
         builder = tProps.domNodeFactory();
       }
 
-      // Prop 'tabIndex' is required on a DIV or LI of type='button' in order to gain focus.
+      // Prop 'tabIndex' is required on DOM nodes (other than A and BUTTON) of role='button' in order to gain focus.
       // Key handlers are added to allow 'click' via keyboard spacebar and enter keys.
       builder
         ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
