@@ -110,30 +110,46 @@ abstract class _$template_BlockProps {
 
   /// Whether this [Block] is a content [Block] at any screen size
   /// See: https://api.atl.workiva.net/WebSkinReact/docs/build/html/components.html#grid-v2-block-content
+  ///
+  /// Default: false
   bool get content;
 
   /// Whether this [Block] is a content [Block] above the 'sm' responsive breakpoint.
   /// See: https://api.atl.workiva.net/WebSkinReact/docs/build/html/components.html#grid-v2-block-content
+  ///
+  /// Default: false
   bool get smContent;
 
   /// Whether this [Block] is a content [Block] above the 'md' responsive breakpoint.
   /// See: https://api.atl.workiva.net/WebSkinReact/docs/build/html/components.html#grid-v2-block-content
+  ///
+  /// Default: false
   bool get mdContent;
 
   /// Whether this [Block] is a content [Block] above the 'lg' responsive breakpoint.
   /// See: https://api.atl.workiva.net/WebSkinReact/docs/build/html/components.html#grid-v2-block-content
+  ///
+  /// Default: false
   bool get lgContent;
 
   /// Whether this [Block] should shrink to the size of its content at any screen size.
+  ///
+  /// Default: false
   bool get shrink;
 
   /// Whether this [Block] should shrink to the size of its content above the 'sm' responsive breakpoint.
+  ///
+  /// Default: false
   bool get smShrink;
 
   /// Whether this [Block] should shrink to the size of its content above the 'md' responsive breakpoint.
+  ///
+  /// Default: false
   bool get mdShrink;
 
   /// Whether this [Block] should shrink to the size of its content above the 'lg' responsive breakpoint.
+  ///
+  /// Default: false
   bool get lgShrink;
 
   /// Determines what sides of the [Block] to collapse.
