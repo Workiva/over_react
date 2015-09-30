@@ -341,8 +341,7 @@ main() {
           ..content = true
           ..smSize = true
         );
-        // Expect breakpoint-specific content class to be added as a workaround for https://github.com/Workiva/web-skin/issues/1121
-        expect(renderedNode, hasExactClasses('grid-block grid-block-sm grid-content grid-content-sm'));
+        expect(renderedNode, hasExactClasses('grid-block grid-block-sm grid-content'));
       });
 
       test('content prop is set when the base "md" grid class is applied', () {
@@ -350,8 +349,7 @@ main() {
           ..content = true
           ..mdSize = true
         );
-        // Expect breakpoint-specific content class to be added as a workaround for https://github.com/Workiva/web-skin/issues/1121
-        expect(renderedNode, hasExactClasses('grid-block grid-block-md grid-content grid-content-md'));
+        expect(renderedNode, hasExactClasses('grid-block grid-block-md grid-content'));
       });
 
       test('content prop is set when the base "lg" grid class is applied', () {
@@ -359,8 +357,7 @@ main() {
           ..content = true
           ..lgSize = true
         );
-        // Expect breakpoint-specific content class to be added as a workaround for https://github.com/Workiva/web-skin/issues/1121
-        expect(renderedNode, hasExactClasses('grid-block grid-block-lg grid-content grid-content-lg'));
+        expect(renderedNode, hasExactClasses('grid-block grid-block-lg grid-content'));
       });
 
       test('shrink prop is set', () {
