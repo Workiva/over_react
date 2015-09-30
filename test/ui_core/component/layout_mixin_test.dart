@@ -10,6 +10,12 @@ import '../../test_util/react_util.dart';
 /// Main entry point for LayoutMixin testing
 main() {
   group('LayoutMixin', () {
+    test('has correct default values for props', () {
+      expect(LayoutMixin.defaultProps[LayoutProps.Z_$KEY__IS_NESTED], isTrue);
+      expect(LayoutMixin.defaultProps[LayoutProps.Z_$KEY__ALIGN], BlockAlign.LEFT);
+      expect(LayoutMixin.defaultProps[LayoutProps.Z_$KEY__LAYOUT], BlockLayout.NONE);
+    });
+
     group('renders with correct CSS classes when the', () {
       group('up prop is set', () {
         test('to 0', () {
@@ -219,7 +225,7 @@ main() {
         });
 
         test('BlockAlign.VERTICAL', () {
-          var renderedNode = renderAndGetDom(Block()..layout = BlockLayout.VERTICAL);
+          var renderedNode = renderAndGetDom(Block()..layout = BlockLayout.VERTICAL..isNested = false);
           expect(renderedNode, hasExactClasses('grid-block grid-vertical'));
         });
       });
