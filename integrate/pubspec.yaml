@@ -9,3 +9,5 @@ dependencies:
     git:
       url: ORIGIN
       ref: BRANCH
+dev_dependencies:
+  test: "0.12.2"
