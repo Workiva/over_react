@@ -61,16 +61,21 @@ abstract class _$template_LayoutProps {
 
   /// Whether this [Block] is nested inside of another [Block].
   ///
-  /// * This must be set to `true` when nesting a [VBlock] component within another [VBlock], or when nesting a [VBlock] within a [Block] that is a child of another [VBlock].
+  /// * This must be set to `true` when nesting a [VBlock] component within another [VBlock],
+  ///   or when nesting a [VBlock] within a [Block] that is a child of another [VBlock].
   ///
   /// Default: false
   bool get isNested;
+
+  /// className for use on the [Block] that wraps around a [VBlock] and its parent `.grid-reset`
+  /// element when `iNested` is `true`.
+  String get hBlockClassName;
 }
 
 abstract class LayoutMixin<P extends LayoutProps> {
   /// Standard LayoutMixin defaults.
   static const Map defaultProps = const {
-    LayoutProps.Z_$KEY__IS_NESTED: false,
+    LayoutProps.Z_$KEY__IS_NESTED: true,
     LayoutProps.Z_$KEY__ALIGN: BlockAlign.LEFT,
     LayoutProps.Z_$KEY__LAYOUT: BlockLayout.NONE,
   };
@@ -110,6 +115,14 @@ abstract class LayoutMixin<P extends LayoutProps> {
       ..add((tProps.lgLayout == null || tProps.lgLayout.classPart == null) ? null : '$gridBase-${tProps.lgLayout.classPart}-$blockLg');
 
     return layoutClasses.toClassName();
+  }
+
+  /// A [Block] should be rendered nested if its layout is [BlockLayout.VERTICAL] and
+  /// its isNested prop is true.
+  ///
+  /// This is true of a [VBlock] by default.
+  bool get shouldRenderNestedBlock {
+    return tProps.layout == BlockLayout.VERTICAL && tProps.isNested;
   }
 }
 
