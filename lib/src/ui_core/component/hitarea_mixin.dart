@@ -115,7 +115,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
   /// Method for rendering a [HitAreaMixin] component which returns a react component instance.
   /// This should be called from within consuming component's [render] method with
   /// the props/children that should be used for rendering the [HitAreaMixin] element.
-  renderHitArea(Map hitAreaPropsMap, dynamic children, {bool isNavItemHitArea: false}) {
+  renderHitArea(Map hitAreaPropsMap, dynamic children, {bool isNavItemHitArea: false, String blackListClass}) {
     assert(hitAreaPropsMap != null);
 
     var builder;
@@ -204,7 +204,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     _hitAreaRef = hitAreaPropsMap.containsKey('ref') ? hitAreaPropsMap['ref'] : 'hitarea';
 
     builder
-      ..className = classes.toClassName()
+      ..className = (classes..blacklist(blackListClass)).toClassName()
       ..ref = _hitAreaRef
       ..onClick = _handleClick;
 
