@@ -1,4 +1,4 @@
-@TestOn('dartium')
+@TestOn('dart-vm')
 library test;
 
 import 'package:react/react_client.dart' show setClientConfiguration;
