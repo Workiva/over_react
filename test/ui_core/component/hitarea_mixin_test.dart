@@ -233,6 +233,50 @@ main() {
       });
     });
 
+    group('renders with the appropriate tabIndex when the domNodeFactory is', () {
+      test('Dom.button', () {
+        var renderedNode = renderAndGetDom(HitAreaTest()..domNodeFactory = Dom.button);
+        expect(renderedNode, hasAttr('tabIndex', isNull));
+      });
+
+      test('Dom.a', () {
+        var renderedNode = renderAndGetDom(HitAreaTest()..domNodeFactory = Dom.a);
+        expect(renderedNode, hasAttr('tabIndex', isNull));
+      });
+
+      group('not Dom.button or Dom.a and when isDisabled is', () {
+        test('false', () {
+          var renderedNode = renderAndGetDom(HitAreaTest()..domNodeFactory = Dom.div);
+          expect(renderedNode, hasAttr('tabIndex', '0'));
+        });
+
+        test('false and the tabIndex prop is set', () {
+          var renderedNode = renderAndGetDom(HitAreaTest()
+            ..domNodeFactory = Dom.div
+            ..tabIndex = '7'
+          );
+          expect(renderedNode, hasAttr('tabIndex', '7'));
+        });
+
+        test('true', () {
+          var renderedNode = renderAndGetDom(HitAreaTest()
+            ..domNodeFactory = Dom.div
+            ..isDisabled = true
+          );
+          expect(renderedNode, hasAttr('tabIndex', '-1'));
+        });
+
+        test('true and the tabIndex prop is set', () {
+          var renderedNode = renderAndGetDom(HitAreaTest()
+            ..domNodeFactory = Dom.div
+            ..isDisabled = true
+            ..tabIndex = '7'
+          );
+          expect(renderedNode, hasAttr('tabIndex', '-1'));
+        });
+      });
+    });
+
     group('renders with the appropriate role attribute when the role prop is', () {
       group('set and domNodeFactory is', () {
         test('Dom.a', () {
