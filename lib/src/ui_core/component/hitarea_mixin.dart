@@ -162,11 +162,15 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       builder = tProps.domNodeFactory != null ? tProps.domNodeFactory() : Dom.div();
 
       // Prop 'tabIndex' is required on DOM nodes (other than A and BUTTON) of role='button' in order to gain focus.
+      var tabIndex = tProps.isDisabled
+        ? -1
+        : domPropsMapView.tabIndex ?? 0;
+
       // Key handlers are added to allow 'click' via keyboard spacebar and enter keys.
       builder
         ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
         ..role = tProps.role
-        ..tabIndex = (domPropsMapView.tabIndex == null) ? 0 : domPropsMapView.tabIndex
+        ..tabIndex = tabIndex
         ..onKeyDown = createChainedKeyboardEventCallback(domPropsMapView.onKeyDown, _handleKeyDown)
         ..onKeyPress = createChainedKeyboardEventCallback(domPropsMapView.onKeyPress, _handleKeyPress)
         ..onKeyUp = createChainedKeyboardEventCallback(domPropsMapView.onKeyUp, _handleKeyUp);
