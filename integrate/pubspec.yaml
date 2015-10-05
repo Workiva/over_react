@@ -7,7 +7,7 @@ dependencies:
   browser: ">=0.10.0 <0.11.0"
   web_skin_dart:
     git:
-      url: ORIGIN
-      ref: BRANCH
+      url: git://127.0.0.1:9000/
+      ref: HEAD
 dev_dependencies:
   test: "0.12.2"
