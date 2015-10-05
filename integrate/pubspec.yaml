@@ -1,0 +1,13 @@
+name: import_web_skin_dart_test
+version: 0.0.1
+description: Test importing web_skin_dart
+environment:
+  sdk: ">=1.12.1"
+dependencies:
+  browser: ">=0.10.0 <0.11.0"
+  web_skin_dart:
+    git:
+      url: git://127.0.0.1:9000/
+      ref: HEAD
+dev_dependencies:
+  test: "0.12.2"
