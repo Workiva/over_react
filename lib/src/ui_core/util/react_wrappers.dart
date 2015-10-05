@@ -77,7 +77,7 @@ Map getProps(JsObject instance) {
 ///
 /// This method simply wraps react.findDOMNode with strong typing for the return value
 /// (and for the function itself, which is declared using `var` in react-dart).
-Element findDomNode(JsObject instance) => react.findDOMNode(instance);
+Element findDomNode(dynamic instance) => react.findDOMNode(instance);
 
 /// Returns whether the instance is a valid ReactElement and was created using the specified Dart factory
 bool isValidElementOfType(dynamic instance, ReactComponentFactory factory) {
@@ -88,7 +88,7 @@ bool isValidElementOfType(dynamic instance, ReactComponentFactory factory) {
 /// TODO: Find better way of determining the type of rendered components
 bool isComponentOfType(JsObject instance, ReactComponentFactory factory) {
   if (instance != null && factory != null) {
-    return factory is ReactComponentFactoryProxy && instance['type'] == factory.reactComponentFactory['type'];
+    return factory is ReactComponentFactoryProxy && instance['type'] == (factory as ReactComponentFactoryProxy).type;
   }
    return false;
 }
@@ -99,6 +99,11 @@ bool isComponentOfType(JsObject instance, ReactComponentFactory factory) {
 /// > Verifies the object is a ReactElement
 bool isValidElement(dynamic object) {
   return _React.callMethod('isValidElement', [object]);
+}
+
+/// Returns whether [instance] is a React DOM component.
+bool isDomComponent(dynamic instance) {
+  return (instance is JsObject && instance['type'] is String);
 }
 
 /// Returns a new JS map with the specified props and children changes, properly prepared for consumption by
@@ -118,7 +123,19 @@ JsObject preparePropsChangeset(JsObject element, Map newProps, [List newChildren
   Map internal = _getInternal(element);
   if (internal == null) {
     // Plain JS component
-    propsChangeset = newProps != null ? newJsMap(newProps) : null;
+    if (newProps == null) {
+      propsChangeset = null;
+    } else {
+      if (isDomComponent(element)) {
+        // Convert props for DOM components so that style Maps and event handlers
+        // are properly converted.
+        Map convertedProps = new Map.from(newProps);
+        ReactDomComponentFactoryProxy.convertProps(convertedProps);
+        propsChangeset = newJsMap(convertedProps);
+      } else {
+        propsChangeset = newJsMap(newProps);
+      }
+    }
   } else {
     // react-dart component
     Map oldExtendedProps = internal[PROPS];
