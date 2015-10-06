@@ -222,7 +222,6 @@ main() {
         var renderedNode = renderAndGetDom(HitAreaTest()
           ..name = 'someName'
           ..id = 'someId'
-          ..type = ButtonType.BUTTON
           ..domNodeFactory = Dom.div);
 
         expect(renderedNode, hasNodeName('DIV'));
@@ -624,6 +623,30 @@ main() {
         test('not warning when it is set to something other than \'#\'', () {
           render(HitAreaTest()..href = 'link');
           rejectValidationWarning(contains('You are using an `href` attribute with a value of `#`.'));
+        });
+      });
+
+      group('the `href`, `target`, and `type` prop by', () {
+        test('not throwing when `type` and `target` is set', () {
+          expect(() => render(HitAreaTest()
+            ..target = '_blank'
+            ..type = ButtonType.BUTTON
+          ), throws);
+        });
+
+        test('throwing when `type` and `href` is set', () {
+          expect(() => render(HitAreaTest()
+            ..href = '#'
+            ..type = ButtonType.BUTTON
+          ), throws);
+        });
+
+        test('throwing when all three are set', () {
+          expect(() => render(HitAreaTest()
+            ..href = '#'
+            ..target = '_blank'
+            ..type = ButtonType.BUTTON
+          ), throws);
         });
       });
     });
