@@ -98,7 +98,6 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     HitAreaProps.Z_$KEY__IS_DISABLED: false,
     HitAreaProps.Z_$KEY__IS_NAV_ITEM: false,
     HitAreaProps.Z_$KEY__IS_NAV_DROPDOWN: false,
-    HitAreaProps.Z_$KEY__TYPE: ButtonType.BUTTON,
     HitAreaProps.Z_$KEY__ROLE: Role.button,
     HitAreaProps.Z_$KEY__DOM_NODE_FACTORY: Dom.div
   };
@@ -120,7 +119,12 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
 
     var builder;
     bool hasAnchorProps = (tProps.href != null || tProps.target != null);
-    bool hasButtonProps = (tProps.type != null);
+
+    assert((tProps.href == null && tProps.target == null && tProps.type == null) ||
+        (hasAnchorProps && (tProps.type == null)) ||
+        (!hasAnchorProps && (tProps.type != null))
+    );
+
     if (hasAnchorProps || tProps.domNodeFactory == Dom.a) {
       builder = Dom.a()
         ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
@@ -133,7 +137,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
           'You are explicitly requesting that a `<a>` element is rendered via your React component, '
           'but you have no `href`, `target` or `name` props defined, meaning its usage is as a button, '
           'triggering in-page functionality. It is recommended that you omit the `domNodeFactory` prop so '
-          'that a `<button>` element will be rendered instead.'));
+          'that a `<div>` element will be rendered instead.'));
         // Signify that this anchor triggers in-page functionality despite using an `<a>` tag.
         builder.role = tProps.role;
       } else if (hasAnchorProps && tProps.domNodeFactory != null) {
@@ -152,11 +156,11 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
         // Signify that this anchor triggers in-page functionality despite using an `<a>` tag.
         builder.role = tProps.role;
       }
-    } else if (tProps.domNodeFactory == Dom.button) {
+    } else if (tProps.domNodeFactory == Dom.button || tProps.type != null) {
       builder = Dom.button()
         ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
         ..name = tProps.name
-        ..type = tProps.type.typeName;
+        ..type = tProps.type?.typeName ?? ButtonType.BUTTON.typeName;
     } else {
       var domPropsMapView = domProps(hitAreaPropsMap);
 
