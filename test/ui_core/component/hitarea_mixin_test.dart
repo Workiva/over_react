@@ -301,7 +301,7 @@ main() {
       });
 
       tearDown(() {
-        tearDownAttachedNode();
+        tearDownAttachedNodes();
       });
 
       group('when spacebar key is pressed and isDisabled is', () {
@@ -349,7 +349,7 @@ main() {
       });
 
       tearDown(() {
-        tearDownAttachedNode();
+        tearDownAttachedNodes();
       });
 
       group('when enter key is pressed and isDisabled is', () {
@@ -396,7 +396,7 @@ main() {
       });
 
       tearDown(() {
-        tearDownAttachedNode();
+        tearDownAttachedNodes();
       });
 
       test('when spacebar key is pressed', () {
