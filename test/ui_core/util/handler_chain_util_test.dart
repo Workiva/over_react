@@ -335,13 +335,13 @@ main() {
         });
       });
 
-      group('createChainedCollapseCallback', () {
-        test('should return an CollapseCallback that calls the two provided functions', () {
+      group('createChainedCallback', () {
+        test('should return a Callback that calls the two provided functions', () {
           bool calledA = false, calledB = false;
-          CollapseCallback a = () => calledA = true;
-          CollapseCallback b = () => calledB = true;
+          Callback a = () => calledA = true;
+          Callback b = () => calledB = true;
 
-          var chainedCallback = createChainedCollapseCallback(a, b);
+          var chainedCallback = createChainedCallback(a, b);
           var result = chainedCallback();
 
           expect(calledA, isTrue);
@@ -350,37 +350,37 @@ main() {
           expect(result, isNull);
         });
 
-        test('should return an CollapseCallback that calls the two provided functions in order', () {
+        test('should return a Callback that calls the two provided functions in order', () {
           int counter = 1;
           bool calledA = false, calledB = false;
-          CollapseCallback a = () {
+          Callback a = () {
             calledA = true;
             zonedExpect(counter, equals(1));
             counter++;
           };
-          CollapseCallback b = () {
+          Callback b = () {
             calledB = true;
             zonedExpect(counter, equals(2));
           };
 
-          var chainedCallback = createChainedCollapseCallback(a, b);
+          var chainedCallback = createChainedCallback(a, b);
           chainedCallback();
 
           expect(calledA, isTrue);
           expect(calledB, isTrue);
         });
 
-        group('should return an CollapseCallback that calls the two provided functions and returns', () {
+        group('should return a Callback that calls the two provided functions and returns', () {
           test('false if the first provided functions returns false', () {
             bool calledA = false,
               calledB = false;
-            CollapseCallback a = () {
+            Callback a = () {
               calledA = true;
               return false;
             };
-            CollapseCallback b = () => calledB = true;
+            Callback b = () => calledB = true;
 
-            var chainedCallback = createChainedCollapseCallback(a, b);
+            var chainedCallback = createChainedCallback(a, b);
             var result = chainedCallback();
 
             expect(calledA, isTrue);
@@ -392,13 +392,13 @@ main() {
           test('false if the second provided functions returns false', () {
             bool calledA = false,
               calledB = false;
-            CollapseCallback a = () => calledA = true;
-            CollapseCallback b = () {
+            Callback a = () => calledA = true;
+            Callback b = () {
               calledB = true;
               return false;
             };
 
-            var chainedCallback = createChainedCollapseCallback(a, b);
+            var chainedCallback = createChainedCallback(a, b);
             var result = chainedCallback();
 
             expect(calledA, isTrue);
@@ -410,16 +410,16 @@ main() {
           test('false if both provided functions return false', () {
             bool calledA = false,
               calledB = false;
-            CollapseCallback a = () {
+            Callback a = () {
               calledA = true;
               return false;
             };
-            CollapseCallback b = () {
+            Callback b = () {
               calledB = true;
               return false;
             };
 
-            var chainedCallback = createChainedCollapseCallback(a, b);
+            var chainedCallback = createChainedCallback(a, b);
             var result = chainedCallback();
 
             expect(calledA, isTrue);
@@ -431,16 +431,16 @@ main() {
           test('null if no provided function returns false', () {
             bool calledA = false,
               calledB = false;
-            CollapseCallback a = () {
+            Callback a = () {
               calledA = true;
               return true;
             };
-            CollapseCallback b = () {
+            Callback b = () {
               calledB = true;
               return;
             };
 
-            var chainedCallback = createChainedCollapseCallback(a, b);
+            var chainedCallback = createChainedCallback(a, b);
             var result = chainedCallback();
 
             expect(calledA, isTrue);
@@ -452,16 +452,16 @@ main() {
 
         test('should gracefully handle one provided function being null', () {
           bool calledA = false;
-          CollapseCallback a = () => calledA = true;
+          Callback a = () => calledA = true;
 
-          var chainedCallback = createChainedCollapseCallback(a, null);
+          var chainedCallback = createChainedCallback(a, null);
           chainedCallback();
 
           expect(calledA, isTrue);
         });
 
         test('should gracefully handle both provided functions being null', () {
-          var chainedCallback = createChainedCollapseCallback(null, null);
+          var chainedCallback = createChainedCallback(null, null);
           var result = chainedCallback();
 
           expect(result, isNull);
