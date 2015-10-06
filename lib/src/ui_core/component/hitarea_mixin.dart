@@ -80,7 +80,7 @@ abstract class _$template_HitAreaProps {
   /// _Proxies [DomProps.type]_
   ///
   /// Default: HitAreaButtonType.BUTTON
-  HitAreaButtonType get type;
+  ButtonType get type;
 
   /// The role for the [HitAreaMixin].
   /// This will only be applied if [domNodeFactory] is not set to [Dom.button].
@@ -98,7 +98,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     HitAreaProps.Z_$KEY__IS_DISABLED: false,
     HitAreaProps.Z_$KEY__IS_NAV_ITEM: false,
     HitAreaProps.Z_$KEY__IS_NAV_DROPDOWN: false,
-    HitAreaProps.Z_$KEY__TYPE: HitAreaButtonType.BUTTON,
+    HitAreaProps.Z_$KEY__TYPE: ButtonType.BUTTON,
     HitAreaProps.Z_$KEY__ROLE: Role.button,
     HitAreaProps.Z_$KEY__DOM_NODE_FACTORY: Dom.div
   };
@@ -120,6 +120,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
 
     var builder;
     bool hasAnchorProps = (tProps.href != null || tProps.target != null);
+    bool hasButtonProps = (tProps.type != null);
     if (hasAnchorProps || tProps.domNodeFactory == Dom.a) {
       builder = Dom.a()
         ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
@@ -259,8 +260,8 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
   }
 }
 
-@GenerateConstants(#HitAreaButtonType, #typeName)
-class _$template_HitAreaButtonType {
+@GenerateConstants(#ButtonType, #typeName)
+class _$template_ButtonType {
   static const BUTTON  = 'button';
   static const SUBMIT  = 'submit';
   static const RESET   = 'reset';

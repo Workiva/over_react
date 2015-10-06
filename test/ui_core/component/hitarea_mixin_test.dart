@@ -196,7 +196,7 @@ main() {
         var renderedNode = renderAndGetDom(HitAreaTest()
           ..name = 'someName'
           ..id = 'someId'
-          ..type = HitAreaButtonType.BUTTON
+          ..type = ButtonType.BUTTON
           ..domNodeFactory = Dom.a);
 
         expect(renderedNode, hasNodeName('A'));
@@ -209,7 +209,7 @@ main() {
         var renderedNode = renderAndGetDom(HitAreaTest()
           ..name = 'someName'
           ..id = 'someId'
-          ..type = HitAreaButtonType.BUTTON
+          ..type = ButtonType.BUTTON
           ..domNodeFactory = Dom.button);
 
         expect(renderedNode, hasNodeName('BUTTON'));
@@ -222,7 +222,7 @@ main() {
         var renderedNode = renderAndGetDom(HitAreaTest()
           ..name = 'someName'
           ..id = 'someId'
-          ..type = HitAreaButtonType.BUTTON
+          ..type = ButtonType.BUTTON
           ..domNodeFactory = Dom.div);
 
         expect(renderedNode, hasNodeName('DIV'));
