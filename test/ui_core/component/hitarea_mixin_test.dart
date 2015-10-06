@@ -164,10 +164,101 @@ main() {
         });
       });
 
-      group('prevents default and stops propegation when true on', () {
-        test('onKeyDown', () {
+      group('prevents default and stops propegation on all events when true', () {
+        var events = {
+          'onContextMenu': react_test_utils.Simulate.contextMenu,
+          'onDoubleClick': react_test_utils.Simulate.doubleClick,
+          'onDrag': react_test_utils.Simulate.drag,
+          'onDragEnd': react_test_utils.Simulate.dragEnd,
+          'onDragEnter': react_test_utils.Simulate.dragEnter,
+          'onDragExit': react_test_utils.Simulate.dragExit,
+          'onDragLeave': react_test_utils.Simulate.dragLeave,
+          'onDragOver': react_test_utils.Simulate.dragOver,
+          'onDragStart': react_test_utils.Simulate.dragStart,
+          'onDrop': react_test_utils.Simulate.drop,
+          'onMouseDown': react_test_utils.Simulate.mouseDown,
+          'onMouseMove': react_test_utils.Simulate.mouseMove,
+          'onMouseOut': react_test_utils.Simulate.mouseOut,
+          'onMouseOver': react_test_utils.Simulate.mouseOver,
+          'onMouseUp': react_test_utils.Simulate.mouseUp,
+          'onTouchCancel': react_test_utils.Simulate.touchCancel,
+          'onTouchEnd': react_test_utils.Simulate.touchEnd,
+          'onTouchMove': react_test_utils.Simulate.touchMove,
+          'onTouchStart': react_test_utils.Simulate.touchStart
+        };
 
+        events.forEach((handler, simulator) {
+          test('$handler', () {
+            bool propagationStopped = false;
+            bool defaultPrevented = false;
+
+            var renderedInstance = render((HitAreaTest()..isDisabled = true)());
+
+            simulator(getHitArea(renderedInstance), {
+              'stopPropagation': () => (propagationStopped = true),
+              'preventDefault': () => (defaultPrevented = true)
+            });
+
+            expect(propagationStopped, isTrue);
+            expect(defaultPrevented, isTrue);
+          });
+
+          test('$handler and doesn\'t call the handler when it is set', () {
+            bool handlerCalled = false;
+
+            var handler = (event) => (handlerCalled = true);
+
+            var renderedInstance = render((HitAreaTest()
+              ..isDisabled = true
+              ..addProp('handler', handler)
+            )());
+
+            simulator(getHitArea(renderedInstance));
+
+            expect(handlerCalled, isFalse);
+          });
         });
+
+        test('onMouseEnter', () {
+          bool propagationStopped = false;
+          bool defaultPrevented = false;
+
+          var renderedInstance = render(Dom.div()([
+            (HitAreaTest()
+              ..isDisabled = true
+            )()
+          ]));
+
+          var from = renderedInstance;
+          var to = getRef(renderedInstance, 'hitarea');
+
+          react_test_utils.SimulateNative.mouseOut(from, {'relatedTarget': to});
+          react_test_utils.SimulateNative.mouseOver(to, {'relatedTarget': from});
+
+          expect(propagationStopped, isTrue);
+          expect(defaultPrevented, isTrue);
+        });
+
+        test('onMouseLeave', () {
+          bool propagationStopped = false;
+          bool defaultPrevented = false;
+
+          var renderedInstance = render(Dom.div()([
+            (HitAreaTest()
+              ..isDisabled = true
+            )()
+          ]));
+
+          var to = renderedInstance;
+          var from = getHitArea(getRef(renderedInstance, 'hitareaTest'));
+
+          react_test_utils.SimulateNative.mouseOut(from, {'relatedTarget': to});
+          react_test_utils.SimulateNative.mouseOver(to, {'relatedTarget': from});
+
+          expect(propagationStopped, isTrue);
+          expect(defaultPrevented, isTrue);
+        });
+
       });
     });
 
