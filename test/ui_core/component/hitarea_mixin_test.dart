@@ -643,7 +643,7 @@ main() {
 
       group('when isDisabled is true and onClick is', () {
         test('set', () {
-          bool onSelectCalled = false;
+          bool onSelectCalled = false, propagationStopped = false, defaultPrevented = false;
           var instance = (HitAreaTest()
             ..isDisabled = true
             ..eventKey = '123'
@@ -652,7 +652,13 @@ main() {
             }
           )();
           var renderedInstance = render(instance);
-          click(getHitArea(renderedInstance));
+          react_test_utils.Simulate.click(getHitArea(renderedInstance), {
+            'stopPropagation': () => (propagationStopped = true),
+            'preventDefault': () => (defaultPrevented = true)
+          });
+
+          expect(propagationStopped, isTrue);
+          expect(defaultPrevented, isTrue);
           expect(onSelectCalled, isFalse);
         });
 
