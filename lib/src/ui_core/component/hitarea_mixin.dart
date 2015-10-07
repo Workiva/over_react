@@ -254,6 +254,8 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
 
   void _handleClick(react.SyntheticEvent event) {
     if (tProps.isDisabled) {
+      event.stopPropagation();
+      event.preventDefault();
       return;
     }
 
