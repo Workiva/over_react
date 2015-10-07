@@ -122,7 +122,9 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
 
     assert((tProps.href == null && tProps.target == null && tProps.type == null) ||
         (hasAnchorProps && (tProps.type == null)) ||
-        (!hasAnchorProps && (tProps.type != null))
+        (!hasAnchorProps && (tProps.type != null) &&
+        'You are setting `type` and either `target` or `href` or both. `type` is specific to a `<button>` '
+        'while `target` and `href` are specific to an `<a>`.'is String)
     );
 
     if (hasAnchorProps || tProps.domNodeFactory == Dom.a) {
@@ -160,7 +162,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       builder = Dom.button()
         ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
         ..name = tProps.name
-        ..type = tProps.type?.typeName ?? ButtonType.BUTTON.typeName;
+        ..type = (tProps.type ?? ButtonType.BUTTON).typeName;
     } else {
       var domPropsMapView = domProps(hitAreaPropsMap);
 
