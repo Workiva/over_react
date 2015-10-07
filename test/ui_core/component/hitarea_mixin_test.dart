@@ -627,7 +627,7 @@ main() {
       });
 
       group('the `href`, `target`, and `type` prop by', () {
-        test('not throwing when `type` and `target` is set', () {
+        test('throwing when `type` and `target` is set', () {
           expect(() => render(HitAreaTest()
             ..target = '_blank'
             ..type = ButtonType.BUTTON
