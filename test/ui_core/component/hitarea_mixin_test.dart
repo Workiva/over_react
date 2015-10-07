@@ -164,7 +164,7 @@ main() {
         });
       });
 
-      group('prevents default and stops propegation on all events when true', () {
+      group('when true prevents default and stops propegation on', () {
         var events = {
           'onContextMenu': react_test_utils.Simulate.contextMenu,
           'onDoubleClick': react_test_utils.Simulate.doubleClick,
@@ -220,45 +220,35 @@ main() {
         });
 
         test('onMouseEnter', () {
-          bool propagationStopped = false;
-          bool defaultPrevented = false;
+          bool callbackCalled = false;
 
-          var renderedInstance = render(Dom.div()([
-            (HitAreaTest()
-              ..isDisabled = true
-            )()
-          ]));
+          var renderedInstance = render(
+              (HitAreaTest()
+                ..isDisabled = true
+                ..onMouseEnter = (event) => callbackCalled = true
+              )()
+          );
 
-          var from = renderedInstance;
-          var to = getRef(renderedInstance, 'hitarea');
+          simulateMouseEnter(findDomNode(renderedInstance));
 
-          react_test_utils.SimulateNative.mouseOut(from, {'relatedTarget': to});
-          react_test_utils.SimulateNative.mouseOver(to, {'relatedTarget': from});
-
-          expect(propagationStopped, isTrue);
-          expect(defaultPrevented, isTrue);
+          expect(callbackCalled, isFalse);
         });
 
         test('onMouseLeave', () {
-          bool propagationStopped = false;
-          bool defaultPrevented = false;
+          bool propagationStopped = true, callbackCalled = false;
 
-          var renderedInstance = render(Dom.div()([
+          var renderedInstance = render((Dom.div()..onMouseEnter = (event) => propagationStopped = false)([
             (HitAreaTest()
               ..isDisabled = true
+              ..onMouseEnter = (event) => callbackCalled = true
             )()
           ]));
 
-          var to = renderedInstance;
-          var from = getHitArea(getRef(renderedInstance, 'hitareaTest'));
-
-          react_test_utils.SimulateNative.mouseOut(from, {'relatedTarget': to});
-          react_test_utils.SimulateNative.mouseOver(to, {'relatedTarget': from});
+          simulateMouseLeave(findDomNode(renderedInstance).children[0]);
 
           expect(propagationStopped, isTrue);
-          expect(defaultPrevented, isTrue);
+          expect(callbackCalled, isFalse);
         });
-
       });
     });
 
