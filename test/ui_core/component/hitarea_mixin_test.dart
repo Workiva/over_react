@@ -187,8 +187,8 @@ main() {
           'onTouchStart': react_test_utils.Simulate.touchStart
         };
 
-        events.forEach((handler, simulator) {
-          test('$handler', () {
+        events.forEach((callbackPropKey, simulator) {
+          test('$callbackPropKey', () {
             bool propagationStopped = false;
             bool defaultPrevented = false;
 
@@ -203,14 +203,14 @@ main() {
             expect(defaultPrevented, isTrue);
           });
 
-          test('$handler and doesn\'t call the handler when it is set', () {
+          test('$callbackPropKey and doesn\'t call the handler when it is set', () {
             bool handlerCalled = false;
 
             var handler = (event) => (handlerCalled = true);
 
             var renderedInstance = render((HitAreaTest()
               ..isDisabled = true
-              ..addProp('handler', handler)
+              ..addProp('$callbackPropKey', handler)
             )());
 
             simulator(getHitArea(renderedInstance));
