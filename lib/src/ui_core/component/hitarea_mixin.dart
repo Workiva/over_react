@@ -102,7 +102,8 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     HitAreaProps.Z_$KEY__DOM_NODE_FACTORY: Dom.div
   };
 
-  Function get ref;
+  // Define using field vs abstract getter due to an unknown issue in Dart2JS.
+  dynamic ref;
 
   P get tProps;
   Map get props;
