@@ -164,7 +164,7 @@ main() {
         });
       });
 
-      group('when true prevents default and stops propegation on', () {
+      group('when true prevents default and stops propagation on', () {
         var events = {
           'onContextMenu': react_test_utils.Simulate.contextMenu,
           'onDoubleClick': react_test_utils.Simulate.doubleClick,
@@ -235,14 +235,17 @@ main() {
         });
 
         test('onMouseLeave', () {
-          bool propagationStopped = true, callbackCalled = false;
+          bool propagationStopped = true;
+          bool callbackCalled = false;
 
-          var renderedInstance = render((Dom.div()..onMouseEnter = (event) => propagationStopped = false)([
-            (HitAreaTest()
-              ..isDisabled = true
-              ..onMouseEnter = (event) => callbackCalled = true
-            )()
-          ]));
+          var renderedInstance = render(
+              (Dom.div()..onMouseEnter = (event) => propagationStopped = false)([
+                (HitAreaTest()
+                  ..isDisabled = true
+                  ..onMouseEnter = (event) => callbackCalled = true
+                )()
+              ])
+          );
 
           simulateMouseLeave(findDomNode(renderedInstance).children[0]);
 
@@ -633,7 +636,10 @@ main() {
 
       group('when isDisabled is true and onClick is', () {
         test('set', () {
-          bool onSelectCalled = false, propagationStopped = false, defaultPrevented = false;
+          bool onSelectCalled = false;
+          bool propagationStopped = false;
+          bool defaultPrevented = false;
+
           var instance = (HitAreaTest()
             ..isDisabled = true
             ..eventKey = '123'
