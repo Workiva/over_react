@@ -204,18 +204,18 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       }
     }
 
-    var mouseEvents = ['onContextMenu', 'onDoubleClick', 'onDrag', 'onDragEnd', 'onDragEnter', 'onDragExit', 'onDragLeave', 'onDragOver', 'onDragStart', 'onDrop', 'onMouseDown', 'onMouseEnter', 'onMouseLeave', 'onMouseMove', 'onMouseOut', 'onMouseOver', 'onMouseUp'];
-    var touchEvents = ['onTouchCancel', 'onTouchEnd', 'onTouchMove', 'onTouchStart'];
+    const mouseEvents = const ['onContextMenu', 'onDoubleClick', 'onDrag', 'onDragEnd', 'onDragEnter', 'onDragExit', 'onDragLeave', 'onDragOver', 'onDragStart', 'onDrop', 'onMouseDown', 'onMouseEnter', 'onMouseLeave', 'onMouseMove', 'onMouseOut', 'onMouseOver', 'onMouseUp'];
+    const touchEvents = const ['onTouchCancel', 'onTouchEnd', 'onTouchMove', 'onTouchStart'];
 
-    mouseEvents.forEach((String eventKey) {
-      if (tProps.isDisabled || domPropsMapView[eventKey] != null) {
-        builder.addProp(eventKey, _handleMouseEventFactory(domPropsMapView[eventKey]));
+    mouseEvents.forEach((String eventPropKey) {
+      if (tProps.isDisabled || domPropsMapView[eventPropKey] != null) {
+        builder.addProp(eventPropKey, _handleMouseEventFactory(domPropsMapView[eventPropKey]));
       }
     });
 
-    touchEvents.forEach((String eventKey) {
-      if (tProps.isDisabled || domPropsMapView[eventKey] != null) {
-        builder.addProp(eventKey, _handleTouchEventFactory(domPropsMapView[eventKey]));
+    touchEvents.forEach((String eventPropKey) {
+      if (tProps.isDisabled || domPropsMapView[eventPropKey] != null) {
+        builder.addProp(eventPropKey, _handleTouchEventFactory(domPropsMapView[eventPropKey]));
       }
     });
 
