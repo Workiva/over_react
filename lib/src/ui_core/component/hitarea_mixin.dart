@@ -204,33 +204,20 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       }
     }
 
-    // Add mouse event handlers
-    builder
-      ..onContextMenu = _handleMouseEventFactory(domPropsMapView.onContextMenu)
-      ..onDoubleClick = _handleMouseEventFactory(domPropsMapView.onDoubleClick)
-      ..onDrag = _handleMouseEventFactory(domPropsMapView.onDrag)
-      ..onDragEnd = _handleMouseEventFactory(domPropsMapView.onDragEnd)
-      ..onDragEnter = _handleMouseEventFactory(domPropsMapView.onDragEnter)
-      ..onDragExit = _handleMouseEventFactory(domPropsMapView.onDragExit)
-      ..onDragLeave = _handleMouseEventFactory(domPropsMapView.onDragLeave)
-      ..onDragOver = _handleMouseEventFactory(domPropsMapView.onDragOver)
-      ..onDragStart = _handleMouseEventFactory(domPropsMapView.onDragStart)
-      ..onDrop = _handleMouseEventFactory(domPropsMapView.onDrop)
-      ..onMouseDown = _handleMouseEventFactory(domPropsMapView.onMouseDown)
-      ..onMouseEnter = _handleMouseEventFactory(domPropsMapView.onMouseEnter)
-      ..onMouseLeave = _handleMouseEventFactory(domPropsMapView.onMouseLeave)
-      ..onMouseMove = _handleMouseEventFactory(domPropsMapView.onMouseMove)
-      ..onMouseOut = _handleMouseEventFactory(domPropsMapView.onMouseOut)
-      ..onMouseOver = _handleMouseEventFactory(domPropsMapView.onMouseOver)
-      ..onMouseUp = _handleMouseEventFactory(domPropsMapView.onMouseUp);
+    var mouseEvents = ['onContextMenu', 'onDoubleClick', 'onDrag', 'onDragEnd', 'onDragEnter', 'onDragExit', 'onDragLeave', 'onDragOver', 'onDragStart', 'onDrop', 'onMouseDown', 'onMouseEnter', 'onMouseLeave', 'onMouseMove', 'onMouseOut', 'onMouseOver', 'onMouseUp'];
+    var touchEvents = ['onTouchCancel', 'onTouchEnd', 'onTouchMove', 'onTouchStart'];
 
-    // Add touch event handlers
-    builder
-      ..onTouchCancel = _handleTouchEventFactory(domPropsMapView.onTouchCancel)
-      ..onTouchEnd = _handleTouchEventFactory(domPropsMapView.onTouchEnd)
-      ..onTouchMove = _handleTouchEventFactory(domPropsMapView.onTouchMove)
-      ..onTouchStart = _handleTouchEventFactory(domPropsMapView.onTouchStart);
+    mouseEvents.forEach((String eventKey) {
+      if (tProps.isDisabled || domPropsMapView[eventKey] != null) {
+        builder.addProp(eventKey, _handleMouseEventFactory(domPropsMapView[eventKey]));
+      }
+    });
 
+    touchEvents.forEach((String eventKey) {
+      if (tProps.isDisabled || domPropsMapView[eventKey] != null) {
+        builder.addProp(eventKey, _handleTouchEventFactory(domPropsMapView[eventKey]));
+      }
+    });
 
     _hitAreaRef = hitAreaPropsMap.containsKey('ref') ? hitAreaPropsMap['ref'] : 'hitarea';
 
