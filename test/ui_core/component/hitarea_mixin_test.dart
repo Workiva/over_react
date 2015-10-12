@@ -285,7 +285,7 @@ main() {
       test('a <a>', () {
         var renderedNode = renderAndGetDom(HitAreaTest()
           ..name = 'someName'
-          ..id = 'someId'
+          ..id = 'some_id'
           ..type = ButtonType.BUTTON
           ..domNodeFactory = Dom.a);
 
@@ -298,7 +298,7 @@ main() {
       test('a <button>', () {
         var renderedNode = renderAndGetDom(HitAreaTest()
           ..name = 'someName'
-          ..id = 'someId'
+          ..id = 'some_id'
           ..type = ButtonType.BUTTON
           ..domNodeFactory = Dom.button);
 
@@ -311,7 +311,7 @@ main() {
       test('a <div>', () {
         var renderedNode = renderAndGetDom(HitAreaTest()
           ..name = 'someName'
-          ..id = 'someId'
+          ..id = 'some_id'
           ..domNodeFactory = Dom.div);
 
         expect(renderedNode, hasNodeName('DIV'));
