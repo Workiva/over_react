@@ -23,17 +23,6 @@ class AriaPropsMapView extends MapView with AriaProps {
   Map get props => this;
 }
 
-/// A MapView with the typed getters/setters for all HitArea props.
-class HitAreaPropsMapView extends MapView with HitAreaProps {
-  /// Create a new instance backed by the specified map.
-  HitAreaPropsMapView(Map map) : super(map);
-
-  /// The props to be manipulated via the getters/setters.
-  /// In this case, it's the current MapView object.
-  @override
-  Map get props => this;
-}
-
 /// Returns a new [DomPropsMapView], optionally backed by a specified Map.
 ///
 /// Convenient for adding DOM props inline to non-DOM components:
