@@ -10,4 +10,4 @@ dependencies:
       url: git://127.0.0.1:9000/
       ref: HEAD
 dev_dependencies:
-  test: "0.12.2"
+  test: "^0.12.4"
