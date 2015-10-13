@@ -119,6 +119,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     assert(hitAreaPropsMap != null);
 
     var builder;
+    var domPropsMapView = domProps(hitAreaPropsMap);
     bool hasAnchorProps = (tProps.href != null || tProps.target != null);
     if (hasAnchorProps || tProps.domNodeFactory == Dom.a) {
       builder = Dom.a()
@@ -157,16 +158,18 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
         ..name = tProps.name
         ..type = tProps.type.typeName;
     } else {
-      var domPropsMapView = domProps(hitAreaPropsMap);
-
       builder = tProps.domNodeFactory != null ? tProps.domNodeFactory() : Dom.div();
 
       // Prop 'tabIndex' is required on DOM nodes (other than A and BUTTON) of role='button' in order to gain focus.
+      var tabIndex = tProps.isDisabled
+        ? -1
+        : domPropsMapView.tabIndex ?? 0;
+
       // Key handlers are added to allow 'click' via keyboard spacebar and enter keys.
       builder
         ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
         ..role = tProps.role
-        ..tabIndex = (domPropsMapView.tabIndex == null) ? 0 : domPropsMapView.tabIndex
+        ..tabIndex = tabIndex
         ..onKeyDown = createChainedKeyboardEventCallback(domPropsMapView.onKeyDown, _handleKeyDown)
         ..onKeyPress = createChainedKeyboardEventCallback(domPropsMapView.onKeyPress, _handleKeyPress)
         ..onKeyUp = createChainedKeyboardEventCallback(domPropsMapView.onKeyUp, _handleKeyUp);
@@ -201,6 +204,21 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       }
     }
 
+    const mouseEvents = const ['onContextMenu', 'onDoubleClick', 'onDrag', 'onDragEnd', 'onDragEnter', 'onDragExit', 'onDragLeave', 'onDragOver', 'onDragStart', 'onDrop', 'onMouseDown', 'onMouseEnter', 'onMouseLeave', 'onMouseMove', 'onMouseOut', 'onMouseOver', 'onMouseUp'];
+    const touchEvents = const ['onTouchCancel', 'onTouchEnd', 'onTouchMove', 'onTouchStart'];
+
+    mouseEvents.forEach((String eventPropKey) {
+      if (tProps.isDisabled || domPropsMapView[eventPropKey] != null) {
+        builder.addProp(eventPropKey, _handleMouseEventFactory(domPropsMapView[eventPropKey]));
+      }
+    });
+
+    touchEvents.forEach((String eventPropKey) {
+      if (tProps.isDisabled || domPropsMapView[eventPropKey] != null) {
+        builder.addProp(eventPropKey, _handleTouchEventFactory(domPropsMapView[eventPropKey]));
+      }
+    });
+
     _hitAreaRef = hitAreaPropsMap.containsKey('ref') ? hitAreaPropsMap['ref'] : 'hitarea';
 
     builder
@@ -223,6 +241,8 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
 
   void _handleClick(react.SyntheticEvent event) {
     if (tProps.isDisabled) {
+      event.stopPropagation();
+      event.preventDefault();
       return;
     }
 
@@ -256,6 +276,28 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     }
 
     findHitAreaDomNode().click();
+  }
+
+  MouseEventCallback _handleMouseEventFactory(MouseEventCallback callback) {
+    return (react.SyntheticMouseEvent event) {
+      if (tProps.isDisabled) {
+        event.stopPropagation();
+        event.preventDefault();
+      } else if (callback != null) {
+        callback(event);
+      }
+    };
+  }
+
+  TouchEventCallback _handleTouchEventFactory(TouchEventCallback callback) {
+    return (react.SyntheticTouchEvent event) {
+      if (tProps.isDisabled) {
+        event.stopPropagation();
+        event.preventDefault();
+      } else if (callback != null) {
+        callback(event);
+      }
+    };
   }
 }
 
