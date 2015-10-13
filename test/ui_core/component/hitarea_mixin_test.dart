@@ -3,9 +3,9 @@ library hitarea_mixin_test;
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart' show ReactComponentFactory;
 import 'package:react/react_test_utils.dart' as react_test_utils;
+import 'package:test/test.dart';
 import 'package:web_skin_dart/ui_components.dart';
 import 'package:web_skin_dart/ui_core.dart';
-import 'package:test/test.dart';
 
 import '../../test_util/custom_matchers.dart';
 import '../../test_util/react_util.dart';
