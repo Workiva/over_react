@@ -3,9 +3,9 @@ library hitarea_mixin_test;
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart' show ReactComponentFactory;
 import 'package:react/react_test_utils.dart' as react_test_utils;
+import 'package:test/test.dart';
 import 'package:web_skin_dart/ui_components.dart';
 import 'package:web_skin_dart/ui_core.dart';
-import 'package:test/test.dart';
 
 import '../../test_util/custom_matchers.dart';
 import '../../test_util/react_util.dart';
@@ -163,6 +163,96 @@ main() {
           });
         });
       });
+
+      group('when true prevents default and stops propagation on', () {
+        var events = {
+          'onContextMenu': react_test_utils.Simulate.contextMenu,
+          'onDoubleClick': react_test_utils.Simulate.doubleClick,
+          'onDrag': react_test_utils.Simulate.drag,
+          'onDragEnd': react_test_utils.Simulate.dragEnd,
+          'onDragEnter': react_test_utils.Simulate.dragEnter,
+          'onDragExit': react_test_utils.Simulate.dragExit,
+          'onDragLeave': react_test_utils.Simulate.dragLeave,
+          'onDragOver': react_test_utils.Simulate.dragOver,
+          'onDragStart': react_test_utils.Simulate.dragStart,
+          'onDrop': react_test_utils.Simulate.drop,
+          'onMouseDown': react_test_utils.Simulate.mouseDown,
+          'onMouseMove': react_test_utils.Simulate.mouseMove,
+          'onMouseOut': react_test_utils.Simulate.mouseOut,
+          'onMouseOver': react_test_utils.Simulate.mouseOver,
+          'onMouseUp': react_test_utils.Simulate.mouseUp,
+          'onTouchCancel': react_test_utils.Simulate.touchCancel,
+          'onTouchEnd': react_test_utils.Simulate.touchEnd,
+          'onTouchMove': react_test_utils.Simulate.touchMove,
+          'onTouchStart': react_test_utils.Simulate.touchStart
+        };
+
+        events.forEach((callbackPropKey, simulator) {
+          test('$callbackPropKey', () {
+            bool propagationStopped = false;
+            bool defaultPrevented = false;
+
+            var renderedInstance = render((HitAreaTest()..isDisabled = true)());
+
+            simulator(getHitArea(renderedInstance), {
+              'stopPropagation': () => (propagationStopped = true),
+              'preventDefault': () => (defaultPrevented = true)
+            });
+
+            expect(propagationStopped, isTrue);
+            expect(defaultPrevented, isTrue);
+          });
+
+          test('$callbackPropKey and doesn\'t call the handler when it is set', () {
+            bool handlerCalled = false;
+
+            var handler = (event) => (handlerCalled = true);
+
+            var renderedInstance = render((HitAreaTest()
+              ..isDisabled = true
+              ..addProp('$callbackPropKey', handler)
+            )());
+
+            simulator(getHitArea(renderedInstance));
+
+            expect(handlerCalled, isFalse);
+          });
+        });
+
+        test('onMouseEnter', () {
+          bool callbackCalled = false;
+
+          var renderedInstance = render(
+              (HitAreaTest()
+                ..isDisabled = true
+                ..onMouseEnter = (event) => callbackCalled = true
+              )()
+          );
+
+          simulateMouseEnter(findDomNode(renderedInstance));
+
+          expect(callbackCalled, isFalse);
+        });
+
+        test('onMouseLeave', () {
+          bool propagationStopped = true;
+          bool callbackCalled = false;
+
+          var renderedInstance = render(
+              (Dom.div()..onMouseEnter = (event) => propagationStopped = false)([
+                (HitAreaTest()
+                  ..isDisabled = true
+                  ..onMouseEnter = (event) => callbackCalled = true
+                )()
+              ])
+          );
+
+          simulateMouseLeave(findDomNode(renderedInstance).children[0]);
+
+          expect(propagationStopped, isTrue);
+          expect(callbackCalled, isFalse);
+        });
+      });
     });
 
     group('renders an <a> when', () {
@@ -195,41 +285,85 @@ main() {
       test('a <a>', () {
         var renderedNode = renderAndGetDom(HitAreaTest()
           ..name = 'someName'
-          ..id = 'someId'
+          ..id = 'some_id'
           ..type = HitAreaButtonType.BUTTON
           ..domNodeFactory = Dom.a);
 
         expect(renderedNode, hasNodeName('A'));
         expect(renderedNode, hasAttr('name', 'someName'));
         expect(renderedNode, hasAttr('type', isNull));
-        expect(renderedNode, hasAttr('id', 'someId'));
+        expect(renderedNode, hasAttr('id', 'some_id'));
       });
 
       test('a <button>', () {
         var renderedNode = renderAndGetDom(HitAreaTest()
           ..name = 'someName'
-          ..id = 'someId'
+          ..id = 'some_id'
           ..type = HitAreaButtonType.BUTTON
           ..domNodeFactory = Dom.button);
 
         expect(renderedNode, hasNodeName('BUTTON'));
         expect(renderedNode, hasAttr('name', 'someName'));
         expect(renderedNode, hasAttr('type', 'button'));
-        expect(renderedNode, hasAttr('id', 'someId'));
+        expect(renderedNode, hasAttr('id', 'some_id'));
       });
 
       test('a <div>', () {
         var renderedNode = renderAndGetDom(HitAreaTest()
           ..name = 'someName'
-          ..id = 'someId'
+          ..id = 'some_id'
           ..type = HitAreaButtonType.BUTTON
           ..domNodeFactory = Dom.div);
 
         expect(renderedNode, hasNodeName('DIV'));
         expect(renderedNode, hasAttr('name', isNull));
         expect(renderedNode, hasAttr('type', isNull));
-        expect(renderedNode, hasAttr('id', 'someId'));
+        expect(renderedNode, hasAttr('id', 'some_id'));
         expect(renderedNode, hasAttr('tabIndex', '0'));
+      });
+    });
+
+    group('renders with the appropriate tabIndex when the domNodeFactory is', () {
+      test('Dom.button', () {
+        var renderedNode = renderAndGetDom(HitAreaTest()..domNodeFactory = Dom.button);
+        expect(renderedNode, hasAttr('tabIndex', isNull));
+      });
+
+      test('Dom.a', () {
+        var renderedNode = renderAndGetDom(HitAreaTest()..domNodeFactory = Dom.a);
+        expect(renderedNode, hasAttr('tabIndex', isNull));
+      });
+
+      group('not Dom.button or Dom.a and when isDisabled is', () {
+        test('false', () {
+          var renderedNode = renderAndGetDom(HitAreaTest()..domNodeFactory = Dom.div);
+          expect(renderedNode, hasAttr('tabIndex', '0'));
+        });
+
+        test('false and the tabIndex prop is set', () {
+          var renderedNode = renderAndGetDom(HitAreaTest()
+            ..domNodeFactory = Dom.div
+            ..tabIndex = '7'
+          );
+          expect(renderedNode, hasAttr('tabIndex', '7'));
+        });
+
+        test('true', () {
+          var renderedNode = renderAndGetDom(HitAreaTest()
+            ..domNodeFactory = Dom.div
+            ..isDisabled = true
+          );
+          expect(renderedNode, hasAttr('tabIndex', '-1'));
+        });
+
+        test('true and the tabIndex prop is set', () {
+          var renderedNode = renderAndGetDom(HitAreaTest()
+            ..domNodeFactory = Dom.div
+            ..isDisabled = true
+            ..tabIndex = '7'
+          );
+          expect(renderedNode, hasAttr('tabIndex', '-1'));
+        });
       });
     });
 
@@ -503,6 +637,9 @@ main() {
       group('when isDisabled is true and onClick is', () {
         test('set', () {
           bool onSelectCalled = false;
+          bool propagationStopped = false;
+          bool defaultPrevented = false;
+
           var instance = (HitAreaTest()
             ..isDisabled = true
             ..eventKey = '123'
@@ -511,7 +648,13 @@ main() {
             }
           )();
           var renderedInstance = render(instance);
-          click(getHitArea(renderedInstance));
+          react_test_utils.Simulate.click(getHitArea(renderedInstance), {
+            'stopPropagation': () => (propagationStopped = true),
+            'preventDefault': () => (defaultPrevented = true)
+          });
+
+          expect(propagationStopped, isTrue);
+          expect(defaultPrevented, isTrue);
           expect(onSelectCalled, isFalse);
         });
 
