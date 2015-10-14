@@ -157,8 +157,6 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
         ..name = tProps.name
         ..type = tProps.type.typeName;
     } else {
-      var domPropsMapView = domProps(hitAreaPropsMap);
-
       builder = (tProps.domNodeFactory ?? Dom.div)();
 
       // Prop 'tabIndex' is required on DOM nodes (other than A and BUTTON) of role='button' in order to gain focus.
