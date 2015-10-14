@@ -80,7 +80,7 @@ abstract class _$template_HitAreaProps {
   /// _Proxies [DomProps.type]_
   ///
   /// Default: HitAreaButtonType.BUTTON
-  HitAreaButtonType get type;
+  ButtonType get type;
 
   /// The role for the [HitAreaMixin].
   /// This will only be applied if [domNodeFactory] is not set to [Dom.button].
@@ -98,12 +98,12 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     HitAreaProps.Z_$KEY__IS_DISABLED: false,
     HitAreaProps.Z_$KEY__IS_NAV_ITEM: false,
     HitAreaProps.Z_$KEY__IS_NAV_DROPDOWN: false,
-    HitAreaProps.Z_$KEY__TYPE: HitAreaButtonType.BUTTON,
     HitAreaProps.Z_$KEY__ROLE: Role.button,
     HitAreaProps.Z_$KEY__DOM_NODE_FACTORY: Dom.div
   };
 
-  Function get ref;
+  // Define using field vs abstract getter due to an unknown issue in Dart2JS.
+  dynamic ref;
 
   P get tProps;
   Map get props;
@@ -119,7 +119,16 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
     assert(hitAreaPropsMap != null);
 
     var builder;
+    var domPropsMapView = domProps(hitAreaPropsMap);
     bool hasAnchorProps = (tProps.href != null || tProps.target != null);
+
+    assert((tProps.href == null && tProps.target == null && tProps.type == null) ||
+        (hasAnchorProps && (tProps.type == null)) ||
+        (!hasAnchorProps && (tProps.type != null) &&
+        'You are setting `type` and either `target` or `href` or both. `type` is specific to a `<button>` '
+        'while `target` and `href` are specific to an `<a>`.'is String)
+    );
+
     if (hasAnchorProps || tProps.domNodeFactory == Dom.a) {
       builder = Dom.a()
         ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
@@ -132,7 +141,7 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
           'You are explicitly requesting that a `<a>` element is rendered via your React component, '
           'but you have no `href`, `target` or `name` props defined, meaning its usage is as a button, '
           'triggering in-page functionality. It is recommended that you omit the `domNodeFactory` prop so '
-          'that a `<button>` element will be rendered instead.'));
+          'that a `<div>` element will be rendered instead.'));
         // Signify that this anchor triggers in-page functionality despite using an `<a>` tag.
         builder.role = tProps.role;
       } else if (hasAnchorProps && tProps.domNodeFactory != null) {
@@ -151,22 +160,24 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
         // Signify that this anchor triggers in-page functionality despite using an `<a>` tag.
         builder.role = tProps.role;
       }
-    } else if (tProps.domNodeFactory == Dom.button) {
+    } else if (tProps.domNodeFactory == Dom.button || tProps.type != null) {
       builder = Dom.button()
         ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
         ..name = tProps.name
-        ..type = tProps.type.typeName;
+        ..type = (tProps.type ?? ButtonType.BUTTON).typeName;
     } else {
-      var domPropsMapView = domProps(hitAreaPropsMap);
-
       builder = tProps.domNodeFactory != null ? tProps.domNodeFactory() : Dom.div();
 
       // Prop 'tabIndex' is required on DOM nodes (other than A and BUTTON) of role='button' in order to gain focus.
+      var tabIndex = tProps.isDisabled
+        ? -1
+        : domPropsMapView.tabIndex ?? 0;
+
       // Key handlers are added to allow 'click' via keyboard spacebar and enter keys.
       builder
         ..addProps(getPropsToForward(hitAreaPropsMap, omitReactProps: false, keysToOmit: HitAreaProps.Z_$propKeys))
         ..role = tProps.role
-        ..tabIndex = (domPropsMapView.tabIndex == null) ? 0 : domPropsMapView.tabIndex
+        ..tabIndex = tabIndex
         ..onKeyDown = createChainedKeyboardEventCallback(domPropsMapView.onKeyDown, _handleKeyDown)
         ..onKeyPress = createChainedKeyboardEventCallback(domPropsMapView.onKeyPress, _handleKeyPress)
         ..onKeyUp = createChainedKeyboardEventCallback(domPropsMapView.onKeyUp, _handleKeyUp);
@@ -201,6 +212,21 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
       }
     }
 
+    const mouseEvents = const ['onContextMenu', 'onDoubleClick', 'onDrag', 'onDragEnd', 'onDragEnter', 'onDragExit', 'onDragLeave', 'onDragOver', 'onDragStart', 'onDrop', 'onMouseDown', 'onMouseEnter', 'onMouseLeave', 'onMouseMove', 'onMouseOut', 'onMouseOver', 'onMouseUp'];
+    const touchEvents = const ['onTouchCancel', 'onTouchEnd', 'onTouchMove', 'onTouchStart'];
+
+    mouseEvents.forEach((String eventPropKey) {
+      if (tProps.isDisabled || domPropsMapView[eventPropKey] != null) {
+        builder.addProp(eventPropKey, _handleMouseEventFactory(domPropsMapView[eventPropKey]));
+      }
+    });
+
+    touchEvents.forEach((String eventPropKey) {
+      if (tProps.isDisabled || domPropsMapView[eventPropKey] != null) {
+        builder.addProp(eventPropKey, _handleTouchEventFactory(domPropsMapView[eventPropKey]));
+      }
+    });
+
     _hitAreaRef = hitAreaPropsMap.containsKey('ref') ? hitAreaPropsMap['ref'] : 'hitarea';
 
     builder
@@ -223,6 +249,8 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
 
   void _handleClick(react.SyntheticEvent event) {
     if (tProps.isDisabled) {
+      event.stopPropagation();
+      event.preventDefault();
       return;
     }
 
@@ -257,10 +285,32 @@ abstract class HitAreaMixin<P extends HitAreaProps> {
 
     findHitAreaDomNode().click();
   }
+
+  MouseEventCallback _handleMouseEventFactory(MouseEventCallback callback) {
+    return (react.SyntheticMouseEvent event) {
+      if (tProps.isDisabled) {
+        event.stopPropagation();
+        event.preventDefault();
+      } else if (callback != null) {
+        callback(event);
+      }
+    };
+  }
+
+  TouchEventCallback _handleTouchEventFactory(TouchEventCallback callback) {
+    return (react.SyntheticTouchEvent event) {
+      if (tProps.isDisabled) {
+        event.stopPropagation();
+        event.preventDefault();
+      } else if (callback != null) {
+        callback(event);
+      }
+    };
+  }
 }
 
-@GenerateConstants(#HitAreaButtonType, #typeName)
-class _$template_HitAreaButtonType {
+@GenerateConstants(#ButtonType, #typeName)
+class _$template_ButtonType {
   static const BUTTON  = 'button';
   static const SUBMIT  = 'submit';
   static const RESET   = 'reset';
