@@ -12,6 +12,10 @@ class ClassNameBuilder {
   /// Creates a new ClassNameBuilder with className and blacklist values added from [CssClassProps.className] and
   /// [CssClassProps.classNameBlackList], if they are specified.
   ClassNameBuilder.fromProps(Map props) {
+    if (props == null) {
+      return;
+    }
+
     this
       ..add(props[CssClassProps.Z_$KEY__CLASS_NAME])
       ..blacklist(props[CssClassProps.Z_$KEY__CLASS_NAME_BLACKLIST]);
