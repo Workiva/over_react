@@ -29,7 +29,7 @@ class AriaPropsMapView extends MapView with AriaProps {
 /// <pre>
 /// <!>  ..addProps(domProps()..style = {'display': 'none'})
 /// <!>  ..addProps(domProps()
-/// <!>    ..id = 'myComponent'
+/// <!>    ..id = 'my_component'
 /// <!>    ..title = 'tooltip for my component'
 /// <!>  )
 /// </pre>
