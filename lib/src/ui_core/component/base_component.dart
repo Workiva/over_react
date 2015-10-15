@@ -61,6 +61,10 @@ abstract class ComponentDefinition extends MapView implements Function {
 
   /// Add a Map of arbitrary props.
   void addProps(Map propMap) {
+    if (propMap == null) {
+      return;
+    }
+
     props.addAll(propMap);
   }
 
