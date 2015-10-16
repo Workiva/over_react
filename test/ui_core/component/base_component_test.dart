@@ -132,4 +132,3 @@ class _TestComponent extends BaseComponent<TestComponentDefinition> {
   @override
   TestComponentDefinition typedPropsFactory(Map propsMap) => new TestComponentDefinition(propsMap);
 }
-
