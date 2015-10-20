@@ -82,3 +82,11 @@ abstract class ComponentDefinition extends MapView implements Function {
   /// Create a new component with this builder's props and the specified children. (alias for [build])
   JsObject call([dynamic children]) => build(children);
 }
+
+ReactComponentFactory registerComponent(react.Component dartComponentFactory(), {bool isWrapper: false}) {
+  ReactDartComponentFactoryProxy reactComponentFactory = react.registerComponent(dartComponentFactory);
+  if (isWrapper) {
+    reactComponentFactory.type['isWrapper'] = true;
+  }
+  return reactComponentFactory;
+}
