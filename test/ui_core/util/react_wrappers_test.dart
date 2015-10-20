@@ -310,6 +310,20 @@ main() {
         test('a component and its component factory', () {
           expect(isComponentOfType(Icon()(), Icon().componentFactory), isTrue);
         });
+
+        group('a components that nests the component factory', () {
+          test('one level deep', () {
+            expect(isComponentOfType(OneLevelWrapper()(MenuItem()()), MenuItem().componentFactory), isTrue);
+          });
+
+          test('two levels deep', () {
+            expect(isComponentOfType(TwoLevelWrapper()(OneLevelWrapper()(MenuItem()())), MenuItem().componentFactory), isTrue);
+          });
+
+          test('and does not throw when children is null', () {
+            expect(() =>isComponentOfType(OneLevelWrapper()(), MenuItem().componentFactory), isNot(throws));
+          });
+        });
       });
     });
 
@@ -380,4 +394,43 @@ JsFunction get testJsComponentFactory {
   }
 
   return _testJsComponentFactory;
+}
+
+/// Returns a new builder for the OneLevelWrapper component.
+OneLevelWrapperDefinition OneLevelWrapper() => new OneLevelWrapperDefinition({});
+
+class OneLevelWrapperDefinition extends BaseComponentDefinition {
+  OneLevelWrapperDefinition(Map props) : super(_OneLevelWrapperComponentFactory, props);
+}
+
+ReactComponentFactory _OneLevelWrapperComponentFactory = registerComponent(() => new _OneLevelWrapper(), isWrapper: true);
+class _OneLevelWrapper extends BaseComponent<OneLevelWrapperDefinition> {
+
+  @override
+  render() {
+    return Dom.div()(tProps.children.single);
+  }
+
+  @override
+  OneLevelWrapperDefinition typedPropsFactory(Map propsMap) => new OneLevelWrapperDefinition(propsMap);
+}
+
+/// Returns a new builder for the OneLevelWrapper component.
+TwoLevelWrapperDefinition TwoLevelWrapper() => new TwoLevelWrapperDefinition({});
+
+class TwoLevelWrapperDefinition extends BaseComponentDefinition {
+  TwoLevelWrapperDefinition(Map props) : super(_TwoLevelWrapperComponentFactory, props);
+}
+
+ReactComponentFactory _TwoLevelWrapperComponentFactory = registerComponent(() => new _TwoLevelWrapper(), isWrapper: true);
+class _TwoLevelWrapper extends BaseComponent<TwoLevelWrapperDefinition> {
+
+  @override
+  render() {
+    return Dom.div()(tProps.children.single);
+  }
+
+
+  @override
+  TwoLevelWrapperDefinition typedPropsFactory(Map propsMap) => new TwoLevelWrapperDefinition(propsMap);
 }
