@@ -5,17 +5,15 @@ import 'dart:js';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
-import 'package:web_skin_dart/ui_components.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
 import '../../test_util/react_util.dart';
-import '../../test_util/custom_matchers.dart';
 
 /// Main entry point for BaseComponent testing
 main() {
   group('ComponentDefinition', () {
-    group('renders a DomComponentDefinition with the correct chilren', () {
-      test('chilren is null', () {
+    group('renders a DomComponentDefinition with the correct children', () {
+      test('children is null', () {
         var renderedInstance = render(Dom.div()(null));
 
         expect(getJsProps(renderedInstance)['children'], isNull);
@@ -43,9 +41,9 @@ main() {
         })();
         var renderedInstance = render(Dom.div()(children));
 
-        expect(getJsProps(renderedInstance)['children'], new isInstanceOf<JsArray>(), reason: 'Should not be a Dart Object');
+        expect(getJsProps(renderedInstance)['children'], new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
         expect(getJsProps(renderedInstance)['children'], orderedEquals(children));
-      }, skip: 'TODO: Remove skip once react-dart is updated to accept iterables: https://github.com/cleandart/react-dart/pull/71');
+      });
 
       test('children are set variadically via noSuchMethod', () {
         var firstChild = 'First Child';
@@ -58,7 +56,7 @@ main() {
     });
 
     group('renders a BaseComponentDefinition with the correct children when', () {
-      test('chilren is null', () {
+      test('children is null', () {
         var renderedInstance = render(TestComponent()(null));
 
         expect(getProps(renderedInstance)['children'], new isInstanceOf<List>(), reason: 'Should still be the Dart Object');
@@ -98,9 +96,9 @@ main() {
         expect(getProps(renderedInstance)['children'], new isInstanceOf<List>(), reason: 'Should still be the Dart Object');
         expect(getProps(renderedInstance)['children'], orderedEquals(children));
 
-        expect(getJsProps(renderedInstance)['children'], new isInstanceOf<JsArray>(), reason: 'Should not be a Dart Object');
+        expect(getJsProps(renderedInstance)['children'], new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
         expect(getJsProps(renderedInstance)['children'], orderedEquals(children));
-      }, skip: 'TODO: Remove skip once react-dart is updated to accept iterables: https://github.com/cleandart/react-dart/pull/71');
+      });
 
       test('children are set variadically via noSuchMethod', () {
         var firstChild = 'First Child';
