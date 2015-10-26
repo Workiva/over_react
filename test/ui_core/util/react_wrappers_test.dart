@@ -311,17 +311,41 @@ main() {
           expect(isComponentOfType(Icon()(), Icon().componentFactory), isTrue);
         });
 
+        test('a DOM component and its component factory', () {
+          expect(isComponentOfType(Dom.div()(), Icon().componentFactory), isFalse);
+        });
+
+        test('a DOM component and its component factory', () {
+          expect(isComponentOfType(Dom.div()(), Dom.div().componentFactory), isTrue);
+        });
+
+        test('a JS component and its component factory', () {
+          expect(isComponentOfType(testJsComponentFactory.apply([]), Icon().componentFactory), isFalse);
+        });
+
         group('a components that nests the component factory', () {
-          test('one level deep', () {
-            expect(isComponentOfType(OneLevelWrapper()(MenuItem()()), MenuItem().componentFactory), isTrue);
+          group('one level deep and traverseWrappers is', () {
+            test('true', () {
+              expect(isComponentOfType(OneLevelWrapper()(MenuItem()()), MenuItem().componentFactory), isTrue);
+            });
+
+            test('false', () {
+              expect(isComponentOfType(OneLevelWrapper()(MenuItem()()), MenuItem().componentFactory, traverseWrappers: false), isFalse);
+            });
           });
 
-          test('two levels deep', () {
-            expect(isComponentOfType(TwoLevelWrapper()(OneLevelWrapper()(MenuItem()())), MenuItem().componentFactory), isTrue);
+          group('two levels deep and traverseWrappers is ', () {
+            test('true', () {
+              expect(isComponentOfType(TwoLevelWrapper()(OneLevelWrapper()(MenuItem()())), MenuItem().componentFactory), isTrue);
+            });
+
+            test('false', () {
+              expect(isComponentOfType(TwoLevelWrapper()(OneLevelWrapper()(MenuItem()())), MenuItem().componentFactory, traverseWrappers: false), isFalse);
+            });
           });
 
           test('and does not throw when children is null', () {
-            expect(() =>isComponentOfType(OneLevelWrapper()(), MenuItem().componentFactory), isNot(throws));
+            expect(() => isComponentOfType(OneLevelWrapper()(), MenuItem().componentFactory), isNot(throws));
           });
         });
       });
