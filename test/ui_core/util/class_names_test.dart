@@ -167,6 +167,64 @@ main() {
             ..add('');
           expect(builder.toClassName(), equals('class1'));
         });
+
+        group('addFromProps()', () {
+          test('adds to the className from the "className" prop in the specified Map', () {
+            const addedClass = 'class';
+            const Map props = const {
+              CssClassProps.Z_$KEY__CLASS_NAME: addedClass
+            };
+
+            ClassNameBuilder builder = new ClassNameBuilder()
+              ..addFromProps(props);
+
+            expect(builder.toClassName(), equals(addedClass));
+          });
+
+          test('adds to the blacklist from the "classNameBlacklist" prop in the specified Map', () {
+            const blacklistedClass = 'class';
+            const Map props = const {
+              CssClassProps.Z_$KEY__CLASS_NAME_BLACKLIST: blacklistedClass
+            };
+
+            ClassNameBuilder builder = new ClassNameBuilder()
+              ..addFromProps(props);
+            builder.add(blacklistedClass);
+
+            expect(builder.toClassName(), isEmpty);
+          });
+
+          test('accepts null input', () {
+            expect(() {
+              new ClassNameBuilder()
+                ..addFromProps(null);
+            }, isNot(throws));
+          });
+        });
+
+        group('returns a Map with the builder\'s className and blacklist', () {
+          test('', () {
+            ClassNameBuilder builder = new ClassNameBuilder()
+              ..add('class1')
+              ..add('class2')
+              ..blacklist('blacklist1')
+              ..blacklist('blacklist2');
+
+            expect(builder.toProps(), equals({
+              CssClassProps.Z_$KEY__CLASS_NAME: 'class1 class2',
+              CssClassProps.Z_$KEY__CLASS_NAME_BLACKLIST: 'blacklist1 blacklist2',
+            }));
+          });
+
+          test('when empty', () {
+            ClassNameBuilder builder = new ClassNameBuilder();
+
+            expect(builder.toProps(), equals({
+              CssClassProps.Z_$KEY__CLASS_NAME: '',
+              CssClassProps.Z_$KEY__CLASS_NAME_BLACKLIST: null,
+            }));
+          });
+        });
       });
 
       group('created with .fromProps() constructor', () {
@@ -191,6 +249,12 @@ main() {
           builder.add(blacklistedClass);
 
           expect(builder.toClassName(), isEmpty);
+        });
+
+        test('accepts null input', () {
+          expect(() {
+            new ClassNameBuilder.fromProps(null);
+          }, isNot(throws));
         });
       });
     });
