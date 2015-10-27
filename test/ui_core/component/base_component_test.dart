@@ -59,8 +59,8 @@ main() {
       test('children is null', () {
         var renderedInstance = render(TestComponent()(null));
 
-        expect(getDartComponent(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
-        expect(getDartComponent(renderedInstance), isEmpty);
+        expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+        expect(getDartChildren(renderedInstance), isEmpty);
 
         expect(getJsChildren(renderedInstance), isNull);
       });
@@ -69,8 +69,8 @@ main() {
         var child = 'Only child';
         var renderedInstance = render(TestComponent()(child));
 
-        expect(getDartComponent(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
-        expect(getDartComponent(renderedInstance), equals([child]));
+        expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+        expect(getDartChildren(renderedInstance), equals([child]));
 
         expect(getJsChildren(renderedInstance), equals(child));
       });
@@ -79,8 +79,8 @@ main() {
         var children = ['First Child', 'Second Child'];
         var renderedInstance = render(TestComponent()(children));
 
-        expect(getDartComponent(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
-        expect(getDartComponent(renderedInstance), equals(children));
+        expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+        expect(getDartChildren(renderedInstance), equals(children));
 
         expect(getJsChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
         expect(getJsChildren(renderedInstance), equals(children));
@@ -93,8 +93,8 @@ main() {
         })();
         var renderedInstance = render(TestComponent()(children));
 
-        expect(getDartComponent(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
-        expect(getDartComponent(renderedInstance), orderedEquals(children));
+        expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+        expect(getDartChildren(renderedInstance), orderedEquals(children));
 
         expect(getJsChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
         expect(getJsChildren(renderedInstance), orderedEquals(children));
@@ -105,8 +105,8 @@ main() {
         var secondChild = 'Second Child';
         var renderedInstance = render(TestComponent()(firstChild, secondChild));
 
-        expect(getDartComponent(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
-        expect(getDartComponent(renderedInstance), equals([firstChild, secondChild]));
+        expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+        expect(getDartChildren(renderedInstance), equals([firstChild, secondChild]));
 
         expect(getJsChildren(renderedInstance), new isInstanceOf<JsArray>(), reason: 'Should not be a Dart Object');
         expect(getJsChildren(renderedInstance), equals([firstChild, secondChild]));
