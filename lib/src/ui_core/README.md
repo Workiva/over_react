@@ -97,7 +97,7 @@ Note how you might render the same DOM in JSX, react-dart, and web_skin_dart:
     <div className="container">
       <h1>Click the button!</h1>
       <button
-        id="myButton"
+        id="my_button"
         className="fancy-button"
         tabIndex=1
         onClick={_handleClick}
@@ -111,7 +111,7 @@ Note how you might render the same DOM in JSX, react-dart, and web_skin_dart:
     div({'className': 'container'}, [
       h1({}, 'Click the button!'),
       button({
-        'id': 'myButton',
+        'id': 'my_button',
         'className': 'fancy-button',
         'tabIndex': 1,
         'onClick': _handleClick
@@ -125,7 +125,7 @@ Note how you might render the same DOM in JSX, react-dart, and web_skin_dart:
     (Dom.div()..className='container')([
       Dom.h1()('Click the button!'),
       (Dom.button()
-        ..id = 'myButton'
+        ..id = 'my_button'
         ..className = 'fancy-button'
         ..tabIndex = 1
         ..onClick = _handleClick
@@ -141,7 +141,7 @@ Note how you might render the same DOM in JSX, react-dart, and web_skin_dart:
       var builder = new DomComponentDefinition(react.button, {});
       
       // Use typed setters to add key-value pairs to the props map.
-      builder.id = 'myButton';              // builder['id'] = 'myButton';
+      builder.id = 'my_button';             // builder['id'] = 'my_button';
       builder.className = 'fancy-button';   // builder['className'] = 'myButton';
       builder.tabIndex = 1;                 // builder['tabIndex'] = 1;
       builder.onClick = _handleClick;       // builder['onClick'] = _handleClick;
