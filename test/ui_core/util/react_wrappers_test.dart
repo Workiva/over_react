@@ -311,7 +311,7 @@ main() {
           expect(isComponentOfType(Icon()(), Icon().componentFactory), isTrue);
         });
 
-        test('a DOM component and its component factory', () {
+        test('a DOM component and a component factory for a Dart component', () {
           expect(isComponentOfType(Dom.div()(), Icon().componentFactory), isFalse);
         });
 
@@ -319,11 +319,11 @@ main() {
           expect(isComponentOfType(Dom.div()(), Dom.div().componentFactory), isTrue);
         });
 
-        test('a JS component and its component factory', () {
+        test('a JS component and a component factory for a Dart component', () {
           expect(isComponentOfType(testJsComponentFactory.apply([]), Icon().componentFactory), isFalse);
         });
 
-        group('a components that nests the component factory', () {
+        group('a component that nests the component factory', () {
           group('one level deep and traverseWrappers is', () {
             test('true', () {
               expect(isComponentOfType(OneLevelWrapper()(MenuItem()()), MenuItem().componentFactory), isTrue);

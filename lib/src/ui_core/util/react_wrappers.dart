@@ -93,7 +93,7 @@ bool isComponentOfType(JsObject instance, ReactComponentFactory factory, {bool t
       bool isWrapper = instanceType is JsFunction && instanceType['isWrapper'] == true;
 
       if (traverseWrappers && isWrapper) {
-        // Should always be a Dart component is `isWrapper` true, this just to make sure.
+        // Should always be a Dart component if `isWrapper` true, this is just to make sure.
         assert(isDartComponent(instance));
         var children = getProps(instance)['children'] ?? const [];
         if (children.isNotEmpty) {
