@@ -19,6 +19,24 @@ EventKeyCallback createChainedEventKeyCallback(EventKeyCallback a, EventKeyCallb
   };
 }
 
+/// Creates a EventKeyCallback that calls through to the list of provided callbacks in order.
+/// Useful for executing multiple callbacks where only a single callback is accepted.
+///
+/// Returns `false` if one or more of the provided callback returns `false`.
+EventKeyCallback createChainedEventKeyCallbackFromList(List<EventKeyCallback> callbacks) {
+  return (react.SyntheticEvent event, Object eventKey) {
+    var didReturnFalse = false;
+
+    callbacks.forEach((EventKeyCallback callback) {
+      didReturnFalse = didReturnFalse || (callback != null ? callback(event, eventKey) == false : false);
+    });
+
+    if (didReturnFalse) {
+      return false;
+    }
+  };
+}
+
 /// Creates a DomEventCallback that calls through to the two provided callbacks in order.
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
