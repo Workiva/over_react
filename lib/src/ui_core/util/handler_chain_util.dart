@@ -129,7 +129,7 @@ TouchEventCallback createChainedTouchEventCallback(TouchEventCallback a, TouchEv
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
 UIEventCallback createChainedUIEventCallback(UIEventCallback a, UIEventCallback b) {
-  return (react.SyntheticUIEvenet event) {
+  return (react.SyntheticUIEvent event) {
     var aDidReturnFalse = a != null ? a(event) == false : false;
     var bDidReturnFalse = b != null ? b(event) == false : false;
 
@@ -144,7 +144,7 @@ UIEventCallback createChainedUIEventCallback(UIEventCallback a, UIEventCallback 
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
 WheelEventCallback createChainedWheelEventCallback(WheelEventCallback a, WheelEventCallback b) {
-  return (react.SyntheticWheelEvenet event) {
+  return (react.SyntheticWheelEvent event) {
     var aDidReturnFalse = a != null ? a(event) == false : false;
     var bDidReturnFalse = b != null ? b(event) == false : false;
 
