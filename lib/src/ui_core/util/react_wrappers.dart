@@ -86,12 +86,28 @@ bool isValidElementOfType(dynamic instance, ReactComponentFactory factory) {
 }
 
 /// Returns whether the instance was created using the specified Dart factory
-/// TODO: Find better way of determining the type of rendered components
-bool isComponentOfType(JsObject instance, ReactComponentFactory factory) {
+bool isComponentOfType(JsObject instance, ReactComponentFactory factory, {bool traverseWrappers: true}) {
   if (instance != null && factory != null) {
-    return factory is ReactComponentFactoryProxy && instance['type'] == (factory as ReactComponentFactoryProxy).type;
+    if (factory is ReactComponentFactoryProxy) {
+      var instanceType = instance['type'];
+      bool isWrapper = instanceType is JsFunction && instanceType['isWrapper'] == true;
+
+      if (traverseWrappers && isWrapper) {
+        // Should always be a Dart component if `isWrapper` true, this is just to make sure.
+        assert(isDartComponent(instance));
+        var children = getProps(instance)['children'] ?? const [];
+        if (children.isNotEmpty) {
+          return isComponentOfType(children.first, factory);
+        } else {
+          return false;
+        }
+      }
+
+      return instanceType == factory.type;
+    }
   }
-   return false;
+
+  return false;
 }
 
 /// Dart wrapper for React.isValidElement.
