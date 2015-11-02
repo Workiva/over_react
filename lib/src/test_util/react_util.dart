@@ -99,7 +99,7 @@ void simulateMouseLeave(EventTarget target) {
   react_test_utils.SimulateNative.mouseOver(to, {'relatedTarget': from});
 }
 
-/// Returns the single DOM component that ta component eventually renders down to.
+/// Returns the single DOM component that a component eventually renders down to.
 ///
 /// Useful for checking props and simulating events on composite components like react.button.
 JsObject getDomComponent(JsObject instance) {
