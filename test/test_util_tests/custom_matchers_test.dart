@@ -169,6 +169,9 @@ main() {
   });
 }
 
+/// Utility for asserting that [matcher] will fail on [value].
+///
+/// Copyright (c) 2012, the Dart project authors.
 void shouldFail(value, Matcher matcher, expected) {
   var failed = false;
   try {
@@ -188,6 +191,9 @@ void shouldFail(value, Matcher matcher, expected) {
   expect(failed, isTrue, reason: 'Expected to fail.');
 }
 
+/// Utility for asserting that [matcher] will pass on [value].
+///
+/// Copyright (c) 2012, the Dart project authors.
 void shouldPass(value, Matcher matcher) {
   expect(value, matcher);
 }
