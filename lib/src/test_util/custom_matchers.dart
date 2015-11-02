@@ -93,9 +93,6 @@ class ClassNameMatcher extends Matcher {
 
     List<String> descriptionParts = [];
     if (allowExtraneous) {
-      if (missingClasses.isNotEmpty) {
-        descriptionParts.add('is missing classes: $missingClasses');
-      }
       if (unwantedClasses.isNotEmpty) {
         descriptionParts.add('has unwanted classes: $unwantedClasses');
       }
@@ -104,6 +101,11 @@ class ClassNameMatcher extends Matcher {
         descriptionParts.add('has extraneous classes: $extraneousClasses');
       }
     }
+
+    if (missingClasses.isNotEmpty) {
+      descriptionParts.add('is missing classes: $missingClasses');
+    }
+
     mismatchDescription.add(descriptionParts.join('; '));
 
     return mismatchDescription;
@@ -128,9 +130,13 @@ class _ElementAttributeMatcher extends CustomMatcher {
 
   featureValueOf(Element element) => element.getAttribute(_attributeName);
 }
-
+/// Returns a matcher that matches an element that has [classes].
 Matcher hasClasses(classes) => new _ElementClassNameMatcher(new ClassNameMatcher.expected(classes));
+/// Returns a matcher that matches an element that has [classes], with no additional or duplicated classes.
 Matcher hasExactClasses(classes) => new _ElementClassNameMatcher(new ClassNameMatcher.expected(classes, allowExtraneous: false));
+/// Returns a matcher that matches an element that does not have [classes].
 Matcher excludesClasses(classes) => new _ElementClassNameMatcher(new ClassNameMatcher.unexpected(classes));
+/// Returns a matcher that matches an element that has [attributeName] set to [value].
 Matcher hasAttr(String attributeName, value) => new _ElementAttributeMatcher(attributeName, wrapMatcher(value));
+/// Returns a matcher that matches an element with the nodeName of [nodeName].
 Matcher hasNodeName(String nodeName) => new IsNode(equalsIgnoringCase(nodeName));
