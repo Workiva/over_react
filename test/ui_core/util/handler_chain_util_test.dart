@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
-import '../../test_util/zone.dart';
+import '../../wsd_test_util/zone.dart';
 
 /// Main entry point for HandlerChainUtil testing
 main() {
