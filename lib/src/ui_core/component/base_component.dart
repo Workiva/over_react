@@ -94,3 +94,16 @@ abstract class ComponentDefinition extends MapView implements Function {
     return super.noSuchMethod(invocation);
   }
 }
+
+/// Helper function that wraps react.registerComponent. But also adds the ability specify if the
+/// component is a wrapper component.
+///
+/// A wrapper component is a component that clones or passes through its children
+/// but needs to be treated as if it were the wrapped component.
+ReactComponentFactory registerComponent(react.Component dartComponentFactory(), {bool isWrapper: false}) {
+  ReactDartComponentFactoryProxy reactComponentFactory = react.registerComponent(dartComponentFactory);
+  if (isWrapper) {
+    reactComponentFactory.type['isWrapper'] = true;
+  }
+  return reactComponentFactory;
+}
