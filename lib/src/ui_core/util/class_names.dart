@@ -3,9 +3,6 @@ part of web_skin_dart.ui_core;
 
 /// StringBuffer-backed className builder optimized for adding classNames, with support for blacklisting CSS classes.
 class ClassNameBuilder {
-  static const String _classNamePropKey = CssClassProps.Z_$KEY__CLASS_NAME;
-  static const String _classNameBlacklistPropKey = CssClassProps.Z_$KEY__CLASS_NAME_BLACKLIST;
-
   StringBuffer _classNamesBuffer = new StringBuffer();
   StringBuffer _blacklistBuffer = null;
 
@@ -31,9 +28,11 @@ class ClassNameBuilder {
       return;
     }
 
+    var cssClassProps = new CssClassPropsMapView(props);
+
     this
-      ..add(props[_classNamePropKey])
-      ..blacklist(props[_classNameBlacklistPropKey]);
+      ..add(cssClassProps.className)
+      ..blacklist(cssClassProps.classNameBlacklist);
   }
 
   /// Adds a className string. May be a single CSS class 'token', or multiple space-delimited classes,
@@ -102,10 +101,9 @@ class ClassNameBuilder {
   ///
   /// This method, along with [addFromProps], is useful for merging sets of className/blacklist props.
   Map toProps() {
-    return {
-      _classNamePropKey: toClassName(),
-      _classNameBlacklistPropKey: toClassNameBlacklist()
-    };
+    return new CssClassPropsMapView({})
+      ..className = toClassName()
+      ..classNameBlacklist = toClassNameBlacklist();
   }
 
   @override
