@@ -2,7 +2,7 @@ library test_util.custom_matchers;
 
 import 'dart:html';
 
-import 'package:test/test.dart';
+import 'package:matcher/matcher.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
 /// Match a list of class names on a component
