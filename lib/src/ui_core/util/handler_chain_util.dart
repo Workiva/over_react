@@ -28,7 +28,9 @@ EventKeyCallback createChainedEventKeyCallbackFromList(List<EventKeyCallback> ca
     var didReturnFalse = false;
 
     callbacks.forEach((EventKeyCallback callback) {
-      didReturnFalse = didReturnFalse || (callback != null ? callback(event, eventKey) == false : false);
+      if (callback != null && callback(event, eventKey) == false) {
+        didReturnFalse = false;
+      }
     });
 
     if (didReturnFalse) {
