@@ -8,8 +8,7 @@ import 'package:react/react_client.dart';
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:web_skin_dart/ui_core.dart';
 
-// Expose utilities in ui_core/util/react_wrappers.dart
-export 'package:web_skin_dart/ui_core.dart';
+export 'package:web_skin_dart/src/ui_core/util/react_wrappers.dart';
 
 JsObject _React = context['React'];
 
