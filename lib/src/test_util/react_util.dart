@@ -99,15 +99,6 @@ void simulateMouseLeave(EventTarget target) {
   react_test_utils.SimulateNative.mouseOver(to, {'relatedTarget': from});
 }
 
-/// Returns the single DOM component that a component eventually renders down to.
-///
-/// Useful for checking props and simulating events on composite components like react.button.
-JsObject getDomComponent(JsObject instance) {
-  return react_test_utils.findAllInRenderedTree(instance, new JsFunction.withThis((_, JsObject descendant) {
-    return react_test_utils.isDOMComponent(descendant);
-  })).single;
-}
-
 /// Returns all descendants of a component that contain the specified prop key.
 List<JsObject> findDescendantsWithProp(JsObject root, dynamic propKey) {
   return react_test_utils.findAllInRenderedTree(root, new JsFunction.withThis((_, JsObject descendant) {
