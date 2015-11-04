@@ -6,10 +6,9 @@ import 'package:test/test.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_test_utils.dart' as react_test_utils;
+import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
 import 'package:web_skin_dart/ui_components.dart';
-
-import '../../test_util/react_util.dart';
 
 /// Main entry point for react wrappers testing
 main() {
@@ -310,6 +309,44 @@ main() {
         test('a component and its component factory', () {
           expect(isComponentOfType(Icon()(), Icon().componentFactory), isTrue);
         });
+
+        test('a DOM component and a component factory for a Dart component', () {
+          expect(isComponentOfType(Dom.div()(), Icon().componentFactory), isFalse);
+        });
+
+        test('a DOM component and its component factory', () {
+          expect(isComponentOfType(Dom.div()(), Dom.div().componentFactory), isTrue);
+        });
+
+        test('a JS component and a component factory for a Dart component', () {
+          expect(isComponentOfType(testJsComponentFactory.apply([]), Icon().componentFactory), isFalse);
+        });
+
+        group('a component that nests the component factory', () {
+          group('one level deep and traverseWrappers is', () {
+            test('true', () {
+              expect(isComponentOfType(OneLevelWrapper()(MenuItem()()), MenuItem().componentFactory), isTrue);
+            });
+
+            test('false', () {
+              expect(isComponentOfType(OneLevelWrapper()(MenuItem()()), MenuItem().componentFactory, traverseWrappers: false), isFalse);
+            });
+          });
+
+          group('two levels deep and traverseWrappers is ', () {
+            test('true', () {
+              expect(isComponentOfType(TwoLevelWrapper()(OneLevelWrapper()(MenuItem()())), MenuItem().componentFactory), isTrue);
+            });
+
+            test('false', () {
+              expect(isComponentOfType(TwoLevelWrapper()(OneLevelWrapper()(MenuItem()())), MenuItem().componentFactory, traverseWrappers: false), isFalse);
+            });
+          });
+
+          test('and does not throw when children is null', () {
+            expect(() => isComponentOfType(OneLevelWrapper()(), MenuItem().componentFactory), isNot(throws));
+          });
+        });
       });
     });
 
@@ -380,4 +417,43 @@ JsFunction get testJsComponentFactory {
   }
 
   return _testJsComponentFactory;
+}
+
+/// Returns a new builder for the OneLevelWrapper component.
+OneLevelWrapperDefinition OneLevelWrapper() => new OneLevelWrapperDefinition({});
+
+class OneLevelWrapperDefinition extends BaseComponentDefinition {
+  OneLevelWrapperDefinition(Map props) : super(_OneLevelWrapperComponentFactory, props);
+}
+
+ReactComponentFactory _OneLevelWrapperComponentFactory = registerComponent(() => new _OneLevelWrapper(), isWrapper: true);
+class _OneLevelWrapper extends BaseComponent<OneLevelWrapperDefinition> {
+
+  @override
+  render() {
+    return Dom.div()(tProps.children.single);
+  }
+
+  @override
+  OneLevelWrapperDefinition typedPropsFactory(Map propsMap) => new OneLevelWrapperDefinition(propsMap);
+}
+
+/// Returns a new builder for the OneLevelWrapper component.
+TwoLevelWrapperDefinition TwoLevelWrapper() => new TwoLevelWrapperDefinition({});
+
+class TwoLevelWrapperDefinition extends BaseComponentDefinition {
+  TwoLevelWrapperDefinition(Map props) : super(_TwoLevelWrapperComponentFactory, props);
+}
+
+ReactComponentFactory _TwoLevelWrapperComponentFactory = registerComponent(() => new _TwoLevelWrapper(), isWrapper: true);
+class _TwoLevelWrapper extends BaseComponent<TwoLevelWrapperDefinition> {
+
+  @override
+  render() {
+    return Dom.div()(tProps.children.single);
+  }
+
+
+  @override
+  TwoLevelWrapperDefinition typedPropsFactory(Map propsMap) => new TwoLevelWrapperDefinition(propsMap);
 }

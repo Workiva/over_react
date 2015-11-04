@@ -122,7 +122,7 @@ Note how you might render the same DOM in JSX, react-dart, and web_skin_dart:
 * web_skin_dart fluent interface:
 
     ```dart
-    (Dom.div()..className='container')([
+    (Dom.div()..className='container')(
       Dom.h1()('Click the button!'),
       (Dom.button()
         ..id = 'my_button'
@@ -130,7 +130,7 @@ Note how you might render the same DOM in JSX, react-dart, and web_skin_dart:
         ..tabIndex = 1
         ..onClick = _handleClick
       )('Click')
-    ]);
+    );
     ```
     
     A more verbose version of the `button` usage:
