@@ -4,9 +4,8 @@ import 'dart:js';
 import 'dart:mirrors';
 
 import 'package:test/test.dart';
+import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
-
-import '../../test_util/react_util.dart';
 
 
 main() {
