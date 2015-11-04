@@ -9,7 +9,7 @@ import 'package:react/react_client.dart' as reactClient;
 import 'package:react/react_test_utils.dart' as reactTestUtils;
 import 'package:test/test.dart';
 
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:web_skin_dart/src/ui_core/component/resize_sensor.dart';
 
 void main() {
   reactClient.setClientConfiguration();
