@@ -202,7 +202,7 @@ main() {
           });
         });
 
-        group('returns a Map with the builder\'s className and blacklist', () {
+        group('toProps() returns a Map with the builder\'s className and blacklist', () {
           test('', () {
             ClassNameBuilder builder = new ClassNameBuilder()
               ..add('class1')
