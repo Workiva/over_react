@@ -1,5 +1,7 @@
 library ui_core.callback_typedefs;
 
+import 'dart:html';
+
 import 'package:react/react.dart' as react;
 
 // Callbacks for React's DOM event system
@@ -22,3 +24,6 @@ typedef StateWillChangeCallback(react.SyntheticEvent event, Map newState);
 
 // Callback for Collapse events
 typedef CollapseCallback();
+
+// Callback for DOM elements
+typedef Element ElementCallback();
