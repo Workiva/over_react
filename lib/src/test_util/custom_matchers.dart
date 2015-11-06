@@ -82,11 +82,6 @@ class ClassNameMatcher extends Matcher {
 
   @override
   Description describeMismatch(item, Description mismatchDescription, Map matchState, bool verbose) {
-    if (matchState == null) {
-      mismatchDescription.add('what');
-      return mismatchDescription;
-    }
-
     Set missingClasses = matchState['missingClasses'];
     Set unwantedClasses = matchState['unwantedClasses'];
     List extraneousClasses = matchState['extraneousClasses'];

@@ -21,6 +21,11 @@ main() {
           shouldPass(testElement, hasClasses('class1 class2'));
         });
 
+        test('the element has the exact classes (specified as an Iterable)', () {
+          testElement.className = 'class1 class2';
+          shouldPass(testElement, hasClasses(['class1', 'class2']));
+        });
+
         test('the element has the exact classes with duplication', () {
           testElement.className = 'class1 class1 class2';
           shouldPass(testElement, hasClasses('class1 class2'));
@@ -51,6 +56,12 @@ main() {
           );
         });
       });
+
+      test('throws an error when an invalid, non-class value is passed to the matcher', () {
+        expect(() {
+          hasClasses(new Object());
+        }, throwsArgumentError);
+      });
     });
 
     group('hasExactClasses', () {
@@ -58,6 +69,11 @@ main() {
         test('the element has the exact classes', () {
           testElement.className = 'class1 class2';
           shouldPass(testElement, hasExactClasses('class1 class2'));
+        });
+
+        test('the element has the exact classes (specified as an Iterable)', () {
+          testElement.className = 'class1 class2';
+          shouldPass(testElement, hasExactClasses(['class1', 'class2']));
         });
       });
 
@@ -98,6 +114,12 @@ main() {
           );
         });
       });
+
+      test('throws an error when an invalid, non-class value is passed to the matcher', () {
+        expect(() {
+          hasExactClasses(new Object());
+        }, throwsArgumentError);
+      });
     });
 
     group('excludesClasses', () {
@@ -118,6 +140,15 @@ main() {
           );
         });
 
+        test('the element has some of the excluded classes (specified as an Iterable)', () {
+          testElement.className = 'class1 class2';
+          shouldFail(testElement, excludesClasses(['class2', 'class3']),
+            'Expected: Element that does not have the classes: {class2, class3}'
+            ' Actual: DivElement:<div>'
+            ' Which: has className with value \'class1 class2\' which has unwanted classes: {class2}'
+          );
+        });
+
         test('the element has all of the excluded classes', () {
           testElement.className = 'class1 class2 class3';
           shouldFail(testElement, excludesClasses('class2 class3'),
@@ -126,6 +157,12 @@ main() {
               ' Which: has className with value \'class1 class2 class3\' which has unwanted classes: {class2, class3}'
           );
         });
+      });
+
+      test('throws an error when an invalid, non-class value is passed to the matcher', () {
+        expect(() {
+          excludesClasses(new Object());
+        }, throwsArgumentError);
       });
     });
 
