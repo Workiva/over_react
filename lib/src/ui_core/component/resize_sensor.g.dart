@@ -24,3 +24,23 @@ abstract class ResizeSensorProps {
   /// This improves [ComponentDefinition] usage, since these static fields are incorrectly autocompleted due to [Web Storm issue WEB-17002](https://youtrack.jetbrains.com/issue/WEB-17002).
   static const List<String> Z_$propKeys = const [Z_$KEY__ON_RESIZE,];
 }
+
+// **************************************************************************
+// Generator: StateGenerator
+// Target: class ResizeSensorState
+// **************************************************************************
+
+/// Typed state for [ResizeSensor].
+abstract class ResizeSensorStateMixin implements Map {
+  /// The most recently measured value for the height of the sensor.
+  ///
+  /// Initial value: 0
+  int get lastHeight => this['uip_ResizeSensor.lastHeight'];
+  set lastHeight(int value) => this['uip_ResizeSensor.lastHeight'] = value;
+
+  /// The most recently measured value for the width of the sensor.
+  ///
+  /// Initial value: 0
+  int get lastWidth => this['uip_ResizeSensor.lastWidth'];
+  set lastWidth(int value) => this['uip_ResizeSensor.lastWidth'] = value;
+}
