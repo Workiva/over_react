@@ -5,9 +5,8 @@ import 'dart:js';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
+import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
-
-import '../../test_util/react_util.dart';
 
 /// Main entry point for BaseComponent testing
 main() {
