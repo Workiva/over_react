@@ -203,6 +203,64 @@ main() {
         );
       });
     });
+
+    group('isFocused:', () {
+      group('attached node:', () {
+        Element makeAttachedNode() {
+          var node = new DivElement()..tabIndex = 1;
+          document.body.append(node);
+          return node;
+        }
+
+        Element attachedNode;
+
+        setUp(() {
+          attachedNode = makeAttachedNode();
+        });
+
+        tearDown(() {
+          attachedNode.remove();
+        });
+
+        test('passes when an attached node is focused', () {
+          attachedNode.focus();
+          shouldPass(attachedNode, isFocused);
+        });
+
+        test('fails when the node is not focused', () {
+          shouldFail(attachedNode, isFocused,
+              contains('Which: is not focused; there is no element currently focused')
+          );
+        });
+
+        test('fails when the node is not focused, but another node is instead', () {
+          var otherNode = makeAttachedNode();
+          otherNode.focus();
+
+          shouldFail(attachedNode, isFocused,
+              contains('Which: is not focused; the currently focused element is ')
+          );
+
+          otherNode.remove();
+        });
+      });
+
+      group('provides a useful failure message when', () {
+        test('the node is not attached to the DOM, and thus cannot be focused', () {
+          var detachedNode = new DivElement();
+          shouldFail(detachedNode, isFocused, contains(
+              'Which: is not attached to the document, and thus cannot be focused.'
+              ' If testing with React, you can use `renderAttachedToDocument`.'
+          ));
+        });
+
+        test('the matched item is not an element', () {
+          shouldFail(null, isFocused,
+              contains('Which: is not a valid Element.')
+          );
+        });
+      });
+    });
   });
 }
 
