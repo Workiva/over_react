@@ -67,7 +67,7 @@ JsObject renderAttachedToDocument(dynamic component) {
   return react.render(component is ComponentDefinition ? component.build() : component, container);
 }
 
-/// Removes _attachedReactContainer from the document.
+/// Unmounts and removes the mount nodes for components rendered via [renderAttachedToDocument].
 void tearDownAttachedNodes() {
   _attachedReactContainers.forEach((container) {
     react.unmountComponentAtNode(container);
