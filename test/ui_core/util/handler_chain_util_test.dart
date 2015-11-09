@@ -332,6 +332,155 @@ main() {
         });
       });
 
+      group('createChainedEventKeyCallbackFromList', () {
+        group('returns', () {
+          test('false if the first provided function returns false', () {
+            var flags = [false, false, false];
+            var callbacks = [
+              (event, key) {
+                flags[0] = true;
+                return false;
+              },
+              (event, key) => flags[1] = true,
+              (event, key) => flags[2] = true
+            ];
+
+            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var result = chainedCallback(null, null);
+
+            expect(flags[0], isTrue);
+            expect(flags[1], isTrue);
+            expect(flags[2], isTrue);
+
+            expect(result, isFalse);
+          });
+
+          test('false if the second provided functions returns false', () {
+            var flags = [false, false, false];
+            var callbacks = [
+              (event, key) => flags[0] = true,
+              (event, key) {
+                flags[1] = true;
+                return false;
+              },
+              (event, key) => flags[2] = true
+            ];
+
+            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var result = chainedCallback(null, null);
+
+            expect(flags[0], isTrue);
+            expect(flags[1], isTrue);
+            expect(flags[2], isTrue);
+
+            expect(result, isFalse);
+          });
+
+          test('false if the last provided functions returns false', () {
+            var flags = [false, false, false];
+            var callbacks = [
+              (event, key) => flags[0] = true,
+              (event, key) => flags[1] = true,
+              (event, key) {
+                flags[2] = true;
+                return false;
+              }
+            ];
+
+            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var result = chainedCallback(null, null);
+
+            expect(flags[0], isTrue);
+            expect(flags[1], isTrue);
+            expect(flags[2], isTrue);
+
+            expect(result, isFalse);
+          });
+
+          test('false if two provided functions return false', () {
+            var flags = [false, false, false];
+            var callbacks = [
+              (event, key) => flags[0] = true,
+              (event, key) {
+                flags[1] = true;
+                return false;
+              },
+              (event, key) {
+                flags[2] = true;
+                return false;
+              }
+            ];
+
+            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var result = chainedCallback(null, null);
+
+            expect(flags[0], isTrue);
+            expect(flags[1], isTrue);
+            expect(flags[2], isTrue);
+
+            expect(result, isFalse);
+          });
+
+          test('false if all provided functions return false', () {
+            var flags = [false, false, false];
+            var callbacks = [
+              (event, key) {
+                flags[0] = true;
+                return false;
+              },
+              (event, key) {
+                flags[1] = true;
+                return false;
+              },
+              (event, key) {
+                flags[2] = true;
+                return false;
+              }
+            ];
+
+            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var result = chainedCallback(null, null);
+
+            expect(flags[0], isTrue);
+            expect(flags[1], isTrue);
+            expect(flags[2], isTrue);
+
+            expect(result, isFalse);
+          });
+
+          test('null if no provided function returns false', () {
+            var flags = [false, false, false];
+            var callbacks = [
+              (event, key) => flags[0] = true,
+              (event, key) => flags[1] = true,
+              (event, key) => flags[2] = true
+            ];
+
+            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var result = chainedCallback(null, null);
+
+            expect(flags[0], isTrue);
+            expect(flags[1], isTrue);
+            expect(flags[2], isTrue);
+
+            expect(result, isNull);
+          });
+        });
+
+        test('should gracefully handle a provided functions being null', () {
+          var callbacks = [
+            null,
+            null,
+            null
+          ];
+
+          var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+          var result = chainedCallback(null, null);
+
+          expect(result, isNull);
+        });
+      });
+
       group('createChainedCollapseCallback', () {
         test('should return an CollapseCallback that calls the two provided functions', () {
           bool calledA = false, calledB = false;
