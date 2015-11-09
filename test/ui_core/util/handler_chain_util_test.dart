@@ -1,13 +1,10 @@
 library handler_chain_util_test;
 
 import 'package:test/test.dart';
-import 'package:web_skin_dart/ui_components.dart';
+import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
-import '../../test_util/react_util.dart';
-import '../../test_util/custom_matchers.dart';
-import '../../test_util/common_component_tests.dart';
-import '../../test_util/zone.dart';
+import '../../wsd_test_util/zone.dart';
 
 /// Main entry point for HandlerChainUtil testing
 main() {
