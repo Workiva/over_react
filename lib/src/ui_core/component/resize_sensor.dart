@@ -179,10 +179,15 @@ final Map<String, dynamic> _collapseSensorChildStyle = {
   'height': '200%'
 };
 
+/// Used with [ResizeHandler] to provide information about a resize.
 class ResizeSensorEvent {
+  /// The new width, in pixels.
   final int newWidth;
+  /// The new height, in pixels.
   final int newHeight;
+  /// The previous width, in pixels.
   final int prevWidth;
+  /// The previous height, in pixels.
   final int prevHeight;
 
   ResizeSensorEvent(this.newWidth, this.newHeight, this.prevWidth, this.prevHeight);
