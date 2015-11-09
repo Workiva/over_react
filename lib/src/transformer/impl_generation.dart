@@ -75,6 +75,9 @@ ComponentGeneratedSourceFile generateComponent(ComponentDeclarations declaration
       ..writeln('  $propsImplName(Map backingMap) : this.props = backingMap != null ? backingMap : {};')
       ..writeln()
       ..writeln('  @override')
+      ..writeln('  bool get \$generated => true;') // FIXME find better way to do this
+      ..writeln()
+      ..writeln('  @override')
       ..writeln('  Function get componentFactory => $componentFactoryName;')
       ..writeln()
       ..writeln('  @override')
@@ -108,6 +111,9 @@ ComponentGeneratedSourceFile generateComponent(ComponentDeclarations declaration
         ..writeln('  $stateImplName(Map backingMap) : this.state = backingMap != null ? backingMap : {};')
         ..writeln()
         ..writeln('  @override')
+        ..writeln('  bool get \$generated => true;') // FIXME find better way to do this
+        ..writeln()
+        ..writeln('  @override')
         ..writeln('  String get friendlyTypeName => "$stateName";')
         ..writeln('}')
         ..writeln();
@@ -125,6 +131,9 @@ ComponentGeneratedSourceFile generateComponent(ComponentDeclarations declaration
       ..writeln('//')
       ..writeln('// implements typed props and typed state factories')
       ..writeln('class $componentClassImplName extends $componentClassName {')
+      ..writeln('  @override')
+      ..writeln('  bool get \$generated => true;') // FIXME find better way to do this
+      ..writeln()
       ..writeln(typedPropsFactoryImpl)
       ..writeln(typedStateFactoryImpl)
       ..writeln('  @override')

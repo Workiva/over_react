@@ -6,7 +6,16 @@ import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:web_skin_dart/ui_core.dart' show ClassNameBuilder, ReactProps, UbiquitousDomProps, getPropsToForward, isValidElement;
 
+import './helpers_sans_generation.dart' as sans_generation;
+import './helpers_sans_generation.dart' show UiFactory;
+
 export './annotations.dart';
+export './helpers_sans_generation.dart' show UiFactory, MapViewMixin;
+
+// ----------------------------------------------------------------------
+//   Helpers and extras consumable by generated code and consumers of
+//   generated code.
+// ----------------------------------------------------------------------
 
 Expando<ReactDartComponentFactoryProxy> generatedBuilderToReactComponentFactory = new Expando<ReactDartComponentFactoryProxy>();
 
@@ -42,211 +51,136 @@ class $PropKeys implements List<String> {
   const $PropKeys(Symbol propsClass);
 
   dynamic noSuchMethod(Invocation invocation) {
-    throw r'The $PropKeys class should not be used at runtime, '
-          r'but should be replaced with a list via the transformer.';
-  }
-}
-
-
-/// Generic builder factory typedef for use by all components.
-typedef TBuilder UiFactory<TBuilder extends UiProps>([Map backingProps]);
-
-
-/// The basis for a component, extending react.Component. (similar to BaseComponent)
-abstract class UiComponent<TProps extends UiProps> extends react.Component with FriendlyTypeName {
-  /// The keys for the non-forwarding props defined in this component.
-  Iterable<Iterable<String>> get consumedPropKeys => const [];
-
-  Map forwardUnconsumedProps() {
-    return copyProps(keySetsToOmit: consumedPropKeys);
-  }
-
-  //
-  // Helpers from BaseComponent that would most likely be in their own class...
-
-  /// Utility function used for prop transfer
-  Map copyProps({bool omitReservedReactProps: true, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
-    return getPropsToForward(this.props,
-        omitReactProps: omitReservedReactProps,
-        keysToOmit: keysToOmit,
-        keySetsToOmit: keySetsToOmit
+    throw new UngeneratedError(
+        message: r'The $PropKeys class should not be used at runtime, '
+                 r'but should be replaced with a list via the transformer.'
     );
   }
-//
-//  Iterable<dynamic> get iterateChildren {
-//    return childrenIterable(props.children);
-//  }
+}
 
-  /// Returns a new ClassNameBuilder with className and blacklist values added from [CssClassProps.className] and
-  /// [CssClassProps.classNameBlackList], if they are specified.
+
+// ----------------------------------------------------------------------
+//   Base classes to be used by pre-generated code that stub out
+//   to-be-generated members.
+// ----------------------------------------------------------------------
+
+class GeneratedClass {
+  /// Whether this class has been generated.
   ///
-  /// This method should be used as the basis for the classNames of components receiving forwarded props.
-  ClassNameBuilder forwardingClassNameBuilder() {
-    return new ClassNameBuilder.fromProps(this.props);
-  }
+  /// This should ONLY be overridden by code generation; behavior is undefined otherwise.
+  bool get $generated => false;
 
-
-  // ----------------------------------------------------------------------
-  // ----------------------------------------------------------------------
-  //   BEGIN Typed props helpers
-  //
-
-  // Keep this Expando unparameterized to work around this bug: https://code.google.com/p/dart/issues/detail?id=18713
-  Expando _typedPropsCache = new Expando();
-
-  /// Create, or get from cache, a typed props object corresponding to the current props Map.
-  @override
-  TProps get props {
-    var unwrappedProps = this.unwrappedProps;
-    TProps typedProps = _typedPropsCache[unwrappedProps];
-    if (typedProps == null) {
-      typedProps = typedPropsFactory(unwrappedProps);
-      _typedPropsCache[unwrappedProps] = typedProps;
+  void _throwIfNotGenerated() {
+    if (!this.$generated) {
+      throw new IllegalInstantiationError(runtimeType: this.runtimeType);
     }
-    return typedProps;
   }
 
-  /// Use [props] instead;
-  @deprecated
-  TProps get tProps => props;
-
-  /// The props Map that will be used to create the typed props object.
-  Map get unwrappedProps => super.props;
-
-  /// Returns a typed props object backed by the specified Map.
-  /// Required to properly instantiate the generic class parameter.
-  TProps typedPropsFactory(Map propsMap);
-
-  /// Returns a typed props object backed by a new Map.
-  /// Convenient for use with getDefaultProps.
-  TProps newProps() => typedPropsFactory({});
-
-  //
-  //   END Typed props helpers
-  // ----------------------------------------------------------------------
-  // ----------------------------------------------------------------------
-}
-
-abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState>
-    extends UiComponent<TProps> {
-
-  // ----------------------------------------------------------------------
-  // ----------------------------------------------------------------------
-  //   BEGIN Typed state helpers
-  //
-
-   // Keep this Expando unparameterized to work around this bug: https://code.google.com/p/dart/issues/detail?id=18713
-  Expando _typedStateCache = new Expando();
-
-  /// Create, or get from cache, a typed state object corresponding to the current state Map.
-  @override
-  TState get state {
-    var unwrappedState = this.unwrappedState;
-    TState typedState = _typedStateCache[unwrappedState];
-    if (typedState == null) {
-      typedState = typedStateFactory(unwrappedState);
-      _typedStateCache[unwrappedState] = typedState;
-    }
-    return typedState;
-  }
-
-  /// Use [state] instead;
-  @deprecated
-  TState get tState => state;
-
-  /// The state Map that will be used to create the typed state object.
-  Map get unwrappedState => super.state;
-
-  /// Returns a typed state object backed by the specified Map.
-  /// Required to properly instantiate the generic class parameter.
-  TState typedStateFactory(Map stateMap);
-
-  /// Returns a typed state object backed by a new Map.
-  /// Convenient for use with getInitialState and setState.
-  TState newState() => typedStateFactory({});
-
-  //
-  //   END Typed state helpers
-  // ----------------------------------------------------------------------
-  // ----------------------------------------------------------------------
-}
-
-abstract class UiState extends Object with FriendlyTypeName, StateMapViewMixin implements Map, MapViewMixin {}
-
-
-/// Builder/MapView object, similar to ComponentDefinition.
-///
-/// Implements Map instead of extending it so that the abstract @props declarations
-/// don't need a constructor. The generated implementations can mix that functionality in.
-abstract class UiProps extends Object with FriendlyTypeName, PropsMapViewMixin, ReactProps, UbiquitousDomProps implements Map, MapViewMixin {
-  /// Add an arbitrary prop key-value pair.
-  void addProp(propKey, value) {
-    props[propKey] = value;
-  }
-
-  /// Add a Map of arbitrary props.
-  void addProps(Map propMap) {
-    props.addAll(propMap);
-  }
-
-  /// Default method for component validation. (Called in checked mode only, during [build].)
-  bool validate() {
-    return true;
-  }
-
-  /// Create a new component with this builder's props and the specified children.
-  JsObject build([dynamic children]) {
-    return componentFactory(props, children);
-  }
-
-  /// Create a new component with this builder's props and the specified children. (alias for [build])
-  JsObject call([dynamic children]) => build(children);
-
-  // To be implemented by code generation:
-  Function get componentFactory;
-  String get propKeyNamespace;
-}
-
-abstract class PropsMapViewMixin {
-  /// The props maintained by this builder and used passed into the component when built.
-  /// In this case, it's the current MapView object.
-  Map get props;
-  Map get _map => this.props;
-
-  String toString() => '$runtimeType: $_map';
-}
-
-abstract class StateMapViewMixin {
-  Map get state;
-  Map get _map => this.state;
-
-  String toString() => '$runtimeType: $_map';
-}
-
-abstract class MapViewMixin<K, V> {
-  Map<K, V> get _map;
-
-  V operator[](Object key) => _map[key];
-  void operator[]=(K key, V value) { _map[key] = value; }
-  void addAll(Map<K, V> other) { _map.addAll(other); }
-  void clear() { _map.clear(); }
-  V putIfAbsent(K key, V ifAbsent()) => _map.putIfAbsent(key, ifAbsent);
-  bool containsKey(Object key) => _map.containsKey(key);
-  bool containsValue(Object value) => _map.containsValue(value);
-  void forEach(void action(K key, V value)) { _map.forEach(action); }
-  bool get isEmpty => _map.isEmpty;
-  bool get isNotEmpty => _map.isNotEmpty;
-  int get length => _map.length;
-  Iterable<K> get keys => _map.keys;
-  V remove(Object key) => _map.remove(key);
-//  String toString() => _map.toString();
-  Iterable<V> get values => _map.values;
-}
-
-abstract class FriendlyTypeName {
   /// The "friendly" type name of this class, to be used for debugging
   /// instead of the generated implementation class's name.
   ///
   /// The generated code will override this, but for now, stub with the current class's name.
   String get friendlyTypeName => '$runtimeType';
+}
+
+// TODO: mirror comment from sans_generation
+abstract class UiComponent<TProps extends UiProps> extends sans_generation.UiComponent<TProps> with GeneratedClass {
+  /// This class should not be instantiated directly, and throws an error to indicate this.
+  UiComponent() {
+    _throwIfNotGenerated();
+  }
+
+  @ToBeGenerated() TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: 'typedPropsFactory');
+}
+
+// TODO: mirror comment from sans_generation
+abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState>
+    extends sans_generation.UiStatefulComponent<TProps, TState> with GeneratedClass {
+  /// This class should not be instantiated directly, and throws an error to indicate this.
+  UiStatefulComponent() {
+    _throwIfNotGenerated();
+  }
+
+  @ToBeGenerated() TState typedStateFactory(Map stateMap) => throw new UngeneratedError(member: 'typedStateFactory');
+  @ToBeGenerated() TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: 'typedStateFactory');
+}
+
+// TODO: mirror comment from sans_generation
+abstract class UiProps extends sans_generation.UiProps with GeneratedClass, MapViewMixinStubs {
+  /// This class should not be instantiated directly, and throws an error to indicate this.
+  UiProps() {
+    _throwIfNotGenerated();
+  }
+
+  @ToBeGenerated() Function get componentFactory => throw new UngeneratedError(member: 'componentFactory');
+  @ToBeGenerated() String get propKeyNamespace   => throw new UngeneratedError(member: 'propKeyNamespace');
+}
+
+// TODO: mirror comment from sans_generation
+abstract class UiState extends sans_generation.UiState with GeneratedClass, MapViewMixinStubs {
+  /// This class should not be instantiated directly, and throws an error to indicate this.
+  UiState() {
+    _throwIfNotGenerated();
+  }
+
+  @ToBeGenerated() Map get state => throw new UngeneratedError(member: 'state');
+}
+
+
+class MapViewMixinStubs {
+  @ToBeGenerated() operator [](Object key)          => throw new UngeneratedError(member: '[]');
+  @ToBeGenerated() void operator []=(key, value)    => throw new UngeneratedError(member: '[]=');
+  @ToBeGenerated() void addAll(Map other)           => throw new UngeneratedError(member: 'addAll');
+  @ToBeGenerated() void clear()                     => throw new UngeneratedError(member: 'clear');
+  @ToBeGenerated() bool containsKey(Object key)     => throw new UngeneratedError(member: 'containsKey');
+  @ToBeGenerated() bool containsValue(Object value) => throw new UngeneratedError(member: 'containsValue');
+  @ToBeGenerated() void forEach(void f(key, value)) => throw new UngeneratedError(member: 'forEach');
+  @ToBeGenerated() bool get isEmpty                 => throw new UngeneratedError(member: 'isEmpty');
+  @ToBeGenerated() bool get isNotEmpty              => throw new UngeneratedError(member: 'isNotEmpty');
+  @ToBeGenerated() Iterable get keys                => throw new UngeneratedError(member: 'keys');
+  @ToBeGenerated() int get length                   => throw new UngeneratedError(member: 'length');
+  @ToBeGenerated() Map get props                    => throw new UngeneratedError(member: 'props');
+  @ToBeGenerated() putIfAbsent(key, ifAbsent())     => throw new UngeneratedError(member: 'putIfAbsent');
+  @ToBeGenerated() remove(Object key)               => throw new UngeneratedError(member: 'remove');
+  @ToBeGenerated() Iterable get values              => throw new UngeneratedError(member: 'values');
+}
+
+
+// ----------------------------------------------------------------------
+//   Errors/annotations related to code generation
+// ----------------------------------------------------------------------
+
+/// Annotation that denotes that a given member will be implemented via code generation.
+///
+/// Used in place of the `abstract` keyword so that subclasses don't have to be abstract.
+class ToBeGenerated {
+  const ToBeGenerated();
+}
+
+/// Thrown when stubbed code (usually annotated with [ToBeGenerated]) that expects to be
+/// overridden by generated code is called unexpectedly.
+///
+/// Usually this is due to improper usage of the code-generating transformer.
+class UngeneratedError extends Error implements UnimplementedError {
+  final String message;
+  UngeneratedError({String message, String member}) :
+      this.message = message ?? "`$member` should be implemented by code generation";
+
+  String toString() =>
+      "UngeneratedError: $message.\n\n"
+      "Ensure that the `web_skin_dart` transformer is included in your pubspec.yaml, "
+      "and that this code is being run using Pub.";
+}
+
+/// Thrown when a class is directly instantiated when it should not be.
+class IllegalInstantiationError extends Error {
+  final String message;
+  IllegalInstantiationError({String message, Type runtimeType}) :
+      this.message = message ?? "`$runtimeType` cannot be instantated directly, but only indirectly via the UiFactory";
+
+  String toString() =>
+      "IllegalInstantiationError: $message.\n\n"
+      "Be sure to follow usage instructions for web_skin_dart component classes.\n\n"
+      "If you need to do something extra custom and want to implement everything without code generation, "
+      "base classes are available in the `` library. "; // FIXME add library path
 }
