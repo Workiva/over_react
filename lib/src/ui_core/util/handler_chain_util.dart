@@ -29,7 +29,7 @@ EventKeyCallback createChainedEventKeyCallbackFromList(List<EventKeyCallback> ca
 
     callbacks.forEach((EventKeyCallback callback) {
       if (callback != null && callback(event, eventKey) == false) {
-        didReturnFalse = false;
+        didReturnFalse = true;
       }
     });
 
