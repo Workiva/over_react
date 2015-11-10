@@ -14,7 +14,7 @@ typedef TBuilder UiFactory<TBuilder extends UiProps>([Map backingProps]);
 /// The basis for a component, extending react.Component. (similar to BaseComponent)
 abstract class UiComponent<TProps extends UiProps> extends react.Component {
   /// The keys for the non-forwarding props defined in this component.
-  Iterable<Iterable<String>> get consumedPropKeys => const [];
+  Iterable<Iterable<String>> get consumedPropKeys => null;
 
   Map forwardUnconsumedProps() {
     return copyProps(keySetsToOmit: consumedPropKeys);
