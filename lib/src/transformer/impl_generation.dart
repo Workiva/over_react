@@ -123,6 +123,8 @@ ComponentGeneratedSourceFile generateComponent(ComponentDeclarations declaration
         '  $stateName typedStateFactory(Map backingMap) => new $stateImplName(backingMap);';
     }
 
+    final String propsAnnotation = '`@${ComponentDeclarations.ANNOTATION_PROPS}`';
+
     // ----------------------------------------------------------------------
     //   Component implementation
     // ----------------------------------------------------------------------
@@ -133,6 +135,16 @@ ComponentGeneratedSourceFile generateComponent(ComponentDeclarations declaration
       ..writeln('class $componentClassImplName extends $componentClassName {')
       ..writeln('  @override')
       ..writeln('  bool get \$generated => true;') // FIXME find better way to do this
+      ..writeln()
+      ..writeln('  /// The default consumed prop keys, taken from $propsAnnotation.')
+      ..writeln('  static const List<List<String>> _\$defaultConsumedPropKeys = '
+                      'const [$propsName.${ComponentGeneratedSourceFile.staticPropKeysName}];')
+      ..writeln()
+      ..writeln('  @override')
+      ..writeln('  /// For convenience, default to the props generated in this component\'s $propsAnnotation')
+      ..writeln('  /// if none are explicitly declared.')
+      ..writeln('  Iterable<Iterable<String>> get consumedPropKeys => '
+                      'super.consumedPropKeys ?? _\$defaultConsumedPropKeys;')
       ..writeln()
       ..writeln(typedPropsFactoryImpl)
       ..writeln(typedStateFactoryImpl)
