@@ -2,9 +2,11 @@ library web_skin_dart.transformer.impl_generation;
 
 import 'package:analyzer/analyzer.dart';
 import 'package:source_span/source_span.dart';
+import 'package:web_skin_dart/src/transformer/analyzer_helpers.dart';
 import 'package:web_skin_dart/src/transformer/declaration_parsing.dart';
 import 'package:web_skin_dart/src/transformer/source_file_helpers.dart';
 import 'package:web_skin_dart/src/transformer/text_util.dart';
+import 'package:web_skin_dart/src/ui_core/transformer_generation/annotations.dart' as annotations;
 
 const String generatedPrefix = r'_$';
 
@@ -60,9 +62,9 @@ ComponentGeneratedSourceFile generateComponent(ComponentDeclarations declaration
     // ----------------------------------------------------------------------
     //   Props implementation
     // ----------------------------------------------------------------------
-    transformedFile.generateAccessors(AccessorType.props, declarations.props.node, namespace: declarations.props.meta?.keyNamespace);
+    transformedFile.generateAccessors(AccessorType.props, declarations.props);
 
-    final String propKeyNamespace = ComponentGeneratedSourceFile.getAccessorKeyNamespace(declarations.props.node);
+    final String propKeyNamespace = ComponentGeneratedSourceFile.getAccessorKeyNamespace(declarations.props);
 
     implementations
       ..writeln('// Props implementation')
@@ -98,7 +100,7 @@ ComponentGeneratedSourceFile generateComponent(ComponentDeclarations declaration
       final String stateName = declarations.state.node.name.toString();
       final String stateImplName = '$generatedPrefix${stateName}Impl';
 
-      transformedFile.generateAccessors(AccessorType.state, declarations.state.node, namespace: declarations.state.meta?.keyNamespace);
+      transformedFile.generateAccessors(AccessorType.state, declarations.state);
 
       implementations
         ..writeln('// State implementation')
@@ -164,15 +166,13 @@ ComponentGeneratedSourceFile generateComponent(ComponentDeclarations declaration
   //   Props/State Mixins implementations
   // ----------------------------------------------------------------------
   declarations.propsMixins.forEach((propMixinClass) {
-    print('META: ${propMixinClass.meta}');
-
     transformedFile.insert(
         sourceFile.location(propMixinClass.node.leftBracket.end),
         '    /** GENERATED MIXIN INTERFACE **/ Map get props;'
     );
 
     // todo pass it all in
-    transformedFile.generateAccessors(AccessorType.props, propMixinClass.node, namespace: propMixinClass.meta?.keyNamespace);
+    transformedFile.generateAccessors(AccessorType.props, propMixinClass);
   });
 
   declarations.stateMixins.forEach((stateMixinClass) {
@@ -182,18 +182,18 @@ ComponentGeneratedSourceFile generateComponent(ComponentDeclarations declaration
     );
 
     // todo pass it all in
-    transformedFile.generateAccessors(AccessorType.state, stateMixinClass.node, namespace: stateMixinClass.meta?.keyNamespace);
+    transformedFile.generateAccessors(AccessorType.state, stateMixinClass);
   });
 
   // ----------------------------------------------------------------------
   //   Abstract Props/State implementations
   // ----------------------------------------------------------------------
   if (declarations.abstractProps != null) {
-    transformedFile.generateAccessors(AccessorType.props, declarations.abstractProps.node, namespace: declarations.abstractProps.meta?.keyNamespace);
+    transformedFile.generateAccessors(AccessorType.props, declarations.abstractProps);
   }
 
   if (declarations.abstractState != null) {
-    transformedFile.generateAccessors(AccessorType.state, declarations.abstractState.node, namespace: declarations.abstractState.meta?.keyNamespace);
+    transformedFile.generateAccessors(AccessorType.state, declarations.abstractState);
   }
 
   // ----------------------------------------------------------------------
@@ -227,72 +227,84 @@ class ComponentGeneratedSourceFile extends TransformedSourceFile {
   static const String staticPropKeysName = '${generatedPrefix}propKeys';
   static const String staticStateKeysName = '${generatedPrefix}stateKeys';
 
-  static String getAccessorKeyNamespace(ClassDeclaration accessorTemplate) {
-    return '${accessorTemplate.name}.';
+  static String getAccessorKeyNamespace(NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap) {
+    // Default to the name of the class followed by a period.
+    var defaultNamespace = typedMap.node.name.name + '.';
+    // Allow the consumer to specify a custom namespace that trumps the default.
+    var specifiedKeyNamespace = typedMap.meta?.keyNamespace;
+
+    return specifiedKeyNamespace ?? defaultNamespace;
   }
 
-  void generateAccessors(AccessorType type, ClassDeclaration accessorTemplate, {String namespace}) {
-    if (namespace == null) {
-      namespace = getAccessorKeyNamespace(accessorTemplate);
-    }
+  void generateAccessors(AccessorType type, NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap) {
+    String keyNamespace = getAccessorKeyNamespace(typedMap);
 
     final String proxiedMapName = type == AccessorType.props ? proxiedPropsMapName : proxiedStateMapName;
     final String keyListName = type == AccessorType.props ? staticPropKeysName : staticStateKeysName;
 
-    var keys = {};
+    Map keyConstants = {};
 
-    accessorTemplate.members
+    typedMap.node.members
         .where((member) => member is FieldDeclaration)
         .where((FieldDeclaration member) => !member.isStatic)
         .forEach((FieldDeclaration field) {
-          StringBuffer buffer = new StringBuffer();
-
-          var type = field.fields.type;
-          String typePrefix = type == null ? '' : '$type ';
+          StringBuffer generatedAccessorsForField = new StringBuffer();
 
           field.fields.variables.forEach((VariableDeclaration variable) {
-            // todo check that field.initializer is null
+            if (variable.initializer != null) {
+              throw 'Fields are stubs for generated setters/getters and should not have initializers.';
+            }
 
-            var name = variable.name;
-            String keyName = '${generatedPrefix}key__$name';
+            String accessorName = variable.name.name;
 
-            /// todo real key generation
-            String keyValue = '"$namespace$name"';
+            annotations.Accessor accessorMeta = instantiateAnnotation(field, annotations.Accessor);
 
-            buffer.write('${typePrefix}get $name => $proxiedMapName[$keyName];');
-            buffer.write('  set $name(${typePrefix}value) => $proxiedMapName[$keyName] = value;    ');
+            String individualKeyNamespace = accessorMeta?.keyNamespace ?? keyNamespace;
+            String individualKey = accessorMeta?.key ?? accessorName;
 
-            keys[keyName] = keyValue;
+            String keyConstantName = '${generatedPrefix}key__$accessorName';
+            String keyValue = '"$individualKeyNamespace$individualKey"';
+
+            keyConstants[keyConstantName] = keyValue;
+
+            TypeName type = field.fields.type;
+            String typeString = type == null ? '' : '$type ';
+
+            generatedAccessorsForField
+              ..write('${typeString}get $accessorName => $proxiedMapName[$keyConstantName];')
+              ..write('  ')
+              ..write('set $accessorName(${typeString}value) => $proxiedMapName[$keyConstantName] = value;')
+              ..write('    ');
           });
 
           this.replace(
               // Preserve docs comments and metadata on the field
               // todo add doc comments to non-first variables.
               sourceFile.span(field.firstTokenAfterCommentAndMetadata.offset, field.end),
-              buffer.toString()
+              generatedAccessorsForField.toString()
           );
         });
 
     var keyConstantsImpl;
 
-    if (keys.keys.isEmpty) {
+    if (keyConstants.keys.isEmpty) {
       keyConstantsImpl = '';
     } else {
       keyConstantsImpl =
         'static const String ' +
-        keys.keys.map((keyName) => '$keyName = ${keys[keyName]}').join(', ') +
+        keyConstants.keys.map((keyName) => '$keyName = ${keyConstants[keyName]}').join(', ') +
         '; ';
     }
 
-    var keyListImpl =
+    String keyListImpl =
         'static const List<String> $keyListName = const [' +
-        keys.keys.join(', ') +
+        keyConstants.keys.join(', ') +
         '];';
 
-    var staticVariablesImpl = '    /* GENERATED CONSTANTS */ $keyConstantsImpl$keyListImpl';
+    String staticVariablesImpl = '    /* GENERATED CONSTANTS */ $keyConstantsImpl$keyListImpl';
 
     this.insert(
-        sourceFile.location(accessorTemplate.leftBracket.end),
+        sourceFile.location(typedMap.node.leftBracket.end),
         staticVariablesImpl
     );
   }
