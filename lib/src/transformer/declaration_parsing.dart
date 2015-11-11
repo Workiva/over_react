@@ -4,7 +4,7 @@ import 'dart:mirrors';
 
 import 'package:analyzer/analyzer.dart';
 import 'package:source_span/source_span.dart';
-import 'package:web_skin_dart/src/ui_core/transformer_generation/annotations.dart';
+import 'package:web_skin_dart/src/ui_core/transformer_generation/annotations.dart' as annotations;
 
 import './analyzer_helpers.dart';
 
@@ -13,17 +13,17 @@ class ComponentDeclarations {
     return MirrorSystem.getName(reflectType(type).simpleName);
   }
 
-  static final String key_factory = _getName(Factory);
-  static final String key_component = _getName(Component);
-  static final String key_props = _getName(Props);
-  static final String key_state = _getName(State);
+  static final String key_factory = _getName(annotations.Factory);
+  static final String key_component = _getName(annotations.Component);
+  static final String key_props = _getName(annotations.Props);
+  static final String key_state = _getName(annotations.State);
 
-  static final String key_abstractComponent = _getName(AbstractComponent);
-  static final String key_abstractProps = _getName(AbstractProps);
-  static final String key_abstractState = _getName(AbstractState);
+  static final String key_abstractComponent = _getName(annotations.AbstractComponent);
+  static final String key_abstractProps = _getName(annotations.AbstractProps);
+  static final String key_abstractState = _getName(annotations.AbstractState);
 
-  static final String key_propsMixin = _getName(PropsMixin);
-  static final String key_stateMixin = _getName(StateMixin);
+  static final String key_propsMixin = _getName(annotations.PropsMixin);
+  static final String key_stateMixin = _getName(annotations.StateMixin);
 
   static final List<String> key_allComponent = new List.unmodifiable([
     key_factory,
@@ -260,14 +260,14 @@ class ComponentDeclarations {
 }
 
 // Generic type aliases, for readability.
-class FactoryNode           extends NodeWithMeta<TopLevelVariableDeclaration, Factory> {FactoryNode(unit)           : super(unit);}
-class ComponentNode         extends NodeWithMeta<ClassDeclaration, Component>          {ComponentNode(unit)         : super(unit);}
-class PropsNode             extends NodeWithMeta<ClassDeclaration, Props>              {PropsNode(unit)             : super(unit);}
-class StateNode             extends NodeWithMeta<ClassDeclaration, State>              {StateNode(unit)             : super(unit);}
+class FactoryNode           extends NodeWithMeta<TopLevelVariableDeclaration, annotations.Factory> {FactoryNode(unit)           : super(unit);}
+class ComponentNode         extends NodeWithMeta<ClassDeclaration, annotations.Component>          {ComponentNode(unit)         : super(unit);}
+class PropsNode             extends NodeWithMeta<ClassDeclaration, annotations.Props>              {PropsNode(unit)             : super(unit);}
+class StateNode             extends NodeWithMeta<ClassDeclaration, annotations.State>              {StateNode(unit)             : super(unit);}
 
-class AbstractComponentNode extends NodeWithMeta<ClassDeclaration, AbstractComponent>  {AbstractComponentNode(unit) : super(unit);}
-class AbstractPropsNode     extends NodeWithMeta<ClassDeclaration, AbstractProps>      {AbstractPropsNode(unit)     : super(unit);}
-class AbstractStateNode     extends NodeWithMeta<ClassDeclaration, AbstractState>      {AbstractStateNode(unit)     : super(unit);}
+class AbstractComponentNode extends NodeWithMeta<ClassDeclaration, annotations.AbstractComponent>  {AbstractComponentNode(unit) : super(unit);}
+class AbstractPropsNode     extends NodeWithMeta<ClassDeclaration, annotations.AbstractProps>      {AbstractPropsNode(unit)     : super(unit);}
+class AbstractStateNode     extends NodeWithMeta<ClassDeclaration, annotations.AbstractState>      {AbstractStateNode(unit)     : super(unit);}
 
-class PropsMixinNode        extends NodeWithMeta<ClassDeclaration, PropsMixin>         {PropsMixinNode(unit)        : super(unit);}
-class StateMixinNode        extends NodeWithMeta<ClassDeclaration, StateMixin>         {StateMixinNode(unit)        : super(unit);}
+class PropsMixinNode        extends NodeWithMeta<ClassDeclaration, annotations.PropsMixin>         {PropsMixinNode(unit)        : super(unit);}
+class StateMixinNode        extends NodeWithMeta<ClassDeclaration, annotations.StateMixin>         {StateMixinNode(unit)        : super(unit);}

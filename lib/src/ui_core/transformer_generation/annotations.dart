@@ -5,12 +5,12 @@ class Factory {
   const Factory();
 }
 
-class Props {
+class Props implements TypedMap {
   final String keyNamespace;
   const Props({String this.keyNamespace: null});
 }
 
-class State {
+class State implements TypedMap {
   final String keyNamespace;
   const State({String this.keyNamespace: null});
 }
@@ -21,12 +21,12 @@ class Component {
 }
 
 
-class AbstractProps {
+class AbstractProps implements TypedMap {
   final String keyNamespace;
   const AbstractProps({String this.keyNamespace: null});
 }
 
-class AbstractState {
+class AbstractState implements TypedMap {
   final String keyNamespace;
   const AbstractState({String this.keyNamespace: null});
 }
@@ -36,12 +36,29 @@ class AbstractComponent {
 }
 
 
-class PropsMixin {
+class PropsMixin implements TypedMap {
   final String keyNamespace;
   const PropsMixin({String this.keyNamespace: null});
 }
 
-class StateMixin {
+class StateMixin implements TypedMap {
   final String keyNamespace;
   const StateMixin({String this.keyNamespace: null});
+}
+
+
+class Accessor {
+  final String key;
+  final String keyNamespace;
+  final bool abstract;
+
+  const Accessor({
+    String this.key: null,
+    String this.keyNamespace: null,
+    bool this.abstract: false
+  });
+}
+
+abstract class TypedMap {
+  String get keyNamespace;
 }
