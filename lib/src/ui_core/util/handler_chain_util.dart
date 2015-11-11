@@ -4,7 +4,7 @@ import 'package:react/react.dart' as react;
 
 import '../component/callback_typedefs.dart';
 
-/// Creates a EventKeyCallback that calls through to the two provided callbacks in order.
+/// Creates an EventKeyCallback that calls through to the two provided callbacks in order.
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
@@ -19,7 +19,7 @@ EventKeyCallback createChainedEventKeyCallback(EventKeyCallback a, EventKeyCallb
   };
 }
 
-/// Creates a EventKeyCallback that calls through to the list of provided callbacks in order.
+/// Creates an EventKeyCallback that calls through to the list of provided callbacks in order.
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
