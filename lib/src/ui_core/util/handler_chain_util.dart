@@ -174,11 +174,11 @@ WheelEventCallback createChainedWheelEventCallback(WheelEventCallback a, WheelEv
   };
 }
 
-/// Creates a CollapseCallback that calls through to the two provided callbacks in order.
+/// Creates a Callback that calls through to the two provided callbacks in order.
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
-CollapseCallback createChainedCollapseCallback(CollapseCallback a, CollapseCallback b) {
+Callback createChainedCallback(Callback a, Callback b) {
   return () {
     var aDidReturnFalse = a != null ? a() == false : false;
     var bDidReturnFalse = b != null ? b() == false : false;
