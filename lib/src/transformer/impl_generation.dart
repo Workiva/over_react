@@ -20,12 +20,12 @@ ComponentGeneratedSourceFile generateComponent(ComponentDeclarations declaration
     ..writeln();
 
   if (declarations.factory != null) {
-    final String factoryName = declarations.factory.variables.variables.single.name.toString();
+    final String factoryName = declarations.factory.node.variables.variables.single.name.toString();
 
-    final String propsName = declarations.props.name.toString();
+    final String propsName = declarations.props.node.name.toString();
     final String propsImplName = '$generatedPrefix${propsName}Impl';
 
-    final String componentClassName = declarations.componentClass.name.toString();
+    final String componentClassName = declarations.component.node.name.toString();
     final String componentClassImplName = '$generatedPrefix${componentClassName}Impl';
 
     final String componentName = componentClassName;
@@ -45,8 +45,8 @@ ComponentGeneratedSourceFile generateComponent(ComponentDeclarations declaration
       """([Map backingProps]) => new $propsImplName(backingProps)""";
 
     transformedFile.replace(
-        getSpan(sourceFile, declarations.factory),
-        sourceFile.getText(declarations.factory.offset, declarations.factory.semicolon.offset)
+        getSpan(sourceFile, declarations.factory.node),
+        sourceFile.getText(declarations.factory.node.offset, declarations.factory.node.semicolon.offset)
             + ' = ' + factoryImpl + ';'
     );
 
@@ -60,9 +60,9 @@ ComponentGeneratedSourceFile generateComponent(ComponentDeclarations declaration
     // ----------------------------------------------------------------------
     //   Props implementation
     // ----------------------------------------------------------------------
-    transformedFile.generateAccessors(AccessorType.props, declarations.props);
+    transformedFile.generateAccessors(AccessorType.props, declarations.props.node, namespace: declarations.props.meta?.keyNamespace);
 
-    final String propKeyNamespace = ComponentGeneratedSourceFile.getAccessorKeyNamespace(declarations.props);
+    final String propKeyNamespace = ComponentGeneratedSourceFile.getAccessorKeyNamespace(declarations.props.node);
 
     implementations
       ..writeln('// Props implementation')
@@ -95,10 +95,10 @@ ComponentGeneratedSourceFile generateComponent(ComponentDeclarations declaration
     //   State implementation
     // ----------------------------------------------------------------------
     if (hasState) {
-      final String stateName = declarations.state.name.toString();
+      final String stateName = declarations.state.node.name.toString();
       final String stateImplName = '$generatedPrefix${stateName}Impl';
 
-      transformedFile.generateAccessors(AccessorType.state, declarations.state);
+      transformedFile.generateAccessors(AccessorType.state, declarations.state.node, namespace: declarations.state.meta?.keyNamespace);
 
       implementations
         ..writeln('// State implementation')
@@ -123,7 +123,7 @@ ComponentGeneratedSourceFile generateComponent(ComponentDeclarations declaration
         '  $stateName typedStateFactory(Map backingMap) => new $stateImplName(backingMap);';
     }
 
-    final String propsAnnotation = '`@${ComponentDeclarations.ANNOTATION_PROPS}`';
+    final String propsAnnotation = '`@${ComponentDeclarations.key_props}`';
 
     // ----------------------------------------------------------------------
     //   Component implementation
@@ -164,32 +164,36 @@ ComponentGeneratedSourceFile generateComponent(ComponentDeclarations declaration
   //   Props/State Mixins implementations
   // ----------------------------------------------------------------------
   declarations.propsMixins.forEach((propMixinClass) {
+    print('META: ${propMixinClass.meta}');
+
     transformedFile.insert(
-        sourceFile.location(propMixinClass.leftBracket.end),
+        sourceFile.location(propMixinClass.node.leftBracket.end),
         '    /** GENERATED MIXIN INTERFACE **/ Map get props;'
     );
 
-    transformedFile.generateAccessors(AccessorType.props, propMixinClass);
+    // todo pass it all in
+    transformedFile.generateAccessors(AccessorType.props, propMixinClass.node, namespace: propMixinClass.meta?.keyNamespace);
   });
 
   declarations.stateMixins.forEach((stateMixinClass) {
     transformedFile.insert(
-        sourceFile.location(stateMixinClass.leftBracket.end),
+        sourceFile.location(stateMixinClass.node.leftBracket.end),
         '    /** GENERATED MIXIN INTERFACE **/ Map get state;'
     );
 
-    transformedFile.generateAccessors(AccessorType.state, stateMixinClass);
+    // todo pass it all in
+    transformedFile.generateAccessors(AccessorType.state, stateMixinClass.node, namespace: stateMixinClass.meta?.keyNamespace);
   });
 
   // ----------------------------------------------------------------------
   //   Abstract Props/State implementations
   // ----------------------------------------------------------------------
   if (declarations.abstractProps != null) {
-    transformedFile.generateAccessors(AccessorType.props, declarations.abstractProps);
+    transformedFile.generateAccessors(AccessorType.props, declarations.abstractProps.node, namespace: declarations.abstractProps.meta?.keyNamespace);
   }
 
   if (declarations.abstractState != null) {
-    transformedFile.generateAccessors(AccessorType.state, declarations.abstractState);
+    transformedFile.generateAccessors(AccessorType.state, declarations.abstractState.node, namespace: declarations.abstractState.meta?.keyNamespace);
   }
 
   // ----------------------------------------------------------------------
@@ -241,8 +245,6 @@ class ComponentGeneratedSourceFile extends TransformedSourceFile {
         .where((member) => member is FieldDeclaration)
         .where((FieldDeclaration member) => !member.isStatic)
         .forEach((FieldDeclaration field) {
-          print('field $field');
-
           StringBuffer buffer = new StringBuffer();
 
           var type = field.fields.type;
