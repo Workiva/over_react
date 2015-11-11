@@ -156,7 +156,7 @@ class _IsFocused extends Matcher {
   Description describeMismatch(item, Description mismatchDescription, Map matchState, bool verbose) {
     if (item is! Element) {
       return mismatchDescription
-          ..add('is not a valid Element.');
+        ..add('is not a valid Element.');
     }
 
     if (!document.contains(item as Element)) {
