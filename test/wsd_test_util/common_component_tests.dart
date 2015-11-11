@@ -25,7 +25,7 @@ Set getComponentPropKeys(BaseComponentDefinition definitionFactory()) {
           owner != BaseComponentDefinition &&
           owner != MapView &&
           owner != ReactProps &&
-          owner != DomProps &&
+          owner != DomPropsMixin &&
           owner != CssClassProps &&
           owner != UbiquitousDomProps
       ) {

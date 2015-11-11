@@ -3,7 +3,7 @@ library web_skin_dart.transformer_generation.helpers_sans_generation;
 import 'dart:js';
 
 import 'package:react/react.dart' as react;
-import 'package:web_skin_dart/ui_core.dart' show ClassNameBuilder, ReactProps, UbiquitousDomProps, getPropsToForward, isValidElement;
+import 'package:web_skin_dart/ui_core.dart' show BaseComponent, BaseComponentWithState, ClassNameBuilder, ComponentDefinition, CssClassProps, CssClassPropsMixin, ReactProps, ReactPropsMixin, UbiquitousDomProps, UbiquitousDomPropsMixin, getPropsToForward, isValidElement;
 
 export './annotations.dart';
 
@@ -12,11 +12,12 @@ typedef TBuilder UiFactory<TBuilder extends UiProps>([Map backingProps]);
 
 
 /// The basis for a component, extending react.Component. (similar to BaseComponent)
-abstract class UiComponent<TProps extends UiProps> extends react.Component {
+abstract class UiComponent<TProps extends UiProps> extends react.Component
+    implements BaseComponent<TProps> {
   /// The keys for the non-forwarding props defined in this component.
   Iterable<Iterable<String>> get consumedPropKeys => null;
 
-  Map forwardUnconsumedProps() {
+  Map copyUnconsumedProps() {
     return copyProps(keySetsToOmit: consumedPropKeys);
   }
 
@@ -88,7 +89,8 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
 
 
 abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState>
-    extends UiComponent<TProps> {
+    extends UiComponent<TProps>
+    implements BaseComponentWithState<TProps, TState> {
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
   //   BEGIN Typed state helpers
@@ -138,7 +140,9 @@ abstract class UiState extends Object with StateMapViewMixin implements Map, Map
 ///
 /// Implements Map instead of extending it so that the abstract @props declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
-abstract class UiProps extends Object with PropsMapViewMixin, ReactProps, UbiquitousDomProps implements Map, MapViewMixin {
+abstract class UiProps
+    extends Object with PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
+    implements Map, MapViewMixin, ComponentDefinition {
   /// Add an arbitrary prop key-value pair.
   void addProp(propKey, value) {
     props[propKey] = value;
@@ -146,6 +150,10 @@ abstract class UiProps extends Object with PropsMapViewMixin, ReactProps, Ubiqui
 
   /// Add a Map of arbitrary props.
   void addProps(Map propMap) {
+    if (propMap == null) {
+      return;
+    }
+
     props.addAll(propMap);
   }
 
