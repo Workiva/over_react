@@ -467,7 +467,7 @@ main() {
           });
         });
 
-        test('should gracefully handle a provided functions being null', () {
+        test('should gracefully handle provided functions being null', () {
           var callbacks = [
             null,
             null,
