@@ -59,10 +59,6 @@ class _ResizeSensor extends BaseComponentWithState<ResizeSensorDefinition, Resiz
     _reset();
   }
 
-  // This component will update manually whenever a resize is detected.
-  @override
-  bool shouldComponentUpdate(nextProps, nextState) => false;
-
   @override
   render() {
     var expandSensorChild = (Dom.div()
