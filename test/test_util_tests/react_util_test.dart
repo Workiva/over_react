@@ -2,6 +2,7 @@ library react_util_test;
 
 import 'dart:html';
 
+import 'package:react/react.dart' as react;
 import 'package:test/test.dart';
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
@@ -9,13 +10,21 @@ import 'package:web_skin_dart/ui_core.dart';
 /// Main entry point for ReactUtil testing
 main() {
   group('ReactUtil', () {
-    test('renderAttachedToDocument renders the component into the document', () {
+    test('renderAttachedToDocument renders the component into the document and [renderAttachedToDocument] removes those attached nodes', () {
       expect(document.body.children, isEmpty);
 
       var renderedInstance = renderAttachedToDocument(Dom.div());
 
       expect(document.body.children[0].children.contains(findDomNode(renderedInstance)), isTrue,
           reason: 'The component should have been rendered into the container div.');
+
+      tearDownAttachedNodes();
+
+      expect(isMounted(renderedInstance), isFalse,
+          reason: 'The React instance should have been unmounted.');
+
+      expect(document.body.children, isEmpty,
+          reason: 'All attached mount points should have been removed.');
     });
 
     group('getRef', () {
@@ -80,6 +89,69 @@ main() {
 
       expect(getProps(renderedInstance)['className'], equals('class1'));
       expect(getProps(renderedInstance)['tabIndex'], equals(-1));
+    });
+
+    group('isMounted', () {
+      test('returns true for a component that has been mounted', () {
+        var mountNode = new DivElement();
+        var renderedInstance = react.render(react.div({}), mountNode);
+        expect(isMounted(renderedInstance), isTrue);
+      });
+
+      test('returns false for a component that has been umounted', () {
+        var mountNode = new DivElement();
+        var renderedInstance = react.render(react.div({}), mountNode);
+        react.unmountComponentAtNode(mountNode);
+        expect(isMounted(renderedInstance), isFalse);
+      });
+    });
+
+    group('unmount:', () {
+      group('unmounts a React instance specified', () {
+        test('by its rendered instance', () {
+          var mountNode = new DivElement();
+          var instance = react.render(react.div({}), mountNode);
+          expect(isMounted(instance), isTrue);
+
+          unmount(instance);
+          expect(isMounted(instance), isFalse);
+        });
+
+        test('by its mount node', () {
+          var mountNode = new DivElement();
+          var instance = react.render(react.div({}), mountNode);
+          expect(isMounted(instance), isTrue);
+
+          unmount(mountNode);
+          expect(isMounted(instance), isFalse);
+        });
+      });
+
+      group('gracefully handles', () {
+        test('`null`', () {
+          expect(() {
+            unmount(null);
+          }, isNot(throws));
+        });
+
+        test('a non-mounted React instance', () {
+          var mountNode = new DivElement();
+          var instance = react.render(react.div({}), mountNode);
+          react.unmountComponentAtNode(mountNode);
+
+          expect(isMounted(instance), isFalse);
+
+          expect(() {
+            unmount(instance);
+          }, isNot(throws));
+        });
+      });
+
+      test('throws when an invalid value is passed in', () {
+        expect(() {
+          unmount(new Object());
+        }, throwsArgumentError);
+      });
     });
   });
 }

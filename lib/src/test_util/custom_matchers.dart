@@ -82,11 +82,6 @@ class ClassNameMatcher extends Matcher {
 
   @override
   Description describeMismatch(item, Description mismatchDescription, Map matchState, bool verbose) {
-    if (matchState == null) {
-      mismatchDescription.add('what');
-      return mismatchDescription;
-    }
-
     Set missingClasses = matchState['missingClasses'];
     Set unwantedClasses = matchState['unwantedClasses'];
     List extraneousClasses = matchState['extraneousClasses'];
@@ -140,3 +135,49 @@ Matcher excludesClasses(classes) => new _ElementClassNameMatcher(new ClassNameMa
 Matcher hasAttr(String attributeName, value) => new _ElementAttributeMatcher(attributeName, wrapMatcher(value));
 /// Returns a matcher that matches an element with the nodeName of [nodeName].
 Matcher hasNodeName(String nodeName) => new IsNode(equalsIgnoringCase(nodeName));
+
+class _IsFocused extends Matcher {
+  const _IsFocused();
+
+  @override
+  Description describe(Description description) {
+    return description
+      ..add('is focused');
+  }
+
+  @override
+  bool matches(item, Map matchState) {
+    matchState['activeElement'] = document.activeElement;
+
+    return item != null && item == document.activeElement;
+  }
+
+  @override
+  Description describeMismatch(item, Description mismatchDescription, Map matchState, bool verbose) {
+    if (item is! Element) {
+      return mismatchDescription
+        ..add('is not a valid Element.');
+    }
+
+    if (!document.contains(item as Element)) {
+      return mismatchDescription
+        ..add('is not attached to the document, and thus cannot be focused.')
+        ..add(' If testing with React, you can use `renderAttachedToDocument`.');
+    }
+
+    mismatchDescription.add('is not focused; ');
+
+    if (matchState['activeElement'] == document.body) {
+      mismatchDescription.add('there is no element currently focused');
+    } else {
+      mismatchDescription
+        ..add('the currently focused element is ')
+        ..addDescriptionOf(matchState['activeElement']);
+    }
+
+    return mismatchDescription;
+  }
+}
+
+/// A matcher that matches the currently focused element (`document.activeElement`).
+const Matcher isFocused = const _IsFocused();

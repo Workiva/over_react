@@ -54,7 +54,7 @@ List<JsObject> getForwardingTargets(JsObject reactInstance, {int expectedTargetC
 }
 
 /// Common test for verifying that unconsumed props are forwarded as expected.
-void testPropForwarding(BaseComponentDefinition definitionFactory(), List propsNotExcludedFromForwarding) {
+void testPropForwarding(BaseComponentDefinition definitionFactory(), dynamic childrenFactory(), {List propsNotExcludedFromForwarding: const []}) {
   test('forwards unconsumed props as expected', () {
     const Map extraProps = const {
       // Add this so we find the right component(s) with [getForwardingTargets] later.
@@ -72,7 +72,9 @@ void testPropForwarding(BaseComponentDefinition definitionFactory(), List propsN
     const String key = 'testKeyThatShouldNotBeForwarded';
     const String ref = 'testRefThatShouldNotBeForwarded';
 
-    Map defaultProps = getDartComponent(render(definitionFactory()())).getDefaultProps();
+    var defaultPropsHelperInstance = render(definitionFactory()(childrenFactory()));
+    Map defaultProps = getDartComponent(defaultPropsHelperInstance).getDefaultProps();
+    unmount(defaultPropsHelperInstance);
 
     // TODO: Account for alias components.
     Map propsThatShouldNotGetForwarded = {}
@@ -91,7 +93,7 @@ void testPropForwarding(BaseComponentDefinition definitionFactory(), List propsN
           ..addProps(extraProps)
           ..key = key
           ..ref = ref
-        )();
+        )(childrenFactory());
       }
     });
     JsObject renderedHolder = render(holder);
@@ -116,18 +118,20 @@ void testPropForwarding(BaseComponentDefinition definitionFactory(), List propsN
       // We can test 'ref' indirectly by validating that it doesn't show up under the ref that shouldn't have been forwarded.
       expect(getRef(renderedInstance, ref), isNull, reason: 'Should not forward the React "ref" prop');
     }
+
+    unmount(renderedHolder);
   });
 }
 
 /// Common test for verifying that classNames are merged/blacklisted as expected.
-void testClassNameMerging(BaseComponentDefinition definitionFactory()) {
+void testClassNameMerging(BaseComponentDefinition definitionFactory(), dynamic childrenFactory()) {
   test('merges classes as expected', () {
     var builder = definitionFactory()
       ..addProp(forwardedPropBeacon, true)
       ..className = 'custom-class-1 blacklisted-class-1 custom-class-2 blacklisted-class-2'
       ..classNameBlacklist = 'blacklisted-class-1 blacklisted-class-2';
 
-    JsObject renderedInstance = render(builder);
+    JsObject renderedInstance = render(builder(childrenFactory()));
     Iterable<Element> forwardingTargetNodes = getForwardingTargets(renderedInstance).map(findDomNode);
 
     expect(forwardingTargetNodes, everyElement(
@@ -136,24 +140,32 @@ void testClassNameMerging(BaseComponentDefinition definitionFactory()) {
             excludesClasses('blacklisted-class-1 blacklisted-class-2')
         )
     ));
+
+    unmount(renderedInstance);
   });
 
   test('adds custom classes to one and only one element', () {
     const customClass = 'custom-class';
 
     JsObject renderedInstance = render(
-        (definitionFactory()..className = customClass)()
+        (definitionFactory()..className = customClass)(childrenFactory())
     );
     var descendantsWithCustomClass = react_test_utils.scryRenderedDOMComponentsWithClass(renderedInstance, customClass);
 
     expect(descendantsWithCustomClass, hasLength(1));
+
+    unmount(renderedInstance);
   });
 }
 
 /// Common test for verifying that CSS classes added by the component can be blacklisted by the consumer.
-void testClassNameOverrides(BaseComponentDefinition definitionFactory()) {
+void testClassNameOverrides(BaseComponentDefinition definitionFactory(), dynamic childrenFactory()) {
   /// Render a component without any overrides to get the classes added by the component.
-  JsObject reactInstanceWithoutOverrides = render(definitionFactory()..addProp(forwardedPropBeacon, true));
+  JsObject reactInstanceWithoutOverrides = render(
+      (definitionFactory()
+        ..addProp(forwardedPropBeacon, true)
+      )(childrenFactory())
+  );
 
   Set<String> classesToOverride;
   var error;
@@ -169,23 +181,32 @@ void testClassNameOverrides(BaseComponentDefinition definitionFactory()) {
     error = e;
   }
 
+  unmount(reactInstanceWithoutOverrides);
+
   test('can override added class names: ${classesToOverride}', () {
     if (error != null) {
       throw error;
     }
 
     // Override any added classes and verify that they are blacklisted properly.
-    JsObject reactInstance = render(definitionFactory()
-      ..addProp(forwardedPropBeacon, true)
-      ..classNameBlacklist = classesToOverride.join(' ')
+    JsObject reactInstance = render(
+        (definitionFactory()
+          ..addProp(forwardedPropBeacon, true)
+          ..classNameBlacklist = classesToOverride.join(' ')
+        )(childrenFactory())
     );
 
     Iterable<Element> forwardingTargetNodes = getForwardingTargets(reactInstance).map(findDomNode);
     expect(forwardingTargetNodes, everyElement(
         hasExactClasses('')
     ));
+
+    unmount(reactInstance);
   });
 }
+
+/// By default, render components without children.
+dynamic _defaultChildrenFactory() => [];
 
 /// Run common component tests around default props, prop forwarding, class name merging, and class name overrides.
 ///
@@ -194,19 +215,25 @@ void testClassNameOverrides(BaseComponentDefinition definitionFactory()) {
 /// [propsNotExcludedFromForwarding] should be used when a component has props as part of it's definition that ARE forwarded
 /// to its children (ie, a smart component wrapping a primitive and forwarding some props to it). By default [testPropForwarding]
 /// tests that all consumed props are not forwarded, so you can specify forwarding props in [propsNotExcludedFromForwarding].
+///
+/// [childrenFactory] returns children to be used when rendering components.
+/// This is necessary for components that need children to render properly.
 void commonComponentTests(BaseComponentDefinition definitionFactory(), {
   shouldTestPropForwarding: true,
   propsNotExcludedFromForwarding: const [],
   shouldTestClassNameMerging: true,
-  shouldTestClassNameOverrides: true
+  shouldTestClassNameOverrides: true,
+  dynamic childrenFactory()
 }) {
+  childrenFactory ??= _defaultChildrenFactory;
+
   if (shouldTestPropForwarding) {
-    testPropForwarding(definitionFactory, propsNotExcludedFromForwarding);
+    testPropForwarding(definitionFactory, childrenFactory, propsNotExcludedFromForwarding: propsNotExcludedFromForwarding);
   }
   if (shouldTestClassNameMerging) {
-    testClassNameMerging(definitionFactory);
+    testClassNameMerging(definitionFactory, childrenFactory);
   }
   if (shouldTestClassNameOverrides) {
-    testClassNameOverrides(definitionFactory);
+    testClassNameOverrides(definitionFactory, childrenFactory);
   }
 }
