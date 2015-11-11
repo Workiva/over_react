@@ -17,8 +17,8 @@ class ClassNameBuilder {
     }
 
     this
-      ..add(props[CssClassProps.Z_$KEY__CLASS_NAME])
-      ..blacklist(props[CssClassProps.Z_$KEY__CLASS_NAME_BLACKLIST]);
+      ..add(props['className'])
+      ..blacklist(props['classNameBlacklist']);
   }
 
   /// Adds a className string. May be a single CSS class 'token', or multiple space-delimited classes,

@@ -19,10 +19,20 @@ export './helpers_sans_generation.dart' show UiFactory, MapViewMixin;
 
 Expando<ReactDartComponentFactoryProxy> generatedBuilderToReactComponentFactory = new Expando<ReactDartComponentFactoryProxy>();
 
-ReactDartComponentFactoryProxy registerComponent(UiComponent componentFactory(), {
-    UiFactory builderFactory
+/// Helper function that wraps react.registerComponent. But also adds the ability specify if the
+/// component is a wrapper component.
+///
+/// A wrapper component is a component that clones or passes through its children
+/// but needs to be treated as if it were the wrapped component.
+ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFactory(), {
+    UiFactory builderFactory,
+    bool isWrapper: false
 }) {
-  var reactComponentFactory = react.registerComponent(componentFactory);
+  ReactDartComponentFactoryProxy reactComponentFactory = react.registerComponent(dartComponentFactory);
+
+  if (isWrapper) {
+    reactComponentFactory.type['isWrapper'] = true;
+  }
 
   if (builderFactory != null) {
     generatedBuilderToReactComponentFactory[builderFactory] = reactComponentFactory;
@@ -89,6 +99,12 @@ abstract class UiComponent<TProps extends UiProps> extends sans_generation.UiCom
   UiComponent() {
     _throwIfNotGenerated();
   }
+
+  /// The keys for the non-forwarding props defined in this component.
+  ///
+  /// For generated components, this defaults to the keys generated in the associated @[Props] class
+  /// unless [consumedPropKeys] returns non-null.
+  @ToBeGenerated() Iterable<Iterable<String>> get consumedPropKeys;
 
   @ToBeGenerated() TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: 'typedPropsFactory');
 }

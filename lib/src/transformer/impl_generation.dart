@@ -166,21 +166,11 @@ ComponentGeneratedSourceFile generateComponent(ComponentDeclarations declaration
   //   Props/State Mixins implementations
   // ----------------------------------------------------------------------
   declarations.propsMixins.forEach((propMixinClass) {
-    transformedFile.insert(
-        sourceFile.location(propMixinClass.node.leftBracket.end),
-        '    /** GENERATED MIXIN INTERFACE **/ Map get props;'
-    );
-
     // todo pass it all in
     transformedFile.generateAccessors(AccessorType.props, propMixinClass);
   });
 
   declarations.stateMixins.forEach((stateMixinClass) {
-    transformedFile.insert(
-        sourceFile.location(stateMixinClass.node.leftBracket.end),
-        '    /** GENERATED MIXIN INTERFACE **/ Map get state;'
-    );
-
     // todo pass it all in
     transformedFile.generateAccessors(AccessorType.state, stateMixinClass);
   });
