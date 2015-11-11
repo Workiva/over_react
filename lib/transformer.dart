@@ -42,7 +42,7 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
     }
 
     var primaryInputContents = await transform.primaryInput.readAsString();
-    if (!primaryInputContents.contains(ComponentDeclarations.ANNOTATION_ANY)) {
+    if (!ComponentDeclarations.mightContainDeclarations(primaryInputContents)) {
       // Do a regex on the source to short-circuit inputs so that files that
       // won't generate anything don't get parsed unnecessarily.
       outputUntransformedAsset();
