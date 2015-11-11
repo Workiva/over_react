@@ -1,68 +1,100 @@
 library web_skin_dart.transformer.declaration_parsing;
 
-import 'dart:mirrors' show MirrorSystem;
+import 'dart:mirrors';
 
 import 'package:analyzer/analyzer.dart';
 import 'package:source_span/source_span.dart';
-// This import **is** used by Symbol references
-import 'package:web_skin_dart/src/ui_core//transformer_generation/annotations.dart';
+import 'package:web_skin_dart/src/ui_core/transformer_generation/annotations.dart';
+
+import './analyzer_helpers.dart';
 
 class ComponentDeclarations {
-  static String _getName(Symbol symbol) {
-    return MirrorSystem.getName(symbol);
+  static String _getName(Type type) {
+    return MirrorSystem.getName(reflectType(type).simpleName);
   }
 
-  static final String ANNOTATION_FACTORY = _getName(#Factory);
-  static final String ANNOTATION_COMPONENT = _getName(#Component);
-  static final String ANNOTATION_PROPS = _getName(#Props);
-  static final String ANNOTATION_STATE = _getName(#State);
+  static final String key_factory = _getName(Factory);
+  static final String key_component = _getName(Component);
+  static final String key_props = _getName(Props);
+  static final String key_state = _getName(State);
 
-  static final String ANNOTATION_ABSTRACT_COMPONENT = _getName(#AbstractComponent);
-  static final String ANNOTATION_ABSTRACT_PROPS = _getName(#AbstractProps);
-  static final String ANNOTATION_ABSTRACT_STATE = _getName(#AbstractState);
+  static final String key_abstractComponent = _getName(AbstractComponent);
+  static final String key_abstractProps = _getName(AbstractProps);
+  static final String key_abstractState = _getName(AbstractState);
 
-  static final String ANNOTATION_PROPS_MIXIN = _getName(#PropsMixin);
-  static final String ANNOTATION_STATE_MIXIN = _getName(#StateMixin);
+  static final String key_propsMixin = _getName(PropsMixin);
+  static final String key_stateMixin = _getName(StateMixin);
 
-  static final RegExp ANNOTATION_ANY = new RegExp(
+  static final List<String> key_allComponent = new List.unmodifiable([
+    key_factory,
+    key_component,
+    key_props,
+    key_state,
+  ]);
+
+  static final List<String> key_allAbstractComponent = new List.unmodifiable([
+    key_abstractComponent,
+    key_abstractProps,
+    key_abstractState,
+  ]);
+
+ static  final RegExp key_any = new RegExp(
       r'@(' + [
-        ANNOTATION_FACTORY,
-        ANNOTATION_COMPONENT,
-        ANNOTATION_PROPS,
-        ANNOTATION_STATE,
-        ANNOTATION_ABSTRACT_COMPONENT,
-        ANNOTATION_ABSTRACT_PROPS,
-        ANNOTATION_ABSTRACT_STATE,
-        ANNOTATION_PROPS_MIXIN,
-        ANNOTATION_STATE_MIXIN,
-      ].join('|') + r')'
+        key_factory,
+        key_component,
+        key_props,
+        key_state,
+        key_abstractComponent,
+        key_abstractProps,
+        key_abstractState,
+        key_propsMixin,
+        key_stateMixin,
+      ].join('|') + r')',
+      caseSensitive: true
   );
 
-  final ClassDeclaration componentClass;
-  final TopLevelVariableDeclaration factory;
-  final ClassDeclaration props;
-  final ClassDeclaration state;
+  static bool mightContainDeclarations(String source) {
+    return key_any.hasMatch(source);
+  }
 
-  final ClassDeclaration abstractComponentClass;
-  final ClassDeclaration abstractProps;
-  final ClassDeclaration abstractState;
+  final FactoryNode factory;
+  final ComponentNode component;
+  final PropsNode props;
+  final StateNode state;
 
-  final List<ClassDeclaration> propsMixins;
-  final List<ClassDeclaration> stateMixins;
+  final AbstractComponentNode abstractComponent;
+  final AbstractPropsNode abstractProps;
+  final AbstractStateNode abstractState;
+
+  final List<PropsMixinNode> propsMixins;
+  final List<StateMixinNode> stateMixins;
+
 
   ComponentDeclarations._({
-      this.factory,
-      this.componentClass,
-      this.props,
-      this.state,
+      TopLevelVariableDeclaration factory,
+      ClassDeclaration component,
+      ClassDeclaration props,
+      ClassDeclaration state,
 
-      this.abstractComponentClass,
-      this.abstractProps,
-      this.abstractState,
+      ClassDeclaration abstractComponent,
+      ClassDeclaration abstractProps,
+      ClassDeclaration abstractState,
 
-      this.propsMixins,
-      this.stateMixins
-  });
+      List<ClassDeclaration> propsMixins,
+      List<ClassDeclaration> stateMixins
+  }) :
+      this.factory           = (factory           == null) ? null : new FactoryNode(factory),
+      this.component         = (component         == null) ? null : new ComponentNode(component),
+      this.props             = (props             == null) ? null : new PropsNode(props),
+      this.state             = (state             == null) ? null : new StateNode(state),
+
+      this.abstractComponent = (abstractComponent == null) ? null : new AbstractComponentNode(abstractComponent),
+      this.abstractProps     = (abstractProps     == null) ? null : new AbstractPropsNode(abstractProps),
+      this.abstractState     = (abstractState     == null) ? null : new AbstractStateNode(abstractState),
+
+      this.propsMixins = propsMixins.map((propsMixin) => new PropsMixinNode(propsMixin)).toList(),
+      this.stateMixins = stateMixins.map((stateMixin) => new StateMixinNode(stateMixin)).toList();
+
 
   factory ComponentDeclarations(CompilationUnit unit, SourceFile sourceFile, {onError(String message, SourceSpan sourceSpan)}) {
     void error(String message, SourceSpan sourceSpan) {
@@ -72,15 +104,15 @@ class ComponentDeclarations {
     }
 
     Map<String, List<CompilationUnitMember>> declarations = {
-      ANNOTATION_FACTORY: <CompilationUnitMember>[],
-      ANNOTATION_COMPONENT: <CompilationUnitMember>[],
-      ANNOTATION_PROPS: <CompilationUnitMember>[],
-      ANNOTATION_STATE: <CompilationUnitMember>[],
-      ANNOTATION_ABSTRACT_COMPONENT: <CompilationUnitMember>[],
-      ANNOTATION_ABSTRACT_PROPS: <CompilationUnitMember>[],
-      ANNOTATION_ABSTRACT_STATE: <CompilationUnitMember>[],
-      ANNOTATION_PROPS_MIXIN: <CompilationUnitMember>[],
-      ANNOTATION_STATE_MIXIN: <CompilationUnitMember>[],
+      key_factory:           <CompilationUnitMember>[],
+      key_component:         <CompilationUnitMember>[],
+      key_props:             <CompilationUnitMember>[],
+      key_state:             <CompilationUnitMember>[],
+      key_abstractComponent: <CompilationUnitMember>[],
+      key_abstractProps:     <CompilationUnitMember>[],
+      key_abstractState:     <CompilationUnitMember>[],
+      key_propsMixin:        <CompilationUnitMember>[],
+      key_stateMixin:        <CompilationUnitMember>[],
     };
 
     unit.declarations.forEach((CompilationUnitMember member) {
@@ -111,43 +143,29 @@ class ComponentDeclarations {
     };
 
     [
-      ANNOTATION_COMPONENT,
-      ANNOTATION_PROPS,
-      ANNOTATION_STATE,
-      ANNOTATION_ABSTRACT_COMPONENT,
-      ANNOTATION_ABSTRACT_PROPS,
-      ANNOTATION_ABSTRACT_STATE,
-      ANNOTATION_PROPS_MIXIN,
-      ANNOTATION_STATE_MIXIN,
+      key_component,
+      key_props,
+      key_state,
+      key_abstractComponent,
+      key_abstractProps,
+      key_abstractState,
+      key_propsMixin,
+      key_stateMixin,
     ].forEach((annotationName) {
       declarations[annotationName] = classesOnly(annotationName, declarations[annotationName]);
     });
 
-
-    var componentAnnotations = [
-      ANNOTATION_FACTORY,
-      ANNOTATION_COMPONENT,
-      ANNOTATION_PROPS,
-      ANNOTATION_STATE,
-    ];
-
-    var abstractComponentDeclarations = [
-      ANNOTATION_ABSTRACT_COMPONENT,
-      ANNOTATION_ABSTRACT_PROPS,
-      ANNOTATION_ABSTRACT_STATE,
-    ];
-
-    var hasComponent = componentAnnotations
+    var hasComponent = key_allComponent
         .any((annotationName) => declarations[annotationName].isNotEmpty);
 
-    var hasAbstractComponent = abstractComponentDeclarations
+    var hasAbstractComponent = key_allAbstractComponent
         .any((annotationName) => declarations[annotationName].isNotEmpty);
 
     if (hasComponent && hasAbstractComponent) {
-      componentAnnotations
+      key_allComponent
           .forEach((annotationName) => declarations[annotationName] = []);
 
-      abstractComponentDeclarations
+      key_allAbstractComponent
           .forEach((annotationName) => declarations[annotationName] = []);
     }
 
@@ -167,26 +185,26 @@ class ComponentDeclarations {
     };
 
     [
-      ANNOTATION_FACTORY,
-      ANNOTATION_COMPONENT,
-      ANNOTATION_PROPS,
-      ANNOTATION_STATE,
-      ANNOTATION_ABSTRACT_COMPONENT,
-      ANNOTATION_ABSTRACT_PROPS,
-      ANNOTATION_ABSTRACT_STATE,
+      key_factory,
+      key_component,
+      key_props,
+      key_state,
+      key_abstractComponent,
+      key_abstractProps,
+      key_abstractState,
     ].forEach((annotationName) {
       declarations[annotationName] = limitDeclarations(annotationName, declarations[annotationName]);
     });
 
-    if (declarations[ANNOTATION_FACTORY].isEmpty) {
+    if (declarations[key_factory].isEmpty) {
       [
-        ANNOTATION_COMPONENT,
-        ANNOTATION_PROPS,
-        ANNOTATION_STATE,
+        key_component,
+        key_props,
+        key_state,
       ].forEach((annotationName) {
         if (declarations[annotationName].isNotEmpty) {
           error(
-              '`@$annotationName` was used without valid `@$ANNOTATION_FACTORY`.',
+              '`@$annotationName` was used without valid `@$key_factory`.',
               sourceFile.location(declarations[annotationName].first.offset).pointSpan()
           );
 
@@ -194,31 +212,62 @@ class ComponentDeclarations {
         }
       });
     } else {
-      var builderFactory = declarations[ANNOTATION_FACTORY].single;
+      var builderFactory = declarations[key_factory].single;
       if (builderFactory.variables.variables.length != 1 ||
           builderFactory.variables.variables.single.initializer != null) {
         onError(
-            '`@$ANNOTATION_FACTORY` should only be used on a single unitialized variable.',
+            '`@$key_factory` should only be used on a single unitialized variable.',
             sourceFile.location(builderFactory.offset).pointSpan()
         );
-        declarations[ANNOTATION_FACTORY] = [];
+        declarations[key_factory] = [];
       }
     }
 
+    if (declarations[key_component].isEmpty) {
+      [
+        key_factory,
+        key_props,
+        key_state,
+      ].forEach((annotationName) {
+        if (declarations[annotationName].isNotEmpty) {
+          error(
+              '`@$annotationName` was used without valid `@$key_component`.',
+              sourceFile.location(declarations[annotationName].first.offset).pointSpan()
+          );
+
+          declarations[annotationName] = [];
+        }
+      });
+    }
+
     return new ComponentDeclarations._(
-        factory: singleOrNull(declarations[ANNOTATION_FACTORY]),
-        componentClass: singleOrNull(declarations[ANNOTATION_COMPONENT]),
-        props: singleOrNull(declarations[ANNOTATION_PROPS]),
-        state: singleOrNull(declarations[ANNOTATION_STATE]),
+        factory:           singleOrNull(declarations[key_factory]),
+        component:         singleOrNull(declarations[key_component]),
+        props:             singleOrNull(declarations[key_props]),
+        state:             singleOrNull(declarations[key_state]),
 
-        abstractComponentClass: singleOrNull(declarations[ANNOTATION_ABSTRACT_COMPONENT]),
-        abstractProps: singleOrNull(declarations[ANNOTATION_ABSTRACT_PROPS]),
-        abstractState: singleOrNull(declarations[ANNOTATION_ABSTRACT_STATE]),
+        abstractComponent: singleOrNull(declarations[key_abstractComponent]),
+        abstractProps:     singleOrNull(declarations[key_abstractProps]),
+        abstractState:     singleOrNull(declarations[key_abstractState]),
 
-        propsMixins: declarations[ANNOTATION_PROPS_MIXIN],
-        stateMixins: declarations[ANNOTATION_STATE_MIXIN]
+        propsMixins: declarations[key_propsMixin],
+        stateMixins: declarations[key_stateMixin]
     );
   }
 
-  static singleOrNull(List list) => list.isNotEmpty ? list.single : null;
+  /// Helper function that returns the single value of a [list], or null if it is empty.
+  static dynamic singleOrNull(List list) => list.isNotEmpty ? list.single : null;
 }
+
+// Generic type aliases, for readability.
+class FactoryNode           extends NodeWithMeta<TopLevelVariableDeclaration, Factory> {FactoryNode(unit)           : super(unit);}
+class ComponentNode         extends NodeWithMeta<ClassDeclaration, Component>          {ComponentNode(unit)         : super(unit);}
+class PropsNode             extends NodeWithMeta<ClassDeclaration, Props>              {PropsNode(unit)             : super(unit);}
+class StateNode             extends NodeWithMeta<ClassDeclaration, State>              {StateNode(unit)             : super(unit);}
+
+class AbstractComponentNode extends NodeWithMeta<ClassDeclaration, AbstractComponent>  {AbstractComponentNode(unit) : super(unit);}
+class AbstractPropsNode     extends NodeWithMeta<ClassDeclaration, AbstractProps>      {AbstractPropsNode(unit)     : super(unit);}
+class AbstractStateNode     extends NodeWithMeta<ClassDeclaration, AbstractState>      {AbstractStateNode(unit)     : super(unit);}
+
+class PropsMixinNode        extends NodeWithMeta<ClassDeclaration, PropsMixin>         {PropsMixinNode(unit)        : super(unit);}
+class StateMixinNode        extends NodeWithMeta<ClassDeclaration, StateMixin>         {StateMixinNode(unit)        : super(unit);}
