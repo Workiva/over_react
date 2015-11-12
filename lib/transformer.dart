@@ -8,6 +8,7 @@ import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 import 'package:web_skin_dart/src/transformer/declaration_parsing.dart';
 import 'package:web_skin_dart/src/transformer/impl_generation.dart';
+import 'package:web_skin_dart/src/transformer/source_file_helpers.dart';
 
 
 class WebSkinDartTransformer extends Transformer implements LazyTransformer {
@@ -40,7 +41,7 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
     var primaryInputContents = await transform.primaryInput.readAsString();
 
     SourceFile sourceFile = new SourceFile(primaryInputContents, url: idToPackageUri(transform.primaryInput.id));
-    ComponentGeneratedSourceFile transformedFile = new ComponentGeneratedSourceFile(sourceFile);
+    TransformedSourceFile transformedFile = new TransformedSourceFile(sourceFile);
 
     // Short-circuit files that won't generate anything so they don't get parsed unnecessarily.
     if (ComponentDeclarations.mightContainDeclarations(primaryInputContents)) {
@@ -73,7 +74,7 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
 
       // Otherwise, just log the errors and do nothing.
       if (!hasDeclarationErrors) {
-        generateComponent(declarations, transformedFile);
+        generateComponent(transformedFile, declarations);
       }
     }
 
@@ -84,7 +85,6 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
       var propKeysPattern = new RegExp(r'(?:const|new)\s+\$PropKeys\s*\(\s*\#\s*([^\)]+)\s*\)');
       propKeysPattern.allMatches(sourceFile.getText(0)).forEach((match) {
         var symbolName = match.group(1);
-        var staticPropKeysName = ComponentGeneratedSourceFile.staticPropKeysName;
 
         var replacement = '$symbolName.$staticPropKeysName /* GENERATED from \$PropKeys usage */';
 
