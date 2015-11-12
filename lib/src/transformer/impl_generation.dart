@@ -9,6 +9,7 @@ import 'package:web_skin_dart/src/transformer/text_util.dart';
 import 'package:web_skin_dart/src/ui_core/transformer_generation/annotations.dart' as annotations;
 
 const String generatedPrefix = r'_$';
+const String publicGeneratedPrefix = r'$';
 
 void generateComponent(ComponentDeclarations declarations, ComponentGeneratedSourceFile transformedFile) {
   // TODO: inline
@@ -198,8 +199,8 @@ class ComponentGeneratedSourceFile extends TransformedSourceFile {
   static const String proxiedPropsMapName = 'props';
   static const String proxiedStateMapName = 'state';
 
-  static const String staticPropKeysName = '${generatedPrefix}propKeys';
-  static const String staticStateKeysName = '${generatedPrefix}stateKeys';
+  static const String staticPropKeysName = '${publicGeneratedPrefix}propKeys';
+  static const String staticStateKeysName = '${publicGeneratedPrefix}stateKeys';
 
   static String getAccessorKeyNamespace(NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap) {
     // Default to the name of the class followed by a period.
