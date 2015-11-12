@@ -3,25 +3,26 @@ library prop_mixins_test;
 import 'dart:collection' show MapView;
 
 import 'package:test/test.dart';
+import 'package:web_skin_dart/src/ui_core/transformer_generation/helpers.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
 import '../../wsd_test_util/prop_utils.dart';
 
 main() {
   group('ReactProps', () {
-    testKeys(const $PropKeys(ReactPropsMixin), (() => new ReactPropMixinsTest({})));
+    testKeys(const $PropKeys(#ReactPropsMixin), (() => new ReactPropMixinsTest({})));
   });
 
   group('CssClassProps', () {
-    testKeys(const $PropKeys(CssClassPropsMixin), (() => new CssClassPropMixinsTest({})));
+    testKeys(const $PropKeys(#CssClassPropsMixin), (() => new CssClassPropMixinsTest({})));
   });
 
   group('DomPropsMixin', () {
-    testKeys(const $PropKeys(DomPropsMixin), (() => new DomPropMixinsTest({})));
+    testKeys(const $PropKeys(#DomPropsMixin), (() => new DomPropMixinsTest({})));
   });
 
   group('UbiquitousProps', () {
-    testKeys(const $PropKeys(UbiquitousDomPropsMixin), (() => new UbiquitousPropMixinsTest({})));
+    testKeys(const $PropKeys(#UbiquitousDomPropsMixin), (() => new UbiquitousPropMixinsTest({})));
   });
 
   group('AriaProps', () {
@@ -30,7 +31,7 @@ main() {
         expect(() {instance['notThere'];}, throws);
       });
 
-      for (var propKey in AriaProps.Z_$propKeys) {
+      for (var propKey in const $PropKeys(#AriaPropsMixin)) {
         test('prop: $propKey can have its value set / read', () {
           var instance = new AriaPropMixinsTest({});
           testProp(new Symbol(propKey.replaceFirst('aria-', '')), propKey, instance, null);
