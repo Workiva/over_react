@@ -170,6 +170,19 @@ abstract class UiProps
   /// Create a new component with this builder's props and the specified children. (alias for [build])
   JsObject call([dynamic children]) => build(children);
 
+  /// Supports variadic children of the form `call(Map props, [child1, child2, child3...])`.
+  dynamic noSuchMethod(Invocation invocation) {
+    if (invocation.memberName == #call && invocation.isMethod) {
+      var parameters = []
+        ..add(props)
+        ..addAll(invocation.positionalArguments);
+
+      return Function.apply(componentFactory, parameters);
+    }
+
+    return super.noSuchMethod(invocation);
+  }
+
   // To be implemented by code generation:
   Function get componentFactory;
   String get propKeyNamespace;
