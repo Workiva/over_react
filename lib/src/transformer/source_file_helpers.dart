@@ -17,6 +17,8 @@ class TransformedSourceFile {
 
   TransformedSourceFile(this.sourceFile);
 
+  bool get isModified => _replacements.isNotEmpty;
+
   void replace(SourceSpan span, String text) {
     _replacements.add(
         new Replacement(span, text)
