@@ -5,6 +5,8 @@ part of web_skin_dart.ui_core;
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
 abstract class ReactPropsMixin {
+  Map get props;
+
   List children;
   String key;
   dynamic ref;
@@ -14,6 +16,8 @@ abstract class ReactPropsMixin {
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
 abstract class CssClassPropsMixin {
+  Map get props;
+
   /// String of space-delimited CSS classes to be added to the resultant DOM.
   ///
   /// All web_skin_dart components merge any added classes with this prop and the [classNameBlacklist] prop (see [BaseComponent.forwardingClassNameBuilder]).
@@ -29,6 +33,8 @@ abstract class CssClassPropsMixin {
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
 abstract class DomPropsMixin {
+  Map get props;
+
   int cols, rows, size, span, start;
 
   bool allowFullScreen, async, autoPlay, checked, controls, defer, disabled, formNoValidate, hidden, loop, multiple,
@@ -67,6 +73,8 @@ abstract class DomPropsMixin {
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
 abstract class UbiquitousDomPropsMixin {
+  Map get props;
+
   /// Whether the element if focusable.
   /// Must be a valid integer or String of valid integer.
   dynamic tabIndex;
