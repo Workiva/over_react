@@ -10,8 +10,9 @@ import 'package:web_skin_dart/src/ui_core/transformer_generation/annotations.dar
 
 const String generatedPrefix = r'_$';
 
-ComponentGeneratedSourceFile generateComponent(ComponentDeclarations declarations, SourceFile sourceFile) {
-  ComponentGeneratedSourceFile transformedFile = new ComponentGeneratedSourceFile(sourceFile);
+void generateComponent(ComponentDeclarations declarations, ComponentGeneratedSourceFile transformedFile) {
+  // TODO: inline
+  final SourceFile sourceFile = transformedFile.sourceFile;
 
   StringBuffer implementations = new StringBuffer();
 
@@ -185,23 +186,6 @@ ComponentGeneratedSourceFile generateComponent(ComponentDeclarations declaration
   if (declarations.abstractState != null) {
     transformedFile.generateAccessors(AccessorType.state, declarations.abstractState);
   }
-
-  // ----------------------------------------------------------------------
-  //   Replace static $PropKeys instantiations with prop keys
-  // ----------------------------------------------------------------------
-  var propKeysPattern = new RegExp(r'(?:const|new)\s+\$PropKeys\s*\(\s*\#\s*([^\)]+)\s*\)');
-  propKeysPattern.allMatches(sourceFile.getText(0)).forEach((match) {
-    var symbolName = match.group(1);
-    var staticPropKeysName = ComponentGeneratedSourceFile.staticPropKeysName;
-
-    var replacement = '$symbolName.$staticPropKeysName /* GENERATED from \$PropKeys usage */';
-
-    transformedFile.replace(sourceFile.span(match.start, match.end), replacement);
-  });
-
-
-  // Finally, return the transformed file.
-  return transformedFile;
 }
 
 

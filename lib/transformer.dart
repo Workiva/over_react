@@ -37,53 +37,68 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
   }
 
   Future apply(Transform transform) async {
-    void outputUntransformedAsset() {
-      transform.addOutput(transform.primaryInput);
-    }
-
     var primaryInputContents = await transform.primaryInput.readAsString();
-    if (!ComponentDeclarations.mightContainDeclarations(primaryInputContents)) {
-      // Do a regex on the source to short-circuit inputs so that files that
-      // won't generate anything don't get parsed unnecessarily.
-      outputUntransformedAsset();
-      return;
-    }
 
     SourceFile sourceFile = new SourceFile(primaryInputContents, url: idToPackageUri(transform.primaryInput.id));
+    ComponentGeneratedSourceFile transformedFile = new ComponentGeneratedSourceFile(sourceFile);
 
-    void logError(String message, SourceSpan span) {
-      String spanString = '';
-      if (span != null) {
-        // Format the span in a way that Jetbrains IDEs understand so that links
-        // in the output take you to the right place in the file.
-        var point = span.start;
-        spanString = '[${point.sourceUrl} ${point.line + 1}:${point.column + 1}]: ';
+    // Short-circuit files that won't generate anything so they don't get parsed unnecessarily.
+    if (ComponentDeclarations.mightContainDeclarations(primaryInputContents)) {
+      void logError(String message, SourceSpan span) {
+        String spanString = '';
+        if (span != null) {
+          // Format the span in a way that Jetbrains IDEs understand so that links
+          // in the output take you to the right place in the file.
+          var point = span.start;
+          spanString = '[${point.sourceUrl} ${point.line + 1}:${point.column + 1}]: ';
+        }
+
+        transform.logger.error(spanString + message, asset: transform.primaryInput.id);
       }
 
-      transform.logger.error(spanString + message, asset: transform.primaryInput.id);
+      // Parse the source file on its own and use the resultant AST to...
+      var unit = parseCompilationUnit(primaryInputContents,
+        suppressErrors: true,
+        name: transform.primaryInput.id.path,
+        parseFunctionBodies: false
+      );
+
+      bool hasDeclarationErrors = false;
+      ComponentDeclarations declarations = new ComponentDeclarations(unit, sourceFile, onError: (String message, SourceSpan span) {
+        hasDeclarationErrors = true;
+        logError(message, span);
+      });
+
+      // If there are no errors, generate the component.
+
+      // Otherwise, just log the errors and do nothing.
+      if (!hasDeclarationErrors) {
+        generateComponent(declarations, transformedFile);
+      }
     }
 
-    // Parse the source file on its own and use the resultant AST to...
-    var unit = parseCompilationUnit(primaryInputContents,
-      suppressErrors: true,
-      name: transform.primaryInput.id.path,
-      parseFunctionBodies: false
-    );
+    if (new RegExp(r'\$PropKeys').hasMatch(primaryInputContents)) {
+      // ----------------------------------------------------------------------
+      //   Replace static $PropKeys instantiations with prop keys
+      // ----------------------------------------------------------------------
+      var propKeysPattern = new RegExp(r'(?:const|new)\s+\$PropKeys\s*\(\s*\#\s*([^\)]+)\s*\)');
+      propKeysPattern.allMatches(sourceFile.getText(0)).forEach((match) {
+        var symbolName = match.group(1);
+        var staticPropKeysName = ComponentGeneratedSourceFile.staticPropKeysName;
 
-    bool hasDeclarationErrors = false;
-    ComponentDeclarations declarations = new ComponentDeclarations(unit, sourceFile, onError: (String message, SourceSpan span) {
-      hasDeclarationErrors = true;
-      logError(message, span);
-    });
+        var replacement = '$symbolName.$staticPropKeysName /* GENERATED from \$PropKeys usage */';
 
-    if (hasDeclarationErrors) {
-      outputUntransformedAsset();
-      return;
+        transformedFile.replace(sourceFile.span(match.start, match.end), replacement);
+      });
     }
 
-    ComponentGeneratedSourceFile newSource = generateComponent(declarations, sourceFile);
-
-    transform.addOutput(new Asset.fromString(transform.primaryInput.id, newSource.getTransformedText()));
+    if (transformedFile.isModified) {
+      // Output the transformed source.
+      transform.addOutput(new Asset.fromString(transform.primaryInput.id, transformedFile.getTransformedText()));
+    } else {
+      // Output the unmodified input.
+      transform.addOutput(transform.primaryInput);
+    }
   }
 }
 
