@@ -6,9 +6,9 @@ import 'package:analyzer/analyzer.dart';
 import 'package:barback/barback.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
-import 'package:web_skin_dart/src/transformer/declaration_parsing.dart';
-import 'package:web_skin_dart/src/transformer/impl_generation.dart';
-import 'package:web_skin_dart/src/transformer/source_file_helpers.dart';
+import 'package:web_skin_dart/src/transformer/declaration_parsing.dart' show ComponentDeclarations;
+import 'package:web_skin_dart/src/transformer/impl_generation.dart' show generateComponent, staticPropKeysName;
+import 'package:web_skin_dart/src/transformer/source_file_helpers.dart' show TransformedSourceFile;
 
 
 class WebSkinDartTransformer extends Transformer implements LazyTransformer {
