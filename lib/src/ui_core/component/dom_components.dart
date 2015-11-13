@@ -53,7 +53,8 @@ typedef DomProps DomPropsFactory();
 
 class DomProps extends helpers_sans_generation.UiProps with helpers_sans_generation.MapViewMixin, DomPropsMixin, ReactPropsMixin
     implements DomComponentDefinition {
-  DomProps(ReactDomComponentFactoryProxy this.componentFactory, [Map props]) : this.props = props ?? {};
+  // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
+  DomProps(ReactDomComponentFactoryProxy this.componentFactory, [Map props]) : this.props = props ?? ({});
 
   @override
   final ReactDomComponentFactoryProxy componentFactory;
