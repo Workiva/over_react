@@ -8,3 +8,10 @@ Future triggerTransitionEnd(Element element) {
   element.dispatchEvent(new CustomEvent('transitionend'));
   return eventFiredFuture;
 }
+
+void triggerDocumentClick(Element target) {
+  // Ensure that the target is attached to the document.
+  assert(document.documentElement.contains(target));
+
+  target.dispatchEvent(new MouseEvent('click'));
+}
