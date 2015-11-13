@@ -12,47 +12,81 @@ export 'package:web_skin_dart/src/ui_core/util/react_wrappers.dart';
 
 JsObject _React = context['React'];
 
-/// Renders a React component or builder into the DOM and returns the JsObject instance.
-JsObject render(dynamic component, [List children]) {
-  return react_test_utils.renderIntoDocument(component is ComponentDefinition ? component.build(children) : component);
+/// Renders a React component or builder into a detached node and returns the JsObject instance.
+JsObject render(dynamic component) {
+  return react_test_utils.renderIntoDocument(component is ComponentDefinition ? component.build() : component);
 }
 
-/// Renders a React component or builder into the DOM and returns the associated DOM node.
-Element renderAndGetDom(dynamic component, [List children]) {
-  return findDomNode(react_test_utils.renderIntoDocument(component is ComponentDefinition ? component.build(children) : component));
+/// Unmounts a React component.
+///
+/// [instanceOrContainerNode] can be a [JsObject] React instance,
+/// or an [Element] container node (argument to [react.render]).
+///
+/// For convenience, this method does nothing if [instanceOrContainerNode] is null,
+/// or if it's a non-mounted React instance.
+void unmount(dynamic instanceOrContainerNode) {
+  if (instanceOrContainerNode == null) {
+    return;
+  }
+
+  if (instanceOrContainerNode is JsObject && !isMounted(instanceOrContainerNode)) {
+    return;
+  }
+
+  Element containerNode;
+
+  if (instanceOrContainerNode is JsObject) {
+    containerNode = findDomNode(instanceOrContainerNode).parent;
+  } else if (instanceOrContainerNode is Element) {
+    containerNode = instanceOrContainerNode;
+  } else {
+    throw new ArgumentError(
+        '`instanceOrNode` must be null, a JsObject instance, or an Element. Was: $instanceOrContainerNode.'
+    );
+  }
+
+  react.unmountComponentAtNode(containerNode);
 }
 
-/// Element that will be wrapped around the component that will be rendered into the document.
-Element _attachedReactContainer;
+/// Renders a React component or builder into a detached node and returns the associated DOM node.
+Element renderAndGetDom(dynamic component) {
+  return findDomNode(react_test_utils.renderIntoDocument(component is ComponentDefinition ? component.build() : component));
+}
+
+/// List of elements attached to the DOM and used as mount points in previous calls to [renderAttachedToDocument].
+List<Element> _attachedReactContainers = [];
 
 /// Renders the component into the document as opposed to a headless node.
 /// Returns the rendered component.
-JsObject renderAttachedToDocument(dynamic component, [List children]) {
-  tearDownAttachedNode();
+JsObject renderAttachedToDocument(dynamic component) {
+  var container = new DivElement()..className = 'render-attached-to-document-container';
+  _attachedReactContainers.add(container);
 
-  _attachedReactContainer = new DivElement();
+  document.body.append(container);
 
-  document.body.append(_attachedReactContainer);
-
-  return _React.callMethod('render', [
-    component is ComponentDefinition ? component.build(children) : component,
-    _attachedReactContainer
-  ]);
+  return react.render(component is ComponentDefinition ? component.build() : component, container);
 }
 
-/// Removes _attachedReactContainer from the document.
-void tearDownAttachedNode() {
-  if (_attachedReactContainer != null) {
-    _attachedReactContainer.remove();
-    _attachedReactContainer = null;
-  }
+/// Unmounts and removes the mount nodes for components rendered via [renderAttachedToDocument].
+void tearDownAttachedNodes() {
+  _attachedReactContainers.forEach((container) {
+    react.unmountComponentAtNode(container);
+    container.remove();
+  });
+
+  _attachedReactContainers.clear();
 }
 
 /// Returns the internal Map used by react-dart to maintain the native Dart component.
 Map _getInternal(JsObject instance) => instance[PROPS][INTERNAL];
 
-/// Returns whether or not the instance is mounted
-bool isMounted(JsObject instance) => _getInternal(instance)[IS_MOUNTED];
+/// Returns whether the React [instance] is mounted.
+bool isMounted(JsObject instance) {
+  bool isMounted = instance.callMethod('isMounted', []);
+  // Workaround for https://github.com/facebook/react/pull/3815 (Fixed in React 0.14)
+  isMounted ??= false;
+  return isMounted;
+}
 
 /// Returns the native Dart component associated with a React JS component instance, or null if the component is not Dart-based.
 react.Component getDartComponent(JsObject instance) {
