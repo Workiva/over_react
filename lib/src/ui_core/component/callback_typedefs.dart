@@ -22,8 +22,8 @@ typedef EventKeyCallback(react.SyntheticEvent event, Object eventKey);
 typedef StateDidChangeCallback(react.SyntheticEvent event, Map oldState);
 typedef StateWillChangeCallback(react.SyntheticEvent event, Map newState);
 
-// Callback for Collapse events
-typedef CollapseCallback();
+/// A generic callback that takes no arguments.
+typedef Callback();
 
 // Callback for DOM elements
 typedef Element ElementCallback();

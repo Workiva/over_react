@@ -12,6 +12,17 @@ class DomPropsMapView extends MapView with DomProps, ReactProps {
   Map get props => this;
 }
 
+/// A MapView with the typed getters/setters for all CSS-class-related props.
+class CssClassPropsMapView extends MapView with CssClassProps {
+  /// Create a new instance backed by the specified map.
+  CssClassPropsMapView(Map map) : super(map);
+
+  /// The props to be manipulated via the getters/setters.
+  /// In this case, it's the current MapView object.
+  @override
+  Map get props => this;
+}
+
 /// A MapView with the typed getters/setters for all aria props.
 class AriaPropsMapView extends MapView with AriaProps {
   /// Create a new instance backed by the specified map.
