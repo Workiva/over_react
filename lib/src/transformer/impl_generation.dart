@@ -76,7 +76,8 @@ void generateComponent(TransformedSourceFile transformedFile, ComponentDeclarati
       ..writeln('  @override')
       ..writeln('  final Map props;')
       ..writeln()
-      ..writeln('  $propsImplName(Map backingMap) : this.props = backingMap != null ? backingMap : {};')
+      // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
+      ..writeln('  $propsImplName(Map backingMap) : this.props = backingMap ?? ({});')
       ..writeln()
       ..writeln('  @override')
       ..writeln('  bool get \$generated => true;') // FIXME find better way to do this
@@ -112,7 +113,8 @@ void generateComponent(TransformedSourceFile transformedFile, ComponentDeclarati
         ..writeln('  @override')
         ..writeln('  final Map state;')
         ..writeln()
-        ..writeln('  $stateImplName(Map backingMap) : this.state = backingMap != null ? backingMap : {};')
+        // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
+        ..writeln('  $stateImplName(Map backingMap) : this.state = backingMap ?? ({});')
         ..writeln()
         ..writeln('  @override')
         ..writeln('  bool get \$generated => true;') // FIXME find better way to do this
