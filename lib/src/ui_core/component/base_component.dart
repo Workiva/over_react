@@ -11,10 +11,27 @@ abstract class BaseComponentDefinition extends ComponentDefinition with ReactPro
   BaseComponentDefinition(ReactComponentFactory componentFactory, Map props) : super(componentFactory, props);
 }
 
+typedef Element _getDOMNodeTypedef();
+typedef dynamic _refTypedef(String ref);
+
 /// A component used as the base for all web_skin_dart components.
 ///
 /// Contains built-in support for generic typed props and other utility methods.
 abstract class BaseComponent<T extends ComponentDefinition> extends react.Component with TypedPropsGetter<T> {
+  /// Get the DOM node of the component.
+  ///
+  /// Overridden for strong typing.
+  @override
+  _getDOMNodeTypedef get getDOMNode => super.getDOMNode;
+
+  /// Returns the component of the specified ref.
+  /// > react.Component if it is a Dart component
+  /// > DOM node if it is a DOM component.
+  ///
+  /// Overridden for strong typing.
+  @override
+  _refTypedef get ref => super.ref;
+
   /// Utility function used for prop transfer
   Map copyProps({bool omitReservedReactProps: true, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
     return getPropsToForward(this.props,
