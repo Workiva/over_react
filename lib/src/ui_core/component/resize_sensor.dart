@@ -47,12 +47,11 @@ class ResizeSensorState extends MapView with ResizeSensorStateMixin {
 var _resizeSensorComponentFactory = react.registerComponent(() => new _ResizeSensor());
 
 class _ResizeSensor extends BaseComponentWithState<ResizeSensorDefinition, ResizeSensorState> {
-  Map getDefaultProps() => newProps();
-
   @override
-  Map getInitialState() => newState()
+  Map getInitialState() => (newState()
     ..lastHeight = 0
-    ..lastWidth = 0;
+    ..lastWidth = 0
+  );
 
   @override
   void componentDidMount(rootNode) {
@@ -88,27 +87,27 @@ class _ResizeSensor extends BaseComponentWithState<ResizeSensorDefinition, Resiz
     )(collapseSensorChild);
 
     var children = new List.from(tProps.children)
-      ..add((Dom.div()
-        ..className = 'resize-sensor'
-        ..style = _baseStyle
-      )(expandSensor, collapseSensor)
+      ..add(
+          (Dom.div()
+            ..className = 'resize-sensor'
+            ..style = _baseStyle
+          )(expandSensor, collapseSensor)
     );
 
     return (Dom.div()..style = {
-        'position': 'relative',
-        'height': '100%',
-        'width': '100%'
+      'position': 'relative',
+      'height': '100%',
+      'width': '100%'
     })(children);
   }
 
   /// When the expand or collapse sensors are resized, builds a [ResizeSensorEvent] and calls
   /// tProps.onResize with it. Then, calls through to [_reset()].
-  void _handleSensorScroll(react.SyntheticEvent e) {
+  void _handleSensorScroll(react.SyntheticEvent event) {
     Element sensor = getDOMNode();
 
     if (sensor.offsetWidth != tState.lastWidth || sensor.offsetHeight != tState.lastHeight) {
-      var event = new ResizeSensorEvent(
-          sensor.offsetWidth, sensor.offsetHeight, tState.lastWidth, tState.lastHeight);
+      var event = new ResizeSensorEvent(sensor.offsetWidth, sensor.offsetHeight, tState.lastWidth, tState.lastHeight);
 
       if (tProps.onResize != null) {
         tProps.onResize(event);
@@ -123,9 +122,9 @@ class _ResizeSensor extends BaseComponentWithState<ResizeSensorDefinition, Resiz
   ///
   /// Additionally update the state with the new [tState.lastWidth] and [tState.lastHeight].
   void _reset() {
-    Element expand = react.findDOMNode(ref('expandSensor'));
-    Element expandChild = react.findDOMNode(ref('expandSensorChild'));
-    Element collapse = react.findDOMNode(ref('collapseSensor'));
+    Element expand = findDomNode(ref('expandSensor'));
+    Element expandChild = findDomNode(ref('expandSensorChild'));
+    Element collapse = findDomNode(ref('collapseSensor'));
     Element sensor = getDOMNode();
 
     expandChild.style.width = '${expand.offsetWidth + 10}px';
@@ -150,7 +149,7 @@ class _ResizeSensor extends BaseComponentWithState<ResizeSensorDefinition, Resiz
   ResizeSensorState typedStateFactory(Map stateMap) => new ResizeSensorState(stateMap);
 }
 
-final Map<String, dynamic> _baseStyle = {
+final Map<String, dynamic> _baseStyle = const {
   'position': 'absolute',
   'top': '0',
   'right': '0',
@@ -161,13 +160,13 @@ final Map<String, dynamic> _baseStyle = {
   'visibility': 'hidden'
 };
 
-final Map<String, dynamic> _expandSensorChildStyle = {
+final Map<String, dynamic> _expandSensorChildStyle = const {
   'position': 'absolute',
   'top': '0',
   'left': '0'
 };
 
-final Map<String, dynamic> _collapseSensorChildStyle = {
+final Map<String, dynamic> _collapseSensorChildStyle = const {
   'position': 'absolute',
   'top': '0',
   'left': '0',
@@ -189,4 +188,4 @@ class ResizeSensorEvent {
   ResizeSensorEvent(this.newWidth, this.newHeight, this.prevWidth, this.prevHeight);
 }
 
-typedef void ResizeHandler(ResizeSensorEvent e);
+typedef void ResizeHandler(ResizeSensorEvent event);
