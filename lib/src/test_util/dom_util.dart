@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:html';
 
 /// Dispatches a transitionEnd event.
+/// And returns a Future that completes after the event has been dispatched.
 ///
 /// Used for testing components that rely on a transitionEnd event.
 Future triggerTransitionEnd(Element element) {
