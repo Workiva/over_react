@@ -180,25 +180,23 @@ class ImplGenerator {
     //   Props/State Mixins implementations
     // ----------------------------------------------------------------------
     declarations.propsMixins.forEach((propMixinClass) {
-      // todo pass it all in
       generateAccessors(AccessorType.props, propMixinClass);
     });
 
     declarations.stateMixins.forEach((stateMixinClass) {
-      // todo pass it all in
       generateAccessors(AccessorType.state, stateMixinClass);
     });
 
     // ----------------------------------------------------------------------
     //   Abstract Props/State implementations
     // ----------------------------------------------------------------------
-    if (declarations.abstractProps != null) {
-      generateAccessors(AccessorType.props, declarations.abstractProps);
-    }
+    declarations.abstractProps.forEach((abstractPropsClass) {
+      generateAccessors(AccessorType.props, abstractPropsClass);
+    });
 
-    if (declarations.abstractState != null) {
-      generateAccessors(AccessorType.state, declarations.abstractState);
-    }
+    declarations.abstractState.forEach((abstractStateClass) {
+      generateAccessors(AccessorType.state, abstractStateClass);
+    });
   }
 
 
