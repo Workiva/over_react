@@ -164,6 +164,10 @@ abstract class UiProps
     props.addAll(propMap);
   }
 
+  @deprecated
+  @override
+  bool validate() {}
+
   /// Returns a new component with this builder's props and the specified children.
   JsObject build([dynamic children]) {
     return componentFactory(props, children);
