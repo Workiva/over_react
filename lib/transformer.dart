@@ -7,7 +7,7 @@ import 'package:barback/barback.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 import 'package:web_skin_dart/src/transformer/declaration_parsing.dart' show ComponentDeclarations;
-import 'package:web_skin_dart/src/transformer/impl_generation.dart' show generateComponent, staticPropKeysName;
+import 'package:web_skin_dart/src/transformer/impl_generation.dart';
 import 'package:web_skin_dart/src/transformer/source_file_helpers.dart' show TransformedSourceFile;
 
 
@@ -74,7 +74,8 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
 
       // Otherwise, just log the errors and do nothing.
       if (!hasDeclarationErrors) {
-        generateComponent(transformedFile, declarations);
+        new ImplGenerator(transform.logger, transform.primaryInput.id, transformedFile)
+            .generateComponent(declarations);
       }
     }
 
@@ -86,7 +87,7 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
       propKeysPattern.allMatches(sourceFile.getText(0)).forEach((match) {
         var symbolName = match.group(1);
 
-        var replacement = '$symbolName.$staticPropKeysName /* GENERATED from \$PropKeys usage */';
+        var replacement = '$symbolName.${ImplGenerator.staticPropKeysName} /* GENERATED from \$PropKeys usage */';
 
         transformedFile.replace(sourceFile.span(match.start, match.end), replacement);
       });
