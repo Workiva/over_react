@@ -17,14 +17,13 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component
   /// The keys for the non-forwarding props defined in this component.
   Iterable<Iterable<String>> get consumedPropKeys => null;
 
+  /// Returns a copy of this component's props with [consumedPropKeys] omitted.
   Map copyUnconsumedProps() {
     return copyProps(keySetsToOmit: consumedPropKeys);
   }
 
-  //
-  // Helpers from BaseComponent that would most likely be in their own class...
-
-  /// Utility function used for prop transfer
+  /// Returns a copy of this component's props with React props optionally omittied, and
+  /// with the specified [keysToOmit] and [keySetsToOmit] omitted.
   Map copyProps({bool omitReservedReactProps: true, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
     return getPropsToForward(this.props,
         omitReactProps: omitReservedReactProps,
@@ -32,10 +31,6 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component
         keySetsToOmit: keySetsToOmit
     );
   }
-//
-//  Iterable<dynamic> get iterateChildren {
-//    return childrenIterable(props.children);
-//  }
 
   /// Returns a new ClassNameBuilder with className and blacklist values added from [CssClassProps.className] and
   /// [CssClassProps.classNameBlackList], if they are specified.
@@ -54,7 +49,9 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component
   // Keep this Expando unparameterized to work around this bug: https://code.google.com/p/dart/issues/detail?id=18713
   Expando _typedPropsCache = new Expando();
 
-  /// Create, or get from cache, a typed props object corresponding to the current props Map.
+  /// A typed props object corresponding to the current untyped props Map ([unwrappedProps]).
+  ///
+  /// Created using [typedPropsFactory] and cached for each Map instance.
   @override
   TProps get props {
     var unwrappedProps = this.unwrappedProps;
@@ -66,19 +63,23 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component
     return typedProps;
   }
 
-  /// Use [props] instead;
+  /// DEPRECATED: Use [props] instead.
+  ///
+  /// A typed props object corresponding to the current untyped props Map ([unwrappedProps]).
+  ///
+  /// Created using [typedPropsFactory] and cached for each Map instance.
   @deprecated
   TProps get tProps => props;
 
-  /// The props Map that will be used to create the typed props object.
+  /// The props Map that will be used to create the typed [props] object.
   Map get unwrappedProps => super.props;
 
-  /// Returns a typed props object backed by the specified Map.
-  /// Required to properly instantiate the generic class parameter.
+  /// Returns a typed props object backed by the specified [propsMap].
+  /// Required to properly instantiate the generic [TProps] class.
   TProps typedPropsFactory(Map propsMap);
 
   /// Returns a typed props object backed by a new Map.
-  /// Convenient for use with getDefaultProps.
+  /// Convenient for use with [getDefaultProps].
   TProps newProps() => typedPropsFactory({});
 
   //
@@ -99,7 +100,9 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
    // Keep this Expando unparameterized to work around this bug: https://code.google.com/p/dart/issues/detail?id=18713
   Expando _typedStateCache = new Expando();
 
-  /// Create, or get from cache, a typed state object corresponding to the current state Map.
+  /// A typed state object corresponding to the current untyped state Map ([unwrappedState]).
+  ///
+  /// Created using [typedStateFactory] and cached for each Map instance.
   @override
   TState get state {
     var unwrappedState = this.unwrappedState;
@@ -111,19 +114,23 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
     return typedState;
   }
 
-  /// Use [state] instead;
+  /// DEPRECATED: Use [state] instead.
+  ///
+  /// A typed state object corresponding to the current untyped state Map ([unwrappedState]).
+  ///
+  /// Created using [typedStateFactory] and cached for each Map instance.
   @deprecated
   TState get tState => state;
 
-  /// The state Map that will be used to create the typed state object.
+  /// The state Map that will be used to create the typed [state] object.
   Map get unwrappedState => super.state;
 
-  /// Returns a typed state object backed by the specified Map.
-  /// Required to properly instantiate the generic class parameter.
+  /// Returns a typed state object backed by the specified [stateMap].
+  /// Required to properly instantiate the generic [TState] class.
   TState typedStateFactory(Map stateMap);
 
   /// Returns a typed state object backed by a new Map.
-  /// Convenient for use with getInitialState and setState.
+  /// Convenient for use with [getInitialState] and [setState].
   TState newState() => typedStateFactory({});
 
   //
@@ -143,12 +150,12 @@ abstract class UiState extends Object with StateMapViewMixin implements Map, Map
 abstract class UiProps
     extends Object with PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
     implements Map, MapViewMixin, ComponentDefinition {
-  /// Add an arbitrary prop key-value pair.
+  /// Adds an arbitrary prop key-value pair.
   void addProp(propKey, value) {
     props[propKey] = value;
   }
 
-  /// Add a Map of arbitrary props.
+  /// Adds a Map of arbitrary props. [props] may be null.
   void addProps(Map propMap) {
     if (propMap == null) {
       return;
@@ -157,20 +164,17 @@ abstract class UiProps
     props.addAll(propMap);
   }
 
-  /// Default method for component validation. (Called in checked mode only, during [build].)
-  bool validate() {
-    return true;
-  }
-
-  /// Create a new component with this builder's props and the specified children.
+  /// Returns a new component with this builder's props and the specified children.
   JsObject build([dynamic children]) {
     return componentFactory(props, children);
   }
 
-  /// Create a new component with this builder's props and the specified children. (alias for [build])
+  /// Creates a new component with this builder's props and the specified [children]. (alias for [build])
+  ///
+  /// This method actually takes any number of children as arguments via [noSuchMethod].
   JsObject call([dynamic children]) => build(children);
 
-  /// Supports variadic children of the form `call(Map props, [child1, child2, child3...])`.
+  /// Supports variadic children of the form `call([child1, child2, child3...])`.
   dynamic noSuchMethod(Invocation invocation) {
     if (invocation.memberName == #call && invocation.isMethod) {
       var parameters = []
@@ -188,7 +192,8 @@ abstract class UiProps
   String get propKeyNamespace;
 }
 
-
+/// Works in conjuction with [MapViewMixin] to provide [dart.collection.MapView]-like
+/// functionality to [UiProps] subclasses.
 abstract class PropsMapViewMixin {
   /// The props maintained by this builder and used passed into the component when built.
   /// In this case, it's the current MapView object.
@@ -198,6 +203,8 @@ abstract class PropsMapViewMixin {
   String toString() => '$runtimeType: $_map';
 }
 
+/// Works in conjuction with [MapViewMixin] to provide [dart.collection.MapView]-like
+/// functionality to [UiState] subclasses.
 abstract class StateMapViewMixin {
   Map get state;
   Map get _map => this.state;
@@ -205,6 +212,13 @@ abstract class StateMapViewMixin {
   String toString() => '$runtimeType: $_map';
 }
 
+/// Provides [dart.collection.MapView]-like behavior by proxying an internal map.
+///
+/// Works in conjunction with [PropsMapViewMixin] and [StateMapViewMixin] to implement [Map]
+/// in [UiProps] and [UiState] subclasses.
+///
+/// For use by concrete [UiProps] and [UiState] implementations (either generated or manual),
+/// and thus must remain public.
 abstract class MapViewMixin<K, V> {
   Map<K, V> get _map;
 
@@ -221,6 +235,5 @@ abstract class MapViewMixin<K, V> {
   int get length => _map.length;
   Iterable<K> get keys => _map.keys;
   V remove(Object key) => _map.remove(key);
-//  String toString() => _map.toString();
   Iterable<V> get values => _map.values;
 }
