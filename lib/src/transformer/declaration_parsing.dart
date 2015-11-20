@@ -32,6 +32,16 @@ class ComponentDeclarations {
     key_state,
   ]);
 
+  static final List<String> key_allComponentRequired = new List.unmodifiable([
+    key_factory,
+    key_component,
+    key_props,
+  ]);
+
+  static final List<String> key_allComponentOptional = new List.unmodifiable([
+    key_state,
+  ]);
+
   static final List<String> key_allAbstractComponent = new List.unmodifiable([
     key_abstractComponent,
     key_abstractProps,
@@ -64,9 +74,8 @@ class ComponentDeclarations {
   final PropsNode props;
   final StateNode state;
 
-  final AbstractComponentNode abstractComponent;
-  final AbstractPropsNode abstractProps;
-  final AbstractStateNode abstractState;
+  final List<AbstractPropsNode> abstractProps;
+  final List<AbstractStateNode> abstractState;
 
   final List<PropsMixinNode> propsMixins;
   final List<StateMixinNode> stateMixins;
@@ -78,34 +87,34 @@ class ComponentDeclarations {
       ClassDeclaration props,
       ClassDeclaration state,
 
-      ClassDeclaration abstractComponent,
-      ClassDeclaration abstractProps,
-      ClassDeclaration abstractState,
+      List<ClassDeclaration> abstractProps,
+      List<ClassDeclaration> abstractState,
 
       List<ClassDeclaration> propsMixins,
       List<ClassDeclaration> stateMixins
   }) :
-      this.factory           = (factory           == null) ? null : new FactoryNode(factory),
-      this.component         = (component         == null) ? null : new ComponentNode(component),
-      this.props             = (props             == null) ? null : new PropsNode(props),
-      this.state             = (state             == null) ? null : new StateNode(state),
+      this.factory       = (factory   == null) ? null : new FactoryNode(factory),
+      this.component     = (component == null) ? null : new ComponentNode(component),
+      this.props         = (props     == null) ? null : new PropsNode(props),
+      this.state         = (state     == null) ? null : new StateNode(state),
 
-      this.abstractComponent = (abstractComponent == null) ? null : new AbstractComponentNode(abstractComponent),
-      this.abstractProps     = (abstractProps     == null) ? null : new AbstractPropsNode(abstractProps),
-      this.abstractState     = (abstractState     == null) ? null : new AbstractStateNode(abstractState),
+      this.abstractProps = new List.unmodifiable(abstractProps.map((propsMixin) => new AbstractPropsNode(propsMixin))),
+      this.abstractState = new List.unmodifiable(abstractState.map((stateMixin) => new AbstractStateNode(stateMixin))),
 
-      this.propsMixins = propsMixins.map((propsMixin) => new PropsMixinNode(propsMixin)).toList(),
-      this.stateMixins = stateMixins.map((stateMixin) => new StateMixinNode(stateMixin)).toList();
+      this.propsMixins   = new List.unmodifiable(propsMixins.map((propsMixin) => new PropsMixinNode(propsMixin))),
+      this.stateMixins   = new List.unmodifiable(stateMixins.map((stateMixin) => new StateMixinNode(stateMixin)));
+
+
 
 
   factory ComponentDeclarations(CompilationUnit unit, SourceFile sourceFile, {onError(String message, SourceSpan sourceSpan)}) {
-    void error(String message, SourceSpan sourceSpan) {
+    void error(String message, [SourceSpan sourceSpan]) {
       if (onError != null) {
         onError(message, sourceSpan);
       }
     }
 
-    Map<String, List<CompilationUnitMember>> declarations = {
+    Map<String, List<CompilationUnitMember>> declarationMap = {
       key_factory:           <CompilationUnitMember>[],
       key_component:         <CompilationUnitMember>[],
       key_props:             <CompilationUnitMember>[],
@@ -117,15 +126,22 @@ class ComponentDeclarations {
       key_stateMixin:        <CompilationUnitMember>[],
     };
 
-    unit.declarations.forEach((CompilationUnitMember member) {
-      member.metadata.forEach((annotation) {
-        var name = annotation.name.toString();
+    List topLevelVarsOnly(String annotationName, Iterable<CompilationUnitMember> declarations) {
+      var topLevelVarDeclarations = [];
 
-        declarations[name]?.add(member);
+      declarations.forEach((declaration) {
+        if (declaration is TopLevelVariableDeclaration) {
+          topLevelVarDeclarations.add(declaration);
+        } else {
+          error(
+              '@`$annotationName` should only be used on top-level variable declarations, but was used on ${declaration}. ',
+              sourceFile.location(declaration.offset).pointSpan()
+          );
+        }
       });
-    });
 
-    //todo type check builder factory
+      return topLevelVarDeclarations;
+    };
 
     List classesOnly(String annotationName, Iterable<CompilationUnitMember> declarations) {
       var classDeclarations = [];
@@ -144,6 +160,16 @@ class ComponentDeclarations {
       return classDeclarations;
     };
 
+    unit.declarations.forEach((CompilationUnitMember member) {
+      member.metadata.forEach((annotation) {
+        var name = annotation.name.toString();
+
+        declarationMap[name]?.add(member);
+      });
+    });
+
+    declarationMap[key_factory] = topLevelVarsOnly(key_factory, declarationMap[key_factory]);
+
     [
       key_component,
       key_props,
@@ -154,106 +180,85 @@ class ComponentDeclarations {
       key_propsMixin,
       key_stateMixin,
     ].forEach((annotationName) {
-      declarations[annotationName] = classesOnly(annotationName, declarations[annotationName]);
+      declarationMap[annotationName] = classesOnly(annotationName, declarationMap[annotationName]);
     });
 
-    var hasComponent = key_allComponent
-        .any((annotationName) => declarations[annotationName].isNotEmpty);
 
-    var hasAbstractComponent = key_allAbstractComponent
-        .any((annotationName) => declarations[annotationName].isNotEmpty);
+    /// Validate that all the declarations that make up a component are used correctly.
 
-    if (hasComponent && hasAbstractComponent) {
-      key_allComponent
-          .forEach((annotationName) => declarations[annotationName] = []);
+    Iterable<List<CompilationUnitMember>> requiredDecls =
+        key_allComponentRequired.map((annotationName) => declarationMap[annotationName]);
 
-      key_allAbstractComponent
-          .forEach((annotationName) => declarations[annotationName] = []);
-    }
+    Iterable<List<CompilationUnitMember>> optionalDecls =
+        key_allComponentOptional.map((annotationName) => declarationMap[annotationName]);
 
-    List limitDeclarations(String annotationName, Iterable<CompilationUnitMember> declarations) {
-      if (declarations.length > 1) {
-        declarations.forEach((declaration) {
-          error(
-            'There can only be one `@$annotationName` usage per file. ',
-            sourceFile.location(declaration.offset).pointSpan()
-          );
+    bool oneOfEachRequiredDecl = requiredDecls.every((decls) => decls.length == 1);
+    bool noneOfAnyRequiredDecl = requiredDecls.every((decls) => decls.length == 0);
+
+    bool atMostOneOfEachOptionalDecl = optionalDecls.every((decls) => decls.length <= 1);
+    bool noneOfAnyOptionalDecl       = optionalDecls.every((decls) => decls.length == 0);
+
+    bool areDeclarationsValid = (
+        (oneOfEachRequiredDecl && atMostOneOfEachOptionalDecl) ||
+        (noneOfAnyRequiredDecl && noneOfAnyOptionalDecl)
+    );
+
+    /// Give the consumer some useful errors if the declarations aren't valid.
+
+    if (!areDeclarationsValid) {
+      if (!noneOfAnyRequiredDecl) {
+        key_allComponentRequired.forEach((annotationName) {
+          var declarations = declarationMap[annotationName];
+          if (declarations.length == 0) {
+            error('To define a component, there must be a `@$annotationName`, '
+                  'but none were found.');
+          } else if (declarations.length > 1) {
+            for (int i = 0; i<declarations.length; i++) {
+              error('To define a component, there must be a single `@$annotationName`, '
+                    'but ${declarations.length} were found. ${i + 1} of ${declarations.length}.',
+                  sourceFile.location(declarations[i].offset).pointSpan()
+              );
+            }
+          }
+
+          declarationMap[annotationName] = [];
         });
-
-        return [];
       }
 
-      return declarations;
-    };
+      key_allComponentOptional.forEach((annotationName) {
+        var declarations = declarationMap[annotationName];
 
-    [
-      key_factory,
-      key_component,
-      key_props,
-      key_state,
-      key_abstractComponent,
-      key_abstractProps,
-      key_abstractState,
-    ].forEach((annotationName) {
-      declarations[annotationName] = limitDeclarations(annotationName, declarations[annotationName]);
-    });
-
-    if (declarations[key_factory].isEmpty) {
-      [
-        key_component,
-        key_props,
-        key_state,
-      ].forEach((annotationName) {
-        if (declarations[annotationName].isNotEmpty) {
-          error(
-              '`@$annotationName` was used without valid `@$key_factory`.',
-              sourceFile.location(declarations[annotationName].first.offset).pointSpan()
-          );
-
-          declarations[annotationName] = [];
+        if (declarations.length > 1) {
+          for (int i = 0; i<declarations.length; i++) {
+            error('To define a component, there must not be more than one `@$annotationName`. '
+                  '${declarations.length} were found. ${i + 1} of ${declarations.length}.',
+                sourceFile.location(declarations[i].offset).pointSpan()
+            );
+          }
         }
-      });
-    } else {
-      var builderFactory = declarations[key_factory].single;
-      if (builderFactory.variables.variables.length != 1 ||
-          builderFactory.variables.variables.single.initializer != null) {
-        onError(
-            '`@$key_factory` should only be used on a single unitialized variable.',
-            sourceFile.location(builderFactory.offset).pointSpan()
-        );
-        declarations[key_factory] = [];
-      }
-    }
 
-    if (declarations[key_component].isEmpty) {
-      [
-        key_factory,
-        key_props,
-        key_state,
-      ].forEach((annotationName) {
-        if (declarations[annotationName].isNotEmpty) {
-          error(
-              '`@$annotationName` was used without valid `@$key_component`.',
-              sourceFile.location(declarations[annotationName].first.offset).pointSpan()
+        if (noneOfAnyRequiredDecl && declarations.length != 0) {
+          error('To define a component, a `@$annotationName` must be accompanied by the following annotations: '
+                '${key_allComponentRequired.map((key) => '@$key').join(', ')}.',
+              sourceFile.location(declarations.first.offset).pointSpan()
           );
-
-          declarations[annotationName] = [];
         }
+
+        declarationMap[annotationName] = [];
       });
     }
 
     return new ComponentDeclarations._(
-        factory:           singleOrNull(declarations[key_factory]),
-        component:         singleOrNull(declarations[key_component]),
-        props:             singleOrNull(declarations[key_props]),
-        state:             singleOrNull(declarations[key_state]),
+        factory:       singleOrNull(declarationMap[key_factory]),
+        component:     singleOrNull(declarationMap[key_component]),
+        props:         singleOrNull(declarationMap[key_props]),
+        state:         singleOrNull(declarationMap[key_state]),
 
-        abstractComponent: singleOrNull(declarations[key_abstractComponent]),
-        abstractProps:     singleOrNull(declarations[key_abstractProps]),
-        abstractState:     singleOrNull(declarations[key_abstractState]),
+        abstractProps: declarationMap[key_abstractProps],
+        abstractState: declarationMap[key_abstractState],
 
-        propsMixins: declarations[key_propsMixin],
-        stateMixins: declarations[key_stateMixin]
+        propsMixins:   declarationMap[key_propsMixin],
+        stateMixins:   declarationMap[key_stateMixin]
     );
   }
 
