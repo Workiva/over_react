@@ -13,17 +13,17 @@ class ComponentDeclarations {
     return MirrorSystem.getName(reflectType(type).simpleName);
   }
 
-  static final String key_factory = _getName(annotations.Factory);
-  static final String key_component = _getName(annotations.Component);
-  static final String key_props = _getName(annotations.Props);
-  static final String key_state = _getName(annotations.State);
+  static final String key_factory           = _getName(annotations.Factory);
+  static final String key_component         = _getName(annotations.Component);
+  static final String key_props             = _getName(annotations.Props);
+  static final String key_state             = _getName(annotations.State);
 
   static final String key_abstractComponent = _getName(annotations.AbstractComponent);
-  static final String key_abstractProps = _getName(annotations.AbstractProps);
-  static final String key_abstractState = _getName(annotations.AbstractState);
+  static final String key_abstractProps     = _getName(annotations.AbstractProps);
+  static final String key_abstractState     = _getName(annotations.AbstractState);
 
-  static final String key_propsMixin = _getName(annotations.PropsMixin);
-  static final String key_stateMixin = _getName(annotations.StateMixin);
+  static final String key_propsMixin        = _getName(annotations.PropsMixin);
+  static final String key_stateMixin        = _getName(annotations.StateMixin);
 
   static final List<String> key_allComponent = new List.unmodifiable([
     key_factory,
@@ -39,7 +39,8 @@ class ComponentDeclarations {
   ]);
 
  static  final RegExp key_any = new RegExp(
-      r'@(' + [
+      r'@(?:' +
+      [
         key_factory,
         key_component,
         key_props,
@@ -49,7 +50,8 @@ class ComponentDeclarations {
         key_abstractState,
         key_propsMixin,
         key_stateMixin,
-      ].join('|') + r')',
+      ].join('|').replaceAll(r'$', r'\$') +
+      r')',
       caseSensitive: true
   );
 
