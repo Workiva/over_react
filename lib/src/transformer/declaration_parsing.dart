@@ -210,12 +210,12 @@ class ComponentDeclarations {
         key_allComponentRequired.forEach((annotationName) {
           var declarations = declarationMap[annotationName];
           if (declarations.length == 0) {
-            error('To define a component, there must be a `@$annotationName`, '
+            error('To define a component, there must also be a `@$annotationName` within the same file, '
                   'but none were found.');
           } else if (declarations.length > 1) {
             for (int i = 0; i<declarations.length; i++) {
-              error('To define a component, there must be a single `@$annotationName`, '
-                    'but ${declarations.length} were found. ${i + 1} of ${declarations.length}.',
+              error('To define a component, there must be a single `@$annotationName` per file, '
+                    'but ${declarations.length} were found. (${i + 1} of ${declarations.length})',
                   sourceFile.location(declarations[i].offset).pointSpan()
               );
             }
@@ -230,15 +230,16 @@ class ComponentDeclarations {
 
         if (declarations.length > 1) {
           for (int i = 0; i<declarations.length; i++) {
-            error('To define a component, there must not be more than one `@$annotationName`. '
-                  '${declarations.length} were found. ${i + 1} of ${declarations.length}.',
+            error('To define a component, there must not be more than one `@$annotationName` per file, '
+                  'but ${declarations.length} were found. (${i + 1} of ${declarations.length})',
                 sourceFile.location(declarations[i].offset).pointSpan()
             );
           }
         }
 
         if (noneOfAnyRequiredDecl && declarations.length != 0) {
-          error('To define a component, a `@$annotationName` must be accompanied by the following annotations: '
+          error('To define a component, a `@$annotationName` must be accompanied by '
+                'the following annotations within the same file: '
                 '${key_allComponentRequired.map((key) => '@$key').join(', ')}.',
               sourceFile.location(declarations.first.offset).pointSpan()
           );
