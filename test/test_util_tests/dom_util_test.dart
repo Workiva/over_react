@@ -38,7 +38,7 @@ main() {
       tearDownAttachedNodes();
     });
 
-    test('expect when the target is not attached to the document', () {
+    test('and throws when the target is not attached to the document', () {
       var renderedInstance = render((Dom.div()..onClick = ((_) => flag = true))());
 
       expect(() => triggerDocumentClick(findDomNode(renderedInstance)), throws);
