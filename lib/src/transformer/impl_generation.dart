@@ -58,7 +58,10 @@ void generateComponent(TransformedSourceFile transformedFile, ComponentDeclarati
       ..writeln('// React component factory implementation')
       ..writeln('//')
       ..writeln('// registers component impl and links type meta to builder factory')
-      ..writeln('final $componentFactoryName = registerComponent(() => new $componentClassImplName(), builderFactory: $factoryName);')
+      ..writeln('final $componentFactoryName = registerComponent(() => new $componentClassImplName(),')
+      ..writeln('    builderFactory: $factoryName,')
+      ..writeln('    displayName: ${stringLiteral(factoryName)}')
+      ..writeln(');')
       ..writeln();
 
     // ----------------------------------------------------------------------
