@@ -86,9 +86,9 @@ void generateComponent(TransformedSourceFile transformedFile, ComponentDeclarati
       ..writeln('  Function get componentFactory => $componentFactoryName;')
       ..writeln()
       ..writeln('  @override')
-      ..writeln('  String get friendlyTypeName => "$propsName";')
+      ..writeln('  String get friendlyTypeName => ${stringLiteral(propsName)};')
       ..writeln('  @override')
-      ..writeln('  String get propKeyNamespace => "$propKeyNamespace";')
+      ..writeln('  String get propKeyNamespace => ${stringLiteral(propKeyNamespace)};')
       ..writeln('}')
       ..writeln();
 
@@ -120,7 +120,7 @@ void generateComponent(TransformedSourceFile transformedFile, ComponentDeclarati
         ..writeln('  bool get \$generated => true;') // FIXME find better way to do this
         ..writeln()
         ..writeln('  @override')
-        ..writeln('  String get friendlyTypeName => "$stateName";')
+        ..writeln('  String get friendlyTypeName => ${stringLiteral(stateName)};')
         ..writeln('}')
         ..writeln();
 
@@ -155,7 +155,7 @@ void generateComponent(TransformedSourceFile transformedFile, ComponentDeclarati
       ..writeln(typedPropsFactoryImpl)
       ..writeln(typedStateFactoryImpl)
       ..writeln('  @override')
-      ..writeln('  String get friendlyTypeName => "$componentClassName";')
+      ..writeln('  String get friendlyTypeName => ${stringLiteral(componentClassName)};')
       ..writeln('}');
   }
 
@@ -244,7 +244,7 @@ void generateAccessors(
           String individualKey = accessorMeta?.key ?? accessorName;
 
           String keyConstantName = '${generatedPrefix}key__$accessorName';
-          String keyValue = '"$individualKeyNamespace$individualKey"';
+          String keyValue = stringLiteral(individualKeyNamespace + individualKey);
 
           keyConstants[keyConstantName] = keyValue;
 
