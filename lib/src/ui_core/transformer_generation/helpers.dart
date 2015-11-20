@@ -26,12 +26,17 @@ Expando<ReactDartComponentFactoryProxy> generatedBuilderToReactComponentFactory 
 /// but needs to be treated as if it were the wrapped component.
 ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFactory(), {
     UiFactory builderFactory,
-    bool isWrapper: false
+    bool isWrapper: false,
+    String displayName
 }) {
   ReactDartComponentFactoryProxy reactComponentFactory = react.registerComponent(dartComponentFactory);
 
   if (isWrapper) {
-    reactComponentFactory.type['isWrapper'] = true;
+    reactComponentFactory.reactClass['isWrapper'] = true;
+  }
+
+  if (displayName != null) {
+    reactComponentFactory.reactClass['displayName'] = displayName;
   }
 
   if (builderFactory != null) {
