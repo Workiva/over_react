@@ -25,13 +25,6 @@ class ComponentDeclarations {
   static final String key_propsMixin        = _getName(annotations.PropsMixin);
   static final String key_stateMixin        = _getName(annotations.StateMixin);
 
-  static final List<String> key_allComponent = new List.unmodifiable([
-    key_factory,
-    key_component,
-    key_props,
-    key_state,
-  ]);
-
   static final List<String> key_allComponentRequired = new List.unmodifiable([
     key_factory,
     key_component,
@@ -40,12 +33,6 @@ class ComponentDeclarations {
 
   static final List<String> key_allComponentOptional = new List.unmodifiable([
     key_state,
-  ]);
-
-  static final List<String> key_allAbstractComponent = new List.unmodifiable([
-    key_abstractComponent,
-    key_abstractProps,
-    key_abstractState,
   ]);
 
  static  final RegExp key_any = new RegExp(
@@ -160,6 +147,9 @@ class ComponentDeclarations {
       return classDeclarations;
     };
 
+
+    // Collect the annotated declarations.
+
     unit.declarations.forEach((CompilationUnitMember member) {
       member.metadata.forEach((annotation) {
         var name = annotation.name.toString();
@@ -167,6 +157,9 @@ class ComponentDeclarations {
         declarationMap[name]?.add(member);
       });
     });
+
+
+    // Validate the types of the annotated declarations.
 
     declarationMap[key_factory] = topLevelVarsOnly(key_factory, declarationMap[key_factory]);
 
@@ -213,7 +206,7 @@ class ComponentDeclarations {
             error('To define a component, there must also be a `@$annotationName` within the same file, '
                   'but none were found.');
           } else if (declarations.length > 1) {
-            for (int i = 0; i<declarations.length; i++) {
+            for (int i = 0; i < declarations.length; i++) {
               error('To define a component, there must be a single `@$annotationName` per file, '
                     'but ${declarations.length} were found. (${i + 1} of ${declarations.length})',
                   sourceFile.location(declarations[i].offset).pointSpan()
@@ -229,7 +222,7 @@ class ComponentDeclarations {
         var declarations = declarationMap[annotationName];
 
         if (declarations.length > 1) {
-          for (int i = 0; i<declarations.length; i++) {
+          for (int i = 0; i < declarations.length; i++) {
             error('To define a component, there must not be more than one `@$annotationName` per file, '
                   'but ${declarations.length} were found. (${i + 1} of ${declarations.length})',
                 sourceFile.location(declarations[i].offset).pointSpan()
