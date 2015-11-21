@@ -238,7 +238,11 @@ class ImplGenerator {
 
           field.fields.variables.forEach((VariableDeclaration variable) {
             if (variable.initializer != null) {
-              throw 'Fields are stubs for generated setters/getters and should not have initializers.';
+              logger.error(
+                  'Fields are stubs for generated setters/getters and should not have initializers.',
+                  asset: assetId,
+                  span: getSpan(sourceFile, variable)
+              );
             }
 
             String accessorName = variable.name.name;
@@ -274,7 +278,7 @@ class ImplGenerator {
                 'Note: accessors declared as comma-separated variables will not all be generated '
                 'with the original doc comments and annotations; only the first variable will.',
                 asset: assetId,
-                span: getSpan(sourceFile, field)
+                span: getSpan(sourceFile, field.fields)
             );
           }
 
