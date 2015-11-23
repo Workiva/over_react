@@ -44,7 +44,7 @@ class ResizeSensorState extends MapView with ResizeSensorStateMixin {
   int get lastWidth;
 }
 
-var _resizeSensorComponentFactory = react.registerComponent(() => new _ResizeSensor());
+var _resizeSensorComponentFactory = registerComponent(() => new _ResizeSensor(), isWrapper: true);
 
 class _ResizeSensor extends BaseComponentWithState<ResizeSensorDefinition, ResizeSensorState> {
   @override
