@@ -1,8 +1,7 @@
 library source_file_helpers_test;
 
-import 'package:test/test.dart';
-
 import 'package:source_span/source_span.dart';
+import 'package:test/test.dart';
 import 'package:web_skin_dart/src/transformer/source_file_helpers.dart';
 
 main() {
