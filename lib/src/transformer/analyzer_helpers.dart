@@ -22,7 +22,7 @@ dynamic getValue(Expression expression) {
     return null;
   }
 
-  throw 'Unsupported expression: $expression';
+  throw 'Unsupported expression: $expression. Must be a string, boolean, integer, or null literal.';
 }
 
 /// Uses reflection to instantiate and returns the first annotation on [member] of type
@@ -72,8 +72,14 @@ dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType) {
   // Instantiate and return an instance of the annotation using reflection.
   String constructorName = matchingAnnotation.constructorName?.name ?? '';
 
-  var instanceMirror = classMirror.newInstance(new Symbol(constructorName), positionalParameters, namedParameters);
-  return instanceMirror.reflectee;
+  try {
+    var instanceMirror = classMirror.newInstance(new Symbol(constructorName), positionalParameters, namedParameters);
+    return instanceMirror.reflectee;
+  } catch(e) {
+    throw 'Unable to instantiate annotation: $matchingAnnotation. '
+          'This is likely due to improper usage, or a naming conflict with annotationType $annotationType. '
+          'Original error: $e.';
+  }
 }
 
 /// Utility class that allows for easy access to an annotated node's instantiated annotation.
