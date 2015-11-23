@@ -52,7 +52,7 @@ class ComponentDeclarations {
       caseSensitive: true
   );
 
-  static bool mightContainDeclarations(String source) {
+  static bool shouldParse(String source) {
     return key_any.hasMatch(source);
   }
 
