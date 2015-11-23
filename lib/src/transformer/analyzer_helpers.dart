@@ -13,7 +13,11 @@ import 'package:analyzer/analyzer.dart';
 ///   * [NullLiteral]
 dynamic getValue(Expression expression) {
   if (expression is StringLiteral) {
-    return expression.stringValue;
+    var value = expression.stringValue;
+    if (value == null) {
+      throw 'Unsupported expression: $expression. Must be a non-interpolated string.';
+    }
+    return value;
   } else if (expression is BooleanLiteral) {
     return expression.value;
   } else if (expression is IntegerLiteral) {
@@ -22,7 +26,7 @@ dynamic getValue(Expression expression) {
     return null;
   }
 
-  throw 'Unsupported expression: $expression. Must be a string, boolean, integer, or null literal.';
+  throw 'Unsupported expression: $expression. Must be a string, boolean, integer, or null literal. Original error: $e';
 }
 
 /// Uses reflection to instantiate and returns the first annotation on [member] of type
