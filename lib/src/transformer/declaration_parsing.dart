@@ -92,14 +92,14 @@ class ComponentDeclarations {
       this.stateMixins   = new List.unmodifiable(stateMixins.map((stateMixin) => new StateMixinNode(stateMixin)));
 
 
-
-
   factory ComponentDeclarations(CompilationUnit unit, SourceFile sourceFile, {onError(String message, SourceSpan sourceSpan)}) {
     void error(String message, [SourceSpan sourceSpan]) {
       if (onError != null) {
         onError(message, sourceSpan);
       }
     }
+
+    // Collect the annotated declarations.
 
     Map<String, List<CompilationUnitMember>> declarationMap = {
       key_factory:           <CompilationUnitMember>[],
@@ -112,6 +112,17 @@ class ComponentDeclarations {
       key_propsMixin:        <CompilationUnitMember>[],
       key_stateMixin:        <CompilationUnitMember>[],
     };
+
+    unit.declarations.forEach((CompilationUnitMember member) {
+      member.metadata.forEach((annotation) {
+        var name = annotation.name.toString();
+
+        declarationMap[name]?.add(member);
+      });
+    });
+
+
+    // Validate the types of the annotated declarations.
 
     List topLevelVarsOnly(String annotationName, Iterable<CompilationUnitMember> declarations) {
       var topLevelVarDeclarations = [];
@@ -146,20 +157,6 @@ class ComponentDeclarations {
 
       return classDeclarations;
     };
-
-
-    // Collect the annotated declarations.
-
-    unit.declarations.forEach((CompilationUnitMember member) {
-      member.metadata.forEach((annotation) {
-        var name = annotation.name.toString();
-
-        declarationMap[name]?.add(member);
-      });
-    });
-
-
-    // Validate the types of the annotated declarations.
 
     declarationMap[key_factory] = topLevelVarsOnly(key_factory, declarationMap[key_factory]);
 
@@ -241,6 +238,7 @@ class ComponentDeclarations {
         declarationMap[annotationName] = [];
       });
     }
+
 
     return new ComponentDeclarations._(
         factory:       singleOrNull(declarationMap[key_factory]),
