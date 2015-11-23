@@ -1,4 +1,4 @@
-library web_skin_dart.transformer.generation_util;
+library web_skin_dart.transformer.text_util;
 
 String commentBanner(String bannerText, {
     int bannerWidth: 80, int textIndent: 2, bool topBorder: true, bool bottomBorder: true
@@ -61,7 +61,7 @@ String stringLiteral(String content, {bool quote: true, bool useSingleQuote: tru
   const int FORM_FEED       = 0x0c;
   const int DOLLAR_SIGN     = 0x24;
   const int SINGLE_QUOTE    = 0x27;
-  const int DOUBLE_QUOTE    = 0x27;
+  const int DOUBLE_QUOTE    = 0x22;
   const int CHAR_0          = 0x30;
   const int BACKSLASH       = 0x5c;
   const int CHAR_b          = 0x62;
