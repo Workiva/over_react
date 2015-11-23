@@ -8,6 +8,9 @@ class Replacement {
   final String newText;
 
   Replacement(this.span, this.newText);
+
+  @override
+  String toString() => '${super.toString()} (span: $span, newText: $newText)';
 }
 
 class TransformedSourceFile {
@@ -38,6 +41,10 @@ class TransformedSourceFile {
 
     var lastEdge = 0;
     for (Replacement replacement in _replacements) {
+      if (replacement.span.start.offset < lastEdge) {
+        throw 'Overlapping replacement $replacement in replacements $_replacements.';
+      }
+
       transformedSource
         ..write(sourceFile.getText(lastEdge, replacement.span.start.offset))
         ..write(replacement.newText);
