@@ -35,7 +35,7 @@ class ComponentDeclarations {
     key_state,
   ]);
 
- static  final RegExp key_any = new RegExp(
+  static  final RegExp key_any = new RegExp(
       r'@(?:' +
       [
         key_factory,
@@ -67,6 +67,8 @@ class ComponentDeclarations {
   final List<PropsMixinNode> propsMixins;
   final List<StateMixinNode> stateMixins;
 
+  final bool declaresComponent;
+
 
   ComponentDeclarations._({
       TopLevelVariableDeclaration factory,
@@ -89,7 +91,17 @@ class ComponentDeclarations {
       this.abstractState = new List.unmodifiable(abstractState.map((stateMixin) => new AbstractStateNode(stateMixin))),
 
       this.propsMixins   = new List.unmodifiable(propsMixins.map((propsMixin) => new PropsMixinNode(propsMixin))),
-      this.stateMixins   = new List.unmodifiable(stateMixins.map((stateMixin) => new StateMixinNode(stateMixin)));
+      this.stateMixins   = new List.unmodifiable(stateMixins.map((stateMixin) => new StateMixinNode(stateMixin))),
+
+      this.declaresComponent = factory != null
+  {
+    assert(
+        !(this.factory == null && this.component == null && this.props == null) &&
+        !(this.factory != null && this.component != null && this.props != null) &&
+        '`factory`, `component`, and `props` must be either all null or all non-null. '
+        'Any other combination represents an invalid component declaration. ' is String
+    );
+  }
 
 
   factory ComponentDeclarations(CompilationUnit unit, SourceFile sourceFile, {onError(String message, SourceSpan sourceSpan)}) {
