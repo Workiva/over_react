@@ -6,12 +6,12 @@ import 'package:web_skin_dart/src/transformer/analyzer_helpers.dart';
 
 main() {
   group('analyzer_helpers', () {
-    group('instantiateAnnotation()', () {
-      CompilationUnitMember parseAndGetSingleMember(String source) {
-        var compilationUnit = parseCompilationUnit(source);
-        return compilationUnit.declarations.single;
-      }
+    CompilationUnitMember parseAndGetSingleMember(String source) {
+      var compilationUnit = parseCompilationUnit(source);
+      return compilationUnit.declarations.single;
+    }
 
+    group('instantiateAnnotation()', () {
       group('instantiates an annotation with a parameter value specified as', () {
         test('a string literal', () {
           TestAnnotation instance = instantiateAnnotation(
@@ -106,6 +106,31 @@ main() {
             parseAndGetSingleMember('@TestAnnotation\nvar a;'),
             TestAnnotation
         ), throwsA(startsWith('Annotation not invocation of constructor')));
+      });
+
+      test('returns null when the member is not annotated', () {
+        expect(instantiateAnnotation(
+            parseAndGetSingleMember('var a;'),
+            TestAnnotation
+        ), isNull);
+      });
+
+      test('returns null when the member has only non-matching annotations', () {
+        expect(instantiateAnnotation(
+            parseAndGetSingleMember('@NonexistantAnnotation\nvar a;'),
+            TestAnnotation
+        ), isNull);
+      });
+    });
+
+    group('NodeWithMeta', () {
+      test('instantiates and provides access to an annotation for a given node', () {
+        var member = parseAndGetSingleMember('@TestAnnotation("hello")\nvar a;');
+        var nodeWithMeta = new NodeWithMeta<TopLevelVariableDeclaration, TestAnnotation>(member);
+
+        expect(nodeWithMeta.node, same(member));
+        expect(nodeWithMeta.meta, isNotNull);
+        expect(nodeWithMeta.meta.positional, 'hello');
       });
     });
   });
