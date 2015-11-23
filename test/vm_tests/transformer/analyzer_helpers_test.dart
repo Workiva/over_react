@@ -86,6 +86,14 @@ main() {
         expect(instance.named, 2);
       });
 
+      test('instantiates an annotation using a named constructor', () {
+        TestAnnotation instance = instantiateAnnotation(
+            parseAndGetSingleMember('@TestAnnotation.namedConstructor(namedConstructorOnly: true)\nvar a;'),
+            TestAnnotation
+        );
+        expect(instance.namedConstructorOnly, true);
+      });
+
       test('throws if the annotation cannot be constructed', () {
         expect(() => instantiateAnnotation(
             parseAndGetSingleMember('@TestAnnotation(1, 2, 3, 4, "way more parameters than were declared")\nvar a;'),
@@ -107,5 +115,7 @@ main() {
 class TestAnnotation {
   final positional;
   final named;
-  TestAnnotation(this.positional, {this.named});
+  final namedConstructorOnly;
+  const TestAnnotation(this.positional, {this.named}) : namedConstructorOnly = null;
+  const TestAnnotation.namedConstructor({this.namedConstructorOnly}) : positional = null, named = null;
 }

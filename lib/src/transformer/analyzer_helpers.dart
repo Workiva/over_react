@@ -26,7 +26,36 @@ dynamic getValue(Expression expression) {
     return null;
   }
 
-  throw 'Unsupported expression: $expression. Must be a string, boolean, integer, or null literal. Original error: $e';
+  throw 'Unsupported expression: $expression. Must be a string, boolean, integer, or null literal';
+}
+
+/// Returns the name of the class being instantiated for [annotation],
+/// or null if the annotation is not the invocation of a constructor.
+///
+/// Workaround for a Dart analyzer issue where the constructor name is included in [annotation.name].
+String _getClassName(Annotation annotation) {
+  var className = annotation.name?.name;
+  if (className != null) {
+    className = className.split('.').first;
+  }
+
+  return className;
+}
+
+/// Returns the name of the constructor being instantiated for [annotation],
+/// or null if the annotation is not the invocation of a named constructor.
+///
+/// Workaround for a Dart analyzer issue where the constructor name is included in [annotation.name].
+String _getConstructorName(Annotation annotation) {
+  var constructorName = annotation.constructorName?.name;
+  if (constructorName == null) {
+    var periodIndex = annotation.name.name.indexOf('.');
+    if (periodIndex != -1) {
+      constructorName = annotation.name.name.substring(periodIndex + 1);
+    }
+  }
+
+  return constructorName;
 }
 
 /// Uses reflection to instantiate and returns the first annotation on [member] of type
@@ -42,7 +71,7 @@ dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType) {
 
   // Find the annotation that matches [type]'s name.
   Annotation matchingAnnotation = member.metadata.firstWhere((annotation) {
-    return annotation.name.name == className;
+    return _getClassName(annotation) == className;
   }, orElse: () => null);
 
   // If no annotation is found, return null.
@@ -74,7 +103,7 @@ dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType) {
   });
 
   // Instantiate and return an instance of the annotation using reflection.
-  String constructorName = matchingAnnotation.constructorName?.name ?? '';
+  String constructorName = _getConstructorName(matchingAnnotation) ?? '';
 
   try {
     var instanceMirror = classMirror.newInstance(new Symbol(constructorName), positionalParameters, namedParameters);
