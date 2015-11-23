@@ -43,5 +43,21 @@ main() {
       transformedFile.replace(testSourceFile.span(0, 2), '{replaced 2}');
       expect(() => transformedFile.getTransformedText(), throwsA(startsWith('Overlapping replacement')));
     });
+
+    group('`isModified`', () {
+      test('is true when a replacement has been made', () {
+        transformedFile.replace(testSourceFile.span(3, 8), '{replaced}');
+        expect(transformedFile.isModified, isTrue);
+      });
+
+      test('is true when an insertion has been made', () {
+        transformedFile.insert(testSourceFile.location(3), '{replaced}');
+        expect(transformedFile.isModified, isTrue);
+      });
+
+      test('is false for a pristine TransformedSourceFile', () {
+        expect(transformedFile.isModified, isFalse);
+      });
+    });
   });
 }
