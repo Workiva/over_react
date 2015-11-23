@@ -44,7 +44,7 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
     TransformedSourceFile transformedFile = new TransformedSourceFile(sourceFile);
 
     // Short-circuit files that won't generate anything so they don't get parsed unnecessarily.
-    if (ComponentDeclarations.mightContainDeclarations(primaryInputContents)) {
+    if (ComponentDeclarations.shouldParse(primaryInputContents)) {
       void logError(String message, SourceSpan span) {
         String spanString = '';
         if (span != null) {
