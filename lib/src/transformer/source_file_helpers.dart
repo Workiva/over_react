@@ -10,7 +10,7 @@ class Replacement {
   Replacement(this.span, this.newText);
 
   @override
-  String toString() => '${super.toString()} (span: $span, newText: $newText)';
+  String toString() => 'Replacement (span: $span, newText: $newText)';
 }
 
 class TransformedSourceFile {

@@ -1,5 +1,7 @@
-import 'package:web_skin_dart/src/transformer/text_util.dart';
+library text_util_test;
+
 import 'package:test/test.dart';
+import 'package:web_skin_dart/src/transformer/text_util.dart';
 
 main() {
   group('text_util', () {
