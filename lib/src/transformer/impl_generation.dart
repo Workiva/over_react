@@ -30,7 +30,7 @@ class ImplGenerator {
       ..write(commentBanner('GENERATED IMPLEMENTATIONS', bottomBorder: false))
       ..writeln();
 
-    if (declarations.factory != null) {
+    if (declarations.declaresComponent) {
       final String factoryName = declarations.factory.node.variables.variables.single.name.toString();
 
       final String propsName = declarations.props.node.name.toString();
@@ -45,8 +45,6 @@ class ImplGenerator {
 
       String typedPropsFactoryImpl = '';
       String typedStateFactoryImpl = '';
-
-      final bool hasState = declarations.state != null;
 
 
       // ----------------------------------------------------------------------
@@ -109,7 +107,7 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
       //   State implementation
       // ----------------------------------------------------------------------
-      if (hasState) {
+      if (declarations.state != null) {
         final String stateName = declarations.state.node.name.toString();
         final String stateImplName = '$generatedPrefix${stateName}Impl';
 
