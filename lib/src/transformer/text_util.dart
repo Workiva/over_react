@@ -10,9 +10,9 @@ String commentBanner(String bannerText, {
   return
       '\n' +
       (topBorder ? bannerBorder : '') +
-      '$bannerLead\n' +
+      '${bannerLead.trimRight()}\n' +
       bannerText.split('\n').map((line) => bannerLead + (' ' * textIndent) + line).join('\n') + '\n' +
-      '$bannerLead\n' +
+      '${bannerLead.trimRight()}\n' +
       (bottomBorder ? bannerBorder : '') +
       '\n';
 }
