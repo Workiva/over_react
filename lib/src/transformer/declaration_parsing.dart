@@ -149,7 +149,7 @@ class ComponentDeclarations {
           topLevelVarDeclarations.add(declaration);
         } else {
           error(
-              '@`$annotationName` should only be used on top-level variable declarations, but was used on ${declaration}. ',
+              '`@$annotationName` can only be used on top-level variable declarations.',
               sourceFile.location(declaration.offset).pointSpan()
           );
         }
@@ -166,7 +166,7 @@ class ComponentDeclarations {
           classDeclarations.add(declaration);
         } else {
           error(
-              '@`$annotationName` should only be used on classes, but was used on ${declaration}. ',
+              '`@$annotationName` can only be used on classes.',
               sourceFile.location(declaration.offset).pointSpan()
           );
         }
