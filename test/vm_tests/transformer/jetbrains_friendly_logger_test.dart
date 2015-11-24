@@ -1,3 +1,4 @@
+@TestOn('vm')
 library jetbrains_friendly_logger_test;
 
 import 'package:barback/barback.dart';

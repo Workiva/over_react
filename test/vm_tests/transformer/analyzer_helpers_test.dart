@@ -1,3 +1,4 @@
+@TestOn('vm')
 library analyzer_helpers_test;
 
 import 'package:analyzer/analyzer.dart' hide startsWith;
