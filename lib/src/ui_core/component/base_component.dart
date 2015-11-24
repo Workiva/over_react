@@ -24,8 +24,8 @@ abstract class BaseComponent<T extends ComponentDefinition> extends react.Compon
   @override
   _getDOMNodeTypedef get getDOMNode => super.getDOMNode;
 
-  /// Returns the component of the specified ref.
-  /// > react.Component if it is a Dart component
+  /// Returns the component of the specified [ref].
+  /// > `react.Component` if it is a Dart component
   /// > DOM node if it is a DOM component.
   ///
   /// Overridden for strong typing.
