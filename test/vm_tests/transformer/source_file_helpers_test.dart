@@ -1,3 +1,4 @@
+@TestOn('vm')
 library source_file_helpers_test;
 
 import 'package:source_span/source_span.dart';

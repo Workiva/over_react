@@ -1,3 +1,4 @@
+@TestOn('vm')
 library declaration_parsing_test;
 
 import 'package:test/test.dart';
