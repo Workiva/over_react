@@ -100,8 +100,8 @@ class ComponentDeclarations {
       this.declaresComponent = factory != null
   {
     assert(
-        !(this.factory == null && this.component == null && this.props == null) &&
-        !(this.factory != null && this.component != null && this.props != null) &&
+        ((this.factory == null && this.component == null && this.props == null) ||
+         (this.factory != null && this.component != null && this.props != null)) &&
         '`factory`, `component`, and `props` must be either all null or all non-null. '
         'Any other combination represents an invalid component declaration. ' is String
     );
