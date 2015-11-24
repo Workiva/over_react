@@ -172,7 +172,7 @@ main() {
           test('adds to the className from the "className" prop in the specified Map', () {
             const addedClass = 'class';
             const Map props = const {
-              CssClassProps.Z_$KEY__CLASS_NAME: addedClass
+              'className': addedClass
             };
 
             ClassNameBuilder builder = new ClassNameBuilder()
@@ -184,7 +184,7 @@ main() {
           test('adds to the blacklist from the "classNameBlacklist" prop in the specified Map', () {
             const blacklistedClass = 'class';
             const Map props = const {
-              CssClassProps.Z_$KEY__CLASS_NAME_BLACKLIST: blacklistedClass
+              'classNameBlacklist': blacklistedClass
             };
 
             ClassNameBuilder builder = new ClassNameBuilder()
@@ -211,8 +211,8 @@ main() {
               ..blacklist('blacklist2');
 
             expect(builder.toProps(), equals({
-              CssClassProps.Z_$KEY__CLASS_NAME: 'class1 class2',
-              CssClassProps.Z_$KEY__CLASS_NAME_BLACKLIST: 'blacklist1 blacklist2',
+              'className': 'class1 class2',
+              'classNameBlacklist': 'blacklist1 blacklist2',
             }));
           });
 
@@ -220,8 +220,8 @@ main() {
             ClassNameBuilder builder = new ClassNameBuilder();
 
             expect(builder.toProps(), equals({
-              CssClassProps.Z_$KEY__CLASS_NAME: '',
-              CssClassProps.Z_$KEY__CLASS_NAME_BLACKLIST: null,
+              'className': '',
+              'classNameBlacklist': null,
             }));
           });
         });
