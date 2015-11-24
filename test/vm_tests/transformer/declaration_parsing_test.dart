@@ -90,6 +90,7 @@ main() {
           @Props()      class FooProps {}
           @Component()  class FooComponent {}
         ''');
+        verifyNoErrors();
 
         expect(declarations.factory.node?.variables.variables.single.name.name, 'Foo');
         expect(declarations.props.node?.name.name, 'FooProps');
@@ -101,8 +102,6 @@ main() {
 
         expectEmptyDeclarations(factory: false, props: false, component: false);
         expect(declarations.declaresComponent, isTrue);
-
-        verifyNoErrors();
       });
 
       test('a stateful component', () {
@@ -112,6 +111,7 @@ main() {
           @State()      class FooState {}
           @Component()  class FooComponent {}
         ''');
+        verifyNoErrors();
 
         expect(declarations.factory.node?.variables.variables.single.name.name, 'Foo');
         expect(declarations.props.node?.name.name, 'FooProps');
@@ -125,8 +125,6 @@ main() {
 
         expectEmptyDeclarations(factory: false, props: false, state: false, component: false);
         expect(declarations.declaresComponent, isTrue);
-
-        verifyNoErrors();
       });
 
       test('props mixins', () {
@@ -134,6 +132,7 @@ main() {
           @PropsMixin() class FooPropsMixin1 {}
           @PropsMixin() class FooPropsMixin2 {}
         ''');
+        verifyNoErrors();
 
         expect(declarations.propsMixins, hasLength(2));
 
@@ -144,8 +143,6 @@ main() {
 
         expectEmptyDeclarations(propsMixins: false);
         expect(declarations.declaresComponent, isFalse);
-
-        verifyNoErrors();
       });
 
       test('state mixins', () {
@@ -153,6 +150,7 @@ main() {
           @StateMixin() class FooStateMixin1 {}
           @StateMixin() class FooStateMixin2 {}
         ''');
+        verifyNoErrors();
 
         expect(declarations.stateMixins, hasLength(2));
 
@@ -163,8 +161,6 @@ main() {
 
         expectEmptyDeclarations(stateMixins: false);
         expect(declarations.declaresComponent, isFalse);
-
-        verifyNoErrors();
       });
 
       test('abstract props classes', () {
@@ -191,6 +187,7 @@ main() {
           @AbstractState() class AbstractFooState1 {}
           @AbstractState() class AbstractFooState2 {}
         ''');
+        verifyNoErrors();
 
         expect(declarations.abstractState, hasLength(2));
 
@@ -201,8 +198,65 @@ main() {
 
         expectEmptyDeclarations(abstractState: false);
         expect(declarations.declaresComponent, isFalse);
+      });
 
-        verifyNoErrors();
+      group('initializes annotations with the correct arguments for', () {
+        test('a stateful component', () {
+          setUpAndParse('''
+            @Factory()
+            UiFactory<FooProps> Foo;
+
+            @Props(keyNamespace: "bar")
+            class FooProps {}
+
+            @State(keyNamespace: "baz")
+            class FooState {}
+
+            @Component(isWrapper: true)
+            class FooComponent {}
+          ''');
+          verifyNoErrors();
+
+          expect(declarations.props.meta.keyNamespace, 'bar');
+          expect(declarations.state.meta.keyNamespace, 'baz');
+          expect(declarations.component.meta.isWrapper, isTrue);
+        });
+
+        test('a props mixin', () {
+          setUpAndParse('''
+            @PropsMixin(keyNamespace: "bar")
+            class FooPropsMixin {}
+          ''');
+          verifyNoErrors();
+          expect(declarations.propsMixins.single.meta.keyNamespace, 'bar');
+        });
+
+        test('a state mixin', () {
+          setUpAndParse('''
+            @StateMixin(keyNamespace: "bar")
+            class FooStateMixin {}
+          ''');
+          verifyNoErrors();
+          expect(declarations.stateMixins.single.meta.keyNamespace, 'bar');
+        });
+
+        test('an abstract props class', () {
+          setUpAndParse('''
+            @AbstractProps(keyNamespace: "bar")
+            class AbstractFooProps {}
+          ''');
+          verifyNoErrors();
+          expect(declarations.abstractProps.single.meta.keyNamespace, 'bar');
+        });
+
+        test('an abstract state class', () {
+          setUpAndParse('''
+            @AbstractState(keyNamespace: "bar")
+            class AbstractFooState {}
+          ''');
+          verifyNoErrors();
+          expect(declarations.abstractState.single.meta.keyNamespace, 'bar');
+        });
       });
     });
   });
