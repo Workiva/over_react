@@ -332,13 +332,162 @@ main() {
         });
       });
 
-      group('createChainedCollapseCallback', () {
-        test('should return an CollapseCallback that calls the two provided functions', () {
-          bool calledA = false, calledB = false;
-          CollapseCallback a = () => calledA = true;
-          CollapseCallback b = () => calledB = true;
+      group('createChainedEventKeyCallbackFromList', () {
+        group('returns', () {
+          test('false if the first provided function returns false', () {
+            var flags = [false, false, false];
+            var callbacks = [
+              (event, key) {
+                flags[0] = true;
+                return false;
+              },
+              (event, key) => flags[1] = true,
+              (event, key) => flags[2] = true
+            ];
 
-          var chainedCallback = createChainedCollapseCallback(a, b);
+            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var result = chainedCallback(null, null);
+
+            expect(flags[0], isTrue);
+            expect(flags[1], isTrue);
+            expect(flags[2], isTrue);
+
+            expect(result, isFalse);
+          });
+
+          test('false if the second provided functions returns false', () {
+            var flags = [false, false, false];
+            var callbacks = [
+              (event, key) => flags[0] = true,
+              (event, key) {
+                flags[1] = true;
+                return false;
+              },
+              (event, key) => flags[2] = true
+            ];
+
+            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var result = chainedCallback(null, null);
+
+            expect(flags[0], isTrue);
+            expect(flags[1], isTrue);
+            expect(flags[2], isTrue);
+
+            expect(result, isFalse);
+          });
+
+          test('false if the last provided functions returns false', () {
+            var flags = [false, false, false];
+            var callbacks = [
+              (event, key) => flags[0] = true,
+              (event, key) => flags[1] = true,
+              (event, key) {
+                flags[2] = true;
+                return false;
+              }
+            ];
+
+            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var result = chainedCallback(null, null);
+
+            expect(flags[0], isTrue);
+            expect(flags[1], isTrue);
+            expect(flags[2], isTrue);
+
+            expect(result, isFalse);
+          });
+
+          test('false if two provided functions return false', () {
+            var flags = [false, false, false];
+            var callbacks = [
+              (event, key) => flags[0] = true,
+              (event, key) {
+                flags[1] = true;
+                return false;
+              },
+              (event, key) {
+                flags[2] = true;
+                return false;
+              }
+            ];
+
+            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var result = chainedCallback(null, null);
+
+            expect(flags[0], isTrue);
+            expect(flags[1], isTrue);
+            expect(flags[2], isTrue);
+
+            expect(result, isFalse);
+          });
+
+          test('false if all provided functions return false', () {
+            var flags = [false, false, false];
+            var callbacks = [
+              (event, key) {
+                flags[0] = true;
+                return false;
+              },
+              (event, key) {
+                flags[1] = true;
+                return false;
+              },
+              (event, key) {
+                flags[2] = true;
+                return false;
+              }
+            ];
+
+            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var result = chainedCallback(null, null);
+
+            expect(flags[0], isTrue);
+            expect(flags[1], isTrue);
+            expect(flags[2], isTrue);
+
+            expect(result, isFalse);
+          });
+
+          test('null if no provided function returns false', () {
+            var flags = [false, false, false];
+            var callbacks = [
+              (event, key) => flags[0] = true,
+              (event, key) => flags[1] = true,
+              (event, key) => flags[2] = true
+            ];
+
+            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var result = chainedCallback(null, null);
+
+            expect(flags[0], isTrue);
+            expect(flags[1], isTrue);
+            expect(flags[2], isTrue);
+
+            expect(result, isNull);
+          });
+        });
+
+        test('should gracefully handle provided functions being null', () {
+          var callbacks = [
+            null,
+            null,
+            null
+          ];
+
+          var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+          var result = chainedCallback(null, null);
+
+          expect(result, isNull);
+        });
+      });
+
+      group('createChainedCallback', () {
+        test('should return a Callback that calls the two provided functions', () {
+          bool calledA = false, calledB = false;
+          Callback a = () => calledA = true;
+          Callback b = () => calledB = true;
+
+          var chainedCallback = createChainedCallback(a, b);
           var result = chainedCallback();
 
           expect(calledA, isTrue);
@@ -347,37 +496,37 @@ main() {
           expect(result, isNull);
         });
 
-        test('should return an CollapseCallback that calls the two provided functions in order', () {
+        test('should return a Callback that calls the two provided functions in order', () {
           int counter = 1;
           bool calledA = false, calledB = false;
-          CollapseCallback a = () {
+          Callback a = () {
             calledA = true;
             zonedExpect(counter, equals(1));
             counter++;
           };
-          CollapseCallback b = () {
+          Callback b = () {
             calledB = true;
             zonedExpect(counter, equals(2));
           };
 
-          var chainedCallback = createChainedCollapseCallback(a, b);
+          var chainedCallback = createChainedCallback(a, b);
           chainedCallback();
 
           expect(calledA, isTrue);
           expect(calledB, isTrue);
         });
 
-        group('should return an CollapseCallback that calls the two provided functions and returns', () {
+        group('should return a Callback that calls the two provided functions and returns', () {
           test('false if the first provided functions returns false', () {
             bool calledA = false,
               calledB = false;
-            CollapseCallback a = () {
+            Callback a = () {
               calledA = true;
               return false;
             };
-            CollapseCallback b = () => calledB = true;
+            Callback b = () => calledB = true;
 
-            var chainedCallback = createChainedCollapseCallback(a, b);
+            var chainedCallback = createChainedCallback(a, b);
             var result = chainedCallback();
 
             expect(calledA, isTrue);
@@ -389,13 +538,13 @@ main() {
           test('false if the second provided functions returns false', () {
             bool calledA = false,
               calledB = false;
-            CollapseCallback a = () => calledA = true;
-            CollapseCallback b = () {
+            Callback a = () => calledA = true;
+            Callback b = () {
               calledB = true;
               return false;
             };
 
-            var chainedCallback = createChainedCollapseCallback(a, b);
+            var chainedCallback = createChainedCallback(a, b);
             var result = chainedCallback();
 
             expect(calledA, isTrue);
@@ -407,16 +556,16 @@ main() {
           test('false if both provided functions return false', () {
             bool calledA = false,
               calledB = false;
-            CollapseCallback a = () {
+            Callback a = () {
               calledA = true;
               return false;
             };
-            CollapseCallback b = () {
+            Callback b = () {
               calledB = true;
               return false;
             };
 
-            var chainedCallback = createChainedCollapseCallback(a, b);
+            var chainedCallback = createChainedCallback(a, b);
             var result = chainedCallback();
 
             expect(calledA, isTrue);
@@ -428,16 +577,16 @@ main() {
           test('null if no provided function returns false', () {
             bool calledA = false,
               calledB = false;
-            CollapseCallback a = () {
+            Callback a = () {
               calledA = true;
               return true;
             };
-            CollapseCallback b = () {
+            Callback b = () {
               calledB = true;
               return;
             };
 
-            var chainedCallback = createChainedCollapseCallback(a, b);
+            var chainedCallback = createChainedCallback(a, b);
             var result = chainedCallback();
 
             expect(calledA, isTrue);
@@ -449,16 +598,16 @@ main() {
 
         test('should gracefully handle one provided function being null', () {
           bool calledA = false;
-          CollapseCallback a = () => calledA = true;
+          Callback a = () => calledA = true;
 
-          var chainedCallback = createChainedCollapseCallback(a, null);
+          var chainedCallback = createChainedCallback(a, null);
           chainedCallback();
 
           expect(calledA, isTrue);
         });
 
         test('should gracefully handle both provided functions being null', () {
-          var chainedCallback = createChainedCollapseCallback(null, null);
+          var chainedCallback = createChainedCallback(null, null);
           var result = chainedCallback();
 
           expect(result, isNull);

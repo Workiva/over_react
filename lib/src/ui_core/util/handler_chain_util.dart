@@ -4,7 +4,7 @@ import 'package:react/react.dart' as react;
 
 import '../component/callback_typedefs.dart';
 
-/// Creates a EventKeyCallback that calls through to the two provided callbacks in order.
+/// Creates an EventKeyCallback that calls through to the two provided callbacks in order.
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
@@ -14,6 +14,26 @@ EventKeyCallback createChainedEventKeyCallback(EventKeyCallback a, EventKeyCallb
     var bDidReturnFalse = b != null ? b(event, eventKey) == false : false;
 
     if (aDidReturnFalse || bDidReturnFalse) {
+      return false;
+    }
+  };
+}
+
+/// Creates an EventKeyCallback that calls through to the list of provided callbacks in order.
+/// Useful for executing multiple callbacks where only a single callback is accepted.
+///
+/// Returns `false` if one or more of the provided callback returns `false`.
+EventKeyCallback createChainedEventKeyCallbackFromList(List<EventKeyCallback> callbacks) {
+  return (react.SyntheticEvent event, Object eventKey) {
+    var didReturnFalse = false;
+
+    callbacks.forEach((EventKeyCallback callback) {
+      if (callback != null && callback(event, eventKey) == false) {
+        didReturnFalse = true;
+      }
+    });
+
+    if (didReturnFalse) {
       return false;
     }
   };
@@ -154,11 +174,11 @@ WheelEventCallback createChainedWheelEventCallback(WheelEventCallback a, WheelEv
   };
 }
 
-/// Creates a CollapseCallback that calls through to the two provided callbacks in order.
+/// Creates a Callback that calls through to the two provided callbacks in order.
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
-CollapseCallback createChainedCollapseCallback(CollapseCallback a, CollapseCallback b) {
+Callback createChainedCallback(Callback a, Callback b) {
   return () {
     var aDidReturnFalse = a != null ? a() == false : false;
     var bDidReturnFalse = b != null ? b() == false : false;
