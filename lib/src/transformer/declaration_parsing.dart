@@ -288,7 +288,6 @@ class ComponentNode         extends NodeWithMeta<ClassDeclaration, annotations.C
 class PropsNode             extends NodeWithMeta<ClassDeclaration, annotations.Props>              {PropsNode(unit)             : super(unit);}
 class StateNode             extends NodeWithMeta<ClassDeclaration, annotations.State>              {StateNode(unit)             : super(unit);}
 
-class AbstractComponentNode extends NodeWithMeta<ClassDeclaration, annotations.AbstractComponent>  {AbstractComponentNode(unit) : super(unit);}
 class AbstractPropsNode     extends NodeWithMeta<ClassDeclaration, annotations.AbstractProps>      {AbstractPropsNode(unit)     : super(unit);}
 class AbstractStateNode     extends NodeWithMeta<ClassDeclaration, annotations.AbstractState>      {AbstractStateNode(unit)     : super(unit);}
 
