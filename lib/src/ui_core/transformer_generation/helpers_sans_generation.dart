@@ -166,7 +166,7 @@ abstract class UiProps
 
   @deprecated
   @override
-  bool validate() {}
+  bool validate() => true;
 
   /// Returns a new component with this builder's props and the specified children.
   JsObject build([dynamic children]) {

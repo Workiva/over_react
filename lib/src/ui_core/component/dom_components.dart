@@ -12,7 +12,7 @@ class AriaPropsMapView extends MapView with AriaPropsMixin {
   Map get props => this;
 }
 
-/// Returns a new [DomPropsMapView], optionally backed by a specified Map.
+/// Returns a new [DomProps], optionally backed by a specified Map.
 ///
 /// Convenient for adding DOM props inline to non-DOM components:
 /// <pre>
@@ -23,7 +23,6 @@ class AriaPropsMapView extends MapView with AriaPropsMixin {
 /// <!>  )
 /// </pre>
 /// <!-- use pre tags and HTML markup until WebStorm fully supports Dart doc comment markdown -->
-// TODO pass in reactComponentFactory that throws
 DomProps domProps([Map backingMap]) => new DomProps(null, backingMap);
 
 /// Returns a new [AriaPropsMapView], optionally backed by a specified Map.
