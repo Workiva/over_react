@@ -22,7 +22,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component
     return copyProps(keySetsToOmit: consumedPropKeys);
   }
 
-  /// Returns a copy of this component's props with React props optionally omittied, and
+  /// Returns a copy of this component's props with React props optionally omitted, and
   /// with the specified [keysToOmit] and [keySetsToOmit] omitted.
   Map copyProps({bool omitReservedReactProps: true, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
     return getPropsToForward(this.props,
@@ -196,7 +196,7 @@ abstract class UiProps
   String get propKeyNamespace;
 }
 
-/// Works in conjuction with [MapViewMixin] to provide [dart.collection.MapView]-like
+/// Works in conjunction with [MapViewMixin] to provide [dart.collection.MapView]-like
 /// functionality to [UiProps] subclasses.
 abstract class PropsMapViewMixin {
   /// The props maintained by this builder and used passed into the component when built.
@@ -207,7 +207,7 @@ abstract class PropsMapViewMixin {
   String toString() => '$runtimeType: $_map';
 }
 
-/// Works in conjuction with [MapViewMixin] to provide [dart.collection.MapView]-like
+/// Works in conjunction with [MapViewMixin] to provide [dart.collection.MapView]-like
 /// functionality to [UiState] subclasses.
 abstract class StateMapViewMixin {
   Map get state;
