@@ -59,8 +59,17 @@ main() {
       }
 
       void verifyNoErrors() {
-        verifyNever(logger.warning);
-        verifyNever(logger.error);
+        // Check all permutations of optional parameters being specified
+        // since they look like different calls to Mockito.
+        verifyNever(logger.warning(any));
+        verifyNever(logger.warning(any, span: any));
+        verifyNever(logger.warning(any, asset: any));
+        verifyNever(logger.warning(any, span: any, asset: any));
+        verifyNever(logger.error(any));
+        verifyNever(logger.error(any, span: any));
+        verifyNever(logger.error(any, asset: any));
+        verifyNever(logger.error(any, span: any, asset: any));
+
         expect(declarations.hasErrors, isFalse);
       }
 
@@ -83,6 +92,14 @@ main() {
         expect(declarations.propsMixins,   propsMixins   ? isEmpty : isNotEmpty);
         expect(declarations.stateMixins,   stateMixins   ? isEmpty : isNotEmpty);
       }
+
+      test('an empty file', () {
+        setUpAndParse('');
+
+        verifyNoErrors();
+        expectEmptyDeclarations();
+        expect(declarations.declaresComponent, isFalse);
+      });
 
       test('a component', () {
         setUpAndParse('''
@@ -256,6 +273,29 @@ main() {
           ''');
           verifyNoErrors();
           expect(declarations.abstractState.single.meta.keyNamespace, 'bar');
+        });
+      });
+
+      group('and logs a hard error when', () {
+        const String factorySrc   = '\n@Factory\nUiFactory<FooProps> Foo;\n';
+        const String propsSrc     = '\n@Props\nclass FooProps {}\n';
+        const String componentSrc = '\n@Component\nclass FooComponent {}\n';
+
+        group('a component is declared without', () {
+          test('a factory', () {
+            setUpAndParse(propsSrc + componentSrc);
+            verify(logger.error('To define a component, there must also be a `@Factory` within the same file, but none were found.', span: any));
+          });
+
+          test('a props class', () {
+            setUpAndParse(factorySrc + componentSrc);
+            verify(logger.error('To define a component, there must also be a `@Props` within the same file, but none were found.', span: any));
+          });
+
+          test('a component class', () {
+            setUpAndParse(factorySrc + propsSrc);
+            verify(logger.error('To define a component, there must also be a `@Component` within the same file, but none were found.', span: any));
+          });
         });
       });
     });
