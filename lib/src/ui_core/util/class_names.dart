@@ -11,14 +11,28 @@ class ClassNameBuilder {
 
   /// Creates a new ClassNameBuilder with className and blacklist values added from [CssClassProps.className] and
   /// [CssClassProps.classNameBlackList], if they are specified.
+  ///
+  /// This method gracefully handles null [props], as well as unspecified/null prop values.
   ClassNameBuilder.fromProps(Map props) {
+    addFromProps(props);
+  }
+
+  /// Adds the className and blacklist values from a [props] Map, using the
+  /// [CssClassProps.className] and [CssClassProps.classNameBlackList] values.
+  ///
+  /// This method gracefully handles null [props], as well as unspecified/null prop values.
+  ///
+  /// This method, along with [toProps], is useful for merging sets of className/blacklist props.
+  void addFromProps(Map props) {
     if (props == null) {
       return;
     }
 
+    var cssClassProps = new CssClassPropsMapView(props);
+
     this
-      ..add(props['className'])
-      ..blacklist(props['classNameBlacklist']);
+      ..add(cssClassProps.className)
+      ..blacklist(cssClassProps.classNameBlacklist);
   }
 
   /// Adds a className string. May be a single CSS class 'token', or multiple space-delimited classes,
@@ -80,6 +94,16 @@ class ClassNameBuilder {
     return _blacklistBuffer == null || _blacklistBuffer.isEmpty
       ? null
       : _blacklistBuffer.toString();
+  }
+
+  /// Returns a Map with the [CssClassProps.className] and [CssClassProps.classNameBlackList] props
+  /// populated from the return values of [toClassName] and [toClassNameBlacklist], respectively.
+  ///
+  /// This method, along with [addFromProps], is useful for merging sets of className/blacklist props.
+  Map toProps() {
+    return new CssClassPropsMapView({})
+      ..className = toClassName()
+      ..classNameBlacklist = toClassNameBlacklist();
   }
 
   @override

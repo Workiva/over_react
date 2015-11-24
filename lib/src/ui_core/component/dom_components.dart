@@ -1,6 +1,17 @@
 /// [ComponentDefinition]-based api with typed props for react-dart DOM components.
 part of web_skin_dart.ui_core;
 
+/// A MapView with the typed getters/setters for all CSS-class-related props.
+class CssClassPropsMapView extends MapView with CssClassProps {
+  /// Create a new instance backed by the specified map.
+  CssClassPropsMapView(Map map) : super(map);
+
+  /// The props to be manipulated via the getters/setters.
+  /// In this case, it's the current MapView object.
+  @override
+  Map get props => this;
+}
+
 /// A MapView with the typed getters/setters for all aria props.
 class AriaPropsMapView extends MapView with AriaPropsMixin {
   /// Create a new instance backed by the specified map.
