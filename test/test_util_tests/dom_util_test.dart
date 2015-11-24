@@ -9,7 +9,7 @@ import 'package:web_skin_dart/ui_core.dart';
 
 /// Main entry point for DomUtil testing
 main() {
-  test('triggerTransitionEnd correctly dispatches a transitionEnd event', () async {
+  test('triggerTransitionEnd correctly dispatches a transitionend event', () async {
     var flag = false;
 
     document.body.onTransitionEnd.listen((Event event) {
