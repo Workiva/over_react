@@ -177,12 +177,41 @@ class ImplGenerator {
     // ----------------------------------------------------------------------
     //   Props/State Mixins implementations
     // ----------------------------------------------------------------------
-    declarations.propsMixins.forEach((propMixinClass) {
-      generateAccessors(AccessorType.props, propMixinClass);
+    bool hasAbstractGetter(ClassDeclaration classDeclaration, String type, String name) {
+      return classDeclaration.members.any((member) {
+        return (
+            member is MethodDeclaration &&
+            member.isGetter &&
+            !member.isSynthetic &&
+            member.isAbstract &&
+            member.name.name == name &&
+            member.returnType?.name?.name == type
+        );
+      });
+    }
+
+    declarations.propsMixins.forEach((propMixin) {
+      if (!hasAbstractGetter(propMixin.node, 'Map', 'props')) {
+        logger.error(
+            'Props mixin classes must declare an abstract props getter `Map get props;` '
+            'so that they can be statically analyzed properly.',
+            span: getSpan(sourceFile, propMixin.node)
+        );
+      }
+
+      generateAccessors(AccessorType.props, propMixin);
     });
 
-    declarations.stateMixins.forEach((stateMixinClass) {
-      generateAccessors(AccessorType.state, stateMixinClass);
+    declarations.stateMixins.forEach((stateMixin) {
+      if (!hasAbstractGetter(stateMixin.node, 'Map', 'state')) {
+        logger.error(
+            'State mixin classes must declare an abstract state getter `Map get state;` '
+            'so that they can be statically analyzed properly.',
+            span: getSpan(sourceFile, stateMixin.node)
+        );
+      }
+
+      generateAccessors(AccessorType.state, stateMixin);
     });
 
     // ----------------------------------------------------------------------
