@@ -1,7 +1,7 @@
 @TestOn('vm')
 library declaration_parsing_test;
 
-import 'package:analyzer/analyzer.dart';
+import 'package:analyzer/analyzer.dart' hide startsWith;
 import 'package:barback/barback.dart';
 import 'package:mockito/mockito.dart';
 import 'package:source_span/source_span.dart';
@@ -81,16 +81,17 @@ main() {
         abstractProps: true,
         abstractState: true,
         propsMixins: true,
-        stateMixins: true
+        stateMixins: true,
+        String reason
       }) {
-        expect(declarations.factory,       factory       ? isNull  : isNotNull);
-        expect(declarations.props,         props         ? isNull  : isNotNull);
-        expect(declarations.state,         state         ? isNull  : isNotNull);
-        expect(declarations.component,     component     ? isNull  : isNotNull);
-        expect(declarations.abstractProps, abstractProps ? isEmpty : isNotEmpty);
-        expect(declarations.abstractState, abstractState ? isEmpty : isNotEmpty);
-        expect(declarations.propsMixins,   propsMixins   ? isEmpty : isNotEmpty);
-        expect(declarations.stateMixins,   stateMixins   ? isEmpty : isNotEmpty);
+        expect(declarations.factory,       factory       ? isNull  : isNotNull,  reason: reason);
+        expect(declarations.props,         props         ? isNull  : isNotNull,  reason: reason);
+        expect(declarations.state,         state         ? isNull  : isNotNull,  reason: reason);
+        expect(declarations.component,     component     ? isNull  : isNotNull,  reason: reason);
+        expect(declarations.abstractProps, abstractProps ? isEmpty : isNotEmpty, reason: reason);
+        expect(declarations.abstractState, abstractState ? isEmpty : isNotEmpty, reason: reason);
+        expect(declarations.propsMixins,   propsMixins   ? isEmpty : isNotEmpty, reason: reason);
+        expect(declarations.stateMixins,   stateMixins   ? isEmpty : isNotEmpty, reason: reason);
       }
 
       test('an empty file', () {
@@ -277,9 +278,18 @@ main() {
       });
 
       group('and logs a hard error when', () {
-        const String factorySrc   = '\n@Factory\nUiFactory<FooProps> Foo;\n';
-        const String propsSrc     = '\n@Props\nclass FooProps {}\n';
-        const String componentSrc = '\n@Component\nclass FooComponent {}\n';
+        const String factorySrc   = '\n@Factory()\nUiFactory<FooProps> Foo;\n';
+        const String propsSrc     = '\n@Props()\nclass FooProps {}\n';
+        const String componentSrc = '\n@Component()\nclass FooComponent {}\n';
+
+        const String stateSrc     = '\n@State()\nclass FooState {}\n';
+
+        tearDown(() {
+          expect(declarations.hasErrors, isTrue);
+          expectEmptyDeclarations(reason: 'Declarations with errors should always be null/empty.');
+          // Verify that there are no errors other than the ones we explicitly verified.
+          verifyNoMoreInteractions(logger);
+        });
 
         group('a component is declared without', () {
           test('a factory', () {
@@ -295,6 +305,110 @@ main() {
           test('a component class', () {
             setUpAndParse(factorySrc + propsSrc);
             verify(logger.error('To define a component, there must also be a `@Component` within the same file, but none were found.', span: any));
+          });
+
+          test('a factory or a props class', () {
+            setUpAndParse(componentSrc);
+            verify(logger.error('To define a component, there must also be a `@Factory` within the same file, but none were found.', span: any));
+            verify(logger.error('To define a component, there must also be a `@Props` within the same file, but none were found.', span: any));
+          });
+
+          test('a factory or a component class', () {
+            setUpAndParse(propsSrc);
+            verify(logger.error('To define a component, there must also be a `@Factory` within the same file, but none were found.', span: any));
+            verify(logger.error('To define a component, there must also be a `@Component` within the same file, but none were found.', span: any));
+          });
+
+          test('a component or props class', () {
+            setUpAndParse(factorySrc);
+            verify(logger.error('To define a component, there must also be a `@Component` within the same file, but none were found.', span: any));
+            verify(logger.error('To define a component, there must also be a `@Props` within the same file, but none were found.', span: any));
+          });
+        });
+
+        group('a state class is declared without', () {
+          test('any component pieces', () {
+            setUpAndParse(stateSrc);
+            verify(logger.error('To define a component, a `@State` must be accompanied by the following annotations within the same file: @Factory, @Component, @Props.', span: any));
+          });
+
+          test('some component pieces', () {
+            setUpAndParse(stateSrc + componentSrc);
+            /// Should only log regarding the missing pieces, and not the state.
+            verify(logger.error('To define a component, there must also be a `@Factory` within the same file, but none were found.', span: any));
+            verify(logger.error('To define a component, there must also be a `@Props` within the same file, but none were found.', span: any));
+          });
+        });
+
+        group('a component is declared with multiple', () {
+          test('factories', () {
+            setUpAndParse(factorySrc * 2 + propsSrc + componentSrc);
+            verify(logger.error(
+                argThat(startsWith('To define a component, there must be a single `@Factory` per file, but 2 were found.')), span: any
+            )).called(2);
+          });
+
+          test('props classes', () {
+            setUpAndParse(factorySrc + propsSrc * 2 + componentSrc);
+            verify(logger.error(
+                argThat(startsWith('To define a component, there must be a single `@Props` per file, but 2 were found.')), span: any
+            )).called(2);
+          });
+
+          test('component classes', () {
+            setUpAndParse(factorySrc + propsSrc + componentSrc * 2);
+            verify(logger.error(
+                argThat(startsWith('To define a component, there must be a single `@Component` per file, but 2 were found.')), span: any
+            )).called(2);
+          });
+
+          test('state classes', () {
+            setUpAndParse(factorySrc + propsSrc + componentSrc + stateSrc * 2);
+            verify(logger.error(
+                argThat(startsWith('To define a component, there must not be more than one `@State` per file, but 2 were found.')), span: any
+            )).called(2);
+          });
+        });
+
+        group('an annotation is used on the wrong kind of declaration:', () {
+          test('@Factory on a non-top-level-variable', () {
+            setUpAndParse('@Factory() class NotAVariable {}');
+            verify(logger.error('`@Factory` can only be used on top-level variable declarations.', span: any));
+          });
+
+          test('@Props on a non-class', () {
+            setUpAndParse('@Props() var notAClass;');
+            verify(logger.error('`@Props` can only be used on classes.', span: any));
+          });
+
+          test('@Component on a non-class', () {
+            setUpAndParse('@Component() var notAClass;');
+            verify(logger.error('`@Component` can only be used on classes.', span: any));
+          });
+
+          test('@State on a non-class', () {
+            setUpAndParse('@Props() var notAClass;');
+            verify(logger.error('`@Props` can only be used on classes.', span: any));
+          });
+
+          test('@AbstractProps on a non-class', () {
+            setUpAndParse('@AbstractProps() var notAClass;');
+            verify(logger.error('`@AbstractProps` can only be used on classes.', span: any));
+          });
+
+          test('@AbstractState on a non-class', () {
+            setUpAndParse('@AbstractState() var notAClass;');
+            verify(logger.error('`@AbstractState` can only be used on classes.', span: any));
+          });
+
+          test('@PropsMixin on a non-class', () {
+            setUpAndParse('@PropsMixin() var notAClass;');
+            verify(logger.error('`@PropsMixin` can only be used on classes.', span: any));
+          });
+
+          test('@StateMixin on a non-class', () {
+            setUpAndParse('@StateMixin() var notAClass;');
+            verify(logger.error('`@StateMixin` can only be used on classes.', span: any));
           });
         });
       });
