@@ -8,8 +8,8 @@ import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 import 'package:web_skin_dart/src/transformer/declaration_parsing.dart' show ComponentDeclarations;
 import 'package:web_skin_dart/src/transformer/impl_generation.dart';
+import 'package:web_skin_dart/src/transformer/jetbrains_friendly_logger.dart';
 import 'package:web_skin_dart/src/transformer/source_file_helpers.dart' show TransformedSourceFile;
-
 
 class WebSkinDartTransformer extends Transformer implements LazyTransformer {
   WebSkinDartTransformer.asPlugin();
@@ -42,21 +42,10 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
 
     SourceFile sourceFile = new SourceFile(primaryInputContents, url: idToPackageUri(transform.primaryInput.id));
     TransformedSourceFile transformedFile = new TransformedSourceFile(sourceFile);
+    TransformLogger logger = new JetBrainsFriendlyLogger(transform.logger);
 
     // Short-circuit files that won't generate anything so they don't get parsed unnecessarily.
     if (ComponentDeclarations.shouldParse(primaryInputContents)) {
-      void logError(String message, SourceSpan span) {
-        String spanString = '';
-        if (span != null) {
-          // Format the span in a way that Jetbrains IDEs understand so that links
-          // in the output take you to the right place in the file.
-          var point = span.start;
-          spanString = '[${point.sourceUrl} ${point.line + 1}:${point.column + 1}]: ';
-        }
-
-        transform.logger.error(spanString + message, asset: transform.primaryInput.id);
-      }
-
       // Parse the source file on its own and use the resultant AST to...
       var unit = parseCompilationUnit(primaryInputContents,
         suppressErrors: true,
@@ -64,17 +53,11 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
         parseFunctionBodies: false
       );
 
-      bool hasDeclarationErrors = false;
-      ComponentDeclarations declarations = new ComponentDeclarations(unit, sourceFile, onError: (String message, SourceSpan span) {
-        hasDeclarationErrors = true;
-        logError(message, span);
-      });
+      ComponentDeclarations declarations = new ComponentDeclarations(unit, sourceFile, logger);
 
       // If there are no errors, generate the component.
-
-      // Otherwise, just log the errors and do nothing.
-      if (!hasDeclarationErrors) {
-        new ImplGenerator(transform.logger, transform.primaryInput.id, transformedFile)
+      if (!declarations.hasErrors) {
+        new ImplGenerator(logger, transform.primaryInput.id, transformedFile)
             .generateComponent(declarations);
       }
     }
