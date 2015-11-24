@@ -3,6 +3,7 @@ library web_skin_dart.transformer.declaration_parsing;
 import 'dart:mirrors';
 
 import 'package:analyzer/analyzer.dart';
+import 'package:barback/barback.dart' show TransformLogger;
 import 'package:source_span/source_span.dart';
 import 'package:web_skin_dart/src/ui_core/transformer_generation/annotations.dart' as annotations;
 
@@ -67,6 +68,7 @@ class ComponentDeclarations {
   final List<PropsMixinNode> propsMixins;
   final List<StateMixinNode> stateMixins;
 
+  final bool hasErrors;
   final bool declaresComponent;
 
 
@@ -80,7 +82,9 @@ class ComponentDeclarations {
       List<ClassDeclaration> abstractState,
 
       List<ClassDeclaration> propsMixins,
-      List<ClassDeclaration> stateMixins
+      List<ClassDeclaration> stateMixins,
+
+      bool this.hasErrors
   }) :
       this.factory       = (factory   == null) ? null : new FactoryNode(factory),
       this.component     = (component == null) ? null : new ComponentNode(component),
@@ -104,11 +108,12 @@ class ComponentDeclarations {
   }
 
 
-  factory ComponentDeclarations(CompilationUnit unit, SourceFile sourceFile, {onError(String message, SourceSpan sourceSpan)}) {
-    void error(String message, [SourceSpan sourceSpan]) {
-      if (onError != null) {
-        onError(message, sourceSpan);
-      }
+  factory ComponentDeclarations(CompilationUnit unit, SourceFile sourceFile, TransformLogger logger) {
+    bool hasErrors = false;
+
+    void error(String message, [SourceSpan span]) {
+      hasErrors = true;
+      logger.error(message, span: span);
     }
 
     // Collect the annotated declarations.
@@ -212,12 +217,15 @@ class ComponentDeclarations {
         key_allComponentRequired.forEach((annotationName) {
           var declarations = declarationMap[annotationName];
           if (declarations.length == 0) {
-            error('To define a component, there must also be a `@$annotationName` within the same file, '
-                  'but none were found.');
+            error(
+                'To define a component, there must also be a `@$annotationName` within the same file, '
+                'but none were found.'
+            );
           } else if (declarations.length > 1) {
             for (int i = 0; i < declarations.length; i++) {
-              error('To define a component, there must be a single `@$annotationName` per file, '
-                    'but ${declarations.length} were found. (${i + 1} of ${declarations.length})',
+              error(
+                  'To define a component, there must be a single `@$annotationName` per file, '
+                  'but ${declarations.length} were found. (${i + 1} of ${declarations.length})',
                   sourceFile.location(declarations[i].offset).pointSpan()
               );
             }
@@ -232,17 +240,19 @@ class ComponentDeclarations {
 
         if (declarations.length > 1) {
           for (int i = 0; i < declarations.length; i++) {
-            error('To define a component, there must not be more than one `@$annotationName` per file, '
-                  'but ${declarations.length} were found. (${i + 1} of ${declarations.length})',
+            error(
+                'To define a component, there must not be more than one `@$annotationName` per file, '
+                'but ${declarations.length} were found. (${i + 1} of ${declarations.length})',
                 sourceFile.location(declarations[i].offset).pointSpan()
             );
           }
         }
 
         if (noneOfAnyRequiredDecl && declarations.length != 0) {
-          error('To define a component, a `@$annotationName` must be accompanied by '
-                'the following annotations within the same file: '
-                '${key_allComponentRequired.map((key) => '@$key').join(', ')}.',
+          error(
+              'To define a component, a `@$annotationName` must be accompanied by '
+              'the following annotations within the same file: '
+              '${key_allComponentRequired.map((key) => '@$key').join(', ')}.',
               sourceFile.location(declarations.first.offset).pointSpan()
           );
         }
@@ -262,7 +272,9 @@ class ComponentDeclarations {
         abstractState: declarationMap[key_abstractState],
 
         propsMixins:   declarationMap[key_propsMixin],
-        stateMixins:   declarationMap[key_stateMixin]
+        stateMixins:   declarationMap[key_stateMixin],
+
+        hasErrors: hasErrors
     );
   }
 
