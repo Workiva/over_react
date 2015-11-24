@@ -58,6 +58,10 @@ class TransformedSourceFile {
   }
 }
 
-SourceSpan getSpan(SourceFile sourceFile, AstNode node) {
+SourceSpan getSpan(SourceFile sourceFile, AstNode node, {bool skipCommentAndMetadata: true}) {
+  if (skipCommentAndMetadata && node is AnnotatedNode) {
+    return sourceFile.span(node.firstTokenAfterCommentAndMetadata.offset, node.end);
+  }
+
   return sourceFile.span(node.offset, node.end);
 }
