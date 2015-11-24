@@ -136,8 +136,8 @@ main() {
 
         expect(declarations.propsMixins, hasLength(2));
 
-        expect(declarations.propsMixins[0].node?.name.name, 'FooPropsMixin1');
-        expect(declarations.propsMixins[1].node?.name.name, 'FooPropsMixin2');
+        expect(declarations.propsMixins[0].node.name.name, 'FooPropsMixin1');
+        expect(declarations.propsMixins[1].node.name.name, 'FooPropsMixin2');
         expect(declarations.propsMixins[0].meta, new isInstanceOf<annotations.PropsMixin>());
         expect(declarations.propsMixins[1].meta, new isInstanceOf<annotations.PropsMixin>());
 
@@ -154,8 +154,8 @@ main() {
 
         expect(declarations.stateMixins, hasLength(2));
 
-        expect(declarations.stateMixins[0].node?.name.name, 'FooStateMixin1');
-        expect(declarations.stateMixins[1].node?.name.name, 'FooStateMixin2');
+        expect(declarations.stateMixins[0].node.name.name, 'FooStateMixin1');
+        expect(declarations.stateMixins[1].node.name.name, 'FooStateMixin2');
         expect(declarations.stateMixins[0].meta, new isInstanceOf<annotations.StateMixin>());
         expect(declarations.stateMixins[1].meta, new isInstanceOf<annotations.StateMixin>());
 
@@ -171,8 +171,8 @@ main() {
 
         expect(declarations.abstractProps, hasLength(2));
 
-        expect(declarations.abstractProps[0].node?.name.name, 'AbstractFooProps1');
-        expect(declarations.abstractProps[1].node?.name.name, 'AbstractFooProps2');
+        expect(declarations.abstractProps[0].node.name.name, 'AbstractFooProps1');
+        expect(declarations.abstractProps[1].node.name.name, 'AbstractFooProps2');
         expect(declarations.abstractProps[0].meta, new isInstanceOf<annotations.AbstractProps>());
         expect(declarations.abstractProps[1].meta, new isInstanceOf<annotations.AbstractProps>());
 
@@ -191,8 +191,8 @@ main() {
 
         expect(declarations.abstractState, hasLength(2));
 
-        expect(declarations.abstractState[0].node?.name.name, 'AbstractFooState1');
-        expect(declarations.abstractState[1].node?.name.name, 'AbstractFooState2');
+        expect(declarations.abstractState[0].node.name.name, 'AbstractFooState1');
+        expect(declarations.abstractState[1].node.name.name, 'AbstractFooState2');
         expect(declarations.abstractState[0].meta, new isInstanceOf<annotations.AbstractState>());
         expect(declarations.abstractState[1].meta, new isInstanceOf<annotations.AbstractState>());
 
@@ -200,7 +200,7 @@ main() {
         expect(declarations.declaresComponent, isFalse);
       });
 
-      group('initializes annotations with the correct arguments for', () {
+      group('and initializes annotations with the correct arguments for', () {
         test('a stateful component', () {
           setUpAndParse('''
             @Factory()
