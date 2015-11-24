@@ -2,7 +2,7 @@
 part of web_skin_dart.ui_core;
 
 /// A MapView with the typed getters/setters for all CSS-class-related props.
-class CssClassPropsMapView extends MapView with CssClassProps {
+class CssClassPropsMapView extends MapView with CssClassPropsMixin {
   /// Create a new instance backed by the specified map.
   CssClassPropsMapView(Map map) : super(map);
 
