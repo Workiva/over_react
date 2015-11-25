@@ -109,9 +109,9 @@ abstract class UiComponent<TProps extends UiProps> extends sans_generation.UiCom
   ///
   /// For generated components, this defaults to the keys generated in the associated @[Props] class
   /// unless [consumedPropKeys] returns non-null.
-  @ToBeGenerated() Iterable<Iterable<String>> get consumedPropKeys;
+  @override @toBeGenerated Iterable<Iterable<String>> get consumedPropKeys;
 
-  @ToBeGenerated() TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: 'typedPropsFactory');
+  @override @toBeGenerated TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedPropsFactory);
 }
 
 // TODO: mirror comment from sans_generation
@@ -122,8 +122,8 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
     _throwIfNotGenerated();
   }
 
-  @ToBeGenerated() TState typedStateFactory(Map stateMap) => throw new UngeneratedError(member: 'typedStateFactory');
-  @ToBeGenerated() TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: 'typedStateFactory');
+  @override @toBeGenerated TState typedStateFactory(Map stateMap) => throw new UngeneratedError(member: #typedStateFactory);
+  @override @toBeGenerated TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedStateFactory);
 }
 
 // TODO: mirror comment from sans_generation
@@ -133,8 +133,8 @@ abstract class UiProps extends sans_generation.UiProps with GeneratedClass, MapV
     _throwIfNotGenerated();
   }
 
-  @ToBeGenerated() Function get componentFactory => throw new UngeneratedError(member: 'componentFactory');
-  @ToBeGenerated() String get propKeyNamespace   => throw new UngeneratedError(member: 'propKeyNamespace');
+  @override @toBeGenerated Function get componentFactory => throw new UngeneratedError(member: #componentFactory);
+  @override @toBeGenerated String get propKeyNamespace   => throw new UngeneratedError(member: #propKeyNamespace);
 }
 
 // TODO: mirror comment from sans_generation
@@ -144,26 +144,26 @@ abstract class UiState extends sans_generation.UiState with GeneratedClass, MapV
     _throwIfNotGenerated();
   }
 
-  @ToBeGenerated() Map get state => throw new UngeneratedError(member: 'state');
+  @override @toBeGenerated Map get state => throw new UngeneratedError(member: #state);
 }
 
 
 class MapViewMixinStubs {
-  @ToBeGenerated() operator [](Object key)          => throw new UngeneratedError(member: '[]');
-  @ToBeGenerated() void operator []=(key, value)    => throw new UngeneratedError(member: '[]=');
-  @ToBeGenerated() void addAll(Map other)           => throw new UngeneratedError(member: 'addAll');
-  @ToBeGenerated() void clear()                     => throw new UngeneratedError(member: 'clear');
-  @ToBeGenerated() bool containsKey(Object key)     => throw new UngeneratedError(member: 'containsKey');
-  @ToBeGenerated() bool containsValue(Object value) => throw new UngeneratedError(member: 'containsValue');
-  @ToBeGenerated() void forEach(void f(key, value)) => throw new UngeneratedError(member: 'forEach');
-  @ToBeGenerated() bool get isEmpty                 => throw new UngeneratedError(member: 'isEmpty');
-  @ToBeGenerated() bool get isNotEmpty              => throw new UngeneratedError(member: 'isNotEmpty');
-  @ToBeGenerated() Iterable get keys                => throw new UngeneratedError(member: 'keys');
-  @ToBeGenerated() int get length                   => throw new UngeneratedError(member: 'length');
-  @ToBeGenerated() Map get props                    => throw new UngeneratedError(member: 'props');
-  @ToBeGenerated() putIfAbsent(key, ifAbsent())     => throw new UngeneratedError(member: 'putIfAbsent');
-  @ToBeGenerated() remove(Object key)               => throw new UngeneratedError(member: 'remove');
-  @ToBeGenerated() Iterable get values              => throw new UngeneratedError(member: 'values');
+  @toBeGenerated operator [](Object key)          => throw new UngeneratedError(member: #[]);
+  @toBeGenerated void operator []=(key, value)    => throw new UngeneratedError(member: #[]=);
+  @toBeGenerated void addAll(Map other)           => throw new UngeneratedError(member: #addAll);
+  @toBeGenerated void clear()                     => throw new UngeneratedError(member: #clear);
+  @toBeGenerated bool containsKey(Object key)     => throw new UngeneratedError(member: #containsKey);
+  @toBeGenerated bool containsValue(Object value) => throw new UngeneratedError(member: #containsValue);
+  @toBeGenerated void forEach(void f(key, value)) => throw new UngeneratedError(member: #forEach);
+  @toBeGenerated bool get isEmpty                 => throw new UngeneratedError(member: #isEmpty);
+  @toBeGenerated bool get isNotEmpty              => throw new UngeneratedError(member: #isNotEmpty);
+  @toBeGenerated Iterable get keys                => throw new UngeneratedError(member: #keys);
+  @toBeGenerated int get length                   => throw new UngeneratedError(member: #length);
+  @toBeGenerated Map get props                    => throw new UngeneratedError(member: #props);
+  @toBeGenerated putIfAbsent(key, ifAbsent())     => throw new UngeneratedError(member: #putIfAbsent);
+  @toBeGenerated remove(Object key)               => throw new UngeneratedError(member: #remove);
+  @toBeGenerated Iterable get values              => throw new UngeneratedError(member: #values);
 }
 
 
@@ -174,8 +174,10 @@ class MapViewMixinStubs {
 /// Annotation that denotes that a given member will be implemented via code generation.
 ///
 /// Used in place of the `abstract` keyword so that subclasses don't have to be abstract.
-class ToBeGenerated {
-  const ToBeGenerated();
+const toBeGenerated = const _ToBeGenerated();
+
+class _ToBeGenerated {
+  const _ToBeGenerated();
 }
 
 /// Thrown when stubbed code (usually annotated with [ToBeGenerated]) that expects to be
@@ -184,7 +186,7 @@ class ToBeGenerated {
 /// Usually this is due to improper usage of the code-generating transformer.
 class UngeneratedError extends Error implements UnimplementedError {
   final String message;
-  UngeneratedError({String message, String member}) :
+  UngeneratedError({String message, Symbol member}) :
       this.message = message ?? "`$member` should be implemented by code generation";
 
   String toString() =>
