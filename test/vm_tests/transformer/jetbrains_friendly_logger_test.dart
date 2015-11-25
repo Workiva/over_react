@@ -30,9 +30,24 @@ main() {
       });
     });
 
+    group('highlightedSpanText()', () {
+      test('returns the highlighted text of a source span', () {
+        SourceFile sourceFile = new SourceFile('line 1\nline 2 TARGET\n line 3', url: 'source_url');
+        int targetIndex = sourceFile.getText(0).indexOf('TARGET');
+        SourceSpan span = sourceFile.span(targetIndex, targetIndex + 'TARGET'.length);
+        expect(span.text, 'TARGET', reason: 'should have set up the test as expected');
+
+        expect(JetBrainsFriendlyLogger.highlightedSpanText(span),
+            'line 2 TARGET\n'
+            '       ^^^^^^'
+        );
+      });
+    });
+
     group('proxies logs methods,', () {
       SourceSpan span;
-      String formattedSpan;
+      String spanReference;
+      String highlightedSpan;
       AssetId asset;
       String message;
 
@@ -40,7 +55,8 @@ main() {
         SourceFile sourceFile = new SourceFile('source file');
 
         span = sourceFile.span(0);
-        formattedSpan = JetBrainsFriendlyLogger.clickableReference(span);
+        spanReference = JetBrainsFriendlyLogger.clickableReference(span);
+        highlightedSpan = JetBrainsFriendlyLogger.highlightedSpanText(span);
         asset = new AssetId('package', 'path');
         message = 'message';
       });
@@ -48,22 +64,22 @@ main() {
       group('prepending the message with the formatted source span when a span is specified:', () {
         test('info()', () {
           logger.info(message, asset: asset, span: span);
-          verify(mockWrappedLogger.info(formattedSpan + message, asset: asset));
+          verify(mockWrappedLogger.info('$spanReference$message\n$highlightedSpan', asset: asset));
         });
 
         test('fine()', () {
           logger.fine(message, asset: asset, span: span);
-          verify(mockWrappedLogger.fine(formattedSpan + message, asset: asset));
+          verify(mockWrappedLogger.fine('$spanReference$message\n$highlightedSpan', asset: asset));
         });
 
         test('warning()', () {
           logger.warning(message, asset: asset, span: span);
-          verify(mockWrappedLogger.warning(formattedSpan + message, asset: asset));
+          verify(mockWrappedLogger.warning('$spanReference$message\n$highlightedSpan', asset: asset));
         });
 
         test('error()', () {
           logger.error(message, asset: asset, span: span);
-          verify(mockWrappedLogger.error(formattedSpan + message, asset: asset));
+          verify(mockWrappedLogger.error('$spanReference$message\n$highlightedSpan', asset: asset));
         });
       });
 
