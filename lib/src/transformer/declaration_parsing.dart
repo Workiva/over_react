@@ -5,9 +5,9 @@ import 'dart:mirrors';
 import 'package:analyzer/analyzer.dart';
 import 'package:barback/barback.dart' show TransformLogger;
 import 'package:source_span/source_span.dart';
+import 'package:web_skin_dart/src/transformer/analyzer_helpers.dart';
+import 'package:web_skin_dart/src/transformer/source_file_helpers.dart';
 import 'package:web_skin_dart/src/ui_core/transformer_generation/annotations.dart' as annotations;
-
-import './analyzer_helpers.dart';
 
 class ComponentDeclarations {
   static String _getName(Type type) {
@@ -150,7 +150,7 @@ class ComponentDeclarations {
         } else {
           error(
               '`@$annotationName` can only be used on top-level variable declarations.',
-              sourceFile.location(declaration.offset).pointSpan()
+              getSpan(sourceFile, declaration)
           );
         }
       });
@@ -167,7 +167,7 @@ class ComponentDeclarations {
         } else {
           error(
               '`@$annotationName` can only be used on classes.',
-              sourceFile.location(declaration.offset).pointSpan()
+              getSpan(sourceFile, declaration)
           );
         }
       });
@@ -226,7 +226,7 @@ class ComponentDeclarations {
               error(
                   'To define a component, there must be a single `@$annotationName` per file, '
                   'but ${declarations.length} were found. (${i + 1} of ${declarations.length})',
-                  sourceFile.location(declarations[i].offset).pointSpan()
+                  getSpan(sourceFile, declarations[i])
               );
             }
           }
@@ -243,7 +243,7 @@ class ComponentDeclarations {
             error(
                 'To define a component, there must not be more than one `@$annotationName` per file, '
                 'but ${declarations.length} were found. (${i + 1} of ${declarations.length})',
-                sourceFile.location(declarations[i].offset).pointSpan()
+                getSpan(sourceFile, declarations[i])
             );
           }
         }
@@ -253,7 +253,7 @@ class ComponentDeclarations {
               'To define a component, a `@$annotationName` must be accompanied by '
               'the following annotations within the same file: '
               '${key_allComponentRequired.map((key) => '@$key').join(', ')}.',
-              sourceFile.location(declarations.first.offset).pointSpan()
+              getSpan(sourceFile, declarations.first)
           );
         }
 

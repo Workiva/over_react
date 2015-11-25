@@ -57,7 +57,7 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
 
       // If there are no errors, generate the component.
       if (!declarations.hasErrors) {
-        new ImplGenerator(logger, transform.primaryInput.id, transformedFile)
+        new ImplGenerator(logger, transformedFile)
             .generateComponent(declarations);
       }
     }
