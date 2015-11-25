@@ -31,7 +31,7 @@ class ImplGenerator {
       ..writeln();
 
     if (declarations.declaresComponent) {
-      final String factoryName = declarations.factory.node.variables.variables.single.name.toString();
+      final String factoryName = declarations.factory.node.variables.variables.first.name.toString();
 
       final String propsName = declarations.props.node.name.toString();
       final String propsImplName = '$generatedPrefix${propsName}Impl';
@@ -50,6 +50,20 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
       //   Factory implementation
       // ----------------------------------------------------------------------
+
+      if (declarations.factory.node.variables.variables.length != 1) {
+        logger.error('Factory declarations must a single variable.',
+            span: getSpan(sourceFile, declarations.factory.node.variables));
+      }
+      declarations.factory.node.variables.variables.forEach((variable) {
+        if (variable.initializer != null) {
+          logger.error(
+              'Factory variables are stubs for the generated factory, and should not have initializers.',
+              span: getSpan(sourceFile, variable.initializer)
+          );
+        }
+      });
+
       String factoryImpl =
         """([Map backingProps]) => new $propsImplName(backingProps)""";
 
