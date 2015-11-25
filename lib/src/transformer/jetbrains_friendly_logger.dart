@@ -45,7 +45,7 @@ class JetBrainsFriendlyLogger implements TransformLogger {
     // that will be provided by `clickableReference`.
     var firstNewlineIndex = message.indexOf('\n');
     if (firstNewlineIndex != -1) {
-      message = message.substring(firstNewlineIndex);
+      message = message.substring(firstNewlineIndex + 1);
     }
 
     return message;
