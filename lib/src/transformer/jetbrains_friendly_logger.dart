@@ -25,6 +25,41 @@ class JetBrainsFriendlyLogger implements TransformLogger {
     return spanString;
   }
 
+  /// Returns the source line of text represented by [span] with the span highlighted
+  /// in a human-readable format.
+  ///
+  /// Example, for the following code:
+  ///
+  ///     var foo = 1, bar = 2;
+  ///
+  /// A span of the `foo` variable/initializer would be printed as such:
+  ///
+  ///     var foo = 1, bar = 2;
+  ///         ^^^^^^^
+  ///
+  static String highlightedSpanText(SourceSpan span) {
+    // Use the built-in highlighting in `message`.
+    var message = span.message('');
+
+    // Strip out the first line, which consists of redundant line information
+    // that will be provided by `clickableReference`.
+    var firstNewlineIndex = message.indexOf('\n');
+    if (firstNewlineIndex != -1) {
+      message = message.substring(firstNewlineIndex);
+    }
+
+    return message;
+  }
+
+  /// Returns a [message] with added source location and text from an optional [span].
+  static String formatMessageWithSpan(String message, SourceSpan span) {
+    if (span == null) {
+      return message;
+    }
+
+    return clickableReference(span) + message + '\n' + highlightedSpanText(span);
+  }
+
   /// Logs an informative message.
   ///
   /// If [asset] is provided, the log entry is associated with that asset.
@@ -33,7 +68,7 @@ class JetBrainsFriendlyLogger implements TransformLogger {
   /// error.
   @override
   void info(String message, {AssetId asset, SourceSpan span}) =>
-      _logger.info(clickableReference(span) + message, asset: asset);
+      _logger.info(formatMessageWithSpan(message, span), asset: asset);
 
   /// Logs a message that won't be displayed unless the user is running in
   /// verbose mode.
@@ -44,7 +79,7 @@ class JetBrainsFriendlyLogger implements TransformLogger {
   /// error.
   @override
   void fine(String message, {AssetId asset, SourceSpan span}) =>
-      _logger.fine(clickableReference(span) + message, asset: asset);
+      _logger.fine(formatMessageWithSpan(message, span), asset: asset);
 
   /// Logs a warning message.
   ///
@@ -54,7 +89,7 @@ class JetBrainsFriendlyLogger implements TransformLogger {
   /// error.
   @override
   void warning(String message, {AssetId asset, SourceSpan span}) =>
-      _logger.warning(clickableReference(span) + message, asset: asset);
+      _logger.warning(formatMessageWithSpan(message, span), asset: asset);
 
   /// Logs an error message.
   ///
@@ -73,5 +108,5 @@ class JetBrainsFriendlyLogger implements TransformLogger {
   /// multiple errors that the user wants to know about.
   @override
   void error(String message, {AssetId asset, SourceSpan span}) =>
-      _logger.error(clickableReference(span) + message, asset: asset);
+      _logger.error(formatMessageWithSpan(message, span), asset: asset);
 }
