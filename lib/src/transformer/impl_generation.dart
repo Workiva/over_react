@@ -63,13 +63,12 @@ class ImplGenerator {
         }
       });
 
-      String factoryImpl =
-        """([Map backingProps]) => new $propsImplName(backingProps)""";
-
       transformedFile.replace(
-          getSpan(sourceFile, declarations.factory.node),
-          sourceFile.getText(declarations.factory.node.offset, declarations.factory.node.semicolon.offset)
-              + ' = ' + factoryImpl + ';'
+          sourceFile.span(
+              declarations.factory.node.variables.variables.first.name.end,
+              declarations.factory.node.semicolon.offset
+          ),
+          ' = ([Map backingProps]) => new $propsImplName(backingProps);'
       );
 
       implementations
