@@ -14,12 +14,11 @@ class ImplGenerator {
   static const String publicGeneratedPrefix = r'$';
 
   final TransformLogger logger;
-  final AssetId assetId;
   final TransformedSourceFile transformedFile;
 
   SourceFile get sourceFile => transformedFile.sourceFile;
 
-  ImplGenerator(TransformLogger this.logger, AssetId this.assetId, TransformedSourceFile this.transformedFile);
+  ImplGenerator(TransformLogger this.logger, TransformedSourceFile this.transformedFile);
 
   void generateComponent(ComponentDeclarations declarations) {
     StringBuffer implementations = new StringBuffer();
@@ -281,7 +280,6 @@ class ImplGenerator {
             if (variable.initializer != null) {
               logger.error(
                   'Fields are stubs for generated setters/getters and should not have initializers.',
-                  asset: assetId,
                   span: getSpan(sourceFile, variable)
               );
             }
@@ -308,7 +306,6 @@ class ImplGenerator {
               ..write('    ');
 
             logger.fine('Generated accessor `$accessorName` with key $keyValue.',
-                asset: assetId,
                 span: getSpan(sourceFile, field)
             );
           });
@@ -318,7 +315,6 @@ class ImplGenerator {
             logger.warning(
                 'Note: accessors declared as comma-separated variables will not all be generated '
                 'with the original doc comments and annotations; only the first variable will.',
-                asset: assetId,
                 span: getSpan(sourceFile, field.fields)
             );
           }
