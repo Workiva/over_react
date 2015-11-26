@@ -136,6 +136,19 @@ main() {
         ''');
         verifyNoErrors();
       });
+
+      test('props mixins with accessors with funky formatting', () {
+        preservedLineNumbersTest('''
+          @PropsMixin()
+          class FooPropsMixin
+          { Map get props;
+
+            var bar, // line comment
+                baz, /* inline comment*/ qux;
+          }
+        ''');
+        verifyNoErrors();
+      });
     });
   });
 }

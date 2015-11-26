@@ -34,6 +34,19 @@ class TransformedSourceFile {
     );
   }
 
+  void remove(SourceSpan span, {bool preserveNewlines: false}) {
+    String replacement;
+    if (preserveNewlines) {
+      replacement = '\n' * '\n'.allMatches(span.text).length;
+    } else {
+      replacement = '';
+    }
+
+    _replacements.add(
+        new Replacement(span, replacement)
+    );
+  }
+
   String getTransformedText() {
     _replacements.sort((r1, r2) => r1.span.compareTo(r2.span));
 
