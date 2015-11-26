@@ -273,7 +273,15 @@ class ImplGenerator {
         .where((member) => member is FieldDeclaration)
         .where((FieldDeclaration member) => !member.isStatic)
         .forEach((FieldDeclaration field) {
-          StringBuffer generatedAccessorsForField = new StringBuffer();
+          // Remove everything in the field except the comments/meta variables, preserving newlines.
+          transformedFile.remove(
+              sourceFile.span(field.firstTokenAfterCommentAndMetadata.offset, field.fields.variables.first.beginToken.previous.offset),
+              preserveNewlines: true
+          );
+          transformedFile.remove(
+              sourceFile.span(field.fields.variables.last.end, field.end),
+              preserveNewlines: true
+          );
 
           field.fields.variables.forEach((VariableDeclaration variable) {
             if (variable.initializer != null) {
@@ -298,14 +306,21 @@ class ImplGenerator {
             TypeName type = field.fields.type;
             String typeString = type == null ? '' : '$type ';
 
-            generatedAccessorsForField
-              ..write('${typeString}get $accessorName => $proxiedMapName[$keyConstantName];')
-              ..write('  ')
-              ..write('set $accessorName(${typeString}value) => $proxiedMapName[$keyConstantName] = value;')
-              ..write('    ');
+            String generatedAccessor =
+              '${typeString}get $accessorName => $proxiedMapName[$keyConstantName];  '
+              'set $accessorName(${typeString}value) => $proxiedMapName[$keyConstantName] = value;    ';
+
+            transformedFile.replace(
+                sourceFile.span(variable.firstTokenAfterCommentAndMetadata.offset, variable.name.end),
+                generatedAccessor
+            );
+            transformedFile.remove(
+                sourceFile.span(variable.name.end, variable.end),
+                preserveNewlines: true
+            );
 
             logger.fine('Generated accessor `$accessorName` with key $keyValue.',
-                span: getSpan(sourceFile, field)
+                span: getSpan(sourceFile, variable)
             );
           });
 
@@ -317,12 +332,6 @@ class ImplGenerator {
                 span: getSpan(sourceFile, field.fields)
             );
           }
-
-          transformedFile.replace(
-              // Preserve docs comments and metadata on the field
-              sourceFile.span(field.firstTokenAfterCommentAndMetadata.offset, field.end),
-              generatedAccessorsForField.toString()
-          );
         });
 
     var keyConstantsImpl;
