@@ -44,13 +44,6 @@ main() {
       CompilationUnit unit;
       ComponentDeclarations declarations;
 
-      tearDown(() {
-        logger = null;
-        sourceFile = null;
-        unit = null;
-        declarations = null;
-      });
-
       void setUpAndParse(String source) {
         logger = new MockTransformLogger();
         sourceFile = new SourceFile(source);
@@ -58,7 +51,7 @@ main() {
         declarations = new ComponentDeclarations(unit, sourceFile, logger);
       }
 
-      void verifyNoErrors() {
+      void verifyNoErrorLogs() {
         // Check all permutations of optional parameters being specified
         // since they look like different calls to Mockito.
         verifyNever(logger.warning(any));
@@ -69,9 +62,17 @@ main() {
         verifyNever(logger.error(any, span: any));
         verifyNever(logger.error(any, asset: any));
         verifyNever(logger.error(any, span: any, asset: any));
-
-        expect(declarations.hasErrors, isFalse);
       }
+
+      tearDown(() {
+        // Verify that there were no errors other than the ones we explicitly verified.
+        verifyNoErrorLogs();
+
+        logger = null;
+        sourceFile = null;
+        unit = null;
+        declarations = null;
+      });
 
       void expectEmptyDeclarations({
         factory: true,
@@ -94,186 +95,179 @@ main() {
         expect(declarations.stateMixins,   stateMixins   ? isEmpty : isNotEmpty, reason: reason);
       }
 
-      test('an empty file', () {
-        setUpAndParse('');
+      group('and successfully collects declarations for', () {
+        tearDown(() {
+          expect(declarations.hasErrors, isFalse);
+        });
 
-        verifyNoErrors();
-        expectEmptyDeclarations();
-        expect(declarations.declaresComponent, isFalse);
-      });
+        test('an empty file', () {
+          setUpAndParse('');
 
-      test('a component', () {
-        setUpAndParse('''
-          @Factory()    UiFactory<FooProps> Foo;
-          @Props()      class FooProps {}
-          @Component()  class FooComponent {}
-        ''');
-        verifyNoErrors();
+          expectEmptyDeclarations();
+          expect(declarations.declaresComponent, isFalse);
+        });
 
-        expect(declarations.factory.node?.variables.variables.single.name.name, 'Foo');
-        expect(declarations.props.node?.name.name, 'FooProps');
-        expect(declarations.component.node?.name.name, 'FooComponent');
+        test('a component', () {
+          setUpAndParse('''
+            @Factory()    UiFactory<FooProps> Foo;
+            @Props()      class FooProps {}
+            @Component()  class FooComponent {}
+          ''');
 
-        expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
-        expect(declarations.props.meta,     new isInstanceOf<annotations.Props>());
-        expect(declarations.component.meta, new isInstanceOf<annotations.Component>());
+          expect(declarations.factory.node?.variables.variables.single.name.name, 'Foo');
+          expect(declarations.props.node?.name.name, 'FooProps');
+          expect(declarations.component.node?.name.name, 'FooComponent');
 
-        expectEmptyDeclarations(factory: false, props: false, component: false);
-        expect(declarations.declaresComponent, isTrue);
-      });
+          expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
+          expect(declarations.props.meta,     new isInstanceOf<annotations.Props>());
+          expect(declarations.component.meta, new isInstanceOf<annotations.Component>());
 
-      test('a stateful component', () {
-        setUpAndParse('''
-          @Factory()    UiFactory<FooProps> Foo;
-          @Props()      class FooProps {}
-          @State()      class FooState {}
-          @Component()  class FooComponent {}
-        ''');
-        verifyNoErrors();
+          expectEmptyDeclarations(factory: false, props: false, component: false);
+          expect(declarations.declaresComponent, isTrue);
+        });
 
-        expect(declarations.factory.node?.variables.variables.single.name.name, 'Foo');
-        expect(declarations.props.node?.name.name, 'FooProps');
-        expect(declarations.state.node?.name.name, 'FooState');
-        expect(declarations.component.node?.name.name, 'FooComponent');
-
-        expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
-        expect(declarations.props.meta,     new isInstanceOf<annotations.Props>());
-        expect(declarations.state.meta,     new isInstanceOf<annotations.State>());
-        expect(declarations.component.meta, new isInstanceOf<annotations.Component>());
-
-        expectEmptyDeclarations(factory: false, props: false, state: false, component: false);
-        expect(declarations.declaresComponent, isTrue);
-      });
-
-      test('props mixins', () {
-        setUpAndParse('''
-          @PropsMixin() class FooPropsMixin1 {}
-          @PropsMixin() class FooPropsMixin2 {}
-        ''');
-        verifyNoErrors();
-
-        expect(declarations.propsMixins, hasLength(2));
-
-        expect(declarations.propsMixins[0].node.name.name, 'FooPropsMixin1');
-        expect(declarations.propsMixins[1].node.name.name, 'FooPropsMixin2');
-        expect(declarations.propsMixins[0].meta, new isInstanceOf<annotations.PropsMixin>());
-        expect(declarations.propsMixins[1].meta, new isInstanceOf<annotations.PropsMixin>());
-
-        expectEmptyDeclarations(propsMixins: false);
-        expect(declarations.declaresComponent, isFalse);
-      });
-
-      test('state mixins', () {
-        setUpAndParse('''
-          @StateMixin() class FooStateMixin1 {}
-          @StateMixin() class FooStateMixin2 {}
-        ''');
-        verifyNoErrors();
-
-        expect(declarations.stateMixins, hasLength(2));
-
-        expect(declarations.stateMixins[0].node.name.name, 'FooStateMixin1');
-        expect(declarations.stateMixins[1].node.name.name, 'FooStateMixin2');
-        expect(declarations.stateMixins[0].meta, new isInstanceOf<annotations.StateMixin>());
-        expect(declarations.stateMixins[1].meta, new isInstanceOf<annotations.StateMixin>());
-
-        expectEmptyDeclarations(stateMixins: false);
-        expect(declarations.declaresComponent, isFalse);
-      });
-
-      test('abstract props classes', () {
-        setUpAndParse('''
-          @AbstractProps() class AbstractFooProps1 {}
-          @AbstractProps() class AbstractFooProps2 {}
-        ''');
-
-        expect(declarations.abstractProps, hasLength(2));
-
-        expect(declarations.abstractProps[0].node.name.name, 'AbstractFooProps1');
-        expect(declarations.abstractProps[1].node.name.name, 'AbstractFooProps2');
-        expect(declarations.abstractProps[0].meta, new isInstanceOf<annotations.AbstractProps>());
-        expect(declarations.abstractProps[1].meta, new isInstanceOf<annotations.AbstractProps>());
-
-        expectEmptyDeclarations(abstractProps: false);
-        expect(declarations.declaresComponent, isFalse);
-
-        verifyNoErrors();
-      });
-
-      test('abstract state classes', () {
-        setUpAndParse('''
-          @AbstractState() class AbstractFooState1 {}
-          @AbstractState() class AbstractFooState2 {}
-        ''');
-        verifyNoErrors();
-
-        expect(declarations.abstractState, hasLength(2));
-
-        expect(declarations.abstractState[0].node.name.name, 'AbstractFooState1');
-        expect(declarations.abstractState[1].node.name.name, 'AbstractFooState2');
-        expect(declarations.abstractState[0].meta, new isInstanceOf<annotations.AbstractState>());
-        expect(declarations.abstractState[1].meta, new isInstanceOf<annotations.AbstractState>());
-
-        expectEmptyDeclarations(abstractState: false);
-        expect(declarations.declaresComponent, isFalse);
-      });
-
-      group('and initializes annotations with the correct arguments for', () {
         test('a stateful component', () {
           setUpAndParse('''
-            @Factory()
-            UiFactory<FooProps> Foo;
-
-            @Props(keyNamespace: "bar")
-            class FooProps {}
-
-            @State(keyNamespace: "baz")
-            class FooState {}
-
-            @Component(isWrapper: true)
-            class FooComponent {}
+            @Factory()    UiFactory<FooProps> Foo;
+            @Props()      class FooProps {}
+            @State()      class FooState {}
+            @Component()  class FooComponent {}
           ''');
-          verifyNoErrors();
 
-          expect(declarations.props.meta.keyNamespace, 'bar');
-          expect(declarations.state.meta.keyNamespace, 'baz');
-          expect(declarations.component.meta.isWrapper, isTrue);
+          expect(declarations.factory.node?.variables.variables.single.name.name, 'Foo');
+          expect(declarations.props.node?.name.name, 'FooProps');
+          expect(declarations.state.node?.name.name, 'FooState');
+          expect(declarations.component.node?.name.name, 'FooComponent');
+
+          expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
+          expect(declarations.props.meta,     new isInstanceOf<annotations.Props>());
+          expect(declarations.state.meta,     new isInstanceOf<annotations.State>());
+          expect(declarations.component.meta, new isInstanceOf<annotations.Component>());
+
+          expectEmptyDeclarations(factory: false, props: false, state: false, component: false);
+          expect(declarations.declaresComponent, isTrue);
         });
 
-        test('a props mixin', () {
+        test('props mixins', () {
           setUpAndParse('''
-            @PropsMixin(keyNamespace: "bar")
-            class FooPropsMixin {}
+            @PropsMixin() class FooPropsMixin1 {}
+            @PropsMixin() class FooPropsMixin2 {}
           ''');
-          verifyNoErrors();
-          expect(declarations.propsMixins.single.meta.keyNamespace, 'bar');
+
+          expect(declarations.propsMixins, hasLength(2));
+
+          expect(declarations.propsMixins[0].node.name.name, 'FooPropsMixin1');
+          expect(declarations.propsMixins[1].node.name.name, 'FooPropsMixin2');
+          expect(declarations.propsMixins[0].meta, new isInstanceOf<annotations.PropsMixin>());
+          expect(declarations.propsMixins[1].meta, new isInstanceOf<annotations.PropsMixin>());
+
+          expectEmptyDeclarations(propsMixins: false);
+          expect(declarations.declaresComponent, isFalse);
         });
 
-        test('a state mixin', () {
+        test('state mixins', () {
           setUpAndParse('''
-            @StateMixin(keyNamespace: "bar")
-            class FooStateMixin {}
+            @StateMixin() class FooStateMixin1 {}
+            @StateMixin() class FooStateMixin2 {}
           ''');
-          verifyNoErrors();
-          expect(declarations.stateMixins.single.meta.keyNamespace, 'bar');
+
+          expect(declarations.stateMixins, hasLength(2));
+
+          expect(declarations.stateMixins[0].node.name.name, 'FooStateMixin1');
+          expect(declarations.stateMixins[1].node.name.name, 'FooStateMixin2');
+          expect(declarations.stateMixins[0].meta, new isInstanceOf<annotations.StateMixin>());
+          expect(declarations.stateMixins[1].meta, new isInstanceOf<annotations.StateMixin>());
+
+          expectEmptyDeclarations(stateMixins: false);
+          expect(declarations.declaresComponent, isFalse);
         });
 
-        test('an abstract props class', () {
+        test('abstract props classes', () {
           setUpAndParse('''
-            @AbstractProps(keyNamespace: "bar")
-            class AbstractFooProps {}
+            @AbstractProps() class AbstractFooProps1 {}
+            @AbstractProps() class AbstractFooProps2 {}
           ''');
-          verifyNoErrors();
-          expect(declarations.abstractProps.single.meta.keyNamespace, 'bar');
+
+          expect(declarations.abstractProps, hasLength(2));
+
+          expect(declarations.abstractProps[0].node.name.name, 'AbstractFooProps1');
+          expect(declarations.abstractProps[1].node.name.name, 'AbstractFooProps2');
+          expect(declarations.abstractProps[0].meta, new isInstanceOf<annotations.AbstractProps>());
+          expect(declarations.abstractProps[1].meta, new isInstanceOf<annotations.AbstractProps>());
+
+          expectEmptyDeclarations(abstractProps: false);
+          expect(declarations.declaresComponent, isFalse);
         });
 
-        test('an abstract state class', () {
+        test('abstract state classes', () {
           setUpAndParse('''
-            @AbstractState(keyNamespace: "bar")
-            class AbstractFooState {}
+            @AbstractState() class AbstractFooState1 {}
+            @AbstractState() class AbstractFooState2 {}
           ''');
-          verifyNoErrors();
-          expect(declarations.abstractState.single.meta.keyNamespace, 'bar');
+
+          expect(declarations.abstractState, hasLength(2));
+
+          expect(declarations.abstractState[0].node.name.name, 'AbstractFooState1');
+          expect(declarations.abstractState[1].node.name.name, 'AbstractFooState2');
+          expect(declarations.abstractState[0].meta, new isInstanceOf<annotations.AbstractState>());
+          expect(declarations.abstractState[1].meta, new isInstanceOf<annotations.AbstractState>());
+
+          expectEmptyDeclarations(abstractState: false);
+          expect(declarations.declaresComponent, isFalse);
+        });
+
+        group('and initializes annotations with the correct arguments for', () {
+          test('a stateful component', () {
+            setUpAndParse('''
+              @Factory()
+              UiFactory<FooProps> Foo;
+
+              @Props(keyNamespace: "bar")
+              class FooProps {}
+
+              @State(keyNamespace: "baz")
+              class FooState {}
+
+              @Component(isWrapper: true)
+              class FooComponent {}
+            ''');
+
+            expect(declarations.props.meta.keyNamespace, 'bar');
+            expect(declarations.state.meta.keyNamespace, 'baz');
+            expect(declarations.component.meta.isWrapper, isTrue);
+          });
+
+          test('a props mixin', () {
+            setUpAndParse('''
+              @PropsMixin(keyNamespace: "bar")
+              class FooPropsMixin {}
+            ''');
+            expect(declarations.propsMixins.single.meta.keyNamespace, 'bar');
+          });
+
+          test('a state mixin', () {
+            setUpAndParse('''
+              @StateMixin(keyNamespace: "bar")
+              class FooStateMixin {}
+            ''');
+            expect(declarations.stateMixins.single.meta.keyNamespace, 'bar');
+          });
+
+          test('an abstract props class', () {
+            setUpAndParse('''
+              @AbstractProps(keyNamespace: "bar")
+              class AbstractFooProps {}
+            ''');
+            expect(declarations.abstractProps.single.meta.keyNamespace, 'bar');
+          });
+
+          test('an abstract state class', () {
+            setUpAndParse('''
+              @AbstractState(keyNamespace: "bar")
+              class AbstractFooState {}
+            ''');
+            expect(declarations.abstractState.single.meta.keyNamespace, 'bar');
+          });
         });
       });
 
@@ -285,10 +279,8 @@ main() {
         const String stateSrc     = '\n@State()\nclass FooState {}\n';
 
         tearDown(() {
-          expect(declarations.hasErrors, isTrue);
+          expect(declarations.hasErrors, isTrue, reason: 'Declarations with errors should always set `hasErrors` to true.');
           expectEmptyDeclarations(reason: 'Declarations with errors should always be null/empty.');
-          // Verify that there are no errors other than the ones we explicitly verified.
-          verifyNoMoreInteractions(logger);
         });
 
         group('a component is declared without', () {
