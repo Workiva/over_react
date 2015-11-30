@@ -369,12 +369,46 @@ main() {
 
       test('accessors are declared as fields with initializers', () {
         setUpAndGenerate('''
-          @PropsMixin()
-          class FooPropsMixin {
+          @AbstractProps()
+          class AbstractFooProps {
             var bar = null;
           }
         ''');
         verify(logger.error('Fields are stubs for generated setters/getters and should not have initializers.', span: any));
+      });
+    });
+
+    group('logs a warning when', () {
+      tearDown(() {
+        verifyTransformedSourceIsValid();
+      });
+
+      group('comma-separated variables are declared', () {
+        const String expectedCommaSeparatedWarning =
+            'Note: accessors declared as comma-separated variables will not all be generated '
+            'with the original doc comments and annotations; only the first variable will.';
+
+        test('with doc comments', () {
+          setUpAndGenerate('''
+            @AbstractProps()
+            class AbstractFooProps {
+              /// Doc comment
+              var bar, baz;
+            }
+          ''');
+          verify(logger.warning(expectedCommaSeparatedWarning, span: any));
+        });
+
+        test('with annotations', () {
+          setUpAndGenerate('''
+            @AbstractProps()
+            class AbstractFooProps {
+              @Annotation()
+              var bar, baz;
+            }
+          ''');
+          verify(logger.warning(expectedCommaSeparatedWarning, span: any));
+        });
       });
     });
   });
