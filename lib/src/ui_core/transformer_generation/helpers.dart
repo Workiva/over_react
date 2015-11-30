@@ -122,6 +122,12 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
     _throwIfNotGenerated();
   }
 
+  /// The keys for the non-forwarding props defined in this component.
+  ///
+  /// For generated components, this defaults to the keys generated in the associated @[Props] class
+  /// unless [consumedPropKeys] returns non-null.
+  @override @toBeGenerated Iterable<Iterable<String>> get consumedPropKeys;
+
   @override @toBeGenerated TState typedStateFactory(Map stateMap) => throw new UngeneratedError(member: #typedStateFactory);
   @override @toBeGenerated TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedStateFactory);
 }
@@ -133,6 +139,7 @@ abstract class UiProps extends sans_generation.UiProps with GeneratedClass, MapV
     _throwIfNotGenerated();
   }
 
+  @override @toBeGenerated Map get props                 => throw new UngeneratedError(member: #props);
   @override @toBeGenerated Function get componentFactory => throw new UngeneratedError(member: #componentFactory);
   @override @toBeGenerated String get propKeyNamespace   => throw new UngeneratedError(member: #propKeyNamespace);
 }
@@ -160,7 +167,6 @@ class MapViewMixinStubs {
   @toBeGenerated bool get isNotEmpty              => throw new UngeneratedError(member: #isNotEmpty);
   @toBeGenerated Iterable get keys                => throw new UngeneratedError(member: #keys);
   @toBeGenerated int get length                   => throw new UngeneratedError(member: #length);
-  @toBeGenerated Map get props                    => throw new UngeneratedError(member: #props);
   @toBeGenerated putIfAbsent(key, ifAbsent())     => throw new UngeneratedError(member: #putIfAbsent);
   @toBeGenerated remove(Object key)               => throw new UngeneratedError(member: #remove);
   @toBeGenerated Iterable get values              => throw new UngeneratedError(member: #values);
