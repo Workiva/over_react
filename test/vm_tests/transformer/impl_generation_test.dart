@@ -152,10 +152,17 @@ main() {
       });
 
       group('accessors', () {
+        test('that are absent', () {
+          preservedLineNumbersTest('''
+            @AbstractProps()
+            class AbstractFooProps {}
+          ''');
+        });
+
         test('with doc comments and annotations', () {
           preservedLineNumbersTest('''
             @AbstractProps()
-            class FooProps {
+            class AbstractFooProps {
               /// Doc comment
               @Annotation()
               var bar;
@@ -167,7 +174,7 @@ main() {
           test('on the same line', () {
             preservedLineNumbersTest('''
               @AbstractProps()
-              class FooProps {
+              class AbstractFooProps {
                 var bar, baz, qux;
               }
             ''');
@@ -176,7 +183,7 @@ main() {
           test('on separate lines', () {
             String numberedSource = '''
               /* line 0 start */@AbstractProps()
-              /* line 1 start */class FooProps {
+              /* line 1 start */class AbstractFooProps {
               /* line 2 start */  var bar,
               /* line 3 start */      baz,
               /* line 4 start */      qux;
