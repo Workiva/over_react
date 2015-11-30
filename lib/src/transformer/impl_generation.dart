@@ -23,12 +23,6 @@ class ImplGenerator {
   void generateComponent(ComponentDeclarations declarations) {
     StringBuffer implementations = new StringBuffer();
 
-    implementations
-      ..writeln()
-      ..writeln()
-      ..write(commentBanner('GENERATED IMPLEMENTATIONS', bottomBorder: false))
-      ..writeln();
-
     if (declarations.declaresComponent) {
       final String factoryName = declarations.factory.node.variables.variables.first.name.toString();
 
@@ -66,9 +60,9 @@ class ImplGenerator {
       transformedFile.replace(
           sourceFile.span(
               declarations.factory.node.variables.variables.first.name.end,
-              declarations.factory.node.end
+              declarations.factory.node.semicolon.offset
           ),
-          ' = ([Map backingProps]) => new $propsImplName(backingProps);'
+          ' = ([Map backingProps]) => new $propsImplName(backingProps)'
       );
 
       implementations
@@ -179,11 +173,14 @@ class ImplGenerator {
         ..writeln('}');
     }
 
-    implementations
-      ..writeln()
-      ..write(commentBanner('END GENERATED IMPLEMENTATIONS', topBorder: false));
-
-    transformedFile.insert(sourceFile.location(sourceFile.length), implementations.toString());
+    if (implementations.isNotEmpty) {
+      transformedFile.insert(sourceFile.location(sourceFile.length),
+          '\n\n' +
+          commentBanner('GENERATED IMPLEMENTATIONS', bottomBorder: false) +
+          implementations.toString() +
+          commentBanner('END GENERATED IMPLEMENTATIONS', topBorder: false)
+      );
+    }
 
 
     // ----------------------------------------------------------------------
@@ -321,7 +318,7 @@ class ImplGenerator {
 
             String generatedAccessor =
               '${typeString}get $accessorName => $proxiedMapName[$keyConstantName];  '
-              'set $accessorName(${typeString}value) => $proxiedMapName[$keyConstantName] = value;    ';
+              'set $accessorName(${typeString}value) => $proxiedMapName[$keyConstantName] = value;';
 
             transformedFile.replace(
                 sourceFile.span(variable.firstTokenAfterCommentAndMetadata.offset, variable.name.end),
