@@ -38,7 +38,7 @@ main() {
       implGenerator.generateComponent(declarations);
     }
 
-    void verifyNoErrors() {
+    void verifyNoErrorLogs() {
       // Check all permutations of optional parameters being specified
       // since they look like different calls to Mockito.
       verifyNever(logger.warning(any));
@@ -79,7 +79,9 @@ main() {
       }
 
       tearDown(() {
-        verifyNoErrors();
+        // Verify that there were no errors other than the ones we explicitly verified.
+        verifyNoErrorLogs();
+
         verifyTransformedSourceIsValid();
       });
 
