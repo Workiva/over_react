@@ -17,34 +17,61 @@ main() {
         transformedFile = new TransformedSourceFile(testSourceFile);
       });
 
-      test('replaces a span of text and outputs the result', () {
-        transformedFile.replace(testSourceFile.span(3, 8), '{replaced}');
-        expect(transformedFile.getTransformedText(), '012{replaced}89');
+      group('replace()', () {
+        test('replaces a span of text and outputs the result', () {
+          transformedFile.replace(testSourceFile.span(3, 8), '{replaced}');
+          expect(transformedFile.getTransformedText(), '012{replaced}89');
+        });
+
+        test('replaces multiple spans of text and outputs the result', () {
+          transformedFile.replace(testSourceFile.span(1, 2), '{replaced 1}');
+          transformedFile.replace(testSourceFile.span(6, 9), '{replaced 2}');
+          transformedFile.replace(testSourceFile.span(4, 6), '{replaced 3}');
+          expect(transformedFile.getTransformedText(), '0{replaced 1}23{replaced 3}{replaced 2}9');
+        });
+
+        test('inserts text and outputs the result', () {
+          transformedFile.insert(testSourceFile.location(4), '{inserted}');
+          expect(transformedFile.getTransformedText(), '0123{inserted}456789');
+        });
       });
 
-      test('replaces multiple spans of text and outputs the result', () {
-        transformedFile.replace(testSourceFile.span(1, 2), '{replaced 1}');
-        transformedFile.replace(testSourceFile.span(6, 9), '{replaced 2}');
-        transformedFile.replace(testSourceFile.span(4, 6), '{replaced 3}');
-        expect(transformedFile.getTransformedText(), '0{replaced 1}23{replaced 3}{replaced 2}9');
+      group('insert()', () {
+        test('inserts multiple pieces of text and outputs the result', () {
+          transformedFile.insert(testSourceFile.location(1), '{inserted 1}');
+          transformedFile.insert(testSourceFile.location(6), '{inserted 2}');
+          transformedFile.insert(testSourceFile.location(4), '{inserted 3}');
+          expect(transformedFile.getTransformedText(), '0{inserted 1}123{inserted 3}45{inserted 2}6789');
+        });
+
+        test('throws if sections of replaced text overlap each other', () {
+          transformedFile.replace(testSourceFile.span(1, 3), '{replaced 1}');
+          transformedFile.replace(testSourceFile.span(0, 2), '{replaced 2}');
+          expect(() => transformedFile.getTransformedText(), throwsA(startsWith('Overlapping replacement')));
+        });
       });
 
-      test('inserts text and outputs the result', () {
-        transformedFile.insert(testSourceFile.location(4), '{inserted}');
-        expect(transformedFile.getTransformedText(), '0123{inserted}456789');
-      });
+      group('remove()', () {
+        const String text = 'line 0\nline 1\nline 2\nline 3\nline 4';
+        SourceSpan lines1Through3Span;
 
-      test('inserts multiple pieces of text and outputs the result', () {
-        transformedFile.insert(testSourceFile.location(1), '{inserted 1}');
-        transformedFile.insert(testSourceFile.location(6), '{inserted 2}');
-        transformedFile.insert(testSourceFile.location(4), '{inserted 3}');
-        expect(transformedFile.getTransformedText(), '0{inserted 1}123{inserted 3}45{inserted 2}6789');
-      });
+        setUp(() {
+          testSourceFile = new SourceFile(text);
+          transformedFile = new TransformedSourceFile(testSourceFile);
 
-      test('throws if sections of replaced text overlap each other', () {
-        transformedFile.replace(testSourceFile.span(1, 3), '{replaced 1}');
-        transformedFile.replace(testSourceFile.span(0, 2), '{replaced 2}');
-        expect(() => transformedFile.getTransformedText(), throwsA(startsWith('Overlapping replacement')));
+          var lines1Through3 = '\nline 1\nline 2\nline 3'.allMatches(text).single;
+          lines1Through3Span = testSourceFile.span(lines1Through3.start, lines1Through3.end);
+        });
+
+        test('removing newlines by default', () {
+          transformedFile.remove(lines1Through3Span);
+          expect(transformedFile.getTransformedText(), 'line 0\nline 4');
+        });
+
+        test('preserving newlines when specified', () {
+          transformedFile.remove(lines1Through3Span, preserveNewlines: true);
+          expect(transformedFile.getTransformedText(), 'line 0\n\n\n\nline 4');
+        });
       });
 
       group('`isModified`', () {
