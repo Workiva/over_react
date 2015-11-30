@@ -12,7 +12,9 @@ import 'package:web_skin_dart/src/transformer/jetbrains_friendly_logger.dart';
 import 'package:web_skin_dart/src/transformer/source_file_helpers.dart' show TransformedSourceFile;
 
 class WebSkinDartTransformer extends Transformer implements LazyTransformer {
-  WebSkinDartTransformer.asPlugin();
+  final BarbackSettings _settings;
+
+  WebSkinDartTransformer.asPlugin(BarbackSettings this._settings);
 
   /// Declare the assets this transformer uses. Only html assets will be transformed.
   String get allowedExtensions => ".dart";
@@ -22,6 +24,10 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
   void declareOutputs(DeclaringTransform transform) {
     transform.declareOutput(transform.primaryId);
     transform.consumePrimary();
+
+    if (_settings.mode == BarbackMode.DEBUG) {
+      transform.declareOutput(transform.primaryId.addExtension('.diff.html'));
+    }
   }
 
   /// Converts [id] to a "package:" URI.
@@ -82,6 +88,12 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
     } else {
       // Output the unmodified input.
       transform.addOutput(transform.primaryInput);
+    }
+
+    if (_settings.mode == BarbackMode.DEBUG) {
+      transform.addOutput(new Asset.fromString(transform.primaryInput.id.addExtension('.diff.html'),
+          transformedFile.getHtmlDiff()
+      ));
     }
   }
 }
