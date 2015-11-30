@@ -26,31 +26,21 @@ class ResizeSensorDefinition extends BaseComponentDefinition with ResizeSensorPr
 
   /// A function invoked when the parent element is resized.
   ResizeHandler get onResize;
-}
 
-@GenerateState(#ResizeSensorStateMixin)
-class ResizeSensorState extends MapView with ResizeSensorStateMixin {
-  /// Create a new instance backed by the specified map.
-  ResizeSensorState(Map backingMap) : super(backingMap);
-
-  /// The most recently measured value for the height of the sensor.
+  /// Whether the [ResizeSensor] is a child of a flex item. Necessary to apply the correct styling.
   ///
-  /// Initial value: 0
-  int get lastHeight;
-
-  /// The most recently measured value for the width of the sensor.
+  /// See this issue for details: <https://code.google.com/p/chromium/issues/detail?id=346275>
   ///
-  /// Initial value: 0
-  int get lastWidth;
+  /// Default: false
+  bool get isFlexChild;
 }
 
 var _resizeSensorComponentFactory = registerComponent(() => new _ResizeSensor(), isWrapper: true);
 
-class _ResizeSensor extends BaseComponentWithState<ResizeSensorDefinition, ResizeSensorState> {
+class _ResizeSensor extends BaseComponent<ResizeSensorDefinition> {
   @override
-  Map getInitialState() => (newState()
-    ..lastHeight = 0
-    ..lastWidth = 0
+  Map getDefaultProps() => (newProps()
+    ..isFlexChild = false
   );
 
   @override
@@ -94,11 +84,27 @@ class _ResizeSensor extends BaseComponentWithState<ResizeSensorDefinition, Resiz
           )(expandSensor, collapseSensor)
     );
 
-    return (Dom.div()..style = {
-      'position': 'relative',
-      'height': '100%',
-      'width': '100%'
-    })(children);
+    var wrapperStyles;
+
+    if (tProps.isFlexChild) {
+      wrapperStyles = {
+        'position': 'relative',
+        'flex': ' 1 1 0%',
+        'display': 'block'
+      };
+    } else {
+      wrapperStyles = {
+        'position': 'relative',
+        'height': '100%',
+        'width': '100%'
+      };
+    }
+
+    return (Dom.div()
+      ..addProps(copyProps(keysToOmit: ResizeSensorProps.Z_$propKeys))
+      ..className = forwardingClassNameBuilder().toClassName()
+      ..style = wrapperStyles
+    )(children);
   }
 
   /// When the expand or collapse sensors are resized, builds a [ResizeSensorEvent] and calls
@@ -106,8 +112,8 @@ class _ResizeSensor extends BaseComponentWithState<ResizeSensorDefinition, Resiz
   void _handleSensorScroll(react.SyntheticEvent event) {
     Element sensor = getDOMNode();
 
-    if (sensor.offsetWidth != tState.lastWidth || sensor.offsetHeight != tState.lastHeight) {
-      var event = new ResizeSensorEvent(sensor.offsetWidth, sensor.offsetHeight, tState.lastWidth, tState.lastHeight);
+    if (sensor.offsetWidth != _lastWidth || sensor.offsetHeight != _lastHeight) {
+      var event = new ResizeSensorEvent(sensor.offsetWidth, sensor.offsetHeight, _lastWidth, _lastHeight);
 
       if (tProps.onResize != null) {
         tProps.onResize(event);
@@ -120,7 +126,7 @@ class _ResizeSensor extends BaseComponentWithState<ResizeSensorDefinition, Resiz
   /// Update the width and height on [expandSensorChild], and the scroll position on
   /// [expandSensorChild] and [collapseSensor].
   ///
-  /// Additionally update the state with the new [tState.lastWidth] and [tState.lastHeight].
+  /// Additionally update the state with the new [_lastWidth] and [_lastHeight].
   void _reset() {
     Element expand = findDomNode(ref('expandSensor'));
     Element expandChild = findDomNode(ref('expandSensorChild'));
@@ -136,17 +142,19 @@ class _ResizeSensor extends BaseComponentWithState<ResizeSensorDefinition, Resiz
     collapse.scrollLeft = collapse.scrollWidth;
     collapse.scrollTop = collapse.scrollHeight;
 
-    setState(newState()
-      ..lastWidth = sensor.offsetWidth
-      ..lastHeight = sensor.offsetHeight
-    );
+
+    _lastWidth = sensor.offsetWidth;
+    _lastHeight = sensor.offsetHeight;
   }
+
+  /// The most recently measured value for the height of the sensor.
+  int _lastHeight = 0;
+
+  /// The most recently measured value for the width of the sensor.
+  int _lastWidth = 0;
 
   @override
   ResizeSensorDefinition typedPropsFactory(Map propsMap) => new ResizeSensorDefinition(propsMap);
-
-  @override
-  ResizeSensorState typedStateFactory(Map stateMap) => new ResizeSensorState(stateMap);
 }
 
 final Map<String, dynamic> _baseStyle = const {
