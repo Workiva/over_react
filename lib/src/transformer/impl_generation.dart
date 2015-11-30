@@ -57,7 +57,7 @@ class ImplGenerator {
       declarations.factory.node.variables.variables.forEach((variable) {
         if (variable.initializer != null) {
           logger.error(
-              'Factory variables are stubs for the generated factory, and should not have initializers.',
+              'Factory variables are stubs for the generated factories, and should not have initializers.',
               span: getSpan(sourceFile, variable.initializer)
           );
         }
@@ -66,7 +66,7 @@ class ImplGenerator {
       transformedFile.replace(
           sourceFile.span(
               declarations.factory.node.variables.variables.first.name.end,
-              declarations.factory.node.semicolon.offset
+              declarations.factory.node.end
           ),
           ' = ([Map backingProps]) => new $propsImplName(backingProps);'
       );
@@ -273,11 +273,24 @@ class ImplGenerator {
         .where((member) => member is FieldDeclaration)
         .where((FieldDeclaration member) => !member.isStatic)
         .forEach((FieldDeclaration field) {
-          // Remove everything in the field except the comments/meta variables, preserving newlines.
+          // Remove everything in the field except the comments/meta and the variable names, preserving newlines.
+          // TODO add support for preserving comments.
+
+          // Remove content between end of comment/meta and first variable name
           transformedFile.remove(
-              sourceFile.span(field.firstTokenAfterCommentAndMetadata.offset, field.fields.variables.first.beginToken.previous.offset),
+              sourceFile.span(field.firstTokenAfterCommentAndMetadata.offset, field.fields.variables.first.beginToken.offset),
               preserveNewlines: true
           );
+          // Remove content between variable names (including commas).
+          var prevVariable = field.fields.variables.first;
+          field.fields.variables.skip(1).forEach((variable) {
+            transformedFile.remove(
+                sourceFile.span(prevVariable.name.end, variable.name.offset),
+                preserveNewlines: true
+            );
+            prevVariable = variable;
+          });
+          // Remove content between last variable name and the end of the field (including the semicolon).
           transformedFile.remove(
               sourceFile.span(field.fields.variables.last.end, field.end),
               preserveNewlines: true
@@ -313,10 +326,6 @@ class ImplGenerator {
             transformedFile.replace(
                 sourceFile.span(variable.firstTokenAfterCommentAndMetadata.offset, variable.name.end),
                 generatedAccessor
-            );
-            transformedFile.remove(
-                sourceFile.span(variable.name.end, variable.end),
-                preserveNewlines: true
             );
 
             logger.fine('Generated accessor `$accessorName` with key $keyValue.',
