@@ -2,9 +2,11 @@ library ui_core.transformer_generation.helpers_sans_generation_test;
 
 import 'dart:js';
 
+import 'package:react/react_client.dart';
 import 'package:test/test.dart';
+import 'package:web_skin_dart/src/ui_core/transformer_generation/helpers_sans_generation.dart';
 import 'package:web_skin_dart/test_util.dart';
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:web_skin_dart/ui_core.dart' show Dom;
 
 main() {
   group('transformation generation helpers (sans generation):', () {
@@ -113,13 +115,25 @@ dynamic getDartChildren(JsObject renderedInstance) {
 }
 
 
-@Factory()
-UiFactory<TestComponentProps> TestComponent;
+UiFactory<TestComponentProps> TestComponent = ([Map props]) => new TestComponentProps(props);
 
-@Props()
-class TestComponentProps extends UiProps {}
+class TestComponentProps extends UiProps with MapViewMixin {
+  @override
+  final Function componentFactory = _TestComponentComponentFactory;
+  @override
+  final Map props;
 
-@Component()
+  TestComponentProps([Map props]) : this.props = props ?? ({});
+
+  @override
+  String get propKeyNamespace => null;
+}
+
+ReactComponentFactory _TestComponentComponentFactory = registerComponent(() => new TestComponentComponent());
 class TestComponentComponent extends UiComponent<TestComponentProps> {
   render() {}
+
+  @override
+  TestComponentProps typedPropsFactory(Map propsMap) => new TestComponentProps(propsMap);
 }
+
