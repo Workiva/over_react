@@ -104,6 +104,74 @@ main() {
         expect(getJsChildren(renderedInstance), equals([firstChild, secondChild]));
       });
     });
+
+    group('UiComponent', () {
+      TestComponentComponent component;
+
+      setUp(() {
+        component = new TestComponentComponent();
+        component.unwrappedProps = {};
+      });
+
+      group('props', () {
+        test('returns a UiProps view into the component\'s props map', () {
+          expect(component.props, const isInstanceOf<TestComponentProps>());
+
+          expect(component.props, isNot(same(component.unwrappedProps)));
+
+          component.unwrappedProps['testKey'] = 'testValue';
+          expect(component.props, containsPair('testKey', 'testValue'));
+        });
+
+        test('caches the UiProps object for the same map', () {
+          var props1 = component.props;
+          var props2 = component.props;
+          expect(props1, same(props2));
+        });
+
+        test('creates a new UiProps object when the props map changes', () {
+          var propsBeforeChange = component.props;
+          component.unwrappedProps = {};
+          var propsAfterChange = component.props;
+
+          expect(propsBeforeChange, isNot(same(propsAfterChange)));
+        });
+      });
+    });
+
+    group('UiStatefulComponent', () {
+      TestStatefulComponentComponent statefulComponent;
+
+      setUp(() {
+        statefulComponent = new TestStatefulComponentComponent();
+        statefulComponent.unwrappedState = {};
+      });
+
+      group('state', () {
+        test('returns a UiState view into the component\'s state map', () {
+          expect(statefulComponent.state, const isInstanceOf<TestStatefulComponentState>());
+
+          expect(statefulComponent.state, isNot(same(statefulComponent.unwrappedState)));
+
+          statefulComponent.unwrappedState['testKey'] = 'testValue';
+          expect(statefulComponent.state, containsPair('testKey', 'testValue'));
+        });
+
+        test('caches the UiState object for the same map', () {
+          var state1 = statefulComponent.state;
+          var state2 = statefulComponent.state;
+          expect(state1, same(state2));
+        });
+
+        test('creates a new UiState object when the state map changes', () {
+          var stateBeforeChange = statefulComponent.state;
+          statefulComponent.unwrappedState = {};
+          var stateAfterChange = statefulComponent.state;
+
+          expect(stateBeforeChange, isNot(same(stateAfterChange)));
+        });
+      });
+    });
   });
 }
 
@@ -118,10 +186,8 @@ dynamic getDartChildren(JsObject renderedInstance) {
 UiFactory<TestComponentProps> TestComponent = ([Map props]) => new TestComponentProps(props);
 
 class TestComponentProps extends UiProps with MapViewMixin {
-  @override
-  final Function componentFactory = _TestComponentComponentFactory;
-  @override
-  final Map props;
+  @override final Function componentFactory = _TestComponentComponentFactory;
+  @override final Map props;
 
   TestComponentProps([Map props]) : this.props = props ?? ({});
 }
@@ -132,5 +198,30 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
 
   @override
   TestComponentProps typedPropsFactory(Map propsMap) => new TestComponentProps(propsMap);
+}
+
+
+UiFactory<TestStatefulComponentProps> TestStatefulComponent = ([Map props]) => new TestStatefulComponentProps(props);
+
+class TestStatefulComponentProps extends UiProps with MapViewMixin {
+  @override final Function componentFactory = _TestStatefulComponentComponentFactory;
+  @override final Map props;
+
+  TestStatefulComponentProps([Map props]) : this.props = props ?? ({});
+}
+
+class TestStatefulComponentState extends UiState with MapViewMixin {
+  @override final Map state;
+
+  TestStatefulComponentState([Map state]) : this.state = state ?? ({});
+}
+
+ReactComponentFactory _TestStatefulComponentComponentFactory = registerComponent(() => new TestStatefulComponentComponent());
+class TestStatefulComponentComponent extends UiStatefulComponent<TestStatefulComponentProps, TestStatefulComponentState> {
+  render() {}
+
+  @override
+  TestStatefulComponentProps typedPropsFactory(Map propsMap) => new TestStatefulComponentProps(propsMap);
+  TestStatefulComponentState typedStateFactory(Map state) => new TestStatefulComponentState(state);
 }
 
