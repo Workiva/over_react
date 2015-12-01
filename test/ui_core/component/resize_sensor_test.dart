@@ -10,6 +10,7 @@ import 'package:test/test.dart';
 import 'package:web_skin_dart/src/ui_core/component/resize_sensor.dart';
 
 import '../../wsd_test_util/common_component_tests.dart';
+import '../../wsd_test_util/zone.dart';
 
 void main() {
   group('ResizeSensor', () {
@@ -21,6 +22,8 @@ void main() {
     setUp(() {
       domTarget = document.createElement('div');
       document.body.append(domTarget);
+      // Perform setup needed for using 'zonedExpect'.
+      storeZone();
     });
 
     tearDown(() {
@@ -102,10 +105,10 @@ void main() {
         containerEl.style.width = '${containerWidth * 2}px';
         containerEl.style.height = '${containerHeight * 2}px';
       }, onResize: (ResizeSensorEvent event) {
-        expect(event.newWidth, equals(containerWidth * 2));
-        expect(event.newHeight, equals(containerHeight * 2));
-        expect(event.prevWidth, equals(containerWidth));
-        expect(event.prevHeight, equals(containerHeight));
+        zonedExpect(event.newWidth, equals(containerWidth * 2));
+        zonedExpect(event.newHeight, equals(containerHeight * 2));
+        zonedExpect(event.prevWidth, equals(containerWidth));
+        zonedExpect(event.prevHeight, equals(containerHeight));
       });
     });
 
