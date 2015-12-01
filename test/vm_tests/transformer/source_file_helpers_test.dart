@@ -63,12 +63,12 @@ main() {
           lines1Through3Span = testSourceFile.span(lines1Through3.start, lines1Through3.end);
         });
 
-        test('removing newlines by default', () {
+        test('removes spans of text, removing newlines by default', () {
           transformedFile.remove(lines1Through3Span);
           expect(transformedFile.getTransformedText(), 'line 0\nline 4');
         });
 
-        test('preserving newlines when specified', () {
+        test('removes spans of text, preserving newlines when specified', () {
           transformedFile.remove(lines1Through3Span, preserveNewlines: true);
           expect(transformedFile.getTransformedText(), 'line 0\n\n\n\nline 4');
         });
@@ -87,6 +87,57 @@ main() {
 
         test('is false for a pristine TransformedSourceFile', () {
           expect(transformedFile.isModified, isFalse);
+        });
+      });
+
+      group('iterateReplacements()', () {
+        test('iterates through the replacements using the specified callbacks', () {
+          var unmodifieds = [];
+          var additions = [];
+          var removals = [];
+
+          var all = [];
+
+          transformedFile.remove(testSourceFile.span(2, 3));
+          transformedFile.remove(testSourceFile.span(8, 9));
+          transformedFile.insert(testSourceFile.location(1), '{inserted 1}');
+          transformedFile.insert(testSourceFile.location(7), '{inserted 2}');
+          transformedFile.replace(testSourceFile.span(5, 7), '{replaced 1}');
+          transformedFile.replace(testSourceFile.span(0, 1), '{replaced 2}');
+
+          transformedFile.iterateReplacements(
+              onUnmodified: (text) {
+                unmodifieds.add(text);
+                all.add(text);
+              },
+              onRemoval: (text) {
+                removals.add(text);
+                all.add(text);
+              },
+              onAddition: (text) {
+                additions.add(text);
+                all.add(text);
+              }
+          );
+
+          expect(unmodifieds, equals(['1', '34', '7', '9']));
+          expect(additions, equals(['{replaced 2}', '{inserted 1}', '{replaced 1}', '{inserted 2}']));
+          expect(removals, equals(['0', '2', '56', '8']));
+
+          expect(all, equals([
+            '0',            // -  removal
+            '{replaced 2}', // +  addition
+            '{inserted 1}', // +  addition
+            '1',            //    unmodified
+            '2',            // -  removal
+            '34',           //    unmodified
+            '56',           // -  removal
+            '{replaced 1}', // +  addition
+            '{inserted 2}', // +  addition
+            '7',            //    unmodified
+            '8',            // -  removal
+            '9'             //    unmodified
+          ]), reason: 'should have called all parts in the right order');
         });
       });
     });
