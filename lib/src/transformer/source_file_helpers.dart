@@ -93,15 +93,18 @@ class TransformedSourceFile {
   }
 
   String getHtmlDiff() {
+    const HtmlEscape elementEscaper = const HtmlEscape(HtmlEscapeMode.ELEMENT);
+    const HtmlEscape attrEscaper = const HtmlEscape(HtmlEscapeMode.ATTRIBUTE);
+
     StringBuffer diff = new StringBuffer();
 
     void writeDiff(String source, String className) {
       diff.write('<span class="$className">');
-      diff.write(const HtmlEscape().convert(source));
+      diff.write(elementEscaper.convert(source));
       diff.write('</span>');
     }
     
-    processReplacements(
+    iterateReplacements(
         onUnmodified: (source) => writeDiff(source, 'diff-unmodified'),
         onRemoval: (source) => writeDiff(source, 'diff-removal'),
         onAddition: (source) => writeDiff(source, 'diff-addition')
@@ -111,7 +114,7 @@ class TransformedSourceFile {
         <!DOCTYPE html>
         <html>
         <head>
-          <title>web_skin_dart Transformer Diff - ${const HtmlEscape().convert(sourceFile.url.path)}</title>
+          <title>web_skin_dart Transformer Diff - ${attrEscaper.convert(sourceFile.url.path)}</title>
           <style>
             .diff-unmodified {
                 color: #444;
