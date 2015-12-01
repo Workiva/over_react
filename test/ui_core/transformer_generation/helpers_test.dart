@@ -105,6 +105,30 @@ main() {
         test('typedStateFactory', () {expect(() => unimplemented.typedStateFactory({}), throwsAnUngeneratedError);});
       });
     });
+
+    group('\$PropKeys (ungenerated)', () {
+      setUpAll(() {
+        expect(() => const $PropKeys(#dummySymbol), isNot(throwsNoSuchMethodError),
+            reason: 'Instanitating a const \$PropKeys should not have thrown an error. '
+                    'Ensure that the web_skin_dart transformer is NOT running for this test file.'
+        );
+      });
+
+      $PropKeys stub;
+
+      setUp(() {
+         stub = const $PropKeys(#dummySymbol);
+      });
+
+      test('implements List', () {
+        expect(stub, const isInstanceOf<List<String>>());
+      });
+
+      group('throws errors when List members are invoked:', () {
+        test('isEmpty', () {expect(() => stub.isEmpty,             throwsAnUngeneratedError);});
+        test('forEach', () {expect(() => stub.forEach((value) {}), throwsAnUngeneratedError);});
+      });
+    });
   });
 }
 
