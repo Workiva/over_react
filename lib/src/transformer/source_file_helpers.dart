@@ -49,7 +49,7 @@ class TransformedSourceFile {
     );
   }
 
-  void processReplacements({onUnmodified(String string), onRemoval(String string), onAddition(String string)}) {
+  void iterateReplacements({onUnmodified(String string), onRemoval(String string), onAddition(String string)}) {
     _replacements.sort((r1, r2) => r1.span.compareTo(r2.span));
     
     var lastEdge = 0;
@@ -58,30 +58,35 @@ class TransformedSourceFile {
         throw 'Overlapping replacement $replacement in replacements $_replacements.';
       }
 
-      if (onUnmodified != null) {
-        onUnmodified(sourceFile.getText(lastEdge, replacement.span.start.offset));
+      var unmodifiedText = sourceFile.getText(lastEdge, replacement.span.start.offset);
+      var removalText = replacement.span.text;
+      var additionText = replacement.newText;
+
+      if (onUnmodified != null && unmodifiedText.isNotEmpty) {
+        onUnmodified(unmodifiedText);
       }
-      if (onRemoval != null) {
-        onRemoval(replacement.span.text);
+      if (onRemoval != null && removalText.isNotEmpty) {
+        onRemoval(removalText);
       }
-      if (onAddition != null) {
-        onAddition(replacement.newText);
+      if (onAddition != null && additionText.isNotEmpty) {
+        onAddition(additionText);
       }
 
       lastEdge = replacement.span.end.offset;
     }
 
-    if (onUnmodified != null) {
-      onUnmodified(sourceFile.getText(lastEdge));
+    var unmodifiedText = sourceFile.getText(lastEdge);
+    if (onUnmodified != null && unmodifiedText != null) {
+      onUnmodified(unmodifiedText);
     }
   }
 
   String getTransformedText() {
     StringBuffer transformedSource = new StringBuffer();
 
-    processReplacements(
-        onUnmodified: (source) => transformedSource.write(source),
-        onAddition: (source) => transformedSource.write(source)
+    iterateReplacements(
+        onUnmodified: transformedSource.write,
+        onAddition: transformedSource.write
     );
 
     return transformedSource.toString();
@@ -91,10 +96,6 @@ class TransformedSourceFile {
     StringBuffer diff = new StringBuffer();
 
     void writeDiff(String source, String className) {
-      if (source.isEmpty) {
-        return;
-      }
-
       diff.write('<span class="$className">');
       diff.write(const HtmlEscape().convert(source));
       diff.write('</span>');
