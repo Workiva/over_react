@@ -13,7 +13,7 @@ main() {
       TransformedSourceFile transformedFile;
 
       setUp(() {
-        testSourceFile = new SourceFile('0123456789');
+        testSourceFile = new SourceFile('0123456789', url: 'test_source_file.dart');
         transformedFile = new TransformedSourceFile(testSourceFile);
       });
 
@@ -138,6 +138,39 @@ main() {
             '8',            // -  removal
             '9'             //    unmodified
           ]), reason: 'should have called all parts in the right order');
+        });
+      });
+
+      group('getHtmlDiff()', () {
+        test('returns an HTML page containing the diff of the modified file', () {
+          transformedFile.remove(testSourceFile.span(2, 3));
+          transformedFile.remove(testSourceFile.span(8, 9));
+          transformedFile.insert(testSourceFile.location(1), '{inserted 1}');
+          transformedFile.insert(testSourceFile.location(7), '{inserted 2}');
+          transformedFile.replace(testSourceFile.span(5, 7), '{replaced 1}');
+          transformedFile.replace(testSourceFile.span(0, 1), '{replaced 2}');
+
+          var html = transformedFile.getHtmlDiff();
+
+          expect(html, matches(new RegExp(r'^\s*<\!DOCTYPE html>\s*<html>')));
+          expect(html, contains('<title>web_skin_dart Transformer Diff - ' 'test_source_file.dart' '</title>'));
+          expect(html, contains(
+              '<pre>'
+                '<span class="diff-removal">'     '0'             '</span>'
+                '<span class="diff-addition">'    '{replaced 2}'  '</span>'
+                '<span class="diff-addition">'    '{inserted 1}'  '</span>'
+                '<span class="diff-unmodified">'  '1'             '</span>'
+                '<span class="diff-removal">'     '2'             '</span>'
+                '<span class="diff-unmodified">'  '34'            '</span>'
+                '<span class="diff-removal">'     '56'            '</span>'
+                '<span class="diff-addition">'    '{replaced 1}'  '</span>'
+                '<span class="diff-addition">'    '{inserted 2}'  '</span>'
+                '<span class="diff-unmodified">'  '7'             '</span>'
+                '<span class="diff-removal">'     '8'             '</span>'
+                '<span class="diff-unmodified">'  '9'             '</span>'
+              '</pre>'
+          ));
+          expect(html, matches(new RegExp(r'</html>\s*$')));
         });
       });
     });
