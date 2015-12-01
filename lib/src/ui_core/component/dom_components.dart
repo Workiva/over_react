@@ -70,9 +70,6 @@ class DomProps extends helpers_sans_generation.UiProps with helpers_sans_generat
   final ReactDomComponentFactoryProxy componentFactory;
   @override
   final Map props;
-
-  @override
-  String get propKeyNamespace => '';
 }
 
 abstract class Dom {

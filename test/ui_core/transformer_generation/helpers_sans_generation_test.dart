@@ -124,9 +124,6 @@ class TestComponentProps extends UiProps with MapViewMixin {
   final Map props;
 
   TestComponentProps([Map props]) : this.props = props ?? ({});
-
-  @override
-  String get propKeyNamespace => null;
 }
 
 ReactComponentFactory _TestComponentComponentFactory = registerComponent(() => new TestComponentComponent());

@@ -92,9 +92,10 @@ abstract class UiProps extends sans_generation.UiProps with GeneratedClass, MapV
     _throwIfNotGenerated();
   }
 
+  @toBeGenerated String get propKeyNamespace => throw new UngeneratedError(member: #propKeyNamespace);
+
   @override @toBeGenerated Map get props                 => throw new UngeneratedError(member: #props);
   @override @toBeGenerated Function get componentFactory => throw new UngeneratedError(member: #componentFactory);
-  @override @toBeGenerated String get propKeyNamespace   => throw new UngeneratedError(member: #propKeyNamespace);
 }
 
 // TODO: mirror comment from sans_generation
