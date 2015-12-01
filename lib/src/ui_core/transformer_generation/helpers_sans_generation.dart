@@ -3,9 +3,88 @@ library web_skin_dart.transformer_generation.helpers_sans_generation;
 import 'dart:js';
 
 import 'package:react/react.dart' as react;
-import 'package:web_skin_dart/ui_core.dart' show BaseComponent, BaseComponentWithState, ClassNameBuilder, ComponentDefinition, CssClassProps, CssClassPropsMixin, ReactProps, ReactPropsMixin, UbiquitousDomProps, UbiquitousDomPropsMixin, getPropsToForward, isValidElement;
+import 'package:react/react_client.dart';
+import 'package:web_skin_dart/ui_core.dart' show BaseComponent, BaseComponentWithState, ClassNameBuilder, ComponentDefinition, CssClassProps, CssClassPropsMixin, ReactProps, ReactPropsMixin, UbiquitousDomProps, UbiquitousDomPropsMixin, getProps, getPropsToForward, isDartComponent, isValidElement;
 
 export './annotations.dart';
+
+Expando<ReactDartComponentFactoryProxy> associatedReactComponentFactory = new Expando<ReactDartComponentFactoryProxy>();
+
+/// Helper function that wraps react.registerComponent, and allows attachment of additional
+/// component factory metadata.
+///
+/// * [isWrapper]: whether the component clones or passes through its children and needs to be
+/// treated as if it were the wrapped component.
+///
+/// * [builderFactory]/[componentClass]: the [UiFactory] and [UiComponent] members to be potentially
+/// used as types for [isComponentOfType]/[getComponentFactory].
+///
+/// * [displayName]: the name of the component for use when debugging.
+ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFactory(), {
+    bool isWrapper: false,
+    UiFactory builderFactory,
+    Type componentClass,
+    String displayName
+}) {
+  ReactDartComponentFactoryProxy reactComponentFactory = react.registerComponent(dartComponentFactory);
+
+  if (isWrapper) {
+    reactComponentFactory.reactClass['isWrapper'] = true;
+  }
+  if (displayName != null) {
+    reactComponentFactory.reactClass['displayName'] = displayName;
+  }
+  if (builderFactory != null) {
+    associatedReactComponentFactory[builderFactory] = reactComponentFactory;
+  }
+  if (componentClass != null) {
+    associatedReactComponentFactory[componentClass] = reactComponentFactory;
+  }
+
+  return reactComponentFactory;
+}
+
+ReactComponentFactoryProxy getComponentFactory(dynamic type) {
+  if (type is ReactComponentFactoryProxy) {
+    return type;
+  }
+
+  return associatedReactComponentFactory[type];
+}
+
+/// Returns whether the [instance] was created using the React component factory associated with
+/// [type], which can be a component's [UiFactory] or [UiComponent] [Type].
+bool isComponentOfType(JsObject instance, dynamic type, {bool traverseWrappers: true}) {
+  if (instance != null && type != null) {
+    var factory = getComponentFactory(type);
+
+    if (factory is ReactComponentFactoryProxy) {
+      var instanceType = instance['type'];
+      bool isWrapper = instanceType is JsFunction && instanceType['isWrapper'] == true;
+
+      if (traverseWrappers && isWrapper) {
+        // Should always be a Dart component if `isWrapper` true, this is just to make sure.
+        assert(isDartComponent(instance));
+        var children = getProps(instance)['children'];
+        if (children != null && children.isNotEmpty) {
+          return isComponentOfType(children.first, factory);
+        } else {
+          return false;
+        }
+      }
+
+      return instanceType == factory.type;
+    }
+  }
+
+  return false;
+}
+
+/// Returns whether the instance is a valid ReactElement and was created using the specified Dart factory
+bool isValidElementOfType(dynamic instance, factory) {
+  return isValidElement(instance) ? isComponentOfType(instance, factory) : false;
+}
+
 
 /// Generic builder factory typedef for use by all components.
 typedef TBuilder UiFactory<TBuilder extends UiProps>([Map backingProps]);
