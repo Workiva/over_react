@@ -89,7 +89,7 @@ class _ResizeSensor extends BaseComponent<ResizeSensorDefinition> {
     if (tProps.isFlexChild) {
       wrapperStyles = {
         'position': 'relative',
-        'flex': ' 1 1 0%',
+        'flex': '1 1 0%',
         'display': 'block'
       };
     } else {

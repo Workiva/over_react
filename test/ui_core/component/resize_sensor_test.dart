@@ -8,6 +8,7 @@ import 'package:react/react.dart' as react;
 import 'package:react/react_test_utils.dart' as reactTestUtils;
 import 'package:test/test.dart';
 import 'package:web_skin_dart/src/ui_core/component/resize_sensor.dart';
+import 'package:web_skin_dart/test_util.dart';
 
 import '../../wsd_test_util/common_component_tests.dart';
 import '../../wsd_test_util/zone.dart';
@@ -75,6 +76,24 @@ void main() {
       await new Future.delayed(const Duration(milliseconds: 200),
           () => expect(wasResizeDetected, isTrue));
     }
+
+    group('should render with the correct styles when isFlexChild is', () {
+      test('true', () {
+        var renderedNode = renderAndGetDom((ResizeSensor()..isFlexChild = true)());
+
+        expect(renderedNode.style.position, equals('relative'));
+        expect(renderedNode.style.flex, equals('1 1 0%'));
+        expect(renderedNode.style.display, equals('block'));
+      });
+
+      test('false', () {
+        var renderedNode = renderAndGetDom(ResizeSensor()());
+
+        expect(renderedNode.style.position, equals('relative'));
+        expect(renderedNode.style.width, equals('100%'));
+        expect(renderedNode.style.height, equals('100%'));
+      });
+    });
 
     test('should detect when bounding rect grows horizontally', () async {
       await expectResizeAfter((containerEl) {
