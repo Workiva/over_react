@@ -268,9 +268,7 @@ abstract class UiProps
     return super.noSuchMethod(invocation);
   }
 
-  // To be implemented by code generation:
   Function get componentFactory;
-  String get propKeyNamespace;
 }
 
 /// Works in conjunction with [MapViewMixin] to provide [dart.collection.MapView]-like
