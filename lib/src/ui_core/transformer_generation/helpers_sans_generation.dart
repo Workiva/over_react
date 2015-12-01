@@ -139,6 +139,8 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component
     }
     return typedProps;
   }
+  /// Equivalent to setting [unwrappedProps], but needed by react-dart to effect props changes.
+  set props(Map value) => super.props = value;
 
   /// DEPRECATED: Use [props] instead.
   ///
@@ -150,6 +152,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component
 
   /// The props Map that will be used to create the typed [props] object.
   Map get unwrappedProps => super.props;
+  set unwrappedProps(Map value) => super.props = value;
 
   /// Returns a typed props object backed by the specified [propsMap].
   /// Required to properly instantiate the generic [TProps] class.
@@ -190,6 +193,8 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
     }
     return typedState;
   }
+  /// Equivalent to setting [unwrappedState], but needed by react-dart to effect props changes.
+  set state(Map value) => super.state = value;
 
   /// DEPRECATED: Use [state] instead.
   ///
@@ -201,6 +206,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 
   /// The state Map that will be used to create the typed [state] object.
   Map get unwrappedState => super.state;
+  set unwrappedState(Map value) => super.state = value;
 
   /// Returns a typed state object backed by the specified [stateMap].
   /// Required to properly instantiate the generic [TState] class.
