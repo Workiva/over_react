@@ -71,6 +71,7 @@ class ImplGenerator {
         ..writeln('// registers component impl and links type meta to builder factory')
         ..writeln('final $componentFactoryName = registerComponent(() => new $componentClassImplName(),')
         ..writeln('    builderFactory: $factoryName,')
+        ..writeln('    componentClass: $componentClassName,')
         ..writeln('    displayName: ${stringLiteral(factoryName)}')
         ..writeln(');')
         ..writeln();
