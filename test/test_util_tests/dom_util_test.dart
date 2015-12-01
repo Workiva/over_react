@@ -1,4 +1,4 @@
-library dom_util_test;
+library test_util_dom_util_test;
 
 import 'dart:html';
 
