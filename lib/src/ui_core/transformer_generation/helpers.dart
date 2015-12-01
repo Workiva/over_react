@@ -1,61 +1,15 @@
 library web_skin_dart.transformer_generation.helpers;
 
-import 'dart:js';
-
-import 'package:react/react.dart' as react;
-import 'package:react/react_client.dart';
-import 'package:web_skin_dart/ui_core.dart' show ClassNameBuilder, ReactProps, UbiquitousDomProps, getPropsToForward, isValidElement;
-
 import './helpers_sans_generation.dart' as sans_generation;
-import './helpers_sans_generation.dart' show UiFactory;
 
 export './annotations.dart';
-export './helpers_sans_generation.dart' show UiFactory, MapViewMixin;
+export './helpers_sans_generation.dart'
+    hide UiComponent, UiStatefulComponent, UiProps, UiState;
 
 // ----------------------------------------------------------------------
 //   Helpers and extras consumable by generated code and consumers of
 //   generated code.
 // ----------------------------------------------------------------------
-
-Expando<ReactDartComponentFactoryProxy> generatedBuilderToReactComponentFactory = new Expando<ReactDartComponentFactoryProxy>();
-
-/// Helper function that wraps react.registerComponent. But also adds the ability specify if the
-/// component is a wrapper component.
-///
-/// A wrapper component is a component that clones or passes through its children
-/// but needs to be treated as if it were the wrapped component.
-ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFactory(), {
-    UiFactory builderFactory,
-    bool isWrapper: false,
-    String displayName
-}) {
-  ReactDartComponentFactoryProxy reactComponentFactory = react.registerComponent(dartComponentFactory);
-
-  if (isWrapper) {
-    reactComponentFactory.reactClass['isWrapper'] = true;
-  }
-
-  if (displayName != null) {
-    reactComponentFactory.reactClass['displayName'] = displayName;
-  }
-
-  if (builderFactory != null) {
-    generatedBuilderToReactComponentFactory[builderFactory] = reactComponentFactory;
-  }
-
-  return reactComponentFactory;
-}
-
-bool isValidComponentOfType_experimental(dynamic component, UiFactory type) {
-  if (isValidElement(component)) {
-    var reactFactory = generatedBuilderToReactComponentFactory[type];
-    if (reactFactory != null) {
-      return reactFactory.type == (component as JsObject)['type'];
-    }
-  }
-
-  return false;
-}
 
 /// Placeholder helper class that allows for accessing lists of prop keys
 /// in a static yet unsafe way.
@@ -72,7 +26,6 @@ class $PropKeys implements List<String> {
     );
   }
 }
-
 
 // ----------------------------------------------------------------------
 //   Base classes to be used by pre-generated code that stub out
