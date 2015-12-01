@@ -3,8 +3,8 @@ library ui_core.transformer_generation.helpers_test;
 import 'package:test/test.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
-const Matcher throwsAnUngeneratedError = const Throws(const isInstanceOf<UngeneratedError>());
-const Matcher throwsAnIllegalInstantiationError = const Throws(const isInstanceOf<IllegalInstantiationError>());
+const Matcher throwsUngeneratedError          = const Throws(const isInstanceOf<UngeneratedError>());
+const Matcher throwsIllegalInstantiationError = const Throws(const isInstanceOf<IllegalInstantiationError>());
 
 main() {
   group('transformation generation helpers:', () {
@@ -16,28 +16,28 @@ main() {
           map = mapFactory();
         });
 
-        test('operator[]',    () {expect(() => map[null],                    throwsAnUngeneratedError);});
-        test('operator[]=',   () {expect(() => map[null] = null,             throwsAnUngeneratedError);});
-        test('addAll',        () {expect(() => map.addAll({}),               throwsAnUngeneratedError);});
-        test('clear',         () {expect(() => map.clear(),                  throwsAnUngeneratedError);});
-        test('containsKey',   () {expect(() => map.containsKey(null),        throwsAnUngeneratedError);});
-        test('containsValue', () {expect(() => map.containsValue(null),      throwsAnUngeneratedError);});
-        test('forEach',       () {expect(() => map.forEach((key, value) {}), throwsAnUngeneratedError);});
+        test('operator[]',    () {expect(() => map[null],                    throwsUngeneratedError);});
+        test('operator[]=',   () {expect(() => map[null] = null,             throwsUngeneratedError);});
+        test('addAll',        () {expect(() => map.addAll({}),               throwsUngeneratedError);});
+        test('clear',         () {expect(() => map.clear(),                  throwsUngeneratedError);});
+        test('containsKey',   () {expect(() => map.containsKey(null),        throwsUngeneratedError);});
+        test('containsValue', () {expect(() => map.containsValue(null),      throwsUngeneratedError);});
+        test('forEach',       () {expect(() => map.forEach((key, value) {}), throwsUngeneratedError);});
 
-        test('isEmpty',       () {expect(() => map.isEmpty,                  throwsAnUngeneratedError);});
-        test('isNotEmpty',    () {expect(() => map.isNotEmpty,               throwsAnUngeneratedError);});
-        test('keys',          () {expect(() => map.keys,                     throwsAnUngeneratedError);});
-        test('length',        () {expect(() => map.length,                   throwsAnUngeneratedError);});
+        test('isEmpty',       () {expect(() => map.isEmpty,                  throwsUngeneratedError);});
+        test('isNotEmpty',    () {expect(() => map.isNotEmpty,               throwsUngeneratedError);});
+        test('keys',          () {expect(() => map.keys,                     throwsUngeneratedError);});
+        test('length',        () {expect(() => map.length,                   throwsUngeneratedError);});
 
-        test('putIfAbsent',   () {expect(() => map.putIfAbsent(null, () {}), throwsAnUngeneratedError);});
-        test('remove',        () {expect(() => map.remove(null),             throwsAnUngeneratedError);});
-        test('values',        () {expect(() => map.values,                   throwsAnUngeneratedError);});
+        test('putIfAbsent',   () {expect(() => map.putIfAbsent(null, () {}), throwsUngeneratedError);});
+        test('remove',        () {expect(() => map.remove(null),             throwsUngeneratedError);});
+        test('values',        () {expect(() => map.values,                   throwsUngeneratedError);});
       });
     }
 
     group('UiProps', () {
       test('cannot be instantiated directly if not generated', () {
-        expect(() => new UngeneratedUiProps(), throwsAnIllegalInstantiationError);
+        expect(() => new UngeneratedUiProps(), throwsIllegalInstantiationError);
       });
 
       group('throws errors when stubbed members are called that have not been generated:', () {
@@ -47,9 +47,9 @@ main() {
           unimplemented = new UnimplementedUiProps();
         });
 
-        test('props',            () {expect(() => unimplemented.props,            throwsAnUngeneratedError);});
-        test('componentFactory', () {expect(() => unimplemented.componentFactory, throwsAnUngeneratedError);});
-        test('propKeyNamespace', () {expect(() => unimplemented.propKeyNamespace, throwsAnUngeneratedError);});
+        test('props',            () {expect(() => unimplemented.props,            throwsUngeneratedError);});
+        test('componentFactory', () {expect(() => unimplemented.componentFactory, throwsUngeneratedError);});
+        test('propKeyNamespace', () {expect(() => unimplemented.propKeyNamespace, throwsUngeneratedError);});
 
         testStubbedMapMembers(() => new UnimplementedUiProps());
       });
@@ -57,7 +57,7 @@ main() {
 
     group('UiComponent', () {
       test('cannot be instantiated directly if not generated', () {
-        expect(() => new UngeneratedUiComponent(), throwsAnIllegalInstantiationError);
+        expect(() => new UngeneratedUiComponent(), throwsIllegalInstantiationError);
       });
 
       group('throws errors when stubbed members are called that have not been generated:', () {
@@ -67,13 +67,13 @@ main() {
           unimplemented = new UnimplementedUiComponent();
         });
 
-        test('typedPropsFactory', () {expect(() => unimplemented.typedPropsFactory({}), throwsAnUngeneratedError);});
+        test('typedPropsFactory', () {expect(() => unimplemented.typedPropsFactory({}), throwsUngeneratedError);});
       });
     });
 
     group('UiState', () {
       test('cannot be instantiated directly if not generated', () {
-        expect(() => new UngeneratedUiState(), throwsAnIllegalInstantiationError);
+        expect(() => new UngeneratedUiState(), throwsIllegalInstantiationError);
       });
 
       group('throws errors when stubbed members are called that have not been generated:', () {
@@ -83,7 +83,7 @@ main() {
           unimplemented = new UnimplementedUiState();
         });
 
-        test('typedPropsFactory', () {expect(() => unimplemented.state, throwsAnUngeneratedError);});
+        test('typedPropsFactory', () {expect(() => unimplemented.state, throwsUngeneratedError);});
 
         testStubbedMapMembers(() => new UnimplementedUiState());
       });
@@ -91,7 +91,7 @@ main() {
 
     group('UiStatefulComponent', () {
       test('cannot be instantiated directly if not generated', () {
-        expect(() => new UngeneratedUiStatefulComponent(), throwsAnIllegalInstantiationError);
+        expect(() => new UngeneratedUiStatefulComponent(), throwsIllegalInstantiationError);
       });
 
       group('throws errors when stubbed members are called that have not been generated:', () {
@@ -101,8 +101,8 @@ main() {
           unimplemented = new UnimplementedUiStatefulComponent();
         });
 
-        test('typedPropsFactory', () {expect(() => unimplemented.typedPropsFactory({}), throwsAnUngeneratedError);});
-        test('typedStateFactory', () {expect(() => unimplemented.typedStateFactory({}), throwsAnUngeneratedError);});
+        test('typedPropsFactory', () {expect(() => unimplemented.typedPropsFactory({}), throwsUngeneratedError);});
+        test('typedStateFactory', () {expect(() => unimplemented.typedStateFactory({}), throwsUngeneratedError);});
       });
     });
 
@@ -125,8 +125,8 @@ main() {
       });
 
       group('throws errors when List members are invoked:', () {
-        test('isEmpty', () {expect(() => stub.isEmpty,             throwsAnUngeneratedError);});
-        test('forEach', () {expect(() => stub.forEach((value) {}), throwsAnUngeneratedError);});
+        test('isEmpty', () {expect(() => stub.isEmpty,             throwsUngeneratedError);});
+        test('forEach', () {expect(() => stub.forEach((value) {}), throwsUngeneratedError);});
       });
     });
   });
