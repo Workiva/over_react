@@ -263,6 +263,29 @@ main() {
         expect(newState1, isNot(same(newState2)));
       });
     });
+
+    group('registerComponent()', () {
+      group('attaches metadata to the specified component class:', () {
+        final ComponentFactory dummyComponentFactory = () => null;
+
+        group('isWrapper:', () {
+          test('true', () {
+            var factory = registerComponent(dummyComponentFactory, isWrapper: true);
+            expect(factory.type['isWrapper'], isTrue);
+          });
+
+          test('false', () {
+            var factory = registerComponent(dummyComponentFactory, isWrapper: false);
+            expect(factory.type['isWrapper'], isNot(isTrue));
+          });
+        });
+
+        test('displayName', () {
+          var factory = registerComponent(dummyComponentFactory, displayName: 'testDisplayName');
+          expect(factory.type['displayName'], equals('testDisplayName'));
+        });
+      });
+    });
   });
 }
 
