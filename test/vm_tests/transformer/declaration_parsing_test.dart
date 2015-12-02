@@ -7,7 +7,7 @@ import 'package:mockito/mockito.dart';
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 import 'package:web_skin_dart/src/transformer/declaration_parsing.dart';
-import 'package:web_skin_dart/src/ui_core/transformer_generation/annotations.dart' as annotations;
+import 'package:web_skin_dart/src/ui_core/component_declaration/annotations.dart' as annotations;
 
 main() {
   group('ComponentDeclarations', () {

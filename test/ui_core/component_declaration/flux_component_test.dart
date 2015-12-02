@@ -1,6 +1,6 @@
 // Tests adapted from <https://github.com/Workiva/w_flux/blob/1.0.1/test/component_test.dart>.
 
-library ui_core.transformer_generation.w_flux_helpers_test;
+library ui_core.comonent_declaration.flux_component_test;
 
 import 'dart:async';
 
@@ -9,10 +9,10 @@ import 'package:w_flux/w_flux.dart';
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
-part 'flux_helpers_test/default.dart';
-part 'flux_helpers_test/handler_precedence.dart';
-part 'flux_helpers_test/redraw_on.dart';
-part 'flux_helpers_test/store_handlers.dart';
+part 'flux_component_test/default.dart';
+part 'flux_component_test/handler_precedence.dart';
+part 'flux_component_test/redraw_on.dart';
+part 'flux_component_test/store_handlers.dart';
 
 void main() {
   Future nextTick() {

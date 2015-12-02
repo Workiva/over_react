@@ -7,7 +7,7 @@ import 'package:barback/barback.dart' show TransformLogger;
 import 'package:source_span/source_span.dart';
 import 'package:web_skin_dart/src/transformer/analyzer_helpers.dart';
 import 'package:web_skin_dart/src/transformer/source_file_helpers.dart';
-import 'package:web_skin_dart/src/ui_core/transformer_generation/annotations.dart' as annotations;
+import 'package:web_skin_dart/src/ui_core/component_declaration/annotations.dart' as annotations;
 
 class ComponentDeclarations {
   static String _getName(Type type) {

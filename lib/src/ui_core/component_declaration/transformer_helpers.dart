@@ -1,9 +1,9 @@
-library web_skin_dart.transformer_generation.helpers;
+library web_skin_dart.component_declaration.transformer_helpers;
 
-import './helpers_sans_generation.dart' as sans_generation;
+import './component_base.dart' as component_base;
 
 export './annotations.dart';
-export './helpers_sans_generation.dart'
+export './component_base.dart'
     hide UiComponent, UiStatefulComponent, UiProps, UiState;
 
 // ----------------------------------------------------------------------
@@ -49,7 +49,7 @@ class GeneratedClass {
 }
 
 // TODO: mirror comment from sans_generation
-abstract class UiComponent<TProps extends UiProps> extends sans_generation.UiComponent<TProps> with GeneratedClass {
+abstract class UiComponent<TProps extends UiProps> extends component_base.UiComponent<TProps> with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiComponent() {
     _throwIfNotGenerated();
@@ -66,7 +66,7 @@ abstract class UiComponent<TProps extends UiProps> extends sans_generation.UiCom
 
 // TODO: mirror comment from sans_generation
 abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState>
-    extends sans_generation.UiStatefulComponent<TProps, TState> with GeneratedClass {
+    extends component_base.UiStatefulComponent<TProps, TState> with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiStatefulComponent() {
     _throwIfNotGenerated();
@@ -83,7 +83,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 }
 
 // TODO: mirror comment from sans_generation
-abstract class UiProps extends sans_generation.UiProps with GeneratedClass, MapViewMixinStubs {
+abstract class UiProps extends component_base.UiProps with GeneratedClass, MapViewMixinStubs {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiProps() {
     _throwIfNotGenerated();
@@ -96,7 +96,7 @@ abstract class UiProps extends sans_generation.UiProps with GeneratedClass, MapV
 }
 
 // TODO: mirror comment from sans_generation
-abstract class UiState extends sans_generation.UiState with GeneratedClass, MapViewMixinStubs {
+abstract class UiState extends component_base.UiState with GeneratedClass, MapViewMixinStubs {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiState() {
     _throwIfNotGenerated();
