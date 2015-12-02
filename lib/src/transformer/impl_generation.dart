@@ -94,14 +94,13 @@ class ImplGenerator {
         // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
         ..writeln('  $propsImplName(Map backingMap) : this.props = backingMap ?? ({});')
         ..writeln()
+        ..writeln('  /// Let [UiProps] internals know that this class has been generated.')
         ..writeln('  @override')
-        ..writeln('  bool get \$generated => true;') // FIXME find better way to do this
+        ..writeln('  bool get \$isClassGenerated => true;')
         ..writeln()
         ..writeln('  @override')
         ..writeln('  Function get componentFactory => $componentFactoryName;')
         ..writeln()
-        ..writeln('  @override')
-        ..writeln('  String get friendlyTypeName => ${stringLiteral(propsName)};')
         ..writeln('  @override')
         ..writeln('  String get propKeyNamespace => ${stringLiteral(propKeyNamespace)};')
         ..writeln('}')
@@ -131,11 +130,9 @@ class ImplGenerator {
           // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
           ..writeln('  $stateImplName(Map backingMap) : this.state = backingMap ?? ({});')
           ..writeln()
+          ..writeln('  /// Let [UiComponent] internals know that this class has been generated.')
           ..writeln('  @override')
-          ..writeln('  bool get \$generated => true;') // FIXME find better way to do this
-          ..writeln()
-          ..writeln('  @override')
-          ..writeln('  String get friendlyTypeName => ${stringLiteral(stateName)};')
+          ..writeln('  bool get \$isClassGenerated => true;')
           ..writeln('}')
           ..writeln();
 
@@ -154,8 +151,9 @@ class ImplGenerator {
         ..writeln('//')
         ..writeln('// implements typed props and typed state factories')
         ..writeln('class $componentClassImplName extends $componentClassName {')
+        ..writeln('  /// Let [UiComponent] internals know that this class has been generated.')
         ..writeln('  @override')
-        ..writeln('  bool get \$generated => true;') // FIXME find better way to do this
+        ..writeln('  bool get \$isClassGenerated => true;')
         ..writeln()
         ..writeln('  /// The default consumed prop keys, taken from $propsAnnotation.')
         ..writeln('  static const List<List<String>> _\$defaultConsumedPropKeys = '
@@ -169,8 +167,6 @@ class ImplGenerator {
         ..writeln()
         ..writeln(typedPropsFactoryImpl)
         ..writeln(typedStateFactoryImpl)
-        ..writeln('  @override')
-        ..writeln('  String get friendlyTypeName => ${stringLiteral(componentClassName)};')
         ..writeln('}');
     }
 

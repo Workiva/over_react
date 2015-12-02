@@ -148,24 +148,24 @@ class UngeneratedUiStatefulComponent extends UiStatefulComponent {
 
 class UnimplementedUiProps extends UiProps {
   @override
-  bool get $generated => true;
+  bool get $isClassGenerated => true;
 }
 
 class UnimplementedUiComponent extends UiComponent {
   @override
-  bool get $generated => true;
+  bool get $isClassGenerated => true;
 
   render() {}
 }
 
 class UnimplementedUiState extends UiState {
   @override
-  bool get $generated => true;
+  bool get $isClassGenerated => true;
 }
 
 class UnimplementedUiStatefulComponent extends UiStatefulComponent {
   @override
-  bool get $generated => true;
+  bool get $isClassGenerated => true;
 
   render() {}
 }
