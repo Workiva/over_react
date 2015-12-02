@@ -1,17 +1,17 @@
-library ui_core.transformer_generation.helpers_sans_generation_test;
+library ui_core.component_declaration.component_base_test;
 
 import 'dart:js';
 
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
-import 'package:web_skin_dart/src/ui_core/transformer_generation/helpers_sans_generation.dart';
+import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart';
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart' show Dom;
 
-import 'helpers_sans_generation_test/one_level_wrapper.dart';
-import 'helpers_sans_generation_test/test_a.dart';
-import 'helpers_sans_generation_test/test_b.dart';
-import 'helpers_sans_generation_test/two_level_wrapper.dart';
+import 'component_base_test/one_level_wrapper.dart';
+import 'component_base_test/test_a.dart';
+import 'component_base_test/test_b.dart';
+import 'component_base_test/two_level_wrapper.dart';
 
 main() {
   group('transformation generation helpers (sans generation):', () {

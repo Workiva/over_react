@@ -1,4 +1,4 @@
-part of ui_core.transformer_generation.w_flux_helpers_test;
+part of ui_core.comonent_declaration.flux_component_test;
 
 @Factory()
 UiFactory<TestRedrawOnProps> TestRedrawOn;

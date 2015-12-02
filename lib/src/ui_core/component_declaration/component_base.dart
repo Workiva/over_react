@@ -1,4 +1,4 @@
-library web_skin_dart.transformer_generation.helpers_sans_generation;
+library web_skin_dart.component_declaration.component_base;
 
 import 'dart:js';
 

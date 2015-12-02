@@ -1,7 +1,7 @@
 library ui_core.transformer_generation.helpers_test;
 
 import 'package:test/test.dart';
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:web_skin_dart/src/ui_core/component_declaration/transformer_helpers.dart';
 
 const Matcher throwsUngeneratedError          = const Throws(const isInstanceOf<UngeneratedError>());
 const Matcher throwsIllegalInstantiationError = const Throws(const isInstanceOf<IllegalInstantiationError>());

@@ -1,5 +1,5 @@
 // Dummy annotations that would be used by Pub code generator
-library web_skin_dart.transformer_generation.annotations;
+library web_skin_dart.component_declaration.annotations;
 
 class Factory {
   const Factory();
