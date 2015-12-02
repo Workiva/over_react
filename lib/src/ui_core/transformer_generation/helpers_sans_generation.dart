@@ -42,40 +42,63 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
   return reactComponentFactory;
 }
 
-ReactComponentFactoryProxy getComponentFactory(dynamic type) {
-  if (type is ReactComponentFactoryProxy) {
-    return type;
+/// Returns the canonical "type" for a component (JS ReactClass or tagName) associated with
+/// [typeAlias], which can be a component's:
+///
+/// * [UiFactory] (Dart components only)
+/// * [UiComponent] [Type] (Dart components only)
+/// * [ReactComponentFactoryProxy]
+/// * [JsFunction] component factory
+/// * [String] tag name (DOM components only)
+dynamic getCanonicalType(dynamic typeAlias) {
+  if (typeAlias is String || typeAlias is JsFunction) {
+    return typeAlias;
   }
 
-  return associatedReactComponentFactory[type];
+  if (typeAlias is ReactComponentFactoryProxy) {
+    return typeAlias.type;
+  }
+
+  if (typeAlias is UiFactory || typeAlias is Type) {
+    return associatedReactComponentFactory[typeAlias]?.type;
+  }
+
+  return null;
 }
 
-/// Returns whether the [instance] was created using the React component factory associated with
-/// [type], which can be a component's [UiFactory] or [UiComponent] [Type].
-bool isComponentOfType(JsObject instance, dynamic type, {bool traverseWrappers: true}) {
-  if (instance != null && type != null) {
-    var factory = getComponentFactory(type);
+/// Returns whether the [instance] is of the  type associated with [typeAlias],
+/// which can be a component's:
+///
+/// * [UiFactory] (Dart components only)
+/// * [UiComponent] [Type] (Dart components only)
+/// * [ReactComponentFactoryProxy]
+/// * [JsFunction] component factory
+/// * [String] tag name (DOM components only)
+bool isComponentOfType(JsObject instance, dynamic typeAlias, {bool traverseWrappers: true}) {
+  if (instance == null) {
+    return false;
+  }
 
-    if (factory is ReactComponentFactoryProxy) {
-      var instanceType = instance['type'];
-      bool isWrapper = instanceType is JsFunction && instanceType['isWrapper'] == true;
+  var canonicalType = getCanonicalType(typeAlias);
+  if (canonicalType == null) {
+    return false;
+  }
 
-      if (traverseWrappers && isWrapper) {
-        // Should always be a Dart component if `isWrapper` true, this is just to make sure.
-        assert(isDartComponent(instance));
-        var children = getProps(instance)['children'];
-        if (children != null && children.isNotEmpty) {
-          return isComponentOfType(children.first, factory);
-        } else {
-          return false;
-        }
-      }
+  var instanceType = instance['type'];
+  bool isWrapper = instanceType is JsFunction && instanceType['isWrapper'] == true;
 
-      return instanceType == factory.type;
+  if (traverseWrappers && isWrapper) {
+    // Should always be a Dart component if `isWrapper` true, this is just to make sure.
+    assert(isDartComponent(instance));
+    var children = getProps(instance)['children'];
+    if (children != null && children.isNotEmpty) {
+      return isComponentOfType(children.first, canonicalType, traverseWrappers: true);
+    } else {
+      return false;
     }
   }
 
-  return false;
+  return instanceType == canonicalType;
 }
 
 /// Returns whether the instance is a valid ReactElement and was created using the specified Dart factory
