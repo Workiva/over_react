@@ -246,7 +246,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 }
 
 
-abstract class UiState extends Object with StateMapViewMixin implements Map, MapViewMixin {}
+abstract class UiState extends Object with _StateMapViewMixin implements Map, MapViewMixin {}
 
 
 /// Builder/MapView object, similar to ComponentDefinition.
@@ -254,7 +254,7 @@ abstract class UiState extends Object with StateMapViewMixin implements Map, Map
 /// Implements Map instead of extending it so that the abstract @props declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
 abstract class UiProps
-    extends Object with PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
+    extends Object with _PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
     implements Map, MapViewMixin, ComponentDefinition {
   /// Adds an arbitrary prop key-value pair.
   void addProp(propKey, value) {
@@ -302,7 +302,7 @@ abstract class UiProps
 
 /// Works in conjunction with [MapViewMixin] to provide [dart.collection.MapView]-like
 /// functionality to [UiProps] subclasses.
-abstract class PropsMapViewMixin {
+abstract class _PropsMapViewMixin {
   /// The props maintained by this builder and used passed into the component when built.
   /// In this case, it's the current MapView object.
   Map get props;
@@ -313,7 +313,7 @@ abstract class PropsMapViewMixin {
 
 /// Works in conjunction with [MapViewMixin] to provide [dart.collection.MapView]-like
 /// functionality to [UiState] subclasses.
-abstract class StateMapViewMixin {
+abstract class _StateMapViewMixin {
   Map get state;
   Map get _map => this.state;
 
@@ -322,7 +322,7 @@ abstract class StateMapViewMixin {
 
 /// Provides [dart.collection.MapView]-like behavior by proxying an internal map.
 ///
-/// Works in conjunction with [PropsMapViewMixin] and [StateMapViewMixin] to implement [Map]
+/// Works in conjunction with [_PropsMapViewMixin] and [_StateMapViewMixin] to implement [Map]
 /// in [UiProps] and [UiState] subclasses.
 ///
 /// For use by concrete [UiProps] and [UiState] implementations (either generated or manual),
