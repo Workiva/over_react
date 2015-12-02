@@ -113,29 +113,51 @@ main() {
         component.unwrappedProps = {};
       });
 
-      group('props', () {
-        test('returns a UiProps view into the component\'s props map', () {
-          expect(component.props, const isInstanceOf<TestComponentProps>());
+      group('`props`', () {
+        group('getter:', () {
+          test('returns a UiProps view into the component\'s props map', () {
+            expect(component.props, const isInstanceOf<TestComponentProps>());
 
-          expect(component.props, isNot(same(component.unwrappedProps)));
+            expect(component.props, isNot(same(component.unwrappedProps)));
 
-          component.unwrappedProps['testKey'] = 'testValue';
-          expect(component.props, containsPair('testKey', 'testValue'));
+            component.unwrappedProps['testKey'] = 'testValue';
+            expect(component.props, containsPair('testKey', 'testValue'));
+          });
+
+          test('caches the UiProps object for the same map', () {
+            var props1 = component.props;
+            var props2 = component.props;
+            expect(props1, same(props2));
+          });
+
+          test('creates a new UiProps object when the props map changes', () {
+            var propsBeforeChange = component.props;
+            component.unwrappedProps = {};
+            var propsAfterChange = component.props;
+
+            expect(propsBeforeChange, isNot(same(propsAfterChange)));
+          });
         });
 
-        test('caches the UiProps object for the same map', () {
-          var props1 = component.props;
-          var props2 = component.props;
-          expect(props1, same(props2));
+        group('setter:', () {
+          test('sets the unwrapped Map, as react-dart requires it to', () {
+            var newBackingMap = {};
+            component.props = newBackingMap;
+            expect(component.unwrappedProps, same(newBackingMap));
+          });
         });
+      });
 
-        test('creates a new UiProps object when the props map changes', () {
-          var propsBeforeChange = component.props;
-          component.unwrappedProps = {};
-          var propsAfterChange = component.props;
+      test('`tProps` (deprecated) proxies the props getter', () {
+        expect(component.tProps, same(component.props));
+      });
 
-          expect(propsBeforeChange, isNot(same(propsAfterChange)));
-        });
+      test('newProps() returns a new UiProps instance backed by a new Map', () {
+        var newProps1 = component.newProps();
+        var newProps2 = component.newProps();
+        expect(newProps1, const isInstanceOf<TestComponentProps>());
+        expect(newProps2, const isInstanceOf<TestComponentProps>());
+        expect(newProps1, isNot(same(newProps2)));
       });
     });
 
@@ -147,29 +169,51 @@ main() {
         statefulComponent.unwrappedState = {};
       });
 
-      group('state', () {
-        test('returns a UiState view into the component\'s state map', () {
-          expect(statefulComponent.state, const isInstanceOf<TestStatefulComponentState>());
+      group('`state`', () {
+        group('getter:', () {
+          test('returns a UiState view into the component\'s state map', () {
+            expect(statefulComponent.state, const isInstanceOf<TestStatefulComponentState>());
 
-          expect(statefulComponent.state, isNot(same(statefulComponent.unwrappedState)));
+            expect(statefulComponent.state, isNot(same(statefulComponent.unwrappedState)));
 
-          statefulComponent.unwrappedState['testKey'] = 'testValue';
-          expect(statefulComponent.state, containsPair('testKey', 'testValue'));
+            statefulComponent.unwrappedState['testKey'] = 'testValue';
+            expect(statefulComponent.state, containsPair('testKey', 'testValue'));
+          });
+
+          test('caches the UiState object for the same map', () {
+            var state1 = statefulComponent.state;
+            var state2 = statefulComponent.state;
+            expect(state1, same(state2));
+          });
+
+          test('creates a new UiState object when the state map changes', () {
+            var stateBeforeChange = statefulComponent.state;
+            statefulComponent.unwrappedState = {};
+            var stateAfterChange = statefulComponent.state;
+
+            expect(stateBeforeChange, isNot(same(stateAfterChange)));
+          });
         });
 
-        test('caches the UiState object for the same map', () {
-          var state1 = statefulComponent.state;
-          var state2 = statefulComponent.state;
-          expect(state1, same(state2));
+        group('setter:', () {
+          test('sets the unwrapped Map, as react-dart requires it to', () {
+            var newBackingMap = {};
+            statefulComponent.state = newBackingMap;
+            expect(statefulComponent.unwrappedState, same(newBackingMap));
+          });
         });
+      });
 
-        test('creates a new UiState object when the state map changes', () {
-          var stateBeforeChange = statefulComponent.state;
-          statefulComponent.unwrappedState = {};
-          var stateAfterChange = statefulComponent.state;
+      test('`tState` (deprecated) proxies the props getter', () {
+        expect(statefulComponent.tState, same(statefulComponent.state));
+      });
 
-          expect(stateBeforeChange, isNot(same(stateAfterChange)));
-        });
+      test('newState() returns a new UiProps instance backed by a new Map', () {
+        var newState1 = statefulComponent.newState();
+        var newState2 = statefulComponent.newState();
+        expect(newState1, const isInstanceOf<TestStatefulComponentState>());
+        expect(newState2, const isInstanceOf<TestStatefulComponentState>());
+        expect(newState1, isNot(same(newState2)));
       });
     });
   });
