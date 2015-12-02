@@ -72,6 +72,7 @@ class ImplGenerator {
         ..writeln('final $componentFactoryName = registerComponent(() => new $componentClassImplName(),')
         ..writeln('    builderFactory: $factoryName,')
         ..writeln('    componentClass: $componentClassName,')
+        ..writeln('    isWrapper: ${declarations.component.meta.isWrapper},')
         ..writeln('    displayName: ${stringLiteral(factoryName)}')
         ..writeln(');')
         ..writeln();
