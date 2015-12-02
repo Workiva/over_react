@@ -8,6 +8,11 @@ import 'package:web_skin_dart/src/ui_core/transformer_generation/helpers_sans_ge
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart' show Dom;
 
+import 'helpers_sans_generation_test/one_level_wrapper.dart';
+import 'helpers_sans_generation_test/test_a.dart';
+import 'helpers_sans_generation_test/test_b.dart';
+import 'helpers_sans_generation_test/two_level_wrapper.dart';
+
 main() {
   group('transformation generation helpers (sans generation):', () {
     group('renders a DOM component with the correct children when', () {
@@ -286,6 +291,118 @@ main() {
         });
       });
     });
+
+    group('isComponentOfType()', () {
+      group('returns expected result when given', (){
+        test('null', () {
+          expect(isComponentOfType(null, TestA), isFalse);
+        });
+
+        test('a component and its factory', () {
+          expect(isComponentOfType(TestA()(), TestA), isTrue);
+        });
+
+        test('a component and its ReactComponentFactory', () {
+          expect(isComponentOfType(TestA()(), TestA().componentFactory), isTrue);
+        });
+
+        test('a component and its component class', () {
+          expect(isComponentOfType(TestA()(), TestAComponent), isTrue);
+        });
+
+        test('a component and its canonical type', () {
+          expect(isComponentOfType(TestA()(), TestA()()['type']), isTrue);
+        });
+
+        test('a component and a factory for a different component', () {
+          expect(isComponentOfType(TestA()(), TestB), isFalse);
+        });
+
+        test('a component and a ReactComponentFactory for a different component', () {
+          expect(isComponentOfType(TestA()(), TestB().componentFactory), isFalse);
+        });
+
+        test('a component and a component class for a different component', () {
+          expect(isComponentOfType(TestA()(), TestBComponent), isFalse);
+        });
+
+        test('a component and a canonical type for a different component', () {
+          expect(isComponentOfType(TestA()(), TestB()()['type']), isFalse);
+        });
+
+        test('a DOM component and a factory for a Dart component', () {
+          expect(isComponentOfType(Dom.div()(), TestB), isFalse);
+        });
+
+        test('a DOM component and its tagName', () {
+          expect(isComponentOfType(Dom.div()(), 'div'), isTrue);
+        });
+
+        test('a DOM component and its ReactComponentFactory', () {
+          expect(isComponentOfType(Dom.div()(), Dom.div().componentFactory), isTrue);
+        });
+
+        group('a component that nests the component factory', () {
+          group('one level deep and traverseWrappers is', () {
+            test('true', () {
+              expect(isComponentOfType(
+                  OneLevelWrapper()(TestA()()),
+                  TestA
+              ), isTrue);
+            });
+
+            test('false', () {
+              expect(isComponentOfType(
+                  OneLevelWrapper()(TestA()()),
+                  TestA,
+                  traverseWrappers: false
+              ), isFalse);
+            });
+          });
+
+          group('two levels deep and traverseWrappers is', () {
+            test('true', () {
+              expect(isComponentOfType(
+                  TwoLevelWrapper()(OneLevelWrapper()(TestA()())),
+                  TestA
+              ), isTrue);
+            });
+
+            test('false', () {
+              expect(isComponentOfType(
+                  TwoLevelWrapper()(OneLevelWrapper()(TestA()())),
+                  TestA,
+                  traverseWrappers: false
+              ), isFalse);
+            });
+          });
+
+          test('and does not throw when children is null', () {
+            expect(() => isComponentOfType(OneLevelWrapper()(), TestA), isNot(throws));
+          });
+        });
+      });
+    });
+
+    group('isValidElementOfType()', () {
+      group('returns expected result when given', (){
+        test('null', () {
+          expect(isValidElementOfType(null, TestA), isFalse);
+        });
+
+        test('a String', () {
+          expect(isValidElementOfType('Test String', TestA), isFalse);
+        });
+
+        test('a List', () {
+          expect(isValidElementOfType(['item1', 'item2'], TestA), isFalse);
+        });
+
+        test('a ReactComponent', () {
+          expect(isValidElementOfType(Dom.div()(), Dom.div().componentFactory), isTrue);
+        });
+      });
+    });
   });
 }
 
@@ -343,4 +460,3 @@ class TestStatefulComponentComponent extends UiStatefulComponent<TestStatefulCom
   TestStatefulComponentProps typedPropsFactory(Map propsMap) => new TestStatefulComponentProps(propsMap);
   TestStatefulComponentState typedStateFactory(Map state) => new TestStatefulComponentState(state);
 }
-
