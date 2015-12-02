@@ -159,6 +159,53 @@ main() {
         expect(newProps2, const isInstanceOf<TestComponentProps>());
         expect(newProps1, isNot(same(newProps2)));
       });
+      
+      group('copyUnconsumedProps()', () {
+        test('copies props, omitting keys from `consumedPropKeys`, as well as reserved react props', () {
+          component = new TestComponentComponent(testConsumedPropKeys: [
+            ['consumed1', 'consumed2']
+          ]);
+
+          component.props = {
+            'key': 'testKey',
+            'ref': 'testRef',
+            'children': [],
+            'consumed1': true,
+            'consumed2': true,
+            'unconsumed1': true,
+            'unconsumed2': true,
+          };
+
+          expect(component.copyUnconsumedProps(), equals({
+            'unconsumed1': true,
+            'unconsumed2': true,
+          }));
+        });
+        test('copies all props when `consumedPropKeys` is null', () {
+          component = new TestComponentComponent(testConsumedPropKeys: null);
+
+          component.props = {
+            'prop1': true,
+            'prop2': true,
+          };
+
+          expect(component.copyUnconsumedProps(), equals({
+            'prop1': true,
+            'prop2': true,
+          }));
+        });
+      });
+
+      test('forwardingClassNameBuilder() returns a new ClassNameBuilder based on the component\'s props', () {
+        component.props = {
+          'className': 'class-1',
+          'classNameBlacklist': 'blacklist-1',
+        };
+
+        var classes = component.forwardingClassNameBuilder();
+        expect(classes.toClassName(), equals('class-1'));
+        expect(classes.toClassNameBlacklist(), equals('blacklist-1'));
+      });
     });
 
     group('UiStatefulComponent', () {
@@ -238,6 +285,11 @@ class TestComponentProps extends UiProps with MapViewMixin {
 
 ReactComponentFactory _TestComponentComponentFactory = registerComponent(() => new TestComponentComponent());
 class TestComponentComponent extends UiComponent<TestComponentProps> {
+  @override
+  final List<List<String>> consumedPropKeys;
+
+  TestComponentComponent({testConsumedPropKeys}) : consumedPropKeys = testConsumedPropKeys;
+
   render() {}
 
   @override
