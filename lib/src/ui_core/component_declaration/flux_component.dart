@@ -1,8 +1,8 @@
-library web_skin_dart.transformer_generation.flux_helpers;
+library web_skin_dart.component_declaration.flux_component;
 
 import 'dart:async';
 import 'package:w_flux/w_flux.dart';
-import './helpers.dart';
+import './transformer_helpers.dart';
 
 abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
   String get _actionsPropKey => '${propKeyNamespace}actions';

@@ -7,7 +7,7 @@ import 'package:web_skin_dart/src/transformer/analyzer_helpers.dart';
 import 'package:web_skin_dart/src/transformer/declaration_parsing.dart' show ComponentDeclarations;
 import 'package:web_skin_dart/src/transformer/source_file_helpers.dart';
 import 'package:web_skin_dart/src/transformer/text_util.dart';
-import 'package:web_skin_dart/src/ui_core/transformer_generation/annotations.dart' as annotations;
+import 'package:web_skin_dart/src/ui_core/component_declaration/annotations.dart' as annotations;
 
 class ImplGenerator {
   static const String generatedPrefix = r'_$';
