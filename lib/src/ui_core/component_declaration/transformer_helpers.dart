@@ -48,7 +48,12 @@ class GeneratedClass {
   }
 }
 
-// TODO: mirror comment from sans_generation
+
+/// The basis for a web_skin_dart component, extending [react.Component]. (Successor to [BaseComponent]).
+///
+/// Includes support for strongly-typed props and utilities for prop and CSS classname forwarding.
+///
+/// Use with the web_skin_dart transformer via the `@Component()` ([Component]) annotation.
 abstract class UiComponent<TProps extends UiProps> extends component_base.UiComponent<TProps> with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiComponent() {
@@ -61,10 +66,17 @@ abstract class UiComponent<TProps extends UiProps> extends component_base.UiComp
   /// unless [consumedPropKeys] returns non-null.
   @override @toBeGenerated Iterable<Iterable<String>> get consumedPropKeys;
 
+  /// Returns a typed props object backed by the specified [propsMap].
+  /// Required to properly instantiate the generic [TProps] class.
   @override @toBeGenerated TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedPropsFactory);
 }
 
-// TODO: mirror comment from sans_generation
+
+/// The basis for a stateful web_skin_dart component, extending [react.Component]. (Successor to [BaseComponentWithState]).
+///
+/// Includes support for strongly-typed props and state and utilities for prop and CSS classname forwarding.
+///
+/// Use with the web_skin_dart transformer via the `@Component()` ([Component]) annotation.
 abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState>
     extends component_base.UiStatefulComponent<TProps, TState> with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
@@ -78,11 +90,24 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   /// unless [consumedPropKeys] returns non-null.
   @override @toBeGenerated Iterable<Iterable<String>> get consumedPropKeys;
 
+  /// Returns a typed state object backed by the specified [stateMap].
+  /// Required to properly instantiate the generic [TState] class.
   @override @toBeGenerated TState typedStateFactory(Map stateMap) => throw new UngeneratedError(member: #typedStateFactory);
+
+  /// Returns a typed props object backed by the specified [propsMap].
+  /// Required to properly instantiate the generic [TProps] class.
   @override @toBeGenerated TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedStateFactory);
 }
 
-// TODO: mirror comment from sans_generation
+/// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React props that
+/// is also capable of creating React component instances.
+///
+/// For use as a typed view into existing props [Maps], or as a builder to create new component
+/// instances via a fluent-style interface.
+///
+/// (Successor to [ComponentDefinition]).
+///
+/// Use with the web_skin_dart transformer via the `@Props()` ([Props]) annotation.
 abstract class UiProps extends component_base.UiProps with GeneratedClass, MapViewMixinStubs {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiProps() {
@@ -95,7 +120,9 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass, MapVi
   @override @toBeGenerated Function get componentFactory => throw new UngeneratedError(member: #componentFactory);
 }
 
-// TODO: mirror comment from sans_generation
+/// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.
+///
+/// Use with the web_skin_dart transformer via the `@State()` ([State]) annotation.
 abstract class UiState extends component_base.UiState with GeneratedClass, MapViewMixinStubs {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiState() {
