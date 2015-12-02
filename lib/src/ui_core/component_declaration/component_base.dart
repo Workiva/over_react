@@ -107,11 +107,16 @@ bool isValidElementOfType(dynamic instance, factory) {
 }
 
 
-/// Generic builder factory typedef for use by all components.
-typedef TBuilder UiFactory<TBuilder extends UiProps>([Map backingProps]);
+/// A function that returns a new [TProps] instance, optionally backed by the specified [backingProps].
+///
+/// For use in wrapping existing Maps in typed getters and setters, and for creating React components
+/// via a fluent-style builder interface.
+typedef TProps UiFactory<TProps extends UiProps>([Map backingProps]);
 
 
-/// The basis for a component, extending react.Component. (similar to BaseComponent)
+/// The basis for a web_skin_dart component, extending [react.Component]. (Successor to [BaseComponent]).
+///
+/// Includes support for strongly-typed props and utilities for prop and CSS classname forwarding.
 abstract class UiComponent<TProps extends UiProps> extends react.Component
     implements BaseComponent<TProps> {
   /// The keys for the non-forwarding props defined in this component.
@@ -191,7 +196,9 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component
   // ----------------------------------------------------------------------
 }
 
-
+/// The basis for a stateful web_skin_dart component, extending [react.Component]. (Successor to [BaseComponentWithState]).
+///
+/// Includes support for strongly-typed props and state and utilities for prop and CSS classname forwarding.
 abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState>
     extends UiComponent<TProps>
     implements BaseComponentWithState<TProps, TState> {
@@ -246,16 +253,26 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 }
 
 
-abstract class UiState extends Object with _StateMapViewMixin implements Map, MapViewMixin {}
-
-
-/// Builder/MapView object, similar to ComponentDefinition.
+/// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.
 ///
-/// Implements Map instead of extending it so that the abstract @props declarations
+/// Note: Implements MapViewMixin instead of extending it so that the abstract [Props] declarations
+/// don't need a constructor. The generated implementations can mix that functionality in.
+abstract class UiState extends Object with _StateMapViewMixin implements MapViewMixin, Map {}
+
+
+/// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React props that
+/// is also capable of creating React component instances.
+///
+/// For use as a typed view into existing props [Maps], or as a builder to create new component
+/// instances via a fluent-style interface.
+///
+/// (Successor to [ComponentDefinition]).
+///
+/// Note: Implements MapViewMixin instead of extending it so that the abstract [Props] declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
 abstract class UiProps
     extends Object with _PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
-    implements Map, MapViewMixin, ComponentDefinition {
+    implements MapViewMixin, Map, ComponentDefinition {
   /// Adds an arbitrary prop key-value pair.
   void addProp(propKey, value) {
     props[propKey] = value;
