@@ -35,20 +35,17 @@ class $PropKeys implements List<String> {
 class GeneratedClass {
   /// Whether this class has been generated.
   ///
+  /// Used to allow certain behavior (e.g., instantiation) to generated implementation classes,
+  /// while preventing it in the stubbed classes.
+  ///
   /// This should ONLY be overridden by code generation; behavior is undefined otherwise.
-  bool get $generated => false;
+  bool get $isClassGenerated => false;
 
   void _throwIfNotGenerated() {
-    if (!this.$generated) {
+    if (!this.$isClassGenerated) {
       throw new IllegalInstantiationError(runtimeType: this.runtimeType);
     }
   }
-
-  /// The "friendly" type name of this class, to be used for debugging
-  /// instead of the generated implementation class's name.
-  ///
-  /// The generated code will override this, but for now, stub with the current class's name.
-  String get friendlyTypeName => '$runtimeType';
 }
 
 // TODO: mirror comment from sans_generation
