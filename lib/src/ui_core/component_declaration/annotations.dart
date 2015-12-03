@@ -50,12 +50,10 @@ class StateMixin implements TypedMap {
 class Accessor {
   final String key;
   final String keyNamespace;
-  final bool abstract;
 
   const Accessor({
     String this.key: null,
-    String this.keyNamespace: null,
-    bool this.abstract: false
+    String this.keyNamespace: null
   });
 }
 
