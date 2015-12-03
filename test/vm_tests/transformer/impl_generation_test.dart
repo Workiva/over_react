@@ -11,14 +11,14 @@ import 'package:web_skin_dart/src/transformer/impl_generation.dart';
 import 'package:web_skin_dart/src/transformer/source_file_helpers.dart';
 
 main() {
-  group('ComponentDeclarations', () {
+  group('ParsedDeclarations', () {
     ImplGenerator implGenerator;
 
     MockTransformLogger logger;
     SourceFile sourceFile;
     TransformedSourceFile transformedFile;
     CompilationUnit unit;
-    ComponentDeclarations declarations;
+    ParsedDeclarations declarations;
   
     void setUpAndParse(String source) {
       logger = new MockTransformLogger();
@@ -27,7 +27,7 @@ main() {
       transformedFile = new TransformedSourceFile(sourceFile);
 
       unit = parseCompilationUnit(source);
-      declarations = new ComponentDeclarations(unit, sourceFile, logger);
+      declarations = new ParsedDeclarations(unit, sourceFile, logger);
       implGenerator = new ImplGenerator(logger, transformedFile);
     }
 
@@ -35,7 +35,7 @@ main() {
       setUpAndParse(source);
 
       implGenerator = new ImplGenerator(logger, transformedFile);
-      implGenerator.generateComponent(declarations);
+      implGenerator.generate(declarations);
     }
 
     void verifyNoErrorLogs() {
@@ -69,7 +69,7 @@ main() {
 
         setUpAndParse(numberedSource);
 
-        implGenerator.generateComponent(declarations);
+        implGenerator.generate(declarations);
 
         String transformedSource = transformedFile.getTransformedText();
         var transformedLines = transformedSource.split('\n');
@@ -192,7 +192,7 @@ main() {
 
             setUpAndParse(numberedSource);
 
-            implGenerator.generateComponent(declarations);
+            implGenerator.generate(declarations);
 
             String transformedSource = transformedFile.getTransformedText();
             var transformedLines = transformedSource.split('\n');

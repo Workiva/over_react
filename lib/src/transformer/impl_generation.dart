@@ -4,7 +4,7 @@ import 'package:analyzer/analyzer.dart';
 import 'package:barback/barback.dart';
 import 'package:source_span/source_span.dart';
 import 'package:web_skin_dart/src/transformer/analyzer_helpers.dart';
-import 'package:web_skin_dart/src/transformer/declaration_parsing.dart' show ComponentDeclarations;
+import 'package:web_skin_dart/src/transformer/declaration_parsing.dart';
 import 'package:web_skin_dart/src/transformer/source_file_helpers.dart';
 import 'package:web_skin_dart/src/transformer/text_util.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/annotations.dart' as annotations;
@@ -20,7 +20,7 @@ class ImplGenerator {
 
   ImplGenerator(TransformLogger this.logger, TransformedSourceFile this.transformedFile);
 
-  void generateComponent(ComponentDeclarations declarations) {
+  void generate(ParsedDeclarations declarations) {
     StringBuffer implementations = new StringBuffer();
 
     if (declarations.declaresComponent) {
@@ -142,7 +142,7 @@ class ImplGenerator {
           '  $stateName typedStateFactory(Map backingMap) => new $stateImplName(backingMap);';
       }
 
-      final String propsAnnotation = '`@${ComponentDeclarations.key_props}`';
+      final String propsAnnotation = '`@${ParsedDeclarations.key_props}`';
 
       // ----------------------------------------------------------------------
       //   Component implementation
