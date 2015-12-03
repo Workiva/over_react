@@ -51,6 +51,8 @@ main() {
         test('componentFactory', () {expect(() => unimplemented.componentFactory, throwsUngeneratedError);});
         test('propKeyNamespace', () {expect(() => unimplemented.propKeyNamespace, throwsUngeneratedError);});
 
+        test('a map method',     () {expect(() => unimplemented.keys,             throwsUngeneratedError);});
+
         testStubbedMapMembers(() => new UnimplementedUiProps());
       });
     });
@@ -84,6 +86,8 @@ main() {
         });
 
         test('typedPropsFactory', () {expect(() => unimplemented.state, throwsUngeneratedError);});
+
+        test('a map method',      () {expect(() => unimplemented.keys,  throwsUngeneratedError);});
 
         testStubbedMapMembers(() => new UnimplementedUiState());
       });

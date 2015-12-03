@@ -257,7 +257,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 ///
 /// Note: Implements MapViewMixin instead of extending it so that the abstract [State] declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
-abstract class UiState extends Object with _StateMapViewMixin implements MapViewMixin, Map {}
+abstract class UiState extends Object with _MapViewMixin, _StateMapViewMixin implements Map {}
 
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React props that
@@ -271,8 +271,8 @@ abstract class UiState extends Object with _StateMapViewMixin implements MapView
 /// Note: Implements MapViewMixin instead of extending it so that the abstract [Props] declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
 abstract class UiProps
-    extends Object with _PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
-    implements MapViewMixin, Map, ComponentDefinition {
+    extends Object with _MapViewMixin, _PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
+    implements Map, ComponentDefinition {
   /// Adds an arbitrary prop key-value pair.
   void addProp(propKey, value) {
     props[propKey] = value;
@@ -317,7 +317,7 @@ abstract class UiProps
   Function get componentFactory;
 }
 
-/// Works in conjunction with [MapViewMixin] to provide [dart.collection.MapView]-like
+/// Works in conjunction with [_MapViewMixin] to provide [dart.collection.MapView]-like
 /// functionality to [UiProps] subclasses.
 abstract class _PropsMapViewMixin {
   /// The props maintained by this builder and used passed into the component when built.
@@ -328,7 +328,7 @@ abstract class _PropsMapViewMixin {
   String toString() => '$runtimeType: $_map';
 }
 
-/// Works in conjunction with [MapViewMixin] to provide [dart.collection.MapView]-like
+/// Works in conjunction with [_MapViewMixin] to provide [dart.collection.MapView]-like
 /// functionality to [UiState] subclasses.
 abstract class _StateMapViewMixin {
   Map get state;
@@ -344,7 +344,7 @@ abstract class _StateMapViewMixin {
 ///
 /// For use by concrete [UiProps] and [UiState] implementations (either generated or manual),
 /// and thus must remain public.
-abstract class MapViewMixin<K, V> {
+abstract class _MapViewMixin<K, V> {
   Map<K, V> get _map;
 
   V operator[](Object key) => _map[key];
