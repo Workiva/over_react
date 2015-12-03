@@ -12,7 +12,7 @@ import 'package:web_skin_dart/src/ui_core/component_declaration/annotations.dart
 main() {
   group('ComponentDeclarations', () {
     group('shouldParse()', () {
-      bool shouldParse(String source) => ComponentDeclarations.shouldParse(source);
+      bool shouldParse(String source) => ParsedDeclarations.shouldParse(source);
 
       group('returns true when the source contains', () {
         test('"@Factory"',           () => expect(shouldParse('@Factory()\nvar Foo;'), isTrue));
@@ -42,13 +42,13 @@ main() {
       MockTransformLogger logger;
       SourceFile sourceFile;
       CompilationUnit unit;
-      ComponentDeclarations declarations;
+      ParsedDeclarations declarations;
 
       void setUpAndParse(String source) {
         logger = new MockTransformLogger();
         sourceFile = new SourceFile(source);
         unit = parseCompilationUnit(source);
-        declarations = new ComponentDeclarations(unit, sourceFile, logger);
+        declarations = new ParsedDeclarations(unit, sourceFile, logger);
       }
 
       void verifyNoErrorLogs() {

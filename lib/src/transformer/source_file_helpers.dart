@@ -5,18 +5,20 @@ import 'dart:convert';
 import 'package:analyzer/analyzer.dart';
 import 'package:source_span/source_span.dart';
 
-class Replacement {
+class _Replacement {
   final SourceSpan span;
   final String newText;
 
-  Replacement(this.span, this.newText);
+  _Replacement(this.span, this.newText);
 
   @override
   String toString() => 'Replacement (span: $span, newText: $newText)';
 }
 
+/// A utility that allows for modification of a [SourceFile] via a series of replacements,
+/// insertions, and removals.
 class TransformedSourceFile {
-  final List<Replacement> _replacements = [];
+  final List<_Replacement> _replacements = [];
 
   final SourceFile sourceFile;
 
@@ -26,13 +28,13 @@ class TransformedSourceFile {
 
   void replace(SourceSpan span, String text) {
     _replacements.add(
-        new Replacement(span, text)
+        new _Replacement(span, text)
     );
   }
 
   void insert(SourceLocation location, String text) {
     _replacements.add(
-        new Replacement(location.pointSpan(), text)
+        new _Replacement(location.pointSpan(), text)
     );
   }
 
@@ -45,15 +47,15 @@ class TransformedSourceFile {
     }
 
     _replacements.add(
-        new Replacement(span, replacement)
+        new _Replacement(span, replacement)
     );
   }
 
   void iterateReplacements({onUnmodified(String string), onRemoval(String string), onAddition(String string)}) {
     _replacements.sort((r1, r2) => r1.span.compareTo(r2.span));
-    
+
     var lastEdge = 0;
-    for (Replacement replacement in _replacements) {
+    for (_Replacement replacement in _replacements) {
       if (replacement.span.start.offset < lastEdge) {
         throw 'Overlapping replacement $replacement in replacements $_replacements.';
       }
@@ -103,7 +105,7 @@ class TransformedSourceFile {
       diff.write(elementEscaper.convert(source));
       diff.write('</span>');
     }
-    
+
     iterateReplacements(
         onUnmodified: (source) => writeDiff(source, 'diff-unmodified'),
         onRemoval: (source) => writeDiff(source, 'diff-removal'),

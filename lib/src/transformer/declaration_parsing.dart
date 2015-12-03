@@ -9,7 +9,7 @@ import 'package:web_skin_dart/src/transformer/analyzer_helpers.dart';
 import 'package:web_skin_dart/src/transformer/source_file_helpers.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/annotations.dart' as annotations;
 
-class ComponentDeclarations {
+class ParsedDeclarations {
   static String _getName(Type type) {
     return MirrorSystem.getName(reflectType(type).simpleName);
   }
@@ -72,7 +72,7 @@ class ComponentDeclarations {
   final bool declaresComponent;
 
 
-  ComponentDeclarations._({
+  ParsedDeclarations._({
       TopLevelVariableDeclaration factory,
       ClassDeclaration component,
       ClassDeclaration props,
@@ -108,7 +108,7 @@ class ComponentDeclarations {
   }
 
 
-  factory ComponentDeclarations(CompilationUnit unit, SourceFile sourceFile, TransformLogger logger) {
+  factory ParsedDeclarations(CompilationUnit unit, SourceFile sourceFile, TransformLogger logger) {
     bool hasErrors = false;
 
     void error(String message, [SourceSpan span]) {
@@ -262,7 +262,7 @@ class ComponentDeclarations {
     }
 
 
-    return new ComponentDeclarations._(
+    return new ParsedDeclarations._(
         factory:       singleOrNull(declarationMap[key_factory]),
         component:     singleOrNull(declarationMap[key_component]),
         props:         singleOrNull(declarationMap[key_props]),

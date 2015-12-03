@@ -6,19 +6,27 @@ import 'package:analyzer/analyzer.dart';
 import 'package:barback/barback.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
-import 'package:web_skin_dart/src/transformer/declaration_parsing.dart' show ComponentDeclarations;
+import 'package:web_skin_dart/src/transformer/declaration_parsing.dart';
 import 'package:web_skin_dart/src/transformer/impl_generation.dart';
 import 'package:web_skin_dart/src/transformer/jetbrains_friendly_logger.dart';
-import 'package:web_skin_dart/src/transformer/source_file_helpers.dart' show TransformedSourceFile;
+import 'package:web_skin_dart/src/transformer/source_file_helpers.dart';
 
+/// A transformer that modifies `.dart` files, aiding the declaration of React components
+/// using the `@Factory()`, `@Props()` `@Component()`, etc. annotations.
+///
+/// This transformer:
+///
+/// * Generates prop/state accessors.
+/// * Generates implementations for stubbed props/state/component classes.
+/// * Creates a component factoris, registers them with react-dart, and wires them up to
+/// their associated props/component implementations.
 class WebSkinDartTransformer extends Transformer implements LazyTransformer {
   final BarbackSettings _settings;
 
   WebSkinDartTransformer.asPlugin(BarbackSettings this._settings);
 
-  /// Declare the assets this transformer uses. Only html assets will be transformed.
+  /// Declare the assets this transformer uses. Only dart assets will be transformed.
   String get allowedExtensions => ".dart";
-
 
   @override
   void declareOutputs(DeclaringTransform transform) {
@@ -50,8 +58,10 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
     TransformedSourceFile transformedFile = new TransformedSourceFile(sourceFile);
     TransformLogger logger = new JetBrainsFriendlyLogger(transform.logger);
 
-    // Short-circuit files that won't generate anything so they don't get parsed unnecessarily.
-    if (ComponentDeclarations.shouldParse(primaryInputContents)) {
+    // If the source file might contain annotations that necessitate generation,
+    // parse the declarations and generate code.
+    // If not, don't skip this setp Short-circuit files that won't generate anything so they don't get parsed unnecessarily.
+    if (ParsedDeclarations.shouldParse(primaryInputContents)) {
       // Parse the source file on its own and use the resultant AST to...
       var unit = parseCompilationUnit(primaryInputContents,
         suppressErrors: true,
@@ -59,19 +69,17 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
         parseFunctionBodies: false
       );
 
-      ComponentDeclarations declarations = new ComponentDeclarations(unit, sourceFile, logger);
+      ParsedDeclarations declarations = new ParsedDeclarations(unit, sourceFile, logger);
 
       // If there are no errors, generate the component.
       if (!declarations.hasErrors) {
         new ImplGenerator(logger, transformedFile)
-            .generateComponent(declarations);
+            .generate(declarations);
       }
     }
 
+    // Replace static $PropKeys instantiations with prop keys
     if (new RegExp(r'\$PropKeys').hasMatch(primaryInputContents)) {
-      // ----------------------------------------------------------------------
-      //   Replace static $PropKeys instantiations with prop keys
-      // ----------------------------------------------------------------------
       var propKeysPattern = new RegExp(r'(?:const|new)\s+\$PropKeys\s*\(\s*\#\s*([^\)]+)\s*\)');
       propKeysPattern.allMatches(sourceFile.getText(0)).forEach((match) {
         var symbolName = match.group(1);
@@ -97,6 +105,3 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
     }
   }
 }
-
-
-
