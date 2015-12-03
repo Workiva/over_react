@@ -108,7 +108,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 /// (Successor to [ComponentDefinition]).
 ///
 /// Use with the web_skin_dart transformer via the `@Props()` ([Props]) annotation.
-abstract class UiProps extends component_base.UiProps with GeneratedClass, MapViewMixinStubs {
+abstract class UiProps extends component_base.UiProps with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiProps() {
     _throwIfNotGenerated();
@@ -123,31 +123,13 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass, MapVi
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.
 ///
 /// Use with the web_skin_dart transformer via the `@State()` ([State]) annotation.
-abstract class UiState extends component_base.UiState with GeneratedClass, MapViewMixinStubs {
+abstract class UiState extends component_base.UiState with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiState() {
     _throwIfNotGenerated();
   }
 
   @override @toBeGenerated Map get state => throw new UngeneratedError(member: #state);
-}
-
-
-class MapViewMixinStubs {
-  @toBeGenerated operator [](Object key)          => throw new UngeneratedError(member: #[]);
-  @toBeGenerated void operator []=(key, value)    => throw new UngeneratedError(member: #[]=);
-  @toBeGenerated void addAll(Map other)           => throw new UngeneratedError(member: #addAll);
-  @toBeGenerated void clear()                     => throw new UngeneratedError(member: #clear);
-  @toBeGenerated bool containsKey(Object key)     => throw new UngeneratedError(member: #containsKey);
-  @toBeGenerated bool containsValue(Object value) => throw new UngeneratedError(member: #containsValue);
-  @toBeGenerated void forEach(void f(key, value)) => throw new UngeneratedError(member: #forEach);
-  @toBeGenerated bool get isEmpty                 => throw new UngeneratedError(member: #isEmpty);
-  @toBeGenerated bool get isNotEmpty              => throw new UngeneratedError(member: #isNotEmpty);
-  @toBeGenerated Iterable get keys                => throw new UngeneratedError(member: #keys);
-  @toBeGenerated int get length                   => throw new UngeneratedError(member: #length);
-  @toBeGenerated putIfAbsent(key, ifAbsent())     => throw new UngeneratedError(member: #putIfAbsent);
-  @toBeGenerated remove(Object key)               => throw new UngeneratedError(member: #remove);
-  @toBeGenerated Iterable get values              => throw new UngeneratedError(member: #values);
 }
 
 

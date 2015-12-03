@@ -416,7 +416,7 @@ dynamic getDartChildren(JsObject renderedInstance) {
 
 UiFactory<TestComponentProps> TestComponent = ([Map props]) => new TestComponentProps(props);
 
-class TestComponentProps extends UiProps with MapViewMixin {
+class TestComponentProps extends UiProps {
   @override final Function componentFactory = _TestComponentComponentFactory;
   @override final Map props;
 
@@ -439,14 +439,14 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
 
 UiFactory<TestStatefulComponentProps> TestStatefulComponent = ([Map props]) => new TestStatefulComponentProps(props);
 
-class TestStatefulComponentProps extends UiProps with MapViewMixin {
+class TestStatefulComponentProps extends UiProps {
   @override final Function componentFactory = _TestStatefulComponentComponentFactory;
   @override final Map props;
 
   TestStatefulComponentProps([Map props]) : this.props = props ?? ({});
 }
 
-class TestStatefulComponentState extends UiState with MapViewMixin {
+class TestStatefulComponentState extends UiState {
   @override final Map state;
 
   TestStatefulComponentState([Map state]) : this.state = state ?? ({});
