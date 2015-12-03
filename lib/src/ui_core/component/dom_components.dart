@@ -61,7 +61,7 @@ typedef DomComponentDefinition DomComponentDefinitionFactory();
 typedef DomProps DomPropsFactory();
 
 
-class DomProps extends component_base.UiProps with component_base.MapViewMixin, DomPropsMixin, ReactPropsMixin
+class DomProps extends component_base.UiProps with DomPropsMixin, ReactPropsMixin
     implements DomComponentDefinition {
   // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
   DomProps(ReactDomComponentFactoryProxy this.componentFactory, [Map props]) : this.props = props ?? ({});
