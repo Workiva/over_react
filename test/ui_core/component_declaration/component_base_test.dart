@@ -2,6 +2,7 @@ library ui_core.component_declaration.component_base_test;
 
 import 'dart:js';
 
+import 'package:mockito/mockito.dart';
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart';
@@ -14,99 +15,161 @@ import 'component_base_test/test_b.dart';
 import 'component_base_test/two_level_wrapper.dart';
 
 main() {
-  group('transformation generation helpers (sans generation):', () {
-    group('renders a DOM component with the correct children when', () {
-      test('a single child is passed in', () {
-        var child = 'Only child';
-        var renderedInstance = render(Dom.div()(child));
+  group('component base:', () {
+    group('UiProps', () {
+      group('renders a DOM component with the correct children when', () {
+        test('a single child is passed in', () {
+          var child = 'Only child';
+          var renderedInstance = render(Dom.div()(child));
 
-        expect(getJsChildren(renderedInstance), equals(child));
+          expect(getJsChildren(renderedInstance), equals(child));
+        });
+
+        test('children are set via a list', () {
+          var children = ['First Child', 'Second Child'];
+          var renderedInstance = render(Dom.div()(children));
+
+          expect(getJsChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getJsChildren(renderedInstance), equals(children));
+        });
+
+        test('children are set via an iterable', () {
+          var children = (() sync* {
+            yield 'First Child';
+            yield 'Second Child';
+          })();
+          var renderedInstance = render(Dom.div()(children));
+
+          expect(getJsChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getJsChildren(renderedInstance), orderedEquals(children));
+        });
+
+        test('children are set variadically via noSuchMethod', () {
+          var firstChild = 'First Child';
+          var secondChild = 'Second Child';
+          var renderedInstance = render(Dom.div()(firstChild, secondChild));
+
+          expect(getJsChildren(renderedInstance), new isInstanceOf<JsArray>(), reason: 'Should not be a Dart Object');
+          expect(getJsChildren(renderedInstance), equals([firstChild, secondChild]));
+        });
       });
 
-      test('children are set via a list', () {
-        var children = ['First Child', 'Second Child'];
-        var renderedInstance = render(Dom.div()(children));
+      group('renders a composite Dart component with the correct children when', () {
+        test('children is null', () {
+          var renderedInstance = render(TestComponent()(null));
 
-        expect(getJsChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
-        expect(getJsChildren(renderedInstance), equals(children));
+          expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), isEmpty);
+
+          expect(getJsChildren(renderedInstance), isNull);
+        });
+
+        test('a single child is passed in', () {
+          var child = 'Only child';
+          var renderedInstance = render(TestComponent()(child));
+
+          expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), equals([child]));
+
+          expect(getJsChildren(renderedInstance), equals(child));
+        });
+
+        test('children are set via a list', () {
+          var children = ['First Child', 'Second Child'];
+          var renderedInstance = render(TestComponent()(children));
+
+          expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), equals(children));
+
+          expect(getJsChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getJsChildren(renderedInstance), equals(children));
+        });
+
+        test('children are set via an iterable', () {
+          var children = (() sync* {
+            yield 'First Child';
+            yield 'Second Child';
+          })();
+          var renderedInstance = render(TestComponent()(children));
+
+          expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), orderedEquals(children));
+
+          expect(getJsChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getJsChildren(renderedInstance), orderedEquals(children));
+        });
+
+        test('children are set variadically via noSuchMethod', () {
+          var firstChild = 'First Child';
+          var secondChild = 'Second Child';
+          var renderedInstance = render(TestComponent()(firstChild, secondChild));
+
+          expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), equals([firstChild, secondChild]));
+
+          expect(getJsChildren(renderedInstance), new isInstanceOf<JsArray>(), reason: 'Should not be a Dart Object');
+          expect(getJsChildren(renderedInstance), equals([firstChild, secondChild]));
+        });
       });
 
-      test('children are set via an iterable', () {
-        var children = (() sync* {
-          yield 'First Child';
-          yield 'Second Child';
-        })();
-        var renderedInstance = render(Dom.div()(children));
+      group('provides Map functionality:', () {
+        test('is a Map', () {
+          expect(new TestComponentProps(), const isInstanceOf<Map>());
+        });
 
-        expect(getJsChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
-        expect(getJsChildren(renderedInstance), orderedEquals(children));
+        test('toString() returns a user-friendly String that includes the key-value pairs', () {
+           expect(new TestStatefulComponentState({'key': 'value'}).toString(),
+               contains('{key: value}'));
+        });
+
+        mapProxyTests((Map backingMap) => new TestComponentProps(backingMap));
       });
 
-      test('children are set variadically via noSuchMethod', () {
-        var firstChild = 'First Child';
-        var secondChild = 'Second Child';
-        var renderedInstance = render(Dom.div()(firstChild, secondChild));
+      test('addProp() adds the given key-value pair', () {
+        var props = new TestComponentProps();
+        props.addProp('key', 'value');
+        expect(props, equals({'key': 'value'}));
+      });
 
-        expect(getJsChildren(renderedInstance), new isInstanceOf<JsArray>(), reason: 'Should not be a Dart Object');
-        expect(getJsChildren(renderedInstance), equals([firstChild, secondChild]));
+      group('addProps()', () {
+        test('merges in the given Map', () {
+          var props = new TestComponentProps();
+          props['existingKey'] = 'existingValue';
+
+          props.addProps({
+            'newKey1': 'newValue1',
+            'newKey2': 'newValue2',
+          });
+          expect(props, equals({
+            'existingKey': 'existingValue',
+            'newKey1': 'newValue1',
+            'newKey2': 'newValue2',
+          }));
+        });
+
+        test('does nothing when passed null', () {
+          var props = new TestComponentProps();
+          props.addProp('key', 'value');
+
+          expect(() => props.addProps(null), isNot(throws));
+
+          expect(props, equals({'key': 'value'}));
+        });
       });
     });
 
-    group('renders a composite Dart component with the correct children when', () {
-      test('children is null', () {
-        var renderedInstance = render(TestComponent()(null));
+    group('UiState', () {
+      group('provides Map functionality:', () {
+        test('is a Map', () {
+          expect(new TestStatefulComponentState(), const isInstanceOf<Map>());
+        });
 
-        expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
-        expect(getDartChildren(renderedInstance), isEmpty);
+        test('toString() returns a user-friendly String that includes the key-value pairs', () {
+           expect(new TestStatefulComponentState({'key': 'value'}).toString(),
+               contains('{key: value}'));
+        });
 
-        expect(getJsChildren(renderedInstance), isNull);
-      });
-
-      test('a single child is passed in', () {
-        var child = 'Only child';
-        var renderedInstance = render(TestComponent()(child));
-
-        expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
-        expect(getDartChildren(renderedInstance), equals([child]));
-
-        expect(getJsChildren(renderedInstance), equals(child));
-      });
-
-      test('children are set via a list', () {
-        var children = ['First Child', 'Second Child'];
-        var renderedInstance = render(TestComponent()(children));
-
-        expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
-        expect(getDartChildren(renderedInstance), equals(children));
-
-        expect(getJsChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
-        expect(getJsChildren(renderedInstance), equals(children));
-      });
-
-      test('children are set via an iterable', () {
-        var children = (() sync* {
-          yield 'First Child';
-          yield 'Second Child';
-        })();
-        var renderedInstance = render(TestComponent()(children));
-
-        expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
-        expect(getDartChildren(renderedInstance), orderedEquals(children));
-
-        expect(getJsChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
-        expect(getJsChildren(renderedInstance), orderedEquals(children));
-      });
-
-      test('children are set variadically via noSuchMethod', () {
-        var firstChild = 'First Child';
-        var secondChild = 'Second Child';
-        var renderedInstance = render(TestComponent()(firstChild, secondChild));
-
-        expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
-        expect(getDartChildren(renderedInstance), equals([firstChild, secondChild]));
-
-        expect(getJsChildren(renderedInstance), new isInstanceOf<JsArray>(), reason: 'Should not be a Dart Object');
-        expect(getJsChildren(renderedInstance), equals([firstChild, secondChild]));
+        mapProxyTests((Map backingMap) => new TestStatefulComponentState(backingMap));
       });
     });
 
@@ -459,4 +522,121 @@ class TestStatefulComponentComponent extends UiStatefulComponent<TestStatefulCom
   @override
   TestStatefulComponentProps typedPropsFactory(Map propsMap) => new TestStatefulComponentProps(propsMap);
   TestStatefulComponentState typedStateFactory(Map state) => new TestStatefulComponentState(state);
+}
+
+
+void mapProxyTests(Map mapProxyFactory(Map proxiedMap)) {
+  group('proxies the Map member:', () {
+    Map proxy;
+    MockMap mock;
+
+    setUp(() {
+      mock = new MockMap();
+      proxy = mapProxyFactory(mock);
+    });
+
+    tearDown(() {
+      // Ensure that there were no calls other than the ones we verified explicitly.
+      verifyNoMoreInteractions(mock);
+    });
+
+    test('operator[]', () {
+      when(mock[any]).thenReturn('value');
+
+      expect(proxy['key'], 'value');
+      verify(mock['key']);
+    });
+
+    test('operator[]=', () {
+      when(mock[any] = any).thenReturn('value');
+
+      expect(proxy['key'] = 'value', 'value');
+      verify(mock['key'] = 'value');
+    });
+
+    test('addAll', () {
+      var testMap = {};
+      when(mock.addAll(any)).thenReturn('value');
+
+      expect(proxy.addAll(testMap), isNull);
+      verify(mock.addAll(argThat(same(testMap))));
+    });
+
+    test('clear', () {
+      expect(proxy.clear(), isNull);
+      verify(mock.clear());
+    });
+
+    test('putIfAbsent', () {
+      var ifAbsent = () => 'absent';
+
+      expect(proxy.putIfAbsent('key', ifAbsent), isNull);
+      verify(mock.putIfAbsent('key', ifAbsent));
+    });
+
+    test('containsKey', () {
+      when(mock.containsKey(any)).thenReturn(true);
+
+      expect(proxy.containsKey('key'), isTrue);
+      verify(mock.containsKey('key'));
+    });
+
+    test('containsValue', () {
+      when(mock.containsValue(any)).thenReturn(true);
+
+      expect(proxy.containsValue('value'), isTrue);
+      verify(mock.containsValue('value'));
+    });
+
+    test('forEach', () {
+      var callback = (key, value) {};
+
+      expect(proxy.forEach(callback), isNull);
+      verify(mock.forEach(callback));
+    });
+
+    test('isEmpty', () {
+      when(mock.isEmpty).thenReturn(true);
+
+      expect(proxy.isEmpty, isTrue);
+      verify(mock.isEmpty);
+    });
+
+    test('isNotEmpty', () {
+      when(mock.isNotEmpty).thenReturn(true);
+
+      expect(proxy.isNotEmpty, isTrue);
+      verify(mock.isNotEmpty);
+    });
+
+    test('length', () {
+      when(mock.length).thenReturn(1);
+
+      expect(proxy.length, 1);
+      verify(mock.length);
+    });
+
+    test('keys', () {
+      when(mock.keys).thenReturn(['key']);
+
+      expect(proxy.keys, equals(['key']));
+      verify(mock.keys);
+    });
+
+    test('remove', () {
+      expect(proxy.remove('key'), isNull);
+      verify(mock.remove('key'));
+    });
+
+    test('values', () {
+      when(mock.values).thenReturn(['value']);
+
+      expect(proxy.values, equals(['value']));
+      verify(mock.values);
+    });
+  });
+}
+
+class MockMap extends Mock implements Map {
+  noSuchMethod(i) => super.noSuchMethod(i);
 }
