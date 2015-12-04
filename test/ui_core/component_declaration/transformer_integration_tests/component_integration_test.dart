@@ -1,9 +1,10 @@
 library ui_core.component_declaration.transformer_integration_tests.component_integration_test;
 
+import 'dart:js';
+
 import 'package:test/test.dart';
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
-import 'dart:js';
 
 main() {
   group('transformed component integration:', () {
@@ -19,12 +20,25 @@ main() {
       }, throws);
     });
 
-    test('renders a component from end to end', () {
-      var instance = render(ComponentTest()());
+    test('renders a component from end to end, successfully reading props via typed getters', () {
+      var instance = render((ComponentTest()
+        ..stringProp = '1'
+        ..dynamicProp = '2'
+        ..untypedProp = '3'
+        ..customKeyProp = '4'
+        ..customNamespaceProp = '5'
+        ..customKeyAndNamespaceProp = '6'
+      )());
       expect(instance, isNotNull);
 
       var node = findDomNode(instance);
       expect(node.text, 'rendered content');
+      expect(node.dataset, containsPair('prop-string-prop', '1'));
+      expect(node.dataset, containsPair('prop-dynamic-prop', '2'));
+      expect(node.dataset, containsPair('prop-untyped-prop', '3'));
+      expect(node.dataset, containsPair('prop-custom-key-prop', '4'));
+      expect(node.dataset, containsPair('prop-custom-namespace-prop', '5'));
+      expect(node.dataset, containsPair('prop-custom-key-and-namespace-prop', '6'));
     });
 
     group('initializes the factory variable with a function', () {
@@ -77,7 +91,7 @@ main() {
 
     test('omits props declared in the @Props() class when forwarding by default', () {
       var shallowInstance = renderShallow((ComponentTest()
-        ..addProp('data-extraneous', true)
+        ..addProp('extraneous', true)
         ..stringProp = 'test'
         ..dynamicProp = 'test'
         ..untypedProp = 'test'
@@ -88,7 +102,7 @@ main() {
 
       var shallowProps = getProps(shallowInstance);
 
-      expect(shallowProps.keys, unorderedEquals(['data-extraneous', 'children']));
+      expect(shallowProps.keys.where((String key) => !key.startsWith('data-prop-')), unorderedEquals(['extraneous', 'children']));
     });
   });
 }
@@ -117,9 +131,16 @@ class ComponentTestProps extends UiProps {
 class ComponentTestComponent extends UiComponent<ComponentTestProps> {
   render() => (Dom.div()
     ..addProps(copyUnconsumedProps())
+    ..addProp('data-prop-string-prop', props.stringProp)
+    ..addProp('data-prop-dynamic-prop', props.dynamicProp)
+    ..addProp('data-prop-untyped-prop', props.untypedProp)
+    ..addProp('data-prop-custom-key-prop', props.customKeyProp)
+    ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
+    ..addProp('data-prop-custom-key-and-namespace-prop', props.customKeyAndNamespaceProp)
   )('rendered content');
 }
 
+// TODO remove once react-dart 0.8.3 (shallow rendering) gets published properly to Pub.
 JsObject renderShallow(JsObject instance) {
   JsObject testUtils = context['React']['addons']['TestUtils'];
   JsObject renderer = testUtils.callMethod('createRenderer');
