@@ -171,5 +171,7 @@ class IllegalInstantiationError extends Error {
       "IllegalInstantiationError: $message.\n\n"
       "Be sure to follow usage instructions for web_skin_dart component classes.\n\n"
       "If you need to do something extra custom and want to implement everything without code generation, "
-      "base classes are available in the `` library. "; // FIXME add library path
+      "base classes are available by importing the "
+      "`package:web_skin_dart/src/ui_core/component_declaration/component_base.dart` "
+      "library directly. ";
 }
