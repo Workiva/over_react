@@ -12,12 +12,18 @@ main() {
       }, throws);
     });
 
-    test('renders a component from end to end', () {
+    test('renders a component from end to end, successfully reading state via typed getters', () {
       var renderedInstance = render(StatefulComponentTest()());
       expect(renderedInstance, isNotNull);
 
       var node = findDomNode(renderedInstance);
       expect(node.text, 'rendered content');
+      expect(node.dataset, containsPair('state-string-state', '1'));
+      expect(node.dataset, containsPair('state-dynamic-state', '2'));
+      expect(node.dataset, containsPair('state-untyped-state', '3'));
+      expect(node.dataset, containsPair('state-custom-key-state', '4'));
+      expect(node.dataset, containsPair('state-custom-namespace-state', '5'));
+      expect(node.dataset, containsPair('state-custom-key-and-namespace-state', '6'));
     });
 
     group('generates state getters/setters with', () {
@@ -82,7 +88,23 @@ class StatefulComponentTestState extends UiState {
 
 @Component()
 class StatefulComponentTestComponent extends UiStatefulComponent<StatefulComponentTestProps, StatefulComponentTestState> {
+  getInitialState() => (newState()
+    ..stringState = '1'
+    ..dynamicState = '2'
+    ..untypedState = '3'
+    ..customKeyState = '4'
+    ..customNamespaceState = '5'
+    ..customKeyAndNamespaceState = '6'
+  );
+
   render() => (Dom.div()
     ..addProps(copyUnconsumedProps())
+    ..addProp('data-who', state.stringState)
+    ..addProp('data-state-string-state', state.stringState)
+    ..addProp('data-state-dynamic-state', state.dynamicState)
+    ..addProp('data-state-untyped-state', state.untypedState)
+    ..addProp('data-state-custom-key-state', state.customKeyState)
+    ..addProp('data-state-custom-namespace-state', state.customNamespaceState)
+    ..addProp('data-state-custom-key-and-namespace-state', state.customKeyAndNamespaceState)
   )('rendered content');
 }
