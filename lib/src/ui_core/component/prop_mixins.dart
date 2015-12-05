@@ -102,7 +102,14 @@ abstract class UbiquitousDomPropsMixin {
   /// Represents advisory information about the element.
   String title;
 
-  /// Specifies an inline CSS style for the element
+  /// An inline CSS style for the element.
+  ///
+  ///     ..style = {
+  ///       'width': '${state.progress * 100}%',
+  ///       'display': state.isHidden ? 'none' : '',
+  ///     }
+  ///
+  /// See: <https://facebook.github.io/react/tips/inline-styles.html>
   Map<String, dynamic> style;
 
   /// Callback for when the user copies the content of an element
