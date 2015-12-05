@@ -118,7 +118,7 @@ main() {
         });
 
         test('toString() returns a user-friendly String that includes the key-value pairs', () {
-           expect(new TestStatefulComponentState({'key': 'value'}).toString(),
+           expect(new TestComponentProps({'key': 'value'}).toString(),
                contains('{key: value}'));
         });
 
@@ -227,7 +227,7 @@ main() {
         expect(newProps2, const isInstanceOf<TestComponentProps>());
         expect(newProps1, isNot(same(newProps2)));
       });
-      
+
       group('copyUnconsumedProps()', () {
         test('copies props, omitting keys from `consumedPropKeys`, as well as reserved react props', () {
           component = new TestComponentComponent(testConsumedPropKeys: [
