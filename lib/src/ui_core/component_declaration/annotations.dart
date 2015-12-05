@@ -54,6 +54,8 @@ class State implements TypedMap {
 ///
 /// Must be accompanied by a [Factory] and [Props] declaration.
 class Component {
+  /// Whether the component clones or passes through its children and needs to be
+  /// treated as if it were the wrapped component when passed in to [web_skin_dart.ui_core.isComponentOfType].
   final bool isWrapper;
   const Component({bool this.isWrapper: false});
 }
@@ -91,14 +93,12 @@ class AbstractState implements TypedMap {
 /// Annotation used with the `web_skin_dart` transformer to declare an abstract [UiComponent] class for an abstract component.
 ///
 ///     @AbstractComponent()
-///     abstract class QuxComponent<TProps extends QuxProps> extends UiComponent<TProps> {
-///
-///     }
+///     abstract class QuxComponent<TProps extends QuxProps> extends UiComponent<TProps> {}
 class AbstractComponent {
   const AbstractComponent();
 }
 
-/// Annotation used with the `web_skin_dart` transformer to declare a mixin for use in a [UiProps] class.
+/// Annotation used with with the `web_skin_dart` transformer to declare a mixin for use in a [UiProps] class.
 ///
 /// Props are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -136,7 +136,7 @@ class StateMixin implements TypedMap {
   const StateMixin({String this.keyNamespace: null});
 }
 
-/// Annotation with the `web_skin_dart` transformer to customize individual accessors (props/state properties).
+/// Annotation used with the `web_skin_dart` transformer to customize individual accessors (props/state fields).
 ///
 ///     @Props()
 ///     abstract class FooProps {

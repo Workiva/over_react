@@ -134,6 +134,7 @@ String stringLiteral(String content, {bool quote: true, bool useSingleQuote: tru
       writeCharCode(charCode);
     }
   }
+
   if (offset == 0) {
     writeString(content);
   } else if (offset < length) {

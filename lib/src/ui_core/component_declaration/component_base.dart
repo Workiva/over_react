@@ -66,7 +66,7 @@ dynamic getCanonicalType(dynamic typeAlias) {
   return null;
 }
 
-/// Returns whether the [instance] is of the  type associated with [typeAlias],
+/// Returns whether [instance] is of the type associated with [typeAlias],
 /// which can be a component's:
 ///
 /// * [UiFactory] (Dart components only)
@@ -101,7 +101,7 @@ bool isComponentOfType(JsObject instance, dynamic typeAlias, {bool traverseWrapp
   return instanceType == canonicalType;
 }
 
-/// Returns whether the instance is a valid ReactElement and was created using the specified Dart factory
+/// Returns whether [instance] is a valid ReactElement and was created using the specified Dart factory.
 bool isValidElementOfType(dynamic instance, factory) {
   return isValidElement(instance) ? isComponentOfType(instance, factory) : false;
 }
