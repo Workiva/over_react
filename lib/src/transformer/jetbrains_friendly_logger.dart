@@ -3,9 +3,7 @@ library web_skin_dart.transformer.jetbrains_friendly_logger;
 import 'package:barback/barback.dart';
 import 'package:source_span/source_span.dart';
 
-/// A logger that proxies a regular [TransformLogger], but formats references to source files
-/// in a way that JetBrains IDEs understand, so that links in Pub output take you to the right place
-/// in the file when you click on them.
+/// A logger that proxies a regular [TransformLogger], but formats references to source files with [clickableReference].
 class JetBrainsFriendlyLogger implements TransformLogger {
   final TransformLogger _logger;
 

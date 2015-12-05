@@ -7,8 +7,24 @@ part of web_skin_dart.ui_core;
 abstract class ReactPropsMixin {
   Map get props;
 
+  /// The children that were passed in to this component when it was built.
   List children;
+
+  /// A String that differentiates a component from its siblings.
+  ///
+  /// Keys are necessary when children are dynamic, such as those passed in as a [List],
+  /// but are generally not required when using variadic children.
+  ///
+  /// For more info, see:
+  ///
+  /// * <https://facebook.github.io/react/docs/multiple-components.html#children>
+  /// * <https://facebook.github.io/react/docs/reconciliation.html>
   String key;
+
+  /// Either a String used to retrieve the element at a later time via [react.Component.ref],
+  /// or a Function that gets called with the element when it is mounted.
+  ///
+  /// See: <https://facebook.github.io/react/docs/more-about-refs.html>.
   dynamic ref;
 }
 
