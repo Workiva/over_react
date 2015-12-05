@@ -35,7 +35,7 @@ class $PropKeys implements List<String> {
 class GeneratedClass {
   /// Whether this class has been generated.
   ///
-  /// Used to allow certain behavior (e.g., instantiation) to generated implementation classes,
+  /// Used to allow certain behavior (e.g., instantiation) on generated implementation classes,
   /// while preventing it in the stubbed classes.
   ///
   /// This should ONLY be overridden by code generation; behavior is undefined otherwise.

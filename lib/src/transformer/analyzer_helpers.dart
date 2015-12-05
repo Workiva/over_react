@@ -63,9 +63,9 @@ String _getConstructorName(Annotation annotation) {
 ///
 /// Annotation constructors are currently limited to the values supported by [getValue].
 ///
-/// Naively assumes that the name the [annotationType] class is canonical.
+/// Naively assumes that the name of the [annotationType] class is canonical.
 dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType) {
-  // Be sure to use `originalDeclaration so that generic parameters work`
+  // Be sure to use `originalDeclaration` so that generic parameters work.
   ClassMirror classMirror = reflectClass(annotationType).originalDeclaration;
   String className = MirrorSystem.getName(classMirror.simpleName);
 

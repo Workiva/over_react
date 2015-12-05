@@ -9,6 +9,27 @@ import 'package:web_skin_dart/src/transformer/source_file_helpers.dart';
 import 'package:web_skin_dart/src/transformer/text_util.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/annotations.dart' as annotations;
 
+/// A utility class that modifies a [TransformedSourceFile] by generating implementations for a set of [ParsedDeclarations].
+///
+/// Generates implementations for:
+///
+/// * a component commprised of a `@Factory()`, `@Component()`, `@Props()`, and optionally a `@State()`
+///
+///     * Generates:
+///
+///          * private subclasses for the component, props, and state classes, implementing stubbed methods.
+///          * a private React component factory via a call to `registerComponent`.
+///
+///     * Wires up all the generated component pieces and exposes them via a function assigned to
+///     the previously uninitialized factory function variable.
+///
+/// * any number of abstract component pieces: `@AbstractProps()`, `@AbstractState()`
+///
+///     * Replaces fields with generated getters/setters.
+///
+/// * any number of mixins: `@PropsMixin()`, `@StateMixin()`
+///
+///     * Replaces fields with generated getters/setters.
 class ImplGenerator {
   static const String generatedPrefix = r'_$';
   static const String publicGeneratedPrefix = r'$';
@@ -48,6 +69,7 @@ class ImplGenerator {
         logger.error('Factory declarations must a single variable.',
             span: getSpan(sourceFile, declarations.factory.node.variables));
       }
+
       declarations.factory.node.variables.variables.forEach((variable) {
         if (variable.initializer != null) {
           logger.error(
@@ -85,10 +107,11 @@ class ImplGenerator {
       final String propKeyNamespace = getAccessorKeyNamespace(declarations.props);
 
       implementations
-        ..writeln('// Props implementation')
+        ..writeln('// Concrete props implementation.')
         ..writeln('//')
-        ..writeln('// implements constructor and backing map, and links up to generated component factory')
+        ..writeln('// Implements constructor and backing map, and links up to generated component factory.')
         ..writeln('class $propsImplName extends $propsName {')
+        ..writeln('  /// The backing props map proxied by this class.')
         ..writeln('  @override')
         ..writeln('  final Map props;')
         ..writeln()
@@ -99,9 +122,11 @@ class ImplGenerator {
         ..writeln('  @override')
         ..writeln('  bool get \$isClassGenerated => true;')
         ..writeln()
+        ..writeln('  /// The [ReactComponentFactory] associated with the component built by this class.')
         ..writeln('  @override')
         ..writeln('  Function get componentFactory => $componentFactoryName;')
         ..writeln()
+        ..writeln('  /// The default namespace for the prop getters/setters generated for this class.')
         ..writeln('  @override')
         ..writeln('  String get propKeyNamespace => ${stringLiteral(propKeyNamespace)};')
         ..writeln('}')
@@ -121,17 +146,18 @@ class ImplGenerator {
         generateAccessors(AccessorType.state, declarations.state);
 
         implementations
-          ..writeln('// State implementation')
+          ..writeln('// Concrete state implementation.')
           ..writeln('//')
-          ..writeln('// implements constructor and backing map')
+          ..writeln('// Implements constructor and backing map.')
           ..writeln('class $stateImplName extends $stateName {')
+          ..writeln('  /// The backing state map proxied by this class.')
           ..writeln('  @override')
           ..writeln('  final Map state;')
           ..writeln()
           // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
           ..writeln('  $stateImplName(Map backingMap) : this.state = backingMap ?? ({});')
           ..writeln()
-          ..writeln('  /// Let [UiComponent] internals know that this class has been generated.')
+          ..writeln('  /// Let [UiState] internals know that this class has been generated.')
           ..writeln('  @override')
           ..writeln('  bool get \$isClassGenerated => true;')
           ..writeln('}')
@@ -148,9 +174,10 @@ class ImplGenerator {
       //   Component implementation
       // ----------------------------------------------------------------------
       implementations
-        ..writeln('// Component implementation')
+        ..writeln('// Concrete component implementation.')
         ..writeln('//')
-        ..writeln('// implements typed props and typed state factories')
+        ..writeln('// Implements typed props/state factories, defaults `consumedPropKeys` to the keys')
+        ..writeln('// generated for the associated props class.')
         ..writeln('class $componentClassImplName extends $componentClassName {')
         ..writeln('  /// Let [UiComponent] internals know that this class has been generated.')
         ..writeln('  @override')
@@ -269,7 +296,7 @@ class ImplGenerator {
         .where((FieldDeclaration member) => !member.isStatic)
         .forEach((FieldDeclaration field) {
           // Remove everything in the field except the comments/meta and the variable names, preserving newlines.
-          // TODO add support for preserving comments.
+          // TODO add support for preserving comment nodes between variable declarations.
 
           // Remove content between end of comment/meta and first variable name
           transformedFile.remove(

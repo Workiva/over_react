@@ -72,6 +72,7 @@ class DomProps extends component_base.UiProps with DomPropsMixin, ReactPropsMixi
   final Map props;
 }
 
+/// A class that provides namespacing for static DOM component factory methods, much like `React.DOM` in React JS.
 abstract class Dom {
   /// Returns a new [DomPropsMixin] that renders an `<a>` tag with getters/setters for all DOM-related React props
   static DomProps a() => new DomProps(react.a);

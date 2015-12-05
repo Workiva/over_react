@@ -4,6 +4,9 @@ import 'dart:async';
 import 'package:w_flux/w_flux.dart';
 import './transformer_helpers.dart';
 
+/// Builds on top of [UiProps], adding typed props for `actions` and `state` in order to integrate with w_flux.
+///
+/// Use with the web_skin_dart transformer via the `@Props()` ([Props]) annotation.
 abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
   String get _actionsPropKey => '${propKeyNamespace}actions';
   String get _storePropKey => '${propKeyNamespace}store';
@@ -37,9 +40,23 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
   set store(StoresT value) => props[_storePropKey] = value;
 }
 
+/// Builds on top of [UiComponent], adding w_flux integration, much like the [FluxComponent] in w_flux.
+///
+/// Flux components are responsible for rendering application views and turning
+/// user interactions and events into [Action]s. Flux components can use data
+/// from one or many [Store] instances to define the resulting component.
+///
+/// Use with the web_skin_dart transformer via the `@Component()` ([Component]) annotation.
 abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<TProps>
     with _FluxComponentMixin<TProps> {}
 
+/// Builds on top of [StatefulUiComponent], adding w_flux integration, much like the [FluxComponent] in w_flux.
+///
+/// Flux components are responsible for rendering application views and turning
+/// user interactions and events into [Action]s. Flux components can use data
+/// from one or many [Store] instances to define the resulting component.
+///
+/// Use with the web_skin_dart transformer via the `@Component()` ([Component]) annotation.
 abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extends UiState>
     extends UiStatefulComponent<TProps, TState>
     with _FluxComponentMixin<TProps> {}
@@ -118,4 +135,3 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> {
     _subscriptions.add(subscription);
   }
 }
-

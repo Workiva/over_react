@@ -9,6 +9,13 @@ import 'package:web_skin_dart/src/transformer/analyzer_helpers.dart';
 import 'package:web_skin_dart/src/transformer/source_file_helpers.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/annotations.dart' as annotations;
 
+/// A set of [NodeWithMeta] component pieces declarated using `web_skin_dart` transformer annotations.
+///
+/// Can include:
+///
+/// * a single component declared using a `@Factory()`, `@Component()`, `@Props()`, and optionally a `@State()`
+/// * any number of abstract component pieces: `@AbstractComponent()`, `@AbstractProps()`, `@AbstractState()`
+/// * any number of mixins: `@PropsMixin()`, `@StateMixin()`
 class ParsedDeclarations {
   static String _getName(Type type) {
     return MirrorSystem.getName(reflectType(type).simpleName);
@@ -191,7 +198,7 @@ class ParsedDeclarations {
     });
 
 
-    /// Validate that all the declarations that make up a component are used correctly.
+    // Validate that all the declarations that make up a component are used correctly.
 
     Iterable<List<CompilationUnitMember>> requiredDecls =
         key_allComponentRequired.map((annotationName) => declarationMap[annotationName]);
@@ -210,7 +217,7 @@ class ParsedDeclarations {
         (noneOfAnyRequiredDecl && noneOfAnyOptionalDecl)
     );
 
-    /// Give the consumer some useful errors if the declarations aren't valid.
+    // Give the consumer some useful errors if the declarations aren't valid.
 
     if (!areDeclarationsValid) {
       if (!noneOfAnyRequiredDecl) {
