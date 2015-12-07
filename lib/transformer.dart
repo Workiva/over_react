@@ -18,7 +18,7 @@ import 'package:web_skin_dart/src/transformer/source_file_helpers.dart';
 ///
 /// * Generates prop/state accessors.
 /// * Generates implementations for stubbed props/state/component classes.
-/// * Creates a component factoris, registers them with react-dart, and wires them up to
+/// * Creates component factories, registers them with react-dart, and wires them up to
 /// their associated props/component implementations.
 class WebSkinDartTransformer extends Transformer implements LazyTransformer {
   final BarbackSettings _settings;
@@ -60,8 +60,8 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
 
     // If the source file might contain annotations that necessitate generation,
     // parse the declarations and generate code.
-    // If not, don't skip this setp Short-circuit files that won't generate anything so they don't get parsed unnecessarily.
-    if (ParsedDeclarations.shouldParse(primaryInputContents)) {
+    // If not, don't skip this step to avoid parsing files that definitely won't generate anything.
+    if (ParsedDeclarations.mightContainDeclarations(primaryInputContents)) {
       // Parse the source file on its own and use the resultant AST to...
       var unit = parseCompilationUnit(primaryInputContents,
         suppressErrors: true,
