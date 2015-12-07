@@ -19,7 +19,7 @@ main() {
     TransformedSourceFile transformedFile;
     CompilationUnit unit;
     ParsedDeclarations declarations;
-  
+
     void setUpAndParse(String source) {
       logger = new MockTransformLogger();
 
@@ -58,7 +58,7 @@ main() {
         parseCompilationUnit(transformedFile.getTransformedText());
       }, isNot(throws), reason: 'transformed source should parse without errors');
     }
-      
+
     group('generates an implementation that parses correctly, preserving line numbers', () {
       void preservedLineNumbersTest(String source) {
         var lines = source.split('\n');
@@ -202,7 +202,7 @@ main() {
             expect(transformedLines[2].trimLeft(), startsWith('/* line 2 start */'));
             // The leading comments on lines 3 and 4 get stripped out since comments
             // are not currently preserved for comma-separated accessors.
-            // Uncomment these tests after comment preservation is added.
+            // TODO: Uncomment these tests after comment preservation is added.
 //            expect(transformedLines[3].trimLeft(), startsWith('/* line 3 start */'));
 //            expect(transformedLines[4].trimLeft(), startsWith('/* line 4 start */'));
             expect(transformedLines[5].trimLeft(), startsWith('/* line 5 start */'));
@@ -210,7 +210,7 @@ main() {
         });
       });
     });
-    
+
     group('logs an error when', () {
       group('a factory is', () {
         const String restOfComponent = '''

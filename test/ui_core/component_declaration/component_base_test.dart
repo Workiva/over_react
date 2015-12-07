@@ -18,6 +18,18 @@ main() {
   group('component base:', () {
     group('UiProps', () {
       group('renders a DOM component with the correct children when', () {
+        test('no children are passed in', () {
+          var renderedInstance = render(Dom.div()());
+
+          expect(getJsChildren(renderedInstance), equals(null));
+        });
+
+        test('children is null', () {
+          var renderedInstance = render(Dom.div()(null));
+
+          expect(getJsChildren(renderedInstance), equals(null));
+        });
+
         test('a single child is passed in', () {
           var child = 'Only child';
           var renderedInstance = render(Dom.div()(child));
@@ -55,6 +67,15 @@ main() {
       });
 
       group('renders a composite Dart component with the correct children when', () {
+        test('no children are passed in', () {
+          var renderedInstance = render(TestComponent()());
+
+          expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), isEmpty);
+
+          expect(getJsChildren(renderedInstance), isNull);
+        });
+
         test('children is null', () {
           var renderedInstance = render(TestComponent()(null));
 
@@ -249,6 +270,7 @@ main() {
             'unconsumed2': true,
           }));
         });
+
         test('copies all props when `consumedPropKeys` is null', () {
           component = new TestComponentComponent(testConsumedPropKeys: null);
 

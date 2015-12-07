@@ -60,7 +60,7 @@ class ParsedDeclarations {
       caseSensitive: true
   );
 
-  static bool shouldParse(String source) {
+  static bool mightContainDeclarations(String source) {
     return key_any.hasMatch(source);
   }
 
