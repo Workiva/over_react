@@ -131,12 +131,3 @@ class NamespacedAccessorTestComponent extends UiStatefulComponent<NamespacedAcce
     ..addProps(copyUnconsumedProps())
   )('rendered content');
 }
-
-
-// TODO remove once react-dart 0.8.3 (shallow rendering) gets published properly to Pub.
-JsObject renderShallow(JsObject instance) {
-  JsObject testUtils = context['React']['addons']['TestUtils'];
-  JsObject renderer = testUtils.callMethod('createRenderer');
-  renderer.callMethod('render', [instance]);
-  return renderer.callMethod('getRenderOutput', []);
-}
