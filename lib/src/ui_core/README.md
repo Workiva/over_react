@@ -5,11 +5,11 @@ web_skin_dart also provides a framework for building strongly-typed React compon
 * __[What makes a web_skin_dart component](#what-makes-a-web_skin_dart-component)__
   * [`UiFactory`](#uifactory)
   * [`UiProps`](#uiprops)
-      * [As a Map](#as-a-map)
-      * [As a builder](#as-a-builder)
+      * [UiProps as a Map](#uiprops-as-a-map)
+      * [UiProps as a builder](#uiprops-as-a-builder)
   * [`UiState`](#uistate)
   * [`UiComponent`](#uicomponent)
-* __[`Dom.*` and `domProps()`](#dom.*-and-domprops())__
+* __[`Dom.*` and `domProps()`](#dom-and-domprops)__
 * __[Fluent-style component consumption](#fluent-style-component-consumption)__
 * __[Building your own components](#building-your-own-components)__
     * __[Setting it up](#setting-it-up)__
@@ -20,9 +20,9 @@ web_skin_dart also provides a framework for building strongly-typed React compon
 
 ## What makes a web_skin_dart component
 
-* UiFactory
-* UiProps (and sometimes UiState)
-* UiComponent
+* `UiFactory`
+* `UiProps` (and sometimes `UiState`)
+* `UiComponent`
 
 These pieces and work together with the [`web_skin_dart` transformer][transformer] to make it easy to define strongly-typed React components in Dart.
 
@@ -34,12 +34,12 @@ This factory is __the entrypoint__ to consuming each component.
 The `UiProps` instance it returns can be used as a component builder (component fluent interface), or as a typed view into an existing props map.
 (See examples of this in the [`UiProps`](#uiprops) section.)  
 
-### UiProps
+### `UiProps`
 A __Map__ class for representing React props that adds __strongly-typed getters and setters__ for each prop.
 
 Can also be invoked as a function, serving as a __builder__ for its associated component.
 
-#### As a Map
+#### `UiProps` as a Map
 ```dart
 FooProps props = Foo();
 props.color = 'green';
@@ -53,7 +53,7 @@ FooProps props = Foo(existingMap);
 print(props.color); // blue
 ```
 
-#### As a builder
+#### `UiProps` as a builder
 ```dart
 // Create a UiProps instance to serve as a builder
 FooProps builder = Foo();
@@ -73,12 +73,12 @@ return (Foo()
 
 See [Fluent-style component consumption](#fluent-style-component-consumption) for more examples on builder usage.
 
-### UiState
+### `UiState`
 A __Map__ class for representing React state that adds __strongly-typed getters and setters__ for each state property.
 
 It's optional, and won't be used for every component.
 
-### UiComponent
+### `UiComponent`
 A subclass of `react.Component`, containing lifecycle methods and rendering logic for components.
 
 Provides __strongly-typed props__ via `UiProps` , as well as utilities for prop forwarding and CSS class merging.
@@ -114,11 +114,23 @@ _toggleExpanded() => setState(newState()
 
 
 ## `Dom.*` and `domProps()`
-All React DOM components (`react.div`, `react.a`, etc.) have a corresponding `Dom` method (`Dom.div()`, `Dom.a()`, etc.) that returns a new `DomProps` builder, which can be used to render DOM components via the fluent interface.
+All React DOM components (`react.div`, `react.a`, etc.) have a corresponding `Dom` method (`Dom.div()`, `Dom.a()`, etc.) that returns a new `DomProps` builder, which can be used to render DOM components via the [fluent interface](#fluent-style-component-consumption).
 
-`DomProps` has getters/setters for all DOM attribute props available in React (`className`, `href`, `onClick`, etc.).
+`DomProps` has getters/setters for all DOM attribute props available in React.
 
-The `domProps()` function is also available to create a new typed Map or a typed view into an existing Map.
+```dart
+(Dom.a()
+  ..id = 'home_link'
+  ..href = '/home'
+)('Home');
+
+(Dom.div()
+  ..className = 'resize-handle'
+  ..onMouseDown = _startDrag
+)();
+```
+
+The `domProps()` function is also available to create a new typed Map or a typed view into an existing Map. Useful for manipulating DOM props and adding DOM props to components that don't forward them directly.
 
 ## Fluent-style component consumption
 
