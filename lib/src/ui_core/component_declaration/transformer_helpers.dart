@@ -60,15 +60,22 @@ abstract class UiComponent<TProps extends UiProps> extends component_base.UiComp
     _throwIfNotGenerated();
   }
 
+  /// The default consumed prop keys, taken from the keys generated in the associated @[Props] class.
+  @toBeGenerated
+  Iterable<Iterable<String>> get $defaultConsumedPropKeys => throw new UngeneratedError(member: #$defaultConsumedPropKeys);
+
   /// The keys for the non-forwarding props defined in this component.
   ///
   /// For generated components, this defaults to the keys generated in the associated @[Props] class
-  /// unless [consumedPropKeys] returns non-null.
-  @override @toBeGenerated Iterable<Iterable<String>> get consumedPropKeys;
+  /// if this getter is not overridden.
+  @override
+  Iterable<Iterable<String>> get consumedPropKeys => $defaultConsumedPropKeys;
 
   /// Returns a typed props object backed by the specified [propsMap].
   /// Required to properly instantiate the generic [TProps] class.
-  @override @toBeGenerated TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedPropsFactory);
+  @override
+  @toBeGenerated
+  TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedPropsFactory);
 }
 
 
@@ -84,19 +91,26 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
     _throwIfNotGenerated();
   }
 
+  /// The default consumed prop keys, taken from the keys generated in the associated @[Props] class.
+  @toBeGenerated
+  Iterable<Iterable<String>> get $defaultConsumedPropKeys => throw new UngeneratedError(member: #$defaultConsumedPropKeys);
+
   /// The keys for the non-forwarding props defined in this component.
   ///
   /// For generated components, this defaults to the keys generated in the associated @[Props] class
-  /// unless [consumedPropKeys] returns non-null.
-  @override @toBeGenerated Iterable<Iterable<String>> get consumedPropKeys;
+  /// if this getter is not overridden.
+  @override
+  Iterable<Iterable<String>> get consumedPropKeys => $defaultConsumedPropKeys;
+
+  /// Returns a typed props object backed by the specified [propsMap].
+  /// Required to properly instantiate the generic [TProps] class.
+  @override
+  @toBeGenerated
+  TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedPropsFactory);
 
   /// Returns a typed state object backed by the specified [stateMap].
   /// Required to properly instantiate the generic [TState] class.
   @override @toBeGenerated TState typedStateFactory(Map stateMap) => throw new UngeneratedError(member: #typedStateFactory);
-
-  /// Returns a typed props object backed by the specified [propsMap].
-  /// Required to properly instantiate the generic [TProps] class.
-  @override @toBeGenerated TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedStateFactory);
 }
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React props that

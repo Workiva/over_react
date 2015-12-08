@@ -69,7 +69,8 @@ main() {
           unimplemented = new UnimplementedUiComponent();
         });
 
-        test('typedPropsFactory', () {expect(() => unimplemented.typedPropsFactory({}), throwsUngeneratedError);});
+        test('\$defaultConsumedPropKeys', () {expect(() => unimplemented.$defaultConsumedPropKeys, throwsUngeneratedError);});
+        test('typedPropsFactory',         () {expect(() => unimplemented.typedPropsFactory({}),    throwsUngeneratedError);});
       });
     });
 
@@ -105,8 +106,21 @@ main() {
           unimplemented = new UnimplementedUiStatefulComponent();
         });
 
-        test('typedPropsFactory', () {expect(() => unimplemented.typedPropsFactory({}), throwsUngeneratedError);});
-        test('typedStateFactory', () {expect(() => unimplemented.typedStateFactory({}), throwsUngeneratedError);});
+        test('\$defaultConsumedPropKeys', () {expect(() => unimplemented.$defaultConsumedPropKeys, throwsUngeneratedError);});
+        test('typedPropsFactory',         () {expect(() => unimplemented.typedPropsFactory({}),    throwsUngeneratedError);});
+        test('typedStateFactory',         () {expect(() => unimplemented.typedStateFactory({}),    throwsUngeneratedError);});
+      });
+    });
+
+    group('consumedPropKeys getter proxies \$defaultConsumedPropKeys', () {
+      test('in UiComponent', () {
+        var component = new TestConsumedPropKeysUiComponent();
+        expect(component.$defaultConsumedPropKeys, equals([['prop1', 'prop2']]));
+      });
+
+      test('in UiStateful', () {
+        var component = new TestConsumedPropKeysUiStatefulComponent();
+        expect(component.$defaultConsumedPropKeys, equals([['prop1', 'prop2']]));
       });
     });
 
@@ -170,6 +184,25 @@ class UnimplementedUiState extends UiState {
 class UnimplementedUiStatefulComponent extends UiStatefulComponent {
   @override
   bool get $isClassGenerated => true;
+
+  render() {}
+}
+
+class TestConsumedPropKeysUiComponent extends UiComponent {
+  @override
+  bool get $isClassGenerated => true;
+
+  @override
+  get $defaultConsumedPropKeys => [['prop1', 'prop2']];
+
+  render() {}
+}
+class TestConsumedPropKeysUiStatefulComponent extends UiStatefulComponent {
+  @override
+  bool get $isClassGenerated => true;
+
+  @override
+  get $defaultConsumedPropKeys => [['prop1', 'prop2']];
 
   render() {}
 }

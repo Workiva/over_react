@@ -183,15 +183,11 @@ class ImplGenerator {
         ..writeln('  @override')
         ..writeln('  bool get \$isClassGenerated => true;')
         ..writeln()
-        ..writeln('  /// The default consumed prop keys, taken from $propsAnnotation.')
-        ..writeln('  static const List<List<String>> _\$defaultConsumedPropKeys = '
-                        'const [$propsName.$staticPropKeysName];')
-        ..writeln()
+        ..writeln('  /// The default consumed prop keys, taken from $propsName.')
+        ..writeln('  /// Used in [UiProps.consumedPropKeys] if [consumedPropKeys] is not overridden.')
         ..writeln('  @override')
-        ..writeln('  /// For convenience, default to the props generated in this component\'s $propsAnnotation')
-        ..writeln('  /// if none are explicitly declared.')
-        ..writeln('  Iterable<Iterable<String>> get consumedPropKeys => '
-                        'super.consumedPropKeys ?? _\$defaultConsumedPropKeys;')
+        ..writeln('  final List<List<String>> \$defaultConsumedPropKeys = '
+                        'const [$propsName.$staticPropKeysName];')
         ..writeln()
         ..writeln(typedPropsFactoryImpl)
         ..writeln(typedStateFactoryImpl)
