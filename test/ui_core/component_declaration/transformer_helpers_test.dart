@@ -115,12 +115,12 @@ main() {
     group('consumedPropKeys getter proxies \$defaultConsumedPropKeys', () {
       test('in UiComponent', () {
         var component = new TestConsumedPropKeysUiComponent();
-        expect(component.$defaultConsumedPropKeys, equals([['prop1', 'prop2']]));
+        expect(component.consumedPropKeys, equals([['prop1', 'prop2']]));
       });
 
-      test('in UiStateful', () {
+      test('in UiStatefulComponent', () {
         var component = new TestConsumedPropKeysUiStatefulComponent();
-        expect(component.$defaultConsumedPropKeys, equals([['prop1', 'prop2']]));
+        expect(component.consumedPropKeys, equals([['prop1', 'prop2']]));
       });
     });
 
@@ -197,6 +197,7 @@ class TestConsumedPropKeysUiComponent extends UiComponent {
 
   render() {}
 }
+
 class TestConsumedPropKeysUiStatefulComponent extends UiStatefulComponent {
   @override
   bool get $isClassGenerated => true;
