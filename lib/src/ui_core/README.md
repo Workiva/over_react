@@ -17,6 +17,7 @@ web_skin_dart also provides a framework for building strongly-typed React compon
       * [Component](#boilerplate-component)
       * [Stateful Component](#boilerplate-stateful-component)
       * [Flux Component](#boilerplate-flux-component)
+    * __[Common Pitfalls](#common-pitfalls)__
 
 ## What makes a web_skin_dart component
 
@@ -207,7 +208,7 @@ Note how you might render the same DOM in JSX, react-dart, and web_skin_dart:
 
 ## Building your own components
 
-#### Setting it up
+### Setting it up
 1. Add the [`web_skin_dart` transformer][transformer] to your `pubspec.yaml`.
 
     ```yaml
@@ -234,7 +235,7 @@ to `true` for the `test` and `coverage` tasks.
 
     If not, you can use the `--pub-serve` option in the `test` package (<https://github.com/dart-lang/test#testing-with-barback>).
 
-#### Boilerplate templates
+### Boilerplate templates
 
 1. Start with one of the component boilerplate templates below
 
@@ -245,7 +246,7 @@ to `true` for the `test` and `coverage` tasks.
 4. Run your app; that's it! Code will be automatically generated on the fly by Pub!
 
 
-###### Boilerplate: Component
+##### Boilerplate: Component
 ```dart
 import 'package:web_skin_dart/ui_core.dart';
 
@@ -279,7 +280,7 @@ class FooComponent extends UiComponent<FooProps> {
 )('I\'m a Foo!')
 ```
 
-###### Boilerplate: Stateful Component
+##### Boilerplate: Stateful Component
 ```dart    
 import 'package:web_skin_dart/ui_core.dart';
 
@@ -322,7 +323,7 @@ class BarComponent extends UiStatefulComponent<BarProps, BarState> {
 )('I\'m a Bar!')
 ```
 
-###### Boilerplate: Flux Component
+##### Boilerplate: Flux Component
 ```dart
 import 'package:web_skin_dart/ui_core.dart';
 
@@ -357,6 +358,24 @@ var bazStore = new BazStore(actions);
   ..store = bazStore
 )('I\'m a Baz!')
 ```
+
+### Common Pitfalls
+Browser errors:
+* > ⓧ Exception: The null object does not have a method 'call'.
+
+    If you call a `@Factory()` function that has not been initialized due to the transformer not running, you'll get this error.
+
+    __Make sure you've followed the [setup instructions](#setting-it-up).__
+* > ⓧ GET `http://localhost:8080/src/your_component.dart`
+    >
+    > ⓧ An error occurred loading file: `http://localhost:8080/src/your_component.dart`
+
+    When the transformer finds something wrong with your file, it logs an error in Pub and causes the invalid file to 404.
+
+    This ensures that when the transformer breaks, `pub build` will break, and you'll know about it.
+
+    __Check your `pub serve` output for errors.__
+
 
 
 [examples]: /example/component_declaration/README.md
