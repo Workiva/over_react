@@ -2,6 +2,7 @@
 /// https://github.com/marcj/css-element-queries/blob/master/src/ResizeSensor.js
 library resize_sensor;
 
+import 'dart:collection';
 import 'dart:html';
 
 import 'package:react/react.dart' as react;
@@ -10,7 +11,153 @@ import 'package:web_skin_dart/ui_core.dart';
 
 part 'resize_sensor.g.dart';
 
-final Map<String, dynamic> _style = {
+/// A wrapper component that detects when its parent is resized.
+///
+/// This component _must_ be put in a relative or absolutely positioned
+/// container.
+///
+///     (ResizeSensor()..onResize = () => print('resized'))(children)
+///
+ResizeSensorDefinition ResizeSensor() => new ResizeSensorDefinition({});
+
+@GenerateProps(#ResizeSensorProps)
+class ResizeSensorDefinition extends BaseComponentDefinition with ResizeSensorProps {
+  ResizeSensorDefinition(Map backingMap) : super(_resizeSensorComponentFactory, backingMap);
+
+  /// A function invoked when the parent element is resized.
+  ResizeHandler get onResize;
+
+  /// Whether the [ResizeSensor] is a child of a flex item. Necessary to apply the correct styling.
+  ///
+  /// See this issue for details: <https://code.google.com/p/chromium/issues/detail?id=346275>
+  ///
+  /// Default: false
+  bool get isFlexChild;
+}
+
+var _resizeSensorComponentFactory = registerComponent(() => new _ResizeSensor(), isWrapper: true);
+
+class _ResizeSensor extends BaseComponent<ResizeSensorDefinition> {
+  @override
+  Map getDefaultProps() => (newProps()
+    ..isFlexChild = false
+  );
+
+  @override
+  void componentDidMount(rootNode) {
+    _reset();
+  }
+
+  @override
+  render() {
+    var expandSensorChild = (Dom.div()
+      ..ref = 'expandSensorChild'
+      ..style = _expandSensorChildStyle
+    )();
+
+    var expandSensor = (Dom.div()
+      ..key = 'expandSensor'
+      ..ref = 'expandSensor'
+      ..className = 'resize-sensor-expand'
+      ..onScroll = _handleSensorScroll
+      ..style = _baseStyle
+    )(expandSensorChild);
+
+    var collapseSensorChild = (Dom.div()
+      ..ref = 'collapseSensorChild'
+      ..style = _collapseSensorChildStyle
+    )();
+
+    var collapseSensor = (Dom.div()
+      ..key = 'collapseSensor'
+      ..ref = 'collapseSensor'
+      ..className = 'resize-sensor-collapse'
+      ..onScroll = _handleSensorScroll
+      ..style = _baseStyle
+    )(collapseSensorChild);
+
+    var children = new List.from(tProps.children)
+      ..add(
+          (Dom.div()
+            ..className = 'resize-sensor'
+            ..style = _baseStyle
+          )(expandSensor, collapseSensor)
+    );
+
+    var wrapperStyles;
+
+    if (tProps.isFlexChild) {
+      wrapperStyles = {
+        'position': 'relative',
+        'flex': '1 1 0%',
+        'display': 'block'
+      };
+    } else {
+      wrapperStyles = {
+        'position': 'relative',
+        'height': '100%',
+        'width': '100%'
+      };
+    }
+
+    return (Dom.div()
+      ..addProps(copyProps(keysToOmit: ResizeSensorProps.Z_$propKeys))
+      ..className = forwardingClassNameBuilder().toClassName()
+      ..style = wrapperStyles
+    )(children);
+  }
+
+  /// When the expand or collapse sensors are resized, builds a [ResizeSensorEvent] and calls
+  /// tProps.onResize with it. Then, calls through to [_reset()].
+  void _handleSensorScroll(react.SyntheticEvent event) {
+    Element sensor = getDOMNode();
+
+    if (sensor.offsetWidth != _lastWidth || sensor.offsetHeight != _lastHeight) {
+      var event = new ResizeSensorEvent(sensor.offsetWidth, sensor.offsetHeight, _lastWidth, _lastHeight);
+
+      if (tProps.onResize != null) {
+        tProps.onResize(event);
+      }
+
+      _reset();
+    }
+  }
+
+  /// Update the width and height on [expandSensorChild], and the scroll position on
+  /// [expandSensorChild] and [collapseSensor].
+  ///
+  /// Additionally update the state with the new [_lastWidth] and [_lastHeight].
+  void _reset() {
+    Element expand = findDomNode(ref('expandSensor'));
+    Element expandChild = findDomNode(ref('expandSensorChild'));
+    Element collapse = findDomNode(ref('collapseSensor'));
+    Element sensor = getDOMNode();
+
+    expandChild.style.width = '${expand.offsetWidth + 10}px';
+    expandChild.style.height = '${expand.offsetHeight + 10}px';
+
+    expand.scrollLeft = expand.scrollWidth;
+    expand.scrollTop = expand.scrollHeight;
+
+    collapse.scrollLeft = collapse.scrollWidth;
+    collapse.scrollTop = collapse.scrollHeight;
+
+
+    _lastWidth = sensor.offsetWidth;
+    _lastHeight = sensor.offsetHeight;
+  }
+
+  /// The most recently measured value for the height of the sensor.
+  int _lastHeight = 0;
+
+  /// The most recently measured value for the width of the sensor.
+  int _lastWidth = 0;
+
+  @override
+  ResizeSensorDefinition typedPropsFactory(Map propsMap) => new ResizeSensorDefinition(propsMap);
+}
+
+final Map<String, dynamic> _baseStyle = const {
   'position': 'absolute',
   'top': '0',
   'right': '0',
@@ -21,13 +168,13 @@ final Map<String, dynamic> _style = {
   'visibility': 'hidden'
 };
 
-final Map<String, dynamic> _expandSensorChildStyle = {
+final Map<String, dynamic> _expandSensorChildStyle = const {
   'position': 'absolute',
   'top': '0',
   'left': '0'
 };
 
-final Map<String, dynamic> _collapseSensorChildStyle = {
+final Map<String, dynamic> _collapseSensorChildStyle = const {
   'position': 'absolute',
   'top': '0',
   'left': '0',
@@ -35,110 +182,18 @@ final Map<String, dynamic> _collapseSensorChildStyle = {
   'height': '200%'
 };
 
+/// Used with [ResizeHandler] to provide information about a resize.
 class ResizeSensorEvent {
+  /// The new width, in pixels.
   final int newWidth;
+  /// The new height, in pixels.
   final int newHeight;
+  /// The previous width, in pixels.
   final int prevWidth;
+  /// The previous height, in pixels.
   final int prevHeight;
 
   ResizeSensorEvent(this.newWidth, this.newHeight, this.prevWidth, this.prevHeight);
 }
 
-typedef void ResizeHandler(ResizeSensorEvent e);
-
-/// A component that detects when its parent is resized.
-///
-/// This component _must_ be put in a relative or absolutely positioned
-/// container.
-///
-///     var sensor = (ResizeSensor()
-///         ..onResize = () => print('resized')
-///     )();
-///     var container = react.div({'position': 'relative'},
-///         [/* otherChildren, */ sensor]);
-///
-ResizeSensorDefinition ResizeSensor() => new ResizeSensorDefinition({});
-
-@GenerateProps(#ResizeSensorProps)
-class ResizeSensorDefinition extends BaseComponentDefinition with ResizeSensorProps {
-  ResizeSensorDefinition(Map backingMap) : super(_resizeSensorComponentFactory, backingMap);
-
-  /// A function invoked when the parent element is resized.
-  ResizeHandler get onResize;
-}
-
-var _resizeSensorComponentFactory = react.registerComponent(() => new _ResizeSensor());
-
-class _ResizeSensor extends BaseComponent<ResizeSensorDefinition> {
-  int _lastHeight = 0;
-  int _lastWidth = 0;
-
-  ResizeSensorDefinition typedPropsFactory(Map propsMap) => new ResizeSensorDefinition(propsMap);
-
-  Map getDefaultProps() => newProps()..onResize = (_) {};
-
-  void componentDidMount(rootNode) {
-    _reset();
-  }
-
-  // This component will update the DOM manually whenever a resize is detected.
-  bool shouldComponentUpdate(nextProps, nextState) => false;
-
-  render() {
-    var expandSensorChild = (Dom.div()
-      ..ref = 'expandChild'
-      ..style = _expandSensorChildStyle
-    )();
-    var expandSensor = (Dom.div()
-      ..key = 'expand'
-      ..ref = 'expand'
-      ..className = 'resize-sensor-expand'
-      ..style = _style
-      ..onScroll = _handleSensorScroll
-    )([expandSensorChild]);
-
-    var collapseSensorChild = (Dom.div()
-      ..ref = 'collapseChild'
-      ..style = _collapseSensorChildStyle
-    )();
-    var collapseSensor = (Dom.div()
-      ..key = 'collapse'
-      ..ref = 'collapse'
-      ..className = 'resize-sensor-collapse'
-      ..style = _style
-      ..onScroll = _handleSensorScroll
-    )([collapseSensorChild]);
-
-    return (Dom.div()
-      ..className = 'resize-sensor'
-      ..style = _style
-    )([expandSensor, collapseSensor]);
-  }
-
-  void _handleSensorScroll(react.SyntheticEvent e) {
-    Element sensor = getDOMNode();
-    if (sensor.offsetWidth != _lastWidth || sensor.offsetHeight != _lastHeight) {
-      var event = new ResizeSensorEvent(
-          sensor.offsetWidth, sensor.offsetHeight, _lastWidth, _lastHeight);
-      tProps.onResize(event);
-      _reset();
-    }
-  }
-
-  void _reset() {
-    Element expand = react.findDOMNode(ref('expand'));
-    Element expandChild = react.findDOMNode(ref('expandChild'));
-    expandChild.style.width = '${expand.offsetWidth + 10}px';
-    expandChild.style.height = '${expand.offsetHeight + 10}px';
-    expand.scrollLeft = expand.scrollWidth;
-    expand.scrollTop = expand.scrollHeight;
-
-    Element collapse = react.findDOMNode(ref('collapse'));
-    collapse.scrollLeft = collapse.scrollWidth;
-    collapse.scrollTop = collapse.scrollHeight;
-
-    Element sensor = getDOMNode();
-    _lastWidth = sensor.offsetWidth;
-    _lastHeight = sensor.offsetHeight;
-  }
-}
+typedef void ResizeHandler(ResizeSensorEvent event);
