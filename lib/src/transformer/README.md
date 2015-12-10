@@ -87,9 +87,9 @@ Note that the `typedPropsFactory` variable is wired up to use the props implemen
 Next, the component is registered with the React Dart wrapper, using the component implementation class.
 
 ```dart
-// React component factory implementation
+// React component factory implementation.
 //
-// registers component impl and links type meta to builder factory
+// Registers component implementation and links type meta to builder factory.
 final _$FooComponentFactory = registerComponent(() => new _$FooComponentImpl(),
     builderFactory: Foo,
     componentClass: FooComponent,
@@ -137,11 +137,11 @@ With the transformer, you can cut down on that repetitive code. Props/state are 
 ```dart
 @Props()
 class FooProps extends UiProps {
-  String get title;
+  String title;
 
-  bool get isEnabled;
+  bool isEnabled;
 
-  MouseEventCallback get onClick
+  MouseEventCallback onClick;
 
   // ...
 }
@@ -152,8 +152,10 @@ The same can be done for state:
 ```dart
 @State()
 class FooState extends UiState {
-  bool get isShown;
-  String get currentText;
+  bool isShown;
+
+  String currentText;
+
   // ...
 }
 ```
