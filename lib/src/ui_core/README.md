@@ -38,6 +38,8 @@ web_skin_dart also provides a framework for building strongly-typed React compon
 
 These pieces, annotated with component [annotations], work together with the `web_skin_dart` [transformer] to make it easy to define strongly-typed React components in Dart.
 
+_Note: if you really need to use these base classes without the transformer, unstubbed versions are available by importing [component_base.dart] directly._
+
 ### `UiFactory`
 A __function__ that returns a new instance of a component's `UiProps` class.
 
@@ -396,3 +398,4 @@ __Check your `pub serve` output for errors.__
 [examples]: /example/component_declaration/
 [transformer]: /lib/src/transformer/README.md
 [annotations]: /lib/src/ui_core/component_declaration/annotations.dart
+[component_base.dart]: /lib/src/ui_core/component_declaration/component_base.dart
