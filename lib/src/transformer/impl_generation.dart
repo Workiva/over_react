@@ -13,7 +13,7 @@ import 'package:web_skin_dart/src/ui_core/component_declaration/annotations.dart
 ///
 /// Generates implementations for:
 ///
-/// * a component commprised of a `@Factory()`, `@Component()`, `@Props()`, and optionally a `@State()`
+/// * A component commprised of a `@Factory()`, `@Component()`, `@Props()`, and optionally a `@State()`
 ///
 ///     * Generates:
 ///
@@ -23,11 +23,11 @@ import 'package:web_skin_dart/src/ui_core/component_declaration/annotations.dart
 ///     * Wires up all the generated component pieces and exposes them via a function assigned to
 ///     the previously uninitialized factory function variable.
 ///
-/// * any number of abstract component pieces: `@AbstractProps()`, `@AbstractState()`
+/// * Any number of abstract component pieces: `@AbstractProps()`, `@AbstractState()`
 ///
 ///     * Replaces fields with generated getters/setters.
 ///
-/// * any number of mixins: `@PropsMixin()`, `@StateMixin()`
+/// * Any number of mixins: `@PropsMixin()`, `@StateMixin()`
 ///
 ///     * Replaces fields with generated getters/setters.
 class ImplGenerator {
@@ -88,9 +88,9 @@ class ImplGenerator {
       );
 
       implementations
-        ..writeln('// React component factory implementation')
+        ..writeln('// React component factory implementation.')
         ..writeln('//')
-        ..writeln('// registers component impl and links type meta to builder factory')
+        ..writeln('// Registers component implementation and links type meta to builder factory.')
         ..writeln('final $componentFactoryName = registerComponent(() => new $componentClassImplName(),')
         ..writeln('    builderFactory: $factoryName,')
         ..writeln('    componentClass: $componentClassName,')
