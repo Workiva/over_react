@@ -395,6 +395,6 @@ __Check your `pub serve` output for errors.__
 
 
 
-[examples]: /example/component_declaration/README.md
+[examples]: /example/component_declaration/
 [transformer]: /lib/src/transformer/README.md
 [annotations]: /lib/src/ui_core/component_declaration/annotations.dart
