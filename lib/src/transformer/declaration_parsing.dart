@@ -9,13 +9,13 @@ import 'package:web_skin_dart/src/transformer/analyzer_helpers.dart';
 import 'package:web_skin_dart/src/transformer/source_file_helpers.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/annotations.dart' as annotations;
 
-/// A set of [NodeWithMeta] component pieces declarated using `web_skin_dart` transformer annotations.
+/// A set of [NodeWithMeta] component pieces declared using `web_skin_dart` transformer annotations.
 ///
 /// Can include:
 ///
-/// * a single component declared using a `@Factory()`, `@Component()`, `@Props()`, and optionally a `@State()`
-/// * any number of abstract component pieces: `@AbstractComponent()`, `@AbstractProps()`, `@AbstractState()`
-/// * any number of mixins: `@PropsMixin()`, `@StateMixin()`
+/// * A single component declared using a `@Factory()`, `@Component()`, `@Props()`, and optionally a `@State()`
+/// * Any number of abstract component pieces: `@AbstractComponent()`, `@AbstractProps()`, `@AbstractState()`
+/// * Any number of mixins: `@PropsMixin()`, `@StateMixin()`
 class ParsedDeclarations {
   static String _getName(Type type) {
     return MirrorSystem.getName(reflectType(type).simpleName);

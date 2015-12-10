@@ -150,7 +150,7 @@ In web_skin_dart, `UiProps` subclasses are used to consume components, and not t
 
 Each Component expose `UiFactory` to create new `UiProps` instances, which aids in consumption.
 
-Note how you might render the same DOM in JSX, react-dart, and web_skin_dart:
+Note how you might render the same DOM and components in JSX, react-dart, and web_skin_dart:
 
 * JSX:
 
@@ -187,7 +187,7 @@ Note how you might render the same DOM in JSX, react-dart, and web_skin_dart:
         ..id = 'main_button'
         ..size = ButtonSize.SMALL
         ..onClick = _handleClick
-      )('Click')
+      )('Click me')
     );
     ```
 
@@ -212,7 +212,8 @@ Note how you might render the same DOM in JSX, react-dart, and web_skin_dart:
         ..size = ButtonSize.SMALL
         // add another prop,
         ..onClick = _handleClick
-      )('Click')
+      // and finally invoke the builder with children.
+      )('Click me')
 
     );
     ```
@@ -328,10 +329,7 @@ class BarComponent extends UiStatefulComponent<BarProps, BarState> {
 ```
 ```dart
 // Example consumption
-(Bar()
-  ..shown = true
-  ..count = 5
-)('I\'m a Bar!')
+Bar()('I\'m a Bar!')
 ```
 
 ##### Boilerplate: Flux Component
