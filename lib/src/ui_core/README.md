@@ -32,11 +32,11 @@ web_skin_dart also provides a framework for building strongly-typed React compon
 
 ## What makes a Web Skin Dart component
 
-* `UiFactory`
-* `UiProps` (and sometimes `UiState`)
-* `UiComponent`
+* [`UiFactory`](#uifactory)
+* [`UiProps`](#uiprops) (and sometimes [`UiState`](#uistate))
+* [`UiComponent`](#uicomponent)
 
-These pieces, [when annotated][annotations], work together with the [`web_skin_dart` transformer][transformer] to make it easy to define strongly-typed React components in Dart.
+These pieces, annotated with component [annotations], work together with the `web_skin_dart` [transformer] to make it easy to define strongly-typed React components in Dart.
 
 ### `UiFactory`
 A __function__ that returns a new instance of a component's `UiProps` class.
@@ -220,7 +220,7 @@ Note how you might render the same DOM in JSX, react-dart, and web_skin_dart:
 ## Building your own components
 
 ### Setting it up
-1. Add the [`web_skin_dart` transformer][transformer] to your `pubspec.yaml`.
+1. Add the `web_skin_dart` [transformer] to your `pubspec.yaml`.
 
     ```yaml
     transformers:
