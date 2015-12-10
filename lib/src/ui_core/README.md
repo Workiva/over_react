@@ -2,32 +2,43 @@
 
 web_skin_dart also provides a framework for building strongly-typed React components, on which all of web_skin_dart's reusable UI components are built.
 
-* __[What makes a web_skin_dart component](#what-makes-a-web_skin_dart-component)__
-  * [`UiFactory`](#uifactory)
-  * [`UiProps`](#uiprops)
-      * [UiProps as a Map](#uiprops-as-a-map)
-      * [UiProps as a builder](#uiprops-as-a-builder)
-  * [`UiState`](#uistate)
-  * [`UiComponent`](#uicomponent)
-* __[`Dom.*` and `domProps()`](#dom-and-domprops)__
+* __[What makes a Web Skin Dart component](#what-makes-a-web_skin_dart-component)__
+
+    * [`UiFactory`](#uifactory)
+    * [`UiProps`](#uiprops)
+
+        * [UiProps as a Map](#uiprops-as-a-map)
+        * [UiProps as a builder](#uiprops-as-a-builder)
+
+    * [`UiState`](#uistate)
+    * [`UiComponent`](#uicomponent)
+
+* __[`Dom.*` and `domProps()`](#dom.*-and-domprops())__
 * __[Fluent-style component consumption](#fluent-style-component-consumption)__
 * __[Building your own components](#building-your-own-components)__
+
     * __[Setting it up](#setting-it-up)__
     * __[Component Boilerplate](#boilerplate-templates)__
-      * [Component](#boilerplate-component)
-      * [Stateful Component](#boilerplate-stateful-component)
-      * [Flux Component](#boilerplate-flux-component)
+
+        * [Component](#boilerplate-component)
+        * [Stateful Component](#boilerplate-stateful-component)
+        * [Flux Component](#boilerplate-flux-component)
+
     * __[Common Pitfalls](#common-pitfalls)__
 
-## What makes a web_skin_dart component
+
+[](#__START_EMBEDDED_README__)
+
+
+## What makes a Web Skin Dart component
 
 * `UiFactory`
 * `UiProps` (and sometimes `UiState`)
 * `UiComponent`
 
-These pieces and work together with the [`web_skin_dart` transformer][transformer] to make it easy to define strongly-typed React components in Dart.
+These pieces, [when annotated][annotations], work together with the [`web_skin_dart` transformer][transformer] to make it easy to define strongly-typed React components in Dart.
 
-### UiFactory
+### `UiFactory`
 A __function__ that returns a new instance of a component's `UiProps` class.
 
 This factory is __the entrypoint__ to consuming each component.
@@ -360,23 +371,30 @@ var bazStore = new BazStore(actions);
 ```
 
 ### Common Pitfalls
-Browser errors:
-* > ⓧ Exception: The null object does not have a method 'call'.
+#### `null object does not have a method 'call'`
 
-    If you call a `@Factory()` function that has not been initialized due to the transformer not running, you'll get this error.
+```
+ⓧ Exception: The null object does not have a method 'call'.
+```
 
-    __Make sure you've followed the [setup instructions](#setting-it-up).__
-* > ⓧ GET `http://localhost:8080/src/your_component.dart`
-    >
-    > ⓧ An error occurred loading file: `http://localhost:8080/src/your_component.dart`
+If you call a `@Factory()` function that has not been initialized due to the transformer not running, you'll get this error.
 
-    When the transformer finds something wrong with your file, it logs an error in Pub and causes the invalid file to 404.
+__Make sure you've followed the [setup instructions](#setting-it-up).__
 
-    This ensures that when the transformer breaks, `pub build` will break, and you'll know about it.
+### 404 on `.dart` file
 
-    __Check your `pub serve` output for errors.__
+```
+ⓧ GET http://localhost:8080/src/your_component.dart
+ⓧ An error occurred loading file: http://localhost:8080/src/your_component.dart
+```
+When the transformer finds something wrong with your file, it logs an error in Pub and causes the invalid file to 404.
+
+This ensures that when the transformer breaks, `pub build` will break, and you'll know about it.
+
+__Check your `pub serve` output for errors.__
 
 
 
 [examples]: /example/component_declaration/README.md
 [transformer]: /lib/src/transformer/README.md
+[annotations]: /lib/src/ui_core/component_declaration/annotations.dart
