@@ -287,6 +287,27 @@ abstract class UiProps
     props.addAll(propMap);
   }
 
+  /// Whether [UiProps] is in a testing environment.
+  /// TODO: Use bool.fromEnvironment() when it is supported in Dartium.
+  static bool inTesting;
+
+  // Adds a prop key-value pair for testing.
+  void setTestId(String testId, {String namespace}) {
+    if (!inTesting) {
+      return;
+    }
+
+    var value;
+
+    if (namespace == null) {
+      value = testId;
+    } else {
+      value = '$namespace.$testId';
+    }
+
+    props['_test-id'] = value;
+  }
+
   @deprecated
   @override
   bool validate() => true;
