@@ -76,6 +76,43 @@ main() {
       expect(flag, isTrue);
     });
 
+    group('getTestId returns', () {
+      test('a JsObject that has the appropriate value for the `_test-id` prop key', () {
+        var renderedInstace = render(Dom.div()(
+          (Dom.div()..setTestId('value', namespace: 'custom-name-space'))('First Descendant'),
+          Dom.div()(
+            (Dom.div()..setTestId('value', namespace: 'custom-name-space'))('Nested Descendant')
+          )
+        ));
+
+        var descendant = getByTestId(renderedInstace, 'value', namespace: 'custom-name-space');
+
+        expect(findDomNode(descendant).text, equals('First Descendant'));
+      });
+
+      test('a JsObject that has the appropriate value and namespace for the `_test-id` prop key', () {
+        var renderedInstace = render(Dom.div()(
+          (Dom.div()..setTestId('value', namespace: 'custom-name-space'))('First Descendant'),
+          Dom.div()(
+            (Dom.div()..setTestId('value', namespace: 'second-custom-name-space'))('Nested Descendant')
+          )
+        ));
+
+        var descendant = getByTestId(renderedInstace, 'value', namespace: 'second-custom-name-space');
+
+        expect(findDomNode(descendant).text, equals('Nested Descendant'));
+      });
+
+      test('null if no decendant has the appropiate value for the `_test-id` prop key', () {
+        var renderedInstace = render(Dom.div());
+
+        var descendant = getByTestId(renderedInstace, 'value', namespace: 'custom-name-space');
+
+        expect(descendant, isNull);
+      });
+    });
+
+
     test('findDescendantsWithProp returns the descendants with the propKey', () {
       var renderedInstance = render(Dom.div()([
         (Dom.div()..disabled = true)(),

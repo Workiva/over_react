@@ -141,6 +141,44 @@ void simulateMouseLeave(EventTarget target) {
   react_test_utils.SimulateNative.mouseOver(to, {'relatedTarget': from});
 }
 
+JsObject getByTestId(JsObject root, String testId, {String namespace}) {
+  var value;
+
+  if (namespace == null) {
+    value = testId;
+  } else {
+    value = '$namespace.$testId';
+  }
+
+  bool first = false;
+
+  var results = react_test_utils.findAllInRenderedTree(root, new JsFunction.withThis((_, JsObject descendant) {
+    if (first) {
+      return false;
+    }
+
+    bool hasValue = false;
+
+    if (isDartComponent(descendant)) {
+      hasValue = getDartComponent(descendant).props['_test-id'] == value;
+    } else {
+      hasValue = descendant[PROPS]['_test-id'] == value;
+    }
+
+    if (hasValue) {
+      first = true;
+    }
+
+    return hasValue;
+  }));
+
+  if (results.isEmpty) {
+    return null;
+  } else {
+    return results.single;
+  }
+}
+
 /// Returns all descendants of a component that contain the specified prop key.
 List<JsObject> findDescendantsWithProp(JsObject root, dynamic propKey) {
   return react_test_utils.findAllInRenderedTree(root, new JsFunction.withThis((_, JsObject descendant) {
