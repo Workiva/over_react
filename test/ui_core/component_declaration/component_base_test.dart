@@ -177,6 +177,33 @@ main() {
           expect(props, equals({'key': 'value'}));
         });
       });
+
+      group('setTestId()', () {
+        test('sets the correct value for the `_test-id` key without a namespace', () {
+          var props = new TestComponentProps();
+          props.setTestId('value');
+
+          expect(props, equals({'_test-id': 'value'}));
+        });
+
+        test('sets the correct value for the `_test-id` key with a namespace', () {
+          var props = new TestComponentProps();
+          props.setTestId('value', namespace: 'custom-name-space');
+
+          expect(props, equals({'_test-id': 'custom-name-space.value'}));
+        });
+
+        test('does not set the value for the `_test-id` when inTesting is false', () {
+          UiProps.inTesting = false;
+
+          var props = new TestComponentProps();
+          props.setTestId('value', namespace: 'custom-name-space');
+
+          expect(props, equals({}));
+
+          UiProps.inTesting = true;
+        });
+      });
     });
 
     group('UiState', () {
