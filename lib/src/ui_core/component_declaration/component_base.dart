@@ -129,9 +129,10 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component
 
   /// Returns a copy of this component's props with React props optionally omitted, and
   /// with the specified [keysToOmit] and [keySetsToOmit] omitted.
-  Map copyProps({bool omitReservedReactProps: true, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
+  Map copyProps({bool omitReservedReactProps: true, bool omitTestProps: true, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
     return getPropsToForward(this.props,
         omitReactProps: omitReservedReactProps,
+        omitTestProps: omitTestProps,
         keysToOmit: keysToOmit,
         keySetsToOmit: keySetsToOmit
     );
