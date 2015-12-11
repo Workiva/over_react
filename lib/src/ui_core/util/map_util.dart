@@ -4,7 +4,7 @@ part of web_skin_dart.ui_core;
 /// in addition to any specified keys.
 ///
 /// Useful for prop forwarding.
-Map getPropsToForward(Map props, {bool omitReactProps: true, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
+Map getPropsToForward(Map props, {bool omitReactProps: true, bool omitTestProps, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
   Map propsToForward = new Map.from(props);
 
   if (omitReactProps) {
@@ -12,6 +12,11 @@ Map getPropsToForward(Map props, {bool omitReactProps: true, Iterable keysToOmit
       ..remove('key')
       ..remove('ref')
       ..remove('children');
+  }
+
+  if (omitTestProps) {
+    propsToForward
+      ..remove('_test_id');
   }
 
   if (keysToOmit != null) {
