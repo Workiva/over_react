@@ -1,10 +1,10 @@
 part of web_skin_dart.ui_core;
 
-/// Returns a copy of the specified props map, omitting reserved React props by default,
+/// Returns a copy of the specified props map, omitting reserved React and test props by default,
 /// in addition to any specified keys.
 ///
 /// Useful for prop forwarding.
-Map getPropsToForward(Map props, {bool omitReactProps: true, bool omitTestProps, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
+Map getPropsToForward(Map props, {bool omitReactProps: true, bool omitTestProps: true, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
   Map propsToForward = new Map.from(props);
 
   if (omitReactProps) {
@@ -16,7 +16,7 @@ Map getPropsToForward(Map props, {bool omitReactProps: true, bool omitTestProps,
 
   if (omitTestProps) {
     propsToForward
-      ..remove('_test_id');
+      ..remove('_test-id');
   }
 
   if (keysToOmit != null) {
