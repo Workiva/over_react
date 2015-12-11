@@ -33,11 +33,11 @@ class FooComponent extends UiStatefulComponent<FooProps, FooState> {
 }
 ```
 
-Note that we've annotated our component pieces with `@Factory`, `@Props`, and `@Component`. These are what the transformer uses as hooks to find your component.
+Note that we've annotated our component pieces with `@Factory()`, `@Props()`, and `@Component()`. These are what the transformer uses as hooks to find your component.
 
 Okay, so we've defined our component. Let's look at what the transformer does.
 
-First, implementations of the props/component classes are generated, since the classes we defined in our code have stubbed methods and don't have constructors.
+First, implementations of the props/component classes are generated, since the classes we defined in our code don't have constructors and inherit psuedo-abstract stubbed members.
 
 ```dart
 // Concrete props implementation.
