@@ -194,14 +194,14 @@ main() {
         });
 
         test('does not set the value for the `_test-id` when inTesting is false', () {
-          UiProps.inTesting = false;
+          UiProps.testMode = false;
 
           var props = new TestComponentProps();
           props.setTestId('value', namespace: 'custom-name-space');
 
           expect(props, equals({}));
 
-          UiProps.inTesting = true;
+          UiProps.testMode = true;
         });
       });
     });

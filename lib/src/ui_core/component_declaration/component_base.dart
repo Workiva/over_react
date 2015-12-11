@@ -290,11 +290,11 @@ abstract class UiProps
 
   /// Whether [UiProps] is in a testing environment.
   /// TODO: Use bool.fromEnvironment() when it is supported in Dartium.
-  static bool inTesting;
+  static bool testMode;
 
   // Adds a prop key-value pair for testing.
   void setTestId(String testId, {String namespace}) {
-    if (!inTesting) {
+    if (!testMode) {
       return;
     }
 

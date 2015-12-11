@@ -141,6 +141,22 @@ void simulateMouseLeave(EventTarget target) {
   react_test_utils.SimulateNative.mouseOver(to, {'relatedTarget': from});
 }
 
+/// Returns the first descendant of [root] that has its `_test-id` prop value set to the provided value.
+///   * Value is based on [testId] and [namespace].
+///
+/// Returns null if no descendant has its `_test-id` prop value set to the provided value.
+///
+///     var renderedInstance = render(Dom.div()(
+///         (Dom.div()..setTestId('first-div'))() // Div1
+///         Dom.div()(
+///           (Dom.div()..setTestId('nested-div', namespace: 'custom-namespace'))() // Div2
+///         )
+///       )
+///     );
+///
+///     var firstDiv = getByTestId(renderedInstance, 'first-div'); // Returns Div1
+///     var nestedDiv = getByTestId(renderedInstance, 'nested-div', namespace: 'custom-namespace'); // Returns Div2
+///     var secondDiv = getByTestId(renderedInstance, 'second-div'); // Returns null
 JsObject getByTestId(JsObject root, String testId, {String namespace}) {
   var value;
 
