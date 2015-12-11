@@ -234,20 +234,20 @@ Note how you might render the same DOM and components in JSX, react-dart, and we
 
 2. When running tests on code that uses this transformer, you'll also need to __run your tests using Pub__.
 
-  1. First, you'll need to add the `test/pub_serve` transformer to your `pubspec.yaml`.
+    1. First, you'll need to add the `test/pub_serve` transformer to your `pubspec.yaml`.
 Make sure to put it _after_ the `web_skin_dart` transformer.
 
-    ```yaml
-    transformers:
-    - web_skin_dart
-    - test/pub_serve:
-        $include: test/**_test{.*,}.dart
-    ```
+        ```yaml
+        transformers:
+        - web_skin_dart
+        - test/pub_serve:
+            $include: test/**_test{.*,}.dart
+        ```
 
-  2. If you're using `dart_dev`, you can set the `pubServe` [configuration option](https://github.com/Workiva/dart_dev#project-configuration)
+    2. If you're using `dart_dev`, you can set the `pubServe` [configuration option](https://github.com/Workiva/dart_dev#project-configuration)
 to `true` for the `test` and `coverage` tasks.
 
-    If not, you can use the `--pub-serve` option in the `test` package (<https://github.com/dart-lang/test#testing-with-barback>).
+        If not, you can use the `--pub-serve` option in the `test` package (<https://github.com/dart-lang/test#testing-with-barback>).
 
 ### Boilerplate templates
 
