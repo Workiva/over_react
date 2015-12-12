@@ -12,8 +12,8 @@ import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
 /// Returns all the prop keys available on a component definition, using reflection.
-Set getComponentPropKeys(BaseComponentDefinition definitionFactory()) {
-  BaseComponentDefinition definition = definitionFactory();
+Set getComponentPropKeys(UiFactory factory) {
+  BaseComponentDefinition definition = factory();
   InstanceMirror definitionMirror = reflect(definition);
 
   // Use prop setters on the component definition to infer the prop keys for the component.
@@ -56,7 +56,7 @@ List<JsObject> getForwardingTargets(JsObject reactInstance, {int expectedTargetC
 }
 
 /// Common test for verifying that unconsumed props are forwarded as expected.
-void testPropForwarding(BaseComponentDefinition definitionFactory(), dynamic childrenFactory(), {List propsNotExcludedFromForwarding: const []}) {
+void testPropForwarding(UiFactory factory, dynamic childrenFactory(), {List propsNotExcludedFromForwarding: const []}) {
   test('forwards unconsumed props as expected', () {
     const Map extraProps = const {
       // Add this so we find the right component(s) with [getForwardingTargets] later.
@@ -74,23 +74,23 @@ void testPropForwarding(BaseComponentDefinition definitionFactory(), dynamic chi
     const String key = 'testKeyThatShouldNotBeForwarded';
     const String ref = 'testRefThatShouldNotBeForwarded';
 
-    var defaultPropsHelperInstance = render(definitionFactory()(childrenFactory()));
+    var defaultPropsHelperInstance = render(factory()(childrenFactory()));
     Map defaultProps = getDartComponent(defaultPropsHelperInstance).getDefaultProps();
     unmount(defaultPropsHelperInstance);
 
     // TODO: Account for alias components.
     Map propsThatShouldNotGetForwarded = {}
-      ..addAll(new Map.fromIterable(getComponentPropKeys(definitionFactory), value: (_) => null))
+      ..addAll(new Map.fromIterable(getComponentPropKeys(factory), value: (_) => null))
       ..addAll(defaultProps)
-      // Account for any props added by the definitionFactory
-      ..addAll(definitionFactory().props);
+      // Account for any props added by the factory
+      ..addAll(factory().props);
 
       propsNotExcludedFromForwarding.forEach((key) => propsThatShouldNotGetForwarded.remove(key));
 
     // Use RenderingContainerComponentFactory so we can set ref on our test component
     JsObject holder = RenderingContainerComponentFactory({
       'renderer': () {
-        return (definitionFactory()
+        return (factory()
           ..addProps(propsThatShouldNotGetForwarded)
           ..addProps(extraProps)
           ..key = key
@@ -126,9 +126,9 @@ void testPropForwarding(BaseComponentDefinition definitionFactory(), dynamic chi
 }
 
 /// Common test for verifying that classNames are merged/blacklisted as expected.
-void testClassNameMerging(BaseComponentDefinition definitionFactory(), dynamic childrenFactory()) {
+void testClassNameMerging(UiFactory factory, dynamic childrenFactory()) {
   test('merges classes as expected', () {
-    var builder = definitionFactory()
+    var builder = factory()
       ..addProp(forwardedPropBeacon, true)
       ..className = 'custom-class-1 blacklisted-class-1 custom-class-2 blacklisted-class-2'
       ..classNameBlacklist = 'blacklisted-class-1 blacklisted-class-2';
@@ -150,7 +150,7 @@ void testClassNameMerging(BaseComponentDefinition definitionFactory(), dynamic c
     const customClass = 'custom-class';
 
     JsObject renderedInstance = render(
-        (definitionFactory()..className = customClass)(childrenFactory())
+        (factory()..className = customClass)(childrenFactory())
     );
     var descendantsWithCustomClass = react_test_utils.scryRenderedDOMComponentsWithClass(renderedInstance, customClass);
 
@@ -161,10 +161,10 @@ void testClassNameMerging(BaseComponentDefinition definitionFactory(), dynamic c
 }
 
 /// Common test for verifying that CSS classes added by the component can be blacklisted by the consumer.
-void testClassNameOverrides(BaseComponentDefinition definitionFactory(), dynamic childrenFactory()) {
+void testClassNameOverrides(UiFactory factory, dynamic childrenFactory()) {
   /// Render a component without any overrides to get the classes added by the component.
   JsObject reactInstanceWithoutOverrides = render(
-      (definitionFactory()
+      (factory()
         ..addProp(forwardedPropBeacon, true)
       )(childrenFactory())
   );
@@ -192,7 +192,7 @@ void testClassNameOverrides(BaseComponentDefinition definitionFactory(), dynamic
 
     // Override any added classes and verify that they are blacklisted properly.
     JsObject reactInstance = render(
-        (definitionFactory()
+        (factory()
           ..addProp(forwardedPropBeacon, true)
           ..classNameBlacklist = classesToOverride.join(' ')
         )(childrenFactory())
@@ -220,7 +220,7 @@ dynamic _defaultChildrenFactory() => [];
 ///
 /// [childrenFactory] returns children to be used when rendering components.
 /// This is necessary for components that need children to render properly.
-void commonComponentTests(BaseComponentDefinition definitionFactory(), {
+void commonComponentTests(UiFactory factory, {
   shouldTestPropForwarding: true,
   propsNotExcludedFromForwarding: const [],
   shouldTestClassNameMerging: true,
@@ -230,12 +230,12 @@ void commonComponentTests(BaseComponentDefinition definitionFactory(), {
   childrenFactory ??= _defaultChildrenFactory;
 
   if (shouldTestPropForwarding) {
-    testPropForwarding(definitionFactory, childrenFactory, propsNotExcludedFromForwarding: propsNotExcludedFromForwarding);
+    testPropForwarding(factory, childrenFactory, propsNotExcludedFromForwarding: propsNotExcludedFromForwarding);
   }
   if (shouldTestClassNameMerging) {
-    testClassNameMerging(definitionFactory, childrenFactory);
+    testClassNameMerging(factory, childrenFactory);
   }
   if (shouldTestClassNameOverrides) {
-    testClassNameOverrides(definitionFactory, childrenFactory);
+    testClassNameOverrides(factory, childrenFactory);
   }
 }

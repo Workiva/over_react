@@ -6,10 +6,7 @@ import 'dart:collection';
 import 'dart:html';
 
 import 'package:react/react.dart' as react;
-import 'package:web_skin_dart/code_generation/annotations.dart';
 import 'package:web_skin_dart/ui_core.dart';
-
-part 'resize_sensor.g.dart';
 
 /// A wrapper component that detects when its parent is resized.
 ///
@@ -18,26 +15,24 @@ part 'resize_sensor.g.dart';
 ///
 ///     (ResizeSensor()..onResize = () => print('resized'))(children)
 ///
-ResizeSensorDefinition ResizeSensor() => new ResizeSensorDefinition({});
+@Factory()
+UiFactory<ResizeSensorProps> ResizeSensor;
 
-@GenerateProps(#ResizeSensorProps)
-class ResizeSensorDefinition extends BaseComponentDefinition with ResizeSensorProps {
-  ResizeSensorDefinition(Map backingMap) : super(_resizeSensorComponentFactory, backingMap);
-
+@Props()
+class ResizeSensorProps extends UiProps {
   /// A function invoked when the parent element is resized.
-  ResizeHandler get onResize;
+  ResizeHandler onResize;
 
   /// Whether the [ResizeSensor] is a child of a flex item. Necessary to apply the correct styling.
   ///
   /// See this issue for details: <https://code.google.com/p/chromium/issues/detail?id=346275>
   ///
   /// Default: false
-  bool get isFlexChild;
+  bool isFlexChild;
 }
 
-var _resizeSensorComponentFactory = registerComponent(() => new _ResizeSensor(), isWrapper: true);
-
-class _ResizeSensor extends BaseComponent<ResizeSensorDefinition> {
+@Component()
+class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
   @override
   Map getDefaultProps() => (newProps()
     ..isFlexChild = false
@@ -101,7 +96,7 @@ class _ResizeSensor extends BaseComponent<ResizeSensorDefinition> {
     }
 
     return (Dom.div()
-      ..addProps(copyProps(keysToOmit: ResizeSensorProps.Z_$propKeys))
+      ..addProps(copyUnconsumedProps())
       ..className = forwardingClassNameBuilder().toClassName()
       ..style = wrapperStyles
     )(children);
@@ -154,7 +149,7 @@ class _ResizeSensor extends BaseComponent<ResizeSensorDefinition> {
   int _lastWidth = 0;
 
   @override
-  ResizeSensorDefinition typedPropsFactory(Map propsMap) => new ResizeSensorDefinition(propsMap);
+  ResizeSensorProps typedPropsFactory(Map propsMap) => new ResizeSensorProps(propsMap);
 }
 
 final Map<String, dynamic> _baseStyle = const {
