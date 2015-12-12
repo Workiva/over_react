@@ -153,12 +153,14 @@ main() {
 
 class UngeneratedUiProps extends UiProps {}
 
+@Component()
 class UngeneratedUiComponent extends UiComponent {
   render() {}
 }
 
 class UngeneratedUiState extends UiState {}
 
+@Component()
 class UngeneratedUiStatefulComponent extends UiStatefulComponent {
   render() {}
 }
@@ -169,6 +171,7 @@ class UnimplementedUiProps extends UiProps {
   bool get $isClassGenerated => true;
 }
 
+@Component()
 class UnimplementedUiComponent extends UiComponent {
   @override
   bool get $isClassGenerated => true;
@@ -181,6 +184,7 @@ class UnimplementedUiState extends UiState {
   bool get $isClassGenerated => true;
 }
 
+@Component()
 class UnimplementedUiStatefulComponent extends UiStatefulComponent {
   @override
   bool get $isClassGenerated => true;
@@ -188,6 +192,7 @@ class UnimplementedUiStatefulComponent extends UiStatefulComponent {
   render() {}
 }
 
+@Component()
 class TestConsumedPropKeysUiComponent extends UiComponent {
   @override
   bool get $isClassGenerated => true;
@@ -198,6 +203,7 @@ class TestConsumedPropKeysUiComponent extends UiComponent {
   render() {}
 }
 
+@Component()
 class TestConsumedPropKeysUiStatefulComponent extends UiStatefulComponent {
   @override
   bool get $isClassGenerated => true;
