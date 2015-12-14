@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'package:analyzer/analyzer.dart';
 import 'package:source_span/source_span.dart';
 
+/// A record used internally by [TransformedSourceFile] that represents the replacement of a
+/// [SourceSpan] with a string of text.
 class _Replacement {
   final SourceSpan span;
   final String newText;
