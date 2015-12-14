@@ -126,7 +126,7 @@ main() {
 
     group('\$PropKeys (ungenerated)', () {
       setUpAll(() {
-        expect(() => const $PropKeys(#dummySymbol), isNot(throwsNoSuchMethodError),
+        expect(() => const $PropKeys(Null), isNot(throwsNoSuchMethodError),
             reason: 'Instanitating a const \$PropKeys should not have thrown an error. '
                     'Ensure that the web_skin_dart transformer is NOT running for this test file.'
         );
@@ -135,7 +135,7 @@ main() {
       $PropKeys stub;
 
       setUp(() {
-         stub = const $PropKeys(#dummySymbol);
+         stub = const $PropKeys(Null);
       });
 
       test('implements List', () {
