@@ -2,7 +2,7 @@
 
 web_skin_dart also provides a framework for building strongly-typed React components, on which all of web_skin_dart's reusable UI components are built.
 
-* __[What makes a Web Skin Dart component](#what-makes-a-web_skin_dart-component)__
+* __[What makes a Web Skin Dart component](#what-makes-a-web-skin-dart-component)__
 
     * [`UiFactory`](#uifactory)
     * [`UiProps`](#uiprops)
@@ -13,7 +13,7 @@ web_skin_dart also provides a framework for building strongly-typed React compon
     * [`UiState`](#uistate)
     * [`UiComponent`](#uicomponent)
 
-* __[`Dom.*` and `domProps()`](#dom.*-and-domprops())__
+* __[`Dom.*` and `domProps()`](#dom-and-domprops)__
 * __[Fluent-style component consumption](#fluent-style-component-consumption)__
 * __[Building your own components](#building-your-own-components)__
 
