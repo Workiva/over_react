@@ -37,7 +37,7 @@ Note that we've annotated our component pieces with `@Factory()`, `@Props()`, an
 
 Okay, so we've defined our component. Let's look at what the transformer does.
 
-First, implementations of the props/component classes are generated, since the classes we defined in our code don't have constructors and inherit psuedo-abstract stubbed members.
+First, an implementation of the props class is generated, since the class we defined in our code inherits pseudo-abstract stubbed members and doesn't have the constructor we need.
 
 ```dart
 // Concrete props implementation.
@@ -62,12 +62,16 @@ class _$FooPropsImpl extends FooProps {
   @override
   String get propKeyNamespace => 'FooProps.';
 }
+```
 
-// Concrete component implementation.
+Next, a mixin that implements the pseudo-abstract stubbed members of our component class is generated and mixed in to our existing component class.
+
+```dart
+// Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$FooComponentImpl extends FooComponent {
+class _$FooComponentImplMixin {
   /// Let [UiComponent] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -82,15 +86,21 @@ class _$FooComponentImpl extends FooComponent {
 }
 ```
 
-Note that the `typedPropsFactory` variable is wired up to use the props implementation class's constructor. This lets us get an instance of that class when we use the `props` getter and the `newProps()` method.
+```diff
+@Component()
+-class FooComponent extends UiStatefulComponent<FooProps, FooState> {
++class FooComponent extends UiStatefulComponent<FooProps, FooState> with _$FooComponentImplMixin {
+```
 
-Next, the component is registered with the React Dart wrapper, using the component implementation class.
+Note that the `typedPropsFactory` variable is wired up to use the props implementation class's constructor. This lets us get an instance of that class when we use the `props` getter and the `newProps()` method, and is necessary since the code we wrote doesn't have a proper constructor.
+
+Now that our component class is fully implemented, it's registered with the React Dart wrapper.
 
 ```dart
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final _$FooComponentFactory = registerComponent(() => new _$FooComponentImpl(),
+final _$FooComponentFactory = registerComponent(() => new FooComponent(),
     builderFactory: Foo,
     componentClass: FooComponent,
     isWrapper: false,
