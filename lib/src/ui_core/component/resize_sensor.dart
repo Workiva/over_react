@@ -147,9 +147,6 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
 
   /// The most recently measured value for the width of the sensor.
   int _lastWidth = 0;
-
-  @override
-  ResizeSensorProps typedPropsFactory(Map propsMap) => new ResizeSensorProps(propsMap);
 }
 
 final Map<String, dynamic> _baseStyle = const {
