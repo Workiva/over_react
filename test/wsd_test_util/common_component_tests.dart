@@ -7,6 +7,7 @@ import 'dart:mirrors';
 
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:test/test.dart';
+import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart' as component_base;
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
@@ -23,11 +24,12 @@ Set getComponentPropKeys(BaseComponentDefinition definitionFactory()) {
       if (owner != Object &&
           owner != ComponentDefinition &&
           owner != BaseComponentDefinition &&
+          owner != component_base.UiProps &&
           owner != MapView &&
-          owner != ReactProps &&
-          owner != DomProps &&
-          owner != CssClassProps &&
-          owner != UbiquitousDomProps
+          owner != ReactPropsMixin &&
+          owner != DomPropsMixin &&
+          owner != CssClassPropsMixin &&
+          owner != UbiquitousDomPropsMixin
       ) {
         definitionMirror.setField(decl.simpleName, null);
       }
