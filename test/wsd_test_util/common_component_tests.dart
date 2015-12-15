@@ -13,26 +13,35 @@ import 'package:web_skin_dart/ui_core.dart';
 
 /// Returns all the prop keys available on a component definition, using reflection.
 Set getComponentPropKeys(UiFactory factory) {
-  BaseComponentDefinition definition = factory();
+  var definition = factory();
   InstanceMirror definitionMirror = reflect(definition);
 
   // Use prop setters on the component definition to infer the prop keys for the component.
   // Set all non-inherited fields to null to create key-value pairs for each prop, and then return those keys.
   definitionMirror.type.instanceMembers.values.forEach((MethodMirror decl) {
-    if (decl.isGetter && !decl.isSynthetic) {
-      Type owner = (decl.owner as ClassMirror).reflectedType;
-      if (owner != Object &&
-          owner != ComponentDefinition &&
-          owner != BaseComponentDefinition &&
-          owner != component_base.UiProps &&
-          owner != MapView &&
-          owner != ReactPropsMixin &&
-          owner != DomPropsMixin &&
-          owner != CssClassPropsMixin &&
-          owner != UbiquitousDomPropsMixin
-      ) {
-        definitionMirror.setField(decl.simpleName, null);
-      }
+    // FIXME finalize way to exlcude impl class from getter-based props detection
+    if ((decl.owner as ClassMirror).declarations[#$isClassGenerated] != null) {
+      return;
+    }
+
+    if (!decl.isGetter || decl.isSynthetic) {
+      return;
+    }
+
+    Type owner = (decl.owner as ClassMirror).reflectedType;
+    if (owner != Object &&
+        owner != ComponentDefinition &&
+        owner != BaseComponentDefinition &&
+        owner != component_base.UiProps &&
+        owner != component_base.PropsMapViewMixin &&
+        owner != component_base.MapViewMixin &&
+        owner != MapView &&
+        owner != ReactPropsMixin &&
+        owner != DomPropsMixin &&
+        owner != CssClassPropsMixin &&
+        owner != UbiquitousDomPropsMixin
+    ) {
+      definitionMirror.setField(decl.simpleName, null);
     }
   });
 
