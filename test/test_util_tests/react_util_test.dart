@@ -10,6 +10,12 @@ import 'package:web_skin_dart/ui_core.dart';
 /// Main entry point for ReactUtil testing
 main() {
   group('ReactUtil', () {
+    test('renderShallow renders a shallow instance of a component', () {
+      var shallowInstance = renderShallow(ShallowTest()());
+      expect(shallowInstance['type'], 'div', reason: 'should be the div ReactElement returned by render()');
+      expect(shallowInstance['props']['isRenderResult'], isTrue, reason: 'should be the div ReactElement returned by render()');
+    });
+
     test('renderAttachedToDocument renders the component into the document and [renderAttachedToDocument] removes those attached nodes', () {
       expect(document.body.children, isEmpty);
 
@@ -154,4 +160,15 @@ main() {
       });
     });
   });
+}
+
+@Factory()
+UiFactory<ShallowTestProps> ShallowTest;
+
+@Props()
+class ShallowTestProps extends UiProps {}
+
+@Component()
+class ShallowTestComponent extends UiComponent<ShallowTestProps> {
+  render() => (Dom.div()..addProp('isRenderResult', true))();
 }
