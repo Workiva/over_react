@@ -232,7 +232,7 @@ Note how you might render the same DOM and components in JSX, react-dart, and we
 
     This transformer uses code generation to wire up the different pieces of your component declarations and to create typed getters/setters for props and state.
 
-2. When running tests on code that uses this transformer, you'll also need to __run your tests using Pub__.
+2. When running tests on code that uses this transformer (or any code that imports `web_skin_dart`) you'll also need to __run your tests using Pub__.
 
     1. First, you'll need to add the `test/pub_serve` transformer to your `pubspec.yaml`.
 Make sure to put it _after_ the `web_skin_dart` transformer.
