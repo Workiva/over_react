@@ -42,7 +42,7 @@ abstract class _$template_DomProps {
   dynamic accept, acceptCharset, accessKey, action, allowTransparency, alt, autoComplete, cellPadding, cellSpacing,
     charSet, classID, className, colSpan, content, contentEditable, contextMenu, coords, crossOrigin, data, dateTime,
     dir, download, draggable, encType, form, frameBorder, height, href, hrefLang, htmlFor, httpEquiv, icon, id, label,
-    lang, list, manifest, max, maxLength, media, mediaGroup, method, min, minlength, name, open, pattern, placeholder,
+    lang, list, manifest, max, maxLength, media, mediaGroup, method, min, name, open, pattern, placeholder,
     poster, preload, radioGroup, rel, role, rowSpan, sandbox, scope, scrolling, shape, sizes, spellCheck, src, srcDoc,
     srcSet, step, tabIndex, target, title, type, useMap, value, width, wmode;
 
