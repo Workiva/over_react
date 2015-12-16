@@ -3,6 +3,7 @@ library typed_mixins;
 
 /// Mixin for easy use of generic typed props within a component.
 /// Designed for MapView-like typed props that are backed by Maps.
+@deprecated
 abstract class TypedPropsGetter<TProps> extends Object {
   // Keep this Expando unparameterized to work around this bug: https://code.google.com/p/dart/issues/detail?id=18713
   Expando _typedPropsCache = new Expando();
@@ -33,6 +34,7 @@ abstract class TypedPropsGetter<TProps> extends Object {
 
 /// Mixin for easy use of generic typed state within a component.
 /// Designed for MapView-like typed state that are backed by Maps.
+@deprecated
 abstract class TypedStateGetter<TState> extends Object {
   // Keep this Expando unparameterized to work around this bug: https://code.google.com/p/dart/issues/detail?id=18713
   Expando _typedStateCache = new Expando();

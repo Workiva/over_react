@@ -80,36 +80,6 @@ Map getProps(JsObject instance) {
 /// (and for the function itself, which is declared using `var` in react-dart).
 Element findDomNode(dynamic instance) => react.findDOMNode(instance);
 
-/// Returns whether the instance is a valid ReactElement and was created using the specified Dart factory
-bool isValidElementOfType(dynamic instance, ReactComponentFactory factory) {
-  return isValidElement(instance) ? isComponentOfType(instance, factory) : false;
-}
-
-/// Returns whether the instance was created using the specified Dart factory
-bool isComponentOfType(JsObject instance, ReactComponentFactory factory, {bool traverseWrappers: true}) {
-  if (instance != null && factory != null) {
-    if (factory is ReactComponentFactoryProxy) {
-      var instanceType = instance['type'];
-      bool isWrapper = instanceType is JsFunction && instanceType['isWrapper'] == true;
-
-      if (traverseWrappers && isWrapper) {
-        // Should always be a Dart component if `isWrapper` true, this is just to make sure.
-        assert(isDartComponent(instance));
-        var children = getProps(instance)['children'] ?? const [];
-        if (children.isNotEmpty) {
-          return isComponentOfType(children.first, factory);
-        } else {
-          return false;
-        }
-      }
-
-      return instanceType == factory.type;
-    }
-  }
-
-  return false;
-}
-
 /// Dart wrapper for React.isValidElement.
 ///
 /// _From the JS docs:_

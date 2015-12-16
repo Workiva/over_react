@@ -2,8 +2,10 @@ part of web_skin_dart.ui_core;
 
 /// Typed getters/setters for accessibility props.
 /// To be used as a mixin for React components and builders.
-@GenerateProps(#AriaProps, keyType: TypedMapKeyType.STRING)
-abstract class _$template_AriaProps {
+@PropsMixin(keyNamespace: '')
+abstract class AriaPropsMixin {
+  Map get props;
+
   /// Identifies the currently active descendant of a compositewidget.
   ///
   /// This is used when a composite widget is responsible for managing its current active child
@@ -20,7 +22,8 @@ abstract class _$template_AriaProps {
   /// is visible and in view (or scrolls into view) when focused.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant>
-  @Prop('"aria-activedescendant"') String get activedescendant;
+  @Accessor(key: 'aria-activedescendant')
+  String activedescendant;
 
   /// Indicates whether assistive technologies will present all, or only parts of, the changed region
   /// based on the change notifications defined by the aria-relevant attribute. See related aria-relevant.
@@ -42,7 +45,8 @@ abstract class _$template_AriaProps {
   /// present the entire changed region at once.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-atomic>
-  @Prop('"aria-atomic"') bool get atomic;
+  @Accessor(key: 'aria-atomic')
+  bool atomic;
 
   /// Indicates whether user input completion suggestions are provided.
   ///
@@ -50,7 +54,8 @@ abstract class _$template_AriaProps {
   /// ensure that any auto-completed text is selected, so the user can type over it.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-autocomplete>
-  @Prop('"aria-autocomplete"') dynamic get autocomplete;
+  @Accessor(key: 'aria-autocomplete')
+  dynamic autocomplete;
 
   /// Indicates whether an element, and its subtree, are currently being updated.
   ///
@@ -63,7 +68,8 @@ abstract class _$template_AriaProps {
   /// author MAY set the aria-invalid attribute to true.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-busy>
-  @Prop('"aria-busy"') bool get busy;
+  @Accessor(key: 'aria-busy')
+  bool busy;
 
   /// Indicates the current "checked" state of checkboxes, radio buttons, and other widgets. See
   /// related aria-pressed and aria-selected.
@@ -81,7 +87,8 @@ abstract class _$template_AriaProps {
   /// [ARIA-PRACTICES]
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-checked>
-  @Prop('"aria-checked"') dynamic get checked;
+  @Accessor(key: 'aria-checked')
+  dynamic checked;
 
   /// Identifies the element (or elements) whose contents or presence are controlled by the current
   /// element. See related aria-owns.
@@ -93,7 +100,8 @@ abstract class _$template_AriaProps {
   /// controls the display of its associated tab panel.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-controls>
-  @Prop('"aria-controls"') dynamic get controls;
+  @Accessor(key: 'aria-controls')
+  dynamic controls;
 
   /// Identifies the element (or elements) that describes the object. See related aria-labelledby.
   ///
@@ -106,7 +114,8 @@ abstract class _$template_AriaProps {
   /// paragraphs) with the element referenced by the ID.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-describedby>
-  @Prop('"aria-describedby"') dynamic get describedby;
+  @Accessor(key: 'aria-describedby')
+  dynamic describedby;
 
   /// Indicates that the element is perceivable but disabled, so it is not editable or otherwise
   /// operable. See related aria-hidden and aria-readonly.
@@ -121,7 +130,8 @@ abstract class _$template_AriaProps {
   /// of the element on which the aria-disabled attribute is applied.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-disabled>
-  @Prop('"aria-disabled"') bool get disabled;
+  @Accessor(key: 'aria-disabled')
+  bool disabled;
 
   /// Indicates what functions can be performed when the dragged object is released on the drop
   /// target. This allows assistive technologies to convey the possible drag options available to
@@ -135,7 +145,8 @@ abstract class _$template_AriaProps {
   /// show a visual indication of potential drop targets.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-dropeffect>
-  @Prop('"aria-dropeffect"') dynamic get dropeffect;
+  @Accessor(key: 'aria-dropeffect')
+  dynamic dropeffect;
 
   /// Indicates whether the element, or another grouping element it controls, is currently expanded
   /// or collapsed.
@@ -150,7 +161,8 @@ abstract class _$template_AriaProps {
   /// using the aria-controls attribute.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded>
-  @Prop('"aria-expanded"') dynamic get expanded;
+  @Accessor(key: 'aria-expanded')
+  dynamic expanded;
 
   /// Identifies the next element (or elements) in an alternate reading order of content which,
   /// at the user's discretion, allows assistive technology to override the general default of reading
@@ -167,7 +179,8 @@ abstract class _$template_AriaProps {
   /// named path relationships.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-flowto>
-  @Prop('"aria-flowto"') dynamic get flowto;
+  @Accessor(key: 'aria-flowto')
+  dynamic flowto;
 
   /// Indicates an element's "grabbed" state in a drag-and-drop operation.
   ///
@@ -181,7 +194,8 @@ abstract class _$template_AriaProps {
   /// associated drop targets to none.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-grabbed>
-  @Prop('"aria-grabbed"') dynamic get grabbed;
+  @Accessor(key: 'aria-grabbed')
+  dynamic grabbed;
 
   /// Indicates that the element has a popup context menu or sub-level menu.
   ///
@@ -192,7 +206,8 @@ abstract class _$template_AriaProps {
   /// main page content.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-haspopup>
-  @Prop('"aria-haspopup"') bool get haspopup;
+  @Accessor(key: 'aria-haspopup')
+  bool haspopup;
 
   /// Indicates that the element and all of its descendants are not visible or perceivable to any
   /// user as implemented by the author. See related aria-disabled.
@@ -238,7 +253,8 @@ abstract class _$template_AriaProps {
   /// to find using a type-ahead item search ("Go to…").
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-hidden>
-  @Prop('"aria-hidden"') bool get hidden;
+  @Accessor(key: 'aria-hidden')
+  bool hidden;
 
   /// Indicates the entered value does not conform to the format expected by the application.
   ///
@@ -258,7 +274,8 @@ abstract class _$template_AriaProps {
   /// string, the default value of false applies.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-invalid>
-  @Prop('"aria-invalid"') dynamic get invalid;
+  @Accessor(key: 'aria-invalid')
+  dynamic invalid;
 
   /// Defines a string value that labels the current element. See related aria-labelledby.
   ///
@@ -277,7 +294,8 @@ abstract class _$template_AriaProps {
   /// the accessible name property.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-label>
-  @Prop('"aria-label"') String get label;
+  @Accessor(key: 'aria-label')
+  String label;
 
   /// Identifies the element (or elements) that labels the current element. See related aria-label
   /// and aria-describedby.
@@ -301,7 +319,8 @@ abstract class _$template_AriaProps {
   /// for developers.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby>
-  @Prop('"aria-labelledby"') dynamic get labelledby;
+  @Accessor(key: 'aria-labelledby')
+  dynamic labelledby;
 
   /// Defines the hierarchical level of an element within a structure.
   ///
@@ -335,7 +354,8 @@ abstract class _$template_AriaProps {
   /// so the aria-level attribute is applied to the element with the role row.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-level>
-  @Prop('"aria-level"') int get level;
+  @Accessor(key: 'aria-level')
+  int level;
 
   /// Indicates that an element will be updated, and describes the types of updates the user agents,
   /// assistive technologies, and user can expect from the live region.
@@ -369,7 +389,8 @@ abstract class _$template_AriaProps {
   /// change occurs. (e.g., changes in an assertive region may remove all currently queued changes)
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-live>
-  @Prop('"aria-live"') dynamic get live;
+  @Accessor(key: 'aria-live')
+  dynamic live;
 
   /// Indicates whether a text box accepts multiple lines of input or only a single line.
   ///
@@ -381,7 +402,8 @@ abstract class _$template_AriaProps {
   /// attribute, so authors are advised to be aware of this distinction when designing the field.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiline>
-  @Prop('"aria-multiline"') bool get multiline;
+  @Accessor(key: 'aria-multiline')
+  bool multiline;
 
   /// Indicates that the user may select more than one item from the current selectable descendants.
   ///
@@ -393,12 +415,14 @@ abstract class _$template_AriaProps {
   /// item at a time.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiselectable>
-  @Prop('"aria-multiselectable"') bool get multiselectable;
+  @Accessor(key: 'aria-multiselectable')
+  bool multiselectable;
 
   /// Indicates whether the element and orientation is horizontal or vertical.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-orientation>
-  @Prop('"aria-orientation"') dynamic get orientation;
+  @Accessor(key: 'aria-orientation')
+  dynamic orientation;
 
   /// Identifies an element (or elements) in order to define a visual, functional, or contextual
   /// parent/child relationship between DOM elements where the DOM hierarchy cannot be used to represent
@@ -415,7 +439,8 @@ abstract class _$template_AriaProps {
   /// words, an element can have only one explicit owner.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-owns>
-  @Prop('"aria-owns"') dynamic get owns;
+  @Accessor(key: 'aria-owns')
+  dynamic owns;
 
   /// Defines an element's number or position in the current set of listitems or treeitems. Not
   /// required if all elements in the set are present in the DOM. See related aria-setsize.
@@ -430,7 +455,8 @@ abstract class _$template_AriaProps {
   /// with aria-setsize.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-posinset>
-  @Prop('"aria-posinset"') int get posinset;
+  @Accessor(key: 'aria-posinset')
+  int posinset;
 
   /// Indicates the current "pressed" state of toggle buttons. See related aria-checked and aria-selected.
   ///
@@ -444,7 +470,8 @@ abstract class _$template_AriaProps {
   /// systems support pressed on buttons and checked on checkboxes.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-pressed>
-  @Prop('"aria-pressed"') dynamic get pressed;
+  @Accessor(key: 'aria-pressed')
+  dynamic pressed;
 
   ///  Indicates that the element is not editable, but is otherwise operable. See related aria-disabled.
   ///
@@ -460,7 +487,8 @@ abstract class _$template_AriaProps {
   /// result of a calculation such as a shopping cart total.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-readonly>
-  @Prop('"aria-readonly"') bool get readonly;
+  @Accessor(key: 'aria-readonly')
+  bool readonly;
 
   /// Indicates what user agent change notifications (additions, removals, etc.) assistive technologies
   /// will receive within a live region. See related aria-atomic.
@@ -505,7 +533,8 @@ abstract class _$template_AriaProps {
   /// (via aria-labelledby) by an element contained in the live region.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-relevant>
-  @Prop('"aria-relevant"') dynamic get relevant;
+  @Accessor(key: 'aria-relevant')
+  dynamic relevant;
 
   /// Indicates that user input is required on the element before a form may be submitted.
   ///
@@ -521,13 +550,14 @@ abstract class _$template_AriaProps {
   /// by the user.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-required>
-  @Prop('"aria-required"') bool get required;
+  @Accessor(key: 'aria-required')
+  bool required;
 
   /// Specifies the the type defining a user interface element. Enriches the semantics of markup and
   /// gives assistive technologies information about how to handle each element.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/usage#usage_intro>
-  String get role;
+  String role;
 
   /// Indicates the current "selected" state of various widgets. See related aria-checked and aria-pressed.
   ///
@@ -545,7 +575,8 @@ abstract class _$template_AriaProps {
   /// convey implicit selection for the widget.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-selected>
-  @Prop('"aria-selected"') dynamic get selected;
+  @Accessor(key: 'aria-selected')
+  dynamic selected;
 
   /// Defines the number of items in the current set of listitems or treeitems. Not required if
   /// all elements in the set are present in the DOM. See related aria-posinset.
@@ -564,7 +595,8 @@ abstract class _$template_AriaProps {
   /// Authors SHOULD use aria-setsize in conjunction with aria-posinset.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-setsize>
-  @Prop('"aria-setsize"') int get setsize;
+  @Accessor(key: 'aria-setsize')
+  int setsize;
 
   /// Indicates if items in a table or grid are sorted in ascending or descending order.
   ///
@@ -573,7 +605,8 @@ abstract class _$template_AriaProps {
   /// aria-sort to only one header at a time.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-sort>
-  @Prop('"aria-sort"') dynamic get sort;
+  @Accessor(key: 'aria-sort')
+  dynamic sort;
 
   /// Defines the maximum allowed value for a range widget.
   ///
@@ -587,7 +620,8 @@ abstract class _$template_AriaProps {
   /// the value of aria-valuemin.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemax>
-  @Prop('"aria-valuemax"') num get valuemax;
+  @Accessor(key: 'aria-valuemax')
+  num valuemax;
 
   /// Defines the minimum allowed value for a range widget.
   ///
@@ -602,7 +636,8 @@ abstract class _$template_AriaProps {
   /// Authors MUST ensure the value of aria-valuemin is less than or equal to the value of aria-valuemax.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemin>
-  @Prop('"aria-valuemin"') num get valuemin;
+  @Accessor(key: 'aria-valuemin')
+  num valuemin;
 
   /// Defines the current value for a range widget. See related aria-valuetext.
   ///
@@ -634,7 +669,8 @@ abstract class _$template_AriaProps {
   /// of aria-valuenow.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuenow>
-  @Prop('"aria-valuenow"') num get valuenow;
+  @Accessor(key: 'aria-valuenow')
+  num valuenow;
 
   /// Defines the human readable text alternative of aria-valuenow for a range widget.
   ///
@@ -654,7 +690,8 @@ abstract class _$template_AriaProps {
   /// the value of aria-valuenow.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuetext>
-  @Prop('"aria-valuetext"') String get valuetext;
+  @Accessor(key: 'aria-valuetext')
+  String valuetext;
 }
 
 /// Options for WAI-ARIA role values.
