@@ -2,7 +2,7 @@
 
 web_skin_dart also provides a framework for building strongly-typed React components, on which all of web_skin_dart's reusable UI components are built.
 
-* __[What makes a Web Skin Dart component](#what-makes-a-web_skin_dart-component)__
+* __[What makes a Web Skin Dart component](#what-makes-a-web-skin-dart-component)__
 
     * [`UiFactory`](#uifactory)
     * [`UiProps`](#uiprops)
@@ -13,7 +13,7 @@ web_skin_dart also provides a framework for building strongly-typed React compon
     * [`UiState`](#uistate)
     * [`UiComponent`](#uicomponent)
 
-* __[`Dom.*` and `domProps()`](#dom.*-and-domprops())__
+* __[`Dom.*` and `domProps()`](#dom-and-domprops)__
 * __[Fluent-style component consumption](#fluent-style-component-consumption)__
 * __[Building your own components](#building-your-own-components)__
 
@@ -232,7 +232,7 @@ Note how you might render the same DOM and components in JSX, react-dart, and we
 
     This transformer uses code generation to wire up the different pieces of your component declarations and to create typed getters/setters for props and state.
 
-2. When running tests on code that uses this transformer, you'll also need to __run your tests using Pub__.
+2. When running tests on code that uses this transformer (or any code that imports `web_skin_dart`) you'll also need to __run your tests using Pub__.
 
     1. First, you'll need to add the `test/pub_serve` transformer to your `pubspec.yaml`.
 Make sure to put it _after_ the `web_skin_dart` transformer.

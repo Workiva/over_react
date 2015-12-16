@@ -17,7 +17,9 @@ export './component_base.dart'
 /// __For advanced usage only.__
 @proxy
 class $PropKeys implements List<String> {
-  const $PropKeys(Symbol propsClass);
+  /// A placeholder that gets swapped out by the `web_skin_dart` transformer
+  /// with the prop keys defined in [propsClass].
+  const $PropKeys(Type propsClass);
 
   dynamic noSuchMethod(Invocation invocation) {
     throw new UngeneratedError(

@@ -14,10 +14,12 @@ main() {
       }, throws);
     });
 
-    test('component class cannot be instantiated directly', () {
+    test('component class can be instantiated directly', () {
+      var instance;
       expect(() {
-        new ComponentTestComponent();
-      }, throws);
+        instance = new ComponentTestComponent();
+      }, isNot(throws));
+      expect(instance, const isInstanceOf<ComponentTestComponent>());
     });
 
     test('renders a component from end to end, successfully reading props via typed getters', () {
