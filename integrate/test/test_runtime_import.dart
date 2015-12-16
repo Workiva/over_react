@@ -12,6 +12,13 @@ import 'package:web_skin_dart/ui_core.dart';
 main() {
   setClientConfiguration();
 
+  test('consumes web_skin_dart\'s transformed code as expected', () {
+    var props = domProps();
+    props.className = 'test-class';
+    expect(props, containsPair('className', 'test-class'),
+        reason: 'className setter should have proxied the correct key-value pair');
+  });
+
   test('renders without breaking', () {
     var well = react_test_utils.renderIntoDocument(Well()('Hello World!'));
     expect(well, isNotNull);

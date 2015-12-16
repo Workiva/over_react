@@ -3,35 +3,54 @@ part of web_skin_dart.ui_core;
 
 /// Typed getters/setters for reserved React props.
 /// To be used as a mixin for React components and builders.
-@GenerateProps(#ReactProps, keyType: TypedMapKeyType.STRING)
-abstract class _$template_ReactProps {
-  List get children;
-  String get key;
-  dynamic get ref;
+@PropsMixin(keyNamespace: '')
+abstract class ReactPropsMixin {
+  Map get props;
+
+  /// The children that were passed in to this component when it was built.
+  List children;
+
+  /// A String that differentiates a component from its siblings.
+  ///
+  /// Keys are necessary when children are dynamic, such as those passed in as a [List],
+  /// but are generally not required when using variadic children.
+  ///
+  /// For more info, see:
+  ///
+  /// * <https://facebook.github.io/react/docs/multiple-components.html#children>
+  /// * <https://facebook.github.io/react/docs/reconciliation.html>
+  String key;
+
+  /// Either a String used to retrieve the element at a later time via [react.Component.ref],
+  /// or a Function that gets called with the element when it is mounted.
+  ///
+  /// See: <https://facebook.github.io/react/docs/more-about-refs.html>.
+  dynamic ref;
 }
 
 /// Typed getters/setters for props related to CSS class manipulation, and used by all UIP components.
 /// To be used as a mixin for React components and builders.
-@GenerateProps(#CssClassProps, keyType: TypedMapKeyType.STRING)
-abstract class _$template_CssClassProps {
+@PropsMixin(keyNamespace: '')
+abstract class CssClassPropsMixin {
+  Map get props;
+
   /// String of space-delimited CSS classes to be added to the resultant DOM.
   ///
   /// All web_skin_dart components merge any added classes with this prop and the [classNameBlacklist] prop (see [BaseComponent.forwardingClassNameBuilder]).
-  String get className;
+  String className;
 
   /// String of space-delimited CSS classes to be blacklisted from being added to the resultant DOM.
   ///
   /// All web_skin_dart components merge any added classes with this prop and the [className] prop (see [BaseComponent.forwardingClassNameBuilder]).
-  String get classNameBlacklist;
+  String classNameBlacklist;
 }
 
 /// Typed getters/setters for reserved DOM-related props.
 /// To be used as a mixin for React components and builders.
-@GenerateProps(#DomProps,
-  keyType: TypedMapKeyType.STRING,
-  fromSyntheticGetters: true
-)
-abstract class _$template_DomProps {
+@PropsMixin(keyNamespace: '')
+abstract class DomPropsMixin {
+  Map get props;
+
   int cols, rows, size, span, start;
 
   bool allowFullScreen, async, autoPlay, checked, controls, defer, disabled, formNoValidate, hidden, loop, multiple,
@@ -68,125 +87,134 @@ abstract class _$template_DomProps {
 
 /// Typed getters/setters for reserved DOM-related props that can be used by all UIP components.
 /// To be used as a mixin for React components and builders.
-@GenerateProps(#UbiquitousDomProps, keyType: TypedMapKeyType.STRING)
-abstract class _$template_UbiquitousDomProps {
+@PropsMixin(keyNamespace: '')
+abstract class UbiquitousDomPropsMixin {
+  Map get props;
+
   /// Whether the element if focusable.
   /// Must be a valid integer or String of valid integer.
-  dynamic get tabIndex;
+  dynamic tabIndex;
 
   /// Unique identifier.
   /// Must be unique amongst all the ids, and contain at least one character.
-  String get id;
+  String id;
 
   /// Represents advisory information about the element.
-  String get title;
+  String title;
 
-  /// Specifies an inline CSS style for the element
-  Map<String, dynamic> get style;
+  /// An inline CSS style for the element.
+  ///
+  ///     ..style = {
+  ///       'width': '${state.progress * 100}%',
+  ///       'display': state.isHidden ? 'none' : '',
+  ///     }
+  ///
+  /// See: <https://facebook.github.io/react/tips/inline-styles.html>
+  Map<String, dynamic> style;
 
   /// Callback for when the user copies the content of an element
-  ClipboardEventCallback get onCopy;
+  ClipboardEventCallback onCopy;
 
   /// Callback for when the user cuts the content of an element
-  ClipboardEventCallback get onCut;
+  ClipboardEventCallback onCut;
 
   /// Callback for when the user pastes some content in an element
-  ClipboardEventCallback get onPaste;
+  ClipboardEventCallback onPaste;
 
   /// Callback for when the user is pressing a key
-  KeyboardEventCallback get onKeyDown;
+  KeyboardEventCallback onKeyDown;
 
   /// Callback for when the user presses a key
-  KeyboardEventCallback get onKeyPress;
+  KeyboardEventCallback onKeyPress;
 
   /// Callback for when the user releases a key
-  KeyboardEventCallback get onKeyUp;
+  KeyboardEventCallback onKeyUp;
 
   /// Callback for when an element gets focus
-  FocusEventCallback get onFocus;
+  FocusEventCallback onFocus;
 
   /// Callback for when an element loses focus
-  FocusEventCallback get onBlur;
+  FocusEventCallback onBlur;
 
   /// Callback for  when the content of a form element, the selection, or the checked state have changed (for <input>,
   /// <keygen>, <select>, and <textarea>)
-  FormEventCallback get onChange;
+  FormEventCallback onChange;
 
   /// Callback for when an element gets user input
-  FormEventCallback get onInput;
+  FormEventCallback onInput;
 
   /// Callback for when a form is submitted
-  FormEventCallback get onSubmit;
+  FormEventCallback onSubmit;
 
   /// Callback for when the user clicks on an element
-  MouseEventCallback get onClick;
+  MouseEventCallback onClick;
 
   /// Callback for when the user right-clicks on an element to open a context menu
-  MouseEventCallback get onContextMenu;
+  MouseEventCallback onContextMenu;
 
   /// Callback for when the user double-clicks on an element
-  MouseEventCallback get onDoubleClick;
+  MouseEventCallback onDoubleClick;
 
   /// Callback for when an element is being dragged
-  MouseEventCallback get onDrag;
+  MouseEventCallback onDrag;
 
   /// Callback for when the user has finished dragging an element
-  MouseEventCallback get onDragEnd;
+  MouseEventCallback onDragEnd;
 
   /// Callback for when the dragged element enters the drop target
-  MouseEventCallback get onDragEnter;
+  MouseEventCallback onDragEnter;
 
   /// Callback for when the dragged element exits the drop target
-  MouseEventCallback get onDragExit;
+  MouseEventCallback onDragExit;
 
   /// Callback for when the dragged element leaves the drop target
-  MouseEventCallback get onDragLeave;
+  MouseEventCallback onDragLeave;
 
   /// Callback for when the dragged element is over the drop target
-  MouseEventCallback get onDragOver;
+  MouseEventCallback onDragOver;
 
   /// Callback for when the user starts to drag an element
-  MouseEventCallback get onDragStart;
+  MouseEventCallback onDragStart;
 
   /// Callback for when the dragged element is dropped on the drop target
-  MouseEventCallback get onDrop;
+  MouseEventCallback onDrop;
 
   /// Callback for when the user presses a mouse button over an element
-  MouseEventCallback get onMouseDown;
+  MouseEventCallback onMouseDown;
 
   /// Callback for when the pointer is moved onto an element
-  MouseEventCallback get onMouseEnter;
+  MouseEventCallback onMouseEnter;
 
   /// Callback for when the pointer is moved out of an element
-  MouseEventCallback get onMouseLeave;
+  MouseEventCallback onMouseLeave;
 
   /// Callback for when the pointer is moving while it is over an element
-  MouseEventCallback get onMouseMove;
+  MouseEventCallback onMouseMove;
 
   /// Callback for when a user moves the mouse pointer out of an element, or out of one of its children
-  MouseEventCallback get onMouseOut;
+  MouseEventCallback onMouseOut;
 
   /// Callback for when the pointer is moved onto an element, or onto one of its children
-  MouseEventCallback get onMouseOver;
+  MouseEventCallback onMouseOver;
 
   /// Callback for when a user releases a mouse button over an element
-  MouseEventCallback get onMouseUp;
+  MouseEventCallback onMouseUp;
 
   /// Callback for when the touch is interrupted
-  TouchEventCallback get onTouchCancel;
+  TouchEventCallback onTouchCancel;
 
   /// Callback for when a finger is removed from a touch screen
-  TouchEventCallback get onTouchEnd;
+  TouchEventCallback onTouchEnd;
 
   /// Callback for when a finger is dragged across the screen
-  TouchEventCallback get onTouchMove;
+  TouchEventCallback onTouchMove;
 
   /// Callback for when a finger is placed on a touch screen
-  TouchEventCallback get onTouchStart;
+  TouchEventCallback onTouchStart;
 
   /// Callback for when an element's scrollbar is being scrolled
-  UIEventCallback get onScroll;
+  UIEventCallback onScroll;
 
   /// Callback for when the mouse wheel rolls up or down over an element
-  WheelEventCallback get onWheel;
+  WheelEventCallback onWheel;
 }
