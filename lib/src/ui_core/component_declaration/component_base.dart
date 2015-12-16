@@ -306,7 +306,7 @@ abstract class UiProps
       value = '$namespace.$testId';
     }
 
-    props['_test-id'] = value;
+    props['data-test-id'] = value;
   }
 
   @deprecated
