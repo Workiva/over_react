@@ -77,7 +77,7 @@ main() {
     });
 
     group('getTestId returns', () {
-      test('a JsObject that has the appropriate value for the `_test-id` prop key', () {
+      test('a JsObject that has the appropriate value for the `data-test-id` prop key', () {
         var renderedInstace = render(Dom.div()(
           (Dom.div()..setTestId('value', namespace: 'custom-name-space'))('First Descendant'),
           Dom.div()(
@@ -90,7 +90,7 @@ main() {
         expect(findDomNode(descendant).text, equals('First Descendant'));
       });
 
-      test('a JsObject that has the appropriate value and namespace for the `_test-id` prop key', () {
+      test('a JsObject that has the appropriate value and namespace for the `data-test-id` prop key', () {
         var renderedInstace = render(Dom.div()(
           (Dom.div()..setTestId('value', namespace: 'custom-name-space'))('First Descendant'),
           Dom.div()(
@@ -103,7 +103,7 @@ main() {
         expect(findDomNode(descendant).text, equals('Nested Descendant'));
       });
 
-      test('null if no decendant has the appropiate value for the `_test-id` prop key', () {
+      test('null if no decendant has the appropiate value for the `data-test-id` prop key', () {
         var renderedInstace = render(Dom.div());
 
         var descendant = getByTestId(renderedInstace, 'value', namespace: 'custom-name-space');

@@ -141,10 +141,10 @@ void simulateMouseLeave(EventTarget target) {
   react_test_utils.SimulateNative.mouseOver(to, {'relatedTarget': from});
 }
 
-/// Returns the first descendant of [root] that has its `_test-id` prop value set to the provided value.
+/// Returns the first descendant of [root] that has its `data-test-id` prop value set to the provided value.
 ///   * Value is based on [testId] and [namespace].
 ///
-/// Returns null if no descendant has its `_test-id` prop value set to the provided value.
+/// Returns null if no descendant has its `data-test-id` prop value set to the provided value.
 ///
 ///     var renderedInstance = render(Dom.div()(
 ///         (Dom.div()..setTestId('first-div'))() // Div1
@@ -176,9 +176,9 @@ JsObject getByTestId(JsObject root, String testId, {String namespace}) {
     bool hasValue = false;
 
     if (isDartComponent(descendant)) {
-      hasValue = getDartComponent(descendant).props['_test-id'] == value;
+      hasValue = getDartComponent(descendant).props['data-test-id'] == value;
     } else {
-      hasValue = descendant[PROPS]['_test-id'] == value;
+      hasValue = descendant[PROPS]['data-test-id'] == value;
     }
 
     if (hasValue) {
