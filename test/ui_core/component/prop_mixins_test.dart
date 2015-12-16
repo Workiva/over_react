@@ -9,19 +9,19 @@ import '../../wsd_test_util/prop_utils.dart';
 
 main() {
   group('ReactProps', () {
-    testKeys(ReactProps.Z_$propKeys, (() => new ReactPropMixinsTest({})));
+    testKeys(const $PropKeys(ReactPropsMixin), (() => new ReactPropMixinsTest({})));
   });
 
   group('CssClassProps', () {
-    testKeys(CssClassProps.Z_$propKeys, (() => new CssClassPropMixinsTest({})));
+    testKeys(const $PropKeys(CssClassPropsMixin), (() => new CssClassPropMixinsTest({})));
   });
 
-  group('DomProps', () {
-    testKeys(DomProps.Z_$propKeys, (() => new DomPropMixinsTest({})));
+  group('DomPropsMixin', () {
+    testKeys(const $PropKeys(DomPropsMixin), (() => new DomPropMixinsTest({})));
   });
 
   group('UbiquitousProps', () {
-    testKeys(UbiquitousDomProps.Z_$propKeys, (() => new UbiquitousPropMixinsTest({})));
+    testKeys(const $PropKeys(UbiquitousDomPropsMixin), (() => new UbiquitousPropMixinsTest({})));
   });
 
   group('AriaProps', () {
@@ -30,7 +30,7 @@ main() {
         expect(() {instance['notThere'];}, throws);
       });
 
-      for (var propKey in AriaProps.Z_$propKeys) {
+      for (var propKey in const $PropKeys(AriaPropsMixin)) {
         test('prop: $propKey can have its value set / read', () {
           var instance = new AriaPropMixinsTest({});
           testProp(new Symbol(propKey.replaceFirst('aria-', '')), propKey, instance, null);
@@ -39,7 +39,7 @@ main() {
   });
 }
 
-class DomPropMixinsTest extends MapView with DomProps {
+class DomPropMixinsTest extends MapView with DomPropsMixin {
   /// Create a new instance backed by the specified map.
   DomPropMixinsTest(Map map) : super(map);
 
@@ -57,7 +57,7 @@ class DomPropMixinsTest extends MapView with DomProps {
   }
 }
 
-class ReactPropMixinsTest extends MapView with ReactProps {
+class ReactPropMixinsTest extends MapView with ReactPropsMixin {
   /// Create a new instance backed by the specified map.
   ReactPropMixinsTest(Map map) : super(map);
 
@@ -75,7 +75,7 @@ class ReactPropMixinsTest extends MapView with ReactProps {
   }
 }
 
-class CssClassPropMixinsTest extends MapView with CssClassProps {
+class CssClassPropMixinsTest extends MapView with CssClassPropsMixin {
   /// Create a new instance backed by the specified map.
   CssClassPropMixinsTest(Map map) : super(map);
 
@@ -93,7 +93,7 @@ class CssClassPropMixinsTest extends MapView with CssClassProps {
   }
 }
 
-class UbiquitousPropMixinsTest extends MapView with UbiquitousDomProps {
+class UbiquitousPropMixinsTest extends MapView with UbiquitousDomPropsMixin {
   UbiquitousPropMixinsTest(Map map) : super (map);
 
   /// The props to be manipulated via the getters/setters.
@@ -110,7 +110,7 @@ class UbiquitousPropMixinsTest extends MapView with UbiquitousDomProps {
   }
 }
 
-class AriaPropMixinsTest extends MapView with AriaProps {
+class AriaPropMixinsTest extends MapView with AriaPropsMixin {
   AriaPropMixinsTest(Map map) : super (map);
 
   /// The props to be manipulated via the getters/setters.
