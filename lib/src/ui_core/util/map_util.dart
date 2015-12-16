@@ -9,9 +9,9 @@ Map getPropsToForward(Map props, {bool omitReactProps: true, Iterable keysToOmit
 
   if (omitReactProps) {
     propsToForward
-      ..remove(ReactProps.Z_$KEY__KEY)
-      ..remove(ReactProps.Z_$KEY__REF)
-      ..remove(ReactProps.Z_$KEY__CHILDREN);
+      ..remove('key')
+      ..remove('ref')
+      ..remove('children');
   }
 
   if (keysToOmit != null) {
