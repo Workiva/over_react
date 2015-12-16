@@ -258,7 +258,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 ///
 /// Note: Implements MapViewMixin instead of extending it so that the abstract [State] declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
-abstract class UiState extends Object with _MapViewMixin, _StateMapViewMixin implements Map {}
+abstract class UiState extends Object with MapViewMixin, StateMapViewMixin implements Map {}
 
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React props that
@@ -272,7 +272,7 @@ abstract class UiState extends Object with _MapViewMixin, _StateMapViewMixin imp
 /// Note: Implements MapViewMixin instead of extending it so that the abstract [Props] declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
 abstract class UiProps
-    extends Object with _MapViewMixin, _PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
+    extends Object with MapViewMixin, PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
     implements Map, ComponentDefinition {
   /// Adds an arbitrary prop key-value pair.
   void addProp(propKey, value) {
@@ -339,9 +339,9 @@ abstract class UiProps
   Function get componentFactory;
 }
 
-/// Works in conjunction with [_MapViewMixin] to provide [dart.collection.MapView]-like
+/// Works in conjunction with [MapViewMixin] to provide [dart.collection.MapView]-like
 /// functionality to [UiProps] subclasses.
-abstract class _PropsMapViewMixin {
+abstract class PropsMapViewMixin {
   /// The props maintained by this builder and used passed into the component when built.
   /// In this case, it's the current MapView object.
   Map get props;
@@ -350,9 +350,9 @@ abstract class _PropsMapViewMixin {
   String toString() => '$runtimeType: $_map';
 }
 
-/// Works in conjunction with [_MapViewMixin] to provide [dart.collection.MapView]-like
+/// Works in conjunction with [MapViewMixin] to provide [dart.collection.MapView]-like
 /// functionality to [UiState] subclasses.
-abstract class _StateMapViewMixin {
+abstract class StateMapViewMixin {
   Map get state;
   Map get _map => this.state;
 
@@ -361,12 +361,12 @@ abstract class _StateMapViewMixin {
 
 /// Provides [dart.collection.MapView]-like behavior by proxying an internal map.
 ///
-/// Works in conjunction with [_PropsMapViewMixin] and [_StateMapViewMixin] to implement [Map]
+/// Works in conjunction with [PropsMapViewMixin] and [StateMapViewMixin] to implement [Map]
 /// in [UiProps] and [UiState] subclasses.
 ///
 /// For use by concrete [UiProps] and [UiState] implementations (either generated or manual),
 /// and thus must remain public.
-abstract class _MapViewMixin<K, V> {
+abstract class MapViewMixin<K, V> {
   Map<K, V> get _map;
 
   V operator[](Object key) => _map[key];

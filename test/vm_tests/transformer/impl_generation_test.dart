@@ -54,9 +54,11 @@ main() {
     }
 
     void verifyTransformedSourceIsValid() {
+      var transformedSource = transformedFile.getTransformedText();
+
       expect(() {
-        parseCompilationUnit(transformedFile.getTransformedText());
-      }, isNot(throws), reason: 'transformed source should parse without errors');
+        parseCompilationUnit(transformedSource);
+      }, isNot(throws), reason: 'transformed source should parse without errors:\n$transformedSource');
     }
 
     group('generates an implementation that parses correctly, preserving line numbers', () {
@@ -109,6 +111,133 @@ main() {
             }
           }
         ''');
+      });
+
+      group('component', () {
+        test('without extends/with/implements clause', () {
+          preservedLineNumbersTest('''
+            @Factory()
+            UiFactory<FooProps> Foo;
+
+            @Props()
+            class FooProps {}
+
+            @Component()
+            class FooComponent {
+              render() => null;
+            }
+          ''');
+        });
+
+        test('with extends clause', () {
+          preservedLineNumbersTest('''
+            @Factory()
+            UiFactory<FooProps> Foo;
+
+            @Props()
+            class FooProps {}
+
+            @Component()
+            class FooComponent extends Bar {
+              render() => null;
+            }
+          ''');
+
+          expect(transformedFile.getTransformedText(), contains('extends Bar'),
+              reason: 'should preserve existing inheritance');
+        });
+
+        test('with extends/with clauses', () {
+          preservedLineNumbersTest('''
+            @Factory()
+            UiFactory<FooProps> Foo;
+
+            @Props()
+            class FooProps {}
+
+            @Component()
+            class FooComponent extends Bar with Baz {
+              render() => null;
+            }
+          ''');
+
+          expect(transformedFile.getTransformedText(), contains('extends Bar with Baz'),
+              reason: 'should preserve existing inheritance');
+        });
+
+        test('with extends/with clauses (multiple mixins)', () {
+          preservedLineNumbersTest('''
+            @Factory()
+            UiFactory<FooProps> Foo;
+
+            @Props()
+            class FooProps {}
+
+            @Component()
+            class FooComponent extends Bar with Baz, Qux {
+              render() => null;
+            }
+          ''');
+
+          expect(transformedFile.getTransformedText(), contains('extends Bar with Baz, Qux'),
+              reason: 'should preserve existing inheritance');
+        });
+
+        test('with extends/with clauses (multiple mixins, newlines)', () {
+          preservedLineNumbersTest('''
+            @Factory()
+            UiFactory<FooProps> Foo;
+
+            @Props()
+            class FooProps {}
+
+            @Component()
+            class FooComponent
+                extends Bar
+                with Baz, Qux {
+              render() => null;
+            }
+          ''');
+        });
+
+        test('with implements clause', () {
+          preservedLineNumbersTest('''
+            @Factory()
+            UiFactory<FooProps> Foo;
+
+            @Props()
+            class FooProps {}
+
+            @Component()
+            class FooComponent implements Quux {
+              render() => null;
+            }
+          ''');
+
+          expect(transformedFile.getTransformedText(), contains('implements Quux'),
+              reason: 'should preserve existing inheritance');
+        });
+
+        test('with extends/with/implements clauses', () {
+          preservedLineNumbersTest('''
+            @Factory()
+            UiFactory<FooProps> Foo;
+
+            @Props()
+            class FooProps {}
+
+            @Component()
+            class FooComponent extends Bar with Baz, Qux implements Quux {
+              render() => null;
+            }
+          ''');
+
+          expect(transformedFile.getTransformedText(), contains('extends Bar with Baz, Qux'),
+              reason: 'should preserve existing inheritance');
+
+          expect(transformedFile.getTransformedText(), contains('implements Quux'),
+              reason: 'should preserve existing inheritance');
+        });
       });
 
       test('props mixins', () {

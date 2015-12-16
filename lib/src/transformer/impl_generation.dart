@@ -51,7 +51,7 @@ class ImplGenerator {
       final String propsImplName = '$generatedPrefix${propsName}Impl';
 
       final String componentClassName = declarations.component.node.name.toString();
-      final String componentClassImplName = '$generatedPrefix${componentClassName}Impl';
+      final String componentClassImplMixinName = '$generatedPrefix${componentClassName}ImplMixin';
 
       final String componentName = componentClassName;
 
@@ -91,7 +91,8 @@ class ImplGenerator {
         ..writeln('// React component factory implementation.')
         ..writeln('//')
         ..writeln('// Registers component implementation and links type meta to builder factory.')
-        ..writeln('final $componentFactoryName = registerComponent(() => new $componentClassImplName(),')
+        // TODO: verify that the component class has a default constructor?
+        ..writeln('final $componentFactoryName = registerComponent(() => new $componentClassName(),')
         ..writeln('    builderFactory: $factoryName,')
         ..writeln('    componentClass: $componentClassName,')
         ..writeln('    isWrapper: ${declarations.component.meta.isWrapper},')
@@ -168,17 +169,15 @@ class ImplGenerator {
           '  $stateName typedStateFactory(Map backingMap) => new $stateImplName(backingMap);';
       }
 
-      final String propsAnnotation = '`@${ParsedDeclarations.key_props}`';
-
       // ----------------------------------------------------------------------
       //   Component implementation
       // ----------------------------------------------------------------------
       implementations
-        ..writeln('// Concrete component implementation.')
+        ..writeln('// Concrete component implementation mixin.')
         ..writeln('//')
         ..writeln('// Implements typed props/state factories, defaults `consumedPropKeys` to the keys')
         ..writeln('// generated for the associated props class.')
-        ..writeln('class $componentClassImplName extends $componentClassName {')
+        ..writeln('class $componentClassImplMixinName {')
         ..writeln('  /// Let [UiComponent] internals know that this class has been generated.')
         ..writeln('  @override')
         ..writeln('  bool get \$isClassGenerated => true;')
@@ -192,6 +191,23 @@ class ImplGenerator {
         ..writeln(typedPropsFactoryImpl)
         ..writeln(typedStateFactoryImpl)
         ..writeln('}');
+
+      if (declarations.component.node.withClause != null) {
+        transformedFile.insert(
+            sourceFile.location(declarations.component.node.withClause.mixinTypes.last.end),
+            ', $componentClassImplMixinName'
+        );
+      } else if (declarations.component.node.extendsClause != null) {
+        transformedFile.insert(
+            sourceFile.location(declarations.component.node.extendsClause.end),
+            ' with $componentClassImplMixinName'
+        );
+      } else {
+        transformedFile.insert(
+            sourceFile.location(declarations.component.node.name.end),
+            ' extends Object with $componentClassImplMixinName'
+        );
+      }
     }
 
     if (implementations.isNotEmpty) {
