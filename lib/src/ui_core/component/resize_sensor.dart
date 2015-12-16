@@ -81,6 +81,7 @@ class _ResizeSensor extends BaseComponent<ResizeSensorDefinition> {
           (Dom.div()
             ..className = 'resize-sensor'
             ..style = _baseStyle
+            ..key = 'resizeSensor'
           )(expandSensor, collapseSensor)
     );
 
