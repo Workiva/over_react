@@ -2,66 +2,114 @@
 
 web_skin_dart also provides a framework for building strongly-typed React components, on which all of web_skin_dart's reusable UI components are built.
 
-* __[What makes a web_skin_dart component](#what-makes-a-web_skin_dart-component)__
-  * __[`ComponentDefinition`](#componentdefinition)__
-    * [As a props map](#as-a-props-map)
-    * [As a builder](#as-a-builder)
-  * __[`BaseComponent`](#basecomponent)__
-    * [`TypedPropsGetter` and `TypedStateGetter`](#typedpropsgetter-and-typedstategetter)
-* __[`DomProps` and `DomComponentDefinition`](#domprops-and-domcomponentdefinition)__
+* __[What makes a Web Skin Dart component](#what-makes-a-web-skin-dart-component)__
+
+    * [`UiFactory`](#uifactory)
+    * [`UiProps`](#uiprops)
+
+        * [UiProps as a Map](#uiprops-as-a-map)
+        * [UiProps as a builder](#uiprops-as-a-builder)
+
+    * [`UiState`](#uistate)
+    * [`UiComponent`](#uicomponent)
+
+* __[`Dom.*` and `domProps()`](#dom-and-domprops)__
 * __[Fluent-style component consumption](#fluent-style-component-consumption)__
 * __[Building your own components](#building-your-own-components)__
-  * [Stateless components](#stateless-components)
-  * [Stateful components](#stateful-components)
+
+    * __[Setting it up](#setting-it-up)__
+    * __[Component Boilerplate](#boilerplate-templates)__
+
+        * [Component](#boilerplate-component)
+        * [Stateful Component](#boilerplate-stateful-component)
+        * [Flux Component](#boilerplate-flux-component)
+
+    * __[Common Pitfalls](#common-pitfalls)__
 
 
-## What makes a web_skin_dart component
+[](#__START_EMBEDDED_README__)
 
-### ComponentDefinition
-The abstract `ComponentDefinition` class serves as the basis for implementing and consuming strongly-typed props.
 
-(An abstract subclass `BaseComponentDefinition`, is also available, which mixes in `ReactProps` and `CssClassProps` for convenience.)
+## What makes a Web Skin Dart component
 
-##### As a props map
-`ComponentDefinition` extends [`MapView`](https://api.dartlang.org/apidocs/channels/stable/dartdoc-viewer/dart:collection.MapView), so each instance of it proxies the specified props `Map`. And, since `MapView` implements `Map`, you can use `ComponentDefinition` anywhere you can use a plain `Map`.
+* [`UiFactory`](#uifactory)
+* [`UiProps`](#uiprops) (and sometimes [`UiState`](#uistate))
+* [`UiComponent`](#uicomponent)
 
-Subclasses of `ComponentDefinition` typically mix in typed getters/setters for a component's props, which proxy key-value pairs from a backing props `Map`.
+These pieces, annotated with component [annotations], work together with the `web_skin_dart` [transformer] to make it easy to define strongly-typed React components in Dart.
 
-In React, props are represented as key-value pairs, so continuing to representing them with something that implements `Map` makes it easy to utilize established React patterns with regards to defaults, merging, cloning, etc.
+_Note: if you really need to use these base classes without the transformer, unstubbed versions are available by importing [component_base.dart] directly._
 
-##### As a builder
-`ComponentDefinition` instances also contain a reference to a ReactComponentFactory, so they can be used to render components in addition to setting props on them.
- 
-The `build()` method (or simply invoking the builder like a function) uses that factory to construct a component using the builder's backing props map, and the specified children.
-  
-Usage involves:
-  1. Creating a new `ComponentDefinition` instance
-  2. Setting props on it via the typed setters 
-  3. Invoking the `build()` function to get a `JsObject` React component
-  
+### `UiFactory`
+A __function__ that returns a new instance of a component's `UiProps` class.
+
+This factory is __the entrypoint__ to consuming each component.
+
+The `UiProps` instance it returns can be used as a component builder (component fluent interface), or as a typed view into an existing props map.
+(See examples of this in the [`UiProps`](#uiprops) section.)  
+
+### `UiProps`
+A __Map__ class for representing React props that adds __strongly-typed getters and setters__ for each prop.
+
+Can also be invoked as a function, serving as a __builder__ for its associated component.
+
+#### `UiProps` as a Map
+```dart
+FooProps props = Foo();
+props.color = 'green';
+print(props.color); // green
+print(props);       // {FooProps.color: green}
+```
+
+```dart
+Map existingMap = {'FooProps.color': 'blue'};
+FooProps props = Foo(existingMap);
+print(props.color); // blue
+```
+
+#### `UiProps` as a builder
+```dart
+// Create a UiProps instance to serve as a builder
+FooProps builder = Foo();
+// Add props
+builder.id = 'the_best_foo';
+builder.color = 'red';
+// Invoke as a function with the desired children
+// to return a new instance of the component.
+return builder('child1', 'child2');
+
+// Do it inline!
+return (Foo()
+  ..id = 'the_best_foo'
+  ..color = 'red'
+)('child1', 'child2')
+```
+
 See [Fluent-style component consumption](#fluent-style-component-consumption) for more examples on builder usage.
- 
-### BaseComponent
 
-The abstract `BaseComponent` class extends `react.Component` with convenience methods relating to prop forwarding and CSS className merging, and also mixes in `TypedPropsGetter`, which makes it easy to use typed props within components. (`BaseComponentWithState` does the same thing, but also with `TypedStateGetter`.)
- 
-##### TypedPropsGetter and TypedStateGetter
+### `UiState`
+A __Map__ class for representing React state that adds __strongly-typed getters and setters__ for each state property.
 
-These generic mixins make it easy to access typed props and state from within a component.
- 
-Each of them requires implementation of a factory (`typedPropsFactory`/`typedStateFactory`) that creates a typed "view" into the specified Map. 
+It's optional, and won't be used for every component.
 
-This is used internally by the mixin so it can provide `tProps`/`tState` getters, which return typed views into the current `props`/`state` Maps.
+### `UiComponent`
+A subclass of `react.Component`, containing lifecycle methods and rendering logic for components.
 
-This lets you access state and props using the same typed getters/setters defined in the component's `ComponentDefinition` subclass, or `MapView` state subclass. 
+Provides __strongly-typed props__ via `UiProps` , as well as utilities for prop forwarding and CSS class merging.
+
+A variation of this, `UiStatefulComponent`, augments this behavior with __strongly-typed state__ via `UiState`.
+
+Within the component class, `props` and `state` aren't just `Map`s, but instances of `UiProps` and `UiState`. That means you don't need String keys to access them!
 
 ```dart
 render() {
-  assert(identical(tProps.children, props['children']);
+  print(props.color);
+  print(props.model);
+  print(state.isActive);
 }
 ```
 
-`newState()` and `newProps()` are also exposed for convenience, and are useful for easily creating new typed Maps:
+`newProps()` and `newState()` are also exposed to conveniently create empty instances of `UiProps` and `UiState` as needed:
 ```dart
 @override
 getDefaultProps() => (newProps()
@@ -78,175 +126,276 @@ _toggleExpanded() => setState(newState()
 );
 ```
 
-## DomProps and DomComponentDefinition
-web_skin_dart also wraps each available React DOM component (`react.div`, `react.a`, etc.) with a convenience method that each returns an appropriate `DomComponentDefinition` instance.
 
-The returned instances have getters/setters for all available DOM/attribute-related props available in React (`className`, `href`, `onClick`, etc.), for convenience.
- 
+## `Dom.*` and `domProps()`
+All React DOM components (`react.div`, `react.a`, etc.) have a corresponding `Dom` method (`Dom.div()`, `Dom.a()`, etc.) that returns a new `DomProps` builder, which can be used to render DOM components via the [fluent interface](#fluent-style-component-consumption).
+
+`DomProps` has getters/setters for all DOM attribute props available in React.
+
+```dart
+(Dom.a()
+  ..id = 'home_link'
+  ..href = '/home'
+)('Home');
+
+(Dom.div()
+  ..className = 'resize-handle'
+  ..onMouseDown = _startDrag
+)();
+```
+
+The `domProps()` function is also available to create a new typed Map or a typed view into an existing Map. Useful for manipulating DOM props and adding DOM props to components that don't forward them directly.
+
 ## Fluent-style component consumption
 
-In web_skin_dart, `ComponentDefinition` subclasses are used to consume components, and not the ReactComponentFactory functions directly.
- 
-Typically, components expose a factory to create new `ComponentDefinition` instances, which aids in consumption.
- 
-Note how you might render the same DOM in JSX, react-dart, and web_skin_dart:
+In web_skin_dart, `UiProps` subclasses are used to consume components, and not the `ReactComponentFactory` functions directly.
+
+Each Component expose `UiFactory` to create new `UiProps` instances, which aids in consumption.
+
+Note how you might render the same DOM and components in JSX, react-dart, and web_skin_dart:
 
 * JSX:
 
     ```jsx
     <div className="container">
       <h1>Click the button!</h1>
-      <button
-        id="my_button"
-        className="fancy-button"
-        tabIndex=1
+      <Button
+        id="main_button"
+        wsSize="small"
         onClick={_handleClick}
-      >Click</button>
+      >Click me</Button>
     </div>
     ```
 
 * Vanilla react-dart:
 
     ```dart
-    div({'className': 'container'}, [
-      h1({}, 'Click the button!'),
-      button({
-        'id': 'my_button',
-        'className': 'fancy-button',
-        'tabIndex': 1,
+    react.div({'className': 'container'}, [
+      react.h1({}, 'Click the button!'),
+      wsr.Button({
+        'id': 'main_button',
+        'wsSize': 'small',
         'onClick': _handleClick
-      }, 'Click');
+      }, 'Click me');
     ]);
     ```
 
 * web_skin_dart fluent interface:
 
     ```dart
-    (Dom.div()..className='container')(
+    (Dom.div()..className = 'container')(
       Dom.h1()('Click the button!'),
-      (Dom.button()
-        ..id = 'my_button'
-        ..className = 'fancy-button'
-        ..tabIndex = 1
+      (Button()
+        ..id = 'main_button'
+        ..size = ButtonSize.SMALL
         ..onClick = _handleClick
-      )('Click')
+      )('Click me')
     );
     ```
-    
-    A more verbose version of the `button` usage:
+
+    Breakdown:
+
     ```dart
-    (() {
-      // Create a new ComponentDefinition that can render a button,
-      // with props backed by the specified Map.
-      var builder = new DomComponentDefinition(react.button, {});
-      
-      // Use typed setters to add key-value pairs to the props map.
-      builder.id = 'my_button';             // builder['id'] = 'my_button';
-      builder.className = 'fancy-button';   // builder['className'] = 'myButton';
-      builder.tabIndex = 1;                 // builder['tabIndex'] = 1;
-      builder.onClick = _handleClick;       // builder['onClick'] = _handleClick;
-      
-      // Invoke the builder to return a new JsObject React component.
-      return builder.build(['Click']);
-    })()
+    // Create a builder for a <div>,
+    // add a CSS class name by cascading a typed setter,
+    // and invoke the builder with the <h1> and Button() children.
+    (Dom.div()..className = 'container')(
+
+      // Create a builder for an <h1> and invoke it with children.
+      // No need for wrapping parens, since no props are added.
+      Dom.h1()('Click the button!'),
+
+      // Create a builder for a Web Skin Button,
+      (Button()
+        // add a ubiquitous DOM prop exposed on all components,
+        // which Button() forwards to its rendered DOM,
+        ..id = 'main_button'
+        // add a Button-specific prop,
+        ..size = ButtonSize.SMALL
+        // add another prop,
+        ..onClick = _handleClick
+      // and finally invoke the builder with children.
+      )('Click me')
+
+    );
     ```
 
 ## Building your own components
 
-#### Stateless components
+### Setting it up
+1. Add the `web_skin_dart` [transformer] to your `pubspec.yaml`.
 
-1. Add the following lines to import the necessary core pieces:
-    ```dart
-    // Import web_skin_dart core component framework 
-    import 'package:web_skin_dart/ui_core.dart';
-    
-    // Import code_generation annotations so we can use @GenerateProps
-    import 'package:web_skin_dart/code_generation/annotations.dart';
+    ```yaml
+    transformers:
+    - web_skin_dart
     ```
 
-2. Start with this template for a component:
-    ```dart
-    /// Returns a new builder for the Foo component.
-    FooDefinition Foo() => new FooDefinition({});
-    
-    /// Builder for the Foo component, with typed getters/setters for each prop that the component accepts.
-    /// Also functions as a MapView, for use internally by the Foo component, as well as for Button component prop manipulation.
-    @GenerateProps(#FooProps)
-    class FooDefinition extends BaseComponentDefinition with FooProps {
-      FooDefinition(Map backingMap) : super(_FooComponentFactory, backingMap);
-      
-      // Add abstract prop getters, and run code_generation to update the 'FooProps' mixin
-    }
-    
-    ReactComponentFactory _FooComponentFactory = react.registerComponent(() => new _Foo());
-    class _Foo extends BaseComponent<FooDefinition> {
-      @override
-      Map getDefaultProps() => (newProps()
-        // Use cascades (.. operator) to set default props here
-      );
-    
-      @override
-      render() {
-        
-      }
-    
-      @override
-      FooDefinition typedPropsFactory(Map propsMap) => new FooDefinition(propsMap);
-    }
-    ```
+    This transformer uses code generation to wire up the different pieces of your component declarations and to create typed getters/setters for props and state.
 
-3. Fill in props, set up the [code_generation][code-generation] tool, and run it.
- 
-4. Start consuming your component with strongly-typed props!
+2. When running tests on code that uses this transformer (or any code that imports `web_skin_dart`) you'll also need to __run your tests using Pub__.
 
-#### Stateful components
+    1. First, you'll need to add the `test/pub_serve` transformer to your `pubspec.yaml`.
+Make sure to put it _after_ the `web_skin_dart` transformer.
 
-Making stateful components is similar, except you'll need to define a MapView subclass for your typed state and use it within the component:
+        ```yaml
+        transformers:
+        - web_skin_dart
+        - test/pub_serve:
+            $include: test/**_test{.*,}.dart
+        ```
 
+    2. If you're using `dart_dev`, you can set the `pubServe` [configuration option](https://github.com/Workiva/dart_dev#project-configuration)
+to `true` for the `test` and `coverage` tasks.
+
+        If not, you can use the `--pub-serve` option in the `test` package (<https://github.com/dart-lang/test#testing-with-barback>).
+
+### Boilerplate templates
+
+1. Start with one of the component boilerplate templates below
+
+2. Fill in props and rendering/lifecycle logic.
+
+3. Consume your component with the fluent interface.
+
+4. Run your app; that's it! Code will be automatically generated on the fly by Pub!
+
+
+##### Boilerplate: Component
 ```dart
-/// Returns a new builder for the Foo component.
-FooDefinition Foo() => new FooDefinition({});
+import 'package:web_skin_dart/ui_core.dart';
 
-/// Builder for the Foo component, with typed getters/setters for each prop that the component accepts.
-/// Also functions as a MapView, for use internally by the Foo component, as well as for Button component prop manipulation.
-@GenerateProps(#FooProps)
-class FooDefinition extends BaseComponentDefinition with FooProps {
-  FooDefinition(Map backingMap) : super(_FooComponentFactory, backingMap);
-  
-  // Add abstract prop getters, and run code_generation to update the 'FooProps' mixin
+@Factory()
+UiFactory<FooProps> Foo;
+
+@Props()
+class FooProps extends UiProps {
+  // Props go here, declared as fields:
+  var color;
+  Iterable<String> items;
 }
 
-@GenerateState(#FooStateMixin)
-class FooState extends MapView with FooStateMixin {
-  FooState(Map backingMap) : super(backingMap);
-  
-  // Add abstract state getters, and run code_generation to update the 'FooStateMixin' mixin
-}
-
-ReactComponentFactory _FooComponentFactory = react.registerComponent(() => new _Foo());
-class _Foo extends BaseComponentWithState<FooDefinition, FooState> {
-  @override
-  Map getDefaultProps() => (newProps()
-    // Use cascades (.. operator) to set default props here
-  );
-  
-  @override
-  Map getInitialState() => (newState()
-    // Use cascades (.. operator) to set initial state here
+@Component()
+class FooComponent extends UiComponent<FooProps> {
+  getDefaultProps() => (newProps()
+    // Cascade default props here
   );
 
-  @override
   render() {
-    
+    // Return the rendered component contents here.
+    // The `props` variable is typed; no need for string keys!
   }
-
-  @override
-  FooDefinition typedPropsFactory(Map propsMap) => new FooDefinition(propsMap);
-
-  @override
-  FooState typedStateFactory(Map stateMap) => new FooState(stateMap);
 }
 ```
+```dart
+// Example consumption
+(Foo()
+  ..color = 'red'
+  ..items = ['one', 'two']
+)('I\'m a Foo!')
+```
+
+##### Boilerplate: Stateful Component
+```dart    
+import 'package:web_skin_dart/ui_core.dart';
+
+@Factory()
+UiFactory<BarProps> Bar;
+
+@Props()
+class BarProps extends UiProps {
+  // Props go here, declared as fields.
+}
+
+@State()
+class BarState extends UiState {
+  // State goes here, declared as fields:
+  bool shown;
+  int count;
+}
+
+@Component()
+class BarComponent extends UiStatefulComponent<BarProps, BarState> {
+  getDefaultProps() => (newProps()
+    // Cascade default props here
+  );
+
+  getInitialState() => (newState()
+    // Cascade initial state here
+  );
+
+  render() {
+    // Return the rendered component contents here.
+    // The `props` and `state` variables are typed; no need for string keys!
+  }
+}
+```
+```dart
+// Example consumption
+Bar()('I\'m a Bar!')
+```
+
+##### Boilerplate: Flux Component
+```dart
+import 'package:web_skin_dart/ui_core.dart';
+
+@Factory()
+UiFactory<BazProps> Baz;
+
+@Props()
+class BazProps extends FluxUiProps<BazActions, BazStore> {
+  // Props go here, declared as fields.
+  // `actions` and `store` are already defined for you!
+}
+
+@Component()
+class BazComponent extends FluxUiComponent<BazProps> {
+  getDefaultProps() => (newProps()
+    // Cascade default props here
+  );
+
+  render() {
+    // Return the rendered component contents here.
+    // The `props` variables is typed; no need for string keys!
+    // E.g., `props.actions`, `props.store`.
+  }
+}
+```
+```dart
+// Example consumption
+var bazActions = new BazActions();
+var bazStore = new BazStore(actions);
+(Baz()
+  ..actions = bazActions
+  ..store = bazStore
+)('I\'m a Baz!')
+```
+
+### Common Pitfalls
+#### `null object does not have a method 'call'`
+
+```
+ⓧ Exception: The null object does not have a method 'call'.
+```
+
+If you call a `@Factory()` function that has not been initialized due to the transformer not running, you'll get this error.
+
+__Make sure you've followed the [setup instructions](#setting-it-up).__
+
+### 404 on `.dart` file
+
+```
+ⓧ GET http://localhost:8080/src/your_component.dart
+ⓧ An error occurred loading file: http://localhost:8080/src/your_component.dart
+```
+When the transformer finds something wrong with your file, it logs an error in Pub and causes the invalid file to 404.
+
+This ensures that when the transformer breaks, `pub build` will break, and you'll know about it.
+
+__Check your `pub serve` output for errors.__
 
 
-[code-generation]: /lib/src/code_generation/README.md
+
+[examples]: /example/component_declaration/
+[transformer]: /lib/src/transformer/README.md
+[annotations]: /lib/src/ui_core/component_declaration/annotations.dart
+[component_base.dart]: /lib/src/ui_core/component_declaration/component_base.dart

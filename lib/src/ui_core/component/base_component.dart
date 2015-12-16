@@ -7,7 +7,8 @@ part of web_skin_dart.ui_core;
 ///
 /// Serves as a builder for fluent-style component consumption with typed getters and setters for props.
 /// Also functions as a MapView, for use internally and externally for typed prop consumption and manipulation.
-abstract class BaseComponentDefinition extends ComponentDefinition with ReactProps, CssClassProps, UbiquitousDomProps {
+@deprecated
+abstract class BaseComponentDefinition extends ComponentDefinition with ReactPropsMixin, CssClassPropsMixin, UbiquitousDomPropsMixin {
   BaseComponentDefinition(ReactComponentFactory componentFactory, Map props) : super(componentFactory, props);
 }
 
@@ -17,6 +18,7 @@ typedef dynamic _refTypedef(String ref);
 /// A component used as the base for all web_skin_dart components.
 ///
 /// Contains built-in support for generic typed props and other utility methods.
+@deprecated
 abstract class BaseComponent<T extends ComponentDefinition> extends react.Component with TypedPropsGetter<T> {
   /// Get the DOM node of the component.
   ///
@@ -53,13 +55,16 @@ abstract class BaseComponent<T extends ComponentDefinition> extends react.Compon
 /// A component used as the base for all stateful web_skin_dart components.
 ///
 /// Contains built-in support for generic typed props/state and other utility methods.
+@deprecated
 abstract class BaseComponentWithState<T extends ComponentDefinition, S extends Map> extends BaseComponent<T> with TypedStateGetter<S> {}
 
+@deprecated
 typedef ComponentDefinition ComponentDefinitionFactory();
 
 /// An abstract definition of a React component.
 /// Serves as a builder for fluent-style component consumption with typed getters and setters for props.
 /// Also functions as a MapView, for use internally and externally for typed prop consumption and manipulation.
+@deprecated
 abstract class ComponentDefinition extends MapView implements Function {
   /// The component factory used in [build].
   final ReactComponentFactory componentFactory;
@@ -110,17 +115,4 @@ abstract class ComponentDefinition extends MapView implements Function {
 
     return super.noSuchMethod(invocation);
   }
-}
-
-/// Helper function that wraps react.registerComponent. But also adds the ability specify if the
-/// component is a wrapper component.
-///
-/// A wrapper component is a component that clones or passes through its children
-/// but needs to be treated as if it were the wrapped component.
-ReactComponentFactory registerComponent(react.Component dartComponentFactory(), {bool isWrapper: false}) {
-  ReactDartComponentFactoryProxy reactComponentFactory = react.registerComponent(dartComponentFactory);
-  if (isWrapper) {
-    reactComponentFactory.type['isWrapper'] = true;
-  }
-  return reactComponentFactory;
 }
