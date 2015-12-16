@@ -16,7 +16,7 @@ Map getPropsToForward(Map props, {bool omitReactProps: true, bool omitTestProps:
 
   if (omitTestProps) {
     propsToForward
-      ..remove('_test-id');
+      ..remove('data-test-id');
   }
 
   if (keysToOmit != null) {

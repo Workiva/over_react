@@ -179,21 +179,21 @@ main() {
       });
 
       group('setTestId()', () {
-        test('sets the correct value for the `_test-id` key without a namespace', () {
+        test('sets the correct value for the `data-test-id` key without a namespace', () {
           var props = new TestComponentProps();
           props.setTestId('value');
 
-          expect(props, equals({'_test-id': 'value'}));
+          expect(props, equals({'data-test-id': 'value'}));
         });
 
-        test('sets the correct value for the `_test-id` key with a namespace', () {
+        test('sets the correct value for the `data-test-id` key with a namespace', () {
           var props = new TestComponentProps();
           props.setTestId('value', namespace: 'custom-name-space');
 
-          expect(props, equals({'_test-id': 'custom-name-space.value'}));
+          expect(props, equals({'data-test-id': 'custom-name-space.value'}));
         });
 
-        test('does not set the value for the `_test-id` when inTesting is false', () {
+        test('does not set the value for the `data-test-id` when inTesting is false', () {
           UiProps.testMode = false;
 
           var props = new TestComponentProps();
@@ -286,7 +286,7 @@ main() {
             'key': 'testKey',
             'ref': 'testRef',
             'children': [],
-            '_test-id' : 'testId',
+            'data-test-id' : 'testId',
             'consumed1': true,
             'consumed2': true,
             'unconsumed1': true,
