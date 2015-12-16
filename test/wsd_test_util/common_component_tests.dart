@@ -16,15 +16,11 @@ Set getComponentPropKeys(UiFactory factory) {
   var definition = factory();
   InstanceMirror definitionMirror = reflect(definition);
 
-  // Use prop setters on the component definition to infer the prop keys for the component.
-  // Set all non-inherited fields to null to create key-value pairs for each prop, and then return those keys.
+  // Use prop getters on the props class to infer the prop keys for the component.
+  // Set all props to null to create key-value pairs for each prop, and then return those keys.
   definitionMirror.type.instanceMembers.values.forEach((MethodMirror decl) {
-    // FIXME finalize way to exlcude impl class from getter-based props detection
-    if ((decl.owner as ClassMirror).declarations[#$isClassGenerated] != null) {
-      return;
-    }
-
-    if (!decl.isGetter || decl.isSynthetic) {
+    // Filter out all members except concrete instance getters.
+    if (!decl.isGetter || decl.isSynthetic || decl.isStatic) {
       return;
     }
 
@@ -41,7 +37,11 @@ Set getComponentPropKeys(UiFactory factory) {
         owner != CssClassPropsMixin &&
         owner != UbiquitousDomPropsMixin
     ) {
-      definitionMirror.setField(decl.simpleName, null);
+      // Some of the getters won't correspond to props, and won't have setters.
+      // Catch resultant exceptions and move on.
+      try {
+        definitionMirror.setField(decl.simpleName, null);
+      } catch(_) {}
     }
   });
 
