@@ -91,6 +91,7 @@ class _ResizeSensor extends BaseComponent<ResizeSensorDefinition> {
       wrapperStyles = {
         'position': 'relative',
         'flex': '1 1 0%',
+        '-ms-flex': '1 1 0%',
         'display': 'block'
       };
     } else {
