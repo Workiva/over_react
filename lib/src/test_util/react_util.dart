@@ -17,6 +17,15 @@ JsObject render(dynamic component) {
   return react_test_utils.renderIntoDocument(component is ComponentDefinition ? component.build() : component);
 }
 
+/// Shallow-renders a component using [react_test_utils.ReactShallowRenderer].
+///
+/// See: <https://facebook.github.io/react/docs/test-utils.html#shallow-rendering>.
+JsObject renderShallow(JsObject instance) {
+  var renderer = react_test_utils.createRenderer();
+  renderer.render(instance);
+  return renderer.getRenderOutput();
+}
+
 /// Unmounts a React component.
 ///
 /// [instanceOrContainerNode] can be a [JsObject] React instance,
