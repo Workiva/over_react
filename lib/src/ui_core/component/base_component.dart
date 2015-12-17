@@ -35,10 +35,9 @@ abstract class BaseComponent<T extends ComponentDefinition> extends react.Compon
   _refTypedef get ref => super.ref;
 
   /// Utility function used for prop transfer
-  Map copyProps({bool omitReservedReactProps: true, bool omitTestProps: true, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
+  Map copyProps({bool omitReservedReactProps: true, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
     return getPropsToForward(this.props,
         omitReactProps: omitReservedReactProps,
-        omitTestProps: omitTestProps,
         keysToOmit: keysToOmit,
         keySetsToOmit: keySetsToOmit
     );
