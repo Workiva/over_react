@@ -129,10 +129,9 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component
 
   /// Returns a copy of this component's props with React and test props optionally omitted, and
   /// with the specified [keysToOmit] and [keySetsToOmit] omitted.
-  Map copyProps({bool omitReservedReactProps: true, bool omitTestProps: true, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
+  Map copyProps({bool omitReservedReactProps: true, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
     return getPropsToForward(this.props,
         omitReactProps: omitReservedReactProps,
-        omitTestProps: omitTestProps,
         keysToOmit: keysToOmit,
         keySetsToOmit: keySetsToOmit
     );
@@ -290,20 +289,12 @@ abstract class UiProps
 
   /// Whether [UiProps] is in a testing environment.
   /// TODO: Use bool.fromEnvironment() when it is supported in Dartium.
-  static bool testMode;
+  static bool testMode = false;
 
-  // Adds a prop key-value pair for testing.
-  void setTestId(String testId, {String namespace}) {
+  // Sets the `data-test-id` key to [value] for use in a testing environment.
+  set testId(String value) {
     if (!testMode) {
       return;
-    }
-
-    var value;
-
-    if (namespace == null) {
-      value = testId;
-    } else {
-      value = '$namespace.$testId';
     }
 
     props['data-test-id'] = value;

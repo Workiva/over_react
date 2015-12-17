@@ -76,37 +76,47 @@ main() {
       expect(flag, isTrue);
     });
 
-    group('getTestId returns', () {
+    group('getByTestId returns', () {
       test('a JsObject that has the appropriate value for the `data-test-id` prop key', () {
         var renderedInstace = render(Dom.div()(
-          (Dom.div()..setTestId('value', namespace: 'custom-name-space'))('First Descendant'),
+          (Dom.div()..testId = 'value')('First Descendant'),
           Dom.div()(
-            (Dom.div()..setTestId('value', namespace: 'custom-name-space'))('Nested Descendant')
+            (Dom.div()..testId = 'value')('Nested Descendant')
           )
         ));
 
-        var descendant = getByTestId(renderedInstace, 'value', namespace: 'custom-name-space');
+        var descendant = getByTestId(renderedInstace, 'value');
 
         expect(findDomNode(descendant).text, equals('First Descendant'));
-      });
-
-      test('a JsObject that has the appropriate value and namespace for the `data-test-id` prop key', () {
-        var renderedInstace = render(Dom.div()(
-          (Dom.div()..setTestId('value', namespace: 'custom-name-space'))('First Descendant'),
-          Dom.div()(
-            (Dom.div()..setTestId('value', namespace: 'second-custom-name-space'))('Nested Descendant')
-          )
-        ));
-
-        var descendant = getByTestId(renderedInstace, 'value', namespace: 'second-custom-name-space');
-
-        expect(findDomNode(descendant).text, equals('Nested Descendant'));
       });
 
       test('null if no decendant has the appropiate value for the `data-test-id` prop key', () {
         var renderedInstace = render(Dom.div());
 
-        var descendant = getByTestId(renderedInstace, 'value', namespace: 'custom-name-space');
+        var descendant = getByTestId(renderedInstace, 'value');
+
+        expect(descendant, isNull);
+      });
+    });
+
+    group('getDomByTestId returns', () {
+      test('an Element that has the appropriate value for the `data-test-id` prop key', () {
+        var renderedInstace = render(Dom.div()(
+          (Dom.div()..testId = 'value')('First Descendant'),
+          Dom.div()(
+            (Dom.div()..testId = 'value')('Nested Descendant')
+          )
+        ));
+
+        var descendant = getDomByTestId(renderedInstace, 'value');
+
+        expect(descendant, findDomNode(renderedInstace).children[0]);
+      });
+
+      test('null if no decendant has the appropiate value for the `data-test-id` prop key', () {
+        var renderedInstace = render(Dom.div());
+
+        var descendant = getDomByTestId(renderedInstace, 'value');
 
         expect(descendant, isNull);
       });
