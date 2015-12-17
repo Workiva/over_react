@@ -178,26 +178,19 @@ main() {
         });
       });
 
-      group('setTestId()', () {
+      group('testId', () {
         test('sets the correct value for the `data-test-id` key without a namespace', () {
           var props = new TestComponentProps();
-          props.setTestId('value');
+          props.testId = 'value';
 
           expect(props, equals({'data-test-id': 'value'}));
-        });
-
-        test('sets the correct value for the `data-test-id` key with a namespace', () {
-          var props = new TestComponentProps();
-          props.setTestId('value', namespace: 'custom-name-space');
-
-          expect(props, equals({'data-test-id': 'custom-name-space.value'}));
         });
 
         test('does not set the value for the `data-test-id` when inTesting is false', () {
           UiProps.testMode = false;
 
           var props = new TestComponentProps();
-          props.setTestId('value', namespace: 'custom-name-space');
+          props.testId = 'value';
 
           expect(props, equals({}));
 
@@ -277,7 +270,7 @@ main() {
       });
 
       group('copyUnconsumedProps()', () {
-        test('copies props, omitting keys from `consumedPropKeys`, as well as reserved react props and test props', () {
+        test('copies props, omitting keys from `consumedPropKeys`, as well as reserved react props props', () {
           component = new TestComponentComponent(testConsumedPropKeys: [
             ['consumed1', 'consumed2']
           ]);
@@ -286,7 +279,6 @@ main() {
             'key': 'testKey',
             'ref': 'testRef',
             'children': [],
-            'data-test-id' : 'testId',
             'consumed1': true,
             'consumed2': true,
             'unconsumed1': true,
