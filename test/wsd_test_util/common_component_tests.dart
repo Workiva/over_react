@@ -12,7 +12,7 @@ import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
 /// Returns all the prop keys available on a component definition, using reflection.
-Set getComponentPropKeys(UiFactory factory) {
+Set getComponentPropKeys(BuilderOnlyUiFactory factory) {
   var definition = factory();
   InstanceMirror definitionMirror = reflect(definition);
 
@@ -65,7 +65,7 @@ List<JsObject> getForwardingTargets(JsObject reactInstance, {int expectedTargetC
 }
 
 /// Common test for verifying that unconsumed props are forwarded as expected.
-void testPropForwarding(UiFactory factory, dynamic childrenFactory(), {List propsNotExcludedFromForwarding: const []}) {
+void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(), {List propsNotExcludedFromForwarding: const []}) {
   test('forwards unconsumed props as expected', () {
     const Map extraProps = const {
       // Add this so we find the right component(s) with [getForwardingTargets] later.
@@ -135,7 +135,7 @@ void testPropForwarding(UiFactory factory, dynamic childrenFactory(), {List prop
 }
 
 /// Common test for verifying that classNames are merged/blacklisted as expected.
-void testClassNameMerging(UiFactory factory, dynamic childrenFactory()) {
+void testClassNameMerging(BuilderOnlyUiFactory factory, dynamic childrenFactory()) {
   test('merges classes as expected', () {
     var builder = factory()
       ..addProp(forwardedPropBeacon, true)
@@ -170,7 +170,7 @@ void testClassNameMerging(UiFactory factory, dynamic childrenFactory()) {
 }
 
 /// Common test for verifying that CSS classes added by the component can be blacklisted by the consumer.
-void testClassNameOverrides(UiFactory factory, dynamic childrenFactory()) {
+void testClassNameOverrides(BuilderOnlyUiFactory factory, dynamic childrenFactory()) {
   /// Render a component without any overrides to get the classes added by the component.
   JsObject reactInstanceWithoutOverrides = render(
       (factory()
@@ -229,7 +229,7 @@ dynamic _defaultChildrenFactory() => [];
 ///
 /// [childrenFactory] returns children to be used when rendering components.
 /// This is necessary for components that need children to render properly.
-void commonComponentTests(UiFactory factory, {
+void commonComponentTests(BuilderOnlyUiFactory factory, {
   shouldTestPropForwarding: true,
   propsNotExcludedFromForwarding: const [],
   shouldTestClassNameMerging: true,
