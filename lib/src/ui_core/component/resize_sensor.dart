@@ -51,11 +51,11 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
     )();
 
     var expandSensor = (Dom.div()
-      ..key = 'expandSensor'
-      ..ref = 'expandSensor'
       ..className = 'resize-sensor-expand'
       ..onScroll = _handleSensorScroll
       ..style = _baseStyle
+      ..ref = 'expandSensor'
+      ..key = 'expandSensor'
     )(expandSensorChild);
 
     var collapseSensorChild = (Dom.div()
@@ -64,11 +64,11 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
     )();
 
     var collapseSensor = (Dom.div()
-      ..key = 'collapseSensor'
-      ..ref = 'collapseSensor'
       ..className = 'resize-sensor-collapse'
       ..onScroll = _handleSensorScroll
       ..style = _baseStyle
+      ..ref = 'collapseSensor'
+      ..key = 'collapseSensor'
     )(collapseSensorChild);
 
     var children = new List.from(tProps.children)
@@ -76,6 +76,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
           (Dom.div()
             ..className = 'resize-sensor'
             ..style = _baseStyle
+            ..key = 'resizeSensor'
           )(expandSensor, collapseSensor)
     );
 
