@@ -1,7 +1,5 @@
 library dom_util_test;
 
-import 'package:react/react.dart' as react;
-import 'package:react/react_client.dart' show ReactComponentFactory;
 import 'package:test/test.dart';
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_components.dart';
