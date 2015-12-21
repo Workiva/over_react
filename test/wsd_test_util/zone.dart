@@ -8,7 +8,7 @@ Zone _zone;
 
 void validateZone() {
   if (_zone == null) {
-    throw 'Need to call setZone() first.';
+    throw 'Need to call storeZone() first.';
   }
 }
 
