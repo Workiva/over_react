@@ -107,6 +107,8 @@ react.Component getDartComponent(JsObject instance) {
 }
 
 /// Returns a rendered component's ref, or null if it doesn't exist.
+///
+/// Using `getRef()` can be tedious for nested / complex components. It is recommended to use `getByTestId()` instead.
 JsObject getRef(JsObject instance, dynamic ref) {
   if (instance == null) {
     return null;
