@@ -51,11 +51,11 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
     )();
 
     var expandSensor = (Dom.div()
-      ..key = 'expandSensor'
-      ..ref = 'expandSensor'
       ..className = 'resize-sensor-expand'
       ..onScroll = _handleSensorScroll
       ..style = _baseStyle
+      ..ref = 'expandSensor'
+      ..key = 'expandSensor'
     )(expandSensorChild);
 
     var collapseSensorChild = (Dom.div()
@@ -64,24 +64,25 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
     )();
 
     var collapseSensor = (Dom.div()
-      ..key = 'collapseSensor'
-      ..ref = 'collapseSensor'
       ..className = 'resize-sensor-collapse'
       ..onScroll = _handleSensorScroll
       ..style = _baseStyle
+      ..ref = 'collapseSensor'
+      ..key = 'collapseSensor'
     )(collapseSensorChild);
 
-    var children = new List.from(tProps.children)
+    var children = new List.from(props.children)
       ..add(
           (Dom.div()
             ..className = 'resize-sensor'
             ..style = _baseStyle
+            ..key = 'resizeSensor'
           )(expandSensor, collapseSensor)
     );
 
     var wrapperStyles;
 
-    if (tProps.isFlexChild) {
+    if (props.isFlexChild) {
       wrapperStyles = {
         'position': 'relative',
         'flex': '1 1 0%',
@@ -104,15 +105,15 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
   }
 
   /// When the expand or collapse sensors are resized, builds a [ResizeSensorEvent] and calls
-  /// tProps.onResize with it. Then, calls through to [_reset()].
+  /// props.onResize with it. Then, calls through to [_reset()].
   void _handleSensorScroll(react.SyntheticEvent event) {
     Element sensor = getDOMNode();
 
     if (sensor.offsetWidth != _lastWidth || sensor.offsetHeight != _lastHeight) {
       var event = new ResizeSensorEvent(sensor.offsetWidth, sensor.offsetHeight, _lastWidth, _lastHeight);
 
-      if (tProps.onResize != null) {
-        tProps.onResize(event);
+      if (props.onResize != null) {
+        props.onResize(event);
       }
 
       _reset();
