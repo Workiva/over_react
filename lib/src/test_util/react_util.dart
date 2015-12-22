@@ -158,6 +158,9 @@ void simulateMouseLeave(EventTarget target) {
 ///     var firstDiv = getByTestId(renderedInstance, 'first-div'); // Returns Div1
 ///     var nestedDiv = getByTestId(renderedInstance, 'nested-div'); // Returns Div2
 ///     var secondDiv = getByTestId(renderedInstance, 'second-div'); // Returns null
+///
+/// It is recommended that instead of setting this `data-test-id` prop manually you should use the
+/// [UiProps.testId] setter so the prop is only set in a test environment.
 JsObject getByTestId(JsObject root, String value) {
   bool first = false;
 
