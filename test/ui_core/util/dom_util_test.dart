@@ -55,14 +55,14 @@ main() {
   });
 }
 
-DomTestDefinition DomTest() => new DomTestDefinition({});
+@Factory()
+UiFactory<DomTestProps> DomTest;
 
-class DomTestDefinition extends BaseComponentDefinition with HitAreaProps {
-  DomTestDefinition(Map props) : super(_DomTestComponentFactory, props);
-}
+@Props()
+class DomTestProps extends UiProps with HitAreaPropsMixin {}
 
-ReactComponentFactory _DomTestComponentFactory = react.registerComponent(() => new _DomTest());
-class _DomTest extends BaseComponent<DomTestDefinition> with HitAreaMixin<DomTestDefinition> {
+@Component()
+class DomTestComponent extends UiComponent<DomTestProps> with HitAreaMixin<DomTestProps> {
   @override
   Map getDefaultProps() => (newProps()
     ..addProps(HitAreaMixin.defaultProps)
@@ -74,7 +74,4 @@ class _DomTest extends BaseComponent<DomTestDefinition> with HitAreaMixin<DomTes
       (Dom.div()..ref = 'innerComponent')()
     );
   }
-
-  @override
-  DomTestDefinition typedPropsFactory(Map propsMap) => new DomTestDefinition(propsMap);
 }
