@@ -11,7 +11,7 @@ import 'package:web_skin_dart/ui_core.dart';
 main() {
   group('ReactUtil', () {
     test('renderShallow renders a shallow instance of a component', () {
-      var shallowInstance = renderShallow(ShallowTest()());
+      var shallowInstance = renderShallow(Test()());
       expect(shallowInstance['type'], 'div', reason: 'should be the div ReactElement returned by render()');
       expect(shallowInstance['props']['isRenderResult'], isTrue, reason: 'should be the div ReactElement returned by render()');
     });
@@ -78,22 +78,35 @@ main() {
 
     group('getByTestId returns', () {
       test('a JsObject that has the appropriate value for the `data-test-id` prop key', () {
-        var renderedInstace = render(Dom.div()(
+        var renderedInstance = render(Dom.div()(
           (Dom.div()..testId = 'value')('First Descendant'),
           Dom.div()(
             (Dom.div()..testId = 'value')('Nested Descendant')
           )
         ));
 
-        var descendant = getByTestId(renderedInstace, 'value');
+        var descendant = getByTestId(renderedInstance, 'value');
 
         expect(findDomNode(descendant).text, equals('First Descendant'));
       });
 
-      test('null if no decendant has the appropiate value for the `data-test-id` prop key', () {
-        var renderedInstace = render(Dom.div());
+      test('a JsObject that has the appropriate value for the custom prop key', () {
+        var renderedInstance = render(Dom.div()(
+          (Dom.div()..testId = 'value')('First Descendant'),
+          Dom.div()(
+            (Dom.div()..setTestId('value', key: 'data-custom-id'))('Nested Descendant')
+          )
+        ));
 
-        var descendant = getByTestId(renderedInstace, 'value');
+        var descendant = getByTestId(renderedInstance, 'value', key: 'data-custom-id');
+
+        expect(findDomNode(descendant).text, equals('Nested Descendant'));
+      });
+
+      test('null if no decendant has the appropiate value for the `data-test-id` prop key', () {
+        var renderedInstance = render(Dom.div());
+
+        var descendant = getByTestId(renderedInstance, 'value');
 
         expect(descendant, isNull);
       });
@@ -101,27 +114,77 @@ main() {
 
     group('getDomByTestId returns', () {
       test('an Element that has the appropriate value for the `data-test-id` prop key', () {
-        var renderedInstace = render(Dom.div()(
+        var renderedInstance = render(Dom.div()(
           (Dom.div()..testId = 'value')('First Descendant'),
           Dom.div()(
             (Dom.div()..testId = 'value')('Nested Descendant')
           )
         ));
 
-        var descendant = getDomByTestId(renderedInstace, 'value');
+        var descendant = getDomByTestId(renderedInstance, 'value');
 
-        expect(descendant, findDomNode(renderedInstace).children[0]);
+        expect(descendant, findDomNode(renderedInstance).children[0]);
+      });
+
+      test('an Element that has the appropriate value for the custom prop key', () {
+        var renderedInstance = render(Dom.div()(
+          (Dom.div()..testId = 'value')('First Descendant'),
+          Dom.div()(
+            (Dom.div()..setTestId('value', key: 'data-custom-id'))('Nested Descendant')
+          )
+        ));
+
+        var descendant = getDomByTestId(renderedInstance, 'value', key: 'data-custom-id');
+
+        expect(descendant, findDomNode(renderedInstance).children[1].children[0]);
       });
 
       test('null if no decendant has the appropiate value for the `data-test-id` prop key', () {
-        var renderedInstace = render(Dom.div());
+        var renderedInstance = render(Dom.div());
 
-        var descendant = getDomByTestId(renderedInstace, 'value');
+        var descendant = getDomByTestId(renderedInstance, 'value');
 
         expect(descendant, isNull);
       });
     });
 
+    group('getComponentByTestId returns', () {
+      test('a react.Component that has the appropriate value for the `data-test-id` prop key', () {
+        var renderedInstance = render(Dom.div()(
+          (Test()..testId = 'value')('First Descendant'),
+          Dom.div()(
+            (Test()..testId = 'value')('Nested Descendant')
+          )
+        ));
+
+        var descendant = getComponentByTestId(renderedInstance, 'value');
+
+        expect(descendant, getDartComponent(getByTestId(renderedInstance, 'value')));
+      });
+
+      test('a react.Component that has the appropriate value for the custom prop key', () {
+        var renderedInstance = render(Dom.div()(
+          (Test()..testId = 'value')('First Descendant'),
+          Dom.div()(
+            (Test()..setTestId('value', key: 'data-custom-id'))('Nested Descendant')
+          )
+        ));
+
+        var descendant = getComponentByTestId(renderedInstance, 'value', key: 'data-custom-id');
+
+        expect(descendant, getDartComponent(getByTestId(renderedInstance, 'value', key: 'data-custom-id')));
+      });
+
+      test('null if no decendant has the appropiate value for the `data-test-id` prop key', () {
+        var renderedInstance = render(Dom.div()(
+          (Test()..testId = 'otherValue')()
+        ));
+
+        var descendant = getComponentByTestId(renderedInstance, 'value');
+
+        expect(descendant, isNull);
+      });
+    });
 
     test('findDescendantsWithProp returns the descendants with the propKey', () {
       var renderedInstance = render(Dom.div()([
@@ -210,12 +273,12 @@ main() {
 }
 
 @Factory()
-UiFactory<ShallowTestProps> ShallowTest;
+UiFactory<TestProps> Test;
 
 @Props()
-class ShallowTestProps extends UiProps {}
+class TestProps extends UiProps {}
 
 @Component()
-class ShallowTestComponent extends UiComponent<ShallowTestProps> {
+class TestComponent extends UiComponent<TestProps> {
   render() => (Dom.div()..addProp('isRenderResult', true))();
 }
