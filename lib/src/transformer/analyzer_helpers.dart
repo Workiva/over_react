@@ -61,6 +61,19 @@ String _getConstructorName(Annotation annotation) {
   return constructorName;
 }
 
+/// Returns the first annotation AST node on [member] of type [annotationType],
+/// or null if no matching annotations are found.
+Annotation getMatchingAnnotation(AnnotatedNode member, Type annotationType) {
+  // Be sure to use `originalDeclaration` so that generic parameters work.
+  ClassMirror classMirror = reflectClass(annotationType).originalDeclaration;
+  String className = MirrorSystem.getName(classMirror.simpleName);
+
+  // Find the annotation that matches [type]'s name.
+  return member.metadata.firstWhere((annotation) {
+    return _getClassName(annotation) == className;
+  }, orElse: () => null);
+}
+
 /// Uses reflection to instantiate and returns the first annotation on [member] of type
 /// [annotationType], or null if no matching annotations are found.
 ///
@@ -68,14 +81,7 @@ String _getConstructorName(Annotation annotation) {
 ///
 /// Naively assumes that the name of the [annotationType] class is canonical.
 dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType) {
-  // Be sure to use `originalDeclaration` so that generic parameters work.
-  ClassMirror classMirror = reflectClass(annotationType).originalDeclaration;
-  String className = MirrorSystem.getName(classMirror.simpleName);
-
-  // Find the annotation that matches [type]'s name.
-  Annotation matchingAnnotation = member.metadata.firstWhere((annotation) {
-    return _getClassName(annotation) == className;
-  }, orElse: () => null);
+  var matchingAnnotation = getMatchingAnnotation(member, annotationType);
 
   // If no annotation is found, return null.
   if (matchingAnnotation == null) {
@@ -108,6 +114,9 @@ dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType) {
   // Instantiate and return an instance of the annotation using reflection.
   String constructorName = _getConstructorName(matchingAnnotation) ?? '';
 
+  // Be sure to use `originalDeclaration` so that generic parameters work.
+  ClassMirror classMirror = reflectClass(annotationType).originalDeclaration;
+
   try {
     var instanceMirror = classMirror.newInstance(new Symbol(constructorName), positionalParameters, namedParameters);
     return instanceMirror.reflectee;
@@ -120,10 +129,17 @@ dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType) {
 
 /// Utility class that allows for easy access to an annotated node's instantiated annotation.
 class NodeWithMeta<TNode extends AnnotatedNode, TMeta> {
+  /// The optionally annotated node.
   final TNode node;
+
+  /// The node of the [TMeta] annotation, if it exists.
+  final Annotation metaNode;
+
+  /// An reflectively-instantiated version of [metaNode], if it exists.
   final TMeta meta;
 
   NodeWithMeta(unit)
       : this.node = unit,
+        this.metaNode = getMatchingAnnotation(unit, TMeta),
         this.meta = instantiateAnnotation(unit, TMeta);
 }
