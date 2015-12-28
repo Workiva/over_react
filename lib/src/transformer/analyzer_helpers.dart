@@ -24,6 +24,9 @@ dynamic getValue(Expression expression) {
     return expression.value;
   } else if (expression is NullLiteral) {
     return null;
+  } else if (expression is Identifier) {
+    // FIXME: finalize/document this behavior
+    return expression.toSource();
   }
 
   throw 'Unsupported expression: $expression. Must be a string, boolean, integer, or null literal';
