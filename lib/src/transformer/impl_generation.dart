@@ -104,6 +104,14 @@ class ImplGenerator {
       String parentTypeParam;
       if (declarations.component.meta.subtypeOf != null) {
         parentTypeParam = getComponentFactoryName(declarations.component.meta.subtypeOf);
+        if (parentTypeParam == componentFactoryName) {
+          /// It doesn't make sense to have a component subtype itself, and also an error occurs
+          /// if a component's factory variable tries to reference itself during its initialization.
+          /// Therefore, this is not allowed.
+          logger.error('A component cannot be a subtype of itself.',
+              span: getSpan(sourceFile, declarations.component.metaNode)
+          );
+        }
       } else {
         parentTypeParam = 'null';
       }
