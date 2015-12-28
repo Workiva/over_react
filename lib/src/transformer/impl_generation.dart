@@ -41,6 +41,14 @@ class ImplGenerator {
 
   ImplGenerator(TransformLogger this.logger, TransformedSourceFile this.transformedFile);
 
+  static String getComponentFactoryName(String componentClassName) {
+    if (componentClassName == null) {
+      throw new ArgumentError.notNull(componentClassName);
+    }
+
+    return '$publicGeneratedPrefix${componentClassName}Factory';
+  }
+
   void generate(ParsedDeclarations declarations) {
     StringBuffer implementations = new StringBuffer();
 
@@ -53,9 +61,7 @@ class ImplGenerator {
       final String componentClassName = declarations.component.node.name.toString();
       final String componentClassImplMixinName = '$generatedPrefix${componentClassName}ImplMixin';
 
-      final String componentName = componentClassName;
-
-      final String componentFactoryName = '$generatedPrefix${componentName}Factory';
+      final String componentFactoryName = getComponentFactoryName(componentClassName);
 
       String typedPropsFactoryImpl = '';
       String typedStateFactoryImpl = '';
@@ -87,6 +93,21 @@ class ImplGenerator {
           ' = ([Map backingProps]) => new $propsImplName(backingProps)'
       );
 
+
+      transformedFile.insert(
+          sourceFile.location(
+              declarations.factory.node.variables.type.offset
+          ),
+          'final '
+      );
+
+      String parentTypeParam;
+      if (declarations.component.meta.subtypeOf != null) {
+        parentTypeParam = getComponentFactoryName(declarations.component.meta.subtypeOf);
+      } else {
+        parentTypeParam = 'null';
+      }
+
       implementations
         ..writeln('// React component factory implementation.')
         ..writeln('//')
@@ -96,6 +117,7 @@ class ImplGenerator {
         ..writeln('    builderFactory: $factoryName,')
         ..writeln('    componentClass: $componentClassName,')
         ..writeln('    isWrapper: ${declarations.component.meta.isWrapper},')
+        ..writeln('    parentType: $parentTypeParam,')
         ..writeln('    displayName: ${stringLiteral(factoryName)}')
         ..writeln(');')
         ..writeln();
