@@ -1,6 +1,6 @@
 part of web_skin_dart.ui_core;
 
-/// Returns a copy of the specified props map, omitting reserved React props by default,
+/// Returns a copy of the specified props map, omitting reserved React and test props by default,
 /// in addition to any specified keys.
 ///
 /// Useful for prop forwarding.
