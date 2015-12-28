@@ -6,6 +6,7 @@ import 'package:mockito/mockito.dart';
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart';
+import 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart';
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart' show Dom;
 
@@ -13,6 +14,9 @@ import 'component_base_test/one_level_wrapper.dart';
 import 'component_base_test/test_a.dart';
 import 'component_base_test/test_b.dart';
 import 'component_base_test/two_level_wrapper.dart';
+import 'component_base_test/type_inheritance/parent.dart';
+import 'component_base_test/type_inheritance/subsubtype.dart';
+import 'component_base_test/type_inheritance/subtype.dart';
 
 main() {
   group('component base:', () {
@@ -358,21 +362,71 @@ main() {
       group('attaches metadata to the specified component class:', () {
         final ComponentFactory dummyComponentFactory = () => null;
 
-        group('isWrapper:', () {
+        group('`isWrapper`:', () {
           test('true', () {
-            var factory = registerComponent(dummyComponentFactory, isWrapper: true);
-            expect(factory.type['isWrapper'], isTrue);
+            var reactComponentFactory = registerComponent(dummyComponentFactory, isWrapper: true);
+            var meta = getComponentTypeMeta(reactComponentFactory.type);
+
+            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
+            expect(meta.isWrapper, isTrue);
           });
 
           test('false', () {
-            var factory = registerComponent(dummyComponentFactory, isWrapper: false);
-            expect(factory.type['isWrapper'], isNot(isTrue));
+            var reactComponentFactory = registerComponent(dummyComponentFactory, isWrapper: false);
+            var meta = getComponentTypeMeta(reactComponentFactory.type);
+
+            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
+            expect(meta.isWrapper, isFalse);
+          });
+        });
+
+        group('`parentType`:', () {
+          test('not specified', () {
+            var reactComponentFactory = registerComponent(dummyComponentFactory);
+            var meta = getComponentTypeMeta(reactComponentFactory.type);
+
+            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
+            expect(meta.parentType, isNull);
+          });
+
+          test('null', () {
+            var reactComponentFactory = registerComponent(dummyComponentFactory);
+            var meta = getComponentTypeMeta(reactComponentFactory.type);
+
+            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
+            expect(meta.parentType, isNull);
+          });
+
+          test('another ReactComponentFactoryProxy', () {
+            var parentFactory = registerComponent(dummyComponentFactory);
+
+            var reactComponentFactory = registerComponent(dummyComponentFactory, parentType: parentFactory);
+            var meta = getComponentTypeMeta(reactComponentFactory.type);
+
+            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
+            expect(meta.parentType, equals(parentFactory));
           });
         });
 
         test('displayName', () {
-          var factory = registerComponent(dummyComponentFactory, displayName: 'testDisplayName');
-          expect(factory.type['displayName'], equals('testDisplayName'));
+          var reactComponentFactory = registerComponent(dummyComponentFactory, displayName: 'testDisplayName');
+          expect(reactComponentFactory.type['displayName'], equals('testDisplayName'));
+        });
+
+        group('registers a type alias for', () {
+          test('`componentClass`', () {
+            Type typeAlias = TestRegisterComponentClassAlias;
+            var reactComponentFactory = registerComponent(dummyComponentFactory, componentClass: typeAlias);
+
+            expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias), equals(reactComponentFactory.type));
+          });
+
+          test('`factory`', () {
+            UiFactory factoryAlias = ([_]) => null;
+            var reactComponentFactory = registerComponent(dummyComponentFactory, builderFactory: factoryAlias);
+
+            expect(getComponentTypeFromAlias(factoryAlias), equals(reactComponentFactory.type));
+          });
         });
       });
     });
@@ -425,6 +479,40 @@ main() {
 
         test('a DOM component and its ReactComponentFactory', () {
           expect(isComponentOfType(Dom.div()(), Dom.div().componentFactory), isTrue);
+        });
+
+        group('a subtype component', () {
+          group('(matchParentTypes: true)', () {
+            test('and its own factory', () {
+              expect(isComponentOfType(TestSubsubtype()(), TestSubsubtype), isTrue);
+            });
+
+            test('and the factory of its parent', () {
+              expect(isComponentOfType(TestSubsubtype()(), TestSubtype), isTrue);
+            });
+
+            test('and the factory of its grandparent', () {
+              expect(isComponentOfType(TestSubsubtype()(), TestParent), isTrue);
+            });
+          });
+
+          group('(matchParentTypes: false)', () {
+            test('and its own factory', () {
+              expect(isComponentOfType(TestSubsubtype()(), TestSubsubtype, matchParentTypes: false), isTrue);
+            });
+
+            test('and the factory of its parent', () {
+              expect(isComponentOfType(TestSubsubtype()(), TestSubtype, matchParentTypes: false), isFalse);
+            });
+
+            test('and the factory of its grandparent', () {
+              expect(isComponentOfType(TestSubsubtype()(), TestParent, matchParentTypes: false), isFalse);
+            });
+          });
+        });
+
+        test('a component and the factory of its subtype', () {
+          expect(isComponentOfType(TestParent()(), TestSubtype), isFalse);
         });
 
         group('a component that nests the component factory', () {
@@ -662,3 +750,6 @@ void mapProxyTests(Map mapProxyFactory(Map proxiedMap)) {
 class MockMap extends Mock implements Map {
   noSuchMethod(i) => super.noSuchMethod(i);
 }
+
+
+abstract class TestRegisterComponentClassAlias {}
