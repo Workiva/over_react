@@ -122,6 +122,13 @@ main() {
             TestAnnotation
         ), isNull);
       });
+
+      test('returns null when the member has no annotations', () {
+        expect(instantiateAnnotation(
+            parseAndGetSingleMember('var a;'),
+            TestAnnotation
+        ), isNull);
+      });
     });
 
     group('NodeWithMeta', () {
@@ -130,8 +137,19 @@ main() {
         var nodeWithMeta = new NodeWithMeta<TopLevelVariableDeclaration, TestAnnotation>(member);
 
         expect(nodeWithMeta.node, same(member));
+        expect(nodeWithMeta.metaNode, isNotNull);
+        expect(nodeWithMeta.metaNode.name.name, 'TestAnnotation');
         expect(nodeWithMeta.meta, isNotNull);
         expect(nodeWithMeta.meta.positional, 'hello');
+      });
+
+      test('gracefully handles a node without an annotation', () {
+        var member = parseAndGetSingleMember('var a;');
+        var nodeWithMeta = new NodeWithMeta<TopLevelVariableDeclaration, TestAnnotation>(member);
+
+        expect(nodeWithMeta.node, same(member));
+        expect(nodeWithMeta.metaNode, isNull);
+        expect(nodeWithMeta.meta, isNull);
       });
     });
   });
