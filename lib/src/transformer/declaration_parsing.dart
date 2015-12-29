@@ -292,16 +292,29 @@ class ParsedDeclarations {
 // Generic type aliases, for readability.
 
 class ComponentNode extends NodeWithMeta<ClassDeclaration, annotations.Component> {
-  ComponentNode(unit) : super(unit, onUnsupportedExpression: passThroughIdentifierValue);
+  static const String _subtypeOfParamName = 'subtypeOf';
 
-  static Identifier passThroughIdentifierValue(Expression expression) {
-    if (expression is Identifier) {
-      return expression;
+  /// The value of the `subtypeOf` parameter passed in to this node's annotation.
+  Identifier subtypeOfValue;
+
+  ComponentNode(unit) : super(unit) {
+    // Perform special handling for the `subtypeOf` parameter of this node's annotation.
+    //
+    // If valid, omit it from `unsupportedArguments` so that the `meta` can be accessed without it
+    // (with the value available via `subtypeOfValue`), given that all other arguments are valid.
+
+    NamedExpression subtypeOfParam = this.unsupportedArguments.firstWhere((expression) {
+      return expression is NamedExpression && expression.name.label.name == _subtypeOfParamName;
+    }, orElse: () => null);
+
+    if (subtypeOfParam != null) {
+      if (subtypeOfParam.expression is! Identifier) {
+        throw '`$_subtypeOfParamName` must be an identifier: $subtypeOfParam';
+      }
+
+      this.subtypeOfValue = subtypeOfParam.expression;
+      this.unsupportedArguments.remove(subtypeOfParam);
     }
-
-    throw 'Unsupported expression: $expression. '
-        'Must be a simple identifier (to be passed through), '
-        'or a string, boolean, integer, or null literal.';
   }
 }
 

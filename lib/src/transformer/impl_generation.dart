@@ -101,23 +101,19 @@ class ImplGenerator {
           'final '
       );
 
-      var parentTypeParam = 'null';
+      String parentTypeParam = 'null';
 
-      var parentType = declarations.component.meta.subtypeOf;
+      Identifier parentType = declarations.component.subtypeOfValue;
       if (parentType != null) {
         if (parentType is PrefixedIdentifier) {
           var prefix = parentType.prefix.name;
           var parentClassName = parentType.identifier.name;
 
           parentTypeParam = prefix + '.' + getComponentFactoryName(parentClassName);
-        } else if (parentType is Identifier) {
+        } else {
           var parentClassName = parentType.name;
 
           parentTypeParam = getComponentFactoryName(parentClassName);
-        } else {
-          logger.error('`subtypeOf` must be the parent component\'s class.',
-              span: getSpan(sourceFile, declarations.component.metaNode)
-          );
         }
       }
 

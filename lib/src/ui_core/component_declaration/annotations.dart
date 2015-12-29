@@ -80,11 +80,11 @@ class Component {
   ///
   ///     isComponentOfType(Bar()(), Bar); // true (due to normal type-checking)
   ///     isComponentOfType(Bar()(), Foo); // true (due to parent type-checking)
-  final dynamic subtypeOf;
+  final Type subtypeOf;
 
   const Component({
       bool this.isWrapper: false,
-      dynamic this.subtypeOf
+      Type this.subtypeOf
   });
 }
 
