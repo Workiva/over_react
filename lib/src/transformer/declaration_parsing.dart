@@ -290,8 +290,22 @@ class ParsedDeclarations {
 }
 
 // Generic type aliases, for readability.
+
+class ComponentNode extends NodeWithMeta<ClassDeclaration, annotations.Component> {
+  ComponentNode(unit) : super(unit, onUnsupportedExpression: passThroughIdentifierValue);
+
+  static Identifier passThroughIdentifierValue(Expression expression) {
+    if (expression is Identifier) {
+      return expression;
+    }
+
+    throw 'Unsupported expression: $expression. '
+        'Must be a simple identifier (to be passed through), '
+        'or a string, boolean, integer, or null literal.';
+  }
+}
+
 class FactoryNode           extends NodeWithMeta<TopLevelVariableDeclaration, annotations.Factory> {FactoryNode(unit)           : super(unit);}
-class ComponentNode         extends NodeWithMeta<ClassDeclaration, annotations.Component>          {ComponentNode(unit)         : super(unit);}
 class PropsNode             extends NodeWithMeta<ClassDeclaration, annotations.Props>              {PropsNode(unit)             : super(unit);}
 class StateNode             extends NodeWithMeta<ClassDeclaration, annotations.State>              {StateNode(unit)             : super(unit);}
 
