@@ -101,19 +101,33 @@ class ImplGenerator {
           'final '
       );
 
-      String parentTypeParam;
-      if (declarations.component.meta.subtypeOf != null) {
-        parentTypeParam = getComponentFactoryName(declarations.component.meta.subtypeOf);
-        if (parentTypeParam == componentFactoryName) {
-          /// It doesn't make sense to have a component subtype itself, and also an error occurs
-          /// if a component's factory variable tries to reference itself during its initialization.
-          /// Therefore, this is not allowed.
-          logger.error('A component cannot be a subtype of itself.',
+      var parentTypeParam = 'null';
+
+      var parentType = declarations.component.meta.subtypeOf;
+      if (parentType != null) {
+        if (parentType is PrefixedIdentifier) {
+          var prefix = parentType.prefix.name;
+          var parentClassName = parentType.identifier.name;
+
+          parentTypeParam = prefix + '.' + getComponentFactoryName(parentClassName);
+        } else if (parentType is Identifier) {
+          var parentClassName = parentType.name;
+
+          parentTypeParam = getComponentFactoryName(parentClassName);
+        } else {
+          logger.error('`subtypeOf` must be the parent component\'s class.',
               span: getSpan(sourceFile, declarations.component.metaNode)
           );
         }
-      } else {
-        parentTypeParam = 'null';
+      }
+
+      if (parentTypeParam == componentFactoryName) {
+        /// It doesn't make sense to have a component subtype itself, and also an error occurs
+        /// if a component's factory variable tries to reference itself during its initialization.
+        /// Therefore, this is not allowed.
+        logger.error('A component cannot be a subtype of itself.',
+            span: getSpan(sourceFile, declarations.component.metaNode)
+        );
       }
 
       implementations
