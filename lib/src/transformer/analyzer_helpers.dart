@@ -84,7 +84,7 @@ Annotation getMatchingAnnotation(AnnotatedNode member, Type annotationType) {
 ///
 /// Naively assumes that the name of the [annotationType] class is canonical.
 dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType, {
-    dynamic onUnsupportedExpression(Expression expression)
+    dynamic onUnsupportedArgument(Expression argument)
 }) {
   var matchingAnnotation = getMatchingAnnotation(member, annotationType);
 
@@ -103,14 +103,16 @@ dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType, {
   Map namedParameters = {};
   List positionalParameters = [];
 
-  matchingAnnotation.arguments.arguments.forEach((expression) {
-    if (expression is NamedExpression) {
-      var name = (expression as NamedExpression).name.label.name;
-      var value = getValue((expression as NamedExpression).expression, onUnsupportedExpression: onUnsupportedExpression);
+  matchingAnnotation.arguments.arguments.forEach((argument) {
+    if (argument is NamedExpression) {
+      var name = argument.name.label.name;
+      var value = getValue(argument.expression,
+          onUnsupportedExpression: (_) => onUnsupportedArgument(argument));
 
       namedParameters[new Symbol(name)] = value;
     } else {
-      var value = getValue(expression, onUnsupportedExpression: onUnsupportedExpression);
+      var value = getValue(argument,
+          onUnsupportedExpression: (_) => onUnsupportedArgument(argument));
 
       positionalParameters.add(value);
     }
@@ -140,13 +142,32 @@ class NodeWithMeta<TNode extends AnnotatedNode, TMeta> {
   /// The node of the [TMeta] annotation, if it exists.
   final Annotation metaNode;
 
-  /// An reflectively-instantiated version of [metaNode], if it exists.
-  final TMeta meta;
+  /// A reflectively-instantiated version of [metaNode], if it exists.
+  TMeta _meta;
 
-  NodeWithMeta(unit, {
-      dynamic onUnsupportedExpression(Expression expression)
-  })
-      : this.node = unit,
-        this.metaNode = getMatchingAnnotation(unit, TMeta),
-        this.meta = instantiateAnnotation(unit, TMeta, onUnsupportedExpression: onUnsupportedExpression);
+  /// The arguments passed to the metadata that are not supported by [getValue],
+  /// (or by special handling in subclasses) and therefore not represented in the instantiation of [meta].
+  List<Expression> unsupportedArguments;
+
+  NodeWithMeta(TNode node) :
+    this.node = node,
+    this.metaNode = getMatchingAnnotation(node, TMeta)
+  {
+    this.unsupportedArguments = <Expression>[];
+    this._meta = instantiateAnnotation(node, TMeta, onUnsupportedArgument: this.unsupportedArguments.add);
+  }
+
+  /// Whether this node's metadata has arguments that could not be initialized using [getValue]
+  /// (or by special handling in subclasses), and therefore cannot represented in the instantiation of [meta].
+  bool get isIncomplete => unsupportedArguments.isNotEmpty;
+
+  /// A reflectively-instantiated version of [metaNode], if it exists.
+  ///
+  /// Throws a [StateError] if this node's metadata is incomplete.
+  TMeta get meta {
+    if (isIncomplete) {
+      throw new StateError('Metadata is incomplete; unsupported arguments $unsupportedArguments. Use `incompleteMeta` instead.');
+    }
+    return _meta;
+  }
 }
