@@ -11,7 +11,9 @@ import 'package:analyzer/analyzer.dart';
 ///   * [BooleanLiteral]
 ///   * [IntegerLiteral]
 ///   * [NullLiteral]
-dynamic getValue(Expression expression) {
+dynamic getValue(Expression expression, {
+    dynamic onUnsupportedExpression(Expression expression)
+}) {
   if (expression is StringLiteral) {
     var value = expression.stringValue;
     if (value == null) {
@@ -24,9 +26,10 @@ dynamic getValue(Expression expression) {
     return expression.value;
   } else if (expression is NullLiteral) {
     return null;
-  } else if (expression is Identifier) {
-    // FIXME: finalize/document this behavior
-    return expression.toSource();
+  }
+
+  if (onUnsupportedExpression != null) {
+    return onUnsupportedExpression(expression);
   }
 
   throw 'Unsupported expression: $expression. Must be a string, boolean, integer, or null literal';
@@ -80,7 +83,9 @@ Annotation getMatchingAnnotation(AnnotatedNode member, Type annotationType) {
 /// Annotation constructors are currently limited to the values supported by [getValue].
 ///
 /// Naively assumes that the name of the [annotationType] class is canonical.
-dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType) {
+dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType, {
+    dynamic onUnsupportedExpression(Expression expression)
+}) {
   var matchingAnnotation = getMatchingAnnotation(member, annotationType);
 
   // If no annotation is found, return null.
@@ -101,11 +106,11 @@ dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType) {
   matchingAnnotation.arguments.arguments.forEach((expression) {
     if (expression is NamedExpression) {
       var name = (expression as NamedExpression).name.label.name;
-      var value = getValue((expression as NamedExpression).expression);
+      var value = getValue((expression as NamedExpression).expression, onUnsupportedExpression: onUnsupportedExpression);
 
       namedParameters[new Symbol(name)] = value;
     } else {
-      var value = getValue(expression);
+      var value = getValue(expression, onUnsupportedExpression: onUnsupportedExpression);
 
       positionalParameters.add(value);
     }
@@ -138,8 +143,10 @@ class NodeWithMeta<TNode extends AnnotatedNode, TMeta> {
   /// An reflectively-instantiated version of [metaNode], if it exists.
   final TMeta meta;
 
-  NodeWithMeta(unit)
+  NodeWithMeta(unit, {
+      dynamic onUnsupportedExpression(Expression expression)
+  })
       : this.node = unit,
         this.metaNode = getMatchingAnnotation(unit, TMeta),
-        this.meta = instantiateAnnotation(unit, TMeta);
+        this.meta = instantiateAnnotation(unit, TMeta, onUnsupportedExpression: onUnsupportedExpression);
 }
