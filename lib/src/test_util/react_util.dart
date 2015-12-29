@@ -119,8 +119,14 @@ JsObject getRef(JsObject instance, dynamic ref) {
 /// Helper function to simulate clicks
 void click(dynamic node) => context['React']['addons']['TestUtils']['Simulate'].callMethod('click', [node]);
 
-/// Helper function to simular mouse moves.
+/// Helper function to simulate mouseMove events.
 void mouseMove(dynamic instanceOrNode) => react_test_utils.Simulate.mouseMove(instanceOrNode);
+
+/// Helper function to simulate keyDown events.
+void keyDown(dynamic instanceOrNode, [Map data = const {}]) => react_test_utils.Simulate.keyDown(instanceOrNode, data);
+
+/// Helper function to simulate keyDown events.
+void keyUp(dynamic instanceOrNode, [Map data = const {}]) => react_test_utils.Simulate.keyUp(instanceOrNode, data);
 
 /// Simulate a MouseEnter event by firing a MouseOut and a MouseOver, since MouseEnter simulation is not provided by react_test_utils.
 void simulateMouseEnter(EventTarget target) {
