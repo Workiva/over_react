@@ -107,6 +107,8 @@ react.Component getDartComponent(JsObject instance) {
 }
 
 /// Returns a rendered component's ref, or null if it doesn't exist.
+///
+/// Using `getRef()` can be tedious for nested / complex components. It is recommended to use `getByTestId()` instead.
 JsObject getRef(JsObject instance, dynamic ref) {
   if (instance == null) {
     return null;
@@ -139,6 +141,71 @@ void simulateMouseLeave(EventTarget target) {
 
   react_test_utils.SimulateNative.mouseOut(from, {'relatedTarget': to});
   react_test_utils.SimulateNative.mouseOver(to, {'relatedTarget': from});
+}
+
+/// Returns the first descendant of [root] that has its [key] prop value set to [value].
+///
+/// Returns null if no descendant has its [key] prop value set [value].
+///
+///     var renderedInstance = render(Dom.div()(
+///         (Dom.div()..testId = 'first-div')() // Div1
+///         Dom.div()(
+///           (Dom.div()..testId = 'nested-div')() // Div2
+///         )
+///       )
+///     );
+///
+///     var firstDiv = getByTestId(renderedInstance, 'first-div'); // Returns Div1
+///     var nestedDiv = getByTestId(renderedInstance, 'nested-div'); // Returns Div2
+///     var secondDiv = getByTestId(renderedInstance, 'second-div'); // Returns null
+///
+/// It is recommended that instead of setting this [key] prop manually you should use the
+/// [UiProps.testId] setter or [UiProps.setTestId] method so the prop is only set in a test environment.
+JsObject getByTestId(JsObject root, String value, {String key: 'data-test-id'}) {
+  bool first = false;
+
+  var results = react_test_utils.findAllInRenderedTree(root, new JsFunction.withThis((_, JsObject descendant) {
+    if (first) {
+      return false;
+    }
+
+    bool hasValue = getProps(descendant)[key] == value;
+
+    if (hasValue) {
+      first = true;
+    }
+
+    return hasValue;
+  }));
+
+  if (results.isEmpty) {
+    return null;
+  } else {
+    return results.single;
+  }
+}
+/// Returns the [Element] of the first descendant of [root] that has its [key] prop value set to [value].
+///
+/// Returns null if no descendant has its [key] prop value set to [value].
+Element getDomByTestId(JsObject root, String value, {String key: 'data-test-id'}) {
+  var instance = getByTestId(root, value, key: key);
+  if (instance != null) {
+    return findDomNode(instance);
+  }
+
+  return null;
+}
+
+/// Returns the [react.Component] of the first descendant of [root] that has its [key] prop value set to [value].
+///
+/// Returns null if no descendant has its [key] prop value set to [value].
+react.Component getComponentByTestId(JsObject root, String value, {String key: 'data-test-id'}) {
+  var instance = getByTestId(root, value, key: key);
+  if (instance != null) {
+    return getDartComponent(instance);
+  }
+
+  return null;
 }
 
 /// Returns all descendants of a component that contain the specified prop key.
