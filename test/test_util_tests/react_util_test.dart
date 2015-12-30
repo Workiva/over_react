@@ -77,7 +77,7 @@ main() {
     });
 
     group('getByTestId returns', () {
-      test('a JsObject that has the appropriate value for the `data-test-id` prop key', () {
+      test('the topmost JsObject that has the appropriate value for the `data-test-id` prop key', () {
         var renderedInstance = render(Dom.div()(
           (Dom.div()..testId = 'value')('First Descendant'),
           Dom.div()(
@@ -90,7 +90,7 @@ main() {
         expect(findDomNode(descendant).text, equals('First Descendant'));
       });
 
-      test('a JsObject that has the appropriate value for the custom prop key', () {
+      test('the topmost JsObject that has the appropriate value for the custom prop key', () {
         var renderedInstance = render(Dom.div()(
           (Dom.div()..testId = 'value')('First Descendant'),
           Dom.div()(
@@ -113,7 +113,7 @@ main() {
     });
 
     group('getDomByTestId returns', () {
-      test('an Element that has the appropriate value for the `data-test-id` prop key', () {
+      test('the topmost ELement that has the appropriate value for the `data-test-id` prop key', () {
         var renderedInstance = render(Dom.div()(
           (Dom.div()..testId = 'value')('First Descendant'),
           Dom.div()(
@@ -126,7 +126,7 @@ main() {
         expect(descendant, findDomNode(renderedInstance).children[0]);
       });
 
-      test('an Element that has the appropriate value for the custom prop key', () {
+      test('the topmost Element that has the appropriate value for the custom prop key', () {
         var renderedInstance = render(Dom.div()(
           (Dom.div()..testId = 'value')('First Descendant'),
           Dom.div()(
@@ -149,7 +149,7 @@ main() {
     });
 
     group('getComponentByTestId returns', () {
-      test('a react.Component that has the appropriate value for the `data-test-id` prop key', () {
+      test('the topmost react.Component that has the appropriate value for the `data-test-id` prop key', () {
         var renderedInstance = render(Dom.div()(
           (Test()..testId = 'value')('First Descendant'),
           Dom.div()(
@@ -162,7 +162,7 @@ main() {
         expect(descendant, getDartComponent(getByTestId(renderedInstance, 'value')));
       });
 
-      test('a react.Component that has the appropriate value for the custom prop key', () {
+      test('the topmost react.Component that has the appropriate value for the custom prop key', () {
         var renderedInstance = render(Dom.div()(
           (Test()..testId = 'value')('First Descendant'),
           Dom.div()(
