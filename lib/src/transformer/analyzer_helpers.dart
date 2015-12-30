@@ -17,7 +17,7 @@ dynamic getValue(Expression expression, {
   if (expression is StringLiteral) {
     var value = expression.stringValue;
     if (value == null) {
-      throw 'Unsupported expression: $expression. Must be a non-interpolated string.';
+      throw 'Unsupported expression: Must not be an interpolated string. Was: $expression.';
     }
     return value;
   } else if (expression is BooleanLiteral) {
@@ -32,7 +32,7 @@ dynamic getValue(Expression expression, {
     return onUnsupportedExpression(expression);
   }
 
-  throw 'Unsupported expression: $expression. Must be a string, boolean, integer, or null literal';
+  throw 'Unsupported expression: Must be a string, boolean, integer, or null literal. Was: $expression.';
 }
 
 /// Returns the name of the class being instantiated for [annotation],
@@ -104,15 +104,18 @@ dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType, {
   List positionalParameters = [];
 
   matchingAnnotation.arguments.arguments.forEach((argument) {
+    var onUnsupportedExpression =
+        onUnsupportedArgument == null ? null : (_) => onUnsupportedArgument(argument);
+
     if (argument is NamedExpression) {
       var name = argument.name.label.name;
       var value = getValue(argument.expression,
-          onUnsupportedExpression: (_) => onUnsupportedArgument(argument));
+          onUnsupportedExpression: onUnsupportedExpression);
 
       namedParameters[new Symbol(name)] = value;
     } else {
       var value = getValue(argument,
-          onUnsupportedExpression: (_) => onUnsupportedArgument(argument));
+          onUnsupportedExpression: onUnsupportedExpression);
 
       positionalParameters.add(value);
     }
@@ -170,4 +173,7 @@ class NodeWithMeta<TNode extends AnnotatedNode, TMeta> {
     }
     return _meta;
   }
+
+  /// A reflectively-instantiated version of [metaNode], if it exists.
+  TMeta get potentiallyIncompleteMeta => _meta;
 }
