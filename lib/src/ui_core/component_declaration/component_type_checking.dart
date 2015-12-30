@@ -1,8 +1,16 @@
+/// Provides utilities around component type-checking.
+library web_skin_dart.component_declaration.component_type_checking;
+
 import 'dart:js';
 
 import 'package:react/react_client.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart' show UiFactory;
 import 'package:web_skin_dart/src/ui_core/util/react_wrappers.dart';
+
+// ----------------------------------------------------------------------
+//   Component type registration and internal type metadata management
+// ----------------------------------------------------------------------
+
 
 Expando<ReactDartComponentFactoryProxy> _typeAliasToFactory = new Expando<ReactDartComponentFactoryProxy>();
 
@@ -64,6 +72,11 @@ class ComponentTypeMeta {
       this.isWrapper = false,
       this.parentType = null;
 }
+
+
+// ----------------------------------------------------------------------
+//   Internal component type utilities
+// ----------------------------------------------------------------------
 
 
 /// Returns the canonical "type" for a component ([JsFunction] `ReactClass` or [String] `tagName`)
@@ -131,6 +144,12 @@ Iterable<dynamic> getParentTypes(dynamic type) sync* {
     yield currentType;
   }
 }
+
+
+// ----------------------------------------------------------------------
+//   Consumer-facing component type-checking methods
+// ----------------------------------------------------------------------
+
 
 /// Returns whether [instance] is of the type associated with [typeAlias], which can be a component's:
 ///
