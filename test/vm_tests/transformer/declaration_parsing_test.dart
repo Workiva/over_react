@@ -404,6 +404,23 @@ main() {
           });
         });
       });
+
+      group('and throws an error when', () {
+        test('`subtypeOf` is an unsupported expression that is not an identifier', () {
+          expect(() {
+            setUpAndParse('''
+              @Factory()
+              UiFactory<FooProps> Foo;
+
+              @Props()
+              class FooProps {}
+
+              @Component(subtypeOf: const [])
+              class FooComponent {}
+            ''');
+          }, throwsA(startsWith('`subtypeOf` must be an identifier')));
+        });
+      });
     });
   });
 }
