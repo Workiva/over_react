@@ -177,6 +177,53 @@ main() {
           expect(props, equals({'key': 'value'}));
         });
       });
+
+      group('testId', () {
+        test('sets the correct value for the `data-test-id` key', () {
+          var props = new TestComponentProps();
+          props.testId = 'value';
+
+          expect(props, equals({'data-test-id': 'value'}));
+        });
+
+        test('does not set the value for the `data-test-id` when inTesting is false', () {
+          UiProps.testMode = false;
+
+          var props = new TestComponentProps();
+          props.testId = 'value';
+
+          expect(props, equals({}));
+
+          UiProps.testMode = true;
+        });
+      });
+
+      group('setTestId', () {
+        test('sets the correct value for the `data-test-id` key', () {
+          var props = new TestComponentProps();
+          props.setTestId('value');
+
+          expect(props, equals({'data-test-id': 'value'}));
+        });
+
+        test('sets the correct value for the custom key', () {
+          var props = new TestComponentProps();
+          props.setTestId('value', key: 'data-custom-id');
+
+          expect(props, equals({'data-custom-id': 'value'}));
+        });
+
+        test('does not set the value for the `data-test-id` when inTesting is false', () {
+          UiProps.testMode = false;
+
+          var props = new TestComponentProps();
+          props.setTestId('value');
+
+          expect(props, equals({}));
+
+          UiProps.testMode = true;
+        });
+      });
     });
 
     group('UiState', () {
@@ -250,7 +297,7 @@ main() {
       });
 
       group('copyUnconsumedProps()', () {
-        test('copies props, omitting keys from `consumedPropKeys`, as well as reserved react props', () {
+        test('copies props, omitting keys from `consumedPropKeys`, as well as reserved react props props', () {
           component = new TestComponentComponent(testConsumedPropKeys: [
             ['consumed1', 'consumed2']
           ]);
