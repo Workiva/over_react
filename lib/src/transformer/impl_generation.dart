@@ -102,9 +102,12 @@ class ImplGenerator {
       );
 
       String parentTypeParam = 'null';
+      String parentTypeParamComment = '';
 
       Identifier parentType = declarations.component.subtypeOfValue;
       if (parentType != null) {
+        parentTypeParamComment = ' /* from `subtypeOf: ${getSpan(sourceFile, parentType).text}` */';
+
         if (parentType is PrefixedIdentifier) {
           var prefix = parentType.prefix.name;
           var parentClassName = parentType.identifier.name;
@@ -135,7 +138,7 @@ class ImplGenerator {
         ..writeln('    builderFactory: $factoryName,')
         ..writeln('    componentClass: $componentClassName,')
         ..writeln('    isWrapper: ${declarations.component.meta.isWrapper},')
-        ..writeln('    parentType: $parentTypeParam,')
+        ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
         ..writeln('    displayName: ${stringLiteral(factoryName)}')
         ..writeln(');')
         ..writeln();
