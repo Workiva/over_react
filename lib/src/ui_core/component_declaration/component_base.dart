@@ -26,9 +26,6 @@ export 'package:web_skin_dart/src/ui_core/component_declaration/component_type_c
 /// * [isWrapper]: whether the component clones or passes through its children and needs to be
 /// treated as if it were the wrapped component.
 ///
-/// * [isWrapper]: whether the component clones or passes through its children and needs to be
-/// treated as if it were the wrapped component.
-///
 /// * [builderFactory]/[componentClass]: the [UiFactory] and [UiComponent] members to be potentially
 /// used as types for [isComponentOfType]/[getComponentFactory].
 ///
