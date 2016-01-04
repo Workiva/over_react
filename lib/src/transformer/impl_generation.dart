@@ -93,14 +93,6 @@ class ImplGenerator {
           ' = ([Map backingProps]) => new $propsImplName(backingProps)'
       );
 
-
-      transformedFile.insert(
-          sourceFile.location(
-              declarations.factory.node.variables.type.offset
-          ),
-          'final '
-      );
-
       String parentTypeParam = 'null';
       String parentTypeParamComment = '';
 
