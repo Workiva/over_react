@@ -152,9 +152,9 @@ class NodeWithMeta<TNode extends AnnotatedNode, TMeta> {
   /// (or by special handling in subclasses) and therefore not represented in the instantiation of [meta].
   List<Expression> unsupportedArguments;
 
-  NodeWithMeta(TNode node) :
-    this.node = node,
-    this.metaNode = getMatchingAnnotation(node, TMeta)
+  NodeWithMeta(TNode node)
+      : this.node = node,
+        this.metaNode = getMatchingAnnotation(node, TMeta)
   {
     this.unsupportedArguments = <Expression>[];
     this._meta = instantiateAnnotation(node, TMeta, onUnsupportedArgument: this.unsupportedArguments.add);
