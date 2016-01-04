@@ -5,7 +5,18 @@ import 'dart:js';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart';
-import 'package:web_skin_dart/ui_core.dart' show BaseComponent, BaseComponentWithState, ClassNameBuilder, ComponentDefinition, CssClassProps, CssClassPropsMixin, ReactProps, ReactPropsMixin, UbiquitousDomProps, UbiquitousDomPropsMixin, getProps, getPropsToForward, isDartComponent, isValidElement;
+import 'package:web_skin_dart/ui_core.dart' show
+    BaseComponent,
+    BaseComponentWithState,
+    ClassNameBuilder,
+    ComponentDefinition,
+    CssClassPropsMixin,
+    ReactPropsMixin,
+    UbiquitousDomPropsMixin,
+    getProps,
+    getPropsToForward,
+    isDartComponent,
+    isValidElement;
 
 export 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart' show isComponentOfType, isValidElementOfType;
 
