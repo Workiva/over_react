@@ -124,6 +124,13 @@ bool isValidElementOfType(dynamic instance, factory) {
 /// via a fluent-style builder interface.
 typedef TProps UiFactory<TProps extends UiProps>([Map backingProps]);
 
+/// A utility variation on [UiFactory], __without__ a `backingProps` parameter.
+///
+/// I.e., a function that takes no parameters and returns a new [TProps] instance backed by a new, empty Map.
+///
+/// For use as a Function variable type when the `backingProps` argument is not required.
+typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
+
 
 /// The basis for a web_skin_dart component, extending [react.Component]. (Successor to [BaseComponent]).
 ///
