@@ -297,7 +297,7 @@ main() {
       });
 
       group('copyUnconsumedProps()', () {
-        test('copies props, omitting keys from `consumedPropKeys`, as well as reserved react props props', () {
+        test('copies props, omitting keys from `consumedPropKeys`, as well as reserved react props', () {
           component = new TestComponentComponent(testConsumedPropKeys: [
             ['consumed1', 'consumed2']
           ]);
