@@ -91,15 +91,13 @@ class _ResizeSensor extends BaseComponent<ResizeSensorDefinition> {
         'position': 'relative',
         'flex': '1 1 0%',
         '-ms-flex': '1 1 0%',
-        'display': 'block',
-        'visibility': 'hidden',
+        'display': 'block'
       };
     } else {
       wrapperStyles = {
         'position': 'relative',
         'height': '100%',
-        'width': '100%',
-        'visibility': 'hidden',
+        'width': '100%'
       };
     }
 
