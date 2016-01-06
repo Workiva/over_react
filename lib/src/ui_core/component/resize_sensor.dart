@@ -71,7 +71,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
       ..key = 'collapseSensor'
     )(collapseSensorChild);
 
-    var children = new List.from(tProps.children)
+    var children = new List.from(props.children)
       ..add(
           (Dom.div()
             ..className = 'resize-sensor'
@@ -82,7 +82,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
 
     var wrapperStyles;
 
-    if (tProps.isFlexChild) {
+    if (props.isFlexChild) {
       wrapperStyles = {
         'position': 'relative',
         'flex': '1 1 0%',
@@ -105,15 +105,15 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
   }
 
   /// When the expand or collapse sensors are resized, builds a [ResizeSensorEvent] and calls
-  /// tProps.onResize with it. Then, calls through to [_reset()].
+  /// props.onResize with it. Then, calls through to [_reset()].
   void _handleSensorScroll(react.SyntheticEvent event) {
     Element sensor = getDOMNode();
 
     if (sensor.offsetWidth != _lastWidth || sensor.offsetHeight != _lastHeight) {
       var event = new ResizeSensorEvent(sensor.offsetWidth, sensor.offsetHeight, _lastWidth, _lastHeight);
 
-      if (tProps.onResize != null) {
-        tProps.onResize(event);
+      if (props.onResize != null) {
+        props.onResize(event);
       }
 
       _reset();

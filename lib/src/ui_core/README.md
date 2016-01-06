@@ -122,7 +122,7 @@ getInitialState() => (newState()
 );
 
 _toggleExpanded() => setState(newState()
-  ..isExpanded = !tState.isExpanded
+  ..isExpanded = !state.isExpanded
 );
 ```
 
