@@ -4,7 +4,18 @@ import 'dart:js';
 
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
-import 'package:web_skin_dart/ui_core.dart' show BaseComponent, BaseComponentWithState, ClassNameBuilder, ComponentDefinition, CssClassProps, CssClassPropsMixin, ReactProps, ReactPropsMixin, UbiquitousDomProps, UbiquitousDomPropsMixin, getProps, getPropsToForward, isDartComponent, isValidElement;
+import 'package:web_skin_dart/ui_core.dart' show
+    BaseComponent,
+    BaseComponentWithState,
+    ClassNameBuilder,
+    ComponentDefinition,
+    CssClassPropsMixin,
+    ReactPropsMixin,
+    UbiquitousDomPropsMixin,
+    getProps,
+    getPropsToForward,
+    isDartComponent,
+    isValidElement;
 
 Expando<ReactDartComponentFactoryProxy> associatedReactComponentFactory = new Expando<ReactDartComponentFactoryProxy>();
 
@@ -112,6 +123,13 @@ bool isValidElementOfType(dynamic instance, factory) {
 /// For use in wrapping existing Maps in typed getters and setters, and for creating React components
 /// via a fluent-style builder interface.
 typedef TProps UiFactory<TProps extends UiProps>([Map backingProps]);
+
+/// A utility variation on [UiFactory], __without__ a `backingProps` parameter.
+///
+/// I.e., a function that takes no parameters and returns a new [TProps] instance backed by a new, empty Map.
+///
+/// For use as a Function variable type when the `backingProps` argument is not required.
+typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 
 
 /// The basis for a web_skin_dart component, extending [react.Component]. (Successor to [BaseComponent]).
