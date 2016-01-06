@@ -3,6 +3,7 @@ library ui_core.component_declaration.component_base_test;
 import 'dart:js';
 
 import 'package:mockito/mockito.dart';
+import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart';
@@ -356,7 +357,7 @@ main() {
 
     group('registerComponent()', () {
       group('attaches metadata to the specified component class:', () {
-        final ComponentFactory dummyComponentFactory = () => null;
+        final ComponentFactory dummyComponentFactory = () => new DummyComponent();
 
         group('isWrapper:', () {
           test('true', () {
@@ -662,3 +663,5 @@ void mapProxyTests(Map mapProxyFactory(Map proxiedMap)) {
 class MockMap extends Mock implements Map {
   noSuchMethod(i) => super.noSuchMethod(i);
 }
+
+class DummyComponent extends react.Component {}
