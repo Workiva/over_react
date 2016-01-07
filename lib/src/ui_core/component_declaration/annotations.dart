@@ -57,7 +57,35 @@ class Component {
   /// Whether the component clones or passes through its children and needs to be
   /// treated as if it were the wrapped component when passed in to [web_skin_dart.ui_core.isComponentOfType].
   final bool isWrapper;
-  const Component({bool this.isWrapper: false});
+
+  /// The component class of this component's "parent type".
+  ///
+  /// Used to enable inheritance in component type-checking in [isComponentOfType].
+  ///
+  /// E.g., if component `Bar` is a subtype of component `Foo`:
+  ///
+  ///     @Factory()
+  ///     UiFactory<...> Foo;
+  ///     ...
+  ///     @Component()
+  ///     class FooComponent ... {...}
+  ///
+  ///     @Factory()
+  ///     UiFactory<...> Bar;
+  ///     ...
+  ///     @Component(subtypeOf: FooComponent)
+  ///     class BarComponent ... {...}
+  ///
+  /// then:
+  ///
+  ///     isComponentOfType(Bar()(), Bar); // true (due to normal type-checking)
+  ///     isComponentOfType(Bar()(), Foo); // true (due to parent type-checking)
+  final Type subtypeOf;
+
+  const Component({
+      bool this.isWrapper: false,
+      Type this.subtypeOf
+  });
 }
 
 /// Annotation used with the `web_skin_dart` transformer to declare an abstract [UiProps] class for an abstract component.
