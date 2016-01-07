@@ -3,6 +3,7 @@ library ui_core.component_declaration.component_base_test;
 import 'dart:js';
 
 import 'package:mockito/mockito.dart';
+import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart';
@@ -175,6 +176,53 @@ main() {
           expect(() => props.addProps(null), isNot(throws));
 
           expect(props, equals({'key': 'value'}));
+        });
+      });
+
+      group('testId', () {
+        test('sets the correct value for the `data-test-id` key', () {
+          var props = new TestComponentProps();
+          props.testId = 'value';
+
+          expect(props, equals({'data-test-id': 'value'}));
+        });
+
+        test('does not set the value for the `data-test-id` when inTesting is false', () {
+          UiProps.testMode = false;
+
+          var props = new TestComponentProps();
+          props.testId = 'value';
+
+          expect(props, equals({}));
+
+          UiProps.testMode = true;
+        });
+      });
+
+      group('setTestId', () {
+        test('sets the correct value for the `data-test-id` key', () {
+          var props = new TestComponentProps();
+          props.setTestId('value');
+
+          expect(props, equals({'data-test-id': 'value'}));
+        });
+
+        test('sets the correct value for the custom key', () {
+          var props = new TestComponentProps();
+          props.setTestId('value', key: 'data-custom-id');
+
+          expect(props, equals({'data-custom-id': 'value'}));
+        });
+
+        test('does not set the value for the `data-test-id` when inTesting is false', () {
+          UiProps.testMode = false;
+
+          var props = new TestComponentProps();
+          props.setTestId('value');
+
+          expect(props, equals({}));
+
+          UiProps.testMode = true;
         });
       });
     });
@@ -356,7 +404,7 @@ main() {
 
     group('registerComponent()', () {
       group('attaches metadata to the specified component class:', () {
-        final ComponentFactory dummyComponentFactory = () => null;
+        final ComponentFactory dummyComponentFactory = () => new DummyComponent();
 
         group('isWrapper:', () {
           test('true', () {
@@ -662,3 +710,5 @@ void mapProxyTests(Map mapProxyFactory(Map proxiedMap)) {
 class MockMap extends Mock implements Map {
   noSuchMethod(i) => super.noSuchMethod(i);
 }
+
+class DummyComponent extends react.Component {}
