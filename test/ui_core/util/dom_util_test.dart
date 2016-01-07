@@ -20,7 +20,7 @@ main() {
       test('root contains the other element', () {
         var rootInstance = render(DomTest());
         var rootNode = findDomNode(rootInstance);
-        var otherNode = findDomNode(getRef(rootInstance, 'innerComponent'));
+        var otherNode = getDomByTestId(rootInstance, 'innerComponent');
 
         expect(isOrContains(rootNode, otherNode), isTrue);
       });
@@ -69,7 +69,7 @@ class DomTestComponent extends UiComponent<DomTestProps> with HitAreaMixin<DomTe
   @override
   render() {
     return Dom.div()(
-      (Dom.div()..ref = 'innerComponent')()
+      (Dom.div()..testId = 'innerComponent')()
     );
   }
 }
