@@ -306,7 +306,9 @@ abstract class UiProps
   }
 
   /// Whether [UiProps] is in a testing environment. Used in [testId] and [setTestId]
+  ///
   /// TODO: Use bool.fromEnvironment() when it is supported in Dartium.
+  /// See: <https://github.com/dart-lang/pub/issues/798>.
   static bool testMode = false;
 
   /// Sets the prop [key] to [value] for use in a testing environment.
@@ -320,10 +322,6 @@ abstract class UiProps
 
   /// Sets the `data-test-id` prop key to [value] for use in a testing environment.
   set testId(String value) {
-    if (!testMode) {
-      return;
-    }
-
     setTestId(value);
   }
 
