@@ -4,6 +4,7 @@ import 'dart:js';
 
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
+import 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart';
 import 'package:web_skin_dart/ui_core.dart' show
     BaseComponent,
     BaseComponentWithState,
@@ -17,7 +18,7 @@ import 'package:web_skin_dart/ui_core.dart' show
     isDartComponent,
     isValidElement;
 
-Expando<ReactDartComponentFactoryProxy> associatedReactComponentFactory = new Expando<ReactDartComponentFactoryProxy>();
+export 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart' show isComponentOfType, isValidElementOfType;
 
 /// Helper function that wraps react.registerComponent, and allows attachment of additional
 /// component factory metadata.
@@ -31,91 +32,25 @@ Expando<ReactDartComponentFactoryProxy> associatedReactComponentFactory = new Ex
 /// * [displayName]: the name of the component for use when debugging.
 ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFactory(), {
     bool isWrapper: false,
+    ReactDartComponentFactoryProxy parentType,
     UiFactory builderFactory,
     Type componentClass,
     String displayName
 }) {
   ReactDartComponentFactoryProxy reactComponentFactory = react.registerComponent(dartComponentFactory);
 
-  if (isWrapper) {
-    reactComponentFactory.reactClass['isWrapper'] = true;
-  }
   if (displayName != null) {
     reactComponentFactory.reactClass['displayName'] = displayName;
   }
-  if (builderFactory != null) {
-    associatedReactComponentFactory[builderFactory] = reactComponentFactory;
-  }
-  if (componentClass != null) {
-    associatedReactComponentFactory[componentClass] = reactComponentFactory;
-  }
+
+  registerComponentTypeAlias(reactComponentFactory, builderFactory);
+  registerComponentTypeAlias(reactComponentFactory, componentClass);
+
+  setComponentTypeMeta(reactComponentFactory, isWrapper: isWrapper, parentType: parentType);
 
   return reactComponentFactory;
 }
 
-/// Returns the canonical "type" for a component (JS ReactClass or tagName) associated with
-/// [typeAlias], which can be a component's:
-///
-/// * [UiFactory] (Dart components only)
-/// * [UiComponent] [Type] (Dart components only)
-/// * [ReactComponentFactoryProxy]
-/// * [JsFunction] component factory
-/// * [String] tag name (DOM components only)
-dynamic getCanonicalType(dynamic typeAlias) {
-  if (typeAlias is String || typeAlias is JsFunction) {
-    return typeAlias;
-  }
-
-  if (typeAlias is ReactComponentFactoryProxy) {
-    return typeAlias.type;
-  }
-
-  if (typeAlias is UiFactory || typeAlias is Type) {
-    return associatedReactComponentFactory[typeAlias]?.type;
-  }
-
-  return null;
-}
-
-/// Returns whether [instance] is of the type associated with [typeAlias],
-/// which can be a component's:
-///
-/// * [UiFactory] (Dart components only)
-/// * [UiComponent] [Type] (Dart components only)
-/// * [ReactComponentFactoryProxy]
-/// * [JsFunction] component factory
-/// * [String] tag name (DOM components only)
-bool isComponentOfType(JsObject instance, dynamic typeAlias, {bool traverseWrappers: true}) {
-  if (instance == null) {
-    return false;
-  }
-
-  var canonicalType = getCanonicalType(typeAlias);
-  if (canonicalType == null) {
-    return false;
-  }
-
-  var instanceType = instance['type'];
-  bool isWrapper = instanceType is JsFunction && instanceType['isWrapper'] == true;
-
-  if (traverseWrappers && isWrapper) {
-    // Should always be a Dart component if `isWrapper` true, this is just to make sure.
-    assert(isDartComponent(instance));
-    var children = getProps(instance)['children'];
-    if (children != null && children.isNotEmpty) {
-      return isComponentOfType(children.first, canonicalType, traverseWrappers: true);
-    } else {
-      return false;
-    }
-  }
-
-  return instanceType == canonicalType;
-}
-
-/// Returns whether [instance] is a valid ReactElement and was created using the specified Dart factory.
-bool isValidElementOfType(dynamic instance, factory) {
-  return isValidElement(instance) ? isComponentOfType(instance, factory) : false;
-}
 
 
 /// A function that returns a new [TProps] instance, optionally backed by the specified [backingProps].
