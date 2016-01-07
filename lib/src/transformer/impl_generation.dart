@@ -41,6 +41,14 @@ class ImplGenerator {
 
   ImplGenerator(TransformLogger this.logger, TransformedSourceFile this.transformedFile);
 
+  static String getComponentFactoryName(String componentClassName) {
+    if (componentClassName == null) {
+      throw new ArgumentError.notNull(componentClassName);
+    }
+
+    return '$publicGeneratedPrefix${componentClassName}Factory';
+  }
+
   void generate(ParsedDeclarations declarations) {
     StringBuffer implementations = new StringBuffer();
 
@@ -53,9 +61,7 @@ class ImplGenerator {
       final String componentClassName = declarations.component.node.name.toString();
       final String componentClassImplMixinName = '$generatedPrefix${componentClassName}ImplMixin';
 
-      final String componentName = componentClassName;
-
-      final String componentFactoryName = '$generatedPrefix${componentName}Factory';
+      final String componentFactoryName = getComponentFactoryName(componentClassName);
 
       String typedPropsFactoryImpl = '';
       String typedStateFactoryImpl = '';
@@ -87,6 +93,34 @@ class ImplGenerator {
           ' = ([Map backingProps]) => new $propsImplName(backingProps)'
       );
 
+      String parentTypeParam = 'null';
+      String parentTypeParamComment = '';
+
+      Identifier parentType = declarations.component.subtypeOfValue;
+      if (parentType != null) {
+        parentTypeParamComment = ' /* from `subtypeOf: ${getSpan(sourceFile, parentType).text}` */';
+
+        if (parentType is PrefixedIdentifier) {
+          var prefix = parentType.prefix.name;
+          var parentClassName = parentType.identifier.name;
+
+          parentTypeParam = prefix + '.' + getComponentFactoryName(parentClassName);
+        } else {
+          var parentClassName = parentType.name;
+
+          parentTypeParam = getComponentFactoryName(parentClassName);
+        }
+      }
+
+      if (parentTypeParam == componentFactoryName) {
+        /// It doesn't make sense to have a component subtype itself, and also an error occurs
+        /// if a component's factory variable tries to reference itself during its initialization.
+        /// Therefore, this is not allowed.
+        logger.error('A component cannot be a subtype of itself.',
+            span: getSpan(sourceFile, declarations.component.metaNode)
+        );
+      }
+
       implementations
         ..writeln('// React component factory implementation.')
         ..writeln('//')
@@ -96,6 +130,7 @@ class ImplGenerator {
         ..writeln('    builderFactory: $factoryName,')
         ..writeln('    componentClass: $componentClassName,')
         ..writeln('    isWrapper: ${declarations.component.meta.isWrapper},')
+        ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
         ..writeln('    displayName: ${stringLiteral(factoryName)}')
         ..writeln(');')
         ..writeln();

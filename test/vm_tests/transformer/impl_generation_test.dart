@@ -11,7 +11,7 @@ import 'package:web_skin_dart/src/transformer/impl_generation.dart';
 import 'package:web_skin_dart/src/transformer/source_file_helpers.dart';
 
 main() {
-  group('ParsedDeclarations', () {
+  group('ImplGenerator', () {
     ImplGenerator implGenerator;
 
     MockTransformLogger logger;
@@ -238,6 +238,40 @@ main() {
           expect(transformedFile.getTransformedText(), contains('implements Quux'),
               reason: 'should preserve existing inheritance');
         });
+
+        group('that subtypes another component, referencing the component class via', () {
+          test('a simple identifier', () {
+            preservedLineNumbersTest('''
+              @Factory()
+              UiFactory<FooProps> Foo;
+
+              @Props()
+              class FooProps {}
+
+              @Component(subtypeOf: BarComponent)
+              class FooComponent {}
+            ''');
+
+            print(transformedFile.getTransformedText());
+            expect(transformedFile.getTransformedText(), contains('parentType: \$BarComponentFactory'));
+          });
+
+          test('a prefixed identifier', () {
+            preservedLineNumbersTest('''
+              @Factory()
+              UiFactory<FooProps> Foo;
+
+              @Props()
+              class FooProps {}
+
+              @Component(subtypeOf: baz.BarComponent)
+              class FooComponent {}
+            ''');
+
+            print(transformedFile.getTransformedText());
+            expect(transformedFile.getTransformedText(), contains('parentType: baz.\$BarComponentFactory'));
+          });
+        });
       });
 
       test('props mixins', () {
@@ -370,6 +404,23 @@ main() {
           ''');
 
           verify(logger.error('Factory variables are stubs for the generated factories, and should not have initializers.', span: any));
+        });
+      });
+
+      group('a component class', () {
+        test('subtypes itself', () {
+          setUpAndGenerate('''
+            @Factory()
+            UiFactory<FooProps> Foo;
+
+            @Props()
+            class FooProps {}
+
+            @Component(subtypeOf: FooComponent)
+            class FooComponent {}
+          ''');
+
+          verify(logger.error('A component cannot be a subtype of itself.', span: any));
         });
       });
 
@@ -548,6 +599,10 @@ main() {
           verify(logger.warning(expectedCommaSeparatedWarning, span: any));
         });
       });
+    });
+
+    test('getComponentFactoryName() throws an error when its argument is null', () {
+      expect(() => ImplGenerator.getComponentFactoryName(null), throwsArgumentError);
     });
   });
 }
