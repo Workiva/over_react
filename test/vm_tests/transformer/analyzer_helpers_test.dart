@@ -60,21 +60,58 @@ main() {
           expect(() => instantiateAnnotation(
               parseAndGetSingleMember('@TestAnnotation(const [])\nvar a;'),
               TestAnnotation
-          ), throws);
+          ), throwsA(startsWith('Unsupported expression: Must be a string, boolean, integer, or null literal.')));
         });
 
         test('an interpolated String', () {
           expect(() => instantiateAnnotation(
               parseAndGetSingleMember('@TestAnnotation("\$someVariable")\nvar a;'),
               TestAnnotation
-          ), throws);
+          ), throwsA(startsWith('Unsupported expression: Must not be an interpolated string.')));
         });
 
-        test('a constant variable', () {
+        test('an identifier', () {
           expect(() => instantiateAnnotation(
-              parseAndGetSingleMember('const int one = 1;\n@TestAnnotation(one)\nvar a;'),
+              parseAndGetSingleMember('@TestAnnotation(someIdentifier)\nvar a;'),
               TestAnnotation
-          ), throws);
+          ), throwsA(startsWith('Unsupported expression: Must be a string, boolean, integer, or null literal.')));
+        });
+
+        group('(except when `onUnsupportedArgument` is specified)', () {
+          test('positional parameter', () {
+            Expression unsupportedArgument;
+
+            TestAnnotation instance = instantiateAnnotation(
+                parseAndGetSingleMember('@TestAnnotation(const [])\nvar a;'),
+                TestAnnotation,
+                onUnsupportedArgument: (Expression expression) {
+                  unsupportedArgument = expression;
+                  return 'value to be passed to constructor instead';
+                }
+            );
+
+            expect(unsupportedArgument, const isInstanceOf<Expression>());
+            expect(instance.positional, equals('value to be passed to constructor instead'),
+                reason: 'should have passed the return value of `onUnsupportedArgument` to the constructor');
+          });
+
+          test('named parameter', () {
+            Expression unsupportedArgument;
+
+            TestAnnotation instance = instantiateAnnotation(
+                parseAndGetSingleMember('@TestAnnotation.namedConstructor(namedConstructorOnly: const [])\nvar a;'),
+                TestAnnotation,
+                onUnsupportedArgument: (Expression expression) {
+                  unsupportedArgument = expression;
+                  return 'value to be passed to constructor instead';
+                }
+            );
+
+            expect(unsupportedArgument, const isInstanceOf<NamedExpression>());
+            expect((unsupportedArgument as NamedExpression).name.label.name, equals('namedConstructorOnly'));
+            expect(instance.namedConstructorOnly, equals('value to be passed to constructor instead'),
+                reason: 'should have passed the return value of `onUnsupportedArgument` to the constructor');
+          });
         });
       });
 
@@ -122,6 +159,13 @@ main() {
             TestAnnotation
         ), isNull);
       });
+
+      test('returns null when the member has no annotations', () {
+        expect(instantiateAnnotation(
+            parseAndGetSingleMember('var a;'),
+            TestAnnotation
+        ), isNull);
+      });
     });
 
     group('NodeWithMeta', () {
@@ -130,8 +174,39 @@ main() {
         var nodeWithMeta = new NodeWithMeta<TopLevelVariableDeclaration, TestAnnotation>(member);
 
         expect(nodeWithMeta.node, same(member));
+        expect(nodeWithMeta.metaNode, isNotNull);
+        expect(nodeWithMeta.metaNode.name.name, 'TestAnnotation');
         expect(nodeWithMeta.meta, isNotNull);
         expect(nodeWithMeta.meta.positional, 'hello');
+      });
+
+      test('partially instantiates an "incomplete" annotation', () {
+        var member = parseAndGetSingleMember('@TestAnnotation(someIdentifier, named: "hello")\nvar a;');
+        var nodeWithMeta = new NodeWithMeta<TopLevelVariableDeclaration, TestAnnotation>(member);
+
+        expect(nodeWithMeta.node, same(member));
+        expect(nodeWithMeta.metaNode, isNotNull);
+        expect(nodeWithMeta.metaNode.name.name, 'TestAnnotation');
+
+        expect(nodeWithMeta.isIncomplete, isTrue);
+        expect(nodeWithMeta.unsupportedArguments, hasLength(1));
+        expect(() => nodeWithMeta.meta, throwsStateError);
+
+        expect(nodeWithMeta.potentiallyIncompleteMeta, isNotNull,
+            reason: 'should still have attempted to instantiate the incomplete annotation');
+        expect(nodeWithMeta.potentiallyIncompleteMeta.named, equals('hello'),
+            reason: 'should still have passed the supported argument');
+        expect(nodeWithMeta.potentiallyIncompleteMeta.positional, isNull,
+            reason: 'should have used null for unsupported argument');
+      });
+
+      test('gracefully handles a node without an annotation', () {
+        var member = parseAndGetSingleMember('var a;');
+        var nodeWithMeta = new NodeWithMeta<TopLevelVariableDeclaration, TestAnnotation>(member);
+
+        expect(nodeWithMeta.node, same(member));
+        expect(nodeWithMeta.metaNode, isNull);
+        expect(nodeWithMeta.meta, isNull);
       });
     });
   });
