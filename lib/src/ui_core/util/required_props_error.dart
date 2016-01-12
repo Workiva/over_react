@@ -5,5 +5,5 @@ class RequiredPropsError extends Error {
 
   RequiredPropsError(this.message);
 
-  String toString() => 'RequiredPropsError: ${message}';
+  String toString() => 'RequiredPropsError: $message';
 }
