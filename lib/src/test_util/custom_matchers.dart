@@ -183,6 +183,11 @@ class _IsFocused extends Matcher {
 /// A matcher that matches the currently focused element (`document.activeElement`).
 const Matcher isFocused = const _IsFocused();
 
+/// A mathcher to verify that a [RequiredPropsError] is thrown with a provided `RequiredPropsError.message`
+///
+/// __Note__: The message is matched rather than the [Error] instance due to Dart's wrapping of all `throw`
+///  as a [DomException]
 Matcher throwsRequiredPropsError(String message) {
-  return throwsA(predicate((error) => error.toString().contains('RequiredPropsError: $message'), 'Should have message $message'));
+  return throwsA(predicate(
+      (error) => error.toString().contains('RequiredPropsError: $message'), 'Should have message $message'));
 }
