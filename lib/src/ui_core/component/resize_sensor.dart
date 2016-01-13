@@ -158,13 +158,18 @@ final Map<String, dynamic> _baseStyle = const {
   'left': '0',
   'overflow': 'scroll',
   'zIndex': '-1',
-  'visibility': 'hidden'
+  'visibility': 'hidden',
+  // Set opacity in addition to visibility to work around Safari scrollbar bug.
+  'opacity': '0',
 };
 
 final Map<String, dynamic> _expandSensorChildStyle = const {
   'position': 'absolute',
   'top': '0',
-  'left': '0'
+  'left': '0',
+  'visibility': 'hidden',
+  // Set opacity in addition to visibility to work around Safari scrollbar bug.
+  'opacity': '0',
 };
 
 final Map<String, dynamic> _collapseSensorChildStyle = const {
@@ -172,7 +177,10 @@ final Map<String, dynamic> _collapseSensorChildStyle = const {
   'top': '0',
   'left': '0',
   'width': '200%',
-  'height': '200%'
+  'height': '200%',
+  'visibility': 'hidden',
+  // Set opacity in addition to visibility to work around Safari scrollbar bug.
+  'opacity': '0',
 };
 
 /// Used with [ResizeHandler] to provide information about a resize.

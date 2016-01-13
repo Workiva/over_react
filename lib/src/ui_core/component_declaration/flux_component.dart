@@ -48,7 +48,7 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
 ///
 /// Use with the web_skin_dart transformer via the `@Component()` ([Component]) annotation.
 abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<TProps>
-    with _FluxComponentMixin<TProps> {}
+    with _FluxComponentMixin<TProps>, BatchedRedraws {}
 
 /// Builds on top of [StatefulUiComponent], adding w_flux integration, much like the [FluxComponent] in w_flux.
 ///
@@ -59,7 +59,7 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
 /// Use with the web_skin_dart transformer via the `@Component()` ([Component]) annotation.
 abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extends UiState>
     extends UiStatefulComponent<TProps, TState>
-    with _FluxComponentMixin<TProps> {}
+    with _FluxComponentMixin<TProps>, BatchedRedraws {}
 
 /// Helper mixin to keep [FluxUiComponent] and [FluxUiStatefulComponent] clean/DRY.
 ///
