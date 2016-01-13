@@ -95,6 +95,30 @@ void main() {
       });
     });
 
+    // Test that every last ResizeSensor node is hidden with both visibility and opacity,
+    // ensuring that scrollbars don't show up in Safari.
+    group('should hide all of its descendants when isFlexChild is', () {
+      test('true', () {
+        var renderedNode = renderAndGetDom((ResizeSensor()..isFlexChild = true)());
+        var descendants = renderedNode.querySelectorAll('*');
+
+        descendants.forEach((descendant) {
+          expect(descendant.style.visibility, equals('hidden'));;
+          expect(descendant.style.opacity, equals('0'));;
+        });
+      });
+
+      test('false', () {
+        var renderedNode = renderAndGetDom((ResizeSensor()..isFlexChild = false)());
+        var descendants = renderedNode.querySelectorAll('*');
+
+        descendants.forEach((descendant) {
+          expect(descendant.style.visibility, equals('hidden'));;
+          expect(descendant.style.opacity, equals('0'));;
+        });
+      });
+    });
+
     test('should detect when bounding rect grows horizontally', () async {
       await expectResizeAfter((containerEl) {
         containerEl.style.width = '${containerWidth * 2}px';
