@@ -12,6 +12,9 @@ import '../../wsd_test_util/key_down_util.dart';
 
 /// Main entry point for DomUtil testing
 main() {
+  // ----------------------------------------------------
+  //   isOrContains method
+  // ----------------------------------------------------
   group('isOrContains returns', () {
     group('true when', () {
       test('root is the other element', () {
