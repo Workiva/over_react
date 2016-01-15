@@ -128,6 +128,9 @@ void keyDown(dynamic instanceOrNode, [Map data = const {}]) => react_test_utils.
 /// Helper function to simulate keyUp events.
 void keyUp(dynamic instanceOrNode, [Map data = const {}]) => react_test_utils.Simulate.keyUp(instanceOrNode, data);
 
+/// Helper function to simulate keyPress events.
+void keyPress(dynamic instanceOrNode, [Map data = const {}]) => react_test_utils.Simulate.keyPress(instanceOrNode, data);
+
 /// Simulate a MouseEnter event by firing a MouseOut and a MouseOver, since MouseEnter simulation is not provided by react_test_utils.
 void simulateMouseEnter(EventTarget target) {
   // Use any other node than [target].
