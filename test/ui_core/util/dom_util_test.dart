@@ -1,5 +1,8 @@
 library dom_util_test;
 
+import 'dart:html';
+import 'dart:js';
+
 import 'package:test/test.dart';
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_components.dart';
@@ -48,6 +51,70 @@ main() {
         var otherNode = renderAndGetDom(Dom.div()());
 
         expect(isOrContains(rootNode, otherNode), isFalse);
+      });
+    });
+  });
+
+  // ----------------------------------------------------
+  //   getJsForm method
+  // ----------------------------------------------------
+  group('getJsForm returns', () {
+    test('JsObject HTMLFormElement when given a dart FormElement', () {
+      FormElement dartForm = new FormElement();
+      var HTMLFormElement = getJsForm(dartForm);
+
+      // Assert that it is a JsObject
+      expect(HTMLFormElement is JsObject, isTrue);
+      // Check for the existence of a known key on the HTMLFormElement object
+      expect(HTMLFormElement['elements'], isNotNull);
+    });
+  });
+
+  // ----------------------------------------------------
+  //   getFormElements method
+  // ----------------------------------------------------
+  group('getFormElements returns', () {
+    FormElement formElementNode;
+    var formElements;
+
+    group('a List', () {
+      test('that is empty when no children Elements exist', () {
+        formElementNode = renderAndGetDom(Dom.form()());
+
+        // The rest of this test is pointless if this expectation is not met
+        expect(formElementNode is FormElement, isTrue);
+
+        formElements = getFormElements(formElementNode);
+
+        expect(formElements is List, isTrue);
+        expect(formElements.length, equals(0));
+      });
+
+      group('of child Elements', () {
+        setUp(() {
+          formElementNode = renderAndGetDom(Dom.form()(
+            (Dom.input()..defaultValue = 'foo')(),
+            (Dom.input()..defaultValue = 'bar')()
+          ));
+
+          // The rest of the tests are pointless if this expectation is not met
+          expect(formElementNode is FormElement, isTrue);
+
+          formElements = getFormElements(formElementNode);
+
+          expect(formElements is List, isTrue);
+        });
+
+        test('of the correct length', () {
+          expect(formElements.length, equals(2));
+        });
+
+        test('with the expected values', () {
+          expect(formElements[0] is InputElement, isTrue);
+          expect(formElements[1] is InputElement, isTrue);
+          expect(formElements[0].value, equals('foo'));
+          expect(formElements[1].value, equals('bar'));
+        });
       });
     });
   });
