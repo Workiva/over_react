@@ -3,6 +3,7 @@ library test_util.custom_matchers;
 import 'dart:html';
 
 import 'package:matcher/matcher.dart';
+import 'package:test/test.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
 /// Match a list of class names on a component
@@ -181,3 +182,12 @@ class _IsFocused extends Matcher {
 
 /// A matcher that matches the currently focused element (`document.activeElement`).
 const Matcher isFocused = const _IsFocused();
+
+/// A matcher to verify that a [RequiredPropsError] is thrown with a provided `RequiredPropsError.message`
+///
+/// __Note__: The message is matched rather than the [Error] instance due to Dart's wrapping of all `throw`
+///  as a [DomException]
+Matcher throwsRequiredPropsError(String message) {
+  return throwsA(predicate(
+      (error) => error.toString().contains('RequiredPropsError: $message'), 'Should have message $message'));
+}
