@@ -225,21 +225,6 @@ main() {
       expect(getProps(renderedInstance)['tabIndex'], equals(-1));
     });
 
-    group('isMounted', () {
-      test('returns true for a component that has been mounted', () {
-        var mountNode = new DivElement();
-        var renderedInstance = react.render(react.div({}), mountNode);
-        expect(isMounted(renderedInstance), isTrue);
-      });
-
-      test('returns false for a component that has been umounted', () {
-        var mountNode = new DivElement();
-        var renderedInstance = react.render(react.div({}), mountNode);
-        react.unmountComponentAtNode(mountNode);
-        expect(isMounted(renderedInstance), isFalse);
-      });
-    });
-
     group('unmount:', () {
       group('unmounts a React instance specified', () {
         test('by its rendered instance', () {
