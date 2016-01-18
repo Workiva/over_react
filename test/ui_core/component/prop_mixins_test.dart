@@ -30,7 +30,7 @@ main() {
         var reactPropsMap = new ReactPropMixinsTest({})
           ..key = null;
 
-        expect(reactPropsMap.key, equals('null'));
+        expect(reactPropsMap.key, equals(''));
       });
     });
   });
