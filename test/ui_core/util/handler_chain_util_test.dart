@@ -484,7 +484,7 @@ main() {
       group('createChainedIndexCallback', () {
         test('should return an IndexCallback that calls the two provided functions', () {
           bool calledA = false,
-            calledB = false;
+              calledB = false;
           IndexCallback a = (event, index) => calledA = true;
           IndexCallback b = (event, index) => calledB = true;
 
