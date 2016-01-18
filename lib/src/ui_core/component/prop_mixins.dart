@@ -19,7 +19,8 @@ abstract class ReactPropsMixin {
   ///
   /// * <https://facebook.github.io/react/docs/multiple-components.html#children>
   /// * <https://facebook.github.io/react/docs/reconciliation.html>
-  String key;
+  String get key         => props['key'];
+  set key(dynamic value) => props['key'] = value.toString();
 
   /// Either a String used to retrieve the element at a later time via [react.Component.ref],
   /// or a Function that gets called with the element when it is mounted.
