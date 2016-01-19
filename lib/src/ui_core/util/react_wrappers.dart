@@ -167,3 +167,20 @@ JsObject cloneElement(JsObject element, [Map props, List children]) {
 JsArray prepareNestedChildren(List children) {
   return children == null ? null : new JsArray.from(children);
 }
+
+/// Returns whether the React [instance] is mounted.
+bool isMounted(JsObject instance) {
+  bool isMounted = instance.callMethod('isMounted', []);
+  // Workaround for https://github.com/facebook/react/pull/3815 (Fixed in React 0.14)
+  isMounted ??= false;
+  return isMounted;
+}
+
+/// Returns the native Dart component associated with a React JS component instance, or null if the component is not Dart-based.
+react.Component getDartComponent(JsObject instance) {
+  var internal = _getInternal(instance);
+  if (internal != null) {
+    return internal[COMPONENT];
+  }
+  return null;
+}
