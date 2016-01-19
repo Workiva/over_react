@@ -11,11 +11,13 @@ import 'package:analyzer/analyzer.dart';
 ///   * [BooleanLiteral]
 ///   * [IntegerLiteral]
 ///   * [NullLiteral]
-dynamic getValue(Expression expression) {
+dynamic getValue(Expression expression, {
+    dynamic onUnsupportedExpression(Expression expression)
+}) {
   if (expression is StringLiteral) {
     var value = expression.stringValue;
     if (value == null) {
-      throw 'Unsupported expression: $expression. Must be a non-interpolated string.';
+      throw 'Unsupported expression: Must not be an interpolated string. Was: $expression.';
     }
     return value;
   } else if (expression is BooleanLiteral) {
@@ -26,7 +28,11 @@ dynamic getValue(Expression expression) {
     return null;
   }
 
-  throw 'Unsupported expression: $expression. Must be a string, boolean, integer, or null literal';
+  if (onUnsupportedExpression != null) {
+    return onUnsupportedExpression(expression);
+  }
+
+  throw 'Unsupported expression: Must be a string, boolean, integer, or null literal. Was: $expression.';
 }
 
 /// Returns the name of the class being instantiated for [annotation],
@@ -58,21 +64,29 @@ String _getConstructorName(Annotation annotation) {
   return constructorName;
 }
 
+/// Returns the first annotation AST node on [member] of type [annotationType],
+/// or null if no matching annotations are found.
+Annotation getMatchingAnnotation(AnnotatedNode member, Type annotationType) {
+  // Be sure to use `originalDeclaration` so that generic parameters work.
+  ClassMirror classMirror = reflectClass(annotationType).originalDeclaration;
+  String className = MirrorSystem.getName(classMirror.simpleName);
+
+  // Find the annotation that matches [type]'s name.
+  return member.metadata.firstWhere((annotation) {
+    return _getClassName(annotation) == className;
+  }, orElse: () => null);
+}
+
 /// Uses reflection to instantiate and returns the first annotation on [member] of type
 /// [annotationType], or null if no matching annotations are found.
 ///
 /// Annotation constructors are currently limited to the values supported by [getValue].
 ///
 /// Naively assumes that the name of the [annotationType] class is canonical.
-dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType) {
-  // Be sure to use `originalDeclaration` so that generic parameters work.
-  ClassMirror classMirror = reflectClass(annotationType).originalDeclaration;
-  String className = MirrorSystem.getName(classMirror.simpleName);
-
-  // Find the annotation that matches [type]'s name.
-  Annotation matchingAnnotation = member.metadata.firstWhere((annotation) {
-    return _getClassName(annotation) == className;
-  }, orElse: () => null);
+dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType, {
+    dynamic onUnsupportedArgument(Expression argument)
+}) {
+  var matchingAnnotation = getMatchingAnnotation(member, annotationType);
 
   // If no annotation is found, return null.
   if (matchingAnnotation == null) {
@@ -89,14 +103,19 @@ dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType) {
   Map namedParameters = {};
   List positionalParameters = [];
 
-  matchingAnnotation.arguments.arguments.forEach((expression) {
-    if (expression is NamedExpression) {
-      var name = (expression as NamedExpression).name.label.name;
-      var value = getValue((expression as NamedExpression).expression);
+  matchingAnnotation.arguments.arguments.forEach((argument) {
+    var onUnsupportedExpression =
+        onUnsupportedArgument == null ? null : (_) => onUnsupportedArgument(argument);
+
+    if (argument is NamedExpression) {
+      var name = argument.name.label.name;
+      var value = getValue(argument.expression,
+          onUnsupportedExpression: onUnsupportedExpression);
 
       namedParameters[new Symbol(name)] = value;
     } else {
-      var value = getValue(expression);
+      var value = getValue(argument,
+          onUnsupportedExpression: onUnsupportedExpression);
 
       positionalParameters.add(value);
     }
@@ -104,6 +123,9 @@ dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType) {
 
   // Instantiate and return an instance of the annotation using reflection.
   String constructorName = _getConstructorName(matchingAnnotation) ?? '';
+
+  // Be sure to use `originalDeclaration` so that generic parameters work.
+  ClassMirror classMirror = reflectClass(annotationType).originalDeclaration;
 
   try {
     var instanceMirror = classMirror.newInstance(new Symbol(constructorName), positionalParameters, namedParameters);
@@ -117,10 +139,41 @@ dynamic instantiateAnnotation(AnnotatedNode member, Type annotationType) {
 
 /// Utility class that allows for easy access to an annotated node's instantiated annotation.
 class NodeWithMeta<TNode extends AnnotatedNode, TMeta> {
+  /// The optionally annotated node.
   final TNode node;
-  final TMeta meta;
 
-  NodeWithMeta(unit)
-      : this.node = unit,
-        this.meta = instantiateAnnotation(unit, TMeta);
+  /// The node of the [TMeta] annotation, if it exists.
+  final Annotation metaNode;
+
+  /// A reflectively-instantiated version of [metaNode], if it exists.
+  TMeta _meta;
+
+  /// The arguments passed to the metadata that are not supported by [getValue],
+  /// (or by special handling in subclasses) and therefore not represented in the instantiation of [meta].
+  List<Expression> unsupportedArguments;
+
+  NodeWithMeta(TNode node)
+      : this.node = node,
+        this.metaNode = getMatchingAnnotation(node, TMeta)
+  {
+    this.unsupportedArguments = <Expression>[];
+    this._meta = instantiateAnnotation(node, TMeta, onUnsupportedArgument: this.unsupportedArguments.add);
+  }
+
+  /// Whether this node's metadata has arguments that could not be initialized using [getValue]
+  /// (or by special handling in subclasses), and therefore cannot represented in the instantiation of [meta].
+  bool get isIncomplete => unsupportedArguments.isNotEmpty;
+
+  /// A reflectively-instantiated version of [metaNode], if it exists.
+  ///
+  /// Throws a [StateError] if this node's metadata is incomplete.
+  TMeta get meta {
+    if (isIncomplete) {
+      throw new StateError('Metadata is incomplete; unsupported arguments $unsupportedArguments. Use `incompleteMeta` instead.');
+    }
+    return _meta;
+  }
+
+  /// A reflectively-instantiated version of [metaNode], if it exists.
+  TMeta get potentiallyIncompleteMeta => _meta;
 }

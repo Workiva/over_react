@@ -3,16 +3,13 @@ library ui_core.component_declaration.component_base_test;
 import 'dart:js';
 
 import 'package:mockito/mockito.dart';
+import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart';
+import 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart';
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart' show Dom;
-
-import 'component_base_test/one_level_wrapper.dart';
-import 'component_base_test/test_a.dart';
-import 'component_base_test/test_b.dart';
-import 'component_base_test/two_level_wrapper.dart';
 
 main() {
   group('component base:', () {
@@ -175,6 +172,53 @@ main() {
           expect(() => props.addProps(null), isNot(throws));
 
           expect(props, equals({'key': 'value'}));
+        });
+      });
+
+      group('testId', () {
+        test('sets the correct value for the `data-test-id` key', () {
+          var props = new TestComponentProps();
+          props.testId = 'value';
+
+          expect(props, equals({'data-test-id': 'value'}));
+        });
+
+        test('does not set the value for the `data-test-id` when inTesting is false', () {
+          UiProps.testMode = false;
+
+          var props = new TestComponentProps();
+          props.testId = 'value';
+
+          expect(props, equals({}));
+
+          UiProps.testMode = true;
+        });
+      });
+
+      group('setTestId', () {
+        test('sets the correct value for the `data-test-id` key', () {
+          var props = new TestComponentProps();
+          props.setTestId('value');
+
+          expect(props, equals({'data-test-id': 'value'}));
+        });
+
+        test('sets the correct value for the custom key', () {
+          var props = new TestComponentProps();
+          props.setTestId('value', key: 'data-custom-id');
+
+          expect(props, equals({'data-custom-id': 'value'}));
+        });
+
+        test('does not set the value for the `data-test-id` when inTesting is false', () {
+          UiProps.testMode = false;
+
+          var props = new TestComponentProps();
+          props.setTestId('value');
+
+          expect(props, equals({}));
+
+          UiProps.testMode = true;
         });
       });
     });
@@ -356,135 +400,73 @@ main() {
 
     group('registerComponent()', () {
       group('attaches metadata to the specified component class:', () {
-        final ComponentFactory dummyComponentFactory = () => null;
+        final ComponentFactory dummyComponentFactory = () => new DummyComponent();
 
-        group('isWrapper:', () {
+        group('`isWrapper`:', () {
           test('true', () {
-            var factory = registerComponent(dummyComponentFactory, isWrapper: true);
-            expect(factory.type['isWrapper'], isTrue);
+            var reactComponentFactory = registerComponent(dummyComponentFactory, isWrapper: true);
+            var meta = getComponentTypeMeta(reactComponentFactory.type);
+
+            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
+            expect(meta.isWrapper, isTrue);
           });
 
           test('false', () {
-            var factory = registerComponent(dummyComponentFactory, isWrapper: false);
-            expect(factory.type['isWrapper'], isNot(isTrue));
+            var reactComponentFactory = registerComponent(dummyComponentFactory, isWrapper: false);
+            var meta = getComponentTypeMeta(reactComponentFactory.type);
+
+            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
+            expect(meta.isWrapper, isFalse);
+          });
+        });
+
+        group('`parentType`:', () {
+          test('not specified', () {
+            var reactComponentFactory = registerComponent(dummyComponentFactory);
+            var meta = getComponentTypeMeta(reactComponentFactory.type);
+
+            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
+            expect(meta.parentType, isNull);
+          });
+
+          test('null', () {
+            var reactComponentFactory = registerComponent(dummyComponentFactory);
+            var meta = getComponentTypeMeta(reactComponentFactory.type);
+
+            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
+            expect(meta.parentType, isNull);
+          });
+
+          test('another ReactComponentFactoryProxy', () {
+            var parentFactory = registerComponent(dummyComponentFactory);
+
+            var reactComponentFactory = registerComponent(dummyComponentFactory, parentType: parentFactory);
+            var meta = getComponentTypeMeta(reactComponentFactory.type);
+
+            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
+            expect(meta.parentType, equals(parentFactory));
           });
         });
 
         test('displayName', () {
-          var factory = registerComponent(dummyComponentFactory, displayName: 'testDisplayName');
-          expect(factory.type['displayName'], equals('testDisplayName'));
-        });
-      });
-    });
-
-    group('isComponentOfType()', () {
-      group('returns expected result when given', (){
-        test('null', () {
-          expect(isComponentOfType(null, TestA), isFalse);
+          var reactComponentFactory = registerComponent(dummyComponentFactory, displayName: 'testDisplayName');
+          expect(reactComponentFactory.type['displayName'], equals('testDisplayName'));
         });
 
-        test('a component and its factory', () {
-          expect(isComponentOfType(TestA()(), TestA), isTrue);
-        });
+        group('registers a type alias for', () {
+          test('`componentClass`', () {
+            Type typeAlias = TestRegisterComponentClassAlias;
+            var reactComponentFactory = registerComponent(dummyComponentFactory, componentClass: typeAlias);
 
-        test('a component and its ReactComponentFactory', () {
-          expect(isComponentOfType(TestA()(), TestA().componentFactory), isTrue);
-        });
-
-        test('a component and its component class', () {
-          expect(isComponentOfType(TestA()(), TestAComponent), isTrue);
-        });
-
-        test('a component and its canonical type', () {
-          expect(isComponentOfType(TestA()(), TestA()()['type']), isTrue);
-        });
-
-        test('a component and a factory for a different component', () {
-          expect(isComponentOfType(TestA()(), TestB), isFalse);
-        });
-
-        test('a component and a ReactComponentFactory for a different component', () {
-          expect(isComponentOfType(TestA()(), TestB().componentFactory), isFalse);
-        });
-
-        test('a component and a component class for a different component', () {
-          expect(isComponentOfType(TestA()(), TestBComponent), isFalse);
-        });
-
-        test('a component and a canonical type for a different component', () {
-          expect(isComponentOfType(TestA()(), TestB()()['type']), isFalse);
-        });
-
-        test('a DOM component and a factory for a Dart component', () {
-          expect(isComponentOfType(Dom.div()(), TestB), isFalse);
-        });
-
-        test('a DOM component and its tagName', () {
-          expect(isComponentOfType(Dom.div()(), 'div'), isTrue);
-        });
-
-        test('a DOM component and its ReactComponentFactory', () {
-          expect(isComponentOfType(Dom.div()(), Dom.div().componentFactory), isTrue);
-        });
-
-        group('a component that nests the component factory', () {
-          group('one level deep and traverseWrappers is', () {
-            test('true', () {
-              expect(isComponentOfType(
-                  OneLevelWrapper()(TestA()()),
-                  TestA
-              ), isTrue);
-            });
-
-            test('false', () {
-              expect(isComponentOfType(
-                  OneLevelWrapper()(TestA()()),
-                  TestA,
-                  traverseWrappers: false
-              ), isFalse);
-            });
+            expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias), equals(reactComponentFactory.type));
           });
 
-          group('two levels deep and traverseWrappers is', () {
-            test('true', () {
-              expect(isComponentOfType(
-                  TwoLevelWrapper()(OneLevelWrapper()(TestA()())),
-                  TestA
-              ), isTrue);
-            });
+          test('`factory`', () {
+            UiFactory factoryAlias = ([_]) => null;
+            var reactComponentFactory = registerComponent(dummyComponentFactory, builderFactory: factoryAlias);
 
-            test('false', () {
-              expect(isComponentOfType(
-                  TwoLevelWrapper()(OneLevelWrapper()(TestA()())),
-                  TestA,
-                  traverseWrappers: false
-              ), isFalse);
-            });
+            expect(getComponentTypeFromAlias(factoryAlias), equals(reactComponentFactory.type));
           });
-
-          test('and does not throw when children is null', () {
-            expect(() => isComponentOfType(OneLevelWrapper()(), TestA), isNot(throws));
-          });
-        });
-      });
-    });
-
-    group('isValidElementOfType()', () {
-      group('returns expected result when given', (){
-        test('null', () {
-          expect(isValidElementOfType(null, TestA), isFalse);
-        });
-
-        test('a String', () {
-          expect(isValidElementOfType('Test String', TestA), isFalse);
-        });
-
-        test('a List', () {
-          expect(isValidElementOfType(['item1', 'item2'], TestA), isFalse);
-        });
-
-        test('a ReactComponent', () {
-          expect(isValidElementOfType(Dom.div()(), Dom.div().componentFactory), isTrue);
         });
       });
     });
@@ -662,3 +644,7 @@ void mapProxyTests(Map mapProxyFactory(Map proxiedMap)) {
 class MockMap extends Mock implements Map {
   noSuchMethod(i) => super.noSuchMethod(i);
 }
+
+class DummyComponent extends react.Component {}
+
+abstract class TestRegisterComponentClassAlias {}

@@ -6,10 +6,7 @@ import 'dart:collection';
 import 'dart:html';
 
 import 'package:react/react.dart' as react;
-import 'package:web_skin_dart/code_generation/annotations.dart';
 import 'package:web_skin_dart/ui_core.dart';
-
-part 'resize_sensor.g.dart';
 
 /// A wrapper component that detects when its parent is resized.
 ///
@@ -18,26 +15,24 @@ part 'resize_sensor.g.dart';
 ///
 ///     (ResizeSensor()..onResize = () => print('resized'))(children)
 ///
-ResizeSensorDefinition ResizeSensor() => new ResizeSensorDefinition({});
+@Factory()
+UiFactory<ResizeSensorProps> ResizeSensor;
 
-@GenerateProps(#ResizeSensorProps)
-class ResizeSensorDefinition extends BaseComponentDefinition with ResizeSensorProps {
-  ResizeSensorDefinition(Map backingMap) : super(_resizeSensorComponentFactory, backingMap);
-
+@Props()
+class ResizeSensorProps extends UiProps {
   /// A function invoked when the parent element is resized.
-  ResizeHandler get onResize;
+  ResizeHandler onResize;
 
   /// Whether the [ResizeSensor] is a child of a flex item. Necessary to apply the correct styling.
   ///
   /// See this issue for details: <https://code.google.com/p/chromium/issues/detail?id=346275>
   ///
   /// Default: false
-  bool get isFlexChild;
+  bool isFlexChild;
 }
 
-var _resizeSensorComponentFactory = registerComponent(() => new _ResizeSensor(), isWrapper: true);
-
-class _ResizeSensor extends BaseComponent<ResizeSensorDefinition> {
+@Component()
+class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
   @override
   Map getDefaultProps() => (newProps()
     ..isFlexChild = false
@@ -56,11 +51,11 @@ class _ResizeSensor extends BaseComponent<ResizeSensorDefinition> {
     )();
 
     var expandSensor = (Dom.div()
-      ..key = 'expandSensor'
-      ..ref = 'expandSensor'
       ..className = 'resize-sensor-expand'
       ..onScroll = _handleSensorScroll
       ..style = _baseStyle
+      ..ref = 'expandSensor'
+      ..key = 'expandSensor'
     )(expandSensorChild);
 
     var collapseSensorChild = (Dom.div()
@@ -69,28 +64,29 @@ class _ResizeSensor extends BaseComponent<ResizeSensorDefinition> {
     )();
 
     var collapseSensor = (Dom.div()
-      ..key = 'collapseSensor'
-      ..ref = 'collapseSensor'
       ..className = 'resize-sensor-collapse'
       ..onScroll = _handleSensorScroll
       ..style = _baseStyle
+      ..ref = 'collapseSensor'
+      ..key = 'collapseSensor'
     )(collapseSensorChild);
 
-    var children = new List.from(tProps.children)
+    var children = new List.from(props.children)
       ..add(
           (Dom.div()
             ..className = 'resize-sensor'
             ..style = _baseStyle
+            ..key = 'resizeSensor'
           )(expandSensor, collapseSensor)
     );
 
     var wrapperStyles;
 
-    if (tProps.isFlexChild) {
+    if (props.isFlexChild) {
       wrapperStyles = {
         'position': 'relative',
         'flex': '1 1 0%',
-        '-ms-flex': '1 1 0%',
+        'msFlex': '1 1 0%',
         'display': 'block'
       };
     } else {
@@ -102,22 +98,22 @@ class _ResizeSensor extends BaseComponent<ResizeSensorDefinition> {
     }
 
     return (Dom.div()
-      ..addProps(copyProps(keysToOmit: ResizeSensorProps.Z_$propKeys))
+      ..addProps(copyUnconsumedProps())
       ..className = forwardingClassNameBuilder().toClassName()
       ..style = wrapperStyles
     )(children);
   }
 
   /// When the expand or collapse sensors are resized, builds a [ResizeSensorEvent] and calls
-  /// tProps.onResize with it. Then, calls through to [_reset()].
+  /// props.onResize with it. Then, calls through to [_reset()].
   void _handleSensorScroll(react.SyntheticEvent event) {
     Element sensor = getDOMNode();
 
     if (sensor.offsetWidth != _lastWidth || sensor.offsetHeight != _lastHeight) {
       var event = new ResizeSensorEvent(sensor.offsetWidth, sensor.offsetHeight, _lastWidth, _lastHeight);
 
-      if (tProps.onResize != null) {
-        tProps.onResize(event);
+      if (props.onResize != null) {
+        props.onResize(event);
       }
 
       _reset();
@@ -153,9 +149,6 @@ class _ResizeSensor extends BaseComponent<ResizeSensorDefinition> {
 
   /// The most recently measured value for the width of the sensor.
   int _lastWidth = 0;
-
-  @override
-  ResizeSensorDefinition typedPropsFactory(Map propsMap) => new ResizeSensorDefinition(propsMap);
 }
 
 final Map<String, dynamic> _baseStyle = const {
@@ -166,13 +159,18 @@ final Map<String, dynamic> _baseStyle = const {
   'left': '0',
   'overflow': 'scroll',
   'zIndex': '-1',
-  'visibility': 'hidden'
+  'visibility': 'hidden',
+  // Set opacity in addition to visibility to work around Safari scrollbar bug.
+  'opacity': '0',
 };
 
 final Map<String, dynamic> _expandSensorChildStyle = const {
   'position': 'absolute',
   'top': '0',
-  'left': '0'
+  'left': '0',
+  'visibility': 'hidden',
+  // Set opacity in addition to visibility to work around Safari scrollbar bug.
+  'opacity': '0',
 };
 
 final Map<String, dynamic> _collapseSensorChildStyle = const {
@@ -180,7 +178,10 @@ final Map<String, dynamic> _collapseSensorChildStyle = const {
   'top': '0',
   'left': '0',
   'width': '200%',
-  'height': '200%'
+  'height': '200%',
+  'visibility': 'hidden',
+  // Set opacity in addition to visibility to work around Safari scrollbar bug.
+  'opacity': '0',
 };
 
 /// Used with [ResizeHandler] to provide information about a resize.

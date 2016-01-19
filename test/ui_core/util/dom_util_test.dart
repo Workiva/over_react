@@ -22,7 +22,7 @@ main() {
       test('root contains the other element', () {
         var rootInstance = render(DomTest());
         var rootNode = findDomNode(rootInstance);
-        var otherNode = findDomNode(getRef(rootInstance, 'innerComponent'));
+        var otherNode = getDomByTestId(rootInstance, 'innerComponent');
 
         expect(isOrContains(rootNode, otherNode), isTrue);
       });
@@ -55,14 +55,14 @@ main() {
   });
 }
 
-DomTestDefinition DomTest() => new DomTestDefinition({});
+@Factory()
+UiFactory<DomTestProps> DomTest;
 
-class DomTestDefinition extends BaseComponentDefinition with HitAreaProps {
-  DomTestDefinition(Map props) : super(_DomTestComponentFactory, props);
-}
+@Props()
+class DomTestProps extends UiProps with HitAreaPropsMixin {}
 
-ReactComponentFactory _DomTestComponentFactory = react.registerComponent(() => new _DomTest());
-class _DomTest extends BaseComponent<DomTestDefinition> with HitAreaMixin<DomTestDefinition> {
+@Component()
+class DomTestComponent extends UiComponent<DomTestProps> with HitAreaMixin<DomTestProps> {
   @override
   Map getDefaultProps() => (newProps()
     ..addProps(HitAreaMixin.defaultProps)
@@ -71,10 +71,7 @@ class _DomTest extends BaseComponent<DomTestDefinition> with HitAreaMixin<DomTes
   @override
   render() {
     return Dom.div()(
-      (Dom.div()..ref = 'innerComponent')()
+      (Dom.div()..testId = 'innerComponent')()
     );
   }
-
-  @override
-  DomTestDefinition typedPropsFactory(Map propsMap) => new DomTestDefinition(propsMap);
 }
