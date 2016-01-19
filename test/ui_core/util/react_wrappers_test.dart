@@ -9,6 +9,7 @@ import 'package:react/react.dart' as react;
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
+import 'package:web_skin_dart/ui_components.dart';
 
 /// Main entry point for react wrappers testing
 main() {
