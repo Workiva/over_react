@@ -89,23 +89,6 @@ void tearDownAttachedNodes() {
 /// Returns the internal Map used by react-dart to maintain the native Dart component.
 Map _getInternal(JsObject instance) => instance[PROPS][INTERNAL];
 
-/// Returns whether the React [instance] is mounted.
-bool isMounted(JsObject instance) {
-  bool isMounted = instance.callMethod('isMounted', []);
-  // Workaround for https://github.com/facebook/react/pull/3815 (Fixed in React 0.14)
-  isMounted ??= false;
-  return isMounted;
-}
-
-/// Returns the native Dart component associated with a React JS component instance, or null if the component is not Dart-based.
-react.Component getDartComponent(JsObject instance) {
-  var internal = _getInternal(instance);
-  if (internal != null) {
-    return internal[COMPONENT];
-  }
-  return null;
-}
-
 /// Returns a rendered component's ref, or null if it doesn't exist.
 ///
 /// Using `getRef()` can be tedious for nested / complex components. It is recommended to use [getByTestId] instead.
