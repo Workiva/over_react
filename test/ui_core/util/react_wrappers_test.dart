@@ -1,5 +1,6 @@
 library react_wrappers_test;
 
+import 'dart:html';
 import 'dart:js';
 
 import 'package:test/test.dart';
@@ -316,6 +317,33 @@ main() {
         test('a String', () {
           expect(isDomComponent('Test String'), isFalse);
         });
+      });
+    });
+
+    group('isMounted', () {
+      test('returns true for a component that has been mounted', () {
+        var mountNode = new DivElement();
+        var renderedInstance = react.render(react.div({}), mountNode);
+        expect(isMounted(renderedInstance), isTrue);
+      });
+
+      test('returns false for a component that has been umounted', () {
+        var mountNode = new DivElement();
+        var renderedInstance = react.render(react.div({}), mountNode);
+        react.unmountComponentAtNode(mountNode);
+        expect(isMounted(renderedInstance), isFalse);
+      });
+    });
+
+    group('getDartComponent', () {
+      test('returns the correct Dart component that is rendered', () {
+        var renderedInstance = render(Button());
+        expect(getDartComponent(renderedInstance), new isInstanceOf<ButtonComponent>());
+      });
+
+      test('returns null is JS Object is not Dart based', () {
+        var renderedInstance = render(Dom.div());
+        expect(getDartComponent(renderedInstance), isNull);
       });
     });
   });
