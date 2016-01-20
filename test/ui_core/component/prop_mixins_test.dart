@@ -26,11 +26,11 @@ main() {
         expect(reactPropsMap.key, equals('1'));
       });
 
-      test('null and be read as a String', () {
+      test('null and be read as a null', () {
         var reactPropsMap = new ReactPropMixinsTest({})
           ..key = null;
 
-        expect(reactPropsMap.key, equals(''));
+        expect(reactPropsMap.key, isNull);
       });
     });
   });
