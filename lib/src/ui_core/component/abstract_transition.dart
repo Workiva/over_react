@@ -9,27 +9,33 @@ import 'package:web_skin_dart/ui_core.dart';
 
 @AbstractProps()
 abstract class AbstractTransitionProps extends UiProps {
+  /// The type of CSS transition that will be used when the [AbstractTransitonComponent] appears / disappears.
+  ///
+  /// Default: [Transition.NONE]
   Transition transition;
 
-  /// Optional callback that fires before the [Alert] is dismissed.
+  /// Optional callback that fires before the [AbstractTransitonComponent] is hidden.
   ///
-  /// Returning `false` will cancel default behavior, and the [Alert] will remain visible.
-  StateWillChangeCallback willDismiss;
+  /// Returning `false` will cancel default behavior, and the [AbstractTransitonComponent] will remain visible.
+  StateWillChangeCallback willHide;
 
-  /// Optional callback that fires after the [Alert] is dismissed.
-  StateDidChangeCallback didDismiss;
+  /// Optional callback that fires after the [AbstractTransitonComponent] is hidden.
+  StateDidChangeCallback didHide;
 
-  /// Optional callback that fires before the [Alert] appears.
+  /// Optional callback that fires before the [AbstractTransitonComponent] appears.
   ///
-  /// Returning `false` will cancel default behavior, and the [Alert] will not appear.
+  /// Returning `false` will cancel default behavior, and the [AbstractTransitonComponent] will not appear.
   StateWillChangeCallback willShow;
 
-  /// Optional callback that fires after the [Alert] appears.
+  /// Optional callback that fires after the [AbstractTransitonComponent] appears.
   StateDidChangeCallback didShow;
 }
 
 @AbstractState()
 abstract class AbstractTransitionState extends UiState {
+  /// The current phase of transition the [AbstractTransitionComponent] is in.
+  ///
+  /// Default:  [AbstractTransitionComponent.initiallyShown] ? [TransitionState.SHOWN] : [TransitionState.HIDDEN]
   TransitionPhase transitionPhase;
 }
 
@@ -42,12 +48,13 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
 
   @override
   Map getInitialState() => (newState()
-    ..transitionPhase = this.initiallyShown ? TransitionPhase.SHOWN : TransitionPhase.DISMISSED
+    ..transitionPhase = this.initiallyShown ? TransitionPhase.SHOWN : TransitionPhase.HIDDEN
   );
 
   /// Stream for listening to `transitionend` events on the [AbstractTransitionComponent].
   StreamSubscription _endTransitionSubscription;
 
+  /// Whether the [AbstractTransitionComponent] should be visible initially when mounted.
   bool get initiallyShown;
 
   // --------------------------------------------------------------------------
@@ -76,24 +83,24 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
     );
   }
 
-  /// Begin dismissing the [AbstractTransitionComponent], unless:
-  ///   * The [AbstractTransitionComponent] is already dismissed or is in the process of being dismissed.
-  ///   * The [AbstractTransitionProps.willDismiss] callback returns `false`.
-  void _handleDismiss(react.SyntheticEvent event) {
-    if (state.transitionPhase == TransitionPhase.DISMISSING ||
-        state.transitionPhase == TransitionPhase.DISMISSED) {
+  /// Begin hiding the [AbstractTransitionComponent], unless:
+  ///   * The [AbstractTransitionComponent] is already hidden or is in the process of being hidden.
+  ///   * The [AbstractTransitionProps.willHide] callback returns `false`.
+  void _handleHide(react.SyntheticEvent event) {
+    if (state.transitionPhase == TransitionPhase.HIDING ||
+        state.transitionPhase == TransitionPhase.HIDDEN) {
       return;
     }
 
-    if (props.willDismiss != null && props.willDismiss(event, state) == false) {
+    if (props.willHide != null && props.willHide(event, state) == false) {
       // Short-circuit default behavior if the callback cancelled this action by returning 'false'.
       return;
     }
 
-    prepareDismiss();
+    prepareHide();
 
     setState(newState()
-      ..transitionPhase = props.transition != Transition.NONE ? TransitionPhase.DISMISSING : TransitionPhase.DISMISSED
+      ..transitionPhase = props.transition != Transition.NONE ? TransitionPhase.HIDING : TransitionPhase.HIDDEN
     );
   }
 
@@ -110,8 +117,28 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
     _endTransitionSubscription = null;
   }
 
+  void _handleTransitionPhase(TransitionPhase phase) {
+    switch (phase) {
+      case TransitionPhase.PRE_SHOWING:
+        handlePreShowing();
+        break;
+      case TransitionPhase.SHOWING:
+        handleShowing();
+        break;
+      case TransitionPhase.HIDING:
+        handleHiding();
+        break;
+      case TransitionPhase.HIDDEN:
+        handleHidden();
+        break;
+      case TransitionPhase.SHOWN:
+        handleShown();
+        break;
+    }
+  }
+
   bool get shouldRender =>
-      state.transitionPhase != TransitionPhase.DISMISSED;
+      state.transitionPhase != TransitionPhase.HIDDEN;
 
   bool get isShown =>
       state.transitionPhase == TransitionPhase.SHOWN ||
@@ -120,6 +147,11 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   // --------------------------------------------------------------------------
   // Lifecycle Methods
   // --------------------------------------------------------------------------
+
+  @override
+  void componentDidMount(rootNode) {
+    _handleTransitionPhase(state.transitionPhase);
+  }
 
   @override
   void componentDidUpdate(Map prevProps, Map prevState, rootNode) {
@@ -132,23 +164,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
         _cancelTransitionEventListener();
       }
 
-      switch (state.transitionPhase) {
-        case TransitionPhase.PRE_SHOWING:
-          handlePreShowing();
-          break;
-        case TransitionPhase.SHOWING:
-          handleShowing();
-          break;
-        case TransitionPhase.DISMISSING:
-          handleDismissing();
-          break;
-        case TransitionPhase.DISMISSED:
-          handleDismissed();
-          break;
-        case TransitionPhase.SHOWN:
-          handleShown();
-          break;
-      }
+      _handleTransitionPhase(state.transitionPhase);
     }
   }
 
@@ -164,9 +180,8 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   /// Method that will be called right before the [AbstractTransitionComponent] begins to show.
   void prepareShow() {}
 
-
-  /// Method that will be called right before the [AbstractTransitionComponent] begins to dismiss.
-  void prepareDismiss() {}
+  /// Method that will be called right before the [AbstractTransitionComponent] begins to hide.
+  void prepareHide() {}
 
   /// Method that will be called when [AbstractTransitionComponent]  first enters the `preShowing` state.
   void handlePreShowing() {
@@ -189,23 +204,31 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   /// Method that will be called when [AbstractTransitionComponent]  first enters the `showing` state.
   void handleShowing() {}
 
-  /// Method that will be called when [AbstractTransitionComponent]  first enters the `dismissing` state.
-  void handleDismissing() {
+  /// Method that will be called when [AbstractTransitionComponent]  first enters the `hiding` state.
+  void handleHiding() {
     _onNextTransitionEnd(() {
-      if (state.transitionPhase == TransitionPhase.DISMISSING) {
+      if (state.transitionPhase == TransitionPhase.HIDING) {
         setState(newState()
-          ..transitionPhase = TransitionPhase.DISMISSED
+          ..transitionPhase = TransitionPhase.HIDDEN
         );
       }
     });
   }
 
-  /// Method that will be called when [AbstractTransitionComponent]  first enters the `dismissed` state.
-  void handleDismissed() {}
+  /// Method that will be called when [AbstractTransitionComponent]  first enters the `hidden` state.
+  void handleHidden() {
+    if (props.didHide != null) {
+      props.didHide(null, prevState);
+    }
+  }
 
 
   /// Method that will be called when [AbstractTransitionComponent]  first enters the `shown` state.
-  void handleShown() {}
+  void handleShown() {
+    if (props.didShow != null) {
+      props.didShow(null, prevState);
+    }
+  }
 
   // --------------------------------------------------------------------------
   // Public API Methods
@@ -216,9 +239,9 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
     _handleShow(event);
   }
 
-  /// Dismisses the [AbstractTransitionComponent] by removing the CSS class that invokes a CSS transition.
-  void dismiss([react.SyntheticEvent event]) {
-    _handleDismiss(event);
+  /// Hides the [AbstractTransitionComponent] by removing the CSS class that invokes a CSS transition.
+  void hide([react.SyntheticEvent event]) {
+    _handleHide(event);
   }
 
   /// Toggles the visibility of the [AbstractTransitionComponent] based on the value of [AbstractTransitionState.transitionPhase].
@@ -226,11 +249,11 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
     if (state.transitionPhase == TransitionPhase.SHOWN ||
         state.transitionPhase == TransitionPhase.PRE_SHOWING ||
         state.transitionPhase == TransitionPhase.SHOWING) {
-      /// If the [Alert] is shown or in the process of showing, dismiss it.
-      _handleDismiss(event);
-    } else if (state.transitionPhase == TransitionPhase.DISMISSED ||
-        state.transitionPhase == TransitionPhase.DISMISSING) {
-      /// If the [Alert] is dismissed or in the process of dismissing, show it.
+      /// If the [AbstractTransitionComponent] is shown or in the process of showing, hide it.
+      _handleHide(event);
+    } else if (state.transitionPhase == TransitionPhase.HIDDEN ||
+        state.transitionPhase == TransitionPhase.HIDING) {
+      /// If the [AbstractTransitionComponent] is hidden or in the process of hiding, show it.
       _handleShow(event);
     }
   }
@@ -247,13 +270,12 @@ class Transition extends ClassNameConstant {
 
 /// The transition phase of the [AbstractTransitionComponent].
 enum TransitionPhase {
-  // TODO: CHANGE THESE NAMES
   /// > SHOWN: The [AbstractTransitionComponent] is done transitioning to a visible / "shown" state.
   SHOWN,
-  /// > DISMISSED: The [AbstractTransitionComponent] is done transitioning to a hidden / "dismissed" state.
-  DISMISSED,
-  /// > DISMISSING: The `in` CSS class has been removed from the [AbstractTransitionComponent], and an `onTransitionEnd` listener is active.
-  DISMISSING,
+  /// > HIDDEN: The [AbstractTransitionComponent] is done transitioning to a hidden state.
+  HIDDEN,
+  /// > HIDING: The `in` CSS class has been removed from the [AbstractTransitionComponent], and an `onTransitionEnd` listener is active.
+  HIDING,
   /// > PRE_SHOWING: The [AbstractTransitionComponent] is mounted in the DOM, ready to be shown, and an `onTransitionEnd` listener is set up.
   PRE_SHOWING,
   /// > SHOWING: The `in` CSS class is added to the [AbstractTransitionComponent], and an `onTransitionEnd` listener is active.
