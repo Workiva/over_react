@@ -275,6 +275,25 @@ main() {
           expect(cloneDartProps['children'], equals(testOverrideChildren));
         });
       });
+
+      test('preserves callback refs correctly', () {
+        var callbackRef = (instance) {
+          expect(instance.runtimeType, equals(TestComponent));
+        };
+
+        // The 'ref' property can only be used from within a render() method, so use RenderingContainerComponent
+        // to clone and render the test component.
+        var holder = RenderingContainerComponentFactory({
+          'renderer': () {
+            var original = TestComponentFactory({'ref': callbackRef}, testChildren);
+            var clone = cloneElement(original, {});
+
+            return clone;
+          }
+        });
+
+        render(holder);
+      });
     });
 
     group('isValidElement()', () {
