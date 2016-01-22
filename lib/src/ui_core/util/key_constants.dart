@@ -1,6 +1,6 @@
 library key_constants;
 
-/// Key values that are returned from [KeyboardEvent.key].
+/// Key values that are returned from [react.SyntheticKeyboardEvent.key].
 ///
 ///See: <https://w3c.github.io/uievents/#h-fixed-virtual-key-codes>.
 abstract class KeyValue {
