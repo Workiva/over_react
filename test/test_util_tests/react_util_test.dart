@@ -58,6 +58,24 @@ main() {
       expect(flag, isTrue);
     });
 
+    test('keyDown simulates a keyDown on a component', () {
+      var flag = false;
+      var renderedInstance = render((Dom.div()..onKeyDown = (evt) => flag = true)());
+
+      keyDown(renderedInstance);
+
+      expect(flag, isTrue);
+    });
+
+    test('keyUp simulates a keyDown on a component', () {
+      var flag = false;
+      var renderedInstance = render((Dom.div()..onKeyUp = (evt) => flag = true)());
+
+      keyUp(renderedInstance);
+
+      expect(flag, isTrue);
+    });
+
     test('simulateMouseEnter simulates a MouseEnter on a component', () {
       var flag = false;
       var renderedInstance = render((Dom.div()..onMouseEnter = (evt) => flag = true));
