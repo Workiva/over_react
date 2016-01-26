@@ -593,26 +593,25 @@ main() {
 
             expect(result, isNull);
           });
-        });
 
-        test('should gracefully handle one provided function being null', () {
-          bool calledA = false;
-          IndexCallback a = (event, index) => calledA = true;
+          test('should gracefully handle one provided function being null', () {
+            bool calledA = false;
+            IndexCallback a = (event, index) => calledA = true;
 
-          var chainedCallback = createChainedIndexCallback(a, null);
-          chainedCallback(null, null);
+            var chainedCallback = createChainedIndexCallback(a, null);
+            chainedCallback(null, null);
 
-          expect(calledA, isTrue);
-        });
+            expect(calledA, isTrue);
+          });
 
-        test('should gracefully handle both provided functions being null', () {
-          var chainedCallback = createChainedIndexCallback(null, null);
-          var result = chainedCallback(null, null);
+          test('should gracefully handle both provided functions being null', () {
+            var chainedCallback = createChainedIndexCallback(null, null);
+            var result = chainedCallback(null, null);
 
-          expect(result, isNull);
+            expect(result, isNull);
+          });
         });
       });
-    });
 
       group('createChainedCallback', () {
         test('should return a Callback that calls the two provided functions', () {
@@ -747,4 +746,5 @@ main() {
         });
       });
     });
+  });
 }
