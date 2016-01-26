@@ -39,6 +39,21 @@ EventKeyCallback createChainedEventKeyCallbackFromList(List<EventKeyCallback> ca
   };
 }
 
+/// Creates an IndexCallback that calls through to the two provided callbacks in order.
+/// Useful for executing multiple callbacks where only a single callback is accepted.
+///
+/// Returns `false` if one or more of the provided callback returns `false`.
+EventKeyCallback createChainedIndexCallback(IndexCallback a, IndexCallback b) {
+  return (react.SyntheticEvent event, int index) {
+    var aDidReturnFalse = a != null ? a(event, index) == false : false;
+    var bDidReturnFalse = b != null ? b(event, index) == false : false;
+
+    if (aDidReturnFalse || bDidReturnFalse) {
+      return false;
+    }
+  };
+}
+
 /// Creates a DomEventCallback that calls through to the two provided callbacks in order.
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
