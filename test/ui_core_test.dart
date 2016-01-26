@@ -26,7 +26,6 @@ import 'ui_core/util/class_names_test.dart' as class_names_test;
 import 'ui_core/util/css_value_util_test.dart' as css_value_util_test;
 import 'ui_core/util/dom_util_test.dart' as dom_util_test;
 import 'ui_core/util/handler_chain_util_test.dart' as handler_chain_util_test;
-import 'ui_core/util/key_constants_test.dart' as key_constants_test;
 import 'ui_core/util/map_util_test.dart' as map_util_test;
 import 'ui_core/util/react_wrappers_test.dart' as react_wrappers_test;
 
@@ -52,7 +51,6 @@ main() {
   css_value_util_test.main();
   dom_util_test.main();
   handler_chain_util_test.main();
-  key_constants_test.main();
   map_util_test.main();
   react_wrappers_test.main();
 }
