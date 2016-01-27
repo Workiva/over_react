@@ -17,18 +17,18 @@ abstract class AbstractTransitionProps extends UiProps {
   /// Optional callback that fires before the [AbstractTransitonComponent] is hidden.
   ///
   /// Returning `false` will cancel default behavior, and the [AbstractTransitonComponent] will remain visible.
-  StateWillChangeCallback willHide;
+  Callback willHide;
 
   /// Optional callback that fires after the [AbstractTransitonComponent] is hidden.
-  StateDidChangeCallback didHide;
+  Callback didHide;
 
   /// Optional callback that fires before the [AbstractTransitonComponent] appears.
   ///
   /// Returning `false` will cancel default behavior, and the [AbstractTransitonComponent] will not appear.
-  StateWillChangeCallback willShow;
+  Callback willShow;
 
   /// Optional callback that fires after the [AbstractTransitonComponent] appears.
-  StateDidChangeCallback didShow;
+  Callback didShow;
 }
 
 @AbstractState()
@@ -71,7 +71,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
       return;
     }
 
-    if (props.willShow != null && props.willShow(event, state) == false) {
+    if (props.willShow != null && props.willShow() == false) {
       // Short-circuit default behavior if the callback cancelled this action by returning 'false'.
       return;
     }
@@ -92,7 +92,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
       return;
     }
 
-    if (props.willHide != null && props.willHide(event, state) == false) {
+    if (props.willHide != null && props.willHide() == false) {
       // Short-circuit default behavior if the callback cancelled this action by returning 'false'.
       return;
     }
@@ -218,7 +218,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   /// Method that will be called when [AbstractTransitionComponent]  first enters the `hidden` state.
   void handleHidden() {
     if (props.didHide != null) {
-      props.didHide(null, prevState);
+      props.didHide();
     }
   }
 
@@ -226,7 +226,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   /// Method that will be called when [AbstractTransitionComponent]  first enters the `shown` state.
   void handleShown() {
     if (props.didShow != null) {
-      props.didShow(null, prevState);
+      props.didShow();
     }
   }
 
