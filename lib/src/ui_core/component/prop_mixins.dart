@@ -12,7 +12,7 @@ abstract class ReactPropsMixin {
 
   /// A String that differentiates a component from its siblings.
   ///
-  /// When setting [key] you can use any [Object], its `toString()` method will be called when appling the value.
+  /// When setting [key] you can use any [Object], its `toString()` method will be called when applying the value.
   ///
   /// Keys are necessary when children are dynamic, such as those passed in as a [List],
   /// but are generally not required when using variadic children.
