@@ -112,7 +112,19 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   /// Listens for the next `transitionend` event and invokes a callback after
   /// the event is dispatched.
   void onNextTransitionEnd(complete()) {
-    _endTransitionSubscription = getTransitionDomNode()?.onTransitionEnd?.skip(props.transitionCount - 1)?.listen((_) {
+    if (props.transitionCount <= 0) {
+      var warningMessage = 'You have set `props.transitionCount` to an invalid option: ${props.transitionCount}';
+
+      if (props.transitionCount == 0) {
+        warningMessage += 'Instead of setting this prop to 0, override the `transitions` getter to return false.';
+      }
+
+      assert(ValidationUtil.warn(warningMessage));
+
+      return;
+    }
+
+    _endTransitionSubscription = getTransitionDomNode()?.onTransitionEnd?.skip(props.transitionCount - 1)?.take(1)?.listen((_) {
       complete();
     });
   }
