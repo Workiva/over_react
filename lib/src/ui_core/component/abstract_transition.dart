@@ -3,33 +3,31 @@ library abstract_transition;
 import 'dart:async';
 import 'dart:html';
 
-import 'package:react/react.dart' as react;
-import 'package:web_skin_dart/src/ui_core/util/constants_base.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
 @AbstractProps()
 abstract class AbstractTransitionProps extends UiProps {
   /// Number of transitions to occur within the [AbstractTransitionComponent].
   ///
-  /// _If the [AbstractTransnitionComponent] does not transition set [AbstractTransitionProps.transition] to [Transition.NONE] rather than setting this to 0._
+  /// _If the [AbstractTransitionComponent] does not transition set [AbstractTransitionProps.transition] to [Transition.NONE] rather than setting this to 0._
   ///
   /// Default: 1
   int transitionCount;
 
-  /// Optional callback that fires before the [AbstractTransitonComponent] is hidden.
+  /// Optional callback that fires before the [AbstractTransitionComponent] is hidden.
   ///
-  /// Returning `false` will cancel default behavior, and the [AbstractTransitonComponent] will remain visible.
+  /// Returning `false` will cancel default behavior, and the [AbstractTransitionComponent] will remain visible.
   Callback willHide;
 
-  /// Optional callback that fires after the [AbstractTransitonComponent] is hidden.
+  /// Optional callback that fires after the [AbstractTransitionComponent] is hidden.
   Callback didHide;
 
-  /// Optional callback that fires before the [AbstractTransitonComponent] appears.
+  /// Optional callback that fires before the [AbstractTransitionComponent] appears.
   ///
-  /// Returning `false` will cancel default behavior, and the [AbstractTransitonComponent] will not appear.
+  /// Returning `false` will cancel default behavior, and the [AbstractTransitionComponent] will not appear.
   Callback willShow;
 
-  /// Optional callback that fires after the [AbstractTransitonComponent] appears.
+  /// Optional callback that fires after the [AbstractTransitionComponent] appears.
   Callback didShow;
 }
 
@@ -113,10 +111,10 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   /// the event is dispatched.
   void onNextTransitionEnd(complete()) {
     if (props.transitionCount <= 0) {
-      var warningMessage = 'You have set `props.transitionCount` to an invalid option: ${props.transitionCount}';
+      var warningMessage = 'You have set `props.transitionCount` to an invalid option: ${props.transitionCount}.';
 
       if (props.transitionCount == 0) {
-        warningMessage += 'Instead of setting this prop to 0, override the `transitions` getter to return false.';
+        warningMessage += ' Instead of setting this prop to 0, override the `transitions` getter to return false.';
       }
 
       assert(ValidationUtil.warn(warningMessage));
@@ -195,7 +193,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   }
 
   @override
-  void componenWillUnmount() {
+  void componentWillUnmount() {
     _cancelTransitionEventListener();
   }
 
@@ -280,15 +278,6 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
       show(payload);
     }
   }
-}
-
-class Transition extends ClassNameConstant {
-  const Transition(String name, String className) : super(name, className);
-
-  /// The [AbstractTransitionComponent] will appear / disappear with no CSS transition.
-  ///
-  /// [className] value: null
-  static const Transition NONE = const Transition('NONE', null);
 }
 
 /// The transition phase of the [AbstractTransitionComponent].
