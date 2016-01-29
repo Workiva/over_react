@@ -68,7 +68,7 @@ abstract class DomPropsMixin {
   ClipboardEventCallback onCopy, onCut, onPaste;
   KeyboardEventCallback onKeyDown, onKeyPress, onKeyUp;
   FocusEventCallback onFocus, onBlur;
-  FormEventCallback onChange, onInput, onSubmit;
+  FormEventCallback onChange, onInput, onSubmit, onReset;
   MouseEventCallback
     onClick, onContextMenu, onDoubleClick, onDrag, onDragEnd, onDragEnter, onDragExit, onDragLeave, onDragOver,
     onDragStart, onDrop, onMouseDown, onMouseEnter, onMouseLeave, onMouseMove, onMouseOut, onMouseOver, onMouseUp;
@@ -145,6 +145,9 @@ abstract class UbiquitousDomPropsMixin {
 
   /// Callback for when a form is submitted
   FormEventCallback onSubmit;
+
+  /// Callback for when a form is reset
+  FormEventCallback onReset;
 
   /// Callback for when the user clicks on an element
   MouseEventCallback onClick;
