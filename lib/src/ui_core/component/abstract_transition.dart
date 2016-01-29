@@ -250,23 +250,23 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   // --------------------------------------------------------------------------
 
   /// Shows the [AbstractTransitionComponent] by adding the CSS class that invokes a CSS transition.
-  void show([dynamic payload]) {
+  void show() {
     _handleShow();
   }
 
   /// Hides the [AbstractTransitionComponent] by removing the CSS class that invokes a CSS transition.
-  void hide([dynamic payload]) {
+  void hide() {
     _handleHide();
   }
 
   /// Toggles the visibility of the [AbstractTransitionComponent] based on the value of [AbstractTransitionState.transitionPhase].
-  void toggle([dynamic payload]) {
+  void toggle() {
     if (isOrWillBeShown) {
       /// If the [AbstractTransitionComponent] is shown or in the process of showing, hide it.
-      hide(payload);
+      hide();
     } else if (isOrWillBeHidden) {
       /// If the [AbstractTransitionComponent] is hidden or in the process of hiding, show it.
-      show(payload);
+      show();
     }
   }
 }
