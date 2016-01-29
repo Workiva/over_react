@@ -132,26 +132,6 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
     _endTransitionSubscription = null;
   }
 
-  void _handleTransitionPhase(TransitionPhase phase) {
-    switch (phase) {
-      case TransitionPhase.PRE_SHOWING:
-        handlePreShowing();
-        break;
-      case TransitionPhase.SHOWING:
-        handleShowing();
-        break;
-      case TransitionPhase.HIDING:
-        handleHiding();
-        break;
-      case TransitionPhase.HIDDEN:
-        handleHidden();
-        break;
-      case TransitionPhase.SHOWN:
-        handleShown();
-        break;
-    }
-  }
-
   bool get shouldRender =>
       state.transitionPhase != TransitionPhase.HIDDEN;
 
@@ -173,11 +153,6 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   // --------------------------------------------------------------------------
 
   @override
-  void componentDidMount(rootNode) {
-    _handleTransitionPhase(state.transitionPhase);
-  }
-
-  @override
   void componentDidUpdate(Map prevProps, Map prevState, rootNode) {
     var tPrevState = typedStateFactory(prevState);
 
@@ -188,7 +163,23 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
         _cancelTransitionEventListener();
       }
 
-      _handleTransitionPhase(state.transitionPhase);
+      switch (state.transitionPhase) {
+        case TransitionPhase.PRE_SHOWING:
+          handlePreShowing();
+          break;
+        case TransitionPhase.SHOWING:
+          handleShowing();
+          break;
+        case TransitionPhase.HIDING:
+          handleHiding();
+          break;
+        case TransitionPhase.HIDDEN:
+          handleHidden();
+          break;
+        case TransitionPhase.SHOWN:
+          handleShown();
+          break;
+      }
     }
   }
 
