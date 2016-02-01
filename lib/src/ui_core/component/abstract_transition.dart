@@ -39,6 +39,52 @@ abstract class AbstractTransitionState extends UiState {
   TransitionPhase transitionPhase;
 }
 
+/// How to use [AbstractTransitionComponent]:
+///
+/// * Create props and state the extend [AbstractTransitionProps] and [AbstractTransitionState].
+///
+///         @Props()
+///         class CustomComponentProps extends AbstractTransitionProps {}
+///
+///         @State()
+///         class CustomComponentState extends AbstractTransitionProps {}
+///
+/// * Have your component extend [AbstractTransitionComponent].
+///
+///         @Component()
+///         class CustomComponent extends AbstractTransitionComponent<CustomComponentProps, CustomComponentState> {}
+///
+/// * Override [initiallyShown], [getTransitionDomNode] and optionally [transitions].
+///
+/// * Use helper getters to render your component.
+///
+///         @override
+///         render() {
+///           if (!shouldRender) {
+///             return false;
+///           }
+///
+///           var classes = forwardingClassNameBuilder()
+///             ..add('class-to-start-transition', isShown);
+///
+///           return (Dom.div()
+///             ..className = classes.toClassName()
+///           )()
+///         }
+///
+/// * Granular lifecycle methods available:
+///   * [prepareShow]
+///   * [handlePreShowing]
+///   * [handleShowing]
+///   * [handleShown]
+///   * [prepareHide]
+///   * [handleHiding]
+///   * [handleHidden]
+///
+/// * API methods that you get for free:
+///   * [show]
+///   * [hide]
+///   * [toggle]
 @AbstractComponent()
 abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S extends AbstractTransitionState> extends UiStatefulComponent<T, S> {
   @override
@@ -139,10 +185,12 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
       state.transitionPhase == TransitionPhase.SHOWN ||
       state.transitionPhase == TransitionPhase.SHOWING;
 
+  /// Returns whether the [AbstractTransitionComponent] is hidden or in the process of hiding.
   bool get isOrWillBeHidden =>
       state.transitionPhase == TransitionPhase.HIDING ||
       state.transitionPhase == TransitionPhase.HIDDEN;
 
+  /// Returns whether the [AbstractTransitionComponent] is shown or in the process of showing.
   bool get isOrWillBeShown =>
       state.transitionPhase == TransitionPhase.PRE_SHOWING ||
       state.transitionPhase == TransitionPhase.SHOWING ||
