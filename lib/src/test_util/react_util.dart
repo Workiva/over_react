@@ -89,23 +89,6 @@ void tearDownAttachedNodes() {
 /// Returns the internal Map used by react-dart to maintain the native Dart component.
 Map _getInternal(JsObject instance) => instance[PROPS][INTERNAL];
 
-/// Returns whether the React [instance] is mounted.
-bool isMounted(JsObject instance) {
-  bool isMounted = instance.callMethod('isMounted', []);
-  // Workaround for https://github.com/facebook/react/pull/3815 (Fixed in React 0.14)
-  isMounted ??= false;
-  return isMounted;
-}
-
-/// Returns the native Dart component associated with a React JS component instance, or null if the component is not Dart-based.
-react.Component getDartComponent(JsObject instance) {
-  var internal = _getInternal(instance);
-  if (internal != null) {
-    return internal[COMPONENT];
-  }
-  return null;
-}
-
 /// Returns a rendered component's ref, or null if it doesn't exist.
 ///
 /// Using `getRef()` can be tedious for nested / complex components. It is recommended to use [getByTestId] instead.
@@ -118,6 +101,18 @@ JsObject getRef(JsObject instance, dynamic ref) {
 
 /// Helper function to simulate clicks
 void click(dynamic node) => context['React']['addons']['TestUtils']['Simulate'].callMethod('click', [node]);
+
+/// Helper function to simulate mouseMove events.
+void mouseMove(dynamic instanceOrNode) => react_test_utils.Simulate.mouseMove(instanceOrNode);
+
+/// Helper function to simulate keyDown events.
+void keyDown(dynamic instanceOrNode, [Map data = const {}]) => react_test_utils.Simulate.keyDown(instanceOrNode, data);
+
+/// Helper function to simulate keyUp events.
+void keyUp(dynamic instanceOrNode, [Map data = const {}]) => react_test_utils.Simulate.keyUp(instanceOrNode, data);
+
+/// Helper function to simulate keyPress events.
+void keyPress(dynamic instanceOrNode, [Map data = const {}]) => react_test_utils.Simulate.keyPress(instanceOrNode, data);
 
 /// Simulate a MouseEnter event by firing a MouseOut and a MouseOver, since MouseEnter simulation is not provided by react_test_utils.
 void simulateMouseEnter(EventTarget target) {
