@@ -46,7 +46,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
   @override
   render() {
     var expandSensorChild = (Dom.div()
-      ..ref = 'expandSensorChild' //DO NOT DELETE - is used in reset method
+      ..ref = 'expandSensorChild'
       ..style = _expandSensorChildStyle
     )();
 
@@ -54,12 +54,12 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
       ..className = 'resize-sensor-expand'
       ..onScroll = _handleSensorScroll
       ..style = _baseStyle
-      ..ref = 'expandSensor' //DO NOT DELETE - Is used in reset method
+      ..ref = 'expandSensor'
       ..key = 'expandSensor'
     )(expandSensorChild);
 
     var collapseSensorChild = (Dom.div()
-      ..ref = 'collapseSensorChild' //DO NOT DELETE - Is used in reset method
+      ..ref = 'collapseSensorChild'
       ..style = _collapseSensorChildStyle
     )();
 
@@ -67,7 +67,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
       ..className = 'resize-sensor-collapse'
       ..onScroll = _handleSensorScroll
       ..style = _baseStyle
-      ..ref = 'collapseSensor' //DO NOT DELETE - Is used in reset method
+      ..ref = 'collapseSensor'  
       ..key = 'collapseSensor'
     )(collapseSensorChild);
 
