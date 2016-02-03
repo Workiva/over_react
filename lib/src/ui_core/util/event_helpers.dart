@@ -63,3 +63,25 @@ react.SyntheticMouseEvent wrapNativeMouseEvent(MouseEvent nativeMouseEvent) {
     null, // screenY
     nativeMouseEvent.shiftKey);
 }
+
+/// If the consumer specifies a callback like `onChange` on one of our custom form components that are not *actually*
+/// form elements - we still need a valid [react.SyntheticFormEvent] to pass as the expected parameter to that callback.
+///
+/// This helper method generates a "fake" [react.SyntheticFormEvent], with nothing but the `target` set to [element],
+/// `type` set to [type] and `timeStamp` set to the current time. All other arguments are `noop`, `false` or `null`.
+react.SyntheticFormEvent fakeSyntheticFormEvent(Element element, String type) {
+  return new react.SyntheticFormEvent(
+    false,
+    false,
+    element,
+    false,
+    () {},
+    () {},
+    null,
+    false,
+    {'target': element},
+    element,
+    new DateTime.now().hashCode,
+    type
+  );
+}
