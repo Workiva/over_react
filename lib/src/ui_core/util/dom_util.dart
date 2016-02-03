@@ -20,5 +20,7 @@ JsObject getJsForm(FormElement form) => new JsObject.fromBrowserObject(form);
 ///
 /// Does not include `<input type="image">` controls.
 ///
+/// __NOTE: Currently does not include Web Skin Dart custom components like [DropdownSelect].__
+///
 /// Wraps the [HTMLFormElement.elements](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/elements) property.
 List<Element> getFormElements(FormElement form) => convertToArray(getJsForm(form)['elements']);
