@@ -77,11 +77,11 @@ react.SyntheticFormEvent fakeSyntheticFormEvent(Element element, String type) {
     false,
     () {},
     () {},
-    null,
+    Event.AT_TARGET,
     false,
-    {'target': element},
+    null,
     element,
-    new DateTime.now().hashCode,
+    new DateTime.now().millisecondsSinceEpoch,
     type
   );
 }
