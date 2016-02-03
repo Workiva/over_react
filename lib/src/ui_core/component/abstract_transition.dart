@@ -156,6 +156,8 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   /// Listens for the next `transitionend` event and invokes a callback after
   /// the event is dispatched.
   void onNextTransitionEnd(complete()) {
+    var skipCount = props.transitionCount - 1;
+
     if (props.transitionCount <= 0) {
       var warningMessage = 'You have set `props.transitionCount` to an invalid option: ${props.transitionCount}.';
 
@@ -165,10 +167,10 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
 
       assert(ValidationUtil.warn(warningMessage));
 
-      return;
+      skipCount = 0;
     }
 
-    _endTransitionSubscription = getTransitionDomNode()?.onTransitionEnd?.skip(props.transitionCount - 1)?.take(1)?.listen((_) {
+    _endTransitionSubscription = getTransitionDomNode()?.onTransitionEnd?.skip(skipCount)?.take(1)?.listen((_) {
       complete();
     });
   }
