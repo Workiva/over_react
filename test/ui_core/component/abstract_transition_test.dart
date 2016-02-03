@@ -1,6 +1,5 @@
 library abstract_transition_test;
 
-import 'dart:async';
 import 'dart:html';
 
 import 'package:test/test.dart';
@@ -346,7 +345,7 @@ main() {
         });
 
         test('not warning when it is set to 1', () {
-          render(Transitioner()..transitionCount = 0);
+          render(Transitioner()..transitionCount = 1);
 
           rejectValidationWarning(anything);
         });
