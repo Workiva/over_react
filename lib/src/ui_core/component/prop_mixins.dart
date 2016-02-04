@@ -12,6 +12,8 @@ abstract class ReactPropsMixin {
 
   /// A String that differentiates a component from its siblings.
   ///
+  /// When setting [key] you can use any [Object], its `toString()` method will be called when applying the value.
+  ///
   /// Keys are necessary when children are dynamic, such as those passed in as a [List],
   /// but are generally not required when using variadic children.
   ///
@@ -19,7 +21,8 @@ abstract class ReactPropsMixin {
   ///
   /// * <https://facebook.github.io/react/docs/multiple-components.html#children>
   /// * <https://facebook.github.io/react/docs/reconciliation.html>
-  String key;
+  String get key        => props['key'];
+  set key(Object value) => props['key'] = value == null ? null : value.toString();
 
   /// Either a String used to retrieve the element at a later time via [react.Component.ref],
   /// or a Function that gets called with the element when it is mounted.
