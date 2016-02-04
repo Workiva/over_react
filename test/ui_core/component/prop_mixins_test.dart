@@ -10,6 +10,29 @@ import '../../wsd_test_util/prop_utils.dart';
 main() {
   group('ReactProps', () {
     testKeys(const $PropKeys(ReactPropsMixin), (() => new ReactPropMixinsTest({})));
+
+    group('prop: key can have its value set to', () {
+      test('an int and be read as a String', () {
+        var reactPropsMap = new ReactPropMixinsTest({})
+          ..key = 1;
+
+        expect(reactPropsMap.key, equals('1'));
+      });
+
+      test('a String and be read as a String', () {
+        var reactPropsMap = new ReactPropMixinsTest({})
+          ..key = '1';
+
+        expect(reactPropsMap.key, equals('1'));
+      });
+
+      test('null and be read as a null', () {
+        var reactPropsMap = new ReactPropMixinsTest({})
+          ..key = null;
+
+        expect(reactPropsMap.key, isNull);
+      });
+    });
   });
 
   group('CssClassProps', () {
