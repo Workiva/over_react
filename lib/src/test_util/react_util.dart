@@ -186,6 +186,18 @@ react.Component getComponentByTestId(JsObject root, String value, {String key: '
   return null;
 }
 
+/// Returns the props of the first descendant of [root] that has its [key] prop value set to [value].
+///
+/// Returns null if no descendant has its [key] prop value set to [value].
+Map getPropsByTestId(JsObject root, String value, {String key: 'data-test-id'}) {
+  var instance = getByTestId(root, value, key: key);
+  if (instance != null) {
+    return getProps(instance);
+  }
+
+  return null;
+}
+
 /// Returns all descendants of a component that contain the specified prop key.
 List<JsObject> findDescendantsWithProp(JsObject root, dynamic propKey) {
   return react_test_utils.findAllInRenderedTree(root, new JsFunction.withThis((_, JsObject descendant) {
