@@ -200,7 +200,7 @@ main() {
 
         var props = getPropsByTestId(renderedInstance, 'value');
 
-        expect(props, getProps(getByTestId(renderedInstance, 'value')));
+        expect(props, equals(getProps(getByTestId(renderedInstance, 'value'))));
       });
 
       test('the props map of the topmost JsObject that has the appropriate value for the custom prop key', () {
@@ -216,7 +216,7 @@ main() {
 
         var props = getPropsByTestId(renderedInstance, 'value', key: 'data-custom-id');
 
-        expect(props, getProps(getByTestId(renderedInstance, 'value', key: 'data-custom-id')));
+        expect(props, equals(getProps(getByTestId(renderedInstance, 'value', key: 'data-custom-id'))));
       });
 
       test('null if no decendant has the appropiate value for the `data-test-id` prop key', () {
