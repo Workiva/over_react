@@ -85,7 +85,7 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDDEN));
 
-          transitioner.hide();
+          transitioner.show();
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWN));
         });
@@ -179,7 +179,7 @@ main() {
 
         expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWN));
 
-        await triggerTransitionEnd(transitioner.getTransitionDomNode());
+        transitioner.hide();
 
         expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
 
@@ -194,11 +194,7 @@ main() {
 
         expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWN));
 
-        await triggerTransitionEnd(transitioner.getTransitionDomNode());
-
-        expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWN));
-
-        await triggerTransitionEnd(transitioner.getTransitionDomNode());
+        transitioner.hide();
 
         expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
 
@@ -241,7 +237,7 @@ main() {
         );
         TransitionerComponent transitioner = getDartComponent(renderedInstance);
 
-        transitioner.hide();
+        transitioner.show();
 
         await triggerTransitionEnd(transitioner.getTransitionDomNode());
 
@@ -281,7 +277,7 @@ main() {
         );
         TransitionerComponent transitioner = getDartComponent(renderedInstance);
 
-        transitioner.hide();
+        transitioner.show();
 
         await triggerTransitionEnd(transitioner.getTransitionDomNode());
 
@@ -304,7 +300,7 @@ main() {
       test('willShow returns false', () {
         var renderedInstance = render(Transitioner()
           ..initiallyShown = false
-          ..willHide = (() => false)
+          ..willShow = (() => false)
         );
         TransitionerComponent transitioner = getDartComponent(renderedInstance);
 
@@ -329,23 +325,41 @@ main() {
         stopRecordingValidationWarnings();
       });
 
-      test('transitionCount prop by', () {
+      group('transitionCount prop by', () {
         group('warning when', () {
-          test('it is set to 0', () {
-            render(Transitioner()..transitionCount = 0);
+          test('it is set to 0', () async {
+            var renderedInstance = render(Transitioner()..transitionCount = 0);
+
+            TransitionerComponent transitioner = getDartComponent(renderedInstance);
+
+            transitioner.hide();
+
+            await triggerTransitionEnd(transitioner.getTransitionDomNode());
 
             verifyValidationWarning('You have set `props.transitionCount` to an invalid option: 0. Instead of setting this prop to 0, override the `transitions` getter to return false.');
           });
 
-          test('it is set to -1', () {
-            render(Transitioner()..transitionCount = -1);
+          test('it is set to -1', () async {
+            var renderedInstance = render(Transitioner()..transitionCount = -1);
+
+            TransitionerComponent transitioner = getDartComponent(renderedInstance);
+
+            transitioner.hide();
+
+            await triggerTransitionEnd(transitioner.getTransitionDomNode());
 
             verifyValidationWarning('You have set `props.transitionCount` to an invalid option: -1.');
           });
         });
 
-        test('not warning when it is set to 1', () {
-          render(Transitioner()..transitionCount = 1);
+        test('not warning when it is set to 1', () async {
+          var renderedInstance = render(Transitioner()..transitionCount = 1);
+
+          TransitionerComponent transitioner = getDartComponent(renderedInstance);
+
+          transitioner.hide();
+
+          await triggerTransitionEnd(transitioner.getTransitionDomNode());
 
           rejectValidationWarning(anything);
         });
@@ -379,6 +393,7 @@ class TransitionerState extends AbstractTransitionState {}
 class TransitionerComponent extends AbstractTransitionComponent<TransitionerProps, TransitionerState> {
   @override
   Map getDefaultProps() => (newProps()
+    ..addProps(super.getDefaultProps())
     ..transitions = true
     ..initiallyShown = true
   );
@@ -432,7 +447,7 @@ class TransitionerComponent extends AbstractTransitionComponent<TransitionerProp
 
   @override
   void handleShown() {
-    super.handleShowing();
+    super.handleShown();
 
     if (props.onHandleShown != null) {
       props.onHandleShown();
