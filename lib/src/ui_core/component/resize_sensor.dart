@@ -67,7 +67,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
       ..className = 'resize-sensor-collapse'
       ..onScroll = _handleSensorScroll
       ..style = _baseStyle
-      ..ref = 'collapseSensor'  
+      ..ref = 'collapseSensor'
       ..key = 'collapseSensor'
     )(collapseSensorChild);
 
