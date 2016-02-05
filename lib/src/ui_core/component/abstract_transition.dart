@@ -54,7 +54,7 @@ abstract class AbstractTransitionState extends UiState {
 ///         @Component()
 ///         class CustomComponent extends AbstractTransitionComponent<CustomComponentProps, CustomComponentState> {}
 ///
-/// * Override [initiallyShown], [getTransitionDomNode] and optionally [transitions].
+/// * Override [initiallyShown], [getTransitionDomNode] and optionally [hasTransition].
 ///
 /// * Use helper getters to render your component.
 ///
@@ -107,7 +107,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   Element getTransitionDomNode();
 
   /// Returns whether the Element return by [getTransitionDomNode] will have a transition event.
-  bool get transitions => true;
+  bool get hasTransition => true;
 
   // --------------------------------------------------------------------------
   // Private Utility Methods
@@ -129,7 +129,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
     prepareShow();
 
     setState(newState()
-      ..transitionPhase = transitions ? TransitionPhase.PRE_SHOWING : TransitionPhase.SHOWN
+      ..transitionPhase = hasTransition ? TransitionPhase.PRE_SHOWING : TransitionPhase.SHOWN
     );
   }
 
@@ -149,7 +149,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
     prepareHide();
 
     setState(newState()
-      ..transitionPhase = transitions ? TransitionPhase.HIDING : TransitionPhase.HIDDEN
+      ..transitionPhase = hasTransition ? TransitionPhase.HIDING : TransitionPhase.HIDDEN
     );
   }
 

@@ -49,7 +49,7 @@ main() {
         });
 
         test('does not transition', () {
-          var renderedInstance = render(Transitioner()..transitions = false);
+          var renderedInstance = render(Transitioner()..hasTransition = false);
           TransitionerComponent transitioner = getDartComponent(renderedInstance);
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWN));
@@ -79,7 +79,7 @@ main() {
         test('does not transition', () {
           var renderedInstance = render(Transitioner()
             ..initiallyShown = false
-            ..transitions = false
+            ..hasTransition = false
           );
           TransitionerComponent transitioner = getDartComponent(renderedInstance);
 
@@ -116,7 +116,7 @@ main() {
         });
 
         test('does not transition', () {
-          var renderedInstance = render(Transitioner()..transitions = false);
+          var renderedInstance = render(Transitioner()..hasTransition = false);
           TransitionerComponent transitioner = getDartComponent(renderedInstance);
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWN));
@@ -336,7 +336,7 @@ main() {
 
             await triggerTransitionEnd(transitioner.getTransitionDomNode());
 
-            verifyValidationWarning('You have set `props.transitionCount` to an invalid option: 0. Instead of setting this prop to 0, override the `transitions` getter to return false.');
+            verifyValidationWarning('You have set `props.transitionCount` to an invalid option: 0. Instead of setting this prop to 0, override the `hasTransition` getter to return false.');
           });
 
           test('it is set to -1', () async {
@@ -382,7 +382,7 @@ class TransitionerProps extends AbstractTransitionProps {
   Callback onPrepareShow;
   Callback onPrepareHide;
 
-  bool transitions;
+  bool hasTransition;
   bool initiallyShown;
 }
 
@@ -394,7 +394,7 @@ class TransitionerComponent extends AbstractTransitionComponent<TransitionerProp
   @override
   Map getDefaultProps() => (newProps()
     ..addProps(super.getDefaultProps())
-    ..transitions = true
+    ..hasTransition = true
     ..initiallyShown = true
   );
 
@@ -406,7 +406,7 @@ class TransitionerComponent extends AbstractTransitionComponent<TransitionerProp
   bool get initiallyShown => props.initiallyShown;
 
   @override
-  bool get transitions => props.transitions;
+  bool get hasTransition => props.hasTransition;
 
   @override
   render() {
