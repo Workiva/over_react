@@ -186,7 +186,7 @@ main() {
       });
     });
 
-    group('getPropsByTestID returns', () {
+    group('getPropsByTestId returns', () {
       test('the props map of the topmost JsObject that has the appropriate value for the `data-test-id` prop key', () {
         var renderedInstance = render(Dom.div()(
           (Test()
