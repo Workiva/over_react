@@ -17,7 +17,6 @@ import 'src/ui_core/component_declaration/transformer_helpers.dart';
 // Exports
 export 'src/ui_core/component/abstract_transition.dart';
 export 'src/ui_core/component/callback_typedefs.dart';
-export 'src/ui_core/component/dummy_component.dart';
 export 'src/ui_core/component/resize_sensor.dart';
 export 'src/ui_core/component/typed_mixins.dart';
 export 'src/ui_core/util/character_constants.dart';
