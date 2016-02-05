@@ -180,19 +180,26 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
     _endTransitionSubscription = null;
   }
 
+  /// Whether the [AbstractTransitionComponent] should render.
+  ///
+  /// If this is false your [render] should return false.
   bool get shouldRender =>
       state.transitionPhase != TransitionPhase.HIDDEN;
 
+
+  /// Whether the [AbstractTransitionComponent] is in a "visible" state.
+  ///
+  /// You should add your CSS class that starts a transition based on this value.
   bool get isShown =>
       state.transitionPhase == TransitionPhase.SHOWN ||
       state.transitionPhase == TransitionPhase.SHOWING;
 
-  /// Returns whether the [AbstractTransitionComponent] is hidden or in the process of hiding.
+  /// Whether the [AbstractTransitionComponent] is hidden or in the process of hiding.
   bool get isOrWillBeHidden =>
       state.transitionPhase == TransitionPhase.HIDING ||
       state.transitionPhase == TransitionPhase.HIDDEN;
 
-  /// Returns whether the [AbstractTransitionComponent] is shown or in the process of showing.
+  /// Whether the [AbstractTransitionComponent] is shown or in the process of showing.
   bool get isOrWillBeShown =>
       state.transitionPhase == TransitionPhase.PRE_SHOWING ||
       state.transitionPhase == TransitionPhase.SHOWING ||
@@ -258,7 +265,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
       }
     });
 
-    // Force a repaint by accessing `offsetHeight` so that the 'in' class is guaranteed to trigger a transition when it is applied
+    // Force a repaint by accessing `offsetHeight` so that the changes to CSS classes are guaranteed to trigger a transition when it is applied
     getTransitionDomNode()?.offsetHeight;
 
     setState(newState()
@@ -327,10 +334,10 @@ enum TransitionPhase {
   SHOWN,
   /// > HIDDEN: The [AbstractTransitionComponent] is done transitioning to a hidden state.
   HIDDEN,
-  /// > HIDING: The `in` CSS class has been removed from the [AbstractTransitionComponent], and an `onTransitionEnd` listener is active.
+  /// > HIDING: The CSS class that triggers transitions has been removed from the [AbstractTransitionComponent], and an `onTransitionEnd` listener is active.
   HIDING,
   /// > PRE_SHOWING: The [AbstractTransitionComponent] is mounted in the DOM, ready to be shown, and an `onTransitionEnd` listener is set up.
   PRE_SHOWING,
-  /// > SHOWING: The `in` CSS class is added to the [AbstractTransitionComponent], and an `onTransitionEnd` listener is active.
+  /// > SHOWING: The CSS class that triggers transitions is added to the [AbstractTransitionComponent], and an `onTransitionEnd` listener is active.
   SHOWING
 }
