@@ -60,7 +60,7 @@ main() {
         });
       });
 
-      group('shows the component', () {
+      group('shows the component correctly when it', () {
         test('transitions', () async {
           var renderedInstance = render(Transitioner()..initiallyShown = false);
           TransitionerComponent transitioner = getDartComponent(renderedInstance);
@@ -91,7 +91,7 @@ main() {
         });
       });
 
-      group('toggles the component', () {
+      group('toggles the component when it', () {
         test('transitions', () async {
           var renderedInstance = render(Transitioner());
           TransitionerComponent transitioner = getDartComponent(renderedInstance);
