@@ -162,7 +162,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
       var warningMessage = 'You have set `props.transitionCount` to an invalid option: ${props.transitionCount}.';
 
       if (props.transitionCount == 0) {
-        warningMessage += ' Instead of setting this prop to 0, override the `transitions` getter to return false.';
+        warningMessage += ' Instead of setting this prop to 0, override the `hasTransition` getter to return false.';
       }
 
       assert(ValidationUtil.warn(warningMessage));
