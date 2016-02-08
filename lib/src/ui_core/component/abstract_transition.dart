@@ -17,18 +17,18 @@ abstract class AbstractTransitionProps extends UiProps {
   /// Optional callback that fires before the [AbstractTransitionComponent] is hidden.
   ///
   /// Returning `false` will cancel default behavior, and the [AbstractTransitionComponent] will remain visible.
-  Callback willHide;
+  Callback onWillHide;
 
   /// Optional callback that fires after the [AbstractTransitionComponent] is hidden.
-  Callback didHide;
+  Callback onDidHide;
 
   /// Optional callback that fires before the [AbstractTransitionComponent] appears.
   ///
   /// Returning `false` will cancel default behavior, and the [AbstractTransitionComponent] will not appear.
-  Callback willShow;
+  Callback onWillShow;
 
   /// Optional callback that fires after the [AbstractTransitionComponent] appears.
-  Callback didShow;
+  Callback onDidShow;
 }
 
 @AbstractState()
@@ -115,13 +115,13 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
 
   /// Begin showing the [AbstractTransitionComponent], unless:
   ///   * The [AbstractTransitionComponent] is already shown or is in the process of showing.
-  ///   * The [AbstractTransitionProps.willShow] callback returns `false`.
+  ///   * The [AbstractTransitionProps.onWillShow] callback returns `false`.
   void _handleShow() {
     if (isOrWillBeShown) {
       return;
     }
 
-    if (props.willShow != null && props.willShow() == false) {
+    if (props.onWillShow != null && props.onWillShow() == false) {
       // Short-circuit default behavior if the callback cancelled this action by returning 'false'.
       return;
     }
@@ -135,13 +135,13 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
 
   /// Begin hiding the [AbstractTransitionComponent], unless:
   ///   * The [AbstractTransitionComponent] is already hidden or is in the process of being hidden.
-  ///   * The [AbstractTransitionProps.willHide] callback returns `false`.
+  ///   * The [AbstractTransitionProps.onWillHide] callback returns `false`.
   void _handleHide() {
     if (isOrWillBeHidden) {
       return;
     }
 
-    if (props.willHide != null && props.willHide() == false) {
+    if (props.onWillHide != null && props.onWillHide() == false) {
       // Short-circuit default behavior if the callback cancelled this action by returning 'false'.
       return;
     }
@@ -289,16 +289,16 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
 
   /// Method that will be called when [AbstractTransitionComponent]  first enters the `hidden` state.
   void handleHidden() {
-    if (props.didHide != null) {
-      props.didHide();
+    if (props.onDidHide != null) {
+      props.onDidHide();
     }
   }
 
 
   /// Method that will be called when [AbstractTransitionComponent]  first enters the `shown` state.
   void handleShown() {
-    if (props.didShow != null) {
-      props.didShow();
+    if (props.onDidShow != null) {
+      props.onDidShow();
     }
   }
 
