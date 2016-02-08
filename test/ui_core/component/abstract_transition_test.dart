@@ -217,8 +217,8 @@ main() {
 
       test('hiding', () async {
         var renderedInstance = render(Transitioner()
-          ..willHide = (() => calls.add('willHide'))
-          ..didHide = (() => calls.add('didHide'))
+          ..onWillHide = (() => calls.add('willHide'))
+          ..onDidHide = (() => calls.add('didHide'))
         );
         TransitionerComponent transitioner = getDartComponent(renderedInstance);
 
@@ -232,8 +232,8 @@ main() {
       test('showing', () async {
         var renderedInstance = render(Transitioner()
           ..initiallyShown = false
-          ..willShow = (() => calls.add('willShow'))
-          ..didShow = (() => calls.add('didShow'))
+          ..onWillShow = (() => calls.add('willShow'))
+          ..onDidShow = (() => calls.add('didShow'))
         );
         TransitionerComponent transitioner = getDartComponent(renderedInstance);
 
@@ -287,7 +287,7 @@ main() {
 
     group('cancels default behavior when', () {
       test('willHide returns false', () {
-        var renderedInstance = render(Transitioner()..willHide = (() => false));
+        var renderedInstance = render(Transitioner()..onWillHide = (() => false));
         TransitionerComponent transitioner = getDartComponent(renderedInstance);
 
         expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWN));
@@ -300,7 +300,7 @@ main() {
       test('willShow returns false', () {
         var renderedInstance = render(Transitioner()
           ..initiallyShown = false
-          ..willShow = (() => false)
+          ..onWillShow = (() => false)
         );
         TransitionerComponent transitioner = getDartComponent(renderedInstance);
 
