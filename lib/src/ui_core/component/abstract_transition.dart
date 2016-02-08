@@ -106,7 +106,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   /// Returns the DOM node that will transition.
   Element getTransitionDomNode();
 
-  /// Returns whether the Element return by [getTransitionDomNode] will have a transition event.
+  /// Whether the Element returned by [getTransitionDomNode] will have a transition event.
   bool get hasTransition => true;
 
   // --------------------------------------------------------------------------
