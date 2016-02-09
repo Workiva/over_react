@@ -109,8 +109,14 @@ main() {
       group('of descendant form control elements', () {
         setUp(() {
           renderedInstance = render(Dom.form()(
-            (Dom.input()..testId = 'firstInput')(),
-            (Dom.input()..testId = 'secondInput')()
+            (Dom.input()
+              ..id = 'firstInput'
+              ..testId = 'firstInput'
+            )(),
+            (Dom.input()
+              ..id = 'secondInput'
+              ..testId = 'secondInput'
+            )()
           ));
 
           formElementNode = findDomNode(renderedInstance);
