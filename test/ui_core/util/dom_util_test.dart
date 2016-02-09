@@ -91,6 +91,21 @@ main() {
         expect(formElements, isEmpty);
       });
 
+      test('that is empty when no children `InputElement`s exist', () {
+        formElementNode = renderAndGetDom(Dom.form()(
+          Dom.div()(),
+          Dom.div()()
+        ));
+
+        // The rest of this test is pointless if this expectation is not met
+        expect(formElementNode is FormElement, isTrue);
+
+        formElements = getFormElements(formElementNode);
+
+        expect(formElements is List, isTrue);
+        expect(formElements, isEmpty);
+      });
+
       group('of descendant form control elements', () {
         setUp(() {
           renderedInstance = render(Dom.form()(
