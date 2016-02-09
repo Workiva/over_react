@@ -12,9 +12,6 @@ import '../../wsd_test_util/key_down_util.dart';
 
 /// Main entry point for DomUtil testing
 main() {
-  // ----------------------------------------------------
-  //   isOrContains method
-  // ----------------------------------------------------
   group('isOrContains returns', () {
     group('true when', () {
       test('root is the other element', () {
@@ -58,9 +55,6 @@ main() {
     });
   });
 
-  // ----------------------------------------------------
-  //   getJsForm method
-  // ----------------------------------------------------
   group('getJsForm returns', () {
     test('JsObject HTMLFormElement when given a dart FormElement', () {
       FormElement dartForm = new FormElement();
@@ -73,9 +67,6 @@ main() {
     });
   });
 
-  // ----------------------------------------------------
-  //   getFormElements method
-  // ----------------------------------------------------
   group('getFormElements returns', () {
     FormElement formElementNode;
     var formElements;
