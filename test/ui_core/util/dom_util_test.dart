@@ -68,11 +68,18 @@ main() {
   });
 
   group('getFormElements returns', () {
+    JsObject renderedInstance;
     FormElement formElementNode;
     var formElements;
 
+    tearDown(() {
+      renderedInstance = null;
+      formElementNode = null;
+      formElements = null;
+    });
+
     group('a List', () {
-      test('that is empty when no children Elements exist', () {
+      test('that is empty when no children `Element`s exist', () {
         formElementNode = renderAndGetDom(Dom.form()());
 
         // The rest of this test is pointless if this expectation is not met
@@ -84,12 +91,14 @@ main() {
         expect(formElements, isEmpty);
       });
 
-      group('of child Elements', () {
+      group('of descendant form control elements', () {
         setUp(() {
-          formElementNode = renderAndGetDom(Dom.form()(
-            (Dom.input()..defaultValue = 'foo')(),
-            (Dom.input()..defaultValue = 'bar')()
+          renderedInstance = render(Dom.form()(
+            (Dom.input()..testId = 'firstInput')(),
+            (Dom.input()..testId = 'secondInput')()
           ));
+
+          formElementNode = findDomNode(renderedInstance);
 
           // The rest of the tests are pointless if this expectation is not met
           expect(formElementNode is FormElement, isTrue);
@@ -104,10 +113,10 @@ main() {
         });
 
         test('with the expected values', () {
-          expect(formElements[0] is InputElement, isTrue);
-          expect(formElements[1] is InputElement, isTrue);
-          expect(formElements[0].value, equals('foo'));
-          expect(formElements[1].value, equals('bar'));
+          expect(formElements, equals([
+            getDomByTestId(renderedInstance, 'firstInput'),
+            getDomByTestId(renderedInstance, 'secondInput'),
+          ]));
         });
       });
     });
