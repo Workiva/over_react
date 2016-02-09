@@ -232,3 +232,6 @@ class RenderingContainerComponent extends react.Component {
   @override
   render() => props['renderer']();
 }
+
+/// Helper method that returns the `displayName` of the provided React component [factory].
+String getNameFromFactory(BuilderOnlyUiFactory factory) => factory().componentFactory.reactComponentFactory['displayName'];
