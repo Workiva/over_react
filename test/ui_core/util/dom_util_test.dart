@@ -81,7 +81,7 @@ main() {
         formElements = getFormElements(formElementNode);
 
         expect(formElements is List, isTrue);
-        expect(formElements.length, equals(0));
+        expect(formElements, isEmpty);
       });
 
       group('of child Elements', () {
