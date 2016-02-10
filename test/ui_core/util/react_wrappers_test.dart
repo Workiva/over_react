@@ -277,7 +277,9 @@ main() {
       });
 
       test('preserves callback refs correctly', () {
+        var flag = false;
         var callbackRef = (instance) {
+          flag = true;
           expect(instance.runtimeType, equals(TestComponent));
         };
 
@@ -293,6 +295,8 @@ main() {
         });
 
         render(holder);
+
+        expect(flag, isTrue);
       });
     });
 
