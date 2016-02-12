@@ -14,7 +14,7 @@ bool isOrContains(Element root, Element other) => (
 );
 
 /// Returns the JS [HTMLFormElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement)
-JsObject getJsForm(FormElement form) => new JsObject.fromBrowserObject(form);
+JsObject _getJsForm(FormElement form) => new JsObject.fromBrowserObject(form);
 
 /// Returns a [List] of all of the form control [Element]s contained in a given [form].
 ///
@@ -23,4 +23,4 @@ JsObject getJsForm(FormElement form) => new JsObject.fromBrowserObject(form);
 /// __NOTE: Currently does not include Web Skin Dart custom components like [DropdownSelect].__
 ///
 /// Wraps the [HTMLFormElement.elements](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/elements) property.
-List<Element> getFormElements(FormElement form) => convertToArray(getJsForm(form)['elements']);
+List<Element> getFormElements(FormElement form) => convertToArray(_getJsForm(form)['elements']);

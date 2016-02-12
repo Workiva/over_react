@@ -55,18 +55,6 @@ main() {
     });
   });
 
-  group('getJsForm returns', () {
-    test('JsObject HTMLFormElement when given a dart FormElement', () {
-      FormElement dartForm = new FormElement();
-      var HTMLFormElement = getJsForm(dartForm);
-
-      // Assert that it is a JsObject
-      expect(HTMLFormElement is JsObject, isTrue);
-      // Check for the existence of a known key on the HTMLFormElement object
-      expect(HTMLFormElement['elements'], isNotNull);
-    });
-  });
-
   group('getFormElements returns', () {
     JsObject renderedInstance;
     FormElement formElementNode;
