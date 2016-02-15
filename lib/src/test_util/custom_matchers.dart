@@ -160,7 +160,7 @@ class _IsFocused extends Matcher {
         ..add('is not a valid Element.');
     }
 
-    if (!document.contains(item as Element)) {
+    if (!document.documentElement.contains(item)) {
       return mismatchDescription
         ..add('is not attached to the document, and thus cannot be focused.')
         ..add(' If testing with React, you can use `renderAttachedToDocument`.');
@@ -168,12 +168,13 @@ class _IsFocused extends Matcher {
 
     mismatchDescription.add('is not focused; ');
 
-    if (matchState['activeElement'] == document.body) {
+    final activeElement = matchState['activeElement'];
+    if (activeElement is! Element || activeElement == document.body) {
       mismatchDescription.add('there is no element currently focused');
     } else {
       mismatchDescription
         ..add('the currently focused element is ')
-        ..addDescriptionOf(matchState['activeElement']);
+        ..addDescriptionOf(activeElement);
     }
 
     return mismatchDescription;
