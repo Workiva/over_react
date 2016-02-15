@@ -497,7 +497,7 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
 
   TestComponentComponent({testConsumedPropKeys}) : consumedPropKeys = testConsumedPropKeys;
 
-  render() {}
+  render() => false;
 
   @override
   TestComponentProps typedPropsFactory(Map propsMap) => new TestComponentProps(propsMap);
