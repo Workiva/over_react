@@ -222,6 +222,50 @@ main() {
       });
     });
 
+    group('getPropsByTestId returns', () {
+      test('the props map of the topmost JsObject that has the appropriate value for the `data-test-id` prop key', () {
+        var renderedInstance = render(Dom.div()(
+          (Test()
+            ..id = 'test_id'
+            ..testId = 'value'
+          )('First Descendant'),
+          Dom.div()(
+            (Test()..testId = 'value')('Nested Descendant')
+          )
+        ));
+
+        var props = getPropsByTestId(renderedInstance, 'value');
+
+        expect(props, equals(getProps(getByTestId(renderedInstance, 'value'))));
+      });
+
+      test('the props map of the topmost JsObject that has the appropriate value for the custom prop key', () {
+        var renderedInstance = render(Dom.div()(
+          (Test()..testId = 'value')('First Descendant'),
+          Dom.div()(
+            (Test()
+              ..id = 'test_id'
+              ..setTestId('value', key: 'data-custom-id')
+            )('Nested Descendant')
+          )
+        ));
+
+        var props = getPropsByTestId(renderedInstance, 'value', key: 'data-custom-id');
+
+        expect(props, equals(getProps(getByTestId(renderedInstance, 'value', key: 'data-custom-id'))));
+      });
+
+      test('null if no decendant has the appropiate value for the `data-test-id` prop key', () {
+        var renderedInstance = render(Dom.div()(
+          (Test()..testId = 'otherValue')()
+        ));
+
+        var props = getPropsByTestId(renderedInstance, 'value');
+
+        expect(props, isNull);
+      });
+    });
+
     test('findDescendantsWithProp returns the descendants with the propKey', () {
       var renderedInstance = render(Dom.div()([
         (Dom.div()..disabled = true)(),
