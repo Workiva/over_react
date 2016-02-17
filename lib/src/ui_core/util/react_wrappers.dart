@@ -17,25 +17,6 @@ Map _getExtendedProps(JsObject instance) {
   return _getInternal(instance)[PROPS];
 }
 
-/// Helper with logic borrowed from react-dart that returns a JsObject version of props,
-/// preprocessed for consumption by React JS and prepared for consumption by the react-dart wrapper internals/
-JsObject _convertDartProps(Map extendedProps) {
-  var convertedProps = newJsObjectEmpty();
-
-  // Transfer over key and ref if they're specified so React JS knows about them.
-  if (extendedProps.containsKey('key')) {
-    convertedProps['key'] = extendedProps['key'];
-  }
-  if (extendedProps.containsKey('ref')) {
-    convertedProps['ref'] = extendedProps['ref'];
-  }
-
-  // Put Dart props inside the internal object, which will be accessed and manipulated by the react-dart wrapper.
-  convertedProps[INTERNAL] = {PROPS: extendedProps};
-
-  return convertedProps;
-}
-
 /// Returns 'key' associated with the specified React instance.
 dynamic getInstanceKey(JsObject instance) {
   return instance['key'];
@@ -131,11 +112,8 @@ JsObject preparePropsChangeset(JsObject element, Map newProps, [List newChildren
     if (newProps != null) {
       extendedProps.addAll(newProps);
     }
-    if (newChildren != null) {
-      extendedProps['children'] = newChildren;
-    }
 
-    propsChangeset = _convertDartProps(extendedProps);
+    propsChangeset = ReactDartComponentFactoryProxy.generateExtendedJsProps(extendedProps, newChildren ?? extendedProps['children']);
   }
 
   return propsChangeset;
