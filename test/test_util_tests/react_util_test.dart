@@ -58,6 +58,15 @@ main() {
       expect(flag, isTrue);
     });
 
+    test('focus simulates focus on a component', () {
+      var flag = false;
+      var renderedInstance = render((Dom.div()..onFocus = (evt) => flag = true)());
+
+      focus(renderedInstance);
+
+      expect(flag, isTrue);
+    });
+
     test('keyDown simulates a keyDown on a component', () {
       var flag = false;
       var renderedInstance = render((Dom.div()..onKeyDown = (evt) => flag = true)());
