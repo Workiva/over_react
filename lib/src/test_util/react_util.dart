@@ -102,6 +102,8 @@ JsObject getRef(JsObject instance, dynamic ref) {
 /// Helper function to simulate clicks
 void click(dynamic node) => context['React']['addons']['TestUtils']['Simulate'].callMethod('click', [node]);
 
+void focus(dynamic instanceOrNode) => react_test_utils.Simulate.focus(instanceOrNode);
+
 /// Helper function to simulate mouseMove events.
 void mouseMove(dynamic instanceOrNode) => react_test_utils.Simulate.mouseMove(instanceOrNode);
 
