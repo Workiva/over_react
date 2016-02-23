@@ -15,15 +15,18 @@ import 'src/ui_core/component_declaration/component_base.dart' as component_base
 import 'src/ui_core/component_declaration/transformer_helpers.dart';
 
 // Exports
+export 'src/ui_core/component/abstract_transition.dart';
 export 'src/ui_core/component/callback_typedefs.dart';
 export 'src/ui_core/component/resize_sensor.dart';
 export 'src/ui_core/component/typed_mixins.dart';
 export 'src/ui_core/util/character_constants.dart';
+export 'src/ui_core/util/constants_base.dart';
 export 'src/ui_core/util/css_value_util.dart';
 export 'src/ui_core/util/document_event_helper_util.dart';
 export 'src/ui_core/util/dom_util.dart';
 export 'src/ui_core/util/guid_util.dart';
 export 'src/ui_core/util/handler_chain_util.dart';
+export 'src/ui_core/util/key_constants.dart';
 export 'src/ui_core/util/react_wrappers.dart';
 export 'src/ui_core/util/validation_util.dart';
 export 'src/ui_core/component_declaration/flux_component.dart';

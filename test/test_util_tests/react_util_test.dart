@@ -58,6 +58,42 @@ main() {
       expect(flag, isTrue);
     });
 
+    test('keyDown simulates a keyDown on a component', () {
+      var flag = false;
+      var renderedInstance = render((Dom.div()..onKeyDown = (evt) => flag = true)());
+
+      keyDown(renderedInstance);
+
+      expect(flag, isTrue);
+    });
+
+    test('keyUp simulates a keyDown on a component', () {
+      var flag = false;
+      var renderedInstance = render((Dom.div()..onKeyUp = (evt) => flag = true)());
+
+      keyUp(renderedInstance);
+
+      expect(flag, isTrue);
+    });
+
+    test('keyPress simulates a keyPress on a component', () {
+      var flag = false;
+      var renderedInstance = render((Dom.div()..onKeyPress = (evt) => flag = true)());
+
+      keyPress(renderedInstance);
+
+      expect(flag, isTrue);
+    });
+
+    test('mouseMove simulates a mouseMove on a component', () {
+      var flag = false;
+      var renderedInstance = render((Dom.div()..onMouseMove = (evt) => flag = true)());
+
+      mouseMove(renderedInstance);
+
+      expect(flag, isTrue);
+    });
+
     test('simulateMouseEnter simulates a MouseEnter on a component', () {
       var flag = false;
       var renderedInstance = render((Dom.div()..onMouseEnter = (evt) => flag = true));
@@ -183,6 +219,50 @@ main() {
         var descendant = getComponentByTestId(renderedInstance, 'value');
 
         expect(descendant, isNull);
+      });
+    });
+
+    group('getPropsByTestId returns', () {
+      test('the props map of the topmost JsObject that has the appropriate value for the `data-test-id` prop key', () {
+        var renderedInstance = render(Dom.div()(
+          (Test()
+            ..id = 'test_id'
+            ..testId = 'value'
+          )('First Descendant'),
+          Dom.div()(
+            (Test()..testId = 'value')('Nested Descendant')
+          )
+        ));
+
+        var props = getPropsByTestId(renderedInstance, 'value');
+
+        expect(props, equals(getProps(getByTestId(renderedInstance, 'value'))));
+      });
+
+      test('the props map of the topmost JsObject that has the appropriate value for the custom prop key', () {
+        var renderedInstance = render(Dom.div()(
+          (Test()..testId = 'value')('First Descendant'),
+          Dom.div()(
+            (Test()
+              ..id = 'test_id'
+              ..setTestId('value', key: 'data-custom-id')
+            )('Nested Descendant')
+          )
+        ));
+
+        var props = getPropsByTestId(renderedInstance, 'value', key: 'data-custom-id');
+
+        expect(props, equals(getProps(getByTestId(renderedInstance, 'value', key: 'data-custom-id'))));
+      });
+
+      test('null if no decendant has the appropiate value for the `data-test-id` prop key', () {
+        var renderedInstance = render(Dom.div()(
+          (Test()..testId = 'otherValue')()
+        ));
+
+        var props = getPropsByTestId(renderedInstance, 'value');
+
+        expect(props, isNull);
       });
     });
 
