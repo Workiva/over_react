@@ -45,11 +45,9 @@ void main() {
 
       // Render into DOM and validate.
       var jsContainer = react.render(container, domTarget);
-      var jsTree = reactTestUtils.findRenderedDOMComponentWithClass(jsContainer, 'container');
-      expect(jsTree, isNotNull);
 
       // Return the container element for testing.
-      return reactTestUtils.getDomNode(jsTree);
+      return reactTestUtils.getDomNode(jsContainer);
     }
 
     /// Expect resize sensor invokes registered `onResize` callback.
