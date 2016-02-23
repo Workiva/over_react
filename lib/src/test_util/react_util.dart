@@ -91,8 +91,10 @@ Map _getInternal(JsObject instance) => instance[PROPS][INTERNAL];
 
 /// Returns a rendered component's ref, or null if it doesn't exist.
 ///
+/// The return type is [JsObject] for composite components, and [Element] for DOM components.
+///
 /// Using `getRef()` can be tedious for nested / complex components. It is recommended to use [getByTestId] instead.
-JsObject getRef(JsObject instance, dynamic ref) {
+dynamic getRef(JsObject instance, dynamic ref) {
   if (instance == null) {
     return null;
   }
@@ -159,9 +161,13 @@ void simulateMouseLeave(EventTarget target) {
 JsObject getByTestId(JsObject root, String value, {String key: 'data-test-id'}) {
   bool first = false;
 
-  var results = react_test_utils.findAllInRenderedTree(root, new JsFunction.withThis((_, JsObject descendant) {
+  var results = react_test_utils.findAllInRenderedTree(root, new JsFunction.withThis((_, descendant) {
     if (first) {
       return false;
+    }
+
+    if (descendant is! JsObject) {
+      descendant = new JsObject.fromBrowserObject(descendant);
     }
 
     bool hasValue = getProps(descendant)[key] == value;
@@ -212,9 +218,12 @@ Map getPropsByTestId(JsObject root, String value, {String key: 'data-test-id'}) 
 
 /// Returns all descendants of a component that contain the specified prop key.
 List<JsObject> findDescendantsWithProp(JsObject root, dynamic propKey) {
-  return react_test_utils.findAllInRenderedTree(root, new JsFunction.withThis((_, JsObject descendant) {
+  List descendantsWithProp = react_test_utils.findAllInRenderedTree(root, new JsFunction.withThis((_, descendant) {
     if (descendant == root) {
       return false;
+    }
+    if (descendant is Element) {
+      descendant = new JsObject.fromBrowserObject(descendant);
     }
 
     bool hasProp;
@@ -226,6 +235,15 @@ List<JsObject> findDescendantsWithProp(JsObject root, dynamic propKey) {
 
     return hasProp;
   }));
+
+  var typedDescendantsWithProp = [];
+
+  descendantsWithProp.forEach((descendant) {
+    if (descendant is JsObject) typedDescendantsWithProp.add(descendant);
+    else typedDescendantsWithProp.add(new JsObject.fromBrowserObject(descendant));
+  });
+
+  return typedDescendantsWithProp;
 }
 
 /// Dart wrapper for setProps.
