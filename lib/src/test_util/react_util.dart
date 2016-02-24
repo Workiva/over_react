@@ -166,9 +166,7 @@ JsObject getByTestId(JsObject root, String value, {String key: 'data-test-id'}) 
       return false;
     }
 
-    if (descendant is! JsObject) {
-      descendant = new JsObject.fromBrowserObject(descendant);
-    }
+    descendant = react_test_utils.normalizeReactComponent(descendant);
 
     bool hasValue = getProps(descendant)[key] == value;
 
@@ -182,7 +180,7 @@ JsObject getByTestId(JsObject root, String value, {String key: 'data-test-id'}) 
   if (results.isEmpty) {
     return null;
   } else {
-    return results.single;
+    return react_test_utils.normalizeReactComponent(results.single);
   }
 }
 /// Returns the [Element] of the first descendant of [root] that has its [key] prop value set to [value].
@@ -222,9 +220,8 @@ List<JsObject> findDescendantsWithProp(JsObject root, dynamic propKey) {
     if (descendant == root) {
       return false;
     }
-    if (descendant is Element) {
-      descendant = new JsObject.fromBrowserObject(descendant);
-    }
+
+    descendant = react_test_utils.normalizeReactComponent(descendant);
 
     bool hasProp;
     if (isDartComponent(descendant)) {
@@ -236,14 +233,9 @@ List<JsObject> findDescendantsWithProp(JsObject root, dynamic propKey) {
     return hasProp;
   }));
 
-  var typedDescendantsWithProp = [];
+  descendantsWithProp = descendantsWithProp.map(react_test_utils.normalizeReactComponent).toList();
 
-  descendantsWithProp.forEach((descendant) {
-    if (descendant is JsObject) typedDescendantsWithProp.add(descendant);
-    else typedDescendantsWithProp.add(new JsObject.fromBrowserObject(descendant));
-  });
-
-  return typedDescendantsWithProp;
+  return descendantsWithProp;
 }
 
 /// Dart wrapper for setProps.
