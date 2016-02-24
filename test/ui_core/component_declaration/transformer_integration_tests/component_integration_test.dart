@@ -18,7 +18,7 @@ main() {
       var instance;
       expect(() {
         instance = new ComponentTestComponent();
-      }, isNot(throws));
+      }, returnsNormally);
       expect(instance, const isInstanceOf<ComponentTestComponent>());
     });
 
