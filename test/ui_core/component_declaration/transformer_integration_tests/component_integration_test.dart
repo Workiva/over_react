@@ -1,7 +1,5 @@
 library ui_core.component_declaration.transformer_integration_tests.component_integration_test;
 
-import 'dart:js';
-
 import 'package:test/test.dart';
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
