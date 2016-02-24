@@ -176,7 +176,7 @@ main() {
                 // Retrieve an automatically JS-proxied version of the callback passed to the component.
                 JsFunction callback = cloneProps['onClick'];
                 // Call the method with one arg.
-                callback.apply([null]);
+                callback(null);
               }, returnsNormally, reason: 'should not throw due to mismatched arguments or otherwise');
               expect(onClickWasCalled, isTrue, reason: 'event handler that was added via cloning was not called');
             });
