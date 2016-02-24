@@ -1,7 +1,8 @@
 library dom_util_test;
 
-import 'package:react/react.dart' as react;
-import 'package:react/react_client.dart' show ReactComponentFactory;
+import 'dart:html';
+import 'dart:js';
+
 import 'package:test/test.dart';
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_components.dart';
@@ -50,6 +51,82 @@ main() {
         var otherNode = renderAndGetDom(Dom.div()());
 
         expect(isOrContains(rootNode, otherNode), isFalse);
+      });
+    });
+  });
+
+  group('getFormElements returns', () {
+    JsObject renderedInstance;
+    FormElement formElementNode;
+    var formElements;
+
+    tearDown(() {
+      renderedInstance = null;
+      formElementNode = null;
+      formElements = null;
+    });
+
+    group('a List', () {
+      test('that is empty when no children `Element`s exist', () {
+        formElementNode = renderAndGetDom(Dom.form()());
+
+        // The rest of this test is pointless if this expectation is not met
+        expect(formElementNode is FormElement, isTrue);
+
+        formElements = getFormElements(formElementNode);
+
+        expect(formElements is List, isTrue);
+        expect(formElements, isEmpty);
+      });
+
+      test('that is empty when no children `InputElement`s exist', () {
+        formElementNode = renderAndGetDom(Dom.form()(
+          Dom.div()(),
+          Dom.div()()
+        ));
+
+        // The rest of this test is pointless if this expectation is not met
+        expect(formElementNode is FormElement, isTrue);
+
+        formElements = getFormElements(formElementNode);
+
+        expect(formElements is List, isTrue);
+        expect(formElements, isEmpty);
+      });
+
+      group('of descendant form control elements', () {
+        setUp(() {
+          renderedInstance = render(Dom.form()(
+            (Dom.input()
+              ..id = 'firstInput'
+              ..testId = 'firstInput'
+            )(),
+            (Dom.input()
+              ..id = 'secondInput'
+              ..testId = 'secondInput'
+            )()
+          ));
+
+          formElementNode = findDomNode(renderedInstance);
+
+          // The rest of the tests are pointless if this expectation is not met
+          expect(formElementNode is FormElement, isTrue);
+
+          formElements = getFormElements(formElementNode);
+
+          expect(formElements is List, isTrue);
+        });
+
+        test('of the correct length', () {
+          expect(formElements.length, equals(2));
+        });
+
+        test('with the expected values', () {
+          expect(formElements, equals([
+            getDomByTestId(renderedInstance, 'firstInput'),
+            getDomByTestId(renderedInstance, 'secondInput'),
+          ]));
+        });
       });
     });
   });
