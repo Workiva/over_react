@@ -645,6 +645,8 @@ class MockMap extends Mock implements Map {
   noSuchMethod(i) => super.noSuchMethod(i);
 }
 
-class DummyComponent extends react.Component {}
+class DummyComponent extends react.Component {
+  render() {}
+}
 
 abstract class TestRegisterComponentClassAlias {}
