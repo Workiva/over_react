@@ -363,7 +363,7 @@ main() {
 
           rejectValidationWarning(anything);
         });
-      });
+      }, testOn: 'dart-vm');
     });
   });
 }
