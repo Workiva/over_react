@@ -28,11 +28,15 @@ void setUpKeyUpNative() {
 
 /// Helper function to add a KeyDown event to the stream.
 /// To be called in the test of a group.
-void mockedKeyUp(int keyCode) {
+void mockedKeyUp(int keyCode, {bool withShiftKey: false}) {
   var mockKeyEvent = new MockKeyEvent();
   when(mockKeyEvent.type).thenReturn('keyup');
   when(mockKeyEvent.keyCode).thenReturn(keyCode);
   when(mockKeyEvent.target).thenReturn(document);
+
+  if (withShiftKey) {
+    when(mockKeyEvent.shiftKey).thenReturn(true);
+  }
 
   if (_mockedKeyUpController != null) {
     _mockedKeyUpController.add(mockKeyEvent);
