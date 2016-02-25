@@ -260,6 +260,16 @@ abstract class UiProps
     setTestId(value);
   }
 
+  /// Gets the `data-test-id` prop (or custom [key] prop value) for use in a testing environment.
+  String getTestId({String key: 'data-test-id'}) {
+    return props[key];
+  }
+
+  /// Gets the `data-test-id` prop key to [value] for use in a testing environment.
+  String get testId {
+    return getTestId();
+  }
+
   @deprecated
   @override
   bool validate() => true;
