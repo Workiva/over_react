@@ -118,7 +118,7 @@ getDefaultProps() => (newProps()
 
 @override
 getInitialState() => (newState()
-  isExpanded = true
+  ..isExpanded = true
 );
 
 _toggleExpanded() => setState(newState()

@@ -9,6 +9,7 @@ import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart' as component_base;
 
+import 'ui_core/component/abstract_transition_test.dart' as abstract_transition_test;
 import 'ui_core/component/base_component_test.dart' as base_component_test;
 import 'ui_core/component/dom_components_test.dart' as dom_components_test;
 import 'ui_core/component/prop_mixins_test.dart' as prop_mixins_test;
@@ -34,6 +35,7 @@ main() {
 
   component_base.UiProps.testMode = true;
 
+  abstract_transition_test.main();
   base_component_test.main();
   dom_components_test.main();
   prop_mixins_test.main();
