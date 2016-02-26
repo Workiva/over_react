@@ -1,4 +1,4 @@
-/// Various prop related mixins to be used with [ComponentDefinition] descendants.
+/// Various prop related mixins to be used with [UiComponent] descendants.
 part of web_skin_dart.ui_core;
 
 /// Typed getters/setters for reserved React props.
@@ -39,12 +39,14 @@ abstract class CssClassPropsMixin {
 
   /// String of space-delimited CSS classes to be added to the resultant DOM.
   ///
-  /// All web_skin_dart components merge any added classes with this prop and the [classNameBlacklist] prop (see [BaseComponent.forwardingClassNameBuilder]).
+  /// All web_skin_dart components merge any added classes with this prop and the [classNameBlacklist] prop (see
+  /// [UiComponent.forwardingClassNameBuilder]).
   String className;
 
   /// String of space-delimited CSS classes to be blacklisted from being added to the resultant DOM.
   ///
-  /// All web_skin_dart components merge any added classes with this prop and the [className] prop (see [BaseComponent.forwardingClassNameBuilder]).
+  /// All web_skin_dart components merge any added classes with this prop and the [className] prop (see
+  /// [UiComponent.forwardingClassNameBuilder]).
   String classNameBlacklist;
 }
 
@@ -64,14 +66,14 @@ abstract class DomPropsMixin {
   dynamic accept, acceptCharset, accessKey, action, allowTransparency, alt, autoComplete, cellPadding, cellSpacing,
     charSet, classID, className, colSpan, content, contentEditable, contextMenu, coords, crossOrigin, data, dateTime,
     dir, download, draggable, encType, form, frameBorder, height, href, hrefLang, htmlFor, httpEquiv, icon, id, label,
-    lang, list, manifest, max, maxLength, media, mediaGroup, method, min, name, open, pattern, placeholder, poster,
-    preload, radioGroup, rel, role, rowSpan, sandbox, scope, scrolling, shape, sizes, spellCheck, src, srcDoc, srcSet,
-    step, tabIndex, target, title, type, useMap, value, width, wmode;
+    lang, list, manifest, max, maxLength, media, mediaGroup, method, min, name, open, pattern, placeholder,
+    poster, preload, radioGroup, rel, role, rowSpan, sandbox, scope, scrolling, shape, sizes, spellCheck, src, srcDoc,
+    srcSet, step, tabIndex, target, title, type, useMap, value, width, wmode;
 
   ClipboardEventCallback onCopy, onCut, onPaste;
   KeyboardEventCallback onKeyDown, onKeyPress, onKeyUp;
   FocusEventCallback onFocus, onBlur;
-  FormEventCallback onChange, onInput, onSubmit;
+  FormEventCallback onChange, onInput, onSubmit, onReset;
   MouseEventCallback
     onClick, onContextMenu, onDoubleClick, onDrag, onDragEnd, onDragEnter, onDragExit, onDragLeave, onDragOver,
     onDragStart, onDrop, onMouseDown, onMouseEnter, onMouseLeave, onMouseMove, onMouseOut, onMouseOver, onMouseUp;
@@ -148,6 +150,9 @@ abstract class UbiquitousDomPropsMixin {
 
   /// Callback for when a form is submitted
   FormEventCallback onSubmit;
+
+  /// Callback for when a form is reset
+  FormEventCallback onReset;
 
   /// Callback for when the user clicks on an element
   MouseEventCallback onClick;
