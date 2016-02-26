@@ -1,4 +1,4 @@
-/// [ComponentDefinition]-based api with typed props for react-dart DOM components.
+/// [UiComponent]-based api with typed props for react-dart DOM components.
 part of web_skin_dart.ui_core;
 
 /// A MapView with the typed getters/setters for all CSS-class-related props.
@@ -43,7 +43,7 @@ DomProps domProps([Map backingMap]) => new DomProps(null, backingMap);
 /// <!>  ..addProps(ariaProps()..disabled = true)
 /// <!>  ..addProps(ariaProps()
 /// <!>    ..expanded = false
-/// <!>    ..labeledby = 'label-btn'
+/// <!>    ..labelledby = 'label-btn'
 /// <!>  )
 /// </pre>
 /// <!-- use pre tags and HTML markup until WebStorm fully supports Dart doc comment markdown -->
