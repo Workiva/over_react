@@ -2,7 +2,6 @@
 /// https://github.com/marcj/css-element-queries/blob/master/src/ResizeSensor.js
 library resize_sensor;
 
-import 'dart:collection';
 import 'dart:html';
 
 import 'package:react/react.dart' as react;
