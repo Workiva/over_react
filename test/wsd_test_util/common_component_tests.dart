@@ -65,7 +65,7 @@ List<JsObject> getForwardingTargets(JsObject reactInstance, {int expectedTargetC
 }
 
 /// Common test for verifying that unconsumed props are forwarded as expected.
-void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(), {List propsNotExcludedFromForwarding: const []}) {
+void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(), {List unconsumedPropKeys: const []}) {
   test('forwards unconsumed props as expected', () {
     const Map extraProps = const {
       // Add this so we find the right component(s) with [getForwardingTargets] later.
@@ -94,7 +94,7 @@ void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(),
       // Account for any props added by the factory
       ..addAll(factory().props);
 
-      propsNotExcludedFromForwarding.forEach((key) => propsThatShouldNotGetForwarded.remove(key));
+      unconsumedPropKeys.forEach((key) => propsThatShouldNotGetForwarded.remove(key));
 
     // Use RenderingContainerComponentFactory so we can set ref on our test component
     JsObject holder = RenderingContainerComponentFactory({
@@ -223,23 +223,23 @@ dynamic _defaultChildrenFactory() => [];
 ///
 /// Best used within a group() within a component's test suite.
 ///
-/// [propsNotExcludedFromForwarding] should be used when a component has props as part of it's definition that ARE forwarded
+/// [unconsumedPropKeys] should be used when a component has props as part of it's definition that ARE forwarded
 /// to its children (ie, a smart component wrapping a primitive and forwarding some props to it). By default [testPropForwarding]
-/// tests that all consumed props are not forwarded, so you can specify forwarding props in [propsNotExcludedFromForwarding].
+/// tests that all consumed props are not forwarded, so you can specify forwarding props in [unconsumedPropKeys].
 ///
 /// [childrenFactory] returns children to be used when rendering components.
 /// This is necessary for components that need children to render properly.
 void commonComponentTests(BuilderOnlyUiFactory factory, {
-  shouldTestPropForwarding: true,
-  propsNotExcludedFromForwarding: const [],
-  shouldTestClassNameMerging: true,
-  shouldTestClassNameOverrides: true,
+  bool shouldTestPropForwarding: true,
+  List<String> unconsumedPropKeys: const <String>[],
+  bool shouldTestClassNameMerging: true,
+  bool shouldTestClassNameOverrides: true,
   dynamic childrenFactory()
 }) {
   childrenFactory ??= _defaultChildrenFactory;
 
   if (shouldTestPropForwarding) {
-    testPropForwarding(factory, childrenFactory, propsNotExcludedFromForwarding: propsNotExcludedFromForwarding);
+    testPropForwarding(factory, childrenFactory, unconsumedPropKeys: unconsumedPropKeys);
   }
   if (shouldTestClassNameMerging) {
     testClassNameMerging(factory, childrenFactory);
