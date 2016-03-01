@@ -191,3 +191,13 @@ Matcher throwsRequiredPropsError(String message) {
   return throwsA(predicate(
       (error) => error.toString().contains('RequiredPropsError: $message'), 'Should have message $message'));
 }
+
+/// A matcher to verify that a [InvalidPropCombinationError] is thrown with a provided `InvalidPropCombinationError.prop1`,
+/// `InvalidPropCombinationError.prop2`, and `InvalidPropCombinationError.message`.
+///
+/// __Note__: The message is matched rather than the [Error] instance due to Dart's wrapping of all `throw`
+///  as a [DomException]
+Matcher throwsInvalidPropCombinationError(String prop1, String prop2, String message) {
+  return throwsA(predicate(
+      (error) => error.toString().contains('InvalidPropCombinationError: Prop $prop1 and prop $prop2 are set to incompatible values: $message')));
+}
