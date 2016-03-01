@@ -19,7 +19,7 @@ main() {
       if (expectedTagName == 'variable') {
         expectedTagName = 'var';
       }
-      test('Dom.$name generates the correct tagName', () {
+      test('Dom.$name generates the correct type', () {
         var domComponent = domClassMirror.invoke(element.simpleName, []).reflectee;
         JsObject component = domComponent();
         expect(component['type'], equalsIgnoringCase(expectedTagName));
