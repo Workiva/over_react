@@ -124,7 +124,7 @@ main() {
             // Fully iterate the result by calling toList().
             getParentTypes(new Object()).toList();
           }, throwsA(const isInstanceOf<AssertionError>()));
-        }, testOn: 'dart-vm');
+        }, testOn: '!js');
       });
     });
 
