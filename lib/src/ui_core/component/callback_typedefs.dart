@@ -24,6 +24,12 @@ typedef EventKeyIndexCallback(react.SyntheticEvent event, Object eventKey, int i
 typedef StateDidChangeCallback(react.SyntheticEvent event, Map oldState);
 typedef StateWillChangeCallback(react.SyntheticEvent event, Map newState);
 
+// Callbacks for selection and focus changes.
+typedef FocusWillChangeCallback(int nextFocusedItemIndex, int currentFocusedItemIndex);
+typedef FocusDidChangeCallback(int currentFocusedItemIndex, int prevFocusedItemIndex);
+typedef SelectionWillChangeCallback(Set<int> nextSelectedItemIndices, Set<int> currentSelectedItemIndices);
+typedef SelectionDidChangeCallback(Set<int> currentSelectedItemIndices, Set<int> prevSelectedItemIndices);
+
 /// A generic callback that takes no arguments.
 typedef Callback();
 
