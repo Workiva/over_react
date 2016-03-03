@@ -231,10 +231,10 @@ dynamic _defaultChildrenFactory() => [];
 /// [childrenFactory] returns children to be used when rendering components.
 /// This is necessary for components that need children to render properly.
 void commonComponentTests(BuilderOnlyUiFactory factory, {
-  shouldTestPropForwarding: true,
-  unconsumedPropKeys: const [],
-  shouldTestClassNameMerging: true,
-  shouldTestClassNameOverrides: true,
+  bool shouldTestPropForwarding: true,
+  List<String> unconsumedPropKeys: const <String>[],
+  bool shouldTestClassNameMerging: true,
+  bool shouldTestClassNameOverrides: true,
   dynamic childrenFactory()
 }) {
   childrenFactory ??= _defaultChildrenFactory;
