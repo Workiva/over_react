@@ -94,7 +94,8 @@ void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(),
       // Account for any props added by the factory
       ..addAll(factory().props);
 
-      unconsumedPropKeys.forEach((key) => propsThatShouldNotGetForwarded.remove(key));
+      unconsumedPropKeys.forEach(propsThatShouldNotGetForwarded.remove);
+      const $PropKeys(DomPropsMixin).forEach(propsThatShouldNotGetForwarded.remove);
 
     // Use RenderingContainerComponentFactory so we can set ref on our test component
     JsObject holder = RenderingContainerComponentFactory({
