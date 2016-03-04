@@ -1,5 +1,6 @@
 library ui_core.prop_errors;
 
+/// Error thrown when a prop, that must be set, is not set.
 class RequiredPropsError extends Error {
   final String message;
 
@@ -8,6 +9,7 @@ class RequiredPropsError extends Error {
   String toString() => 'RequiredPropsError: $message';
 }
 
+/// Error thrown when a prop has an invalid value.
 class InvalidPropValueError extends Error {
   dynamic value;
   String name;
@@ -18,6 +20,7 @@ class InvalidPropValueError extends Error {
   String toString() => "InvalidPropValueError: Prop $name set to ${Error.safeToString(value)}: ${this.message}";
 }
 
+/// Error thrown when a two props have incompatible values.
 class InvalidPropCombinationError extends Error {
   String prop1;
   String prop2;
