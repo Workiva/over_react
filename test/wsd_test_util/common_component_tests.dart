@@ -230,10 +230,10 @@ dynamic _defaultChildrenFactory() => [];
 /// [childrenFactory] returns children to be used when rendering components.
 /// This is necessary for components that need children to render properly.
 void commonComponentTests(BuilderOnlyUiFactory factory, {
-  shouldTestPropForwarding: true,
-  unconsumedPropKeys: const [],
-  shouldTestClassNameMerging: true,
-  shouldTestClassNameOverrides: true,
+  bool shouldTestPropForwarding: true,
+  List<String> unconsumedPropKeys: const <String>[],
+  bool shouldTestClassNameMerging: true,
+  bool shouldTestClassNameOverrides: true,
   dynamic childrenFactory()
 }) {
   childrenFactory ??= _defaultChildrenFactory;
@@ -247,4 +247,21 @@ void commonComponentTests(BuilderOnlyUiFactory factory, {
   if (shouldTestClassNameOverrides) {
     testClassNameOverrides(factory, childrenFactory);
   }
+}
+
+/// Adds a [setUpAll] and [tearDownAll] pair to the current group that verifies that
+/// no new elements exist on the test surface after everything is done running.
+void expectCleanTestSurfaceAtEnd() {
+  Set<Element> nodesBefore;
+
+  setUpAll(() {
+    nodesBefore = document.body.children.toSet();
+  });
+
+  tearDownAll(() {
+    Set<Element> nodesAfter = document.body.children.toSet();
+    var nodesAdded = nodesAfter.difference(nodesBefore).map((element) => element.outerHtml).toList();
+
+    expect(nodesAdded, isEmpty, reason: 'tests should leave the test surface clean.');
+  });
 }
