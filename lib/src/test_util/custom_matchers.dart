@@ -195,5 +195,5 @@ Matcher throwsRequiredPropsError(String message) {
 /// A matcher to verify that the [InvalidPropValueError] is thrown with a provided `InvalidPropValueError.message`
 Matcher throwsInvalidPropError(dynamic value, String name, String message){
   return throwsA(predicate(
-    (error) => error.toString().contains('InvalidPropValueError: $message'), 'Should have message $message'));
+    (error) => error.toString().contains('InvalidPropValueError: Prop $name set to ${Error.safeToString(value)}: ${message}'), 'Should have message $message'));
 }
