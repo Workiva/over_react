@@ -54,19 +54,19 @@ void main() {
 
     /// Expect resize sensor invokes registered `onResize` callback.
     ///
-    /// Note: Test cases must await calls to this function. A boolean value is
-    /// tracked to confirm callback invocation, instead of `expectAsync`, due to
-    /// oddities in detecting callback invocations.
+    /// Note: Test cases must await calls to this function. An integer value is tracked
+    /// to count callback invocations, instead of `expectAsync`, due to oddities in
+    /// detecting callback invocations.
     Future expectResizeAfter(void action(Element container),
         {void onResize(ResizeSensorEvent)}) async {
-      var wasResizeDetected = false;
+      var numberOfResizes = 0;
 
       Element containerEl;
       containerEl = renderSensorIntoContainer((event) {
         if (onResize != null) {
           onResize(event);
         }
-        wasResizeDetected = true;
+        numberOfResizes += 1;
       });
 
       action(containerEl);
@@ -74,7 +74,7 @@ void main() {
       // Note: there is a delay here because Smithy has trouble running these
       // tests successfully without it. :(
       await new Future.delayed(const Duration(milliseconds: 200),
-          () => expect(wasResizeDetected, isTrue));
+          () => expect(numberOfResizes, greaterThan(1)));
     }
 
     group('should render with the correct styles when isFlexChild is', () {
@@ -144,14 +144,33 @@ void main() {
     });
 
     test('should pass the correct event args on resize', () async {
+      var newWidth;
+      var newHeight;
+      var prevWidth;
+      var prevHeight;
+
       await expectResizeAfter((containerEl) {
         containerEl.style.width = '${containerWidth * 2}px';
         containerEl.style.height = '${containerHeight * 2}px';
       }, onResize: (ResizeSensorEvent event) {
-        zonedExpect(event.newWidth, equals(containerWidth * 2));
-        zonedExpect(event.newHeight, equals(containerHeight * 2));
-        zonedExpect(event.prevWidth, equals(containerWidth));
-        zonedExpect(event.prevHeight, equals(containerHeight));
+        newWidth = event.newWidth;
+        newHeight = event.newHeight;
+        prevWidth = event.prevWidth;
+        prevHeight = event.prevHeight;
+      });
+
+      expect(newWidth, equals(containerWidth * 2));
+      expect(newHeight, equals(containerHeight * 2));
+      expect(prevWidth, equals(containerWidth));
+      expect(prevHeight, equals(containerHeight));
+    });
+
+    test('should pass the correct event args on initial mount', () async {
+      renderSensorIntoContainer((event) {
+        zonedExpect(event.newWidth, equals(containerWidth));
+        zonedExpect(event.newHeight, equals(containerHeight));
+        zonedExpect(event.prevWidth, equals(0));
+        zonedExpect(event.prevHeight, equals(0));
       });
     });
 
