@@ -63,7 +63,6 @@ List<JsObject> getForwardingTargets(JsObject reactInstance, {int expectedTargetC
       if (root['props']['children'] is List) {
         flattenChildren(List children) {
           children.forEach((_child) {
-            print(_child.runtimeType);
             if (_child != null && _child is JsObject && _child['props'] != null) {
               getTargets(_child);
             }  else if (_child is List) {
