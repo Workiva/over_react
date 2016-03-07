@@ -65,7 +65,10 @@ List<JsObject> getForwardingTargets(JsObject reactInstance, {int expectedTargetC
 }
 
 /// Common test for verifying that unconsumed props are forwarded as expected.
-void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(), {List unconsumedPropKeys: const []}) {
+void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(), {
+    List unconsumedPropKeys: const [],
+    bool ignoreDomProps: true
+}) {
   test('forwards unconsumed props as expected', () {
     const Map extraProps = const {
       // Add this so we find the right component(s) with [getForwardingTargets] later.
@@ -95,7 +98,11 @@ void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(),
       ..addAll(factory().props);
 
       unconsumedPropKeys.forEach(propsThatShouldNotGetForwarded.remove);
-      const $PropKeys(DomPropsMixin).forEach(propsThatShouldNotGetForwarded.remove);
+
+      if (ignoreDomProps) {
+        // Remove DomProps because they should be forwarded.
+        const $PropKeys(DomPropsMixin).forEach(propsThatShouldNotGetForwarded.remove);
+      }
 
     // Use RenderingContainerComponentFactory so we can set ref on our test component
     JsObject holder = RenderingContainerComponentFactory({
@@ -235,12 +242,13 @@ void commonComponentTests(BuilderOnlyUiFactory factory, {
   List<String> unconsumedPropKeys: const <String>[],
   bool shouldTestClassNameMerging: true,
   bool shouldTestClassNameOverrides: true,
+  bool ignoreDomProps: true,
   dynamic childrenFactory()
 }) {
   childrenFactory ??= _defaultChildrenFactory;
 
   if (shouldTestPropForwarding) {
-    testPropForwarding(factory, childrenFactory, unconsumedPropKeys: unconsumedPropKeys);
+    testPropForwarding(factory, childrenFactory, unconsumedPropKeys: unconsumedPropKeys, ignoreDomProps: ignoreDomProps);
   }
   if (shouldTestClassNameMerging) {
     testClassNameMerging(factory, childrenFactory);
