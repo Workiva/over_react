@@ -15,8 +15,8 @@ import '../../wsd_test_util/zone.dart';
 
 void main() {
   group('ResizeSensor', () {
-    const int containerWidth = 100;
-    const int containerHeight = 100;
+    const int defaultContainerWidth = 100;
+    const int defaultContainerHeight = 100;
 
     Element domTarget;
 
@@ -31,15 +31,16 @@ void main() {
       domTarget.remove();
     });
 
-    Element renderSensorIntoContainer({ResizeSensorHandler onInitialize, ResizeSensorHandler onResize}) {
+    Element renderSensorIntoContainer({ResizeSensorHandler onInitialize, ResizeSensorHandler onResize,
+        int width: defaultContainerWidth, int height: defaultContainerHeight}) {
       // Create component hierarchy.
       var sensor = (ResizeSensor()..onInitialize = onInitialize..onResize = onResize)();
       var container = react.div({
         'className': 'container',
         'style': {
           'position': 'absolute',
-          'width': containerWidth,
-          'height': containerHeight
+          'width': width,
+          'height': height
         }
       }, sensor);
 
@@ -121,46 +122,57 @@ void main() {
 
     test('should detect when bounding rect grows horizontally', () async {
       await expectResizeAfter((containerEl) {
-        containerEl.style.width = '${containerWidth * 2}px';
+        containerEl.style.width = '${defaultContainerWidth * 2}px';
       });
     });
 
     test('should detect when bounding rect grows vertically', () async {
       await expectResizeAfter((containerEl) {
-        containerEl.style.height = '${containerHeight * 2}px';
+        containerEl.style.height = '${defaultContainerHeight * 2}px';
       });
     });
 
     test('should detect when bounding rect shrinks horizontally', () async {
       await expectResizeAfter((containerEl) {
-        containerEl.style.width = '${containerWidth / 2}px';
+        containerEl.style.width = '${defaultContainerWidth / 2}px';
       });
     });
 
     test('should detect when bounding rect shrinks vertically', () async {
       await expectResizeAfter((containerEl) {
-        containerEl.style.height = '${containerHeight / 2}px';
+        containerEl.style.height = '${defaultContainerHeight / 2}px';
       });
     });
 
     test('should pass the correct event args on resize', () async {
       await expectResizeAfter((containerEl) {
-        containerEl.style.width = '${containerWidth * 2}px';
-        containerEl.style.height = '${containerHeight * 2}px';
+        containerEl.style.width = '${defaultContainerWidth * 2}px';
+        containerEl.style.height = '${defaultContainerHeight * 2}px';
       }, onResize: (ResizeSensorEvent event) {
-        zonedExpect(event.newWidth, equals(containerWidth * 2));
-        zonedExpect(event.newHeight, equals(containerHeight * 2));
-        zonedExpect(event.prevWidth, equals(containerWidth));
-        zonedExpect(event.prevHeight, equals(containerHeight));
+        zonedExpect(event.newWidth, equals(defaultContainerWidth * 2));
+        zonedExpect(event.newHeight, equals(defaultContainerHeight * 2));
+        zonedExpect(event.prevWidth, equals(defaultContainerWidth));
+        zonedExpect(event.prevHeight, equals(defaultContainerHeight));
       });
     });
 
-    test('should pass the correct event args on initialize', () async {
-      renderSensorIntoContainer(onInitialize: (ResizeSensorEvent event) {
-        zonedExpect(event.newWidth, equals(containerWidth));
-        zonedExpect(event.newHeight, equals(containerHeight));
-        zonedExpect(event.prevWidth, equals(0));
-        zonedExpect(event.prevHeight, equals(0));
+    group('should pass the correct event args on initialize', () {
+      test('when initial width and height are non-zero', () async {
+        renderSensorIntoContainer(onInitialize: (ResizeSensorEvent event) {
+          zonedExpect(event.newWidth, equals(100));
+          zonedExpect(event.newHeight, equals(100));
+          zonedExpect(event.prevWidth, equals(0));
+          zonedExpect(event.prevHeight, equals(0));
+        }, width: 100, height: 100);
+      });
+
+      test('when initial width and height are zero', () async {
+        renderSensorIntoContainer(onInitialize: (ResizeSensorEvent event) {
+          zonedExpect(event.newWidth, equals(0));
+          zonedExpect(event.newHeight, equals(0));
+          zonedExpect(event.prevWidth, equals(0));
+          zonedExpect(event.prevHeight, equals(0));
+        }, width: 0, height: 0);
       });
     });
 
