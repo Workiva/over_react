@@ -31,9 +31,9 @@ void main() {
       domTarget.remove();
     });
 
-    Element renderSensorIntoContainer(ResizeHandler handler) {
+    Element renderSensorIntoContainer({ResizeSensorHandler onInitialize, ResizeSensorHandler onResize}) {
       // Create component hierarchy.
-      var sensor = (ResizeSensor()..onResize = handler)();
+      var sensor = (ResizeSensor()..onInitialize = onInitialize..onResize = onResize)();
       var container = react.div({
         'className': 'container',
         'style': {
@@ -54,19 +54,19 @@ void main() {
 
     /// Expect resize sensor invokes registered `onResize` callback.
     ///
-    /// Note: Test cases must await calls to this function. An integer value is tracked
-    /// to count callback invocations, instead of `expectAsync`, due to oddities in
-    /// detecting callback invocations.
+    /// Note: Test cases must await calls to this function. A boolean value is
+    /// tracked to confirm callback invocation, instead of `expectAsync`, due to
+    /// oddities in detecting callback invocations.
     Future expectResizeAfter(void action(Element container),
-        {void onResize(ResizeSensorEvent)}) async {
-      var numberOfResizes = 0;
+        {ResizeSensorHandler onResize}) async {
+      var wasResizeDetected = false;
 
       Element containerEl;
-      containerEl = renderSensorIntoContainer((event) {
+      containerEl = renderSensorIntoContainer(onResize: (event) {
         if (onResize != null) {
           onResize(event);
         }
-        numberOfResizes += 1;
+        wasResizeDetected = true;
       });
 
       action(containerEl);
@@ -74,7 +74,7 @@ void main() {
       // Note: there is a delay here because Smithy has trouble running these
       // tests successfully without it. :(
       await new Future.delayed(const Duration(milliseconds: 200),
-          () => expect(numberOfResizes, greaterThan(1)));
+          () => expect(wasResizeDetected, isTrue));
     }
 
     group('should render with the correct styles when isFlexChild is', () {
@@ -144,29 +144,19 @@ void main() {
     });
 
     test('should pass the correct event args on resize', () async {
-      var newWidth;
-      var newHeight;
-      var prevWidth;
-      var prevHeight;
-
       await expectResizeAfter((containerEl) {
         containerEl.style.width = '${containerWidth * 2}px';
         containerEl.style.height = '${containerHeight * 2}px';
       }, onResize: (ResizeSensorEvent event) {
-        newWidth = event.newWidth;
-        newHeight = event.newHeight;
-        prevWidth = event.prevWidth;
-        prevHeight = event.prevHeight;
+        zonedExpect(event.newWidth, equals(containerWidth * 2));
+        zonedExpect(event.newHeight, equals(containerHeight * 2));
+        zonedExpect(event.prevWidth, equals(containerWidth));
+        zonedExpect(event.prevHeight, equals(containerHeight));
       });
-
-      expect(newWidth, equals(containerWidth * 2));
-      expect(newHeight, equals(containerHeight * 2));
-      expect(prevWidth, equals(containerWidth));
-      expect(prevHeight, equals(containerHeight));
     });
 
-    test('should pass the correct event args on initial mount', () async {
-      renderSensorIntoContainer((event) {
+    test('should pass the correct event args on initialize', () async {
+      renderSensorIntoContainer(onInitialize: (ResizeSensorEvent event) {
         zonedExpect(event.newWidth, equals(containerWidth));
         zonedExpect(event.newHeight, equals(containerHeight));
         zonedExpect(event.prevWidth, equals(0));
