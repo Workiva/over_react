@@ -100,8 +100,7 @@ JsObject getRef(JsObject instance, dynamic ref) {
 }
 
 /// Helper function to simulate clicks
-void click(dynamic node, [Map data = const {}]) =>
-    context['React']['addons']['TestUtils']['Simulate'].callMethod('click', [node, new JsObject.jsify(data)]);
+void click(dynamic instanceOrNode, [Map data = const {}]) => react_test_utils.Simulate.click(instanceOrNode, data);
 
 /// Helper function to simulate focus events.
 void focus(dynamic instanceOrNode) => react_test_utils.Simulate.focus(instanceOrNode);
