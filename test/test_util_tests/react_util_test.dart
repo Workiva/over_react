@@ -281,7 +281,7 @@ main() {
     });
 
     test('setProps sets a subset of a component\'s props', () {
-      var renderedInstance = render(Dom.div()..tabIndex = -1);
+      var renderedInstance = render(Wrapper()..tabIndex = -1);
 
       setProps(renderedInstance, {'className': 'class1'});
 
