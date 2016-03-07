@@ -1,5 +1,6 @@
 library ui_core.component_declaration.component_base_test;
 
+import 'dart:html';
 import 'dart:js';
 
 import 'package:mockito/mockito.dart';
@@ -16,30 +17,32 @@ main() {
     group('UiProps', () {
       group('renders a DOM component with the correct children when', () {
         test('no children are passed in', () {
-          var renderedInstance = render(Dom.div()());
+          var renderedNode = renderAndGetDom(Dom.div()());
 
-          expect(getJsChildren(renderedInstance), equals(null));
+          expect(renderedNode.childNodes, isEmpty);
         });
 
         test('children is null', () {
-          var renderedInstance = render(Dom.div()(null));
+          var renderedNode = renderAndGetDom(Dom.div()(null));
 
-          expect(getJsChildren(renderedInstance), equals(null));
+          expect(renderedNode.childNodes, isEmpty);
         });
 
         test('a single child is passed in', () {
           var child = 'Only child';
-          var renderedInstance = render(Dom.div()(child));
+          var renderedNode = renderAndGetDom(Dom.div()(child));
 
-          expect(getJsChildren(renderedInstance), equals(child));
+          expect(renderedNode.childNodes.length, equals(1));
+          expect((renderedNode.childNodes[0] as Text).data, equals(child));
         });
 
         test('children are set via a list', () {
           var children = ['First Child', 'Second Child'];
-          var renderedInstance = render(Dom.div()(children));
+          var renderedNode = renderAndGetDom(Dom.div()(children));
 
-          expect(getJsChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
-          expect(getJsChildren(renderedInstance), equals(children));
+          expect(renderedNode.childNodes.length, equals(2));
+          expect((renderedNode.childNodes[0] as SpanElement).text, equals(children[0]));
+          expect((renderedNode.childNodes[1] as SpanElement).text, equals(children[1]));
         });
 
         test('children are set via an iterable', () {
@@ -47,19 +50,21 @@ main() {
             yield 'First Child';
             yield 'Second Child';
           })();
-          var renderedInstance = render(Dom.div()(children));
+          var renderedNode = renderAndGetDom(Dom.div()(children));
 
-          expect(getJsChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
-          expect(getJsChildren(renderedInstance), orderedEquals(children));
+          expect(renderedNode.childNodes.length, equals(2));
+          expect((renderedNode.childNodes[0] as SpanElement).text, equals('First Child'));
+          expect((renderedNode.childNodes[1] as SpanElement).text, equals('Second Child'));
         });
 
         test('children are set variadically via noSuchMethod', () {
           var firstChild = 'First Child';
           var secondChild = 'Second Child';
-          var renderedInstance = render(Dom.div()(firstChild, secondChild));
+          var renderedNode = renderAndGetDom(Dom.div()(firstChild, secondChild));
 
-          expect(getJsChildren(renderedInstance), new isInstanceOf<JsArray>(), reason: 'Should not be a Dart Object');
-          expect(getJsChildren(renderedInstance), equals([firstChild, secondChild]));
+          expect(renderedNode.childNodes.length, equals(2));
+          expect((renderedNode.childNodes[0] as SpanElement).text, equals('First Child'));
+          expect((renderedNode.childNodes[1] as SpanElement).text, equals('Second Child'));
         });
       });
 
