@@ -168,7 +168,13 @@ JsObject getByTestId(JsObject root, String value, {String key: 'data-test-id'}) 
 
     descendant = react_test_utils.normalizeReactComponent(descendant);
 
-    bool hasValue = getProps(descendant)[key] == value;
+    bool hasValue;
+
+    if (descendant['tagName'] is String) {
+      hasValue = findDomNode(descendant).attributes[key] == value;
+    } else {
+      hasValue = getProps(descendant)[key] == value;
+    }
 
     if (hasValue) {
       first = true;
@@ -212,6 +218,40 @@ Map getPropsByTestId(JsObject root, String value, {String key: 'data-test-id'}) 
   }
 
   return null;
+}
+
+JsObject getByTestIdShallow(JsObject root, String value, {String key: 'data-test-id'}) {
+  var descendant;
+
+  getDescendant(_root) {
+    if (_root['props'][key] == value || (getProps(_root) != null && getProps(_root)[key] == value)) {
+      descendant = _root;
+    }
+
+    if (_root['props']['children'] is List) {
+      flattenChildren(List children) {
+        children.forEach((_child) {
+          if (_child != null && _child is! List && _child['props'] != null) {
+            getDescendant(_child);
+          }  else if (_child is List) {
+            flattenChildren(_child);
+          }
+        });
+      }
+
+      flattenChildren(_root['props']['children']);
+    } else if (
+      _root['props']['children'] is! String &&
+      _root['props']['children'] != null &&
+      _root['props']['children']['props'] != null
+    ) {
+      getDescendant(_root['props']['children']);
+    }
+  }
+
+  getDescendant(root);
+
+  return descendant;
 }
 
 /// Returns all descendants of a component that contain the specified prop key.
