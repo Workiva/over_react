@@ -1,12 +1,12 @@
 library ui_core.prop_errors;
 
 /// Error thrown when a prop, that must be set, is not set.
-class RequiredPropsError extends Error {
+class RequiredPropError extends Error {
   final String message;
 
-  RequiredPropsError(this.message);
+  RequiredPropError(this.message);
 
-  String toString() => 'RequiredPropsError: $message';
+  String toString() => 'RequiredPropError: $message';
 }
 
 /// Error thrown when a prop has an invalid value.
