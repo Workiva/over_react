@@ -255,7 +255,9 @@ abstract class UiProps
     props[key] = value;
   }
 
-  /// Adds [value] to the prop [key] for use in a testing environment.
+  /// Adds [value] to the prop [key] for use in a testing environment by using space-delimiting.
+  ///
+  /// Allows for an element to have multiple test IDs to prevent overwriting when cloning elements or components.
   void addTestId(String value, {String key: 'data-test-id'}) {
     if (!testMode) {
       return;
