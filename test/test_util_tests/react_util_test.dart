@@ -160,7 +160,33 @@ main() {
           Dom.div()('Nested Descendant 2')
         ));
 
-        var descendant = getByTestId(renderedInstance, 'testId1');
+        var descendant = getByTestId(renderedInstance, 'testId2');
+
+        expect(findDomNode(descendant).text, equals('Nested Descendant'));
+      });
+
+      test('the topmost JsObject that has the appropriate value for a custom prop key when cloned and the old testId is called', () {
+        var instance = (Dom.div()..addTestId('testId1', key: 'data-custom-id'))('Nested Descendant');
+        var clonedInstance = cloneElement(instance, domProps(getProps(instance))..addTestId('testId2', key: 'data-custom-id'));
+        var renderedInstance = render(Dom.div()(
+          clonedInstance,
+          Dom.div()('Nested Descendant 2')
+        ));
+
+        var descendant = getByTestId(renderedInstance, 'testId1', key: 'data-custom-id');
+
+        expect(findDomNode(descendant).text, equals('Nested Descendant'));
+      });
+
+      test('the topmost JsObject that has the appropriate value for a custom prop key when cloned and the old testId is called', () {
+        var instance = (Dom.div()..addTestId('testId1', key: 'data-custom-id'))('Nested Descendant');
+        var clonedInstance = cloneElement(instance, domProps(getProps(instance))..addTestId('testId2', key: 'data-custom-id'));
+        var renderedInstance = render(Dom.div()(
+          clonedInstance,
+          Dom.div()('Nested Descendant 2')
+        ));
+
+        var descendant = getByTestId(renderedInstance, 'testId2', key: 'data-custom-id');
 
         expect(findDomNode(descendant).text, equals('Nested Descendant'));
       });
@@ -175,7 +201,7 @@ main() {
     });
 
     group('getDomByTestId returns', () {
-      test('the topmost ELement that has the appropriate value for the `data-test-id` prop key', () {
+      test('the topmost Element that has the appropriate value for the `data-test-id` prop key', () {
         var renderedInstance = render(Dom.div()(
           (Dom.div()..testId = 'value')('First Descendant'),
           Dom.div()(
@@ -217,6 +243,26 @@ main() {
         var renderedInstance = render(Dom.div()(clonedInstance));
 
         var descendant = getDomByTestId(renderedInstance, 'testId2');
+
+        expect(descendant, findDomNode(renderedInstance).children[0]);
+      });
+
+      test('the topmost Element that has the appropriate value for the custom prop when cloned and the old testId is called', () {
+        var instance = (Dom.div()..addTestId('testId1', key: 'data-custom-id'))();
+        var clonedInstance = cloneElement(instance, domProps(getProps(instance))..addTestId('testId2', key: 'data-custom-id'));
+        var renderedInstance = render(Dom.div()(clonedInstance));
+
+        var descendant = getDomByTestId(renderedInstance, 'testId1', key: 'data-custom-id');
+
+        expect(descendant, findDomNode(renderedInstance).children[0]);
+      });
+
+      test('the topmost Element that has the appropriate value for the custom prop when cloned and the new testId is called', () {
+        var instance = (Dom.div()..addTestId('testId1', key: 'data-custom-id'))();
+        var clonedInstance = cloneElement(instance, domProps(getProps(instance))..addTestId('testId2', key: 'data-custom-id'));
+        var renderedInstance = render(Dom.div()(clonedInstance));
+
+        var descendant = getDomByTestId(renderedInstance, 'testId2', key: 'data-custom-id');
 
         expect(descendant, findDomNode(renderedInstance).children[0]);
       });
@@ -275,6 +321,26 @@ main() {
         var descendant = getComponentByTestId(renderedInstance, 'testId2');
 
         expect(descendant, getDartComponent(getByTestId(renderedInstance, 'testId2')));
+      });
+
+      test('the topmost react.Component that has the appropriate value for a custom prop key when cloned and the old testId is called', () {
+        var instance = (Test()..addTestId('testId1', key: 'data-custom-id'))('Nonclone');
+        var clonedInstance = cloneElement(instance, domProps(getProps(instance))..addTestId('testId2', key: 'data-custom-id'));
+        var renderedInstance = render(clonedInstance);
+
+        var descendant = getComponentByTestId(renderedInstance, 'testId1', key: 'data-custom-id');
+
+        expect(descendant, getDartComponent(getByTestId(renderedInstance, 'testId1', key: 'data-custom-id')));
+      });
+
+      test('the topmost react.Component that has the appropriate value for a custom prop key when cloned and the old testId is called', () {
+        var instance = (Test()..addTestId('testId1', key: 'data-custom-id'))('Nonclone');
+        var clonedInstance = cloneElement(instance, domProps(getProps(instance))..addTestId('testId2', key: 'data-custom-id'));
+        var renderedInstance = render(clonedInstance);
+
+        var descendant = getComponentByTestId(renderedInstance, 'testId2', key: 'data-custom-id');
+
+        expect(descendant, getDartComponent(getByTestId(renderedInstance, 'testId2', key: 'data-custom-id')));
       });
 
       test('null if no decendant has the appropiate value for the `data-test-id` prop key', () {
@@ -339,6 +405,26 @@ main() {
         var props = getPropsByTestId(renderedInstance, 'testId2');
 
         expect(props, equals(getProps(getByTestId(renderedInstance, 'testId2'))));
+      });
+
+      test('the props map of the topmost JsObject that has the appropriate value for a custom prop key when cloned and the old testId is called', () {
+        var instance = (Test()..addTestId('testId1', key: 'data-custom-id'))('Nonclone');
+        var clonedInstance = cloneElement(instance, domProps(getProps(instance))..addTestId('testId2', key: 'data-custom-id'));
+        var renderedInstance = render(clonedInstance);
+
+        var props = getPropsByTestId(renderedInstance, 'testId1', key: 'data-custom-id');
+
+        expect(props, equals(getProps(getByTestId(renderedInstance, 'testId1', key: 'data-custom-id'))));
+      });
+
+      test('the props map of the topmost JsObject that has the appropriate value for a custom prop key when cloned and the new testId is called', () {
+        var instance = (Test()..addTestId('testId1', key: 'data-custom-id'))('Nonclone');
+        var clonedInstance = cloneElement(instance, domProps(getProps(instance))..addTestId('testId2', key: 'data-custom-id'));
+        var renderedInstance = render(clonedInstance);
+
+        var props = getPropsByTestId(renderedInstance, 'testId2', key: 'data-custom-id');
+
+        expect(props, equals(getProps(getByTestId(renderedInstance, 'testId2', key: 'data-custom-id'))));
       });
 
       test('null if no decendant has the appropiate value for the `data-test-id` prop key', () {
