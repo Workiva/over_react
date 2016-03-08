@@ -177,7 +177,7 @@ void main() {
 
     group('should pass the correct event args on initialize', () {
       test('when initial width and height are non-zero', () async {
-        expectInitialize(onInitialize: (ResizeSensorEvent event) {
+        await expectInitialize(onInitialize: (ResizeSensorEvent event) {
           zonedExpect(event.newWidth, equals(100));
           zonedExpect(event.newHeight, equals(100));
           zonedExpect(event.prevWidth, equals(0));
@@ -186,7 +186,7 @@ void main() {
       });
 
       test('when initial width and height are zero', () async {
-        expectInitialize(onInitialize: (ResizeSensorEvent event) {
+        await expectInitialize(onInitialize: (ResizeSensorEvent event) {
           zonedExpect(event.newWidth, equals(0));
           zonedExpect(event.newHeight, equals(0));
           zonedExpect(event.prevWidth, equals(0));
