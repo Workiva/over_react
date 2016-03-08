@@ -164,7 +164,10 @@ JsObject getByTestId(JsObject root, String value, {String key: 'data-test-id'}) 
       return false;
     }
 
-    bool hasValue = getProps(descendant)[key] == value;
+    bool hasValue = false;
+    for (String id in ((getProps(descendant)[key]).toString()).split(' ')){
+      if (id == value) hasValue = true;
+    }
 
     if (hasValue) {
       first = true;
