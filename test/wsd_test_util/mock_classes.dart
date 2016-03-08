@@ -1,6 +1,7 @@
 library mock_classes;
 
 import 'dart:async';
+import 'dart:html';
 
 import 'package:mockito/mockito.dart';
 
@@ -38,4 +39,16 @@ class MockTimer extends Mock implements Timer {
 
     return timerFactory;
   }
+}
+
+class MockFileList extends Mock implements FileList {
+  noSuchMethod(i) => super.noSuchMethod(i);
+}
+
+class MockFile extends Mock implements File {
+  noSuchMethod(i) => super.noSuchMethod(i);
+}
+
+class MockFileUploadInputElement extends Mock implements FileUploadInputElement {
+  noSuchMethod(i) => super.noSuchMethod(i);
 }
