@@ -78,6 +78,25 @@ void main() {
           () => expect(wasResizeDetected, isTrue));
     }
 
+    /// Expect resize sensor invokes registered `onInitialize` callback.
+    ///
+    /// The caller must await this function. See above.
+    Future expectInitialize({ResizeSensorHandler onInitialize, int width: defaultContainerWidth,
+        int height: defaultContainerHeight}) async {
+      var wasInitializeDetected = false;
+
+      renderSensorIntoContainer(onInitialize: (event) {
+        if (onInitialize != null) {
+          onInitialize(event);
+        }
+        wasInitializeDetected = true;
+      }, width: width, height: height);
+
+      // See above.
+      await new Future.delayed(const Duration(milliseconds: 200),
+          () => expect(wasInitializeDetected, isTrue));
+    }
+
     group('should render with the correct styles when isFlexChild is', () {
       test('true', () {
         var renderedNode = renderAndGetDom((ResizeSensor()..isFlexChild = true)());
@@ -158,7 +177,7 @@ void main() {
 
     group('should pass the correct event args on initialize', () {
       test('when initial width and height are non-zero', () async {
-        renderSensorIntoContainer(onInitialize: (ResizeSensorEvent event) {
+        expectInitialize(onInitialize: (ResizeSensorEvent event) {
           zonedExpect(event.newWidth, equals(100));
           zonedExpect(event.newHeight, equals(100));
           zonedExpect(event.prevWidth, equals(0));
@@ -167,7 +186,7 @@ void main() {
       });
 
       test('when initial width and height are zero', () async {
-        renderSensorIntoContainer(onInitialize: (ResizeSensorEvent event) {
+        expectInitialize(onInitialize: (ResizeSensorEvent event) {
           zonedExpect(event.newWidth, equals(0));
           zonedExpect(event.newHeight, equals(0));
           zonedExpect(event.prevWidth, equals(0));
