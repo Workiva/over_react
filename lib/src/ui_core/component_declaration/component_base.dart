@@ -252,7 +252,19 @@ abstract class UiProps
       return;
     }
 
-    addProp(key, value);
+    props[key] = value;
+  }
+
+  /// Adds [value] to the prop [key] for use in a testing environment.
+  void addTestId(String value, {String key: 'data-test-id'}) {
+    if (!testMode) {
+      return;
+    }
+    if (getTestId == null) {
+      setTestId(value, key: key);
+    } else {
+      setTestId(getTestId().toString() + ' $value', key: key);
+    }
   }
 
   /// Sets the `data-test-id` prop key to [value] for use in a testing environment.
@@ -260,9 +272,15 @@ abstract class UiProps
     setTestId(value);
   }
 
-  /// Gets the `data-test-id` prop (or custom [key] prop value) for use in a testing environment.
-  String getTestId({String key: 'data-test-id'}) {
-    return props[key];
+  /// Gets the `data-test-id` prop or one testId from the prop (or custom [key] prop value) for use in a testing
+  /// environment.
+  String getTestId({int index: -1, String key: 'data-test-id'}) {
+    if (index >= 0) {
+      List<String> testIds = props[key].toString().split(' ');
+      return testIds[index];
+    } else {
+      return props[key];
+    }
   }
 
   /// Gets the `data-test-id` prop key to [value] for use in a testing environment.
