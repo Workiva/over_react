@@ -176,7 +176,7 @@ main() {
       });
 
       group('testId', () {
-        test('sets the correct value for the `data-test-id` key', () {
+        test('sets the correct value for the `data-test-id` key when setting the testId', () {
           var props = new TestComponentProps();
           props.testId = 'value';
 
@@ -188,6 +188,24 @@ main() {
 
           var props = new TestComponentProps();
           props.testId = 'value';
+
+          expect(props, equals({}));
+
+          UiProps.testMode = true;
+        });
+
+        test('sets the correct value for the `data-test-id` key when adding a testId', () {
+          var props = new TestComponentProps();
+          props.addTestId('value');
+
+          expect(props, equals({'data-test-id': 'value'}));
+        });
+
+        test('does not set a value for the `data-test-id` when adding a testId but inTesting is false', () {
+          UiProps.testMode = false;
+
+          var props = new TestComponentProps();
+          props.addTestId('value');
 
           expect(props, equals({}));
 
