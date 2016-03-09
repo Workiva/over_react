@@ -43,6 +43,10 @@ main() {
     testKeys(const $PropKeys(DomPropsMixin), (() => new DomPropMixinsTest({})));
   });
 
+  group('SvgPropsMixin', () {
+    testKeys(const $PropKeys(SvgPropsMixin), (() => new SvgPropMixinsTest({})));
+  });
+
   group('UbiquitousProps', () {
     testKeys(const $PropKeys(UbiquitousDomPropsMixin), (() => new UbiquitousPropMixinsTest({})));
   });
@@ -65,6 +69,24 @@ main() {
 class DomPropMixinsTest extends MapView with DomPropsMixin {
   /// Create a new instance backed by the specified map.
   DomPropMixinsTest(Map map) : super(map);
+
+  /// The props to be manipulated via the getters/setters.
+  /// In this case, it's the current MapView object.
+  @override
+  Map get props => this;
+
+  @override
+  operator [](key) {
+    if (!this.containsKey(key)) {
+      throw 'Map does not contain this key: $key';
+    }
+    return super[key];
+  }
+}
+
+class SvgPropMixinsTest extends MapView with SvgPropsMixin {
+  /// Create a new instance backed by the specified map.
+  SvgPropMixinsTest(Map map) : super(map);
 
   /// The props to be manipulated via the getters/setters.
   /// In this case, it's the current MapView object.
