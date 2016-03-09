@@ -226,6 +226,7 @@ JsObject getByTestIdShallow(JsObject root, String value, {String key: 'data-test
   getDescendant(_root) {
     if (_root['props'][key] == value || (getProps(_root) != null && getProps(_root)[key] == value)) {
       descendant = _root;
+      return;
     }
 
     if (_root['props']['children'] is List) {
