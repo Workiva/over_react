@@ -278,7 +278,7 @@ abstract class UiProps
   /// environment.
   String getTestId({int index: -1, String key: 'data-test-id'}) {
     if (index >= 0) {
-      List<String> testIds = props[key].toString().split(' ');
+      List<String> testIds = splitClassName(props[key].toString());
       return testIds[index];
     } else {
       return props[key];
