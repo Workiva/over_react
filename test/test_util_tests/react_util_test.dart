@@ -191,7 +191,7 @@ main() {
         expect(findDomNode(descendant).text, equals('Nested Descendant'));
       });
 
-      test('null if no decendant has the appropiate value for the `data-test-id` prop key', () {
+      test('null if no descendant has the appropriate value for the `data-test-id` prop key', () {
         var renderedInstance = render(Dom.div());
 
         var descendant = getByTestId(renderedInstance, 'value');
@@ -267,7 +267,7 @@ main() {
         expect(descendant, findDomNode(renderedInstance).children[0]);
       });
 
-      test('null if no decendant has the appropiate value for the `data-test-id` prop key', () {
+      test('null if no descendant has the appropriate value for the `data-test-id` prop key', () {
         var renderedInstance = render(Dom.div());
 
         var descendant = getDomByTestId(renderedInstance, 'value');
@@ -343,7 +343,7 @@ main() {
         expect(descendant, getDartComponent(getByTestId(renderedInstance, 'testId2', key: 'data-custom-id')));
       });
 
-      test('null if no decendant has the appropiate value for the `data-test-id` prop key', () {
+      test('null if no descendant has the appropriate value for the `data-test-id` prop key', () {
         var renderedInstance = render(Dom.div()(
           (Test()..testId = 'otherValue')()
         ));
@@ -427,7 +427,7 @@ main() {
         expect(props, equals(getProps(getByTestId(renderedInstance, 'testId2', key: 'data-custom-id'))));
       });
 
-      test('null if no decendant has the appropiate value for the `data-test-id` prop key', () {
+      test('null if no descendant has the appropriate value for the `data-test-id` prop key', () {
         var renderedInstance = render(Dom.div()(
           (Test()..testId = 'otherValue')()
         ));
