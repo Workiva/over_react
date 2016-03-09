@@ -198,6 +198,14 @@ main() {
 
         expect(descendant, isNull);
       });
+
+      test('null if the user searches for `null` for the `data-test-id` prop key', () {
+        var renderedInstance = render(Dom.div());
+
+        var descendant = getByTestId(renderedInstance, 'null');
+
+        expect(descendant, isNull);
+      });
     });
 
     group('getDomByTestId returns', () {
@@ -271,6 +279,14 @@ main() {
         var renderedInstance = render(Dom.div());
 
         var descendant = getDomByTestId(renderedInstance, 'value');
+
+        expect(descendant, isNull);
+      });
+
+      test('null if the user searches for `null` for the `data-test-id` prop key', () {
+        var renderedInstance = render(Dom.div());
+
+        var descendant = getDomByTestId(renderedInstance, 'null');
 
         expect(descendant, isNull);
       });
@@ -349,6 +365,16 @@ main() {
         ));
 
         var descendant = getComponentByTestId(renderedInstance, 'value');
+
+        expect(descendant, isNull);
+      });
+
+      test('null if the user searches for `null` for the `data-test-id` prop key', () {
+        var renderedInstance = render(Dom.div()(
+          Test()()
+        ));
+
+        var descendant = getComponentByTestId(renderedInstance, 'null');
 
         expect(descendant, isNull);
       });
@@ -433,6 +459,16 @@ main() {
         ));
 
         var props = getPropsByTestId(renderedInstance, 'value');
+
+        expect(props, isNull);
+      });
+
+      test('null if the user searches for `null` for the `data-test-id` prop key', () {
+        var renderedInstance = render(Dom.div()(
+          Test()()
+        ));
+
+        var props = getPropsByTestId(renderedInstance, 'null');
 
         expect(props, isNull);
       });
