@@ -90,6 +90,17 @@ abstract class DomPropsMixin {
   bool autoFocus;
 }
 
+@PropsMixin(keyNamespace: '')
+abstract class SvgPropsMixin {
+  Map get props;
+
+  dynamic clipPath, cx, cy, d, dx, dy, fill, fillOpacity, fontFamily, fontSize, fx, fy, gradientTransform,
+    gradientUnits, markerEnd, markerMid, markerStart, offset, opacity, patternContentUnits, patternUnits, points,
+    preserveAspectRatio, r, rx, ry, spreadMethod, stopColor, stopOpacity, stroke, strokeDasharray, strokeLinecap,
+    strokeOpacity, strokeWidth, textAnchor, transform, version, viewBox, x1, x2, x, xlinkActuate, xlinkArcrole,
+    xlinkHref, xlinkRole, xlinkShow, xlinkTitle, xlinkType, xmlBase, xmlLang, xmlSpace, y1, y2, y;
+}
+
 /// Typed getters/setters for reserved DOM-related props that can be used by all UIP components.
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
