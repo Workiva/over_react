@@ -2,7 +2,7 @@
 // So this file's name had to change to match.
 // It can be changed back when that issue is taken care of.
 // https://github.com/Workiva/dart_dev/issues/74
-@TestOn('content-shell || dartium')
+@TestOn('browser')
 library test_util_test;
 
 import 'package:react/react_client.dart';
