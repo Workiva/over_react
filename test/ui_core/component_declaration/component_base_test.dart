@@ -169,7 +169,7 @@ main() {
           var props = new TestComponentProps();
           props.addProp('key', 'value');
 
-          expect(() => props.addProps(null), isNot(throws));
+          expect(() => props.addProps(null), returnsNormally);
 
           expect(props, equals({'key': 'value'}));
         });
@@ -497,7 +497,7 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
 
   TestComponentComponent({testConsumedPropKeys}) : consumedPropKeys = testConsumedPropKeys;
 
-  render() {}
+  render() => false;
 
   @override
   TestComponentProps typedPropsFactory(Map propsMap) => new TestComponentProps(propsMap);

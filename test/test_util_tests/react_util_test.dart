@@ -312,7 +312,7 @@ main() {
         test('`null`', () {
           expect(() {
             unmount(null);
-          }, isNot(throws));
+          }, returnsNormally);
         });
 
         test('a non-mounted React instance', () {
@@ -324,7 +324,7 @@ main() {
 
           expect(() {
             unmount(instance);
-          }, isNot(throws));
+          }, returnsNormally);
         });
       });
 
