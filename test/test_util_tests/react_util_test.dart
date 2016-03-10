@@ -49,13 +49,33 @@ main() {
       });
     });
 
-    test('click simulates a click on a component', () {
-      var flag = false;
-      var renderedInstance = render((Dom.div()..onClick = (evt) => flag = true)());
+    group('click', () {
+      test('simulates a click on a component', () {
+        var flag = false;
+        var renderedInstance = render((Dom.div()..onClick = (evt) => flag = true)());
 
-      click(renderedInstance);
+        click(renderedInstance);
 
-      expect(flag, isTrue);
+        expect(flag, isTrue);
+      });
+
+      test('simulates a click on a component with additional event data', () {
+        var flag = false;
+        react.SyntheticMouseEvent event;
+        var renderedInstance = render((Dom.div()
+          ..onClick = (evt) {
+            flag = true;
+            event = evt;
+          }
+        )());
+
+        click(renderedInstance, {'shiftKey': true, 'metaKey': true, 'button': 5});
+
+        expect(flag, isTrue);
+        expect(event.shiftKey, isTrue);
+        expect(event.metaKey, isTrue);
+        expect(event.button, equals(5));
+      });
     });
 
     test('focus simulates focus on a component', () {
