@@ -3,6 +3,11 @@ library test_util.common_component_tests;
 import 'dart:collection';
 import 'dart:html';
 import 'dart:js';
+// Tell dart2js that this library only needs to reflect types annotated with `Props`.
+// This speeds up compilation and makes JS output much smaller.
+@MirrorsUsed(metaTargets: const [
+  'web_skin_dart.component_declaration.annotations.Props'
+])
 import 'dart:mirrors';
 
 import 'package:react/react_test_utils.dart' as react_test_utils;
