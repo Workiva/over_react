@@ -17,7 +17,9 @@ Future triggerTransitionEnd(Element element) {
 ///
 /// Verifies that the [target] element is not a detached node.
 void triggerDocumentClick(Element target) {
-  assert(document.documentElement.contains(target) && 'Target should be attached to the document.' is String);
+  if (!document.documentElement.contains(target)) {
+    throw new ArgumentError.value(target, 'target', 'Target should be attached to the document.');
+  }
 
   target.dispatchEvent(new MouseEvent('click'));
 }
