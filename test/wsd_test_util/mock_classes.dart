@@ -2,8 +2,17 @@ library mock_classes;
 
 import 'dart:async';
 import 'dart:html';
+@MirrorsUsed(targets: const [
+  'MockKeyEvent',
+  'MockDocument',
+  'MockTimer',
+], override: 'mockito')
+import 'dart:mirrors';
 
 import 'package:mockito/mockito.dart';
+// Tell dart2js that the `mockito` package only needs to reflect the specified mock/spied types.
+// This speeds up compilation and makes JS output much smaller.
+
 
 typedef void _TimerCallback();
 

@@ -61,7 +61,7 @@ main() {
         test('null', () {
           expect(() {
             type = getComponentTypeFromAlias(null);
-          }, isNot(throws));
+          }, returnsNormally);
 
           expect(type, isNull);
         });
@@ -69,7 +69,7 @@ main() {
         test('a number', () {
           expect(() {
             type = getComponentTypeFromAlias(2);
-          }, isNot(throws));
+          }, returnsNormally);
 
           expect(type, isNull);
         });
@@ -77,7 +77,7 @@ main() {
         test('a bool', () {
           expect(() {
             type = getComponentTypeFromAlias(true);
-          }, isNot(throws));
+          }, returnsNormally);
 
           expect(type, isNull);
         });
@@ -124,7 +124,7 @@ main() {
             // Fully iterate the result by calling toList().
             getParentTypes(new Object()).toList();
           }, throwsA(const isInstanceOf<AssertionError>()));
-        }, testOn: 'dart-vm');
+        }, testOn: '!js');
       });
     });
 
@@ -252,7 +252,7 @@ main() {
           });
 
           test('and does not throw when children is null', () {
-            expect(() => isComponentOfType(OneLevelWrapper()(), TestA), isNot(throws));
+            expect(() => isComponentOfType(OneLevelWrapper()(), TestA), returnsNormally);
           });
         });
       });
