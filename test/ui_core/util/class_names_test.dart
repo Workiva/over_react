@@ -198,7 +198,7 @@ main() {
             expect(() {
               new ClassNameBuilder()
                 ..addFromProps(null);
-            }, isNot(throws));
+            }, returnsNormally);
           });
         });
 
@@ -254,7 +254,7 @@ main() {
         test('accepts null input', () {
           expect(() {
             new ClassNameBuilder.fromProps(null);
-          }, isNot(throws));
+          }, returnsNormally);
         });
       });
     });
