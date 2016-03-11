@@ -211,6 +211,13 @@ main() {
 
           UiProps.testMode = true;
         });
+
+        test('does not set a value for the `data-test-id` when adding a `null` testId', () {
+          var props = new TestComponentProps();
+          props.addTestId(null);
+
+          expect(props, equals({}));
+        });
       });
 
       group('setTestId', () {
