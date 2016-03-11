@@ -178,7 +178,7 @@ main() {
       group('testId', () {
         test('sets the correct value for the `data-test-id` key when setting the testId', () {
           var props = new TestComponentProps();
-          props.testId = 'value';
+          props.addTestId('value');
 
           expect(props, equals({'data-test-id': 'value'}));
         });
@@ -187,7 +187,7 @@ main() {
           UiProps.testMode = false;
 
           var props = new TestComponentProps();
-          props.testId = 'value';
+          props.addTestId('value');
 
           expect(props, equals({}));
 
@@ -220,7 +220,7 @@ main() {
         });
       });
 
-      group('setTestId', () {
+      group('setTestId (deprecated)', () {
         test('sets the correct value for the `data-test-id` key', () {
           var props = new TestComponentProps();
           props.setTestId('value');

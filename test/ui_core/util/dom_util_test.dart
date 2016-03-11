@@ -99,11 +99,11 @@ main() {
           renderedInstance = render(Dom.form()(
             (Dom.input()
               ..id = 'firstInput'
-              ..testId = 'firstInput'
+              ..addTestId('firstInput')
             )(),
             (Dom.input()
               ..id = 'secondInput'
-              ..testId = 'secondInput'
+              ..addTestId('secondInput')
             )()
           ));
 
@@ -148,7 +148,7 @@ class DomTestComponent extends UiComponent<DomTestProps> with HitAreaMixin<DomTe
   @override
   render() {
     return Dom.div()(
-      (Dom.div()..testId = 'innerComponent')()
+      (Dom.div()..addTestId('innerComponent'))()
     );
   }
 }
