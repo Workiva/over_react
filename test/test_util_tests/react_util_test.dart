@@ -115,9 +115,9 @@ main() {
     group('getByTestId returns', () {
       test('the topmost JsObject that has the appropriate value for the `data-test-id` prop key', () {
         var renderedInstance = render(Dom.div()(
-          (Dom.div()..testId = 'value')('First Descendant'),
+          (Dom.div()..addTestId('value'))('First Descendant'),
           Dom.div()(
-            (Dom.div()..testId = 'value')('Nested Descendant')
+            (Dom.div()..addTestId('value'))('Nested Descendant')
           )
         ));
 
@@ -128,9 +128,9 @@ main() {
 
       test('the topmost JsObject that has the appropriate value for the custom prop key', () {
         var renderedInstance = render(Dom.div()(
-          (Dom.div()..testId = 'value')('First Descendant'),
+          (Dom.div()..addTestId('value'))('First Descendant'),
           Dom.div()(
-            (Dom.div()..setTestId('value', key: 'data-custom-id'))('Nested Descendant')
+            (Dom.div()..addTestId('value', key: 'data-custom-id'))('Nested Descendant')
           )
         ));
 
@@ -221,9 +221,9 @@ main() {
     group('getDomByTestId returns', () {
       test('the topmost Element that has the appropriate value for the `data-test-id` prop key', () {
         var renderedInstance = render(Dom.div()(
-          (Dom.div()..testId = 'value')('First Descendant'),
+          (Dom.div()..addTestId('value'))('First Descendant'),
           Dom.div()(
-            (Dom.div()..testId = 'value')('Nested Descendant')
+            (Dom.div()..addTestId('value'))('Nested Descendant')
           )
         ));
 
@@ -234,9 +234,9 @@ main() {
 
       test('the topmost Element that has the appropriate value for the custom prop key', () {
         var renderedInstance = render(Dom.div()(
-          (Dom.div()..testId = 'value')('First Descendant'),
+          (Dom.div()..addTestId('value'))('First Descendant'),
           Dom.div()(
-            (Dom.div()..setTestId('value', key: 'data-custom-id'))('Nested Descendant')
+            (Dom.div()..addTestId('value', key: 'data-custom-id'))('Nested Descendant')
           )
         ));
 
@@ -315,9 +315,9 @@ main() {
     group('getComponentByTestId returns', () {
       test('the topmost react.Component that has the appropriate value for the `data-test-id` prop key', () {
         var renderedInstance = render(Dom.div()(
-          (Test()..testId = 'value')('First Descendant'),
+          (Test()..addTestId('value'))('First Descendant'),
           Dom.div()(
-            (Test()..testId = 'value')('Nested Descendant')
+            (Test()..addTestId('value'))('Nested Descendant')
           )
         ));
 
@@ -328,9 +328,9 @@ main() {
 
       test('the topmost react.Component that has the appropriate value for the custom prop key', () {
         var renderedInstance = render(Dom.div()(
-          (Test()..testId = 'value')('First Descendant'),
+          (Test()..addTestId('value'))('First Descendant'),
           Dom.div()(
-            (Test()..setTestId('value', key: 'data-custom-id'))('Nested Descendant')
+            (Test()..addTestId('value', key: 'data-custom-id'))('Nested Descendant')
           )
         ));
 
@@ -381,7 +381,7 @@ main() {
 
       test('null if no descendant has the appropriate value for the `data-test-id` prop key', () {
         var renderedInstance = render(Dom.div()(
-          (Test()..testId = 'otherValue')()
+          (Test()..addTestId('otherValue'))()
         ));
 
         var descendant = getComponentByTestId(renderedInstance, 'value');
@@ -415,10 +415,10 @@ main() {
         var renderedInstance = render(Dom.div()(
           (Test()
             ..id = 'test_id'
-            ..testId = 'value'
+            ..addTestId('value')
           )('First Descendant'),
           Dom.div()(
-            (Test()..testId = 'value')('Nested Descendant')
+            (Test()..addTestId('value'))('Nested Descendant')
           )
         ));
 
@@ -429,11 +429,11 @@ main() {
 
       test('the props map of the topmost JsObject that has the appropriate value for the custom prop key', () {
         var renderedInstance = render(Dom.div()(
-          (Test()..testId = 'value')('First Descendant'),
+          (Test()..addTestId('value'))('First Descendant'),
           Dom.div()(
             (Test()
               ..id = 'test_id'
-              ..setTestId('value', key: 'data-custom-id')
+              ..addTestId('value', key: 'data-custom-id')
             )('Nested Descendant')
           )
         ));
@@ -485,7 +485,7 @@ main() {
 
       test('null if no descendant has the appropriate value for the `data-test-id` prop key', () {
         var renderedInstance = render(Dom.div()(
-          (Test()..testId = 'otherValue')()
+          (Test()..addTestId('otherValue'))()
         ));
 
         var props = getPropsByTestId(renderedInstance, 'value');
