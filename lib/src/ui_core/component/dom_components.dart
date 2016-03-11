@@ -72,6 +72,16 @@ class DomProps extends component_base.UiProps with DomPropsMixin, ReactPropsMixi
   final Map props;
 }
 
+class SvgProps extends component_base.UiProps with DomPropsMixin, ReactPropsMixin, SvgPropsMixin implements DomProps {
+  // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
+  SvgProps(ReactDomComponentFactoryProxy this.componentFactory, [Map props]) : this.props = props ?? ({});
+
+  @override
+  final ReactDomComponentFactoryProxy componentFactory;
+  @override
+  final Map props;
+}
+
 /// A class that provides namespacing for static DOM component factory methods, much like `React.DOM` in React JS.
 abstract class Dom {
   /// Returns a new [DomPropsMixin] that renders an `<a>` tag with getters/setters for all DOM-related React props
@@ -300,38 +310,38 @@ abstract class Dom {
   static DomProps wbr() => new DomProps(react.wbr);
 
   // SVG Elements
-  /// Returns a new [DomPropsMixin] that renders a `<circle>` tag with getters/setters for all DOM-related React props
-  static DomProps circle() => new DomProps(react.circle);
-  /// Returns a new [DomPropsMixin] that renders a `<g>` tag with getters/setters for all DOM-related React props
-  static DomProps g() => new DomProps(react.g);
-  /// Returns a new [DomPropsMixin] that renders a `<defs>` tag with getters/setters for all DOM-related React props
-  static DomProps defs() => new DomProps(react.defs);
-  /// Returns a new [DomPropsMixin] that renders an `<ellipse>` tag with getters/setters for all DOM-related React props
-  static DomProps ellipse() => new DomProps(react.ellipse);
-  /// Returns a new [DomPropsMixin] that renders a `<line>` tag with getters/setters for all DOM-related React props
-  static DomProps line() => new DomProps(react.line);
-  /// Returns a new [DomPropsMixin] that renders a `<linearGradient>` tag with getters/setters for all DOM-related React props
-  static DomProps linearGradient() => new DomProps(react.linearGradient);
-  /// Returns a new [DomPropsMixin] that renders a `<mask>` tag with getters/setters for all DOM-related React props
-  static DomProps mask() => new DomProps(react.mask);
-  /// Returns a new [DomPropsMixin] that renders a `<path>` tag with getters/setters for all DOM-related React props
-  static DomProps path() => new DomProps(react.path);
-  /// Returns a new [DomPropsMixin] that renders a `<pattern>` tag with getters/setters for all DOM-related React props
-  static DomProps pattern() => new DomProps(react.pattern);
-  /// Returns a new [DomPropsMixin] that renders a `<polygon>` tag with getters/setters for all DOM-related React props
-  static DomProps polygon() => new DomProps(react.polygon);
-  /// Returns a new [DomPropsMixin] that renders a `<polyline>` tag with getters/setters for all DOM-related React props
-  static DomProps polyline() => new DomProps(react.polyline);
-  /// Returns a new [DomPropsMixin] that renders a `<radialGradient>` tag with getters/setters for all DOM-related React props
-  static DomProps radialGradient() => new DomProps(react.radialGradient);
-  /// Returns a new [DomPropsMixin] that renders a `<rect>` tag with getters/setters for all DOM-related React props
-  static DomProps rect() => new DomProps(react.rect);
-  /// Returns a new [DomPropsMixin] that renders a `<svg>` tag with getters/setters for all DOM-related React props
-  static DomProps svg() => new DomProps(react.svg);
-  /// Returns a new [DomPropsMixin] that renders a `<stop>` tag with getters/setters for all DOM-related React props
-  static DomProps stop() => new DomProps(react.stop);
-  /// Returns a new [DomPropsMixin] that renders a `<text>` tag with getters/setters for all DOM-related React props
-  static DomProps text() => new DomProps(react.text);
-  /// Returns a new [DomPropsMixin] that renders a `<tspan>` tag with getters/setters for all DOM-related React props
-  static DomProps tspan() => new DomProps(react.tspan);
+  /// Returns a new [SvgPropsMixin] that renders a `<circle>` tag with getters/setters for all SVG-related React props
+  static SvgProps circle() => new SvgProps(react.circle);
+  /// Returns a new [SvgPropsMixin] that renders a `<g>` tag with getters/setters for all SVG-related React props
+  static SvgProps g() => new SvgProps(react.g);
+  /// Returns a new [SvgPropsMixin] that renders a `<defs>` tag with getters/setters for all SVG-related React props
+  static SvgProps defs() => new SvgProps(react.defs);
+  /// Returns a new [SvgPropsMixin] that renders an `<ellipse>` tag with getters/setters for all SVG-related React props
+  static SvgProps ellipse() => new SvgProps(react.ellipse);
+  /// Returns a new [SvgPropsMixin] that renders a `<line>` tag with getters/setters for all SVG-related React props
+  static SvgProps line() => new SvgProps(react.line);
+  /// Returns a new [SvgPropsMixin] that renders a `<linearGradient>` tag with getters/setters for all SVG-related React props
+  static SvgProps linearGradient() => new SvgProps(react.linearGradient);
+  /// Returns a new [SvgPropsMixin] that renders a `<mask>` tag with getters/setters for all SVG-related React props
+  static SvgProps mask() => new SvgProps(react.mask);
+  /// Returns a new [SvgPropsMixin] that renders a `<path>` tag with getters/setters for all SVG-related React props
+  static SvgProps path() => new SvgProps(react.path);
+  /// Returns a new [SvgPropsMixin] that renders a `<pattern>` tag with getters/setters for all SVG-related React props
+  static SvgProps pattern() => new SvgProps(react.pattern);
+  /// Returns a new [SvgPropsMixin] that renders a `<polygon>` tag with getters/setters for all SVG-related React props
+  static SvgProps polygon() => new SvgProps(react.polygon);
+  /// Returns a new [SvgPropsMixin] that renders a `<polyline>` tag with getters/setters for all SVG-related React props
+  static SvgProps polyline() => new SvgProps(react.polyline);
+  /// Returns a new [SvgPropsMixin] that renders a `<radialGradient>` tag with getters/setters for all SVG-related React props
+  static SvgProps radialGradient() => new SvgProps(react.radialGradient);
+  /// Returns a new [SvgPropsMixin] that renders a `<rect>` tag with getters/setters for all SVG-related React props
+  static SvgProps rect() => new SvgProps(react.rect);
+  /// Returns a new [SvgPropsMixin] that renders a `<svg>` tag with getters/setters for all SVG-related React props
+  static SvgProps svg() => new SvgProps(react.svg);
+  /// Returns a new [SvgPropsMixin] that renders a `<stop>` tag with getters/setters for all SVG-related React props
+  static SvgProps stop() => new SvgProps(react.stop);
+  /// Returns a new [SvgPropsMixin] that renders a `<text>` tag with getters/setters for all SVG-related React props
+  static SvgProps text() => new SvgProps(react.text);
+  /// Returns a new [SvgPropsMixin] that renders a `<tspan>` tag with getters/setters for all SVG-related React props
+  static SvgProps tspan() => new SvgProps(react.tspan);
 }
