@@ -262,10 +262,13 @@ abstract class UiProps
     if (!testMode || value == null) {
       return;
     }
-    if (getTestId(key: key) == null) {
+
+    String testId = getTestId(key: key);
+
+    if (testId == null) {
       setTestId(value, key: key);
     } else {
-      setTestId(getTestId(key: key).toString() + ' $value', key: key);
+      setTestId(testId + ' $value', key: key);
     }
   }
 
