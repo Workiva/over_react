@@ -160,7 +160,7 @@ class _IsFocused extends Matcher {
         ..add('is not a valid Element.');
     }
 
-    if (!document.contains(item as Element)) {
+    if (!document.documentElement.contains(item)) {
       return mismatchDescription
         ..add('is not attached to the document, and thus cannot be focused.')
         ..add(' If testing with React, you can use `renderAttachedToDocument`.');
@@ -168,12 +168,13 @@ class _IsFocused extends Matcher {
 
     mismatchDescription.add('is not focused; ');
 
-    if (matchState['activeElement'] == document.body) {
+    final activeElement = matchState['activeElement'];
+    if (activeElement is! Element || activeElement == document.body) {
       mismatchDescription.add('there is no element currently focused');
     } else {
       mismatchDescription
         ..add('the currently focused element is ')
-        ..addDescriptionOf(matchState['activeElement']);
+        ..addDescriptionOf(activeElement);
     }
 
     return mismatchDescription;
@@ -183,11 +184,27 @@ class _IsFocused extends Matcher {
 /// A matcher that matches the currently focused element (`document.activeElement`).
 const Matcher isFocused = const _IsFocused();
 
-/// A matcher to verify that a [RequiredPropsError] is thrown with a provided `RequiredPropsError.message`
+/// A matcher to verify that a [RequiredPropError] is thrown with a provided `RequiredPropError.message`
 ///
 /// __Note__: The message is matched rather than the [Error] instance due to Dart's wrapping of all `throw`
 ///  as a [DomException]
-Matcher throwsRequiredPropsError(String message) {
+Matcher throwsRequiredPropError(String message) {
   return throwsA(predicate(
-      (error) => error.toString().contains('RequiredPropsError: $message'), 'Should have message $message'));
+      (error) => error.toString().contains('RequiredPropError: $message'), 'Should have message $message'));
+}
+
+/// A matcher to verify that a [InvalidPropCombinationError] is thrown with a provided `InvalidPropCombinationError.prop1`,
+/// `InvalidPropCombinationError.prop2`, and `InvalidPropCombinationError.message`.
+///
+/// __Note__: The message is matched rather than the [Error] instance due to Dart's wrapping of all `throw`
+///  as a [DomException]
+Matcher throwsInvalidPropCombinationError(String prop1, String prop2, String message) {
+  return throwsA(predicate(
+      (error) => error.toString().contains('InvalidPropCombinationError: Prop $prop1 and prop $prop2 are set to incompatible values: $message')));
+}
+
+/// A matcher to verify that the [InvalidPropValueError] is thrown with a provided `InvalidPropValueError.message`
+Matcher throwsInvalidPropError(dynamic value, String name, String message){
+  return throwsA(predicate(
+    (error) => error.toString().contains('InvalidPropValueError: Prop $name set to ${Error.safeToString(value)}: ${message}'), 'Should have Prop $name set to ${Error.safeToString(value)}: $message'));
 }
