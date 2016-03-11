@@ -164,7 +164,7 @@ JsObject getByTestId(JsObject root, String value, {String key: 'data-test-id'}) 
       return false;
     }
 
-    bool hasValue = splitClassName(getProps(descendant)[key].toString()).contains(value) && getProps(descendant)[key] != null;
+    bool hasValue = getProps(descendant)[key] != null && splitSpaceDelimitedString(getProps(descendant)[key].toString()).contains(value);
 
     if (hasValue) {
       first = true;
