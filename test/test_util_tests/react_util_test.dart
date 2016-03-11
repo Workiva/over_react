@@ -199,10 +199,20 @@ main() {
         expect(descendant, isNull);
       });
 
-      test('null if the user searches for `null` for the `data-test-id` prop key', () {
+      test('null if the user searches for a test ID of \'null\' when no test ID is set', () {
         var renderedInstance = render(Dom.div());
 
         var descendant = getByTestId(renderedInstance, 'null');
+
+        expect(descendant, isNull);
+      });
+
+      test('null if the user searches for a test ID of `null` when the test ID is set to \'null\'', () {
+        var renderedInstance = render(Dom.div()(
+          (Test()..addTestId('null'))()
+        ));
+
+        var descendant = getByTestId(renderedInstance, null);
 
         expect(descendant, isNull);
       });
@@ -283,10 +293,20 @@ main() {
         expect(descendant, isNull);
       });
 
-      test('null if the user searches for `null` for the `data-test-id` prop key', () {
+      test('null if the user searches for \'null\' when no test ID is set', () {
         var renderedInstance = render(Dom.div());
 
         var descendant = getDomByTestId(renderedInstance, 'null');
+
+        expect(descendant, isNull);
+      });
+
+      test('null if the user searches for `null` when a test ID is set to \'null\'', () {
+        var renderedInstance = (Dom.div()(
+          (Test()..addTestId('null'))()
+        ));
+
+        var descendant = getDomByTestId(renderedInstance, null);
 
         expect(descendant, isNull);
       });
@@ -369,12 +389,22 @@ main() {
         expect(descendant, isNull);
       });
 
-      test('null if the user searches for `null` for the `data-test-id` prop key', () {
+      test('null if the user searches for \'null\' when no test ID is set', () {
         var renderedInstance = render(Dom.div()(
           Test()()
         ));
 
         var descendant = getComponentByTestId(renderedInstance, 'null');
+
+        expect(descendant, isNull);
+      });
+
+      test('null if the user searches for `null` when a test ID is set to \'null\'', () {
+        var renderedInstance = render(Dom.div()(
+          (Test()..addTestId('null'))()
+        ));
+
+        var descendant = getComponentByTestId(renderedInstance, null);
 
         expect(descendant, isNull);
       });
@@ -463,12 +493,22 @@ main() {
         expect(props, isNull);
       });
 
-      test('null if the user searches for `null` for the `data-test-id` prop key', () {
+      test('null if the user searches for \'null\' when no test ID is set', () {
         var renderedInstance = render(Dom.div()(
           Test()()
         ));
 
         var props = getPropsByTestId(renderedInstance, 'null');
+
+        expect(props, isNull);
+      });
+
+      test('null if the user searches for `null` when a test ID is set to \'null\'', () {
+        var renderedInstance = render(Dom.div()(
+          (Test()..addTestId('null'))()
+        ));
+
+        var props = getPropsByTestId(renderedInstance, null);
 
         expect(props, isNull);
       });
