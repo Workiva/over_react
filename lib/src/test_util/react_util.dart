@@ -155,7 +155,7 @@ void simulateMouseLeave(EventTarget target) {
 ///     var nonexistentDiv = getByTestId(renderedInstance, 'nonexistent-div'); // Returns null
 ///
 /// It is recommended that, instead of setting this [key] prop manually, you should use the
-/// [UiProps.addTestId] method or [UiProps.setTestId] method so the prop is only set in a test environment.
+/// [UiProps.addTestId] method so the prop is only set in a test environment.
 JsObject getByTestId(JsObject root, String value, {String key: 'data-test-id'}) {
   bool first = false;
 
