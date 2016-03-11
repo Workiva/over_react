@@ -76,9 +76,9 @@ class ClassNameBuilder {
     String className = _classNamesBuffer.toString();
 
     if (_blacklistBuffer != null && _blacklistBuffer.isNotEmpty) {
-      List blacklistedClasses = splitClassName(_blacklistBuffer.toString());
+      List blacklistedClasses = splitSpaceDelimitedString(_blacklistBuffer.toString());
 
-      className = splitClassName(className)
+      className = splitSpaceDelimitedString(className)
         .where((String cssClass) => !blacklistedClasses.contains(cssClass))
         .join(' ');
     }
@@ -112,9 +112,16 @@ class ClassNameBuilder {
   }
 }
 
-
-/// Returns a List of CSS class token Strings efficiently split from the specified [className].
-List<String> splitClassName(String className) {
+/// Returns a List of space-delimited tokens efficiently split from the specified [String].
+///
+/// Useful for splitting CSS class name strings into class tokens, or `data-test-id` values into individual test IDs.
+///
+/// Handles leading and trailing spaces, as well as token separated by multiple spaces.
+///
+/// Example:
+///
+///     splitSpaceDelimitedString('   foo bar     baz') // ['foo', 'bar', 'baz']
+List<String> splitSpaceDelimitedString(String className) {
   const int SPACE = 32; // ' '.codeUnits.first;
 
   List<String> classNames = [];
