@@ -174,7 +174,7 @@ main() {
 
               expect(() {
                 // Retrieve an automatically JS-proxied version of the callback passed to the component.
-                JsFunction callback = cloneProps['onClick'];
+                var callback = cloneProps['onClick'];
                 // Call the method with one arg.
                 callback(null);
               }, returnsNormally, reason: 'should not throw due to mismatched arguments or otherwise');
