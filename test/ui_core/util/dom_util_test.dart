@@ -9,6 +9,7 @@ import 'package:web_skin_dart/ui_components.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
 import '../../wsd_test_util/key_down_util.dart';
+import '../../wsd_test_util/wrapper_component.dart';
 
 /// Main entry point for DomUtil testing
 main() {
@@ -96,18 +97,20 @@ main() {
 
       group('of descendant form control elements', () {
         setUp(() {
-          renderedInstance = render(Dom.form()(
-            (Dom.input()
-              ..id = 'firstInput'
-              ..testId = 'firstInput'
-            )(),
-            (Dom.input()
-              ..id = 'secondInput'
-              ..testId = 'secondInput'
-            )()
+          renderedInstance = render(Wrapper()(
+            (Dom.form()..testId = 'form')(
+              (Dom.input()
+                ..id = 'firstInput'
+                ..testId = 'firstInput'
+              )(),
+              (Dom.input()
+                ..id = 'secondInput'
+                ..testId = 'secondInput'
+              )()
+            )
           ));
 
-          formElementNode = findDomNode(renderedInstance);
+          formElementNode = getDomByTestId(renderedInstance, 'form');
 
           // The rest of the tests are pointless if this expectation is not met
           expect(formElementNode is FormElement, isTrue);
