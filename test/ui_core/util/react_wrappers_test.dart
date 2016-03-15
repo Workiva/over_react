@@ -28,7 +28,7 @@ main() {
           var clone = cloneElement(original);
 
           // If these JsObject are equal, then they proxy the same JS props object.
-          expect(clone[PROPS], isNot(equals(original[PROPS])));
+          expect(clone.props, isNot(equals(original.props)));
 
           Map originalProps = getJsProps(original);
           Map cloneProps = getJsProps(clone);
@@ -42,7 +42,7 @@ main() {
           var clone = cloneElement(original);
 
           // If these JsObject are equal, then they proxy the same JS props object.
-          expect(clone[PROPS], isNot(equals(original[PROPS])));
+          expect(clone.props, isNot(equals(original.props)));
 
           Map originalProps = getJsProps(original);
           Map cloneProps = getJsProps(clone);
@@ -214,8 +214,8 @@ main() {
           var clone = cloneElement(original, overrideKeyRefProps);
 
           // Verify that "key" and "ref" are overridden according to React
-          expect(clone['key'], equals(overrideKeyRefProps['key']));
-          expect(clone['ref'], equals(overrideKeyRefProps['ref']));
+          expect(clone.key, equals(overrideKeyRefProps['key']));
+          expect(clone.ref, equals(overrideKeyRefProps['ref']));
         });
 
         test('for a Dart component', () {
