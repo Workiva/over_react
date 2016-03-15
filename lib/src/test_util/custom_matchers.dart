@@ -206,5 +206,5 @@ Matcher throwsInvalidPropCombinationError(String prop1, String prop2, String mes
 /// A matcher to verify that the [InvalidPropValueError] is thrown with a provided `InvalidPropValueError.message`
 Matcher throwsInvalidPropError(dynamic value, String name, String message){
   return throwsA(predicate(
-    (error) => error.toString().contains('InvalidPropValueError: Prop $name set to ${Error.safeToString(value)}: ${message}'), 'Should have Prop $name set to ${Error.safeToString(value)}: $message'));
+    (error) => error.toString().contains('InvalidPropValueError: Prop $name set to ${Error.safeToString(value)}: $message'), 'Should have message $message'));
 }
