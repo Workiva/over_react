@@ -206,9 +206,13 @@ main() {
 
     group('isFocused:', () {
       group('attached node:', () {
+        List<Element> allAttachedNodes = [];
         Element makeAttachedNode() {
           var node = new DivElement()..tabIndex = 1;
           document.body.append(node);
+
+          allAttachedNodes.add(node);
+
           return node;
         }
 
@@ -219,7 +223,8 @@ main() {
         });
 
         tearDown(() {
-          attachedNode.remove();
+          allAttachedNodes.forEach((node) => node.remove());
+          allAttachedNodes.clear();
         });
 
         test('passes when an attached node is focused', () {

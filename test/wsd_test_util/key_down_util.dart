@@ -2,6 +2,12 @@ library test_util.key_down_util;
 
 import 'dart:html';
 import 'dart:async';
+// Tell dart2js that the `mockito` package only needs to reflect the specified mock/spied types.
+// This speeds up compilation and makes JS output much smaller.
+@MirrorsUsed(targets: const [
+  'dart.dom.html.Document',
+], override: 'mockito')
+import 'dart:mirrors';
 
 import 'package:web_skin_dart/ui_core.dart';
 import 'package:mockito/mockito.dart';
