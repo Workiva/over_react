@@ -1,7 +1,5 @@
 library web_skin_dart.component_declaration.component_base;
 
-import 'dart:js';
-
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart';
@@ -40,7 +38,7 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
   ReactDartComponentFactoryProxy reactComponentFactory = react.registerComponent(dartComponentFactory);
 
   if (displayName != null) {
-    reactComponentFactory.reactClass['displayName'] = displayName;
+    reactComponentFactory.reactClass.displayName = displayName;
   }
 
   registerComponentTypeAlias(reactComponentFactory, builderFactory);
@@ -275,7 +273,7 @@ abstract class UiProps
   bool validate() => true;
 
   /// Returns a new component with this builder's props and the specified children.
-  JsObject build([dynamic children]) {
+  ReactElement build([dynamic children]) {
     return componentFactory(props, children);
   }
 
@@ -283,7 +281,7 @@ abstract class UiProps
   /// (alias for [build] with support for variadic children)
   ///
   /// This method actually takes any number of children as arguments ([c2], [c3], ...) via [noSuchMethod].
-  JsObject call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40, c41, c42, c43, c44, c45, c46, c47, c48, c49, c50]);
+  ReactElement call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40, c41, c42, c43, c44, c45, c46, c47, c48, c49, c50]);
 
   /// Supports variadic children of the form `call([child1, child2, child3...])`.
   dynamic noSuchMethod(Invocation invocation) {

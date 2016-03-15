@@ -210,7 +210,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   // --------------------------------------------------------------------------
 
   @override
-  void componentDidUpdate(Map prevProps, Map prevState, rootNode) {
+  void componentDidUpdate(Map prevProps, Map prevState) {
     var tPrevState = typedStateFactory(prevState);
 
     if (tPrevState.transitionPhase != state.transitionPhase) {

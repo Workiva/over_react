@@ -1,56 +1,52 @@
 library ui_core.react_wrappers;
 
 import 'dart:html';
-import 'dart:js';
 
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
-
-JsObject _React = context['React'];
+import 'package:js/js.dart';
 
 /// Returns the internal Map used by react-dart to maintain the native Dart component.
-Map _getInternal(JsObject instance) => instance[PROPS][INTERNAL];
+Internal _getInternal(ReactElement instance) => instance.props.internal;
 
 /// Returns the internal representation of a Dart component's props as maintained by react-dart
 /// Similar to ReactElement.props in JS, but also includes `key`, `ref` and `children`
-Map _getExtendedProps(JsObject instance) {
-  return _getInternal(instance)[PROPS];
+Map _getExtendedProps(ReactElement instance) {
+  return _getInternal(instance).props;
 }
 
 /// Returns 'key' associated with the specified React instance.
-dynamic getInstanceKey(JsObject instance) {
-  return instance['key'];
+dynamic getInstanceKey(ReactElement instance) {
+  return instance.key;
 }
 
 /// Returns 'ref' associated with the specified React instance.
-dynamic getInstanceRef(JsObject instance) {
-  return instance['ref'];
+dynamic getInstanceRef(ReactElement instance) {
+  return instance.ref;
 }
 
 /// Returns whether a component is a native Dart component.
-bool isDartComponent(JsObject instance) {
+bool isDartComponent(ReactElement instance) {
   return _getInternal(instance) != null;
 }
 
+@JS('Object.keys')
+external Iterable _objectKeys(object);
+
 /// Returns the props for a React JS component instance, shallow-converted to a Dart Map for convenience.
-Map getJsProps(JsObject instance) {
-  JsObject props = instance[PROPS];
+Map getJsProps(ReactElement instance) {
+  var props = instance.props;
 
-  Map convertedProps = {};
-
-  JsArray keys = (context['Object'] as JsObject).callMethod('keys', [props]);
-  keys.forEach((key) {
-    convertedProps[key] = props[key];
-  });
-
-  return convertedProps;
+  return new Map.fromIterable(_objectKeys(props),
+      value: (key) => getProperty(props, key)
+  );
 }
 
 /// Returns the props for a component.
 ///
 /// For a native Dart component, this returns its [react.Component.props] Map.
 /// For a JS component, this returns the result of [getJsProps].
-Map getProps(JsObject instance) {
+Map getProps(ReactElement instance) {
   return isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
 }
 
@@ -66,12 +62,12 @@ Element findDomNode(dynamic instance) => react.findDOMNode(instance);
 /// _From the JS docs:_
 /// > Verifies the object is a ReactElement
 bool isValidElement(dynamic object) {
-  return _React.callMethod('isValidElement', [object]);
+  return React.isValidElement(object);
 }
 
 /// Returns whether [instance] is a React DOM component.
 bool isDomComponent(dynamic instance) {
-  return (instance is JsObject && instance['type'] is String);
+  return isValidElement(instance) && (instance as ReactElement).type is String;
 }
 
 /// Returns a new JS map with the specified props and children changes, properly prepared for consumption by
@@ -85,10 +81,10 @@ bool isDomComponent(dynamic instance) {
 ///   Children are likewise copied/overwritten as expected.
 ///
 /// * For JS components, a copy of [newProps] is returned, since React will merge the props without any special handling.
-JsObject preparePropsChangeset(JsObject element, Map newProps, [List newChildren]) {
-  JsObject propsChangeset;
+preparePropsChangeset(ReactElement element, Map newProps, [List newChildren]) {
+  var propsChangeset;
 
-  Map internal = _getInternal(element);
+  Internal internal = _getInternal(element);
   if (internal == null) {
     // Plain JS component
     if (newProps == null) {
@@ -99,14 +95,14 @@ JsObject preparePropsChangeset(JsObject element, Map newProps, [List newChildren
         // are properly converted.
         Map convertedProps = new Map.from(newProps);
         ReactDomComponentFactoryProxy.convertProps(convertedProps);
-        propsChangeset = newJsMap(convertedProps);
+        propsChangeset = ReactDomComponentFactoryProxy.jsifyProps(convertedProps);
       } else {
-        propsChangeset = newJsMap(newProps);
+        propsChangeset = ReactDomComponentFactoryProxy.jsifyProps(newProps);
       }
     }
   } else {
     // react-dart component
-    Map oldExtendedProps = internal[PROPS];
+    Map oldExtendedProps = internal.props;
 
     Map extendedProps = new Map.from(oldExtendedProps);
     if (newProps != null) {
@@ -128,12 +124,14 @@ JsObject preparePropsChangeset(JsObject element, Map newProps, [List newChildren
 /// > Unlike React.addons.cloneWithProps, key and ref from the original element will be preserved.
 /// > There is no special behavior for merging any props (unlike cloneWithProps).
 /// > See the [v0.13 RC2 blog post](https://facebook.github.io/react/blog/2015/03/03/react-v0.13-rc2.html) for additional details.
-JsObject cloneElement(JsObject element, [Map props, List children]) {
-  JsObject propsChangeset = preparePropsChangeset(element, props, children);
+ReactElement cloneElement(ReactElement element, [Map props, List children]) {
+  var propsChangeset = preparePropsChangeset(element, props, children);
 
   List jsMethodArgs = [element, propsChangeset];
   if (children != null) {
-    jsMethodArgs.add(new JsArray.from(children));
+    return React.cloneElement(element, propsChangeset, children);
+  } else {
+    return React.cloneElement(element, propsChangeset);
   }
 
   return _React.callMethod('cloneElement', jsMethodArgs);
@@ -142,12 +140,10 @@ JsObject cloneElement(JsObject element, [Map props, List children]) {
 /// Returns a new JsArray from the specified List, so that non-flat children can be used with react-dart.
 ///
 /// Workaround until <https://github.com/cleandart/react-dart/issues/60> is fixed.
-JsArray prepareNestedChildren(List children) {
-  return children == null ? null : new JsArray.from(children);
-}
+List prepareNestedChildren(List children) => children;
 
 /// Returns whether the React [instance] is mounted.
-bool isMounted(JsObject instance) {
+bool isMounted(ReactElement instance) {
   bool isMounted = instance.callMethod('isMounted', []);
   // Workaround for https://github.com/facebook/react/pull/3815 (Fixed in React 0.14)
   isMounted ??= false;
@@ -155,10 +151,6 @@ bool isMounted(JsObject instance) {
 }
 
 /// Returns the native Dart component associated with a React JS component instance, or null if the component is not Dart-based.
-react.Component getDartComponent(JsObject instance) {
-  var internal = _getInternal(instance);
-  if (internal != null) {
-    return internal[COMPONENT];
-  }
-  return null;
+react.Component getDartComponent(ReactElement instance) {
+  return _getInternal(instance)?.component;
 }

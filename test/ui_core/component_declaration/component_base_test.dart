@@ -455,7 +455,7 @@ main() {
 
         test('displayName', () {
           var reactComponentFactory = registerComponent(dummyComponentFactory, displayName: 'testDisplayName');
-          expect(reactComponentFactory.type['displayName'], equals('testDisplayName'));
+          expect(reactComponentFactory.type.displayName, equals('testDisplayName'));
         });
 
         group('registers a type alias for', () {
