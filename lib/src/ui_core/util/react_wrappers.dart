@@ -1,6 +1,7 @@
 library ui_core.react_wrappers;
 
 import 'dart:html';
+import 'dart:js';
 
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
@@ -133,8 +134,6 @@ ReactElement cloneElement(ReactElement element, [Map props, List children]) {
   } else {
     return React.cloneElement(element, propsChangeset);
   }
-
-  return _React.callMethod('cloneElement', jsMethodArgs);
 }
 
 /// Returns a new JsArray from the specified List, so that non-flat children can be used with react-dart.
@@ -143,11 +142,12 @@ ReactElement cloneElement(ReactElement element, [Map props, List children]) {
 List prepareNestedChildren(List children) => children;
 
 /// Returns whether the React [instance] is mounted.
-bool isMounted(ReactElement instance) {
-  bool isMounted = instance.callMethod('isMounted', []);
-  // Workaround for https://github.com/facebook/react/pull/3815 (Fixed in React 0.14)
-  isMounted ??= false;
-  return isMounted;
+bool isMounted(dynamic instance) {
+  if (instance is Element) {
+    return new JsObject.fromBrowserObject(instance).callMethod('isMounted', []);
+  }
+
+  return (instance as ReactComponent).isMounted();
 }
 
 /// Returns the native Dart component associated with a React JS component instance, or null if the component is not Dart-based.
