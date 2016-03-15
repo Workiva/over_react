@@ -1,7 +1,7 @@
 /// Provides utilities around component type-checking.
 library web_skin_dart.component_declaration.component_type_checking;
 
-import 'dart:js';
+import 'dart:js' show JsFunction;
 
 import 'package:react/react_client.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart' show UiFactory;
@@ -34,7 +34,7 @@ void setComponentTypeMeta(ReactDartComponentFactoryProxy factory, {
     bool isWrapper,
     ReactDartComponentFactoryProxy parentType
 }) {
-  factory.type[_componentTypeMetaKey] = new ComponentTypeMeta(isWrapper, parentType);
+  setProperty(factory.type, _componentTypeMetaKey, new ComponentTypeMeta(isWrapper, parentType));
 }
 
 /// Returns the [ComponentTypeMeta] associated with the component type [type] in [setComponentTypeMeta],
@@ -43,8 +43,8 @@ ComponentTypeMeta getComponentTypeMeta(dynamic type) {
   assert(isValidComponentType(type) &&
       '`type` should be a valid component type (and not null or a type alias).' is String);
 
-  if (type is JsFunction) {
-    return type[_componentTypeMetaKey] ?? const ComponentTypeMeta.none();
+  if (type is! String) {
+    return getProperty(type, _componentTypeMetaKey) ?? const ComponentTypeMeta.none();
   }
 
   return const ComponentTypeMeta.none();
@@ -122,6 +122,7 @@ dynamic getComponentTypeFromAlias(dynamic typeAlias) {
 /// * [JsFunction] component factory (Dart/JS composite components)
 /// * [String] tag name (DOM components)
 bool isValidComponentType(dynamic type) {
+  // FIXME Can we use JsFunction?
   return type is JsFunction || type is String;
 }
 
@@ -158,7 +159,7 @@ Iterable<dynamic> getParentTypes(dynamic type) sync* {
 /// * [ReactComponentFactoryProxy]
 /// * [JsFunction] component factory
 /// * [String] tag name (DOM components only)
-bool isComponentOfType(JsObject instance, dynamic typeAlias, {
+bool isComponentOfType(ReactElement instance, dynamic typeAlias, {
     bool traverseWrappers: true,
     bool matchParentTypes: true
 }) {
@@ -171,7 +172,7 @@ bool isComponentOfType(JsObject instance, dynamic typeAlias, {
     return false;
   }
 
-  var instanceType = instance['type'];
+  var instanceType = instance.type;
   var instanceTypeMeta = getComponentTypeMeta(instanceType);
 
   // Type-check instance wrappers.

@@ -1,26 +1,26 @@
 library test_util.react_util;
 
 import 'dart:html';
-import 'dart:js';
 
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:web_skin_dart/ui_core.dart';
+import 'package:js/js.dart';
 
 export 'package:web_skin_dart/src/ui_core/util/react_wrappers.dart';
 
-JsObject _React = context['React'];
+//JsObject _React = context['React'];
 
 /// Renders a React component or builder into a detached node and returns the JsObject instance.
-JsObject render(dynamic component) {
+render(dynamic component) {
   return react_test_utils.renderIntoDocument(component is ComponentDefinition ? component.build() : component);
 }
 
 /// Shallow-renders a component using [react_test_utils.ReactShallowRenderer].
 ///
 /// See: <https://facebook.github.io/react/docs/test-utils.html#shallow-rendering>.
-JsObject renderShallow(JsObject instance) {
+renderShallow(ReactElement instance) {
   var renderer = react_test_utils.createRenderer();
   renderer.render(instance);
   return renderer.getRenderOutput();
@@ -38,20 +38,16 @@ void unmount(dynamic instanceOrContainerNode) {
     return;
   }
 
-  if (instanceOrContainerNode is JsObject && !isMounted(instanceOrContainerNode)) {
-    return;
-  }
-
   Element containerNode;
 
-  if (instanceOrContainerNode is JsObject) {
-    containerNode = findDomNode(instanceOrContainerNode).parent;
-  } else if (instanceOrContainerNode is Element) {
+  if (instanceOrContainerNode is Element) {
     containerNode = instanceOrContainerNode;
   } else {
-    throw new ArgumentError(
-        '`instanceOrNode` must be null, a JsObject instance, or an Element. Was: $instanceOrContainerNode.'
-    );
+    if (!isMounted(instanceOrContainerNode)) {
+      return;
+    }
+
+    containerNode = findDomNode(instanceOrContainerNode).parent;
   }
 
   react.unmountComponentAtNode(containerNode);
@@ -67,7 +63,7 @@ List<Element> _attachedReactContainers = [];
 
 /// Renders the component into the document as opposed to a headless node.
 /// Returns the rendered component.
-JsObject renderAttachedToDocument(dynamic component) {
+renderAttachedToDocument(dynamic component) {
   var container = new DivElement()..className = 'render-attached-to-document-container';
   _attachedReactContainers.add(container);
 
@@ -87,34 +83,36 @@ void tearDownAttachedNodes() {
 }
 
 /// Returns the internal Map used by react-dart to maintain the native Dart component.
-Map _getInternal(JsObject instance) => instance[PROPS][INTERNAL];
+Internal _getInternal(ReactComponent instance) => instance.props.internal;
 
 /// Returns a rendered component's ref, or null if it doesn't exist.
 ///
 /// The return type is [JsObject] for composite components, and [Element] for DOM components.
 ///
 /// Using `getRef()` can be tedious for nested / complex components. It is recommended to use [getByTestId] instead.
-dynamic getRef(JsObject instance, dynamic ref) {
+dynamic getRef(ReactComponent instance, dynamic ref) {
   if (instance == null) {
     return null;
   }
-  return instance[REFS][ref];
+  return getProperty(instance.refs, ref);
 }
 
+typedef void _EventSimulatorAlias(componentOrNode, [react_test_utils.EventData eventData]);
+
 /// Helper function to simulate clicks
-void click(dynamic node) => context['React']['addons']['TestUtils']['Simulate'].callMethod('click', [node]);
+final _EventSimulatorAlias click = react_test_utils.Simulate.click;
 
 /// Helper function to simulate mouseMove events.
-void mouseMove(dynamic instanceOrNode) => react_test_utils.Simulate.mouseMove(instanceOrNode);
+final _EventSimulatorAlias mouseMove = react_test_utils.Simulate.mouseMove;
 
 /// Helper function to simulate keyDown events.
-void keyDown(dynamic instanceOrNode, [Map data = const {}]) => react_test_utils.Simulate.keyDown(instanceOrNode, data);
+final _EventSimulatorAlias keyDown = react_test_utils.Simulate.keyDown;
 
 /// Helper function to simulate keyUp events.
-void keyUp(dynamic instanceOrNode, [Map data = const {}]) => react_test_utils.Simulate.keyUp(instanceOrNode, data);
+final _EventSimulatorAlias keyUp = react_test_utils.Simulate.keyUp;
 
 /// Helper function to simulate keyPress events.
-void keyPress(dynamic instanceOrNode, [Map data = const {}]) => react_test_utils.Simulate.keyPress(instanceOrNode, data);
+final _EventSimulatorAlias keyPress = react_test_utils.Simulate.keyPress;
 
 /// Simulate a MouseEnter event by firing a MouseOut and a MouseOver, since MouseEnter simulation is not provided by react_test_utils.
 void simulateMouseEnter(EventTarget target) {
@@ -158,19 +156,17 @@ void simulateMouseLeave(EventTarget target) {
 ///
 /// It is recommended that, instead of setting this [key] prop manually, you should use the
 /// [UiProps.testId] setter or [UiProps.setTestId] method so the prop is only set in a test environment.
-JsObject getByTestId(JsObject root, String value, {String key: 'data-test-id'}) {
+getByTestId(root, String value, {String key: 'data-test-id'}) {
   bool first = false;
 
-  var results = react_test_utils.findAllInRenderedTree(root, new JsFunction.withThis((_, descendant) {
+  var results = react_test_utils.findAllInRenderedTree(root, allowInterop((descendant) {
     if (first) {
       return false;
     }
 
-    descendant = react_test_utils.normalizeReactComponent(descendant);
-
     bool hasValue;
 
-    if (descendant['tagName'] is String) {
+    if (isDomComponent(descendant)) {
       hasValue = findDomNode(descendant).attributes[key] == value;
     } else {
       hasValue = getProps(descendant)[key] == value;
@@ -186,20 +182,20 @@ JsObject getByTestId(JsObject root, String value, {String key: 'data-test-id'}) 
   if (results.isEmpty) {
     return null;
   } else {
-    return react_test_utils.normalizeReactComponent(results.single);
+    return results.single;
   }
 }
 /// Returns the [Element] of the first descendant of [root] that has its [key] prop value set to [value].
 ///
 /// Returns null if no descendant has its [key] prop value set to [value].
-Element getDomByTestId(JsObject root, String value, {String key: 'data-test-id'}) {
+Element getDomByTestId(root, String value, {String key: 'data-test-id'}) {
   return findDomNode(getByTestId(root, value, key: key));
 }
 
 /// Returns the [react.Component] of the first descendant of [root] that has its [key] prop value set to [value].
 ///
 /// Returns null if no descendant has its [key] prop value set to [value].
-react.Component getComponentByTestId(JsObject root, String value, {String key: 'data-test-id'}) {
+react.Component getComponentByTestId(root, String value, {String key: 'data-test-id'}) {
   var instance = getByTestId(root, value, key: key);
   if (instance != null) {
     return getDartComponent(instance);
@@ -211,7 +207,7 @@ react.Component getComponentByTestId(JsObject root, String value, {String key: '
 /// Returns the props of the first descendant of [root] that has its [key] prop value set to [value].
 ///
 /// Returns null if no descendant has its [key] prop value set to [value].
-Map getPropsByTestId(JsObject root, String value, {String key: 'data-test-id'}) {
+Map getPropsByTestId(root, String value, {String key: 'data-test-id'}) {
   var instance = getByTestId(root, value, key: key);
   if (instance != null) {
     return getProps(instance);
@@ -220,7 +216,7 @@ Map getPropsByTestId(JsObject root, String value, {String key: 'data-test-id'}) 
   return null;
 }
 
-JsObject getByTestIdShallow(JsObject root, String value, {String key: 'data-test-id'}) {
+ReactElement getByTestIdShallow(root, String value, {String key: 'data-test-id'}) {
   var descendant;
 
   getDescendant(_root) {
@@ -256,25 +252,21 @@ JsObject getByTestIdShallow(JsObject root, String value, {String key: 'data-test
 }
 
 /// Returns all descendants of a component that contain the specified prop key.
-List<JsObject> findDescendantsWithProp(JsObject root, dynamic propKey) {
-  List descendantsWithProp = react_test_utils.findAllInRenderedTree(root, new JsFunction.withThis((_, descendant) {
+List findDescendantsWithProp(root, dynamic propKey) {
+  List descendantsWithProp = react_test_utils.findAllInRenderedTree(root, allowInterop((descendant) {
     if (descendant == root) {
       return false;
     }
-
-    descendant = react_test_utils.normalizeReactComponent(descendant);
 
     bool hasProp;
     if (isDartComponent(descendant)) {
       hasProp = getDartComponent(descendant).props.containsKey(propKey);
     } else {
-      hasProp = descendant[PROPS].hasProperty(propKey);
+      hasProp = getProps(descendant).containsKey(propKey);
     }
 
     return hasProp;
   }));
-
-  descendantsWithProp = descendantsWithProp.map(react_test_utils.normalizeReactComponent).toList();
 
   return descendantsWithProp;
 }
@@ -284,8 +276,8 @@ List<JsObject> findDescendantsWithProp(JsObject root, dynamic propKey) {
 /// >
 /// > @param {object} partialProps Subset of the next props.
 /// > @param {?function} callback Called after props are updated.
-void setProps(JsObject instance, Map props, [callback]) {
-  JsObject propsChangeset = preparePropsChangeset(instance, props);
+void setProps(instance, Map props, [callback]) {
+  var propsChangeset = preparePropsChangeset(instance, props);
   instance.callMethod('setProps', [propsChangeset, callback]);
 }
 

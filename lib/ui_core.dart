@@ -4,7 +4,6 @@ library web_skin_dart.ui_core;
 // Imports
 import 'dart:collection' show MapView;
 import 'dart:html';
-import 'dart:js';
 
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
