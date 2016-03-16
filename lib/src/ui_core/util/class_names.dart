@@ -121,33 +121,33 @@ class ClassNameBuilder {
 /// Example:
 ///
 ///     splitSpaceDelimitedString('   foo bar     baz') // ['foo', 'bar', 'baz']
-List<String> splitSpaceDelimitedString(String className) {
+List<String> splitSpaceDelimitedString(String string) {
   const int SPACE = 32; // ' '.codeUnits.first;
 
-  List<String> classNames = [];
+  List<String> strings = [];
   int start = 0;
 
-  while (start != className.length) {
-    while (className.codeUnitAt(start) == SPACE) {
+  while (start != string.length) {
+    while (string.codeUnitAt(start) == SPACE) {
       start++;
-      if (start == className.length) {
-        return classNames;
+      if (start == string.length) {
+        return strings;
       }
     }
 
     int end = start;
-    while (className.codeUnitAt(end) != SPACE) {
+    while (string.codeUnitAt(end) != SPACE) {
       end++;
-      if (end == className.length) {
-        classNames.add(className.substring(start, end));
-        return classNames;
+      if (end == string.length) {
+        strings.add(string.substring(start, end));
+        return strings;
       }
     }
 
-    classNames.add(className.substring(start, end));
+    strings.add(string.substring(start, end));
 
     start = end;
   }
 
-  return classNames;
+  return strings;
 }
