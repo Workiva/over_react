@@ -112,7 +112,7 @@ class ClassNameBuilder {
   }
 }
 
-/// Returns a List of space-delimited tokens efficiently split from the specified [String].
+/// Returns a List of space-delimited tokens efficiently split from the specified string.
 ///
 /// Useful for splitting CSS class name strings into class tokens, or `data-test-id` values into individual test IDs.
 ///
