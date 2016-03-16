@@ -36,7 +36,7 @@ main() {
     });
 
     group('getRef', () {
-      test('returns the JsObject if the ref exists', () {
+      test('returns the ref if it exists', () {
         var renderedInstance = render(RenderingContainerComponentFactory({'renderer': Dom.div()..ref = 'childDiv'}));
 
         var ref = getRef(renderedInstance, 'childDiv');
@@ -115,7 +115,7 @@ main() {
     });
 
     group('getByTestId returns', () {
-      test('the topmost JsObject that has the appropriate value for the `data-test-id` prop key', () {
+      test('the topmost descendant that has the appropriate value for the `data-test-id` prop key', () {
         var renderedInstance = render(Wrapper()(
           (Dom.div()..testId = 'value')('First Descendant'),
           Dom.div()(
@@ -128,7 +128,7 @@ main() {
         expect(findDomNode(descendant).text, equals('First Descendant'));
       });
 
-      test('the topmost JsObject that has the appropriate value for the custom prop key', () {
+      test('the topmost descendant that has the appropriate value for the custom prop key', () {
         var renderedInstance = render(Wrapper()(
           (Dom.div()..testId = 'value')('First Descendant'),
           Dom.div()(
@@ -225,7 +225,7 @@ main() {
     });
 
     group('getPropsByTestId returns', () {
-      test('the props map of the topmost JsObject that has the appropriate value for the `data-test-id` prop key', () {
+      test('the props map of the topmost descendant that has the appropriate value for the `data-test-id` prop key', () {
         var renderedInstance = render(Wrapper()(
           (Test()
             ..id = 'test_id'
@@ -241,7 +241,7 @@ main() {
         expect(props, equals(getProps(getByTestId(renderedInstance, 'value'))));
       });
 
-      test('the props map of the topmost JsObject that has the appropriate value for the custom prop key', () {
+      test('the props map of the topmost descendant that has the appropriate value for the custom prop key', () {
         var renderedInstance = render(Wrapper()(
           (Test()..testId = 'value')('First Descendant'),
           Dom.div()(

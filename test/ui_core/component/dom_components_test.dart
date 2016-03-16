@@ -30,7 +30,7 @@ main() {
       }
       test('Dom.$name generates the correct type', () {
         var domComponent = domClassMirror.invoke(element.simpleName, []).reflectee;
-        JsObject component = domComponent();
+        var component = domComponent();
         expect(component['type'], equalsIgnoringCase(expectedTagName));
       });
     }

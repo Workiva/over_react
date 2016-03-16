@@ -119,9 +119,9 @@ main() {
   });
 }
 
-dynamic getJsChildren(JsObject instance) => getJsProps(instance)['children'];
+dynamic getJsChildren(instance) => getJsProps(instance)['children'];
 
-dynamic getDartChildren(JsObject renderedInstance) {
+dynamic getDartChildren(var renderedInstance) {
   assert(isDartComponent(renderedInstance));
   return getProps(renderedInstance)['children'];
 }
