@@ -259,8 +259,10 @@ List findDescendantsWithProp(root, dynamic propKey) {
     bool hasProp;
     if (isDartComponent(descendant)) {
       hasProp = getDartComponent(descendant).props.containsKey(propKey);
-    } else {
+    } else if (react_test_utils.isCompositeComponent(descendant)) {
       hasProp = getProps(descendant).containsKey(propKey);
+    } else if (react_test_utils.isDOMComponent(descendant)) {
+      hasProp = findDomNode(descendant).attributes.containsKey(propKey);
     }
 
     return hasProp;
