@@ -57,7 +57,7 @@ main() {
   });
 
   group('getFormElements returns', () {
-    JsObject renderedInstance;
+    var renderedInstance;
     FormElement formElementNode;
     var formElements;
 
