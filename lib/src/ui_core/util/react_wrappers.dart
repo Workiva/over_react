@@ -153,6 +153,10 @@ bool isMounted(dynamic instance) {
 }
 
 /// Returns the native Dart component associated with a React JS component instance, or null if the component is not Dart-based.
-react.Component getDartComponent(ReactElement instance) {
+react.Component getDartComponent(instance) {
+  if (!react_test_utils.isCompositeComponent(instance)) {
+    return null;
+  }
+
   return _getInternal(instance)?.component;
 }

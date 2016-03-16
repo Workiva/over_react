@@ -53,7 +53,7 @@ main() {
           originalShallowProps.remove('internal');
           clonePropsShallowProps.remove('internal');
           expect(originalShallowProps, equals(clonePropsShallowProps));
-          
+
           // Verify react-dart internal props are equal.
           Internal originalInternal = originalProps['internal'];
           Internal clonePropsInternal = cloneProps['internal'];
@@ -372,7 +372,12 @@ main() {
         expect(getDartComponent(renderedInstance), new isInstanceOf<ButtonComponent>());
       });
 
-      test('returns null is JS Object is not Dart based', () {
+      test('returns null for a JS composite component', () {
+        var renderedInstance = render(testJsComponentFactory.apply([]));
+        expect(getDartComponent(renderedInstance), isNull);
+      });
+
+      test('returns null for a DOM component', () {
         var renderedInstance = render(Dom.div());
         expect(getDartComponent(renderedInstance), isNull);
       });
