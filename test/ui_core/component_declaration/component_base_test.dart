@@ -201,6 +201,14 @@ main() {
           expect(props, equals({'data-test-id': 'value'}));
         });
 
+        test('sets the correct value for the `data-test-id` key when adding multiple testIds through multiple calls to `addTestId`', () {
+          var props = new TestComponentProps();
+          props.addTestId('value1');
+          props.addTestId('value2');
+
+          expect(props, equals({'data-test-id': 'value1 value2'}));
+        });
+
         test('does not set a value for the `data-test-id` when adding a testId but inTesting is false', () {
           UiProps.testMode = false;
 
