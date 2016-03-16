@@ -47,8 +47,17 @@ main() {
           Map originalProps = getJsProps(original);
           Map cloneProps = getJsProps(clone);
 
-          // Verify all props (children and react-dart internals included) are equal.
-          expect(cloneProps, equals(originalProps));
+          // Verify all props (including children, excluding react-dart internals) are equal.
+          Map originalShallowProps = new Map.from(originalProps);
+          Map clonePropsShallowProps = new Map.from(cloneProps);
+          originalShallowProps.remove('internal');
+          clonePropsShallowProps.remove('internal');
+          expect(originalShallowProps, equals(clonePropsShallowProps));
+          
+          // Verify react-dart internal props are equal.
+          Internal originalInternal = originalProps['internal'];
+          Internal clonePropsInternal = cloneProps['internal'];
+          expect(originalInternal.props, equals(clonePropsInternal.props));
 
           var dartRendered = getDartComponent(render(original));
           var dartRenderedClone = getDartComponent(render(clone));
