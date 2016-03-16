@@ -57,6 +57,10 @@ Set getComponentPropKeys(BuilderOnlyUiFactory factory) {
 const String forwardedPropBeacon = 'data-forwarding-target';
 /// Return the components to which props have been forwarded (identified using the [forwardedPropBeacon] prop).
 List<JsObject> getForwardingTargets(JsObject reactInstance, {int expectedTargetCount: 1, shallowRendered: false}) {
+  if (!forwardedPropBeacon.startsWith('data-')) {
+    throw new Exception('forwardedPropBeacon must begin with "data-" so that is a valid HTML attribute.');
+  }
+
   List<JsObject> forwardingTargets = [];
 
   if (shallowRendered) {
