@@ -5,6 +5,7 @@ import 'dart:js';
 
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
+import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:js/js.dart';
 
 /// Returns the internal Map used by react-dart to maintain the native Dart component.
@@ -27,8 +28,9 @@ dynamic getInstanceRef(ReactElement instance) {
 }
 
 /// Returns whether a component is a native Dart component.
-bool isDartComponent(ReactElement instance) {
-  return _getInternal(instance) != null;
+bool isDartComponent(instance) {
+  // Don't try to access internal on a DOM component
+  return react_test_utils.isCompositeComponent(instance) && _getInternal(instance) != null;
 }
 
 @JS('Object.keys')
@@ -47,7 +49,7 @@ Map getJsProps(ReactElement instance) {
 ///
 /// For a native Dart component, this returns its [react.Component.props] Map.
 /// For a JS component, this returns the result of [getJsProps].
-Map getProps(ReactElement instance) {
+Map getProps(instance) {
   return isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
 }
 
@@ -66,8 +68,8 @@ bool isValidElement(dynamic object) {
   return React.isValidElement(object);
 }
 
-/// Returns whether [instance] is a React DOM component.
-bool isDomComponent(dynamic instance) {
+/// Returns whether [instance] is a ReactElement for a DOM node.
+bool isDomElement(dynamic instance) {
   return isValidElement(instance) && (instance as ReactElement).type is String;
 }
 
@@ -91,7 +93,7 @@ preparePropsChangeset(ReactElement element, Map newProps, [List newChildren]) {
     if (newProps == null) {
       propsChangeset = null;
     } else {
-      if (isDomComponent(element)) {
+      if (isDomElement(element)) {
         // Convert props for DOM components so that style Maps and event handlers
         // are properly converted.
         Map convertedProps = new Map.from(newProps);

@@ -318,26 +318,26 @@ main() {
       });
     });
 
-    group('isDomComponent()', () {
+    group('isDomElement()', () {
       group('returns expected result when given', (){
         test('a DOM component', () {
-          expect(isDomComponent(Dom.div()()), isTrue);
+          expect(isDomElement(Dom.div()()), isTrue);
         });
 
         test('a Dart component', () {
-          expect(isDomComponent(TestComponentFactory({})), isFalse);
+          expect(isDomElement(TestComponentFactory({})), isFalse);
         });
 
         test('a JS composite component', () {
-          expect(isDomComponent(testJsComponentFactory.apply([])), isFalse);
+          expect(isDomElement(testJsComponentFactory.apply([])), isFalse);
         });
 
         test('null', () {
-          expect(isDomComponent(null), isFalse);
+          expect(isDomElement(null), isFalse);
         });
 
         test('a String', () {
-          expect(isDomComponent('Test String'), isFalse);
+          expect(isDomElement('Test String'), isFalse);
         });
       });
     });
