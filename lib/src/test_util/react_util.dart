@@ -102,7 +102,7 @@ dynamic getRef(ReactComponent instance, dynamic ref) {
   return getProperty(instance.refs, ref);
 }
 
-typedef void _EventSimulatorAlias(componentOrNode, [react_test_utils.EventData eventData]);
+typedef void _EventSimulatorAlias(componentOrNode, [Map eventData]);
 
 /// Helper function to simulate clicks
 final _EventSimulatorAlias click = react_test_utils.Simulate.click;
