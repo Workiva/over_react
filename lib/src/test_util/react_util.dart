@@ -256,11 +256,9 @@ JsObject getByTestIdShallow(JsObject root, String value, {String key: 'data-test
 }
 
 /// Returns all descendants of a component that contain the specified prop key.
+///
+/// Note: propKey must be a valid HTML5 attribute.
 List<JsObject> findDescendantsWithProp(JsObject root, dynamic propKey) {
-  if (propKey is String && !propKey.startsWith('data-')) {
-    throw new Exception('findDescendantsWithProp must be used with a propKey that will render as a valid html data attribute.');
-  }
-
   List descendantsWithProp = react_test_utils.findAllInRenderedTree(root, new JsFunction.withThis((_, descendant) {
     if (descendant == root) {
       return false;
