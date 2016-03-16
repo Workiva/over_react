@@ -40,12 +40,19 @@ void unmount(dynamic instanceOrContainerNode) {
 
   if (instanceOrContainerNode is Element) {
     containerNode = instanceOrContainerNode;
-  } else {
+  } else if (
+      react_test_utils.isCompositeComponent(instanceOrContainerNode) ||
+      react_test_utils.isDOMComponent(instanceOrContainerNode)
+  ) {
     if (!isMounted(instanceOrContainerNode)) {
       return;
     }
 
     containerNode = findDomNode(instanceOrContainerNode).parent;
+  } else {
+    throw new ArgumentError(
+        '`instanceOrNode` must be null, a JsObject instance, or an Element. Was: $instanceOrContainerNode.'
+    );
   }
 
   react.unmountComponentAtNode(containerNode);
