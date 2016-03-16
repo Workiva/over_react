@@ -2,7 +2,6 @@ library test_util.common_component_tests;
 
 import 'dart:collection';
 import 'dart:html';
-import 'dart:js';
 // Tell dart2js that this library only needs to reflect types annotated with `Props`.
 // This speeds up compilation and makes JS output much smaller.
 @MirrorsUsed(metaTargets: const [
@@ -15,6 +14,7 @@ import 'package:test/test.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart' as component_base;
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
+import 'package:react/react_client.dart';
 
 /// Returns all the prop keys available on a component definition, using reflection.
 Set getComponentPropKeys(BuilderOnlyUiFactory factory) {
@@ -56,8 +56,8 @@ Set getComponentPropKeys(BuilderOnlyUiFactory factory) {
 /// Prop key for use in conjunction with [getForwardingTargets].
 const String forwardedPropBeacon = 'data-forwarding-target';
 /// Return the components to which props have been forwarded (identified using the [forwardedPropBeacon] prop).
-List<JsObject> getForwardingTargets(JsObject reactInstance, {int expectedTargetCount: 1, shallowRendered: false}) {
-  List<JsObject> forwardingTargets = [];
+List getForwardingTargets(reactInstance, {int expectedTargetCount: 1, shallowRendered: false}) {
+  List forwardingTargets = [];
 
   if (shallowRendered) {
     getTargets(root) {
@@ -65,10 +65,12 @@ List<JsObject> getForwardingTargets(JsObject reactInstance, {int expectedTargetC
         forwardingTargets.add(root);
       }
 
-      if (root['props']['children'] is List) {
-        flattenChildren(List children) {
-          children.forEach((_child) {
-            if (_child != null && _child is JsObject && _child['props'] != null) {
+      final children = root['props']['children'];
+
+      if (children is List) {
+        flattenChildren(List _children) {
+          _children.forEach((_child) {
+            if (_child != null && isValidElement(_child)) {
               getTargets(_child);
             }  else if (_child is List) {
               flattenChildren(_child);
@@ -76,13 +78,9 @@ List<JsObject> getForwardingTargets(JsObject reactInstance, {int expectedTargetC
           });
         }
 
-        flattenChildren(root['props']['children']);
-      } else if (
-        root['props']['children'] is! String &&
-        root['props']['children'] != null &&
-        root['props']['children']['props'] != null
-      ) {
-        getTargets(root['props']['children']);
+        flattenChildren(children);
+      } else if (isValidElement(children)) {
+        getTargets(children);
       }
     }
 
@@ -134,7 +132,7 @@ void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(),
     var shallowRenderer = react_test_utils.createRenderer();
 
     // Use RenderingContainerComponentFactory so we can set ref on our test component
-    JsObject instance = (factory()
+    var instance = (factory()
           ..addProps(propsThatShouldNotGetForwarded)
           ..addProps(extraProps)
           ..key = key
@@ -142,11 +140,11 @@ void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(),
         )(childrenFactory());
 
     shallowRenderer.render(instance);
-    JsObject result = shallowRenderer.getRenderOutput();
+    var result = shallowRenderer.getRenderOutput();
 
-    List<JsObject> forwardingTargets = getForwardingTargets(result, shallowRendered: true);
+    var forwardingTargets = getForwardingTargets(result, shallowRendered: true);
 
-    for (JsObject forwardingTarget in forwardingTargets) {
+    for (var forwardingTarget in forwardingTargets) {
       Map actualProps = getProps(forwardingTarget);
 
       // Expect the target to have all forwarded props.
@@ -168,7 +166,7 @@ void testClassNameMerging(BuilderOnlyUiFactory factory, dynamic childrenFactory(
       ..className = 'custom-class-1 blacklisted-class-1 custom-class-2 blacklisted-class-2'
       ..classNameBlacklist = 'blacklisted-class-1 blacklisted-class-2';
 
-    JsObject renderedInstance = render(builder(childrenFactory()));
+    var renderedInstance = render(builder(childrenFactory()));
     Iterable<Element> forwardingTargetNodes = getForwardingTargets(renderedInstance).map(findDomNode);
 
     expect(forwardingTargetNodes, everyElement(
@@ -184,7 +182,7 @@ void testClassNameMerging(BuilderOnlyUiFactory factory, dynamic childrenFactory(
   test('adds custom classes to one and only one element', () {
     const customClass = 'custom-class';
 
-    JsObject renderedInstance = render(
+    var renderedInstance = render(
         (factory()..className = customClass)(childrenFactory())
     );
     var descendantsWithCustomClass = react_test_utils.scryRenderedDOMComponentsWithClass(renderedInstance, customClass);
@@ -198,7 +196,7 @@ void testClassNameMerging(BuilderOnlyUiFactory factory, dynamic childrenFactory(
 /// Common test for verifying that CSS classes added by the component can be blacklisted by the consumer.
 void testClassNameOverrides(BuilderOnlyUiFactory factory, dynamic childrenFactory()) {
   /// Render a component without any overrides to get the classes added by the component.
-  JsObject reactInstanceWithoutOverrides = render(
+  var reactInstanceWithoutOverrides = render(
       (factory()
         ..addProp(forwardedPropBeacon, true)
       )(childrenFactory())
@@ -211,7 +209,7 @@ void testClassNameOverrides(BuilderOnlyUiFactory factory, dynamic childrenFactor
   // but still fail the test if something goes wrong.
   try {
     classesToOverride = getForwardingTargets(reactInstanceWithoutOverrides)
-        .map((JsObject target) => findDomNode(target).classes)
+        .map((target) => findDomNode(target).classes)
         .expand((CssClassSet classSet) => classSet)
         .toSet();
   } catch(e) {
@@ -226,7 +224,7 @@ void testClassNameOverrides(BuilderOnlyUiFactory factory, dynamic childrenFactor
     }
 
     // Override any added classes and verify that they are blacklisted properly.
-    JsObject reactInstance = render(
+    var reactInstance = render(
         (factory()
           ..addProp(forwardedPropBeacon, true)
           ..classNameBlacklist = classesToOverride.join(' ')
