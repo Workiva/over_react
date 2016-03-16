@@ -21,7 +21,7 @@ main() {
     test('renderAttachedToDocument renders the component into the document and [renderAttachedToDocument] removes those attached nodes', () {
       expect(document.body.children, isEmpty);
 
-      var renderedInstance = renderAttachedToDocument(Dom.div());
+      var renderedInstance = renderAttachedToDocument(Wrapper());
 
       expect(document.body.children[0].children.contains(findDomNode(renderedInstance)), isTrue,
           reason: 'The component should have been rendered into the container div.');
@@ -293,7 +293,7 @@ main() {
       group('unmounts a React instance specified', () {
         test('by its rendered instance', () {
           var mountNode = new DivElement();
-          var instance = react.render(react.div({}), mountNode);
+          var instance = react.render(Wrapper()(), mountNode);
           expect(isMounted(instance), isTrue);
 
           unmount(instance);
