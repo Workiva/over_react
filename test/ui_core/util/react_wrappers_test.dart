@@ -366,6 +366,38 @@ main() {
       });
     });
 
+    group('isDartComponent', () {
+      test('returns true for an unrendered instance (ReactElement) of a Dart component', () {
+        ReactElement instance = TestComponentFactory({});
+        expect(isDartComponent(instance), isTrue);
+      });
+
+      test('returns false for an unrendered instance (ReactElement) of a JS composite component', () {
+        ReactElement instance = testJsComponentFactory({});
+        expect(isDartComponent(instance), isFalse);
+      });
+
+      test('returns false for an unrendered instance (ReactElement) of a DOM component', () {
+        ReactElement instance = Dom.div()();
+        expect(isDartComponent(instance), isFalse);
+      });
+
+      test('returns true for an mounted instance (ReactComponent) of a Dart component', () {
+        var renderedInstance = render(TestComponentFactory({}));
+        expect(isDartComponent(renderedInstance), isTrue);
+      });
+
+      test('returns false for an mounted instance (ReactComponent) of a JS composite component', () {
+        var renderedInstance = render(testJsComponentFactory({}));
+        expect(isDartComponent(renderedInstance), isFalse);
+      });
+
+      test('returns false for an mounted instance (ReactComponent) of a DOM component', () {
+        var renderedInstance = render(Dom.div());
+        expect(isDartComponent(renderedInstance), isFalse);
+      });
+    });
+
     group('getDartComponent', () {
       test('returns the correct Dart component that is rendered', () {
         var renderedInstance = render(Button());

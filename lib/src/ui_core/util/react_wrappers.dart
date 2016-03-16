@@ -27,10 +27,10 @@ dynamic getInstanceRef(ReactElement instance) {
   return instance.ref;
 }
 
-/// Returns whether a component is a native Dart component.
+/// Returns whether a component is a native Dart component (react-dart [ReactElement] or [ReactComponent]).
 bool isDartComponent(instance) {
   // Don't try to access internal on a DOM component
-  return react_test_utils.isCompositeComponent(instance) && _getInternal(instance) != null;
+  return instance is! Element && _getInternal(instance) != null;
 }
 
 @JS('Object.keys')
