@@ -10,8 +10,6 @@ import 'package:js/js.dart';
 
 export 'package:web_skin_dart/src/ui_core/util/react_wrappers.dart';
 
-//JsObject _React = context['React'];
-
 /// Renders a React component or builder into a detached node and returns the JsObject instance.
 render(dynamic component) {
   return react_test_utils.renderIntoDocument(component is ComponentDefinition ? component.build() : component);
@@ -166,7 +164,7 @@ getByTestId(root, String value, {String key: 'data-test-id'}) {
 
     bool hasValue;
 
-    if (isDomComponent(descendant)) {
+    if (react_test_utils.isDOMComponent(descendant)) {
       hasValue = findDomNode(descendant).attributes[key] == value;
     } else {
       hasValue = getProps(descendant)[key] == value;
