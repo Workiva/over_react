@@ -5,7 +5,6 @@ import 'dart:js';
 
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
-import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:js/js.dart';
 
 /// Returns the internal Map used by react-dart to maintain the native Dart component.
@@ -154,7 +153,7 @@ bool isMounted(dynamic instance) {
 
 /// Returns the native Dart component associated with a React JS component instance, or null if the component is not Dart-based.
 react.Component getDartComponent(instance) {
-  if (!react_test_utils.isCompositeComponent(instance)) {
+  if (instance is Element) {
     return null;
   }
 
