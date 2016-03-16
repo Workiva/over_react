@@ -257,6 +257,10 @@ JsObject getByTestIdShallow(JsObject root, String value, {String key: 'data-test
 
 /// Returns all descendants of a component that contain the specified prop key.
 List<JsObject> findDescendantsWithProp(JsObject root, dynamic propKey) {
+  if (propKey is String && !propKey.startsWith('data-')) {
+    throw new Exception('findDescendantsWithProp must be used with a propKey that will render as a valid html data attribute.');
+  }
+
   List descendantsWithProp = react_test_utils.findAllInRenderedTree(root, new JsFunction.withThis((_, descendant) {
     if (descendant == root) {
       return false;
@@ -265,9 +269,11 @@ List<JsObject> findDescendantsWithProp(JsObject root, dynamic propKey) {
     descendant = react_test_utils.normalizeReactComponent(descendant);
 
     bool hasProp;
-    if (isDartComponent(descendant)) {
+    if (react_test_utils.isDOMComponent(descendant)) {
+      hasProp = findDomNode(descendant).attributes.containsKey(propKey);
+    } else if (isDartComponent(descendant)) {
       hasProp = getDartComponent(descendant).props.containsKey(propKey);
-    } else {
+    } else if (react_test_utils.isCompositeComponent(descendant)) {
       hasProp = descendant[PROPS].hasProperty(propKey);
     }
 
