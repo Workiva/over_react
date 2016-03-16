@@ -189,6 +189,21 @@ WheelEventCallback createChainedWheelEventCallback(WheelEventCallback a, WheelEv
   };
 }
 
+/// Creates a FocusDidChangeCallback that calls through to the two provided callbacks in order.
+/// Useful for executing multiple callbacks where only a single callback is accepted.
+///
+/// Returns `false` if one or more of the provided callback returns `false`.
+FocusDidChangeCallback createChainedFocusDidChangeCallback(FocusDidChangeCallback a, FocusDidChangeCallback b) {
+  return (int currentIndex, int prevIndex) {
+    var aDidReturnFalse = a != null ? a(currentIndex, prevIndex) == false : false;
+    var bDidReturnFalse = b != null ? b(currentIndex, prevIndex) == false : false;
+
+    if (aDidReturnFalse || bDidReturnFalse) {
+      return false;
+    }
+  };
+}
+
 /// Creates a Callback that calls through to the two provided callbacks in order.
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
