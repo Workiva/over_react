@@ -247,7 +247,8 @@ abstract class UiProps
   static bool testMode = false;
 
   /// Sets the prop [key] to [value] for use in a testing environment.
-  /// @deprecated. __Use the [addTestId] method instead.__
+  ///
+  /// Deprecated: __Use the [addTestId] method instead.__
   @deprecated
   void setTestId(String value, {String key: 'data-test-id'}) {
     if (!testMode) {
@@ -275,7 +276,8 @@ abstract class UiProps
   }
 
   /// Sets the `data-test-id` prop key to [value] for use in a testing environment.
-  /// @deprecated. __Use the [addTestId] method instead.__
+  ///
+  /// Deprecated: __Use the [addTestId] method instead.__
   @deprecated
   set testId(String value) {
     setTestId(value);
