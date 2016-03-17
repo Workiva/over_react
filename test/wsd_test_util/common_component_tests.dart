@@ -61,7 +61,7 @@ List getForwardingTargets(reactInstance, {int expectedTargetCount: 1, shallowRen
     throw new Exception('forwardedPropBeacon must begin with "data-" so that is a valid HTML attribute.');
   }
 
-  List<JsObject> forwardingTargets = [];
+  List forwardingTargets = [];
 
   if (shallowRendered) {
     getTargets(root) {
