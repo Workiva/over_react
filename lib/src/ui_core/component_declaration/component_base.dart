@@ -286,7 +286,7 @@ abstract class UiProps
   /// Gets the `data-test-id` prop or one testId from the prop (or custom [key] prop value) for use in a testing
   /// environment.
   String getTestId({String key: 'data-test-id'}) {
-      return props[key];
+    return props[key];
   }
 
   /// Gets the `data-test-id` prop key to [value] for use in a testing environment.
