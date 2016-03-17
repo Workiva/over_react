@@ -8,8 +8,6 @@ import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_components.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
-import '../../wsd_test_util/key_down_util.dart';
-
 /// Main entry point for DomUtil testing
 main() {
   group('isOrContains returns', () {
