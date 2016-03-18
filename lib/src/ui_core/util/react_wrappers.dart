@@ -5,6 +5,7 @@ import 'dart:js';
 
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
+import 'package:react/react_client/js_interop_helpers.dart';
 import 'package:js/js.dart';
 
 /// Returns the internal Map used by react-dart to maintain the native Dart component.
@@ -97,9 +98,9 @@ preparePropsChangeset(ReactElement element, Map newProps, [List newChildren]) {
         // are properly converted.
         Map convertedProps = new Map.from(newProps);
         ReactDomComponentFactoryProxy.convertProps(convertedProps);
-        propsChangeset = ReactDomComponentFactoryProxy.jsifyProps(convertedProps);
+        propsChangeset = jsify(convertedProps);
       } else {
-        propsChangeset = ReactDomComponentFactoryProxy.jsifyProps(newProps);
+        propsChangeset = jsify(newProps);
       }
     }
   } else {
