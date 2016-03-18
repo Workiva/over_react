@@ -283,9 +283,12 @@ List findDescendantsWithProp(root, dynamic propKey) {
 /// >
 /// > @param {object} partialProps Subset of the next props.
 /// > @param {?function} callback Called after props are updated.
-void setProps(instance, Map props, [callback]) {
+///
+/// Use [render] instead.
+@deprecated
+void setProps(ReactComponent instance, Map props, [callback]) {
   var propsChangeset = preparePropsChangeset(instance, props);
-  instance.callMethod('setProps', [propsChangeset, callback]);
+  instance.setProps(propsChangeset, callback);
 }
 
 /// Helper component that renders whatever you tell it to. Necessary for rendering components with the 'ref' prop.
