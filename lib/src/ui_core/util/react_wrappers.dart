@@ -53,7 +53,7 @@ Map getProps(instance) {
 }
 
 /// Returns the DOM node associated with a mounted React component [instance],
-/// which can be a [JsObject] or [react.Component].
+/// which can be a [ReactComponent]/[Element] or [react.Component].
 ///
 /// This method simply wraps react.findDOMNode with strong typing for the return value
 /// (and for the function itself, which is declared using `var` in react-dart).

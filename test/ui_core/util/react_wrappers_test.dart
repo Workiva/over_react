@@ -27,7 +27,7 @@ main() {
           var original = (Dom.div()..addProps(testProps))(testChildren);
           var clone = cloneElement(original);
 
-          // If these JsObject are equal, then they proxy the same JS props object.
+          // If these objects are equal, then they proxy the same JS props object.
           expect(clone.props, isNot(equals(original.props)));
 
           Map originalProps = getJsProps(original);
@@ -41,7 +41,7 @@ main() {
           var original = TestComponentFactory(testProps, testChildren);
           var clone = cloneElement(original);
 
-          // If these JsObject are equal, then they proxy the same JS props object.
+          // If these objects are equal, then they proxy the same JS props object.
           expect(clone.props, isNot(equals(original.props)));
 
           Map originalProps = getJsProps(original);
