@@ -4,9 +4,10 @@ import 'dart:async';
 // Tell dart2js that the `mockito` package only needs to reflect the specified mock/spied types.
 // This speeds up compilation and makes JS output much smaller.
 @MirrorsUsed(targets: const [
-  'MockKeyEvent',
-  'MockDocument',
   'MockTimer',
+  // Also include Mock classes we use from w_test_tools.
+  'w_test_tools.src.mock_classes.MockKeyEvent',
+  'w_test_tools.src.mock_classes.MockDocument',
 ], override: 'mockito')
 import 'dart:mirrors';
 
