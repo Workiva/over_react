@@ -26,7 +26,7 @@ ReactElement renderShallow(ReactElement instance) {
 
 /// Unmounts a React component.
 ///
-/// [instanceOrContainerNode] can be a [JsObject] React instance,
+/// [instanceOrContainerNode] can be a [ReactComponent]/[Element] React instance,
 /// or an [Element] container node (argument to [react.render]).
 ///
 /// For convenience, this method does nothing if [instanceOrContainerNode] is null,
@@ -51,7 +51,7 @@ void unmount(dynamic instanceOrContainerNode) {
     containerNode = findDomNode(instanceOrContainerNode).parent;
   } else {
     throw new ArgumentError(
-        '`instanceOrNode` must be null, a JsObject instance, or an Element. Was: $instanceOrContainerNode.'
+        '`instanceOrNode` must be null, a ReactComponent instance, or an Element. Was: $instanceOrContainerNode.'
     );
   }
 
@@ -92,7 +92,7 @@ Internal _getInternal(ReactComponent instance) => instance.props.internal;
 
 /// Returns a rendered component's ref, or null if it doesn't exist.
 ///
-/// The return type is [JsObject] for composite components, and [Element] for DOM components.
+/// The return type is [ReactComponent] for composite components, and [Element] for DOM components.
 ///
 /// Using `getRef()` can be tedious for nested / complex components. It is recommended to use [getByTestId] instead.
 dynamic getRef(ReactComponent instance, dynamic ref) {
