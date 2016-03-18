@@ -14,8 +14,8 @@ main() {
   group('ReactUtil', () {
     test('renderShallow renders a shallow instance of a component', () {
       var shallowInstance = renderShallow(Test()());
-      expect(shallowInstance['type'], 'div', reason: 'should be the div ReactElement returned by render()');
-      expect(shallowInstance['props']['isRenderResult'], isTrue, reason: 'should be the div ReactElement returned by render()');
+      expect(shallowInstance.type, 'div', reason: 'should be the div ReactElement returned by render()');
+      expect(getProps(shallowInstance), containsPair('isRenderResult', true), reason: 'should be the div ReactElement returned by render()');
     });
 
     test('renderAttachedToDocument renders the component into the document and [renderAttachedToDocument] removes those attached nodes', () {

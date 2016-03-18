@@ -1,8 +1,8 @@
 library react_wrappers_test;
 
 import 'dart:html';
-import 'dart:js';
 
+import 'package:js/js.dart';
 import 'package:test/test.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react.dart' as react;
@@ -120,15 +120,14 @@ main() {
           });
 
           test('for JS composite components', () {
-            var original = testJsComponentFactory.apply([testProps, testChildren]);
+            var original = testJsComponentFactory(testProps, testChildren);
             var clone = cloneElement(original, testPropsToAdd);
 
             var renderedClone = react_test_utils.renderIntoDocument(clone);
             Map cloneProps = getJsProps(renderedClone);
 
-            var convertedStyle = cloneProps['style'];
-            expect(convertedStyle, new isInstanceOf<JsObject>(), reason: 'style should have been converted to a JS map for React JS consumption');
-            expect(convertedStyle['width'], equals('100rem'));
+            PlainObjectStyleMap convertedStyle = cloneProps['style'];
+            expect(convertedStyle.width, equals('100rem'));
           });
 
           group(', except', () {
@@ -173,7 +172,7 @@ main() {
 
           group(', except', () {
             test('for JS composite components', () {
-              var original = testJsComponentFactory.apply([testProps, testChildren]);
+              var original = testJsComponentFactory(testProps, testChildren);
               var clone = cloneElement(original, testPropsToAdd);
 
               var renderedClone = react_test_utils.renderIntoDocument(clone);
@@ -228,7 +227,8 @@ main() {
         });
 
         test('for a Dart component', () {
-          var original, clone;
+          ReactElement original;
+          ReactElement clone;
 
           // The 'ref' property can only be used from within a render() method, so use RenderingContainerComponent
           // to clone and render the test component.
@@ -243,8 +243,8 @@ main() {
           var renderedHolder = render(holder);
 
           // Verify that "key" and "ref" are overridden according to React
-          expect(clone['key'], equals(overrideKeyRefProps['key']));
-          expect(clone['ref'], equals(overrideKeyRefProps['ref']));
+          expect(clone.key, equals(overrideKeyRefProps['key']));
+          expect(clone.ref, equals(overrideKeyRefProps['ref']));
 
           var renderedClone = react_test_utils.findRenderedComponentWithType(renderedHolder, TestComponentFactory);
 
@@ -338,7 +338,7 @@ main() {
         });
 
         test('a JS composite component', () {
-          expect(isDomElement(testJsComponentFactory.apply([])), isFalse);
+          expect(isDomElement(testJsComponentFactory()), isFalse);
         });
 
         test('null', () {
@@ -405,7 +405,7 @@ main() {
       });
 
       test('returns null for a JS composite component', () {
-        var renderedInstance = render(testJsComponentFactory.apply([]));
+        var renderedInstance = render(testJsComponentFactory());
         expect(getDartComponent(renderedInstance), isNull);
       });
 
@@ -424,18 +424,22 @@ class TestComponent extends react.Component {
   render() => Dom.div()();
 }
 
-JsFunction _testJsComponentFactory;
-JsFunction get testJsComponentFactory {
+Function _testJsComponentFactory;
+Function get testJsComponentFactory {
   if (_testJsComponentFactory == null) {
-    JsObject React = context['React'];
+    var componentClass = React.createClass(new ReactClassConfig(
+      displayName: 'testJsComponent',
+      render: allowInterop(() => Dom.div()('test js component'))
+    ));
 
-    var componentClass = React.callMethod('createClass', [new JsObject.jsify({
-      'displayName': 'testJsComponent',
-      'render': () => Dom.div()('test js component')
-    })]);
-
-    _testJsComponentFactory = React.callMethod('createFactory', [componentClass]);
+    _testJsComponentFactory = React.createFactory(componentClass);
   }
 
   return _testJsComponentFactory;
+}
+
+@JS()
+@anonymous
+class PlainObjectStyleMap {
+  get width;
 }
