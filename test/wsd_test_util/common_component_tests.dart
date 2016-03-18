@@ -65,11 +65,12 @@ List getForwardingTargets(reactInstance, {int expectedTargetCount: 1, shallowRen
 
   if (shallowRendered) {
     getTargets(root) {
-      if (root['props'][forwardedPropBeacon] == true || getProps(root)?.containsKey(forwardedPropBeacon) == true) {
+      var rootProps = getProps(root);
+      if (rootProps.containsKey(forwardedPropBeacon)) {
         forwardingTargets.add(root);
       }
 
-      final children = root['props']['children'];
+      final children = rootProps['children'];
 
       if (children is List) {
         flattenChildren(List _children) {
