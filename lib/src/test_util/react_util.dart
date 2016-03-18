@@ -18,7 +18,7 @@ render(dynamic component) {
 /// Shallow-renders a component using [react_test_utils.ReactShallowRenderer].
 ///
 /// See: <https://facebook.github.io/react/docs/test-utils.html#shallow-rendering>.
-renderShallow(ReactElement instance) {
+ReactElement renderShallow(ReactElement instance) {
   var renderer = react_test_utils.createRenderer();
   renderer.render(instance);
   return renderer.getRenderOutput();
@@ -221,33 +221,31 @@ Map getPropsByTestId(root, String value, {String key: 'data-test-id'}) {
   return null;
 }
 
-ReactElement getByTestIdShallow(root, String value, {String key: 'data-test-id'}) {
+ReactElement getByTestIdShallow(ReactElement root, String value, {String key: 'data-test-id'}) {
   var descendant;
 
   getDescendant(_root) {
-    if (_root['props'][key] == value || (getProps(_root) != null && getProps(_root)[key] == value)) {
+    var rootProps = getProps(_root);
+
+    if (rootProps[key] == value) {
       descendant = _root;
       return;
     }
 
-    if (_root['props']['children'] is List) {
+    if (rootProps['children'] is List) {
       flattenChildren(List children) {
         children.forEach((_child) {
-          if (_child != null && _child is! List && _child['props'] != null) {
+          if (isValidElement(_child)) {
             getDescendant(_child);
-          }  else if (_child is List) {
+          } else if (_child is List) {
             flattenChildren(_child);
           }
         });
       }
 
-      flattenChildren(_root['props']['children']);
-    } else if (
-      _root['props']['children'] is! String &&
-      _root['props']['children'] != null &&
-      _root['props']['children']['props'] != null
-    ) {
-      getDescendant(_root['props']['children']);
+      flattenChildren(rootProps['children']);
+    } else if (isValidElement(rootProps['children'])) {
+      getDescendant(rootProps['children']);
     }
   }
 
