@@ -619,7 +619,7 @@ main() {
           FocusDidChangeCallback b = (current, prev) => calledB = true;
 
           var chainedCallback = createChainedFocusDidChangeCallback(a, b);
-          var result = chainedCallback();
+          var result = chainedCallback(null, null);
 
           expect(calledA, isTrue);
           expect(calledB, isTrue);
@@ -641,7 +641,7 @@ main() {
           };
 
           var chainedCallback = createChainedFocusDidChangeCallback(a, b);
-          chainedCallback();
+          chainedCallback(null, null);
 
           expect(calledA, isTrue);
           expect(calledB, isTrue);
@@ -658,7 +658,7 @@ main() {
             FocusDidChangeCallback b = (current, prev) => calledB = true;
 
             var chainedCallback = createChainedFocusDidChangeCallback(a, b);
-            var result = chainedCallback();
+            var result = chainedCallback(null, null);
 
             expect(calledA, isTrue);
             expect(calledB, isTrue);
@@ -676,7 +676,7 @@ main() {
             };
 
             var chainedCallback = createChainedFocusDidChangeCallback(a, b);
-            var result = chainedCallback();
+            var result = chainedCallback(null, null);
 
             expect(calledA, isTrue);
             expect(calledB, isTrue);
@@ -697,7 +697,7 @@ main() {
             };
 
             var chainedCallback = createChainedFocusDidChangeCallback(a, b);
-            var result = chainedCallback();
+            var result = chainedCallback(null, null);
 
             expect(calledA, isTrue);
             expect(calledB, isTrue);
@@ -718,7 +718,7 @@ main() {
             };
 
             var chainedCallback = createChainedFocusDidChangeCallback(a, b);
-            var result = chainedCallback();
+            var result = chainedCallback(null, null);
 
             expect(calledA, isTrue);
             expect(calledB, isTrue);
@@ -732,14 +732,14 @@ main() {
           FocusDidChangeCallback a = (current, prev) => calledA = true;
 
           var chainedCallback = createChainedFocusDidChangeCallback(a, null);
-          chainedCallback();
+          chainedCallback(null, null);
 
           expect(calledA, isTrue);
         });
 
         test('should gracefully handle both provided functions being null', () {
           var chainedCallback = createChainedFocusDidChangeCallback(null, null);
-          var result = chainedCallback();
+          var result = chainedCallback(null, null);
 
           expect(result, isNull);
         });
