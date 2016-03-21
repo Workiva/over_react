@@ -612,6 +612,139 @@ main() {
         });
       });
 
+      group('createFocusDidChangeCallback', () {
+        test('should return a FocusDidChangeCallback that calls the two provided functions', () {
+          bool calledA = false, calledB = false;
+          FocusDidChangeCallback a = (current, prev) => calledA = true;
+          FocusDidChangeCallback b = (current, prev) => calledB = true;
+
+          var chainedCallback = createChainedFocusDidChangeCallback(a, b);
+          var result = chainedCallback();
+
+          expect(calledA, isTrue);
+          expect(calledB, isTrue);
+
+          expect(result, isNull);
+        });
+
+        test('should return a FocusDidChangeCallback that calls the two provided functions in order', () {
+          int counter = 1;
+          bool calledA = false, calledB = false;
+          FocusDidChangeCallback a = (current, prev) {
+            calledA = true;
+            zonedExpect(counter, equals(1));
+            counter++;
+          };
+          FocusDidChangeCallback b = (current, prev) {
+            calledB = true;
+            zonedExpect(counter, equals(2));
+          };
+
+          var chainedCallback = createChainedFocusDidChangeCallback(a, b);
+          chainedCallback();
+
+          expect(calledA, isTrue);
+          expect(calledB, isTrue);
+        });
+
+        group('should return a FocusDidChangeCallback that calls the two provided functions and returns', () {
+          test('false if the first provided functions returns false', () {
+            bool calledA = false,
+              calledB = false;
+            FocusDidChangeCallback a = (current, prev) {
+              calledA = true;
+              return false;
+            };
+            FocusDidChangeCallback b = (current, prev) => calledB = true;
+
+            var chainedCallback = createChainedFocusDidChangeCallback(a, b);
+            var result = chainedCallback();
+
+            expect(calledA, isTrue);
+            expect(calledB, isTrue);
+
+            expect(result, isFalse);
+          });
+
+          test('false if the second provided functions returns false', () {
+            bool calledA = false,
+              calledB = false;
+            FocusDidChangeCallback a = (current, prev) => calledA = true;
+            FocusDidChangeCallback b = (current, prev) {
+              calledB = true;
+              return false;
+            };
+
+            var chainedCallback = createChainedFocusDidChangeCallback(a, b);
+            var result = chainedCallback();
+
+            expect(calledA, isTrue);
+            expect(calledB, isTrue);
+
+            expect(result, isFalse);
+          });
+
+          test('false if both provided functions return false', () {
+            bool calledA = false,
+              calledB = false;
+            FocusDidChangeCallback a = (current, prev) {
+              calledA = true;
+              return false;
+            };
+            FocusDidChangeCallback b = (current, prev) {
+              calledB = true;
+              return false;
+            };
+
+            var chainedCallback = createChainedFocusDidChangeCallback(a, b);
+            var result = chainedCallback();
+
+            expect(calledA, isTrue);
+            expect(calledB, isTrue);
+
+            expect(result, isFalse);
+          });
+
+          test('null if no provided function returns false', () {
+            bool calledA = false,
+              calledB = false;
+            FocusDidChangeCallback a = (current, prev) {
+              calledA = true;
+              return true;
+            };
+            FocusDidChangeCallback b = (current, prev) {
+              calledB = true;
+              return;
+            };
+
+            var chainedCallback = createChainedFocusDidChangeCallback(a, b);
+            var result = chainedCallback();
+
+            expect(calledA, isTrue);
+            expect(calledB, isTrue);
+
+            expect(result, isNull);
+          });
+        });
+
+        test('should gracefully handle one provided function being null', () {
+          bool calledA = false;
+          FocusDidChangeCallback a = (current, prev) => calledA = true;
+
+          var chainedCallback = createChainedFocusDidChangeCallback(a, null);
+          chainedCallback();
+
+          expect(calledA, isTrue);
+        });
+
+        test('should gracefully handle both provided functions being null', () {
+          var chainedCallback = createChainedFocusDidChangeCallback(null, null);
+          var result = chainedCallback();
+
+          expect(result, isNull);
+        });
+      });
+
       group('createChainedCallback', () {
         test('should return a Callback that calls the two provided functions', () {
           bool calledA = false, calledB = false;
