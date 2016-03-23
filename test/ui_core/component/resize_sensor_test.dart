@@ -15,8 +15,8 @@ import '../../wsd_test_util/zone.dart';
 
 void main() {
   group('ResizeSensor', () {
-    const int containerWidth = 100;
-    const int containerHeight = 100;
+    const int defaultContainerWidth = 100;
+    const int defaultContainerHeight = 100;
 
     Element domTarget;
 
@@ -31,15 +31,16 @@ void main() {
       domTarget.remove();
     });
 
-    Element renderSensorIntoContainer(ResizeHandler handler) {
+    Element renderSensorIntoContainer({ResizeSensorHandler onInitialize, ResizeSensorHandler onResize,
+        int width: defaultContainerWidth, int height: defaultContainerHeight}) {
       // Create component hierarchy.
-      var sensor = (ResizeSensor()..onResize = handler)();
+      var sensor = (ResizeSensor()..onInitialize = onInitialize..onResize = onResize)();
       var container = react.div({
         'className': 'container',
         'style': {
           'position': 'absolute',
-          'width': containerWidth,
-          'height': containerHeight
+          'width': width,
+          'height': height
         }
       }, sensor);
 
@@ -56,11 +57,11 @@ void main() {
     /// tracked to confirm callback invocation, instead of `expectAsync`, due to
     /// oddities in detecting callback invocations.
     Future expectResizeAfter(void action(Element container),
-        {void onResize(ResizeSensorEvent)}) async {
+        {ResizeSensorHandler onResize}) async {
       var wasResizeDetected = false;
 
       Element containerEl;
-      containerEl = renderSensorIntoContainer((event) {
+      containerEl = renderSensorIntoContainer(onResize: (event) {
         if (onResize != null) {
           onResize(event);
         }
@@ -75,13 +76,34 @@ void main() {
           () => expect(wasResizeDetected, isTrue));
     }
 
+    /// Expect resize sensor invokes registered `onInitialize` callback.
+    ///
+    /// The caller must await this function. See above.
+    Future expectInitialize({ResizeSensorHandler onInitialize, int width: defaultContainerWidth,
+        int height: defaultContainerHeight}) async {
+      var wasInitializeDetected = false;
+
+      renderSensorIntoContainer(onInitialize: (event) {
+        if (onInitialize != null) {
+          onInitialize(event);
+        }
+        wasInitializeDetected = true;
+      }, width: width, height: height);
+
+      // See above.
+      await new Future.delayed(const Duration(milliseconds: 200),
+          () => expect(wasInitializeDetected, isTrue));
+    }
+
     group('should render with the correct styles when isFlexChild is', () {
       test('true', () {
         var renderedNode = renderAndGetDom((ResizeSensor()..isFlexChild = true)());
 
         expect(renderedNode.style.position, equals('relative'));
-        expect(renderedNode.style.flex, equals('1 1 0%'));
         expect(renderedNode.style.display, equals('block'));
+        // Use the attribute text to match these since `style`'s API won't work for unsupported properties.
+        expect(renderedNode.attributes['style'], matches(new RegExp(r'(?:^|;)flex: *1 1 0%;')));
+        expect(renderedNode.attributes['style'], matches(new RegExp(r'(?:^|;)-ms-flex: *1 1 0%;')));
       });
 
       test('false', () {
@@ -119,37 +141,57 @@ void main() {
 
     test('should detect when bounding rect grows horizontally', () async {
       await expectResizeAfter((containerEl) {
-        containerEl.style.width = '${containerWidth * 2}px';
+        containerEl.style.width = '${defaultContainerWidth * 2}px';
       });
     });
 
     test('should detect when bounding rect grows vertically', () async {
       await expectResizeAfter((containerEl) {
-        containerEl.style.height = '${containerHeight * 2}px';
+        containerEl.style.height = '${defaultContainerHeight * 2}px';
       });
     });
 
     test('should detect when bounding rect shrinks horizontally', () async {
       await expectResizeAfter((containerEl) {
-        containerEl.style.width = '${containerWidth / 2}px';
+        containerEl.style.width = '${defaultContainerWidth / 2}px';
       });
     });
 
     test('should detect when bounding rect shrinks vertically', () async {
       await expectResizeAfter((containerEl) {
-        containerEl.style.height = '${containerHeight / 2}px';
+        containerEl.style.height = '${defaultContainerHeight / 2}px';
       });
     });
 
     test('should pass the correct event args on resize', () async {
       await expectResizeAfter((containerEl) {
-        containerEl.style.width = '${containerWidth * 2}px';
-        containerEl.style.height = '${containerHeight * 2}px';
+        containerEl.style.width = '${defaultContainerWidth * 2}px';
+        containerEl.style.height = '${defaultContainerHeight * 2}px';
       }, onResize: (ResizeSensorEvent event) {
-        zonedExpect(event.newWidth, equals(containerWidth * 2));
-        zonedExpect(event.newHeight, equals(containerHeight * 2));
-        zonedExpect(event.prevWidth, equals(containerWidth));
-        zonedExpect(event.prevHeight, equals(containerHeight));
+        zonedExpect(event.newWidth, equals(defaultContainerWidth * 2));
+        zonedExpect(event.newHeight, equals(defaultContainerHeight * 2));
+        zonedExpect(event.prevWidth, equals(defaultContainerWidth));
+        zonedExpect(event.prevHeight, equals(defaultContainerHeight));
+      });
+    });
+
+    group('should pass the correct event args on initialize', () {
+      test('when initial width and height are non-zero', () async {
+        await expectInitialize(onInitialize: (ResizeSensorEvent event) {
+          zonedExpect(event.newWidth, equals(100));
+          zonedExpect(event.newHeight, equals(100));
+          zonedExpect(event.prevWidth, equals(0));
+          zonedExpect(event.prevHeight, equals(0));
+        }, width: 100, height: 100);
+      });
+
+      test('when initial width and height are zero', () async {
+        await expectInitialize(onInitialize: (ResizeSensorEvent event) {
+          zonedExpect(event.newWidth, equals(0));
+          zonedExpect(event.newHeight, equals(0));
+          zonedExpect(event.prevWidth, equals(0));
+          zonedExpect(event.prevHeight, equals(0));
+        }, width: 0, height: 0);
       });
     });
 

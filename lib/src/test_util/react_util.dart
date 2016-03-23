@@ -145,9 +145,9 @@ void simulateMouseLeave(EventTarget target) {
 /// Returns null if no descendant has its [key] prop value set [value].
 ///
 ///     var renderedInstance = render(Dom.div()(
-///         (Dom.div()..testId = 'first-div')() // Div1
+///         (Dom.div()..addTestId('first-div'))() // Div1
 ///         Dom.div()(
-///           (Dom.div()..testId = 'nested-div')() // Div2
+///           (Dom.div()..addTestId('nested-div'))() // Div2
 ///         )
 ///       )
 ///     );
@@ -157,7 +157,7 @@ void simulateMouseLeave(EventTarget target) {
 ///     var nonexistentDiv = getByTestId(renderedInstance, 'nonexistent-div'); // Returns null
 ///
 /// It is recommended that, instead of setting this [key] prop manually, you should use the
-/// [UiProps.testId] setter or [UiProps.setTestId] method so the prop is only set in a test environment.
+/// [UiProps.addTestId] method so the prop is only set in a test environment.
 JsObject getByTestId(JsObject root, String value, {String key: 'data-test-id'}) {
   bool first = false;
 
@@ -171,9 +171,9 @@ JsObject getByTestId(JsObject root, String value, {String key: 'data-test-id'}) 
     bool hasValue;
 
     if (descendant['tagName'] is String) {
-      hasValue = findDomNode(descendant).attributes[key] == value;
+      hasValue = findDomNode(descendant).attributes[key] != null && splitSpaceDelimitedString(findDomNode(descendant).attributes[key]).contains(value);
     } else {
-      hasValue = getProps(descendant)[key] == value;
+      hasValue = getProps(descendant)[key] != null && splitSpaceDelimitedString(getProps(descendant)[key].toString()).contains(value);
     }
 
     if (hasValue) {
