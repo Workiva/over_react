@@ -9,7 +9,7 @@ import 'package:test/test.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart';
 import 'package:web_skin_dart/test_util.dart';
-import 'package:web_skin_dart/ui_core.dart' show Dom;
+import 'package:web_skin_dart/ui_core.dart' show Dom, DummyComponent;
 
 main() {
   group('component base:', () {
@@ -470,6 +470,13 @@ main() {
         });
       });
     });
+
+    test('registerAbstractComponent registers a type alias for a componentClass', () {
+      Type typeAlias = TestRegisterComponentClassAlias;
+      var reactComponentFactory = registerAbstractComponent(typeAlias);
+
+      expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias), equals(reactComponentFactory.type));
+    });
   });
 }
 
@@ -643,10 +650,6 @@ void mapProxyTests(Map mapProxyFactory(Map proxiedMap)) {
 
 class MockMap extends Mock implements Map {
   noSuchMethod(i) => super.noSuchMethod(i);
-}
-
-class DummyComponent extends react.Component {
-  render() {}
 }
 
 abstract class TestRegisterComponentClassAlias {}
