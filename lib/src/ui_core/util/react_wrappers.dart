@@ -118,6 +118,9 @@ preparePropsChangeset(ReactElement element, Map newProps, [List newChildren]) {
   return propsChangeset;
 }
 
+@JS('React.cloneElement')
+external ReactElement _cloneElement(element, [props, children]);
+
 /// Dart wrapper for React.cloneElement.
 ///
 /// _From the JS docs:_
@@ -130,11 +133,10 @@ preparePropsChangeset(ReactElement element, Map newProps, [List newChildren]) {
 ReactElement cloneElement(ReactElement element, [Map props, List children]) {
   var propsChangeset = preparePropsChangeset(element, props, children);
 
-  List jsMethodArgs = [element, propsChangeset];
   if (children != null) {
-    return React.cloneElement(element, propsChangeset, children);
+    return _cloneElement(element, propsChangeset, children);
   } else {
-    return React.cloneElement(element, propsChangeset);
+    return _cloneElement(element, propsChangeset);
   }
 }
 
