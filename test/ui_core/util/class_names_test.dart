@@ -198,7 +198,7 @@ main() {
             expect(() {
               new ClassNameBuilder()
                 ..addFromProps(null);
-            }, isNot(throws));
+            }, returnsNormally);
           });
         });
 
@@ -254,48 +254,48 @@ main() {
         test('accepts null input', () {
           expect(() {
             new ClassNameBuilder.fromProps(null);
-          }, isNot(throws));
+          }, returnsNormally);
         });
       });
     });
 
-    group('splitClassName() splits a className string properly', () {
+    group('splitSpaceDelimitedString() splits a className string properly', () {
       test('when the input is a single class', () {
-        expect(splitClassName('class1'), equals(['class1']));
+        expect(splitSpaceDelimitedString('class1'), equals(['class1']));
       });
 
       test('when the input is a multiple classes', () {
-        expect(splitClassName('class1 class2'), equals(['class1', 'class2']));
-        expect(splitClassName('class1 class2 class3'), equals(['class1', 'class2', 'class3']));
-        expect(splitClassName('class1 class2 class3 class4'), equals(['class1', 'class2', 'class3', 'class4']));
+        expect(splitSpaceDelimitedString('class1 class2'), equals(['class1', 'class2']));
+        expect(splitSpaceDelimitedString('class1 class2 class3'), equals(['class1', 'class2', 'class3']));
+        expect(splitSpaceDelimitedString('class1 class2 class3 class4'), equals(['class1', 'class2', 'class3', 'class4']));
       });
 
       test('when there is extra padding to the left', () {
-        expect(splitClassName(' class1 class2'), equals(['class1', 'class2']));
-        expect(splitClassName('  class1 class2'), equals(['class1', 'class2']));
-        expect(splitClassName('   class1 class2'), equals(['class1', 'class2']));
+        expect(splitSpaceDelimitedString(' class1 class2'), equals(['class1', 'class2']));
+        expect(splitSpaceDelimitedString('  class1 class2'), equals(['class1', 'class2']));
+        expect(splitSpaceDelimitedString('   class1 class2'), equals(['class1', 'class2']));
       });
 
       test('when there is extra padding to the right', () {
-        expect(splitClassName('class1 class2 '), equals(['class1', 'class2']));
-        expect(splitClassName('class1 class2  '), equals(['class1', 'class2']));
-        expect(splitClassName('class1 class2   '), equals(['class1', 'class2']));
+        expect(splitSpaceDelimitedString('class1 class2 '), equals(['class1', 'class2']));
+        expect(splitSpaceDelimitedString('class1 class2  '), equals(['class1', 'class2']));
+        expect(splitSpaceDelimitedString('class1 class2   '), equals(['class1', 'class2']));
       });
 
       test('when there is extra padding between classes', () {
-        expect(splitClassName('class1 class2'), equals(['class1', 'class2']));
-        expect(splitClassName('class1  class2'), equals(['class1', 'class2']));
-        expect(splitClassName('class1   class2'), equals(['class1', 'class2']));
+        expect(splitSpaceDelimitedString('class1 class2'), equals(['class1', 'class2']));
+        expect(splitSpaceDelimitedString('class1  class2'), equals(['class1', 'class2']));
+        expect(splitSpaceDelimitedString('class1   class2'), equals(['class1', 'class2']));
       });
 
       test('when the input is an empty string', () {
-        expect(splitClassName(''), equals([]));
+        expect(splitSpaceDelimitedString(''), equals([]));
       });
 
       test('when the input is only spaces', () {
-        expect(splitClassName(' '), equals([]));
-        expect(splitClassName('  '), equals([]));
-        expect(splitClassName('   '), equals([]));
+        expect(splitSpaceDelimitedString(' '), equals([]));
+        expect(splitSpaceDelimitedString('  '), equals([]));
+        expect(splitSpaceDelimitedString('   '), equals([]));
       });
     });
   });

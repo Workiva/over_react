@@ -8,7 +8,6 @@ import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_components.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
-import '../../wsd_test_util/key_down_util.dart';
 import '../../wsd_test_util/wrapper_component.dart';
 
 /// Main entry point for DomUtil testing
@@ -97,20 +96,18 @@ main() {
 
       group('of descendant form control elements', () {
         setUp(() {
-          renderedInstance = render(Wrapper()(
-            (Dom.form()..testId = 'form')(
-              (Dom.input()
-                ..id = 'firstInput'
-                ..testId = 'firstInput'
-              )(),
-              (Dom.input()
-                ..id = 'secondInput'
-                ..testId = 'secondInput'
-              )()
-            )
+          renderedInstance = render(Dom.form()(
+            (Dom.input()
+              ..id = 'firstInput'
+              ..addTestId('firstInput')
+            )(),
+            (Dom.input()
+              ..id = 'secondInput'
+              ..addTestId('secondInput')
+            )()
           ));
 
-          formElementNode = getDomByTestId(renderedInstance, 'form');
+          formElementNode = findDomNode(renderedInstance);
 
           // The rest of the tests are pointless if this expectation is not met
           expect(formElementNode is FormElement, isTrue);
@@ -126,8 +123,8 @@ main() {
 
         test('with the expected values', () {
           expect(formElements, equals([
-            getDomByTestId(renderedInstance, 'firstInput'),
-            getDomByTestId(renderedInstance, 'secondInput'),
+            formElementNode.childNodes[0],
+            formElementNode.childNodes[1],
           ]));
         });
       });
@@ -151,7 +148,7 @@ class DomTestComponent extends UiComponent<DomTestProps> with HitAreaMixin<DomTe
   @override
   render() {
     return Dom.div()(
-      (Dom.div()..testId = 'innerComponent')()
+      (Dom.div()..addTestId('innerComponent'))()
     );
   }
 }

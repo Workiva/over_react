@@ -135,8 +135,7 @@ class TestComponentDefinition extends BaseComponentDefinition {
 ReactComponentFactory _TestComponentComponentFactory = react.registerComponent(() => new _TestComponent());
 class _TestComponent extends BaseComponent<TestComponentDefinition> {
   @override
-  render() {
-  }
+  render() => false;
 
   @override
   TestComponentDefinition typedPropsFactory(Map propsMap) => new TestComponentDefinition(propsMap);
