@@ -174,16 +174,16 @@ main() {
           var props = new TestComponentProps();
           props.addProp('key', 'value');
 
-          expect(() => props.addProps(null), isNot(throws));
+          expect(() => props.addProps(null), returnsNormally);
 
           expect(props, equals({'key': 'value'}));
         });
       });
 
       group('testId', () {
-        test('sets the correct value for the `data-test-id` key', () {
+        test('sets the correct value for the `data-test-id` key when setting the testId', () {
           var props = new TestComponentProps();
-          props.testId = 'value';
+          props.addTestId('value');
 
           expect(props, equals({'data-test-id': 'value'}));
         });
@@ -192,15 +192,48 @@ main() {
           UiProps.testMode = false;
 
           var props = new TestComponentProps();
-          props.testId = 'value';
+          props.addTestId('value');
 
           expect(props, equals({}));
 
           UiProps.testMode = true;
         });
+
+        test('sets the correct value for the `data-test-id` key when adding a testId', () {
+          var props = new TestComponentProps();
+          props.addTestId('value');
+
+          expect(props, equals({'data-test-id': 'value'}));
+        });
+
+        test('sets the correct value for the `data-test-id` key when adding multiple testIds through multiple calls to `addTestId`', () {
+          var props = new TestComponentProps();
+          props.addTestId('value1');
+          props.addTestId('value2');
+
+          expect(props, equals({'data-test-id': 'value1 value2'}));
+        });
+
+        test('does not set a value for the `data-test-id` when adding a testId but inTesting is false', () {
+          UiProps.testMode = false;
+
+          var props = new TestComponentProps();
+          props.addTestId('value');
+
+          expect(props, equals({}));
+
+          UiProps.testMode = true;
+        });
+
+        test('does not set a value for the `data-test-id` when adding a `null` testId', () {
+          var props = new TestComponentProps();
+          props.addTestId(null);
+
+          expect(props, equals({}));
+        });
       });
 
-      group('setTestId', () {
+      group('setTestId (deprecated)', () {
         test('sets the correct value for the `data-test-id` key', () {
           var props = new TestComponentProps();
           props.setTestId('value');
@@ -502,7 +535,7 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
 
   TestComponentComponent({testConsumedPropKeys}) : consumedPropKeys = testConsumedPropKeys;
 
-  render() {}
+  render() => false;
 
   @override
   TestComponentProps typedPropsFactory(Map propsMap) => new TestComponentProps(propsMap);

@@ -1,5 +1,11 @@
 library test_util.prop_utils;
 
+// Tell dart2js that this library only needs to reflect types annotated with `Props`/`PropsMixin`.
+// This speeds up compilation and makes JS output much smaller.
+@MirrorsUsed(metaTargets: const [
+  'web_skin_dart.component_declaration.annotations.Props',
+  'web_skin_dart.component_declaration.annotations.PropsMixin',
+])
 import 'dart:mirrors';
 
 import 'package:test/test.dart';
