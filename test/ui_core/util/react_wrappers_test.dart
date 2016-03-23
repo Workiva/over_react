@@ -55,8 +55,8 @@ main() {
           expect(originalShallowProps, equals(clonePropsShallowProps));
 
           // Verify react-dart internal props are equal.
-          Internal originalInternal = originalProps['internal'];
-          Internal clonePropsInternal = cloneProps['internal'];
+          ReactDartComponentInternal originalInternal = originalProps['internal'];
+          ReactDartComponentInternal clonePropsInternal = cloneProps['internal'];
           expect(originalInternal.props, equals(clonePropsInternal.props));
 
           var dartRendered = getDartComponent(render(original));

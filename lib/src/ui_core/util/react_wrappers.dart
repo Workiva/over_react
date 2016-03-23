@@ -9,7 +9,7 @@ import 'package:react/react_client/js_interop_helpers.dart';
 import 'package:js/js.dart';
 
 /// Returns the internal Map used by react-dart to maintain the native Dart component.
-Internal _getInternal(ReactElement instance) => instance.props.internal;
+ReactDartComponentInternal _getInternal(ReactElement instance) => instance.props.internal;
 
 /// Returns the internal representation of a Dart component's props as maintained by react-dart
 /// Similar to ReactElement.props in JS, but also includes `key`, `ref` and `children`
@@ -87,7 +87,7 @@ bool isDomElement(dynamic instance) {
 preparePropsChangeset(ReactElement element, Map newProps, [List newChildren]) {
   var propsChangeset;
 
-  Internal internal = _getInternal(element);
+  final internal = _getInternal(element);
   if (internal == null) {
     // Plain JS component
     if (newProps == null) {
