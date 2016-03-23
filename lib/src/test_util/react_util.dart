@@ -88,7 +88,7 @@ void tearDownAttachedNodes() {
 }
 
 /// Returns the internal Map used by react-dart to maintain the native Dart component.
-Internal _getInternal(ReactComponent instance) => instance.props.internal;
+ReactDartComponentInternal _getInternal(ReactComponent instance) => instance.props.internal;
 
 /// Returns a rendered component's ref, or null if it doesn't exist.
 ///
