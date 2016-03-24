@@ -102,8 +102,10 @@ void main() {
         var renderedNode = renderAndGetDom((ResizeSensor()..isFlexChild = true)());
 
         expect(renderedNode.style.position, equals('relative'));
-        expect(renderedNode.style.flex, equals('1 1 0%'));
         expect(renderedNode.style.display, equals('block'));
+        // Use the attribute text to match these since `style`'s API won't work for unsupported properties.
+        expect(renderedNode.attributes['style'], matches(new RegExp(r'(?:^|;)flex: *1 1 0%;')));
+        expect(renderedNode.attributes['style'], matches(new RegExp(r'(?:^|;)-ms-flex: *1 1 0%;')));
       });
 
       test('false', () {
