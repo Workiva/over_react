@@ -2,6 +2,7 @@
 library web_skin_dart.component_declaration.component_type_checking;
 
 import 'package:react/react_client.dart';
+import 'package:react/react_client/js_interop_helpers.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart' show UiFactory;
 import 'package:web_skin_dart/src/ui_core/util/react_wrappers.dart';
 
