@@ -7,6 +7,8 @@ import 'package:test/test.dart';
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
+import '../wsd_test_util/wrapper_component.dart';
+
 /// Main entry point for ReactUtil testing
 main() {
   group('ReactUtil', () {
@@ -114,7 +116,7 @@ main() {
 
     group('getByTestId returns', () {
       test('the topmost JsObject that has the appropriate value for the `data-test-id` prop key', () {
-        var renderedInstance = render(Dom.div()(
+        var renderedInstance = render(Wrapper()(
           (Dom.div()..addTestId('value'))('First Descendant'),
           Dom.div()(
             (Dom.div()..addTestId('value'))('Nested Descendant')
@@ -127,7 +129,7 @@ main() {
       });
 
       test('the topmost JsObject that has the appropriate value for the custom prop key', () {
-        var renderedInstance = render(Dom.div()(
+        var renderedInstance = render(Wrapper()(
           (Dom.div()..addTestId('value'))('First Descendant'),
           Dom.div()(
             (Dom.div()..addTestId('value', key: 'data-custom-id'))('Nested Descendant')
@@ -140,7 +142,7 @@ main() {
       });
 
       test('the topmost JsObject that has the `data-test-id` prop set to \'null\' when the user searches for \'null\'', () {
-        var renderedInstance = render(Dom.div()(
+        var renderedInstance = render(Wrapper()(
           (Dom.div()..addTestId('null'))('First Descendant'),
           Dom.div()(
             (Dom.div()..addTestId('null'))('Nested Descendant')
@@ -156,7 +158,7 @@ main() {
         test('the old testId is called', () {
           var instance = (Dom.div()..addTestId('testId1'))('Nested Descendant');
           var clonedInstance = cloneElement(instance, domProps(getProps(instance))..addTestId('testId2'));
-          var renderedInstance = render(Dom.div()(
+          var renderedInstance = render(Wrapper()(
             clonedInstance,
             Dom.div()('Nested Descendant 2')
           ));
@@ -169,7 +171,7 @@ main() {
         test('the new testId is called', () {
           var instance = (Dom.div()..addTestId('testId1'))('Nested Descendant');
           var clonedInstance = cloneElement(instance, domProps(getProps(instance))..addTestId('testId2'));
-          var renderedInstance = render(Dom.div()(
+          var renderedInstance = render(Wrapper()(
             clonedInstance,
             Dom.div()('Nested Descendant 2')
           ));
@@ -182,9 +184,9 @@ main() {
 
       group('the topmost JsObject that has the appropriate value for a custom prop key when cloned and', () {
         test('the old testId is called', () {
-          var instance = (Dom.div()..addTestId('testId1', key: 'data-custom-id'))('Nested Descendant');
+          var instance = (Wrapper()..addTestId('testId1', key: 'data-custom-id'))('Nested Descendant');
           var clonedInstance = cloneElement(instance, domProps(getProps(instance))..addTestId('testId2', key: 'data-custom-id'));
-          var renderedInstance = render(Dom.div()(
+          var renderedInstance = render(Wrapper()(
             clonedInstance,
             Dom.div()('Nested Descendant 2')
           ));
@@ -195,9 +197,9 @@ main() {
         });
 
         test('the new testId is called', () {
-          var instance = (Dom.div()..addTestId('testId1', key: 'data-custom-id'))('Nested Descendant');
+          var instance = (Wrapper()..addTestId('testId1', key: 'data-custom-id'))('Nested Descendant');
           var clonedInstance = cloneElement(instance, domProps(getProps(instance))..addTestId('testId2', key: 'data-custom-id'));
-          var renderedInstance = render(Dom.div()(
+          var renderedInstance = render(Wrapper()(
             clonedInstance,
             Dom.div()('Nested Descendant 2')
           ));
@@ -209,7 +211,7 @@ main() {
       });
 
       test('null if no descendant has the appropriate value for the `data-test-id` prop key', () {
-        var renderedInstance = render(Dom.div());
+        var renderedInstance = render(Wrapper());
 
         var descendant = getByTestId(renderedInstance, 'value');
 
@@ -217,7 +219,7 @@ main() {
       });
 
       test('null if the user searches for a test ID of \'null\' when no test ID is set', () {
-        var renderedInstance = render(Dom.div());
+        var renderedInstance = render(Wrapper());
 
         var descendant = getByTestId(renderedInstance, 'null');
 
@@ -225,7 +227,7 @@ main() {
       });
 
       test('null if the user searches for a test ID of `null` when the test ID is set to \'null\'', () {
-        var renderedInstance = render(Dom.div()(
+        var renderedInstance = render(Wrapper()(
           (Test()..addTestId('null'))()
         ));
 
@@ -237,7 +239,7 @@ main() {
 
     group('getDomByTestId returns', () {
       test('the topmost Element that has the appropriate value for the `data-test-id` prop key', () {
-        var renderedInstance = render(Dom.div()(
+        var renderedInstance = render(Wrapper()(
           (Dom.div()..addTestId('value'))('First Descendant'),
           Dom.div()(
             (Dom.div()..addTestId('value'))('Nested Descendant')
@@ -250,7 +252,7 @@ main() {
       });
 
       test('the topmost Element that has the appropriate value for the custom prop key', () {
-        var renderedInstance = render(Dom.div()(
+        var renderedInstance = render(Wrapper()(
           (Dom.div()..addTestId('value'))('First Descendant'),
           Dom.div()(
             (Dom.div()..addTestId('value', key: 'data-custom-id'))('Nested Descendant')
@@ -263,7 +265,7 @@ main() {
       });
 
       test('the topmost Element that has the value \'null\' for the `data-test-id` prop key when the user searches for \'null\'', () {
-        var renderedInstance = render(Dom.div()(
+        var renderedInstance = render(Wrapper()(
           (Dom.div()..addTestId('null'))('First Descendant'),
           Dom.div()(
             (Dom.div()..addTestId('null'))
@@ -279,7 +281,7 @@ main() {
         test('the old testId is called', () {
           var instance = (Dom.div()..addTestId('testId1'))();
           var clonedInstance = cloneElement(instance, domProps(getProps(instance))..addTestId('testId2'));
-          var renderedInstance = render(Dom.div()(clonedInstance));
+          var renderedInstance = render(Wrapper()(clonedInstance));
 
           var descendant = getDomByTestId(renderedInstance, 'testId1');
 
@@ -289,7 +291,7 @@ main() {
         test('the new testId is called', () {
           var instance = (Dom.div()..addTestId('testId1'))();
           var clonedInstance = cloneElement(instance, domProps(getProps(instance))..addTestId('testId2'));
-          var renderedInstance = render(Dom.div()(clonedInstance));
+          var renderedInstance = render(Wrapper()(clonedInstance));
 
           var descendant = getDomByTestId(renderedInstance, 'testId2');
 
@@ -301,7 +303,7 @@ main() {
         test('the old testId is called', () {
           var instance = (Dom.div()..addTestId('testId1', key: 'data-custom-id'))();
           var clonedInstance = cloneElement(instance, domProps(getProps(instance))..addTestId('testId2', key: 'data-custom-id'));
-          var renderedInstance = render(Dom.div()(clonedInstance));
+          var renderedInstance = render(Wrapper()(clonedInstance));
 
           var descendant = getDomByTestId(renderedInstance, 'testId1', key: 'data-custom-id');
 
@@ -311,7 +313,7 @@ main() {
         test('the new testId is called', () {
           var instance = (Dom.div()..addTestId('testId1', key: 'data-custom-id'))();
           var clonedInstance = cloneElement(instance, domProps(getProps(instance))..addTestId('testId2', key: 'data-custom-id'));
-          var renderedInstance = render(Dom.div()(clonedInstance));
+          var renderedInstance = render(Wrapper()(clonedInstance));
 
           var descendant = getDomByTestId(renderedInstance, 'testId2', key: 'data-custom-id');
 
@@ -320,7 +322,7 @@ main() {
       });
 
       test('null if no descendant has the appropriate value for the `data-test-id` prop key', () {
-        var renderedInstance = render(Dom.div());
+        var renderedInstance = render(Wrapper());
 
         var descendant = getDomByTestId(renderedInstance, 'value');
 
@@ -328,7 +330,7 @@ main() {
       });
 
       test('null if the user searches for \'null\' when no test ID is set', () {
-        var renderedInstance = render(Dom.div());
+        var renderedInstance = render(Wrapper());
 
         var descendant = getDomByTestId(renderedInstance, 'null');
 
@@ -336,7 +338,7 @@ main() {
       });
 
       test('null if the user searches for `null` when a test ID is set to \'null\'', () {
-        var renderedInstance = (Dom.div()(
+        var renderedInstance = render(Wrapper()(
           (Test()..addTestId('null'))()
         ));
 
@@ -348,7 +350,7 @@ main() {
 
     group('getComponentByTestId returns', () {
       test('the topmost react.Component that has the appropriate value for the `data-test-id` prop key', () {
-        var renderedInstance = render(Dom.div()(
+        var renderedInstance = render(Wrapper()(
           (Test()..addTestId('value'))('First Descendant'),
           Dom.div()(
             (Test()..addTestId('value'))('Nested Descendant')
@@ -361,7 +363,7 @@ main() {
       });
 
       test('the topmost react.Component that has the appropriate value for the custom prop key', () {
-        var renderedInstance = render(Dom.div()(
+        var renderedInstance = render(Wrapper()(
           (Test()..addTestId('value'))('First Descendant'),
           Dom.div()(
             (Test()..addTestId('value', key: 'data-custom-id'))('Nested Descendant')
@@ -374,7 +376,7 @@ main() {
       });
 
       test('the topmost react.Component that has the value \'null\' for the `data-test-id` prop key when the user searches for \'null\'', () {
-        var renderedInstance = render(Dom.div()(
+        var renderedInstance = render(Wrapper()(
           (Test()..addTestId('null'))('First Descendant'),
           Dom.div()(
             (Test()..addTestId('null'))('Nested Descendant')
@@ -431,7 +433,7 @@ main() {
       });
 
       test('null if no descendant has the appropriate value for the `data-test-id` prop key', () {
-        var renderedInstance = render(Dom.div()(
+        var renderedInstance = render(Wrapper()(
           (Test()..addTestId('otherValue'))()
         ));
 
@@ -441,7 +443,7 @@ main() {
       });
 
       test('null if the user searches for \'null\' when no test ID is set', () {
-        var renderedInstance = render(Dom.div()(
+        var renderedInstance = render(Wrapper()(
           Test()()
         ));
 
@@ -451,7 +453,7 @@ main() {
       });
 
       test('null if the user searches for `null` when a test ID is set to \'null\'', () {
-        var renderedInstance = render(Dom.div()(
+        var renderedInstance = render(Wrapper()(
           (Test()..addTestId('null'))()
         ));
 
@@ -463,7 +465,7 @@ main() {
 
     group('getPropsByTestId returns', () {
       test('the props map of the topmost JsObject that has the appropriate value for the `data-test-id` prop key', () {
-        var renderedInstance = render(Dom.div()(
+        var renderedInstance = render(Wrapper()(
           (Test()
             ..id = 'test_id'
             ..addTestId('value')
@@ -479,7 +481,7 @@ main() {
       });
 
       test('the props map of the topmost JsObject that has the appropriate value for the custom prop key', () {
-        var renderedInstance = render(Dom.div()(
+        var renderedInstance = render(Wrapper()(
           (Test()..addTestId('value'))('First Descendant'),
           Dom.div()(
             (Test()
@@ -495,7 +497,7 @@ main() {
       });
 
       test('the props map of the topmost JsObject that has the value \'null\' for the `data-test-id` prop key when the user searches for \'null\'', () {
-        var renderedInstance = render(Dom.div()(
+        var renderedInstance = render(Wrapper()(
           (Test()..addTestId('null'))('First Descendant'),
           Dom.div()(
             (Test()..addTestId('null'))('Nested Descendant')
@@ -552,7 +554,7 @@ main() {
       });
 
       test('null if no descendant has the appropriate value for the `data-test-id` prop key', () {
-        var renderedInstance = render(Dom.div()(
+        var renderedInstance = render(Wrapper()(
           (Test()..addTestId('otherValue'))()
         ));
 
@@ -562,7 +564,7 @@ main() {
       });
 
       test('null if the user searches for \'null\' when no test ID is set', () {
-        var renderedInstance = render(Dom.div()(
+        var renderedInstance = render(Wrapper()(
           Test()()
         ));
 
@@ -572,7 +574,7 @@ main() {
       });
 
       test('null if the user searches for `null` when a test ID is set to \'null\'', () {
-        var renderedInstance = render(Dom.div()(
+        var renderedInstance = render(Wrapper()(
           (Test()..addTestId('null'))()
         ));
 
@@ -583,7 +585,7 @@ main() {
     });
 
     test('findDescendantsWithProp returns the descendants with the propKey', () {
-      var renderedInstance = render(Dom.div()([
+      var renderedInstance = render(Wrapper()([
         (Dom.div()..disabled = true)(),
         Dom.div()([
           (Dom.div()..disabled = true)()
@@ -595,7 +597,7 @@ main() {
     });
 
     test('setProps sets a subset of a component\'s props', () {
-      var renderedInstance = render(Dom.div()..tabIndex = -1);
+      var renderedInstance = render(Wrapper()..tabIndex = -1);
 
       setProps(renderedInstance, {'className': 'class1'});
 

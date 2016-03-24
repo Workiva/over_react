@@ -56,12 +56,46 @@ Set getComponentPropKeys(BuilderOnlyUiFactory factory) {
 /// Prop key for use in conjunction with [getForwardingTargets].
 const String forwardedPropBeacon = 'data-forwarding-target';
 /// Return the components to which props have been forwarded (identified using the [forwardedPropBeacon] prop).
-List<JsObject> getForwardingTargets(JsObject reactInstance, {int expectedTargetCount: 1}) {
-  List<JsObject> forwardingTargets = findDescendantsWithProp(reactInstance, forwardedPropBeacon);
+List<JsObject> getForwardingTargets(JsObject reactInstance, {int expectedTargetCount: 1, shallowRendered: false}) {
+  if (!forwardedPropBeacon.startsWith('data-')) {
+    throw new Exception('forwardedPropBeacon must begin with "data-" so that is a valid HTML attribute.');
+  }
 
-  // Filter out non-DOM components (e.g., React.DOM.Button uses composite components to render)
-  // FIXME Remove and use shallow renderer to allow unit testing of comopsite component rendering.
-  forwardingTargets = forwardingTargets.where(react_test_utils.isDOMComponent).toList();
+  List<JsObject> forwardingTargets = [];
+
+  if (shallowRendered) {
+    getTargets(root) {
+      if (root['props'][forwardedPropBeacon] == true || getProps(root)?.containsKey(forwardedPropBeacon) == true) {
+        forwardingTargets.add(root);
+      }
+
+      if (root['props']['children'] is List) {
+        flattenChildren(List children) {
+          children.forEach((_child) {
+            if (_child != null && _child is JsObject && _child['props'] != null) {
+              getTargets(_child);
+            }  else if (_child is List) {
+              flattenChildren(_child);
+            }
+          });
+        }
+
+        flattenChildren(root['props']['children']);
+      } else if (
+        root['props']['children'] is! String &&
+        root['props']['children'] != null &&
+        root['props']['children']['props'] != null
+      ) {
+        getTargets(root['props']['children']);
+      }
+    }
+
+    getTargets(reactInstance);
+  } else {
+    // Filter out non-DOM components (e.g., React.DOM.Button uses composite components to render)
+    forwardingTargets = findDescendantsWithProp(reactInstance, forwardedPropBeacon);
+    forwardingTargets = forwardingTargets.where(react_test_utils.isDOMComponent).toList();
+  }
 
   if (forwardingTargets.length != expectedTargetCount) {
     throw 'Unexpected number of forwarding targets: ${forwardingTargets.length}.';
@@ -101,21 +135,20 @@ void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(),
 
       unconsumedPropKeys.forEach((key) => propsThatShouldNotGetForwarded.remove(key));
 
+    var shallowRenderer = react_test_utils.createRenderer();
+
     // Use RenderingContainerComponentFactory so we can set ref on our test component
-    JsObject holder = RenderingContainerComponentFactory({
-      'renderer': () {
-        return (factory()
+    JsObject instance = (factory()
           ..addProps(propsThatShouldNotGetForwarded)
           ..addProps(extraProps)
           ..key = key
           ..ref = ref
         )(childrenFactory());
-      }
-    });
-    JsObject renderedHolder = render(holder);
-    JsObject renderedInstance = getRef(renderedHolder, ref);
 
-    List<JsObject> forwardingTargets = getForwardingTargets(renderedInstance);
+    shallowRenderer.render(instance);
+    JsObject result = shallowRenderer.getRenderOutput();
+
+    List<JsObject> forwardingTargets = getForwardingTargets(result, shallowRendered: true);
 
     for (JsObject forwardingTarget in forwardingTargets) {
       Map actualProps = getProps(forwardingTarget);
@@ -127,15 +160,7 @@ void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(),
 
       Set unexpectedKeys = actualProps.keys.toSet().intersection(propsThatShouldNotGetForwarded.keys.toSet());
       expect(unexpectedKeys, isEmpty, reason: 'Should filter out all consumed props');
-
-      // Verify that React props are omitted when forwarding.
-      // 'key' and 'ref' props don't show up in the props Map of rendered non-Dart components.
-      // We can't test 'key' since React doesn't expose it.
-      // We can test 'ref' indirectly by validating that it doesn't show up under the ref that shouldn't have been forwarded.
-      expect(getRef(renderedInstance, ref), isNull, reason: 'Should not forward the React "ref" prop');
     }
-
-    unmount(renderedHolder);
   });
 }
 
