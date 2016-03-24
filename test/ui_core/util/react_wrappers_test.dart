@@ -5,6 +5,7 @@ import 'dart:html';
 import 'package:js/js.dart';
 import 'package:test/test.dart';
 import 'package:react/react_client.dart';
+import 'package:react/react_client/react_interop.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:web_skin_dart/test_util.dart';
