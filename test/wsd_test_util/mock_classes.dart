@@ -13,6 +13,12 @@ import 'dart:html';
   'dart.dom.html.HtmlDocument',
   'w_test_tools.src.mock_classes.MockKeyEvent',
   'w_test_tools.src.mock_classes.MockDocument',
+  'MockFileList',
+  'MockFile',
+  'MockFileUploadInputElement',
+  'dart.dom.html.FileList',
+  'dart.dom.html.File',
+  'dart.dom.html.FileUploadInputElement',
 ], override: 'mockito')
 import 'dart:mirrors';
 
