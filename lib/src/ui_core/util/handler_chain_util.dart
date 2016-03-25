@@ -5,6 +5,7 @@ import 'package:react/react.dart' as react;
 import '../component/callback_typedefs.dart';
 
 /// Creates an EventKeyCallback that calls through to the two provided callbacks in order.
+///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
@@ -20,6 +21,7 @@ EventKeyCallback createChainedEventKeyCallback(EventKeyCallback a, EventKeyCallb
 }
 
 /// Creates an EventKeyCallback that calls through to the list of provided callbacks in order.
+///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
@@ -40,6 +42,7 @@ EventKeyCallback createChainedEventKeyCallbackFromList(List<EventKeyCallback> ca
 }
 
 /// Creates an IndexCallback that calls through to the two provided callbacks in order.
+///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
@@ -55,6 +58,7 @@ EventKeyCallback createChainedIndexCallback(IndexCallback a, IndexCallback b) {
 }
 
 /// Creates a DomEventCallback that calls through to the two provided callbacks in order.
+///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
@@ -70,6 +74,7 @@ DomEventCallback createChainedDomEventCallback(DomEventCallback a, DomEventCallb
 }
 
 /// Creates a ClipboardEventCallback that calls through to the two provided callbacks in order.
+///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
@@ -85,6 +90,7 @@ ClipboardEventCallback createChainedClipboardEventCallback(ClipboardEventCallbac
 }
 
 /// Creates a KeyboardEventCallback that calls through to the two provided callbacks in order.
+///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
@@ -100,6 +106,7 @@ KeyboardEventCallback createChainedKeyboardEventCallback(KeyboardEventCallback a
 }
 
 /// Creates a FocusEventCallback that calls through to the two provided callbacks in order.
+///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
@@ -115,6 +122,7 @@ FocusEventCallback createChainedFocusEventCallback(FocusEventCallback a, FocusEv
 }
 
 /// Creates a FormEventCallback that calls through to the two provided callbacks in order.
+///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
@@ -130,6 +138,7 @@ FormEventCallback createChainedFormEventCallback(FormEventCallback a, FormEventC
 }
 
 /// Creates a MouseEventCallback that calls through to the two provided callbacks in order.
+///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
@@ -145,6 +154,7 @@ MouseEventCallback createChainedMouseEventCallback(MouseEventCallback a, MouseEv
 }
 
 /// Creates a TouchEventCallback that calls through to the two provided callbacks in order.
+///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
@@ -160,6 +170,7 @@ TouchEventCallback createChainedTouchEventCallback(TouchEventCallback a, TouchEv
 }
 
 /// Creates a UIEventCallback that calls through to the two provided callbacks in order.
+///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
@@ -175,6 +186,7 @@ UIEventCallback createChainedUIEventCallback(UIEventCallback a, UIEventCallback 
 }
 
 /// Creates a WheelEventCallback that calls through to the two provided callbacks in order.
+///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
@@ -189,7 +201,24 @@ WheelEventCallback createChainedWheelEventCallback(WheelEventCallback a, WheelEv
   };
 }
 
+/// Creates a FocusDidChangeCallback that calls through to the two provided callbacks in order.
+///
+/// Useful for executing multiple callbacks where only a single callback is accepted.
+///
+/// Returns `false` if one or more of the provided callback returns `false`.
+FocusDidChangeCallback createChainedFocusDidChangeCallback(FocusDidChangeCallback a, FocusDidChangeCallback b) {
+  return (int currentIndex, int prevIndex) {
+    var aDidReturnFalse = a != null ? a(currentIndex, prevIndex) == false : false;
+    var bDidReturnFalse = b != null ? b(currentIndex, prevIndex) == false : false;
+
+    if (aDidReturnFalse || bDidReturnFalse) {
+      return false;
+    }
+  };
+}
+
 /// Creates a Callback that calls through to the two provided callbacks in order.
+///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
