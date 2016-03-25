@@ -97,7 +97,7 @@ main() {
       group('properly converts props for', () {
         group('style Maps', () {
           const Map testPropsToAdd = const {
-            'style': const {'property': 'value'}
+            'style': const {'width': '100rem'}
           };
 
           test('for DOM components', () {
@@ -105,11 +105,9 @@ main() {
             var clone = cloneElement(original, testPropsToAdd);
 
             var renderedClone = react_test_utils.renderIntoDocument(clone);
-            Map cloneProps = getJsProps(renderedClone);
+            var renderedCloneNode = findDomNode(renderedClone);
 
-            var convertedStyle = cloneProps['style'];
-            expect(convertedStyle, new isInstanceOf<JsObject>(), reason: 'style should have been converted to a JS map for React JS consumption');
-            expect(convertedStyle['property'], equals('value'));
+            expect(renderedCloneNode.style.width, equals('100rem'));
           });
 
           test('for JS composite components', () {
@@ -121,7 +119,7 @@ main() {
 
             var convertedStyle = cloneProps['style'];
             expect(convertedStyle, new isInstanceOf<JsObject>(), reason: 'style should have been converted to a JS map for React JS consumption');
-            expect(convertedStyle['property'], equals('value'));
+            expect(convertedStyle['width'], equals('100rem'));
           });
 
           group(', except', () {

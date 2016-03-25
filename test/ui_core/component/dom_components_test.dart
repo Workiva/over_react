@@ -9,7 +9,6 @@ import 'dart:js';
 import 'dart:mirrors';
 
 import 'package:test/test.dart';
-import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
 
@@ -29,10 +28,10 @@ main() {
       if (expectedTagName == 'variable') {
         expectedTagName = 'var';
       }
-      test('Dom.$name generates the correct tagName', () {
+      test('Dom.$name generates the correct type', () {
         var domComponent = domClassMirror.invoke(element.simpleName, []).reflectee;
-        JsObject component = render(domComponent());
-        expect(component['tagName'], equalsIgnoringCase(expectedTagName));
+        JsObject component = domComponent();
+        expect(component['type'], equalsIgnoringCase(expectedTagName));
       });
     }
   });

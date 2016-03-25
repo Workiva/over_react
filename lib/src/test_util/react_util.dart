@@ -94,8 +94,10 @@ Map _getInternal(JsObject instance) => instance[PROPS][INTERNAL];
 
 /// Returns a rendered component's ref, or null if it doesn't exist.
 ///
+/// The return type is [JsObject] for composite components, and [Element] for DOM components.
+///
 /// Using `getRef()` can be tedious for nested / complex components. It is recommended to use [getByTestId] instead.
-JsObject getRef(JsObject instance, dynamic ref) {
+dynamic getRef(JsObject instance, dynamic ref) {
   if (instance == null) {
     return null;
   }
@@ -149,9 +151,9 @@ void simulateMouseLeave(EventTarget target) {
 /// Returns null if no descendant has its [key] prop value set [value].
 ///
 ///     var renderedInstance = render(Dom.div()(
-///         (Dom.div()..testId = 'first-div')() // Div1
+///         (Dom.div()..addTestId('first-div'))() // Div1
 ///         Dom.div()(
-///           (Dom.div()..testId = 'nested-div')() // Div2
+///           (Dom.div()..addTestId('nested-div'))() // Div2
 ///         )
 ///       )
 ///     );
@@ -161,16 +163,24 @@ void simulateMouseLeave(EventTarget target) {
 ///     var nonexistentDiv = getByTestId(renderedInstance, 'nonexistent-div'); // Returns null
 ///
 /// It is recommended that, instead of setting this [key] prop manually, you should use the
-/// [UiProps.testId] setter or [UiProps.setTestId] method so the prop is only set in a test environment.
+/// [UiProps.addTestId] method so the prop is only set in a test environment.
 JsObject getByTestId(JsObject root, String value, {String key: 'data-test-id'}) {
   bool first = false;
 
-  var results = react_test_utils.findAllInRenderedTree(root, new JsFunction.withThis((_, JsObject descendant) {
+  var results = react_test_utils.findAllInRenderedTree(root, new JsFunction.withThis((_, descendant) {
     if (first) {
       return false;
     }
 
-    bool hasValue = getProps(descendant)[key] == value;
+    descendant = react_test_utils.normalizeReactComponent(descendant);
+
+    bool hasValue;
+
+    if (descendant['tagName'] is String) {
+      hasValue = findDomNode(descendant).attributes[key] != null && splitSpaceDelimitedString(findDomNode(descendant).attributes[key]).contains(value);
+    } else {
+      hasValue = getProps(descendant)[key] != null && splitSpaceDelimitedString(getProps(descendant)[key].toString()).contains(value);
+    }
 
     if (hasValue) {
       first = true;
@@ -182,7 +192,7 @@ JsObject getByTestId(JsObject root, String value, {String key: 'data-test-id'}) 
   if (results.isEmpty) {
     return null;
   } else {
-    return results.single;
+    return react_test_utils.normalizeReactComponent(results.single);
   }
 }
 /// Returns the [Element] of the first descendant of [root] that has its [key] prop value set to [value].
@@ -216,22 +226,67 @@ Map getPropsByTestId(JsObject root, String value, {String key: 'data-test-id'}) 
   return null;
 }
 
+JsObject getByTestIdShallow(JsObject root, String value, {String key: 'data-test-id'}) {
+  var descendant;
+
+  getDescendant(_root) {
+    if (_root['props'][key] == value || (getProps(_root) != null && getProps(_root)[key] == value)) {
+      descendant = _root;
+      return;
+    }
+
+    if (_root['props']['children'] is List) {
+      flattenChildren(List children) {
+        children.forEach((_child) {
+          if (_child != null && _child is! List && _child['props'] != null) {
+            getDescendant(_child);
+          }  else if (_child is List) {
+            flattenChildren(_child);
+          }
+        });
+      }
+
+      flattenChildren(_root['props']['children']);
+    } else if (
+      _root['props']['children'] is! String &&
+      _root['props']['children'] != null &&
+      _root['props']['children']['props'] != null
+    ) {
+      getDescendant(_root['props']['children']);
+    }
+  }
+
+  getDescendant(root);
+
+  return descendant;
+}
+
 /// Returns all descendants of a component that contain the specified prop key.
+///
+/// Note: propKey must be a valid HTML5 attribute.
 List<JsObject> findDescendantsWithProp(JsObject root, dynamic propKey) {
-  return react_test_utils.findAllInRenderedTree(root, new JsFunction.withThis((_, JsObject descendant) {
+  List descendantsWithProp = react_test_utils.findAllInRenderedTree(root, new JsFunction.withThis((_, descendant) {
     if (descendant == root) {
       return false;
     }
 
+    descendant = react_test_utils.normalizeReactComponent(descendant);
+
     bool hasProp;
-    if (isDartComponent(descendant)) {
+    if (react_test_utils.isDOMComponent(descendant)) {
+      hasProp = findDomNode(descendant).attributes.containsKey(propKey);
+    } else if (isDartComponent(descendant)) {
       hasProp = getDartComponent(descendant).props.containsKey(propKey);
-    } else {
+    } else if (react_test_utils.isCompositeComponent(descendant)) {
       hasProp = descendant[PROPS].hasProperty(propKey);
     }
 
     return hasProp;
   }));
+
+  descendantsWithProp = descendantsWithProp.map(react_test_utils.normalizeReactComponent).toList();
+
+  return descendantsWithProp;
 }
 
 /// Dart wrapper for setProps.
