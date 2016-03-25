@@ -18,9 +18,9 @@ class ClassNameMatcher extends Matcher {
   static Iterable getClassIterable(dynamic classNames) {
     Iterable classes;
     if (classNames is Iterable<String>) {
-      classes = (classNames as Iterable).where((className) => className != null).expand(splitClassName);
+      classes = (classNames as Iterable).where((className) => className != null).expand(splitSpaceDelimitedString);
     } else if (classNames is String) {
-      classes = splitClassName(classNames);
+      classes = splitSpaceDelimitedString(classNames);
     } else {
       throw new ArgumentError.value(classNames, 'Must be a list of classNames or a className string', 'classNames');
     }
