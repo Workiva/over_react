@@ -6,7 +6,7 @@ main(List<String> args) async {
   config.analyze
     ..strong = true
     ..fatalWarnings = true
-    ..entryPoints = ['web/'];
+    ..entryPoints = ['web/', 'lib/'];
 
   config.test
     ..pubServe = true
