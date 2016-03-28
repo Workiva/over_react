@@ -16,7 +16,9 @@ import 'package:web_skin_dart/ui_core.dart' show
     getProps,
     getPropsToForward,
     isDartComponent,
-    isValidElement;
+    isValidElement,
+    getDomNodeTypeef,
+    refTypedef;
 
 export 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart' show isComponentOfType, isValidElementOfType;
 
