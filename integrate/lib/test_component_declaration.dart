@@ -1,4 +1,5 @@
 import 'package:web_skin_dart/ui_core.dart';
+import 'package:web_skin_dart/ui_components.dart';
 
 @Factory()
 UiFactory<FooProps> Foo;
@@ -13,6 +14,9 @@ class FooState extends UiState {}
 class FooComponent extends UiStatefulComponent<FooProps, FooState> {
   @override
   render() {
-    return Dom.div()();
+    return Button()(
+      'Child 1',
+      'Child 2'
+    );
   }
 }
