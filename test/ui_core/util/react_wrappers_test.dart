@@ -249,10 +249,9 @@ main() {
 
           var renderedClone = react_test_utils.findRenderedComponentWithType(renderedHolder, TestComponentFactory);
 
-          // Verify that the "key" and "ref" props are overridden according to the Dart component.
           Map cloneDartProps = getDartComponent(renderedClone).props;
-          expect(cloneDartProps['key'], equals(overrideKeyRefProps['key']));
-          expect(cloneDartProps['ref'], equals(overrideKeyRefProps['ref']));
+          expect(cloneDartProps, isNot(anyOf(contains('key'), contains('ref'))),
+              reason: '"key" and "ref" should not be visible to the rendered cloned component');
         });
       });
 
