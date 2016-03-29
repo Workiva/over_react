@@ -20,8 +20,11 @@ UiFactory<ResizeSensorProps> ResizeSensor;
 
 @Props()
 class ResizeSensorProps extends UiProps {
+  /// A function invoked when the resize sensor is initialized.
+  ResizeSensorHandler onInitialize;
+
   /// A function invoked when the parent element is resized.
-  ResizeHandler onResize;
+  ResizeSensorHandler onResize;
 
   /// Whether the [ResizeSensor] is a child of a flex item. Necessary to apply the correct styling.
   ///
@@ -41,6 +44,11 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
   @override
   void componentDidMount(rootNode) {
     _reset();
+
+    if (props.onInitialize != null) {
+      var event = new ResizeSensorEvent(_lastWidth, _lastHeight, 0, 0);
+      props.onInitialize(event);
+    }
   }
 
   @override
@@ -106,7 +114,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
 
   /// When the expand or collapse sensors are resized, builds a [ResizeSensorEvent] and calls
   /// props.onResize with it. Then, calls through to [_reset()].
-  void _handleSensorScroll(react.SyntheticEvent event) {
+  void _handleSensorScroll(react.SyntheticEvent _) {
     Element sensor = getDOMNode();
 
     if (sensor.offsetWidth != _lastWidth || sensor.offsetHeight != _lastHeight) {
@@ -184,7 +192,7 @@ final Map<String, dynamic> _collapseSensorChildStyle = const {
   'opacity': '0',
 };
 
-/// Used with [ResizeHandler] to provide information about a resize.
+/// Used with [ResizeSensorHandler] to provide information about a resize.
 class ResizeSensorEvent {
   /// The new width, in pixels.
   final int newWidth;
@@ -198,4 +206,4 @@ class ResizeSensorEvent {
   ResizeSensorEvent(this.newWidth, this.newHeight, this.prevWidth, this.prevHeight);
 }
 
-typedef void ResizeHandler(ResizeSensorEvent event);
+typedef void ResizeSensorHandler(ResizeSensorEvent event);
