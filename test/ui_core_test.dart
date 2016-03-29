@@ -35,24 +35,24 @@ main() {
 
   component_base.UiProps.testMode = true;
 
-  abstract_transition_test.main();
-  base_component_test.main();
-  dom_components_test.main();
-  prop_mixins_test.main();
-  resize_sensor_test.main();
-  component_base_test.main();
-  component_type_checking_test.main();
-  flux_component_test.main();
-  transformer_helpers_test.main();
-  abstract_accessor_integration_test.main();
-  accessor_mixin_integration_test.main();
-  component_integration_test.main();
-  namespaced_accessor_integration_test.main();
-  stateful_component_integration_test.main();
-  class_names_test.main();
-  css_value_util_test.main();
-  dom_util_test.main();
-  handler_chain_util_test.main();
-  map_util_test.main();
-  react_wrappers_test.main();
+  // abstract_transition_test.main();
+  // base_component_test.main();
+  // dom_components_test.main();
+  // prop_mixins_test.main();
+  // resize_sensor_test.main();
+  // component_base_test.main();
+  // component_type_checking_test.main();
+  // flux_component_test.main();
+  // transformer_helpers_test.main();
+  // abstract_accessor_integration_test.main();
+  // accessor_mixin_integration_test.main();
+  // component_integration_test.main();
+  // namespaced_accessor_integration_test.main();
+  // stateful_component_integration_test.main();
+  // class_names_test.main();
+  // css_value_util_test.main();
+  // dom_util_test.main();
+  // handler_chain_util_test.main();
+  // map_util_test.main();
+  // react_wrappers_test.main();
 }
