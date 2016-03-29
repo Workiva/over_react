@@ -18,7 +18,7 @@ main() {
 
   component_base.UiProps.testMode = true;
 
-  // custom_matchers_test.main();
-  // test_util_dom_util_test.main();
-  // react_util_test.main();
+  custom_matchers_test.main();
+  test_util_dom_util_test.main();
+  react_util_test.main();
 }
