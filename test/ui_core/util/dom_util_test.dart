@@ -8,8 +8,6 @@ import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_components.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
-import '../../wsd_test_util/key_down_util.dart';
-
 /// Main entry point for DomUtil testing
 main() {
   group('isOrContains returns', () {
@@ -99,11 +97,11 @@ main() {
           renderedInstance = render(Dom.form()(
             (Dom.input()
               ..id = 'firstInput'
-              ..testId = 'firstInput'
+              ..addTestId('firstInput')
             )(),
             (Dom.input()
               ..id = 'secondInput'
-              ..testId = 'secondInput'
+              ..addTestId('secondInput')
             )()
           ));
 
@@ -148,7 +146,7 @@ class DomTestComponent extends UiComponent<DomTestProps> with HitAreaMixin<DomTe
   @override
   render() {
     return Dom.div()(
-      (Dom.div()..testId = 'innerComponent')()
+      (Dom.div()..addTestId('innerComponent'))()
     );
   }
 }

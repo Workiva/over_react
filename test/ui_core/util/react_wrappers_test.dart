@@ -160,7 +160,7 @@ main() {
 
             expect(() {
               react_test_utils.Simulate.click(renderedClone);
-            }, isNot(throws), reason: 'should not throw due to mismatched arguments or otherwise');
+            }, returnsNormally, reason: 'should not throw due to mismatched arguments or otherwise');
             expect(onClickWasCalled, isTrue, reason: 'event handler that was added via cloning was not called');
           });
 
@@ -174,10 +174,10 @@ main() {
 
               expect(() {
                 // Retrieve an automatically JS-proxied version of the callback passed to the component.
-                JsFunction callback = cloneProps['onClick'];
+                var callback = cloneProps['onClick'];
                 // Call the method with one arg.
-                callback.apply([null]);
-              }, isNot(throws), reason: 'should not throw due to mismatched arguments or otherwise');
+                callback(null);
+              }, returnsNormally, reason: 'should not throw due to mismatched arguments or otherwise');
               expect(onClickWasCalled, isTrue, reason: 'event handler that was added via cloning was not called');
             });
 
@@ -193,7 +193,7 @@ main() {
                 Function callback = cloneProps['onClick'];
                 // Call the method with one arg.
                 callback(null);
-              }, isNot(throws), reason: 'should not throw due to mismatched arguments or otherwise');
+              }, returnsNormally, reason: 'should not throw due to mismatched arguments or otherwise');
               expect(onClickWasCalled, isTrue, reason: 'event handler that was added via cloning was not called');
             });
           });
