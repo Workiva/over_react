@@ -12,7 +12,7 @@ import 'package:js/js.dart';
 
 export 'package:web_skin_dart/src/ui_core/util/react_wrappers.dart';
 
-/// Renders a React component or builder into a detached node and returns the JsObject instance.
+/// Renders a React component or builder into a detached node and returns the component instance.
 render(dynamic component) {
   return react_test_utils.renderIntoDocument(component is ComponentDefinition ? component.build() : component);
 }
@@ -163,7 +163,7 @@ void simulateMouseLeave(EventTarget target) {
 ///
 /// It is recommended that, instead of setting this [key] prop manually, you should use the
 /// [UiProps.addTestId] method so the prop is only set in a test environment.
-JsObject getByTestId(root, String value, {String key: 'data-test-id'}) {
+getByTestId(root, String value, {String key: 'data-test-id'}) {
   bool first = false;
 
   var results = react_test_utils.findAllInRenderedTree(root, allowInterop((descendant) {
