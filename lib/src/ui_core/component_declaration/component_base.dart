@@ -245,20 +245,44 @@ abstract class UiProps
   static bool testMode = false;
 
   /// Sets the prop [key] to [value] for use in a testing environment.
+  ///
+  /// Deprecated: __Use the [addTestId] method instead.__
+  @deprecated
   void setTestId(String value, {String key: 'data-test-id'}) {
     if (!testMode) {
       return;
     }
 
-    addProp(key, value);
+    props[key] = value;
+  }
+
+  /// Adds [value] to the prop [key] for use in a testing environment by using space-delimiting.
+  ///
+  /// Allows for an element to have multiple test IDs to prevent overwriting when cloning elements or components.
+  void addTestId(String value, {String key: 'data-test-id'}) {
+    if (!testMode || value == null) {
+      return;
+    }
+
+    String testId = getTestId(key: key);
+
+    if (testId == null) {
+      setTestId(value, key: key);
+    } else {
+      setTestId(testId + ' $value', key: key);
+    }
   }
 
   /// Sets the `data-test-id` prop key to [value] for use in a testing environment.
+  ///
+  /// Deprecated: __Use the [addTestId] method instead.__
+  @deprecated
   set testId(String value) {
     setTestId(value);
   }
 
-  /// Gets the `data-test-id` prop (or custom [key] prop value) for use in a testing environment.
+  /// Gets the `data-test-id` prop or one testId from the prop (or custom [key] prop value) for use in a testing
+  /// environment.
   String getTestId({String key: 'data-test-id'}) {
     return props[key];
   }
