@@ -208,3 +208,9 @@ Matcher throwsInvalidPropError(dynamic value, String name, String message){
   return throwsA(predicate(
     (error) => error.toString().contains('InvalidPropValueError: Prop $name set to ${Error.safeToString(value)}: $message'), 'Should have message $message'));
 }
+
+/// A matcher to verify that the [InvalidStateValueError] is thrown with a provided `InvalidStateValueError.message`
+Matcher throwsInvalidStateError(dynamic value, String name, String message){
+  return throwsA(predicate(
+    (error) => error.toString().contains('InvalidStateValueError: State $name set to ${Error.safeToString(value)}: $message'), 'Should have message $message'));
+}

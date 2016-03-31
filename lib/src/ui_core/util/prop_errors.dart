@@ -6,6 +6,7 @@ class RequiredPropError extends Error {
 
   RequiredPropError(this.message);
 
+  @override
   String toString() => 'RequiredPropError: $message';
 }
 
@@ -17,7 +18,19 @@ class InvalidPropValueError extends Error {
 
   InvalidPropValueError(this.value, this.name, this.message);
 
+  @override
   String toString() => "InvalidPropValueError: Prop $name set to ${Error.safeToString(value)}: ${this.message}";
+}
+
+class InvalidStateValueError extends Error {
+  dynamic value;
+  String name;
+  String message;
+
+  InvalidStateValueError(this.value, this.name, this.message);
+
+  @override
+  String toString() => "InvalidStateValueError: State $name set to ${Error.safeToString(value)}: ${this.message}";
 }
 
 /// Error thrown when a two props have incompatible values.
@@ -28,5 +41,6 @@ class InvalidPropCombinationError extends Error {
 
   InvalidPropCombinationError(this.prop1, this.prop2, this.message);
 
+  @override
   String toString() => "InvalidPropCombinationError: Prop $prop1 and prop $prop2 are set to incompatible values: ${this.message}";
 }
