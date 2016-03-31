@@ -104,7 +104,11 @@ List getForwardingTargets(reactInstance, {int expectedTargetCount: 1, shallowRen
 }
 
 /// Common test for verifying that unconsumed props are forwarded as expected.
-void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(), {List unconsumedPropKeys: const []}) {
+void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(), {
+    List unconsumedPropKeys: const [],
+    List skippedPropKeys: const [],
+    Map nonDefaultForwardingTestProps: const {}
+}) {
   test('forwards unconsumed props as expected', () {
     const Map extraProps = const {
       // Add this so we find the right component(s) with [getForwardingTargets] later.
@@ -122,27 +126,27 @@ void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(),
     const String key = 'testKeyThatShouldNotBeForwarded';
     const String ref = 'testRefThatShouldNotBeForwarded';
 
-    ReactClass componentClass = factory()().type;
-    Map defaultProps = componentClass.dartDefaultProps;
+    /// Get defaults from a ReactElement to account for default props and any props added by the factory.
+    Map defaultProps = new Map.from(getProps(factory()()))
+      ..remove('children');
 
     // TODO: Account for alias components.
     Map propsThatShouldNotGetForwarded = {}
       ..addAll(new Map.fromIterable(getComponentPropKeys(factory), value: (_) => null))
+      // Add defaults afterwards so that components don't blow up when they have unexpected null props.
       ..addAll(defaultProps)
-      // Account for any props added by the factory
-      ..addAll(factory().props);
+      ..addAll(nonDefaultForwardingTestProps);
 
-      unconsumedPropKeys.forEach((key) => propsThatShouldNotGetForwarded.remove(key));
+    unconsumedPropKeys.forEach((key) => propsThatShouldNotGetForwarded.remove(key));
 
     var shallowRenderer = react_test_utils.createRenderer();
 
-    // Use RenderingContainerComponentFactory so we can set ref on our test component
     var instance = (factory()
-          ..addProps(propsThatShouldNotGetForwarded)
-          ..addProps(extraProps)
-          ..key = key
-          ..ref = ref
-        )(childrenFactory());
+      ..addProps(propsThatShouldNotGetForwarded)
+      ..addProps(extraProps)
+      ..key = key
+      ..ref = ref
+    )(childrenFactory());
 
     shallowRenderer.render(instance);
     var result = shallowRenderer.getRenderOutput();
@@ -157,8 +161,53 @@ void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(),
         expect(actualProps, containsPair(key, value));
       });
 
-      Set unexpectedKeys = actualProps.keys.toSet().intersection(propsThatShouldNotGetForwarded.keys.toSet());
+      var ambiguousProps = {};
+
+      Set propKeysThatShouldNotGetForwarded = propsThatShouldNotGetForwarded.keys.toSet();
+      // Don't test any keys specified by skippedPropKeys.
+      propKeysThatShouldNotGetForwarded.removeAll(skippedPropKeys);
+
+      Set unexpectedKeys = actualProps.keys.toSet().intersection(propKeysThatShouldNotGetForwarded);
+
+      /// Test for prop keys that both are forwarded and exist on the forwarding target's default props.
+      if (isDartComponent(forwardingTarget)) {
+        var forwardingTargetDefaults = ((forwardingTarget as ReactElement).type as ReactClass).dartDefaultProps;
+
+        var commonForwardedAndDefaults = propKeysThatShouldNotGetForwarded
+            .intersection(forwardingTargetDefaults.keys.toSet());
+
+        /// Don't count these as unexpected keys in later assertions; we'll verify them within this block.
+        unexpectedKeys.removeAll(commonForwardedAndDefaults);
+
+        commonForwardedAndDefaults.forEach((propKey) {
+          var defaultTargetValue = forwardingTargetDefaults[propKey];
+          var potentiallyForwardedValue = propsThatShouldNotGetForwarded[propKey];
+
+          if (defaultTargetValue != potentiallyForwardedValue) {
+            /// If the potentially forwarded value and the default are different,
+            /// we can tell whether it was forwarded.
+            expect(actualProps, isNot(containsPair(propKey, potentiallyForwardedValue)),
+                reason: 'The `$propKey` prop was forwarded when it should not have been');
+          } else {
+            /// ...otherwise, we can't be certain that the value isn't being forwarded.
+            ambiguousProps[propKey] = defaultTargetValue;
+          }
+        });
+      }
+
       expect(unexpectedKeys, isEmpty, reason: 'Should filter out all consumed props');
+
+      if (ambiguousProps.isNotEmpty) {
+        fail(unindent(
+            '''
+            Encountered ambiguous forwarded props; some unconsumed props coincide with defaults on the forwarding target, and cannot be automatically tested.
+
+            Try either:
+              - specifying `nonDefaultForwardingTestProps` as a Map with valid prop values that are different than the following: $ambiguousProps
+              - specifying `skippedPropKeys` with the following prop keys and testing their forwarding manually: ${ambiguousProps.keys.toList()}
+            '''
+        ));
+      }
     }
   });
 }
@@ -257,11 +306,19 @@ dynamic _defaultChildrenFactory() => [];
 /// tests that all consumed props are not forwarded, so you can specify forwarding props in [unconsumedPropKeys]
 /// (which gets flattened into a 1D array of strings).
 ///
+/// When the forwarding of certain props is ambiguous (see error message in [testPropForwarding]), you can resolve this
+/// by specifying [nonDefaultForwardingTestProps], a map of prop values that aren't the same as the forwarding target's defaults.
+///
+/// If [nonDefaultForwardingTestProps] can't be used for some reason, you can skip prop forwarding tests altogether for
+/// certain props by specifying their keys in [skippedPropKeys] (which gets flattened into a 1D array of strings).
+///
 /// [childrenFactory] returns children to be used when rendering components.
 /// This is necessary for components that need children to render properly.
 void commonComponentTests(BuilderOnlyUiFactory factory, {
   bool shouldTestPropForwarding: true,
   List unconsumedPropKeys: const [],
+  List skippedPropKeys: const [],
+  Map nonDefaultForwardingTestProps: const {},
   bool shouldTestClassNameMerging: true,
   bool shouldTestClassNameOverrides: true,
   dynamic childrenFactory()
@@ -272,8 +329,14 @@ void commonComponentTests(BuilderOnlyUiFactory factory, {
       iterable.expand((item) => item is Iterable ? flatten(item) : [item]);
 
   unconsumedPropKeys = flatten(unconsumedPropKeys).toList();
+  skippedPropKeys = flatten(skippedPropKeys).toList();
+
   if (shouldTestPropForwarding) {
-    testPropForwarding(factory, childrenFactory, unconsumedPropKeys: unconsumedPropKeys);
+    testPropForwarding(factory, childrenFactory,
+        unconsumedPropKeys: unconsumedPropKeys,
+        skippedPropKeys: skippedPropKeys,
+        nonDefaultForwardingTestProps: nonDefaultForwardingTestProps
+    );
   }
   if (shouldTestClassNameMerging) {
     testClassNameMerging(factory, childrenFactory);
