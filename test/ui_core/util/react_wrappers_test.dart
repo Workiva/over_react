@@ -441,5 +441,5 @@ Function get testJsComponentFactory {
 @JS()
 @anonymous
 class PlainObjectStyleMap {
-  get width;
+  external get width;
 }
