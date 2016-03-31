@@ -268,7 +268,7 @@ main() {
         var renderedInstance = render(Wrapper()(
           (Dom.div()..addTestId('null'))('First Descendant'),
           Dom.div()(
-            (Dom.div()..addTestId('null'))
+            (Dom.div()..addTestId('null'))()
           )
         ));
 
