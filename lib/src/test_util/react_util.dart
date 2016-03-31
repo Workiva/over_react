@@ -12,8 +12,24 @@ import 'package:js/js.dart';
 
 export 'package:web_skin_dart/src/ui_core/util/react_wrappers.dart';
 
+// Notes
+// ---------------------------------------------------------------------------
+//
+// 1.  This is of type `dynamic` out of necessity, since the actual type,
+//     `ReactComponent | Element`, cannot be expressed in Dart's type system.
+//
+//     React 0.14 augments DOM nodes with its own properties and uses them as
+//     DOM component instances. To Dart's JS interop, those instances look
+//     like DOM nodes, so they get converted to the corresponding DOM node
+//     interceptors, and thus cannot be used with a custom `@JS()` class.
+//
+//     So, React composite component instances will be of type
+//     `ReactComponent`, whereas DOM component instance will be of type
+//     `Element`.
+
+
 /// Renders a React component or builder into a detached node and returns the component instance.
-render(dynamic component) {
+/* [1] */ render(dynamic component) {
   return react_test_utils.renderIntoDocument(component is ComponentDefinition ? component.build() : component);
 }
 
@@ -70,7 +86,7 @@ List<Element> _attachedReactContainers = [];
 
 /// Renders the component into the document as opposed to a headless node.
 /// Returns the rendered component.
-renderAttachedToDocument(dynamic component) {
+/* [1] */ renderAttachedToDocument(dynamic component) {
   var container = new DivElement()..className = 'render-attached-to-document-container';
   _attachedReactContainers.add(container);
 
@@ -163,7 +179,7 @@ void simulateMouseLeave(EventTarget target) {
 ///
 /// It is recommended that, instead of setting this [key] prop manually, you should use the
 /// [UiProps.addTestId] method so the prop is only set in a test environment.
-getByTestId(root, String value, {String key: 'data-test-id'}) {
+/* [1] */ getByTestId(root, String value, {String key: 'data-test-id'}) {
   bool first = false;
 
   var results = react_test_utils.findAllInRenderedTree(root, allowInterop((descendant) {
@@ -202,7 +218,7 @@ Element getDomByTestId(root, String value, {String key: 'data-test-id'}) {
 /// Returns the [react.Component] of the first descendant of [root] that has its [key] prop value set to [value].
 ///
 /// Returns null if no descendant has its [key] prop value set to [value].
-react.Component getComponentByTestId(root, String value, {String key: 'data-test-id'}) {
+react.Component getComponentByTestId(/* [1] */ root, String value, {String key: 'data-test-id'}) {
   var instance = getByTestId(root, value, key: key);
   if (instance != null) {
     return getDartComponent(instance);
@@ -214,7 +230,7 @@ react.Component getComponentByTestId(root, String value, {String key: 'data-test
 /// Returns the props of the first descendant of [root] that has its [key] prop value set to [value].
 ///
 /// Returns null if no descendant has its [key] prop value set to [value].
-Map getPropsByTestId(root, String value, {String key: 'data-test-id'}) {
+Map getPropsByTestId(/* [1] */ root, String value, {String key: 'data-test-id'}) {
   var instance = getByTestId(root, value, key: key);
   if (instance != null) {
     return getProps(instance);
@@ -257,7 +273,7 @@ ReactElement getByTestIdShallow(ReactElement root, String value, {String key: 'd
 }
 
 /// Returns all descendants of a component that contain the specified prop key.
-List findDescendantsWithProp(root, dynamic propKey) {
+List findDescendantsWithProp(/* [1] */ root, dynamic propKey) {
   List descendantsWithProp = react_test_utils.findAllInRenderedTree(root, allowInterop((descendant) {
     if (descendant == root) {
       return false;

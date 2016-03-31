@@ -9,8 +9,24 @@ import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_client/js_interop_helpers.dart';
 import 'package:js/js.dart';
 
+// Notes
+// ---------------------------------------------------------------------------
+//
+// 1.  This is of type `dynamic` out of necessity, since the actual type,
+//     `ReactComponent | Element`, cannot be expressed in Dart's type system.
+//
+//     React 0.14 augments DOM nodes with its own properties and uses them as
+//     DOM component instances. To Dart's JS interop, those instances look
+//     like DOM nodes, so they get converted to the corresponding DOM node
+//     interceptors, and thus cannot be used with a custom `@JS()` class.
+//
+//     So, React composite component instances will be of type
+//     `ReactComponent`, whereas DOM component instance will be of type
+//     `Element`.
+
+
 /// Returns the internal Map used by react-dart to maintain the native Dart component.
-ReactDartComponentInternal _getInternal(instance) => (instance.props as InteropProps).internal;
+ReactDartComponentInternal _getInternal(/* [1] */ instance) => (instance.props as InteropProps).internal;
 
 /// Returns the internal representation of a Dart component's props as maintained by react-dart
 /// Similar to ReactElement.props in JS, but also includes `key`, `ref` and `children`
@@ -29,7 +45,7 @@ dynamic getInstanceRef(ReactElement instance) {
 }
 
 /// Returns whether a component is a native Dart component (react-dart [ReactElement] or [ReactComponent]).
-bool isDartComponent(instance) {
+bool isDartComponent(/* [1] */ instance) {
   // Don't try to access internal on a DOM component
   return instance is! Element && _getInternal(instance) != null;
 }
@@ -50,7 +66,7 @@ Map getJsProps(ReactElement instance) {
 ///
 /// For a native Dart component, this returns its [react.Component.props] Map.
 /// For a JS component, this returns the result of [getJsProps].
-Map getProps(instance) {
+Map getProps(/* [1] */ instance) {
   return isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
 }
 
@@ -85,7 +101,7 @@ bool isDomElement(dynamic instance) {
 ///   Children are likewise copied/overwritten as expected.
 ///
 /// * For JS components, a copy of [newProps] is returned, since React will merge the props without any special handling.
-preparePropsChangeset(ReactElement element, Map newProps, [List newChildren]) {
+dynamic preparePropsChangeset(ReactElement element, Map newProps, [List newChildren]) {
   var propsChangeset;
 
   final internal = _getInternal(element);
@@ -147,7 +163,7 @@ ReactElement cloneElement(ReactElement element, [Map props, List children]) {
 List prepareNestedChildren(List children) => children;
 
 /// Returns whether the React [instance] is mounted.
-bool isMounted(dynamic instance) {
+bool isMounted(/* [1] */ instance) {
   if (instance is Element) {
     return new JsObject.fromBrowserObject(instance).callMethod('isMounted', []);
   }
@@ -156,7 +172,7 @@ bool isMounted(dynamic instance) {
 }
 
 /// Returns the native Dart component associated with a React JS component instance, or null if the component is not Dart-based.
-react.Component getDartComponent(instance) {
+react.Component getDartComponent(/* [1] */ instance) {
   if (instance is Element) {
     return null;
   }
