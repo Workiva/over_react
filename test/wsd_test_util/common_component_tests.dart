@@ -9,6 +9,7 @@ import 'dart:html';
 ])
 import 'dart:mirrors';
 
+import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:test/test.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart' as component_base;
@@ -121,9 +122,8 @@ void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(),
     const String key = 'testKeyThatShouldNotBeForwarded';
     const String ref = 'testRefThatShouldNotBeForwarded';
 
-    var defaultPropsHelperInstance = render(factory()(childrenFactory()));
-    Map defaultProps = getDartComponent(defaultPropsHelperInstance).getDefaultProps();
-    unmount(defaultPropsHelperInstance);
+    ReactClass componentClass = factory()().type;
+    Map defaultProps = componentClass.dartDefaultProps;
 
     // TODO: Account for alias components.
     Map propsThatShouldNotGetForwarded = {}
