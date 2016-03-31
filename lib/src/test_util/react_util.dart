@@ -284,10 +284,10 @@ List findDescendantsWithProp(root, dynamic propKey) {
 /// > @param {object} partialProps Subset of the next props.
 /// > @param {?function} callback Called after props are updated.
 ///
-/// Use [render] instead.
+/// __Deprecated.__ Rerender the component using [render] instead.
 @deprecated
 void setProps(ReactComponent instance, Map props, [callback]) {
-  var propsChangeset = preparePropsChangeset(instance, props);
+  var propsChangeset = preparePropsChangeset((instance as ReactElement), props);
   instance.setProps(propsChangeset, callback);
 }
 
