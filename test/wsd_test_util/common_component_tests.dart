@@ -254,19 +254,24 @@ dynamic _defaultChildrenFactory() => [];
 ///
 /// [unconsumedPropKeys] should be used when a component has props as part of it's definition that ARE forwarded
 /// to its children (ie, a smart component wrapping a primitive and forwarding some props to it). By default [testPropForwarding]
-/// tests that all consumed props are not forwarded, so you can specify forwarding props in [unconsumedPropKeys].
+/// tests that all consumed props are not forwarded, so you can specify forwarding props in [unconsumedPropKeys]
+/// (which gets flattened into a 1D array of strings).
 ///
 /// [childrenFactory] returns children to be used when rendering components.
 /// This is necessary for components that need children to render properly.
 void commonComponentTests(BuilderOnlyUiFactory factory, {
   bool shouldTestPropForwarding: true,
-  List<String> unconsumedPropKeys: const <String>[],
+  List unconsumedPropKeys: const [],
   bool shouldTestClassNameMerging: true,
   bool shouldTestClassNameOverrides: true,
   dynamic childrenFactory()
 }) {
   childrenFactory ??= _defaultChildrenFactory;
 
+  Iterable flatten(Iterable iterable) =>
+      iterable.expand((item) => item is Iterable ? flatten(item) : [item]);
+
+  unconsumedPropKeys = flatten(unconsumedPropKeys).toList();
   if (shouldTestPropForwarding) {
     testPropForwarding(factory, childrenFactory, unconsumedPropKeys: unconsumedPropKeys);
   }
