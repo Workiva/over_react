@@ -280,4 +280,7 @@ main() {
   });
 }
 
-ReactClass createTestReactClass() => React.createClass(new ReactClassConfig(render: allowInterop(() => false)));
+ReactClass createTestReactClass() {
+  return React.createClass(new ReactClassConfig(render: allowInterop(() => false)))
+      ..dartDefaultProps = const {};
+}
