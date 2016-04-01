@@ -13,6 +13,8 @@ import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
 import 'package:web_skin_dart/ui_components.dart';
 
+import '../../wsd_test_util/test_js_component.dart';
+
 /// Main entry point for react wrappers testing
 main() {
   group('Dart wrappers for React:', () {
@@ -521,23 +523,6 @@ ReactComponentFactory TestComponentFactory = react.registerComponent(() => new T
 class TestComponent extends react.Component {
   @override
   render() => Dom.div()();
-}
-
-Function _testJsComponentFactory;
-Function get testJsComponentFactory {
-  if (_testJsComponentFactory == null) {
-    var componentClass = React.createClass(new ReactClassConfig(
-      displayName: 'testJsComponent',
-      render: allowInterop(() => Dom.div()('test js component'))
-    ));
-
-    var reactFactory = React.createFactory(componentClass);
-    _testJsComponentFactory = ([props = const {}, children]) {
-      return reactFactory(jsify(props), jsifyChildren(children));
-    };
-  }
-
-  return _testJsComponentFactory;
 }
 
 @JS()

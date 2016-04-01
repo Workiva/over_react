@@ -7,6 +7,7 @@ import 'package:test/test.dart';
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
+import '../wsd_test_util/test_js_component.dart';
 import '../wsd_test_util/wrapper_component.dart';
 
 /// Main entry point for ReactUtil testing
@@ -585,15 +586,29 @@ main() {
     });
 
     test('findDescendantsWithProp returns the descendants with the propKey', () {
+      const testProps = const {'disabled': true};
+
       var renderedInstance = render(Wrapper()([
-        (Dom.div()..disabled = true)(),
+        // Test DOM component
+        (Dom.div()..addProps(testProps))(),
+        // Test Dart component
+        (Test()..addProps(testProps))(),
+        // Test JS composite component
+        testJsComponentFactory(testProps),
+
+        // Test nested components
         Dom.div()([
-          (Dom.div()..disabled = true)()
+          // Test DOM component
+          (Dom.div()..addProps(testProps))(),
+          // Test Dart component
+          (Test()..addProps(testProps))(),
+          // Test JS composite component
+          testJsComponentFactory(testProps),
         ])
       ]));
 
       var descendants = findDescendantsWithProp(renderedInstance, 'disabled');
-      expect(descendants.length, equals(2));
+      expect(descendants.length, equals(6));
     });
 
     test('setProps sets a subset of a component\'s props', () {
