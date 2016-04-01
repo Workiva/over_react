@@ -377,6 +377,16 @@ main() {
       });
     });
 
+    test('getInstanceKey returns the key set on a ReactElement', () {
+      ReactElement instance = (Dom.div()..key = 'foo')();
+      expect(getInstanceKey(instance), equals('foo'));
+    });
+
+    test('getInstanceRef returns the ref set on a ReactElement', () {
+      ReactElement instance = (Dom.div()..ref = 'foo')();
+      expect(getInstanceRef(instance), equals('foo'));
+    });
+
     group('isDartComponent', () {
       test('returns true for an unrendered instance (ReactElement) of a Dart component', () {
         ReactElement instance = TestComponentFactory({});
