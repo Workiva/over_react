@@ -5,6 +5,7 @@ import 'dart:html';
 import 'package:js/js.dart';
 import 'package:test/test.dart';
 import 'package:react/react_client.dart';
+import 'package:react/react_client/js_interop_helpers.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_test_utils.dart' as react_test_utils;
@@ -321,8 +322,18 @@ main() {
           expect(isValidElement(['item1', 'item2']), isFalse);
         });
 
+        test('a plain JS object', () {
+          expect(isValidElement(new EmptyObject()), isFalse);
+        });
+
+        test('a ReactElement', () {
+          ReactElement instance = Dom.div()();
+          expect(isValidElement(instance), isTrue);
+        });
+
         test('a ReactComponent', () {
-          expect(isValidElement(Dom.div()()), isTrue);
+          ReactComponent instance = render(TestComponentFactory({}));
+          expect(isValidElement(instance), isFalse);
         });
       });
     });
@@ -414,6 +425,84 @@ main() {
         expect(getDartComponent(renderedInstance), isNull);
       });
     });
+
+    group('getProps', () {
+      const List testChildren = const ['child1', 'child2'];
+
+      test('returns props for a composite JS component ReactElement', () {
+        ReactElement instance = render(testJsComponentFactory({
+          'jsProp': 'js'
+        }, testChildren));
+
+        expect(getProps(instance), equals({
+          'jsProp': 'js',
+          'children': testChildren
+        }));
+      });
+
+      test('returns props for a composite JS ReactComponent', () {
+        ReactComponent renderedInstance = render(testJsComponentFactory({
+          'jsProp': 'js'
+        }, testChildren));
+
+        expect(getProps(renderedInstance), equals({
+          'jsProp': 'js',
+          'children': testChildren
+        }));
+      });
+
+      test('returns props for a DOM component ReactElement', () {
+        ReactElement instance = (Dom.div()
+          ..addProp('domProp', 'dom')
+        )(testChildren);
+
+        expect(getProps(instance), equals({
+          'domProp': 'dom',
+          'children': testChildren
+        }));
+      });
+
+      test('returns props for a Dart component ReactElement', () {
+        ReactElement instance = render(TestComponentFactory({
+          'dartProp': 'dart'
+        }, testChildren));
+
+        expect(getProps(instance), equals({
+          'dartProp': 'dart',
+          'children': testChildren
+        }));
+      });
+
+      test('returns props for a Dart component ReactComponent', () {
+        ReactComponent renderedInstance = render(TestComponentFactory({
+          'dartProp': 'dart'
+        }, testChildren));
+
+        expect(getProps(renderedInstance), equals({
+          'dartProp': 'dart',
+          'children': testChildren
+        }));
+      });
+
+      group('throws when passed', () {
+        test('a DOM ReactComponent (Element)', () {
+          var renderedInstance = render(Dom.div());
+          expect(() => getProps(renderedInstance), throwsArgumentError);
+        });
+
+        test('an empty JS object', () {
+          expect(() => getProps(new EmptyObject()), throwsArgumentError);
+        });
+
+        test('a String', () {
+          expect(() => getProps('string'), throwsArgumentError);
+        });
+
+        test('null', () {
+          expect(() => getProps(null), throwsArgumentError);
+        });
+      });
+    });
   });
 }
 
@@ -432,7 +521,10 @@ Function get testJsComponentFactory {
       render: allowInterop(() => Dom.div()('test js component'))
     ));
 
-    _testJsComponentFactory = React.createFactory(componentClass);
+    var reactFactory = React.createFactory(componentClass);
+    _testJsComponentFactory = ([props = const {}, children]) {
+      return reactFactory(jsify(props), jsifyChildren(children));
+    };
   }
 
   return _testJsComponentFactory;
