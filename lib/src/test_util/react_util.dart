@@ -299,7 +299,7 @@ List findDescendantsWithProp(/* [1] */ root, dynamic propKey) {
 ///
 /// __Deprecated.__ Rerender the component using [render] instead.
 @deprecated
-void setProps(ReactComponent instance, Map props, [callback]) {
+void setProps(ReactComponent instance, Map props, [callback(context)]) {
   var propsChangeset = preparePropsChangeset((instance as ReactElement), props);
   instance.setProps(propsChangeset, callback);
 }
