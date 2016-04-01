@@ -176,7 +176,7 @@ void simulateMouseLeave(EventTarget target) {
 ///
 /// It is recommended that, instead of setting this [key] prop manually, you should use the
 /// [UiProps.addTestId] method so the prop is only set in a test environment.
-/* [1] */ getByTestId(root, String value, {String key: 'data-test-id'}) {
+/* [1] */ getByTestId(/* [1] */ root, String value, {String key: 'data-test-id'}) {
   bool first = false;
 
   var results = react_test_utils.findAllInRenderedTree(root, allowInterop((descendant) {
@@ -208,7 +208,7 @@ void simulateMouseLeave(EventTarget target) {
 /// Returns the [Element] of the first descendant of [root] that has its [key] prop value set to [value].
 ///
 /// Returns null if no descendant has its [key] prop value set to [value].
-Element getDomByTestId(root, String value, {String key: 'data-test-id'}) {
+Element getDomByTestId(/* [1] */ root, String value, {String key: 'data-test-id'}) {
   return findDomNode(getByTestId(root, value, key: key));
 }
 
