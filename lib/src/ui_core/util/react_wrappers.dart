@@ -157,9 +157,8 @@ ReactElement cloneElement(ReactElement element, [Map props, List children]) {
   }
 }
 
-/// Returns a new JsArray from the specified List, so that non-flat children can be used with react-dart.
-///
-/// Workaround until <https://github.com/cleandart/react-dart/issues/60> is fixed.
+/// This is no longer needed; nested lists can now be passed into react-dart without issue.
+@deprecated
 List prepareNestedChildren(List children) => children;
 
 /// Returns whether the React [instance] is mounted.
