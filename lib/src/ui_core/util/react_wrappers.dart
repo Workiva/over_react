@@ -101,7 +101,7 @@ bool isDomElement(dynamic instance) {
 ///   Children are likewise copied/overwritten as expected.
 ///
 /// * For JS components, a copy of [newProps] is returned, since React will merge the props without any special handling.
-dynamic preparePropsChangeset(ReactElement element, Map newProps, [List newChildren]) {
+dynamic preparePropsChangeset(ReactElement element, Map newProps, [Iterable newChildren]) {
   var propsChangeset;
 
   final internal = _getInternal(element);
@@ -147,7 +147,7 @@ external ReactElement _cloneElement(element, [props, children]);
 /// > Unlike React.addons.cloneWithProps, key and ref from the original element will be preserved.
 /// > There is no special behavior for merging any props (unlike cloneWithProps).
 /// > See the [v0.13 RC2 blog post](https://facebook.github.io/react/blog/2015/03/03/react-v0.13-rc2.html) for additional details.
-ReactElement cloneElement(ReactElement element, [Map props, List children]) {
+ReactElement cloneElement(ReactElement element, [Map props, Iterable children]) {
   var propsChangeset = preparePropsChangeset(element, props, children);
 
   if (children != null) {
