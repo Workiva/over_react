@@ -305,7 +305,9 @@ abstract class UiProps
   /// (alias for [build] with support for variadic children)
   ///
   /// This method actually takes any number of children as arguments ([c2], [c3], ...) via [noSuchMethod].
-  // Restrict to 40 arguments until the dart2js fix in https://github.com/dart-lang/sdk/pull/26032 is released.
+  ///
+  /// Restricted statically to 40 arguments until the dart2js fix in
+  /// <https://github.com/dart-lang/sdk/pull/26032> is released.
   ReactElement call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
 
   /// Supports variadic children of the form `call([child1, child2, child3...])`.
