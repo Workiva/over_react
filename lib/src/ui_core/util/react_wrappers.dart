@@ -25,12 +25,15 @@ import 'package:js/js.dart';
 //     `Element`.
 
 
-/// Returns the internal Map used by react-dart to maintain the native Dart component.
-ReactDartComponentInternal _getInternal(/* [1] */ instance) => (instance.props as InteropProps).internal;
+/// Returns internal data structure used by react-dart to maintain the native Dart component
+/// for a given react-dart [ReactElement] or [ReactComponent] [instance].
+ReactDartComponentInternal _getInternal(/* ReactElement|ReactComponent */  instance) =>
+    (instance.props as InteropProps).internal;
 
-/// Returns the internal representation of a Dart component's props as maintained by react-dart
-/// Similar to ReactElement.props in JS, but also includes `key`, `ref` and `children`
-Map _getExtendedProps(ReactElement instance) {
+/// Returns the internal representation of a Dart component's props as maintained by react-dart.
+///
+/// Similar to ReactElement.props in JS, but also includes `children`.
+Map _getExtendedProps(/* ReactElement|ReactComponent */  instance) {
   return _getInternal(instance).props;
 }
 
@@ -47,14 +50,19 @@ dynamic getInstanceRef(ReactElement instance) {
 /// Returns whether a component is a native Dart component (react-dart [ReactElement] or [ReactComponent]).
 bool isDartComponent(/* [1] */ instance) {
   // Don't try to access internal on a DOM component
-  return instance is! Element && _getInternal(instance) != null;
+  if (instance is Element) {
+    return false;
+  }
+
+  return _getInternal(instance) != null;
 }
 
 @JS('Object.keys')
 external Iterable _objectKeys(object);
 
-/// Returns the props for a React JS component instance, shallow-converted to a Dart Map for convenience.
-Map getJsProps(ReactElement instance) {
+/// Returns the props for a [ReactElement] or composite [ReactComponent] [instance],
+/// shallow-converted to a Dart Map for convenience.
+Map getJsProps(/* ReactElement|ReactComponent */ instance) {
   var props = instance.props;
 
   return new Map.fromIterable(_objectKeys(props),
@@ -62,12 +70,18 @@ Map getJsProps(ReactElement instance) {
   );
 }
 
-/// Returns the props for a component.
+/// Returns the props for a [ReactElement] or composite [ReactComponent] [instance].
 ///
 /// For a native Dart component, this returns its [react.Component.props] Map.
 /// For a JS component, this returns the result of [getJsProps].
-Map getProps(/* [1] */ instance) {
-  return isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
+///
+/// Throws if [instance] is not a valid [ReactElement] or composite [ReactComponent] .
+Map getProps(/* ReactElement|ReactComponent */ instance) {
+  if (isValidElement(instance) || _isCompositeComponent(instance)) {
+    return isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
+  }
+
+  throw new ArgumentError.value(instance, 'instance', 'must be a valid ReactElement or composite ReactComponent');
 }
 
 /// Returns the DOM node associated with a mounted React component [instance],
@@ -90,14 +104,21 @@ bool isDomElement(dynamic instance) {
   return isValidElement(instance) && (instance as ReactElement).type is String;
 }
 
+/// Returns whether [instance] is a composite [ReactComponent].
+///
+/// __Not for external use.__
+bool _isCompositeComponent(dynamic object) {
+  return object != null && getProperty(object, 'isReactComponent') != null;
+}
+
 /// Returns a new JS map with the specified props and children changes, properly prepared for consumption by
 /// React JS methods such as cloneWithProps(), setProps(), and other methods that accept changesets of props to be
 /// merged into existing props.
 ///
 /// Handles both Dart and JS React components, returning the appropriate props structure for each type:
 ///
-/// * For Dart components, existing props are read from the "__internal__" props map, which are then merged with
-///   the new [newProps] and saved in a new JS map with the expected "__internal__" structure.
+/// * For Dart components, existing props are read from [InteropProps.internal], which are then merged with
+///   the new [newProps] and saved in a new [InteropProps] with the expected [ReactDartComponentInternal] structure.
 ///   Children are likewise copied/overwritten as expected.
 ///
 /// * For JS components, a copy of [newProps] is returned, since React will merge the props without any special handling.
