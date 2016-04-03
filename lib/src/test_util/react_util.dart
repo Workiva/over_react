@@ -1,14 +1,15 @@
 library test_util.react_util;
 
+import 'dart:collection';
 import 'dart:html';
 
+import 'package:js/js.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
-import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_client/js_interop_helpers.dart';
+import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:web_skin_dart/ui_core.dart';
-import 'package:js/js.dart';
 
 export 'package:web_skin_dart/src/ui_core/util/react_wrappers.dart';
 
@@ -158,10 +159,17 @@ void simulateMouseLeave(EventTarget target) {
   react_test_utils.SimulateNative.mouseOver(to, {'relatedTarget': from});
 }
 
+/// Returns whether [props] contains [key] with a value set to a space-delimited string containing [value].
+bool _hasTestId(Map props, String key, String value) {
+  var testId = props[key];
+  return testId != null && splitSpaceDelimitedString(testId.toString()).contains(value);
+}
+
 /// Returns the first descendant of [root] that has its [key] test ID prop value set to a space-delimited string
 /// containing [value], or null if no matching descendant can be found.
 ///
 /// This method works for:
+///
 /// * [ReactComponent] render trees (output of [render])
 /// * [ReactElement] trees (output of [renderShallow]/[Component.render])
 ///
@@ -200,13 +208,11 @@ void simulateMouseLeave(EventTarget target) {
       return false;
     }
 
-    bool hasValue;
+    var props = react_test_utils.isDOMComponent(descendant)
+      ? findDomNode(descendant).attributes
+      : getProps(descendant);
 
-    if (react_test_utils.isDOMComponent(descendant)) {
-      hasValue = findDomNode(descendant).attributes[key] != null && splitSpaceDelimitedString(findDomNode(descendant).attributes[key]).contains(value);
-    } else {
-      hasValue = getProps(descendant)[key] != null && splitSpaceDelimitedString(getProps(descendant)[key].toString()).contains(value);
-    }
+    bool hasValue = _hasTestId(props, key, value);
 
     if (hasValue) {
       first = true;
@@ -253,36 +259,28 @@ Map getPropsByTestId(/* [1] */ root, String value, {String key: 'data-test-id'})
 }
 
 ReactElement _getByTestIdShallow(ReactElement root, String value, {String key: 'data-test-id'}) {
-  var descendant;
+  var breadthFirstDescendants = new Queue()..add(root);
 
-  getDescendant(_root) {
-    var rootProps = getProps(_root);
-
-    if (rootProps[key] == value) {
-      descendant = _root;
-      return;
+  while (breadthFirstDescendants.isNotEmpty) {
+    var descendant = breadthFirstDescendants.removeFirst();
+    if (!isValidElement(descendant)) {
+      continue;
     }
 
-    if (rootProps['children'] is List) {
-      flattenChildren(List children) {
-        children.forEach((_child) {
-          if (isValidElement(_child)) {
-            getDescendant(_child);
-          } else if (_child is List) {
-            flattenChildren(_child);
-          }
-        });
-      }
+    var props = getProps(descendant);
+    if (_hasTestId(props, key, value)) {
+      return descendant;
+    }
 
-      flattenChildren(rootProps['children']);
-    } else if (isValidElement(rootProps['children'])) {
-      getDescendant(rootProps['children']);
+    var children = props['children'];
+    if (children is List) {
+      breadthFirstDescendants.addAll(children);
+    } else {
+      breadthFirstDescendants.add(children);
     }
   }
 
-  getDescendant(root);
-
-  return descendant;
+  return null;
 }
 
 /// Returns all descendants of a component that contain the specified prop key.
