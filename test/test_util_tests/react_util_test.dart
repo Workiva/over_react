@@ -681,30 +681,28 @@ main() {
       });
     });
 
-    test('findDescendantsWithProp returns the descendants with the propKey', () {
-      const testProps = const {'disabled': true};
-
+    test('findDescendantsWithProp returns the descendants with the specified propKey', () {
       var renderedInstance = render(Wrapper()([
-        // Test DOM component
-        (Dom.div()..addProps(testProps))(),
-        // Test Dart component
-        (Test()..addProps(testProps))(),
-        // Test JS composite component
-        testJsComponentFactory(testProps),
+        (Dom.div()..addProp('data-name', 'top-level DOM'))(),
+        (Test()..addProp('data-name', 'top-level Dart'))(),
+        testJsComponentFactory({'data-name': 'top-level JS composite'}),
 
-        // Test nested components
         Dom.div()([
-          // Test DOM component
-          (Dom.div()..addProps(testProps))(),
-          // Test Dart component
-          (Test()..addProps(testProps))(),
-          // Test JS composite component
-          testJsComponentFactory(testProps),
+          (Dom.div()..addProp('data-name', 'nested DOM'))(),
+          (Test()..addProp('data-name', 'nested Dart'))(),
+          testJsComponentFactory({'data-name': 'nested JS composite'}),
         ])
       ]));
 
-      var descendants = findDescendantsWithProp(renderedInstance, 'disabled');
-      expect(descendants.length, equals(6));
+      var descendants = findDescendantsWithProp(renderedInstance, 'data-name');
+      expect(descendants, [
+        hasProp('data-name', 'top-level DOM'),
+        hasProp('data-name', 'top-level Dart'),
+        hasProp('data-name', 'top-level JS composite'),
+        hasProp('data-name', 'nested DOM'),
+        hasProp('data-name', 'nested Dart'),
+        hasProp('data-name', 'nested JS composite'),
+      ]);
     });
 
     test('setProps sets a subset of a component\'s props', () {
