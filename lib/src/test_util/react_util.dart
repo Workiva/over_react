@@ -158,25 +158,41 @@ void simulateMouseLeave(EventTarget target) {
   react_test_utils.SimulateNative.mouseOver(to, {'relatedTarget': from});
 }
 
-/// Returns the first descendant of [root] that has its [key] prop value set to [value].
+/// Returns the first descendant of [root] that has its [key] test ID prop value set to a space-delimited string
+/// containing [value], or null if no matching descendant can be found.
 ///
-/// Returns null if no descendant has its [key] prop value set [value].
+/// This method works for:
+/// * [ReactComponent] render trees (output of [render])
+/// * [ReactElement] trees (output of [renderShallow]/[Component.render])
+///
+/// __Example:__
 ///
 ///     var renderedInstance = render(Dom.div()(
-///         (Dom.div()..addTestId('first-div'))() // Div1
+///         // Div1
+///         (Dom.div()..addTestId('first-div'))()
+///
 ///         Dom.div()(
-///           (Dom.div()..addTestId('nested-div'))() // Div2
+///           // Div2
+///           (Dom.div()
+///             ..addTestId('second-div')
+///             ..addTestId('nested-div')
+///           )()
 ///         )
 ///       )
 ///     );
 ///
 ///     var firstDiv = getByTestId(renderedInstance, 'first-div'); // Returns Div1
+///     var secondDiv = getByTestId(renderedInstance, 'second-div'); // Returns Div2
 ///     var nestedDiv = getByTestId(renderedInstance, 'nested-div'); // Returns Div2
 ///     var nonexistentDiv = getByTestId(renderedInstance, 'nonexistent-div'); // Returns null
 ///
 /// It is recommended that, instead of setting this [key] prop manually, you should use the
 /// [UiProps.addTestId] method so the prop is only set in a test environment.
 /* [1] */ getByTestId(/* [1] */ root, String value, {String key: 'data-test-id'}) {
+  if (isValidElement(root)) {
+    return _getByTestIdShallow(root, value, key: key);
+  }
+
   bool first = false;
 
   var results = react_test_utils.findAllInRenderedTree(root, allowInterop((descendant) {
@@ -236,7 +252,7 @@ Map getPropsByTestId(/* [1] */ root, String value, {String key: 'data-test-id'})
   return null;
 }
 
-ReactElement getByTestIdShallow(ReactElement root, String value, {String key: 'data-test-id'}) {
+ReactElement _getByTestIdShallow(ReactElement root, String value, {String key: 'data-test-id'}) {
   var descendant;
 
   getDescendant(_root) {
