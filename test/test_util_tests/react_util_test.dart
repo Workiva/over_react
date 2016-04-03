@@ -3,6 +3,7 @@ library react_util_test;
 import 'dart:html';
 
 import 'package:react/react.dart' as react;
+import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
@@ -116,125 +117,220 @@ main() {
     });
 
     group('getByTestId returns', () {
-      test('the topmost descendant that has the appropriate value for the `data-test-id` prop key', () {
-        var renderedInstance = render(Wrapper()(
-          (Dom.div()..addTestId('value'))('First Descendant'),
-          Dom.div()(
-            (Dom.div()..addTestId('value'))('Nested Descendant')
-          )
-        ));
+      sharedTests({bool shallow}) {
+        testSpecificRender(ReactElement instance) =>
+            shallow ? renderShallow(instance) : render(instance);
 
-        var descendant = getByTestId(renderedInstance, 'value');
+        group('the single descendant that has the appropriate value for the `data-test-id` prop key when it is a', () {
+          const String targetFlagProp = 'data-name';
 
-        expect(findDomNode(descendant).text, equals('First Descendant'));
-      });
+          const Map testProps = const {
+            'data-test-id': 'value',
+            'data-name': 'target',
+          };
 
-      test('the topmost descendant that has the appropriate value for the custom prop key', () {
-        var renderedInstance = render(Wrapper()(
-          (Dom.div()..addTestId('value'))('First Descendant'),
-          Dom.div()(
-            (Dom.div()..addTestId('value', key: 'data-custom-id'))('Nested Descendant')
-          )
-        ));
+          test('DOM component', () {
+            var renderedInstance = testSpecificRender(Wrapper()(
+              (Dom.div()..addProps(testProps))()
+            ));
 
-        var descendant = getByTestId(renderedInstance, 'value', key: 'data-custom-id');
+            var descendant = getByTestId(renderedInstance, 'value');
+            expect(descendant, hasProp(targetFlagProp, 'target'));
+          });
 
-        expect(findDomNode(descendant).text, equals('Nested Descendant'));
-      });
+          test('Dart component', () {
+            var renderedInstance = testSpecificRender(Wrapper()(
+              (Test()..addProps(testProps))()
+            ));
 
-      test('the topmost descendant that has the `data-test-id` prop set to \'null\' when the user searches for \'null\'', () {
-        var renderedInstance = render(Wrapper()(
-          (Dom.div()..addTestId('null'))('First Descendant'),
-          Dom.div()(
-            (Dom.div()..addTestId('null'))('Nested Descendant')
-          )
-        ));
+            var descendant = getByTestId(renderedInstance, 'value');
+            expect(descendant, hasProp(targetFlagProp, 'target'));
+          });
 
-        var descendant = getByTestId(renderedInstance, 'null');
+          test('JS composite component', () {
+            var renderedInstance = testSpecificRender(Wrapper()(
+              testJsComponentFactory(testProps)
+            ));
 
-        expect(findDomNode(descendant).text, equals('First Descendant'));
-      });
-
-      group('the topmost descendant that has the appropriate value for the `data-test-id` prop key when cloned, a testId is added, and then', () {
-        test('the old testId is called', () {
-          var instance = (Dom.div()..addTestId('testId1'))('Nested Descendant');
-          var clonedInstance = cloneElement(instance, domProps(getProps(instance))..addTestId('testId2'));
-          var renderedInstance = render(Wrapper()(
-            clonedInstance,
-            Dom.div()('Nested Descendant 2')
-          ));
-
-          var descendant = getByTestId(renderedInstance, 'testId1');
-
-          expect(findDomNode(descendant).text, equals('Nested Descendant'));
+            var descendant = getByTestId(renderedInstance, 'value');
+            expect(descendant, hasProp(targetFlagProp, 'target'));
+          });
         });
 
-        test('the new testId is called', () {
-          var instance = (Dom.div()..addTestId('testId1'))('Nested Descendant');
-          var clonedInstance = cloneElement(instance, domProps(getProps(instance))..addTestId('testId2'));
-          var renderedInstance = render(Wrapper()(
-            clonedInstance,
-            Dom.div()('Nested Descendant 2')
+        test('the topmost descendant that has the appropriate value for the `data-test-id` prop key', () {
+          var renderedInstance = testSpecificRender(Wrapper()(
+            (Dom.div()
+              ..addTestId('value')
+              ..addProp('data-name', 'First Descendant')
+            )(),
+            Dom.div()(
+              (Dom.div()
+                ..addTestId('value')
+                ..addProp('data-name', 'Nested Descendant')
+              )()
+            )
           ));
 
-          var descendant = getByTestId(renderedInstance, 'testId2');
+          var descendant = getByTestId(renderedInstance, 'value');
 
-          expect(findDomNode(descendant).text, equals('Nested Descendant'));
+          expect(descendant, hasProp('data-name', 'First Descendant'));
         });
-      });
 
-      group('the topmost descendant that has the appropriate value for a custom prop key when cloned and', () {
-        test('the old testId is called', () {
-          var instance = (Wrapper()..addTestId('testId1', key: 'data-custom-id'))('Nested Descendant');
-          var clonedInstance = cloneElement(instance, domProps(getProps(instance))..addTestId('testId2', key: 'data-custom-id'));
-          var renderedInstance = render(Wrapper()(
-            clonedInstance,
-            Dom.div()('Nested Descendant 2')
+        test('the topmost descendant that has the appropriate value for the custom prop key', () {
+          var renderedInstance = testSpecificRender(Wrapper()(
+            (Dom.div()
+              ..addTestId('value')
+              ..addProp('data-name', 'First Descendant')
+            )(),
+            Dom.div()(
+              (Dom.div()
+                ..addTestId('value', key: 'data-custom-id')
+                ..addProp('data-name', 'Nested Descendant')
+              )()
+            )
           ));
 
-          var descendant = getByTestId(renderedInstance, 'testId1', key: 'data-custom-id');
+          var descendant = getByTestId(renderedInstance, 'value', key: 'data-custom-id');
 
-          expect(findDomNode(descendant).text, equals('Nested Descendant'));
+          expect(descendant, hasProp('data-name', 'Nested Descendant'));
         });
 
-        test('the new testId is called', () {
-          var instance = (Wrapper()..addTestId('testId1', key: 'data-custom-id'))('Nested Descendant');
-          var clonedInstance = cloneElement(instance, domProps(getProps(instance))..addTestId('testId2', key: 'data-custom-id'));
-          var renderedInstance = render(Wrapper()(
-            clonedInstance,
-            Dom.div()('Nested Descendant 2')
+        test('the topmost descendant that has the `data-test-id` prop set to \'null\' when the user searches for \'null\'', () {
+          var renderedInstance = testSpecificRender(Wrapper()(
+            (Dom.div()
+              ..addTestId('null')
+              ..addProp('data-name', 'First Descendant')
+            )(),
+            Dom.div()(
+              (Dom.div()
+                ..addTestId('null')
+                ..addProp('data-name', 'Nested Descendant')
+              )()
+            )
           ));
 
-          var descendant = getByTestId(renderedInstance, 'testId2', key: 'data-custom-id');
+          var descendant = getByTestId(renderedInstance, 'null');
 
-          expect(findDomNode(descendant).text, equals('Nested Descendant'));
+          expect(descendant, hasProp('data-name', 'First Descendant'));
         });
+
+        group('the topmost descendant that has the appropriate value for the `data-test-id` prop key when cloned, a testId is added, and then', () {
+          test('the old testId is called', () {
+            var instance = (Dom.div()
+              ..addTestId('testId1')
+              ..addProp('data-name', 'Nested Descendant')
+            )();
+
+            var clonedInstance = cloneElement(instance, domProps()
+              ..addProps(getProps(instance))
+              ..addTestId('testId2')
+            );
+            var renderedInstance = testSpecificRender(Wrapper()(
+              clonedInstance,
+              Dom.div()('Nested Descendant 2')
+            ));
+
+            var descendant = getByTestId(renderedInstance, 'testId1');
+
+            expect(descendant, hasProp('data-name', 'Nested Descendant'));
+          });
+
+          test('the new testId is called', () {
+            var instance = (Dom.div()
+              ..addTestId('testId1')
+              ..addProp('data-name', 'Nested Descendant')
+            )();
+
+            var clonedInstance = cloneElement(instance, domProps()
+              ..addProps(getProps(instance))
+              ..addTestId('testId2')
+            );
+            var renderedInstance = testSpecificRender(Wrapper()(
+              clonedInstance,
+              Dom.div()('Nested Descendant 2')
+            ));
+
+            var descendant = getByTestId(renderedInstance, 'testId2');
+
+            expect(descendant, hasProp('data-name', 'Nested Descendant'));
+          });
+        });
+
+        group('the topmost descendant that has the appropriate value for a custom prop key when cloned and', () {
+          test('the old testId is called', () {
+            var instance = (Wrapper()
+              ..addTestId('testId1', key: 'data-custom-id')
+              ..addProp('data-name', 'Nested Descendant')
+            )();
+
+            var clonedInstance = cloneElement(instance, domProps()
+              ..addProps(getProps(instance))
+              ..addTestId('testId2', key: 'data-custom-id')
+            );
+            var renderedInstance = testSpecificRender(Wrapper()(
+              clonedInstance,
+              Dom.div()('Nested Descendant 2')
+            ));
+
+            var descendant = getByTestId(renderedInstance, 'testId1', key: 'data-custom-id');
+
+            expect(descendant, hasProp('data-name', 'Nested Descendant'));
+          });
+
+          test('the new testId is called', () {
+            var instance = (Wrapper()
+              ..addTestId('testId1', key: 'data-custom-id')
+              ..addProp('data-name', 'Nested Descendant')
+            )();
+
+            var clonedInstance = cloneElement(instance, domProps()
+              ..addProps(getProps(instance))
+              ..addTestId('testId2', key: 'data-custom-id')
+            );
+            var renderedInstance = testSpecificRender(Wrapper()(
+              clonedInstance,
+              Dom.div()('Nested Descendant 2')
+            ));
+
+            var descendant = getByTestId(renderedInstance, 'testId2', key: 'data-custom-id');
+
+            expect(descendant, hasProp('data-name', 'Nested Descendant'));
+          });
+        });
+
+        test('null if no descendant has the appropriate value for the `data-test-id` prop key', () {
+          var renderedInstance = testSpecificRender(Wrapper()());
+
+          var descendant = getByTestId(renderedInstance, 'value');
+
+          expect(descendant, isNull);
+        });
+
+        test('null if the user searches for a test ID of \'null\' when no test ID is set', () {
+          var renderedInstance = testSpecificRender(Wrapper()());
+
+          var descendant = getByTestId(renderedInstance, 'null');
+
+          expect(descendant, isNull);
+        });
+
+        test('null if the user searches for a test ID of `null` when the test ID is set to \'null\'', () {
+          var renderedInstance = testSpecificRender(Wrapper()(
+            (Test()..addTestId('null'))()
+          ));
+
+          var descendant = getByTestId(renderedInstance, null);
+
+          expect(descendant, isNull);
+        });
+      }
+
+      group('(rendered component)', () {
+        sharedTests(shallow: false);
       });
 
-      test('null if no descendant has the appropriate value for the `data-test-id` prop key', () {
-        var renderedInstance = render(Wrapper());
-
-        var descendant = getByTestId(renderedInstance, 'value');
-
-        expect(descendant, isNull);
-      });
-
-      test('null if the user searches for a test ID of \'null\' when no test ID is set', () {
-        var renderedInstance = render(Wrapper());
-
-        var descendant = getByTestId(renderedInstance, 'null');
-
-        expect(descendant, isNull);
-      });
-
-      test('null if the user searches for a test ID of `null` when the test ID is set to \'null\'', () {
-        var renderedInstance = render(Wrapper()(
-          (Test()..addTestId('null'))()
-        ));
-
-        var descendant = getByTestId(renderedInstance, null);
-
-        expect(descendant, isNull);
+      group('(shallow-rendered component)', () {
+        sharedTests(shallow: true);
       });
     });
 
