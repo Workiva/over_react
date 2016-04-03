@@ -259,8 +259,15 @@ Map getPropsByTestId(/* [1] */ root, String value, {String key: 'data-test-id'})
 }
 
 ReactElement _getByTestIdShallow(ReactElement root, String value, {String key: 'data-test-id'}) {
-  var breadthFirstDescendants = new Queue()..add(root);
+  Iterable flattenChildren(dynamic children) sync* {
+    if (children is Iterable) {
+      yield* children.expand(flattenChildren);
+    } else {
+      yield children;
+    }
+  }
 
+  var breadthFirstDescendants = new Queue()..add(root);
   while (breadthFirstDescendants.isNotEmpty) {
     var descendant = breadthFirstDescendants.removeFirst();
     if (!isValidElement(descendant)) {
@@ -272,12 +279,7 @@ ReactElement _getByTestIdShallow(ReactElement root, String value, {String key: '
       return descendant;
     }
 
-    var children = props['children'];
-    if (children is List) {
-      breadthFirstDescendants.addAll(children);
-    } else {
-      breadthFirstDescendants.add(children);
-    }
+    breadthFirstDescendants.addAll(flattenChildren(props['children']));
   }
 
   return null;
