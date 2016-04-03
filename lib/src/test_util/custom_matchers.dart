@@ -3,6 +3,7 @@ library test_util.custom_matchers;
 import 'dart:html';
 
 import 'package:matcher/matcher.dart';
+import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:test/test.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
@@ -126,6 +127,57 @@ class _ElementAttributeMatcher extends CustomMatcher {
 
   featureValueOf(Element element) => element.getAttribute(_attributeName);
 }
+
+class _HasPropMatcher extends CustomMatcher {
+  final dynamic _propKey;
+
+  _HasPropMatcher(propKey, propValue)
+      : this._propKey = propKey,
+        super('React instance with props that', 'props/attributes map', containsPair(propKey, propValue));
+
+  static bool _useDomAttributes(item) => react_test_utils.isDOMComponent(item);
+
+  static bool _isValidDomPropKey(propKey) => (
+      const $PropKeys(DomPropsMixin).contains(propKey) ||
+      (propKey is String && (
+          propKey.startsWith('data-') ||
+          propKey.startsWith('aria-'))
+      )
+  );
+
+  @override
+  Map featureValueOf(item) =>
+      _useDomAttributes(item) ? findDomNode(item).attributes : getProps(item);
+
+  @override
+  bool matches(item, Map matchState) {
+    /// Short-circuit null items to avoid errors in `containsPair`.
+    if (item == null) return false;
+
+    if (_useDomAttributes(item) && !_isValidDomPropKey(_propKey)) {
+      matchState['unsupported'] =
+          'Cannot verify whether the `$_propKey` prop is available on a DOM ReactComponent. '
+          'Only props in `DomPropsMixin` or starting with "data-"/"aria-" are supported.';
+
+      return false;
+    }
+
+    return super.matches(item, matchState);
+  }
+
+  @override
+  Description describeMismatch(item, Description mismatchDescription, Map matchState, bool verbose) {
+    /// Short-circuit null items to avoid errors in `containsPair`.
+    if (item == null) return mismatchDescription;
+
+    if (matchState['unsupported'] != null) {
+      return mismatchDescription..add(matchState['unsupported']);
+    }
+
+    return super.describeMismatch(item, mismatchDescription, matchState, verbose);
+  }
+}
+
 /// Returns a matcher that matches an element that has [classes].
 Matcher hasClasses(classes) => new _ElementClassNameMatcher(new ClassNameMatcher.expected(classes));
 /// Returns a matcher that matches an element that has [classes], with no additional or duplicated classes.
@@ -136,6 +188,14 @@ Matcher excludesClasses(classes) => new _ElementClassNameMatcher(new ClassNameMa
 Matcher hasAttr(String attributeName, value) => new _ElementAttributeMatcher(attributeName, wrapMatcher(value));
 /// Returns a matcher that matches an element with the nodeName of [nodeName].
 Matcher hasNodeName(String nodeName) => new IsNode(equalsIgnoringCase(nodeName));
+
+/// Returns a matcher that matches Dart, JS composite, and DOM [ReactElement]s and [ReactComponent]s
+/// that contain the prop pair ([propKey], propValue).
+///
+/// Since props of DOM [ReactComponent]s cannot be read directly, the element's attributes are matched instead.
+///
+/// This matcher will always fail when unsupported prop keys are tested against a DOM [ReactComponent].
+Matcher hasProp(dynamic propKey, dynamic propValue) => new _HasPropMatcher(propKey, propValue);
 
 class _IsFocused extends Matcher {
   const _IsFocused();
