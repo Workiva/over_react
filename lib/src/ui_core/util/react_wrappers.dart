@@ -60,14 +60,28 @@ bool isDartComponent(/* [1] */ instance) {
 @JS('Object.keys')
 external Iterable _objectKeys(object);
 
+/// Returns a Dart Map copy of the JS property key-value pairs in [jsMap].
+Map _dartifyJsMap(jsMap) {
+  return new Map.fromIterable(_objectKeys(jsMap),
+      value: (key) => getProperty(jsMap, key)
+  );
+}
+
 /// Returns the props for a [ReactElement] or composite [ReactComponent] [instance],
 /// shallow-converted to a Dart Map for convenience.
+///
+/// If `style` is specified in props, then it, too is shallow-converted and included
+/// in the returned Map.
 Map getJsProps(/* ReactElement|ReactComponent */ instance) {
-  var props = instance.props;
+  var props = _dartifyJsMap(instance.props);
 
-  return new Map.fromIterable(_objectKeys(props),
-      value: (key) => getProperty(props, key)
-  );
+  // Convert the nested style map so it can be read by Dart code.
+  var style = props['style'];
+  if (style != null) {
+    props['style'] = _dartifyJsMap(style);
+  }
+
+  return props;
 }
 
 /// Returns the props for a [ReactElement] or composite [ReactComponent] [instance].
