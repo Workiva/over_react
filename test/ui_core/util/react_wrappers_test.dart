@@ -127,10 +127,10 @@ main() {
             var original = testJsComponentFactory(testProps, testChildren);
             var clone = cloneElement(original, testPropsToAdd);
 
-            var renderedClone = react_test_utils.renderIntoDocument(clone);
-            Map cloneProps = getJsProps(renderedClone);
+            ReactComponent renderedClone = react_test_utils.renderIntoDocument(clone);
+            PlainObjectPropsMap props = (renderedClone.props as PlainObjectPropsMap);
 
-            PlainObjectStyleMap convertedStyle = cloneProps['style'];
+            var convertedStyle = props.style;
             expect(convertedStyle.width, equals('100rem'));
           });
 
@@ -440,25 +440,30 @@ main() {
 
     group('getProps', () {
       const List testChildren = const ['child1', 'child2'];
+      const Map testStyle = const {'background': 'white'};
 
       test('returns props for a composite JS component ReactElement', () {
         ReactElement instance = render(testJsComponentFactory({
-          'jsProp': 'js'
+          'jsProp': 'js',
+          'style': testStyle,
         }, testChildren));
 
         expect(getProps(instance), equals({
           'jsProp': 'js',
+          'style': testStyle,
           'children': testChildren
         }));
       });
 
       test('returns props for a composite JS ReactComponent', () {
         ReactComponent renderedInstance = render(testJsComponentFactory({
-          'jsProp': 'js'
+          'jsProp': 'js',
+          'style': testStyle,
         }, testChildren));
 
         expect(getProps(renderedInstance), equals({
           'jsProp': 'js',
+          'style': testStyle,
           'children': testChildren
         }));
       });
@@ -466,32 +471,38 @@ main() {
       test('returns props for a DOM component ReactElement', () {
         ReactElement instance = (Dom.div()
           ..addProp('domProp', 'dom')
+          ..style = testStyle
         )(testChildren);
 
         expect(getProps(instance), equals({
           'domProp': 'dom',
+          'style': testStyle,
           'children': testChildren
         }));
       });
 
       test('returns props for a Dart component ReactElement', () {
         ReactElement instance = render(TestComponentFactory({
-          'dartProp': 'dart'
+          'dartProp': 'dart',
+          'style': testStyle,
         }, testChildren));
 
         expect(getProps(instance), equals({
           'dartProp': 'dart',
+          'style': testStyle,
           'children': testChildren
         }));
       });
 
       test('returns props for a Dart component ReactComponent', () {
         ReactComponent renderedInstance = render(TestComponentFactory({
-          'dartProp': 'dart'
+          'dartProp': 'dart',
+          'style': testStyle,
         }, testChildren));
 
         expect(getProps(renderedInstance), equals({
           'dartProp': 'dart',
+          'style': testStyle,
           'children': testChildren
         }));
       });
@@ -523,6 +534,12 @@ ReactComponentFactory TestComponentFactory = react.registerComponent(() => new T
 class TestComponent extends react.Component {
   @override
   render() => Dom.div()();
+}
+
+@JS()
+@anonymous
+class PlainObjectPropsMap {
+  external PlainObjectStyleMap get style;
 }
 
 @JS()
