@@ -2,24 +2,27 @@ library mock_classes;
 
 import 'dart:async';
 import 'dart:html';
+
 // Tell dart2js that the `mockito` package only needs to reflect the specified mock/spied types.
 // This speeds up compilation and makes JS output much smaller.
 @MirrorsUsed(targets: const [
-  'MockKeyEvent',
-  'MockDocument',
+  'dart.async.Timer',
   'MockTimer',
+  // Also include Mock classes we use from w_test_tools.
+  'dart.dom.html.KeyEvent',
+  'dart.dom.html.HtmlDocument',
+  'w_test_tools.src.mock_classes.MockKeyEvent',
+  'w_test_tools.src.mock_classes.MockDocument',
+  'MockFileList',
+  'MockFile',
+  'MockFileUploadInputElement',
+  'dart.dom.html.FileList',
+  'dart.dom.html.File',
+  'dart.dom.html.FileUploadInputElement',
 ], override: 'mockito')
 import 'dart:mirrors';
 
 import 'package:mockito/mockito.dart';
-
-class MockKeyEvent extends Mock implements KeyEvent {
-  noSuchMethod(i) => super.noSuchMethod(i);
-}
-
-class MockDocument extends Mock implements Document {
-  noSuchMethod(i) => super.noSuchMethod(i);
-}
 
 typedef void _TimerCallback();
 
@@ -55,4 +58,16 @@ class MockTimer extends Mock implements Timer {
 
     return timerFactory;
   }
+}
+
+class MockFileList extends Mock implements FileList {
+  noSuchMethod(i) => super.noSuchMethod(i);
+}
+
+class MockFile extends Mock implements File {
+  noSuchMethod(i) => super.noSuchMethod(i);
+}
+
+class MockFileUploadInputElement extends Mock implements FileUploadInputElement {
+  noSuchMethod(i) => super.noSuchMethod(i);
 }

@@ -76,9 +76,9 @@ class ClassNameBuilder {
     String className = _classNamesBuffer.toString();
 
     if (_blacklistBuffer != null && _blacklistBuffer.isNotEmpty) {
-      List blacklistedClasses = splitClassName(_blacklistBuffer.toString());
+      List blacklistedClasses = splitSpaceDelimitedString(_blacklistBuffer.toString());
 
-      className = splitClassName(className)
+      className = splitSpaceDelimitedString(className)
         .where((String cssClass) => !blacklistedClasses.contains(cssClass))
         .join(' ');
     }
@@ -112,35 +112,42 @@ class ClassNameBuilder {
   }
 }
 
-
-/// Returns a List of CSS class token Strings efficiently split from the specified [className].
-List<String> splitClassName(String className) {
+/// Returns a List of space-delimited tokens efficiently split from the specified string.
+///
+/// Useful for splitting CSS class name strings into class tokens, or `data-test-id` values into individual test IDs.
+///
+/// Handles leading and trailing spaces, as well as token separated by multiple spaces.
+///
+/// Example:
+///
+///     splitSpaceDelimitedString('   foo bar     baz') // ['foo', 'bar', 'baz']
+List<String> splitSpaceDelimitedString(String string) {
   const int SPACE = 32; // ' '.codeUnits.first;
 
-  List<String> classNames = [];
+  List<String> strings = [];
   int start = 0;
 
-  while (start != className.length) {
-    while (className.codeUnitAt(start) == SPACE) {
+  while (start != string.length) {
+    while (string.codeUnitAt(start) == SPACE) {
       start++;
-      if (start == className.length) {
-        return classNames;
+      if (start == string.length) {
+        return strings;
       }
     }
 
     int end = start;
-    while (className.codeUnitAt(end) != SPACE) {
+    while (string.codeUnitAt(end) != SPACE) {
       end++;
-      if (end == className.length) {
-        classNames.add(className.substring(start, end));
-        return classNames;
+      if (end == string.length) {
+        strings.add(string.substring(start, end));
+        return strings;
       }
     }
 
-    classNames.add(className.substring(start, end));
+    strings.add(string.substring(start, end));
 
     start = end;
   }
 
-  return classNames;
+  return strings;
 }
