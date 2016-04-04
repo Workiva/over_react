@@ -139,6 +139,7 @@ class _HasPropMatcher extends CustomMatcher {
 
   static bool _isValidDomPropKey(propKey) => (
       const $PropKeys(DomPropsMixin).contains(propKey) ||
+      const $PropKeys(SvgPropsMixin).contains(propKey) ||
       (propKey is String && (
           propKey.startsWith('data-') ||
           propKey.startsWith('aria-'))
@@ -157,7 +158,7 @@ class _HasPropMatcher extends CustomMatcher {
     if (_useDomAttributes(item) && !_isValidDomPropKey(_propKey)) {
       matchState['unsupported'] =
           'Cannot verify whether the `$_propKey` prop is available on a DOM ReactComponent. '
-          'Only props in `DomPropsMixin` or starting with "data-"/"aria-" are supported.';
+          'Only props in `DomPropsMixin`/`SvgPropsMixin` or starting with "data-"/"aria-" are supported.';
 
       return false;
     }
@@ -195,6 +196,8 @@ Matcher hasNodeName(String nodeName) => new IsNode(equalsIgnoringCase(nodeName))
 /// Since props of DOM [ReactComponent]s cannot be read directly, the element's attributes are matched instead.
 ///
 /// This matcher will always fail when unsupported prop keys are tested against a DOM [ReactComponent].
+///
+/// TODO: add support for prop keys that aren't the same as their attribute keys
 Matcher hasProp(dynamic propKey, dynamic propValue) => new _HasPropMatcher(propKey, propValue);
 
 class _IsFocused extends Matcher {
