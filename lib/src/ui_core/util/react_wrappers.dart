@@ -70,7 +70,7 @@ Map _dartifyJsMap(jsMap) {
 /// Returns the props for a [ReactElement] or composite [ReactComponent] [instance],
 /// shallow-converted to a Dart Map for convenience.
 ///
-/// If `style` is specified in props, then it, too is shallow-converted and included
+/// If `style` is specified in props, then it too is shallow-converted and included
 /// in the returned Map.
 Map getJsProps(/* ReactElement|ReactComponent */ instance) {
   var props = _dartifyJsMap(instance.props);
