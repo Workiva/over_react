@@ -22,17 +22,6 @@ class InvalidPropValueError extends Error {
   String toString() => "InvalidPropValueError: Prop $name set to ${Error.safeToString(value)}: ${this.message}";
 }
 
-class InvalidStateValueError extends Error {
-  dynamic value;
-  String name;
-  String message;
-
-  InvalidStateValueError(this.value, this.name, this.message);
-
-  @override
-  String toString() => "InvalidStateValueError: State $name set to ${Error.safeToString(value)}: ${this.message}";
-}
-
 /// Error thrown when a two props have incompatible values.
 class InvalidPropCombinationError extends Error {
   String prop1;
