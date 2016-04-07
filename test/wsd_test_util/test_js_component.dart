@@ -16,6 +16,6 @@ final Function testJsComponentFactory = (() {
   var reactFactory = React.createFactory(componentClass);
 
   return ([props = const {}, children]) {
-    return reactFactory(jsify(props), jsifyChildren(children));
+    return reactFactory(jsify(props), listifyChildren(children));
   };
 })();
