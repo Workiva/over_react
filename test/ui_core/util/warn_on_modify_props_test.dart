@@ -1,15 +1,18 @@
 library warn_on_modify_props_test;
 
 import 'package:test/test.dart';
+import 'package:web_skin_dart/ui_core.dart';
+
+import '../shared/map_proxy_tests.dart';
 
 main() {
-  group('WarnOnModifyProps: ', () {
-    group('[]= operator override', () {
+  group('WarnOnModifyProps:', () {
+    group('- Map proxy tests', () {
+      mapProxyTests((Map backingMap) => new WarnOnModifyProps(backingMap));
+    });
+
+    group('[]= operator', () {
       test('issues a warning on usage', () {
-
-      });
-
-      test('adds the new key to the props', () {
 
       });
     });
@@ -18,18 +21,10 @@ main() {
       test('issues a warning on usage', () {
 
       });
-
-      test('adds new keys to the props', () {
-
-      });
     });
 
     group('clear', () {
       test('issues a warning on usage', () {
-
-      });
-
-      test('removes all keys from the props', () {
 
       });
     });
@@ -38,18 +33,10 @@ main() {
       test('issues a warning on usage', () {
 
       });
-
-      test('adds the new key to the props', () {
-
-      });
     });
 
     group('remove', () {
       test('issues a warning on usage', () {
-
-      });
-
-      test('removes the provided key from the props', () {
 
       });
     });
