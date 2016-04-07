@@ -88,6 +88,6 @@ main() {
           assertValidationWarnings();
         });
       });
-    });
+    }, testOn: '!js');
   });
 }
