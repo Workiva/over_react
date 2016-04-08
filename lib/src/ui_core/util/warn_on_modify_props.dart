@@ -40,7 +40,7 @@ class WarnOnModifyProps<K, V> extends MapView<K, V> {
     assert(ValidationUtil.warn(unindent(
       '''
       The props being modified belong to an existing component. Modifications to these props may cause
-      undesired behavior. In a future major release these props will not be able to modified.
+      undesired behavior. In a future major release getProps will return an unmodifiable Map.
       '''
     )));
   }
