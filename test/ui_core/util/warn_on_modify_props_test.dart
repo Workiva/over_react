@@ -31,7 +31,7 @@ main() {
         verifyValidationWarning(contains(unindent(
           '''
           The props being modified belong to an existing component. Modifications to these props may cause
-          undesired behavior.
+          undesired behavior. In a future major release these props will not be able to modified.
           '''
         )));
       }
