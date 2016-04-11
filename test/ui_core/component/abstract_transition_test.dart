@@ -189,7 +189,7 @@ main() {
           await new Future.microtask(() {});
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDDEN),
-              reason: 'Should have transitioned to HIDDEN without waiting for a transitionend that may never occur');
+              reason: 'Should have transitioned to HIDDEN in a microtask without waiting for a transitionend that may never occur');
         });
       });
     });
@@ -489,8 +489,8 @@ class TransitionerComponent extends AbstractTransitionComponent<TransitionerProp
   }
 
   @override
-  void handleHiding(bool transitionWillOccur) {
-    super.handleHiding(transitionWillOccur);
+  void handleHiding() {
+    super.handleHiding();
 
     if (props.onHandleHiding != null) {
       props.onHandleHiding();

@@ -209,8 +209,22 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   // Lifecycle Methods
   // --------------------------------------------------------------------------
 
+  /// Whether the overlay is not guaranteed to transition in response to the current
+  /// state change.
+  ///
+  /// _Stored as variable as workaround for not adding breaking change to [handleHiding] API._
+  ///
+  /// A transition may not always occur when the state moves from SHOWING to HIDING
+  /// if the PRE_SHOWING-->SHOWING-->HIDING transition happens back-to-back.
+  ///
+  /// Better to not always transition when the user is ninja-toggling a transitionable
+  /// component than to break state changes waiting for a transition that will never happen.
+  bool _transitionNotGuaranteed = false;
+
   @override
   void componentDidUpdate(Map prevProps, Map prevState, rootNode) {
+    _transitionNotGuaranteed = false;
+
     var tPrevState = typedStateFactory(prevState);
 
     if (tPrevState.transitionPhase != state.transitionPhase) {
@@ -228,13 +242,8 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
           handleShowing();
           break;
         case TransitionPhase.HIDING:
-          // A transition may not always occur when the state moves from SHOWING to HIDING
-          // if the PRE_SHOWING-->SHOWING-->HIDING transition happens back-to-back.
-          //
-          // Better to not always transition when the user is ninja-toggling a transitionable
-          // component than to break state changes waiting for a transition that will never happen.
-          bool transitionWillOccur = tPrevState.transitionPhase == TransitionPhase.SHOWING;
-          handleHiding(transitionWillOccur);
+          _transitionNotGuaranteed = tPrevState.transitionPhase == TransitionPhase.SHOWING;
+          handleHiding();
           break;
         case TransitionPhase.HIDDEN:
           handleHidden();
@@ -283,8 +292,8 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   void handleShowing() {}
 
   /// Method that will be called when [AbstractTransitionComponent]  first enters the `hiding` state.
-  void handleHiding(bool transitionWillOccur) {
-    if (transitionWillOccur) {
+  void handleHiding() {
+    if (_transitionNotGuaranteed) {
       // No transition will occur, so kick off the state change manually.
       //
       // Do this in a microtask since this state change causes invariant exceptions
