@@ -12,11 +12,6 @@ dependencies:
 dev_dependencies:
   dart_dev: "^1.0.5"
   test: "^0.12.6+2"
-dependency_overrides:
-  react:
-    git:
-      url: git@github.com:greglittlefield-wf/react-dart.git
-      ref: performance_and_lifcycle_improvements
 transformers:
 - test/pub_serve:
     $include: test/test_runtime_import.dart
