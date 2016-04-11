@@ -297,7 +297,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
       // No transition will occur, so kick off the state change manually.
       //
       // Do this in a microtask since this state change causes invariant exceptions
-      // when OverlayTrigegr API methods are called at the same time.
+      // when OverlayTrigger API methods are called at the same time.
       //
       // TODO: possibly remove microtask once using react-dart 1.0.0
       scheduleMicrotask(() {
