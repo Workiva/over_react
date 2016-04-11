@@ -228,7 +228,13 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
           handleShowing();
           break;
         case TransitionPhase.HIDING:
-          handleHiding();
+          // A transition may not always occur when the state moves from SHOWING to HIDING
+          // if the PRE_SHOWING-->SHOWING-->HIDING transition happens back-to-back.
+          //
+          // Better to not always transition when the user is ninja-toggling a transitionable
+          // component than to break state changes waiting for a transition that will never happen.
+          bool transitionWillOccur = tPrevState.transitionPhase == TransitionPhase.SHOWING;
+          handleHiding(transitionWillOccur);
           break;
         case TransitionPhase.HIDDEN:
           handleHidden();
@@ -277,14 +283,28 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   void handleShowing() {}
 
   /// Method that will be called when [AbstractTransitionComponent]  first enters the `hiding` state.
-  void handleHiding() {
-    onNextTransitionEnd(() {
-      if (state.transitionPhase == TransitionPhase.HIDING) {
+  void handleHiding(bool transitionWillOccur) {
+    if (transitionWillOccur) {
+      // No transition will occur, so kick off the state change manually.
+      //
+      // Do this in a microtask since this state change causes invariant exceptions
+      // when OverlayTrigegr API methods are called at the same time.
+      //
+      // TODO: possibly remove microtask once using react-dart 1.0.0
+      scheduleMicrotask(() {
         setState(newState()
           ..transitionPhase = TransitionPhase.HIDDEN
         );
-      }
-    });
+      });
+    } else {
+      onNextTransitionEnd(() {
+        if (state.transitionPhase == TransitionPhase.HIDING) {
+          setState(newState()
+            ..transitionPhase = TransitionPhase.HIDDEN
+          );
+        }
+      });
+    }
   }
 
   /// Method that will be called when [AbstractTransitionComponent]  first enters the `hidden` state.
