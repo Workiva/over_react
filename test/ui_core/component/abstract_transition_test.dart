@@ -1,5 +1,6 @@
 library abstract_transition_test;
 
+import 'dart:async';
 import 'dart:html';
 
 import 'package:test/test.dart';
@@ -165,9 +166,10 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
 
-          await triggerTransitionEnd(transitioner.getTransitionDomNode());
+          await new Future.microtask(() {});
 
-          expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDDEN));
+          expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDDEN),
+              reason: 'Should have transitioned to HIDDEN without waiting for a transitionend that may never occur');
         });
       });
     });
