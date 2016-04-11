@@ -455,8 +455,8 @@ class TransitionerComponent extends AbstractTransitionComponent<TransitionerProp
   }
 
   @override
-  void handleHiding() {
-    super.handleHiding();
+  void handleHiding(bool transitionWillOccur) {
+    super.handleHiding(transitionWillOccur);
 
     if (props.onHandleHiding != null) {
       props.onHandleHiding();
