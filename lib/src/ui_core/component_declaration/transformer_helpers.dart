@@ -1,10 +1,15 @@
 library web_skin_dart.component_declaration.transformer_helpers;
 
+import 'dart:html';
+
 import './component_base.dart' as component_base;
 
 export './annotations.dart';
 export './component_base.dart'
     hide UiComponent, UiStatefulComponent, UiProps, UiState;
+
+typedef Element _getDOMNodeTypedef();
+typedef dynamic _refTypedef(String ref);
 
 // ----------------------------------------------------------------------
 //   Helpers and extras consumable by generated code and consumers of
@@ -62,6 +67,20 @@ abstract class UiComponent<TProps extends UiProps> extends component_base.UiComp
     _throwIfNotGenerated();
   }
 
+  /// Get the DOM node of the component.
+  ///
+  /// Overridden for strong typing.
+  @override
+  _getDOMNodeTypedef get getDOMNode => super.getDOMNode;
+
+  /// Returns the component of the specified [ref].
+  /// > `react.Component` if it is a Dart component
+  /// > DOM node if it is a DOM component.
+  ///
+  /// Overridden for strong typing.
+  @override
+  _refTypedef get ref => super.ref;
+
   /// The default consumed prop keys, taken from the keys generated in the associated @[Props] class.
   @toBeGenerated
   Iterable<Iterable<String>> get $defaultConsumedPropKeys => throw new UngeneratedError(member: #$defaultConsumedPropKeys);
@@ -92,6 +111,20 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   UiStatefulComponent() {
     _throwIfNotGenerated();
   }
+
+  /// Get the DOM node of the component.
+  ///
+  /// Overridden for strong typing.
+  @override
+  _getDOMNodeTypedef get getDOMNode => super.getDOMNode;
+
+  /// Returns the component of the specified [ref].
+  /// > `react.Component` if it is a Dart component
+  /// > DOM node if it is a DOM component.
+  ///
+  /// Overridden for strong typing.
+  @override
+  _refTypedef get ref => super.ref;
 
   /// The default consumed prop keys, taken from the keys generated in the associated @[Props] class.
   @toBeGenerated
