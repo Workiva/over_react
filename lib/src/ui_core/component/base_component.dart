@@ -96,13 +96,13 @@ abstract class ComponentDefinition extends MapView implements Function {
   }
 
   /// Create a new component with this builder's props and the specified children.
-  JsObject build([dynamic children]) {
+  ReactElement build([dynamic children]) {
     assert(validate());
     return componentFactory(props, children);
   }
 
   /// Create a new component with this builder's props and the specified children. (alias for [build])
-  JsObject call([dynamic children]) => build(children);
+  ReactElement call([dynamic children]) => build(children);
 
   dynamic noSuchMethod(Invocation invocation) {
     if (invocation.memberName == #call && invocation.isMethod) {
