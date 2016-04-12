@@ -71,7 +71,12 @@ List<Element> _attachedReactContainers = [];
 /// Renders the component into the document as opposed to a headless node.
 /// Returns the rendered component.
 JsObject renderAttachedToDocument(dynamic component) {
-  var container = new DivElement()..className = 'render-attached-to-document-container';
+  var container = new DivElement()
+    ..className = 'render-attached-to-document-container'
+    // Set arbitrary height and width for container to ensure nothing is cut off.
+    ..style.setProperty('width', '800px')
+    ..style.setProperty('height', '800px');
+
   _attachedReactContainers.add(container);
 
   document.body.append(container);
