@@ -2,8 +2,13 @@ library custom_matchers_test;
 
 import 'dart:html';
 
+import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 import 'package:web_skin_dart/test_util.dart';
+import 'package:web_skin_dart/ui_core.dart';
+
+import '../wsd_test_util/test_js_component.dart';
+import '../wsd_test_util/wrapper_component.dart';
 
 /// Main entry point for CustomMatchers testing
 main() {
@@ -166,6 +171,129 @@ main() {
       });
     });
 
+    group('hasProp', () {
+      group('passes when the props are present in a', () {
+        group('ReactElement', () {
+          test('(DOM)', () {
+            shouldPass((Dom.div()..id = 'test')(), hasProp('id', 'test'));
+          });
+
+          test('(Dart)', () {
+            shouldPass((Wrapper()..id = 'test')(), hasProp('id', 'test'));
+          });
+
+          test('(JS composite)', () {
+            shouldPass(testJsComponentFactory({'id': 'test'}), hasProp('id', 'test'));
+          });
+        });
+
+        group('ReactComponent', () {
+          test('(DOM)', () {
+            shouldPass(render((Dom.div()..id = 'test')()), hasProp('id', 'test'));
+          });
+
+          test('(Dart)', () {
+            shouldPass(render((Wrapper()..id = 'test')()), hasProp('id', 'test'));
+          });
+
+          test('(JS composite)', () {
+            shouldPass(render(testJsComponentFactory({'id': 'test'})), hasProp('id', 'test'));
+          });
+        });
+      });
+
+      group('fails when the props are not present in a', () {
+        final failMessagePattern = new RegExp(r"Which: has props/attributes map with value .* which  doesn't contain key 'id'");
+
+        group('ReactElement', () {
+          test('(DOM)', () {
+            shouldFail(Dom.div()(), hasProp('id', 'test'), matches(failMessagePattern));
+          });
+
+          test('(Dart)', () {
+            shouldFail(Wrapper()(), hasProp('id', 'test'), matches(failMessagePattern));
+          });
+
+          test('(JS composite)', () {
+            shouldFail(testJsComponentFactory(), hasProp('id', 'test'), matches(failMessagePattern));
+          });
+        });
+
+        group('ReactComponent', () {
+          test('(DOM)', () {
+            shouldFail(render(Dom.div()()), hasProp('id', 'test'), matches(failMessagePattern));
+          });
+
+          test('(Dart)', () {
+            shouldFail(render(Wrapper()()), hasProp('id', 'test'), matches(failMessagePattern));
+          });
+
+          test('(JS composite)', () {
+            shouldFail(render(testJsComponentFactory()), hasProp('id', 'test'), matches(failMessagePattern));
+          });
+        });
+      });
+
+      group('fails when the props are different in a', () {
+        final failMessagePattern = new RegExp(r"Which: has props/attributes map with value .* which is different. Expected: test +Actual: different");
+
+        group('ReactElement', () {
+          test('(DOM)', () {
+            shouldFail((Dom.div()..id = 'different')(), hasProp('id', 'test'), matches(failMessagePattern));
+          });
+
+          test('(Dart)', () {
+            shouldFail((Wrapper()..id = 'different')(), hasProp('id', 'test'), matches(failMessagePattern));
+          });
+
+          test('(JS composite)', () {
+            shouldFail(testJsComponentFactory({'id': 'different'}), hasProp('id', 'test'), matches(failMessagePattern));
+          });
+        });
+
+        group('ReactComponent', () {
+          test('(DOM)', () {
+            shouldFail(render((Dom.div()..id = 'different')()), hasProp('id', 'test'), matches(failMessagePattern));
+          });
+
+          test('(Dart)', () {
+            shouldFail(render((Wrapper()..id = 'different')()), hasProp('id', 'test'), matches(failMessagePattern));
+          });
+
+          test('(JS composite)', () {
+            shouldFail(render(testJsComponentFactory({'id': 'different'})), hasProp('id', 'test'), matches(failMessagePattern));
+          });
+        });
+      });
+
+      group('validates prop keys when matched agains DOM ReactElements,', () {
+        group('not failing for', () {
+          test('keys in DomPropsMixin', () {
+            shouldPass(render((Dom.div()..id = 'test')()), hasProp('id', 'test'));
+          });
+
+          test('keys in SvgPropsMixin', () {
+            shouldPass(render((Dom.circle()..fill = 'test')()), hasProp('fill', 'test'));
+          });
+
+          test('"data-" attributes', () {
+            shouldPass(render((Dom.div()..addProp('data-test', 'test'))()), hasProp('data-test', 'test'));
+          });
+
+          test('"aria-" attributes', () {
+            shouldPass(render((Dom.div()..addProp('aria-test', 'test'))()), hasProp('aria-test', 'test'));
+          });
+        });
+
+        test('failing when the an unsupported prop is tested agains a DOM ReactElement', () {
+          shouldFail(render(Dom.div()()), hasProp('notADomProp', 'test'), contains(
+              'Cannot verify whether the `notADomProp` prop is available on a DOM ReactComponent. '
+              'Only props in `DomPropsMixin`/`SvgPropsMixin` or starting with "data-"/"aria-" are supported.'
+          ));
+        });
+      });
+    });
+
     group('hasAttr', () {
       test('should pass when the element has the attribute set to the correct value', () {
         testElement.setAttribute('index', '1');
@@ -284,7 +412,7 @@ void shouldFail(value, Matcher matcher, expected) {
     if (expected is String) {
       expect(_errorString, equalsIgnoringWhitespace(expected));
     } else {
-      expect(_errorString.replaceAll('\n', ''), expected);
+      expect(_errorString.replaceAll('\n', ' '), expected);
     }
   }
 
