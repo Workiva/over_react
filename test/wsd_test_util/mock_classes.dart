@@ -1,6 +1,8 @@
 library mock_classes;
 
 import 'dart:async';
+import 'dart:html';
+
 // Tell dart2js that the `mockito` package only needs to reflect the specified mock/spied types.
 // This speeds up compilation and makes JS output much smaller.
 @MirrorsUsed(targets: const [
@@ -11,6 +13,12 @@ import 'dart:async';
   'dart.dom.html.HtmlDocument',
   'w_test_tools.src.mock_classes.MockKeyEvent',
   'w_test_tools.src.mock_classes.MockDocument',
+  'MockFileList',
+  'MockFile',
+  'MockFileUploadInputElement',
+  'dart.dom.html.FileList',
+  'dart.dom.html.File',
+  'dart.dom.html.FileUploadInputElement',
 ], override: 'mockito')
 import 'dart:mirrors';
 
@@ -50,4 +58,16 @@ class MockTimer extends Mock implements Timer {
 
     return timerFactory;
   }
+}
+
+class MockFileList extends Mock implements FileList {
+  noSuchMethod(i) => super.noSuchMethod(i);
+}
+
+class MockFile extends Mock implements File {
+  noSuchMethod(i) => super.noSuchMethod(i);
+}
+
+class MockFileUploadInputElement extends Mock implements FileUploadInputElement {
+  noSuchMethod(i) => super.noSuchMethod(i);
 }
