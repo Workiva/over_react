@@ -1,15 +1,19 @@
 library react_wrappers_test;
 
 import 'dart:html';
-import 'dart:js';
 
+import 'package:js/js.dart';
 import 'package:test/test.dart';
 import 'package:react/react_client.dart';
+import 'package:react/react_client/js_interop_helpers.dart';
+import 'package:react/react_client/react_interop.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
 import 'package:web_skin_dart/ui_components.dart';
+
+import '../../wsd_test_util/test_js_component.dart';
 
 /// Main entry point for react wrappers testing
 main() {
@@ -27,8 +31,8 @@ main() {
           var original = (Dom.div()..addProps(testProps))(testChildren);
           var clone = cloneElement(original);
 
-          // If these JsObject are equal, then they proxy the same JS props object.
-          expect(clone[PROPS], isNot(equals(original[PROPS])));
+          // If these objects are equal, then they proxy the same JS props object.
+          expect(clone.props, isNot(equals(original.props)));
 
           Map originalProps = getJsProps(original);
           Map cloneProps = getJsProps(clone);
@@ -41,14 +45,23 @@ main() {
           var original = TestComponentFactory(testProps, testChildren);
           var clone = cloneElement(original);
 
-          // If these JsObject are equal, then they proxy the same JS props object.
-          expect(clone[PROPS], isNot(equals(original[PROPS])));
+          // If these objects are equal, then they proxy the same JS props object.
+          expect(clone.props, isNot(equals(original.props)));
 
           Map originalProps = getJsProps(original);
           Map cloneProps = getJsProps(clone);
 
-          // Verify all props (children and react-dart internals included) are equal.
-          expect(cloneProps, equals(originalProps));
+          // Verify all props (including children, excluding react-dart internals) are equal.
+          Map originalShallowProps = new Map.from(originalProps);
+          Map clonePropsShallowProps = new Map.from(cloneProps);
+          originalShallowProps.remove('internal');
+          clonePropsShallowProps.remove('internal');
+          expect(originalShallowProps, equals(clonePropsShallowProps));
+
+          // Verify react-dart internal props are equal.
+          ReactDartComponentInternal originalInternal = originalProps['internal'];
+          ReactDartComponentInternal clonePropsInternal = cloneProps['internal'];
+          expect(originalInternal.props, equals(clonePropsInternal.props));
 
           var dartRendered = getDartComponent(render(original));
           var dartRenderedClone = getDartComponent(render(clone));
@@ -111,15 +124,14 @@ main() {
           });
 
           test('for JS composite components', () {
-            var original = testJsComponentFactory.apply([testProps, testChildren]);
+            var original = testJsComponentFactory(testProps, testChildren);
             var clone = cloneElement(original, testPropsToAdd);
 
-            var renderedClone = react_test_utils.renderIntoDocument(clone);
-            Map cloneProps = getJsProps(renderedClone);
+            ReactComponent renderedClone = react_test_utils.renderIntoDocument(clone);
+            PlainObjectPropsMap props = (renderedClone.props as PlainObjectPropsMap);
 
-            var convertedStyle = cloneProps['style'];
-            expect(convertedStyle, new isInstanceOf<JsObject>(), reason: 'style should have been converted to a JS map for React JS consumption');
-            expect(convertedStyle['width'], equals('100rem'));
+            var convertedStyle = props.style;
+            expect(convertedStyle.width, equals('100rem'));
           });
 
           group(', except', () {
@@ -164,7 +176,7 @@ main() {
 
           group(', except', () {
             test('for JS composite components', () {
-              var original = testJsComponentFactory.apply([testProps, testChildren]);
+              var original = testJsComponentFactory(testProps, testChildren);
               var clone = cloneElement(original, testPropsToAdd);
 
               var renderedClone = react_test_utils.renderIntoDocument(clone);
@@ -214,12 +226,13 @@ main() {
           var clone = cloneElement(original, overrideKeyRefProps);
 
           // Verify that "key" and "ref" are overridden according to React
-          expect(clone['key'], equals(overrideKeyRefProps['key']));
-          expect(clone['ref'], equals(overrideKeyRefProps['ref']));
+          expect(clone.key, equals(overrideKeyRefProps['key']));
+          expect(clone.ref, equals(overrideKeyRefProps['ref']));
         });
 
         test('for a Dart component', () {
-          var original, clone;
+          ReactElement original;
+          ReactElement clone;
 
           // The 'ref' property can only be used from within a render() method, so use RenderingContainerComponent
           // to clone and render the test component.
@@ -234,15 +247,14 @@ main() {
           var renderedHolder = render(holder);
 
           // Verify that "key" and "ref" are overridden according to React
-          expect(clone['key'], equals(overrideKeyRefProps['key']));
-          expect(clone['ref'], equals(overrideKeyRefProps['ref']));
+          expect(clone.key, equals(overrideKeyRefProps['key']));
+          expect(clone.ref, equals(overrideKeyRefProps['ref']));
 
           var renderedClone = react_test_utils.findRenderedComponentWithType(renderedHolder, TestComponentFactory);
 
-          // Verify that the "key" and "ref" props are overridden according to the Dart component.
           Map cloneDartProps = getDartComponent(renderedClone).props;
-          expect(cloneDartProps['key'], equals(overrideKeyRefProps['key']));
-          expect(cloneDartProps['ref'], equals(overrideKeyRefProps['ref']));
+          expect(cloneDartProps, isNot(anyOf(contains('key'), contains('ref'))),
+              reason: '"key" and "ref" should not be visible to the rendered cloned component');
         });
       });
 
@@ -312,32 +324,42 @@ main() {
           expect(isValidElement(['item1', 'item2']), isFalse);
         });
 
+        test('a plain JS object', () {
+          expect(isValidElement(new EmptyObject()), isFalse);
+        });
+
+        test('a ReactElement', () {
+          ReactElement instance = Dom.div()();
+          expect(isValidElement(instance), isTrue);
+        });
+
         test('a ReactComponent', () {
-          expect(isValidElement(Dom.div()()), isTrue);
+          ReactComponent instance = render(TestComponentFactory({}));
+          expect(isValidElement(instance), isFalse);
         });
       });
     });
 
-    group('isDomComponent()', () {
+    group('isDomElement()', () {
       group('returns expected result when given', (){
         test('a DOM component', () {
-          expect(isDomComponent(Dom.div()()), isTrue);
+          expect(isDomElement(Dom.div()()), isTrue);
         });
 
         test('a Dart component', () {
-          expect(isDomComponent(TestComponentFactory({})), isFalse);
+          expect(isDomElement(TestComponentFactory({})), isFalse);
         });
 
         test('a JS composite component', () {
-          expect(isDomComponent(testJsComponentFactory.apply([])), isFalse);
+          expect(isDomElement(testJsComponentFactory()), isFalse);
         });
 
         test('null', () {
-          expect(isDomComponent(null), isFalse);
+          expect(isDomElement(null), isFalse);
         });
 
         test('a String', () {
-          expect(isDomComponent('Test String'), isFalse);
+          expect(isDomElement('Test String'), isFalse);
         });
       });
     });
@@ -357,15 +379,151 @@ main() {
       });
     });
 
+    test('getInstanceKey returns the key set on a ReactElement', () {
+      ReactElement instance = (Dom.div()..key = 'foo')();
+      expect(getInstanceKey(instance), equals('foo'));
+    });
+
+    test('getInstanceRef returns the ref set on a ReactElement', () {
+      ReactElement instance = (Dom.div()..ref = 'foo')();
+      expect(getInstanceRef(instance), equals('foo'));
+    });
+
+    group('isDartComponent', () {
+      test('returns true for an unrendered instance (ReactElement) of a Dart component', () {
+        ReactElement instance = TestComponentFactory({});
+        expect(isDartComponent(instance), isTrue);
+      });
+
+      test('returns false for an unrendered instance (ReactElement) of a JS composite component', () {
+        ReactElement instance = testJsComponentFactory({});
+        expect(isDartComponent(instance), isFalse);
+      });
+
+      test('returns false for an unrendered instance (ReactElement) of a DOM component', () {
+        ReactElement instance = Dom.div()();
+        expect(isDartComponent(instance), isFalse);
+      });
+
+      test('returns true for an mounted instance (ReactComponent) of a Dart component', () {
+        var renderedInstance = render(TestComponentFactory({}));
+        expect(isDartComponent(renderedInstance), isTrue);
+      });
+
+      test('returns false for an mounted instance (ReactComponent) of a JS composite component', () {
+        var renderedInstance = render(testJsComponentFactory({}));
+        expect(isDartComponent(renderedInstance), isFalse);
+      });
+
+      test('returns false for an mounted instance (ReactComponent) of a DOM component', () {
+        var renderedInstance = render(Dom.div());
+        expect(isDartComponent(renderedInstance), isFalse);
+      });
+    });
+
     group('getDartComponent', () {
       test('returns the correct Dart component that is rendered', () {
         var renderedInstance = render(Button());
         expect(getDartComponent(renderedInstance), new isInstanceOf<ButtonComponent>());
       });
 
-      test('returns null is JS Object is not Dart based', () {
+      test('returns null for a JS composite component', () {
+        var renderedInstance = render(testJsComponentFactory());
+        expect(getDartComponent(renderedInstance), isNull);
+      });
+
+      test('returns null for a DOM component', () {
         var renderedInstance = render(Dom.div());
         expect(getDartComponent(renderedInstance), isNull);
+      });
+    });
+
+    group('getProps', () {
+      const List testChildren = const ['child1', 'child2'];
+      const Map testStyle = const {'background': 'white'};
+
+      test('returns props for a composite JS component ReactElement', () {
+        ReactElement instance = render(testJsComponentFactory({
+          'jsProp': 'js',
+          'style': testStyle,
+        }, testChildren));
+
+        expect(getProps(instance), equals({
+          'jsProp': 'js',
+          'style': testStyle,
+          'children': testChildren
+        }));
+      });
+
+      test('returns props for a composite JS ReactComponent', () {
+        ReactComponent renderedInstance = render(testJsComponentFactory({
+          'jsProp': 'js',
+          'style': testStyle,
+        }, testChildren));
+
+        expect(getProps(renderedInstance), equals({
+          'jsProp': 'js',
+          'style': testStyle,
+          'children': testChildren
+        }));
+      });
+
+      test('returns props for a DOM component ReactElement', () {
+        ReactElement instance = (Dom.div()
+          ..addProp('domProp', 'dom')
+          ..style = testStyle
+        )(testChildren);
+
+        expect(getProps(instance), equals({
+          'domProp': 'dom',
+          'style': testStyle,
+          'children': testChildren
+        }));
+      });
+
+      test('returns props for a Dart component ReactElement', () {
+        ReactElement instance = render(TestComponentFactory({
+          'dartProp': 'dart',
+          'style': testStyle,
+        }, testChildren));
+
+        expect(getProps(instance), equals({
+          'dartProp': 'dart',
+          'style': testStyle,
+          'children': testChildren
+        }));
+      });
+
+      test('returns props for a Dart component ReactComponent', () {
+        ReactComponent renderedInstance = render(TestComponentFactory({
+          'dartProp': 'dart',
+          'style': testStyle,
+        }, testChildren));
+
+        expect(getProps(renderedInstance), equals({
+          'dartProp': 'dart',
+          'style': testStyle,
+          'children': testChildren
+        }));
+      });
+
+      group('throws when passed', () {
+        test('a DOM ReactComponent (Element)', () {
+          var renderedInstance = render(Dom.div());
+          expect(() => getProps(renderedInstance), throwsArgumentError);
+        });
+
+        test('an empty JS object', () {
+          expect(() => getProps(new EmptyObject()), throwsArgumentError);
+        });
+
+        test('a String', () {
+          expect(() => getProps('string'), throwsArgumentError);
+        });
+
+        test('null', () {
+          expect(() => getProps(null), throwsArgumentError);
+        });
       });
     });
   });
@@ -378,18 +536,14 @@ class TestComponent extends react.Component {
   render() => Dom.div()();
 }
 
-JsFunction _testJsComponentFactory;
-JsFunction get testJsComponentFactory {
-  if (_testJsComponentFactory == null) {
-    JsObject React = context['React'];
+@JS()
+@anonymous
+class PlainObjectPropsMap {
+  external PlainObjectStyleMap get style;
+}
 
-    var componentClass = React.callMethod('createClass', [new JsObject.jsify({
-      'displayName': 'testJsComponent',
-      'render': () => Dom.div()('test js component')
-    })]);
-
-    _testJsComponentFactory = React.callMethod('createFactory', [componentClass]);
-  }
-
-  return _testJsComponentFactory;
+@JS()
+@anonymous
+class PlainObjectStyleMap {
+  external get width;
 }
