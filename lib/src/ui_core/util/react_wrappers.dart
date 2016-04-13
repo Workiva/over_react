@@ -5,6 +5,7 @@ import 'dart:js';
 
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
+import 'package:web_skin_dart/ui_core.dart';
 
 JsObject _React = context['React'];
 
@@ -51,7 +52,8 @@ Map getJsProps(JsObject instance) {
 /// For a native Dart component, this returns its [react.Component.props] Map.
 /// For a JS component, this returns the result of [getJsProps].
 Map getProps(JsObject instance) {
-  return isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
+  var propsMap = isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
+  return new WarnOnModifyProps(propsMap);
 }
 
 /// Returns the DOM node associated with a mounted React component [instance],
