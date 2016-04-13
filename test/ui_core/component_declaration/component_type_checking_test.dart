@@ -1,7 +1,8 @@
 library ui_core.component_declaration.component_type_checking_test;
 
-import 'dart:js';
-
+import 'package:js/js.dart';
+import 'package:react/react_client.dart';
+import 'package:react/react_client/react_interop.dart';
 import 'package:test/test.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart';
 import 'package:web_skin_dart/ui_core.dart';
@@ -13,7 +14,6 @@ import 'component_type_checking_test/two_level_wrapper.dart';
 import 'component_type_checking_test/type_inheritance/parent.dart';
 import 'component_type_checking_test/type_inheritance/subsubtype.dart';
 import 'component_type_checking_test/type_inheritance/subtype.dart';
-import 'package:react/react_client.dart';
 
 main() {
   group('component type checking:', () {
@@ -23,16 +23,16 @@ main() {
           expect(getComponentTypeFromAlias('div'), equals('div'));
         });
 
-        test('JsFunction', () {
-          var jsFunction = new JsFunction.withThis((_) {});
-          expect(getComponentTypeFromAlias(jsFunction), same(jsFunction));
+        test('ReactClass', () {
+          var reactClass = createTestReactClass();
+          expect(getComponentTypeFromAlias(reactClass), same(reactClass));
         });
       });
 
-      test('returns the JsFunction type for a ReactDartComponentFactoryProxy', () {
-        var jsFunction = new JsFunction.withThis((_) {});
-        var factory = new ReactDartComponentFactoryProxy(jsFunction);
-        expect(getComponentTypeFromAlias(factory), same(jsFunction));
+      test('returns the ReactClass type for a ReactDartComponentFactoryProxy', () {
+        var reactClass = createTestReactClass();
+        var factory = new ReactDartComponentFactoryProxy(reactClass);
+        expect(getComponentTypeFromAlias(factory), same(reactClass));
       });
 
       test('returns the String type for a ReactDomComponentFactoryProxy', () {
@@ -40,14 +40,14 @@ main() {
         expect(getComponentTypeFromAlias(factory), equals('div'));
       });
 
-      test('returns the JsFunction type for an aliased ReactDartComponentFactoryProxy', () {
-        var jsFunction = new JsFunction.withThis((_) {});
-        var factory = new ReactDartComponentFactoryProxy(jsFunction);
+      test('returns the ReactClass type for an aliased ReactDartComponentFactoryProxy', () {
+        var reactClass = createTestReactClass();
+        var factory = new ReactDartComponentFactoryProxy(reactClass);
 
         var typeAlias = new Object();
         registerComponentTypeAlias(factory, typeAlias);
 
-        expect(getComponentTypeFromAlias(typeAlias), same(jsFunction));
+        expect(getComponentTypeFromAlias(typeAlias), same(reactClass));
       });
 
       test('returns null for an unregistered/invalid type alias', () {
@@ -151,7 +151,7 @@ main() {
         });
 
         test('a component and its component type', () {
-          expect(isComponentOfType(TestA()(), TestA()()['type']), isTrue);
+          expect(isComponentOfType(TestA()(), TestA()().type), isTrue);
         });
 
         test('a component and a factory for a different component', () {
@@ -167,7 +167,7 @@ main() {
         });
 
         test('a component and a component type for a different component', () {
-          expect(isComponentOfType(TestA()(), TestB()()['type']), isFalse);
+          expect(isComponentOfType(TestA()(), TestB()().type), isFalse);
         });
 
         test('a DOM component and a factory for a Dart component', () {
@@ -278,4 +278,9 @@ main() {
       });
     });
   });
+}
+
+ReactClass createTestReactClass() {
+  return React.createClass(new ReactClassConfig(render: allowInterop(() => false)))
+      ..dartDefaultProps = const {};
 }

@@ -8,6 +8,8 @@ import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_components.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
+import '../../wsd_test_util/wrapper_component.dart';
+
 /// Main entry point for DomUtil testing
 main() {
   group('isOrContains returns', () {
@@ -54,7 +56,7 @@ main() {
   });
 
   group('getFormElements returns', () {
-    JsObject renderedInstance;
+    var renderedInstance;
     FormElement formElementNode;
     var formElements;
 
@@ -121,8 +123,8 @@ main() {
 
         test('with the expected values', () {
           expect(formElements, equals([
-            getDomByTestId(renderedInstance, 'firstInput'),
-            getDomByTestId(renderedInstance, 'secondInput'),
+            formElementNode.childNodes[0],
+            formElementNode.childNodes[1],
           ]));
         });
       });
