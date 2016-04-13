@@ -58,22 +58,19 @@ void main() {
     /// oddities in detecting callback invocations.
     Future expectResizeAfter(void action(Element container),
         {ResizeSensorHandler onResize}) async {
-      var wasResizeDetected = false;
+      var resizeDetectedCompleter = new Completer();
 
       Element containerEl;
       containerEl = renderSensorIntoContainer(onResize: (event) {
         if (onResize != null) {
           onResize(event);
         }
-        wasResizeDetected = true;
+        resizeDetectedCompleter.complete();
       });
 
       action(containerEl);
 
-      // Note: there is a delay here because Smithy has trouble running these
-      // tests successfully without it. :(
-      await new Future.delayed(const Duration(milliseconds: 200),
-          () => expect(wasResizeDetected, isTrue));
+      await resizeDetectedCompleter.future;
     }
 
     /// Expect resize sensor invokes registered `onInitialize` callback.
@@ -81,18 +78,16 @@ void main() {
     /// The caller must await this function. See above.
     Future expectInitialize({ResizeSensorHandler onInitialize, int width: defaultContainerWidth,
         int height: defaultContainerHeight}) async {
-      var wasInitializeDetected = false;
+      var initializeDetectedCompleter = new Completer();
 
       renderSensorIntoContainer(onInitialize: (event) {
         if (onInitialize != null) {
           onInitialize(event);
         }
-        wasInitializeDetected = true;
+        initializeDetectedCompleter.complete();
       }, width: width, height: height);
 
-      // See above.
-      await new Future.delayed(const Duration(milliseconds: 200),
-          () => expect(wasInitializeDetected, isTrue));
+      await initializeDetectedCompleter.future;
     }
 
     group('should render with the correct styles when isFlexChild is', () {
