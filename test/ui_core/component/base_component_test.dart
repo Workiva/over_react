@@ -112,16 +112,16 @@ main() {
         expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
         expect(getDartChildren(renderedInstance), equals([firstChild, secondChild]));
 
-        expect(getJsChildren(renderedInstance), new isInstanceOf<JsArray>(), reason: 'Should not be a Dart Object');
+        expect(getJsChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
         expect(getJsChildren(renderedInstance), equals([firstChild, secondChild]));
       });
     });
   });
 }
 
-dynamic getJsChildren(JsObject instance) => getJsProps(instance)['children'];
+dynamic getJsChildren(instance) => getJsProps(instance)['children'];
 
-dynamic getDartChildren(JsObject renderedInstance) {
+dynamic getDartChildren(var renderedInstance) {
   assert(isDartComponent(renderedInstance));
   return getProps(renderedInstance)['children'];
 }

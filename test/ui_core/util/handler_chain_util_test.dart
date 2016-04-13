@@ -331,6 +331,138 @@ main() {
         });
       });
 
+      group('createChainedEventKeyIndexCallback', () {
+        test('should return an EventKeyIndexCallback that calls the two provided functions', () {
+          bool calledA = false,
+            calledB = false;
+          EventKeyIndexCallback a = (event, key, index) => calledA = true;
+          EventKeyIndexCallback b = (event, key, index) => calledB = true;
+
+          var chainedCallback = createChainedEventKeyIndexCallback(a, b);
+          var result = chainedCallback(null, null, null);
+
+          expect(calledA, isTrue);
+          expect(calledB, isTrue);
+
+          expect(result, isNull);
+        });
+
+        test('should return an EventKeyIndexCallback that calls the two provided functions in order', () {
+          int counter = 1;
+          bool calledA = false,
+            calledB = false;
+          EventKeyIndexCallback a = (event, key, index) {
+            calledA = true;
+            zonedExpect(counter, equals(1));
+            counter++;
+          };
+          EventKeyIndexCallback b = (event, key, index) {
+            calledB = true;
+            zonedExpect(counter, equals(2));
+          };
+
+          var chainedCallback = createChainedEventKeyIndexCallback(a, b);
+          chainedCallback(null, null, null);
+
+          expect(calledA, isTrue);
+          expect(calledB, isTrue);
+        });
+
+        group('should return an EventKeyIndexCallback that calls the two provided functions and returns', () {
+          test('false if the first provided functions returns false', () {
+            bool calledA = false,
+              calledB = false;
+            EventKeyIndexCallback a = (event, key, index) {
+              calledA = true;
+              return false;
+            };
+            EventKeyIndexCallback b = (event, key, index) => calledB = true;
+
+            var chainedCallback = createChainedEventKeyIndexCallback(a, b);
+            var result = chainedCallback(null, null, null);
+
+            expect(calledA, isTrue);
+            expect(calledB, isTrue);
+
+            expect(result, isFalse);
+          });
+
+          test('false if the second provided functions returns false', () {
+            bool calledA = false, calledB = false;
+            EventKeyIndexCallback a = (event, key, index) => calledA = true;
+            EventKeyIndexCallback b = (event, key, index) {
+              calledB = true;
+              return false;
+            };
+
+            var chainedCallback = createChainedEventKeyIndexCallback(a, b);
+            var result = chainedCallback(null, null, null);
+
+            expect(calledA, isTrue);
+            expect(calledB, isTrue);
+
+            expect(result, isFalse);
+          });
+
+          test('false if both provided functions return false', () {
+            bool calledA = false, calledB = false;
+            EventKeyIndexCallback a = (event, key, index) {
+              calledA = true;
+              return false;
+            };
+            EventKeyIndexCallback b = (event, key, index) {
+              calledB = true;
+              return false;
+            };
+
+            var chainedCallback = createChainedEventKeyIndexCallback(a, b);
+            var result = chainedCallback(null, null, null);
+
+            expect(calledA, isTrue);
+            expect(calledB, isTrue);
+
+            expect(result, isFalse);
+          });
+
+          test('null if no provided function returns false', () {
+            bool calledA = false, calledB = false;
+            EventKeyIndexCallback a = (event, key, index) {
+              calledA = true;
+              return true;
+            };
+            EventKeyIndexCallback b = (event, key, index) {
+              calledB = true;
+              return;
+            };
+
+            var chainedCallback = createChainedEventKeyIndexCallback(a, b);
+            var result = chainedCallback(null, null, null);
+
+            expect(calledA, isTrue);
+            expect(calledB, isTrue);
+
+            expect(result, isNull);
+          });
+        });
+
+        test('should gracefully handle one provided function being null', () {
+          bool calledA = false;
+          EventKeyIndexCallback a = (event, key, index) => calledA = true;
+
+          var chainedCallback = createChainedEventKeyIndexCallback(a, null);
+          chainedCallback(null, null, null);
+
+          expect(calledA, isTrue);
+        });
+
+        test('should gracefully handle both provided functions being null', () {
+          var chainedCallback = createChainedEventKeyIndexCallback(null, null);
+          var result = chainedCallback(null, null, null);
+
+          expect(result, isNull);
+        });
+      });
+
       group('createChainedEventKeyCallbackFromList', () {
         group('returns', () {
           test('false if the first provided function returns false', () {
