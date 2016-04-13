@@ -20,7 +20,7 @@ EventKeyCallback createChainedEventKeyCallback(EventKeyCallback a, EventKeyCallb
   };
 }
 
-/// Creates an EventKeyCallback that calls through to the two provided callbacks in order.
+/// Creates an EventKeyIndexCallback that calls through to the two provided callbacks in order.
 ///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
