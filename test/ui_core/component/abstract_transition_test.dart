@@ -1,5 +1,6 @@
 library abstract_transition_test;
 
+import 'dart:async';
 import 'dart:html';
 
 import 'package:test/test.dart';
@@ -43,6 +44,10 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
 
+          await new Future.delayed(Duration.ZERO);
+          expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING),
+              reason: 'should still be waiting for a transition event');
+
           await triggerTransitionEnd(transitioner.getTransitionDomNode());
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDDEN));
@@ -70,6 +75,10 @@ main() {
           transitioner.show();
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING));
+
+          await new Future.delayed(Duration.ZERO);
+          expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING),
+              reason: 'should still be waiting for a transition event');
 
           await triggerTransitionEnd(transitioner.getTransitionDomNode());
 
@@ -102,6 +111,10 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
 
+          await new Future.delayed(Duration.ZERO);
+          expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING),
+              reason: 'should still be waiting for a transition event');
+
           await triggerTransitionEnd(transitioner.getTransitionDomNode());
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDDEN));
@@ -109,6 +122,10 @@ main() {
           transitioner.toggle();
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING));
+
+          await new Future.delayed(Duration.ZERO);
+          expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING),
+              reason: 'should still be waiting for a transition event');
 
           await triggerTransitionEnd(transitioner.getTransitionDomNode());
 
@@ -146,6 +163,10 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING));
 
+          await new Future.delayed(Duration.ZERO);
+          expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING),
+              reason: 'should still be waiting for a transition event');
+
           await triggerTransitionEnd(transitioner.getTransitionDomNode());
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWN));
@@ -165,9 +186,10 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
 
-          await triggerTransitionEnd(transitioner.getTransitionDomNode());
+          await new Future.microtask(() {});
 
-          expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDDEN));
+          expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDDEN),
+              reason: 'Should have transitioned to HIDDEN in a microtask without waiting for a transitionend that may never occur');
         });
       });
     });
@@ -182,6 +204,10 @@ main() {
         transitioner.hide();
 
         expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
+
+        await new Future.delayed(Duration.ZERO);
+        expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING),
+            reason: 'should still be waiting for a transition event');
 
         await triggerTransitionEnd(transitioner.getTransitionDomNode());
 
@@ -198,9 +224,17 @@ main() {
 
         expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
 
+        await new Future.delayed(Duration.ZERO);
+        expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING),
+            reason: 'should still be waiting for a transition event');
+
         await triggerTransitionEnd(transitioner.getTransitionDomNode());
 
         expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
+
+        await new Future.delayed(Duration.ZERO);
+        expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING),
+              reason: 'should still be waiting for a transition event');
 
         await triggerTransitionEnd(transitioner.getTransitionDomNode());
 
