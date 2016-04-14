@@ -35,7 +35,7 @@ main() {
           verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
         });
 
-        test('a list non-invoked builder child is passed in', () {
+        test('a list with a non-invoked builder child passed in', () {
           expect(() => renderAndGetDom(Dom.div()([
             Dom.div(),
             Dom.p()(),
@@ -44,7 +44,7 @@ main() {
           verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
         });
 
-        test('an iterable of non-invoked builder children are passed in', () {
+        test('an iterable with a non-invoked builder child passed in', () {
           var children = (() sync* {
             yield Dom.div();
             yield Dom.p()();
@@ -135,7 +135,7 @@ main() {
           verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
         });
 
-        test('a list non-invoked builder child is passed in', () {
+        test('a list with a non-invoked builder child passed in', () {
           expect(() => renderAndGetDom(TestComponent()([
             Dom.div(),
             Dom.p()(),
@@ -144,7 +144,7 @@ main() {
           verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
         });
 
-        test('an iterable of non-invoked builder children are passed in', () {
+        test('an iterable with a non-invoked builder passed in', () {
           var children = (() sync* {
             yield Dom.div();
             yield Dom.p()();
