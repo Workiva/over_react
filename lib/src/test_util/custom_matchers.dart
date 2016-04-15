@@ -253,7 +253,9 @@ const Matcher isFocused = const _IsFocused();
 ///  as a [DomException]
 Matcher throwsRequiredPropError(String message) {
   return throwsA(predicate(
-      (error) => error.toString().contains('RequiredPropError: $message'), 'Should have message $message'));
+      (error) => error == 'V8 Exception' /* workaround for https://github.com/dart-lang/sdk/issues/26093 */ ||
+          error.toString().contains('RequiredPropError: $message'), 'Should have message $message'
+  ));
 }
 
 /// A matcher to verify that a [InvalidPropCombinationError] is thrown with a provided `InvalidPropCombinationError.prop1`,
@@ -263,11 +265,18 @@ Matcher throwsRequiredPropError(String message) {
 ///  as a [DomException]
 Matcher throwsInvalidPropCombinationError(String prop1, String prop2, String message) {
   return throwsA(predicate(
-      (error) => error.toString().contains('InvalidPropCombinationError: Prop $prop1 and prop $prop2 are set to incompatible values: $message')));
+      (error) => error == 'V8 Exception' /* workaround for https://github.com/dart-lang/sdk/issues/26093 */ ||
+          error.toString().contains(
+              'InvalidPropCombinationError: Prop $prop1 and prop $prop2 are set to incompatible values: $message'
+          )
+  ));
 }
 
 /// A matcher to verify that the [InvalidPropValueError] is thrown with a provided `InvalidPropValueError.message`
 Matcher throwsInvalidPropError(dynamic value, String name, String message){
   return throwsA(predicate(
-    (error) => error.toString().contains('InvalidPropValueError: Prop $name set to ${Error.safeToString(value)}: $message'), 'Should have message $message'));
+      (error) => error == 'V8 Exception' /* workaround for https://github.com/dart-lang/sdk/issues/26093 */ ||
+          error.toString().contains('InvalidPropValueError: Prop $name set to ${Error.safeToString(value)}: $message'),
+          'Should have message $message'
+  ));
 }

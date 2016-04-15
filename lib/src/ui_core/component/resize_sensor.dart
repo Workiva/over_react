@@ -14,7 +14,7 @@ import 'package:web_skin_dart/ui_core.dart';
 ///
 ///     (ResizeSensor()..onResize = () => print('resized'))(children)
 ///
-/// See: <https://api.atl.workiva.net/WebSkinDart/build/web/components/#resize-sensor>.
+/// See: <https://docs.workiva.org/web_skin_dart/latest/components/#resize-sensor>.
 @Factory()
 UiFactory<ResizeSensorProps> ResizeSensor;
 
