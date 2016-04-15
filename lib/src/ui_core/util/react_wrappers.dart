@@ -3,11 +3,12 @@ library ui_core.react_wrappers;
 import 'dart:html';
 import 'dart:js';
 
+import 'package:js/js.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_client/js_interop_helpers.dart';
-import 'package:js/js.dart';
+import 'package:web_skin_dart/src/ui_core/util/warn_on_modify_props.dart';
 
 // Notes
 // ---------------------------------------------------------------------------
@@ -92,7 +93,8 @@ Map getJsProps(/* ReactElement|ReactComponent */ instance) {
 /// Throws if [instance] is not a valid [ReactElement] or composite [ReactComponent] .
 Map getProps(/* ReactElement|ReactComponent */ instance) {
   if (isValidElement(instance) || _isCompositeComponent(instance)) {
-    return isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
+    var propsMap = isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
+    return new WarnOnModifyProps(propsMap);
   }
 
   throw new ArgumentError.value(instance, 'instance', 'must be a valid ReactElement or composite ReactComponent');
