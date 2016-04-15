@@ -2,14 +2,15 @@ library guid_util;
 
 import 'dart:math' show Random;
 
-/// Randomly generate a GUID with the give length
-/// Possibly in the future this could be replaced by the uuid lib.
-String generateGuid([length = 16]) {
-  Random rand = new Random();
+final Random _guidRandom = new Random();
 
-  String guid = '';
+/// Returns a random GUID with the given [length] consisting of numbers and uppercase/lowercase letters.
+String generateGuid([int length = 4]) {
+  const String characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+
+  var guid = '';
   for (var i = 0; i < length; i++) {
-    guid += rand.nextInt(100).toRadixString(16).substring(0, 1);
+    guid += characters[_guidRandom.nextInt(characters.length)];
   }
 
   return guid;
