@@ -138,6 +138,9 @@ void simulateMouseLeave(EventTarget target) {
   react_test_utils.SimulateNative.mouseOver(to, {'relatedTarget': from});
 }
 
+/// The string used by default for the key of the attribute added by [UiProps.addTestId].
+const defaultTestIdKey = 'data-test-id';
+
 /// Returns the first descendant of [root] that has its [key] prop value set to [value].
 ///
 /// Returns null if no descendant has its [key] prop value set [value].
