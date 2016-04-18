@@ -17,7 +17,7 @@ import '../../wsd_test_util/validation_util_helpers.dart';
 main() {
   group('component base:', () {
     group('UiProps', () {
-      group('warns and throws when rendering a DOM component when', () {
+      group('warns and throws when rendering a DOM component', () {
         bool warningsWereEnabled;
         setUp(() {
           warningsWereEnabled = ValidationUtil.WARNINGS_ENABLED;
@@ -30,12 +30,12 @@ main() {
           stopRecordingValidationWarnings();
         });
 
-        test('a single non-invoked builder child is passed in', () {
+        test('when a single non-invoked builder child is passed in', () {
           expect(() => renderAndGetDom(Dom.div()(Dom.div())), throws);
           verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
         });
 
-        test('a list with a non-invoked builder child passed in', () {
+        test('when a list with a non-invoked builder child passed in', () {
           expect(() => renderAndGetDom(Dom.div()([
             Dom.div(),
             Dom.p()(),
@@ -44,17 +44,17 @@ main() {
           verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
         });
 
-        test('an iterable with a non-invoked builder child passed in', () {
+        test('except when an iterable with a non-invoked builder child passed in', () {
           var children = (() sync* {
             yield Dom.div();
             yield Dom.p()();
             yield Dom.div();
           })();
-          expect(() => renderAndGetDom(Dom.div()(children)), throwsArgumentError);
-          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
+          expect(() => renderAndGetDom(Dom.div()(children)), returnsNormally);
+          rejectValidationWarning(anything);
         });
 
-        test('non-invoked builder children are passed in variadially via noSuchMethod', () {
+        test('when non-invoked builder children are passed in variadially via noSuchMethod', () {
           expect(() => renderAndGetDom(Dom.div()(
             Dom.div(),
             Dom.p()(),
@@ -117,7 +117,7 @@ main() {
         });
       });
 
-      group('warns and throws when rendering a DOM component when', () {
+      group('warns and throws when rendering a Dar composite component', () {
         bool warningsWereEnabled;
         setUp(() {
           warningsWereEnabled = ValidationUtil.WARNINGS_ENABLED;
@@ -130,12 +130,12 @@ main() {
           stopRecordingValidationWarnings();
         });
 
-        test('a single non-invoked builder child is passed in', () {
+        test('when a single non-invoked builder child is passed in', () {
           expect(() => renderAndGetDom(TestComponent()(Dom.div())), throwsArgumentError);
           verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
         });
 
-        test('a list with a non-invoked builder child passed in', () {
+        test('when a list with a non-invoked builder child passed in', () {
           expect(() => renderAndGetDom(TestComponent()([
             Dom.div(),
             Dom.p()(),
@@ -144,17 +144,17 @@ main() {
           verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
         });
 
-        test('an iterable with a non-invoked builder passed in', () {
+        test('except when an iterable with a non-invoked builder passed in', () {
           var children = (() sync* {
             yield Dom.div();
             yield Dom.p()();
             yield Dom.div();
           })();
-          expect(() => renderAndGetDom(TestComponent()(children)), throwsArgumentError);
-          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
+          expect(() => renderAndGetDom(TestComponent()(children)), returnsNormally);
+          rejectValidationWarning(anything);
         });
 
-        test('non-invoked builder children are passed in variadially via noSuchMethod', () {
+        test('when non-invoked builder children are passed in variadially via noSuchMethod', () {
           expect(() => renderAndGetDom(TestComponent()(
             Dom.div(),
             Dom.p()(),
