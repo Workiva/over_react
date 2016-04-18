@@ -341,8 +341,8 @@ abstract class UiProps
   /// Validates that no [children] are instances of [UiProps], and prints a helpful message for a better debugging
   /// experiance.
   bool _validateChildren(dynamic children) {
-    if (children != null) {
-      if (children is! Iterable) {
+    if (children != null || (children is! Iterable || children is List)) {
+      if (children is! List) {
         children = [children];
       }
 
