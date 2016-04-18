@@ -341,7 +341,8 @@ abstract class UiProps
   /// Validates that no [children] are instances of [UiProps], and prints a helpful message for a better debugging
   /// experiance.
   bool _validateChildren(dynamic children) {
-    if (children != null || (children is! Iterable || children is List)) {
+    // Should not validate non-list iterables to avoid more than one iteration.
+    if (children != null && (children is! Iterable || children is List)) {
       if (children is! List) {
         children = [children];
       }
@@ -349,7 +350,7 @@ abstract class UiProps
       if (children.any((child) => child is UiProps)) {
         var errorMessage = unindent(
             '''
-            It looks like you are trying to use a non-invoked builder as a child. That is invalid use of UiProps, try
+            It looks like you are trying to use a non-invoked builder as a child. That is an invalid use of UiProps, try
             invoking the builder before passing it as a child.
             '''
         );
