@@ -156,7 +156,7 @@ void simulateMouseLeave(EventTarget target) {
 ///
 /// It is recommended that, instead of setting this [key] prop manually, you should use the
 /// [UiProps.addTestId] method so the prop is only set in a test environment.
-JsObject getByTestId(JsObject root, String value, {String key: 'data-test-id'}) {
+JsObject getByTestId(JsObject root, String value, {String key: defaultTestIdKey}) {
   bool first = false;
 
   var results = react_test_utils.findAllInRenderedTree(root, new JsFunction.withThis((_, JsObject descendant) {
@@ -182,14 +182,14 @@ JsObject getByTestId(JsObject root, String value, {String key: 'data-test-id'}) 
 /// Returns the [Element] of the first descendant of [root] that has its [key] prop value set to [value].
 ///
 /// Returns null if no descendant has its [key] prop value set to [value].
-Element getDomByTestId(JsObject root, String value, {String key: 'data-test-id'}) {
+Element getDomByTestId(JsObject root, String value, {String key: defaultTestIdKey}) {
   return findDomNode(getByTestId(root, value, key: key));
 }
 
 /// Returns the [react.Component] of the first descendant of [root] that has its [key] prop value set to [value].
 ///
 /// Returns null if no descendant has its [key] prop value set to [value].
-react.Component getComponentByTestId(JsObject root, String value, {String key: 'data-test-id'}) {
+react.Component getComponentByTestId(JsObject root, String value, {String key: defaultTestIdKey}) {
   var instance = getByTestId(root, value, key: key);
   if (instance != null) {
     return getDartComponent(instance);
@@ -201,7 +201,7 @@ react.Component getComponentByTestId(JsObject root, String value, {String key: '
 /// Returns the props of the first descendant of [root] that has its [key] prop value set to [value].
 ///
 /// Returns null if no descendant has its [key] prop value set to [value].
-Map getPropsByTestId(JsObject root, String value, {String key: 'data-test-id'}) {
+Map getPropsByTestId(JsObject root, String value, {String key: defaultTestIdKey}) {
   var instance = getByTestId(root, value, key: key);
   if (instance != null) {
     return getProps(instance);
