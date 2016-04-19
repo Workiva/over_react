@@ -212,6 +212,8 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 /// don't need a constructor. The generated implementations can mix that functionality in.
 abstract class UiState extends Object with MapViewMixin, StateMapViewMixin implements Map {}
 
+/// The string used by default for the key of the attribute added by [UiProps.addTestId].
+const defaultTestIdKey = 'data-test-id';
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React props that
 /// is also capable of creating React component instances.
