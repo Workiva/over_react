@@ -54,7 +54,7 @@ main() {
           rejectValidationWarning(anything);
         });
 
-        test('when non-invoked builder children are passed in variadially via noSuchMethod', () {
+        test('when non-invoked builder children are passed in variadically via noSuchMethod', () {
           expect(() => renderAndGetDom(Dom.div()(
             Dom.div(),
             Dom.p()(),
@@ -117,7 +117,7 @@ main() {
         });
       });
 
-      group('warns and throws when rendering a Dar composite component', () {
+      group('warns and throws when rendering a Dart composite component', () {
         bool warningsWereEnabled;
         setUp(() {
           warningsWereEnabled = ValidationUtil.WARNINGS_ENABLED;
@@ -154,7 +154,7 @@ main() {
           rejectValidationWarning(anything);
         });
 
-        test('when non-invoked builder children are passed in variadially via noSuchMethod', () {
+        test('when non-invoked builder children are passed in variadically via noSuchMethod', () {
           expect(() => renderAndGetDom(TestComponent()(
             Dom.div(),
             Dom.p()(),
