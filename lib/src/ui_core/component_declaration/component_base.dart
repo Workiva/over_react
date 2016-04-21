@@ -15,7 +15,9 @@ import 'package:web_skin_dart/ui_core.dart' show
     getPropsToForward,
     isDartComponent,
     isValidElement,
-    DummyComponent;
+    DummyComponent,
+    ValidationUtil,
+    unindent;
 
 export 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart' show isComponentOfType, isValidElementOfType;
 
@@ -306,6 +308,8 @@ abstract class UiProps
 
   /// Returns a new component with this builder's props and the specified children.
   ReactElement build([dynamic children]) {
+    assert(_validateChildren(children));
+
     return componentFactory(props, children);
   }
 
@@ -325,10 +329,47 @@ abstract class UiProps
         ..add(props)
         ..addAll(invocation.positionalArguments);
 
+      assert(() {
+        // These checks are within the assert so they are not done in production.
+        var children = invocation.positionalArguments;
+
+        if (children.length == 1) {
+          children = children.single;
+        }
+
+        return _validateChildren(children);
+      });
+
       return Function.apply(componentFactory, parameters);
     }
 
     return super.noSuchMethod(invocation);
+  }
+
+  /// Validates that no [children] are instances of [UiProps], and prints a helpful message for a better debugging
+  /// experiance.
+  bool _validateChildren(dynamic children) {
+    // Should not validate non-list iterables to avoid more than one iteration.
+    if (children != null && (children is! Iterable || children is List)) {
+      if (children is! List) {
+        children = [children];
+      }
+
+      if (children.any((child) => child is UiProps)) {
+        var errorMessage = unindent(
+            '''
+            It looks like you are trying to use a non-invoked builder as a child. That is an invalid use of UiProps, try
+            invoking the builder before passing it as a child.
+            '''
+        );
+
+        // TODO: Remove ValidationUtil.warn call when https://github.com/dart-lang/sdk/issues/26093 is resolved.
+        ValidationUtil.warn(errorMessage);
+        throw new ArgumentError(errorMessage);
+      }
+    }
+
+    return true;
   }
 
   Function get componentFactory;
