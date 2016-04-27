@@ -1,3 +1,4 @@
+@JS()
 library react_wrappers_test;
 
 import 'dart:html';
