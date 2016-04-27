@@ -32,6 +32,11 @@ class ResizeSensorProps extends UiProps {
   ///
   /// Default: false
   bool isFlexChild;
+
+  /// Whether the [ResizeSensor] is a flex container. Necessary to apply the correct styling.
+  ///
+  /// Default: false
+  bool isFlexContainer;
 }
 
 @Component()
@@ -39,6 +44,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
   @override
   Map getDefaultProps() => (newProps()
     ..isFlexChild = false
+    ..isFlexContainer = false
   );
 
   @override
@@ -96,6 +102,13 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
         'flex': '1 1 0%',
         'msFlex': '1 1 0%',
         'display': 'block'
+      };
+    } else if (props.isFlexContainer) {
+      wrapperStyles = {
+        'position': 'relative',
+        'flex': '1 1 0%',
+        'msFlex': '1 1 0%',
+        'display': 'flex'
       };
     } else {
       wrapperStyles = {
