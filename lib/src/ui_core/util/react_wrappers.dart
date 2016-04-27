@@ -1,3 +1,4 @@
+@JS()
 library ui_core.react_wrappers;
 
 import 'dart:html';
