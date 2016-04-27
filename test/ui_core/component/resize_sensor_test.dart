@@ -97,8 +97,16 @@ void main() {
           () => expect(wasInitializeDetected, isTrue));
     }
 
-    group('should render with the correct styles when isFlexChild is', () {
-      test('true', () {
+    group('should render with the correct styles', () {
+      test('by default', () {
+        var renderedNode = renderAndGetDom(ResizeSensor()());
+
+        expect(renderedNode.style.position, equals('relative'));
+        expect(renderedNode.style.width, equals('100%'));
+        expect(renderedNode.style.height, equals('100%'));
+      });
+
+      test('when isFlexChild is true', () {
         var renderedNode = renderAndGetDom((ResizeSensor()..isFlexChild = true)());
 
         expect(renderedNode.style.position, equals('relative'));
@@ -108,12 +116,14 @@ void main() {
         expect(renderedNode.attributes['style'], matches(new RegExp(r'(?:^|;)-ms-flex: *1 1 0%;')));
       });
 
-      test('false', () {
-        var renderedNode = renderAndGetDom(ResizeSensor()());
+      test('when isFlexContainer is true', () {
+        var renderedNode = renderAndGetDom((ResizeSensor()..isFlexContainer = true)());
 
         expect(renderedNode.style.position, equals('relative'));
-        expect(renderedNode.style.width, equals('100%'));
-        expect(renderedNode.style.height, equals('100%'));
+        expect(renderedNode.style.display, equals('flex'));
+        // Use the attribute text to match these since `style`'s API won't work for unsupported properties.
+        expect(renderedNode.attributes['style'], matches(new RegExp(r'(?:^|;)flex: *1 1 0%;')));
+        expect(renderedNode.attributes['style'], matches(new RegExp(r'(?:^|;)-ms-flex: *1 1 0%;')));
       });
     });
 
