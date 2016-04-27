@@ -9,13 +9,62 @@ import 'package:test/test.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart';
 import 'package:web_skin_dart/test_util.dart';
-import 'package:web_skin_dart/ui_core.dart' show Dom;
+import 'package:web_skin_dart/ui_core.dart' show Dom, ValidationUtil;
+
+import '../../wsd_test_util/validation_util_helpers.dart';
 
 import '../shared/map_proxy_tests.dart';
 
 main() {
   group('component base:', () {
     group('UiProps', () {
+      group('warns and throws when rendering a DOM component', () {
+        bool warningsWereEnabled;
+        setUp(() {
+          warningsWereEnabled = ValidationUtil.WARNINGS_ENABLED;
+          ValidationUtil.WARNINGS_ENABLED = false;
+          startRecordingValidationWarnings();
+        });
+
+        tearDown(() {
+          ValidationUtil.WARNINGS_ENABLED = warningsWereEnabled;
+          stopRecordingValidationWarnings();
+        });
+
+        test('when a single non-invoked builder child is passed in', () {
+          expect(() => renderAndGetDom(Dom.div()(Dom.div())), throws);
+          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
+        });
+
+        test('when a list with a non-invoked builder child passed in', () {
+          expect(() => renderAndGetDom(Dom.div()([
+            Dom.div(),
+            Dom.p()(),
+            Dom.div()
+          ])), throwsArgumentError);
+          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
+        });
+
+        test('except when an iterable with a non-invoked builder child passed in', () {
+          var children = (() sync* {
+            yield Dom.div();
+            yield Dom.p()();
+            yield Dom.div();
+          })();
+          expect(() => renderAndGetDom(Dom.div()(children)), returnsNormally);
+          rejectValidationWarning(anything);
+        });
+
+        test('when non-invoked builder children are passed in variadically via noSuchMethod', () {
+          expect(() => renderAndGetDom(Dom.div()(
+            Dom.div(),
+            Dom.p()(),
+            Dom.div()
+          )), throwsArgumentError);
+          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
+        });
+      }, testOn: '!js');
+
       group('renders a DOM component with the correct children when', () {
         test('no children are passed in', () {
           var renderedNode = renderAndGetDom(Dom.div()());
@@ -68,6 +117,53 @@ main() {
           expect((renderedNode.childNodes[1] as SpanElement).text, equals('Second Child'));
         });
       });
+
+      group('warns and throws when rendering a Dart composite component', () {
+        bool warningsWereEnabled;
+        setUp(() {
+          warningsWereEnabled = ValidationUtil.WARNINGS_ENABLED;
+          ValidationUtil.WARNINGS_ENABLED = false;
+          startRecordingValidationWarnings();
+        });
+
+        tearDown(() {
+          ValidationUtil.WARNINGS_ENABLED = warningsWereEnabled;
+          stopRecordingValidationWarnings();
+        });
+
+        test('when a single non-invoked builder child is passed in', () {
+          expect(() => renderAndGetDom(TestComponent()(Dom.div())), throwsArgumentError);
+          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
+        });
+
+        test('when a list with a non-invoked builder child passed in', () {
+          expect(() => renderAndGetDom(TestComponent()([
+            Dom.div(),
+            Dom.p()(),
+            Dom.div()
+          ])), throws);
+          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
+        });
+
+        test('except when an iterable with a non-invoked builder passed in', () {
+          var children = (() sync* {
+            yield Dom.div();
+            yield Dom.p()();
+            yield Dom.div();
+          })();
+          expect(() => renderAndGetDom(TestComponent()(children)), returnsNormally);
+          rejectValidationWarning(anything);
+        });
+
+        test('when non-invoked builder children are passed in variadically via noSuchMethod', () {
+          expect(() => renderAndGetDom(TestComponent()(
+            Dom.div(),
+            Dom.p()(),
+            Dom.div()
+          )), throwsArgumentError);
+          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
+        });
+      }, testOn: '!js');
 
       group('renders a composite Dart component with the correct children when', () {
         test('no children are passed in', () {
