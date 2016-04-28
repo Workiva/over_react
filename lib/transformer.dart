@@ -80,7 +80,7 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
 
     // Replace static $PropKeys instantiations with prop keys
     if (new RegExp(r'\$PropKeys').hasMatch(primaryInputContents)) {
-      var propKeysPattern = new RegExp(r'(?:const|new)\s+\$PropKeys\s*\(\s*([\$A-Za-z_]+)\s*\)');
+      var propKeysPattern = new RegExp(r'(?:const|new)\s+\$PropKeys\s*\(\s*([\$A-Za-z0-9_\.]+)\s*\)');
       propKeysPattern.allMatches(sourceFile.getText(0)).forEach((match) {
         var symbolName = match.group(1);
 

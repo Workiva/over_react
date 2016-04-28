@@ -11,6 +11,8 @@ import 'component_type_checking_test/one_level_wrapper.dart';
 import 'component_type_checking_test/test_a.dart';
 import 'component_type_checking_test/test_b.dart';
 import 'component_type_checking_test/two_level_wrapper.dart';
+import 'component_type_checking_test/type_inheritance/abstract_inheritance/abstract.dart';
+import 'component_type_checking_test/type_inheritance/abstract_inheritance/extendedtype.dart';
 import 'component_type_checking_test/type_inheritance/parent.dart';
 import 'component_type_checking_test/type_inheritance/subsubtype.dart';
 import 'component_type_checking_test/type_inheritance/subtype.dart';
@@ -93,6 +95,7 @@ main() {
             TestParent()();
             TestSubtype()();
             TestSubsubtype()();
+            TestExtendtype()();
           });
 
           test('that is empty for a component without parent types', () {
@@ -114,6 +117,15 @@ main() {
                 orderedEquals([
                   getComponentTypeFromAlias(TestSubtype),
                   getComponentTypeFromAlias(TestParent),
+                ])
+            );
+          });
+
+          test('that contains all of a component\'s parent abstract types', () {
+            expect(
+                getParentTypes(getComponentTypeFromAlias(TestExtendtypeComponent)),
+                orderedEquals([
+                  getComponentTypeFromAlias(TestAbstractComponent),
                 ])
             );
           });
@@ -208,6 +220,28 @@ main() {
 
             test('and the factory of its grandparent', () {
               expect(isComponentOfType(TestSubsubtype()(), TestParent, matchParentTypes: false), isFalse);
+            });
+          });
+        });
+
+        group('a subtype, of an abstract component, component', () {
+          group('(matchParentTypes: true)', () {
+            test('and its own factory', () {
+              expect(isComponentOfType(TestExtendtype()(), TestExtendtype), isTrue);
+            });
+
+            test('and the factory of its parent', () {
+              expect(isComponentOfType(TestExtendtype()(), TestAbstractComponent), isTrue);
+            });
+          });
+
+          group('(matchParentTypes: false)', () {
+            test('and its own factory', () {
+              expect(isComponentOfType(TestExtendtype()(), TestExtendtype, matchParentTypes: false), isTrue);
+            });
+
+            test('and the factory of its parent', () {
+              expect(isComponentOfType(TestExtendtype()(), TestAbstractComponent, matchParentTypes: false), isFalse);
             });
           });
         });
