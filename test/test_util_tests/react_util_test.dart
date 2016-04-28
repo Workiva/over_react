@@ -145,6 +145,15 @@ main() {
       expect(flag, isTrue);
     });
 
+    test('defaultTestIdKey is equal to the default key used by addTestId', () {
+      var renderedInstance = render((Test()
+        ..addTestId('testTestId')
+      )());
+      var props = getProps(renderedInstance);
+
+      expect(props[defaultTestIdKey], equals('testTestId'));
+    });
+
     group('getByTestId returns', () {
       sharedTests({bool shallow}) {
         testSpecificRender(ReactElement instance) =>
