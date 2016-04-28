@@ -24,3 +24,22 @@ JsObject _getJsForm(FormElement form) => new JsObject.fromBrowserObject(form);
 ///
 /// Wraps the [HTMLFormElement.elements](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/elements) property.
 List<Element> getFormElements(FormElement form) => convertToArray(_getJsForm(form)['elements']);
+
+/// Returns an Iterable of [element] and all its ancestors, in ascending order.
+Iterable<Element> _hierarchy(Element element) sync* {
+  var current = element;
+  do {
+    yield current;
+  } while ((current = current.parent) != null);
+}
+
+/// Returns the closest element in the hierarchy of [lowerBound] up to an optional [upperBound] (both inclusive)
+/// that matches [selector], or `null if no matches are found.
+Element closest(Element lowerBound, String selector, {Element upperBound}) {
+  for (var element in _hierarchy(lowerBound)) {
+    if (element.matches(selector)) return element;
+    if (upperBound != null && upperBound == element) break;
+  }
+
+  return null;
+}
