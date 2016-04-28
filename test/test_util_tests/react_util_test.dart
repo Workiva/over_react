@@ -112,6 +112,15 @@ main() {
       expect(flag, isTrue);
     });
 
+    test('defaultTestIdKey is equal to the default key used by addTestId', () {
+      var renderedInstance = render((Test()
+        ..addTestId('testTestId')
+      )());
+      var props = getProps(renderedInstance);
+
+      expect(props[defaultTestIdKey], equals('testTestId'));
+    });
+
     group('getByTestId returns', () {
       test('the topmost JsObject that has the appropriate value for the `data-test-id` prop key', () {
         var renderedInstance = render(Dom.div()(
