@@ -15,6 +15,7 @@ import 'package:web_skin_dart/ui_core.dart' show
     getPropsToForward,
     isDartComponent,
     isValidElement,
+    DummyComponent,
     ValidationUtil,
     unindent;
 
@@ -51,7 +52,14 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
   return reactComponentFactory;
 }
 
-
+/// Helper function that wraps [registerComponent], and allows an easier way to register abstract components with the
+/// main purpose of type-checking against the abstract component.
+///
+/// __The result must be stored in a variable that is named very specifically:__
+///
+///     var $`AbstractComponentClassName`Factory = registerAbstractComponent(`AbstractComponentClassName`);
+ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentClass) =>
+    registerComponent(() => new DummyComponent(), componentClass: abstractComponentClass);
 
 /// A function that returns a new [TProps] instance, optionally backed by the specified [backingProps].
 ///

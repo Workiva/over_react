@@ -9,10 +9,9 @@ import 'package:test/test.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart';
 import 'package:web_skin_dart/test_util.dart';
-import 'package:web_skin_dart/ui_core.dart' show Dom, ValidationUtil;
+import 'package:web_skin_dart/ui_core.dart' show Dom, DummyComponent, ValidationUtil;
 
 import '../../wsd_test_util/validation_util_helpers.dart';
-
 import '../shared/map_proxy_tests.dart';
 
 main() {
@@ -605,6 +604,13 @@ main() {
         });
       });
     });
+
+    test('registerAbstractComponent registers a type alias for a componentClass', () {
+      Type typeAlias = TestRegisterComponentClassAlias;
+      var reactComponentFactory = registerAbstractComponent(typeAlias);
+
+      expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias), equals(reactComponentFactory.type));
+    });
   });
 }
 
@@ -661,10 +667,6 @@ class TestStatefulComponentComponent extends UiStatefulComponent<TestStatefulCom
   @override
   TestStatefulComponentProps typedPropsFactory(Map propsMap) => new TestStatefulComponentProps(propsMap);
   TestStatefulComponentState typedStateFactory(Map state) => new TestStatefulComponentState(state);
-}
-
-class DummyComponent extends react.Component {
-  render() {}
 }
 
 abstract class TestRegisterComponentClassAlias {}
