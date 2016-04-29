@@ -220,6 +220,8 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 /// don't need a constructor. The generated implementations can mix that functionality in.
 abstract class UiState extends Object with MapViewMixin, StateMapViewMixin implements Map {}
 
+/// The string used by default for the key of the attribute added by [UiProps.addTestId].
+const defaultTestIdKey = 'data-test-id';
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React props that
 /// is also capable of creating React component instances.
@@ -258,7 +260,7 @@ abstract class UiProps
   ///
   /// Deprecated: __Use the [addTestId] method instead.__
   @deprecated
-  void setTestId(String value, {String key: 'data-test-id'}) {
+  void setTestId(String value, {String key: defaultTestIdKey}) {
     if (!testMode) {
       return;
     }
@@ -269,7 +271,7 @@ abstract class UiProps
   /// Adds [value] to the prop [key] for use in a testing environment by using space-delimiting.
   ///
   /// Allows for an element to have multiple test IDs to prevent overwriting when cloning elements or components.
-  void addTestId(String value, {String key: 'data-test-id'}) {
+  void addTestId(String value, {String key: defaultTestIdKey}) {
     if (!testMode || value == null) {
       return;
     }
@@ -293,7 +295,7 @@ abstract class UiProps
 
   /// Gets the `data-test-id` prop or one testId from the prop (or custom [key] prop value) for use in a testing
   /// environment.
-  String getTestId({String key: 'data-test-id'}) {
+  String getTestId({String key: defaultTestIdKey}) {
     return props[key];
   }
 
