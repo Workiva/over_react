@@ -42,7 +42,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
   );
 
   @override
-  void componentDidMount(rootNode) {
+  void componentDidMount() {
     _reset();
 
     if (props.onInitialize != null) {
