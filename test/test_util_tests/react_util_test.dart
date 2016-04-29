@@ -9,7 +9,6 @@ import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
 import '../wsd_test_util/test_js_component.dart';
-import '../wsd_test_util/wrapper_component.dart';
 
 /// Main entry point for ReactUtil testing
 main() {
@@ -143,6 +142,15 @@ main() {
       simulateMouseLeave(findDomNode(renderedInstance));
 
       expect(flag, isTrue);
+    });
+
+    test('defaultTestIdKey is equal to the default key used by addTestId', () {
+      var renderedInstance = render((Test()
+        ..addTestId('testTestId')
+      )());
+      var props = getProps(renderedInstance);
+
+      expect(props[defaultTestIdKey], equals('testTestId'));
     });
 
     group('getByTestId returns', () {
