@@ -4,7 +4,6 @@ library web_skin_dart.ui_core;
 // Imports
 import 'dart:collection' show MapView;
 import 'dart:html';
-import 'dart:js';
 
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
@@ -17,6 +16,7 @@ import 'src/ui_core/component_declaration/transformer_helpers.dart';
 // Exports
 export 'src/ui_core/component/abstract_transition.dart';
 export 'src/ui_core/component/callback_typedefs.dart';
+export 'src/ui_core/component/dummy_component.dart';
 export 'src/ui_core/component/resize_sensor.dart';
 export 'src/ui_core/component/typed_mixins.dart';
 export 'src/ui_core/util/character_constants.dart';
