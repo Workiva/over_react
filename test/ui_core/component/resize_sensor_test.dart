@@ -47,7 +47,7 @@ void main() {
       var jsContainer = react.render(container, domTarget);
 
       // Return the container element for testing.
-      return reactTestUtils.getDomNode(jsContainer);
+      return findDomNode(jsContainer);
     }
 
     /// Expect resize sensor invokes registered `onResize` callback.
