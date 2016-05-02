@@ -638,6 +638,7 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
 
   TestComponentComponent({testConsumedPropKeys}) : consumedPropKeys = testConsumedPropKeys;
 
+  @override
   render() => false;
 
   @override
@@ -662,10 +663,12 @@ class TestStatefulComponentState extends UiState {
 
 ReactComponentFactory _TestStatefulComponentComponentFactory = registerComponent(() => new TestStatefulComponentComponent());
 class TestStatefulComponentComponent extends UiStatefulComponent<TestStatefulComponentProps, TestStatefulComponentState> {
+  @override
   render() {}
 
   @override
   TestStatefulComponentProps typedPropsFactory(Map propsMap) => new TestStatefulComponentProps(propsMap);
+  @override
   TestStatefulComponentState typedStateFactory(Map state) => new TestStatefulComponentState(state);
 }
 
