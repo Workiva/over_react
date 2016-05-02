@@ -23,7 +23,7 @@ import 'package:web_skin_dart/src/transformer/source_file_helpers.dart';
 class WebSkinDartTransformer extends Transformer implements LazyTransformer {
   final BarbackSettings _settings;
 
-  WebSkinDartTransformer.asPlugin(BarbackSettings this._settings);
+  WebSkinDartTransformer.asPlugin(this._settings);
 
   /// Declare the assets this transformer uses. Only dart assets will be transformed.
   @override
