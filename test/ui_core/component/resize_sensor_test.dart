@@ -5,7 +5,6 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:react/react.dart' as react;
-import 'package:react/react_test_utils.dart' as reactTestUtils;
 import 'package:test/test.dart';
 import 'package:web_skin_dart/src/ui_core/component/resize_sensor.dart';
 import 'package:web_skin_dart/test_util.dart';
