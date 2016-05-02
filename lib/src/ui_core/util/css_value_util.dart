@@ -122,6 +122,7 @@ class CssValue implements Comparable<CssValue> {
   }
 
   /// Returns whether this value's [number] and [unit] are equal to that of [other].
+  @override
   bool operator ==(dynamic other) {
     return identical(this, other) || (other is CssValue && number == other.number && unit == other.unit);
   }

@@ -24,6 +24,7 @@ class Factory {
 class Props implements TypedMap {
   /// A custom namespace for the keys of props defined in the annotated class,
   /// overriding the default of `'${propsClassName}.'`.
+  @override
   final String keyNamespace;
   const Props({String this.keyNamespace: null});
 }
@@ -41,6 +42,7 @@ class Props implements TypedMap {
 class State implements TypedMap {
   /// A custom namespace for the keys of state properties defined in the annotated class,
   /// overriding the default of `'${stateClassName}.'`.
+  @override
   final String keyNamespace;
   const State({String this.keyNamespace: null});
 }
@@ -99,6 +101,7 @@ class Component {
 class AbstractProps implements TypedMap {
   /// A custom namespace for the keys of props defined in the annotated class,
   /// overriding the default of `'${propsClassName}.'`.
+  @override
   final String keyNamespace;
   const AbstractProps({String this.keyNamespace: null});
 }
@@ -114,6 +117,7 @@ class AbstractProps implements TypedMap {
 class AbstractState implements TypedMap {
   /// A custom namespace for the keys of state properties defined in the annotated class,
   /// overriding the default of `'${stateClassName}.'`.
+  @override
   final String keyNamespace;
   const AbstractState({String this.keyNamespace: null});
 }
@@ -141,6 +145,7 @@ class AbstractComponent {
 class PropsMixin implements TypedMap {
   /// A custom namespace for the keys of props defined in the annotated class,
   /// overriding the default of `'${propsClassName}.'`.
+  @override
   final String keyNamespace;
   const PropsMixin({String this.keyNamespace: null});
 }
@@ -160,6 +165,7 @@ class PropsMixin implements TypedMap {
 class StateMixin implements TypedMap {
   /// A custom namespace for the keys of state properties defined in the annotated class,
   /// overriding the default of `'${stateClassName}.'`.
+  @override
   final String keyNamespace;
   const StateMixin({String this.keyNamespace: null});
 }

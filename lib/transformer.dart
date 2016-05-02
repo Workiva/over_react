@@ -26,6 +26,7 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
   WebSkinDartTransformer.asPlugin(BarbackSettings this._settings);
 
   /// Declare the assets this transformer uses. Only dart assets will be transformed.
+  @override
   String get allowedExtensions => ".dart";
 
   @override
@@ -51,6 +52,7 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
         path: p.url.join(id.package, id.path.replaceFirst('lib/', '')));
   }
 
+  @override
   Future apply(Transform transform) async {
     var primaryInputContents = await transform.primaryInput.readAsString();
 
