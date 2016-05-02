@@ -42,7 +42,7 @@ class ValidationUtil {
 }
 
 class ValidationWarning extends Error {
-  /** Message describing the problem. */
+  /// Message describing the problem.
   final message;
 
   ValidationWarning([this.message]);

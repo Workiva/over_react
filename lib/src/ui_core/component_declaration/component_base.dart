@@ -262,7 +262,7 @@ abstract class UiProps
     props.addAll(propMap);
   }
 
-  /// Whether [UiProps] is in a testing environment. Used in [testId] and [setTestId]
+  /// Whether [UiProps] is in a testing environment. Used in [addTestId]
   ///
   /// TODO: Use bool.fromEnvironment() when it is supported in Dartium.
   /// See: <https://github.com/dart-lang/pub/issues/798>.
@@ -291,9 +291,9 @@ abstract class UiProps
     String testId = getTestId(key: key);
 
     if (testId == null) {
-      setTestId(value, key: key);
+      props[key] = value;
     } else {
-      setTestId(testId + ' $value', key: key);
+      props[key] = getTestId(key: key) + ' $value';
     }
   }
 
