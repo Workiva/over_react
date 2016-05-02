@@ -111,11 +111,13 @@ class ClassNameMatcher extends Matcher {
 
 class IsNode extends CustomMatcher {
   IsNode(matcher) : super("Element with nodeName that is", "nodeName", matcher);
+  @override
   featureValueOf(actual) => actual.nodeName;
 }
 
 class _ElementClassNameMatcher extends CustomMatcher {
   _ElementClassNameMatcher(matcher) : super('Element that', 'className', matcher);
+  @override
   featureValueOf(Element actual) => actual.className;
 }
 class _ElementAttributeMatcher extends CustomMatcher {
@@ -125,6 +127,7 @@ class _ElementAttributeMatcher extends CustomMatcher {
       this._attributeName = attributeName,
       super('Element with "$attributeName" attribute that equals', 'attributes', matcher);
 
+  @override
   featureValueOf(Element element) => element.getAttribute(_attributeName);
 }
 

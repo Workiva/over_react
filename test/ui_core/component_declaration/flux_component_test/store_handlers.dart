@@ -10,8 +10,10 @@ class TestStoreHandlersProps extends FluxUiProps<TestActions, TestStore> {}
 class TestStoreHandlersComponent extends FluxUiComponent {
   int numberOfHandlerCalls = 0;
 
+  @override
   render() => Dom.div()();
 
+  @override
   getStoreHandlers() => {props.store: increment};
 
   increment(_) {

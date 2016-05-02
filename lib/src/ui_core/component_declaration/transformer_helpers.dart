@@ -26,6 +26,7 @@ class $PropKeys implements List<String> {
   /// with the prop keys defined in [propsClass].
   const $PropKeys(Type propsClass);
 
+  @override
   dynamic noSuchMethod(Invocation invocation) {
     throw new UngeneratedError(
         message: r'The $PropKeys class should not be used at runtime, '
@@ -200,10 +201,12 @@ class _ToBeGenerated {
 ///
 /// Usually this is due to improper usage of the code-generating transformer.
 class UngeneratedError extends Error implements UnimplementedError {
+  @override
   final String message;
   UngeneratedError({String message, Symbol member}) :
       this.message = message ?? "`$member` should be implemented by code generation";
 
+  @override
   String toString() =>
       "UngeneratedError: $message.\n\n"
       "Ensure that the `web_skin_dart` transformer is included in your pubspec.yaml, "
@@ -216,6 +219,7 @@ class IllegalInstantiationError extends Error {
   IllegalInstantiationError({String message, Type runtimeType}) :
       this.message = message ?? "`$runtimeType` cannot be instantated directly, but only indirectly via the UiFactory";
 
+  @override
   String toString() =>
       "IllegalInstantiationError: $message.\n\n"
       "Be sure to follow usage instructions for web_skin_dart component classes.\n\n"

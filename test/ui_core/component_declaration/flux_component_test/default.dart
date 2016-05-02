@@ -10,8 +10,10 @@ class TestDefaultProps extends FluxUiProps {}
 class TestDefaultComponent extends FluxUiComponent {
   int numberOfRedraws = 0;
 
+  @override
   render() => Dom.div()();
 
+  @override
   redraw() {
     numberOfRedraws += 1;
   }
