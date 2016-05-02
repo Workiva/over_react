@@ -70,7 +70,7 @@ abstract class ComponentDefinition extends MapView implements Function {
   final ReactComponentFactory componentFactory;
 
   /// Returns a new instance that is backed by the specified props map and component factory.
-  ComponentDefinition(ReactComponentFactory this.componentFactory, Map props) : super(props == null ? {} : props);
+  ComponentDefinition(this.componentFactory, Map props) : super(props == null ? {} : props);
 
   /// The props maintained by this component definition and used passed into the component when built.
   /// In this case, it's the current MapView object.

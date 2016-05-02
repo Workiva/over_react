@@ -9,6 +9,16 @@ import 'package:web_skin_dart/ui_core.dart';
 
 /// Match a list of class names on a component
 class ClassNameMatcher extends Matcher {
+  ClassNameMatcher.expected(_expectedClasses, {this.allowExtraneous: true}) :
+    this.expectedClasses = getClassIterable(_expectedClasses).toSet(),
+    this.unexpectedClasses = new Set();
+
+
+  ClassNameMatcher.unexpected(_unexpectedClasses) :
+    this.unexpectedClasses = getClassIterable(_unexpectedClasses).toSet(),
+    this.allowExtraneous = true,
+    this.expectedClasses = new Set();
+
   // Class names that are expected
   final Set expectedClasses;
   // Class names that we do not want
@@ -28,16 +38,6 @@ class ClassNameMatcher extends Matcher {
 
     return classes;
   }
-
-  ClassNameMatcher.expected(_expectedClasses, {this.allowExtraneous: true}) :
-    this.expectedClasses = getClassIterable(_expectedClasses).toSet(),
-    this.unexpectedClasses = new Set();
-
-
-  ClassNameMatcher.unexpected(_unexpectedClasses) :
-    this.unexpectedClasses = getClassIterable(_unexpectedClasses).toSet(),
-    this.allowExtraneous = true,
-    this.expectedClasses = new Set();
 
   @override
   bool matches(String className, Map matchState) {
