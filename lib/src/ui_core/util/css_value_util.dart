@@ -1,5 +1,7 @@
 library ui_core.css_value_util;
 
+import 'package:quiver/core.dart';
+
 /// A CSS length value, with a number and unit component, for use in CSS properties such as `width`, `top`, `padding`, etc.
 class CssValue implements Comparable<CssValue> {
   /// The number component of this CSS value.
@@ -126,6 +128,9 @@ class CssValue implements Comparable<CssValue> {
   bool operator ==(dynamic other) {
     return identical(this, other) || (other is CssValue && number == other.number && unit == other.unit);
   }
+
+  @override
+  int get hashCode => hash2(this.number, this.unit);
 
   /// Returns whether this value's [number] is greater than that of [other].
   ///
