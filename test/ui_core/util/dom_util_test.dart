@@ -54,7 +54,7 @@ main() {
   });
 
   group('getFormElements returns', () {
-    JsObject renderedInstance;
+    var renderedInstance;
     FormElement formElementNode;
     var formElements;
 
@@ -121,8 +121,8 @@ main() {
 
         test('with the expected values', () {
           expect(formElements, equals([
-            getDomByTestId(renderedInstance, 'firstInput'),
-            getDomByTestId(renderedInstance, 'secondInput'),
+            formElementNode.childNodes[0],
+            formElementNode.childNodes[1],
           ]));
         });
       });
