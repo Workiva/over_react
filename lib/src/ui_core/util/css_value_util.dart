@@ -32,7 +32,7 @@ class CssValue implements Comparable<CssValue> {
     num number;
     String unit;
 
-    var error = null;
+    var error;
 
     if (source == null) {
       error = new ArgumentError.notNull('value');
