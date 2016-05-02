@@ -4,7 +4,7 @@ part of web_skin_dart.ui_core;
 /// StringBuffer-backed className builder optimized for adding classNames, with support for blacklisting CSS classes.
 class ClassNameBuilder {
   StringBuffer _classNamesBuffer = new StringBuffer();
-  StringBuffer _blacklistBuffer = null;
+  StringBuffer _blacklistBuffer;
 
   /// Creates a new, empty ClassNameBuilder.
   ClassNameBuilder();
