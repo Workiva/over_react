@@ -114,9 +114,9 @@ main() {
             @Component()  class FooComponent {}
           ''');
 
-          expect(declarations.factory.node?.variables.variables.single.name.name, 'Foo');
-          expect(declarations.props.node?.name.name, 'FooProps');
-          expect(declarations.component.node?.name.name, 'FooComponent');
+          expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
+          expect(declarations.props.node?.name?.name, 'FooProps');
+          expect(declarations.component.node?.name?.name, 'FooComponent');
 
           expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
           expect(declarations.props.meta,     new isInstanceOf<annotations.Props>());
@@ -134,10 +134,10 @@ main() {
             @Component()  class FooComponent {}
           ''');
 
-          expect(declarations.factory.node?.variables.variables.single.name.name, 'Foo');
-          expect(declarations.props.node?.name.name, 'FooProps');
-          expect(declarations.state.node?.name.name, 'FooState');
-          expect(declarations.component.node?.name.name, 'FooComponent');
+          expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
+          expect(declarations.props.node?.name?.name, 'FooProps');
+          expect(declarations.state.node?.name?.name, 'FooState');
+          expect(declarations.component.node?.name?.name, 'FooComponent');
 
           expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
           expect(declarations.props.meta,     new isInstanceOf<annotations.Props>());
