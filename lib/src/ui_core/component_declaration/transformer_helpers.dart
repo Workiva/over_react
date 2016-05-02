@@ -8,8 +8,8 @@ export './annotations.dart';
 export './component_base.dart'
     hide UiComponent, UiStatefulComponent, UiProps, UiState;
 
-typedef Element _getDOMNodeTypedef();
-typedef dynamic _refTypedef(String ref);
+typedef Element _GetDOMNodeTypedef();
+typedef dynamic _RefTypedef(String ref);
 
 // ----------------------------------------------------------------------
 //   Helpers and extras consumable by generated code and consumers of
@@ -72,7 +72,7 @@ abstract class UiComponent<TProps extends UiProps> extends component_base.UiComp
   ///
   /// Overridden for strong typing.
   @override
-  _getDOMNodeTypedef get getDOMNode => super.getDOMNode;
+  _GetDOMNodeTypedef get getDOMNode => super.getDOMNode;
 
   /// Returns the component of the specified [ref].
   /// > `react.Component` if it is a Dart component
@@ -80,7 +80,7 @@ abstract class UiComponent<TProps extends UiProps> extends component_base.UiComp
   ///
   /// Overridden for strong typing.
   @override
-  _refTypedef get ref => super.ref;
+  _RefTypedef get ref => super.ref;
 
   /// The default consumed prop keys, taken from the keys generated in the associated @[Props] class.
   @toBeGenerated
@@ -117,7 +117,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   ///
   /// Overridden for strong typing.
   @override
-  _getDOMNodeTypedef get getDOMNode => super.getDOMNode;
+  _GetDOMNodeTypedef get getDOMNode => super.getDOMNode;
 
   /// Returns the component of the specified [ref].
   /// > `react.Component` if it is a Dart component
@@ -125,7 +125,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   ///
   /// Overridden for strong typing.
   @override
-  _refTypedef get ref => super.ref;
+  _RefTypedef get ref => super.ref;
 
   /// The default consumed prop keys, taken from the keys generated in the associated @[Props] class.
   @toBeGenerated
