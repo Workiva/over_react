@@ -19,6 +19,7 @@ typedef WheelEventCallback(react.SyntheticWheelEvent event);
 typedef EventKeyCallback(react.SyntheticEvent event, Object eventKey);
 typedef IndexCallback(react.SyntheticEvent event, int index);
 typedef EventKeyIndexCallback(react.SyntheticEvent event, Object eventKey, int index);
+typedef EventValueCallback(react.SyntheticEvent event, String value);
 
 // Callback for state changes
 typedef StateDidChangeCallback(react.SyntheticEvent event, Map oldState);
