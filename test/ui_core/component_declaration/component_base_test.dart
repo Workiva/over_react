@@ -1,9 +1,7 @@
 library ui_core.component_declaration.component_base_test;
 
 import 'dart:html';
-import 'dart:js';
 
-import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart';
