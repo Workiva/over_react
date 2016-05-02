@@ -29,7 +29,7 @@ class ValidationUtil {
         throw new ValidationWarning(message);
       }
 
-      window.console.warn('VALIDATION WARNING: ${message}');
+      window.console.warn('VALIDATION WARNING: $message');
     }
 
     return true;

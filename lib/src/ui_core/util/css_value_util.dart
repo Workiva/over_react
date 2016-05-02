@@ -161,5 +161,5 @@ class CssValue implements Comparable<CssValue> {
   ///
   /// If [number] is 0, then the [unit] is omitted.
   @override
-  String toString() => number == 0 ? '0' : '$number${unit}';
+  String toString() => number == 0 ? '0' : '$number$unit';
 }

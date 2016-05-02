@@ -108,7 +108,7 @@ class ClassNameBuilder {
 
   @override
   String toString() {
-    return '${runtimeType} _classNamesBuffer: ${_classNamesBuffer}, _blacklistBuffer: ${_blacklistBuffer}, toClassName(): ${toClassName()}';
+    return '$runtimeType _classNamesBuffer: $_classNamesBuffer, _blacklistBuffer: $_blacklistBuffer, toClassName(): ${toClassName()}';
   }
 }
 
