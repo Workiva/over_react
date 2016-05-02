@@ -1,9 +1,8 @@
 /// Provides utilities around component type-checking.
 library web_skin_dart.component_declaration.component_type_checking;
 
-import 'dart:js';
-
 import 'package:react/react_client.dart';
+import 'package:react/react_client/js_interop_helpers.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart' show UiFactory;
 import 'package:web_skin_dart/src/ui_core/util/react_wrappers.dart';
 
@@ -15,14 +14,14 @@ import 'package:web_skin_dart/src/ui_core/util/react_wrappers.dart';
 Expando<ReactDartComponentFactoryProxy> _typeAliasToFactory = new Expando<ReactDartComponentFactoryProxy>();
 
 /// Registers a type alias for the specified factory, so that [getComponentTypeFromAlias] can be
-/// called with [typeAlias] to retrieve [factory]'s [JsFunction] type.
+/// called with [typeAlias] to retrieve [factory]'s [ReactClass] type.
 void registerComponentTypeAlias(ReactDartComponentFactoryProxy factory, dynamic typeAlias) {
   if (typeAlias != null) {
     _typeAliasToFactory[typeAlias] = factory;
   }
 }
 
-/// Key used to store/retrieve [ComponentTypeMeta] on a [JsFunction] `ReactClass` component type by
+/// Key used to store/retrieve [ComponentTypeMeta] on a [ReactClass] component type by
 /// [setComponentTypeMeta] and [getComponentTypeMeta].
 const String _componentTypeMetaKey = '_componentTypeMeta';
 
@@ -34,17 +33,17 @@ void setComponentTypeMeta(ReactDartComponentFactoryProxy factory, {
     bool isWrapper,
     ReactDartComponentFactoryProxy parentType
 }) {
-  factory.type[_componentTypeMetaKey] = new ComponentTypeMeta(isWrapper, parentType);
+  setProperty(factory.type, _componentTypeMetaKey, new ComponentTypeMeta(isWrapper, parentType));
 }
 
 /// Returns the [ComponentTypeMeta] associated with the component type [type] in [setComponentTypeMeta],
 /// or `const ComponentTypeMeta.none()` if there is no associated meta.
 ComponentTypeMeta getComponentTypeMeta(dynamic type) {
-  assert(isValidComponentType(type) &&
+  assert(isPotentiallyValidComponentType(type) &&
       '`type` should be a valid component type (and not null or a type alias).' is String);
 
-  if (type is JsFunction) {
-    return type[_componentTypeMetaKey] ?? const ComponentTypeMeta.none();
+  if (type is! String) {
+    return getProperty(type, _componentTypeMetaKey) ?? const ComponentTypeMeta.none();
   }
 
   return const ComponentTypeMeta.none();
@@ -79,13 +78,13 @@ class ComponentTypeMeta {
 // ----------------------------------------------------------------------
 
 
-/// Returns the canonical "type" for a component ([JsFunction] `ReactClass` or [String] `tagName`)
+/// Returns the canonical "type" for a component ([ReactClass] or [String] `tagName`)
 /// associated with [typeAlias], which can be a component's:
 ///
 /// * [UiFactory] (Dart components only)
 /// * [UiComponent] [Type] (Dart components only)
 /// * [ReactComponentFactoryProxy]
-/// * [JsFunction] component factory
+/// * [ReactClass] component factory
 /// * [String] tag name (DOM components only)
 ///
 /// If there is no type associated with [typeAlias], then `null` is returned.
@@ -94,12 +93,10 @@ class ComponentTypeMeta {
 /// registered yet due to lazy-instantiation of the [ReactComponentFactoryProxy] variables.
 ///
 /// Consumers of this function should be sure to take the latter case into consideration.
+///
+/// __CAVEAT:__ Due to type-checking limitations on JS-interop types, when [typeAlias] is a [Function],
+/// and it is not found to be an alias for another type, it will be returned as if it were a valid type.
 dynamic getComponentTypeFromAlias(dynamic typeAlias) {
-  /// If `typeAlias` is an actual type, return it.
-  if (isValidComponentType(typeAlias)) {
-    return typeAlias;
-  }
-
   /// If `typeAlias` is a factory, return its type.
   if (typeAlias is ReactComponentFactoryProxy) {
     return typeAlias.type;
@@ -111,18 +108,31 @@ dynamic getComponentTypeFromAlias(dynamic typeAlias) {
       typeAlias is! num &&
       typeAlias is! String &&
       typeAlias is! bool) {
-    return _typeAliasToFactory[typeAlias]?.type;
+    var aliasedType = _typeAliasToFactory[typeAlias]?.type;
+    if (aliasedType != null) {
+      return aliasedType;
+    }
+  }
+
+  /// If `typeAlias` is an actual type, return it.
+  if (isPotentiallyValidComponentType(typeAlias)) {
+    return typeAlias;
   }
 
   return null;
 }
 
-/// Returns whether [type] represents a valid component type.
+/// Returns whether [type] potentially represents a valid component type.
 ///
-/// * [JsFunction] component factory (Dart/JS composite components)
+/// Valid types:
+///
 /// * [String] tag name (DOM components)
-bool isValidComponentType(dynamic type) {
-  return type is JsFunction || type is String;
+/// * [Function] ([ReactClass]) factory (Dart/JS composite components)
+///
+///     Note: It's impossible to determine know whether something is a ReactClass due to type-checking restrictions
+///         for JS-interop classes, so a Function type-check is the best we can do.
+bool isPotentiallyValidComponentType(dynamic type) {
+  return type is Function || type is String;
 }
 
 /// Returns an [Iterable] of all component types that are ancestors of [typeAlias].
@@ -133,7 +143,7 @@ bool isValidComponentType(dynamic type) {
 ///     getParentTypes(getTypeFromAlias(B)); // [A].map(getTypeFromAlias)
 ///     getParentTypes(getTypeFromAlias(C)); // [B, A].map(getTypeFromAlias)
 Iterable<dynamic> getParentTypes(dynamic type) sync* {
-  assert(isValidComponentType(type) &&
+  assert(isPotentiallyValidComponentType(type) &&
       '`type` should be a valid component type (and not null or a type alias).' is String);
 
   var currentType = type;
@@ -141,7 +151,7 @@ Iterable<dynamic> getParentTypes(dynamic type) sync* {
 
   while ((parentType = getComponentTypeMeta(currentType).parentType) != null) {
     currentType = getComponentTypeFromAlias(parentType);
-    yield currentType;
+    yield currentType ?? parentType;
   }
 }
 
@@ -156,9 +166,9 @@ Iterable<dynamic> getParentTypes(dynamic type) sync* {
 /// * [UiFactory] (Dart components only)
 /// * [UiComponent] [Type] (Dart components only)
 /// * [ReactComponentFactoryProxy]
-/// * [JsFunction] component factory
+/// * [ReactClass] component factory
 /// * [String] tag name (DOM components only)
-bool isComponentOfType(JsObject instance, dynamic typeAlias, {
+bool isComponentOfType(ReactElement instance, dynamic typeAlias, {
     bool traverseWrappers: true,
     bool matchParentTypes: true
 }) {
@@ -171,7 +181,7 @@ bool isComponentOfType(JsObject instance, dynamic typeAlias, {
     return false;
   }
 
-  var instanceType = instance['type'];
+  var instanceType = instance.type;
   var instanceTypeMeta = getComponentTypeMeta(instanceType);
 
   // Type-check instance wrappers.
@@ -202,7 +212,7 @@ bool isComponentOfType(JsObject instance, dynamic typeAlias, {
 /// * [UiFactory] (Dart components only)
 /// * [UiComponent] [Type] (Dart components only)
 /// * [ReactComponentFactoryProxy]
-/// * [JsFunction] component factory
+/// * [ReactClass] component factory
 /// * [String] tag name (DOM components only)
 bool isValidElementOfType(dynamic instance, dynamic typeAlias) {
   return isValidElement(instance) && isComponentOfType(instance, typeAlias);
