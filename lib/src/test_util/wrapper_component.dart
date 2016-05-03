@@ -1,4 +1,4 @@
-library wrapper_component;
+library test_util.wrapper_component;
 
 import 'package:web_skin_dart/ui_core.dart';
 
