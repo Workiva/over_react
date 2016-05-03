@@ -46,11 +46,9 @@ void main() {
 
       // Render into DOM and validate.
       var jsContainer = react.render(container, domTarget);
-      var jsTree = reactTestUtils.findRenderedDOMComponentWithClass(jsContainer, 'container');
-      expect(jsTree, isNotNull);
 
       // Return the container element for testing.
-      return reactTestUtils.getDomNode(jsTree);
+      return reactTestUtils.getDomNode(jsContainer);
     }
 
     /// Expect resize sensor invokes registered `onResize` callback.
@@ -60,22 +58,19 @@ void main() {
     /// oddities in detecting callback invocations.
     Future expectResizeAfter(void action(Element container),
         {ResizeSensorHandler onResize}) async {
-      var wasResizeDetected = false;
+      var resizeDetectedCompleter = new Completer();
 
       Element containerEl;
       containerEl = renderSensorIntoContainer(onResize: (event) {
         if (onResize != null) {
           onResize(event);
         }
-        wasResizeDetected = true;
+        resizeDetectedCompleter.complete();
       });
 
       action(containerEl);
 
-      // Note: there is a delay here because Smithy has trouble running these
-      // tests successfully without it. :(
-      await new Future.delayed(const Duration(milliseconds: 200),
-          () => expect(wasResizeDetected, isTrue));
+      await resizeDetectedCompleter.future;
     }
 
     /// Expect resize sensor invokes registered `onInitialize` callback.
@@ -83,22 +78,28 @@ void main() {
     /// The caller must await this function. See above.
     Future expectInitialize({ResizeSensorHandler onInitialize, int width: defaultContainerWidth,
         int height: defaultContainerHeight}) async {
-      var wasInitializeDetected = false;
+      var initializeDetectedCompleter = new Completer();
 
       renderSensorIntoContainer(onInitialize: (event) {
         if (onInitialize != null) {
           onInitialize(event);
         }
-        wasInitializeDetected = true;
+        initializeDetectedCompleter.complete();
       }, width: width, height: height);
 
-      // See above.
-      await new Future.delayed(const Duration(milliseconds: 200),
-          () => expect(wasInitializeDetected, isTrue));
+      await initializeDetectedCompleter.future;
     }
 
-    group('should render with the correct styles when isFlexChild is', () {
-      test('true', () {
+    group('should render with the correct styles', () {
+      test('by default', () {
+        var renderedNode = renderAndGetDom(ResizeSensor()());
+
+        expect(renderedNode.style.position, equals('relative'));
+        expect(renderedNode.style.width, equals('100%'));
+        expect(renderedNode.style.height, equals('100%'));
+      });
+
+      test('when isFlexChild is true', () {
         var renderedNode = renderAndGetDom((ResizeSensor()..isFlexChild = true)());
 
         expect(renderedNode.style.position, equals('relative'));
@@ -108,12 +109,14 @@ void main() {
         expect(renderedNode.attributes['style'], matches(new RegExp(r'(?:^|;)-ms-flex: *1 1 0%;')));
       });
 
-      test('false', () {
-        var renderedNode = renderAndGetDom(ResizeSensor()());
+      test('when isFlexContainer is true', () {
+        var renderedNode = renderAndGetDom((ResizeSensor()..isFlexContainer = true)());
 
         expect(renderedNode.style.position, equals('relative'));
-        expect(renderedNode.style.width, equals('100%'));
-        expect(renderedNode.style.height, equals('100%'));
+        expect(renderedNode.style.display, equals('flex'));
+        // Use the attribute text to match these since `style`'s API won't work for unsupported properties.
+        expect(renderedNode.attributes['style'], matches(new RegExp(r'(?:^|;)flex: *1 1 0%;')));
+        expect(renderedNode.attributes['style'], matches(new RegExp(r'(?:^|;)-ms-flex: *1 1 0%;')));
       });
     });
 

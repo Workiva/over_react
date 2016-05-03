@@ -1,7 +1,5 @@
 library web_skin_dart.component_declaration.component_base;
 
-import 'dart:js';
-
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart';
@@ -16,7 +14,10 @@ import 'package:web_skin_dart/ui_core.dart' show
     getProps,
     getPropsToForward,
     isDartComponent,
-    isValidElement;
+    isValidElement,
+    DummyComponent,
+    ValidationUtil,
+    unindent;
 
 export 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart' show isComponentOfType, isValidElementOfType;
 
@@ -40,7 +41,7 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
   ReactDartComponentFactoryProxy reactComponentFactory = react.registerComponent(dartComponentFactory);
 
   if (displayName != null) {
-    reactComponentFactory.reactClass['displayName'] = displayName;
+    reactComponentFactory.reactClass.displayName = displayName;
   }
 
   registerComponentTypeAlias(reactComponentFactory, builderFactory);
@@ -51,7 +52,14 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
   return reactComponentFactory;
 }
 
-
+/// Helper function that wraps [registerComponent], and allows an easier way to register abstract components with the
+/// main purpose of type-checking against the abstract component.
+///
+/// __The result must be stored in a variable that is named very specifically:__
+///
+///     var $`AbstractComponentClassName`Factory = registerAbstractComponent(`AbstractComponentClassName`);
+ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentClass) =>
+    registerComponent(() => new DummyComponent(), componentClass: abstractComponentClass);
 
 /// A function that returns a new [TProps] instance, optionally backed by the specified [backingProps].
 ///
@@ -212,6 +220,8 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 /// don't need a constructor. The generated implementations can mix that functionality in.
 abstract class UiState extends Object with MapViewMixin, StateMapViewMixin implements Map {}
 
+/// The string used by default for the key of the attribute added by [UiProps.addTestId].
+const defaultTestIdKey = 'data-test-id';
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React props that
 /// is also capable of creating React component instances.
@@ -250,7 +260,7 @@ abstract class UiProps
   ///
   /// Deprecated: __Use the [addTestId] method instead.__
   @deprecated
-  void setTestId(String value, {String key: 'data-test-id'}) {
+  void setTestId(String value, {String key: defaultTestIdKey}) {
     if (!testMode) {
       return;
     }
@@ -261,7 +271,7 @@ abstract class UiProps
   /// Adds [value] to the prop [key] for use in a testing environment by using space-delimiting.
   ///
   /// Allows for an element to have multiple test IDs to prevent overwriting when cloning elements or components.
-  void addTestId(String value, {String key: 'data-test-id'}) {
+  void addTestId(String value, {String key: defaultTestIdKey}) {
     if (!testMode || value == null) {
       return;
     }
@@ -285,7 +295,7 @@ abstract class UiProps
 
   /// Gets the `data-test-id` prop or one testId from the prop (or custom [key] prop value) for use in a testing
   /// environment.
-  String getTestId({String key: 'data-test-id'}) {
+  String getTestId({String key: defaultTestIdKey}) {
     return props[key];
   }
 
@@ -299,7 +309,9 @@ abstract class UiProps
   bool validate() => true;
 
   /// Returns a new component with this builder's props and the specified children.
-  JsObject build([dynamic children]) {
+  ReactElement build([dynamic children]) {
+    assert(_validateChildren(children));
+
     return componentFactory(props, children);
   }
 
@@ -307,7 +319,10 @@ abstract class UiProps
   /// (alias for [build] with support for variadic children)
   ///
   /// This method actually takes any number of children as arguments ([c2], [c3], ...) via [noSuchMethod].
-  JsObject call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40, c41, c42, c43, c44, c45, c46, c47, c48, c49, c50]);
+  ///
+  /// Restricted statically to 40 arguments until the dart2js fix in
+  /// <https://github.com/dart-lang/sdk/pull/26032> is released.
+  ReactElement call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
 
   /// Supports variadic children of the form `call([child1, child2, child3...])`.
   dynamic noSuchMethod(Invocation invocation) {
@@ -316,10 +331,47 @@ abstract class UiProps
         ..add(props)
         ..addAll(invocation.positionalArguments);
 
+      assert(() {
+        // These checks are within the assert so they are not done in production.
+        var children = invocation.positionalArguments;
+
+        if (children.length == 1) {
+          children = children.single;
+        }
+
+        return _validateChildren(children);
+      });
+
       return Function.apply(componentFactory, parameters);
     }
 
     return super.noSuchMethod(invocation);
+  }
+
+  /// Validates that no [children] are instances of [UiProps], and prints a helpful message for a better debugging
+  /// experiance.
+  bool _validateChildren(dynamic children) {
+    // Should not validate non-list iterables to avoid more than one iteration.
+    if (children != null && (children is! Iterable || children is List)) {
+      if (children is! List) {
+        children = [children];
+      }
+
+      if (children.any((child) => child is UiProps)) {
+        var errorMessage = unindent(
+            '''
+            It looks like you are trying to use a non-invoked builder as a child. That is an invalid use of UiProps, try
+            invoking the builder before passing it as a child.
+            '''
+        );
+
+        // TODO: Remove ValidationUtil.warn call when https://github.com/dart-lang/sdk/issues/26093 is resolved.
+        ValidationUtil.warn(errorMessage);
+        throw new ArgumentError(errorMessage);
+      }
+    }
+
+    return true;
   }
 
   Function get componentFactory;

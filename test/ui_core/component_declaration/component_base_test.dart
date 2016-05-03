@@ -1,5 +1,6 @@
 library ui_core.component_declaration.component_base_test;
 
+import 'dart:html';
 import 'dart:js';
 
 import 'package:react/react.dart' as react;
@@ -8,39 +9,89 @@ import 'package:test/test.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart';
 import 'package:web_skin_dart/test_util.dart';
-import 'package:web_skin_dart/ui_core.dart' show Dom;
+import 'package:web_skin_dart/ui_core.dart' show Dom, DummyComponent, ValidationUtil;
 
+import '../../wsd_test_util/validation_util_helpers.dart';
 import '../shared/map_proxy_tests.dart';
 
 main() {
   group('component base:', () {
     group('UiProps', () {
+      group('warns and throws when rendering a DOM component', () {
+        bool warningsWereEnabled;
+        setUp(() {
+          warningsWereEnabled = ValidationUtil.WARNINGS_ENABLED;
+          ValidationUtil.WARNINGS_ENABLED = false;
+          startRecordingValidationWarnings();
+        });
+
+        tearDown(() {
+          ValidationUtil.WARNINGS_ENABLED = warningsWereEnabled;
+          stopRecordingValidationWarnings();
+        });
+
+        test('when a single non-invoked builder child is passed in', () {
+          expect(() => renderAndGetDom(Dom.div()(Dom.div())), throws);
+          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
+        });
+
+        test('when a list with a non-invoked builder child passed in', () {
+          expect(() => renderAndGetDom(Dom.div()([
+            Dom.div(),
+            Dom.p()(),
+            Dom.div()
+          ])), throwsArgumentError);
+          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
+        });
+
+        test('except when an iterable with a non-invoked builder child passed in', () {
+          var children = (() sync* {
+            yield Dom.div();
+            yield Dom.p()();
+            yield Dom.div();
+          })();
+          expect(() => renderAndGetDom(Dom.div()(children)), returnsNormally);
+          rejectValidationWarning(anything);
+        });
+
+        test('when non-invoked builder children are passed in variadically via noSuchMethod', () {
+          expect(() => renderAndGetDom(Dom.div()(
+            Dom.div(),
+            Dom.p()(),
+            Dom.div()
+          )), throwsArgumentError);
+          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
+        });
+      }, testOn: '!js');
+
       group('renders a DOM component with the correct children when', () {
         test('no children are passed in', () {
-          var renderedInstance = render(Dom.div()());
+          var renderedNode = renderAndGetDom(Dom.div()());
 
-          expect(getJsChildren(renderedInstance), equals(null));
+          expect(renderedNode.childNodes, isEmpty);
         });
 
         test('children is null', () {
-          var renderedInstance = render(Dom.div()(null));
+          var renderedNode = renderAndGetDom(Dom.div()(null));
 
-          expect(getJsChildren(renderedInstance), equals(null));
+          expect(renderedNode.childNodes, isEmpty);
         });
 
         test('a single child is passed in', () {
           var child = 'Only child';
-          var renderedInstance = render(Dom.div()(child));
+          var renderedNode = renderAndGetDom(Dom.div()(child));
 
-          expect(getJsChildren(renderedInstance), equals(child));
+          expect(renderedNode.childNodes.length, equals(1));
+          expect((renderedNode.childNodes[0] as Text).data, equals(child));
         });
 
         test('children are set via a list', () {
           var children = ['First Child', 'Second Child'];
-          var renderedInstance = render(Dom.div()(children));
+          var renderedNode = renderAndGetDom(Dom.div()(children));
 
-          expect(getJsChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
-          expect(getJsChildren(renderedInstance), equals(children));
+          expect(renderedNode.childNodes.length, equals(2));
+          expect((renderedNode.childNodes[0] as SpanElement).text, equals(children[0]));
+          expect((renderedNode.childNodes[1] as SpanElement).text, equals(children[1]));
         });
 
         test('children are set via an iterable', () {
@@ -48,21 +99,70 @@ main() {
             yield 'First Child';
             yield 'Second Child';
           })();
-          var renderedInstance = render(Dom.div()(children));
+          var renderedNode = renderAndGetDom(Dom.div()(children));
 
-          expect(getJsChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
-          expect(getJsChildren(renderedInstance), orderedEquals(children));
+          expect(renderedNode.childNodes.length, equals(2));
+          expect((renderedNode.childNodes[0] as SpanElement).text, equals('First Child'));
+          expect((renderedNode.childNodes[1] as SpanElement).text, equals('Second Child'));
         });
 
         test('children are set variadically via noSuchMethod', () {
           var firstChild = 'First Child';
           var secondChild = 'Second Child';
-          var renderedInstance = render(Dom.div()(firstChild, secondChild));
+          var renderedNode = renderAndGetDom(Dom.div()(firstChild, secondChild));
 
-          expect(getJsChildren(renderedInstance), new isInstanceOf<JsArray>(), reason: 'Should not be a Dart Object');
-          expect(getJsChildren(renderedInstance), equals([firstChild, secondChild]));
+          expect(renderedNode.childNodes.length, equals(2));
+          expect((renderedNode.childNodes[0] as SpanElement).text, equals('First Child'));
+          expect((renderedNode.childNodes[1] as SpanElement).text, equals('Second Child'));
         });
       });
+
+      group('warns and throws when rendering a Dart composite component', () {
+        bool warningsWereEnabled;
+        setUp(() {
+          warningsWereEnabled = ValidationUtil.WARNINGS_ENABLED;
+          ValidationUtil.WARNINGS_ENABLED = false;
+          startRecordingValidationWarnings();
+        });
+
+        tearDown(() {
+          ValidationUtil.WARNINGS_ENABLED = warningsWereEnabled;
+          stopRecordingValidationWarnings();
+        });
+
+        test('when a single non-invoked builder child is passed in', () {
+          expect(() => renderAndGetDom(TestComponent()(Dom.div())), throwsArgumentError);
+          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
+        });
+
+        test('when a list with a non-invoked builder child passed in', () {
+          expect(() => renderAndGetDom(TestComponent()([
+            Dom.div(),
+            Dom.p()(),
+            Dom.div()
+          ])), throws);
+          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
+        });
+
+        test('except when an iterable with a non-invoked builder passed in', () {
+          var children = (() sync* {
+            yield Dom.div();
+            yield Dom.p()();
+            yield Dom.div();
+          })();
+          expect(() => renderAndGetDom(TestComponent()(children)), returnsNormally);
+          rejectValidationWarning(anything);
+        });
+
+        test('when non-invoked builder children are passed in variadically via noSuchMethod', () {
+          expect(() => renderAndGetDom(TestComponent()(
+            Dom.div(),
+            Dom.p()(),
+            Dom.div()
+          )), throwsArgumentError);
+          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
+        });
+      }, testOn: '!js');
 
       group('renders a composite Dart component with the correct children when', () {
         test('no children are passed in', () {
@@ -126,7 +226,7 @@ main() {
           expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getDartChildren(renderedInstance), equals([firstChild, secondChild]));
 
-          expect(getJsChildren(renderedInstance), new isInstanceOf<JsArray>(), reason: 'Should not be a Dart Object');
+          expect(getJsChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getJsChildren(renderedInstance), equals([firstChild, secondChild]));
         });
       });
@@ -484,7 +584,7 @@ main() {
 
         test('displayName', () {
           var reactComponentFactory = registerComponent(dummyComponentFactory, displayName: 'testDisplayName');
-          expect(reactComponentFactory.type['displayName'], equals('testDisplayName'));
+          expect(reactComponentFactory.type.displayName, equals('testDisplayName'));
         });
 
         group('registers a type alias for', () {
@@ -504,12 +604,19 @@ main() {
         });
       });
     });
+
+    test('registerAbstractComponent registers a type alias for a componentClass', () {
+      Type typeAlias = TestRegisterComponentClassAlias;
+      var reactComponentFactory = registerAbstractComponent(typeAlias);
+
+      expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias), equals(reactComponentFactory.type));
+    });
   });
 }
 
-dynamic getJsChildren(JsObject instance) => getJsProps(instance)['children'];
+dynamic getJsChildren(instance) => getJsProps(instance)['children'];
 
-dynamic getDartChildren(JsObject renderedInstance) {
+dynamic getDartChildren(var renderedInstance) {
   assert(isDartComponent(renderedInstance));
   return getProps(renderedInstance)['children'];
 }
@@ -560,10 +667,6 @@ class TestStatefulComponentComponent extends UiStatefulComponent<TestStatefulCom
   @override
   TestStatefulComponentProps typedPropsFactory(Map propsMap) => new TestStatefulComponentProps(propsMap);
   TestStatefulComponentState typedStateFactory(Map state) => new TestStatefulComponentState(state);
-}
-
-class DummyComponent extends react.Component {
-  render() {}
 }
 
 abstract class TestRegisterComponentClassAlias {}

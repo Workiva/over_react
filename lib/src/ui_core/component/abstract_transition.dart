@@ -222,7 +222,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   bool _transitionNotGuaranteed = false;
 
   @override
-  void componentDidUpdate(Map prevProps, Map prevState, rootNode) {
+  void componentDidUpdate(Map prevProps, Map prevState) {
     _transitionNotGuaranteed = false;
 
     var tPrevState = typedStateFactory(prevState);
