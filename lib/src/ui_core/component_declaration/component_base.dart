@@ -250,18 +250,26 @@ abstract class UiProps
     props.addAll(propMap);
   }
 
-  /// Whether [UiProps] is in a testing environment. Used in [testId] and [setTestId]
-  ///
-  /// TODO: Use bool.fromEnvironment() when it is supported in Dartium.
-  /// See: <https://github.com/dart-lang/pub/issues/798>.
+  /// Whether [UiProps] is in a testing environment.
   static bool testMode = false;
+
+  /// Whether [UiProps] is in a testing environment at build time.
+  static const bool _testModeFromEnvironment = const bool.fromEnvironment('testing');
+
+  /// Whether [UiProps] is in a testing environment at build time or otherwise.
+  ///
+  /// Used in [addTestId].
+  ///
+  /// TODO: Only use bool.fromEnvironment() when it is supported in Dartium.
+  /// See: <https://github.com/dart-lang/pub/issues/798>.
+  bool get _inTestMode => testMode || _testModeFromEnvironment;
 
   /// Sets the prop [key] to [value] for use in a testing environment.
   ///
   /// Deprecated: __Use the [addTestId] method instead.__
   @deprecated
   void setTestId(String value, {String key: defaultTestIdKey}) {
-    if (!testMode) {
+    if (!_inTestMode) {
       return;
     }
 
@@ -272,7 +280,7 @@ abstract class UiProps
   ///
   /// Allows for an element to have multiple test IDs to prevent overwriting when cloning elements or components.
   void addTestId(String value, {String key: defaultTestIdKey}) {
-    if (!testMode || value == null) {
+    if (!_inTestMode || value == null) {
       return;
     }
 
