@@ -153,7 +153,7 @@ void main() {
 
       test('even when the bounding rect is very small', () async {
         await expectResizeAfter((containerEl) {
-          containerEl.style.width = '${defaultContainerWidth * 2}px';
+          containerEl.style.width = '4px';
         }, width: 2, height: 2);
       });
     });
@@ -167,7 +167,7 @@ void main() {
 
       test('even when the bounding rect is very small', () async {
         await expectResizeAfter((containerEl) {
-          containerEl.style.height = '${defaultContainerHeight * 2}px';
+          containerEl.style.height = '4px';
         }, width: 2, height: 2);
       });
     });
@@ -181,7 +181,7 @@ void main() {
 
       test('even when the bounding rect is very small', () async {
         await expectResizeAfter((containerEl) {
-          containerEl.style.width = '${defaultContainerWidth / 2}px';
+          containerEl.style.width = '1px';
         }, width: 2, height: 2);
       });
     });
@@ -195,7 +195,7 @@ void main() {
 
       test('even when the bounding rect is very small', () async {
         await expectResizeAfter((containerEl) {
-          containerEl.style.height = '${defaultContainerHeight / 2}px';
+          containerEl.style.height = '1px';
         }, width: 2, height: 2);
       });
     });
