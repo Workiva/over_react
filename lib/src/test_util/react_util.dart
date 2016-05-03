@@ -82,13 +82,21 @@ Element renderAndGetDom(dynamic component) {
   return findDomNode(react_test_utils.renderIntoDocument(component is ComponentDefinition ? component.build() : component));
 }
 
+/// Renders a React component or builder into a detached node and returns the associtated Dart component.
+react.Component renderAndGetComponent(dynamic component) => getDartComponent(render(component));
+
 /// List of elements attached to the DOM and used as mount points in previous calls to [renderAttachedToDocument].
 List<Element> _attachedReactContainers = [];
 
 /// Renders the component into the document as opposed to a headless node.
 /// Returns the rendered component.
 /* [1] */ renderAttachedToDocument(dynamic component) {
-  var container = new DivElement()..className = 'render-attached-to-document-container';
+  var container = new DivElement()
+    ..className = 'render-attached-to-document-container'
+    // Set arbitrary height and width for container to ensure nothing is cut off.
+    ..style.setProperty('width', '800px')
+    ..style.setProperty('height', '800px');
+
   _attachedReactContainers.add(container);
 
   document.body.append(container);
@@ -122,6 +130,9 @@ typedef void _EventSimulatorAlias(componentOrNode, [Map eventData]);
 
 /// Helper function to simulate clicks
 final _EventSimulatorAlias click = react_test_utils.Simulate.click;
+
+/// Helper function to simulate focus
+final _EventSimulatorAlias focus = react_test_utils.Simulate.focus;
 
 /// Helper function to simulate mouseMove events.
 final _EventSimulatorAlias mouseMove = react_test_utils.Simulate.mouseMove;
@@ -196,7 +207,7 @@ bool _hasTestId(Map props, String key, String value) {
 ///
 /// It is recommended that, instead of setting this [key] prop manually, you should use the
 /// [UiProps.addTestId] method so the prop is only set in a test environment.
-/* [1] */ getByTestId(/* [1] */ root, String value, {String key: 'data-test-id'}) {
+/* [1] */ getByTestId(/* [1] */ root, String value, {String key: defaultTestIdKey}) {
   if (isValidElement(root)) {
     return _getByTestIdShallow(root, value, key: key);
   }
@@ -230,14 +241,14 @@ bool _hasTestId(Map props, String key, String value) {
 /// Returns the [Element] of the first descendant of [root] that has its [key] prop value set to [value].
 ///
 /// Returns null if no descendant has its [key] prop value set to [value].
-Element getDomByTestId(/* [1] */ root, String value, {String key: 'data-test-id'}) {
+Element getDomByTestId(/* [1] */ root, String value, {String key: defaultTestIdKey}) {
   return findDomNode(getByTestId(root, value, key: key));
 }
 
 /// Returns the [react.Component] of the first descendant of [root] that has its [key] prop value set to [value].
 ///
 /// Returns null if no descendant has its [key] prop value set to [value].
-react.Component getComponentByTestId(/* [1] */ root, String value, {String key: 'data-test-id'}) {
+react.Component getComponentByTestId(/* [1] */ root, String value, {String key: defaultTestIdKey}) {
   var instance = getByTestId(root, value, key: key);
   if (instance != null) {
     return getDartComponent(instance);
@@ -249,7 +260,7 @@ react.Component getComponentByTestId(/* [1] */ root, String value, {String key: 
 /// Returns the props of the first descendant of [root] that has its [key] prop value set to [value].
 ///
 /// Returns null if no descendant has its [key] prop value set to [value].
-Map getPropsByTestId(/* [1] */ root, String value, {String key: 'data-test-id'}) {
+Map getPropsByTestId(/* [1] */ root, String value, {String key: defaultTestIdKey}) {
   var instance = getByTestId(root, value, key: key);
   if (instance != null) {
     return getProps(instance);
@@ -258,7 +269,7 @@ Map getPropsByTestId(/* [1] */ root, String value, {String key: 'data-test-id'})
   return null;
 }
 
-ReactElement _getByTestIdShallow(ReactElement root, String value, {String key: 'data-test-id'}) {
+ReactElement _getByTestIdShallow(ReactElement root, String value, {String key: defaultTestIdKey}) {
   Iterable flattenChildren(dynamic children) sync* {
     if (children is Iterable) {
       yield* children.expand(flattenChildren);

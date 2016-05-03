@@ -106,6 +106,7 @@ List getForwardingTargets(reactInstance, {int expectedTargetCount: 1, shallowRen
 /// Common test for verifying that unconsumed props are forwarded as expected.
 void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(), {
     List unconsumedPropKeys: const [],
+    bool ignoreDomProps: true,
     List skippedPropKeys: const [],
     Map nonDefaultForwardingTestProps: const {}
 }) {
@@ -137,7 +138,12 @@ void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(),
       ..addAll(defaultProps)
       ..addAll(nonDefaultForwardingTestProps);
 
-    unconsumedPropKeys.forEach((key) => propsThatShouldNotGetForwarded.remove(key));
+      unconsumedPropKeys.forEach(propsThatShouldNotGetForwarded.remove);
+
+      if (ignoreDomProps) {
+        // Remove DomProps because they should be forwarded.
+        const $PropKeys(DomPropsMixin).forEach(propsThatShouldNotGetForwarded.remove);
+      }
 
     var shallowRenderer = react_test_utils.createRenderer();
 
@@ -321,6 +327,7 @@ void commonComponentTests(BuilderOnlyUiFactory factory, {
   Map nonDefaultForwardingTestProps: const {},
   bool shouldTestClassNameMerging: true,
   bool shouldTestClassNameOverrides: true,
+  bool ignoreDomProps: true,
   dynamic childrenFactory()
 }) {
   childrenFactory ??= _defaultChildrenFactory;
@@ -334,6 +341,7 @@ void commonComponentTests(BuilderOnlyUiFactory factory, {
   if (shouldTestPropForwarding) {
     testPropForwarding(factory, childrenFactory,
         unconsumedPropKeys: unconsumedPropKeys,
+        ignoreDomProps: ignoreDomProps,
         skippedPropKeys: skippedPropKeys,
         nonDefaultForwardingTestProps: nonDefaultForwardingTestProps
     );
