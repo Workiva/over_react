@@ -9,7 +9,7 @@ abstract class DocumentEventHelper {
   ///
   /// Can be mutated when testing
   static html.HtmlDocument get document => _document;
-  static set document(html.Document value) {
+  static set document(html.HtmlDocument value) {
     // TODO add `.fromEnvironment` check for warning when not testing.
     _document = value;
   }

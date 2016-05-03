@@ -151,7 +151,7 @@ Iterable<dynamic> getParentTypes(dynamic type) sync* {
 
   while ((parentType = getComponentTypeMeta(currentType).parentType) != null) {
     currentType = getComponentTypeFromAlias(parentType);
-    yield currentType;
+    yield currentType ?? parentType;
   }
 }
 

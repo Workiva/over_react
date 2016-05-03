@@ -9,7 +9,6 @@ import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
 import '../wsd_test_util/test_js_component.dart';
-import '../wsd_test_util/wrapper_component.dart';
 
 /// Main entry point for ReactUtil testing
 main() {
@@ -53,11 +52,40 @@ main() {
       });
     });
 
-    test('click simulates a click on a component', () {
-      var flag = false;
-      var renderedInstance = render((Dom.div()..onClick = (evt) => flag = true)());
+    group('click', () {
+      test('simulates a click on a component', () {
+        var flag = false;
+        var renderedInstance = render((Dom.div()..onClick = (evt) => flag = true)());
 
-      click(renderedInstance);
+        click(renderedInstance);
+
+        expect(flag, isTrue);
+      });
+
+      test('simulates a click on a component with additional event data', () {
+        var flag = false;
+        react.SyntheticMouseEvent event;
+        var renderedInstance = render((Dom.div()
+          ..onClick = (evt) {
+            flag = true;
+            event = evt;
+          }
+        )());
+
+        click(renderedInstance, {'shiftKey': true, 'metaKey': true, 'button': 5});
+
+        expect(flag, isTrue);
+        expect(event.shiftKey, isTrue);
+        expect(event.metaKey, isTrue);
+        expect(event.button, equals(5));
+      });
+    });
+
+    test('focus simulates focus on a component', () {
+      var flag = false;
+      var renderedInstance = render((Dom.div()..onFocus = (evt) => flag = true)());
+
+      focus(renderedInstance);
 
       expect(flag, isTrue);
     });
@@ -114,6 +142,15 @@ main() {
       simulateMouseLeave(findDomNode(renderedInstance));
 
       expect(flag, isTrue);
+    });
+
+    test('defaultTestIdKey is equal to the default key used by addTestId', () {
+      var renderedInstance = render((Test()
+        ..addTestId('testTestId')
+      )());
+      var props = getProps(renderedInstance);
+
+      expect(props[defaultTestIdKey], equals('testTestId'));
     });
 
     group('getByTestId returns', () {
