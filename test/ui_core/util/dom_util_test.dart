@@ -1,7 +1,6 @@
 library dom_util_test;
 
 import 'dart:html';
-import 'dart:js';
 
 import 'package:test/test.dart';
 import 'package:web_skin_dart/test_util.dart';

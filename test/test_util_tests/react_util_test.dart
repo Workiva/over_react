@@ -795,5 +795,6 @@ class TestProps extends UiProps {}
 
 @Component()
 class TestComponent extends UiComponent<TestProps> {
+  @override
   render() => (Dom.div()..addProp('isRenderResult', true))();
 }
