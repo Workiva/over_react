@@ -278,7 +278,7 @@ void testClassNameOverrides(BuilderOnlyUiFactory factory, dynamic childrenFactor
 
   unmount(reactInstanceWithoutOverrides);
 
-  test('can override added class names: ${classesToOverride}', () {
+  test('can override added class names: $classesToOverride', () {
     if (error != null) {
       throw error;
     }
