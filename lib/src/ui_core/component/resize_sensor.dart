@@ -174,10 +174,12 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
 
 final Map<String, dynamic> _baseStyle = const {
   'position': 'absolute',
-  'top': '0',
-  'right': '0',
-  'bottom': '0',
-  'left': '0',
+  // Have this element reach "outside" its containing element in such a way to ensure its width/height are always at
+  // least 2x the scrollbar width (e.g., 32px on Chrome OS X).
+  'top': '-100px',
+  'right': '-100px',
+  'bottom': '-100px',
+  'left': '-100px',
   'overflow': 'scroll',
   'zIndex': '-1',
   'visibility': 'hidden',

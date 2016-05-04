@@ -56,7 +56,7 @@ void main() {
     /// tracked to confirm callback invocation, instead of `expectAsync`, due to
     /// oddities in detecting callback invocations.
     Future expectResizeAfter(void action(Element container),
-        {ResizeSensorHandler onResize}) async {
+        {ResizeSensorHandler onResize, int width: defaultContainerWidth, int height: defaultContainerHeight}) async {
       var resizeDetectedCompleter = new Completer();
 
       Element containerEl;
@@ -65,7 +65,7 @@ void main() {
           onResize(event);
         }
         resizeDetectedCompleter.complete();
-      });
+      }, width: width, height: height);
 
       action(containerEl);
 
@@ -143,27 +143,59 @@ void main() {
       });
     });
 
-    test('should detect when bounding rect grows horizontally', () async {
-      await expectResizeAfter((containerEl) {
-        containerEl.style.width = '${defaultContainerWidth * 2}px';
+    group('should detect when bounding rect grows horizontally', () {
+      test('', () async{
+        await expectResizeAfter((containerEl) {
+          containerEl.style.width = '${defaultContainerWidth * 2}px';
+        });
+      });
+
+      test('even when the bounding rect is very small', () async {
+        await expectResizeAfter((containerEl) {
+          containerEl.style.width = '4px';
+        }, width: 2, height: 2);
       });
     });
 
-    test('should detect when bounding rect grows vertically', () async {
-      await expectResizeAfter((containerEl) {
-        containerEl.style.height = '${defaultContainerHeight * 2}px';
+    group('should detect when bounding rect grows vertically', () {
+      test('', () async{
+        await expectResizeAfter((containerEl) {
+          containerEl.style.height = '${defaultContainerHeight * 2}px';
+        });
+      });
+
+      test('even when the bounding rect is very small', () async {
+        await expectResizeAfter((containerEl) {
+          containerEl.style.height = '4px';
+        }, width: 2, height: 2);
       });
     });
 
-    test('should detect when bounding rect shrinks horizontally', () async {
-      await expectResizeAfter((containerEl) {
-        containerEl.style.width = '${defaultContainerWidth / 2}px';
+    group('should detect when bounding rect shrinks horizontally', () {
+      test('', () async{
+        await expectResizeAfter((containerEl) {
+          containerEl.style.width = '${defaultContainerWidth / 2}px';
+        });
+      });
+
+      test('even when the bounding rect is very small', () async {
+        await expectResizeAfter((containerEl) {
+          containerEl.style.width = '1px';
+        }, width: 2, height: 2);
       });
     });
 
-    test('should detect when bounding rect shrinks vertically', () async {
-      await expectResizeAfter((containerEl) {
-        containerEl.style.height = '${defaultContainerHeight / 2}px';
+    group('should detect when bounding rect shrinks vertically', () {
+      test('', () async{
+        await expectResizeAfter((containerEl) {
+          containerEl.style.height = '${defaultContainerHeight / 2}px';
+        });
+      });
+
+      test('even when the bounding rect is very small', () async {
+        await expectResizeAfter((containerEl) {
+          containerEl.style.height = '1px';
+        }, width: 2, height: 2);
       });
     });
 
