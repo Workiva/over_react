@@ -13,5 +13,6 @@ class WrapperProps extends UiProps {}
 
 @Component()
 class WrapperComponent extends UiComponent<WrapperProps> {
+  @override
   render() => (Dom.div()..addAll(props))(props.children);
 }
