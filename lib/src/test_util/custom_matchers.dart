@@ -131,8 +131,8 @@ class _ElementAttributeMatcher extends CustomMatcher {
   featureValueOf(Element element) => element.getAttribute(_attributeName);
 }
 
-class _WithToStringValue extends CustomMatcher {
-  _WithToStringValue(matcher) : super('Object with toString() value', 'toString() value', matcher);
+class _HasToStringValue extends CustomMatcher {
+  _HasToStringValue(matcher) : super('Object with toString() value', 'toString()', matcher);
 
   @override
   featureValueOf(Object item) => item.toString();
@@ -211,7 +211,7 @@ Matcher hasNodeName(String nodeName) => new IsNode(equalsIgnoringCase(nodeName))
 Matcher hasProp(dynamic propKey, dynamic propValue) => new _HasPropMatcher(propKey, propValue);
 
 /// Returns a matcher that matches an object whose `toString` value matches [value].
-Matcher withToStringValue(value) => new _WithToStringValue(value);
+Matcher hasToStringValue(value) => new _HasToStringValue(value);
 
 class _IsFocused extends Matcher {
   const _IsFocused();
