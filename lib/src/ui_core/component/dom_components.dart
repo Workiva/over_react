@@ -64,7 +64,7 @@ typedef DomProps DomPropsFactory();
 class DomProps extends component_base.UiProps with DomPropsMixin, ReactPropsMixin
     implements DomComponentDefinition {
   // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
-  DomProps(ReactDomComponentFactoryProxy this.componentFactory, [Map props]) : this.props = props ?? ({});
+  DomProps(this.componentFactory, [Map props]) : this.props = props ?? ({});
 
   @override
   final ReactDomComponentFactoryProxy componentFactory;
@@ -74,7 +74,7 @@ class DomProps extends component_base.UiProps with DomPropsMixin, ReactPropsMixi
 
 class SvgProps extends component_base.UiProps with DomPropsMixin, ReactPropsMixin, SvgPropsMixin implements DomProps {
   // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
-  SvgProps(ReactDomComponentFactoryProxy this.componentFactory, [Map props]) : this.props = props ?? ({});
+  SvgProps(this.componentFactory, [Map props]) : this.props = props ?? ({});
 
   @override
   final ReactDomComponentFactoryProxy componentFactory;
