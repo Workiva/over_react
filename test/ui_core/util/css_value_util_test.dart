@@ -37,7 +37,7 @@ main() {
           });
 
           test('`null`', () {
-            ArgumentError error = null;
+            ArgumentError error;
             new CssValue.parse(null, onError: (value, e) {
               error = e;
             });
@@ -73,7 +73,7 @@ main() {
           });
 
           test('invalid numbers', () {
-            ArgumentError error = null;
+            ArgumentError error;
             new CssValue.parse('aa123px', onError: (value, e) {
               error = e;
             });

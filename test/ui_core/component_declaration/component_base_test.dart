@@ -1,9 +1,7 @@
 library ui_core.component_declaration.component_base_test;
 
 import 'dart:html';
-import 'dart:js';
 
-import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart';
@@ -638,6 +636,7 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
 
   TestComponentComponent({testConsumedPropKeys}) : consumedPropKeys = testConsumedPropKeys;
 
+  @override
   render() => false;
 
   @override
@@ -662,10 +661,12 @@ class TestStatefulComponentState extends UiState {
 
 ReactComponentFactory _TestStatefulComponentComponentFactory = registerComponent(() => new TestStatefulComponentComponent());
 class TestStatefulComponentComponent extends UiStatefulComponent<TestStatefulComponentProps, TestStatefulComponentState> {
+  @override
   render() {}
 
   @override
   TestStatefulComponentProps typedPropsFactory(Map propsMap) => new TestStatefulComponentProps(propsMap);
+  @override
   TestStatefulComponentState typedStateFactory(Map state) => new TestStatefulComponentState(state);
 }
 

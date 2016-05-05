@@ -24,8 +24,9 @@ class Factory {
 class Props implements TypedMap {
   /// A custom namespace for the keys of props defined in the annotated class,
   /// overriding the default of `'${propsClassName}.'`.
+  @override
   final String keyNamespace;
-  const Props({String this.keyNamespace: null});
+  const Props({this.keyNamespace: null});
 }
 
 /// Annotation used with the `web_skin_dart` transformer to declare a [UiState] class for a component.
@@ -41,8 +42,9 @@ class Props implements TypedMap {
 class State implements TypedMap {
   /// A custom namespace for the keys of state properties defined in the annotated class,
   /// overriding the default of `'${stateClassName}.'`.
+  @override
   final String keyNamespace;
-  const State({String this.keyNamespace: null});
+  const State({this.keyNamespace: null});
 }
 
 /// Annotation used with the `web_skin_dart` transformer to declare a [UiComponent] class for a component.
@@ -83,8 +85,8 @@ class Component {
   final Type subtypeOf;
 
   const Component({
-      bool this.isWrapper: false,
-      Type this.subtypeOf
+      this.isWrapper: false,
+      this.subtypeOf
   });
 }
 
@@ -99,8 +101,9 @@ class Component {
 class AbstractProps implements TypedMap {
   /// A custom namespace for the keys of props defined in the annotated class,
   /// overriding the default of `'${propsClassName}.'`.
+  @override
   final String keyNamespace;
-  const AbstractProps({String this.keyNamespace: null});
+  const AbstractProps({this.keyNamespace: null});
 }
 
 /// Annotation used with the `web_skin_dart` transformer to declare an abstract [UiProps] class for an abstract component.
@@ -114,8 +117,9 @@ class AbstractProps implements TypedMap {
 class AbstractState implements TypedMap {
   /// A custom namespace for the keys of state properties defined in the annotated class,
   /// overriding the default of `'${stateClassName}.'`.
+  @override
   final String keyNamespace;
-  const AbstractState({String this.keyNamespace: null});
+  const AbstractState({this.keyNamespace: null});
 }
 
 /// Annotation used with the `web_skin_dart` transformer to declare an abstract [UiComponent] class for an abstract component.
@@ -141,8 +145,9 @@ class AbstractComponent {
 class PropsMixin implements TypedMap {
   /// A custom namespace for the keys of props defined in the annotated class,
   /// overriding the default of `'${propsClassName}.'`.
+  @override
   final String keyNamespace;
-  const PropsMixin({String this.keyNamespace: null});
+  const PropsMixin({this.keyNamespace: null});
 }
 
 /// Annotation used with the `web_skin_dart` transformer to declare a mixin for use in a [UiState] class.
@@ -160,8 +165,9 @@ class PropsMixin implements TypedMap {
 class StateMixin implements TypedMap {
   /// A custom namespace for the keys of state properties defined in the annotated class,
   /// overriding the default of `'${stateClassName}.'`.
+  @override
   final String keyNamespace;
-  const StateMixin({String this.keyNamespace: null});
+  const StateMixin({this.keyNamespace: null});
 }
 
 /// Annotation used with the `web_skin_dart` transformer to customize individual accessors (props/state fields).
@@ -180,8 +186,8 @@ class Accessor {
   final String keyNamespace;
 
   const Accessor({
-    String this.key: null,
-    String this.keyNamespace: null
+    this.key: null,
+    this.keyNamespace: null
   });
 }
 

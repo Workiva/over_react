@@ -32,6 +32,11 @@ class ResizeSensorProps extends UiProps {
   ///
   /// Default: false
   bool isFlexChild;
+
+  /// Whether the [ResizeSensor] is a flex container. Necessary to apply the correct styling.
+  ///
+  /// Default: false
+  bool isFlexContainer;
 }
 
 @Component()
@@ -39,6 +44,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
   @override
   Map getDefaultProps() => (newProps()
     ..isFlexChild = false
+    ..isFlexContainer = false
   );
 
   @override
@@ -96,6 +102,13 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
         'flex': '1 1 0%',
         'msFlex': '1 1 0%',
         'display': 'block'
+      };
+    } else if (props.isFlexContainer) {
+      wrapperStyles = {
+        'position': 'relative',
+        'flex': '1 1 0%',
+        'msFlex': '1 1 0%',
+        'display': 'flex'
       };
     } else {
       wrapperStyles = {
@@ -161,10 +174,12 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
 
 final Map<String, dynamic> _baseStyle = const {
   'position': 'absolute',
-  'top': '0',
-  'right': '0',
-  'bottom': '0',
-  'left': '0',
+  // Have this element reach "outside" its containing element in such a way to ensure its width/height are always at
+  // least 2x the scrollbar width (e.g., 32px on Chrome OS X).
+  'top': '-100px',
+  'right': '-100px',
+  'bottom': '-100px',
+  'left': '-100px',
   'overflow': 'scroll',
   'zIndex': '-1',
   'visibility': 'hidden',
