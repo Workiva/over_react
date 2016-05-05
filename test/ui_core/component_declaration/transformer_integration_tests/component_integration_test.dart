@@ -129,6 +129,7 @@ class ComponentTestProps extends UiProps {
 
 @Component()
 class ComponentTestComponent extends UiComponent<ComponentTestProps> {
+  @override
   render() => (Dom.div()
     ..addProps(copyUnconsumedProps())
     ..addProp('data-prop-string-prop', props.stringProp)

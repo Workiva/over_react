@@ -65,7 +65,7 @@ class ComponentTypeMeta {
   ///     isComponentOfType(Bar()(), Foo); // true (due to parent type-checking)
   final ReactDartComponentFactoryProxy parentType;
 
-  ComponentTypeMeta(bool this.isWrapper, ReactDartComponentFactoryProxy this.parentType);
+  ComponentTypeMeta(this.isWrapper, this.parentType);
 
   const ComponentTypeMeta.none() :
       this.isWrapper = false,

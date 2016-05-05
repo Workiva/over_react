@@ -17,104 +17,6 @@ import 'package:web_skin_dart/src/ui_core/component_declaration/annotations.dart
 /// * Any number of abstract component pieces: `@AbstractComponent()`, `@AbstractProps()`, `@AbstractState()`
 /// * Any number of mixins: `@PropsMixin()`, `@StateMixin()`
 class ParsedDeclarations {
-  static String _getName(Type type) {
-    return MirrorSystem.getName(reflectType(type).simpleName);
-  }
-
-  static final String key_factory           = _getName(annotations.Factory);
-  static final String key_component         = _getName(annotations.Component);
-  static final String key_props             = _getName(annotations.Props);
-  static final String key_state             = _getName(annotations.State);
-
-  static final String key_abstractComponent = _getName(annotations.AbstractComponent);
-  static final String key_abstractProps     = _getName(annotations.AbstractProps);
-  static final String key_abstractState     = _getName(annotations.AbstractState);
-
-  static final String key_propsMixin        = _getName(annotations.PropsMixin);
-  static final String key_stateMixin        = _getName(annotations.StateMixin);
-
-  static final List<String> key_allComponentRequired = new List.unmodifiable([
-    key_factory,
-    key_component,
-    key_props,
-  ]);
-
-  static final List<String> key_allComponentOptional = new List.unmodifiable([
-    key_state,
-  ]);
-
-  static  final RegExp key_any = new RegExp(
-      r'@(?:' +
-      [
-        key_factory,
-        key_component,
-        key_props,
-        key_state,
-        key_abstractComponent,
-        key_abstractProps,
-        key_abstractState,
-        key_propsMixin,
-        key_stateMixin,
-      ].join('|').replaceAll(r'$', r'\$') +
-      r')',
-      caseSensitive: true
-  );
-
-  static bool mightContainDeclarations(String source) {
-    return key_any.hasMatch(source);
-  }
-
-  final FactoryNode factory;
-  final ComponentNode component;
-  final PropsNode props;
-  final StateNode state;
-
-  final List<AbstractPropsNode> abstractProps;
-  final List<AbstractStateNode> abstractState;
-
-  final List<PropsMixinNode> propsMixins;
-  final List<StateMixinNode> stateMixins;
-
-  final bool hasErrors;
-  final bool declaresComponent;
-
-
-  ParsedDeclarations._({
-      TopLevelVariableDeclaration factory,
-      ClassDeclaration component,
-      ClassDeclaration props,
-      ClassDeclaration state,
-
-      List<ClassDeclaration> abstractProps,
-      List<ClassDeclaration> abstractState,
-
-      List<ClassDeclaration> propsMixins,
-      List<ClassDeclaration> stateMixins,
-
-      bool this.hasErrors
-  }) :
-      this.factory       = (factory   == null) ? null : new FactoryNode(factory),
-      this.component     = (component == null) ? null : new ComponentNode(component),
-      this.props         = (props     == null) ? null : new PropsNode(props),
-      this.state         = (state     == null) ? null : new StateNode(state),
-
-      this.abstractProps = new List.unmodifiable(abstractProps.map((propsMixin) => new AbstractPropsNode(propsMixin))),
-      this.abstractState = new List.unmodifiable(abstractState.map((stateMixin) => new AbstractStateNode(stateMixin))),
-
-      this.propsMixins   = new List.unmodifiable(propsMixins.map((propsMixin) => new PropsMixinNode(propsMixin))),
-      this.stateMixins   = new List.unmodifiable(stateMixins.map((stateMixin) => new StateMixinNode(stateMixin))),
-
-      this.declaresComponent = factory != null
-  {
-    assert(
-        ((this.factory == null && this.component == null && this.props == null) ||
-         (this.factory != null && this.component != null && this.props != null)) &&
-        '`factory`, `component`, and `props` must be either all null or all non-null. '
-        'Any other combination represents an invalid component declaration. ' is String
-    );
-  }
-
-
   factory ParsedDeclarations(CompilationUnit unit, SourceFile sourceFile, TransformLogger logger) {
     bool hasErrors = false;
 
@@ -284,6 +186,102 @@ class ParsedDeclarations {
         hasErrors: hasErrors
     );
   }
+
+  ParsedDeclarations._({
+      TopLevelVariableDeclaration factory,
+      ClassDeclaration component,
+      ClassDeclaration props,
+      ClassDeclaration state,
+
+      List<ClassDeclaration> abstractProps,
+      List<ClassDeclaration> abstractState,
+
+      List<ClassDeclaration> propsMixins,
+      List<ClassDeclaration> stateMixins,
+
+      this.hasErrors
+  }) :
+      this.factory       = (factory   == null) ? null : new FactoryNode(factory),
+      this.component     = (component == null) ? null : new ComponentNode(component),
+      this.props         = (props     == null) ? null : new PropsNode(props),
+      this.state         = (state     == null) ? null : new StateNode(state),
+
+      this.abstractProps = new List.unmodifiable(abstractProps.map((propsMixin) => new AbstractPropsNode(propsMixin))),
+      this.abstractState = new List.unmodifiable(abstractState.map((stateMixin) => new AbstractStateNode(stateMixin))),
+
+      this.propsMixins   = new List.unmodifiable(propsMixins.map((propsMixin) => new PropsMixinNode(propsMixin))),
+      this.stateMixins   = new List.unmodifiable(stateMixins.map((stateMixin) => new StateMixinNode(stateMixin))),
+
+      this.declaresComponent = factory != null
+  {
+    assert(
+        ((this.factory == null && this.component == null && this.props == null) ||
+         (this.factory != null && this.component != null && this.props != null)) &&
+        '`factory`, `component`, and `props` must be either all null or all non-null. '
+        'Any other combination represents an invalid component declaration. ' is String
+    );
+  }
+
+  static String _getName(Type type) {
+    return MirrorSystem.getName(reflectType(type).simpleName);
+  }
+
+  static final String key_factory           = _getName(annotations.Factory);
+  static final String key_component         = _getName(annotations.Component);
+  static final String key_props             = _getName(annotations.Props);
+  static final String key_state             = _getName(annotations.State);
+
+  static final String key_abstractComponent = _getName(annotations.AbstractComponent);
+  static final String key_abstractProps     = _getName(annotations.AbstractProps);
+  static final String key_abstractState     = _getName(annotations.AbstractState);
+
+  static final String key_propsMixin        = _getName(annotations.PropsMixin);
+  static final String key_stateMixin        = _getName(annotations.StateMixin);
+
+  static final List<String> key_allComponentRequired = new List.unmodifiable([
+    key_factory,
+    key_component,
+    key_props,
+  ]);
+
+  static final List<String> key_allComponentOptional = new List.unmodifiable([
+    key_state,
+  ]);
+
+  static  final RegExp key_any = new RegExp(
+      r'@(?:' +
+      [
+        key_factory,
+        key_component,
+        key_props,
+        key_state,
+        key_abstractComponent,
+        key_abstractProps,
+        key_abstractState,
+        key_propsMixin,
+        key_stateMixin,
+      ].join('|').replaceAll(r'$', r'\$') +
+      r')',
+      caseSensitive: true
+  );
+
+  static bool mightContainDeclarations(String source) {
+    return key_any.hasMatch(source);
+  }
+
+  final FactoryNode factory;
+  final ComponentNode component;
+  final PropsNode props;
+  final StateNode state;
+
+  final List<AbstractPropsNode> abstractProps;
+  final List<AbstractStateNode> abstractState;
+
+  final List<PropsMixinNode> propsMixins;
+  final List<StateMixinNode> stateMixins;
+
+  final bool hasErrors;
+  final bool declaresComponent;
 
   /// Helper function that returns the single value of a [list], or null if it is empty.
   static dynamic singleOrNull(List list) => list.isNotEmpty ? list.single : null;
