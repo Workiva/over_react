@@ -10,10 +10,13 @@ class TestRedrawOnProps extends FluxUiProps<TestActions, TestStores> {}
 class TestRedrawOnComponent extends FluxUiComponent {
   int numberOfRedraws = 0;
 
+  @override
   render() => Dom.div()();
 
+  @override
   redrawOn() => [props.store.store1, props.store.store2];
 
+  @override
   redraw() {
     numberOfRedraws += 1;
   }
