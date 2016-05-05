@@ -1,4 +1,4 @@
-library wrapper_component;
+library test_util.wrapper_component;
 
 import 'package:web_skin_dart/ui_core.dart';
 
@@ -13,5 +13,6 @@ class WrapperProps extends UiProps {}
 
 @Component()
 class WrapperComponent extends UiComponent<WrapperProps> {
+  @override
   render() => (Dom.div()..addAll(props))(props.children);
 }
