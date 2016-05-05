@@ -1,6 +1,5 @@
 library base_component_test;
 
-import 'dart:js';
 import 'dart:html';
 
 import 'package:react/react.dart' as react;
