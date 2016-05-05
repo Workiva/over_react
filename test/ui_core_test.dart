@@ -7,7 +7,7 @@ library ui_core_test;
 
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
-import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart' as component_base;
+import 'package:web_skin_dart/ui_core.dart';
 
 import 'ui_core/component/abstract_transition_test.dart' as abstract_transition_test;
 import 'ui_core/component/base_component_test.dart' as base_component_test;
@@ -29,12 +29,13 @@ import 'ui_core/util/dom_util_test.dart' as dom_util_test;
 import 'ui_core/util/handler_chain_util_test.dart' as handler_chain_util_test;
 import 'ui_core/util/map_util_test.dart' as map_util_test;
 import 'ui_core/util/react_wrappers_test.dart' as react_wrappers_test;
+import 'ui_core/util/test_mode_test.dart' as test_mode_test;
 import 'ui_core/util/warn_on_modify_props_test.dart' as warn_on_modify_props_test;
 
 main() {
   setClientConfiguration();
 
-  component_base.UiProps.testMode = true;
+  enableTestMode();
 
   abstract_transition_test.main();
   base_component_test.main();
@@ -56,5 +57,6 @@ main() {
   handler_chain_util_test.main();
   map_util_test.main();
   react_wrappers_test.main();
+  test_mode_test.main();
   warn_on_modify_props_test.main();
 }

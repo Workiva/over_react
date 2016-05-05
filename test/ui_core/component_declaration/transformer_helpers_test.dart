@@ -155,6 +155,7 @@ class UngeneratedUiProps extends UiProps {}
 
 @Component()
 class UngeneratedUiComponent extends UiComponent {
+  @override
   render() {}
 }
 
@@ -162,6 +163,7 @@ class UngeneratedUiState extends UiState {}
 
 @Component()
 class UngeneratedUiStatefulComponent extends UiStatefulComponent {
+  @override
   render() {}
 }
 
@@ -176,6 +178,7 @@ class UnimplementedUiComponent extends UiComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
   render() {}
 }
 
@@ -189,6 +192,7 @@ class UnimplementedUiStatefulComponent extends UiStatefulComponent {
   @override
   bool get $isClassGenerated => true;
 
+  @override
   render() {}
 }
 
@@ -200,6 +204,7 @@ class TestConsumedPropKeysUiComponent extends UiComponent {
   @override
   get $defaultConsumedPropKeys => [['prop1', 'prop2']];
 
+  @override
   render() {}
 }
 
@@ -211,5 +216,6 @@ class TestConsumedPropKeysUiStatefulComponent extends UiStatefulComponent {
   @override
   get $defaultConsumedPropKeys => [['prop1', 'prop2']];
 
+  @override
   render() {}
 }
