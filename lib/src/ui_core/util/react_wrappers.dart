@@ -267,13 +267,13 @@ CallbackRef chainRef(ReactElement element, CallbackRef newCallbackRef) {
 
   // Use a local function as opposed to a function expression so that its name shows up in any stack traces.
   void chainedRef(ref) {
-    newCallbackRef(ref);
-
     // For Dart components, the existing ref is a function passed to the JS that wraps the Dart
     // callback ref and converts the JS instance to the Dart component.
     //
     // So, we need to undo the wrapping around this chained ref and pass in the JS instance.
     existingRef(ref is react.Component ? ref.jsThis : ref);
+
+    if (newCallbackRef != null) newCallbackRef(ref);
   }
 
   return chainedRef;
