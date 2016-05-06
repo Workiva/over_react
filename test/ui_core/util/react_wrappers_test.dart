@@ -527,6 +527,138 @@ main() {
         });
       });
     });
+
+    group('chainRef', () {
+      group('returns a ref that chains with the existing ref', () {
+        group('when the provided instance is', () {
+          test('a Dart component', () {
+            var calls = [];
+
+            var instanceWithRef = TestComponentFactory({'ref': (ref) {
+              calls.add(['original ref', ref]);
+            }});
+
+            var chainedRef = chainRef(instanceWithRef, (ref) {
+              calls.add(['chained ref', ref]);
+            });
+
+            var renderedInstance = react_test_utils.renderIntoDocument(
+                cloneElement(instanceWithRef, {'ref': chainedRef})
+            );
+            var component = getDartComponent(renderedInstance);
+            expect(component, const isInstanceOf<react.Component>(), reason: 'test setup sanity check');
+
+            expect(calls, equals([
+              ['original ref', component],
+              ['chained ref', component],
+            ]));
+          });
+
+          test('a JS composite component', () {
+            var calls = [];
+
+            var instanceWithRef = testJsComponentFactory({'ref': (ref) {
+              calls.add(['original ref', ref]);
+            }});
+
+            var chainedRef = chainRef(instanceWithRef, (ref) {
+              calls.add(['chained ref', ref]);
+            });
+
+            var renderedInstance = react_test_utils.renderIntoDocument(
+                cloneElement(instanceWithRef, {'ref': chainedRef})
+            );
+
+            expect(calls, equals([
+              ['original ref', renderedInstance],
+              ['chained ref', renderedInstance],
+            ]));
+          });
+
+          test('a DOM component', () {
+            var calls = [];
+
+            var instanceWithRef = (Dom.div()..ref = (ref) {
+              calls.add(['original ref', ref]);
+            })();
+
+            var chainedRef = chainRef(instanceWithRef, (ref) {
+              calls.add(['chained ref', ref]);
+            });
+
+            var renderedInstance = react_test_utils.renderIntoDocument(
+                cloneElement(instanceWithRef, domProps()..ref = chainedRef)
+            );
+            var renderedNode = findDomNode(renderedInstance);
+
+            expect(calls, equals([
+              ['original ref', renderedNode],
+              ['chained ref', renderedNode],
+            ]));
+          });
+        });
+
+        test('when the provided instance has no ref', () {
+          var calls = [];
+
+          var instanceWithoutRef = TestComponentFactory({});
+
+          var chainedRef = chainRef(instanceWithoutRef, (ref) {
+            calls.add(['chained ref', ref]);
+          });
+
+          var renderedInstance = react_test_utils.renderIntoDocument(
+              cloneElement(instanceWithoutRef, {'ref': chainedRef})
+          );
+          var component = getDartComponent(renderedInstance);
+          expect(component, const isInstanceOf<react.Component>(), reason: 'test setup sanity check');
+
+          expect(calls, equals([
+            ['chained ref', component],
+          ]));
+        });
+
+        test('when the provided ref is null', () {
+          var calls = [];
+
+          var instanceWithRef = TestComponentFactory({'ref': (ref) {
+            calls.add(['original ref', ref]);
+          }});
+
+          var chainedRef = chainRef(instanceWithRef, null);
+
+          var renderedInstance = react_test_utils.renderIntoDocument(
+              cloneElement(instanceWithRef, {'ref': chainedRef})
+          );
+          var component = getDartComponent(renderedInstance);
+          expect(component, const isInstanceOf<react.Component>(), reason: 'test setup sanity check');
+
+          expect(calls, equals([
+            ['original ref', component],
+          ]));
+        });
+      });
+
+      group('throws when the provided instance', () {
+        void noopRef(_) {}
+
+        test('has a String ref', () {
+          var instanceWithStringRef = TestComponentFactory({'ref': 'foo'});
+
+          expect(() {
+            chainRef(instanceWithStringRef, noopRef);
+          }, throwsArgumentError);
+        });
+
+        test('an invalid ref', () {
+          var instanceWithInvalidRef = TestComponentFactory({'ref': new Object()});
+
+          expect(() {
+            chainRef(instanceWithInvalidRef, noopRef);
+          }, throwsArgumentError);
+        });
+      });
+    });
   });
 }
 
