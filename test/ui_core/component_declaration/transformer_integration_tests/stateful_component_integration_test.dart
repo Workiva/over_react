@@ -88,6 +88,7 @@ class StatefulComponentTestState extends UiState {
 
 @Component()
 class StatefulComponentTestComponent extends UiStatefulComponent<StatefulComponentTestProps, StatefulComponentTestState> {
+  @override
   getInitialState() => (newState()
     ..stringState = '1'
     ..dynamicState = '2'
@@ -97,6 +98,7 @@ class StatefulComponentTestComponent extends UiStatefulComponent<StatefulCompone
     ..customKeyAndNamespaceState = '6'
   );
 
+  @override
   render() => (Dom.div()
     ..addProps(copyUnconsumedProps())
     ..addProp('data-who', state.stringState)
