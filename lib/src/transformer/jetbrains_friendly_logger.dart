@@ -7,7 +7,7 @@ import 'package:source_span/source_span.dart';
 class JetBrainsFriendlyLogger implements TransformLogger {
   final TransformLogger _logger;
 
-  JetBrainsFriendlyLogger(TransformLogger this._logger);
+  JetBrainsFriendlyLogger(this._logger);
 
   /// Returns a String reference to the specified [span], formatted in a way that JetBrains IDEs understand
   /// so that links in Pub output take you to the right place in the file when you click on them.
