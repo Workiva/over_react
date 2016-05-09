@@ -5,7 +5,7 @@ abstract class DebugFriendlyConstant {
   /// The name of this constant, for debugging purposes only.
   final String _name;
 
-  const DebugFriendlyConstant(String this._name);
+  const DebugFriendlyConstant(this._name);
 
   /// A helpful description of this constant, used in [toString].
   String get debugDescription;
@@ -20,7 +20,7 @@ abstract class ClassNameConstant extends DebugFriendlyConstant {
   /// The CSS class name value associated with this constant.
   final String className;
 
-  const ClassNameConstant(String name, String this.className) : super(name);
+  const ClassNameConstant(String name, this.className) : super(name);
 
   @override
   String get debugDescription => 'className: $className';
