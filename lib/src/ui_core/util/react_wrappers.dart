@@ -220,7 +220,7 @@ react.Component getDartComponent(/* [1] */ instance) {
 /// A function that, when supplied as the `ref` prop, is called with the component instance
 /// as soon as it is mounted.
 ///
-/// This instance can be used to retrieve a component's DOM node of or call its public API methods.
+/// This instance can be used to retrieve a component's DOM node or to call a component's public API methods.
 ///
 /// The component instance will be of the type:
 ///   * [react.Component] for Dart components
