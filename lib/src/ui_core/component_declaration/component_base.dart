@@ -243,7 +243,7 @@ const defaultTestIdKey = 'data-test-id';
 ///
 /// Note: Implements MapViewMixin instead of extending it so that the abstract [Props] declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
-abstract class UiProps<TComponent extends react.Component>
+abstract class UiProps
     extends Object with MapViewMixin, PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
     implements Map, ComponentDefinition {
   /// Adds an arbitrary prop key-value pair.
@@ -322,7 +322,7 @@ abstract class UiProps<TComponent extends react.Component>
 
   /// Returns a new component with this builder's props and the specified children.
   @override
-  ReactElement<TComponent> build([dynamic children]) {
+  ReactElement<react.Component> build([dynamic children]) {
     assert(_validateChildren(children));
 
     return componentFactory(props, children);
@@ -336,7 +336,7 @@ abstract class UiProps<TComponent extends react.Component>
   /// Restricted statically to 40 arguments until the dart2js fix in
   /// <https://github.com/dart-lang/sdk/pull/26032> is released.
   @override
-  ReactElement<TComponent> call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
+  ReactElement<react.Component> call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
 
   /// Supports variadic children of the form `call([child1, child2, child3...])`.
   @override
