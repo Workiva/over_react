@@ -248,7 +248,7 @@ typedef CallbackRef(ref);
 ///
 /// Throws [ArgumentError] if [element.ref] is a `String` ref or otherwise not a [CallbackRef].
 ///
-/// TODO: This method makes assumptions about how react-dart does callback refs for dart components, so this method should be moved there.
+/// TODO: This method makes assumptions about how react-dart does callback refs for dart components, so this method should be moved there (UIP-1118).
 CallbackRef chainRef(ReactElement element, CallbackRef newCallbackRef) {
   final existingRef = element.ref;
 
