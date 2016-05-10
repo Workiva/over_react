@@ -260,7 +260,7 @@ CallbackRef chainRef(ReactElement element, CallbackRef newCallbackRef) {
         'The existing ref is a String ref and cannot be chained.');
   }
 
-  if (existingRef is! CallbackRef) {
+  if (existingRef is! Function) {
     throw new ArgumentError.value(existingRef, 'element.ref',
         'The existing ref is invalid and cannot be chained.');
   }
