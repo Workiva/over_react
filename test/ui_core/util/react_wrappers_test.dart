@@ -650,7 +650,7 @@ main() {
           }, throwsArgumentError);
         });
 
-        test('an invalid ref', () {
+        test('has an invalid ref', () {
           var instanceWithInvalidRef = TestComponentFactory({'ref': new Object()});
 
           expect(() {
