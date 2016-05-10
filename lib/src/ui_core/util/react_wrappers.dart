@@ -257,12 +257,12 @@ CallbackRef chainRef(ReactElement element, CallbackRef newCallbackRef) {
 
   if (existingRef is String) {
     throw new ArgumentError.value(existingRef, 'element.ref',
-        'The existing ref is a String ref and cannot be chained.');
+        'The existing ref is a String ref and cannot be chained');
   }
 
   if (existingRef is! Function) {
     throw new ArgumentError.value(existingRef, 'element.ref',
-        'The existing ref is invalid and cannot be chained.');
+        'The existing ref is invalid and cannot be chained');
   }
 
   // Use a local function as opposed to a function expression so that its name shows up in any stack traces.
