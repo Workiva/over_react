@@ -255,7 +255,7 @@ CallbackRef chainRef(ReactElement element, CallbackRef newCallbackRef) {
   // If there's no existing ref, just return the new one.
   if (existingRef == null) return newCallbackRef;
 
-  if (existingRef == String) {
+  if (existingRef is String) {
     throw new ArgumentError.value(existingRef, 'element.ref',
         'The existing ref is a String ref and cannot be chained.');
   }
