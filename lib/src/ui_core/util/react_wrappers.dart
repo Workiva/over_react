@@ -216,3 +216,65 @@ react.Component getDartComponent(/* [1] */ instance) {
 
   return _getInternal(instance)?.component;
 }
+
+/// A function that, when supplied as the `ref` prop, is called with the component instance
+/// as soon as it is mounted.
+///
+/// This instance can be used to retrieve a component's DOM node or to call a component's public API methods.
+///
+/// The component instance will be of the type:
+///   * [react.Component] for Dart components
+///   * [ReactComponent] for JS composite components
+///   * [Element] for DOM components
+///
+/// __Example:__
+///
+///     FooComponent _fooRef;
+///
+///     render() {
+///       return (Foo()
+///         ..ref = (ref) { _fooRef = ref; }
+///       )();
+///     }
+///
+///     barTheFoo() => _fooRef.bar();
+///
+///     getFooNode() => findDomNode(_fooRef);
+///
+/// See: <http://facebook.github.io/react/docs/more-about-refs.html#the-ref-callback-attribute>.
+typedef CallbackRef(ref);
+
+/// Returns a function that chains [element]'s callback ref (if one exists) with [newCallbackRef].
+///
+/// Throws [ArgumentError] if [element.ref] is a `String` ref or otherwise not a [CallbackRef].
+///
+/// TODO: This method makes assumptions about how react-dart does callback refs for dart components, so this method should be moved there (UIP-1118).
+CallbackRef chainRef(ReactElement element, CallbackRef newCallbackRef) {
+  final existingRef = element.ref;
+
+  // If there's no existing ref, just return the new one.
+  if (existingRef == null) return newCallbackRef;
+
+  if (existingRef is String) {
+    throw new ArgumentError.value(existingRef, 'element.ref',
+        'The existing ref is a String ref and cannot be chained');
+  }
+
+  if (existingRef is! Function) {
+    throw new ArgumentError.value(existingRef, 'element.ref',
+        'The existing ref is invalid and cannot be chained');
+  }
+
+  // Use a local function as opposed to a function expression so that its name shows up in any stack traces.
+  void chainedRef(ref) {
+    // For Dart components, the existing ref is a function passed to the JS that wraps the Dart
+    // callback ref and converts the JS instance to the Dart component.
+    //
+    // So, we need to undo the wrapping around this chained ref and pass in the JS instance.
+    existingRef(ref is react.Component ? ref.jsThis : ref);
+
+    if (newCallbackRef != null) newCallbackRef(ref);
+  }
+
+  return chainedRef;
+}
