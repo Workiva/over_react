@@ -9,6 +9,7 @@ import 'dart:html';
 ])
 import 'dart:mirrors';
 
+import 'package:browser_detect/browser_detect.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:test/test.dart';
@@ -337,6 +338,8 @@ void commonComponentTests(BuilderOnlyUiFactory factory, {
 
   unconsumedPropKeys = flatten(unconsumedPropKeys).toList();
   skippedPropKeys = flatten(skippedPropKeys).toList();
+
+  if (browser.isIe && browser.version <= '10') return;
 
   if (shouldTestPropForwarding) {
     testPropForwarding(factory, childrenFactory,
