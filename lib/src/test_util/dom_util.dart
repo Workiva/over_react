@@ -23,3 +23,17 @@ void triggerDocumentClick(Element target) {
 
   target.dispatchEvent(new MouseEvent('click'));
 }
+
+/// Focuses the [element] and returns a [Future] when that `focus` event is fired.
+///
+/// This is neccessary because IE 11 `focus` events are async.
+///
+/// See: <https://connect.microsoft.com/IE/feedback/details/2238257/ie11-focus-change-delayed-when-using-the-focus-method>.
+Future triggerFocus(Element element) {
+  var completer = new Completer()
+    ..complete(element.onFocus.first);
+
+  element.focus();
+
+  return completer.future;
+}
