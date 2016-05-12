@@ -131,6 +131,13 @@ class _ElementAttributeMatcher extends CustomMatcher {
   featureValueOf(Element element) => element.getAttribute(_attributeName);
 }
 
+class _HasToStringValue extends CustomMatcher {
+  _HasToStringValue(matcher) : super('Object with toString() value', 'toString()', matcher);
+
+  @override
+  featureValueOf(Object item) => item.toString();
+}
+
 class _HasPropMatcher extends CustomMatcher {
   final dynamic _propKey;
 
@@ -202,6 +209,9 @@ Matcher hasNodeName(String nodeName) => new IsNode(equalsIgnoringCase(nodeName))
 ///
 /// TODO: add support for prop keys that aren't the same as their attribute keys
 Matcher hasProp(dynamic propKey, dynamic propValue) => new _HasPropMatcher(propKey, propValue);
+
+/// Returns a matcher that matches an object whose `toString` value matches [value].
+Matcher hasToStringValue(value) => new _HasToStringValue(value);
 
 class _IsFocused extends Matcher {
   const _IsFocused();
