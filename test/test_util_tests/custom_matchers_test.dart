@@ -169,6 +169,24 @@ main() {
       });
     });
 
+    group('hasToStringValue', () {
+      test('passes when an object has an equal toString value', () {
+        var someMap = {'foo': 'bar'};
+        shouldPass(someMap, hasToStringValue(someMap.toString()));
+      });
+
+      test('passes when an object has a matching toString value', () {
+        var someMap = {'foo': 'bar'};
+        shouldPass(someMap, hasToStringValue(contains('foo')));
+      });
+
+      test('fails when an object does not have a matching toString value', () {
+        var someMap = {'foo': 'bar'};
+        shouldFail(someMap, hasToStringValue('baz'),
+            contains('has toString() with value \'{foo: bar}\' which is different.'));
+      });
+    });
+
     group('hasProp', () {
       group('passes when the props are present in a', () {
         group('ReactElement', () {
