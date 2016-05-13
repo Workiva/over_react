@@ -90,6 +90,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component
 
   /// Returns a copy of this component's props with React props optionally omitted, and
   /// with the specified [keysToOmit] and [keySetsToOmit] omitted.
+  @override
   Map copyProps({bool omitReservedReactProps: true, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
     return getPropsToForward(this.props,
         omitReactProps: omitReservedReactProps,
@@ -102,6 +103,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component
   /// [CssClassProps.classNameBlackList], if they are specified.
   ///
   /// This method should be used as the basis for the classNames of components receiving forwarded props.
+  @override
   ClassNameBuilder forwardingClassNameBuilder() {
     return new ClassNameBuilder.fromProps(this.props);
   }
@@ -129,6 +131,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component
     return typedProps;
   }
   /// Equivalent to setting [unwrappedProps], but needed by react-dart to effect props changes.
+  @override
   set props(Map value) => super.props = value;
 
   /// DEPRECATED: Use [props] instead.
@@ -136,6 +139,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component
   /// A typed props object corresponding to the current untyped props Map ([unwrappedProps]).
   ///
   /// Created using [typedPropsFactory] and cached for each Map instance.
+  @override
   @deprecated
   TProps get tProps => props;
 
@@ -145,10 +149,12 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component
 
   /// Returns a typed props object backed by the specified [propsMap].
   /// Required to properly instantiate the generic [TProps] class.
+  @override
   TProps typedPropsFactory(Map propsMap);
 
   /// Returns a typed props object backed by a new Map.
   /// Convenient for use with [getDefaultProps].
+  @override
   TProps newProps() => typedPropsFactory({});
 
   //
@@ -185,6 +191,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
     return typedState;
   }
   /// Equivalent to setting [unwrappedState], but needed by react-dart to effect props changes.
+  @override
   set state(Map value) => super.state = value;
 
   /// DEPRECATED: Use [state] instead.
@@ -192,6 +199,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   /// A typed state object corresponding to the current untyped state Map ([unwrappedState]).
   ///
   /// Created using [typedStateFactory] and cached for each Map instance.
+  @override
   @deprecated
   TState get tState => state;
 
@@ -201,10 +209,12 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 
   /// Returns a typed state object backed by the specified [stateMap].
   /// Required to properly instantiate the generic [TState] class.
+  @override
   TState typedStateFactory(Map stateMap);
 
   /// Returns a typed state object backed by a new Map.
   /// Convenient for use with [getInitialState] and [setState].
+  @override
   TState newState() => typedStateFactory({});
 
   //
@@ -237,11 +247,13 @@ abstract class UiProps
     extends Object with MapViewMixin, PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
     implements Map, ComponentDefinition {
   /// Adds an arbitrary prop key-value pair.
+  @override
   void addProp(propKey, value) {
     props[propKey] = value;
   }
 
   /// Adds a Map of arbitrary props. [props] may be null.
+  @override
   void addProps(Map propMap) {
     if (propMap == null) {
       return;
@@ -250,18 +262,26 @@ abstract class UiProps
     props.addAll(propMap);
   }
 
-  /// Whether [UiProps] is in a testing environment. Used in [testId] and [setTestId]
-  ///
-  /// TODO: Use bool.fromEnvironment() when it is supported in Dartium.
-  /// See: <https://github.com/dart-lang/pub/issues/798>.
+  /// Whether [UiProps] is in a testing environment.
   static bool testMode = false;
+
+  /// Whether [UiProps] is in a testing environment at build time.
+  static const bool _testModeFromEnvironment = const bool.fromEnvironment('testing');
+
+  /// Whether [UiProps] is in a testing environment at build time or otherwise.
+  ///
+  /// Used in [addTestId].
+  ///
+  /// TODO: Only use bool.fromEnvironment() when it is supported in Dartium.
+  /// See: <https://github.com/dart-lang/pub/issues/798>.
+  bool get _inTestMode => testMode || _testModeFromEnvironment;
 
   /// Sets the prop [key] to [value] for use in a testing environment.
   ///
   /// Deprecated: __Use the [addTestId] method instead.__
   @deprecated
   void setTestId(String value, {String key: defaultTestIdKey}) {
-    if (!testMode) {
+    if (!_inTestMode) {
       return;
     }
 
@@ -272,16 +292,16 @@ abstract class UiProps
   ///
   /// Allows for an element to have multiple test IDs to prevent overwriting when cloning elements or components.
   void addTestId(String value, {String key: defaultTestIdKey}) {
-    if (!testMode || value == null) {
+    if (!_inTestMode || value == null) {
       return;
     }
 
     String testId = getTestId(key: key);
 
     if (testId == null) {
-      setTestId(value, key: key);
+      props[key] = value;
     } else {
-      setTestId(testId + ' $value', key: key);
+      props[key] = getTestId(key: key) + ' $value';
     }
   }
 
@@ -309,7 +329,8 @@ abstract class UiProps
   bool validate() => true;
 
   /// Returns a new component with this builder's props and the specified children.
-  ReactElement build([dynamic children]) {
+  @override
+  ReactElement<react.Component> build([dynamic children]) {
     assert(_validateChildren(children));
 
     return componentFactory(props, children);
@@ -322,9 +343,11 @@ abstract class UiProps
   ///
   /// Restricted statically to 40 arguments until the dart2js fix in
   /// <https://github.com/dart-lang/sdk/pull/26032> is released.
-  ReactElement call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
+  @override
+  ReactElement<react.Component> call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
 
   /// Supports variadic children of the form `call([child1, child2, child3...])`.
+  @override
   dynamic noSuchMethod(Invocation invocation) {
     if (invocation.memberName == #call && invocation.isMethod) {
       var parameters = []
@@ -374,6 +397,7 @@ abstract class UiProps
     return true;
   }
 
+  @override
   Function get componentFactory;
 }
 
@@ -385,6 +409,7 @@ abstract class PropsMapViewMixin {
   Map get props;
   Map get _map => this.props;
 
+  @override
   String toString() => '$runtimeType: $_map';
 }
 
@@ -394,6 +419,7 @@ abstract class StateMapViewMixin {
   Map get state;
   Map get _map => this.state;
 
+  @override
   String toString() => '$runtimeType: $_map';
 }
 

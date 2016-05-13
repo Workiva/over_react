@@ -12,8 +12,8 @@ abstract class BaseComponentDefinition extends ComponentDefinition with ReactPro
   BaseComponentDefinition(ReactComponentFactory componentFactory, Map props) : super(componentFactory, props);
 }
 
-typedef Element _getDOMNodeTypedef();
-typedef dynamic _refTypedef(String ref);
+typedef Element _GetDOMNodeTypedef();
+typedef dynamic _RefTypedef(String ref);
 
 /// A component used as the base for all web_skin_dart components.
 ///
@@ -24,7 +24,7 @@ abstract class BaseComponent<T extends ComponentDefinition> extends react.Compon
   ///
   /// Overridden for strong typing.
   @override
-  _getDOMNodeTypedef get getDOMNode => super.getDOMNode;
+  _GetDOMNodeTypedef get getDOMNode => super.getDOMNode;
 
   /// Returns the component of the specified [ref].
   /// > `react.Component` if it is a Dart component
@@ -32,7 +32,7 @@ abstract class BaseComponent<T extends ComponentDefinition> extends react.Compon
   ///
   /// Overridden for strong typing.
   @override
-  _refTypedef get ref => super.ref;
+  _RefTypedef get ref => super.ref;
 
   /// Utility function used for prop transfer
   Map copyProps({bool omitReservedReactProps: true, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
@@ -70,7 +70,7 @@ abstract class ComponentDefinition extends MapView implements Function {
   final ReactComponentFactory componentFactory;
 
   /// Returns a new instance that is backed by the specified props map and component factory.
-  ComponentDefinition(ReactComponentFactory this.componentFactory, Map props) : super(props == null ? {} : props);
+  ComponentDefinition(this.componentFactory, Map props) : super(props == null ? {} : props);
 
   /// The props maintained by this component definition and used passed into the component when built.
   /// In this case, it's the current MapView object.
@@ -96,7 +96,7 @@ abstract class ComponentDefinition extends MapView implements Function {
   }
 
   /// Create a new component with this builder's props and the specified children.
-  ReactElement build([dynamic children]) {
+  ReactElement<react.Component> build([dynamic children]) {
     assert(validate());
     return componentFactory(props, children);
   }
@@ -106,8 +106,9 @@ abstract class ComponentDefinition extends MapView implements Function {
   /// (alias for [build] with support for variadic children)
   ///
   /// This method actually takes any number of children as arguments ([c2], [c3], ...) via [noSuchMethod].
-  ReactElement call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
+  ReactElement<react.Component> call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
 
+  @override
   dynamic noSuchMethod(Invocation invocation) {
     if (invocation.memberName == #call && invocation.isMethod) {
       var parameters = []
