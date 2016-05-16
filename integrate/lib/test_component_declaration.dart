@@ -1,3 +1,5 @@
+library test_component_declaration;
+
 import 'package:web_skin_dart/ui_core.dart';
 import 'package:web_skin_dart/ui_components.dart';
 
