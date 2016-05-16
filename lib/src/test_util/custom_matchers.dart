@@ -9,6 +9,16 @@ import 'package:web_skin_dart/ui_core.dart';
 
 /// Match a list of class names on a component
 class ClassNameMatcher extends Matcher {
+  ClassNameMatcher.expected(_expectedClasses, {this.allowExtraneous: true}) :
+    this.expectedClasses = getClassIterable(_expectedClasses).toSet(),
+    this.unexpectedClasses = new Set();
+
+
+  ClassNameMatcher.unexpected(_unexpectedClasses) :
+    this.unexpectedClasses = getClassIterable(_unexpectedClasses).toSet(),
+    this.allowExtraneous = true,
+    this.expectedClasses = new Set();
+
   // Class names that are expected
   final Set expectedClasses;
   // Class names that we do not want
@@ -28,16 +38,6 @@ class ClassNameMatcher extends Matcher {
 
     return classes;
   }
-
-  ClassNameMatcher.expected(_expectedClasses, {this.allowExtraneous: true}) :
-    this.expectedClasses = getClassIterable(_expectedClasses).toSet(),
-    this.unexpectedClasses = new Set();
-
-
-  ClassNameMatcher.unexpected(_unexpectedClasses) :
-    this.unexpectedClasses = getClassIterable(_unexpectedClasses).toSet(),
-    this.allowExtraneous = true,
-    this.expectedClasses = new Set();
 
   @override
   bool matches(String className, Map matchState) {
@@ -111,11 +111,13 @@ class ClassNameMatcher extends Matcher {
 
 class IsNode extends CustomMatcher {
   IsNode(matcher) : super("Element with nodeName that is", "nodeName", matcher);
+  @override
   featureValueOf(actual) => actual.nodeName;
 }
 
 class _ElementClassNameMatcher extends CustomMatcher {
   _ElementClassNameMatcher(matcher) : super('Element that', 'className', matcher);
+  @override
   featureValueOf(Element actual) => actual.className;
 }
 class _ElementAttributeMatcher extends CustomMatcher {
@@ -125,7 +127,15 @@ class _ElementAttributeMatcher extends CustomMatcher {
       this._attributeName = attributeName,
       super('Element with "$attributeName" attribute that equals', 'attributes', matcher);
 
+  @override
   featureValueOf(Element element) => element.getAttribute(_attributeName);
+}
+
+class _HasToStringValue extends CustomMatcher {
+  _HasToStringValue(matcher) : super('Object with toString() value', 'toString()', matcher);
+
+  @override
+  featureValueOf(Object item) => item.toString();
 }
 
 class _HasPropMatcher extends CustomMatcher {
@@ -199,6 +209,9 @@ Matcher hasNodeName(String nodeName) => new IsNode(equalsIgnoringCase(nodeName))
 ///
 /// TODO: add support for prop keys that aren't the same as their attribute keys
 Matcher hasProp(dynamic propKey, dynamic propValue) => new _HasPropMatcher(propKey, propValue);
+
+/// Returns a matcher that matches an object whose `toString` value matches [value].
+Matcher hasToStringValue(value) => new _HasToStringValue(value);
 
 class _IsFocused extends Matcher {
   const _IsFocused();

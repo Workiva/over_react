@@ -19,14 +19,20 @@ import 'dart:html';
   'dart.dom.html.FileList',
   'dart.dom.html.File',
   'dart.dom.html.FileUploadInputElement',
+  'MockSyntheticEvent',
+  'MockSyntheticMouseEvent',
+  'react.SyntheticEvent',
+  'react.SyntheticMouseEvent',
 ], override: 'mockito')
 import 'dart:mirrors';
 
 import 'package:mockito/mockito.dart';
+import 'package:react/react.dart' as react;
 
 typedef void _TimerCallback();
 
 class MockTimer extends Mock implements Timer {
+  @override
   noSuchMethod(i) => super.noSuchMethod(i);
 
   bool _isInstantiated = false;
@@ -61,13 +67,20 @@ class MockTimer extends Mock implements Timer {
 }
 
 class MockFileList extends Mock implements FileList {
+  @override
   noSuchMethod(i) => super.noSuchMethod(i);
 }
 
 class MockFile extends Mock implements File {
+  @override
   noSuchMethod(i) => super.noSuchMethod(i);
 }
 
 class MockFileUploadInputElement extends Mock implements FileUploadInputElement {
+  @override
   noSuchMethod(i) => super.noSuchMethod(i);
 }
+
+class MockSyntheticEvent extends Mock implements react.SyntheticEvent {}
+
+class MockSyntheticMouseEvent extends Mock implements react.SyntheticMouseEvent {}

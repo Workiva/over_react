@@ -1,6 +1,5 @@
 library dom_components_test;
 
-import 'dart:js';
 // Tell dart2js that this library only needs to reflect the specified types.
 // This speeds up compilation and makes JS output much smaller.
 @MirrorsUsed(targets: const [
