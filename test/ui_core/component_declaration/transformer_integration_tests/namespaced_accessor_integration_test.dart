@@ -125,6 +125,7 @@ class NamespacedAccessorTestState extends UiState {
 
 @Component()
 class NamespacedAccessorTestComponent extends UiStatefulComponent<NamespacedAccessorTestProps, NamespacedAccessorTestState> {
+  @override
   render() => (Dom.div()
     ..addProps(copyUnconsumedProps())
   )('rendered content');
