@@ -262,18 +262,26 @@ abstract class UiProps
     props.addAll(propMap);
   }
 
-  /// Whether [UiProps] is in a testing environment. Used in [addTestId]
-  ///
-  /// TODO: Use bool.fromEnvironment() when it is supported in Dartium.
-  /// See: <https://github.com/dart-lang/pub/issues/798>.
+  /// Whether [UiProps] is in a testing environment.
   static bool testMode = false;
+
+  /// Whether [UiProps] is in a testing environment at build time.
+  static const bool _testModeFromEnvironment = const bool.fromEnvironment('testing');
+
+  /// Whether [UiProps] is in a testing environment at build time or otherwise.
+  ///
+  /// Used in [addTestId].
+  ///
+  /// TODO: Only use bool.fromEnvironment() when it is supported in Dartium.
+  /// See: <https://github.com/dart-lang/pub/issues/798>.
+  bool get _inTestMode => testMode || _testModeFromEnvironment;
 
   /// Sets the prop [key] to [value] for use in a testing environment.
   ///
   /// Deprecated: __Use the [addTestId] method instead.__
   @deprecated
   void setTestId(String value, {String key: defaultTestIdKey}) {
-    if (!testMode) {
+    if (!_inTestMode) {
       return;
     }
 
@@ -284,7 +292,7 @@ abstract class UiProps
   ///
   /// Allows for an element to have multiple test IDs to prevent overwriting when cloning elements or components.
   void addTestId(String value, {String key: defaultTestIdKey}) {
-    if (!testMode || value == null) {
+    if (!_inTestMode || value == null) {
       return;
     }
 
@@ -322,7 +330,7 @@ abstract class UiProps
 
   /// Returns a new component with this builder's props and the specified children.
   @override
-  ReactElement build([dynamic children]) {
+  ReactElement<react.Component> build([dynamic children]) {
     assert(_validateChildren(children));
 
     return componentFactory(props, children);
@@ -336,7 +344,7 @@ abstract class UiProps
   /// Restricted statically to 40 arguments until the dart2js fix in
   /// <https://github.com/dart-lang/sdk/pull/26032> is released.
   @override
-  ReactElement call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
+  ReactElement<react.Component> call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
 
   /// Supports variadic children of the form `call([child1, child2, child3...])`.
   @override
