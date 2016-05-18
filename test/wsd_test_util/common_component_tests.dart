@@ -339,6 +339,7 @@ void commonComponentTests(BuilderOnlyUiFactory factory, {
   unconsumedPropKeys = flatten(unconsumedPropKeys).toList();
   skippedPropKeys = flatten(skippedPropKeys).toList();
 
+  // TODO: Remove this short-circuit when UIP-1125.
   if (browser.isIe && browser.version <= '10') return;
 
   if (shouldTestPropForwarding) {
