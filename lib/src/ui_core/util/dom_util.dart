@@ -44,10 +44,7 @@ Element closest(Element lowerBound, String selector, {Element upperBound}) {
   return null;
 }
 
-/// Retruns [document.activeElement].
-///
-/// Returns `null` if [document.activeElement] is not an [Element] or it is [document.body]. This is necessary because
-/// sometimes in IE [document.activeElement] is an empty object.
+/// Returns the currently focused element, or `null` if there is none.
 Element getActiveElement() {
   var activeElement = document.activeElement;
 
