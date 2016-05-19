@@ -119,7 +119,14 @@ void main() {
         var renderedNode = renderAndGetDom((ResizeSensor()..isFlexContainer = true)());
 
         expect(renderedNode.style.position, equals('relative'));
-        expect(renderedNode.style.display, equals(browser.isIe ? '-ms-flexbox' : 'flex'));
+
+        if (browser.isIe && browser.version <= '10') {
+          expect(renderedNode.style.display, equals('-ms-flexbox'));
+        } else if (browser.isSafari && browser.version < '9') {
+          expect(renderedNode.style.display, equals('-webkit-flex'));
+        } else {
+          expect(renderedNode.style.display, equals('flex'));
+        }
         // Use the attribute text to match these since `style`'s API won't work for unsupported properties.
         expect(renderedNode.attributes['style'], matches(new RegExp(r'(?:^|;) *flex: *1 1 0%;')));
 
