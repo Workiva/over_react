@@ -112,7 +112,10 @@ void main() {
         // must be accessed on the style map. But that is not valid in browsers that do not support the ``-ms` prefix.
         var hasMsFlexStyle = renderedNode.attributes['style'].contains(new RegExp(r'(?:^|;) *-ms-flex: *1 1 0%;')) ||
             renderedNode.style.getPropertyValue('-ms-flex').contains(new RegExp(r'1 1 0%'));
+        var hasWebkitFlexStyle = renderedNode.style.getPropertyValue('-webkit-flex').contains(new RegExp(r'1 1 0%'));
+
         expect(hasMsFlexStyle, isTrue);
+        expect(hasWebkitFlexStyle, isTrue);
       });
 
       test('when isFlexContainer is true', () {
@@ -131,10 +134,13 @@ void main() {
         expect(renderedNode.attributes['style'], matches(new RegExp(r'(?:^|;) *flex: *1 1 0%;')));
 
         // Fix for IE: For some reason the `-ms-flex` style attribute is not available on the `cssText` getter so it
-        // must be accessed on the style map. But that is not valid in browsers that do not support the ``-ms` prefix.
+        // must be accessed on the style map. But that is not valid in browsers that do not support the `-ms` prefix.
         var hasMsFlexStyle = renderedNode.attributes['style'].contains(new RegExp(r'(?:^|;) *-ms-flex: *1 1 0%;')) ||
             renderedNode.style.getPropertyValue('-ms-flex').contains(new RegExp(r'1 1 0%'));
+        var hasWebkitFlexStyle = renderedNode.style.getPropertyValue('-webkit-flex').contains(new RegExp(r'1 1 0%'));
+
         expect(hasMsFlexStyle, isTrue);
+        expect(hasWebkitFlexStyle, isTrue);
       });
     });
 
