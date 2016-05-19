@@ -3,6 +3,7 @@ library test_util.custom_matchers;
 import 'dart:html';
 
 import 'package:matcher/matcher.dart';
+import 'package:react/react.dart' as react;
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:test/test.dart';
 import 'package:web_skin_dart/ui_core.dart';
@@ -157,8 +158,12 @@ class _HasPropMatcher extends CustomMatcher {
   );
 
   @override
-  Map featureValueOf(item) =>
-      _useDomAttributes(item) ? findDomNode(item).attributes : getProps(item);
+  Map featureValueOf(item) {
+      if (_useDomAttributes(item)) return findDomNode(item).attributes;
+      if (item is react.Component) return item.props;
+
+      return getProps(item);
+  }
 
   @override
   bool matches(item, Map matchState) {
