@@ -44,4 +44,32 @@ main() {
       expect(flag, isFalse);
     });
   });
+
+  group('triggerFocus correctly dispatches a focus event', () {
+    var flag;
+
+    setUp((){
+      flag = false;
+    });
+
+    test('when the target is attached to the document', () async {
+      var renderedInstance = renderAttachedToDocument((Dom.div()
+        ..onFocus = ((_) => flag = true)
+        ..tabIndex = '1'
+      )());
+
+      await triggerFocus(findDomNode(renderedInstance));
+
+      expect(flag, isTrue);
+
+      tearDownAttachedNodes();
+    });
+
+    test('and throws when the target is not attached to the document', () {
+      var renderedInstance = render((Dom.div()..onFocus = ((_) => flag = true))());
+
+      expect(() => triggerFocus(findDomNode(renderedInstance)), throwsArgumentError);
+      expect(flag, isFalse);
+    });
+  });
 }
