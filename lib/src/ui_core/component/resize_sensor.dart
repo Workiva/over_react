@@ -108,9 +108,18 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
       wrapperStyles = {
         'position': 'relative',
         'flex': '1 1 0%',
-        'msFlex': '1 1 0%',
-        'display': browser.isIe ? '-ms-flexbox' : 'flex',
+        'msFlex': '1 1 0%'
       };
+
+      // IE 10 and Safari 8 need 'special' value prefixes for 'display:flex'.
+      if (browser.isIe && browser.version <= '10') {
+        wrapperStyles['display'] = '-ms-flexbox';
+      } else if (browser.isSafari && browser.version < '9') {
+        wrapperStyles['display'] = '-webkit-flex';
+      } else {
+        wrapperStyles['display'] = 'flex';
+      }
+
     } else {
       wrapperStyles = {
         'position': 'relative',
