@@ -216,6 +216,10 @@ main() {
             shouldPass(render(testJsComponentFactory({'id': 'test'})), hasProp('id', 'test'));
           });
         });
+
+        test('react.Component', () {
+          shouldPass(getDartComponent(render((Wrapper()..id = 'test')())), hasProp('id', 'test'));
+        });
       });
 
       group('fails when the props are not present in a', () {
