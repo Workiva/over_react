@@ -101,6 +101,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
       wrapperStyles = {
         'position': 'relative',
         'flex': '1 1 0%',
+        'WebkitFlex': '1 1 0%',
         'msFlex': '1 1 0%',
         'display': 'block'
       };
@@ -108,6 +109,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
       wrapperStyles = {
         'position': 'relative',
         'flex': '1 1 0%',
+        'WebkitFlex': '1 1 0%',
         'msFlex': '1 1 0%'
       };
 
