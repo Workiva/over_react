@@ -112,10 +112,12 @@ void main() {
         // must be accessed on the style map. But that is not valid in browsers that do not support the ``-ms` prefix.
         var hasMsFlexStyle = renderedNode.attributes['style'].contains(new RegExp(r'(?:^|;) *-ms-flex: *1 1 0%;')) ||
             renderedNode.style.getPropertyValue('-ms-flex').contains(new RegExp(r'1 1 0%'));
-        var hasWebkitFlexStyle = renderedNode.style.getPropertyValue('-webkit-flex').contains(new RegExp(r'1 1 0%'));
+        var hasWebkitFlexStyle =
+            renderedNode.attributes['style'].contains(new RegExp(r'(?:^|;) *-webkit-flex: *1 1 0%;')) ||
+            renderedNode.style.getPropertyValue('-webkit-flex').contains(new RegExp(r'1 1 0%'));
 
-        expect(hasMsFlexStyle, isTrue);
-        expect(hasWebkitFlexStyle, isTrue);
+        expect(hasMsFlexStyle, isTrue, reason: 'The CSS property key -ms-flex should be present.');
+        expect(hasWebkitFlexStyle, isTrue, reason: 'The CSS property key -webkit-flex should be present.');
       });
 
       test('when isFlexContainer is true', () {
@@ -137,10 +139,12 @@ void main() {
         // must be accessed on the style map. But that is not valid in browsers that do not support the `-ms` prefix.
         var hasMsFlexStyle = renderedNode.attributes['style'].contains(new RegExp(r'(?:^|;) *-ms-flex: *1 1 0%;')) ||
             renderedNode.style.getPropertyValue('-ms-flex').contains(new RegExp(r'1 1 0%'));
-        var hasWebkitFlexStyle = renderedNode.style.getPropertyValue('-webkit-flex').contains(new RegExp(r'1 1 0%'));
+        var hasWebkitFlexStyle =
+            renderedNode.attributes['style'].contains(new RegExp(r'(?:^|;) *-webkit-flex: *1 1 0%;')) ||
+            renderedNode.style.getPropertyValue('-webkit-flex').contains(new RegExp(r'1 1 0%'));
 
-        expect(hasMsFlexStyle, isTrue);
-        expect(hasWebkitFlexStyle, isTrue);
+        expect(hasMsFlexStyle, isTrue, reason: 'The CSS property key -ms-flex should be present.');
+        expect(hasWebkitFlexStyle, isTrue, reason: 'The CSS property key -webkit-flex should be present.');
       });
     });
 
