@@ -1,3 +1,4 @@
+@JS()
 library test_util.react_util;
 
 import 'dart:collection';
@@ -146,7 +147,16 @@ final _EventSimulatorAlias keyUp = react_test_utils.Simulate.keyUp;
 /// Helper function to simulate keyPress events.
 final _EventSimulatorAlias keyPress = react_test_utils.Simulate.keyPress;
 
+@JS('React.addons.TestUtils.Simulate.mouseEnter')
+external void mouseEnter(dynamic target);
+
+@JS('React.addons.TestUtils.Simulate.mouseLeave')
+external void mouseLeave(dynamic target);
+
 /// Simulate a MouseEnter event by firing a MouseOut and a MouseOver, since MouseEnter simulation is not provided by react_test_utils.
+///
+/// Deprecated: Use [mouseEnter] instead.
+@deprecated
 void simulateMouseEnter(EventTarget target) {
   // Use any other node than [target].
   var from = document.body;
@@ -159,6 +169,9 @@ void simulateMouseEnter(EventTarget target) {
 }
 
 /// Simulate a MouseLeave event by firing a MouseOut and a MouseOver, since MouseLeave simulation is not provided by react_test_utils.
+///
+/// Deprecated: Use [mouseLeave] instead.
+@deprecated
 void simulateMouseLeave(EventTarget target) {
   var from = target;
   // Use any other node than [target].
