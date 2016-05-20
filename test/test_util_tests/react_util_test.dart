@@ -126,6 +126,24 @@ main() {
       expect(flag, isTrue);
     });
 
+    test('mouseEnter simulates a mouseEnter on a component', () {
+      var flag = false;
+      var renderedInstance = render((Dom.div()..onMouseEnter = (evt) => flag = true)());
+
+      mouseEnter(renderedInstance);
+
+      expect(flag, isTrue);
+    });
+
+    test('mouseLeave simulates a mouseLeave on a component', () {
+      var flag = false;
+      var renderedInstance = render((Dom.div()..onMouseLeave = (evt) => flag = true)());
+
+      mouseLeave(renderedInstance);
+
+      expect(flag, isTrue);
+    });
+
     test('simulateMouseEnter simulates a MouseEnter on a component', () {
       var flag = false;
       var renderedInstance = render((Dom.div()..onMouseEnter = (evt) => flag = true));
@@ -795,5 +813,6 @@ class TestProps extends UiProps {}
 
 @Component()
 class TestComponent extends UiComponent<TestProps> {
+  @override
   render() => (Dom.div()..addProp('isRenderResult', true))();
 }

@@ -31,6 +31,8 @@ import 'package:web_skin_dart/src/ui_core/component_declaration/annotations.dart
 ///
 ///     * Replaces fields with generated getters/setters.
 class ImplGenerator {
+  ImplGenerator(this.logger, this.transformedFile);
+
   static const String generatedPrefix = r'_$';
   static const String publicGeneratedPrefix = r'$';
 
@@ -38,8 +40,6 @@ class ImplGenerator {
   final TransformedSourceFile transformedFile;
 
   SourceFile get sourceFile => transformedFile.sourceFile;
-
-  ImplGenerator(TransformLogger this.logger, TransformedSourceFile this.transformedFile);
 
   static String getComponentFactoryName(String componentClassName) {
     if (componentClassName == null) {

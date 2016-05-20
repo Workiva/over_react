@@ -4,8 +4,8 @@ library resize_sensor_test;
 import 'dart:async';
 import 'dart:html';
 
+import 'package:browser_detect/browser_detect.dart';
 import 'package:react/react.dart' as react;
-import 'package:react/react_test_utils.dart' as reactTestUtils;
 import 'package:test/test.dart';
 import 'package:web_skin_dart/src/ui_core/component/resize_sensor.dart';
 import 'package:web_skin_dart/test_util.dart';
@@ -48,7 +48,7 @@ void main() {
       var jsContainer = react.render(container, domTarget);
 
       // Return the container element for testing.
-      return reactTestUtils.getDomNode(jsContainer);
+      return findDomNode(jsContainer);
     }
 
     /// Expect resize sensor invokes registered `onResize` callback.
@@ -57,7 +57,7 @@ void main() {
     /// tracked to confirm callback invocation, instead of `expectAsync`, due to
     /// oddities in detecting callback invocations.
     Future expectResizeAfter(void action(Element container),
-        {ResizeSensorHandler onResize}) async {
+        {ResizeSensorHandler onResize, int width: defaultContainerWidth, int height: defaultContainerHeight}) async {
       var resizeDetectedCompleter = new Completer();
 
       Element containerEl;
@@ -66,7 +66,7 @@ void main() {
           onResize(event);
         }
         resizeDetectedCompleter.complete();
-      });
+      }, width: width, height: height);
 
       action(containerEl);
 
@@ -105,18 +105,28 @@ void main() {
         expect(renderedNode.style.position, equals('relative'));
         expect(renderedNode.style.display, equals('block'));
         // Use the attribute text to match these since `style`'s API won't work for unsupported properties.
-        expect(renderedNode.attributes['style'], matches(new RegExp(r'(?:^|;)flex: *1 1 0%;')));
-        expect(renderedNode.attributes['style'], matches(new RegExp(r'(?:^|;)-ms-flex: *1 1 0%;')));
+        expect(renderedNode.attributes['style'], matches(new RegExp(r'(?:^|;) *flex: *1 1 0%;')));
+
+        // Fix for IE: For some reason the `-ms-flex` style attribute is not available on the `cssText` getter so it
+        // must be accessed on the style map. But that is not valid in browsers that do not support the ``-ms` prefix.
+        var hasMsFlexStyle = renderedNode.attributes['style'].contains(new RegExp(r'(?:^|;) *-ms-flex: *1 1 0%;')) ||
+            renderedNode.style.getPropertyValue('-ms-flex').contains(new RegExp(r'1 1 0%'));
+        expect(hasMsFlexStyle, isTrue);
       });
 
       test('when isFlexContainer is true', () {
         var renderedNode = renderAndGetDom((ResizeSensor()..isFlexContainer = true)());
 
         expect(renderedNode.style.position, equals('relative'));
-        expect(renderedNode.style.display, equals('flex'));
+        expect(renderedNode.style.display, equals(browser.isIe ? '-ms-flexbox' : 'flex'));
         // Use the attribute text to match these since `style`'s API won't work for unsupported properties.
-        expect(renderedNode.attributes['style'], matches(new RegExp(r'(?:^|;)flex: *1 1 0%;')));
-        expect(renderedNode.attributes['style'], matches(new RegExp(r'(?:^|;)-ms-flex: *1 1 0%;')));
+        expect(renderedNode.attributes['style'], matches(new RegExp(r'(?:^|;) *flex: *1 1 0%;')));
+
+        // Fix for IE: For some reason the `-ms-flex` style attribute is not available on the `cssText` getter so it
+        // must be accessed on the style map. But that is not valid in browsers that do not support the ``-ms` prefix.
+        var hasMsFlexStyle = renderedNode.attributes['style'].contains(new RegExp(r'(?:^|;) *-ms-flex: *1 1 0%;')) ||
+            renderedNode.style.getPropertyValue('-ms-flex').contains(new RegExp(r'1 1 0%'));
+        expect(hasMsFlexStyle, isTrue);
       });
     });
 
@@ -144,27 +154,59 @@ void main() {
       });
     });
 
-    test('should detect when bounding rect grows horizontally', () async {
-      await expectResizeAfter((containerEl) {
-        containerEl.style.width = '${defaultContainerWidth * 2}px';
+    group('should detect when bounding rect grows horizontally', () {
+      test('', () async{
+        await expectResizeAfter((containerEl) {
+          containerEl.style.width = '${defaultContainerWidth * 2}px';
+        });
+      });
+
+      test('even when the bounding rect is very small', () async {
+        await expectResizeAfter((containerEl) {
+          containerEl.style.width = '4px';
+        }, width: 2, height: 2);
       });
     });
 
-    test('should detect when bounding rect grows vertically', () async {
-      await expectResizeAfter((containerEl) {
-        containerEl.style.height = '${defaultContainerHeight * 2}px';
+    group('should detect when bounding rect grows vertically', () {
+      test('', () async{
+        await expectResizeAfter((containerEl) {
+          containerEl.style.height = '${defaultContainerHeight * 2}px';
+        });
+      });
+
+      test('even when the bounding rect is very small', () async {
+        await expectResizeAfter((containerEl) {
+          containerEl.style.height = '4px';
+        }, width: 2, height: 2);
       });
     });
 
-    test('should detect when bounding rect shrinks horizontally', () async {
-      await expectResizeAfter((containerEl) {
-        containerEl.style.width = '${defaultContainerWidth / 2}px';
+    group('should detect when bounding rect shrinks horizontally', () {
+      test('', () async{
+        await expectResizeAfter((containerEl) {
+          containerEl.style.width = '${defaultContainerWidth / 2}px';
+        });
+      });
+
+      test('even when the bounding rect is very small', () async {
+        await expectResizeAfter((containerEl) {
+          containerEl.style.width = '1px';
+        }, width: 2, height: 2);
       });
     });
 
-    test('should detect when bounding rect shrinks vertically', () async {
-      await expectResizeAfter((containerEl) {
-        containerEl.style.height = '${defaultContainerHeight / 2}px';
+    group('should detect when bounding rect shrinks vertically', () {
+      test('', () async{
+        await expectResizeAfter((containerEl) {
+          containerEl.style.height = '${defaultContainerHeight / 2}px';
+        });
+      });
+
+      test('even when the bounding rect is very small', () async {
+        await expectResizeAfter((containerEl) {
+          containerEl.style.height = '1px';
+        }, width: 2, height: 2);
       });
     });
 
