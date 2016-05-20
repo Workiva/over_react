@@ -43,3 +43,12 @@ Element closest(Element lowerBound, String selector, {Element upperBound}) {
 
   return null;
 }
+
+/// Returns the currently focused element, or `null` if there is none.
+Element getActiveElement() {
+  var activeElement = document.activeElement;
+
+  if (activeElement is! Element || activeElement == document.body) return null;
+
+  return activeElement;
+}
