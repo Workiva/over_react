@@ -81,11 +81,29 @@ main() {
       });
     });
 
+    test('change simulates change on a component', () {
+      var flag = false;
+      var renderedInstance = render((Dom.div()..onChange = (evt) => flag = true)());
+
+      change(renderedInstance);
+
+      expect(flag, isTrue);
+    });
+
     test('focus simulates focus on a component', () {
       var flag = false;
       var renderedInstance = render((Dom.div()..onFocus = (evt) => flag = true)());
 
       focus(renderedInstance);
+
+      expect(flag, isTrue);
+    });
+
+    test('blur simulates blur on a component', () {
+      var flag = false;
+      var renderedInstance = render((Dom.div()..onBlur = (evt) => flag = true)());
+
+      blur(renderedInstance);
 
       expect(flag, isTrue);
     });
