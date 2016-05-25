@@ -132,8 +132,14 @@ typedef void _EventSimulatorAlias(componentOrNode, [Map eventData]);
 /// Helper function to simulate clicks
 final _EventSimulatorAlias click = react_test_utils.Simulate.click;
 
+/// Helper function to simulate change
+final _EventSimulatorAlias change = react_test_utils.Simulate.change;
+
 /// Helper function to simulate focus
 final _EventSimulatorAlias focus = react_test_utils.Simulate.focus;
+
+/// Helper function to simulate blur
+final _EventSimulatorAlias blur = react_test_utils.Simulate.blur;
 
 /// Helper function to simulate mouseMove events.
 final _EventSimulatorAlias mouseMove = react_test_utils.Simulate.mouseMove;
