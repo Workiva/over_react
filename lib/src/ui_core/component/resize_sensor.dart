@@ -4,6 +4,7 @@ library resize_sensor;
 
 import 'dart:html';
 
+import 'package:browser_detect/browser_detect.dart';
 import 'package:react/react.dart' as react;
 import 'package:web_skin_dart/ui_core.dart';
 
@@ -100,6 +101,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
       wrapperStyles = {
         'position': 'relative',
         'flex': '1 1 0%',
+        'WebkitFlex': '1 1 0%',
         'msFlex': '1 1 0%',
         'display': 'block'
       };
@@ -107,9 +109,19 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
       wrapperStyles = {
         'position': 'relative',
         'flex': '1 1 0%',
-        'msFlex': '1 1 0%',
-        'display': 'flex'
+        'WebkitFlex': '1 1 0%',
+        'msFlex': '1 1 0%'
       };
+
+      // IE 10 and Safari 8 need 'special' value prefixes for 'display:flex'.
+      if (browser.isIe && browser.version <= '10') {
+        wrapperStyles['display'] = '-ms-flexbox';
+      } else if (browser.isSafari && browser.version < '9') {
+        wrapperStyles['display'] = '-webkit-flex';
+      } else {
+        wrapperStyles['display'] = 'flex';
+      }
+
     } else {
       wrapperStyles = {
         'position': 'relative',
