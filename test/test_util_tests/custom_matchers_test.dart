@@ -220,6 +220,10 @@ main() {
         test('react.Component', () {
           shouldPass(getDartComponent(render((Wrapper()..id = 'test')())), hasProp('id', 'test'));
         });
+
+        test('Element', () {
+          shouldPass(new DivElement()..id = 'test', hasProp('id', 'test'));
+        });
       });
 
       group('fails when the props are not present in a', () {
