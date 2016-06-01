@@ -159,10 +159,10 @@ class _HasPropMatcher extends CustomMatcher {
 
   @override
   Map featureValueOf(item) {
-      if (_useDomAttributes(item)) return findDomNode(item).attributes;
-      if (item is react.Component) return item.props;
+    if (_useDomAttributes(item)) return findDomNode(item).attributes;
+    if (item is react.Component) return item.props;
 
-      return getProps(item);
+    return getProps(item);
   }
 
   @override
