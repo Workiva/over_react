@@ -23,3 +23,23 @@ void triggerDocumentClick(Element target) {
 
   target.dispatchEvent(new MouseEvent('click'));
 }
+
+/// Focuses the [target] and returns a [Future] when that `focus` event is fired.
+///
+/// Verifies that the [target] element is not a detached node.
+///
+/// This is neccessary because IE 11 `focus` events are async.
+///
+/// See: <https://connect.microsoft.com/IE/feedback/details/2238257/ie11-focus-change-delayed-when-using-the-focus-method>.
+Future triggerFocus(Element target) {
+  if (!document.documentElement.contains(target)) {
+    throw new ArgumentError.value(target, 'target', 'Target should be attached to the document.');
+  }
+
+  var completer = new Completer()
+    ..complete(target.onFocus.first);
+
+  target.focus();
+
+  return completer.future;
+}

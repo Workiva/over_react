@@ -81,11 +81,29 @@ main() {
       });
     });
 
+    test('change simulates change on a component', () {
+      var flag = false;
+      var renderedInstance = render((Dom.div()..onChange = (evt) => flag = true)());
+
+      change(renderedInstance);
+
+      expect(flag, isTrue);
+    });
+
     test('focus simulates focus on a component', () {
       var flag = false;
       var renderedInstance = render((Dom.div()..onFocus = (evt) => flag = true)());
 
       focus(renderedInstance);
+
+      expect(flag, isTrue);
+    });
+
+    test('blur simulates blur on a component', () {
+      var flag = false;
+      var renderedInstance = render((Dom.div()..onBlur = (evt) => flag = true)());
+
+      blur(renderedInstance);
 
       expect(flag, isTrue);
     });
@@ -122,6 +140,24 @@ main() {
       var renderedInstance = render((Dom.div()..onMouseMove = (evt) => flag = true)());
 
       mouseMove(renderedInstance);
+
+      expect(flag, isTrue);
+    });
+
+    test('mouseEnter simulates a mouseEnter on a component', () {
+      var flag = false;
+      var renderedInstance = render((Dom.div()..onMouseEnter = (evt) => flag = true)());
+
+      mouseEnter(renderedInstance);
+
+      expect(flag, isTrue);
+    });
+
+    test('mouseLeave simulates a mouseLeave on a component', () {
+      var flag = false;
+      var renderedInstance = render((Dom.div()..onMouseLeave = (evt) => flag = true)());
+
+      mouseLeave(renderedInstance);
 
       expect(flag, isTrue);
     });
