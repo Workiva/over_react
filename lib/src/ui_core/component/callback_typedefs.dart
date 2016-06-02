@@ -16,7 +16,7 @@ typedef UIEventCallback(react.SyntheticUIEvent event);
 typedef WheelEventCallback(react.SyntheticWheelEvent event);
 
 // Callback for item selection events
-typedef DateSelectCallback(react.SyntheticEvent event, DateTime date);
+typedef DateSelectCallback<TEvent extends react.SyntheticEvent>(TEvent event, DateTime date);
 typedef EventKeyCallback(react.SyntheticEvent event, Object eventKey);
 typedef EventKeyIndexCallback(react.SyntheticEvent event, Object eventKey, int index);
 typedef EventValueCallback(react.SyntheticEvent event, String value);
