@@ -58,8 +58,8 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
 /// __The result must be stored in a variable that is named very specifically:__
 ///
 ///     var $`AbstractComponentClassName`Factory = registerAbstractComponent(`AbstractComponentClassName`);
-ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentClass) =>
-    registerComponent(() => new DummyComponent(), componentClass: abstractComponentClass);
+ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentClass, {ReactDartComponentFactoryProxy parentType}) =>
+    registerComponent(() => new DummyComponent(), componentClass: abstractComponentClass, parentType: parentType);
 
 /// A function that returns a new [TProps] instance, optionally backed by the specified [backingProps].
 ///
