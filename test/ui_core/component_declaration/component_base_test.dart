@@ -609,6 +609,17 @@ main() {
 
       expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias), equals(reactComponentFactory.type));
     });
+
+    test('registerAbstractComponent registers a type alias for a componentClass and parentType', () {
+      Type typeAlias = TestRegisterComponentClassAlias;
+      var parentFactory = registerComponent(() => new DummyComponent());
+      var reactComponentFactory = registerAbstractComponent(typeAlias, parentType: parentFactory);
+      var meta = getComponentTypeMeta(reactComponentFactory.type);
+
+      expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
+      expect(meta.parentType, equals(parentFactory));
+      expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias), equals(reactComponentFactory.type));
+    });
   });
 }
 
