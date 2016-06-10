@@ -21,18 +21,20 @@ main() {
       test('a single child is passed in', () {
         var child = 'Only child';
         var renderedNode = renderAndGetDom(Dom.div()(child));
+        var children = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
 
-        expect(renderedNode.childNodes.length, equals(1));
-        expect((renderedNode.childNodes[0] as Text).data, equals(child));
+        expect(children.length, equals(1));
+        expect((children[0] as Text).data, equals(child));
       });
 
       test('children are set via a list', () {
         var children = ['First Child', 'Second Child'];
         var renderedNode = renderAndGetDom(Dom.div()(children));
+        var childNodes = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
 
-        expect(renderedNode.childNodes.length, equals(2));
-        expect((renderedNode.childNodes[0] as SpanElement).text, equals(children[0]));
-        expect((renderedNode.childNodes[1] as SpanElement).text, equals(children[1]));
+        expect(childNodes.length, equals(2));
+        expect(childNodes[0].text, equals(children[0]));
+        expect(childNodes[1].text, equals(children[1]));
       });
 
       test('children are set via an iterable', () {
@@ -41,20 +43,22 @@ main() {
           yield 'Second Child';
         })();
         var renderedNode = renderAndGetDom(Dom.div()(children));
+        var childNodes = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
 
-        expect(renderedNode.childNodes.length, equals(2));
-        expect((renderedNode.childNodes[0] as SpanElement).text, equals('First Child'));
-        expect((renderedNode.childNodes[1] as SpanElement).text, equals('Second Child'));
+        expect(childNodes.length, equals(2));
+        expect(childNodes[0].text, equals('First Child'));
+        expect(childNodes[1].text, equals('Second Child'));
       });
 
       test('children are set variadically via noSuchMethod', () {
         var firstChild = 'First Child';
         var secondChild = 'Second Child';
         var renderedNode = renderAndGetDom(Dom.div()(firstChild, secondChild));
+        var children = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
 
-        expect(renderedNode.childNodes.length, equals(2));
-        expect((renderedNode.childNodes[0] as SpanElement).text, equals('First Child'));
-        expect((renderedNode.childNodes[1] as SpanElement).text, equals('Second Child'));
+        expect(children.length, equals(2));
+        expect(children[0].text, equals('First Child'));
+        expect(children[1].text, equals('Second Child'));
       });
     });
 
