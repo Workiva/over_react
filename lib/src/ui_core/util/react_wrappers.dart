@@ -2,7 +2,6 @@
 library ui_core.react_wrappers;
 
 import 'dart:html';
-import 'dart:js';
 
 import 'package:js/js.dart';
 import 'package:react/react.dart' as react;
@@ -202,9 +201,7 @@ List prepareNestedChildren(List children) => children;
 
 /// Returns whether the React [instance] is mounted.
 bool isMounted(/* [1] */ instance) {
-  if (instance is Element) {
-    return new JsObject.fromBrowserObject(instance).callMethod('isMounted', []);
-  }
+  if (instance is Element) throw new ArgumentError('Checking whether an Element is mounted is no longer support.');
 
   return (instance as ReactComponent).isMounted();
 }
