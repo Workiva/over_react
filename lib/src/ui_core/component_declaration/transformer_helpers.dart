@@ -1,14 +1,11 @@
 library web_skin_dart.component_declaration.transformer_helpers;
 
-import 'dart:html';
-
 import './component_base.dart' as component_base;
 
 export './annotations.dart';
 export './component_base.dart'
     hide UiComponent, UiStatefulComponent, UiProps, UiState;
 
-typedef Element _GetDOMNodeTypedef();
 typedef dynamic _RefTypedef(String ref);
 
 // ----------------------------------------------------------------------
@@ -68,12 +65,6 @@ abstract class UiComponent<TProps extends UiProps> extends component_base.UiComp
     _throwIfNotGenerated();
   }
 
-  /// Get the DOM node of the component.
-  ///
-  /// Overridden for strong typing.
-  @override
-  _GetDOMNodeTypedef get getDOMNode => super.getDOMNode;
-
   /// Returns the component of the specified [ref].
   /// > `react.Component` if it is a Dart component
   /// > DOM node if it is a DOM component.
@@ -112,12 +103,6 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   UiStatefulComponent() {
     _throwIfNotGenerated();
   }
-
-  /// Get the DOM node of the component.
-  ///
-  /// Overridden for strong typing.
-  @override
-  _GetDOMNodeTypedef get getDOMNode => super.getDOMNode;
 
   /// Returns the component of the specified [ref].
   /// > `react.Component` if it is a Dart component
