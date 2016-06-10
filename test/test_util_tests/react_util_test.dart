@@ -3,6 +3,7 @@ library react_util_test;
 import 'dart:html';
 
 import 'package:react/react.dart' as react;
+import 'package:react/react_dom.dart' as react_dom;
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 import 'package:web_skin_dart/test_util.dart';
@@ -764,20 +765,11 @@ main() {
       ]);
     });
 
-    test('setProps sets a subset of a component\'s props', () {
-      var renderedInstance = render(Wrapper()..tabIndex = -1);
-
-      setProps(renderedInstance, {'className': 'class1'});
-
-      expect(getProps(renderedInstance)['className'], equals('class1'));
-      expect(getProps(renderedInstance)['tabIndex'], equals(-1));
-    });
-
     group('unmount:', () {
       group('unmounts a React instance specified', () {
         test('by its rendered instance', () {
           var mountNode = new DivElement();
-          var instance = react.render(Wrapper()(), mountNode);
+          var instance = react_dom.render(Wrapper()(), mountNode);
           expect(isMounted(instance), isTrue);
 
           unmount(instance);
@@ -786,7 +778,7 @@ main() {
 
         test('by its mount node', () {
           var mountNode = new DivElement();
-          var instance = react.render(react.div({}), mountNode);
+          var instance = react_dom.render(react.div({}), mountNode);
           expect(isMounted(instance), isTrue);
 
           unmount(mountNode);
@@ -803,8 +795,8 @@ main() {
 
         test('a non-mounted React instance', () {
           var mountNode = new DivElement();
-          var instance = react.render(react.div({}), mountNode);
-          react.unmountComponentAtNode(mountNode);
+          var instance = react_dom.render(react.div({}), mountNode);
+          react_dom.unmountComponentAtNode(mountNode);
 
           expect(isMounted(instance), isFalse);
 
