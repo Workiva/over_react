@@ -367,15 +367,21 @@ main() {
     });
 
     group('isMounted', () {
-      test('returns true for a component that has been mounted', () {
+      test('throws for a DOM component', () {
         var mountNode = new DivElement();
         var renderedInstance = react_dom.render(react.div({}), mountNode);
+        expect(() => isMounted(renderedInstance), throwsArgumentError);
+      });
+
+      test('returns true for a component that has been mounted', () {
+        var mountNode = new DivElement();
+        var renderedInstance = react_dom.render(Wrapper()(), mountNode);
         expect(isMounted(renderedInstance), isTrue);
       });
 
       test('returns false for a component that has been umounted', () {
         var mountNode = new DivElement();
-        var renderedInstance = react_dom.render(react.div({}), mountNode);
+        var renderedInstance = react_dom.render(Wrapper()(), mountNode);
         react_dom.unmountComponentAtNode(mountNode);
         expect(isMounted(renderedInstance), isFalse);
       });
