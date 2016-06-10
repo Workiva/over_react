@@ -778,11 +778,12 @@ main() {
 
         test('by its mount node', () {
           var mountNode = new DivElement();
-          var instance = react_dom.render(react.div({}), mountNode);
-          expect(isMounted(instance), isTrue);
+          var ref;
+          react_dom.render(react.div({'ref': ((instance) => ref = instance)}), mountNode);
+          expect(ref, isNotNull);
 
           unmount(mountNode);
-          expect(isMounted(instance), isFalse);
+          expect(ref, isNull);
         });
       });
 
@@ -795,10 +796,11 @@ main() {
 
         test('a non-mounted React instance', () {
           var mountNode = new DivElement();
-          var instance = react_dom.render(react.div({}), mountNode);
+          var ref;
+          var instance = react_dom.render(react.div({'ref': ((instance) => ref = instance)}), mountNode);
           react_dom.unmountComponentAtNode(mountNode);
 
-          expect(isMounted(instance), isFalse);
+          expect(ref, isNull);
 
           expect(() {
             unmount(instance);
