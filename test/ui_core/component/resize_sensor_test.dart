@@ -6,6 +6,7 @@ import 'dart:html';
 
 import 'package:browser_detect/browser_detect.dart';
 import 'package:react/react.dart' as react;
+import 'package:react/react_dom.dart' as react_dom;
 import 'package:test/test.dart';
 import 'package:web_skin_dart/src/ui_core/component/resize_sensor.dart';
 import 'package:web_skin_dart/test_util.dart';
@@ -45,7 +46,7 @@ void main() {
       }, sensor);
 
       // Render into DOM and validate.
-      var jsContainer = react.render(container, domTarget);
+      var jsContainer = react_dom.render(container, domTarget);
 
       // Return the container element for testing.
       return findDomNode(jsContainer);
