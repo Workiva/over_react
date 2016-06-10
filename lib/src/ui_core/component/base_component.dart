@@ -12,7 +12,6 @@ abstract class BaseComponentDefinition extends ComponentDefinition with ReactPro
   BaseComponentDefinition(ReactComponentFactory componentFactory, Map props) : super(componentFactory, props);
 }
 
-typedef Element _GetDOMNodeTypedef();
 typedef dynamic _RefTypedef(String ref);
 
 /// A component used as the base for all web_skin_dart components.
@@ -20,12 +19,6 @@ typedef dynamic _RefTypedef(String ref);
 /// Contains built-in support for generic typed props and other utility methods.
 @deprecated
 abstract class BaseComponent<T extends ComponentDefinition> extends react.Component with TypedPropsGetter<T> {
-  /// Get the DOM node of the component.
-  ///
-  /// Overridden for strong typing.
-  @override
-  _GetDOMNodeTypedef get getDOMNode => super.getDOMNode;
-
   /// Returns the component of the specified [ref].
   /// > `react.Component` if it is a Dart component
   /// > DOM node if it is a DOM component.
@@ -96,7 +89,7 @@ abstract class ComponentDefinition extends MapView implements Function {
   }
 
   /// Create a new component with this builder's props and the specified children.
-  ReactElement<react.Component> build([dynamic children]) {
+  ReactElement build([dynamic children]) {
     assert(validate());
     return componentFactory(props, children);
   }
@@ -106,7 +99,7 @@ abstract class ComponentDefinition extends MapView implements Function {
   /// (alias for [build] with support for variadic children)
   ///
   /// This method actually takes any number of children as arguments ([c2], [c3], ...) via [noSuchMethod].
-  ReactElement<react.Component> call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
+  ReactElement call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
 
   @override
   dynamic noSuchMethod(Invocation invocation) {
