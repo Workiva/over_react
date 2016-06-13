@@ -2,6 +2,7 @@ library test_util.dom_util;
 
 import 'dart:async';
 import 'dart:html';
+import 'dart:js';
 
 /// Dispatches a `transitionend` event when the CSS transition of the [element]
 /// is complete. Returns a [Future] that completes after the event has been dispatched.
@@ -9,7 +10,26 @@ import 'dart:html';
 /// Used for testing components that rely on a `transitionend` event.
 Future triggerTransitionEnd(Element element) {
   Future eventFiredFuture = element.onTransitionEnd.first;
-  element.dispatchEvent(new CustomEvent('transitionend'));
+
+  // Use JS interop to construct a native TransitionEvent since Dart doesn't allow instantiating them directly.
+  // TODO: move this to JS so we can use TransitionEvent constructor
+
+  var jsElement = new JsObject.fromBrowserObject(element);
+  var jsDocument = new JsObject.fromBrowserObject(document);
+
+  var jsEvent;
+  try {
+    // Dartium requires it actually to be a `TransitionEvent`, not `Event`.
+    jsEvent = new JsObject.fromBrowserObject(jsDocument.callMethod('createEvent', ['TransitionEvent']));
+  } catch (_) {
+    // Firefox only supports `TransitionEvent` constructor, but `Event` is fine since checked mode is disabled.
+    jsEvent = new JsObject.fromBrowserObject(jsDocument.callMethod('createEvent', ['Event']));
+  }
+
+  jsEvent.callMethod('initEvent', ['transitionend', true, true]);
+
+  jsElement.callMethod('dispatchEvent', [jsEvent]);
+
   return eventFiredFuture;
 }
 
