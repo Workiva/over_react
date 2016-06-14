@@ -4,17 +4,11 @@ import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart';
 import 'package:web_skin_dart/ui_core.dart' show
-    BaseComponent,
-    BaseComponentWithState,
     ClassNameBuilder,
-    ComponentDefinition,
     CssClassPropsMixin,
     ReactPropsMixin,
     UbiquitousDomPropsMixin,
-    getProps,
     getPropsToForward,
-    isDartComponent,
-    isValidElement,
     DummyComponent,
     ValidationUtil,
     unindent;
@@ -74,12 +68,20 @@ typedef TProps UiFactory<TProps extends UiProps>([Map backingProps]);
 /// For use as a Function variable type when the `backingProps` argument is not required.
 typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 
+typedef dynamic _RefTypedef(String ref);
 
 /// The basis for a web_skin_dart component, extending [react.Component]. (Successor to [BaseComponent]).
 ///
 /// Includes support for strongly-typed props and utilities for prop and CSS classname forwarding.
-abstract class UiComponent<TProps extends UiProps> extends react.Component
-    implements BaseComponent<TProps> {
+abstract class UiComponent<TProps extends UiProps> extends react.Component {
+  /// Returns the component of the specified [ref].
+  /// > `react.Component` if it is a Dart component
+  /// > DOM node if it is a DOM component.
+  ///
+  /// Overridden for strong typing.
+  @override
+  _RefTypedef get ref => super.ref;
+
   /// The keys for the non-forwarding props defined in this component.
   Iterable<Iterable<String>> get consumedPropKeys => null;
 
@@ -166,9 +168,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component
 /// The basis for a stateful web_skin_dart component, extending [react.Component]. (Successor to [BaseComponentWithState]).
 ///
 /// Includes support for strongly-typed props and state and utilities for prop and CSS classname forwarding.
-abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState>
-    extends UiComponent<TProps>
-    implements BaseComponentWithState<TProps, TState> {
+abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState> extends UiComponent<TProps> {
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
   //   BEGIN Typed state helpers
@@ -245,7 +245,7 @@ const defaultTestIdKey = 'data-test-id';
 /// don't need a constructor. The generated implementations can mix that functionality in.
 abstract class UiProps
     extends Object with MapViewMixin, PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
-    implements Map, ComponentDefinition {
+    implements Map {
   /// Adds an arbitrary prop key-value pair.
   @override
   void addProp(propKey, value) {
