@@ -195,10 +195,6 @@ ReactElement cloneElement(ReactElement element, [Map props, Iterable children]) 
   }
 }
 
-/// This is no longer needed; nested lists can now be passed into react-dart without issue.
-@deprecated
-List prepareNestedChildren(List children) => children;
-
 /// Returns whether the React [instance] is mounted.
 bool isMounted(/* [1] */ instance) {
   if (instance is Element) throw new ArgumentError('Checking whether an Element is mounted is no longer support.');

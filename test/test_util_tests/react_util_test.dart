@@ -163,24 +163,6 @@ main() {
       expect(flag, isTrue);
     });
 
-    test('simulateMouseEnter simulates a MouseEnter on a component', () {
-      var flag = false;
-      var renderedInstance = render((Dom.div()..onMouseEnter = (evt) => flag = true));
-
-      simulateMouseEnter(findDomNode(renderedInstance));
-
-      expect(flag, isTrue);
-    });
-
-    test('simulateMouseLeave simulates a MouseLeave on a component', () {
-      var flag = false;
-      var renderedInstance = render((Dom.div()..onMouseLeave = (evt) => flag = true));
-
-      simulateMouseLeave(findDomNode(renderedInstance));
-
-      expect(flag, isTrue);
-    });
-
     test('defaultTestIdKey is equal to the default key used by addTestId', () {
       var renderedInstance = render((Test()
         ..addTestId('testTestId')
