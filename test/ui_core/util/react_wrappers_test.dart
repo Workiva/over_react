@@ -366,13 +366,7 @@ main() {
       });
     });
 
-    group('isMounted', () {
-      test('throws for a DOM component', () {
-        var mountNode = new DivElement();
-        var renderedInstance = react_dom.render(react.div({}), mountNode);
-        expect(() => isMounted(renderedInstance), throwsArgumentError);
-      });
-
+    group('isMounted (deprecated)', () {
       test('returns true for a component that has been mounted', () {
         var mountNode = new DivElement();
         var renderedInstance = react_dom.render(Wrapper()(), mountNode);
