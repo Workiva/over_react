@@ -10,7 +10,6 @@ import 'package:test/test.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
 import 'ui_core/component/abstract_transition_test.dart' as abstract_transition_test;
-import 'ui_core/component/base_component_test.dart' as base_component_test;
 import 'ui_core/component/dom_components_test.dart' as dom_components_test;
 import 'ui_core/component/prop_mixins_test.dart' as prop_mixins_test;
 import 'ui_core/component/resize_sensor_test.dart' as resize_sensor_test;
@@ -38,7 +37,6 @@ main() {
   enableTestMode();
 
   abstract_transition_test.main();
-  base_component_test.main();
   dom_components_test.main();
   prop_mixins_test.main();
   resize_sensor_test.main();

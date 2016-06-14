@@ -12,6 +12,7 @@ import 'package:react/react_client/js_interop_helpers.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:web_skin_dart/ui_core.dart';
+import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart' as component_base;
 
 export 'package:web_skin_dart/src/ui_core/util/react_wrappers.dart';
 
@@ -33,7 +34,7 @@ export 'package:web_skin_dart/src/ui_core/util/react_wrappers.dart';
 
 /// Renders a React component or builder into a detached node and returns the component instance.
 /* [1] */ render(dynamic component) {
-  return react_test_utils.renderIntoDocument(component is ComponentDefinition ? component.build() : component);
+  return react_test_utils.renderIntoDocument(component is component_base.UiProps ? component.build() : component);
 }
 
 /// Shallow-renders a component using [react_test_utils.ReactShallowRenderer].
@@ -81,7 +82,7 @@ void unmount(dynamic instanceOrContainerNode) {
 
 /// Renders a React component or builder into a detached node and returns the associated DOM node.
 Element renderAndGetDom(dynamic component) {
-  return findDomNode(react_test_utils.renderIntoDocument(component is ComponentDefinition ? component.build() : component));
+  return findDomNode(react_test_utils.renderIntoDocument(component is component_base.UiProps ? component.build() : component));
 }
 
 /// Renders a React component or builder into a detached node and returns the associtated Dart component.
@@ -103,7 +104,7 @@ List<Element> _attachedReactContainers = [];
 
   document.body.append(container);
 
-  return react_dom.render(component is ComponentDefinition ? component.build() : component, container);
+  return react_dom.render(component is component_base.UiProps ? component.build() : component, container);
 }
 
 /// Unmounts and removes the mount nodes for components rendered via [renderAttachedToDocument].

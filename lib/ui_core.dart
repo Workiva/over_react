@@ -40,7 +40,6 @@ export 'src/ui_core/component_declaration/transformer_helpers.dart';
 
 // Parts
 part 'src/ui_core/component/aria_mixin.dart';
-part 'src/ui_core/component/base_component.dart';
 part 'src/ui_core/component/dom_components.dart';
 part 'src/ui_core/component/prop_mixins.dart';
 part 'src/ui_core/util/class_names.dart';
