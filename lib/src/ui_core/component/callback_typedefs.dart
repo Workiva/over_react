@@ -15,6 +15,9 @@ typedef TouchEventCallback(react.SyntheticTouchEvent event);
 typedef UIEventCallback(react.SyntheticUIEvent event);
 typedef WheelEventCallback(react.SyntheticWheelEvent event);
 
+// Callbacks for native events.
+typedef NativeKeyboardEventCallback(KeyboardEvent event);
+
 // Callback for item selection events
 typedef DateSelectCallback<TEvent extends react.SyntheticEvent>(TEvent event, DateTime date);
 typedef EventKeyCallback(react.SyntheticEvent event, Object eventKey);
