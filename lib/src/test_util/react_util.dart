@@ -161,36 +161,6 @@ external void mouseEnter(dynamic target);
 @JS('React.addons.TestUtils.Simulate.mouseLeave')
 external void mouseLeave(dynamic target);
 
-/// Simulate a MouseEnter event by firing a MouseOut and a MouseOver, since MouseEnter simulation is not provided by react_test_utils.
-///
-/// Deprecated: Use [mouseEnter] instead.
-@deprecated
-void simulateMouseEnter(EventTarget target) {
-  // Use any other node than [target].
-  var from = document.body;
-  var to = target;
-
-  assert(from != to);
-
-  react_test_utils.SimulateNative.mouseOut(from, {'relatedTarget': to});
-  react_test_utils.SimulateNative.mouseOver(to, {'relatedTarget': from});
-}
-
-/// Simulate a MouseLeave event by firing a MouseOut and a MouseOver, since MouseLeave simulation is not provided by react_test_utils.
-///
-/// Deprecated: Use [mouseLeave] instead.
-@deprecated
-void simulateMouseLeave(EventTarget target) {
-  var from = target;
-  // Use any other node than [target].
-  var to = document.body;
-
-  assert(from != to);
-
-  react_test_utils.SimulateNative.mouseOut(from, {'relatedTarget': to});
-  react_test_utils.SimulateNative.mouseOver(to, {'relatedTarget': from});
-}
-
 /// Returns whether [props] contains [key] with a value set to a space-delimited string containing [value].
 bool _hasTestId(Map props, String key, String value) {
   var testId = props[key];
