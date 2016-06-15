@@ -51,7 +51,6 @@ AriaPropsMapView ariaProps([Map backingMap]) => new AriaPropsMapView(backingMap 
 
 typedef DomProps DomPropsFactory();
 
-
 class DomProps extends component_base.UiProps with DomPropsMixin, ReactPropsMixin {
   // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
   DomProps(this.componentFactory, [Map props]) : this.props = props ?? ({});
