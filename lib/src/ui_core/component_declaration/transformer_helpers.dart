@@ -140,8 +140,6 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 /// For use as a typed view into existing props [Maps], or as a builder to create new component
 /// instances via a fluent-style interface.
 ///
-/// (Successor to [ComponentDefinition]).
-///
 /// Use with the web_skin_dart transformer via the `@Props()` ([Props]) annotation.
 abstract class UiProps extends component_base.UiProps with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
