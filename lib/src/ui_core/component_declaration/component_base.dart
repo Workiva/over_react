@@ -215,8 +215,6 @@ const defaultTestIdKey = 'data-test-id';
 /// For use as a typed view into existing props [Maps], or as a builder to create new component
 /// instances via a fluent-style interface.
 ///
-/// (Successor to [ComponentDefinition]).
-///
 /// Note: Implements MapViewMixin instead of extending it so that the abstract [Props] declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
 abstract class UiProps
