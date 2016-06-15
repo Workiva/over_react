@@ -198,7 +198,7 @@ ReactElement cloneElement(ReactElement element, [Map props, Iterable children]) 
 /// Returns whether the React [instance] is mounted.
 ///
 /// Deprecated: Simply call `isMounted` on the [ReactComponent] instead.
-@deprecated
+@Deprecated('2.0.0')
 bool isMounted(ReactComponent instance) => instance.isMounted();
 
 /// Returns the native Dart component associated with a React JS component instance, or null if the component is not Dart-based.
