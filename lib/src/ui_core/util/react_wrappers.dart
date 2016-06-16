@@ -278,3 +278,31 @@ CallbackRef chainRef(ReactElement element, CallbackRef newCallbackRef) {
 
   return chainedRef;
 }
+
+// React Dev tools
+
+@JS('window.eval')
+external dynamic _eval(String source);
+
+@JS('_getR')
+external ReactElement _jsGetR();
+
+final Function _get$R = () {
+  _eval(r'window._getR = function() {return $r;};');
+  return _jsGetR;
+}();
+
+/// Returns a reference to the currently selected component in the
+/// [React Dev Tools](https://github.com/facebook/react-devtools).
+///
+/// Returns the associated [react.Component] for Dart components or the [ReactComponent]
+/// for JS components.
+///
+/// To use in Dartium, ui_core must be imported in the current context.
+dynamic get $r {
+  var component = _get$R();
+
+  return isDartComponent(component)
+      ? component.props.internal.component
+      : component;
+}
