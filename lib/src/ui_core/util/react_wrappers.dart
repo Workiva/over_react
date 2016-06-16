@@ -287,6 +287,9 @@ external dynamic _eval(String source);
 @JS('_getR')
 external ReactElement _jsGetR();
 
+/// A function that returns `window.$r` from the JS.
+///
+/// Used instead of a `@JS()` function due to this issue: <https://github.com/dart-lang/sdk/issues/26718>
 final Function _get$R = () {
   _eval(r'window._getR = function() {return $r;};');
   return _jsGetR;
