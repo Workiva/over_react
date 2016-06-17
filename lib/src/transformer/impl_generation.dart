@@ -217,12 +217,11 @@ class ImplGenerator {
         ..writeln('  @override')
         ..writeln('  bool get \$isClassGenerated => true;')
         ..writeln()
-        ..writeln('  /// The default consumed prop keys, taken from $propsName.')
-        ..writeln('  /// Used in [UiProps.consumedPropKeys] if [consumedPropKeys] is not overridden.')
+        ..writeln('  /// The default consumed props, taken from $propsName.')
+        ..writeln('  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.')
         ..writeln('  @override')
-        ..writeln('  final List<List<String>> \$defaultConsumedPropKeys = '
-                        'const [$propsName.$staticPropKeysName];')
-        ..writeln()
+        ..writeln('  final List<ConsumedProps> \$defaultConsumedProps = '
+                        'const [$propsName.$staticConsumedPropsName];')
         ..writeln(typedPropsFactoryImpl)
         ..writeln(typedStateFactoryImpl)
         ..writeln('}');
@@ -312,11 +311,17 @@ class ImplGenerator {
   //   Accessor generation
   // ----------------------------------------------------------------------
 
+
   static const String proxiedPropsMapName = 'props';
   static const String proxiedStateMapName = 'state';
 
   static const String staticPropKeysName = '${publicGeneratedPrefix}propKeys';
   static const String staticStateKeysName = '${publicGeneratedPrefix}stateKeys';
+
+  static const String staticPropsName = '${publicGeneratedPrefix}props';
+  static const String staticStateName = '${publicGeneratedPrefix}state';
+
+  static const String staticConsumedPropsName = '${publicGeneratedPrefix}consumedProps';
 
   static String getAccessorKeyNamespace(NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap) {
     // Default to the name of the class followed by a period.
@@ -333,10 +338,15 @@ class ImplGenerator {
   ) {
     String keyNamespace = getAccessorKeyNamespace(typedMap);
 
-    final String proxiedMapName = type == AccessorType.props ? proxiedPropsMapName : proxiedStateMapName;
-    final String keyListName = type == AccessorType.props ? staticPropKeysName : staticStateKeysName;
+    final bool isProps = type == AccessorType.props;
+
+    final String proxiedMapName = isProps ? proxiedPropsMapName : proxiedStateMapName;
+    final String keyListName = isProps ? staticPropKeysName : staticStateKeysName;
+    final String constantListName = isProps ? staticPropsName : staticStateName;
+    final String constConstructorName = isProps ? 'PropImpl' : 'StateImpl';
 
     Map keyConstants = {};
+    Map constants = {};
 
     typedMap.node.members
         .where((member) => member is FieldDeclaration)
@@ -376,6 +386,7 @@ class ImplGenerator {
             String accessorName = variable.name.name;
 
             annotations.Accessor accessorMeta = instantiateAnnotation(field, annotations.Accessor);
+            bool isRequired = instantiateAnnotation(field, annotations.Required) != null;
 
             String individualKeyNamespace = accessorMeta?.keyNamespace ?? keyNamespace;
             String individualKey = accessorMeta?.key ?? accessorName;
@@ -383,7 +394,11 @@ class ImplGenerator {
             String keyConstantName = '${generatedPrefix}key__$accessorName';
             String keyValue = stringLiteral(individualKeyNamespace + individualKey);
 
+            String constantName = '${generatedPrefix}__$accessorName';
+            String constantValue = 'const $constConstructorName($keyConstantName, isRequired: $isRequired)';
+
             keyConstants[keyConstantName] = keyValue;
+            constants[constantName] = constantValue;
 
             TypeName type = field.fields.type;
             String typeString = type == null ? '' : '$type ';
@@ -413,6 +428,7 @@ class ImplGenerator {
         });
 
     var keyConstantsImpl;
+    var constantsImpl;
 
     if (keyConstants.keys.isEmpty) {
       keyConstantsImpl = '';
@@ -423,12 +439,33 @@ class ImplGenerator {
         '; ';
     }
 
+    if (constants.keys.isEmpty) {
+      constantsImpl = '';
+    } else {
+      constantsImpl =
+        'static const $constConstructorName ' +
+        constants.keys.map((constantName) => '$constantName = ${constants[constantName]}').join(', ') +
+        '; ';
+    }
+
     String keyListImpl =
         'static const List<String> $keyListName = const [' +
         keyConstants.keys.join(', ') +
-        '];';
+        ']; ';
 
-    String staticVariablesImpl = '    /* GENERATED CONSTANTS */ $keyConstantsImpl$keyListImpl';
+    String listImpl =
+        'static const List<$constConstructorName> $constantListName = const [' +
+        constants.keys.join(', ') +
+        ']; ';
+
+    String consumedImpl = '';
+
+    if (isProps) {
+      consumedImpl = 'static const ConsumedProps $staticConsumedPropsName = const ConsumedProps($constantListName, $keyListName); ';
+    }
+
+    // String staticVariablesImpl = '    /* GENERATED CONSTANTS */ $keyConstantsImpl$constantsImpl$keyListImpl$listImpl';
+    String staticVariablesImpl = '    /* GENERATED CONSTANTS */ $consumedImpl$constantsImpl$listImpl$keyConstantsImpl$keyListImpl';
 
     transformedFile.insert(
         sourceFile.location(typedMap.node.leftBracket.end),

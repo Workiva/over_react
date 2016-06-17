@@ -191,6 +191,17 @@ class Accessor {
   });
 }
 
+/// Annotation used with the `web_skin_dart` transformer to express a specific prop is required to be set.
+///
+///     @Props()
+///     abstract class FooProps {
+///       @Required()
+///       String bar;
+///     }
+class Required {
+  const Required();
+}
+
 abstract class TypedMap {
   String get keyNamespace;
 }
