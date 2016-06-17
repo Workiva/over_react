@@ -102,12 +102,32 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
     );
   }
 
+  void _validateRequiredProps(Map appliedProps) {
+    consumedProps.forEach((ConsumedProps consumedProps) {
+      consumedProps.props
+          .where((PropImpl prop) => prop.isRequired && !appliedProps.containsKey(prop.key))
+          .forEach((PropImpl prop) {
+            print('Missing Required Prop: ${prop.key}');
+          });
+    });
+  }
+
   /// Returns a new ClassNameBuilder with className and blacklist values added from [CssClassProps.className] and
   /// [CssClassProps.classNameBlackList], if they are specified.
   ///
   /// This method should be used as the basis for the classNames of components receiving forwarded props.
   ClassNameBuilder forwardingClassNameBuilder() {
     return new ClassNameBuilder.fromProps(this.props);
+  }
+
+  @override
+  void componentWillReceiveProps(Map newProps) {
+    _validateRequiredProps(newProps);
+  }
+
+  @override
+  void componentWillMount() {
+    _validateRequiredProps(props);
   }
 
 
