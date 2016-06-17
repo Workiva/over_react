@@ -11,7 +11,8 @@ import 'package:web_skin_dart/ui_core.dart' show
     getPropsToForward,
     DummyComponent,
     ValidationUtil,
-    unindent;
+    unindent,
+    PropError;
 
 export 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart' show isComponentOfType, isValidElementOfType;
 
@@ -107,7 +108,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
       consumedProps.props
           .where((PropImpl prop) => prop.isRequired && !appliedProps.containsKey(prop.key))
           .forEach((PropImpl prop) {
-            print('Missing Required Prop: ${prop.key}');
+            throw new PropError.requried(prop.key);
           });
     });
   }
