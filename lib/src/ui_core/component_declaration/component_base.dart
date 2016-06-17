@@ -82,11 +82,13 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   @override
   _RefTypedef get ref => super.ref;
 
-  /// The keys for the non-forwarding props defined in this component.
-  Iterable<Iterable<String>> get consumedPropKeys => null;
+  /// The [Prop]s for the non-forwarding props defined in this component.
+  Iterable<ConsumedProps> get consumedProps => null;
 
   /// Returns a copy of this component's props with [consumedPropKeys] omitted.
   Map copyUnconsumedProps() {
+    var consumedPropKeys = consumedProps.map((ConsumedProps consumedProps) => consumedProps.keys);
+
     return copyProps(keySetsToOmit: consumedPropKeys);
   }
 
@@ -392,4 +394,28 @@ abstract class MapViewMixin<K, V> {
   Iterable<K> get keys => _map.keys;
   V remove(Object key) => _map.remove(key);
   Iterable<V> get values => _map.values;
+}
+
+/// Provides a representation of a single `prop`.
+class PropImpl {
+  final String key;
+  final bool isRequired;
+
+  const PropImpl(this.key, {this.isRequired: false});
+}
+
+/// Provides a representation of a single `state`.
+class StateImpl {
+  final String key;
+  final bool isRequired;
+
+  const StateImpl(this.key, {this.isRequired: false});
+}
+
+/// Provides a list of [PropIml] and a top-level list of their keys, for easy access.
+class ConsumedProps {
+  final List<PropImpl> props;
+  final List<String> keys;
+
+  const ConsumedProps(this.props, this.keys);
 }

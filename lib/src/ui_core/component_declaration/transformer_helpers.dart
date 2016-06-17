@@ -73,16 +73,27 @@ abstract class UiComponent<TProps extends UiProps> extends component_base.UiComp
   @override
   _RefTypedef get ref => super.ref;
 
-  /// The default consumed prop keys, taken from the keys generated in the associated @[Props] class.
+  // /// The default consumed prop keys, taken from the keys generated in the associated @[Props] class.
+  // @toBeGenerated
+  // Iterable<Iterable<String>> get $defaultConsumedPropKeys => throw new UngeneratedError(member: #$defaultConsumedPropKeys);
+  //
+  // /// The keys for the non-forwarding props defined in this component.
+  // ///
+  // /// For generated components, this defaults to the keys generated in the associated @[Props] class
+  // /// if this getter is not overridden.
+  // @override
+  // Iterable<Iterable<String>> get consumedPropKeys => $defaultConsumedPropKeys;
+
+  /// The default consumed props, taken from the keys generated in the associated @[Props] class.
   @toBeGenerated
-  Iterable<Iterable<String>> get $defaultConsumedPropKeys => throw new UngeneratedError(member: #$defaultConsumedPropKeys);
+  Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
 
   /// The keys for the non-forwarding props defined in this component.
   ///
   /// For generated components, this defaults to the keys generated in the associated @[Props] class
   /// if this getter is not overridden.
   @override
-  Iterable<Iterable<String>> get consumedPropKeys => $defaultConsumedPropKeys;
+  Iterable<component_base.ConsumedProps> get consumedProps => $defaultConsumedProps;
 
   /// Returns a typed props object backed by the specified [propsMap].
   /// Required to properly instantiate the generic [TProps] class.
