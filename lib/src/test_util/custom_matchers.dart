@@ -276,10 +276,10 @@ Matcher throwsRequiredPropError(String message) {
   ));
 }
 
-Matcher throwsPropError_Required(String propName) {
+Matcher throwsPropError_Required(String propName, [String message = '']) {
   return throwsA(anyOf(
       hasToStringValue('V8 Exception'), /* workaround for https://github.com/dart-lang/sdk/issues/26093 */
-      hasToStringValue(contains('RequiredPropError: Prop $propName is required.'))
+      hasToStringValue(contains('RequiredPropError: Prop $propName is required. $message'.trim()))
   ));
 }
 
