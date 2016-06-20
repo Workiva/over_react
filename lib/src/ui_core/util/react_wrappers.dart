@@ -2,10 +2,10 @@
 library ui_core.react_wrappers;
 
 import 'dart:html';
-import 'dart:js';
 
 import 'package:js/js.dart';
 import 'package:react/react.dart' as react;
+import 'package:react/react_dom.dart' as react_dom;
 import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_client/js_interop_helpers.dart';
@@ -106,7 +106,7 @@ Map getProps(/* ReactElement|ReactComponent */ instance) {
 ///
 /// This method simply wraps react.findDOMNode with strong typing for the return value
 /// (and for the function itself, which is declared using `var` in react-dart).
-Element findDomNode(dynamic instance) => react.findDOMNode(instance);
+Element findDomNode(dynamic instance) => react_dom.findDOMNode(instance);
 
 /// Dart wrapper for React.isValidElement.
 ///
@@ -195,18 +195,11 @@ ReactElement cloneElement(ReactElement element, [Map props, Iterable children]) 
   }
 }
 
-/// This is no longer needed; nested lists can now be passed into react-dart without issue.
-@deprecated
-List prepareNestedChildren(List children) => children;
-
 /// Returns whether the React [instance] is mounted.
-bool isMounted(/* [1] */ instance) {
-  if (instance is Element) {
-    return new JsObject.fromBrowserObject(instance).callMethod('isMounted', []);
-  }
-
-  return (instance as ReactComponent).isMounted();
-}
+///
+/// Deprecated: Simply call `isMounted` on the [ReactComponent] instead.
+@Deprecated('2.0.0')
+bool isMounted(ReactComponent instance) => instance.isMounted();
 
 /// Returns the native Dart component associated with a React JS component instance, or null if the component is not Dart-based.
 react.Component getDartComponent(/* [1] */ instance) {
@@ -277,4 +270,35 @@ CallbackRef chainRef(ReactElement element, CallbackRef newCallbackRef) {
   }
 
   return chainedRef;
+}
+
+// React Dev tools
+
+@JS('window.eval')
+external dynamic _eval(String source);
+
+@JS('_getR')
+external ReactElement _jsGetR();
+
+/// A function that returns `window.$r` from the JS.
+///
+/// Used instead of a `@JS()` function due to this issue: <https://github.com/dart-lang/sdk/issues/26718>
+final Function _get$R = () {
+  _eval(r'window._getR = function() {return $r;};');
+  return _jsGetR;
+}();
+
+/// Returns a reference to the currently selected component in the
+/// [React Dev Tools](https://github.com/facebook/react-devtools).
+///
+/// Returns the associated [react.Component] for Dart components or the [ReactComponent]
+/// for JS components.
+///
+/// To use in Dartium, ui_core must be imported in the current context.
+dynamic get $r {
+  var component = _get$R();
+
+  return isDartComponent(component)
+      ? component.props.internal.component
+      : component;
 }

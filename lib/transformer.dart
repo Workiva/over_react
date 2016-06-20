@@ -6,10 +6,9 @@ import 'package:analyzer/analyzer.dart';
 import 'package:barback/barback.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
+import 'package:transformer_utils/transformer_utils.dart';
 import 'package:web_skin_dart/src/transformer/declaration_parsing.dart';
 import 'package:web_skin_dart/src/transformer/impl_generation.dart';
-import 'package:web_skin_dart/src/transformer/jetbrains_friendly_logger.dart';
-import 'package:web_skin_dart/src/transformer/source_file_helpers.dart';
 
 /// A transformer that modifies `.dart` files, aiding the declaration of React components
 /// using the `@Factory()`, `@Props()` `@Component()`, etc. annotations.
