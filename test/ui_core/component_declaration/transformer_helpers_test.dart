@@ -115,12 +115,12 @@ main() {
     group('consumedProps getter proxies \$defaultConsumedProps', () {
       test('in UiComponent', () {
         var component = new TestConsumedPropKeysUiComponent();
-        expect(component.consumedProps, equals([['prop1', 'prop2']]));
+        expect(component.consumedProps, equals([const ConsumedProps(const [], const ['prop1', 'prop2'])]));
       });
 
       test('in UiStatefulComponent', () {
         var component = new TestConsumedPropKeysUiStatefulComponent();
-        expect(component.consumedProps, equals([['prop1', 'prop2']]));
+        expect(component.consumedProps, equals([const ConsumedProps(const [], const ['prop1', 'prop2'])]));
       });
     });
 
@@ -202,7 +202,7 @@ class TestConsumedPropKeysUiComponent extends UiComponent {
   bool get $isClassGenerated => true;
 
   @override
-  get $defaultConsumedProps => [['prop1', 'prop2']];
+  get $defaultConsumedProps => [const ConsumedProps(const [], const ['prop1', 'prop2'])];
 
   @override
   render() {}
@@ -214,7 +214,7 @@ class TestConsumedPropKeysUiStatefulComponent extends UiStatefulComponent {
   bool get $isClassGenerated => true;
 
   @override
-  get $defaultConsumedProps => [['prop1', 'prop2']];
+  get $defaultConsumedProps => [const ConsumedProps(const [], const ['prop1', 'prop2'])];
 
   @override
   render() {}
