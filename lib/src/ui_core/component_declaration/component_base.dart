@@ -114,7 +114,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
             if (prop.isNullable && appliedProps.containsKey(prop.key)) return;
             if (!prop.isNullable && appliedProps[prop.key] != null) return;
 
-            throw new PropError.requried(prop.key);
+            throw new PropError.requried(prop.key, prop.errorMessage);
           });
     });
   }
@@ -428,8 +428,9 @@ class PropImpl {
   final String key;
   final bool isRequired;
   final bool isNullable;
+  final String errorMessage;
 
-  const PropImpl(this.key, {this.isRequired: false, this.isNullable: false});
+  const PropImpl(this.key, {this.isRequired: false, this.isNullable: false, this.errorMessage});
 }
 
 /// Provides a representation of a single `state`.
@@ -437,8 +438,9 @@ class StateImpl {
   final String key;
   final bool isRequired;
   final bool isNullable;
+  final String errorMessage;
 
-  const StateImpl(this.key, {this.isRequired: false, this.isNullable: false});
+  const StateImpl(this.key, {this.isRequired: false, this.isNullable: false, this.errorMessage});
 }
 
 /// Provides a list of [PropIml] and a top-level list of their keys, for easy access.
