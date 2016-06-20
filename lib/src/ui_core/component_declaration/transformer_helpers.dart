@@ -101,7 +101,7 @@ abstract class UiComponent<TProps extends UiProps> extends component_base.UiComp
   // /// For generated components, this defaults to the keys generated in the associated @[Props] class
   // /// if this getter is not overridden.
   // @override
-  // Iterable<component_base.ConsumedProps> get consumedPropKeys => $defaultConsumedProps;
+  // Iterable<component_base.ConsumedProps> get consumedProps => $defaultConsumedProps;
 
   /// The default consumed props, taken from the keys generated in the associated @[Props] class.
   @toBeGenerated
