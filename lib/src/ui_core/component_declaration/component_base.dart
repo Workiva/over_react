@@ -88,7 +88,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
 
   /// Returns a copy of this component's props with [consumedPropKeys] omitted.
   Map copyUnconsumedProps() {
-    var consumedPropKeys = consumedProps.map((ConsumedProps consumedProps) => consumedProps.keys);
+    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? [];
 
     return copyProps(keySetsToOmit: consumedPropKeys);
   }
@@ -104,6 +104,9 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   }
 
   void _validateRequiredProps(Map appliedProps) {
+    if (consumedProps == null) return;
+    if (appliedProps == null) appliedProps = {};
+
     consumedProps.forEach((ConsumedProps consumedProps) {
       consumedProps.props
           .forEach((PropImpl prop) {
