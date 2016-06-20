@@ -153,11 +153,19 @@ final _EventSimulatorAlias keyUp = react_test_utils.Simulate.keyUp;
 /// Helper function to simulate keyPress events.
 final _EventSimulatorAlias keyPress = react_test_utils.Simulate.keyPress;
 
-@JS('React.addons.TestUtils.Simulate.mouseEnter')
-external void mouseEnter(dynamic target);
+/// Helper function to simulate mouseEnter events.
+final _EventSimulatorAlias mouseEnter = (componentOrNode, [Map eventData = const {}]) =>
+    Simulate.mouseEnter(componentOrNode, jsify(eventData));
 
-@JS('React.addons.TestUtils.Simulate.mouseLeave')
-external void mouseLeave(dynamic target);
+/// Helper function to simulate mouseLeave events.
+final _EventSimulatorAlias mouseLeave = (componentOrNode, [Map eventData = const {}]) =>
+    Simulate.mouseLeave(componentOrNode, jsify(eventData));
+
+@JS('React.addons.TestUtils.Simulate')
+abstract class Simulate {
+  external static void mouseEnter(dynamic target, [eventData]);
+  external static void mouseLeave(dynamic target, [eventData]);
+}
 
 /// Simulate a MouseEnter event by firing a MouseOut and a MouseOver, since MouseEnter simulation is not provided by react_test_utils.
 ///
