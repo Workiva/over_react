@@ -33,8 +33,6 @@ Set getComponentPropKeys(BuilderOnlyUiFactory factory) {
 
     Type owner = (decl.owner as ClassMirror).reflectedType;
     if (owner != Object &&
-        owner != ComponentDefinition &&
-        owner != BaseComponentDefinition &&
         owner != component_base.UiProps &&
         owner != component_base.PropsMapViewMixin &&
         owner != component_base.MapViewMixin &&

@@ -149,7 +149,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
   /// When the expand or collapse sensors are resized, builds a [ResizeSensorEvent] and calls
   /// props.onResize with it. Then, calls through to [_reset()].
   void _handleSensorScroll(react.SyntheticEvent _) {
-    Element sensor = getDOMNode();
+    Element sensor = findDomNode(this);
 
     if (sensor.offsetWidth != _lastWidth || sensor.offsetHeight != _lastHeight) {
       var event = new ResizeSensorEvent(sensor.offsetWidth, sensor.offsetHeight, _lastWidth, _lastHeight);
@@ -170,7 +170,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
     Element expand = _expandSensorRef;
     Element expandChild = _expandSensorChildRef;
     Element collapse = _collapseSensorRef;
-    Element sensor = getDOMNode();
+    Element sensor = findDomNode(this);
 
     expandChild.style.width = '${expand.offsetWidth + 10}px';
     expandChild.style.height = '${expand.offsetHeight + 10}px';
