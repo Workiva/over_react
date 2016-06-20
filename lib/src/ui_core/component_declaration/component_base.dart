@@ -106,8 +106,11 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   void _validateRequiredProps(Map appliedProps) {
     consumedProps.forEach((ConsumedProps consumedProps) {
       consumedProps.props
-          .where((PropImpl prop) => prop.isRequired && !appliedProps.containsKey(prop.key))
+          .where((PropImpl prop) => prop.isRequired)
           .forEach((PropImpl prop) {
+            if (prop.isNullable && appliedProps.containsKey(prop.key)) return;
+            if (!prop.isNullable && appliedProps[prop.key] != null) return;
+
             throw new PropError.requried(prop.key);
           });
     });
@@ -421,16 +424,18 @@ abstract class MapViewMixin<K, V> {
 class PropImpl {
   final String key;
   final bool isRequired;
+  final bool isNullable;
 
-  const PropImpl(this.key, {this.isRequired: false});
+  const PropImpl(this.key, {this.isRequired: false, this.isNullable: false});
 }
 
 /// Provides a representation of a single `state`.
 class StateImpl {
   final String key;
   final bool isRequired;
+  final bool isNullable;
 
-  const StateImpl(this.key, {this.isRequired: false});
+  const StateImpl(this.key, {this.isRequired: false, this.isNullable: false});
 }
 
 /// Provides a list of [PropIml] and a top-level list of their keys, for easy access.
