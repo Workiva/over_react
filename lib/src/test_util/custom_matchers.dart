@@ -276,6 +276,13 @@ Matcher throwsRequiredPropError(String message) {
   ));
 }
 
+Matcher throwsPropError_Required(String propName) {
+  return throwsA(anyOf(
+      hasToStringValue('V8 Exception'), /* workaround for https://github.com/dart-lang/sdk/issues/26093 */
+      hasToStringValue(contains('RequiredPropError: Prop $propName is required.'))
+  ));
+}
+
 /// A matcher to verify that a [InvalidPropCombinationError] is thrown with a provided `InvalidPropCombinationError.prop1`,
 /// `InvalidPropCombinationError.prop2`, and `InvalidPropCombinationError.message`.
 ///
