@@ -147,6 +147,30 @@ main() {
         test('forEach', () {expect(() => stub.forEach((value) {}), throwsUngeneratedError);});
       });
     });
+
+    group('\$Props (ungenerated)', () {
+      setUpAll(() {
+        expect(() => const $Props(Null), isNot(throwsNoSuchMethodError),
+            reason: 'Instanitating a const \$Props should not have thrown an error. '
+                    'Ensure that the web_skin_dart transformer is NOT running for this test file.'
+        );
+      });
+
+      $Props stub;
+
+      setUp(() {
+         stub = const $Props(Null);
+      });
+
+      test('implements ConsumedProps', () {
+        expect(stub, const isInstanceOf<ConsumedProps>());
+      });
+
+      group('throws errors when ConsumedProps members are invoked:', () {
+        test('keys',  () {expect(() => stub.keys,  throwsUngeneratedError);});
+        test('props', () {expect(() => stub.props, throwsUngeneratedError);});
+      });
+    });
   });
 }
 
