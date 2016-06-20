@@ -390,6 +390,7 @@ class ImplGenerator {
 
             bool isRequired = requiredMeta != null;
             bool isNullable = requiredMeta?.isNullable ?? false;
+            String errorMessage = stringLiteral(requiredMeta?.message ?? '');
 
             String individualKeyNamespace = accessorMeta?.keyNamespace ?? keyNamespace;
             String individualKey = accessorMeta?.key ?? accessorName;
@@ -400,7 +401,7 @@ class ImplGenerator {
             String constantName = '${generatedPrefix}__$accessorName';
             String constantValue =
               'const $constConstructorName($keyConstantName, isRequired: $isRequired, '
-              'isNullable: $isNullable)';
+              'isNullable: $isNullable, errorMessage: $errorMessage)';
 
             keyConstants[keyConstantName] = keyValue;
             constants[constantName] = constantValue;

@@ -202,7 +202,10 @@ class Required {
   /// Wether setting a prop to null is allowed.
   final bool isNullable;
 
-  const Required({this.isNullable: false});
+  /// The message displayed when the prop is not set.
+  final String message;
+
+  const Required({this.isNullable: false, this.message});
 }
 
 abstract class TypedMap {
