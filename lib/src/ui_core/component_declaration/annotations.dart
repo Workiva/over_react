@@ -199,7 +199,10 @@ class Accessor {
 ///       String bar;
 ///     }
 class Required {
-  const Required();
+  /// Wether setting a prop to null is allowed.
+  final bool isNullable;
+
+  const Required({this.isNullable: false});
 }
 
 abstract class TypedMap {
