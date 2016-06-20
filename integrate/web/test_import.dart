@@ -1,14 +1,12 @@
 import 'dart:html';
 
-import 'package:react/react.dart' as react;
+import 'package:react/react_dom.dart' as react_dom;
 import 'package:react/react_client.dart' show setClientConfiguration;
 
-import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_components.dart';
-import 'package:web_skin_dart/ui_core.dart';
 
 void main() {
   setClientConfiguration();
 
-  react.render(Well()('Hello World!'), querySelector('.main'));
+  react_dom.render(Well()('Hello World!'), querySelector('.main'));
 }
