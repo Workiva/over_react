@@ -42,9 +42,7 @@ class ResizeSensorProps extends UiProps {
 
 @Component()
 class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
-  // ----------------------------------------------------
-  //   REFS
-  // ----------------------------------------------------
+  // Refs
 
   Element _expandSensorChildRef;
   Element _expandSensorRef;
