@@ -311,7 +311,6 @@ class ImplGenerator {
   //   Accessor generation
   // ----------------------------------------------------------------------
 
-
   static const String proxiedPropsMapName = 'props';
   static const String proxiedStateMapName = 'state';
 
