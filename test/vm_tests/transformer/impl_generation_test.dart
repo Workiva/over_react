@@ -6,9 +6,9 @@ import 'package:barback/barback.dart';
 import 'package:mockito/mockito.dart';
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
+import 'package:transformer_utils/transformer_utils.dart';
 import 'package:web_skin_dart/src/transformer/declaration_parsing.dart';
 import 'package:web_skin_dart/src/transformer/impl_generation.dart';
-import 'package:web_skin_dart/src/transformer/source_file_helpers.dart';
 
 main() {
   group('ImplGenerator', () {
