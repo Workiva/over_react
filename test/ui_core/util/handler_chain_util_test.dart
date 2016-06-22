@@ -199,14 +199,14 @@ main() {
     });
 
     group('web_skin_dart callback creation utility function', () {
-      group('createChainedEventKeyCallback', () {
-        test('should return an EventKeyCallback that calls the two provided functions', () {
+      group('createChainedTargetKeyCallback', () {
+        test('should return an TargetKeyCallback that calls the two provided functions', () {
           bool calledA = false,
             calledB = false;
-          EventKeyCallback a = (event, key) => calledA = true;
-          EventKeyCallback b = (event, key) => calledB = true;
+          TargetKeyCallback a = (event, key) => calledA = true;
+          TargetKeyCallback b = (event, key) => calledB = true;
 
-          var chainedCallback = createChainedEventKeyCallback(a, b);
+          var chainedCallback = createChainedTargetKeyCallback(a, b);
           var result = chainedCallback(null, null);
 
           expect(calledA, isTrue);
@@ -215,38 +215,38 @@ main() {
           expect(result, isNull);
         });
 
-        test('should return an EventKeyCallback that calls the two provided functions in order', () {
+        test('should return an TargetKeyCallback that calls the two provided functions in order', () {
           int counter = 1;
           bool calledA = false,
             calledB = false;
-          EventKeyCallback a = (event, key) {
+          TargetKeyCallback a = (event, key) {
             calledA = true;
             zonedExpect(counter, equals(1));
             counter++;
           };
-          EventKeyCallback b = (event, key) {
+          TargetKeyCallback b = (event, key) {
             calledB = true;
             zonedExpect(counter, equals(2));
           };
 
-          var chainedCallback = createChainedEventKeyCallback(a, b);
+          var chainedCallback = createChainedTargetKeyCallback(a, b);
           chainedCallback(null, null);
 
           expect(calledA, isTrue);
           expect(calledB, isTrue);
         });
 
-        group('should return an EventKeyCallback that calls the two provided functions and returns', () {
+        group('should return an TargetKeyCallback that calls the two provided functions and returns', () {
           test('false if the first provided functions returns false', () {
             bool calledA = false,
               calledB = false;
-            EventKeyCallback a = (event, key) {
+            TargetKeyCallback a = (event, key) {
               calledA = true;
               return false;
             };
-            EventKeyCallback b = (event, key) => calledB = true;
+            TargetKeyCallback b = (event, key) => calledB = true;
 
-            var chainedCallback = createChainedEventKeyCallback(a, b);
+            var chainedCallback = createChainedTargetKeyCallback(a, b);
             var result = chainedCallback(null, null);
 
             expect(calledA, isTrue);
@@ -257,13 +257,13 @@ main() {
 
           test('false if the second provided functions returns false', () {
             bool calledA = false, calledB = false;
-            EventKeyCallback a = (event, key) => calledA = true;
-            EventKeyCallback b = (event, key) {
+            TargetKeyCallback a = (event, key) => calledA = true;
+            TargetKeyCallback b = (event, key) {
               calledB = true;
               return false;
             };
 
-            var chainedCallback = createChainedEventKeyCallback(a, b);
+            var chainedCallback = createChainedTargetKeyCallback(a, b);
             var result = chainedCallback(null, null);
 
             expect(calledA, isTrue);
@@ -274,16 +274,16 @@ main() {
 
           test('false if both provided functions return false', () {
             bool calledA = false, calledB = false;
-            EventKeyCallback a = (event, key) {
+            TargetKeyCallback a = (event, key) {
               calledA = true;
               return false;
             };
-            EventKeyCallback b = (event, key) {
+            TargetKeyCallback b = (event, key) {
               calledB = true;
               return false;
             };
 
-            var chainedCallback = createChainedEventKeyCallback(a, b);
+            var chainedCallback = createChainedTargetKeyCallback(a, b);
             var result = chainedCallback(null, null);
 
             expect(calledA, isTrue);
@@ -294,16 +294,16 @@ main() {
 
           test('null if no provided function returns false', () {
             bool calledA = false, calledB = false;
-            EventKeyCallback a = (event, key) {
+            TargetKeyCallback a = (event, key) {
               calledA = true;
               return true;
             };
-            EventKeyCallback b = (event, key) {
+            TargetKeyCallback b = (event, key) {
               calledB = true;
               return;
             };
 
-            var chainedCallback = createChainedEventKeyCallback(a, b);
+            var chainedCallback = createChainedTargetKeyCallback(a, b);
             var result = chainedCallback(null, null);
 
             expect(calledA, isTrue);
@@ -315,30 +315,30 @@ main() {
 
         test('should gracefully handle one provided function being null', () {
           bool calledA = false;
-          EventKeyCallback a = (event, key) => calledA = true;
+          TargetKeyCallback a = (event, key) => calledA = true;
 
-          var chainedCallback = createChainedEventKeyCallback(a, null);
+          var chainedCallback = createChainedTargetKeyCallback(a, null);
           chainedCallback(null, null);
 
           expect(calledA, isTrue);
         });
 
         test('should gracefully handle both provided functions being null', () {
-          var chainedCallback = createChainedEventKeyCallback(null, null);
+          var chainedCallback = createChainedTargetKeyCallback(null, null);
           var result = chainedCallback(null, null);
 
           expect(result, isNull);
         });
       });
 
-      group('createChainedEventKeyIndexCallback', () {
-        test('should return an EventKeyIndexCallback that calls the two provided functions', () {
+      group('createChainedTargetKeyIndexCallback', () {
+        test('should return an TargetKeyIndexCallback that calls the two provided functions', () {
           bool calledA = false,
             calledB = false;
-          EventKeyIndexCallback a = (event, key, index) => calledA = true;
-          EventKeyIndexCallback b = (event, key, index) => calledB = true;
+          TargetKeyIndexCallback a = (event, key, index) => calledA = true;
+          TargetKeyIndexCallback b = (event, key, index) => calledB = true;
 
-          var chainedCallback = createChainedEventKeyIndexCallback(a, b);
+          var chainedCallback = createChainedTargetKeyIndexCallback(a, b);
           var result = chainedCallback(null, null, null);
 
           expect(calledA, isTrue);
@@ -347,38 +347,38 @@ main() {
           expect(result, isNull);
         });
 
-        test('should return an EventKeyIndexCallback that calls the two provided functions in order', () {
+        test('should return an TargetKeyIndexCallback that calls the two provided functions in order', () {
           int counter = 1;
           bool calledA = false,
             calledB = false;
-          EventKeyIndexCallback a = (event, key, index) {
+          TargetKeyIndexCallback a = (event, key, index) {
             calledA = true;
             zonedExpect(counter, equals(1));
             counter++;
           };
-          EventKeyIndexCallback b = (event, key, index) {
+          TargetKeyIndexCallback b = (event, key, index) {
             calledB = true;
             zonedExpect(counter, equals(2));
           };
 
-          var chainedCallback = createChainedEventKeyIndexCallback(a, b);
+          var chainedCallback = createChainedTargetKeyIndexCallback(a, b);
           chainedCallback(null, null, null);
 
           expect(calledA, isTrue);
           expect(calledB, isTrue);
         });
 
-        group('should return an EventKeyIndexCallback that calls the two provided functions and returns', () {
+        group('should return an TargetKeyIndexCallback that calls the two provided functions and returns', () {
           test('false if the first provided functions returns false', () {
             bool calledA = false,
               calledB = false;
-            EventKeyIndexCallback a = (event, key, index) {
+            TargetKeyIndexCallback a = (event, key, index) {
               calledA = true;
               return false;
             };
-            EventKeyIndexCallback b = (event, key, index) => calledB = true;
+            TargetKeyIndexCallback b = (event, key, index) => calledB = true;
 
-            var chainedCallback = createChainedEventKeyIndexCallback(a, b);
+            var chainedCallback = createChainedTargetKeyIndexCallback(a, b);
             var result = chainedCallback(null, null, null);
 
             expect(calledA, isTrue);
@@ -389,13 +389,13 @@ main() {
 
           test('false if the second provided functions returns false', () {
             bool calledA = false, calledB = false;
-            EventKeyIndexCallback a = (event, key, index) => calledA = true;
-            EventKeyIndexCallback b = (event, key, index) {
+            TargetKeyIndexCallback a = (event, key, index) => calledA = true;
+            TargetKeyIndexCallback b = (event, key, index) {
               calledB = true;
               return false;
             };
 
-            var chainedCallback = createChainedEventKeyIndexCallback(a, b);
+            var chainedCallback = createChainedTargetKeyIndexCallback(a, b);
             var result = chainedCallback(null, null, null);
 
             expect(calledA, isTrue);
@@ -406,16 +406,16 @@ main() {
 
           test('false if both provided functions return false', () {
             bool calledA = false, calledB = false;
-            EventKeyIndexCallback a = (event, key, index) {
+            TargetKeyIndexCallback a = (event, key, index) {
               calledA = true;
               return false;
             };
-            EventKeyIndexCallback b = (event, key, index) {
+            TargetKeyIndexCallback b = (event, key, index) {
               calledB = true;
               return false;
             };
 
-            var chainedCallback = createChainedEventKeyIndexCallback(a, b);
+            var chainedCallback = createChainedTargetKeyIndexCallback(a, b);
             var result = chainedCallback(null, null, null);
 
             expect(calledA, isTrue);
@@ -426,16 +426,16 @@ main() {
 
           test('null if no provided function returns false', () {
             bool calledA = false, calledB = false;
-            EventKeyIndexCallback a = (event, key, index) {
+            TargetKeyIndexCallback a = (event, key, index) {
               calledA = true;
               return true;
             };
-            EventKeyIndexCallback b = (event, key, index) {
+            TargetKeyIndexCallback b = (event, key, index) {
               calledB = true;
               return;
             };
 
-            var chainedCallback = createChainedEventKeyIndexCallback(a, b);
+            var chainedCallback = createChainedTargetKeyIndexCallback(a, b);
             var result = chainedCallback(null, null, null);
 
             expect(calledA, isTrue);
@@ -447,23 +447,23 @@ main() {
 
         test('should gracefully handle one provided function being null', () {
           bool calledA = false;
-          EventKeyIndexCallback a = (event, key, index) => calledA = true;
+          TargetKeyIndexCallback a = (event, key, index) => calledA = true;
 
-          var chainedCallback = createChainedEventKeyIndexCallback(a, null);
+          var chainedCallback = createChainedTargetKeyIndexCallback(a, null);
           chainedCallback(null, null, null);
 
           expect(calledA, isTrue);
         });
 
         test('should gracefully handle both provided functions being null', () {
-          var chainedCallback = createChainedEventKeyIndexCallback(null, null);
+          var chainedCallback = createChainedTargetKeyIndexCallback(null, null);
           var result = chainedCallback(null, null, null);
 
           expect(result, isNull);
         });
       });
 
-      group('createChainedEventKeyCallbackFromList', () {
+      group('createChainedTargetKeyCallbackFromList', () {
         group('returns', () {
           test('false if the first provided function returns false', () {
             var flags = [false, false, false];
@@ -476,7 +476,7 @@ main() {
               (event, key) => flags[2] = true
             ];
 
-            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var chainedCallback = createChainedTargetKeyCallbackFromList(callbacks);
             var result = chainedCallback(null, null);
 
             expect(flags[0], isTrue);
@@ -497,7 +497,7 @@ main() {
               (event, key) => flags[2] = true
             ];
 
-            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var chainedCallback = createChainedTargetKeyCallbackFromList(callbacks);
             var result = chainedCallback(null, null);
 
             expect(flags[0], isTrue);
@@ -518,7 +518,7 @@ main() {
               }
             ];
 
-            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var chainedCallback = createChainedTargetKeyCallbackFromList(callbacks);
             var result = chainedCallback(null, null);
 
             expect(flags[0], isTrue);
@@ -542,7 +542,7 @@ main() {
               }
             ];
 
-            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var chainedCallback = createChainedTargetKeyCallbackFromList(callbacks);
             var result = chainedCallback(null, null);
 
             expect(flags[0], isTrue);
@@ -569,7 +569,7 @@ main() {
               }
             ];
 
-            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var chainedCallback = createChainedTargetKeyCallbackFromList(callbacks);
             var result = chainedCallback(null, null);
 
             expect(flags[0], isTrue);
@@ -587,7 +587,7 @@ main() {
               (event, key) => flags[2] = true
             ];
 
-            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var chainedCallback = createChainedTargetKeyCallbackFromList(callbacks);
             var result = chainedCallback(null, null);
 
             expect(flags[0], isTrue);
@@ -605,7 +605,7 @@ main() {
             null
           ];
 
-          var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+          var chainedCallback = createChainedTargetKeyCallbackFromList(callbacks);
           var result = chainedCallback(null, null);
 
           expect(result, isNull);
