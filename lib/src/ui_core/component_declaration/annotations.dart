@@ -193,6 +193,9 @@ class Accessor {
 
 /// Annotation used with the `web_skin_dart` transformer to express a specific prop is required to be set.
 ///
+/// This is validated in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
+/// `componentWillReceiveProps`.
+///
 ///     @Props()
 ///     abstract class FooProps {
 ///       @Required()
