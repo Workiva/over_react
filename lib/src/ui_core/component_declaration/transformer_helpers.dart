@@ -92,17 +92,6 @@ abstract class UiComponent<TProps extends UiProps> extends component_base.UiComp
   @override
   _RefTypedef get ref => super.ref;
 
-  // /// The default consumed prop keys, taken from the keys generated in the associated @[Props] class.
-  // @toBeGenerated
-  // Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
-  //
-  // /// The keys for the non-forwarding props defined in this component.
-  // ///
-  // /// For generated components, this defaults to the keys generated in the associated @[Props] class
-  // /// if this getter is not overridden.
-  // @override
-  // Iterable<component_base.ConsumedProps> get consumedProps => $defaultConsumedProps;
-
   /// The default consumed props, taken from the keys generated in the associated @[Props] class.
   @toBeGenerated
   Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
