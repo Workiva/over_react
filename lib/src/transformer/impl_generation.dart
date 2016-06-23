@@ -470,7 +470,6 @@ class ImplGenerator {
       consumedImpl = 'static const ConsumedProps $staticConsumedPropsName = const ConsumedProps($constantListName, $keyListName); ';
     }
 
-    // String staticVariablesImpl = '    /* GENERATED CONSTANTS */ $keyConstantsImpl$constantsImpl$keyListImpl$listImpl';
     String staticVariablesImpl = '    /* GENERATED CONSTANTS */ $consumedImpl$constantsImpl$listImpl$keyConstantsImpl$keyListImpl';
 
     transformedFile.insert(
