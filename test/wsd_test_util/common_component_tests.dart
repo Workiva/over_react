@@ -308,7 +308,7 @@ void testRequiredProps(BuilderOnlyUiFactory factory, dynamic childrenFactory()) 
   var keyToErrorMessage = {};
 
   consumedProps.forEach((ConsumedProps consumedProps) {
-    consumedProps.props.forEach((PropImpl prop) {
+    consumedProps.props.forEach((PropDescriptor prop) {
       if (prop.isRequired) {
         requiredProps.add(prop.key);
       } else if (prop.isNullable) {
