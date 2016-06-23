@@ -108,7 +108,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
 
     consumedProps.forEach((ConsumedProps consumedProps) {
       consumedProps.props
-          .forEach((PropImpl prop) {
+          .forEach((PropDescriptor prop) {
             if (!prop.isRequired) return;
             if (prop.isNullable && appliedProps.containsKey(prop.key)) return;
             if (!prop.isNullable && appliedProps[prop.key] != null) return;
@@ -423,28 +423,32 @@ abstract class MapViewMixin<K, V> {
 }
 
 /// Provides a representation of a single `prop`.
-class PropImpl {
+class PropDescriptor {
+  /// The string key associated with the `prop`.
   final String key;
+  /// Whether the `prop` is required to be set.
   final bool isRequired;
+  /// Whether setting the `prop` to `null` is valid.
   final bool isNullable;
+  /// The message included in the thrown [PropError] if the `prop` is not set.
   final String errorMessage;
 
-  const PropImpl(this.key, {this.isRequired: false, this.isNullable: false, this.errorMessage});
+  const PropDescriptor(this.key, {this.isRequired: false, this.isNullable: false, this.errorMessage});
 }
 
 /// Provides a representation of a single `state`.
-class StateImpl {
+class StateDescriptor {
   final String key;
   final bool isRequired;
   final bool isNullable;
   final String errorMessage;
 
-  const StateImpl(this.key, {this.isRequired: false, this.isNullable: false, this.errorMessage});
+  const StateDescriptor(this.key, {this.isRequired: false, this.isNullable: false, this.errorMessage});
 }
 
 /// Provides a list of [PropIml] and a top-level list of their keys, for easy access.
 class ConsumedProps {
-  final List<PropImpl> props;
+  final List<PropDescriptor> props;
   final List<String> keys;
 
   const ConsumedProps(this.props, this.keys);
