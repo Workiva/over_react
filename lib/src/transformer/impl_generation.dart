@@ -343,7 +343,7 @@ class ImplGenerator {
     final String proxiedMapName = isProps ? proxiedPropsMapName : proxiedStateMapName;
     final String keyListName = isProps ? staticPropKeysName : staticStateKeysName;
     final String constantListName = isProps ? staticPropsName : staticStateName;
-    final String constConstructorName = isProps ? 'PropImpl' : 'StateImpl';
+    final String constConstructorName = isProps ? 'PropDescriptor' : 'StateDescriptor';
 
     Map keyConstants = {};
     Map constants = {};
