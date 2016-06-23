@@ -28,6 +28,8 @@ typedef EventKeyCallback(react.SyntheticEvent event, Object eventKey);
 typedef EventKeyIndexCallback(react.SyntheticEvent event, Object eventKey, int index);
 typedef TargetKeyCallback(react.SyntheticEvent event, Object targetKey);
 typedef TargetKeyIndexCallback(react.SyntheticEvent event, Object targetKey, int index);
+@deprecated
+/// Use [TargetKeyCallback] instead.
 typedef EventValueCallback(react.SyntheticEvent event, String value);
 typedef IndexCallback(react.SyntheticEvent event, int index);
 
