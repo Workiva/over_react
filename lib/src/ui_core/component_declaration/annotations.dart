@@ -199,7 +199,7 @@ class Accessor {
 ///       String bar;
 ///     }
 class Required {
-  /// Wether setting a prop to null is allowed.
+  /// Whether setting a prop to null is allowed.
   final bool isNullable;
 
   /// The message displayed when the prop is not set.
