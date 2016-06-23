@@ -12,7 +12,7 @@ void requiredPropsIntegrationTest() {
     group('throwing when a prop is required and not set', () {
       test('on mount', () {
         expect(() => render(ComponentTest()..nullableProp = true),
-            throwsPropError_Required('ComponentTestProps.requiredProp', 'This Prop is Required for testing purposed.')
+            throwsPropError_Required('ComponentTestProps.requiredProp', 'This Prop is Required for testing purposes.')
         );
       });
 
@@ -24,7 +24,7 @@ void requiredPropsIntegrationTest() {
         )(), mountNode);
 
         expect(() => react_dom.render((ComponentTest()..nullableProp = true)(), mountNode),
-            throwsPropError_Required('ComponentTestProps.requiredProp', 'This Prop is Required for testing purposed.')
+            throwsPropError_Required('ComponentTestProps.requiredProp', 'This Prop is Required for testing purposes.')
         );
       });
     });
@@ -49,7 +49,7 @@ void requiredPropsIntegrationTest() {
               ..requiredProp = null
               ..nullableProp = true
             )(), mountNode),
-            throwsPropError_Required('ComponentTestProps.requiredProp', 'This Prop is Required for testing purposed.')
+            throwsPropError_Required('ComponentTestProps.requiredProp', 'This Prop is Required for testing purposes.')
         );
       });
     });
@@ -124,7 +124,7 @@ UiFactory<ComponentTestProps> ComponentTest;
 
 @Props()
 class ComponentTestProps extends UiProps {
-  @Required(message: 'This Prop is Required for testing purposed.')
+  @Required(message: 'This Prop is Required for testing purposes.')
   var requiredProp;
 
   @Required(isNullable: true, message: 'This prop can be set to null!')

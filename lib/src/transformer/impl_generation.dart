@@ -398,10 +398,10 @@ class ImplGenerator {
             String keyConstantName = '${generatedPrefix}key__$accessorName';
             String keyValue = stringLiteral(individualKeyNamespace + individualKey);
 
-            String constantName = '${generatedPrefix}__$accessorName';
+            String constantName = '${generatedPrefix}prop__$accessorName';
             String constantValue =
-              'const $constConstructorName($keyConstantName, isRequired: $isRequired, '
-              'isNullable: $isNullable, errorMessage: $errorMessage)';
+                'const $constConstructorName($keyConstantName, isRequired: $isRequired, '
+                'isNullable: $isNullable, errorMessage: $errorMessage)';
 
             keyConstants[keyConstantName] = keyValue;
             constants[constantName] = constantValue;
@@ -410,8 +410,8 @@ class ImplGenerator {
             String typeString = type == null ? '' : '$type ';
 
             String generatedAccessor =
-              '${typeString}get $accessorName => $proxiedMapName[$keyConstantName];  '
-              'set $accessorName(${typeString}value) => $proxiedMapName[$keyConstantName] = value;';
+                '${typeString}get $accessorName => $proxiedMapName[$keyConstantName];  '
+                'set $accessorName(${typeString}value) => $proxiedMapName[$keyConstantName] = value;';
 
             transformedFile.replace(
                 sourceFile.span(variable.firstTokenAfterCommentAndMetadata.offset, variable.name.end),
@@ -440,18 +440,18 @@ class ImplGenerator {
       keyConstantsImpl = '';
     } else {
       keyConstantsImpl =
-        'static const String ' +
-        keyConstants.keys.map((keyName) => '$keyName = ${keyConstants[keyName]}').join(', ') +
-        '; ';
+          'static const String ' +
+          keyConstants.keys.map((keyName) => '$keyName = ${keyConstants[keyName]}').join(', ') +
+          '; ';
     }
 
     if (constants.keys.isEmpty) {
       constantsImpl = '';
     } else {
       constantsImpl =
-        'static const $constConstructorName ' +
-        constants.keys.map((constantName) => '$constantName = ${constants[constantName]}').join(', ') +
-        '; ';
+          'static const $constConstructorName ' +
+          constants.keys.map((constantName) => '$constantName = ${constants[constantName]}').join(', ') +
+          '; ';
     }
 
     String keyListImpl =
