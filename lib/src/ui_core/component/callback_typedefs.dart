@@ -22,6 +22,8 @@ typedef NativeKeyboardEventCallback(KeyboardEvent event);
 typedef DateSelectCallback<TEvent extends react.SyntheticEvent>(TEvent event, DateTime date);
 typedef EventKeyCallback(react.SyntheticEvent event, Object eventKey);
 typedef EventKeyIndexCallback(react.SyntheticEvent event, Object eventKey, int index);
+@deprecated
+/// Use [EventKeyCallback] instead.
 typedef EventValueCallback(react.SyntheticEvent event, String value);
 typedef IndexCallback(react.SyntheticEvent event, int index);
 
