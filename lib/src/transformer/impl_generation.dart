@@ -389,8 +389,8 @@ class ImplGenerator {
             annotations.Required requiredMeta = instantiateAnnotation(field, annotations.Required);
 
             bool isRequired = requiredMeta != null;
-            bool isNullable = requiredMeta?.isNullable ?? false;
-            String errorMessage = stringLiteral(requiredMeta?.message ?? '');
+            bool isNullable = isRequired && requiredMeta.isNullable;
+            bool hasErrorMessage = isRequired && requiredMeta.message != null && requiredMeta.message.isNotEmpty;
 
             String individualKeyNamespace = accessorMeta?.keyNamespace ?? keyNamespace;
             String individualKey = accessorMeta?.key ?? accessorName;
@@ -399,9 +399,16 @@ class ImplGenerator {
             String keyValue = stringLiteral(individualKeyNamespace + individualKey);
 
             String constantName = '${generatedPrefix}prop__$accessorName';
-            String constantValue =
-                'const $constConstructorName($keyConstantName, isRequired: $isRequired, '
-                'isNullable: $isNullable, errorMessage: $errorMessage)';
+            String constantValue = 'const $constConstructorName($keyConstantName';
+
+            if (isRequired) {
+              constantValue += ', isRequired: true';
+
+              if (isNullable) constantValue += ', isNullable: true';
+              if (hasErrorMessage) constantValue += ', errorMessage: ${stringLiteral(requiredMeta.message)}';
+            }
+
+            constantValue += ')';
 
             keyConstants[keyConstantName] = keyValue;
             constants[constantName] = constantValue;
