@@ -95,7 +95,7 @@ Map getJsProps(/* ReactElement|ReactComponent */ instance) {
 Map getProps(/* ReactElement|ReactComponent */ instance) {
   if (isValidElement(instance) || _isCompositeComponent(instance)) {
     var propsMap = isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
-    return new WarnOnModifyProps(propsMap);
+    return new Map.unmodifiable(propsMap);
   }
 
   throw new ArgumentError.value(instance, 'instance', 'must be a valid ReactElement or composite ReactComponent');
