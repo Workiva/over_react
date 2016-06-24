@@ -104,11 +104,8 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   }
 
   void validateRequiredProps(Map appliedProps) {
-    if (consumedProps == null) return;
-
-    consumedProps.forEach((ConsumedProps consumedProps) {
-      consumedProps.props
-          .forEach((PropDescriptor prop) {
+    consumedProps?.forEach((ConsumedProps consumedProps) {
+      consumedProps.props.forEach((PropDescriptor prop) {
             if (!prop.isRequired) return;
             if (prop.isNullable && appliedProps.containsKey(prop.key)) return;
             if (!prop.isNullable && appliedProps[prop.key] != null) return;
