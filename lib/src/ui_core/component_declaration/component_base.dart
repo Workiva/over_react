@@ -83,7 +83,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   @override
   _RefTypedef get ref => super.ref;
 
-  /// The [Prop]s for the non-forwarding props defined in this component.
+  /// The props for the non-forwarding props defined in this component.
   Iterable<ConsumedProps> get consumedProps => null;
 
   /// Returns a copy of this component's props with [consumedPropKeys] omitted.
@@ -438,17 +438,31 @@ class PropDescriptor {
 
 /// Provides a representation of a single `state`.
 class StateDescriptor {
+  /// The string key associated with the `state`.
   final String key;
+  /// Whether the `state` is required to be set.
+  ///
+  /// __Currently not used.__
   final bool isRequired;
+  /// Whether setting the `state` to `null` is valid.
+  ///
+  /// __Currently not used.__
   final bool isNullable;
+  /// The message included in the thrown error if the `state` is not set.
+  ///
+  /// __Currently not used.__
   final String errorMessage;
 
   const StateDescriptor(this.key, {this.isRequired: false, this.isNullable: false, this.errorMessage});
 }
 
-/// Provides a list of [PropIml] and a top-level list of their keys, for easy access.
+/// Provides a list of [PropDescriptor] and a top-level list of their keys, for easy access.
 class ConsumedProps {
+  /// Rich views of props.
+  ///
+  /// This includes string keys, and required prop validation related fields.
   final List<PropDescriptor> props;
+  /// Top-level acessor of string keys of props stored in [props].
   final List<String> keys;
 
   const ConsumedProps(this.props, this.keys);
