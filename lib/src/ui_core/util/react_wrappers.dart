@@ -1,14 +1,15 @@
 @JS()
 library ui_core.react_wrappers;
 
+import 'dart:collection';
 import 'dart:html';
 
 import 'package:js/js.dart';
 import 'package:react/react.dart' as react;
-import 'package:react/react_dom.dart' as react_dom;
 import 'package:react/react_client.dart';
-import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_client/js_interop_helpers.dart';
+import 'package:react/react_client/react_interop.dart';
+import 'package:react/react_dom.dart' as react_dom;
 
 // Notes
 // ---------------------------------------------------------------------------
@@ -85,16 +86,16 @@ Map getJsProps(/* ReactElement|ReactComponent */ instance) {
   return props;
 }
 
-/// Returns an unmodifiable Map of props for a [ReactElement] or composite [ReactComponent] [instance].
+/// Returns an unmodifiable Map view of props for a [ReactElement] or composite [ReactComponent] [instance].
 ///
-/// For a native Dart component, this returns its [react.Component.props] in an unmodifiable Map.
-/// For a JS component, this returns the result of [getJsProps] in an unmodifiable Map.
+/// For a native Dart component, this returns its [react.Component.props] in an unmodifiable Map view.
+/// For a JS component, this returns the result of [getJsProps] in an unmodifiable Map view.
 ///
 /// Throws if [instance] is not a valid [ReactElement] or composite [ReactComponent] .
 Map getProps(/* ReactElement|ReactComponent */ instance) {
   if (isValidElement(instance) || _isCompositeComponent(instance)) {
     var propsMap = isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
-    return new Map.unmodifiable(propsMap);
+    return new UnmodifiableMapView(propsMap);
   }
 
   throw new ArgumentError.value(instance, 'instance', 'must be a valid ReactElement or composite ReactComponent');
