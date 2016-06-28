@@ -91,6 +91,18 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
       });
     }
 
+    // Replace static $Props instantiations with props
+    if (new RegExp(r'\$Props').hasMatch(primaryInputContents)) {
+      var propKeysPattern = new RegExp(r'(?:const|new)\s+\$Props\s*\(\s*([\$A-Za-z0-9_\.]+)\s*\)');
+      propKeysPattern.allMatches(sourceFile.getText(0)).forEach((match) {
+        var symbolName = match.group(1);
+
+        var replacement = '$symbolName.${ImplGenerator.staticConsumedPropsName} /* GENERATED from \$Props usage */';
+
+        transformedFile.replace(sourceFile.span(match.start, match.end), replacement);
+      });
+    }
+
     if (transformedFile.isModified) {
       // Output the transformed source.
       transform.addOutput(new Asset.fromString(transform.primaryInput.id, transformedFile.getTransformedText()));

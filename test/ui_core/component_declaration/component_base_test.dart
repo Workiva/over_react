@@ -399,9 +399,9 @@ main() {
       });
 
       group('copyUnconsumedProps()', () {
-        test('copies props, omitting keys from `consumedPropKeys`, as well as reserved react props', () {
-          component = new TestComponentComponent(testConsumedPropKeys: [
-            ['consumed1', 'consumed2']
+        test('copies props, omitting keys from `consumedProps`, as well as reserved react props', () {
+          component = new TestComponentComponent(testConsumedProps: [
+            const ConsumedProps(const [], const ['consumed1', 'consumed2'])
           ]);
 
           component.props = {
@@ -420,8 +420,8 @@ main() {
           }));
         });
 
-        test('copies all props when `consumedPropKeys` is null', () {
-          component = new TestComponentComponent(testConsumedPropKeys: null);
+        test('copies all props when `consumedProps` is null', () {
+          component = new TestComponentComponent(testConsumedProps: null);
 
           component.props = {
             'prop1': true,
@@ -612,9 +612,9 @@ class TestComponentProps extends UiProps {
 ReactComponentFactory _TestComponentComponentFactory = registerComponent(() => new TestComponentComponent());
 class TestComponentComponent extends UiComponent<TestComponentProps> {
   @override
-  final List<List<String>> consumedPropKeys;
+  final List<ConsumedProps> consumedProps;
 
-  TestComponentComponent({testConsumedPropKeys}) : consumedPropKeys = testConsumedPropKeys;
+  TestComponentComponent({testConsumedProps}) : consumedProps = testConsumedProps;
 
   @override
   render() => false;

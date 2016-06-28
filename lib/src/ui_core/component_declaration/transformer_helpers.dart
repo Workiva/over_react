@@ -32,6 +32,25 @@ class $PropKeys implements List<String> {
   }
 }
 
+/// Placeholder helper class that allows for accessing lists of props
+/// in a static yet unsafe way.
+///
+/// __For advanced usage only.__
+@proxy
+class $Props implements component_base.ConsumedProps {
+  /// A placeholder that gets swapped out by the `web_skin_dart` transformer
+  /// with the prop keys defined in [propsClass].
+  const $Props(Type propsClass);
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) {
+    throw new UngeneratedError(
+        message: r'The $Props class should not be used at runtime, '
+                 r'but should be replaced with a list via the transformer.'
+    );
+  }
+}
+
 // ----------------------------------------------------------------------
 //   Base classes to be used by pre-generated code that stub out
 //   to-be-generated members.
@@ -73,16 +92,16 @@ abstract class UiComponent<TProps extends UiProps> extends component_base.UiComp
   @override
   _RefTypedef get ref => super.ref;
 
-  /// The default consumed prop keys, taken from the keys generated in the associated @[Props] class.
+  /// The default consumed props, taken from the keys generated in the associated @[Props] class.
   @toBeGenerated
-  Iterable<Iterable<String>> get $defaultConsumedPropKeys => throw new UngeneratedError(member: #$defaultConsumedPropKeys);
+  Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
 
   /// The keys for the non-forwarding props defined in this component.
   ///
   /// For generated components, this defaults to the keys generated in the associated @[Props] class
   /// if this getter is not overridden.
   @override
-  Iterable<Iterable<String>> get consumedPropKeys => $defaultConsumedPropKeys;
+  Iterable<component_base.ConsumedProps> get consumedProps => $defaultConsumedProps;
 
   /// Returns a typed props object backed by the specified [propsMap].
   /// Required to properly instantiate the generic [TProps] class.
@@ -114,14 +133,14 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 
   /// The default consumed prop keys, taken from the keys generated in the associated @[Props] class.
   @toBeGenerated
-  Iterable<Iterable<String>> get $defaultConsumedPropKeys => throw new UngeneratedError(member: #$defaultConsumedPropKeys);
+  Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
 
   /// The keys for the non-forwarding props defined in this component.
   ///
   /// For generated components, this defaults to the keys generated in the associated @[Props] class
   /// if this getter is not overridden.
   @override
-  Iterable<Iterable<String>> get consumedPropKeys => $defaultConsumedPropKeys;
+  Iterable<component_base.ConsumedProps> get consumedProps => $defaultConsumedProps;
 
   /// Returns a typed props object backed by the specified [propsMap].
   /// Required to properly instantiate the generic [TProps] class.
