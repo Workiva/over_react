@@ -11,7 +11,8 @@ import 'package:web_skin_dart/ui_core.dart' show
     getPropsToForward,
     DummyComponent,
     ValidationUtil,
-    unindent;
+    unindent,
+    PropError;
 
 export 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart' show isComponentOfType, isValidElementOfType;
 
@@ -82,11 +83,13 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   @override
   _RefTypedef get ref => super.ref;
 
-  /// The keys for the non-forwarding props defined in this component.
-  Iterable<Iterable<String>> get consumedPropKeys => null;
+  /// The props for the non-forwarding props defined in this component.
+  Iterable<ConsumedProps> get consumedProps => null;
 
   /// Returns a copy of this component's props with [consumedPropKeys] omitted.
   Map copyUnconsumedProps() {
+    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
+
     return copyProps(keySetsToOmit: consumedPropKeys);
   }
 
@@ -100,12 +103,34 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
     );
   }
 
+  void validateRequiredProps(Map appliedProps) {
+    consumedProps?.forEach((ConsumedProps consumedProps) {
+      consumedProps.props.forEach((PropDescriptor prop) {
+            if (!prop.isRequired) return;
+            if (prop.isNullable && appliedProps.containsKey(prop.key)) return;
+            if (!prop.isNullable && appliedProps[prop.key] != null) return;
+
+            throw new PropError.requried(prop.key, prop.errorMessage);
+          });
+    });
+  }
+
   /// Returns a new ClassNameBuilder with className and blacklist values added from [CssClassProps.className] and
   /// [CssClassProps.classNameBlackList], if they are specified.
   ///
   /// This method should be used as the basis for the classNames of components receiving forwarded props.
   ClassNameBuilder forwardingClassNameBuilder() {
     return new ClassNameBuilder.fromProps(this.props);
+  }
+
+  @override
+  void componentWillReceiveProps(Map newProps) {
+    validateRequiredProps(newProps);
+  }
+
+  @override
+  void componentWillMount() {
+    validateRequiredProps(props);
   }
 
 
@@ -393,4 +418,50 @@ abstract class MapViewMixin<K, V> {
   Iterable<K> get keys => _map.keys;
   V remove(Object key) => _map.remove(key);
   Iterable<V> get values => _map.values;
+}
+
+/// Provides a representation of a single `prop`.
+class PropDescriptor {
+  /// The string key associated with the `prop`.
+  final String key;
+  /// Whether the `prop` is required to be set.
+  final bool isRequired;
+  /// Whether setting the `prop` to `null` is valid.
+  final bool isNullable;
+  /// The message included in the thrown [PropError] if the `prop` is not set.
+  final String errorMessage;
+
+  const PropDescriptor(this.key, {this.isRequired: false, this.isNullable: false, this.errorMessage});
+}
+
+/// Provides a representation of a single `state`.
+class StateDescriptor {
+  /// The string key associated with the `state`.
+  final String key;
+  /// Whether the `state` is required to be set.
+  ///
+  /// __Currently not used.__
+  final bool isRequired;
+  /// Whether setting the `state` to `null` is valid.
+  ///
+  /// __Currently not used.__
+  final bool isNullable;
+  /// The message included in the thrown error if the `state` is not set.
+  ///
+  /// __Currently not used.__
+  final String errorMessage;
+
+  const StateDescriptor(this.key, {this.isRequired: false, this.isNullable: false, this.errorMessage});
+}
+
+/// Provides a list of [PropDescriptor] and a top-level list of their keys, for easy access.
+class ConsumedProps {
+  /// Rich views of props.
+  ///
+  /// This includes string keys, and required prop validation related fields.
+  final List<PropDescriptor> props;
+  /// Top-level acessor of string keys of props stored in [props].
+  final List<String> keys;
+
+  const ConsumedProps(this.props, this.keys);
 }

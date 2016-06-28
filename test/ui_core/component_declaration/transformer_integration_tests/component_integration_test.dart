@@ -4,6 +4,8 @@ import 'package:test/test.dart';
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
+import './required_prop_integration_test.dart';
+
 main() {
   group('transformed component integration:', () {
     test('props class cannot be instantiated directly', () {
@@ -104,6 +106,8 @@ main() {
 
       expect(shallowProps.keys.where((String key) => !key.startsWith('data-prop-')), unorderedEquals(['extraneous', 'children']));
     });
+
+    requiredPropsIntegrationTest();
   });
 }
 
