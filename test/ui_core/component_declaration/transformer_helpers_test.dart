@@ -69,8 +69,8 @@ main() {
           unimplemented = new UnimplementedUiComponent();
         });
 
-        test('\$defaultConsumedPropKeys', () {expect(() => unimplemented.$defaultConsumedPropKeys, throwsUngeneratedError);});
-        test('typedPropsFactory',         () {expect(() => unimplemented.typedPropsFactory({}),    throwsUngeneratedError);});
+        test('\$defaultConsumedProps', () {expect(() => unimplemented.$defaultConsumedProps, throwsUngeneratedError);});
+        test('typedPropsFactory',      () {expect(() => unimplemented.typedPropsFactory({}), throwsUngeneratedError);});
       });
     });
 
@@ -106,21 +106,21 @@ main() {
           unimplemented = new UnimplementedUiStatefulComponent();
         });
 
-        test('\$defaultConsumedPropKeys', () {expect(() => unimplemented.$defaultConsumedPropKeys, throwsUngeneratedError);});
-        test('typedPropsFactory',         () {expect(() => unimplemented.typedPropsFactory({}),    throwsUngeneratedError);});
-        test('typedStateFactory',         () {expect(() => unimplemented.typedStateFactory({}),    throwsUngeneratedError);});
+        test('\$defaultConsumedProps', () {expect(() => unimplemented.$defaultConsumedProps, throwsUngeneratedError);});
+        test('typedPropsFactory',      () {expect(() => unimplemented.typedPropsFactory({}), throwsUngeneratedError);});
+        test('typedStateFactory',      () {expect(() => unimplemented.typedStateFactory({}), throwsUngeneratedError);});
       });
     });
 
-    group('consumedPropKeys getter proxies \$defaultConsumedPropKeys', () {
+    group('consumedProps getter proxies \$defaultConsumedProps', () {
       test('in UiComponent', () {
         var component = new TestConsumedPropKeysUiComponent();
-        expect(component.consumedPropKeys, equals([['prop1', 'prop2']]));
+        expect(component.consumedProps, equals([const ConsumedProps(const [], const ['prop1', 'prop2'])]));
       });
 
       test('in UiStatefulComponent', () {
         var component = new TestConsumedPropKeysUiStatefulComponent();
-        expect(component.consumedPropKeys, equals([['prop1', 'prop2']]));
+        expect(component.consumedProps, equals([const ConsumedProps(const [], const ['prop1', 'prop2'])]));
       });
     });
 
@@ -145,6 +145,30 @@ main() {
       group('throws errors when List members are invoked:', () {
         test('isEmpty', () {expect(() => stub.isEmpty,             throwsUngeneratedError);});
         test('forEach', () {expect(() => stub.forEach((value) {}), throwsUngeneratedError);});
+      });
+    });
+
+    group('\$Props (ungenerated)', () {
+      setUpAll(() {
+        expect(() => const $Props(Null), isNot(throwsNoSuchMethodError),
+            reason: 'Instanitating a const \$Props should not have thrown an error. '
+                    'Ensure that the web_skin_dart transformer is NOT running for this test file.'
+        );
+      });
+
+      $Props stub;
+
+      setUp(() {
+         stub = const $Props(Null);
+      });
+
+      test('implements ConsumedProps', () {
+        expect(stub, const isInstanceOf<ConsumedProps>());
+      });
+
+      group('throws errors when ConsumedProps members are invoked:', () {
+        test('keys',  () {expect(() => stub.keys,  throwsUngeneratedError);});
+        test('props', () {expect(() => stub.props, throwsUngeneratedError);});
       });
     });
   });
@@ -202,7 +226,7 @@ class TestConsumedPropKeysUiComponent extends UiComponent {
   bool get $isClassGenerated => true;
 
   @override
-  get $defaultConsumedPropKeys => [['prop1', 'prop2']];
+  get $defaultConsumedProps => [const ConsumedProps(const [], const ['prop1', 'prop2'])];
 
   @override
   render() {}
@@ -214,7 +238,7 @@ class TestConsumedPropKeysUiStatefulComponent extends UiStatefulComponent {
   bool get $isClassGenerated => true;
 
   @override
-  get $defaultConsumedPropKeys => [['prop1', 'prop2']];
+  get $defaultConsumedProps => [const ConsumedProps(const [], const ['prop1', 'prop2'])];
 
   @override
   render() {}
