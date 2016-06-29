@@ -42,6 +42,13 @@ class ResizeSensorProps extends UiProps {
 
 @Component()
 class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
+  // Refs
+
+  Element _expandSensorChildRef;
+  Element _expandSensorRef;
+  Element _collapseSensorChildRef;
+  Element _collapseSensorRef;
+
   @override
   Map getDefaultProps() => (newProps()
     ..isFlexChild = false
@@ -61,7 +68,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
   @override
   render() {
     var expandSensorChild = (Dom.div()
-      ..ref = 'expandSensorChild'
+      ..ref = (ref) { _expandSensorChildRef = ref; }
       ..style = _expandSensorChildStyle
     )();
 
@@ -69,12 +76,12 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
       ..className = 'resize-sensor-expand'
       ..onScroll = _handleSensorScroll
       ..style = _baseStyle
-      ..ref = 'expandSensor'
+      ..ref = (ref) { _expandSensorRef = ref; }
       ..key = 'expandSensor'
     )(expandSensorChild);
 
     var collapseSensorChild = (Dom.div()
-      ..ref = 'collapseSensorChild'
+      ..ref = (ref) { _collapseSensorChildRef = ref; }
       ..style = _collapseSensorChildStyle
     )();
 
@@ -82,7 +89,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
       ..className = 'resize-sensor-collapse'
       ..onScroll = _handleSensorScroll
       ..style = _baseStyle
-      ..ref = 'collapseSensor'
+      ..ref = (ref) { _collapseSensorRef = ref; }
       ..key = 'collapseSensor'
     )(collapseSensorChild);
 
@@ -158,9 +165,9 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
   ///
   /// Additionally update the state with the new [_lastWidth] and [_lastHeight].
   void _reset() {
-    Element expand = findDomNode(ref('expandSensor'));
-    Element expandChild = findDomNode(ref('expandSensorChild'));
-    Element collapse = findDomNode(ref('collapseSensor'));
+    Element expand = _expandSensorRef;
+    Element expandChild = _expandSensorChildRef;
+    Element collapse = _collapseSensorRef;
     Element sensor = findDomNode(this);
 
     expandChild.style.width = '${expand.offsetWidth + 10}px';
