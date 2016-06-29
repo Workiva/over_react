@@ -110,7 +110,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
             if (prop.isNullable && appliedProps.containsKey(prop.key)) return;
             if (!prop.isNullable && appliedProps[prop.key] != null) return;
 
-            throw new PropError.requried(prop.key, prop.errorMessage);
+            throw new PropError.required(prop.key, prop.errorMessage);
           });
     });
   }
