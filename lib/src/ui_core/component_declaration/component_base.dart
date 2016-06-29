@@ -430,7 +430,7 @@ class PropDescriptor {
   /// The message included in the thrown [PropError] if the `prop` is not set.
   final String errorMessage;
 
-  const PropDescriptor(this.key, {this.isRequired: false, this.isNullable: false, this.errorMessage});
+  const PropDescriptor(this.key, {this.isRequired: false, this.isNullable: false, this.errorMessage: ''});
 }
 
 /// Provides a representation of a single `state`.
