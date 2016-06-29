@@ -12,7 +12,7 @@ main() {
     });
 
     test('`required` named constructor throws a PropError with correct message', () {
-      expect(() => throw new PropError.requried('Prop Name', 'Custom Message'),
+      expect(() => throw new PropError.required('Prop Name', 'Custom Message'),
           throwsPropError_Required('Prop Name', 'Custom Message')
       );
     });
