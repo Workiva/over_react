@@ -509,6 +509,14 @@ main() {
         }));
       });
 
+      test('returns props as an unmodifiable map', () {
+        ReactComponent renderedInstance = render(TestComponentFactory({
+          'dartProp': 'dart'
+        }));
+
+        expect(() => getProps(renderedInstance)['style'] = testStyle, throwsUnsupportedError);
+      });
+
       group('throws when passed', () {
         test('a DOM ReactComponent (Element)', () {
           var renderedInstance = render(Dom.div());
