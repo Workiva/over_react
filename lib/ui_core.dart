@@ -32,7 +32,6 @@ export 'src/ui_core/util/react_wrappers.dart';
 export 'src/ui_core/util/string_util.dart';
 export 'src/ui_core/util/test_mode.dart';
 export 'src/ui_core/util/validation_util.dart';
-export 'src/ui_core/util/warn_on_modify_props.dart';
 export 'src/ui_core/component_declaration/flux_component.dart';
 export 'src/ui_core/component_declaration/transformer_helpers.dart';
 
