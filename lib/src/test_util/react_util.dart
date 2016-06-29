@@ -157,16 +157,18 @@ final _EventSimulatorAlias keyPress = react_test_utils.Simulate.keyPress;
 
 /// Helper function to simulate mouseEnter events.
 final _EventSimulatorAlias mouseEnter = (componentOrNode, [Map eventData = const {}]) =>
-    Simulate.mouseEnter(componentOrNode, jsify(eventData));
+    Simulate._mouseEnter(componentOrNode, jsify(eventData));
 
 /// Helper function to simulate mouseLeave events.
 final _EventSimulatorAlias mouseLeave = (componentOrNode, [Map eventData = const {}]) =>
-    Simulate.mouseLeave(componentOrNode, jsify(eventData));
+    Simulate._mouseLeave(componentOrNode, jsify(eventData));
 
 @JS('React.addons.TestUtils.Simulate')
 abstract class Simulate {
-  external static void mouseEnter(dynamic target, [eventData]);
-  external static void mouseLeave(dynamic target, [eventData]);
+  @JS('mouseEnter')
+  external static void _mouseEnter(dynamic target, [eventData]);
+  @JS('mouseLeave')
+  external static void _mouseLeave(dynamic target, [eventData]);
 }
 
 /// Returns whether [props] contains [key] with a value set to a space-delimited string containing [value].
