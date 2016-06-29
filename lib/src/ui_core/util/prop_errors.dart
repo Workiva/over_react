@@ -63,7 +63,7 @@ class PropError extends Error {
       _messagePrefix = defaultPrefix;
 
   /// Create a new [PropError] that signifies the given [propName] is required to be set.
-  PropError.requried(this.propName, [this.message = ''])
+  PropError.required(this.propName, [this.message = ''])
     : invalidValue = null,
       prop2Name = null,
       _messagePrefix = requiredPrefix;
