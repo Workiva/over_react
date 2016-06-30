@@ -13,12 +13,17 @@ double _computeRootFontSize() {
 
 double _rootFontSize = _computeRootFontSize();
 
+var _changeSensor;
 void _initRemChangeSensor() {
+  if (_changeSensor != null) return;
+  // Force lazy-initialization of this variable if it hasn't happened already.
+  _rootFontSize;
+
   var mountNode = new DivElement()
     ..id = 'rem_change_sensor';
   document.body.append(mountNode);
 
-  react_dom.render((Dom.div()
+  _changeSensor = react_dom.render((Dom.div()
     ..style = const {
       'position': 'absolute',
       'visibility': 'hidden',
