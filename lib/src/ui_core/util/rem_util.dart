@@ -1,3 +1,4 @@
+/// Utilities for working with CSS `rem` units and detecting changes to the root font size.
 library web_skin_dart.ui_core.rem_util;
 
 import 'dart:async';
@@ -43,10 +44,15 @@ final StreamController<double> _remChange = new StreamController.broadcast(onLis
   _initRemChangeSensor();
 });
 
+/// The latest component root font size (rem) value, in pixels.
 double get rootFontSize => _rootFontSize;
 
+/// A Stream of changes to the root font size (rem) value.
+///
+/// Stream data is the latest value, in pixels.
 final Stream<double> onRemChange = _remChange.stream;
 
+/// Forces re-computation of the root font size. Not necessary when using [onRemChange].
 void recomputeRootFontSize() {
   var latestRootFontSize = _computeRootFontSize();
 
@@ -56,6 +62,17 @@ void recomputeRootFontSize() {
   }
 }
 
+/// Converts a pixel (`px`) value to its `rem` equivalent using the current root font size.
+///
+/// Example input:
+///
+/// * `'15px'`
+/// * `'15'`
+/// * 15
+///
+/// Example output (assuming 1rem = 10px):
+///
+/// * `'1.5rem'`
 String toRem(dynamic pxValue) {
   num pxValueNum;
 
@@ -73,6 +90,17 @@ String toRem(dynamic pxValue) {
   return new CssValue(pxValueNum / rootFontSize, 'rem').toString();
 }
 
+/// Converts a rem value to its pixel (`px`) equivalent using the current root font size.
+///
+/// Example input:
+///
+/// * `'1.5rem'`
+/// * `'1.5'`
+/// * 1.5
+///
+/// Example output (assuming 1rem = 10px):
+///
+/// * `'15px'`
 String toPx(dynamic remValue) {
   num remValueNum;
 
