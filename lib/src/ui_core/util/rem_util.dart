@@ -65,7 +65,10 @@ String toRem(dynamic pxValue) {
     pxValueNum = pxValue;
   } else {
     var parsedPxValue = new CssValue.parse(pxValue);
-    if (parsedPxValue.unit != 'px') throw new ArgumentError();
+    if (parsedPxValue?.unit != 'px') {
+      throw new ArgumentError.value(pxValue, 'pxValue', 'must be a num or a String px value');
+    }
+
     pxValueNum = parsedPxValue.number;
   }
 
@@ -79,7 +82,10 @@ String toPx(dynamic remValue) {
     remValueNum = remValue;
   } else {
     var parsedPxValue = new CssValue.parse(remValue);
-    if (parsedPxValue.unit != 'rem') throw new ArgumentError();
+    if (parsedPxValue?.unit != 'rem') {
+      throw new ArgumentError.value(remValue, 'remValue', 'must be a num or a String rem value');
+    }
+
     remValueNum = parsedPxValue.number;
   }
 
