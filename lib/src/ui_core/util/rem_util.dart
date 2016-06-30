@@ -47,15 +47,13 @@ double get rootFontSize => _rootFontSize;
 
 final Stream<double> onRemChange = _remChange.stream;
 
-double recomputeRootFontSize() {
+void recomputeRootFontSize() {
   var latestRootFontSize = _computeRootFontSize();
 
   if (latestRootFontSize != _rootFontSize) {
     _rootFontSize = latestRootFontSize;
     _remChange.add(_rootFontSize);
   }
-
-  return _rootFontSize;
 }
 
 String toRem(dynamic pxValue) {
