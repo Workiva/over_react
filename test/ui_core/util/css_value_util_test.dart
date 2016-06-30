@@ -218,6 +218,20 @@ main() {
           expect(-(val1.number), equals(-123));
         });
       });
+
+      group('toString', () {
+        test('returns the number without unnecessary decimals', () {
+          expect(new CssValue(123).toString(), '123px');
+        });
+
+        test('returns the number with decimals if necessary', () {
+          expect(new CssValue(1.23).toString(), '1.23px');
+        });
+
+        test('doesn\'t add a unit to zero', () {
+          expect(new CssValue(0).toString(), '0');
+        });
+      });
     });
   });
 }
