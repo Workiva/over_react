@@ -1,13 +1,12 @@
 library rem_util_test;
 
-import 'package:test/test.dart';
-import 'package:web_skin_dart/test_util.dart';
-import 'package:web_skin_dart/ui_components.dart';
-import 'package:web_skin_dart/ui_core.dart';
 import 'dart:html';
-import 'package:web_skin_dart/src/ui_core/util/rem_util.dart';
 
-/// Main entry point for RemUtil testing
+import 'package:test/test.dart';
+import 'package:web_skin_dart/src/ui_core/util/rem_util.dart';
+import 'package:web_skin_dart/test_util.dart';
+
+/// Main entry point for rem_util testing
 main() {
   group('rem_util', () {
     void setRootFontSize(String value) {
@@ -103,6 +102,77 @@ main() {
             throwsA(hasToStringValue(contains('must be a num or a String rem value'))))
         );
       });
+    });
+
+    group('onRemChange', () {
+      tearDown(() {
+        unsetRootFontSize();
+      });
+
+      test('initializes the sensor when the first listener is added and '
+          'correctly dispatches an event in resopnse to the first change', () async {
+        expect(querySelector('#rem_change_sensor'), isNull);
+
+        var calls = [];
+        var listener = onRemChange.listen(calls.add);
+
+        expect(querySelector('#rem_change_sensor'), isNotNull);
+        expect(calls, isEmpty);
+
+        var nextChange = onRemChange.first;
+        setRootFontSize('17px');
+
+        await nextChange;
+
+        expect(calls, [17]);
+
+        listener.cancel();
+      });
+
+      test('does not dispatch duplicate events when there are multiple listeners', () async {
+        var calls = [];
+
+        var listener1 = onRemChange.listen((_) {});
+        var listener2 = onRemChange.listen(calls.add);
+
+        var nextChange = onRemChange.first;
+        setRootFontSize('17px');
+
+        await nextChange;
+
+        expect(calls, hasLength(1));
+
+        listener1.cancel();
+        listener2.cancel();
+      });
+
+      test('does not dispatch events when recomputeRootFontSize is called and there is no change', () async {
+        var calls = [];
+        var listener = onRemChange.listen(calls.add);
+
+        recomputeRootFontSize();
+
+        var nextChange = onRemChange.first;
+        setRootFontSize('17px');
+
+        await nextChange;
+
+        expect(calls, [17]);
+
+        listener.cancel();
+      });
+    });
+
+    test('rootFontSize returns the latest root font size computed', () async {
+      setRootFontSize('15px');
+      await onRemChange.first;
+
+      expect(rootFontSize, 15);
+
+      setRootFontSize('16px');
+      await onRemChange.first;
+
+      expect(rootFontSize, 16);
     });
   });
 }
