@@ -28,12 +28,12 @@ main() {
         bool calledA = false, calledB = false;
         Function a = (event) {
           calledA = true;
-          zonedExpect(counter, equals(1));
+          expect(counter, equals(1));
           counter++;
         };
         Function b = (event) {
           calledB = true;
-          zonedExpect(counter, equals(2));
+          expect(counter, equals(2));
         };
 
         var chainedCallback = creator(a, b);
@@ -221,12 +221,12 @@ main() {
             calledB = false;
           TargetKeyCallback a = (event, key) {
             calledA = true;
-            zonedExpect(counter, equals(1));
+            expect(counter, equals(1));
             counter++;
           };
           TargetKeyCallback b = (event, key) {
             calledB = true;
-            zonedExpect(counter, equals(2));
+            expect(counter, equals(2));
           };
 
           var chainedCallback = createChainedTargetKeyCallback(a, b);
@@ -353,12 +353,12 @@ main() {
             calledB = false;
           TargetKeyIndexCallback a = (event, key, index) {
             calledA = true;
-            zonedExpect(counter, equals(1));
+            expect(counter, equals(1));
             counter++;
           };
           TargetKeyIndexCallback b = (event, key, index) {
             calledB = true;
-            zonedExpect(counter, equals(2));
+            expect(counter, equals(2));
           };
 
           var chainedCallback = createChainedTargetKeyIndexCallback(a, b);
@@ -634,12 +634,12 @@ main() {
             calledB = false;
           IndexCallback a = (event, index) {
             calledA = true;
-            zonedExpect(counter, equals(1));
+            expect(counter, equals(1));
             counter++;
           };
           IndexCallback b = (event, index) {
             calledB = true;
-            zonedExpect(counter, equals(2));
+            expect(counter, equals(2));
           };
 
           var chainedCallback = createChainedIndexCallback(a, b);
@@ -764,12 +764,12 @@ main() {
           bool calledA = false, calledB = false;
           FocusDidChangeCallback a = (current, prev) {
             calledA = true;
-            zonedExpect(counter, equals(1));
+            expect(counter, equals(1));
             counter++;
           };
           FocusDidChangeCallback b = (current, prev) {
             calledB = true;
-            zonedExpect(counter, equals(2));
+            expect(counter, equals(2));
           };
 
           var chainedCallback = createChainedFocusDidChangeCallback(a, b);
@@ -897,12 +897,12 @@ main() {
           bool calledA = false, calledB = false;
           Callback a = () {
             calledA = true;
-            zonedExpect(counter, equals(1));
+            expect(counter, equals(1));
             counter++;
           };
           Callback b = () {
             calledB = true;
-            zonedExpect(counter, equals(2));
+            expect(counter, equals(2));
           };
 
           var chainedCallback = createChainedCallback(a, b);
