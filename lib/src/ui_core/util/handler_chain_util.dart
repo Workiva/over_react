@@ -184,15 +184,19 @@ typedef Callback3Arg<T1, T2, T3>(T1 arg1, T2 arg2, T3 arg3);
 class Callbacks0Arg extends CallbackHelper<Callback0Arg> {
   const Callbacks0Arg();
 
+  noop() {}
+
   @override
   Callback0Arg chain(Callback0Arg a, Callback0Arg b) {
-    return () {
-      var aDidReturnFalse = a != null ? a() == false : false;
-      var bDidReturnFalse = b != null ? b() == false : false;
+    if (a == null && b == null) return noop;
+    if (a == null) return b;
+    if (b == null) return a;
 
-      if (aDidReturnFalse || bDidReturnFalse) {
-        return false;
-      }
+    return () {
+      var aDidReturnFalse = a() == false;
+      var bDidReturnFalse = b() == false;
+
+      if (aDidReturnFalse || bDidReturnFalse) return false;
     };
   }
 }
@@ -200,15 +204,19 @@ class Callbacks0Arg extends CallbackHelper<Callback0Arg> {
 class Callbacks1Arg<T> extends CallbackHelper<Callback1Arg<T>> {
   const Callbacks1Arg();
 
+  noop(T arg1) {}
+
   @override
   Callback1Arg<T> chain(Callback1Arg<T> a, Callback1Arg<T> b) {
-    return (T arg1) {
-      var aDidReturnFalse = a != null ? a(arg1) == false : false;
-      var bDidReturnFalse = b != null ? b(arg1) == false : false;
+    if (a == null && b == null) return noop;
+    if (a == null) return b;
+    if (b == null) return a;
 
-      if (aDidReturnFalse || bDidReturnFalse) {
-        return false;
-      }
+    return (T arg1) {
+      var aDidReturnFalse = a(arg1) == false;
+      var bDidReturnFalse = b(arg1) == false;
+
+      if (aDidReturnFalse || bDidReturnFalse) return false;
     };
   }
 }
@@ -216,15 +224,19 @@ class Callbacks1Arg<T> extends CallbackHelper<Callback1Arg<T>> {
 class Callbacks2Arg<T1, T2> extends CallbackHelper<Callback2Arg<T1, T2>> {
   const Callbacks2Arg();
 
+  noop(T1 arg1, T2 arg2) {}
+
   @override
   Callback2Arg<T1, T2> chain(Callback2Arg<T1, T2> a, Callback2Arg<T1, T2> b) {
-    return (T1 arg1, T2 arg2) {
-      var aDidReturnFalse = a != null ? a(arg1, arg2) == false : false;
-      var bDidReturnFalse = b != null ? b(arg1, arg2) == false : false;
+    if (a == null && b == null) return noop;
+    if (a == null) return b;
+    if (b == null) return a;
 
-      if (aDidReturnFalse || bDidReturnFalse) {
-        return false;
-      }
+    return (T1 arg1, T2 arg2) {
+      var aDidReturnFalse = a(arg1, arg2) == false;
+      var bDidReturnFalse = b(arg1, arg2) == false;
+
+      if (aDidReturnFalse || bDidReturnFalse) return false;
     };
   }
 }
@@ -232,15 +244,19 @@ class Callbacks2Arg<T1, T2> extends CallbackHelper<Callback2Arg<T1, T2>> {
 class Callbacks3Arg<T1, T2, T3> extends CallbackHelper<Callback3Arg<T1, T2, T3>> {
   const Callbacks3Arg();
 
+  noop(T1 arg1, T2 arg2, T3 arg3) {}
+
   @override
   Callback3Arg<T1, T2, T3> chain(Callback3Arg<T1, T2, T3> a, Callback3Arg<T1, T2, T3> b) {
-    return (T1 arg1, T2 arg2, T3 arg3) {
-      var aDidReturnFalse = a != null ? a(arg1, arg2, arg3) == false : false;
-      var bDidReturnFalse = b != null ? b(arg1, arg2, arg3) == false : false;
+    if (a == null && b == null) return noop;
+    if (a == null) return b;
+    if (b == null) return a;
 
-      if (aDidReturnFalse || bDidReturnFalse) {
-        return false;
-      }
+    return (T1 arg1, T2 arg2, T3 arg3) {
+      var aDidReturnFalse = a(arg1, arg2, arg3) == false;
+      var bDidReturnFalse = b(arg1, arg2, arg3) == false;
+
+      if (aDidReturnFalse || bDidReturnFalse) return false;
     };
   }
 }
