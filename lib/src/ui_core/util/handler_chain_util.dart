@@ -60,6 +60,9 @@ final Callbacks2Arg<int, int> focusDidChangeCallbacks                    = const
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
+///
+/// Deprecated: use [targetKeyCallbacks] instead.
+@deprecated
 TargetKeyCallback createChainedTargetKeyCallback(TargetKeyCallback a, TargetKeyCallback b) =>
     targetKeyCallbacks.chain(a, b);
 
@@ -68,6 +71,9 @@ TargetKeyCallback createChainedTargetKeyCallback(TargetKeyCallback a, TargetKeyC
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
+///
+/// Deprecated: use [targetKeyIndexCallbacks] instead.
+@deprecated
 TargetKeyIndexCallback createChainedTargetKeyIndexCallback(TargetKeyIndexCallback a, TargetKeyIndexCallback b) =>
     targetKeyIndexCallbacks.chain(a, b);
 
@@ -76,6 +82,9 @@ TargetKeyIndexCallback createChainedTargetKeyIndexCallback(TargetKeyIndexCallbac
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
+///
+/// Deprecated: use [targetKeyCallbacks.chainFromList.
+@deprecated
 TargetKeyCallback createChainedTargetKeyCallbackFromList(List<TargetKeyCallback> callbacks) =>
     targetKeyCallbacks.chainFromList(callbacks);
 
@@ -84,6 +93,9 @@ TargetKeyCallback createChainedTargetKeyCallbackFromList(List<TargetKeyCallback>
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
+///
+/// Deprecated: use [indexCallbacks] instead.
+@deprecated
 IndexCallback createChainedIndexCallback(IndexCallback a, IndexCallback b) =>
     indexCallbacks.chain(a, b);
 
@@ -92,6 +104,9 @@ IndexCallback createChainedIndexCallback(IndexCallback a, IndexCallback b) =>
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
+///
+/// Deprecated: use [domEventCallbacks] instead.
+@deprecated
 DomEventCallback createChainedDomEventCallback(DomEventCallback a, DomEventCallback b) =>
     domEventCallbacks.chain(a, b);
 
@@ -100,6 +115,9 @@ DomEventCallback createChainedDomEventCallback(DomEventCallback a, DomEventCallb
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
+///
+/// Deprecated: use [clipboardEventCallbacks] instead.
+@deprecated
 ClipboardEventCallback createChainedClipboardEventCallback(ClipboardEventCallback a, ClipboardEventCallback b) =>
     clipboardEventCallbacks.chain(a, b);
 
@@ -108,6 +126,9 @@ ClipboardEventCallback createChainedClipboardEventCallback(ClipboardEventCallbac
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
+///
+/// Deprecated: use [keyboardEventCallbacks] instead.
+@deprecated
 KeyboardEventCallback createChainedKeyboardEventCallback(KeyboardEventCallback a, KeyboardEventCallback b) =>
     keyboardEventCallbacks.chain(a, b);
 
@@ -116,6 +137,9 @@ KeyboardEventCallback createChainedKeyboardEventCallback(KeyboardEventCallback a
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
+///
+/// Deprecated: use [focusEventCallbacks] instead.
+@deprecated
 FocusEventCallback createChainedFocusEventCallback(FocusEventCallback a, FocusEventCallback b) =>
     focusEventCallbacks.chain(a, b);
 
@@ -124,6 +148,9 @@ FocusEventCallback createChainedFocusEventCallback(FocusEventCallback a, FocusEv
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
+///
+/// Deprecated: use [formEventCallbacks] instead.
+@deprecated
 FormEventCallback createChainedFormEventCallback(FormEventCallback a, FormEventCallback b) =>
     formEventCallbacks.chain(a, b);
 
@@ -132,6 +159,9 @@ FormEventCallback createChainedFormEventCallback(FormEventCallback a, FormEventC
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
+///
+/// Deprecated: use [mouseEventCallbacks] instead.
+@deprecated
 MouseEventCallback createChainedMouseEventCallback(MouseEventCallback a, MouseEventCallback b) =>
     mouseEventCallbacks.chain(a, b);
 
@@ -140,6 +170,9 @@ MouseEventCallback createChainedMouseEventCallback(MouseEventCallback a, MouseEv
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
+///
+/// Deprecated: use [touchEventCallbacks] instead.
+@deprecated
 TouchEventCallback createChainedTouchEventCallback(TouchEventCallback a, TouchEventCallback b) =>
     touchEventCallbacks.chain(a, b);
 
@@ -148,6 +181,9 @@ TouchEventCallback createChainedTouchEventCallback(TouchEventCallback a, TouchEv
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
+///
+/// Deprecated: use [uIEventCallbacks] instead.
+@deprecated
 UIEventCallback createChainedUIEventCallback(UIEventCallback a, UIEventCallback b) =>
     uIEventCallbacks.chain(a, b);
 
@@ -156,6 +192,9 @@ UIEventCallback createChainedUIEventCallback(UIEventCallback a, UIEventCallback 
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
+///
+/// Deprecated: use [wheelEventCallbacks] instead.
+@deprecated
 WheelEventCallback createChainedWheelEventCallback(WheelEventCallback a, WheelEventCallback b) =>
     wheelEventCallbacks.chain(a, b);
 
@@ -164,6 +203,9 @@ WheelEventCallback createChainedWheelEventCallback(WheelEventCallback a, WheelEv
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
+///
+/// Deprecated: use [focusDidChangeCallbacks] instead.
+@deprecated
 FocusDidChangeCallback createChainedFocusDidChangeCallback(FocusDidChangeCallback a, FocusDidChangeCallback b) =>
     focusDidChangeCallbacks.chain(a, b);
 
@@ -172,6 +214,9 @@ FocusDidChangeCallback createChainedFocusDidChangeCallback(FocusDidChangeCallbac
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
+///
+/// Deprecated: use [callbacks] instead.
+@deprecated
 Callback createChainedCallback(Callback a, Callback b) =>
     callbacks.chain(a, b);
 
