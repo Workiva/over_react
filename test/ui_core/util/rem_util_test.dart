@@ -106,8 +106,10 @@ main() {
     });
 
     group('onRemChange', () {
-      tearDown(() {
+      tearDown(() async {
+        var nextChange = onRemChange.first;
         unsetRootFontSize();
+        await nextChange;
       });
 
       test('initializes the sensor when the first listener is added and '
