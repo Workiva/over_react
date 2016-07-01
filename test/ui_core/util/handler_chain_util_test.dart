@@ -29,8 +29,15 @@ main() {
         return testChainFunction;
       }
 
+      /// Shared tests for [CallbackUtil] subclasses supporting different arities.
+      ///
+      /// Expects callback arguments to be typed to [TestGenericType].
       void sharedTests(CallbackUtil callbackUtil, int arity) {
         List generateArgs() {
+          return new List.generate(arity, (_) => new TestGenericType());
+        }
+
+        List<TestGenericType> generateBadTypeArgs() {
           return new List.generate(arity, (_) => new Object());
         }
 
@@ -114,6 +121,22 @@ main() {
                 expect(Function.apply(chained, generateArgs()), isNull);
               });
             });
+
+            if (arity != 0) {
+              test('has arguments typed to the specified generic parameters', () {
+                var a = createTestChainFunction();
+                var b = createTestChainFunction();
+
+                expect(() => Function.apply(a, generateArgs()), returnsNormally,
+                    reason: 'need to verify that chaining function throws, so the chained functions cannot throw');
+                expect(() => Function.apply(b, generateArgs()), returnsNormally,
+                    reason: 'need to verify that chaining function throws, so the chained functions cannot throw');
+
+                var chained = callbackUtil.chain(a, b);
+
+                expect(() => Function.apply(chained, generateBadTypeArgs()), throws);
+              }, testOn: 'dart-vm');
+            }
           });
         });
 
@@ -197,12 +220,33 @@ main() {
               expect(() => Function.apply(chained, generateArgs()), returnsNormally);
             });
           });
+
+          if (arity != 0) {
+            test('has arguments typed to the specified generic parameters', () {
+              var functions = new List.generate(5, (_) => createTestChainFunction());
+
+              functions.forEach((function) {
+                expect(() => Function.apply(function, generateArgs()), returnsNormally,
+                    reason: 'need to verify that chaining function throws, so the chained functions cannot throw');
+              });
+
+              var chained = callbackUtil.chainFromList(functions);
+
+              expect(() => Function.apply(chained, generateBadTypeArgs()), throws);
+            }, testOn: 'dart-vm');
+          }
         });
 
-        group('noop getter', () {
-          test('returns a function with an arity of $arity', () {
+        group('noop getter returns a function', () {
+          test('with an arity of $arity', () {
             expect(() => Function.apply(callbackUtil.noop, generateArgs()), returnsNormally);
           });
+
+          if (arity != 0) {
+            test('with arguments typed to the specified generic parameters', () {
+              expect(() => Function.apply(callbackUtil.noop, generateBadTypeArgs()), throws);
+            }, testOn: 'dart-vm');
+          }
         });
       }
 
@@ -211,15 +255,15 @@ main() {
       });
 
       group('CallbackUtil1Arg', () {
-        sharedTests(const CallbackUtil1Arg(), 1);
+        sharedTests(const CallbackUtil1Arg<TestGenericType>(), 1);
       });
 
       group('CallbackUtil2Arg', () {
-        sharedTests(const CallbackUtil2Arg(), 2);
+        sharedTests(const CallbackUtil2Arg<TestGenericType, TestGenericType>(), 2);
       });
 
       group('CallbackUtil3Arg', () {
-        sharedTests(const CallbackUtil3Arg(), 3);
+        sharedTests(const CallbackUtil3Arg<TestGenericType, TestGenericType, TestGenericType>(), 3);
       });
     });
 
@@ -1232,3 +1276,5 @@ class _Unspecified {
   const _Unspecified();
 }
 const _Unspecified unspecified = const _Unspecified();
+
+class TestGenericType {}
