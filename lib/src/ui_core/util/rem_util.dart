@@ -72,8 +72,8 @@ void recomputeRootFontSize() {
 ///
 /// Example output (assuming 1rem = 10px):
 ///
-/// * `'1.5rem'`
-String toRem(dynamic pxValue) {
+/// * `1.5rem`
+CssValue toRem(dynamic pxValue) {
   num pxValueNum;
 
   if (pxValue is num) {
@@ -87,7 +87,7 @@ String toRem(dynamic pxValue) {
     pxValueNum = parsedPxValue.number;
   }
 
-  return new CssValue(pxValueNum / rootFontSize, 'rem').toString();
+  return new CssValue(pxValueNum / rootFontSize, 'rem');
 }
 
 /// Converts a rem value to its pixel (`px`) equivalent using the current root font size.
@@ -100,8 +100,8 @@ String toRem(dynamic pxValue) {
 ///
 /// Example output (assuming 1rem = 10px):
 ///
-/// * `'15px'`
-String toPx(dynamic remValue) {
+/// * `15px`
+CssValue toPx(dynamic remValue, {bool asNum: false}) {
   num remValueNum;
 
   if (remValue is num) {
@@ -115,5 +115,5 @@ String toPx(dynamic remValue) {
     remValueNum = parsedPxValue.number;
   }
 
-  return new CssValue(remValueNum * rootFontSize, 'px').toString();
+  return new CssValue(remValueNum * rootFontSize, 'px');
 }

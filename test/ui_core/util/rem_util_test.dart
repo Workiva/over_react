@@ -3,6 +3,7 @@ library rem_util_test;
 import 'dart:html';
 
 import 'package:test/test.dart';
+import 'package:web_skin_dart/src/ui_core/util/css_value_util.dart';
 import 'package:web_skin_dart/src/ui_core/util/rem_util.dart';
 import 'package:web_skin_dart/test_util.dart';
 
@@ -28,15 +29,15 @@ main() {
       });
 
       test('converts a px CSS value to rem', () {
-        expect(toRem('15px'), '0.75rem');
+        expect(toRem('15px'), new CssValue(0.75, 'rem'));
       });
 
       test('converts an int value (treated as px) to rem', () {
-        expect(toRem(15), '0.75rem');
+        expect(toRem(15), new CssValue(0.75, 'rem'));
       });
 
       test('converts a double (treated as px) to rem', () {
-        expect(toRem(20.2), '1.01rem');
+        expect(toRem(20.2), new CssValue(1.01, 'rem'));
       });
 
       test('throws when passed an invalid value', () {
@@ -71,15 +72,15 @@ main() {
       });
 
       test('converts a rem CSS value to px', () {
-        expect(toPx('0.75rem'), '15px');
+        expect(toPx('0.75rem'), new CssValue(15, 'px'));
       });
 
       test('converts an int value (treated as rem) to px', () {
-        expect(toPx(3), '60px');
+        expect(toPx(3), new CssValue(60, 'px'));
       });
 
       test('converts a double (treated as rem) to px', () {
-        expect(toPx(1.01), '20.2px');
+        expect(toPx(1.01), new CssValue(20.2, 'px'));
       });
 
       test('throws when passed an invalid value', () {
