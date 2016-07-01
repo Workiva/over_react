@@ -117,7 +117,7 @@ main() {
           });
         });
 
-        group('chainFromList', () {
+        group('chainFromList()', () {
           group('returns a function of arity $arity that', () {
             test('calls all functions in order', () {
               var calls = [];
@@ -196,6 +196,12 @@ main() {
               expect(chained, const isInstanceOf<Function>());
               expect(() => Function.apply(chained, generateArgs()), returnsNormally);
             });
+          });
+        });
+
+        group('noop getter', () {
+          test('returns a function with an arity of $arity', () {
+            expect(() => Function.apply(helper.noop, generateArgs()), returnsNormally);
           });
         });
       }
