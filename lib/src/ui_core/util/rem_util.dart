@@ -22,6 +22,14 @@ void _initRemChangeSensor() {
 
   var mountNode = new DivElement()
     ..id = 'rem_change_sensor';
+
+  // Ensure the sensor doesn't interfere with the rest of the page.
+  mountNode.style
+    ..width = '0'
+    ..height = '0'
+    ..position = 'absolute'
+    ..zIndex = -1;
+
   document.body.append(mountNode);
 
   _changeSensor = react_dom.render((Dom.div()
