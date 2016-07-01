@@ -116,6 +116,88 @@ main() {
             });
           });
         });
+
+        group('chainFromList', () {
+          group('returns a function of arity $arity that', () {
+            test('calls all functions in order', () {
+              var calls = [];
+
+              var functions = new List.generate(5, (index) {
+                return createTestChainFunction(onCall: (args) {
+                  calls.add(['function_$index', args]);
+                });
+              });
+
+              var chained = helper.chainFromList(functions);
+
+              var expectedArgs = generateArgs();
+
+              Function.apply(chained, expectedArgs);
+
+              expect(calls, equals([
+                ['function_0', expectedArgs],
+                ['function_1', expectedArgs],
+                ['function_2', expectedArgs],
+                ['function_3', expectedArgs],
+                ['function_4', expectedArgs],
+              ]));
+            });
+
+            test('returns false when any function returns false', () {
+              var functions = new List.generate(5, (_) => createTestChainFunction());
+              functions.insert(2, createTestChainFunction(returnValue: false));
+
+              var chained = helper.chainFromList(functions);
+
+              expect(Function.apply(chained, generateArgs()), isFalse);
+            });
+
+            test('returns null when no function returns false', () {
+              var functions = new List.generate(5, (_) => createTestChainFunction());
+
+              var chained = helper.chainFromList(functions);
+
+              expect(Function.apply(chained, generateArgs()), isNull);
+            });
+          });
+
+          group('gracefully handles', () {
+            test('null functions', () {
+              var calls = [];
+
+              var functions = new List.generate(5, (index) {
+                return createTestChainFunction(onCall: (args) {
+                  calls.add(['function_$index', args]);
+                });
+              });
+
+              functions.insert(5, null);
+              functions.insert(2, null);
+              functions.insert(0, null);
+
+              var chained = helper.chainFromList(functions);
+
+              var expectedArgs = generateArgs();
+
+              Function.apply(chained, expectedArgs);
+
+              expect(calls, equals([
+                ['function_0', expectedArgs],
+                ['function_1', expectedArgs],
+                ['function_2', expectedArgs],
+                ['function_3', expectedArgs],
+                ['function_4', expectedArgs],
+              ]));
+            });
+
+            test('an empty list of functions', () {
+              var chained = helper.chainFromList([]);
+
+              expect(chained, const isInstanceOf<Function>());
+              expect(() => Function.apply(chained, generateArgs()), returnsNormally);
+            });
+          });
+        });
       }
 
       group('Callbacks0Arg', () {
