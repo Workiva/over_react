@@ -14,46 +14,46 @@ import 'package:react/react.dart' show
 import '../component/callback_typedefs.dart';
 
 /// Provides chaining utilities for [TargetKeyCallback].
-final Callbacks2Arg<SyntheticEvent, Object> targetKeyCallbacks           = const Callbacks2Arg<SyntheticEvent, Object>();
+final CallbackUtil2Arg<SyntheticEvent, Object> targetKeyCallbacks           = const CallbackUtil2Arg<SyntheticEvent, Object>();
 
 /// Provides chaining utilities for [TargetKeyIndexCallback].
-final Callbacks3Arg<SyntheticEvent, Object, int> targetKeyIndexCallbacks = const Callbacks3Arg<SyntheticEvent, Object, int>();
+final CallbackUtil3Arg<SyntheticEvent, Object, int> targetKeyIndexCallbacks = const CallbackUtil3Arg<SyntheticEvent, Object, int>();
 
 /// Provides chaining utilities for [IndexCallback].
-final Callbacks2Arg<SyntheticEvent, int> indexCallbacks                  = const Callbacks2Arg<SyntheticEvent, int>();
+final CallbackUtil2Arg<SyntheticEvent, int> indexCallbacks                  = const CallbackUtil2Arg<SyntheticEvent, int>();
 
 /// Provides chaining utilities for [DomEventCallback].
-final Callbacks1Arg<SyntheticEvent> domEventCallbacks                    = const Callbacks1Arg<SyntheticEvent>();
+final CallbackUtil1Arg<SyntheticEvent> domEventCallbacks                    = const CallbackUtil1Arg<SyntheticEvent>();
 
 /// Provides chaining utilities for [ClipboardEventCallback].
-final Callbacks1Arg<SyntheticClipboardEvent> clipboardEventCallbacks     = const Callbacks1Arg<SyntheticClipboardEvent>();
+final CallbackUtil1Arg<SyntheticClipboardEvent> clipboardEventCallbacks     = const CallbackUtil1Arg<SyntheticClipboardEvent>();
 
 /// Provides chaining utilities for [KeyboardEventCallback].
-final Callbacks1Arg<SyntheticKeyboardEvent> keyboardEventCallbacks       = const Callbacks1Arg<SyntheticKeyboardEvent>();
+final CallbackUtil1Arg<SyntheticKeyboardEvent> keyboardEventCallbacks       = const CallbackUtil1Arg<SyntheticKeyboardEvent>();
 
 /// Provides chaining utilities for [FocusEventCallback].
-final Callbacks1Arg<SyntheticFocusEvent> focusEventCallbacks             = const Callbacks1Arg<SyntheticFocusEvent>();
+final CallbackUtil1Arg<SyntheticFocusEvent> focusEventCallbacks             = const CallbackUtil1Arg<SyntheticFocusEvent>();
 
 /// Provides chaining utilities for [FormEventCallback].
-final Callbacks1Arg<SyntheticFormEvent> formEventCallbacks               = const Callbacks1Arg<SyntheticFormEvent>();
+final CallbackUtil1Arg<SyntheticFormEvent> formEventCallbacks               = const CallbackUtil1Arg<SyntheticFormEvent>();
 
 /// Provides chaining utilities for [MouseEventCallback].
-final Callbacks1Arg<SyntheticMouseEvent> mouseEventCallbacks             = const Callbacks1Arg<SyntheticMouseEvent>();
+final CallbackUtil1Arg<SyntheticMouseEvent> mouseEventCallbacks             = const CallbackUtil1Arg<SyntheticMouseEvent>();
 
 /// Provides chaining utilities for [TouchEventCallback].
-final Callbacks1Arg<SyntheticTouchEvent> touchEventCallbacks             = const Callbacks1Arg<SyntheticTouchEvent>();
+final CallbackUtil1Arg<SyntheticTouchEvent> touchEventCallbacks             = const CallbackUtil1Arg<SyntheticTouchEvent>();
 
 /// Provides chaining utilities for [UIEventCallback].
-final Callbacks1Arg<SyntheticUIEvent> uIEventCallbacks                   = const Callbacks1Arg<SyntheticUIEvent>();
+final CallbackUtil1Arg<SyntheticUIEvent> uIEventCallbacks                   = const CallbackUtil1Arg<SyntheticUIEvent>();
 
 /// Provides chaining utilities for [WheelEventCallback].
-final Callbacks1Arg<SyntheticWheelEvent> wheelEventCallbacks             = const Callbacks1Arg<SyntheticWheelEvent>();
+final CallbackUtil1Arg<SyntheticWheelEvent> wheelEventCallbacks             = const CallbackUtil1Arg<SyntheticWheelEvent>();
 
 /// Provides chaining utilities for [Callback].
-final Callbacks0Arg callbacks                                            = const Callbacks0Arg();
+final CallbackUtil0Arg callbacks                                            = const CallbackUtil0Arg();
 
 /// Provides chaining utilities for [FocusDidChangeCallback].
-final Callbacks2Arg<int, int> focusDidChangeCallbacks                    = const Callbacks2Arg<int, int>();
+final CallbackUtil2Arg<int, int> focusDidChangeCallbacks                    = const CallbackUtil2Arg<int, int>();
 
 /// Creates an TargetKeyCallback that calls through to the two provided callbacks in order.
 ///
@@ -226,8 +226,8 @@ typedef Callback1Arg<T1>(T1 arg1);
 typedef Callback2Arg<T1, T2>(T1 arg1, T2 arg2);
 typedef Callback3Arg<T1, T2, T3>(T1 arg1, T2 arg2, T3 arg3);
 
-class Callbacks0Arg extends CallbackHelper<Callback0Arg> {
-  const Callbacks0Arg();
+class CallbackUtil0Arg extends CallbackUtil<Callback0Arg> {
+  const CallbackUtil0Arg();
 
   _noop() {}
 
@@ -249,8 +249,8 @@ class Callbacks0Arg extends CallbackHelper<Callback0Arg> {
   }
 }
 
-class Callbacks1Arg<T> extends CallbackHelper<Callback1Arg<T>> {
-  const Callbacks1Arg();
+class CallbackUtil1Arg<T> extends CallbackUtil<Callback1Arg<T>> {
+  const CallbackUtil1Arg();
 
   _noop(T arg1) {}
 
@@ -272,8 +272,8 @@ class Callbacks1Arg<T> extends CallbackHelper<Callback1Arg<T>> {
   }
 }
 
-class Callbacks2Arg<T1, T2> extends CallbackHelper<Callback2Arg<T1, T2>> {
-  const Callbacks2Arg();
+class CallbackUtil2Arg<T1, T2> extends CallbackUtil<Callback2Arg<T1, T2>> {
+  const CallbackUtil2Arg();
 
   _noop(T1 arg1, T2 arg2) {}
 
@@ -295,8 +295,8 @@ class Callbacks2Arg<T1, T2> extends CallbackHelper<Callback2Arg<T1, T2>> {
   }
 }
 
-class Callbacks3Arg<T1, T2, T3> extends CallbackHelper<Callback3Arg<T1, T2, T3>> {
-  const Callbacks3Arg();
+class CallbackUtil3Arg<T1, T2, T3> extends CallbackUtil<Callback3Arg<T1, T2, T3>> {
+  const CallbackUtil3Arg();
 
   _noop(T1 arg1, T2 arg2, T3 arg3) {}
 
@@ -318,8 +318,8 @@ class Callbacks3Arg<T1, T2, T3> extends CallbackHelper<Callback3Arg<T1, T2, T3>>
   }
 }
 
-abstract class CallbackHelper<TTypedef extends Function> {
-  const CallbackHelper();
+abstract class CallbackUtil<TTypedef extends Function> {
+  const CallbackUtil();
 
   /// Creates a chained callback that calls through to the two provided callbacks in order.
   /// Useful for executing multiple callbacks where only a single callback is accepted.

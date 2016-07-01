@@ -29,7 +29,7 @@ main() {
         return testChainFunction;
       }
 
-      void sharedTests(CallbackHelper helper, int arity) {
+      void sharedTests(CallbackUtil callbackUtil, int arity) {
         List generateArgs() {
           return new List.generate(arity, (_) => new Object());
         }
@@ -37,16 +37,16 @@ main() {
         group('chain()', () {
           test('returns a when b is null', () {
             var a = createTestChainFunction();
-            expect(helper.chain(a, null), same(a));
+            expect(callbackUtil.chain(a, null), same(a));
           });
 
           test('returns b when a is null', () {
             var b = createTestChainFunction();
-            expect(helper.chain(null, b), same(b));
+            expect(callbackUtil.chain(null, b), same(b));
           });
 
           test('returns a noop function of arity $arity when both a and b are null', () {
-            var chained = helper.chain(null, null);
+            var chained = callbackUtil.chain(null, null);
 
             expect(chained, const isInstanceOf<Function>());
             expect(() => Function.apply(chained, generateArgs()), returnsNormally);
@@ -63,7 +63,7 @@ main() {
                 calls.add(['b', args]);
               });
 
-              var chained = helper.chain(a, b);
+              var chained = callbackUtil.chain(a, b);
 
               var expectedArgs = generateArgs();
 
@@ -80,7 +80,7 @@ main() {
                 var a = createTestChainFunction(returnValue: false);
                 var b = createTestChainFunction();
 
-                var chained = helper.chain(a, b);
+                var chained = callbackUtil.chain(a, b);
 
                 expect(Function.apply(chained, generateArgs()), isFalse);
               });
@@ -89,7 +89,7 @@ main() {
                 var a = createTestChainFunction();
                 var b = createTestChainFunction(returnValue: false);
 
-                var chained = helper.chain(a, b);
+                var chained = callbackUtil.chain(a, b);
 
                 expect(Function.apply(chained, generateArgs()), isFalse);
               });
@@ -98,7 +98,7 @@ main() {
                 var a = createTestChainFunction(returnValue: false);
                 var b = createTestChainFunction(returnValue: false);
 
-                var chained = helper.chain(a, b);
+                var chained = callbackUtil.chain(a, b);
 
                 expect(Function.apply(chained, generateArgs()), isFalse);
               });
@@ -109,7 +109,7 @@ main() {
                 var a = createTestChainFunction();
                 var b = createTestChainFunction();
 
-                var chained = helper.chain(a, b);
+                var chained = callbackUtil.chain(a, b);
 
                 expect(Function.apply(chained, generateArgs()), isNull);
               });
@@ -128,7 +128,7 @@ main() {
                 });
               });
 
-              var chained = helper.chainFromList(functions);
+              var chained = callbackUtil.chainFromList(functions);
 
               var expectedArgs = generateArgs();
 
@@ -147,7 +147,7 @@ main() {
               var functions = new List.generate(5, (_) => createTestChainFunction());
               functions.insert(2, createTestChainFunction(returnValue: false));
 
-              var chained = helper.chainFromList(functions);
+              var chained = callbackUtil.chainFromList(functions);
 
               expect(Function.apply(chained, generateArgs()), isFalse);
             });
@@ -155,7 +155,7 @@ main() {
             test('returns null when no function returns false', () {
               var functions = new List.generate(5, (_) => createTestChainFunction());
 
-              var chained = helper.chainFromList(functions);
+              var chained = callbackUtil.chainFromList(functions);
 
               expect(Function.apply(chained, generateArgs()), isNull);
             });
@@ -175,7 +175,7 @@ main() {
               functions.insert(2, null);
               functions.insert(0, null);
 
-              var chained = helper.chainFromList(functions);
+              var chained = callbackUtil.chainFromList(functions);
 
               var expectedArgs = generateArgs();
 
@@ -191,7 +191,7 @@ main() {
             });
 
             test('an empty list of functions', () {
-              var chained = helper.chainFromList([]);
+              var chained = callbackUtil.chainFromList([]);
 
               expect(chained, const isInstanceOf<Function>());
               expect(() => Function.apply(chained, generateArgs()), returnsNormally);
@@ -201,25 +201,25 @@ main() {
 
         group('noop getter', () {
           test('returns a function with an arity of $arity', () {
-            expect(() => Function.apply(helper.noop, generateArgs()), returnsNormally);
+            expect(() => Function.apply(callbackUtil.noop, generateArgs()), returnsNormally);
           });
         });
       }
 
-      group('Callbacks0Arg', () {
-        sharedTests(const Callbacks0Arg(), 0);
+      group('CallbackUtil0Arg', () {
+        sharedTests(const CallbackUtil0Arg(), 0);
       });
 
-      group('Callbacks1Arg', () {
-        sharedTests(const Callbacks1Arg(), 1);
+      group('CallbackUtil1Arg', () {
+        sharedTests(const CallbackUtil1Arg(), 1);
       });
 
-      group('Callbacks2Arg', () {
-        sharedTests(const Callbacks2Arg(), 2);
+      group('CallbackUtil2Arg', () {
+        sharedTests(const CallbackUtil2Arg(), 2);
       });
 
-      group('Callbacks3Arg', () {
-        sharedTests(const Callbacks3Arg(), 3);
+      group('CallbackUtil3Arg', () {
+        sharedTests(const CallbackUtil3Arg(), 3);
       });
     });
 
