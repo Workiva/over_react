@@ -226,14 +226,22 @@ typedef Callback1Arg<T1>(T1 arg1);
 typedef Callback2Arg<T1, T2>(T1 arg1, T2 arg2);
 typedef Callback3Arg<T1, T2, T3>(T1 arg1, T2 arg2, T3 arg3);
 
+/// Generic callback chaining utilities for callbacks with no arguments.
 class CallbackUtil0Arg extends CallbackUtil<Callback0Arg> {
   const CallbackUtil0Arg();
 
   _noop() {}
 
+  /// A function of type [Callback0Arg] that does nothing.
   @override
   Callback0Arg get noop => _noop;
 
+  /// Returns a strongly-typed chained callback that calls through to the two provided callbacks, [a] and [b], in order.
+  /// Useful for executing multiple callbacks where only a single callback is accepted.
+  ///
+  /// Returns `false` if one or more of the provided callback returns `false`.
+  ///
+  /// Gracefully handles when [a] and/or [b] are null, always returning a callable function.
   @override
   Callback0Arg chain(Callback0Arg a, Callback0Arg b) {
     if (a == null && b == null) return noop;
@@ -249,14 +257,22 @@ class CallbackUtil0Arg extends CallbackUtil<Callback0Arg> {
   }
 }
 
+/// Generic strongly-typed callback chaining utilities for callbacks with one argument.
 class CallbackUtil1Arg<T> extends CallbackUtil<Callback1Arg<T>> {
   const CallbackUtil1Arg();
 
   _noop(T arg1) {}
 
+  /// A function of type [Callback1Arg<T>] that does nothing.
   @override
   Callback1Arg<T> get noop => _noop;
 
+  /// Returns a strongly-typed chained callback that calls through to the two provided callbacks, [a] and [b], in order.
+  /// Useful for executing multiple callbacks where only a single callback is accepted.
+  ///
+  /// Returns `false` if one or more of the provided callback returns `false`.
+  ///
+  /// Gracefully handles when [a] and/or [b] are null, always returning a callable function.
   @override
   Callback1Arg<T> chain(Callback1Arg<T> a, Callback1Arg<T> b) {
     if (a == null && b == null) return noop;
@@ -272,14 +288,22 @@ class CallbackUtil1Arg<T> extends CallbackUtil<Callback1Arg<T>> {
   }
 }
 
+/// Generic strongly-typed callback chaining utilities for callbacks with two arguments.
 class CallbackUtil2Arg<T1, T2> extends CallbackUtil<Callback2Arg<T1, T2>> {
   const CallbackUtil2Arg();
 
   _noop(T1 arg1, T2 arg2) {}
 
+  /// A function of type [Callback2Arg<T1, T2>] that does nothing.
   @override
   Callback2Arg<T1, T2> get noop => _noop;
 
+  /// Returns a strongly-typed chained callback that calls through to the two provided callbacks, [a] and [b], in order.
+  /// Useful for executing multiple callbacks where only a single callback is accepted.
+  ///
+  /// Returns `false` if one or more of the provided callback returns `false`.
+  ///
+  /// Gracefully handles when [a] and/or [b] are null, always returning a callable function.
   @override
   Callback2Arg<T1, T2> chain(Callback2Arg<T1, T2> a, Callback2Arg<T1, T2> b) {
     if (a == null && b == null) return noop;
@@ -295,14 +319,22 @@ class CallbackUtil2Arg<T1, T2> extends CallbackUtil<Callback2Arg<T1, T2>> {
   }
 }
 
+/// Generic strongly-typed callback chaining utilities for callbacks with three arguments.
 class CallbackUtil3Arg<T1, T2, T3> extends CallbackUtil<Callback3Arg<T1, T2, T3>> {
   const CallbackUtil3Arg();
 
   _noop(T1 arg1, T2 arg2, T3 arg3) {}
 
+  /// A function of type [Callback3Arg<T1, T2, T3>] that does nothing.
   @override
   Callback3Arg<T1, T2, T3> get noop => _noop;
 
+  /// Returns a strongly-typed chained callback that calls through to the two provided callbacks, [a] and [b], in order.
+  /// Useful for executing multiple callbacks where only a single callback is accepted.
+  ///
+  /// Returns `false` if one or more of the provided callback returns `false`.
+  ///
+  /// Gracefully handles when [a] and/or [b] are null, always returning a callable function.
   @override
   Callback3Arg<T1, T2, T3> chain(Callback3Arg<T1, T2, T3> a, Callback3Arg<T1, T2, T3> b) {
     if (a == null && b == null) return noop;
@@ -318,18 +350,28 @@ class CallbackUtil3Arg<T1, T2, T3> extends CallbackUtil<Callback3Arg<T1, T2, T3>
   }
 }
 
+/// Base class for generic strongly-typed callback chaining utilities.
 abstract class CallbackUtil<TTypedef extends Function> {
   const CallbackUtil();
 
-  /// Creates a chained callback that calls through to the two provided callbacks in order.
+  /// Returns a strongly-typed chained callback that calls through to the two provided callbacks, [a] and [b], in order.
   /// Useful for executing multiple callbacks where only a single callback is accepted.
   ///
   /// Returns `false` if one or more of the provided callback returns `false`.
+  ///
+  /// Gracefully handles when [a] and/or [b] are null, always returning a callable function.
   TTypedef chain(TTypedef a, TTypedef b);
 
+  /// Returns a strongly-typed chained callback that calls through to the list of provided [callbacks] in order.
+  /// Useful for executing multiple callbacks where only a single callback is accepted.
+  ///
+  /// Returns `false` if one or more of the provided callback returns `false`.
+  ///
+  /// Gracefully handles when [callbacks] is empty or its items are null, always returning a callable function.
   TTypedef chainFromList(List<TTypedef> callbacks) =>
       callbacks.fold(null, chain) ?? noop;
 
+  /// A function of type [TTypedef] that does nothing.
   TTypedef get noop;
 }
 
