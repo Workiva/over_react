@@ -229,7 +229,10 @@ typedef Callback3Arg<T1, T2, T3>(T1 arg1, T2 arg2, T3 arg3);
 class Callbacks0Arg extends CallbackHelper<Callback0Arg> {
   const Callbacks0Arg();
 
-  noop() {}
+  _noop() {}
+
+  @override
+  Callback0Arg get noop => _noop;
 
   @override
   Callback0Arg chain(Callback0Arg a, Callback0Arg b) {
@@ -249,7 +252,10 @@ class Callbacks0Arg extends CallbackHelper<Callback0Arg> {
 class Callbacks1Arg<T> extends CallbackHelper<Callback1Arg<T>> {
   const Callbacks1Arg();
 
-  noop(T arg1) {}
+  _noop(T arg1) {}
+
+  @override
+  Callback1Arg<T> get noop => _noop;
 
   @override
   Callback1Arg<T> chain(Callback1Arg<T> a, Callback1Arg<T> b) {
@@ -269,7 +275,10 @@ class Callbacks1Arg<T> extends CallbackHelper<Callback1Arg<T>> {
 class Callbacks2Arg<T1, T2> extends CallbackHelper<Callback2Arg<T1, T2>> {
   const Callbacks2Arg();
 
-  noop(T1 arg1, T2 arg2) {}
+  _noop(T1 arg1, T2 arg2) {}
+
+  @override
+  Callback2Arg<T1, T2> get noop => _noop;
 
   @override
   Callback2Arg<T1, T2> chain(Callback2Arg<T1, T2> a, Callback2Arg<T1, T2> b) {
@@ -289,7 +298,10 @@ class Callbacks2Arg<T1, T2> extends CallbackHelper<Callback2Arg<T1, T2>> {
 class Callbacks3Arg<T1, T2, T3> extends CallbackHelper<Callback3Arg<T1, T2, T3>> {
   const Callbacks3Arg();
 
-  noop(T1 arg1, T2 arg2, T3 arg3) {}
+  _noop(T1 arg1, T2 arg2, T3 arg3) {}
+
+  @override
+  Callback3Arg<T1, T2, T3> get noop => _noop;
 
   @override
   Callback3Arg<T1, T2, T3> chain(Callback3Arg<T1, T2, T3> a, Callback3Arg<T1, T2, T3> b) {
@@ -316,6 +328,8 @@ abstract class CallbackHelper<TTypedef extends Function> {
   TTypedef chain(TTypedef a, TTypedef b);
 
   TTypedef chainFromList(List<TTypedef> callbacks) =>
-      callbacks.fold(null, chain);
+      callbacks.fold(null, chain) ?? noop;
+
+  TTypedef get noop;
 }
 
