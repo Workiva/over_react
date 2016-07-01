@@ -8,6 +8,133 @@ import '../../wsd_test_util/zone.dart';
 /// Main entry point for HandlerChainUtil testing
 main() {
   group('HandlerChainUtil', () {
+    group('generic chaining:', () {
+      Function createTestChainFunction({returnValue, onCall(List args)}) {
+        testChainFunction([
+            arg1 = unspecified,
+            arg2 = unspecified,
+            arg3 = unspecified,
+            arg4 = unspecified,
+            arg5 = unspecified,
+            arg6 = unspecified
+        ]) {
+          if (onCall != null) {
+            var args = [arg1, arg2, arg3, arg4, arg5, arg6].takeWhile((item) => item != unspecified).toList();
+            onCall(args);
+          }
+
+          return returnValue;
+        };
+
+        return testChainFunction;
+      }
+
+      void sharedTests(CallbackHelper helper, int arity) {
+        List generateArgs() {
+          return new List.generate(arity, (_) => new Object());
+        }
+
+        group('chain()', () {
+          test('returns a when b is null', () {
+            var a = createTestChainFunction();
+            expect(helper.chain(a, null), same(a));
+          });
+
+          test('returns b when a is null', () {
+            var b = createTestChainFunction();
+            expect(helper.chain(null, b), same(b));
+          });
+
+          test('returns a noop function of arity $arity when both a and b are null', () {
+            var chained = helper.chain(null, null);
+
+            expect(chained, const isInstanceOf<Function>());
+            expect(() => Function.apply(chained, generateArgs()), returnsNormally);
+          });
+
+          group('returns a function of arity $arity that', () {
+            test('calls both functions in order', () {
+              var calls = [];
+
+              var a = createTestChainFunction(onCall: (args) {
+                calls.add(['a', args]);
+              });
+              var b = createTestChainFunction(onCall: (args) {
+                calls.add(['b', args]);
+              });
+
+              var chained = helper.chain(a, b);
+
+              var expectedArgs = generateArgs();
+
+              Function.apply(chained, expectedArgs);
+
+              expect(calls, equals([
+                ['a', expectedArgs],
+                ['b', expectedArgs],
+              ]));
+            });
+
+            group('returns false when', () {
+              test('a returns false', () {
+                var a = createTestChainFunction(returnValue: false);
+                var b = createTestChainFunction();
+
+                var chained = helper.chain(a, b);
+
+                expect(Function.apply(chained, generateArgs()), isFalse);
+              });
+
+              test('b returns false', () {
+                var a = createTestChainFunction();
+                var b = createTestChainFunction(returnValue: false);
+
+                var chained = helper.chain(a, b);
+
+                expect(Function.apply(chained, generateArgs()), isFalse);
+              });
+
+              test('a and b both return false', () {
+                var a = createTestChainFunction(returnValue: false);
+                var b = createTestChainFunction(returnValue: false);
+
+                var chained = helper.chain(a, b);
+
+                expect(Function.apply(chained, generateArgs()), isFalse);
+              });
+            });
+
+            group('returns null when', () {
+              test('a and b return something other than false', () {
+                var a = createTestChainFunction();
+                var b = createTestChainFunction();
+
+                var chained = helper.chain(a, b);
+
+                expect(Function.apply(chained, generateArgs()), isNull);
+              });
+            });
+          });
+        });
+      }
+
+      group('Callbacks0Arg', () {
+        sharedTests(const Callbacks0Arg(), 0);
+      });
+
+      group('Callbacks1Arg', () {
+        sharedTests(const Callbacks1Arg(), 1);
+      });
+
+      group('Callbacks2Arg', () {
+        sharedTests(const Callbacks2Arg(), 2);
+      });
+
+      group('Callbacks3Arg', () {
+        sharedTests(const Callbacks3Arg(), 3);
+      });
+    });
+
     group('React DOM event callback creation utility function', () {
       callsBothFunctions(Function creator) {
         bool calledA = false, calledB = false;
@@ -1012,3 +1139,8 @@ main() {
     });
   });
 }
+
+class _Unspecified {
+  const _Unspecified();
+}
+const _Unspecified unspecified = const _Unspecified();
