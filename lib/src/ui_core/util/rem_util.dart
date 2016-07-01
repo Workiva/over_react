@@ -109,7 +109,7 @@ CssValue toRem(dynamic pxValue) {
 /// Example output (assuming 1rem = 10px):
 ///
 /// * `15px`
-CssValue toPx(dynamic remValue, {bool asNum: false}) {
+CssValue toPx(dynamic remValue) {
   num remValueNum;
 
   if (remValue is num) {
