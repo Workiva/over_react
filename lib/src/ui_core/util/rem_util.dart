@@ -28,7 +28,7 @@ void _initRemChangeSensor() {
     ..width = '0'
     ..height = '0'
     ..position = 'absolute'
-    ..zIndex = -1;
+    ..zIndex = '-1';
 
   document.body.append(mountNode);
 
