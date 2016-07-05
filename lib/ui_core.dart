@@ -9,7 +9,6 @@ import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 
 import 'src/ui_core/component/callback_typedefs.dart';
-import 'src/ui_core/component/typed_mixins.dart';
 import 'src/ui_core/component_declaration/component_base.dart' as component_base;
 import 'src/ui_core/component_declaration/transformer_helpers.dart';
 
@@ -19,7 +18,6 @@ export 'src/ui_core/component/callback_typedefs.dart';
 export 'src/ui_core/component/dummy_component.dart';
 export 'src/ui_core/component/prop_typedefs.dart';
 export 'src/ui_core/component/resize_sensor.dart';
-export 'src/ui_core/component/typed_mixins.dart';
 export 'src/ui_core/util/character_constants.dart';
 export 'src/ui_core/util/constants_base.dart';
 export 'src/ui_core/util/css_value_util.dart';
@@ -34,13 +32,11 @@ export 'src/ui_core/util/react_wrappers.dart';
 export 'src/ui_core/util/string_util.dart';
 export 'src/ui_core/util/test_mode.dart';
 export 'src/ui_core/util/validation_util.dart';
-export 'src/ui_core/util/warn_on_modify_props.dart';
 export 'src/ui_core/component_declaration/flux_component.dart';
 export 'src/ui_core/component_declaration/transformer_helpers.dart';
 
 // Parts
 part 'src/ui_core/component/aria_mixin.dart';
-part 'src/ui_core/component/base_component.dart';
 part 'src/ui_core/component/dom_components.dart';
 part 'src/ui_core/component/prop_mixins.dart';
 part 'src/ui_core/util/class_names.dart';

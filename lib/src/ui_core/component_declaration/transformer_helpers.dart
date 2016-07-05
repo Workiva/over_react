@@ -1,14 +1,11 @@
 library web_skin_dart.component_declaration.transformer_helpers;
 
-import 'dart:html';
-
 import './component_base.dart' as component_base;
 
 export './annotations.dart';
 export './component_base.dart'
     hide UiComponent, UiStatefulComponent, UiProps, UiState;
 
-typedef Element _GetDOMNodeTypedef();
 typedef dynamic _RefTypedef(String ref);
 
 // ----------------------------------------------------------------------
@@ -30,6 +27,25 @@ class $PropKeys implements List<String> {
   dynamic noSuchMethod(Invocation invocation) {
     throw new UngeneratedError(
         message: r'The $PropKeys class should not be used at runtime, '
+                 r'but should be replaced with a list via the transformer.'
+    );
+  }
+}
+
+/// Placeholder helper class that allows for accessing lists of props
+/// in a static yet unsafe way.
+///
+/// __For advanced usage only.__
+@proxy
+class $Props implements component_base.ConsumedProps {
+  /// A placeholder that gets swapped out by the `web_skin_dart` transformer
+  /// with the prop keys defined in [propsClass].
+  const $Props(Type propsClass);
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) {
+    throw new UngeneratedError(
+        message: r'The $Props class should not be used at runtime, '
                  r'but should be replaced with a list via the transformer.'
     );
   }
@@ -68,12 +84,6 @@ abstract class UiComponent<TProps extends UiProps> extends component_base.UiComp
     _throwIfNotGenerated();
   }
 
-  /// Get the DOM node of the component.
-  ///
-  /// Overridden for strong typing.
-  @override
-  _GetDOMNodeTypedef get getDOMNode => super.getDOMNode;
-
   /// Returns the component of the specified [ref].
   /// > `react.Component` if it is a Dart component
   /// > DOM node if it is a DOM component.
@@ -82,16 +92,16 @@ abstract class UiComponent<TProps extends UiProps> extends component_base.UiComp
   @override
   _RefTypedef get ref => super.ref;
 
-  /// The default consumed prop keys, taken from the keys generated in the associated @[Props] class.
+  /// The default consumed props, taken from the keys generated in the associated @[Props] class.
   @toBeGenerated
-  Iterable<Iterable<String>> get $defaultConsumedPropKeys => throw new UngeneratedError(member: #$defaultConsumedPropKeys);
+  Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
 
   /// The keys for the non-forwarding props defined in this component.
   ///
   /// For generated components, this defaults to the keys generated in the associated @[Props] class
   /// if this getter is not overridden.
   @override
-  Iterable<Iterable<String>> get consumedPropKeys => $defaultConsumedPropKeys;
+  Iterable<component_base.ConsumedProps> get consumedProps => $defaultConsumedProps;
 
   /// Returns a typed props object backed by the specified [propsMap].
   /// Required to properly instantiate the generic [TProps] class.
@@ -113,12 +123,6 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
     _throwIfNotGenerated();
   }
 
-  /// Get the DOM node of the component.
-  ///
-  /// Overridden for strong typing.
-  @override
-  _GetDOMNodeTypedef get getDOMNode => super.getDOMNode;
-
   /// Returns the component of the specified [ref].
   /// > `react.Component` if it is a Dart component
   /// > DOM node if it is a DOM component.
@@ -129,14 +133,14 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 
   /// The default consumed prop keys, taken from the keys generated in the associated @[Props] class.
   @toBeGenerated
-  Iterable<Iterable<String>> get $defaultConsumedPropKeys => throw new UngeneratedError(member: #$defaultConsumedPropKeys);
+  Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
 
   /// The keys for the non-forwarding props defined in this component.
   ///
   /// For generated components, this defaults to the keys generated in the associated @[Props] class
   /// if this getter is not overridden.
   @override
-  Iterable<Iterable<String>> get consumedPropKeys => $defaultConsumedPropKeys;
+  Iterable<component_base.ConsumedProps> get consumedProps => $defaultConsumedProps;
 
   /// Returns a typed props object backed by the specified [propsMap].
   /// Required to properly instantiate the generic [TProps] class.
@@ -154,8 +158,6 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 ///
 /// For use as a typed view into existing props [Maps], or as a builder to create new component
 /// instances via a fluent-style interface.
-///
-/// (Successor to [ComponentDefinition]).
 ///
 /// Use with the web_skin_dart transformer via the `@Props()` ([Props]) annotation.
 abstract class UiProps extends component_base.UiProps with GeneratedClass {

@@ -269,6 +269,9 @@ const Matcher isFocused = const _IsFocused();
 ///
 /// __Note__: The message is matched rather than the [Error] instance due to Dart's wrapping of all `throw`
 ///  as a [DomException]
+///
+///  Deprecated: Use [throwsPropError_Required].
+@Deprecated('2.0.0')
 Matcher throwsRequiredPropError(String message) {
   return throwsA(predicate(
       (error) => error == 'V8 Exception' /* workaround for https://github.com/dart-lang/sdk/issues/26093 */ ||
@@ -281,6 +284,9 @@ Matcher throwsRequiredPropError(String message) {
 ///
 /// __Note__: The message is matched rather than the [Error] instance due to Dart's wrapping of all `throw`
 ///  as a [DomException]
+///
+///  Deprecated: Use [throwsPropError_Combination].
+@Deprecated('2.0.0')
 Matcher throwsInvalidPropCombinationError(String prop1, String prop2, String message) {
   return throwsA(predicate(
       (error) => error == 'V8 Exception' /* workaround for https://github.com/dart-lang/sdk/issues/26093 */ ||
@@ -291,10 +297,61 @@ Matcher throwsInvalidPropCombinationError(String prop1, String prop2, String mes
 }
 
 /// A matcher to verify that the [InvalidPropValueError] is thrown with a provided `InvalidPropValueError.message`
+///
+///  Deprecated: Use [throwsPropError_Value].
+@Deprecated('2.0.0')
 Matcher throwsInvalidPropError(dynamic value, String name, String message){
   return throwsA(predicate(
       (error) => error == 'V8 Exception' /* workaround for https://github.com/dart-lang/sdk/issues/26093 */ ||
           error.toString().contains('InvalidPropValueError: Prop $name set to ${Error.safeToString(value)}: $message'),
           'Should have message $message'
+  ));
+}
+
+/// A matcher to verify that a [PropError] is thrown with a provided `propName` and `message`.
+///
+/// __Note__: The message is matched rather than the [Error] instance due to Dart's wrapping of all `throw`
+///  as a [DomException]
+Matcher throwsPropError(String propName, [String message = '']) {
+  return throwsA(anyOf(
+      hasToStringValue('V8 Exception'), /* workaround for https://github.com/dart-lang/sdk/issues/26093 */
+      hasToStringValue(contains('PropError: Prop $propName. $message'.trim()))
+  ));
+}
+
+/// A matcher to verify that a [PropError].required is thrown with a provided `propName` and `message`.
+///
+/// __Note__: The message is matched rather than the [Error] instance due to Dart's wrapping of all `throw`
+///  as a [DomException]
+Matcher throwsPropError_Required(String propName, [String message = '']) {
+  return throwsA(anyOf(
+      hasToStringValue('V8 Exception'), /* workaround for https://github.com/dart-lang/sdk/issues/26093 */
+      hasToStringValue(contains('RequiredPropError: Prop $propName is required. $message'.trim()))
+  ));
+}
+
+/// A matcher to verify that a [PropError].value is thrown with a provided `invalidValue`, `propName`, and `message`.
+///
+/// __Note__: The message is matched rather than the [Error] instance due to Dart's wrapping of all `throw`
+///  as a [DomException]
+Matcher throwsPropError_Value(dynamic invalidValue, String propName, [String message = '']) {
+  return throwsA(anyOf(
+      hasToStringValue('V8 Exception'), /* workaround for https://github.com/dart-lang/sdk/issues/26093 */
+      hasToStringValue(contains('InvalidPropValueError: Prop $propName set to ${Error.safeToString(invalidValue)}. '
+          '$message'.trim()
+      ))
+  ));
+}
+
+/// A matcher to verify that a [PropError] is thrown with a provided `propName`, `prop2Name`, and `message`.
+///
+/// __Note__: The message is matched rather than the [Error] instance due to Dart's wrapping of all `throw`
+///  as a [DomException]
+Matcher throwsPropError_Combination(String propName, String prop2Name, [String message = '']) {
+  return throwsA(anyOf(
+      hasToStringValue('V8 Exception'), /* workaround for https://github.com/dart-lang/sdk/issues/26093 */
+      hasToStringValue(contains('InvalidPropCombinationError: Prop $propName and prop $prop2Name are set to '
+          'incompatible values. $message'.trim()
+      ))
   ));
 }

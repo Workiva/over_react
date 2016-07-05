@@ -6,10 +6,9 @@ import 'package:analyzer/analyzer.dart';
 import 'package:barback/barback.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
+import 'package:transformer_utils/transformer_utils.dart';
 import 'package:web_skin_dart/src/transformer/declaration_parsing.dart';
 import 'package:web_skin_dart/src/transformer/impl_generation.dart';
-import 'package:web_skin_dart/src/transformer/jetbrains_friendly_logger.dart';
-import 'package:web_skin_dart/src/transformer/source_file_helpers.dart';
 
 /// A transformer that modifies `.dart` files, aiding the declaration of React components
 /// using the `@Factory()`, `@Props()` `@Component()`, etc. annotations.
@@ -87,6 +86,18 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
         var symbolName = match.group(1);
 
         var replacement = '$symbolName.${ImplGenerator.staticPropKeysName} /* GENERATED from \$PropKeys usage */';
+
+        transformedFile.replace(sourceFile.span(match.start, match.end), replacement);
+      });
+    }
+
+    // Replace static $Props instantiations with props
+    if (new RegExp(r'\$Props').hasMatch(primaryInputContents)) {
+      var propKeysPattern = new RegExp(r'(?:const|new)\s+\$Props\s*\(\s*([\$A-Za-z0-9_\.]+)\s*\)');
+      propKeysPattern.allMatches(sourceFile.getText(0)).forEach((match) {
+        var symbolName = match.group(1);
+
+        var replacement = '$symbolName.${ImplGenerator.staticConsumedPropsName} /* GENERATED from \$Props usage */';
 
         transformedFile.replace(sourceFile.span(match.start, match.end), replacement);
       });
