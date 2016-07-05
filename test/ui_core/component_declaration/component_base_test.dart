@@ -435,6 +435,47 @@ main() {
         });
       });
 
+      group('copyUnconsumedDomProps()', () {
+        test('copies props, omitting keys from `consumedPropKeys`, as well as reserved react props', () {
+          component = new TestComponentComponent(testConsumedProps: [
+            const ConsumedProps(const [], const ['consumed1', 'consumed2'])
+          ]);
+
+          component.props = {
+            'key': 'testKey',
+            'ref': 'testRef',
+            'children': [],
+            'consumed1': true,
+            'consumed2': true,
+            'unconsumed1': true,
+            'unconsumed2': true,
+            'tabIndex': true,
+            'className': true,
+          };
+
+          expect(component.copyUnconsumedDomProps(), equals({
+            'tabIndex': true,
+            'className': true,
+          }));
+        });
+
+        test('copies all props when `consumedPropKeys` is null', () {
+          component = new TestComponentComponent(testConsumedProps: null);
+
+          component.props = {
+            'prop1': true,
+            'prop2': true,
+            'tabIndex': true,
+            'className': true,
+          };
+
+          expect(component.copyUnconsumedDomProps(), equals({
+            'tabIndex': true,
+            'className': true,
+          }));
+        });
+      });
+
       test('forwardingClassNameBuilder() returns a new ClassNameBuilder based on the component\'s props', () {
         component.props = {
           'className': 'class-1',
