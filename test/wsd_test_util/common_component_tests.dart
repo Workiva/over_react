@@ -116,10 +116,13 @@ void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(),
 
       'data-true': true,
       'aria-true': true,
-      'other-true': true,
 
       'data-null': null,
-      'aria-null': null,
+      'aria-null': null
+    };
+
+    const Map otherProps = const {
+      'other-true': true,
       'other-null': null
     };
 
@@ -149,6 +152,7 @@ void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(),
     var instance = (factory()
       ..addProps(propsThatShouldNotGetForwarded)
       ..addProps(extraProps)
+      ..addProps(otherProps)
       ..key = key
       ..ref = ref
     )(childrenFactory());
@@ -160,6 +164,17 @@ void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(),
 
     for (var forwardingTarget in forwardingTargets) {
       Map actualProps = getProps(forwardingTarget);
+
+      // If the forwarding target is a DOM element it will should not have invalid DOM props forwared to it.
+      if (isDomElement(forwardingTarget)) {
+        otherProps.forEach((key, value) {
+          expect(actualProps, isNot(containsPair(key, value)));
+        });
+      } else {
+        otherProps.forEach((key, value) {
+          expect(actualProps, containsPair(key, value));
+        });
+      }
 
       // Expect the target to have all forwarded props.
       extraProps.forEach((key, value) {
