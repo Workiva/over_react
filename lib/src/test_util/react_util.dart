@@ -167,6 +167,7 @@ final _EventSimulatorAlias mouseLeave = (componentOrNode, [Map eventData = const
 abstract class Simulate {
   @JS('mouseEnter')
   external static void _mouseEnter(dynamic target, [eventData]);
+
   @JS('mouseLeave')
   external static void _mouseLeave(dynamic target, [eventData]);
 }
