@@ -297,7 +297,7 @@ abstract class UiProps
   }
 
   /// Gets the `data-test-id` prop key to [value] for use in a testing environment.
-  @deprecated
+  @Deprecated('1.0.0')
   String get testId {
     return getTestId();
   }
