@@ -59,7 +59,7 @@ final CallbackUtil2Arg<int, int> focusDidChangeCallbacks                    = co
 ///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
-/// Returns `false` if one or more of the provided callback returns `false`.
+/// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [targetKeyCallbacks] instead.
 @deprecated
@@ -70,7 +70,7 @@ TargetKeyCallback createChainedTargetKeyCallback(TargetKeyCallback a, TargetKeyC
 ///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
-/// Returns `false` if one or more of the provided callback returns `false`.
+/// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [targetKeyIndexCallbacks] instead.
 @deprecated
@@ -81,9 +81,9 @@ TargetKeyIndexCallback createChainedTargetKeyIndexCallback(TargetKeyIndexCallbac
 ///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
-/// Returns `false` if one or more of the provided callback returns `false`.
+/// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
-/// Deprecated: use [targetKeyCallbacks.chainFromList.
+/// Deprecated: use [targetKeyCallbacks.chainFromList] instead.
 @deprecated
 TargetKeyCallback createChainedTargetKeyCallbackFromList(List<TargetKeyCallback> callbacks) =>
     targetKeyCallbacks.chainFromList(callbacks);
@@ -92,7 +92,7 @@ TargetKeyCallback createChainedTargetKeyCallbackFromList(List<TargetKeyCallback>
 ///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
-/// Returns `false` if one or more of the provided callback returns `false`.
+/// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [indexCallbacks] instead.
 @deprecated
@@ -103,7 +103,7 @@ IndexCallback createChainedIndexCallback(IndexCallback a, IndexCallback b) =>
 ///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
-/// Returns `false` if one or more of the provided callback returns `false`.
+/// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [domEventCallbacks] instead.
 @deprecated
@@ -114,7 +114,7 @@ DomEventCallback createChainedDomEventCallback(DomEventCallback a, DomEventCallb
 ///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
-/// Returns `false` if one or more of the provided callback returns `false`.
+/// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [clipboardEventCallbacks] instead.
 @deprecated
@@ -125,7 +125,7 @@ ClipboardEventCallback createChainedClipboardEventCallback(ClipboardEventCallbac
 ///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
-/// Returns `false` if one or more of the provided callback returns `false`.
+/// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [keyboardEventCallbacks] instead.
 @deprecated
@@ -136,7 +136,7 @@ KeyboardEventCallback createChainedKeyboardEventCallback(KeyboardEventCallback a
 ///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
-/// Returns `false` if one or more of the provided callback returns `false`.
+/// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [focusEventCallbacks] instead.
 @deprecated
@@ -147,7 +147,7 @@ FocusEventCallback createChainedFocusEventCallback(FocusEventCallback a, FocusEv
 ///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
-/// Returns `false` if one or more of the provided callback returns `false`.
+/// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [formEventCallbacks] instead.
 @deprecated
@@ -158,7 +158,7 @@ FormEventCallback createChainedFormEventCallback(FormEventCallback a, FormEventC
 ///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
-/// Returns `false` if one or more of the provided callback returns `false`.
+/// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [mouseEventCallbacks] instead.
 @deprecated
@@ -169,7 +169,7 @@ MouseEventCallback createChainedMouseEventCallback(MouseEventCallback a, MouseEv
 ///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
-/// Returns `false` if one or more of the provided callback returns `false`.
+/// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [touchEventCallbacks] instead.
 @deprecated
@@ -180,7 +180,7 @@ TouchEventCallback createChainedTouchEventCallback(TouchEventCallback a, TouchEv
 ///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
-/// Returns `false` if one or more of the provided callback returns `false`.
+/// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [uIEventCallbacks] instead.
 @deprecated
@@ -191,7 +191,7 @@ UIEventCallback createChainedUIEventCallback(UIEventCallback a, UIEventCallback 
 ///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
-/// Returns `false` if one or more of the provided callback returns `false`.
+/// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [wheelEventCallbacks] instead.
 @deprecated
@@ -202,7 +202,7 @@ WheelEventCallback createChainedWheelEventCallback(WheelEventCallback a, WheelEv
 ///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
-/// Returns `false` if one or more of the provided callback returns `false`.
+/// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [focusDidChangeCallbacks] instead.
 @deprecated
@@ -213,7 +213,7 @@ FocusDidChangeCallback createChainedFocusDidChangeCallback(FocusDidChangeCallbac
 ///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
-/// Returns `false` if one or more of the provided callback returns `false`.
+/// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [callbacks] instead.
 @deprecated
@@ -239,7 +239,7 @@ class CallbackUtil0Arg extends CallbackUtil<Callback0Arg> {
   /// Returns a strongly-typed chained callback that calls through to the two provided callbacks, [a] and [b], in order.
   /// Useful for executing multiple callbacks where only a single callback is accepted.
   ///
-  /// Returns `false` if one or more of the provided callback returns `false`.
+  /// Returns `false` if one or more of the provided callbacks returns `false`.
   ///
   /// Gracefully handles when [a] and/or [b] are null, always returning a callable function.
   @override
@@ -270,7 +270,7 @@ class CallbackUtil1Arg<T> extends CallbackUtil<Callback1Arg<T>> {
   /// Returns a strongly-typed chained callback that calls through to the two provided callbacks, [a] and [b], in order.
   /// Useful for executing multiple callbacks where only a single callback is accepted.
   ///
-  /// Returns `false` if one or more of the provided callback returns `false`.
+  /// Returns `false` if one or more of the provided callbacks returns `false`.
   ///
   /// Gracefully handles when [a] and/or [b] are null, always returning a callable function.
   @override
@@ -301,7 +301,7 @@ class CallbackUtil2Arg<T1, T2> extends CallbackUtil<Callback2Arg<T1, T2>> {
   /// Returns a strongly-typed chained callback that calls through to the two provided callbacks, [a] and [b], in order.
   /// Useful for executing multiple callbacks where only a single callback is accepted.
   ///
-  /// Returns `false` if one or more of the provided callback returns `false`.
+  /// Returns `false` if one or more of the provided callbacks returns `false`.
   ///
   /// Gracefully handles when [a] and/or [b] are null, always returning a callable function.
   @override
@@ -332,7 +332,7 @@ class CallbackUtil3Arg<T1, T2, T3> extends CallbackUtil<Callback3Arg<T1, T2, T3>
   /// Returns a strongly-typed chained callback that calls through to the two provided callbacks, [a] and [b], in order.
   /// Useful for executing multiple callbacks where only a single callback is accepted.
   ///
-  /// Returns `false` if one or more of the provided callback returns `false`.
+  /// Returns `false` if one or more of the provided callbacks returns `false`.
   ///
   /// Gracefully handles when [a] and/or [b] are null, always returning a callable function.
   @override
@@ -357,7 +357,7 @@ abstract class CallbackUtil<TTypedef extends Function> {
   /// Returns a strongly-typed chained callback that calls through to the two provided callbacks, [a] and [b], in order.
   /// Useful for executing multiple callbacks where only a single callback is accepted.
   ///
-  /// Returns `false` if one or more of the provided callback returns `false`.
+  /// Returns `false` if one or more of the provided callbacks returns `false`.
   ///
   /// Gracefully handles when [a] and/or [b] are null, always returning a callable function.
   TTypedef chain(TTypedef a, TTypedef b);
@@ -365,7 +365,7 @@ abstract class CallbackUtil<TTypedef extends Function> {
   /// Returns a strongly-typed chained callback that calls through to the list of provided [callbacks] in order.
   /// Useful for executing multiple callbacks where only a single callback is accepted.
   ///
-  /// Returns `false` if one or more of the provided callback returns `false`.
+  /// Returns `false` if one or more of the provided callbacks returns `false`.
   ///
   /// Gracefully handles when [callbacks] is empty or its items are null, always returning a callable function.
   TTypedef chainFromList(List<TTypedef> callbacks) =>
