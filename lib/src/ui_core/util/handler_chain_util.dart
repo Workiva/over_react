@@ -44,7 +44,7 @@ final CallbackUtil1Arg<SyntheticMouseEvent> mouseEventCallbacks             = co
 final CallbackUtil1Arg<SyntheticTouchEvent> touchEventCallbacks             = const CallbackUtil1Arg<SyntheticTouchEvent>();
 
 /// Provides chaining utilities for [UIEventCallback].
-final CallbackUtil1Arg<SyntheticUIEvent> uIEventCallbacks                   = const CallbackUtil1Arg<SyntheticUIEvent>();
+final CallbackUtil1Arg<SyntheticUIEvent> uiEventCallbacks                   = const CallbackUtil1Arg<SyntheticUIEvent>();
 
 /// Provides chaining utilities for [WheelEventCallback].
 final CallbackUtil1Arg<SyntheticWheelEvent> wheelEventCallbacks             = const CallbackUtil1Arg<SyntheticWheelEvent>();
@@ -182,10 +182,10 @@ TouchEventCallback createChainedTouchEventCallback(TouchEventCallback a, TouchEv
 ///
 /// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
-/// Deprecated: use [uIEventCallbacks] instead.
+/// Deprecated: use [uiEventCallbacks] instead.
 @Deprecated('2.0.0')
 UIEventCallback createChainedUIEventCallback(UIEventCallback a, UIEventCallback b) =>
-    uIEventCallbacks.chain(a, b);
+    uiEventCallbacks.chain(a, b);
 
 /// Creates a WheelEventCallback that calls through to the two provided callbacks in order.
 ///
