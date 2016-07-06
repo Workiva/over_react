@@ -29,6 +29,7 @@ import 'ui_core/util/handler_chain_util_test.dart' as handler_chain_util_test;
 import 'ui_core/util/map_util_test.dart' as map_util_test;
 import 'ui_core/util/prop_error_test.dart' as prop_error_test;
 import 'ui_core/util/react_wrappers_test.dart' as react_wrappers_test;
+import 'ui_core/util/rem_util_test.dart' as rem_util_test;
 import 'ui_core/util/test_mode_test.dart' as test_mode_test;
 
 main() {
@@ -56,5 +57,6 @@ main() {
   map_util_test.main();
   prop_error_test.main();
   react_wrappers_test.main();
+  rem_util_test.main();
   test_mode_test.main();
 }
