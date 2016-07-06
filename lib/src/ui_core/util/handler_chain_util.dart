@@ -62,7 +62,7 @@ final CallbackUtil2Arg<int, int> focusDidChangeCallbacks                    = co
 /// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [targetKeyCallbacks] instead.
-@deprecated
+@Deprecated('2.0.0')
 TargetKeyCallback createChainedTargetKeyCallback(TargetKeyCallback a, TargetKeyCallback b) =>
     targetKeyCallbacks.chain(a, b);
 
@@ -73,7 +73,7 @@ TargetKeyCallback createChainedTargetKeyCallback(TargetKeyCallback a, TargetKeyC
 /// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [targetKeyIndexCallbacks] instead.
-@deprecated
+@Deprecated('2.0.0')
 TargetKeyIndexCallback createChainedTargetKeyIndexCallback(TargetKeyIndexCallback a, TargetKeyIndexCallback b) =>
     targetKeyIndexCallbacks.chain(a, b);
 
@@ -84,7 +84,7 @@ TargetKeyIndexCallback createChainedTargetKeyIndexCallback(TargetKeyIndexCallbac
 /// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [targetKeyCallbacks.chainFromList] instead.
-@deprecated
+@Deprecated('2.0.0')
 TargetKeyCallback createChainedTargetKeyCallbackFromList(List<TargetKeyCallback> callbacks) =>
     targetKeyCallbacks.chainFromList(callbacks);
 
@@ -95,7 +95,7 @@ TargetKeyCallback createChainedTargetKeyCallbackFromList(List<TargetKeyCallback>
 /// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [indexCallbacks] instead.
-@deprecated
+@Deprecated('2.0.0')
 IndexCallback createChainedIndexCallback(IndexCallback a, IndexCallback b) =>
     indexCallbacks.chain(a, b);
 
@@ -106,7 +106,7 @@ IndexCallback createChainedIndexCallback(IndexCallback a, IndexCallback b) =>
 /// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [domEventCallbacks] instead.
-@deprecated
+@Deprecated('2.0.0')
 DomEventCallback createChainedDomEventCallback(DomEventCallback a, DomEventCallback b) =>
     domEventCallbacks.chain(a, b);
 
@@ -117,7 +117,7 @@ DomEventCallback createChainedDomEventCallback(DomEventCallback a, DomEventCallb
 /// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [clipboardEventCallbacks] instead.
-@deprecated
+@Deprecated('2.0.0')
 ClipboardEventCallback createChainedClipboardEventCallback(ClipboardEventCallback a, ClipboardEventCallback b) =>
     clipboardEventCallbacks.chain(a, b);
 
@@ -128,7 +128,7 @@ ClipboardEventCallback createChainedClipboardEventCallback(ClipboardEventCallbac
 /// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [keyboardEventCallbacks] instead.
-@deprecated
+@Deprecated('2.0.0')
 KeyboardEventCallback createChainedKeyboardEventCallback(KeyboardEventCallback a, KeyboardEventCallback b) =>
     keyboardEventCallbacks.chain(a, b);
 
@@ -139,7 +139,7 @@ KeyboardEventCallback createChainedKeyboardEventCallback(KeyboardEventCallback a
 /// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [focusEventCallbacks] instead.
-@deprecated
+@Deprecated('2.0.0')
 FocusEventCallback createChainedFocusEventCallback(FocusEventCallback a, FocusEventCallback b) =>
     focusEventCallbacks.chain(a, b);
 
@@ -150,7 +150,7 @@ FocusEventCallback createChainedFocusEventCallback(FocusEventCallback a, FocusEv
 /// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [formEventCallbacks] instead.
-@deprecated
+@Deprecated('2.0.0')
 FormEventCallback createChainedFormEventCallback(FormEventCallback a, FormEventCallback b) =>
     formEventCallbacks.chain(a, b);
 
@@ -161,7 +161,7 @@ FormEventCallback createChainedFormEventCallback(FormEventCallback a, FormEventC
 /// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [mouseEventCallbacks] instead.
-@deprecated
+@Deprecated('2.0.0')
 MouseEventCallback createChainedMouseEventCallback(MouseEventCallback a, MouseEventCallback b) =>
     mouseEventCallbacks.chain(a, b);
 
@@ -172,7 +172,7 @@ MouseEventCallback createChainedMouseEventCallback(MouseEventCallback a, MouseEv
 /// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [touchEventCallbacks] instead.
-@deprecated
+@Deprecated('2.0.0')
 TouchEventCallback createChainedTouchEventCallback(TouchEventCallback a, TouchEventCallback b) =>
     touchEventCallbacks.chain(a, b);
 
@@ -183,7 +183,7 @@ TouchEventCallback createChainedTouchEventCallback(TouchEventCallback a, TouchEv
 /// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [uIEventCallbacks] instead.
-@deprecated
+@Deprecated('2.0.0')
 UIEventCallback createChainedUIEventCallback(UIEventCallback a, UIEventCallback b) =>
     uIEventCallbacks.chain(a, b);
 
@@ -194,7 +194,7 @@ UIEventCallback createChainedUIEventCallback(UIEventCallback a, UIEventCallback 
 /// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [wheelEventCallbacks] instead.
-@deprecated
+@Deprecated('2.0.0')
 WheelEventCallback createChainedWheelEventCallback(WheelEventCallback a, WheelEventCallback b) =>
     wheelEventCallbacks.chain(a, b);
 
@@ -205,7 +205,7 @@ WheelEventCallback createChainedWheelEventCallback(WheelEventCallback a, WheelEv
 /// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [focusDidChangeCallbacks] instead.
-@deprecated
+@Deprecated('2.0.0')
 FocusDidChangeCallback createChainedFocusDidChangeCallback(FocusDidChangeCallback a, FocusDidChangeCallback b) =>
     focusDidChangeCallbacks.chain(a, b);
 
@@ -216,7 +216,7 @@ FocusDidChangeCallback createChainedFocusDidChangeCallback(FocusDidChangeCallbac
 /// Returns `false` if one or more of the provided callbacks returns `false`.
 ///
 /// Deprecated: use [callbacks] instead.
-@deprecated
+@Deprecated('2.0.0')
 Callback createChainedCallback(Callback a, Callback b) =>
     callbacks.chain(a, b);
 
