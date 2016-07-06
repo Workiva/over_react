@@ -28,8 +28,12 @@ main() {
         unsetRootFontSize();
       });
 
-      test('converts a px CSS value to rem', () {
+      test('converts a px CSS value String to rem', () {
         expect(toRem('15px'), new CssValue(0.75, 'rem'));
+      });
+
+      test('converts a px CssValue instance to rem', () {
+        expect(toRem(new CssValue.parse('15px')), new CssValue(0.75, 'rem'));
       });
 
       test('converts an int value (treated as px) to rem', () {
@@ -60,6 +64,13 @@ main() {
             throwsA(hasToStringValue(contains('must be a num or a String px value'))))
         );
       });
+
+      test('throws when passed a CssValue instance with a unit other than px', () {
+        expect(() => toRem(new CssValue.parse('1em')), allOf(
+            throwsArgumentError,
+            throwsA(hasToStringValue(contains('must be a num or a String px value'))))
+        );
+      });
     });
 
     group('toPx', () {
@@ -71,8 +82,12 @@ main() {
         unsetRootFontSize();
       });
 
-      test('converts a rem CSS value to px', () {
+      test('converts a rem CSS value String to px', () {
         expect(toPx('0.75rem'), new CssValue(15, 'px'));
+      });
+
+      test('converts a rem CssValue instance to px', () {
+        expect(toPx(new CssValue.parse('0.75rem')), new CssValue(15, 'px'));
       });
 
       test('converts an int value (treated as rem) to px', () {
@@ -99,6 +114,13 @@ main() {
 
       test('throws when passed a CSS value string with a unit other than px', () {
         expect(() => toPx('1em'), allOf(
+            throwsArgumentError,
+            throwsA(hasToStringValue(contains('must be a num or a String rem value'))))
+        );
+      });
+
+      test('throws when passed a CssValue instance with a unit other than px', () {
+        expect(() => toPx(new CssValue.parse('1em')), allOf(
             throwsArgumentError,
             throwsA(hasToStringValue(contains('must be a num or a String rem value'))))
         );
