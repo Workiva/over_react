@@ -87,7 +87,7 @@ CssValue toRem(dynamic pxValue) {
   if (pxValue is num) {
     pxValueNum = pxValue;
   } else {
-    var parsedPxValue = new CssValue.parse(pxValue);
+    var parsedPxValue = pxValue is CssValue ? pxValue : new CssValue.parse(pxValue);
     if (parsedPxValue?.unit != 'px') {
       throw new ArgumentError.value(pxValue, 'pxValue', 'must be a num or a String px value');
     }
@@ -115,12 +115,12 @@ CssValue toPx(dynamic remValue) {
   if (remValue is num) {
     remValueNum = remValue;
   } else {
-    var parsedPxValue = new CssValue.parse(remValue);
-    if (parsedPxValue?.unit != 'rem') {
+    var parsedRemValue = remValue is CssValue ? remValue : new CssValue.parse(remValue);
+    if (parsedRemValue?.unit != 'rem') {
       throw new ArgumentError.value(remValue, 'remValue', 'must be a num or a String rem value');
     }
 
-    remValueNum = parsedPxValue.number;
+    remValueNum = parsedRemValue.number;
   }
 
   return new CssValue(remValueNum * rootFontSize, 'px');
