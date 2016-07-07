@@ -29,6 +29,7 @@ export 'src/ui_core/util/js_util.dart';
 export 'src/ui_core/util/key_constants.dart';
 export 'src/ui_core/util/prop_errors.dart';
 export 'src/ui_core/util/react_wrappers.dart';
+export 'src/ui_core/util/rem_util.dart';
 export 'src/ui_core/util/string_util.dart';
 export 'src/ui_core/util/test_mode.dart';
 export 'src/ui_core/util/validation_util.dart';
