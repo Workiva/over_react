@@ -290,9 +290,10 @@ main() {
 
       test('preserves callback refs correctly', () {
         var flag = false;
+        var runtimeType;
         var callbackRef = (instance) {
           flag = true;
-          expect(instance.runtimeType, equals(TestComponent));
+          runtimeType = instance.runtimeType;
         };
 
         // The 'ref' property can only be used from within a render() method, so use RenderingContainerComponent
@@ -309,6 +310,7 @@ main() {
         render(holder);
 
         expect(flag, isTrue);
+        expect(runtimeType, equals(TestComponent));
       });
     });
 
