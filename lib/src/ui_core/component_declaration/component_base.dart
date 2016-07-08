@@ -4,17 +4,11 @@ import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart';
 import 'package:web_skin_dart/ui_core.dart' show
-    BaseComponent,
-    BaseComponentWithState,
     ClassNameBuilder,
-    ComponentDefinition,
     CssClassPropsMixin,
     ReactPropsMixin,
     UbiquitousDomPropsMixin,
-    getProps,
     getPropsToForward,
-    isDartComponent,
-    isValidElement,
     DummyComponent,
     ValidationUtil,
     unindent;
@@ -74,12 +68,20 @@ typedef TProps UiFactory<TProps extends UiProps>([Map backingProps]);
 /// For use as a Function variable type when the `backingProps` argument is not required.
 typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 
+typedef dynamic _RefTypedef(String ref);
 
 /// The basis for a web_skin_dart component, extending [react.Component]. (Successor to [BaseComponent]).
 ///
 /// Includes support for strongly-typed props and utilities for prop and CSS classname forwarding.
-abstract class UiComponent<TProps extends UiProps> extends react.Component
-    implements BaseComponent<TProps> {
+abstract class UiComponent<TProps extends UiProps> extends react.Component {
+  /// Returns the component of the specified [ref].
+  /// > `react.Component` if it is a Dart component
+  /// > DOM node if it is a DOM component.
+  ///
+  /// Overridden for strong typing.
+  @override
+  _RefTypedef get ref => super.ref;
+
   /// The keys for the non-forwarding props defined in this component.
   Iterable<Iterable<String>> get consumedPropKeys => null;
 
@@ -90,7 +92,6 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component
 
   /// Returns a copy of this component's props with React props optionally omitted, and
   /// with the specified [keysToOmit] and [keySetsToOmit] omitted.
-  @override
   Map copyProps({bool omitReservedReactProps: true, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
     return getPropsToForward(this.props,
         omitReactProps: omitReservedReactProps,
@@ -103,7 +104,6 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component
   /// [CssClassProps.classNameBlackList], if they are specified.
   ///
   /// This method should be used as the basis for the classNames of components receiving forwarded props.
-  @override
   ClassNameBuilder forwardingClassNameBuilder() {
     return new ClassNameBuilder.fromProps(this.props);
   }
@@ -134,27 +134,16 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component
   @override
   set props(Map value) => super.props = value;
 
-  /// DEPRECATED: Use [props] instead.
-  ///
-  /// A typed props object corresponding to the current untyped props Map ([unwrappedProps]).
-  ///
-  /// Created using [typedPropsFactory] and cached for each Map instance.
-  @override
-  @deprecated
-  TProps get tProps => props;
-
   /// The props Map that will be used to create the typed [props] object.
   Map get unwrappedProps => super.props;
   set unwrappedProps(Map value) => super.props = value;
 
   /// Returns a typed props object backed by the specified [propsMap].
   /// Required to properly instantiate the generic [TProps] class.
-  @override
   TProps typedPropsFactory(Map propsMap);
 
   /// Returns a typed props object backed by a new Map.
   /// Convenient for use with [getDefaultProps].
-  @override
   TProps newProps() => typedPropsFactory({});
 
   //
@@ -166,9 +155,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component
 /// The basis for a stateful web_skin_dart component, extending [react.Component]. (Successor to [BaseComponentWithState]).
 ///
 /// Includes support for strongly-typed props and state and utilities for prop and CSS classname forwarding.
-abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState>
-    extends UiComponent<TProps>
-    implements BaseComponentWithState<TProps, TState> {
+abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState> extends UiComponent<TProps> {
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
   //   BEGIN Typed state helpers
@@ -194,27 +181,16 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   @override
   set state(Map value) => super.state = value;
 
-  /// DEPRECATED: Use [state] instead.
-  ///
-  /// A typed state object corresponding to the current untyped state Map ([unwrappedState]).
-  ///
-  /// Created using [typedStateFactory] and cached for each Map instance.
-  @override
-  @deprecated
-  TState get tState => state;
-
   /// The state Map that will be used to create the typed [state] object.
   Map get unwrappedState => super.state;
   set unwrappedState(Map value) => super.state = value;
 
   /// Returns a typed state object backed by the specified [stateMap].
   /// Required to properly instantiate the generic [TState] class.
-  @override
   TState typedStateFactory(Map stateMap);
 
   /// Returns a typed state object backed by a new Map.
   /// Convenient for use with [getInitialState] and [setState].
-  @override
   TState newState() => typedStateFactory({});
 
   //
@@ -239,21 +215,17 @@ const defaultTestIdKey = 'data-test-id';
 /// For use as a typed view into existing props [Maps], or as a builder to create new component
 /// instances via a fluent-style interface.
 ///
-/// (Successor to [ComponentDefinition]).
-///
 /// Note: Implements MapViewMixin instead of extending it so that the abstract [Props] declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
 abstract class UiProps
     extends Object with MapViewMixin, PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
-    implements Map, ComponentDefinition {
+    implements Map {
   /// Adds an arbitrary prop key-value pair.
-  @override
   void addProp(propKey, value) {
     props[propKey] = value;
   }
 
   /// Adds a Map of arbitrary props. [props] may be null.
-  @override
   void addProps(Map propMap) {
     if (propMap == null) {
       return;
@@ -276,18 +248,6 @@ abstract class UiProps
   /// See: <https://github.com/dart-lang/pub/issues/798>.
   bool get _inTestMode => testMode || _testModeFromEnvironment;
 
-  /// Sets the prop [key] to [value] for use in a testing environment.
-  ///
-  /// Deprecated: __Use the [addTestId] method instead.__
-  @deprecated
-  void setTestId(String value, {String key: defaultTestIdKey}) {
-    if (!_inTestMode) {
-      return;
-    }
-
-    props[key] = value;
-  }
-
   /// Adds [value] to the prop [key] for use in a testing environment by using space-delimiting.
   ///
   /// Allows for an element to have multiple test IDs to prevent overwriting when cloning elements or components.
@@ -305,14 +265,6 @@ abstract class UiProps
     }
   }
 
-  /// Sets the `data-test-id` prop key to [value] for use in a testing environment.
-  ///
-  /// Deprecated: __Use the [addTestId] method instead.__
-  @deprecated
-  set testId(String value) {
-    setTestId(value);
-  }
-
   /// Gets the `data-test-id` prop or one testId from the prop (or custom [key] prop value) for use in a testing
   /// environment.
   String getTestId({String key: defaultTestIdKey}) {
@@ -325,13 +277,8 @@ abstract class UiProps
     return getTestId();
   }
 
-  @deprecated
-  @override
-  bool validate() => true;
-
   /// Returns a new component with this builder's props and the specified children.
-  @override
-  ReactElement<react.Component> build([dynamic children]) {
+  ReactElement build([dynamic children]) {
     assert(_validateChildren(children));
 
     return componentFactory(props, children);
@@ -344,8 +291,7 @@ abstract class UiProps
   ///
   /// Restricted statically to 40 arguments until the dart2js fix in
   /// <https://github.com/dart-lang/sdk/pull/26032> is released.
-  @override
-  ReactElement<react.Component> call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
+  ReactElement call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
 
   /// Supports variadic children of the form `call([child1, child2, child3...])`.
   @override
@@ -398,7 +344,6 @@ abstract class UiProps
     return true;
   }
 
-  @override
   Function get componentFactory;
 }
 
