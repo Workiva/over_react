@@ -6,11 +6,13 @@ import 'dart:html';
 
 import 'package:js/js.dart';
 import 'package:react/react.dart' as react;
+import 'package:react/react_dom.dart' as react_dom;
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_interop_helpers.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:web_skin_dart/ui_core.dart';
+import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart' as component_base;
 
 export 'package:web_skin_dart/src/ui_core/util/react_wrappers.dart';
 
@@ -32,7 +34,7 @@ export 'package:web_skin_dart/src/ui_core/util/react_wrappers.dart';
 
 /// Renders a React component or builder into a detached node and returns the component instance.
 /* [1] */ render(dynamic component) {
-  return react_test_utils.renderIntoDocument(component is ComponentDefinition ? component.build() : component);
+  return react_test_utils.renderIntoDocument(component is component_base.UiProps ? component.build() : component);
 }
 
 /// Shallow-renders a component using [react_test_utils.ReactShallowRenderer].
@@ -47,7 +49,7 @@ ReactElement renderShallow(ReactElement instance) {
 /// Unmounts a React component.
 ///
 /// [instanceOrContainerNode] can be a [ReactComponent]/[Element] React instance,
-/// or an [Element] container node (argument to [react.render]).
+/// or an [Element] container node (argument to [react_dom.render]).
 ///
 /// For convenience, this method does nothing if [instanceOrContainerNode] is null,
 /// or if it's a non-mounted React instance.
@@ -75,12 +77,12 @@ void unmount(dynamic instanceOrContainerNode) {
     );
   }
 
-  react.unmountComponentAtNode(containerNode);
+  react_dom.unmountComponentAtNode(containerNode);
 }
 
 /// Renders a React component or builder into a detached node and returns the associated DOM node.
 Element renderAndGetDom(dynamic component) {
-  return findDomNode(react_test_utils.renderIntoDocument(component is ComponentDefinition ? component.build() : component));
+  return findDomNode(react_test_utils.renderIntoDocument(component is component_base.UiProps ? component.build() : component));
 }
 
 /// Renders a React component or builder into a detached node and returns the associtated Dart component.
@@ -102,13 +104,13 @@ List<Element> _attachedReactContainers = [];
 
   document.body.append(container);
 
-  return react.render(component is ComponentDefinition ? component.build() : component, container);
+  return react_dom.render(component is component_base.UiProps ? component.build() : component, container);
 }
 
 /// Unmounts and removes the mount nodes for components rendered via [renderAttachedToDocument].
 void tearDownAttachedNodes() {
   _attachedReactContainers.forEach((container) {
-    react.unmountComponentAtNode(container);
+    react_dom.unmountComponentAtNode(container);
     container.remove();
   });
 
@@ -165,36 +167,6 @@ final _EventSimulatorAlias mouseLeave = (componentOrNode, [Map eventData = const
 abstract class Simulate {
   external static void mouseEnter(dynamic target, [eventData]);
   external static void mouseLeave(dynamic target, [eventData]);
-}
-
-/// Simulate a MouseEnter event by firing a MouseOut and a MouseOver, since MouseEnter simulation is not provided by react_test_utils.
-///
-/// Deprecated: Use [mouseEnter] instead.
-@deprecated
-void simulateMouseEnter(EventTarget target) {
-  // Use any other node than [target].
-  var from = document.body;
-  var to = target;
-
-  assert(from != to);
-
-  react_test_utils.SimulateNative.mouseOut(from, {'relatedTarget': to});
-  react_test_utils.SimulateNative.mouseOver(to, {'relatedTarget': from});
-}
-
-/// Simulate a MouseLeave event by firing a MouseOut and a MouseOver, since MouseLeave simulation is not provided by react_test_utils.
-///
-/// Deprecated: Use [mouseLeave] instead.
-@deprecated
-void simulateMouseLeave(EventTarget target) {
-  var from = target;
-  // Use any other node than [target].
-  var to = document.body;
-
-  assert(from != to);
-
-  react_test_utils.SimulateNative.mouseOut(from, {'relatedTarget': to});
-  react_test_utils.SimulateNative.mouseOver(to, {'relatedTarget': from});
 }
 
 /// Returns whether [props] contains [key] with a value set to a space-delimited string containing [value].
@@ -343,19 +315,6 @@ List findDescendantsWithProp(/* [1] */ root, dynamic propKey) {
   }));
 
   return descendantsWithProp;
-}
-
-/// Dart wrapper for setProps.
-/// > Sets a subset of the props.
-/// >
-/// > @param {object} partialProps Subset of the next props.
-/// > @param {?function} callback Called after props are updated.
-///
-/// __Deprecated.__ Rerender the component using [render] instead.
-@deprecated
-void setProps(ReactComponent instance, Map props, [callback(context)]) {
-  var propsChangeset = preparePropsChangeset((instance as ReactElement), props);
-  instance.setProps(propsChangeset, callback);
 }
 
 /// Helper component that renders whatever you tell it to. Necessary for rendering components with the 'ref' prop.
