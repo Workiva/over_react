@@ -4,15 +4,15 @@ import 'package:react/react.dart' as react;
 
 import '../component/callback_typedefs.dart';
 
-/// Creates an EventKeyCallback that calls through to the two provided callbacks in order.
+/// Creates an TargetKeyCallback that calls through to the two provided callbacks in order.
 ///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
-EventKeyCallback createChainedEventKeyCallback(EventKeyCallback a, EventKeyCallback b) {
-  return (react.SyntheticEvent event, Object eventKey) {
-    var aDidReturnFalse = a != null ? a(event, eventKey) == false : false;
-    var bDidReturnFalse = b != null ? b(event, eventKey) == false : false;
+TargetKeyCallback createChainedTargetKeyCallback(TargetKeyCallback a, TargetKeyCallback b) {
+  return (react.SyntheticEvent event, Object targetKey) {
+    var aDidReturnFalse = a != null ? a(event, targetKey) == false : false;
+    var bDidReturnFalse = b != null ? b(event, targetKey) == false : false;
 
     if (aDidReturnFalse || bDidReturnFalse) {
       return false;
@@ -20,15 +20,15 @@ EventKeyCallback createChainedEventKeyCallback(EventKeyCallback a, EventKeyCallb
   };
 }
 
-/// Creates an EventKeyIndexCallback that calls through to the two provided callbacks in order.
+/// Creates an TargetKeyIndexCallback that calls through to the two provided callbacks in order.
 ///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
-EventKeyIndexCallback createChainedEventKeyIndexCallback(EventKeyIndexCallback a, EventKeyIndexCallback b) {
-  return (react.SyntheticEvent event, Object eventKey, int index) {
-    var aDidReturnFalse = a != null ? a(event, eventKey, index) == false : false;
-    var bDidReturnFalse = b != null ? b(event, eventKey, index) == false : false;
+TargetKeyIndexCallback createChainedTargetKeyIndexCallback(TargetKeyIndexCallback a, TargetKeyIndexCallback b) {
+  return (react.SyntheticEvent event, Object targetKey, int index) {
+    var aDidReturnFalse = a != null ? a(event, targetKey, index) == false : false;
+    var bDidReturnFalse = b != null ? b(event, targetKey, index) == false : false;
 
     if (aDidReturnFalse || bDidReturnFalse) {
       return false;
@@ -36,17 +36,17 @@ EventKeyIndexCallback createChainedEventKeyIndexCallback(EventKeyIndexCallback a
   };
 }
 
-/// Creates an EventKeyCallback that calls through to the list of provided callbacks in order.
+/// Creates an TargetKeyCallback that calls through to the list of provided callbacks in order.
 ///
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
-EventKeyCallback createChainedEventKeyCallbackFromList(List<EventKeyCallback> callbacks) {
-  return (react.SyntheticEvent event, Object eventKey) {
+TargetKeyCallback createChainedTargetKeyCallbackFromList(List<TargetKeyCallback> callbacks) {
+  return (react.SyntheticEvent event, Object targetKey) {
     var didReturnFalse = false;
 
-    callbacks.forEach((EventKeyCallback callback) {
-      if (callback != null && callback(event, eventKey) == false) {
+    callbacks.forEach((TargetKeyCallback callback) {
+      if (callback != null && callback(event, targetKey) == false) {
         didReturnFalse = true;
       }
     });
@@ -62,7 +62,7 @@ EventKeyCallback createChainedEventKeyCallbackFromList(List<EventKeyCallback> ca
 /// Useful for executing multiple callbacks where only a single callback is accepted.
 ///
 /// Returns `false` if one or more of the provided callback returns `false`.
-EventKeyCallback createChainedIndexCallback(IndexCallback a, IndexCallback b) {
+IndexCallback createChainedIndexCallback(IndexCallback a, IndexCallback b) {
   return (react.SyntheticEvent event, int index) {
     var aDidReturnFalse = a != null ? a(event, index) == false : false;
     var bDidReturnFalse = b != null ? b(event, index) == false : false;
