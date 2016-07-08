@@ -30,9 +30,9 @@ Map getPropsToForward(Map props, {bool omitReactProps: true, bool onlyCopyDomPro
 
   if (onlyCopyDomProps) {
     new List.from(propsToForward.keys).forEach((String key) {
-      if (const $PropKeys(DomPropsMixin).contains(key)) return;
-      if (const $PropKeys(ReactPropsMixin).contains(key)) return;
-      if (key.startsWith(new RegExp('data-|aria-'))) return;
+      if (key.startsWith('aria-')) return;
+      if (key.startsWith('data-')) return;
+      if (_validDomProps.contains(key)) return;
 
       propsToForward.remove(key);
     });
@@ -40,3 +40,7 @@ Map getPropsToForward(Map props, {bool omitReactProps: true, bool onlyCopyDomPro
 
   return propsToForward;
 }
+
+SplayTreeSet _validDomProps = new SplayTreeSet()
+  ..addAll(const $PropKeys(DomPropsMixin))
+  ..addAll(const $PropKeys(DomPropsMixin));
