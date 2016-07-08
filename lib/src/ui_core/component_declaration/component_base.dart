@@ -110,7 +110,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
             if (prop.isNullable && appliedProps.containsKey(prop.key)) return;
             if (!prop.isNullable && appliedProps[prop.key] != null) return;
 
-            throw new PropError.requried(prop.key, prop.errorMessage);
+            throw new PropError.required(prop.key, prop.errorMessage);
           });
     });
   }
@@ -431,7 +431,7 @@ class PropDescriptor {
   /// The message included in the thrown [PropError] if the `prop` is not set.
   final String errorMessage;
 
-  const PropDescriptor(this.key, {this.isRequired: false, this.isNullable: false, this.errorMessage});
+  const PropDescriptor(this.key, {this.isRequired: false, this.isNullable: false, this.errorMessage: ''});
 }
 
 /// Provides a representation of a single `state`.
