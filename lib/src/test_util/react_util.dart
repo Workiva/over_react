@@ -31,17 +31,71 @@ export 'package:web_skin_dart/src/ui_core/util/react_wrappers.dart';
 //     `ReactComponent`, whereas DOM component instance will be of type
 //     `Element`.
 
+/// Maximum number of components that can be rendered at a given time, before being automatically unmounted.
+///
+/// Defaulted to `5` because typically a single test will not render more than `5` components.
+int maxRenderedQueueLength = 5;
+
+/// Maximum number of shallow renderers that can be mounted at a given time, before being automatically unmounted.
+///
+/// Defaulted to `5` because typically a single test will not create more than `5` shallow renderers.
+int maxShallowRendererQueueLength = 5;
+
+/// Rolling list of rendered instances.
+///
+/// Should never have a length that exceeds [maxRenderedQueueLength].
+var _renderedInstances = [];
+
+/// Rolling list of shallow renderers.
+///
+/// Should never have a length that exceeds [maxShallowRendererQueueLength].
+var _shallowRenderers = [];
+
+/// Adds [renderedInstance] to [_renderedInstances].
+///
+/// If [_renderedInstances.length] is larger than or equal to [maxRenderedQueueLength] the oldest instance will be
+/// unmounted and removed from the list.
+void _addToRenderedInstanceQueue(dynamic renderedInstance) {
+  if (_renderedInstances.length >= maxRenderedQueueLength) {
+    unmount(_renderedInstances.last);
+    _renderedInstances.removeLast();
+  }
+
+  _renderedInstances.insert(0, renderedInstance);
+}
+
+/// Adds [renderer] to [_shallowRenderers].
+///
+/// If [_shallowRenderers.length] is larger than or equal to [maxShallowRendererQueueLength] the oldest rendered will be
+/// unmounted and removed from the list.
+void _addToShallowRendererQueue(react_test_utils.ReactShallowRenderer renderer) {
+  if (_shallowRenderers.length >= maxShallowRendererQueueLength) {
+    _shallowRenderers.last.unmount();
+    _shallowRenderers.removeLast();
+  }
+
+  _shallowRenderers.insert(0, renderer);
+}
 
 /// Renders a React component or builder into a detached node and returns the component instance.
-/* [1] */ render(dynamic component) {
-  return react_test_utils.renderIntoDocument(component is component_base.UiProps ? component.build() : component);
+///
+/// By default the rendered instance will be added to [_shallowRenderers] via [_addToShallowRendererQueue] to not
+/// have this happen set [addToRenderedQueue] to false.
+/* [1] */ render(dynamic component, {bool addToRenderedQueue: true}) {
+  var renderedInstance = react_test_utils.renderIntoDocument(component is component_base.UiProps ? component.build() : component);
+  if (addToRenderedQueue) _addToRenderedInstanceQueue(renderedInstance);
+  return renderedInstance;
 }
 
 /// Shallow-renders a component using [react_test_utils.ReactShallowRenderer].
 ///
+/// By default the rendered instance will be added to [_renderedInstances] via [_addToRenderedInstanceQueue] to not
+/// have this happen set [addToRenderedQueue] to false.
+///
 /// See: <https://facebook.github.io/react/docs/test-utils.html#shallow-rendering>.
-ReactElement renderShallow(ReactElement instance) {
+ReactElement renderShallow(ReactElement instance, {bool addToRendererQueue: true}) {
   var renderer = react_test_utils.createRenderer();
+  if (addToRendererQueue) _addToShallowRendererQueue(renderer);
   renderer.render(instance);
   return renderer.getRenderOutput();
 }
@@ -70,19 +124,22 @@ void unmount(dynamic instanceOrContainerNode) {
       return;
     }
 
-    containerNode = findDomNode(instanceOrContainerNode).parent;
+    containerNode = findDomNode(instanceOrContainerNode)?.parent;
   } else {
     throw new ArgumentError(
         '`instanceOrNode` must be null, a ReactComponent instance, or an Element. Was: $instanceOrContainerNode.'
     );
   }
 
-  react_dom.unmountComponentAtNode(containerNode);
+  if (containerNode != null) react_dom.unmountComponentAtNode(containerNode);
 }
 
 /// Renders a React component or builder into a detached node and returns the associated DOM node.
-Element renderAndGetDom(dynamic component) {
-  return findDomNode(react_test_utils.renderIntoDocument(component is component_base.UiProps ? component.build() : component));
+///
+/// By default the rendered instance will be added to [_renderedInstances] via [_addToRenderedInstanceQueue] to not
+/// have this happen set [addToRenderedQueue] to false.
+Element renderAndGetDom(dynamic component, {bool addToRenderedQueue: true}) {
+  return findDomNode(render(component, addToRenderedQueue: addToRenderedQueue));
 }
 
 /// Renders a React component or builder into a detached node and returns the associtated Dart component.
