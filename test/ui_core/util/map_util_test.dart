@@ -82,8 +82,26 @@ main() {
 
         expect(actual, equals(expected));
       });
+
+      test('with only valid DOM props', () {
+        var actual = getPropsToForward({
+          'tabIndex': '0',
+          'className': 'my classname',
+          'data-test-prop': 'my data attr',
+          'aria-test-prop': 'my aria attr',
+          'classNameBlacklist': 'my classname blacklist',
+          'custom prop': 'my custom prop',
+        }, onlyCopyDomProps: true);
+
+        var expected = {
+          'tabIndex': '0',
+          'className': 'my classname',
+          'data-test-prop': 'my data attr',
+          'aria-test-prop': 'my aria attr',
+        };
+
+        expect(actual, equals(expected));
+      });
     });
   });
 }
-
-

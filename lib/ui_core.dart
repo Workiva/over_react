@@ -2,7 +2,7 @@
 library web_skin_dart.ui_core;
 
 // Imports
-import 'dart:collection' show MapView;
+import 'dart:collection' show MapView, SplayTreeSet;
 import 'dart:html';
 
 import 'package:react/react.dart' as react;
