@@ -284,8 +284,7 @@ main() {
             props['className'] = 'modified-class-name';
           }
 
-          var props = new TestComponentProps();
-          props
+          var props = new TestComponentProps()
             ..['className'] = 'original-class-name'
             ..['id'] = 'original-id';
 
@@ -303,9 +302,8 @@ main() {
         });
 
         test('does nothing when passed null', () {
-          var props = new TestComponentProps();
-
-          props['className'] = 'original-class-name';
+          var props = new TestComponentProps()
+            ..['className'] = 'original-class-name';
 
           expect(() => props.modifyProps(null), returnsNormally);
 
