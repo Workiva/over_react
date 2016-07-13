@@ -138,7 +138,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
     }
 
     return (Dom.div()
-      ..addProps(copyUnconsumedProps())
+      ..addProps(copyUnconsumedDomProps())
       ..className = forwardingClassNameBuilder().toClassName()
       ..style = wrapperStyles
     )(children);

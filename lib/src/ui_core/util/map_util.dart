@@ -4,7 +4,7 @@ part of web_skin_dart.ui_core;
 /// in addition to any specified keys.
 ///
 /// Useful for prop forwarding.
-Map getPropsToForward(Map props, {bool omitReactProps: true, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
+Map getPropsToForward(Map props, {bool omitReactProps: true, bool onlyCopyDomProps: false, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
   Map propsToForward = new Map.from(props);
 
   if (omitReactProps) {
@@ -28,5 +28,19 @@ Map getPropsToForward(Map props, {bool omitReactProps: true, Iterable keysToOmit
     });
   }
 
+  if (onlyCopyDomProps) {
+    new List.from(propsToForward.keys).forEach((String key) {
+      if (key.startsWith('aria-')) return;
+      if (key.startsWith('data-')) return;
+      if (_validDomProps.contains(key)) return;
+
+      propsToForward.remove(key);
+    });
+  }
+
   return propsToForward;
 }
+
+SplayTreeSet _validDomProps = new SplayTreeSet()
+  ..addAll(const $PropKeys(DomPropsMixin))
+  ..addAll(const $PropKeys(DomPropsMixin));
