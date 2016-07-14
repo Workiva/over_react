@@ -608,7 +608,4 @@ main() {
 }
 
 
-class MockTransformLogger extends Mock implements TransformLogger {
-  @override
-  noSuchMethod(i) => super.noSuchMethod(i);
-}
+class MockTransformLogger extends Mock implements TransformLogger {}
