@@ -32,9 +32,6 @@ import 'package:react/react.dart' as react;
 typedef void _TimerCallback();
 
 class MockTimer extends Mock implements Timer {
-  @override
-  noSuchMethod(i) => super.noSuchMethod(i);
-
   bool _isInstantiated = false;
   _TimerCallback _callback;
   Duration _duration;
@@ -66,20 +63,11 @@ class MockTimer extends Mock implements Timer {
   }
 }
 
-class MockFileList extends Mock implements FileList {
-  @override
-  noSuchMethod(i) => super.noSuchMethod(i);
-}
+class MockFileList extends Mock implements FileList {}
 
-class MockFile extends Mock implements File {
-  @override
-  noSuchMethod(i) => super.noSuchMethod(i);
-}
+class MockFile extends Mock implements File {}
 
-class MockFileUploadInputElement extends Mock implements FileUploadInputElement {
-  @override
-  noSuchMethod(i) => super.noSuchMethod(i);
-}
+class MockFileUploadInputElement extends Mock implements FileUploadInputElement {}
 
 class MockSyntheticEvent extends Mock implements react.SyntheticEvent {}
 
