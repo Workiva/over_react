@@ -29,16 +29,16 @@ main() {
         });
 
         test('when a single non-invoked builder child is passed in', () {
-          expect(() => renderAndGetDom(Dom.div()(Dom.div())), throws);
+          expect(() => Dom.div()(Dom.div()), throws);
           verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
         });
 
         test('when a list with a non-invoked builder child passed in', () {
-          expect(() => renderAndGetDom(Dom.div()([
+          expect(() => Dom.div()([
             Dom.div(),
             Dom.p()(),
             Dom.div()
-          ])), throwsArgumentError);
+          ]), throwsArgumentError);
           verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
         });
 
@@ -48,16 +48,16 @@ main() {
             yield Dom.p()();
             yield Dom.div();
           })();
-          expect(() => renderAndGetDom(Dom.div()(children)), returnsNormally);
+          expect(() => Dom.div()(children), returnsNormally);
           rejectValidationWarning(anything);
         });
 
         test('when non-invoked builder children are passed in variadically via noSuchMethod', () {
-          expect(() => renderAndGetDom(Dom.div()(
+          expect(() => Dom.div()(
             Dom.div(),
             Dom.p()(),
             Dom.div()
-          )), throwsArgumentError);
+          ), throwsArgumentError);
           verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
         });
       }, testOn: '!js');
@@ -78,18 +78,20 @@ main() {
         test('a single child is passed in', () {
           var child = 'Only child';
           var renderedNode = renderAndGetDom(Dom.div()(child));
+          var children = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
 
-          expect(renderedNode.childNodes.length, equals(1));
-          expect((renderedNode.childNodes[0] as Text).data, equals(child));
+          expect(children.length, equals(1));
+          expect((children[0] as Text).data, equals(child));
         });
 
         test('children are set via a list', () {
           var children = ['First Child', 'Second Child'];
           var renderedNode = renderAndGetDom(Dom.div()(children));
+          var childNodes = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
 
-          expect(renderedNode.childNodes.length, equals(2));
-          expect((renderedNode.childNodes[0] as SpanElement).text, equals(children[0]));
-          expect((renderedNode.childNodes[1] as SpanElement).text, equals(children[1]));
+          expect(childNodes.length, equals(2));
+          expect(childNodes[0].text, equals(children[0]));
+          expect(childNodes[1].text, equals(children[1]));
         });
 
         test('children are set via an iterable', () {
@@ -98,20 +100,22 @@ main() {
             yield 'Second Child';
           })();
           var renderedNode = renderAndGetDom(Dom.div()(children));
+          var childNodes = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
 
-          expect(renderedNode.childNodes.length, equals(2));
-          expect((renderedNode.childNodes[0] as SpanElement).text, equals('First Child'));
-          expect((renderedNode.childNodes[1] as SpanElement).text, equals('Second Child'));
+          expect(childNodes.length, equals(2));
+          expect(childNodes[0].text, equals('First Child'));
+          expect(childNodes[1].text, equals('Second Child'));
         });
 
         test('children are set variadically via noSuchMethod', () {
           var firstChild = 'First Child';
           var secondChild = 'Second Child';
           var renderedNode = renderAndGetDom(Dom.div()(firstChild, secondChild));
+          var children = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
 
-          expect(renderedNode.childNodes.length, equals(2));
-          expect((renderedNode.childNodes[0] as SpanElement).text, equals('First Child'));
-          expect((renderedNode.childNodes[1] as SpanElement).text, equals('Second Child'));
+          expect(children.length, equals(2));
+          expect(children[0].text, equals('First Child'));
+          expect(children[1].text, equals('Second Child'));
         });
       });
 
@@ -129,16 +133,16 @@ main() {
         });
 
         test('when a single non-invoked builder child is passed in', () {
-          expect(() => renderAndGetDom(TestComponent()(Dom.div())), throwsArgumentError);
+          expect(() => TestComponent()(Dom.div()), throwsArgumentError);
           verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
         });
 
         test('when a list with a non-invoked builder child passed in', () {
-          expect(() => renderAndGetDom(TestComponent()([
+          expect(() => TestComponent()([
             Dom.div(),
             Dom.p()(),
             Dom.div()
-          ])), throws);
+          ]), throws);
           verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
         });
 
@@ -148,16 +152,16 @@ main() {
             yield Dom.p()();
             yield Dom.div();
           })();
-          expect(() => renderAndGetDom(TestComponent()(children)), returnsNormally);
+          expect(() => TestComponent()(children), returnsNormally);
           rejectValidationWarning(anything);
         });
 
         test('when non-invoked builder children are passed in variadically via noSuchMethod', () {
-          expect(() => renderAndGetDom(TestComponent()(
+          expect(() => TestComponent()(
             Dom.div(),
             Dom.p()(),
             Dom.div()
-          )), throwsArgumentError);
+          ), throwsArgumentError);
           verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
         });
       }, testOn: '!js');
@@ -326,33 +330,6 @@ main() {
           expect(props, equals({}));
         });
       });
-
-      group('setTestId (deprecated)', () {
-        test('sets the correct value for the `data-test-id` key', () {
-          var props = new TestComponentProps();
-          props.setTestId('value');
-
-          expect(props, equals({'data-test-id': 'value'}));
-        });
-
-        test('sets the correct value for the custom key', () {
-          var props = new TestComponentProps();
-          props.setTestId('value', key: 'data-custom-id');
-
-          expect(props, equals({'data-custom-id': 'value'}));
-        });
-
-        test('does not set the value for the `data-test-id` when inTesting is false', () {
-          UiProps.testMode = false;
-
-          var props = new TestComponentProps();
-          props.setTestId('value');
-
-          expect(props, equals({}));
-
-          UiProps.testMode = true;
-        });
-      });
     });
 
     group('UiState', () {
@@ -413,10 +390,6 @@ main() {
         });
       });
 
-      test('`tProps` (deprecated) proxies the props getter', () {
-        expect(component.tProps, same(component.props));
-      });
-
       test('newProps() returns a new UiProps instance backed by a new Map', () {
         var newProps1 = component.newProps();
         var newProps2 = component.newProps();
@@ -426,9 +399,9 @@ main() {
       });
 
       group('copyUnconsumedProps()', () {
-        test('copies props, omitting keys from `consumedPropKeys`, as well as reserved react props', () {
-          component = new TestComponentComponent(testConsumedPropKeys: [
-            ['consumed1', 'consumed2']
+        test('copies props, omitting keys from `consumedProps`, as well as reserved react props', () {
+          component = new TestComponentComponent(testConsumedProps: [
+            const ConsumedProps(const [], const ['consumed1', 'consumed2'])
           ]);
 
           component.props = {
@@ -447,8 +420,8 @@ main() {
           }));
         });
 
-        test('copies all props when `consumedPropKeys` is null', () {
-          component = new TestComponentComponent(testConsumedPropKeys: null);
+        test('copies all props when `consumedProps` is null', () {
+          component = new TestComponentComponent(testConsumedProps: null);
 
           component.props = {
             'prop1': true,
@@ -458,6 +431,47 @@ main() {
           expect(component.copyUnconsumedProps(), equals({
             'prop1': true,
             'prop2': true,
+          }));
+        });
+      });
+
+      group('copyUnconsumedDomProps()', () {
+        test('copies props, omitting keys from `consumedPropKeys`, as well as reserved react props', () {
+          component = new TestComponentComponent(testConsumedProps: [
+            const ConsumedProps(const [], const ['consumed1', 'consumed2'])
+          ]);
+
+          component.props = {
+            'key': 'testKey',
+            'ref': 'testRef',
+            'children': [],
+            'consumed1': true,
+            'consumed2': true,
+            'unconsumed1': true,
+            'unconsumed2': true,
+            'tabIndex': true,
+            'className': true,
+          };
+
+          expect(component.copyUnconsumedDomProps(), equals({
+            'tabIndex': true,
+            'className': true,
+          }));
+        });
+
+        test('copies all props when `consumedPropKeys` is null', () {
+          component = new TestComponentComponent(testConsumedProps: null);
+
+          component.props = {
+            'prop1': true,
+            'prop2': true,
+            'tabIndex': true,
+            'className': true,
+          };
+
+          expect(component.copyUnconsumedDomProps(), equals({
+            'tabIndex': true,
+            'className': true,
           }));
         });
       });
@@ -515,10 +529,6 @@ main() {
             expect(statefulComponent.unwrappedState, same(newBackingMap));
           });
         });
-      });
-
-      test('`tState` (deprecated) proxies the props getter', () {
-        expect(statefulComponent.tState, same(statefulComponent.state));
       });
 
       test('newState() returns a new UiProps instance backed by a new Map', () {
@@ -643,9 +653,9 @@ class TestComponentProps extends UiProps {
 ReactComponentFactory _TestComponentComponentFactory = registerComponent(() => new TestComponentComponent());
 class TestComponentComponent extends UiComponent<TestComponentProps> {
   @override
-  final List<List<String>> consumedPropKeys;
+  final List<ConsumedProps> consumedProps;
 
-  TestComponentComponent({testConsumedPropKeys}) : consumedPropKeys = testConsumedPropKeys;
+  TestComponentComponent({testConsumedProps}) : consumedProps = testConsumedProps;
 
   @override
   render() => false;

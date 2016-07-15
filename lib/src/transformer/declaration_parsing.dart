@@ -5,8 +5,8 @@ import 'dart:mirrors';
 import 'package:analyzer/analyzer.dart';
 import 'package:barback/barback.dart' show TransformLogger;
 import 'package:source_span/source_span.dart';
-import 'package:web_skin_dart/src/transformer/analyzer_helpers.dart';
-import 'package:web_skin_dart/src/transformer/source_file_helpers.dart';
+import 'package:transformer_utils/transformer_utils.dart';
+import 'package:transformer_utils/src/transformed_source_file.dart' show getSpan;
 import 'package:web_skin_dart/src/ui_core/component_declaration/annotations.dart' as annotations;
 
 /// A set of [NodeWithMeta] component pieces declared using `web_skin_dart` transformer annotations.

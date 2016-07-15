@@ -8,6 +8,265 @@ import '../../wsd_test_util/zone.dart';
 /// Main entry point for HandlerChainUtil testing
 main() {
   group('HandlerChainUtil', () {
+    group('generic chaining:', () {
+      Function createTestChainFunction({returnValue, onCall(List args)}) {
+        testChainFunction([
+            arg1 = unspecified,
+            arg2 = unspecified,
+            arg3 = unspecified,
+            arg4 = unspecified,
+            arg5 = unspecified,
+            arg6 = unspecified
+        ]) {
+          if (onCall != null) {
+            var args = [arg1, arg2, arg3, arg4, arg5, arg6].takeWhile((item) => item != unspecified).toList();
+            onCall(args);
+          }
+
+          return returnValue;
+        };
+
+        return testChainFunction;
+      }
+
+      /// Shared tests for [CallbackUtil] subclasses supporting different arities.
+      ///
+      /// Expects callback arguments to be typed to [TestGenericType].
+      void sharedTests(CallbackUtil callbackUtil, int arity) {
+        List generateArgs() {
+          return new List.generate(arity, (_) => new TestGenericType());
+        }
+
+        List<TestGenericType> generateBadTypeArgs() {
+          return new List.generate(arity, (_) => new Object());
+        }
+
+        group('chain()', () {
+          test('returns a when b is null', () {
+            var a = createTestChainFunction();
+            expect(callbackUtil.chain(a, null), same(a));
+          });
+
+          test('returns b when a is null', () {
+            var b = createTestChainFunction();
+            expect(callbackUtil.chain(null, b), same(b));
+          });
+
+          test('returns a noop function of arity $arity when both a and b are null', () {
+            var chained = callbackUtil.chain(null, null);
+
+            expect(chained, const isInstanceOf<Function>());
+            expect(() => Function.apply(chained, generateArgs()), returnsNormally);
+          });
+
+          group('returns a function of arity $arity that', () {
+            test('calls both functions in order', () {
+              var calls = [];
+
+              var a = createTestChainFunction(onCall: (args) {
+                calls.add(['a', args]);
+              });
+              var b = createTestChainFunction(onCall: (args) {
+                calls.add(['b', args]);
+              });
+
+              var chained = callbackUtil.chain(a, b);
+
+              var expectedArgs = generateArgs();
+
+              Function.apply(chained, expectedArgs);
+
+              expect(calls, equals([
+                ['a', expectedArgs],
+                ['b', expectedArgs],
+              ]));
+            });
+
+            group('returns false when', () {
+              test('a returns false', () {
+                var a = createTestChainFunction(returnValue: false);
+                var b = createTestChainFunction();
+
+                var chained = callbackUtil.chain(a, b);
+
+                expect(Function.apply(chained, generateArgs()), isFalse);
+              });
+
+              test('b returns false', () {
+                var a = createTestChainFunction();
+                var b = createTestChainFunction(returnValue: false);
+
+                var chained = callbackUtil.chain(a, b);
+
+                expect(Function.apply(chained, generateArgs()), isFalse);
+              });
+
+              test('a and b both return false', () {
+                var a = createTestChainFunction(returnValue: false);
+                var b = createTestChainFunction(returnValue: false);
+
+                var chained = callbackUtil.chain(a, b);
+
+                expect(Function.apply(chained, generateArgs()), isFalse);
+              });
+            });
+
+            group('returns null when', () {
+              test('a and b return something other than false', () {
+                var a = createTestChainFunction();
+                var b = createTestChainFunction();
+
+                var chained = callbackUtil.chain(a, b);
+
+                expect(Function.apply(chained, generateArgs()), isNull);
+              });
+            });
+
+            if (arity != 0) {
+              test('has arguments typed to the specified generic parameters', () {
+                var a = createTestChainFunction();
+                var b = createTestChainFunction();
+
+                expect(() => Function.apply(a, generateArgs()), returnsNormally,
+                    reason: 'need to verify that chaining function throws, so the chained functions cannot throw');
+                expect(() => Function.apply(b, generateArgs()), returnsNormally,
+                    reason: 'need to verify that chaining function throws, so the chained functions cannot throw');
+
+                var chained = callbackUtil.chain(a, b);
+
+                expect(() => Function.apply(chained, generateBadTypeArgs()), throws);
+              }, testOn: 'dart-vm');
+            }
+          });
+        });
+
+        group('chainFromList()', () {
+          group('returns a function of arity $arity that', () {
+            test('calls all functions in order', () {
+              var calls = [];
+
+              var functions = new List.generate(5, (index) {
+                return createTestChainFunction(onCall: (args) {
+                  calls.add(['function_$index', args]);
+                });
+              });
+
+              var chained = callbackUtil.chainFromList(functions);
+
+              var expectedArgs = generateArgs();
+
+              Function.apply(chained, expectedArgs);
+
+              expect(calls, equals([
+                ['function_0', expectedArgs],
+                ['function_1', expectedArgs],
+                ['function_2', expectedArgs],
+                ['function_3', expectedArgs],
+                ['function_4', expectedArgs],
+              ]));
+            });
+
+            test('returns false when any function returns false', () {
+              var functions = new List.generate(5, (_) => createTestChainFunction());
+              functions.insert(2, createTestChainFunction(returnValue: false));
+
+              var chained = callbackUtil.chainFromList(functions);
+
+              expect(Function.apply(chained, generateArgs()), isFalse);
+            });
+
+            test('returns null when no function returns false', () {
+              var functions = new List.generate(5, (_) => createTestChainFunction());
+
+              var chained = callbackUtil.chainFromList(functions);
+
+              expect(Function.apply(chained, generateArgs()), isNull);
+            });
+          });
+
+          group('gracefully handles', () {
+            test('null functions', () {
+              var calls = [];
+
+              var functions = new List.generate(5, (index) {
+                return createTestChainFunction(onCall: (args) {
+                  calls.add(['function_$index', args]);
+                });
+              });
+
+              functions.insert(5, null);
+              functions.insert(2, null);
+              functions.insert(0, null);
+
+              var chained = callbackUtil.chainFromList(functions);
+
+              var expectedArgs = generateArgs();
+
+              Function.apply(chained, expectedArgs);
+
+              expect(calls, equals([
+                ['function_0', expectedArgs],
+                ['function_1', expectedArgs],
+                ['function_2', expectedArgs],
+                ['function_3', expectedArgs],
+                ['function_4', expectedArgs],
+              ]));
+            });
+
+            test('an empty list of functions', () {
+              var chained = callbackUtil.chainFromList([]);
+
+              expect(chained, const isInstanceOf<Function>());
+              expect(() => Function.apply(chained, generateArgs()), returnsNormally);
+            });
+          });
+
+          if (arity != 0) {
+            test('has arguments typed to the specified generic parameters', () {
+              var functions = new List.generate(5, (_) => createTestChainFunction());
+
+              functions.forEach((function) {
+                expect(() => Function.apply(function, generateArgs()), returnsNormally,
+                    reason: 'need to verify that chaining function throws, so the chained functions cannot throw');
+              });
+
+              var chained = callbackUtil.chainFromList(functions);
+
+              expect(() => Function.apply(chained, generateBadTypeArgs()), throws);
+            }, testOn: 'dart-vm');
+          }
+        });
+
+        group('noop getter returns a function', () {
+          test('with an arity of $arity', () {
+            expect(() => Function.apply(callbackUtil.noop, generateArgs()), returnsNormally);
+          });
+
+          if (arity != 0) {
+            test('with arguments typed to the specified generic parameters', () {
+              expect(() => Function.apply(callbackUtil.noop, generateBadTypeArgs()), throws);
+            }, testOn: 'dart-vm');
+          }
+        });
+      }
+
+      group('CallbackUtil0Arg', () {
+        sharedTests(const CallbackUtil0Arg(), 0);
+      });
+
+      group('CallbackUtil1Arg', () {
+        sharedTests(const CallbackUtil1Arg<TestGenericType>(), 1);
+      });
+
+      group('CallbackUtil2Arg', () {
+        sharedTests(const CallbackUtil2Arg<TestGenericType, TestGenericType>(), 2);
+      });
+
+      group('CallbackUtil3Arg', () {
+        sharedTests(const CallbackUtil3Arg<TestGenericType, TestGenericType, TestGenericType>(), 3);
+      });
+    });
+
     group('React DOM event callback creation utility function', () {
       callsBothFunctions(Function creator) {
         bool calledA = false, calledB = false;
@@ -28,12 +287,12 @@ main() {
         bool calledA = false, calledB = false;
         Function a = (event) {
           calledA = true;
-          zonedExpect(counter, equals(1));
+          expect(counter, equals(1));
           counter++;
         };
         Function b = (event) {
           calledB = true;
-          zonedExpect(counter, equals(2));
+          expect(counter, equals(2));
         };
 
         var chainedCallback = creator(a, b);
@@ -199,14 +458,14 @@ main() {
     });
 
     group('web_skin_dart callback creation utility function', () {
-      group('createChainedEventKeyCallback', () {
-        test('should return an EventKeyCallback that calls the two provided functions', () {
+      group('createChainedTargetKeyCallback', () {
+        test('should return an TargetKeyCallback that calls the two provided functions', () {
           bool calledA = false,
             calledB = false;
-          EventKeyCallback a = (event, key) => calledA = true;
-          EventKeyCallback b = (event, key) => calledB = true;
+          TargetKeyCallback a = (event, key) => calledA = true;
+          TargetKeyCallback b = (event, key) => calledB = true;
 
-          var chainedCallback = createChainedEventKeyCallback(a, b);
+          var chainedCallback = createChainedTargetKeyCallback(a, b);
           var result = chainedCallback(null, null);
 
           expect(calledA, isTrue);
@@ -215,38 +474,38 @@ main() {
           expect(result, isNull);
         });
 
-        test('should return an EventKeyCallback that calls the two provided functions in order', () {
+        test('should return an TargetKeyCallback that calls the two provided functions in order', () {
           int counter = 1;
           bool calledA = false,
             calledB = false;
-          EventKeyCallback a = (event, key) {
+          TargetKeyCallback a = (event, key) {
             calledA = true;
-            zonedExpect(counter, equals(1));
+            expect(counter, equals(1));
             counter++;
           };
-          EventKeyCallback b = (event, key) {
+          TargetKeyCallback b = (event, key) {
             calledB = true;
-            zonedExpect(counter, equals(2));
+            expect(counter, equals(2));
           };
 
-          var chainedCallback = createChainedEventKeyCallback(a, b);
+          var chainedCallback = createChainedTargetKeyCallback(a, b);
           chainedCallback(null, null);
 
           expect(calledA, isTrue);
           expect(calledB, isTrue);
         });
 
-        group('should return an EventKeyCallback that calls the two provided functions and returns', () {
+        group('should return an TargetKeyCallback that calls the two provided functions and returns', () {
           test('false if the first provided functions returns false', () {
             bool calledA = false,
               calledB = false;
-            EventKeyCallback a = (event, key) {
+            TargetKeyCallback a = (event, key) {
               calledA = true;
               return false;
             };
-            EventKeyCallback b = (event, key) => calledB = true;
+            TargetKeyCallback b = (event, key) => calledB = true;
 
-            var chainedCallback = createChainedEventKeyCallback(a, b);
+            var chainedCallback = createChainedTargetKeyCallback(a, b);
             var result = chainedCallback(null, null);
 
             expect(calledA, isTrue);
@@ -257,13 +516,13 @@ main() {
 
           test('false if the second provided functions returns false', () {
             bool calledA = false, calledB = false;
-            EventKeyCallback a = (event, key) => calledA = true;
-            EventKeyCallback b = (event, key) {
+            TargetKeyCallback a = (event, key) => calledA = true;
+            TargetKeyCallback b = (event, key) {
               calledB = true;
               return false;
             };
 
-            var chainedCallback = createChainedEventKeyCallback(a, b);
+            var chainedCallback = createChainedTargetKeyCallback(a, b);
             var result = chainedCallback(null, null);
 
             expect(calledA, isTrue);
@@ -274,16 +533,16 @@ main() {
 
           test('false if both provided functions return false', () {
             bool calledA = false, calledB = false;
-            EventKeyCallback a = (event, key) {
+            TargetKeyCallback a = (event, key) {
               calledA = true;
               return false;
             };
-            EventKeyCallback b = (event, key) {
+            TargetKeyCallback b = (event, key) {
               calledB = true;
               return false;
             };
 
-            var chainedCallback = createChainedEventKeyCallback(a, b);
+            var chainedCallback = createChainedTargetKeyCallback(a, b);
             var result = chainedCallback(null, null);
 
             expect(calledA, isTrue);
@@ -294,16 +553,16 @@ main() {
 
           test('null if no provided function returns false', () {
             bool calledA = false, calledB = false;
-            EventKeyCallback a = (event, key) {
+            TargetKeyCallback a = (event, key) {
               calledA = true;
               return true;
             };
-            EventKeyCallback b = (event, key) {
+            TargetKeyCallback b = (event, key) {
               calledB = true;
               return;
             };
 
-            var chainedCallback = createChainedEventKeyCallback(a, b);
+            var chainedCallback = createChainedTargetKeyCallback(a, b);
             var result = chainedCallback(null, null);
 
             expect(calledA, isTrue);
@@ -315,30 +574,30 @@ main() {
 
         test('should gracefully handle one provided function being null', () {
           bool calledA = false;
-          EventKeyCallback a = (event, key) => calledA = true;
+          TargetKeyCallback a = (event, key) => calledA = true;
 
-          var chainedCallback = createChainedEventKeyCallback(a, null);
+          var chainedCallback = createChainedTargetKeyCallback(a, null);
           chainedCallback(null, null);
 
           expect(calledA, isTrue);
         });
 
         test('should gracefully handle both provided functions being null', () {
-          var chainedCallback = createChainedEventKeyCallback(null, null);
+          var chainedCallback = createChainedTargetKeyCallback(null, null);
           var result = chainedCallback(null, null);
 
           expect(result, isNull);
         });
       });
 
-      group('createChainedEventKeyIndexCallback', () {
-        test('should return an EventKeyIndexCallback that calls the two provided functions', () {
+      group('createChainedTargetKeyIndexCallback', () {
+        test('should return an TargetKeyIndexCallback that calls the two provided functions', () {
           bool calledA = false,
             calledB = false;
-          EventKeyIndexCallback a = (event, key, index) => calledA = true;
-          EventKeyIndexCallback b = (event, key, index) => calledB = true;
+          TargetKeyIndexCallback a = (event, key, index) => calledA = true;
+          TargetKeyIndexCallback b = (event, key, index) => calledB = true;
 
-          var chainedCallback = createChainedEventKeyIndexCallback(a, b);
+          var chainedCallback = createChainedTargetKeyIndexCallback(a, b);
           var result = chainedCallback(null, null, null);
 
           expect(calledA, isTrue);
@@ -347,38 +606,38 @@ main() {
           expect(result, isNull);
         });
 
-        test('should return an EventKeyIndexCallback that calls the two provided functions in order', () {
+        test('should return an TargetKeyIndexCallback that calls the two provided functions in order', () {
           int counter = 1;
           bool calledA = false,
             calledB = false;
-          EventKeyIndexCallback a = (event, key, index) {
+          TargetKeyIndexCallback a = (event, key, index) {
             calledA = true;
-            zonedExpect(counter, equals(1));
+            expect(counter, equals(1));
             counter++;
           };
-          EventKeyIndexCallback b = (event, key, index) {
+          TargetKeyIndexCallback b = (event, key, index) {
             calledB = true;
-            zonedExpect(counter, equals(2));
+            expect(counter, equals(2));
           };
 
-          var chainedCallback = createChainedEventKeyIndexCallback(a, b);
+          var chainedCallback = createChainedTargetKeyIndexCallback(a, b);
           chainedCallback(null, null, null);
 
           expect(calledA, isTrue);
           expect(calledB, isTrue);
         });
 
-        group('should return an EventKeyIndexCallback that calls the two provided functions and returns', () {
+        group('should return an TargetKeyIndexCallback that calls the two provided functions and returns', () {
           test('false if the first provided functions returns false', () {
             bool calledA = false,
               calledB = false;
-            EventKeyIndexCallback a = (event, key, index) {
+            TargetKeyIndexCallback a = (event, key, index) {
               calledA = true;
               return false;
             };
-            EventKeyIndexCallback b = (event, key, index) => calledB = true;
+            TargetKeyIndexCallback b = (event, key, index) => calledB = true;
 
-            var chainedCallback = createChainedEventKeyIndexCallback(a, b);
+            var chainedCallback = createChainedTargetKeyIndexCallback(a, b);
             var result = chainedCallback(null, null, null);
 
             expect(calledA, isTrue);
@@ -389,13 +648,13 @@ main() {
 
           test('false if the second provided functions returns false', () {
             bool calledA = false, calledB = false;
-            EventKeyIndexCallback a = (event, key, index) => calledA = true;
-            EventKeyIndexCallback b = (event, key, index) {
+            TargetKeyIndexCallback a = (event, key, index) => calledA = true;
+            TargetKeyIndexCallback b = (event, key, index) {
               calledB = true;
               return false;
             };
 
-            var chainedCallback = createChainedEventKeyIndexCallback(a, b);
+            var chainedCallback = createChainedTargetKeyIndexCallback(a, b);
             var result = chainedCallback(null, null, null);
 
             expect(calledA, isTrue);
@@ -406,16 +665,16 @@ main() {
 
           test('false if both provided functions return false', () {
             bool calledA = false, calledB = false;
-            EventKeyIndexCallback a = (event, key, index) {
+            TargetKeyIndexCallback a = (event, key, index) {
               calledA = true;
               return false;
             };
-            EventKeyIndexCallback b = (event, key, index) {
+            TargetKeyIndexCallback b = (event, key, index) {
               calledB = true;
               return false;
             };
 
-            var chainedCallback = createChainedEventKeyIndexCallback(a, b);
+            var chainedCallback = createChainedTargetKeyIndexCallback(a, b);
             var result = chainedCallback(null, null, null);
 
             expect(calledA, isTrue);
@@ -426,16 +685,16 @@ main() {
 
           test('null if no provided function returns false', () {
             bool calledA = false, calledB = false;
-            EventKeyIndexCallback a = (event, key, index) {
+            TargetKeyIndexCallback a = (event, key, index) {
               calledA = true;
               return true;
             };
-            EventKeyIndexCallback b = (event, key, index) {
+            TargetKeyIndexCallback b = (event, key, index) {
               calledB = true;
               return;
             };
 
-            var chainedCallback = createChainedEventKeyIndexCallback(a, b);
+            var chainedCallback = createChainedTargetKeyIndexCallback(a, b);
             var result = chainedCallback(null, null, null);
 
             expect(calledA, isTrue);
@@ -447,23 +706,23 @@ main() {
 
         test('should gracefully handle one provided function being null', () {
           bool calledA = false;
-          EventKeyIndexCallback a = (event, key, index) => calledA = true;
+          TargetKeyIndexCallback a = (event, key, index) => calledA = true;
 
-          var chainedCallback = createChainedEventKeyIndexCallback(a, null);
+          var chainedCallback = createChainedTargetKeyIndexCallback(a, null);
           chainedCallback(null, null, null);
 
           expect(calledA, isTrue);
         });
 
         test('should gracefully handle both provided functions being null', () {
-          var chainedCallback = createChainedEventKeyIndexCallback(null, null);
+          var chainedCallback = createChainedTargetKeyIndexCallback(null, null);
           var result = chainedCallback(null, null, null);
 
           expect(result, isNull);
         });
       });
 
-      group('createChainedEventKeyCallbackFromList', () {
+      group('createChainedTargetKeyCallbackFromList', () {
         group('returns', () {
           test('false if the first provided function returns false', () {
             var flags = [false, false, false];
@@ -476,7 +735,7 @@ main() {
               (event, key) => flags[2] = true
             ];
 
-            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var chainedCallback = createChainedTargetKeyCallbackFromList(callbacks);
             var result = chainedCallback(null, null);
 
             expect(flags[0], isTrue);
@@ -497,7 +756,7 @@ main() {
               (event, key) => flags[2] = true
             ];
 
-            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var chainedCallback = createChainedTargetKeyCallbackFromList(callbacks);
             var result = chainedCallback(null, null);
 
             expect(flags[0], isTrue);
@@ -518,7 +777,7 @@ main() {
               }
             ];
 
-            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var chainedCallback = createChainedTargetKeyCallbackFromList(callbacks);
             var result = chainedCallback(null, null);
 
             expect(flags[0], isTrue);
@@ -542,7 +801,7 @@ main() {
               }
             ];
 
-            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var chainedCallback = createChainedTargetKeyCallbackFromList(callbacks);
             var result = chainedCallback(null, null);
 
             expect(flags[0], isTrue);
@@ -569,7 +828,7 @@ main() {
               }
             ];
 
-            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var chainedCallback = createChainedTargetKeyCallbackFromList(callbacks);
             var result = chainedCallback(null, null);
 
             expect(flags[0], isTrue);
@@ -587,7 +846,7 @@ main() {
               (event, key) => flags[2] = true
             ];
 
-            var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+            var chainedCallback = createChainedTargetKeyCallbackFromList(callbacks);
             var result = chainedCallback(null, null);
 
             expect(flags[0], isTrue);
@@ -605,7 +864,7 @@ main() {
             null
           ];
 
-          var chainedCallback = createChainedEventKeyCallbackFromList(callbacks);
+          var chainedCallback = createChainedTargetKeyCallbackFromList(callbacks);
           var result = chainedCallback(null, null);
 
           expect(result, isNull);
@@ -634,12 +893,12 @@ main() {
             calledB = false;
           IndexCallback a = (event, index) {
             calledA = true;
-            zonedExpect(counter, equals(1));
+            expect(counter, equals(1));
             counter++;
           };
           IndexCallback b = (event, index) {
             calledB = true;
-            zonedExpect(counter, equals(2));
+            expect(counter, equals(2));
           };
 
           var chainedCallback = createChainedIndexCallback(a, b);
@@ -764,12 +1023,12 @@ main() {
           bool calledA = false, calledB = false;
           FocusDidChangeCallback a = (current, prev) {
             calledA = true;
-            zonedExpect(counter, equals(1));
+            expect(counter, equals(1));
             counter++;
           };
           FocusDidChangeCallback b = (current, prev) {
             calledB = true;
-            zonedExpect(counter, equals(2));
+            expect(counter, equals(2));
           };
 
           var chainedCallback = createChainedFocusDidChangeCallback(a, b);
@@ -897,12 +1156,12 @@ main() {
           bool calledA = false, calledB = false;
           Callback a = () {
             calledA = true;
-            zonedExpect(counter, equals(1));
+            expect(counter, equals(1));
             counter++;
           };
           Callback b = () {
             calledB = true;
-            zonedExpect(counter, equals(2));
+            expect(counter, equals(2));
           };
 
           var chainedCallback = createChainedCallback(a, b);
@@ -1012,3 +1271,10 @@ main() {
     });
   });
 }
+
+class _Unspecified {
+  const _Unspecified();
+}
+const _Unspecified unspecified = const _Unspecified();
+
+class TestGenericType {}

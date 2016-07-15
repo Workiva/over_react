@@ -10,7 +10,6 @@ import 'package:test/test.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
 import 'ui_core/component/abstract_transition_test.dart' as abstract_transition_test;
-import 'ui_core/component/base_component_test.dart' as base_component_test;
 import 'ui_core/component/dom_components_test.dart' as dom_components_test;
 import 'ui_core/component/prop_mixins_test.dart' as prop_mixins_test;
 import 'ui_core/component/resize_sensor_test.dart' as resize_sensor_test;
@@ -28,9 +27,10 @@ import 'ui_core/util/css_value_util_test.dart' as css_value_util_test;
 import 'ui_core/util/dom_util_test.dart' as dom_util_test;
 import 'ui_core/util/handler_chain_util_test.dart' as handler_chain_util_test;
 import 'ui_core/util/map_util_test.dart' as map_util_test;
+import 'ui_core/util/prop_error_test.dart' as prop_error_test;
 import 'ui_core/util/react_wrappers_test.dart' as react_wrappers_test;
+import 'ui_core/util/rem_util_test.dart' as rem_util_test;
 import 'ui_core/util/test_mode_test.dart' as test_mode_test;
-import 'ui_core/util/warn_on_modify_props_test.dart' as warn_on_modify_props_test;
 
 main() {
   setClientConfiguration();
@@ -38,7 +38,6 @@ main() {
   enableTestMode();
 
   abstract_transition_test.main();
-  base_component_test.main();
   dom_components_test.main();
   prop_mixins_test.main();
   resize_sensor_test.main();
@@ -56,7 +55,8 @@ main() {
   dom_util_test.main();
   handler_chain_util_test.main();
   map_util_test.main();
+  prop_error_test.main();
   react_wrappers_test.main();
+  rem_util_test.main();
   test_mode_test.main();
-  warn_on_modify_props_test.main();
 }

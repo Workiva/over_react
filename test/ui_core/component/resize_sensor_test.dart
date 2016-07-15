@@ -6,6 +6,7 @@ import 'dart:html';
 
 import 'package:browser_detect/browser_detect.dart';
 import 'package:react/react.dart' as react;
+import 'package:react/react_dom.dart' as react_dom;
 import 'package:test/test.dart';
 import 'package:web_skin_dart/src/ui_core/component/resize_sensor.dart';
 import 'package:web_skin_dart/test_util.dart';
@@ -45,7 +46,7 @@ void main() {
       }, sensor);
 
       // Render into DOM and validate.
-      var jsContainer = react.render(container, domTarget);
+      var jsContainer = react_dom.render(container, domTarget);
 
       // Return the container element for testing.
       return findDomNode(jsContainer);
@@ -104,19 +105,17 @@ void main() {
 
         expect(renderedNode.style.position, equals('relative'));
         expect(renderedNode.style.display, equals('block'));
-        // Use the attribute text to match these since `style`'s API won't work for unsupported properties.
-        expect(renderedNode.attributes['style'], matches(new RegExp(r'(?:^|;) *flex: *1 1 0%;')));
 
-        // Fix for IE: For some reason the `-ms-flex` style attribute is not available on the `cssText` getter so it
-        // must be accessed on the style map. But that is not valid in browsers that do not support the ``-ms` prefix.
-        var hasMsFlexStyle = renderedNode.attributes['style'].contains(new RegExp(r'(?:^|;) *-ms-flex: *1 1 0%;')) ||
-            renderedNode.style.getPropertyValue('-ms-flex').contains(new RegExp(r'1 1 0%'));
-        var hasWebkitFlexStyle =
-            renderedNode.attributes['style'].contains(new RegExp(r'(?:^|;) *-webkit-flex: *1 1 0%;')) ||
-            renderedNode.style.getPropertyValue('-webkit-flex').contains(new RegExp(r'1 1 0%'));
-
-        expect(hasMsFlexStyle, isTrue, reason: 'The CSS property key -ms-flex should be present.');
-        expect(hasWebkitFlexStyle, isTrue, reason: 'The CSS property key -webkit-flex should be present.');
+        var nodeStyleDecl = renderedNode.style;
+        if (browser.isIe && browser.version < '11') {
+          expect(nodeStyleDecl.getPropertyValue('-ms-flex-positive'), '1');
+          expect(nodeStyleDecl.getPropertyValue('-ms-flex-negative'), '1');
+          expect(nodeStyleDecl.getPropertyValue('-ms-flex-preferred-size'), '0%');
+        } else if (browser.isSafari && browser.version < '9') {
+          expect(nodeStyleDecl.getPropertyValue('-webkit-flex'), '1 1 0%');
+        } else {
+          expect(nodeStyleDecl.getPropertyValue('flex'), '1 1 0%');
+        }
       });
 
       test('when isFlexContainer is true', () {
@@ -124,26 +123,19 @@ void main() {
 
         expect(renderedNode.style.position, equals('relative'));
 
-        if (browser.isIe && browser.version <= '10') {
+        var nodeStyleDecl = renderedNode.style;
+        if (browser.isIe && browser.version < '11') {
           expect(renderedNode.style.display, equals('-ms-flexbox'));
+          expect(nodeStyleDecl.getPropertyValue('-ms-flex-positive'), '1');
+          expect(nodeStyleDecl.getPropertyValue('-ms-flex-negative'), '1');
+          expect(nodeStyleDecl.getPropertyValue('-ms-flex-preferred-size'), '0%');
         } else if (browser.isSafari && browser.version < '9') {
           expect(renderedNode.style.display, equals('-webkit-flex'));
+          expect(nodeStyleDecl.getPropertyValue('-webkit-flex'), '1 1 0%');
         } else {
           expect(renderedNode.style.display, equals('flex'));
+          expect(nodeStyleDecl.getPropertyValue('flex'), '1 1 0%');
         }
-        // Use the attribute text to match these since `style`'s API won't work for unsupported properties.
-        expect(renderedNode.attributes['style'], matches(new RegExp(r'(?:^|;) *flex: *1 1 0%;')));
-
-        // Fix for IE: For some reason the `-ms-flex` style attribute is not available on the `cssText` getter so it
-        // must be accessed on the style map. But that is not valid in browsers that do not support the `-ms` prefix.
-        var hasMsFlexStyle = renderedNode.attributes['style'].contains(new RegExp(r'(?:^|;) *-ms-flex: *1 1 0%;')) ||
-            renderedNode.style.getPropertyValue('-ms-flex').contains(new RegExp(r'1 1 0%'));
-        var hasWebkitFlexStyle =
-            renderedNode.attributes['style'].contains(new RegExp(r'(?:^|;) *-webkit-flex: *1 1 0%;')) ||
-            renderedNode.style.getPropertyValue('-webkit-flex').contains(new RegExp(r'1 1 0%'));
-
-        expect(hasMsFlexStyle, isTrue, reason: 'The CSS property key -ms-flex should be present.');
-        expect(hasWebkitFlexStyle, isTrue, reason: 'The CSS property key -webkit-flex should be present.');
       });
     });
 

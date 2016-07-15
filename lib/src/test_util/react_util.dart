@@ -6,11 +6,13 @@ import 'dart:html';
 
 import 'package:js/js.dart';
 import 'package:react/react.dart' as react;
+import 'package:react/react_dom.dart' as react_dom;
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_interop_helpers.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:web_skin_dart/ui_core.dart';
+import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart' as component_base;
 
 export 'package:web_skin_dart/src/ui_core/util/react_wrappers.dart';
 
@@ -29,17 +31,71 @@ export 'package:web_skin_dart/src/ui_core/util/react_wrappers.dart';
 //     `ReactComponent`, whereas DOM component instance will be of type
 //     `Element`.
 
+/// Maximum number of components that can be rendered at a given time, before being automatically unmounted.
+///
+/// Defaulted to `5` because typically a single test will not render more than `5` components.
+int maxRenderedQueueLength = 5;
+
+/// Maximum number of shallow renderers that can be mounted at a given time, before being automatically unmounted.
+///
+/// Defaulted to `5` because typically a single test will not create more than `5` shallow renderers.
+int maxShallowRendererQueueLength = 5;
+
+/// Rolling list of rendered instances.
+///
+/// Should never have a length that exceeds [maxRenderedQueueLength].
+var _renderedInstances = [];
+
+/// Rolling list of shallow renderers.
+///
+/// Should never have a length that exceeds [maxShallowRendererQueueLength].
+var _shallowRenderers = [];
+
+/// Adds [renderedInstance] to [_renderedInstances].
+///
+/// If [_renderedInstances.length] is larger than or equal to [maxRenderedQueueLength] the oldest instance will be
+/// unmounted and removed from the list.
+void _addToRenderedInstanceQueue(dynamic renderedInstance) {
+  if (_renderedInstances.length >= maxRenderedQueueLength) {
+    unmount(_renderedInstances.last);
+    _renderedInstances.removeLast();
+  }
+
+  _renderedInstances.insert(0, renderedInstance);
+}
+
+/// Adds [renderer] to [_shallowRenderers].
+///
+/// If [_shallowRenderers.length] is larger than or equal to [maxShallowRendererQueueLength] the oldest rendered will be
+/// unmounted and removed from the list.
+void _addToShallowRendererQueue(react_test_utils.ReactShallowRenderer renderer) {
+  if (_shallowRenderers.length >= maxShallowRendererQueueLength) {
+    _shallowRenderers.last.unmount();
+    _shallowRenderers.removeLast();
+  }
+
+  _shallowRenderers.insert(0, renderer);
+}
 
 /// Renders a React component or builder into a detached node and returns the component instance.
-/* [1] */ render(dynamic component) {
-  return react_test_utils.renderIntoDocument(component is ComponentDefinition ? component.build() : component);
+///
+/// By default the rendered instance will be added to [_shallowRenderers] via [_addToShallowRendererQueue] to not
+/// have this happen set [addToRenderedQueue] to false.
+/* [1] */ render(dynamic component, {bool addToRenderedQueue: true}) {
+  var renderedInstance = react_test_utils.renderIntoDocument(component is component_base.UiProps ? component.build() : component);
+  if (addToRenderedQueue) _addToRenderedInstanceQueue(renderedInstance);
+  return renderedInstance;
 }
 
 /// Shallow-renders a component using [react_test_utils.ReactShallowRenderer].
 ///
+/// By default the rendered instance will be added to [_renderedInstances] via [_addToRenderedInstanceQueue] to not
+/// have this happen set [addToRenderedQueue] to false.
+///
 /// See: <https://facebook.github.io/react/docs/test-utils.html#shallow-rendering>.
-ReactElement renderShallow(ReactElement instance) {
+ReactElement renderShallow(ReactElement instance, {bool addToRendererQueue: true}) {
   var renderer = react_test_utils.createRenderer();
+  if (addToRendererQueue) _addToShallowRendererQueue(renderer);
   renderer.render(instance);
   return renderer.getRenderOutput();
 }
@@ -47,7 +103,7 @@ ReactElement renderShallow(ReactElement instance) {
 /// Unmounts a React component.
 ///
 /// [instanceOrContainerNode] can be a [ReactComponent]/[Element] React instance,
-/// or an [Element] container node (argument to [react.render]).
+/// or an [Element] container node (argument to [react_dom.render]).
 ///
 /// For convenience, this method does nothing if [instanceOrContainerNode] is null,
 /// or if it's a non-mounted React instance.
@@ -68,19 +124,22 @@ void unmount(dynamic instanceOrContainerNode) {
       return;
     }
 
-    containerNode = findDomNode(instanceOrContainerNode).parent;
+    containerNode = findDomNode(instanceOrContainerNode)?.parent;
   } else {
     throw new ArgumentError(
         '`instanceOrNode` must be null, a ReactComponent instance, or an Element. Was: $instanceOrContainerNode.'
     );
   }
 
-  react.unmountComponentAtNode(containerNode);
+  if (containerNode != null) react_dom.unmountComponentAtNode(containerNode);
 }
 
 /// Renders a React component or builder into a detached node and returns the associated DOM node.
-Element renderAndGetDom(dynamic component) {
-  return findDomNode(react_test_utils.renderIntoDocument(component is ComponentDefinition ? component.build() : component));
+///
+/// By default the rendered instance will be added to [_renderedInstances] via [_addToRenderedInstanceQueue] to not
+/// have this happen set [addToRenderedQueue] to false.
+Element renderAndGetDom(dynamic component, {bool addToRenderedQueue: true}) {
+  return findDomNode(render(component, addToRenderedQueue: addToRenderedQueue));
 }
 
 /// Renders a React component or builder into a detached node and returns the associtated Dart component.
@@ -102,13 +161,13 @@ List<Element> _attachedReactContainers = [];
 
   document.body.append(container);
 
-  return react.render(component is ComponentDefinition ? component.build() : component, container);
+  return react_dom.render(component is component_base.UiProps ? component.build() : component, container);
 }
 
 /// Unmounts and removes the mount nodes for components rendered via [renderAttachedToDocument].
 void tearDownAttachedNodes() {
   _attachedReactContainers.forEach((container) {
-    react.unmountComponentAtNode(container);
+    react_dom.unmountComponentAtNode(container);
     container.remove();
   });
 
@@ -153,40 +212,21 @@ final _EventSimulatorAlias keyUp = react_test_utils.Simulate.keyUp;
 /// Helper function to simulate keyPress events.
 final _EventSimulatorAlias keyPress = react_test_utils.Simulate.keyPress;
 
-@JS('React.addons.TestUtils.Simulate.mouseEnter')
-external void mouseEnter(dynamic target);
+/// Helper function to simulate mouseEnter events.
+final _EventSimulatorAlias mouseEnter = (componentOrNode, [Map eventData = const {}]) =>
+    Simulate._mouseEnter(componentOrNode, jsify(eventData));
 
-@JS('React.addons.TestUtils.Simulate.mouseLeave')
-external void mouseLeave(dynamic target);
+/// Helper function to simulate mouseLeave events.
+final _EventSimulatorAlias mouseLeave = (componentOrNode, [Map eventData = const {}]) =>
+    Simulate._mouseLeave(componentOrNode, jsify(eventData));
 
-/// Simulate a MouseEnter event by firing a MouseOut and a MouseOver, since MouseEnter simulation is not provided by react_test_utils.
-///
-/// Deprecated: Use [mouseEnter] instead.
-@deprecated
-void simulateMouseEnter(EventTarget target) {
-  // Use any other node than [target].
-  var from = document.body;
-  var to = target;
+@JS('React.addons.TestUtils.Simulate')
+abstract class Simulate {
+  @JS('mouseEnter')
+  external static void _mouseEnter(dynamic target, [eventData]);
 
-  assert(from != to);
-
-  react_test_utils.SimulateNative.mouseOut(from, {'relatedTarget': to});
-  react_test_utils.SimulateNative.mouseOver(to, {'relatedTarget': from});
-}
-
-/// Simulate a MouseLeave event by firing a MouseOut and a MouseOver, since MouseLeave simulation is not provided by react_test_utils.
-///
-/// Deprecated: Use [mouseLeave] instead.
-@deprecated
-void simulateMouseLeave(EventTarget target) {
-  var from = target;
-  // Use any other node than [target].
-  var to = document.body;
-
-  assert(from != to);
-
-  react_test_utils.SimulateNative.mouseOut(from, {'relatedTarget': to});
-  react_test_utils.SimulateNative.mouseOver(to, {'relatedTarget': from});
+  @JS('mouseLeave')
+  external static void _mouseLeave(dynamic target, [eventData]);
 }
 
 /// Returns whether [props] contains [key] with a value set to a space-delimited string containing [value].
@@ -335,19 +375,6 @@ List findDescendantsWithProp(/* [1] */ root, dynamic propKey) {
   }));
 
   return descendantsWithProp;
-}
-
-/// Dart wrapper for setProps.
-/// > Sets a subset of the props.
-/// >
-/// > @param {object} partialProps Subset of the next props.
-/// > @param {?function} callback Called after props are updated.
-///
-/// __Deprecated.__ Rerender the component using [render] instead.
-@deprecated
-void setProps(ReactComponent instance, Map props, [callback(context)]) {
-  var propsChangeset = preparePropsChangeset((instance as ReactElement), props);
-  instance.setProps(propsChangeset, callback);
 }
 
 /// Helper component that renders whatever you tell it to. Necessary for rendering components with the 'ref' prop.

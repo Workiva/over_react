@@ -33,8 +33,6 @@ Set getComponentPropKeys(BuilderOnlyUiFactory factory) {
 
     Type owner = (decl.owner as ClassMirror).reflectedType;
     if (owner != Object &&
-        owner != ComponentDefinition &&
-        owner != BaseComponentDefinition &&
         owner != component_base.UiProps &&
         owner != component_base.PropsMapViewMixin &&
         owner != component_base.MapViewMixin &&
@@ -118,10 +116,13 @@ void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(),
 
       'data-true': true,
       'aria-true': true,
-      'other-true': true,
 
       'data-null': null,
-      'aria-null': null,
+      'aria-null': null
+    };
+
+    const Map otherProps = const {
+      'other-true': true,
       'other-null': null
     };
 
@@ -151,6 +152,7 @@ void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(),
     var instance = (factory()
       ..addProps(propsThatShouldNotGetForwarded)
       ..addProps(extraProps)
+      ..addProps(otherProps)
       ..key = key
       ..ref = ref
     )(childrenFactory());
@@ -162,6 +164,17 @@ void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(),
 
     for (var forwardingTarget in forwardingTargets) {
       Map actualProps = getProps(forwardingTarget);
+
+      // If the forwarding target is a DOM element it will should not have invalid DOM props forwared to it.
+      if (isDomElement(forwardingTarget)) {
+        otherProps.forEach((key, value) {
+          expect(actualProps, isNot(containsPair(key, value)));
+        });
+      } else {
+        otherProps.forEach((key, value) {
+          expect(actualProps, containsPair(key, value));
+        });
+      }
 
       // Expect the target to have all forwarded props.
       extraProps.forEach((key, value) {
@@ -301,6 +314,68 @@ void testClassNameOverrides(BuilderOnlyUiFactory factory, dynamic childrenFactor
   });
 }
 
+/// Common test for verifying that required props are validated correctly.
+void testRequiredProps(BuilderOnlyUiFactory factory, dynamic childrenFactory()) {
+  var component = renderAndGetComponent(factory()(childrenFactory()));
+  var consumedProps = component.consumedProps;
+  var requiredProps = [];
+  var nullableProps = [];
+  var keyToErrorMessage = {};
+
+  consumedProps.forEach((ConsumedProps consumedProps) {
+    consumedProps.props.forEach((PropDescriptor prop) {
+      if (prop.isRequired) {
+        requiredProps.add(prop.key);
+      } else if (prop.isNullable) {
+        nullableProps.add(prop.key);
+      }
+
+      keyToErrorMessage[prop.key] = prop.errorMessage ?? '';
+    });
+  });
+
+  group('throws when the required prop', () {
+    requiredProps.forEach((String propKey) {
+      // Props that are defined in the default props map will never not be set.
+      if (!factory().componentFactory.defaultProps.containsKey(propKey)) {
+        test('$propKey is not set', () {
+          var badRenderer = () => render((factory()
+            ..remove(propKey)
+          )(childrenFactory()));
+
+          expect(badRenderer, throwsPropError_Required(propKey, keyToErrorMessage[propKey]));
+        });
+      }
+
+      test('$propKey is set to null', () {
+        var propsToAdd = {propKey: null};
+        var badRenderer = () => render((factory()
+          ..addAll(propsToAdd)
+        )(childrenFactory()));
+
+        expect(badRenderer, throwsPropError_Required(propKey, keyToErrorMessage[propKey]));
+      });
+    });
+  });
+
+  nullableProps.forEach((String propKey) {
+    test('throws when the the required, nullable prop $propKey is not set', () {
+      var badRenderer = () => render((factory()..remove(propKey)(childrenFactory())));
+
+      expect(badRenderer, throwsPropError_Required(propKey, keyToErrorMessage[propKey]));
+    });
+
+    test('does not throw when the required, nullable prop $propKey is set to null', () {
+      var propsToAdd = {propKey: null};
+      var badRenderer = () => render((factory()
+        ..addAll(propsToAdd)
+      )(childrenFactory()));
+
+      expect(badRenderer, returnsNormally);
+    });
+  });
+}
+
 /// By default, render components without children.
 dynamic _defaultChildrenFactory() => [];
 
@@ -329,6 +404,7 @@ void commonComponentTests(BuilderOnlyUiFactory factory, {
   bool shouldTestClassNameMerging: true,
   bool shouldTestClassNameOverrides: true,
   bool ignoreDomProps: true,
+  bool shouldTestRequiredProps: true,
   dynamic childrenFactory()
 }) {
   childrenFactory ??= _defaultChildrenFactory;
@@ -355,6 +431,9 @@ void commonComponentTests(BuilderOnlyUiFactory factory, {
   }
   if (shouldTestClassNameOverrides) {
     testClassNameOverrides(factory, childrenFactory);
+  }
+  if (shouldTestRequiredProps) {
+    testRequiredProps(factory, childrenFactory);
   }
 }
 

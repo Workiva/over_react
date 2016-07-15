@@ -49,20 +49,9 @@ DomProps domProps([Map backingMap]) => new DomProps(null, backingMap);
 /// <!-- use pre tags and HTML markup until WebStorm fully supports Dart doc comment markdown -->
 AriaPropsMapView ariaProps([Map backingMap]) => new AriaPropsMapView(backingMap == null ? {} : backingMap);
 
-/// A component builder with typed props for built-in DOM components.
-@deprecated
-class DomComponentDefinition extends ComponentDefinition with DomPropsMixin, ReactPropsMixin {
-  DomComponentDefinition(ReactComponentFactory componentFactory, [Map props]) : super(componentFactory, props);
-}
-
-@deprecated
-typedef DomComponentDefinition DomComponentDefinitionFactory();
-
 typedef DomProps DomPropsFactory();
 
-
-class DomProps extends component_base.UiProps with DomPropsMixin, ReactPropsMixin
-    implements DomComponentDefinition {
+class DomProps extends component_base.UiProps with DomPropsMixin, ReactPropsMixin {
   // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
   DomProps(this.componentFactory, [Map props]) : this.props = props ?? ({});
 

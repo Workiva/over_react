@@ -9,6 +9,7 @@ import 'package:react/react_client.dart';
 import 'package:react/react_client/js_interop_helpers.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:react/react.dart' as react;
+import 'package:react/react_dom.dart' as react_dom;
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
@@ -289,9 +290,10 @@ main() {
 
       test('preserves callback refs correctly', () {
         var flag = false;
+        var runtimeType;
         var callbackRef = (instance) {
           flag = true;
-          expect(instance.runtimeType, equals(TestComponent));
+          runtimeType = instance.runtimeType;
         };
 
         // The 'ref' property can only be used from within a render() method, so use RenderingContainerComponent
@@ -308,6 +310,7 @@ main() {
         render(holder);
 
         expect(flag, isTrue);
+        expect(runtimeType, equals(TestComponent));
       });
     });
 
@@ -365,17 +368,17 @@ main() {
       });
     });
 
-    group('isMounted', () {
+    group('isMounted (deprecated)', () {
       test('returns true for a component that has been mounted', () {
         var mountNode = new DivElement();
-        var renderedInstance = react.render(react.div({}), mountNode);
+        var renderedInstance = react_dom.render(Wrapper()(), mountNode);
         expect(isMounted(renderedInstance), isTrue);
       });
 
       test('returns false for a component that has been umounted', () {
         var mountNode = new DivElement();
-        var renderedInstance = react.render(react.div({}), mountNode);
-        react.unmountComponentAtNode(mountNode);
+        var renderedInstance = react_dom.render(Wrapper()(), mountNode);
+        react_dom.unmountComponentAtNode(mountNode);
         expect(isMounted(renderedInstance), isFalse);
       });
     });
@@ -506,6 +509,14 @@ main() {
           'style': testStyle,
           'children': testChildren
         }));
+      });
+
+      test('returns props as an unmodifiable map', () {
+        ReactComponent renderedInstance = render(TestComponentFactory({
+          'dartProp': 'dart'
+        }));
+
+        expect(() => getProps(renderedInstance)['style'] = testStyle, throwsUnsupportedError);
       });
 
       group('throws when passed', () {
