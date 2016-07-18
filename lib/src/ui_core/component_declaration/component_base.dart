@@ -234,10 +234,10 @@ abstract class UiState extends Object with MapViewMixin, StateMapViewMixin imple
 /// The string used by default for the key of the attribute added by [UiProps.addTestId].
 const defaultTestIdKey = 'data-test-id';
 
-/// Enforces that a function take a single parameter of type [UiProps].
+/// Enforces that a function take a single parameter of type [Map].
 ///
 /// Used in [UiProps.modifyProps].
-typedef PropsModifier(UiProps props);
+typedef PropsModifier(Map props);
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React props that
 /// is also capable of creating React component instances.
