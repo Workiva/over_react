@@ -3,7 +3,6 @@ library handler_chain_util_test;
 import 'package:test/test.dart';
 import 'package:web_skin_dart/ui_core.dart';
 
-import '../../wsd_test_util/zone.dart';
 
 /// Main entry point for HandlerChainUtil testing
 main() {
@@ -366,6 +365,7 @@ main() {
         }
       }
 
+      // TODO: Remove in 2.0.0
       test('createChainedDomEventCallback returns a callback that behaves correctly', () {
         callsBothFunctions(createChainedDomEventCallback);
         callsFunctionsInOrder(createChainedDomEventCallback);
@@ -376,6 +376,7 @@ main() {
         handlesNullParameters(createChainedDomEventCallback);
       });
 
+      // TODO: Remove in 2.0.0
       test('createChainedClipboardEventCallback returns a callback that behaves correctly', () {
         callsBothFunctions(createChainedClipboardEventCallback);
         callsFunctionsInOrder(createChainedClipboardEventCallback);
@@ -386,6 +387,7 @@ main() {
         handlesNullParameters(createChainedClipboardEventCallback);
       });
 
+      // TODO: Remove in 2.0.0
       test('createChainedKeyboardEventCallback returns a callback that behaves correctly', () {
         callsBothFunctions(createChainedKeyboardEventCallback);
         callsFunctionsInOrder(createChainedKeyboardEventCallback);
@@ -396,6 +398,7 @@ main() {
         handlesNullParameters(createChainedKeyboardEventCallback);
       });
 
+      // TODO: Remove in 2.0.0
       test('createChainedFocusEventCallback returns a callback that behaves correctly', () {
         callsBothFunctions(createChainedFocusEventCallback);
         callsFunctionsInOrder(createChainedFocusEventCallback);
@@ -406,6 +409,7 @@ main() {
         handlesNullParameters(createChainedFocusEventCallback);
       });
 
+      // TODO: Remove in 2.0.0
       test('createChainedFormEventCallback returns a callback that behaves correctly', () {
         callsBothFunctions(createChainedFormEventCallback);
         callsFunctionsInOrder(createChainedFormEventCallback);
@@ -416,6 +420,7 @@ main() {
         handlesNullParameters(createChainedFormEventCallback);
       });
 
+      // TODO: Remove in 2.0.0
       test('createChainedMouseEventCallback returns a callback that behaves correctly', () {
         callsBothFunctions(createChainedMouseEventCallback);
         callsFunctionsInOrder(createChainedMouseEventCallback);
@@ -426,6 +431,7 @@ main() {
         handlesNullParameters(createChainedMouseEventCallback);
       });
 
+      // TODO: Remove in 2.0.0
       test('createChainedTouchEventCallback returns a callback that behaves correctly', () {
         callsBothFunctions(createChainedTouchEventCallback);
         callsFunctionsInOrder(createChainedTouchEventCallback);
@@ -436,6 +442,7 @@ main() {
         handlesNullParameters(createChainedTouchEventCallback);
       });
 
+      // TODO: Remove in 2.0.0
       test('createChainedUIEventCallback returns a callback that behaves correctly', () {
         callsBothFunctions(createChainedUIEventCallback);
         callsFunctionsInOrder(createChainedUIEventCallback);
@@ -446,6 +453,7 @@ main() {
         handlesNullParameters(createChainedUIEventCallback);
       });
 
+      // TODO: Remove in 2.0.0
       test('createChainedWheelEventCallback returns a callback that behaves correctly', () {
         callsBothFunctions(createChainedWheelEventCallback);
         callsFunctionsInOrder(createChainedWheelEventCallback);

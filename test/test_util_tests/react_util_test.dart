@@ -30,7 +30,7 @@ main() {
 
       tearDownAttachedNodes();
 
-      expect(isMounted(renderedInstance), isFalse,
+      expect(renderedInstance.isMounted(), isFalse,
           reason: 'The React instance should have been unmounted.');
 
       expect(document.body.children, isEmpty,
@@ -752,10 +752,10 @@ main() {
         test('by its rendered instance', () {
           var mountNode = new DivElement();
           var instance = react_dom.render(Wrapper()(), mountNode);
-          expect(isMounted(instance), isTrue);
+          expect(instance.isMounted(), isTrue);
 
           unmount(instance);
-          expect(isMounted(instance), isFalse);
+          expect(instance.isMounted(), isFalse);
         });
 
         test('by its mount node', () {
