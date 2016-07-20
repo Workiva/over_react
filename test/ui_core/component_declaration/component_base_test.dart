@@ -278,6 +278,39 @@ main() {
         });
       });
 
+      group('modifyProps()', () {
+        test('passes the provided modifier itself', () {
+          modifier(UiProps props) {
+            props['className'] = 'modified-class-name';
+          }
+
+          var props = new TestComponentProps()
+            ..['className'] = 'original-class-name'
+            ..['id'] = 'original-id';
+
+          expect(props, equals({
+            'className': 'original-class-name',
+            'id': 'original-id'
+          }));
+
+          props.modifyProps(modifier);
+
+          expect(props, equals({
+            'className': 'modified-class-name',
+            'id': 'original-id'
+          }));
+        });
+
+        test('does nothing when passed null', () {
+          var props = new TestComponentProps()
+            ..['className'] = 'original-class-name';
+
+          expect(() => props.modifyProps(null), returnsNormally);
+
+          expect(props, equals({'className': 'original-class-name'}));
+        });
+      });
+
       group('testId', () {
         test('sets the correct value for the `data-test-id` key when setting the testId', () {
           var props = new TestComponentProps();
