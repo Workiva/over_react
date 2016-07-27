@@ -120,7 +120,7 @@ void unmount(dynamic instanceOrContainerNode) {
       react_test_utils.isCompositeComponent(instanceOrContainerNode) ||
       react_test_utils.isDOMComponent(instanceOrContainerNode)
   ) {
-    if (!isMounted(instanceOrContainerNode)) {
+    if (!instanceOrContainerNode.isMounted()) {
       return;
     }
 
@@ -212,11 +212,22 @@ final _EventSimulatorAlias keyUp = react_test_utils.Simulate.keyUp;
 /// Helper function to simulate keyPress events.
 final _EventSimulatorAlias keyPress = react_test_utils.Simulate.keyPress;
 
-@JS('React.addons.TestUtils.Simulate.mouseEnter')
-external void mouseEnter(dynamic target);
+/// Helper function to simulate mouseEnter events.
+final _EventSimulatorAlias mouseEnter = (componentOrNode, [Map eventData = const {}]) =>
+    Simulate._mouseEnter(componentOrNode, jsify(eventData));
 
-@JS('React.addons.TestUtils.Simulate.mouseLeave')
-external void mouseLeave(dynamic target);
+/// Helper function to simulate mouseLeave events.
+final _EventSimulatorAlias mouseLeave = (componentOrNode, [Map eventData = const {}]) =>
+    Simulate._mouseLeave(componentOrNode, jsify(eventData));
+
+@JS('React.addons.TestUtils.Simulate')
+abstract class Simulate {
+  @JS('mouseEnter')
+  external static void _mouseEnter(dynamic target, [eventData]);
+
+  @JS('mouseLeave')
+  external static void _mouseLeave(dynamic target, [eventData]);
+}
 
 /// Returns whether [props] contains [key] with a value set to a space-delimited string containing [value].
 bool _hasTestId(Map props, String key, String value) {
