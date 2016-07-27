@@ -4,6 +4,8 @@ import 'dart:async';
 import 'dart:html';
 import 'dart:js';
 
+import 'package:browser_detect/browser_detect.dart';
+
 /// Dispatches a `transitionend` event when the CSS transition of the [element]
 /// is complete. Returns a [Future] that completes after the event has been dispatched.
 ///
@@ -26,7 +28,10 @@ Future triggerTransitionEnd(Element element) {
     jsEvent = new JsObject.fromBrowserObject(jsDocument.callMethod('createEvent', ['Event']));
   }
 
-  jsEvent.callMethod('initEvent', ['transitionend', true, true]);
+  // Need to use webkitTransitionEnd in Edge. See https://github.com/dart-lang/sdk/issues/26972
+  var eventName = (browser.isIe && browser.version > '11') ? 'webkitTransitionEnd' : 'transitionend';
+
+  jsEvent.callMethod('initEvent', [eventName, true, true]);
 
   jsElement.callMethod('dispatchEvent', [jsEvent]);
 
