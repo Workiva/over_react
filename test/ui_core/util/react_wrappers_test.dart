@@ -372,14 +372,14 @@ main() {
       test('returns true for a component that has been mounted', () {
         var mountNode = new DivElement();
         var renderedInstance = react_dom.render(Wrapper()(), mountNode);
-        expect(isMounted(renderedInstance), isTrue);
+        expect(renderedInstance.isMounted(), isTrue);
       });
 
       test('returns false for a component that has been umounted', () {
         var mountNode = new DivElement();
         var renderedInstance = react_dom.render(Wrapper()(), mountNode);
         react_dom.unmountComponentAtNode(mountNode);
-        expect(isMounted(renderedInstance), isFalse);
+        expect(renderedInstance.isMounted(), isFalse);
       });
     });
 
