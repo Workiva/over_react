@@ -25,7 +25,7 @@ class TestHandlerPrecedenceComponent extends FluxUiComponent {
   }
 
   @override
-  redraw() {
+  redraw([callback()]) {
     numberOfRedraws += 1;
   }
 }

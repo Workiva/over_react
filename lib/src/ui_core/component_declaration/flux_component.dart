@@ -66,7 +66,7 @@ abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extend
 /// Private so it will only get used in this file, since having lifecycle methods in a mixin is risky.
 abstract class _FluxComponentMixin<TProps extends FluxUiProps> {
   TProps get props;
-  redraw();
+  redraw([callback()]);
 
   /// List of store subscriptions created when the component mounts. These
   /// subscriptions are canceled when the component is unmounted.
