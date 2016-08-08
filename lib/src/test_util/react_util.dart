@@ -120,7 +120,7 @@ void unmount(dynamic instanceOrContainerNode) {
       react_test_utils.isCompositeComponent(instanceOrContainerNode) ||
       react_test_utils.isDOMComponent(instanceOrContainerNode)
   ) {
-    if (!isMounted(instanceOrContainerNode)) {
+    if (!instanceOrContainerNode.isMounted()) {
       return;
     }
 
