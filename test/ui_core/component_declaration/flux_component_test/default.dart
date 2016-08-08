@@ -14,7 +14,7 @@ class TestDefaultComponent extends FluxUiComponent {
   render() => Dom.div()();
 
   @override
-  redraw() {
+  redraw([callback()]) {
     numberOfRedraws += 1;
   }
 }
