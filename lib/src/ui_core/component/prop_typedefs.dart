@@ -6,5 +6,3 @@ import 'package:web_skin_dart/ui_core.dart';
 
 /// A typedef for props that allow a custom rendering function to be provided to render some part of a component.
 typedef ReactElement CustomRenderFunction<TProps extends UiProps, TState extends UiState, TComponent extends component_base.UiComponent> (TProps props, TState state, TComponent component);
-
-typedef ReactElement ClickToEditRenderFunction (dynamic value);
