@@ -115,7 +115,4 @@ void mapProxyTests(Map mapProxyFactory(Map proxiedMap)) {
   });
 }
 
-class MockMap extends Mock implements Map {
-  @override
-  noSuchMethod(i) => super.noSuchMethod(i);
-}
+class MockMap extends Mock implements Map {}
