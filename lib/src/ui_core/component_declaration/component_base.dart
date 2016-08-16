@@ -11,6 +11,7 @@ import 'package:web_skin_dart/ui_core.dart' show
     getPropsToForward,
     DummyComponent,
     ValidationUtil,
+    prettyPrintMap,
     unindent,
     PropError;
 
@@ -401,7 +402,7 @@ abstract class PropsMapViewMixin {
   Map get _map => this.props;
 
   @override
-  String toString() => '$runtimeType: $_map';
+  String toString() => '$runtimeType: ${prettyPrintMap(_map)}';
 }
 
 /// Works in conjunction with [MapViewMixin] to provide [dart.collection.MapView]-like
@@ -411,7 +412,7 @@ abstract class StateMapViewMixin {
   Map get _map => this.state;
 
   @override
-  String toString() => '$runtimeType: $_map';
+  String toString() => '$runtimeType: ${prettyPrintMap(_map)}';
 }
 
 /// Provides [dart.collection.MapView]-like behavior by proxying an internal map.
