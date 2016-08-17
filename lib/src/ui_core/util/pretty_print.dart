@@ -89,7 +89,7 @@ String _prettyObj(Object obj) {
     }));
 
     pairs.addAll(otherKeys.map((dynamic key) {
-       return '$key: ' + _prettyObj(obj[key]) + ',';
+      return '$key: ' + _prettyObj(obj[key]) + ',';
     }));
 
     final RegExp trailingComma = new RegExp(r'\s*,\s*$');
