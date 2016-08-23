@@ -31,6 +31,7 @@ import 'ui_core/util/pretty_print_test.dart' as pretty_print_test;
 import 'ui_core/util/prop_error_test.dart' as prop_error_test;
 import 'ui_core/util/react_wrappers_test.dart' as react_wrappers_test;
 import 'ui_core/util/rem_util_test.dart' as rem_util_test;
+import 'ui_core/util/string_util_test.dart' as string_util_test;
 import 'ui_core/util/test_mode_test.dart' as test_mode_test;
 
 main() {
@@ -60,5 +61,6 @@ main() {
   prop_error_test.main();
   react_wrappers_test.main();
   rem_util_test.main();
+  string_util_test.main();
   test_mode_test.main();
 }
