@@ -43,4 +43,4 @@ Map getPropsToForward(Map props, {bool omitReactProps: true, bool onlyCopyDomPro
 
 SplayTreeSet _validDomProps = new SplayTreeSet()
   ..addAll(const $PropKeys(DomPropsMixin))
-  ..addAll(const $PropKeys(DomPropsMixin));
+  ..addAll(const $PropKeys(SvgPropsMixin));
