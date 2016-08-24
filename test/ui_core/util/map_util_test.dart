@@ -83,10 +83,12 @@ main() {
         expect(actual, equals(expected));
       });
 
-      test('with only valid DOM props', () {
+      test('with only valid DOM/SVG props', () {
         var actual = getPropsToForward({
           'tabIndex': '0',
           'className': 'my classname',
+          'cx': '0',
+          'stroke': 'red',
           'data-test-prop': 'my data attr',
           'aria-test-prop': 'my aria attr',
           'classNameBlacklist': 'my classname blacklist',
@@ -96,6 +98,8 @@ main() {
         var expected = {
           'tabIndex': '0',
           'className': 'my classname',
+          'cx': '0',
+          'stroke': 'red',
           'data-test-prop': 'my data attr',
           'aria-test-prop': 'my aria attr',
         };

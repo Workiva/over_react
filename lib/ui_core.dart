@@ -27,6 +27,7 @@ export 'src/ui_core/util/guid_util.dart';
 export 'src/ui_core/util/handler_chain_util.dart';
 export 'src/ui_core/util/js_util.dart';
 export 'src/ui_core/util/key_constants.dart';
+export 'src/ui_core/util/pretty_print.dart';
 export 'src/ui_core/util/prop_errors.dart';
 export 'src/ui_core/util/react_wrappers.dart';
 export 'src/ui_core/util/rem_util.dart';
