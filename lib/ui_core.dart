@@ -44,3 +44,4 @@ part 'src/ui_core/component/prop_mixins.dart';
 part 'src/ui_core/util/class_names.dart';
 part 'src/ui_core/util/event_helpers.dart';
 part 'src/ui_core/util/map_util.dart';
+part 'src/ui_core/util/react_util.dart';
