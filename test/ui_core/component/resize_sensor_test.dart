@@ -8,7 +8,7 @@ import 'package:browser_detect/browser_detect.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_dom.dart' as react_dom;
 import 'package:test/test.dart';
-import 'package:web_skin_dart/src/ui_core/component/resize_sensor.dart';
+import 'package:web_skin_dart/ui_core.dart';
 import 'package:web_skin_dart/test_util.dart';
 
 import '../../wsd_test_util/common_component_tests.dart';
