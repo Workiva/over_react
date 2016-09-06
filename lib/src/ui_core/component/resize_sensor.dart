@@ -239,5 +239,3 @@ class ResizeSensorEvent {
 
   ResizeSensorEvent(this.newWidth, this.newHeight, this.prevWidth, this.prevHeight);
 }
-
-typedef void ResizeSensorHandler(ResizeSensorEvent event);
