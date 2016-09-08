@@ -72,3 +72,5 @@ class MockFileUploadInputElement extends Mock implements FileUploadInputElement 
 class MockSyntheticEvent extends Mock implements react.SyntheticEvent {}
 
 class MockSyntheticMouseEvent extends Mock implements react.SyntheticMouseEvent {}
+
+class MockMouseEvent extends Mock implements MouseEvent {}
