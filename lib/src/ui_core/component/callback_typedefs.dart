@@ -50,5 +50,5 @@ typedef Callback();
 // Callback for DOM elements
 typedef Element ElementCallback();
 
-// Callback for ResizeSensor events
+// Callback for [ResizeSensorEvent]s
 typedef void ResizeSensorHandler(ResizeSensorEvent event);
