@@ -2,6 +2,7 @@
 /// https://github.com/marcj/css-element-queries/blob/master/src/ResizeSensor.js
 library resize_sensor;
 
+import 'dart:collection';
 import 'dart:html';
 
 import 'package:browser_detect/browser_detect.dart';
@@ -19,8 +20,14 @@ import 'package:web_skin_dart/ui_core.dart';
 @Factory()
 UiFactory<ResizeSensorProps> ResizeSensor;
 
-@Props()
-class ResizeSensorProps extends UiProps {
+@PropsMixin()
+abstract class ResizeSensorPropsMixin {
+  static final ResizeSensorPropsMixinMapView defaultProps = new ResizeSensorPropsMixinMapView({})
+    ..isFlexChild = false
+    ..isFlexContainer = false;
+
+  Map get props;
+
   /// A function invoked when the resize sensor is initialized.
   ResizeSensorHandler onInitialize;
 
@@ -40,6 +47,9 @@ class ResizeSensorProps extends UiProps {
   bool isFlexContainer;
 }
 
+@Props()
+class ResizeSensorProps extends UiProps with ResizeSensorPropsMixin {}
+
 @Component()
 class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
   // Refs
@@ -51,8 +61,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
 
   @override
   Map getDefaultProps() => (newProps()
-    ..isFlexChild = false
-    ..isFlexContainer = false
+    ..addProps(ResizeSensorPropsMixin.defaultProps)
   );
 
   @override
@@ -238,4 +247,15 @@ class ResizeSensorEvent {
   final int prevHeight;
 
   ResizeSensorEvent(this.newWidth, this.newHeight, this.prevWidth, this.prevHeight);
+}
+
+/// A MapView with the typed getters/setters for all HitArea display variation props.
+class ResizeSensorPropsMixinMapView extends MapView with ResizeSensorPropsMixin {
+  /// Create a new instance backed by the specified map.
+  ResizeSensorPropsMixinMapView(Map map) : super(map);
+
+  /// The props to be manipulated via the getters/setters.
+  /// In this case, it's the current MapView object.
+  @override
+  Map get props => this;
 }
