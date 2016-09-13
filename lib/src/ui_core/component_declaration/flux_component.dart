@@ -66,6 +66,7 @@ abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extend
 /// Private so it will only get used in this file, since having lifecycle methods in a mixin is risky.
 abstract class _FluxComponentMixin<TProps extends FluxUiProps> {
   TProps get props;
+  bool shouldBatchRedraw;
   redraw([callback()]);
 
   /// List of store subscriptions created when the component mounts. These
@@ -86,6 +87,9 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> {
   }
 
   componentWillUnmount() {
+    // ensure that unmounted components don't batch render
+    shouldBatchRedraw = false;
+
     // Cancel all store subscriptions.
     _subscriptions.forEach((StreamSubscription subscription) {
       if (subscription != null) {
