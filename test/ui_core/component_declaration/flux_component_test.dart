@@ -3,6 +3,7 @@
 library ui_core.comonent_declaration.flux_component_test;
 
 import 'dart:async';
+import 'dart:html';
 
 import 'package:test/test.dart';
 import 'package:w_flux/w_flux.dart';
@@ -15,8 +16,9 @@ part 'flux_component_test/redraw_on.dart';
 part 'flux_component_test/store_handlers.dart';
 
 void main() {
-  Future nextTick() {
-    return new Future.delayed(new Duration(milliseconds: 1));
+  Future nextTick() async {
+    await window.animationFrame;
+    await window.animationFrame;
   }
 
   group('FluxUiProps', () {
@@ -149,6 +151,15 @@ void main() {
       await nextTick();
       expect(numberOfCalls, 1,
           reason: 'the subscription to have been cancelled, and should not receive additional events');
+    });
+
+    test('should not redraw after being unmounted', () async {
+      var renderedInstance = render(TestDefault());
+      TestDefaultComponent component = getDartComponent(renderedInstance);
+      component.componentWillUnmount();
+      component.redraw();
+      await nextTick();
+      expect(component.numberOfRedraws, equals(0));
     });
   });
 }
