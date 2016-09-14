@@ -51,8 +51,9 @@ typedef Element ElementCallback();
 
 /// CTE typedefs
 
-/// Type definition for all callbacks to be used for handling [ClickToEditComponent] state transitions. State
-/// transitions for this component can occur via [react.SyntheticMouseEvent]s and [react.SyntheticKeyboardEvent]s
+/// Type definition for all callbacks to be used for handling [ClickToEditComponent] state transitions.
+///
+/// State transitions for this component can occur via [react.SyntheticMouseEvent]s and [react.SyntheticKeyboardEvent]s.
 @Deprecated('2.0.0')
 typedef ClickToEditStateChangeCallback(react.SyntheticEvent event);
 
