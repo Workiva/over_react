@@ -24,7 +24,8 @@ UiFactory<ResizeSensorProps> ResizeSensor;
 abstract class ResizeSensorPropsMixin {
   static final ResizeSensorPropsMixinMapView defaultProps = new ResizeSensorPropsMixinMapView({})
     ..isFlexChild = false
-    ..isFlexContainer = false;
+    ..isFlexContainer = false
+    ..shrink = false;
 
   Map get props;
 
@@ -45,6 +46,14 @@ abstract class ResizeSensorPropsMixin {
   ///
   /// Default: false
   bool isFlexContainer;
+
+  /// Whether the [ResizeSensor] should shrink to the size of its child.
+  ///
+  /// __WARNING:__ If set to true there is a possibility that the [ResizeSensor] will not work due to it being too
+  /// small.
+  ///
+  /// Default: false
+  bool shrink;
 }
 
 @Props()
@@ -84,7 +93,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
     var expandSensor = (Dom.div()
       ..className = 'resize-sensor-expand'
       ..onScroll = _handleSensorScroll
-      ..style = _baseStyle
+      ..style = props.shrink ? _shrinkBaseStyle : _baseStyle
       ..ref = (ref) { _expandSensorRef = ref; }
       ..key = 'expandSensor'
     )(expandSensorChild);
@@ -97,7 +106,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
     var collapseSensor = (Dom.div()
       ..className = 'resize-sensor-collapse'
       ..onScroll = _handleSensorScroll
-      ..style = _baseStyle
+      ..style = props.shrink ? _shrinkBaseStyle : _baseStyle
       ..ref = (ref) { _collapseSensorRef = ref; }
       ..key = 'collapseSensor'
     )(collapseSensorChild);
@@ -106,7 +115,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
       ..add(
           (Dom.div()
             ..className = 'resize-sensor'
-            ..style = _baseStyle
+            ..style = props.shrink ? _shrinkBaseStyle : _baseStyle
             ..key = 'resizeSensor'
           )(expandSensor, collapseSensor)
     );
@@ -208,6 +217,19 @@ final Map<String, dynamic> _baseStyle = const {
   'right': '-100px',
   'bottom': '-100px',
   'left': '-100px',
+  'overflow': 'scroll',
+  'zIndex': '-1',
+  'visibility': 'hidden',
+  // Set opacity in addition to visibility to work around Safari scrollbar bug.
+  'opacity': '0',
+};
+
+final Map<String, dynamic> _shrinkBaseStyle = const {
+  'position': 'absolute',
+  'top': '0',
+  'right': '0',
+  'bottom': '0',
+  'left': '0',
   'overflow': 'scroll',
   'zIndex': '-1',
   'visibility': 'hidden',
