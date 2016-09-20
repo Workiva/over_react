@@ -17,7 +17,8 @@ class TestRedrawOnComponent extends FluxUiComponent {
   redrawOn() => [props.store.store1, props.store.store2];
 
   @override
-  redraw([callback()]) {
-    numberOfRedraws += 1;
+  void setState(_, [callback()]) {
+    numberOfRedraws++;
+    if (callback != null) callback();
   }
 }
