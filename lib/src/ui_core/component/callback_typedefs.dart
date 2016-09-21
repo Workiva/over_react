@@ -3,6 +3,7 @@ library ui_core.callback_typedefs;
 import 'dart:html';
 
 import 'package:react/react.dart' as react;
+import 'package:web_skin_dart/ui_core.dart' show ResizeSensorEvent;
 
 // Callbacks for React's DOM event system
 typedef DomEventCallback(react.SyntheticEvent event);
@@ -49,6 +50,9 @@ typedef Callback();
 // Callback for DOM elements
 typedef Element ElementCallback();
 
+// Callback for [ResizeSensorEvent]s
+typedef void ResizeSensorHandler(ResizeSensorEvent event);
+
 // CTE typedefs
 
 /// Type definition for all callbacks to be used for handling [ClickToEditComponent] state transitions.
@@ -61,3 +65,4 @@ typedef ClickToEditStateChangeCallback(react.SyntheticEvent event);
 /// value.
 @Deprecated('2.0.0')
 typedef ClickToEditChangeCallback(String committedValue, String newValue, react.SyntheticFormEvent event);
+
