@@ -49,7 +49,7 @@ typedef Callback();
 // Callback for DOM elements
 typedef Element ElementCallback();
 
-/// CTE typedefs
+// CTE typedefs
 
 /// Type definition for all callbacks to be used for handling [ClickToEditComponent] state transitions.
 ///
