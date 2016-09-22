@@ -8,7 +8,7 @@ import 'package:browser_detect/browser_detect.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_dom.dart' as react_dom;
 import 'package:test/test.dart';
-import 'package:web_skin_dart/src/ui_core/component/resize_sensor.dart';
+import 'package:web_skin_dart/ui_core.dart';
 import 'package:web_skin_dart/test_util.dart';
 
 import '../../wsd_test_util/common_component_tests.dart';
@@ -33,9 +33,13 @@ void main() {
     });
 
     Element renderSensorIntoContainer({ResizeSensorHandler onInitialize, ResizeSensorHandler onResize,
-        int width: defaultContainerWidth, int height: defaultContainerHeight}) {
+        int width: defaultContainerWidth, int height: defaultContainerHeight, Map resizeSensorProps}) {
       // Create component hierarchy.
-      var sensor = (ResizeSensor()..onInitialize = onInitialize..onResize = onResize)();
+      var sensor = (ResizeSensor()
+        ..addProps(resizeSensorProps)
+        ..onInitialize = onInitialize
+        ..onResize = onResize
+      )();
       var container = react.div({
         'className': 'container',
         'style': {
@@ -58,7 +62,8 @@ void main() {
     /// tracked to confirm callback invocation, instead of `expectAsync`, due to
     /// oddities in detecting callback invocations.
     Future expectResizeAfter(void action(Element container),
-        {ResizeSensorHandler onResize, int width: defaultContainerWidth, int height: defaultContainerHeight}) async {
+        {ResizeSensorHandler onResize, int width: defaultContainerWidth, int height: defaultContainerHeight,
+        Map resizeSensorProps}) async {
       var resizeDetectedCompleter = new Completer();
 
       Element containerEl;
@@ -67,7 +72,7 @@ void main() {
           onResize(event);
         }
         resizeDetectedCompleter.complete();
-      }, width: width, height: height);
+      }, width: width, height: height, resizeSensorProps: resizeSensorProps);
 
       action(containerEl);
 
@@ -175,6 +180,12 @@ void main() {
           containerEl.style.width = '4px';
         }, width: 2, height: 2);
       });
+
+      test('and shrink is true', () async{
+        await expectResizeAfter((containerEl) {
+          containerEl.style.width = '${defaultContainerWidth * 2}px';
+        }, resizeSensorProps: ResizeSensor()..shrink = true);
+      });
     });
 
     group('should detect when bounding rect grows vertically', () {
@@ -188,6 +199,12 @@ void main() {
         await expectResizeAfter((containerEl) {
           containerEl.style.height = '4px';
         }, width: 2, height: 2);
+      });
+
+      test('and shrink is true', () async{
+        await expectResizeAfter((containerEl) {
+          containerEl.style.height = '${defaultContainerHeight * 2}px';
+        }, resizeSensorProps: ResizeSensor()..shrink = true);
       });
     });
 
@@ -203,6 +220,12 @@ void main() {
           containerEl.style.width = '1px';
         }, width: 2, height: 2);
       });
+
+      test('and shrink is true', () async{
+        await expectResizeAfter((containerEl) {
+          containerEl.style.width = '${defaultContainerWidth / 2}px';
+        }, resizeSensorProps: ResizeSensor()..shrink = true);
+      });
     });
 
     group('should detect when bounding rect shrinks vertically', () {
@@ -216,6 +239,12 @@ void main() {
         await expectResizeAfter((containerEl) {
           containerEl.style.height = '1px';
         }, width: 2, height: 2);
+      });
+
+      test('and shrink is true', () async{
+        await expectResizeAfter((containerEl) {
+          containerEl.style.height = '${defaultContainerHeight / 2}px';
+        }, resizeSensorProps: ResizeSensor()..shrink = true);
       });
     });
 
