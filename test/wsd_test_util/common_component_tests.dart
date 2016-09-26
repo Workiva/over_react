@@ -76,6 +76,11 @@ List getForwardingTargets(reactInstance, {int expectedTargetCount: 1, shallowRen
         flattenChildren(List _children) {
           _children.forEach((_child) {
             if (_child != null && isValidElement(_child)) {
+              getProps(_child).forEach((propKey, propValue) {
+                if (propValue is ReactElement && isValidElement(propValue)) {
+                  getTargets(propValue);
+                }
+              });
               getTargets(_child);
             }  else if (_child is List) {
               flattenChildren(_child);
