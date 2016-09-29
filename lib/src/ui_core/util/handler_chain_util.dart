@@ -12,6 +12,7 @@ import 'package:react/react.dart' show
     SyntheticWheelEvent;
 
 import '../component/callback_typedefs.dart';
+import 'package:web_skin_dart/ui_core.dart' show ResizeSensorEvent;
 
 /// Provides chaining utilities for [TargetKeyCallback].
 final CallbackUtil2Arg<SyntheticEvent, Object> targetKeyCallbacks           = const CallbackUtil2Arg<SyntheticEvent, Object>();
@@ -54,6 +55,9 @@ final CallbackUtil0Arg callbacks                                            = co
 
 /// Provides chaining utilities for [FocusDidChangeCallback].
 final CallbackUtil2Arg<int, int> focusDidChangeCallbacks                    = const CallbackUtil2Arg<int, int>();
+
+/// Provides chaining utilities for [ResizeSensorHandler].
+final CallbackUtil1Arg<ResizeSensorEvent> resizeEventCallbacks              = const CallbackUtil1Arg<ResizeSensorEvent>();
 
 /// Creates an TargetKeyCallback that calls through to the two provided callbacks in order.
 ///
@@ -374,4 +378,3 @@ abstract class CallbackUtil<TTypedef extends Function> {
   /// A function of type [TTypedef] that does nothing.
   TTypedef get noop;
 }
-
