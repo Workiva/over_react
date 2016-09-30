@@ -86,6 +86,8 @@ Map getJsProps(/* ReactElement|ReactComponent */ instance) {
   return props;
 }
 
+Expando _elementPropsCache = new Expando('_elementPropsCache');
+
 /// Returns an unmodifiable Map view of props for a [ReactElement] or composite [ReactComponent] [instance].
 ///
 /// For a native Dart component, this returns its [react.Component.props] in an unmodifiable Map view.
@@ -94,8 +96,13 @@ Map getJsProps(/* ReactElement|ReactComponent */ instance) {
 /// Throws if [instance] is not a valid [ReactElement] or composite [ReactComponent] .
 Map getProps(/* ReactElement|ReactComponent */ instance) {
   if (isValidElement(instance) || _isCompositeComponent(instance)) {
+    var cachedView = _elementPropsCache[instance];
+    if (cachedView != null) return cachedView;
+
     var propsMap = isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
-    return new UnmodifiableMapView(propsMap);
+    var view = new UnmodifiableMapView(propsMap);
+    _elementPropsCache[instance] = view;
+    return view;
   }
 
   throw new ArgumentError.value(instance, 'instance', 'must be a valid ReactElement or composite ReactComponent');
