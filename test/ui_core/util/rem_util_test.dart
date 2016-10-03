@@ -7,6 +7,8 @@ import 'package:web_skin_dart/src/ui_core/util/css_value_util.dart';
 import 'package:web_skin_dart/src/ui_core/util/rem_util.dart';
 import 'package:web_skin_dart/test_util.dart';
 
+import '../../wsd_test_util/validation_util_helpers.dart';
+
 /// Main entry point for rem_util testing
 main() {
   group('rem_util', () {
@@ -26,6 +28,14 @@ main() {
 
       tearDown(() {
         unsetRootFontSize();
+      });
+
+      test('returns null when `pxValue` is null', () {
+        expect(toRem(null), isNull);
+      });
+
+      test('returns `pxValue` unaltered when it is not a supported type', () {
+
       });
 
       test('converts a px CSS value String to rem', () {
@@ -58,18 +68,28 @@ main() {
         );
       });
 
-      test('throws when passed a CSS value string with a unit other than px', () {
-        expect(() => toRem('1em'), allOf(
-            throwsArgumentError,
-            throwsA(hasToStringValue(contains('must be a num or a String px value'))))
-        );
-      });
+      group('warns (and returns corresponding CssValue) when passed', () {
+        setUp(() {
+          startRecordingValidationWarnings();
+        });
 
-      test('throws when passed a CssValue instance with a unit other than px', () {
-        expect(() => toRem(new CssValue.parse('1em')), allOf(
-            throwsArgumentError,
-            throwsA(hasToStringValue(contains('must be a num or a String px value'))))
-        );
+        tearDown(() {
+          stopRecordingValidationWarnings();
+        });
+
+        test('a CSS value string with a unit other than px', () {
+          var value = toRem('1em');
+
+          verifyValidationWarning('`1em` is not a num or a String px value. Value cannot be converted to `rem` units.');
+          expect(value, new CssValue.parse('1em'));
+        });
+
+        test('a CssValue instance with a unit other than px', () {
+          var value = toRem(new CssValue.parse('1em'));
+
+          verifyValidationWarning('`1em` is not a num or a String px value. Value cannot be converted to `rem` units.');
+          expect(value, new CssValue.parse('1em'));
+        });
       });
     });
 
@@ -112,18 +132,28 @@ main() {
         );
       });
 
-      test('throws when passed a CSS value string with a unit other than px', () {
-        expect(() => toPx('1em'), allOf(
-            throwsArgumentError,
-            throwsA(hasToStringValue(contains('must be a num or a String rem value'))))
-        );
-      });
+      group('warns (and returns corresponding CssValue) when passed', () {
+        setUp(() {
+          startRecordingValidationWarnings();
+        });
 
-      test('throws when passed a CssValue instance with a unit other than px', () {
-        expect(() => toPx(new CssValue.parse('1em')), allOf(
-            throwsArgumentError,
-            throwsA(hasToStringValue(contains('must be a num or a String rem value'))))
-        );
+        tearDown(() {
+          stopRecordingValidationWarnings();
+        });
+
+        test('a CSS value string with a unit other than px', () {
+          var value = toPx('1em');
+
+          verifyValidationWarning('`1em` is not a num or a String rem value. Value cannot be converted to `px` units.');
+          expect(value, new CssValue.parse('1em'));
+        });
+
+        test('a CssValue instance with a unit other than px', () {
+          var value = toPx(new CssValue.parse('1em'));
+
+          verifyValidationWarning('`1em` is not a num or a String rem value. Value cannot be converted to `px` units.');
+          expect(value, new CssValue.parse('1em'));
+        });
       });
     });
 
