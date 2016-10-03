@@ -82,14 +82,26 @@ void recomputeRootFontSize() {
 ///
 /// * `1.5rem`
 CssValue toRem(dynamic pxValue) {
+  if (pxValue == null) return null;
+
   num pxValueNum;
 
   if (pxValue is num) {
     pxValueNum = pxValue;
   } else {
     var parsedPxValue = pxValue is CssValue ? pxValue : new CssValue.parse(pxValue);
-    if (parsedPxValue?.unit != 'px') {
+    if (parsedPxValue == null) {
       throw new ArgumentError.value(pxValue, 'pxValue', 'must be a num or a String px value');
+    }
+
+    if (parsedPxValue.unit != 'px') {
+      assert(ValidationUtil.warn(unindent(
+          '''
+          `$pxValue` is not a num or a String px value. Value cannot be converted to `rem` units.
+          '''
+      )));
+
+      return parsedPxValue;
     }
 
     pxValueNum = parsedPxValue.number;
@@ -116,8 +128,17 @@ CssValue toPx(dynamic remValue) {
     remValueNum = remValue;
   } else {
     var parsedRemValue = remValue is CssValue ? remValue : new CssValue.parse(remValue);
-    if (parsedRemValue?.unit != 'rem') {
+    if (parsedRemValue == null) {
       throw new ArgumentError.value(remValue, 'remValue', 'must be a num or a String rem value');
+    }
+    if (parsedRemValue?.unit != 'rem') {
+      assert(ValidationUtil.warn(unindent(
+          '''
+          `$remValue` is not a num or a String rem value. Value cannot be converted to `px` units.
+          '''
+      )));
+
+      return parsedRemValue;
     }
 
     remValueNum = parsedRemValue.number;
