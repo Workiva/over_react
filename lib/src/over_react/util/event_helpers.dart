@@ -1,4 +1,8 @@
-part of over_react;
+library over_react.event_helpers;
+
+import 'dart:html';
+
+import 'package:react/react.dart' as react;
 
 /// Helper util that wraps a native [KeyboardEvent] in a [react.SyntheticKeyboardEvent].
 ///

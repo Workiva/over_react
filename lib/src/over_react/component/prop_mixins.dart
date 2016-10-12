@@ -1,5 +1,8 @@
 /// Various prop related mixins to be used with [UiComponent] descendants.
-part of over_react;
+library over_react.prop_mixins;
+
+import 'package:over_react/src/over_react/component_declaration/annotations.dart';
+import 'package:over_react/src/over_react/component/callback_typedefs.dart';
 
 /// Typed getters/setters for reserved React props.
 /// To be used as a mixin for React components and builders.
@@ -29,25 +32,6 @@ abstract class ReactPropsMixin {
   ///
   /// See: <https://facebook.github.io/react/docs/more-about-refs.html>.
   dynamic ref;
-}
-
-/// Typed getters/setters for props related to CSS class manipulation, and used by all UIP components.
-/// To be used as a mixin for React components and builders.
-@PropsMixin(keyNamespace: '')
-abstract class CssClassPropsMixin {
-  Map get props;
-
-  /// String of space-delimited CSS classes to be added to the resultant DOM.
-  ///
-  /// All over_react components merge any added classes with this prop and the [classNameBlacklist] prop (see
-  /// [UiComponent.forwardingClassNameBuilder]).
-  String className;
-
-  /// String of space-delimited CSS classes to be blacklisted from being added to the resultant DOM.
-  ///
-  /// All over_react components merge any added classes with this prop and the [className] prop (see
-  /// [UiComponent.forwardingClassNameBuilder]).
-  String classNameBlacklist;
 }
 
 /// Typed getters/setters for reserved DOM-related props.

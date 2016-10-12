@@ -1,4 +1,8 @@
-part of over_react;
+library over_react.aria_mixin;
+
+import 'dart:collection';
+
+import 'package:over_react/src/over_react/component_declaration/annotations.dart';
 
 /// Typed getters/setters for accessibility props.
 /// To be used as a mixin for React components and builders.
@@ -1729,3 +1733,27 @@ class Role {
   /// See: <http://www.w3.org/TR/wai-aria/roles#treeitem>
   static const String treeitem = "treeitem";
 }
+
+/// A MapView with the typed getters/setters for all aria props.
+class AriaPropsMapView extends MapView with AriaPropsMixin {
+  /// Create a new instance backed by the specified map.
+  AriaPropsMapView(Map map) : super(map);
+
+  /// The props to be manipulated via the getters/setters.
+  /// In this case, it's the current MapView object.
+  @override
+  Map get props => this;
+}
+
+/// Returns a new [AriaPropsMapView], optionally backed by a specified Map.
+///
+/// Convenient for adding aria props inline to DOM and non-DOM components:
+/// <pre>
+/// <!>  ..addProps(ariaProps()..disabled = true)
+/// <!>  ..addProps(ariaProps()
+/// <!>    ..expanded = false
+/// <!>    ..labelledby = 'label-btn'
+/// <!>  )
+/// </pre>
+/// <!-- use pre tags and HTML markup until WebStorm fully supports Dart doc comment markdown -->
+AriaPropsMapView ariaProps([Map backingMap]) => new AriaPropsMapView(backingMap == null ? {} : backingMap);

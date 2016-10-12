@@ -1,27 +1,10 @@
 /// [UiComponent]-based api with typed props for react-dart DOM components.
-part of over_react;
+library over_react.dom_components;
 
-/// A MapView with the typed getters/setters for all CSS-class-related props.
-class CssClassPropsMapView extends MapView with CssClassPropsMixin {
-  /// Create a new instance backed by the specified map.
-  CssClassPropsMapView(Map map) : super(map);
-
-  /// The props to be manipulated via the getters/setters.
-  /// In this case, it's the current MapView object.
-  @override
-  Map get props => this;
-}
-
-/// A MapView with the typed getters/setters for all aria props.
-class AriaPropsMapView extends MapView with AriaPropsMixin {
-  /// Create a new instance backed by the specified map.
-  AriaPropsMapView(Map map) : super(map);
-
-  /// The props to be manipulated via the getters/setters.
-  /// In this case, it's the current MapView object.
-  @override
-  Map get props => this;
-}
+import 'package:over_react/src/over_react/component/prop_mixins.dart';
+import 'package:over_react/src/over_react/component_declaration/component_base.dart' as component_base;
+import 'package:react/react.dart' as react;
+import 'package:react/react_client.dart';
 
 /// Returns a new [DomProps], optionally backed by a specified Map.
 ///
@@ -35,19 +18,6 @@ class AriaPropsMapView extends MapView with AriaPropsMixin {
 /// </pre>
 /// <!-- use pre tags and HTML markup until WebStorm fully supports Dart doc comment markdown -->
 DomProps domProps([Map backingMap]) => new DomProps(null, backingMap);
-
-/// Returns a new [AriaPropsMapView], optionally backed by a specified Map.
-///
-/// Convenient for adding aria props inline to DOM and non-DOM components:
-/// <pre>
-/// <!>  ..addProps(ariaProps()..disabled = true)
-/// <!>  ..addProps(ariaProps()
-/// <!>    ..expanded = false
-/// <!>    ..labelledby = 'label-btn'
-/// <!>  )
-/// </pre>
-/// <!-- use pre tags and HTML markup until WebStorm fully supports Dart doc comment markdown -->
-AriaPropsMapView ariaProps([Map backingMap]) => new AriaPropsMapView(backingMap == null ? {} : backingMap);
 
 typedef DomProps DomPropsFactory();
 

@@ -1,5 +1,40 @@
 /// Utilities for manipulating and generating CSS class names.
-part of over_react;
+library over_react.class_names;
+
+import 'dart:collection';
+
+import 'package:over_react/src/over_react/component_declaration/annotations.dart';
+
+/// Typed getters/setters for props related to CSS class manipulation, and used by all UIP components.
+/// To be used as a mixin for React components and builders.
+@PropsMixin(keyNamespace: '')
+abstract class CssClassPropsMixin {
+  Map get props;
+
+  /// String of space-delimited CSS classes to be added to the resultant DOM.
+  ///
+  /// All over_react components merge any added classes with this prop and the [classNameBlacklist] prop (see
+  /// [UiComponent.forwardingClassNameBuilder]).
+  String className;
+
+  /// String of space-delimited CSS classes to be blacklisted from being added to the resultant DOM.
+  ///
+  /// All over_react components merge any added classes with this prop and the [className] prop (see
+  /// [UiComponent.forwardingClassNameBuilder]).
+  String classNameBlacklist;
+}
+
+
+/// A MapView with the typed getters/setters for all CSS-class-related props.
+class CssClassPropsMapView extends MapView with CssClassPropsMixin {
+  /// Create a new instance backed by the specified map.
+  CssClassPropsMapView(Map map) : super(map);
+
+  /// The props to be manipulated via the getters/setters.
+  /// In this case, it's the current MapView object.
+  @override
+  Map get props => this;
+}
 
 /// StringBuffer-backed className builder optimized for adding classNames, with support for blacklisting CSS classes.
 class ClassNameBuilder {

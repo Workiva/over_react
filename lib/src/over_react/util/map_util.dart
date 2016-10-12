@@ -1,4 +1,9 @@
-part of over_react;
+library over_react.map_util;
+
+import 'dart:collection';
+
+import 'package:over_react/src/over_react/component/prop_mixins.dart';
+import 'package:over_react/src/over_react/component_declaration/transformer_helpers.dart';
 
 /// Returns a copy of the specified props map, omitting reserved React props by default,
 /// in addition to any specified keys.
