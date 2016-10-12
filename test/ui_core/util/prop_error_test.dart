@@ -1,7 +1,7 @@
 library prop_error_test;
 
 import 'package:test/test.dart';
-import 'package:over_react/test_util.dart';
+import '../../test_util/test_util.dart';
 import 'package:over_react/ui_core.dart';
 
 /// Main entrypoint for PropError testing

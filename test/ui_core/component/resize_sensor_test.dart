@@ -9,7 +9,7 @@ import 'package:react/react.dart' as react;
 import 'package:react/react_dom.dart' as react_dom;
 import 'package:test/test.dart';
 import 'package:over_react/ui_core.dart';
-import 'package:over_react/test_util.dart';
+import '../../test_util/test_util.dart';
 
 import '../../wsd_test_util/common_component_tests.dart';
 import '../../wsd_test_util/zone.dart';

@@ -1,7 +1,7 @@
 library ui_core.component_declaration.transformer_integration_tests.component_integration_test;
 
 import 'package:test/test.dart';
-import 'package:over_react/test_util.dart';
+import '../../../test_util/test_util.dart';
 import 'package:over_react/ui_core.dart';
 
 import './required_prop_integration_test.dart';

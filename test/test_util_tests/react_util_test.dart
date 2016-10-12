@@ -6,7 +6,7 @@ import 'package:react/react.dart' as react;
 import 'package:react/react_dom.dart' as react_dom;
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
-import 'package:over_react/test_util.dart';
+import '../test_util/test_util.dart';
 import 'package:over_react/ui_core.dart';
 
 import '../wsd_test_util/test_js_component.dart';

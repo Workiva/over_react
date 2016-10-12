@@ -4,7 +4,7 @@ import 'dart:html';
 
 import 'package:browser_detect/browser_detect.dart';
 import 'package:test/test.dart';
-import 'package:over_react/test_util.dart';
+import '../../test_util/test_util.dart';
 import 'package:over_react/ui_components.dart';
 import 'package:over_react/ui_core.dart';
 

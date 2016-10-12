@@ -14,7 +14,7 @@ import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:test/test.dart';
 import 'package:over_react/src/ui_core/component_declaration/component_base.dart' as component_base;
-import 'package:over_react/test_util.dart';
+import '../test_util/test_util.dart';
 import 'package:over_react/ui_core.dart';
 import 'package:react/react_client.dart';
 

@@ -6,7 +6,7 @@ import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 import 'package:over_react/src/ui_core/component_declaration/component_base.dart';
 import 'package:over_react/src/ui_core/component_declaration/component_type_checking.dart';
-import 'package:over_react/test_util.dart';
+import '../../test_util/test_util.dart';
 import 'package:over_react/ui_core.dart' show Dom, DummyComponent, ValidationUtil;
 
 import '../../wsd_test_util/validation_util_helpers.dart';
