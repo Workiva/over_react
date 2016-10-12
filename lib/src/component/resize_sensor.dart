@@ -9,6 +9,9 @@ import 'package:browser_detect/browser_detect.dart';
 import 'package:react/react.dart' as react;
 import 'package:over_react/over_react.dart';
 
+// Callback for [ResizeSensorEvent]s
+typedef void ResizeSensorHandler(ResizeSensorEvent event);
+
 /// A wrapper component that detects when its parent is resized.
 ///
 /// This component _must_ be put in a relative or absolutely positioned
