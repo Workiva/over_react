@@ -1,4 +1,4 @@
-library web_skin_dart.transformer.impl_generation;
+library over_react.transformer.impl_generation;
 
 import 'package:analyzer/analyzer.dart';
 import 'package:barback/barback.dart';
@@ -6,9 +6,9 @@ import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/src/text_util.dart' show stringLiteral;
 import 'package:transformer_utils/src/transformed_source_file.dart' show getSpan;
 import 'package:transformer_utils/transformer_utils.dart';
-import 'package:web_skin_dart/src/transformer/declaration_parsing.dart';
-import 'package:web_skin_dart/src/transformer/text_util.dart';
-import 'package:web_skin_dart/src/ui_core/component_declaration/annotations.dart' as annotations;
+import 'package:over_react/src/transformer/declaration_parsing.dart';
+import 'package:over_react/src/transformer/text_util.dart';
+import 'package:over_react/src/ui_core/component_declaration/annotations.dart' as annotations;
 
 /// A utility class that modifies a [TransformedSourceFile] by generating implementations for a set of [ParsedDeclarations].
 ///

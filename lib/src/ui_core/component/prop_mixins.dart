@@ -1,5 +1,5 @@
 /// Various prop related mixins to be used with [UiComponent] descendants.
-part of web_skin_dart.ui_core;
+part of over_react.ui_core;
 
 /// Typed getters/setters for reserved React props.
 /// To be used as a mixin for React components and builders.
@@ -39,13 +39,13 @@ abstract class CssClassPropsMixin {
 
   /// String of space-delimited CSS classes to be added to the resultant DOM.
   ///
-  /// All web_skin_dart components merge any added classes with this prop and the [classNameBlacklist] prop (see
+  /// All over_react components merge any added classes with this prop and the [classNameBlacklist] prop (see
   /// [UiComponent.forwardingClassNameBuilder]).
   String className;
 
   /// String of space-delimited CSS classes to be blacklisted from being added to the resultant DOM.
   ///
-  /// All web_skin_dart components merge any added classes with this prop and the [className] prop (see
+  /// All over_react components merge any added classes with this prop and the [className] prop (see
   /// [UiComponent.forwardingClassNameBuilder]).
   String classNameBlacklist;
 }

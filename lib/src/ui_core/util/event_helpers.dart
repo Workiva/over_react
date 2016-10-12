@@ -1,4 +1,4 @@
-part of web_skin_dart.ui_core;
+part of over_react.ui_core;
 
 /// Helper util that wraps a native [KeyboardEvent] in a [react.SyntheticKeyboardEvent].
 ///

@@ -3,7 +3,7 @@ library prop_mixins_test;
 import 'dart:collection' show MapView;
 
 import 'package:test/test.dart';
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:over_react/ui_core.dart';
 
 import '../../wsd_test_util/prop_utils.dart';
 

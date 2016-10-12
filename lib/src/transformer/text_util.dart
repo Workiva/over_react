@@ -1,4 +1,4 @@
-library web_skin_dart.transformer.text_util;
+library over_react.transformer.text_util;
 
 String commentBanner(String bannerText, {
     int bannerWidth: 80, int textIndent: 2, bool topBorder: true, bool bottomBorder: true

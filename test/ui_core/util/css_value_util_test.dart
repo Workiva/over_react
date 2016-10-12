@@ -1,7 +1,7 @@
 library css_value_util_test;
 
 import 'package:test/test.dart';
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:over_react/ui_core.dart';
 
 /// Main entry point for  testing
 main() {

@@ -3,13 +3,13 @@ library dom_components_test;
 // Tell dart2js that this library only needs to reflect the specified types.
 // This speeds up compilation and makes JS output much smaller.
 @MirrorsUsed(targets: const [
-  'web_skin_dart.ui_core.Dom'
+  'over_react.ui_core.Dom'
 ])
 import 'dart:mirrors';
 
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:over_react/ui_core.dart';
 
 
 main() {

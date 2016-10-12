@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:mockito/mockito.dart';
 import 'package:w_test_tools/src/key_event_util.dart';
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:over_react/ui_core.dart';
 
 /// Dispatches a mock capturing keydown event with [keyCode] and returns a Future
 /// that completes when its stream listeners have been called.

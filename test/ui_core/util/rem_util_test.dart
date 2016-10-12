@@ -3,9 +3,9 @@ library rem_util_test;
 import 'dart:html';
 
 import 'package:test/test.dart';
-import 'package:web_skin_dart/src/ui_core/util/css_value_util.dart';
-import 'package:web_skin_dart/src/ui_core/util/rem_util.dart';
-import 'package:web_skin_dart/test_util.dart';
+import 'package:over_react/src/ui_core/util/css_value_util.dart';
+import 'package:over_react/src/ui_core/util/rem_util.dart';
+import 'package:over_react/test_util.dart';
 
 /// Main entry point for rem_util testing
 main() {

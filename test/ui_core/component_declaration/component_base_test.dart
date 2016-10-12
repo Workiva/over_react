@@ -4,10 +4,10 @@ import 'dart:html';
 
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
-import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart';
-import 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart';
-import 'package:web_skin_dart/test_util.dart';
-import 'package:web_skin_dart/ui_core.dart' show Dom, DummyComponent, ValidationUtil;
+import 'package:over_react/src/ui_core/component_declaration/component_base.dart';
+import 'package:over_react/src/ui_core/component_declaration/component_type_checking.dart';
+import 'package:over_react/test_util.dart';
+import 'package:over_react/ui_core.dart' show Dom, DummyComponent, ValidationUtil;
 
 import '../../wsd_test_util/validation_util_helpers.dart';
 import '../shared/map_proxy_tests.dart';

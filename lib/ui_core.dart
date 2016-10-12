@@ -1,5 +1,5 @@
 /// Base classes for UI components and related utilities.
-library web_skin_dart.ui_core;
+library over_react.ui_core;
 
 // Imports
 import 'dart:collection' show MapView, SplayTreeSet;

@@ -4,8 +4,8 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:test/test.dart';
-import 'package:web_skin_dart/test_util.dart';
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:over_react/test_util.dart';
+import 'package:over_react/ui_core.dart';
 
 import '../../wsd_test_util/validation_util_helpers.dart';
 

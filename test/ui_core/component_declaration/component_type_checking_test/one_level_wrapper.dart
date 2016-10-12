@@ -1,6 +1,6 @@
 library test_components.one_level_wrapper;
 
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:over_react/ui_core.dart';
 
 @Factory()
 UiFactory<OneLevelWrapperProps> OneLevelWrapper;

@@ -1,4 +1,4 @@
-library web_skin_dart.component_declaration.transformer_helpers;
+library over_react.component_declaration.transformer_helpers;
 
 import './component_base.dart' as component_base;
 
@@ -19,7 +19,7 @@ typedef dynamic _RefTypedef(String ref);
 /// __For advanced usage only.__
 @proxy
 class $PropKeys implements List<String> {
-  /// A placeholder that gets swapped out by the `web_skin_dart` transformer
+  /// A placeholder that gets swapped out by the `over_react` transformer
   /// with the prop keys defined in [propsClass].
   const $PropKeys(Type propsClass);
 
@@ -38,7 +38,7 @@ class $PropKeys implements List<String> {
 /// __For advanced usage only.__
 @proxy
 class $Props implements component_base.ConsumedProps {
-  /// A placeholder that gets swapped out by the `web_skin_dart` transformer
+  /// A placeholder that gets swapped out by the `over_react` transformer
   /// with the prop keys defined in [propsClass].
   const $Props(Type propsClass);
 
@@ -73,11 +73,11 @@ class GeneratedClass {
 }
 
 
-/// The basis for a web_skin_dart component, extending [react.Component]. (Successor to [BaseComponent]).
+/// The basis for a over_react component, extending [react.Component]. (Successor to [BaseComponent]).
 ///
 /// Includes support for strongly-typed props and utilities for prop and CSS classname forwarding.
 ///
-/// Use with the web_skin_dart transformer via the `@Component()` ([Component]) annotation.
+/// Use with the over_react transformer via the `@Component()` ([Component]) annotation.
 abstract class UiComponent<TProps extends UiProps> extends component_base.UiComponent<TProps> with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiComponent() {
@@ -111,11 +111,11 @@ abstract class UiComponent<TProps extends UiProps> extends component_base.UiComp
 }
 
 
-/// The basis for a stateful web_skin_dart component, extending [react.Component]. (Successor to [BaseComponentWithState]).
+/// The basis for a stateful over_react component, extending [react.Component]. (Successor to [BaseComponentWithState]).
 ///
 /// Includes support for strongly-typed props and state and utilities for prop and CSS classname forwarding.
 ///
-/// Use with the web_skin_dart transformer via the `@Component()` ([Component]) annotation.
+/// Use with the over_react transformer via the `@Component()` ([Component]) annotation.
 abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState>
     extends component_base.UiStatefulComponent<TProps, TState> with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
@@ -159,7 +159,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 /// For use as a typed view into existing props [Maps], or as a builder to create new component
 /// instances via a fluent-style interface.
 ///
-/// Use with the web_skin_dart transformer via the `@Props()` ([Props]) annotation.
+/// Use with the over_react transformer via the `@Props()` ([Props]) annotation.
 abstract class UiProps extends component_base.UiProps with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiProps() {
@@ -174,7 +174,7 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.
 ///
-/// Use with the web_skin_dart transformer via the `@State()` ([State]) annotation.
+/// Use with the over_react transformer via the `@State()` ([State]) annotation.
 abstract class UiState extends component_base.UiState with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiState() {
@@ -211,7 +211,7 @@ class UngeneratedError extends Error implements UnimplementedError {
   @override
   String toString() =>
       "UngeneratedError: $message.\n\n"
-      "Ensure that the `web_skin_dart` transformer is included in your pubspec.yaml, "
+      "Ensure that the `over_react` transformer is included in your pubspec.yaml, "
       "and that this code is being run using Pub.";
 }
 
@@ -224,9 +224,9 @@ class IllegalInstantiationError extends Error {
   @override
   String toString() =>
       "IllegalInstantiationError: $message.\n\n"
-      "Be sure to follow usage instructions for web_skin_dart component classes.\n\n"
+      "Be sure to follow usage instructions for over_react component classes.\n\n"
       "If you need to do something extra custom and want to implement everything without code generation, "
       "base classes are available by importing the "
-      "`package:web_skin_dart/src/ui_core/component_declaration/component_base.dart` "
+      "`package:over_react/src/ui_core/component_declaration/component_base.dart` "
       "library directly. ";
 }

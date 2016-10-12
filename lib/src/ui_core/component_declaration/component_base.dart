@@ -1,9 +1,9 @@
-library web_skin_dart.component_declaration.component_base;
+library over_react.component_declaration.component_base;
 
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
-import 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart';
-import 'package:web_skin_dart/ui_core.dart' show
+import 'package:over_react/src/ui_core/component_declaration/component_type_checking.dart';
+import 'package:over_react/ui_core.dart' show
     ClassNameBuilder,
     CssClassPropsMixin,
     ReactPropsMixin,
@@ -15,7 +15,7 @@ import 'package:web_skin_dart/ui_core.dart' show
     unindent,
     PropError;
 
-export 'package:web_skin_dart/src/ui_core/component_declaration/component_type_checking.dart' show isComponentOfType, isValidElementOfType;
+export 'package:over_react/src/ui_core/component_declaration/component_type_checking.dart' show isComponentOfType, isValidElementOfType;
 
 /// Helper function that wraps react.registerComponent, and allows attachment of additional
 /// component factory metadata.
@@ -72,7 +72,7 @@ typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 
 typedef dynamic _RefTypedef(String ref);
 
-/// The basis for a web_skin_dart component, extending [react.Component]. (Successor to [BaseComponent]).
+/// The basis for a over_react component, extending [react.Component]. (Successor to [BaseComponent]).
 ///
 /// Includes support for strongly-typed props and utilities for prop and CSS classname forwarding.
 abstract class UiComponent<TProps extends UiProps> extends react.Component {
@@ -186,7 +186,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   // ----------------------------------------------------------------------
 }
 
-/// The basis for a stateful web_skin_dart component, extending [react.Component]. (Successor to [BaseComponentWithState]).
+/// The basis for a stateful over_react component, extending [react.Component]. (Successor to [BaseComponentWithState]).
 ///
 /// Includes support for strongly-typed props and state and utilities for prop and CSS classname forwarding.
 abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState> extends UiComponent<TProps> {

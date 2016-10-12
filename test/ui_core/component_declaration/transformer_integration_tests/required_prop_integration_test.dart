@@ -4,8 +4,8 @@ import 'dart:html';
 
 import 'package:react/react_dom.dart' as react_dom;
 import 'package:test/test.dart';
-import 'package:web_skin_dart/test_util.dart';
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:over_react/test_util.dart';
+import 'package:over_react/ui_core.dart';
 
 void requiredPropsIntegrationTest() {
   group('properly identifies required props by', () {

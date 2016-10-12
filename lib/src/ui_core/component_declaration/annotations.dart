@@ -1,7 +1,7 @@
 // Dummy annotations that would be used by Pub code generator
-library web_skin_dart.component_declaration.annotations;
+library over_react.component_declaration.annotations;
 
-/// Annotation used with the `web_skin_dart` transformer to declare a [UiFactory] for a component.
+/// Annotation used with the `over_react` transformer to declare a [UiFactory] for a component.
 ///
 ///     @Factory()
 ///     UiFactory<FooProps> Foo;
@@ -11,7 +11,7 @@ class Factory {
   const Factory();
 }
 
-/// Annotation used with the `web_skin_dart` transformer to declare a [UiProps] class for a component.
+/// Annotation used with the `over_react` transformer to declare a [UiProps] class for a component.
 ///
 /// Props are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -29,7 +29,7 @@ class Props implements TypedMap {
   const Props({this.keyNamespace: null});
 }
 
-/// Annotation used with the `web_skin_dart` transformer to declare a [UiState] class for a component.
+/// Annotation used with the `over_react` transformer to declare a [UiState] class for a component.
 ///
 /// State properties are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -47,7 +47,7 @@ class State implements TypedMap {
   const State({this.keyNamespace: null});
 }
 
-/// Annotation used with the `web_skin_dart` transformer to declare a [UiComponent] class for a component.
+/// Annotation used with the `over_react` transformer to declare a [UiComponent] class for a component.
 ///
 ///     @Component()
 ///     class FooComponent extends UiComponent<FooProps> {
@@ -57,7 +57,7 @@ class State implements TypedMap {
 /// Must be accompanied by a [Factory] and [Props] declaration.
 class Component {
   /// Whether the component clones or passes through its children and needs to be
-  /// treated as if it were the wrapped component when passed in to [web_skin_dart.ui_core.isComponentOfType].
+  /// treated as if it were the wrapped component when passed in to [over_react.ui_core.isComponentOfType].
   final bool isWrapper;
 
   /// The component class of this component's "parent type".
@@ -90,7 +90,7 @@ class Component {
   });
 }
 
-/// Annotation used with the `web_skin_dart` transformer to declare an abstract [UiProps] class for an abstract component.
+/// Annotation used with the `over_react` transformer to declare an abstract [UiProps] class for an abstract component.
 ///
 /// Props are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -106,7 +106,7 @@ class AbstractProps implements TypedMap {
   const AbstractProps({this.keyNamespace: null});
 }
 
-/// Annotation used with the `web_skin_dart` transformer to declare an abstract [UiProps] class for an abstract component.
+/// Annotation used with the `over_react` transformer to declare an abstract [UiProps] class for an abstract component.
 ///
 /// State properties are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -122,7 +122,7 @@ class AbstractState implements TypedMap {
   const AbstractState({this.keyNamespace: null});
 }
 
-/// Annotation used with the `web_skin_dart` transformer to declare an abstract [UiComponent] class for an abstract component.
+/// Annotation used with the `over_react` transformer to declare an abstract [UiComponent] class for an abstract component.
 ///
 ///     @AbstractComponent()
 ///     abstract class QuxComponent<TProps extends QuxProps> extends UiComponent<TProps> {}
@@ -130,7 +130,7 @@ class AbstractComponent {
   const AbstractComponent();
 }
 
-/// Annotation used with with the `web_skin_dart` transformer to declare a mixin for use in a [UiProps] class.
+/// Annotation used with with the `over_react` transformer to declare a mixin for use in a [UiProps] class.
 ///
 /// Props are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -150,7 +150,7 @@ class PropsMixin implements TypedMap {
   const PropsMixin({this.keyNamespace: null});
 }
 
-/// Annotation used with the `web_skin_dart` transformer to declare a mixin for use in a [UiState] class.
+/// Annotation used with the `over_react` transformer to declare a mixin for use in a [UiState] class.
 ///
 /// State properties are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -170,7 +170,7 @@ class StateMixin implements TypedMap {
   const StateMixin({this.keyNamespace: null});
 }
 
-/// Annotation used with the `web_skin_dart` transformer to customize individual accessors (props/state fields).
+/// Annotation used with the `over_react` transformer to customize individual accessors (props/state fields).
 ///
 ///     @Props()
 ///     abstract class FooProps {
@@ -191,7 +191,7 @@ class Accessor {
   });
 }
 
-/// Annotation used with the `web_skin_dart` transformer to express a specific prop is required to be set.
+/// Annotation used with the `over_react` transformer to express a specific prop is required to be set.
 ///
 /// This is validated in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
 /// `componentWillReceiveProps`.

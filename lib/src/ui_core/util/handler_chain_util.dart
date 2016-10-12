@@ -12,7 +12,7 @@ import 'package:react/react.dart' show
     SyntheticWheelEvent;
 
 import '../component/callback_typedefs.dart';
-import 'package:web_skin_dart/ui_core.dart' show ResizeSensorEvent;
+import 'package:over_react/ui_core.dart' show ResizeSensorEvent;
 
 /// Provides chaining utilities for [TargetKeyCallback].
 final CallbackUtil2Arg<SyntheticEvent, Object> targetKeyCallbacks           = const CallbackUtil2Arg<SyntheticEvent, Object>();

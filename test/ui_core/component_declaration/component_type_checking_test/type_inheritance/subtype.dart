@@ -1,6 +1,6 @@
 library test_component.type_inheritance.subtype;
 
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:over_react/ui_core.dart';
 import './parent.dart';
 
 @Factory()

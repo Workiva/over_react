@@ -11,10 +11,10 @@ import 'package:react/react_client.dart';
 import 'package:react/react_client/js_interop_helpers.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_test_utils.dart' as react_test_utils;
-import 'package:web_skin_dart/ui_core.dart';
-import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart' as component_base;
+import 'package:over_react/ui_core.dart';
+import 'package:over_react/src/ui_core/component_declaration/component_base.dart' as component_base;
 
-export 'package:web_skin_dart/src/ui_core/util/react_wrappers.dart';
+export 'package:over_react/src/ui_core/util/react_wrappers.dart';
 
 // Notes
 // ---------------------------------------------------------------------------

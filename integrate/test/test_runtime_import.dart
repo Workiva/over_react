@@ -4,15 +4,15 @@ library test;
 import 'package:react/react_client.dart' show setClientConfiguration;
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:test/test.dart';
-import 'package:web_skin_dart/test_util.dart';
-import 'package:web_skin_dart/ui_components.dart';
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:over_react/test_util.dart';
+import 'package:over_react/ui_components.dart';
+import 'package:over_react/ui_core.dart';
 
 /// Entry point into tests
 main() {
   setClientConfiguration();
 
-  test('consumes web_skin_dart\'s transformed code as expected', () {
+  test('consumes over_react\'s transformed code as expected', () {
     var props = domProps();
     props.className = 'test-class';
     expect(props, containsPair('className', 'test-class'),

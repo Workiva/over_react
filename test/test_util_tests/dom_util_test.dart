@@ -3,8 +3,8 @@ library test_util_dom_util_test;
 import 'dart:html';
 
 import 'package:test/test.dart';
-import 'package:web_skin_dart/test_util.dart';
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:over_react/test_util.dart';
+import 'package:over_react/ui_core.dart';
 
 /// Main entry point for DomUtil testing
 main() {

@@ -1,7 +1,7 @@
 library class_names_test;
 
 import 'package:test/test.dart';
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:over_react/ui_core.dart';
 
 /// Main entrypoint for class_names testing
 main() {

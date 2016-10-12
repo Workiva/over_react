@@ -1,7 +1,7 @@
 library test_component_declaration;
 
-import 'package:web_skin_dart/ui_core.dart';
-import 'package:web_skin_dart/ui_components.dart';
+import 'package:over_react/ui_core.dart';
+import 'package:over_react/ui_components.dart';
 
 @Factory()
 UiFactory<FooProps> Foo;

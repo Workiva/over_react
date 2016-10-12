@@ -1,8 +1,8 @@
 library test_mode_test;
 
 import 'package:test/test.dart';
-import 'package:web_skin_dart/src/ui_core/util/test_mode.dart';
-import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart' as component_base;
+import 'package:over_react/src/ui_core/util/test_mode.dart';
+import 'package:over_react/src/ui_core/component_declaration/component_base.dart' as component_base;
 
 
 /// Main entry point for enableTestMode and disabledTestMode testing

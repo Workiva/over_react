@@ -7,7 +7,7 @@ library ui_core_test;
 
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:over_react/ui_core.dart';
 
 import 'ui_core/component/abstract_transition_test.dart' as abstract_transition_test;
 import 'ui_core/component/dom_components_test.dart' as dom_components_test;

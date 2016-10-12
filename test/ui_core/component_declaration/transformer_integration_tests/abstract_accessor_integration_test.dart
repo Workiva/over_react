@@ -1,7 +1,7 @@
 library ui_core.component_declaration.transformer_integration_tests.abstract_accessor_integration_test;
 
 import 'package:test/test.dart';
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:over_react/ui_core.dart';
 
 main() {
   group('transformed abstract accessor integration:', () {

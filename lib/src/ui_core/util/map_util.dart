@@ -1,4 +1,4 @@
-part of web_skin_dart.ui_core;
+part of over_react.ui_core;
 
 /// Returns a copy of the specified props map, omitting reserved React props by default,
 /// in addition to any specified keys.

@@ -1,6 +1,6 @@
-library web_skin_dart.ui_core.test_mode;
+library over_react.ui_core.test_mode;
 
-import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart' as component_base;
+import 'package:over_react/src/ui_core/component_declaration/component_base.dart' as component_base;
 
 /// Enables test mode.
 ///

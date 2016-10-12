@@ -1,12 +1,12 @@
 /// Utilities for working with CSS `rem` units and detecting changes to the root font size.
-library web_skin_dart.ui_core.rem_util;
+library over_react.ui_core.rem_util;
 
 import 'dart:async';
 import 'dart:html';
 
 import 'package:react/react_dom.dart' as react_dom;
-import 'package:web_skin_dart/src/ui_core/util/css_value_util.dart';
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:over_react/src/ui_core/util/css_value_util.dart';
+import 'package:over_react/ui_core.dart';
 
 double _computeRootFontSize() {
   return new CssValue.parse(document.documentElement.getComputedStyle().fontSize).number.toDouble();

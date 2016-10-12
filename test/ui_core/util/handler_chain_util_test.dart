@@ -1,7 +1,7 @@
 library handler_chain_util_test;
 
 import 'package:test/test.dart';
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:over_react/ui_core.dart';
 
 
 /// Main entry point for HandlerChainUtil testing
@@ -465,7 +465,7 @@ main() {
       });
     });
 
-    group('web_skin_dart callback creation utility function', () {
+    group('over_react callback creation utility function', () {
       group('createChainedTargetKeyCallback', () {
         test('should return an TargetKeyCallback that calls the two provided functions', () {
           bool calledA = false,

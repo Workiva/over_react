@@ -1,7 +1,7 @@
 library ui_core.transformer_generation.helpers_test;
 
 import 'package:test/test.dart';
-import 'package:web_skin_dart/src/ui_core/component_declaration/transformer_helpers.dart';
+import 'package:over_react/src/ui_core/component_declaration/transformer_helpers.dart';
 
 const Matcher throwsUngeneratedError          = const Throws(const isInstanceOf<UngeneratedError>());
 const Matcher throwsIllegalInstantiationError = const Throws(const isInstanceOf<IllegalInstantiationError>());
@@ -128,7 +128,7 @@ main() {
       setUpAll(() {
         expect(() => const $PropKeys(Null), isNot(throwsNoSuchMethodError),
             reason: 'Instanitating a const \$PropKeys should not have thrown an error. '
-                    'Ensure that the web_skin_dart transformer is NOT running for this test file.'
+                    'Ensure that the over_react transformer is NOT running for this test file.'
         );
       });
 
@@ -152,7 +152,7 @@ main() {
       setUpAll(() {
         expect(() => const $Props(Null), isNot(throwsNoSuchMethodError),
             reason: 'Instanitating a const \$Props should not have thrown an error. '
-                    'Ensure that the web_skin_dart transformer is NOT running for this test file.'
+                    'Ensure that the over_react transformer is NOT running for this test file.'
         );
       });
 

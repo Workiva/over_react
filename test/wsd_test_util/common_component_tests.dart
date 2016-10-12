@@ -5,7 +5,7 @@ import 'dart:html';
 // Tell dart2js that this library only needs to reflect types annotated with `Props`.
 // This speeds up compilation and makes JS output much smaller.
 @MirrorsUsed(metaTargets: const [
-  'web_skin_dart.component_declaration.annotations.Props'
+  'over_react.component_declaration.annotations.Props'
 ])
 import 'dart:mirrors';
 
@@ -13,9 +13,9 @@ import 'package:browser_detect/browser_detect.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:test/test.dart';
-import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart' as component_base;
-import 'package:web_skin_dart/test_util.dart';
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:over_react/src/ui_core/component_declaration/component_base.dart' as component_base;
+import 'package:over_react/test_util.dart';
+import 'package:over_react/ui_core.dart';
 import 'package:react/react_client.dart';
 
 /// Returns all the prop keys available on a component definition, using reflection.
