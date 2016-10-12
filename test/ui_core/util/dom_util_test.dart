@@ -5,7 +5,6 @@ import 'dart:html';
 import 'package:browser_detect/browser_detect.dart';
 import 'package:test/test.dart';
 import '../../test_util/test_util.dart';
-import 'package:over_react/ui_components.dart';
 import 'package:over_react/ui_core.dart';
 
 /// Main entry point for DomUtil testing
@@ -230,15 +229,10 @@ main() {
 UiFactory<DomTestProps> DomTest;
 
 @Props()
-class DomTestProps extends UiProps with HitAreaPropsMixin {}
+class DomTestProps extends UiProps {}
 
 @Component()
-class DomTestComponent extends UiComponent<DomTestProps> with HitAreaMixin<DomTestProps> {
-  @override
-  Map getDefaultProps() => (newProps()
-    ..addProps(HitAreaMixin.defaultProps)
-  );
-
+class DomTestComponent extends UiComponent<DomTestProps> {
   @override
   render() {
     return Dom.div()(

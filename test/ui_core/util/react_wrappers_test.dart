@@ -13,7 +13,6 @@ import 'package:react/react_dom.dart' as react_dom;
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import '../../test_util/test_util.dart';
 import 'package:over_react/ui_core.dart';
-import 'package:over_react/ui_components.dart';
 
 import '../../wsd_test_util/test_js_component.dart';
 
@@ -427,8 +426,8 @@ main() {
 
     group('getDartComponent', () {
       test('returns the correct Dart component that is rendered', () {
-        var renderedInstance = render(Button());
-        expect(getDartComponent(renderedInstance), new isInstanceOf<ButtonComponent>());
+        var renderedInstance = render(Wrapper());
+        expect(getDartComponent(renderedInstance), new isInstanceOf<WrapperComponent>());
       });
 
       test('returns null for a JS composite component', () {
