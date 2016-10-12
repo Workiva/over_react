@@ -15,7 +15,6 @@ import 'ui_core/component/prop_mixins_test.dart' as prop_mixins_test;
 import 'ui_core/component/resize_sensor_test.dart' as resize_sensor_test;
 import 'ui_core/component_declaration/component_base_test.dart' as component_base_test;
 import 'ui_core/component_declaration/component_type_checking_test.dart' as component_type_checking_test;
-import 'ui_core/component_declaration/flux_component_test.dart' as flux_component_test;
 import 'ui_core/component_declaration/transformer_helpers_test.dart' as transformer_helpers_test;
 import 'ui_core/component_declaration/transformer_integration_tests/abstract_accessor_integration_test.dart' as abstract_accessor_integration_test;
 import 'ui_core/component_declaration/transformer_integration_tests/accessor_mixin_integration_test.dart' as accessor_mixin_integration_test;
@@ -45,7 +44,6 @@ main() {
   resize_sensor_test.main();
   component_base_test.main();
   component_type_checking_test.main();
-  flux_component_test.main();
   transformer_helpers_test.main();
   abstract_accessor_integration_test.main();
   accessor_mixin_integration_test.main();

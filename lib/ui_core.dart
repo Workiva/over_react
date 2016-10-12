@@ -34,7 +34,6 @@ export 'src/ui_core/util/rem_util.dart';
 export 'src/ui_core/util/string_util.dart';
 export 'src/ui_core/util/test_mode.dart';
 export 'src/ui_core/util/validation_util.dart';
-export 'src/ui_core/component_declaration/flux_component.dart';
 export 'src/ui_core/component_declaration/transformer_helpers.dart';
 
 // Parts
