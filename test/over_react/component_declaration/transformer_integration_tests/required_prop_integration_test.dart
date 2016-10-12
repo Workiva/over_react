@@ -1,11 +1,11 @@
-library ui_core.component_declaration.transformer_integration_tests.required_prop_integration;
+library over_react.component_declaration.transformer_integration_tests.required_prop_integration;
 
 import 'dart:html';
 
 import 'package:react/react_dom.dart' as react_dom;
 import 'package:test/test.dart';
 import '../../../test_util/test_util.dart';
-import 'package:over_react/ui_core.dart';
+import 'package:over_react/over_react.dart';
 
 void requiredPropsIntegrationTest() {
   group('properly identifies required props by', () {

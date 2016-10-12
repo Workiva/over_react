@@ -1,7 +1,7 @@
 library map_util_test;
 
 import 'package:test/test.dart';
-import 'package:over_react/ui_core.dart';
+import 'package:over_react/over_react.dart';
 
 /// Main entrypoint for map_util testing
 main() {

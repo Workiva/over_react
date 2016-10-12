@@ -57,7 +57,7 @@ class State implements TypedMap {
 /// Must be accompanied by a [Factory] and [Props] declaration.
 class Component {
   /// Whether the component clones or passes through its children and needs to be
-  /// treated as if it were the wrapped component when passed in to [over_react.ui_core.isComponentOfType].
+  /// treated as if it were the wrapped component when passed in to [over_react.isComponentOfType].
   final bool isWrapper;
 
   /// The component class of this component's "parent type".

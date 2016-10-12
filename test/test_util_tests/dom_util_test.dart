@@ -4,7 +4,7 @@ import 'dart:html';
 
 import 'package:test/test.dart';
 import '../test_util/test_util.dart';
-import 'package:over_react/ui_core.dart';
+import 'package:over_react/over_react.dart';
 
 /// Main entry point for DomUtil testing
 main() {

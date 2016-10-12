@@ -7,7 +7,7 @@ import 'dart:html';
 
 import 'package:browser_detect/browser_detect.dart';
 import 'package:react/react.dart' as react;
-import 'package:over_react/ui_core.dart';
+import 'package:over_react/over_react.dart';
 
 /// A wrapper component that detects when its parent is resized.
 ///

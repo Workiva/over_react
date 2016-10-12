@@ -1,4 +1,4 @@
-library ui_core.handler_chain_util;
+library over_react.handler_chain_util;
 
 import 'package:react/react.dart' show
     SyntheticEvent,
@@ -12,7 +12,7 @@ import 'package:react/react.dart' show
     SyntheticWheelEvent;
 
 import '../component/callback_typedefs.dart';
-import 'package:over_react/ui_core.dart' show ResizeSensorEvent;
+import 'package:over_react/over_react.dart' show ResizeSensorEvent;
 
 /// Provides chaining utilities for [TargetKeyCallback].
 final CallbackUtil2Arg<SyntheticEvent, Object> targetKeyCallbacks           = const CallbackUtil2Arg<SyntheticEvent, Object>();

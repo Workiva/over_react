@@ -1,6 +1,6 @@
 library test_component.type_inheritance.parent;
 
-import 'package:over_react/ui_core.dart';
+import 'package:over_react/over_react.dart';
 
 @Factory()
 UiFactory<TestParentProps> TestParent;

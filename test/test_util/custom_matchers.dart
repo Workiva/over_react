@@ -6,7 +6,7 @@ import 'package:matcher/matcher.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:test/test.dart';
-import 'package:over_react/ui_core.dart';
+import 'package:over_react/over_react.dart';
 
 /// Match a list of class names on a component
 class ClassNameMatcher extends Matcher {

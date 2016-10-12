@@ -262,7 +262,7 @@ to `true` for the `test` and `coverage` tasks.
 
 ##### Boilerplate: Component
 ```dart
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:web_skin_dart/over_react.dart';
 
 @Factory()
 UiFactory<FooProps> Foo;
@@ -296,7 +296,7 @@ class FooComponent extends UiComponent<FooProps> {
 
 ##### Boilerplate: Stateful Component
 ```dart    
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:web_skin_dart/over_react.dart';
 
 @Factory()
 UiFactory<BarProps> Bar;
@@ -336,7 +336,7 @@ Bar()('I\'m a Bar!')
 
 ##### Boilerplate: Flux Component
 ```dart
-import 'package:web_skin_dart/ui_core.dart';
+import 'package:web_skin_dart/over_react.dart';
 
 @Factory()
 UiFactory<BazProps> Baz;
@@ -397,5 +397,5 @@ __Check your `pub serve` output for errors.__
 
 [examples]: /example/component_declaration/
 [transformer]: /lib/src/transformer/README.md
-[annotations]: /lib/src/ui_core/component_declaration/annotations.dart
-[component_base.dart]: /lib/src/ui_core/component_declaration/component_base.dart
+[annotations]: /lib/src/over_react/component_declaration/annotations.dart
+[component_base.dart]: /lib/src/over_react/component_declaration/component_base.dart

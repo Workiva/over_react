@@ -5,7 +5,7 @@ import 'dart:html';
 
 import 'package:test/test.dart';
 import '../../test_util/test_util.dart';
-import 'package:over_react/ui_core.dart';
+import 'package:over_react/over_react.dart';
 
 import '../../wsd_test_util/validation_util_helpers.dart';
 

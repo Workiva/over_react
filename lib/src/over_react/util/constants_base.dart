@@ -1,4 +1,4 @@
-library ui_core.constants;
+library over_react.constants;
 
 /// A named constant with a helpful string representation.
 abstract class DebugFriendlyConstant {

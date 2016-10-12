@@ -1,4 +1,4 @@
-part of over_react.ui_core;
+part of over_react;
 
 /// Helper util that wraps a native [KeyboardEvent] in a [react.SyntheticKeyboardEvent].
 ///

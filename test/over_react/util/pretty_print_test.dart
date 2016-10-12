@@ -1,8 +1,8 @@
 library pretty_print_test;
 
 import 'package:test/test.dart';
-import 'package:over_react/src/ui_core/util/pretty_print.dart';
-import 'package:over_react/src/ui_core/util/string_util.dart';
+import 'package:over_react/src/over_react/util/pretty_print.dart';
+import 'package:over_react/src/over_react/util/string_util.dart';
 
 /// Main entrypoint for pretty_print testing
 main() {

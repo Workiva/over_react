@@ -1,4 +1,4 @@
-part of over_react.ui_core;
+part of over_react;
 
 /// Returns a copy of the specified props map, omitting reserved React props by default,
 /// in addition to any specified keys.

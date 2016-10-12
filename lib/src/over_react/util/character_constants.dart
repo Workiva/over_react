@@ -1,4 +1,4 @@
-library ui_core.character_constants;
+library over_react.character_constants;
 
 /// ' ' - The non-breaking space character.
 const String nonBreakingSpace = '\u00a0';

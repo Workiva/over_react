@@ -3,7 +3,7 @@ library abstract_transition;
 import 'dart:async';
 import 'dart:html';
 
-import 'package:over_react/ui_core.dart';
+import 'package:over_react/over_react.dart';
 
 @AbstractProps()
 abstract class AbstractTransitionProps extends UiProps {

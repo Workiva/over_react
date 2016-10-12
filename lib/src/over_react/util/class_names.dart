@@ -1,5 +1,5 @@
 /// Utilities for manipulating and generating CSS class names.
-part of over_react.ui_core;
+part of over_react;
 
 /// StringBuffer-backed className builder optimized for adding classNames, with support for blacklisting CSS classes.
 class ClassNameBuilder {

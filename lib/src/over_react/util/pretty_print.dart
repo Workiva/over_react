@@ -1,4 +1,4 @@
-library over_react.ui_core.pretty_print;
+library over_react.pretty_print;
 
 /// Returns a pretty-printed version of [map], with namespaced keys grouped together.
 ///

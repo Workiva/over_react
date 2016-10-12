@@ -7,7 +7,7 @@ import 'package:mockito/mockito.dart';
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 import 'package:over_react/src/transformer/declaration_parsing.dart';
-import 'package:over_react/src/ui_core/component_declaration/annotations.dart' as annotations;
+import 'package:over_react/src/over_react/component_declaration/annotations.dart' as annotations;
 
 main() {
   group('ComponentDeclarations', () {

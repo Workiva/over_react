@@ -186,6 +186,6 @@ The easiest way to view it:
 
 
 
-[core component framework]: /lib/src/ui_core/README.md
-[annotations]: /lib/src/ui_core/component_declaration/annotations.dart
+[core component framework]: /lib/src/over_react/README.md
+[annotations]: /lib/src/over_react/component_declaration/annotations.dart
 [examples]: /example/component_declaration/

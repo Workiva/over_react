@@ -1,4 +1,4 @@
-library ui_core_tests.shared.map_proxy_tests;
+library over_react_tests.shared.map_proxy_tests;
 
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';

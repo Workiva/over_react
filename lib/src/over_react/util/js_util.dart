@@ -1,4 +1,4 @@
-library ui_core.js_util;
+library over_react.js_util;
 
 import 'dart:js';
 

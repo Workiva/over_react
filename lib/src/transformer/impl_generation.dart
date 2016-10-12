@@ -8,7 +8,7 @@ import 'package:transformer_utils/src/transformed_source_file.dart' show getSpan
 import 'package:transformer_utils/transformer_utils.dart';
 import 'package:over_react/src/transformer/declaration_parsing.dart';
 import 'package:over_react/src/transformer/text_util.dart';
-import 'package:over_react/src/ui_core/component_declaration/annotations.dart' as annotations;
+import 'package:over_react/src/over_react/component_declaration/annotations.dart' as annotations;
 
 /// A utility class that modifies a [TransformedSourceFile] by generating implementations for a set of [ParsedDeclarations].
 ///

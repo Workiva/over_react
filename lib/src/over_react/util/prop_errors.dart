@@ -1,4 +1,4 @@
-library ui_core.prop_errors;
+library over_react.prop_errors;
 
 /// Error thrown when a prop, that must be set, is not set.
 ///

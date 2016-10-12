@@ -1,5 +1,5 @@
 /// [UiComponent]-based api with typed props for react-dart DOM components.
-part of over_react.ui_core;
+part of over_react;
 
 /// A MapView with the typed getters/setters for all CSS-class-related props.
 class CssClassPropsMapView extends MapView with CssClassPropsMixin {

@@ -13,9 +13,9 @@ import 'package:browser_detect/browser_detect.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:test/test.dart';
-import 'package:over_react/src/ui_core/component_declaration/component_base.dart' as component_base;
+import 'package:over_react/src/over_react/component_declaration/component_base.dart' as component_base;
 import '../test_util/test_util.dart';
-import 'package:over_react/ui_core.dart';
+import 'package:over_react/over_react.dart';
 import 'package:react/react_client.dart';
 
 /// Returns all the prop keys available on a component definition, using reflection.

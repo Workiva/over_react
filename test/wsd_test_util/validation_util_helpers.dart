@@ -1,7 +1,7 @@
 library test_util.validation_util_helpers;
 
 import 'package:test/test.dart';
-import 'package:over_react/ui_core.dart';
+import 'package:over_react/over_react.dart';
 
 List<String> _validationWarnings;
 void _recordValidationWarning(String warningMessage) {

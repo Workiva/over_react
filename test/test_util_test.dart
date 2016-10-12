@@ -7,7 +7,7 @@ library test_util_test;
 
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
-import 'package:over_react/ui_core.dart';
+import 'package:over_react/over_react.dart';
 
 import 'test_util_tests/custom_matchers_test.dart' as custom_matchers_test;
 import 'test_util_tests/dom_util_test.dart' as test_util_dom_util_test;

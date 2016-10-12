@@ -1,6 +1,6 @@
 library test_components.two_level_wrapper;
 
-import 'package:over_react/ui_core.dart';
+import 'package:over_react/over_react.dart';
 
 @Factory()
 UiFactory<TwoLevelWrapperProps> TwoLevelWrapper;

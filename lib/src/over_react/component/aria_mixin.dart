@@ -1,4 +1,4 @@
-part of over_react.ui_core;
+part of over_react;
 
 /// Typed getters/setters for accessibility props.
 /// To be used as a mixin for React components and builders.

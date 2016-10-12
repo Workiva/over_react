@@ -1,6 +1,6 @@
 library test_component.test_a;
 
-import 'package:over_react/ui_core.dart';
+import 'package:over_react/over_react.dart';
 
 @Factory()
 UiFactory<TestAProps> TestA;

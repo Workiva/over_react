@@ -7,7 +7,7 @@ import 'package:barback/barback.dart' show TransformLogger;
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/transformer_utils.dart';
 import 'package:transformer_utils/src/transformed_source_file.dart' show getSpan;
-import 'package:over_react/src/ui_core/component_declaration/annotations.dart' as annotations;
+import 'package:over_react/src/over_react/component_declaration/annotations.dart' as annotations;
 
 /// A set of [NodeWithMeta] component pieces declared using `over_react` transformer annotations.
 ///

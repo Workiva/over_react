@@ -1,9 +1,9 @@
-library ui_core.callback_typedefs;
+library over_react.callback_typedefs;
 
 import 'dart:html';
 
 import 'package:react/react.dart' as react;
-import 'package:over_react/ui_core.dart' show ResizeSensorEvent;
+import 'package:over_react/over_react.dart' show ResizeSensorEvent;
 
 // Callbacks for React's DOM event system
 typedef DomEventCallback(react.SyntheticEvent event);

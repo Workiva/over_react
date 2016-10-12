@@ -1,4 +1,4 @@
-library ui_core.css_value_util;
+library over_react.css_value_util;
 
 import 'package:quiver/core.dart';
 

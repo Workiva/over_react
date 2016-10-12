@@ -1,5 +1,5 @@
 @JS()
-library ui_core.react_wrappers;
+library over_react.react_wrappers;
 
 import 'dart:collection';
 import 'dart:html';
@@ -294,7 +294,7 @@ final Function _get$R = () {
 /// Returns the associated [react.Component] for Dart components or the [ReactComponent]
 /// for JS components.
 ///
-/// To use in Dartium, ui_core must be imported in the current context.
+/// To use in Dartium, over_react must be imported in the current context.
 dynamic get $r {
   var component = _get$R();
 
