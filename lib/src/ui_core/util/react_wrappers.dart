@@ -95,13 +95,19 @@ Expando _elementPropsCache = new Expando('_elementPropsCache');
 ///
 /// Throws if [instance] is not a valid [ReactElement] or composite [ReactComponent] .
 Map getProps(/* ReactElement|ReactComponent */ instance) {
-  if (isValidElement(instance) || _isCompositeComponent(instance)) {
-    var cachedView = _elementPropsCache[instance];
-    if (cachedView != null) return cachedView;
+  var isCompositeComponent = _isCompositeComponent(instance);
+
+  if (isValidElement(instance) || isCompositeComponent) {
+    if (!isCompositeComponent) {
+      var cachedView = _elementPropsCache[instance];
+      if (cachedView != null) return cachedView;
+    }
 
     var propsMap = isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
     var view = new UnmodifiableMapView(propsMap);
-    _elementPropsCache[instance] = view;
+
+    if (!isCompositeComponent) _elementPropsCache[instance] = view;
+
     return view;
   }
 
