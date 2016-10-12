@@ -12,9 +12,9 @@ import 'package:react/react_client/js_interop_helpers.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:over_react/over_react.dart';
-import 'package:over_react/src/over_react/component_declaration/component_base.dart' as component_base;
+import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 
-export 'package:over_react/src/over_react/util/react_wrappers.dart';
+export 'package:over_react/src/util/react_wrappers.dart';
 
 // Notes
 // ---------------------------------------------------------------------------

@@ -3,7 +3,7 @@ library over_react.class_names;
 
 import 'dart:collection';
 
-import 'package:over_react/src/over_react/component_declaration/annotations.dart';
+import 'package:over_react/src/component_declaration/annotations.dart';
 
 /// Typed getters/setters for props related to CSS class manipulation, and used by all UIP components.
 /// To be used as a mixin for React components and builders.

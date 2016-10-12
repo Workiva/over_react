@@ -1,8 +1,8 @@
 /// [UiComponent]-based api with typed props for react-dart DOM components.
 library over_react.dom_components;
 
-import 'package:over_react/src/over_react/component/prop_mixins.dart';
-import 'package:over_react/src/over_react/component_declaration/component_base.dart' as component_base;
+import 'package:over_react/src/component/prop_mixins.dart';
+import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 

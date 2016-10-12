@@ -3,8 +3,8 @@ library rem_util_test;
 import 'dart:html';
 
 import 'package:test/test.dart';
-import 'package:over_react/src/over_react/util/css_value_util.dart';
-import 'package:over_react/src/over_react/util/rem_util.dart';
+import 'package:over_react/src/util/css_value_util.dart';
+import 'package:over_react/src/util/rem_util.dart';
 import '../../test_util/test_util.dart';
 
 /// Main entry point for rem_util testing

@@ -5,7 +5,7 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:react/react_dom.dart' as react_dom;
-import 'package:over_react/src/over_react/util/css_value_util.dart';
+import 'package:over_react/src/util/css_value_util.dart';
 import 'package:over_react/over_react.dart';
 
 double _computeRootFontSize() {

@@ -2,7 +2,7 @@ library over_react.component_declaration.component_base;
 
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
-import 'package:over_react/src/over_react/component_declaration/component_type_checking.dart';
+import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:over_react/over_react.dart' show
     ClassNameBuilder,
     CssClassPropsMixin,
@@ -15,7 +15,7 @@ import 'package:over_react/over_react.dart' show
     unindent,
     PropError;
 
-export 'package:over_react/src/over_react/component_declaration/component_type_checking.dart' show isComponentOfType, isValidElementOfType;
+export 'package:over_react/src/component_declaration/component_type_checking.dart' show isComponentOfType, isValidElementOfType;
 
 /// Helper function that wraps react.registerComponent, and allows attachment of additional
 /// component factory metadata.

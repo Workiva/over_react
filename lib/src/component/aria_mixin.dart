@@ -2,7 +2,7 @@ library over_react.aria_mixin;
 
 import 'dart:collection';
 
-import 'package:over_react/src/over_react/component_declaration/annotations.dart';
+import 'package:over_react/src/component_declaration/annotations.dart';
 
 /// Typed getters/setters for accessibility props.
 /// To be used as a mixin for React components and builders.

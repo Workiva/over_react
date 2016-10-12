@@ -4,7 +4,7 @@ import 'package:js/js.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:test/test.dart';
-import 'package:over_react/src/over_react/component_declaration/component_type_checking.dart';
+import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:over_react/over_react.dart';
 
 import 'component_type_checking_test/one_level_wrapper.dart';

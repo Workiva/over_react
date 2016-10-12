@@ -1,8 +1,8 @@
 /// Various prop related mixins to be used with [UiComponent] descendants.
 library over_react.prop_mixins;
 
-import 'package:over_react/src/over_react/component_declaration/annotations.dart';
-import 'package:over_react/src/over_react/component/callback_typedefs.dart';
+import 'package:over_react/src/component_declaration/annotations.dart';
+import 'package:over_react/src/component/callback_typedefs.dart';
 
 /// Typed getters/setters for reserved React props.
 /// To be used as a mixin for React components and builders.

@@ -4,8 +4,8 @@ import 'dart:html';
 
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
-import 'package:over_react/src/over_react/component_declaration/component_base.dart';
-import 'package:over_react/src/over_react/component_declaration/component_type_checking.dart';
+import 'package:over_react/src/component_declaration/component_base.dart';
+import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import '../../test_util/test_util.dart';
 import 'package:over_react/over_react.dart' show Dom, DummyComponent, ValidationUtil;
 

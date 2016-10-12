@@ -397,5 +397,5 @@ __Check your `pub serve` output for errors.__
 
 [examples]: /example/component_declaration/
 [transformer]: /lib/src/transformer/README.md
-[annotations]: /lib/src/over_react/component_declaration/annotations.dart
-[component_base.dart]: /lib/src/over_react/component_declaration/component_base.dart
+[annotations]: /lib/src/component_declaration/annotations.dart
+[component_base.dart]: /lib/src/component_declaration/component_base.dart

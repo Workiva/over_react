@@ -227,6 +227,6 @@ class IllegalInstantiationError extends Error {
       "Be sure to follow usage instructions for over_react component classes.\n\n"
       "If you need to do something extra custom and want to implement everything without code generation, "
       "base classes are available by importing the "
-      "`package:over_react/src/over_react/component_declaration/component_base.dart` "
+      "`package:over_react/src/component_declaration/component_base.dart` "
       "library directly. ";
 }
