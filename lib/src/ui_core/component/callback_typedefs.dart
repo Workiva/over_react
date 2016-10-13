@@ -61,6 +61,6 @@ typedef void ResizeSensorHandler(ResizeSensorEvent event);
 @Deprecated('2.0.0')
 typedef ClickToEditStateChangeCallback(react.SyntheticEvent event);
 
-/// Type definition for all callbacks to be used for handling [ClickToEditComponent] changes to the committed
+/// Type definition for all callbacks to be used for handling [AbstractClickToEditComponent] changes to the committed
 /// value.
-typedef ClickToEditChangeCallback(String committedValue, String newValue, react.SyntheticFormEvent event);
+typedef ClickToEditChangeCallback<T>(T committedValue, T newValue, react.SyntheticFormEvent event);
