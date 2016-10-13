@@ -1,0 +1,43 @@
+# Site settings
+title: OverReact
+description: TODO
+baseurl: ""
+url: "TODO"
+latest_version: 1.0.0
+gacode: "TODO"
+
+# Directories
+source:       .
+destination:  ./_site
+plugins_dir:  docs/_plugins
+layouts_dir:  docs/_layouts
+data_dir:     docs/_data
+includes_dir: docs/_includes
+
+exclude:
+  - integrate
+  - lib
+  - test
+  - tool
+  - packages
+  - docs/sass/bootstrap
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+  syntax_highlighter_opts:
+    span:
+      line_numbers: false
+    block:
+      line_numbers: false
+      start_line: 1
+
+sass:
+  style: compressed
+  sass_dir: docs/sass
+
+# Serving
+port: 8020
