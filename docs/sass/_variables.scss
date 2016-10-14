@@ -10,6 +10,13 @@ $zc-blue-120: #026dce;
 $zc-orange:   #fbad17;
 $zc-red:      #ee2724;
 
+// Dart palette
+$dart-teal:         #00d2b8;
+$dart-teal-light:   #55ddca;
+$dart-blue:         #0075c9;
+$dart-blue-light:   #0081c6;
+$dart-blue-lighter: #00a4e4;
+
 // Bootstrap palette customization
 $gray-dark:     $zc-gray-120;
 $gray:          $zc-gray;
@@ -17,15 +24,14 @@ $gray-light:    $zc-gray-80;
 $gray-lighter:  $zc-gray-40;
 $gray-lightest: $zc-gray-20;
 
-$brand-primary: $zc-green;
-$brand-success: $zc-green;
-$brand-info:    $zc-blue;
-$brand-warning: $zc-orange;
-$brand-danger:  $zc-red;
+$brand-primary: $dart-blue-light;
+$brand-info: $dart-teal;
 
 $body-color: $gray;
-$link-color: $zc-blue-120;
-$link-hover-color: $zc-blue;
+$link-color: $dart-blue-lighter;
+$link-hover-color: $dart-blue-light;
+
+$jumbotron-bg: $brand-primary;
 
 // Bootstrap options
 $enable-flex: true;

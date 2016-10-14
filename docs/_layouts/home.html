@@ -2,11 +2,20 @@
 layout: default
 ---
 
-<div class="hero">
+<div class="jumbotron jumbotron-fluid">
     <div class="container">
         <h1 class="hero-title">
-            yo
+            {{ site.description }}
         </h1>
+        <div>
+            <a class="btn hero-btn" href="{{ site.baseurl }}/getting-started/">Get Started</a>
+            <a class="btn hero-btn" href="https://pub.dartlang.org/packages/over_react" target="{{ site.api_target }}">API Docs</a>
+
+            <span class="hero-ghbtn">
+                <!-- Once we start raking in some stars! -->
+                <!--<iframe src="https://ghbtns.com/github-btn.html?user=workiva&repo=over_react&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>-->
+            </span>
+        </div>
     </div>
 </div>
 
@@ -15,7 +24,7 @@ layout: default
         <div class="col-lg-7">
             Put some stuff here!
         </div>
-        <div class="col-lg-5">
+        <div class="col-lg">
             Maybe an image here?
         </div>
     </div>
@@ -26,7 +35,7 @@ layout: default
         <div class="col-lg-7">
             Another row of stuff... start adding content!
         </div>
-        <div class="col-lg-5">
+        <div class="col-lg">
             Maybe an image here?
         </div>
     </div>

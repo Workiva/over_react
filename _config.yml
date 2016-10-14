@@ -1,8 +1,8 @@
 # Site settings
 title: OverReact
-description: TODO
-baseurl: ""
-url: "TODO"
+description: A framework for building statically-typed React UI components using Dart.
+pkg_name: over_react
+repo: https://github.com/Workiva/over_react/
 latest_version: 1.0.0
 gacode: "TODO"
 
@@ -40,4 +40,6 @@ sass:
   sass_dir: docs/sass
 
 # Serving
+baseurl: ""
+url: "TODO"
 port: 8020

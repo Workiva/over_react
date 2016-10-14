@@ -6,14 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% capture description %}{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description | strip_html | strip_newlines }}{% endif %}{% endcapture %}
+    {% capture title %}{% if page.title %}{{ page.title }} &middot; {{ site.title }}{% else %}{{ site.title }} &middot; {{ site.description | strip_html | strip_newlines }}{% endif %}{% endcapture %}
 
     <meta property="og:url" content="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}" />
     <meta property="og:site_name" content="{{ site.title }}" />
     <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
-    <meta property="og:image" content="TODO" />
+    <meta property="og:image" content="{{ site.baseurl }}docs/assets/img/over_react_og_image.png" />
     <meta property="og:description" content="{{ description }}" />
 
-    <title>{% if page.title %}{{ page.title }} &middot; {% endif %}{{ site.title }}</title>
+    <title>{{ title }}</title>
     <meta name="description" content="{{ description }}">
 
     <link rel="stylesheet" href="{{ site.baseurl }}docs/sass/docs.css?t={{ site.time | date_to_xmlschema }}">
@@ -26,7 +27,6 @@
     {% include site_footer.html %}
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha256-/5pHDZh2fv1eZImyfiThtB5Ag4LqDjyittT7fLjdT/8=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js" integrity="sha256-+h0g0j7qusP72OZaLPCSZ5wjZLnoUUicoxbvrl14WxM=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.4/holder.min.js" integrity="sha256-ifihHN6L/pNU1ZQikrAb7CnyMBvisKG3SUAab0F3kVU=" crossorigin="anonymous"></script>
 
