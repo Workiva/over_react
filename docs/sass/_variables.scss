@@ -39,3 +39,25 @@ $enable-transitions: true;
 
 $font-family-sans-serif: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 $font-family-monospace: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+@import 'bootstrap/scss/bootstrap';
+
+
+// OverReact site variables
+$navbar-content-height: to-rem($font-size-root * $line-height-base);
+$navbar-height: $navbar-content-height + ($navbar-padding-y * 2);
+
+$hero-text-color: white;
+$hero-text-color-secondary: mix($jumbotron-bg, $hero-text-color, 10);
+$hero-btn-bd-color: darken($jumbotron-bg, 3);
+
+$hero-title-breakpoints: (
+  size-xs: $font-size-h2,
+  weight-xs: $display4-weight,
+  size-sm: $font-size-h1,
+  weight-sm: $display4-weight,
+  size-md: $display4-size,
+  weight-md: $display4-weight,
+  size-lg: $display3-size,
+  weight-lg: $display3-weight
+);

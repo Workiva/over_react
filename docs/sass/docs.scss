@@ -10,15 +10,10 @@
  */
 
 
-//
-// Variables, mixins, functions, etc.
-// (No CSS generated)
-//
+@import 'helpers';
 @import 'variables';
-
-
-//
-// CSS styles
-//
-@import 'bootstrap/scss/bootstrap';
+@import 'base';
+@import 'hero';
+@import 'navbar';
+@import 'footer';
 

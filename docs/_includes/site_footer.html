@@ -1,14 +1,13 @@
 <hr class="feature-divider">
 
 <div class="container">
-    <footer class="footer">
-        <div class="footer-left">
-            <span class="footer-item">{{ site.title }}</span>
-            <!-- TODO: Additional links like license, etc. -->
+    <footer class="footer row">
+        <div class="col-sm pt-1">
+            {{ site.title }} is brought to you by the good folks at
+            <a href="{{ site.org_url }}" target="{{ site.org_target }}">Workiva</a>.
         </div>
-
-        <div class="footer-right">
-            <!-- TODO: Put something here! -->
+        <div class="col-sm col-sm-shrink py-1">
+            <a class="footer-link" href="{{ site.repo_url }}" target="{{ site.repo_target }}">Github</a>
         </div>
     </footer>
 </div>

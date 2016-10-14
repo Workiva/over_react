@@ -1,0 +1,32 @@
+.logo-text {
+  color: $dart-blue;
+  fill: $dart-blue;
+  letter-spacing: -.02rem;
+  font-weight: 400;
+  vertical-align: middle;
+}
+
+.logo-text--light {
+  color: $dart-blue-light;
+  fill: $dart-blue-light;
+  font-weight: 300;
+}
+
+.text--white {
+  color: white;
+}
+
+// Can't believe the bootstrap grid doesn't have this!!?
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+    .col-#{$breakpoint}-shrink {
+      max-width: none;
+      width: auto;
+      display: flex;
+      flex: 0 0 auto;
+      // MSIE 10
+      display: -ms-flexbox;
+      -ms-flex: 0 0 auto;
+    }
+  }
+}

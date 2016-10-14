@@ -11,15 +11,15 @@
     <meta property="og:url" content="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}" />
     <meta property="og:site_name" content="{{ site.title }}" />
     <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
-    <meta property="og:image" content="{{ site.baseurl }}docs/assets/img/over_react_og_image.png" />
+    <meta property="og:image" content="{{ site.baseurl }}/docs/assets/img/over_react_og_image.png" />
     <meta property="og:description" content="{{ description }}" />
 
     <title>{{ title }}</title>
     <meta name="description" content="{{ description }}">
 
-    <link rel="stylesheet" href="{{ site.baseurl }}docs/sass/docs.css?t={{ site.time | date_to_xmlschema }}">
+    <link rel="stylesheet" href="{{ site.baseurl }}/docs/sass/docs.css?t={{ site.time | date_to_xmlschema }}">
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-    <link rel="icon" href="{{ site.baseurl }}docs/assets/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{{ site.baseurl }}/docs/assets/img/favicon.ico" type="image/x-icon">
 </head>
 <body>
     {% include site_navbar.html %}
