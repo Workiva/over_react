@@ -25,7 +25,7 @@ main(List<String> args) async {
   ];
 
   config.analyze.entryPoints = directories;
-  config.copyLicense.directories = directories;
+  config.copyLicense.directories = ['integrate']..addAll(directories);
 
   config.test
     ..pubServe = true
