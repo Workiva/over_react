@@ -2,10 +2,10 @@ library custom_matchers_test;
 
 import 'dart:html';
 
-import 'package:test/test.dart';
-import '../test_util/test_util.dart';
 import 'package:over_react/over_react.dart';
+import 'package:test/test.dart';
 
+import '../test_util/test_util.dart';
 import '../wsd_test_util/test_js_component.dart';
 
 /// Main entry point for CustomMatchers testing

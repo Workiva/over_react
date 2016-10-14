@@ -4,10 +4,10 @@ library declaration_parsing_test;
 import 'package:analyzer/analyzer.dart' hide startsWith;
 import 'package:barback/barback.dart';
 import 'package:mockito/mockito.dart';
+import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
+import 'package:over_react/src/transformer/declaration_parsing.dart';
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
-import 'package:over_react/src/transformer/declaration_parsing.dart';
-import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 
 main() {
   group('ComponentDeclarations', () {

@@ -1,7 +1,7 @@
 library string_util_test;
 
-import 'package:test/test.dart';
 import 'package:over_react/over_react.dart';
+import 'package:test/test.dart';
 
 /// Main entry point for StringUtil testing
 main() {

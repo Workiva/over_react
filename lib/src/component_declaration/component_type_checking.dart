@@ -1,10 +1,10 @@
 /// Provides utilities around component type-checking.
 library over_react.component_declaration.component_type_checking;
 
-import 'package:react/react_client.dart';
-import 'package:react/react_client/js_interop_helpers.dart';
 import 'package:over_react/src/component_declaration/component_base.dart' show UiFactory;
 import 'package:over_react/src/util/react_wrappers.dart';
+import 'package:react/react_client.dart';
+import 'package:react/react_client/js_interop_helpers.dart';
 
 // ----------------------------------------------------------------------
 //   Component type registration and internal type metadata management

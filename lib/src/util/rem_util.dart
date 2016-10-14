@@ -4,9 +4,9 @@ library over_react.rem_util;
 import 'dart:async';
 import 'dart:html';
 
-import 'package:react/react_dom.dart' as react_dom;
-import 'package:over_react/src/util/css_value_util.dart';
 import 'package:over_react/over_react.dart';
+import 'package:over_react/src/util/css_value_util.dart';
+import 'package:react/react_dom.dart' as react_dom;
 
 double _computeRootFontSize() {
   return new CssValue.parse(document.documentElement.getComputedStyle().fontSize).number.toDouble();

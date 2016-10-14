@@ -1,7 +1,7 @@
 library class_names_test;
 
-import 'package:test/test.dart';
 import 'package:over_react/over_react.dart';
+import 'package:test/test.dart';
 
 /// Main entrypoint for class_names testing
 main() {

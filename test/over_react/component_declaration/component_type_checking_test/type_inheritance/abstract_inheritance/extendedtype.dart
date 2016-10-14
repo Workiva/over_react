@@ -1,6 +1,7 @@
 library test_component.type_inheritance.extendedtype;
 
 import 'package:over_react/over_react.dart';
+
 import './abstract.dart';
 
 @Factory()

@@ -3,10 +3,10 @@ library abstract_transition_test;
 import 'dart:async';
 import 'dart:html';
 
-import 'package:test/test.dart';
-import '../../test_util/test_util.dart';
 import 'package:over_react/over_react.dart';
+import 'package:test/test.dart';
 
+import '../../test_util/test_util.dart';
 import '../../wsd_test_util/validation_util_helpers.dart';
 
 /// Main entry point for AbstractTransition testing

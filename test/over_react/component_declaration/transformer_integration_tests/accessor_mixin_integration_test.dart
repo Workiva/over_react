@@ -1,7 +1,7 @@
 library over_react.component_declaration.transformer_integration_tests.accessor_mixin_integration_test;
 
-import 'package:test/test.dart';
 import 'package:over_react/over_react.dart';
+import 'package:test/test.dart';
 
 main() {
   group('transformed accessor mixin integration:', () {

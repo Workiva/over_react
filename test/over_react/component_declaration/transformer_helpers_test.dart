@@ -1,7 +1,7 @@
 library over_react.transformer_generation.helpers_test;
 
-import 'package:test/test.dart';
 import 'package:over_react/src/component_declaration/transformer_helpers.dart';
+import 'package:test/test.dart';
 
 const Matcher throwsUngeneratedError          = const Throws(const isInstanceOf<UngeneratedError>());
 const Matcher throwsIllegalInstantiationError = const Throws(const isInstanceOf<IllegalInstantiationError>());

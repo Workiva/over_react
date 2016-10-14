@@ -5,9 +5,9 @@
 @TestOn('browser')
 library ui_core_test;
 
+import 'package:over_react/over_react.dart';
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
-import 'package:over_react/over_react.dart';
 
 import 'over_react/component/abstract_transition_test.dart' as abstract_transition_test;
 import 'over_react/component/dom_components_test.dart' as dom_components_test;

@@ -1,5 +1,6 @@
 library over_react.handler_chain_util;
 
+import 'package:over_react/over_react.dart' show ResizeSensorEvent;
 import 'package:react/react.dart' show
     SyntheticEvent,
     SyntheticClipboardEvent,
@@ -12,7 +13,6 @@ import 'package:react/react.dart' show
     SyntheticWheelEvent;
 
 import '../component/callback_typedefs.dart';
-import 'package:over_react/over_react.dart' show ResizeSensorEvent;
 
 /// Provides chaining utilities for [DomEventCallback].
 final CallbackUtil1Arg<SyntheticEvent> domEventCallbacks                    = const CallbackUtil1Arg<SyntheticEvent>();

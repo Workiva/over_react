@@ -10,13 +10,14 @@ import 'dart:html';
 import 'dart:mirrors';
 
 import 'package:browser_detect/browser_detect.dart';
+import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
+import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:test/test.dart';
-import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
+
 import '../test_util/test_util.dart';
-import 'package:over_react/over_react.dart';
-import 'package:react/react_client.dart';
 
 /// Returns all the prop keys available on a component definition, using reflection.
 Set getComponentPropKeys(BuilderOnlyUiFactory factory) {

@@ -1,7 +1,7 @@
 library over_react_tests.shared.map_proxy_tests;
 
-import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:test/test.dart';
 
 void mapProxyTests(Map mapProxyFactory(Map proxiedMap)) {
   group('proxies the Map member:', () {

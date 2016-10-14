@@ -4,10 +4,10 @@ import 'dart:mirrors';
 
 import 'package:analyzer/analyzer.dart';
 import 'package:barback/barback.dart' show TransformLogger;
-import 'package:source_span/source_span.dart';
-import 'package:transformer_utils/transformer_utils.dart';
-import 'package:transformer_utils/src/transformed_source_file.dart' show getSpan;
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
+import 'package:source_span/source_span.dart';
+import 'package:transformer_utils/src/transformed_source_file.dart' show getSpan;
+import 'package:transformer_utils/transformer_utils.dart';
 
 /// A set of [NodeWithMeta] component pieces declared using `over_react` transformer annotations.
 ///

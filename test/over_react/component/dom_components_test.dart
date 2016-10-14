@@ -7,9 +7,9 @@ library dom_components_test;
 ])
 import 'dart:mirrors';
 
+import 'package:over_react/over_react.dart';
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
-import 'package:over_react/over_react.dart';
 
 
 main() {

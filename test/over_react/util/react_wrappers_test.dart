@@ -4,16 +4,16 @@ library react_wrappers_test;
 import 'dart:html';
 
 import 'package:js/js.dart';
-import 'package:test/test.dart';
+import 'package:over_react/over_react.dart';
+import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_interop_helpers.dart';
 import 'package:react/react_client/react_interop.dart';
-import 'package:react/react.dart' as react;
 import 'package:react/react_dom.dart' as react_dom;
 import 'package:react/react_test_utils.dart' as react_test_utils;
-import '../../test_util/test_util.dart';
-import 'package:over_react/over_react.dart';
+import 'package:test/test.dart';
 
+import '../../test_util/test_util.dart';
 import '../../wsd_test_util/test_js_component.dart';
 
 /// Main entry point for react wrappers testing

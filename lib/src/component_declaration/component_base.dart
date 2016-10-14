@@ -1,8 +1,5 @@
 library over_react.component_declaration.component_base;
 
-import 'package:react/react.dart' as react;
-import 'package:react/react_client.dart';
-import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:over_react/over_react.dart' show
     ClassNameBuilder,
     CssClassPropsMixin,
@@ -14,6 +11,9 @@ import 'package:over_react/over_react.dart' show
     prettyPrintMap,
     unindent,
     PropError;
+import 'package:over_react/src/component_declaration/component_type_checking.dart';
+import 'package:react/react.dart' as react;
+import 'package:react/react_client.dart';
 
 export 'package:over_react/src/component_declaration/component_type_checking.dart' show isComponentOfType, isValidElementOfType;
 

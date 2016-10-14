@@ -2,13 +2,13 @@ library over_react.component_declaration.component_base_test;
 
 import 'dart:html';
 
-import 'package:react/react_client.dart';
-import 'package:test/test.dart';
+import 'package:over_react/over_react.dart' show Dom, DummyComponent, ValidationUtil;
 import 'package:over_react/src/component_declaration/component_base.dart';
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
-import '../../test_util/test_util.dart';
-import 'package:over_react/over_react.dart' show Dom, DummyComponent, ValidationUtil;
+import 'package:react/react_client.dart';
+import 'package:test/test.dart';
 
+import '../../test_util/test_util.dart';
 import '../../wsd_test_util/validation_util_helpers.dart';
 import '../shared/map_proxy_tests.dart';
 

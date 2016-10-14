@@ -1,8 +1,9 @@
 library over_react.component_declaration.transformer_integration_tests.namespaced_accessor_integration_test;
 
-import 'package:test/test.dart';
-import '../../../test_util/test_util.dart';
 import 'package:over_react/over_react.dart';
+import 'package:test/test.dart';
+
+import '../../../test_util/test_util.dart';
 
 main() {
   group('transformed custom namespaced props/state integration:', () {
