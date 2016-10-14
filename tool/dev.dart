@@ -3,6 +3,16 @@ library tool.dev;
 import 'package:dart_dev/dart_dev.dart' show dev, config;
 
 main(List<String> args) async {
+  const directories = const <String>[
+    'lib/',
+    'example/',
+    'test/',
+    'tool/',
+  ];
+
+  config.analyze.entryPoints = directories;
+  config.copyLicense.directories = directories;
+
   config.test
     ..pubServe = true
     ..platforms = [
