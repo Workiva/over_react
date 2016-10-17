@@ -77,7 +77,8 @@ List getForwardingTargets(reactInstance, {int expectedTargetCount: 1, shallowRen
           _children.forEach((_child) {
             if (_child != null && isValidElement(_child)) {
               getProps(_child).forEach((propKey, propValue) {
-                if (propValue is ReactElement && isValidElement(propValue)) {
+                // Some props may be of type Function, and will produce interop errors if passed into isValidElement
+                if (propKey != 'children' && propValue is! Function && isValidElement(propValue)) {
                   getTargets(propValue);
                 }
               });

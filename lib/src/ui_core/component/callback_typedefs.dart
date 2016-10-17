@@ -52,3 +52,15 @@ typedef Element ElementCallback();
 
 // Callback for [ResizeSensorEvent]s
 typedef void ResizeSensorHandler(ResizeSensorEvent event);
+
+// CTE typedefs
+
+/// Type definition for all callbacks to be used for handling [ClickToEditComponent] state transitions.
+///
+/// State transitions for this component can occur via [react.SyntheticMouseEvent]s and [react.SyntheticKeyboardEvent]s.
+@Deprecated('2.0.0')
+typedef ClickToEditStateChangeCallback(react.SyntheticEvent event);
+
+/// Type definition for all callbacks to be used for handling [AbstractClickToEditComponent] changes to the committed
+/// value.
+typedef ClickToEditChangeCallback<T>(T committedValue, T newValue, react.SyntheticFormEvent event);
