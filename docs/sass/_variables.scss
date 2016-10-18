@@ -42,6 +42,7 @@ $font-family-monospace: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New
 
 @import 'bootstrap/scss/bootstrap';
 
+$line-height-base-px: $font-size-root * $line-height-base;
 
 // OverReact site variables
 $navbar-content-height: to-rem($font-size-root * $line-height-base);
@@ -61,3 +62,8 @@ $hero-title-breakpoints: (
   size-lg: $display3-size,
   weight-lg: $display3-weight
 );
+
+$footer-vertical-padding: to-rem($grid-gutter-width-base);
+$footer-item-spacing: to-rem($list-inline-padding);
+$footer-text-color: $gray-light;
+$footer-logo-color: mix($footer-text-color, #fff, 35%);

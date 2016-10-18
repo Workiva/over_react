@@ -1,13 +1,27 @@
-<hr class="feature-divider">
+<hr class="footer-divider">
 
 <div class="container">
     <footer class="footer row">
-        <div class="col-sm pt-1">
-            {{ site.title }} is brought to you by the good folks at
-            <a href="{{ site.org_url }}" target="{{ site.org_target }}">Workiva</a>.
+        <div class="footer__col footer__col--left col-md">
+            <div class="d-flex flex-items-xs-middle">
+                {% include svg/workiva-symbol.svg class="footer__logo" %}
+                <span>
+                    {{ site.title }} is brought to you by the good folks at
+                    <a href="{{ site.org_url }}" target="{{ site.org_target }}">Workiva</a>
+                </span>
+            </div>
         </div>
-        <div class="col-sm col-sm-shrink py-1">
-            <a class="footer-link" href="{{ site.repo_url }}" target="{{ site.repo_target }}">Github</a>
+        <div class="footer__col footer__col--right col-md col-sm-shrink d-flex flex-items-xs-middle">
+            <div class="d-flex flex-items-xs-middle">
+                <ul class="footer__items">
+                    <li class="footer__item">
+                        <a class="footer__link" href="{{ site.license_url }}" target="{{ site.repo_target }}">License</a>
+                    </li>
+                    <li class="footer__item">
+                        <a class="footer__link" href="{{ site.repo_url }}" target="{{ site.repo_target }}">Github</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </footer>
 </div>

@@ -50,7 +50,8 @@ org_url: https://www.workiva.com
 org_target: wk
 
 org_repos_url: https://github.com/Workiva
-repo_url: https://github.com/Workiva/over_react/
+repo_url: https://github.com/Workiva/over_react
+license_url: https://github.com/Workiva/over_react/blob/master/LICENSE
 repo_target: github
 
 api_docs_url: https://pub.dartlang.org/packages/over_react

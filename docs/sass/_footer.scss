@@ -1,3 +1,45 @@
+.footer-divider {
+  margin-top: $footer-vertical-padding;
+  margin-bottom: 0;
+}
+
 .footer {
-  color: $gray-light;
+  color: $footer-text-color;
+}
+
+.footer__col--left {
+  padding-top: $footer-vertical-padding;
+}
+
+.footer__col--right {
+  padding-top: $footer-vertical-padding;
+  padding-bottom: $footer-vertical-padding;
+}
+
+.footer__logo {
+  height: to-rem($line-height-base-px);
+  width: auto;
+  margin-right: $footer-item-spacing * 3;
+
+  path {
+    fill: $footer-logo-color;
+  }
+}
+
+.footer__items {
+  @include list-unstyled();
+  margin-bottom: 0;
+
+  @at-root .footer__item {
+    display: inline-block;
+
+    + .footer__item {
+      // Add a separator between unrelated items / links in the footer.
+      &:before {
+        padding-left: $footer-item-spacing;
+        padding-right: $footer-item-spacing;
+        content: "·";
+      }
+    }
+  }
 }
