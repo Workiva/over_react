@@ -1,0 +1,38 @@
+<div class="content-placeholder__bg-masks-container">
+    {% assign maskLine = 0 %}
+    {% include content-placeholder-bg-mask.html lOffset='30%' spacer=true %}
+    {% assign maskLine = maskLine | plus: 1 %}
+    {% include content-placeholder-bg-mask.html lOffset='60%' spacer=true %}
+    {% assign maskLine = maskLine | plus: 1 %}
+    {% include content-placeholder-bg-mask-empty-line.html spacer=true %}
+    {% assign maskLine = maskLine | plus: 1 %}
+    {% include content-placeholder-bg-mask.html lOffset='20%' spacer=true %}
+    {% assign maskLine = maskLine | plus: 1 %}
+    {% include content-placeholder-bg-mask.html lOffset='70%' spacer=true %}
+    {% assign maskLine = maskLine | plus: 1 %}
+    {% include content-placeholder-bg-mask-empty-line.html spacer=true %}
+    {% assign maskLine = maskLine | plus: 1 %}
+    {% include content-placeholder-bg-mask.html lOffset='40%' spacer=true %}
+    {% assign maskLine = maskLine | plus: 1 %}
+    {% include content-placeholder-bg-mask.html lOffset='60%' spacer=true %}
+    {% assign maskLine = maskLine | plus: 1 %}
+    {% include content-placeholder-bg-mask.html rOffset='80%' %}
+    {% include content-placeholder-bg-mask.html lOffset='80%' spacer=true %}
+    {% assign maskLine = maskLine | plus: 1 %}
+    {% include content-placeholder-bg-mask-empty-line.html spacer=true %}
+    {% assign maskLine = maskLine | plus: 1 %}
+    {% include content-placeholder-bg-mask.html rOffset='90%' %}
+    {% include content-placeholder-bg-mask.html lOffset='40%' spacer=true %}
+    {% assign maskLine = maskLine | plus: 1 %}
+    {% include content-placeholder-bg-mask.html rOffset='90%' %}
+    {% include content-placeholder-bg-mask.html lOffset='70%' spacer=true %}
+    {% assign maskLine = maskLine | plus: 1 %}
+    {% include content-placeholder-bg-mask-empty-line.html spacer=true %}
+    {% assign maskLine = maskLine | plus: 1 %}
+    {% include content-placeholder-bg-mask.html rOffset='95%' %}
+    {% include content-placeholder-bg-mask.html lOffset='10%' spacer=true %}
+    {% assign maskLine = maskLine | plus: 1 %}
+    {% include content-placeholder-bg-mask.html lOffset='5%' spacer=true %}
+    {% assign maskLine = maskLine | plus: 1 %}
+    <div class="content-placeholder__bg-mask bg-mask--line-{{ maskLine }} bg-mask--cap-bottom"></div>
+</div>

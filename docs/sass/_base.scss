@@ -15,23 +15,3 @@
 .text--white {
   color: white;
 }
-
-.d-flex {
-  display: flex;
-  display: -ms-flexbox;
-}
-
-// Can't believe the bootstrap grid doesn't have this!!?
-@each $breakpoint in map-keys($grid-breakpoints) {
-  @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
-    .col-#{$breakpoint}-shrink {
-      max-width: none;
-      width: auto;
-      display: flex;
-      flex: 0 0 auto;
-      // MSIE 10
-      display: -ms-flexbox;
-      -ms-flex: 0 0 auto;
-    }
-  }
-}

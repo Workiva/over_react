@@ -45,6 +45,8 @@ $font-family-monospace: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New
 $line-height-base-px: $font-size-root * $line-height-base;
 
 // OverReact site variables
+$grid-gutter-width-rem: to-rem($grid-gutter-width-base);
+
 $navbar-content-height: to-rem($font-size-root * $line-height-base);
 $navbar-height: $navbar-content-height + ($navbar-padding-y * 2);
 
@@ -59,11 +61,11 @@ $hero-title-breakpoints: (
   weight-sm: $display4-weight,
   size-md: $display4-size,
   weight-md: $display4-weight,
-  size-lg: $display3-size,
-  weight-lg: $display3-weight
+  size-lg: $display4-size + .5rem,
+  weight-lg: $display4-weight
 );
 
-$footer-vertical-padding: to-rem($grid-gutter-width-base);
+$footer-vertical-padding: $grid-gutter-width-rem;
 $footer-item-spacing: to-rem($list-inline-padding);
 $footer-text-color: $gray-light;
 $footer-logo-color: mix($footer-text-color, #fff, 35%);

@@ -1,0 +1,92 @@
+@keyframes content-placeholder-shimmer {
+    0%{
+        background-position: 100% 0
+    }
+    100%{
+        background-position: -100% 0
+    }
+}
+
+.content-placeholder__bg {
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: content-placeholder-shimmer;
+  animation-timing-function: linear;
+  background: $gray-lightest;
+  background: linear-gradient(to right, $gray-lightest 8%, $gray-lighter 18%, $gray-lightest 33%);
+  background-size: to-rem(800px) to-rem(104px);
+  height: 100%;
+  position: relative;
+
+  // Ensure the image, or loaded content, appears without the loader bg behind it once loaded.
+  @at-root {
+    #{selector-append(&, '--content-loaded')} {
+      background: transparent;
+    }
+  }
+}
+
+.content-placeholder__bg-masks-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  // Ensure the image, or loaded content, appears without the loader bg behind it once loaded.
+  .content-placeholder__bg--content-loaded & {
+    display: none;
+  }
+}
+
+.content-placeholder__bg-mask {
+  background: #fff;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+$adjacent-line-spacer-height: to-rem(6px);
+$empty-line-spacer-height: to-rem(14px);
+
+.bg-mask--spacer {
+  height: $adjacent-line-spacer-height;
+  left: 0;
+}
+
+.bg-mask--line,
+.bg-mask--empty-line {
+  height: $empty-line-spacer-height;
+  left: 0;
+}
+
+.bg-mask--cap-bottom {
+  height: auto;
+  left: 0;
+  bottom: 0;
+}
+
+@each $bg-mask-offset in .1 .2 .3 .4 .5 .6 .7 .8 .9 {
+  .bg-mask--left-#{$bg-mask-offset * 100} {
+    left: percentage($bg-mask-offset);
+  }
+
+  .bg-mask--right-#{$bg-mask-offset * 100} {
+    right: percentage($bg-mask-offset);
+  }
+}
+
+$line: 0;
+@while $line <= 20 {
+  .bg-mask--line-#{$line} {
+    top: $line * ($adjacent-line-spacer-height + $empty-line-spacer-height);
+  }
+
+  .bg-mask--spacer-#{$line} {
+    top: $line * ($adjacent-line-spacer-height + $empty-line-spacer-height) + $empty-line-spacer-height;
+  }
+
+  $line: $line + 1;
+}

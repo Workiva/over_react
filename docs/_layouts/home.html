@@ -1,5 +1,6 @@
 ---
 layout: default
+baseurl: site.baseurl
 ---
 
 <div class="hero jumbotron jumbotron-fluid">
@@ -8,7 +9,7 @@ layout: default
             {{ site.description }}
         </h1>
         <div>
-            <a class="btn hero-btn" href="{{ site.baseurl }}/demos/" aria-label="Demonstrations">
+            <a class="btn hero-btn" href="{{ page.baseurl }}demos/" aria-label="Demonstrations">
                 Demos
             </a>
             <a class="btn hero-btn" href="{{ site.api_docs_url }}" target="{{ site.api_target }}" aria-label="API Documentation">
@@ -24,23 +25,71 @@ layout: default
 </div>
 
 <div class="container">
-    <div class="row feature">
-        <div class="col-lg-7">
-            Put some stuff here!
+    <div class="feature row flex-items-md-around flex-items-md-middle">
+        <div class="col-md-6 col-lg-7 col-order-md-2">
+            <div>
+                <h2 class="feature__heading display-4">The best of both worlds.</h2>
+                <p class="feature__body">
+                    The {{ site.pkg_name }} platform delivers the declarative awesomeness of
+                    <a href="https://facebook.github.io/react/" target="{{ site.reactjs_target }}">React</a>
+                    <em>and</em> all the creature comforts of
+                    <a href="https://www.dartlang.org/" target="{{ site.dartlang_target }}">Dart</a>
+                    in a single package!
+                </p>
+            </div>
         </div>
-        <div class="col-lg">
-            Maybe an image here?
+        <div class="col-md-6 col-lg-5">
+            <div class="feature__best-of-both-img">
+                {% include svg/reactjs-logo.svg class="feature__best-of-both-img__logo" %}
+                <div class="feature__best-of-both-img__plus">&plus;</div>
+                {% include svg/dart-logo.svg class="feature__best-of-both-img__logo" %}
+            </div>
         </div>
     </div>
 
     <hr class="feature-divider">
 
-    <div class="row feature">
-        <div class="col-lg-7">
-            Another row of stuff... start adding content!
+    <div class="feature row flex-items-md-around">
+        <div class="col-md-7">
+            <h2 class="feature__heading display-4">Make components; <br>not boilerplate.</h2>
+            <p class="feature__body">
+                The {{ site.pkg_name }} platform makes use of a powerful Pub transformer
+                to wire up a factory and <a href="https://facebook.github.io/react/docs/reusable-components.html" target="{{ site.reactjs_target }}">React component class</a>,
+                along with props and optional state classes, so you can focus on building UI that your consumers
+                &mdash; and customers &mdash; will love.
+            </p>
         </div>
-        <div class="col-lg">
-            Maybe an image here?
+        <div class="col-md-4 d-flex flex-items-xs-middle">
+            <div class="content-placeholder__bg feature__img-placeholder">
+                {% include home-code-content-placeholder-lines.html %}
+                <img src="{{ page.baseurl }}docs/assets/img/over_react-boilerplate-example.png"
+                     class="feature__img"
+                     alt="over_react UI component boilerplate markup example">
+            </div>
+        </div>
+    </div>
+
+    <hr class="feature-divider">
+
+    <div class="feature row flex-items-md-around">
+        <div class="col-md-5 col-order-md-2">
+            <h2 class="feature__heading display-4">Who doesn&rsquo;t love <br>autocomplete?</h2>
+            <p class="feature__body">
+                Consuming a large React UI component library can quickly become tedious when confronted with a
+                never-ending selection of string prop keys that you have to dig around for.
+            </p>
+            <p class="feature__body">
+                With {{ site.pkg_name }}, that same React UI component library and all of the component props
+                become a powerful weapon - wielded more effectively via IDE autocomplete!
+            </p>
+        </div>
+        <div class="col-md-6 d-flex flex-items-xs-middle">
+            <div class="content-placeholder__bg feature__img-placeholder">
+                {% include home-code-content-placeholder-lines.html %}
+                <img src="{{ page.baseurl }}docs/assets/img/over_react-autocomplete-example.gif"
+                     class="feature__img"
+                     alt="over_react UI component IDE auto completion example">
+            </div>
         </div>
     </div>
 </div>

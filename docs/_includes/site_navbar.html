@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs col-xs-shrink pl-0">
-                <a class="navbar-brand d-flex flex-items-xs-middle" href="{{site.baseurl}}/">
+                <a class="navbar-brand d-flex flex-items-xs-middle" href="{{page.baseurl}}">
                     {% include svg/over_react-logo.svg class="navbar__logo" %}
                 </a>
             </div>
@@ -19,7 +19,7 @@
                 <div class="collapse navbar-toggleable-xs" id="site-navigation">
                     <ul class="nav navbar-nav">
                         <li class="nav-item{% if page.parent_slug == 'demos' or page.slug == 'demos' %} active{% endif %}">
-                            <a class="nav-link" href="{{site.baseurl}}/demos/">Demos</a>
+                            <a class="nav-link" href="{{page.baseurl}}/demos/">Demos</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" href="{{ site.api_docs_url }}" target="{{ site.api_target }}">API Docs</a>

@@ -10,10 +10,17 @@
  */
 
 
+// Vars / Helpers
 @import 'helpers';
 @import 'variables';
+
+// Site Scaffolding
 @import 'base';
+@import 'grid';
 @import 'hero';
 @import 'navbar';
 @import 'footer';
+@import 'content-placeholders';
 
+// Pages
+@import 'home';

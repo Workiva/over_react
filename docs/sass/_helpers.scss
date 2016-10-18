@@ -1,3 +1,34 @@
+@mixin display-flex() {
+  display: flex;
+  display: -ms-flexbox; // MSIE 10
+}
+
+@mixin flex-wrap($value) {
+  flex-wrap: $value;
+  -ms-flex-wrap: $value; // MSIE 10
+}
+
+@mixin align-items($value) {
+  align-items: $value;
+  -ms-flex-align: $value; // MSIE 10
+}
+
+@mixin justify-content($value) {
+  $msie-10-value: $value;
+  @if $value == flex-start {
+      $msie-10-value: start;
+  } @else if $value == flex-end {
+      $msie-10-value: end;
+  } @else if $value == space-between {
+      $msie-10-value: justify;
+  } @else if $value == space-around {
+      $msie-10-value: distribute;
+  }
+
+  justify-content: $value;
+  -ms-flex-pack: $msie-10-value; // MSIE 10
+}
+
 @function remove-unit($number) {
     @if not type-of($number) == 'number' {
         @error "`remove-unit` function expecting a number; #{type-of($number)} given.";

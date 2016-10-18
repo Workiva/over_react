@@ -39,7 +39,7 @@ sass:
   sass_dir: docs/sass
 
 # Serving
-baseurl: ""
+baseurl: "/"
 url: "TODO"
 port: 8020
 
@@ -56,3 +56,5 @@ repo_target: github
 
 api_docs_url: https://pub.dartlang.org/packages/over_react
 api_target: dartdocs
+reactjs_target: reactjs
+dartlang_target: dartlang
