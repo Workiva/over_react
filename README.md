@@ -2,7 +2,7 @@
 
 [![Pub](https://img.shields.io/pub/v/over_react.svg)](https://pub.dartlang.org/packages/over_react)
 [![Build Status](https://travis-ci.org/Workiva/over_react.svg?branch=master)](https://travis-ci.org/Workiva/over_react)
-[![Test Coverage](https://codecov.workiva.net/gh/Workiva/over_react/branch/master/graph/badge.svg?token=3B7N5rWXMK)](https://codecov.workiva.net/gh/Workiva/over_react)
+[![Test Coverage](https://codecov.io/github/Workiva/w_flux/coverage.svg?branch=master)](https://codecov.io/github/Workiva/over_react?branch=master)
 [![Documentation](https://img.shields.io/badge/Documentation-over__react-blue.svg)](https://workiva.github.io/over_react)
 
 > A framework for building statically-typed React UI components using Dart.
