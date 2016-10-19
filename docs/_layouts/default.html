@@ -21,6 +21,10 @@
     <link rel="stylesheet" href="{{ page.baseurl }}docs/sass/docs.css?t={{ site.time | date_to_xmlschema }}">
     <link rel="canonical" href="{{ page.url | replace:'index.html','' }}">
     <link rel="icon" href="{{ page.baseurl }}docs/assets/img/favicon.ico" type="image/x-icon">
+
+    {% for script in page.scripts %}
+        <script src="{{page.baseurl}}{{script}}"></script>
+    {% endfor %}
 </head>
 <body>
     {% include site_navbar.html %}
@@ -34,8 +38,8 @@
     <script src="{{ page.baseurl }}docs/assets/js/docs.js"></script>
 
 
-    {% for script in page.scripts %}
-        <script type="text/javascript" src="{{script}}"></script>
+    {% for script in page.body_scripts %}
+        <script src="{{page.baseurl}}{{script}}"></script>
     {% endfor %}
 </body>
 </html>
