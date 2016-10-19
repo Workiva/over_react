@@ -19,8 +19,6 @@ exclude:
   - 'lib'
   - 'test'
   - 'tool'
-  - 'packages'
-  - 'build'
   - 'docs/sass/bootstrap'
 
 # Build settings
