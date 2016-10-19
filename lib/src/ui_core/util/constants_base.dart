@@ -11,7 +11,16 @@ abstract class DebugFriendlyConstant {
   String get debugDescription;
 
   @override
-  String toString() => '$runtimeType.$_name ($debugDescription)';
+  String toString() {
+    var string = '$runtimeType.$_name';
+
+    var debugDescription = this.debugDescription;
+    if (debugDescription != null) {
+      string = '$string ($debugDescription)';
+    }
+
+    return string;
+  }
 }
 
 /// A named constant with a helpful string representation
