@@ -1,15 +1,27 @@
 import 'dart:html';
+import 'package:react/react.dart' as react;
 import 'package:react/react_dom.dart' as react_dom;
 import 'package:react/react_client.dart';
 import 'package:over_react/over_react.dart';
 
+import '../demos.dart';
+import '../constants.dart';
+
 main() {
   setClientConfiguration();
 
-  var foo = Dom.div()(
-    'foo'
-  );
+  react_dom.render(listGroupBasicDemo(),
+      querySelector('$demoMountNodeSelectorPrefix--list-group-basic'));
 
-  // Mount / render your component.
-  react_dom.render(foo, querySelector('.component-demo__mount'));
+  react_dom.render(listGroupTagsDemo(),
+      querySelector('$demoMountNodeSelectorPrefix--list-group-tags'));
+
+  react_dom.render(listGroupAnchorsAndButtonsDemo(),
+      querySelector('$demoMountNodeSelectorPrefix--list-group-anchors-and-buttons'));
+
+  react_dom.render(listGroupContextualSkinDemo(),
+      querySelector('$demoMountNodeSelectorPrefix--list-group-contextual'));
+
+  react_dom.render(listGroupHeaderDemo(),
+      querySelector('$demoMountNodeSelectorPrefix--list-group-header'));
 }

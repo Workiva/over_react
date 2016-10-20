@@ -9,3 +9,10 @@ contentPlaceholders.each(function() {
     waitFn = null;
   });
 });
+
+$('.code-example-tabpanel [role="tab"]').click(function (e) {
+  if ($(e.target).closest('.code-example-popout-link').length == 0) {
+    e.preventDefault();
+    $(this).tab('show');
+  }
+});

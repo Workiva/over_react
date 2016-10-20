@@ -1,0 +1,23 @@
+@import 'bootstrap/docs/assets/scss/syntax';
+
+.p {
+    color: #929292;
+}
+
+// ----------------------------------------------------
+//   Language Specific Overrides
+//   -> When nested in a full `.highlight` context
+// ----------------------------------------------------
+    .highlight {
+        .language-dart {
+            // When parsing dart code, rouge thinks parentheses, commas, etc are "operators"
+            .o {
+                color: #929292;
+            }
+
+            // When parsing our component code, rouge thinks our component factory functions are "names"
+            .n {
+                color: #2f6f9f;
+            }
+        }
+    }

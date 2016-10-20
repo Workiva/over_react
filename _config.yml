@@ -21,6 +21,9 @@ exclude:
   - 'tool'
   - 'docs/sass/bootstrap'
 
+#keep_files:
+#  - 'web'
+
 # Build settings
 markdown: kramdown
 kramdown:
@@ -44,6 +47,9 @@ url: "TODO"
 port: 8020
 
 # Misc
+demo_content_class: docs-section component-demo__content
+demo_react_mount_classes: bd-example component-demo__mount
+
 org_url: https://www.workiva.com
 org_target: wk
 

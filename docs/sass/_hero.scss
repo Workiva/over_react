@@ -3,7 +3,17 @@
 }
 
 .hero-text--secondary {
-  color: $hero-text-color-secondary;
+    color: $hero-text-color-secondary;
+
+    a {
+        color: $hero-text-color !important;
+
+        &:hover,
+        &:focus,
+        &:hover:active {
+            text-decoration: underline;
+        }
+    }
 }
 
 .hero-title {

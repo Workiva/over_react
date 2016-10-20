@@ -1,0 +1,4 @@
+<svg role="img" aria-labelledby="popout-icon__title" class="icon {{ include.class }}" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+    <title id="popout-icon__title">View in a new window</title>
+    <path d="M464 64h-288c-26.4 0-48 21.6-48 48v48h-80c-26.4 0-48 21.6-48 48v192c0 26.4 21.6 48 48 48h288c26.4 0 48-21.6 48-48v-48h80c26.4 0 48-21.6 48-48v-192c0-26.4-21.599-48-48-48zM352 400c0 8.673-7.327 16-16 16h-288c-8.673 0-16-7.327-16-16v-192c0-8.673 7.327-16 16-16h80v112c0 26.4 21.6 48 48 48h176v48zM480 304c0 8.673-7.327 16-16 16h-288c-8.673 0-16-7.327-16-16v-192c0-8.673 7.327-16 16-16h288c8.673 0 16 7.327 16 16v192z"/>
+</svg>
