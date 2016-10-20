@@ -43,7 +43,7 @@ sass:
 
 # Serving
 baseurl: "/"
-url: "TODO"
+#url: "TODO"
 port: 8020
 
 # Misc
