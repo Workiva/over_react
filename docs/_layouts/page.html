@@ -1,0 +1,19 @@
+---
+layout: default
+baseurl: site.baseurl
+---
+
+<div class="hero jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="hero-title">
+            {{ page.title }}
+        </h1>
+        {% if page.lead %}
+        <p class="lead hero-text--secondary">{{ page.lead }}</p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="container">
+    {{content}}
+</div>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+{% include site_vars.html %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% capture description %}{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description | strip_html | strip_newlines }}{% endif %}{% endcapture %}
+    {% capture title %}{% if page.title %}{{ page.title }} &middot; {{ site.title }}{% else %}{{ site.title }} &middot; {{ site.description | strip_html | strip_newlines }}{% endif %}{% endcapture %}
+
+    <meta property="og:url" content="{{ page.url | replace:'index.html','' | prepend: page.baseurl | prepend: site.url }}" />
+    <meta property="og:site_name" content="{{ site.title }}" />
+    <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
+    <meta property="og:image" content="{{ page.baseurl }}docs/assets/img/over_react_og_image.png" />
+    <meta property="og:description" content="{{ description }}" />
+
+    <title>{{ title }}</title>
+    <meta name="description" content="{{ description }}">
+
+    <link rel="stylesheet" href="{{ page.baseurl }}docs/sass/docs.css?t={{ site.time | date_to_xmlschema }}">
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' }}">
+    <link rel="icon" href="{{ page.baseurl }}docs/assets/img/favicon.ico" type="image/x-icon">
+
+    {% for script in page.scripts %}
+        <script src="{{page.baseurl}}{{script}}"></script>
+    {% endfor %}
+</head>
+<body>
+    {% include site_navbar.html %}
+    {{content}}
+    {% include site_footer.html %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js" integrity="sha256-+h0g0j7qusP72OZaLPCSZ5wjZLnoUUicoxbvrl14WxM=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.waitforimages/1.5.0/jquery.waitforimages.min.js" crossorigin="anonymous"></script>
+    <script src="{{ page.baseurl }}docs/assets/js/docs.js"></script>
+
+
+    {% for script in page.body_scripts %}
+        <script src="{{page.baseurl}}{{script}}"></script>
+    {% endfor %}
+</body>
+</html>

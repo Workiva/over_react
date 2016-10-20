@@ -1,0 +1,71 @@
+// Workiva palette
+$zc-gray-120: #444444;
+$zc-gray:     #595959;
+$zc-gray-80:  #8a8a8a;
+$zc-gray-40:  #e3e3e3;
+$zc-gray-20:  #f3f3f3;
+$zc-green:    #66cc00;
+$zc-blue:     #0094ff;
+$zc-blue-120: #026dce;
+$zc-orange:   #fbad17;
+$zc-red:      #ee2724;
+
+// Dart palette
+$dart-teal:         #00d2b8;
+$dart-teal-light:   #55ddca;
+$dart-blue:         #0075c9;
+$dart-blue-light:   #0081c6;
+$dart-blue-lighter: #00a4e4;
+
+// Bootstrap palette customization
+$gray-dark:     $zc-gray-120;
+$gray:          $zc-gray;
+$gray-light:    $zc-gray-80;
+$gray-lighter:  $zc-gray-40;
+$gray-lightest: $zc-gray-20;
+
+$brand-primary: $dart-blue-light;
+$brand-info: $dart-teal;
+
+$body-color: $gray;
+$link-color: $dart-blue-lighter;
+$link-hover-color: $dart-blue-light;
+
+$jumbotron-bg: $brand-primary;
+
+// Bootstrap options
+$enable-flex: true;
+$enable-transitions: true;
+
+$font-family-sans-serif: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+$font-family-monospace: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+@import 'bootstrap/scss/bootstrap';
+
+$line-height-base-px: $font-size-root * $line-height-base;
+
+// OverReact site variables
+$grid-gutter-width-rem: to-rem($grid-gutter-width-base);
+
+$navbar-content-height: to-rem($font-size-root * $line-height-base);
+$navbar-height: $navbar-content-height + ($navbar-padding-y * 2);
+
+$hero-text-color: white;
+$hero-text-color-secondary: mix($jumbotron-bg, $hero-text-color, 10);
+$hero-btn-bd-color: darken($jumbotron-bg, 3);
+
+$hero-title-breakpoints: (
+  size-xs: $font-size-h2,
+  weight-xs: $display4-weight,
+  size-sm: $font-size-h1,
+  weight-sm: $display4-weight,
+  size-md: $display4-size,
+  weight-md: $display4-weight,
+  size-lg: $display4-size + .5rem,
+  weight-lg: $display4-weight
+);
+
+$footer-vertical-padding: $grid-gutter-width-rem;
+$footer-item-spacing: to-rem($list-inline-padding);
+$footer-text-color: $gray-light;
+$footer-logo-color: mix($footer-text-color, #fff, 35%);

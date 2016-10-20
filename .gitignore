@@ -26,6 +26,9 @@ nbproject
 *.sublime-workspace
 .idea/*
 
+# Docs ignores
+_site
+
 # Pub ignores
 .pub
 packages

@@ -1,0 +1,39 @@
+{% include site_vars.html %}
+<nav class="navbar navbar-static-top navbar-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs col-xs-shrink pl-0">
+                <a class="navbar-brand d-flex flex-items-xs-middle" href="{{page.baseurl}}">
+                    {% include svg/over_react-logo.svg class="navbar__logo" %}
+                </a>
+            </div>
+            <div class="col-xs pr-0 text-xs-right flex-items-xs-right hidden-sm-up">
+                <button class="navbar-toggler" type="button"
+                        data-toggle="collapse"
+                        data-target="#site-navigation"
+                        aria-controls="site-navigation"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                </button>
+            </div>
+            <div class="col-sm pr-0">
+                <div class="collapse navbar-toggleable-xs" id="site-navigation">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item{% if page.parent_slug == 'demos' or page.slug == 'demos' %} active{% endif %}">
+                            <a class="nav-link" href="{{page.baseurl}}/demos/">Demos</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="{{ dartdocs_url }}/index.html" target="{{ site.api_target }}">API Docs</a>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav float-sm-right">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ site.repo_url }}" target="{{ site.repo_target }}">Github</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

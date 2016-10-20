@@ -1,0 +1,70 @@
+@mixin display-flex() {
+  display: flex;
+  display: -ms-flexbox; // MSIE 10
+}
+
+@mixin flex-wrap($value) {
+  flex-wrap: $value;
+  -ms-flex-wrap: $value; // MSIE 10
+}
+
+@mixin align-items($value) {
+  align-items: $value;
+  -ms-flex-align: $value; // MSIE 10
+}
+
+@mixin justify-content($value) {
+  $msie-10-value: $value;
+  @if $value == flex-start {
+      $msie-10-value: start;
+  } @else if $value == flex-end {
+      $msie-10-value: end;
+  } @else if $value == space-between {
+      $msie-10-value: justify;
+  } @else if $value == space-around {
+      $msie-10-value: distribute;
+  }
+
+  justify-content: $value;
+  -ms-flex-pack: $msie-10-value; // MSIE 10
+}
+
+@function remove-unit($number) {
+    @if not type-of($number) == 'number' {
+        @error "`remove-unit` function expecting a number; #{type-of($number)} given.";
+    }
+
+    @if unitless($number) {
+        @return $number;
+    } @else {
+        @return $number / ($number * 0 + 1);
+    }
+}
+
+@function to-rem($px, $html-font-size: $font-size-root) {
+    $unit: if(unitless($px), none, unit($px));
+    $unitless-value: remove-unit($px);
+
+    // Short circuit if unitless value is 0
+    @if $unitless-value == 0 {
+        // return 0, not 0rem
+        @return 0;
+    }
+
+    // Short circuit if unit is already rem, or has no unit
+    @if $unit == rem or $unit == none {
+        @return $px;
+    }
+
+    @if not unit($px) == 'px' {
+        @error "`to-rem` function expecting a number in pixels; #{$unit} given for a value of #{$px}.";
+    }
+    @if not type-of($html-font-size) == 'number' {
+        @error "`to-rem` function expecting a number; #{type-of($html-font-size)} given.";
+    }
+
+    // Do conversion
+    $px-ratio: $unitless-value / remove-unit($html-font-size);
+
+    @return $px-ratio + 0rem;
+}

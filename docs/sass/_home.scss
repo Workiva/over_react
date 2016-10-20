@@ -1,0 +1,84 @@
+$feature-vertical-spacing: $grid-gutter-width-rem * 2;
+
+.feature {
+  color: $gray-light;
+  margin: $feature-vertical-spacing 0;
+
+  + .feature-divider {
+    margin-top: 0;
+  }
+}
+
+.feature-divider {
+  margin: $feature-vertical-spacing 0;
+
+  + .feature {
+    margin-top: 0;
+  }
+}
+
+.feature__heading {
+  color: $gray-dark;
+  font-size: $font-size-h2;
+  margin-bottom: $font-size-h2 / 2;
+}
+
+.feature__body {
+  font-size: $lead-font-size;
+  font-weight: 300;
+}
+
+.feature__img {
+  max-width: to-rem(320px);
+  height: auto;
+}
+
+.feature__img-placeholder {
+  width: to-rem(320px);
+}
+
+.feature__best-of-both-img {
+  @include display-flex();
+  @include align-items(center);
+  @include justify-content(center);
+
+  #{selector-append(&, '__plus')} {
+    color: $gray-lighter;
+    font-size: to-rem(60px);
+    // Bottom padding necessary because of the
+    // wonky vertical alignment of the &plus; entity.
+    padding: 0 to-rem(18px) to-rem(12px);
+  }
+
+  #{selector-append(&, '__logo')} {
+    height: 15vw;
+    width: auto;
+  }
+}
+
+// When the feature heading / body is now side-by-side with the images
+@include media-breakpoint-up('md', $grid-breakpoints) {
+  .feature__heading {
+    font-size: $font-size-h1;
+  }
+
+  .feature__img {
+    max-width: 100%;
+  }
+
+  .feature__img-placeholder {
+    width: 100%;
+  }
+
+  .feature__best-of-both-img {
+    padding-right: $grid-gutter-width-rem;
+
+    #{selector-append(&, '__logo')} {
+      height: 11.25vw;
+    }
+  }
+
+  .feature__body:last-child {
+    margin-bottom: 0;
+  }
+}

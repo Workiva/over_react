@@ -1,0 +1,48 @@
+.hero {
+  color: $hero-text-color;
+}
+
+.hero-text--secondary {
+  color: $hero-text-color-secondary;
+}
+
+.hero-title {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+      font-size: map-get($hero-title-breakpoints, 'size-#{$breakpoint}');
+      font-weight: map-get($hero-title-breakpoints, 'weight-#{$breakpoint}');
+    }
+  }
+
+  margin-bottom: $jumbotron-padding;
+
+  &:only-child {
+    margin-bottom: 0;
+  }
+}
+
+.hero-btn {
+  @include button-outline-variant($hero-btn-bd-color);
+  @include button-size($btn-padding-y-lg * 1.5, $btn-padding-x-lg * 1.5, $font-size-lg * .8, $btn-border-radius-lg);
+
+  color: $hero-text-color-secondary;
+  border-width: .2rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: .03rem;
+
+  @include hover-focus-active() {
+    color: $jumbotron-bg;
+    background-color: $hero-text-color;
+    border-color: $hero-text-color;
+  }
+
+  + .hero-btn {
+    margin-left: $jumbotron-padding / 2;
+  }
+}
+
+.hero-ghbtn {
+  display: inline-block;
+  vertical-align: middle;
+}

@@ -1,0 +1,17 @@
+---
+layout: page
+parent_slug: demos
+baseurl: ../../
+---
+
+<div class="component-demo">
+    <div class="component-demo__content">
+        {{content}}
+    </div>
+    <div class="component-demo__mount"></div>
+
+    <script src="{{ page.baseurl }}packages/react/react.js"></script>
+    <script src="{{ page.baseurl }}packages/react/react_dom.js"></script>
+    <script type="application/dart" src="{{ page.dart_src }}"></script>
+    <script src="{{ page.baseurl }}packages/browser/dart.js"></script>
+</div>

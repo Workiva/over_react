@@ -1,0 +1,33 @@
+.d-flex {
+  @include display-flex();
+}
+
+// Can't believe the bootstrap grid doesn't have this stuff!!?
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+    .col-#{$breakpoint}-shrink {
+      max-width: none;
+      width: auto;
+      display: flex;
+      flex: 0 0 auto;
+      // MSIE 10
+      display: -ms-flexbox;
+      -ms-flex: 0 0 auto;
+    }
+
+    @each $position in 1 2 3 4 5 6 {
+      .col-order-#{$breakpoint}-#{$position} {
+        order: $position;
+        -ms-flex-order: $position; // MSIE 10
+      }
+    }
+
+    .row-#{$breakpoint}-nowrap {
+      @include flex-wrap(nowrap);
+    }
+
+    .row-#{$breakpoint}-wrap {
+      @include flex-wrap(wrap);
+    }
+  }
+}

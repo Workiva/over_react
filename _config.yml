@@ -1,0 +1,57 @@
+# Site settings
+title: OverReact
+pkg_name: over_react
+description: A framework for building statically-typed React UI components using Dart.
+latest_version: 1.0.0
+gacode: "UA-17703918-81"
+
+# Directories
+permalink:    pretty
+source:       .
+destination:  ./_site
+plugins_dir:  docs/_plugins
+layouts_dir:  docs/_layouts
+data_dir:     docs/_data
+includes_dir: docs/_includes
+
+exclude:
+  - 'integrate'
+  - 'lib'
+  - 'test'
+  - 'tool'
+  - 'docs/sass/bootstrap'
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+  syntax_highlighter_opts:
+    span:
+      line_numbers: false
+    block:
+      line_numbers: false
+      start_line: 1
+
+sass:
+  style: expanded
+  sass_dir: docs/sass
+
+# Serving
+baseurl: "/"
+url: "TODO"
+port: 8020
+
+# Misc
+org_url: https://www.workiva.com
+org_target: wk
+
+org_repos_url: https://github.com/Workiva
+repo_url: https://github.com/Workiva/over_react
+license_url: https://github.com/Workiva/over_react/blob/master/LICENSE
+repo_target: github
+
+api_target: dartdocs
+reactjs_target: reactjs
+dartlang_target: dartlang

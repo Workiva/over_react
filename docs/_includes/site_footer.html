@@ -1,0 +1,37 @@
+{% include site_vars.html %}
+<hr class="footer-divider">
+
+<div class="container">
+    <footer class="footer row">
+        <div class="footer__col footer__col--left col-md">
+            <div class="d-flex flex-items-xs-middle">
+                {% include svg/workiva-symbol.svg class="footer__logo" %}
+                <span>
+                    {{ site.title }} is brought to you by the good folks at
+                    <a href="{{ site.org_url }}" target="{{ site.org_target }}">Workiva</a>
+                </span>
+            </div>
+        </div>
+        <div class="footer__col footer__col--right col-md col-sm-shrink d-flex flex-items-xs-middle">
+            <div class="d-flex flex-items-xs-middle">
+                <ul class="footer__items">
+                    <li class="footer__item">
+                        <a class="footer__link" href="{{ site.license_url }}" target="{{ site.repo_target }}">License</a>
+                    </li>
+                    <li class="footer__item">
+                        <a class="footer__link" href="{{ site.repo_url }}" target="{{ site.repo_target }}">Github</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', '{{ site.gacode }}', 'auto');
+    ga('send', 'pageview');
+</script>

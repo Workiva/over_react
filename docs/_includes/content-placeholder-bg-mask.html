@@ -1,0 +1,17 @@
+{% assign hasCustomOffset = false %}
+{% assign lOffsetStyle = '' %}
+{% assign rOffsetStyle = '' %}
+{% assign style = '' %}
+{% if include.lOffset %}
+  {% assign hasCustomOffset = true %}
+  {% capture lOffsetStyle %}left: {{ include.lOffset }};{% endcapture %}
+{% endif %}
+{% if include.rOffset %}
+  {% assign hasCustomOffset = true %}
+  {% capture rOffsetStyle %}right: {{ include.rOffset }};{% endcapture %}
+{% endif %}
+{% if hasCustomOffset %}
+  {% capture style %} style="{{lOffsetStyle}}{{rOffsetStyle}}"{% endcapture %}
+{% endif %}
+<div class="content-placeholder__bg-mask bg-mask--line bg-mask--line-{{maskLine}}"{{ style }}></div>{% if include.spacer %}
+<div class="content-placeholder__bg-mask bg-mask--spacer bg-mask--spacer-{{maskLine}}"></div>{% endif %}
