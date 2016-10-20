@@ -1,0 +1,338 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Transformer Diff - web/src/demo_components/list_group_item.dart</title>
+          <style>
+            .diff-unmodified {
+                color: #444;
+            }
+            .diff-removal {
+                color: #a00;
+                background-color: #fee;
+                text-decoration: line-through;
+            }
+            .diff-addition {
+                color: #0a0;
+                background-color: #efe;
+            }
+          </style>
+        </head>
+        <body>
+          <code>
+            <pre><span class="diff-unmodified">part of over_react.web.demo_components;
+
+/// Nest one or more `ListGroupItem` components within a [ListGroup]
+/// to render individual items within a list.
+///
+/// See: &lt;http://v4-alpha.getbootstrap.com/components/list-group/&gt;
+@Factory()
+UiFactory&lt;ListGroupItemProps&gt; ListGroupItem</span><span class="diff-addition"> = ([Map backingProps]) =&gt; new _$ListGroupItemPropsImpl(backingProps)</span><span class="diff-unmodified">;
+
+@Props()
+class ListGroupItemProps extends UiProps {</span><span class="diff-addition">    /* GENERATED CONSTANTS */ static const ConsumedProps $consumedProps = const ConsumedProps($props, $propKeys); static const PropDescriptor _$prop__elementType = const PropDescriptor(_$key__elementType), _$prop__header = const PropDescriptor(_$key__header), _$prop__headerSize = const PropDescriptor(_$key__headerSize), _$prop__headerProps = const PropDescriptor(_$key__headerProps), _$prop__skin = const PropDescriptor(_$key__skin), _$prop__isActive = const PropDescriptor(_$key__isActive), _$prop__isDisabled = const PropDescriptor(_$key__isDisabled), _$prop__href = const PropDescriptor(_$key__href), _$prop__target = const PropDescriptor(_$key__target), _$prop__type = const PropDescriptor(_$key__type), _$prop__role = const PropDescriptor(_$key__role); static const List&lt;PropDescriptor&gt; $props = const [_$prop__elementType, _$prop__header, _$prop__headerSize, _$prop__headerProps, _$prop__skin, _$prop__isActive, _$prop__isDisabled, _$prop__href, _$prop__target, _$prop__type, _$prop__role]; static const String _$key__elementType = 'ListGroupItemProps.elementType', _$key__header = 'ListGroupItemProps.header', _$key__headerSize = 'ListGroupItemProps.headerSize', _$key__headerProps = 'ListGroupItemProps.headerProps', _$key__skin = 'ListGroupItemProps.skin', _$key__isActive = 'ListGroupItemProps.isActive', _$key__isDisabled = 'disabled', _$key__href = 'href', _$key__target = 'target', _$key__type = 'ListGroupItemProps.type', _$key__role = 'role'; static const List&lt;String&gt; $propKeys = const [_$key__elementType, _$key__header, _$key__headerSize, _$key__headerProps, _$key__skin, _$key__isActive, _$key__isDisabled, _$key__href, _$key__target, _$key__type, _$key__role]; </span><span class="diff-unmodified">
+  /// The HTML element type for the [ListGroupItem], specifying its DOM
+  /// representation when rendered.
+  ///
+  /// Will only be used if [href] and [onClick] are both `null`.
+  ///
+  /// Default: [ListGroupItemElementType.SPAN]
+  </span><span class="diff-removal">ListGroupItemElementType </span><span class="diff-removal">elementType</span><span class="diff-addition">ListGroupItemElementType get elementType =&gt; props[_$key__elementType];  set elementType(ListGroupItemElementType value) =&gt; props[_$key__elementType] = value;</span><span class="diff-removal">;</span><span class="diff-unmodified">
+
+  /// Optional header text to display within the [ListGroupItem] above
+  /// the value of [children].
+  ///
+  /// See: &lt;http://v4-alpha.getbootstrap.com/components/list-group/#custom-content&gt;.
+  </span><span class="diff-removal">dynamic </span><span class="diff-removal">header</span><span class="diff-addition">dynamic get header =&gt; props[_$key__header];  set header(dynamic value) =&gt; props[_$key__header] = value;</span><span class="diff-removal">;</span><span class="diff-unmodified">
+
+  /// The size of the [header] text you desire.
+  ///
+  /// Default: [ListGroupItemHeaderElementSize.H5]
+  </span><span class="diff-removal">ListGroupItemHeaderElementSize </span><span class="diff-removal">headerSize</span><span class="diff-addition">ListGroupItemHeaderElementSize get headerSize =&gt; props[_$key__headerSize];  set headerSize(ListGroupItemHeaderElementSize value) =&gt; props[_$key__headerSize] = value;</span><span class="diff-removal">;</span><span class="diff-unmodified">
+
+  /// Additional props to be added to the [header] element _(if specified)_.
+  </span><span class="diff-removal">Map </span><span class="diff-removal">headerProps</span><span class="diff-addition">Map get headerProps =&gt; props[_$key__headerProps];  set headerProps(Map value) =&gt; props[_$key__headerProps] = value;</span><span class="diff-removal">;</span><span class="diff-unmodified">
+
+  /// The skin / "context" for the [ListGroupItem].
+  ///
+  /// See: &lt;http://v4-alpha.getbootstrap.com/components/list-group/#contextual-classes&gt;.
+  ///
+  /// Default: [ListGroupItemSkin.DEFAULT]
+  </span><span class="diff-removal">ListGroupItemSkin </span><span class="diff-removal">skin</span><span class="diff-addition">ListGroupItemSkin get skin =&gt; props[_$key__skin];  set skin(ListGroupItemSkin value) =&gt; props[_$key__skin] = value;</span><span class="diff-removal">;</span><span class="diff-unmodified">
+
+  /// Whether the [ListGroupItem] should appear "active".
+  ///
+  /// See: &lt;http://v4-alpha.getbootstrap.com/components/list-group/#anchors-and-buttons&gt;
+  ///
+  /// Default: false
+  </span><span class="diff-removal">bool </span><span class="diff-removal">isActive</span><span class="diff-addition">bool get isActive =&gt; props[_$key__isActive];  set isActive(bool value) =&gt; props[_$key__isActive] = value;</span><span class="diff-removal">;</span><span class="diff-unmodified">
+
+  /// Whether the [ListGroupItem] is disabled.
+  ///
+  /// See: &lt;http://v4-alpha.getbootstrap.com/components/list-group/#disabled-items&gt;
+  ///
+  /// Default: false
+  @Accessor(key: 'disabled', keyNamespace: '')
+  </span><span class="diff-removal">bool </span><span class="diff-removal">isDisabled</span><span class="diff-addition">bool get isDisabled =&gt; props[_$key__isDisabled];  set isDisabled(bool value) =&gt; props[_$key__isDisabled] = value;</span><span class="diff-removal">;</span><span class="diff-unmodified">
+
+  /// The HTML `href` attribute value for the [ListGroupItem].
+  ///
+  /// If set, the item will render via [Dom.a].
+  ///
+  /// _Proxies [DomProps.href]_
+  @Accessor(keyNamespace: '')
+  </span><span class="diff-removal">String </span><span class="diff-removal">href</span><span class="diff-addition">String get href =&gt; props[_$key__href];  set href(String value) =&gt; props[_$key__href] = value;</span><span class="diff-removal">;</span><span class="diff-unmodified">
+
+  /// The HTML `target` attribute value for the [ListGroupItem].
+  ///
+  /// If set, the item will render via [Dom.a].
+  ///
+  /// _Proxies [DomProps.target]_
+  @Accessor(keyNamespace: '')
+  </span><span class="diff-removal">String </span><span class="diff-removal">target</span><span class="diff-addition">String get target =&gt; props[_$key__target];  set target(String value) =&gt; props[_$key__target] = value;</span><span class="diff-removal">;</span><span class="diff-unmodified">
+
+  /// The HTML `type` attribute value for the [ListGroupItem] when
+  /// rendered via [Dom.button].
+  ///
+  /// This will only be applied if [onClick] is also set.
+  ///
+  /// _Proxies [DomProps.type]_
+  ///
+  /// Default: [ButtonType.BUTTON]
+  </span><span class="diff-removal">ButtonType </span><span class="diff-removal">type</span><span class="diff-addition">ButtonType get type =&gt; props[_$key__type];  set type(ButtonType value) =&gt; props[_$key__type] = value;</span><span class="diff-removal">;</span><span class="diff-unmodified">
+
+  /// The HTML `role` attribute value for the [ListGroupItem] when _not_
+  /// rendered via [Dom.button].
+  ///
+  /// _Proxies [DomProps.role]_
+  ///
+  /// Default: 'button'
+  @Accessor(keyNamespace: '')
+  </span><span class="diff-removal">String </span><span class="diff-removal">role</span><span class="diff-addition">String get role =&gt; props[_$key__role];  set role(String value) =&gt; props[_$key__role] = value;</span><span class="diff-removal">;</span><span class="diff-unmodified">
+}
+
+@Component()
+class ListGroupItemComponent extends UiComponent&lt;ListGroupItemProps&gt;</span><span class="diff-addition"> with _$ListGroupItemComponentImplMixin</span><span class="diff-unmodified"> {
+  @override
+  Map getDefaultProps() =&gt; (newProps()
+    ..elementType = ListGroupItemElementType.SPAN
+    ..skin = ListGroupItemSkin.DEFAULT
+    ..isActive = false
+    ..isDisabled = false
+    ..type = ButtonType.BUTTON
+    ..headerSize = ListGroupItemHeaderElementSize.H5
+  );
+
+  @override
+  render() {
+    var children = props.children;
+
+    if (props.header != null) {
+      children = [
+        renderItemHeader(),
+        (Dom.p()
+          ..className = 'list-group-item-text'
+          ..key = 'item-text'
+        )(props.children)
+      ];
+    }
+
+    BuilderOnlyUiFactory&lt;DomProps&gt; factory = _getItemDomNodeFactory();
+
+    return (factory()
+      ..addProps(copyUnconsumedDomProps())
+      ..className = _getItemClasses().toClassName()
+      ..href = props.href
+      ..target = props.target
+      ..type = props.type.typeName
+      ..role = props.role
+    )(children);
+  }
+
+  ReactElement renderItemHeader() {
+    if (props.header == null) return null;
+
+    var headerClasses = new ClassNameBuilder.fromProps(props.headerProps)
+      ..add('list-group-item-heading');
+
+    return (props.headerSize.componentBuilderFactory()
+      ..addProps(props.headerProps)
+      ..className = headerClasses.toClassName()
+      ..key = 'item-header'
+    )(props.header);
+  }
+
+  BuilderOnlyUiFactory&lt;DomProps&gt; _getItemDomNodeFactory() {
+    var factory;
+
+    if (props.href != null) {
+      factory = Dom.a;
+    } else if (props.onClick != null) {
+      factory = Dom.button;
+    } else {
+      factory = props.elementType.componentBuilderFactory;
+    }
+
+    return factory;
+  }
+
+  ClassNameBuilder _getItemClasses() {
+    return forwardingClassNameBuilder()
+      ..add('list-group-item')
+      ..add('list-group-item-action', _isActionItem)
+      ..add('active', props.isActive)
+      ..add('disabled', props.isDisabled)
+      ..add(props.skin.className);
+  }
+
+  bool get _isActionItem =&gt; (props.href ?? props.onClick) != null;
+}
+
+/// Contextual skin options for a [ListGroupItem] component.
+class ListGroupItemSkin extends ClassNameConstant {
+  const ListGroupItemSkin._(String name, String className) : super(name, className);
+
+  /// [className] value: null
+  static const ListGroupItemSkin DEFAULT =
+      const ListGroupItemSkin._('DEFAULT', null);
+
+  /// [className] value: 'list-group-item-danger'
+  static const ListGroupItemSkin DANGER =
+      const ListGroupItemSkin._('DANGER', 'list-group-item-danger');
+
+  /// [className] value: 'list-group-item-success'
+  static const ListGroupItemSkin SUCCESS =
+      const ListGroupItemSkin._('SUCCESS', 'list-group-item-success');
+
+  /// [className] value: 'list-group-item-warning'
+  static const ListGroupItemSkin WARNING =
+      const ListGroupItemSkin._('WARNING', 'list-group-item-warning');
+
+  /// [className] value: 'list-group-item-info'
+  static const ListGroupItemSkin INFO =
+      const ListGroupItemSkin._('INFO', 'list-group-item-info');
+}
+
+/// Options for the [Element] that will be used when rendering a [ListGroupItem] component.
+class ListGroupItemElementType {
+  final BuilderOnlyUiFactory&lt;DomProps&gt; componentBuilderFactory;
+  ListGroupItemElementType._internal(this.componentBuilderFactory);
+
+  /// A [Dom.li] (HTML `&lt;li&gt;` element)
+  ///
+  /// Will only be used if [ListGroupItemProps.href] and
+  /// [ListGroupItemProps.onClick] are both `null`.
+  ///
+  /// Only use this when the parent [ListGroup] has
+  /// [ListGroupProps.elementType] set to [ListGroupElementType.UL].
+  static final ListGroupItemElementType LI =
+      new ListGroupItemElementType._internal(Dom.li);
+
+  /// A [Dom.span] (HTML `&lt;span&gt;` element)
+  ///
+  /// Will only be used if [ListGroupItemProps.href] and
+  /// [ListGroupItemProps.onClick] are both `null`.
+  static final ListGroupItemElementType SPAN =
+      new ListGroupItemElementType._internal(Dom.span);
+}
+
+/// Options for the [Element] that will be used when rendering a [ListGroupItemProps.header].
+class ListGroupItemHeaderElementSize {
+  final BuilderOnlyUiFactory&lt;DomProps&gt; componentBuilderFactory;
+  ListGroupItemHeaderElementSize._internal(this.componentBuilderFactory);
+
+  /// A [Dom.h1] (HTML `&lt;h1&gt;` element)
+  static final ListGroupItemHeaderElementSize H1 =
+      new ListGroupItemHeaderElementSize._internal(Dom.h1);
+
+  /// A [Dom.h2] (HTML `&lt;h2&gt;` element)
+  static final ListGroupItemHeaderElementSize H2 =
+      new ListGroupItemHeaderElementSize._internal(Dom.h2);
+
+  /// A [Dom.h3] (HTML `&lt;h3&gt;` element)
+  static final ListGroupItemHeaderElementSize H3 =
+      new ListGroupItemHeaderElementSize._internal(Dom.h3);
+
+  /// A [Dom.h4] (HTML `&lt;h4&gt;` element)
+  static final ListGroupItemHeaderElementSize H4 =
+      new ListGroupItemHeaderElementSize._internal(Dom.h4);
+
+  /// A [Dom.h5] (HTML `&lt;h5&gt;` element)
+  static final ListGroupItemHeaderElementSize H5 =
+      new ListGroupItemHeaderElementSize._internal(Dom.h5);
+
+  /// A [Dom.h6] (HTML `&lt;h6&gt;` element)
+  static final ListGroupItemHeaderElementSize H6 =
+      new ListGroupItemHeaderElementSize._internal(Dom.h6);
+}
+</span><span class="diff-addition">
+
+
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+//
+//   GENERATED IMPLEMENTATIONS
+//
+
+// React component factory implementation.
+//
+// Registers component implementation and links type meta to builder factory.
+final $ListGroupItemComponentFactory = registerComponent(() =&gt; new ListGroupItemComponent(),
+    builderFactory: ListGroupItem,
+    componentClass: ListGroupItemComponent,
+    isWrapper: false,
+    parentType: null,
+    displayName: 'ListGroupItem'
+);
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+class _$ListGroupItemPropsImpl extends ListGroupItemProps {
+  /// The backing props map proxied by this class.
+  @override
+  final Map props;
+
+  _$ListGroupItemPropsImpl(Map backingMap) : this.props = backingMap ?? ({});
+
+  /// Let [UiProps] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated =&gt; true;
+
+  /// The [ReactComponentFactory] associated with the component built by this class.
+  @override
+  Function get componentFactory =&gt; $ListGroupItemComponentFactory;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace =&gt; 'ListGroupItemProps.';
+}
+
+// Concrete component implementation mixin.
+//
+// Implements typed props/state factories, defaults `consumedPropKeys` to the keys
+// generated for the associated props class.
+class _$ListGroupItemComponentImplMixin {
+  /// Let [UiComponent] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated =&gt; true;
+
+  /// The default consumed props, taken from ListGroupItemProps.
+  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  @override
+  final List&lt;ConsumedProps&gt; $defaultConsumedProps = const [ListGroupItemProps.$consumedProps];
+  @override
+  ListGroupItemProps typedPropsFactory(Map backingMap) =&gt; new _$ListGroupItemPropsImpl(backingMap);
+
+}
+
+//
+//   END GENERATED IMPLEMENTATIONS
+//
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+
+</span><span class="diff-unmodified"></span></pre>
+          </code>
+        </body>
+        </html>
+    
