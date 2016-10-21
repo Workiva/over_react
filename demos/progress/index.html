@@ -1,0 +1,62 @@
+---
+data_id: progress
+layout: demo
+slug: progress
+parent_slug: demos
+baseurl: ../../
+---
+
+{% include site_vars.html %}
+
+<h2 id="contents" class="docs-heading">Contents</h2>
+
+<ul>
+    <li>
+        <a href="#basic-example">Basic example</a>
+    </li>
+    <li>
+        <a href="#contextual-skins">Contextual skins</a>
+        <ul>
+            <li>
+                <a href="#striped">Striped</a>
+            </li>
+            <li>
+                <a href="#animated-stripes">Animated stripes</a>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+
+<h2 id="basic-example" class="docs-heading">Basic example</h2>
+<p>Tags scale to match the size of the immediate parent element by using relative font sizing
+    and <code>em</code> units.</p>
+{% include demo-code-example.html
+    name='progress-basic'
+    consumption_code_file_name='progress-basic'
+    component_file_name=page.data_id
+    component_name=demo_data.component_class
+%}
+
+
+<h2 id="contextual-skins" class="docs-heading">Contextual skins</h2>
+<p>Set <code>props.skin</code> to style a <code>{{demo_data.component_class}}</code> using contextual colors.</p>
+{% include demo-code-example.html
+    name='progress-contextual'
+    consumption_code_file_name='progress-contextual'
+%}
+
+<h3 id="striped" class="docs-heading">Striped</h3>
+<p>Set <code>props.isStriped</code> to render a "Barber Pole" gradient stripe effect in a
+    <code>{{demo_data.component_class}}</code> component.</p>
+{% include demo-code-example.html
+    name='progress-striped'
+    consumption_code_file_name='progress-striped'
+%}
+
+<h3 id="animated-stripes" class="docs-heading">Animated stripes</h3>
+<p>Set <code>props.isAnimated</code> to animate the stripes.</p>
+{% include demo-code-example.html
+    name='progress-animated-stripes'
+    consumption_code_file_name='progress-animated-stripes'
+%}

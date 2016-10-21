@@ -1,9 +1,9 @@
 part of over_react.web.demo_components;
 
-/// Bootstrap's `Tag` component is flexible and powerful for
-/// displaying lists of [TagItem] components.
+/// Bootstrap's `Tag` component renders a small and adaptive tag
+/// for adding context to just about any content.
 ///
-/// See: <http://v4-alpha.getbootstrap.com/components/list-group/>
+/// See: <http://v4-alpha.getbootstrap.com/components/tag/>
 @Factory()
 UiFactory<TagProps> Tag;
 
@@ -18,6 +18,8 @@ class TagProps extends UiProps {
 
   /// Whether to render the [Tag] with rounded corners that make it look
   /// more like a "pill" (a.k.a Bootstrap v3 "badge")
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/tag/#pill-tags>.
   ///
   /// Default: false
   bool isPill;

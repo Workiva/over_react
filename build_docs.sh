@@ -19,6 +19,17 @@ cp -r web/demos/list-group/list-group-header.dart docs/_includes/component-demo-
 
 
 #
+# Progress
+#
+cp -r web/src/demo_components/progress.dart docs/_includes/component-demo-code-ex/progress.dart.html
+
+cp -r web/demos/progress/progress-basic.dart docs/_includes/component-demo-code-ex/progress-basic.dart.html
+cp -r web/demos/progress/progress-contextual.dart docs/_includes/component-demo-code-ex/progress-contextual.dart.html
+cp -r web/demos/progress/progress-striped.dart docs/_includes/component-demo-code-ex/progress-striped.dart.html
+cp -r web/demos/progress/progress-animated-stripes.dart docs/_includes/component-demo-code-ex/progress-animated-stripes.dart.html
+
+
+#
 # Tag
 #
 cp -r web/src/demo_components/tag.dart docs/_includes/component-demo-code-ex/tag.dart.html
