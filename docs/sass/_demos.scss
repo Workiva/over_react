@@ -178,6 +178,38 @@ $code-ex-bg:        #f7f7f9;
         background-color: transparent;
     }
 
+    @include media-breakpoint-up(sm) {
+        .card-deck {
+            margin-top: $card-spacer-y * -2;
+            margin-bottom: $card-spacer-y * -2;
+
+            .demo-card {
+                margin-top: $card-spacer-y;
+                margin-bottom: $card-spacer-y;
+            }
+        }
+    }
+
+    @include media-breakpoint-up(md) {
+        .card-deck {
+            .demo-card {
+                flex: 1 0 calc(50% - #{$card-deck-margin * 2});
+                -ms-flex: 1 0 calc(50% - #{$card-deck-margin * 2});
+                max-width: calc(50% - #{$card-deck-margin * 2});
+            }
+        }
+    }
+
+    @include media-breakpoint-up(lg) {
+        .card-deck {
+            .demo-card {
+                flex: 1 0 calc(33.333% - #{$card-deck-margin * 2});
+                -ms-flex: 1 0 calc(33.333% - #{$card-deck-margin * 2});
+                max-width: calc(33.333% - #{$card-deck-margin * 2});
+            }
+        }
+    }
+
 // ********************************************************
 //
 //   COMPONENT DEMO STYLE ADJUSTMENTS
