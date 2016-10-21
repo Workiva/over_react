@@ -51,7 +51,7 @@
     _Our transformer uses code generation to wire up the different pieces of your 
     component declarations - and to create typed getters/setters for `props` and `state`._
 
-3. Include the native javascript `react` and `react_dom` libraries in your app’s `index.html` file, 
+3. Include the native JavaScript `react` and `react_dom` libraries in your app’s `index.html` file, 
 and add an HTML element with a unique identifier where you’ll mount your OverReact UI component(s). 
 
     ```html
@@ -187,23 +187,26 @@ class FooProps extends UiProps {
 
 @Component()
 class FooComponent extends UiComponent<FooProps> {
-  void bar() {
-    FooProps props = Foo();
+  // ...  
+}
 
-    props.color = '#66cc00';
+void bar() {
+  FooProps props = Foo();
 
-    print(props.color); // #66cc00
-    print(props);       // {FooProps.color: #66cc00}
-  }
+  props.color = '#66cc00';
 
-  /// TODO: Need a better description / explanation here. 
-  void baz() {
-    Map existingMap = {'FooProps.color': '#0094ff'};
-    
-    FooProps props = Foo(existingMap);
-    
-    print(props.color); // #0094ff
-  }
+  print(props.color); // #66cc00
+  print(props);       // {FooProps.color: #66cc00}
+}
+
+/// You can use the factory to create a UiProps instance 
+/// backed by an existing Map.
+void baz() {
+  Map existingMap = {'FooProps.color': '#0094ff'};
+  
+  FooProps props = Foo(existingMap);
+  
+  print(props.color); // #0094ff
 }
 ```
 
@@ -287,6 +290,7 @@ prop forwarding and CSS class merging.
 They are instances of `UiProps` and `UiState`, __which means you don’t need String keys to access them!__
 * `newProps()` and `newState()` are also exposed to conveniently create empty instances of `UiProps` and 
 `UiState` as needed.
+* `typedPropsFactory()` and `typedStateFactory()` are also exposed to conveniently create typed `props` / `state` objects out of any provided backing map.
 
 ```dart
 @Component()
@@ -300,6 +304,16 @@ class FooComponent extends UiStatefulComponent<FooProps, FooState> {
   getInitialState() => (newState()
     ..isActive = false
   );
+
+  @override
+  componentWillUpdate(Map newProps, Map newState) {
+    var tNewState = typedStateFactory(newState);
+    var tNewProps = typedPropsFactory(newProps);
+
+    var becameActive = !state.isActive && tNewState.isActive;
+    
+    // Do something here!
+  }
   
   @override
   render() {
@@ -333,7 +347,8 @@ class FooComponent extends UiStatefulComponent<FooProps, FooState> {
 
 ## Fluent-style component consumption
 
-In OverReact, `UiProps` subclasses are used to consume components instead of the `ReactComponentFactory` functions.
+In OverReact, components are consumed by invoking a `UiFactory` to return a new `UiProps` builder, which is then 
+modified and invoked to build a `ReactElement`.
 
 This is done to make ["fluent-style"](#fluent-style-component-consumption) component consumption possible, so that 
 the OverReact consumer experience is very similar to the [React JS][react-js] / "vanilla" [react-dart] 
