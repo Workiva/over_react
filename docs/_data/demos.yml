@@ -1,0 +1,14 @@
+- id: list_group
+  slug: list-group
+  component_class: ListGroup
+  child_component_class: ListGroupItem
+  title: ListGroup Component Demo
+  lead: 'A component that renders a <a href="http://v4-alpha.getbootstrap.com/components/list-group/" target="bs">Bootstrap List Group</a> using OverReact’s statically-typed React prop API.'
+  img: false
+
+- id: tag
+  slug: tag
+  component_class: Tag
+  title: Tag Component Demo
+  lead: 'A component that renders a <a href="http://v4-alpha.getbootstrap.com/components/tag/" target="bs">Bootstrap Tag</a> using OverReact’s statically-typed React prop API.'
+  img: false

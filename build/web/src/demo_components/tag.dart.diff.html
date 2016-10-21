@@ -21,10 +21,10 @@
           <code>
             <pre><span class="diff-unmodified">part of over_react.web.demo_components;
 
-/// Bootstrap's `Tag` component is flexible and powerful for
-/// displaying lists of [TagItem] components.
+/// Bootstrap's `Tag` component renders a small and adaptive tag
+/// for adding context to just about any content.
 ///
-/// See: &lt;http://v4-alpha.getbootstrap.com/components/list-group/&gt;
+/// See: &lt;http://v4-alpha.getbootstrap.com/components/tag/&gt;
 @Factory()
 UiFactory&lt;TagProps&gt; Tag</span><span class="diff-addition"> = ([Map backingProps]) =&gt; new _$TagPropsImpl(backingProps)</span><span class="diff-unmodified">;
 
@@ -39,6 +39,8 @@ class TagProps extends UiProps {</span><span class="diff-addition">    /* GENERA
 
   /// Whether to render the [Tag] with rounded corners that make it look
   /// more like a "pill" (a.k.a Bootstrap v3 "badge")
+  ///
+  /// See: &lt;http://v4-alpha.getbootstrap.com/components/tag/#pill-tags&gt;.
   ///
   /// Default: false
   </span><span class="diff-removal">bool </span><span class="diff-removal">isPill</span><span class="diff-addition">bool get isPill =&gt; props[_$key__isPill];  set isPill(bool value) =&gt; props[_$key__isPill] = value;</span><span class="diff-removal">;</span><span class="diff-unmodified">

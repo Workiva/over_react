@@ -61,3 +61,6 @@ repo_target: github
 api_target: dartdocs
 reactjs_target: reactjs
 dartlang_target: dartlang
+
+demo_component_src_branch: gh-pages
+demo_dart_src_path: build/web/demos/

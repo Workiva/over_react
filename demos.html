@@ -1,7 +1,42 @@
 ---
 title: Demo Components
-lead: We should really type something else here, to help the peoples with the understanding.
+lead: See the OverReact framework in action with these Bootstrap UI components!
 layout: page
 slug: demos
 baseurl: ../
 ---
+
+{% include site_vars.html %}
+
+<div class="bd-content">
+    <div class="card-deck">{% for demo in site.data.demos %}
+        {% assign demo_preview = false %}
+        {% if demo.img %}
+            {% capture demo_preview %}<img class="card-img-top" src="{{ page.baseurl }}assets/img/{{ demo.img }}" alt="{{ demo.component_class }} component demo preview">{% endcapture %}
+        {% endif %}
+        <div class="card demo-card">
+            {% if demo_preview %}{{ demo_preview }}{% endif %}
+            <div class="card-block">
+                <h2 class="h5 card-title">
+                    {{ demo.component_class }} Component
+                </h2>
+                <p class="card-text">{{ demo.lead | strip_html }}</p>
+            </div>
+            <div class="card-footer demo-card__footer">
+                <div class="d-flex flex-items-xs-between">
+                    <a href="./{{ demo.slug }}/"
+                       class="btn btn-outline-primary col-order-xs-2"
+                       aria-label="{{ demo.component_class }} Component Demo">
+                        Demo
+                    </a>
+                    <a href="{{ demo_component_src_path }}{{ demo.id }}.dart"
+                       target="{{ site.repo_target }}"
+                       class="btn btn-outline-secondary"
+                       aria-label="{{ demo.component_class }} Demo Component Source Code">
+                        Source Code
+                    </a>
+                </div>
+            </div>
+        </div>{% endfor %}
+    </div>
+</div>

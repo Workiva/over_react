@@ -1,14 +1,35 @@
 ---
 layout: page
 parent_slug: demos
-baseurl: ../../
 ---
 
-<div class="bd-content">
-    {{content}}
+{% include site_vars.html %}
 
-    <script src="{{ page.baseurl }}packages/react/react.js"></script>
-    <script src="{{ page.baseurl }}packages/react/react_dom.js"></script>
-    <script type="application/dart" src="{{ page.dart_src }}"></script>
-    <script src="{{ page.baseurl }}packages/browser/dart.js"></script>
+<div class="row">
+    <div class="bd-sidebar col-md-2 col-order-md-2">
+        <nav class="bd-links">
+            <div class="bd-toc-item active">
+                <a class="bd-toc-link" href="{{ page.baseurl }}demos/">
+                    Demos
+                </a>
+                <ul class="nav bd-sidenav">
+                    {% for demo in site.data.demos %}
+                    <li{% if demo.id == page.data_id %} class="active"{% endif %}>
+                        <a href="{{ page.baseurl }}demos/{{ demo.slug }}/">
+                            {{ demo.component_class }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="bd-content col-md-10 col-order-md-1">
+        {{content}}
+
+        <script src="{{ page.baseurl }}packages/react/react.js"></script>
+        <script src="{{ page.baseurl }}packages/react/react_dom.js"></script>
+        <script type="application/dart" src="{{ page.baseurl }}{{ site.demo_dart_src_path }}{{ page.slug }}/index.dart"></script>
+        <script src="{{ page.baseurl }}packages/browser/dart.js"></script>
+    </div>
 </div>

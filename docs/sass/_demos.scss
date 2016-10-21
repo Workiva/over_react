@@ -11,6 +11,7 @@ $code-ex-bg:        #f7f7f9;
 
 @import 'bootstrap/docs/assets/scss/component-examples';
 @import 'bootstrap/docs/assets/scss/examples';
+@import 'bootstrap/docs/assets/scss/sidebar';
 
 
 .bd-example .loading-ellipsis {
@@ -170,7 +171,16 @@ $code-ex-bg:        #f7f7f9;
 
 // ********************************************************
 //
-//   Component Demo style adjustments
+//   DEMOS LANDING PAGE
+//
+// ********************************************************
+    .demo-card__footer {
+        background-color: transparent;
+    }
+
+// ********************************************************
+//
+//   COMPONENT DEMO STYLE ADJUSTMENTS
 //
 // ********************************************************
 

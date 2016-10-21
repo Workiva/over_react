@@ -1,12 +1,12 @@
 ---
-title: ListGroup Component Demo
-lead: A component that renders a <a href="http://v4-alpha.getbootstrap.com/components/list-group/" target="bs">Bootstrap List Group</a> using a statically-typed React prop API.
+data_id: list_group
 layout: demo
 slug: list-group
 parent_slug: demos
 baseurl: ../../
-dart_src: ../../build/web/demos/list-group/index.dart
 ---
+
+{% include site_vars.html %}
 
 <h2 id="contents" class="docs-heading">Contents</h2>
 
@@ -30,21 +30,21 @@ dart_src: ../../build/web/demos/list-group/index.dart
 
 
 <h2 id="basic-example" class="docs-heading">Basic example</h2>
-<p>The most basic <code>ListGroup</code> component is simply list <code>ListGroupItem</code> components.</p>
+<p>The most basic <code>{{demo_data.component_class}}</code> component is simply list <code>{{demo_data.child_component_class}}</code> components.</p>
 <p>The components encapsulate the complexity of the underlying HTML, ensuring that all the
     default CSS classes and other HTML attributes are present, leaving you with minimal markup.</p>
 {% include demo-code-example.html
     name='list-group-basic'
     consumption_code_file_name='list-group-basic'
-    component_file_name='list_group'
-    component_name='ListGroup'
+    component_file_name=page.data_id
+    component_name=demo_data.component_class
     component_two_file_name='list_group_item'
-    component_two_name='ListGroupItem'
+    component_two_name=demo_data.child_component_class
 %}
 
 
 <h2 id="tags" class="docs-heading">Tags</h2>
-<p>Nest a <code><a href="../tag/">Tag</a></code> component within any `ListGroupItem` to show unread counts, activity,
+<p>Nest a <code><a href="../tag/">Tag</a></code> component within any `{{demo_data.child_component_class}}` to show unread counts, activity,
     etc.</p>
 {% include demo-code-example.html
     name='list-group-tags'
@@ -63,14 +63,14 @@ dart_src: ../../build/web/demos/list-group/index.dart
 
 
 <h2 id="contextual-skins" class="docs-heading">Contextual skins</h2>
-<p>Set <code>props.skin</code> to style a <code>ListGroupItem</code> using contextual colors.</p>
+<p>Set <code>props.skin</code> to style a <code>{{demo_data.child_component_class}}</code> using contextual colors.</p>
 {% include demo-code-example.html
     name='list-group-contextual'
     consumption_code_file_name='list-group-contextual'
 %}
 
 <h2 id="headers" class="docs-heading">Headers</h2>
-<p>Set <code>props.header</code> to render a <code>ListGroupItem</code> that has a distinct header and body content
+<p>Set <code>props.header</code> to render a <code>{{demo_data.child_component_class}}</code> that has a distinct header and body content
     region.</p>
 
 <p>Optionally, set <code>props.headerSize</code> to modify the size of the header itself.</p>

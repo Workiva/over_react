@@ -2,15 +2,13 @@
 layout: default
 baseurl: site.baseurl
 ---
-
+{% include site_vars.html %}
 <div class="hero jumbotron jumbotron-fluid">
     <div class="container">
         <h1 class="hero-title">
-            {{ page.title }}
+            {{ page_title_short }}
         </h1>
-        {% if page.lead %}
-        <p class="lead hero-text--secondary">{{ page.lead }}</p>
-        {% endif %}
+        <p class="lead hero-text--secondary">{{ page_lead }}</p>
     </div>
 </div>
 
