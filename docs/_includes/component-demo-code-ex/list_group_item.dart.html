@@ -122,7 +122,7 @@ class ListGroupItemComponent extends UiComponent<ListGroupItemProps> {
       ..className = _getItemClasses().toClassName()
       ..href = props.href
       ..target = props.target
-      ..type = props.type.typeName
+      ..type = _isActionItem ? props.type.typeName : null
       ..role = props.role
     )(children);
   }

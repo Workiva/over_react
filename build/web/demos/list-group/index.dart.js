@@ -4731,23 +4731,23 @@
       $isEfficientLength: 1
     },
     ListIterator: {
-      "^": "Object;_iterable,_length,_index,_current",
+      "^": "Object;_iterable,__internal$_length,_index,__internal$_current",
       get$current: function() {
-        return this._current;
+        return this.__internal$_current;
       },
       moveNext$0: function() {
         var t1, t2, $length, t3;
         t1 = this._iterable;
         t2 = J.getInterceptor$asx(t1);
         $length = t2.get$length(t1);
-        if (this._length !== $length)
+        if (this.__internal$_length !== $length)
           throw H.wrapException(new P.ConcurrentModificationError(t1));
         t3 = this._index;
         if (t3 >= $length) {
-          this._current = null;
+          this.__internal$_current = null;
           return false;
         }
-        this._current = t2.elementAt$1(t1, t3);
+        this.__internal$_current = t2.elementAt$1(t1, t3);
         ++this._index;
         return true;
       }
@@ -4784,18 +4784,18 @@
       $isEfficientLength: 1
     },
     MappedIterator: {
-      "^": "Iterator;_current,_iterator,_f",
+      "^": "Iterator;__internal$_current,_iterator,_f",
       moveNext$0: function() {
         var t1 = this._iterator;
         if (t1.moveNext$0()) {
-          this._current = this._f$1(t1.get$current());
+          this.__internal$_current = this._f$1(t1.get$current());
           return true;
         }
-        this._current = null;
+        this.__internal$_current = null;
         return false;
       },
       get$current: function() {
-        return this._current;
+        return this.__internal$_current;
       },
       _f$1: function(arg0) {
         return this._f.call$1(arg0);
@@ -11017,22 +11017,22 @@
       $asIterable: null
     },
     FixedSizeListIterator: {
-      "^": "Object;_array,_html$_length,_position,_html$_current",
+      "^": "Object;_array,_length,_position,_current",
       moveNext$0: function() {
         var nextPosition, t1;
         nextPosition = this._position + 1;
-        t1 = this._html$_length;
+        t1 = this._length;
         if (nextPosition < t1) {
-          this._html$_current = J.$index$asx(this._array, nextPosition);
+          this._current = J.$index$asx(this._array, nextPosition);
           this._position = nextPosition;
           return true;
         }
-        this._html$_current = null;
+        this._current = null;
         this._position = t1;
         return false;
       },
       get$current: function() {
-        return this._html$_current;
+        return this._current;
       }
     },
     _DOMWindowCrossFrame: {
@@ -13401,7 +13401,8 @@
         t3.set$className(t1, t2.toClassName$0());
         t3.set$href(t1, J.get$href$x(this.get$props(this)));
         t3.set$target(t1, J.get$target$x(this.get$props(this)));
-        t3.set$type(t1, J.get$type$x(this.get$props(this)).get$typeName());
+        t2 = J.get$href$x(this.get$props(this));
+        t3.set$type(t1, (t2 == null ? J.get$onClick$x(this.get$props(this)) : t2) != null ? J.get$type$x(this.get$props(this)).get$typeName() : null);
         t1.set$role(this.get$props(this).get$role());
         return t1.call$1(children);
       },
