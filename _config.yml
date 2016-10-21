@@ -1,7 +1,7 @@
 # Site settings
 title: OverReact
 pkg_name: over_react
-description: A framework for building statically-typed React UI components using Dart.
+description: A library for building statically-typed React UI components using Dart.
 latest_version: 1.0.0
 gacode: "UA-17703918-81"
 
