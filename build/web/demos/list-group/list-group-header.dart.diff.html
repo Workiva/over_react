@@ -1,0 +1,55 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Transformer Diff - web/demos/list-group/list-group-header.dart</title>
+          <style>
+            .diff-unmodified {
+                color: #444;
+            }
+            .diff-removal {
+                color: #a00;
+                background-color: #fee;
+                text-decoration: line-through;
+            }
+            .diff-addition {
+                color: #0a0;
+                background-color: #efe;
+            }
+          </style>
+        </head>
+        <body>
+          <code>
+            <pre><span class="diff-unmodified">part of over_react.web.demos;
+
+ReactElement listGroupHeaderDemo() =&gt;
+  ListGroup()(
+    (ListGroupItem()
+      ..header = 'List group item heading'
+      ..onClick = (_) {}
+      ..isActive = true
+    )(
+      'Donec id elit non mi porta gravida at eget metus. '
+      'Maecenas sed diam eget risus varius blandit.'
+    ),
+    (ListGroupItem()
+      ..header = 'List group item heading'
+      ..headerSize = ListGroupItemHeaderElementSize.H4
+      ..onClick = (_) {}
+    )(
+      'Donec id elit non mi porta gravida at eget metus. '
+      'Maecenas sed diam eget risus varius blandit.'
+    ),
+    (ListGroupItem()
+      ..header = 'List group item heading'
+      ..headerSize = ListGroupItemHeaderElementSize.H3
+      ..onClick = (_) {}
+    )(
+      'Donec id elit non mi porta gravida at eget metus. '
+      'Maecenas sed diam eget risus varius blandit.'
+    )
+  );
+</span></pre>
+          </code>
+        </body>
+        </html>
+    

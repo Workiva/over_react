@@ -33,7 +33,7 @@ _site
 .pub
 packages
 .packages
-build/
+#build/ # Do not ignore this in the gh-pages branch.
 
 
 # Since over_react is a library package, we shouldn't track pubspec.lock:

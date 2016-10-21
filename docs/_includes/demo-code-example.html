@@ -1,0 +1,95 @@
+{% capture consumption_code_src_path %}component-demo-code-ex/{{ include.consumption_code_file_name }}.dart.html{% endcapture %}
+{% capture component_code_src_path %}component-demo-code-ex/{{ include.component_file_name }}.dart.html{% endcapture %}
+{% capture component_two_code_src_path %}component-demo-code-ex/{{ include.component_two_file_name }}.dart.html{% endcapture %}
+
+<div class="{{ site.demo_react_mount_classes }}--{{ include.name }}">
+    <div class="d-flex flex-items-xs-center">
+        <div class="loading-ellipsis">
+            <span class="loading-ellipsis__message">Rendering {{ site.title }} Demo</span>
+            <span class="loading-ellipsis__dot loading-ellipsis__dot--first">.</span>
+            <span class="loading-ellipsis__dot loading-ellipsis__dot--middle">.</span>
+            <span class="loading-ellipsis__dot loading-ellipsis__dot--last">.</span>
+        </div>
+    </div>
+</div>
+{% unless include.component_file_name %}
+{% highlight dart %}
+{% include {{consumption_code_src_path}} %}
+{% endhighlight %}
+{% else %}
+<div class="code-example-tabpanel" role="tabpanel">
+    <ul class="nav nav-pills nav-stacked" id="{{ include.name }}_tablist" role="tablist">
+        <li class="nav-item">
+            <div role="tab" class="nav-link active" id="consumption-code-tab"
+               title="View consumption code example"
+               data-target="#consumption-code"
+               aria-controls="consumption-code"
+               aria-expanded="true">
+                Consumption
+            </div>
+        </li>
+        <li class="nav-item">
+            <div role="tab" class="nav-link" id="{{ include.component_name }}_component-code-tab"
+               title="View {{ include.component_name }} component code example"
+               data-target="#{{ include.component_name }}_component-code"
+               aria-controls="{{ include.component_name }}_component-code">
+                <div class="d-flex flex-items-xs-middle">
+                    <div class="col-xs pl-0 pr-0">
+                        {{ include.component_name }} Component
+                    </div>
+                    <div class="col-xs col-xs-shrink pl-0 pr-0">
+                        <a class="code-example-popout-link"
+                           title="View {{ include.component_name }} component code in a new window"
+                           href="{{ site.repo_url }}/blob/master/web/src/demo_components/{{ include.component_file_name }}.dart"
+                           target="{{ site.repo_target }}">
+                            {% include svg/popout.svg %}
+                            <span class="sr-only">View {{ include.component_name }} component code in a new window</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </li>{% if include.component_two_name %}
+        <li class="nav-item">
+            <div role="tab" class="nav-link" id="{{ include.component_two_name }}_component-code-tab"
+               title="View {{ include.component_two_name }} component code example"
+               data-target="#{{ include.component_two_name }}_component-code"
+               aria-controls="{{ include.component_two_name }}_component-code">
+                <div class="d-flex flex-items-xs-middle">
+                    <div class="col-xs pl-0 pr-0">
+                        {{ include.component_two_name }} Component
+                    </div>
+                    <div class="col-xs col-xs-shrink pl-0 pr-0">
+                        <a class="code-example-popout-link"
+                           title="View {{ include.component_two_name }} component code in a new window"
+                           href="{{ site.repo_url }}/blob/master/web/src/demo_components/{{ include.component_two_file_name }}.dart"
+                           target="{{ site.repo_target }}">
+                            {% include svg/popout.svg %}
+                            <span class="sr-only">View {{ include.component_two_name }} component code in a new window</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </li>{% endif %}
+    </ul>
+    <div class="tab-content" id="{{ include.name }}_tabcontent">
+        <div role="tabpanel" class="tab-pane active" id="consumption-code"
+             aria-labelledby="consumption-code-tab">
+{% highlight dart %}
+{% include {{consumption_code_src_path}} %}
+{% endhighlight %}
+        </div>
+        <div role="tabpanel" class="tab-pane" id="{{ include.component_name }}_component-code"
+             aria-labelledby="{{ include.component_name }}_component-code-tab">
+{% highlight dart %}
+{% include {{component_code_src_path}} %}
+{% endhighlight %}
+        </div>{% if include.component_two_name %}
+        <div role="tabpanel" class="tab-pane" id="{{ include.component_two_name }}_component-code"
+             aria-labelledby="{{ include.component_two_name }}_component-code-tab">
+{% highlight dart %}
+{% include {{component_two_code_src_path}} %}
+{% endhighlight %}
+        </div>{% endif %}
+    </div>
+</div>
+{% endunless %}

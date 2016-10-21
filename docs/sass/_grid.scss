@@ -5,6 +5,10 @@
 // Can't believe the bootstrap grid doesn't have this stuff!!?
 @each $breakpoint in map-keys($grid-breakpoints) {
   @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+    .d-flex-#{$breakpoint} {
+      @include display-flex();
+    }
+
     .col-#{$breakpoint}-shrink {
       max-width: none;
       width: auto;

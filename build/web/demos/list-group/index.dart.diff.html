@@ -1,4 +1,25 @@
-import 'dart:html';
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Transformer Diff - web/demos/list-group/index.dart</title>
+          <style>
+            .diff-unmodified {
+                color: #444;
+            }
+            .diff-removal {
+                color: #a00;
+                background-color: #fee;
+                text-decoration: line-through;
+            }
+            .diff-addition {
+                color: #0a0;
+                background-color: #efe;
+            }
+          </style>
+        </head>
+        <body>
+          <code>
+            <pre><span class="diff-unmodified">import 'dart:html';
 import 'package:react/react.dart' as react;
 import 'package:react/react_dom.dart' as react_dom;
 import 'package:react/react_client.dart';
@@ -25,3 +46,8 @@ main() {
   react_dom.render(listGroupHeaderDemo(),
       querySelector('$demoMountNodeSelectorPrefix--list-group-header'));
 }
+</span></pre>
+          </code>
+        </body>
+        </html>
+    

@@ -1,0 +1,180 @@
+$bd-purple:         #563d7c;
+$bd-purple-bright:  lighten(saturate($bd-purple, 5%), 15%);
+$bd-purple-light:   #cdbfe3;
+$bd-graphite:       #2a2730;
+$bd-graphite-light: lighten($bd-graphite, 40%);
+$bd-yellow:         #ffe484;
+$bd-danger:         #d9534f;
+$bd-warning:        #f0ad4e;
+$bd-info:           #5bc0de;
+$code-ex-bg:        #f7f7f9;
+
+@import 'bootstrap/docs/assets/scss/component-examples';
+@import 'bootstrap/docs/assets/scss/examples';
+
+
+.bd-example .loading-ellipsis {
+    color: $gray-lighter;
+    font-size: 1.2rem;
+    padding: 2rem 0;
+}
+
+// ********************************************************
+//
+//   BLINKING ELLIPSIS LOADING INDICATOR
+//
+//   <div class="loading-ellipsis">
+//      <span class="loading-ellipsis__dot loading-ellipsis__dot--first"></span>
+//      <span class="loading-ellipsis__dot loading-ellipsis__dot--middle"></span>
+//      <span class="loading-ellipsis__dot loading-ellipsis__dot--last"></span>
+//   </div>
+//
+// ********************************************************
+    @keyframes loading-ellipsis-dot-first {
+        0%   { opacity: 0; }
+
+        20%  { opacity: 0; }
+        32%  { opacity: 1; }
+
+        99%  { opacity: 1; }
+        100% { opacity: 0; }
+    }
+
+    @keyframes loading-ellipsis-dot-middle {
+        0%   { opacity: 0; }
+
+        44%  { opacity: 0; }
+        56%  { opacity: 1; }
+
+        99%  { opacity: 1; }
+        100% { opacity: 0; }
+    }
+
+    @keyframes loading-ellipsis-dot-last {
+        0%   { opacity: 0; }
+
+        68%  { opacity: 0; }
+        80%  { opacity: 1; }
+
+        99%  { opacity: 1; }
+        100% { opacity: 0; }
+    }
+
+    .loading-ellipsis__dot--first {
+        animation: loading-ellipsis-dot-first 1s linear infinite;
+
+        padding-left: .3rem;
+    }
+
+    .loading-ellipsis__dot--middle {
+        animation: loading-ellipsis-dot-middle 1s linear infinite;
+
+        padding-left: .1rem;
+    }
+
+    .loading-ellipsis__dot--last {
+        animation: loading-ellipsis-dot-last 1s linear infinite;
+
+        padding-left: .1rem;
+    }
+
+// ********************************************************
+//
+//   CODE EXAMPLE TABS
+//
+// ********************************************************
+    .code-example-tabpanel {
+        position: relative;
+        margin-bottom: 1rem;
+        background-color: $code-ex-bg;
+
+        .nav {
+            background-color: $code-ex-bg;
+            font-size: to-rem(12px);
+            // Match padding / margin of adjacent `.highlight`
+            padding: 1rem;
+            margin-right: $grid-gutter-width-base / -2;
+            margin-left: $grid-gutter-width-base / -2;
+
+            .nav-link {
+                color: darken($code-ex-bg, 20);
+
+                &,
+                *:not(a) {
+                    cursor: default;
+                }
+
+                &:hover,
+                &:focus {
+                    outline: none;
+                    box-shadow: inset 0 0 0 to-rem(1px) darken($code-ex-bg, 10);
+                }
+
+                &.active,
+                &:hover:active {
+                    background: darken($code-ex-bg, 20);
+                    box-shadow: none;
+                    color: $code-ex-bg;
+                }
+            }
+
+            @include media-breakpoint-up(sm) {
+                // Match padding / margin of adjacent `.highlight`
+                margin-right: 0;
+                margin-left: 0;
+                padding: 1.5rem;
+                padding-bottom: 0;
+            }
+
+            @include media-breakpoint-up(md) {
+                position: absolute;
+                right: 0;
+                top: 0;
+                padding-bottom: 1.5rem;
+
+                .nav-item {
+                    // Stack them
+                    display: block;
+                    float: none;
+                }
+            }
+        }
+
+        .highlight {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .code-example-popout-link {
+            color: inherit;
+            padding-left: to-rem(6px);
+
+            &:hover,
+            &:focus,
+            &:hover:active {
+                color: $link-hover-color;
+            }
+
+            &,
+            * {
+                cursor: pointer !important;
+            }
+        }
+    }
+
+    .code-example-tabpanel__col-left {
+        flex: 1 1 0%;
+        flex-wrap: nowrap;
+        align-items: stretch;
+    }
+
+// ********************************************************
+//
+//   Component Demo style adjustments
+//
+// ********************************************************
+
+    .bd-example .tag + .tag {
+        // Since React strips HTML white-space.
+        margin-left: to-rem(5px);
+    }

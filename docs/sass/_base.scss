@@ -15,3 +15,30 @@
 .text--white {
   color: white;
 }
+
+.icon {
+    width: to-rem(16px);
+    height: to-rem(16px);
+
+    path {
+        fill: currentColor;
+    }
+}
+
+.nav-link .d-flex {
+  line-height: 1;
+}
+
+.bd-content {
+    .docs-heading {
+        color: $gray-dark;
+    }
+
+    > h2.docs-heading:not(:first-child) {
+        margin-top: 3rem;
+    }
+
+    > h3.docs-heading {
+        margin-top: 1.5rem;
+    }
+}
