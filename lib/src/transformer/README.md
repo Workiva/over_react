@@ -136,7 +136,7 @@ generated and mixed in to our existing component class.
     ```
 
 5. Finally, it initializes the factory variable with a function that returns a new instance of our 
-private props implementation. This factory is the __the entry-point__ to externally consuming our 
+private props implementation. This factory is __the entry-point__ to externally consuming our 
 component and props class.
 
     ```diff

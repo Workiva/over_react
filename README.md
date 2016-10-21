@@ -2,7 +2,7 @@
 
 [![Pub](https://img.shields.io/pub/v/over_react.svg)](https://pub.dartlang.org/packages/over_react)
 [![Build Status](https://travis-ci.org/Workiva/over_react.svg?branch=master)](https://travis-ci.org/Workiva/over_react)
-[![Test Coverage](https://codecov.io/github/Workiva/w_flux/coverage.svg?branch=master)](https://codecov.io/github/Workiva/over_react?branch=master)
+[![Test Coverage](https://codecov.io/github/Workiva/over_react/coverage.svg?branch=master)](https://codecov.io/github/Workiva/over_react?branch=master)
 [![Documentation](https://img.shields.io/badge/Documentation-over__react-blue.svg)](https://workiva.github.io/over_react)
 
 > A framework for building statically-typed React UI components using Dart.
@@ -27,7 +27,10 @@
 
 ## Using it in your project
 
-> If you are not familiar with the React JS library, read this [react tutorial][react-js-tutorial] first.
+> __If you are not familiar with React JS__
+> 
+> Since OverReact is built atop React JS, we strongly encourage you to gain 
+> familiarity with it by reading this [React JS tutorial][react-js-tutorial] first. 
 
 1. Add the `over_react` package as a dependency in your `pubspec.yaml`.
     
@@ -48,8 +51,8 @@
     _Our transformer uses code generation to wire up the different pieces of your 
     component declarations - and to create typed getters/setters for `props` and `state`._
 
-3. Include the native javascript `react` and `react_dom` libraries in your app's `index.html` file, 
-and add an HTML element with a unique identifier where you'll mount your OverReact UI component(s). 
+3. Include the native javascript `react` and `react_dom` libraries in your app’s `index.html` file, 
+and add an HTML element with a unique identifier where you’ll mount your OverReact UI component(s). 
 
     ```html
     <html>
@@ -70,7 +73,7 @@ and add an HTML element with a unique identifier where you'll mount your OverRea
     ```
     
     > __Note:__ When serving your application in production, use `packages/react/react_with_react_dom_prod.js` 
-    file instead of the un-minfied `react.js` / `react_dom.js` files shown in the example above.  
+    file instead of the un-minified `react.js` / `react_dom.js` files shown in the example above.  
     
 4. Import the `over_react` library _(and associated react libraries)_ into `your_app_name.dart`, and initialize 
 React within your Dart application. Then [build a custom component](#building-custom-components) and 
@@ -126,7 +129,10 @@ __you must run your tests using Pub__.
 
 ## Anatomy of an OverReact component
 
-> If you are not familiar with the React JS library, read this [react tutorial][react-js-tutorial] first.
+> __If you are not familiar with React JS__
+> 
+> Since OverReact is built atop React JS, we strongly encourage you to gain 
+> familiarity with it by reading this [React JS tutorial][react-js-tutorial] first.
 
 The `over_react` framework functions as an additional "layer" atop the [Dart react package][react-dart] 
 which handles the underlying JS interop that wraps around [React JS][react-js].
@@ -144,7 +150,7 @@ Pub transformer using an analogous [annotation].
 ### UiFactory
 
 __`UiFactory` is a function__ that returns a new instance of a 
-[`UiComponent`](#uicomponent)'s [`UiProps`](#uiprops) class.
+[`UiComponent`](#uicomponent)’s [`UiProps`](#uiprops) class.
 
 ```dart
 @Factory()
@@ -179,22 +185,25 @@ class FooProps extends UiProps {
   String color;
 }
 
-void bar() {
-  FooProps props = Foo();
+@Component()
+class FooComponent extends UiComponent<FooProps> {
+  void bar() {
+    FooProps props = Foo();
 
-  props.color = '#66cc00';
+    props.color = '#66cc00';
 
-  print(props.color); // #66cc00
-  print(props);       // {FooProps.color: #66cc00}
-}
+    print(props.color); // #66cc00
+    print(props);       // {FooProps.color: #66cc00}
+  }
 
-/// TODO: Need a better description / explanation here. 
-void baz() {
-  Map existingMap = {'FooProps.color': '#0094ff'};
+  /// TODO: Need a better description / explanation here. 
+  void baz() {
+    Map existingMap = {'FooProps.color': '#0094ff'};
     
-  FooProps props = Foo(existingMap);
+    FooProps props = Foo(existingMap);
     
-  print(props.color); // #0094ff
+    print(props.color); // #0094ff
+  }
 }
 ```
 
@@ -209,28 +218,31 @@ class FooProps extends UiProps {
   String color;
 }
 
-FooComponent bar() {
-  // Create a UiProps instance to serve as a builder
-  FooProps builder = Foo();
+@Component()
+class FooComponent extends UiComponent<FooProps> {
+  ReactElement bar() {
+    // Create a UiProps instance to serve as a builder
+    FooProps builder = Foo();
 
-  // Add props
-  builder.id = 'the_best_foo';
-  builder.color = '#ee2724';
+    // Add props
+    builder.id = 'the_best_foo';
+    builder.color = '#ee2724';
   
-  // Invoke as a function with the desired children
-  // to return a new instance of the component.
-  return builder('child1', 'child2');
-}
+    // Invoke as a function with the desired children
+    // to return a new instance of the component.
+    return builder('child1', 'child2');
+  }
 
-/// Even better... do it inline! (a.k.a fluent)
-FooComponent baz() {
-  return (Foo()
-    ..id = 'the_best_foo'
-    ..color = 'red'
-  )(
-    'child1', 
-    'child2'
-  );
+  /// Even better... do it inline! (a.k.a fluent)
+  ReactElement baz() {
+    return (Foo()
+      ..id = 'the_best_foo'
+      ..color = 'red'
+    )(
+      'child1', 
+      'child2'
+    );
+  }
 }
 ```
 
@@ -249,7 +261,7 @@ class FooState extends UiState {
 }
 ```
 
-> UiState is optional, and won't be used for every component.
+> UiState is optional, and won’t be used for every component.
 
 
 ### UiComponent
@@ -266,12 +278,13 @@ class FooComponent extends UiComponent<FooProps> {
 
 * This component provides statically-typed props via [`UiProps`](#uiprops), as well as utilities for 
 prop forwarding and CSS class merging.
-* The `UiStatefulComponent` flavor augments `UiComponent` behavior with statically-typed state via [`UiState`](#uistate).
+* The `UiStatefulComponent` flavor augments `UiComponent` behavior with statically-typed state via 
+[`UiState`](#uistate).
 
 #### Accessing and manipulating props / state within UiComponent
 
-* Within the `UiComponent` class, `props` and `state` aren't just `Map`s. 
-They are instances of `UiProps` and `UiState`, __which means you don't need String keys to access them!__
+* Within the `UiComponent` class, `props` and `state` are not just `Map`s. 
+They are instances of `UiProps` and `UiState`, __which means you don’t need String keys to access them!__
 * `newProps()` and `newState()` are also exposed to conveniently create empty instances of `UiProps` and 
 `UiState` as needed.
 
@@ -301,7 +314,7 @@ class FooComponent extends UiStatefulComponent<FooProps, FooState> {
     );
   }
   
-  MouseEventCallback _handleButtonClick(SyntheticMouseEvent event) {
+  void _handleButtonClick(SyntheticMouseEvent event) {
     _toggleActive();
   }
   
@@ -322,13 +335,14 @@ class FooComponent extends UiStatefulComponent<FooProps, FooState> {
 
 In OverReact, `UiProps` subclasses are used to consume components instead of the `ReactComponentFactory` functions.
 
-This is done to make "fluent-style" component consumption possible, so that the OverReact consumer experience 
-is very similar to the consumer experience of [React JS][react-js] / "vanilla" [react-dart][react-dart].
+This is done to make ["fluent-style"](#fluent-style-component-consumption) component consumption possible, so that 
+the OverReact consumer experience is very similar to the [React JS][react-js] / "vanilla" [react-dart] 
+experience.
 
-To demonstrate the similarities, the example below shows a render method for JS, react-dart, 
+To demonstrate the similarities, the example below shows a render method for JS, JSX, react-dart, 
 and over_react that will have the exact same HTML markup result.
 
-* __React JS:__
+* __React JS__:
 
   ```es6
   render() {
@@ -341,8 +355,22 @@ and over_react that will have the exact same HTML markup result.
     );
   }
   ```
+  
+* __React JS__ (JSX):
 
-* __Vanilla react-dart:__
+  ```jsx
+  render() {
+    return <div className="container">
+      <h1>Click the button!</h1>
+      <button
+        id="main_button"
+        onClick={_handleClick}
+      >Click me</button>
+    </div>;
+  }
+  ```
+
+* __Vanilla react-dart__:
 
   ```dart
   render() {
@@ -356,7 +384,7 @@ and over_react that will have the exact same HTML markup result.
   }
   ```
 
-* __OverReact:__
+* __OverReact__:
 
   ```dart
   render() {
@@ -370,7 +398,7 @@ and over_react that will have the exact same HTML markup result.
   }
   ```
 
-  Let's break down the OverReact fluent-style shown above
+  Let’s break down the OverReact fluent-style shown above
     
   ```dart
   render() {
@@ -386,7 +414,7 @@ and over_react that will have the exact same HTML markup result.
       // Create a builder for a <button>,
       (Dom.button()
         // add a ubiquitous DOM prop exposed on all components,
-        // which Button() forwards to its rendered DOM,
+        // which Dom.button() forwards to its rendered DOM,
         ..id = 'main_button'
         // add another prop,
         ..onClick = _handleClick
@@ -422,12 +450,12 @@ ReactElement renderResizeHandle() {
 }
 ```
 
-* OverReact Dom components return a new `DomProps` builder, which can be used 
+* OverReact DOM components return a new `DomProps` builder, which can be used 
 to render them via our [fluent interface](#fluent-style-component-consumption) 
 as shown in the examples above.
 * `DomProps` has statically-typed getters and setters for all "ubiquitous" HTML attribute props.
   * The `domProps()` function is also available to create a new typed Map or a typed view into an 
-  existing Map. Useful for manipulating DOM props and adding DOM props to components that don't 
+  existing Map. Useful for manipulating DOM props and adding DOM props to components that don’t 
   forward them directly.
 
 &nbsp;
@@ -437,7 +465,7 @@ as shown in the examples above.
 
 ## Building custom components
 
-Now that we've gone over how to [use the `over_react` package in your project](#using-it-in-your-project), 
+Now that we’ve gone over how to [use the `over_react` package in your project](#using-it-in-your-project), 
 the [anatomy of a component](#anatomy-of-an-overreact-component) and the [DOM components](#dom-components-and-props) 
 that you get for free from OverReact, you're ready to start building your own custom React UI components.
 
@@ -446,16 +474,16 @@ that you get for free from OverReact, you're ready to start building your own cu
   * [Stateful Component](#stateful-component-boilerplate) _(props + state)_
 2. Fill in your props and rendering/lifecycle logic.
 3. Consume your component with the fluent interface.
-4. Run [the app you've set up to consume `over_react`](#using-it-in-your-project)
+4. Run [the app you’ve set up to consume `over_react`](#using-it-in-your-project)
 
     ```bash
     $ pub serve
     ```
 
-    _That's it! Code will be automatically generated on the fly by Pub!_
+    _That’s it! Code will be automatically generated on the fly by Pub!_
     
     
-> __Check out some custom [component demos] to get a feel for what's possible!__
+> __Check out some custom [component demos] to get a feel for what’s possible!__
 
 
 ### Component Boilerplate Templates
@@ -547,9 +575,9 @@ that you get for free from OverReact, you're ready to start building your own cu
 
 ### Common Pitfalls
 
-Below you'll find some common errors / issues that new consumers run into when building custom components.
+Below you’ll find some common errors / issues that new consumers run into when building custom components.
  
-> Don't see the issue you're having? [Tell us about it.][new-issue]
+> Don’t see the issue you're having? [Tell us about it.][new-issue]
 
 ---
 
@@ -560,9 +588,9 @@ Below you'll find some common errors / issues that new consumers run into when b
 ```
 
 This error is thrown when you call a `@Factory()` function that has not been initialized due to 
-the transformer not running, you'll get this error.
+the `over_react` [transformer] not running, you’ll get this error.
 
-__Make sure you've followed the [setup instructions](#using-it-in-your-project).__
+__Make sure you’ve followed the [setup instructions](#using-it-in-your-project).__
 
 ---
 
@@ -573,8 +601,8 @@ __Make sure you've followed the [setup instructions](#using-it-in-your-project).
 ⓧ An error occurred loading file: http://localhost:8080/src/your_component.dart
 ```
 
-When the transformer finds something wrong with your file, it logs an error in Pub and causes the invalid file to 404. 
-This ensures that when the transformer breaks, `pub build` will break, and you'll know about it.
+When the `over_react` [transformer] finds something wrong with your file, it logs an error in Pub and causes the 
+invalid file to 404. This ensures that when the transformer breaks, `pub build` will break, and you’ll know about it.
 
 __Check your `pub serve` output for errors.__
 
@@ -582,7 +610,6 @@ __Check your `pub serve` output for errors.__
 
 [component demos]: https://workiva.github.io/over_react/demos
 
-[examples]: https://github.com/Workiva/over_react/blob/master/example/component_declaration/
 [transformer]: https://github.com/Workiva/over_react/blob/master/lib/src/transformer/README.md
 [annotations]: https://github.com/Workiva/over_react/blob/master/lib/src/component_declaration/annotations.dart
 [annotation]: https://github.com/Workiva/over_react/blob/master/lib/src/component_declaration/annotations.dart
