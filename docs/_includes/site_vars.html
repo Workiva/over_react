@@ -16,7 +16,7 @@
     {% capture page_title %}{{ page_title_short }} &middot; {{ site.title }}{% endcapture %}
 {% elsif demo_data.title %}
     {% assign page_title_short = demo_data.title %}
-    {% capture page_title %}{{ page_title_short }}{% endcapture %}
+    {% capture page_title %}{{ page_title_short }} &middot; {{ site.title }}{% endcapture %}
 {% else %}
     {% assign page_title_short = site.title %}
     {% capture page_title %}{{ page_title_short }} &middot; {{ site.description | strip_html | strip_newlines }}{% endcapture %}
