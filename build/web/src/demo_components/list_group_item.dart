@@ -8,7 +8,7 @@ part of over_react.web.demo_components;
 UiFactory<ListGroupItemProps> ListGroupItem = ([Map backingProps]) => new _$ListGroupItemPropsImpl(backingProps);
 
 @Props()
-class ListGroupItemProps extends UiProps {    /* GENERATED CONSTANTS */ static const ConsumedProps $consumedProps = const ConsumedProps($props, $propKeys); static const PropDescriptor _$prop__elementType = const PropDescriptor(_$key__elementType), _$prop__header = const PropDescriptor(_$key__header), _$prop__headerSize = const PropDescriptor(_$key__headerSize), _$prop__headerProps = const PropDescriptor(_$key__headerProps), _$prop__skin = const PropDescriptor(_$key__skin), _$prop__isActive = const PropDescriptor(_$key__isActive), _$prop__isDisabled = const PropDescriptor(_$key__isDisabled), _$prop__href = const PropDescriptor(_$key__href), _$prop__target = const PropDescriptor(_$key__target), _$prop__type = const PropDescriptor(_$key__type), _$prop__role = const PropDescriptor(_$key__role); static const List<PropDescriptor> $props = const [_$prop__elementType, _$prop__header, _$prop__headerSize, _$prop__headerProps, _$prop__skin, _$prop__isActive, _$prop__isDisabled, _$prop__href, _$prop__target, _$prop__type, _$prop__role]; static const String _$key__elementType = 'ListGroupItemProps.elementType', _$key__header = 'ListGroupItemProps.header', _$key__headerSize = 'ListGroupItemProps.headerSize', _$key__headerProps = 'ListGroupItemProps.headerProps', _$key__skin = 'ListGroupItemProps.skin', _$key__isActive = 'ListGroupItemProps.isActive', _$key__isDisabled = 'disabled', _$key__href = 'href', _$key__target = 'target', _$key__type = 'ListGroupItemProps.type', _$key__role = 'role'; static const List<String> $propKeys = const [_$key__elementType, _$key__header, _$key__headerSize, _$key__headerProps, _$key__skin, _$key__isActive, _$key__isDisabled, _$key__href, _$key__target, _$key__type, _$key__role]; 
+class ListGroupItemProps extends UiProps {    /* GENERATED CONSTANTS */ static const ConsumedProps $consumedProps = const ConsumedProps($props, $propKeys); static const PropDescriptor _$prop__elementType = const PropDescriptor(_$key__elementType), _$prop__header = const PropDescriptor(_$key__header), _$prop__headerSize = const PropDescriptor(_$key__headerSize), _$prop__headerProps = const PropDescriptor(_$key__headerProps), _$prop__skin = const PropDescriptor(_$key__skin), _$prop__isActive = const PropDescriptor(_$key__isActive), _$prop__isDisabled = const PropDescriptor(_$key__isDisabled), _$prop__href = const PropDescriptor(_$key__href), _$prop__target = const PropDescriptor(_$key__target), _$prop__type = const PropDescriptor(_$key__type); static const List<PropDescriptor> $props = const [_$prop__elementType, _$prop__header, _$prop__headerSize, _$prop__headerProps, _$prop__skin, _$prop__isActive, _$prop__isDisabled, _$prop__href, _$prop__target, _$prop__type]; static const String _$key__elementType = 'ListGroupItemProps.elementType', _$key__header = 'ListGroupItemProps.header', _$key__headerSize = 'ListGroupItemProps.headerSize', _$key__headerProps = 'ListGroupItemProps.headerProps', _$key__skin = 'ListGroupItemProps.skin', _$key__isActive = 'ListGroupItemProps.isActive', _$key__isDisabled = 'disabled', _$key__href = 'href', _$key__target = 'target', _$key__type = 'ListGroupItemProps.type'; static const List<String> $propKeys = const [_$key__elementType, _$key__header, _$key__headerSize, _$key__headerProps, _$key__skin, _$key__isActive, _$key__isDisabled, _$key__href, _$key__target, _$key__type]; 
   /// The HTML element type for the [ListGroupItem], specifying its DOM
   /// representation when rendered.
   ///
@@ -78,15 +78,6 @@ class ListGroupItemProps extends UiProps {    /* GENERATED CONSTANTS */ static c
   ///
   /// Default: [ButtonType.BUTTON]
   ButtonType get type => props[_$key__type];  set type(ButtonType value) => props[_$key__type] = value;
-
-  /// The HTML `role` attribute value for the [ListGroupItem] when _not_
-  /// rendered via [Dom.button].
-  ///
-  /// _Proxies [DomProps.role]_
-  ///
-  /// Default: 'button'
-  @Accessor(keyNamespace: '')
-  String get role => props[_$key__role];  set role(String value) => props[_$key__role] = value;
 }
 
 @Component()
@@ -123,7 +114,10 @@ class ListGroupItemComponent extends UiComponent<ListGroupItemProps> with _$List
       ..href = props.href
       ..target = props.target
       ..type = _isActionItem ? props.type.typeName : null
-      ..role = props.role
+      ..disabled = _useDisabledAttr ? props.isDisabled : null
+      ..addProps(ariaProps()
+        ..disabled = !_useDisabledAttr ? props.isDisabled : null
+      )
     )(children);
   }
 
@@ -162,6 +156,8 @@ class ListGroupItemComponent extends UiComponent<ListGroupItemProps> with _$List
       ..add('disabled', props.isDisabled)
       ..add(props.skin.className);
   }
+
+  bool get _useDisabledAttr => _getItemDomNodeFactory() == Dom.button;
 
   bool get _isActionItem => (props.href ?? props.onClick) != null;
 }

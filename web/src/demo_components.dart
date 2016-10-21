@@ -10,6 +10,8 @@ import 'package:over_react/over_react.dart';
 
 // Parts
 part 'demo_components/shared.dart';
+
+part 'demo_components/button.dart';
 part 'demo_components/list_group.dart';
 part 'demo_components/list_group_item.dart';
 part 'demo_components/progress.dart';

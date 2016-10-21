@@ -1,0 +1,94 @@
+---
+data_id: button
+layout: demo
+slug: button
+parent_slug: demos
+baseurl: ../../
+---
+
+{% include site_vars.html %}
+
+<h2 id="contents" class="docs-heading">Contents</h2>
+
+<ul>
+    <li>
+        <a href="#examples">Examples</a>
+    </li>
+    <li>
+        <a href="#button-types">Button types</a>
+    </li>
+    <li>
+        <a href="#outline-buttons">Outline buttons</a>
+    </li>
+    <li>
+        <a href="#sizes">Sizes</a>
+    </li>
+    <li>
+        <a href="#active-state">Active state</a>
+    </li>
+    <li>
+        <a href="#disabled-state">Disabled state</a>
+    </li>
+</ul>
+
+
+<h2 id="examples" class="docs-heading">Example</h2>
+<p>Use <code>props.skin</code> to choose from one of six predefined styles for the
+    <code>{{demo_data.component_class}}</code> component, each serving its own semantic purpose.</p>
+{% include demo-code-example.html
+    name='button-examples'
+    consumption_code_file_name='button-examples'
+    component_file_name=page.data_id
+    component_name=demo_data.component_class
+%}
+
+
+<h2 id="button-types" class="docs-heading">Button types</h2>
+<p>By default, the <code>{{demo_data.component_class}}</code> component renders a <code>&lt;button&gt;</code> element.
+    However, if <code>props.href</code> is set, an <code>&lt;a&gt;</code> will be rendered instead.</p>
+<p>Optionally, set <code>props.type</code> to <code>ButtonType.SUBMIT</code> or <code>ButtonType.RESET</code> to
+render a submit / reset form button, respectively.</p>
+{% include demo-code-example.html
+    name='button-types'
+    consumption_code_file_name='button-types'
+%}
+
+
+<h2 id="outline-buttons" class="docs-heading">Outline buttons</h2>
+<p>Set <code>props.skin</code> to one of the "outline" options when you are in need of a
+    <code>{{demo_data.component_class}}</code>, but not the ones that come with a hefty background color.</p>
+{% include demo-code-example.html
+    name='button-outline'
+    consumption_code_file_name='button-outline'
+%}
+
+
+<h2 id="sizes" class="docs-heading">Sizes</h2>
+<p>Set <code>props.size</code> if you fancy larger or smaller <code>{{demo_data.component_class}}</code>s.</p>
+{% include demo-code-example.html
+    name='button-sizes'
+    consumption_code_file_name='button-sizes'
+%}
+
+<p>Set <code>props.isBlock</code> to render <code>{{demo_data.component_class}}</code>s that span the
+    full width of a parent element.</p>
+{% include demo-code-example.html
+    name='button-block'
+    consumption_code_file_name='button-block'
+%}
+
+
+<h2 id="active-state" class="docs-heading">Active state</h2>
+<p>Set <code>props.isActive</code> to make a <code>{{demo_data.component_class}}</code> appear active.</p>
+{% include demo-code-example.html
+    name='button-active'
+    consumption_code_file_name='button-active'
+%}
+
+
+<h2 id="disabled-state" class="docs-heading">Disabled state</h2>
+<p>Set <code>props.isDisabled</code> to disable a <code>{{demo_data.component_class}}</code>.</p>
+{% include demo-code-example.html
+    name='button-disabled'
+    consumption_code_file_name='button-disabled'
+%}

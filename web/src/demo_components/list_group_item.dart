@@ -78,15 +78,6 @@ class ListGroupItemProps extends UiProps {
   ///
   /// Default: [ButtonType.BUTTON]
   ButtonType type;
-
-  /// The HTML `role` attribute value for the [ListGroupItem] when _not_
-  /// rendered via [Dom.button].
-  ///
-  /// _Proxies [DomProps.role]_
-  ///
-  /// Default: 'button'
-  @Accessor(keyNamespace: '')
-  String role;
 }
 
 @Component()
@@ -123,7 +114,10 @@ class ListGroupItemComponent extends UiComponent<ListGroupItemProps> {
       ..href = props.href
       ..target = props.target
       ..type = _isActionItem ? props.type.typeName : null
-      ..role = props.role
+      ..disabled = _useDisabledAttr ? props.isDisabled : null
+      ..addProps(ariaProps()
+        ..disabled = !_useDisabledAttr ? props.isDisabled : null
+      )
     )(children);
   }
 
@@ -162,6 +156,8 @@ class ListGroupItemComponent extends UiComponent<ListGroupItemProps> {
       ..add('disabled', props.isDisabled)
       ..add(props.skin.className);
   }
+
+  bool get _useDisabledAttr => _getItemDomNodeFactory() == Dom.button;
 
   bool get _isActionItem => (props.href ?? props.onClick) != null;
 }

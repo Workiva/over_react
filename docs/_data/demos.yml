@@ -1,3 +1,10 @@
+- id: button
+  slug: button
+  component_class: Button
+  title: Button Component Demo
+  lead: 'A component that renders a <a href="http://v4-alpha.getbootstrap.com/components/buttons/" target="bs">Bootstrap Button</a> element using OverReact’s statically-typed React prop API.'
+  img: false
+
 - id: list_group
   slug: list-group
   component_class: ListGroup

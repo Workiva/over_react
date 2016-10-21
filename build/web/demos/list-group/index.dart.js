@@ -278,8 +278,8 @@
         if (prototype.$isInterceptor)
           prototype.$deferredAction();
       }
-      var objectClassObject = processedClasses.collected.Object, shortNames = "set$className,set$dartDefaultProps,set$displayName,set$header,set$href,set$isMounted,set$key,set$next,set$onClick,set$ref,set$target,set$type,get$$char,get$altKey,get$attributes,get$bubbles,get$button,get$buttons,get$cancelable,get$changedTouches,get$charCode,get$checked,get$children,get$className,get$clientX,get$clientY,get$clipboardData,get$ctrlKey,get$currentTarget,get$dartDefaultProps,get$dataTransfer,get$defaultPrevented,get$deltaMode,get$deltaX,get$deltaY,get$deltaZ,get$detail,get$displayName,get$dropEffect,get$effectAllowed,get$error,get$eventPhase,get$files,get$header,get$href,get$internal,get$isEmpty,get$isMounted,get$isTrusted,get$iterator,get$key,get$keyCode,get$keys,get$length,get$locale,get$location,get$metaKey,get$name,get$nativeEvent,get$next,get$onClick,get$pageX,get$pageY,get$refs,get$relatedTarget,get$repeat,get$result,get$screenX,get$screenY,get$shiftKey,get$target,get$targetTouches,get$timeStamp,get$touches,get$type,get$types,get$value,get$view,$add,$and,$ge,$gt,$index,$indexSet,$le,$lt,$mul,$not,$shl,$shr,$sub,$tdiv,$xor,__isolate_helper$_add$1,_async$_add$1,_replaceChild$2,add$1,addAll$1,clear$0,compareTo$1,contains$1,containsKey$1,forEach$1,indexOf$1,map$1,matchAsPrefix$2,preventDefault$0,remove$0,remove$1,render$0,replaceWith$1,send$1,setState$1,startsWith$1,stopPropagation$0,sublist$1,substring$1,substring$2,toList$0,set$_collection$_next,set$_collection$_previous,set$_contents,set$_next,set$_nextListener,set$_previous,set$component,set$hashMapCellValue,set$headerSize,set$initialized,set$isActive,set$isDisabled,set$isPill,set$nextProps,set$role,set$skin,get$__internal$_name,get$_chainSource,get$_collection$_element,get$_collection$_next,get$_collection$_previous,get$_contents,get$_duration,get$_error,get$_hasError,get$_id,get$_isChained,get$_isClosed,get$_isComplete,get$_next,get$_nextListener,get$_previous,get$_resultOrListeners,get$_scheduleMicrotask,get$_state,get$_value,get$_zone,get$callback,get$component,get$componentBuilderFactory,get$controlPort,get$current,get$delayedEvents,get$elementType,get$errorMessage,get$errorZone,get$handlesComplete,get$handlesError,get$handlesValue,get$hasErrorCallback,get$hashMapCellKey,get$hashMapCellValue,get$headerProps,get$headerSize,get$inMilliseconds,get$isActive,get$isDisabled,get$isMethod,get$isNullable,get$isPaused,get$isPill,get$isRequired,get$isolateStatics,get$memberName,get$namedArguments,get$nextProps,get$nextState,get$positionalArguments,get$prevState,get$reactClass,get$role,get$setStateCallbacks,get$skin,get$stackTrace,get$transactionalSetStateCallbacks,get$typeName,get$zone,__isolate_helper$_close$0,_addError$2,_addListener$1,_clearPendingComplete$0,_cloneResult$1,_complete$1,_completeError$2,_prependListeners$1,_removeListeners$0,_setChained$1,_setErrorObject$1,_setPendingComplete$0,_setValue$1,_updateGlobalState$0,addProps$1,cancelSchedule$0,componentBuilderFactory$0,componentDidMount$0,componentDidUpdate$2,componentWillMount$0,componentWillReceiveProps$1,componentWillUnmount$0,componentWillUpdate$2,createTimer$2,errorCallback$2,eval$1,getDefaultProps$0,handleControlMessage$1,handleError$1,handleUncaughtError$2,handleValue$1,handleWhenComplete$0,inSameErrorZone$1,initComponentInternal$4,initStateInternal$0,lookup$1,matchesErrorTest$1,moveNext$0,perform$1,process$0,registerBinaryCallback$1,registerCallback$1,registerUnaryCallback$1,run$1,runBinary$3,runBinaryGuarded$3,runGuarded$1,runUnary$2,runUnaryGuarded$2,schedule$1,scheduleMicrotask$1,shouldComponentUpdate$2,then$1,toRti$0,transferComponentState$0,whenComplete$1".split(",");
-      var longNames = "className=,dartDefaultProps=,displayName=,header=,href=,isMounted=,key=,next=,onClick=,ref=,target=,type=,char,altKey,attributes,bubbles,button,buttons,cancelable,changedTouches,charCode,checked,children,className,clientX,clientY,clipboardData,ctrlKey,currentTarget,dartDefaultProps,dataTransfer,defaultPrevented,deltaMode,deltaX,deltaY,deltaZ,detail,displayName,dropEffect,effectAllowed,error,eventPhase,files,header,href,internal,isEmpty,isMounted,isTrusted,iterator,key,keyCode,keys,length,locale,location,metaKey,name,nativeEvent,next,onClick,pageX,pageY,refs,relatedTarget,repeat,result,screenX,screenY,shiftKey,target,targetTouches,timeStamp,touches,type,types,value,view,+,&,>=,>,[],[]=,<=,<,*,~,<<,>>,-,~/,^,_add,_add,_replaceChild,add,addAll,clear,compareTo,contains,containsKey,forEach,indexOf,map,matchAsPrefix,preventDefault,remove,remove,render,replaceWith,send,setState,startsWith,stopPropagation,sublist,substring,substring,toList,_next=,_previous=,_contents=,_next=,_nextListener=,_previous=,component=,hashMapCellValue=,headerSize=,initialized=,isActive=,isDisabled=,isPill=,nextProps=,role=,skin=,_name,_chainSource,_element,_next,_previous,_contents,_duration,_error,_hasError,_id,_isChained,_isClosed,_isComplete,_next,_nextListener,_previous,_resultOrListeners,_scheduleMicrotask,_state,_value,_zone,callback,component,componentBuilderFactory,controlPort,current,delayedEvents,elementType,errorMessage,errorZone,handlesComplete,handlesError,handlesValue,hasErrorCallback,hashMapCellKey,hashMapCellValue,headerProps,headerSize,inMilliseconds,isActive,isDisabled,isMethod,isNullable,isPaused,isPill,isRequired,isolateStatics,memberName,namedArguments,nextProps,nextState,positionalArguments,prevState,reactClass,role,setStateCallbacks,skin,stackTrace,transactionalSetStateCallbacks,typeName,zone,_close,_addError,_addListener,_clearPendingComplete,_cloneResult,_complete,_completeError,_prependListeners,_removeListeners,_setChained,_setErrorObject,_setPendingComplete,_setValue,_updateGlobalState,addProps,cancelSchedule,componentBuilderFactory,componentDidMount,componentDidUpdate,componentWillMount,componentWillReceiveProps,componentWillUnmount,componentWillUpdate,createTimer,errorCallback,eval,getDefaultProps,handleControlMessage,handleError,handleUncaughtError,handleValue,handleWhenComplete,inSameErrorZone,initComponentInternal,initStateInternal,lookup,matchesErrorTest,moveNext,perform,process,registerBinaryCallback,registerCallback,registerUnaryCallback,run,runBinary,runBinaryGuarded,runGuarded,runUnary,runUnaryGuarded,schedule,scheduleMicrotask,shouldComponentUpdate,then,toRti,transferComponentState,whenComplete".split(",");
+      var objectClassObject = processedClasses.collected.Object, shortNames = "set$className,set$dartDefaultProps,set$disabled,set$displayName,set$header,set$href,set$isMounted,set$key,set$next,set$onClick,set$ref,set$target,set$type,get$$char,get$altKey,get$attributes,get$bubbles,get$button,get$buttons,get$cancelable,get$changedTouches,get$charCode,get$checked,get$children,get$className,get$clientX,get$clientY,get$clipboardData,get$ctrlKey,get$currentTarget,get$dartDefaultProps,get$dataTransfer,get$defaultPrevented,get$deltaMode,get$deltaX,get$deltaY,get$deltaZ,get$detail,get$displayName,get$dropEffect,get$effectAllowed,get$error,get$eventPhase,get$files,get$header,get$href,get$internal,get$isEmpty,get$isMounted,get$isTrusted,get$iterator,get$key,get$keyCode,get$keys,get$length,get$locale,get$location,get$metaKey,get$name,get$nativeEvent,get$next,get$onClick,get$pageX,get$pageY,get$refs,get$relatedTarget,get$repeat,get$result,get$screenX,get$screenY,get$shiftKey,get$target,get$targetTouches,get$timeStamp,get$touches,get$type,get$types,get$value,get$view,$add,$and,$ge,$gt,$index,$indexSet,$le,$lt,$mul,$not,$shl,$shr,$sub,$tdiv,$xor,__isolate_helper$_add$1,_async$_add$1,_replaceChild$2,add$1,addAll$1,clear$0,compareTo$1,contains$1,containsKey$1,forEach$1,indexOf$1,map$1,matchAsPrefix$2,preventDefault$0,remove$0,remove$1,render$0,replaceWith$1,send$1,setState$1,startsWith$1,stopPropagation$0,sublist$1,substring$1,substring$2,toList$0,set$_collection$_next,set$_collection$_previous,set$_contents,set$_next,set$_nextListener,set$_previous,set$component,set$hashMapCellValue,set$headerSize,set$initialized,set$isActive,set$isDisabled,set$isPill,set$nextProps,set$skin,get$__internal$_name,get$_chainSource,get$_collection$_element,get$_collection$_next,get$_collection$_previous,get$_contents,get$_duration,get$_error,get$_hasError,get$_id,get$_isChained,get$_isClosed,get$_isComplete,get$_next,get$_nextListener,get$_previous,get$_resultOrListeners,get$_scheduleMicrotask,get$_state,get$_value,get$_zone,get$callback,get$component,get$componentBuilderFactory,get$controlPort,get$current,get$delayedEvents,get$elementType,get$errorMessage,get$errorZone,get$handlesComplete,get$handlesError,get$handlesValue,get$hasErrorCallback,get$hashMapCellKey,get$hashMapCellValue,get$headerProps,get$headerSize,get$inMilliseconds,get$isActive,get$isDisabled,get$isMethod,get$isNullable,get$isPaused,get$isPill,get$isRequired,get$isolateStatics,get$memberName,get$namedArguments,get$nextProps,get$nextState,get$positionalArguments,get$prevState,get$reactClass,get$setStateCallbacks,get$skin,get$stackTrace,get$transactionalSetStateCallbacks,get$typeName,get$zone,__isolate_helper$_close$0,_addError$2,_addListener$1,_clearPendingComplete$0,_cloneResult$1,_complete$1,_completeError$2,_prependListeners$1,_removeListeners$0,_setChained$1,_setErrorObject$1,_setPendingComplete$0,_setValue$1,_updateGlobalState$0,addProps$1,cancelSchedule$0,componentBuilderFactory$0,componentDidMount$0,componentDidUpdate$2,componentWillMount$0,componentWillReceiveProps$1,componentWillUnmount$0,componentWillUpdate$2,createTimer$2,errorCallback$2,eval$1,getDefaultProps$0,handleControlMessage$1,handleError$1,handleUncaughtError$2,handleValue$1,handleWhenComplete$0,inSameErrorZone$1,initComponentInternal$4,initStateInternal$0,lookup$1,matchesErrorTest$1,moveNext$0,perform$1,process$0,registerBinaryCallback$1,registerCallback$1,registerUnaryCallback$1,run$1,runBinary$3,runBinaryGuarded$3,runGuarded$1,runUnary$2,runUnaryGuarded$2,schedule$1,scheduleMicrotask$1,shouldComponentUpdate$2,then$1,toRti$0,transferComponentState$0,whenComplete$1".split(",");
+      var longNames = "className=,dartDefaultProps=,disabled=,displayName=,header=,href=,isMounted=,key=,next=,onClick=,ref=,target=,type=,char,altKey,attributes,bubbles,button,buttons,cancelable,changedTouches,charCode,checked,children,className,clientX,clientY,clipboardData,ctrlKey,currentTarget,dartDefaultProps,dataTransfer,defaultPrevented,deltaMode,deltaX,deltaY,deltaZ,detail,displayName,dropEffect,effectAllowed,error,eventPhase,files,header,href,internal,isEmpty,isMounted,isTrusted,iterator,key,keyCode,keys,length,locale,location,metaKey,name,nativeEvent,next,onClick,pageX,pageY,refs,relatedTarget,repeat,result,screenX,screenY,shiftKey,target,targetTouches,timeStamp,touches,type,types,value,view,+,&,>=,>,[],[]=,<=,<,*,~,<<,>>,-,~/,^,_add,_add,_replaceChild,add,addAll,clear,compareTo,contains,containsKey,forEach,indexOf,map,matchAsPrefix,preventDefault,remove,remove,render,replaceWith,send,setState,startsWith,stopPropagation,sublist,substring,substring,toList,_next=,_previous=,_contents=,_next=,_nextListener=,_previous=,component=,hashMapCellValue=,headerSize=,initialized=,isActive=,isDisabled=,isPill=,nextProps=,skin=,_name,_chainSource,_element,_next,_previous,_contents,_duration,_error,_hasError,_id,_isChained,_isClosed,_isComplete,_next,_nextListener,_previous,_resultOrListeners,_scheduleMicrotask,_state,_value,_zone,callback,component,componentBuilderFactory,controlPort,current,delayedEvents,elementType,errorMessage,errorZone,handlesComplete,handlesError,handlesValue,hasErrorCallback,hashMapCellKey,hashMapCellValue,headerProps,headerSize,inMilliseconds,isActive,isDisabled,isMethod,isNullable,isPaused,isPill,isRequired,isolateStatics,memberName,namedArguments,nextProps,nextState,positionalArguments,prevState,reactClass,setStateCallbacks,skin,stackTrace,transactionalSetStateCallbacks,typeName,zone,_close,_addError,_addListener,_clearPendingComplete,_cloneResult,_complete,_completeError,_prependListeners,_removeListeners,_setChained,_setErrorObject,_setPendingComplete,_setValue,_updateGlobalState,addProps,cancelSchedule,componentBuilderFactory,componentDidMount,componentDidUpdate,componentWillMount,componentWillReceiveProps,componentWillUnmount,componentWillUpdate,createTimer,errorCallback,eval,getDefaultProps,handleControlMessage,handleError,handleUncaughtError,handleValue,handleWhenComplete,inSameErrorZone,initComponentInternal,initStateInternal,lookup,matchesErrorTest,moveNext,perform,process,registerBinaryCallback,registerCallback,registerUnaryCallback,run,runBinary,runBinaryGuarded,runGuarded,runUnary,runUnaryGuarded,schedule,scheduleMicrotask,shouldComponentUpdate,then,toRti,transferComponentState,whenComplete".split(",");
       if (objectClassObject instanceof Array)
         objectClassObject = objectClassObject[1];
       if (objectClassObject)
@@ -290,7 +290,7 @@
             type = 1;
           if (shortName.indexOf("set$") == 0)
             type = 2;
-          if (j < 119)
+          if (j < 120)
             objectClassObject[shortName] = function(name, shortName, type) {
               return function(receiver) {
                 return this.noSuchMethod$1(receiver, H.createInvocationMirror(name, shortName, type, Array.prototype.slice.call(arguments, 1), []));
@@ -8664,7 +8664,7 @@
     },
     HtmlElement: {
       "^": "Element;",
-      "%": "HTMLAppletElement|HTMLBRElement|HTMLCanvasElement|HTMLContentElement|HTMLDListElement|HTMLDataListElement|HTMLDetailsElement|HTMLDialogElement|HTMLDirectoryElement|HTMLDivElement|HTMLFontElement|HTMLFrameElement|HTMLHRElement|HTMLHeadElement|HTMLHeadingElement|HTMLHtmlElement|HTMLImageElement|HTMLLabelElement|HTMLLegendElement|HTMLMarqueeElement|HTMLModElement|HTMLOptGroupElement|HTMLParagraphElement|HTMLPictureElement|HTMLPreElement|HTMLQuoteElement|HTMLShadowElement|HTMLSpanElement|HTMLTableCaptionElement|HTMLTableCellElement|HTMLTableColElement|HTMLTableDataCellElement|HTMLTableElement|HTMLTableHeaderCellElement|HTMLTableRowElement|HTMLTableSectionElement|HTMLTemplateElement|HTMLTitleElement|HTMLTrackElement|HTMLUListElement|HTMLUnknownElement|PluginPlaceholderElement;HTMLElement"
+      "%": "HTMLAppletElement|HTMLBRElement|HTMLCanvasElement|HTMLContentElement|HTMLDListElement|HTMLDataListElement|HTMLDetailsElement|HTMLDialogElement|HTMLDirectoryElement|HTMLDivElement|HTMLFontElement|HTMLFrameElement|HTMLHRElement|HTMLHeadElement|HTMLHeadingElement|HTMLHtmlElement|HTMLImageElement|HTMLLabelElement|HTMLLegendElement|HTMLMarqueeElement|HTMLModElement|HTMLParagraphElement|HTMLPictureElement|HTMLPreElement|HTMLQuoteElement|HTMLShadowElement|HTMLSpanElement|HTMLTableCaptionElement|HTMLTableCellElement|HTMLTableColElement|HTMLTableDataCellElement|HTMLTableElement|HTMLTableHeaderCellElement|HTMLTableRowElement|HTMLTableSectionElement|HTMLTemplateElement|HTMLTitleElement|HTMLTrackElement|HTMLUListElement|HTMLUnknownElement|PluginPlaceholderElement;HTMLElement"
     },
     AnchorElement: {
       "^": "HtmlElement;target%,type%,href%",
@@ -8702,7 +8702,7 @@
       "%": "HTMLBodyElement"
     },
     ButtonElement: {
-      "^": "HtmlElement;name=,type%,value=",
+      "^": "HtmlElement;disabled},name=,type%,value=",
       "%": "HTMLButtonElement"
     },
     CacheStorage: {
@@ -9109,7 +9109,7 @@
       "%": "Animation|ApplicationCache|AudioContext|BatteryManager|CrossOriginServiceWorkerClient|DOMApplicationCache|EventSource|IDBDatabase|MIDIAccess|MediaController|MediaQueryList|MediaSource|MediaStream|MediaStreamTrack|OfflineAudioContext|OfflineResourceList|Performance|PermissionStatus|Presentation|RTCDTMFSender|RTCPeerConnection|ServicePortCollection|ServiceWorkerContainer|ServiceWorkerRegistration|SpeechRecognition|SpeechSynthesis|SpeechSynthesisUtterance|StashedPortCollection|WorkerPerformance|mozRTCPeerConnection|webkitAudioContext|webkitRTCPeerConnection;EventTarget;EventTarget_ListMixin|EventTarget_ListMixin_ImmutableListMixin|EventTarget_ListMixin0|EventTarget_ListMixin_ImmutableListMixin0"
     },
     FieldSetElement: {
-      "^": "HtmlElement;name=,type=",
+      "^": "HtmlElement;disabled},name=,type=",
       "%": "HTMLFieldSetElement"
     },
     File: {
@@ -9333,7 +9333,7 @@
       "%": "ImageData"
     },
     InputElement: {
-      "^": "HtmlElement;checked=,files=,name=,type%,value=",
+      "^": "HtmlElement;checked=,disabled},files=,name=,type%,value=",
       $isElement: 1,
       $isInterceptor: 1,
       $isEventTarget: 1,
@@ -9351,7 +9351,7 @@
       "%": "KeyboardEvent"
     },
     KeygenElement: {
-      "^": "HtmlElement;name=,type=",
+      "^": "HtmlElement;disabled},name=,type=",
       "%": "HTMLKeygenElement"
     },
     LIElement: {
@@ -9359,7 +9359,7 @@
       "%": "HTMLLIElement"
     },
     LinkElement: {
-      "^": "HtmlElement;href%,type%",
+      "^": "HtmlElement;disabled},href%,type%",
       "%": "HTMLLinkElement"
     },
     Location: {
@@ -9393,7 +9393,7 @@
       "%": "HTMLMenuElement"
     },
     MenuItemElement: {
-      "^": "HtmlElement;checked=,type%",
+      "^": "HtmlElement;checked=,disabled},type%",
       "%": "HTMLMenuItemElement"
     },
     MessagePort: {
@@ -9695,8 +9695,12 @@
       "^": "HtmlElement;name=,type%",
       "%": "HTMLObjectElement"
     },
+    OptGroupElement: {
+      "^": "HtmlElement;disabled}",
+      "%": "HTMLOptGroupElement"
+    },
     OptionElement: {
-      "^": "HtmlElement;value=",
+      "^": "HtmlElement;disabled},value=",
       "%": "HTMLOptionElement"
     },
     OutputElement: {
@@ -9848,7 +9852,7 @@
       "%": "ScrollState"
     },
     SelectElement: {
-      "^": "HtmlElement;length=,name=,type=,value=",
+      "^": "HtmlElement;disabled},length=,name=,type=,value=",
       "%": "HTMLSelectElement"
     },
     Selection: {
@@ -10081,7 +10085,7 @@
       "%": "StorageEvent"
     },
     StyleElement: {
-      "^": "HtmlElement;type%",
+      "^": "HtmlElement;disabled},type%",
       "%": "HTMLStyleElement"
     },
     StyleMedia: {
@@ -10089,12 +10093,12 @@
       "%": "StyleMedia"
     },
     StyleSheet: {
-      "^": "Interceptor;href=,type=",
+      "^": "Interceptor;disabled},href=,type=",
       $isObject: 1,
       "%": "CSSStyleSheet|StyleSheet"
     },
     TextAreaElement: {
-      "^": "HtmlElement;name=,type=,value=",
+      "^": "HtmlElement;disabled},name=,type=,value=",
       "%": "HTMLTextAreaElement"
     },
     TextTrack: {
@@ -11557,7 +11561,7 @@
       }
     },
     StyleElement0: {
-      "^": "SvgElement;type%",
+      "^": "SvgElement;disabled},type%",
       "%": "SVGStyleElement"
     },
     SvgElement: {
@@ -12562,7 +12566,30 @@
       $.$get$render().call$2(U.listGroupContextualSkinDemo(), document.querySelector(".component-demo__mount--list-group-contextual"));
       $.$get$render().call$2(U.listGroupHeaderDemo(), document.querySelector(".component-demo__mount--list-group-header"));
     }, "call$0", "index__main$closure", 0, 0, 0]
-  }, 1], ["over_react.class_names", "package:over_react/src/util/class_names.dart",, S, {
+  }, 1], ["over_react.aria_mixin", "package:over_react/src/component/aria_mixin.dart",, K, {
+    "^": "",
+    AriaPropsMixin: {
+      "^": "Object;",
+      get$checked: function(_) {
+        return J.$index$asx(this._collection$_map, "aria-checked");
+      },
+      set$disabled: function(_, value) {
+        J.$indexSet$ax(this._collection$_map, "aria-disabled", value);
+        return value;
+      }
+    },
+    AriaPropsMapView: {
+      "^": "MapView_AriaPropsMixin;_collection$_map",
+      get$props: function(_) {
+        return this;
+      }
+    },
+    MapView_AriaPropsMixin: {
+      "^": "MapView+AriaPropsMixin;",
+      $asMapView: Isolate.functionThatReturnsNull,
+      $asMap: Isolate.functionThatReturnsNull
+    }
+  }], ["over_react.class_names", "package:over_react/src/util/class_names.dart",, S, {
     "^": "",
     splitSpaceDelimitedString: function(string) {
       var strings, t1, start, end;
@@ -13125,6 +13152,10 @@
       get$checked: function(_) {
         return this.props.$index(0, "checked");
       },
+      set$disabled: function(_, value) {
+        this.props.$indexSet(0, "disabled", value);
+        return value;
+      },
       get$className: function(_) {
         return this.props.$index(0, "className");
       },
@@ -13137,13 +13168,6 @@
       },
       set$href: function(_, value) {
         this.props.$indexSet(0, "href", value);
-        return value;
-      },
-      get$role: function() {
-        return this.props.$index(0, "role");
-      },
-      set$role: function(value) {
-        this.props.$indexSet(0, "role", value);
         return value;
       },
       get$target: function(_) {
@@ -13350,13 +13374,6 @@
         J.$indexSet$ax(this.props, "ListGroupItemProps.type", value);
         return value;
       },
-      get$role: function() {
-        return J.$index$asx(this.props, "role");
-      },
-      set$role: function(value) {
-        J.$indexSet$ax(this.props, "role", value);
-        return value;
-      },
       $isMap: 1,
       $asMap: Isolate.functionThatReturnsNull
     },
@@ -13373,7 +13390,7 @@
         return t1;
       },
       render$0: function(_) {
-        var children, t1, t2, factory, t3;
+        var children, t1, t2, t3;
         children = J.get$children$x(this.get$props(this));
         if (J.get$header$x(this.get$props(this)) != null) {
           t1 = this.renderItemHeader$0();
@@ -13383,11 +13400,7 @@
           t2.set$key(0, "item-text");
           children = [t1, t2.call$1(J.get$children$x(this.get$props(this)))];
         }
-        if (J.get$href$x(this.get$props(this)) != null)
-          factory = A.dom_components_Dom_a$closure();
-        else
-          factory = J.get$onClick$x(this.get$props(this)) != null ? A.dom_components_Dom_button$closure() : this.get$props(this).get$elementType().get$componentBuilderFactory();
-        t1 = factory.call$0();
+        t1 = this._getItemDomNodeFactory$0().call$0();
         t1.addProps$1(this.copyUnconsumedDomProps$0());
         t2 = new S.ClassNameBuilder(new P.StringBuffer(""), null);
         t2.addFromProps$1(this.get$props(this));
@@ -13403,7 +13416,10 @@
         t3.set$target(t1, J.get$target$x(this.get$props(this)));
         t2 = J.get$href$x(this.get$props(this));
         t3.set$type(t1, (t2 == null ? J.get$onClick$x(this.get$props(this)) : t2) != null ? J.get$type$x(this.get$props(this)).get$typeName() : null);
-        t1.set$role(this.get$props(this).get$role());
+        t3.set$disabled(t1, J.$eq$(this._getItemDomNodeFactory$0(), A.dom_components_Dom_button$closure()) ? this.get$props(this).get$isDisabled() : null);
+        t2 = new K.AriaPropsMapView(P.LinkedHashMap__makeEmpty());
+        t2.set$disabled(0, !J.$eq$(this._getItemDomNodeFactory$0(), A.dom_components_Dom_button$closure()) ? this.get$props(this).get$isDisabled() : null);
+        t1.addProps$1(t2);
         return t1.call$1(children);
       },
       renderItemHeader$0: function() {
@@ -13419,6 +13435,13 @@
         t2.set$className(t1, headerClasses.toClassName$0());
         t2.set$key(t1, "item-header");
         return t1.call$1(J.get$header$x(this.get$props(this)));
+      },
+      _getItemDomNodeFactory$0: function() {
+        if (J.get$href$x(this.get$props(this)) != null)
+          var factory = A.dom_components_Dom_a$closure();
+        else
+          factory = J.get$onClick$x(this.get$props(this)) != null ? A.dom_components_Dom_button$closure() : this.get$props(this).get$elementType().get$componentBuilderFactory();
+        return factory;
       }
     },
     UiComponent__$ListGroupItemComponentImplMixin: {
@@ -13451,7 +13474,7 @@
     closure0: {
       "^": "Closure:0;",
       call$0: [function() {
-        var t1 = new L.ListGroupItemComponent(C.List_ivT, P.Expando$(null, null), null, null, null, null, [], [], P.LinkedHashMap__makeEmpty(), null, null, null);
+        var t1 = new L.ListGroupItemComponent(C.List_CBe, P.Expando$(null, null), null, null, null, null, [], [], P.LinkedHashMap__makeEmpty(), null, null, null);
         t1._throwIfNotGenerated$0();
         return t1;
       }, null, null, 0, 0, null, "call"]
@@ -15381,7 +15404,6 @@
   C.List_Y0z = Isolate.makeConstantList(["TagProps.skin", "TagProps.isPill"]);
   C.ConsumedProps_WZt = new S.ConsumedProps(C.List_ynA, C.List_Y0z);
   C.List_375 = Isolate.makeConstantList([C.ConsumedProps_WZt]);
-  C.List_empty = Isolate.makeConstantList([]);
   C.PropDescriptor_ASc = new S.PropDescriptor("ListGroupItemProps.elementType", false, false, "");
   C.PropDescriptor_cc6 = new S.PropDescriptor("ListGroupItemProps.header", false, false, "");
   C.PropDescriptor_YM1 = new S.PropDescriptor("ListGroupItemProps.headerSize", false, false, "");
@@ -15392,11 +15414,11 @@
   C.PropDescriptor_j7r = new S.PropDescriptor("href", false, false, "");
   C.PropDescriptor_uo3 = new S.PropDescriptor("target", false, false, "");
   C.PropDescriptor_UEt0 = new S.PropDescriptor("ListGroupItemProps.type", false, false, "");
-  C.PropDescriptor_eVB = new S.PropDescriptor("role", false, false, "");
-  C.List_qhc = Isolate.makeConstantList([C.PropDescriptor_ASc, C.PropDescriptor_cc6, C.PropDescriptor_YM1, C.PropDescriptor_BS0, C.PropDescriptor_UEt, C.PropDescriptor_7lF, C.PropDescriptor_rLL, C.PropDescriptor_j7r, C.PropDescriptor_uo3, C.PropDescriptor_UEt0, C.PropDescriptor_eVB]);
-  C.List_EME = Isolate.makeConstantList(["ListGroupItemProps.elementType", "ListGroupItemProps.header", "ListGroupItemProps.headerSize", "ListGroupItemProps.headerProps", "ListGroupItemProps.skin", "ListGroupItemProps.isActive", "disabled", "href", "target", "ListGroupItemProps.type", "role"]);
-  C.ConsumedProps_O9m = new S.ConsumedProps(C.List_qhc, C.List_EME);
-  C.List_ivT = Isolate.makeConstantList([C.ConsumedProps_O9m]);
+  C.List_RRl = Isolate.makeConstantList([C.PropDescriptor_ASc, C.PropDescriptor_cc6, C.PropDescriptor_YM1, C.PropDescriptor_BS0, C.PropDescriptor_UEt, C.PropDescriptor_7lF, C.PropDescriptor_rLL, C.PropDescriptor_j7r, C.PropDescriptor_uo3, C.PropDescriptor_UEt0]);
+  C.List_466 = Isolate.makeConstantList(["ListGroupItemProps.elementType", "ListGroupItemProps.header", "ListGroupItemProps.headerSize", "ListGroupItemProps.headerProps", "ListGroupItemProps.skin", "ListGroupItemProps.isActive", "disabled", "href", "target", "ListGroupItemProps.type"]);
+  C.ConsumedProps_Vmu = new S.ConsumedProps(C.List_RRl, C.List_466);
+  C.List_CBe = Isolate.makeConstantList([C.ConsumedProps_Vmu]);
+  C.List_empty = Isolate.makeConstantList([]);
   C.PropDescriptor_m5r = new S.PropDescriptor("ListGroupProps.elementType", false, false, "");
   C.List_EkK = Isolate.makeConstantList([C.PropDescriptor_m5r]);
   C.List_66S = Isolate.makeConstantList(["ListGroupProps.elementType"]);

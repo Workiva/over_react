@@ -5,6 +5,21 @@ pub build --mode=debug
 
 # Generate html includes that can be passed in as jekyll include parameters for demo-code-example.html
 
+
+#
+# Button
+#
+cp -r web/src/demo_components/button.dart docs/_includes/component-demo-code-ex/button.dart.html
+
+cp -r web/demos/button/button-examples.dart docs/_includes/component-demo-code-ex/button-examples.dart.html
+cp -r web/demos/button/button-types.dart docs/_includes/component-demo-code-ex/button-types.dart.html
+cp -r web/demos/button/button-outline.dart docs/_includes/component-demo-code-ex/button-outline.dart.html
+cp -r web/demos/button/button-sizes.dart docs/_includes/component-demo-code-ex/button-sizes.dart.html
+cp -r web/demos/button/button-block.dart docs/_includes/component-demo-code-ex/button-block.dart.html
+cp -r web/demos/button/button-active.dart docs/_includes/component-demo-code-ex/button-active.dart.html
+cp -r web/demos/button/button-disabled.dart docs/_includes/component-demo-code-ex/button-disabled.dart.html
+
+
 #
 # ListGroup / ListGroupItem
 #

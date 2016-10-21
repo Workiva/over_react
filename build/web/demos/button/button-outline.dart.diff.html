@@ -1,0 +1,37 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Transformer Diff - web/demos/button/button-outline.dart</title>
+          <style>
+            .diff-unmodified {
+                color: #444;
+            }
+            .diff-removal {
+                color: #a00;
+                background-color: #fee;
+                text-decoration: line-through;
+            }
+            .diff-addition {
+                color: #0a0;
+                background-color: #efe;
+            }
+          </style>
+        </head>
+        <body>
+          <code>
+            <pre><span class="diff-unmodified">part of over_react.web.demos;
+
+ReactElement buttonOutlineDemo() =&gt;
+  (Dom.div()..className = 'btn-toolbar')(
+    (Button()..skin = ButtonSkin.PRIMARY_OUTLINE)('Primary'),
+    (Button()..skin = ButtonSkin.SECONDARY_OUTLINE)('Secondary'),
+    (Button()..skin = ButtonSkin.SUCCESS_OUTLINE)('Success'),
+    (Button()..skin = ButtonSkin.INFO_OUTLINE)('Info'),
+    (Button()..skin = ButtonSkin.WARNING_OUTLINE)('Warning'),
+    (Button()..skin = ButtonSkin.DANGER_OUTLINE)('Danger')
+  );
+</span></pre>
+          </code>
+        </body>
+        </html>
+    
