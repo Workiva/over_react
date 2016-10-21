@@ -5,7 +5,7 @@
 [![Test Coverage](https://codecov.io/github/Workiva/over_react/coverage.svg?branch=master)](https://codecov.io/github/Workiva/over_react?branch=master)
 [![Documentation](https://img.shields.io/badge/Documentation-over__react-blue.svg)](https://workiva.github.io/over_react)
 
-> A framework for building statically-typed React UI components using Dart.
+> A library for building statically-typed React UI components using Dart.
 
 
 * __[Using it in your project](#using-it-in-your-project)__
@@ -134,10 +134,10 @@ __you must run your tests using Pub__.
 > Since OverReact is built atop React JS, we strongly encourage you to gain 
 > familiarity with it by reading this [React JS tutorial][react-js-tutorial] first.
 
-The `over_react` framework functions as an additional "layer" atop the [Dart react package][react-dart] 
+The `over_react` library functions as an additional "layer" atop the [Dart react package][react-dart] 
 which handles the underlying JS interop that wraps around [React JS][react-js].
 
-The framework strives to maintain a 1:1 relationship with the React JS component class and API. 
+The library strives to maintain a 1:1 relationship with the React JS component class and API. 
 To do that, an OverReact component is comprised of four core pieces that are each wired up to our
 Pub transformer using an analogous [annotation].
 

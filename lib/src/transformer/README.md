@@ -20,7 +20,7 @@ much cleaner and more _grokkable_.
 
 ## Wiring it all up
 
-__Be sure to familiarize yourself with the [OverReact framework] first.__
+__Be sure to familiarize yourself with the [OverReact library] first.__
 
 The transformer wires up your factory, props class, and component class so that you don't have to!
 
@@ -227,7 +227,7 @@ __The easiest way to view it:__
 
 
 
-[OverReact framework]: https://github.com/Workiva/over_react/blob/master/README.md
+[OverReact library]: https://github.com/Workiva/over_react/blob/master/README.md
 [annotations]: https://github.com/Workiva/over_react/blob/master/lib/src/component_declaration/annotations.dart
-[component demos]: https://workiva.github.io/over_react/demos
+[component demos]: https://workiva.github.io/over_react/demos/
 [react-dart]: https://github.com/cleandart/react-dart
