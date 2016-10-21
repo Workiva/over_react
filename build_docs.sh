@@ -26,3 +26,8 @@ cp -r web/src/demo_components/tag.dart docs/_includes/component-demo-code-ex/tag
 cp -r web/demos/tag/tag-basic.dart docs/_includes/component-demo-code-ex/tag-basic.dart.html
 cp -r web/demos/tag/tag-contextual.dart docs/_includes/component-demo-code-ex/tag-contextual.dart.html
 cp -r web/demos/tag/tag-pills.dart docs/_includes/component-demo-code-ex/tag-pills.dart.html
+
+
+# De-reference the symlinked root packages directory so that github pages can copy them to _site
+rm -rf packages
+cp -r _site/packages/ packages/

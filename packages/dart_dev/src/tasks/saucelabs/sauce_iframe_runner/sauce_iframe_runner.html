@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sauce Labs iframe Test Runner</title>
+
+    <link rel="stylesheet" href="sauce_iframe_runner.css">
+</head>
+<body>
+    <header class="notice-header">
+        NOTICE: Some focus-related tests <strong>will fail</strong> if the browser window is not focused.
+    </header>
+    <header class="test-header">
+        <code id="test_title" class="test-title"></code>
+        <code id="test_status" class="test-status">Loading...</code>
+    </header>
+    <pre id="log_container" class="log-container"><code id="logs" class="logs"></code></pre>
+    <div id="iframe_container" class="test-iframe"></div>
+
+    <script type="application/dart" src="sauce_iframe_runner.dart"></script>
+    <script src="packages/browser/dart.js"></script>
+</body>
+</html>
