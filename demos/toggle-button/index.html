@@ -1,0 +1,41 @@
+---
+data_id: toggle_button
+layout: demo
+slug: toggle-button
+parent_slug: demos
+baseurl: ../../
+---
+
+{% include site_vars.html %}
+
+<h2 id="contents" class="docs-heading">Contents</h2>
+
+<ul>
+    <li>
+        <a href="#checkbox">Checkbox</a>
+    </li>
+    <li>
+        <a href="#radio">Radio</a>
+    </li>
+</ul>
+
+
+<h2 id="checkbox" class="docs-heading">Checkbox</h2>
+<p>TODO</p>
+{% include demo-code-example.html
+    name='toggle-button-checkbox'
+    consumption_code_file_name='toggle-button-checkbox'
+    component_file_name=page.data_id
+    component_name=demo_data.component_class
+    component_two_file_name='toggle_button_group'
+    component_two_name=demo_data.secondary_component_class
+%}
+
+
+<h2 id="radio" class="docs-heading">Radio</h2>
+<p>TODO</p>
+render a submit / reset form button, respectively.</p>
+{% include demo-code-example.html
+    name='toggle-button-radio'
+    consumption_code_file_name='toggle-button-radio'
+%}

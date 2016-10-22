@@ -54,6 +54,16 @@ cp -r web/demos/tag/tag-contextual.dart docs/_includes/component-demo-code-ex/ta
 cp -r web/demos/tag/tag-pills.dart docs/_includes/component-demo-code-ex/tag-pills.dart.html
 
 
+#
+# ToggleButtonGroup / ToggleButton
+#
+cp -r web/src/demo_components/toggle_button_group.dart docs/_includes/component-demo-code-ex/toggle_button_group.dart.html
+cp -r web/src/demo_components/toggle_button.dart docs/_includes/component-demo-code-ex/toggle_button.dart.html
+
+cp -r web/demos/toggle-button/toggle-button-checkbox.dart docs/_includes/component-demo-code-ex/toggle-button-checkbox.dart.html
+cp -r web/demos/toggle-button/toggle-button-radio.dart docs/_includes/component-demo-code-ex/toggle-button-radio.dart.html
+
+
 # De-reference the symlinked root packages directory so that github pages can copy them to _site
 rm -rf packages
 cp -r _site/packages/ packages/

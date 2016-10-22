@@ -6958,6 +6958,18 @@
         throw H.wrapException(new V.PropError("RequiredPropError: ", null, J.get$key$x(prop), null, prop.get$errorMessage()));
       }, null, null, 2, 0, null, 18, "call"]
     },
+    UiStatefulComponent: {
+      "^": "UiComponent;",
+      get$state: function(_) {
+        var unwrappedState, typedState;
+        unwrappedState = this.state;
+        typedState = this._typedStateCache.$index(0, unwrappedState);
+        return typedState == null ? this.typedStateFactory$1(unwrappedState) : typedState;
+      },
+      $asUiComponent: function(TProps, TState) {
+        return [TProps];
+      }
+    },
     UiProps: {
       "^": "Object_MapViewMixin_PropsMapViewMixin_ReactPropsMixin_UbiquitousDomPropsMixin_CssClassPropsMixin:14;",
       addProps$1: function(propMap) {
@@ -7063,11 +7075,14 @@
         }
       }
     },
-    UiComponent0: {
-      "^": "UiComponent_GeneratedClass;"
+    UiStatefulComponent0: {
+      "^": "UiStatefulComponent_GeneratedClass;",
+      typedStateFactory$1: function(stateMap) {
+        return H.throwExpression(L.UngeneratedError$(C.Symbol_typedStateFactory, null));
+      }
     },
-    UiComponent_GeneratedClass: {
-      "^": "UiComponent+GeneratedClass;"
+    UiStatefulComponent_GeneratedClass: {
+      "^": "UiStatefulComponent+GeneratedClass;"
     },
     UiProps0: {
       "^": "UiProps_GeneratedClass;",
@@ -7424,12 +7439,10 @@
       set$type: function(_, value) {
         J.$indexSet$ax(this.props, "ButtonProps.type", value);
         return value;
-      },
-      $isMap: 1,
-      $asMap: Isolate.functionThatReturnsNull
+      }
     },
     ButtonComponent: {
-      "^": "UiComponent__$ButtonComponentImplMixin;_$ButtonComponentImplMixin_$defaultConsumedProps,_typedPropsCache,props,ref,_jsRedraw,_jsThis,_setStateCallbacks,_transactionalSetStateCallbacks,state,_prevState,_nextState,nextProps",
+      "^": "UiStatefulComponent__$ButtonComponentImplMixin;_$ButtonComponentImplMixin_$defaultConsumedProps,_typedStateCache,_typedPropsCache,props,ref,_jsRedraw,_jsThis,_setStateCallbacks,_transactionalSetStateCallbacks,state,_prevState,_nextState,nextProps",
       getDefaultProps$0: function() {
         var t1, t2, t3;
         t1 = this.typedPropsFactory$1(P.LinkedHashMap__makeEmpty());
@@ -7444,39 +7457,31 @@
         return t1;
       },
       render$0: function(_) {
-        var t1, t2, t3;
-        t1 = (J.get$href$x(this.get$props(this)) != null ? A.dom_components_Dom_a$closure() : A.dom_components_Dom_button$closure()).call$0();
-        t1.addProps$1(this.copyUnconsumedDomProps$0());
-        t2 = new S.ClassNameBuilder(new P.StringBuffer(""), null);
-        t2.addFromProps$1(this.get$props(this));
-        t2.add$1(0, "btn");
-        t2.add$2(0, "btn-block", this.get$props(this).get$isBlock());
-        t2.add$2(0, "active", this.get$props(this).get$isActive());
-        t2.add$2(0, "disabled", this.get$props(this).get$isDisabled());
-        t2.add$1(0, J.get$className$x(this.get$props(this).get$skin()));
-        t3 = J.getInterceptor$x(t1);
-        t3.set$className(t1, t2.toClassName$0());
-        t3.set$href(t1, J.get$href$x(this.get$props(this)));
-        t3.set$target(t1, J.get$target$x(this.get$props(this)));
-        t3.set$type(t1, J.get$href$x(this.get$props(this)) != null ? null : J.get$type$x(this.get$props(this)).get$typeName());
-        t3.set$disabled(t1, J.get$href$x(this.get$props(this)) != null ? null : this.get$props(this).get$isDisabled());
-        t2 = new K.AriaPropsMapView(P.LinkedHashMap__makeEmpty());
-        t2.set$disabled(0, J.get$href$x(this.get$props(this)) != null ? this.get$props(this).get$isDisabled() : null);
-        t1.addProps$1(t2);
-        return t1.call$1(J.get$children$x(this.get$props(this)));
+        var t1, t2, t3, t4;
+        t1 = J.get$children$x(this.get$props(this));
+        t2 = (J.get$href$x(this.get$props(this)) != null ? A.dom_components_Dom_a$closure() : A.dom_components_Dom_button$closure()).call$0();
+        t2.addProps$1(this.copyUnconsumedDomProps$0());
+        t3 = new S.ClassNameBuilder(new P.StringBuffer(""), null);
+        t3.addFromProps$1(this.get$props(this));
+        t3.add$1(0, "btn");
+        t3.add$2(0, "btn-block", this.get$props(this).get$isBlock());
+        t3.add$2(0, "active", this.get$props(this).get$isActive());
+        t3.add$2(0, "disabled", this.get$props(this).get$isDisabled());
+        t3.add$1(0, J.get$className$x(this.get$props(this).get$skin()));
+        t4 = J.getInterceptor$x(t2);
+        t4.set$className(t2, t3.toClassName$0());
+        t4.set$href(t2, J.get$href$x(this.get$props(this)));
+        t4.set$target(t2, J.get$target$x(this.get$props(this)));
+        t4.set$type(t2, J.get$href$x(this.get$props(this)) != null ? null : J.get$type$x(this.get$props(this)).get$typeName());
+        t4.set$disabled(t2, J.get$href$x(this.get$props(this)) != null ? null : this.get$props(this).get$isDisabled());
+        t3 = new K.AriaPropsMapView(P.LinkedHashMap__makeEmpty());
+        t3.set$disabled(0, J.get$href$x(this.get$props(this)) != null ? this.get$props(this).get$isDisabled() : null);
+        t2.addProps$1(t3);
+        return t2.call$1(t1);
       }
     },
-    UiComponent__$ButtonComponentImplMixin: {
-      "^": "UiComponent0+_$ButtonComponentImplMixin;$$defaultConsumedProps:_$ButtonComponentImplMixin_$defaultConsumedProps<",
-      $asUiComponent0: function() {
-        return [L.ButtonProps];
-      },
-      $asUiComponent_GeneratedClass: function() {
-        return [L.ButtonProps];
-      },
-      $asUiComponent: function() {
-        return [L.ButtonProps];
-      }
+    UiStatefulComponent__$ButtonComponentImplMixin: {
+      "^": "UiStatefulComponent0+_$ButtonComponentImplMixin;$$defaultConsumedProps:_$ButtonComponentImplMixin_$defaultConsumedProps<"
     },
     ButtonSkin: {
       "^": "ClassNameConstant;className,_constants$_name"
@@ -7487,7 +7492,7 @@
     closure0: {
       "^": "Closure:0;",
       call$0: [function() {
-        var t1 = new L.ButtonComponent(C.List_SC2, P.Expando$(null, null), null, null, null, null, [], [], P.LinkedHashMap__makeEmpty(), null, null, null);
+        var t1 = H.setRuntimeTypeInfo(new L.ButtonComponent(C.List_SC2, P.Expando$(null, null), P.Expando$(null, null), null, null, null, null, [], [], P.LinkedHashMap__makeEmpty(), null, null, null), [null, null]);
         t1._throwIfNotGenerated$0();
         return t1;
       }, null, null, 0, 0, null, "call"]
@@ -7550,18 +7555,14 @@
       },
       get$nextState: function() {
         var t1 = this._nextState;
-        return t1 == null ? this.state : t1;
+        return t1 == null ? this.get$state(this) : t1;
       },
       transferComponentState$0: function() {
-        var t1, t2;
-        t1 = this.state;
-        this._prevState = t1;
-        t2 = this._nextState;
-        if (t2 != null) {
-          this.state = t2;
-          t1 = t2;
-        }
-        this._nextState = P.LinkedHashMap_LinkedHashMap$from(t1, null, null);
+        this._prevState = this.get$state(this);
+        var t1 = this._nextState;
+        if (t1 != null)
+          this.state = t1;
+        this._nextState = P.LinkedHashMap_LinkedHashMap$from(this.get$state(this), null, null);
       },
       setState$2: function(_, newState, callback) {
         var t1;
@@ -9133,7 +9134,8 @@
   C.Symbol_call = new H.Symbol("call");
   C.Symbol_componentFactory = new H.Symbol("componentFactory");
   C.Symbol_props = new H.Symbol("props");
-  C.Type_ButtonComponent_gsm = H.createRuntimeType("ButtonComponent");
+  C.Symbol_typedStateFactory = new H.Symbol("typedStateFactory");
+  C.Type_ButtonComponent_qJs = H.createRuntimeType("ButtonComponent");
   $.Closure_functionCounter = 0;
   $.BoundClosure_selfFieldNameCache = null;
   $.BoundClosure_receiverFieldNameCache = null;
@@ -9378,7 +9380,7 @@
     reactComponentFactory = $.$get$registerComponent().call$1(new L.closure0());
     J.set$displayName$x(reactComponentFactory.get$reactClass(), "Button");
     B.registerComponentTypeAlias(reactComponentFactory, t1);
-    B.registerComponentTypeAlias(reactComponentFactory, C.Type_ButtonComponent_gsm);
+    B.registerComponentTypeAlias(reactComponentFactory, C.Type_ButtonComponent_qJs);
     $.$get$setProperty().call$3(J.get$type$x(reactComponentFactory), "_componentTypeMeta", new B.ComponentTypeMeta(false, null));
     return reactComponentFactory;
   }, "$ButtonComponentFactory", "registerComponent", "$get$registerComponent", function() {

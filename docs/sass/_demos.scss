@@ -220,3 +220,18 @@ $code-ex-bg:        #f7f7f9;
         // Since React strips HTML white-space.
         margin-left: to-rem(5px);
     }
+
+    // Since we don't use the `data-toggle="buttons"` attribute
+    // to wire up our toggling behavior, let's wire up the styling
+    // using a CSS class on the `ToggleGroup` component.
+    .btn-toggle-group {
+        > .btn,
+        > .btn-group > .btn {
+            input[type="radio"],
+            input[type="checkbox"] {
+                position: absolute;
+                clip: rect(0,0,0,0);
+                pointer-events: none;
+            }
+        }
+    }

@@ -93,7 +93,7 @@ class ButtonProps extends UiProps {</span><span class="diff-addition">    /* GEN
 }
 
 @Component()
-class ButtonComponent extends UiComponent&lt;ButtonProps&gt;</span><span class="diff-addition"> with _$ButtonComponentImplMixin</span><span class="diff-unmodified"> {
+class ButtonComponent&lt;T extends ButtonProps, S extends UiState&gt; extends UiStatefulComponent&lt;T, S&gt;</span><span class="diff-addition"> with _$ButtonComponentImplMixin</span><span class="diff-unmodified"> {
   @override
   Map getDefaultProps() =&gt; (newProps()
     ..skin = ButtonSkin.PRIMARY
@@ -106,26 +106,30 @@ class ButtonComponent extends UiComponent&lt;ButtonProps&gt;</span><span class="
 
   @override
   render() {
+    return renderButton(props.children);
+  }
+
+  ReactElement renderButton(dynamic children) {
     BuilderOnlyUiFactory&lt;DomProps&gt; factory = _buttonDomNodeFactory;
 
     return (factory()
       ..addProps(copyUnconsumedDomProps())
-      ..className = _getButtonClasses().toClassName()
+      ..className = getButtonClasses().toClassName()
       ..href = props.href
       ..target = props.target
-      ..type = _isAnchorLink ? null : props.type.typeName
+      ..type = _type
       ..disabled = _isAnchorLink ? null : props.isDisabled
       ..addProps(ariaProps()
         ..disabled = _isAnchorLink ? props.isDisabled : null
       )
-    )(props.children);
+    )(children);
   }
 
-  ClassNameBuilder _getButtonClasses() {
+  ClassNameBuilder getButtonClasses() {
     return forwardingClassNameBuilder()
       ..add('btn')
       ..add('btn-block', props.isBlock)
-      ..add('active', props.isActive)
+      ..add('active', _isActive)
       ..add('disabled', props.isDisabled)
       ..add(props.skin.className);
   }
@@ -133,6 +137,10 @@ class ButtonComponent extends UiComponent&lt;ButtonProps&gt;</span><span class="
   BuilderOnlyUiFactory&lt;DomProps&gt; get _buttonDomNodeFactory =&gt; _isAnchorLink ? Dom.a : Dom.button;
 
   bool get _isAnchorLink =&gt; props.href != null;
+
+  bool get _isActive =&gt; props.isActive;
+
+  String get _type =&gt; _isAnchorLink ? null : props.type.typeName;
 }
 
 /// Contextual skin options for a [Button] component.

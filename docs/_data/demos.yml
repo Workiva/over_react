@@ -8,7 +8,7 @@
 - id: list_group
   slug: list-group
   component_class: ListGroup
-  child_component_class: ListGroupItem
+  secondary_component_class: ListGroupItem
   title: ListGroup Component Demo
   lead: 'A component that renders a <a href="http://v4-alpha.getbootstrap.com/components/list-group/" target="bs">Bootstrap List Group</a> element using OverReact’s statically-typed React prop API.'
   img: false
@@ -25,4 +25,12 @@
   component_class: Tag
   title: Tag Component Demo
   lead: 'A component that renders a <a href="http://v4-alpha.getbootstrap.com/components/tag/" target="bs">Bootstrap Tag</a> element using OverReact’s statically-typed React prop API.'
+  img: false
+
+- id: toggle_button
+  slug: toggle-button
+  component_class: ToggleButton
+  secondary_component_class: ToggleButtonGroup
+  title: ToggleButton Component Demo
+  lead: 'A component that renders a <a href="http://v4-alpha.getbootstrap.com/components/buttons/#checkbox-and-radio-buttons" target="bs">Bootstrap Toggle Buttons</a> using OverReact’s statically-typed React prop API.'
   img: false

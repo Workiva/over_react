@@ -1,7 +1,7 @@
         <!DOCTYPE html>
         <html>
         <head>
-          <title>Transformer Diff - web/src/demo_components.dart</title>
+          <title>Transformer Diff - web/demos/toggle-button/index.dart</title>
           <style>
             .diff-unmodified {
                 color: #444;
@@ -19,28 +19,24 @@
         </head>
         <body>
           <code>
-            <pre><span class="diff-unmodified">library over_react.web.demo_components;
-
-// Imports
-import 'dart:html';
-import 'dart:math';
+            <pre><span class="diff-unmodified">import 'dart:html';
 import 'package:react/react.dart' as react;
 import 'package:react/react_dom.dart' as react_dom;
 import 'package:react/react_client.dart';
 import 'package:over_react/over_react.dart';
-import 'dart:developer';
 
-// Parts
-part 'demo_components/shared.dart';
+import '../demos.dart';
+import '../constants.dart';
 
-part 'demo_components/button.dart';
-part 'demo_components/button_group.dart';
-part 'demo_components/list_group.dart';
-part 'demo_components/list_group_item.dart';
-part 'demo_components/progress.dart';
-part 'demo_components/tag.dart';
-part 'demo_components/toggle_button.dart';
-part 'demo_components/toggle_button_group.dart';
+main() {
+  setClientConfiguration();
+
+  react_dom.render(checkboxToggleButtonDemo(),
+      querySelector('$demoMountNodeSelectorPrefix--toggle-button-checkbox'));
+
+  react_dom.render(radioToggleButtonDemo(),
+      querySelector('$demoMountNodeSelectorPrefix--toggle-button-radio'));
+}
 </span></pre>
           </code>
         </body>
