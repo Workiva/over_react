@@ -14,6 +14,8 @@
 
 library dom_util_test;
 
+import 'dart:html';
+
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
@@ -61,6 +63,93 @@ main() {
 
         expect(isOrContains(rootNode, otherNode), isFalse);
       });
+    });
+  });
+
+  group('closest', () {
+    group('returns the closest node that matches the given selector', () {
+      test('when the child matches the target selector in addition to its parent', () {
+        var parent = new DivElement()..className = 'target-class';
+        var child = new DivElement()..className = 'target-class';
+        parent.append(child);
+
+        expect(closest(child, '.target-class'), child);
+      });
+
+      test('when the parent matches the target selector in addition to its grandparent', () {
+        var grandparent = new DivElement()..className = 'target-class';
+        var parent = new DivElement()..className = 'target-class';
+        var child = new DivElement();
+        grandparent.append(parent);
+        parent.append(child);
+
+        expect(closest(child, '.target-class'), parent);
+      });
+
+      test('when only the granparent matches the target selector', () {
+        var grandparent = new DivElement()..className = 'target-class';
+        var parent = new DivElement();
+        var child = new DivElement();
+        grandparent.append(parent);
+        parent.append(child);
+
+        expect(closest(child, '.target-class'), grandparent);
+      });
+
+      test('when an `upperBound` is set that includes the matching ancestor', () {
+        var grandparent = new DivElement()..className = 'target-class';
+        var parent = new DivElement();
+        var child = new DivElement();
+        grandparent.append(parent);
+        parent.append(child);
+
+        expect(closest(child, '.target-class', upperBound: grandparent), grandparent);
+      });
+
+      test('when an `upperBound` is set the same as `lowerBound`, which matches', () {
+        var element = new DivElement()..className = 'target-class';
+        expect(closest(element, '.target-class', upperBound: element), element);
+      });
+    });
+
+    group('returns null', () {
+      test('when there are no matching elements', () {
+        var grandparent = new DivElement();
+        var parent = new DivElement();
+        var child = new DivElement();
+        grandparent.append(parent);
+        parent.append(child);
+
+        expect(closest(child, '.target-class'), isNull);
+      });
+
+      test('when an `upperBound` is set to exclude any matching elements', () {
+        var grandparent = new DivElement()..className = 'target-class';
+        var parent = new DivElement();
+        var child = new DivElement();
+        grandparent.append(parent);
+        parent.append(child);
+
+        expect(closest(child, '.target-class', upperBound: parent), isNull);
+      });
+    });
+  });
+
+  group('getActiveElement returns the correct value when the active element is', () {
+    test('a valid element other than document.body', () async {
+      var activeElement = new DivElement()..tabIndex = 1;
+      document.body.children.add(activeElement);
+
+      await triggerFocus(activeElement);
+
+      expect(getActiveElement(), activeElement);
+      activeElement.remove();
+    });
+
+    test('document.body', () {
+      document.body.focus();
+
+      expect(getActiveElement(), isNull);
     });
   });
 }
