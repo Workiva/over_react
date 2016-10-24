@@ -1,0 +1,14 @@
+language: dart
+dart:
+  - "1.17.1"
+with_content_shell: true
+before_install:
+  - export DISPLAY=:99.0
+  - ./tool/setup_dartium.sh
+  - export PATH=$PATH":$PWD"
+  - sh -e /etc/init.d/xvfb start
+script:
+  - pub run dart_dev analyze
+  - pub run dart_dev test
+  - ./tool/generate_coverage.sh
+  - bash <(curl -s https://codecov.io/bash) -f coverage/coverage.lcov
