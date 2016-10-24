@@ -5,20 +5,21 @@ import 'dart:async';
 import 'package:mockito/mockito.dart';
 import 'package:w_test_tools/src/key_event_util.dart';
 import 'package:web_skin_dart/ui_core.dart';
+import 'package:w_test_tools/src/mock_classes.dart';
 
 /// Dispatches a mock capturing keydown event with [keyCode] and returns a Future
-/// that completes when its stream listeners have been called.
+/// [MockKeyEvent] that completes when its [StreamSubscription] listeners have been called.
 ///
 /// Workaround until https://github.com/Workiva/w_test_tools/issues/11 is fixed.
-Future waitKeyDown(int keyCode, {customizeEvent}) {
+Future<MockKeyEvent> waitKeyDown(int keyCode, {CustomizeEvent customizeEvent}) {
   var completer = new Completer();
-  var keyDownListener;
+  StreamSubscription<MockKeyEvent> keyDownListener;
   keyDownListener = DocumentEventHelper.document.body.onKeyDown.capture((event) {
     completer.complete(event);
     keyDownListener.cancel();
   });
 
-  mockDocumentKeyDown(keyCode, customizeEvent: (mock) {
+  mockDocumentKeyDown(keyCode, customizeEvent: (MockKeyEvent mock) {
     // Default ctrlKey to a non-null value so it doesn't break callbacks that access it
     // called from tests that don't set it explicitly.
     //
@@ -32,18 +33,18 @@ Future waitKeyDown(int keyCode, {customizeEvent}) {
 }
 
 /// Dispatches a mock capturing keyup event with [keyCode] and returns a Future
-/// that completes when its stream listeners have been called.
+/// [MockKeyEvent] that completes when its [StreamSubscription] listeners have been called.
 ///
 /// Workaround until https://github.com/Workiva/w_test_tools/issues/11 is fixed.
-Future waitKeyUp(int keyCode, {customizeEvent}) {
+Future<MockKeyEvent> waitKeyUp(int keyCode, {CustomizeEvent customizeEvent}) {
   var completer = new Completer();
-  var keyUpListener;
+  StreamSubscription<MockKeyEvent> keyUpListener;
   keyUpListener = DocumentEventHelper.document.body.onKeyUp.capture((event) {
     completer.complete(event);
     keyUpListener.cancel();
   });
 
-  mockDocumentKeyUp(keyCode, customizeEvent: (mock) {
+  mockDocumentKeyUp(keyCode, customizeEvent: (MockKeyEvent mock) {
     // Default ctrlKey to a non-null value so it doesn't break callbacks that access it
     // called from tests that don't set it explicitly.
     //
