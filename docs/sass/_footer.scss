@@ -43,3 +43,24 @@
     }
   }
 }
+
+.footer__fine-print {
+  padding-bottom: $footer-vertical-padding;
+
+  &,
+  small {
+    font-size: to-rem(10px);
+  }
+
+  a {
+    color: darken($footer-text-color, 10);
+  }
+
+  p {
+    margin-bottom: .5em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

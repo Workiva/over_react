@@ -2,26 +2,34 @@
 <hr class="footer-divider">
 
 <div class="container">
-    <footer class="footer row">
-        <div class="footer__col footer__col--left col-md">
-            <div class="d-flex flex-items-xs-middle">
-                {% include svg/workiva-symbol.svg class="footer__logo" %}
-                <span>
-                    {{ site.title }} is brought to you by the good folks at
-                    <a href="{{ site.org_url }}" target="{{ site.org_target }}">Workiva</a>
-                </span>
+    <footer class="footer">
+        <div class="row">
+            <div class="footer__col footer__col--left col-md">
+                <div class="d-flex flex-items-xs-middle">
+                    {% include svg/workiva-symbol.svg class="footer__logo" %}
+                    <span>
+                        {{ site.title }} is brought to you by the good folks at
+                        <a href="{{ site.org_url }}" target="{{ site.org_target }}">Workiva</a>
+                    </span>
+                </div>
+            </div>
+            <div class="footer__col footer__col--right col-md col-sm-shrink d-flex flex-items-xs-middle">
+                <div class="d-flex flex-items-xs-middle">
+                    <ul class="footer__items">
+                        <li class="footer__item">
+                            <a class="footer__link" href="{{ site.license_url }}" target="{{ site.repo_target }}">License</a>
+                        </li>
+                        <li class="footer__item">
+                            <a class="footer__link" href="{{ site.repo_url }}" target="{{ site.repo_target }}">Github</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <div class="footer__col footer__col--right col-md col-sm-shrink d-flex flex-items-xs-middle">
-            <div class="d-flex flex-items-xs-middle">
-                <ul class="footer__items">
-                    <li class="footer__item">
-                        <a class="footer__link" href="{{ site.license_url }}" target="{{ site.repo_target }}">License</a>
-                    </li>
-                    <li class="footer__item">
-                        <a class="footer__link" href="{{ site.repo_url }}" target="{{ site.repo_target }}">Github</a>
-                    </li>
-                </ul>
+        <div class="row footer__fine-print">
+            <div class="footer__col col-md">
+                <p><small>The "<a rel="nofollow" href="https://github.com/dart-lang/logos/blob/master/logos_and_wordmarks/dart-logo.eps" target="_blank">Dart logo</a>" by <a rel="nofollow" href="https://github.com/dart-lang" target="_blank">@dart-lang</a> is licensed under <a rel="nofollow" href="http://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a></small></p>
+                <p><small>The "<a rel="nofollow" href="https://github.com/facebook/react/blob/master/docs/img/logo.svg" target="_blank">React logo</a>" by <a rel="nofollow" href="https://github.com/facebook" target="_blank">@facebook</a> is licensed under <a rel="nofollow" href="https://github.com/facebook/react/blob/master/LICENSE-docs" target="_blank">CC BY 4.0</a></small></p>
             </div>
         </div>
     </footer>
