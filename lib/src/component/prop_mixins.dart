@@ -15,6 +15,9 @@
 /// Various prop related mixins to be used with [UiComponent] descendants.
 library over_react.prop_mixins;
 
+// Must import these consts because they are used in the transformed code.
+// ignore: unused_import
+import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps;
 import 'package:over_react/src/component/callback_typedefs.dart';
 import 'package:over_react/src/component_declaration/annotations.dart';
 
