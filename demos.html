@@ -9,7 +9,7 @@ baseurl: ../
 {% include site_vars.html %}
 
 <div class="bd-content">
-    <div class="card-deck">{% for demo in site.data.demos %}
+    <div class="card-deck card-deck--wrapping">{% for demo in site.data.demos %}
         {% assign demo_preview = false %}
         {% if demo.img %}
             {% capture demo_preview %}<img class="card-img-top" src="{{ page.baseurl }}assets/img/{{ demo.img }}" alt="{{ demo.component_class }} component demo preview">{% endcapture %}
@@ -22,7 +22,7 @@ baseurl: ../
                 </h2>
                 <p class="card-text">{{ demo.lead | strip_html }}</p>
             </div>
-            <div class="card-footer demo-card__footer">
+            <div class="card-footer card-footer--transparent demo-card__footer">
                 <div class="d-flex flex-items-xs-between">
                     <a href="./{{ demo.slug }}/"
                        class="btn btn-outline-primary col-order-xs-2"

@@ -17,7 +17,8 @@
 
     <link rel="stylesheet" href="{{ page.baseurl }}docs/sass/docs.css?t={{ site.time | date_to_xmlschema }}">
     <link rel="canonical" href="{{ canonical_url }}">
-    <link rel="icon" href="{{ page.baseurl }}docs/assets/img/favicon.ico" type="image/x-icon">
+
+    {% include favicons.html %}
 
     {% for script in page.scripts %}
         <script src="{{page.baseurl}}{{script}}"></script>
