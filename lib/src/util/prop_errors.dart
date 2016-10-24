@@ -14,49 +14,6 @@
 
 library over_react.prop_errors;
 
-/// Error thrown when a prop, that must be set, is not set.
-///
-/// Deprecated: Use [PropError].required instead.
-@Deprecated('2.0.0')
-class RequiredPropError extends Error {
-  final String message;
-
-  RequiredPropError(this.message);
-
-  @override
-  String toString() => 'RequiredPropError: $message';
-}
-
-/// Error thrown when a prop has an invalid value.
-///
-/// Deprecated: Use [PropError].value instead.
-@Deprecated('2.0.0')
-class InvalidPropValueError extends Error {
-  dynamic value;
-  String name;
-  String message;
-
-  InvalidPropValueError(this.value, this.name, this.message);
-
-  @override
-  String toString() => "InvalidPropValueError: Prop $name set to ${Error.safeToString(value)}: ${this.message}";
-}
-
-/// Error thrown when a two props have incompatible values.
-///
-/// Deprecated: Use [PropError].combination instead.
-@Deprecated('2.0.0')
-class InvalidPropCombinationError extends Error {
-  String prop1;
-  String prop2;
-  String message;
-
-  InvalidPropCombinationError(this.prop1, this.prop2, this.message);
-
-  @override
-  String toString() => "InvalidPropCombinationError: Prop $prop1 and prop $prop2 are set to incompatible values: ${this.message}";
-}
-
 /// Error thrown dues to a prop being set incorrectly.
 class PropError extends Error {
   static const String defaultPrefix = 'PropError: ';
