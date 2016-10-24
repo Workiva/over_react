@@ -38,7 +38,7 @@ kramdown:
       start_line: 1
 
 sass:
-  style: expanded
+  style: compressed
   sass_dir: docs/sass
 
 # Serving
