@@ -7,8 +7,6 @@ import 'package:web_skin_dart/src/ui_core/util/css_value_util.dart';
 import 'package:web_skin_dart/src/ui_core/util/rem_util.dart';
 import 'package:web_skin_dart/test_util.dart';
 
-import '../../wsd_test_util/validation_util_helpers.dart';
-
 /// Main entry point for rem_util testing
 main() {
   group('rem_util', () {
@@ -30,14 +28,6 @@ main() {
         unsetRootFontSize();
       });
 
-      test('returns null when `pxValue` is null', () {
-        expect(toRem(null), isNull);
-      });
-
-      test('returns `pxValue` unaltered when it is not a supported type', () {
-
-      });
-
       test('converts a px CSS value String to rem', () {
         expect(toRem('15px'), new CssValue(0.75, 'rem'));
       });
@@ -46,50 +36,54 @@ main() {
         expect(toRem(new CssValue.parse('15px')), new CssValue(0.75, 'rem'));
       });
 
-      test('converts an int value (treated as px) to rem', () {
+      test('converts nums (treated as px) to rem', () {
         expect(toRem(15), new CssValue(0.75, 'rem'));
+        expect(toRem(20.2), new CssValue(1.01, 'rem'));
       });
 
-      test('converts a double (treated as px) to rem', () {
-        expect(toRem(20.2), new CssValue(1.01, 'rem'));
+      test('does not convert nums when `treatNumAsRem` is true', () {
+        expect(toRem(15, treatNumAsRem: true), new CssValue(15, 'rem'));
+        expect(toRem(20.2, treatNumAsRem: true), new CssValue(20.2, 'rem'));
+      });
+
+      test('gracefully handles a rem String, not doing any conversion', () {
+        expect(toRem('1334rem'), new CssValue(1334, 'rem'));
+      });
+
+      test('gracefully handles a rem CssValue, not doing any conversion', () {
+        expect(toRem(new CssValue(1334, 'rem')), new CssValue(1334, 'rem'));
+      });
+
+      test('gracefully passes through `null`', () {
+        expect(toRem(null), null);
       });
 
       test('throws when passed an invalid value', () {
         expect(() => toRem(new Object()), allOf(
             throwsArgumentError,
-            throwsA(hasToStringValue(contains('must be a num or a String px value'))))
+            throwsA(hasToStringValue(contains('must be a px num or a String px/rem value'))))
         );
       });
 
       test('throws when passed a malformed CSS value string', () {
         expect(() => toRem(''), allOf(
             throwsArgumentError,
-            throwsA(hasToStringValue(contains('must be a num or a String px value'))))
+            throwsA(hasToStringValue(contains('must be a px num or a String px/rem value'))))
         );
       });
 
-      group('warns (and returns corresponding CssValue) when passed', () {
-        setUp(() {
-          startRecordingValidationWarnings();
-        });
+      test('throws when passed a CSS value string with a unit other than px/rem', () {
+        expect(() => toRem('1em'), allOf(
+            throwsArgumentError,
+            throwsA(hasToStringValue(contains('must be a px num or a String px/rem value'))))
+        );
+      });
 
-        tearDown(() {
-          stopRecordingValidationWarnings();
-        });
-
-        test('a CSS value string with a unit other than px', () {
-          var value = toRem('1em');
-
-          verifyValidationWarning('`1em` is not a num or a String px value. Value cannot be converted to `rem` units.');
-          expect(value, new CssValue.parse('1em'));
-        });
-
-        test('a CssValue instance with a unit other than px', () {
-          var value = toRem(new CssValue.parse('1em'));
-
-          verifyValidationWarning('`1em` is not a num or a String px value. Value cannot be converted to `rem` units.');
-          expect(value, new CssValue.parse('1em'));
-        });
+      test('throws when passed a CssValue instance with a unit other than px/rem', () {
+        expect(() => toRem(new CssValue.parse('1em')), allOf(
+            throwsArgumentError,
+            throwsA(hasToStringValue(contains('must be a px num or a String px/rem value'))))
+        );
       });
     });
 
@@ -110,50 +104,54 @@ main() {
         expect(toPx(new CssValue.parse('0.75rem')), new CssValue(15, 'px'));
       });
 
-      test('converts an int value (treated as rem) to px', () {
+      test('converts nums (treated as rem) to px', () {
         expect(toPx(3), new CssValue(60, 'px'));
+        expect(toPx(1.01), new CssValue(20.2, 'px'));
       });
 
-      test('converts a double (treated as rem) to px', () {
-        expect(toPx(1.01), new CssValue(20.2, 'px'));
+      test('does not convert nums when `treatNumAsPx` is true', () {
+        expect(toPx(3, treatNumAsPx: true), new CssValue(3, 'px'));
+        expect(toPx(1.01, treatNumAsPx: true), new CssValue(1.01, 'px'));
+      });
+
+      test('gracefully handles a px String, not doing any conversion', () {
+        expect(toPx('1334px'), new CssValue(1334, 'px'));
+      });
+
+      test('gracefully handles a px CssValue, not doing any conversion', () {
+        expect(toPx(new CssValue(1334, 'px')), new CssValue(1334, 'px'));
+      });
+
+      test('gracefully passes through `null`', () {
+        expect(toPx(null), null);
       });
 
       test('throws when passed an invalid value', () {
         expect(() => toPx(new Object()), allOf(
             throwsArgumentError,
-            throwsA(hasToStringValue(contains('must be a num or a String rem value'))))
+            throwsA(hasToStringValue(contains('must be a rem num or a String px/rem value'))))
         );
       });
 
       test('throws when passed a malformed CSS value string', () {
         expect(() => toPx(''), allOf(
             throwsArgumentError,
-            throwsA(hasToStringValue(contains('must be a num or a String rem value'))))
+            throwsA(hasToStringValue(contains('must be a rem num or a String px/rem value'))))
         );
       });
 
-      group('warns (and returns corresponding CssValue) when passed', () {
-        setUp(() {
-          startRecordingValidationWarnings();
-        });
+      test('throws when passed a CSS value string with a unit other than px/rem', () {
+        expect(() => toPx('1em'), allOf(
+            throwsArgumentError,
+            throwsA(hasToStringValue(contains('must be a rem num or a String px/rem value'))))
+        );
+      });
 
-        tearDown(() {
-          stopRecordingValidationWarnings();
-        });
-
-        test('a CSS value string with a unit other than px', () {
-          var value = toPx('1em');
-
-          verifyValidationWarning('`1em` is not a num or a String rem value. Value cannot be converted to `px` units.');
-          expect(value, new CssValue.parse('1em'));
-        });
-
-        test('a CssValue instance with a unit other than px', () {
-          var value = toPx(new CssValue.parse('1em'));
-
-          verifyValidationWarning('`1em` is not a num or a String rem value. Value cannot be converted to `px` units.');
-          expect(value, new CssValue.parse('1em'));
-        });
+      test('throws when passed a CssValue instance with a unit other than px/rem', () {
+        expect(() => toPx(new CssValue.parse('1em')), allOf(
+            throwsArgumentError,
+            throwsA(hasToStringValue(contains('must be a rem num or a String px/rem value'))))
+        );
       });
     });
 

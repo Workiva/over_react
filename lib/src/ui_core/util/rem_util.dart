@@ -70,79 +70,86 @@ void recomputeRootFontSize() {
   }
 }
 
-/// Converts a pixel (`px`) value to its `rem` equivalent using the current root font size.
+/// Converts a pixel (`px`) [value] to its `rem` equivalent using the current root font size.
+///
+/// If the [String]/[CssValue] [value] already has the correct unit, it will not be converted.
+///
+/// If [value] is a [num], it will be treated as a `px` and converted, unless `treatNumAsRem` is `true`.
+///
+/// If [value] is `null`, `null` will be returned.
 ///
 /// Example input:
 ///
 /// * `'15px'`
-/// * `'15'`
-/// * 15
+/// * `new CssValue(15, 'px')`
+/// * `15`
+/// * `1.5, treatNumAsRem: true`
+/// * `'1.5rem'`
+/// * `new CssValue(1.5, 'rem')`
 ///
 /// Example output (assuming 1rem = 10px):
 ///
 /// * `1.5rem`
-CssValue toRem(dynamic pxValue) {
-  if (pxValue == null) return null;
+CssValue toRem(dynamic value, {bool treatNumAsRem: false}) {
+  if (value == null) return null;
 
-  num pxValueNum;
+  num remValueNum;
 
-  if (pxValue is num) {
-    pxValueNum = pxValue;
+  if (value is num) {
+    remValueNum = treatNumAsRem ? value : value / rootFontSize;
   } else {
-    var parsedPxValue = pxValue is CssValue ? pxValue : new CssValue.parse(pxValue);
-    if (parsedPxValue == null) {
-      throw new ArgumentError.value(pxValue, 'pxValue', 'must be a num or a String px value');
+    var parsedValue = value is CssValue ? value : new CssValue.parse(value);
+
+    if (parsedValue?.unit == 'rem') {
+      remValueNum = parsedValue.number;
+    } else if (parsedValue?.unit == 'px') {
+      remValueNum = parsedValue.number / rootFontSize;
+    } else {
+      throw new ArgumentError.value(value, 'value', 'must be a px num or a String px/rem value');
     }
-
-    if (parsedPxValue.unit != 'px') {
-      assert(ValidationUtil.warn(unindent(
-          '''
-          `$pxValue` is not a num or a String px value. Value cannot be converted to `rem` units.
-          '''
-      )));
-
-      return parsedPxValue;
-    }
-
-    pxValueNum = parsedPxValue.number;
   }
 
-  return new CssValue(pxValueNum / rootFontSize, 'rem');
+  return new CssValue(remValueNum, 'rem');
 }
 
-/// Converts a rem value to its pixel (`px`) equivalent using the current root font size.
+/// Converts a rem [value] to its pixel (`px`) equivalent using the current root font size.
+///
+/// If the [String]/[CssValue] [value] already has the correct unit, it will not be converted.
+///
+/// If [value] is a [num], it will be treated as a `rem` and converted, unless `treatNumAsPx` is `true`.
+///
+/// If [value] is `null`, `null` will be returned.
 ///
 /// Example input:
 ///
 /// * `'1.5rem'`
-/// * `'1.5'`
-/// * 1.5
+/// * `new CssValue(1.5, 'rem')`
+/// * `1.5`
+/// * `15, treatNumAsPx: true`
+/// * `15px`
+/// * `new CssValue(15, 'px')`
 ///
 /// Example output (assuming 1rem = 10px):
 ///
 /// * `15px`
-CssValue toPx(dynamic remValue) {
-  num remValueNum;
+CssValue toPx(dynamic value, {bool treatNumAsPx: false}) {
+  if (value == null) return null;
 
-  if (remValue is num) {
-    remValueNum = remValue;
+  num pxValueNum;
+
+  if (value is num) {
+    pxValueNum = treatNumAsPx ? value : value * rootFontSize;
   } else {
-    var parsedRemValue = remValue is CssValue ? remValue : new CssValue.parse(remValue);
-    if (parsedRemValue == null) {
-      throw new ArgumentError.value(remValue, 'remValue', 'must be a num or a String rem value');
-    }
-    if (parsedRemValue?.unit != 'rem') {
-      assert(ValidationUtil.warn(unindent(
-          '''
-          `$remValue` is not a num or a String rem value. Value cannot be converted to `px` units.
-          '''
-      )));
+    var parsedValue = value is CssValue ? value : new CssValue.parse(value);
 
-      return parsedRemValue;
+    if (parsedValue?.unit == 'px') {
+      pxValueNum = parsedValue.number;
+    } else if (parsedValue?.unit == 'rem') {
+      pxValueNum = parsedValue.number * rootFontSize;
+    } else {
+      throw new ArgumentError.value(value, 'value', 'must be a rem num or a String px/rem value');
     }
-
-    remValueNum = parsedRemValue.number;
   }
 
-  return new CssValue(remValueNum * rootFontSize, 'px');
+  return new CssValue(pxValueNum, 'px');
 }

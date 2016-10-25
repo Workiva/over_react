@@ -43,15 +43,14 @@ class CssValue implements Comparable<CssValue> {
       unit = 'px';
     } else {
       var unitMatch = new RegExp(r'(?:rem|em|ex|vh|vw|vmin|vmax|%|px|cm|mm|in|pt|pc|ch)?$').firstMatch(source.toString());
-      try {
-        number = double.parse(unitMatch.input.substring(0, unitMatch.start));
         unit = unitMatch.group(0);
-        if (unit == '') {
-          unit = 'px';
-        }
-      } catch(e) {
-        error = new ArgumentError.value(source, 'value', 'Invalid number/unit for CSS value');
+      if (unit == '') {
+        unit = 'px';
       }
+
+      number = double.parse(unitMatch.input.substring(0, unitMatch.start), (_) {
+        error = new ArgumentError.value(source, 'value', 'Invalid number/unit for CSS value');
+      });
     }
 
     if (number != null && !number.isFinite) {
