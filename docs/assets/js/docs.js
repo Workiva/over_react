@@ -1,5 +1,10 @@
 var gaSourceCodeViewPath = '/over_react/demos/source/';
 
+function handleGaHashLinkClick(hash) {
+    initGaPath(hash);
+    ga('send', 'pageview');
+}
+
 function gaLinkHandler(action, label, isAffiliated, page) {
     // For one reason or another, analytics was not loaded onto the page
     if (!ga) return;
@@ -56,17 +61,28 @@ var contentPlaceholders = $('.content-placeholder__bg');
 var waitFn;
 
 contentPlaceholders.each(function() {
-  waitFn = $(this).waitForImages(function() {
-    $(this).addClass('content-placeholder__bg--content-loaded');
-    $('.content-placeholder__bg-masks-container', this).remove();
+    waitFn = $(this).waitForImages(function() {
+        $(this).addClass('content-placeholder__bg--content-loaded');
+        $('.content-placeholder__bg-masks-container', this).remove();
 
-    waitFn = null;
-  });
+        waitFn = null;
+    });
 });
 
 $('.code-example-tabpanel [role="tab"]').click(function (e) {
-  if ($(e.target).closest('.code-example-popout-link').length == 0) {
-    e.preventDefault();
-    $(this).tab('show');
-  }
+    if ($(e.target).closest('.code-example-popout-link').length == 0) {
+        e.preventDefault();
+        $(this).tab('show');
+
+        if (ga) {
+            var targetInnerText = e.target.innerText;
+            var componentName = targetInnerText.substring(0, targetInnerText.indexOf(' Component'));
+
+            ga('send', 'pageview', gaSourceCodeViewPath + componentName);
+        }
+    }
+});
+
+$('a', '#demo-toc').on('click', function(ev) {
+    handleGaHashLinkClick(ev.currentTarget.hash);
 });

@@ -45,6 +45,9 @@
 }
 
 .footer__fine-print {
+  $fine-print-color: lighten($footer-text-color, 10);
+
+  color: $fine-print-color;
   padding-bottom: $footer-vertical-padding;
 
   &,
@@ -53,7 +56,7 @@
   }
 
   a {
-    color: darken($footer-text-color, 10);
+    color: darken($fine-print-color, 10);
   }
 
   p {

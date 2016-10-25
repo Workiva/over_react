@@ -71,5 +71,30 @@
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', '{{ site.gacode }}', 'auto');
+
+    function toTitleCase(str) {
+        return str.replace(/\w\S*/g, function(txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+    }
+
+    function setGaLocation(pathName) {
+        ga('set', 'location', window.location.protocol + '//' + window.location.hostname + pathName);
+    }
+
+    function initGaPath(hash) {
+        hash = hash || location.hash;
+        var gaPathName = location.pathname.replace('/index.html', '/');
+
+        if (hash != '') {
+            var hashName = hash.replace('#', '');
+            gaPathName = gaPathName + hashName + '/';
+
+            var title = document.title;
+            ga('set', 'title', toTitleCase(hashName.replace(/-/g, ' ')) + ' · ' + document.title);
+        }
+
+        setGaLocation(gaPathName);
+    }
+
+    initGaPath();
     ga('send', 'pageview');
 </script>
