@@ -252,8 +252,8 @@
         if (prototype.$isInterceptor)
           prototype.$deferredAction();
       }
-      var objectClassObject = processedClasses.collected.Object, shortNames = "set$className,set$dartDefaultProps,set$disabled,set$displayName,set$href,set$isMounted,set$key,set$ref,set$size,set$target,set$type,get$$char,get$altKey,get$attributes,get$bubbles,get$button,get$buttons,get$cancelable,get$changedTouches,get$charCode,get$checked,get$children,get$className,get$clientX,get$clientY,get$clipboardData,get$ctrlKey,get$currentTarget,get$dartDefaultProps,get$dataTransfer,get$defaultPrevented,get$deltaMode,get$deltaX,get$deltaY,get$deltaZ,get$detail,get$displayName,get$dropEffect,get$effectAllowed,get$eventPhase,get$files,get$href,get$internal,get$isMounted,get$isTrusted,get$iterator,get$key,get$keyCode,get$length,get$locale,get$location,get$metaKey,get$name,get$nativeEvent,get$pageX,get$pageY,get$refs,get$relatedTarget,get$repeat,get$screenX,get$screenY,get$shiftKey,get$target,get$targetTouches,get$timeStamp,get$touches,get$type,get$types,get$value,get$view,$add,$gt,$index,$indexSet,$lt,$sub,_replaceChild$2,addAll$1,clear$0,compareTo$1,contains$1,forEach$1,indexOf$1,matchAsPrefix$2,preventDefault$0,remove$0,remove$1,render$0,replaceWith$1,setState$1,startsWith$1,stopPropagation$0,sublist$1,substring$1,substring$2,toList$0,set$_contents,set$_next,set$_previous,set$component,set$hashMapCellValue,set$isActive,set$isBlock,set$isDisabled,set$nextProps,set$skin,get$_contents,get$_name,get$_next,get$_previous,get$component,get$current,get$errorMessage,get$hashMapCellKey,get$hashMapCellValue,get$isActive,get$isBlock,get$isDisabled,get$isMethod,get$isNullable,get$isRequired,get$keys,get$memberName,get$namedArguments,get$nextProps,get$nextState,get$positionalArguments,get$prevState,get$reactClass,get$setStateCallbacks,get$skin,get$transactionalSetStateCallbacks,get$typeName,addProps$1,componentDidMount$0,componentDidUpdate$2,componentWillMount$0,componentWillReceiveProps$1,componentWillUnmount$0,componentWillUpdate$2,containsKey$1,getDefaultProps$0,initComponentInternal$4,initStateInternal$0,moveNext$0,shouldComponentUpdate$2,toRti$0,transferComponentState$0".split(",");
-      var longNames = "className=,dartDefaultProps=,disabled=,displayName=,href=,isMounted=,key=,ref=,size=,target=,type=,char,altKey,attributes,bubbles,button,buttons,cancelable,changedTouches,charCode,checked,children,className,clientX,clientY,clipboardData,ctrlKey,currentTarget,dartDefaultProps,dataTransfer,defaultPrevented,deltaMode,deltaX,deltaY,deltaZ,detail,displayName,dropEffect,effectAllowed,eventPhase,files,href,internal,isMounted,isTrusted,iterator,key,keyCode,length,locale,location,metaKey,name,nativeEvent,pageX,pageY,refs,relatedTarget,repeat,screenX,screenY,shiftKey,target,targetTouches,timeStamp,touches,type,types,value,view,+,>,[],[]=,<,-,_replaceChild,addAll,clear,compareTo,contains,forEach,indexOf,matchAsPrefix,preventDefault,remove,remove,render,replaceWith,setState,startsWith,stopPropagation,sublist,substring,substring,toList,_contents=,_next=,_previous=,component=,hashMapCellValue=,isActive=,isBlock=,isDisabled=,nextProps=,skin=,_contents,_name,_next,_previous,component,current,errorMessage,hashMapCellKey,hashMapCellValue,isActive,isBlock,isDisabled,isMethod,isNullable,isRequired,keys,memberName,namedArguments,nextProps,nextState,positionalArguments,prevState,reactClass,setStateCallbacks,skin,transactionalSetStateCallbacks,typeName,addProps,componentDidMount,componentDidUpdate,componentWillMount,componentWillReceiveProps,componentWillUnmount,componentWillUpdate,containsKey,getDefaultProps,initComponentInternal,initStateInternal,moveNext,shouldComponentUpdate,toRti,transferComponentState".split(",");
+      var objectClassObject = processedClasses.collected.Object, shortNames = "set$className,set$dartDefaultProps,set$disabled,set$displayName,set$href,set$isMounted,set$key,set$ref,set$size,set$target,set$type,get$$char,get$altKey,get$attributes,get$bubbles,get$button,get$buttons,get$cancelable,get$changedTouches,get$charCode,get$checked,get$children,get$className,get$clientX,get$clientY,get$clipboardData,get$ctrlKey,get$currentTarget,get$dartDefaultProps,get$dataTransfer,get$defaultPrevented,get$deltaMode,get$deltaX,get$deltaY,get$deltaZ,get$detail,get$displayName,get$dropEffect,get$effectAllowed,get$eventPhase,get$files,get$href,get$internal,get$isMounted,get$isTrusted,get$iterator,get$key,get$keyCode,get$length,get$locale,get$location,get$metaKey,get$name,get$nativeEvent,get$pageX,get$pageY,get$refs,get$relatedTarget,get$repeat,get$screenX,get$screenY,get$shiftKey,get$size,get$target,get$targetTouches,get$timeStamp,get$touches,get$type,get$types,get$value,get$view,$add,$gt,$index,$indexSet,$lt,$sub,_replaceChild$2,addAll$1,clear$0,compareTo$1,contains$1,forEach$1,indexOf$1,matchAsPrefix$2,preventDefault$0,remove$0,remove$1,render$0,replaceWith$1,setState$1,startsWith$1,stopPropagation$0,sublist$1,substring$1,substring$2,toList$0,set$_contents,set$_next,set$_previous,set$component,set$hashMapCellValue,set$isActive,set$isBlock,set$isDisabled,set$nextProps,set$skin,get$_contents,get$_name,get$_next,get$_previous,get$component,get$current,get$errorMessage,get$hashMapCellKey,get$hashMapCellValue,get$isActive,get$isBlock,get$isDisabled,get$isMethod,get$isNullable,get$isRequired,get$keys,get$memberName,get$namedArguments,get$nextProps,get$nextState,get$positionalArguments,get$prevState,get$reactClass,get$setStateCallbacks,get$skin,get$transactionalSetStateCallbacks,get$typeName,addProps$1,componentDidMount$0,componentDidUpdate$2,componentWillMount$0,componentWillReceiveProps$1,componentWillUnmount$0,componentWillUpdate$2,containsKey$1,getDefaultProps$0,initComponentInternal$4,initStateInternal$0,moveNext$0,shouldComponentUpdate$2,toRti$0,transferComponentState$0".split(",");
+      var longNames = "className=,dartDefaultProps=,disabled=,displayName=,href=,isMounted=,key=,ref=,size=,target=,type=,char,altKey,attributes,bubbles,button,buttons,cancelable,changedTouches,charCode,checked,children,className,clientX,clientY,clipboardData,ctrlKey,currentTarget,dartDefaultProps,dataTransfer,defaultPrevented,deltaMode,deltaX,deltaY,deltaZ,detail,displayName,dropEffect,effectAllowed,eventPhase,files,href,internal,isMounted,isTrusted,iterator,key,keyCode,length,locale,location,metaKey,name,nativeEvent,pageX,pageY,refs,relatedTarget,repeat,screenX,screenY,shiftKey,size,target,targetTouches,timeStamp,touches,type,types,value,view,+,>,[],[]=,<,-,_replaceChild,addAll,clear,compareTo,contains,forEach,indexOf,matchAsPrefix,preventDefault,remove,remove,render,replaceWith,setState,startsWith,stopPropagation,sublist,substring,substring,toList,_contents=,_next=,_previous=,component=,hashMapCellValue=,isActive=,isBlock=,isDisabled=,nextProps=,skin=,_contents,_name,_next,_previous,component,current,errorMessage,hashMapCellKey,hashMapCellValue,isActive,isBlock,isDisabled,isMethod,isNullable,isRequired,keys,memberName,namedArguments,nextProps,nextState,positionalArguments,prevState,reactClass,setStateCallbacks,skin,transactionalSetStateCallbacks,typeName,addProps,componentDidMount,componentDidUpdate,componentWillMount,componentWillReceiveProps,componentWillUnmount,componentWillUpdate,containsKey,getDefaultProps,initComponentInternal,initStateInternal,moveNext,shouldComponentUpdate,toRti,transferComponentState".split(",");
       if (objectClassObject instanceof Array)
         objectClassObject = objectClassObject[1];
       if (objectClassObject)
@@ -264,7 +264,7 @@
             type = 1;
           if (shortName.indexOf("set$") == 0)
             type = 2;
-          if (j < 96)
+          if (j < 97)
             objectClassObject[shortName] = function(name, shortName, type) {
               return function(receiver) {
                 return this.noSuchMethod$1(receiver, H.createInvocationMirror(name, shortName, type, Array.prototype.slice.call(arguments, 1), []));
@@ -5093,7 +5093,7 @@
       "%": "HTMLBaseElement"
     },
     Blob: {
-      "^": "Interceptor;type=",
+      "^": "Interceptor;size=,type=",
       "%": ";Blob"
     },
     BodyElement: {
@@ -5301,7 +5301,7 @@
       "%": "FileWriter"
     },
     FontFaceSet: {
-      "^": "EventTarget;",
+      "^": "EventTarget;size=",
       clear$0: function(receiver) {
         return receiver.clear();
       },
@@ -5383,7 +5383,7 @@
       "%": "HTMLIFrameElement"
     },
     InputElement: {
-      "^": "HtmlElement;checked=,disabled},files=,name=,size},type%,value=",
+      "^": "HtmlElement;checked=,disabled},files=,name=,size%,type%,value=",
       $isElement: 1,
       $isEventTarget: 1,
       $isNode: 1,
@@ -5645,7 +5645,7 @@
       "%": "HTMLScriptElement"
     },
     SelectElement: {
-      "^": "HtmlElement;disabled},length=,name=,size},type=,value=",
+      "^": "HtmlElement;disabled},length=,name=,size%,type=,value=",
       "%": "HTMLSelectElement"
     },
     SharedWorker: {
@@ -5872,7 +5872,7 @@
       "%": "VideoTrackList"
     },
     VttCue: {
-      "^": "TextTrackCue;size}",
+      "^": "TextTrackCue;size%",
       "%": "VTTCue"
     },
     Window: {
@@ -7312,6 +7312,9 @@
     },
     DomPropsMixin: {
       "^": "Object;",
+      get$size: function(_) {
+        return this.props.$index(0, "size");
+      },
       set$size: function(_, value) {
         this.props.$indexSet(0, "size", value);
         return value;
@@ -7378,6 +7381,9 @@
       set$skin: function(value) {
         J.$indexSet$ax(this.props, "ButtonProps.skin", value);
         return value;
+      },
+      get$size: function(_) {
+        return J.$index$asx(this.props, "ButtonProps.size");
       },
       set$size: function(_, value) {
         J.$indexSet$ax(this.props, "ButtonProps.size", value);
@@ -7454,6 +7460,7 @@
         t2.add$2(0, "active", this.get$props(this).get$isActive());
         t2.add$2(0, "disabled", this.get$props(this).get$isDisabled());
         t2.add$1(0, J.get$className$x(this.get$props(this).get$skin()));
+        t2.add$1(0, J.get$className$x(J.get$size$x(this.get$props(this))));
         t3 = J.getInterceptor$x(t1);
         t3.set$className(t1, t2.toClassName$0());
         t3.set$href(t1, J.get$href$x(this.get$props(this)));
@@ -8822,6 +8829,9 @@
   };
   J.get$refs$x = function(receiver) {
     return J.getInterceptor$x(receiver).get$refs(receiver);
+  };
+  J.get$size$x = function(receiver) {
+    return J.getInterceptor$x(receiver).get$size(receiver);
   };
   J.get$target$x = function(receiver) {
     return J.getInterceptor$x(receiver).get$target(receiver);

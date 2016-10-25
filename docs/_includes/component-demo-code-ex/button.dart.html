@@ -106,7 +106,8 @@ class ButtonComponent extends UiComponent<ButtonProps> {
       ..add('btn-block', props.isBlock)
       ..add('active', props.isActive)
       ..add('disabled', props.isDisabled)
-      ..add(props.skin.className);
+      ..add(props.skin.className)
+      ..add(props.size.className);
   }
 
   BuilderOnlyUiFactory<DomProps> get _buttonDomNodeFactory => _isAnchorLink ? Dom.a : Dom.button;
