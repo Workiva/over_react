@@ -19,7 +19,9 @@
 * __[DOM components and props](#dom-components-and-props)__
 * __[Building custom components](#building-custom-components)__
     * __[Component Boilerplates](#component-boilerplate-templates)__
+    * __[Component Formatting](#component-formatting)__
     * __[Common Pitfalls](#common-pitfalls)__
+* __[Contributing](#contributing)__
 
 [](#__START_EMBEDDED_README__)
 
@@ -97,6 +99,7 @@ mount / render it into the HTML element you created in step 3.
 
 5. Run `pub serve` in the root of your Dart project.
 
+&nbsp;
 
 ### Running tests in your project
 
@@ -146,6 +149,7 @@ Pub transformer using an analogous [annotation].
 3. _[UiState](#uistate) (optional)_
 4. [UiComponent](#uicomponent)
 
+&nbsp;
 
 ### UiFactory
 
@@ -161,6 +165,7 @@ UiFactory<FooProps> Foo;
 * The `UiProps` instance it returns can be used [as a component builder](#uiprops-as-a-builder), 
 or [as a typed view into an existing props map](#uiprops-as-a-map).
 
+&nbsp;
 
 ### UiProps
 
@@ -173,6 +178,8 @@ class FooProps extends UiProps {
   // ...
 }
 ``` 
+
+&nbsp;
 
 #### UiProps as a Map
 
@@ -209,6 +216,8 @@ void baz() {
   print(props.color); // #0094ff
 }
 ```
+
+&nbsp;
 
 #### UiProps as a builder
 
@@ -251,6 +260,7 @@ class FooComponent extends UiComponent<FooProps> {
 
 > See [_fluent-style component consumption_](#fluent-style-component-consumption) for more examples on builder usage.
 
+&nbsp;
 
 ### UiState
 
@@ -266,6 +276,7 @@ class FooState extends UiState {
 
 > UiState is optional, and won’t be used for every component.
 
+&nbsp;
 
 ### UiComponent
 
@@ -283,6 +294,8 @@ class FooComponent extends UiComponent<FooProps> {
 prop forwarding and CSS class merging.
 * The `UiStatefulComponent` flavor augments `UiComponent` behavior with statically-typed state via 
 [`UiState`](#uistate).
+
+&nbsp;
 
 #### Accessing and manipulating props / state within UiComponent
 
@@ -500,6 +513,7 @@ that you get for free from OverReact, you're ready to start building your own cu
     
 > __Check out some custom [component demos] to get a feel for what’s possible!__
 
+&nbsp;
 
 ### Component Boilerplate Templates
 
@@ -587,6 +601,231 @@ that you get for free from OverReact, you're ready to start building your own cu
     }
     ```
 
+&nbsp;
+
+### Component Formatting
+
+> NOTE: At this time, we __do not recommend using [`dartfmt`](https://github.com/dart-lang/dart_style)__, as it _greatly_ decreases the readability of components built using [OverReact's fluent-style](#fluent-style-component-consumption).
+> 
+> _We have a long-term goal of writing our own formatter that extends from `dartfmt` to make it possible for our fluent-style to remain readable even after the formatter executes._
+
+Since using `dartfmt` results in unreadable code, we have documented the following formatting best-practices that we _strongly recommended_ when building components using the `over_react` library.
+
+&nbsp;
+
+* __ALWAYS__ place the closing builder parent on a new line.
+
+  _Good:_
+    ```dart
+    (Button()
+      ..skin = ButtonSkin.SUCCESS
+      ..isDisabled = true
+    )('Submit')
+    ```
+
+  _Bad:_
+    ```dart
+    (Button()
+      ..skin = ButtonSkin.SUCCESS
+      ..isDisabled = true)('Submit')
+    ```
+
+&nbsp;
+
+* __ALWAYS__ pass nested components as variadic children when keys are not specified, on a new line with a __2 space__ indentation.
+
+  _Good:_
+    ```dart
+    Dom.div()(
+      Dom.span()('nested component'),
+      Dom.span()('nested component')
+    )
+    ```
+
+  _Bad:_
+    ```dart
+    // Nested component is not on a new line
+    Dom.div()(Dom.span()('nested component'))
+
+    // Nested component has a continuation indent
+    Dom.div()(
+        Dom.span()('nested component'),
+    )
+
+    // Nested components are within a list instead of
+    // being passed in as variadic children.
+    Dom.div()([
+      Dom.span()('nested component'),
+      Dom.span()('nested component')
+    ])
+    ```
+
+&nbsp;
+
+* __ALWAYS__ write informative comments for your component factories. 
+Include what the component relates to, relies on, or if it extends 
+another component.
+
+  _Good:_
+    ```dart
+    /// Use the `DropdownButton` component to render a button
+    /// that controls the visibility of a child [DropdownMenu].
+    ///
+    /// * Related to [Button].
+    /// * Extends [DropdownTrigger].
+    /// * Similar to [SplitButton].
+    ///
+    /// See: <https://link-to-any-relevant-documentation>.
+    @Factory()
+    UiFactory<DropdownButtonProps> DropdownButton;
+    ```
+
+  _Bad:_
+    ```dart
+    /// Component Factory for a dropdown button component.
+    @Factory()
+    UiFactory<DropdownButtonProps> DropdownButton;
+    ```
+
+&nbsp;
+
+* __ALWAYS__ set a default / intial value for `props` / `state` fields, 
+and document that value in a comment.
+
+  _Why?_ Without default prop values for bool fields, they could be 
+  `null` - which is extremely confusing and can lead to a lot of 
+  unnecessary null-checking in your business logic. 
+
+  Also, if you fail to provide an initial value for all the fields in 
+  `state`, your component will fail to build at run-time.
+
+  _Good:_
+    ```dart
+    @Props()
+    DropdownButtonProps extends UiProps {
+      /// Whether the [DropdownButton] appears disabled.
+      /// 
+      /// Default: `false`
+      bool isDisabled;
+
+      /// Whether the [DropdownButton]'s child [DropdownMenu] is open
+      /// when the component is first mounted.
+      /// 
+      /// Determines the initial value of [DropdownButtonState.isOpen].
+      /// 
+      /// Default: `false`
+      bool initiallyOpen;
+    }
+
+    @State()
+    DropdownButtonState extends UiState {
+      /// Whether the [DropdownButton]'s child [DropdownMenu] is open.
+      /// 
+      /// Initial: [DropdownButtonProps.initiallyOpen]
+      bool isOpen;
+    }
+
+    @Component()
+    DropdownButtonComponent 
+        extends UiStatefulComponent<DropdownButtonProps, DropdownButtonState> {
+      @override
+      Map getDefaultProps() => (newProps()
+        ..isDisabled = false
+        ..initiallyOpen = false
+      );
+
+      @override
+      Map getInitialState() => (newState()
+        ..isOpen = props.initiallyOpen
+      );
+    }
+    ```
+
+  _Bad:_
+    ```dart
+    @Props()
+    DropdownButtonProps extends UiProps {
+      bool isDisabled;
+      bool initiallyOpen;
+    }
+
+    @State()
+    DropdownButtonState extends UiState {
+      bool isOpen;
+    }
+
+    @Component()
+    DropdownButtonComponent 
+        extends UiStatefulComponent<DropdownButtonProps, DropdownButtonState> {
+      // Confusing stuff is gonna happen in here with bool props that could
+      // be null, and un-initialized state keys.
+    }
+    ```
+
+&nbsp;
+
+* __AVOID__ adding `props` or `state` fields that don't have 
+an informative comment.
+
+  _Good:_
+    ```dart
+    @Props()
+    DropdownButtonProps extends UiProps {
+      /// Whether the [DropdownButton] appears disabled.
+      /// 
+      /// Default: `false`
+      bool isDisabled;
+
+      /// Whether the [DropdownButton]'s child [DropdownMenu] is open
+      /// when the component is first mounted.
+      /// 
+      /// Determines the initial value of [DropdownButtonState.isOpen].
+      /// 
+      /// Default: `false`
+      bool initiallyOpen;
+    }
+
+    @State()
+    DropdownButtonState extends UiState {
+      /// Whether the [DropdownButton]'s child [DropdownMenu] is open.
+      /// 
+      /// Initial: [DropdownButtonProps.initiallyOpen]
+      bool isOpen;
+    }
+    ```
+
+  _Bad:_
+    ```dart
+    @Props()
+    DropdownButtonProps extends UiProps {
+      bool isDisabled;
+      bool initiallyOpen;
+    }
+
+    @State()
+    DropdownButtonState extends UiState {
+      bool isOpen;
+    }
+    ```
+
+&nbsp;
+
+* __AVOID__ specifying more than one cascading prop setter on the same line.
+
+  _Good:_
+    ```dart
+    (Dom.div()
+      ..id = 'my_div'
+      ..className = 'my-class'
+    )()
+    ```
+
+  _Bad:_
+    ```dart
+    (Dom.div()..id = 'my_div'..className = 'my-class')()
+    ```
+
+&nbsp;
 
 ### Common Pitfalls
 
@@ -621,10 +860,33 @@ invalid file to 404. This ensures that when the transformer breaks, `pub build` 
 
 __Check your `pub serve` output for errors.__
 
+&nbsp;
+&nbsp;
+
+
+
+## Contributing
+
+Yes please! ([__Please read our contributor guidelines first__][contributing-docs])
+
+&nbsp;
+&nbsp;
+
+
+
+## Versioning
+
+The `over_react` library adheres to [Semantic Versioning](http://semver.org/):
+
+* Any API changes that are not backwards compatible will __bump the major version__ _(and reset the minor / patch)_.
+* Any new functionality that is added in a backwards-compatible manner will __bump the minor version__ _(and reset the patch)_.
+* Any backwards-compatible bug fixes that are added will __bump the patch version__.
+
 
 
 [component demos]: https://workiva.github.io/over_react/demos
 
+[contributing-docs]: https://github.com/Workiva/over_react/blob/master/.github/CONTRIBUTING.md
 [transformer]: https://github.com/Workiva/over_react/blob/master/lib/src/transformer/README.md
 [annotations]: https://github.com/Workiva/over_react/blob/master/lib/src/component_declaration/annotations.dart
 [annotation]: https://github.com/Workiva/over_react/blob/master/lib/src/component_declaration/annotations.dart
