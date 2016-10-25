@@ -23,13 +23,19 @@
                             <a class="nav-link" href="{{page.baseurl}}demos/">Demos</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="{{ dartdocs_url }}/index.html" target="{{ site.api_target }}">API Docs</a>
+                            <a class="nav-link" href="{{ dartdocs_url }}/index.html" target="{{ site.api_target }}"
+                               onclick="handleAffiliatedClick('Click: Navbar', 'API Docs', '{{ site.dartdocs_pageview_page }}');">
+                                API Docs
+                            </a>
                         </li>
                     </ul>
 
                     <ul class="nav navbar-nav float-sm-right">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ site.repo_url }}" target="{{ site.repo_target }}">Github</a>
+                            <a class="nav-link" href="{{ site.repo_url }}" target="{{ site.repo_target }}"
+                               onclick="handleAffiliatedClick('Click: Navbar', 'Github', '{{ site.repo_pageview_page }}');">
+                                Github
+                            </a>
                         </li>
                     </ul>
                 </div>

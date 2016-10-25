@@ -12,7 +12,9 @@ baseurl: site.baseurl
             <a class="btn hero-btn" href="{{ page.baseurl }}demos/" aria-label="Demonstrations">
                 Demos
             </a>
-            <a class="btn hero-btn" href="{{ dartdocs_url }}/index.html" target="{{ site.api_target }}" aria-label="API Documentation">
+            <a class="btn hero-btn" href="{{ dartdocs_url }}/index.html" target="{{ site.api_target }}"
+               aria-label="API Documentation"
+               onclick="handleAffiliatedClick('Click: Content', 'API Docs', '{{ site.dartdocs_pageview_page }}');">
                 API Docs
             </a>
 
@@ -31,9 +33,11 @@ baseurl: site.baseurl
                 <h2 class="feature__heading display-4">The best of both worlds.</h2>
                 <p class="feature__body">
                     The {{ site.pkg_name }} platform delivers the declarative awesomeness of
-                    <a href="https://facebook.github.io/react/" target="{{ site.reactjs_target }}">React</a>
+                    <a href="https://facebook.github.io/react/" target="{{ site.reactjs_target }}"
+                       onclick="handleExternalClick('Click: Content', 'React');">React</a>
                     <em>and</em> all the creature comforts of
-                    <a href="https://www.dartlang.org/" target="{{ site.dartlang_target }}">Dart</a>
+                    <a href="https://www.dartlang.org/" target="{{ site.dartlang_target }}"
+                       onclick="handleExternalClick('Click: Content', 'Dart');">Dart</a>
                     in a single package!
                 </p>
             </div>
@@ -54,7 +58,12 @@ baseurl: site.baseurl
             <h2 class="feature__heading display-4">Make components; <br>not boilerplate.</h2>
             <p class="feature__body">
                 The {{ site.pkg_name }} platform makes use of a powerful Pub transformer
-                to wire up a factory and <a href="https://facebook.github.io/react/docs/reusable-components.html" target="{{ site.reactjs_target }}">React component class</a>,
+                to wire up a factory and
+                <a href="https://facebook.github.io/react/docs/reusable-components.html"
+                   target="{{ site.reactjs_target }}"
+                   onclick="handleExternalClick('Click: Content', 'React component class');">
+                    React component class
+                </a>,
                 along with props and optional state classes, so you can focus on building UI that your consumers
                 &mdash; and customers &mdash; will love.
             </p>

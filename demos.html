@@ -32,7 +32,8 @@ baseurl: ../
                     <a href="{{ demo_component_src_path }}{{ demo.id }}.dart"
                        target="{{ site.repo_target }}"
                        class="btn btn-outline-secondary"
-                       aria-label="{{ demo.component_class }} Demo Component Source Code">
+                       aria-label="{{ demo.component_class }} Demo Component Source Code"
+                       onclick="handleSourceCodeView('{{ demo.component_class }}');">
                         Source Code
                     </a>
                 </div>

@@ -64,3 +64,7 @@ dartlang_target: dartlang
 
 demo_component_src_branch: gh-pages
 demo_dart_src_path: build/web/demos/
+
+# Google Analytics Helpers
+repo_pageview_page: /over_react/github
+dartdocs_pageview_page: /over_react/api-docs
