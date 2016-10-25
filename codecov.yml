@@ -1,5 +1,6 @@
 comment:
   layout: header, changes, diff, sunburst
 coverage:
+  round: up
   ignore:
-  - web/.*
+    - web/.*
