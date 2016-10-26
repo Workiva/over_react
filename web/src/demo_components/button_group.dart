@@ -1,4 +1,4 @@
-part of over_react.web.demo_components;
+ part of over_react.web.demo_components;
 
 /// Groups a series of [Button]s together on a single line.
 ///
@@ -15,9 +15,6 @@ class ButtonGroupProps extends UiProps {
   /// Default: [ButtonGroupSize.DEFAULT]
   ButtonGroupSize size;
 
-  /// The [ButtonSkin] variation applied to every [Button] within the [ButtonGroup].
-  ButtonSkin skin;
-
   /// Make the [Button]s within a [ButtonGroup] stack vertically.
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#vertical-variation>.
@@ -26,8 +23,11 @@ class ButtonGroupProps extends UiProps {
   bool isVertical;
 }
 
+@State()
+class ButtonGroupState extends UiState {}
+
 @Component()
-class ButtonGroupComponent<T extends ButtonGroupProps, S extends UiState>
+class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupState>
     extends UiStatefulComponent<T, S> {
   @override
   Map getDefaultProps() => (newProps()
@@ -43,13 +43,13 @@ class ButtonGroupComponent<T extends ButtonGroupProps, S extends UiState>
   ReactElement renderButtonGroup(dynamic children) {
     var componentBuilder = Dom.div();
 
-    if (props.children.length > 1) {
+    if (children.length > 1) {
       componentBuilder.role = Role.group;
     }
 
     return (componentBuilder
       ..addProps(copyUnconsumedDomProps())
-      ..className = getButtonGroupClasses().toClassName())(props.children);
+      ..className = getButtonGroupClasses().toClassName())(children);
   }
 
   ClassNameBuilder getButtonGroupClasses() {

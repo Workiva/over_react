@@ -25,7 +25,7 @@ UiFactory <ToggleButtonGroupProps> ToggleButtonGroup;
 class ToggleButtonGroupProps extends ButtonGroupProps with AbstractInputPropsMixin {}
 
 @State()
-class ToggleButtonGroupState extends UiState with AbstractInputStateMixin {}
+class ToggleButtonGroupState extends ButtonGroupState with AbstractInputStateMixin {}
 
 @Component(subtypeOf: ButtonGroupComponent)
 class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupProps, ToggleButtonGroupState> {
@@ -73,10 +73,6 @@ class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupP
       var childProps = ToggleButton(getProps(child));
       var childKey = getInstanceKey(child);
 
-      window.console.log(props);
-      window.console.log('toggle_button_group name: ${name}');
-
-      // TODO: Why aren't these cloned props ending up on the child ToggleButton???
       var propsToAdd = ToggleButton()
         ..name = name
         ..toggleType = props.toggleType
@@ -100,8 +96,6 @@ class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupP
 
   /// The handler for when one of the children of the [ToggleButtonGroup] is changed or unchecked
   void _handleOnChange(_) {
-    window.console.log('_handleOnChange');
-    window.console.log(_);
     _toggleButtonRefs.values.forEach((childComponent) {
       if (childComponent is ToggleButtonComponent) childComponent._refreshState();
     });

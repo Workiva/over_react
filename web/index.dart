@@ -19,4 +19,10 @@ void main() {
 
   react_dom.render(
     tagBasicDemo(), querySelector('$demoMountNodeSelectorPrefix--tag'));
+
+  react_dom.render(
+    checkboxToggleButtonDemo(), querySelector('$demoMountNodeSelectorPrefix--checkbox-toggle'));
+
+  react_dom.render(
+    radioToggleButtonDemo(), querySelector('$demoMountNodeSelectorPrefix--radio-toggle'));
 }
