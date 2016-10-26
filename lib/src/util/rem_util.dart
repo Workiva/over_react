@@ -120,7 +120,9 @@ CssValue toRem(dynamic value, {bool treatNumAsRem: false, bool passThroughUnsupp
     } else if (parsedValue?.unit == 'px') {
       remValueNum = parsedValue.number / rootFontSize;
     } else {
-      if (passThroughUnsupportedUnits) return parsedValue;
+      if (passThroughUnsupportedUnits) {
+        return parsedValue;
+      }
 
       throw new ArgumentError.value(value, 'value', 'must be a px num or a String px/rem value');
     }
@@ -165,7 +167,9 @@ CssValue toPx(dynamic value, {bool treatNumAsPx: false, bool passThroughUnsuppor
     } else if (parsedValue?.unit == 'rem') {
       pxValueNum = parsedValue.number * rootFontSize;
     } else {
-      if (passThroughUnsupportedUnits) return parsedValue;
+      if (passThroughUnsupportedUnits) {
+        return parsedValue;
+      }
 
       throw new ArgumentError.value(value, 'value', 'must be a rem num or a String px/rem value');
     }
