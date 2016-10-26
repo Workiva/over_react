@@ -121,7 +121,6 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
     var builder = Dom.input()
       ..type = props.toggleType.typeName
       ..id = id
-      ..key = 'input'
       ..name = props.name
       ..tabIndex = props.tabIndex
       ..disabled = props.isDisabled
@@ -129,7 +128,8 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
       ..onChange = props.onChange
       ..onClick = props.onClick
       ..style = makeInputNodeInvisible
-      ..ref = (ref) { inputRef = ref; };
+      ..ref = (ref) { inputRef = ref; }
+      ..key = 'input';
 
     // ********************************************************
     //

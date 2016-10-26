@@ -1,4 +1,4 @@
- part of over_react.web.demo_components;
+part of over_react.web.demo_components;
 
 /// Groups a series of [Button]s together on a single line.
 ///
@@ -14,6 +14,9 @@ class ButtonGroupProps extends UiProps {
   ///
   /// Default: [ButtonGroupSize.DEFAULT]
   ButtonGroupSize size;
+
+  /// The [ButtonSkin] variation applied to every [Button] within the [ButtonGroup].
+  ButtonSkin skin;
 
   /// Make the [Button]s within a [ButtonGroup] stack vertically.
   ///
@@ -37,7 +40,7 @@ class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupStat
 
   @override
   render() {
-    return renderButtonGroup(props.children);
+    return renderButtonGroup(renderButtons());
   }
 
   ReactElement renderButtonGroup(dynamic children) {
@@ -58,6 +61,63 @@ class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupStat
       ..add('btn-group-vertical', props.isVertical)
       ..add(props.size.className);
   }
+
+  /// Renders a list of [Button]s using [renderButton].
+  List<ReactElement> renderButtons() {
+    var buttons = [];
+
+    for (int index = 0; index < props.children.length; index++) {
+      buttons.add(renderButton(props.children[index], index));
+    }
+
+    return buttons;
+  }
+
+  /// Clones the provided [child] with the props specified in [buttonPropsToAdd].
+  ReactElement renderButton(dynamic child, int index) {
+    if (isValidButtonChild(child)) {
+      return cloneElement(child, buttonPropsToAdd(child, index));
+    }
+
+    print('invalid child');
+    return child;
+  }
+
+  /// The props that should be added when we clone the given [child] using
+  /// [cloneElement] via [renderButton].
+  ButtonProps buttonPropsToAdd(dynamic child, int index) {
+    var childProps = childFactory(getProps(child));
+    var childKey = getInstanceKey(child);
+
+    return childFactory()
+      ..skin = props.skin ?? childProps.skin
+      ..key = childKey ?? index;
+  }
+
+  /// Returns whether the provided [child] can be cloned using [cloneElement].
+  bool isValidButtonChild(dynamic child) {
+    var isCloneable = false;
+    if (isValidElement(child)) {
+      if (!isComponentOfType(child, childFactory)) {
+        assert(ValidationUtil.warn(
+            'An unexpected child type was found within this component.'
+        ));
+      }
+
+      isCloneable = true;
+    } else if (child != null) {
+      assert(ValidationUtil.warn(
+          'You are not using a valid ReactElement.'
+      ));
+    }
+
+    return isCloneable;
+  }
+
+  /// The factory expected for each child of [ButtonGroup].
+  ///
+  /// _The factory accept [ButtonProps] as its generic parameter._
+  UiFactory<ButtonProps> get childFactory => Button;
 }
 
 /// Size options for a [ButtonGroup]s, with corresponding [className] values.
