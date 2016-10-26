@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-pub build --mode=debug
+pub build
 
 
 # Generate html includes that can be passed in as jekyll include parameters for demo-code-example.html
