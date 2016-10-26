@@ -56,36 +56,22 @@ class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupP
     const $Props(ToggleButtonGroupProps),
   ];
 
+  /// The props that should be added when we clone the given [child] using
+  /// [cloneElement] via [renderButton].
   @override
-  render() {
-    var toggleButtons = [];
+  ToggleButtonProps buttonPropsToAdd(dynamic child, int index) {
+    var childProps = childFactory(getProps(child));
+    var childKey = getInstanceKey(child);
 
-    for (int index = 0; index < props.children.length; index++) {
-      toggleButtons.add(renderToggleButton(props.children[index], index));
-    }
+    ButtonProps superPropsToAdd = super.buttonPropsToAdd(child, index);
 
-    return renderButtonGroup(toggleButtons);
-  }
-
-  /// Render an individual child [ToggleButton], cloned to apply the shared [name] value.
-  renderToggleButton(child, int index) {
-    if (_isValidToggleButtonChild(child)) {
-      var childProps = ToggleButton(getProps(child));
-      var childKey = getInstanceKey(child);
-
-      var propsToAdd = ToggleButton()
-        ..name = name
-        ..toggleType = props.toggleType
-        ..skin = props.skin ?? childProps.skin
-        ..onChange = formEventCallbacks.chain(props.onChange, _handleOnChange)
-        ..value = childProps.value ?? index
-        ..key = childKey ?? index
-        ..ref = chainRef(child, (ref) { _toggleButtonRefs[index] = ref; });
-
-      return cloneElement(child, propsToAdd);
-    }
-
-    return child;
+    return childFactory()
+      ..addProps(superPropsToAdd)
+      ..name = name
+      ..toggleType = props.toggleType
+      ..onChange = formEventCallbacks.chain(props.onChange, _handleOnChange)
+      ..value = childProps.value ?? index
+      ..ref = chainRef(child, (ref) { _toggleButtonRefs[index] = ref; });
   }
 
   @override
@@ -101,22 +87,7 @@ class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupP
     });
   }
 
-  bool _isValidToggleButtonChild(child) {
-    var isCloneable = false;
-    if (isValidElement(child)) {
-      if (!isComponentOfType(child, ToggleButton)) {
-        assert(ValidationUtil.warn(
-            'Children of ToggleButtonGroup should be ToggleButton instances.'
-        ));
-      }
-
-      isCloneable = true;
-    } else if (child != null) {
-      assert(ValidationUtil.warn(
-          'You are not using a valid ReactElement.'
-      ));
-    }
-
-    return isCloneable;
-  }
+  /// The factory expected for each child of [ToggleButtonGroup].
+  @override
+  UiFactory<ToggleButtonProps> get childFactory => ToggleButton;
 }
