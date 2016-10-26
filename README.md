@@ -662,6 +662,23 @@ Since using `dartfmt` results in unreadable code, we have documented the followi
 
 &nbsp;
 
+* __AVOID__ specifying more than one cascading prop setter on the same line.
+
+  _Good:_
+    ```dart
+    (Dom.div()
+      ..id = 'my_div'
+      ..className = 'my-class'
+    )()
+    ```
+
+  _Bad:_
+    ```dart
+    (Dom.div()..id = 'my_div'..className = 'my-class')()
+    ```
+
+&nbsp;
+
 * __ALWAYS__ write informative comments for your component factories. 
 Include what the component relates to, relies on, or if it extends 
 another component.
@@ -689,15 +706,12 @@ another component.
 
 &nbsp;
 
-* __ALWAYS__ set a default / intial value for `props` / `state` fields, 
+* __ALWAYS__ set a default / initial value for `props` / `state` fields, 
 and document that value in a comment.
 
   _Why?_ Without default prop values for bool fields, they could be 
   `null` - which is extremely confusing and can lead to a lot of 
   unnecessary null-checking in your business logic. 
-
-  Also, if you fail to provide an initial value for all the fields in 
-  `state`, your component will fail to build at run-time.
 
   _Good:_
     ```dart
@@ -757,8 +771,8 @@ and document that value in a comment.
     @Component()
     DropdownButtonComponent 
         extends UiStatefulComponent<DropdownButtonProps, DropdownButtonState> {
-      // Confusing stuff is gonna happen in here with bool props that could
-      // be null, and un-initialized state keys.
+      // Confusing stuff is gonna happen in here with 
+      // bool props that could be null.
     }
     ```
 
@@ -806,23 +820,6 @@ an informative comment.
     DropdownButtonState extends UiState {
       bool isOpen;
     }
-    ```
-
-&nbsp;
-
-* __AVOID__ specifying more than one cascading prop setter on the same line.
-
-  _Good:_
-    ```dart
-    (Dom.div()
-      ..id = 'my_div'
-      ..className = 'my-class'
-    )()
-    ```
-
-  _Bad:_
-    ```dart
-    (Dom.div()..id = 'my_div'..className = 'my-class')()
     ```
 
 &nbsp;
