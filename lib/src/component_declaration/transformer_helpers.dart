@@ -15,6 +15,7 @@
 library over_react.component_declaration.transformer_helpers;
 
 import 'dart:html';
+
 import './component_base.dart' as component_base;
 import './annotations.dart' as annotations;
 
