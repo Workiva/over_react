@@ -137,8 +137,7 @@ Adhering to the following process is the best way to get your work included in t
 
 5. Write tests for your changes.  
   1. There are no exceptions.  
-  2. If your PR doesn't have accompanying test coverage - your code 
-     will not get merged.
+  2. If you're having trouble, reach out in your PR about how to best go about testing your changes.
 
 6. Locally merge the upstream master branch into your topic branch:
 
