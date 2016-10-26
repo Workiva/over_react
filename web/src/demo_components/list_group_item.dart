@@ -113,7 +113,7 @@ class ListGroupItemComponent extends UiComponent<ListGroupItemProps> {
       ..className = _getItemClasses().toClassName()
       ..href = props.href
       ..target = props.target
-      ..type = _isAnchorLink ? null : props.type.typeName
+      ..type = _isActionItem && !_isAnchorLink ? props.type.typeName : null
       ..disabled = _useDisabledAttr ? props.isDisabled : null
       ..addProps(ariaProps()
         ..disabled = !_useDisabledAttr ? props.isDisabled : null
