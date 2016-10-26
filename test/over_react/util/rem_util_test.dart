@@ -167,18 +167,30 @@ main() {
         );
       });
 
-      test('throws when passed a CSS value string with a unit other than px/rem', () {
-        expect(() => toPx('1em'), allOf(
-            throwsArgumentError,
-            throwsA(hasToStringValue(contains('must be a rem num or a String px/rem value'))))
-        );
+      group('throws when passed a CSS value string with a unit other than px/rem', () {
+        test('', () {
+          expect(() => toPx('1em'), allOf(
+              throwsArgumentError,
+              throwsA(hasToStringValue(contains('must be a rem num or a String px/rem value'))))
+          );
+        });
+
+        test('unless `passThroughUnsupportedUnits` is true', () {
+          expect(toPx('1em', passThroughUnsupportedUnits: true), new CssValue.parse('1em'));
+        });
       });
 
-      test('throws when passed a CssValue instance with a unit other than px/rem', () {
-        expect(() => toPx(new CssValue.parse('1em')), allOf(
-            throwsArgumentError,
-            throwsA(hasToStringValue(contains('must be a rem num or a String px/rem value'))))
-        );
+      group('throws when passed a CssValue instance with a unit other than px/rem', () {
+        test('', () {
+          expect(() => toPx(new CssValue.parse('1em')), allOf(
+              throwsArgumentError,
+              throwsA(hasToStringValue(contains('must be a rem num or a String px/rem value'))))
+          );
+        });
+
+        test('unless `passThroughUnsupportedUnits` is true', () {
+          expect(toPx(new CssValue.parse('1em'), passThroughUnsupportedUnits: true), new CssValue.parse('1em'));
+        });
       });
     });
 
