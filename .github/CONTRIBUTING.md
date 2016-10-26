@@ -152,7 +152,7 @@ Adhering to the following process is the best way to get your work included in t
   1. There are no exceptions.  
   2. If you're having trouble, reach out in your PR about how to best go about testing your changes.
 
-6. Locally merge the upstream master branch into your topic branch:
+6. If you have merge conflicts, locally merge the upstream master branch into your topic branch:
 
    ```bash
    git pull upstream master
@@ -211,14 +211,16 @@ Further paragraphs come after blank lines.
 
 The `over_react` developer workflow couldn't be any more simple!
 
+To serve the demos within `web/`, or start the transformer, run:
+
 ```bash
 pub serve
 ```
 
-When you're ready to run the tests... in a separate terminal:
+When you're ready to run the tests... run:
 
 ```bash
-pub run test -p content-shell --pub-serve=8081 test/over_react_test.dart
+pub run dart_dev test
 ```
 
 
