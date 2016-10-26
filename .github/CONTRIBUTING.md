@@ -102,7 +102,7 @@ Good pull requests - patches, improvements, new features - are a fantastic help.
 
 __Please ask first__ before embarking on any significant pull request (e.g. implementing features, refactoring code, porting to a different language), otherwise you risk spending a lot of time working on something that the project's lead developers might not want to merge into the project.
 
-Please adhere to the [Dart Style Guide][dart-style-guide] for all changes contained in your pull requests.
+Please adhere to the [Dart Style Guide] for all changes contained in your pull requests.
 
 Adhering to the following process is the best way to get your work included in the project:
 
