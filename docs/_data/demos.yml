@@ -32,5 +32,5 @@
   component_class: ToggleButton
   secondary_component_class: ToggleButtonGroup
   title: ToggleButton Component Demo
-  lead: 'A component that renders a <a href="http://v4-alpha.getbootstrap.com/components/buttons/#checkbox-and-radio-buttons" target="bs">Bootstrap Toggle Buttons</a> using OverReact’s statically-typed React prop API.'
+  lead: 'A component that renders stateful <a href="http://v4-alpha.getbootstrap.com/components/buttons/#checkbox-and-radio-buttons" target="bs">Bootstrap Toggle Buttons</a> using OverReact’s statically-typed React prop and state API.'
   img: false

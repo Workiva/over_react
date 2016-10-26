@@ -19,9 +19,16 @@ baseurl: ../../
     </li>
 </ul>
 
+<div class="bd-callout bd-callout-info">
+    <p><strong>No jQuery Here:</strong> The stateful behavior of the <code>ToggleButton</code> /
+        <code>ToggleButtonGroup</code> components demonstrated below is built using nothing but
+        {{ site.title }}'s <code>UiStatefulComponent</code>.</p>
+    <p>None of the Bootstrap jQuery "button" plugin pieces are used here.</p>
+</div>
 
 <h2 id="checkbox" class="docs-heading">Checkbox</h2>
-<p>TODO</p>
+<p>Set <code>props.toggleType</code> to <code>ToggleBehaviorType.CHECKBOX</code> on a <code>ToggleButtonGroup</code>
+    component with child <code>ToggleButton</code>s for a "multi-select" toggle behavior.</p>
 {% include demo-code-example.html
     name='toggle-button-checkbox'
     consumption_code_file_name='toggle-button-checkbox'
@@ -33,7 +40,8 @@ baseurl: ../../
 
 
 <h2 id="radio" class="docs-heading">Radio</h2>
-<p>TODO</p>
+<p>Set <code>props.toggleType</code> to <code>ToggleBehaviorType.RADIO</code> on a <code>ToggleButtonGroup</code>
+    component with child <code>ToggleButton</code>s for a "single-select" toggle behavior.</p>
 render a submit / reset form button, respectively.</p>
 {% include demo-code-example.html
     name='toggle-button-radio'
