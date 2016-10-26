@@ -71,8 +71,11 @@ class ButtonProps extends UiProps {
   ButtonType type;
 }
 
+@State()
+class ButtonState extends UiState {}
+
 @Component()
-class ButtonComponent extends UiComponent<ButtonProps> {
+class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiStatefulComponent<T, S> {
   @override
   Map getDefaultProps() => (newProps()
     ..skin = ButtonSkin.PRIMARY
@@ -85,26 +88,30 @@ class ButtonComponent extends UiComponent<ButtonProps> {
 
   @override
   render() {
+    return renderButton(props.children);
+  }
+
+  ReactElement renderButton(dynamic children) {
     BuilderOnlyUiFactory<DomProps> factory = _buttonDomNodeFactory;
 
     return (factory()
       ..addProps(copyUnconsumedDomProps())
-      ..className = _getButtonClasses().toClassName()
+      ..className = getButtonClasses().toClassName()
       ..href = props.href
       ..target = props.target
-      ..type = _isAnchorLink ? null : props.type.typeName
+      ..type = _type
       ..disabled = _isAnchorLink ? null : props.isDisabled
       ..addProps(ariaProps()
         ..disabled = _isAnchorLink ? props.isDisabled : null
       )
-    )(props.children);
+    )(children);
   }
 
-  ClassNameBuilder _getButtonClasses() {
+  ClassNameBuilder getButtonClasses() {
     return forwardingClassNameBuilder()
       ..add('btn')
       ..add('btn-block', props.isBlock)
-      ..add('active', props.isActive)
+      ..add('active', _isActive)
       ..add('disabled', props.isDisabled)
       ..add(props.skin.className)
       ..add(props.size.className);
@@ -113,6 +120,10 @@ class ButtonComponent extends UiComponent<ButtonProps> {
   BuilderOnlyUiFactory<DomProps> get _buttonDomNodeFactory => _isAnchorLink ? Dom.a : Dom.button;
 
   bool get _isAnchorLink => props.href != null;
+
+  bool get _isActive => props.isActive;
+
+  String get _type => _isAnchorLink ? null : props.type.typeName;
 }
 
 /// Contextual skin options for a [Button] component.
