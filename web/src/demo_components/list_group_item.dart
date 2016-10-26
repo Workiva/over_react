@@ -113,7 +113,7 @@ class ListGroupItemComponent extends UiComponent<ListGroupItemProps> {
       ..className = _getItemClasses().toClassName()
       ..href = props.href
       ..target = props.target
-      ..type = _isActionItem ? props.type.typeName : null
+      ..type = _isActionItem && !_isAnchorLink ? props.type.typeName : null
       ..disabled = _useDisabledAttr ? props.isDisabled : null
       ..addProps(ariaProps()
         ..disabled = !_useDisabledAttr ? props.isDisabled : null
@@ -160,6 +160,8 @@ class ListGroupItemComponent extends UiComponent<ListGroupItemProps> {
   bool get _useDisabledAttr => _getItemDomNodeFactory() == Dom.button;
 
   bool get _isActionItem => (props.href ?? props.onClick) != null;
+
+  bool get _isAnchorLink => props.href != null;
 }
 
 /// Contextual skin options for a [ListGroupItem] component.
