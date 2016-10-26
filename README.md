@@ -17,9 +17,10 @@
     * [UiComponent](#uicomponent)
 * __[Fluent-style component consumption](#fluent-style-component-consumption)__
 * __[DOM components and props](#dom-components-and-props)__
+* __[Component Formatting](#component-formatting)__
 * __[Building custom components](#building-custom-components)__
     * __[Component Boilerplates](#component-boilerplate-templates)__
-    * __[Component Formatting](#component-formatting)__
+    * __[Component Best Practices](#component-best-practices)__
     * __[Common Pitfalls](#common-pitfalls)__
 * __[Contributing](#contributing)__
 
@@ -491,6 +492,90 @@ as shown in the examples above.
 
 
 
+## Component Formatting
+
+> NOTE: At this time, we __do not recommend using [`dartfmt`](https://github.com/dart-lang/dart_style)__, as it 
+> _greatly_ decreases the readability of components built using 
+> [OverReact's fluent-style](#fluent-style-component-consumption).
+> 
+> _We have a long-term goal of writing our own formatter that extends from `dartfmt` to make it possible for our 
+> fluent-style to remain readable even after the formatter executes._
+
+Since using `dartfmt` results in unreadable code, we have documented the following formatting best-practices that 
+we _strongly recommended_ when building components using the `over_react` library.
+
+&nbsp;
+
+* __ALWAYS__ place the closing builder parent on a new line.
+
+  _Good:_
+    ```dart
+    (Button()
+      ..skin = ButtonSkin.SUCCESS
+      ..isDisabled = true
+    )('Submit')
+    ```
+
+  _Bad:_
+    ```dart
+    (Button()
+      ..skin = ButtonSkin.SUCCESS
+      ..isDisabled = true)('Submit')
+    ```
+
+&nbsp;
+
+* __ALWAYS__ pass nested components as variadic children when keys are not specified, on a new line with a __2 space__ 
+  indentation.
+
+  _Good:_
+    ```dart
+    Dom.div()(
+      Dom.span()('nested component'),
+      Dom.span()('nested component')
+    )
+    ```
+
+  _Bad:_
+    ```dart
+    // Nested component is not on a new line
+    Dom.div()(Dom.span()('nested component'))
+
+    // Nested component has a continuation indent
+    Dom.div()(
+        Dom.span()('nested component'),
+    )
+
+    // Nested components are within a list instead of
+    // being passed in as variadic children.
+    Dom.div()([
+      Dom.span()('nested component'),
+      Dom.span()('nested component')
+    ])
+    ```
+
+&nbsp;
+
+* __AVOID__ specifying more than one cascading prop setter on the same line.
+
+  _Good:_
+    ```dart
+    (Dom.div()
+      ..id = 'my_div'
+      ..className = 'my-class'
+    )()
+    ```
+
+  _Bad:_
+    ```dart
+    (Dom.div()..id = 'my_div'..className = 'my-class')()
+    ```
+
+&nbsp;
+&nbsp;
+
+
+
 ## Building custom components
 
 Now that we’ve gone over how to [use the `over_react` package in your project](#using-it-in-your-project), 
@@ -603,81 +688,8 @@ that you get for free from OverReact, you're ready to start building your own cu
 
 &nbsp;
 
-### Component Formatting
+### Component Best Practices
 
-> NOTE: At this time, we __do not recommend using [`dartfmt`](https://github.com/dart-lang/dart_style)__, as it _greatly_ decreases the readability of components built using [OverReact's fluent-style](#fluent-style-component-consumption).
-> 
-> _We have a long-term goal of writing our own formatter that extends from `dartfmt` to make it possible for our fluent-style to remain readable even after the formatter executes._
-
-Since using `dartfmt` results in unreadable code, we have documented the following formatting best-practices that we _strongly recommended_ when building components using the `over_react` library.
-
-&nbsp;
-
-* __ALWAYS__ place the closing builder parent on a new line.
-
-  _Good:_
-    ```dart
-    (Button()
-      ..skin = ButtonSkin.SUCCESS
-      ..isDisabled = true
-    )('Submit')
-    ```
-
-  _Bad:_
-    ```dart
-    (Button()
-      ..skin = ButtonSkin.SUCCESS
-      ..isDisabled = true)('Submit')
-    ```
-
-&nbsp;
-
-* __ALWAYS__ pass nested components as variadic children when keys are not specified, on a new line with a __2 space__ indentation.
-
-  _Good:_
-    ```dart
-    Dom.div()(
-      Dom.span()('nested component'),
-      Dom.span()('nested component')
-    )
-    ```
-
-  _Bad:_
-    ```dart
-    // Nested component is not on a new line
-    Dom.div()(Dom.span()('nested component'))
-
-    // Nested component has a continuation indent
-    Dom.div()(
-        Dom.span()('nested component'),
-    )
-
-    // Nested components are within a list instead of
-    // being passed in as variadic children.
-    Dom.div()([
-      Dom.span()('nested component'),
-      Dom.span()('nested component')
-    ])
-    ```
-
-&nbsp;
-
-* __AVOID__ specifying more than one cascading prop setter on the same line.
-
-  _Good:_
-    ```dart
-    (Dom.div()
-      ..id = 'my_div'
-      ..className = 'my-class'
-    )()
-    ```
-
-  _Bad:_
-    ```dart
-    (Dom.div()..id = 'my_div'..className = 'my-class')()
-    ```
-
-&nbsp;
 
 * __ALWAYS__ write informative comments for your component factories. 
 Include what the component relates to, relies on, or if it extends 
@@ -876,7 +888,8 @@ Yes please! ([__Please read our contributor guidelines first__][contributing-doc
 The `over_react` library adheres to [Semantic Versioning](http://semver.org/):
 
 * Any API changes that are not backwards compatible will __bump the major version__ _(and reset the minor / patch)_.
-* Any new functionality that is added in a backwards-compatible manner will __bump the minor version__ _(and reset the patch)_.
+* Any new functionality that is added in a backwards-compatible manner will __bump the minor version__ 
+  _(and reset the patch)_.
 * Any backwards-compatible bug fixes that are added will __bump the patch version__.
 
 
