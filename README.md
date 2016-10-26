@@ -487,6 +487,8 @@ that you get for free from OverReact, you're ready to start building your own cu
 1. Start with one of the [component boilerplate templates](#component-boilerplate-templates) below.
   * [Component](#component-boilerplate) _(props only)_
   * [Stateful Component](#stateful-component-boilerplate) _(props + state)_
+  * [Flux Component](#flux-component-boilerplate) _(props + store + actions)_
+  * [Stateful Flux Component](#stateful-flux-component-boilerplate) _(props + state + store + actions)_
 2. Fill in your props and rendering/lifecycle logic.
 3. Consume your component with the fluent interface.
 4. Run [the app you’ve set up to consume `over_react`](#using-it-in-your-project)
@@ -583,6 +585,82 @@ that you get for free from OverReact, you're ready to start building your own cu
       render() {
         // Return the rendered component contents here.
         // The `props` variable is typed; no need for string keys!
+      }
+    }
+    ```
+    
+* #### Flux Component Boilerplate
+    
+    ```dart
+    import 'dart:html';
+    import 'package:react/react.dart' as react;
+    import 'package:react/react_dom.dart' as react_dom;
+    import 'package:react/react_client.dart';
+    import 'package:over_react/over_react.dart';
+    
+    @Factory()
+    UiFactory<BazProps> Baz;
+    
+    @Props()
+    class BazProps extends FluxUiProps<BazActions, BazStore> {
+      // Props go here, declared as fields.
+      // `actions` and `store` are already defined for you!
+    }
+    
+    @Component()
+    class BazComponent extends FluxUiComponent<BazProps> {
+      getDefaultProps() => (newProps()
+        // Cascade default props here
+      );
+    
+      @override
+      render() {
+        // Return the rendered component contents here.
+        // The `props` variables is typed; no need for string keys!
+        // E.g., `props.actions`, `props.store`.
+      }
+    }
+    ```
+    
+* #### Stateful Flux Component Boilerplate
+    
+    ```dart
+    import 'dart:html';
+    import 'package:react/react.dart' as react;
+    import 'package:react/react_dom.dart' as react_dom;
+    import 'package:react/react_client.dart';
+    import 'package:over_react/over_react.dart';
+    
+    @Factory()
+    UiFactory<BazProps> Baz;
+    
+    @Props()
+    class BazProps extends FluxUiProps<BazActions, BazStore> {
+      // Props go here, declared as fields.
+      // `actions` and `store` are already defined for you!
+    }
+  
+    @State()
+    class BazState extends UiState {
+      // State goes here, declared as fields.
+    }
+    
+    @Component()
+    class BazComponent extends FluxUiStatefulComponent<BazProps> {
+      getDefaultProps() => (newProps()
+        // Cascade default props here
+      );
+    
+      @override
+      Map getInitialState() => (newState()
+        // Cascade initial state here
+      );
+    
+      @override
+      render() {
+        // Return the rendered component contents here.
+        // The `props` variables is typed; no need for string keys!
+        // E.g., `props.actions`, `props.store`.
       }
     }
     ```
