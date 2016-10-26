@@ -77,7 +77,7 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> {
   /// These subscriptions are canceled when the component is unmounted.
   List<StreamSubscription> _subscriptions = [];
 
-  componentWillMount() {
+  void componentWillMount() {
     /// Subscribe to all applicable stores.
     ///
     /// [Store]s returned by [redrawOn] will have their triggers mapped directly to this components
@@ -93,7 +93,7 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> {
     });
   }
 
-  componentWillUnmount() {
+  void componentWillUnmount() {
     // Ensure that unmounted components don't batch render
     shouldBatchRedraw = false;
 

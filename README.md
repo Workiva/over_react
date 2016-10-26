@@ -646,7 +646,7 @@ that you get for free from OverReact, you're ready to start building your own cu
     }
     
     @Component()
-    class BazComponent extends FluxUiStatefulComponent<BazProps> {
+    class BazComponent extends FluxUiStatefulComponent<BazProps, BazState> {
       getDefaultProps() => (newProps()
         // Cascade default props here
       );
