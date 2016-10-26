@@ -1,5 +1,5 @@
 {% capture canonical_url %}{{ site.url }}{{ page.url | replace:'index.html','' }}{% endcapture %}
-{% capture dartdocs_url %}https://www.dartdocs.org/documentation/{{ site.pkg_name }}/{{ site.latest_version }}{% endcapture %}
+{% capture dartdocs_url %}https://www.dartdocs.org/documentation/{{ site.pkg_name }}/latest{% endcapture %}
 {% assign demo_data = false %}
 {% assign demo_component_src_path = false %}
 {% for demo in site.data.demos %}

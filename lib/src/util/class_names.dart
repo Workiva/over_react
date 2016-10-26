@@ -17,6 +17,9 @@ library over_react.class_names;
 
 import 'dart:collection';
 
+// Must import these consts because they are used in the transformed code.
+// ignore: unused_import
+import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps;
 import 'package:over_react/src/component_declaration/annotations.dart';
 
 /// Typed getters/setters for props related to CSS class manipulation, and used by all UIP components.

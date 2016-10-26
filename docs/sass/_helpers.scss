@@ -1,6 +1,11 @@
-@mixin display-flex() {
-  display: flex;
-  display: -ms-flexbox; // MSIE 10
+@mixin display-flex($important: '') {
+  display: flex #{$important};
+  display: -ms-flexbox #{$important}; // MSIE 10
+}
+
+@mixin flex($value) {
+  flex: $value;
+  -ms-flex: $value;
 }
 
 @mixin flex-wrap($value) {

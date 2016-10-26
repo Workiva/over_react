@@ -1,4 +1,17 @@
 .navbar__logo {
-  height: $navbar-content-height;
-  width: auto;
+    // Since safari can't do auto-resize inline svgs using width: auto
+    // we have to implement this static width hack.
+    $over_react_logo_native_width: to-rem(504px);
+    $over_react_logo_native_height: to-rem(96px);
+    $over_react_logo_aspect_ratio: $over_react_logo_native_width / $over_react_logo_native_height;
+
+    height: $navbar-content-height;
+    width: $navbar-content-height * $over_react_logo_aspect_ratio;
+}
+
+@include media-breakpoint-up(sm) {
+    .navbar .collapse.d-flex-sm {
+        @include display-flex(!important);
+        @include flex(1 1 0);
+    }
 }

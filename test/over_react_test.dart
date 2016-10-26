@@ -36,8 +36,11 @@ import 'over_react/component_declaration/transformer_integration_tests/component
 import 'over_react/component_declaration/transformer_integration_tests/namespaced_accessor_integration_test.dart' as namespaced_accessor_integration_test;
 import 'over_react/component_declaration/transformer_integration_tests/stateful_component_integration_test.dart' as stateful_component_integration_test;
 import 'over_react/util/class_names_test.dart' as class_names_test;
+import 'over_react/util/constants_base_test.dart' as constants_base_test;
 import 'over_react/util/css_value_util_test.dart' as css_value_util_test;
 import 'over_react/util/dom_util_test.dart' as dom_util_test;
+import 'over_react/util/event_helpers_test.dart' as event_helpers_test;
+import 'over_react/util/guid_util_test.dart' as guid_util_test;
 import 'over_react/util/handler_chain_util_test.dart' as handler_chain_util_test;
 import 'over_react/util/map_util_test.dart' as map_util_test;
 import 'over_react/util/pretty_print_test.dart' as pretty_print_test;
@@ -65,8 +68,11 @@ main() {
   namespaced_accessor_integration_test.main();
   stateful_component_integration_test.main();
   class_names_test.main();
+  constants_base_test.main();
   css_value_util_test.main();
   dom_util_test.main();
+  event_helpers_test.main();
+  guid_util_test.main();
   handler_chain_util_test.main();
   map_util_test.main();
   pretty_print_test.main();

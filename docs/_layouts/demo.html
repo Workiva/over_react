@@ -27,9 +27,8 @@ parent_slug: demos
     <div class="bd-content col-md-10 col-order-md-1">
         {{content}}
 
-        <script src="{{ page.baseurl }}packages/react/react.js"></script>
-        <script src="{{ page.baseurl }}packages/react/react_dom.js"></script>
-        <script type="application/dart" src="{{ page.baseurl }}{{ site.demo_dart_src_path }}{{ page.slug }}/index.dart"></script>
+        <script src="{{ page.baseurl }}packages/react/react_with_react_dom_prod.js"></script>
+        <script type="application/dart" src="{{ page.baseurl }}{{ site.demo_dart_src_path }}{{ page.slug }}/index.dart.js"></script>
         <script src="{{ page.baseurl }}packages/browser/dart.js"></script>
     </div>
 </div>

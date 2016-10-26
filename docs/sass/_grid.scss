@@ -10,13 +10,10 @@
     }
 
     .col-#{$breakpoint}-shrink {
+      @include display-flex();
+      @include flex(0 0 auto);
       max-width: none;
       width: auto;
-      display: flex;
-      flex: 0 0 auto;
-      // MSIE 10
-      display: -ms-flexbox;
-      -ms-flex: 0 0 auto;
     }
 
     @each $position in 1 2 3 4 5 6 {

@@ -110,7 +110,8 @@ class ButtonComponent<T extends ButtonProps, S extends UiState> extends UiStatef
       ..add('btn-block', props.isBlock)
       ..add('active', _isActive)
       ..add('disabled', props.isDisabled)
-      ..add(props.skin.className);
+      ..add(props.skin.className)
+      ..add(props.size.className);
   }
 
   BuilderOnlyUiFactory<DomProps> get _buttonDomNodeFactory => _isAnchorLink ? Dom.a : Dom.button;
@@ -156,27 +157,27 @@ class ButtonSkin extends ClassNameConstant {
 
   /// [className] value: 'btn-outline-primary'
   static const ButtonSkin PRIMARY_OUTLINE =
-      const ButtonSkin._('PRIMARY', 'btn-outline-primary');
+      const ButtonSkin._('PRIMARY_OUTLINE', 'btn-outline-primary');
 
   /// [className] value: 'btn-outline-secondary'
   static const ButtonSkin SECONDARY_OUTLINE =
-      const ButtonSkin._('SECONDARY', 'btn-outline-secondary');
+      const ButtonSkin._('SECONDARY_OUTLINE', 'btn-outline-secondary');
 
   /// [className] value: 'btn-outline-danger'
   static const ButtonSkin DANGER_OUTLINE =
-      const ButtonSkin._('DANGER', 'btn-outline-danger');
+      const ButtonSkin._('DANGER_OUTLINE', 'btn-outline-danger');
 
   /// [className] value: 'btn-outline-success'
   static const ButtonSkin SUCCESS_OUTLINE =
-      const ButtonSkin._('SUCCESS', 'btn-outline-success');
+      const ButtonSkin._('SUCCESS_OUTLINE', 'btn-outline-success');
 
   /// [className] value: 'btn-outline-warning'
   static const ButtonSkin WARNING_OUTLINE =
-      const ButtonSkin._('WARNING', 'btn-outline-warning');
+      const ButtonSkin._('WARNING_OUTLINE', 'btn-outline-warning');
 
   /// [className] value: 'btn-outline-info'
   static const ButtonSkin INFO_OUTLINE =
-      const ButtonSkin._('INFO', 'btn-outline-info');
+      const ButtonSkin._('INFO_OUTLINE', 'btn-outline-info');
 }
 
 /// Size options for a [Button] component.
