@@ -1,4 +1,4 @@
- part of over_react.web.demo_components;
+part of over_react.web.demo_components;
 
 /// Groups a series of [Button]s together on a single line.
 ///
