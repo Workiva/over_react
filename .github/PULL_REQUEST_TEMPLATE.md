@@ -1,16 +1,16 @@
-__ULTIMATE PROBLEM:__
+__Ultimate problem:__
 
 
 
-__HOW IT WAS FIXED:__
+__How it was fixed:__
 
 
 
-__TESTING SUGGESTIONS:__
+__Testing suggestions:__
 
 
 
-__POTENTIAL AREAS OF REGRESSION:__
+__Potential areas of regression:__
 
 
 
