@@ -16,7 +16,8 @@ Looking to contribute something to the over_react library? __Here's how you can 
 
 ## Coding standards
 
-A lot can be gained by writing code in a consistent way.  Moreover, always remember that code is written and maintained by _people_. Ensure your code is descriptive, well commented, and approachable by others.
+A lot can be gained by writing code in a consistent way.  Moreover, always remember that code is written and 
+maintained by _people_. Ensure your code is descriptive, well commented, and approachable by others.
 
 __ALWAYS__ adhere to the [Dart Style Guide].  _Please take the time to read it if you have never done so._
 
@@ -36,7 +37,8 @@ __ALWAYS__ adhere to the [Dart Style Guide].  _Please take the time to read it i
 
 ## Using the issue tracker
 
-The issue tracker is the preferred channel for [bug reports](#bug-reports) and [feature requests](#feature-requests), but __please follow the guidelines:__
+The issue tracker is the preferred channel for [bug reports](#bug-reports) and [feature requests](#feature-requests), 
+but __please follow the guidelines:__
 
   + __Fill out the template we've provided.__
 
@@ -57,14 +59,17 @@ _Good bug reports are extremely helpful - thank you!__
 
 __Guidelines for bug reports:__
 
-1. __Search for existing issues.__ Duplicate issues can become cumbersome, and you'd help us out a lot by first checking if someone else has reported the same issue. Moreover, the issue may have already been resolved with a fix available.
+1. __Search for existing issues.__ Duplicate issues can become cumbersome, and you'd help us out a lot by first 
+   checking if someone else has reported the same issue. Moreover, the issue may have already been resolved with a 
+   fix available.
 
 2. __Record a screencast of yourself reproducing the issue__. 
   1. Be sure the problem exists in over_react's code by building a 
      reduced test case that one of the reviewers can pull locally 
      and test out.
 
-3. __Share as much information as possible.__ Include operating system and version, browser and version, version of `over_react`, etc. where appropriate. 
+3. __Share as much information as possible.__ Include operating system and version, browser and version, version of 
+   `over_react`, etc. where appropriate. 
 
 Always include steps to reproduce the bug.
 
@@ -91,16 +96,21 @@ __Example Bug Report:__
 
 ### Feature requests
 
-Feature requests are welcome. But take a moment to find out whether your idea fits with the scope and aims of the project. It's up to *you* to make a strong case to convince the `over_react` team of the merits of this feature. Please provide as much detail and context as possible.
+Feature requests are welcome. But take a moment to find out whether your idea fits with the scope and aims of the 
+project. It's up to *you* to make a strong case to convince the `over_react` team of the merits of this feature. 
+Please provide as much detail and context as possible.
 
 &nbsp;
 
 
 ### Pull requests
 
-Good pull requests - patches, improvements, new features - are a fantastic help. They should remain focused in scope and avoid containing unrelated commits.
+Good pull requests - patches, improvements, new features - are a fantastic help. They should remain focused in scope 
+and avoid containing unrelated commits.
 
-__Please ask first__ before embarking on any significant pull request (e.g. implementing features, refactoring code, porting to a different language), otherwise you risk spending a lot of time working on something that the project's lead developers might not want to merge into the project.
+__Please ask first__ before embarking on any significant pull request (e.g. implementing features, refactoring code, 
+porting to a different language), otherwise you risk spending a lot of time working on something that the project's 
+lead developers might not want to merge into the project.
 
 Please adhere to the [Dart Style Guide] for all changes contained in your pull requests.
 
@@ -133,7 +143,10 @@ Adhering to the following process is the best way to get your work included in t
    git checkout -b <topic-branch-name>
    ```
 
-4. Commit your changes in logical chunks. Please adhere to these [git commit message guidelines](#git-commit-message-standards) or your code is unlikely be merged into the master branch. Optionally, you can use Git's [interactive rebase](https://help.github.com/articles/interactive-rebase) feature to tidy up your commits before making them public.
+4. Commit your changes in logical chunks. Please adhere to these 
+   [git commit message guidelines](#git-commit-message-standards) or your code is unlikely be merged into the master 
+   branch. Optionally, you can use Git's [interactive rebase](https://help.github.com/articles/interactive-rebase) 
+   feature to tidy up your commits before making them public.
 
 5. Write tests for your changes.  
   1. There are no exceptions.  
@@ -161,7 +174,8 @@ Adhering to the following process is the best way to get your work included in t
 
 ## Git Commit Message Standards
 
-Below you will find an example commit message that follows the guidelines we would like all over_react contributors to follow.
+Below you will find an example commit message that follows the guidelines we would like all over_react contributors 
+to follow.
 
 ```
 Capitalized, short (50 chars or less) summary
@@ -180,11 +194,13 @@ followed by a single space, with blank lines in between, but
 conventions vary here
 ```
 
-Write your commit message in the imperative: "Fix bug" and not "Fixed bug" or "Fixes bug."  This convention matches up with commit messages generated by commands like git merge and git revert.
+Write your commit message in the imperative: "Fix bug" and not "Fixed bug" or "Fixes bug."  This convention matches up 
+with commit messages generated by commands like git merge and git revert.
 
 Further paragraphs come after blank lines.
 
-> [Read this](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) for more information on why standardized commit message format is important.
+> [Read this](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) for more information on why a
+> standardized commit message format is important.
 
 &nbsp;
 &nbsp;
