@@ -8,5 +8,8 @@ ReactElement buttonExamplesDemo() =>
     (Button()..skin = ButtonSkin.INFO)('Info'),
     (Button()..skin = ButtonSkin.WARNING)('Warning'),
     (Button()..skin = ButtonSkin.DANGER)('Danger'),
-    (Button()..skin = ButtonSkin.LINK)('Link')
+    (Button()
+      ..href = '#'
+      ..skin = ButtonSkin.LINK
+    )('Link')
   );
