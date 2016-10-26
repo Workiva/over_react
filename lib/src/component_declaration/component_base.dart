@@ -86,9 +86,13 @@ typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 
 typedef dynamic _RefTypedef(String ref);
 
-/// The basis for a over_react component, extending [react.Component]. (Successor to [BaseComponent]).
+/// The basis for a over_react component.
 ///
 /// Includes support for strongly-typed props and utilities for prop and CSS classname forwarding.
+///
+/// Extends [react.Component].
+///
+/// Related: [UiStatefulComponent]
 abstract class UiComponent<TProps extends UiProps> extends react.Component {
   /// Returns the component of the specified [ref].
   /// > `react.Component` if it is a Dart component
@@ -200,9 +204,13 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   // ----------------------------------------------------------------------
 }
 
-/// The basis for a stateful over_react component, extending [react.Component]. (Successor to [BaseComponentWithState]).
+/// The basis for a stateful over_react component.
 ///
 /// Includes support for strongly-typed props and state and utilities for prop and CSS classname forwarding.
+///
+/// Extends [react.Component].
+///
+/// Related: [UiComponent]
 abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState> extends UiComponent<TProps> {
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
