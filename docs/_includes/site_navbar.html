@@ -16,9 +16,10 @@
                         aria-label="Toggle navigation">
                 </button>
             </div>
-            <div class="col-sm pr-0">
-                <div class="collapse navbar-toggleable-xs" id="site-navigation">
-                    <ul class="nav navbar-nav">
+            <div class="col-sm pr-0 d-flex-sm flex-items-sm-right">
+                <div class="collapse navbar-toggleable-xs row d-flex-sm flex-items-sm-right"
+                     id="site-navigation">
+                    <ul class="nav navbar-nav col-sm">
                         <li class="nav-item{% if page.parent_slug == 'demos' or page.slug == 'demos' %} active{% endif %}">
                             <a class="nav-link" href="{{page.baseurl}}demos/">Demos</a>
                         </li>
@@ -30,7 +31,7 @@
                         </li>
                     </ul>
 
-                    <ul class="nav navbar-nav float-sm-right">
+                    <ul class="nav navbar-nav col-sm col-sm-shrink">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ site.repo_url }}" target="{{ site.repo_target }}"
                                onclick="handleAffiliatedClick('Click: Navbar', 'Github', '{{ site.repo_pageview_page }}');">
