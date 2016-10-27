@@ -24,9 +24,11 @@ function gaLinkHandler(action, label, isAffiliated, page) {
 
     // Track as pageview if the "external" location is directly
     // related to our library (e.g. click to go to gh repo, click to go to dartdocs, etc.)
-    if (isAffiliated) {
+    if (isAffiliated && page !== null) {
         page = page || label;
-        ga('send', 'pageview', page);
+        ga('set', 'title', label);
+        setGaLocation(page);
+        ga('send', 'pageview');
     }
 }
 
