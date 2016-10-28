@@ -157,7 +157,7 @@ Element renderAndGetDom(dynamic component, {bool addToRenderedQueue: true}) {
 }
 
 /// Renders a React component or builder into a detached node and returns the associated Dart component.
-UiComponent renderAndGetComponent(dynamic component) => getDartComponent(render(component)) as UiComponent;
+react.Component renderAndGetComponent(dynamic component) => getDartComponent(render(component));
 
 /// List of elements attached to the DOM and used as mount points in previous calls to [renderAttachedToDocument].
 List<Element> _attachedReactContainers = [];

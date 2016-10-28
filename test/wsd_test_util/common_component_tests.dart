@@ -331,7 +331,7 @@ void testClassNameOverrides(BuilderOnlyUiFactory factory, dynamic childrenFactor
 
 /// Common test for verifying that required props are validated correctly.
 void testRequiredProps(BuilderOnlyUiFactory factory, dynamic childrenFactory()) {
-  var component = renderAndGetComponent(factory()(childrenFactory()));
+  var component = renderAndGetComponent(factory()(childrenFactory())) as UiComponent;
   var consumedProps = component.consumedProps;
   var requiredProps = [];
   var nullableProps = [];
