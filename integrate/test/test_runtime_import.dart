@@ -18,9 +18,7 @@ library test;
 import 'package:react/react_client.dart' show setClientConfiguration;
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:test/test.dart';
-import 'package:over_react/test_util.dart';
-import 'package:over_react/ui_components.dart';
-import 'package:over_react/ui_core.dart';
+import 'package:over_react/over_react.dart';
 
 /// Entry point into tests
 main() {
@@ -34,7 +32,7 @@ main() {
   });
 
   test('renders without breaking', () {
-    var well = react_test_utils.renderIntoDocument(Well()('Hello World!'));
+    var well = react_test_utils.renderIntoDocument(Dom.div()('Hello World!'));
     expect(well, isNotNull);
   });
 }

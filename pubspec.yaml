@@ -23,9 +23,10 @@ dev_dependencies:
 
 dependency_overrides:
   react:
-    git:
-      url: https://github.com/aaronlademann-wf/react-dart.git
-      ref: over_react-strong-mode-tweaks
+    path: /Users/aaronlademann/workspaces/wf/react-dart
+#    git:
+#      url: https://github.com/aaronlademann-wf/react-dart.git
+#      ref: over_react-strong-mode-tweaks
 
 transformers:
   - over_react:

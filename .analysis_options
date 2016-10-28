@@ -1,7 +1,5 @@
 analyzer:
   strong-mode: true
-  exclude:
-    - integrate/**
 linter:
   rules:
     - annotate_overrides
