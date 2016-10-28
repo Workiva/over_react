@@ -48,7 +48,8 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
     Type componentClass,
     String displayName
 }) {
-  ReactDartComponentFactoryProxy reactComponentFactory = react.registerComponent(dartComponentFactory);
+  ReactDartComponentFactoryProxy reactComponentFactory =
+      (react.registerComponent(dartComponentFactory)) as ReactDartComponentFactoryProxy;
 
   if (displayName != null) {
     reactComponentFactory.reactClass.displayName = displayName;
@@ -102,7 +103,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   ///
   /// Overridden for strong typing.
   @override
-  _RefTypedef get ref => super.ref;
+  _RefTypedef get ref => super.ref as _RefTypedef;
 
 
   /// Returns a copy of this component's props with [consumedPropKeys] omitted.
