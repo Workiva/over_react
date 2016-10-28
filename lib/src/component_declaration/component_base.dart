@@ -94,6 +94,8 @@ typedef dynamic _RefTypedef(String ref);
 ///
 /// Related: [UiStatefulComponent]
 abstract class UiComponent<TProps extends UiProps> extends react.Component {
+  /// The props for the non-forwarding props defined in this component.
+  Iterable<ConsumedProps> get consumedProps => null;
   /// Returns the component of the specified [ref].
   /// > `react.Component` if it is a Dart component
   /// > DOM node if it is a DOM component.
@@ -102,19 +104,19 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   @override
   _RefTypedef get ref => super.ref;
 
-  /// The props for the non-forwarding props defined in this component.
-  Iterable<ConsumedProps> get consumedProps => null;
 
   /// Returns a copy of this component's props with [consumedPropKeys] omitted.
   Map copyUnconsumedProps() {
-    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
+    var consumedPropKeys =
+        (consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const []) as Iterable<Iterable>;
 
     return copyProps(keySetsToOmit: consumedPropKeys);
   }
 
   /// Returns a copy of this component's props with [consumedPropKeys] and non-DOM props omitted.
   Map copyUnconsumedDomProps() {
-    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
+    var consumedPropKeys =
+        (consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const []) as Iterable<Iterable>;
 
     return copyProps(onlyCopyDomProps: true, keySetsToOmit: consumedPropKeys);
   }
@@ -175,7 +177,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   @override
   TProps get props {
     var unwrappedProps = this.unwrappedProps;
-    TProps typedProps = _typedPropsCache[unwrappedProps];
+    TProps typedProps = _typedPropsCache[unwrappedProps] as TProps;
     if (typedProps == null) {
       typedProps = typedPropsFactory(unwrappedProps);
       _typedPropsCache[unwrappedProps] = typedProps;
@@ -226,7 +228,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   @override
   TState get state {
     var unwrappedState = this.unwrappedState;
-    TState typedState = _typedStateCache[unwrappedState];
+    TState typedState = _typedStateCache[unwrappedState] as TState;
     if (typedState == null) {
       typedState = typedStateFactory(unwrappedState);
       _typedStateCache[unwrappedState] = typedState;
@@ -387,7 +389,7 @@ abstract class UiProps
   }
 
   /// Validates that no [children] are instances of [UiProps], and prints a helpful message for a better debugging
-  /// experiance.
+  /// experience.
   bool _validateChildren(dynamic children) {
     // Should not validate non-list iterables to avoid more than one iteration.
     if (children != null && (children is! Iterable || children is List)) {

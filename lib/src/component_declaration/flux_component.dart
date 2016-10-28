@@ -18,7 +18,7 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
   /// There is no strict rule on the [ActionsT] type. Depending on application
   /// structure, there may be [Action]s available directly on this object, or
   /// this object may represent a hierarchy of actions.
-  ActionsT get actions => props[_actionsPropKey];
+  ActionsT get actions => props[_actionsPropKey] as ActionsT;
   set actions(ActionsT value) => props[_actionsPropKey] = value;
 
   /// The prop defined by [StoresT].
@@ -37,7 +37,7 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
   /// [StoresT] should be a class that provides access to these multiple stores.
   /// Then, you can explicitly select the [Store] instances that should be
   /// listened to by overriding [_FluxComponentMixin.redrawOn].
-  StoresT get store => props[_storePropKey];
+  StoresT get store => props[_storePropKey] as StoresT;
   set store(StoresT value) => props[_storePropKey] = value;
 }
 
@@ -67,10 +67,8 @@ abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extend
 /// Helper mixin to keep [FluxUiComponent] and [FluxUiStatefulComponent] clean/DRY.
 ///
 /// Private so it will only get used in this file, since having lifecycle methods in a mixin is risky.
-abstract class _FluxComponentMixin<TProps extends FluxUiProps> {
+abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements BatchedRedraws {
   TProps get props;
-  bool shouldBatchRedraw;
-  redraw([callback()]);
 
   /// List of store subscriptions created when the component mounts.
   ///
@@ -87,8 +85,9 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> {
     /// respective handlers.
     Map<Store, Function> handlers = new Map.fromIterable(redrawOn(),
         value: (_) => (_) => redraw())..addAll(getStoreHandlers());
+
     handlers.forEach((store, handler) {
-      StreamSubscription subscription = store.listen(handler);
+      StreamSubscription subscription = store.listen(handler as StoreHandler);
       _subscriptions.add(subscription);
     });
   }

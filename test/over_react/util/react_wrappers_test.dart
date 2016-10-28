@@ -457,7 +457,7 @@ main() {
 
     group('getProps', () {
       const List testChildren = const ['child1', 'child2'];
-      const Map testStyle = const {'background': 'white'};
+      const Map<String, dynamic> testStyle = const {'background': 'white'};
 
       test('returns props for a composite JS component ReactElement', () {
         ReactElement instance = render(testJsComponentFactory({
@@ -687,7 +687,9 @@ main() {
 }
 
 /// Helper component for testing a Dart (react-dart) React component with cloneElement.
-ReactComponentFactory TestComponentFactory = react.registerComponent(() => new TestComponent());
+ReactComponentFactory TestComponentFactory =
+    (react.registerComponent(() => new TestComponent())) as ReactComponentFactory;
+
 class TestComponent extends react.Component {
   @override
   render() => Dom.div()();

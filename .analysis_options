@@ -1,4 +1,5 @@
 analyzer:
+  strong-mode: true
   exclude:
     - integrate/**
 linter:

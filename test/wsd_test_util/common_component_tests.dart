@@ -351,8 +351,11 @@ void testRequiredProps(BuilderOnlyUiFactory factory, dynamic childrenFactory()) 
 
   group('throws when the required prop', () {
     requiredProps.forEach((String propKey) {
+      ReactDartComponentFactoryProxy reactComponentFactory =
+          factory().componentFactory as ReactDartComponentFactoryProxy;
+
       // Props that are defined in the default props map will never not be set.
-      if (!factory().componentFactory.defaultProps.containsKey(propKey)) {
+      if (!reactComponentFactory.defaultProps.containsKey(propKey)) {
         test('$propKey is not set', () {
           var badRenderer = () => render((factory()
             ..remove(propKey)

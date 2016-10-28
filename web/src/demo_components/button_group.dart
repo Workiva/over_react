@@ -64,7 +64,7 @@ class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupStat
 
   /// Renders a list of [Button]s using [renderButton].
   List<ReactElement> renderButtons() {
-    var buttons = [];
+    List<ReactElement> buttons = [];
 
     for (int index = 0; index < props.children.length; index++) {
       buttons.add(renderButton(props.children[index], index));
