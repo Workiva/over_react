@@ -364,19 +364,20 @@ class ImplGenerator {
 
     typedMap.node.members
         .where((member) => member is FieldDeclaration)
-        .where((FieldDeclaration member) => !member.isStatic)
-        .forEach((FieldDeclaration field) {
+        .where((member) => !(member as FieldDeclaration).isStatic)
+        .forEach((field) {
+          FieldDeclaration _field = (field as FieldDeclaration);
           // Remove everything in the field except the comments/meta and the variable names, preserving newlines.
           // TODO add support for preserving comment nodes between variable declarations.
 
           // Remove content between end of comment/meta and first variable name
           transformedFile.remove(
-              sourceFile.span(field.firstTokenAfterCommentAndMetadata.offset, field.fields.variables.first.beginToken.offset),
+              sourceFile.span(_field.firstTokenAfterCommentAndMetadata.offset, _field.fields.variables.first.beginToken.offset),
               preserveNewlines: true
           );
           // Remove content between variable names (including commas).
-          var prevVariable = field.fields.variables.first;
-          field.fields.variables.skip(1).forEach((variable) {
+          var prevVariable = _field.fields.variables.first;
+          _field.fields.variables.skip(1).forEach((variable) {
             transformedFile.remove(
                 sourceFile.span(prevVariable.name.end, variable.name.offset),
                 preserveNewlines: true
@@ -385,11 +386,11 @@ class ImplGenerator {
           });
           // Remove content between last variable name and the end of the field (including the semicolon).
           transformedFile.remove(
-              sourceFile.span(field.fields.variables.last.end, field.end),
+              sourceFile.span(_field.fields.variables.last.end, field.end),
               preserveNewlines: true
           );
 
-          field.fields.variables.forEach((VariableDeclaration variable) {
+          _field.fields.variables.forEach((VariableDeclaration variable) {
             if (variable.initializer != null) {
               logger.error(
                   'Fields are stubs for generated setters/getters and should not have initializers.',
@@ -427,7 +428,7 @@ class ImplGenerator {
             keyConstants[keyConstantName] = keyValue;
             constants[constantName] = constantValue;
 
-            TypeName type = field.fields.type;
+            TypeName type = _field.fields.type;
             String typeString = type == null ? '' : '$type ';
 
             String generatedAccessor =
@@ -444,12 +445,12 @@ class ImplGenerator {
             );
           });
 
-          if (field.fields.variables.length > 1 &&
-              (field.documentationComment != null || field.metadata.isNotEmpty)) {
+          if (_field.fields.variables.length > 1 &&
+              (_field.documentationComment != null || _field.metadata.isNotEmpty)) {
             logger.warning(
                 'Note: accessors declared as comma-separated variables will not all be generated '
                 'with the original doc comments and annotations; only the first variable will.',
-                span: getSpan(sourceFile, field.fields)
+                span: getSpan(sourceFile, _field.fields)
             );
           }
         });

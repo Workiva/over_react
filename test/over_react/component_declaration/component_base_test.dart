@@ -294,7 +294,7 @@ main() {
 
       group('modifyProps()', () {
         test('passes the provided modifier itself', () {
-          modifier(UiProps props) {
+          modifier(Map<dynamic, dynamic> props) {
             props['className'] = 'modified-class-name';
           }
 
@@ -702,7 +702,7 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
   @override
   final List<ConsumedProps> consumedProps;
 
-  TestComponentComponent({testConsumedProps}) : consumedProps = testConsumedProps;
+  TestComponentComponent({List<ConsumedProps> testConsumedProps}) : consumedProps = testConsumedProps;
 
   @override
   render() => false;

@@ -21,7 +21,7 @@ class TransformMatcher extends CustomMatcher {
   TransformMatcher(dynamic matcher) : super('Transform that', 'parsed value', matcher);
 
   @override
-  featureValueOf(String transform) => parseCssTransform(transform);
+  featureValueOf(transform) => parseCssTransform(transform);
 }
 
 /// Parses a CSS transform into nested [List]s for easy matching.

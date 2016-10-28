@@ -14,16 +14,12 @@
 
 library over_react.component_declaration.transformer_helpers;
 
-import 'dart:html';
-
 import './component_base.dart' as component_base;
 import './annotations.dart' as annotations;
 
 export './annotations.dart';
 export './component_base.dart'
     hide UiComponent, UiStatefulComponent, UiProps, UiState;
-
-typedef dynamic _RefTypedef(String ref);
 
 // ----------------------------------------------------------------------
 //   Helpers and extras consumable by generated code and consumers of
@@ -99,15 +95,6 @@ abstract class UiComponent<TProps extends UiProps> extends component_base.UiComp
     _throwIfNotGenerated();
   }
 
-  /// Returns the component of the specified [ref].
-  ///
-  /// * Will be a [react.Component] if it is a Dart component.
-  /// * [Element] if it is a Dom component.
-  ///
-  /// Overridden for strong typing.
-  @override
-  _RefTypedef get ref => super.ref;
-
   /// The default consumed props, taken from the keys generated in the associated @[annotations.Props] class.
   @toBeGenerated
   Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
@@ -136,15 +123,6 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   UiStatefulComponent() {
     _throwIfNotGenerated();
   }
-
-  /// Returns the component of the specified [ref].
-  ///
-  /// * Will be a [react.Component] if it is a Dart component.
-  /// * [Element] if it is a Dom component.
-  ///
-  /// Overridden for strong typing.
-  @override
-  _RefTypedef get ref => super.ref;
 
   /// The default consumed prop keys, taken from the keys generated in the associated @[annotations.Props] class.
   @toBeGenerated

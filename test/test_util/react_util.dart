@@ -156,8 +156,8 @@ Element renderAndGetDom(dynamic component, {bool addToRenderedQueue: true}) {
   return findDomNode(render(component, addToRenderedQueue: addToRenderedQueue));
 }
 
-/// Renders a React component or builder into a detached node and returns the associtated Dart component.
-react.Component renderAndGetComponent(dynamic component) => getDartComponent(render(component));
+/// Renders a React component or builder into a detached node and returns the associated Dart component.
+UiComponent renderAndGetComponent(dynamic component) => getDartComponent(render(component)) as UiComponent;
 
 /// List of elements attached to the DOM and used as mount points in previous calls to [renderAttachedToDocument].
 List<Element> _attachedReactContainers = [];
@@ -392,7 +392,9 @@ List findDescendantsWithProp(/* [1] */ root, dynamic propKey) {
 }
 
 /// Helper component that renders whatever you tell it to. Necessary for rendering components with the 'ref' prop.
-ReactComponentFactory RenderingContainerComponentFactory = react.registerComponent(() => new RenderingContainerComponent());
+ReactComponentFactory RenderingContainerComponentFactory =
+    (react.registerComponent(() => new RenderingContainerComponent())) as ReactComponentFactory;
+
 class RenderingContainerComponent extends react.Component {
   @override
   render() => props['renderer']();
