@@ -99,7 +99,7 @@ class ParsedDeclarations {
     };
 
     declarationMap[key_factory] =
-        (topLevelVarsOnly(key_factory, declarationMap[key_factory])) as Iterable<CompilationUnitMember>;
+        topLevelVarsOnly(key_factory, declarationMap[key_factory]) as Iterable<CompilationUnitMember>;
 
     [
       key_component,
@@ -112,7 +112,7 @@ class ParsedDeclarations {
       key_stateMixin,
     ].forEach((annotationName) {
       declarationMap[annotationName] =
-          (classesOnly(annotationName, declarationMap[annotationName])) as Iterable<CompilationUnitMember>;
+          classesOnly(annotationName, declarationMap[annotationName]) as Iterable<CompilationUnitMember>;
     });
 
 

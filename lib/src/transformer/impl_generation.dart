@@ -366,7 +366,7 @@ class ImplGenerator {
         .where((member) => member is FieldDeclaration)
         .where((member) => !(member as FieldDeclaration).isStatic)
         .forEach((field) {
-          FieldDeclaration _field = (field as FieldDeclaration);
+          final _field = field as FieldDeclaration;
           // Remove everything in the field except the comments/meta and the variable names, preserving newlines.
           // TODO add support for preserving comment nodes between variable declarations.
 
