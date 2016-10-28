@@ -392,8 +392,8 @@ List findDescendantsWithProp(/* [1] */ root, dynamic propKey) {
 }
 
 /// Helper component that renders whatever you tell it to. Necessary for rendering components with the 'ref' prop.
-ReactComponentFactory RenderingContainerComponentFactory =
-    (react.registerComponent(() => new RenderingContainerComponent())) as ReactComponentFactory;
+final RenderingContainerComponentFactory =
+    react.registerComponent(() => new RenderingContainerComponent()) as ReactComponentFactory;
 
 class RenderingContainerComponent extends react.Component {
   @override

@@ -18,7 +18,7 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
   /// There is no strict rule on the [ActionsT] type. Depending on application
   /// structure, there may be [Action]s available directly on this object, or
   /// this object may represent a hierarchy of actions.
-  ActionsT get actions => props[_actionsPropKey] as ActionsT;
+  get actions => props[_actionsPropKey] as ActionsT;
   set actions(ActionsT value) => props[_actionsPropKey] = value;
 
   /// The prop defined by [StoresT].
@@ -37,7 +37,7 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
   /// [StoresT] should be a class that provides access to these multiple stores.
   /// Then, you can explicitly select the [Store] instances that should be
   /// listened to by overriding [_FluxComponentMixin.redrawOn].
-  StoresT get store => props[_storePropKey] as StoresT;
+  get store => props[_storePropKey] as StoresT;
   set store(StoresT value) => props[_storePropKey] = value;
 }
 

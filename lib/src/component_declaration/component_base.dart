@@ -48,8 +48,7 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
     Type componentClass,
     String displayName
 }) {
-  ReactDartComponentFactoryProxy reactComponentFactory =
-      (react.registerComponent(dartComponentFactory)) as ReactDartComponentFactoryProxy;
+  final reactComponentFactory = react.registerComponent(dartComponentFactory) as ReactDartComponentFactoryProxy;
 
   if (displayName != null) {
     reactComponentFactory.reactClass.displayName = displayName;
@@ -103,7 +102,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   ///
   /// Overridden for strong typing.
   @override
-  _RefTypedef get ref => super.ref as _RefTypedef;
+  get ref => super.ref as _RefTypedef;
 
 
   /// Returns a copy of this component's props with [consumedPropKeys] omitted.
@@ -178,7 +177,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   @override
   TProps get props {
     var unwrappedProps = this.unwrappedProps;
-    TProps typedProps = _typedPropsCache[unwrappedProps] as TProps;
+    var typedProps = _typedPropsCache[unwrappedProps] as TProps;
     if (typedProps == null) {
       typedProps = typedPropsFactory(unwrappedProps);
       _typedPropsCache[unwrappedProps] = typedProps;
@@ -229,7 +228,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   @override
   TState get state {
     var unwrappedState = this.unwrappedState;
-    TState typedState = _typedStateCache[unwrappedState] as TState;
+    var typedState = _typedStateCache[unwrappedState] as TState;
     if (typedState == null) {
       typedState = typedStateFactory(unwrappedState);
       _typedStateCache[unwrappedState] = typedState;

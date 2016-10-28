@@ -143,7 +143,7 @@ main() {
             var clone = cloneElement(original, testPropsToAdd);
 
             ReactComponent renderedClone = react_test_utils.renderIntoDocument(clone);
-            PlainObjectPropsMap props = (renderedClone.props as PlainObjectPropsMap);
+            var props = renderedClone.props as PlainObjectPropsMap;
 
             var convertedStyle = props.style;
             expect(convertedStyle.width, equals('100rem'));
@@ -687,8 +687,8 @@ main() {
 }
 
 /// Helper component for testing a Dart (react-dart) React component with cloneElement.
-ReactComponentFactory TestComponentFactory =
-    (react.registerComponent(() => new TestComponent())) as ReactComponentFactory;
+final TestComponentFactory =
+    react.registerComponent(() => new TestComponent()) as ReactComponentFactory;
 
 class TestComponent extends react.Component {
   @override
