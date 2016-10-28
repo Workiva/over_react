@@ -287,7 +287,7 @@ bool _hasTestId(Map props, String key, String value) {
 
   bool first = false;
 
-  var results = react_test_utils.findAllInRenderedTree(root, allowInterop((Function descendant) {
+  var results = react_test_utils.findAllInRenderedTree(root, allowInterop((ReactComponent descendant) {
     if (first) {
       return false;
     }
@@ -371,7 +371,7 @@ ReactElement _getByTestIdShallow(ReactElement root, String value, {String key: d
 
 /// Returns all descendants of a component that contain the specified prop key.
 List findDescendantsWithProp(/* [1] */ root, dynamic propKey) {
-  List descendantsWithProp = react_test_utils.findAllInRenderedTree(root, allowInterop((Function descendant) {
+  List descendantsWithProp = react_test_utils.findAllInRenderedTree(root, allowInterop((ReactComponent descendant) {
     if (descendant == root) {
       return false;
     }
