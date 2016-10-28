@@ -402,6 +402,15 @@ main() {
         component.unwrappedProps = {};
       });
 
+      group('`ref`', () {
+        test('should return a reference to the string ref', () {
+          var renderedInstance = render(TestComponent()());
+          TestComponentComponent component = getDartComponent(renderedInstance);
+
+          expect(component.ref('foo'), isNotNull);
+        });
+      });
+
       group('`props`', () {
         group('getter:', () {
           test('returns a UiProps view into the component\'s props map', () {
@@ -705,7 +714,7 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
   TestComponentComponent({List<ConsumedProps> testConsumedProps}) : consumedProps = testConsumedProps;
 
   @override
-  render() => false;
+  render() => (Dom.div()..ref = 'foo')();
 
   @override
   TestComponentProps typedPropsFactory(Map propsMap) => new TestComponentProps(propsMap);
