@@ -94,7 +94,7 @@ mount / render it into the HTML element you created in step 3.
       react_client.setClientConfiguration();
       
       // Mount / render your component. 
-      react_dom.render(FooComponent()(), querySelector('#react_mount_point'));
+      react_dom.render(Foo()(), querySelector('#react_mount_point'));
     }    
     ```
 
