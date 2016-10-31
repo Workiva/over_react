@@ -1,6 +1,6 @@
 language: dart
 dart:
-  - "1.17.1"
+  - "1.19.1"
 with_content_shell: true
 before_install:
   - export DISPLAY=:99.0
