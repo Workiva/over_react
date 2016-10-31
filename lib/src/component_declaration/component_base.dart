@@ -84,8 +84,6 @@ typedef TProps UiFactory<TProps extends UiProps>([Map backingProps]);
 /// For use as a Function variable type when the `backingProps` argument is not required.
 typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 
-typedef dynamic _RefTypedef(String ref);
-
 /// The basis for a over_react component.
 ///
 /// Includes support for strongly-typed props and utilities for prop and CSS classname forwarding.
@@ -96,14 +94,6 @@ typedef dynamic _RefTypedef(String ref);
 abstract class UiComponent<TProps extends UiProps> extends react.Component {
   /// The props for the non-forwarding props defined in this component.
   Iterable<ConsumedProps> get consumedProps => null;
-  /// Returns the component of the specified [ref].
-  /// > `react.Component` if it is a Dart component
-  /// > DOM node if it is a DOM component.
-  ///
-  /// Overridden for strong typing.
-  @override
-  get ref => super.ref as _RefTypedef;
-
 
   /// Returns a copy of this component's props with [consumedPropKeys] omitted.
   Map copyUnconsumedProps() {
