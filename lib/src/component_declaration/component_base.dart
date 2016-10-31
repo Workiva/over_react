@@ -97,16 +97,14 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
 
   /// Returns a copy of this component's props with [consumedPropKeys] omitted.
   Map copyUnconsumedProps() {
-    var consumedPropKeys =
-        (consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const []) as Iterable<Iterable>;
+    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
 
     return copyProps(keySetsToOmit: consumedPropKeys);
   }
 
   /// Returns a copy of this component's props with [consumedPropKeys] and non-DOM props omitted.
   Map copyUnconsumedDomProps() {
-    var consumedPropKeys =
-        (consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const []) as Iterable<Iterable>;
+    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
 
     return copyProps(onlyCopyDomProps: true, keySetsToOmit: consumedPropKeys);
   }

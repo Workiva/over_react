@@ -303,7 +303,7 @@ bool _hasTestId(Map props, String key, String value) {
     }
 
     return hasValue;
-  }) as react_test_utils.ComponentTestFunction);
+  }));
 
   if (results.isEmpty) {
     return null;
@@ -386,7 +386,7 @@ List findDescendantsWithProp(/* [1] */ root, dynamic propKey) {
     }
 
     return hasProp;
-  }) as react_test_utils.ComponentTestFunction);
+  }));
 
   return descendantsWithProp;
 }
