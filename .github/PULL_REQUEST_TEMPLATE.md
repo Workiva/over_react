@@ -1,20 +1,16 @@
-__Ultimate problem:__
+## Ultimate problem:
 
 
-
-__How it was fixed:__
-
+## How it was fixed:
 
 
-__Testing suggestions:__
+## Testing suggestions:
 
 
-
-__Potential areas of regression:__
+## Potential areas of regression:
 
 
 
 ---
-
 
 > __FYA:__ @greglittlefield-wf @aaronlademann-wf @jacehensley-wf @clairesarsam-wf @joelleibow-wf
