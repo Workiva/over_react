@@ -3,6 +3,7 @@ analyzer:
 linter:
   rules:
     - annotate_overrides
+    - avoid_as
     - avoid_empty_else
     - avoid_init_to_null
     - avoid_return_types_on_setters

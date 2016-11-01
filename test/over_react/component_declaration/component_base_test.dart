@@ -92,10 +92,10 @@ main() {
         test('a single child is passed in', () {
           var child = 'Only child';
           var renderedNode = renderAndGetDom(Dom.div()(child));
-          var children = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
+          List<Text> children = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
 
           expect(children.length, equals(1));
-          expect((children[0] as Text).data, equals(child));
+          expect(children[0].data, equals(child));
         });
 
         test('children are set via a list', () {

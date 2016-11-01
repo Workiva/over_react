@@ -52,6 +52,7 @@ main() {
 
         List<TestGenericType> generateBadTypeArgs() {
           // ignore: Type check failed
+          // ignore: avoid_as
           return new List.generate(arity, (_) => new Object() as TestGenericType);
         }
 

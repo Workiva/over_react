@@ -48,6 +48,7 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
     Type componentClass,
     String displayName
 }) {
+  // ignore: avoid_as
   final reactComponentFactory = react.registerComponent(dartComponentFactory) as ReactDartComponentFactoryProxy;
 
   if (displayName != null) {
@@ -156,7 +157,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   //   BEGIN Typed props helpers
   //
 
-  // Keep this Expando unparameterized to work around this bug: https://code.google.com/p/dart/issues/detail?id=18713
+  /// Keep this Expando unparameterized to work around this bug: <https://github.com/dart-lang/sdk/issues/26743>
   Expando _typedPropsCache = new Expando();
 
   /// A typed props object corresponding to the current untyped props Map ([unwrappedProps]).
@@ -165,7 +166,10 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   @override
   TProps get props {
     var unwrappedProps = this.unwrappedProps;
-    var typedProps = _typedPropsCache[unwrappedProps] as TProps;
+    /// Have to cast as [TProps] until we can parameterize [_typedPropsCache].
+    ///
+    /// See: <https://github.com/dart-lang/sdk/issues/26743>
+    var typedProps = _typedPropsCache[unwrappedProps] as TProps; // ignore: avoid_as
     if (typedProps == null) {
       typedProps = typedPropsFactory(unwrappedProps);
       _typedPropsCache[unwrappedProps] = typedProps;
@@ -207,7 +211,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   //   BEGIN Typed state helpers
   //
 
-   // Keep this Expando unparameterized to work around this bug: https://code.google.com/p/dart/issues/detail?id=18713
+  /// Keep this Expando unparameterized to work around this bug: <https://github.com/dart-lang/sdk/issues/26743>
   Expando _typedStateCache = new Expando();
 
   /// A typed state object corresponding to the current untyped state Map ([unwrappedState]).
@@ -216,7 +220,10 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   @override
   TState get state {
     var unwrappedState = this.unwrappedState;
-    var typedState = _typedStateCache[unwrappedState] as TState;
+    /// Have to cast as [TState] until we can parameterize [_typedStateCache].
+    ///
+    /// See: <https://github.com/dart-lang/sdk/issues/26743>
+    var typedState = _typedStateCache[unwrappedState] as TState; // ignore: avoid_as
     if (typedState == null) {
       typedState = typedStateFactory(unwrappedState);
       _typedStateCache[unwrappedState] = typedState;
