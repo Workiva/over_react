@@ -64,7 +64,7 @@ class ParsedDeclarations {
 
     // Validate the types of the annotated declarations.
 
-    List<CompilationUnitMember> topLevelVarsOnly(String annotationName, Iterable<CompilationUnitMember> declarations) {
+    List topLevelVarsOnly(String annotationName, Iterable<CompilationUnitMember> declarations) {
       var topLevelVarDeclarations = <CompilationUnitMember>[];
 
       declarations.forEach((declaration) {
@@ -81,8 +81,8 @@ class ParsedDeclarations {
       return topLevelVarDeclarations;
     };
 
-    List<CompilationUnitMember> classesOnly(String annotationName, Iterable<CompilationUnitMember> declarations) {
-      var classDeclarations = <CompilationUnitMember>[];
+    List classesOnly(String annotationName, Iterable<CompilationUnitMember> declarations) {
+      var classDeclarations = [];
 
       declarations.forEach((declaration) {
         if (declaration is ClassDeclaration) {
@@ -98,7 +98,8 @@ class ParsedDeclarations {
       return classDeclarations;
     };
 
-    declarationMap[key_factory] = topLevelVarsOnly(key_factory, declarationMap[key_factory]);
+    declarationMap[key_factory] =
+        topLevelVarsOnly(key_factory, declarationMap[key_factory]) as Iterable<CompilationUnitMember>; // ignore: avoid_as
 
     [
       key_component,
@@ -110,7 +111,8 @@ class ParsedDeclarations {
       key_propsMixin,
       key_stateMixin,
     ].forEach((annotationName) {
-      declarationMap[annotationName] = classesOnly(annotationName, declarationMap[annotationName]);
+      declarationMap[annotationName] =
+          classesOnly(annotationName, declarationMap[annotationName]) as Iterable<CompilationUnitMember>; // ignore: avoid_as
     });
 
 
