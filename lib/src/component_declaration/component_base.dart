@@ -157,8 +157,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   //   BEGIN Typed props helpers
   //
 
-  /// Keep this Expando unparameterized to work around this bug: <https://github.com/dart-lang/sdk/issues/26743>
-  Expando _typedPropsCache = new Expando();
+  var _typedPropsCache = new Expando<TProps>();
 
   /// A typed props object corresponding to the current untyped props Map ([unwrappedProps]).
   ///
@@ -166,10 +165,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   @override
   TProps get props {
     var unwrappedProps = this.unwrappedProps;
-    /// Have to cast as [TProps] until we can parameterize [_typedPropsCache].
-    ///
-    /// See: <https://github.com/dart-lang/sdk/issues/26743>
-    var typedProps = _typedPropsCache[unwrappedProps] as TProps; // ignore: avoid_as
+    var typedProps = _typedPropsCache[unwrappedProps];
     if (typedProps == null) {
       typedProps = typedPropsFactory(unwrappedProps);
       _typedPropsCache[unwrappedProps] = typedProps;
@@ -211,8 +207,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   //   BEGIN Typed state helpers
   //
 
-  /// Keep this Expando unparameterized to work around this bug: <https://github.com/dart-lang/sdk/issues/26743>
-  Expando _typedStateCache = new Expando();
+  var _typedStateCache = new Expando<TState>();
 
   /// A typed state object corresponding to the current untyped state Map ([unwrappedState]).
   ///
@@ -220,10 +215,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   @override
   TState get state {
     var unwrappedState = this.unwrappedState;
-    /// Have to cast as [TState] until we can parameterize [_typedStateCache].
-    ///
-    /// See: <https://github.com/dart-lang/sdk/issues/26743>
-    var typedState = _typedStateCache[unwrappedState] as TState; // ignore: avoid_as
+    var typedState = _typedStateCache[unwrappedState];
     if (typedState == null) {
       typedState = typedStateFactory(unwrappedState);
       _typedStateCache[unwrappedState] = typedState;
