@@ -86,7 +86,7 @@ Map getJsProps(/* ReactElement|ReactComponent */ instance) {
   return props;
 }
 
-Expando _elementPropsCache = new Expando('_elementPropsCache');
+Expando<UnmodifiableMapView> _elementPropsCache = new Expando('_elementPropsCache');
 
 /// Returns an unmodifiable Map view of props for a [ReactElement] or composite [ReactComponent] [instance].
 ///
