@@ -16,7 +16,7 @@ class TestStoreHandlersComponent extends FluxUiComponent<TestStoreHandlersProps>
   @override
   getStoreHandlers() => {props.store: increment};
 
-  increment(_) {
+  increment(Store store) {
     numberOfHandlerCalls += 1;
   }
 }
