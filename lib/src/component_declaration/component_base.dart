@@ -124,12 +124,12 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   void validateRequiredProps(Map appliedProps) {
     consumedProps?.forEach((ConsumedProps consumedProps) {
       consumedProps.props.forEach((PropDescriptor prop) {
-            if (!prop.isRequired) return;
-            if (prop.isNullable && appliedProps.containsKey(prop.key)) return;
-            if (!prop.isNullable && appliedProps[prop.key] != null) return;
+        if (!prop.isRequired) return;
+        if (prop.isNullable && appliedProps.containsKey(prop.key)) return;
+        if (!prop.isNullable && appliedProps[prop.key] != null) return;
 
-            throw new PropError.required(prop.key, prop.errorMessage);
-          });
+        throw new PropError.required(prop.key, prop.errorMessage);
+      });
     });
   }
 
@@ -181,6 +181,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   set unwrappedProps(Map value) => super.props = value;
 
   /// Returns a typed props object backed by the specified [propsMap].
+  ///
   /// Required to properly instantiate the generic [TProps] class.
   TProps typedPropsFactory(Map propsMap);
 
@@ -231,6 +232,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   set unwrappedState(Map value) => super.state = value;
 
   /// Returns a typed state object backed by the specified [stateMap].
+  ///
   /// Required to properly instantiate the generic [TState] class.
   TState typedStateFactory(Map stateMap);
 
