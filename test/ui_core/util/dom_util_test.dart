@@ -2,7 +2,8 @@ library dom_util_test;
 
 import 'dart:html';
 
-import 'package:browser_detect/browser_detect.dart';
+import 'package:platform_detect/platform_detect.dart';
+import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_components.dart';
@@ -214,7 +215,7 @@ main() {
         expect(getActiveElement(), isNull);
       });
 
-      if (browser.isIe && browser.version <= 10) {
+      if (browser.isInternetExplorer && browser.version <= new Version(10, 0, 0)) {
         test('not a valid element', () {
           document.body.blur();
 
