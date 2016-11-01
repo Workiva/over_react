@@ -205,7 +205,7 @@ main() {
           'correctly dispatches an event in resopnse to the first change', () async {
         expect(querySelector('#rem_change_sensor'), isNull);
 
-        List<double> calls = [];
+        var calls = <double>[];
         var listener = onRemChange.listen(calls.add);
 
         expect(querySelector('#rem_change_sensor'), isNotNull);
