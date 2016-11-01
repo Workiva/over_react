@@ -46,7 +46,7 @@ Set getComponentPropKeys(BuilderOnlyUiFactory factory) {
       return;
     }
 
-    Type owner = (decl.owner as ClassMirror).reflectedType;
+    Type owner = (decl.owner as ClassMirror).reflectedType; // ignore: avoid_as
     if (owner != Object &&
         owner != component_base.UiProps &&
         owner != component_base.PropsMapViewMixin &&
@@ -206,6 +206,7 @@ void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(),
 
       /// Test for prop keys that both are forwarded and exist on the forwarding target's default props.
       if (isDartComponent(forwardingTarget)) {
+        // ignore: avoid_as
         var forwardingTargetDefaults = ((forwardingTarget as ReactElement).type as ReactClass).dartDefaultProps;
 
         var commonForwardedAndDefaults = propKeysThatShouldNotGetForwarded
@@ -331,7 +332,7 @@ void testClassNameOverrides(BuilderOnlyUiFactory factory, dynamic childrenFactor
 
 /// Common test for verifying that required props are validated correctly.
 void testRequiredProps(BuilderOnlyUiFactory factory, dynamic childrenFactory()) {
-  var component = renderAndGetComponent(factory()(childrenFactory())) as UiComponent;
+  var component = renderAndGetComponent(factory()(childrenFactory())) as UiComponent; // ignore: avoid_as
   var consumedProps = component.consumedProps;
   var requiredProps = [];
   var nullableProps = [];
@@ -351,7 +352,7 @@ void testRequiredProps(BuilderOnlyUiFactory factory, dynamic childrenFactory()) 
 
   group('throws when the required prop', () {
     requiredProps.forEach((String propKey) {
-      final reactComponentFactory = factory().componentFactory as ReactDartComponentFactoryProxy;
+      final reactComponentFactory = factory().componentFactory as ReactDartComponentFactoryProxy; // ignore: avoid_as
 
       // Props that are defined in the default props map will never not be set.
       if (!reactComponentFactory.defaultProps.containsKey(propKey)) {

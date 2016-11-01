@@ -364,9 +364,9 @@ class ImplGenerator {
 
     typedMap.node.members
         .where((member) => member is FieldDeclaration)
-        .where((member) => !(member as FieldDeclaration).isStatic)
+        .where((member) => !(member as FieldDeclaration).isStatic) // ignore: avoid_as
         .forEach((field) {
-          final _field = field as FieldDeclaration;
+          final _field = field as FieldDeclaration; // ignore: avoid_as
           // Remove everything in the field except the comments/meta and the variable names, preserving newlines.
           // TODO add support for preserving comment nodes between variable declarations.
 
