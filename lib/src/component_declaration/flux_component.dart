@@ -83,11 +83,11 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
     ///
     /// [Store]s included in the [getStoreHandlers] result will be listened to and wired up to their
     /// respective handlers.
-    Map<Store, Function> handlers = new Map.fromIterable(redrawOn(),
+    Map<Store, StoreHandler> handlers = new Map.fromIterable(redrawOn(),
         value: (_) => (_) => redraw())..addAll(getStoreHandlers());
 
     handlers.forEach((store, handler) {
-      StreamSubscription subscription = store.listen(handler as StoreHandler);
+      StreamSubscription subscription = store.listen(handler);
       _subscriptions.add(subscription);
     });
   }
@@ -136,7 +136,7 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
   /// If possible, however, [redrawOn] should be used instead of this in order
   /// to avoid keeping additional state within this component and manually
   /// managing redraws.
-  Map<Store, Function> getStoreHandlers() {
+  Map<Store, StoreHandler> getStoreHandlers() {
     return {};
   }
 
