@@ -294,7 +294,7 @@ main() {
 
       group('modifyProps()', () {
         test('passes the provided modifier itself', () {
-          modifier(Map<dynamic, dynamic> props) {
+          modifier(Map props) {
             props['className'] = 'modified-class-name';
           }
 
