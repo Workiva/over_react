@@ -7,7 +7,7 @@ UiFactory<TestHandlerPrecedenceProps> TestHandlerPrecedence;
 class TestHandlerPrecedenceProps extends FluxUiProps<TestActions, TestStores> {}
 
 @Component()
-class TestHandlerPrecedenceComponent extends FluxUiComponent {
+class TestHandlerPrecedenceComponent extends FluxUiComponent<TestHandlerPrecedenceProps> {
   int numberOfRedraws = 0;
   int numberOfHandlerCalls = 0;
 
