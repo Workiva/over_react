@@ -133,7 +133,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
           )(expandSensor, collapseSensor)
     );
 
-    var wrapperStyles;
+    Map<String, dynamic> wrapperStyles;
 
     if (props.isFlexChild) {
       wrapperStyles = {

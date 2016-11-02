@@ -64,8 +64,8 @@ class ParsedDeclarations {
 
     // Validate the types of the annotated declarations.
 
-    List topLevelVarsOnly(String annotationName, Iterable<CompilationUnitMember> declarations) {
-      var topLevelVarDeclarations = [];
+    List<TopLevelVariableDeclaration> topLevelVarsOnly(String annotationName, Iterable<CompilationUnitMember> declarations) {
+      var topLevelVarDeclarations = <TopLevelVariableDeclaration>[];
 
       declarations.forEach((declaration) {
         if (declaration is TopLevelVariableDeclaration) {
@@ -81,8 +81,8 @@ class ParsedDeclarations {
       return topLevelVarDeclarations;
     };
 
-    List classesOnly(String annotationName, Iterable<CompilationUnitMember> declarations) {
-      var classDeclarations = [];
+    List<ClassDeclaration> classesOnly(String annotationName, Iterable<CompilationUnitMember> declarations) {
+      var classDeclarations = <ClassDeclaration>[];
 
       declarations.forEach((declaration) {
         if (declaration is ClassDeclaration) {

@@ -44,7 +44,7 @@ import 'package:react/react_dom.dart' as react_dom;
 /// Returns internal data structure used by react-dart to maintain the native Dart component
 /// for a given react-dart [ReactElement] or [ReactComponent] [instance].
 ReactDartComponentInternal _getInternal(/* ReactElement|ReactComponent */  instance) =>
-    (instance.props as InteropProps).internal;
+    (instance.props as InteropProps).internal; // ignore: avoid_as
 
 /// Returns the internal representation of a Dart component's props as maintained by react-dart.
 ///
@@ -132,7 +132,7 @@ bool isValidElement(dynamic object) {
 
 /// Returns whether [instance] is a ReactElement for a DOM node.
 bool isDomElement(dynamic instance) {
-  return isValidElement(instance) && (instance as ReactElement).type is String;
+  return isValidElement(instance) && (instance as ReactElement).type is String; // ignore: avoid_as
 }
 
 /// Returns whether [instance] is a composite [ReactComponent].

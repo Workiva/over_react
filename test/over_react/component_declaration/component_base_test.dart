@@ -92,10 +92,10 @@ main() {
         test('a single child is passed in', () {
           var child = 'Only child';
           var renderedNode = renderAndGetDom(Dom.div()(child));
-          var children = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
+          List<Text> children = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
 
           expect(children.length, equals(1));
-          expect((children[0] as Text).data, equals(child));
+          expect(children[0].data, equals(child));
         });
 
         test('children are set via a list', () {
@@ -294,7 +294,7 @@ main() {
 
       group('modifyProps()', () {
         test('passes the provided modifier itself', () {
-          modifier(UiProps props) {
+          modifier(Map props) {
             props['className'] = 'modified-class-name';
           }
 
@@ -400,6 +400,15 @@ main() {
       setUp(() {
         component = new TestComponentComponent();
         component.unwrappedProps = {};
+      });
+
+      group('`ref`', () {
+        test('should return a reference to the string ref', () {
+          var renderedInstance = render(TestComponent()());
+          TestComponentComponent component = getDartComponent(renderedInstance);
+
+          expect(component.ref('foo'), isNotNull);
+        });
       });
 
       group('`props`', () {
@@ -702,10 +711,10 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
   @override
   final List<ConsumedProps> consumedProps;
 
-  TestComponentComponent({testConsumedProps}) : consumedProps = testConsumedProps;
+  TestComponentComponent({List<ConsumedProps> testConsumedProps}) : consumedProps = testConsumedProps;
 
   @override
-  render() => false;
+  render() => (Dom.div()..ref = 'foo')();
 
   @override
   TestComponentProps typedPropsFactory(Map propsMap) => new TestComponentProps(propsMap);

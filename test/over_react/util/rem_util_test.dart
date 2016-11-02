@@ -205,7 +205,7 @@ main() {
           'correctly dispatches an event in resopnse to the first change', () async {
         expect(querySelector('#rem_change_sensor'), isNull);
 
-        var calls = [];
+        var calls = <double>[];
         var listener = onRemChange.listen(calls.add);
 
         expect(querySelector('#rem_change_sensor'), isNotNull);
@@ -222,7 +222,7 @@ main() {
       });
 
       test('does not dispatch duplicate events when there are multiple listeners', () async {
-        var calls = [];
+        List<double> calls = [];
 
         var listener1 = onRemChange.listen((_) {});
         var listener2 = onRemChange.listen(calls.add);
@@ -239,7 +239,7 @@ main() {
       });
 
       test('does not dispatch events when recomputeRootFontSize is called and there is no change', () async {
-        var calls = [];
+        List<double> calls = [];
         var listener = onRemChange.listen(calls.add);
 
         recomputeRootFontSize();

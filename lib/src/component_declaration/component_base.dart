@@ -48,7 +48,8 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
     Type componentClass,
     String displayName
 }) {
-  ReactDartComponentFactoryProxy reactComponentFactory = react.registerComponent(dartComponentFactory);
+  // ignore: avoid_as
+  final reactComponentFactory = react.registerComponent(dartComponentFactory) as ReactDartComponentFactoryProxy;
 
   if (displayName != null) {
     reactComponentFactory.reactClass.displayName = displayName;
@@ -84,8 +85,6 @@ typedef TProps UiFactory<TProps extends UiProps>([Map backingProps]);
 /// For use as a Function variable type when the `backingProps` argument is not required.
 typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 
-typedef dynamic _RefTypedef(String ref);
-
 /// The basis for a over_react component.
 ///
 /// Includes support for strongly-typed props and utilities for prop and CSS classname forwarding.
@@ -94,14 +93,6 @@ typedef dynamic _RefTypedef(String ref);
 ///
 /// Related: [UiStatefulComponent]
 abstract class UiComponent<TProps extends UiProps> extends react.Component {
-  /// Returns the component of the specified [ref].
-  /// > `react.Component` if it is a Dart component
-  /// > DOM node if it is a DOM component.
-  ///
-  /// Overridden for strong typing.
-  @override
-  _RefTypedef get ref => super.ref;
-
   /// The props for the non-forwarding props defined in this component.
   Iterable<ConsumedProps> get consumedProps => null;
 
@@ -133,12 +124,12 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   void validateRequiredProps(Map appliedProps) {
     consumedProps?.forEach((ConsumedProps consumedProps) {
       consumedProps.props.forEach((PropDescriptor prop) {
-            if (!prop.isRequired) return;
-            if (prop.isNullable && appliedProps.containsKey(prop.key)) return;
-            if (!prop.isNullable && appliedProps[prop.key] != null) return;
+        if (!prop.isRequired) return;
+        if (prop.isNullable && appliedProps.containsKey(prop.key)) return;
+        if (!prop.isNullable && appliedProps[prop.key] != null) return;
 
-            throw new PropError.required(prop.key, prop.errorMessage);
-          });
+        throw new PropError.required(prop.key, prop.errorMessage);
+      });
     });
   }
 
@@ -166,8 +157,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   //   BEGIN Typed props helpers
   //
 
-  // Keep this Expando unparameterized to work around this bug: https://code.google.com/p/dart/issues/detail?id=18713
-  Expando _typedPropsCache = new Expando();
+  var _typedPropsCache = new Expando<TProps>();
 
   /// A typed props object corresponding to the current untyped props Map ([unwrappedProps]).
   ///
@@ -175,7 +165,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   @override
   TProps get props {
     var unwrappedProps = this.unwrappedProps;
-    TProps typedProps = _typedPropsCache[unwrappedProps];
+    var typedProps = _typedPropsCache[unwrappedProps];
     if (typedProps == null) {
       typedProps = typedPropsFactory(unwrappedProps);
       _typedPropsCache[unwrappedProps] = typedProps;
@@ -191,6 +181,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   set unwrappedProps(Map value) => super.props = value;
 
   /// Returns a typed props object backed by the specified [propsMap].
+  ///
   /// Required to properly instantiate the generic [TProps] class.
   TProps typedPropsFactory(Map propsMap);
 
@@ -217,8 +208,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   //   BEGIN Typed state helpers
   //
 
-   // Keep this Expando unparameterized to work around this bug: https://code.google.com/p/dart/issues/detail?id=18713
-  Expando _typedStateCache = new Expando();
+  var _typedStateCache = new Expando<TState>();
 
   /// A typed state object corresponding to the current untyped state Map ([unwrappedState]).
   ///
@@ -226,7 +216,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   @override
   TState get state {
     var unwrappedState = this.unwrappedState;
-    TState typedState = _typedStateCache[unwrappedState];
+    var typedState = _typedStateCache[unwrappedState];
     if (typedState == null) {
       typedState = typedStateFactory(unwrappedState);
       _typedStateCache[unwrappedState] = typedState;
@@ -242,6 +232,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   set unwrappedState(Map value) => super.state = value;
 
   /// Returns a typed state object backed by the specified [stateMap].
+  ///
   /// Required to properly instantiate the generic [TState] class.
   TState typedStateFactory(Map stateMap);
 
@@ -387,7 +378,7 @@ abstract class UiProps
   }
 
   /// Validates that no [children] are instances of [UiProps], and prints a helpful message for a better debugging
-  /// experiance.
+  /// experience.
   bool _validateChildren(dynamic children) {
     // Should not validate non-list iterables to avoid more than one iteration.
     if (children != null && (children is! Iterable || children is List)) {

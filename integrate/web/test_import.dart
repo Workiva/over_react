@@ -17,10 +17,10 @@ import 'dart:html';
 import 'package:react/react_dom.dart' as react_dom;
 import 'package:react/react_client.dart' show setClientConfiguration;
 
-import 'package:over_react/ui_components.dart';
+import 'package:over_react/over_react.dart';
 
 void main() {
   setClientConfiguration();
 
-  react_dom.render(Well()('Hello World!'), querySelector('.main'));
+  react_dom.render(Dom.div()('Hello World!'), querySelector('.main'));
 }

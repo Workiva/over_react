@@ -167,7 +167,7 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   ///
   /// In an actual implementation, you would want to add a unique class to the root of this
   /// component, and add these styles in your app / component library stylesheet.
-  Map get makeInputNodeInvisible => {
+  Map<String, dynamic> get makeInputNodeInvisible => {
     'position': 'absolute',
     'clip': 'rect(0,0,0,0)',
     'pointerEvents': 'none'
