@@ -50,7 +50,7 @@ main() {
           return new List.generate(arity, (_) => new TestGenericType());
         }
 
-        List<TestGenericType> generateBadTypeArgs() {
+        List generateBadTypeArgs() {
           return new List.generate(arity, (_) => new Object());
         }
 
@@ -158,7 +158,7 @@ main() {
             test('calls all functions in order', () {
               var calls = [];
 
-              var functions = new List.generate(5, (index) {
+              List<Function> functions = new List.generate(5, (index) {
                 return createTestChainFunction(onCall: (args) {
                   calls.add(['function_$index', args]);
                 });
@@ -180,7 +180,7 @@ main() {
             });
 
             test('returns false when any function returns false', () {
-              var functions = new List.generate(5, (_) => createTestChainFunction());
+              List<Function> functions = new List.generate(5, (_) => createTestChainFunction());
               functions.insert(2, createTestChainFunction(returnValue: false));
 
               var chained = callbackUtil.chainFromList(functions);
@@ -189,7 +189,7 @@ main() {
             });
 
             test('returns null when no function returns false', () {
-              var functions = new List.generate(5, (_) => createTestChainFunction());
+              List<Function> functions = new List.generate(5, (_) => createTestChainFunction());
 
               var chained = callbackUtil.chainFromList(functions);
 
@@ -201,7 +201,7 @@ main() {
             test('null functions', () {
               var calls = [];
 
-              var functions = new List.generate(5, (index) {
+              List<Function> functions = new List.generate(5, (index) {
                 return createTestChainFunction(onCall: (args) {
                   calls.add(['function_$index', args]);
                 });
@@ -236,7 +236,7 @@ main() {
 
           if (arity != 0) {
             test('has arguments typed to the specified generic parameters', () {
-              var functions = new List.generate(5, (_) => createTestChainFunction());
+              List<Function> functions = new List.generate(5, (_) => createTestChainFunction());
 
               functions.forEach((function) {
                 expect(() => Function.apply(function, generateArgs()), returnsNormally,

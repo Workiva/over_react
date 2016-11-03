@@ -22,7 +22,8 @@ import 'dart:collection';
 import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps;
 import 'package:over_react/src/component_declaration/annotations.dart';
 
-/// Typed getters/setters for props related to CSS class manipulation, and used by all UIP components.
+/// Typed getters/setters for props related to CSS class manipulation, and used by all over_react components.
+///
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
 abstract class CssClassPropsMixin {

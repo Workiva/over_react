@@ -40,7 +40,7 @@ packages
 
 # Since over_react is a library package, we shouldn't track pubspec.lock:
 # https://www.dartlang.org/tools/pub/glossary.html#library-package
-/pubspec.lock
+pubspec.lock
 
 # Should not track the output of code coverage for now
 coverage/

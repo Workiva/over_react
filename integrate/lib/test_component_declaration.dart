@@ -14,8 +14,7 @@
 
 library test_component_declaration;
 
-import 'package:over_react/ui_core.dart';
-import 'package:over_react/ui_components.dart';
+import 'package:over_react/over_react.dart';
 
 @Factory()
 UiFactory<FooProps> Foo;
@@ -30,7 +29,7 @@ class FooState extends UiState {}
 class FooComponent extends UiStatefulComponent<FooProps, FooState> {
   @override
   render() {
-    return Button()(
+    return Dom.div()(
       'Child 1',
       'Child 2'
     );

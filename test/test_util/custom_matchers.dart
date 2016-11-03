@@ -44,7 +44,7 @@ class ClassNameMatcher extends Matcher {
   static Iterable getClassIterable(dynamic classNames) {
     Iterable classes;
     if (classNames is Iterable<String>) {
-      classes = (classNames as Iterable).where((className) => className != null).expand(splitSpaceDelimitedString);
+      classes = classNames.where((className) => className != null).expand(splitSpaceDelimitedString);
     } else if (classNames is String) {
       classes = splitSpaceDelimitedString(classNames);
     } else {
@@ -55,7 +55,9 @@ class ClassNameMatcher extends Matcher {
   }
 
   @override
-  bool matches(String className, Map matchState) {
+  bool matches(className, Map matchState) {
+    className = className as String; // ignore: avoid_as
+
     Iterable actualClasses = getClassIterable(className);
     Set missingClasses = expectedClasses.difference(actualClasses.toSet());
     Set unwantedClasses = unexpectedClasses.intersection(actualClasses.toSet());
@@ -133,7 +135,7 @@ class IsNode extends CustomMatcher {
 class _ElementClassNameMatcher extends CustomMatcher {
   _ElementClassNameMatcher(matcher) : super('Element that', 'className', matcher);
   @override
-  featureValueOf(Element actual) => actual.className;
+  featureValueOf(actual) => (actual as Element).className; // ignore: avoid_as
 }
 class _ElementAttributeMatcher extends CustomMatcher {
   String _attributeName;
@@ -143,7 +145,7 @@ class _ElementAttributeMatcher extends CustomMatcher {
       super('Element with "$attributeName" attribute that equals', 'attributes', matcher);
 
   @override
-  featureValueOf(Element element) => element.getAttribute(_attributeName);
+  featureValueOf(element) => (element as Element).getAttribute(_attributeName); // ignore: avoid_as
 }
 
 class _HasToStringValue extends CustomMatcher {

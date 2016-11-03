@@ -61,7 +61,6 @@ class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupP
   @override
   ToggleButtonProps buttonPropsToAdd(dynamic child, int index) {
     var childProps = childFactory(getProps(child));
-    var childKey = getInstanceKey(child);
 
     ButtonProps superPropsToAdd = super.buttonPropsToAdd(child, index);
 
@@ -81,7 +80,7 @@ class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupP
   }
 
   /// The handler for when one of the children of the [ToggleButtonGroup] is changed or unchecked
-  void _handleOnChange(_) {
+  void _handleOnChange(react.SyntheticFormEvent event) {
     _toggleButtonRefs.values.forEach((childComponent) {
       if (childComponent is ToggleButtonComponent) childComponent._refreshState();
     });

@@ -135,7 +135,7 @@ class ListGroupItemComponent extends UiComponent<ListGroupItemProps> {
   }
 
   BuilderOnlyUiFactory<DomProps> _getItemDomNodeFactory() {
-    var factory;
+    BuilderOnlyUiFactory<DomProps> factory;
 
     if (props.href != null) {
       factory = Dom.a;
