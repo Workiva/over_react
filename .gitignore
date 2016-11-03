@@ -32,9 +32,10 @@ _site
 # Pub ignores
 .pub
 packages
+.packages
 # Do not ignore the __root__ packages directory in the gh-pages branch.
 !/packages
-.packages
+!/.packages
 #build/ # Do not ignore this in the gh-pages branch.
 
 

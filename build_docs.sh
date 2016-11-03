@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+rm -rf .pub .packages
+find . -name packages | xargs rm -rf
+pub get --packages-dir
 pub build
 
 
@@ -65,5 +68,8 @@ cp -r web/demos/toggle-button/toggle-button-radio.dart docs/_includes/component-
 
 
 # De-reference the symlinked root packages directory so that github pages can copy them to _site
-rm -rf packages
+
+bundle exec jekyll build
+
+#rm -rf packages
 cp -r _site/packages/ packages/

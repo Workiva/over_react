@@ -9,13 +9,6 @@ UiFactory<ProgressProps> Progress;
 
 @Props()
 class ProgressProps extends UiProps {
-  /// The id for the [Progress] component.
-  ///
-  /// If left unspecified one will be auto-generated for you to ensure
-  /// that the [caption] element is properly linked for accessibility purposes.
-  @override
-  String get id;
-
   /// The current value of the [Progress] component.
   ///
   /// This value should be between the [min] and [max] values.
