@@ -72,11 +72,12 @@ void recomputeRootFontSize() {
 
 /// Converts a pixel (`px`) [value] to its `rem` equivalent using the current root font size.
 ///
-/// If the [String]/[CssValue] [value] already has the correct unit, it will not be converted.
-///
-/// If [value] is a [num], it will be treated as a `px` and converted, unless `treatNumAsRem` is `true`.
-///
-/// If [value] is `null`, `null` will be returned.
+/// * If [value] is a [String] or [CssValue]:
+///   * And [value] already has the correct unit, it will not be converted.
+///   * And [CssValue.unit] is not `'px'` or `'rem'`, an error will be thrown unless
+///   [passThroughUnsupportedUnits] is `true`, in which case no conversion will take place.
+/// * If [value] is a [num], it will be treated as a `px` and converted, unless [treatNumAsRem] is `true`.
+/// * If [value] is `null`, `null` will be returned.
 ///
 /// Example input:
 ///
@@ -90,7 +91,7 @@ void recomputeRootFontSize() {
 /// Example output (assuming 1rem = 10px):
 ///
 /// * `1.5rem`
-CssValue toRem(dynamic value, {bool treatNumAsRem: false}) {
+CssValue toRem(dynamic value, {bool treatNumAsRem: false, bool passThroughUnsupportedUnits: false}) {
   if (value == null) return null;
 
   num remValueNum;
@@ -105,6 +106,8 @@ CssValue toRem(dynamic value, {bool treatNumAsRem: false}) {
     } else if (parsedValue?.unit == 'px') {
       remValueNum = parsedValue.number / rootFontSize;
     } else {
+      if (passThroughUnsupportedUnits) return parsedValue;
+
       throw new ArgumentError.value(value, 'value', 'must be a px num or a String px/rem value');
     }
   }
@@ -114,11 +117,12 @@ CssValue toRem(dynamic value, {bool treatNumAsRem: false}) {
 
 /// Converts a rem [value] to its pixel (`px`) equivalent using the current root font size.
 ///
-/// If the [String]/[CssValue] [value] already has the correct unit, it will not be converted.
-///
-/// If [value] is a [num], it will be treated as a `rem` and converted, unless `treatNumAsPx` is `true`.
-///
-/// If [value] is `null`, `null` will be returned.
+/// * If [value] is a [String] or [CssValue]:
+///   * And [value] already has the correct unit, it will not be converted.
+///   * And [CssValue.unit] is not `'px'` or `'rem'`, an error will be thrown unless
+///   [passThroughUnsupportedUnits] is `true`, in which case no conversion will take place.
+/// * If [value] is a [num], it will be treated as a `rem` and converted, unless [treatNumAsPx] is `true`.
+/// * If [value] is `null`, `null` will be returned.
 ///
 /// Example input:
 ///
@@ -132,7 +136,7 @@ CssValue toRem(dynamic value, {bool treatNumAsRem: false}) {
 /// Example output (assuming 1rem = 10px):
 ///
 /// * `15px`
-CssValue toPx(dynamic value, {bool treatNumAsPx: false}) {
+CssValue toPx(dynamic value, {bool treatNumAsPx: false, bool passThroughUnsupportedUnits: false}) {
   if (value == null) return null;
 
   num pxValueNum;
@@ -147,6 +151,8 @@ CssValue toPx(dynamic value, {bool treatNumAsPx: false}) {
     } else if (parsedValue?.unit == 'rem') {
       pxValueNum = parsedValue.number * rootFontSize;
     } else {
+      if (passThroughUnsupportedUnits) return parsedValue;
+
       throw new ArgumentError.value(value, 'value', 'must be a rem num or a String px/rem value');
     }
   }
