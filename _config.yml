@@ -62,7 +62,7 @@ api_target: dartdocs
 reactjs_target: reactjs
 dartlang_target: dartlang
 
-demo_component_src_branch: gh-pages
+demo_component_src_branch: master
 demo_dart_src_path: build/web/demos/
 
 # Google Analytics Helpers
