@@ -447,10 +447,10 @@ main() {
       const Map testStyle = const {'background': 'white'};
 
       test('returns props for a composite JS component ReactElement', () {
-        ReactElement instance = render(testJsComponentFactory({
+        ReactElement instance = testJsComponentFactory({
           'jsProp': 'js',
           'style': testStyle,
-        }, testChildren));
+        }, testChildren);
 
         expect(getProps(instance), equals({
           'jsProp': 'js',
@@ -472,6 +472,31 @@ main() {
         }));
       });
 
+      test('returns props for a composite JS ReactComponent, even when the props change', () {
+        var mountNode = new DivElement();
+        ReactComponent renderedInstance = react_dom.render(testJsComponentFactory({
+          'jsProp': 'js',
+          'style': testStyle,
+        }, testChildren), mountNode);
+
+        expect(getProps(renderedInstance), equals({
+          'jsProp': 'js',
+          'style': testStyle,
+          'children': testChildren
+        }));
+
+        renderedInstance = react_dom.render(testJsComponentFactory({
+          'jsProp': 'other js',
+          'style': testStyle,
+        }, testChildren), mountNode);
+
+        expect(getProps(renderedInstance), equals({
+          'jsProp': 'other js',
+          'style': testStyle,
+          'children': testChildren
+        }));
+      });
+
       test('returns props for a DOM component ReactElement', () {
         ReactElement instance = (Dom.div()
           ..addProp('domProp', 'dom')
@@ -486,10 +511,10 @@ main() {
       });
 
       test('returns props for a Dart component ReactElement', () {
-        ReactElement instance = render(TestComponentFactory({
+        ReactElement instance = TestComponentFactory({
           'dartProp': 'dart',
           'style': testStyle,
-        }, testChildren));
+        }, testChildren);
 
         expect(getProps(instance), equals({
           'dartProp': 'dart',
@@ -506,6 +531,31 @@ main() {
 
         expect(getProps(renderedInstance), equals({
           'dartProp': 'dart',
+          'style': testStyle,
+          'children': testChildren
+        }));
+      });
+
+      test('returns props for a Dart component ReactComponent, even when the props change', () {
+        var mountNode = new DivElement();
+        ReactComponent renderedInstance = react_dom.render(TestComponentFactory({
+          'jsProp': 'js',
+          'style': testStyle,
+        }, testChildren), mountNode);
+
+        expect(getProps(renderedInstance), equals({
+          'jsProp': 'js',
+          'style': testStyle,
+          'children': testChildren
+        }));
+
+        renderedInstance = react_dom.render(TestComponentFactory({
+          'jsProp': 'other js',
+          'style': testStyle,
+        }, testChildren), mountNode);
+
+        expect(getProps(renderedInstance), equals({
+          'jsProp': 'other js',
           'style': testStyle,
           'children': testChildren
         }));
