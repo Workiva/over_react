@@ -28,6 +28,7 @@ nbproject
 
 # Docs ignores
 _site
+.jekyll-metadata
 
 # Pub ignores
 .pub
