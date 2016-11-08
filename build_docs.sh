@@ -71,5 +71,5 @@ cp -r web/demos/toggle-button/toggle-button-radio.dart docs/_includes/component-
 
 bundle exec jekyll build
 
-#rm -rf packages
+rm -rf packages
 cp -r _site/packages/ packages/

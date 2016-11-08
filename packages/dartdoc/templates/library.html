@@ -1,0 +1,128 @@
+{{>head}}
+
+  <div class="col-xs-6 col-sm-3 col-md-2 sidebar sidebar-offcanvas-left">
+    {{#navLinks}}
+    <h5><a href="{{href}}">{{name}}</a></h5>
+    {{/navLinks}}
+
+    <ol>
+      <li class="section-title"><a href="index.html">Libraries</a></li>
+      {{#package.libraries}}
+      <li>{{{linkedName}}}</li>
+      {{/package.libraries}}
+    </ol>
+  </div>
+
+  <div class="col-xs-12 col-sm-9 col-md-8 main-content">
+
+    {{#library}}
+    {{>documentation}}
+    {{/library}}
+
+    {{#library.hasConstants}}
+    <section class="summary offset-anchor" id="constants">
+      <h2>Constants</h2>
+
+      <dl class="properties">
+        {{#library.constants}}
+        {{>constant}}
+        {{/library.constants}}
+      </dl>
+    </section>
+    {{/library.hasConstants}}
+
+    {{#library.hasTypedefs}}
+    <section class="summary offset-anchor" id="typedefs">
+      <h2>Typedefs</h2>
+
+      <dl class="callables">
+        {{#library.typedefs}}
+        {{>callable}}
+        {{/library.typedefs}}
+      </dl>
+    </section>
+    {{/library.hasTypedefs}}
+
+    {{#library.hasProperties}}
+    <section class="summary offset-anchor" id="properties">
+      <h2>Properties</h2>
+
+      <dl class="properties">
+        {{#library.properties}}
+        {{>property}}
+        {{/library.properties}}
+      </dl>
+    </section>
+    {{/library.hasProperties}}
+
+    {{#library.hasFunctions}}
+    <section class="summary offset-anchor" id="functions">
+      <h2>Functions</h2>
+
+      <dl class="callables">
+        {{#library.functions}}
+        {{>callable}}
+        {{/library.functions}}
+      </dl>
+    </section>
+    {{/library.hasFunctions}}
+
+    {{#library.hasEnums}}
+    <section class="summary offset-anchor" id="enums">
+      <h2>Enums</h2>
+
+      <dl>
+        {{#library.enums}}
+        <dt id="{{htmlId}}">
+          {{{linkedName}}}
+        </dt>
+        <dd>
+          <p>{{{ oneLineDoc }}}{{>has_more_docs}}</p>
+        </dd>
+        {{/library.enums}}
+      </dl>
+    </section>
+    {{/library.hasEnums}}
+
+    {{#library.hasClasses}}
+    <section class="summary offset-anchor" id="classes">
+      <h2>Classes</h2>
+
+      <dl>
+        {{#library.classes}}
+        <dt id="{{htmlId}}">
+          <span class="name {{#isDeprecated}}deprecated{{/isDeprecated}}">{{{linkedName}}}</span>
+        </dt>
+        <dd>
+          <p>{{{ oneLineDoc }}}{{>has_more_docs}}</p>
+        </dd>
+        {{/library.classes}}
+      </dl>
+    </section>
+    {{/library.hasClasses}}
+
+    {{#library.hasExceptions}}
+    <section class="summary offset-anchor" id="exceptions">
+      <h2>Exceptions / Errors</h2>
+
+      <dl>
+        {{#library.exceptions}}
+        <dt id="{{htmlId}}">
+          <span class="name {{#isDeprecated}}deprecated{{/isDeprecated}}">{{{linkedName}}}</span>
+        </dt>
+        <dd>
+          <p>{{{ oneLineDoc }}}{{>has_more_docs}}</p>
+        </dd>
+        {{/library.exceptions}}
+      </dl>
+    </section>
+    {{/library.hasExceptions}}
+
+  </div> <!-- /.main-content -->
+
+  <div class="col-xs-6 col-sm-6 col-md-2 sidebar sidebar-offcanvas-right">
+    <h5>{{self.name}}</h5>
+    {{>sidebar_for_library}}
+  </div><!--/sidebar-offcanvas-right-->
+
+{{>footer}}
