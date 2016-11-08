@@ -2,7 +2,7 @@
 title: OverReact
 pkg_name: over_react
 description: A library for building statically-typed React UI components using Dart.
-latest_version: 1.0.1
+latest_version: 1.2.0
 gacode: "UA-17703918-81"
 
 # Directories
