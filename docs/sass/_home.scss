@@ -2,7 +2,8 @@ $feature-vertical-spacing: $grid-gutter-width-rem * 2;
 
 .feature {
   color: $gray-light;
-  margin: $feature-vertical-spacing 0;
+  margin-top: $feature-vertical-spacing;
+  margin-bottom: $feature-vertical-spacing;
 
   + .feature-divider {
     margin-top: 0;
