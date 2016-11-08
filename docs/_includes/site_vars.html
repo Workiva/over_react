@@ -11,12 +11,13 @@
 {% assign page_title_short = false %}
 {% assign page_title = false %}
 {% assign page_lead = false %}
+{% assign page_description = site.description | strip_html | strip_newlines %}
 {% if page.title %}
     {% assign page_title_short = page.title %}
-    {% capture page_title %}{{ page_title_short }} &middot; {{ site.title }}{% endcapture %}
+    {% capture page_title %}{{ page_title_short }} &middot; {{ site.title }} ({{ site.pkg_name }}){% endcapture %}
 {% elsif demo_data.title %}
     {% assign page_title_short = demo_data.title %}
-    {% capture page_title %}{{ page_title_short }} &middot; {{ site.title }}{% endcapture %}
+    {% capture page_title %}{{ page_title_short }} &middot; {{ site.title }} ({{ site.pkg_name }}){% endcapture %}
 {% else %}
     {% assign page_title_short = site.title %}
     {% capture page_title %}{{ page_title_short }} &middot; {{ site.description | strip_html | strip_newlines }}{% endcapture %}
@@ -30,12 +31,11 @@
         {% endif %}
     {% endcapture %}
 {% endif %}
-{% capture page_description %}
-    {% if page.excerpt %}
-        {{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}
-    {% elsif page_lead %}
-        {{ page_lead | strip_html | strip_newlines | truncate: 160 }}
-    {% else %}
-        {{ site.description | strip_html | strip_newlines }}
-    {% endif %}
-{% endcapture %}
+{% if page.excerpt %}
+    {% assign page_description = page.excerpt %}
+{% elsif page_lead %}
+    {% assign page_description = page_lead %}
+{% else %}
+    {% assign page_description = site.description_long %}
+{% endif %}
+{% assign page_description = page_description | strip_html | strip_newlines | lstrip | rstrip | truncate: 160 %}

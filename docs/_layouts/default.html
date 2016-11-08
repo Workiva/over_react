@@ -10,10 +10,10 @@
     <meta property="og:site_name" content="{{ site.title }}" />
     <meta property="og:title" content="{{ page_title_short }}" />
     <meta property="og:image" content="{{ page.baseurl }}docs/assets/img/over_react_og_image.png" />
-    <meta property="og:description" content="{{ page_description }}" />
+    <meta property="og:description" content="{{ site.description | strip_html | strip_newlines | lstrip | rstrip | truncate: 160 }}" />
 
     <title>{{ page_title }}</title>
-    <meta name="description" content="{{ description }}">
+    <meta name="description" content="{{ page_description }}">
 
     <link rel="stylesheet" href="{{ page.baseurl }}docs/sass/docs.css?t={{ site.time | date_to_xmlschema }}">
     <link rel="canonical" href="{{ canonical_url }}">

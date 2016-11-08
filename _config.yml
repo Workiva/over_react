@@ -2,6 +2,7 @@
 title: OverReact
 pkg_name: over_react
 description: A library for building statically-typed React UI components using Dart.
+description_long: The over_react library gives you React Dart superpowers. Static typing and React props autocomplete give you an unmatched UI component authoring experience.
 latest_version: 1.2.0
 gacode: "UA-17703918-81"
 
