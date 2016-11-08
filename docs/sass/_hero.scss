@@ -56,3 +56,12 @@
   display: inline-block;
   vertical-align: middle;
 }
+
+.below-hero-callout {
+    font-size: to-rem(15px);
+    margin-top: $jumbotron-padding * -1;
+    margin-bottom: $jumbotron-padding;
+    padding: ($grid-gutter-width-rem / 2) 0;
+    background-color: desaturate(lighten($jumbotron-bg, 55), 85);
+    color: $gray-dark;
+}
