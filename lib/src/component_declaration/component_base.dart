@@ -193,6 +193,24 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   //   END Typed props helpers
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
+
+
+  // ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  //   BEGIN Typed state helpers
+  //
+
+  /// The state Map that will be used to create the typed [state] object.
+  ///
+  /// Defined in [UiComponent] and not [UiStatefulMixin] to work around dart2js restriction
+  /// on super calls in mixins  <https://github.com/dart-lang/sdk/issues/23773>.
+  Map get unwrappedState => super.state;
+  set unwrappedState(Map value) => super.state = value;
+
+  //
+  //   END Typed state helpers
+  // ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
 }
 
 /// A base class for a stateful over_react component.
@@ -228,11 +246,11 @@ abstract class UiStatefulMixin<TState extends UiState>
   }
   /// Equivalent to setting [unwrappedState], but needed by react-dart to effect props changes.
   @override
-  set state(Map value) => super.state = value;
+  set state(Map value) => unwrappedState = value;
 
   /// The state Map that will be used to create the typed [state] object.
-  Map get unwrappedState => super.state;
-  set unwrappedState(Map value) => super.state = value;
+  Map get unwrappedState;
+  set unwrappedState(Map value);
 
   /// Returns a typed state object backed by the specified [stateMap].
   ///
