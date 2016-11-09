@@ -2,7 +2,6 @@ library dom_util_test;
 
 import 'dart:html';
 
-import 'package:browser_detect/browser_detect.dart';
 import 'package:test/test.dart';
 import 'package:web_skin_dart/test_util.dart';
 import 'package:web_skin_dart/ui_components.dart';
@@ -213,15 +212,6 @@ main() {
 
         expect(getActiveElement(), isNull);
       });
-
-      if (browser.isIe && browser.version <= 10) {
-        test('not a valid element', () {
-          document.body.blur();
-
-          expect(document.activeElement, isNot(new isInstanceOf<Element>()));
-          expect(getActiveElement(), isNull);
-        });
-      }
     });
   });
 }
