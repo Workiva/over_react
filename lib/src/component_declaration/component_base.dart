@@ -91,7 +91,7 @@ typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 ///
 /// Extends [react.Component].
 ///
-/// Related: [UiStatefulComponent]
+/// For strongly-typed state, mix in [UiStatefulMixin] or extend from [UiStatefulComponent].
 abstract class UiComponent<TProps extends UiProps> extends react.Component {
   /// The props for the non-forwarding props defined in this component.
   Iterable<ConsumedProps> get consumedProps => null;
@@ -195,14 +195,14 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   // ----------------------------------------------------------------------
 }
 
-/// The basis for a stateful over_react component.
+/// A base class for a stateful over_react component.
 ///
 /// Includes support for strongly-typed props and state and utilities for prop and CSS classname forwarding.
-///
-/// Extends [react.Component].
-///
-/// Related: [UiComponent]
-abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState> extends UiComponent<TProps> {
+abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState>
+    extends UiComponent<TProps> with UiStatefulMixin<TState> {}
+
+/// A mixin that adds support for strongly-typed state to a [UiComponent].
+abstract class UiStatefulMixin<TState extends UiState> implements UiComponent {
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
   //   BEGIN Typed state helpers
