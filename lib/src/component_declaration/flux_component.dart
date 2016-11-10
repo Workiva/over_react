@@ -139,4 +139,5 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
 ///
 /// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
 abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extends UiState>
-    extends FluxUiComponent<TProps> with UiStatefulMixin<TState> {}
+    extends FluxUiComponent<TProps> with UiStatefulMixin<TState>
+    implements UiStatefulComponent<TProps, TState> {}
