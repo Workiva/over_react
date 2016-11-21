@@ -24,7 +24,7 @@ dev_dependencies:
 dependency_overrides:
   react:
     git:
-      url: git@github.com:jacehensley-wf/react-dart.git
+      url: https://github.com/jacehensley-wf/react-dart.git
       ref: upgrade_to_react_15_4/dev
 
 transformers:
