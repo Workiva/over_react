@@ -57,8 +57,6 @@ class SvgProps extends component_base.UiProps with DomPropsMixin, ReactPropsMixi
 
 /// A class that provides namespacing for static DOM component factory methods, much like `React.DOM` in React JS.
 abstract class Dom {
-  /// Returns a new [DomPropsMixin] that renders an `<a>` tag with getters/setters for all DOM-related React props
-  static DomProps a() => new DomProps(react.a);
   /// Returns a new [DomPropsMixin] that renders an `<abbr>` tag with getters/setters for all DOM-related React props
   static DomProps abbr() => new DomProps(react.abbr);
   /// Returns a new [DomPropsMixin] that renders an `<address>` tag with getters/setters for all DOM-related React props
@@ -69,8 +67,6 @@ abstract class Dom {
   static DomProps article() => new DomProps(react.article);
   /// Returns a new [DomPropsMixin] that renders an `<aside>` tag with getters/setters for all DOM-related React props
   static DomProps aside() => new DomProps(react.aside);
-  /// Returns a new [DomPropsMixin] that renders an `<audio>` tag with getters/setters for all DOM-related React props
-  static DomProps audio() => new DomProps(react.audio);
   /// Returns a new [DomPropsMixin] that renders a `<b>` tag with getters/setters for all DOM-related React props
   static DomProps b() => new DomProps(react.b);
   /// Returns a new [DomPropsMixin] that renders a `<base>` tag with getters/setters for all DOM-related React props
@@ -89,8 +85,6 @@ abstract class Dom {
   static DomProps br() => new DomProps(react.br);
   /// Returns a new [DomPropsMixin] that renders a `<button>` tag with getters/setters for all DOM-related React props
   static DomProps button() => new DomProps(react.button);
-  /// Returns a new [DomPropsMixin] that renders a `<canvas>` tag with getters/setters for all DOM-related React props
-  static DomProps canvas() => new DomProps(react.canvas);
   /// Returns a new [DomPropsMixin] that renders a `<caption>` tag with getters/setters for all DOM-related React props
   static DomProps caption() => new DomProps(react.caption);
   /// Returns a new [DomPropsMixin] that renders a `<cite>` tag with getters/setters for all DOM-related React props
@@ -157,8 +151,6 @@ abstract class Dom {
   static DomProps html() => new DomProps(react.html);
   /// Returns a new [DomPropsMixin] that renders an `<i>` tag with getters/setters for all DOM-related React props
   static DomProps i() => new DomProps(react.i);
-  /// Returns a new [DomPropsMixin] that renders an `<iframe>` tag with getters/setters for all DOM-related React props
-  static DomProps iframe() => new DomProps(react.iframe);
   /// Returns a new [DomPropsMixin] that renders an `<img>` tag with getters/setters for all DOM-related React props
   static DomProps img() => new DomProps(react.img);
   /// Returns a new [DomPropsMixin] that renders an `<input>` tag with getters/setters for all DOM-related React props
@@ -227,8 +219,6 @@ abstract class Dom {
   static DomProps s() => new DomProps(react.s);
   /// Returns a new [DomPropsMixin] that renders a `<samp>` tag with getters/setters for all DOM-related React props
   static DomProps samp() => new DomProps(react.samp);
-  /// Returns a new [DomPropsMixin] that renders a `<script>` tag with getters/setters for all DOM-related React props
-  static DomProps script() => new DomProps(react.script);
   /// Returns a new [DomPropsMixin] that renders a `<section>` tag with getters/setters for all DOM-related React props
   static DomProps section() => new DomProps(react.section);
   /// Returns a new [DomPropsMixin] that renders a `<select>` tag with getters/setters for all DOM-related React props
@@ -241,8 +231,6 @@ abstract class Dom {
   static DomProps span() => new DomProps(react.span);
   /// Returns a new [DomPropsMixin] that renders a `<strong>` tag with getters/setters for all DOM-related React props
   static DomProps strong() => new DomProps(react.strong);
-  /// Returns a new [DomPropsMixin] that renders a `<style>` tag with getters/setters for all DOM-related React props
-  static DomProps style() => new DomProps(react.style);
   /// Returns a new [DomPropsMixin] that renders a `<sub>` tag with getters/setters for all DOM-related React props
   static DomProps sub() => new DomProps(react.sub);
   /// Returns a new [DomPropsMixin] that renders a `<summary>` tag with getters/setters for all DOM-related React props
@@ -265,8 +253,6 @@ abstract class Dom {
   static DomProps thead() => new DomProps(react.thead);
   /// Returns a new [DomPropsMixin] that renders a `<time>` tag with getters/setters for all DOM-related React props
   static DomProps time() => new DomProps(react.time);
-  /// Returns a new [DomPropsMixin] that renders a `<title>` tag with getters/setters for all DOM-related React props
-  static DomProps title() => new DomProps(react.title);
   /// Returns a new [DomPropsMixin] that renders a `<tr>` tag with getters/setters for all DOM-related React props
   static DomProps tr() => new DomProps(react.tr);
   /// Returns a new [DomPropsMixin] that renders a `<track>` tag with getters/setters for all DOM-related React props
@@ -277,26 +263,150 @@ abstract class Dom {
   static DomProps ul() => new DomProps(react.ul);
   /// Returns a new [DomPropsMixin] that renders a `<var>` tag with getters/setters for all DOM-related React props
   static DomProps variable() => new DomProps(react.variable);
-  /// Returns a new [DomPropsMixin] that renders a `<video>` tag with getters/setters for all DOM-related React props
-  static DomProps video() => new DomProps(react.video);
   /// Returns a new [DomPropsMixin] that renders a `<wbr>` tag with getters/setters for all DOM-related React props
   static DomProps wbr() => new DomProps(react.wbr);
 
   // SVG Elements
+  /// Returns a new [SvgPropsMixin] that renders an `<a>` tag with getters/setters for all SVG-related React props
+  static SvgProps a() => new SvgProps(react.a);
+  /// Returns a new [SvgPropsMixin] that renders an `<altGlyph>` tag with getters/setters for all SVG-related React props
+  static SvgProps altGlyph() => new SvgProps(react.altGlyph);
+  /// Returns a new [SvgPropsMixin] that renders an `<altGlyphDef>` tag with getters/setters for all SVG-related React props
+  static SvgProps altGlyphDef() => new SvgProps(react.altGlyphDef);
+  /// Returns a new [SvgPropsMixin] that renders an `<altGlyphItem>` tag with getters/setters for all SVG-related React props
+  static SvgProps altGlyphItem() => new SvgProps(react.altGlyphItem);
+  /// Returns a new [SvgPropsMixin] that renders an `<animate>` tag with getters/setters for all SVG-related React props
+  static SvgProps animate() => new SvgProps(react.animate);
+  /// Returns a new [SvgPropsMixin] that renders an `<animateColor>` tag with getters/setters for all SVG-related React props
+  static SvgProps animateColor() => new SvgProps(react.animateColor);
+  /// Returns a new [SvgPropsMixin] that renders an `<animateMotion>` tag with getters/setters for all SVG-related React props
+  static SvgProps animateMotion() => new SvgProps(react.animateMotion);
+  /// Returns a new [SvgPropsMixin] that renders an `<animateTransform>` tag with getters/setters for all SVG-related React props
+  static SvgProps animateTransform() => new SvgProps(react.animateTransform);
+  /// Returns a new [SvgPropsMixin] that renders an `<audio>` tag with getters/setters for all SVG-related React props
+  static SvgProps audio() => new SvgProps(react.audio);
+  /// Returns a new [SvgPropsMixin] that renders a `<canvas>` tag with getters/setters for all SVG-related React props
+  static SvgProps canvas() => new SvgProps(react.canvas);
   /// Returns a new [SvgPropsMixin] that renders a `<circle>` tag with getters/setters for all SVG-related React props
   static SvgProps circle() => new SvgProps(react.circle);
-  /// Returns a new [SvgPropsMixin] that renders a `<g>` tag with getters/setters for all SVG-related React props
-  static SvgProps g() => new SvgProps(react.g);
+  /// Returns a new [SvgPropsMixin] that renders a `<clipPath>` tag with getters/setters for all SVG-related React props
+  static SvgProps clipPath() => new SvgProps(react.clipPath);
+  /// Returns a new [SvgPropsMixin] that renders a `<color-profile>` tag with getters/setters for all SVG-related React props
+  static SvgProps colorProfile() => new SvgProps(react.colorProfile);
+  /// Returns a new [SvgPropsMixin] that renders a `<cursor>` tag with getters/setters for all SVG-related React props
+  static SvgProps cursor() => new SvgProps(react.cursor);
   /// Returns a new [SvgPropsMixin] that renders a `<defs>` tag with getters/setters for all SVG-related React props
   static SvgProps defs() => new SvgProps(react.defs);
+  /// Returns a new [SvgPropsMixin] that renders a `<desc>` tag with getters/setters for all SVG-related React props
+  static SvgProps desc() => new SvgProps(react.desc);
+  /// Returns a new [SvgPropsMixin] that renders a `<discard>` tag with getters/setters for all SVG-related React props
+  static SvgProps discard() => new SvgProps(react.discard);
   /// Returns a new [SvgPropsMixin] that renders an `<ellipse>` tag with getters/setters for all SVG-related React props
   static SvgProps ellipse() => new SvgProps(react.ellipse);
+  /// Returns a new [SvgPropsMixin] that renders a `<feBlend>` tag with getters/setters for all SVG-related React props
+  static SvgProps feBlend() => new SvgProps(react.feBlend);
+  /// Returns a new [SvgPropsMixin] that renders a `<feColorMatrix>` tag with getters/setters for all SVG-related React props
+  static SvgProps feColorMatrix() => new SvgProps(react.feColorMatrix);
+  /// Returns a new [SvgPropsMixin] that renders a `<feComponentTransfer>` tag with getters/setters for all SVG-related React props
+  static SvgProps feComponentTransfer() => new SvgProps(react.feComponentTransfer);
+  /// Returns a new [SvgPropsMixin] that renders a `<feComposite>` tag with getters/setters for all SVG-related React props
+  static SvgProps feComposite() => new SvgProps(react.feComposite);
+  /// Returns a new [SvgPropsMixin] that renders a `<feConvolveMatrix>` tag with getters/setters for all SVG-related React props
+  static SvgProps feConvolveMatrix() => new SvgProps(react.feConvolveMatrix);
+  /// Returns a new [SvgPropsMixin] that renders a `<feDiffuseLighting>` tag with getters/setters for all SVG-related React props
+  static SvgProps feDiffuseLighting() => new SvgProps(react.feDiffuseLighting);
+  /// Returns a new [SvgPropsMixin] that renders a `<feDisplacementMap>` tag with getters/setters for all SVG-related React props
+  static SvgProps feDisplacementMap() => new SvgProps(react.feDisplacementMap);
+  /// Returns a new [SvgPropsMixin] that renders a `<feDistantLight>` tag with getters/setters for all SVG-related React props
+  static SvgProps feDistantLight() => new SvgProps(react.feDistantLight);
+  /// Returns a new [SvgPropsMixin] that renders a `<feDropShadow>` tag with getters/setters for all SVG-related React props
+  static SvgProps feDropShadow() => new SvgProps(react.feDropShadow);
+  /// Returns a new [SvgPropsMixin] that renders a `<feFlood>` tag with getters/setters for all SVG-related React props
+  static SvgProps feFlood() => new SvgProps(react.feFlood);
+  /// Returns a new [SvgPropsMixin] that renders a `<feFuncA>` tag with getters/setters for all SVG-related React props
+  static SvgProps feFuncA() => new SvgProps(react.feFuncA);
+  /// Returns a new [SvgPropsMixin] that renders a `<feFuncB>` tag with getters/setters for all SVG-related React props
+  static SvgProps feFuncB() => new SvgProps(react.feFuncB);
+  /// Returns a new [SvgPropsMixin] that renders a `<feFuncG>` tag with getters/setters for all SVG-related React props
+  static SvgProps feFuncG() => new SvgProps(react.feFuncG);
+  /// Returns a new [SvgPropsMixin] that renders a `<feFuncR>` tag with getters/setters for all SVG-related React props
+  static SvgProps feFuncR() => new SvgProps(react.feFuncR);
+  /// Returns a new [SvgPropsMixin] that renders a `<feGaussianBlur>` tag with getters/setters for all SVG-related React props
+  static SvgProps feGaussianBlur() => new SvgProps(react.feGaussianBlur);
+  /// Returns a new [SvgPropsMixin] that renders a `<feImage>` tag with getters/setters for all SVG-related React props
+  static SvgProps feImage() => new SvgProps(react.feImage);
+  /// Returns a new [SvgPropsMixin] that renders a `<feMerge>` tag with getters/setters for all SVG-related React props
+  static SvgProps feMerge() => new SvgProps(react.feMerge);
+  /// Returns a new [SvgPropsMixin] that renders a `<feMergeNode>` tag with getters/setters for all SVG-related React props
+  static SvgProps feMergeNode() => new SvgProps(react.feMergeNode);
+  /// Returns a new [SvgPropsMixin] that renders a `<feMorphology>` tag with getters/setters for all SVG-related React props
+  static SvgProps feMorphology() => new SvgProps(react.feMorphology);
+  /// Returns a new [SvgPropsMixin] that renders a `<feOffset>` tag with getters/setters for all SVG-related React props
+  static SvgProps feOffset() => new SvgProps(react.feOffset);
+  /// Returns a new [SvgPropsMixin] that renders a `<fePointLight>` tag with getters/setters for all SVG-related React props
+  static SvgProps fePointLight() => new SvgProps(react.fePointLight);
+  /// Returns a new [SvgPropsMixin] that renders a `<feSpecularLighting>` tag with getters/setters for all SVG-related React props
+  static SvgProps feSpecularLighting() => new SvgProps(react.feSpecularLighting);
+  /// Returns a new [SvgPropsMixin] that renders a `<feSpotLight>` tag with getters/setters for all SVG-related React props
+  static SvgProps feSpotLight() => new SvgProps(react.feSpotLight);
+  /// Returns a new [SvgPropsMixin] that renders a `<feTile>` tag with getters/setters for all SVG-related React props
+  static SvgProps feTile() => new SvgProps(react.feTile);
+  /// Returns a new [SvgPropsMixin] that renders a `<feTurbulence>` tag with getters/setters for all SVG-related React props
+  static SvgProps feTurbulence() => new SvgProps(react.feTurbulence);
+  /// Returns a new [SvgPropsMixin] that renders a `<filter>` tag with getters/setters for all SVG-related React props
+  static SvgProps filter() => new SvgProps(react.filter);
+  /// Returns a new [SvgPropsMixin] that renders a `<font>` tag with getters/setters for all SVG-related React props
+  static SvgProps font() => new SvgProps(react.font);
+  /// Returns a new [SvgPropsMixin] that renders a `<font-face>` tag with getters/setters for all SVG-related React props
+  static SvgProps fontFace() => new SvgProps(react.fontFace);
+  /// Returns a new [SvgPropsMixin] that renders a `<font-face-format>` tag with getters/setters for all SVG-related React props
+  static SvgProps fontFaceFormat() => new SvgProps(react.fontFaceFormat);
+  /// Returns a new [SvgPropsMixin] that renders a `<font-face-name>` tag with getters/setters for all SVG-related React props
+  static SvgProps fontFaceName() => new SvgProps(react.fontFaceName);
+  /// Returns a new [SvgPropsMixin] that renders a `<font-face-src>` tag with getters/setters for all SVG-related React props
+  static SvgProps fontFaceSrc() => new SvgProps(react.fontFaceSrc);
+  /// Returns a new [SvgPropsMixin] that renders a `<font-face-uri>` tag with getters/setters for all SVG-related React props
+  static SvgProps fontFaceUri() => new SvgProps(react.fontFaceUri);
+  /// Returns a new [SvgPropsMixin] that renders a `<foreignObject>` tag with getters/setters for all SVG-related React props
+  static SvgProps foreignObject() => new SvgProps(react.foreignObject);
+  /// Returns a new [SvgPropsMixin] that renders a `<g>` tag with getters/setters for all SVG-related React props
+  static SvgProps g() => new SvgProps(react.g);
+  /// Returns a new [SvgPropsMixin] that renders a `<glyph>` tag with getters/setters for all SVG-related React props
+  static SvgProps glyph() => new SvgProps(react.glyph);
+  /// Returns a new [SvgPropsMixin] that renders a `<glyphRef>` tag with getters/setters for all SVG-related React props
+  static SvgProps glyphRef() => new SvgProps(react.glyphRef);
+  /// Returns a new [SvgPropsMixin] that renders a `<hatch>` tag with getters/setters for all SVG-related React props
+  static SvgProps hatch() => new SvgProps(react.hatch);
+  /// Returns a new [SvgPropsMixin] that renders a `<hatchpath>` tag with getters/setters for all SVG-related React props
+  static SvgProps hatchpath() => new SvgProps(react.hatchpath);
+  /// Returns a new [SvgPropsMixin] that renders a `<hkern>` tag with getters/setters for all SVG-related React props
+  static SvgProps hkern() => new SvgProps(react.hkern);
+  /// Returns a new [SvgPropsMixin] that renders an `<iframe>` tag with getters/setters for all SVG-related React props
+  static SvgProps iframe() => new SvgProps(react.iframe);
+  /// Returns a new [SvgPropsMixin] that renders an `<image>` tag with getters/setters for all SVG-related React props
+  static SvgProps image() => new SvgProps(react.image);
   /// Returns a new [SvgPropsMixin] that renders a `<line>` tag with getters/setters for all SVG-related React props
   static SvgProps line() => new SvgProps(react.line);
   /// Returns a new [SvgPropsMixin] that renders a `<linearGradient>` tag with getters/setters for all SVG-related React props
   static SvgProps linearGradient() => new SvgProps(react.linearGradient);
+  /// Returns a new [SvgPropsMixin] that renders a `<marker>` tag with getters/setters for all SVG-related React props
+  static SvgProps marker() => new SvgProps(react.marker);
   /// Returns a new [SvgPropsMixin] that renders a `<mask>` tag with getters/setters for all SVG-related React props
   static SvgProps mask() => new SvgProps(react.mask);
+  /// Returns a new [SvgPropsMixin] that renders a `<mesh>` tag with getters/setters for all SVG-related React props
+  static SvgProps mesh() => new SvgProps(react.mesh);
+  /// Returns a new [SvgPropsMixin] that renders a `<meshgradient>` tag with getters/setters for all SVG-related React props
+  static SvgProps meshgradient() => new SvgProps(react.meshgradient);
+  /// Returns a new [SvgPropsMixin] that renders a `<meshpatch>` tag with getters/setters for all SVG-related React props
+  static SvgProps meshpatch() => new SvgProps(react.meshpatch);
+  /// Returns a new [SvgPropsMixin] that renders a `<meshrow>` tag with getters/setters for all SVG-related React props
+  static SvgProps meshrow() => new SvgProps(react.meshrow);
+  /// Returns a new [SvgPropsMixin] that renders a `<metadata>` tag with getters/setters for all SVG-related React props
+  static SvgProps metadata() => new SvgProps(react.metadata);
+  /// Returns a new [SvgPropsMixin] that renders a `<missing-glyph>` tag with getters/setters for all SVG-related React props
+  static SvgProps missingGlyph() => new SvgProps(react.missingGlyph);
+  /// Returns a new [SvgPropsMixin] that renders a `<mpath>` tag with getters/setters for all SVG-related React props
+  static SvgProps mpath() => new SvgProps(react.mpath);
   /// Returns a new [SvgPropsMixin] that renders a `<path>` tag with getters/setters for all SVG-related React props
   static SvgProps path() => new SvgProps(react.path);
   /// Returns a new [SvgPropsMixin] that renders a `<pattern>` tag with getters/setters for all SVG-related React props
@@ -309,12 +419,40 @@ abstract class Dom {
   static SvgProps radialGradient() => new SvgProps(react.radialGradient);
   /// Returns a new [SvgPropsMixin] that renders a `<rect>` tag with getters/setters for all SVG-related React props
   static SvgProps rect() => new SvgProps(react.rect);
-  /// Returns a new [SvgPropsMixin] that renders a `<svg>` tag with getters/setters for all SVG-related React props
-  static SvgProps svg() => new SvgProps(react.svg);
+  /// Returns a new [SvgPropsMixin] that renders a `<script>` tag with getters/setters for all SVG-related React props
+  static SvgProps script() => new SvgProps(react.script);
+  /// Returns a new [SvgPropsMixin] that renders a `<set>` tag with getters/setters for all SVG-related React props
+  static SvgProps svgSet() => new SvgProps(react.svgSet);
+  /// Returns a new [SvgPropsMixin] that renders a `<solidcolor>` tag with getters/setters for all SVG-related React props
+  static SvgProps solidcolor() => new SvgProps(react.solidcolor);
   /// Returns a new [SvgPropsMixin] that renders a `<stop>` tag with getters/setters for all SVG-related React props
   static SvgProps stop() => new SvgProps(react.stop);
+  /// Returns a new [SvgPropsMixin] that renders a `<style>` tag with getters/setters for all SVG-related React props
+  static SvgProps style() => new SvgProps(react.style);
+  /// Returns a new [SvgPropsMixin] that renders a `<svg>` tag with getters/setters for all SVG-related React props
+  static SvgProps svg() => new SvgProps(react.svg);
+  /// Returns a new [SvgPropsMixin] that renders a `<switch>` tag with getters/setters for all SVG-related React props
+  static SvgProps svgSwitch() => new SvgProps(react.svgSwitch);
+  /// Returns a new [SvgPropsMixin] that renders a `<symbol>` tag with getters/setters for all SVG-related React props
+  static SvgProps symbol() => new SvgProps(react.symbol);
   /// Returns a new [SvgPropsMixin] that renders a `<text>` tag with getters/setters for all SVG-related React props
   static SvgProps text() => new SvgProps(react.text);
+  /// Returns a new [SvgPropsMixin] that renders a `<textPath>` tag with getters/setters for all SVG-related React props
+  static SvgProps textPath() => new SvgProps(react.textPath);
+  /// Returns a new [SvgPropsMixin] that renders a `<title>` tag with getters/setters for all SVG-related React props
+  static SvgProps title() => new SvgProps(react.title);
+  /// Returns a new [SvgPropsMixin] that renders a `<tref>` tag with getters/setters for all SVG-related React props
+  static SvgProps tref() => new SvgProps(react.tref);
   /// Returns a new [SvgPropsMixin] that renders a `<tspan>` tag with getters/setters for all SVG-related React props
   static SvgProps tspan() => new SvgProps(react.tspan);
+  /// Returns a new [SvgPropsMixin] that renders an `<unknown>` tag with getters/setters for all SVG-related React props
+  static SvgProps unknown() => new SvgProps(react.unknown);
+  /// Returns a new [SvgPropsMixin] that renders an `<use>` tag with getters/setters for all SVG-related React props
+  static SvgProps use() => new SvgProps(react.use);
+  /// Returns a new [SvgPropsMixin] that renders a `<video>` tag with getters/setters for all SVG-related React props
+  static SvgProps video() => new SvgProps(react.video);
+  /// Returns a new [SvgPropsMixin] that renders a `<view>` tag with getters/setters for all SVG-related React props
+  static SvgProps view() => new SvgProps(react.view);
+  /// Returns a new [SvgPropsMixin] that renders a `<vkern>` tag with getters/setters for all SVG-related React props
+  static SvgProps vkern() => new SvgProps(react.vkern);
 }
