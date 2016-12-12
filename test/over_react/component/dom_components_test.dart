@@ -40,7 +40,6 @@ main() {
       String name = MirrorSystem.getName(element.simpleName);
       String expectedTagName = name;
       if (expectedTagName == 'variable') expectedTagName = 'var';
-      if (expectedTagName == 'svgSet') expectedTagName = 'set';
       if (expectedTagName == 'svgSwitch') expectedTagName = 'switch';
       if (expectedTagName == 'colorProfile') expectedTagName = 'color-profile';
       if (expectedTagName == 'fontFace') expectedTagName = 'font-face';
@@ -49,6 +48,7 @@ main() {
       if (expectedTagName == 'fontFaceSrc') expectedTagName = 'font-face-src';
       if (expectedTagName == 'fontFaceUri') expectedTagName = 'font-face-uri';
       if (expectedTagName == 'missingGlyph') expectedTagName = 'missing-glyph';
+      if (expectedTagName.startsWith(new RegExp('svg.'))) expectedTagName = expectedTagName.substring(3);
 
       test('Dom.$name generates the correct type', () {
         DomProps builder = domClassMirror.invoke(element.simpleName, []).reflectee;
