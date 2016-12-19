@@ -26,6 +26,10 @@ nbproject
 *.sublime-workspace
 .idea/*
 
+# Docs ignores
+_site
+.jekyll-metadata
+
 # Pub ignores
 .pub
 packages
