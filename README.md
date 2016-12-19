@@ -1,5 +1,7 @@
 # OverReact
 
+[![Join the chat at https://gitter.im/over_react/Lobby](https://badges.gitter.im/over_react/Lobby.svg)](https://gitter.im/over_react/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Pub](https://img.shields.io/pub/v/over_react.svg)](https://pub.dartlang.org/packages/over_react)
 [![Build Status](https://travis-ci.org/Workiva/over_react.svg?branch=master)](https://travis-ci.org/Workiva/over_react)
 [![Test Coverage](https://codecov.io/github/Workiva/over_react/coverage.svg?branch=master)](https://codecov.io/github/Workiva/over_react?branch=master)
@@ -39,7 +41,7 @@
     
     ```yaml
     dependencies:
-      over_react: "^1.2.0"
+      over_react: "^1.3.0"
     ```
   
 2. Add the `over_react` [transformer] to your `pubspec.yaml`.

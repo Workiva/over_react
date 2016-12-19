@@ -1,5 +1,26 @@
 # OverReact Changelog
 
+## 1.3.0
+
+> [Complete `1.3.0` Changeset](https://github.com/Workiva/over_react/compare/1.2.0...1.3.0)
+
+__React JS Upgrade__
+
+  * [#31](https://github.com/Workiva/over_react/pull/31) Upgrade to 
+    [React JS `15.4.x`](https://github.com/facebook/react/releases/tag/v15.4.0) via 
+    [react-dart `3.1.0`](https://github.com/cleandart/react-dart/pull/108).
+  * [#27](https://github.com/Workiva/over_react/ussues/27) Add missing SVG elements 
+    _(e.g. `Dom.foreignObject` pointed out by @kasperpeulen)_
+    
+__We are now on Gitter!__
+
+  * [#33](https://github.com/Workiva/over_react/pull/33) Implement vehicle for community discussion 
+    ([on Gitter](https://gitter.im/over_react/Lobby)). 
+    _Thanks for [the suggestion](https://github.com/Workiva/over_react/issues/32) @jtrunick!_
+
+
+&nbsp;
+
 ## 1.2.0
 
 > [Complete `1.2.0` Changeset](https://github.com/Workiva/over_react/compare/1.1.1...1.2.0)
