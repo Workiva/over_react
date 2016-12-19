@@ -245,7 +245,9 @@ class Context {
         // If the new part is root-relative, it preserves the previous root but
         // replaces the path after it.
         var parsed = _parse(part);
-        parsed.root = this.rootPrefix(buffer.toString());
+        var path = buffer.toString();
+        parsed.root = path.substring(
+            0, style.rootLength(path, withDrive: true));
         if (style.needsSeparator(parsed.root)) {
           parsed.separators[0] = style.separator;
         }

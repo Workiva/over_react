@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:collection/collection.dart';
+
 import 'script.dart';
 import 'scope.dart';
 import 'source_location.dart';
@@ -93,15 +95,15 @@ class VMSourceReportRange {
 
     var hits = json['coverage'] == null
         ? null
-        : _getTokens(script, json['coverage']['hits']);
+        : _getTokens(script, DelegatingList.typed(json['coverage']['hits']));
 
     var misses = json['coverage'] == null
         ? null
-        : _getTokens(script, json['coverage']['misses']);
+        : _getTokens(script, DelegatingList.typed(json['coverage']['misses']));
 
     var possibleBreakpoints = json['possibleBreakpoints'] == null
         ? null
-        : _getTokens(script, json['possibleBreakpoints']);
+        : _getTokens(script, DelegatingList.typed(json['possibleBreakpoints']));
 
     return new VMSourceReportRange._(
         compiled, hits, misses, possibleBreakpoints, location);

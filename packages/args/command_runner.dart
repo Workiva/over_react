@@ -16,7 +16,11 @@ import 'src/utils.dart';
 export 'src/usage_exception.dart';
 
 /// A class for invoking [Commands] based on raw command-line arguments.
-class CommandRunner {
+///
+/// The type argument `T` represents the type returned by [Command.run] and
+/// [CommandRunner.run]; it can be ommitted if you're not using the return
+/// values.
+class CommandRunner<T> {
   /// The name of the executable being run.
   ///
   /// Used for error reporting and [usage].
@@ -60,8 +64,8 @@ Run "$executableName help <command>" for more information about a command.''';
   }
 
   /// An unmodifiable view of all top-level commands defined for this runner.
-  Map<String, Command> get commands => new UnmodifiableMapView(_commands);
-  final _commands = <String, Command>{};
+  Map<String, Command<T>> get commands => new UnmodifiableMapView(_commands);
+  final _commands = <String, Command<T>>{};
 
   /// The top-level argument parser.
   ///
@@ -74,7 +78,7 @@ Run "$executableName help <command>" for more information about a command.''';
   CommandRunner(this.executableName, this.description) {
     argParser.addFlag('help',
         abbr: 'h', negatable: false, help: 'Print this usage information.');
-    addCommand(new HelpCommand());
+    addCommand(new HelpCommand<T>());
   }
 
   /// Prints the usage information for this runner.
@@ -88,7 +92,7 @@ Run "$executableName help <command>" for more information about a command.''';
       throw new UsageException(message, _usageWithoutDescription);
 
   /// Adds [Command] as a top-level command to this runner.
-  void addCommand(Command command) {
+  void addCommand(Command<T> command) {
     var names = [command.name]..addAll(command.aliases);
     for (var name in names) {
       _commands[name] = command;
@@ -101,7 +105,7 @@ Run "$executableName help <command>" for more information about a command.''';
   ///
   /// This always returns a [Future] in case the command is asynchronous. The
   /// [Future] will throw a [UsageException] if [args] was invalid.
-  Future run(Iterable<String> args) =>
+  Future<T> run(Iterable<String> args) =>
       new Future.sync(() => runCommand(parse(args)));
 
   /// Parses [args] and returns the result, converting an [ArgParserException]
@@ -121,6 +125,7 @@ Run "$executableName help <command>" for more information about a command.''';
       }
 
       command.usageException(error.message);
+      return null;
     }
   }
 
@@ -132,56 +137,61 @@ Run "$executableName help <command>" for more information about a command.''';
   /// It's useful to override this to handle global flags and/or wrap the entire
   /// command in a block. For example, you might handle the `--verbose` flag
   /// here to enable verbose logging before running the command.
-  Future runCommand(ArgResults topLevelResults) {
-    return new Future.sync(() {
-      var argResults = topLevelResults;
-      var commands = _commands;
-      Command command;
-      var commandString = executableName;
+  ///
+  /// This returns the return value of [Command.run]. 
+  Future<T> runCommand(ArgResults topLevelResults) async {
+    var argResults = topLevelResults;
+    var commands = _commands;
+    Command command;
+    var commandString = executableName;
 
-      while (commands.isNotEmpty) {
-        if (argResults.command == null) {
-          if (argResults.rest.isEmpty) {
-            if (command == null) {
-              // No top-level command was chosen.
-              printUsage();
-              return new Future.value();
-            }
-
-            command.usageException('Missing subcommand for "$commandString".');
-          } else {
-            if (command == null) {
-              usageException(
-                  'Could not find a command named "${argResults.rest[0]}".');
-            }
-
-            command.usageException('Could not find a subcommand named '
-                '"${argResults.rest[0]}" for "$commandString".');
+    while (commands.isNotEmpty) {
+      if (argResults.command == null) {
+        if (argResults.rest.isEmpty) {
+          if (command == null) {
+            // No top-level command was chosen.
+            printUsage();
+            return null;
           }
-        }
 
-        // Step into the command.
-        argResults = argResults.command;
-        command = commands[argResults.name];
-        command._globalResults = topLevelResults;
-        command._argResults = argResults;
-        commands = command._subcommands;
-        commandString += " ${argResults.name}";
+          command.usageException('Missing subcommand for "$commandString".');
+        } else {
+          if (command == null) {
+            usageException(
+                'Could not find a command named "${argResults.rest[0]}".');
+          }
 
-        if (argResults['help']) {
-          command.printUsage();
-          return new Future.value();
+          command.usageException('Could not find a subcommand named '
+              '"${argResults.rest[0]}" for "$commandString".');
         }
       }
 
-      // Make sure there aren't unexpected arguments.
-      if (!command.takesArguments && argResults.rest.isNotEmpty) {
-        command.usageException(
-            'Command "${argResults.name}" does not take any arguments.');
-      }
+      // Step into the command.
+      argResults = argResults.command;
+      command = commands[argResults.name];
+      command._globalResults = topLevelResults;
+      command._argResults = argResults;
+      commands = command._subcommands;
+      commandString += " ${argResults.name}";
 
-      return command.run();
-    });
+      if (argResults['help']) {
+        command.printUsage();
+        return null;
+      }
+    }
+
+    if (topLevelResults['help']) {
+      command.printUsage();
+      return null;
+    }
+
+    // Make sure there aren't unexpected arguments.
+    if (!command.takesArguments && argResults.rest.isNotEmpty) {
+      command.usageException(
+          'Command "${argResults.name}" does not take any arguments.');
+    }
+
+    return (await command.run()) as T;
   }
 }
 
@@ -193,7 +203,7 @@ Run "$executableName help <command>" for more information about a command.''';
 /// A command with subcommands is known as a "branch command" and cannot be run
 /// itself. It should call [addSubcommand] (often from the constructor) to
 /// register subcommands.
-abstract class Command {
+abstract class Command<T> {
   /// The name of this command.
   String get name;
 
@@ -225,18 +235,18 @@ abstract class Command {
   ///
   /// This will be `null` until [Command.addSubcommmand] has been called with
   /// this command.
-  Command get parent => _parent;
-  Command _parent;
+  Command<T> get parent => _parent;
+  Command<T> _parent;
 
   /// The command runner for this command.
   ///
   /// This will be `null` until [CommandRunner.addCommand] has been called with
   /// this command or one of its parents.
-  CommandRunner get runner {
+  CommandRunner<T> get runner {
     if (parent == null) return _runner;
     return parent.runner;
   }
-  CommandRunner _runner;
+  CommandRunner<T> _runner;
 
   /// The parsed global argument results.
   ///
@@ -274,8 +284,8 @@ abstract class Command {
   /// Returns [usage] with [description] removed from the beginning.
   String get _usageWithoutDescription {
     var buffer = new StringBuffer()
-      ..writeln('Usage: $invocation')
-      ..writeln(argParser.usage);
+    ..writeln('Usage: $invocation')
+    ..writeln(argParser.usage);
 
     if (_subcommands.isNotEmpty) {
       buffer.writeln();
@@ -294,8 +304,9 @@ abstract class Command {
   }
 
   /// An unmodifiable view of all sublevel commands of this command.
-  Map<String, Command> get subcommands => new UnmodifiableMapView(_subcommands);
-  final _subcommands = <String, Command>{};
+  Map<String, Command<T>> get subcommands =>
+      new UnmodifiableMapView(_subcommands);
+  final _subcommands = <String, Command<T>>{};
 
   /// Whether or not this command should be hidden from help listings.
   ///
@@ -337,14 +348,15 @@ abstract class Command {
 
   /// Runs this command.
   ///
-  /// If this returns a [Future], [CommandRunner.run] won't complete until the
-  /// returned [Future] does. Otherwise, the return value is ignored.
+  /// This must return a `T`, a `Future<T>`, or `null`. The value is returned by
+  /// [CommandRunner.runCommand]. Subclasses must explicitly declare a return
+  /// type for `run()`, and may not use `void` if `T` is defined.
   run() {
     throw new UnimplementedError("Leaf command $this must implement run().");
   }
 
   /// Adds [Command] as a subcommand of this.
-  void addSubcommand(Command command) {
+  void addSubcommand(Command<T> command) {
     var names = [command.name]..addAll(command.aliases);
     for (var name in names) {
       _subcommands[name] = command;
@@ -361,7 +373,7 @@ abstract class Command {
 
   /// Throws a [UsageException] with [message].
   void usageException(String message) =>
-      throw new UsageException(message, _usageWithoutDescription);
+    throw new UsageException(message, _usageWithoutDescription);
 }
 
 /// Returns a string representation of [commands] fit for use in a usage string.
@@ -372,7 +384,7 @@ String _getCommandUsage(Map<String, Command> commands,
     {bool isSubcommand: false}) {
   // Don't include aliases.
   var names =
-      commands.keys.where((name) => !commands[name].aliases.contains(name));
+    commands.keys.where((name) => !commands[name].aliases.contains(name));
 
   // Filter out hidden ones, unless they are all hidden.
   var visible = names.where((name) => !commands[name].hidden);
@@ -383,7 +395,7 @@ String _getCommandUsage(Map<String, Command> commands,
   var length = names.map((name) => name.length).reduce(math.max);
 
   var buffer =
-      new StringBuffer('Available ${isSubcommand ? "sub" : ""}commands:');
+    new StringBuffer('Available ${isSubcommand ? "sub" : ""}commands:');
   for (var name in names) {
     var lines = commands[name].summary.split("\n");
     buffer.writeln();

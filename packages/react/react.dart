@@ -873,20 +873,167 @@ var video;
 /// The HTML `<wbr>` [Element].
 var wbr;
 
+/// The SVG `<altGlyph>` [AltGlyphElement].
+var altGlyph;
+
+/// The SVG `<altGlyphDef>` [AltGlyphDefElement].
+var altGlyphDef;
+
+/// The SVG `<altGlyphItem>` [AltGlyphItemElement].
+var altGlyphItem;
+
+/// The SVG `<animate>` [AnimateElement].
+var animate;
+
+/// The SVG `<animateColor>` [AnimateColorElement].
+var animateColor;
+
+/// The SVG `<animateMotion>` [AnimateMotionElement].
+var animateMotion;
+
+/// The SVG `<animateTransform>` [AnimateTransformElement].
+var animateTransform;
+
 /// The SVG `<circle>` [CircleElement].
 var circle;
 
 /// The SVG `<clipPath>` [ClipPathElement].
 var clipPath;
 
+/// The SVG `<color-profile>` [ColorProfileElement].
+var colorProfile;
+
+/// The SVG `<cursor>` [CursorElement].
+var cursor;
+
 /// The SVG `<defs>` [DefsElement].
 var defs;
+
+/// The SVG `<desc>` [DescElement].
+var desc;
+
+/// The SVG `<discard>` [DiscardElement].
+var discard;
 
 /// The SVG `<ellipse>` [EllipseElement].
 var ellipse;
 
+/// The SVG `<feBlend>` [FeBlendElement].
+var feBlend;
+
+/// The SVG `<feColorMatrix>` [FeColorMatrixElement].
+var feColorMatrix;
+
+/// The SVG `<feComponentTransfer>` [FeComponentTransferElement].
+var feComponentTransfer;
+
+/// The SVG `<feComposite>` [FeCompositeElement].
+var feComposite;
+
+/// The SVG `<feConvolveMatrix>` [FeConvolveMatrixElement].
+var feConvolveMatrix;
+
+/// The SVG `<feDiffuseLighting>` [FeDiffuseLightingElement].
+var feDiffuseLighting;
+
+/// The SVG `<feDisplacementMap>` [FeDisplacementMapElement].
+var feDisplacementMap;
+
+/// The SVG `<feDistantLight>` [FeDistantLightElement].
+var feDistantLight;
+
+/// The SVG `<feDropShadow>` [FeDropShadowElement].
+var feDropShadow;
+
+/// The SVG `<feFlood>` [FeFloodElement].
+var feFlood;
+
+/// The SVG `<feFuncA>` [FeFuncAElement].
+var feFuncA;
+
+/// The SVG `<feFuncB>` [FeFuncBElement].
+var feFuncB;
+
+/// The SVG `<feFuncG>` [FeFuncGElement].
+var feFuncG;
+
+/// The SVG `<feFuncR>` [FeFuncRElement].
+var feFuncR;
+
+/// The SVG `<feGaussianBlur>` [FeGaussianBlurElement].
+var feGaussianBlur;
+
+/// The SVG `<feImage>` [FeImageElement].
+var feImage;
+
+/// The SVG `<feMerge>` [FeMergeElement].
+var feMerge;
+
+/// The SVG `<feMergeNode>` [FeMergeNodeElement].
+var feMergeNode;
+
+/// The SVG `<feMorphology>` [FeMorphologyElement].
+var feMorphology;
+
+/// The SVG `<feOffset>` [FeOffsetElement].
+var feOffset;
+
+/// The SVG `<fePointLight>` [FePointLightElement].
+var fePointLight;
+
+/// The SVG `<feSpecularLighting>` [FeSpecularLightingElement].
+var feSpecularLighting;
+
+/// The SVG `<feSpotLight>` [FeSpotLightElement].
+var feSpotLight;
+
+/// The SVG `<feTile>` [FeTileElement].
+var feTile;
+
+/// The SVG `<feTurbulence>` [FeTurbulenceElement].
+var feTurbulence;
+
+/// The SVG `<filter>` [FilterElement].
+var filter;
+
+/// The SVG `<font>` [FontElement].
+var font;
+
+/// The SVG `<font-face>` [FontFaceElement].
+var fontFace;
+
+/// The SVG `<font-face-format>` [FontFaceFormatElement].
+var fontFaceFormat;
+
+/// The SVG `<font-face-name>` [FontFaceNameElement].
+var fontFaceName;
+
+/// The SVG `<font-face-src>` [FontFaceSrcElement].
+var fontFaceSrc;
+
+/// The SVG `<font-face-uri>` [FontFaceUriElement].
+var fontFaceUri;
+
+/// The SVG `<foreignObject>` [ForeignObjectElement].
+var foreignObject;
+
 /// The SVG `<g>` [GElement].
 var g;
+
+/// The SVG `<glyph>` [GlyphElement].
+var glyph;
+
+/// The SVG `<glyphRef>` [GlyphRefElement].
+var glyphRef;
+
+/// The SVG `<hatch>` [HatchElement].
+var hatch;
+
+/// The SVG `<hatchpath>` [HatchpathElement].
+var hatchpath;
+
+/// The SVG `<hkern>` [HkernElement].
+var hkern;
 
 /// The SVG `<image>` [ImageElement].
 var image;
@@ -897,8 +1044,32 @@ var line;
 /// The SVG `<linearGradient>` [LinearGradientElement].
 var linearGradient;
 
+/// The SVG `<marker>` [MarkerElement].
+var marker;
+
 /// The SVG `<mask>` [MaskElement].
 var mask;
+
+/// The SVG `<mesh>` [MeshElement].
+var mesh;
+
+/// The SVG `<meshgradient>` [MeshgradientElement].
+var meshgradient;
+
+/// The SVG `<meshpatch>` [MeshpatchElement].
+var meshpatch;
+
+/// The SVG `<meshrow>` [MeshrowElement].
+var meshrow;
+
+/// The SVG `<metadata>` [MetadataElement].
+var metadata;
+
+/// The SVG `<missing-glyph>` [MissingGlyphElement].
+var missingGlyph;
+
+/// The SVG `<mpath>` [MpathElement].
+var mpath;
 
 /// The SVG `<path>` [PathElement].
 var path;
@@ -918,18 +1089,47 @@ var radialGradient;
 /// The SVG `<rect>` [RectElement].
 var rect;
 
+/// The SVG `<set>` [SetElement].
+var svgSet;
+
+/// The SVG `<solidcolor>` [SolidcolorElement].
+var solidcolor;
+
 /// The SVG `<stop>` [StopElement].
 var stop;
 
 /// The SVG `<svg>` [SvgSvgElement].
 var svg;
 
+/// The SVG `<switch>` [SwitchElement].
+var svgSwitch;
+
+/// The SVG `<symbol>` [SymbolElement].
+var symbol;
+
 /// The SVG `<text>` [TextElement].
 var text;
+
+/// The SVG `<textPath>` [TextPathElement].
+var textPath;
+
+/// The SVG `<tref>` [TrefElement].
+var tref;
 
 /// The SVG `<tspan>` [TSpanElement].
 var tspan;
 
+/// The SVG `<unknown>` [UnknownElement].
+var unknown;
+
+/// The SVG `<use>` [UseElement].
+var use;
+
+/// The SVG `<view>` [ViewElement].
+var view;
+
+/// The SVG `<vkern>` [VkernElement].
+var vkern;
 
 /// Create React DOM `Component`s by calling the specified [creator].
 _createDOMComponents(creator){
@@ -1047,25 +1247,92 @@ _createDOMComponents(creator){
   wbr = creator('wbr');
 
   // SVG Elements
+  altGlyph = creator('altGlyph');
+  altGlyphDef = creator('altGlyphDef');
+  altGlyphItem = creator('altGlyphItem');
+  animate = creator('animate');
+  animateColor = creator('animateColor');
+  animateMotion = creator('animateMotion');
+  animateTransform = creator('animateTransform');
   circle = creator('circle');
   clipPath = creator('clipPath');
+  colorProfile = creator('color-profile');
+  cursor = creator('cursor');
   defs = creator('defs');
+  desc = creator('desc');
+  discard = creator('discard');
   ellipse = creator('ellipse');
+  feBlend = creator('feBlend');
+  feColorMatrix = creator('feColorMatrix');
+  feComponentTransfer = creator('feComponentTransfer');
+  feComposite = creator('feComposite');
+  feConvolveMatrix = creator('feConvolveMatrix');
+  feDiffuseLighting = creator('feDiffuseLighting');
+  feDisplacementMap = creator('feDisplacementMap');
+  feDistantLight = creator('feDistantLight');
+  feDropShadow = creator('feDropShadow');
+  feFlood = creator('feFlood');
+  feFuncA = creator('feFuncA');
+  feFuncB = creator('feFuncB');
+  feFuncG = creator('feFuncG');
+  feFuncR = creator('feFuncR');
+  feGaussianBlur = creator('feGaussianBlur');
+  feImage = creator('feImage');
+  feMerge = creator('feMerge');
+  feMergeNode = creator('feMergeNode');
+  feMorphology = creator('feMorphology');
+  feOffset = creator('feOffset');
+  fePointLight = creator('fePointLight');
+  feSpecularLighting = creator('feSpecularLighting');
+  feSpotLight = creator('feSpotLight');
+  feTile = creator('feTile');
+  feTurbulence = creator('feTurbulence');
+  filter = creator('filter');
+  font = creator('font');
+  fontFace = creator('font-face');
+  fontFaceFormat = creator('font-face-format');
+  fontFaceName = creator('font-face-name');
+  fontFaceSrc = creator('font-face-src');
+  fontFaceUri = creator('font-face-uri');
+  foreignObject = creator('foreignObject');
   g = creator('g');
+  glyph = creator('glyph');
+  glyphRef = creator('glyphRef');
+  hatch = creator('hatch');
+  hatchpath = creator('hatchpath');
+  hkern = creator('hkern');
   image = creator('image');
   line = creator('line');
   linearGradient = creator('linearGradient');
+  marker = creator('marker');
   mask = creator('mask');
+  mesh = creator('mesh');
+  meshgradient = creator('meshgradient');
+  meshpatch = creator('meshpatch');
+  meshrow = creator('meshrow');
+  metadata = creator('metadata');
+  missingGlyph = creator('missing-glyph');
+  mpath = creator('mpath');
   path = creator('path');
   pattern = creator('pattern');
   polygon = creator('polygon');
   polyline = creator('polyline');
   radialGradient = creator('radialGradient');
   rect = creator('rect');
+  svgSet = creator('set');
+  solidcolor = creator('solidcolor');
   stop = creator('stop');
   svg = creator('svg');
+  svgSwitch = creator('switch');
+  symbol = creator('symbol');
   text = creator('text');
+  textPath = creator('textPath');
+  tref = creator('tref');
   tspan = creator('tspan');
+  unknown = creator('unknown');
+  use = creator('use');
+  view = creator('view');
+  vkern = creator('vkern');
 }
 
 /// Set configuration based on functions provided as arguments.

@@ -4,6 +4,7 @@
 
 import '../characters.dart' as chars;
 import '../internal_style.dart';
+import '../utils.dart';
 
 /// The style for URL paths.
 class UrlStyle extends InternalStyle {
@@ -36,16 +37,23 @@ class UrlStyle extends InternalStyle {
     return path.endsWith("://") && rootLength(path) == path.length;
   }
 
-  int rootLength(String path) {
+  int rootLength(String path, {bool withDrive: false}) {
     if (path.isEmpty) return 0;
     if (isSeparator(path.codeUnitAt(0))) return 1;
+
     var index = path.indexOf("/");
     if (index > 0 && path.startsWith('://', index - 1)) {
       // The root part is up until the next '/', or the full path. Skip
       // '://' and search for '/' after that.
       index = path.indexOf('/', index + 2);
-      if (index > 0) return index;
-      return path.length;
+      if (index <= 0) return path.length;
+
+      // file: URLs sometimes consider Windows drive letters part of the root.
+      // See https://url.spec.whatwg.org/#file-slash-state.
+      if (!withDrive || path.length < index + 3) return index;
+      if (!path.startsWith('file://')) return index;
+      if (!isDriveLetter(path, index + 1)) return index;
+      return path.length == index + 3 ? index + 3 : index + 4;
     }
     return 0;
   }

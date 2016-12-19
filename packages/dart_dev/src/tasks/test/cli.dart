@@ -44,6 +44,11 @@ class TestCli extends TaskCli {
         negatable: true,
         defaultsTo: defaultPubServe,
         help: 'Serves browser tests using a Pub server.')
+    ..addFlag('pause-after-load',
+        help: 'Pauses for debugging before any tests execute.\n'
+            'Implies --concurrency=1 and --timeout=none.\n'
+            'Currently only supported for browser tests.',
+        negatable: false)
     ..addOption('pub-serve-port',
         help:
             'Port used by the Pub server for browser tests. The default value will randomly select an open port to use.')
@@ -74,6 +79,9 @@ class TestCli extends TaskCli {
     if (!color) {
       additionalArgs.add('--no-color');
     }
+
+    bool pauseAfterLoad =
+        TaskCli.valueOf('pause-after-load', parsedArgs, defaultPauseAfterLoad);
 
     bool pubServe =
         TaskCli.valueOf('pub-serve', parsedArgs, config.test.pubServe);
@@ -145,6 +153,10 @@ class TestCli extends TaskCli {
         return new CliResult.fail(
             'This project does not specify any functional tests.');
       }
+    }
+
+    if (pauseAfterLoad) {
+      additionalArgs.add('--pause-after-load');
     }
 
     PubServeTask pubServeTask;

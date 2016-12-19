@@ -28,7 +28,7 @@ class PosixStyle extends InternalStyle {
   bool needsSeparator(String path) =>
       path.isNotEmpty && !isSeparator(path.codeUnitAt(path.length - 1));
 
-  int rootLength(String path) {
+  int rootLength(String path, {bool withDrive: false}) {
     if (path.isNotEmpty && isSeparator(path.codeUnitAt(0))) return 1;
     return 0;
   }

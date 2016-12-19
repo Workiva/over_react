@@ -414,7 +414,6 @@ class Tokenizer extends TokenizerBase {
         }
       }
     }
-    return _errorToken();
   }
 }
 

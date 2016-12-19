@@ -13,7 +13,8 @@ List<VMFlag> newVMFlagList(Map json) {
 /// flags.
 class _FlagList extends DelegatingList<VMFlag> {
   _FlagList(Map json)
-      : super(json["flags"].map((flag) => new VMFlag._(flag)).toList());
+      : super(
+          (json["flags"] as List).map((flag) => new VMFlag._(flag)).toList());
 
   String toString() {
     return "[" + super.where((flag) => flag.modified).join(", ") + ", ...]";

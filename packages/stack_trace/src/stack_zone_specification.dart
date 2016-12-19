@@ -30,6 +30,15 @@ typedef void _ChainHandler(error, Chain chain);
 /// Since [ZoneSpecification] can't be extended or even implemented, in order to
 /// get a real [ZoneSpecification] instance it's necessary to call [toSpec].
 class StackZoneSpecification {
+  /// An opaque object used as a zone value to disable chain tracking in a given
+  /// zone.
+  ///
+  /// If `Zone.current[disableKey]` is `true`, no stack chains will be tracked.
+  static final disableKey = new Object();
+
+  /// Whether chain-tracking is disabled in the current zone.
+  bool get _disabled => Zone.current[disableKey] == true;
+
   /// The expando that associates stack chains with [StackTrace]s.
   ///
   /// The chains are associated with stack traces rather than errors themselves
@@ -54,11 +63,11 @@ class StackZoneSpecification {
   /// Converts [this] to a real [ZoneSpecification].
   ZoneSpecification toSpec() {
     return new ZoneSpecification(
-        handleUncaughtError: handleUncaughtError,
-        registerCallback: registerCallback,
-        registerUnaryCallback: registerUnaryCallback,
-        registerBinaryCallback: registerBinaryCallback,
-        errorCallback: errorCallback);
+        handleUncaughtError: _handleUncaughtError,
+        registerCallback: _registerCallback,
+        registerUnaryCallback: _registerUnaryCallback,
+        registerBinaryCallback: _registerBinaryCallback,
+        errorCallback: _errorCallback);
   }
 
   /// Returns the current stack chain.
@@ -79,57 +88,20 @@ class StackZoneSpecification {
     return new _Node(trace, previous).toChain();
   }
 
-  /// Ensures that an error emitted by [future] has the correct stack
-  /// information associated with it.
-  ///
-  /// By default, the first frame of the first trace will be the line where
-  /// [trackFuture] is called. If [level] is passed, the first trace will start
-  /// that many frames up instead.
-  Future trackFuture(Future future, [int level=0]) {
-    var completer = new Completer.sync();
-    var node = _createNode(level + 1);
-    future.then(completer.complete).catchError((e, stackTrace) {
-      if (stackTrace == null) stackTrace = new Trace.current();
-      if (stackTrace is! Chain && _chains[stackTrace] == null) {
-        _chains[stackTrace] = node;
-      }
-      completer.completeError(e, stackTrace);
-    });
-    return completer.future;
-  }
-
-  /// Ensures that any errors emitted by [stream] have the correct stack
-  /// information associated with them.
-  ///
-  /// By default, the first frame of the first trace will be the line where
-  /// [trackStream] is called. If [level] is passed, the first trace will start
-  /// that many frames up instead.
-  Stream trackStream(Stream stream, [int level=0]) {
-    var node = _createNode(level + 1);
-    return stream.transform(new StreamTransformer.fromHandlers(
-        handleError: (error, stackTrace, sink) {
-      if (stackTrace == null) stackTrace = new Trace.current();
-      if (stackTrace is! Chain && _chains[stackTrace] == null) {
-        _chains[stackTrace] = node;
-      }
-      sink.addError(error, stackTrace);
-    }));
-  }
-
   /// Tracks the current stack chain so it can be set to [_currentChain] when
   /// [f] is run.
-  ZoneCallback registerCallback(Zone self, ZoneDelegate parent, Zone zone,
+  ZoneCallback _registerCallback(Zone self, ZoneDelegate parent, Zone zone,
       Function f) {
-    if (f == null) return parent.registerCallback(zone, null);
+    if (f == null || _disabled) return parent.registerCallback(zone, f);
     var node = _createNode(1);
     return parent.registerCallback(zone, () => _run(f, node));
   }
 
   /// Tracks the current stack chain so it can be set to [_currentChain] when
   /// [f] is run.
-  ZoneUnaryCallback registerUnaryCallback(Zone self, ZoneDelegate parent,
+  ZoneUnaryCallback _registerUnaryCallback(Zone self, ZoneDelegate parent,
       Zone zone, Function f) {
-    if (f == null) return parent.registerUnaryCallback(zone, null);
+    if (f == null || _disabled) return parent.registerUnaryCallback(zone, f);
     var node = _createNode(1);
     return parent.registerUnaryCallback(zone, (arg) {
       return _run(() => f(arg), node);
@@ -138,9 +110,10 @@ class StackZoneSpecification {
 
   /// Tracks the current stack chain so it can be set to [_currentChain] when
   /// [f] is run.
-  ZoneBinaryCallback registerBinaryCallback(Zone self, ZoneDelegate parent,
+  ZoneBinaryCallback _registerBinaryCallback(Zone self, ZoneDelegate parent,
       Zone zone, Function f) {
-    if (f == null) return parent.registerBinaryCallback(zone, null);
+    if (f == null || _disabled) return parent.registerBinaryCallback(zone, f);
+
     var node = _createNode(1);
     return parent.registerBinaryCallback(zone, (arg1, arg2) {
       return _run(() => f(arg1, arg2), node);
@@ -149,8 +122,12 @@ class StackZoneSpecification {
 
   /// Looks up the chain associated with [stackTrace] and passes it either to
   /// [_onError] or [parent]'s error handler.
-  handleUncaughtError(Zone self, ZoneDelegate parent, Zone zone, error,
+  _handleUncaughtError(Zone self, ZoneDelegate parent, Zone zone, error,
       StackTrace stackTrace) {
+    if (_disabled) {
+      return parent.handleUncaughtError(zone, error, stackTrace);
+    }
+
     var stackChain = chainFor(stackTrace);
     if (_onError == null) {
       return parent.handleUncaughtError(zone, error, stackChain);
@@ -171,8 +148,10 @@ class StackZoneSpecification {
 
   /// Attaches the current stack chain to [stackTrace], replacing it if
   /// necessary.
-  AsyncError errorCallback(Zone self, ZoneDelegate parent, Zone zone,
+  AsyncError _errorCallback(Zone self, ZoneDelegate parent, Zone zone,
       Object error, StackTrace stackTrace) {
+    if (_disabled) return parent.errorCallback(zone, error, stackTrace);
+
     // Go up two levels to get through [_CustomZone.errorCallback].
     if (stackTrace == null) {
       stackTrace = _createNode(2).toChain();

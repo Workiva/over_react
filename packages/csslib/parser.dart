@@ -158,8 +158,9 @@ class Parser {
   final _Parser _parser;
 
   // TODO(jmesserly): having file and text is redundant.
+  // TODO(rnystrom): baseUrl isn't used. Remove from API.
   Parser(SourceFile file, String text, {int start: 0, String baseUrl})
-      : _parser = new _Parser(file, text, start: start, baseUrl: baseUrl);
+      : _parser = new _Parser(file, text, start: start);
 
   StyleSheet parse() => _parser.parse();
 }
@@ -167,9 +168,6 @@ class Parser {
 /** A simple recursive descent parser for CSS. */
 class _Parser {
   final Tokenizer tokenizer;
-
-  /** Base url of CSS file. */
-  final String _baseUrl;
 
   /**
    * File containing the source being parsed, used to report errors with
@@ -180,9 +178,8 @@ class _Parser {
   Token _previousToken;
   Token _peekToken;
 
-  _Parser(SourceFile file, String text, {int start: 0, String baseUrl})
+  _Parser(SourceFile file, String text, {int start: 0})
       : this.file = file,
-        _baseUrl = baseUrl,
         tokenizer = new Tokenizer(file, text, true, start) {
     _peekToken = tokenizer.next();
   }
@@ -1203,7 +1200,7 @@ class _Parser {
     var start = _peekToken.span;
     while (true) {
       // First item is never descendant make sure it's COMBINATOR_NONE.
-      var selectorItem = simpleSelectorSequence(simpleSequences.length == 0);
+      var selectorItem = simpleSelectorSequence(simpleSequences.isEmpty);
       if (selectorItem != null) {
         simpleSequences.add(selectorItem);
       } else {
@@ -1211,9 +1208,9 @@ class _Parser {
       }
     }
 
-    if (simpleSequences.length > 0) {
-      return new Selector(simpleSequences, _makeSpan(start));
-    }
+    if (simpleSequences.isEmpty) return null;
+
+    return new Selector(simpleSequences, _makeSpan(start));
   }
 
   simpleSelectorSequence(bool forceCombinatorNone) {
@@ -2509,7 +2506,6 @@ class _Parser {
   //
   processFunction(Identifier func) {
     var start = _peekToken.span;
-
     var name = func.name;
 
     switch (name) {
@@ -2517,7 +2513,7 @@ class _Parser {
         // URI term sucks up everything inside of quotes(' or ") or between parens
         var urlParam = processQuotedString(true);
 
-        // TODO(terry): Better error messge and checking for mismatched quotes.
+        // TODO(terry): Better error message and checking for mismatched quotes.
         if (_peek() == TokenKind.END_OF_FILE) {
           _error("problem parsing URI", _peekToken.span);
         }
@@ -2558,8 +2554,6 @@ class _Parser {
 
         return new FunctionTerm(name, name, expr, _makeSpan(start));
     }
-
-    return null;
   }
 
   Identifier identifier() {

@@ -21,6 +21,7 @@ const bool defaultFatalWarnings = true;
 const bool defaultHints = true;
 const bool defaultFatalHints = false;
 const bool defaultStrong = false;
+const bool defaultFatalLints = false;
 
 class AnalyzeConfig extends TaskConfig {
   List<String> entryPoints = defaultEntryPoints.toList();
@@ -28,4 +29,5 @@ class AnalyzeConfig extends TaskConfig {
   bool hints = defaultHints;
   bool fatalHints = defaultFatalHints;
   bool strong = defaultStrong;
+  bool fatalLints = defaultFatalLints;
 }

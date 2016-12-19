@@ -429,7 +429,7 @@ _convertEventHandlers(Map args) {
   args.forEach((propKey, value) {
     var eventFactory = _eventPropKeyToEventFactory[propKey];
     if (eventFactory != null && value != null) {
-      args[propKey] = (events.SyntheticEvent e, [String domId, Event event]) => zone.run(() {
+      args[propKey] = (events.SyntheticEvent e, [_, __]) => zone.run(() {
         value(eventFactory(e));
       });
     }
@@ -551,6 +551,8 @@ SyntheticDataTransfer syntheticDataTransferFactory(events.SyntheticDataTransfer 
     }
   }
   var effectAllowed;
+  var dropEffect;
+
   try {
     // Works around a bug in IE where dragging from outside the browser fails.
     // Trying to access this property throws the error "Unexpected call to method or property access.".
@@ -558,7 +560,16 @@ SyntheticDataTransfer syntheticDataTransferFactory(events.SyntheticDataTransfer 
   } catch (exception) {
     effectAllowed = 'uninitialized';
   }
-  return new SyntheticDataTransfer(dt.dropEffect, effectAllowed, files, types);
+
+  try {
+    // For certain types of drag events in IE (anything but ondragenter, ondragover, and ondrop), this fails.
+    // Trying to access this property throws the error "Unexpected call to method or property access.".
+    dropEffect = dt.dropEffect;
+  } catch (exception) {
+    dropEffect = 'none';
+  }
+
+  return new SyntheticDataTransfer(dropEffect, effectAllowed, files, types);
 }
 
 /// Wrapper for [SyntheticMouseEvent].

@@ -16,6 +16,10 @@ library w_flux.action;
 
 import 'dart:async';
 
+import 'package:w_common/disposable.dart';
+
+import 'package:w_flux/src/constants.dart' show v3Deprecation;
+
 /// A command that can be dispatched and listened to.
 ///
 /// An [Action] manages a collection of listeners and the manner of
@@ -41,7 +45,7 @@ import 'dart:async';
 /// when a consumer needs to check state changes immediately after invoking an
 /// action.
 ///
-class Action<T> implements Function {
+class Action<T> extends Object with Disposable implements Function {
   List _listeners = [];
 
   /// Dispatch this [Action] to all listeners. If a payload is supplied, it will
@@ -65,6 +69,7 @@ class Action<T> implements Function {
   /// Cancel all subscriptions that exist on this [Action] as a result of
   /// [listen] being called. Useful when tearing down a flux cycle in some
   /// module or unit test.
+  @Deprecated('Use (and await) dispose() instead. $v3Deprecation')
   void clearListeners() {
     _listeners.clear();
   }
@@ -78,6 +83,11 @@ class Action<T> implements Function {
     return new ActionSubscription(() => _listeners.remove(onData));
   }
 
+  @override
+  Future<Null> onDispose() async {
+    _listeners.clear();
+  }
+
   /// Actions are only deemed equivalent if they are the exact same Object
   bool operator ==(Object other) {
     return identical(this, other);
@@ -86,7 +96,7 @@ class Action<T> implements Function {
 
 /// A subscription used to cancel registered listeners to an [Action].
 class ActionSubscription {
-  final Function _onCancel;
+  Function _onCancel;
 
   ActionSubscription(this._onCancel);
 
@@ -94,6 +104,7 @@ class ActionSubscription {
   void cancel() {
     if (_onCancel != null) {
       _onCancel();
+      _onCancel = null;
     }
   }
 }

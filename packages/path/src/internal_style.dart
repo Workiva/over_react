@@ -33,10 +33,11 @@ abstract class InternalStyle extends Style {
 
   /// Returns the number of characters of the root part.
   ///
-  /// Returns 0 if the path is relative.
+  /// Returns 0 if the path is relative and 1 if the path is root-relative.
   ///
-  /// If the path is root-relative, the root length is 1.
-  int rootLength(String path);
+  /// If [withDrive] is `true`, this should include the drive letter for `file:`
+  /// URLs. Non-URL styles may ignore the parameter.
+  int rootLength(String path, {bool withDrive: false});
 
   /// Gets the root prefix of [path] if path is absolute. If [path] is relative,
   /// returns `null`.

@@ -118,7 +118,7 @@ class VMServiceClient {
 
     // TODO(nweiz): Just use [WebSocketChannel.connect] when cross-platform
     // libraries work.
-    return new VMServiceClient(new IOWebSocketChannel.connect(uri));
+    return new VMServiceClient(new IOWebSocketChannel.connect(uri).cast());
   }
 
   /// Creates a client that reads incoming messages from a [channel] which

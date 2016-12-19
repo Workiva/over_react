@@ -19,7 +19,7 @@ import 'package:dart_dev/src/tasks/config.dart';
 class LocalConfig extends TaskConfig {
   List<String> taskPaths = ['tool'];
   bool followSymlinks = false;
-  String commandFilePattern = '([a-zA-Z0-9]+)_task.([a-zA-Z0-9]+)';
+  String commandFilePattern = '([a-zA-Z0-9-]+)_task.([a-zA-Z0-9]+)';
   Map<String, List<String>> executables = {
     'dart': ['dart'],
     'sh': ['bash']

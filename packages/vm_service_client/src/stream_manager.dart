@@ -102,7 +102,7 @@ class StreamManager {
   /// This controller subscribes to the stream when it has a listener and
   /// unsubscribes once it has no listeners.
   StreamController<Map> _controller(String streamID) {
-    var controller;
+    StreamController<Map> controller;
     controller = new StreamController.broadcast(sync: true, onListen: () {
       // Work around sdk#24350.
       if ((streamID == "Stdout" || streamID == "Stderr") &&

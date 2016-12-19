@@ -14,6 +14,9 @@ import 'utils.dart';
 @Deprecated("Will be removed in stack_trace 2.0.0.")
 typedef void ChainHandler(error, Chain chain);
 
+/// An opaque key used to track the current [StackZoneSpecification].
+final _specKey = new Object();
+
 /// A chain of stack traces.
 ///
 /// A stack chain is a collection of one or more stack traces that collectively
@@ -43,8 +46,7 @@ class Chain implements StackTrace {
   final List<Trace> traces;
 
   /// The [StackZoneSpecification] for the current zone.
-  static StackZoneSpecification get _currentSpec =>
-    Zone.current[#stack_trace.stack_zone.spec];
+  static StackZoneSpecification get _currentSpec => Zone.current[_specKey];
 
   /// If [when] is `true`, runs [callback] in a [Zone] in which the current
   /// stack chain is tracked and automatically associated with (most) errors.
@@ -73,7 +75,11 @@ class Chain implements StackTrace {
       var newOnError;
       if (onError != null) {
         newOnError = (error, stackTrace) {
-          onError(error, new Chain.forTrace(stackTrace));
+          onError(
+              error,
+              stackTrace == null
+                  ? new Chain.current()
+                  : new Chain.forTrace(stackTrace));
         };
       }
 
@@ -89,9 +95,25 @@ class Chain implements StackTrace {
         return Zone.current.handleUncaughtError(error, stackTrace);
       }
     }, zoneSpecification: spec.toSpec(), zoneValues: {
-      #stack_trace.stack_zone.spec: spec
+      _specKey: spec,
+      StackZoneSpecification.disableKey: false
     }) as dynamic/*=T*/;
     // TODO(rnystrom): Remove this cast if runZoned() gets a generic type.
+  }
+
+  /// If [when] is `true` and this is called within a [Chain.capture] zone, runs
+  /// [callback] in a [Zone] in which chain capturing is disabled.
+  ///
+  /// If [callback] returns a value, it will be returned by [disable] as well.
+  static /*=T*/ disable/*<T>*/(/*=T*/ callback(), {bool when: true}) {
+    var zoneValues = when
+        ? {
+            _specKey: null,
+            StackZoneSpecification.disableKey: true
+          }
+        : null;
+
+    return runZoned(callback, zoneValues: zoneValues);
   }
 
   /// Returns [futureOrStream] unmodified.

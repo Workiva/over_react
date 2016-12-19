@@ -12,3 +12,13 @@ bool isAlphabetic(int char) =>
 
 /// Returns whether [char] is the code for an ASCII digit.
 bool isNumeric(int char) => char >= chars.ZERO && char <= chars.NINE;
+
+/// Returns whether [path] has a URL-formatted Windows drive letter beginning at
+/// [index].
+bool isDriveLetter(String path, int index) {
+  if (path.length < index + 2) return false;
+  if (!isAlphabetic(path.codeUnitAt(index))) return false;
+  if (path.codeUnitAt(index + 1) != chars.COLON) return false;
+  if (path.length == index + 2) return true;
+  return path.codeUnitAt(index + 2) == chars.SLASH;
+}

@@ -16,14 +16,18 @@ library w_flux.src.component_common;
 
 import 'dart:async';
 
+import 'package:meta/meta.dart';
 import 'package:react/react.dart' as react;
+import 'package:w_common/disposable.dart';
 
+import 'package:w_flux/src/constants.dart' show v3Deprecation;
 import 'package:w_flux/src/store.dart';
 
 /// FluxComponents are responsible for rendering application views and turning
 /// user interactions and events into [Action]s. FluxComponents can use data
 /// from one or many [Store] instances to define the resulting component.
-abstract class FluxComponentCommon<ActionsT, StoresT> extends react.Component {
+abstract class FluxComponentCommon<ActionsT, StoresT> extends react.Component
+    with Disposable {
   /// The class instance defined by [ActionsT] that holds all [Action]s that
   /// this component needs access to.
   ///
@@ -50,11 +54,9 @@ abstract class FluxComponentCommon<ActionsT, StoresT> extends react.Component {
   /// listened to by overriding [redrawOn].
   StoresT get store => this.props['store'] as StoresT;
 
-  /// List of store subscriptions created when the component mounts. These
-  /// subscriptions are canceled when the component is unmounted.
-  List<StreamSubscription> _subscriptions = [];
-
-  componentWillMount() {
+  @mustCallSuper
+  @override
+  void componentWillMount() {
     // Subscribe to all applicable stores. Stores returned by `redrawOn()` will
     // have their triggers mapped directly to this components redraw function.
     // Stores included in the `getStoreHandlers()` result will be listened to
@@ -63,18 +65,14 @@ abstract class FluxComponentCommon<ActionsT, StoresT> extends react.Component {
         new Map<Store, StoreHandler>.fromIterable(redrawOn(),
             value: (_) => (_) => redraw())..addAll(getStoreHandlers());
     handlers.forEach((store, handler) {
-      StreamSubscription subscription = store.listen(handler);
-      _subscriptions.add(subscription);
+      manageStreamSubscription(store.listen(handler));
     });
   }
 
-  componentWillUnmount() {
-    // Cancel all store subscriptions.
-    _subscriptions.forEach((StreamSubscription subscription) {
-      if (subscription != null) {
-        subscription.cancel();
-      }
-    });
+  @mustCallSuper
+  @override
+  void componentWillUnmount() {
+    dispose();
   }
 
   /// Define the list of [Store] instances that this component should listen to.
@@ -114,7 +112,9 @@ abstract class FluxComponentCommon<ActionsT, StoresT> extends react.Component {
   /// Register a [subscription] that should be canceled when the component
   /// unmounts. Cancellation will be handled automatically by
   /// [componentWillUnmount].
+  @Deprecated(
+      'Subscriptions are now managed by the Disposable mixin. $v3Deprecation')
   void addSubscription(StreamSubscription subscription) {
-    _subscriptions.add(subscription);
+    manageStreamSubscription(subscription);
   }
 }

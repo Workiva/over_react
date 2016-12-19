@@ -62,7 +62,8 @@ StackTrace mapStackTrace(Mapping sourceMap, StackTrace stackTrace,
 
     // Subtract 1 because stack traces use 1-indexed lines and columns and
     // source maps uses 0-indexed.
-    var span = sourceMap.spanFor(frame.line - 1, column - 1);
+    var span = sourceMap.spanFor(frame.line - 1, column - 1,
+        uri: frame.uri?.toString());
 
     // If we can't find a source span, ignore the frame. It's probably something
     // internal that the user doesn't care about.

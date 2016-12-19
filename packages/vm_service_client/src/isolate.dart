@@ -7,6 +7,7 @@ import 'dart:collection';
 import 'dart:convert';
 
 import 'package:async/async.dart';
+import 'package:collection/collection.dart';
 import 'package:json_rpc_2/json_rpc_2.dart' as rpc;
 
 import 'breakpoint.dart';
@@ -176,7 +177,8 @@ class VMIsolateRef {
 
   /// Like [transform], but only calls [handleData] for events related to this
   /// isolate.
-  Stream _transform(Stream<Map> stream, handleData(Map json, StreamSink sink)) {
+  Stream/*<T>*/ _transform/*<T>*/(Stream<Map> stream,
+      void handleData(Map json, StreamSink/*<T>*/ sink)) {
     return transform(stream, (json, sink) {
       if (json["isolate"]["id"] != _scope.isolateId) return;
       handleData(json, sink);
@@ -193,9 +195,9 @@ class VMIsolateRef {
     return _scope.getInState(_scope.streams.isolate, () async {
       var isolate = await load();
       return isolate is VMRunnableIsolate ? isolate : null;
-    }, (json) {
+    }, (json) async {
       if (json["kind"] != "IsolateRunnable") return null;
-      return load();
+      return (await load()) as VMRunnableIsolate;
     });
   }
 
@@ -341,7 +343,7 @@ class VMIsolateRef {
       throw new ArgumentError.value(method, 'method',
           'must begin with "ext." prefix');
     }
-    return _scope.sendRequest(method, params);
+    return _scope.sendRequestRaw(method, params);
   }
 
   /// Generates a report of code coverage information and possible break points
@@ -369,7 +371,7 @@ class VMIsolateRef {
     if (includeCoverageReport) reports.add('Coverage');
     if (includePossibleBreakpoints) reports.add('PossibleBreakpoints');
 
-    var params = {'reports': reports};
+    var params = <String, dynamic>{'reports': reports};
     if (forceCompile) params['forceCompile'] = true;
 
     var json = await _scope.sendRequest('getSourceReport', params);
@@ -429,7 +431,8 @@ class VMIsolate extends VMIsolateRef {
         error = newVMError(scope, json["error"]),
         breakpoints = new List.unmodifiable(json["breakpoints"]
             .map((breakpoint) => newVMBreakpoint(scope, breakpoint))),
-        extensionRpcs = new UnmodifiableListView(json["extensionRPCs"] ?? []),
+        extensionRpcs = new UnmodifiableListView(
+            DelegatingList.typed(json["extensionRPCs"] ?? [])),
         super._(scope, json);
 }
 
