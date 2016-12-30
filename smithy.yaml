@@ -6,6 +6,7 @@ runner_image: drydock-prod.workiva.org/workiva/smithy-runner-dart:74173
 
 script:
   - pub get
+  - ./tool/smithy_dart2js_tests.sh
 
 artifacts:
   build:

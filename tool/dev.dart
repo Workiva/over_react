@@ -30,7 +30,11 @@ main(List<String> args) async {
     ..pubServe = true
     ..platforms = [
       'vm',
-      'content-shell'
+      'content-shell',
+      // Can't run tests in dart2js on Travis since the suite takes too long to load and times out.
+      // Run on Smithy instead.
+      // See https://github.com/Workiva/over_react/issues/36
+      // 'chrome',
     ]
     // Prevent test load timeouts on Smithy.
     ..concurrency = 1
