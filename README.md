@@ -495,17 +495,50 @@ as shown in the examples above.
 
 ## Component Formatting
 
-> NOTE: At this time, we __do not recommend using [`dartfmt`](https://github.com/dart-lang/dart_style)__, as it
-> _greatly_ decreases the readability of components built using
-> [OverReact's fluent-style](#fluent-style-component-consumption).
->
-> _We have a long-term goal of writing our own formatter that extends from `dartfmt` to make it possible for our
-> fluent-style to remain readable even after the formatter executes._
+#### dart_style
+Currently, [dart_style (dartfmt)](https://github.com/dart-lang/dart_style) decreases the readability of components
+built using [OverReact's fluent-style](#fluent-style-component-consumption).
+See https://github.com/dart-lang/dart_style/issues/549 for more info.
 
-Since using `dartfmt` results in unreadable code, we have documented the following formatting best-practices that
-we _strongly recommended_ when building components using the `over_react` library.
+We're exploring some different ideas to improve automated formatting, but for the time being, we __do not recommend__ using dart_style with OverReact.
 
-&nbsp;
+However, if you do choose to use dart_style, you can greatly improve its output by using trailing commas in children argument lists:
+
+* dart_style formatting:
+```dart
+return (Button()
+  ..id = 'flip'
+  ..skin =
+      ButtonSkin.vanilla)((Dom.span()
+  ..className = 'flip-container')((Dom.span()..className = 'flipper')(
+    (Dom.span()
+      ..className =
+          'front-side')((Icon()..glyph = IconGlyph.CHEVRON_DOUBLE_RIGHT)()),
+    (Dom.span()
+      ..className =
+          'back-side')((Icon()..glyph = IconGlyph.CHEVRON_DOUBLE_LEFT)()))));
+```
+* dart_style formatting, when trailing commas are used:
+```dart
+return (Button()
+  ..id = 'flip'
+  ..skin = ButtonSkin.vanilla)(
+  (Dom.span()..className = 'flip-container')(
+    (Dom.span()..className = 'flipper')(
+      (Dom.span()..className = 'front-side')(
+        (Icon()..glyph = IconGlyph.CHEVRON_DOUBLE_RIGHT)(),
+      ),
+      (Dom.span()..className = 'back-side')(
+        (Icon()..glyph = IconGlyph.CHEVRON_DOUBLE_LEFT)(),
+      ),
+    ),
+  ),
+);
+```
+
+### Guidelines
+
+To help ensure your OverReact code is readable and consistent, we've arrived at the following formatting rules.
 
 * __ALWAYS__ place the closing builder parent on a new line.
 
@@ -524,38 +557,78 @@ we _strongly recommended_ when building components using the `over_react` librar
       ..isDisabled = true)('Submit')
     ```
 
-&nbsp;
-
-* __ALWAYS__ pass nested components as variadic children when keys are not specified, on a new line with a __2 space__
-  indentation.
+* __ALWAYS__ pass component children on a new line with trailing commas and 2 space indentation.
 
   _Good:_
     ```dart
     Dom.div()(
       Dom.span()('nested component'),
-      Dom.span()('nested component')
+    )
+    ```
+
+    ```dart
+    Dom.div()(
+      Dom.span()('nested component A'),
+      Dom.span()('nested component B'),
     )
     ```
 
   _Bad:_
     ```dart
-    // Nested component is not on a new line
-    Dom.div()(Dom.span()('nested component'))
-
-    // Nested component has a continuation indent
-    Dom.div()(
-        Dom.span()('nested component'),
-    )
-
-    // Nested components are within a list instead of
-    // being passed in as variadic children.
-    Dom.div()([
-      Dom.span()('nested component'),
-      Dom.span()('nested component')
-    ])
+    // Children are not on a new line; in most cases,
+    // this makes it difficult to quickly determine nesting.
+    Dom.div()(Dom.span()('nested component'), Dom.span()('nested component'))
     ```
 
-&nbsp;
+    ```dart
+    // With nested hierarchies, continuation indents can quickly result
+    // in a "pyramid of Doom"
+    Dom.div()(
+        Dom.ul()(
+            Dom.li()(
+                Dom.a()('A link!')
+            )
+        )
+    )
+    ```
+
+    ```dart
+    // Omitting trailing commas makes it a pain to rearrange lines
+    Dom.div()(
+      Dom.span()('nested component A'),
+      Dom.span()('nested component B')
+    )
+    Dom.div()(
+      Dom.span()('nested component B') // ugh, need to add a comma here...
+      Dom.span()('nested component A'),
+    )
+    ```
+
+* __AVOID__ passing children within lists; lists should only be used when the number/order of the children are dynamic.
+
+  _Good:_
+    ```dart
+    Dom.div()(
+      Dom.span()('nested component'),
+      Dom.span()('nested component'),
+    )
+    ```
+
+    ```dart
+    var children = [
+      Dom.div()('List of Items:'),
+    ]..addAll(props.items.map(renderItem));
+
+    return Dom.div()(children)
+    ```
+
+  _Bad:_
+    ```dart
+    Dom.div()([
+      (Dom.span()..key = 'span1')('nested component'),
+      (Dom.span()..key = 'span2')('nested component'),
+    ])
+    ```
 
 * __AVOID__ specifying more than one cascading prop setter on the same line.
 
@@ -571,10 +644,6 @@ we _strongly recommended_ when building components using the `over_react` librar
     ```dart
     (Dom.div()..id = 'my_div'..className = 'my-class')()
     ```
-
-&nbsp;
-&nbsp;
-
 
 
 ## Building custom components
