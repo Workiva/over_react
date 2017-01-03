@@ -64,7 +64,7 @@ Map getPropsToForward(Map props, {bool omitReactProps: true, bool onlyCopyDomPro
 /// Returns a copy of the style map found in [props].
 ///
 /// Returns an empty map if [props] or its style map are null.
-Map newStyleFromProps(Map props) {
+Map<String, dynamic> newStyleFromProps(Map props) {
   if (props == null) return {};
 
   var existingStyle = domProps(props).style;
