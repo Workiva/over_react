@@ -1,3 +1,17 @@
+// Copyright 2016 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 library test_util.common_component_tests;
 
 import 'dart:collection';
@@ -5,18 +19,19 @@ import 'dart:html';
 // Tell dart2js that this library only needs to reflect types annotated with `Props`.
 // This speeds up compilation and makes JS output much smaller.
 @MirrorsUsed(metaTargets: const [
-  'web_skin_dart.component_declaration.annotations.Props'
+  'over_react.component_declaration.annotations.Props'
 ])
 import 'dart:mirrors';
 
-import 'package:platform_detect/platform_detect.dart';
+import 'package:browser_detect/browser_detect.dart';
+import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
+import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:test/test.dart';
-import 'package:web_skin_dart/src/ui_core/component_declaration/component_base.dart' as component_base;
-import 'package:web_skin_dart/test_util.dart';
-import 'package:web_skin_dart/ui_core.dart';
-import 'package:react/react_client.dart';
+
+import '../test_util/test_util.dart';
 
 /// Returns all the prop keys available on a component definition, using reflection.
 Set getComponentPropKeys(BuilderOnlyUiFactory factory) {
@@ -31,7 +46,7 @@ Set getComponentPropKeys(BuilderOnlyUiFactory factory) {
       return;
     }
 
-    Type owner = (decl.owner as ClassMirror).reflectedType;
+    Type owner = (decl.owner as ClassMirror).reflectedType; // ignore: avoid_as
     if (owner != Object &&
         owner != component_base.UiProps &&
         owner != component_base.PropsMapViewMixin &&
@@ -76,12 +91,6 @@ List getForwardingTargets(reactInstance, {int expectedTargetCount: 1, shallowRen
         flattenChildren(List _children) {
           _children.forEach((_child) {
             if (_child != null && isValidElement(_child)) {
-              getProps(_child).forEach((propKey, propValue) {
-                // Some props may be of type Function, and will produce interop errors if passed into isValidElement
-                if (propKey != 'children' && propValue is! Function && isValidElement(propValue)) {
-                  getTargets(propValue);
-                }
-              });
               getTargets(_child);
             }  else if (_child is List) {
               flattenChildren(_child);
@@ -197,6 +206,7 @@ void testPropForwarding(BuilderOnlyUiFactory factory, dynamic childrenFactory(),
 
       /// Test for prop keys that both are forwarded and exist on the forwarding target's default props.
       if (isDartComponent(forwardingTarget)) {
+        // ignore: avoid_as
         var forwardingTargetDefaults = ((forwardingTarget as ReactElement).type as ReactClass).dartDefaultProps;
 
         var commonForwardedAndDefaults = propKeysThatShouldNotGetForwarded
@@ -322,7 +332,7 @@ void testClassNameOverrides(BuilderOnlyUiFactory factory, dynamic childrenFactor
 
 /// Common test for verifying that required props are validated correctly.
 void testRequiredProps(BuilderOnlyUiFactory factory, dynamic childrenFactory()) {
-  var component = renderAndGetComponent(factory()(childrenFactory()));
+  var component = renderAndGetComponent(factory()(childrenFactory())) as UiComponent; // ignore: avoid_as
   var consumedProps = component.consumedProps;
   var requiredProps = [];
   var nullableProps = [];
@@ -342,8 +352,10 @@ void testRequiredProps(BuilderOnlyUiFactory factory, dynamic childrenFactory()) 
 
   group('throws when the required prop', () {
     requiredProps.forEach((String propKey) {
+      final reactComponentFactory = factory().componentFactory as ReactDartComponentFactoryProxy; // ignore: avoid_as
+
       // Props that are defined in the default props map will never not be set.
-      if (!factory().componentFactory.defaultProps.containsKey(propKey)) {
+      if (!reactComponentFactory.defaultProps.containsKey(propKey)) {
         test('$propKey is not set', () {
           var badRenderer = () => render((factory()
             ..remove(propKey)
@@ -422,7 +434,7 @@ void commonComponentTests(BuilderOnlyUiFactory factory, {
   skippedPropKeys = flatten(skippedPropKeys).toList();
 
   // TODO: Remove this short-circuit when UIP-1125.
-  if (browser.isInternetExplorer && browser.version.major <= 10) return;
+  if (browser.isIe && browser.version <= '10') return;
 
   if (shouldTestPropForwarding) {
     testPropForwarding(factory, childrenFactory,

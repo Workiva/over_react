@@ -1,14 +1,28 @@
-library web_skin_dart.transformer;
+// Copyright 2016 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+library over_react.transformer;
 
 import 'dart:async';
 
 import 'package:analyzer/analyzer.dart';
 import 'package:barback/barback.dart';
+import 'package:over_react/src/transformer/declaration_parsing.dart';
+import 'package:over_react/src/transformer/impl_generation.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/transformer_utils.dart';
-import 'package:web_skin_dart/src/transformer/declaration_parsing.dart';
-import 'package:web_skin_dart/src/transformer/impl_generation.dart';
 
 /// A transformer that modifies `.dart` files, aiding the declaration of React components
 /// using the `@Factory()`, `@Props()` `@Component()`, etc. annotations.
