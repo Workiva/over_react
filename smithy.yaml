@@ -1,0 +1,12 @@
+project: dart
+language: dart
+
+# dart 1.19.1, built from https://github.com/Workiva/smithy-runner-dart/tree/0.0.4
+runner_image: drydock-prod.workiva.org/workiva/smithy-runner-dart:74173
+
+script:
+  - pub get
+
+artifacts:
+  build:
+    - ./pubspec.lock
