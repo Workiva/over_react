@@ -18,7 +18,6 @@ import 'package:over_react/src/component_declaration/component_base.dart' as com
 import 'package:over_react/src/util/test_mode.dart';
 import 'package:test/test.dart';
 
-
 /// Main entry point for enableTestMode and disabledTestMode testing
 main() {
   test('enableTestMode and disableTestMode set UiProps.testMode as expected', () {

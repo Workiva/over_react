@@ -16,8 +16,9 @@ library over_react.map_util;
 
 import 'dart:collection';
 
-import 'package:over_react/src/component/prop_mixins.dart';
 import 'package:over_react/src/component_declaration/transformer_helpers.dart';
+import 'package:over_react/src/component/dom_components.dart';
+import 'package:over_react/src/component/prop_mixins.dart';
 
 /// Returns a copy of the specified props map, omitting reserved React props by default,
 /// in addition to any specified keys.
@@ -58,6 +59,16 @@ Map getPropsToForward(Map props, {bool omitReactProps: true, bool onlyCopyDomPro
   }
 
   return propsToForward;
+}
+
+/// Returns a copy of the style map found in [props].
+///
+/// Returns an empty map if [props] or its style map are null.
+Map<String, dynamic> newStyleFromProps(Map props) {
+  if (props == null) return {};
+
+  var existingStyle = domProps(props).style;
+  return existingStyle == null ? {} : new Map.from(existingStyle);
 }
 
 SplayTreeSet _validDomProps = new SplayTreeSet()

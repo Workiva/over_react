@@ -61,7 +61,6 @@ final CallbackUtil0Arg callbacks                                            = co
 /// Provides chaining utilities for [ResizeSensorHandler].
 final CallbackUtil1Arg<ResizeSensorEvent> resizeEventCallbacks              = const CallbackUtil1Arg<ResizeSensorEvent>();
 
-
 typedef Callback0Arg();
 typedef Callback1Arg<T1>(T1 arg1);
 typedef Callback2Arg<T1, T2>(T1 arg1, T2 arg2);

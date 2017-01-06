@@ -20,6 +20,7 @@ import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
 import '../../test_util/test_util.dart';
+import '../../wsd_test_util/validation_util_helpers.dart';
 
 /// Main entry point for DomUtil testing
 main() {
@@ -150,6 +151,122 @@ main() {
       document.body.focus();
 
       expect(getActiveElement(), isNull);
+    });
+  });
+
+  group('setSelectionRange', () {
+    test('throws an ArgumentError if called on an unsupported Element type', () {
+      var invalidElement = new DivElement();
+      expect(() => setSelectionRange(invalidElement, 0, 0), throwsArgumentError);
+    });
+
+    test('throws an ArgumentError if called on an unsupported InputElement type', () {
+      var invalidElement = new CheckboxInputElement();
+
+      // Note: For some unknown reason - when running the exact same expect() we use for DivElement above,
+      // this one fails with "Invalid Object" - the stack trace never leaves test()
+      //
+      // ¯\_(ツ)_/¯
+      var error;
+
+      try {
+        setSelectionRange(invalidElement, 0, 0);
+      } catch (err) {
+        error = err;
+      }
+
+      expect(error, isNotNull);
+    });
+
+    group('correctly calls setSelectionRange', () {
+      var renderedInstance;
+      InputElement inputElement;
+      TextAreaElement textareaElement;
+      const String testValue = 'foo';
+
+      tearDown(() {
+        renderedInstance = null;
+        inputElement = null;
+
+        tearDownAttachedNodes();
+      });
+
+      group('on an `<input>` of type:', () {
+        void sharedInputSetSelectionRangeTest(String type) {
+          renderedInstance = renderAttachedToDocument((Dom.input()
+            ..defaultValue = testValue
+            ..type = type
+          )());
+          inputElement = findDomNode(renderedInstance);
+          setSelectionRange(inputElement, testValue.length, testValue.length);
+
+          // setSelectionRange on number inputs shouldn't throw in other browsers,
+          // but it also doesn't always work.
+          // Don't expect that the selection actually changed.
+          if (type != 'number') {
+            expect(inputElement.selectionStart, equals(testValue.length));
+            expect(inputElement.selectionEnd, equals(testValue.length));
+          }
+        }
+
+        for (var type in inputTypesWithSelectionRangeSupport) {
+          if (type == 'email' || type == 'number') {
+            // See: https://bugs.chromium.org/p/chromium/issues/detail?id=324360
+            test(type, () {
+              sharedInputSetSelectionRangeTest(type);
+            }, testOn: 'js && !chrome');
+          } else {
+            test(type, () { sharedInputSetSelectionRangeTest(type); });
+          }
+        }
+      });
+
+      test('on TextAreaElement', () {
+        renderedInstance = renderAttachedToDocument((Dom.textarea()
+          ..defaultValue = testValue
+        )());
+        textareaElement = findDomNode(renderedInstance);
+        setSelectionRange(textareaElement, testValue.length, testValue.length);
+
+        expect(textareaElement.selectionStart, equals(testValue.length));
+        expect(textareaElement.selectionEnd, equals(testValue.length));
+      });
+
+      // See: https://bugs.chromium.org/p/chromium/issues/detail?id=324360
+      group('without throwing an error in Google Chrome when `props.type` is', () {
+        void verifyLackOfException() {
+          expect(renderedInstance, isNotNull, reason: 'test setup sanity check');
+          expect(inputElement, isNotNull, reason: 'test setup sanity check');
+
+          expect(() => setSelectionRange(inputElement, testValue.length, testValue.length), returnsNormally);
+        }
+
+        setUp(() {
+          startRecordingValidationWarnings();
+        });
+
+        tearDown(() {
+          stopRecordingValidationWarnings();
+        });
+
+        test('email', () {
+          renderedInstance = renderAttachedToDocument((Dom.input()
+            ..defaultValue = testValue
+            ..type = 'email'
+          )());
+          inputElement = findDomNode(renderedInstance);
+          verifyLackOfException();
+        });
+
+        test('number', () {
+          renderedInstance = renderAttachedToDocument((Dom.input()
+            ..defaultValue = testValue
+            ..type = 'number'
+          )());
+          inputElement = findDomNode(renderedInstance);
+          verifyLackOfException();
+        });
+      }, testOn: 'chrome');
     });
   });
 }
