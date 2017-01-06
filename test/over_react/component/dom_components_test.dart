@@ -39,17 +39,9 @@ main() {
     for (var element in methods) {
       String name = MirrorSystem.getName(element.simpleName);
       String expectedTagName = name;
-      if (expectedTagName == 'variable') expectedTagName = 'var';
-      if (expectedTagName == 'svgSwitch') expectedTagName = 'switch';
-      if (expectedTagName == 'colorProfile') expectedTagName = 'color-profile';
-      if (expectedTagName == 'fontFace') expectedTagName = 'font-face';
-      if (expectedTagName == 'fontFaceFormat') expectedTagName = 'font-face-format';
-      if (expectedTagName == 'fontFaceName') expectedTagName = 'font-face-name';
-      if (expectedTagName == 'fontFaceSrc') expectedTagName = 'font-face-src';
-      if (expectedTagName == 'fontFaceUri') expectedTagName = 'font-face-uri';
-      if (expectedTagName == 'missingGlyph') expectedTagName = 'missing-glyph';
-      if (expectedTagName.startsWith(new RegExp('svg.'))) expectedTagName = expectedTagName.substring(3);
-
+      if (expectedTagName == 'variable') {
+        expectedTagName = 'var';
+      }
       test('Dom.$name generates the correct type', () {
         DomProps builder = domClassMirror.invoke(element.simpleName, []).reflectee;
         ReactElement component = builder();

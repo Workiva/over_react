@@ -13,7 +13,11 @@ dependencies:
   source_span: "^1.2.0"
   transformer_utils: "^0.1.1"
   w_flux: "^2.5.0"
-  browser_detect: "^1.0.4"
+  platform_detect:
+    hosted:
+      name: platform_detect
+      url: https://pub.workiva.org
+    version: "^1.1.0"
 dev_dependencies:
   matcher: ">=0.11.0 <0.13.0"
   coverage: "^0.7.2"

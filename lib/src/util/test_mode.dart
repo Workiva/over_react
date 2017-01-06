@@ -13,7 +13,6 @@
 // limitations under the License.
 
 library over_react.test_mode;
-
 import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 
 /// Enables test mode.
