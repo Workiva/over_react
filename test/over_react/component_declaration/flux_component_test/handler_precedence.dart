@@ -7,7 +7,7 @@ UiFactory<TestHandlerPrecedenceProps> TestHandlerPrecedence;
 class TestHandlerPrecedenceProps extends FluxUiProps<TestActions, TestStores> {}
 
 @Component()
-class TestHandlerPrecedenceComponent extends FluxUiComponent<TestHandlerPrecedenceProps> {
+class TestHandlerPrecedenceComponent extends FluxUiComponent {
   int numberOfRedraws = 0;
   int numberOfHandlerCalls = 0;
 
@@ -20,7 +20,7 @@ class TestHandlerPrecedenceComponent extends FluxUiComponent<TestHandlerPreceden
   @override
   getStoreHandlers() => {props.store.store1: increment};
 
-  increment(Store store) {
+  increment(_) {
     numberOfHandlerCalls += 1;
   }
 

@@ -7,7 +7,7 @@ UiFactory<TestStoreHandlersProps> TestStoreHandlers;
 class TestStoreHandlersProps extends FluxUiProps<TestActions, TestStore> {}
 
 @Component()
-class TestStoreHandlersComponent extends FluxUiComponent<TestStoreHandlersProps> {
+class TestStoreHandlersComponent extends FluxUiComponent {
   int numberOfHandlerCalls = 0;
 
   @override
@@ -16,7 +16,7 @@ class TestStoreHandlersComponent extends FluxUiComponent<TestStoreHandlersProps>
   @override
   getStoreHandlers() => {props.store: increment};
 
-  increment(Store store) {
+  increment(_) {
     numberOfHandlerCalls += 1;
   }
 }

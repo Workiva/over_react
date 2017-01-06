@@ -15,16 +15,12 @@
 /// Thanks!
 /// https://github.com/marcj/css-element-queries/blob/master/src/ResizeSensor.js
 library resize_sensor;
-
 import 'dart:collection';
 import 'dart:html';
 
-import 'package:browser_detect/browser_detect.dart';
-import 'package:over_react/over_react.dart';
+import 'package:platform_detect/platform_detect.dart';
 import 'package:react/react.dart' as react;
-
-// Callback for [ResizeSensorEvent]s
-typedef void ResizeSensorHandler(ResizeSensorEvent event);
+import 'package:over_react/over_react.dart';
 
 /// A wrapper component that detects when its parent is resized.
 ///
@@ -82,6 +78,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
 
   Element _expandSensorChildRef;
   Element _expandSensorRef;
+  Element _collapseSensorChildRef;
   Element _collapseSensorRef;
 
   @override
@@ -114,7 +111,10 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
       ..key = 'expandSensor'
     )(expandSensorChild);
 
-    var collapseSensorChild = (Dom.div()..style = _collapseSensorChildStyle)();
+    var collapseSensorChild = (Dom.div()
+      ..ref = (ref) { _collapseSensorChildRef = ref; }
+      ..style = _collapseSensorChildStyle
+    )();
 
     var collapseSensor = (Dom.div()
       ..className = 'resize-sensor-collapse'
@@ -152,9 +152,9 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
       };
 
       // IE 10 and Safari 8 need 'special' value prefixes for 'display:flex'.
-      if (browser.isIe && browser.version <= '10') {
+      if (browser.isInternetExplorer && browser.version.major <= 10) {
         wrapperStyles['display'] = '-ms-flexbox';
-      } else if (browser.isSafari && browser.version < '9') {
+      } else if (browser.isSafari && browser.version.major < 9) {
         wrapperStyles['display'] = '-webkit-flex';
       } else {
         wrapperStyles['display'] = 'flex';

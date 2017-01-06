@@ -21,6 +21,8 @@ export './annotations.dart';
 export './component_base.dart'
     hide UiComponent, UiStatefulComponent, UiProps, UiState;
 
+typedef dynamic _RefTypedef(String ref);
+
 // ----------------------------------------------------------------------
 //   Helpers and extras consumable by generated code and consumers of
 //   generated code.
@@ -86,22 +88,32 @@ class GeneratedClass {
 }
 
 
-/// See: [component_base.UiComponent]
+/// The basis for a over_react component, extending [react.Component]. (Successor to [BaseComponent]).
 ///
-/// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
+/// Includes support for strongly-typed props and utilities for prop and CSS classname forwarding.
+///
+/// Use with the over_react transformer via the `@Component()` ([Component]) annotation.
 abstract class UiComponent<TProps extends UiProps> extends component_base.UiComponent<TProps> with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiComponent() {
     _throwIfNotGenerated();
   }
 
-  /// The default consumed props, taken from the keys generated in the associated @[annotations.Props] class.
+  /// Returns the component of the specified [ref].
+  /// > `react.Component` if it is a Dart component
+  /// > DOM node if it is a DOM component.
+  ///
+  /// Overridden for strong typing.
+  @override
+  _RefTypedef get ref => super.ref;
+
+  /// The default consumed props, taken from the keys generated in the associated @[Props] class.
   @toBeGenerated
   Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
 
   /// The keys for the non-forwarding props defined in this component.
   ///
-  /// For generated components, this defaults to the keys generated in the associated @[annotations.Props] class
+  /// For generated components, this defaults to the keys generated in the associated @[Props] class
   /// if this getter is not overridden.
   @override
   Iterable<component_base.ConsumedProps> get consumedProps => $defaultConsumedProps;
@@ -114,9 +126,11 @@ abstract class UiComponent<TProps extends UiProps> extends component_base.UiComp
 }
 
 
-/// See: [component_base.UiStatefulComponent]
+/// The basis for a stateful over_react component, extending [react.Component]. (Successor to [BaseComponentWithState]).
 ///
-/// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
+/// Includes support for strongly-typed props and state and utilities for prop and CSS classname forwarding.
+///
+/// Use with the over_react transformer via the `@Component()` ([Component]) annotation.
 abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState>
     extends component_base.UiStatefulComponent<TProps, TState> with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
@@ -124,26 +138,32 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
     _throwIfNotGenerated();
   }
 
-  /// The default consumed prop keys, taken from the keys generated in the associated @[annotations.Props] class.
+  /// Returns the component of the specified [ref].
+  /// > `react.Component` if it is a Dart component
+  /// > DOM node if it is a DOM component.
+  ///
+  /// Overridden for strong typing.
+  @override
+  _RefTypedef get ref => super.ref;
+
+  /// The default consumed prop keys, taken from the keys generated in the associated @[Props] class.
   @toBeGenerated
   Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
 
   /// The keys for the non-forwarding props defined in this component.
   ///
-  /// For generated components, this defaults to the keys generated in the associated @[annotations.Props] class
+  /// For generated components, this defaults to the keys generated in the associated @[Props] class
   /// if this getter is not overridden.
   @override
   Iterable<component_base.ConsumedProps> get consumedProps => $defaultConsumedProps;
 
   /// Returns a typed props object backed by the specified [propsMap].
-  ///
   /// Required to properly instantiate the generic [TProps] class.
   @override
   @toBeGenerated
   TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedPropsFactory);
 
   /// Returns a typed state object backed by the specified [stateMap].
-  ///
   /// Required to properly instantiate the generic [TState] class.
   @override @toBeGenerated TState typedStateFactory(Map stateMap) => throw new UngeneratedError(member: #typedStateFactory);
 }
@@ -151,10 +171,10 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React props that
 /// is also capable of creating React component instances.
 ///
-/// For use as a typed view into existing props [Map]s, or as a builder to create new component
+/// For use as a typed view into existing props [Maps], or as a builder to create new component
 /// instances via a fluent-style interface.
 ///
-/// Use with the over_react transformer via the `@Props()` ([annotations.Props]) annotation.
+/// Use with the over_react transformer via the `@Props()` ([Props]) annotation.
 abstract class UiProps extends component_base.UiProps with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiProps() {
@@ -169,7 +189,7 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.
 ///
-/// Use with the over_react transformer via the `@State()` ([annotations.State]) annotation.
+/// Use with the over_react transformer via the `@State()` ([State]) annotation.
 abstract class UiState extends component_base.UiState with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiState() {
