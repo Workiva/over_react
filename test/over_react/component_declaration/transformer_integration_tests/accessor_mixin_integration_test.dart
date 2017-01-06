@@ -50,7 +50,7 @@ main() {
         });
       });
 
-      group('generates prop getters/setters, when there is a custom key namespace, with', () {
+          group('generates prop getters/setters, when there is a custom key namespace, with', () {
         test('the custom namespace and the prop name as the key by default', () {
           var mixinsTest;
 
@@ -81,7 +81,7 @@ main() {
       });
     });
 
-    group('@StateMixin()', () {
+      group('@StateMixin()', () {
       group('generates state getters/setters with', () {
         test('the state class name as a namespace and the state name as the key by default', () {
           var mixinsTest;
@@ -112,7 +112,7 @@ main() {
         });
       });
 
-      group('generates state getters/setters, when there is a custom key namespace, with', () {
+          group('generates state getters/setters, when there is a custom key namespace, with', () {
         test('the custom namespace and the state name as the key by default', () {
           var mixinsTest;
 

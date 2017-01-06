@@ -42,7 +42,6 @@ abstract class CssClassPropsMixin {
   String classNameBlacklist;
 }
 
-
 /// A MapView with the typed getters/setters for all CSS-class-related props.
 class CssClassPropsMapView extends MapView with CssClassPropsMixin {
   /// Create a new instance backed by the specified map.
