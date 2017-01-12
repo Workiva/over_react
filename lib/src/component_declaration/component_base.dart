@@ -86,20 +86,14 @@ typedef TProps UiFactory<TProps extends UiProps>([Map backingProps]);
 /// For use as a Function variable type when the `backingProps` argument is not required.
 typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 
-typedef dynamic _RefTypedef(String ref);
-
-/// The basis for a over_react component, extending [react.Component]. (Successor to [BaseComponent]).
+/// The basis for a over_react component.
 ///
 /// Includes support for strongly-typed props and utilities for prop and CSS classname forwarding.
+///
+/// Extends [react.Component].
+///
+/// Related: [UiStatefulComponent]
 abstract class UiComponent<TProps extends UiProps> extends react.Component {
-  /// Returns the component of the specified [ref].
-  /// > `react.Component` if it is a Dart component
-  /// > DOM node if it is a DOM component.
-  ///
-  /// Overridden for strong typing.
-  @override
-  _RefTypedef get ref => super.ref;
-
   /// The props for the non-forwarding props defined in this component.
   Iterable<ConsumedProps> get consumedProps => null;
 
@@ -131,12 +125,12 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   void validateRequiredProps(Map appliedProps) {
     consumedProps?.forEach((ConsumedProps consumedProps) {
       consumedProps.props.forEach((PropDescriptor prop) {
-            if (!prop.isRequired) return;
-            if (prop.isNullable && appliedProps.containsKey(prop.key)) return;
-            if (!prop.isNullable && appliedProps[prop.key] != null) return;
+        if (!prop.isRequired) return;
+        if (prop.isNullable && appliedProps.containsKey(prop.key)) return;
+        if (!prop.isNullable && appliedProps[prop.key] != null) return;
 
-            throw new PropError.required(prop.key, prop.errorMessage);
-          });
+        throw new PropError.required(prop.key, prop.errorMessage);
+      });
     });
   }
 
@@ -203,11 +197,11 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   // ----------------------------------------------------------------------
 }
 
-/// /// The basis for a stateful over_react component.
+/// The basis for a stateful over_react component.
 ///
 /// Includes support for strongly-typed props and state and utilities for prop and CSS classname forwarding.
 ///
-/// Extends [react.Component]
+/// Extends [react.Component].
 ///
 /// Related: [UiComponent]
 abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState> extends UiComponent<TProps> {
@@ -240,10 +234,12 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   set unwrappedState(Map value) => super.state = value;
 
   /// Returns a typed state object backed by the specified [stateMap].
+  ///
   /// Required to properly instantiate the generic [TState] class.
   TState typedStateFactory(Map stateMap);
 
   /// Returns a typed state object backed by a new Map.
+  ///
   /// Convenient for use with [getInitialState] and [setState].
   TState newState() => typedStateFactory({});
 

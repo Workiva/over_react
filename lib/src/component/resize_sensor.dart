@@ -15,6 +15,7 @@
 /// Thanks!
 /// https://github.com/marcj/css-element-queries/blob/master/src/ResizeSensor.js
 library resize_sensor;
+
 import 'dart:collection';
 import 'dart:html';
 
@@ -78,7 +79,6 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
 
   Element _expandSensorChildRef;
   Element _expandSensorRef;
-  Element _collapseSensorChildRef;
   Element _collapseSensorRef;
 
   @override
@@ -111,10 +111,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
       ..key = 'expandSensor'
     )(expandSensorChild);
 
-    var collapseSensorChild = (Dom.div()
-      ..ref = (ref) { _collapseSensorChildRef = ref; }
-      ..style = _collapseSensorChildStyle
-    )();
+    var collapseSensorChild = (Dom.div()..style = _collapseSensorChildStyle)();
 
     var collapseSensor = (Dom.div()
       ..className = 'resize-sensor-collapse'
