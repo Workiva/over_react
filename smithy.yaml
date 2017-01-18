@@ -1,5 +1,6 @@
 project: dart
 language: dart
+runner_image: drydock-prod.workiva.net/workiva/smithy-runner:112206
 
 # dart 1.19.1, built from https://github.com/Workiva/smithy-runner-dart/tree/0.0.4
 runner_image: drydock-prod.workiva.org/workiva/smithy-runner-dart:74173
