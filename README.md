@@ -495,15 +495,15 @@ as shown in the examples above.
 
 ## Component Formatting
 > __A note on dart_style:__
-> 
+>
 > Currently, [dart_style (dartfmt)](https://github.com/dart-lang/dart_style) decreases the readability of components
 > built using [OverReact's fluent-style](#fluent-style-component-consumption).
 > See https://github.com/dart-lang/dart_style/issues/549 for more info.
-> 
+>
 > We're exploring some different ideas to improve automated formatting, but for the time being, we __do not recommend__ using dart_style with OverReact.
-> 
+>
 > However, if you do choose to use dart_style, you can greatly improve its output by using trailing commas in children argument lists:
-> 
+>
 > * dart_style formatting:
 > ```dart
 > return (Button()

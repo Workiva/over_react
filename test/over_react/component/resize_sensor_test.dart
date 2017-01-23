@@ -18,7 +18,7 @@ library resize_sensor_test;
 import 'dart:async';
 import 'dart:html';
 
-import 'package:browser_detect/browser_detect.dart';
+import 'package:platform_detect/platform_detect.dart';
 import 'package:over_react/over_react.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_dom.dart' as react_dom;
@@ -126,11 +126,11 @@ void main() {
         expect(renderedNode.style.display, equals('block'));
 
         var nodeStyleDecl = renderedNode.style;
-        if (browser.isIe && browser.version < '11') {
+        if (browser.isInternetExplorer && browser.version.major < 11) {
           expect(nodeStyleDecl.getPropertyValue('-ms-flex-positive'), '1');
           expect(nodeStyleDecl.getPropertyValue('-ms-flex-negative'), '1');
           expect(nodeStyleDecl.getPropertyValue('-ms-flex-preferred-size'), '0%');
-        } else if (browser.isSafari && browser.version < '9') {
+        } else if (browser.isSafari && browser.version.major < 9) {
           expect(nodeStyleDecl.getPropertyValue('-webkit-flex'), '1 1 0%');
         } else {
           expect(nodeStyleDecl.getPropertyValue('flex'), '1 1 0%');
@@ -143,12 +143,12 @@ void main() {
         expect(renderedNode.style.position, equals('relative'));
 
         var nodeStyleDecl = renderedNode.style;
-        if (browser.isIe && browser.version < '11') {
+        if (browser.isInternetExplorer && browser.version.major < 11) {
           expect(renderedNode.style.display, equals('-ms-flexbox'));
           expect(nodeStyleDecl.getPropertyValue('-ms-flex-positive'), '1');
           expect(nodeStyleDecl.getPropertyValue('-ms-flex-negative'), '1');
           expect(nodeStyleDecl.getPropertyValue('-ms-flex-preferred-size'), '0%');
-        } else if (browser.isSafari && browser.version < '9') {
+        } else if (browser.isSafari && browser.version.major < 9) {
           expect(renderedNode.style.display, equals('-webkit-flex'));
           expect(nodeStyleDecl.getPropertyValue('-webkit-flex'), '1 1 0%');
         } else {

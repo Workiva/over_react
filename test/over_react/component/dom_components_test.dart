@@ -40,6 +40,7 @@ main() {
       String name = MirrorSystem.getName(element.simpleName);
       String expectedTagName = name;
       if (expectedTagName == 'variable') expectedTagName = 'var';
+      if (expectedTagName == 'svgSet') expectedTagName = 'set';
       if (expectedTagName == 'svgSwitch') expectedTagName = 'switch';
       if (expectedTagName == 'colorProfile') expectedTagName = 'color-profile';
       if (expectedTagName == 'fontFace') expectedTagName = 'font-face';

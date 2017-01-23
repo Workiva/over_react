@@ -15,7 +15,6 @@
 library test_component.type_inheritance.subsubtype;
 
 import 'package:over_react/over_react.dart';
-
 import './subtype.dart';
 
 @Factory()

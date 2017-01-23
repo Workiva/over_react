@@ -25,6 +25,7 @@ import 'package:over_react/over_react.dart' show
     prettyPrintMap,
     unindent,
     PropError;
+
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
@@ -186,6 +187,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   TProps typedPropsFactory(Map propsMap);
 
   /// Returns a typed props object backed by a new Map.
+  ///
   /// Convenient for use with [getDefaultProps].
   TProps newProps() => typedPropsFactory({});
 
@@ -237,6 +239,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   TState typedStateFactory(Map stateMap);
 
   /// Returns a typed state object backed by a new Map.
+  ///
   /// Convenient for use with [getInitialState] and [setState].
   TState newState() => typedStateFactory({});
 

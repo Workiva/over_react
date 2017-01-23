@@ -121,5 +121,23 @@ main() {
         expect(actual, equals(expected));
       });
     });
+
+    group('newStyleFromProps() returns', () {
+      test('a copy of the style map found in the specified props', () {
+        var styles = {'color': 'red', 'width': '10rem'};
+        var props = domProps()
+          ..style = styles;
+
+        expect(newStyleFromProps(props), equals(styles));
+      });
+
+      test('an empty map when the specified props are null', () {
+        expect(newStyleFromProps(null), equals({}));
+      });
+
+      test('an empty map when the specified props have a null style map', () {
+        expect(newStyleFromProps(domProps()), equals({}));
+      });
+    });
   });
 }
