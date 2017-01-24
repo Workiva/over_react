@@ -1,21 +1,48 @@
 # OverReact Changelog
 
+## 1.4.0
+
+> [Complete `1.4.0` Changeset](https://github.com/Workiva/over_react/compare/1.3.0...1.4.0)
+
+__Sync changes from original private repo library__ (#40)
+> _This is the last time we'll do this - as the original library has now been completely switched over to use `over_react`_
+
+  * __Switched dependency__ from `browser_detect` to our [new `platform_detect` library](https://github.com/Workiva/platform_detect)!
+
+  * __Improved__ `toString` method of `DebugFriendlyConstant`.
+  * __Improved__ `setSelectionRange` polyfill to avoid https://github.com/dart-lang/sdk/issues/22967
+
+  * __Added__ typedef for `ElementCallback` and `ResizeSensorHandler`.
+  * __Added__ `newStyleFromProps` utility function.
+  * __Added__ `getPropKey` utility function.
+    * Allows you to get a namespaced prop key dynamically!
+
+
+
+__Miscellaneous__
+
+  * #28 Run unit tests in dart2js on CI
+  * #37 Update formatting guidelines WRT dartfmt and trailing commas
+
+
+&nbsp;
+
 ## 1.3.0
 
 > [Complete `1.3.0` Changeset](https://github.com/Workiva/over_react/compare/1.2.0...1.3.0)
 
 __React JS Upgrade__
 
-  * [#31](https://github.com/Workiva/over_react/pull/31) Upgrade to 
-    [React JS `15.4.x`](https://github.com/facebook/react/releases/tag/v15.4.0) via 
+  * [#31](https://github.com/Workiva/over_react/pull/31) Upgrade to
+    [React JS `15.4.x`](https://github.com/facebook/react/releases/tag/v15.4.0) via
     [react-dart `3.1.0`](https://github.com/cleandart/react-dart/pull/108).
-  * [#27](https://github.com/Workiva/over_react/ussues/27) Add missing SVG elements 
+  * [#27](https://github.com/Workiva/over_react/ussues/27) Add missing SVG elements
     _(e.g. `Dom.foreignObject` pointed out by @kasperpeulen)_
-    
+
 __We are now on Gitter!__
 
-  * [#33](https://github.com/Workiva/over_react/pull/33) Implement vehicle for community discussion 
-    ([on Gitter](https://gitter.im/over_react/Lobby)). 
+  * [#33](https://github.com/Workiva/over_react/pull/33) Implement vehicle for community discussion
+    ([on Gitter](https://gitter.im/over_react/Lobby)).
     _Thanks for [the suggestion](https://github.com/Workiva/over_react/issues/32) @jtrunick!_
 
 
@@ -34,7 +61,7 @@ __Dependency Updates__
 
   * [#23](https://github.com/Workiva/over_react/pull/23) Update minimum Dart SDK version to `1.19.1`.
   * [#15](https://github.com/Workiva/over_react/pull/15) Update minimum `react` package version to `3.0.1`.
-  
+
 __Bug Fixes__
 
   * [#17](https://github.com/Workiva/over_react/pull/17) Add missing `browser_detect` dependency.
@@ -55,7 +82,7 @@ __Documentation__
 > [Complete `1.1.1` Changeset](https://github.com/Workiva/over_react/compare/1.1.0...1.1.1)
 
   * [#6](https://github.com/Workiva/over_react/pull/6) Add contributor documentation.
-  * [#7](https://github.com/Workiva/over_react/pull/7) Allow "unsupported" units to be passed 
+  * [#7](https://github.com/Workiva/over_react/pull/7) Allow "unsupported" units to be passed
     to the `toRem` and `toPx` functions.
 
 
@@ -68,8 +95,8 @@ __Documentation__
 
 __New Features__
 
-  * [#10](https://github.com/Workiva/over_react/pull/10) Add `FluxUiComponent` and `FluxUiStatefulComponent`. 
-    * Enables consumers to build UI components with a uni-directional data flow via the 
+  * [#10](https://github.com/Workiva/over_react/pull/10) Add `FluxUiComponent` and `FluxUiStatefulComponent`.
+    * Enables consumers to build UI components with a uni-directional data flow via the
       [w_flux](https://github.com/workiva/w_flux) library.
 
 __Misc__
@@ -85,8 +112,8 @@ __Misc__
 
 > [Complete `1.0.2` Changeset](https://github.com/Workiva/over_react/compare/1.0.1...1.0.2)
 
-  * [#5](https://github.com/Workiva/over_react/pull/5) Add some Bootstrap UI components to `web/` 
-    to demonstrate what can be built using OverReact. 
+  * [#5](https://github.com/Workiva/over_react/pull/5) Add some Bootstrap UI components to `web/`
+    to demonstrate what can be built using OverReact.
 
 
 
@@ -96,7 +123,7 @@ __Misc__
 
 > [Complete `1.0.1` Changeset](https://github.com/Workiva/over_react/compare/1.0.0...1.0.1)
 
-  * Add test coverage for the `constants`, `dom_util`, `guid_util` and `event_helpers` libraries. 
+  * Add test coverage for the `constants`, `dom_util`, `guid_util` and `event_helpers` libraries.
 
 
 
