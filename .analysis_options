@@ -1,6 +1,7 @@
 analyzer:
   exclude:
     - integrate/**
+    - _site/**
   strong-mode: true
 linter:
   rules:
