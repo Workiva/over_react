@@ -310,7 +310,7 @@ main() {
 
       group('modifyProps()', () {
         test('passes the provided modifier itself', () {
-          modifier(UiProps props) {
+          modifier(Map props) {
             props['className'] = 'modified-class-name';
           }
 
@@ -341,7 +341,7 @@ main() {
         });
 
         test('does nothing when shouldModify is false', () {
-          modifier(UiProps props) {
+          modifier(Map props) {
             props['className'] = 'modified-class-name';
           }
 
