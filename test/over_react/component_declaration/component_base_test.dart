@@ -260,10 +260,19 @@ main() {
         mapProxyTests((Map backingMap) => new TestComponentProps(backingMap));
       });
 
-      test('addProp() adds the given key-value pair', () {
-        var props = new TestComponentProps();
-        props.addProp('key', 'value');
-        expect(props, equals({'key': 'value'}));
+      group('addProp()', () {
+        test('adds the given key-value pair', () {
+          var props = new TestComponentProps();
+          props.addProp('key', 'value');
+          expect(props, equals({'key': 'value'}));
+        });
+
+        test('does nothing when shouldAdd is false', () {
+          var props = new TestComponentProps();
+          props.addProp('key', 'value', false);
+
+          expect(props, equals({}));
+        });
       });
 
       group('addProps()', () {
@@ -290,11 +299,18 @@ main() {
 
           expect(props, equals({'key': 'value'}));
         });
+
+        test('does nothing when shouldAdd is false', () {
+          var props = new TestComponentProps();
+          props.addProps({'newKey1': 'newValue1'}, false);
+
+          expect(props, equals({}));
+        });
       });
 
       group('modifyProps()', () {
         test('passes the provided modifier itself', () {
-          modifier(Map props) {
+          modifier(UiProps props) {
             props['className'] = 'modified-class-name';
           }
 
@@ -322,6 +338,23 @@ main() {
           expect(() => props.modifyProps(null), returnsNormally);
 
           expect(props, equals({'className': 'original-class-name'}));
+        });
+
+        test('does nothing when shouldModify is false', () {
+          modifier(UiProps props) {
+            props['className'] = 'modified-class-name';
+          }
+
+          var props = new TestComponentProps()
+            ..['className'] = 'original-class-name'
+            ..['id'] = 'original-id';
+
+          props.modifyProps(modifier, false);
+
+          expect(props, equals({
+            'className': 'original-class-name',
+            'id': 'original-id'
+          }));
         });
       });
 
