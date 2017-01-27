@@ -282,7 +282,8 @@ abstract class UiProps
     props[propKey] = value;
   }
 
-  /// Adds a Map of arbitrary props if [shouldAdd] is true, otherwise, does nothing.
+  /// Adds a Map of arbitrary props if [shouldAdd] is true and [propMap] is not null.
+  ///
   /// [props] may be null.
   void addProps(Map propMap, [bool shouldAdd = true]) {
     if (!shouldAdd || propMap == null) return;
@@ -290,7 +291,7 @@ abstract class UiProps
     props.addAll(propMap);
   }
 
-  /// Allows [modifier] to alter this instance of props if [shouldModify] is true, otherwise, does nothing.
+  /// Allows [modifier] to alter this instance of props if [shouldModify] is true and [modifier] is not null.
   void modifyProps(PropsModifier modifier, [bool shouldModify = true]){
     if (!shouldModify || modifier == null) return;
 
