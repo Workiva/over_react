@@ -362,14 +362,15 @@ class ResizeSensorPropsMixinMapView extends MapView with ResizeSensorPropsMixin 
 /// A mixin that makes it easier to manage animation frames within a React component lifecycle.
 class _SafeAnimationFrameMixin {
   /// The ids of the pending animation frames.
-  final _animationFrameIds = <Object>[];
+  final _animationFrameIds = <int>[];
 
   /// Calls [Window.requestAnimationFrame] with the specified [callback], and keeps track of the
   /// request ID so that it can be cancelled in [cancelAnimationFrames].
   void requestAnimationFrame(callback()) {
-    var queuedId = window.requestAnimationFrame((Object id) {
+    int queuedId;
+    queuedId = window.requestAnimationFrame((_) {
       callback();
-      _animationFrameIds.remove(id);
+      _animationFrameIds.remove(queuedId);
     });
 
     _animationFrameIds.add(queuedId);
