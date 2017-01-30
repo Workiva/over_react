@@ -14,6 +14,7 @@ dependencies:
   transformer_utils: "^0.1.1"
   w_flux: "^2.5.0"
   platform_detect: "^1.1.1"
+  quiver: ">=0.21.4 <0.25.0"
 dev_dependencies:
   matcher: ">=0.11.0 <0.13.0"
   coverage: "^0.7.2"

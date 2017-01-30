@@ -2,6 +2,7 @@
 
 ## 1.5.0
 * Add `ResizeSensorProps.quickMount` flag for better performance when sensors are mounted often #46
+* Add missing quiver dependency (now depends on quiver `>=0.21.4 <0.25.0`)
 
 ## 1.4.0
 
