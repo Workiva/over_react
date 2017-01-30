@@ -164,7 +164,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
       ..key = 'resizeSensor'
     )(expandSensor, collapseSensor);
 
-    var wrapperStyles;
+    Map<String, dynamic> wrapperStyles;
     if (props.isFlexChild) {
       wrapperStyles = _wrapperStylesFlexChild;
     } else if (props.isFlexContainer) {
