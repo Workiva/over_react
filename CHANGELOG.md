@@ -1,5 +1,10 @@
 # OverReact Changelog
 
+## 1.5.0
+* Add `ResizeSensorProps.quickMount` flag for better performance when sensors are mounted often #46
+* Add missing quiver dependency (now depends on quiver `>=0.21.4 <0.25.0`)
+* Broaden analyzer dependency range to `>=0.26.1+3 <0.30.0` (was `>=0.26.1+3 <0.28.0`)
+
 ## 1.4.0
 
 > [Complete `1.4.0` Changeset](https://github.com/Workiva/over_react/compare/1.3.0...1.4.0)
