@@ -283,8 +283,6 @@ abstract class UiProps
   }
 
   /// Adds a Map of arbitrary props if [shouldAdd] is true and [propMap] is not null.
-  ///
-  /// [props] may be null.
   void addProps(Map propMap, [bool shouldAdd = true]) {
     if (!shouldAdd || propMap == null) return;
 
