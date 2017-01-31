@@ -275,23 +275,23 @@ typedef PropsModifier(Map props);
 abstract class UiProps
     extends Object with MapViewMixin, PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
     implements Map {
-  /// Adds an arbitrary prop key-value pair.
-  void addProp(propKey, value) {
+  /// Adds an arbitrary prop key-value pair if [shouldAdd] is true, otherwise, does nothing.
+  void addProp(propKey, value, [bool shouldAdd = true]) {
+    if (!shouldAdd) return;
+
     props[propKey] = value;
   }
 
-  /// Adds a Map of arbitrary props. [props] may be null.
-  void addProps(Map propMap) {
-    if (propMap == null) {
-      return;
-    }
+  /// Adds a Map of arbitrary props if [shouldAdd] is true and [propMap] is not null.
+  void addProps(Map propMap, [bool shouldAdd = true]) {
+    if (!shouldAdd || propMap == null) return;
 
     props.addAll(propMap);
   }
 
-  /// Allows [modifier] to alter this instance of props.
-  void modifyProps(PropsModifier modifier){
-    if (modifier == null) return;
+  /// Allows [modifier] to alter this instance of props if [shouldModify] is true and [modifier] is not null.
+  void modifyProps(PropsModifier modifier, [bool shouldModify = true]){
+    if (!shouldModify || modifier == null) return;
 
     modifier(this);
   }
