@@ -72,7 +72,7 @@ main() {
 
       expect(() {
         parseCompilationUnit(transformedSource);
-      }, isNot(throws), reason: 'transformed source should parse without errors:\n$transformedSource');
+      }, returnsNormally, reason: 'transformed source should parse without errors:\n$transformedSource');
     }
 
     group('generates an implementation that parses correctly, preserving line numbers', () {

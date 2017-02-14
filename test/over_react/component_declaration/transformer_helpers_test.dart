@@ -140,7 +140,7 @@ main() {
 
     group('\$PropKeys (ungenerated)', () {
       setUpAll(() {
-        expect(() => const $PropKeys(Null), isNot(throwsNoSuchMethodError),
+        expect(() => const $PropKeys(Null), returnsNormally,
             reason: 'Instanitating a const \$PropKeys should not have thrown an error. '
                     'Ensure that the over_react transformer is NOT running for this test file.'
         );
@@ -164,7 +164,7 @@ main() {
 
     group('\$Props (ungenerated)', () {
       setUpAll(() {
-        expect(() => const $Props(Null), isNot(throwsNoSuchMethodError),
+        expect(() => const $Props(Null), returnsNormally,
             reason: 'Instanitating a const \$Props should not have thrown an error. '
                     'Ensure that the over_react transformer is NOT running for this test file.'
         );
