@@ -241,7 +241,7 @@ main() {
       });
 
       group('fails when the props are not present in a', () {
-        final failMessagePattern = new RegExp(r"Which: has props/attributes map with value .* which  doesn't contain key 'id'");
+        final failMessagePattern = new RegExp(r"Which: has props/attributes map with value .* which doesn't contain key 'id'");
 
         group('ReactElement', () {
           test('(DOM)', () {
@@ -450,7 +450,7 @@ void shouldFail(value, Matcher matcher, expected) {
     if (expected is String) {
       expect(_errorString, equalsIgnoringWhitespace(expected));
     } else {
-      expect(_errorString.replaceAll('\n', ' '), expected);
+      expect(_errorString.replaceAll(new RegExp(r'[\s\n]+'), ' '), expected);
     }
   }
 
