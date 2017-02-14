@@ -21,10 +21,10 @@ import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:test/test.dart';
 
-import 'component_type_checking_test/one_level_wrapper.dart';
+import '../../test_util/one_level_wrapper.dart';
+import '../../test_util/two_level_wrapper.dart';
 import 'component_type_checking_test/test_a.dart';
 import 'component_type_checking_test/test_b.dart';
-import 'component_type_checking_test/two_level_wrapper.dart';
 import 'component_type_checking_test/type_inheritance/abstract_inheritance/abstract.dart';
 import 'component_type_checking_test/type_inheritance/abstract_inheritance/extendedtype.dart';
 import 'component_type_checking_test/type_inheritance/parent.dart';

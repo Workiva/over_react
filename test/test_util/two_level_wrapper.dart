@@ -12,18 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library test_components.one_level_wrapper;
+library test_util.two_level_wrapper;
 
 import 'package:over_react/over_react.dart';
 
 @Factory()
-UiFactory<OneLevelWrapperProps> OneLevelWrapper;
+UiFactory<TwoLevelWrapperProps> TwoLevelWrapper;
 
 @Props()
-class OneLevelWrapperProps extends UiProps {}
+class TwoLevelWrapperProps extends UiProps {}
 
 @Component(isWrapper: true)
-class OneLevelWrapperComponent extends UiComponent<OneLevelWrapperProps> {
+class TwoLevelWrapperComponent extends UiComponent<TwoLevelWrapperProps> {
   @override
   render() => Dom.div()(props.children.single);
 }
