@@ -117,8 +117,8 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers:
       ComponentTypeMeta instanceTypeMeta;
 
       if (isCompositeComponent && isDartComponent(instance)) {
-        var componentType = getComponentTypeFromAlias(getDartComponent(instance).runtimeType);
-        instanceTypeMeta = componentType == null ? const ComponentTypeMeta.none() : getComponentTypeMeta(componentType);
+        var reactClassType = getProperty(getDartComponent(instance).jsThis, 'constructor');
+        instanceTypeMeta = getComponentTypeMeta(reactClassType);
       } else if (isValidElement(instance)) {
         instanceTypeMeta = getComponentTypeMeta(instance.type);
       } else {
