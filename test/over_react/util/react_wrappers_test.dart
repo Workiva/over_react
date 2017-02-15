@@ -577,7 +577,7 @@ main() {
       });
 
       group('traverses children of Wrapper components', () {
-        group('and retruns props for a', () {
+        group('and returns props for a', () {
           group('composite JS ReactComponent', () {
             test('', () {
               ReactComponent renderedInstance = render(OneLevelWrapper()(
@@ -640,7 +640,7 @@ main() {
               }));
             });
 
-            test('except when traversWrappers is false', () {
+            test('except when traverseWrappers is false', () {
               ReactComponent renderedInstance = render(OneLevelWrapper()(
                 testJsComponentFactory({
                   'jsProp': 'js',
@@ -689,7 +689,7 @@ main() {
               }));
             });
 
-            test('except when traversWrappers is false', () {
+            test('except when traverseWrappers is false', () {
               ReactElement instance = OneLevelWrapper()(
                 (Dom.div()
                   ..addProp('domProp', 'dom')
@@ -738,7 +738,7 @@ main() {
               }));
             });
 
-            test('except when traversWrappers is false', () {
+            test('except when traverseWrappers is false', () {
               ReactElement instance = OneLevelWrapper()(
                 TestComponentFactory({
                   'dartProp': 'dart',

@@ -108,6 +108,9 @@ Expando<UnmodifiableMapView> _elementPropsCache = new Expando('_elementPropsCach
 /// For a native Dart component, this returns its [react.Component.props] in an unmodifiable Map view.
 /// For a JS component, this returns the result of [getJsProps] in an unmodifiable Map view.
 ///
+/// If [traverseWrappers] is `true` then it will return an unmodifiable Map view of props of the first non-"Wrapper"
+/// instance.
+///
 /// Throws if [instance] is not a valid [ReactElement] or composite [ReactComponent] .
 Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers: false}) {
   var isCompositeComponent = _isCompositeComponent(instance);
@@ -117,8 +120,8 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers:
       ComponentTypeMeta instanceTypeMeta;
 
       if (isCompositeComponent && isDartComponent(instance)) {
-        var reactClassType = getProperty(getDartComponent(instance).jsThis, 'constructor');
-        instanceTypeMeta = getComponentTypeMeta(reactClassType);
+        ReactClass type = getProperty(getDartComponent(instance).jsThis, 'constructor');
+        instanceTypeMeta = getComponentTypeMeta(type);
       } else if (isValidElement(instance)) {
         instanceTypeMeta = getComponentTypeMeta(instance.type);
       } else {
