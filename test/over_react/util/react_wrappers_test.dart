@@ -816,7 +816,7 @@ main() {
               }));
             });
 
-            test('except when traverseWrapers is false', () {
+            test('except when traverseWrappers is false', () {
               ReactComponent renderedInstance = render(OneLevelWrapper()(
                 TestComponentFactory({
                   'jsProp': 'js',
