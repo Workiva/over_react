@@ -266,7 +266,6 @@ main() {
               class FooComponent {}
             ''');
 
-            print(transformedFile.getTransformedText());
             expect(transformedFile.getTransformedText(), contains('parentType: \$BarComponentFactory'));
           });
 
@@ -282,7 +281,6 @@ main() {
               class FooComponent {}
             ''');
 
-            print(transformedFile.getTransformedText());
             expect(transformedFile.getTransformedText(), contains('parentType: baz.\$BarComponentFactory'));
           });
         });
