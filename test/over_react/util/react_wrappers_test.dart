@@ -578,6 +578,64 @@ main() {
 
       group('traverses children of Wrapper components', () {
         group('and returns props for a', () {
+          group('composite JS ReactElement', () {
+            test('', () {
+              ReactElement instance = OneLevelWrapper()(
+                testJsComponentFactory({
+                  'jsProp': 'js',
+                  'style': testStyle,
+                }, testChildren)
+              );
+
+              expect(getProps(instance, traverseWrappers: true), equals({
+                'jsProp': 'js',
+                'style': testStyle,
+                'children': testChildren
+              }));
+            });
+
+            test('even when there are multiple levels of wrappers', () {
+              ReactElement instance = TwoLevelWrapper()(
+                OneLevelWrapper()(
+                  testJsComponentFactory({
+                    'jsProp': 'js',
+                    'style': testStyle,
+                  }, testChildren)
+                )
+              );
+
+              expect(getProps(instance, traverseWrappers: true), equals({
+                'jsProp': 'js',
+                'style': testStyle,
+                'children': testChildren
+              }));
+            });
+
+            test('except when the top level component is not a wrapper', () {
+              ReactElement instance = testJsComponentFactory({
+                'jsProp': 'js',
+                'style': testStyle,
+              }, testChildren);
+
+              expect(getProps(instance, traverseWrappers: true), equals({
+                'jsProp': 'js',
+                'style': testStyle,
+                'children': testChildren
+              }));
+            });
+
+            test('except when traverseWrappers is false', () {
+              ReactElement instance = OneLevelWrapper()(
+                testJsComponentFactory({
+                  'jsProp': 'js',
+                  'style': testStyle,
+                }, testChildren)
+              );
+
+              expect(getProps(instance), equals({'children': anything}));
+            });
+          });
+
           group('composite JS ReactComponent', () {
             test('', () {
               ReactComponent renderedInstance = render(OneLevelWrapper()(
@@ -648,11 +706,7 @@ main() {
                 }, testChildren)
               ));
 
-              expect(getProps(renderedInstance), isNot({
-                'jsProp': 'js',
-                'style': testStyle,
-                'children': testChildren
-              }));
+              expect(getProps(renderedInstance), equals({'children': anything}));
             });
           });
 
@@ -689,6 +743,19 @@ main() {
               }));
             });
 
+            test('except when the top level component is not a wrapper', () {
+              ReactElement instance = (Dom.div()
+                ..addProp('domProp', 'dom')
+                ..style = testStyle
+              )(testChildren);
+
+              expect(getProps(instance, traverseWrappers: true), equals({
+                'domProp': 'dom',
+                'style': testStyle,
+                'children': testChildren
+              }));
+            });
+
             test('except when traverseWrappers is false', () {
               ReactElement instance = OneLevelWrapper()(
                 (Dom.div()
@@ -697,11 +764,7 @@ main() {
                 )(testChildren)
               );
 
-              expect(getProps(instance), isNot({
-                'domProp': 'dom',
-                'style': testStyle,
-                'children': testChildren
-              }));
+              expect(getProps(instance), equals({'children': anything}));
             });
           });
 
@@ -738,6 +801,19 @@ main() {
               }));
             });
 
+            test('except when the top level component is not a wrapper', () {
+              ReactElement instance = TestComponentFactory({
+                'dartProp': 'dart',
+                'style': testStyle,
+              }, testChildren);
+
+              expect(getProps(instance, traverseWrappers: true), equals({
+                'dartProp': 'dart',
+                'style': testStyle,
+                'children': testChildren
+              }));
+            });
+
             test('except when traverseWrappers is false', () {
               ReactElement instance = OneLevelWrapper()(
                 TestComponentFactory({
@@ -746,11 +822,7 @@ main() {
                 }, testChildren)
               );
 
-              expect(getProps(instance), isNot({
-                'dartProp': 'dart',
-                'style': testStyle,
-                'children': testChildren
-              }));
+              expect(getProps(instance), equals({'children': anything}));
             });
           });
 
@@ -758,13 +830,13 @@ main() {
             test('', () {
               ReactComponent renderedInstance = render(OneLevelWrapper()(
                 TestComponentFactory({
-                  'jsProp': 'js',
+                  'dartProp': 'dart',
                   'style': testStyle,
                 }, testChildren)
               ));
 
               expect(getProps(renderedInstance, traverseWrappers: true), equals({
-                'jsProp': 'js',
+                'dartProp': 'dart',
                 'style': testStyle,
                 'children': testChildren
               }));
@@ -774,14 +846,14 @@ main() {
               ReactComponent renderedInstance = render(TwoLevelWrapper()(
                 OneLevelWrapper()(
                   TestComponentFactory({
-                    'jsProp': 'js',
+                    'dartProp': 'dart',
                     'style': testStyle,
                   }, testChildren)
                 )
               ));
 
               expect(getProps(renderedInstance, traverseWrappers: true), equals({
-                'jsProp': 'js',
+                'dartProp': 'dart',
                 'style': testStyle,
                 'children': testChildren
               }));
@@ -791,26 +863,39 @@ main() {
               var mountNode = new DivElement();
               ReactComponent renderedInstance = react_dom.render(OneLevelWrapper()(
                 TestComponentFactory({
-                  'jsProp': 'js',
+                  'dartProp': 'dart',
                   'style': testStyle,
                 }, testChildren)
               ), mountNode);
 
               expect(getProps(renderedInstance, traverseWrappers: true), equals({
-                'jsProp': 'js',
+                'dartProp': 'dart',
                 'style': testStyle,
                 'children': testChildren
               }));
 
               renderedInstance = react_dom.render(OneLevelWrapper()(
                 TestComponentFactory({
-                  'jsProp': 'other js',
+                  'dartProp': 'other dart',
                   'style': testStyle,
                 }, testChildren)
               ), mountNode);
 
               expect(getProps(renderedInstance, traverseWrappers: true), equals({
-                'jsProp': 'other js',
+                'dartProp': 'other dart',
+                'style': testStyle,
+                'children': testChildren
+              }));
+            });
+
+            test('expect when the top level component is not a wrapper', () {
+              ReactComponent renderedInstance = render(TestComponentFactory({
+                'dartProp': 'dart',
+                'style': testStyle,
+              }, testChildren));
+
+              expect(getProps(renderedInstance, traverseWrappers: true), equals({
+                'dartProp': 'dart',
                 'style': testStyle,
                 'children': testChildren
               }));
@@ -819,16 +904,12 @@ main() {
             test('except when traverseWrappers is false', () {
               ReactComponent renderedInstance = render(OneLevelWrapper()(
                 TestComponentFactory({
-                  'jsProp': 'js',
+                  'dartProp': 'dart',
                   'style': testStyle,
                 }, testChildren)
               ));
 
-              expect(getProps(renderedInstance), isNot({
-                'jsProp': 'other js',
-                'style': testStyle,
-                'children': testChildren
-              }));
+              expect(getProps(renderedInstance), equals({'children': anything}));
             });
           });
         });
