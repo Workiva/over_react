@@ -41,5 +41,7 @@ void zonedExpect(actual, matcher,
     {String reason, bool verbose: false, ErrorFormatter formatter}) {
   validateZone();
 
-  return _zone.run(() => expect(actual, matcher, verbose: verbose, formatter: formatter));
+  return _zone.run(() {
+    expect(actual, matcher, verbose: verbose, formatter: formatter);
+  });
 }

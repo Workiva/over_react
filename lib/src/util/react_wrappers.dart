@@ -19,6 +19,7 @@ import 'dart:collection';
 import 'dart:html';
 
 import 'package:js/js.dart';
+import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_interop_helpers.dart';
@@ -107,11 +108,38 @@ Expando<UnmodifiableMapView> _elementPropsCache = new Expando('_elementPropsCach
 /// For a native Dart component, this returns its [react.Component.props] in an unmodifiable Map view.
 /// For a JS component, this returns the result of [getJsProps] in an unmodifiable Map view.
 ///
+/// If [traverseWrappers] is `true` then it will return an unmodifiable Map view of props of the first non-"Wrapper"
+/// instance.
+///
 /// Throws if [instance] is not a valid [ReactElement] or composite [ReactComponent] .
-Map getProps(/* ReactElement|ReactComponent */ instance) {
+Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers: false}) {
   var isCompositeComponent = _isCompositeComponent(instance);
 
   if (isValidElement(instance) || isCompositeComponent) {
+    if (traverseWrappers) {
+      ComponentTypeMeta instanceTypeMeta;
+
+      if (isCompositeComponent && isDartComponent(instance)) {
+        ReactClass type = getProperty(getDartComponent(instance).jsThis, 'constructor');
+        instanceTypeMeta = getComponentTypeMeta(type);
+      } else if (isValidElement(instance)) {
+        instanceTypeMeta = getComponentTypeMeta(instance.type);
+      } else {
+        throw new ArgumentError.value(instance, 'instance',
+            'must either be a Dart component ReactComponent or ReactElement when traverseWrappers is true.');
+      }
+
+      if (instanceTypeMeta.isWrapper) {
+        assert(isDartComponent(instance) && 'Non-dart components should not be wrappers' is String);
+
+        List children = getProps(instance)['children'];
+
+        if (children != null && children.isNotEmpty && isValidElement(children.first)) {
+          return getProps(children.first, traverseWrappers: true);
+        }
+      }
+    }
+
     if (!isCompositeComponent) {
       var cachedView = _elementPropsCache[instance];
       if (cachedView != null) return cachedView;
