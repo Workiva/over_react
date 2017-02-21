@@ -1,5 +1,12 @@
 # OverReact Changelog
 
+## 1.6.0
+
+> [Complete `1.6.0` Changeset](https://github.com/Workiva/over_react/compare/1.5.0...1.6.0)
+
+  * __Improved__ `getProps()` functionality. (#48)
+    * Allows you to traverse wrapper components by setting the named parameter `traverseWrappers` to `true`.
+
 ## 1.5.0
 
 > [Complete `1.5.0` Changeset](https://github.com/Workiva/over_react/compare/1.4.0...1.5.0)
