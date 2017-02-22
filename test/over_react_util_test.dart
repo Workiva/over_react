@@ -17,25 +17,12 @@
 // It can be changed back when that issue is taken care of.
 // https://github.com/Workiva/dart_dev/issues/74
 @TestOn('browser')
-library over_react_test;
+library util_test;
 
 import 'package:over_react/over_react.dart';
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 
-import 'over_react/component/abstract_transition_test.dart' as abstract_transition_test;
-import 'over_react/component/dom_components_test.dart' as dom_components_test;
-import 'over_react/component/prop_mixins_test.dart' as prop_mixins_test;
-import 'over_react/component/resize_sensor_test.dart' as resize_sensor_test;
-import 'over_react/component_declaration/component_base_test.dart' as component_base_test;
-import 'over_react/component_declaration/component_type_checking_test.dart' as component_type_checking_test;
-import 'over_react/component_declaration/flux_component_test.dart' as flux_component_test;
-import 'over_react/component_declaration/transformer_helpers_test.dart' as transformer_helpers_test;
-import 'over_react/component_declaration/transformer_integration_tests/abstract_accessor_integration_test.dart' as abstract_accessor_integration_test;
-import 'over_react/component_declaration/transformer_integration_tests/accessor_mixin_integration_test.dart' as accessor_mixin_integration_test;
-import 'over_react/component_declaration/transformer_integration_tests/component_integration_test.dart' as component_integration_test;
-import 'over_react/component_declaration/transformer_integration_tests/namespaced_accessor_integration_test.dart' as namespaced_accessor_integration_test;
-import 'over_react/component_declaration/transformer_integration_tests/stateful_component_integration_test.dart' as stateful_component_integration_test;
 import 'over_react/util/class_names_test.dart' as class_names_test;
 import 'over_react/util/constants_base_test.dart' as constants_base_test;
 import 'over_react/util/css_value_util_test.dart' as css_value_util_test;
@@ -52,24 +39,11 @@ import 'over_react/util/rem_util_test.dart' as rem_util_test;
 import 'over_react/util/string_util_test.dart' as string_util_test;
 import 'over_react/util/test_mode_test.dart' as test_mode_test;
 
-main() {
+void main() {
   setClientConfiguration();
 
   enableTestMode();
 
-  abstract_transition_test.main();
-  dom_components_test.main();
-  prop_mixins_test.main();
-  resize_sensor_test.main();
-  component_base_test.main();
-  component_type_checking_test.main();
-  flux_component_test.main();
-  transformer_helpers_test.main();
-  abstract_accessor_integration_test.main();
-  accessor_mixin_integration_test.main();
-  component_integration_test.main();
-  namespaced_accessor_integration_test.main();
-  stateful_component_integration_test.main();
   class_names_test.main();
   constants_base_test.main();
   css_value_util_test.main();

@@ -41,7 +41,9 @@ main(List<String> args) async {
     ..unitTests = [
       'test/vm_tests/',
       'test/test_util_test.dart',
-      'test/over_react_test.dart',
+      'test/over_react_component_declaration_test.dart',
+      'test/over_react_component_test.dart',
+      'test/over_react_util_test.dart',
     ];
 
   config.coverage
