@@ -31,6 +31,7 @@ import 'over_react/component_declaration/transformer_integration_tests/abstract_
 import 'over_react/component_declaration/transformer_integration_tests/accessor_mixin_integration_test.dart' as accessor_mixin_integration_test;
 import 'over_react/component_declaration/transformer_integration_tests/component_integration_test.dart' as component_integration_test;
 import 'over_react/component_declaration/transformer_integration_tests/namespaced_accessor_integration_test.dart' as namespaced_accessor_integration_test;
+import 'over_react/component_declaration/transformer_integration_tests/required_accessor_integration_test.dart' as required_accessor_integration_test;
 import 'over_react/component_declaration/transformer_integration_tests/stateful_component_integration_test.dart' as stateful_component_integration_test;
 
 main() {
@@ -46,5 +47,6 @@ main() {
   accessor_mixin_integration_test.main();
   component_integration_test.main();
   namespaced_accessor_integration_test.main();
+  required_accessor_integration_test.main();
   stateful_component_integration_test.main();
 }

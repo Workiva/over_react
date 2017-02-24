@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library over_react.component_declaration.transformer_integration_tests.required_prop_integration;
+library over_react.component_declaration.transformer_integration_tests.required_accessor_integration;
 
 import 'dart:html';
 
@@ -22,7 +22,7 @@ import 'package:test/test.dart';
 
 import '../../../test_util/test_util.dart';
 
-void requiredPropsIntegrationTest() {
+void main() {
   group('properly identifies required props by', () {
     group('throwing when a prop is required and not set', () {
       test('on mount', () {
@@ -132,6 +132,14 @@ void requiredPropsIntegrationTest() {
       });
     });
   });
+
+  test('requiredProp shorthands `const Accessor(isRequired: true)`', () {
+    expect(requiredProp, const Accessor(isRequired: true));
+  });
+
+  test('nullableRequiredProp shorthands `const Accessor(isRequired: true, isNullable: true)`', () {
+    expect(nullableRequiredProp, const Accessor(isRequired: true, isNullable: true));
+  });
 }
 
 @Factory()
@@ -139,12 +147,10 @@ UiFactory<ComponentTestProps> ComponentTest;
 
 @Props()
 class ComponentTestProps extends UiProps {
-  // ignore: deprecated_member_use
-  @Required(message: 'This Prop is Required for testing purposes.')
+  @Accessor(isRequired: true, requiredErrorMessage: 'This Prop is Required for testing purposes.')
   var requiredProp;
 
-  // ignore: deprecated_member_use
-  @Required(isNullable: true, message: 'This prop can be set to null!')
+  @Accessor(isRequired: true, isNullable: true, requiredErrorMessage: 'This prop can be set to null!')
   var nullableProp;
 }
 
