@@ -234,7 +234,7 @@ class Accessor {
   /// Whether setting a prop to null is allowed.
   final bool isNullable;
 
-  /// The erro message displayed when the accessor is not set.
+  /// The error message displayed when the accessor is not set.
   final String requiredErrorMessage;
 
   const Accessor({
@@ -246,7 +246,9 @@ class Accessor {
   });
 }
 
-/// Deprecated use [Accessor], [requiredProp], or [nullableRequiredProp] instead.
+/// Deprecated.
+///
+/// Use [Accessor], [requiredProp], or [nullableRequiredProp] instead.
 @Deprecated('2.0.0')
 class Required {
   /// Whether setting a prop to null is allowed.
