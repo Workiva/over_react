@@ -186,6 +186,9 @@ class StateMixin implements TypedMap {
 
 /// Marks a `prop` as required to be set.
 ///
+/// Validation occurs in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
+/// `componentWillReceiveProps`.
+///
 ///     @Props()
 ///     abstract class FooProps {
 ///       @requiredProp
@@ -194,6 +197,9 @@ class StateMixin implements TypedMap {
 const Accessor requiredProp = const Accessor(isRequired: true);
 
 /// Marks a `prop` as required to be set, but allowed to be set explicitly to `null`.
+///
+/// Validation occurs in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
+/// `componentWillReceiveProps`.
 ///
 ///     @Props()
 ///     abstract class FooProps {

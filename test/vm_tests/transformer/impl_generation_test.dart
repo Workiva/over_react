@@ -577,6 +577,44 @@ main() {
         ''');
         verify(logger.error('Fields are stubs for generated setters/getters and should not have initializers.', span: any));
       });
+
+      group('accessors have', () {
+        test('the Accessor and requiredProp annotation', () {
+          setUpAndGenerate('''
+            @AbstractProps()
+            class AbstractFooProps {
+              @Accessor()
+              @requiredProp
+              var bar;
+            }
+          ''');
+          verify(logger.error('At most only a single annotation can be applied to an accessor.', span: any));
+        });
+
+        test('the Accessor and nullableRequiredProp annotation', () {
+          setUpAndGenerate('''
+            @AbstractProps()
+            class AbstractFooProps {
+              @Accessor()
+              @nullableRequiredProp
+              var bar;
+            }
+          ''');
+          verify(logger.error('At most only a single annotation can be applied to an accessor.', span: any));
+        });
+
+        test('the requiredProp and nullableRequiredProp annotation', () {
+          setUpAndGenerate('''
+            @AbstractProps()
+            class AbstractFooProps {
+              @requiredProp
+              @nullableRequiredProp
+              var bar;
+            }
+          ''');
+          verify(logger.error('At most only a single annotation can be applied to an accessor.', span: any));
+        });
+      });
     });
 
     group('logs a warning when', () {
