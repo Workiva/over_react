@@ -454,7 +454,11 @@ class ImplGenerator {
             }
 
             if (annotationCount > 1) {
-              logger.error('At most only a single annotation can be applied to an accessor.', span: getSpan(sourceFile, field));
+              logger.error(
+                  '@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
+                  'You can use `@Accessor(required: true)` or `isNullable: true` instead of the shorthand versions.',
+                  span: getSpan(sourceFile, field)
+              );
             }
 
             constantValue += ')';

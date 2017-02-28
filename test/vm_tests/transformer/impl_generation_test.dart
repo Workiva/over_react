@@ -579,6 +579,9 @@ main() {
       });
 
       group('accessors have', () {
+        const expectedAccessorErrorMessage = '@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
+            'You can use `@Accessor(required: true)` or `isNullable: true` instead of the shorthand versions.';
+
         test('the Accessor and requiredProp annotation', () {
           setUpAndGenerate('''
             @AbstractProps()
@@ -588,7 +591,7 @@ main() {
               var bar;
             }
           ''');
-          verify(logger.error('At most only a single annotation can be applied to an accessor.', span: any));
+          verify(logger.error(expectedAccessorErrorMessage, span: any));
         });
 
         test('the Accessor and nullableRequiredProp annotation', () {
@@ -600,7 +603,7 @@ main() {
               var bar;
             }
           ''');
-          verify(logger.error('At most only a single annotation can be applied to an accessor.', span: any));
+          verify(logger.error(expectedAccessorErrorMessage, span: any));
         });
 
         test('the requiredProp and nullableRequiredProp annotation', () {
@@ -612,7 +615,7 @@ main() {
               var bar;
             }
           ''');
-          verify(logger.error('At most only a single annotation can be applied to an accessor.', span: any));
+          verify(logger.error(expectedAccessorErrorMessage, span: any));
         });
       });
     });
