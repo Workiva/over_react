@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library over_react.component_declaration.transformer_integration_tests.required_prop_integration;
+library over_react.component_declaration.transformer_integration_tests.constant_required_accessor_integration;
 
 import 'dart:html';
 
@@ -22,12 +22,12 @@ import 'package:test/test.dart';
 
 import '../../../test_util/test_util.dart';
 
-void requiredPropsIntegrationTest() {
+void main() {
   group('properly identifies required props by', () {
     group('throwing when a prop is required and not set', () {
       test('on mount', () {
         expect(() => render(ComponentTest()..nullable = true),
-            throwsPropError_Required('ComponentTestProps.required', 'This Prop is Required for testing purposes.')
+            throwsPropError_Required('ComponentTestProps.required')
         );
       });
 
@@ -39,7 +39,7 @@ void requiredPropsIntegrationTest() {
         )(), mountNode);
 
         expect(() => react_dom.render((ComponentTest()..nullable = true)(), mountNode),
-            throwsPropError_Required('ComponentTestProps.required', 'This Prop is Required for testing purposes.')
+            throwsPropError_Required('ComponentTestProps.required')
         );
       });
     });
@@ -64,7 +64,7 @@ void requiredPropsIntegrationTest() {
               ..required = null
               ..nullable = true
             )(), mountNode),
-            throwsPropError_Required('ComponentTestProps.required', 'This Prop is Required for testing purposes.')
+            throwsPropError_Required('ComponentTestProps.required')
         );
       });
     });
@@ -83,7 +83,7 @@ void requiredPropsIntegrationTest() {
         )(), mountNode);
 
         expect(() => react_dom.render((ComponentTest()..required = true)(), mountNode),
-            throwsPropError_Required('ComponentTestProps.nullable', 'This prop can be set to null!')
+            throwsPropError_Required('ComponentTestProps.nullable')
         );
       });
     });
@@ -139,12 +139,10 @@ UiFactory<ComponentTestProps> ComponentTest;
 
 @Props()
 class ComponentTestProps extends UiProps {
-  // ignore: deprecated_member_use
-  @Required(message: 'This Prop is Required for testing purposes.')
+  @requiredProp
   var required;
 
-  // ignore: deprecated_member_use
-  @Required(isNullable: true, message: 'This prop can be set to null!')
+  @nullableRequiredProp
   var nullable;
 }
 

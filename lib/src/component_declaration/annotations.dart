@@ -184,13 +184,48 @@ class StateMixin implements TypedMap {
   const StateMixin({this.keyNamespace: null});
 }
 
+/// Marks a `prop` as required to be set.
+///
+/// Validation occurs in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
+/// `componentWillReceiveProps`.
+///
+///     @Props()
+///     abstract class FooProps {
+///       @requiredProp
+///       String requiredProp;
+///     }
+const Accessor requiredProp = const Accessor(isRequired: true);
+
+/// Marks a `prop` as required to be set, but allowed to be set explicitly to `null`.
+///
+/// Validation occurs in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
+/// `componentWillReceiveProps`.
+///
+///     @Props()
+///     abstract class FooProps {
+///       @nullableRequiredProp
+///       String nullableRequiredProp;
+///     }
+const Accessor nullableRequiredProp = const Accessor(isRequired: true, isNullable: true);
+
 /// Annotation used with the `over_react` transformer to customize individual accessors (props/state fields).
+///
+/// Validation occurs in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
+/// `componentWillReceiveProps`.
 ///
 ///     @Props()
 ///     abstract class FooProps {
 ///       @Accessor(keyNamespace: '', key: 'custom_key')
 ///       String bar;
+///
+///       @Accessor(isRequired: true)
+///       String requiredProp;
+///
+///       @Accessor(isRequired: true, isNullable: true)
+///       String nullableRequiredProp;
 ///     }
+///
+/// Related: [requiredProp], [nullableRequiredProp].
 class Accessor {
   /// A key for the annotated accessor, overriding the default of the accessor's name.
   final String key;
@@ -199,22 +234,28 @@ class Accessor {
   /// overriding the default of `'${enclosingClassName}.'`.
   final String keyNamespace;
 
+  /// Whether the accessor is required to be set.
+  final bool isRequired;
+
+  /// Whether setting a prop to null is allowed.
+  final bool isNullable;
+
+  /// The error message displayed when the accessor is not set.
+  final String requiredErrorMessage;
+
   const Accessor({
-    this.key: null,
-    this.keyNamespace: null
+    this.key,
+    this.keyNamespace,
+    this.isRequired = false,
+    this.isNullable = false,
+    this.requiredErrorMessage,
   });
 }
 
-/// Annotation used with the `over_react` transformer to express a specific prop is required to be set.
+/// Deprecated.
 ///
-/// This is validated in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
-/// `componentWillReceiveProps`.
-///
-///     @Props()
-///     abstract class FooProps {
-///       @Required()
-///       String bar;
-///     }
+/// Use [Accessor], [requiredProp], or [nullableRequiredProp] instead.
+@Deprecated('2.0.0')
 class Required {
   /// Whether setting a prop to null is allowed.
   final bool isNullable;

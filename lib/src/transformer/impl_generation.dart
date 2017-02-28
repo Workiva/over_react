@@ -399,12 +399,14 @@ class ImplGenerator {
 
             String accessorName = variable.name.name;
 
-            annotations.Accessor accessorMeta = instantiateAnnotation(field, annotations.Accessor);
-            annotations.Required requiredMeta = instantiateAnnotation(field, annotations.Required);
+            T getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
+              return member.metadata.any((annotation) => annotation.name?.name == name) ? value : null;
+            }
 
-            bool isRequired = requiredMeta != null;
-            bool isNullable = isRequired && requiredMeta.isNullable;
-            bool hasErrorMessage = isRequired && requiredMeta.message != null && requiredMeta.message.isNotEmpty;
+            annotations.Accessor accessorMeta = instantiateAnnotation(field, annotations.Accessor);
+            annotations.Accessor requiredProp = getConstantAnnotation(field, 'requiredProp', annotations.requiredProp);
+            annotations.Accessor nullableRequiredProp = getConstantAnnotation(field, 'nullableRequiredProp', annotations.nullableRequiredProp);
+            annotations.Required requiredMeta = instantiateAnnotation(field, annotations.Required);
 
             String individualKeyNamespace = accessorMeta?.keyNamespace ?? keyNamespace;
             String individualKey = accessorMeta?.key ?? accessorName;
@@ -415,11 +417,48 @@ class ImplGenerator {
             String constantName = '${generatedPrefix}prop__$accessorName';
             String constantValue = 'const $constConstructorName($keyConstantName';
 
-            if (isRequired) {
+            var annotationCount = 0;
+
+            if (accessorMeta != null) {
+              annotationCount++;
+
+              if (accessorMeta.isRequired) {
+                constantValue += ', isRequired: true';
+
+                if (accessorMeta.isNullable) constantValue += ', isNullable: true';
+
+                if (accessorMeta.requiredErrorMessage != null && accessorMeta.requiredErrorMessage.isNotEmpty) {
+                  constantValue += ', errorMessage: ${stringLiteral(accessorMeta.requiredErrorMessage)}';
+                }
+              }
+            }
+
+            if (requiredMeta != null) {
               constantValue += ', isRequired: true';
 
-              if (isNullable) constantValue += ', isNullable: true';
-              if (hasErrorMessage) constantValue += ', errorMessage: ${stringLiteral(requiredMeta.message)}';
+              if (requiredMeta.isNullable) constantValue += ', isNullable: true';
+
+              if (requiredMeta.message != null && requiredMeta.message.isNotEmpty) {
+                constantValue += ', errorMessage: ${stringLiteral(requiredMeta.message)}';
+              }
+            }
+
+            if (requiredProp != null) {
+              annotationCount++;
+              constantValue += ', isRequired: true';
+            }
+
+            if (nullableRequiredProp != null) {
+              annotationCount++;
+              constantValue += ', isRequired: true, isNullable: true';
+            }
+
+            if (annotationCount > 1) {
+              logger.error(
+                  '@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
+                  'You can use `@Accessor(required: true)` or `isNullable: true` instead of the shorthand versions.',
+                  span: getSpan(sourceFile, field)
+              );
             }
 
             constantValue += ')';

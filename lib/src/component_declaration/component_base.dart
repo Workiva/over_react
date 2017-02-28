@@ -14,6 +14,7 @@
 
 library over_react.component_declaration.component_base;
 
+import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart' show
     ClassNameBuilder,
     CssClassPropsMixin,
@@ -143,11 +144,13 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   }
 
   @override
+  @mustCallSuper
   void componentWillReceiveProps(Map newProps) {
     validateRequiredProps(newProps);
   }
 
   @override
+  @mustCallSuper
   void componentWillMount() {
     validateRequiredProps(props);
   }
