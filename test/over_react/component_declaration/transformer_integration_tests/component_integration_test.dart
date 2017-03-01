@@ -25,7 +25,7 @@ main() {
     test('props class cannot be instantiated directly', () {
       expect(() {
         new ComponentTestProps();
-      }, throws);
+      }, throwsA(const isInstanceOf<AbstractClassInstantiationError>()));
     });
 
     test('component class can be instantiated directly', () {
