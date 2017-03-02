@@ -15,6 +15,8 @@
 @TestOn('vm')
 library impl_generation_test;
 
+import 'dart:isolate';
+
 import 'package:analyzer/analyzer.dart' hide startsWith;
 import 'package:barback/barback.dart';
 import 'package:mockito/mockito.dart';
@@ -651,6 +653,56 @@ main() {
           ''');
           verify(logger.warning(expectedCommaSeparatedWarning, span: any));
         });
+      });
+    });
+
+    group('generates `call` on the _\$*PropsImpl class that matches the signature of UiProps', () {
+      MethodDeclaration uiPropsCall;
+
+      setUpAll(() async {
+        var componentBase = parseDartFile((await Isolate.resolvePackageUri(Uri.parse(
+            'package:over_react/src/component_declaration/component_base.dart'
+        ))).toFilePath());
+
+        ClassDeclaration uiPropsClass = componentBase.declarations
+            .singleWhere((member) => member is ClassDeclaration && member.name?.name == 'UiProps');
+
+        uiPropsCall = uiPropsClass.members
+            .singleWhere((entity) => entity is MethodDeclaration && entity.name?.name == 'call');
+      });
+
+      test('generates `call` override on the _\$*PropsImpl class correctly, as a workaround for dart-lang/sdk#16030', () {
+        setUpAndGenerate('''
+          @Factory()
+          UiFactory<FooProps> Foo;
+
+          @Props()
+          class FooProps {}
+
+          @Component()
+          class FooComponent {
+            render() => null;
+          }
+        ''');
+
+        var transformedSource = transformedFile.getTransformedText();
+        var parsedTransformedSource = parseCompilationUnit(transformedSource);
+
+        ClassDeclaration propsImplClass = parsedTransformedSource.declarations
+            .singleWhere((entity) => entity is ClassDeclaration && entity.name?.name == r'_$FooPropsImpl');
+
+        MethodDeclaration propsImplCall = propsImplClass.members
+            .singleWhere((entity) => entity is MethodDeclaration && entity.name?.name == 'call');
+
+        expect(propsImplCall.parameters.toSource(), uiPropsCall.parameters.toSource(),
+            reason: 'should have the correct number of arguments');
+        expect(propsImplCall.metadata, contains(predicate((meta) => meta.name?.name == 'override')),
+            reason: 'should have @override');
+        expect(propsImplCall.returnType, null,
+            reason: 'should not be typed, since ReactElement may not be imported');
+        expect(propsImplCall.isAbstract, isTrue,
+            reason: 'should be abstract; the declaration is only for dart2js bug workaround purposes, '
+                'and the inherited implementation should be used');
       });
     });
 

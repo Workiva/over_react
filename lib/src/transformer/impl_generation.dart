@@ -81,6 +81,17 @@ class ImplGenerator {
       String typedPropsFactoryImpl = '';
       String typedStateFactoryImpl = '';
 
+      // Work around https://github.com/dart-lang/sdk/issues/16030 by making
+      // the original props class abstract and redeclaring `call` in the impl class.
+      //
+      // We can safely make this abstract, since we already have a runtime warning when it's
+      // instantiated.
+      if (!declarations.props.node.isAbstract) {
+        transformedFile.insert(
+            sourceFile.location(declarations.props.node.classKeyword.offset),
+            'abstract '
+        );
+      }
 
       // ----------------------------------------------------------------------
       //   Factory implementation
@@ -180,6 +191,11 @@ class ImplGenerator {
         ..writeln('  /// The default namespace for the prop getters/setters generated for this class.')
         ..writeln('  @override')
         ..writeln('  String get propKeyNamespace => ${stringLiteral(propKeyNamespace)};')
+        ..writeln()
+        ..writeln('  // Work around https://github.com/dart-lang/sdk/issues/16030 by making')
+        ..writeln('  // the original props class abstract and redeclaring `call` in the impl class.')
+        ..writeln('  @override')
+        ..writeln('  call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);')
         ..writeln('}')
         ..writeln();
 
