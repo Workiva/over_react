@@ -3,7 +3,7 @@
 
 ## 1.7.0
 
-> [Complete `1.6.0` Changeset](https://github.com/Workiva/over_react/compare/1.6.0...1.7.0)
+> [Complete `1.7.0` Changeset](https://github.com/Workiva/over_react/compare/1.6.0...1.7.0)
 
 * Eliminate dart2js warnings on component props classes #52
 * Deprecate the `@Required()` annotation since it conflicts with the `meta` package. #51 Replaced by:
