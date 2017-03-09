@@ -413,6 +413,25 @@ main() {
         });
       }, testOn: '!js');
     });
+
+    test('times out after the duration specified in timeoutDuration has elapsed', () async {
+      startRecordingValidationWarnings();
+
+      var renderedInstance = render(Transitioner()
+        ..transitionCount = 1
+        ..transitionTimeout = const Duration(seconds: 0)
+      );
+
+      TransitionerComponent transitioner = getDartComponent(renderedInstance);
+
+      transitioner.hide();
+
+      await new Future.delayed(Duration.ZERO);
+
+      verifyValidationWarning("A transition timeout has occurred.");
+
+      stopRecordingValidationWarnings();
+    });
   });
 }
 
@@ -432,6 +451,8 @@ class TransitionerProps extends AbstractTransitionProps {
 
   bool hasTransition;
   bool initiallyShown;
+
+  Duration transitionTimeout;
 }
 
 @State()
@@ -444,6 +465,7 @@ class TransitionerComponent extends AbstractTransitionComponent<TransitionerProp
     ..addProps(super.getDefaultProps())
     ..hasTransition = true
     ..initiallyShown = true
+    ..transitionTimeout = const Duration(seconds: 15)
   );
 
 
@@ -455,6 +477,9 @@ class TransitionerComponent extends AbstractTransitionComponent<TransitionerProp
 
   @override
   bool get hasTransition => props.hasTransition;
+
+  @override
+  Duration get transitionTimeout => props.transitionTimeout;
 
   @override
   render() {
