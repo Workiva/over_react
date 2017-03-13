@@ -424,11 +424,17 @@ main() {
 
       TransitionerComponent transitioner = getDartComponent(renderedInstance);
 
+      expect(transitioner.state.transitionPhase, TransitionPhase.SHOWN);
+
       transitioner.hide();
 
       await new Future.delayed(Duration.ZERO);
 
-      verifyValidationWarning("A transition timeout has occurred.");
+      expect(transitioner.state.transitionPhase, TransitionPhase.HIDING);
+
+      verifyValidationWarning(
+        'The number of transitions expected to complete have not completed. Something is most likely wrong.'
+      );
 
       stopRecordingValidationWarnings();
     });
