@@ -428,9 +428,11 @@ main() {
 
       transitioner.hide();
 
+      expect(transitioner.state.transitionPhase, TransitionPhase.HIDING);
+
       await new Future.delayed(Duration.ZERO);
 
-      expect(transitioner.state.transitionPhase, TransitionPhase.HIDING);
+      expect(transitioner.state.transitionPhase, TransitionPhase.HIDDEN);
 
       verifyValidationWarning(
         'The number of transitions expected to complete have not completed. Something is most likely wrong.'
@@ -471,7 +473,7 @@ class TransitionerComponent extends AbstractTransitionComponent<TransitionerProp
     ..addProps(super.getDefaultProps())
     ..hasTransition = true
     ..initiallyShown = true
-    ..transitionTimeout = const Duration(seconds: 15)
+    ..transitionTimeout = const Duration(seconds: 1)
   );
 
 
