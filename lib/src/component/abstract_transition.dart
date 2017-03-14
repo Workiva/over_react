@@ -191,6 +191,8 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
       assert(ValidationUtil.warn(
         'The number of transitions expected to complete have not completed. Something is most likely wrong.'
       ));
+
+      complete();
     });
 
     _endTransitionSubscription = getTransitionDomNode()?.onTransitionEnd?.skip(skipCount)?.take(1)?.listen((_) {
