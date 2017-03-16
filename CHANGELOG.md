@@ -1,6 +1,13 @@
 # OverReact Changelog
 
 
+## 1.8.0
+
+> [Complete `1.8.0` Changeset](https://github.com/Workiva/over_react/compare/1.7.0...1.8.0)
+
+* Fix strong mode warning #54
+* Fix issue with `AbstractTransitionComponent` causing components to hang when the `transitionend` event never fires. #55
+
 ## 1.7.0
 
 > [Complete `1.7.0` Changeset](https://github.com/Workiva/over_react/compare/1.6.0...1.7.0)
