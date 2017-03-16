@@ -123,6 +123,9 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   /// Whether the Element returned by [getTransitionDomNode] will have a transition event.
   bool get hasTransition => true;
 
+  /// The duration that can elapse before a transition timeout occurs.
+  Duration get transitionTimeout => const Duration(seconds: 1);
+
   // --------------------------------------------------------------------------
   // Private Utility Methods
   // --------------------------------------------------------------------------
@@ -184,7 +187,16 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
       skipCount = 0;
     }
 
+    var timer = new Timer(transitionTimeout, () {
+      assert(ValidationUtil.warn(
+        'The number of transitions expected to complete have not completed. Something is most likely wrong.'
+      ));
+
+      complete();
+    });
+
     _endTransitionSubscription = getTransitionDomNode()?.onTransitionEnd?.skip(skipCount)?.take(1)?.listen((_) {
+      timer.cancel();
       complete();
     });
   }
