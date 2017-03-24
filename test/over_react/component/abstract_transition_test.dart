@@ -414,31 +414,62 @@ main() {
       }, testOn: '!js');
     });
 
-    test('times out after the duration specified in timeoutDuration has elapsed', () async {
-      startRecordingValidationWarnings();
+    group('time out', () {
+      bool warningsWereEnabled;
 
-      var renderedInstance = render(Transitioner()
-        ..transitionCount = 1
-        ..transitionTimeout = const Duration(seconds: 0)
-      );
+      setUp(() {
+        warningsWereEnabled = ValidationUtil.WARNINGS_ENABLED;
+        ValidationUtil.WARNINGS_ENABLED = false;
+        startRecordingValidationWarnings();
+      });
 
-      TransitionerComponent transitioner = getDartComponent(renderedInstance);
+      tearDown(() {
+        ValidationUtil.WARNINGS_ENABLED = warningsWereEnabled;
+        stopRecordingValidationWarnings();
+      });
 
-      expect(transitioner.state.transitionPhase, TransitionPhase.SHOWN);
+      test('occurs after the duration specified in timeoutDuration has elapsed', () async {
+        var renderedInstance = render(Transitioner()
+          ..transitionCount = 1
+          ..transitionTimeout = const Duration(seconds: 0)
+        );
 
-      transitioner.hide();
+        TransitionerComponent transitioner = getDartComponent(renderedInstance);
 
-      expect(transitioner.state.transitionPhase, TransitionPhase.HIDING);
+        expect(transitioner.state.transitionPhase, TransitionPhase.SHOWN);
 
-      await new Future.delayed(Duration.ZERO);
+        transitioner.hide();
 
-      expect(transitioner.state.transitionPhase, TransitionPhase.HIDDEN);
+        expect(transitioner.state.transitionPhase, TransitionPhase.HIDING);
 
-      verifyValidationWarning(
-        'The number of transitions expected to complete have not completed. Something is most likely wrong.'
-      );
+        await new Future.delayed(Duration.ZERO);
 
-      stopRecordingValidationWarnings();
+        expect(transitioner.state.transitionPhase, TransitionPhase.HIDDEN);
+
+        verifyValidationWarning(
+          'The number of transitions expected to complete have not completed. Something is most likely wrong.'
+        );
+      });
+
+      test('does not occur when shown and hidden rapidly', () async {
+        var renderedInstance = render(Transitioner()..initiallyShown = false);
+
+        TransitionerComponent transitioner = getDartComponent(renderedInstance);
+
+        transitioner.show();
+
+        expect(transitioner.state.transitionPhase, TransitionPhase.SHOWING);
+
+        transitioner.hide();
+
+        expect(transitioner.state.transitionPhase, TransitionPhase.HIDING);
+
+        await new Future.microtask(() {});
+
+        expect(transitioner.state.transitionPhase, TransitionPhase.HIDDEN);
+
+        rejectValidationWarning(anything);
+      });
     });
   });
 }
