@@ -196,15 +196,12 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
       ));
 
       _cancelTransitionEventListener();
+      
       complete();
     });
 
     _endTransitionSubscription = getTransitionDomNode()?.onTransitionEnd?.skip(skipCount)?.take(1)?.listen((_) {
-
-      if (_transitionEndTimer != null) {
-        _transitionEndTimer.cancel();
-        _transitionEndTimer = null;
-      }
+      _cancelTransitionEndTimer();
 
       complete();
     });
@@ -213,6 +210,11 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   void _cancelTransitionEventListener() {
     _endTransitionSubscription?.cancel();
     _endTransitionSubscription = null;
+  }
+
+  void _cancelTransitionEndTimer() {
+    _transitionEndTimer?.cancel();
+    _transitionEndTimer = null;
   }
 
   /// Whether the [AbstractTransitionComponent] should render.
@@ -341,10 +343,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
         );
       });
 
-      if (_transitionEndTimer != null) {
-        _transitionEndTimer.cancel();
-        _transitionEndTimer = null;
-      }
+      _cancelTransitionEndTimer();
     } else {
       onNextTransitionEnd(() {
         if (state.transitionPhase == TransitionPhase.HIDING) {
