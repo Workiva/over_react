@@ -100,14 +100,14 @@ class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupStat
     if (isValidElement(child)) {
       if (!isComponentOfType(child, childFactory)) {
         assert(ValidationUtil.warn(
-            'An unexpected child type was found within this component.'
+            'An unexpected child type was found within this component.', this
         ));
       }
 
       isCloneable = true;
     } else if (child != null) {
       assert(ValidationUtil.warn(
-          'You are not using a valid ReactElement.'
+          'You are not using a valid ReactElement.', this
       ));
     }
 

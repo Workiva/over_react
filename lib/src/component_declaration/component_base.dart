@@ -401,7 +401,7 @@ abstract class UiProps
         );
 
         // TODO: Remove ValidationUtil.warn call when https://github.com/dart-lang/sdk/issues/26093 is resolved.
-        ValidationUtil.warn(errorMessage);
+        ValidationUtil.warn(errorMessage, this);
         throw new ArgumentError(errorMessage);
       }
     }
