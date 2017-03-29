@@ -188,6 +188,9 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
       assert(ValidationUtil.warn(warningMessage));
 
       skipCount = 0;
+
+      _cancelTransitionEventListener();
+      _cancelTransitionEndTimer();
     }
 
     _transitionEndTimer = new Timer(transitionTimeout, () {
@@ -309,6 +312,8 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
 
   /// Method that will be called when [AbstractTransitionComponent]  first enters the `preShowing` state.
   void handlePreShowing() {
+    _cancelTransitionEndTimer();
+
     onNextTransitionEnd(() {
       if (state.transitionPhase == TransitionPhase.SHOWING) {
         setState(newState()
