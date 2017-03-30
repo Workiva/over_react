@@ -440,6 +440,18 @@ main() {
 
       stopRecordingValidationWarnings();
     });
+
+    test('does not set hidden state when not mounted', () async {
+      var renderedInstance = render(Transitioner());
+      TransitionerComponent transitioner = getDartComponent(renderedInstance);
+      transitioner.setState(transitioner.newState()..transitionPhase = TransitionPhase.HIDING);
+
+      transitioner.handleHiding();
+      transitioner.componentWillUnmount();
+      await triggerTransitionEnd(transitioner.getTransitionDomNode());
+
+      expect(transitioner.transitionPhasesSet, orderedEquals([TransitionPhase.HIDING]));
+    });
   });
 }
 
@@ -551,5 +563,13 @@ class TransitionerComponent extends AbstractTransitionComponent<TransitionerProp
     if (props.onHandleHidden != null) {
       props.onHandleHidden();
     }
+  }
+
+  List<TransitionPhase> transitionPhasesSet = [];
+
+  @override
+  void setState(dynamic newState, [callback()]) {
+    super.setState(newState, callback);
+    transitionPhasesSet.add(newState.transitionPhase);
   }
 }
