@@ -113,7 +113,8 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
   void componentDidMount() {
     if (props.quickMount) {
       assert(props.onInitialize == null || ValidationUtil.warn(
-          'props.onInitialize will not be called when props.quickMount is true.', this
+          'props.onInitialize will not be called when props.quickMount is true.',
+          this
       ));
 
       // [1] Initialize/reset the sensor in the next animation frame after mount
