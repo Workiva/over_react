@@ -295,8 +295,16 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
     }
   }
 
+  var _isMounted = false;
+
+  @override
+  void componentDidMount() {
+    _isMounted = true;
+  }
+
   @override
   void componentWillUnmount() {
+    _isMounted = false;
     _cancelTransitionEventListener();
   }
 
@@ -350,7 +358,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
       _cancelTransitionEndTimer();
     } else {
       onNextTransitionEnd(() {
-        if (state.transitionPhase == TransitionPhase.HIDING) {
+        if (_isMounted && state.transitionPhase == TransitionPhase.HIDING) {
           setState(newState()
             ..transitionPhase = TransitionPhase.HIDDEN
           );
