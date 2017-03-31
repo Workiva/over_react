@@ -126,6 +126,9 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   /// The duration that can elapse before a transition timeout occurs.
   Duration get transitionTimeout => const Duration(seconds: 1);
 
+  /// Timer used to determine if a transition timeout has occurred.
+  Timer _transitionEndTimer;
+
   // --------------------------------------------------------------------------
   // Private Utility Methods
   // --------------------------------------------------------------------------
@@ -187,16 +190,22 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
       skipCount = 0;
     }
 
-    var timer = new Timer(transitionTimeout, () {
+    _cancelTransitionEventListener();
+    _cancelTransitionEndTimer();
+
+    _transitionEndTimer = new Timer(transitionTimeout, () {
       assert(ValidationUtil.warn(
         'The number of transitions expected to complete have not completed. Something is most likely wrong.'
       ));
+
+      _cancelTransitionEventListener();
 
       complete();
     });
 
     _endTransitionSubscription = getTransitionDomNode()?.onTransitionEnd?.skip(skipCount)?.take(1)?.listen((_) {
-      timer.cancel();
+      _cancelTransitionEndTimer();
+
       complete();
     });
   }
@@ -204,6 +213,11 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   void _cancelTransitionEventListener() {
     _endTransitionSubscription?.cancel();
     _endTransitionSubscription = null;
+  }
+
+  void _cancelTransitionEndTimer() {
+    _transitionEndTimer?.cancel();
+    _transitionEndTimer = null;
   }
 
   /// Whether the [AbstractTransitionComponent] should render.
@@ -331,6 +345,9 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
           ..transitionPhase = TransitionPhase.HIDDEN
         );
       });
+
+      _cancelTransitionEventListener();
+      _cancelTransitionEndTimer();
     } else {
       onNextTransitionEnd(() {
         if (state.transitionPhase == TransitionPhase.HIDING) {
