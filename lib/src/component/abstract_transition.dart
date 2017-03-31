@@ -189,8 +189,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
 
     var timer = new Timer(transitionTimeout, () {
       assert(ValidationUtil.warn(
-        'The number of transitions expected to complete have not completed. Something is most likely wrong.',
-        this
+          'The number of transitions expected to complete have not completed. Something is most likely wrong.'
       ));
 
       complete();

@@ -32,7 +32,12 @@ class ValidationUtil {
   /// compiled out for production.
   ///     assert(ValidationUtil.warn('Some warning message'));
   ///
-  /// The message will get print out to the console.
+  /// Optionally, an element can be passed as the second parameter
+  /// to help devs locate the offending DOM node in the inspector.
+  ///
+  ///     assert(ValidationUtil.warn('Some warning message', element));
+  ///
+  /// The message will be printed out to the console.
   static bool warn(String message, [dynamic element]) {
     WARNING_COUNT += 1;
 
@@ -47,7 +52,7 @@ class ValidationUtil {
 
       window.console.warn('VALIDATION WARNING: $message');
 
-      if(element != null) {
+      if (element != null) {
           window.console.warn(findDomNode(element));
       }
     }
