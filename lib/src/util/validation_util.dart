@@ -16,8 +16,6 @@ library over_react.validation_util;
 
 import 'dart:html';
 
-import 'package:over_react/over_react.dart';
-
 typedef void ValidationUtilWarningCallback(String message);
 
 /// Utility for logging validation errors or warning.
@@ -30,15 +28,16 @@ class ValidationUtil {
   /// Use this to log warnings to the console in dev mode only.
   /// This is to be used in assert calls for dev help only so that it gets
   /// compiled out for production.
+  ///
   ///     assert(ValidationUtil.warn('Some warning message'));
   ///
-  /// Optionally, an element can be passed as the second parameter
-  /// to help devs locate the offending DOM node in the inspector.
+  /// Optionally, a component can be passed as the second parameter
+  /// to provide additional information in the console.
   ///
-  ///     assert(ValidationUtil.warn('Some warning message', element));
+  ///     assert(ValidationUtil.warn('Some warning message', component));
   ///
   /// The message will be printed out to the console.
-  static bool warn(String message, [dynamic element]) {
+  static bool warn(String message, [dynamic component]) {
     WARNING_COUNT += 1;
 
     if (onWarning != null) {
@@ -52,8 +51,13 @@ class ValidationUtil {
 
       window.console.warn('VALIDATION WARNING: $message');
 
-      if (element != null) {
-          window.console.warn(findDomNode(element));
+      if (component != null) {
+          window.console.groupCollapsed('(Warning info)');
+
+          window.console.log(component);
+          window.console.log('props: ${component.props}');
+
+          window.console.groupEnd();
       }
     }
 
