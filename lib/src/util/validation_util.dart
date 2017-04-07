@@ -61,7 +61,7 @@ class ValidationUtil {
 
           if (isValidElement(data)) {
             window.console.log('props: ${prettyPrintMap(getProps(data))}');
-          } else if (data is react.Component){
+          } else if (data is react.Component) {
             window.console.log('props: ${data.props}');
           }
 
