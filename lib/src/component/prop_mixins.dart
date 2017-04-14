@@ -84,6 +84,17 @@ abstract class DomPropsMixin {
   UIEventCallback onScroll;
   WheelEventCallback onWheel;
 
+  ClipboardEventCallback onCopyCapture, onCutCapture, onPasteCapture;
+  KeyboardEventCallback onKeyDownCapture, onKeyPressCapture, onKeyUpCapture;
+  FocusEventCallback onFocusCapture, onBlurCapture;
+  FormEventCallback onChangeCapture, onInputCapture, onSubmitCapture, onResetCapture;
+  MouseEventCallback
+    onClickCapture, onContextMenuCapture, onDoubleClickCapture, onDragCapture, onDragEndCapture, onDragEnterCapture, onDragExitCapture, onDragLeaveCapture, onDragOverCapture,
+    onDragStartCapture, onDropCapture, onMouseDownCapture, onMouseEnterCapture, onMouseLeaveCapture, onMouseMoveCapture, onMouseOutCapture, onMouseOverCapture, onMouseUpCapture;
+  TouchEventCallback onTouchCancelCapture, onTouchEndCapture, onTouchMoveCapture, onTouchStartCapture;
+  UIEventCallback onScrollCapture;
+  WheelEventCallback onWheelCapture;
+
   // props specific to React.INPUT
   bool defaultChecked;
   dynamic defaultValue;
