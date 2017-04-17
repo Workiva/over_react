@@ -15,6 +15,20 @@
 /// Base classes for UI components and related utilities.
 library over_react;
 
+export 'package:react/react.dart' show
+    SyntheticEvent,
+    SyntheticClipboardEvent,
+    SyntheticKeyboardEvent,
+    SyntheticFocusEvent,
+    SyntheticFormEvent,
+    SyntheticDataTransfer,
+    SyntheticMouseEvent,
+    SyntheticTouchEvent,
+    SyntheticUIEvent,
+    SyntheticWheelEvent;
+
+export 'package:react/react_client.dart' show setClientConfiguration, ReactElement;
+
 export 'src/component/abstract_transition.dart';
 export 'src/component/aria_mixin.dart';
 export 'src/component/callback_typedefs.dart';
