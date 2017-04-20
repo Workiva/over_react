@@ -185,7 +185,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
         warningMessage += ' Instead of setting this prop to 0, override the `hasTransition` getter to return false.';
       }
 
-      assert(ValidationUtil.warn(warningMessage));
+      assert(ValidationUtil.warn(warningMessage, this));
 
       skipCount = 0;
     }
@@ -195,7 +195,8 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
 
     _transitionEndTimer = new Timer(transitionTimeout, () {
       assert(ValidationUtil.warn(
-        'The number of transitions expected to complete have not completed. Something is most likely wrong.'
+          'The number of transitions expected to complete have not completed. Something is most likely wrong.',
+          this
       ));
 
       _cancelTransitionEventListener();

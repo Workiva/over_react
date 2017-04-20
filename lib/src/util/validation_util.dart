@@ -16,6 +16,10 @@ library over_react.validation_util;
 
 import 'dart:html';
 
+import 'package:over_react/src/util/pretty_print.dart';
+import 'package:over_react/src/util/react_wrappers.dart';
+import 'package:react/react.dart' as react;
+
 typedef void ValidationUtilWarningCallback(String message);
 
 /// Utility for logging validation errors or warning.
@@ -28,10 +32,16 @@ class ValidationUtil {
   /// Use this to log warnings to the console in dev mode only.
   /// This is to be used in assert calls for dev help only so that it gets
   /// compiled out for production.
+  ///
   ///     assert(ValidationUtil.warn('Some warning message'));
   ///
-  /// The message will get print out to the console.
-  static bool warn(String message) {
+  /// Optionally, a component or element can be passed as the second parameter
+  /// to provide additional information in the console.
+  ///
+  ///     assert(ValidationUtil.warn('Some warning message', component));
+  ///
+  /// The message will be printed out to the console.
+  static bool warn(String message, [dynamic data]) {
     WARNING_COUNT += 1;
 
     if (onWarning != null) {
@@ -44,6 +54,19 @@ class ValidationUtil {
       }
 
       window.console.warn('VALIDATION WARNING: $message');
+
+      if (data != null) {
+          window.console.groupCollapsed('(Warning info)');
+          window.console.log(data);
+
+          if (isValidElement(data)) {
+            window.console.log('props: ${prettyPrintMap(getProps(data))}');
+          } else if (data is react.Component) {
+            window.console.log('props: ${data.props}');
+          }
+
+          window.console.groupEnd();
+      }
     }
 
     return true;

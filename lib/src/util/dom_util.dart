@@ -138,7 +138,7 @@ void setSelectionRange(/* TextInputElement | TextAreaElement */Element input, in
             Google Chrome does not support `setSelectionRange` on email or number inputs.
             See: https://bugs.chromium.org/p/chromium/issues/detail?id=324360
             '''
-        )));
+        ), input));
 
         return;
       }
