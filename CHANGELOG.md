@@ -1,6 +1,28 @@
 # OverReact Changelog
 
 
+## 1.9.0
+
+> [Complete `1.9.0` Changeset](https://github.com/Workiva/over_react/compare/1.8.0...1.9.0)
+
+__Improvements__
+
+* [#60]: Provide easy access to DOM node in `ValidationUtil.warn` messages
+* [#61]: Export some `react` library members and add capturing event handlers
+  * Export `setClientConfiguration` and `ReactElement`
+  * Export all `Synthetic*Event` classes
+  * Add capturing event handlers supported by ReactJS
+  
+
+__Bug Fixes__
+
+* [#58]: Fix issue with the `transitionend` warning (_added via [#55]_) sometimes firing when it shouldn't
+* [#59]: Ensure `AbstractTransitionComponent` does not call `setState` while in the process of unmounting
+  * _Thanks @joshbeam-wf!!!_
+
+
+&nbsp;
+
 ## 1.8.0
 
 > [Complete `1.8.0` Changeset](https://github.com/Workiva/over_react/compare/1.7.0...1.8.0)
