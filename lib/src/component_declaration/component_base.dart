@@ -416,8 +416,8 @@ abstract class UiProps
 ///
 /// Necessary in order to work around Dart 1.23 strong mode change that disallows conflicting private members
 /// in mixins: <https://github.com/dart-lang/sdk/issues/28809>.
-abstract class _OverReactMapViewBase {
-  Map get _map;
+abstract class _OverReactMapViewBase<K, V> {
+  Map<K, V> get _map;
 }
 
 /// Works in conjunction with [MapViewMixin] to provide [dart.collection.MapView]-like
@@ -453,7 +453,7 @@ abstract class StateMapViewMixin implements _OverReactMapViewBase {
 ///
 /// For use by concrete [UiProps] and [UiState] implementations (either generated or manual),
 /// and thus must remain public.
-abstract class MapViewMixin<K, V> implements _OverReactMapViewBase {
+abstract class MapViewMixin<K, V> implements _OverReactMapViewBase<K, V> {
   V operator[](Object key) => _map[key];
   void operator[]=(K key, V value) { _map[key] = value; }
   void addAll(Map<K, V> other) { _map.addAll(other); }
