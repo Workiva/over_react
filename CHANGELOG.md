@@ -19,6 +19,7 @@ __Bug Fixes__
 * [#58]: Fix issue with the `transitionend` warning (_added via [#55]_) sometimes firing when it shouldn't
 * [#59]: Ensure `AbstractTransitionComponent` does not call `setState` while in the process of unmounting
   * _Thanks @joshbeam-wf!!!_
+* [#65] Work around Dart 1.23 strong mode issue with `MapViewMixin`
 
 
 &nbsp;
