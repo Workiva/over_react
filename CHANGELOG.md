@@ -1,6 +1,16 @@
 # OverReact Changelog
 
 
+## 1.9.1
+
+> [Complete `1.9.1` Changeset](https://github.com/Workiva/over_react/compare/1.9.0...1.9.1)
+
+__Bug Fixes__
+
+* [#66]: Fix regression with transitions not completing in consumers of AbstractTransition that don't call `super.componentDidMount`
+
+&nbsp;
+
 ## 1.9.0
 
 > [Complete `1.9.0` Changeset](https://github.com/Workiva/over_react/compare/1.8.0...1.9.0)
