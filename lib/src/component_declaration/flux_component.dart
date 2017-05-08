@@ -63,32 +63,13 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
 ///   the resulting component.
 ///
 /// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
-abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<TProps>
-    with _FluxComponentMixin<TProps>, BatchedRedraws {}
-
-/// Builds on top of [UiStatefulComponent], adding `w_flux` integration, much like the [FluxComponent] in w_flux.
-///
-/// * Flux components are responsible for rendering application views and turning
-///   user interactions and events into [Action]s.
-/// * Flux components can use data from one or many [Store] instances to define
-///   the resulting component.
-///
-/// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
-abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extends UiState>
-    extends UiStatefulComponent<TProps, TState>
-    with _FluxComponentMixin<TProps>, BatchedRedraws {}
-
-/// Helper mixin to keep [FluxUiComponent] and [FluxUiStatefulComponent] clean/DRY.
-///
-/// Private so it will only get used in this file, since having lifecycle methods in a mixin is risky.
-abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements BatchedRedraws {
-  TProps get props;
-
+abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<TProps> with BatchedRedraws {
   /// List of store subscriptions created when the component mounts.
   ///
   /// These subscriptions are canceled when the component is unmounted.
   List<StreamSubscription> _subscriptions = [];
 
+  @override
   void componentWillMount() {
     /// Subscribe to all applicable stores.
     ///
@@ -106,6 +87,7 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
     });
   }
 
+  @override
   void componentWillUnmount() {
     // Ensure that unmounted components don't batch render
     shouldBatchRedraw = false;
@@ -161,3 +143,15 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
     _subscriptions.add(subscription);
   }
 }
+
+/// A [FluxUiComponent] subclass with typed state added via [UiStatefulMixin], for convenience.
+///
+/// * Flux components are responsible for rendering application views and turning
+///   user interactions and events into [Action]s.
+/// * Flux components can use data from one or many [Store] instances to define
+///   the resulting component.
+///
+/// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
+abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extends UiState>
+    extends FluxUiComponent<TProps> with UiStatefulMixin<TState>
+    implements UiStatefulComponent<TProps, TState> {}
