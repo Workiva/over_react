@@ -154,31 +154,41 @@ main() {
     });
   });
 
-  group('setSelectionRange', () {
-    test('throws an ArgumentError if called on an unsupported Element type', () {
+  group('setSelectionRange and getSelectionStart', () {
+    test('both throw an ArgumentError if called on an unsupported Element type', () {
       var invalidElement = new DivElement();
+
       expect(() => setSelectionRange(invalidElement, 0, 0), throwsArgumentError);
+      expect(() => getSelectionStart(invalidElement), throwsArgumentError);
     });
 
-    test('throws an ArgumentError if called on an unsupported InputElement type', () {
+    test('both throw an ArgumentError if called on an unsupported InputElement type', () {
       var invalidElement = new CheckboxInputElement();
 
       // Note: For some unknown reason - when running the exact same expect() we use for DivElement above,
       // this one fails with "Invalid Object" - the stack trace never leaves test()
       //
       // ¯\_(ツ)_/¯
-      var error;
+      var setSelectionError;
+      var getSelectionError;
 
       try {
         setSelectionRange(invalidElement, 0, 0);
       } catch (err) {
-        error = err;
+        setSelectionError = err;
       }
 
-      expect(error, isNotNull);
+      try {
+        getSelectionStart(invalidElement);
+      } catch (err) {
+        getSelectionError = err;
+      }
+
+      expect(setSelectionError, isNotNull);
+      expect(getSelectionError, isNotNull);
     });
 
-    group('correctly calls setSelectionRange', () {
+    group('correctly call their respective methods', () {
       var renderedInstance;
       InputElement inputElement;
       TextAreaElement textareaElement;
@@ -209,14 +219,33 @@ main() {
           }
         }
 
+        void sharedInputGetSelectionStartTest(String type) {
+          renderedInstance = renderAttachedToDocument((Dom.input()
+            ..defaultValue = testValue
+            ..type = type
+          )());
+          inputElement = findDomNode(renderedInstance);
+          var selectionStart = getSelectionStart(inputElement);
+
+          if (type == 'email' || type == 'number') {
+            expect(selectionStart, isNull);
+          } else {
+            expect(selectionStart, testValue.length);
+          }
+        }
+
         for (var type in inputTypesWithSelectionRangeSupport) {
           if (type == 'email' || type == 'number') {
             // See: https://bugs.chromium.org/p/chromium/issues/detail?id=324360
             test(type, () {
               sharedInputSetSelectionRangeTest(type);
+              sharedInputGetSelectionStartTest(type);
             }, testOn: 'js && !chrome');
           } else {
-            test(type, () { sharedInputSetSelectionRangeTest(type); });
+            test(type, () {
+              sharedInputSetSelectionRangeTest(type);
+              sharedInputGetSelectionStartTest(type);
+            });
           }
         }
       });
@@ -230,6 +259,10 @@ main() {
 
         expect(textareaElement.selectionStart, equals(testValue.length));
         expect(textareaElement.selectionEnd, equals(testValue.length));
+
+        var selectionStart = getSelectionStart(textareaElement);
+
+        expect(selectionStart, testValue.length);
       });
 
       // See: https://bugs.chromium.org/p/chromium/issues/detail?id=324360
@@ -239,6 +272,7 @@ main() {
           expect(inputElement, isNotNull, reason: 'test setup sanity check');
 
           expect(() => setSelectionRange(inputElement, testValue.length, testValue.length), returnsNormally);
+          expect(() => getSelectionStart(inputElement), returnsNormally);
         }
 
         setUp(() {
@@ -268,10 +302,6 @@ main() {
         });
       }, testOn: 'chrome');
     });
-  });
-
-  group('getSelectionRange', () {
-
   });
 }
 
