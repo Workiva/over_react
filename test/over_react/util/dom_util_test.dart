@@ -269,6 +269,10 @@ main() {
       }, testOn: 'chrome');
     });
   });
+
+  group('getSelectionRange', () {
+
+  });
 }
 
 @Factory()

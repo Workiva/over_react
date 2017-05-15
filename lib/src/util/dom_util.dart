@@ -84,6 +84,10 @@ bool supportsSelectionRange(InputElement element) {
   // Uncomment once https://github.com/dart-lang/sdk/issues/22967 is fixed.
   // if (element is TextInputElementBase) return true;
 
+  if (element is TextAreaElement) {
+    return true;
+  }
+
   final type = element.getAttribute('type');
   return inputTypesWithSelectionRangeSupport.contains(type);
 }
@@ -145,6 +149,24 @@ void setSelectionRange(/* TextInputElement | TextAreaElement */Element input, in
     }
 
     input.setSelectionRange(start, end, direction);
+  } else {
+    throw new ArgumentError.value(input, 'input', 'must be an instance of `TextInputElementBase`, `NumberInputElement` or `TextAreaElement`');
+  }
+}
+
+int getSelectionStart(Element input) {
+  if (input is TextAreaElement) {
+    return input.selectionStart;
+  } else if (input is TextInputElement && supportsSelectionRange(input)) {
+    final inputType = input.getAttribute('type');
+
+    if (browser.isChrome) {
+      if (inputType == 'email' || inputType == 'number') {
+        return null;
+      }
+    }
+
+    return input.selectionStart;
   } else {
     throw new ArgumentError.value(input, 'input', 'must be an instance of `TextInputElementBase`, `NumberInputElement` or `TextAreaElement`');
   }
