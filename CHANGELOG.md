@@ -1,6 +1,16 @@
 # OverReact Changelog
 
 
+## 1.9.2
+
+> [Complete `1.9.2` Changeset](https://github.com/Workiva/over_react/compare/1.9.1...1.9.2)
+
+__Dependency updates__
+
+* analyzer `>=0.26.1+3 <0.31.0` (was `>=0.26.1+3 <0.30.0`) 
+
+&nbsp;
+
 ## 1.9.1
 
 > [Complete `1.9.1` Changeset](https://github.com/Workiva/over_react/compare/1.9.0...1.9.1)
