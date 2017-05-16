@@ -154,15 +154,15 @@ main() {
     });
   });
 
-  group('setSelectionRange and getSelectionStart', () {
-    test('both throw an ArgumentError if called on an unsupported Element type', () {
+  group('setSelectionRange and getSelectionStart: ', () {
+    test('setSelectionRange throws an ArgumentError if called on an unsupported Element type', () {
       var invalidElement = new DivElement();
 
       expect(() => setSelectionRange(invalidElement, 0, 0), throwsArgumentError);
-      expect(() => getSelectionStart(invalidElement), throwsArgumentError);
+      expect(() => getSelectionStart(invalidElement), returnsNormally);
     });
 
-    test('both throw an ArgumentError if called on an unsupported InputElement type', () {
+    test('setSelectionRange throws an ArgumentError if called on an unsupported InputElement type', () {
       var invalidElement = new CheckboxInputElement();
 
       // Note: For some unknown reason - when running the exact same expect() we use for DivElement above,
@@ -185,7 +185,7 @@ main() {
       }
 
       expect(setSelectionError, isNotNull);
-      expect(getSelectionError, isNotNull);
+      expect(getSelectionError, isNull);
     });
 
     group('correctly call their respective methods', () {
