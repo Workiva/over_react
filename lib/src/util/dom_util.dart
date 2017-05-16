@@ -167,7 +167,7 @@ int getSelectionStart(Element input) {
     }
 
     return input.selectionStart;
-  } else {
-    throw new ArgumentError.value(input, 'input', 'must be an instance of `TextInputElementBase`, `NumberInputElement` or `TextAreaElement`');
   }
+
+  return null;
 }
