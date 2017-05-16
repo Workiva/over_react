@@ -154,6 +154,12 @@ void setSelectionRange(/* TextInputElement | TextAreaElement */Element input, in
   }
 }
 
+/// Custom implementation to avoid issues with `selectionStart` when accessing
+/// an [EmailInputElement] or [NumberInputElement] on Chrome.
+///
+/// If `selectionStart` is not supported on the input, `null` will be returned.
+///
+/// See: <https://bugs.chromium.org/p/chromium/issues/detail?id=324360>
 int getSelectionStart(Element input) {
   if (input is TextAreaElement) {
     return input.selectionStart;
