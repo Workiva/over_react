@@ -84,10 +84,6 @@ bool supportsSelectionRange(InputElement element) {
   // Uncomment once https://github.com/dart-lang/sdk/issues/22967 is fixed.
   // if (element is TextInputElementBase) return true;
 
-  if (element is TextAreaElement) {
-    return true;
-  }
-
   final type = element.getAttribute('type');
   return inputTypesWithSelectionRangeSupport.contains(type);
 }
