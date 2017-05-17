@@ -227,23 +227,21 @@ main() {
           inputElement = findDomNode(renderedInstance);
           var selectionStart = getSelectionStart(inputElement);
 
-          if (type == 'email' || type == 'number') {
-            expect(selectionStart, isNull);
-          } else {
-            expect(selectionStart, testValue.length);
-          }
+          expect(selectionStart, testValue.length);
         }
 
         for (var type in inputTypesWithSelectionRangeSupport) {
-          test(type, () { sharedInputGetSelectionStartTest(type); });
-
           if (type == 'email' || type == 'number') {
             // See: https://bugs.chromium.org/p/chromium/issues/detail?id=324360
             test(type, () {
               sharedInputSetSelectionRangeTest(type);
+              sharedInputGetSelectionStartTest(type);
             }, testOn: 'js && !chrome');
           } else {
-            test(type, () { sharedInputSetSelectionRangeTest(type); });
+            test(type, () {
+              sharedInputSetSelectionRangeTest(type);
+              sharedInputGetSelectionStartTest(type);
+            });
           }
         }
       });
