@@ -150,10 +150,10 @@ void setSelectionRange(/* TextInputElement | TextAreaElement */Element input, in
   }
 }
 
-/// Custom implementation to avoid issues with `selectionStart` when accessing
-/// an [EmailInputElement] or [NumberInputElement] on Chrome.
+/// Returns the index of the first selected character in [input].
 ///
-/// If `selectionStart` is not supported on the input, `null` will be returned.
+/// Due to a bug in Chrome, returns `null` for [EmailInputElement] and [NumberInputElement] on Chrome.
+/// `null` will also be returned for any [input] that does not support `selectionStart`.
 ///
 /// See: <https://bugs.chromium.org/p/chromium/issues/detail?id=324360>
 int getSelectionStart(Element input) {
