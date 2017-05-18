@@ -152,7 +152,7 @@ void setSelectionRange(/* TextInputElement | TextAreaElement */Element input, in
 
 /// Returns the index of the first selected character in [input].
 ///
-/// Due to a bug in Chrome, returns `null` for [EmailInputElement] and [NumberInputElement] on Chrome.
+/// To workaround a bug in Chrome, returns `null` for [EmailInputElement] and [NumberInputElement] on Chrome.
 /// `null` will also be returned for any [input] that does not support `selectionStart`.
 ///
 /// See: <https://bugs.chromium.org/p/chromium/issues/detail?id=324360>
