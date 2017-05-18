@@ -270,7 +270,7 @@ main() {
     });
   });
 
-  group('getSelectionStart ', () {
+  group('getSelectionStart', () {
     test('returns null if called on an unsupported Element type', () {
       var invalidElement = new DivElement();
 
@@ -319,9 +319,7 @@ main() {
               sharedInputGetSelectionStartTest(type);
             }, testOn: 'js && !chrome');
           } else {
-            test(type, () {
-              sharedInputGetSelectionStartTest(type);
-            });
+            test(type, () { sharedInputGetSelectionStartTest(type); });
           }
         }
       });
@@ -331,10 +329,6 @@ main() {
           ..defaultValue = testValue
         )());
         textareaElement = findDomNode(renderedInstance);
-        setSelectionRange(textareaElement, testValue.length, testValue.length);
-
-        expect(textareaElement.selectionStart, equals(testValue.length));
-        expect(textareaElement.selectionEnd, equals(testValue.length));
 
         var selectionStart = getSelectionStart(textareaElement);
 
@@ -342,10 +336,14 @@ main() {
       });
 
       // See: https://bugs.chromium.org/p/chromium/issues/detail?id=324360
-      group('without throwing an error in Google Chrome when `props.type` is', () {
-        void verifyLackOfException() {
+      group('by returning null and not throwing an error in Google Chrome when `props.type` is', () {
+        void verifyReturnsNullWithoutException() {
           expect(renderedInstance, isNotNull, reason: 'test setup sanity check');
           expect(inputElement, isNotNull, reason: 'test setup sanity check');
+
+          var selectionStart = getSelectionStart(inputElement);
+
+          expect(selectionStart, isNull);
 
           expect(() => getSelectionStart(inputElement), returnsNormally);
         }
@@ -356,7 +354,7 @@ main() {
             ..type = 'email'
           )());
           inputElement = findDomNode(renderedInstance);
-          verifyLackOfException();
+          verifyReturnsNullWithoutException();
         });
 
         test('number', () {
@@ -365,7 +363,7 @@ main() {
             ..type = 'number'
           )());
           inputElement = findDomNode(renderedInstance);
-          verifyLackOfException();
+          verifyReturnsNullWithoutException();
         });
       }, testOn: 'chrome');
     });
