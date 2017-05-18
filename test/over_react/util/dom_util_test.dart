@@ -329,6 +329,7 @@ main() {
           ..defaultValue = testValue
         )());
         textareaElement = findDomNode(renderedInstance);
+        setSelectionRange(textareaElement, testValue.length, testValue.length);
 
         var selectionStart = getSelectionStart(textareaElement);
 
