@@ -470,7 +470,7 @@ main() {
 
         rejectValidationWarning(anything);
       });
-    });
+    }, testOn: '!js');
 
     test('does not set hidden state when not mounted', () async {
       var renderedInstance = render(Transitioner());
