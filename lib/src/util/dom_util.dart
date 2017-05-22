@@ -149,3 +149,27 @@ void setSelectionRange(/* TextInputElement | TextAreaElement */Element input, in
     throw new ArgumentError.value(input, 'input', 'must be an instance of `TextInputElementBase`, `NumberInputElement` or `TextAreaElement`');
   }
 }
+
+/// Returns the index of the first selected character in [input].
+///
+/// To workaround a bug in Chrome, returns `null` for [EmailInputElement] and [NumberInputElement] on Chrome.
+/// `null` will also be returned for any [input] that does not support `selectionStart`.
+///
+/// See: <https://bugs.chromium.org/p/chromium/issues/detail?id=324360>
+int getSelectionStart(Element input) {
+  if (input is TextAreaElement) {
+    return input.selectionStart;
+  } else if (input is TextInputElement && supportsSelectionRange(input)) {
+    final inputType = input.getAttribute('type');
+
+    if (browser.isChrome) {
+      if (inputType == 'email' || inputType == 'number') {
+        return null;
+      }
+    }
+
+    return input.selectionStart;
+  }
+
+  return null;
+}

@@ -269,6 +269,106 @@ main() {
       }, testOn: 'chrome');
     });
   });
+
+  group('getSelectionStart', () {
+    test('returns null if called on an unsupported Element type', () {
+      var invalidElement = new DivElement();
+
+      var selectionStart = getSelectionStart(invalidElement);
+
+      expect(selectionStart, isNull);
+    });
+
+    test('returns null if called on an unsupported InputElement type', () {
+      var invalidElement = new CheckboxInputElement();
+
+      var selectionStart = getSelectionStart(invalidElement);
+
+      expect(selectionStart, isNull);
+    });
+
+    group('correctly accesses selectionStart', () {
+      var renderedInstance;
+      InputElement inputElement;
+      TextAreaElement textareaElement;
+      const String testValue = 'foo';
+
+      tearDown(() {
+        renderedInstance = null;
+        inputElement = null;
+
+        tearDownAttachedNodes();
+      });
+
+      group('for an `<input>` of type:', () {
+        void sharedInputGetSelectionStartTest(String type) {
+          renderedInstance = renderAttachedToDocument((Dom.input()
+            ..defaultValue = testValue
+            ..type = type
+          )());
+          inputElement = findDomNode(renderedInstance);
+          var selectionStart = getSelectionStart(inputElement);
+
+          expect(selectionStart, testValue.length);
+        }
+
+        for (var type in inputTypesWithSelectionRangeSupport) {
+          if (type == 'email' || type == 'number') {
+            // See: https://bugs.chromium.org/p/chromium/issues/detail?id=324360
+            test(type, () {
+              sharedInputGetSelectionStartTest(type);
+            }, testOn: 'js && !chrome');
+          } else {
+            test(type, () { sharedInputGetSelectionStartTest(type); });
+          }
+        }
+      });
+
+      test('for TextAreaElement', () {
+        renderedInstance = renderAttachedToDocument((Dom.textarea()
+          ..defaultValue = testValue
+        )());
+        textareaElement = findDomNode(renderedInstance);
+        setSelectionRange(textareaElement, testValue.length, testValue.length);
+
+        var selectionStart = getSelectionStart(textareaElement);
+
+        expect(selectionStart, testValue.length);
+      });
+
+      // See: https://bugs.chromium.org/p/chromium/issues/detail?id=324360
+      group('by returning null and not throwing an error in Google Chrome when `props.type` is', () {
+        void verifyReturnsNullWithoutException() {
+          expect(renderedInstance, isNotNull, reason: 'test setup sanity check');
+          expect(inputElement, isNotNull, reason: 'test setup sanity check');
+
+          var selectionStart = getSelectionStart(inputElement);
+
+          expect(selectionStart, isNull);
+
+          expect(() => getSelectionStart(inputElement), returnsNormally);
+        }
+
+        test('email', () {
+          renderedInstance = renderAttachedToDocument((Dom.input()
+            ..defaultValue = testValue
+            ..type = 'email'
+          )());
+          inputElement = findDomNode(renderedInstance);
+          verifyReturnsNullWithoutException();
+        });
+
+        test('number', () {
+          renderedInstance = renderAttachedToDocument((Dom.input()
+            ..defaultValue = testValue
+            ..type = 'number'
+          )());
+          inputElement = findDomNode(renderedInstance);
+          verifyReturnsNullWithoutException();
+        });
+      }, testOn: 'chrome');
+    });
+  });
 }
 
 @Factory()
