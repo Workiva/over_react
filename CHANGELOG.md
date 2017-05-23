@@ -1,11 +1,28 @@
 # OverReact Changelog
 
 
+## 1.10.0
+
+> [Complete `1.10.0` Changeset](https://github.com/Workiva/over_react/compare/1.9.2...1.10.0)
+
+__Improvements__
+
+* [#69]: New top-level `getSelectionStart` function to normalize `selectionStart` across browsers for both 
+  `TextInputElement`s and `TextAreaElement`s
+  
+
+__Tech Debt Paid__
+
+* [#68]: Declare explicitly-used transitive imports in `pubspec.yaml`  
+* [#70]: Don't run `ValidationUtil`-related tests in dart2js
+
+&nbsp;
+
 ## 1.9.2
 
 > [Complete `1.9.2` Changeset](https://github.com/Workiva/over_react/compare/1.9.1...1.9.2)
 
-__Dependency updates__
+__Dependency Updates__
 
 * analyzer `>=0.26.1+3 <0.31.0` (was `>=0.26.1+3 <0.30.0`) 
 
@@ -17,7 +34,7 @@ __Dependency updates__
 
 __Bug Fixes__
 
-* [#66]: Fix regression with transitions not completing in consumers of AbstractTransition that don't call `super.componentDidMount`
+* [#66]: Fix regression with transitions not completing in consumers of `AbstractTransitionComponent` that don't call `super.componentDidMount`
 
 &nbsp;
 
