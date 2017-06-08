@@ -15,6 +15,7 @@
 library over_react.component_declaration.flux_component;
 
 import 'dart:async';
+import 'package:meta/meta.dart';
 import 'package:w_flux/w_flux.dart';
 import './annotations.dart' as annotations;
 import './transformer_helpers.dart';
@@ -88,6 +89,9 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
   ///
   /// These subscriptions are canceled when the component is unmounted.
   List<StreamSubscription> _subscriptions = [];
+  @visibleForTesting
+  List<StreamSubscription> get subscriptions =>_subscriptions;
+
 
   void componentWillMount() {
     /// Subscribe to all applicable stores.
@@ -101,8 +105,10 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
         value: (_) => (_) => redraw())..addAll(getStoreHandlers());
 
     handlers.forEach((store, handler) {
-      StreamSubscription subscription = store.listen(handler);
-      _subscriptions.add(subscription);
+      if(!store.isDisposedOrDisposing) {
+        StreamSubscription subscription = store.listen(handler);
+        _subscriptions.add(subscription);
+      }
     });
   }
 

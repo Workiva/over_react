@@ -65,6 +65,18 @@ void main() {
           reason: 'component should no longer be listening after unmount');
     });
 
+    test('does not subscribe to a store that is disposed or disposing', () async {
+      var store = new TestStore();
+      var renderedInstance = render(TestDefault()..store = store);
+      TestDefaultComponent component = getDartComponent(renderedInstance);
+      expect(component.subscriptions.length, 1);
+
+      await store.dispose();
+      renderedInstance = render(TestDefault()..store = store);
+      component = getDartComponent(renderedInstance);
+      expect(component.subscriptions.length, 0);
+    });
+
     test('subscribes to any stores returned in redrawOn', () async {
       var stores = new TestStores();
       var renderedInstance = render(TestRedrawOn()..store = stores);
