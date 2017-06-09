@@ -15,6 +15,7 @@
 library over_react.component_declaration.flux_component;
 
 import 'dart:async';
+import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:w_flux/w_flux.dart';
 import './annotations.dart' as annotations;
@@ -83,15 +84,13 @@ abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extend
 ///
 /// Private so it will only get used in this file, since having lifecycle methods in a mixin is risky.
 abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements BatchedRedraws {
+  final Logger _logger = new Logger('_FluxComponentMixin');
   TProps get props;
 
   /// List of store subscriptions created when the component mounts.
   ///
   /// These subscriptions are canceled when the component is unmounted.
   List<StreamSubscription> _subscriptions = [];
-  @visibleForTesting
-  List<StreamSubscription> get subscriptions =>_subscriptions;
-
 
   void componentWillMount() {
     /// Subscribe to all applicable stores.
@@ -105,10 +104,16 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
         value: (_) => (_) => redraw())..addAll(getStoreHandlers());
 
     handlers.forEach((store, handler) {
-      if(!store.isDisposedOrDisposing) {
-        StreamSubscription subscription = store.listen(handler);
-        _subscriptions.add(subscription);
-      }
+      String message = 'Cannot listen to a disposed/disposing Store.';
+      assert(!store.isDisposedOrDisposing, '$message This can be caused by BatchedRedraws '
+        'mounting the component asynchronously after the store has been disposed. If you are '
+        'in a test environment, try adding an `await window.animationFrame;` before disposing your '
+        'store.');
+
+      if(store.isDisposedOrDisposing) _logger.warning(message);
+
+      StreamSubscription subscription = store.listen(handler);
+      _subscriptions.add(subscription);
     });
   }
 
