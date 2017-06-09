@@ -16,7 +16,6 @@ library over_react.component_declaration.flux_component;
 
 import 'dart:async';
 import 'package:logging/logging.dart';
-import 'package:meta/meta.dart';
 import 'package:w_flux/w_flux.dart';
 import './annotations.dart' as annotations;
 import './transformer_helpers.dart';
