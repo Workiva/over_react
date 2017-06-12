@@ -17,6 +17,7 @@ library abstract_transition;
 import 'dart:async';
 import 'dart:html';
 
+import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 
 @AbstractProps()
@@ -175,6 +176,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
 
   /// Listens for the next `transitionend` event and invokes a callback after
   /// the event is dispatched.
+  @mustCallSuper
   void onNextTransitionEnd(complete()) {
     var skipCount = props.transitionCount - 1;
 
@@ -262,6 +264,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
   /// component than to break state changes waiting for a transition that will never happen.
   bool _transitionNotGuaranteed = false;
 
+  @mustCallSuper
   @override
   void componentDidUpdate(Map prevProps, Map prevState) {
     _transitionNotGuaranteed = false;
@@ -298,6 +301,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps, S 
 
   var _isUnmounted = false;
 
+  @mustCallSuper
   @override
   void componentWillUnmount() {
     _isUnmounted = true;
