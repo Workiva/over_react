@@ -30,6 +30,7 @@ export 'package:react/react.dart' show
 export 'package:react/react_client.dart' show setClientConfiguration, ReactElement;
 
 export 'src/component/abstract_transition.dart';
+export 'src/component/abstract_transition_props.dart';
 export 'src/component/aria_mixin.dart';
 export 'src/component/callback_typedefs.dart';
 export 'src/component/dom_components.dart';
