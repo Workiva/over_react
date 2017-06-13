@@ -14,7 +14,4 @@
 
 library test_util;
 
-export 'custom_matchers.dart';
-export 'dom_util.dart';
-export 'react_util.dart';
-export 'wrapper_component.dart';
+export 'package:over_react_test/over_react_test.dart';

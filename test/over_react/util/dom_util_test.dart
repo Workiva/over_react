@@ -35,7 +35,7 @@ main() {
       test('root contains the other element', () {
         var rootInstance = render(DomTest());
         var rootNode = findDomNode(rootInstance);
-        var otherNode = getDomByTestId(rootInstance, 'innerComponent');
+        var otherNode = getComponentRootDomByTestId(rootInstance, 'innerComponent');
 
         expect(isOrContains(rootNode, otherNode), isTrue);
       });
