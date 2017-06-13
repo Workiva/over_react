@@ -139,7 +139,7 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
 
   /// Subscribe to all applicable stores.
   ///
-  /// [Store]s returned by [redrawOn] will have their triggers mapped directly to this components
+  /// [Store]s returned by [redrawOn] will have their triggers mapped directly to this component's
   /// redraw function.
   ///
   /// [Store]s included in the [getStoreHandlers] result will be listened to and wired up to their
@@ -178,7 +178,7 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
   @override
   void componentWillReceiveProps(Map prevProps) {
     // Unbind store handlers so they can be re-bound in componentDidUpdate
-    // once the new props are available, ensuring the values returned [redrawOn]
+    // once the new props are available, ensuring the values returned by [redrawOn]
     // are not outdated.
     _unbindStoreHandlers();
   }
@@ -192,7 +192,7 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
 
   @override
   void componentWillUnmount() {
-    // Ensure that unmounted components don't batch render
+    // Ensure that unmounted components don't batch render.
     shouldBatchRedraw = false;
 
     _unbindStoreHandlers();
