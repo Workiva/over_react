@@ -16,7 +16,9 @@ library over_react.component_declaration.flux_component;
 
 import 'dart:async';
 import 'package:logging/logging.dart';
+import 'package:meta/meta.dart';
 import 'package:w_flux/w_flux.dart';
+
 import './annotations.dart' as annotations;
 import './transformer_helpers.dart';
 
@@ -65,7 +67,30 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
 ///
 /// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
 abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<TProps>
-    with _FluxComponentMixin<TProps>, BatchedRedraws {}
+    with _FluxComponentMixin<TProps>, BatchedRedraws {
+  // Redeclare these lifecycle methods with `mustCallSuper`, since `mustCallSuper` added to methods within
+  // mixins doesn't work. See https://github.com/dart-lang/sdk/issues/29861
+
+  @mustCallSuper
+  @override
+  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
+  // ignore: must_call_super
+  void componentWillMount();
+
+  @mustCallSuper
+  @override
+  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
+  // ignore: must_call_super
+  void componentWillReceiveProps(Map prevProps);
+
+  @mustCallSuper
+  @override
+  void componentDidUpdate(Map prevProps, Map prevState);
+
+  @mustCallSuper
+  @override
+  void componentWillUnmount();
+}
 
 /// Builds on top of [UiStatefulComponent], adding `w_flux` integration, much like the [FluxComponent] in w_flux.
 ///
@@ -77,7 +102,30 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
 /// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
 abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extends UiState>
     extends UiStatefulComponent<TProps, TState>
-    with _FluxComponentMixin<TProps>, BatchedRedraws {}
+    with _FluxComponentMixin<TProps>, BatchedRedraws {
+  // Redeclare these lifecycle methods with `mustCallSuper`, since `mustCallSuper` added to methods within
+  // mixins doesn't work. See https://github.com/dart-lang/sdk/issues/29861
+
+  @mustCallSuper
+  @override
+  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
+  // ignore: must_call_super
+  void componentWillMount();
+
+  @mustCallSuper
+  @override
+  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
+  // ignore: must_call_super
+  void componentWillReceiveProps(Map prevProps);
+
+  @mustCallSuper
+  @override
+  void componentDidUpdate(Map prevProps, Map prevState);
+
+  @mustCallSuper
+  @override
+  void componentWillUnmount();
+}
 
 /// Helper mixin to keep [FluxUiComponent] and [FluxUiStatefulComponent] clean/DRY.
 ///
