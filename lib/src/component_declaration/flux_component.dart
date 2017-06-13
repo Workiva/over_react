@@ -81,41 +81,71 @@ abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extend
 /// Helper mixin to keep [FluxUiComponent] and [FluxUiStatefulComponent] clean/DRY.
 ///
 /// Private so it will only get used in this file, since having lifecycle methods in a mixin is risky.
-abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements BatchedRedraws {
-  TProps get props;
-
+abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements BatchedRedraws, UiComponent<TProps> {
   /// List of store subscriptions created when the component mounts.
   ///
   /// These subscriptions are canceled when the component is unmounted.
-  List<StreamSubscription> _subscriptions = [];
+  List<StreamSubscription> _subscriptions;
 
-  void componentWillMount() {
-    /// Subscribe to all applicable stores.
-    ///
-    /// [Store]s returned by [redrawOn] will have their triggers mapped directly to this components
-    /// redraw function.
-    ///
-    /// [Store]s included in the [getStoreHandlers] result will be listened to and wired up to their
-    /// respective handlers.
+  bool get _areStoreHandlersBound => _subscriptions != null;
+
+  /// Subscribe to all applicable stores.
+  ///
+  /// [Store]s returned by [redrawOn] will have their triggers mapped directly to this components
+  /// redraw function.
+  ///
+  /// [Store]s included in the [getStoreHandlers] result will be listened to and wired up to their
+  /// respective handlers.
+  void _bindStoreHandlers() {
+    if (_areStoreHandlersBound) {
+      throw new StateError('Store handlers are already bound');
+    }
+
     Map<Store, StoreHandler> handlers = new Map.fromIterable(redrawOn(),
         value: (_) => (_) => redraw())..addAll(getStoreHandlers());
 
+    _subscriptions = <StreamSubscription>[];
     handlers.forEach((store, handler) {
       StreamSubscription subscription = store.listen(handler);
       _subscriptions.add(subscription);
     });
   }
 
+  /// Cancel all store subscriptions.
+  void _unbindStoreHandlers() {
+    if (!_areStoreHandlersBound) return;
+
+    for (var subscription in _subscriptions) {
+      subscription?.cancel();
+    }
+  }
+
+  @override
+  void componentWillMount() {
+    _bindStoreHandlers();
+  }
+
+  @override
+  void componentWillReceiveProps(Map prevProps) {
+    // Unbind store handlers so they can be re-bound in componentDidUpdate
+    // once the new props are available, ensuring the values returned [redrawOn]
+    // are not outdated.
+    _unbindStoreHandlers();
+  }
+
+  @override
+  void componentDidUpdate(Map prevProps, Map prevState) {
+    // If the handlers are not bound at this point, then that means they were unbound by
+    // componentWillReceiveProps, and need to be re-bound now that new props are available.
+    if (!_areStoreHandlersBound) _bindStoreHandlers();
+  }
+
+  @override
   void componentWillUnmount() {
     // Ensure that unmounted components don't batch render
     shouldBatchRedraw = false;
 
-    // Cancel all store subscriptions.
-    _subscriptions.forEach((StreamSubscription subscription) {
-      if (subscription != null) {
-        subscription.cancel();
-      }
-    });
+    _unbindStoreHandlers();
   }
 
   /// Define the list of [Store] instances that this component should listen to.
