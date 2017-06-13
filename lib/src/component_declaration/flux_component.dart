@@ -166,6 +166,8 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
     for (var subscription in _subscriptions) {
       subscription?.cancel();
     }
+
+    _subscriptions = null;
   }
 
   @override
