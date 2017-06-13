@@ -28,7 +28,7 @@ import 'package:transformer_utils/transformer_utils.dart';
 ///
 /// Generates implementations for:
 ///
-/// * A component commprised of a `@Factory()`, `@Component()`, `@Props()`, and optionally a `@State()`
+/// * A component comprised of a `@Factory()`, `@Component()`, `@Props()`, and optionally a `@State()`
 ///
 ///     * Generates:
 ///
@@ -296,7 +296,7 @@ class ImplGenerator {
             !member.isSynthetic &&
             member.isAbstract &&
             member.name.name == name &&
-            member.returnType?.name?.name == type
+            member.returnType?.toSource() == type
         );
       });
     }
@@ -484,10 +484,13 @@ class ImplGenerator {
 
             TypeName type = field.fields.type;
             String typeString = type == null ? '' : '$type ';
+            String setterTypeString = field.covariantKeyword == null
+                ? typeString
+                : '${field.covariantKeyword} $typeString';
 
             String generatedAccessor =
                 '${typeString}get $accessorName => $proxiedMapName[$keyConstantName];  '
-                'set $accessorName(${typeString}value) => $proxiedMapName[$keyConstantName] = value;';
+                'set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;';
 
             transformedFile.replace(
                 sourceFile.span(variable.firstTokenAfterCommentAndMetadata.offset, variable.name.end),
