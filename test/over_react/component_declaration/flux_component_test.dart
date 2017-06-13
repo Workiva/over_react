@@ -8,8 +8,7 @@ import 'dart:html';
 import 'package:test/test.dart';
 import 'package:w_flux/w_flux.dart';
 import 'package:over_react/over_react.dart';
-
-import '../../test_util/test_util.dart';
+import 'package:over_react_test/over_react_test.dart';
 
 part 'flux_component_test/default.dart';
 part 'flux_component_test/handler_precedence.dart';
@@ -161,6 +160,30 @@ void main() {
       component.redraw();
       await nextTick();
       expect(component.numberOfRedraws, equals(0));
+    });
+
+    test('updates the subscriptions registered from redrawOn when rerendered with new props', () async {
+      var stores = new TestStores();
+      var newStores = new TestStores();
+
+      var testJacket = mount<TestRedrawOnComponent>((TestRedrawOn()..store = stores)());
+      var dartInstance = testJacket.getDartInstance();
+      expect(dartInstance.numberOfRedraws, 0);
+
+      stores.store1.trigger();
+      await nextTick();
+      expect(dartInstance.numberOfRedraws, 1);
+
+      testJacket.rerender((TestRedrawOn()..store = newStores)());
+      dartInstance.numberOfRedraws = 0;
+
+      newStores.store1.trigger();
+      await nextTick();
+      expect(dartInstance.numberOfRedraws, 1, reason: 'should have redrawn from new store');
+
+      stores.store1.trigger();
+      await nextTick();
+      expect(dartInstance.numberOfRedraws, 1, reason: 'should not have redrawn from old store');
     });
   });
 }
