@@ -23,7 +23,7 @@ import 'dart:html';
 ])
 import 'dart:mirrors';
 
-import 'package:browser_detect/browser_detect.dart';
+import 'package:platform_detect/platform_detect.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 import 'package:react/react_client.dart';
@@ -434,7 +434,7 @@ void commonComponentTests(BuilderOnlyUiFactory factory, {
   skippedPropKeys = flatten(skippedPropKeys).toList();
 
   // TODO: Remove this short-circuit when UIP-1125.
-  if (browser.isIe && browser.version <= '10') return;
+  if (browser.isInternetExplorer && browser.version.major <= 10) return;
 
   if (shouldTestPropForwarding) {
     testPropForwarding(factory, childrenFactory,
