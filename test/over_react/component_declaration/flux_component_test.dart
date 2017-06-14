@@ -152,6 +152,8 @@ void main() {
       await nextTick();
       expect(numberOfCalls, 1,
           reason: 'the subscription to have been cancelled, and should not receive additional events');
+
+      controller.close();
     });
 
     test('should not redraw after being unmounted', () async {

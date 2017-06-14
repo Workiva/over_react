@@ -19,6 +19,7 @@ library resize_sensor;
 import 'dart:collection';
 import 'dart:html';
 
+import 'package:meta/meta.dart';
 import 'package:platform_detect/platform_detect.dart';
 import 'package:react/react.dart' as react;
 import 'package:over_react/over_react.dart';
@@ -102,6 +103,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
     ..addProps(ResizeSensorPropsMixin.defaultProps)
   );
 
+  @mustCallSuper
   @override
   void componentWillUnmount() {
     super.componentWillUnmount();
@@ -109,6 +111,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
     cancelAnimationFrames();
   }
 
+  @mustCallSuper
   @override
   void componentDidMount() {
     if (props.quickMount) {

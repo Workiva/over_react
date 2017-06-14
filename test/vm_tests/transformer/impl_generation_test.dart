@@ -328,6 +328,19 @@ main() {
         ''');
       });
 
+      test('covariant keyword', () {
+        preservedLineNumbersTest('''
+          @AbstractProps()
+          class AbstractFooProps {
+            covariant String foo;
+          }
+        ''');
+
+        expect(transformedFile.getTransformedText(), contains('String get foo => props[_\$key__foo];'));
+        expect(transformedFile.getTransformedText(),
+            contains('set foo(covariant String value) => props[_\$key__foo] = value;'));
+      });
+
       group('accessors', () {
         test('that are absent', () {
           preservedLineNumbersTest('''
