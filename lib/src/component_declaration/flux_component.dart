@@ -83,7 +83,7 @@ abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extend
 ///
 /// Private so it will only get used in this file, since having lifecycle methods in a mixin is risky.
 abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements BatchedRedraws {
-  final Logger _logger = new Logger('_FluxComponentMixin');
+  static final Logger _logger = new Logger('_FluxComponentMixin');
   TProps get props;
 
   /// List of store subscriptions created when the component mounts.
