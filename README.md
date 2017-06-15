@@ -1,10 +1,12 @@
 # OverReact
 
 [![Pub](https://img.shields.io/pub/v/over_react.svg)](https://pub.dartlang.org/packages/over_react)
+[![Documentation](https://img.shields.io/badge/docs-over__react-blue.svg)](https://workiva.github.io/over_react)
+[![Join the chat at https://gitter.im/over_react/Lobby](https://badges.gitter.im/over_react/Lobby.svg)](https://gitter.im/over_react/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/Workiva/over_react.svg?branch=master)](https://travis-ci.org/Workiva/over_react)
 [![Test Coverage](https://codecov.io/github/Workiva/over_react/coverage.svg?branch=master)](https://codecov.io/github/Workiva/over_react?branch=master)
-[![Documentation](https://img.shields.io/badge/Documentation-over__react-blue.svg)](https://workiva.github.io/over_react)
-[![Join the chat at https://gitter.im/over_react/Lobby](https://badges.gitter.im/over_react/Lobby.svg)](https://gitter.im/over_react/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Strong Mode Compliant](https://img.shields.io/badge/strong_mode-on-brightgreen.svg)](https://github.com/Workiva/over_react/blob/master/analysis_options.yaml#L5)
 
 > A library for building statically-typed React UI components using Dart.
 
@@ -40,7 +42,7 @@
 
     ```yaml
     dependencies:
-      over_react: "^1.6.0"
+      over_react: "^1.11.0"
     ```
 
 2. Add the `over_react` [transformer] to your `pubspec.yaml`.
@@ -87,12 +89,11 @@ mount / render it into the HTML element you created in step 3.
     import 'dart:html';
     import 'package:react/react.dart' as react;
     import 'package:react/react_dom.dart' as react_dom;
-    import 'package:react/react_client.dart' as react_client;
     import 'package:over_react/over_react.dart';
 
     main() {
       // Initialize React within our Dart app
-      react_client.setClientConfiguration();
+      setClientConfiguration();
 
       // Mount / render your component.
       react_dom.render(Foo()(), querySelector('#react_mount_point'));

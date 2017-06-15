@@ -1,6 +1,30 @@
 # OverReact Changelog
 
 
+## 1.11.0
+
+> [Complete `1.11.0` Changeset](https://github.com/Workiva/over_react/compare/1.10.0...1.11.0)
+
+__New Features__
+
+* [#76]: Add support for [`covariant`](http://news.dartlang.org/2017/02/dart-122-faster-tools-assert-messages.html) props / state fields.
+  * Closes [#49]
+  
+__Bug Fixes__
+
+* [#77]: Update `FluxUiComponent` subscriptions when new `props` are received. 
+
+__Tech Debt Paid__
+
+* [#75]: Audit the lib for any memory leak sources, and fortify it against future ones.
+
+__Misc__
+
+* [#72]: Add logging message when a race condition causes `BatchedRedraws` to mount a `FluxUiComponent` asynchronously after the `store` has already been disposed.
+    * _Thanks @tomconnell-wf!_
+
+&nbsp;
+
 ## 1.10.0
 
 > [Complete `1.10.0` Changeset](https://github.com/Workiva/over_react/compare/1.9.2...1.10.0)
