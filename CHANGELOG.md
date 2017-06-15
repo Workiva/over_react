@@ -1,5 +1,14 @@
 # OverReact Changelog
 
+## 1.11.1
+
+> [Complete `1.11.1` Changeset](https://github.com/Workiva/over_react/compare/1.11.0...1.11.1)
+
+__Bug Fixes__
+
+* Revert _[#77]: Update `FluxUiComponent` subscriptions when new `props` are received._
+    * Reverted since this broke subclasses that weren't calling super in lifecycle methods `componentWillReceieveProps` and `componentDidUpdate`
+    * Keep `@mustCallSuper` annotations from this changeset  
 
 ## 1.11.0
 
