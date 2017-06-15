@@ -13,7 +13,7 @@ dependencies:
   logging: ">=0.11.3+1 <1.0.0"
   meta: "^1.0.4"
   path: "^1.4.1"
-  react: "^3.1.0"
+  react: "^3.2.2"
   source_span: "^1.2.0"
   transformer_utils: "^0.1.1"
   w_flux: "^2.7.1"
