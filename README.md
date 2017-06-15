@@ -1,10 +1,12 @@
 # OverReact
 
 [![Pub](https://img.shields.io/pub/v/over_react.svg)](https://pub.dartlang.org/packages/over_react)
+[![Documentation](https://img.shields.io/badge/docs-over__react-blue.svg)](https://workiva.github.io/over_react)
+[![Join the chat at https://gitter.im/over_react/Lobby](https://badges.gitter.im/over_react/Lobby.svg)](https://gitter.im/over_react/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/Workiva/over_react.svg?branch=master)](https://travis-ci.org/Workiva/over_react)
 [![Test Coverage](https://codecov.io/github/Workiva/over_react/coverage.svg?branch=master)](https://codecov.io/github/Workiva/over_react?branch=master)
-[![Documentation](https://img.shields.io/badge/Documentation-over__react-blue.svg)](https://workiva.github.io/over_react)
-[![Join the chat at https://gitter.im/over_react/Lobby](https://badges.gitter.im/over_react/Lobby.svg)](https://gitter.im/over_react/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Strong Mode Compliant](https://img.shields.io/badge/strong_mode-on-brightgreen.svg)](https://github.com/Workiva/over_react/blob/master/analysis_options.yaml#L5)
 
 > A library for building statically-typed React UI components using Dart.
 
