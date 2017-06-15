@@ -23,6 +23,7 @@ dev_dependencies:
   matcher: ">=0.11.0 <0.13.0"
   coverage: "^0.7.2"
   dart_dev: "^1.7.6"
+  over_react_test: "^1.0.0"
   mockito: "^0.11.0"
   test: "^0.12.6+2"
 
