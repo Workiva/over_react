@@ -257,7 +257,31 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 ///
 /// Note: Implements MapViewMixin instead of extending it so that the abstract [State] declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
-abstract class UiState extends Object with MapViewMixin, StateMapViewMixin implements Map {}
+abstract class UiState extends Object implements StateMapViewMixin, MapViewMixin, Map {
+  // Manually implement members from `StateMapViewMixin`,
+  // since mixing that class in doesn't play well with the DDC.
+  // TODO find out root cause and reduced test case.
+  @override Map get _map => this.state;
+  @override String toString() => '$runtimeType: ${prettyPrintMap(_map)}';
+
+  // Manually implement members from `MapViewMixin`,
+  // since mixing that class in doesn't play well with the DDC.
+  // TODO find out root cause and reduced test case.
+  @override operator[](Object key) => _map[key];
+  @override void operator[]=(key, value) { _map[key] = value; }
+  @override void addAll(other) { _map.addAll(other); }
+  @override void clear() { _map.clear(); }
+  @override putIfAbsent(key, ifAbsent()) => _map.putIfAbsent(key, ifAbsent);
+  @override bool containsKey(Object key) => _map.containsKey(key);
+  @override bool containsValue(Object value) => _map.containsValue(value);
+  @override void forEach(void action(key, value)) { _map.forEach(action); }
+  @override bool get isEmpty => _map.isEmpty;
+  @override bool get isNotEmpty => _map.isNotEmpty;
+  @override int get length => _map.length;
+  @override Iterable get keys => _map.keys;
+  @override remove(Object key) => _map.remove(key);
+  @override Iterable get values => _map.values;
+}
 
 /// The string used by default for the key of the attribute added by [UiProps.addTestId].
 const defaultTestIdKey = 'data-test-id';
@@ -275,9 +299,33 @@ typedef PropsModifier(Map props);
 ///
 /// Note: Implements MapViewMixin instead of extending it so that the abstract [Props] declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
-abstract class UiProps
-    extends Object with MapViewMixin, PropsMapViewMixin, ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
-    implements Map {
+abstract class UiProps extends Object
+    with ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
+    implements PropsMapViewMixin, MapViewMixin, Map {
+  // Manually implement members from `MapViewMixin`,
+  // since mixing that class in doesn't play well with the DDC.
+  // TODO find out root cause and reduced test case.
+  @override operator[](Object key) => _map[key];
+  @override void operator[]=(key, value) { _map[key] = value; }
+  @override void addAll(other) { _map.addAll(other); }
+  @override void clear() { _map.clear(); }
+  @override putIfAbsent(key, ifAbsent()) => _map.putIfAbsent(key, ifAbsent);
+  @override bool containsKey(Object key) => _map.containsKey(key);
+  @override bool containsValue(Object value) => _map.containsValue(value);
+  @override void forEach(void action(key, value)) { _map.forEach(action); }
+  @override bool get isEmpty => _map.isEmpty;
+  @override bool get isNotEmpty => _map.isNotEmpty;
+  @override int get length => _map.length;
+  @override Iterable get keys => _map.keys;
+  @override remove(Object key) => _map.remove(key);
+  @override Iterable get values => _map.values;
+
+  // Manually implement members from `StateMapViewMixin`,
+  // since mixing that class in doesn't play well with the DDC.
+  // TODO find out root cause and reduced test case.
+  @override Map get _map => this.props;
+  @override String toString() => '$runtimeType: ${prettyPrintMap(_map)}';
+
   /// Adds an arbitrary prop key-value pair if [shouldAdd] is true, otherwise, does nothing.
   void addProp(propKey, value, [bool shouldAdd = true]) {
     if (!shouldAdd) return;
