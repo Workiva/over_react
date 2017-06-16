@@ -28,6 +28,7 @@ import 'package:over_react/over_react.dart' show
     PropError;
 
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
+import 'package:over_react/src/util/ddc_emulated_function_name_bug.dart' as ddc_emulated_function_name_bug;
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 
@@ -302,6 +303,14 @@ typedef PropsModifier(Map props);
 abstract class UiProps extends Object
     with ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
     implements PropsMapViewMixin, MapViewMixin, Map {
+
+  UiProps() {
+    // Work around https://github.com/dart-lang/sdk/issues/27647 for all UiProps instances
+    if (ddc_emulated_function_name_bug.isBugPresent) {
+      ddc_emulated_function_name_bug.patchName(this);
+    }
+  }
+
   // Manually implement members from `MapViewMixin`,
   // since mixing that class in doesn't play well with the DDC.
   // TODO find out root cause and reduced test case.
