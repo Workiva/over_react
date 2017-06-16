@@ -201,7 +201,10 @@ class ImplGenerator {
 
       typedPropsFactoryImpl =
           '  @override\n'
-          '  $propsName typedPropsFactory(Map backingMap) => new $propsImplName(backingMap);';
+          // Don't type this so that it doesn't interfere with classes with generic parameter props type:
+          //    class FooComponent<T extends FooProps> extends UiComponent<T> {...}
+          // TODO use long-term solution of component impl class instantiated via factory constructor
+          '  typedPropsFactory(Map backingMap) => new $propsImplName(backingMap) as dynamic;';
 
       // ----------------------------------------------------------------------
       //   State implementation
@@ -232,7 +235,10 @@ class ImplGenerator {
 
         typedStateFactoryImpl =
           '  @override\n'
-          '  $stateName typedStateFactory(Map backingMap) => new $stateImplName(backingMap);';
+          // Don't type this so that it doesn't interfere with classes with generic parameter state type:
+          //    class FooComponent<T extends FooProps, T extends FooState> extends UiStatefulComponent<T> {...}
+          // TODO use long-term solution of component impl class instantiated via factory constructor
+          '  typedStateFactory(Map backingMap) => new $stateImplName(backingMap) as dynamic;';
       }
 
       // ----------------------------------------------------------------------
@@ -253,8 +259,6 @@ class ImplGenerator {
         ..writeln('  @override')
         ..writeln('  final List<ConsumedProps> \$defaultConsumedProps = '
                         'const [$propsName.$staticConsumedPropsName];')
-        ..writeln(typedPropsFactoryImpl)
-        ..writeln(typedStateFactoryImpl)
         ..writeln('}');
 
       if (declarations.component.node.withClause != null) {
@@ -273,6 +277,14 @@ class ImplGenerator {
             ' extends Object with $componentClassImplMixinName'
         );
       }
+
+      // For some reason, strong mode is okay with these declarations being in the component,
+      // but not in the mixin.
+      // TODO use long-term solution of component impl class instantiated via factory constructor
+      transformedFile.insert(
+          sourceFile.location(declarations.component.node.rightBracket.offset),
+          '$typedPropsFactoryImpl $typedStateFactoryImpl'
+      );
     }
 
     if (implementations.isNotEmpty) {
