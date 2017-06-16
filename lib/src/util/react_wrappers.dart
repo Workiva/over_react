@@ -101,7 +101,9 @@ Map getJsProps(/* ReactElement|ReactComponent */ instance) {
   return props;
 }
 
-Expando<UnmodifiableMapView> _elementPropsCache = new Expando('_elementPropsCache');
+// Disable this for the DDC.
+// TODO: reenable conditionally
+Expando<UnmodifiableMapView> _elementPropsCache; // = new Expando('_elementPropsCache');
 
 /// Returns an unmodifiable Map view of props for a [ReactElement] or composite [ReactComponent] [instance].
 ///
@@ -140,7 +142,7 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers:
       }
     }
 
-    if (!isCompositeComponent) {
+    if (_elementPropsCache != null && !isCompositeComponent) {
       var cachedView = _elementPropsCache[instance];
       if (cachedView != null) return cachedView;
     }
@@ -148,7 +150,9 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers:
     var propsMap = isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
     var view = new UnmodifiableMapView(propsMap);
 
-    if (!isCompositeComponent) _elementPropsCache[instance] = view;
+    if (_elementPropsCache != null && !isCompositeComponent) {
+      _elementPropsCache[instance] = view;
+    }
 
     return view;
   }
