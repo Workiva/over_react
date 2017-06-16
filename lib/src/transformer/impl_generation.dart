@@ -392,6 +392,8 @@ class ImplGenerator {
       AccessorType type,
       NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap
   ) {
+    applyAbstractAccessorFix(type, typedMap);
+
     String keyNamespace = getAccessorKeyNamespace(typedMap);
 
     final bool isProps = type == AccessorType.props;
@@ -587,6 +589,50 @@ class ImplGenerator {
         sourceFile.location(typedMap.node.leftBracket.end),
         staticVariablesImpl
     );
+  }
+
+  /// Apply a workaround for an issue where, in the DDC, abstract getter or setter overrides declared in a class clobber
+  /// the inherited concrete implementations. <https://github.com/dart-lang/sdk/issues/29914>
+  ///
+  /// Fixes the issue by generating corresponding abstract getters/setters to complete the pair
+  /// for accessors with the `@override` annotation.
+  void applyAbstractAccessorFix(
+    AccessorType type,
+    NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap,
+  ) {
+    var candidateAccessors = new List<MethodDeclaration>.from(
+        typedMap.node.members.where((member) =>
+            member is MethodDeclaration &&
+            (member.isGetter || member.isSetter) &&
+            !member.isSynthetic &&
+            !member.isStatic &&
+            member.metadata.any((meta) => meta.name.name == 'override')
+        )
+    );
+
+    for (var accessor in candidateAccessors) {
+      // Non-abstract accessors don't exhibit this issue.
+      if (!accessor.isAbstract) return;
+
+      var name = accessor.name.name;
+
+      // Don't generate for `Map get props;`/`Map get state;` in mixins
+      if (type == AccessorType.props && name == 'props') continue;
+      if (type == AccessorType.state && name == 'state') continue;
+
+      if (candidateAccessors.any((other) => other != accessor && other.name.name == name)) {
+        // Don't generate when both the getter and the setter are declared.
+        continue;
+      }
+
+      if (accessor.isGetter) {
+        var type = accessor.returnType?.toSource() ?? '';
+        transformedFile.insert(sourceFile.location(accessor.end), 'set $name(covariant $type value);');
+      } else {
+        var type = accessor.parameters.parameters.single.element?.type ?? '';
+        transformedFile.insert(sourceFile.location(accessor.end), '$type get $name;');
+      }
+    }
   }
 }
 
