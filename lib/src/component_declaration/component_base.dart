@@ -410,10 +410,6 @@ abstract class UiProps extends Object
   @override
   dynamic noSuchMethod(Invocation invocation) {
     if (invocation.memberName == #call && invocation.isMethod) {
-      var parameters = []
-        ..add(props)
-        ..addAll(invocation.positionalArguments);
-
       assert(() {
         // These checks are within the assert so they are not done in production.
         var children = invocation.positionalArguments;
@@ -425,7 +421,18 @@ abstract class UiProps extends Object
         return _validateChildren(children);
       });
 
-      return Function.apply(componentFactory, parameters);
+      final factory = componentFactory;
+      if (factory is ReactComponentFactoryProxy) {
+        // Use `build` instead of using emulated function behavior to work around DDC issue
+        // https://github.com/dart-lang/sdk/issues/29904
+        // Should have the benefit of better performance; TODO optimize type check?
+        return factory.build(props, invocation.positionalArguments);
+      } else {
+        var parameters = []
+          ..add(props)
+          ..addAll(invocation.positionalArguments);
+        return Function.apply(factory, parameters);
+      }
     }
 
     return super.noSuchMethod(invocation);
