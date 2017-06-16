@@ -434,15 +434,21 @@ class ImplGenerator {
             annotations.Accessor accessorMeta = instantiateAnnotation(field, annotations.Accessor);
             annotations.Accessor requiredProp = getConstantAnnotation(field, 'requiredProp', annotations.requiredProp);
             annotations.Accessor nullableRequiredProp = getConstantAnnotation(field, 'nullableRequiredProp', annotations.nullableRequiredProp);
+            // ignore: deprecated_member_use
             annotations.Required requiredMeta = instantiateAnnotation(field, annotations.Required);
 
             String individualKeyNamespace = accessorMeta?.keyNamespace ?? keyNamespace;
             String individualKey = accessorMeta?.key ?? accessorName;
 
-            String keyConstantName = '${generatedPrefix}key__$accessorName';
+            /// Necessary to work around issue where private static declarations in different classes
+            /// conflict with each other in strong mode: https://github.com/dart-lang/sdk/issues/29751
+            /// TODO remove once that issue is resolved
+            String staticConstNamespace = typedMap.node.name.name;
+
+            String keyConstantName = '${generatedPrefix}key__${accessorName}__$staticConstNamespace';
             String keyValue = stringLiteral(individualKeyNamespace + individualKey);
 
-            String constantName = '${generatedPrefix}prop__$accessorName';
+            String constantName = '${generatedPrefix}prop__${accessorName}__$staticConstNamespace';
             String constantValue = 'const $constConstructorName($keyConstantName';
 
             var annotationCount = 0;
