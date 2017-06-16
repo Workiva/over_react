@@ -1,5 +1,13 @@
 # OverReact Changelog
 
+## 1.11.2
+
+> [Complete `1.11.2` Changeset](https://github.com/Workiva/over_react/compare/1.11.1...1.11.2)
+
+__Improvements__
+
+* [e805b79b](https://github.com/Workiva/over_react/commit/e805b79b56f90989194ebf0a7951357e7b40f75c) Null-coalesce `isDisposedOrDisposing` to ease consumer test breakages
+    
 ## 1.11.1
 
 > [Complete `1.11.1` Changeset](https://github.com/Workiva/over_react/compare/1.11.0...1.11.1)
