@@ -35,7 +35,7 @@ DomProps domProps([Map backingMap]) => new DomProps(null, backingMap);
 
 typedef DomProps DomPropsFactory();
 
-class DomProps extends component_base.UiProps with DomPropsMixin, ReactPropsMixin {
+class DomProps extends component_base.UiProps with DomPropsMixin {
   // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
   DomProps(this.componentFactory, [Map props]) : this.props = props ?? ({});
 
@@ -45,7 +45,7 @@ class DomProps extends component_base.UiProps with DomPropsMixin, ReactPropsMixi
   final Map props;
 }
 
-class SvgProps extends component_base.UiProps with DomPropsMixin, ReactPropsMixin, SvgPropsMixin implements DomProps {
+class SvgProps extends component_base.UiProps with DomPropsMixin, SvgPropsMixin implements DomProps {
   // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
   SvgProps(this.componentFactory, [Map props]) : this.props = props ?? ({});
 
