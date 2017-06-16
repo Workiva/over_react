@@ -152,12 +152,15 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
 
     handlers.forEach((store, handler) {
       String message = 'Cannot listen to a disposed/disposing Store.';
-      assert(!(store.isDisposedOrDisposing ?? false), '$message This can be caused by BatchedRedraws '
+      
+      var isDisposedOrDisposing = store.isDisposedOrDisposing ?? false;
+      
+      assert(!isDisposedOrDisposing, '$message This can be caused by BatchedRedraws '
         'mounting the component asynchronously after the store has been disposed. If you are '
         'in a test environment, try adding an `await window.animationFrame;` before disposing your '
         'store.');
 
-      if (store.isDisposedOrDisposing) _logger.warning(message);
+      if (isDisposedOrDisposing) _logger.warning(message);
 
       StreamSubscription subscription = store.listen(handler);
       _subscriptions.add(subscription);
