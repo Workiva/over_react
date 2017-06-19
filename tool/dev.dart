@@ -44,6 +44,9 @@ main(List<String> args) async {
       'test/over_react_component_declaration_test.dart',
       'test/over_react_component_test.dart',
       'test/over_react_util_test.dart',
+    ]
+    ..integrationTests = [
+      'test/integration/'
     ];
 
   config.coverage
