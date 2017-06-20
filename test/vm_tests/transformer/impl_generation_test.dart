@@ -39,7 +39,7 @@ main() {
     void setUpAndParse(String source) {
       logger = new MockTransformLogger();
 
-      sourceFile = new SourceFile(source);
+      sourceFile = new SourceFile.fromString(source);
       transformedFile = new TransformedSourceFile(sourceFile);
 
       unit = parseCompilationUnit(source);
@@ -336,9 +336,9 @@ main() {
           }
         ''');
 
-        expect(transformedFile.getTransformedText(), contains('String get foo => props[_\$key__foo];'));
+        expect(transformedFile.getTransformedText(), contains('String get foo => props[_\$key__foo__AbstractFooProps];'));
         expect(transformedFile.getTransformedText(),
-            contains('set foo(covariant String value) => props[_\$key__foo] = value;'));
+            contains('set foo(covariant String value) => props[_\$key__foo__AbstractFooProps] = value;'));
       });
 
       group('accessors', () {
@@ -638,6 +638,42 @@ main() {
     group('logs a warning when', () {
       tearDown(() {
         verifyTransformedSourceIsValid();
+      });
+
+      group('a Component', () {
+        test('implements typedPropsFactory', () {
+          setUpAndGenerate('''
+            @Factory()
+            UiFactory<FooProps> Foo;
+
+            @Props()
+            class FooProps {}
+
+            @Component()
+            class FooComponent {
+              typedPropsFactory(Map backingMap) => {};
+            }
+          ''');
+
+          verify(logger.warning('Components should not add their own implementions of typedPropsFactory or typedStateFactory.', span: any));
+        });
+
+        test('implements typedStateFactory', () {
+          setUpAndGenerate('''
+            @Factory()
+            UiFactory<FooProps> Foo;
+
+            @Props()
+            class FooProps {}
+
+            @Component()
+            class FooComponent {
+              typedStateFactory(Map backingMap) => {};
+            }
+          ''');
+
+          verify(logger.warning('Components should not add their own implementions of typedPropsFactory or typedStateFactory.', span: any));
+        });
       });
 
       group('comma-separated variables are declared', () {

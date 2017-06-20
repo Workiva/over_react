@@ -200,8 +200,11 @@ class ImplGenerator {
         ..writeln();
 
       typedPropsFactoryImpl =
-          '  @override\n'
-          '  $propsName typedPropsFactory(Map backingMap) => new $propsImplName(backingMap);';
+          '@override '
+          // Don't type this so that it doesn't interfere with classes with generic parameter props type:
+          //    class FooComponent<T extends FooProps> extends UiComponent<T> {...}
+          // TODO use long-term solution of component impl class instantiated via factory constructor
+          'typedPropsFactory(Map backingMap) => new $propsImplName(backingMap) as dynamic;';
 
       // ----------------------------------------------------------------------
       //   State implementation
@@ -231,8 +234,11 @@ class ImplGenerator {
           ..writeln();
 
         typedStateFactoryImpl =
-          '  @override\n'
-          '  $stateName typedStateFactory(Map backingMap) => new $stateImplName(backingMap);';
+          '@override '
+          // Don't type this so that it doesn't interfere with classes with generic parameter state type:
+          //    class FooComponent<T extends FooProps, T extends FooState> extends UiStatefulComponent<T> {...}
+          // TODO use long-term solution of component impl class instantiated via factory constructor
+          'typedStateFactory(Map backingMap) => new $stateImplName(backingMap) as dynamic;';
       }
 
       // ----------------------------------------------------------------------
@@ -253,8 +259,6 @@ class ImplGenerator {
         ..writeln('  @override')
         ..writeln('  final List<ConsumedProps> \$defaultConsumedProps = '
                         'const [$propsName.$staticConsumedPropsName];')
-        ..writeln(typedPropsFactoryImpl)
-        ..writeln(typedStateFactoryImpl)
         ..writeln('}');
 
       if (declarations.component.node.withClause != null) {
@@ -271,6 +275,28 @@ class ImplGenerator {
         transformedFile.insert(
             sourceFile.location(declarations.component.node.name.end),
             ' extends Object with $componentClassImplMixinName'
+        );
+      }
+
+      var implementsTypedPropsStateFactory = declarations.component.node.members.any((member) =>
+          member is MethodDeclaration &&
+          !member.isStatic &&
+          (member.name.name == 'typedPropsFactory' || member.name.name == 'typedStateFactory')
+      );
+
+      if (implementsTypedPropsStateFactory) {
+        // Can't be an error, because consumers may be implementing typedPropsFactory or typedStateFactory in their components.
+        logger.warning(
+            'Components should not add their own implementions of typedPropsFactory or typedStateFactory.',
+            span: getSpan(sourceFile, declarations.component.node)
+        );
+      } else {
+        // For some reason, strong mode is okay with these declarations being in the component,
+        // but not in the mixin.
+        // TODO use long-term solution of component impl class instantiated via factory constructor
+        transformedFile.insert(
+            sourceFile.location(declarations.component.node.leftBracket.end),
+            '   /* GENERATED IMPLEMENTATIONS */ $typedPropsFactoryImpl $typedStateFactoryImpl'
         );
       }
     }
@@ -422,15 +448,21 @@ class ImplGenerator {
             annotations.Accessor accessorMeta = instantiateAnnotation(field, annotations.Accessor);
             annotations.Accessor requiredProp = getConstantAnnotation(field, 'requiredProp', annotations.requiredProp);
             annotations.Accessor nullableRequiredProp = getConstantAnnotation(field, 'nullableRequiredProp', annotations.nullableRequiredProp);
+            // ignore: deprecated_member_use
             annotations.Required requiredMeta = instantiateAnnotation(field, annotations.Required);
 
             String individualKeyNamespace = accessorMeta?.keyNamespace ?? keyNamespace;
             String individualKey = accessorMeta?.key ?? accessorName;
 
-            String keyConstantName = '${generatedPrefix}key__$accessorName';
+            /// Necessary to work around issue where private static declarations in different classes
+            /// conflict with each other in strong mode: https://github.com/dart-lang/sdk/issues/29751
+            /// TODO remove once that issue is resolved
+            String staticConstNamespace = typedMap.node.name.name;
+
+            String keyConstantName = '${generatedPrefix}key__${accessorName}__$staticConstNamespace';
             String keyValue = stringLiteral(individualKeyNamespace + individualKey);
 
-            String constantName = '${generatedPrefix}prop__$accessorName';
+            String constantName = '${generatedPrefix}prop__${accessorName}__$staticConstNamespace';
             String constantValue = 'const $constConstructorName($keyConstantName';
 
             var annotationCount = 0;

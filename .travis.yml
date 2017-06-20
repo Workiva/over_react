@@ -10,6 +10,6 @@ before_install:
   - sleep 3 # give xvfb some time to start
 script:
   - pub run dart_dev analyze
-  - pub run dart_dev test
+  - pub run dart_dev test --integration
   - ./tool/generate_coverage.sh
   - bash <(curl -s https://codecov.io/bash) -f coverage/coverage.lcov

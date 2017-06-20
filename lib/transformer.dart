@@ -69,7 +69,7 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
   Future apply(Transform transform) async {
     var primaryInputContents = await transform.primaryInput.readAsString();
 
-    SourceFile sourceFile = new SourceFile(primaryInputContents, url: idToPackageUri(transform.primaryInput.id));
+    SourceFile sourceFile = new SourceFile.fromString(primaryInputContents, url: idToPackageUri(transform.primaryInput.id));
     TransformedSourceFile transformedFile = new TransformedSourceFile(sourceFile);
     TransformLogger logger = new JetBrainsFriendlyLogger(transform.logger);
 
