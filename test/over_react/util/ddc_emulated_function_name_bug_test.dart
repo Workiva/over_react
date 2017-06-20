@@ -32,7 +32,11 @@ main() {
             reason: 'if this test fails, then it\'s possible that the bug was fixed in'
                     ' a newer version of the Dart SDK, and this library can be eliminated!'
         );
-      }, tags: 'ddc');
+      }, tags: 'ddc',
+          // Tests run in `ddev coverage` don't respect tags and show up as the 'vm' platform
+          // so we can use this to disable certain browser tests during coverage.
+          // Workaround for https://github.com/Workiva/dart_dev/issues/200
+          testOn: '!vm');
     });
 
     test('patchName fixes instances of a class with the issue in the DDC', () {
@@ -49,7 +53,11 @@ main() {
 
       expect(() => testObject.name = testValue, returnsNormally);
       expect(testObject.name, testValue);
-    }, tags: 'ddc');
+    }, tags: 'ddc',
+        // Tests run in `ddev coverage` don't respect tags and show up as the 'vm' platform
+        // so we can use this to disable certain browser tests during coverage.
+        // Workaround for https://github.com/Workiva/dart_dev/issues/200
+        testOn: '!vm');
   });
 }
 
