@@ -56,7 +56,6 @@ main() {
     test('generates strong mode compliant code', () async {
       var testProject = copyProject(strongModeProject);
 
-      // Run `pub get` and the bootstrap up-front so that back-to-back runs on the same directory complete faster.
       new File('$testProject/pubspec.yaml').writeAsStringSync(getPubspec());
 
       expect(await Process.run('pub', ['get'], workingDirectory: testProject), succeeded);

@@ -278,7 +278,13 @@ class ImplGenerator {
         );
       }
 
-      if (new RegExp(r'typed(Props|State)Factory\(.+\)(\s+)?({|=>)').hasMatch(sourceFile.getText(0))) {
+      var implementsTypedPropsStateFactory = declarations.component.node.members.any((member) =>
+          member is MethodDeclaration &&
+          !member.isStatic &&
+          (member.name.name == 'typedPropsFactory' || member.name.name == 'typedStateFactory')
+      );
+
+      if (implementsTypedPropsStateFactory) {
         // Can't be an error, because consumers may be implementing typedPropsFactory or typedStateFactory in their components.
         logger.warning(
             'Components should not add their own implementions of typedPropsFactory or typedStateFactory.',

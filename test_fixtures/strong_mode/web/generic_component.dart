@@ -1,13 +1,16 @@
 import 'package:over_react/over_react.dart';
 
 @Factory()
-UiFactory<GenericStatelessProps> GenericStateless;
+UiFactory<GenericStatefulProps> GenericStateful;
 
 @Props()
-class GenericStatelessProps extends UiProps {}
+class GenericStatefulProps extends UiProps {}
+
+@State()
+class GenericStatefulState extends UiState {}
 
 @Component()
-class GenericStatelessComponent<T extends GenericStatelessProps> extends UiComponent<T> {
+class GenericStatefulComponent<T extends GenericStatefulProps, S extends GenericStatefulState> extends UiStatefulComponent<T, S> {
   @override
   render() { }
 }
