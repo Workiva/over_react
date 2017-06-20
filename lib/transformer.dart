@@ -51,8 +51,17 @@ import 'package:transformer_utils/transformer_utils.dart';
 
 class WebSkinDartTransformer extends Transformer implements LazyTransformer {
   final BarbackSettings _settings;
+  final bool _shouldFixDdcAbstractAccessors;
 
-  WebSkinDartTransformer.asPlugin(this._settings);
+  WebSkinDartTransformer.asPlugin(this._settings) :
+      _shouldFixDdcAbstractAccessors = _loadBoolConfig(_settings, 'fixDdcAbstractAccessors');
+
+  static bool _loadBoolConfig(BarbackSettings _settings, String configKey, {bool defaultValue: false}) {
+    var value = _settings.configuration[configKey] ?? defaultValue;
+    if (value is bool) return value;
+
+    throw new ArgumentError.value(value, configKey, 'must be a bool');
+  }
 
   /// Declare the assets this transformer uses. Only dart assets will be transformed.
   @override
@@ -104,8 +113,9 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
 
       // If there are no errors, generate the component.
       if (!declarations.hasErrors) {
-        new ImplGenerator(logger, transformedFile, _settings)
-            .generate(declarations);
+        new ImplGenerator(logger, transformedFile)
+            ..shouldFixDdcAbstractAccessors = _shouldFixDdcAbstractAccessors
+            ..generate(declarations);
       }
     }
 
