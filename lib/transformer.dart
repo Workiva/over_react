@@ -33,6 +33,22 @@ import 'package:transformer_utils/transformer_utils.dart';
 /// * Generates implementations for stubbed props/state/component classes.
 /// * Creates component factories, registers them with react-dart, and wires them up to
 /// their associated props/component implementations.
+///
+///
+/// The following configuration options are available for the `over_react` transformer.
+/// All values shown are the defaults.
+///
+///     transformers:
+///     - over_react:
+///         # Whether to apply a workaround in transformed props/state classes for a DDC bug
+///         # in which abstract accessors clobber inherited concrete implementations:
+///         # https://github.com/dart-lang/sdk/issues/29914.
+///         #
+///         # Fixes the issue by generating corresponding abstract getters/setters to
+///         # complete the pair, limited to problematic accessors within transformed
+///         # props/state classes that have the `@override` annotation.
+///         fixDdcAbstractAccessors: false
+
 class WebSkinDartTransformer extends Transformer implements LazyTransformer {
   final BarbackSettings _settings;
 
@@ -88,7 +104,7 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
 
       // If there are no errors, generate the component.
       if (!declarations.hasErrors) {
-        new ImplGenerator(logger, transformedFile)
+        new ImplGenerator(logger, transformedFile, _settings)
             .generate(declarations);
       }
     }

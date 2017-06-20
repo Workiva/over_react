@@ -31,6 +31,7 @@ main() {
     ImplGenerator implGenerator;
 
     MockTransformLogger logger;
+    BarbackSettings settings;
     SourceFile sourceFile;
     TransformedSourceFile transformedFile;
     CompilationUnit unit;
@@ -38,19 +39,20 @@ main() {
 
     void setUpAndParse(String source) {
       logger = new MockTransformLogger();
+      settings = new BarbackSettings({}, null);
 
       sourceFile = new SourceFile.fromString(source);
       transformedFile = new TransformedSourceFile(sourceFile);
 
       unit = parseCompilationUnit(source);
       declarations = new ParsedDeclarations(unit, sourceFile, logger);
-      implGenerator = new ImplGenerator(logger, transformedFile);
+      implGenerator = new ImplGenerator(logger, transformedFile, settings);
     }
 
     void setUpAndGenerate(String source) {
       setUpAndParse(source);
 
-      implGenerator = new ImplGenerator(logger, transformedFile);
+      implGenerator = new ImplGenerator(logger, transformedFile, settings);
       implGenerator.generate(declarations);
     }
 

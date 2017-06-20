@@ -16,7 +16,23 @@ much cleaner and more _grokkable_.
 &nbsp;
 &nbsp;
 
+## Transformer options:
+The following configuration options are available for the `over_react` transformer.
 
+All values shown are the defaults 
+
+```yaml
+transformers:
+- over_react:
+    # Whether to apply a workaround in transformed props/state classes for a DDC bug
+    # in which abstract accessors clobber inherited concrete implementations:
+    # https://github.com/dart-lang/sdk/issues/29914.
+    #
+    # Fixes the issue by generating corresponding abstract getters/setters to
+    # complete the pair, limited to problematic accessors within transformed 
+    # props/state classes that have the `@override` annotation.
+    fixDdcAbstractAccessors: false
+```
 
 ## Wiring it all up
 

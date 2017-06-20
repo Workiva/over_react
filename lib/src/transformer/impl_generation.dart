@@ -46,13 +46,14 @@ import 'package:transformer_utils/transformer_utils.dart';
 ///
 ///     * Replaces fields with generated getters/setters.
 class ImplGenerator {
-  ImplGenerator(this.logger, this.transformedFile);
+  ImplGenerator(this.logger, this.transformedFile, this.settings);
 
   static const String generatedPrefix = r'_$';
   static const String publicGeneratedPrefix = r'$';
 
   final TransformLogger logger;
   final TransformedSourceFile transformedFile;
+  final BarbackSettings settings;
 
   SourceFile get sourceFile => transformedFile.sourceFile;
 
@@ -392,7 +393,9 @@ class ImplGenerator {
       AccessorType type,
       NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap
   ) {
-    applyAbstractAccessorFix(type, typedMap);
+    if (settings.configuration['fixDdcAbstractAccessors'] == true) {
+      fixDdcAbstractAccessors(type, typedMap);
+    }
 
     String keyNamespace = getAccessorKeyNamespace(typedMap);
 
@@ -596,7 +599,7 @@ class ImplGenerator {
   ///
   /// Fixes the issue by generating corresponding abstract getters/setters to complete the pair
   /// for accessors with the `@override` annotation.
-  void applyAbstractAccessorFix(
+  void fixDdcAbstractAccessors(
     AccessorType type,
     NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap,
   ) {
