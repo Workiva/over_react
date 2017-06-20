@@ -1,0 +1,9 @@
+tags:
+  # DDC-related tags declared here, since you can't target the DDC using platform selectors:
+  # https://github.com/dart-lang/test/issues/652
+
+  # Tests that should only be run in the dev compiler
+  ddc:
+    skip: "skipping DDC-specific tests until UIP-2410 is implemented"
+  # Tests that should NOT be run in the dev compiler
+  no-ddc:
