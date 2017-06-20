@@ -101,9 +101,32 @@ Map getJsProps(/* ReactElement|ReactComponent */ instance) {
   return props;
 }
 
-// Disable this for the DDC.
-// TODO: reenable conditionally
-Expando<UnmodifiableMapView> _elementPropsCache; // = new Expando('_elementPropsCache');
+/// Whether [Expando]s can be used on [ReactElement]s.
+///
+/// At the time this was written, this should return:
+///
+/// - `true` for dart2js and Dart VM
+/// - `false` for DDC
+final bool _canUseExpandoOnReactElement = (() {
+  var expando = new Expando<bool>('_canUseExpandoOnReactElement test');
+  var reactElement = react.div({});
+
+  try {
+    expando[reactElement] = true;
+  } catch(_) {
+    return false;
+  }
+
+  return true;
+})();
+
+/// A cache of props for a given [ReactElement].
+///
+/// If caching isn't possible due to [_canUseExpandoOnReactElement] being false,
+/// then this will be initialized to `null`, and caching will be disabled.
+final Expando<UnmodifiableMapView> _elementPropsCache = _canUseExpandoOnReactElement
+    ? new Expando<UnmodifiableMapView>('_elementPropsCache')
+    : null;
 
 /// Returns an unmodifiable Map view of props for a [ReactElement] or composite [ReactComponent] [instance].
 ///
