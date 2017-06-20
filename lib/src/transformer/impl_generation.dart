@@ -600,7 +600,7 @@ class ImplGenerator {
   /// Fixes the issue by generating corresponding abstract getters/setters to complete the pair
   /// for accessors with the `@override` annotation.
   void fixDdcAbstractAccessors(
-    AccessorType type,
+    AccessorType accessorType,
     NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap,
   ) {
     var candidateAccessors = new List<MethodDeclaration>.from(
@@ -620,20 +620,36 @@ class ImplGenerator {
       var name = accessor.name.name;
 
       // Don't generate for `Map get props;`/`Map get state;` in mixins
-      if (type == AccessorType.props && name == 'props') continue;
-      if (type == AccessorType.state && name == 'state') continue;
+      if (accessorType == AccessorType.props && name == 'props') continue;
+      if (accessorType == AccessorType.state && name == 'state') continue;
 
       if (candidateAccessors.any((other) => other != accessor && other.name.name == name)) {
         // Don't generate when both the getter and the setter are declared.
         continue;
       }
 
+      /// Warning: tests rely on this comment as a means of determining whether this fix was applied.
+      ///
+      /// DO NOT modify or remove without updating tests
+      const String generatedComment = ' /* fixDdcAbstractAccessors workaround: */ ';
+
       if (accessor.isGetter) {
-        var type = accessor.returnType?.toSource() ?? '';
-        transformedFile.insert(sourceFile.location(accessor.end), 'set $name(covariant $type value);');
+        var type = accessor.returnType?.toSource();
+        var typeString = type == null ? '' : '$type ';
+
+        transformedFile.insert(sourceFile.location(accessor.end),
+            // use `covariant` here to be extra safe in this typing
+            '${generatedComment}set $name(covariant ${typeString}value);');
       } else {
-        var type = accessor.parameters.parameters.single.element?.type ?? '';
-        transformedFile.insert(sourceFile.location(accessor.end), '$type get $name;');
+        var parameter = accessor.parameters.parameters.single;
+        var type = parameter is SimpleFormalParameter
+            ? parameter.type?.toSource()
+            // This `null` case is mainly for [FunctionTypedFormalParameter].
+            : null;
+        var typeString = type == null ? '' : '$type ';
+
+        transformedFile.insert(sourceFile.location(accessor.end),
+            '$generatedComment${typeString}get $name;');
       }
     }
   }
