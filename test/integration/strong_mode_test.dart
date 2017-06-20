@@ -11,6 +11,7 @@ const String strongModeProject = 'test_fixtures/strong_mode';
 
 /// Runs the dart analzyer task for the given project.
 Future<ProcessResult> analyzeProject(String projectPath) async {
+  // Won't work unless all files are listed, for some reason.
   var files = <String>[]
     ..addAll(new Directory(projectPath).listSync()
         .where((e) => FileSystemEntity.isFileSync(e.path) && e.path.endsWith('.dart'))
