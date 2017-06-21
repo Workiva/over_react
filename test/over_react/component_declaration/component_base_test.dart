@@ -427,6 +427,24 @@ main() {
       });
     });
 
+    // These tests are here to cover the PropsMapViewMixin, which used to be covered when
+    // testing UiProps, but isn't anymore since UiProps uses it as an interface instead
+    // to work around DDC issues.
+    //
+    // If these test classes cause trouble when running in the DDC, just disable these tests in the DDC.
+    group('PropsMapViewMixin provides Map functionality:', () {
+      mapProxyTests((Map backingMap) => new TestPropsMapViewMixin(backingMap));
+    });
+
+    // These tests are here to cover the StateMapViewMixin, which used to be covered when
+    // testing UiState, but isn't anymore since UiState uses it as an interface instead
+    // to work around DDC issues.
+    //
+    // If these test classes cause trouble when running in the DDC, just disable these tests in the DDC.
+    group('StateMapViewMixin provides Map functionality:', () {
+      mapProxyTests((Map backingMap) => new TestStateMapViewMixin(backingMap));
+    });
+
     group('UiComponent', () {
       TestComponentComponent component;
 
@@ -781,3 +799,17 @@ class TestStatefulComponentComponent extends UiStatefulComponent<TestStatefulCom
 }
 
 abstract class TestRegisterComponentClassAlias {}
+
+class TestPropsMapViewMixin extends Object with MapViewMixin, PropsMapViewMixin implements Map {
+  @override
+  final Map props;
+
+  TestPropsMapViewMixin(this.props);
+}
+
+class TestStateMapViewMixin extends Object with MapViewMixin, StateMapViewMixin implements Map {
+  @override
+  final Map state;
+
+  TestStateMapViewMixin(this.state);
+}
