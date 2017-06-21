@@ -8,6 +8,29 @@ __Improvements__
 
 * [e805b79b](https://github.com/Workiva/over_react/commit/e805b79b56f90989194ebf0a7951357e7b40f75c) Null-coalesce `isDisposedOrDisposing` to ease consumer test breakages
     
+## 1.12.0
+
+> [Complete `1.12.0` Changeset](https://github.com/Workiva/over_react/compare/1.11.2...1.12.0)
+
+__Strong Mode / Dart Dev Compiler__
+
+* [#81]: Make transformer output strong mode clean.
+  * Closes [#14]
+* [#82]: Implement workarounds necessary to make OverReact-based code able to be compiled by the Dart Dev Compiler _("DDC")_.
+  * _See new [transformer options documentation](https://github.com/Workiva/over_react/blob/master/lib/src/transformer/README.md#transformer-options) for more information._
+
+&nbsp;
+
+## 1.11.2
+
+> [Complete `1.11.2` Changeset](https://github.com/Workiva/over_react/compare/1.11.1...1.11.2)
+
+__Bug Fixes__
+
+* [e805b7](https://github.com/Workiva/over_react/commit/e805b79b56f90989194ebf0a7951357e7b40f75c): Null-coalesce `isDisposedOrDisposing` to ease consumer test breakages.
+
+&nbsp;
+
 ## 1.11.1
 
 > [Complete `1.11.1` Changeset](https://github.com/Workiva/over_react/compare/1.11.0...1.11.1)
@@ -17,6 +40,8 @@ __Bug Fixes__
 * Revert _[#77]: Update `FluxUiComponent` subscriptions when new `props` are received._
     * Reverted since this broke subclasses that weren't calling super in lifecycle methods `componentWillReceieveProps` and `componentDidUpdate`
     * Keep `@mustCallSuper` annotations from this changeset  
+
+&nbsp;
 
 ## 1.11.0
 
