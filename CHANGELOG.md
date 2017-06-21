@@ -1,12 +1,12 @@
 # OverReact Changelog
 
-## 1.11.2
+## 1.12.1
 
-> [Complete `1.11.2` Changeset](https://github.com/Workiva/over_react/compare/1.11.1...1.11.2)
+> [Complete `1.12.1` Changeset](https://github.com/Workiva/over_react/compare/1.12.0...1.12.1)
 
-__Improvements__
+__Bug fixes__
 
-* [e805b79b](https://github.com/Workiva/over_react/commit/e805b79b56f90989194ebf0a7951357e7b40f75c) Null-coalesce `isDisposedOrDisposing` to ease consumer test breakages
+- Bump min source_span to version w/ `SourceFile.fromString`
     
 ## 1.12.0
 
