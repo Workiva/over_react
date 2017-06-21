@@ -101,7 +101,32 @@ Map getJsProps(/* ReactElement|ReactComponent */ instance) {
   return props;
 }
 
-Expando<UnmodifiableMapView> _elementPropsCache = new Expando('_elementPropsCache');
+/// Whether [Expando]s can be used on [ReactElement]s.
+///
+/// At the time this was written, this should return:
+///
+/// - `true` for dart2js and Dart VM
+/// - `false` for DDC
+final bool _canUseExpandoOnReactElement = (() {
+  var expando = new Expando<bool>('_canUseExpandoOnReactElement test');
+  var reactElement = react.div({});
+
+  try {
+    expando[reactElement] = true;
+  } catch(_) {
+    return false;
+  }
+
+  return true;
+})();
+
+/// A cache of props for a given [ReactElement].
+///
+/// If caching isn't possible due to [_canUseExpandoOnReactElement] being false,
+/// then this will be initialized to `null`, and caching will be disabled.
+final Expando<UnmodifiableMapView> _elementPropsCache = _canUseExpandoOnReactElement
+    ? new Expando<UnmodifiableMapView>('_elementPropsCache')
+    : null;
 
 /// Returns an unmodifiable Map view of props for a [ReactElement] or composite [ReactComponent] [instance].
 ///
@@ -140,7 +165,7 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers:
       }
     }
 
-    if (!isCompositeComponent) {
+    if (_elementPropsCache != null && !isCompositeComponent) {
       var cachedView = _elementPropsCache[instance];
       if (cachedView != null) return cachedView;
     }
@@ -148,7 +173,9 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers:
     var propsMap = isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
     var view = new UnmodifiableMapView(propsMap);
 
-    if (!isCompositeComponent) _elementPropsCache[instance] = view;
+    if (_elementPropsCache != null && !isCompositeComponent) {
+      _elementPropsCache[instance] = view;
+    }
 
     return view;
   }

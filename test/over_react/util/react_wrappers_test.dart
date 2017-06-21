@@ -923,6 +923,38 @@ main() {
         expect(() => getProps(renderedInstance)['style'] = testStyle, throwsUnsupportedError);
       });
 
+      group('caches the returned unmodifiable map for ReactElements', () {
+        test('in dart2js and the Dart VM', () {
+          ReactElement element = TestComponentFactory({
+            'dartProp': 'dart'
+          });
+
+          var result1 = getProps(element);
+          var result2 = getProps(element);
+
+          expect(result1, containsPair('dartProp', 'dart'), reason: 'test setup sanity check');
+          expect(result2, same(result1), reason: 'should have returned the same object');
+        }, tags: 'no-ddc');
+
+        test('unless the runtime is the DDC', () {
+          ReactElement element = TestComponentFactory({
+            'dartProp': 'dart'
+          });
+
+          var result1 = getProps(element);
+          var result2 = getProps(element);
+
+          expect(result1, containsPair('dartProp', 'dart'), reason: 'test setup sanity check');
+          expect(result2, isNot(same(result1)),
+              reason: 'if this test fails, then it\'s possible that the bug was fixed in'
+                      ' a newer version of the Dart SDK, and this test can be removed!');
+        }, tags: 'ddc',
+            // Tests run in `ddev coverage` don't respect tags and show up as the 'vm' platform
+            // so we can use this to disable certain browser tests during coverage.
+            // Workaround for https://github.com/Workiva/dart_dev/issues/200
+            testOn: '!vm');
+      });
+
       group('throws when passed', () {
         test('a JS ReactComponent and traverseWrappers is true', () {
           var renderedInstance = render(testJsComponentFactory({}));

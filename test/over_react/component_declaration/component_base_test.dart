@@ -247,6 +247,36 @@ main() {
         });
       });
 
+      test('invokes a non-ReactComponentFactoryProxy componentFactory function properly when invoked', () {
+        final ReactElement expectedReturnValue = Dom.div()();
+        const expectedProps = const {'testProp': 'testValue'};
+
+        var calls = [];
+
+        ReactElement customFactory([Map props, a = 0, b = 0, c = 0, d = 0]) {
+          calls.add([props, a, b, c, d]);
+          return expectedReturnValue;
+        }
+
+        var builder = new TestUiPropsWithCustomComponentFactory()
+          ..componentFactory = customFactory
+          ..['testProp'] = 'testValue';
+
+        expect(builder(), expectedReturnValue);
+        expect(builder(1), expectedReturnValue);
+        expect(builder(1, 2), expectedReturnValue);
+        expect(builder(1, 2, 3), expectedReturnValue);
+        expect(builder(1, 2, 3, 4), expectedReturnValue);
+
+        expect(calls, [
+          [expectedProps, 0, 0, 0, 0],
+          [expectedProps, 1, 0, 0, 0],
+          [expectedProps, 1, 2, 0, 0],
+          [expectedProps, 1, 2, 3, 0],
+          [expectedProps, 1, 2, 3, 4],
+        ]);
+      });
+
       group('provides Map functionality:', () {
         test('is a Map', () {
           expect(new TestComponentProps(), const isInstanceOf<Map>());
@@ -425,6 +455,24 @@ main() {
 
         mapProxyTests((Map backingMap) => new TestStatefulComponentState(backingMap));
       });
+    });
+
+    // These tests are here to cover the PropsMapViewMixin, which used to be covered when
+    // testing UiProps, but isn't anymore since UiProps uses it as an interface instead
+    // to work around DDC issues.
+    //
+    // If these test classes cause trouble when running in the DDC, just disable these tests in the DDC.
+    group('PropsMapViewMixin provides Map functionality:', () {
+      mapProxyTests((Map backingMap) => new TestPropsMapViewMixin(backingMap));
+    });
+
+    // These tests are here to cover the StateMapViewMixin, which used to be covered when
+    // testing UiState, but isn't anymore since UiState uses it as an interface instead
+    // to work around DDC issues.
+    //
+    // If these test classes cause trouble when running in the DDC, just disable these tests in the DDC.
+    group('StateMapViewMixin provides Map functionality:', () {
+      mapProxyTests((Map backingMap) => new TestStateMapViewMixin(backingMap));
     });
 
     group('UiComponent', () {
@@ -781,3 +829,25 @@ class TestStatefulComponentComponent extends UiStatefulComponent<TestStatefulCom
 }
 
 abstract class TestRegisterComponentClassAlias {}
+
+class TestPropsMapViewMixin extends Object with MapViewMixin, PropsMapViewMixin implements Map {
+  @override
+  final Map props;
+
+  TestPropsMapViewMixin(this.props);
+}
+
+class TestStateMapViewMixin extends Object with MapViewMixin, StateMapViewMixin implements Map {
+  @override
+  final Map state;
+
+  TestStateMapViewMixin(this.state);
+}
+
+class TestUiPropsWithCustomComponentFactory extends UiProps {
+  @override
+  Function componentFactory;
+
+  @override
+  final Map props = {};
+}

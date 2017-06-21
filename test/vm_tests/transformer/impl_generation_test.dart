@@ -47,10 +47,11 @@ main() {
       implGenerator = new ImplGenerator(logger, transformedFile);
     }
 
-    void setUpAndGenerate(String source) {
+    void setUpAndGenerate(String source, {bool shouldFixDdcAbstractAccessors: false}) {
       setUpAndParse(source);
 
-      implGenerator = new ImplGenerator(logger, transformedFile);
+      implGenerator = new ImplGenerator(logger, transformedFile)
+        ..shouldFixDdcAbstractAccessors = shouldFixDdcAbstractAccessors;
       implGenerator.generate(declarations);
     }
 
@@ -396,6 +397,164 @@ main() {
 //            expect(transformedLines[3].trimLeft(), startsWith('/* line 3 start */'));
 //            expect(transformedLines[4].trimLeft(), startsWith('/* line 4 start */'));
             expect(transformedLines[5].trimLeft(), startsWith('/* line 5 start */'));
+          });
+        });
+
+        group('shouldFixDdcAbstractAccessors', () {
+          /// The comment always inserted by this patching logic.
+          const String abstractAccessorsPatchComment = '/* fixDdcAbstractAccessors workaround: */';
+
+          group('does not patch abstract getters corresponding to the backing map for', () {
+            test('props classes', () {
+              setUpAndGenerate('''
+                @PropsMixin() class FooPropsMixin {  
+                  // override isn't typically used here, but it's necessary to trigger the patching logic 
+                  @override
+                  Map get props;
+      
+                  var bar;
+                  var baz;
+                }
+              ''', shouldFixDdcAbstractAccessors: true);
+
+              expect(transformedFile.getTransformedText(), isNot(contains(abstractAccessorsPatchComment)));
+            });
+
+            test('state classes', () {
+              setUpAndGenerate('''
+                @StateMixin() class FooStateMixin {
+                  // override isn't typically used here, but it's necessary to trigger the patching logic 
+                  @override
+                  Map get state;
+                }
+              ''', shouldFixDdcAbstractAccessors: true);
+
+              expect(transformedFile.getTransformedText(), isNot(contains(abstractAccessorsPatchComment)));
+            });
+          });
+
+          group('patches abstract accessors', () {
+            group('getters', () {
+              test('with types', () {
+                setUpAndGenerate('''
+                  @PropsMixin() abstract class FooPropsMixin {
+                    Map get props;
+                    
+                    @override
+                    Iterable get bar;
+                  }
+                ''', shouldFixDdcAbstractAccessors: true);
+
+                expect(transformedFile.getTransformedText(), contains(
+                    'Iterable get bar; $abstractAccessorsPatchComment set bar(covariant Iterable value);'
+                ));
+              });
+
+              test('without types', () {
+                setUpAndGenerate('''
+                  @PropsMixin() abstract class FooPropsMixin {  
+                    Map get props;
+        
+                    @override
+                    get bar;
+                  }
+                ''', shouldFixDdcAbstractAccessors: true);
+
+                expect(transformedFile.getTransformedText(), contains(
+                    'get bar; $abstractAccessorsPatchComment set bar(covariant value);'
+                ));
+              });
+            });
+
+            group('setters', () {
+              test('with types', () {
+                setUpAndGenerate('''
+                  @PropsMixin() abstract class FooPropsMixin {  
+                    Map get props;
+        
+                    @override
+                    set bar(Iterable value);
+                  }
+                ''', shouldFixDdcAbstractAccessors: true);
+
+                expect(transformedFile.getTransformedText(), contains(
+                    'set bar(Iterable value); $abstractAccessorsPatchComment Iterable get bar;'
+                ));
+              });
+
+              test('without types', () {
+                setUpAndGenerate('''
+                  @PropsMixin() abstract class FooPropsMixin {  
+                    Map get props;
+        
+                    @override
+                    set bar(value);
+                  }
+                ''', shouldFixDdcAbstractAccessors: true);
+
+                expect(transformedFile.getTransformedText(), contains(
+                    'set bar(value); $abstractAccessorsPatchComment get bar;'
+                ));
+              });
+            });
+
+            group('in all generated accessor classes', () {
+              const types = const <String, String>{
+                'props mixin': '''
+                    @PropsMixin() abstract class FooPropsMixin {  
+                      Map get props;
+                      @override get bar;
+                    }
+                ''',
+                'state mixin': '''
+                    @StateMixin() abstract class FooStateMixin {  
+                      Map get state;
+                      @override get bar;
+                    }
+                ''',
+                'props class': '''
+                    @Factory() UiFactory<FooProps> Foo;
+                    @Props() class FooProps {  
+                      @override get bar;
+                    }
+                    @Component() class FooComponent {}
+                ''',
+                'state class': '''
+                    @Factory() UiFactory<FooProps> Foo;
+                    @Props() class FooProps {}
+                    @State() class FooState {
+                      @override get bar;
+                    }
+                    @Component() class FooComponent {}
+                ''',
+                'abstract props class': '''
+                    @AbstractProps() abstract class AbstractFooProps {  
+                      @override get bar;
+                    }
+                ''',
+                'abstract state class': '''
+                    @AbstractState() abstract class AbstractFooState {  
+                      @override get bar;
+                    }
+                ''',
+              };
+
+              types.forEach((String name, String source) {
+                test(name, () {
+                  setUpAndGenerate(source, shouldFixDdcAbstractAccessors: true);
+                  expect(transformedFile.getTransformedText(), contains(abstractAccessorsPatchComment));
+                });
+              });
+
+              group('unless shouldFixDdcAbstractAccessors is false', () {
+                types.forEach((String name, String source) {
+                  test(name, () {
+                    setUpAndGenerate(source, shouldFixDdcAbstractAccessors: false);
+                    expect(transformedFile.getTransformedText(), isNot(contains(abstractAccessorsPatchComment)));
+                  });
+                });
+              });
+            });
           });
         });
       });
