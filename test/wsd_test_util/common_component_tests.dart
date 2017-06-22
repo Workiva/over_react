@@ -265,8 +265,6 @@ void testClassNameMerging(BuilderOnlyUiFactory factory, dynamic childrenFactory(
             excludesClasses('blacklisted-class-1 blacklisted-class-2')
         )
     ));
-
-    unmount(renderedInstance);
   });
 
   test('adds custom classes to one and only one element', () {
@@ -278,8 +276,6 @@ void testClassNameMerging(BuilderOnlyUiFactory factory, dynamic childrenFactory(
     var descendantsWithCustomClass = react_test_utils.scryRenderedDOMComponentsWithClass(renderedInstance, customClass);
 
     expect(descendantsWithCustomClass, hasLength(1));
-
-    unmount(renderedInstance);
   });
 }
 
@@ -289,7 +285,8 @@ void testClassNameOverrides(BuilderOnlyUiFactory factory, dynamic childrenFactor
   var reactInstanceWithoutOverrides = render(
       (factory()
         ..addProp(forwardedPropBeacon, true)
-      )(childrenFactory())
+      )(childrenFactory()),
+      autoTearDown: false
   );
 
   Set<String> classesToOverride;
@@ -325,15 +322,15 @@ void testClassNameOverrides(BuilderOnlyUiFactory factory, dynamic childrenFactor
     expect(forwardingTargetNodes, everyElement(
         hasExactClasses('')
     ));
-
-    unmount(reactInstance);
   });
 }
 
 /// Common test for verifying that required props are validated correctly.
 void testRequiredProps(BuilderOnlyUiFactory factory, dynamic childrenFactory()) {
-  var component = renderAndGetComponent(factory()(childrenFactory())) as UiComponent; // ignore: avoid_as
-  var consumedProps = component.consumedProps;
+  var renderedInstance = render(factory()(childrenFactory()), autoTearDown: false);
+  var consumedProps = (getDartComponent(renderedInstance) as UiComponent).consumedProps; // ignore: avoid_as
+  unmount(renderedInstance);
+
   var requiredProps = [];
   var nullableProps = [];
   var keyToErrorMessage = {};
