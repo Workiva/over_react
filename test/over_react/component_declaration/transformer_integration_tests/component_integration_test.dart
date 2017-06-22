@@ -22,12 +22,6 @@ import '../../../test_util/test_util.dart';
 
 main() {
   group('transformed component integration:', () {
-    test('props class cannot be instantiated directly', () {
-      expect(() {
-        new ComponentTestProps();
-      }, throwsA(const isInstanceOf<AbstractClassInstantiationError>()));
-    });
-
     test('component class can be instantiated directly', () {
       var instance;
       expect(() {

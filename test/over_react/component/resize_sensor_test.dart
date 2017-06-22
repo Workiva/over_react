@@ -437,6 +437,6 @@ void main() {
 
     group('common component functionality:', () {
       commonComponentTests(ResizeSensor);
-    });
+    }, tags: 'no-ddc');
   });
 }

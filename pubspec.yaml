@@ -27,6 +27,12 @@ dev_dependencies:
   over_react_test: "^1.0.0"
   test: "^0.12.6+2"
 
+dependency_overrides:
+  react:
+    git:
+      url: git@github.com:clairesarsam-wf/react-dart.git
+      ref: 9e3a349fd6765afb4531192c21a5e7bc74c5d7a0
+
 transformers:
   - over_react:
       $exclude: [
