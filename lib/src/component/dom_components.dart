@@ -17,6 +17,7 @@ library over_react.dom_components;
 
 import 'package:over_react/src/component/prop_mixins.dart';
 import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
+import 'package:over_react/src/component_declaration/transformer_helpers.dart' as transformer_helpers;
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 
@@ -35,24 +36,40 @@ DomProps domProps([Map backingMap]) => new DomProps(null, backingMap);
 
 typedef DomProps DomPropsFactory();
 
-class DomProps extends component_base.UiProps with DomPropsMixin {
+// Include pieces from transformer_helpers so that consumers can type these instances
+// as the `UiProps` exposed in `over_react.dart` and not have to pull in `component_base`.
+class DomProps extends component_base.UiProps
+    with DomPropsMixin, transformer_helpers.GeneratedClass
+    implements transformer_helpers.UiProps {
   // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
   DomProps(this.componentFactory, [Map props]) : this.props = props ?? ({});
 
   @override
   final ReactDomComponentFactoryProxy componentFactory;
+
   @override
   final Map props;
+
+  @override
+  String get propKeyNamespace => '';
 }
 
-class SvgProps extends component_base.UiProps with DomPropsMixin, SvgPropsMixin implements DomProps {
+// Include pieces from transformer_helpers so that consumers can type these instances
+// as the `UiProps` exposed in `over_react.dart` and not have to pull in `component_base`.
+class SvgProps extends component_base.UiProps
+    with DomPropsMixin, SvgPropsMixin, transformer_helpers.GeneratedClass
+    implements DomProps {
   // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
   SvgProps(this.componentFactory, [Map props]) : this.props = props ?? ({});
 
   @override
   final ReactDomComponentFactoryProxy componentFactory;
+
   @override
   final Map props;
+
+  @override
+  String get propKeyNamespace => '';
 }
 
 /// A class that provides namespacing for static DOM component factory methods, much like `React.DOM` in React JS.
