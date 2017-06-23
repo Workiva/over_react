@@ -57,5 +57,22 @@ main() {
         expect(component.type, equalsIgnoringCase(expectedTagName));
       });
     }
+
+    group('typing:', () {
+      final DomProps dom = Dom.div();
+      final SvgProps svg = Dom.circle();
+
+      test('DomProps is a subtype of `UiProps` exported by over_react.dart', () {
+        expect(dom, const isInstanceOf<UiProps>());
+      });
+
+      test('SvgProps is a subtype of `UiProps` exported by over_react.dart', () {
+        expect(svg, const isInstanceOf<UiProps>());
+      });
+
+      test('SvgProps is a subtype of `DomProps`', () {
+        expect(svg, const isInstanceOf<DomProps>());
+      });
+    });
   });
 }
