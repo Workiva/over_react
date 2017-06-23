@@ -73,7 +73,10 @@ main() {
     expect(syntheticKeyboardEvent.metaKey, isFalse);
     expect(syntheticKeyboardEvent.repeat, isFalse);
     expect(syntheticKeyboardEvent.shiftKey, isFalse);
-  }, tags: 'no-ddc');
+  },
+      // Mirrors don't work in the DDC.
+      tags: 'no-ddc'
+  );
 
   test('wrapNativeMouseEvent', () {
     var nativeMouseEvent = new MockMouseEvent();
@@ -126,7 +129,10 @@ main() {
     expect(syntheticMouseEvent.screenX, isNull);
     expect(syntheticMouseEvent.screenY, isNull);
     expect(syntheticMouseEvent.shiftKey, isFalse);
-  }, tags: 'no-ddc');
+  },
+      // Mirrors don't work in the DDC.
+      tags: 'no-ddc'
+  );
 
   test('fakeSyntheticFormEvent', () {
     var element = new DivElement();

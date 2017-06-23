@@ -126,7 +126,10 @@ void mapProxyTests(Map mapProxyFactory(Map proxiedMap)) {
       expect(proxy.values, equals(['value']));
       verify(mock.values);
     });
-  }, tags: 'no-ddc');
+  },
+      // Mirrors don't work in the DDC.
+      tags: 'no-ddc'
+  );
 }
 
 class MockMap extends Mock implements Map {}
