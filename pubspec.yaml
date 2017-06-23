@@ -13,7 +13,7 @@ dependencies:
   logging: ">=0.11.3+1 <1.0.0"
   meta: "^1.0.4"
   path: "^1.4.1"
-  react: "^3.4.0"
+  react: "^3.4.1"
   source_span: "^1.4.0"
   transformer_utils: "^0.1.1"
   w_flux: "^2.7.1"
@@ -26,12 +26,6 @@ dev_dependencies:
   mockito: "^0.11.0"
   over_react_test: "^1.0.0"
   test: "^0.12.6+2"
-
-dependency_overrides:
-  react:
-    git:
-      url: git@github.com:clairesarsam-wf/react-dart.git
-      ref: 9e3a349fd6765afb4531192c21a5e7bc74c5d7a0
 
 transformers:
   - over_react:
