@@ -623,6 +623,30 @@ main() {
         expect(classes.toClassName(), equals('class-1'));
         expect(classes.toClassNameBlacklist(), equals('blacklist-1'));
       });
+
+      group('calls validateProps in', () {
+        test('componentWillMount', () {
+          var calls = [];
+          component.props = {
+            'onValidateProps': () { calls.add('onValidateProps'); },
+          };
+
+          component.componentWillMount();
+
+          expect(calls, ['onValidateProps']);
+        });
+
+        test('componentWillReceiveProps', () {
+          var calls = [];
+          component.props = {
+            'onValidateProps': () { calls.add('onValidateProps'); },
+          };
+
+          component.componentWillReceiveProps({});
+
+          expect(calls, ['onValidateProps']);
+        });
+      });
     });
 
     group('UiStatefulComponent', () {
@@ -799,6 +823,13 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
 
   @override
   TestComponentProps typedPropsFactory(Map propsMap) => new TestComponentProps(propsMap);
+
+  @override
+  void validateProps([Map appliedProps]) {
+    super.validateProps(appliedProps);
+
+    if (props['onValidateProps'] != null) props['onValidateProps']();
+  }
 }
 
 

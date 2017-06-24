@@ -124,6 +124,16 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
     );
   }
 
+  /// Validation method called during [componentWillReceiveProps], and [componentWillMount].
+  ///
+  /// Use this as an opportunity validate props during the correct lifecycle of the component.
+  @mustCallSuper
+  void validateProps([Map appliedProps]) {
+    appliedProps ??= props;
+
+    validateRequiredProps(appliedProps);
+  }
+
   void validateRequiredProps(Map appliedProps) {
     consumedProps?.forEach((ConsumedProps consumedProps) {
       consumedProps.props.forEach((PropDescriptor prop) {
@@ -147,13 +157,13 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   @override
   @mustCallSuper
   void componentWillReceiveProps(Map newProps) {
-    validateRequiredProps(newProps);
+    validateProps(newProps);
   }
 
   @override
   @mustCallSuper
   void componentWillMount() {
-    validateRequiredProps(props);
+    validateProps();
   }
 
 
