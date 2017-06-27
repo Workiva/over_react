@@ -437,6 +437,9 @@ void main() {
 
     group('common component functionality:', () {
       commonComponentTests(ResizeSensor);
-    });
+    },
+        // Mirrors don't work in the DDC.
+        tags: 'no-ddc'
+    );
   });
 }

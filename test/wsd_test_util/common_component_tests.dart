@@ -38,9 +38,18 @@ Set getComponentPropKeys(BuilderOnlyUiFactory factory) {
   var definition = factory();
   InstanceMirror definitionMirror = reflect(definition);
 
+  Map<Symbol, MethodMirror> members;
+
+  // instanceMembers is not implemented for the DDC and will throw is this test is loaded even if it's not run.
+  try {
+    members = definitionMirror.type.instanceMembers;
+  } catch(e) {
+    members = {};
+  }
+
   // Use prop getters on the props class to infer the prop keys for the component.
   // Set all props to null to create key-value pairs for each prop, and then return those keys.
-  definitionMirror.type.instanceMembers.values.forEach((MethodMirror decl) {
+  members.values.forEach((MethodMirror decl) {
     // Filter out all members except concrete instance getters.
     if (!decl.isGetter || decl.isSynthetic || decl.isStatic) {
       return;
