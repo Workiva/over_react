@@ -627,24 +627,36 @@ main() {
       group('calls validateProps in', () {
         test('componentWillMount', () {
           var calls = [];
-          component.props = {
-            'onValidateProps': () { calls.add('onValidateProps'); },
+          var appliedProps;
+          var initialProps = {
+            'onValidateProps': (Map propsMap) {
+              appliedProps = propsMap;
+              calls.add('onValidateProps');
+            },
           };
+          component.props = initialProps;
 
           component.componentWillMount();
 
           expect(calls, ['onValidateProps']);
+          expect(appliedProps, initialProps);
         });
 
         test('componentWillReceiveProps', () {
           var calls = [];
+          var appliedProps;
+          var newProps = {'key': 'value'};
           component.props = {
-            'onValidateProps': () { calls.add('onValidateProps'); },
+            'onValidateProps': (Map propsMap) {
+              appliedProps = propsMap;
+              calls.add('onValidateProps');
+            },
           };
 
-          component.componentWillReceiveProps({});
+          component.componentWillReceiveProps(newProps);
 
           expect(calls, ['onValidateProps']);
+          expect(appliedProps, newProps);
         });
       });
     });
@@ -825,10 +837,10 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
   TestComponentProps typedPropsFactory(Map propsMap) => new TestComponentProps(propsMap);
 
   @override
-  void validateProps([Map appliedProps]) {
+  void validateProps(Map appliedProps) {
     super.validateProps(appliedProps);
 
-    if (props['onValidateProps'] != null) props['onValidateProps']();
+    if (props['onValidateProps'] != null) props['onValidateProps'](appliedProps);
   }
 }
 

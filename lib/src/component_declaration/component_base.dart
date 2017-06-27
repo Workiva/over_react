@@ -124,13 +124,24 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
     );
   }
 
-  /// Validation method called during [componentWillReceiveProps], and [componentWillMount].
+  /// Throws a [PropError] if [appliedProps] are invalid.
   ///
-  /// Use this as an opportunity validate props during the correct lifecycle of the component.
+  /// This is called automatically with during [componentWillReceiveProps] and [componentWillMount],
+  /// and can also be called manually for custom validation.
+  ///
+  /// Override with a custom implementation to easily add validation (and don't forget to call super!)
+  ///
+  ///     @mustCallSuper
+  ///     void validateProps(Map appliedProps) {
+  ///       super.validateProps(appliedProps);
+  ///
+  ///       var tProps = typedPropsFactory(appliedProps);
+  ///       if (tProps.items.length.isOdd) {
+  ///         throw new PropError.value(tProps.items, 'items', 'must have an even number of items, because reasons');
+  ///       }
+  ///     }
   @mustCallSuper
-  void validateProps([Map appliedProps]) {
-    appliedProps ??= props;
-
+  void validateProps(Map appliedProps) {
     validateRequiredProps(appliedProps);
   }
 
@@ -163,7 +174,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
   @override
   @mustCallSuper
   void componentWillMount() {
-    validateProps();
+    validateProps(props);
   }
 
 
