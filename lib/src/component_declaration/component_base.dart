@@ -126,8 +126,8 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
 
   /// Throws a [PropError] if [appliedProps] are invalid.
   ///
-  /// This is called automatically with during [componentWillReceiveProps] and [componentWillMount],
-  /// and can also be called manually for custom validation.
+  /// This is called automatically with the latest props available during [componentWillReceiveProps] and
+  /// [componentWillMount], and can also be called manually for custom validation.
   ///
   /// Override with a custom implementation to easily add validation (and don't forget to call super!)
   ///
