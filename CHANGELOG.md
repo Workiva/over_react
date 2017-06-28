@@ -1,5 +1,24 @@
 # OverReact Changelog
 
+## 1.13.0
+
+> [Complete `1.13.0` Changeset](https://github.com/Workiva/over_react/compare/1.13.0...1.12.1)
+
+__Dependency Updates__
+
+* [#89]: quiver `>=0.21.4 <0.26.0` (was `>=0.21.4 <0.25.0`)
+
+__New Features__
+
+* [#87]: Make `DomProps`/`SvgProps` implement `UiProps` for more convenient DDC typing
+
+__Misc__
+
+* [#86]: Get tests passing using the DDC
+* [#83]: Use `over_react_test`
+
+&nbsp;
+
 ## 1.12.1
 
 > [Complete `1.12.1` Changeset](https://github.com/Workiva/over_react/compare/1.12.0...1.12.1)
@@ -7,6 +26,8 @@
 __Bug fixes__
 
 - Bump min source_span to version w/ `SourceFile.fromString`
+    
+&nbsp;
     
 ## 1.12.0
 
