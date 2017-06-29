@@ -316,7 +316,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   TState newState() => typedStateFactory({});
 
   //
-  //   END Typed props helpers
+  //   END Typed state helpers
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
 }
