@@ -316,7 +316,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   TState newState() => typedStateFactory({});
 
   //
-  //   END Typed state helpers
+  //   END DisposableManagerV3 interface implementation
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
 }
