@@ -264,7 +264,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
   }
 
   //
-  //   END Typed props helpers
+  //   END DisposableManagerV3 interface implementation
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
 }
@@ -316,7 +316,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   TState newState() => typedStateFactory({});
 
   //
-  //   END DisposableManagerV3 interface implementation
+  //   END Typed props helpers
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
 }
