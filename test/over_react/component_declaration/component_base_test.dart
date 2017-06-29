@@ -643,6 +643,29 @@ main() {
           await new Future.delayed(longDuration);
         }
 
+        test('should await future before disposing', () async {
+          // ignore: close_sinks
+          var streamController = new StreamController<String>.broadcast();
+          var completer = new Completer<String>();
+
+          // Manage pending future
+          component.awaitBeforeDispose(completer.future);
+
+          // Add events to stream
+          component.manageDisposer(() async => streamController.add('disposalFuture'));
+          completer.future.then(streamController.add);
+
+          // Perform events out of order
+          await unmountAndDisposal();
+          completer.complete('awaitedFuture');
+
+          // Ensure events resolve in the correct order
+          expect(streamController.stream, emitsInOrder([
+            'awaitedFuture',
+            'disposalFuture',
+          ]));
+        });
+
         test('should complete delayed Future with ObjectDisposedException', () async {
           expect(component.getManagedDelayedFuture(shortDuration,
               expectAsync0(() {}, count: 0, reason: 'Did not expect callback to be invoked.')),
