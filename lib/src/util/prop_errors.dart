@@ -56,7 +56,7 @@ class PropError extends Error {
     if (_messagePrefix == requiredPrefix) {
       explanation = 'Prop $propName is required. ';
     } else if (_messagePrefix == invalidPrefix) {
-      explanation = 'Prop $propName set to ${Error.safeToString(invalidValue)}. ';
+      explanation = 'Prop $propName set to $invalidValue. ';
     } else if (_messagePrefix == combinationPrefix) {
       explanation = 'Prop $propName and prop $prop2Name are set to incompatible values. ';
     } else {
