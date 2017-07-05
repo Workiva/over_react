@@ -1,5 +1,26 @@
 # OverReact Changelog
 
+## 1.14.0
+
+> [Complete `1.14.0` Changeset](https://github.com/Workiva/over_react/compare/1.14.0...1.13.0)
+
+__Dependency Updates__
+
+* react `^3.4.3` (was `^3.4.1`)
+* w_common `^1.6.0` (new)
+
+__New Features__
+
+* [#91]: Implement [`DisposableManagerV3`](https://github.com/Workiva/w_common/blob/master/lib/src/common/disposable_manager.dart#L71) for `UiComponent`
+  * Assists with cleaning up streams and other data structures that won't 
+    necessarily be garbage collected without some manual intervention.
+
+__Misc__
+
+* [#92]: Update prop error message to make it more DDC friendly
+
+&nbsp;
+
 ## 1.13.0
 
 > [Complete `1.13.0` Changeset](https://github.com/Workiva/over_react/compare/1.13.0...1.12.1)
