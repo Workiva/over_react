@@ -289,6 +289,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   @mustCallSuper
   @override
   void componentWillUnmount() {
+    super.componentWillUnmount();
     _isUnmounted = true;
     _cancelTransitionEventListener();
   }

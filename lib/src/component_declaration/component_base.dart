@@ -14,6 +14,8 @@
 
 library over_react.component_declaration.component_base;
 
+import 'dart:async';
+
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart' show
     ClassNameBuilder,
@@ -31,6 +33,7 @@ import 'package:over_react/src/component_declaration/component_type_checking.dar
 import 'package:over_react/src/util/ddc_emulated_function_name_bug.dart' as ddc_emulated_function_name_bug;
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
+import 'package:w_common/disposable.dart';
 
 export 'package:over_react/src/component_declaration/component_type_checking.dart' show isComponentOfType, isValidElementOfType;
 
@@ -94,8 +97,12 @@ typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 ///
 /// Extends [react.Component].
 ///
+/// Implements [DisposableManagerV3]
+///
 /// Related: [UiStatefulComponent]
-abstract class UiComponent<TProps extends UiProps> extends react.Component {
+abstract class UiComponent<TProps extends UiProps> extends react.Component implements DisposableManagerV3 {
+  Disposable _disposableProxy;
+
   /// The props for the non-forwarding props defined in this component.
   Iterable<ConsumedProps> get consumedProps => null;
 
@@ -156,6 +163,12 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
     validateRequiredProps(props);
   }
 
+  @override
+  @mustCallSuper
+  void componentWillUnmount() {
+    _disposableProxy?.dispose();
+  }
+
 
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
@@ -197,6 +210,61 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component {
 
   //
   //   END Typed props helpers
+  // ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+
+  // ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  //   BEGIN DisposableManagerV3 interface implementation
+  //
+
+  @override
+  Future<T> awaitBeforeDispose<T>(Future<T> future) =>
+    _getDisposableProxy().awaitBeforeDispose<T>(future);
+
+  @override
+  Future<T> getManagedDelayedFuture<T>(Duration duration, T callback()) =>
+    _getDisposableProxy().getManagedDelayedFuture<T>(duration, callback);
+
+  @override
+  Timer getManagedPeriodicTimer(Duration duration, void callback(Timer timer)) =>
+    _getDisposableProxy().getManagedPeriodicTimer(duration, callback);
+
+  @override
+  Timer getManagedTimer(Duration duration, void callback()) =>
+    _getDisposableProxy().getManagedTimer(duration, callback);
+
+  @override
+  Completer<T> manageCompleter<T>(Completer<T> completer) =>
+    _getDisposableProxy().manageCompleter<T>(completer);
+
+  @override
+  void manageDisposable(Disposable disposable) =>
+    _getDisposableProxy().manageDisposable(disposable);
+
+  @override
+  void manageDisposer(Disposer disposer) =>
+    _getDisposableProxy().manageDisposer(disposer);
+
+  @override
+  void manageStreamController(StreamController controller) =>
+    _getDisposableProxy().manageStreamController(controller);
+
+  @override
+  void manageStreamSubscription(StreamSubscription subscription) =>
+    _getDisposableProxy().manageStreamSubscription(subscription);
+
+  /// Instantiates a new [Disposable] instance on the first call to the
+  /// [DisposableManagerV3] method.
+  Disposable _getDisposableProxy() {
+    if (_disposableProxy == null) {
+      _disposableProxy = new Disposable();
+    }
+    return _disposableProxy;
+  }
+
+  //
+  //   END DisposableManagerV3 interface implementation
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
 }
