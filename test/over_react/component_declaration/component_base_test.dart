@@ -45,7 +45,7 @@ main() {
         });
 
         test('when a single non-invoked builder child is passed in', () {
-          expect(() => Dom.div()(Dom.div()), throws);
+          expect(() => Dom.div()(Dom.div()), throwsArgumentError);
           verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
         });
 
@@ -158,7 +158,7 @@ main() {
             Dom.div(),
             Dom.p()(),
             Dom.div()
-          ]), throws);
+          ]), throwsArgumentError);
           verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
         });
 

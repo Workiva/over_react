@@ -34,14 +34,13 @@ void storeZone([Zone zone]) {
   _zone = zone;
 }
 
-/// Calls [expect] in package:test/test.dart in the zone stored in [setZone].
+/// Calls [expect] in package:test/test.dart in the zone stored in [storeZone].
 ///
 /// Useful for expectations in blocks called in other zones.
-void zonedExpect(actual, matcher,
-    {String reason, bool verbose: false, ErrorFormatter formatter}) {
+void zonedExpect(actual, matcher, {String reason}) {
   validateZone();
 
   return _zone.run(() {
-    expect(actual, matcher, verbose: verbose, formatter: formatter);
+    expect(actual, matcher);
   });
 }
