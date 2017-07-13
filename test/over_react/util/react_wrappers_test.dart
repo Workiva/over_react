@@ -30,7 +30,6 @@ import 'package:test/test.dart';
 import '../../test_util/one_level_wrapper.dart';
 import '../../test_util/test_util.dart';
 import '../../test_util/two_level_wrapper.dart';
-import '../../wsd_test_util/test_js_component.dart';
 
 /// Main entry point for react wrappers testing
 main() {
@@ -380,21 +379,6 @@ main() {
         test('a String', () {
           expect(isDomElement('Test String'), isFalse);
         });
-      });
-    });
-
-    group('isMounted (deprecated)', () {
-      test('returns true for a component that has been mounted', () {
-        var mountNode = new DivElement();
-        var renderedInstance = react_dom.render(Wrapper()(), mountNode);
-        expect(renderedInstance.isMounted(), isTrue);
-      });
-
-      test('returns false for a component that has been umounted', () {
-        var mountNode = new DivElement();
-        var renderedInstance = react_dom.render(Wrapper()(), mountNode);
-        react_dom.unmountComponentAtNode(mountNode);
-        expect(renderedInstance.isMounted(), isFalse);
       });
     });
 
