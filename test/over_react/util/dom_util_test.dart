@@ -17,10 +17,10 @@ library dom_util_test;
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
+import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
 
 import '../../test_util/test_util.dart';
-import '../../wsd_test_util/validation_util_helpers.dart';
 
 /// Main entry point for DomUtil testing
 main() {

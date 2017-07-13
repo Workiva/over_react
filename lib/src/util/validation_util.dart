@@ -16,13 +16,12 @@ library over_react.validation_util;
 
 import 'dart:html';
 
-import 'package:over_react/src/util/pretty_print.dart';
-import 'package:over_react/src/util/react_wrappers.dart';
+import 'package:over_react/over_react.dart';
 import 'package:react/react.dart' as react;
 
 typedef void ValidationUtilWarningCallback(String message);
 
-/// Utility for logging validation errors or warning.
+/// Utility for logging validation errors or warnings.
 class ValidationUtil {
 
   static bool WARNINGS_ENABLED = true;
@@ -30,17 +29,43 @@ class ValidationUtil {
   static int WARNING_COUNT = 0;
 
   /// Use this to log warnings to the console in dev mode only.
-  /// This is to be used in assert calls for dev help only so that it gets
-  /// compiled out for production.
+  ///
+  /// Code that produces the warnings will not be included when you compile in production mode.
   ///
   ///     assert(ValidationUtil.warn('Some warning message'));
   ///
-  /// Optionally, a component or element can be passed as the second parameter
+  /// Optionally, a component or element can be passed as [data]
   /// to provide additional information in the console.
   ///
   ///     assert(ValidationUtil.warn('Some warning message', component));
   ///
-  /// The message will be printed out to the console.
+  /// Assert that your component emits a warning using
+  /// the validation test utilities available within
+  /// `package:over_react_test/over_react_test.dart` like so:
+  ///
+  ///     group('emits a warning to the console', () {
+  ///       setUp(startRecordingValidationWarnings);
+  ///
+  ///       tearDown(stopRecordingValidationWarnings);
+  ///
+  ///       test('when <describe something that should trigger a warning>', () {
+  ///         // Do something that should trigger a warning
+  ///
+  ///         verifyValidationWarning(/* some Matcher or String */);
+  ///       });
+  ///
+  ///       test('unless <describe something that should NOT trigger a warning>', () {
+  ///         // Do something that should NOT trigger a warning
+  ///
+  ///         rejectValidationWarning(/* some Matcher or String */);
+  ///       });
+  ///     },
+  ///         // Be sure to not run these tests in JS browsers
+  ///         // like Chrome, Firefox, etc. since  the OverReact
+  ///         // ValidationUtil.warn() method will only produce a
+  ///         // console warning when compiled in "dev" mode.
+  ///         testOn: '!js'
+  ///     );
   static bool warn(String message, [dynamic data]) {
     WARNING_COUNT += 1;
 
@@ -75,6 +100,8 @@ class ValidationUtil {
   /// Callback for when warnings are logged.
   ///
   /// Useful for verifying warnings in unit tests.
+  ///
+  /// > See: [startRecordingValidationWarnings]
   static ValidationUtilWarningCallback onWarning;
 }
 

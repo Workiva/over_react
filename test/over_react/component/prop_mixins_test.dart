@@ -20,7 +20,7 @@ import 'package:over_react/over_react.dart';
 import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
 
-import '../../wsd_test_util/prop_utils.dart';
+import '../../test_util/prop_utils.dart';
 
 main() {
   group('ReactProps', () {

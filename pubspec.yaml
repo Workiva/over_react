@@ -37,3 +37,11 @@ transformers:
       $include: test/**_test{.*,}.dart
   # Reminder: dart2js should come after any other transformers that touch Dart code
   - $dart2js
+
+
+dependency_overrides:
+  over_react_test:
+    git:
+      url: git@github.com:aaronlademann-wf/over_react_test.git
+      ref: add-more-utils
+
