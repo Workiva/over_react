@@ -1,5 +1,17 @@
 # OverReact Changelog
 
+## 1.14.1
+
+> [Complete `1.14.1` Changeset](https://github.com/Workiva/over_react/compare/1.14.1...1.14.0)
+
+__Dependency Updates__
+
+* over_react_test `>=1.0.0 <1.1.0` (was `^1.0.0`)
+  * Temporary. Insulates consumers from incompatible versions when some test utilities are [moved from this library to `over_react_test`](https://github.com/Workiva/over_react_test/pull/11).
+  * Constraint will update to `^1.1.0` once [#95] is merged / released.
+
+&nbsp;
+
 ## 1.14.0
 
 > [Complete `1.14.0` Changeset](https://github.com/Workiva/over_react/compare/1.14.0...1.13.0)
