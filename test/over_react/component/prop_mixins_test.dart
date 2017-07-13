@@ -69,8 +69,7 @@ main() {
   group('AriaProps', () {
       test('cannot set / read values that are not its prop map', () {
         var instance = new AriaPropMixinsTest({});
-        expect(() {instance['notThere'];},
-            throwsA(hasToStringValue(contains('Map does not contain this key'))));
+        expect(() {instance['notThere'];}, throwsArgumentError);
       });
 
       for (var propKey in const $PropKeys(AriaPropsMixin)) {
@@ -94,7 +93,7 @@ class DomPropMixinsTest extends MapView with DomPropsMixin {
   @override
   operator [](key) {
     if (!this.containsKey(key)) {
-      throw 'Map does not contain this key: $key';
+      throw new ArgumentError('Map does not contain this key: $key');
     }
     return super[key];
   }
@@ -112,7 +111,7 @@ class SvgPropMixinsTest extends MapView with SvgPropsMixin {
   @override
   operator [](key) {
     if (!this.containsKey(key)) {
-      throw 'Map does not contain this key: $key';
+      throw new ArgumentError('Map does not contain this key: $key');
     }
     return super[key];
   }
@@ -130,7 +129,7 @@ class ReactPropMixinsTest extends MapView with ReactPropsMixin {
   @override
   operator [](key) {
     if (!this.containsKey(key)) {
-      throw 'Map does not contain this key: $key';
+      throw new ArgumentError('Map does not contain this key: $key');
     }
     return super[key];
   }
@@ -148,7 +147,7 @@ class CssClassPropMixinsTest extends MapView with CssClassPropsMixin {
   @override
   operator [](key) {
     if (!this.containsKey(key)) {
-      throw 'Map does not contain this key: $key';
+      throw new ArgumentError('Map does not contain this key: $key');
     }
     return super[key];
   }
@@ -165,7 +164,7 @@ class UbiquitousPropMixinsTest extends MapView with UbiquitousDomPropsMixin {
   @override
   operator [](key) {
     if (!this.containsKey(key)) {
-      throw 'Map does not contain this key: $key';
+      throw new ArgumentError('Map does not contain this key: $key');
     }
     return super[key];
   }
@@ -182,7 +181,7 @@ class AriaPropMixinsTest extends MapView with AriaPropsMixin {
   @override
   operator [](key) {
     if (!this.containsKey(key)) {
-      throw 'Map does not contain this key: $key';
+      throw new ArgumentError('Map does not contain this key: $key');
     }
     return super[key];
   }

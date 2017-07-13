@@ -147,8 +147,7 @@ main() {
 
                 var chained = callbackUtil.chain(a, b);
 
-                expect(() => Function.apply(chained, generateBadTypeArgs()),
-                    throwsA(const isInstanceOf<TypeError>()));
+                expect(() => Function.apply(chained, generateBadTypeArgs()), throwsA(const isInstanceOf<TypeError>()));
               }, testOn: 'dart-vm');
             }
           });
@@ -246,8 +245,7 @@ main() {
 
               var chained = callbackUtil.chainFromList(functions);
 
-              expect(() => Function.apply(chained, generateBadTypeArgs()),
-                  throwsA(const isInstanceOf<TypeError>()));
+              expect(() => Function.apply(chained, generateBadTypeArgs()), throwsA(const isInstanceOf<TypeError>()));
             }, testOn: 'dart-vm');
           }
         });
