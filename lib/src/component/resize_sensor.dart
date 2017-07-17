@@ -21,7 +21,6 @@ import 'dart:html';
 
 import 'package:meta/meta.dart';
 import 'package:platform_detect/platform_detect.dart';
-import 'package:react/react.dart' as react;
 import 'package:over_react/over_react.dart';
 
 /// A wrapper component that detects when its parent is resized.
@@ -189,7 +188,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
 
   /// When the expand or collapse sensors are resized, builds a [ResizeSensorEvent] and calls
   /// props.onResize with it. Then, calls through to [_reset()].
-  void _handleSensorScroll(react.SyntheticEvent _) {
+  void _handleSensorScroll(SyntheticEvent _) {
     if (_scrollEventsToIgnore > 0) {
       _scrollEventsToIgnore--;
       return;

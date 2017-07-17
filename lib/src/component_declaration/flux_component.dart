@@ -66,6 +66,8 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
 ///   the resulting component.
 ///
 /// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
+///
+/// > Related: [FluxUiStatefulComponent]
 abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<TProps>
     with _FluxComponentMixin<TProps>, BatchedRedraws {
   // Redeclare these lifecycle methods with `mustCallSuper`, since `mustCallSuper` added to methods within
@@ -102,6 +104,8 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
 ///   the resulting component.
 ///
 /// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
+///
+/// > Related: [FluxUiComponent]
 abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extends UiState>
     extends UiStatefulComponent<TProps, TState>
     with _FluxComponentMixin<TProps>, BatchedRedraws {
@@ -156,9 +160,9 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
 
     handlers.forEach((store, handler) {
       String message = 'Cannot listen to a disposed/disposing Store.';
-      
+
       var isDisposedOrDisposing = store.isDisposedOrDisposing ?? false;
-      
+
       assert(!isDisposedOrDisposing, '$message This can be caused by BatchedRedraws '
         'mounting the component asynchronously after the store has been disposed. If you are '
         'in a test environment, try adding an `await window.animationFrame;` before disposing your '

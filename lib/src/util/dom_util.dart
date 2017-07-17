@@ -38,7 +38,7 @@ Iterable<Element> _hierarchy(Element element) sync* {
 }
 
 /// Returns the closest element in the hierarchy of [lowerBound] up to an optional [upperBound] (both inclusive)
-/// that matches [selector], or `null if no matches are found.
+/// that matches [selector], or `null` if no matches are found.
 Element closest(Element lowerBound, String selector, {Element upperBound}) {
   for (var element in _hierarchy(lowerBound)) {
     if (element.matches(selector)) return element;
@@ -48,7 +48,8 @@ Element closest(Element lowerBound, String selector, {Element upperBound}) {
   return null;
 }
 
-/// Returns the currently focused element, or `null` if there is none.
+/// Returns the currently focused element ([HtmlDocument.activeElement]),
+/// or `null` if nothing is focused (e.g. [HtmlDocument.activeElement] is [BodyElement]).
 Element getActiveElement() {
   var activeElement = document.activeElement;
 
@@ -62,8 +63,6 @@ Element getActiveElement() {
 /// Necessary because of the circular inheritance hierarchy in Dart's [InputElement] class structure.
 ///
 /// See: <https://github.com/dart-lang/sdk/issues/22967>
-///
-/// Related: [isTextInputElementBase]
 const List<String> inputTypesWithSelectionRangeSupport = const [
   'search',
   'text',

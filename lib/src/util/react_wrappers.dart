@@ -19,6 +19,7 @@ import 'dart:collection';
 import 'dart:html';
 
 import 'package:js/js.dart';
+import 'package:over_react/over_react.dart';
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
@@ -49,22 +50,18 @@ ReactDartComponentInternal _getInternal(/* ReactElement|ReactComponent */  insta
 
 /// Returns the internal representation of a Dart component's props as maintained by react-dart.
 ///
-/// Similar to ReactElement.props in JS, but also includes `children`.
+/// Similar to `ReactElement.props` in JS, but also includes `props.children`.
 Map _getExtendedProps(/* ReactElement|ReactComponent */  instance) {
   return _getInternal(instance).props;
 }
 
-/// Returns 'key' associated with the specified React instance.
-dynamic getInstanceKey(ReactElement instance) {
-  return instance.key;
-}
+/// Returns the [ReactElement.key] associated with the specified [instance].
+dynamic getInstanceKey(ReactElement instance) => instance.key;
 
-/// Returns 'ref' associated with the specified React instance.
-dynamic getInstanceRef(ReactElement instance) {
-  return instance.ref;
-}
+/// Returns the [ReactElement.ref] associated with the specified [instance].
+dynamic getInstanceRef(ReactElement instance) => instance.ref;
 
-/// Returns whether a component is a native Dart component (react-dart [ReactElement] or [ReactComponent]).
+/// Returns whether an [instance] is a native Dart component (react-dart [ReactElement] or [ReactComponent]).
 bool isDartComponent(/* [1] */ instance) {
   // Don't try to access internal on a DOM component
   if (instance is Element) {
@@ -211,15 +208,14 @@ bool _isCompositeComponent(dynamic object) {
 }
 
 /// Returns a new JS map with the specified props and children changes, properly prepared for consumption by
-/// React JS methods such as cloneWithProps(), setProps(), and other methods that accept changesets of props to be
+/// React JS methods such as `cloneElement`, `setProps`, and other methods that accept changesets of props to be
 /// merged into existing props.
 ///
 /// Handles both Dart and JS React components, returning the appropriate props structure for each type:
 ///
 /// * For Dart components, existing props are read from [InteropProps.internal], which are then merged with
 ///   the new [newProps] and saved in a new [InteropProps] with the expected [ReactDartComponentInternal] structure.
-///   Children are likewise copied/overwritten as expected.
-///
+/// * Children are likewise copied and potentially overwritten with [newChildren] as expected.
 /// * For JS components, a copy of [newProps] is returned, since React will merge the props without any special handling.
 dynamic preparePropsChangeset(ReactElement element, Map newProps, [Iterable newChildren]) {
   var propsChangeset;
@@ -277,7 +273,8 @@ ReactElement cloneElement(ReactElement element, [Map props, Iterable children]) 
   }
 }
 
-/// Returns the native Dart component associated with a React JS component instance, or null if the component is not Dart-based.
+/// Returns the native Dart [ReactDartComponentInternal.component] associated with a [ReactComponent]
+/// [instance], or `null` if the component is not Dart-based _(an [Element] or a JS composite component)_.
 react.Component getDartComponent(/* [1] */ instance) {
   if (instance is Element) {
     return null;
@@ -286,12 +283,13 @@ react.Component getDartComponent(/* [1] */ instance) {
   return _getInternal(instance)?.component;
 }
 
-/// A function that, when supplied as the `ref` prop, is called with the component instance
+/// A function that, when supplied as [ReactPropsMixin.ref], is called with the component instance
 /// as soon as it is mounted.
 ///
 /// This instance can be used to retrieve a component's DOM node or to call a component's public API methods.
 ///
 /// The component instance will be of the type:
+///
 ///   * [react.Component] for Dart components
 ///   * [ReactComponent] for JS composite components
 ///   * [Element] for DOM components
@@ -313,9 +311,10 @@ react.Component getDartComponent(/* [1] */ instance) {
 /// See: <http://facebook.github.io/react/docs/more-about-refs.html#the-ref-callback-attribute>.
 typedef CallbackRef(ref);
 
-/// Returns a function that chains [element]'s callback ref (if one exists) with [newCallbackRef].
+/// Returns a function that chains the callback ref of the provided [element] _(if one exists)_
+/// using [newCallbackRef].
 ///
-/// Throws [ArgumentError] if [element.ref] is a `String` ref or otherwise not a [CallbackRef].
+/// > Throws an [ArgumentError] if [ReactElement.ref] is a `String` ref or otherwise not a [CallbackRef].
 ///
 /// TODO: This method makes assumptions about how react-dart does callback refs for dart components, so this method should be moved there (UIP-1118).
 CallbackRef chainRef(ReactElement element, CallbackRef newCallbackRef) {
