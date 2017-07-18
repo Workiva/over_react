@@ -147,7 +147,8 @@ main() {
 
                 var chained = callbackUtil.chain(a, b);
 
-                expect(() => Function.apply(chained, generateBadTypeArgs()), throws);
+                expect(() => Function.apply(chained, generateBadTypeArgs()),
+                    throwsA(const isInstanceOf<TypeError>()));
               }, testOn: 'dart-vm');
             }
           });
@@ -245,7 +246,8 @@ main() {
 
               var chained = callbackUtil.chainFromList(functions);
 
-              expect(() => Function.apply(chained, generateBadTypeArgs()), throws);
+              expect(() => Function.apply(chained, generateBadTypeArgs()),
+                  throwsA(const isInstanceOf<TypeError>()));
             }, testOn: 'dart-vm');
           }
         });
@@ -257,7 +259,8 @@ main() {
 
           if (arity != 0) {
             test('with arguments typed to the specified generic parameters', () {
-              expect(() => Function.apply(callbackUtil.noop, generateBadTypeArgs()), throws);
+              expect(() => Function.apply(callbackUtil.noop, generateBadTypeArgs()),
+                  throwsA(const isInstanceOf<TypeError>()));
             }, testOn: 'dart-vm');
           }
         });

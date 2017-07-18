@@ -17,6 +17,7 @@ library prop_mixins_test;
 import 'dart:collection' show MapView;
 
 import 'package:over_react/over_react.dart';
+import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
 
 import '../../wsd_test_util/prop_utils.dart';
@@ -68,7 +69,8 @@ main() {
   group('AriaProps', () {
       test('cannot set / read values that are not its prop map', () {
         var instance = new AriaPropMixinsTest({});
-        expect(() {instance['notThere'];}, throws);
+        expect(() {instance['notThere'];},
+            throwsA(hasToStringValue(contains('Map does not contain this key'))));
       });
 
       for (var propKey in const $PropKeys(AriaPropsMixin)) {
