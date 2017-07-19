@@ -81,7 +81,7 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
   @override
   // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
   // ignore: must_call_super
-  void componentWillReceiveProps(Map prevProps);
+  void componentWillReceiveProps(Map nextProps);
 
   @mustCallSuper
   @override
@@ -118,7 +118,7 @@ abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extend
   @override
   // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
   // ignore: must_call_super
-  void componentWillReceiveProps(Map prevProps);
+  void componentWillReceiveProps(Map nextProps);
 
   @mustCallSuper
   @override
