@@ -14,6 +14,7 @@
 
 library over_react.component_declaration.component_base_test;
 
+import 'dart:async';
 import 'dart:html';
 
 import 'package:over_react/over_react.dart' show Dom, DummyComponent, ValidationUtil;
@@ -21,6 +22,7 @@ import 'package:over_react/src/component_declaration/component_base.dart';
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
+import 'package:w_common/disposable.dart';
 
 import '../../test_util/test_util.dart';
 import '../../wsd_test_util/validation_util_helpers.dart';
@@ -43,7 +45,7 @@ main() {
         });
 
         test('when a single non-invoked builder child is passed in', () {
-          expect(() => Dom.div()(Dom.div()), throws);
+          expect(() => Dom.div()(Dom.div()), throwsArgumentError);
           verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
         });
 
@@ -92,7 +94,7 @@ main() {
         test('a single child is passed in', () {
           var child = 'Only child';
           var renderedNode = renderAndGetDom(Dom.div()(child));
-          List<Text> children = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
+          var children = new List<Text>.from(renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE));
 
           expect(children.length, equals(1));
           expect(children[0].data, equals(child));
@@ -156,7 +158,7 @@ main() {
             Dom.div(),
             Dom.p()(),
             Dom.div()
-          ]), throws);
+          ]), throwsArgumentError);
           verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
         });
 
@@ -659,6 +661,125 @@ main() {
           expect(appliedProps, newProps);
         });
       });
+
+      group('on unmount', () {
+        TestComponentComponent component;
+        ReactElement instance;
+        Duration longDuration = const Duration(milliseconds: 200);
+        Duration shortDuration = const Duration(milliseconds: 100);
+
+        setUp(() {
+          instance = render(TestComponent()());
+          component = getDartComponent(instance);
+        });
+
+        Future<Null> unmountAndDisposal() async {
+          unmount(instance);
+          // Provide timers a window to fire
+          await new Future.delayed(longDuration);
+        }
+
+        test('should await future before disposing', () async {
+          // ignore: close_sinks
+          var streamController = new StreamController<String>.broadcast();
+          var completer = new Completer<String>();
+
+          // Manage pending future
+          component.awaitBeforeDispose(completer.future);
+
+          // Add events to stream
+          component.manageDisposer(() async => streamController.add('disposalFuture'));
+          completer.future.then(streamController.add);
+
+          // Perform events out of order
+          await unmountAndDisposal();
+          completer.complete('awaitedFuture');
+
+          // Ensure events resolve in the correct order
+          expect(streamController.stream, emitsInOrder([
+            'awaitedFuture',
+            'disposalFuture',
+          ]));
+        });
+
+        test('should complete delayed Future with ObjectDisposedException', () async {
+          expect(component.getManagedDelayedFuture(shortDuration,
+              expectAsync0(() {}, count: 0, reason: 'Did not expect callback to be invoked.')),
+            throwsA(new isInstanceOf<ObjectDisposedException>()));
+
+          await unmountAndDisposal();
+        });
+
+        test('should cancel periodic timer', () async {
+          var timer = component.getManagedPeriodicTimer(shortDuration,
+            expectAsync1((_) {}, count: 0, reason: 'Did not expect callback to be invoked.'));
+
+          expect(timer.isActive, isTrue);
+          await unmountAndDisposal();
+          expect(timer.isActive, isFalse);
+        });
+
+        test('should cancel timer', () async {
+          var timer = component.getManagedTimer(shortDuration,
+            expectAsync1((_){}, count: 0, reason: 'Did not expect callback to be invoked.'));
+
+          expect(timer.isActive, isTrue);
+          await unmountAndDisposal();
+          expect(timer.isActive, isFalse);
+        });
+
+        test('should complete uncompleted managed Completer with ObjectDisposedException', () async {
+          var completer = new Completer<Null>();
+          component.manageCompleter(completer);
+          completer.future.catchError(expectAsync1((Object err) =>
+            expect(err, new isInstanceOf<ObjectDisposedException>())));
+
+          expect(completer.isCompleted, isFalse);
+          await unmountAndDisposal();
+          expect(completer.isCompleted, isTrue);
+        });
+
+        test('should dispose managed Disposable', () async {
+          var disposable = new Disposable();
+          component.manageDisposable(disposable);
+          expect(disposable.isDisposed, isFalse);
+          await unmountAndDisposal();
+          expect(disposable.isDisposed, isTrue);
+        });
+
+        test('should call managed disposers', () async {
+          var disposerCalled = false;
+          component.manageDisposer(() async => disposerCalled = true);
+          expect(disposerCalled, isFalse);
+          await unmountAndDisposal();
+          expect(disposerCalled, isTrue);
+        });
+
+        test('should close managed StreamController', () async {
+          //ignore: close_sinks
+          var streamController = new StreamController<Null>.broadcast();
+          component.manageStreamController(streamController);
+          expect(streamController.isClosed, isFalse);
+          await unmountAndDisposal();
+          expect(streamController.isClosed, isTrue);
+        });
+
+        test('should cancel managed StreamSubscription', () async{
+          var streamController = new StreamController<Null>.broadcast();
+          // ignore: cancel_subscriptions
+          var streamSubscription = streamController.stream
+            .listen(expectAsync1((_) {},
+              count: 0,
+              reason: 'Did not expect event after cancelling subscription'));
+
+          component.manageStreamSubscription(streamSubscription);
+          await unmountAndDisposal();
+
+          streamController
+            ..add(null)
+            ..close();
+        });
+      }, timeout: new Timeout(const Duration(milliseconds: 250)));
     });
 
     group('UiStatefulComponent', () {

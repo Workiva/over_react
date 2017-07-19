@@ -42,7 +42,7 @@
 
     ```yaml
     dependencies:
-      over_react: "^1.12.1"
+      over_react: "^1.14.0"
     ```
 
 2. Add the `over_react` [transformer] to your `pubspec.yaml`.

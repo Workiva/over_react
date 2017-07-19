@@ -89,6 +89,8 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
 
   @mustCallSuper
   @override
+  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
+  // ignore: must_call_super
   void componentWillUnmount();
 }
 
@@ -124,6 +126,8 @@ abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extend
 
   @mustCallSuper
   @override
+  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
+  // ignore: must_call_super
   void componentWillUnmount();
 }
 
