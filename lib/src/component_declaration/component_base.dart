@@ -131,6 +131,27 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
     );
   }
 
+  /// Throws a [PropError] if [appliedProps] are invalid.
+  ///
+  /// This is called automatically with the latest props available during [componentWillReceiveProps] and
+  /// [componentWillMount], and can also be called manually for custom validation.
+  ///
+  /// Override with a custom implementation to easily add validation (and don't forget to call super!)
+  ///
+  ///     @mustCallSuper
+  ///     void validateProps(Map appliedProps) {
+  ///       super.validateProps(appliedProps);
+  ///
+  ///       var tProps = typedPropsFactory(appliedProps);
+  ///       if (tProps.items.length.isOdd) {
+  ///         throw new PropError.value(tProps.items, 'items', 'must have an even number of items, because reasons');
+  ///       }
+  ///     }
+  @mustCallSuper
+  void validateProps(Map appliedProps) {
+    validateRequiredProps(appliedProps);
+  }
+
   void validateRequiredProps(Map appliedProps) {
     consumedProps?.forEach((ConsumedProps consumedProps) {
       consumedProps.props.forEach((PropDescriptor prop) {
@@ -154,13 +175,13 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
   @override
   @mustCallSuper
   void componentWillReceiveProps(Map newProps) {
-    validateRequiredProps(newProps);
+    validateProps(newProps);
   }
 
   @override
   @mustCallSuper
   void componentWillMount() {
-    validateRequiredProps(props);
+    validateProps(props);
   }
 
   @override

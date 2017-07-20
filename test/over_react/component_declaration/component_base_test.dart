@@ -626,6 +626,42 @@ main() {
         expect(classes.toClassNameBlacklist(), equals('blacklist-1'));
       });
 
+      group('calls validateProps in', () {
+        test('componentWillMount', () {
+          var calls = [];
+          var appliedProps;
+          var initialProps = {
+            'onValidateProps': (Map propsMap) {
+              appliedProps = propsMap;
+              calls.add('onValidateProps');
+            },
+          };
+          component.props = initialProps;
+
+          component.componentWillMount();
+
+          expect(calls, ['onValidateProps']);
+          expect(appliedProps, initialProps);
+        });
+
+        test('componentWillReceiveProps', () {
+          var calls = [];
+          var appliedProps;
+          var newProps = {'key': 'value'};
+          component.props = {
+            'onValidateProps': (Map propsMap) {
+              appliedProps = propsMap;
+              calls.add('onValidateProps');
+            },
+          };
+
+          component.componentWillReceiveProps(newProps);
+
+          expect(calls, ['onValidateProps']);
+          expect(appliedProps, newProps);
+        });
+      });
+
       group('on unmount', () {
         TestComponentComponent component;
         ReactElement instance;
@@ -920,6 +956,13 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
 
   @override
   TestComponentProps typedPropsFactory(Map propsMap) => new TestComponentProps(propsMap);
+
+  @override
+  void validateProps(Map appliedProps) {
+    super.validateProps(appliedProps);
+
+    if (props['onValidateProps'] != null) props['onValidateProps'](appliedProps);
+  }
 }
 
 
