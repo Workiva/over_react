@@ -675,6 +675,8 @@ that you get for free from OverReact, you're ready to start building your own cu
 
 ### Component Boilerplate Templates
 
+* #### [VS Code Snippet Extension](https://marketplace.visualstudio.com/items?itemName=JaceHensley.over-react-snippets)
+
 * #### Component Boilerplate
 
     ```dart
