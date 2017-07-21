@@ -2,7 +2,7 @@
 
 ## 1.14.0
 
-> [Complete `1.14.0` Changeset](https://github.com/Workiva/over_react/compare/1.14.0...1.13.0)
+> [Complete `1.14.0` Changeset](https://github.com/Workiva/over_react/compare/1.13.0...1.14.0)
 
 __Dependency Updates__
 
@@ -12,7 +12,7 @@ __Dependency Updates__
 __New Features__
 
 * [#91]: Implement [`DisposableManagerV3`](https://github.com/Workiva/w_common/blob/master/lib/src/common/disposable_manager.dart#L71) for `UiComponent`
-  * Assists with cleaning up streams and other data structures that won't 
+  * Assists with cleaning up streams and other data structures that won't
     necessarily be garbage collected without some manual intervention.
 
 __Misc__
@@ -23,7 +23,7 @@ __Misc__
 
 ## 1.13.0
 
-> [Complete `1.13.0` Changeset](https://github.com/Workiva/over_react/compare/1.13.0...1.12.1)
+> [Complete `1.13.0` Changeset](https://github.com/Workiva/over_react/compare/1.12.1...1.13.0)
 
 __Dependency Updates__
 
@@ -47,9 +47,9 @@ __Misc__
 __Bug fixes__
 
 - Bump min source_span to version w/ `SourceFile.fromString`
-    
+
 &nbsp;
-    
+
 ## 1.12.0
 
 > [Complete `1.12.0` Changeset](https://github.com/Workiva/over_react/compare/1.11.2...1.12.0)
@@ -81,7 +81,7 @@ __Bug Fixes__
 
 * Revert _[#77]: Update `FluxUiComponent` subscriptions when new `props` are received._
     * Reverted since this broke subclasses that weren't calling super in lifecycle methods `componentWillReceieveProps` and `componentDidUpdate`
-    * Keep `@mustCallSuper` annotations from this changeset  
+    * Keep `@mustCallSuper` annotations from this changeset
 
 &nbsp;
 
@@ -93,10 +93,10 @@ __New Features__
 
 * [#76]: Add support for [`covariant`](http://news.dartlang.org/2017/02/dart-122-faster-tools-assert-messages.html) props / state fields.
   * Closes [#49]
-  
+
 __Bug Fixes__
 
-* [#77]: Update `FluxUiComponent` subscriptions when new `props` are received. 
+* [#77]: Update `FluxUiComponent` subscriptions when new `props` are received.
 
 __Tech Debt Paid__
 
@@ -115,13 +115,13 @@ __Misc__
 
 __Improvements__
 
-* [#69]: New top-level `getSelectionStart` function to normalize `selectionStart` across browsers for both 
+* [#69]: New top-level `getSelectionStart` function to normalize `selectionStart` across browsers for both
   `TextInputElement`s and `TextAreaElement`s
-  
+
 
 __Tech Debt Paid__
 
-* [#68]: Declare explicitly-used transitive imports in `pubspec.yaml`  
+* [#68]: Declare explicitly-used transitive imports in `pubspec.yaml`
 * [#70]: Don't run `ValidationUtil`-related tests in dart2js
 
 &nbsp;
@@ -132,7 +132,7 @@ __Tech Debt Paid__
 
 __Dependency Updates__
 
-* analyzer `>=0.26.1+3 <0.31.0` (was `>=0.26.1+3 <0.30.0`) 
+* analyzer `>=0.26.1+3 <0.31.0` (was `>=0.26.1+3 <0.30.0`)
 
 &nbsp;
 
@@ -157,7 +157,7 @@ __Improvements__
   * Export `setClientConfiguration` and `ReactElement`
   * Export all `Synthetic*Event` classes
   * Add capturing event handlers supported by ReactJS
-  
+
 
 __Bug Fixes__
 
@@ -237,7 +237,7 @@ __Dependency Updates__
 __[#40]: Sync changes from original private repo library__
   > _This is the last time we'll do this - as the original library has now been completely switched over to use `over_react`_
 
-  * __Switched dependency__ from `browser_detect` to our 
+  * __Switched dependency__ from `browser_detect` to our
   [new `platform_detect` library](https://github.com/Workiva/platform_detect)!
 
   * __Improved__ `toString` method of `DebugFriendlyConstant`.
