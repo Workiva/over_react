@@ -1,5 +1,31 @@
 # OverReact Changelog
 
+## 1.15.0
+
+> [Complete `1.15.0` Changeset](https://github.com/Workiva/over_react/compare/1.14.0...1.15.0)
+
+__Dependency Updates__
+
+* over_react_test `^1.0.1` (was `^1.0.0`)
+* test `^0.12.24` (was `^0.12.6+2`)
+
+__New Features__
+
+* [#88]: Add `validateProps` method to `UiComponent`
+  * Will automatically validate props annotated with `@requiredProp` 
+    within `componentWillMount` and `componentWillReceiveProps`
+
+__Tech Debt__
+
+* [#94]: Address deprecations from `package:test`
+* [#98]: Fix misleading typo in overridden parameter name
+
+__Misc__
+
+* [#73]: Add callout for the [OverReact Snippet VS Code Extension](https://marketplace.visualstudio.com/items?itemName=JaceHensley.over-react-snippets)
+
+&nbsp;
+
 ## 1.14.0
 
 > [Complete `1.14.0` Changeset](https://github.com/Workiva/over_react/compare/1.13.0...1.14.0)
