@@ -36,7 +36,6 @@ main(List<String> args) async {
       // See https://github.com/Workiva/over_react/issues/36
       // 'chrome',
     ]
-    ..concurrency = 4
     ..unitTests = [
       'test/vm_tests/',
       'test/over_react_component_declaration_test.dart',
