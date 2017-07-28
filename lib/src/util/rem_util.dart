@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Utilities for working with CSS `rem` units and detecting changes to the root font size.
+/// Utilities for working with CSS `rem` units and detecting changes to the font size
+/// of the [HtmlDocument].
 library over_react.rem_util;
 
 import 'dart:async';
@@ -74,7 +75,9 @@ double get rootFontSize => _rootFontSize;
 /// Stream data is the latest value, in pixels.
 final Stream<double> onRemChange = _remChange.stream;
 
-/// Forces re-computation of the root font size. Not necessary when using [onRemChange].
+/// Forces re-computation of the font size of the [HtmlDocument].
+///
+/// Not necessary when using [onRemChange].
 void recomputeRootFontSize() {
   var latestRootFontSize = _computeRootFontSize();
 
@@ -84,7 +87,8 @@ void recomputeRootFontSize() {
   }
 }
 
-/// Converts a pixel (`px`) [value] to its `rem` equivalent using the current root font size.
+/// Converts a pixel (`px`) [value] to its `rem` equivalent using the current font size
+/// found on the [HtmlDocument].
 ///
 /// * If [value] is a [String] or [CssValue]:
 ///   * And [value] already has the correct unit, it will not be converted.
@@ -93,18 +97,16 @@ void recomputeRootFontSize() {
 /// * If [value] is a [num], it will be treated as a `px` and converted, unless [treatNumAsRem] is `true`.
 /// * If [value] is `null`, `null` will be returned.
 ///
-/// Example input:
+/// Examples _(all will output `1.5rem` assuming `1rem == 10px`)_:
 ///
-/// * `'15px'`
-/// * `new CssValue(15, 'px')`
-/// * `15`
-/// * `1.5, treatNumAsRem: true`
-/// * `'1.5rem'`
-/// * `new CssValue(1.5, 'rem')`
+///     toRem('15px');
+///     toRem(new CssValue(15, 'px'));
+///     toRem(15);
+///     toRem(1.5, treatNumAsRem: true);
+///     toRem('1.5rem');
+///     new CssValue(1.5, 'rem');
 ///
-/// Example output (assuming 1rem = 10px):
-///
-/// * `1.5rem`
+/// > Related: [toPx]
 CssValue toRem(dynamic value, {bool treatNumAsRem: false, bool passThroughUnsupportedUnits: false}) {
   if (value == null) return null;
 
@@ -129,7 +131,8 @@ CssValue toRem(dynamic value, {bool treatNumAsRem: false, bool passThroughUnsupp
   return new CssValue(remValueNum, 'rem');
 }
 
-/// Converts a rem [value] to its pixel (`px`) equivalent using the current root font size.
+/// Converts a rem [value] to its pixel (`px`) equivalent using the current font size
+/// found on the [HtmlDocument].
 ///
 /// * If [value] is a [String] or [CssValue]:
 ///   * And [value] already has the correct unit, it will not be converted.
@@ -138,18 +141,16 @@ CssValue toRem(dynamic value, {bool treatNumAsRem: false, bool passThroughUnsupp
 /// * If [value] is a [num], it will be treated as a `rem` and converted, unless [treatNumAsPx] is `true`.
 /// * If [value] is `null`, `null` will be returned.
 ///
-/// Example input:
+/// Examples _(all will output `15px` assuming `1rem == 10px`)_:
 ///
-/// * `'1.5rem'`
-/// * `new CssValue(1.5, 'rem')`
-/// * `1.5`
-/// * `15, treatNumAsPx: true`
-/// * `15px`
-/// * `new CssValue(15, 'px')`
+///     toPx('1.5rem');
+///     toPx(new CssValue(1.5, 'rem'));
+///     toPx(1.5);
+///     toPx(15, treatNumAsPx: true);
+///     toPx(15px);
+///     toPx(new CssValue(15, 'px'));
 ///
-/// Example output (assuming 1rem = 10px):
-///
-/// * `15px`
+/// > Related: [toRem]
 CssValue toPx(dynamic value, {bool treatNumAsPx: false, bool passThroughUnsupportedUnits: false}) {
   if (value == null) return null;
 

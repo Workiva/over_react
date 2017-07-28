@@ -20,11 +20,18 @@ import 'package:over_react/src/component_declaration/transformer_helpers.dart';
 import 'package:over_react/src/component/dom_components.dart';
 import 'package:over_react/src/component/prop_mixins.dart';
 
-/// Returns a copy of the specified props map, omitting reserved React props by default,
-/// in addition to any specified keys.
+/// Returns a copy of the specified [props] map, omitting reserved React props by default,
+/// in addition to any specified [keysToOmit] or [keySetsToOmit].
+///
+/// If [onlyCopyDomProps] is `true`, only the keys found within [DomPropsMixin] and [SvgPropsMixin] will be forwarded.
 ///
 /// Useful for prop forwarding.
-Map getPropsToForward(Map props, {bool omitReactProps: true, bool onlyCopyDomProps: false, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
+Map getPropsToForward(Map props, {
+    bool omitReactProps: true,
+    bool onlyCopyDomProps: false,
+    Iterable keysToOmit,
+    Iterable<Iterable> keySetsToOmit
+}) {
   Map propsToForward = new Map.from(props);
 
   if (omitReactProps) {
@@ -61,14 +68,14 @@ Map getPropsToForward(Map props, {bool omitReactProps: true, bool onlyCopyDomPro
   return propsToForward;
 }
 
-/// Returns a copy of the style map found in [props].
+/// Returns a copy of the [DomPropsMixin.style] map found in [props].
 ///
-/// Returns an empty map if [props] or its style map are null.
+/// Returns an empty map if [props] or its style map are `null`.
 Map<String, dynamic> newStyleFromProps(Map props) {
-  if (props == null) return {};
+  if (props == null) return <String, dynamic>{};
 
   var existingStyle = domProps(props).style;
-  return existingStyle == null ? {} : new Map.from(existingStyle);
+  return existingStyle == null ? <String, dynamic>{} : new Map.from(existingStyle);
 }
 
 SplayTreeSet _validDomProps = new SplayTreeSet()

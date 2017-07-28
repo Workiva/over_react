@@ -18,7 +18,7 @@ import 'dart:collection';
 
 /// Returns the string key of the [factory] prop accessed in [accessProp].
 ///
-/// Example usage:
+/// __Example:__
 ///
 ///     var valuePropKey = getPropKey((props) => props.value, TextInput);
 String getPropKey(void accessProp(Map keySpy), Map factory(Map props)) {
@@ -35,7 +35,7 @@ dynamic _getKey(void accessKey(Map keySpy)) {
   return keySpy.key;
 }
 
-/// Helper class that stores the key accessed while getting a value of a map.
+/// Helper class that stores the key accessed while getting a value within a Map.
 class _SingleKeyAccessMapSpy extends MapView {
   _SingleKeyAccessMapSpy(Map map) : super(map);
 

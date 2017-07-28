@@ -14,9 +14,11 @@
 
 library key_constants;
 
-/// Key values that are returned from [react.SyntheticKeyboardEvent.key].
+import 'package:over_react/over_react.dart';
+
+/// Key values that are returned from [SyntheticKeyboardEvent.key].
 ///
-///See: <https://w3c.github.io/uievents/#h-fixed-virtual-key-codes>.
+/// > See: <https://w3c.github.io/uievents/#h-fixed-virtual-key-codes>.
 abstract class KeyValue {
   static const String BACKSPACE = 'Backspace';
   static const String TAB = 'Tab';

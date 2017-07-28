@@ -31,6 +31,7 @@ import 'package:over_react/over_react.dart' show
 
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:over_react/src/util/ddc_emulated_function_name_bug.dart' as ddc_emulated_function_name_bug;
+import 'package:over_react/src/util/test_mode.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:w_common/disposable.dart';
@@ -91,29 +92,71 @@ typedef TProps UiFactory<TProps extends UiProps>([Map backingProps]);
 /// For use as a Function variable type when the `backingProps` argument is not required.
 typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 
-/// The basis for a over_react component.
+/// The basis for an over_react component.
 ///
-/// Includes support for strongly-typed props and utilities for prop and CSS classname forwarding.
+/// Includes support for strongly-typed [UiProps] and utilities for prop and CSS classname forwarding.
 ///
-/// Extends [react.Component].
+/// __Prop and CSS className forwarding when your component renders a composite component:__
 ///
-/// Implements [DisposableManagerV3]
+///     @Component()
+///     class YourComponent extends UiComponent<YourProps> {
+///       Map getDefaultProps() => (newProps()
+///         ..aPropOnYourComponent = /* default value */
+///       );
 ///
-/// Related: [UiStatefulComponent]
+///       @override
+///       render() {
+///         var classes = forwardingClassNameBuilder()
+///           ..add('your-component-base-class')
+///           ..add('a-conditional-class', shouldApplyConditionalClass);
+///
+///         return (SomeChildComponent()
+///           ..addProps(copyUnconsumedProps())
+///           ..className = classes.toClassName()
+///         )(props.children);
+///       }
+///     }
+///
+/// __Prop and CSS className forwarding when your component renders a DOM component:__
+///
+///     @Component()
+///     class YourComponent extends UiComponent<YourProps> {
+///       @override
+///       render() {
+///         var classes = forwardingClassNameBuilder()
+///           ..add('your-component-base-class')
+///           ..add('a-conditional-class', shouldApplyConditionalClass);
+///
+///         return (Dom.div()
+///           ..addProps(copyUnconsumedDomProps())
+///           ..className = classes.toClassName()
+///         )(props.children);
+///       }
+///     }
+///
+/// > Related: [UiStatefulComponent]
 abstract class UiComponent<TProps extends UiProps> extends react.Component implements DisposableManagerV3 {
   Disposable _disposableProxy;
 
   /// The props for the non-forwarding props defined in this component.
   Iterable<ConsumedProps> get consumedProps => null;
 
-  /// Returns a copy of this component's props with [consumedPropKeys] omitted.
+  /// Returns a copy of this component's props with keys found in [consumedProps] omitted.
+  ///
+  /// > Should be used alongside [forwardingClassNameBuilder].
+  ///
+  /// > Related [copyUnconsumedDomProps]
   Map copyUnconsumedProps() {
     var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
 
     return copyProps(keySetsToOmit: consumedPropKeys);
   }
 
-  /// Returns a copy of this component's props with [consumedPropKeys] and non-DOM props omitted.
+  /// Returns a copy of this component's props with keys found in [consumedProps] and non-DOM props omitted.
+  ///
+  /// > Should be used alongside [forwardingClassNameBuilder].
+  ///
+  /// > Related [copyUnconsumedProps]
   Map copyUnconsumedDomProps() {
     var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
 
@@ -164,18 +207,20 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
     });
   }
 
-  /// Returns a new ClassNameBuilder with className and blacklist values added from [CssClassProps.className] and
-  /// [CssClassProps.classNameBlackList], if they are specified.
+  /// Returns a new ClassNameBuilder with className and blacklist values added from [CssClassPropsMixin.className] and
+  /// [CssClassPropsMixin.classNameBlacklist], if they are specified.
   ///
   /// This method should be used as the basis for the classNames of components receiving forwarded props.
+  ///
+  /// > Should be used alongside [copyUnconsumedProps] or [copyUnconsumedDomProps].
   ClassNameBuilder forwardingClassNameBuilder() {
     return new ClassNameBuilder.fromProps(this.props);
   }
 
   @override
   @mustCallSuper
-  void componentWillReceiveProps(Map newProps) {
-    validateProps(newProps);
+  void componentWillReceiveProps(Map nextProps) {
+    validateProps(nextProps);
   }
 
   @override
@@ -290,13 +335,31 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
   // ----------------------------------------------------------------------
 }
 
-/// The basis for a stateful over_react component.
+/// The basis for a _stateful_ over_react component.
 ///
-/// Includes support for strongly-typed props and state and utilities for prop and CSS classname forwarding.
+/// Includes support for strongly-typed [UiState] in-addition-to the
+/// strongly-typed props and utilities for prop and CSS classname forwarding provided by [UiComponent].
 ///
-/// Extends [react.Component].
+/// __Initializing state:__
 ///
-/// Related: [UiComponent]
+///     @Component()
+///     class YourComponent extends UiStatefulComponent<YourProps, YourState> {
+///       Map getInitialState() => (newState()
+///         ..aStateKeyWithinYourStateClass = /* default value */
+///       );
+///
+///       @override
+///       render() {
+///         var classes = forwardingClassNameBuilder()
+///           ..add('your-component-base-class')
+///           ..add('a-conditional-class', state.aStateKeyWithinYourStateClass);
+///
+///         return (SomeChildComponent()
+///           ..addProps(copyUnconsumedProps())
+///           ..className = classes.toClassName()
+///         )(props.children);
+///       }
+///     }
 abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState> extends UiComponent<TProps> {
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
@@ -318,7 +381,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
     }
     return typedState;
   }
-  /// Equivalent to setting [unwrappedState], but needed by react-dart to effect props changes.
+  /// Equivalent to setting [unwrappedState], but needed by react-dart to effect state changes.
   @override
   set state(Map value) => super.state = value;
 
@@ -343,9 +406,9 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 }
 
 
-/// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.
+/// A `dart.collection.MapView`-like class with strongly-typed getters/setters for React state.
 ///
-/// Note: Implements MapViewMixin instead of extending it so that the abstract [State] declarations
+/// > Note: Implements MapViewMixin instead of extending it so that the abstract state declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
 abstract class UiState extends Object implements StateMapViewMixin, MapViewMixin, Map {
   // Manually implement members from `StateMapViewMixin`,
@@ -381,13 +444,13 @@ const defaultTestIdKey = 'data-test-id';
 /// Used in [UiProps.modifyProps].
 typedef PropsModifier(Map props);
 
-/// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React props that
+/// A `dart.collection.MapView`-like class with strongly-typed getters/setters for React props that
 /// is also capable of creating React component instances.
 ///
-/// For use as a typed view into existing props [Maps], or as a builder to create new component
+/// For use as a typed view into existing props [Map]s, or as a builder to create new component
 /// instances via a fluent-style interface.
 ///
-/// Note: Implements MapViewMixin instead of extending it so that the abstract [Props] declarations
+/// > Note: Implements MapViewMixin instead of extending it so that the abstract [Props] declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
 abstract class UiProps extends Object
     with ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
@@ -424,21 +487,33 @@ abstract class UiProps extends Object
   @override Map get _map => this.props;
   @override String toString() => '$runtimeType: ${prettyPrintMap(_map)}';
 
-  /// Adds an arbitrary prop key-value pair if [shouldAdd] is true, otherwise, does nothing.
+  /// Adds an arbitrary [propKey]/[value] pair if [shouldAdd] is `true`.
+  ///
+  /// Is a noop if [shouldAdd] is `false`.
+  ///
+  /// > Related: [addProps]
   void addProp(propKey, value, [bool shouldAdd = true]) {
     if (!shouldAdd) return;
 
-    props[propKey] = value;
+    this[propKey] = value;
   }
 
-  /// Adds a Map of arbitrary props if [shouldAdd] is true and [propMap] is not null.
+  /// Adds an arbitrary [propMap] of arbitrary props if [shouldAdd] is true.
+  ///
+  /// Is a noop if [shouldAdd] is `false` or [propMap] is `null`.
+  ///
+  /// > Related: [addProp], [modifyProps]
   void addProps(Map propMap, [bool shouldAdd = true]) {
     if (!shouldAdd || propMap == null) return;
 
-    props.addAll(propMap);
+    this.addAll(propMap);
   }
 
-  /// Allows [modifier] to alter this instance of props if [shouldModify] is true and [modifier] is not null.
+  /// Allows [modifier] to alter the instance if [shouldModify] is true.
+  ///
+  /// Is a noop if [shouldModify] is `false` or [modifier] is `null`.
+  ///
+  /// > Related: [addProps]
   void modifyProps(PropsModifier modifier, [bool shouldModify = true]){
     if (!shouldModify || modifier == null) return;
 
@@ -446,6 +521,8 @@ abstract class UiProps extends Object
   }
 
   /// Whether [UiProps] is in a testing environment.
+  ///
+  /// Do not set this directly; Call [enableTestMode] or [disableTestMode] instead.
   static bool testMode = false;
 
   /// Whether [UiProps] is in a testing environment at build time.
@@ -459,9 +536,11 @@ abstract class UiProps extends Object
   /// See: <https://github.com/dart-lang/pub/issues/798>.
   bool get _inTestMode => testMode || _testModeFromEnvironment;
 
-  /// Adds [value] to the prop [key] for use in a testing environment by using space-delimiting.
+  /// Adds [value] to the prop [key] _(delimited with a single space)_.
   ///
   /// Allows for an element to have multiple test IDs to prevent overwriting when cloning elements or components.
+  ///
+  /// > For use in a testing environment (when [testMode] is true).
   void addTestId(String value, {String key: defaultTestIdKey}) {
     if (!_inTestMode || value == null) {
       return;
@@ -476,19 +555,22 @@ abstract class UiProps extends Object
     }
   }
 
-  /// Gets the `data-test-id` prop or one testId from the prop (or custom [key] prop value) for use in a testing
-  /// environment.
+  /// Gets the [defaultTestIdKey] prop value, or one testId from the prop _(or custom [key] prop value)_.
+  ///
+  /// > For use in a testing environment (when [testMode] is true).
   String getTestId({String key: defaultTestIdKey}) {
     return props[key];
   }
 
-  /// Gets the `data-test-id` prop key to [value] for use in a testing environment.
+  /// Gets the `data-test-id` prop key for use in a testing environment.
+  ///
+  /// DEPRECATED. Use [getTestId] instead.
   @Deprecated('2.0.0')
   String get testId {
     return getTestId();
   }
 
-  /// Returns a new component with this builder's props and the specified children.
+  /// Returns a new component with this builder's [props] and the specified [children].
   ReactElement build([dynamic children]) {
     assert(_validateChildren(children));
 
@@ -496,7 +578,8 @@ abstract class UiProps extends Object
   }
 
   /// Creates a new component with this builder's props and the specified [children].
-  /// (alias for [build] with support for variadic children)
+  ///
+  /// _(alias for [build] with support for variadic children)_
   ///
   /// This method actually takes any number of children as arguments ([c2], [c3], ...) via [noSuchMethod].
   ///
@@ -573,8 +656,10 @@ abstract class _OverReactMapViewBase<K, V> {
   Map<K, V> get _map;
 }
 
-/// Works in conjunction with [MapViewMixin] to provide [dart.collection.MapView]-like
+/// Works in conjunction with [MapViewMixin] to provide `dart.collection.MapView`-like
 /// functionality to [UiProps] subclasses.
+///
+/// > Related: [StateMapViewMixin]
 abstract class PropsMapViewMixin implements _OverReactMapViewBase {
   /// The props maintained by this builder and used passed into the component when built.
   /// In this case, it's the current MapView object.
@@ -587,8 +672,10 @@ abstract class PropsMapViewMixin implements _OverReactMapViewBase {
   String toString() => '$runtimeType: ${prettyPrintMap(_map)}';
 }
 
-/// Works in conjunction with [MapViewMixin] to provide [dart.collection.MapView]-like
+/// Works in conjunction with [MapViewMixin] to provide `dart.collection.MapView`-like
 /// functionality to [UiState] subclasses.
+///
+/// > Related: [PropsMapViewMixin]
 abstract class StateMapViewMixin implements _OverReactMapViewBase {
   Map get state;
 
@@ -599,7 +686,7 @@ abstract class StateMapViewMixin implements _OverReactMapViewBase {
   String toString() => '$runtimeType: ${prettyPrintMap(_map)}';
 }
 
-/// Provides [dart.collection.MapView]-like behavior by proxying an internal map.
+/// Provides `dart.collection.MapView`-like behavior by proxying an internal map.
 ///
 /// Works in conjunction with [PropsMapViewMixin] and [StateMapViewMixin] to implement [Map]
 /// in [UiProps] and [UiState] subclasses.
@@ -623,7 +710,9 @@ abstract class MapViewMixin<K, V> implements _OverReactMapViewBase<K, V> {
   Iterable<V> get values => _map.values;
 }
 
-/// Provides a representation of a single `prop`.
+/// Provides a representation of a single `prop` declared within a [UiProps] subclass or props mixin.
+///
+/// > Related: [StateDescriptor]
 class PropDescriptor {
   /// The string key associated with the `prop`.
   final String key;
@@ -637,7 +726,9 @@ class PropDescriptor {
   const PropDescriptor(this.key, {this.isRequired: false, this.isNullable: false, this.errorMessage: ''});
 }
 
-/// Provides a representation of a single `state`.
+/// Provides a representation of a single `state` declared within a [UiState] subclass or state mixin.
+///
+/// > Related: [PropDescriptor]
 class StateDescriptor {
   /// The string key associated with the `state`.
   final String key;
@@ -657,13 +748,13 @@ class StateDescriptor {
   const StateDescriptor(this.key, {this.isRequired: false, this.isNullable: false, this.errorMessage});
 }
 
-/// Provides a list of [PropDescriptor] and a top-level list of their keys, for easy access.
+/// Provides a list of [PropDescriptor]s and a top-level list of their keys, for easy access.
 class ConsumedProps {
-  /// Rich views of props.
+  /// Rich views of prop declarations.
   ///
   /// This includes string keys, and required prop validation related fields.
   final List<PropDescriptor> props;
-  /// Top-level acessor of string keys of props stored in [props].
+  /// Top-level accessor of string keys of props stored in [props].
   final List<String> keys;
 
   const ConsumedProps(this.props, this.keys);
