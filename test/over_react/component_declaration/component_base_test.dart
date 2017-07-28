@@ -18,6 +18,7 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:over_react/over_react.dart' show Dom, DummyComponent, ValidationUtil;
+import 'package:over_react_test/over_react_test.dart';
 import 'package:over_react/src/component_declaration/component_base.dart';
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:react/react_client.dart';
@@ -25,7 +26,6 @@ import 'package:test/test.dart';
 import 'package:w_common/disposable.dart';
 
 import '../../test_util/test_util.dart';
-import '../../wsd_test_util/validation_util_helpers.dart';
 import '../shared/map_proxy_tests.dart';
 
 main() {
