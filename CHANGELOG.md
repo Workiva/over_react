@@ -1,5 +1,20 @@
 # OverReact Changelog
 
+## 1.15.1
+
+> [Complete `1.15.1` Changeset](https://github.com/Workiva/over_react/compare/1.15.0...1.15.1)
+
+__Dependency Updates__
+
+* over_react_test `^1.1.1` (was `^1.0.1`)
+
+__Tech Debt__
+
+* [#97]: Improve some documentation comments.
+* [#95]: Move internal test utils to [over_react_test](https://github.com/Workiva/over_react_test/pull/11), and consume them.
+
+&nbsp;
+
 ## 1.15.0
 
 > [Complete `1.15.0` Changeset](https://github.com/Workiva/over_react/compare/1.14.0...1.15.0)
