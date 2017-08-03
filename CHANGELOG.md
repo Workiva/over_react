@@ -4,10 +4,6 @@
 
 > [Complete `1.15.1` Changeset](https://github.com/Workiva/over_react/compare/1.15.0...1.15.1)
 
-__Dependency Updates__
-
-* over_react_test `^1.1.1` (was `^1.0.1`)
-
 __Tech Debt__
 
 * [#97]: Improve some documentation comments.
