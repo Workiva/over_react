@@ -710,6 +710,17 @@ main() {
           await unmountAndDisposal();
         });
 
+        test('should call managed disposer returned by getManagedDisposer', () async {
+          var disposerCalled = false;
+          var disposer = component.getManagedDisposer(() async => disposerCalled = true);
+          expect(disposer, new isInstanceOf<ManagedDisposer>());
+
+          expect(disposerCalled, isFalse);
+          await unmountAndDisposal();
+          expect(disposerCalled, isTrue);
+          expect(disposer.isDisposed, isTrue);
+        });
+
         test('should cancel periodic timer', () async {
           var timer = component.getManagedPeriodicTimer(shortDuration,
             expectAsync1((_) {}, count: 0, reason: 'Did not expect callback to be invoked.'));
@@ -726,6 +737,29 @@ main() {
           expect(timer.isActive, isTrue);
           await unmountAndDisposal();
           expect(timer.isActive, isFalse);
+        });
+
+        test('should cancel stream subscription returned by listenToStream', () async{
+          var streamController = new StreamController<Null>.broadcast();
+          // ignore: cancel_subscriptions
+          var streamSubscription = component.listenToStream(streamController.stream, expectAsync1((_) {},
+              count: 0,
+              reason: 'Did not expect event after cancelling subscription'));
+          expect(streamSubscription, new isInstanceOf<StreamSubscription>());
+
+          await unmountAndDisposal();
+
+          streamController
+            ..add(null)
+            ..close();
+        });
+
+        test('should dispose managed Disposable returned by manageAndReturnDisposable', () async {
+          var disposable = new Disposable();
+          expect(component.manageAndReturnDisposable(disposable), same(disposable));
+          expect(disposable.isDisposed, isFalse);
+          await unmountAndDisposal();
+          expect(disposable.isDisposed, isTrue);
         });
 
         test('should complete uncompleted managed Completer with ObjectDisposedException', () async {
