@@ -214,7 +214,7 @@ main() {
             // See: https://bugs.chromium.org/p/chromium/issues/detail?id=324360
             test(type, () {
               sharedInputSetSelectionRangeTest(type);
-            }, testOn: 'js && !chrome');
+            }, testOn: '!blink');
           } else {
             test(type, () { sharedInputSetSelectionRangeTest(type); });
           }
@@ -301,23 +301,29 @@ main() {
       });
 
       group('for an `<input>` of type:', () {
-        void sharedInputGetSelectionStartTest(String type) {
+        void sharedInputGetSelectionStartTest(String type, {bool shouldReturnNull: false}) {
           renderedInstance = renderAttachedToDocument((Dom.input()
             ..defaultValue = testValue
             ..type = type
           )());
           inputElement = findDomNode(renderedInstance);
+          setSelectionRange(inputElement, testValue.length, testValue.length);
+
           var selectionStart = getSelectionStart(inputElement);
 
-          expect(selectionStart, testValue.length);
+          expect(selectionStart, shouldReturnNull ? isNull : testValue.length);
         }
 
         for (var type in inputTypesWithSelectionRangeSupport) {
           if (type == 'email' || type == 'number') {
             // See: https://bugs.chromium.org/p/chromium/issues/detail?id=324360
+            test('$type, returning null in Chrome/Dartium/content-shell', () {
+              sharedInputGetSelectionStartTest(type, shouldReturnNull: true);
+            }, testOn: 'blink');
+
             test(type, () {
-              sharedInputGetSelectionStartTest(type);
-            }, testOn: 'js && !chrome');
+              sharedInputGetSelectionStartTest(type, shouldReturnNull: false);
+            }, testOn: '!blink');
           } else {
             test(type, () { sharedInputGetSelectionStartTest(type); });
           }
