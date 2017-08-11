@@ -452,7 +452,7 @@ main() {
         test('does not when passed a ReactElement in JS', () {
           ReactElement instance = Wrapper()();
           expect(() => getDartComponent(instance), isNot(prints(messageMatcher)));
-        }, testOn: 'js');
+        }, testOn: 'js', tags: 'no-ddc');
 
         test('does not warn when passed a ReactComponent', () {
           var renderedInstance = render(Wrapper());
