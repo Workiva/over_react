@@ -135,7 +135,7 @@ typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 ///     }
 ///
 /// > Related: [UiStatefulComponent]
-abstract class UiComponent<TProps extends UiProps> extends react.Component implements DisposableManagerV3 {
+abstract class UiComponent<TProps extends UiProps> extends react.Component implements DisposableManagerV6 {
   Disposable _disposableProxy;
 
   /// The props for the non-forwarding props defined in this component.
@@ -291,6 +291,9 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
   @override
   Future<T> getManagedDelayedFuture<T>(Duration duration, T callback()) =>
     _getDisposableProxy().getManagedDelayedFuture<T>(duration, callback);
+  
+  @override
+  ManagedDisposer getManagedDisposer(Disposer disposer) => _getDisposableProxy().getManagedDisposer(disposer);
 
   @override
   Timer getManagedPeriodicTimer(Duration duration, void callback(Timer timer)) =>
@@ -301,6 +304,17 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
     _getDisposableProxy().getManagedTimer(duration, callback);
 
   @override
+  StreamSubscription<T> listenToStream<T>(
+      Stream<T> stream, void onData(T event),
+      {Function onError, void onDone(), bool cancelOnError}) =>
+      _getDisposableProxy().listenToStream(
+        stream, onData, onError: onError, onDone: onDone, cancelOnError: cancelOnError);
+  
+  @override
+  Disposable manageAndReturnDisposable(Disposable disposable) =>
+      _getDisposableProxy().manageAndReturnDisposable(disposable);
+
+  @override
   Completer<T> manageCompleter<T>(Completer<T> completer) =>
     _getDisposableProxy().manageCompleter<T>(completer);
 
@@ -308,20 +322,24 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
   void manageDisposable(Disposable disposable) =>
     _getDisposableProxy().manageDisposable(disposable);
 
+  /// DEPRECATED. Use [getManagedDisposer] instead.
+  @Deprecated('2.0.0')
   @override
   void manageDisposer(Disposer disposer) =>
     _getDisposableProxy().manageDisposer(disposer);
-
+  
   @override
   void manageStreamController(StreamController controller) =>
     _getDisposableProxy().manageStreamController(controller);
 
+  /// DEPRECATED. Use [listenToStream] instead.
+  @Deprecated('2.0.0')
   @override
   void manageStreamSubscription(StreamSubscription subscription) =>
     _getDisposableProxy().manageStreamSubscription(subscription);
 
   /// Instantiates a new [Disposable] instance on the first call to the
-  /// [DisposableManagerV3] method.
+  /// [DisposableManagerV6] method.
   Disposable _getDisposableProxy() {
     if (_disposableProxy == null) {
       _disposableProxy = new Disposable();
