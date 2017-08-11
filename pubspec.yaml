@@ -25,7 +25,7 @@ dev_dependencies:
   coverage: "^0.7.2"
   dart_dev: "^1.7.6"
   mockito: "^0.11.0"
-  over_react_test: "^1.1.1"
+  over_react_test: "^1.2.0"
   test: "^0.12.24"
 
 transformers:
