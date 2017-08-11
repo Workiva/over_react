@@ -214,7 +214,11 @@ main() {
             // See: https://bugs.chromium.org/p/chromium/issues/detail?id=324360
             test(type, () {
               sharedInputSetSelectionRangeTest(type);
-            }, testOn: '!(blink || firefox)');
+
+            // Tests run in `ddev coverage` don't respect tags and show up as the 'vm' platform
+            // so we can use this to disable certain browser tests during coverage.
+            // Workaround for https://github.com/Workiva/dart_dev/issues/200
+            }, testOn: '!(blink || firefox || vm)');
           } else {
             test(type, () { sharedInputSetSelectionRangeTest(type); });
           }
@@ -323,7 +327,11 @@ main() {
 
             test(type, () {
               sharedInputGetSelectionStartTest(type, shouldReturnNull: false);
-            }, testOn: '!(blink || firefox)');
+
+            // Tests run in `ddev coverage` don't respect tags and show up as the 'vm' platform
+            // so we can use this to disable certain browser tests during coverage.
+            // Workaround for https://github.com/Workiva/dart_dev/issues/200
+            }, testOn: '!(blink || firefox || vm)');
           } else {
             test(type, () { sharedInputGetSelectionStartTest(type); });
           }
