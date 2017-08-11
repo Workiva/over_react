@@ -280,9 +280,7 @@ react.Component getDartComponent(/* [1] */ instance) {
     return null;
   }
 
-  // Split out into a separate function since the DDC doesn't support
-  // functions as assert params.
-  bool warn() {
+  assert(() {
     if (isValidElement(instance)) {
       // `print` instead of `ValidationUtil.warn` so that this message shows up
       // in the test output when running `ddev test`.
@@ -314,8 +312,7 @@ react.Component getDartComponent(/* [1] */ instance) {
       ));
     }
     return true;
-  }
-  assert(warn());
+  });
 
   return _getInternal(instance)?.component;
 }
