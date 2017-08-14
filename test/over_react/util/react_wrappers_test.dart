@@ -15,7 +15,6 @@
 @JS()
 library react_wrappers_test;
 
-import 'dart:async';
 import 'dart:html';
 
 import 'package:js/js.dart';
