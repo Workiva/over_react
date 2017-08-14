@@ -13,6 +13,7 @@ import '../../test_util/test_util.dart';
 
 part 'flux_component_test/default.dart';
 part 'flux_component_test/handler_precedence.dart';
+part 'flux_component_test/nested.dart';
 part 'flux_component_test/redraw_on.dart';
 part 'flux_component_test/store_handlers.dart';
 
@@ -163,6 +164,51 @@ void main() {
       component.redraw();
       await nextTick();
       expect(component.numberOfRedraws, equals(0));
+    });
+
+    test('only redraws once in response to a store trigger combined with an ancestor rerendering', () async {
+      var store = new Store();
+
+      TestNestedComponent nested0;
+      TestNestedComponent nested1;
+      TestNestedComponent nested2;
+
+      render(
+          (TestNested()
+            ..store = store
+            ..ref = (ref) { nested0 = ref; }
+          )(
+            (TestNested()
+              ..store = store
+              ..ref = (ref) { nested1 = ref; }
+            )(
+              (TestNested()
+                ..store = store
+                ..ref = (ref) { nested2 = ref; }
+              )()
+            )
+          )
+      );
+      expect(nested0.renderCount, 1, reason: 'setup check: initial render');
+      expect(nested1.renderCount, 1, reason: 'setup check: initial render');
+      expect(nested2.renderCount, 1, reason: 'setup check: initial render');
+
+      nested0.redraw();
+      await nextTick();
+
+      expect(nested0.renderCount, 2, reason: 'setup check: components should rerender their children');
+      expect(nested1.renderCount, 2, reason: 'setup check: components should rerender their children');
+      expect(nested2.renderCount, 2, reason: 'setup check: components should rerender their children');
+
+      store.trigger();
+      // Two async gaps just to be safe, since we're
+      // asserting that additional redraws don't happen.
+      await nextTick();
+      await nextTick();
+
+      expect(nested0.renderCount, 3, reason: 'should have rerendered once in response to the store triggering');
+      expect(nested1.renderCount, 3, reason: 'should have rerendered once in response to the store triggering');
+      expect(nested2.renderCount, 3, reason: 'should have rerendered once in response to the store triggering');
     });
   });
 }
