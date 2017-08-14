@@ -1,5 +1,30 @@
 # OverReact Changelog
 
+## 1.16.0
+
+> [Complete `1.16.0` Changeset](https://github.com/Workiva/over_react/compare/1.15.1...1.16.0)
+
+__Dependency Updates__
+
+* w_common `^1.8.0` (was `^1.6.0`)
+* w_flux `^2.9.0` (was `^2.7.1`)
+
+__New Features__
+
+* [#104]: Update `UiComponent` to implement `DisposableManagerV6`.
+
+
+__Improvements__
+
+* [#103]: `FluxUiComponent` redraws only once when store triggers along with ancestor rerender.
+
+
+__Tech Debt__
+
+* [#105]: Add warning for incorrect usage of `getDartComponent`.
+
+&nbsp;
+
 ## 1.15.1
 
 > [Complete `1.15.1` Changeset](https://github.com/Workiva/over_react/compare/1.15.0...1.15.1)
@@ -14,11 +39,6 @@ __Tech Debt__
 ## 1.15.0
 
 > [Complete `1.15.0` Changeset](https://github.com/Workiva/over_react/compare/1.14.0...1.15.0)
-
-__Dependency Updates__
-
-* over_react_test `^1.0.1` (was `^1.0.0`)
-* test `^0.12.24` (was `^0.12.6+2`)
 
 __New Features__
 
