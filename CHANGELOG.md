@@ -1,5 +1,13 @@
 # OverReact Changelog
 
+## 1.16.1
+
+> [Complete `1.16.1` Changeset](https://github.com/Workiva/over_react/compare/1.16.0...1.16.1)
+
+__Bug fixes__
+
+* [#108]: Fix case where `setState` and store trigger only result in one `FluxUiComponent` render
+
 ## 1.16.0
 
 > [Complete `1.16.0` Changeset](https://github.com/Workiva/over_react/compare/1.15.1...1.16.0)
