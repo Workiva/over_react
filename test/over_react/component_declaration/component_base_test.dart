@@ -688,7 +688,7 @@ main() {
           component.awaitBeforeDispose(completer.future);
 
           // Add events to stream
-          component.manageDisposer(() async => streamController.add('disposalFuture'));
+          component.manageDisposer(() async => streamController.add('disposalFuture')); // ignore: deprecated_member_use
           completer.future.then(streamController.add);
 
           // Perform events out of order
@@ -783,7 +783,7 @@ main() {
 
         test('should call managed disposers', () async {
           var disposerCalled = false;
-          component.manageDisposer(() async => disposerCalled = true);
+          component.manageDisposer(() async => disposerCalled = true); // ignore: deprecated_member_use
           expect(disposerCalled, isFalse);
           await unmountAndDisposal();
           expect(disposerCalled, isTrue);
@@ -806,7 +806,7 @@ main() {
               count: 0,
               reason: 'Did not expect event after cancelling subscription'));
 
-          component.manageStreamSubscription(streamSubscription);
+          component.manageStreamSubscription(streamSubscription); // ignore: deprecated_member_use
           await unmountAndDisposal();
 
           streamController
