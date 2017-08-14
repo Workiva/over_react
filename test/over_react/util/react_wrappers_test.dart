@@ -15,6 +15,7 @@
 @JS()
 library react_wrappers_test;
 
+import 'dart:async';
 import 'dart:html';
 
 import 'package:js/js.dart';
@@ -438,6 +439,30 @@ main() {
       test('returns null for a DOM component', () {
         var renderedInstance = render(Dom.div());
         expect(getDartComponent(renderedInstance), isNull);
+      });
+
+      group('', () {
+        final messageMatcher = contains('react-dart 4.0 will no longer support retrieving Dart components from');
+
+        test('warns when passed a ReactElement', () {
+          ReactElement instance = Wrapper()();
+          expect(() => getDartComponent(instance), prints(messageMatcher));
+        }, testOn: 'dart-vm');
+
+        test('does not when passed a ReactElement in JS', () {
+          ReactElement instance = Wrapper()();
+          expect(() => getDartComponent(instance), isNot(prints(messageMatcher)));
+        }, testOn: 'js', tags: 'no-ddc');
+
+        test('does not warn when passed a ReactComponent', () {
+          var renderedInstance = render(Wrapper());
+          expect(() => getDartComponent(renderedInstance), isNot(prints(messageMatcher)));
+        });
+
+        test('does not warn when passed a DOM component', () {
+          var renderedInstance = render(Dom.div());
+          expect(() => getDartComponent(renderedInstance), isNot(prints(messageMatcher)));
+        });
       });
     });
 

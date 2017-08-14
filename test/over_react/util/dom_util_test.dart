@@ -214,7 +214,11 @@ main() {
             // See: https://bugs.chromium.org/p/chromium/issues/detail?id=324360
             test(type, () {
               sharedInputSetSelectionRangeTest(type);
-            }, testOn: 'js && !chrome');
+
+            // Tests run in `ddev coverage` don't respect tags and show up as the 'vm' platform
+            // so we can use this to disable certain browser tests during coverage.
+            // Workaround for https://github.com/Workiva/dart_dev/issues/200
+            }, testOn: '!(blink || firefox || vm)');
           } else {
             test(type, () { sharedInputSetSelectionRangeTest(type); });
           }
@@ -233,7 +237,7 @@ main() {
       });
 
       // See: https://bugs.chromium.org/p/chromium/issues/detail?id=324360
-      group('without throwing an error in Google Chrome when `props.type` is', () {
+      group('without throwing an error in Google Chrome (or Dartium/content_shell) or Firefox when `props.type` is', () {
         void verifyLackOfException() {
           expect(renderedInstance, isNotNull, reason: 'test setup sanity check');
           expect(inputElement, isNotNull, reason: 'test setup sanity check');
@@ -266,7 +270,7 @@ main() {
           inputElement = findDomNode(renderedInstance);
           verifyLackOfException();
         });
-      }, testOn: 'chrome');
+      }, testOn: 'blink || firefox');
     });
   });
 
@@ -301,23 +305,33 @@ main() {
       });
 
       group('for an `<input>` of type:', () {
-        void sharedInputGetSelectionStartTest(String type) {
+        void sharedInputGetSelectionStartTest(String type, {bool shouldReturnNull: false}) {
           renderedInstance = renderAttachedToDocument((Dom.input()
             ..defaultValue = testValue
             ..type = type
           )());
           inputElement = findDomNode(renderedInstance);
+          setSelectionRange(inputElement, testValue.length, testValue.length);
+
           var selectionStart = getSelectionStart(inputElement);
 
-          expect(selectionStart, testValue.length);
+          expect(selectionStart, shouldReturnNull ? isNull : testValue.length);
         }
 
         for (var type in inputTypesWithSelectionRangeSupport) {
           if (type == 'email' || type == 'number') {
             // See: https://bugs.chromium.org/p/chromium/issues/detail?id=324360
+            test('$type, returning null in Google Chrome (or Dartium/content_shell) or Firefox', () {
+              sharedInputGetSelectionStartTest(type, shouldReturnNull: true);
+            }, testOn: 'blink || firefox');
+
             test(type, () {
-              sharedInputGetSelectionStartTest(type);
-            }, testOn: 'js && !chrome');
+              sharedInputGetSelectionStartTest(type, shouldReturnNull: false);
+
+            // Tests run in `ddev coverage` don't respect tags and show up as the 'vm' platform
+            // so we can use this to disable certain browser tests during coverage.
+            // Workaround for https://github.com/Workiva/dart_dev/issues/200
+            }, testOn: '!(blink || firefox || vm)');
           } else {
             test(type, () { sharedInputGetSelectionStartTest(type); });
           }
@@ -337,7 +351,7 @@ main() {
       });
 
       // See: https://bugs.chromium.org/p/chromium/issues/detail?id=324360
-      group('by returning null and not throwing an error in Google Chrome when `props.type` is', () {
+      group('by returning null and not throwing an error in Google Chrome (or Dartium/content_shell) or Firefox when `props.type` is', () {
         void verifyReturnsNullWithoutException() {
           expect(renderedInstance, isNotNull, reason: 'test setup sanity check');
           expect(inputElement, isNotNull, reason: 'test setup sanity check');
@@ -366,7 +380,7 @@ main() {
           inputElement = findDomNode(renderedInstance);
           verifyReturnsNullWithoutException();
         });
-      }, testOn: 'chrome');
+      }, testOn: 'blink || firefox');
     });
   });
 }

@@ -128,7 +128,7 @@ void setSelectionRange(/* TextInputElement | TextAreaElement */Element input, in
   if (input is TextAreaElement) {
     input.setSelectionRange(start, end, direction);
   } else if (input is InputElement && supportsSelectionRange(input)) {
-    if (browser.isChrome) {
+    if (browser.isChrome || browser.isFirefox) {
       final inputType = input.getAttribute('type');
 
       if (inputType == 'email' || inputType == 'number') {
@@ -161,7 +161,7 @@ int getSelectionStart(Element input) {
   } else if (input is TextInputElement && supportsSelectionRange(input)) {
     final inputType = input.getAttribute('type');
 
-    if (browser.isChrome) {
+    if (browser.isChrome || browser.isFirefox) {
       if (inputType == 'email' || inputType == 'number') {
         return null;
       }
