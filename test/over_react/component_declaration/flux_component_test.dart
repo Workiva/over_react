@@ -210,31 +210,6 @@ void main() {
       expect(nested1.renderCount, 3, reason: 'should have rerendered once in response to the store triggering');
       expect(nested2.renderCount, 3, reason: 'should have rerendered once in response to the store triggering');
     });
-
-    test('redraws twice in response to a the component calling setState and a store trigger happening at the same time', () async {
-      var store = new Store();
-
-      TestNestedComponent nested0;
-
-      render(
-          (TestNested()
-            ..store = store
-            ..ref = (ref) { nested0 = ref; }
-          )()
-      );
-      expect(nested0.renderCount, 1, reason: 'setup check: initial render');
-
-      nested0.setState({});
-      store.trigger();
-      // Two async gaps just to be safe, since we're
-      // asserting that additional redraws don't happen.
-      await nextTick();
-      await nextTick();
-
-      expect(nested0.renderCount, 3,
-          reason: 'should have rerendered once in response to the store triggering'
-                  ' and once in response to setState');
-    });
   });
 }
 
