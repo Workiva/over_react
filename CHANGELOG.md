@@ -1,5 +1,15 @@
 # OverReact Changelog
 
+## 1.16.2
+
+> [Complete `1.16.2` Changeset](https://github.com/Workiva/over_react/compare/1.16.1...1.16.2)
+
+__Bug fixes__
+
+* Revert bugfixes that can cause FluxUiComponent rendering regressions:
+    * ~~[#108]: Fix case where `setState` and store trigger only result in one `FluxUiComponent` render~~
+    * ~~[#103]: `FluxUiComponent` redraws only once when store triggers along with ancestor rerender.~~
+
 ## 1.16.1
 
 > [Complete `1.16.1` Changeset](https://github.com/Workiva/over_react/compare/1.16.0...1.16.1)
