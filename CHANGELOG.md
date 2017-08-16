@@ -6,7 +6,7 @@
 
 __Bug fixes__
 
-* Revert bugfixes that can cause FluxUiComponent rendering regressions:
+* [#110] Revert bugfixes that can cause FluxUiComponent rendering regressions:
     * ~~[#108]: Fix case where `setState` and store trigger only result in one `FluxUiComponent` render~~
     * ~~[#103]: `FluxUiComponent` redraws only once when store triggers along with ancestor rerender.~~
 
