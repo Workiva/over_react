@@ -37,11 +37,3 @@ transformers:
       $include: test/**_test{.*,}.dart
   # Reminder: dart2js should come after any other transformers that touch Dart code
   - $dart2js
-
-
-dependency_overrides:
-  w_flux:
-    git:
-      url: git@github.com:greglittlefield-wf/w_flux.git
-      ref: 189a1f97d95e0e3c446a5192c54e890fa61ebfb4 # from multiple_flux_redraws
-
