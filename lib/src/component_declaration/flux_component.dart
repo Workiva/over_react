@@ -175,11 +175,6 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
     });
   }
 
-  void componentWillReceiveProps(Map prevProps) {
-    // Let BatchedRedraws know that this component has redrawn in the current batch
-    didBatchRedraw = true;
-  }
-
   void componentWillUnmount() {
     // Ensure that unmounted components don't batch render
     shouldBatchRedraw = false;
