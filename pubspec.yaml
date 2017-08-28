@@ -40,8 +40,5 @@ transformers:
 
 
 dependency_overrides:
-  react:
-    git:
-      url: git@github.com:greglittlefield-wf/react-dart.git
-      ref: f1a562e864d07f9f47c39e2ceec7b162f13c2b2b # from internal_instance_refactor - Wed Aug 23 09:04:26 2017 -0700
+  react: ^4.0.0
 
