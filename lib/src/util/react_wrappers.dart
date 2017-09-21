@@ -121,7 +121,7 @@ final bool _canUseExpandoOnReactElement = (() {
 ///
 /// If caching isn't possible due to [_canUseExpandoOnReactElement] being false,
 /// then this will be initialized to `null`, and caching will be disabled.
-final Expando<UnmodifiableMapView> _elementPropsCache = _canUseExpandoOnReactElement
+final Expando<UnmodifiableMapView<String, dynamic>> _elementPropsCache = _canUseExpandoOnReactElement
     ? new Expando<UnmodifiableMapView>('_elementPropsCache')
     : null;
 
@@ -134,7 +134,7 @@ final Expando<UnmodifiableMapView> _elementPropsCache = _canUseExpandoOnReactEle
 /// instance.
 ///
 /// Throws if [instance] is not a valid [ReactElement] or composite [ReactComponent] .
-Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers: false}) {
+Map<String, dynamic> getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers: false}) {
   var isCompositeComponent = _isCompositeComponent(instance);
 
   if (isValidElement(instance) || isCompositeComponent) {
@@ -168,7 +168,7 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers:
     }
 
     var propsMap = isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
-    var view = new UnmodifiableMapView(propsMap);
+    var view = new UnmodifiableMapView<String, dynamic>(propsMap);
 
     if (_elementPropsCache != null && !isCompositeComponent) {
       _elementPropsCache[instance] = view;
@@ -286,27 +286,27 @@ react.Component getDartComponent(/* [1] */ instance) {
       // in the test output when running `ddev test`.
       print(unindent(
           '''
-          * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
-          * WARNING: `getDartComponent`                                                                                                       
-          *                                                                                            
-          * react-dart 4.0 will no longer support retrieving Dart components from                                                                                           
-          * `ReactElement` (pre-mounted VDOM instances) in order to prevent memory leaks.                                                                                            
-          *                                                                                            
-          * In react-dart 4.0, this call to `getDartComponent` will return `null`.                                                                                           
-          *                                                                                            
-          * Please switch over to using the mounted JS component instance.                                                                                           
-          *                                                                                            
-          * Example:                                                                                           
-          *     // Before                                                                                           
-          *     var vdom = Button()('Click me');                                                                                           
-          *     react_dom.render(vdom, mountNode);                                                                                           
-          *     var dartInstance = getDartComponent(vdom);                                                                                           
-          *                                                                                                
-          *     // Fixed                                                                                           
-          *     var vdom = Button()('Click me');                                                                                           
-          *     var jsInstance = react_dom.render(vdom, mountNode);                                                                                           
-          *     var dartInstance = getDartComponent(jsInstance);                            
-          *                                                                                 
+          * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+          * WARNING: `getDartComponent`
+          *
+          * react-dart 4.0 will no longer support retrieving Dart components from
+          * `ReactElement` (pre-mounted VDOM instances) in order to prevent memory leaks.
+          *
+          * In react-dart 4.0, this call to `getDartComponent` will return `null`.
+          *
+          * Please switch over to using the mounted JS component instance.
+          *
+          * Example:
+          *     // Before
+          *     var vdom = Button()('Click me');
+          *     react_dom.render(vdom, mountNode);
+          *     var dartInstance = getDartComponent(vdom);
+          *
+          *     // Fixed
+          *     var vdom = Button()('Click me');
+          *     var jsInstance = react_dom.render(vdom, mountNode);
+          *     var dartInstance = getDartComponent(jsInstance);
+          *
           * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
           '''
       ));

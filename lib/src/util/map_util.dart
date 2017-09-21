@@ -32,7 +32,7 @@ Map getPropsToForward(Map props, {
     Iterable keysToOmit,
     Iterable<Iterable> keySetsToOmit
 }) {
-  Map propsToForward = new Map.from(props);
+  var propsToForward = new Map<String, dynamic>.from(props);
 
   if (omitReactProps) {
     propsToForward
@@ -56,13 +56,13 @@ Map getPropsToForward(Map props, {
   }
 
   if (onlyCopyDomProps) {
-    new List.from(propsToForward.keys).forEach((String key) {
-      if (key.startsWith('aria-')) return;
-      if (key.startsWith('data-')) return;
-      if (_validDomProps.contains(key)) return;
+    for (var key in new List.from(propsToForward.keys)) {
+      if (key.startsWith('aria-')) continue;
+      if (key.startsWith('data-')) continue;
+      if (_validDomProps.contains(key)) continue;
 
       propsToForward.remove(key);
-    });
+    }
   }
 
   return propsToForward;
