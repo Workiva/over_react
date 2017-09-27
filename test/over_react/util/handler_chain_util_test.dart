@@ -279,6 +279,10 @@ main() {
       group('CallbackUtil3Arg', () {
         sharedTests<Callback3Arg>(const CallbackUtil3Arg<TestGenericType, TestGenericType, TestGenericType>(), 3);
       });
+
+      group('CallbackUtil4Arg', () {
+        sharedTests<Callback4Arg>(const CallbackUtil4Arg<TestGenericType, TestGenericType, TestGenericType, TestGenericType>(), 4);
+      });
     });
   });
 }
