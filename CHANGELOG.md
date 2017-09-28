@@ -1,5 +1,13 @@
 # OverReact Changelog
 
+## 1.17.0
+
+> [Complete `1.17.0` Changeset](https://github.com/Workiva/over_react/compare/1.16.2...1.17.0)
+
+__New Features__
+
+* [#115] Add 4-argument callback utils
+
 ## 1.16.2
 
 > [Complete `1.16.2` Changeset](https://github.com/Workiva/over_react/compare/1.16.1...1.16.2)
