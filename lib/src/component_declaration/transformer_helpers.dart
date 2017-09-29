@@ -145,7 +145,13 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   /// Returns a typed state object backed by the specified [stateMap].
   ///
   /// Required to properly instantiate the generic [TState] class.
-  @override @toBeGenerated TState typedStateFactory(Map stateMap) => throw new UngeneratedError(member: #typedStateFactory);
+  @override @toBeGenerated TState typedStateFactory(Map stateMap) => throw new UngeneratedError(member: #typedStateFactory, message:
+      '${#typedStateFactory}` should be implemented by code generation.\n\n'
+      'This error may be due to your `UiState` class not being annotated with `@State()`,\n'
+      'or because you are extending a stateful component without redeclaring your own `@State()`, like so:\n\n'
+      '    @State()\n'
+      '    class MyState extends SuperState {}\n'
+  );
 }
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React props that
