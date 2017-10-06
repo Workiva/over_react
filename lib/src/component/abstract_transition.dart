@@ -19,6 +19,7 @@ import 'dart:html';
 
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
+import 'package:over_react/component_base.dart' as component_base;
 
 @AbstractProps()
 abstract class AbstractTransitionProps extends UiProps with TransitionPropsMixin {}
@@ -366,6 +367,23 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
     if (props.onDidShow != null) {
       props.onDidShow();
     }
+  }
+
+  /// Returns attributes only available during testing that indicate the state of the transition.
+  Map<String, String> getTransitionTestAttributes() {
+    if (!component_base.UiProps.testMode) return const {};
+
+    const enumToAttrValue = const <TransitionPhase, String>{
+      TransitionPhase.SHOWN: 'shown',
+      TransitionPhase.HIDDEN: 'hidden',
+      TransitionPhase.HIDING: 'hiding',
+      TransitionPhase.PRE_SHOWING: 'pre-showing',
+      TransitionPhase.SHOWING: 'showing',
+    };
+
+    return {
+      'data-transition-phase': enumToAttrValue[state.transitionPhase],
+    };
   }
 
   // --------------------------------------------------------------------------

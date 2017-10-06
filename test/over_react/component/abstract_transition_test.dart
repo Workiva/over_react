@@ -535,6 +535,86 @@ main() {
 
       expect(transitioner.transitionPhasesSet, orderedEquals([TransitionPhase.HIDING]));
     });
+
+    group('getTransitionTestAttributes returns attributes that indicate the state of the transition in component', () {
+      const transitionPhaseTestAttr = 'data-transition-phase';
+
+      group('when the transition state is', () {
+        test('PRE_SHOWING', () async {
+          // Have to use MutationObserver since setting the state to PRE_SHOWING
+          // synchronously updates the state to SHOWING.
+          var transitionAttrMutations = <List<String>>[];
+          var observer = new MutationObserver((records, observer) {
+            for (var record in records) {
+              if (record.attributeName != transitionPhaseTestAttr) continue;
+              transitionAttrMutations.add([
+                record.oldValue,
+                // ignore: avoid_as
+                (record.target as Element).attributes[record.attributeName],
+              ]);
+            }
+          });
+          addTearDown(observer.disconnect);
+
+          var jacket = mount<TransitionerComponent>(Transitioner()(), attachedToDocument: true);
+          observer.observe(jacket.getNode(), attributes: true, attributeOldValue: true);
+
+          var component = jacket.getDartInstance();
+          component.setState(component.newState()..transitionPhase = TransitionPhase.PRE_SHOWING);
+
+          // Wait for MutationObserver callback to fire.
+          await new Future(() {});
+
+          expect(transitionAttrMutations, contains(equals(
+              // We can't catch the overlay getting its attribute changed to `pre-showing` for some reason,
+              // so we'll just have to verify that the old value used to be `pre-showing`.
+              ['pre-showing', 'showing']
+          )));
+        });
+
+        test('SHOWING', () {
+          var jacket = mount<TransitionerComponent>(Transitioner()());
+          var component = jacket.getDartInstance();
+
+          component.setState(component.newState()..transitionPhase = TransitionPhase.SHOWING);
+
+          expect(jacket.getNode(), hasAttr(transitionPhaseTestAttr, 'showing'));
+        });
+
+        test('SHOWN', () {
+          var jacket = mount<TransitionerComponent>(Transitioner()());
+
+          expect(jacket.getNode(), hasAttr(transitionPhaseTestAttr, 'shown'));
+        });
+
+        test('HIDING', () {
+          var jacket = mount<TransitionerComponent>(Transitioner()());
+          var component = jacket.getDartInstance();
+
+          component.setState(component.newState()..transitionPhase = TransitionPhase.HIDING);
+
+          expect(jacket.getNode(), hasAttr(transitionPhaseTestAttr, 'hiding'));
+        });
+
+        test('HIDDEN', () {
+          var jacket = mount<TransitionerComponent>(Transitioner()());
+          var component = jacket.getDartInstance();
+
+          component.setState(component.newState()..transitionPhase = TransitionPhase.HIDDEN);
+
+          expect(jacket.getNode(), hasAttr(transitionPhaseTestAttr, 'hidden'));
+        });
+      });
+
+      test('unless test mode is disabled', () {
+        disableTestMode();
+        addTearDown(enableTestMode);
+
+        var jacket = mount<TransitionerComponent>(Transitioner()());
+
+        expect(jacket.getNode().attributes, isNot(contains(transitionPhaseTestAttr)));
+      });
+    });
   });
 }
 
@@ -586,7 +666,9 @@ class TransitionerComponent extends AbstractTransitionComponent<TransitionerProp
 
   @override
   render() {
-    return Dom.div()();
+    return (Dom.div()
+      ..addProps(getTransitionTestAttributes())
+    )();
   }
 
   @override
