@@ -17,6 +17,7 @@ library abstract_transition_test;
 import 'dart:async';
 import 'dart:html';
 
+import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
@@ -206,53 +207,158 @@ main() {
               reason: 'Should have transitioned to HIDDEN in a microtask without waiting for a transitionend that may never occur');
         });
       });
-    });
 
-    group('waits for correct number of `onTransitionEnd` events when `transitionCount` is', () {
-      test('1', () async {
-        var renderedInstance = render(Transitioner()..transitionCount = 1);
-        TransitionerComponent transitioner = getDartComponent(renderedInstance);
+      group('shows and hides the component properly, waiting for correct number of `onTransitionEnd` when the number of transitions', () {
+        Future<Null> sharedTests(renderedInstance, {@required int expectedTransitionInCount, @required int expectedTransitionOutCount}) async {
+          if (expectedTransitionInCount < 0) throw new ArgumentError.value(expectedTransitionInCount, 'expectedTransitionInCount', 'must be greater than 0');
+          if (expectedTransitionOutCount < 0) throw new ArgumentError.value(expectedTransitionOutCount, 'expectedTransitionOutCount', 'must be greater than 0');
 
-        expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWN));
+          TransitionerComponent transitioner = getDartComponent(renderedInstance);
 
-        transitioner.hide();
+          expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDDEN));
 
-        expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
+          transitioner.show();
 
-        await new Future.delayed(Duration.ZERO);
-        expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING),
-            reason: 'should still be waiting for a transition event');
+          if (expectedTransitionInCount != 0) {
+            expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING));
 
-        await triggerTransitionEnd(transitioner.getTransitionDomNode());
+            for (var i = 0; i < expectedTransitionInCount; i++) {
+              await new Future.delayed(Duration.ZERO);
+              expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING),
+                  reason: 'should still be waiting for a transition event');
 
-        expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDDEN));
-      });
+              await triggerTransitionEnd(transitioner.getTransitionDomNode());
+            }
+          }
 
-      test('2', () async {
-        var renderedInstance = render(Transitioner()..transitionCount = 2);
-        TransitionerComponent transitioner = getDartComponent(renderedInstance);
+          expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWN));
 
-        expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWN));
+          transitioner.hide();
 
-        transitioner.hide();
+          if (expectedTransitionOutCount != 0) {
+            expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
 
-        expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
+            for (var i = 0; i < expectedTransitionOutCount; i++) {
+              await new Future.delayed(Duration.ZERO);
+              expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING),
+                  reason: 'should still be waiting for a transition event');
 
-        await new Future.delayed(Duration.ZERO);
-        expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING),
-            reason: 'should still be waiting for a transition event');
+              await triggerTransitionEnd(transitioner.getTransitionDomNode());
+            }
+          }
 
-        await triggerTransitionEnd(transitioner.getTransitionDomNode());
+          expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDDEN));
+        }
 
-        expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
+        group('is specified via props.transitionCount and is', () {
+          test('less than 0 (should behave like 0)', () async {
+            var renderedInstance = render(Transitioner()
+              ..initiallyShown = false
+              ..transitionCount = -2
+            );
+            await sharedTests(renderedInstance,
+              expectedTransitionInCount: 0,
+              expectedTransitionOutCount: 0,
+            );
+          });
 
-        await new Future.delayed(Duration.ZERO);
-        expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING),
-              reason: 'should still be waiting for a transition event');
+          test('0', () async {
+            var renderedInstance = render(Transitioner()
+              ..initiallyShown = false
+              ..transitionCount = 0
+            );
+            await sharedTests(renderedInstance,
+              expectedTransitionInCount: 0,
+              expectedTransitionOutCount: 0,
+            );
+          });
 
-        await triggerTransitionEnd(transitioner.getTransitionDomNode());
+          test('1', () async {
+            var renderedInstance = render(Transitioner()
+              ..initiallyShown = false
+              ..transitionCount = 1
+            );
+            await sharedTests(renderedInstance,
+              expectedTransitionInCount: 1,
+              expectedTransitionOutCount: 1,
+            );
+          });
 
-        expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDDEN));
+          test('2', () async {
+            var renderedInstance = render(Transitioner()
+              ..initiallyShown = false
+              ..transitionCount = 2
+            );
+            await sharedTests(renderedInstance,
+              expectedTransitionInCount: 2,
+              expectedTransitionOutCount: 2,
+            );
+          });
+        });
+
+        group('is specified via props.transitionCount and', () {
+          test('props.transitionInCount', () async {
+            var renderedInstance = render(Transitioner()
+              ..initiallyShown = false
+              ..transitionCount = 3
+              ..transitionInCount = 2
+            );
+            await sharedTests(renderedInstance,
+              expectedTransitionInCount: 2,
+              expectedTransitionOutCount: 3,
+            );
+          });
+
+          test('props.transitionOutCount', () async {
+            var renderedInstance = render(Transitioner()
+              ..initiallyShown = false
+              ..transitionCount = 2
+              ..transitionOutCount = 3
+            );
+            await sharedTests(renderedInstance,
+              expectedTransitionInCount: 2,
+              expectedTransitionOutCount: 3,
+            );
+          });
+        });
+
+        test('is specified via props.transitionInCount props.transitionOutCount:', () async {
+          var renderedInstance = render(Transitioner()
+            ..initiallyShown = false
+            ..transitionInCount = 2
+            ..transitionOutCount = 3
+          );
+          await sharedTests(renderedInstance,
+            expectedTransitionInCount: 2,
+            expectedTransitionOutCount: 3,
+          );
+        });
+
+        group('is zero for only one of showing/hiding:', () {
+          test('zero for showing', () async {
+            var renderedInstance = render(Transitioner()
+              ..initiallyShown = false
+              ..transitionInCount = 0
+              ..transitionOutCount = 3
+            );
+            await sharedTests(renderedInstance,
+              expectedTransitionInCount: 0,
+              expectedTransitionOutCount: 3,
+            );
+          });
+
+          test('zero for hiding', () async {
+            var renderedInstance = render(Transitioner()
+              ..initiallyShown = false
+              ..transitionInCount = 2
+              ..transitionOutCount = 0
+            );
+            await sharedTests(renderedInstance,
+              expectedTransitionInCount: 2,
+              expectedTransitionOutCount: 0,
+            );
+          });
+        });
       });
     });
 
@@ -358,60 +464,6 @@ main() {
 
         expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDDEN));
       });
-    });
-
-    group('validates the', () {
-      bool warningsWereEnabled;
-      setUp(() {
-        warningsWereEnabled = ValidationUtil.WARNINGS_ENABLED;
-        ValidationUtil.WARNINGS_ENABLED = false;
-        startRecordingValidationWarnings();
-      });
-
-      tearDown(() {
-        ValidationUtil.WARNINGS_ENABLED = warningsWereEnabled;
-        stopRecordingValidationWarnings();
-      });
-
-      group('transitionCount prop by', () {
-        group('warning when', () {
-          test('it is set to 0', () async {
-            var renderedInstance = render(Transitioner()..transitionCount = 0);
-
-            TransitionerComponent transitioner = getDartComponent(renderedInstance);
-
-            transitioner.hide();
-
-            await triggerTransitionEnd(transitioner.getTransitionDomNode());
-
-            verifyValidationWarning('You have set `props.transitionCount` to an invalid option: 0. Instead of setting this prop to 0, override the `hasTransition` getter to return false.');
-          });
-
-          test('it is set to -1', () async {
-            var renderedInstance = render(Transitioner()..transitionCount = -1);
-
-            TransitionerComponent transitioner = getDartComponent(renderedInstance);
-
-            transitioner.hide();
-
-            await triggerTransitionEnd(transitioner.getTransitionDomNode());
-
-            verifyValidationWarning('You have set `props.transitionCount` to an invalid option: -1.');
-          });
-        });
-
-        test('not warning when it is set to 1', () async {
-          var renderedInstance = render(Transitioner()..transitionCount = 1);
-
-          TransitionerComponent transitioner = getDartComponent(renderedInstance);
-
-          transitioner.hide();
-
-          await triggerTransitionEnd(transitioner.getTransitionDomNode());
-
-          rejectValidationWarning(anything);
-        });
-      }, testOn: '!js');
     });
 
     group('time out', () {

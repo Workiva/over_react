@@ -106,8 +106,20 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   /// Returns the DOM node that will transition.
   Element getTransitionDomNode();
 
-  /// Whether the Element returned by [getTransitionDomNode] will have a transition event.
+  /// Whether transitions are enabled for this component.
   bool get hasTransition => true;
+
+  /// Whether the Element returned by [getTransitionDomNode] will have a transition event when showing.
+  bool get hasTransitionIn => hasTransition && transitionInCount > 0;
+
+  /// Whether the Element returned by [getTransitionDomNode] will have a transition event when hiding.
+  bool get hasTransitionOut => hasTransition && transitionOutCount > 0;
+
+  /// The number of `transitionend` events that occur when the transition node is shown.
+  int get transitionInCount => props.transitionInCount ?? props.transitionCount;
+
+  /// The number of `transitionend` events that occur when the transition node is hidden.
+  int get transitionOutCount => props.transitionOutCount ?? props.transitionCount;
 
   /// The duration that can elapse before a transition timeout occurs.
   Duration get transitionTimeout => const Duration(seconds: 1);
@@ -135,7 +147,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
     prepareShow();
 
     setState(newState()
-      ..transitionPhase = hasTransition ? TransitionPhase.PRE_SHOWING : TransitionPhase.SHOWN
+      ..transitionPhase = hasTransitionIn ? TransitionPhase.PRE_SHOWING : TransitionPhase.SHOWN
     );
   }
 
@@ -155,7 +167,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
     prepareHide();
 
     setState(newState()
-      ..transitionPhase = hasTransition ? TransitionPhase.HIDING : TransitionPhase.HIDDEN
+      ..transitionPhase = hasTransitionOut ? TransitionPhase.HIDING : TransitionPhase.HIDDEN
     );
   }
 
@@ -163,19 +175,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   /// the event is dispatched.
   @mustCallSuper
   void onNextTransitionEnd(complete()) {
-    var skipCount = props.transitionCount - 1;
-
-    if (props.transitionCount <= 0) {
-      var warningMessage = 'You have set `props.transitionCount` to an invalid option: ${props.transitionCount}.';
-
-      if (props.transitionCount == 0) {
-        warningMessage += ' Instead of setting this prop to 0, override the `hasTransition` getter to return false.';
-      }
-
-      assert(ValidationUtil.warn(warningMessage, this));
-
-      skipCount = 0;
-    }
+    var transitionCount = isOrWillBeHidden ? transitionOutCount : transitionInCount;
 
     _cancelTransitionEventListener();
     _cancelTransitionEndTimer();
@@ -191,7 +191,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
       complete();
     });
 
-    _endTransitionSubscription = getTransitionDomNode()?.onTransitionEnd?.skip(skipCount)?.take(1)?.listen((_) {
+    _endTransitionSubscription = getTransitionDomNode()?.onTransitionEnd?.skip(transitionCount - 1)?.take(1)?.listen((_) {
       _cancelTransitionEndTimer();
 
       complete();
