@@ -9,34 +9,26 @@ import '../../test_util/test_util.dart';
 import 'redux_component_test/test_reducer.dart';
 
 part 'redux_component_test/default.dart';
-part 'redux_component_test/redraw_on.dart';
+part 'redux_component_test/connect.dart';
 
 void main() {
   ReducerBuilder<BaseState, BaseStateBuilder> baseReducerBuilder;
-  ReducerBuilder<MultipleStates, MultipleStatesBuilder> statesReducerBuilder;
   BaseState baseState;
-  MultipleStates states;
   BaseActions baseActions;
-  MultipleStatesActions multipleStatesActions;
 
   setUp(() {
     baseReducerBuilder = (new ReducerBuilder<BaseState, BaseStateBuilder>()
-      ..add(BaseActionsNames.trigger, increment)
+      ..add(BaseActionsNames.trigger1, increment1)
+      ..add(BaseActionsNames.trigger2, increment2)
     );
-    statesReducerBuilder = new ReducerBuilder<MultipleStates, MultipleStatesBuilder>();
     baseState = new BaseState();
-    states = new MultipleStates();
     baseActions = new BaseActions();
-    multipleStatesActions = new MultipleStatesActions();
   });
 
   tearDown(() {
     baseReducerBuilder = null;
-    statesReducerBuilder = null;
     baseState = null;
-    states = null;
     baseActions = null;
-    multipleStatesActions = null;
   });
 
   group('ReduxUiProps', () {
@@ -66,59 +58,36 @@ void main() {
       var renderedInstance = render(TestDefault()..store = store);
       TestDefaultComponent component = getDartComponent(renderedInstance);
 
-      store.actions.trigger('asdfasdfadfsasfd');
+      store.actions.trigger1();
       await store.stream.first;
 
       expect(component.numberOfRedraws, 1);
 
       unmount(renderedInstance);
 
-      store.actions.trigger('');
+      store.actions.trigger1();
       await store.stream.first;
 
       expect(component.numberOfRedraws, 1,
           reason: 'component should no longer be listening after unmount');
     });
 
-    test('subscribes to any stores returned in redrawOn', () async {
-      var stores = new Store<MultipleStates, MultipleStatesBuilder, MultipleStatesActions>(
-        statesReducerBuilder.build(),
-        states,
-        multipleStatesActions
+    test('subscribes to any state changes subscribed to in connect', () async {
+      var stores = new Store<BaseState, BaseStateBuilder, BaseActions>(
+        baseReducerBuilder.build(),
+        baseState,
+        baseActions,
       );
-      var renderedInstance = render(TestRedrawOn()..store = stores);
-      TestRedrawOnComponent component = getDartComponent(renderedInstance);
+      var renderedInstance = render(TestConnect()..store = stores);
+      TestConnectComponent component = getDartComponent(renderedInstance);
 
-      stores.state.store1.actions.trigger('');
-      await stores.state.store1.stream.first;
+      stores.actions.trigger1();
+      await stores.stream.first;
       expect(component.numberOfRedraws, 1);
 
-      stores.state.store2.actions.trigger('');
-      await stores.state.store2.stream.first;
-      expect(component.numberOfRedraws, 2);
-
-      stores.state.store3.actions.trigger('');
-      await stores.state.store3.stream.first;
-      expect(component.numberOfRedraws, 2,
-          reason: 'should not redraw since `store3` is absent from the component\'s `redrawOn`');
-    });
-
-    test('should not attempt subscription if store is a composite of stores', () async {
-      var stores = new Store<MultipleStates, MultipleStatesBuilder, MultipleStatesActions>(
-        statesReducerBuilder.build(),
-        states,
-        multipleStatesActions,
-      );
-      var renderedInstance = render(TestDefault()..store = stores);
-      TestDefaultComponent component = getDartComponent(renderedInstance);
-
-      stores.state.store1.actions.trigger('');
-      await stores.state.store1.stream.first;
-      expect(component.numberOfRedraws, 0);
-
-      stores.state.store2.actions.trigger('');
-      await stores.state.store2.stream.first;
-      expect(component.numberOfRedraws, 0);
+      stores.actions.trigger2();
+      await stores.stream.first;
+      expect(component.numberOfRedraws, 1);
     });
 
     test('updates subscriptions when new props are passed', () async {
@@ -135,18 +104,19 @@ void main() {
       var renderedInstance = render((TestDefault()..store = store)());
       TestDefaultComponent component = getDartComponent(renderedInstance);
 
-      store.actions.trigger('');
+      store.actions.trigger1();
       await store.stream.first;
       expect(component.numberOfRedraws, 1);
 
       component.props = TestDefault()..store = updatedStore;
       component.redraw();
 
-      updatedStore.actions.trigger('');
+      updatedStore.actions.trigger1();
       await updatedStore.stream.first;
       expect(component.numberOfRedraws, 2);
     });
   });
 }
 
-increment(BaseState state, Action<String> action, BaseStateBuilder builder) => builder.count = state.count + 1;
+increment1(BaseState state, Action<String> action, BaseStateBuilder builder) => builder.count1 = state.count1 + 1;
+increment2(BaseState state, Action<String> action, BaseStateBuilder builder) => builder.count2 = state.count2 + 1;
