@@ -10,6 +10,7 @@ before_install:
   - sh -e /etc/init.d/xvfb start
   - sleep 3 # give xvfb some time to start
 script:
+  - dart ./tool/build.dart
   - pub run dart_dev analyze
   - pub run dart_dev test --integration
   - ./tool/generate_coverage.sh
