@@ -28,16 +28,11 @@ abstract class ReduxUiProps<V extends Built<V, B>, B extends Builder<V, B>,
     A extends ReduxActions> extends UiProps {
   String get _storePropKey => '${propKeyNamespace}store';
 
-  /// The prop defined by [StoresT].
-  ///
-  /// This object should either be an instance of [Store].
-  ///
-  /// __Instead of storing state within this component via `setState`, it is recommended that data be
-  /// pulled directly from these stores.__ This ensures that the data being used is always up to date
-  /// and leaves the state management logic to the stores.
+  /// The [Store] prop defined by [V], [B], and [A].
   Store<V, B, A> get store => props[_storePropKey];
   set store(Store<V, B, A> value) => props[_storePropKey] = value;
 
+  /// The [ReduxActions] prop defined by [A].
   A get actions => store.actions;
 }
 
@@ -45,12 +40,9 @@ abstract class ReduxUiProps<V extends Built<V, B>, B extends Builder<V, B>,
 ///
 /// * Redux components are responsible for rendering application views and turning
 ///   user interactions and events into [Action]s.
-/// * Redux components can use data from one or many [Store] instances to define
-///   the resulting component.
+/// * Redux components can use data from one [Store] instance to define the resulting component.
 ///
 /// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
-///
-/// > Related: [ReduxUiStatefulComponent]
 abstract class ReduxUiComponent<
         V extends Built<V, B>,
         B extends Builder<V, B>,
@@ -91,11 +83,60 @@ abstract class _ReduxComponentMixin<
     A extends ReduxActions,
     T extends ReduxUiProps<V, B, A>,
     Substate> implements UiComponent<T> {
-  Substate _connectedProps;
-  Substate get connectedProps => _connectedProps;
+  Substate _connectedState;
 
-  // implemented by the concrete component to subscribe to changes
-  // to the values from the redux store that this component cares about
+  /// The substate values of the redux store that this component component subscribes to.
+  ///
+  /// It is reccommened to use this instead of `props.store.state`,
+  /// if you need to access other state values from the store then they should be connected with [connect].
+  ///
+  /// Related: [connect]
+  Substate get connectedState => _connectedState;
+
+  /// Subscribe to changes to the values from the redux store that this component cares about.
+  ///
+  /// By default components will redraw based on any value change in the redux store.
+  ///
+  /// Example where there are three state values but your component should only re-render when two of them update:
+  ///
+  ///     abstract class MyState implements Built<MyState, MyStateBuilder> {
+  ///       factory MyState({
+  ///         int foo = 0,
+  ///         int bar = 0,
+  ///         int baz = 0,
+  ///       }) => _$MyState._(
+  ///         foo: foo,
+  ///         bar: bar,
+  ///         baz: baz,
+  ///       );
+  ///       MyState._();
+  ///
+  ///       int get foo;
+  ///       int get bar;
+  ///       int get baz;
+  ///     }
+  ///
+  ///     abstract class DataCoponentCaresAbout implements Built<DataCoponentCaresAbout, DataCoponentCaresAboutBuilder> {
+  ///       factory DataCoponentCaresAbout({int foo, int bar}) => _$DataCoponentCaresAbout._(foo: foo, bar: bar);
+  ///       DataCoponentCaresAbout._();
+  ///
+  ///       int get foo;
+  ///       int get bar;
+  ///     }
+  ///
+  ///     MyComponent extends ReduxUiComponent<MyState, MyStateBuilder, MyActions, MyProps, DataCoponentCaresAbout> {
+  ///       @override
+  ///       DataCoponentCaresAbout connect(state) => new DataCoponentCaresAbout(foo: state.foo, bar: state.bar);
+  ///
+  ///       render() {
+  ///         return Dom.dov()(
+  ///           connectedState.foo,
+  ///           connectedState.bar,
+  ///         );
+  ///       }
+  ///     }
+  ///
+  /// Related: [connectedState]
   Substate connect(covariant dynamic state) => state;
 
   StreamSubscription _storeSub;
@@ -106,7 +147,7 @@ abstract class _ReduxComponentMixin<
     }
 
     _storeSub = props.store.nextSubstate(connect).listen((Substate s) {
-      _connectedProps = s;
+      _connectedState = s;
       redraw();
     });
   }

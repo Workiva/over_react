@@ -13,7 +13,7 @@ class TestConnectComponent
   int numberOfRedraws = 0;
 
   @override
-  render() => Dom.div()(connectedProps);
+  render() => Dom.div()(connectedState);
 
   @override
   int connect(BaseState state) => state.count1;
