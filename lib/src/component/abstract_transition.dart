@@ -82,6 +82,18 @@ abstract class AbstractTransitionState extends UiState {
 abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
                                            S extends AbstractTransitionState>
   extends UiStatefulComponent<T, S> {
+  /// The DOM attribute used to indicate the current transition phase,
+  /// added in test mode in [getTransitionTestAttributes].
+  ///
+  /// Possible values:
+  ///
+  /// - `pre-showing`
+  /// - `showing`
+  /// - `shown`
+  /// - `hiding`
+  /// - `hidden`
+  static const String transitionPhaseTestAttr = 'data-transition-phase';
+
   @override
   get consumedProps => const [
     const $Props(AbstractTransitionProps),
@@ -382,7 +394,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
     };
 
     return {
-      'data-transition-phase': enumToAttrValue[state.transitionPhase],
+      transitionPhaseTestAttr: enumToAttrValue[state.transitionPhase],
     };
   }
 

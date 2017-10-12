@@ -537,7 +537,7 @@ main() {
     });
 
     group('getTransitionTestAttributes returns attributes that indicate the state of the transition in component', () {
-      const transitionPhaseTestAttr = 'data-transition-phase';
+      const transitionPhaseTestAttr = AbstractTransitionComponent.transitionPhaseTestAttr;
 
       group('when the transition state is', () {
         test('PRE_SHOWING', () async {
