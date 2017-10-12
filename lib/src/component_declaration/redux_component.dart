@@ -116,17 +116,17 @@ abstract class _ReduxComponentMixin<
   ///       int get baz;
   ///     }
   ///
-  ///     abstract class DataCoponentCaresAbout implements Built<DataCoponentCaresAbout, DataCoponentCaresAboutBuilder> {
-  ///       factory DataCoponentCaresAbout({int foo, int bar}) => _$DataCoponentCaresAbout._(foo: foo, bar: bar);
-  ///       DataCoponentCaresAbout._();
+  ///     abstract class DataComponentCaresAbout implements Built<DataComponentCaresAbout, DataComponentCaresAboutBuilder> {
+  ///       factory DataComponentCaresAbout({int foo, int bar}) => _$DataComponentCaresAbout._(foo: foo, bar: bar);
+  ///       DataComponentCaresAbout._();
   ///
   ///       int get foo;
   ///       int get bar;
   ///     }
   ///
-  ///     MyComponent extends ReduxUiComponent<MyState, MyStateBuilder, MyActions, MyProps, DataCoponentCaresAbout> {
+  ///     MyComponent extends ReduxUiComponent<MyState, MyStateBuilder, MyActions, MyProps, DataComponentCaresAbout> {
   ///       @override
-  ///       DataCoponentCaresAbout connect(state) => new DataCoponentCaresAbout(foo: state.foo, bar: state.bar);
+  ///       DataComponentCaresAbout connect(state) => new DataComponentCaresAbout(foo: state.foo, bar: state.bar);
   ///
   ///       render() {
   ///         return Dom.dov()(
