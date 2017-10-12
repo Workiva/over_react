@@ -137,7 +137,7 @@ abstract class _ReduxComponentMixin<
   ///     }
   ///
   /// Related: [connectedState]
-  Substate connect(covariant dynamic state) => state;
+  Substate connect(V state);
 
   StreamSubscription _storeSub;
 

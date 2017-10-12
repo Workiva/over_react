@@ -11,6 +11,9 @@ class TestDefaultComponent extends ReduxUiComponent<BaseState, BaseStateBuilder,
   int numberOfRedraws = 0;
 
   @override
+  BaseState connect(BaseState state) => state;
+
+  @override
   render() => Dom.div()();
 
   @override
