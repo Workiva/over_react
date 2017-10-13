@@ -262,6 +262,17 @@ main() {
             );
           });
 
+          test('null (should behave like 0)', () async {
+            var renderedInstance = render(Transitioner()
+              ..initiallyShown = false
+              ..transitionCount = null
+            );
+            await sharedTests(renderedInstance,
+              expectedTransitionInCount: 0,
+              expectedTransitionOutCount: 0,
+            );
+          });
+
           test('0', () async {
             var renderedInstance = render(Transitioner()
               ..initiallyShown = false

@@ -129,10 +129,10 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   bool get hasTransitionOut => hasTransition && transitionOutCount > 0;
 
   /// The number of `transitionend` events that occur when the transition node is shown.
-  int get transitionInCount => props.transitionInCount ?? props.transitionCount;
+  int get transitionInCount => props.transitionInCount ?? props.transitionCount ?? 0;
 
   /// The number of `transitionend` events that occur when the transition node is hidden.
-  int get transitionOutCount => props.transitionOutCount ?? props.transitionCount;
+  int get transitionOutCount => props.transitionOutCount ?? props.transitionCount ?? 0;
 
   /// The duration that can elapse before a transition timeout occurs.
   Duration get transitionTimeout => const Duration(seconds: 1);
