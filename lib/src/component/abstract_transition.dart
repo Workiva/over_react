@@ -28,7 +28,7 @@ abstract class AbstractTransitionProps extends UiProps with TransitionPropsMixin
 abstract class AbstractTransitionState extends UiState {
   /// The current phase of transition the [AbstractTransitionComponent] is in.
   ///
-  /// Default:  [AbstractTransitionComponent.initiallyShown] ? [TransitionState.SHOWN] : [TransitionState.HIDDEN]
+  /// Default:  [AbstractTransitionComponent.initiallyShown] ? [TransitionPhase.SHOWN] : [TransitionPhase.HIDDEN]
   TransitionPhase transitionPhase;
 }
 
