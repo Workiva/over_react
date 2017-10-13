@@ -262,14 +262,14 @@ main() {
             );
           });
 
-          test('null (should behave like 0)', () async {
+          test('null (should behave like the default, 1, for backwards compatibility)', () async {
             var renderedInstance = render(Transitioner()
               ..initiallyShown = false
               ..transitionCount = null
             );
             await sharedTests(renderedInstance,
-              expectedTransitionInCount: 0,
-              expectedTransitionOutCount: 0,
+              expectedTransitionInCount: 1,
+              expectedTransitionOutCount: 1,
             );
           });
 
