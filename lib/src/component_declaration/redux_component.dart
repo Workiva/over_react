@@ -43,6 +43,10 @@ abstract class ReduxUiProps<V extends Built<V, B>, B extends Builder<V, B>,
 /// * Redux components can use data from one [Store] instance to define the resulting component.
 ///
 /// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
+///
+/// __Note:__ [Substate] must be a comparable object to avoid unnecessary redraws,
+/// it is reccomended that [Substate] either be a primitive, built_value, build_collection or an Object
+/// that overrides `==`.
 abstract class ReduxUiComponent<
         V extends Built<V, B>,
         B extends Builder<V, B>,
@@ -135,6 +139,10 @@ abstract class _ReduxComponentMixin<
   ///         );
   ///       }
   ///     }
+  ///
+  /// __Note:__ [Substate] must be a comparable object to avoid unnecessary redraws,
+  /// it is reccomended that [Substate] either be a primitive, built_value, build_collection or an Object
+  /// that overrides `==`.
   ///
   /// Related: [connectedState]
   Substate connect(V state);
