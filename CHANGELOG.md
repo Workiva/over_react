@@ -1,5 +1,16 @@
 # OverReact Changelog
 
+## 1.18.0
+
+> [Complete `1.18.0` Changeset](https://github.com/Workiva/over_react/compare/1.17.0...1.18.0)
+
+__Improvements__
+* [#177] Improve error message when UiState classes aren't set up properly.
+
+__New Features__
+* [#119] More convenient ubiquitous access of DOM/aria props.
+* [#120] Transition in/out-specific config, test attributes.
+
 ## 1.17.0
 
 > [Complete `1.17.0` Changeset](https://github.com/Workiva/over_react/compare/1.16.2...1.17.0)
@@ -69,7 +80,7 @@ __Tech Debt__
 __New Features__
 
 * [#88]: Add `validateProps` method to `UiComponent`
-  * Will automatically validate props annotated with `@requiredProp` 
+  * Will automatically validate props annotated with `@requiredProp`
     within `componentWillMount` and `componentWillReceiveProps`
 
 __Tech Debt__
