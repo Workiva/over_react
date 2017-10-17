@@ -19,6 +19,7 @@ import 'dart:html';
 
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
+import 'package:over_react/component_base.dart' as component_base;
 
 @AbstractProps()
 abstract class AbstractTransitionProps extends UiProps with TransitionPropsMixin {}
@@ -27,7 +28,7 @@ abstract class AbstractTransitionProps extends UiProps with TransitionPropsMixin
 abstract class AbstractTransitionState extends UiState {
   /// The current phase of transition the [AbstractTransitionComponent] is in.
   ///
-  /// Default:  [AbstractTransitionComponent.initiallyShown] ? [TransitionState.SHOWN] : [TransitionState.HIDDEN]
+  /// Default:  [AbstractTransitionComponent.initiallyShown] ? [TransitionPhase.SHOWN] : [TransitionPhase.HIDDEN]
   TransitionPhase transitionPhase;
 }
 
@@ -81,6 +82,18 @@ abstract class AbstractTransitionState extends UiState {
 abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
                                            S extends AbstractTransitionState>
   extends UiStatefulComponent<T, S> {
+  /// The DOM attribute used to indicate the current transition phase,
+  /// added in test mode in [getTransitionTestAttributes].
+  ///
+  /// Possible values:
+  ///
+  /// - `pre-showing`
+  /// - `showing`
+  /// - `shown`
+  /// - `hiding`
+  /// - `hidden`
+  static const String transitionPhaseTestAttr = 'data-transition-phase';
+
   @override
   get consumedProps => const [
     const $Props(AbstractTransitionProps),
@@ -106,8 +119,24 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   /// Returns the DOM node that will transition.
   Element getTransitionDomNode();
 
-  /// Whether the Element returned by [getTransitionDomNode] will have a transition event.
+  /// Whether transitions are enabled for this component.
   bool get hasTransition => true;
+
+  /// Whether the Element returned by [getTransitionDomNode] will have a transition event when showing.
+  bool get hasTransitionIn => hasTransition && transitionInCount > 0;
+
+  /// Whether the Element returned by [getTransitionDomNode] will have a transition event when hiding.
+  bool get hasTransitionOut => hasTransition && transitionOutCount > 0;
+
+  /// The number of `transitionend` events that occur when the transition node is shown.
+  ///
+  /// Defaults to `1` to match previous behavior in the case where `props.transitionCount` is `null`.
+  int get transitionInCount => props.transitionInCount ?? props.transitionCount ?? 1;
+
+  /// The number of `transitionend` events that occur when the transition node is hidden.
+  ///
+  /// Defaults to `1` to match previous behavior in the case where `props.transitionCount` is `null`.
+  int get transitionOutCount => props.transitionOutCount ?? props.transitionCount ?? 1;
 
   /// The duration that can elapse before a transition timeout occurs.
   Duration get transitionTimeout => const Duration(seconds: 1);
@@ -135,7 +164,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
     prepareShow();
 
     setState(newState()
-      ..transitionPhase = hasTransition ? TransitionPhase.PRE_SHOWING : TransitionPhase.SHOWN
+      ..transitionPhase = hasTransitionIn ? TransitionPhase.PRE_SHOWING : TransitionPhase.SHOWN
     );
   }
 
@@ -155,7 +184,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
     prepareHide();
 
     setState(newState()
-      ..transitionPhase = hasTransition ? TransitionPhase.HIDING : TransitionPhase.HIDDEN
+      ..transitionPhase = hasTransitionOut ? TransitionPhase.HIDING : TransitionPhase.HIDDEN
     );
   }
 
@@ -163,19 +192,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   /// the event is dispatched.
   @mustCallSuper
   void onNextTransitionEnd(complete()) {
-    var skipCount = props.transitionCount - 1;
-
-    if (props.transitionCount <= 0) {
-      var warningMessage = 'You have set `props.transitionCount` to an invalid option: ${props.transitionCount}.';
-
-      if (props.transitionCount == 0) {
-        warningMessage += ' Instead of setting this prop to 0, override the `hasTransition` getter to return false.';
-      }
-
-      assert(ValidationUtil.warn(warningMessage, this));
-
-      skipCount = 0;
-    }
+    var transitionCount = isOrWillBeHidden ? transitionOutCount : transitionInCount;
 
     _cancelTransitionEventListener();
     _cancelTransitionEndTimer();
@@ -191,7 +208,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
       complete();
     });
 
-    _endTransitionSubscription = getTransitionDomNode()?.onTransitionEnd?.skip(skipCount)?.take(1)?.listen((_) {
+    _endTransitionSubscription = getTransitionDomNode()?.onTransitionEnd?.skip(transitionCount - 1)?.take(1)?.listen((_) {
       _cancelTransitionEndTimer();
 
       complete();
@@ -366,6 +383,23 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
     if (props.onDidShow != null) {
       props.onDidShow();
     }
+  }
+
+  /// Returns attributes only available during testing that indicate the state of the transition.
+  Map<String, String> getTransitionTestAttributes() {
+    if (!component_base.UiProps.testMode) return const {};
+
+    const enumToAttrValue = const <TransitionPhase, String>{
+      TransitionPhase.SHOWN: 'shown',
+      TransitionPhase.HIDDEN: 'hidden',
+      TransitionPhase.HIDING: 'hiding',
+      TransitionPhase.PRE_SHOWING: 'pre-showing',
+      TransitionPhase.SHOWING: 'showing',
+    };
+
+    return {
+      transitionPhaseTestAttr: enumToAttrValue[state.transitionPhase],
+    };
   }
 
   // --------------------------------------------------------------------------
