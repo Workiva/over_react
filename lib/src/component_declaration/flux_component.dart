@@ -168,7 +168,10 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
         'in a test environment, try adding an `await window.animationFrame;` before disposing your '
         'store.');
 
-      if (isDisposedOrDisposing) _logger.warning(message);
+      if (isDisposedOrDisposing) {
+        _logger.warning(message);
+        return;
+      }
 
       StreamSubscription subscription = store.listen(handler);
       _subscriptions.add(subscription);
