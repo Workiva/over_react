@@ -1,5 +1,12 @@
 # OverReact Changelog
 
+## 1.18.1
+
+> [Complete `1.18.1` Changeset](https://github.com/Workiva/over_react/compare/1.18.0...1.18.1)
+
+__Bug fixes__
+* Fix regression in `prop_mixins.dart` introduced by [#119].
+
 ## 1.18.0
 
 > [Complete `1.18.0` Changeset](https://github.com/Workiva/over_react/compare/1.17.0...1.18.0)
