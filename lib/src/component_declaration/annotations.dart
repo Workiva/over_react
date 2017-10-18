@@ -40,7 +40,7 @@ class Props implements TypedMap {
   /// overriding the default of `'${propsClassName}.'`.
   @override
   final String keyNamespace;
-  const Props({this.keyNamespace: null});
+  const Props({this.keyNamespace});
 }
 
 /// Annotation used with the `over_react` transformer to declare a [UiState] class for a component.
@@ -58,7 +58,7 @@ class State implements TypedMap {
   /// overriding the default of `'${stateClassName}.'`.
   @override
   final String keyNamespace;
-  const State({this.keyNamespace: null});
+  const State({this.keyNamespace});
 }
 
 /// Annotation used with the `over_react` transformer to declare a [UiComponent] class for a component.
@@ -117,7 +117,7 @@ class AbstractProps implements TypedMap {
   /// overriding the default of `'${propsClassName}.'`.
   @override
   final String keyNamespace;
-  const AbstractProps({this.keyNamespace: null});
+  const AbstractProps({this.keyNamespace});
 }
 
 /// Annotation used with the `over_react` transformer to declare an abstract [UiProps] class for an abstract component.
@@ -133,7 +133,7 @@ class AbstractState implements TypedMap {
   /// overriding the default of `'${stateClassName}.'`.
   @override
   final String keyNamespace;
-  const AbstractState({this.keyNamespace: null});
+  const AbstractState({this.keyNamespace});
 }
 
 /// Annotation used with the `over_react` transformer to declare an abstract [UiComponent] class for an abstract component.
@@ -161,7 +161,7 @@ class PropsMixin implements TypedMap {
   /// overriding the default of `'${propsClassName}.'`.
   @override
   final String keyNamespace;
-  const PropsMixin({this.keyNamespace: null});
+  const PropsMixin({this.keyNamespace});
 }
 
 /// Annotation used with the `over_react` transformer to declare a mixin for use in a [UiState] class.
@@ -181,7 +181,7 @@ class StateMixin implements TypedMap {
   /// overriding the default of `'${stateClassName}.'`.
   @override
   final String keyNamespace;
-  const StateMixin({this.keyNamespace: null});
+  const StateMixin({this.keyNamespace});
 }
 
 /// Marks a `prop` as required to be set.
