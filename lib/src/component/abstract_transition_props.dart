@@ -27,10 +27,22 @@ abstract class TransitionPropsMixin {
 
   Map get props;
 
-  /// Number of transitions to occur within the [AbstractTransitionComponent].
+  /// The number of `transitionend` event that occur when the transition node is shown/hidden.
   ///
-  /// Default: 1
+  /// Serves as the default for [transitionInCount]/[transitionOutCount] when they are not specified.
+  ///
+  /// Default: `1`
   int transitionCount;
+
+  /// The number of `transitionend` event that occur when the transition node is shown.
+  ///
+  /// Default: [transitionCount]
+  int transitionInCount;
+
+  /// The number of `transitionend` event that occur when the transition node is hidden.
+  ///
+  /// Default: [transitionCount]
+  int transitionOutCount;
 
   /// Optional callback that fires before the [AbstractTransitionComponent] is hidden.
   ///

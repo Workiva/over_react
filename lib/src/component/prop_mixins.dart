@@ -15,6 +15,7 @@
 /// Various prop related mixins to be used with [UiComponent] descendants.
 library over_react.prop_mixins;
 
+import 'package:over_react/over_react.dart' show AriaPropsMapView, AriaPropsMixin, DomProps;
 // Must import these consts because they are used in the transformed code.
 // ignore: unused_import
 import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps;
@@ -120,6 +121,38 @@ abstract class SvgPropsMixin {
 @PropsMixin(keyNamespace: '')
 abstract class UbiquitousDomPropsMixin {
   Map get props;
+
+  /// A cache for the MapView used for [aria].
+  @Accessor(doNotGenerate: true)
+  AriaPropsMapView _aria;
+
+  /// A cache for the MapView used for [dom].
+  @Accessor(doNotGenerate: true)
+  DomProps _dom;
+
+  /// A view into this map that can be used to access `aria-` props, for convenience.
+  ///
+  /// Example:
+  ///
+  ///     (Button()
+  ///       ..aria.controls = 'my_popover'
+  ///     )('Open popover')
+  AriaPropsMixin get aria {
+    _aria ??= new AriaPropsMapView(props);
+    return _aria;
+  }
+
+  /// A view into this map that can be used to access DOM props, for convenience.
+  ///
+  /// Example:
+  ///
+  ///     (Tab()
+  ///       ..dom.draggable = true
+  ///     )('Untitled Document')
+  DomPropsMixin get dom {
+    _dom ??= new DomProps(null, props);
+    return _dom;
+  }
 
   /// Whether the element if focusable.
   /// Must be a valid integer or String of valid integer.

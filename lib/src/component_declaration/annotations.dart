@@ -243,12 +243,16 @@ class Accessor {
   /// The error message displayed when the accessor is not set.
   final String requiredErrorMessage;
 
+  /// Whether to skip generating an accessor for this field.
+  final bool doNotGenerate;
+
   const Accessor({
     this.key,
     this.keyNamespace,
     this.isRequired = false,
     this.isNullable = false,
     this.requiredErrorMessage,
+    this.doNotGenerate = false,
   });
 }
 
