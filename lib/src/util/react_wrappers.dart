@@ -314,7 +314,8 @@ react.Component getDartComponent(/* [1] */ instance) {
     return true;
   });
 
-  return _getInternal(instance)?.component;
+  // ignore: avoid_as
+  return (instance as ReactComponent).dartComponent;
 }
 
 /// A function that, when supplied as [ReactPropsMixin.ref], is called with the component instance
@@ -408,6 +409,7 @@ dynamic get $r {
   var component = _get$R();
 
   return isDartComponent(component)
-      ? component.props.internal.component
+      // ignore: avoid_as
+      ? (component as ReactComponent).dartComponent
       : component;
 }
