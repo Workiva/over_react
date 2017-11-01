@@ -413,6 +413,25 @@ class ImplGenerator {
         .where((member) => member is FieldDeclaration && !member.isStatic)
         .forEach((_field) {
           final field = _field as FieldDeclaration; // ignore: avoid_as
+
+          T getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
+            return member.metadata.any((annotation) => annotation.name?.name == name) ? value : null;
+          }
+
+          annotations.Accessor accessorMeta = instantiateAnnotation(field, annotations.Accessor);
+          annotations.Accessor requiredProp = getConstantAnnotation(field, 'requiredProp', annotations.requiredProp);
+          annotations.Accessor nullableRequiredProp = getConstantAnnotation(field, 'nullableRequiredProp', annotations.nullableRequiredProp);
+          // ignore: deprecated_member_use
+          annotations.Required requiredMeta = instantiateAnnotation(field, annotations.Required);
+
+          if (accessorMeta?.doNotGenerate == true) {
+            logger.fine('Skipping generation of field `$field`.',
+                span: getSpan(sourceFile, field)
+            );
+
+            return;
+          }
+
           // Remove everything in the field except the comments/meta and the variable names, preserving newlines.
           // TODO add support for preserving comment nodes between variable declarations.
 
@@ -445,16 +464,6 @@ class ImplGenerator {
             }
 
             String accessorName = variable.name.name;
-
-            T getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
-              return member.metadata.any((annotation) => annotation.name?.name == name) ? value : null;
-            }
-
-            annotations.Accessor accessorMeta = instantiateAnnotation(field, annotations.Accessor);
-            annotations.Accessor requiredProp = getConstantAnnotation(field, 'requiredProp', annotations.requiredProp);
-            annotations.Accessor nullableRequiredProp = getConstantAnnotation(field, 'nullableRequiredProp', annotations.nullableRequiredProp);
-            // ignore: deprecated_member_use
-            annotations.Required requiredMeta = instantiateAnnotation(field, annotations.Required);
 
             String individualKeyNamespace = accessorMeta?.keyNamespace ?? keyNamespace;
             String individualKey = accessorMeta?.key ?? accessorName;

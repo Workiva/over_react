@@ -63,6 +63,26 @@ main() {
 
   group('UbiquitousProps', () {
     testKeys(const $PropKeys(UbiquitousDomPropsMixin), (() => new UbiquitousPropMixinsTest({})));
+
+    group('has a getter that provides a typed view of', () {
+      test('aria props', () {
+        var instance = new UbiquitousPropMixinsTest({})
+          ..aria.labelledby = 'foo';
+
+        expect(instance, equals(ariaProps()..labelledby = 'foo'), reason: 'should set the prop properly');
+        expect(instance.aria.labelledby, 'foo', reason: 'should be able to read the prop in addition to setting it');
+        expect(instance.aria, same(instance.aria), reason: 'should cache the backing typed MapView');
+      });
+
+      test('DOM props', () {
+        var instance = new UbiquitousPropMixinsTest({})
+          ..dom.target = 'foo';
+
+        expect(instance, equals(domProps()..target = 'foo'), reason: 'should set the prop properly');
+        expect(instance.dom.target, 'foo', reason: 'should be able to read the prop in addition to setting it');
+        expect(instance.dom, same(instance.dom), reason: 'should cache the backing typed MapView');
+      });
+    });
   });
 
   group('AriaProps', () {
