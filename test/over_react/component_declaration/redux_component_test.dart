@@ -1,5 +1,7 @@
 library over_react.component_declaration.redux_component_test;
 
+import 'dart:async';
+
 import 'package:test/test.dart';
 import 'package:built_redux/built_redux.dart';
 import 'package:over_react/over_react.dart';
@@ -59,14 +61,14 @@ void main() {
       TestDefaultComponent component = getDartComponent(renderedInstance);
 
       store.actions.trigger1();
-      await store.stream.first;
+      await new Future.delayed(Duration.ZERO);
 
       expect(component.numberOfRedraws, 1);
 
       unmount(renderedInstance);
 
       store.actions.trigger1();
-      await store.stream.first;
+      await new Future.delayed(Duration.ZERO);
 
       expect(component.numberOfRedraws, 1,
           reason: 'component should no longer be listening after unmount');
@@ -82,11 +84,11 @@ void main() {
       TestConnectComponent component = getDartComponent(renderedInstance);
 
       stores.actions.trigger1();
-      await stores.stream.first;
+      await new Future.delayed(Duration.ZERO);
       expect(component.numberOfRedraws, 1);
 
       stores.actions.trigger2();
-      await stores.stream.first;
+      await new Future.delayed(Duration.ZERO);
       expect(component.numberOfRedraws, 1);
     });
 
@@ -105,14 +107,14 @@ void main() {
       TestDefaultComponent component = getDartComponent(renderedInstance);
 
       store.actions.trigger1();
-      await store.stream.first;
+      await new Future.delayed(Duration.ZERO);
       expect(component.numberOfRedraws, 1);
 
       component.props = TestDefault()..store = updatedStore;
       component.redraw();
 
       updatedStore.actions.trigger1();
-      await updatedStore.stream.first;
+      await new Future.delayed(Duration.ZERO);
       expect(component.numberOfRedraws, 2);
     });
   });
