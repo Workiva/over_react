@@ -154,6 +154,7 @@ abstract class _ReduxComponentMixin<
       throw new StateError('Store subscription is already set up');
     }
 
+    propsMap ??= props;
     var tPropsMap = typedPropsFactory(propsMap);
     _connectedState = connect(tPropsMap.store.state);
 
