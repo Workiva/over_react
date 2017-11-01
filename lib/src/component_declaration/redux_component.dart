@@ -70,7 +70,7 @@ abstract class ReduxUiComponent<
   @mustCallSuper
   @override
   void componentWillUpdate(Map nextProps, Map nextState) {
-    if (_storeSub == null) _setUpSub();
+    if (_storeSub == null) _setUpSub(nextProps);
   }
 
   @mustCallSuper
@@ -149,12 +149,15 @@ abstract class _ReduxComponentMixin<
 
   StreamSubscription _storeSub;
 
-  void _setUpSub() {
+  void _setUpSub([Map propsMap]) {
     if (_storeSub != null) {
       throw new StateError('Store subscription is already set up');
     }
 
-    _storeSub = props.store.nextSubstate(connect).listen((Substate s) {
+    var tPropsMap = typedPropsFactory(propsMap);
+    _connectedState = connect(tPropsMap.store.state);
+
+    _storeSub = tPropsMap.store.nextSubstate(connect).listen((Substate s) {
       _connectedState = s;
       redraw();
     });
