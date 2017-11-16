@@ -45,6 +45,7 @@ void main() {
       props.store = baseStore;
 
       expect(props.store, equals(baseStore));
+      expect(props.actions, equals(baseActions));
       expect(props, containsPair('TestDefaultProps.store', baseStore),
           reason: 'should have a `store` getter with the a properly-namespaced prop key');
     });
@@ -74,7 +75,7 @@ void main() {
           reason: 'component should no longer be listening after unmount');
     });
 
-    test('subscribes to any state changes subscribed to in connect', () async {
+    test('only the state changes subscribed to in connect', () async {
       var stores = new Store<BaseState, BaseStateBuilder, BaseActions>(
         baseReducerBuilder.build(),
         baseState,
@@ -103,15 +104,14 @@ void main() {
         new BaseState(),
         new BaseActions(),
       );
-      var renderedInstance = render((TestDefault()..store = store)());
-      TestDefaultComponent component = getDartComponent(renderedInstance);
+      var jacket = mount<TestDefaultComponent>((TestDefault()..store = store)());
+      TestDefaultComponent component = jacket.getDartInstance();
 
       store.actions.trigger1();
       await new Future.delayed(Duration.ZERO);
       expect(component.numberOfRedraws, 1);
 
-      component.props = TestDefault()..store = updatedStore;
-      component.redraw();
+      jacket.rerender((TestDefault()..store = updatedStore)());
 
       updatedStore.actions.trigger1();
       await new Future.delayed(Duration.ZERO);

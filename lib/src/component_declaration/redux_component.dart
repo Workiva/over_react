@@ -52,7 +52,7 @@ abstract class ReduxUiComponent<
         B extends Builder<V, B>,
         A extends ReduxActions,
         T extends ReduxUiProps<V, B, A>,
-        Substate> extends UiComponent<T> with _ReduxComponentMixin<V, B, A, T, Substate> {
+        Substate> extends UiComponent<T> {
   @mustCallSuper
   @override
   void componentWillMount() {
@@ -70,6 +70,7 @@ abstract class ReduxUiComponent<
   @mustCallSuper
   @override
   void componentWillUpdate(Map nextProps, Map nextState) {
+    // _storeSub will only be null when props get updated, not on every re-render.
     if (_storeSub == null) _setUpSub(nextProps);
   }
 
@@ -79,25 +80,18 @@ abstract class ReduxUiComponent<
     super.componentWillUnmount();
     _tearDownSub();
   }
-}
 
-abstract class _ReduxComponentMixin<
-    V extends Built<V, B>,
-    B extends Builder<V, B>,
-    A extends ReduxActions,
-    T extends ReduxUiProps<V, B, A>,
-    Substate> implements UiComponent<T> {
   Substate _connectedState;
 
-  /// The substate values of the redux store that this component component subscribes to.
+  /// The substate values of the redux store that this component subscribes to.
   ///
-  /// It is reccommened to use this instead of `props.store.state`,
+  /// It is reccommened to use this instead of `props.store.state`;
   /// if you need to access other state values from the store then they should be connected with [connect].
   ///
   /// Related: [connect]
   Substate get connectedState => _connectedState;
 
-  /// Subscribe to changes to the values from the redux store that this component cares about.
+  /// Returns a subset of the values derived from the redux store that this component cares about.
   ///
   /// By default components will redraw based on any value change in the redux store.
   ///
@@ -133,16 +127,16 @@ abstract class _ReduxComponentMixin<
   ///       DataComponentCaresAbout connect(state) => new DataComponentCaresAbout(foo: state.foo, bar: state.bar);
   ///
   ///       render() {
-  ///         return Dom.dov()(
+  ///         return Dom.div()(
   ///           connectedState.foo,
   ///           connectedState.bar,
   ///         );
   ///       }
   ///     }
   ///
-  /// __Note:__ [Substate] must be a comparable object to avoid unnecessary redraws,
-  /// it is reccomended that [Substate] either be a primitive, built_value, build_collection or an Object
-  /// that overrides `==`.
+  /// __Note:__ [Substate] must be a comparable object to avoid unnecessary redraws;
+  /// it is reccomended that [Substate] either be a primitive, built_value, built_collection or an Object
+  /// that overrides `==` and `hashCode`.
   ///
   /// Related: [connectedState]
   Substate connect(V state);

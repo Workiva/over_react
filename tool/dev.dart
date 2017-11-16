@@ -47,7 +47,7 @@ main(List<String> args) async {
     ];
 
   config.coverage
-    ..html = false
+    // ..html = false
     ..pubServe = true
     ..reportOn = [
       'lib/'
