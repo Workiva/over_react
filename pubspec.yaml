@@ -5,7 +5,7 @@ homepage: https://github.com/Workiva/over_react/
 authors:
   - Workiva UI Platform Team <uip@workiva.com>
 environment:
-  sdk: ">=1.23.0"
+  sdk: ">=1.24.2"
 dependencies:
   analyzer: ">=0.30.0 <0.31.0"
   barback: ^0.15.0
