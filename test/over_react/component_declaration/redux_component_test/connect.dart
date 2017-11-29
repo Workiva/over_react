@@ -5,11 +5,11 @@ UiFactory<TestConnectProps> TestConnect;
 
 @Props()
 class TestConnectProps
-    extends ReduxUiProps<BaseState, BaseStateBuilder, BaseActions> {}
+    extends BuiltReduxUiProps<BaseState, BaseStateBuilder, BaseActions> {}
 
 @Component()
 class TestConnectComponent
-    extends ReduxUiComponent<BaseState, BaseStateBuilder, BaseActions, TestConnectProps, int> {
+    extends BuiltReduxUiComponent<BaseState, BaseStateBuilder, BaseActions, TestConnectProps, int> {
   int numberOfRedraws = 0;
 
   @override

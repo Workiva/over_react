@@ -4,10 +4,10 @@ part of over_react.component_declaration.redux_component_test;
 UiFactory<TestDefaultProps> TestDefault;
 
 @Props()
-class TestDefaultProps extends ReduxUiProps<BaseState, BaseStateBuilder, BaseActions> {}
+class TestDefaultProps extends BuiltReduxUiProps<BaseState, BaseStateBuilder, BaseActions> {}
 
 @Component()
-class TestDefaultComponent extends ReduxUiComponent<BaseState, BaseStateBuilder, BaseActions, TestDefaultProps, BaseState> {
+class TestDefaultComponent extends BuiltReduxUiComponent<BaseState, BaseStateBuilder, BaseActions, TestDefaultProps, BaseState> {
   int numberOfRedraws = 0;
 
   @override
