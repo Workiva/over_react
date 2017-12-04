@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library over_react.component_declaration.redux_component;
+library over_react.experimental.redux_component;
 
 import 'dart:async';
 
@@ -24,6 +24,8 @@ import 'package:over_react/over_react.dart';
 /// Builds on top of [UiProps], adding typed props for [Store] in order to integrate with `built_redux`.
 ///
 /// Use with the over_react transformer via the `@Props()` ([annotations.Props]) annotation.
+@experimental
+@deprecated
 abstract class BuiltReduxUiProps<V extends Built<V, B>, B extends Builder<V, B>,
     A extends ReduxActions> extends UiProps {
   String get _storePropKey => '${propKeyNamespace}store';
@@ -47,6 +49,8 @@ abstract class BuiltReduxUiProps<V extends Built<V, B>, B extends Builder<V, B>,
 /// __Note:__ [Substate] must be a comparable object to avoid unnecessary redraws,
 /// it is reccomended that [Substate] either be a primitive, built_value, build_collection or an Object
 /// that overrides `==`.
+@experimental
+@deprecated
 abstract class BuiltReduxUiComponent<
         V extends Built<V, B>,
         B extends Builder<V, B>,
