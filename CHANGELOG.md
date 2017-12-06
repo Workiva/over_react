@@ -7,6 +7,9 @@
 __New Features__
 * [#118] Add `BuiltReduxUiComponent` and `BuiltReduxUiProps`.
 
+__Tech Debt__
+* [#126]: Use dependency_validator.
+
 ## 1.18.1
 
 > [Complete `1.18.1` Changeset](https://github.com/Workiva/over_react/compare/1.18.0...1.18.1)
