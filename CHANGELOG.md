@@ -1,5 +1,12 @@
 # OverReact Changelog
 
+## 1.19.0
+
+> [Complete `1.19.0` Changeset](https://github.com/Workiva/over_react/compare/1.18.1...1.19.0)
+
+__New Features__
+* [#118] Add `BuiltReduxUiComponent` and `BuiltReduxUiProps`.
+
 ## 1.18.1
 
 > [Complete `1.18.1` Changeset](https://github.com/Workiva/over_react/compare/1.18.0...1.18.1)
