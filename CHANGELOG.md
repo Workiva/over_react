@@ -1,5 +1,20 @@
 # OverReact Changelog
 
+## 1.19.0
+
+> [Complete `1.19.0` Changeset](https://github.com/Workiva/over_react/compare/1.18.1...1.19.0)
+
+__Dependency Updates__
+
+* [#126]: Update minimum Dart SDK version to `1.24.2`.
+
+__New Features__
+* [#118] Add `BuiltReduxUiComponent` and `BuiltReduxUiProps`.
+  - These classes are considered unstable and can be imported via `import "package:over_react/experimental.dart";`
+
+__Tech Debt__
+* [#126]: Use dependency_validator.
+
 ## 1.18.1
 
 > [Complete `1.18.1` Changeset](https://github.com/Workiva/over_react/compare/1.18.0...1.18.1)
