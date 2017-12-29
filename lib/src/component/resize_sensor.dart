@@ -107,7 +107,9 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
   @override
   void componentWillUnmount() {
     super.componentWillUnmount();
-
+    if (ResizeObserver.supported) {
+      ResizeObserver.unobserve(findDomNode(this));
+    }
     cancelAnimationFrames();
   }
 
