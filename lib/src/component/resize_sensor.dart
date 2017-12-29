@@ -22,6 +22,7 @@ import 'dart:html';
 import 'package:meta/meta.dart';
 import 'package:platform_detect/platform_detect.dart';
 import 'package:over_react/over_react.dart';
+import 'package:resize_observer/resize_observer.dart';
 
 /// A wrapper component that detects when its parent is resized.
 ///
@@ -113,6 +114,23 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
   @mustCallSuper
   @override
   void componentDidMount() {
+    if (ResizeObserver.supported) {
+      Element el = findDomNode(this);
+      _lastHeight = 0;
+      _lastWidth = 0;
+      ResizeObserver.observe(findDomNode(this), (el, x, y, w, h, t, b, l, r) {
+        var event = new ResizeSensorEvent(w, h, _lastWidth, _lastHeight);
+        props.onResize(event);
+        _lastHeight = h;
+        _lastWidth = w;
+      });
+      // return here to shortcut doing the previous way of detecting resizes
+      return;
+    }
+
+    // If there isn't Resize Observer API available (natively or via a pre-loaded polyfill)
+    // then continue on detecting resizes the same way we did before with scroll events
+
     if (props.quickMount) {
       assert(props.onInitialize == null || ValidationUtil.warn(
           'props.onInitialize will not be called when props.quickMount is true.',
@@ -161,7 +179,9 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
       (Dom.div()..style = _collapseSensorChildStyle)()
     );
 
-    var resizeSensor = (Dom.div()
+    // If we have the Resize Observer API, the resize sensor is a no-op
+    // otherwise, wire up the div, expand and collapse sensor just as before
+    var resizeSensor = ResizeObserver.supported ? null : (Dom.div()
       ..className = 'resize-sensor'
       ..style = props.shrink ? _shrinkBaseStyle : _baseStyle
       ..key = 'resizeSensor'
@@ -173,7 +193,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
     } else if (props.isFlexContainer) {
       wrapperStyles = _wrapperStylesFlexContainer;
     } else {
-      wrapperStyles = _wrapperStyles;;
+      wrapperStyles = _wrapperStyles;
     }
 
     return (Dom.div()

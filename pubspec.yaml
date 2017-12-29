@@ -16,6 +16,7 @@ dependencies:
   meta: ^1.0.4
   path: ^1.4.1
   react: ^3.4.3
+  resize_observer: ^1.0.0
   source_span: ^1.4.0
   transformer_utils: ^0.1.1
   w_common: ^1.8.0
