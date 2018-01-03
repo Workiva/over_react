@@ -6,10 +6,10 @@ import 'package:over_react/component_base.dart' as component_base show UiProps;
 /// A `MapView` helper that stubs in unimplemented pieces of [UiProps].
 ///
 /// Useful when you need a `MapView` for a [PropsMixin] that implements [UiProps].
-class UiPropsMixinMapView extends MapView with ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
+class UiPropsMapView extends MapView with ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
     implements component_base.UiProps {
   /// Create a new instance backed by the specified map.
-  UiPropsMixinMapView(Map map) : super(map);
+  UiPropsMapView(Map map) : super(map);
 
   /// The props to be manipulated via the getters/setters.
   /// In this case, it's the current MapView object.

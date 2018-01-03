@@ -4,11 +4,11 @@ import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
 main() {
-  group('UiPropsMixinMapView', () {
-    UiPropsMixinMapView mapView;
+  group('UiPropsMapView', () {
+    UiPropsMapView mapView;
 
     setUp(() {
-      mapView = new UiPropsMixinMapView({});
+      mapView = new UiPropsMapView({});
     });
 
     tearDown(() {
