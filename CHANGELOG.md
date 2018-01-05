@@ -1,5 +1,15 @@
 # OverReact Changelog
 
+## 1.20.0
+
+> [Complete `1.20.0` Changeset](https://github.com/Workiva/over_react/compare/1.19.0...1.20.0)
+
+__New Features__
+* [#128] Add `UiPropsMapView`.
+
+__Misc__
+* [#129]: Add CODEOWNERS file.
+
 ## 1.19.0
 
 > [Complete `1.19.0` Changeset](https://github.com/Workiva/over_react/compare/1.18.1...1.19.0)
