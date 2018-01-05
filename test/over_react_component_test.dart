@@ -23,6 +23,8 @@ import 'package:over_react/over_react.dart';
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 
+import 'over_react/component/resize/resize_observer_test.dart' as internal_resize_observer_test;
+import 'over_react/component/resize/resize_sensor_test.dart' as internal_resize_sensor_test;
 import 'over_react/component/abstract_transition_test.dart' as abstract_transition_test;
 import 'over_react/component/dom_components_test.dart' as dom_components_test;
 import 'over_react/component/prop_mixins_test.dart' as prop_mixins_test;
@@ -34,6 +36,8 @@ void main() {
 
   enableTestMode();
 
+  internal_resize_observer_test.main();
+  internal_resize_sensor_test.main();
   abstract_transition_test.main();
   dom_components_test.main();
   prop_mixins_test.main();
