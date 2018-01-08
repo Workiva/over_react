@@ -1,5 +1,15 @@
 # OverReact Changelog
 
+## 1.20.0
+
+> [Complete `1.20.0` Changeset](https://github.com/Workiva/over_react/compare/1.19.0...1.20.0)
+
+__New Features__
+* [#128]: Add `UiPropsMapView`.
+
+__Misc__
+* [#129]: Add CODEOWNERS file.
+
 ## 1.19.0
 
 > [Complete `1.19.0` Changeset](https://github.com/Workiva/over_react/compare/1.18.1...1.19.0)
@@ -9,7 +19,7 @@ __Dependency Updates__
 * [#126]: Update minimum Dart SDK version to `1.24.2`.
 
 __New Features__
-* [#118] Add `BuiltReduxUiComponent` and `BuiltReduxUiProps`.
+* [#118]: Add `BuiltReduxUiComponent` and `BuiltReduxUiProps`.
   - These classes are considered unstable and can be imported via `import "package:over_react/experimental.dart";`
 
 __Tech Debt__
@@ -27,11 +37,11 @@ __Bug fixes__
 > [Complete `1.18.0` Changeset](https://github.com/Workiva/over_react/compare/1.17.0...1.18.0)
 
 __Improvements__
-* [#177] Improve error message when UiState classes aren't set up properly.
+* [#177]: Improve error message when UiState classes aren't set up properly.
 
 __New Features__
-* [#119] More convenient ubiquitous access of DOM/aria props.
-* [#120] Transition in/out-specific config, test attributes.
+* [#119]: More convenient ubiquitous access of DOM/aria props.
+* [#120]: Transition in/out-specific config, test attributes.
 
 ## 1.17.0
 
@@ -39,7 +49,7 @@ __New Features__
 
 __New Features__
 
-* [#115] Add 4-argument callback utils
+* [#115]: Add 4-argument callback utils
 
 ## 1.16.2
 
@@ -47,7 +57,7 @@ __New Features__
 
 __Bug fixes__
 
-* [#110] Revert bugfixes that can cause FluxUiComponent rendering regressions:
+* [#110]: Revert bugfixes that can cause FluxUiComponent rendering regressions:
     * ~~[#108]: Fix case where `setState` and store trigger only result in one `FluxUiComponent` render~~
     * ~~[#103]: `FluxUiComponent` redraws only once when store triggers along with ancestor rerender.~~
 
