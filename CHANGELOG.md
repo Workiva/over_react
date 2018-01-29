@@ -1,5 +1,12 @@
 # OverReact Changelog
 
+## 1.20.1
+
+> [Complete `1.20.1` Changeset](https://github.com/Workiva/over_react/compare/1.20.0...1.20.1)
+
+__Misc__
+* [#133]: Update logger name standard.
+
 ## 1.20.0
 
 > [Complete `1.20.0` Changeset](https://github.com/Workiva/over_react/compare/1.19.0...1.20.0)
