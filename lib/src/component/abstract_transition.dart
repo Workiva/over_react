@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library abstract_transition;
+library over_react.abstract_transition;
 
 import 'dart:async';
 import 'dart:html';

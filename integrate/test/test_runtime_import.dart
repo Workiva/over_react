@@ -13,7 +13,7 @@
 // limitations under the License.
 
 @TestOn('content-shell || dartium')
-library test;
+library over_react.integrate.test_runtime_import;
 
 import 'package:react/react_client.dart' show setClientConfiguration;
 import 'package:react/react_test_utils.dart' as react_test_utils;
