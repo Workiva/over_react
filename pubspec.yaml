@@ -42,4 +42,14 @@ transformers:
   - test/pub_serve:
       $include: test/**_test{.*,}.dart
   # Reminder: dart2js should come after any other transformers that touch Dart code
-  - $dart2js
+  - $dart2js:
+      csp: true
+      sourceMaps: true
+      minify: true
+      suppressHints: false
+      commandLineOptions:
+        - --verbose
+        - --dump-info
+        - --use-new-source-info
+        - --show-package-warnings
+        - --enable-experimental-mirrors
