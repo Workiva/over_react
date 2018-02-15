@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library abstract_transition_props;
+library over_react.abstract_transition_props;
 
 import 'dart:collection';
 

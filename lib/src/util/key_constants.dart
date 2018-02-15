@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library key_constants;
+library over_react.key_constants;
 
 import 'package:over_react/over_react.dart';
 
