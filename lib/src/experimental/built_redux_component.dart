@@ -163,7 +163,7 @@ abstract class BuiltReduxUiComponent<
   }
 
   void _tearDownSub() {
-    _storeSub.cancel();
+    _storeSub?.cancel();
     _storeSub = null;
   }
 }
