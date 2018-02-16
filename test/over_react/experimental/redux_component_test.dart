@@ -14,6 +14,7 @@ import 'redux_component_test/test_reducer.dart';
 
 part 'redux_component_test/default.dart';
 part 'redux_component_test/connect.dart';
+part 'redux_component_test/pure.dart';
 
 void main() {
   ReducerBuilder<BaseState, BaseStateBuilder> baseReducerBuilder;
@@ -93,6 +94,31 @@ void main() {
       stores.actions.trigger2();
       await new Future.delayed(Duration.ZERO);
       expect(component.numberOfRedraws, 1);
+    });
+
+    test('properly redraws when isPure is true', () async {
+      var store = new Store<BaseState, BaseStateBuilder, BaseActions>(
+        baseReducerBuilder.build(),
+        baseState,
+        baseActions,
+      );
+      var jacket = mount<TestDefaultComponent>((TestDefault()..store = store)());
+      TestDefaultComponent component = jacket.getDartInstance();
+
+      store.actions.trigger1();
+      await new Future.delayed(Duration.ZERO);
+      expect(component.numberOfRedraws, 1);
+
+      jacket.rerender((TestDefault()
+        ..store = store
+        ..id = 'new id'
+      )());
+
+      expect(component.numberOfRedraws, 1);
+
+      component.redraw();
+
+      expect(component.numberOfRedraws, 2);
     });
 
     test('updates subscriptions when new props are passed', () async {
