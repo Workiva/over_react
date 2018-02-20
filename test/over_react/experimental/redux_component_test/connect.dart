@@ -15,14 +15,13 @@ class TestConnectComponent
   int numberOfRedraws = 0;
 
   @override
+  void componentDidUpdate(Map prevProps, Map prevState) {
+    numberOfRedraws++;
+  }
+
+  @override
   render() => Dom.div()(connectedState);
 
   @override
   int connect(BaseState state) => state.count1;
-
-  @override
-  void setState(_, [callback()]) {
-    numberOfRedraws++;
-    if (callback != null) callback();
-  }
 }

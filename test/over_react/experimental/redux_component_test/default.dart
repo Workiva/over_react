@@ -13,14 +13,13 @@ class TestDefaultComponent extends BuiltReduxUiComponent<BaseState, BaseStateBui
   int numberOfRedraws = 0;
 
   @override
+  void componentDidUpdate(Map prevProps, Map prevState) {
+    numberOfRedraws++;
+  }
+
+  @override
   BaseState connect(BaseState state) => state;
 
   @override
   render() => Dom.div()();
-
-  @override
-  void setState(_, [callback()]) {
-    numberOfRedraws++;
-    if (callback != null) callback();
-  }
 }

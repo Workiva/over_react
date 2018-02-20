@@ -291,7 +291,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
   @override
   Future<T> getManagedDelayedFuture<T>(Duration duration, T callback()) =>
     _getDisposableProxy().getManagedDelayedFuture<T>(duration, callback);
-  
+
   @override
   ManagedDisposer getManagedDisposer(Disposer disposer) => _getDisposableProxy().getManagedDisposer(disposer);
 
@@ -309,7 +309,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
       {Function onError, void onDone(), bool cancelOnError}) =>
       _getDisposableProxy().listenToStream(
         stream, onData, onError: onError, onDone: onDone, cancelOnError: cancelOnError);
-  
+
   @override
   Disposable manageAndReturnDisposable(Disposable disposable) =>
       _getDisposableProxy().manageAndReturnDisposable(disposable);
@@ -327,7 +327,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
   @override
   void manageDisposer(Disposer disposer) =>
     _getDisposableProxy().manageDisposer(disposer);
-  
+
   @override
   void manageStreamController(StreamController controller) =>
     _getDisposableProxy().manageStreamController(controller);

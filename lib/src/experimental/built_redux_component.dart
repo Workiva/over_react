@@ -92,6 +92,7 @@ abstract class BuiltReduxUiComponent<
     _tearDownSub();
   }
 
+  @mustCallSuper
   @override
   void redraw([callback()]) {
     _isDirty = true;
@@ -168,8 +169,10 @@ abstract class BuiltReduxUiComponent<
   /// Whether the component should be a "pure" component.
   ///
   /// A "pure" component will only re-render when [connectedState] is updated or [redraw] is called directly.
+  /// To enable this functionality, override this getter in a subclass to return `true`. When set to true it
+  /// is not recommended to override [redraw] or [shouldComponentUpdate].
   ///
-  /// Related: [shouldComponentUpdate]
+  /// Related: [shouldComponentUpdate], [redraw]
   bool get isPure => false;
 
   StreamSubscription _storeSub;

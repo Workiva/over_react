@@ -13,6 +13,11 @@ class TestPureComponent extends BuiltReduxUiComponent<BaseState, BaseStateBuilde
   int numberOfRedraws = 0;
 
   @override
+  void componentDidUpdate(Map prevProps, Map prevState) {
+    numberOfRedraws++;
+  }
+
+  @override
   bool get isPure => true;
 
   @override
@@ -20,10 +25,4 @@ class TestPureComponent extends BuiltReduxUiComponent<BaseState, BaseStateBuilde
 
   @override
   render() => Dom.div()();
-
-  @override
-  void setState(_, [callback()]) {
-    numberOfRedraws++;
-    if (callback != null) callback();
-  }
 }
