@@ -166,22 +166,6 @@ void main() {
 
         expect(component.numberOfRedraws, 1);
       });
-
-      test('when calling redraw', () {
-        var store = new Store<BaseState, BaseStateBuilder, BaseActions>(
-          baseReducerBuilder.build(),
-          baseState,
-          baseActions,
-        );
-        var jacket = mount<TestPureComponent>((TestPure()..store = store)());
-        TestPureComponent component = jacket.getDartInstance();
-
-        expect(component.numberOfRedraws, 0);
-
-        component.redraw();
-
-        expect(component.numberOfRedraws, 1);
-      });
     });
 
     test('updates subscriptions when new props are passed', () async {
