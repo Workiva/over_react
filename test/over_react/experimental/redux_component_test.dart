@@ -14,6 +14,7 @@ import 'redux_component_test/test_reducer.dart';
 
 part 'redux_component_test/default.dart';
 part 'redux_component_test/connect.dart';
+part 'redux_component_test/pure.dart';
 
 void main() {
   ReducerBuilder<BaseState, BaseStateBuilder> baseReducerBuilder;
@@ -95,6 +96,78 @@ void main() {
       expect(component.numberOfRedraws, 1);
     });
 
+    group('properly redraws when isPure is true', () {
+      test('when an action is triggered', () async {
+        var store = new Store<BaseState, BaseStateBuilder, BaseActions>(
+          baseReducerBuilder.build(),
+          baseState,
+          baseActions,
+        );
+        var jacket = mount<TestPureComponent>((TestPure()..store = store)());
+        TestPureComponent component = jacket.getDartInstance();
+
+        store.actions.trigger1();
+        await new Future.delayed(Duration.ZERO);
+        expect(component.numberOfRedraws, 1);
+      });
+
+      test('by not redrawing when other props change', () async {
+        var store = new Store<BaseState, BaseStateBuilder, BaseActions>(
+          baseReducerBuilder.build(),
+          baseState,
+          baseActions,
+        );
+        var jacket = mount<TestPureComponent>((TestPure()..store = store)());
+        TestPureComponent component = jacket.getDartInstance();
+
+        expect(component.numberOfRedraws, 0);
+
+        jacket.rerender((TestPure()
+          ..store = store
+          ..id = 'new id'
+        )());
+
+        expect(component.numberOfRedraws, 0);
+      });
+
+      test('by redrawing when store changes', () async {
+        var store = new Store<BaseState, BaseStateBuilder, BaseActions>(
+          baseReducerBuilder.build(),
+          baseState,
+          baseActions,
+        );
+        var updatedStore = new Store<BaseState, BaseStateBuilder, BaseActions>(
+          baseReducerBuilder.build(),
+          new BaseState(),
+          new BaseActions(),
+        );
+        var jacket = mount<TestPureComponent>((TestPure()..store = store)());
+        TestPureComponent component = jacket.getDartInstance();
+
+        expect(component.numberOfRedraws, 0);
+
+        jacket.rerender((TestPure()..store = updatedStore)());
+
+        expect(component.numberOfRedraws, 1);
+      });
+
+      test('when calling redraw', () {
+        var store = new Store<BaseState, BaseStateBuilder, BaseActions>(
+          baseReducerBuilder.build(),
+          baseState,
+          baseActions,
+        );
+        var jacket = mount<TestPureComponent>((TestPure()..store = store)());
+        TestPureComponent component = jacket.getDartInstance();
+
+        expect(component.numberOfRedraws, 0);
+
+        component.redraw();
+
+        expect(component.numberOfRedraws, 1);
+      });
+    });
+
     test('updates subscriptions when new props are passed', () async {
       var store = new Store<BaseState, BaseStateBuilder, BaseActions>(
         baseReducerBuilder.build(),
@@ -115,9 +188,11 @@ void main() {
 
       jacket.rerender((TestDefault()..store = updatedStore)());
 
+      expect(component.numberOfRedraws, 2);
+
       updatedStore.actions.trigger1();
       await new Future.delayed(Duration.ZERO);
-      expect(component.numberOfRedraws, 2);
+      expect(component.numberOfRedraws, 3);
     });
   });
 }

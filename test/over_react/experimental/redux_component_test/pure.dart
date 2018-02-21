@@ -3,19 +3,22 @@
 part of over_react.component_declaration.redux_component_test;
 
 @Factory()
-UiFactory<TestDefaultProps> TestDefault;
+UiFactory<TestPureProps> TestPure;
 
 @Props()
-class TestDefaultProps extends BuiltReduxUiProps<BaseState, BaseStateBuilder, BaseActions> {}
+class TestPureProps extends BuiltReduxUiProps<BaseState, BaseStateBuilder, BaseActions> {}
 
 @Component()
-class TestDefaultComponent extends BuiltReduxUiComponent<BaseState, BaseStateBuilder, BaseActions, TestDefaultProps, BaseState> {
+class TestPureComponent extends BuiltReduxUiComponent<BaseState, BaseStateBuilder, BaseActions, TestPureProps, BaseState> {
   int numberOfRedraws = 0;
 
   @override
   void componentDidUpdate(Map prevProps, Map prevState) {
     numberOfRedraws++;
   }
+
+  @override
+  bool get isPure => true;
 
   @override
   BaseState connect(BaseState state) => state;

@@ -61,6 +61,7 @@ abstract class BuiltReduxUiComponent<
   @override
   void componentWillMount() {
     super.componentWillMount();
+    _isDirty = false;
     _setUpSub();
   }
 
@@ -68,14 +69,20 @@ abstract class BuiltReduxUiComponent<
   @override
   void componentWillReceiveProps(Map nextProps) {
     super.componentWillReceiveProps(nextProps);
-    _tearDownSub();
+    var tNextProps = typedPropsFactory(nextProps);
+
+    if (tNextProps.store != props.store) {
+      _tearDownSub();
+      _setUpSub(nextProps);
+    }
   }
 
   @mustCallSuper
   @override
-  void componentWillUpdate(Map nextProps, Map nextState) {
-    // _storeSub will only be null when props get updated, not on every re-render.
-    if (_storeSub == null) _setUpSub(nextProps);
+  bool shouldComponentUpdate(Map nextProps, Map nextState) {
+    if (isPure) return _isDirty || typedPropsFactory(nextProps).store != props.store;
+
+    return true;
   }
 
   @mustCallSuper
@@ -84,6 +91,20 @@ abstract class BuiltReduxUiComponent<
     super.componentWillUnmount();
     _tearDownSub();
   }
+
+  @mustCallSuper
+  @override
+  void redraw([callback()]) {
+    _isDirty = true;
+
+    super.redraw(() {
+      _isDirty = false;
+
+      if (callback != null) callback();
+    });
+  }
+
+  bool _isDirty;
 
   Substate _connectedState;
 
@@ -144,6 +165,15 @@ abstract class BuiltReduxUiComponent<
   ///
   /// Related: [connectedState]
   Substate connect(V state);
+
+  /// Whether the component should be a "pure" component.
+  ///
+  /// A "pure" component will only re-render when [connectedState] is updated or [redraw] is called directly.
+  /// To enable this functionality, override this getter in a subclass to return `true`. When set to true it
+  /// is not recommended to override [redraw] or [shouldComponentUpdate].
+  ///
+  /// Related: [shouldComponentUpdate], [redraw]
+  bool get isPure => false;
 
   StreamSubscription _storeSub;
 
