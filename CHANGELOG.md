@@ -1,5 +1,19 @@
 # OverReact Changelog
 
+## 1.21.0
+
+> [Complete `1.21.0` Changeset](https://github.com/Workiva/over_react/compare/1.20.2...1.21.0)
+
+__New Features__
+* [#140]: Add an option to make `BuiltReduxUiComponent` "pure"
+
+## 1.20.2
+
+> [Complete `1.20.2` Changeset](https://github.com/Workiva/over_react/compare/1.20.1...1.20.2)
+
+__Tech Debt__
+* [#137]: Get rid of dart2js compiler warnings
+
 ## 1.20.1
 
 > [Complete `1.20.1` Changeset](https://github.com/Workiva/over_react/compare/1.20.0...1.20.1)
