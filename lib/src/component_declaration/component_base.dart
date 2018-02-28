@@ -197,17 +197,15 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
 
   /// Validates that props with the `@requiredProp` annotation are present.
   void validateRequiredProps(Map appliedProps) {
-    if (inReactDevMode) {
-      consumedProps?.forEach((ConsumedProps consumedProps) {
-        consumedProps.props.forEach((PropDescriptor prop) {
-          if (!prop.isRequired) return;
-          if (prop.isNullable && appliedProps.containsKey(prop.key)) return;
-          if (!prop.isNullable && appliedProps[prop.key] != null) return;
+    consumedProps?.forEach((ConsumedProps consumedProps) {
+      consumedProps.props.forEach((PropDescriptor prop) {
+        if (!prop.isRequired) return;
+        if (prop.isNullable && appliedProps.containsKey(prop.key)) return;
+        if (!prop.isNullable && appliedProps[prop.key] != null) return;
 
-          throw new PropError.required(prop.key, prop.errorMessage);
-        });
+        throw new PropError.required(prop.key, prop.errorMessage);
       });
-    }
+    });
   }
 
   /// Returns a new ClassNameBuilder with className and blacklist values added from [CssClassPropsMixin.className] and
