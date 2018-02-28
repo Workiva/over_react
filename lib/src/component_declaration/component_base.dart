@@ -195,6 +195,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
     validateRequiredProps(appliedProps);
   }
 
+  /// Validates that props with the `@requiredProp` annotation are present.
   void validateRequiredProps(Map appliedProps) {
     consumedProps?.forEach((ConsumedProps consumedProps) {
       consumedProps.props.forEach((PropDescriptor prop) {
@@ -220,13 +221,17 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
   @override
   @mustCallSuper
   void componentWillReceiveProps(Map nextProps) {
-    validateProps(nextProps);
+    if (inReactDevMode) {
+      validateProps(nextProps);
+    }
   }
 
   @override
   @mustCallSuper
   void componentWillMount() {
-    validateProps(props);
+    if (inReactDevMode) {
+      validateProps(props);
+    }
   }
 
   @override
