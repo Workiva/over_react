@@ -1,5 +1,12 @@
 # OverReact Changelog
 
+## 1.22.0
+
+> [Complete `1.22.0` Changeset](https://github.com/Workiva/over_react/compare/1.21.0...1.22.0)
+
+__New Features__
+* [#142]: Do not execute prop validation logic in dart2js code
+
 ## 1.21.0
 
 > [Complete `1.21.0` Changeset](https://github.com/Workiva/over_react/compare/1.20.2...1.21.0)
