@@ -1,4 +1,4 @@
-// Copyright 2017 Workiva Inc.
+// Copyright 2018 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library over_react.experimental.redux_component;
+library over_react.redux_component;
 
 import 'dart:async';
 
@@ -24,8 +24,9 @@ import 'package:over_react/over_react.dart';
 /// Builds on top of [UiProps], adding typed props for [Store] in order to integrate with `built_redux`.
 ///
 /// Use with the over_react transformer via the `@Props()` ([annotations.Props]) annotation.
-@experimental
-@deprecated
+///
+/// __Warning:__ This will be deprecated in an upcoming release in favor of a different approach to
+/// creating a `built_redux` component.
 abstract class BuiltReduxUiProps<V extends Built<V, B>, B extends Builder<V, B>,
     A extends ReduxActions> extends UiProps {
   String get _storePropKey => '${propKeyNamespace}store';
@@ -49,8 +50,9 @@ abstract class BuiltReduxUiProps<V extends Built<V, B>, B extends Builder<V, B>,
 /// __Note:__ [Substate] must be a comparable object to avoid unnecessary redraws,
 /// it is reccomended that [Substate] either be a primitive, built_value, build_collection or an Object
 /// that overrides `==`.
-@experimental
-@deprecated
+///
+/// __Warning:__ This will be deprecated in an upcoming release in favor of a different approach to
+/// creating a `built_redux` component.
 abstract class BuiltReduxUiComponent<
         V extends Built<V, B>,
         B extends Builder<V, B>,
