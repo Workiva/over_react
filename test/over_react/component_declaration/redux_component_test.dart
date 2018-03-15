@@ -5,8 +5,6 @@ import 'dart:async';
 import 'package:test/test.dart';
 import 'package:built_redux/built_redux.dart';
 import 'package:over_react/over_react.dart';
-// ignore: deprecated_member_use
-import 'package:over_react/experimental.dart';
 
 import '../../test_util/test_util.dart';
 
