@@ -1,5 +1,16 @@
 # OverReact Changelog
 
+## 1.23.0
+
+> [Complete `1.23.0` Changeset](https://github.com/Workiva/over_react/compare/1.22.0...1.23.0)
+
+__Dependency Updates__
+* [#145]: Widen built_value version constraint: now `>=4.2.0 <6.0.0`, was `^4.2.0`
+
+__New Features__ 
+* [#144]: Move `BuiltReduxUiComponent`/`BuiltReduxUiProps` out of @experimental
+    * __Warning:__ This will be deprecated in an upcoming release in favor of a different approach to creating a `built_redux` component.
+
 ## 1.22.0
 
 > [Complete `1.22.0` Changeset](https://github.com/Workiva/over_react/compare/1.21.0...1.22.0)
