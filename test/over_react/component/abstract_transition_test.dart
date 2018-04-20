@@ -745,7 +745,7 @@ class TransitionerComponent extends AbstractTransitionComponent<TransitionerProp
   List<TransitionPhase> transitionPhasesSet = [];
 
   @override
-  void setState(dynamic newState, [callback()]) {
+  void setState(dynamic newState, [Function callback]) {
     super.setState(newState, callback);
     transitionPhasesSet.add(newState.transitionPhase);
   }

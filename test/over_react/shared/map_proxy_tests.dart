@@ -50,12 +50,12 @@ void mapProxyTests(Map mapProxyFactory(Map proxiedMap)) {
       var testMap = {};
       when(mock.addAll(any)).thenReturn('value');
 
-      expect(proxy.addAll(testMap), isNull);
+      expect(() => proxy.addAll(testMap), isNull);
       verify(mock.addAll(argThat(same(testMap))));
     });
 
     test('clear', () {
-      expect(proxy.clear(), isNull);
+      expect(() => proxy.clear(), isNull);
       verify(mock.clear());
     });
 
@@ -83,7 +83,7 @@ void mapProxyTests(Map mapProxyFactory(Map proxiedMap)) {
     test('forEach', () {
       var callback = (key, value) {};
 
-      expect(proxy.forEach(callback), isNull);
+      expect(() => proxy.forEach(callback), isNull);
       verify(mock.forEach(callback));
     });
 

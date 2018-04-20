@@ -96,7 +96,7 @@ abstract class BuiltReduxUiComponent<
 
   @mustCallSuper
   @override
-  void redraw([callback()]) {
+  void redraw([Function callback]) {
     _isDirty = true;
 
     super.redraw(() {

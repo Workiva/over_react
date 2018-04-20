@@ -250,6 +250,7 @@ main() {
         });
       });
 
+      // TODO: The typing for `customFactory` is an analyzer error in Dart 2 (dev.49), is this DDC workaround + test still necessary or can it be removed?
       test('invokes a non-ReactComponentFactoryProxy componentFactory function properly when invoked', () {
         final ReactElement expectedReturnValue = Dom.div()();
         const expectedProps = const {'testProp': 'testValue'};
@@ -973,7 +974,7 @@ dynamic getDartChildren(var renderedInstance) {
 UiFactory<TestComponentProps> TestComponent = ([Map props]) => new TestComponentProps(props);
 
 class TestComponentProps extends UiProps {
-  @override final Function componentFactory = _TestComponentComponentFactory;
+  @override final ReactComponentFactoryProxy componentFactory = _TestComponentComponentFactory;
   @override final Map props;
 
   TestComponentProps([Map props]) : this.props = props ?? ({});
@@ -1004,7 +1005,7 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
 UiFactory<TestStatefulComponentProps> TestStatefulComponent = ([Map props]) => new TestStatefulComponentProps(props);
 
 class TestStatefulComponentProps extends UiProps {
-  @override final Function componentFactory = _TestStatefulComponentComponentFactory;
+  @override final ReactComponentFactoryProxy componentFactory = _TestStatefulComponentComponentFactory;
   @override final Map props;
 
   TestStatefulComponentProps([Map props]) : this.props = props ?? ({});
@@ -1045,7 +1046,7 @@ class TestStateMapViewMixin extends MapBase with MapViewMixin, StateMapViewMixin
 
 class TestUiPropsWithCustomComponentFactory extends UiProps {
   @override
-  Function componentFactory;
+  ReactComponentFactoryProxy componentFactory;
 
   @override
   final Map props = {};

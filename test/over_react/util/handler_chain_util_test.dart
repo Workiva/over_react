@@ -292,4 +292,4 @@ class _Unspecified {
 }
 const _Unspecified unspecified = const _Unspecified();
 
-class TestGenericType {}
+class TestGenericType implements Function {}

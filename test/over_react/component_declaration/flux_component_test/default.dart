@@ -14,7 +14,7 @@ class TestDefaultComponent extends FluxUiComponent {
   render() => Dom.div()();
 
   @override
-  void setState(_, [callback()]) {
+  void setState(_, [Function callback]) {
     numberOfRedraws++;
     if (callback != null) callback();
   }
