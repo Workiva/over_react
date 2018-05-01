@@ -1,5 +1,22 @@
 # OverReact Changelog
 
+## 1.23.1
+
+> [Complete `1.23.1` Changeset](https://github.com/Workiva/over_react/compare/1.23.0...1.23.1)
+
+__Dependency Updates__
+* [#149]: Dependency Maintenance:
+    * __Dart SDK__ now `>=1.24.2 <2.0.0`, was `>=1.24.2`
+    * Dependencies:
+        * __analyzer__ now `>=0.30.0 <=0.31.0`, was `>=0.30.0 <0.31.0`
+        * __barback__ now `>=0.15.2 <=0.15.2+14`, was `^0.15.0`
+        * __quiver__ now `>=0.21.4 <=0.28.0`, was `>=0.21.4 <0.26.0`
+    * Dev Dependencies:
+        * __coverage__ now `>=0.7.2 <0.11.0`, was `^0.7.2`
+        * __dependency_validator__ now `^1.1.0`, was `^1.0.0`
+        * __mockito__ now `^2.0.0`, was `^0.11.0`
+        * __test__ now `^0.12.32+1`, was `^0.12.24`
+
 ## 1.23.0
 
 > [Complete `1.23.0` Changeset](https://github.com/Workiva/over_react/compare/1.22.0...1.23.0)
