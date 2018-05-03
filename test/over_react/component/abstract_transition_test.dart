@@ -17,6 +17,7 @@ library abstract_transition_test;
 import 'dart:async';
 import 'dart:html';
 
+import 'package:dart2_constant/core.dart' as d2c;
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react_test/over_react_test.dart';
@@ -59,7 +60,7 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
 
-          await new Future.delayed(Duration.ZERO);
+          await new Future.delayed(d2c.Duration.zero);
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING),
               reason: 'should still be waiting for a transition event');
 
@@ -91,7 +92,7 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING));
 
-          await new Future.delayed(Duration.ZERO);
+          await new Future.delayed(d2c.Duration.zero);
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING),
               reason: 'should still be waiting for a transition event');
 
@@ -126,7 +127,7 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
 
-          await new Future.delayed(Duration.ZERO);
+          await new Future.delayed(d2c.Duration.zero);
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING),
               reason: 'should still be waiting for a transition event');
 
@@ -138,7 +139,7 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING));
 
-          await new Future.delayed(Duration.ZERO);
+          await new Future.delayed(d2c.Duration.zero);
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING),
               reason: 'should still be waiting for a transition event');
 
@@ -178,7 +179,7 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING));
 
-          await new Future.delayed(Duration.ZERO);
+          await new Future.delayed(d2c.Duration.zero);
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING),
               reason: 'should still be waiting for a transition event');
 
@@ -223,7 +224,7 @@ main() {
             expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING));
 
             for (var i = 0; i < expectedTransitionInCount; i++) {
-              await new Future.delayed(Duration.ZERO);
+              await new Future.delayed(d2c.Duration.zero);
               expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING),
                   reason: 'should still be waiting for a transition event');
 
@@ -239,7 +240,7 @@ main() {
             expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
 
             for (var i = 0; i < expectedTransitionOutCount; i++) {
-              await new Future.delayed(Duration.ZERO);
+              await new Future.delayed(d2c.Duration.zero);
               expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING),
                   reason: 'should still be waiting for a transition event');
 
@@ -505,7 +506,7 @@ main() {
 
         expect(transitioner.state.transitionPhase, TransitionPhase.HIDING);
 
-        await new Future.delayed(Duration.ZERO);
+        await new Future.delayed(d2c.Duration.zero);
 
         expect(transitioner.state.transitionPhase, TransitionPhase.HIDDEN);
 

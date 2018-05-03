@@ -15,6 +15,7 @@
 library over_react.component_declaration.component_base;
 
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart' show
@@ -433,7 +434,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 ///
 /// > Note: Implements MapViewMixin instead of extending it so that the abstract state declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
-abstract class UiState extends Object implements StateMapViewMixin, MapViewMixin, Map {
+abstract class UiState extends MapBase implements StateMapViewMixin, MapViewMixin, Map {
   // Manually implement members from `StateMapViewMixin`,
   // since mixing that class in doesn't play well with the DDC.
   // TODO find out root cause and reduced test case.
@@ -614,22 +615,15 @@ abstract class UiProps extends Object
   @override
   dynamic noSuchMethod(Invocation invocation) {
     if (invocation.memberName == #call && invocation.isMethod) {
-      assert(() {
-        // These checks are within the assert so they are not done in production.
-        var children = invocation.positionalArguments;
-
-        if (children.length == 1) {
-          children = children.single;
-        }
-
-        return _validateChildren(children);
-      });
+      final positionalArguments = invocation.positionalArguments;
+      assert(_validateChildren(positionalArguments.length == 1 ? positionalArguments.single : positionalArguments));
 
       final factory = componentFactory;
       if (factory is ReactComponentFactoryProxy) {
         // Use `build` instead of using emulated function behavior to work around DDC issue
         // https://github.com/dart-lang/sdk/issues/29904
         // Should have the benefit of better performance; TODO optimize type check?
+        // ignore: avoid_as
         return factory.build(props, invocation.positionalArguments);
       } else {
         var parameters = []
