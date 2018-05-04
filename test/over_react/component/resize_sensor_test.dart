@@ -21,7 +21,7 @@ import 'dart:html';
 import 'package:platform_detect/platform_detect.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react_test/over_react_test.dart';
-import 'package:react/react_dom.dart' as react_dom;
+import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:test/test.dart';
 
 void main() {
