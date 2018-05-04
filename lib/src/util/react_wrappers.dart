@@ -62,7 +62,7 @@ dynamic getInstanceKey(ReactElement instance) => instance.key;
 dynamic getInstanceRef(ReactElement instance) => instance.ref;
 
 /// Returns whether an [instance] is a native Dart component (react-dart [ReactElement] or [ReactComponent]).
-bool isDartComponent(/* ReactElement|ReactComponent */ instance) {
+bool isDartComponent(/* ReactElement|ReactComponent|Element */ instance) {
   // Don't try to access internal on a DOM component
   if (instance is Element) {
     return false;
@@ -273,10 +273,10 @@ ReactElement cloneElement(ReactElement element, [Map props, Iterable children]) 
   }
 }
 
-/// Returns the native Dart [ReactComponent.dartComponent] if [instance] is a [ReactComponent].
+/// Returns the native Dart component associated with a mounted component [instance].
 ///
 /// Returns `null` if the [instance] is not Dart-based _(an [Element] or a JS composite component)_.
-react.Component getDartComponent(/* ReactElement|ReactComponent */ instance) {
+react.Component getDartComponent(/* ReactElement|ReactComponent|Element */ instance) {
   if (instance is Element) {
     return null;
   }
