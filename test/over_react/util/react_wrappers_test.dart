@@ -440,8 +440,13 @@ main() {
         expect(getDartComponent(renderedInstance), isNull);
       });
 
+      test('returns null for a ReactElement', () {
+        ReactElement instance = Wrapper()();
+        expect(getDartComponent(instance), isNull);
+      });
+
       group('', () {
-        final messageMatcher = contains('react-dart 4.0 will no longer support retrieving Dart components from');
+        final messageMatcher = contains('react-dart 4.0 no longer supports retrieving Dart components');
 
         test('warns when passed a ReactElement', () {
           ReactElement instance = Wrapper()();

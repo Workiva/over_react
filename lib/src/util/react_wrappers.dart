@@ -62,7 +62,7 @@ dynamic getInstanceKey(ReactElement instance) => instance.key;
 dynamic getInstanceRef(ReactElement instance) => instance.ref;
 
 /// Returns whether an [instance] is a native Dart component (react-dart [ReactElement] or [ReactComponent]).
-bool isDartComponent(/* [1] */ instance) {
+bool isDartComponent(/* ReactElement|ReactComponent */ instance) {
   // Don't try to access internal on a DOM component
   if (instance is Element) {
     return false;
@@ -273,9 +273,10 @@ ReactElement cloneElement(ReactElement element, [Map props, Iterable children]) 
   }
 }
 
-/// Returns the native Dart [ReactDartComponentInternal.component] associated with a [ReactComponent]
-/// [instance], or `null` if the component is not Dart-based _(an [Element] or a JS composite component)_.
-react.Component getDartComponent(/* [1] */ instance) {
+/// Returns the native Dart [ReactComponent.dartComponent] if [instance] is a [ReactComponent].
+///
+/// Returns `null` if the [instance] is not Dart-based _(an [Element] or a JS composite component)_.
+react.Component getDartComponent(/* ReactElement|ReactComponent */ instance) {
   if (instance is Element) {
     return null;
   }
@@ -289,12 +290,12 @@ react.Component getDartComponent(/* [1] */ instance) {
           * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
           * WARNING: `getDartComponent`                                                                                                       
           *                                                                                            
-          * react-dart 4.0 will no longer support retrieving Dart components from                                                                                           
+          * react-dart 4.0 no longer supports retrieving Dart components from                                                                                           
           * `ReactElement` (pre-mounted VDOM instances) in order to prevent memory leaks.                                                                                            
           *                                                                                            
-          * In react-dart 4.0, this call to `getDartComponent` will return `null`.                                                                                           
+          * This call to `getDartComponent` will return `null`.                                                                                           
           *                                                                                            
-          * Please switch over to using the mounted JS component instance.                                                                                           
+          * Start using the mounted JS component instance instead:                                                                                           
           *                                                                                            
           * Example:                                                                                           
           *     // Before                                                                                           
@@ -314,7 +315,8 @@ react.Component getDartComponent(/* [1] */ instance) {
     return true;
   });
 
-  return _getInternal(instance)?.component;
+  // ignore: avoid_as
+  return (instance as ReactComponent).dartComponent;
 }
 
 /// A function that, when supplied as [ReactPropsMixin.ref], is called with the component instance
@@ -400,7 +402,7 @@ final Function _get$R = () {
 /// Returns a reference to the currently selected component in the
 /// [React Dev Tools](https://github.com/facebook/react-devtools).
 ///
-/// Returns the associated [react.Component] for Dart components or the [ReactComponent]
+/// Returns the associated [ReactComponent.dartComponent] for Dart components or the [ReactComponent]
 /// for JS components.
 ///
 /// To use in Dartium, over_react must be imported in the current context.
@@ -408,6 +410,7 @@ dynamic get $r {
   var component = _get$R();
 
   return isDartComponent(component)
-      ? component.props.internal.component
+      // ignore: avoid_as
+      ? (component as ReactComponent).dartComponent
       : component;
 }
