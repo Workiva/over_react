@@ -91,10 +91,15 @@ main() {
       });
     });
 
-    test('returns null when null is provided', () {
-      renderedInstance = react_dom.render(null, mountNode);
+    group('throws', () {
+      test('when `element` is `null`', () {
+        expect(() => react_dom.render(null, mountNode), throwsA(anything));
+        expect(mountNode.children, isEmpty);
+      });
 
-      expect(mountNode.children, isEmpty);
+      test('when `mountNode` is `null`', () {
+        expect(() => react_dom.render(Dom.div()('oh hai'), null), throwsA(anything));
+      });
     });
   });
 }

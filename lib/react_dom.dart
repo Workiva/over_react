@@ -44,8 +44,6 @@ import 'package:react/react_dom.dart' as react_dom show render, unmountComponent
 ///
 /// > Proxies [react_dom.render].
 dynamic render(ReactElement vDomComponent, Element mountNode) {
-  if (vDomComponent == null) return null;
-
   return react_dom.render(vDomComponent, mountNode);
 }
 
