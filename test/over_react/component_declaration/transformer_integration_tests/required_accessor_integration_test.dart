@@ -17,7 +17,7 @@ library over_react.component_declaration.transformer_integration_tests.required_
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
-import 'package:react/react_dom.dart' as react_dom;
+import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:test/test.dart';
 
 import '../../../test_util/test_util.dart';

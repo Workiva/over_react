@@ -40,6 +40,7 @@ main(List<String> args) async {
       'test/vm_tests/',
       'test/over_react_component_declaration_test.dart',
       'test/over_react_component_test.dart',
+      'test/over_react_dom_test.dart',
       'test/over_react_util_test.dart',
     ]
     ..integrationTests = [
