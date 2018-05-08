@@ -56,7 +56,7 @@ Map getPropsToForward(Map props, {
   }
 
   if (onlyCopyDomProps) {
-    new List.from(propsToForward.keys).forEach((String key) {
+    new List<String>.from(propsToForward.keys).forEach((String key) {
       if (key.startsWith('aria-')) return;
       if (key.startsWith('data-')) return;
       if (_validDomProps.contains(key)) return;

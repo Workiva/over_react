@@ -15,6 +15,7 @@
 library over_react.component_declaration.component_base;
 
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart' show
@@ -135,7 +136,7 @@ typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 ///     }
 ///
 /// > Related: [UiStatefulComponent]
-abstract class UiComponent<TProps extends UiProps> extends react.Component implements DisposableManagerV6 {
+abstract class UiComponent<TProps extends UiProps> extends react.Component implements DisposableManagerV7 {
   Disposable _disposableProxy;
 
   /// The props for the non-forwarding props defined in this component.
@@ -286,7 +287,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
 
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
-  //   BEGIN DisposableManagerV3 interface implementation
+  //   BEGIN DisposableManagerV7 interface implementation
   //
 
   @override
@@ -344,7 +345,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
     _getDisposableProxy().manageStreamSubscription(subscription);
 
   /// Instantiates a new [Disposable] instance on the first call to the
-  /// [DisposableManagerV6] method.
+  /// [DisposableManagerV7] method.
   Disposable _getDisposableProxy() {
     if (_disposableProxy == null) {
       _disposableProxy = new Disposable();
@@ -352,8 +353,35 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
     return _disposableProxy;
   }
 
+  /// Automatically dispose another object when this object is disposed.
+  ///
+  /// This method is an extension to `manageAndReturnDisposable` and returns the
+  /// passed in [Disposable] as its original type in addition to handling its
+  /// disposal. The method should be used when a variable is set and should
+  /// conditionally be managed for disposal. The most common case will be dealing
+  /// with optional parameters:
+  ///
+  ///      class MyDisposable extends Disposable {
+  ///        // This object also extends disposable
+  ///        MyObject _internal;
+  ///
+  ///        MyDisposable({MyObject optional}) {
+  ///          // If optional is injected, we should not manage it.
+  ///          // If we create our own internal reference we should manage it.
+  ///          _internal = optional ??
+  ///              manageAndReturnTypedDisposable(new MyObject());
+  ///        }
+  ///
+  ///        // ...
+  ///      }
+  ///
+  /// The parameter may not be `null`.
+  @override
+  T manageAndReturnTypedDisposable<T extends Disposable>(T disposable) =>
+      _disposableProxy.manageAndReturnTypedDisposable(disposable);
+
   //
-  //   END DisposableManagerV3 interface implementation
+  //   END DisposableManagerV7 interface implementation
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
 }
@@ -431,9 +459,9 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 
 /// A `dart.collection.MapView`-like class with strongly-typed getters/setters for React state.
 ///
-/// > Note: Implements MapViewMixin instead of extending it so that the abstract state declarations
+/// > Note: Implements [MapViewMixin] instead of extending it so that the abstract state declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
-abstract class UiState extends Object implements StateMapViewMixin, MapViewMixin, Map {
+abstract class UiState extends MapBase implements StateMapViewMixin, MapViewMixin, Map {
   // Manually implement members from `StateMapViewMixin`,
   // since mixing that class in doesn't play well with the DDC.
   // TODO find out root cause and reduced test case.
@@ -473,9 +501,9 @@ typedef PropsModifier(Map props);
 /// For use as a typed view into existing props [Map]s, or as a builder to create new component
 /// instances via a fluent-style interface.
 ///
-/// > Note: Implements MapViewMixin instead of extending it so that the abstract [Props] declarations
+/// > Note: Implements [MapViewMixin] instead of extending it so that the abstract [Props] declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
-abstract class UiProps extends Object
+abstract class UiProps extends MapBase
     with ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
     implements PropsMapViewMixin, MapViewMixin, Map {
 
@@ -614,22 +642,15 @@ abstract class UiProps extends Object
   @override
   dynamic noSuchMethod(Invocation invocation) {
     if (invocation.memberName == #call && invocation.isMethod) {
-      assert(() {
-        // These checks are within the assert so they are not done in production.
-        var children = invocation.positionalArguments;
-
-        if (children.length == 1) {
-          children = children.single;
-        }
-
-        return _validateChildren(children);
-      });
+      final positionalArguments = invocation.positionalArguments;
+      assert(_validateChildren(positionalArguments.length == 1 ? positionalArguments.single : positionalArguments));
 
       final factory = componentFactory;
       if (factory is ReactComponentFactoryProxy) {
         // Use `build` instead of using emulated function behavior to work around DDC issue
         // https://github.com/dart-lang/sdk/issues/29904
         // Should have the benefit of better performance; TODO optimize type check?
+        // ignore: avoid_as
         return factory.build(props, invocation.positionalArguments);
       } else {
         var parameters = []
