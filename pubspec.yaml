@@ -11,7 +11,7 @@ dependencies:
   analyzer: ">=0.30.0 <=0.31.0"
   barback: ">=0.15.2 <=0.15.2+14"
   built_redux: ^7.4.1
-  built_value: ">=4.2.0 <6.0.0"
+  built_value: ">=4.2.0 <5.2.0" # >=5.2.0 is Dart 2 SDK only
   js: ^0.6.0
   logging: ">=0.11.3+1 <1.0.0"
   meta: ^1.0.4
