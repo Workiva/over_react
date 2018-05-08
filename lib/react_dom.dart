@@ -30,27 +30,31 @@ import 'dart:html';
 import 'package:over_react/over_react.dart';
 import 'package:react/react_dom.dart' as react_dom show render, unmountComponentAtNode;
 
-/// Renders the provided [vDomComponent] into the DOM in the provided [mountNode]
+/// Renders the provided [element] into the DOM mounted in the provided [mountNode]
 /// and returns a reference to it based on its type:
 ///
-/// 1. Returns an [Element] if [vDomComponent] is a [Dom] component _(e.g. [Dom.div])_.
-/// 2. Returns a React `Component` if [vDomComponent] is a composite component.
-/// 3. Returns `null` if [vDomComponent] is null, or if [vDomComponent] is a stateless component.
+/// 1. Returns an [Element] if [element] is a DOM component _(e.g. [Dom.div])_.
+/// 2. Returns a React `Component` if [element] is a composite component.
 ///
-/// > If the [vDomComponent] was previously rendered into the [mountNode], this will perform an update on it and only
-///   mutate the DOM as necessary to reflect the latest React component.
+/// > __Throws__ if [element] or [mountNode] are `null`.
 ///
-/// > Use [unmountComponentAtNode] to unmount the instance.
+/// If the [element] was previously rendered into the [mountNode], this will perform an update on it and only
+/// mutate the DOM as necessary to reflect the latest React component.
+///
+/// Use [unmountComponentAtNode] to unmount the instance.
 ///
 /// > Proxies [react_dom.render].
-dynamic render(ReactElement vDomComponent, Element mountNode) {
-  return react_dom.render(vDomComponent, mountNode);
+dynamic render(ReactElement element, Element mountNode) {
+  return react_dom.render(element, mountNode);
 }
 
-/// Removes a React `Component` that was mounted via [render] from the DOM
+/// Removes a React `Component` from the DOM that was mounted via [render]
 /// and cleans up its event handlers and state.
 ///
-/// > Returns `false` if no `Component` was mounted in the [mountNode] specified via [render], otherwise returns `true`.
+/// * Returns `false` if a `Component` was not mounted in the [mountNode].
+/// * Returns `true` if a `Component` was mounted in the [mountNode].
+///
+/// > Proxies [react_dom.unmountComponentAtNode].
 bool unmountComponentAtNode(Element mountNode) {
   return react_dom.unmountComponentAtNode(mountNode);
 }
