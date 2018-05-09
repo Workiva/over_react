@@ -60,7 +60,7 @@ dependency_overrides:
   react:
     git:
       url: git@github.com:aaronlademann-wf/react-dart.git
-      ref: 71aa22ee67e68526f619a1b120d55a6b001721fc # from 5.0.0/AF-222
+      ref: b9001476bf133cff31183c23d2562daaa9b76486 # from 5.0.0/AF-222
   over_react_test:
     git:
       url: git@github.com:Workiva/over_react_test.git
