@@ -17,7 +17,7 @@ library over_react.component_declaration.transformer_integration_tests.component
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
-import './required_prop_integration_test.dart';
+import './required_prop_integration_tests.dart';
 import '../../../test_util/test_util.dart';
 
 main() {
@@ -111,7 +111,7 @@ main() {
       )());
 
       var shallowProps = getProps(shallowInstance);
-      Iterable<String> shallowPropKeys = shallowProps.keys;
+      Iterable<String> shallowPropKeys = shallowProps.keys.cast();
 
       expect(shallowPropKeys.where((String key) => !key.startsWith('data-prop-')), unorderedEquals(['extraneous', 'children']));
     });

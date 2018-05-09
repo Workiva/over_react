@@ -556,7 +556,7 @@ main() {
           // Have to use MutationObserver since setting the state to PRE_SHOWING
           // synchronously updates the state to SHOWING.
           var transitionAttrMutations = <List<String>>[];
-          var observer = new MutationObserver((records, observer) {
+          var observer = new MutationObserver((List<dynamic> records, observer) {
             for (var record in records) {
               if (record.attributeName != transitionPhaseTestAttr) continue;
               transitionAttrMutations.add([
