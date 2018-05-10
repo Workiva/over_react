@@ -1,4 +1,4 @@
-FROM drydock-prod.workiva.net/workiva/smithy-runner-generator:179735 as build
+FROM drydock.workiva.net/workiva/smithy-runner-dart:1275313 as build
 
 # Build Environment Vars
 ARG BUILD_ID
