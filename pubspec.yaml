@@ -59,10 +59,10 @@ transformers:
 dependency_overrides:
   react:
     git:
-      url: git@github.com:aaronlademann-wf/react-dart.git
+      url: https://github.com/aaronlademann-wf/react-dart.git
       ref: b9001476bf133cff31183c23d2562daaa9b76486 # from 5.0.0/AF-222
   over_react_test:
     git:
-      url: git@github.com:Workiva/over_react_test.git
+      url: https://github.com/Workiva/over_react_test.git
       ref: 4d23297dcd7dc482368fb5aac65b9c0560719350 # from dart2_prep
 
