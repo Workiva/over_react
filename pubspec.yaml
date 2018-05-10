@@ -8,9 +8,9 @@ authors:
 environment:
   sdk: '>=2.0.0-dev.0 <=2.0.0-dev.49.0'
 dependencies:
-  analyzer: ">=0.30.0 <0.32.0"
+  analyzer: ^0.31.1
   barback: ">=0.15.2 <=0.15.2+14"
-  built_redux: 7.4.0-dev
+  built_redux: 7.4.1-dev
   built_value: ^5.4.4
   js: ^0.6.0
   logging: ">=0.11.3+1 <1.0.0"
@@ -57,10 +57,14 @@ transformers:
 
 
 dependency_overrides:
+  transformer_utils:
+    git:
+      url: https://github.com/workiva/dart_transformer_utils.git
+      ref: dart2
   react:
     git:
       url: https://github.com/aaronlademann-wf/react-dart.git
-      ref: b9001476bf133cff31183c23d2562daaa9b76486 # from 5.0.0/AF-222
+      ref: b507f88680301a22911c9db6f10d7e66ae5640ef # from 5.0.0/AF-222
   over_react_test:
     git:
       url: https://github.com/Workiva/over_react_test.git

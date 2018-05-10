@@ -46,8 +46,8 @@ case $TASK in
     cp .packages build/
     sed 's/over_react:lib/over_react:..\/lib/' build/.packages > build/.packages.tmp && mv build/.packages.tmp build/.packages
 
-    echo -e "pub run test -P ${COMPILER} -P travis --precompiled=build/"
-    pub pub run test -P ${COMPILER} -P unit -P travis --precompiled=build/
+    echo -e "pub run test --precompiled=build/ -P ${COMPILER} -P travis"
+    pub run test --precompiled=build/ -P ${COMPILER} -P unit -P travis
 
     ;;
 
@@ -66,8 +66,8 @@ case $TASK in
     cp .packages build/
     sed 's/over_react:lib/over_react:..\/lib/' build/.packages > build/.packages.tmp && mv build/.packages.tmp build/.packages
 
-    echo -e "pub run test -P ${COMPILER} -P integration -P travis --precompiled=build/"
-    pub run test -P ${COMPILER} -P integration -P travis --precompiled=build/
+    echo -e "pub run test --precompiled=build/ -P ${COMPILER} -P integration -P travis"
+    pub run test --precompiled=build/ -P ${COMPILER} -P integration -P travis
 
     ;;
 
