@@ -1,5 +1,19 @@
 # OverReact Changelog
 
+## 1.24.1
+
+> [Complete `1.24.1` Changeset](https://github.com/Workiva/over_react/compare/1.24.0...1.24.1)
+
+__Dependency Updates__
+
+* w_common `^1.10.0` (was `^1.8.0`)
+* react `^4.4.1` (was `^4.3.0`)
+
+__Tech Debt__
+
+* Address `ReactComponentFactory` deprecation
+* Address `findRenderedComponentWithType` deprecation
+
 ## 1.24.0
 
 > [Complete `1.24.0` Changeset](https://github.com/Workiva/over_react/compare/1.23.1...1.24.0)
