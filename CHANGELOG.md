@@ -8,6 +8,10 @@ __Dependency Updates__
 
 * w_common `^1.10.0` (was `^1.8.0`)
 
+__Tech Debt__
+
+* Address `ReactComponentFactory` deprecation
+
 ## 1.24.0
 
 > [Complete `1.24.0` Changeset](https://github.com/Workiva/over_react/compare/1.23.1...1.24.0)

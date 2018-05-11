@@ -979,7 +979,7 @@ class TestComponentProps extends UiProps {
   TestComponentProps([Map props]) : this.props = props ?? ({});
 }
 
-ReactComponentFactory _TestComponentComponentFactory = registerComponent(() => new TestComponentComponent());
+final _TestComponentComponentFactory = registerComponent(() => new TestComponentComponent());
 class TestComponentComponent extends UiComponent<TestComponentProps> {
   @override
   final List<ConsumedProps> consumedProps;
@@ -1016,7 +1016,7 @@ class TestStatefulComponentState extends UiState {
   TestStatefulComponentState([Map state]) : this.state = state ?? ({});
 }
 
-ReactComponentFactory _TestStatefulComponentComponentFactory = registerComponent(() => new TestStatefulComponentComponent());
+final _TestStatefulComponentComponentFactory = registerComponent(() => new TestStatefulComponentComponent());
 class TestStatefulComponentComponent extends UiStatefulComponent<TestStatefulComponentProps, TestStatefulComponentState> {
   @override
   render() {}

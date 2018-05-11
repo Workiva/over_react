@@ -1128,8 +1128,7 @@ main() {
 }
 
 /// Helper component for testing a Dart (react-dart) React component with cloneElement.
-final TestComponentFactory =
-    react.registerComponent(() => new TestComponent()) as ReactComponentFactory; // ignore: avoid_as
+final TestComponentFactory = react.registerComponent(() => new TestComponent());
 class TestComponent extends react.Component {
   @override
   render() => Dom.div()();
@@ -1148,8 +1147,7 @@ class PlainObjectStyleMap {
 }
 
 /// Helper component that renders whatever you tell it to. Necessary for rendering components with the 'ref' prop.
-final RenderingContainerComponentFactory =
-    react.registerComponent(() => new RenderingContainerComponent()) as ReactComponentFactory; // ignore: avoid_as
+final RenderingContainerComponentFactory = react.registerComponent(() => new RenderingContainerComponent());
 
 class RenderingContainerComponent extends react.Component {
   @override
