@@ -7,6 +7,7 @@
 __Dependency Updates__
 
 * w_common `^1.10.0` (was `^1.8.0`)
+* react `^4.4.1` (was `^4.3.0`)
 
 __Tech Debt__
 
