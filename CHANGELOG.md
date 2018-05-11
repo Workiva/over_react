@@ -11,6 +11,7 @@ __Dependency Updates__
 __Tech Debt__
 
 * Address `ReactComponentFactory` deprecation
+* Address `findRenderedComponentWithType` deprecation
 
 ## 1.24.0
 

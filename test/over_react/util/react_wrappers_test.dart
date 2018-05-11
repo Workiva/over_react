@@ -266,7 +266,7 @@ main() {
           expect(clone.key, equals(overrideKeyRefProps['key']));
           expect(clone.ref, equals(overrideKeyRefProps['ref']));
 
-          var renderedClone = react_test_utils.findRenderedComponentWithType(renderedHolder, TestComponentFactory);
+          var renderedClone = react_test_utils.findRenderedComponentWithTypeV2(renderedHolder, TestComponentFactory);
 
           Map cloneDartProps = getDartComponent(renderedClone).props;
           expect(cloneDartProps, isNot(anyOf(contains('key'), contains('ref'))),
