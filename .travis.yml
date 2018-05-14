@@ -39,8 +39,8 @@ jobs:
       dart: "2.0.0-dev.49.0"
       script: ./tool/travis.sh test:integration dart2js
 
-    - stage: test
-      dart: "2.0.0-dev.49.0"
-      script:
-        - ./tool/generate_coverage.sh
-        - bash <(curl -s https://codecov.io/bash) -f coverage/coverage.lcov
+#    - stage: test
+#      dart: "2.0.0-dev.49.0"
+#      script:
+#        - ./tool/generate_coverage.sh
+#        - bash <(curl -s https://codecov.io/bash) -f coverage/coverage.lcov

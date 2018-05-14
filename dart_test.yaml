@@ -8,16 +8,17 @@ tags:
   # Tests that should NOT be run in the dev compiler
   no-ddc:
 
-platforms:
-  - chrome
-  - vm
-
 presets:
   dartdevc:
-    exclude_tags: "no-ddc"
+    exclude_tags: no-ddc && mirrors
+    platforms:
+      - chrome
+      - vm
 
   dart2js:
-    exclude_tags: "ddc"
+    exclude_tags: ddc && mirrors
+    platforms:
+      - chrome
 
   travis:
     reporter: expanded
