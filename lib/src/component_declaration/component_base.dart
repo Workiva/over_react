@@ -459,11 +459,11 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 ///
 /// > Note: Implements [MapViewMixin] instead of extending it so that the abstract state declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
-abstract class UiState<K, V> extends _OverReactMapBase<K, V> implements StateMapViewMixin<K, V> {
+abstract class UiState extends _OverReactMapView implements StateMapViewMixin {
   // Manually implement members from `StateMapViewMixin`,
   // since mixing that class in doesn't play well with the DDC.
   // TODO find out root cause and reduced test case.
-  @override Map<K, V> get _map => this.state;
+  @override Map get _map => this.state;
   @override String toString() => '$runtimeType: ${prettyPrintMap(_map)}';
 }
 
@@ -483,9 +483,9 @@ typedef PropsModifier(Map props);
 ///
 /// > Note: Implements [MapViewMixin] instead of extending it so that the abstract [Props] declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
-abstract class UiProps<K, V> extends _OverReactMapBase<K, V>
+abstract class UiProps extends _OverReactMapView
     with ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
-    implements PropsMapViewMixin<K, V> {
+    implements PropsMapViewMixin {
 
   UiProps() {
     // Work around https://github.com/dart-lang/sdk/issues/27647 for all UiProps instances
@@ -494,10 +494,10 @@ abstract class UiProps<K, V> extends _OverReactMapBase<K, V>
     }
   }
 
-  // Manually implement members from `StateMapViewMixin`,
+  // Manually implement members from `PropsMapViewMixin`,
   // since mixing that class in doesn't play well with the DDC.
   // TODO find out root cause and reduced test case.
-  @override Map<K, V> get _map => this.props;
+  @override Map get _map => this.props;
   @override String toString() => '$runtimeType: ${prettyPrintMap(_map)}';
 
   /// Adds an arbitrary [propKey]/[value] pair if [shouldAdd] is `true`.
@@ -665,9 +665,8 @@ abstract class _OverReactMapViewBase<K, V> {
 /// A class that mimics `MapBase` without all the additional functionality we don't need.
 ///
 /// > Necessary for eventual upgrade to the Dart 2 SDK.
-abstract class _OverReactMapBase<K, V> extends Object implements MapViewMixin<K, V>, Map<K, V> {
-  // Manually implement members from `Map` that appear in the Dart 2 SDK
-  // without having to extend from `MapBase`.
+abstract class _OverReactMapView<K, V> extends Object implements MapViewMixin<K, V>, Map<K, V> {
+  // Manually implement members from `Map` to proxy `_map`
   @override Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> f(K key, V value)) => _map.map<K2, V2>(f);
   @override Iterable<MapEntry<K, V>> get entries => _map.entries;
   @override void addEntries(Iterable<MapEntry<K, V>> newEntries) => _map.addEntries(newEntries);
@@ -676,13 +675,9 @@ abstract class _OverReactMapBase<K, V> extends Object implements MapViewMixin<K,
   @override void updateAll(V update(K key, V value)) => _map.updateAll(update);
   @override Map<RK, RV> cast<RK, RV>() => _map.cast<RK, RV>();
   @override Map<RK, RV> retype<RK, RV>() => _map.retype<RK, RV>();
-
-  // Manually implement members from `MapViewMixin`,
-  // since mixing that class in doesn't play well with the DDC.
-  // TODO find out root cause and reduced test case.
   @override V operator[](Object key) => _map[key];
-  @override void operator[]=(key, value) { _map[key] = value; }
-  @override void addAll(other) { _map.addAll(other); }
+  @override void operator[]=(K key, V value) { _map[key] = value; }
+  @override void addAll(Map<K, V> other) { _map.addAll(other); }
   @override void clear() { _map.clear(); }
   @override V putIfAbsent(K key, V ifAbsent()) => _map.putIfAbsent(key, ifAbsent);
   @override bool containsKey(Object key) => _map.containsKey(key);
@@ -692,7 +687,7 @@ abstract class _OverReactMapBase<K, V> extends Object implements MapViewMixin<K,
   @override bool get isNotEmpty => _map.isNotEmpty;
   @override int get length => _map.length;
   @override Iterable<K> get keys => _map.keys;
-  @override remove(Object key) => _map.remove(key);
+  @override V remove(Object key) => _map.remove(key);
   @override Iterable<V> get values => _map.values;
 }
 
@@ -700,13 +695,13 @@ abstract class _OverReactMapBase<K, V> extends Object implements MapViewMixin<K,
 /// functionality to [UiProps] subclasses.
 ///
 /// > Related: [StateMapViewMixin]
-abstract class PropsMapViewMixin<K, V> implements _OverReactMapViewBase<K, V> {
+abstract class PropsMapViewMixin implements _OverReactMapView {
   /// The props maintained by this builder and used passed into the component when built.
   /// In this case, it's the current MapView object.
   Map get props;
 
   @override
-  Map<K, V> get _map => this.props;
+  Map get _map => this.props;
 
   @override
   String toString() => '$runtimeType: ${prettyPrintMap(_map)}';
@@ -716,11 +711,11 @@ abstract class PropsMapViewMixin<K, V> implements _OverReactMapViewBase<K, V> {
 /// functionality to [UiState] subclasses.
 ///
 /// > Related: [PropsMapViewMixin]
-abstract class StateMapViewMixin<K, V> implements _OverReactMapViewBase<K, V> {
+abstract class StateMapViewMixin implements _OverReactMapView {
   Map get state;
 
   @override
-  Map<K, V> get _map => this.state;
+  Map get _map => this.state;
 
   @override
   String toString() => '$runtimeType: ${prettyPrintMap(_map)}';
@@ -734,6 +729,14 @@ abstract class StateMapViewMixin<K, V> implements _OverReactMapViewBase<K, V> {
 /// For use by concrete [UiProps] and [UiState] implementations (either generated or manual),
 /// and thus must remain public.
 abstract class MapViewMixin<K, V> implements _OverReactMapViewBase<K, V> {
+  Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> f(K key, V value)) => _map.map<K2, V2>(f);
+  Iterable<MapEntry<K, V>> get entries => _map.entries;
+  void addEntries(Iterable<MapEntry<K, V>> newEntries) => _map.addEntries(newEntries);
+  void removeWhere(bool predicate(K key, V value)) => _map.removeWhere(predicate);
+  V update(K key, V update(V value), {V ifAbsent()}) => _map.update(key, update, ifAbsent: ifAbsent);
+  void updateAll(V update(K key, V value)) => _map.updateAll(update);
+  Map<RK, RV> cast<RK, RV>() => _map.cast<RK, RV>();
+  Map<RK, RV> retype<RK, RV>() => _map.retype<RK, RV>();
   V operator[](Object key) => _map[key];
   void operator[]=(K key, V value) { _map[key] = value; }
   void addAll(Map<K, V> other) { _map.addAll(other); }

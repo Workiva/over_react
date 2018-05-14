@@ -17,8 +17,6 @@ library handler_chain_util_test;
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
-typedef dynamic ChainFunction([_, __, ___, ____, _____, ______]);
-
 /// Main entry point for HandlerChainUtil testing
 main() {
   group('HandlerChainUtil', () {

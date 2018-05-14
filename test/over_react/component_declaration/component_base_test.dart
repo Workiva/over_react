@@ -250,39 +250,6 @@ main() {
         });
       });
 
-      // TODO: The typing for `customFactory` is an analyzer error in Dart 2 (dev.49), is this DDC workaround + test still necessary or can it be removed?
-      //
-      // NOTE: This is no longer supportable in Dart 2 (should advertise as a breaking change in release notes)
-//      test('invokes a non-ReactComponentFactoryProxy componentFactory function properly when invoked', () {
-//        final ReactElement expectedReturnValue = Dom.div()();
-//        const expectedProps = const {'testProp': 'testValue'};
-//
-//        var calls = [];
-//
-//        ReactElement customFactory([Map props, a = 0, b = 0, c = 0, d = 0]) {
-//          calls.add([props, a, b, c, d]);
-//          return expectedReturnValue;
-//        }
-//
-//        var builder = new TestUiPropsWithCustomComponentFactory()
-//          ..componentFactory = customFactory
-//          ..['testProp'] = 'testValue';
-//
-//        expect(builder(), expectedReturnValue);
-//        expect(builder(1), expectedReturnValue);
-//        expect(builder(1, 2), expectedReturnValue);
-//        expect(builder(1, 2, 3), expectedReturnValue);
-//        expect(builder(1, 2, 3, 4), expectedReturnValue);
-//
-//        expect(calls, [
-//          [expectedProps, 0, 0, 0, 0],
-//          [expectedProps, 1, 0, 0, 0],
-//          [expectedProps, 1, 2, 0, 0],
-//          [expectedProps, 1, 2, 3, 0],
-//          [expectedProps, 1, 2, 3, 4],
-//        ]);
-//      });
-
       group('provides Map functionality:', () {
         test('is a Map', () {
           expect(new TestComponentProps(), const isInstanceOf<Map>());
