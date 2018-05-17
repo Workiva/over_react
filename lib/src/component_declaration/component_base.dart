@@ -459,13 +459,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 ///
 /// > Note: Implements [MapViewMixin] instead of extending it so that the abstract state declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
-abstract class UiState extends _OverReactMapView implements StateMapViewMixin {
-  // Manually implement members from `StateMapViewMixin`,
-  // since mixing that class in doesn't play well with the DDC.
-  // TODO find out root cause and reduced test case.
-  @override Map get _map => this.state;
-  @override String toString() => '$runtimeType: ${prettyPrintMap(_map)}';
-}
+abstract class UiState extends Object with MapViewMixin, StateMapViewMixin {}
 
 /// The string used by default for the key of the attribute added by [UiProps.addTestId].
 const defaultTestIdKey = 'data-test-id';
@@ -483,9 +477,9 @@ typedef PropsModifier(Map props);
 ///
 /// > Note: Implements [MapViewMixin] instead of extending it so that the abstract [Props] declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
-abstract class UiProps extends _OverReactMapView
-    with ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
-    implements PropsMapViewMixin {
+abstract class UiProps extends Object
+    with MapViewMixin, PropsMapViewMixin,
+         ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin {
 
   UiProps() {
     // Work around https://github.com/dart-lang/sdk/issues/27647 for all UiProps instances
@@ -493,12 +487,6 @@ abstract class UiProps extends _OverReactMapView
       ddc_emulated_function_name_bug.patchName(this);
     }
   }
-
-  // Manually implement members from `PropsMapViewMixin`,
-  // since mixing that class in doesn't play well with the DDC.
-  // TODO find out root cause and reduced test case.
-  @override Map get _map => this.props;
-  @override String toString() => '$runtimeType: ${prettyPrintMap(_map)}';
 
   /// Adds an arbitrary [propKey]/[value] pair if [shouldAdd] is `true`.
   ///
@@ -662,11 +650,44 @@ abstract class _OverReactMapViewBase<K, V> {
   Map<K, V> get _map;
 }
 
-/// A class that mimics `MapBase` without all the additional functionality we don't need.
+/// Works in conjunction with [MapViewMixin] to provide `dart.collection.MapView`-like
+/// functionality to [UiProps] subclasses.
 ///
-/// > Necessary for eventual upgrade to the Dart 2 SDK.
-abstract class _OverReactMapView<K, V> extends Object implements MapViewMixin<K, V>, Map<K, V> {
-  // Manually implement members from `Map` to proxy `_map`
+/// > Related: [StateMapViewMixin]
+abstract class PropsMapViewMixin implements _OverReactMapViewBase {
+  /// The props maintained by this builder and used passed into the component when built.
+  /// In this case, it's the current MapView object.
+  Map get props;
+
+  @override
+  Map get _map => this.props;
+
+  @override
+  String toString() => '$runtimeType: ${prettyPrintMap(_map)}';
+}
+
+/// Works in conjunction with [MapViewMixin] to provide `dart.collection.MapView`-like
+/// functionality to [UiState] subclasses.
+///
+/// > Related: [PropsMapViewMixin]
+abstract class StateMapViewMixin implements _OverReactMapViewBase {
+  Map get state;
+
+  @override
+  Map get _map => this.state;
+
+  @override
+  String toString() => '$runtimeType: ${prettyPrintMap(_map)}';
+}
+
+/// Provides `dart.collection.MapView`-like behavior by proxying an internal map.
+///
+/// Works in conjunction with [PropsMapViewMixin] and [StateMapViewMixin] to implement [Map]
+/// in [UiProps] and [UiState] subclasses.
+///
+/// For use by concrete [UiProps] and [UiState] implementations (either generated or manual),
+/// and thus must remain public.
+abstract class MapViewMixin<K, V> implements _OverReactMapViewBase<K, V>, Map<K, V> {
   @override Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> f(K key, V value)) => _map.map<K2, V2>(f);
   @override Iterable<MapEntry<K, V>> get entries => _map.entries;
   @override void addEntries(Iterable<MapEntry<K, V>> newEntries) => _map.addEntries(newEntries);
@@ -689,68 +710,6 @@ abstract class _OverReactMapView<K, V> extends Object implements MapViewMixin<K,
   @override Iterable<K> get keys => _map.keys;
   @override V remove(Object key) => _map.remove(key);
   @override Iterable<V> get values => _map.values;
-}
-
-/// Works in conjunction with [MapViewMixin] to provide `dart.collection.MapView`-like
-/// functionality to [UiProps] subclasses.
-///
-/// > Related: [StateMapViewMixin]
-abstract class PropsMapViewMixin implements _OverReactMapView {
-  /// The props maintained by this builder and used passed into the component when built.
-  /// In this case, it's the current MapView object.
-  Map get props;
-
-  @override
-  Map get _map => this.props;
-
-  @override
-  String toString() => '$runtimeType: ${prettyPrintMap(_map)}';
-}
-
-/// Works in conjunction with [MapViewMixin] to provide `dart.collection.MapView`-like
-/// functionality to [UiState] subclasses.
-///
-/// > Related: [PropsMapViewMixin]
-abstract class StateMapViewMixin implements _OverReactMapView {
-  Map get state;
-
-  @override
-  Map get _map => this.state;
-
-  @override
-  String toString() => '$runtimeType: ${prettyPrintMap(_map)}';
-}
-
-/// Provides `dart.collection.MapView`-like behavior by proxying an internal map.
-///
-/// Works in conjunction with [PropsMapViewMixin] and [StateMapViewMixin] to implement [Map]
-/// in [UiProps] and [UiState] subclasses.
-///
-/// For use by concrete [UiProps] and [UiState] implementations (either generated or manual),
-/// and thus must remain public.
-abstract class MapViewMixin<K, V> implements _OverReactMapViewBase<K, V> {
-  Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> f(K key, V value)) => _map.map<K2, V2>(f);
-  Iterable<MapEntry<K, V>> get entries => _map.entries;
-  void addEntries(Iterable<MapEntry<K, V>> newEntries) => _map.addEntries(newEntries);
-  void removeWhere(bool predicate(K key, V value)) => _map.removeWhere(predicate);
-  V update(K key, V update(V value), {V ifAbsent()}) => _map.update(key, update, ifAbsent: ifAbsent);
-  void updateAll(V update(K key, V value)) => _map.updateAll(update);
-  Map<RK, RV> cast<RK, RV>() => _map.cast<RK, RV>();
-  Map<RK, RV> retype<RK, RV>() => _map.retype<RK, RV>();
-  V operator[](Object key) => _map[key];
-  void operator[]=(K key, V value) { _map[key] = value; }
-  void addAll(Map<K, V> other) { _map.addAll(other); }
-  void clear() { _map.clear(); }
-  V putIfAbsent(K key, V ifAbsent()) => _map.putIfAbsent(key, ifAbsent);
-  bool containsKey(Object key) => _map.containsKey(key);
-  bool containsValue(Object value) => _map.containsValue(value);
-  void forEach(void action(K key, V value)) { _map.forEach(action); }
-  bool get isEmpty => _map.isEmpty;
-  bool get isNotEmpty => _map.isNotEmpty;
-  int get length => _map.length;
-  Iterable<K> get keys => _map.keys;
-  V remove(Object key) => _map.remove(key);
-  Iterable<V> get values => _map.values;
 }
 
 /// Provides a representation of a single `prop` declared within a [UiProps] subclass or props mixin.
