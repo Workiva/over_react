@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+@Tags(const ['mirrors'])
 library mock_classes;
 
 import 'dart:async';
@@ -42,6 +42,7 @@ import 'dart:mirrors';
 
 import 'package:mockito/mockito.dart';
 import 'package:react/react.dart' as react;
+import 'package:test/test.dart';
 
 typedef void _TimerCallback();
 

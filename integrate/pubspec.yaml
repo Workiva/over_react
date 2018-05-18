@@ -11,7 +11,22 @@ dependencies:
       ref: HEAD
 dev_dependencies:
   dart_dev: ^1.9.2
-  test: ^0.12.32+1
+  test: ^0.12.36
 transformers:
   - test/pub_serve:
       $include: test/test_runtime_import.dart
+
+
+dependency_overrides:
+  transformer_utils:
+    git:
+      url: https://github.com/workiva/dart_transformer_utils.git
+      ref: dart2
+  react:
+    git:
+      url: https://github.com/aaronlademann-wf/react-dart.git
+      ref: b507f88680301a22911c9db6f10d7e66ae5640ef # from 5.0.0/AF-222
+  over_react_test:
+    git:
+      url: https://github.com/Workiva/over_react_test.git
+      ref: 4d23297dcd7dc482368fb5aac65b9c0560719350 # from dart2_prep

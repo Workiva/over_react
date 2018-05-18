@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:over_react/over_react.dart';
 import 'package:over_react/component_base.dart' as component_base show UiProps;
+import 'package:react/react_client.dart';
 
 /// A `MapView` helper that stubs in unimplemented pieces of [UiProps].
 ///
@@ -51,7 +52,7 @@ class UiPropsMapView extends MapView with ReactPropsMixin, UbiquitousDomPropsMix
       throw new UnimplementedError('@PropsMixin instances do not implement build');
 
   @override
-  Function get componentFactory =>
+  ReactComponentFactoryProxy get componentFactory =>
       throw new UnimplementedError('@PropsMixin instances do not implement componentFactory');
 
   @override

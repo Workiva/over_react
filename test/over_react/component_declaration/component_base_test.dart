@@ -250,36 +250,6 @@ main() {
         });
       });
 
-      test('invokes a non-ReactComponentFactoryProxy componentFactory function properly when invoked', () {
-        final ReactElement expectedReturnValue = Dom.div()();
-        const expectedProps = const {'testProp': 'testValue'};
-
-        var calls = [];
-
-        ReactElement customFactory([Map props, a = 0, b = 0, c = 0, d = 0]) {
-          calls.add([props, a, b, c, d]);
-          return expectedReturnValue;
-        }
-
-        var builder = new TestUiPropsWithCustomComponentFactory()
-          ..componentFactory = customFactory
-          ..['testProp'] = 'testValue';
-
-        expect(builder(), expectedReturnValue);
-        expect(builder(1), expectedReturnValue);
-        expect(builder(1, 2), expectedReturnValue);
-        expect(builder(1, 2, 3), expectedReturnValue);
-        expect(builder(1, 2, 3, 4), expectedReturnValue);
-
-        expect(calls, [
-          [expectedProps, 0, 0, 0, 0],
-          [expectedProps, 1, 0, 0, 0],
-          [expectedProps, 1, 2, 0, 0],
-          [expectedProps, 1, 2, 3, 0],
-          [expectedProps, 1, 2, 3, 4],
-        ]);
-      });
-
       group('provides Map functionality:', () {
         test('is a Map', () {
           expect(new TestComponentProps(), const isInstanceOf<Map>());
@@ -766,8 +736,9 @@ main() {
         test('should complete uncompleted managed Completer with ObjectDisposedException', () async {
           var completer = new Completer<Null>();
           component.manageCompleter(completer);
-          completer.future.catchError(expectAsync1((Object err) =>
-            expect(err, new isInstanceOf<ObjectDisposedException>())));
+          completer.future.catchError(expectAsync1((Object err) {
+            expect(err, new isInstanceOf<ObjectDisposedException>());
+          }));
 
           expect(completer.isCompleted, isFalse);
           await unmountAndDisposal();
@@ -973,7 +944,7 @@ dynamic getDartChildren(var renderedInstance) {
 UiFactory<TestComponentProps> TestComponent = ([Map props]) => new TestComponentProps(props);
 
 class TestComponentProps extends UiProps {
-  @override final Function componentFactory = _TestComponentComponentFactory;
+  @override final ReactComponentFactoryProxy componentFactory = _TestComponentComponentFactory;
   @override final Map props;
 
   TestComponentProps([Map props]) : this.props = props ?? ({});
@@ -1004,7 +975,7 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
 UiFactory<TestStatefulComponentProps> TestStatefulComponent = ([Map props]) => new TestStatefulComponentProps(props);
 
 class TestStatefulComponentProps extends UiProps {
-  @override final Function componentFactory = _TestStatefulComponentComponentFactory;
+  @override final ReactComponentFactoryProxy componentFactory = _TestStatefulComponentComponentFactory;
   @override final Map props;
 
   TestStatefulComponentProps([Map props]) : this.props = props ?? ({});
@@ -1045,7 +1016,7 @@ class TestStateMapViewMixin extends MapBase with MapViewMixin, StateMapViewMixin
 
 class TestUiPropsWithCustomComponentFactory extends UiProps {
   @override
-  Function componentFactory;
+  ReactComponentFactoryProxy componentFactory;
 
   @override
   final Map props = {};

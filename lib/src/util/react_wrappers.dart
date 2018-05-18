@@ -281,7 +281,7 @@ react.Component getDartComponent(/* ReactElement|ReactComponent|Element */ insta
     return null;
   }
 
-  assert(() {
+  bool instanceIsMounted() {
     if (isValidElement(instance)) {
       // `print` instead of `ValidationUtil.warn` so that this message shows up
       // in the test output when running `ddev test`.
@@ -313,7 +313,9 @@ react.Component getDartComponent(/* ReactElement|ReactComponent|Element */ insta
       ));
     }
     return true;
-  });
+  }
+
+  assert(instanceIsMounted());
 
   // ignore: avoid_as
   return (instance as ReactComponent).dartComponent;
