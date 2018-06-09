@@ -1,2 +1,730 @@
+# analysis_options.yaml docs: https://www.dartlang.org/guides/language/analysis-options 
 analyzer:
-  strong-mode: true
+  # Strong mode is required. Applies to the current project.
+  strong-mode:
+    # When compiling to JS, both implicit options apply to the current 
+    # project and all dependencies. They are useful to find possible 
+    # Type fixes or areas for explicit typing.
+    implicit-casts: true
+    implicit-dynamic: true
+
+# ALL lint rules are included. Unused lints should be commented
+# out with a reason. An up to date list of all options is here
+# http://dart-lang.github.io/linter/lints/options/options.html
+# Descriptions of each rule is here http://dart-lang.github.io/linter/lints/
+#
+# To ignore a lint rule on a case by case basic in code just add a comment
+# above it or at the end of the line like: // ignore: <linter rule>
+# example: // ignore: invalid_assignment, const_initialized_with_non_constant_value
+#
+# More info about configuring analysis_options.yaml files
+# https://www.dartlang.org/guides/language/analysis-options#excluding-lines-within-a-file
+linter:
+  rules:
+    # Declare method return types.
+    # http://dart-lang.github.io/linter/lints/always_declare_return_types.html
+    # recommendation: recommended
+    # reason: React component render() method can return either ReactElement or false
+    # FIXME: 3 lint(s)
+    # - always_declare_return_types
+
+    # Separate the control structure expression from its statement.
+    # http://dart-lang.github.io/linter/lints/always_put_control_body_on_new_line.html
+    # recommendation: optional
+    # 0 issues
+    - always_put_control_body_on_new_line
+
+    # Put @required named parameters first.
+    # http://dart-lang.github.io/linter/lints/always_put_required_named_parameters_first.html
+    # recommendation: recommended
+    # 0 issues
+    - always_put_required_named_parameters_first
+
+    # Use @required.
+    # http://dart-lang.github.io/linter/lints/always_require_non_null_named_parameters.html
+    # recommendation: recommended
+    # 0 issues
+    - always_require_non_null_named_parameters
+
+    # Specify type annotations.
+    # http://dart-lang.github.io/linter/lints/always_specify_types.html
+    # recommendation: optional
+    # FIXME: 5 lint(s)
+    # - always_specify_types
+
+    # Annotate overridden members.
+    # http://dart-lang.github.io/linter/lints/annotate_overrides.html
+    # recommendation: required
+    # 0 issues
+    - annotate_overrides
+
+    # Avoid annotating with dynamic when not required.
+    # http://dart-lang.github.io/linter/lints/avoid_annotating_with_dynamic.html
+    # recommendation: optional
+    # 0 issues
+    - avoid_annotating_with_dynamic
+
+    # Avoid using `as`.
+    # http://dart-lang.github.io/linter/lints/avoid_as.html
+    # recommendation: optional
+    # 0 issues
+    - avoid_as
+
+    # Avoid bool literals in conditional expressions.
+    # http://dart-lang.github.io/linter/lints/avoid_bool_literals_in_conditional_expressions.html
+    # recommendation: optional
+    # 0 issues
+    - avoid_bool_literals_in_conditional_expressions
+
+    # Avoid catches without on clauses.
+    # http://dart-lang.github.io/linter/lints/avoid_catches_without_on_clauses.html
+    # recommendation: optional
+    # 0 issues
+    - avoid_catches_without_on_clauses
+
+    # Don't explicitly catch Error or types that implement it.
+    # http://dart-lang.github.io/linter/lints/avoid_catching_errors.html
+    # recommendation: optional
+    # 0 issues
+    - avoid_catching_errors
+
+    # Avoid defining a class that contains only static members.
+    # http://dart-lang.github.io/linter/lints/avoid_classes_with_only_static_members.html
+    # recommendation: recommended
+    # 0 issues
+    - avoid_classes_with_only_static_members
+
+    # Avoid double and int checks.
+    # http://dart-lang.github.io/linter/lints/avoid_double_and_int_checks.html
+    # recommendation: required
+    # 0 issues
+    - avoid_double_and_int_checks
+
+    # Avoid empty else statements.
+    # http://dart-lang.github.io/linter/lints/avoid_empty_else.html
+    # recommendation: required
+    # 0 issues
+    - avoid_empty_else
+
+    # Avoid field initializers in const classes.
+    # http://dart-lang.github.io/linter/lints/avoid_field_initializers_in_const_classes.html
+    # recommendation: optional
+    # 0 issues
+    - avoid_field_initializers_in_const_classes
+
+    # Avoid using `forEach` with a function literal.
+    # http://dart-lang.github.io/linter/lints/avoid_function_literals_in_foreach_calls.html
+    # recommendation: recommended
+    # reason: Use for (x in y) or forEach(someFunc) instead
+    # 0 issues
+    - avoid_function_literals_in_foreach_calls
+
+    # Don't explicitly initialize variables to null.
+    # http://dart-lang.github.io/linter/lints/avoid_init_to_null.html
+    # recommendation: recommended
+    # 0 issues
+    - avoid_init_to_null
+
+    # Avoid JavaScript rounded ints.
+    # http://dart-lang.github.io/linter/lints/avoid_js_rounded_ints.html
+    # recommendation: optional
+    # 0 issues
+    - avoid_js_rounded_ints
+
+    # Don't check for null in custom == operators.
+    # http://dart-lang.github.io/linter/lints/avoid_null_checks_in_equality_operators.html
+    # recommendation: recommended
+    # 0 issues
+    - avoid_null_checks_in_equality_operators
+
+    # Avoid positional boolean parameters.
+    # http://dart-lang.github.io/linter/lints/avoid_positional_boolean_parameters.html
+    # recommendation: recommended
+    # 0 issues
+    - avoid_positional_boolean_parameters
+
+    # Avoid private typedef functions.
+    # http://dart-lang.github.io/linter/lints/avoid_private_typedef_functions.html
+    # recommendation: optional
+    # 0 issues
+    - avoid_private_typedef_functions
+
+    # Avoid relative imports for files in `lib/`.
+    # http://dart-lang.github.io/linter/lints/avoid_relative_lib_imports.html
+    # recommendation: recommended
+    # reason: JS compilation will be faster without relative imports. Use package imports.
+    # 0 issues
+    - avoid_relative_lib_imports
+
+    # Don't rename parameters of overridden methods.
+    # http://dart-lang.github.io/linter/lints/avoid_renaming_method_parameters.html
+    # recommendation: recommended
+    # 0 issues
+    - avoid_renaming_method_parameters
+
+    # Avoid return types on setters.
+    # http://dart-lang.github.io/linter/lints/avoid_return_types_on_setters.html
+    # recommendation: required
+    # 0 issues
+    - avoid_return_types_on_setters
+
+    # Avoid returning null from members whose return type is bool, double, int, or num.
+    # http://dart-lang.github.io/linter/lints/avoid_returning_null.html
+    # recommendation: recommended
+    # 0 issues
+    - avoid_returning_null
+
+    # Avoid returning this from methods just to enable a fluent interface.
+    # http://dart-lang.github.io/linter/lints/avoid_returning_this.html
+    # recommendation: recommended
+    # 0 issues
+    - avoid_returning_this
+
+    # Avoid setters without getters.
+    # http://dart-lang.github.io/linter/lints/avoid_setters_without_getters.html
+    # recommendation: recommended
+    # 0 issues
+    - avoid_setters_without_getters
+
+    # Avoid single cascade in expression statements.
+    # http://dart-lang.github.io/linter/lints/avoid_single_cascade_in_expression_statements.html
+    # recommendation: optional
+    # 0 issues
+    - avoid_single_cascade_in_expression_statements
+
+    # Avoid slow async `dart:io` methods.
+    # http://dart-lang.github.io/linter/lints/avoid_slow_async_io.html
+    # recommendation: recommended
+    # 0 issues
+    - avoid_slow_async_io
+
+    # Avoid types as parameter names.
+    # http://dart-lang.github.io/linter/lints/avoid_types_as_parameter_names.html
+    # recommendation: required
+    # 0 issues
+    - avoid_types_as_parameter_names
+
+    # Avoid annotating types for function expression parameters.
+    # http://dart-lang.github.io/linter/lints/avoid_types_on_closure_parameters.html
+    # recommendation: optional
+    # 0 issues
+    - avoid_types_on_closure_parameters
+
+    # Avoid defining unused paramters in constructors.
+    # http://dart-lang.github.io/linter/lints/avoid_unused_constructor_parameters.html
+    # recommendation: recommended
+    # 0 issues
+    - avoid_unused_constructor_parameters
+
+    # Await only futures.
+    # http://dart-lang.github.io/linter/lints/await_only_futures.html
+    # recommendation: required
+    # 0 issues
+    - await_only_futures
+
+    # Name types using UpperCamelCase.
+    # http://dart-lang.github.io/linter/lints/camel_case_types.html
+    # recommendation: required
+    # 0 issues
+    - camel_case_types
+
+    # Cancel instances of dart.async.StreamSubscription.
+    # http://dart-lang.github.io/linter/lints/cancel_subscriptions.html
+    # recommendation: required
+    # 0 issues
+    - cancel_subscriptions
+
+    # Cascade consecutive method invocations on the same reference.
+    # http://dart-lang.github.io/linter/lints/cascade_invocations.html
+    # recommendation: optional
+    # FIXME: 1 lint(s)
+    # - cascade_invocations
+
+    # Close instances of `dart.core.Sink`.
+    # http://dart-lang.github.io/linter/lints/close_sinks.html
+    # recommendation: required
+    # 0 issues
+    - close_sinks
+
+    # Only reference in scope identifiers in doc comments.
+    # http://dart-lang.github.io/linter/lints/comment_references.html
+    # recommendation: recommended
+    # 0 issues
+    - comment_references
+
+    # Prefer using lowerCamelCase for constant names.
+    # http://dart-lang.github.io/linter/lints/constant_identifier_names.html
+    # recommendation: optional
+    # 0 issues
+    - constant_identifier_names
+
+    # Avoid control flow in finally blocks.
+    # http://dart-lang.github.io/linter/lints/control_flow_in_finally.html
+    # recommendation: required
+    # 0 issues
+    - control_flow_in_finally
+
+    # Adhere to Effective Dart Guide directives sorting conventions.
+    # http://dart-lang.github.io/linter/lints/directives_ordering.html
+    # recommendation: recommended
+    # 0 issues
+    - directives_ordering
+
+    # Avoid empty catch blocks.
+    # http://dart-lang.github.io/linter/lints/empty_catches.html
+    # recommendation: required
+    # 0 issues
+    - empty_catches
+
+    # Use `;` instead of `{}` for empty constructor bodies.
+    # http://dart-lang.github.io/linter/lints/empty_constructor_bodies.html
+    # recommendation: recommended
+    # 0 issues
+    - empty_constructor_bodies
+
+    # Avoid empty statements.
+    # http://dart-lang.github.io/linter/lints/empty_statements.html
+    # recommendation: required
+    # 0 issues
+    - empty_statements
+
+    # Always override `hashCode` if overriding `==`.
+    # http://dart-lang.github.io/linter/lints/hash_and_equals.html
+    # recommendation: required
+    # 0 issues
+    - hash_and_equals
+
+    # Don't import implementation files from another package.
+    # http://dart-lang.github.io/linter/lints/implementation_imports.html
+    # recommendation: required
+    # 0 issues
+    - implementation_imports
+
+    # Conditions should not unconditionally evaluate to `true` or to `false`.
+    # http://dart-lang.github.io/linter/lints/invariant_booleans.html
+    # recommendation: required
+    # 0 issues
+    - invariant_booleans
+
+    # Invocation of Iterable<E>.contains with references of unrelated types.
+    # http://dart-lang.github.io/linter/lints/iterable_contains_unrelated_type.html
+    # recommendation: required
+    # 0 issues
+    - iterable_contains_unrelated_type
+
+    # Join return statement with assignment when possible.
+    # http://dart-lang.github.io/linter/lints/join_return_with_assignment.html
+    # recommendation: optional
+    # 0 issues
+    - join_return_with_assignment
+
+    # Name libraries and source files using `lowercase_with_underscores`.
+    # http://dart-lang.github.io/linter/lints/library_names.html
+    # recommendation: recommended
+    # 0 issues
+    - library_names
+
+    # Use `lowercase_with_underscores` when specifying a library prefix.
+    # http://dart-lang.github.io/linter/lints/library_prefixes.html
+    # recommendation: recommended
+    # 0 issues
+    - library_prefixes
+
+    # Invocation of `remove` with references of unrelated types.
+    # http://dart-lang.github.io/linter/lints/list_remove_unrelated_type.html
+    # recommendation: required
+    # 0 issues
+    - list_remove_unrelated_type
+
+    # Boolean expression composed only with literals.
+    # http://dart-lang.github.io/linter/lints/literal_only_boolean_expressions.html
+    # recommendation: required
+    # 0 issues
+    - literal_only_boolean_expressions
+
+    # Don't use adjacent strings in list.
+    # http://dart-lang.github.io/linter/lints/no_adjacent_strings_in_list.html
+    # recommendation: required
+    # 0 issues
+    - no_adjacent_strings_in_list
+
+    # Don't use more than one case with same value.
+    # http://dart-lang.github.io/linter/lints/no_duplicate_case_values.html
+    # recommendation: required
+    # 0 issues
+    - no_duplicate_case_values
+
+    # Name non-constant identifiers using lowerCamelCase.
+    # http://dart-lang.github.io/linter/lints/non_constant_identifier_names.html
+    # recommendation: recommended
+    # FIXME: 1 lint(s)
+    # - non_constant_identifier_names
+
+    # Omit type annotations for local variables.
+    # http://dart-lang.github.io/linter/lints/omit_local_variable_types.html
+    # recommendation: optional
+    # reason: Conflicts with always_specify_types. Recommend commenting this one out.
+    # 0 issues
+    - omit_local_variable_types
+
+    # Avoid defining a one-member abstract class when a simple function will do.
+    # http://dart-lang.github.io/linter/lints/one_member_abstracts.html
+    # recommendation: optional
+    # 0 issues
+    - one_member_abstracts
+
+    # Only throw instances of classes extending either Exception or Error.
+    # http://dart-lang.github.io/linter/lints/only_throw_errors.html
+    # recommendation: required
+    # 0 issues
+    - only_throw_errors
+
+    # Don't override fields.
+    # http://dart-lang.github.io/linter/lints/overridden_fields.html
+    # recommendation: optional
+    # 0 issues
+    - overridden_fields
+
+    # Provide doc comments for all public APIs.
+    # http://dart-lang.github.io/linter/lints/package_api_docs.html
+    # recommendation: optional
+    # 0 issues
+    - package_api_docs
+
+    # Use `lowercase_with_underscores` for package names.
+    # http://dart-lang.github.io/linter/lints/package_names.html
+    # recommendation: recommended
+    # 0 issues
+    - package_names
+
+    # Prefix library names with the package name and a dot-separated path.
+    # http://dart-lang.github.io/linter/lints/package_prefixed_library_names.html
+    # recommendation: recommended
+    # 0 issues
+    - package_prefixed_library_names
+
+    # Don't reassign references to parameters of functions or methods.
+    # http://dart-lang.github.io/linter/lints/parameter_assignments.html
+    # recommendation: optional
+    # 0 issues
+    - parameter_assignments
+
+    # Use adjacent strings to concatenate string literals.
+    # http://dart-lang.github.io/linter/lints/prefer_adjacent_string_concatenation.html
+    # recommendation: optional
+    # 0 issues
+    - prefer_adjacent_string_concatenation
+
+    # Prefer putting asserts in initializer list.
+    # http://dart-lang.github.io/linter/lints/prefer_asserts_in_initializer_lists.html
+    # recommendation: optional
+    # 0 issues
+    - prefer_asserts_in_initializer_lists
+
+    # Prefer using a boolean as the assert condition.
+    # http://dart-lang.github.io/linter/lints/prefer_bool_in_asserts.html
+    # recommendation: optional
+    # 0 issues
+    - prefer_bool_in_asserts
+
+    # Use collection literals when possible.
+    # http://dart-lang.github.io/linter/lints/prefer_collection_literals.html
+    # recommendation: required
+    # 0 issues
+    - prefer_collection_literals
+
+    # Prefer using `??=` over testing for null.
+    # http://dart-lang.github.io/linter/lints/prefer_conditional_assignment.html
+    # recommendation: optional
+    # 0 issues
+    - prefer_conditional_assignment
+
+    # Prefer const with constant constructors.
+    # http://dart-lang.github.io/linter/lints/prefer_const_constructors.html
+    # recommendation: optional
+    # 0 issues
+    - prefer_const_constructors
+
+    # Prefer declare const constructors on `@immutable` classes.
+    # http://dart-lang.github.io/linter/lints/prefer_const_constructors_in_immutables.html
+    # recommendation: optional
+    # 0 issues
+    - prefer_const_constructors_in_immutables
+
+    # Prefer const over final for declarations.
+    # http://dart-lang.github.io/linter/lints/prefer_const_declarations.html
+    # recommendation: recommended
+    # 0 issues
+    - prefer_const_declarations
+
+    # Prefer const literals as parameters of constructors on @immutable classes.
+    # http://dart-lang.github.io/linter/lints/prefer_const_literals_to_create_immutables.html
+    # recommendation: optional
+    # 0 issues
+    - prefer_const_literals_to_create_immutables
+
+    # Prefer defining constructors instead of static methods to create instances.
+    # http://dart-lang.github.io/linter/lints/prefer_constructors_over_static_methods.html
+    # recommendation: optional
+    # 0 issues
+    - prefer_constructors_over_static_methods
+
+    # Use contains for `List` and `String` instances.
+    # http://dart-lang.github.io/linter/lints/prefer_contains.html
+    # recommendation: recommended
+    # 0 issues
+    - prefer_contains
+
+    # Prefer equal for default values.
+    # http://dart-lang.github.io/linter/lints/prefer_equal_for_default_values.html
+    # recommendation: optional
+    # 0 issues
+    - prefer_equal_for_default_values
+
+    # Use => for short members whose body is a single return statement.
+    # http://dart-lang.github.io/linter/lints/prefer_expression_function_bodies.html
+    # recommendation: optional
+    # FIXME: 1 lint(s)
+    # - prefer_expression_function_bodies
+
+    # Private field could be final.
+    # http://dart-lang.github.io/linter/lints/prefer_final_fields.html
+    # recommendation: optional
+    # 0 issues
+    - prefer_final_fields
+
+    # Prefer final for variable declaration if reference is not reassigned.
+    # http://dart-lang.github.io/linter/lints/prefer_final_locals.html
+    # recommendation: optional
+    # reason: Generates a lot of lint since people use var a lot for local variables.
+    # FIXME: 2 lint(s)
+    # - prefer_final_locals
+
+    # Use `forEach` to only apply a function to all the elements.
+    # http://dart-lang.github.io/linter/lints/prefer_foreach.html
+    # recommendation: optional
+    # 0 issues
+    - prefer_foreach
+
+    # Use a function declaration to bind a function to a name.
+    # http://dart-lang.github.io/linter/lints/prefer_function_declarations_over_variables.html
+    # recommendation: recommended
+    # 0 issues
+    - prefer_function_declarations_over_variables
+
+    # Prefer generic function type aliases.
+    # http://dart-lang.github.io/linter/lints/prefer_generic_function_type_aliases.html
+    # recommendation: optional
+    # 0 issues
+    - prefer_generic_function_type_aliases
+
+    # Use initializing formals when possible.
+    # http://dart-lang.github.io/linter/lints/prefer_initializing_formals.html
+    # recommendation: recommended
+    # 0 issues
+    - prefer_initializing_formals
+
+    # Use interpolation to compose strings and values.
+    # http://dart-lang.github.io/linter/lints/prefer_interpolation_to_compose_strings.html
+    # recommendation: optional
+    # 0 issues
+    - prefer_interpolation_to_compose_strings
+
+    # Use `isEmpty` for Iterables and Maps.
+    # http://dart-lang.github.io/linter/lints/prefer_is_empty.html
+    # recommendation: required
+    # 0 issues
+    - prefer_is_empty
+
+    # Use `isNotEmpty` for Iterables and Maps.
+    # http://dart-lang.github.io/linter/lints/prefer_is_not_empty.html
+    # recommendation: required
+    # 0 issues
+    - prefer_is_not_empty
+
+    # Prefer to use whereType on iterable.
+    # http://dart-lang.github.io/linter/lints/prefer_iterable_whereType.html
+    # recommendation: optional
+    # reason: Optional for now since it is only available in Dart 2
+    # 0 issues
+    - prefer_iterable_whereType
+
+    # Prefer single quotes where they won't require escape sequences.
+    # http://dart-lang.github.io/linter/lints/prefer_single_quotes.html
+    # recommendation: recommended
+    # 0 issues
+    - prefer_single_quotes
+
+    # Prefer typing uninitialized variables and fields.
+    # http://dart-lang.github.io/linter/lints/prefer_typing_uninitialized_variables.html
+    # recommendation: required
+    # 0 issues
+    - prefer_typing_uninitialized_variables
+
+    # Document all public members.
+    # http://dart-lang.github.io/linter/lints/public_member_api_docs.html
+    # recommendation: optional
+    # reason: Can get annoying for React component lifecycle methods, constructors.
+    # FIXME: 5 lint(s)
+    # - public_member_api_docs
+
+    # Property getter recursively returns itself.
+    # http://dart-lang.github.io/linter/lints/recursive_getters.html
+    # recommendation: optional
+    # 0 issues
+    - recursive_getters
+
+    # Prefer using /// for doc comments.
+    # http://dart-lang.github.io/linter/lints/slash_for_doc_comments.html
+    # recommendation: recommended
+    # 0 issues
+    - slash_for_doc_comments
+
+    # Sort constructor declarations before method declarations.
+    # http://dart-lang.github.io/linter/lints/sort_constructors_first.html
+    # recommendation: optional
+    # 0 issues
+    - sort_constructors_first
+
+    # Sort unnamed constructor declarations first.
+    # http://dart-lang.github.io/linter/lints/sort_unnamed_constructors_first.html
+    # recommendation: optional
+    # 0 issues
+    - sort_unnamed_constructors_first
+
+    # Place the `super` call last in a constructor initialization list.
+    # http://dart-lang.github.io/linter/lints/super_goes_last.html
+    # recommendation: optional
+    # 0 issues
+    - super_goes_last
+
+    # Test type arguments in operator ==(Object other).
+    # http://dart-lang.github.io/linter/lints/test_types_in_equals.html
+    # recommendation: required
+    # 0 issues
+    - test_types_in_equals
+
+    # Avoid `throw` in finally block.
+    # http://dart-lang.github.io/linter/lints/throw_in_finally.html
+    # recommendation: required
+    # 0 issues
+    - throw_in_finally
+
+    # Type annotate public APIs.
+    # http://dart-lang.github.io/linter/lints/type_annotate_public_apis.html
+    # recommendation: recommended
+    # reason: React component render() method can return either ReactElement or false. Use overrides.
+    # FIXME: 3 lint(s)
+    # - type_annotate_public_apis
+
+    # Don't type annotate initializing formals.
+    # http://dart-lang.github.io/linter/lints/type_init_formals.html
+    # recommendation: optional
+    # 0 issues
+    - type_init_formals
+
+    # Await future-returning functions inside async function bodies.
+    # http://dart-lang.github.io/linter/lints/unawaited_futures.html
+    # recommendation: recommended
+    # 0 issues
+    - unawaited_futures
+
+    # Avoid using braces in interpolation when not needed.
+    # http://dart-lang.github.io/linter/lints/unnecessary_brace_in_string_interps.html
+    # recommendation: optional
+    # 0 issues
+    - unnecessary_brace_in_string_interps
+
+    # Avoid wrapping fields in getters and setters just to be "safe".
+    # http://dart-lang.github.io/linter/lints/unnecessary_getters_setters.html
+    # recommendation: optional
+    # 0 issues
+    - unnecessary_getters_setters
+
+    # Don't create a lambda when a tear-off will do.
+    # http://dart-lang.github.io/linter/lints/unnecessary_lambdas.html
+    # recommendation: recommended
+    # 0 issues
+    - unnecessary_lambdas
+
+    # Avoid null in null-aware assignment.
+    # http://dart-lang.github.io/linter/lints/unnecessary_null_aware_assignments.html
+    # recommendation: required
+    # 0 issues
+    - unnecessary_null_aware_assignments
+
+    # Avoid using `null` in `if null` operators.
+    # http://dart-lang.github.io/linter/lints/unnecessary_null_in_if_null_operators.html
+    # recommendation: required
+    # 0 issues
+    - unnecessary_null_in_if_null_operators
+
+    # Don't override a method to do a super method invocation with the same parameters.
+    # http://dart-lang.github.io/linter/lints/unnecessary_overrides.html
+    # recommendation: optional
+    # 0 issues
+    - unnecessary_overrides
+
+    # Unnecessary parenthesis can be removed.
+    # http://dart-lang.github.io/linter/lints/unnecessary_parenthesis.html
+    # recommendation: optional
+    # 0 issues
+    - unnecessary_parenthesis
+
+    # Avoid using unnecessary statements.
+    # http://dart-lang.github.io/linter/lints/unnecessary_statements.html
+    # recommendation: required
+    # 0 issues
+    - unnecessary_statements
+
+    # Don't access members with `this` unless avoiding shadowing.
+    # http://dart-lang.github.io/linter/lints/unnecessary_this.html
+    # recommendation: recommended
+    # 0 issues
+    - unnecessary_this
+
+    # Equality operator `==` invocation with references of unrelated types.
+    # http://dart-lang.github.io/linter/lints/unrelated_type_equality_checks.html
+    # recommendation: required
+    # reason: Comparing references of a type where neither is a subtype of the other most likely will return false and might not reflect programmer's intent.
+    # 0 issues
+    - unrelated_type_equality_checks
+
+    # Use rethrow to rethrow a caught exception.
+    # http://dart-lang.github.io/linter/lints/use_rethrow_when_possible.html
+    # recommendation: recommended
+    # 0 issues
+    - use_rethrow_when_possible
+
+    # Use a setter for operations that conceptually change a property.
+    # http://dart-lang.github.io/linter/lints/use_setters_to_change_properties.html
+    # recommendation: optional
+    # 0 issues
+    - use_setters_to_change_properties
+
+    # Use string buffer to compose strings.
+    # http://dart-lang.github.io/linter/lints/use_string_buffers.html
+    # recommendation: optional
+    # 0 issues
+    - use_string_buffers
+
+    # Start the name of the method with to/_to or as/_as if applicable.
+    # http://dart-lang.github.io/linter/lints/use_to_and_as_if_applicable.html
+    # recommendation: optional
+    # 0 issues
+    - use_to_and_as_if_applicable
+
+    # Use valid regular expression syntax.
+    # http://dart-lang.github.io/linter/lints/valid_regexps.html
+    # recommendation: required
+    # 0 issues
+    - valid_regexps
+
+    # Don't assign to void.
+    # http://dart-lang.github.io/linter/lints/void_checks.html
+    # recommendation: required
+    # reason: Trying to assigning a value to void is an error.
+    # 0 issues
+    - void_checks
+
+
