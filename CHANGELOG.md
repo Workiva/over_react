@@ -1,5 +1,108 @@
 # OverReact Changelog
 
+## 1.24.1
+
+> [Complete `1.24.1` Changeset](https://github.com/Workiva/over_react/compare/1.24.0...1.24.1)
+
+__Dependency Updates__
+
+* w_common `^1.10.0` (was `^1.8.0`)
+* react `^4.4.1` (was `^4.3.0`)
+
+__Tech Debt__
+
+* Address `ReactComponentFactory` deprecation
+* Address `findRenderedComponentWithType` deprecation
+
+## 1.24.0
+
+> [Complete `1.24.0` Changeset](https://github.com/Workiva/over_react/compare/1.23.1...1.24.0)
+
+__Dependency Updates__
+
+* [#153] react `^4.3.0` (was `^3.7.0`)
+* [#151] 
+    * built_redux `^7.4.1` (was `>=6.1.0 <8.0.0`)
+    * built_value `>=4.2.0 <5.2.0` (was `>=4.2.0 <6.0.0`)
+    
+__New Features__ 
+
+* [#154]: Expose `react_dom.render`/`react_dom.unmountComponentAtNode` from the react library
+    
+__Tech Debt__
+
+* [#151] Prepare for Dart 2 SDK
+    * Address Dart 2.x SDK lints / warnings that do not constitute breaking changes
+    * Address `DisposableManagerV6` deprecation
+    * `UiProps` and `UiState` now extend from `MapBase`
+    
+
+## 1.23.1
+
+> [Complete `1.23.1` Changeset](https://github.com/Workiva/over_react/compare/1.23.0...1.23.1)
+
+__Dependency Updates__
+* [#149]: Dependency Maintenance:
+    * __Dart SDK__ now `>=1.24.2 <2.0.0`, was `>=1.24.2`
+    * Dependencies:
+        * __analyzer__ now `>=0.30.0 <=0.31.0`, was `>=0.30.0 <0.31.0`
+        * __barback__ now `>=0.15.2 <=0.15.2+14`, was `^0.15.0`
+        * __quiver__ now `>=0.21.4 <=0.28.0`, was `>=0.21.4 <0.26.0`
+    * Dev Dependencies:
+        * __coverage__ now `>=0.7.2 <0.11.0`, was `^0.7.2`
+        * __dependency_validator__ now `^1.1.0`, was `^1.0.0`
+        * __mockito__ now `^2.0.0`, was `^0.11.0`
+        * __test__ now `^0.12.32+1`, was `^0.12.24`
+
+## 1.23.0
+
+> [Complete `1.23.0` Changeset](https://github.com/Workiva/over_react/compare/1.22.0...1.23.0)
+
+__Dependency Updates__
+* [#145]: Widen built_value version constraint: now `>=4.2.0 <6.0.0`, was `^4.2.0`
+
+__New Features__ 
+* [#144]: Move `BuiltReduxUiComponent`/`BuiltReduxUiProps` out of @experimental
+    * __Warning:__ This will be deprecated in an upcoming release in favor of a different approach to creating a `built_redux` component.
+
+## 1.22.0
+
+> [Complete `1.22.0` Changeset](https://github.com/Workiva/over_react/compare/1.21.0...1.22.0)
+
+__New Features__
+* [#142]: Do not execute prop validation logic in dart2js code
+
+## 1.21.0
+
+> [Complete `1.21.0` Changeset](https://github.com/Workiva/over_react/compare/1.20.2...1.21.0)
+
+__New Features__
+* [#140]: Add an option to make `BuiltReduxUiComponent` "pure"
+
+## 1.20.2
+
+> [Complete `1.20.2` Changeset](https://github.com/Workiva/over_react/compare/1.20.1...1.20.2)
+
+__Tech Debt__
+* [#137]: Get rid of dart2js compiler warnings
+
+## 1.20.1
+
+> [Complete `1.20.1` Changeset](https://github.com/Workiva/over_react/compare/1.20.0...1.20.1)
+
+__Misc__
+* [#133]: Update logger name standard.
+
+## 1.20.0
+
+> [Complete `1.20.0` Changeset](https://github.com/Workiva/over_react/compare/1.19.0...1.20.0)
+
+__New Features__
+* [#128]: Add `UiPropsMapView`.
+
+__Misc__
+* [#129]: Add CODEOWNERS file.
+
 ## 1.19.0
 
 > [Complete `1.19.0` Changeset](https://github.com/Workiva/over_react/compare/1.18.1...1.19.0)
@@ -9,7 +112,7 @@ __Dependency Updates__
 * [#126]: Update minimum Dart SDK version to `1.24.2`.
 
 __New Features__
-* [#118] Add `BuiltReduxUiComponent` and `BuiltReduxUiProps`.
+* [#118]: Add `BuiltReduxUiComponent` and `BuiltReduxUiProps`.
   - These classes are considered unstable and can be imported via `import "package:over_react/experimental.dart";`
 
 __Tech Debt__
@@ -27,11 +130,11 @@ __Bug fixes__
 > [Complete `1.18.0` Changeset](https://github.com/Workiva/over_react/compare/1.17.0...1.18.0)
 
 __Improvements__
-* [#177] Improve error message when UiState classes aren't set up properly.
+* [#177]: Improve error message when UiState classes aren't set up properly.
 
 __New Features__
-* [#119] More convenient ubiquitous access of DOM/aria props.
-* [#120] Transition in/out-specific config, test attributes.
+* [#119]: More convenient ubiquitous access of DOM/aria props.
+* [#120]: Transition in/out-specific config, test attributes.
 
 ## 1.17.0
 
@@ -39,7 +142,7 @@ __New Features__
 
 __New Features__
 
-* [#115] Add 4-argument callback utils
+* [#115]: Add 4-argument callback utils
 
 ## 1.16.2
 
@@ -47,7 +150,7 @@ __New Features__
 
 __Bug fixes__
 
-* [#110] Revert bugfixes that can cause FluxUiComponent rendering regressions:
+* [#110]: Revert bugfixes that can cause FluxUiComponent rendering regressions:
     * ~~[#108]: Fix case where `setState` and store trigger only result in one `FluxUiComponent` render~~
     * ~~[#103]: `FluxUiComponent` redraws only once when store triggers along with ancestor rerender.~~
 

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library test_component_declaration;
+library over_react.integrate.test_component_declaration;
 
 import 'package:over_react/over_react.dart';
 

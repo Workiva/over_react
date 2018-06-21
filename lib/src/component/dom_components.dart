@@ -52,6 +52,9 @@ class DomProps extends component_base.UiProps
 
   @override
   String get propKeyNamespace => '';
+
+  @override
+  ReactElement call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
 }
 
 // Include pieces from transformer_helpers so that consumers can type these instances
@@ -70,6 +73,9 @@ class SvgProps extends component_base.UiProps
 
   @override
   String get propKeyNamespace => '';
+
+  @override
+  ReactElement call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
 }
 
 /// A class that provides namespacing for static DOM component factory methods, much like `React.DOM` in React JS.

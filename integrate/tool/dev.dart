@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library tool.dev;
+library over_react.integrate.tool.dev;
 
 import 'package:dart_dev/dart_dev.dart' show dev, config;
 
