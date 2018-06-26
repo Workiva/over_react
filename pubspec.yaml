@@ -24,6 +24,11 @@ dependencies:
   platform_detect: ^1.3.2
   quiver: ">=0.21.4 <=0.28.0" # 0.28.0+ is Dart 2 only
 dev_dependencies:
+  abide:
+    hosted:
+      name: abide
+      url: https://pub.workiva.org
+    version: ^1.4.1
   build_runner: ^0.6.0
   built_value_generator: ^5.1.3
   coverage: ">=0.7.2 <0.11.0" # 0.11.0+ is Dart 2 only
@@ -32,6 +37,11 @@ dev_dependencies:
   dependency_validator: ^1.1.0
   mockito: ^2.0.0
   over_react_test: ^1.2.0
+  semver_audit:
+    hosted:
+      name: semver_audit
+      url: https://pub.workiva.org
+    version: ^1.4.2
   source_gen: ^0.7.2+1
   test: ^0.12.32+1
 
