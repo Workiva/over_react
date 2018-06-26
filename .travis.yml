@@ -2,6 +2,8 @@ language: dart
 dist: precise
 dart:
   - "1.24.2"
+env:
+  - DARTIUM_EXPIRATION_TIME="1577836800"
 with_content_shell: true
 before_install:
   - export DISPLAY=:99.0
