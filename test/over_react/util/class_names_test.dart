@@ -254,7 +254,7 @@ main() {
 
             expect(builder.toClassName(), equals('a b'));
           });
-          
+
           test('returns blacklist merged from second builder instance', (){
             ClassNameBuilder otherBuilder = new ClassNameBuilder();
 
@@ -283,6 +283,21 @@ main() {
             expect(builder.toClassNameBlacklist(), equals('b-blacklist'));
           });
         }); 
+      });
+      
+      group('created with .merged() constructor', () {
+        test('',(){
+          ClassNameBuilder a = new ClassNameBuilder()
+            ..add('a')
+            ..blacklist('a-blacklist');
+          ClassNameBuilder b = new ClassNameBuilder()
+            ..add('b')
+            ..blacklist('b-blacklist');
+          ClassNameBuilder builder = new ClassNameBuilder.merged(a,b);
+
+          expect(builder.toClassName(), equals('a b'));
+          expect(builder.toClassNameBlacklist(), equals('a-blacklist b-blacklist'));
+        });
       });
 
       group('created with .fromProps() constructor', () {

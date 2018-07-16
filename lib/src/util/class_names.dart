@@ -75,6 +75,22 @@ class ClassNameBuilder {
     addFromProps(props);
   }
 
+  /// Creates a new `ClassNameBuilder` with [_classNamesBuffer] and [_blacklistBuffer] merged from [a] and [b]
+  ///   
+  ///     ClassNameBuilder a = new ClassNameBuilder()
+  ///      ..add('a');
+  /// 
+  ///     ClassNameBuilder b = new ClassNameBuilder()
+  ///       ..add('b');
+  ///     
+  ///     ClassNameBuilder builder = new ClassNameBuilder.merged(a,b);
+  /// 
+  ///     print(builder.toClassName()); // 'a b'
+  ClassNameBuilder.merged(ClassNameBuilder a, ClassNameBuilder b) {
+    merge(a);
+    merge(b);
+  }
+
   /// Adds the [CssClassPropsMixin.className] and excludes the [CssClassPropsMixin.classNameBlacklist] values
   /// if specified within the provided [props] Map.
   ///
