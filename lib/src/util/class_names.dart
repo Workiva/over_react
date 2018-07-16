@@ -150,6 +150,32 @@ class ClassNameBuilder {
     _blacklistBuffer.write(className);
   }
 
+
+
+  /// Merges together the classes and blacklists present in another `ClassNameBuilder` instance.
+  /// 
+  /// Takes [other._blacklistBuffer] and merges it into [_blacklistBuffer]
+  /// and takes [other._classNamesBuffer] and merges it into [_classNamesBuffer].
+  void merge(ClassNameBuilder other) {
+    if (_blacklistBuffer == null) {
+      _blacklistBuffer = new StringBuffer();
+    } else {
+      if (_blacklistBuffer.isNotEmpty) {
+        _blacklistBuffer.write(' ');
+      }
+    }
+    _blacklistBuffer.write(other._blacklistBuffer);
+
+    if (_classNamesBuffer == null) {
+      _classNamesBuffer = new StringBuffer();
+    } else {
+      if (_classNamesBuffer.isNotEmpty) {
+        _classNamesBuffer.write(' ');
+      }
+    }
+    _classNamesBuffer.write(other._classNamesBuffer);
+  }
+
   /// Returns a String representation of the built className, which includes any added classes,
   /// and none of the blacklisted classes.
   ///

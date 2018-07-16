@@ -239,6 +239,50 @@ main() {
             }));
           });
         });
+
+        group('merge', () {
+          test('returns className merged from second builder instance', (){
+            ClassNameBuilder otherBuilder = new ClassNameBuilder();
+
+            builder
+              ..add('a');
+              
+            otherBuilder
+              ..add('b');
+            
+            builder.merge(otherBuilder);
+
+            expect(builder.toClassName(), equals('a b'));
+          });
+          
+          test('returns blacklist merged from second builder instance', (){
+            ClassNameBuilder otherBuilder = new ClassNameBuilder();
+
+            builder
+              ..blacklist('a-blacklist');
+            
+            otherBuilder
+              ..blacklist('b-blacklist');
+            
+            builder.merge(otherBuilder);
+
+            expect(builder.toClassNameBlacklist(), equals('a-blacklist b-blacklist'));
+          });
+
+          test('returns classname and blacklist merged from second builder instance', (){
+            ClassNameBuilder otherBuilder = new ClassNameBuilder();
+
+            builder
+              ..add('a');
+            
+            otherBuilder
+              ..blacklist('b-blacklist');
+            
+            builder.merge(otherBuilder);
+            expect(builder.toClassName(), equals('a'));
+            expect(builder.toClassNameBlacklist(), equals('b-blacklist'));
+          });
+        }); 
       });
 
       group('created with .fromProps() constructor', () {
