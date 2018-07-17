@@ -75,10 +75,10 @@ class ClassNameBuilder {
     addFromProps(props);
   }
 
-  /// Creates a new `ClassNameBuilder` with [_classNamesBuffer] and [_blacklistBuffer] merged from [a] and [b]
+  /// Creates a new `ClassNameBuilder` with [_classNamesBuffer] and [_blacklistBuffer] merged from [a] and [b].
   ///   
   ///     ClassNameBuilder a = new ClassNameBuilder()
-  ///      ..add('a');
+  ///       ..add('a');
   /// 
   ///     ClassNameBuilder b = new ClassNameBuilder()
   ///       ..add('b');
@@ -168,10 +168,7 @@ class ClassNameBuilder {
 
 
 
-  /// Merges together the classes and blacklists present in another `ClassNameBuilder` instance.
-  /// 
-  /// Takes [other._blacklistBuffer] and merges it into [_blacklistBuffer]
-  /// and takes [other._classNamesBuffer] and merges it into [_classNamesBuffer].
+  /// Merges the classes and blacklists from [other] into this builder.
   void merge(ClassNameBuilder other) {
     if (_blacklistBuffer == null) {
       _blacklistBuffer = new StringBuffer();
@@ -182,12 +179,8 @@ class ClassNameBuilder {
     }
     _blacklistBuffer.write(other._blacklistBuffer);
 
-    if (_classNamesBuffer == null) {
-      _classNamesBuffer = new StringBuffer();
-    } else {
-      if (_classNamesBuffer.isNotEmpty) {
-        _classNamesBuffer.write(' ');
-      }
+    if (_classNamesBuffer.isNotEmpty) {
+      _classNamesBuffer.write(' ');
     }
     _classNamesBuffer.write(other._classNamesBuffer);
   }
