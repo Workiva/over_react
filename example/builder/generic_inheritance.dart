@@ -11,7 +11,7 @@ class GenericSuperProps extends UiProps {
 }
 
 // @Component()
-abstract class GenericSuperComponent<T extends GenericSuperProps> extends UiComponent<T> {
+class GenericSuperComponent<T extends GenericSuperProps> extends UiComponent<T> {
   @override
   render() {
     return Dom.div()('GenericSuper', {
