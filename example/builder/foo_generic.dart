@@ -2,36 +2,43 @@ import 'package:over_react/over_react.dart';
 
 part 'foo_generic.g.dart';
 
-@Factory()
+// @Factory()
 UiFactory<SuperProps> Super = $Super;
 
-@Props()
+// @Props()
 class SuperProps extends UiProps {
   String superProp;
 }
 
-@Component()
+// @Component()
 abstract class SuperComponent<T extends SuperProps> extends UiComponent<T> {
   @override
   render() {
-    return Dom.div()('Super', props.superProp);
+    return Dom.div()('Super', {
+      'props.superProp': props.superProp,
+//      'props': props.toString(),
+    }.toString());
   }
 }
 
 
-@Factory()
+// @Factory()
 UiFactory<FooProps> Foo = $Foo;
 
-@Props()
+// @Props()
 // Heads up: props class inheritance doesn't work properly currently
 class FooProps extends SuperProps {
   String fooProp;
 }
 
-@Component()
+// @Component()
 class FooComponent extends SuperComponent<FooProps> {
   @override
   render() {
-    return Dom.div()('Foo', props.fooProp);
+    return Dom.div()('Foo', {
+      'props.fooProp': props.fooProp,
+      'props.superProp': props.superProp,
+//      'props': props.toString(),
+    }.toString());
   }
 }

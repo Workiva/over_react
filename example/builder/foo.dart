@@ -2,10 +2,10 @@ import 'package:over_react/over_react.dart';
 
 part 'foo.g.dart';
 
-@Factory()
+//@Factory()
 UiFactory<FooProps> Foo = $Foo;
 
-@Props()
+//@Props()
 class FooProps extends UiProps {
   String fooProp;
   String foo1;
@@ -39,7 +39,7 @@ class FooProps extends UiProps {
   String foo29;
 }
 
-@Component()
+//@Component()
 class FooComponent extends UiComponent<FooProps> {
   // If you *really* need a constructor, do something like this.
   // Using constructors makes things more complicated:

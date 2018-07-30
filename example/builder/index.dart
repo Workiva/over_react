@@ -10,9 +10,14 @@ main() {
   setClientConfiguration();
   react_dom.render(
       Dom.div()(
-        (foo.Foo()..fooProp = 'fooProp')(),
-        (foo_generic.Super()..superProp = 'superProp')(),
-        (foo_generic.Foo()..fooProp = 'fooProp')(),
+        (foo.Foo()..fooProp = '<fooProp>')(),
+        (foo_generic.Super()
+          ..superProp = '<superProp>'
+        )(),
+        (foo_generic.Foo()
+          ..superProp = '<superProp value>'
+          ..fooProp = '<fooProp value>'
+        )(),
       ), querySelector('#content')
   );
 }
