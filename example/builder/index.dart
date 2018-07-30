@@ -3,20 +3,20 @@ import 'dart:html';
 import 'package:over_react/over_react.dart';
 import 'package:react/react_dom.dart' as react_dom;
 
-import 'foo.dart' as foo;
-import 'foo_generic.dart' as foo_generic;
+import 'basic.dart';
+import 'generic_inheritance.dart';
 
 main() {
   setClientConfiguration();
   react_dom.render(
       Dom.div()(
-        (foo.Foo()..fooProp = '<fooProp>')(),
-        (foo_generic.Super()
+        (Basic()..basicProp = '<basicProp>')(),
+        (GenericSuper()
           ..superProp = '<superProp>'
         )(),
-        (foo_generic.Foo()
+        (GenericSub()
           ..superProp = '<superProp value>'
-          ..fooProp = '<fooProp value>'
+          ..subProp = '<subProp value>'
         )(),
       ), querySelector('#content')
   );

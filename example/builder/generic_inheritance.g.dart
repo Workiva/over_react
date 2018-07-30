@@ -1,43 +1,43 @@
-part of 'foo_generic.dart';
+part of 'generic_inheritance.dart';
 
-abstract class $FooPropsAccessorsMixin {
+abstract class $GenericSubPropsAccessorsMixin {
   Map get props;
 
   @override
-  String get fooProp => props[_$key__fooProp__FooProps];
+  String get subProp => props[_$key__subProp__subProps];
   @override
-  set fooProp(String value) => props[_$key__fooProp__FooProps] = value;
+  set subProp(String value) => props[_$key__subProp__subProps] = value;
 
-  static const PropDescriptor _$prop__fooProp__FooProps = const PropDescriptor(_$key__fooProp__FooProps);
-  static const List<PropDescriptor> $props = const [_$prop__fooProp__FooProps];
-  static const String _$key__fooProp__FooProps = 'FooProps.fooProp';
-  static const List<String> $propKeys = const [_$key__fooProp__FooProps];
+  static const PropDescriptor _$prop__subProp__subProps = const PropDescriptor(_$key__subProp__subProps);
+  static const List<PropDescriptor> $props = const [_$prop__subProp__subProps];
+  static const String _$key__subProp__subProps = 'GenericSubProps.subProp';
+  static const List<String> $propKeys = const [_$key__subProp__subProps];
 }
 
-abstract class $SuperPropsAccessorsMixin {
+abstract class $GenericSuperPropsAccessorsMixin {
   Map get props;
 
   @override
-  String get superProp => props[_$key__superProp__SuperProps];
+  String get superProp => props[_$key__superProp__GenericSuperProps];
   @override
-  set superProp(String value) => props[_$key__superProp__SuperProps] = value;
+  set superProp(String value) => props[_$key__superProp__GenericSuperProps] = value;
 
   /* GENERATED CONSTANTS */
   static const ConsumedProps $consumedProps = const ConsumedProps($props, $propKeys);
-  static const PropDescriptor _$prop__superProp__SuperProps = const PropDescriptor(_$key__superProp__SuperProps);
-  static const List<PropDescriptor> $props = const [_$prop__superProp__SuperProps];
-  static const String _$key__superProp__SuperProps = 'SuperProps.superProp';
-  static const List<String> $propKeys = const [_$key__superProp__SuperProps];
+  static const PropDescriptor _$prop__superProp__GenericSuperProps = const PropDescriptor(_$key__superProp__GenericSuperProps);
+  static const List<PropDescriptor> $props = const [_$prop__superProp__GenericSuperProps];
+  static const String _$key__superProp__GenericSuperProps = 'GenericSuperProps.superProp';
+  static const List<String> $propKeys = const [_$key__superProp__GenericSuperProps];
 }
 
 
 
-_$FooPropsImpl $Foo([Map backingProps]) => new _$FooPropsImpl(backingProps);
+_$GenericSubPropsImpl $GenericSub([Map backingProps]) => new _$GenericSubPropsImpl(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$FooPropsImpl extends FooProps with $SuperPropsAccessorsMixin, $FooPropsAccessorsMixin {
+class _$GenericSubPropsImpl extends GenericSubProps with $GenericSuperPropsAccessorsMixin, $GenericSubPropsAccessorsMixin {
   static const List<PropDescriptor> $props = const []; // FIXME concatenate all accessors mixed in
   static const List<String> $propKeys = const []; // FIXME concatenate all accessors mixed in
 
@@ -48,7 +48,7 @@ class _$FooPropsImpl extends FooProps with $SuperPropsAccessorsMixin, $FooPropsA
   @override
   final Map props;
 
-  _$FooPropsImpl(Map backingMap) : this.props = backingMap ?? ({});
+  _$GenericSubPropsImpl(Map backingMap) : this.props = backingMap ?? ({});
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -56,11 +56,11 @@ class _$FooPropsImpl extends FooProps with $SuperPropsAccessorsMixin, $FooPropsA
 
   /// The [ReactComponentFactory] associated with the component built by this class.
   @override
-  Function get componentFactory => $FooComponentFactory;
+  Function get componentFactory => $GenericSubComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'FooProps.';
+  String get propKeyNamespace => 'GenericSubProps.';
 
   // Work around https://github.com/dart-lang/sdk/issues/16030 by making
   // the original props class abstract and redeclaring `call` in the impl class.
@@ -71,36 +71,36 @@ class _$FooPropsImpl extends FooProps with $SuperPropsAccessorsMixin, $FooPropsA
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$FooComponentImpl extends FooComponent {
+class _$GenericSubComponentImpl extends GenericSubComponent {
   @override
-  _$FooPropsImpl typedPropsFactory(Map backingMap) => new _$FooPropsImpl(backingMap);
+  _$GenericSubPropsImpl typedPropsFactory(Map backingMap) => new _$GenericSubPropsImpl(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from FooProps.
+  /// The default consumed props, taken from GenericSubProps.
   /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$FooPropsImpl.$consumedProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$GenericSubPropsImpl.$consumedProps];
 }
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $FooComponentFactory = registerComponent(() => new _$FooComponentImpl(),
-    builderFactory: Foo,
-    componentClass: FooComponent,
+final $GenericSubComponentFactory = registerComponent(() => new _$GenericSubComponentImpl(),
+    builderFactory: GenericSub,
+    componentClass: GenericSubComponent,
     isWrapper: false,
     parentType: null,
-    displayName: 'Foo'
+    displayName: 'GenericSub'
 );
 
 
-_$SuperPropsImpl $Super([Map backingProps]) => new _$SuperPropsImpl(backingProps);
+_$GenericSuperPropsImpl $GenericSuper([Map backingProps]) => new _$GenericSuperPropsImpl(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$SuperPropsImpl extends SuperProps with $SuperPropsAccessorsMixin {
+class _$GenericSuperPropsImpl extends GenericSuperProps with $GenericSuperPropsAccessorsMixin {
   static const List<PropDescriptor> $props = const []; // FIXME concatenate all accessors mixed in
   static const List<String> $propKeys = const []; // FIXME concatenate all accessors mixed in
 
@@ -111,7 +111,7 @@ class _$SuperPropsImpl extends SuperProps with $SuperPropsAccessorsMixin {
   @override
   final Map props;
 
-  _$SuperPropsImpl(Map backingMap) : this.props = backingMap ?? ({});
+  _$GenericSuperPropsImpl(Map backingMap) : this.props = backingMap ?? ({});
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -119,11 +119,11 @@ class _$SuperPropsImpl extends SuperProps with $SuperPropsAccessorsMixin {
 
   /// The [ReactComponentFactory] associated with the component built by this class.
   @override
-  Function get componentFactory => $SuperComponentFactory;
+  Function get componentFactory => $GenericSuperComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'SuperProps.';
+  String get propKeyNamespace => 'GenericSuperProps.';
 
   // Work around https://github.com/dart-lang/sdk/issues/16030 by making
   // the original props class abstract and redeclaring `call` in the impl class.
@@ -134,26 +134,26 @@ class _$SuperPropsImpl extends SuperProps with $SuperPropsAccessorsMixin {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$SuperComponentImpl extends SuperComponent {
+class _$GenericSuperComponentImpl extends GenericSuperComponent {
   @override
-  _$SuperPropsImpl typedPropsFactory(Map backingMap) => new _$SuperPropsImpl(backingMap);
+  _$GenericSuperPropsImpl typedPropsFactory(Map backingMap) => new _$GenericSuperPropsImpl(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from SuperProps.
+  /// The default consumed props, taken from GenericSuperProps.
   /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$SuperPropsImpl.$consumedProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$GenericSuperPropsImpl.$consumedProps];
 }
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $SuperComponentFactory = registerComponent(() => new _$SuperComponentImpl(),
-    builderFactory: Super,
-    componentClass: SuperComponent,
+final $GenericSuperComponentFactory = registerComponent(() => new _$GenericSuperComponentImpl(),
+    builderFactory: GenericSuper,
+    componentClass: GenericSuperComponent,
     isWrapper: false,
     parentType: null,
-    displayName: 'Super'
+    displayName: 'GenericSuper'
 );
