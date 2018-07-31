@@ -136,11 +136,17 @@ class _$GenericSuperProps extends GenericSuperProps with $GenericSuperPropsAcces
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$GenericSuperComponent extends GenericSuperComponent {
+class _$GenericSuperComponent<T extends GenericSuperProps, OtherParam extends ArbitraryClass> extends GenericSuperComponent<T, OtherParam> { // TODO generation needs to copy over parameters
   _$GenericSuperComponent() : super._$();
 
   @override
-  _$GenericSuperProps typedPropsFactory(Map backingMap) => new _$GenericSuperProps(backingMap);
+  T typedPropsFactory(Map backingMap) {
+    // If this cast fails, then that means that this component instance was
+    // instantiated with generic parameters that don't match the concrete
+    // props class.
+    // This type of usage is unsupported.
+    return new _$GenericSuperProps(backingMap) as T; // TODO cast as dynamic instead for perf?
+  }
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override

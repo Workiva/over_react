@@ -11,6 +11,7 @@ main() {
   setClientConfiguration();
   react_dom.render(
       Dom.div()(
+        Dom.h3()('Components'),
         (Basic()..basicProp = '<basicProp>')(),
         (Sub()
           ..superProp = '<superProp value>'
@@ -23,17 +24,21 @@ main() {
           ..superProp = '<superProp value>'
           ..subProp = '<subProp value>'
         )(),
+        Dom.h3()('getDefaultProps via component class constructors'),
+        componentConstructorsByName.keys.map((name) => Dom.div()(
+          'new $name()',
+          ' - ',
+          componentConstructorsByName[name]().getDefaultProps().toString(),
+        )).toList(),
       ), querySelector('#content')
   );
-
-  <ComponentClassFactory>[
-    () => new BasicComponent(),
-    () => new SubComponent(),
-//    () => new GenericSuperComponent(), // FIXME unsupported
-    () => new BasicComponent(),
-  ].forEach((componentClassFactory) {
-    print('Default props: ${componentClassFactory().getDefaultProps()}');
-  });
 }
 
-typedef UiComponent ComponentClassFactory();
+typedef UiComponent ComponentClassConstructor();
+
+final componentConstructorsByName = <String, ComponentClassConstructor>{
+  'BasicComponent': () => new BasicComponent(),
+  'SubComponent': () => new SubComponent(),
+  'GenericSuperComponent': () => new GenericSuperComponent(),
+  'GenericSubComponent': () => new GenericSubComponent(),
+};

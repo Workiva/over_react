@@ -11,8 +11,8 @@ class GenericSuperProps extends UiProps {
 }
 
 // @Component()
-class GenericSuperComponent<T extends GenericSuperProps> extends UiComponent<T> {
-//  factory GenericSuperComponent() = _$GenericSuperComponent; // FIXME unsupported
+class GenericSuperComponent<T extends GenericSuperProps, OtherParam extends ArbitraryClass> extends UiComponent<T> {
+  factory GenericSuperComponent() = _$GenericSuperComponent<T, OtherParam>;
   GenericSuperComponent._$();
 
   getDefaultProps() => newProps()..id = 'generic_super';
@@ -37,7 +37,7 @@ class GenericSubProps extends GenericSuperProps {
 }
 
 // @Component()
-class GenericSubComponent extends GenericSuperComponent<GenericSubProps> {
+class GenericSubComponent extends GenericSuperComponent<GenericSubProps, ArbitraryClass> {
   factory GenericSubComponent() = _$GenericSubComponent;
   GenericSubComponent._$() : super._$();
 
@@ -52,3 +52,6 @@ class GenericSubComponent extends GenericSuperComponent<GenericSubProps> {
     }.toString());
   }
 }
+
+
+class ArbitraryClass {}
