@@ -1,15 +1,17 @@
-targets:
-  $default:
-    builders:
-      built_value_generator|built_value:
-        enabled: false
-      overReactBuilder:
-        enabled: true
+#targets:
+#  $default:
+#    builders:
+#      built_value_generator|built_value:
+#        enabled: false
+#  $testing:
+#    builders:
+#      overReactBuilder:
+#        enabled: true
 
 builders:
   overReactBuilder:
     import: "package:over_react/src/builder/builder.dart"
     builder_factories: ["overReactBuilder"]
-    build_extensions: {".dart" : [".overReactBuilder.dart"]}
+    build_extensions: {".dart" : [".overReactBuilder.info"]}
     auto_apply: root_package
     build_to: source

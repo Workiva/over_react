@@ -11,8 +11,8 @@ dependencies:
   analyzer: ^0.32.0
   barback: ^0.15.2+14
   build: any
-  built_redux: any #7.4.1-dev
-  built_value: ^5.4.4
+  #  built_redux: any #7.4.1-dev
+  # built_value: ^5.4.4
   js: ^0.6.0
   logging: ">=0.11.3+1 <1.0.0"
   meta: ^1.0.4

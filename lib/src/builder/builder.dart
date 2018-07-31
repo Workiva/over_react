@@ -10,21 +10,24 @@ class OverReactBuilder implements Builder {
   @override
   Future build(BuildStep buildStep) async {
     // Get the `LibraryElement` for the primary input.
+    if (await buildStep.resolver.isLibrary(buildStep.inputId)) {
+
     var entryLib = await buildStep.inputLibrary;
 
-    var info = buildStep.inputId.changeExtension('.overReactBuilder.dart');
+    var info = buildStep.inputId.changeExtension('.overReactBuilder.info');
 
     var astWrapper = new AstWrapper();
     astWrapper.visitCompilationUnit(
         entryLib.definingCompilationUnit.computeNode());
 
     await buildStep.writeAsString(info, '''
-        classSuperTypes: ${astWrapper.superTypes} 
+        classSuperTypes: ${astWrapper.superTypes}
       ''');
+    }
   }
 
   @override
-  Map<String, List<String>> get buildExtensions => {'.dart': const ['.overReactBuilder.dart']};
+  Map<String, List<String>> get buildExtensions => {'.dart': const ['.overReactBuilder.info']};
 }
 
 class AstWrapper extends RecursiveAstVisitor {
