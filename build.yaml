@@ -8,8 +8,12 @@ builders:
 
 targets:
   $default:
+#    sources:
+#      ["**"]
     builders:
       built_value_generator|built_value:
+        enabled: false
+      built_redux|built_redux:
         enabled: false
       over_react|overReactBuilder:
         enabled: true
