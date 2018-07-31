@@ -8,7 +8,7 @@ class SuperProps extends UiProps {
 }
 
 // @AbstractComponent()
-class SuperComponent<T extends SuperProps> extends UiComponent<T> {
+abstract class SuperComponent<T extends SuperProps> extends UiComponent<T> {
   getDefaultProps() => newProps()..id = 'super';
 
   @override
