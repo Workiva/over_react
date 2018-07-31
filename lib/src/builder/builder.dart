@@ -12,7 +12,7 @@ class OverReactBuilder implements Builder {
     // Get the `LibraryElement` for the primary input.
     var entryLib = await buildStep.inputLibrary;
 
-    var info = buildStep.inputId.changeExtension('.g.dart');
+    var info = buildStep.inputId.changeExtension('.overReactBuilder.dart');
 
     var astWrapper = new AstWrapper();
     astWrapper.visitCompilationUnit(
@@ -24,7 +24,7 @@ class OverReactBuilder implements Builder {
   }
 
   @override
-  Map<String, List<String>> get buildExtensions => {'.dart': const ['.g.dart']};
+  Map<String, List<String>> get buildExtensions => {'.dart': const ['.overReactBuilder.dart']};
 }
 
 class AstWrapper extends RecursiveAstVisitor {

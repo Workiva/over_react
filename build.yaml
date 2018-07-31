@@ -4,8 +4,12 @@ targets:
       built_value_generator|built_value:
         enabled: false
       overReactBuilder:
-        import: "package:over_react/src/builder/builder.dart"
-        builder_factories: ["overReactBuilder"]
-        build_extensions: {".dart" : [".g.dart"]}
-        auto_apply: root_package
-        build_to: source
+        enabled: true
+
+builders:
+  overReactBuilder:
+    import: "package:over_react/src/builder/builder.dart"
+    builder_factories: ["overReactBuilder"]
+    build_extensions: {".dart" : [".overReactBuilder.dart"]}
+    auto_apply: root_package
+    build_to: source
