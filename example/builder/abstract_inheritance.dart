@@ -33,7 +33,7 @@ class SubProps extends SuperProps {
 // @Component()
 class SubComponent extends SuperComponent<SubProps> {
   factory SubComponent() = _$SubComponent;
-  SubComponent._$();
+  SubComponent._();
 
   getDefaultProps() => newProps()..id = 'sub';
 

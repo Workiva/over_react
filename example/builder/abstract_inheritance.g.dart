@@ -72,7 +72,7 @@ class _$SubProps extends SubProps with $SuperPropsAccessorsMixin, $SubPropsAcces
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$SubComponent extends SubComponent {
-  _$SubComponent() : super._$();
+  _$SubComponent() : super._();
 
   @override
   _$SubProps typedPropsFactory(Map backingMap) => new _$SubProps(backingMap);
