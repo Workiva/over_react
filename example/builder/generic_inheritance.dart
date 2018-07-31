@@ -12,6 +12,11 @@ class GenericSuperProps extends UiProps {
 
 // @Component()
 class GenericSuperComponent<T extends GenericSuperProps> extends UiComponent<T> {
+//  factory GenericSuperComponent() = _$GenericSuperComponentImpl; // FIXME unsupported
+  GenericSuperComponent._$();
+
+  getDefaultProps() => newProps()..id = 'generic_super';
+
   @override
   render() {
     return Dom.div()('GenericSuper', {
@@ -33,6 +38,11 @@ class GenericSubProps extends GenericSuperProps {
 
 // @Component()
 class GenericSubComponent extends GenericSuperComponent<GenericSubProps> {
+  factory GenericSubComponent() = _$GenericSubComponentImpl;
+  GenericSubComponent._$() : super._$();
+
+  getDefaultProps() => newProps()..id = 'generic_sub';
+
   @override
   render() {
     return Dom.div()('GenericSub', {

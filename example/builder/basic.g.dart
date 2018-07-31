@@ -202,6 +202,8 @@ class _$BasicPropsImpl extends BasicProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$BasicComponentImpl extends BasicComponent {
+  _$BasicComponentImpl() : super._$();
+
   @override
   _$BasicPropsImpl typedPropsFactory(Map backingMap) => new _$BasicPropsImpl(backingMap);
 

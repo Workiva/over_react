@@ -41,11 +41,10 @@ class BasicProps extends UiProps {
 
 //@Component()
 class BasicComponent extends UiComponent<BasicProps> {
-  // If you *really* need a constructor, do something like this.
-  // Using constructors makes things more complicated:
-  // - since you need the default constructor for the impl to call as well as a different named factory constructor
-  // - when this class has generic props, the impl has a typedPropsFactory that doesn't meet those (need to check that the current is kosher in DDC)
-  static _$BasicComponentImpl construct() => new _$BasicComponentImpl();
+  factory BasicComponent() = _$BasicComponentImpl;
+  BasicComponent._$();
+
+  getDefaultProps() => newProps()..id = 'basic';
 
   @override
   render() {

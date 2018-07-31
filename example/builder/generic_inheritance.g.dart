@@ -72,6 +72,8 @@ class _$GenericSubPropsImpl extends GenericSubProps with $GenericSuperPropsAcces
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$GenericSubComponentImpl extends GenericSubComponent {
+  _$GenericSubComponentImpl() : super._$();
+
   @override
   _$GenericSubPropsImpl typedPropsFactory(Map backingMap) => new _$GenericSubPropsImpl(backingMap);
 
@@ -135,6 +137,8 @@ class _$GenericSuperPropsImpl extends GenericSuperProps with $GenericSuperPropsA
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$GenericSuperComponentImpl extends GenericSuperComponent {
+  _$GenericSuperComponentImpl() : super._$();
+
   @override
   _$GenericSuperPropsImpl typedPropsFactory(Map backingMap) => new _$GenericSuperPropsImpl(backingMap);
 
