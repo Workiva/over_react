@@ -163,12 +163,12 @@ abstract class $BasicPropsAccessorsMixin {
 
 
 
-_$BasicPropsImpl $Basic([Map backingProps]) => new _$BasicPropsImpl(backingProps);
+_$BasicProps $Basic([Map backingProps]) => new _$BasicProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$BasicPropsImpl extends BasicProps {
+class _$BasicProps extends BasicProps {
   /* GENERATED CONSTANTS */
   static const ConsumedProps $consumedProps = const ConsumedProps($BasicPropsAccessorsMixin.$props, $BasicPropsAccessorsMixin.$propKeys); // FIXME concatenate all accessors mixed in
 
@@ -176,7 +176,7 @@ class _$BasicPropsImpl extends BasicProps {
   @override
   final Map props;
 
-  _$BasicPropsImpl(Map backingMap) : this.props = backingMap ?? ({});
+  _$BasicProps(Map backingMap) : this.props = backingMap ?? ({});
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -201,11 +201,11 @@ class _$BasicPropsImpl extends BasicProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$BasicComponentImpl extends BasicComponent {
-  _$BasicComponentImpl() : super._$();
+class _$BasicComponent extends BasicComponent {
+  _$BasicComponent() : super._$();
 
   @override
-  _$BasicPropsImpl typedPropsFactory(Map backingMap) => new _$BasicPropsImpl(backingMap);
+  _$BasicProps typedPropsFactory(Map backingMap) => new _$BasicProps(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -214,14 +214,14 @@ class _$BasicComponentImpl extends BasicComponent {
   /// The default consumed props, taken from BasicProps.
   /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$BasicPropsImpl.$consumedProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$BasicProps.$consumedProps];
 }
 
 
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $BasicComponentFactory = registerComponent(() => new _$BasicComponentImpl(),
+final $BasicComponentFactory = registerComponent(() => new _$BasicComponent(),
     builderFactory: Basic,
     componentClass: BasicComponent,
     isWrapper: false,

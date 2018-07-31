@@ -32,12 +32,12 @@ abstract class $SuperPropsAccessorsMixin {
 
 
 
-_$SubPropsImpl $Sub([Map backingProps]) => new _$SubPropsImpl(backingProps);
+_$SubProps $Sub([Map backingProps]) => new _$SubProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$SubPropsImpl extends SubProps with $SuperPropsAccessorsMixin, $SubPropsAccessorsMixin {
+class _$SubProps extends SubProps with $SuperPropsAccessorsMixin, $SubPropsAccessorsMixin {
   static const List<PropDescriptor> $props = const []; // FIXME concatenate all accessors mixed in
   static const List<String> $propKeys = const []; // FIXME concatenate all accessors mixed in
 
@@ -48,7 +48,7 @@ class _$SubPropsImpl extends SubProps with $SuperPropsAccessorsMixin, $SubPropsA
   @override
   final Map props;
 
-  _$SubPropsImpl(Map backingMap) : this.props = backingMap ?? ({});
+  _$SubProps(Map backingMap) : this.props = backingMap ?? ({});
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -71,11 +71,11 @@ class _$SubPropsImpl extends SubProps with $SuperPropsAccessorsMixin, $SubPropsA
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$SubComponentImpl extends SubComponent {
-  _$SubComponentImpl() : super._$();
+class _$SubComponent extends SubComponent {
+  _$SubComponent() : super._$();
 
   @override
-  _$SubPropsImpl typedPropsFactory(Map backingMap) => new _$SubPropsImpl(backingMap);
+  _$SubProps typedPropsFactory(Map backingMap) => new _$SubProps(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -84,12 +84,12 @@ class _$SubComponentImpl extends SubComponent {
   /// The default consumed props, taken from SubProps.
   /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$SubPropsImpl.$consumedProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$SubProps.$consumedProps];
 }
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $SubComponentFactory = registerComponent(() => new _$SubComponentImpl(),
+final $SubComponentFactory = registerComponent(() => new _$SubComponent(),
     builderFactory: Sub,
     componentClass: SubComponent,
     isWrapper: false,

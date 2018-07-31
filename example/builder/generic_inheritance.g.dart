@@ -32,12 +32,12 @@ abstract class $GenericSuperPropsAccessorsMixin {
 
 
 
-_$GenericSubPropsImpl $GenericSub([Map backingProps]) => new _$GenericSubPropsImpl(backingProps);
+_$GenericSubProps $GenericSub([Map backingProps]) => new _$GenericSubProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$GenericSubPropsImpl extends GenericSubProps with $GenericSuperPropsAccessorsMixin, $GenericSubPropsAccessorsMixin {
+class _$GenericSubProps extends GenericSubProps with $GenericSuperPropsAccessorsMixin, $GenericSubPropsAccessorsMixin {
   static const List<PropDescriptor> $props = const []; // FIXME concatenate all accessors mixed in
   static const List<String> $propKeys = const []; // FIXME concatenate all accessors mixed in
 
@@ -48,7 +48,7 @@ class _$GenericSubPropsImpl extends GenericSubProps with $GenericSuperPropsAcces
   @override
   final Map props;
 
-  _$GenericSubPropsImpl(Map backingMap) : this.props = backingMap ?? ({});
+  _$GenericSubProps(Map backingMap) : this.props = backingMap ?? ({});
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -71,11 +71,11 @@ class _$GenericSubPropsImpl extends GenericSubProps with $GenericSuperPropsAcces
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$GenericSubComponentImpl extends GenericSubComponent {
-  _$GenericSubComponentImpl() : super._$();
+class _$GenericSubComponent extends GenericSubComponent {
+  _$GenericSubComponent() : super._$();
 
   @override
-  _$GenericSubPropsImpl typedPropsFactory(Map backingMap) => new _$GenericSubPropsImpl(backingMap);
+  _$GenericSubProps typedPropsFactory(Map backingMap) => new _$GenericSubProps(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -84,12 +84,12 @@ class _$GenericSubComponentImpl extends GenericSubComponent {
   /// The default consumed props, taken from GenericSubProps.
   /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$GenericSubPropsImpl.$consumedProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$GenericSubProps.$consumedProps];
 }
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $GenericSubComponentFactory = registerComponent(() => new _$GenericSubComponentImpl(),
+final $GenericSubComponentFactory = registerComponent(() => new _$GenericSubComponent(),
     builderFactory: GenericSub,
     componentClass: GenericSubComponent,
     isWrapper: false,
@@ -98,11 +98,11 @@ final $GenericSubComponentFactory = registerComponent(() => new _$GenericSubComp
 );
 
 
-_$GenericSuperPropsImpl $GenericSuper([Map backingProps]) => new _$GenericSuperPropsImpl(backingProps);
+_$GenericSuperProps $GenericSuper([Map backingProps]) => new _$GenericSuperProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$GenericSuperPropsImpl extends GenericSuperProps with $GenericSuperPropsAccessorsMixin {
+class _$GenericSuperProps extends GenericSuperProps with $GenericSuperPropsAccessorsMixin {
   static const List<PropDescriptor> $props = const []; // FIXME concatenate all accessors mixed in
   static const List<String> $propKeys = const []; // FIXME concatenate all accessors mixed in
 
@@ -113,7 +113,7 @@ class _$GenericSuperPropsImpl extends GenericSuperProps with $GenericSuperPropsA
   @override
   final Map props;
 
-  _$GenericSuperPropsImpl(Map backingMap) : this.props = backingMap ?? ({});
+  _$GenericSuperProps(Map backingMap) : this.props = backingMap ?? ({});
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -136,11 +136,11 @@ class _$GenericSuperPropsImpl extends GenericSuperProps with $GenericSuperPropsA
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$GenericSuperComponentImpl extends GenericSuperComponent {
-  _$GenericSuperComponentImpl() : super._$();
+class _$GenericSuperComponent extends GenericSuperComponent {
+  _$GenericSuperComponent() : super._$();
 
   @override
-  _$GenericSuperPropsImpl typedPropsFactory(Map backingMap) => new _$GenericSuperPropsImpl(backingMap);
+  _$GenericSuperProps typedPropsFactory(Map backingMap) => new _$GenericSuperProps(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -149,12 +149,12 @@ class _$GenericSuperComponentImpl extends GenericSuperComponent {
   /// The default consumed props, taken from GenericSuperProps.
   /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$GenericSuperPropsImpl.$consumedProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$GenericSuperProps.$consumedProps];
 }
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $GenericSuperComponentFactory = registerComponent(() => new _$GenericSuperComponentImpl(),
+final $GenericSuperComponentFactory = registerComponent(() => new _$GenericSuperComponent(),
     builderFactory: GenericSuper,
     componentClass: GenericSuperComponent,
     isWrapper: false,
