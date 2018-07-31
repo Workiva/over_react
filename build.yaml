@@ -1,12 +1,10 @@
-#targets:
-#  $default:
-#    builders:
-#      built_value_generator|built_value:
-#        enabled: false
-#  $testing:
-#    builders:
-#      overReactBuilder:
-#        enabled: true
+targets:
+  $default:
+    builders:
+      built_value_generator|built_value:
+        enabled: false
+      overReactBuilder:
+        enabled: true
 
 builders:
   overReactBuilder:
