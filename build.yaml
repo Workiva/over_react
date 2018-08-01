@@ -2,14 +2,17 @@ builders:
   overReactBuilder:
     import: "package:over_react/src/builder/builder.dart"
     builder_factories: ["overReactBuilder"]
-    build_extensions: {".dart" : [".overReactBuilder.info"]}
+    build_extensions: {".dart" : [".overReactBuilder.g.dart"]}
     auto_apply: none
     build_to: source
 
 targets:
   $default:
-#    sources:
-#      ["**"]
+    sources:
+      include:
+        - "example/builder/**"
+      exclude:
+        - ".dart_tool"
     builders:
       built_value_generator|built_value:
         enabled: false
