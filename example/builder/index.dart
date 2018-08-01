@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
+import 'package:react/react_client.dart';
 import 'package:react/react_dom.dart' as react_dom;
 
 import 'abstract_inheritance.dart';
@@ -24,21 +25,30 @@ main() {
           ..superProp = '<superProp value>'
           ..subProp = '<subProp value>'
         )(),
-        Dom.h3()('getDefaultProps via component class constructors'),
+        Dom.h3()('getDefaultProps via component factories'),
         componentConstructorsByName.keys.map((name) => Dom.div()(
           'new $name()',
           ' - ',
-          componentConstructorsByName[name]().getDefaultProps().toString(),
+          componentConstructorsByName[name]().toString(),
         )).toList(),
       ), querySelector('#content')
   );
 }
 
-typedef UiComponent ComponentClassConstructor();
+typedef Map GetDefaultProps();
 
-final componentConstructorsByName = <String, ComponentClassConstructor>{
-  'BasicComponent': () => new BasicComponent(),
-  'SubComponent': () => new SubComponent(),
-  'GenericSuperComponent': () => new GenericSuperComponent(),
-  'GenericSubComponent': () => new GenericSubComponent(),
+final componentConstructorsByName = <String, GetDefaultProps>{
+  'BasicComponent': () => getDefaultPropsFor(Basic),
+  'SubComponent': () => getDefaultPropsFor(Sub),
+  'GenericSuperComponent': () => getDefaultPropsFor(GenericSuper),
+  'GenericSubComponent': () => getDefaultPropsFor(GenericSub),
 };
+
+/// FIXME move to over_react public API
+Map getDefaultPropsFor(BuilderOnlyUiFactory factory) {
+  final componentFactory = factory().componentFactory;
+  if (componentFactory is ReactDartComponentFactoryProxy) {
+    return componentFactory.defaultProps;
+  }
+  throw new ArgumentError.value(factory, 'factory', 'must be a ReactDartComponentFactoryProxy');
+}
