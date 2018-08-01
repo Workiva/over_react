@@ -48,7 +48,7 @@ import 'package:transformer_utils/transformer_utils.dart';
 ///     * Replaces fields with generated getters/setters.
 class ImplGenerator {
   // TODO: Implement logging
-  ImplGenerator(this.logger, this.inputContents);
+  ImplGenerator(this.logger, this.inputContents, this.sourceFileName);
 
   static const String generatedPrefix = r'_$';
   static const String publicGeneratedPrefix = r'$';
@@ -56,6 +56,8 @@ class ImplGenerator {
   Logger logger;
   TransformedSourceFile transformedFile;
   final String inputContents;
+  final String sourceFileName;
+  StringBuffer outputContentsBuffer = new StringBuffer();
   bool shouldFixDdcAbstractAccessors = false;
 
   SourceFile get sourceFile => transformedFile?.sourceFile;
@@ -73,36 +75,31 @@ class ImplGenerator {
 
     if (declarations.declaresComponent) {
       final String factoryName = declarations.factory.node.variables.variables.first.name.toString();
-      logger.info(factoryName);
 
       final String propsName = declarations.props.node.name.toString();
       final String propsImplName = '$generatedPrefix${propsName}';
-      logger.info(propsName);
-      logger.info(propsImplName);
+      final String propsAccessorsMixinName = '$publicGeneratedPrefix${propsName}AccessorsMixin';
 
       final String componentClassName = declarations.component.node.name.toString();
       final String componentClassImplMixinName = '$generatedPrefix${componentClassName}';
-      logger.info(componentClassName);
-      logger.info(componentClassImplMixinName);
 
       final String componentFactoryName = getComponentFactoryName(componentClassName);
-      logger.info(componentFactoryName);
 
       String typedPropsFactoryImpl = '';
       String typedStateFactoryImpl = '';
 
-      return;
-      // Work around https://github.com/dart-lang/sdk/issues/16030 by making
-      // the original props class abstract and redeclaring `call` in the impl class.
-      //
-      // We can safely make this abstract, since we already have a runtime warning when it's
-      // instantiated.
-      if (!declarations.props.node.isAbstract) {
-        transformedFile?.insert(
-            sourceFile?.location(declarations.props.node.classKeyword.offset),
-            'abstract '
-        );
-      }
+      // TODO: Figure out if we need this in dart 2:
+//      // Work around https://github.com/dart-lang/sdk/issues/16030 by making
+//      // the original props class abstract and redeclaring `call` in the impl class.
+//      //
+//      // We can safely make this abstract, since we already have a runtime warning when it's
+//      // instantiated.
+//      if (!declarations.props.node.isAbstract) {
+//        transformedFile?.insert(
+//            sourceFile?.location(declarations.props.node.classKeyword.offset),
+//            'abstract '
+//        );
+//      }
 
       // ----------------------------------------------------------------------
       //   Factory implementation
@@ -113,22 +110,33 @@ class ImplGenerator {
 //            span: getSpan(sourceFile, declarations.factory.node.variables));
       }
 
+      /// Factories are stubbed for the generated factories and may only be initialized with the generated factory.
       declarations.factory.node.variables.variables.forEach((variable) {
-        if (variable.initializer != null) {
+        if (variable.initializer?.toSource() != '\$$factoryName' && variable.initializer != null) {
           logger.severe(
-              'Factory variables are stubs for the generated factories, and should not have initializers.',
+              'Factories are stubbed for the generated factories and may only be initialized with the generated factory.',
 //              span: getSpan(sourceFile, variable.initializer)
           );
         }
       });
+//
+//      transformedFile?.replace(
+//          sourceFile?.span(
+//              declarations.factory.node.variables.variables.first.name.end,
+//              declarations.factory.node.semicolon.offset
+//          ),
+//          ' = \$$factoryName'
+//      );
 
-      transformedFile?.replace(
-          sourceFile?.span(
-              declarations.factory.node.variables.variables.first.name.end,
-              declarations.factory.node.semicolon.offset
-          ),
-          ' = ([Map backingProps]) => new $propsImplName(backingProps)'
-      );
+      // part of directive
+      outputContentsBuffer.writeln('part of \'$sourceFileName\';\n');
+
+      /// _$BasicProps $Basic([Map backingProps]) => new _$BasicProps(backingProps);
+      outputContentsBuffer.writeln('$propsImplName \$$factoryName([Map backingProps]) => new $propsImplName(backingProps);');
+//      transformedFile.insert(
+//          sourceFile.location(declarations.factory.node.semicolon.end),
+//        '$propsImplName \$$factoryName([Map backingProps]) => new $propsImplName(backingProps);'
+//          );
 
       String parentTypeParam = 'null';
       String parentTypeParamComment = '';
@@ -153,9 +161,9 @@ class ImplGenerator {
         /// It doesn't make sense to have a component subtype itself, and also an error occurs
         /// if a component's factory variable tries to reference itself during its initialization.
         /// Therefore, this is not allowed.
-//        logger.severe('A component cannot be a subtype of itself.',
+        logger.severe('A component cannot be a subtype of itself.',
 //            span: getSpan(sourceFile, declarations.component.metaNode)
-//        );
+        );
       }
 
       implementations
@@ -175,7 +183,13 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
       //   Props implementation
       // ----------------------------------------------------------------------
+      outputContentsBuffer.writeln(
+        '\nabstract class $propsAccessorsMixinName {\n' +
+        '  Map get props;\n'
+      );
       generateAccessors(AccessorType.props, declarations.props);
+
+      outputContentsBuffer.writeln('}\n');
 
       final String propKeyNamespace = getAccessorKeyNamespace(declarations.props);
 
@@ -273,20 +287,20 @@ class ImplGenerator {
         ..writeln('}');
 
       if (declarations.component.node.withClause != null) {
-        transformedFile?.insert(
-            sourceFile?.location(declarations.component.node.withClause.mixinTypes.last.end),
-            ', $componentClassImplMixinName'
-        );
+//        transformedFile?.insert(
+//            sourceFile?.location(declarations.component.node.withClause.mixinTypes.last.end),
+//            ', $componentClassImplMixinName'
+//        );
       } else if (declarations.component.node.extendsClause != null) {
-        transformedFile?.insert(
-            sourceFile?.location(declarations.component.node.extendsClause.end),
-            ' with $componentClassImplMixinName'
-        );
+//        transformedFile?.insert(
+//            sourceFile?.location(declarations.component.node.extendsClause.end),
+//            ' with $componentClassImplMixinName'
+//        );
       } else {
-        transformedFile?.insert(
-            sourceFile?.location(declarations.component.node.name.end),
-            ' extends Object with $componentClassImplMixinName'
-        );
+//        transformedFile?.insert(
+//            sourceFile?.location(declarations.component.node.name.end),
+//            ' extends Object with $componentClassImplMixinName'
+//        );
       }
 
       var implementsTypedPropsStateFactory = declarations.component.node.members.any((member) =>
@@ -305,20 +319,24 @@ class ImplGenerator {
         // For some reason, strong mode is okay with these declarations being in the component,
         // but not in the mixin.
         // TODO use long-term solution of component impl class instantiated via factory constructor
-        transformedFile?.insert(
-            sourceFile?.location(declarations.component.node.leftBracket.end),
-            '   /* GENERATED IMPLEMENTATIONS */ $typedPropsFactoryImpl $typedStateFactoryImpl'
-        );
+//        transformedFile?.insert(
+//            sourceFile?.location(declarations.component.node.leftBracket.end),
+//            '   /* GENERATED IMPLEMENTATIONS */ $typedPropsFactoryImpl $typedStateFactoryImpl'
+//        );
       }
     }
 
     if (implementations.isNotEmpty) {
-      transformedFile?.insert(sourceFile?.location(sourceFile?.length),
-          '\n\n' +
+      outputContentsBuffer.writeln('\n\n' +
           commentBanner('GENERATED IMPLEMENTATIONS', bottomBorder: false) +
           implementations.toString() +
-          commentBanner('END GENERATED IMPLEMENTATIONS', topBorder: false)
-      );
+          commentBanner('END GENERATED IMPLEMENTATIONS', topBorder: false));
+//      transformedFile?.insert(sourceFile?.location(sourceFile?.length),
+//          '\n\n' +
+//          commentBanner('GENERATED IMPLEMENTATIONS', bottomBorder: false) +
+//          implementations.toString() +
+//          commentBanner('END GENERATED IMPLEMENTATIONS', topBorder: false)
+//      );
     }
 
 
@@ -446,24 +464,24 @@ class ImplGenerator {
           // TODO add support for preserving comment nodes between variable declarations.
 
           // Remove content between end of comment/meta and first variable name
-          transformedFile?.remove(
-              sourceFile?.span(field.firstTokenAfterCommentAndMetadata.offset, field.fields.variables.first.beginToken.offset),
-              preserveNewlines: true
-          );
+//          transformedFile?.remove(
+//              sourceFile?.span(field.firstTokenAfterCommentAndMetadata.offset, field.fields.variables.first.beginToken.offset),
+//              preserveNewlines: true
+//          );
           // Remove content between variable names (including commas).
-          var prevVariable = field.fields.variables.first;
-          field.fields.variables.skip(1).forEach((variable) {
-            transformedFile?.remove(
-                sourceFile?.span(prevVariable.name.end, variable.name.offset),
-                preserveNewlines: true
-            );
-            prevVariable = variable;
-          });
+//          var prevVariable = field.fields.variables.first;
+//          field.fields.variables.skip(1).forEach((variable) {
+//            transformedFile?.remove(
+//                sourceFile?.span(prevVariable.name.end, variable.name.offset),
+//                preserveNewlines: true
+//            );
+//            prevVariable = variable;
+//          });
           // Remove content between last variable name and the end of the field (including the semicolon).
-          transformedFile?.remove(
-              sourceFile?.span(field.fields.variables.last.end, field.end),
-              preserveNewlines: true
-          );
+//          transformedFile?.remove(
+//              sourceFile?.span(field.fields.variables.last.end, field.end),
+//              preserveNewlines: true
+//          );
 
           field.fields.variables.forEach((VariableDeclaration variable) {
             if (variable.initializer != null) {
@@ -545,13 +563,16 @@ class ImplGenerator {
                 : '${field.covariantKeyword} $typeString';
 
             String generatedAccessor =
-                '${typeString}get $accessorName => $proxiedMapName[$keyConstantName];  '
-                'set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;';
+                '  @override\n'
+                '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName];\n'
+                '  @override\n'
+                '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;\n';
 
-            transformedFile?.replace(
-                sourceFile?.span(variable.firstTokenAfterCommentAndMetadata.offset, variable.name.end),
-                generatedAccessor
-            );
+            outputContentsBuffer.writeln(generatedAccessor);
+//            transformedFile?.replace(
+//                sourceFile?.span(variable.firstTokenAfterCommentAndMetadata.offset, variable.name.end),
+//                generatedAccessor
+//            );
 
             logger.fine('Generated accessor `$accessorName` with key $keyValue.',
 //                span: getSpan(sourceFile, variable)
@@ -576,8 +597,8 @@ class ImplGenerator {
     } else {
       keyConstantsImpl =
           'static const String ' +
-          keyConstants.keys.map((keyName) => '$keyName = ${keyConstants[keyName]}').join(', ') +
-          '; ';
+          keyConstants.keys.map((keyName) => '$keyName = ${keyConstants[keyName]}').join(';\n') +
+          ';\n';
     }
 
     if (constants.keys.isEmpty) {
@@ -585,19 +606,19 @@ class ImplGenerator {
     } else {
       constantsImpl =
           'static const $constConstructorName ' +
-          constants.keys.map((constantName) => '$constantName = ${constants[constantName]}').join(', ') +
-          '; ';
+          constants.keys.map((constantName) => '$constantName = ${constants[constantName]}').join(';\n') +
+          ';\n';
     }
 
     String keyListImpl =
         'static const List<String> $keyListName = const [' +
-        keyConstants.keys.join(', ') +
-        ']; ';
+        keyConstants.keys.join(';\n') +
+        '];\n';
 
     String listImpl =
         'static const List<$constConstructorName> $constantListName = const [' +
-        constants.keys.join(', ') +
-        ']; ';
+        constants.keys.join(';\n') +
+        '];\n';
 
     String consumedImpl = '';
 
@@ -607,10 +628,11 @@ class ImplGenerator {
 
     String staticVariablesImpl = '    /* GENERATED CONSTANTS */ $consumedImpl$constantsImpl$listImpl$keyConstantsImpl$keyListImpl';
 
-    transformedFile?.insert(
-        sourceFile?.location(typedMap.node.leftBracket.end),
-        staticVariablesImpl
-    );
+    outputContentsBuffer.writeln(staticVariablesImpl);
+//    transformedFile?.insert(
+//        sourceFile?.location(typedMap.node.leftBracket.end),
+//        staticVariablesImpl
+//    );
   }
 
   /// Apply a workaround for an issue where, in the DDC, abstract getter or setter overrides declared in a class clobber

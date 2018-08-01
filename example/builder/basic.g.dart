@@ -2,6 +2,7 @@ part of 'basic.dart';
 
 abstract class $BasicPropsAccessorsMixin {
   Map get props;
+
   @override
   String get basicProp => props[_$key__basicProp__BasicProps];
   @override

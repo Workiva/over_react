@@ -42,6 +42,7 @@ class OverReactBuilder implements Builder {
       var outputTarget = buildStep.inputId.changeExtension(
           '.overReactBuilder.g.dart');
 
+      ImplGenerator generator;
       if (ParsedDeclarations.mightContainDeclarations(primaryInputContents)) {
         var unit = parseCompilationUnit(primaryInputContents,
             suppressErrors: true,
@@ -52,19 +53,18 @@ class OverReactBuilder implements Builder {
         var declarations = new ParsedDeclarations(unit, sourceFile, log);
 
         if (!declarations.hasErrors) {
-          new ImplGenerator(log, primaryInputContents)
+          generator = new ImplGenerator(log, primaryInputContents, entryLib.source.shortName)
 //            ..shouldFixDdcAbstractAccessors = _shouldFixDdcAbstractAccessors
             ..generate(declarations);
         }
+
+        var astWrapper = new AstWrapper();
+        astWrapper.visitCompilationUnit(
+            entryLib.definingCompilationUnit.computeNode());
+
+        await buildStep.writeAsString(
+            outputTarget, generator.outputContentsBuffer.toString());
       }
-
-      var astWrapper = new AstWrapper();
-      astWrapper.visitCompilationUnit(
-          entryLib.definingCompilationUnit.computeNode());
-
-      await buildStep.writeAsString(outputTarget, '''
-      file: ${sourceFile.url}
-      ''');
     }
   }
 
