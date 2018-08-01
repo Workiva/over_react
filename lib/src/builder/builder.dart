@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:build/build.dart';
 
 import 'package:analyzer/analyzer.dart';
+import 'package:logging/logging.dart';
 import 'package:over_react/src/builder/transformer_copy/declaration_parsing.dart';
 import 'package:over_react/src/builder/transformer_copy/impl_generation.dart';
 import 'package:path/path.dart' as p;
@@ -41,7 +42,6 @@ class OverReactBuilder implements Builder {
       var outputTarget = buildStep.inputId.changeExtension(
           '.overReactBuilder.g.dart');
 
-      bool hasDeclarationErrors = false;
       if (ParsedDeclarations.mightContainDeclarations(primaryInputContents)) {
         var unit = parseCompilationUnit(primaryInputContents,
             suppressErrors: true,
@@ -52,19 +52,17 @@ class OverReactBuilder implements Builder {
         var declarations = new ParsedDeclarations(unit, sourceFile, log);
 
         if (!declarations.hasErrors) {
-          new ImplGenerator()
-            ..shouldFixDdcAbstractAccessors = _shouldFixDdcAbstractAccessors
+          new ImplGenerator(log, primaryInputContents)
+//            ..shouldFixDdcAbstractAccessors = _shouldFixDdcAbstractAccessors
             ..generate(declarations);
         }
       }
-
 
       var astWrapper = new AstWrapper();
       astWrapper.visitCompilationUnit(
           entryLib.definingCompilationUnit.computeNode());
 
       await buildStep.writeAsString(outputTarget, '''
-      errors?: $hasDeclarationErrors
       file: ${sourceFile.url}
       ''');
     }

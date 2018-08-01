@@ -2,10 +2,10 @@ import 'package:over_react/over_react.dart';
 
 part 'basic.g.dart';
 
-//@Factory()
+@Factory()
 UiFactory<BasicProps> Basic = $Basic;
 
-//@Props()
+@Props()
 class BasicProps extends UiProps {
   String basicProp;
   String basic1;
@@ -39,7 +39,7 @@ class BasicProps extends UiProps {
   String basic29;
 }
 
-//@Component()
+@Component()
 class BasicComponent extends UiComponent<BasicProps> {
   getDefaultProps() => newProps()..id = 'basic';
 

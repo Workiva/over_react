@@ -16,6 +16,7 @@ library over_react.transformer.impl_generation;
 
 import 'package:analyzer/analyzer.dart';
 import 'package:barback/barback.dart';
+import 'package:logging/logging.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/builder/transformer_copy/declaration_parsing.dart';
 import 'package:over_react/src/transformer/text_util.dart';
@@ -46,16 +47,18 @@ import 'package:transformer_utils/transformer_utils.dart';
 ///
 ///     * Replaces fields with generated getters/setters.
 class ImplGenerator {
-  ImplGenerator();
+  // TODO: Implement logging
+  ImplGenerator(this.logger, this.inputContents);
 
   static const String generatedPrefix = r'_$';
   static const String publicGeneratedPrefix = r'$';
 
-//  final TransformLogger logger;
-  final TransformedSourceFile transformedFile;
+  Logger logger;
+  TransformedSourceFile transformedFile;
+  final String inputContents;
   bool shouldFixDdcAbstractAccessors = false;
 
-//  SourceFile get sourceFile => transformedFile.sourceFile;
+  SourceFile get sourceFile => transformedFile?.sourceFile;
 
   static String getComponentFactoryName(String componentClassName) {
     if (componentClassName == null) {
@@ -70,26 +73,33 @@ class ImplGenerator {
 
     if (declarations.declaresComponent) {
       final String factoryName = declarations.factory.node.variables.variables.first.name.toString();
+      logger.info(factoryName);
 
       final String propsName = declarations.props.node.name.toString();
-      final String propsImplName = '$generatedPrefix${propsName}Impl';
+      final String propsImplName = '$generatedPrefix${propsName}';
+      logger.info(propsName);
+      logger.info(propsImplName);
 
       final String componentClassName = declarations.component.node.name.toString();
-      final String componentClassImplMixinName = '$generatedPrefix${componentClassName}ImplMixin';
+      final String componentClassImplMixinName = '$generatedPrefix${componentClassName}';
+      logger.info(componentClassName);
+      logger.info(componentClassImplMixinName);
 
       final String componentFactoryName = getComponentFactoryName(componentClassName);
+      logger.info(componentFactoryName);
 
       String typedPropsFactoryImpl = '';
       String typedStateFactoryImpl = '';
 
+      return;
       // Work around https://github.com/dart-lang/sdk/issues/16030 by making
       // the original props class abstract and redeclaring `call` in the impl class.
       //
       // We can safely make this abstract, since we already have a runtime warning when it's
       // instantiated.
       if (!declarations.props.node.isAbstract) {
-        transformedFile.insert(
-            sourceFile.location(declarations.props.node.classKeyword.offset),
+        transformedFile?.insert(
+            sourceFile?.location(declarations.props.node.classKeyword.offset),
             'abstract '
         );
       }
@@ -99,21 +109,21 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
 
       if (declarations.factory.node.variables.variables.length != 1) {
-//        logger.error('Factory declarations must a single variable.',
+        logger.severe('Factory declarations must a single variable.');
 //            span: getSpan(sourceFile, declarations.factory.node.variables));
       }
 
       declarations.factory.node.variables.variables.forEach((variable) {
         if (variable.initializer != null) {
-//          logger.error(
-//              'Factory variables are stubs for the generated factories, and should not have initializers.',
+          logger.severe(
+              'Factory variables are stubs for the generated factories, and should not have initializers.',
 //              span: getSpan(sourceFile, variable.initializer)
-//          );
+          );
         }
       });
 
-      transformedFile.replace(
-          sourceFile.span(
+      transformedFile?.replace(
+          sourceFile?.span(
               declarations.factory.node.variables.variables.first.name.end,
               declarations.factory.node.semicolon.offset
           ),
@@ -143,7 +153,7 @@ class ImplGenerator {
         /// It doesn't make sense to have a component subtype itself, and also an error occurs
         /// if a component's factory variable tries to reference itself during its initialization.
         /// Therefore, this is not allowed.
-//        logger.error('A component cannot be a subtype of itself.',
+//        logger.severe('A component cannot be a subtype of itself.',
 //            span: getSpan(sourceFile, declarations.component.metaNode)
 //        );
       }
@@ -263,18 +273,18 @@ class ImplGenerator {
         ..writeln('}');
 
       if (declarations.component.node.withClause != null) {
-        transformedFile.insert(
-            sourceFile.location(declarations.component.node.withClause.mixinTypes.last.end),
+        transformedFile?.insert(
+            sourceFile?.location(declarations.component.node.withClause.mixinTypes.last.end),
             ', $componentClassImplMixinName'
         );
       } else if (declarations.component.node.extendsClause != null) {
-        transformedFile.insert(
-            sourceFile.location(declarations.component.node.extendsClause.end),
+        transformedFile?.insert(
+            sourceFile?.location(declarations.component.node.extendsClause.end),
             ' with $componentClassImplMixinName'
         );
       } else {
-        transformedFile.insert(
-            sourceFile.location(declarations.component.node.name.end),
+        transformedFile?.insert(
+            sourceFile?.location(declarations.component.node.name.end),
             ' extends Object with $componentClassImplMixinName'
         );
       }
@@ -287,23 +297,23 @@ class ImplGenerator {
 
       if (implementsTypedPropsStateFactory) {
         // Can't be an error, because consumers may be implementing typedPropsFactory or typedStateFactory in their components.
-//        logger.warning(
-//            'Components should not add their own implementions of typedPropsFactory or typedStateFactory.',
+        logger.warning(
+            'Components should not add their own implementions of typedPropsFactory or typedStateFactory.',
 //            span: getSpan(sourceFile, declarations.component.node)
-//        );
+        );
       } else {
         // For some reason, strong mode is okay with these declarations being in the component,
         // but not in the mixin.
         // TODO use long-term solution of component impl class instantiated via factory constructor
-        transformedFile.insert(
-            sourceFile.location(declarations.component.node.leftBracket.end),
+        transformedFile?.insert(
+            sourceFile?.location(declarations.component.node.leftBracket.end),
             '   /* GENERATED IMPLEMENTATIONS */ $typedPropsFactoryImpl $typedStateFactoryImpl'
         );
       }
     }
 
     if (implementations.isNotEmpty) {
-      transformedFile.insert(sourceFile.location(sourceFile.length),
+      transformedFile?.insert(sourceFile?.location(sourceFile?.length),
           '\n\n' +
           commentBanner('GENERATED IMPLEMENTATIONS', bottomBorder: false) +
           implementations.toString() +
@@ -330,11 +340,11 @@ class ImplGenerator {
 
     declarations.propsMixins.forEach((propMixin) {
       if (!hasAbstractGetter(propMixin.node, 'Map', 'props')) {
-//        logger.error(
-//            'Props mixin classes must declare an abstract props getter `Map get props;` '
-//            'so that they can be statically analyzed properly.',
+        logger.severe(
+            'Props mixin classes must declare an abstract props getter `Map get props;` '
+            'so that they can be statically analyzed properly.',
 //            span: getSpan(sourceFile, propMixin.node)
-//        );
+        );
       }
 
       generateAccessors(AccessorType.props, propMixin);
@@ -342,11 +352,11 @@ class ImplGenerator {
 
     declarations.stateMixins.forEach((stateMixin) {
       if (!hasAbstractGetter(stateMixin.node, 'Map', 'state')) {
-//        logger.error(
-//            'State mixin classes must declare an abstract state getter `Map get state;` '
-//            'so that they can be statically analyzed properly.',
+        logger.severe(
+            'State mixin classes must declare an abstract state getter `Map get state;` '
+            'so that they can be statically analyzed properly.',
 //            span: getSpan(sourceFile, stateMixin.node)
-//        );
+        );
       }
 
       generateAccessors(AccessorType.state, stateMixin);
@@ -425,9 +435,9 @@ class ImplGenerator {
           annotations.Required requiredMeta = instantiateAnnotation(field, annotations.Required);
 
           if (accessorMeta?.doNotGenerate == true) {
-//            logger.fine('Skipping generation of field `$field`.',
+            logger.fine('Skipping generation of field `$field`.',
 //                span: getSpan(sourceFile, field)
-//            );
+            );
 
             return;
           }
@@ -436,31 +446,31 @@ class ImplGenerator {
           // TODO add support for preserving comment nodes between variable declarations.
 
           // Remove content between end of comment/meta and first variable name
-          transformedFile.remove(
-              sourceFile.span(field.firstTokenAfterCommentAndMetadata.offset, field.fields.variables.first.beginToken.offset),
+          transformedFile?.remove(
+              sourceFile?.span(field.firstTokenAfterCommentAndMetadata.offset, field.fields.variables.first.beginToken.offset),
               preserveNewlines: true
           );
           // Remove content between variable names (including commas).
           var prevVariable = field.fields.variables.first;
           field.fields.variables.skip(1).forEach((variable) {
-            transformedFile.remove(
-                sourceFile.span(prevVariable.name.end, variable.name.offset),
+            transformedFile?.remove(
+                sourceFile?.span(prevVariable.name.end, variable.name.offset),
                 preserveNewlines: true
             );
             prevVariable = variable;
           });
           // Remove content between last variable name and the end of the field (including the semicolon).
-          transformedFile.remove(
-              sourceFile.span(field.fields.variables.last.end, field.end),
+          transformedFile?.remove(
+              sourceFile?.span(field.fields.variables.last.end, field.end),
               preserveNewlines: true
           );
 
           field.fields.variables.forEach((VariableDeclaration variable) {
             if (variable.initializer != null) {
-//              logger.error(
-//                  'Fields are stubs for generated setters/getters and should not have initializers.',
+              logger.severe(
+                  'Fields are stubs for generated setters/getters and should not have initializers.',
 //                  span: getSpan(sourceFile, variable)
-//              );
+              );
             }
 
             String accessorName = variable.name.name;
@@ -516,11 +526,11 @@ class ImplGenerator {
             }
 
             if (annotationCount > 1) {
-//              logger.error(
-//                  '@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
-//                  'You can use `@Accessor(required: true)` or `isNullable: true` instead of the shorthand versions.',
+              logger.severe(
+                  '@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
+                  'You can use `@Accessor(required: true)` or `isNullable: true` instead of the shorthand versions.',
 //                  span: getSpan(sourceFile, field)
-//              );
+              );
             }
 
             constantValue += ')';
@@ -538,23 +548,23 @@ class ImplGenerator {
                 '${typeString}get $accessorName => $proxiedMapName[$keyConstantName];  '
                 'set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;';
 
-            transformedFile.replace(
-                sourceFile.span(variable.firstTokenAfterCommentAndMetadata.offset, variable.name.end),
+            transformedFile?.replace(
+                sourceFile?.span(variable.firstTokenAfterCommentAndMetadata.offset, variable.name.end),
                 generatedAccessor
             );
 
-//            logger.fine('Generated accessor `$accessorName` with key $keyValue.',
+            logger.fine('Generated accessor `$accessorName` with key $keyValue.',
 //                span: getSpan(sourceFile, variable)
-//            );
+            );
           });
 
           if (field.fields.variables.length > 1 &&
               (field.documentationComment != null || field.metadata.isNotEmpty)) {
-//            logger.warning(
-//                'Note: accessors declared as comma-separated variables will not all be generated '
-//                'with the original doc comments and annotations; only the first variable will.',
+            logger.warning(
+                'Note: accessors declared as comma-separated variables will not all be generated '
+                'with the original doc comments and annotations; only the first variable will.',
 //                span: getSpan(sourceFile, field.fields)
-//            );
+            );
           }
         });
 
@@ -597,8 +607,8 @@ class ImplGenerator {
 
     String staticVariablesImpl = '    /* GENERATED CONSTANTS */ $consumedImpl$constantsImpl$listImpl$keyConstantsImpl$keyListImpl';
 
-    transformedFile.insert(
-        sourceFile.location(typedMap.node.leftBracket.end),
+    transformedFile?.insert(
+        sourceFile?.location(typedMap.node.leftBracket.end),
         staticVariablesImpl
     );
   }
@@ -646,7 +656,7 @@ class ImplGenerator {
         var type = accessor.returnType?.toSource();
         var typeString = type == null ? '' : '$type ';
 
-        transformedFile.insert(sourceFile.location(accessor.end),
+        transformedFile?.insert(sourceFile?.location(accessor.end),
             // use `covariant` here to be extra safe in this typing
             '${generatedComment}set $name(covariant ${typeString}value);');
       } else {
@@ -657,7 +667,7 @@ class ImplGenerator {
             : null;
         var typeString = type == null ? '' : '$type ';
 
-        transformedFile.insert(sourceFile.location(accessor.end),
+        transformedFile?.insert(sourceFile?.location(accessor.end),
             '$generatedComment${typeString}get $name;');
       }
     }
