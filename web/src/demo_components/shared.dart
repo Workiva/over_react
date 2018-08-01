@@ -40,6 +40,9 @@ class ToggleBehaviorType extends DebugFriendlyConstant {
 
 @PropsMixin()
 abstract class AbstractInputPropsMixin {
+  // ignore: undefined_identifier, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForAbstractInputPropsMixin;
+
   Map get props;
 
   /// The id for the input.

@@ -712,11 +712,16 @@ abstract class MapViewMixin<K, V> implements _OverReactMapViewBase<K, V>, Map<K,
   @override Iterable<V> get values => _map.values;
 }
 
+abstract class _Descriptor {
+  String get key;
+}
+
 /// Provides a representation of a single `prop` declared within a [UiProps] subclass or props mixin.
 ///
 /// > Related: [StateDescriptor]
-class PropDescriptor {
+class PropDescriptor implements _Descriptor {
   /// The string key associated with the `prop`.
+  @override
   final String key;
   /// Whether the `prop` is required to be set.
   final bool isRequired;
@@ -731,8 +736,9 @@ class PropDescriptor {
 /// Provides a representation of a single `state` declared within a [UiState] subclass or state mixin.
 ///
 /// > Related: [PropDescriptor]
-class StateDescriptor {
+class StateDescriptor implements _Descriptor {
   /// The string key associated with the `state`.
+  @override
   final String key;
   /// Whether the `state` is required to be set.
   ///
@@ -760,4 +766,59 @@ class ConsumedProps {
   final List<String> keys;
 
   const ConsumedProps(this.props, this.keys);
+}
+
+abstract class AccessorMeta<T extends _Descriptor> {
+  List<T> get fields;
+  List<String> get keys;
+  // Example of what we could eventually do with builders now that we have
+  // a resolved AST:
+  // List<AccessorMeta<T>> get inherited;
+}
+
+class PropsMeta implements ConsumedProps, AccessorMeta<PropDescriptor> {
+  /// Rich views of prop field declarations.
+  ///
+  /// This includes string keys, and required prop validation related fields.
+  @override
+  final List<PropDescriptor> fields;
+
+  /// Top-level accessor of string keys of props stored in [fields].
+  @override
+  final List<String> keys;
+
+  const PropsMeta({this.fields, this.keys});
+
+  @override
+  @override
+  List<PropDescriptor> get props => fields;
+
+  // Example of what we could eventually do with builders now that we have
+  // a resolved AST:
+  // @override
+  // List<PropsMeta> get inherited =>
+  //     throw new UnimplementedError('Metadata for inherited classes is not yet implemented');
+}
+
+class StateMeta implements AccessorMeta<StateDescriptor> {
+  /// Rich views of state field declarations.
+  ///
+  /// This includes string keys, and required state validation related fields.
+  ///
+  @override
+  final List<StateDescriptor> fields;
+  /// Top-level accessor of string keys of props stored in [fields].
+  @override
+  final List<String> keys;
+
+  const StateMeta({
+    this.fields,
+    this.keys,
+  });
+
+  // Example of what we could eventually do with builders now that we have
+  // a resolved AST:
+  // @override
+  // List<StateMeta> get inherited =>
+  //     throw new UnimplementedError('Metadata for inherited classes is not yet implemented');
 }

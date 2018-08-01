@@ -3,9 +3,7 @@ part of 'generic_inheritance.dart';
 abstract class $GenericSubPropsAccessorsMixin {
   Map get props;
 
-  @override
   String get subProp => props[_$key__subProp__subProps];
-  @override
   set subProp(String value) => props[_$key__subProp__subProps] = value;
 
   static const PropDescriptor _$prop__subProp__subProps = const PropDescriptor(_$key__subProp__subProps);
@@ -14,12 +12,15 @@ abstract class $GenericSubPropsAccessorsMixin {
   static const List<String> $propKeys = const [_$key__subProp__subProps];
 }
 
+const PropsMeta $metaForGenericSubProps = const PropsMeta(
+  fields: $GenericSubPropsAccessorsMixin.$props,
+  keys: $GenericSubPropsAccessorsMixin.$propKeys,
+);
+
 abstract class $GenericSuperPropsAccessorsMixin {
   Map get props;
 
-  @override
   String get superProp => props[_$key__superProp__GenericSuperProps];
-  @override
   set superProp(String value) => props[_$key__superProp__GenericSuperProps] = value;
 
   /* GENERATED CONSTANTS */
@@ -29,6 +30,11 @@ abstract class $GenericSuperPropsAccessorsMixin {
   static const String _$key__superProp__GenericSuperProps = 'GenericSuperProps.superProp';
   static const List<String> $propKeys = const [_$key__superProp__GenericSuperProps];
 }
+
+const PropsMeta $metaForGenericSuperProps = const PropsMeta(
+  fields: $GenericSuperPropsAccessorsMixin.$props,
+  keys: $GenericSuperPropsAccessorsMixin.$propKeys,
+);
 
 
 

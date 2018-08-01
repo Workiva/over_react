@@ -8,6 +8,8 @@ UiFactory<GenericSuperProps> GenericSuper = $GenericSuper;
 
 // @Props()
 class GenericSuperProps extends UiProps {
+  static const PropsMeta meta = $metaForGenericSuperProps;
+
   String superProp;
 }
 
@@ -31,6 +33,8 @@ UiFactory<GenericSubProps> GenericSub = $GenericSub;
 // @Props()
 // Heads up: props class inheritance doesn't work properly currently
 class GenericSubProps extends GenericSuperProps {
+  static const PropsMeta meta = $metaForGenericSubProps;
+
   String subProp;
 }
 

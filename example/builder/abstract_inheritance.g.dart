@@ -3,9 +3,7 @@ part of 'abstract_inheritance.dart';
 abstract class $SubPropsAccessorsMixin {
   Map get props;
 
-  @override
   String get subProp => props[_$key__subProp__subProps];
-  @override
   set subProp(String value) => props[_$key__subProp__subProps] = value;
 
   static const PropDescriptor _$prop__subProp__subProps = const PropDescriptor(_$key__subProp__subProps);
@@ -14,12 +12,15 @@ abstract class $SubPropsAccessorsMixin {
   static const List<String> $propKeys = const [_$key__subProp__subProps];
 }
 
+const PropsMeta $metaForSubProps = const PropsMeta(
+  fields: $SubPropsAccessorsMixin.$props,
+  keys: $SubPropsAccessorsMixin.$propKeys,
+);
+
 abstract class $SuperPropsAccessorsMixin {
   Map get props;
 
-  @override
   String get superProp => props[_$key__superProp__SuperProps];
-  @override
   set superProp(String value) => props[_$key__superProp__SuperProps] = value;
 
   /* GENERATED CONSTANTS */
@@ -30,6 +31,10 @@ abstract class $SuperPropsAccessorsMixin {
   static const List<String> $propKeys = const [_$key__superProp__SuperProps];
 }
 
+const PropsMeta $metaForSuperProps = const PropsMeta(
+  fields: $SuperPropsAccessorsMixin.$props,
+  keys: $SuperPropsAccessorsMixin.$propKeys,
+);
 
 
 _$SubProps $Sub([Map backingProps]) => new _$SubProps(backingProps);

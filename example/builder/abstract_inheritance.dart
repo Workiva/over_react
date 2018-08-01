@@ -4,6 +4,8 @@ part 'abstract_inheritance.g.dart';
 
 // @AbstractProps()
 class SuperProps extends UiProps {
+  static const PropsMeta meta = $metaForSuperProps;
+
   String superProp;
 }
 
@@ -27,6 +29,8 @@ UiFactory<SubProps> Sub = $Sub;
 // @Props()
 // Heads up: props class inheritance doesn't work properly currently
 class SubProps extends SuperProps {
+  static const PropsMeta meta = $metaForSubProps;
+
   String subProp;
 }
 
