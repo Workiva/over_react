@@ -100,7 +100,7 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
 
     // If the source file might contain annotations that necessitate generation,
     // parse the declarations and generate code.
-    // If not, don't skip this step to avoid parsing files that definitely won't generate anything.
+    // If not, skip this step to avoid parsing files that definitely won't generate anything.
     if (ParsedDeclarations.mightContainDeclarations(primaryInputContents)) {
       // Parse the source file on its own and use the resultant AST to...
       var unit = parseCompilationUnit(primaryInputContents,
