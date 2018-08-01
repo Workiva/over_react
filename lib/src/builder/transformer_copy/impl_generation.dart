@@ -19,6 +19,7 @@ import 'package:barback/barback.dart';
 import 'package:logging/logging.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/builder/transformer_copy/declaration_parsing.dart';
+import 'package:over_react/src/transformer/impl_generation.dart';
 import 'package:over_react/src/transformer/text_util.dart';
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/src/text_util.dart' show stringLiteral;
@@ -184,6 +185,8 @@ class ImplGenerator {
       generateAccessors(AccessorType.props, declarations.props);
 
       outputContentsBuffer.writeln('}\n');
+      outputContentsBuffer.writeln(_generateMetaClass(AccessorType.props, propsName, propsAccessorsMixinName));
+      outputContentsBuffer.writeln();
 
       /// _$BasicProps $Basic([Map backingProps]) => new _$BasicProps(backingProps);
       outputContentsBuffer.writeln('$propsImplName \$$factoryName([Map backingProps]) => new $propsImplName(backingProps);');
@@ -242,6 +245,8 @@ class ImplGenerator {
         final String stateImplName = '$generatedPrefix${stateName}Impl';
 
         generateAccessors(AccessorType.state, declarations.state);
+        // TODO: fill out accessor class name
+        implementations.writeln(_generateMetaClass(AccessorType.state, stateName, ''));
 
         implementations
           ..writeln('// Concrete state implementation.')
@@ -372,6 +377,8 @@ class ImplGenerator {
       }
 
       generateAccessors(AccessorType.props, propMixin);
+      // TODO: fill out accessor class name
+      implementations.writeln(_generateMetaClass(AccessorType.props, propMixin.node.name.toString(), ''));
     });
 
     declarations.stateMixins.forEach((stateMixin) {
@@ -384,6 +391,8 @@ class ImplGenerator {
       }
 
       generateAccessors(AccessorType.state, stateMixin);
+      // TODO: fill out accessor class name
+      implementations.writeln(_generateMetaClass(AccessorType.state, stateMixin.node.name.toString(), ''));
     });
 
     // ----------------------------------------------------------------------
@@ -391,10 +400,14 @@ class ImplGenerator {
     // ----------------------------------------------------------------------
     declarations.abstractProps.forEach((abstractPropsClass) {
       generateAccessors(AccessorType.props, abstractPropsClass);
+      // TODO: fill out accessor class name
+      implementations.writeln(_generateMetaClass(AccessorType.props, abstractPropsClass.node.name.toString(),  ''));
     });
 
     declarations.abstractState.forEach((abstractStateClass) {
       generateAccessors(AccessorType.state, abstractStateClass);
+      // TODO: fill out accessor class name
+      implementations.writeln(_generateMetaClass(AccessorType.state, abstractStateClass.node.name.toString(),  ''));
     });
   }
 
@@ -634,6 +647,21 @@ class ImplGenerator {
 //        sourceFile?.location(typedMap.node.leftBracket.end),
 //        staticVariablesImpl
 //    );
+  }
+
+  String _generateMetaClass(AccessorType type, String name, String accessorMixinName) {
+    var isProps = type == AccessorType.props;
+    final metaStructName = isProps ? 'PropsMeta' : 'StateMeta';
+    final String keyListName = isProps ? staticPropKeysName : staticStateKeysName;
+    final String constantListName = isProps ? staticPropsName : staticStateName;
+    final metaObjectName = '${publicGeneratedPrefix}metaFor$name';
+
+    var output = new StringBuffer();
+    output.writeln('const $metaStructName $metaObjectName = const $metaStructName(');
+    output.writeln('  fields: $accessorMixinName.$constantListName,');
+    output.writeln('  keys: $accessorMixinName.$keyListName,');
+    output.writeln(');\n');
+    return output.toString();
   }
 
   /// Apply a workaround for an issue where, in the DDC, abstract getter or setter overrides declared in a class clobber
