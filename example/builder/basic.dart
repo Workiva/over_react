@@ -41,9 +41,6 @@ class BasicProps extends UiProps {
 
 //@Component()
 class BasicComponent extends UiComponent<BasicProps> {
-  factory BasicComponent() = _$BasicComponent;
-  BasicComponent._();
-
   getDefaultProps() => newProps()..id = 'basic';
 
   @override

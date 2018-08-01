@@ -1,4 +1,5 @@
 import 'package:over_react/over_react.dart';
+import 'package:react/react_client.dart';
 
 part 'generic_inheritance.g.dart';
 
@@ -12,9 +13,6 @@ class GenericSuperProps extends UiProps {
 
 // @Component()
 class GenericSuperComponent<T extends GenericSuperProps, OtherParam extends ArbitraryClass> extends UiComponent<T> {
-  factory GenericSuperComponent() = _$GenericSuperComponent<T, OtherParam>;
-  GenericSuperComponent._();
-
   getDefaultProps() => newProps()..id = 'generic_super';
 
   @override
@@ -38,9 +36,6 @@ class GenericSubProps extends GenericSuperProps {
 
 // @Component()
 class GenericSubComponent extends GenericSuperComponent<GenericSubProps, ArbitraryClass> {
-  factory GenericSubComponent() = _$GenericSubComponent;
-  GenericSubComponent._() : super._();
-
   getDefaultProps() => newProps()..id = 'generic_sub';
 
   @override

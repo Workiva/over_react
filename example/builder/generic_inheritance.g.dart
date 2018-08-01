@@ -72,8 +72,6 @@ class _$GenericSubProps extends GenericSubProps with $GenericSuperPropsAccessors
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$GenericSubComponent extends GenericSubComponent {
-  _$GenericSubComponent() : super._();
-
   @override
   _$GenericSubProps typedPropsFactory(Map backingMap) => new _$GenericSubProps(backingMap);
 
@@ -137,8 +135,6 @@ class _$GenericSuperProps extends GenericSuperProps with $GenericSuperPropsAcces
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$GenericSuperComponent<T extends GenericSuperProps, OtherParam extends ArbitraryClass> extends GenericSuperComponent<T, OtherParam> { // TODO generation needs to copy over parameters
-  _$GenericSuperComponent() : super._();
-
   @override
   T typedPropsFactory(Map backingMap) {
     // If this cast fails, then that means that this component instance was
