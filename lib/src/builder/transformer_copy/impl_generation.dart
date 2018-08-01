@@ -78,7 +78,7 @@ class ImplGenerator {
 
       final String propsName = declarations.props.node.name.toString();
       final String propsImplName = '$generatedPrefix${propsName}';
-      final String propsAccessorsMixinName = '$publicGeneratedPrefix${propsName}AccessorsMixin';
+      final String propsAccessorsMixinName = '$generatedPrefix${propsName}AccessorsMixin';
 
       final String componentClassName = declarations.component.node.name.toString();
       final String componentClassImplMixinName = '$generatedPrefix${componentClassName}';
@@ -131,12 +131,6 @@ class ImplGenerator {
       // part of directive
       outputContentsBuffer.writeln('part of \'$sourceFileName\';\n');
 
-      /// _$BasicProps $Basic([Map backingProps]) => new _$BasicProps(backingProps);
-      outputContentsBuffer.writeln('$propsImplName \$$factoryName([Map backingProps]) => new $propsImplName(backingProps);');
-//      transformedFile.insert(
-//          sourceFile.location(declarations.factory.node.semicolon.end),
-//        '$propsImplName \$$factoryName([Map backingProps]) => new $propsImplName(backingProps);'
-//          );
 
       String parentTypeParam = 'null';
       String parentTypeParamComment = '';
@@ -171,7 +165,7 @@ class ImplGenerator {
         ..writeln('//')
         ..writeln('// Registers component implementation and links type meta to builder factory.')
         // TODO: verify that the component class has a default constructor?
-        ..writeln('final $componentFactoryName = registerComponent(() => new $componentClassName(),')
+        ..writeln('final $componentFactoryName = registerComponent(() => new $componentClassImplMixinName(),')
         ..writeln('    builderFactory: $factoryName,')
         ..writeln('    componentClass: $componentClassName,')
         ..writeln('    isWrapper: ${declarations.component.meta.isWrapper},')
@@ -184,12 +178,19 @@ class ImplGenerator {
       //   Props implementation
       // ----------------------------------------------------------------------
       outputContentsBuffer.writeln(
-        '\nabstract class $propsAccessorsMixinName {\n' +
+        'abstract class $propsAccessorsMixinName {\n' +
         '  Map get props;\n'
       );
       generateAccessors(AccessorType.props, declarations.props);
 
       outputContentsBuffer.writeln('}\n');
+
+      /// _$BasicProps $Basic([Map backingProps]) => new _$BasicProps(backingProps);
+      outputContentsBuffer.writeln('$propsImplName \$$factoryName([Map backingProps]) => new $propsImplName(backingProps);');
+//      transformedFile.insert(
+//          sourceFile.location(declarations.factory.node.semicolon.end),
+//        '$propsImplName \$$factoryName([Map backingProps]) => new $propsImplName(backingProps);'
+//          );
 
       final String propKeyNamespace = getAccessorKeyNamespace(declarations.props);
 
@@ -198,6 +199,8 @@ class ImplGenerator {
         ..writeln('//')
         ..writeln('// Implements constructor and backing map, and links up to generated component factory.')
         ..writeln('class $propsImplName extends $propsName {')
+        ..writeln('  /* GENERATED CONSTANTS */')
+        ..writeln('  static const ConsumedProps $staticConsumedPropsName = const ConsumedProps($propsAccessorsMixinName.$staticPropsName, $propsAccessorsMixinName.$staticPropKeysName);\n')
         ..writeln('  /// The backing props map proxied by this class.')
         ..writeln('  @override')
         ..writeln('  final Map props;')
@@ -274,7 +277,10 @@ class ImplGenerator {
         ..writeln('//')
         ..writeln('// Implements typed props/state factories, defaults `consumedPropKeys` to the keys')
         ..writeln('// generated for the associated props class.')
-        ..writeln('class $componentClassImplMixinName {')
+        ..writeln('class $componentClassImplMixinName extends $componentClassName {')
+        ..writeln('  @override')
+        ..writeln('  $propsImplName typedPropsFactory(Map backingMap) => new $propsImplName(backingMap);')
+        ..writeln()
         ..writeln('  /// Let [UiComponent] internals know that this class has been generated.')
         ..writeln('  @override')
         ..writeln('  bool get \$isClassGenerated => true;')
@@ -283,7 +289,7 @@ class ImplGenerator {
         ..writeln('  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.')
         ..writeln('  @override')
         ..writeln('  final List<ConsumedProps> \$defaultConsumedProps = '
-                        'const [$propsName.$staticConsumedPropsName];')
+                        'const [$propsImplName.$staticConsumedPropsName];')
         ..writeln('}');
 
       if (declarations.component.node.withClause != null) {
@@ -563,9 +569,7 @@ class ImplGenerator {
                 : '${field.covariantKeyword} $typeString';
 
             String generatedAccessor =
-                '  @override\n'
                 '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName];\n'
-                '  @override\n'
                 '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;\n';
 
             outputContentsBuffer.writeln(generatedAccessor);
@@ -596,8 +600,7 @@ class ImplGenerator {
       keyConstantsImpl = '';
     } else {
       keyConstantsImpl =
-          'static const String ' +
-          keyConstants.keys.map((keyName) => '$keyName = ${keyConstants[keyName]}').join(';\n') +
+          keyConstants.keys.map((keyName) => '  static const String $keyName = ${keyConstants[keyName]}').join(';\n') +
           ';\n';
     }
 
@@ -605,30 +608,28 @@ class ImplGenerator {
       constantsImpl = '';
     } else {
       constantsImpl =
-          'static const $constConstructorName ' +
-          constants.keys.map((constantName) => '$constantName = ${constants[constantName]}').join(';\n') +
+          constants.keys.map((constantName) => '  static const $constConstructorName $constantName = ${constants[constantName]}').join(';\n') +
           ';\n';
     }
 
     String keyListImpl =
-        'static const List<String> $keyListName = const [' +
-        keyConstants.keys.join(';\n') +
+        '  static const List<String> $keyListName = const [' +
+        keyConstants.keys.join(', ') +
         '];\n';
 
     String listImpl =
-        'static const List<$constConstructorName> $constantListName = const [' +
-        constants.keys.join(';\n') +
+        '  static const List<$constConstructorName> $constantListName = const [' +
+        constants.keys.join(', ') +
         '];\n';
 
     String consumedImpl = '';
 
     if (isProps) {
-      consumedImpl = 'static const ConsumedProps $staticConsumedPropsName = const ConsumedProps($constantListName, $keyListName); ';
     }
 
-    String staticVariablesImpl = '    /* GENERATED CONSTANTS */ $consumedImpl$constantsImpl$listImpl$keyConstantsImpl$keyListImpl';
+    String staticVariablesImpl = '  /* GENERATED CONSTANTS */ \n$constantsImpl$keyConstantsImpl\n$listImpl$keyListImpl';
 
-    outputContentsBuffer.writeln(staticVariablesImpl);
+    outputContentsBuffer.write(staticVariablesImpl);
 //    transformedFile?.insert(
 //        sourceFile?.location(typedMap.node.leftBracket.end),
 //        staticVariablesImpl
