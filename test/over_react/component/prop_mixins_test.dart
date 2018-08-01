@@ -23,7 +23,7 @@ import '../../test_util/prop_utils.dart';
 
 main() {
   group('ReactProps', () {
-    testKeys(const $PropKeys(ReactPropsMixin), (() => new ReactPropMixinsTest({})));
+    testKeys(ReactPropsMixin.meta.keys, (() => new ReactPropMixinsTest({})));
 
     group('prop: key can have its value set to', () {
       test('an int and be read as a String', () {
@@ -50,19 +50,19 @@ main() {
   });
 
   group('CssClassProps', () {
-    testKeys(const $PropKeys(CssClassPropsMixin), (() => new CssClassPropMixinsTest({})));
+    testKeys(CssClassPropsMixin.meta.keys, (() => new CssClassPropMixinsTest({})));
   });
 
   group('DomPropsMixin', () {
-    testKeys(const $PropKeys(DomPropsMixin), (() => new DomPropMixinsTest({})));
+    testKeys(DomPropsMixin.meta.keys, (() => new DomPropMixinsTest({})));
   });
 
   group('SvgPropsMixin', () {
-    testKeys(const $PropKeys(SvgPropsMixin), (() => new SvgPropMixinsTest({})));
+    testKeys(SvgPropsMixin.meta.keys, (() => new SvgPropMixinsTest({})));
   });
 
   group('UbiquitousProps', () {
-    testKeys(const $PropKeys(UbiquitousDomPropsMixin), (() => new UbiquitousPropMixinsTest({})));
+    testKeys(UbiquitousDomPropsMixin.meta.keys, (() => new UbiquitousPropMixinsTest({})));
 
     group('has a getter that provides a typed view of', () {
       test('aria props', () {

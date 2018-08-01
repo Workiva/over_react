@@ -16,6 +16,7 @@ library over_react.transformer.impl_generation;
 
 import 'package:analyzer/analyzer.dart';
 import 'package:barback/barback.dart';
+import 'package:meta/meta.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/transformer/declaration_parsing.dart';
 import 'package:over_react/src/transformer/text_util.dart';
@@ -165,7 +166,8 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
       //   Props implementation
       // ----------------------------------------------------------------------
-      generateAccessors(AccessorType.props, declarations.props);
+      final accessorOutput = generateAccessors(AccessorType.props, declarations.props);
+      implementations.writeln(accessorOutput.implementations);
 
       final String propKeyNamespace = getAccessorKeyNamespace(declarations.props);
 
@@ -214,7 +216,8 @@ class ImplGenerator {
         final String stateName = declarations.state.node.name.toString();
         final String stateImplName = '$generatedPrefix${stateName}Impl';
 
-        generateAccessors(AccessorType.state, declarations.state);
+        final accessorOutput = generateAccessors(AccessorType.state, declarations.state);
+        implementations.writeln(accessorOutput.implementations);
 
         implementations
           ..writeln('// Concrete state implementation.')
@@ -302,16 +305,6 @@ class ImplGenerator {
       }
     }
 
-    if (implementations.isNotEmpty) {
-      transformedFile.insert(sourceFile.location(sourceFile.length),
-          '\n\n' +
-          commentBanner('GENERATED IMPLEMENTATIONS', bottomBorder: false) +
-          implementations.toString() +
-          commentBanner('END GENERATED IMPLEMENTATIONS', topBorder: false)
-      );
-    }
-
-
     // ----------------------------------------------------------------------
     //   Props/State Mixins implementations
     // ----------------------------------------------------------------------
@@ -337,7 +330,8 @@ class ImplGenerator {
         );
       }
 
-      generateAccessors(AccessorType.props, propMixin);
+      final accessorOutput = generateAccessors(AccessorType.props, propMixin);
+      implementations.writeln(accessorOutput.implementations);
     });
 
     declarations.stateMixins.forEach((stateMixin) {
@@ -349,19 +343,31 @@ class ImplGenerator {
         );
       }
 
-      generateAccessors(AccessorType.state, stateMixin);
+      final accessorOutput = generateAccessors(AccessorType.state, stateMixin);
+      implementations.writeln(accessorOutput.implementations);
     });
 
     // ----------------------------------------------------------------------
     //   Abstract Props/State implementations
     // ----------------------------------------------------------------------
     declarations.abstractProps.forEach((abstractPropsClass) {
-      generateAccessors(AccessorType.props, abstractPropsClass);
+      final accessorOutput = generateAccessors(AccessorType.props, abstractPropsClass);
+      implementations.writeln(accessorOutput.implementations);
     });
 
     declarations.abstractState.forEach((abstractStateClass) {
-      generateAccessors(AccessorType.state, abstractStateClass);
+      final accessorOutput = generateAccessors(AccessorType.state, abstractStateClass);
+      implementations.writeln(accessorOutput.implementations);
     });
+
+    if (implementations.isNotEmpty) {
+      transformedFile.insert(sourceFile.location(sourceFile.length),
+          '\n\n' +
+          commentBanner('GENERATED IMPLEMENTATIONS', bottomBorder: false) +
+          implementations.toString() +
+          commentBanner('END GENERATED IMPLEMENTATIONS', topBorder: false)
+      );
+    }
   }
 
 
@@ -389,7 +395,7 @@ class ImplGenerator {
     return specifiedKeyNamespace ?? defaultNamespace;
   }
 
-  void generateAccessors(
+  AccessorOutput generateAccessors(
       AccessorType type,
       NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap
   ) {
@@ -601,6 +607,24 @@ class ImplGenerator {
         sourceFile.location(typedMap.node.leftBracket.end),
         staticVariablesImpl
     );
+
+    final name = typedMap.node.name.name;
+    final metaClassName = '$generatedPrefix${name}Meta';
+    final metaStructName = type == AccessorType.props
+        ? 'PropsMeta'
+        : 'StateMeta';
+    final metaObjectName = '${publicGeneratedPrefix}metaFor${name}'; // FIXME validate boilerplate to avoid typos
+
+    var output = new StringBuffer();
+    output.writeln('class $metaClassName {');
+    output.writeln(staticVariablesImpl);
+    output.writeln('}');
+    output.writeln('const $metaStructName $metaObjectName = const $metaStructName(');
+    output.writeln('  $metaClassName.$constantListName,'); // todo don't include generated prefix
+    output.writeln('  $metaClassName.$keyListName,'); // todo don't include generated prefix
+    output.writeln(');');
+
+    return new AccessorOutput(output.toString());
   }
 
   /// Apply a workaround for an issue where, in the DDC, abstract getter or setter overrides declared in a class clobber
@@ -665,3 +689,9 @@ class ImplGenerator {
 }
 
 enum AccessorType {props, state}
+
+class AccessorOutput {
+  final String implementations;
+
+  AccessorOutput(this.implementations);
+}
