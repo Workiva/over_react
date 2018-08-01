@@ -22,7 +22,10 @@ import 'package:over_react/over_react.dart';
 import 'package:over_react/component_base.dart' as component_base;
 
 @AbstractProps()
-abstract class AbstractTransitionProps extends UiProps with TransitionPropsMixin {}
+abstract class AbstractTransitionProps extends UiProps with TransitionPropsMixin {
+  // ignore: undefined_identifier, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForAbstractTransitionProps;
+}
 
 @AbstractState()
 abstract class AbstractTransitionState extends UiState {
@@ -96,8 +99,8 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
 
   @override
   get consumedProps => const [
-    const $Props(AbstractTransitionProps),
-    const $Props(TransitionPropsMixin),
+    AbstractTransitionProps.meta,
+    TransitionPropsMixin.meta,
   ];
 
   @override

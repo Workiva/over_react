@@ -22,6 +22,9 @@ import 'package:over_react/over_react.dart';
 /// that cannot extend directly from [AbstractTransitionComponent].
 @PropsMixin()
 abstract class TransitionPropsMixin {
+  // ignore: undefined_identifier, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForTransitionPropsMixin;
+
   static final TransitionPropsMapView defaultProps = new TransitionPropsMapView({})
     ..transitionCount = 1;
 
