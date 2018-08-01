@@ -42,7 +42,7 @@
 
     ```yaml
     dependencies:
-      over_react: ^1.20.1
+      over_react: ^1.25.0
     ```
 
 2. Add the `over_react` [transformer] to your `pubspec.yaml`.
@@ -81,14 +81,16 @@ and add an HTML element with a unique identifier where you’ll mount your OverR
     > __Note:__ When serving your application in production, use `packages/react/react_with_react_dom_prod.js`
     file instead of the un-minified `react.js` / `react_dom.js` files shown in the example above.  
 
-4. Import the `over_react` library _(and associated react libraries)_ into `your_app_name.dart`, and initialize
+4. Import the `over_react` and `react_dom` libraries into `your_app_name.dart`, and initialize
 React within your Dart application. Then [build a custom component](#building-custom-components) and
 mount / render it into the HTML element you created in step 3.
 
+    > Be sure to namespace the `react_dom.dart` import as `react_dom` to avoid collisions with `UiComponent.render`
+      when [creating custom components](#building-custom-components). 
+
     ```dart
     import 'dart:html';
-    import 'package:react/react.dart' as react;
-    import 'package:react/react_dom.dart' as react_dom;
+    import 'package:over_react/react_dom.dart' as react_dom;
     import 'package:over_react/over_react.dart';
 
     main() {
@@ -680,10 +682,6 @@ that you get for free from OverReact, you're ready to start building your own cu
 * #### Component Boilerplate
 
     ```dart
-    import 'dart:html';
-    import 'package:react/react.dart' as react;
-    import 'package:react/react_dom.dart' as react_dom;
-    import 'package:react/react_client.dart';
     import 'package:over_react/over_react.dart';
 
     @Factory()
@@ -717,9 +715,6 @@ that you get for free from OverReact, you're ready to start building your own cu
 
     ```dart
     import 'dart:html';
-    import 'package:react/react.dart' as react;
-    import 'package:react/react_dom.dart' as react_dom;
-    import 'package:react/react_client.dart';
     import 'package:over_react/over_react.dart';
 
     @Factory()
@@ -765,9 +760,6 @@ that you get for free from OverReact, you're ready to start building your own cu
 
     ```dart
     import 'dart:html';
-    import 'package:react/react.dart' as react;
-    import 'package:react/react_dom.dart' as react_dom;
-    import 'package:react/react_client.dart';
     import 'package:over_react/over_react.dart';
 
     @Factory()
@@ -798,9 +790,6 @@ that you get for free from OverReact, you're ready to start building your own cu
 
     ```dart
     import 'dart:html';
-    import 'package:react/react.dart' as react;
-    import 'package:react/react_dom.dart' as react_dom;
-    import 'package:react/react_client.dart';
     import 'package:over_react/over_react.dart';
 
     @Factory()

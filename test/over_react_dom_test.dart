@@ -1,4 +1,4 @@
-// Copyright 2017 Workiva Inc.
+// Copyright 2018 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,19 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Currently dart_dev only runs tests on dart files that end with _test.
+// So this file's name had to change to match.
+// It can be changed back when that issue is taken care of.
+// https://github.com/Workiva/dart_dev/issues/74
 @TestOn('browser')
-library over_react_experimental_test;
+library util_test;
 
 import 'package:over_react/over_react.dart';
-import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 
-import 'over_react/experimental/redux_component_test.dart' as redux_component_test;
+import 'over_react/dom/render_test.dart' as render_test;
+import 'over_react/dom/unmount_test.dart' as unmount_test;
 
-main() {
+void main() {
   setClientConfiguration();
 
   enableTestMode();
 
-  redux_component_test.main();
+  render_test.main();
+  unmount_test.main();
 }

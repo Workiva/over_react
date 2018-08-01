@@ -1,6 +1,6 @@
 import 'dart:html';
-import 'package:react/react_dom.dart' as react_dom;
-import 'package:react/react_client.dart';
+import 'package:over_react/react_dom.dart' as react_dom;
+import 'package:over_react/over_react.dart';
 
 import '../demos.dart';
 import '../constants.dart';

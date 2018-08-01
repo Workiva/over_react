@@ -34,7 +34,8 @@ _site
 .pub
 packages
 .packages
-/build/
+.dart_tool
+build/
 
 
 # Since over_react is a library package, we shouldn't track pubspec.lock:

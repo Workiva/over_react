@@ -239,6 +239,53 @@ main() {
             }));
           });
         });
+
+        group('merge', () {
+          test('merges the className from the provided builder instance', () {
+            var otherBuilder = new ClassNameBuilder();
+
+            builder.add('a');
+            otherBuilder.add('b');
+  
+            builder.merge(otherBuilder);
+            expect(builder.toClassName(), equals('a b'));
+          });
+
+          test('returns blacklist merged from second builder instance', () {
+            var otherBuilder = new ClassNameBuilder();
+
+            builder.blacklist('a-blacklist');
+            otherBuilder.blacklist('b-blacklist');
+            
+            builder.merge(otherBuilder);
+            expect(builder.toClassNameBlacklist(), equals('a-blacklist b-blacklist'));
+          });
+
+          test('returns classname and blacklist merged from second builder instance', () {
+            var otherBuilder = new ClassNameBuilder();
+
+            builder.add('a');
+            otherBuilder.blacklist('b-blacklist');
+            
+            builder.merge(otherBuilder);
+            expect(builder.toClassName(), equals('a'));
+            expect(builder.toClassNameBlacklist(), equals('b-blacklist'));
+          });
+        }); 
+      });
+      
+      group('created with .merged() constructor', () {
+        test('', () {
+          var a = new ClassNameBuilder()
+            ..add('a')
+            ..blacklist('a-blacklist');
+          var b = new ClassNameBuilder()
+            ..add('b')
+            ..blacklist('b-blacklist');
+          var builder = new ClassNameBuilder.merged(a,b);
+          expect(builder.toClassName(), equals('a b'));
+          expect(builder.toClassNameBlacklist(), equals('a-blacklist b-blacklist'));
+        });
       });
 
       group('created with .fromProps() constructor', () {

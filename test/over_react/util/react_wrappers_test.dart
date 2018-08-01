@@ -23,7 +23,7 @@ import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_interop_helpers.dart';
 import 'package:react/react_client/react_interop.dart';
-import 'package:react/react_dom.dart' as react_dom;
+import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:test/test.dart';
 
@@ -266,7 +266,7 @@ main() {
           expect(clone.key, equals(overrideKeyRefProps['key']));
           expect(clone.ref, equals(overrideKeyRefProps['ref']));
 
-          var renderedClone = react_test_utils.findRenderedComponentWithType(renderedHolder, TestComponentFactory);
+          var renderedClone = react_test_utils.findRenderedComponentWithTypeV2(renderedHolder, TestComponentFactory);
 
           Map cloneDartProps = getDartComponent(renderedClone).props;
           expect(cloneDartProps, isNot(anyOf(contains('key'), contains('ref'))),
@@ -440,8 +440,13 @@ main() {
         expect(getDartComponent(renderedInstance), isNull);
       });
 
+      test('returns null for a ReactElement', () {
+        ReactElement instance = Wrapper()();
+        expect(getDartComponent(instance), isNull);
+      });
+
       group('', () {
-        final messageMatcher = contains('react-dart 4.0 will no longer support retrieving Dart components from');
+        final messageMatcher = contains('react-dart 4.0 no longer supports retrieving Dart components');
 
         test('warns when passed a ReactElement', () {
           ReactElement instance = Wrapper()();
@@ -1123,8 +1128,7 @@ main() {
 }
 
 /// Helper component for testing a Dart (react-dart) React component with cloneElement.
-final TestComponentFactory =
-    react.registerComponent(() => new TestComponent()) as ReactComponentFactory; // ignore: avoid_as
+final TestComponentFactory = react.registerComponent(() => new TestComponent());
 class TestComponent extends react.Component {
   @override
   render() => Dom.div()();
@@ -1143,8 +1147,7 @@ class PlainObjectStyleMap {
 }
 
 /// Helper component that renders whatever you tell it to. Necessary for rendering components with the 'ref' prop.
-final RenderingContainerComponentFactory =
-    react.registerComponent(() => new RenderingContainerComponent()) as ReactComponentFactory; // ignore: avoid_as
+final RenderingContainerComponentFactory = react.registerComponent(() => new RenderingContainerComponent());
 
 class RenderingContainerComponent extends react.Component {
   @override

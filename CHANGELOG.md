@@ -1,5 +1,124 @@
 # OverReact Changelog
 
+## 1.25.0
+
+> [Complete `1.25.0` Changeset](https://github.com/Workiva/over_react/compare/1.24.1...1.25.0)
+
+__New Features__ 
+
+* [#167]: New `ClassNameBuilder.merge` method and `ClassNameBuilder.merged` constructor.
+* [#168]: Expose `react_wrappers` library that was previously only available via a `src/` import.
+
+
+## 1.24.0
+
+> [Complete `1.24.0` Changeset](https://github.com/Workiva/over_react/compare/1.23.1...1.24.0)
+
+__Dependency Updates__
+
+* [#153] react `^4.3.0` (was `^3.7.0`)
+* [#151] 
+    * built_redux `^7.4.1` (was `>=6.1.0 <8.0.0`)
+    * built_value `>=4.2.0 <5.2.0` (was `>=4.2.0 <6.0.0`)
+    
+__New Features__ 
+
+* [#154]: Expose `react_dom.render`/`react_dom.unmountComponentAtNode` from the react library
+    
+__Tech Debt__
+
+* [#151] Prepare for Dart 2 SDK
+    * Address Dart 2.x SDK lints / warnings that do not constitute breaking changes
+    * Address `DisposableManagerV6` deprecation
+    * `UiProps` and `UiState` now extend from `MapBase`
+    
+
+## 1.24.1
+
+> [Complete `1.24.1` Changeset](https://github.com/Workiva/over_react/compare/1.24.0...1.24.1)
+
+__Dependency Updates__
+
+* w_common `^1.10.0` (was `^1.8.0`)
+* react `^4.4.1` (was `^4.3.0`)
+
+__Tech Debt__
+
+* Address `ReactComponentFactory` deprecation
+* Address `findRenderedComponentWithType` deprecation
+
+## 1.24.0
+
+> [Complete `1.24.0` Changeset](https://github.com/Workiva/over_react/compare/1.23.1...1.24.0)
+
+__Dependency Updates__
+
+* [#153] react `^4.3.0` (was `^3.7.0`)
+* [#151] 
+    * built_redux `^7.4.1` (was `>=6.1.0 <8.0.0`)
+    * built_value `>=4.2.0 <5.2.0` (was `>=4.2.0 <6.0.0`)
+    
+__New Features__ 
+
+* [#154]: Expose `react_dom.render`/`react_dom.unmountComponentAtNode` from the react library
+    
+__Tech Debt__
+
+* [#151] Prepare for Dart 2 SDK
+    * Address Dart 2.x SDK lints / warnings that do not constitute breaking changes
+    * Address `DisposableManagerV6` deprecation
+    * `UiProps` and `UiState` now extend from `MapBase`
+    
+
+## 1.23.1
+
+> [Complete `1.23.1` Changeset](https://github.com/Workiva/over_react/compare/1.23.0...1.23.1)
+
+__Dependency Updates__
+* [#149]: Dependency Maintenance:
+    * __Dart SDK__ now `>=1.24.2 <2.0.0`, was `>=1.24.2`
+    * Dependencies:
+        * __analyzer__ now `>=0.30.0 <=0.31.0`, was `>=0.30.0 <0.31.0`
+        * __barback__ now `>=0.15.2 <=0.15.2+14`, was `^0.15.0`
+        * __quiver__ now `>=0.21.4 <=0.28.0`, was `>=0.21.4 <0.26.0`
+    * Dev Dependencies:
+        * __coverage__ now `>=0.7.2 <0.11.0`, was `^0.7.2`
+        * __dependency_validator__ now `^1.1.0`, was `^1.0.0`
+        * __mockito__ now `^2.0.0`, was `^0.11.0`
+        * __test__ now `^0.12.32+1`, was `^0.12.24`
+
+## 1.23.0
+
+> [Complete `1.23.0` Changeset](https://github.com/Workiva/over_react/compare/1.22.0...1.23.0)
+
+__Dependency Updates__
+* [#145]: Widen built_value version constraint: now `>=4.2.0 <6.0.0`, was `^4.2.0`
+
+__New Features__ 
+* [#144]: Move `BuiltReduxUiComponent`/`BuiltReduxUiProps` out of @experimental
+    * __Warning:__ This will be deprecated in an upcoming release in favor of a different approach to creating a `built_redux` component.
+
+## 1.22.0
+
+> [Complete `1.22.0` Changeset](https://github.com/Workiva/over_react/compare/1.21.0...1.22.0)
+
+__New Features__
+* [#142]: Do not execute prop validation logic in dart2js code
+
+## 1.21.0
+
+> [Complete `1.21.0` Changeset](https://github.com/Workiva/over_react/compare/1.20.2...1.21.0)
+
+__New Features__
+* [#140]: Add an option to make `BuiltReduxUiComponent` "pure"
+
+## 1.20.2
+
+> [Complete `1.20.2` Changeset](https://github.com/Workiva/over_react/compare/1.20.1...1.20.2)
+
+__Tech Debt__
+* [#137]: Get rid of dart2js compiler warnings
+
 ## 1.20.1
 
 > [Complete `1.20.1` Changeset](https://github.com/Workiva/over_react/compare/1.20.0...1.20.1)

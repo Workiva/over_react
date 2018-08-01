@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library test_util.react_util;
+/// Utilities for handling `over_react` wrapped react components.
+library over_react.react_wrappers;
 
 export 'package:over_react/src/util/react_wrappers.dart';

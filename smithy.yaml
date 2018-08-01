@@ -2,7 +2,7 @@ project: dart
 language: dart
 
 # Dart 1.24.2 image from https://github.com/Workiva/smithy-runner-generator
-runner_image: drydock-prod.workiva.net/workiva/smithy-runner-generator:179735
+runner_image: drydock-prod.workiva.net/workiva/smithy-runner-generator:355624
 
 script:
   - pub get
