@@ -52,6 +52,7 @@ import 'package:transformer_utils/transformer_utils.dart';
 class WebSkinDartTransformer extends Transformer implements LazyTransformer {
   final BarbackSettings _settings;
   final bool _shouldFixDdcAbstractAccessors;
+  final generatedNameSpace = 'generated';
 
   WebSkinDartTransformer.asPlugin(this._settings) :
       _shouldFixDdcAbstractAccessors = _loadBoolConfig(_settings, 'fixDdcAbstractAccessors');
@@ -70,6 +71,7 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
   @override
   void declareOutputs(DeclaringTransform transform) {
     transform.declareOutput(transform.primaryId);
+    transform.declareOutput(transform.primaryId.changeExtension('.$generatedNameSpace.dart'));
     transform.consumePrimary();
 
     if (_settings.mode == BarbackMode.DEBUG) {
@@ -116,6 +118,11 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
         new ImplGenerator(logger, transformedFile)
             ..shouldFixDdcAbstractAccessors = _shouldFixDdcAbstractAccessors
             ..generate(declarations);
+
+        var partOf = unit.directives.firstWhere((directive) => directive is PartOfDirective, orElse: () => null)?.toSource();
+
+        transform.addOutput(new Asset.fromString(transform.primaryInput.id.changeExtension('.$generatedNameSpace.dart'),
+            partOf ?? 'part of ${p.basename(transform.primaryInput.id.path)}'));
       }
     }
 

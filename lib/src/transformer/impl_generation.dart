@@ -103,10 +103,12 @@ class ImplGenerator {
             span: getSpan(sourceFile, declarations.factory.node.variables));
       }
 
+      /// Factories are stubbed for the generated factories and may only be initialized with the generated factory.
+
       declarations.factory.node.variables.variables.forEach((variable) {
-        if (variable.initializer != null) {
+        if (variable.initializer?.toSource() != '\$$factoryName' && variable.initializer != null) {
           logger.error(
-              'Factory variables are stubs for the generated factories, and should not have initializers.',
+              'Factories are stubbed for the generated factories and may only be initialized with the generated factory.',
               span: getSpan(sourceFile, variable.initializer)
           );
         }
@@ -117,8 +119,13 @@ class ImplGenerator {
               declarations.factory.node.variables.variables.first.name.end,
               declarations.factory.node.semicolon.offset
           ),
-          ' = ([Map backingProps]) => new $propsImplName(backingProps)'
+          ' = \$$factoryName'
       );
+
+      ///_$BasicProps $Basic([Map backingProps]) => new _$BasicProps(backingProps);
+
+      transformedFile.insert(sourceFile.location(declarations.factory.node.semicolon.end),
+          '$propsImplName \$$factoryName([Map backingProps]) => new $propsImplName(backingProps);');
 
       String parentTypeParam = 'null';
       String parentTypeParamComment = '';
