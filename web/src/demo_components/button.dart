@@ -9,6 +9,9 @@ UiFactory<ButtonProps> Button;
 
 @Props()
 class ButtonProps extends UiProps {
+  // ignore: undefined_identifier, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForButtonProps;
+
   /// The skin / "context" for the [Button].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#examples>.

@@ -616,12 +616,14 @@ class ImplGenerator {
     final metaObjectName = '${publicGeneratedPrefix}metaFor${name}'; // FIXME validate boilerplate to avoid typos
 
     var output = new StringBuffer();
+    output.writeln('/// A class that allows us to reuse generated code from the accessors class.');
+    output.writeln('/// This is only used by other generated code, and can be simplified if needed.');
     output.writeln('class $metaClassName {');
     output.writeln(staticVariablesImpl);
     output.writeln('}');
     output.writeln('const $metaStructName $metaObjectName = const $metaStructName(');
-    output.writeln('  $metaClassName.$constantListName,'); // todo don't include generated prefix
-    output.writeln('  $metaClassName.$keyListName,'); // todo don't include generated prefix
+    output.writeln('  fields: $metaClassName.$constantListName,'); // todo don't include generated prefix
+    output.writeln('  keys: $metaClassName.$keyListName,'); // todo don't include generated prefix
     output.writeln(');');
 
     return new AccessorOutput(output.toString());

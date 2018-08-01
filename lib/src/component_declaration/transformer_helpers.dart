@@ -26,12 +26,28 @@ export './component_base.dart'
 //   generated code.
 // ----------------------------------------------------------------------
 
+/// __Deprecated.__ Replace usages of $PropKeys with the new boilerplate
+/// that wires up generated constants: FIXME link to boilerplate updates doc, add example
+///
+///     -const $PropKeys(FooProps)
+///     +FooProps.meta.keys
+///
+/// ---
+///
 /// Placeholder helper class that allows for accessing lists of prop keys
 /// in a static yet unsafe way.
 ///
 /// __For advanced usage only.__
 @proxy
+@Deprecated('2.0.0')
 class $PropKeys implements List<String> {
+  /// __Deprecated.__ Replace usages of $PropKeys with the new boilerplate
+  /// that wires up generated constants: FIXME link to boilerplate updates doc, add example
+  ///
+  ///     -const $PropKeys(FooProps)
+  ///     +FooProps.meta.keys
+  ///
+  /// ---
   /// A placeholder that gets swapped out by the `over_react` transformer
   /// with the prop keys defined in [propsClass].
   const $PropKeys(Type propsClass);
@@ -45,12 +61,29 @@ class $PropKeys implements List<String> {
   }
 }
 
+/// __Deprecated.__ Replace usages of $Props with the new boilerplate
+/// that wires up generated constants: FIXME link to boilerplate updates doc, add example
+///
+///     -const $Props(FooProps)
+///     +FooProps.meta.fields
+///
+/// ---
+///
 /// Placeholder helper class that allows for accessing lists of props
 /// in a static yet unsafe way.
 ///
 /// __For advanced usage only.__
 @proxy
+@Deprecated('2.0.0')
 class $Props implements component_base.ConsumedProps {
+  /// __Deprecated.__ Replace usages of $Props with the new boilerplate
+  /// that wires up generated constants: FIXME link to boilerplate updates doc, add example
+  ///
+  ///     -const $PropKeys(FooProps)
+  ///     +FooProps.meta.fields
+  ///
+  /// ---
+  ///
   /// A placeholder that gets swapped out by the `over_react` transformer
   /// with the prop keys defined in [propsClass].
   const $Props(Type propsClass);

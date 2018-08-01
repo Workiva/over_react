@@ -26,8 +26,8 @@ import 'package:over_react/src/component_declaration/annotations.dart';
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
 abstract class ReactPropsMixin {
-  // ignore: undefined_identifier
-  static PropsMeta get meta => $metaForReactPropsMixin;
+  // ignore: undefined_identifier, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForReactPropsMixin;
 
   Map get props;
 
@@ -59,8 +59,8 @@ abstract class ReactPropsMixin {
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
 abstract class DomPropsMixin {
-  // ignore: undefined_identifier
-  static PropsMeta get meta => $metaForDomPropsMixin;
+  // ignore: undefined_identifier, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForDomPropsMixin;
 
   Map get props;
 
@@ -113,8 +113,8 @@ abstract class DomPropsMixin {
 
 @PropsMixin(keyNamespace: '')
 abstract class SvgPropsMixin {
-  // ignore: undefined_identifier
-  static PropsMeta get meta => $metaForSvgPropsMixin;
+  // ignore: undefined_identifier, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForSvgPropsMixin;
 
   Map get props;
 
@@ -129,8 +129,8 @@ abstract class SvgPropsMixin {
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
 abstract class UbiquitousDomPropsMixin {
-  // ignore: undefined_identifier
-  static PropsMeta get meta => $metaForUbiquitousDomPropsMixin;
+  // ignore: undefined_identifier, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForUbiquitousDomPropsMixin;
 
   Map get props;
 

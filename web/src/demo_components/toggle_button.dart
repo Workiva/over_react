@@ -9,6 +9,9 @@ UiFactory<ToggleButtonProps> ToggleButton;
 
 @Props()
 class ToggleButtonProps extends ButtonProps with AbstractInputPropsMixin {
+  // ignore: undefined_identifier, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForToggleButtonProps;
+
   /// Whether the `<input>` rendered by the [ToggleButton] should have focus upon mounting.
   ///
   /// _Proxies [DomProps.autoFocus]._
@@ -83,9 +86,9 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
 
   @override
   get consumedProps => const [
-    const $Props(ToggleButtonProps),
-    const $Props(ButtonProps),
-    const $Props(AbstractInputPropsMixin),
+    ToggleButtonProps.meta,
+    ButtonProps.meta,
+    AbstractInputPropsMixin.meta,
   ];
 
   @override

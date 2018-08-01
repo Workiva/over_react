@@ -22,7 +22,10 @@ part of over_react.web.demo_components;
 UiFactory <ToggleButtonGroupProps> ToggleButtonGroup;
 
 @Props()
-class ToggleButtonGroupProps extends ButtonGroupProps with AbstractInputPropsMixin {}
+class ToggleButtonGroupProps extends ButtonGroupProps with AbstractInputPropsMixin {
+  // ignore: undefined_identifier, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForToggleButtonGroupProps;
+}
 
 @State()
 class ToggleButtonGroupState extends ButtonGroupState with AbstractInputStateMixin {}
@@ -53,7 +56,7 @@ class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupP
 
   @override
   get consumedProps => const [
-    const $Props(ToggleButtonGroupProps),
+    ToggleButtonGroupProps.meta,
   ];
 
   /// The props that should be added when we clone the given [child] using
