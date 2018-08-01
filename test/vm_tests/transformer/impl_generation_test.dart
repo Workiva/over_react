@@ -134,7 +134,7 @@ main() {
         test('without extends/with/implements clause', () {
           preservedLineNumbersTest('''
             @Factory()
-            UiFactory<FooProps> Foo;
+            UiFactory<FooProps> Foo = \$Foo;
 
             @Props()
             class FooProps {}
@@ -589,7 +589,7 @@ main() {
             $restOfComponent
           ''');
 
-          verify(logger.error('Factory variables are stubs for the generated factories, and should not have initializers.', span: any));
+          verify(logger.error('Factories are stubbed for the generated factories and may only be initialized with the generated factory.', span: any));
         });
       });
 
