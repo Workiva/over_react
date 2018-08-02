@@ -352,9 +352,11 @@ class ResizeSensorEvent {
 }
 
 /// A MapView with the typed getters/setters for all HitArea display variation props.
+@PropsMapView()
 class ResizeSensorPropsMixinMapView extends MapView with ResizeSensorPropsMixin {
   /// Create a new instance backed by the specified map.
-  ResizeSensorPropsMixinMapView(Map map) : super(map);
+  ResizeSensorPropsMixinMapView._(Map map) : super(map);
+  factory ResizeSensorPropsMixinMapView(Map map) = _$ResizeSensorPropsMixinMapView; // ignore: redirect_to_non_class
 
   /// The props to be manipulated via the getters/setters.
   /// In this case, it's the current MapView object.

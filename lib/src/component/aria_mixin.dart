@@ -1752,9 +1752,11 @@ class Role {
 }
 
 /// A MapView with the typed getters/setters for all aria props.
+@PropsMapView()
 class AriaPropsMapView extends MapView with AriaPropsMixin {
   /// Create a new instance backed by the specified map.
-  AriaPropsMapView(Map map) : super(map);
+  AriaPropsMapView._(Map map) : super(map);
+  factory AriaPropsMapView(Map map) = _$AriaPropsMapView; // ignore: redirect_to_non_class
 
   /// The props to be manipulated via the getters/setters.
   /// In this case, it's the current MapView object.

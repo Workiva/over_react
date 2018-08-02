@@ -64,10 +64,12 @@ abstract class TransitionPropsMixin {
   Callback onDidShow;
 }
 
+@PropsMapView()
 class TransitionPropsMapView extends MapView with
     TransitionPropsMixin {
   /// Create a new instance backed by the specified map.
-  TransitionPropsMapView(Map map) : super(map);
+  TransitionPropsMapView._(Map map) : super(map);
+  factory TransitionPropsMapView(Map map) = _$TransitionPropsMapView; // ignore: redirect_to_non_class
 
   /// The props to be manipulated via the getters/setters.
   /// In this case, it's the current MapView object.
