@@ -184,6 +184,26 @@ class StateMixin implements TypedMap {
   const StateMixin({this.keyNamespace});
 }
 
+/// Annotation used with the `over_react` transformer to declare a [MapView]-like class that uses props mixins.
+///
+/// This **must** be used with the over_react builder for props mixins to work properly, and also requires
+/// the following constructor boilerplate.
+///
+///     @PropsMapView()
+///     class AriaPropsMapView extends MapView with AriaPropsMixin {
+///       /// Create a new instance backed by the specified map.
+///       AriaPropsMapView._(Map map) : super(map);
+///       factory AriaPropsMapView(Map map) = _$AriaPropsMapView; // ignore: redirect_to_non_class
+///
+///       /// The props to be manipulated via the getters/setters.
+///       /// In this case, it's the current MapView object.
+///       @override
+///       Map get props => this;
+///     }
+class PropsMapView {
+  const PropsMapView();
+}
+
 /// Marks a `prop` as required to be set.
 ///
 /// Validation occurs in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and

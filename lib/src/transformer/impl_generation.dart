@@ -16,8 +16,10 @@ library over_react.transformer.impl_generation;
 
 import 'package:analyzer/analyzer.dart';
 import 'package:barback/barback.dart';
+import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
+import 'package:over_react/src/transformer/argument_util.dart';
 import 'package:over_react/src/transformer/declaration_parsing.dart';
 import 'package:over_react/src/transformer/text_util.dart';
 import 'package:source_span/source_span.dart';
@@ -353,6 +355,56 @@ class ImplGenerator {
       final accessorOutput = generateAccessors(AccessorType.state, stateMixin);
       implementations.writeln(accessorOutput.implementations);
     });
+
+    for (var propsMapView in declarations.propsMapViews) {
+      const redirectingFactoryConstructorName = '';
+      const classPrivateConstructorName = '_';
+      const implClassConstructorName = '';
+
+      final className = propsMapView.node.name.name;
+      final classImplName = '$generatedPrefix$className';
+
+      final constructors = new List<ConstructorDeclaration>.from(propsMapView.node.members.where((member) => member is ConstructorDeclaration));
+
+      if (constructors.isEmpty) {
+        logger.error('Must implement constructor boilerplate to use @PropsMixin annotation.');
+      } else if (constructors.length >= 2) { // todo detect when improperly referencing generated constructor?
+        final privateConstructor = constructors.firstWhere((constructor) {
+          return (constructor.name ?? '').toString() == classPrivateConstructorName;
+        }, orElse: () => null);
+        if (privateConstructor == null) {
+          logger.error('Missing private constructor');
+          break;
+        }
+
+        final redirectingFactoryConstructor = constructors.firstWhere((constructor) {
+          return (constructor.name ?? '') == redirectingFactoryConstructorName && constructor.factoryKeyword != null;
+        }, orElse: () => null);
+        if (redirectingFactoryConstructor == null) {
+          logger.error('Missing redirecting factory constructor');
+          break;
+        }
+        if (redirectingFactoryConstructor.redirectedConstructor.type.name.name != classImplName ||
+            (redirectingFactoryConstructor.redirectedConstructor.name?.name ?? '') != implClassConstructorName) {
+          logger.error('Redirecting factory should point to $classImplName',
+             span: getSpanForNode(transformedFile.sourceFile, redirectingFactoryConstructor.redirectedConstructor));
+          break;
+        }
+        // FIXME validate generic parameters
+
+        if (!areParametersEqual(redirectingFactoryConstructor.parameters, privateConstructor.parameters)) {
+          logger.error('Mismatched parameters');
+        }
+
+        final forwardingHelper = new ArgumentForwardingHelper(privateConstructor.parameters);
+
+        implementations
+          ..writeln('// Stubbed props mixin class to support constructor boilerplate')
+          ..writeln('class $classImplName extends $className {') // FIXME generics
+          ..writeln('  $classImplName(${forwardingHelper.getArgumentsForForwarding()}) : super.$classPrivateConstructorName(${forwardingHelper.getArgumentForwarding()});')
+          ..writeln('}');
+      }
+    }
 
     // ----------------------------------------------------------------------
     //   Abstract Props/State implementations

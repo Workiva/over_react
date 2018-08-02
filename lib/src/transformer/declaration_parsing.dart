@@ -51,6 +51,7 @@ class ParsedDeclarations {
       key_abstractState:     <CompilationUnitMember>[],
       key_propsMixin:        <CompilationUnitMember>[],
       key_stateMixin:        <CompilationUnitMember>[],
+      key_propsMapView:      <CompilationUnitMember>[],
     };
 
     unit.declarations.forEach((CompilationUnitMember member) {
@@ -109,6 +110,7 @@ class ParsedDeclarations {
       key_abstractState,
       key_propsMixin,
       key_stateMixin,
+      key_propsMapView,
     ].forEach((annotationName) {
       declarationMap[annotationName] = classesOnly(annotationName, declarationMap[annotationName]);
     });
@@ -197,6 +199,8 @@ class ParsedDeclarations {
         propsMixins:   declarationMap[key_propsMixin],
         stateMixins:   declarationMap[key_stateMixin],
 
+        propsMapViews: declarationMap[key_propsMapView],
+
         hasErrors: hasErrors
     );
   }
@@ -213,6 +217,8 @@ class ParsedDeclarations {
       List<ClassDeclaration> propsMixins,
       List<ClassDeclaration> stateMixins,
 
+      List<ClassDeclaration> propsMapViews,
+
       this.hasErrors
   }) :
       this.factory       = (factory   == null) ? null : new FactoryNode(factory),
@@ -225,6 +231,8 @@ class ParsedDeclarations {
 
       this.propsMixins   = new List.unmodifiable(propsMixins.map((propsMixin) => new PropsMixinNode(propsMixin))),
       this.stateMixins   = new List.unmodifiable(stateMixins.map((stateMixin) => new StateMixinNode(stateMixin))),
+
+      this.propsMapViews = new List.unmodifiable(propsMapViews.map((propsMapView) => new PropsMapViewNode(propsMapView))),
 
       this.declaresComponent = factory != null
   {
@@ -251,6 +259,7 @@ class ParsedDeclarations {
 
   static final String key_propsMixin        = _getName(annotations.PropsMixin);
   static final String key_stateMixin        = _getName(annotations.StateMixin);
+  static final String key_propsMapView      = _getName(annotations.PropsMapView);
 
   static final List<String> key_allComponentRequired = new List.unmodifiable([
     key_factory,
@@ -274,6 +283,7 @@ class ParsedDeclarations {
         key_abstractState,
         key_propsMixin,
         key_stateMixin,
+        key_propsMapView,
       ].join('|').replaceAll(r'$', r'\$') +
       r')',
       caseSensitive: true
@@ -293,6 +303,8 @@ class ParsedDeclarations {
 
   final List<PropsMixinNode> propsMixins;
   final List<StateMixinNode> stateMixins;
+
+  final List<StateMixinNode> propsMapViews;
 
   final bool hasErrors;
   final bool declaresComponent;
@@ -339,3 +351,5 @@ class AbstractStateNode     extends NodeWithMeta<ClassDeclaration, annotations.A
 
 class PropsMixinNode        extends NodeWithMeta<ClassDeclaration, annotations.PropsMixin>         {PropsMixinNode(unit)        : super(unit);}
 class StateMixinNode        extends NodeWithMeta<ClassDeclaration, annotations.StateMixin>         {StateMixinNode(unit)        : super(unit);}
+
+class PropsMapViewNode      extends NodeWithMeta<ClassDeclaration, annotations.PropsMapView>       {PropsMapViewNode(unit)      : super(unit);}
