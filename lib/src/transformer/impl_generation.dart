@@ -366,44 +366,48 @@ class ImplGenerator {
 
       final constructors = new List<ConstructorDeclaration>.from(propsMapView.node.members.where((member) => member is ConstructorDeclaration));
 
-      if (constructors.isEmpty) {
-        logger.error('Must implement constructor boilerplate to use @PropsMixin annotation.');
-      } else if (constructors.length >= 2) { // todo detect when improperly referencing generated constructor?
-        final privateConstructor = constructors.firstWhere((constructor) {
-          return (constructor.name ?? '').toString() == classPrivateConstructorName;
-        }, orElse: () => null);
-        if (privateConstructor == null) {
-          logger.error('Missing private constructor');
-          break;
-        }
+      final privateConstructor = constructors.firstWhere((constructor) {
+        return (constructor.name ?? '').toString() == classPrivateConstructorName;
+      }, orElse: () => null);
+      if (privateConstructor == null) {
+        logger.error('Missing private constructor boilerplate.', // TODO link to boilerplate docs
+            span: getSpanForNode(sourceFile, propsMapView.node));
+      }
 
-        final redirectingFactoryConstructor = constructors.firstWhere((constructor) {
-          return (constructor.name ?? '') == redirectingFactoryConstructorName && constructor.factoryKeyword != null;
-        }, orElse: () => null);
-        if (redirectingFactoryConstructor == null) {
-          logger.error('Missing redirecting factory constructor');
-          break;
-        }
+      final redirectingFactoryConstructor = constructors.firstWhere((constructor) {
+        return (constructor.name ?? '') == redirectingFactoryConstructorName && constructor.factoryKeyword != null;
+      }, orElse: () => null);
+      if (redirectingFactoryConstructor == null) {
+        logger.error('Missing redirecting factory constructor boilerplate.', // TODO link to boilerplate docs
+            span: getSpanForNode(sourceFile, propsMapView.node));
+      } else {
         if (redirectingFactoryConstructor.redirectedConstructor.type.name.name != classImplName ||
             (redirectingFactoryConstructor.redirectedConstructor.name?.name ?? '') != implClassConstructorName) {
           logger.error('Redirecting factory should point to $classImplName',
-             span: getSpanForNode(transformedFile.sourceFile, redirectingFactoryConstructor.redirectedConstructor));
-          break;
+              span: getSpanForNode(sourceFile, redirectingFactoryConstructor.redirectedConstructor));
         }
-        // FIXME validate generic parameters
-
-        if (!areParametersEqual(redirectingFactoryConstructor.parameters, privateConstructor.parameters)) {
-          logger.error('Mismatched parameters');
-        }
-
-        final forwardingHelper = new ArgumentForwardingHelper(privateConstructor.parameters);
-
-        implementations
-          ..writeln('// Stubbed props mixin class to support constructor boilerplate')
-          ..writeln('class $classImplName extends $className {') // FIXME generics
-          ..writeln('  $classImplName(${forwardingHelper.getArgumentsForForwarding()}) : super.$classPrivateConstructorName(${forwardingHelper.getArgumentForwarding()});')
-          ..writeln('}');
       }
+
+      // Don't break until after all errors have been emitted
+      if (privateConstructor == null || redirectingFactoryConstructor == null) {
+        break;
+      }
+
+      // TODO validate generic parameters in factory constructor
+
+      if (!areParametersEqual(redirectingFactoryConstructor.parameters, privateConstructor.parameters)) {
+        logger.error('Redirecting factory constructor parameter names and types must match those of private constructor: '
+            '`${privateConstructor.parameters.toSource()}`',
+            span: getSpanForNode(sourceFile, redirectingFactoryConstructor.parameters));
+      }
+
+      final forwardingHelper = new ArgumentForwardingHelper(privateConstructor.parameters);
+
+      implementations
+        ..writeln('// Stubbed props mixin class to support constructor boilerplate')
+        ..writeln('class $classImplName extends $className {') // TODO copy over generics
+        ..writeln('  $classImplName(${forwardingHelper.getArgumentsForForwarding()}) : super.$classPrivateConstructorName(${forwardingHelper.getArgumentForwarding()});')
+        ..writeln('}');
     }
 
     // ----------------------------------------------------------------------
