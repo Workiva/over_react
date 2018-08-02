@@ -1,6 +1,6 @@
 part of 'abstract_inheritance.dart';
 
-abstract class $SubPropsAccessorsMixin {
+abstract class _$SubPropsAccessorsMixin {
   Map get props;
 
   String get subProp => props[_$key__subProp__subProps];
@@ -13,18 +13,17 @@ abstract class $SubPropsAccessorsMixin {
 }
 
 const PropsMeta $metaForSubProps = const PropsMeta(
-  fields: $SubPropsAccessorsMixin.$props,
-  keys: $SubPropsAccessorsMixin.$propKeys,
+  fields: _$SubPropsAccessorsMixin.$props,
+  keys: _$SubPropsAccessorsMixin.$propKeys,
 );
 
-abstract class $SuperPropsAccessorsMixin {
+abstract class _$SuperPropsAccessorsMixin {
   Map get props;
 
   String get superProp => props[_$key__superProp__SuperProps];
   set superProp(String value) => props[_$key__superProp__SuperProps] = value;
 
   /* GENERATED CONSTANTS */
-  static const ConsumedProps $consumedProps = const ConsumedProps($props, $propKeys);
   static const PropDescriptor _$prop__superProp__SuperProps = const PropDescriptor(_$key__superProp__SuperProps);
   static const List<PropDescriptor> $props = const [_$prop__superProp__SuperProps];
   static const String _$key__superProp__SuperProps = 'SuperProps.superProp';
@@ -32,8 +31,8 @@ abstract class $SuperPropsAccessorsMixin {
 }
 
 const PropsMeta $metaForSuperProps = const PropsMeta(
-  fields: $SuperPropsAccessorsMixin.$props,
-  keys: $SuperPropsAccessorsMixin.$propKeys,
+  fields: _$SuperPropsAccessorsMixin.$props,
+  keys: _$SuperPropsAccessorsMixin.$propKeys,
 );
 
 
@@ -42,13 +41,7 @@ _$SubProps $Sub([Map backingProps]) => new _$SubProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$SubProps extends SubProps with $SuperPropsAccessorsMixin, $SubPropsAccessorsMixin {
-  static const List<PropDescriptor> $props = const []; // FIXME concatenate all accessors mixed in
-  static const List<String> $propKeys = const []; // FIXME concatenate all accessors mixed in
-
-  /* GENERATED CONSTANTS */
-  static const ConsumedProps $consumedProps = const ConsumedProps($props, $propKeys);
-
+class _$SubProps extends SubProps with _$SuperPropsAccessorsMixin, _$SubPropsAccessorsMixin {
   /// The backing props map proxied by this class.
   @override
   final Map props;
@@ -87,7 +80,7 @@ class _$SubComponent extends SubComponent {
   /// The default consumed props, taken from SubProps.
   /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$SubProps.$consumedProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [$metaForSubProps];
 }
 // React component factory implementation.
 //

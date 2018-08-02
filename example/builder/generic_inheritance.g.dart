@@ -1,11 +1,12 @@
 part of 'generic_inheritance.dart';
 
-abstract class $GenericSubPropsAccessorsMixin {
+abstract class _$GenericSubPropsAccessorsMixin {
   Map get props;
 
   String get subProp => props[_$key__subProp__subProps];
   set subProp(String value) => props[_$key__subProp__subProps] = value;
 
+  /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__subProp__subProps = const PropDescriptor(_$key__subProp__subProps);
   static const List<PropDescriptor> $props = const [_$prop__subProp__subProps];
   static const String _$key__subProp__subProps = 'GenericSubProps.subProp';
@@ -13,18 +14,17 @@ abstract class $GenericSubPropsAccessorsMixin {
 }
 
 const PropsMeta $metaForGenericSubProps = const PropsMeta(
-  fields: $GenericSubPropsAccessorsMixin.$props,
-  keys: $GenericSubPropsAccessorsMixin.$propKeys,
+  fields: _$GenericSubPropsAccessorsMixin.$props,
+  keys: _$GenericSubPropsAccessorsMixin.$propKeys,
 );
 
-abstract class $GenericSuperPropsAccessorsMixin {
+abstract class _$GenericSuperPropsAccessorsMixin {
   Map get props;
 
   String get superProp => props[_$key__superProp__GenericSuperProps];
   set superProp(String value) => props[_$key__superProp__GenericSuperProps] = value;
 
   /* GENERATED CONSTANTS */
-  static const ConsumedProps $consumedProps = const ConsumedProps($props, $propKeys);
   static const PropDescriptor _$prop__superProp__GenericSuperProps = const PropDescriptor(_$key__superProp__GenericSuperProps);
   static const List<PropDescriptor> $props = const [_$prop__superProp__GenericSuperProps];
   static const String _$key__superProp__GenericSuperProps = 'GenericSuperProps.superProp';
@@ -32,8 +32,8 @@ abstract class $GenericSuperPropsAccessorsMixin {
 }
 
 const PropsMeta $metaForGenericSuperProps = const PropsMeta(
-  fields: $GenericSuperPropsAccessorsMixin.$props,
-  keys: $GenericSuperPropsAccessorsMixin.$propKeys,
+  fields: _$GenericSuperPropsAccessorsMixin.$props,
+  keys: _$GenericSuperPropsAccessorsMixin.$propKeys,
 );
 
 
@@ -43,13 +43,7 @@ _$GenericSubProps $GenericSub([Map backingProps]) => new _$GenericSubProps(backi
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$GenericSubProps extends GenericSubProps with $GenericSuperPropsAccessorsMixin, $GenericSubPropsAccessorsMixin {
-  static const List<PropDescriptor> $props = const []; // FIXME concatenate all accessors mixed in
-  static const List<String> $propKeys = const []; // FIXME concatenate all accessors mixed in
-
-  /* GENERATED CONSTANTS */
-  static const ConsumedProps $consumedProps = const ConsumedProps($props, $propKeys);
-
+class _$GenericSubProps extends GenericSubProps with _$GenericSuperPropsAccessorsMixin, _$GenericSubPropsAccessorsMixin {
   /// The backing props map proxied by this class.
   @override
   final Map props;
@@ -88,7 +82,7 @@ class _$GenericSubComponent extends GenericSubComponent {
   /// The default consumed props, taken from GenericSubProps.
   /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$GenericSubProps.$consumedProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [$metaForGenericSubProps];
 }
 // React component factory implementation.
 //
@@ -106,7 +100,7 @@ _$GenericSuperProps $GenericSuper([Map backingProps]) => new _$GenericSuperProps
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$GenericSuperProps extends GenericSuperProps with $GenericSuperPropsAccessorsMixin {
+class _$GenericSuperProps extends GenericSuperProps with _$GenericSuperPropsAccessorsMixin {
   static const List<PropDescriptor> $props = const []; // FIXME concatenate all accessors mixed in
   static const List<String> $propKeys = const []; // FIXME concatenate all accessors mixed in
 
