@@ -44,13 +44,9 @@ class OverReactBuilder implements Builder {
 
       ImplGenerator generator;
       if (ParsedDeclarations.mightContainDeclarations(primaryInputContents)) {
-        var unit = parseCompilationUnit(primaryInputContents,
-            suppressErrors: true,
-            name: inputId.path,
-            parseFunctionBodies: false
-        );
+        var resolvedUnit = entryLib.definingCompilationUnit.computeNode();
 
-        var declarations = new ParsedDeclarations(unit, sourceFile, log);
+        var declarations = new ParsedDeclarations(resolvedUnit, sourceFile, log);
 
         if (!declarations.hasErrors) {
           generator = new ImplGenerator(log, primaryInputContents, entryLib.source.shortName)
@@ -58,14 +54,14 @@ class OverReactBuilder implements Builder {
             ..generate(declarations);
         }
 
-        var astWrapper = new AstWrapper();
-        astWrapper.visitCompilationUnit(
-            entryLib.definingCompilationUnit.computeNode());
-
         await buildStep.writeAsString(
             outputTarget, generator.outputContentsBuffer.toString());
       }
+
+      if (buildStep.inputId.toString().contains('abstract')) {
+      }
     }
+
   }
 
   @override
@@ -73,17 +69,3 @@ class OverReactBuilder implements Builder {
       {'.dart': const ['.overReactBuilder.g.dart']};
 }
 
-class AstWrapper extends RecursiveAstVisitor {
-  List<String> _superTypes;
-
-  List<String> get superTypes => _superTypes;
-
-  @override
-  visitClassDeclaration(ClassDeclaration node) {
-    super.visitClassDeclaration(node);
-    _superTypes = new List<String>();
-    node?.element?.allSupertypes?.forEach((element) {
-      _superTypes.add(element.toString());
-    });
-  }
-}

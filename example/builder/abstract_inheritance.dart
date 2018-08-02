@@ -1,15 +1,16 @@
 import 'package:over_react/over_react.dart';
 
-part 'abstract_inheritance.g.dart';
+//part 'abstract_inheritance.g.dart';
+part 'abstract_inheritance.overReactBuilder.g.dart';
 
-// @AbstractProps()
+@AbstractProps()
 class SuperProps extends UiProps {
   static const PropsMeta meta = $metaForSuperProps;
 
   String superProp;
 }
 
-// @AbstractComponent()
+@AbstractComponent()
 abstract class SuperComponent<T extends SuperProps> extends UiComponent<T> {
   getDefaultProps() => newProps()..id = 'super';
 
@@ -23,18 +24,18 @@ abstract class SuperComponent<T extends SuperProps> extends UiComponent<T> {
 }
 
 
-// @Factory()
+@Factory()
 UiFactory<SubProps> Sub = $Sub;
 
-// @Props()
+@Props()
 // Heads up: props class inheritance doesn't work properly currently
 class SubProps extends SuperProps {
-  static const PropsMeta meta = $metaForSubProps;
+ static const PropsMeta meta = $metaForSubProps;
 
   String subProp;
 }
 
-// @Component()
+@Component()
 class SubComponent extends SuperComponent<SubProps> {
   getDefaultProps() => newProps()..id = 'sub';
 

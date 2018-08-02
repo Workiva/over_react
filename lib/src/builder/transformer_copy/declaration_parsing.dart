@@ -32,6 +32,7 @@ import 'package:transformer_utils/transformer_utils.dart' show NodeWithMeta;
 class ParsedDeclarations {
   // TODO: Use logger (build package uses a base Logger instance for logging, and it's passed in here
   factory ParsedDeclarations(CompilationUnit unit, SourceFile sourceFile, Logger logger) {
+
     bool hasErrors = false;
 
     void error(String message, [SourceSpan span]) {
@@ -51,6 +52,7 @@ class ParsedDeclarations {
       key_abstractState:     <CompilationUnitMember>[],
       key_propsMixin:        <CompilationUnitMember>[],
       key_stateMixin:        <CompilationUnitMember>[],
+      key_parent_props:      <CompilationUnitMember>[],
     };
 
     unit.declarations.forEach((CompilationUnitMember member) {
@@ -61,6 +63,13 @@ class ParsedDeclarations {
       });
     });
 
+    if (declarationMap[key_props].length > 0) {
+      var astWrapper = new AstWrapper(logger);
+      astWrapper.visitClassDeclaration(declarationMap[key_props]?.first);
+      astWrapper.superCompUnits.forEach((unit) {
+        declarationMap[key_parent_props].add(unit);
+      });
+    }
 
     // Validate the types of the annotated declarations.
 
@@ -109,6 +118,7 @@ class ParsedDeclarations {
       key_abstractState,
       key_propsMixin,
       key_stateMixin,
+      key_parent_props,
     ].forEach((annotationName) {
       declarationMap[annotationName] = classesOnly(annotationName, declarationMap[annotationName]);
     });
@@ -197,7 +207,9 @@ class ParsedDeclarations {
         propsMixins:   declarationMap[key_propsMixin],
         stateMixins:   declarationMap[key_stateMixin],
 
-        hasErrors: hasErrors
+        hasErrors: hasErrors,
+
+        parentProps: declarationMap[key_parent_props],
     );
   }
 
@@ -213,6 +225,8 @@ class ParsedDeclarations {
       List<ClassDeclaration> propsMixins,
       List<ClassDeclaration> stateMixins,
 
+      List<ClassDeclaration> parentProps,
+
       this.hasErrors
   }) :
       this.factory       = (factory   == null) ? null : new FactoryNode(factory),
@@ -225,6 +239,8 @@ class ParsedDeclarations {
 
       this.propsMixins   = new List.unmodifiable(propsMixins.map((propsMixin) => new PropsMixinNode(propsMixin))),
       this.stateMixins   = new List.unmodifiable(stateMixins.map((stateMixin) => new StateMixinNode(stateMixin))),
+
+      this.parentProps   = new List.unmodifiable(parentProps.map((parent) => new PropsNode(parent))),
 
       this.declaresComponent = factory != null
   {
@@ -251,6 +267,8 @@ class ParsedDeclarations {
 
   static final String key_propsMixin        = _getName(annotations.PropsMixin);
   static final String key_stateMixin        = _getName(annotations.StateMixin);
+
+  static final String key_parent_props      = 'parent_props';
 
   static final List<String> key_allComponentRequired = new List.unmodifiable([
     key_factory,
@@ -293,6 +311,8 @@ class ParsedDeclarations {
 
   final List<PropsMixinNode> propsMixins;
   final List<StateMixinNode> stateMixins;
+
+  final List<PropsNode> parentProps;
 
   final bool hasErrors;
   final bool declaresComponent;
@@ -339,3 +359,27 @@ class AbstractStateNode     extends NodeWithMeta<ClassDeclaration, annotations.A
 
 class PropsMixinNode        extends NodeWithMeta<ClassDeclaration, annotations.PropsMixin>         {PropsMixinNode(unit)        : super(unit);}
 class StateMixinNode        extends NodeWithMeta<ClassDeclaration, annotations.StateMixin>         {StateMixinNode(unit)        : super(unit);}
+
+class ParentPropsNode       extends NodeWithMeta<CompilationUnitMember, annotations.Props>              {ParentPropsNode(unit)             : super(unit);}
+
+
+class AstWrapper extends RecursiveAstVisitor {
+  AstWrapper(this._logger);
+
+  final Logger _logger;
+  List<String> _superTypes = new List<String>();
+  List<CompilationUnitMember> _superCompUnits = new List<CompilationUnitMember>();
+  List<CompilationUnitMember> get superCompUnits => _superCompUnits;
+
+  List<String> get superTypes => _superTypes;
+
+  @override
+  visitClassDeclaration(ClassDeclaration node) {
+    node?.element?.allSupertypes?.forEach((superClass) {
+      if (!(superClass.toString() == 'Object')) {
+        _superCompUnits.add(superClass.element.computeNode());
+      }
+    });
+    super.visitClassDeclaration(node);
+  }
+}
