@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:build/build.dart';
 
-import 'package:analyzer/analyzer.dart';
-import 'package:logging/logging.dart';
 import 'package:over_react/src/builder/transformer_copy/declaration_parsing.dart';
 import 'package:over_react/src/builder/transformer_copy/impl_generation.dart';
 import 'package:path/path.dart' as p;
@@ -52,13 +50,12 @@ class OverReactBuilder implements Builder {
           generator = new ImplGenerator(log, primaryInputContents, entryLib.source.shortName)
 //            ..shouldFixDdcAbstractAccessors = _shouldFixDdcAbstractAccessors
             ..generate(declarations);
+          await buildStep.writeAsString(
+              outputTarget, generator.outputContentsBuffer.toString());
+        } else {
+          // beware! There are errors here
+          log.warning('There was an error parsing the file declarations for file: ${buildStep.inputId.toString()}');
         }
-
-        await buildStep.writeAsString(
-            outputTarget, generator.outputContentsBuffer.toString());
-      }
-
-      if (buildStep.inputId.toString().contains('abstract')) {
       }
     }
 

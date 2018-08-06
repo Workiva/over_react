@@ -1,4 +1,4 @@
-part of 'generic_inheritance.dart';
+part of 'generic_inheritance_super.dart';
 
 abstract class _$GenericSubPropsAccessorsMixin {
   Map get props;

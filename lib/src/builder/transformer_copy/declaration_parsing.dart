@@ -37,7 +37,7 @@ class ParsedDeclarations {
 
     void error(String message, [SourceSpan span]) {
       hasErrors = true;
-//      logger.error(message, span: span);
+      logger.severe(message);
     }
 
     // Collect the annotated declarations.
