@@ -194,7 +194,6 @@ class ParsedDeclarations {
       });
     }
 
-
     return new ParsedDeclarations._(
         factory:       singleOrNull(declarationMap[key_factory]),
         component:     singleOrNull(declarationMap[key_component]),

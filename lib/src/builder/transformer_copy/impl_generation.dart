@@ -80,6 +80,22 @@ class ImplGenerator {
     return '$generatedPrefix${className}AccessorsMixin';
   }
 
+  static String getMetaClassName(String name) {
+    if (name == null) {
+      throw new ArgumentError.notNull(name);
+    }
+
+    return '${publicGeneratedPrefix}metaFor$name';
+  }
+
+  static List<String> getParentPropAccessorsMixinNames(ParsedDeclarations declarations) {
+    var parentPropNames = new List<String>();
+    declarations?.parentProps?.forEach((parentNode) {
+      parentPropNames.add(getAccessorsMixinName(parentNode.node.name.toString()));
+    });
+    return parentPropNames;
+  }
+
   void generate(ParsedDeclarations declarations) {
     StringBuffer implementations = new StringBuffer();
 
@@ -203,9 +219,14 @@ class ImplGenerator {
 //        '$propsImplName \$$factoryName([Map backingProps]) => new $propsImplName(backingProps);'
 //          );
 
-      final String propKeyNamespace = getAccessorKeyNamespace(declarations.props);
+      final String propKeyNamespace = getAccessorKeyNamespace(
+          declarations.props);
 
-      outputContentsBuffer.write(_generateConcretePropsImpl(propsName, propsImplName, propsAccessorsMixinName, componentFactoryName, propKeyNamespace));
+      outputContentsBuffer.write(_generateConcretePropsImpl(
+          propsName, propsImplName, propsAccessorsMixinName,
+          componentFactoryName, propKeyNamespace,
+          getParentPropAccessorsMixinNames(declarations)
+      ));
 
       typedPropsFactoryImpl =
           '@override '
@@ -271,7 +292,7 @@ class ImplGenerator {
         ..writeln('  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.')
         ..writeln('  @override')
         ..writeln('  final List<ConsumedProps> \$defaultConsumedProps = '
-                        'const [$propsImplName.$staticConsumedPropsName];')
+                        'const [${getMetaClassName(propsName)}];')
         ..writeln('}');
 
       if (declarations.component.node.withClause != null) {
@@ -629,19 +650,10 @@ class ImplGenerator {
         constants.keys.join(', ') +
         '];\n';
 
-    String consumedImpl = '';
-
-    if (isProps) {
-    }
-
     String staticVariablesImpl = '  /* GENERATED CONSTANTS */ \n$constantsImpl$keyConstantsImpl\n$listImpl$keyListImpl';
 
     output.write(staticVariablesImpl);
     return new AccessorOutput(output.toString());
-//    transformedFile?.insert(
-//        sourceFile?.location(typedMap.node.leftBracket.end),
-//        staticVariablesImpl
-//    );
   }
 
   String _generateMetaClass(AccessorType type, String name, String accessorMixinName) {
@@ -649,7 +661,7 @@ class ImplGenerator {
     final metaStructName = isProps ? 'PropsMeta' : 'StateMeta';
     final String keyListName = isProps ? staticPropKeysName : staticStateKeysName;
     final String constantListName = isProps ? staticPropsName : staticStateName;
-    final metaObjectName = '${publicGeneratedPrefix}metaFor$name';
+    final String metaObjectName = getMetaClassName(name);
 
     var output = new StringBuffer();
     output.writeln('const $metaStructName $metaObjectName = const $metaStructName(');
@@ -675,15 +687,23 @@ class ImplGenerator {
     generatedClass.writeln();
     return generatedClass.toString();
   }
-  String _generateConcretePropsImpl(String propsName, String propsImplName, String propsAccessorsMixinName, String componentFactoryName, String propKeyNamespace) {
+
+  String _generateConcretePropsImpl(String propsName, String propsImplName,
+      String propsAccessorsMixinName, String componentFactoryName,
+      String propKeyNamespace, List<String> parentPropsClasses) {
+    var classDeclaration = new StringBuffer()
+      ..write(
+        'class $propsImplName extends $propsName with $propsAccessorsMixinName');
+    parentPropsClasses?.forEach((parent) {
+      classDeclaration.write(', $parent');
+    });
+    classDeclaration.writeln(' {');
     return (new StringBuffer()
         ..writeln('// Concrete props implementation.')
         ..writeln('//')
         ..writeln('// Implements constructor and backing map, and links up to generated component factory.')
-        ..writeln('class $propsImplName extends $propsName {')
-        ..writeln('  /* GENERATED CONSTANTS */')
-        ..writeln('  static const ConsumedProps $staticConsumedPropsName = const ConsumedProps($propsAccessorsMixinName.$staticPropsName, $propsAccessorsMixinName.$staticPropKeysName);\n')
         ..writeln('  /// The backing props map proxied by this class.')
+        ..write(classDeclaration.toString())
         ..writeln('  @override')
         ..writeln('  final Map props;')
         ..writeln()
