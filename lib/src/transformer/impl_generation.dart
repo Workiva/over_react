@@ -217,6 +217,19 @@ class ImplGenerator {
         ..writeln('}')
         ..writeln();
 
+      // This implementation here is necessary so that mixin accesses aren't compiled as index$ax
+      final propsGetterTyping = '''  
+        ${propsImplName}_JsMap _cachedTypedProps;
+        @override 
+        ${propsImplName}_JsMap get props => _cachedTypedProps;
+        
+        @override
+        set props(Map value) {
+          super.props = value;
+          _cachedTypedProps = typedPropsFactoryJs(value);
+        }
+      '''.split('\n').join(' ');
+
       typedPropsFactoryImpl =
           '@override '
           // Don't type this so that it doesn't interfere with classes with generic parameter props type:
@@ -319,6 +332,10 @@ class ImplGenerator {
             '   /* GENERATED IMPLEMENTATIONS */ $typedPropsFactoryImpl $typedStateFactoryImpl'
         );
       }
+      transformedFile.insert(
+          sourceFile.location(declarations.component.node.leftBracket.end),
+          propsGetterTyping
+      );
     }
 
     if (implementations.isNotEmpty) {
