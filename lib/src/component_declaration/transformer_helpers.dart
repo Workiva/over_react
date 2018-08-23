@@ -16,6 +16,7 @@ library over_react.component_declaration.transformer_helpers;
 
 import './component_base.dart' as component_base;
 import './annotations.dart' as annotations;
+import 'package:react/src/react_client/js_backed_map.dart';
 
 export './annotations.dart';
 export './component_base.dart'
@@ -135,6 +136,7 @@ abstract class UiComponent2<TProps extends UiProps> extends component_base.UiCom
   @override
   @toBeGenerated
   TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedPropsFactory);
+  TProps typedPropsFactoryJs(JsBackedMap propsMap) => throw new UngeneratedError(member: #typedPropsFactoryJs);
 }
 
 
@@ -202,6 +204,12 @@ abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiSta
   @override
   @toBeGenerated
   TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedPropsFactory);
+  /// Returns a typed props object backed by the specified [propsMap].
+  ///
+  /// Required to properly instantiate the generic [TProps] class.
+  @override
+  @toBeGenerated
+  TProps typedPropsFactoryJs(JsBackedMap propsMap) => throw new UngeneratedError(member: #typedPropsFactoryJs);
 
   /// Returns a typed state object backed by the specified [stateMap].
   ///

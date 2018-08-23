@@ -507,7 +507,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2 imp
   ///
   /// Created using [typedPropsFactory] and cached for each Map instance.
   @override
-  TProps get props => _cachedTypedProps ??= typedPropsFactory(unwrappedProps);
+  TProps get props => _cachedTypedProps ??= typedPropsFactoryJs(unwrappedProps);
 
   /// Equivalent to setting [unwrappedProps], but needed by react-dart to effect props changes.
   @override
@@ -524,11 +524,12 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2 imp
   ///
   /// Required to properly instantiate the generic [TProps] class.
   TProps typedPropsFactory(Map propsMap);
+  TProps typedPropsFactoryJs(JsBackedMap propsMap);
 
   /// Returns a typed props object backed by a new Map.
   ///
   /// Convenient for use with [getDefaultProps].
-  TProps newProps() => typedPropsFactory(new JsBackedMap());
+  TProps newProps() => typedPropsFactoryJs(new JsBackedMap());
 
   //
   //   END Typed props helpers

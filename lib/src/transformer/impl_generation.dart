@@ -117,7 +117,7 @@ class ImplGenerator {
               declarations.factory.node.variables.variables.first.name.end,
               declarations.factory.node.semicolon.offset
           ),
-          ' = ([Map backingProps]) => new $propsImplName(backingProps)'
+          ' = ([Map backingProps]) => backingProps == null ? new ${propsImplName}_JsMap(new JsBackedMap()) : new $propsImplName(backingProps)'
       );
 
       String parentTypeParam = 'null';
@@ -173,13 +173,16 @@ class ImplGenerator {
         ..writeln('// Concrete props implementation.')
         ..writeln('//')
         ..writeln('// Implements constructor and backing map, and links up to generated component factory.')
-        ..writeln('class $propsImplName extends $propsName {')
-        ..writeln('  /// The backing props map proxied by this class.')
-        ..writeln('  @override')
-        ..writeln('  final Map props;')
-        ..writeln()
-        // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
-        ..writeln('  $propsImplName(Map backingMap) : this.props = backingMap ?? new JsBackedMap();')
+        ..writeln('abstract class $propsImplName extends $propsName {')
+        // todo extra constructor for use by factory
+        ..writeln('  $propsImplName._();')
+        ..writeln('  factory $propsImplName(Map backingMap) {')
+        ..writeln('    if (backingMap is JsBackedMap) {')
+        ..writeln('      return new ${propsImplName}_JsMap(backingMap);')
+        ..writeln('    } else {')
+        ..writeln('      return new ${propsImplName}_Map(backingMap);')
+        ..writeln('    }')
+        ..writeln('  }')
         ..writeln()
         ..writeln('  /// Let [UiProps] internals know that this class has been generated.')
         ..writeln('  @override')
@@ -198,6 +201,20 @@ class ImplGenerator {
         ..writeln('  @override')
         ..writeln('  call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);')
         ..writeln('}')
+        ..writeln('class ${propsImplName}_Map extends $propsImplName {')
+        ..writeln('  /// The backing props map proxied by this class.')
+        ..writeln('  @override')
+        ..writeln('  final Map props;')
+        ..writeln()
+        ..writeln('  ${propsImplName}_Map(Map backingMap) : this.props = backingMap, super._();')
+        ..writeln('}')
+        ..writeln('class ${propsImplName}_JsMap extends $propsImplName {')
+        ..writeln('  /// The backing props map proxied by this class.')
+        ..writeln('  @override')
+        ..writeln('  final JsBackedMap props;')
+        ..writeln()
+        ..writeln('  ${propsImplName}_JsMap(JsBackedMap backingMap) : this.props = backingMap, super._();')
+        ..writeln('}')
         ..writeln();
 
       typedPropsFactoryImpl =
@@ -205,7 +222,9 @@ class ImplGenerator {
           // Don't type this so that it doesn't interfere with classes with generic parameter props type:
           //    class FooComponent<T extends FooProps> extends UiComponent<T> {...}
           // TODO use long-term solution of component impl class instantiated via factory constructor
-          'typedPropsFactory(Map backingMap) => new $propsImplName(backingMap) as dynamic;';
+          'typedPropsFactory(Map backingMap) => new $propsImplName(backingMap) as dynamic;'
+          '@override '
+          '${propsImplName}_JsMap typedPropsFactoryJs(JsBackedMap backingMap) => new ${propsImplName}_JsMap(backingMap) as dynamic;';;
 
       // ----------------------------------------------------------------------
       //   State implementation
