@@ -46,7 +46,6 @@ transformers:
   - $dart2js:
       csp: true
       sourceMaps: true
-      minify: true
       suppressHints: false
       commandLineOptions:
         - --verbose
@@ -54,3 +53,4 @@ transformers:
         - --use-new-source-info
         - --show-package-warnings
         - --enable-experimental-mirrors
+        - --trust-type-annotations
