@@ -179,7 +179,7 @@ class ImplGenerator {
         ..writeln('  final Map props;')
         ..writeln()
         // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
-        ..writeln('  $propsImplName(Map backingMap) : this.props = backingMap ?? ({});')
+        ..writeln('  $propsImplName(Map backingMap) : this.props = backingMap ?? new JsBackedMap();')
         ..writeln()
         ..writeln('  /// Let [UiProps] internals know that this class has been generated.')
         ..writeln('  @override')
@@ -226,7 +226,7 @@ class ImplGenerator {
           ..writeln('  final Map state;')
           ..writeln()
           // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
-          ..writeln('  $stateImplName(Map backingMap) : this.state = backingMap ?? ({});')
+          ..writeln('  $stateImplName(Map backingMap) : this.state = backingMap ?? new JsBackedMap();')
           ..writeln()
           ..writeln('  /// Let [UiState] internals know that this class has been generated.')
           ..writeln('  @override')

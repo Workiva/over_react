@@ -19,6 +19,7 @@ import 'dart:collection';
 import 'package:over_react/src/component_declaration/transformer_helpers.dart';
 import 'package:over_react/src/component/dom_components.dart';
 import 'package:over_react/src/component/prop_mixins.dart';
+import 'package:react/src/react_client/js_backed_map.dart';
 
 /// Returns a copy of the specified [props] map, omitting reserved React props by default,
 /// in addition to any specified [keysToOmit] or [keySetsToOmit].
@@ -32,7 +33,7 @@ Map getPropsToForward(Map props, {
     Iterable keysToOmit,
     Iterable<Iterable> keySetsToOmit
 }) {
-  Map propsToForward = new Map.from(props);
+  Map propsToForward = new JsBackedMap.from(props);
 
   if (omitReactProps) {
     propsToForward

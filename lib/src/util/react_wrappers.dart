@@ -222,18 +222,24 @@ dynamic preparePropsChangeset(ReactElement element, Map newProps, [Iterable newC
 
   final internal = _getInternal(element);
   if (internal == null) {
-    // Plain JS component
+    // react-dart Component2, JS composite component, DOM component
     if (newProps == null) {
       propsChangeset = null;
     } else {
-      if (isDomElement(element)) {
+      final type = element.type;
+      if (type is String) { // DOM component
         // Convert props for DOM components so that style Maps and event handlers
         // are properly converted.
         Map convertedProps = new Map.from(newProps);
         ReactDomComponentFactoryProxy.convertProps(convertedProps);
         propsChangeset = jsify(convertedProps);
       } else {
-        propsChangeset = jsify(newProps);
+        final ReactClass reactClass = type;
+        if (reactClass.isDartClass == true) {
+          propsChangeset = ReactDartComponentFactoryProxy2.generateExtendedJsProps(newProps);
+        } else {
+          propsChangeset = jsify(newProps);
+        }
       }
     }
   } else {

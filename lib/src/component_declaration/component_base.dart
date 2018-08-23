@@ -35,6 +35,7 @@ import 'package:over_react/src/util/ddc_emulated_function_name_bug.dart' as ddc_
 import 'package:over_react/src/util/test_mode.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
+import 'package:react/src/react_client/js_backed_map.dart';
 import 'package:w_common/disposable.dart';
 
 export 'package:over_react/src/component_declaration/component_type_checking.dart' show isComponentOfType, isValidElementOfType;
@@ -386,6 +387,259 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
   // ----------------------------------------------------------------------
 }
 
+abstract class UiComponent2<TProps extends UiProps> extends react.Component2 implements DisposableManagerV7 {
+  @override
+  Map getDefaultProps() => new JsBackedMap();
+
+  Disposable _disposableProxy;
+
+  /// The props for the non-forwarding props defined in this component.
+  Iterable<ConsumedProps> get consumedProps => null;
+
+  /// Returns a copy of this component's props with keys found in [consumedProps] omitted.
+  ///
+  /// > Should be used alongside [forwardingClassNameBuilder].
+  ///
+  /// > Related [copyUnconsumedDomProps]
+  Map copyUnconsumedProps() {
+    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
+
+    return copyProps(keySetsToOmit: consumedPropKeys);
+  }
+
+  /// Returns a copy of this component's props with keys found in [consumedProps] and non-DOM props omitted.
+  ///
+  /// > Should be used alongside [forwardingClassNameBuilder].
+  ///
+  /// > Related [copyUnconsumedProps]
+  Map copyUnconsumedDomProps() {
+    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
+
+    return copyProps(onlyCopyDomProps: true, keySetsToOmit: consumedPropKeys);
+  }
+
+  /// Returns a copy of this component's props with React props optionally omitted, and
+  /// with the specified [keysToOmit] and [keySetsToOmit] omitted.
+  Map copyProps({bool omitReservedReactProps: true, bool onlyCopyDomProps: false, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
+    return getPropsToForward(this.props,
+        omitReactProps: omitReservedReactProps,
+        onlyCopyDomProps: onlyCopyDomProps,
+        keysToOmit: keysToOmit,
+        keySetsToOmit: keySetsToOmit
+    );
+  }
+
+  /// Throws a [PropError] if [appliedProps] are invalid.
+  ///
+  /// This is called automatically with the latest props available during [componentWillReceiveProps] and
+  /// [componentWillMount], and can also be called manually for custom validation.
+  ///
+  /// Override with a custom implementation to easily add validation (and don't forget to call super!)
+  ///
+  ///     @mustCallSuper
+  ///     void validateProps(Map appliedProps) {
+  ///       super.validateProps(appliedProps);
+  ///
+  ///       var tProps = typedPropsFactory(appliedProps);
+  ///       if (tProps.items.length.isOdd) {
+  ///         throw new PropError.value(tProps.items, 'items', 'must have an even number of items, because reasons');
+  ///       }
+  ///     }
+  @mustCallSuper
+  void validateProps(Map appliedProps) {
+    validateRequiredProps(appliedProps);
+  }
+
+  /// Validates that props with the `@requiredProp` annotation are present.
+  void validateRequiredProps(Map appliedProps) {
+    consumedProps?.forEach((ConsumedProps consumedProps) {
+      consumedProps.props.forEach((PropDescriptor prop) {
+        if (!prop.isRequired) return;
+        if (prop.isNullable && appliedProps.containsKey(prop.key)) return;
+        if (!prop.isNullable && appliedProps[prop.key] != null) return;
+
+        throw new PropError.required(prop.key, prop.errorMessage);
+      });
+    });
+  }
+
+  /// Returns a new ClassNameBuilder with className and blacklist values added from [CssClassPropsMixin.className] and
+  /// [CssClassPropsMixin.classNameBlacklist], if they are specified.
+  ///
+  /// This method should be used as the basis for the classNames of components receiving forwarded props.
+  ///
+  /// > Should be used alongside [copyUnconsumedProps] or [copyUnconsumedDomProps].
+  ClassNameBuilder forwardingClassNameBuilder() {
+    return new ClassNameBuilder.fromProps(this.props);
+  }
+
+  @override
+  @mustCallSuper
+  void componentWillReceiveProps(Map nextProps) {
+    if (inReactDevMode) {
+      validateProps(nextProps);
+    }
+  }
+
+  @override
+  @mustCallSuper
+  void componentWillMount() {
+    if (inReactDevMode) {
+      validateProps(props);
+    }
+  }
+
+  @override
+  @mustCallSuper
+  void componentWillUnmount() {
+    _disposableProxy?.dispose();
+  }
+
+
+  // ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  //   BEGIN Typed props helpers
+  //
+
+  var _typedPropsCache = new Expando<TProps>();
+
+  /// A typed props object corresponding to the current untyped props Map ([unwrappedProps]).
+  ///
+  /// Created using [typedPropsFactory] and cached for each Map instance.
+  @override
+  TProps get props {
+    var unwrappedProps = this.unwrappedProps;
+    var typedProps = _typedPropsCache[unwrappedProps];
+    if (typedProps == null) {
+      typedProps = typedPropsFactory(unwrappedProps);
+      _typedPropsCache[unwrappedProps] = typedProps;
+    }
+    return typedProps;
+  }
+  /// Equivalent to setting [unwrappedProps], but needed by react-dart to effect props changes.
+  @override
+  set props(Map value) => super.props = value;
+
+  /// The props Map that will be used to create the typed [props] object.
+  Map get unwrappedProps => super.props;
+  set unwrappedProps(Map value) => super.props = value;
+
+  /// Returns a typed props object backed by the specified [propsMap].
+  ///
+  /// Required to properly instantiate the generic [TProps] class.
+  TProps typedPropsFactory(Map propsMap);
+
+  /// Returns a typed props object backed by a new Map.
+  ///
+  /// Convenient for use with [getDefaultProps].
+  TProps newProps() => typedPropsFactory(new JsBackedMap());
+
+  //
+  //   END Typed props helpers
+  // ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+
+  // ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  //   BEGIN DisposableManagerV7 interface implementation
+  //
+
+  @override
+  Future<T> awaitBeforeDispose<T>(Future<T> future) =>
+    _getDisposableProxy().awaitBeforeDispose<T>(future);
+
+  @override
+  Future<T> getManagedDelayedFuture<T>(Duration duration, T callback()) =>
+    _getDisposableProxy().getManagedDelayedFuture<T>(duration, callback);
+
+  @override
+  ManagedDisposer getManagedDisposer(Disposer disposer) => _getDisposableProxy().getManagedDisposer(disposer);
+
+  @override
+  Timer getManagedPeriodicTimer(Duration duration, void callback(Timer timer)) =>
+    _getDisposableProxy().getManagedPeriodicTimer(duration, callback);
+
+  @override
+  Timer getManagedTimer(Duration duration, void callback()) =>
+    _getDisposableProxy().getManagedTimer(duration, callback);
+
+  @override
+  StreamSubscription<T> listenToStream<T>(
+      Stream<T> stream, void onData(T event),
+      {Function onError, void onDone(), bool cancelOnError}) =>
+      _getDisposableProxy().listenToStream(
+        stream, onData, onError: onError, onDone: onDone, cancelOnError: cancelOnError);
+
+  @override
+  Disposable manageAndReturnDisposable(Disposable disposable) =>
+      _getDisposableProxy().manageAndReturnDisposable(disposable);
+
+  @override
+  Completer<T> manageCompleter<T>(Completer<T> completer) =>
+    _getDisposableProxy().manageCompleter<T>(completer);
+
+  @override
+  void manageDisposable(Disposable disposable) =>
+    _getDisposableProxy().manageDisposable(disposable);
+
+  /// DEPRECATED. Use [getManagedDisposer] instead.
+  @Deprecated('2.0.0')
+  @override
+  void manageDisposer(Disposer disposer) =>
+    _getDisposableProxy().manageDisposer(disposer);
+
+  @override
+  void manageStreamController(StreamController controller) =>
+    _getDisposableProxy().manageStreamController(controller);
+
+  /// DEPRECATED. Use [listenToStream] instead.
+  @Deprecated('2.0.0')
+  @override
+  void manageStreamSubscription(StreamSubscription subscription) =>
+    _getDisposableProxy().manageStreamSubscription(subscription);
+
+  /// Instantiates a new [Disposable] instance on the first call to the
+  /// [DisposableManagerV7] method.
+  Disposable _getDisposableProxy() {
+    if (_disposableProxy == null) {
+      _disposableProxy = new Disposable();
+    }
+    return _disposableProxy;
+  }
+
+  /// Automatically dispose another object when this object is disposed.
+  ///
+  /// This method is an extension to `manageAndReturnDisposable` and returns the
+  /// passed in [Disposable] as its original type in addition to handling its
+  /// disposal. The method should be used when a variable is set and should
+  /// conditionally be managed for disposal. The most common case will be dealing
+  /// with optional parameters:
+  ///
+  ///      class MyDisposable extends Disposable {
+  ///        // This object also extends disposable
+  ///        MyObject _internal;
+  ///
+  ///        MyDisposable({MyObject optional}) {
+  ///          // If optional is injected, we should not manage it.
+  ///          // If we create our own internal reference we should manage it.
+  ///          _internal = optional ??
+  ///              manageAndReturnTypedDisposable(new MyObject());
+  ///        }
+  ///
+  ///        // ...
+  ///      }
+  ///
+  /// The parameter may not be `null`.
+  @override
+  T manageAndReturnTypedDisposable<T extends Disposable>(T disposable) =>
+      _disposableProxy.manageAndReturnTypedDisposable(disposable);
+
+  //
+  //   END DisposableManagerV7 interface implementation
+  // ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+}
+
 /// The basis for a _stateful_ over_react component.
 ///
 /// Includes support for strongly-typed [UiState] in-addition-to the
@@ -449,6 +703,51 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   ///
   /// Convenient for use with [getInitialState] and [setState].
   TState newState() => typedStateFactory({});
+
+  //
+  //   END Typed state helpers
+  // ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+}
+
+abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiState> extends UiComponent2<TProps> {
+  // ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  //   BEGIN Typed state helpers
+  //
+
+  var _typedStateCache = new Expando<TState>();
+
+  /// A typed state object corresponding to the current untyped state Map ([unwrappedState]).
+  ///
+  /// Created using [typedStateFactory] and cached for each Map instance.
+  @override
+  TState get state {
+    var unwrappedState = this.unwrappedState;
+    var typedState = _typedStateCache[unwrappedState];
+    if (typedState == null) {
+      typedState = typedStateFactory(unwrappedState);
+      _typedStateCache[unwrappedState] = typedState;
+    }
+    return typedState;
+  }
+  /// Equivalent to setting [unwrappedState], but needed by react-dart to effect state changes.
+  @override
+  set state(Map value) => super.state = value;
+
+  /// The state Map that will be used to create the typed [state] object.
+  Map get unwrappedState => super.state;
+  set unwrappedState(Map value) => super.state = value;
+
+  /// Returns a typed state object backed by the specified [stateMap].
+  ///
+  /// Required to properly instantiate the generic [TState] class.
+  TState typedStateFactory(Map stateMap);
+
+  /// Returns a typed state object backed by a new Map.
+  ///
+  /// Convenient for use with [getInitialState] and [setState].
+  TState newState() => typedStateFactory(new JsBackedMap());
 
   //
   //   END Typed state helpers

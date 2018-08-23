@@ -20,6 +20,7 @@ import 'package:over_react/src/component_declaration/component_base.dart' as com
 import 'package:over_react/src/component_declaration/transformer_helpers.dart' as transformer_helpers;
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
+import 'package:react/src/react_client/js_backed_map.dart';
 
 /// Returns a new [DomProps], optionally backed by a specified Map.
 ///
@@ -42,7 +43,7 @@ class DomProps extends component_base.UiProps
     with DomPropsMixin, transformer_helpers.GeneratedClass
     implements transformer_helpers.UiProps {
   // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
-  DomProps(this.componentFactory, [Map props]) : this.props = props ?? ({});
+  DomProps(this.componentFactory, [Map props]) : this.props = props ?? new JsBackedMap();
 
   @override
   final ReactDomComponentFactoryProxy componentFactory;
@@ -63,7 +64,7 @@ class SvgProps extends component_base.UiProps
     with DomPropsMixin, SvgPropsMixin, transformer_helpers.GeneratedClass
     implements DomProps {
   // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
-  SvgProps(this.componentFactory, [Map props]) : this.props = props ?? ({});
+  SvgProps(this.componentFactory, [Map props]) : this.props = props ?? new JsBackedMap();
 
   @override
   final ReactDomComponentFactoryProxy componentFactory;

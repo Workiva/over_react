@@ -27,6 +27,8 @@ export 'package:react/react.dart' show
     SyntheticUIEvent,
     SyntheticWheelEvent;
 
+export 'package:react/src/react_client/js_backed_map.dart' show JsBackedMap;
+
 export 'package:react/react_client.dart' show setClientConfiguration, ReactElement;
 
 export 'src/component/abstract_transition.dart';

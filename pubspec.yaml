@@ -54,3 +54,12 @@ transformers:
         - --show-package-warnings
         - --enable-experimental-mirrors
         - --trust-type-annotations
+
+
+
+dependency_overrides:
+  react:
+    git:
+      url: git@github.com:greglittlefield-wf/react-dart.git
+      ref: 23564359c261ac2706a8027d5715cf257aac9e50 # from js_map_perf/dart_1
+
