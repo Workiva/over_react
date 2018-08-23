@@ -30,7 +30,10 @@ import 'over_react/component_declaration/redux_component_test.dart' as redux_com
 import 'over_react/component_declaration/transformer_helpers_test.dart' as transformer_helpers_test;
 import 'over_react/component_declaration/transformer_integration_tests/abstract_accessor_integration_test.dart' as abstract_accessor_integration_test;
 import 'over_react/component_declaration/transformer_integration_tests/accessor_mixin_integration_test.dart' as accessor_mixin_integration_test;
+import 'over_react/component_declaration/transformer_integration_tests/component_integration_from_library_test.dart' as component_integration_from_library_test;
+import 'over_react/component_declaration/transformer_integration_tests/component_integration_from_part_of_test.dart' as component_integration_from_part_of_test;
 import 'over_react/component_declaration/transformer_integration_tests/component_integration_test.dart' as component_integration_test;
+import 'over_react/component_declaration/transformer_integration_tests/component_integration_with_dart_2_boiler_plate_test.dart' as component_integration_with_dart_2_boiler_plate_test;
 import 'over_react/component_declaration/transformer_integration_tests/constant_required_accessor_integration_test.dart' as constant_required_accessor_integration_test;
 import 'over_react/component_declaration/transformer_integration_tests/do_not_generate_accessor_integration_test.dart' as do_not_generate_accessor_integration_test;
 import 'over_react/component_declaration/transformer_integration_tests/namespaced_accessor_integration_test.dart' as namespaced_accessor_integration_test;
@@ -49,7 +52,10 @@ main() {
   transformer_helpers_test.main();
   abstract_accessor_integration_test.main();
   accessor_mixin_integration_test.main();
+  component_integration_from_library_test.main();
+  component_integration_from_part_of_test.main();
   component_integration_test.main();
+  component_integration_with_dart_2_boiler_plate_test.main();
   constant_required_accessor_integration_test.main();
   do_not_generate_accessor_integration_test.main();
   namespaced_accessor_integration_test.main();

@@ -122,7 +122,7 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
         var partOf = unit.directives.firstWhere((directive) => directive is PartOfDirective, orElse: () => null)?.toSource();
 
         transform.addOutput(new Asset.fromString(transform.primaryInput.id.changeExtension('.$generatedNameSpace.dart'),
-            partOf ?? 'part of ${p.basename(transform.primaryInput.id.path)}'));
+            partOf ?? 'part of "${p.basename(transform.primaryInput.id.path)}";'));
       }
     }
 
