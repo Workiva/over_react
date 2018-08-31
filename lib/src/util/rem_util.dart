@@ -22,6 +22,7 @@ import 'dart:html';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/src/util/css_value_util.dart';
 import 'package:over_react/react_dom.dart' as react_dom;
+import 'package:platform_detect/platform_detect.dart';
 
 double _computeRootFontSize() {
   return new CssValue.parse(document.documentElement.getComputedStyle().fontSize).number.toDouble();
@@ -108,6 +109,15 @@ void recomputeRootFontSize() {
 ///
 /// > Related: [toPx]
 CssValue toRem(dynamic value, {bool treatNumAsRem: false, bool passThroughUnsupportedUnits: false}) {
+  // Because Chrome changes the value of its root font size when zoomed out lower than 90%, we need
+  // to automatically wire up the rem change sensor so that any calls to `toRem` when the viewport is
+  // zoomed return an accurate value.
+  //
+  // See: https://jira.atl.workiva.net/browse/AF-1048 / https://bugs.chromium.org/p/chromium/issues/detail?id=429140
+  if (browser.isChrome) {
+    Zone.ROOT.run(_initRemChangeSensor);
+  }
+
   if (value == null) return null;
 
   num remValueNum;
