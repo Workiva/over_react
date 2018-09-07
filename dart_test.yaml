@@ -7,3 +7,33 @@ tags:
     skip: "skipping DDC-specific tests until UIP-2410 is implemented"
   # Tests that should NOT be run in the dev compiler
   no-ddc:
+
+presets:
+  dartdevc:
+    exclude_tags: no-ddc && mirrors
+    platforms:
+      - chrome
+      - vm
+
+  dart2js:
+    exclude_tags: ddc && mirrors
+    platforms:
+      - chrome
+
+  travis:
+    reporter: expanded
+
+  integration:
+    paths:
+      - test/integration/
+
+  unit:
+    concurrency: 4
+    # TODO: Risk of getting out of date when running `pub run dart_dev gen-test-runner`.
+    # Can't use dart_dev for test at the moment because the -P flag is not supported
+    paths:
+      - test/vm_tests/
+      - test/over_react_component_declaration_test.dart
+      - test/over_react_component_test.dart
+      - test/over_react_dom_test.dart
+      - test/over_react_util_test.dart

@@ -556,7 +556,9 @@ main() {
           // Have to use MutationObserver since setting the state to PRE_SHOWING
           // synchronously updates the state to SHOWING.
           var transitionAttrMutations = <List<String>>[];
-          var observer = new MutationObserver((records, observer) {
+
+          // List<dynamic> is being used to work around a Dart HTML internals issue in the DDC
+          var observer = new MutationObserver((List<dynamic> records, observer) {
             for (var record in records) {
               if (record.attributeName != transitionPhaseTestAttr) continue;
               transitionAttrMutations.add([

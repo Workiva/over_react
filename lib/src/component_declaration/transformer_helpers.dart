@@ -14,6 +14,8 @@
 
 library over_react.component_declaration.transformer_helpers;
 
+import 'package:react/react_client.dart';
+
 import './component_base.dart' as component_base;
 import './annotations.dart' as annotations;
 
@@ -170,7 +172,7 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   @toBeGenerated String get propKeyNamespace => throw new UngeneratedError(member: #propKeyNamespace);
 
   @override @toBeGenerated Map get props                 => throw new UngeneratedError(member: #props);
-  @override @toBeGenerated Function get componentFactory => throw new UngeneratedError(member: #componentFactory);
+  @override @toBeGenerated ReactComponentFactoryProxy get componentFactory => throw new UngeneratedError(member: #componentFactory);
 }
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.

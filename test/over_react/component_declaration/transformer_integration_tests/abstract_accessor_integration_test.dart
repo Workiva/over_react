@@ -15,6 +15,7 @@
 library over_react.component_declaration.transformer_integration_tests.abstract_accessor_integration_test;
 
 import 'package:over_react/over_react.dart';
+import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 
 main() {
@@ -167,7 +168,7 @@ class TestAbstractPropsSubclass extends TestAbstractProps {
   @override bool get $isClassGenerated => true;
 
   @override String get propKeyNamespace => null;
-  @override Function get componentFactory => null;
+  @override ReactComponentFactoryProxy get componentFactory => null;
 }
 
 
@@ -192,7 +193,7 @@ class TestCustomNamespaceAbstractPropsSubclass extends TestCustomNamespaceAbstra
   @override bool get $isClassGenerated => true;
 
   @override String get propKeyNamespace => null;
-  @override Function get componentFactory => null;
+  @override ReactComponentFactoryProxy get componentFactory => null;
 }
 
 
