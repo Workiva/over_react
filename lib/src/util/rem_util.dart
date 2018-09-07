@@ -31,22 +31,23 @@ double _computeRootFontSize() {
 double _rootFontSize = _computeRootFontSize();
 
 var _changeSensor;
+Element _changeSensorMountNode;
 void _initRemChangeSensor() {
   if (_changeSensor != null) return;
   // Force lazy-initialization of this variable if it hasn't happened already.
   _rootFontSize;
 
-  var mountNode = new DivElement()
+  _changeSensorMountNode = new DivElement()
     ..id = 'rem_change_sensor';
 
   // Ensure the sensor doesn't interfere with the rest of the page.
-  mountNode.style
+  _changeSensorMountNode.style
     ..width = '0'
     ..height = '0'
     ..position = 'absolute'
     ..zIndex = '-1';
 
-  document.body.append(mountNode);
+  document.body.append(_changeSensorMountNode);
 
   _changeSensor = react_dom.render((Dom.div()
     ..style = const {
@@ -61,7 +62,7 @@ void _initRemChangeSensor() {
     (ResizeSensor()..onResize = (ResizeSensorEvent e) {
       recomputeRootFontSize();
     })()
-  ), mountNode);
+  ), _changeSensorMountNode);
 }
 
 final StreamController<double> _remChange = new StreamController.broadcast(onListen: () {
@@ -86,6 +87,20 @@ void recomputeRootFontSize() {
     _rootFontSize = latestRootFontSize;
     _remChange.add(_rootFontSize);
   }
+}
+
+/// A utility that destroys the [_changeSensor] added to the DOM by [_initRemChangeSensor].
+///
+/// Can be used, for example, to clean up the DOM in the `tearDown` of a unit test.
+void destroyRemChangeSensor() {
+  if (_changeSensor == null) return;
+
+  _changeSensor = null;
+
+  react_dom.unmountComponentAtNode(_changeSensorMountNode);
+  _changeSensorMountNode?.remove();
+
+  _changeSensorMountNode = null;
 }
 
 /// Converts a pixel (`px`) [value] to its `rem` equivalent using the current font size
