@@ -1,5 +1,38 @@
 # OverReact Changelog
 
+## 1.25.0
+
+> [Complete `1.25.0` Changeset](https://github.com/Workiva/over_react/compare/1.24.1...1.25.0)
+
+__New Features__ 
+
+* [#167]: New `ClassNameBuilder.merge` method and `ClassNameBuilder.merged` constructor.
+* [#168]: Expose `react_wrappers` library that was previously only available via a `src/` import.
+
+
+## 1.24.0
+
+> [Complete `1.24.0` Changeset](https://github.com/Workiva/over_react/compare/1.23.1...1.24.0)
+
+__Dependency Updates__
+
+* [#153] react `^4.3.0` (was `^3.7.0`)
+* [#151] 
+    * built_redux `^7.4.1` (was `>=6.1.0 <8.0.0`)
+    * built_value `>=4.2.0 <5.2.0` (was `>=4.2.0 <6.0.0`)
+    
+__New Features__ 
+
+* [#154]: Expose `react_dom.render`/`react_dom.unmountComponentAtNode` from the react library
+    
+__Tech Debt__
+
+* [#151] Prepare for Dart 2 SDK
+    * Address Dart 2.x SDK lints / warnings that do not constitute breaking changes
+    * Address `DisposableManagerV6` deprecation
+    * `UiProps` and `UiState` now extend from `MapBase`
+    
+
 ## 1.24.1
 
 > [Complete `1.24.1` Changeset](https://github.com/Workiva/over_react/compare/1.24.0...1.24.1)

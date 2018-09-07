@@ -21,7 +21,7 @@ jobs:
       dart: "2.0.0-dev.49.0"
       script:
         - pub run dart_dev analyze
-        - pub run dependency_validator -i coverage
+        - pub run dependency_validator --no-fatal-pins -i coverage
 
     - stage: test
       dart: "2.0.0-dev.49.0"
