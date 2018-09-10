@@ -19,6 +19,7 @@ library over_react.rem_util;
 import 'dart:async';
 import 'dart:html';
 
+import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 import 'package:over_react/src/util/css_value_util.dart';
@@ -32,7 +33,13 @@ double _computeRootFontSize() {
 double _rootFontSize = _computeRootFontSize();
 
 var _changeSensor;
+@visibleForTesting
+dynamic get changeSensor => _changeSensor;
+
 Element _changeSensorMountNode;
+@visibleForTesting
+Element get changeSensorMountNode => _changeSensorMountNode;
+
 void _initRemChangeSensor() {
   if (_changeSensor != null) return;
   // Force lazy-initialization of this variable if it hasn't happened already.
@@ -93,7 +100,7 @@ void recomputeRootFontSize() {
 /// A utility that destroys the [_changeSensor] added to the DOM by [_initRemChangeSensor].
 ///
 /// Can be used, for example, to clean up the DOM in the `tearDown` of a unit test.
-void destroyRemChangeSensor() {
+Future<Null> destroyRemChangeSensor() async {
   if (_changeSensor == null) return;
 
   _changeSensor = null;

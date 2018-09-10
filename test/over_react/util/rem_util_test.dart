@@ -269,6 +269,32 @@ main() {
       expect(rootFontSize, 16);
     });
 
+    group('destroyRemChangeSensor', () {
+      StreamSubscription<double> listener;
+
+      setUpAll(() async {
+        listener = onRemChange.listen((_) {});
+        expect(changeSensor, isNotNull, reason: 'test setup sanity check');
+        expect(changeSensorMountNode, isNotNull, reason: 'test setup sanity check');
+        expect(document.body.children.single, changeSensorMountNode, reason: 'test setup sanity check');
+
+        await destroyRemChangeSensor();
+      });
+
+      tearDownAll(() async {
+        await listener?.cancel();
+      });
+
+      test('removes the `#rem_change_sensor` element', () {
+        expect(changeSensorMountNode, isNull);
+        expect(document.body.children, isEmpty);
+      });
+
+      test('sets `_changeSensor` to null', () {
+        expect(changeSensor, isNull);
+      });
+    });
+
     group('automatically mounts a "rem change sensor" when `toRem` is called for the first time', () {
       setUp(() {
         destroyRemChangeSensor();
