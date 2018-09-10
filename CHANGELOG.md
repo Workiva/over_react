@@ -1,5 +1,36 @@
 # OverReact Changelog
 
+## 1.26.0
+
+> [Complete `1.26.0` Changeset](https://github.com/Workiva/over_react/compare/1.25.0...1.26.0)
+
+__New Features__
+
+* [#178]: Automatic document root font-size change detection in Google Chrome to overcome https://bugs.chromium.org/p/chromium/issues/detail?id=429140
+
+__Dependency Updates__
+
+* [881c0c](https://github.com/Workiva/over_react/commit/881c0ca0806d265ad7baf1f45aace632561ab05c) Tighten version constraints to speed up pub get
+    * analyzer `>=0.30.0+4 <=0.31.0` (was `>=0.30.0 <=0.31.0`)
+    * built_redux `^7.4.2` (was `^7.4.1`)
+    * built_value `>=5.1.3 <5.2.0` (was `>=4.2.0 <5.2.0`)
+    * js `^0.6.1+1` (was `^0.6.0`)
+    * logging `>=0.11.3+2 <1.0.0` (was `>=0.11.3+1 <1.0.0`)
+    * meta `^1.1.6` (was `^1.0.4`)
+    * path `^1.5.1` (was `^1.4.1`)
+    * react `^4.4.2` (was `^4.4.1`)
+    * source_span `^1.4.1` (was `^1.4.0`)
+    * transformer_utils `^0.1.5` (was `^0.1.1`)
+    * w_common `^1.13.0` (was `^1.10.0`)
+    * w_flux `^2.9.5` (was `^2.7.1`)
+    * platform_detect `^1.3.4` (was `^1.3.2`)
+    * quiver `>=0.25.0 <=0.28.0` (was `>=0.21.4 <=0.28.0`)
+
+__Tech Debt__
+
+* [#179]: Update CI build
+
+
 ## 1.25.0
 
 > [Complete `1.25.0` Changeset](https://github.com/Workiva/over_react/compare/1.24.1...1.25.0)
