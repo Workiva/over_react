@@ -20,6 +20,7 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 import 'package:over_react/src/util/css_value_util.dart';
 import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:platform_detect/platform_detect.dart';
@@ -128,9 +129,16 @@ CssValue toRem(dynamic value, {bool treatNumAsRem: false, bool passThroughUnsupp
   // to automatically wire up the rem change sensor so that any calls to `toRem` when the viewport is
   // zoomed return an accurate value.
   //
+  // Only run them when `testMode` is false as a workaround to not break all the individual `toRem` tests
+  // that rely on `onRemChange.first`, and so that the dom node that is mounted via `_initRemChangeSensor`
+  // is not suddenly present in the dom of all consumer tests - which could break their assertions about
+  // a "clean" / empty `document.body`.
+  //
   // See: https://jira.atl.workiva.net/browse/AF-1048 / https://bugs.chromium.org/p/chromium/issues/detail?id=429140
-  if (browser.isChrome) {
-    Zone.ROOT.run(_initRemChangeSensor);
+  if (browser.isChrome && !component_base.UiProps.testMode) {
+    // TODO: Why does Zone.ROOT.run not work in unit tests?  Passing in Zone.current from the call to toRem() within the test also does not work.
+//    Zone.ROOT.run(_initRemChangeSensor);
+    _initRemChangeSensor();
   }
 
   if (value == null) return null;
