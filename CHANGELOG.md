@@ -1,5 +1,12 @@
 # OverReact Changelog
 
+## 1.26.1
+
+__Dependency Updates__
+
+* [e8fc86](https://github.com/Workiva/over_react/commit/e8fc86c9748c4cfb8af7bde91b0959827a5a7a63) Loosen lower bound of `built_value`
+    * built_value `>=4.6.1 <5.2.0` (was `>=5.1.3 <5.2.0`)
+
 ## 1.26.0
 
 > [Complete `1.26.0` Changeset](https://github.com/Workiva/over_react/compare/1.25.0...1.26.0)
