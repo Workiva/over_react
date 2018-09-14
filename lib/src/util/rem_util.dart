@@ -52,6 +52,7 @@ void _initRemChangeSensor() {
   _changeSensorMountNode.style
     ..width = '0'
     ..height = '0'
+    ..overflow = 'hidden'
     ..position = 'absolute'
     ..zIndex = '-1';
 
