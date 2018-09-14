@@ -1,5 +1,11 @@
 # OverReact Changelog
 
+## 1.26.2
+
+__Bug fixes__
+
+* [5fb73f](https://github.com/Workiva/over_react/commit/5fb73f26f92182ebd5c45c2ad5bb015a662bc3b4) Make rem change sensor container is `overflow:hidden` so it doesn't interfere with the page layout
+
 ## 1.26.1
 
 __Dependency Updates__
