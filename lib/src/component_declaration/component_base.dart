@@ -433,10 +433,11 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
     extends UiComponent<TProps> with UiStatefulMixin<TState> {}
 
 /// A mixin that adds support for strongly-typed state to a [UiComponent]. See [UiStatefulComponent] for usage.
-abstract class UiStatefulMixin<TState extends UiState>
-    // Implement react.Component instead of UiComponent so we don't run into https://github.com/dart-lang/sdk/issues/14729
+abstract class UiStatefulMixin<TState extends UiState> {
+    // Don't implement UiComponent so we don't run into https://github.com/dart-lang/sdk/issues/14729
     // and have to pass through UiComponent's generic parameter.
-    implements react.Component {
+    // Don't implement react.Component since that causes the state typing to resolve to Map
+    // when UiStatefulComponent is implemented.
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
   //   BEGIN Typed state helpers
