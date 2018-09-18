@@ -68,86 +68,19 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
 /// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
 ///
 /// > Related: [FluxUiStatefulComponent]
-abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<TProps>
-    with _FluxComponentMixin<TProps>, BatchedRedraws {
-  // Redeclare these lifecycle methods with `mustCallSuper`, since `mustCallSuper` added to methods within
-  // mixins doesn't work. See https://github.com/dart-lang/sdk/issues/29861
-
-  @mustCallSuper
-  @override
-  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
-  // ignore: must_call_super
-  void componentWillMount();
-
-  @mustCallSuper
-  @override
-  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
-  // ignore: must_call_super
-  void componentWillReceiveProps(Map nextProps);
-
-  @mustCallSuper
-  @override
-  void componentDidUpdate(Map prevProps, Map prevState);
-
-  @mustCallSuper
-  @override
-  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
-  // ignore: must_call_super
-  void componentWillUnmount();
-}
-
-/// Builds on top of [UiStatefulComponent], adding `w_flux` integration, much like the [FluxComponent] in w_flux.
-///
-/// * Flux components are responsible for rendering application views and turning
-///   user interactions and events into [Action]s.
-/// * Flux components can use data from one or many [Store] instances to define
-///   the resulting component.
-///
-/// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
-///
-/// > Related: [FluxUiComponent]
-abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extends UiState>
-    extends UiStatefulComponent<TProps, TState>
-    with _FluxComponentMixin<TProps>, BatchedRedraws {
-  // Redeclare these lifecycle methods with `mustCallSuper`, since `mustCallSuper` added to methods within
-  // mixins doesn't work. See https://github.com/dart-lang/sdk/issues/29861
-
-  @mustCallSuper
-  @override
-  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
-  // ignore: must_call_super
-  void componentWillMount();
-
-  @mustCallSuper
-  @override
-  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
-  // ignore: must_call_super
-  void componentWillReceiveProps(Map nextProps);
-
-  @mustCallSuper
-  @override
-  void componentDidUpdate(Map prevProps, Map prevState);
-
-  @mustCallSuper
-  @override
-  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
-  // ignore: must_call_super
-  void componentWillUnmount();
-}
-
-/// Helper mixin to keep [FluxUiComponent] and [FluxUiStatefulComponent] clean/DRY.
-///
-/// Private so it will only get used in this file, since having lifecycle methods in a mixin is risky.
-abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements BatchedRedraws {
+abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<TProps> with BatchedRedraws {
   static final Logger _logger = new Logger('over_react._FluxComponentMixin');
-  TProps get props;
 
   /// List of store subscriptions created when the component mounts.
   ///
   /// These subscriptions are canceled when the component is unmounted.
   List<StreamSubscription> _subscriptions = [];
 
+  @mustCallSuper
+  @override
   void componentWillMount() {
+    super.componentWillMount();
+
     /// Subscribe to all applicable stores.
     ///
     /// [Store]s returned by [redrawOn] will have their triggers mapped directly to this components
@@ -175,7 +108,11 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
     });
   }
 
+  @mustCallSuper
+  @override
   void componentWillUnmount() {
+    super.componentWillUnmount();
+
     // Ensure that unmounted components don't batch render
     shouldBatchRedraw = false;
 
@@ -186,6 +123,20 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
       }
     });
   }
+
+  // Add mustCallSuper to this declaration so that in the future we have the option to
+  // update store subscriptions when this component receives a new store in its props.
+  @mustCallSuper
+  @override
+  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
+  // ignore: must_call_super
+  void componentWillReceiveProps(Map nextProps);
+
+  // Add mustCallSuper to this declaration so that in the future we have the option to
+  // update store subscriptions when this component receives a new store in its props.
+  @mustCallSuper
+  @override
+  void componentDidUpdate(Map prevProps, Map prevState);
 
   /// Define the list of [Store] instances that this component should listen to.
   ///
@@ -230,3 +181,17 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
     _subscriptions.add(subscription);
   }
 }
+
+/// Builds on top of [UiStatefulComponent], adding `w_flux` integration, much like the [FluxComponent] in w_flux.
+///
+/// * Flux components are responsible for rendering application views and turning
+///   user interactions and events into [Action]s.
+/// * Flux components can use data from one or many [Store] instances to define
+///   the resulting component.
+///
+/// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
+///
+/// > Related: [FluxUiComponent], [UiStatefulMixin]
+abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extends UiState>
+    extends FluxUiComponent<TProps> with UiStatefulMixin<TState>
+    implements UiStatefulComponent<TProps, TState> {}

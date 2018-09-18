@@ -13,6 +13,7 @@ import '../../test_util/test_util.dart';
 
 part 'flux_component_test/default.dart';
 part 'flux_component_test/handler_precedence.dart';
+part 'flux_component_test/prop_validation.dart';
 part 'flux_component_test/redraw_on.dart';
 part 'flux_component_test/store_handlers.dart';
 
@@ -163,6 +164,34 @@ void main() {
       component.redraw();
       await nextTick();
       expect(component.numberOfRedraws, equals(0));
+    });
+
+    group('calls super in the appropriate lifecycle methods', () {
+      test('componentWillMount', () {
+        expect(() {
+          mount(TestPropValidation()());
+        }, throwsPropError_Required('TestPropValidationProps.required'),
+            reason: 'should have called super, triggering prop validation logic');
+      });
+
+      test('componentWillReceiveProps', () {
+        var jacket = mount((TestPropValidation()..required = 'foo')());
+        expect(() {
+          jacket.rerender(TestPropValidation()());
+        }, throwsPropError_Required('TestPropValidationProps.required'),
+            reason: 'should have called super, triggering prop validation logic');
+      });
+
+      test('componentWillUnmount', () {
+        var jacket = mount(TestDefault()());
+        TestDefaultComponent component = jacket.getDartInstance();
+        // Bind this since expectAsync doesn't seem to play well when
+        // called from react-dart's Zone
+        component.getManagedDisposer(Zone.current.bindCallback(
+            expectAsync0(() async {}, reason: 'should have called super, triggering disposal logic')
+        ));
+        jacket.unmount();
+      });
     });
   });
 }

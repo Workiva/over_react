@@ -135,7 +135,7 @@ typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 ///       }
 ///     }
 ///
-/// > Related: [UiStatefulComponent]
+/// > Related: [UiStatefulComponent], [UiStatefulMixin]
 abstract class UiComponent<TProps extends UiProps> extends react.Component implements DisposableManagerV7 {
   Disposable _disposableProxy;
 
@@ -285,6 +285,24 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
 
+
+  // ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  //   BEGIN Typed state helpers
+  //
+
+  /// The state Map that will be used to create the typed [state] object.
+  ///
+  /// Defined in [UiComponent] and not [UiStatefulMixin] to work around dart2js restriction
+  /// on super calls in mixins  <https://github.com/dart-lang/sdk/issues/23773>.
+  Map get unwrappedState => super.state;
+  set unwrappedState(Map value) => super.state = value;
+
+  //
+  //   END Typed state helpers
+  // ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
   //   BEGIN DisposableManagerV7 interface implementation
@@ -389,7 +407,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
 /// The basis for a _stateful_ over_react component.
 ///
 /// Includes support for strongly-typed [UiState] in-addition-to the
-/// strongly-typed props and utilities for prop and CSS classname forwarding provided by [UiComponent].
+/// strongly-typed props and state utilities for prop and CSS classname forwarding provided by [UiComponent].
 ///
 /// __Initializing state:__
 ///
@@ -411,7 +429,14 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
 ///         )(props.children);
 ///       }
 ///     }
-abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState> extends UiComponent<TProps> {
+abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState>
+    extends UiComponent<TProps> with UiStatefulMixin<TState> {}
+
+/// A mixin that adds support for strongly-typed state to a [UiComponent]. See [UiStatefulComponent] for usage.
+abstract class UiStatefulMixin<TState extends UiState>
+    // Implement react.Component instead of UiComponent so we don't run into https://github.com/dart-lang/sdk/issues/14729
+    // and have to pass through UiComponent's generic parameter.
+    implements react.Component {
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
   //   BEGIN Typed state helpers
@@ -434,11 +459,11 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   }
   /// Equivalent to setting [unwrappedState], but needed by react-dart to effect state changes.
   @override
-  set state(Map value) => super.state = value;
+  set state(Map value) => unwrappedState = value;
 
   /// The state Map that will be used to create the typed [state] object.
-  Map get unwrappedState => super.state;
-  set unwrappedState(Map value) => super.state = value;
+  Map get unwrappedState;
+  set unwrappedState(Map value);
 
   /// Returns a typed state object backed by the specified [stateMap].
   ///
