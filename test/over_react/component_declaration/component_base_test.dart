@@ -766,8 +766,9 @@ main() {
         test('should complete uncompleted managed Completer with ObjectDisposedException', () async {
           var completer = new Completer<Null>();
           component.manageCompleter(completer);
-          completer.future.catchError(expectAsync1((Object err) =>
-            expect(err, new isInstanceOf<ObjectDisposedException>())));
+          completer.future.catchError(expectAsync1((Object err) {
+            expect(err, new isInstanceOf<ObjectDisposedException>());
+          }));
 
           expect(completer.isCompleted, isFalse);
           await unmountAndDisposal();
