@@ -124,6 +124,20 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
     });
   }
 
+  // Add mustCallSuper to this declaration so that in the future we have the option to
+  // update store subscriptions when this component receives a new store in its props.
+  @mustCallSuper
+  @override
+  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
+  // ignore: must_call_super
+  void componentWillReceiveProps(Map nextProps);
+
+  // Add mustCallSuper to this declaration so that in the future we have the option to
+  // update store subscriptions when this component receives a new store in its props.
+  @mustCallSuper
+  @override
+  void componentDidUpdate(Map prevProps, Map prevState);
+
   /// Define the list of [Store] instances that this component should listen to.
   ///
   /// When any of the returned [Store]s update their state, this component will
