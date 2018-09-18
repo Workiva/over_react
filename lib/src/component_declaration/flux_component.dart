@@ -79,6 +79,8 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
   @mustCallSuper
   @override
   void componentWillMount() {
+    super.componentWillMount();
+
     /// Subscribe to all applicable stores.
     ///
     /// [Store]s returned by [redrawOn] will have their triggers mapped directly to this components
@@ -109,6 +111,8 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
   @mustCallSuper
   @override
   void componentWillUnmount() {
+    super.componentWillUnmount();
+
     // Ensure that unmounted components don't batch render
     shouldBatchRedraw = false;
 
