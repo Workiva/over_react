@@ -19,6 +19,8 @@ import 'dart:collection';
 import 'dart:html';
 
 import 'package:js/js.dart';
+import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_interop_helpers.dart';
@@ -48,23 +50,19 @@ ReactDartComponentInternal _getInternal(/* ReactElement|ReactComponent */  insta
 
 /// Returns the internal representation of a Dart component's props as maintained by react-dart.
 ///
-/// Similar to ReactElement.props in JS, but also includes `children`.
+/// Similar to `ReactElement.props` in JS, but also includes `props.children`.
 Map _getExtendedProps(/* ReactElement|ReactComponent */  instance) {
   return _getInternal(instance).props;
 }
 
-/// Returns 'key' associated with the specified React instance.
-dynamic getInstanceKey(ReactElement instance) {
-  return instance.key;
-}
+/// Returns the [ReactElement.key] associated with the specified [instance].
+dynamic getInstanceKey(ReactElement instance) => instance.key;
 
-/// Returns 'ref' associated with the specified React instance.
-dynamic getInstanceRef(ReactElement instance) {
-  return instance.ref;
-}
+/// Returns the [ReactElement.ref] associated with the specified [instance].
+dynamic getInstanceRef(ReactElement instance) => instance.ref;
 
-/// Returns whether a component is a native Dart component (react-dart [ReactElement] or [ReactComponent]).
-bool isDartComponent(/* [1] */ instance) {
+/// Returns whether an [instance] is a native Dart component (react-dart [ReactElement] or [ReactComponent]).
+bool isDartComponent(/* ReactElement|ReactComponent|Element */ instance) {
   // Don't try to access internal on a DOM component
   if (instance is Element) {
     return false;
@@ -100,16 +98,83 @@ Map getJsProps(/* ReactElement|ReactComponent */ instance) {
   return props;
 }
 
+/// Whether [Expando]s can be used on [ReactElement]s.
+///
+/// At the time this was written, this should return:
+///
+/// - `true` for dart2js and Dart VM
+/// - `false` for DDC
+final bool _canUseExpandoOnReactElement = (() {
+  var expando = new Expando<bool>('_canUseExpandoOnReactElement test');
+  var reactElement = react.div({});
+
+  try {
+    expando[reactElement] = true;
+  } catch(_) {
+    return false;
+  }
+
+  return true;
+})();
+
+/// A cache of props for a given [ReactElement].
+///
+/// If caching isn't possible due to [_canUseExpandoOnReactElement] being false,
+/// then this will be initialized to `null`, and caching will be disabled.
+final Expando<UnmodifiableMapView> _elementPropsCache = _canUseExpandoOnReactElement
+    ? new Expando<UnmodifiableMapView>('_elementPropsCache')
+    : null;
+
 /// Returns an unmodifiable Map view of props for a [ReactElement] or composite [ReactComponent] [instance].
 ///
 /// For a native Dart component, this returns its [react.Component.props] in an unmodifiable Map view.
 /// For a JS component, this returns the result of [getJsProps] in an unmodifiable Map view.
 ///
+/// If [traverseWrappers] is `true` then it will return an unmodifiable Map view of props of the first non-"Wrapper"
+/// instance.
+///
 /// Throws if [instance] is not a valid [ReactElement] or composite [ReactComponent] .
-Map getProps(/* ReactElement|ReactComponent */ instance) {
-  if (isValidElement(instance) || _isCompositeComponent(instance)) {
+Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers: false}) {
+  var isCompositeComponent = _isCompositeComponent(instance);
+
+  if (isValidElement(instance) || isCompositeComponent) {
+    if (traverseWrappers) {
+      ComponentTypeMeta instanceTypeMeta;
+
+      if (isCompositeComponent && isDartComponent(instance)) {
+        ReactClass type = getProperty(getDartComponent(instance).jsThis, 'constructor');
+        instanceTypeMeta = getComponentTypeMeta(type);
+      } else if (isValidElement(instance)) {
+        instanceTypeMeta = getComponentTypeMeta(instance.type);
+      } else {
+        throw new ArgumentError.value(instance, 'instance',
+            'must either be a Dart component ReactComponent or ReactElement when traverseWrappers is true.');
+      }
+
+      if (instanceTypeMeta.isWrapper) {
+        assert(isDartComponent(instance) && 'Non-dart components should not be wrappers' is String);
+
+        List children = getProps(instance)['children'];
+
+        if (children != null && children.isNotEmpty && isValidElement(children.first)) {
+          return getProps(children.first, traverseWrappers: true);
+        }
+      }
+    }
+
+    if (_elementPropsCache != null && !isCompositeComponent) {
+      var cachedView = _elementPropsCache[instance];
+      if (cachedView != null) return cachedView;
+    }
+
     var propsMap = isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
-    return new UnmodifiableMapView(propsMap);
+    var view = new UnmodifiableMapView(propsMap);
+
+    if (_elementPropsCache != null && !isCompositeComponent) {
+      _elementPropsCache[instance] = view;
+    }
+
+    return view;
   }
 
   throw new ArgumentError.value(instance, 'instance', 'must be a valid ReactElement or composite ReactComponent');
@@ -143,15 +208,14 @@ bool _isCompositeComponent(dynamic object) {
 }
 
 /// Returns a new JS map with the specified props and children changes, properly prepared for consumption by
-/// React JS methods such as cloneWithProps(), setProps(), and other methods that accept changesets of props to be
+/// React JS methods such as `cloneElement`, `setProps`, and other methods that accept changesets of props to be
 /// merged into existing props.
 ///
 /// Handles both Dart and JS React components, returning the appropriate props structure for each type:
 ///
 /// * For Dart components, existing props are read from [InteropProps.internal], which are then merged with
 ///   the new [newProps] and saved in a new [InteropProps] with the expected [ReactDartComponentInternal] structure.
-///   Children are likewise copied/overwritten as expected.
-///
+/// * Children are likewise copied and potentially overwritten with [newChildren] as expected.
 /// * For JS components, a copy of [newProps] is returned, since React will merge the props without any special handling.
 dynamic preparePropsChangeset(ReactElement element, Map newProps, [Iterable newChildren]) {
   var propsChangeset;
@@ -209,21 +273,59 @@ ReactElement cloneElement(ReactElement element, [Map props, Iterable children]) 
   }
 }
 
-/// Returns the native Dart component associated with a React JS component instance, or null if the component is not Dart-based.
-react.Component getDartComponent(/* [1] */ instance) {
+/// Returns the native Dart component associated with a mounted component [instance].
+///
+/// Returns `null` if the [instance] is not Dart-based _(an [Element] or a JS composite component)_.
+react.Component getDartComponent(/* ReactElement|ReactComponent|Element */ instance) {
   if (instance is Element) {
     return null;
   }
 
-  return _getInternal(instance)?.component;
+  assert(() {
+    if (isValidElement(instance)) {
+      // `print` instead of `ValidationUtil.warn` so that this message shows up
+      // in the test output when running `ddev test`.
+      print(unindent(
+          '''
+          * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+          * WARNING: `getDartComponent`                                                                                                       
+          *                                                                                            
+          * react-dart 4.0 no longer supports retrieving Dart components from                                                                                           
+          * `ReactElement` (pre-mounted VDOM instances) in order to prevent memory leaks.                                                                                            
+          *                                                                                            
+          * This call to `getDartComponent` will return `null`.                                                                                           
+          *                                                                                            
+          * Start using the mounted JS component instance instead:                                                                                           
+          *                                                                                            
+          * Example:                                                                                           
+          *     // Before                                                                                           
+          *     var vdom = Button()('Click me');                                                                                           
+          *     react_dom.render(vdom, mountNode);                                                                                           
+          *     var dartInstance = getDartComponent(vdom);                                                                                           
+          *                                                                                                
+          *     // Fixed                                                                                           
+          *     var vdom = Button()('Click me');                                                                                           
+          *     var jsInstance = react_dom.render(vdom, mountNode);                                                                                           
+          *     var dartInstance = getDartComponent(jsInstance);                            
+          *                                                                                 
+          * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+          '''
+      ));
+    }
+    return true;
+  });
+
+  // ignore: avoid_as
+  return (instance as ReactComponent).dartComponent;
 }
 
-/// A function that, when supplied as the `ref` prop, is called with the component instance
+/// A function that, when supplied as [ReactPropsMixin.ref], is called with the component instance
 /// as soon as it is mounted.
 ///
 /// This instance can be used to retrieve a component's DOM node or to call a component's public API methods.
 ///
 /// The component instance will be of the type:
+///
 ///   * [react.Component] for Dart components
 ///   * [ReactComponent] for JS composite components
 ///   * [Element] for DOM components
@@ -245,9 +347,10 @@ react.Component getDartComponent(/* [1] */ instance) {
 /// See: <http://facebook.github.io/react/docs/more-about-refs.html#the-ref-callback-attribute>.
 typedef CallbackRef(ref);
 
-/// Returns a function that chains [element]'s callback ref (if one exists) with [newCallbackRef].
+/// Returns a function that chains the callback ref of the provided [element] _(if one exists)_
+/// using [newCallbackRef].
 ///
-/// Throws [ArgumentError] if [element.ref] is a `String` ref or otherwise not a [CallbackRef].
+/// > Throws an [ArgumentError] if [ReactElement.ref] is a `String` ref or otherwise not a [CallbackRef].
 ///
 /// TODO: This method makes assumptions about how react-dart does callback refs for dart components, so this method should be moved there (UIP-1118).
 CallbackRef chainRef(ReactElement element, CallbackRef newCallbackRef) {
@@ -299,7 +402,7 @@ final Function _get$R = () {
 /// Returns a reference to the currently selected component in the
 /// [React Dev Tools](https://github.com/facebook/react-devtools).
 ///
-/// Returns the associated [react.Component] for Dart components or the [ReactComponent]
+/// Returns the associated [ReactComponent.dartComponent] for Dart components or the [ReactComponent]
 /// for JS components.
 ///
 /// To use in Dartium, over_react must be imported in the current context.
@@ -307,6 +410,7 @@ dynamic get $r {
   var component = _get$R();
 
   return isDartComponent(component)
-      ? component.props.internal.component
+      // ignore: avoid_as
+      ? (component as ReactComponent).dartComponent
       : component;
 }

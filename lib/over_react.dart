@@ -15,7 +15,22 @@
 /// Base classes for UI components and related utilities.
 library over_react;
 
+export 'package:react/react.dart' show
+    SyntheticEvent,
+    SyntheticClipboardEvent,
+    SyntheticKeyboardEvent,
+    SyntheticFocusEvent,
+    SyntheticFormEvent,
+    SyntheticDataTransfer,
+    SyntheticMouseEvent,
+    SyntheticTouchEvent,
+    SyntheticUIEvent,
+    SyntheticWheelEvent;
+
+export 'package:react/react_client.dart' show setClientConfiguration, ReactElement;
+
 export 'src/component/abstract_transition.dart';
+export 'src/component/abstract_transition_props.dart';
 export 'src/component/aria_mixin.dart';
 export 'src/component/callback_typedefs.dart';
 export 'src/component/dom_components.dart';
@@ -24,6 +39,7 @@ export 'src/component/prop_mixins.dart';
 export 'src/component/prop_typedefs.dart';
 export 'src/component/resize_sensor.dart';
 export 'src/component_declaration/flux_component.dart';
+export 'src/component_declaration/built_redux_component.dart';
 export 'src/component_declaration/transformer_helpers.dart';
 export 'src/util/character_constants.dart';
 export 'src/util/class_names.dart';
@@ -37,6 +53,8 @@ export 'src/util/key_constants.dart';
 export 'src/util/map_util.dart';
 export 'src/util/pretty_print.dart';
 export 'src/util/prop_errors.dart';
+export 'src/util/prop_key_util.dart';
+export 'src/util/react_util.dart';
 export 'src/util/react_wrappers.dart';
 export 'src/util/rem_util.dart';
 export 'src/util/string_util.dart';

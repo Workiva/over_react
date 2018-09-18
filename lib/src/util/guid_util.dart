@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library guid_util;
+library over_react.guid_util;
 
 import 'dart:math' show Random;
 

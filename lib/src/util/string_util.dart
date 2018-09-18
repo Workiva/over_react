@@ -14,12 +14,14 @@
 
 library over_react.string_util;
 
-/// Allows the use of `'''` string blocks, without having to unindent them when used within something like the
-/// [markdown] method.
+/// Allows the use of `'''` string blocks, without having to unindent them when used within
+/// something like markdown's
+/// [markdownToHtml](https://www.dartdocs.org/documentation/markdown/latest/markdown/markdownToHtml.html) function.
 ///
 /// __Replace this:__
+///
 ///     (Component()
-///       ..description = markdown(
+///       ..description = markdownToHtml(
 ///     '''
 ///     Yuck... I'm indented all funky.
 ///     '''
@@ -27,8 +29,9 @@ library over_react.string_util;
 ///     )()
 ///
 /// __With this:__
+///
 ///     (Component()
-///       ..description = markdown(unindent(
+///       ..description = markdownToHtml(unindent(
 ///           '''
 ///           Proper indentation is yummy...
 ///           '''

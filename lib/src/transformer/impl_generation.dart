@@ -28,7 +28,7 @@ import 'package:transformer_utils/transformer_utils.dart';
 ///
 /// Generates implementations for:
 ///
-/// * A component commprised of a `@Factory()`, `@Component()`, `@Props()`, and optionally a `@State()`
+/// * A component comprised of a `@Factory()`, `@Component()`, `@Props()`, and optionally a `@State()`
 ///
 ///     * Generates:
 ///
@@ -53,6 +53,7 @@ class ImplGenerator {
 
   final TransformLogger logger;
   final TransformedSourceFile transformedFile;
+  bool shouldFixDdcAbstractAccessors = false;
 
   SourceFile get sourceFile => transformedFile.sourceFile;
 
@@ -81,6 +82,17 @@ class ImplGenerator {
       String typedPropsFactoryImpl = '';
       String typedStateFactoryImpl = '';
 
+      // Work around https://github.com/dart-lang/sdk/issues/16030 by making
+      // the original props class abstract and redeclaring `call` in the impl class.
+      //
+      // We can safely make this abstract, since we already have a runtime warning when it's
+      // instantiated.
+      if (!declarations.props.node.isAbstract) {
+        transformedFile.insert(
+            sourceFile.location(declarations.props.node.classKeyword.offset),
+            'abstract '
+        );
+      }
 
       // ----------------------------------------------------------------------
       //   Factory implementation
@@ -180,12 +192,20 @@ class ImplGenerator {
         ..writeln('  /// The default namespace for the prop getters/setters generated for this class.')
         ..writeln('  @override')
         ..writeln('  String get propKeyNamespace => ${stringLiteral(propKeyNamespace)};')
+        ..writeln()
+        ..writeln('  // Work around https://github.com/dart-lang/sdk/issues/16030 by making')
+        ..writeln('  // the original props class abstract and redeclaring `call` in the impl class.')
+        ..writeln('  @override')
+        ..writeln('  call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);')
         ..writeln('}')
         ..writeln();
 
       typedPropsFactoryImpl =
-          '  @override\n'
-          '  $propsName typedPropsFactory(Map backingMap) => new $propsImplName(backingMap);';
+          '@override '
+          // Don't type this so that it doesn't interfere with classes with generic parameter props type:
+          //    class FooComponent<T extends FooProps> extends UiComponent<T> {...}
+          // TODO use long-term solution of component impl class instantiated via factory constructor
+          'typedPropsFactory(Map backingMap) => new $propsImplName(backingMap) as dynamic;';
 
       // ----------------------------------------------------------------------
       //   State implementation
@@ -215,8 +235,11 @@ class ImplGenerator {
           ..writeln();
 
         typedStateFactoryImpl =
-          '  @override\n'
-          '  $stateName typedStateFactory(Map backingMap) => new $stateImplName(backingMap);';
+          '@override '
+          // Don't type this so that it doesn't interfere with classes with generic parameter state type:
+          //    class FooComponent<T extends FooProps, T extends FooState> extends UiStatefulComponent<T> {...}
+          // TODO use long-term solution of component impl class instantiated via factory constructor
+          'typedStateFactory(Map backingMap) => new $stateImplName(backingMap) as dynamic;';
       }
 
       // ----------------------------------------------------------------------
@@ -237,8 +260,6 @@ class ImplGenerator {
         ..writeln('  @override')
         ..writeln('  final List<ConsumedProps> \$defaultConsumedProps = '
                         'const [$propsName.$staticConsumedPropsName];')
-        ..writeln(typedPropsFactoryImpl)
-        ..writeln(typedStateFactoryImpl)
         ..writeln('}');
 
       if (declarations.component.node.withClause != null) {
@@ -255,6 +276,28 @@ class ImplGenerator {
         transformedFile.insert(
             sourceFile.location(declarations.component.node.name.end),
             ' extends Object with $componentClassImplMixinName'
+        );
+      }
+
+      var implementsTypedPropsStateFactory = declarations.component.node.members.any((member) =>
+          member is MethodDeclaration &&
+          !member.isStatic &&
+          (member.name.name == 'typedPropsFactory' || member.name.name == 'typedStateFactory')
+      );
+
+      if (implementsTypedPropsStateFactory) {
+        // Can't be an error, because consumers may be implementing typedPropsFactory or typedStateFactory in their components.
+        logger.warning(
+            'Components should not add their own implementions of typedPropsFactory or typedStateFactory.',
+            span: getSpan(sourceFile, declarations.component.node)
+        );
+      } else {
+        // For some reason, strong mode is okay with these declarations being in the component,
+        // but not in the mixin.
+        // TODO use long-term solution of component impl class instantiated via factory constructor
+        transformedFile.insert(
+            sourceFile.location(declarations.component.node.leftBracket.end),
+            '   /* GENERATED IMPLEMENTATIONS */ $typedPropsFactoryImpl $typedStateFactoryImpl'
         );
       }
     }
@@ -280,7 +323,7 @@ class ImplGenerator {
             !member.isSynthetic &&
             member.isAbstract &&
             member.name.name == name &&
-            member.returnType?.name?.name == type
+            member.returnType?.toSource() == type
         );
       });
     }
@@ -350,6 +393,10 @@ class ImplGenerator {
       AccessorType type,
       NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap
   ) {
+    if (shouldFixDdcAbstractAccessors) {
+      fixDdcAbstractAccessors(type, typedMap);
+    }
+
     String keyNamespace = getAccessorKeyNamespace(typedMap);
 
     final bool isProps = type == AccessorType.props;
@@ -366,6 +413,25 @@ class ImplGenerator {
         .where((member) => member is FieldDeclaration && !member.isStatic)
         .forEach((_field) {
           final field = _field as FieldDeclaration; // ignore: avoid_as
+
+          T getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
+            return member.metadata.any((annotation) => annotation.name?.name == name) ? value : null;
+          }
+
+          annotations.Accessor accessorMeta = instantiateAnnotation(field, annotations.Accessor);
+          annotations.Accessor requiredProp = getConstantAnnotation(field, 'requiredProp', annotations.requiredProp);
+          annotations.Accessor nullableRequiredProp = getConstantAnnotation(field, 'nullableRequiredProp', annotations.nullableRequiredProp);
+          // ignore: deprecated_member_use
+          annotations.Required requiredMeta = instantiateAnnotation(field, annotations.Required);
+
+          if (accessorMeta?.doNotGenerate == true) {
+            logger.fine('Skipping generation of field `$field`.',
+                span: getSpan(sourceFile, field)
+            );
+
+            return;
+          }
+
           // Remove everything in the field except the comments/meta and the variable names, preserving newlines.
           // TODO add support for preserving comment nodes between variable declarations.
 
@@ -399,27 +465,62 @@ class ImplGenerator {
 
             String accessorName = variable.name.name;
 
-            annotations.Accessor accessorMeta = instantiateAnnotation(field, annotations.Accessor);
-            annotations.Required requiredMeta = instantiateAnnotation(field, annotations.Required);
-
-            bool isRequired = requiredMeta != null;
-            bool isNullable = isRequired && requiredMeta.isNullable;
-            bool hasErrorMessage = isRequired && requiredMeta.message != null && requiredMeta.message.isNotEmpty;
-
             String individualKeyNamespace = accessorMeta?.keyNamespace ?? keyNamespace;
             String individualKey = accessorMeta?.key ?? accessorName;
 
-            String keyConstantName = '${generatedPrefix}key__$accessorName';
+            /// Necessary to work around issue where private static declarations in different classes
+            /// conflict with each other in strong mode: https://github.com/dart-lang/sdk/issues/29751
+            /// TODO remove once that issue is resolved
+            String staticConstNamespace = typedMap.node.name.name;
+
+            String keyConstantName = '${generatedPrefix}key__${accessorName}__$staticConstNamespace';
             String keyValue = stringLiteral(individualKeyNamespace + individualKey);
 
-            String constantName = '${generatedPrefix}prop__$accessorName';
+            String constantName = '${generatedPrefix}prop__${accessorName}__$staticConstNamespace';
             String constantValue = 'const $constConstructorName($keyConstantName';
 
-            if (isRequired) {
+            var annotationCount = 0;
+
+            if (accessorMeta != null) {
+              annotationCount++;
+
+              if (accessorMeta.isRequired) {
+                constantValue += ', isRequired: true';
+
+                if (accessorMeta.isNullable) constantValue += ', isNullable: true';
+
+                if (accessorMeta.requiredErrorMessage != null && accessorMeta.requiredErrorMessage.isNotEmpty) {
+                  constantValue += ', errorMessage: ${stringLiteral(accessorMeta.requiredErrorMessage)}';
+                }
+              }
+            }
+
+            if (requiredMeta != null) {
               constantValue += ', isRequired: true';
 
-              if (isNullable) constantValue += ', isNullable: true';
-              if (hasErrorMessage) constantValue += ', errorMessage: ${stringLiteral(requiredMeta.message)}';
+              if (requiredMeta.isNullable) constantValue += ', isNullable: true';
+
+              if (requiredMeta.message != null && requiredMeta.message.isNotEmpty) {
+                constantValue += ', errorMessage: ${stringLiteral(requiredMeta.message)}';
+              }
+            }
+
+            if (requiredProp != null) {
+              annotationCount++;
+              constantValue += ', isRequired: true';
+            }
+
+            if (nullableRequiredProp != null) {
+              annotationCount++;
+              constantValue += ', isRequired: true, isNullable: true';
+            }
+
+            if (annotationCount > 1) {
+              logger.error(
+                  '@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
+                  'You can use `@Accessor(required: true)` or `isNullable: true` instead of the shorthand versions.',
+                  span: getSpan(sourceFile, field)
+              );
             }
 
             constantValue += ')';
@@ -429,10 +530,13 @@ class ImplGenerator {
 
             TypeName type = field.fields.type;
             String typeString = type == null ? '' : '$type ';
+            String setterTypeString = field.covariantKeyword == null
+                ? typeString
+                : '${field.covariantKeyword} $typeString';
 
             String generatedAccessor =
                 '${typeString}get $accessorName => $proxiedMapName[$keyConstantName];  '
-                'set $accessorName(${typeString}value) => $proxiedMapName[$keyConstantName] = value;';
+                'set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;';
 
             transformedFile.replace(
                 sourceFile.span(variable.firstTokenAfterCommentAndMetadata.offset, variable.name.end),
@@ -497,6 +601,66 @@ class ImplGenerator {
         sourceFile.location(typedMap.node.leftBracket.end),
         staticVariablesImpl
     );
+  }
+
+  /// Apply a workaround for an issue where, in the DDC, abstract getter or setter overrides declared in a class clobber
+  /// the inherited concrete implementations. <https://github.com/dart-lang/sdk/issues/29914>
+  ///
+  /// Fixes the issue by generating corresponding abstract getters/setters to complete the pair
+  /// for accessors with the `@override` annotation.
+  void fixDdcAbstractAccessors(
+    AccessorType accessorType,
+    NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap,
+  ) {
+    var candidateAccessors = new List<MethodDeclaration>.from(
+        typedMap.node.members.where((member) =>
+            member is MethodDeclaration &&
+            (member.isGetter || member.isSetter) &&
+            !member.isSynthetic &&
+            !member.isStatic &&
+            member.metadata.any((meta) => meta.name.name == 'override')
+        )
+    );
+
+    for (var accessor in candidateAccessors) {
+      // Non-abstract accessors don't exhibit this issue.
+      if (!accessor.isAbstract) return;
+
+      var name = accessor.name.name;
+
+      // Don't generate for `Map get props;`/`Map get state;` in mixins
+      if (accessorType == AccessorType.props && name == 'props') continue;
+      if (accessorType == AccessorType.state && name == 'state') continue;
+
+      if (candidateAccessors.any((other) => other != accessor && other.name.name == name)) {
+        // Don't generate when both the getter and the setter are declared.
+        continue;
+      }
+
+      /// Warning: tests rely on this comment as a means of determining whether this fix was applied.
+      ///
+      /// DO NOT modify or remove without updating tests
+      const String generatedComment = ' /* fixDdcAbstractAccessors workaround: */ ';
+
+      if (accessor.isGetter) {
+        var type = accessor.returnType?.toSource();
+        var typeString = type == null ? '' : '$type ';
+
+        transformedFile.insert(sourceFile.location(accessor.end),
+            // use `covariant` here to be extra safe in this typing
+            '${generatedComment}set $name(covariant ${typeString}value);');
+      } else {
+        var parameter = accessor.parameters.parameters.single;
+        var type = parameter is SimpleFormalParameter
+            ? parameter.type?.toSource()
+            // This `null` case is mainly for [FunctionTypedFormalParameter].
+            : null;
+        var typeString = type == null ? '' : '$type ';
+
+        transformedFile.insert(sourceFile.location(accessor.end),
+            '$generatedComment${typeString}get $name;');
+      }
+    }
   }
 }
 

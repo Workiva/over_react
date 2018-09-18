@@ -14,16 +14,19 @@
 
 library over_react.component_declaration.component_base_test;
 
+import 'dart:async';
+import 'dart:collection';
 import 'dart:html';
 
 import 'package:over_react/over_react.dart' show Dom, DummyComponent, ValidationUtil;
+import 'package:over_react_test/over_react_test.dart';
 import 'package:over_react/src/component_declaration/component_base.dart';
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
+import 'package:w_common/disposable.dart';
 
 import '../../test_util/test_util.dart';
-import '../../wsd_test_util/validation_util_helpers.dart';
 import '../shared/map_proxy_tests.dart';
 
 main() {
@@ -43,7 +46,7 @@ main() {
         });
 
         test('when a single non-invoked builder child is passed in', () {
-          expect(() => Dom.div()(Dom.div()), throws);
+          expect(() => Dom.div()(Dom.div()), throwsArgumentError);
           verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
         });
 
@@ -92,7 +95,7 @@ main() {
         test('a single child is passed in', () {
           var child = 'Only child';
           var renderedNode = renderAndGetDom(Dom.div()(child));
-          List<Text> children = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
+          var children = new List<Text>.from(renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE));
 
           expect(children.length, equals(1));
           expect(children[0].data, equals(child));
@@ -156,7 +159,7 @@ main() {
             Dom.div(),
             Dom.p()(),
             Dom.div()
-          ]), throws);
+          ]), throwsArgumentError);
           verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
         });
 
@@ -247,6 +250,36 @@ main() {
         });
       });
 
+      test('invokes a non-ReactComponentFactoryProxy componentFactory function properly when invoked', () {
+        final ReactElement expectedReturnValue = Dom.div()();
+        const expectedProps = const {'testProp': 'testValue'};
+
+        var calls = [];
+
+        ReactElement customFactory([Map props, a = 0, b = 0, c = 0, d = 0]) {
+          calls.add([props, a, b, c, d]);
+          return expectedReturnValue;
+        }
+
+        var builder = new TestUiPropsWithCustomComponentFactory()
+          ..componentFactory = customFactory
+          ..['testProp'] = 'testValue';
+
+        expect(builder(), expectedReturnValue);
+        expect(builder(1), expectedReturnValue);
+        expect(builder(1, 2), expectedReturnValue);
+        expect(builder(1, 2, 3), expectedReturnValue);
+        expect(builder(1, 2, 3, 4), expectedReturnValue);
+
+        expect(calls, [
+          [expectedProps, 0, 0, 0, 0],
+          [expectedProps, 1, 0, 0, 0],
+          [expectedProps, 1, 2, 0, 0],
+          [expectedProps, 1, 2, 3, 0],
+          [expectedProps, 1, 2, 3, 4],
+        ]);
+      });
+
       group('provides Map functionality:', () {
         test('is a Map', () {
           expect(new TestComponentProps(), const isInstanceOf<Map>());
@@ -260,10 +293,19 @@ main() {
         mapProxyTests((Map backingMap) => new TestComponentProps(backingMap));
       });
 
-      test('addProp() adds the given key-value pair', () {
-        var props = new TestComponentProps();
-        props.addProp('key', 'value');
-        expect(props, equals({'key': 'value'}));
+      group('addProp()', () {
+        test('adds the given key-value pair', () {
+          var props = new TestComponentProps();
+          props.addProp('key', 'value');
+          expect(props, equals({'key': 'value'}));
+        });
+
+        test('does nothing when shouldAdd is false', () {
+          var props = new TestComponentProps();
+          props.addProp('key', 'value', false);
+
+          expect(props, equals({}));
+        });
       });
 
       group('addProps()', () {
@@ -289,6 +331,13 @@ main() {
           expect(() => props.addProps(null), returnsNormally);
 
           expect(props, equals({'key': 'value'}));
+        });
+
+        test('does nothing when shouldAdd is false', () {
+          var props = new TestComponentProps();
+          props.addProps({'newKey1': 'newValue1'}, false);
+
+          expect(props, equals({}));
         });
       });
 
@@ -322,6 +371,23 @@ main() {
           expect(() => props.modifyProps(null), returnsNormally);
 
           expect(props, equals({'className': 'original-class-name'}));
+        });
+
+        test('does nothing when shouldModify is false', () {
+          modifier(Map props) {
+            props['className'] = 'modified-class-name';
+          }
+
+          var props = new TestComponentProps()
+            ..['className'] = 'original-class-name'
+            ..['id'] = 'original-id';
+
+          props.modifyProps(modifier, false);
+
+          expect(props, equals({
+            'className': 'original-class-name',
+            'id': 'original-id'
+          }));
         });
       });
 
@@ -392,6 +458,24 @@ main() {
 
         mapProxyTests((Map backingMap) => new TestStatefulComponentState(backingMap));
       });
+    });
+
+    // These tests are here to cover the PropsMapViewMixin, which used to be covered when
+    // testing UiProps, but isn't anymore since UiProps uses it as an interface instead
+    // to work around DDC issues.
+    //
+    // If these test classes cause trouble when running in the DDC, just disable these tests in the DDC.
+    group('PropsMapViewMixin provides Map functionality:', () {
+      mapProxyTests((Map backingMap) => new TestPropsMapViewMixin(backingMap));
+    });
+
+    // These tests are here to cover the StateMapViewMixin, which used to be covered when
+    // testing UiState, but isn't anymore since UiState uses it as an interface instead
+    // to work around DDC issues.
+    //
+    // If these test classes cause trouble when running in the DDC, just disable these tests in the DDC.
+    group('StateMapViewMixin provides Map functionality:', () {
+      mapProxyTests((Map backingMap) => new TestStateMapViewMixin(backingMap));
     });
 
     group('UiComponent', () {
@@ -542,6 +626,195 @@ main() {
         expect(classes.toClassName(), equals('class-1'));
         expect(classes.toClassNameBlacklist(), equals('blacklist-1'));
       });
+
+      group('calls validateProps in', () {
+        test('componentWillMount', () {
+          var calls = [];
+          var appliedProps;
+          var initialProps = {
+            'onValidateProps': (Map propsMap) {
+              appliedProps = propsMap;
+              calls.add('onValidateProps');
+            },
+          };
+          component.props = initialProps;
+
+          component.componentWillMount();
+
+          expect(calls, ['onValidateProps']);
+          expect(appliedProps, initialProps);
+        });
+
+        test('componentWillReceiveProps', () {
+          var calls = [];
+          var appliedProps;
+          var newProps = {'key': 'value'};
+          component.props = {
+            'onValidateProps': (Map propsMap) {
+              appliedProps = propsMap;
+              calls.add('onValidateProps');
+            },
+          };
+
+          component.componentWillReceiveProps(newProps);
+
+          expect(calls, ['onValidateProps']);
+          expect(appliedProps, newProps);
+        });
+      });
+
+      group('on unmount', () {
+        TestComponentComponent component;
+        ReactElement instance;
+        Duration longDuration = const Duration(milliseconds: 200);
+        Duration shortDuration = const Duration(milliseconds: 100);
+
+        setUp(() {
+          instance = render(TestComponent()());
+          component = getDartComponent(instance);
+        });
+
+        Future<Null> unmountAndDisposal() async {
+          unmount(instance);
+          // Provide timers a window to fire
+          await new Future.delayed(longDuration);
+        }
+
+        test('should await future before disposing', () async {
+          // ignore: close_sinks
+          var streamController = new StreamController<String>.broadcast();
+          var completer = new Completer<String>();
+
+          // Manage pending future
+          component.awaitBeforeDispose(completer.future);
+
+          // Add events to stream
+          component.manageDisposer(() async => streamController.add('disposalFuture')); // ignore: deprecated_member_use
+          completer.future.then(streamController.add);
+
+          // Perform events out of order
+          await unmountAndDisposal();
+          completer.complete('awaitedFuture');
+
+          // Ensure events resolve in the correct order
+          expect(streamController.stream, emitsInOrder([
+            'awaitedFuture',
+            'disposalFuture',
+          ]));
+        });
+
+        test('should complete delayed Future with ObjectDisposedException', () async {
+          expect(component.getManagedDelayedFuture(shortDuration,
+              expectAsync0(() {}, count: 0, reason: 'Did not expect callback to be invoked.')),
+            throwsA(new isInstanceOf<ObjectDisposedException>()));
+
+          await unmountAndDisposal();
+        });
+
+        test('should call managed disposer returned by getManagedDisposer', () async {
+          var disposerCalled = false;
+          var disposer = component.getManagedDisposer(() async => disposerCalled = true);
+          expect(disposer, new isInstanceOf<ManagedDisposer>());
+
+          expect(disposerCalled, isFalse);
+          await unmountAndDisposal();
+          expect(disposerCalled, isTrue);
+          expect(disposer.isDisposed, isTrue);
+        });
+
+        test('should cancel periodic timer', () async {
+          var timer = component.getManagedPeriodicTimer(shortDuration,
+            expectAsync1((_) {}, count: 0, reason: 'Did not expect callback to be invoked.'));
+
+          expect(timer.isActive, isTrue);
+          await unmountAndDisposal();
+          expect(timer.isActive, isFalse);
+        });
+
+        test('should cancel timer', () async {
+          var timer = component.getManagedTimer(shortDuration,
+            expectAsync1((_){}, count: 0, reason: 'Did not expect callback to be invoked.'));
+
+          expect(timer.isActive, isTrue);
+          await unmountAndDisposal();
+          expect(timer.isActive, isFalse);
+        });
+
+        test('should cancel stream subscription returned by listenToStream', () async{
+          var streamController = new StreamController<Null>.broadcast();
+          // ignore: cancel_subscriptions
+          var streamSubscription = component.listenToStream(streamController.stream, expectAsync1((_) {},
+              count: 0,
+              reason: 'Did not expect event after cancelling subscription'));
+          expect(streamSubscription, new isInstanceOf<StreamSubscription>());
+
+          await unmountAndDisposal();
+
+          streamController
+            ..add(null)
+            ..close();
+        });
+
+        test('should dispose managed Disposable returned by manageAndReturnDisposable', () async {
+          var disposable = new Disposable();
+          expect(component.manageAndReturnDisposable(disposable), same(disposable));
+          expect(disposable.isDisposed, isFalse);
+          await unmountAndDisposal();
+          expect(disposable.isDisposed, isTrue);
+        });
+
+        test('should complete uncompleted managed Completer with ObjectDisposedException', () async {
+          var completer = new Completer<Null>();
+          component.manageCompleter(completer);
+          completer.future.catchError(expectAsync1((Object err) =>
+            expect(err, new isInstanceOf<ObjectDisposedException>())));
+
+          expect(completer.isCompleted, isFalse);
+          await unmountAndDisposal();
+          expect(completer.isCompleted, isTrue);
+        });
+
+        test('should dispose managed Disposable', () async {
+          var disposable = new Disposable();
+          component.manageDisposable(disposable);
+          expect(disposable.isDisposed, isFalse);
+          await unmountAndDisposal();
+          expect(disposable.isDisposed, isTrue);
+        });
+
+        test('should call managed disposers', () async {
+          var disposerCalled = false;
+          component.manageDisposer(() async => disposerCalled = true); // ignore: deprecated_member_use
+          expect(disposerCalled, isFalse);
+          await unmountAndDisposal();
+          expect(disposerCalled, isTrue);
+        });
+
+        test('should close managed StreamController', () async {
+          //ignore: close_sinks
+          var streamController = new StreamController<Null>.broadcast();
+          component.manageStreamController(streamController);
+          expect(streamController.isClosed, isFalse);
+          await unmountAndDisposal();
+          expect(streamController.isClosed, isTrue);
+        });
+
+        test('should cancel managed StreamSubscription', () async{
+          var streamController = new StreamController<Null>.broadcast();
+          // ignore: cancel_subscriptions
+          var streamSubscription = streamController.stream
+            .listen(expectAsync1((_) {},
+              count: 0,
+              reason: 'Did not expect event after cancelling subscription'));
+
+          component.manageStreamSubscription(streamSubscription); // ignore: deprecated_member_use
+          await unmountAndDisposal();
+
+          streamController
+            ..add(null)
+            ..close();
+        });
+      }, timeout: new Timeout(const Duration(milliseconds: 250)));
     });
 
     group('UiStatefulComponent', () {
@@ -706,7 +979,7 @@ class TestComponentProps extends UiProps {
   TestComponentProps([Map props]) : this.props = props ?? ({});
 }
 
-ReactComponentFactory _TestComponentComponentFactory = registerComponent(() => new TestComponentComponent());
+final _TestComponentComponentFactory = registerComponent(() => new TestComponentComponent());
 class TestComponentComponent extends UiComponent<TestComponentProps> {
   @override
   final List<ConsumedProps> consumedProps;
@@ -718,6 +991,13 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
 
   @override
   TestComponentProps typedPropsFactory(Map propsMap) => new TestComponentProps(propsMap);
+
+  @override
+  void validateProps(Map appliedProps) {
+    super.validateProps(appliedProps);
+
+    if (props['onValidateProps'] != null) props['onValidateProps'](appliedProps);
+  }
 }
 
 
@@ -736,7 +1016,7 @@ class TestStatefulComponentState extends UiState {
   TestStatefulComponentState([Map state]) : this.state = state ?? ({});
 }
 
-ReactComponentFactory _TestStatefulComponentComponentFactory = registerComponent(() => new TestStatefulComponentComponent());
+final _TestStatefulComponentComponentFactory = registerComponent(() => new TestStatefulComponentComponent());
 class TestStatefulComponentComponent extends UiStatefulComponent<TestStatefulComponentProps, TestStatefulComponentState> {
   @override
   render() {}
@@ -748,3 +1028,25 @@ class TestStatefulComponentComponent extends UiStatefulComponent<TestStatefulCom
 }
 
 abstract class TestRegisterComponentClassAlias {}
+
+class TestPropsMapViewMixin extends MapBase with MapViewMixin, PropsMapViewMixin implements Map {
+  @override
+  final Map props;
+
+  TestPropsMapViewMixin(this.props);
+}
+
+class TestStateMapViewMixin extends MapBase with MapViewMixin, StateMapViewMixin implements Map {
+  @override
+  final Map state;
+
+  TestStateMapViewMixin(this.state);
+}
+
+class TestUiPropsWithCustomComponentFactory extends UiProps {
+  @override
+  Function componentFactory;
+
+  @override
+  final Map props = {};
+}

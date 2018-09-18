@@ -60,7 +60,7 @@ main() {
 
       void setUpAndParse(String source) {
         logger = new MockTransformLogger();
-        sourceFile = new SourceFile(source);
+        sourceFile = new SourceFile.fromString(source);
         unit = parseCompilationUnit(source);
         declarations = new ParsedDeclarations(unit, sourceFile, logger);
       }

@@ -17,6 +17,7 @@ library over_react.dom_components;
 
 import 'package:over_react/src/component/prop_mixins.dart';
 import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
+import 'package:over_react/src/component_declaration/transformer_helpers.dart' as transformer_helpers;
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 
@@ -35,24 +36,46 @@ DomProps domProps([Map backingMap]) => new DomProps(null, backingMap);
 
 typedef DomProps DomPropsFactory();
 
-class DomProps extends component_base.UiProps with DomPropsMixin, ReactPropsMixin {
+// Include pieces from transformer_helpers so that consumers can type these instances
+// as the `UiProps` exposed in `over_react.dart` and not have to pull in `component_base`.
+class DomProps extends component_base.UiProps
+    with DomPropsMixin, transformer_helpers.GeneratedClass
+    implements transformer_helpers.UiProps {
   // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
   DomProps(this.componentFactory, [Map props]) : this.props = props ?? ({});
 
   @override
   final ReactDomComponentFactoryProxy componentFactory;
+
   @override
   final Map props;
+
+  @override
+  String get propKeyNamespace => '';
+
+  @override
+  ReactElement call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
 }
 
-class SvgProps extends component_base.UiProps with DomPropsMixin, ReactPropsMixin, SvgPropsMixin implements DomProps {
+// Include pieces from transformer_helpers so that consumers can type these instances
+// as the `UiProps` exposed in `over_react.dart` and not have to pull in `component_base`.
+class SvgProps extends component_base.UiProps
+    with DomPropsMixin, SvgPropsMixin, transformer_helpers.GeneratedClass
+    implements DomProps {
   // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
   SvgProps(this.componentFactory, [Map props]) : this.props = props ?? ({});
 
   @override
   final ReactDomComponentFactoryProxy componentFactory;
+
   @override
   final Map props;
+
+  @override
+  String get propKeyNamespace => '';
+
+  @override
+  ReactElement call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
 }
 
 /// A class that provides namespacing for static DOM component factory methods, much like `React.DOM` in React JS.

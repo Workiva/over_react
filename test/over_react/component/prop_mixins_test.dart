@@ -19,7 +19,7 @@ import 'dart:collection' show MapView;
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
-import '../../wsd_test_util/prop_utils.dart';
+import '../../test_util/prop_utils.dart';
 
 main() {
   group('ReactProps', () {
@@ -63,12 +63,32 @@ main() {
 
   group('UbiquitousProps', () {
     testKeys(const $PropKeys(UbiquitousDomPropsMixin), (() => new UbiquitousPropMixinsTest({})));
+
+    group('has a getter that provides a typed view of', () {
+      test('aria props', () {
+        var instance = new UbiquitousPropMixinsTest({})
+          ..aria.labelledby = 'foo';
+
+        expect(instance, equals(ariaProps()..labelledby = 'foo'), reason: 'should set the prop properly');
+        expect(instance.aria.labelledby, 'foo', reason: 'should be able to read the prop in addition to setting it');
+        expect(instance.aria, same(instance.aria), reason: 'should cache the backing typed MapView');
+      });
+
+      test('DOM props', () {
+        var instance = new UbiquitousPropMixinsTest({})
+          ..dom.target = 'foo';
+
+        expect(instance, equals(domProps()..target = 'foo'), reason: 'should set the prop properly');
+        expect(instance.dom.target, 'foo', reason: 'should be able to read the prop in addition to setting it');
+        expect(instance.dom, same(instance.dom), reason: 'should cache the backing typed MapView');
+      });
+    });
   });
 
   group('AriaProps', () {
       test('cannot set / read values that are not its prop map', () {
         var instance = new AriaPropMixinsTest({});
-        expect(() {instance['notThere'];}, throws);
+        expect(() {instance['notThere'];}, throwsArgumentError);
       });
 
       for (var propKey in const $PropKeys(AriaPropsMixin)) {
@@ -92,7 +112,7 @@ class DomPropMixinsTest extends MapView with DomPropsMixin {
   @override
   operator [](key) {
     if (!this.containsKey(key)) {
-      throw 'Map does not contain this key: $key';
+      throw new ArgumentError('Map does not contain this key: $key');
     }
     return super[key];
   }
@@ -110,7 +130,7 @@ class SvgPropMixinsTest extends MapView with SvgPropsMixin {
   @override
   operator [](key) {
     if (!this.containsKey(key)) {
-      throw 'Map does not contain this key: $key';
+      throw new ArgumentError('Map does not contain this key: $key');
     }
     return super[key];
   }
@@ -128,7 +148,7 @@ class ReactPropMixinsTest extends MapView with ReactPropsMixin {
   @override
   operator [](key) {
     if (!this.containsKey(key)) {
-      throw 'Map does not contain this key: $key';
+      throw new ArgumentError('Map does not contain this key: $key');
     }
     return super[key];
   }
@@ -146,7 +166,7 @@ class CssClassPropMixinsTest extends MapView with CssClassPropsMixin {
   @override
   operator [](key) {
     if (!this.containsKey(key)) {
-      throw 'Map does not contain this key: $key';
+      throw new ArgumentError('Map does not contain this key: $key');
     }
     return super[key];
   }
@@ -163,7 +183,7 @@ class UbiquitousPropMixinsTest extends MapView with UbiquitousDomPropsMixin {
   @override
   operator [](key) {
     if (!this.containsKey(key)) {
-      throw 'Map does not contain this key: $key';
+      throw new ArgumentError('Map does not contain this key: $key');
     }
     return super[key];
   }
@@ -180,7 +200,7 @@ class AriaPropMixinsTest extends MapView with AriaPropsMixin {
   @override
   operator [](key) {
     if (!this.containsKey(key)) {
-      throw 'Map does not contain this key: $key';
+      throw new ArgumentError('Map does not contain this key: $key');
     }
     return super[key];
   }

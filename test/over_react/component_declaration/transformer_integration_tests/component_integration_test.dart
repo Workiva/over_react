@@ -22,12 +22,6 @@ import '../../../test_util/test_util.dart';
 
 main() {
   group('transformed component integration:', () {
-    test('props class cannot be instantiated directly', () {
-      expect(() {
-        new ComponentTestProps();
-      }, throws);
-    });
-
     test('component class can be instantiated directly', () {
       var instance;
       expect(() {
@@ -117,8 +111,9 @@ main() {
       )());
 
       var shallowProps = getProps(shallowInstance);
+      Iterable<String> shallowPropKeys = shallowProps.keys;
 
-      expect(shallowProps.keys.where((String key) => !key.startsWith('data-prop-')), unorderedEquals(['extraneous', 'children']));
+      expect(shallowPropKeys.where((String key) => !key.startsWith('data-prop-')), unorderedEquals(['extraneous', 'children']));
     });
 
     requiredPropsIntegrationTest();

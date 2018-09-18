@@ -15,6 +15,8 @@
 @TestOn('vm')
 library impl_generation_test;
 
+import 'dart:isolate';
+
 import 'package:analyzer/analyzer.dart' hide startsWith;
 import 'package:barback/barback.dart';
 import 'package:mockito/mockito.dart';
@@ -37,7 +39,7 @@ main() {
     void setUpAndParse(String source) {
       logger = new MockTransformLogger();
 
-      sourceFile = new SourceFile(source);
+      sourceFile = new SourceFile.fromString(source);
       transformedFile = new TransformedSourceFile(sourceFile);
 
       unit = parseCompilationUnit(source);
@@ -45,10 +47,11 @@ main() {
       implGenerator = new ImplGenerator(logger, transformedFile);
     }
 
-    void setUpAndGenerate(String source) {
+    void setUpAndGenerate(String source, {bool shouldFixDdcAbstractAccessors: false}) {
       setUpAndParse(source);
 
-      implGenerator = new ImplGenerator(logger, transformedFile);
+      implGenerator = new ImplGenerator(logger, transformedFile)
+        ..shouldFixDdcAbstractAccessors = shouldFixDdcAbstractAccessors;
       implGenerator.generate(declarations);
     }
 
@@ -72,7 +75,7 @@ main() {
 
       expect(() {
         parseCompilationUnit(transformedSource);
-      }, isNot(throws), reason: 'transformed source should parse without errors:\n$transformedSource');
+      }, returnsNormally, reason: 'transformed source should parse without errors:\n$transformedSource');
     }
 
     group('generates an implementation that parses correctly, preserving line numbers', () {
@@ -266,7 +269,6 @@ main() {
               class FooComponent {}
             ''');
 
-            print(transformedFile.getTransformedText());
             expect(transformedFile.getTransformedText(), contains('parentType: \$BarComponentFactory'));
           });
 
@@ -282,7 +284,6 @@ main() {
               class FooComponent {}
             ''');
 
-            print(transformedFile.getTransformedText());
             expect(transformedFile.getTransformedText(), contains('parentType: baz.\$BarComponentFactory'));
           });
         });
@@ -326,6 +327,19 @@ main() {
             var baz;
           }
         ''');
+      });
+
+      test('covariant keyword', () {
+        preservedLineNumbersTest('''
+          @AbstractProps()
+          class AbstractFooProps {
+            covariant String foo;
+          }
+        ''');
+
+        expect(transformedFile.getTransformedText(), contains('String get foo => props[_\$key__foo__AbstractFooProps];'));
+        expect(transformedFile.getTransformedText(),
+            contains('set foo(covariant String value) => props[_\$key__foo__AbstractFooProps] = value;'));
       });
 
       group('accessors', () {
@@ -383,6 +397,164 @@ main() {
 //            expect(transformedLines[3].trimLeft(), startsWith('/* line 3 start */'));
 //            expect(transformedLines[4].trimLeft(), startsWith('/* line 4 start */'));
             expect(transformedLines[5].trimLeft(), startsWith('/* line 5 start */'));
+          });
+        });
+
+        group('shouldFixDdcAbstractAccessors', () {
+          /// The comment always inserted by this patching logic.
+          const String abstractAccessorsPatchComment = '/* fixDdcAbstractAccessors workaround: */';
+
+          group('does not patch abstract getters corresponding to the backing map for', () {
+            test('props classes', () {
+              setUpAndGenerate('''
+                @PropsMixin() class FooPropsMixin {  
+                  // override isn't typically used here, but it's necessary to trigger the patching logic 
+                  @override
+                  Map get props;
+      
+                  var bar;
+                  var baz;
+                }
+              ''', shouldFixDdcAbstractAccessors: true);
+
+              expect(transformedFile.getTransformedText(), isNot(contains(abstractAccessorsPatchComment)));
+            });
+
+            test('state classes', () {
+              setUpAndGenerate('''
+                @StateMixin() class FooStateMixin {
+                  // override isn't typically used here, but it's necessary to trigger the patching logic 
+                  @override
+                  Map get state;
+                }
+              ''', shouldFixDdcAbstractAccessors: true);
+
+              expect(transformedFile.getTransformedText(), isNot(contains(abstractAccessorsPatchComment)));
+            });
+          });
+
+          group('patches abstract accessors', () {
+            group('getters', () {
+              test('with types', () {
+                setUpAndGenerate('''
+                  @PropsMixin() abstract class FooPropsMixin {
+                    Map get props;
+                    
+                    @override
+                    Iterable get bar;
+                  }
+                ''', shouldFixDdcAbstractAccessors: true);
+
+                expect(transformedFile.getTransformedText(), contains(
+                    'Iterable get bar; $abstractAccessorsPatchComment set bar(covariant Iterable value);'
+                ));
+              });
+
+              test('without types', () {
+                setUpAndGenerate('''
+                  @PropsMixin() abstract class FooPropsMixin {  
+                    Map get props;
+        
+                    @override
+                    get bar;
+                  }
+                ''', shouldFixDdcAbstractAccessors: true);
+
+                expect(transformedFile.getTransformedText(), contains(
+                    'get bar; $abstractAccessorsPatchComment set bar(covariant value);'
+                ));
+              });
+            });
+
+            group('setters', () {
+              test('with types', () {
+                setUpAndGenerate('''
+                  @PropsMixin() abstract class FooPropsMixin {  
+                    Map get props;
+        
+                    @override
+                    set bar(Iterable value);
+                  }
+                ''', shouldFixDdcAbstractAccessors: true);
+
+                expect(transformedFile.getTransformedText(), contains(
+                    'set bar(Iterable value); $abstractAccessorsPatchComment Iterable get bar;'
+                ));
+              });
+
+              test('without types', () {
+                setUpAndGenerate('''
+                  @PropsMixin() abstract class FooPropsMixin {  
+                    Map get props;
+        
+                    @override
+                    set bar(value);
+                  }
+                ''', shouldFixDdcAbstractAccessors: true);
+
+                expect(transformedFile.getTransformedText(), contains(
+                    'set bar(value); $abstractAccessorsPatchComment get bar;'
+                ));
+              });
+            });
+
+            group('in all generated accessor classes', () {
+              const types = const <String, String>{
+                'props mixin': '''
+                    @PropsMixin() abstract class FooPropsMixin {  
+                      Map get props;
+                      @override get bar;
+                    }
+                ''',
+                'state mixin': '''
+                    @StateMixin() abstract class FooStateMixin {  
+                      Map get state;
+                      @override get bar;
+                    }
+                ''',
+                'props class': '''
+                    @Factory() UiFactory<FooProps> Foo;
+                    @Props() class FooProps {  
+                      @override get bar;
+                    }
+                    @Component() class FooComponent {}
+                ''',
+                'state class': '''
+                    @Factory() UiFactory<FooProps> Foo;
+                    @Props() class FooProps {}
+                    @State() class FooState {
+                      @override get bar;
+                    }
+                    @Component() class FooComponent {}
+                ''',
+                'abstract props class': '''
+                    @AbstractProps() abstract class AbstractFooProps {  
+                      @override get bar;
+                    }
+                ''',
+                'abstract state class': '''
+                    @AbstractState() abstract class AbstractFooState {  
+                      @override get bar;
+                    }
+                ''',
+              };
+
+              types.forEach((String name, String source) {
+                test(name, () {
+                  setUpAndGenerate(source, shouldFixDdcAbstractAccessors: true);
+                  expect(transformedFile.getTransformedText(), contains(abstractAccessorsPatchComment));
+                });
+              });
+
+              group('unless shouldFixDdcAbstractAccessors is false', () {
+                types.forEach((String name, String source) {
+                  test(name, () {
+                    setUpAndGenerate(source, shouldFixDdcAbstractAccessors: false);
+                    expect(transformedFile.getTransformedText(), isNot(contains(abstractAccessorsPatchComment)));
+                  });
+                });
+              });
+            });
           });
         });
       });
@@ -579,11 +751,88 @@ main() {
         ''');
         verify(logger.error('Fields are stubs for generated setters/getters and should not have initializers.', span: any));
       });
+
+      group('accessors have', () {
+        const expectedAccessorErrorMessage = '@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
+            'You can use `@Accessor(required: true)` or `isNullable: true` instead of the shorthand versions.';
+
+        test('the Accessor and requiredProp annotation', () {
+          setUpAndGenerate('''
+            @AbstractProps()
+            class AbstractFooProps {
+              @Accessor()
+              @requiredProp
+              var bar;
+            }
+          ''');
+          verify(logger.error(expectedAccessorErrorMessage, span: any));
+        });
+
+        test('the Accessor and nullableRequiredProp annotation', () {
+          setUpAndGenerate('''
+            @AbstractProps()
+            class AbstractFooProps {
+              @Accessor()
+              @nullableRequiredProp
+              var bar;
+            }
+          ''');
+          verify(logger.error(expectedAccessorErrorMessage, span: any));
+        });
+
+        test('the requiredProp and nullableRequiredProp annotation', () {
+          setUpAndGenerate('''
+            @AbstractProps()
+            class AbstractFooProps {
+              @requiredProp
+              @nullableRequiredProp
+              var bar;
+            }
+          ''');
+          verify(logger.error(expectedAccessorErrorMessage, span: any));
+        });
+      });
     });
 
     group('logs a warning when', () {
       tearDown(() {
         verifyTransformedSourceIsValid();
+      });
+
+      group('a Component', () {
+        test('implements typedPropsFactory', () {
+          setUpAndGenerate('''
+            @Factory()
+            UiFactory<FooProps> Foo;
+
+            @Props()
+            class FooProps {}
+
+            @Component()
+            class FooComponent {
+              typedPropsFactory(Map backingMap) => {};
+            }
+          ''');
+
+          verify(logger.warning('Components should not add their own implementions of typedPropsFactory or typedStateFactory.', span: any));
+        });
+
+        test('implements typedStateFactory', () {
+          setUpAndGenerate('''
+            @Factory()
+            UiFactory<FooProps> Foo;
+
+            @Props()
+            class FooProps {}
+
+            @Component()
+            class FooComponent {
+              typedStateFactory(Map backingMap) => {};
+            }
+          ''');
+
+          verify(logger.warning('Components should not add their own implementions of typedPropsFactory or typedStateFactory.', span: any));
+        });
       });
 
       group('comma-separated variables are declared', () {
@@ -612,6 +861,56 @@ main() {
           ''');
           verify(logger.warning(expectedCommaSeparatedWarning, span: any));
         });
+      });
+    });
+
+    group('generates `call` on the _\$*PropsImpl class that matches the signature of UiProps', () {
+      MethodDeclaration uiPropsCall;
+
+      setUpAll(() async {
+        var componentBase = parseDartFile((await Isolate.resolvePackageUri(Uri.parse(
+            'package:over_react/src/component_declaration/component_base.dart'
+        ))).toFilePath());
+
+        ClassDeclaration uiPropsClass = componentBase.declarations
+            .singleWhere((member) => member is ClassDeclaration && member.name?.name == 'UiProps');
+
+        uiPropsCall = uiPropsClass.members
+            .singleWhere((entity) => entity is MethodDeclaration && entity.name?.name == 'call');
+      });
+
+      test('generates `call` override on the _\$*PropsImpl class correctly, as a workaround for dart-lang/sdk#16030', () {
+        setUpAndGenerate('''
+          @Factory()
+          UiFactory<FooProps> Foo;
+
+          @Props()
+          class FooProps {}
+
+          @Component()
+          class FooComponent {
+            render() => null;
+          }
+        ''');
+
+        var transformedSource = transformedFile.getTransformedText();
+        var parsedTransformedSource = parseCompilationUnit(transformedSource);
+
+        ClassDeclaration propsImplClass = parsedTransformedSource.declarations
+            .singleWhere((entity) => entity is ClassDeclaration && entity.name?.name == r'_$FooPropsImpl');
+
+        MethodDeclaration propsImplCall = propsImplClass.members
+            .singleWhere((entity) => entity is MethodDeclaration && entity.name?.name == 'call');
+
+        expect(propsImplCall.parameters.toSource(), uiPropsCall.parameters.toSource(),
+            reason: 'should have the correct number of arguments');
+        expect(propsImplCall.metadata, contains(predicate((meta) => meta.name?.name == 'override')),
+            reason: 'should have @override');
+        expect(propsImplCall.returnType, null,
+            reason: 'should not be typed, since ReactElement may not be imported');
+        expect(propsImplCall.isAbstract, isTrue,
+            reason: 'should be abstract; the declaration is only for dart2js bug workaround purposes, '
+                'and the inherited implementation should be used');
       });
     });
 

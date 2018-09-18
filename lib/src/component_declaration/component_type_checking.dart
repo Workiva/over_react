@@ -16,9 +16,11 @@
 library over_react.component_declaration.component_type_checking;
 
 import 'package:over_react/src/component_declaration/component_base.dart' show UiFactory;
+import 'package:over_react/src/component_declaration/annotations.dart' as annotations show Component;
 import 'package:over_react/src/util/react_wrappers.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_interop_helpers.dart';
+import 'package:react/react_client/react_interop.dart';
 
 // ----------------------------------------------------------------------
 //   Component type registration and internal type metadata management
@@ -73,10 +75,40 @@ class ComponentTypeMeta {
   ///
   /// Used to enable inheritance in component type-checking in [isComponentOfType].
   ///
-  /// E.g., if component `Bar` is a subtype of component `Foo`, then:
+  /// E.g., if component `Bar` is a subtype of component `Foo`:
+  ///
+  ///     //
+  ///     // foo.dart
+  ///     //
+  ///
+  ///     @Factory()
+  ///     UiFactory<FooProps> Foo;
+  ///
+  ///     @Component()
+  ///     class FooComponent extends UiComponent<FooProps> {
+  ///       // ...
+  ///     }
+  ///
+  ///     //
+  ///     // bar.dart
+  ///     //
+  ///
+  ///     @Factory()
+  ///     UiFactory<FooProps> Foo;
+  ///
+  ///     @Component(subtypeOf: FooComponent)
+  ///     class BarComponent extends UiComponent<BarProps> {
+  ///       // ...
+  ///     }
+  ///
+  ///     //
+  ///     // app.dart
+  ///     //
   ///
   ///     isComponentOfType(Bar()(), Bar); // true (due to normal type-checking)
   ///     isComponentOfType(Bar()(), Foo); // true (due to parent type-checking)
+  ///
+  /// > See: `subtypeOf` (within [annotations.Component])
   final ReactDartComponentFactoryProxy parentType;
 
   ComponentTypeMeta(this.isWrapper, this.parentType);
@@ -108,7 +140,7 @@ class ComponentTypeMeta {
 ///
 /// Consumers of this function should be sure to take the latter case into consideration.
 ///
-/// __CAVEAT:__ Due to type-checking limitations on JS-interop types, when [typeAlias] is a [Function],
+/// > __CAVEAT:__ Due to type-checking limitations on JS-interop types, when [typeAlias] is a [Function],
 /// and it is not found to be an alias for another type, it will be returned as if it were a valid type.
 dynamic getComponentTypeFromAlias(dynamic typeAlias) {
   /// If `typeAlias` is a factory, return its type.
@@ -143,19 +175,19 @@ dynamic getComponentTypeFromAlias(dynamic typeAlias) {
 /// * [String] tag name (DOM components)
 /// * [Function] ([ReactClass]) factory (Dart/JS composite components)
 ///
-///     Note: It's impossible to determine know whether something is a ReactClass due to type-checking restrictions
-///         for JS-interop classes, so a Function type-check is the best we can do.
+/// > __NOTE:__ It's impossible to determine know whether something is a [ReactClass] due to type-checking restrictions
+/// for JS-interop classes, so a Function type-check is the best we can do.
 bool isPotentiallyValidComponentType(dynamic type) {
   return type is Function || type is String;
 }
 
-/// Returns an [Iterable] of all component types that are ancestors of [typeAlias].
+/// Returns an [Iterable] of all component types that are ancestors of [type].
 ///
 /// For example, given components A, B, and C, where B subtypes A and C subtypes B:
 ///
-///     getParentTypes(getTypeFromAlias(A)); // []
-///     getParentTypes(getTypeFromAlias(B)); // [A].map(getTypeFromAlias)
-///     getParentTypes(getTypeFromAlias(C)); // [B, A].map(getTypeFromAlias)
+///     getParentTypes(getComponentTypeFromAlias(A)); // []
+///     getParentTypes(getComponentTypeFromAlias(B)); // [A].map(getTypeFromAlias)
+///     getParentTypes(getComponentTypeFromAlias(C)); // [B, A].map(getTypeFromAlias)
 Iterable<dynamic> getParentTypes(dynamic type) sync* {
   assert(isPotentiallyValidComponentType(type) &&
       '`type` should be a valid component type (and not null or a type alias).' is String);
@@ -182,6 +214,8 @@ Iterable<dynamic> getParentTypes(dynamic type) sync* {
 /// * [ReactComponentFactoryProxy]
 /// * [ReactClass] component factory
 /// * [String] tag name (DOM components only)
+///
+/// > Related: [isValidElementOfType]
 bool isComponentOfType(ReactElement instance, dynamic typeAlias, {
     bool traverseWrappers: true,
     bool matchParentTypes: true
@@ -228,6 +262,8 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias, {
 /// * [ReactComponentFactoryProxy]
 /// * [ReactClass] component factory
 /// * [String] tag name (DOM components only)
+///
+/// > Related: [isComponentOfType]
 bool isValidElementOfType(dynamic instance, dynamic typeAlias) {
   return isValidElement(instance) && isComponentOfType(instance, typeAlias);
 }

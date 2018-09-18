@@ -16,7 +16,8 @@ library over_react.css_value_util;
 
 import 'package:quiver/core.dart';
 
-/// A CSS length value, with a number and unit component, for use in CSS properties such as `width`, `top`, `padding`, etc.
+/// A CSS length value, with a number and unit component,
+/// for use in CSS properties such as `width`, `top`, `padding`, etc.
 class CssValue implements Comparable<CssValue> {
   /// The number component of this CSS value.
   ///
@@ -28,14 +29,20 @@ class CssValue implements Comparable<CssValue> {
   /// E.g., 'px' for '1px'
   final String unit;
 
-  /// Creates a new [CssValue]. If no [unit] is specified, `'px'` is used instead.
+  /// Creates a new [CssValue].
+  ///
+  /// If no [unit] is specified, `'px'` is used instead.
   const CssValue(this.number, [this.unit = 'px']);
 
   /// Parse [source] and return its [CssValue] representation.
   ///
-  /// Accepts a number optionally followed by a CSS length unit. If no unit is present, `'px'` is used as the unit instead.
+  /// Accepts a number optionally followed by a CSS length unit.
+  /// If no unit is present, `'px'` is used as the unit instead.
   ///
-  /// If `source` is not a valid CSS value, the [onError] callback is called with [source] and an error object, and its return value is used instead. If no `onError` is provided, `null` is returned.
+  /// If `source` is not a valid CSS value, the [onError] callback
+  /// is called with [source] and an error object, and its return
+  /// value is used instead. If no `onError` is provided, `null`
+  /// is returned.
   ///
   /// Examples of accepted values:
   ///
@@ -57,15 +64,14 @@ class CssValue implements Comparable<CssValue> {
       unit = 'px';
     } else {
       var unitMatch = new RegExp(r'(?:rem|em|ex|vh|vw|vmin|vmax|%|px|cm|mm|in|pt|pc|ch)?$').firstMatch(source.toString());
-      try {
-        number = double.parse(unitMatch.input.substring(0, unitMatch.start));
         unit = unitMatch.group(0);
-        if (unit == '') {
-          unit = 'px';
-        }
-      } catch(e) {
-        error = new ArgumentError.value(source, 'value', 'Invalid number/unit for CSS value');
+      if (unit == '') {
+        unit = 'px';
       }
+
+      number = double.parse(unitMatch.input.substring(0, unitMatch.start), (_) {
+        error = new ArgumentError.value(source, 'value', 'Invalid number/unit for CSS value');
+      });
     }
 
     if (number != null && !number.isFinite) {

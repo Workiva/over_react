@@ -1,7 +1,24 @@
+// Copyright 2016 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 library over_react.component_declaration.flux_component;
 
 import 'dart:async';
+import 'package:logging/logging.dart';
+import 'package:meta/meta.dart';
 import 'package:w_flux/w_flux.dart';
+
 import './annotations.dart' as annotations;
 import './transformer_helpers.dart';
 
@@ -49,12 +66,17 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
 ///   the resulting component.
 ///
 /// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
+///
+/// > Related: [FluxUiStatefulComponent]
 abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<TProps> with BatchedRedraws {
+  static final Logger _logger = new Logger('over_react._FluxComponentMixin');
+
   /// List of store subscriptions created when the component mounts.
   ///
   /// These subscriptions are canceled when the component is unmounted.
   List<StreamSubscription> _subscriptions = [];
 
+  @mustCallSuper
   @override
   void componentWillMount() {
     /// Subscribe to all applicable stores.
@@ -68,11 +90,23 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
         value: (_) => (_) => redraw())..addAll(getStoreHandlers());
 
     handlers.forEach((store, handler) {
+      String message = 'Cannot listen to a disposed/disposing Store.';
+
+      var isDisposedOrDisposing = store.isOrWillBeDisposed ?? false;
+
+      assert(!isDisposedOrDisposing, '$message This can be caused by BatchedRedraws '
+        'mounting the component asynchronously after the store has been disposed. If you are '
+        'in a test environment, try adding an `await window.animationFrame;` before disposing your '
+        'store.');
+
+      if (isDisposedOrDisposing) _logger.warning(message);
+
       StreamSubscription subscription = store.listen(handler);
       _subscriptions.add(subscription);
     });
   }
 
+  @mustCallSuper
   @override
   void componentWillUnmount() {
     // Ensure that unmounted components don't batch render
@@ -130,7 +164,7 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
   }
 }
 
-/// A [FluxUiComponent] subclass with typed state added via [UiStatefulMixin], for convenience.
+/// Builds on top of [UiStatefulComponent], adding `w_flux` integration, much like the [FluxComponent] in w_flux.
 ///
 /// * Flux components are responsible for rendering application views and turning
 ///   user interactions and events into [Action]s.
@@ -138,6 +172,8 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
 ///   the resulting component.
 ///
 /// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
+///
+/// > Related: [FluxUiComponent], [UiStatefulMixin]
 abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extends UiState>
     extends FluxUiComponent<TProps> with UiStatefulMixin<TState>
     implements UiStatefulComponent<TProps, TState> {}

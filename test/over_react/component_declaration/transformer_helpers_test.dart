@@ -17,8 +17,8 @@ library over_react.transformer_generation.helpers_test;
 import 'package:over_react/src/component_declaration/transformer_helpers.dart';
 import 'package:test/test.dart';
 
-const Matcher throwsUngeneratedError          = const Throws(const isInstanceOf<UngeneratedError>());
-const Matcher throwsIllegalInstantiationError = const Throws(const isInstanceOf<IllegalInstantiationError>());
+final Matcher throwsUngeneratedError          = throwsA(const isInstanceOf<UngeneratedError>());
+final Matcher throwsIllegalInstantiationError = throwsA(const isInstanceOf<IllegalInstantiationError>());
 
 main() {
   group('transformation generation helpers:', () {
@@ -140,7 +140,7 @@ main() {
 
     group('\$PropKeys (ungenerated)', () {
       setUpAll(() {
-        expect(() => const $PropKeys(Null), isNot(throwsNoSuchMethodError),
+        expect(() => const $PropKeys(Null), returnsNormally,
             reason: 'Instanitating a const \$PropKeys should not have thrown an error. '
                     'Ensure that the over_react transformer is NOT running for this test file.'
         );
@@ -164,7 +164,7 @@ main() {
 
     group('\$Props (ungenerated)', () {
       setUpAll(() {
-        expect(() => const $Props(Null), isNot(throwsNoSuchMethodError),
+        expect(() => const $Props(Null), returnsNormally,
             reason: 'Instanitating a const \$Props should not have thrown an error. '
                     'Ensure that the over_react transformer is NOT running for this test file.'
         );

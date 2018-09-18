@@ -14,17 +14,14 @@
 
 /// Thanks!
 /// https://github.com/marcj/css-element-queries/blob/master/src/ResizeSensor.js
-library resize_sensor;
+library over_react.resize_sensor;
 
 import 'dart:collection';
 import 'dart:html';
 
-import 'package:browser_detect/browser_detect.dart';
+import 'package:meta/meta.dart';
+import 'package:platform_detect/platform_detect.dart';
 import 'package:over_react/over_react.dart';
-import 'package:react/react.dart' as react;
-
-// Callback for [ResizeSensorEvent]s
-typedef void ResizeSensorHandler(ResizeSensorEvent event);
 
 /// A wrapper component that detects when its parent is resized.
 ///
@@ -42,7 +39,8 @@ abstract class ResizeSensorPropsMixin {
   static final ResizeSensorPropsMixinMapView defaultProps = new ResizeSensorPropsMixinMapView({})
     ..isFlexChild = false
     ..isFlexContainer = false
-    ..shrink = false;
+    ..shrink = false
+    ..quickMount = false;
 
   Map get props;
 
@@ -71,16 +69,31 @@ abstract class ResizeSensorPropsMixin {
   ///
   /// Default: false
   bool shrink;
+
+  /// Whether quick-mount mode is enabled, which minimizes layouts caused by accessing element dimensions
+  /// during initialization, allowing the component to mount faster.
+  ///
+  /// When enabled:
+  ///
+  /// * The initial dimensions will not be retrieved, so the first [onResize]
+  ///   event will contain `0` for the previous dimensions.
+  ///
+  ///     * [onInitialize] will never be called.
+  ///
+  /// * The sensors will be initialized/reset in the next animation frame after mount, as opposed to synchronously,
+  ///   helping to break up resulting layouts.
+  ///
+  /// Default: false
+  bool quickMount;
 }
 
 @Props()
 class ResizeSensorProps extends UiProps with ResizeSensorPropsMixin {}
 
 @Component()
-class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
+class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAnimationFrameMixin {
   // Refs
 
-  Element _expandSensorChildRef;
   Element _expandSensorRef;
   Element _collapseSensorRef;
 
@@ -89,101 +102,106 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
     ..addProps(ResizeSensorPropsMixin.defaultProps)
   );
 
+  @mustCallSuper
+  @override
+  void componentWillUnmount() {
+    super.componentWillUnmount();
+
+    cancelAnimationFrames();
+  }
+
+  @mustCallSuper
   @override
   void componentDidMount() {
-    _reset();
+    if (props.quickMount) {
+      assert(props.onInitialize == null || ValidationUtil.warn(
+          'props.onInitialize will not be called when props.quickMount is true.',
+          this
+      ));
 
-    if (props.onInitialize != null) {
-      var event = new ResizeSensorEvent(_lastWidth, _lastHeight, 0, 0);
-      props.onInitialize(event);
+      // [1] Initialize/reset the sensor in the next animation frame after mount
+      //     so that resulting layouts don't happen synchronously, and are better dispersed.
+      //
+      // [2] Ignore the first `2` scroll events triggered by resetting the scroll positions
+      //     of the expand and collapse sensors.
+      //
+      // [3] Don't access the dimensions of the sensor to prevent unnecessary layouts.
+
+      requestAnimationFrame(() { // [1]
+        _scrollEventsToIgnore = 2; // [2]
+        _reset(updateLastDimensions: false); // [3]
+      });
+    } else {
+      _reset();
+
+      if (props.onInitialize != null) {
+        var event = new ResizeSensorEvent(_lastWidth, _lastHeight, 0, 0);
+        props.onInitialize(event);
+      }
     }
   }
 
   @override
   render() {
-    var expandSensorChild = (Dom.div()
-      ..ref = (ref) { _expandSensorChildRef = ref; }
-      ..style = _expandSensorChildStyle
-    )();
-
     var expandSensor = (Dom.div()
       ..className = 'resize-sensor-expand'
       ..onScroll = _handleSensorScroll
       ..style = props.shrink ? _shrinkBaseStyle : _baseStyle
       ..ref = (ref) { _expandSensorRef = ref; }
-      ..key = 'expandSensor'
-    )(expandSensorChild);
-
-    var collapseSensorChild = (Dom.div()..style = _collapseSensorChildStyle)();
+    )(
+      (Dom.div()..style = _expandSensorChildStyle)()
+    );
 
     var collapseSensor = (Dom.div()
       ..className = 'resize-sensor-collapse'
       ..onScroll = _handleSensorScroll
       ..style = props.shrink ? _shrinkBaseStyle : _baseStyle
       ..ref = (ref) { _collapseSensorRef = ref; }
-      ..key = 'collapseSensor'
-    )(collapseSensorChild);
-
-    var children = new List.from(props.children)
-      ..add(
-          (Dom.div()
-            ..className = 'resize-sensor'
-            ..style = props.shrink ? _shrinkBaseStyle : _baseStyle
-            ..key = 'resizeSensor'
-          )(expandSensor, collapseSensor)
+    )(
+      (Dom.div()..style = _collapseSensorChildStyle)()
     );
 
+    var resizeSensor = (Dom.div()
+      ..className = 'resize-sensor'
+      ..style = props.shrink ? _shrinkBaseStyle : _baseStyle
+      ..key = 'resizeSensor'
+    )(expandSensor, collapseSensor);
+
     Map<String, dynamic> wrapperStyles;
-
     if (props.isFlexChild) {
-      wrapperStyles = {
-        'position': 'relative',
-        'flex': '1 1 0%',
-        'WebkitFlex': '1 1 0%',
-        'msFlex': '1 1 0%',
-        'display': 'block'
-      };
+      wrapperStyles = _wrapperStylesFlexChild;
     } else if (props.isFlexContainer) {
-      wrapperStyles = {
-        'position': 'relative',
-        'flex': '1 1 0%',
-        'WebkitFlex': '1 1 0%',
-        'msFlex': '1 1 0%'
-      };
-
-      // IE 10 and Safari 8 need 'special' value prefixes for 'display:flex'.
-      if (browser.isIe && browser.version <= '10') {
-        wrapperStyles['display'] = '-ms-flexbox';
-      } else if (browser.isSafari && browser.version < '9') {
-        wrapperStyles['display'] = '-webkit-flex';
-      } else {
-        wrapperStyles['display'] = 'flex';
-      }
-
+      wrapperStyles = _wrapperStylesFlexContainer;
     } else {
-      wrapperStyles = {
-        'position': 'relative',
-        'height': '100%',
-        'width': '100%'
-      };
+      wrapperStyles = _wrapperStyles;;
     }
 
     return (Dom.div()
       ..addProps(copyUnconsumedDomProps())
       ..className = forwardingClassNameBuilder().toClassName()
       ..style = wrapperStyles
-    )(children);
+    )(
+      props.children,
+      resizeSensor
+    );
   }
 
   /// When the expand or collapse sensors are resized, builds a [ResizeSensorEvent] and calls
   /// props.onResize with it. Then, calls through to [_reset()].
-  void _handleSensorScroll(react.SyntheticEvent _) {
-    Element sensor = findDomNode(this);
+  void _handleSensorScroll(SyntheticEvent _) {
+    if (_scrollEventsToIgnore > 0) {
+      _scrollEventsToIgnore--;
+      return;
+    }
 
-    if (sensor.offsetWidth != _lastWidth || sensor.offsetHeight != _lastHeight) {
-      var event = new ResizeSensorEvent(sensor.offsetWidth, sensor.offsetHeight, _lastWidth, _lastHeight);
+    var sensor = findDomNode(this);
 
+    var newWidth = sensor.offsetWidth;
+    var newHeight = sensor.offsetHeight;
+
+    if (newWidth != _lastWidth || newHeight != _lastHeight) {
       if (props.onResize != null) {
+        var event = new ResizeSensorEvent(newWidth, newHeight, _lastWidth, _lastHeight);
         props.onResize(event);
       }
 
@@ -191,29 +209,38 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
     }
   }
 
-  /// Update the width and height on [expandSensorChild], and the scroll position on
-  /// [expandSensorChild] and [collapseSensor].
+  /// Reset the scroll positions on [_expandSensorRef] and [_collapseSensorRef] so that future
+  /// resizes will trigger scroll events.
   ///
-  /// Additionally update the state with the new [_lastWidth] and [_lastHeight].
-  void _reset() {
-    Element expand = _expandSensorRef;
-    Element expandChild = _expandSensorChildRef;
-    Element collapse = _collapseSensorRef;
-    Element sensor = findDomNode(this);
+  /// Additionally update the state with the new [_lastWidth] and [_lastHeight] when [updateLastDimensions] is true.
+  void _reset({bool updateLastDimensions: true}) {
+    if (updateLastDimensions) {
+      var sensor = findDomNode(this);
+      _lastWidth = sensor.offsetWidth;
+      _lastHeight = sensor.offsetHeight;
+    }
 
-    expandChild.style.width = '${expand.offsetWidth + 10}px';
-    expandChild.style.height = '${expand.offsetHeight + 10}px';
+    // Scroll positions are clamped to their maxes; use this behavior to scroll to the end
+    // as opposed to scrollWidth/scrollHeight, which trigger reflows immediately.
 
-    expand.scrollLeft = expand.scrollWidth;
-    expand.scrollTop = expand.scrollHeight;
+    _expandSensorRef
+      ..scrollLeft = _maxSensorSize
+      ..scrollTop = _maxSensorSize;
 
-    collapse.scrollLeft = collapse.scrollWidth;
-    collapse.scrollTop = collapse.scrollHeight;
-
-
-    _lastWidth = sensor.offsetWidth;
-    _lastHeight = sensor.offsetHeight;
+    _collapseSensorRef
+      ..scrollLeft = _maxSensorSize
+      ..scrollTop = _maxSensorSize;
   }
+
+  /// The number of future scroll events to ignore.
+  ///
+  /// Resetting the sensors' scroll positions causes sensor scroll events to fire even though a resize didn't occur,
+  /// so this flag is used to ignore those scroll events on mount for performance reasons in quick-mount mode
+  /// (since the handler causes a layout by accessing the sensor's dimensions).
+  ///
+  /// This value is only set for the component's mount and __not__ reinitialized every time [_reset] is called
+  /// in order to avoid ignoring scroll events fired by actual resizes at the same time that the reset is taking place.
+  int _scrollEventsToIgnore = 0;
 
   /// The most recently measured value for the height of the sensor.
   int _lastHeight = 0;
@@ -221,6 +248,14 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> {
   /// The most recently measured value for the width of the sensor.
   int _lastWidth = 0;
 }
+
+/// The maximum size, in `px`, the sensor can be: 100,000.
+///
+/// We want to use absolute values to avoid accessing element dimensions when possible,
+/// and relative units like `%` don't work since they don't cause scroll events when sensor size changes.
+///
+/// We could use `rem` or `vh`/`vw`, but that opens us up to more edge cases.
+const int _maxSensorSize = 100 * 1000;
 
 final Map<String, dynamic> _baseStyle = const {
   'position': 'absolute',
@@ -255,6 +290,11 @@ final Map<String, dynamic> _expandSensorChildStyle = const {
   'top': '0',
   'left': '0',
   'visibility': 'hidden',
+  // Use a width/height that will always be larger than the expandSensor.
+  // We'd ideally want to do something like calc(100% + 10px), but that doesn't
+  // trigger scroll events the same way a fixed dimension does.
+  'width': _maxSensorSize,
+  'height': _maxSensorSize,
   // Set opacity in addition to visibility to work around Safari scrollbar bug.
   'opacity': '0',
 };
@@ -269,6 +309,33 @@ final Map<String, dynamic> _collapseSensorChildStyle = const {
   // Set opacity in addition to visibility to work around Safari scrollbar bug.
   'opacity': '0',
 };
+
+
+const Map<String, dynamic> _wrapperStyles = const {
+  'position': 'relative',
+  'height': '100%',
+  'width': '100%',
+};
+
+const Map<String, dynamic> _wrapperStylesFlexChild = const {
+  'position': 'relative',
+  'flex': '1 1 0%',
+  'msFlex': '1 1 0%',
+  'display': 'block',
+};
+
+final Map<String, dynamic> _wrapperStylesFlexContainer = {
+  'position': 'relative',
+  'flex': '1 1 0%',
+  'msFlex': '1 1 0%',
+  'display': _displayFlex,
+};
+
+/// The browser-prefixed value for the CSS `display` property that enables flexbox.
+final String _displayFlex = (() {
+  if (browser.isInternetExplorer && browser.version.major <= 10) return '-ms-flexbox';
+  return 'flex';
+})();
 
 /// Used with [ResizeSensorHandler] to provide information about a resize.
 class ResizeSensorEvent {
@@ -293,4 +360,29 @@ class ResizeSensorPropsMixinMapView extends MapView with ResizeSensorPropsMixin 
   /// In this case, it's the current MapView object.
   @override
   Map get props => this;
+}
+
+/// A mixin that makes it easier to manage animation frames within a React component lifecycle.
+class _SafeAnimationFrameMixin {
+  /// The ids of the pending animation frames.
+  final _animationFrameIds = <int>[];
+
+  /// Calls [Window.requestAnimationFrame] with the specified [callback], and keeps track of the
+  /// request ID so that it can be cancelled in [cancelAnimationFrames].
+  void requestAnimationFrame(callback()) {
+    int queuedId;
+    queuedId = window.requestAnimationFrame((_) {
+      callback();
+      _animationFrameIds.remove(queuedId);
+    });
+
+    _animationFrameIds.add(queuedId);
+  }
+
+  /// Cancels all pending animation frames requested by [requestAnimationFrame].
+  ///
+  /// Should be called in [react.Component.componentWillUnmount].
+  void cancelAnimationFrames() {
+    _animationFrameIds.forEach(window.cancelAnimationFrame);
+  }
 }

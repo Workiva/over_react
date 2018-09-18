@@ -61,11 +61,11 @@ final CallbackUtil0Arg callbacks                                            = co
 /// Provides chaining utilities for [ResizeSensorHandler].
 final CallbackUtil1Arg<ResizeSensorEvent> resizeEventCallbacks              = const CallbackUtil1Arg<ResizeSensorEvent>();
 
-
 typedef Callback0Arg();
 typedef Callback1Arg<T1>(T1 arg1);
 typedef Callback2Arg<T1, T2>(T1 arg1, T2 arg2);
 typedef Callback3Arg<T1, T2, T3>(T1 arg1, T2 arg2, T3 arg3);
+typedef Callback4Arg<T1, T2, T3, T4>(T1 arg1, T2 arg2, T3 arg3, T4 arg4);
 
 /// Generic callback chaining utilities for callbacks with no arguments.
 class CallbackUtil0Arg extends CallbackUtil<Callback0Arg> {
@@ -185,6 +185,37 @@ class CallbackUtil3Arg<T1, T2, T3> extends CallbackUtil<Callback3Arg<T1, T2, T3>
     return (T1 arg1, T2 arg2, T3 arg3) {
       var aDidReturnFalse = a(arg1, arg2, arg3) == false;
       var bDidReturnFalse = b(arg1, arg2, arg3) == false;
+
+      if (aDidReturnFalse || bDidReturnFalse) return false;
+    };
+  }
+}
+
+/// Generic strongly-typed callback chaining utilities for callbacks with four arguments.
+class CallbackUtil4Arg<T1, T2, T3, T4> extends CallbackUtil<Callback4Arg<T1, T2, T3, T4>> {
+  const CallbackUtil4Arg();
+
+  _noop(T1 arg1, T2 arg2, T3 arg3, T4 arg4) {}
+
+  /// A function of type [Callback3Arg<T1, T2, T3, T4>] that does nothing.
+  @override
+  Callback4Arg<T1, T2, T3, T4> get noop => _noop;
+
+  /// Returns a strongly-typed chained callback that calls through to the two provided callbacks, [a] and [b], in order.
+  /// Useful for executing multiple callbacks where only a single callback is accepted.
+  ///
+  /// Returns `false` if one or more of the provided callbacks returns `false`.
+  ///
+  /// Gracefully handles when [a] and/or [b] are null, always returning a callable function.
+  @override
+  Callback4Arg<T1, T2, T3, T4> chain(Callback4Arg<T1, T2, T3, T4> a, Callback4Arg<T1, T2, T3, T4> b) {
+    if (a == null && b == null) return noop;
+    if (a == null) return b;
+    if (b == null) return a;
+
+    return (T1 arg1, T2 arg2, T3 arg3, T4 arg4) {
+      var aDidReturnFalse = a(arg1, arg2, arg3, arg4) == false;
+      var bDidReturnFalse = b(arg1, arg2, arg3, arg4) == false;
 
       if (aDidReturnFalse || bDidReturnFalse) return false;
     };
