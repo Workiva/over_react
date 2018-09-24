@@ -24,9 +24,6 @@ _$GenericSuperProps $GenericSuper([Map backingProps]) => new _$GenericSuperProps
 //
 // Implements constructor and backing map, and links up to generated component factory.
 class _$GenericSuperProps extends GenericSuperProps with _$GenericSuperPropsAccessorsMixin {
-  static const List<PropDescriptor> $props = const []; // FIXME concatenate all accessors mixed in
-  static const List<String> $propKeys = const []; // FIXME concatenate all accessors mixed in
-
   /* GENERATED CONSTANTS */
   static const ConsumedProps $consumedProps = const ConsumedProps($props, $propKeys);
 

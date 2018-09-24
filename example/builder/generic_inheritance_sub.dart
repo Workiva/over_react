@@ -1,8 +1,8 @@
 import 'package:over_react/over_react.dart';
 import 'generic_inheritance_super.dart';
 
-part 'generic_inheritance_sub.g.dart';
-//part 'generic_inheritance_sub.overReactBuilder.g.dart';
+//part 'generic_inheritance_sub.g.dart';
+part 'generic_inheritance_sub.overReactBuilder.g.dart';
 
 @Factory()
 UiFactory<GenericSubProps> GenericSub = $GenericSub;

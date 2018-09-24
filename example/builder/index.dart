@@ -6,7 +6,8 @@ import 'package:react/react_dom.dart' as react_dom;
 
 import 'abstract_inheritance.dart';
 import 'basic.dart';
-import 'generic_inheritance.dart';
+import 'generic_inheritance_sub.dart';
+import 'generic_inheritance_super.dart';
 
 main() {
   setClientConfiguration();
