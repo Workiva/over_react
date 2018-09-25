@@ -53,6 +53,7 @@ dependencies:
   quiver: ">=0.25.0 <1.0.0"
 dev_dependencies:
   build_runner: ^0.9.0
+  build_web_compilers: ">=0.3.6 <0.5.0"
   built_value_generator: any #^5.3.0
   #coverage: ">=0.10.0 <0.12.0"
   dart2_constant: ^1.0.0
@@ -63,27 +64,27 @@ dev_dependencies:
   source_gen: any #^0.7.4+3
   #test: ^0.12.36
   #>>>>>>> upstream/2.0.0-dev
-
-transformers:
-  - over_react:
-      $exclude: [
-        "test/over_react/component_declaration/transformer_helpers_test.dart",
-        "example/build/**"
-      ]
-  - test/pub_serve:
-      $include: test/**_test{.*,}.dart
-  # Reminder: dart2js should come after any other transformers that touch Dart code
-  - $dart2js:
-      csp: true
-      sourceMaps: true
-      minify: true
-      suppressHints: false
-      commandLineOptions:
-        - --verbose
-        - --dump-info
-        - --use-new-source-info
-        - --show-package-warnings
-        - --enable-experimental-mirrors
+#
+#transformers:
+#  - over_react:
+#      $exclude: [
+#        "test/over_react/component_declaration/transformer_helpers_test.dart",
+#        "example/build/**"
+#      ]
+#  - test/pub_serve:
+#      $include: test/**_test{.*,}.dart
+#  # Reminder: dart2js should come after any other transformers that touch Dart code
+#  - $dart2js:
+#      csp: true
+#      sourceMaps: true
+#      minify: true
+#      suppressHints: false
+#      commandLineOptions:
+#        - --verbose
+#        - --dump-info
+#        - --use-new-source-info
+#        - --show-package-warnings
+#        - --enable-experimental-mirrors
 
 
 dependency_overrides:

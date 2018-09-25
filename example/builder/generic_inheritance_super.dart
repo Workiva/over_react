@@ -15,7 +15,7 @@ class GenericSuperProps extends UiProps {
 }
 
 @Component()
-class GenericSuperComponent<T extends GenericSuperProps, OtherParam> extends UiComponent<T> {
+class GenericSuperComponent<T extends GenericSuperProps> extends UiComponent<T> {
   getDefaultProps() => newProps()..id = 'generic_super';
 
   @override

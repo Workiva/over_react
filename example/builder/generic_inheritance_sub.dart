@@ -16,7 +16,7 @@ class GenericSubProps extends GenericSuperProps {
 }
 
 @Component()
-class GenericSubComponent extends GenericSuperComponent<GenericSubProps, ArbitraryClass> {
+class GenericSubComponent extends GenericSuperComponent<GenericSubProps> {
   getDefaultProps() => newProps()..id = 'generic_sub';
 
   @override

@@ -1,13 +1,16 @@
+library example;
+
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_dom.dart' as react_dom;
 
-import 'abstract_inheritance.dart';
-import 'basic.dart';
-import 'generic_inheritance_sub.dart';
-import 'generic_inheritance_super.dart';
+import './builder/abstract_inheritance.dart';
+import './builder/basic.dart';
+import './builder/generic_inheritance_sub.dart';
+import './builder/generic_inheritance_super.dart';
+
 
 main() {
   setClientConfiguration();
