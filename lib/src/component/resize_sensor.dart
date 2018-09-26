@@ -129,10 +129,10 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
 
       requestAnimationFrame(() { // [1]
         _scrollEventsToIgnore = 2; // [2]
-        _reset(updateLastDimensions: false); // [3]
+        reset(updateLastDimensions: false); // [3]
       });
     } else {
-      _reset();
+      reset();
 
       if (props.onInitialize != null) {
         var event = new ResizeSensorEvent(_lastWidth, _lastHeight, 0, 0);
@@ -205,7 +205,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
         props.onResize(event);
       }
 
-      _reset();
+      reset();
     }
   }
 
@@ -213,7 +213,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
   /// resizes will trigger scroll events.
   ///
   /// Additionally update the state with the new [_lastWidth] and [_lastHeight] when [updateLastDimensions] is true.
-  void _reset({bool updateLastDimensions: true}) {
+  void reset({bool updateLastDimensions: true}) {
     if (updateLastDimensions) {
       var sensor = findDomNode(this);
       _lastWidth = sensor.offsetWidth;
@@ -238,7 +238,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
   /// so this flag is used to ignore those scroll events on mount for performance reasons in quick-mount mode
   /// (since the handler causes a layout by accessing the sensor's dimensions).
   ///
-  /// This value is only set for the component's mount and __not__ reinitialized every time [_reset] is called
+  /// This value is only set for the component's mount and __not__ reinitialized every time [reset] is called
   /// in order to avoid ignoring scroll events fired by actual resizes at the same time that the reset is taking place.
   int _scrollEventsToIgnore = 0;
 
