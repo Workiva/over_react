@@ -144,7 +144,7 @@ class AbstractComponent {
   const AbstractComponent();
 }
 
-/// Annotation used with with the `over_react` transformer to declare a mixin for use in a [UiProps] class.
+/// Annotation used with the `over_react` transformer to declare a mixin for use in a [UiProps] class.
 ///
 /// Props are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -162,6 +162,11 @@ class PropsMixin implements TypedMap {
   @override
   final String keyNamespace;
   const PropsMixin({this.keyNamespace});
+}
+
+/// Annotation used to signify that this class should not be generated as an ancestor
+class ExportGeneratedAccessors {
+  const ExportGeneratedAccessors();
 }
 
 /// Annotation used with the `over_react` transformer to declare a mixin for use in a [UiState] class.

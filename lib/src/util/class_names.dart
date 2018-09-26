@@ -27,6 +27,7 @@ import 'package:over_react/src/component_declaration/annotations.dart';
 ///
 /// Universally available on all OverReact components via [UiProps].
 @PropsMixin(keyNamespace: '')
+//@ExportGeneratedAccessors()
 abstract class CssClassPropsMixin {
   // ignore: undefined_identifier, const_initialized_with_non_constant_value
   static const PropsMeta meta = $metaForCssClassPropsMixin;

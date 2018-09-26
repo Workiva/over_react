@@ -72,12 +72,12 @@ class ImplGenerator {
     return '$publicGeneratedPrefix${componentClassName}Factory';
   }
 
-  static String getAccessorsMixinName(String className) {
+  static String getAccessorsMixinName(String className, {isPublic: false}) {
     if (className == null) {
       throw new ArgumentError.notNull(className);
     }
 
-    return '$generatedPrefix${className}AccessorsMixin';
+    return isPublic ? '$publicGeneratedPrefix${className}AccessorsMixin' : '$generatedPrefix${className}AccessorsMixin';
   }
 
   static String getMetaClassName(String name) {
@@ -88,12 +88,16 @@ class ImplGenerator {
     return '${publicGeneratedPrefix}metaFor$name';
   }
 
-  static List<String> getParentPropAccessorsMixinNames(ParsedDeclarations declarations) {
-    var parentPropNames = new List<String>();
-    declarations?.parentProps?.forEach((parentNode) {
-      parentPropNames.add(getAccessorsMixinName(parentNode.node.name.toString()));
+  static List<String> getAncestorPropAccessorsMixinNames(ParsedDeclarations declarations) {
+    var ancestorPropNames = new List<String>();
+    declarations?.ancestorProps?.forEach((ancestorNode) {
+      ancestorPropNames.add(getAccessorsMixinName(ancestorNode.node.name.toString()));
     });
-    return parentPropNames;
+    declarations?.exportedAncestorClassNames?.forEach((name) {
+      ancestorPropNames.add(getAccessorsMixinName(name, isPublic: true));
+    });
+
+    return ancestorPropNames;
   }
 
   void generate(ParsedDeclarations declarations) {
@@ -114,7 +118,7 @@ class ImplGenerator {
       String typedPropsFactoryImpl = '';
       String typedStateFactoryImpl = '';
 
-      // TODO: Figure out if we need this in dart 2:
+      // TODO: Figure out if we need this in dart 2: Update (9/25/18): I don't think we do
 //      // Work around https://github.com/dart-lang/sdk/issues/16030 by making
 //      // the original props class abstract and redeclaring `call` in the impl class.
 //      //
@@ -156,7 +160,6 @@ class ImplGenerator {
 
       // part of directive
       outputContentsBuffer.writeln('part of \'$sourceFileName\';\n');
-
 
       String parentTypeParam = 'null';
       String parentTypeParamComment = '';
@@ -204,12 +207,16 @@ class ImplGenerator {
       //   Props implementation
       // ----------------------------------------------------------------------
 
-      // Generate accessor classes for base class and all parent classes
+      // Generate accessor classes for base class and all ancestor classes
       outputContentsBuffer.write(_generatePropsAccessorsClass(AccessorType.props, propsAccessorsMixinName, declarations.props, propsName));
-      declarations.parentProps.forEach((parent) {
-        final String parentPropsName = parent.node.name.toString();
-        final String parentPropsAccessorsMixinName = '$generatedPrefix${parentPropsName}AccessorsMixin';
-        outputContentsBuffer.write(_generatePropsAccessorsClass(AccessorType.props, parentPropsAccessorsMixinName, parent, parentPropsName));
+      declarations.ancestorProps.forEach((ancestor) {
+        final ancestorPropsName = ancestor.node.name.toString();
+        final ancestorPropsAccessorsMixinName = '$generatedPrefix${ancestorPropsName}AccessorsMixin';
+        if (!outputContentsBuffer.toString().contains(ancestorPropsAccessorsMixinName)) {
+          outputContentsBuffer.write(_generatePropsAccessorsClass(AccessorType.props, ancestorPropsAccessorsMixinName, ancestor, ancestorPropsName));
+        } else {
+          logger.info('Duplicate ancestor class with name $ancestorPropsAccessorsMixinName');
+        }
       });
 
       /// _$BasicProps $Basic([Map backingProps]) => new _$BasicProps(backingProps);
@@ -225,7 +232,7 @@ class ImplGenerator {
       outputContentsBuffer.write(_generateConcretePropsImpl(
           propsName, propsImplName, propsAccessorsMixinName,
           componentFactoryName, propKeyNamespace,
-          getParentPropAccessorsMixinNames(declarations)
+          getAncestorPropAccessorsMixinNames(declarations)
       ));
 
       typedPropsFactoryImpl =
@@ -690,12 +697,12 @@ class ImplGenerator {
 
   String _generateConcretePropsImpl(String propsName, String propsImplName,
       String propsAccessorsMixinName, String componentFactoryName,
-      String propKeyNamespace, List<String> parentPropsClasses) {
+      String propKeyNamespace, List<String> ancestorPropsClasses) {
     var classDeclaration = new StringBuffer()
       ..write(
         'class $propsImplName extends $propsName with $propsAccessorsMixinName');
-    parentPropsClasses?.forEach((parent) {
-      classDeclaration.write(', $parent');
+    ancestorPropsClasses?.forEach((ancestor) {
+      classDeclaration.write(', $ancestor');
     });
     classDeclaration.writeln(' {');
     return (new StringBuffer()

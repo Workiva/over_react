@@ -30,7 +30,6 @@ import 'package:transformer_utils/transformer_utils.dart' show NodeWithMeta;
 /// * Any number of abstract component pieces: `@AbstractComponent()`, `@AbstractProps()`, `@AbstractState()`
 /// * Any number of mixins: `@PropsMixin()`, `@StateMixin()`
 class ParsedDeclarations {
-  // TODO: Use logger (build package uses a base Logger instance for logging, and it's passed in here
   factory ParsedDeclarations(CompilationUnit unit, SourceFile sourceFile, Logger logger) {
 
     bool hasErrors = false;
@@ -41,7 +40,6 @@ class ParsedDeclarations {
     }
 
     // Collect the annotated declarations.
-
     Map<String, List<CompilationUnitMember>> declarationMap = {
       key_factory:           <CompilationUnitMember>[],
       key_component:         <CompilationUnitMember>[],
@@ -52,7 +50,7 @@ class ParsedDeclarations {
       key_abstractState:     <CompilationUnitMember>[],
       key_propsMixin:        <CompilationUnitMember>[],
       key_stateMixin:        <CompilationUnitMember>[],
-      key_parent_props:      <CompilationUnitMember>[],
+      key_ancestorProps:     <CompilationUnitMember>[],
     };
 
     unit.declarations.forEach((CompilationUnitMember member) {
@@ -63,11 +61,35 @@ class ParsedDeclarations {
       });
     });
 
+    // Walk and add all parent props classes that are not already generated
+    List<String> exportedAncestorClassNames = [];
     if (declarationMap[key_props].length > 0) {
       var astWrapper = new AstWrapper(logger);
       astWrapper.visitClassDeclaration(declarationMap[key_props]?.first);
       astWrapper.superCompUnits.forEach((unit) {
-        declarationMap[key_parent_props].add(unit);
+        // Check annotation names for ... TODO
+        var isPropsClass = false;
+        var isExported = false;
+        unit.metadata.forEach((annotation) {
+          var name = annotation.name.toString();
+          if (name.compareTo(key_abstractProps) == 0 || name.compareTo(key_props) == 0 || name.compareTo(key_propsMixin) == 0) {
+            isPropsClass = true;
+          }
+          if (name.compareTo(key_exportGeneratedAccessors) == 0) {
+            isExported = true;
+          }
+        });
+        if (isPropsClass) {
+          if (!isExported) {
+            logger.info('adding class: ${unit.declaredElement.toString()}');
+            declarationMap[key_ancestorProps].add(unit);
+          } else if (!exportedAncestorClassNames.contains(unit.declaredElement.name.toString())) {
+            logger.info('adding just className for already available accessors class: ${unit.declaredElement.name.toString()}');
+            exportedAncestorClassNames.add(unit.declaredElement.name.toString());
+          }
+        } else {
+          logger.info('ignoring class completey: ${unit.declaredElement.name.toString()}');
+        }
       });
     }
 
@@ -118,7 +140,7 @@ class ParsedDeclarations {
       key_abstractState,
       key_propsMixin,
       key_stateMixin,
-      key_parent_props,
+      key_ancestorProps,
     ].forEach((annotationName) {
       declarationMap[annotationName] = classesOnly(annotationName, declarationMap[annotationName]);
     });
@@ -206,9 +228,10 @@ class ParsedDeclarations {
         propsMixins:   declarationMap[key_propsMixin],
         stateMixins:   declarationMap[key_stateMixin],
 
-        hasErrors: hasErrors,
+        parentProps: declarationMap[key_ancestorProps],
+        exportedAncestorClassNames: exportedAncestorClassNames,
 
-        parentProps: declarationMap[key_parent_props],
+        hasErrors: hasErrors,
     );
   }
 
@@ -225,6 +248,7 @@ class ParsedDeclarations {
       List<ClassDeclaration> stateMixins,
 
       List<ClassDeclaration> parentProps,
+      List<String> exportedAncestorClassNames,
 
       this.hasErrors
   }) :
@@ -239,7 +263,8 @@ class ParsedDeclarations {
       this.propsMixins   = new List.unmodifiable(propsMixins.map((propsMixin) => new PropsMixinNode(propsMixin))),
       this.stateMixins   = new List.unmodifiable(stateMixins.map((stateMixin) => new StateMixinNode(stateMixin))),
 
-      this.parentProps   = new List.unmodifiable(parentProps.map((parent) => new PropsNode(parent))),
+      this.ancestorProps   = new List.unmodifiable(parentProps.map((parent) => new PropsNode(parent))),
+      this.exportedAncestorClassNames = exportedAncestorClassNames,
 
       this.declaresComponent = factory != null
   {
@@ -267,7 +292,9 @@ class ParsedDeclarations {
   static final String key_propsMixin        = _getName(annotations.PropsMixin);
   static final String key_stateMixin        = _getName(annotations.StateMixin);
 
-  static final String key_parent_props      = 'parent_props';
+  static final String key_exportGeneratedAccessors = _getName(annotations.ExportGeneratedAccessors);
+
+  static final String key_ancestorProps     = 'ancestor_props';
 
   static final List<String> key_allComponentRequired = new List.unmodifiable([
     key_factory,
@@ -311,7 +338,8 @@ class ParsedDeclarations {
   final List<PropsMixinNode> propsMixins;
   final List<StateMixinNode> stateMixins;
 
-  final List<PropsNode> parentProps;
+  final List<PropsNode> ancestorProps;
+  final List<String> exportedAncestorClassNames;
 
   final bool hasErrors;
   final bool declaresComponent;
@@ -359,6 +387,7 @@ class AbstractStateNode     extends NodeWithMeta<ClassDeclaration, annotations.A
 class PropsMixinNode        extends NodeWithMeta<ClassDeclaration, annotations.PropsMixin>         {PropsMixinNode(unit)        : super(unit);}
 class StateMixinNode        extends NodeWithMeta<ClassDeclaration, annotations.StateMixin>         {StateMixinNode(unit)        : super(unit);}
 
+// TODO: Decide if this needs to be split into mixin, props, and abstract groups
 class ParentPropsNode       extends NodeWithMeta<CompilationUnitMember, annotations.Props>              {ParentPropsNode(unit)             : super(unit);}
 
 
