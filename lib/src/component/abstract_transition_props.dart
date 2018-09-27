@@ -18,6 +18,8 @@ import 'dart:collection';
 
 import 'package:over_react/over_react.dart';
 
+part 'abstract_transition_props.overReactBuilder.g.dart';
+
 /// Props that mirror the implementation of [AbstractTransitionProps], made available as a mixin for components
 /// that cannot extend directly from [AbstractTransitionComponent].
 @PropsMixin()

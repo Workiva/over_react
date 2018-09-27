@@ -13,10 +13,9 @@
 // limitations under the License.
 
 
-import 'dart:mirrors';
-
 import 'package:analyzer/analyzer.dart';
 import 'package:logging/logging.dart';
+import 'package:over_react/src/builder/builder_util.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/src/transformed_source_file.dart' show getSpan;
@@ -328,23 +327,21 @@ class ParsedDeclarations {
     );
   }
 
-  static String _getName(Type type) {
-    return MirrorSystem.getName(reflectType(type).simpleName);
-  }
 
-  static final String key_factory           = _getName(annotations.Factory);
-  static final String key_component         = _getName(annotations.Component);
-  static final String key_props             = _getName(annotations.Props);
-  static final String key_state             = _getName(annotations.State);
 
-  static final String key_abstractComponent = _getName(annotations.AbstractComponent);
-  static final String key_abstractProps     = _getName(annotations.AbstractProps);
-  static final String key_abstractState     = _getName(annotations.AbstractState);
+  static final String key_factory           = getName(annotations.Factory);
+  static final String key_component         = getName(annotations.Component);
+  static final String key_props             = getName(annotations.Props);
+  static final String key_state             = getName(annotations.State);
 
-  static final String key_propsMixin        = _getName(annotations.PropsMixin);
-  static final String key_stateMixin        = _getName(annotations.StateMixin);
+  static final String key_abstractComponent = getName(annotations.AbstractComponent);
+  static final String key_abstractProps     = getName(annotations.AbstractProps);
+  static final String key_abstractState     = getName(annotations.AbstractState);
 
-  static final String key_exportGeneratedAccessors = _getName(annotations.ExportGeneratedAccessors);
+  static final String key_propsMixin        = getName(annotations.PropsMixin);
+  static final String key_stateMixin        = getName(annotations.StateMixin);
+
+  static final String key_exportGeneratedAccessors = getName(annotations.ExportGeneratedAccessors);
 
   static final String key_ancestorAbstractProps     = 'ancestor_abstract_props';
   static final String key_ancestorStandardProps     = 'ancestor_standard_props';

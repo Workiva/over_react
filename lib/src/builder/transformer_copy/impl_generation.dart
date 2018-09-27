@@ -19,6 +19,7 @@ import 'package:barback/barback.dart';
 import 'package:logging/logging.dart';
 import 'package:over_react/src/builder/builder.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
+import 'package:over_react/src/builder/builder_util.dart';
 import 'package:over_react/src/builder/transformer_copy/declaration_parsing.dart';
 import 'package:over_react/src/transformer/impl_generation.dart';
 import 'package:over_react/src/transformer/text_util.dart';
@@ -106,9 +107,23 @@ class ImplGenerator {
     return ancestorPropNames;
   }
 
+  bool hasExportGeneratedAccessorsAnnotation(List<Annotation> appliedAnnotations) {
+    var hasExportGeneratedAccessorsAnnotation = false;
+    appliedAnnotations.forEach((annotation) {
+      logger.warning('checking annotation: ${annotation.name.toString()}');
+      if (annotation.name.toString().compareTo(getName(annotations.ExportGeneratedAccessors)) == 0) {
+        logger.warning('found match for ExportGeneratedAccessors');
+        hasExportGeneratedAccessorsAnnotation = true;
+      }
+    });
+    return hasExportGeneratedAccessorsAnnotation;
+  }
+
   void generate(ParsedDeclarations declarations) {
     StringBuffer implementations = new StringBuffer();
 
+    // part of directive
+    outputContentsBuffer.writeln('part of \'$sourceFileName\';\n');
     if (declarations.declaresComponent) {
       final String factoryName = declarations.factory.node.variables.variables.first.name.toString();
 
@@ -164,8 +179,6 @@ class ImplGenerator {
 //          ' = \$$factoryName'
 //      );
 
-      // part of directive
-      outputContentsBuffer.writeln('part of \'$sourceFileName\';\n');
 
       String parentTypeParam = 'null';
       String parentTypeParamComment = '';
@@ -214,20 +227,21 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
 
       String generateAncestorAccessorsMixin(NodeWithMeta ancestorNode, ClassDeclaration ancestorClassDeclaration) {
-        var output = '';
+        var output = new StringBuffer();
         final ancestorPropsName = ancestorClassDeclaration.name.toString();
         final ancestorPropsAccessorsMixinName = '$generatedPrefix${ancestorPropsName}AccessorsMixin';
         if (!outputContentsBuffer.toString().contains(ancestorPropsAccessorsMixinName)) {
-          output =_generatePropsAccessorsClass(AccessorType.props, ancestorPropsAccessorsMixinName, ancestorNode, ancestorPropsName);
-          logger.warning(outputContentsBuffer.toString());
+          output.write(_generatePropsAccessorsClass(AccessorType.props, ancestorPropsAccessorsMixinName, ancestorNode, ancestorPropsName));
+          output.write(_generateMetaClass(AccessorType.props, ancestorPropsName, ancestorPropsAccessorsMixinName));
         } else {
           logger.info('Duplicate ancestor class with name $ancestorPropsAccessorsMixinName');
         }
-        return output;
+        return output.toString();
       }
 
       // Generate accessor classes for base class and all ancestor classes
       outputContentsBuffer.write(_generatePropsAccessorsClass(AccessorType.props, propsAccessorsMixinName, declarations.props, propsName));
+      outputContentsBuffer.write(_generateMetaClass(AccessorType.props, propsName, propsAccessorsMixinName));
       declarations.ancestorStandardProps.forEach((ancestor) {
         outputContentsBuffer.write(generateAncestorAccessorsMixin(ancestor, ancestor.node));
       });
@@ -407,7 +421,7 @@ class ImplGenerator {
 //      if (!outputContentsBuffer.toString().contains(
 //          'SuperPropsAccessorsMixin')) {
         var name = propMixin.node.name.toString();
-        var accessorMixinName = getAccessorsMixinName(name);
+        var accessorMixinName = getAccessorsMixinName(name, isPublic: hasExportGeneratedAccessorsAnnotation(propMixin.node.metadata));
         outputContentsBuffer.write(_generatePropsAccessorsClass(
             AccessorType.props, accessorMixinName, propMixin, name));
 //        outputContentsBuffer.write(
@@ -436,7 +450,7 @@ class ImplGenerator {
     // ----------------------------------------------------------------------
     declarations.abstractProps.forEach((abstractPropsClass) {
       var name = abstractPropsClass.node.name.toString();
-      var accessorMixinName = getAccessorsMixinName(name);
+      var accessorMixinName = getAccessorsMixinName(name, isPublic: hasExportGeneratedAccessorsAnnotation(abstractPropsClass.node.metadata));
       if (!outputContentsBuffer.toString().contains(accessorMixinName)) {
         outputContentsBuffer.write(_generatePropsAccessorsClass(
             AccessorType.props, accessorMixinName, abstractPropsClass, name));
@@ -695,7 +709,8 @@ class ImplGenerator {
     output.writeln('const $metaStructName $metaObjectName = const $metaStructName(');
     output.writeln('  fields: $accessorMixinName.$constantListName,');
     output.writeln('  keys: $accessorMixinName.$keyListName,');
-    output.writeln(');\n');
+    output.writeln(');');
+    output.writeln();
     return output.toString();
   }
 
@@ -709,9 +724,7 @@ class ImplGenerator {
     );
 
     generatedClass.write(generateAccessors(type, node).implementations);
-
-    generatedClass.writeln('}\n');
-    generatedClass.writeln(_generateMetaClass(type, name, accessorsMixinName));
+    generatedClass.writeln('}');
     generatedClass.writeln();
     return generatedClass.toString();
   }
