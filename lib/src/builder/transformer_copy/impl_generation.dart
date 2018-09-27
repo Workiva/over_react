@@ -90,7 +90,13 @@ class ImplGenerator {
 
   static List<String> getAncestorPropAccessorsMixinNames(ParsedDeclarations declarations) {
     var ancestorPropNames = new List<String>();
-    declarations?.ancestorProps?.forEach((ancestorNode) {
+    declarations?.ancestorStandardProps?.forEach((ancestorNode) {
+      ancestorPropNames.add(getAccessorsMixinName(ancestorNode.node.name.toString()));
+    });
+    declarations?.ancestorAbstractProps?.forEach((ancestorNode) {
+      ancestorPropNames.add(getAccessorsMixinName(ancestorNode.node.name.toString()));
+    });
+    declarations?.ancestorPropsMixin?.forEach((ancestorNode) {
       ancestorPropNames.add(getAccessorsMixinName(ancestorNode.node.name.toString()));
     });
     declarations?.exportedAncestorClassNames?.forEach((name) {
@@ -207,16 +213,31 @@ class ImplGenerator {
       //   Props implementation
       // ----------------------------------------------------------------------
 
-      // Generate accessor classes for base class and all ancestor classes
-      outputContentsBuffer.write(_generatePropsAccessorsClass(AccessorType.props, propsAccessorsMixinName, declarations.props, propsName));
-      declarations.ancestorProps.forEach((ancestor) {
-        final ancestorPropsName = ancestor.node.name.toString();
+      String generateAncestorAccessorsMixin(NodeWithMeta ancestorNode, ClassDeclaration ancestorClassDeclaration) {
+        var output = '';
+        final ancestorPropsName = ancestorClassDeclaration.name.toString();
         final ancestorPropsAccessorsMixinName = '$generatedPrefix${ancestorPropsName}AccessorsMixin';
         if (!outputContentsBuffer.toString().contains(ancestorPropsAccessorsMixinName)) {
-          outputContentsBuffer.write(_generatePropsAccessorsClass(AccessorType.props, ancestorPropsAccessorsMixinName, ancestor, ancestorPropsName));
+          output =_generatePropsAccessorsClass(AccessorType.props, ancestorPropsAccessorsMixinName, ancestorNode, ancestorPropsName);
+          logger.warning(outputContentsBuffer.toString());
         } else {
           logger.info('Duplicate ancestor class with name $ancestorPropsAccessorsMixinName');
         }
+        return output;
+      }
+
+      // Generate accessor classes for base class and all ancestor classes
+      outputContentsBuffer.write(_generatePropsAccessorsClass(AccessorType.props, propsAccessorsMixinName, declarations.props, propsName));
+      declarations.ancestorStandardProps.forEach((ancestor) {
+        outputContentsBuffer.write(generateAncestorAccessorsMixin(ancestor, ancestor.node));
+      });
+
+      declarations.ancestorAbstractProps.forEach((ancestor) {
+        outputContentsBuffer.write(generateAncestorAccessorsMixin(ancestor, ancestor.node));
+      });
+
+      declarations.ancestorPropsMixin.forEach((ancestor) {
+        outputContentsBuffer.write(generateAncestorAccessorsMixin(ancestor, ancestor.node));
       });
 
       /// _$BasicProps $Basic([Map backingProps]) => new _$BasicProps(backingProps);

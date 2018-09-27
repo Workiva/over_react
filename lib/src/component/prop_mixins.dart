@@ -22,7 +22,7 @@ import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps, 
 import 'package:over_react/src/component/callback_typedefs.dart';
 import 'package:over_react/src/component_declaration/annotations.dart';
 
-part 'prop_mixins.overReactBuilder.g.dart';
+part 'prop_mixins.overReactBuilder.gen.dart';
 
 /// Typed getters/setters for reserved React props.
 /// To be used as a mixin for React components and builders.
@@ -61,7 +61,7 @@ abstract class ReactPropsMixin {
 /// Typed getters/setters for reserved DOM-related props.
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
-//@ExportGeneratedAccessors()
+@ExportGeneratedAccessors()
 abstract class DomPropsMixin {
   // ignore: undefined_identifier, const_initialized_with_non_constant_value
   static const PropsMeta meta = $metaForDomPropsMixin;
