@@ -33,6 +33,9 @@ typedef WheelEventCallback(react.SyntheticWheelEvent event);
 /// A generic callback that takes no arguments.
 typedef Callback();
 
+/// A generic callback that takes a single `bool` [value].
+typedef BoolCallback(bool value);
+
 /// Callback for DOM elements
 typedef Element ElementCallback();
 
