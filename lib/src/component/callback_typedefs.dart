@@ -33,8 +33,8 @@ typedef WheelEventCallback(react.SyntheticWheelEvent event);
 /// A generic callback that takes no arguments.
 typedef Callback();
 
-// Callback for DOM elements
+/// Callback for DOM elements
 typedef Element ElementCallback();
 
-// Callback for [ResizeSensorEvent]s
+/// Callback for [ResizeSensorEvent]s
 typedef void ResizeSensorHandler(ResizeSensorEvent event);
