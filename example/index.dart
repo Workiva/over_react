@@ -9,7 +9,6 @@ import './builder/basic.dart';
 import './builder/generic_inheritance_sub.dart';
 import './builder/generic_inheritance_super.dart';
 
-
 main() {
   setClientConfiguration();
   react_dom.render(
