@@ -18,7 +18,7 @@ import 'dart:collection';
 
 // Must import these consts because they are used in the transformed code.
 // ignore: unused_import
-import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps;
+import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps, PropsMeta;
 import 'package:over_react/src/component_declaration/annotations.dart';
 
 part 'aria_mixin.overReactBuilder.g.dart';

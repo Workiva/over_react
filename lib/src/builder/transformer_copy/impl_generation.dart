@@ -65,6 +65,11 @@ class ImplGenerator {
 
   SourceFile get sourceFile => transformedFile?.sourceFile;
 
+  static String getClassNameFromNode(NodeWithMeta classNode) {
+    ClassDeclaration classDeclaration = classNode.node;
+    return classDeclaration.name.toString();
+  }
+
   static String getComponentFactoryName(String componentClassName) {
     if (componentClassName == null) {
       throw new ArgumentError.notNull(componentClassName);
@@ -110,9 +115,7 @@ class ImplGenerator {
   bool hasExportGeneratedAccessorsAnnotation(List<Annotation> appliedAnnotations) {
     var hasExportGeneratedAccessorsAnnotation = false;
     appliedAnnotations.forEach((annotation) {
-      logger.warning('checking annotation: ${annotation.name.toString()}');
       if (annotation.name.toString().compareTo(getName(annotations.ExportGeneratedAccessors)) == 0) {
-        logger.warning('found match for ExportGeneratedAccessors');
         hasExportGeneratedAccessorsAnnotation = true;
       }
     });
@@ -129,9 +132,12 @@ class ImplGenerator {
 
       final String propsName = declarations.props.node.name.toString();
       final String propsImplName = '$generatedPrefix${propsName}';
-      final String propsAccessorsMixinName = getAccessorsMixinName(propsName);
+      final String propsAccessorsMixinName = getAccessorsMixinName(propsName,
+          isPublic: hasExportGeneratedAccessorsAnnotation(
+              declarations.props.node.metadata));
 
-      final String componentClassName = declarations.component.node.name.toString();
+      final String componentClassName = declarations.component.node.name
+          .toString();
       final String componentClassImplMixinName = '$generatedPrefix${componentClassName}';
 
       final String componentFactoryName = getComponentFactoryName(componentClassName);
@@ -226,32 +232,21 @@ class ImplGenerator {
       //   Props implementation
       // ----------------------------------------------------------------------
 
-      String generateAncestorAccessorsMixin(NodeWithMeta ancestorNode, ClassDeclaration ancestorClassDeclaration) {
-        var output = new StringBuffer();
-        final ancestorPropsName = ancestorClassDeclaration.name.toString();
-        final ancestorPropsAccessorsMixinName = '$generatedPrefix${ancestorPropsName}AccessorsMixin';
-        if (!outputContentsBuffer.toString().contains(ancestorPropsAccessorsMixinName)) {
-          output.write(_generatePropsAccessorsClass(AccessorType.props, ancestorPropsAccessorsMixinName, ancestorNode, ancestorPropsName));
-          output.write(_generateMetaClass(AccessorType.props, ancestorPropsName, ancestorPropsAccessorsMixinName));
-        } else {
-          logger.info('Duplicate ancestor class with name $ancestorPropsAccessorsMixinName');
-        }
-        return output.toString();
-      }
-
       // Generate accessor classes for base class and all ancestor classes
-      outputContentsBuffer.write(_generatePropsAccessorsClass(AccessorType.props, propsAccessorsMixinName, declarations.props, propsName));
+      outputContentsBuffer.write(_generateAccessorsClass(AccessorType.props, propsAccessorsMixinName, declarations.props, propsName));
       outputContentsBuffer.write(_generateMetaClass(AccessorType.props, propsName, propsAccessorsMixinName));
+
+      // Write inherited classes that were not already publicly available
       declarations.ancestorStandardProps.forEach((ancestor) {
-        outputContentsBuffer.write(generateAncestorAccessorsMixin(ancestor, ancestor.node));
+        generateAccessorsMixinAndMetaClasses(AccessorType.props, ancestor);
       });
 
       declarations.ancestorAbstractProps.forEach((ancestor) {
-        outputContentsBuffer.write(generateAncestorAccessorsMixin(ancestor, ancestor.node));
+        generateAccessorsMixinAndMetaClasses(AccessorType.props, ancestor);
       });
 
       declarations.ancestorPropsMixin.forEach((ancestor) {
-        outputContentsBuffer.write(generateAncestorAccessorsMixin(ancestor, ancestor.node));
+        generateAccessorsMixinAndMetaClasses(AccessorType.props, ancestor);
       });
 
       /// _$BasicProps $Basic([Map backingProps]) => new _$BasicProps(backingProps);
@@ -281,12 +276,10 @@ class ImplGenerator {
       //   State implementation
       // ----------------------------------------------------------------------
       if (declarations.state != null) {
-        final String stateName = declarations.state.node.name.toString();
-        final String stateImplName = '$generatedPrefix${stateName}Impl';
+        generateAccessorsMixinAndMetaClasses(AccessorType.state, declarations.state);
 
-        outputContentsBuffer.write(generateAccessors(AccessorType.state, declarations.state).implementations);
-        // TODO: fill out accessor class name
-        outputContentsBuffer.write(_generateMetaClass(AccessorType.state, stateName, ''));
+        final stateName = getClassNameFromNode(declarations.state);
+        final stateImplName = '$generatedPrefix${stateName}Impl';
 
         outputContentsBuffer
           ..writeln('// Concrete state implementation.')
@@ -416,19 +409,7 @@ class ImplGenerator {
         );
       }
 
-      // Only write to output if the class mixin hasn't been written yet
-      // TODO: Not hardcode output name. Also, naming for this output
-//      if (!outputContentsBuffer.toString().contains(
-//          'SuperPropsAccessorsMixin')) {
-        var name = propMixin.node.name.toString();
-        var accessorMixinName = getAccessorsMixinName(name, isPublic: hasExportGeneratedAccessorsAnnotation(propMixin.node.metadata));
-        outputContentsBuffer.write(_generatePropsAccessorsClass(
-            AccessorType.props, accessorMixinName, propMixin, name));
-//        outputContentsBuffer.write(
-//            generateAccessors(AccessorType.props, propMixin).implementations);
-        outputContentsBuffer.write(_generateMetaClass(
-            AccessorType.props, name, accessorMixinName));
-//      }
+      generateAccessorsMixinAndMetaClasses(AccessorType.props, propMixin);
     });
 
     declarations.stateMixins.forEach((stateMixin) {
@@ -440,30 +421,33 @@ class ImplGenerator {
         );
       }
 
-      outputContentsBuffer.write(generateAccessors(AccessorType.state, stateMixin).implementations);
-      // TODO: fill out accessor class name
-      outputContentsBuffer.write(_generateMetaClass(AccessorType.state, stateMixin.node.name.toString(), ''));
+      generateAccessorsMixinAndMetaClasses(AccessorType.state, stateMixin);
     });
 
     // ----------------------------------------------------------------------
     //   Abstract Props/State implementations
     // ----------------------------------------------------------------------
     declarations.abstractProps.forEach((abstractPropsClass) {
-      var name = abstractPropsClass.node.name.toString();
-      var accessorMixinName = getAccessorsMixinName(name, isPublic: hasExportGeneratedAccessorsAnnotation(abstractPropsClass.node.metadata));
-      if (!outputContentsBuffer.toString().contains(accessorMixinName)) {
-        outputContentsBuffer.write(_generatePropsAccessorsClass(
-            AccessorType.props, accessorMixinName, abstractPropsClass, name));
-        outputContentsBuffer.write(_generateMetaClass(
-            AccessorType.props, name, accessorMixinName));
-      }
+      generateAccessorsMixinAndMetaClasses(AccessorType.props, abstractPropsClass);
     });
 
     declarations.abstractState.forEach((abstractStateClass) {
-      outputContentsBuffer.write(generateAccessors(AccessorType.state, abstractStateClass).implementations);
-      // TODO: fill out accessor class name
-      outputContentsBuffer.write(_generateMetaClass(AccessorType.state, abstractStateClass.node.name.toString(),  ''));
+      generateAccessorsMixinAndMetaClasses(AccessorType.state, abstractStateClass);
     });
+  }
+
+  void generateAccessorsMixinAndMetaClasses(AccessorType type, NodeWithMeta classNode) {
+    var className = getClassNameFromNode(classNode);
+    var accessorMixinName = getAccessorsMixinName(className,
+        isPublic: hasExportGeneratedAccessorsAnnotation(
+            classNode.node.metadata));
+    if (!outputContentsBuffer.toString().contains(accessorMixinName)) {
+      outputContentsBuffer.write(_generateAccessorsClass(type, accessorMixinName, classNode, className));
+      outputContentsBuffer.write(_generateMetaClass(type, className, accessorMixinName));
+    } else {
+      logger.info(
+          'Duplicate ancestor class with name $accessorMixinName');
+    }
   }
 
 
@@ -714,7 +698,7 @@ class ImplGenerator {
     return output.toString();
   }
 
-  String _generatePropsAccessorsClass(AccessorType type, String accessorsMixinName,
+  String _generateAccessorsClass(AccessorType type, String accessorsMixinName,
       NodeWithMeta node, String name) {
     var isProps = type == AccessorType.props;
     StringBuffer generatedClass = new StringBuffer();
