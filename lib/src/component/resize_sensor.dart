@@ -150,6 +150,11 @@ abstract class ResizeSensorPropsMixin {
   ///     sometimes returns `true`, and sometimes returns `false` _(unexpected)_,
   ///     you may have other underlying issues in your implementation that should be addressed separately.
   BoolCallback onDetachedMountCheck;
+
+  /// A callback intended for use only within internal unit tests that is called when [ResizeSensorComponent._reset]
+  /// is called.
+  @visibleForTesting
+  Callback onDidReset;
 }
 
 @Props()
@@ -299,6 +304,10 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
     _collapseSensorRef
       ..scrollLeft = _maxSensorSize
       ..scrollTop = _maxSensorSize;
+
+    if (props.onDidReset != null) {
+      props.onDidReset();
+    }
   }
 
   /// Call to repair / re-initialize a [ResizeSensor] that was detached from the DOM when it mounted.
