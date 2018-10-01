@@ -73,18 +73,18 @@ abstract class ResizeSensorPropsMixin {
 
   Map get props;
 
-  /// A function invoked with a [ResizeSensorEvent] argument when the resize sensor is initialized.
+  /// A function invoked with a `ResizeSensorEvent` argument when the resize sensor is initialized.
   ///
   /// > Will never be called if [quickMount] is `true`.
   ///
   /// Related: [onResize]
   ResizeSensorHandler onInitialize;
 
-  /// A function invoked with a [ResizeSensorEvent] argument when the `children` of the
-  /// sensor causes the root node rendered by the [ResizeSensor] to resize.
+  /// A function invoked with a `ResizeSensorEvent` argument when the [ResizeSensor]
+  /// resizes, either due to its parent or children resizing.
   ///
   /// > __If this callback is not firing when you expect it to__,
-  ///   check out [onDidMountDetached] for a possible workaround.
+  ///   check out [onDetachedMountCheck] for a possible workaround.
   ///
   /// Related: [onInitialize]
   ResizeSensorHandler onResize;
@@ -135,21 +135,21 @@ abstract class ResizeSensorPropsMixin {
   /// repair the resize behavior via a call to [ResizeSensorComponent.forceResetDetachedSensor] at a time
   /// when you are sure that the sensor has become attached to the DOM.
   ///
-  /// ### What does the bool return value indicate? ###
+  /// ### What does the bool argument indicate? ###
   ///
-  /// * A `true` return value indicates that __the [ResizeSensor] was mounted detached from the DOM__,
+  /// * A `true` argument indicates that __the [ResizeSensor] was mounted detached from the DOM__,
   ///   and a call to [ResizeSensorComponent.forceResetDetachedSensor] will be necessary to re-initialize the sensor.
   ///
   ///   > __NOTE:__ The re-initialization comes at the expense of force-clamping the `scrollLeft` / `scrollTop`
   ///     values of the expand / collapse sensor nodes to the maximum possible value - which is what forces the
   ///     reflow / paint that makes the [onResize] callbacks begin firing when expected again.
   ///
-  /// * A `false` return value indicates that __the [ResizeSensor] was mounted attached to the DOM__.
+  /// * A `false` argument indicates that __the [ResizeSensor] was mounted attached to the DOM__.
   ///
   ///   > __NOTE:__ If this happens - you most likely do not need to set this callback. If for some reason the callback
   ///     sometimes returns `true`, and sometimes returns `false` _(unexpected)_,
   ///     you may have other underlying issues in your implementation that should be addressed separately.
-  BoolCallback onDidMountDetached;
+  BoolCallback onDetachedMountCheck;
 }
 
 @Props()
@@ -307,46 +307,46 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
   ///
   /// If you have a [ResizeSensor] that is not emitting its [ResizeSensorPropsMixin.onResize] events,
   /// then the sensor was most likely mounted detached from the DOM.
-  /// In that situation, set the [ResizeSensorPropsMixin.onDidMountDetached] callback and use a `true`
+  /// In that situation, set the [ResizeSensorPropsMixin.onDetachedMountCheck] callback and use a `true`
   /// return value to give your application knowledge that a call to this method _(at a time when you are
   /// sure that the sensor has become attached to the DOM)_ to repair the [ResizeSensorPropsMixin.onResize] behavior.
   ///
-  /// > __See: [ResizeSensorPropsMixin.onDidMountDetached] for more information.__
+  /// > __See: [ResizeSensorPropsMixin.onDetachedMountCheck] for more information.__
   void forceResetDetachedSensor() => _reset();
 
-  /// Returns whether the [_expandSensorRef] / [_collapseSensorRef] nodes have a `0` value
-  /// for `offsetWidth` and/or `offsetHeight`, indicating that a call to [_reset] / [forceResetDetachedSensor]
+  /// Returns whether the node rendered by this component was attached to the DOM when it was mounted.
+  ///
+  /// A `false` return value indicates that a call to [forceResetDetachedSensor]
   /// is necessary to ensure the [ResizeSensorPropsMixin.onResize] callback is emitted as expected.
   ///
-  /// > __See: [ResizeSensorPropsMixin.onDidMountDetached] for more information.__
-  bool _needsReset() {
-    if (_expandSensorRef.scrollLeft == 0 && _expandSensorRef.scrollTop == 0) {
-      return true;
-    } else if (_collapseSensorRef.scrollLeft == 0 || _collapseSensorRef.scrollTop == 0) {
-      return true;
+  /// > __See: [ResizeSensorPropsMixin.onDetachedMountCheck] for more information.__
+  bool _isAttachedToDocument() {
+    Node current = findDomNode(this);
+    while (current != null) {
+      if (current == document.body) return true;
+      current = current.parentNode;
     }
-
     return false;
   }
 
-  /// See: [ResizeSensorPropsMixin.onDidMountDetached]
+  /// See: [ResizeSensorPropsMixin.onDetachedMountCheck]
   void _checkForDetachedMount() {
     // Only perform this check if the consumer sets the callback.
-    if (props.onDidMountDetached == null) return;
+    if (props.onDetachedMountCheck == null) return;
 
-    var wasMountedDetachedFromDom = _needsReset();
+    var wasMountedDetachedFromDom = !_isAttachedToDocument();
 
     assert(wasMountedDetachedFromDom || ValidationUtil.warn(unindent(
         '''
         The ResizeSensor was not mounted detached from the DOM, 
-        so you most likely do not need to set `props.onDidMountDetached`.
+        so you most likely do not need to set `props.onDetachedMountCheck`.
         
         If for some reason the callback sometimes returns `true`, and sometimes returns `false` _(unexpected)_, 
         you may have other underlying issues in your implementation that should be addressed separately.
         '''
     )));
 
-    props.onDidMountDetached(wasMountedDetachedFromDom);
+    props.onDetachedMountCheck(wasMountedDetachedFromDom);
   }
 
   /// The number of future scroll events to ignore.
