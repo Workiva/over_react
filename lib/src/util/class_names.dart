@@ -23,11 +23,13 @@ import 'package:over_react/over_react.dart' show
     UiComponent, UiProps;
 import 'package:over_react/src/component_declaration/annotations.dart';
 
+part 'class_names.overReactBuilder.g.dart';
+
 /// Typed getters/setters for props related to CSS class manipulation.
 ///
 /// Universally available on all OverReact components via [UiProps].
 @PropsMixin(keyNamespace: '')
-//@ExportGeneratedAccessors()
+@ExportGeneratedAccessors()
 abstract class CssClassPropsMixin {
   // ignore: undefined_identifier, const_initialized_with_non_constant_value
   static const PropsMeta meta = $metaForCssClassPropsMixin;
