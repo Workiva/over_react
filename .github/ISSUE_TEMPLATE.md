@@ -8,4 +8,4 @@ Describe your issue here... _If it is a bug - PLEASE follow our [bug submission 
 ---
 
 
-> __FYI:__ @greglittlefield-wf @aaronlademann-wf @kealjones-wk @evanweible-wf @maxwellpeterson-w
+> __FYI:__ @greglittlefield-wf @aaronlademann-wf @kealjones-wk @evanweible-wf @maxwellpeterson-wf
