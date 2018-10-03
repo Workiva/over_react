@@ -1,5 +1,19 @@
 # OverReact Changelog
 
+## 1.27.0
+
+> [Complete `1.27.0` Changeset](https://github.com/Workiva/over_react/compare/1.26.2...1.27.0)
+
+__New Features__
+
+* [#187]: New `ResizSensorProps.onDetachedMountCheck` prop callback and `ResizeSensorComponent.forceResetDetachedSensor` method
+
+__Improvements__
+
+* [#188]: Use `isNotEmpty` instead of `length == 0` check
+    * _Thanks @teresy!!!_
+
+
 ## 1.26.2
 
 __Bug fixes__
