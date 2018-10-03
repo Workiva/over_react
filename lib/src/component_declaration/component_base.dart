@@ -695,7 +695,7 @@ abstract class MapViewMixin<K, V> implements _OverReactMapViewBase<K, V>, Map<K,
   @override V update(K key, V update(V value), {V ifAbsent()}) => _map.update(key, update, ifAbsent: ifAbsent);
   @override void updateAll(V update(K key, V value)) => _map.updateAll(update);
   @override Map<RK, RV> cast<RK, RV>() => _map.cast<RK, RV>();
-  @override Map<RK, RV> retype<RK, RV>() => _map.retype<RK, RV>();
+//  @override Map<RK, RV> retype<RK, RV>() => _map.retype<RK, RV>();
   @override V operator[](Object key) => _map[key];
   @override void operator[]=(K key, V value) { _map[key] = value; }
   @override void addAll(Map<K, V> other) { _map.addAll(other); }
