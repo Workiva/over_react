@@ -126,7 +126,9 @@ class ImplGenerator {
     StringBuffer implementations = new StringBuffer();
 
     // part of directive
+    // TODO: NOt write this line if there is nothing else to write. My guess is this case happens when there are no over_react annotations.
     outputContentsBuffer.writeln('part of \'$sourceFileName\';\n');
+
     if (declarations.declaresComponent) {
       final String factoryName = declarations.factory.node.variables.variables.first.name.toString();
 
