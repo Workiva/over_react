@@ -39,6 +39,7 @@ class ParsedDeclarations {
   factory ParsedDeclarations(CompilationUnit unit, SourceFile sourceFile, Logger logger) {
 
     bool hasErrors = false;
+    bool hasDeclarations = false;
 
     PropsClassType getPropsType(String annotation) {
       if (annotation.compareTo(key_props) == 0) {
@@ -60,6 +61,7 @@ class ParsedDeclarations {
     }
 
     // Collect the annotated declarations.
+
     Map<String, List<CompilationUnitMember>> declarationMap = {
       key_factory:           <CompilationUnitMember>[],
       key_component:         <CompilationUnitMember>[],
@@ -79,11 +81,15 @@ class ParsedDeclarations {
       member.metadata.forEach((annotation) {
         var name = annotation.name.toString();
 
-        declarationMap[name]?.add(member);
+        if (declarationMap[name] != null) {
+          hasDeclarations = true;
+          declarationMap[name]?.add(member);
+        }
       });
     });
 
-    // Walk and add all parent props classes that are not already generated
+    // Walk AST and add all parent props classes that are not already generated
+
     List<String> exportedAncestorClassNames = [];
     if (declarationMap[key_props].length > 0) {
       var astWrapper = new AstWrapper(logger);
@@ -279,6 +285,7 @@ class ParsedDeclarations {
         exportedAncestorClassNames: exportedAncestorClassNames,
 
         hasErrors: hasErrors,
+        hasDeclarations: hasDeclarations,
     );
   }
 
@@ -299,7 +306,8 @@ class ParsedDeclarations {
       List<ClassDeclaration> ancestorPropsMixin,
       List<String> exportedAncestorClassNames,
 
-      this.hasErrors
+      this.hasErrors,
+      this.hasDeclarations,
   }) :
       this.factory       = (factory   == null) ? null : new FactoryNode(factory),
       this.component     = (component == null) ? null : new ComponentNode(component),
@@ -357,7 +365,7 @@ class ParsedDeclarations {
     key_state,
   ]);
 
-  static  final RegExp key_any = new RegExp(
+  static  final RegExp key_any_annotation = new RegExp(
       r'@(?:' +
       [
         key_factory,
@@ -369,16 +377,13 @@ class ParsedDeclarations {
         key_abstractState,
         key_propsMixin,
         key_stateMixin,
-        key_ancestorStandardProps,
-        key_ancestorAbstractProps,
-        key_ancestorPropsMixin,
       ].join('|').replaceAll(r'$', r'\$') +
       r')',
       caseSensitive: true
   );
 
   static bool mightContainDeclarations(String source) {
-    return key_any.hasMatch(source);
+    return key_any_annotation.hasMatch(source);
   }
 
   final FactoryNode factory;
@@ -398,6 +403,7 @@ class ParsedDeclarations {
   final List<String> exportedAncestorClassNames;
 
   final bool hasErrors;
+  final bool hasDeclarations;
   final bool declaresComponent;
 
   /// Helper function that returns the single value of a [list], or null if it is empty.

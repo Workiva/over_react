@@ -20,7 +20,7 @@ import 'package:logging/logging.dart';
 import 'package:over_react/src/builder/builder.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/builder/builder_util.dart';
-import 'package:over_react/src/builder/transformer_copy/declaration_parsing.dart';
+import 'package:over_react/src/builder/generation/declaration_parsing.dart';
 import 'package:over_react/src/transformer/impl_generation.dart';
 import 'package:over_react/src/transformer/text_util.dart';
 import 'package:source_span/source_span.dart';

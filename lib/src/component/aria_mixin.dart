@@ -26,6 +26,7 @@ part 'aria_mixin.overReactBuilder.g.dart';
 /// Typed getters/setters for accessibility props.
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
+@ExportGeneratedAccessors()
 abstract class AriaPropsMixin {
   Map get props;
 

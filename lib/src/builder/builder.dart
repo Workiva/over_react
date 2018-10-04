@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:build/build.dart';
 
-import 'package:over_react/src/builder/transformer_copy/declaration_parsing.dart';
-import 'package:over_react/src/builder/transformer_copy/impl_generation.dart';
+import 'package:over_react/src/builder/generation/declaration_parsing.dart';
+import 'package:over_react/src/builder/generation/impl_generation.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 
@@ -46,7 +46,7 @@ class OverReactBuilder implements Builder {
 
         var declarations = new ParsedDeclarations(resolvedUnit, sourceFile, log);
 
-        if (!declarations.hasErrors) {
+        if (!declarations.hasErrors && declarations.hasDeclarations) {
           generator = new ImplGenerator(log, primaryInputContents, entryLib.source.shortName)
 //            ..shouldFixDdcAbstractAccessors = _shouldFixDdcAbstractAccessors
             ..generate(declarations);

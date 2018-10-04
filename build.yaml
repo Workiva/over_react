@@ -1,6 +1,5 @@
 builders:
   overReactBuilder:
-    # TODO: Try to get this builder to work with pub run build_runner test (will need to remove build from lib/src prop, or maybe exclude builder from pbrt)
     import: "package:over_react/src/builder/builder.dart"
     builder_factories: ["overReactBuilder"]
     build_extensions: {".dart" : [".overReactBuilder.g.dart"]}
@@ -31,6 +30,6 @@ targets:
         generate_for:
           - "example/**"
           - "lib/src/**"
-##          - "example/**"
+#          - "example/**"
 
 

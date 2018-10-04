@@ -23,6 +23,7 @@ part 'abstract_transition_props.overReactBuilder.g.dart';
 /// Props that mirror the implementation of [AbstractTransitionProps], made available as a mixin for components
 /// that cannot extend directly from [AbstractTransitionComponent].
 @PropsMixin()
+@ExportGeneratedAccessors()
 abstract class TransitionPropsMixin {
   // ignore: undefined_identifier, const_initialized_with_non_constant_value
   static const PropsMeta meta = $metaForTransitionPropsMixin;
