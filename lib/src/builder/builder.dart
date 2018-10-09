@@ -14,6 +14,7 @@ Builder overReactBuilder(BuilderOptions options) => new OverReactBuilder();
 class OverReactBuilder implements Builder {
   OverReactBuilder();
 
+
   static const _outputExtension = '.overReactBuilder.g.dart';
 
   /// Converts [id] to a "package:" URI.
@@ -30,7 +31,7 @@ class OverReactBuilder implements Builder {
   }
 
 
-  String generateForFile(AssetId inputId, String primaryInputContents, CompilationUnit resolvedUnit, {isLibrary: false}) {
+  String generateForFile(AssetId inputId, String primaryInputContents, CompilationUnit resolvedUnit, List<String> generatedAccessorMixinClassNames, {isLibrary: false}) {
     var sourceFile = new SourceFile.fromString(
         primaryInputContents, url: idToPackageUri(inputId));
 
@@ -39,22 +40,21 @@ class OverReactBuilder implements Builder {
       var declarations = new ParsedDeclarations(resolvedUnit, sourceFile, log);
 
       if (!declarations.hasErrors && declarations.hasDeclarations) {
-        generator = new ImplGenerator(
-            log, primaryInputContents, inputId.pathSegments.last, sourceFile)
+        generator = new ImplGenerator(log, sourceFile, generatedAccessorMixinClassNames)
           ..generate(declarations);
       } else {
         if (declarations.hasErrors) {
-          log.info(
+          log.fine(
               'There was an error parsing the file declarations for file: ${inputId.toString()}');
         }
         if (!declarations.hasDeclarations) {
-          log.info(
+          log.fine(
               'There were no declarations found for file: ${inputId
                   .toString()}');
         }
       }
     } else {
-      log.info(
+      log.fine(
           'no declarations found for file: ${inputId.toString()}');
     }
     return generator?.outputContentsBuffer?.toString() ?? '';
@@ -70,6 +70,7 @@ class OverReactBuilder implements Builder {
       return;
     }
 
+    var generatedAccessorMixinClassNames = <String>[];
     final outputId = buildStep.inputId.changeExtension(_outputExtension);
 
     // Process both the main and part files of a given library.
@@ -98,6 +99,7 @@ class OverReactBuilder implements Builder {
     }
     outputBuffer.writeln(';\n');
 
+    var contentBuffer = new StringBuffer();
     // flatten base and children compilation units
     final compUnits = [
       [entryLib.definingCompilationUnit],
@@ -105,7 +107,7 @@ class OverReactBuilder implements Builder {
     ].expand((t) => t).toList();
 
     for (final unit in compUnits) {
-      log.warning('getting into file with name: ${unit.name}');
+      log.fine('Generating implementations for file: ${unit.name}');
       // For the base library file, unit.uri will be null
       final assetId = AssetId.resolve(unit.uri ?? unit.name ?? '', from: inputId);
 
@@ -114,14 +116,15 @@ class OverReactBuilder implements Builder {
       if (!assetId.toString().contains(_outputExtension) && await buildStep.canRead(assetId)) {
         final resolvedUnit = unit.computeNode();
         final inputContents = await buildStep.readAsString(assetId);
-        outputBuffer.write(generateForFile(assetId, inputContents, resolvedUnit));
+        contentBuffer.write(generateForFile(assetId, inputContents, resolvedUnit, generatedAccessorMixinClassNames));
       }
     }
 
-    if (outputBuffer.isNotEmpty) {
+    if (contentBuffer.isNotEmpty) {
+      outputBuffer.write(contentBuffer);
       await buildStep.writeAsString(outputId, outputBuffer.toString());
     } else {
-      log.info('No output generated for file: ${inputId.toString()}');
+      log.fine('No output generated for file: ${inputId.toString()}');
     }
   }
 

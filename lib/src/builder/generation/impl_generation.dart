@@ -48,17 +48,17 @@ import 'package:transformer_utils/transformer_utils.dart';
 ///
 ///     * Replaces fields with generated getters/setters.
 class ImplGenerator {
-  ImplGenerator(this.logger, this.inputContents, this.sourceFileName, this.sourceFile);
+  ImplGenerator(this.logger, this.sourceFile, this.generatedAccessorMixinClassNames);
 
   static const String generatedPrefix = r'_$';
   static const String publicGeneratedPrefix = r'$';
 
   Logger logger;
   TransformedSourceFile transformedFile;
-  final String inputContents;
-  final String sourceFileName;
   StringBuffer outputContentsBuffer = new StringBuffer();
   bool shouldFixDdcAbstractAccessors = false;
+
+  List<String> generatedAccessorMixinClassNames;
 
   SourceFile sourceFile;
 
@@ -119,8 +119,9 @@ class ImplGenerator {
     return hasExportGeneratedAccessorsAnnotation;
   }
 
-  void generate(ParsedDeclarations declarations) {
+  generate(ParsedDeclarations declarations) {
     StringBuffer implementations = new StringBuffer();
+
 
     if (declarations.declaresComponent) {
       final String factoryName = declarations.factory.node.variables.variables.first.name.toString();
@@ -396,11 +397,12 @@ class ImplGenerator {
     var accessorMixinName = getAccessorsMixinName(className,
         isPublic: hasExportGeneratedAccessorsAnnotation(
             classNode.node.metadata));
-    if (!outputContentsBuffer.toString().contains(accessorMixinName)) {
+    if (!generatedAccessorMixinClassNames.contains(accessorMixinName)) {
       outputContentsBuffer.write(_generateAccessorsClass(type, accessorMixinName, classNode, className));
       outputContentsBuffer.write(_generateMetaClass(type, className, accessorMixinName));
+      generatedAccessorMixinClassNames.add(accessorMixinName);
     } else {
-      logger.info(
+      logger.fine(
           'Duplicate ancestor class with name $accessorMixinName');
     }
   }

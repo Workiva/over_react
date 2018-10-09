@@ -116,26 +116,26 @@ class ParsedDeclarations {
         if (!isExported) {
           switch (propsClassType) {
             case PropsClassType.standard:
-              logger.info('adding class: ${unit.declaredElement.toString()}');
+              logger.fine('adding class: ${unit.declaredElement.toString()}');
               declarationMap[key_ancestorStandardProps].add(unit);
               break;
             case PropsClassType.abstract:
-              logger.info('adding class: ${unit.declaredElement.toString()}');
+              logger.fine('adding class: ${unit.declaredElement.toString()}');
               declarationMap[key_ancestorAbstractProps].add(unit);
               break;
             case PropsClassType.mixin:
-              logger.info('adding class: ${unit.declaredElement.toString()}');
+              logger.fine('adding class: ${unit.declaredElement.toString()}');
               declarationMap[key_ancestorPropsMixin].add(unit);
               break;
             case PropsClassType.none:
             default:
-              logger.info('ignoring class completey: ${unit.declaredElement.name
+              logger.fine('ignoring class completey: ${unit.declaredElement.name
                   .toString()}');
           }
         } else if (!exportedAncestorClassNames.contains(
             unit.declaredElement.name.toString()) && !(propsClassType == PropsClassType.none)) {
-          logger.info(
-              'adding just className for already available accessors class: ${unit
+          logger.fine(
+              'adding just className for already publicly available generated accessors class: ${unit
                   .declaredElement.name.toString()}');
           exportedAncestorClassNames.add(unit.declaredElement.name.toString());
         }

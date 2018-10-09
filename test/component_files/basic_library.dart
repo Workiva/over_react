@@ -2,9 +2,12 @@
 library basic.library;
 
 import 'package:over_react/over_react.dart';
+import 'props_mixin.dart';
 
 part 'part_of_basic_library.dart';
 part 'part_of_basic_library_2.dart';
+part 'part_of_basic_library_mixin_consumer.dart';
+part 'part_of_basic_library_mixin_consumer_2.dart';
 
 // generated part files
 part 'basic_library.overReactBuilder.g.dart';
