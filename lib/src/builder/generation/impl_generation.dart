@@ -15,9 +15,7 @@
 library over_react.transformer.impl_generation;
 
 import 'package:analyzer/analyzer.dart';
-import 'package:barback/barback.dart';
 import 'package:logging/logging.dart';
-import 'package:over_react/src/builder/builder.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/builder/builder_util.dart';
 import 'package:over_react/src/builder/generation/declaration_parsing.dart';
@@ -50,8 +48,7 @@ import 'package:transformer_utils/transformer_utils.dart';
 ///
 ///     * Replaces fields with generated getters/setters.
 class ImplGenerator {
-  // TODO: Implement logging
-  ImplGenerator(this.logger, this.inputContents, this.sourceFileName);
+  ImplGenerator(this.logger, this.inputContents, this.sourceFileName, this.sourceFile);
 
   static const String generatedPrefix = r'_$';
   static const String publicGeneratedPrefix = r'$';
@@ -63,7 +60,7 @@ class ImplGenerator {
   StringBuffer outputContentsBuffer = new StringBuffer();
   bool shouldFixDdcAbstractAccessors = false;
 
-  SourceFile get sourceFile => transformedFile?.sourceFile;
+  SourceFile sourceFile;
 
   static String getClassNameFromNode(NodeWithMeta classNode) {
     ClassDeclaration classDeclaration = classNode.node;
@@ -125,10 +122,6 @@ class ImplGenerator {
   void generate(ParsedDeclarations declarations) {
     StringBuffer implementations = new StringBuffer();
 
-    // part of directive
-    // TODO: NOt write this line if there is nothing else to write. My guess is this case happens when there are no over_react annotations.
-    outputContentsBuffer.writeln('part of \'$sourceFileName\';\n');
-
     if (declarations.declaresComponent) {
       final String factoryName = declarations.factory.node.variables.variables.first.name.toString();
 
@@ -146,19 +139,6 @@ class ImplGenerator {
 
       String typedPropsFactoryImpl = '';
       String typedStateFactoryImpl = '';
-
-      // TODO: Figure out if we need this in dart 2: Update (9/25/18): I don't think we do
-//      // Work around https://github.com/dart-lang/sdk/issues/16030 by making
-//      // the original props class abstract and redeclaring `call` in the impl class.
-//      //
-//      // We can safely make this abstract, since we already have a runtime warning when it's
-//      // instantiated.
-//      if (!declarations.props.node.isAbstract) {
-//        transformedFile?.insert(
-//            sourceFile?.location(declarations.props.node.classKeyword.offset),
-//            'abstract '
-//        );
-//      }
 
       // ----------------------------------------------------------------------
       //   Factory implementation
@@ -178,15 +158,6 @@ class ImplGenerator {
           );
         }
       });
-//
-//      transformedFile?.replace(
-//          sourceFile?.span(
-//              declarations.factory.node.variables.variables.first.name.end,
-//              declarations.factory.node.semicolon.offset
-//          ),
-//          ' = \$$factoryName'
-//      );
-
 
       String parentTypeParam = 'null';
       String parentTypeParamComment = '';
@@ -253,10 +224,6 @@ class ImplGenerator {
 
       /// _$BasicProps $Basic([Map backingProps]) => new _$BasicProps(backingProps);
       outputContentsBuffer.writeln('$propsImplName \$$factoryName([Map backingProps]) => new $propsImplName(backingProps);');
-//      transformedFile.insert(
-//          sourceFile.location(declarations.factory.node.semicolon.end),
-//        '$propsImplName \$$factoryName([Map backingProps]) => new $propsImplName(backingProps);'
-//          );
 
       final String propKeyNamespace = getAccessorKeyNamespace(
           declarations.props);
@@ -372,20 +339,6 @@ class ImplGenerator {
       }
     }
 
-//    if (implementations.isNotEmpty) {
-//      outputContentsBuffer.writeln('\n\n' +
-//          commentBanner('GENERATED IMPLEMENTATIONS', bottomBorder: false) +
-//          implementations.toString() +
-//          commentBanner('END GENERATED IMPLEMENTATIONS', topBorder: false));
-//      transformedFile?.insert(sourceFile?.location(sourceFile?.length),
-//          '\n\n' +
-//          commentBanner('GENERATED IMPLEMENTATIONS', bottomBorder: false) +
-//          implementations.toString() +
-//          commentBanner('END GENERATED IMPLEMENTATIONS', topBorder: false)
-//      );
-//    }
-
-
     // ----------------------------------------------------------------------
     //   Props/State Mixins implementations
     // ----------------------------------------------------------------------
@@ -481,9 +434,9 @@ class ImplGenerator {
       AccessorType type,
       NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap
   ) {
-    if (shouldFixDdcAbstractAccessors) {
-      fixDdcAbstractAccessors(type, typedMap);
-    }
+//    if (shouldFixDdcAbstractAccessors) {
+//      fixDdcAbstractAccessors(type, typedMap);
+//    }
 
     String keyNamespace = getAccessorKeyNamespace(typedMap);
 
@@ -521,29 +474,6 @@ class ImplGenerator {
 
             return;
           }
-
-          // Remove everything in the field except the comments/meta and the variable names, preserving newlines.
-          // TODO add support for preserving comment nodes between variable declarations.
-
-          // Remove content between end of comment/meta and first variable name
-//          transformedFile?.remove(
-//              sourceFile?.span(field.firstTokenAfterCommentAndMetadata.offset, field.fields.variables.first.beginToken.offset),
-//              preserveNewlines: true
-//          );
-          // Remove content between variable names (including commas).
-//          var prevVariable = field.fields.variables.first;
-//          field.fields.variables.skip(1).forEach((variable) {
-//            transformedFile?.remove(
-//                sourceFile?.span(prevVariable.name.end, variable.name.offset),
-//                preserveNewlines: true
-//            );
-//            prevVariable = variable;
-//          });
-          // Remove content between last variable name and the end of the field (including the semicolon).
-//          transformedFile?.remove(
-//              sourceFile?.span(field.fields.variables.last.end, field.end),
-//              preserveNewlines: true
-//          );
 
           field.fields.variables.forEach((VariableDeclaration variable) {
             if (variable.initializer != null) {
@@ -629,14 +559,9 @@ class ImplGenerator {
                 '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;\n';
 
             output.write(generatedAccessor);
-//            transformedFile?.replace(
-//                sourceFile?.span(variable.firstTokenAfterCommentAndMetadata.offset, variable.name.end),
-//                generatedAccessor
-//            );
 
-//            logger.fine('Generated accessor `$accessorName` with key $keyValue.',
+            logger.fine('Generated accessor `$accessorName` with key $keyValue.');
 //                span: getSpan(sourceFile, variable)
-//            );
           });
 
           if (field.fields.variables.length > 1 &&
@@ -678,7 +603,7 @@ class ImplGenerator {
         constants.keys.join(', ') +
         '];\n';
 
-    String staticVariablesImpl = '  /* GENERATED CONSTANTS */ \n$constantsImpl$keyConstantsImpl\n$listImpl$keyListImpl';
+    String staticVariablesImpl = '  /* GENERATED CONSTANTS */\n$constantsImpl$keyConstantsImpl\n$listImpl$keyListImpl';
 
     output.write(staticVariablesImpl);
     return new AccessorOutput(output.toString());
@@ -729,8 +654,8 @@ class ImplGenerator {
         ..writeln('// Concrete props implementation.')
         ..writeln('//')
         ..writeln('// Implements constructor and backing map, and links up to generated component factory.')
-        ..writeln('  /// The backing props map proxied by this class.')
         ..write(classDeclaration.toString())
+        ..writeln('  /// The backing props map proxied by this class.')
         ..writeln('  @override')
         ..writeln('  final Map props;')
         ..writeln()
@@ -765,6 +690,7 @@ class ImplGenerator {
   ///
   /// Fixes the issue by generating corresponding abstract getters/setters to complete the pair
   /// for accessors with the `@override` annotation.
+  /// NOTE: This is fixed as of dart 2.1.0 (eta Oct. 15)
   void fixDdcAbstractAccessors(
     AccessorType accessorType,
     NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap,

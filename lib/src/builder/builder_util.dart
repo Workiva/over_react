@@ -265,7 +265,7 @@ String getName(Type type) {
 //          constants.keys.join(', ') +
 //          '];\n';
 //
-//  String staticVariablesImpl = '  /* GENERATED CONSTANTS */ \n$constantsImpl$keyConstantsImpl\n$listImpl$keyListImpl';
+//  String staticVariablesImpl = '  /* GENERATED CONSTANTS */\n$constantsImpl$keyConstantsImpl\n$listImpl$keyListImpl';
 //
 //  output.write(staticVariablesImpl);
 //  return new AccessorOutput(output.toString());
