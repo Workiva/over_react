@@ -1,7 +1,7 @@
 import 'package:over_react/over_react.dart';
 
 //part 'basic.g.dart';
-part 'basic.overReactBuilder.g.dart';
+import 'basic.overReactBuilder.template.g.dart';
 
 @Factory()
 UiFactory<BasicProps> Basic = $Basic;

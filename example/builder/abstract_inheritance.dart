@@ -1,7 +1,7 @@
 import 'package:over_react/over_react.dart';
 
 //part 'abstract_inheritance.g.dart';
-part 'abstract_inheritance.overReactBuilder.g.dart';
+import 'abstract_inheritance.overReactBuilder.template.g.dart';
 
 @AbstractProps()
 class SuperProps extends UiProps {
