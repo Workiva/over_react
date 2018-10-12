@@ -14,6 +14,7 @@
 
 
 import 'package:analyzer/analyzer.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:logging/logging.dart';
 import 'package:over_react/src/builder/builder_util.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
@@ -36,7 +37,7 @@ enum PropsClassType {
 /// * Any number of abstract component pieces: `@AbstractComponent()`, `@AbstractProps()`, `@AbstractState()`
 /// * Any number of mixins: `@PropsMixin()`, `@StateMixin()`
 class ParsedDeclarations {
-  factory ParsedDeclarations(CompilationUnit unit, SourceFile sourceFile, Logger logger) {
+  factory ParsedDeclarations(CompilationUnit unit, SourceFile sourceFile, Logger logger, Map<String, String> namedImports) {
 
     bool hasErrors = false;
     bool hasDeclarations = false;
@@ -90,9 +91,10 @@ class ParsedDeclarations {
 
     // Walk AST and add all parent props classes that are not already generated
 
-    List<String> exportedAncestorClassNames = [];
-    if (declarationMap[key_props].length > 0) {
-      var astWrapper = new AstWrapper(logger);
+    var exportedAncestorClassNames = <String>[];
+    var ancestorPropsClassNames = <String>[];
+    if (declarationMap[key_props].isNotEmpty) {
+      var astWrapper = new AstWrapper(logger, namedImports);
       astWrapper.visitClassDeclaration(declarationMap[key_props]?.first);
 
       astWrapper.superCompUnits.forEach((unit) {
@@ -138,6 +140,10 @@ class ParsedDeclarations {
               'adding just className for already publicly available generated accessors class: ${unit
                   .declaredElement.name.toString()}');
           exportedAncestorClassNames.add(unit.declaredElement.name.toString());
+        }
+        if (!ancestorPropsClassNames.contains(
+            unit.declaredElement.name.toString()) && !(propsClassType == PropsClassType.none)) {
+          ancestorPropsClassNames.add(unit.declaredElement.name.toString());
         }
       });
     }
@@ -283,6 +289,7 @@ class ParsedDeclarations {
         ancestorAbstractProps: declarationMap[key_ancestorAbstractProps],
         ancestorPropsMixin: declarationMap[key_ancestorPropsMixin],
         exportedAncestorClassNames: exportedAncestorClassNames,
+        ancestorPropsClassNames: ancestorPropsClassNames,
 
         hasErrors: hasErrors,
         hasDeclarations: hasDeclarations,
@@ -305,6 +312,7 @@ class ParsedDeclarations {
       List<ClassDeclaration> ancestorAbstractProps,
       List<ClassDeclaration> ancestorPropsMixin,
       List<String> exportedAncestorClassNames,
+      List<String> ancestorPropsClassNames,
 
       this.hasErrors,
       this.hasDeclarations,
@@ -324,6 +332,7 @@ class ParsedDeclarations {
       this.ancestorAbstractProps   = new List.unmodifiable(ancestorAbstractProps.map((ancestor) => new AbstractPropsNode(ancestor))),
       this.ancestorPropsMixin   = new List.unmodifiable(ancestorPropsMixin.map((ancestor) => new PropsMixinNode(ancestor))),
       this.exportedAncestorClassNames = exportedAncestorClassNames,
+      this.ancestorPropsClassNames = ancestorPropsClassNames,
 
       this.declaresComponent = factory != null
   {
@@ -401,6 +410,7 @@ class ParsedDeclarations {
   final List<AbstractPropsNode> ancestorAbstractProps;
   final List<PropsMixinNode> ancestorPropsMixin;
   final List<String> exportedAncestorClassNames;
+  final List<String> ancestorPropsClassNames;
 
   final bool hasErrors;
   final bool hasDeclarations;
@@ -451,9 +461,10 @@ class StateMixinNode        extends NodeWithMeta<ClassDeclaration, annotations.S
 
 
 class AstWrapper extends RecursiveAstVisitor {
-  AstWrapper(this._logger);
+  AstWrapper(this._logger, this._namedImports);
 
   final Logger _logger;
+  final Map<String, String> _namedImports;
   List<String> _superTypes = new List<String>();
   List<CompilationUnitMember> _superCompUnits = new List<CompilationUnitMember>();
   List<CompilationUnitMember> get superCompUnits => _superCompUnits;
@@ -462,7 +473,39 @@ class AstWrapper extends RecursiveAstVisitor {
 
   @override
   visitClassDeclaration(ClassDeclaration node) {
-    node?.element?.allSupertypes?.forEach((superClass) {
+    _logger.warning('here in visicClassDecl');
+    _logger.warning(node.toSource());
+//    _logger.warning(node?.declaredElement);
+//    _logger.warning(node?.declaredElement?.allSupertypes);
+    var token = node.firstTokenAfterCommentAndMetadata;
+
+    while (token!= null && token.toString().isNotEmpty) {
+      _logger.warning(token.toString());
+      if (_namedImports.containsValue(token.toString())) {
+        _logger.warning('found imported namespace with namespace: ${token.toString()}');
+      }
+      token = token.next;
+    }
+//
+//    node.childEntities.forEach((entity) {
+//      _logger.warning(entity);
+//      if (entity.toString().contains('extend')) {
+//      }
+//    });
+
+//    node.declaredElement.
+
+    // might need this to walk mixin classes as well
+//    node.declaredElement.mixins
+//    _logger.warning(node.declaredElement.supertype.name);
+
+    List<String> mainLibSources = [];
+    List<LibraryElement> libs = [];
+
+    // could be useful. Track the lib(s) which is namespaced, then check if class is accessible in that lib
+//    _logger.warning(node.declaredElement.isAccessibleIn())
+    node?.declaredElement?.supertype?.element?.allSupertypes?.forEach((superClass) {
+//      _logger.warning(superClass.displayName);
       if (!(superClass.toString() == 'Object')) {
         _superCompUnits.add(superClass.element.computeNode());
       }

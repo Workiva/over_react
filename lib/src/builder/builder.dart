@@ -31,13 +31,13 @@ class OverReactBuilder implements Builder {
   }
 
 
-  String generateForFile(AssetId inputId, String primaryInputContents, CompilationUnit resolvedUnit, List<String> generatedAccessorMixinClassNames, {isLibrary: false}) {
+  String _generateForFile(AssetId inputId, String primaryInputContents, CompilationUnit resolvedUnit, List<String> generatedAccessorMixinClassNames, Map<String, String> namedImports) {
     var sourceFile = new SourceFile.fromString(
         primaryInputContents, url: idToPackageUri(inputId));
 
     ImplGenerator generator;
     if (ParsedDeclarations.mightContainDeclarations(primaryInputContents)) {
-      var declarations = new ParsedDeclarations(resolvedUnit, sourceFile, log);
+      var declarations = new ParsedDeclarations(resolvedUnit, sourceFile, log, namedImports);
 
       if (!declarations.hasErrors && declarations.hasDeclarations) {
         generator = new ImplGenerator(log, sourceFile, generatedAccessorMixinClassNames)
@@ -60,7 +60,6 @@ class OverReactBuilder implements Builder {
     return generator?.outputContentsBuffer?.toString() ?? '';
   }
 
-
   @override
   Future build(BuildStep buildStep) async {
     // This check returns false if the file is a part file. We don't want to build
@@ -81,7 +80,25 @@ class OverReactBuilder implements Builder {
     // part of directive
     var outputBuffer = StringBuffer('part of ');
     bool hasLibraryDirective = false;
+    var namedImports = <String, String>{};
     for (final directive in entryLib.definingCompilationUnit.computeNode().directives) {
+      if (directive.keyword.toString().contains('import')) {
+        var uriMatcher = new RegExp(r"'[\w/:.]+'");
+        String uri;
+        String namedLib;
+        directive.childEntities.forEach((entity) {
+          if (uriMatcher.hasMatch(entity.toString())) {
+            uri = entity.toString();
+          }
+          if (entity.toString().compareTo('as') == 0) {
+            namedLib = directive.findPrevious(directive.endToken).toString();
+          }
+        });
+        if (uri != null && namedLib != null) {
+          namedImports.putIfAbsent(uri, () => namedLib);
+        }
+      }
+
       if (directive.keyword.toString().contains('library')) {
         hasLibraryDirective = true;
         var token = directive.keyword.next;
@@ -116,7 +133,7 @@ class OverReactBuilder implements Builder {
       if (!assetId.toString().contains(_outputExtension) && await buildStep.canRead(assetId)) {
         final resolvedUnit = unit.computeNode();
         final inputContents = await buildStep.readAsString(assetId);
-        contentBuffer.write(generateForFile(assetId, inputContents, resolvedUnit, generatedAccessorMixinClassNames));
+        contentBuffer.write(_generateForFile(assetId, inputContents, resolvedUnit, generatedAccessorMixinClassNames, namedImports));
       }
     }
 

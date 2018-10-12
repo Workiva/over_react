@@ -93,16 +93,20 @@ class ImplGenerator {
 
   static List<String> getAncestorPropAccessorsMixinNames(ParsedDeclarations declarations) {
     var ancestorPropNames = new List<String>();
-    declarations?.ancestorStandardProps?.forEach((ancestorNode) {
-      ancestorPropNames.add(getAccessorsMixinName(ancestorNode.node.name.toString()));
-    });
-    declarations?.ancestorAbstractProps?.forEach((ancestorNode) {
-      ancestorPropNames.add(getAccessorsMixinName(ancestorNode.node.name.toString()));
-    });
-    declarations?.ancestorPropsMixin?.forEach((ancestorNode) {
-      ancestorPropNames.add(getAccessorsMixinName(ancestorNode.node.name.toString()));
-    });
-    declarations?.exportedAncestorClassNames?.forEach((name) {
+//    declarations?.ancestorStandardProps?.forEach((ancestorNode) {
+//      ancestorPropNames.add(getAccessorsMixinName(ancestorNode.node.name.toString()));
+//    });
+//    declarations?.ancestorAbstractProps?.forEach((ancestorNode) {
+//      ancestorPropNames.add(getAccessorsMixinName(ancestorNode.node.name.toString()));
+//    });
+//    declarations?.ancestorPropsMixin?.forEach((ancestorNode) {
+//      ancestorPropNames.add(getAccessorsMixinName(ancestorNode.node.name.toString()));
+//    });
+//    declarations?.exportedAncestorClassNames?.forEach((name) {
+//      ancestorPropNames.add(getAccessorsMixinName(name, isPublic: true));
+//    });
+
+    declarations?.ancestorPropsClassNames?.forEach((name) {
       ancestorPropNames.add(getAccessorsMixinName(name, isPublic: true));
     });
 
@@ -112,7 +116,7 @@ class ImplGenerator {
   bool hasExportGeneratedAccessorsAnnotation(List<Annotation> appliedAnnotations) {
     var hasExportGeneratedAccessorsAnnotation = false;
     appliedAnnotations.forEach((annotation) {
-      if (annotation.name.toString().compareTo(getName(annotations.ExportGeneratedAccessors)) == 0) {
+      if (annotation.name.toString().compareTo(getName(annotations.PropsMixin)) == 0) {
         hasExportGeneratedAccessorsAnnotation = true;
       }
     });
@@ -128,9 +132,9 @@ class ImplGenerator {
 
       final String propsName = declarations.props.node.name.toString();
       final String propsImplName = '$generatedPrefix${propsName}';
-      final String propsAccessorsMixinName = getAccessorsMixinName(propsName,
-          isPublic: hasExportGeneratedAccessorsAnnotation(
-              declarations.props.node.metadata));
+      final String propsAccessorsMixinName = getAccessorsMixinName(propsName, isPublic: true);
+//          isPublic: hasExportGeneratedAccessorsAnnotation(
+//              declarations.props.node.metadata));
 
       final String componentClassName = declarations.component.node.name
           .toString();
@@ -209,19 +213,19 @@ class ImplGenerator {
       // Generate accessor classes for base class and all ancestor classes
       outputContentsBuffer.write(_generateAccessorsClass(AccessorType.props, propsAccessorsMixinName, declarations.props, propsName));
       outputContentsBuffer.write(_generateMetaClass(AccessorType.props, propsName, propsAccessorsMixinName));
-
-      // Write inherited classes that were not already publicly available
-      declarations.ancestorStandardProps.forEach((ancestor) {
-        generateAccessorsMixinAndMetaClasses(AccessorType.props, ancestor);
-      });
-
-      declarations.ancestorAbstractProps.forEach((ancestor) {
-        generateAccessorsMixinAndMetaClasses(AccessorType.props, ancestor);
-      });
-
-      declarations.ancestorPropsMixin.forEach((ancestor) {
-        generateAccessorsMixinAndMetaClasses(AccessorType.props, ancestor);
-      });
+//
+//      // Write inherited classes that were not already publicly available
+//      declarations.ancestorStandardProps.forEach((ancestor) {
+//        generateAccessorsMixinAndMetaClasses(AccessorType.props, ancestor);
+//      });
+//
+//      declarations.ancestorAbstractProps.forEach((ancestor) {
+//        generateAccessorsMixinAndMetaClasses(AccessorType.props, ancestor);
+//      });
+//
+//      declarations.ancestorPropsMixin.forEach((ancestor) {
+//        generateAccessorsMixinAndMetaClasses(AccessorType.props, ancestor);
+//      });
 
       /// _$BasicProps $Basic([Map backingProps]) => new _$BasicProps(backingProps);
       outputContentsBuffer.writeln('$propsImplName \$$factoryName([Map backingProps]) => new $propsImplName(backingProps);');
@@ -395,8 +399,8 @@ class ImplGenerator {
   void generateAccessorsMixinAndMetaClasses(AccessorType type, NodeWithMeta classNode) {
     var className = getClassNameFromNode(classNode);
     var accessorMixinName = getAccessorsMixinName(className,
-        isPublic: hasExportGeneratedAccessorsAnnotation(
-            classNode.node.metadata));
+        isPublic: true);//hasExportGeneratedAccessorsAnnotation(
+//            classNode.node.metadata));
     if (!generatedAccessorMixinClassNames.contains(accessorMixinName)) {
       outputContentsBuffer.write(_generateAccessorsClass(type, accessorMixinName, classNode, className));
       outputContentsBuffer.write(_generateMetaClass(type, className, accessorMixinName));
@@ -468,6 +472,11 @@ class ImplGenerator {
           annotations.Accessor nullableRequiredProp = getConstantAnnotation(field, 'nullableRequiredProp', annotations.nullableRequiredProp);
           // ignore: deprecated_member_use
           annotations.Required requiredMeta = instantiateAnnotation(field, annotations.Required);
+
+//          logger.warning('printing the library which the element belongs to');
+//          logger.warning(field);
+////          logger.warning(field.)
+//          logger.warning(field.declaredElement?.library);
 
           if (accessorMeta?.doNotGenerate == true) {
             logger.fine('Skipping generation of field `$field`.',
@@ -550,7 +559,7 @@ class ImplGenerator {
             keyConstants[keyConstantName] = keyValue;
             constants[constantName] = constantValue;
 
-            TypeName type = field.fields.type;
+            final type = field.fields.type?.toSource();
             String typeString = type == null ? '' : '$type ';
             String setterTypeString = field.covariantKeyword == null
                 ? typeString
