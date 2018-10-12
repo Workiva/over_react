@@ -169,6 +169,14 @@ void main() {
           expect(nodeStyleDecl.getPropertyValue('flex'), '1 1 0%');
         }
       });
+
+      test('when overridden by consumer', () {
+        var renderedNode = renderAndGetDom((ResizeSensor()..style = {'width':'auto','height':'auto'})());
+
+        expect(renderedNode.style.position, equals('relative'));
+        expect(renderedNode.style.width, equals('auto'));
+        expect(renderedNode.style.height, equals('auto'));
+      });
     });
 
     // Test that every last ResizeSensor node is hidden with both visibility and opacity,
