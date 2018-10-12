@@ -17,9 +17,10 @@ targets:
         - ".dart_tool"
         - "lib/src/builder/**"
         - "lib/src/transformer/**"
-        - "test/over_react_builder_test.dart"
+#        - "test/over_react_builder_test.dart"
         - "test/component_files/**"
         - "test/gold_files/**"
+        - "test/**"
     builders:
       built_value_generator|built_value:
         enabled: false
@@ -28,8 +29,9 @@ targets:
       over_react|overReactBuilder:
         enabled: true
         generate_for:
-          - "example/**"
-          - "lib/src/**"
 #          - "example/**"
+#          - "lib/src/**"
+#          - "test/component_files/**"
+#          - "example/builder/basic.dart"
 
 

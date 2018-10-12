@@ -44,7 +44,11 @@ dependencies:
   logging: ">=0.11.3+2 <1.0.0"
   meta: ^1.1.6
   path: ^1.5.1
-  react: ^4.4.2
+#  react: ^4.4.2
+  react:
+    git:
+      url: git@github.com:cleandart/react-dart.git
+      ref: 5.0.0-dev
   source_span: ^1.4.1
   #transformer_utils: any #^0.1.5
   w_common: any #^1.13.0

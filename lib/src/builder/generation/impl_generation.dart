@@ -64,7 +64,11 @@ class ImplGenerator {
 
   static String getClassNameFromNode(NodeWithMeta classNode) {
     ClassDeclaration classDeclaration = classNode.node;
-    return classDeclaration.name.toString();
+    return classDeclaration?.name.toString();
+  }
+
+  static String getImplClassNameFromClassName(String className) {
+    return className.replaceFirst(generatedPrefix, '');
   }
 
   static String getComponentFactoryName(String componentClassName) {
@@ -131,8 +135,8 @@ class ImplGenerator {
       final String factoryName = declarations.factory.node.variables.variables.first.name.toString();
 
       final String propsName = declarations.props.node.name.toString();
-      final String propsImplName = '$generatedPrefix${propsName}';
-      final String propsAccessorsMixinName = getAccessorsMixinName(propsName, isPublic: true);
+      final String propsImplName = getImplClassNameFromClassName(propsName);
+//      final String propsAccessorsMixinName = getAccessorsMixinName(propsName, isPublic: true);
 //          isPublic: hasExportGeneratedAccessorsAnnotation(
 //              declarations.props.node.metadata));
 
@@ -211,8 +215,8 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
 
       // Generate accessor classes for base class and all ancestor classes
-      outputContentsBuffer.write(_generateAccessorsClass(AccessorType.props, propsAccessorsMixinName, declarations.props, propsName));
-      outputContentsBuffer.write(_generateMetaClass(AccessorType.props, propsName, propsAccessorsMixinName));
+//      outputContentsBuffer.write(_generateAccessorsClass(AccessorType.props, propsAccessorsMixinName, declarations.props, propsName));
+      outputContentsBuffer.write(_generateMetaClass(AccessorType.props, propsImplName));
 //
 //      // Write inherited classes that were not already publicly available
 //      declarations.ancestorStandardProps.forEach((ancestor) {
@@ -227,17 +231,15 @@ class ImplGenerator {
 //        generateAccessorsMixinAndMetaClasses(AccessorType.props, ancestor);
 //      });
 
-      /// _$BasicProps $Basic([Map backingProps]) => new _$BasicProps(backingProps);
+      /// FooProps $Foo([Map backingProps]) => new FooProps(backingProps);
       outputContentsBuffer.writeln('$propsImplName \$$factoryName([Map backingProps]) => new $propsImplName(backingProps);');
 
       final String propKeyNamespace = getAccessorKeyNamespace(
           declarations.props);
 
-      outputContentsBuffer.write(_generateConcretePropsImpl(
-          propsName, propsImplName, propsAccessorsMixinName,
-          componentFactoryName, propKeyNamespace,
-          getAncestorPropAccessorsMixinNames(declarations)
-      ));
+      outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
+        AccessorType.props, propsName, propsImplName, componentFactoryName,
+        propKeyNamespace, declarations.props,));
 
       typedPropsFactoryImpl =
           '@override '
@@ -250,10 +252,11 @@ class ImplGenerator {
       //   State implementation
       // ----------------------------------------------------------------------
       if (declarations.state != null) {
-        generateAccessorsMixinAndMetaClasses(AccessorType.state, declarations.state);
-
         final stateName = getClassNameFromNode(declarations.state);
-        final stateImplName = '$generatedPrefix${stateName}Impl';
+        final stateImplName = getImplClassNameFromClassName(stateName);
+
+        _generateMetaClass(AccessorType.state, stateImplName);
+
 
         outputContentsBuffer
           ..writeln('// Concrete state implementation.')
@@ -301,7 +304,7 @@ class ImplGenerator {
         ..writeln('  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.')
         ..writeln('  @override')
         ..writeln('  final List<ConsumedProps> \$defaultConsumedProps = '
-                        'const [${getMetaClassName(propsName)}];')
+                        'const [${getMetaClassName(propsImplName)}];')
         ..writeln('}');
 
       if (declarations.component.node.withClause != null) {
@@ -347,7 +350,42 @@ class ImplGenerator {
     // ----------------------------------------------------------------------
     //   Props/State Mixins implementations
     // ----------------------------------------------------------------------
-    bool hasAbstractGetter(ClassDeclaration classDeclaration, String type, String name) {
+
+    declarations.propsMixins.forEach((propMixin) {
+      checkGettersAndGenerateMetaClass(AccessorType.props, propMixin);
+    });
+
+    declarations.stateMixins.forEach((stateMixin) {
+      checkGettersAndGenerateMetaClass(AccessorType.state, stateMixin);
+    });
+
+    // ----------------------------------------------------------------------
+    //   Abstract Props/State implementations
+    // ----------------------------------------------------------------------
+    declarations.abstractProps.forEach((abstractPropsClass) {
+      _generateMetaClass(AccessorType.props, getImplClassNameFromClassName(getClassNameFromNode(abstractPropsClass)));
+    });
+
+    declarations.abstractState.forEach((abstractStateClass) {
+      _generateMetaClass(AccessorType.state, getImplClassNameFromClassName(getClassNameFromNode(abstractStateClass)));
+    });
+  }
+
+  void checkGettersAndGenerateMetaClass(AccessorType type, NodeWithMeta node) {
+    var isProps = type == AccessorType.props;
+    if (!hasAbstractGetter(node.node, 'Map', isProps ? 'props' : 'state')) {
+        logger.severe(
+            '${isProps ? 'Props' : 'State'} mixin classes must declare an abstract state getter `Map get state;` '
+            'so that they can be statically analyzed properly.',
+//            span: getSpan(sourceFile, stateMixin.node)
+        );
+        logger.severe(getSpan(sourceFile, node.node));
+      }
+
+      _generateMetaClass(type, getImplClassNameFromClassName(getClassNameFromNode(node)));
+  }
+
+  bool hasAbstractGetter(ClassDeclaration classDeclaration, String type, String name) {
       return classDeclaration.members.any((member) {
         return (
             member is MethodDeclaration &&
@@ -359,58 +397,6 @@ class ImplGenerator {
         );
       });
     }
-
-    declarations.propsMixins.forEach((propMixin) {
-      if (!hasAbstractGetter(propMixin.node, 'Map', 'props')) {
-        logger.severe(
-            'Props mixin classes must declare an abstract props getter `Map get props;` '
-            'so that they can be statically analyzed properly.',
-//            span: getSpan(sourceFile, propMixin.node)
-        );
-      }
-
-      generateAccessorsMixinAndMetaClasses(AccessorType.props, propMixin);
-    });
-
-    declarations.stateMixins.forEach((stateMixin) {
-      if (!hasAbstractGetter(stateMixin.node, 'Map', 'state')) {
-        logger.severe(
-            'State mixin classes must declare an abstract state getter `Map get state;` '
-            'so that they can be statically analyzed properly.',
-//            span: getSpan(sourceFile, stateMixin.node)
-        );
-      }
-
-      generateAccessorsMixinAndMetaClasses(AccessorType.state, stateMixin);
-    });
-
-    // ----------------------------------------------------------------------
-    //   Abstract Props/State implementations
-    // ----------------------------------------------------------------------
-    declarations.abstractProps.forEach((abstractPropsClass) {
-      generateAccessorsMixinAndMetaClasses(AccessorType.props, abstractPropsClass);
-    });
-
-    declarations.abstractState.forEach((abstractStateClass) {
-      generateAccessorsMixinAndMetaClasses(AccessorType.state, abstractStateClass);
-    });
-  }
-
-  void generateAccessorsMixinAndMetaClasses(AccessorType type, NodeWithMeta classNode) {
-    var className = getClassNameFromNode(classNode);
-    var accessorMixinName = getAccessorsMixinName(className,
-        isPublic: true);//hasExportGeneratedAccessorsAnnotation(
-//            classNode.node.metadata));
-    if (!generatedAccessorMixinClassNames.contains(accessorMixinName)) {
-      outputContentsBuffer.write(_generateAccessorsClass(type, accessorMixinName, classNode, className));
-      outputContentsBuffer.write(_generateMetaClass(type, className, accessorMixinName));
-      generatedAccessorMixinClassNames.add(accessorMixinName);
-    } else {
-      logger.fine(
-          'Duplicate ancestor class with name $accessorMixinName');
-    }
-  }
-
 
   // ----------------------------------------------------------------------
   //   Accessor generation
@@ -566,7 +552,9 @@ class ImplGenerator {
                 : '${field.covariantKeyword} $typeString';
 
             String generatedAccessor =
+                '  @override\n'
                 '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName];\n'
+                '  @override\n'
                 '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;\n';
 
             output.write(generatedAccessor);
@@ -620,17 +608,17 @@ class ImplGenerator {
     return new AccessorOutput(output.toString());
   }
 
-  String _generateMetaClass(AccessorType type, String name, String accessorMixinName) {
+  String _generateMetaClass(AccessorType type, String implName) {
     var isProps = type == AccessorType.props;
     final metaStructName = isProps ? 'PropsMeta' : 'StateMeta';
     final String keyListName = isProps ? staticPropKeysName : staticStateKeysName;
     final String constantListName = isProps ? staticPropsName : staticStateName;
-    final String metaObjectName = getMetaClassName(name);
+    final String metaObjectName = getMetaClassName(implName);
 
     var output = new StringBuffer();
     output.writeln('const $metaStructName $metaObjectName = const $metaStructName(');
-    output.writeln('  fields: $accessorMixinName.$constantListName,');
-    output.writeln('  keys: $accessorMixinName.$keyListName,');
+    output.writeln('  fields: $implName.$constantListName,');
+    output.writeln('  keys: $implName.$keyListName,');
     output.writeln(');');
     output.writeln();
     return output.toString();
@@ -651,27 +639,21 @@ class ImplGenerator {
     return generatedClass.toString();
   }
 
-  String _generateConcretePropsImpl(String propsName, String propsImplName,
-      String propsAccessorsMixinName, String componentFactoryName,
-      String propKeyNamespace, List<String> ancestorPropsClasses) {
+  String _generateConcretePropsOrStateImpl(AccessorType type, String name, String implName,
+      String componentFactoryName, String propKeyNamespace, NodeWithMeta node) {
     var classDeclaration = new StringBuffer()
-      ..write(
-        'class $propsImplName extends $propsName with $propsAccessorsMixinName');
-    ancestorPropsClasses?.forEach((ancestor) {
-      classDeclaration.write(', $ancestor');
-    });
-    classDeclaration.writeln(' {');
+      ..write('class $implName extends $name {\n');
     return (new StringBuffer()
         ..writeln('// Concrete props implementation.')
         ..writeln('//')
         ..writeln('// Implements constructor and backing map, and links up to generated component factory.')
-        ..write(classDeclaration.toString())
+        ..write(classDeclaration)
         ..writeln('  /// The backing props map proxied by this class.')
         ..writeln('  @override')
         ..writeln('  final Map props;')
         ..writeln()
         // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
-        ..writeln('  $propsImplName(Map backingMap) : this.props = backingMap ?? ({});')
+        ..writeln('  $implName(Map backingMap) : this.props = backingMap ?? ({});')
         ..writeln()
         ..writeln('  /// Let [UiProps] internals know that this class has been generated.')
         ..writeln('  @override')
@@ -689,6 +671,7 @@ class ImplGenerator {
         ..writeln('  // the original props class abstract and redeclaring `call` in the impl class.')
         ..writeln('  @override')
         ..writeln('  call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);')
+        ..write(generateAccessors(type, node).implementations)
         ..writeln('}')
         ..writeln())
         .toString();
