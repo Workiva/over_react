@@ -21,7 +21,7 @@ import 'dart:collection';
 import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps, PropsMeta;
 import 'package:over_react/src/component_declaration/annotations.dart';
 
-part 'aria_mixin.overReactBuilder.g.dart';
+import 'aria_mixin.overReactBuilder.g.dart';
 
 /// Typed getters/setters for accessibility props.
 /// To be used as a mixin for React components and builders.

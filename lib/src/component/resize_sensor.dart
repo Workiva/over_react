@@ -23,7 +23,7 @@ import 'package:meta/meta.dart';
 import 'package:platform_detect/platform_detect.dart';
 import 'package:over_react/over_react.dart';
 
-part 'resize_sensor.overReactBuilder.g.dart';
+import 'resize_sensor.overReactBuilder.g.dart';
 
 /// A wrapper component that detects when its parent is resized.
 ///

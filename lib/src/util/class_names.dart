@@ -23,7 +23,7 @@ import 'package:over_react/over_react.dart' show
     UiComponent, UiProps;
 import 'package:over_react/src/component_declaration/annotations.dart';
 
-part 'class_names.overReactBuilder.g.dart';
+import 'class_names.overReactBuilder.g.dart';
 
 /// Typed getters/setters for props related to CSS class manipulation.
 ///

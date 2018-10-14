@@ -93,15 +93,16 @@ class ParsedDeclarations {
 
     var exportedAncestorClassNames = <String>[];
     var ancestorPropsClassNames = <String>[];
+    var ancestorLibImports = <String>[];
     if (declarationMap[key_props].isNotEmpty) {
       var astWrapper = new AstWrapper(logger, namedImports);
       astWrapper.visitClassDeclaration(declarationMap[key_props]?.first);
 
-      astWrapper.superCompUnits.forEach((unit) {
+      astWrapper.superLibs.forEach((lib) {
         var propsClassType = PropsClassType.none;
         var isExported = false;
 
-        unit.metadata.forEach((annotation) {
+        lib.compUnit.metadata.forEach((annotation) {
           var name = annotation.name.toString();
           // We expect only 1 props class annotation per class, at most. Therefore,
           // once we've found the props type, don't check the next annotation to
@@ -118,32 +119,35 @@ class ParsedDeclarations {
         if (!isExported) {
           switch (propsClassType) {
             case PropsClassType.standard:
-              logger.fine('adding class: ${unit.declaredElement.toString()}');
-              declarationMap[key_ancestorStandardProps].add(unit);
+              logger.fine('adding class: ${lib.compUnit.declaredElement.toString()}');
+              declarationMap[key_ancestorStandardProps].add(lib.compUnit);
               break;
             case PropsClassType.abstract:
-              logger.fine('adding class: ${unit.declaredElement.toString()}');
-              declarationMap[key_ancestorAbstractProps].add(unit);
+              logger.fine('adding class: ${lib.compUnit.declaredElement.toString()}');
+              declarationMap[key_ancestorAbstractProps].add(lib.compUnit);
               break;
             case PropsClassType.mixin:
-              logger.fine('adding class: ${unit.declaredElement.toString()}');
-              declarationMap[key_ancestorPropsMixin].add(unit);
+              logger.fine('adding class: ${lib.compUnit.declaredElement.toString()}');
+              declarationMap[key_ancestorPropsMixin].add(lib.compUnit);
               break;
             case PropsClassType.none:
             default:
-              logger.fine('ignoring class completey: ${unit.declaredElement.name
+              logger.fine('ignoring class completey: ${lib.compUnit.declaredElement.name
                   .toString()}');
           }
         } else if (!exportedAncestorClassNames.contains(
-            unit.declaredElement.name.toString()) && !(propsClassType == PropsClassType.none)) {
+            lib.compUnit.declaredElement.name.toString()) && !(propsClassType == PropsClassType.none)) {
           logger.fine(
-              'adding just className for already publicly available generated accessors class: ${unit
-                  .declaredElement.name.toString()}');
-          exportedAncestorClassNames.add(unit.declaredElement.name.toString());
+              'adding just className for already publicly available generated accessors class: ${lib
+                  .compUnit.declaredElement.name.toString()}');
+          exportedAncestorClassNames.add(lib.compUnit.declaredElement.name.toString());
         }
         if (!ancestorPropsClassNames.contains(
-            unit.declaredElement.name.toString()) && !(propsClassType == PropsClassType.none)) {
-          ancestorPropsClassNames.add(unit.declaredElement.name.toString());
+            lib.compUnit.declaredElement.name.toString()) && !(propsClassType == PropsClassType.none)) {
+          ancestorPropsClassNames.add(lib.compUnit.declaredElement.name.toString());
+          if (!ancestorLibImports.contains(lib.importDirective)) {
+            ancestorLibImports.add(lib.importDirective);
+          }
         }
       });
     }
@@ -290,6 +294,7 @@ class ParsedDeclarations {
         ancestorPropsMixin: declarationMap[key_ancestorPropsMixin],
         exportedAncestorClassNames: exportedAncestorClassNames,
         ancestorPropsClassNames: ancestorPropsClassNames,
+        ancestorLibImports: ancestorLibImports,
 
         hasErrors: hasErrors,
         hasDeclarations: hasDeclarations,
@@ -313,6 +318,7 @@ class ParsedDeclarations {
       List<ClassDeclaration> ancestorPropsMixin,
       List<String> exportedAncestorClassNames,
       List<String> ancestorPropsClassNames,
+      List<String> ancestorLibImports,
 
       this.hasErrors,
       this.hasDeclarations,
@@ -333,6 +339,7 @@ class ParsedDeclarations {
       this.ancestorPropsMixin   = new List.unmodifiable(ancestorPropsMixin.map((ancestor) => new PropsMixinNode(ancestor))),
       this.exportedAncestorClassNames = exportedAncestorClassNames,
       this.ancestorPropsClassNames = ancestorPropsClassNames,
+      this.ancestorLibImports = ancestorLibImports,
 
       this.declaresComponent = factory != null
   {
@@ -411,6 +418,8 @@ class ParsedDeclarations {
   final List<PropsMixinNode> ancestorPropsMixin;
   final List<String> exportedAncestorClassNames;
   final List<String> ancestorPropsClassNames;
+  final List<String> ancestorLibImports;
+
 
   final bool hasErrors;
   final bool hasDeclarations;
@@ -460,32 +469,43 @@ class PropsMixinNode        extends NodeWithMeta<ClassDeclaration, annotations.P
 class StateMixinNode        extends NodeWithMeta<ClassDeclaration, annotations.StateMixin>         {StateMixinNode(unit)        : super(unit);}
 
 
+class LibraryDatum {
+  String importDirective;
+  CompilationUnitMember compUnit;
+
+  LibraryDatum(this.importDirective, this.compUnit);
+}
+
 class AstWrapper extends RecursiveAstVisitor {
   AstWrapper(this._logger, this._namedImports);
 
   final Logger _logger;
   final Map<String, String> _namedImports;
   List<String> _superTypes = new List<String>();
+  List<String> _libImports = new List<String>();
   List<CompilationUnitMember> _superCompUnits = new List<CompilationUnitMember>();
   List<CompilationUnitMember> get superCompUnits => _superCompUnits;
 
+  List<LibraryDatum> superLibs = new List<LibraryDatum>();
+
   List<String> get superTypes => _superTypes;
+  List<String> get libImports => _libImports;
 
   @override
   visitClassDeclaration(ClassDeclaration node) {
-    _logger.warning('here in visicClassDecl');
-    _logger.warning(node.toSource());
+//    _logger.warning('here in visicClassDecl');
+//    _logger.warning(node.toSource());
 //    _logger.warning(node?.declaredElement);
 //    _logger.warning(node?.declaredElement?.allSupertypes);
     var token = node.firstTokenAfterCommentAndMetadata;
 
-    while (token!= null && token.toString().isNotEmpty) {
-      _logger.warning(token.toString());
-      if (_namedImports.containsValue(token.toString())) {
-        _logger.warning('found imported namespace with namespace: ${token.toString()}');
-      }
-      token = token.next;
-    }
+//    while (token!= null && token.toString().isNotEmpty) {
+//      _logger.warning(token.toString());
+//      if (_namedImports.containsValue(token.toString())) {
+//        _logger.warning('found imported namespace with namespace: ${token.toString()}');
+//      }
+//      token = token.next;
+//    }
 //
 //    node.childEntities.forEach((entity) {
 //      _logger.warning(entity);
@@ -499,7 +519,6 @@ class AstWrapper extends RecursiveAstVisitor {
 //    node.declaredElement.mixins
 //    _logger.warning(node.declaredElement.supertype.name);
 
-    List<String> mainLibSources = [];
     List<LibraryElement> libs = [];
 
     // could be useful. Track the lib(s) which is namespaced, then check if class is accessible in that lib
@@ -508,8 +527,16 @@ class AstWrapper extends RecursiveAstVisitor {
 //      _logger.warning(superClass.displayName);
       if (!(superClass.toString() == 'Object')) {
         _superCompUnits.add(superClass.element.computeNode());
+        var libImport = 'import \'package:${superClass.element.library.source.uri.path.replaceFirst('/lib/', '/')}\';';
+        _libImports.add(libImport);
+        superLibs.add(new LibraryDatum(libImport, superClass.element.computeNode()));
       }
     });
+
+    // TODO: Generate imports for mixin classes (and any others)
+//    node?.declaredElement?.mixins?.forEach(() {
+//
+//    });
     super.visitClassDeclaration(node);
   }
 }

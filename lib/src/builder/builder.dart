@@ -34,10 +34,17 @@ class OverReactBuilder implements Builder {
   String _generateForFile(AssetId inputId, String primaryInputContents, CompilationUnit resolvedUnit, List<String> generatedAccessorMixinClassNames, Map<String, String> namedImports) {
     var sourceFile = new SourceFile.fromString(
         primaryInputContents, url: idToPackageUri(inputId));
+    var output = new StringBuffer();
 
     ImplGenerator generator;
     if (ParsedDeclarations.mightContainDeclarations(primaryInputContents)) {
       var declarations = new ParsedDeclarations(resolvedUnit, sourceFile, log, namedImports);
+
+      // TODO: Decide if we need to copy over imports from component file. Probs, since prop fields could be typed with something from a lib
+      output.writeln(declarations.ancestorLibImports.map((import) => import.replaceAll('.dart', _outputExtension)).join('\n'));
+
+      // always need to import over_react to get PropDescriptor type, etc.
+      output.writeln('import \'package:over_react/over_react.dart\';\n');
 
       if (!declarations.hasErrors && declarations.hasDeclarations) {
         generator = new ImplGenerator(log, sourceFile, generatedAccessorMixinClassNames)
@@ -57,7 +64,11 @@ class OverReactBuilder implements Builder {
       log.fine(
           'no declarations found for file: ${inputId.toString()}');
     }
-    return generator?.outputContentsBuffer?.toString() ?? '';
+    if (generator?.outputContentsBuffer?.isNotEmpty ?? false) {
+      output.write(generator?.outputContentsBuffer);
+      return output.toString();
+    }
+    return '';
   }
 
   @override
@@ -78,43 +89,26 @@ class OverReactBuilder implements Builder {
     final inputId = await buildStep.inputId;
 
     // part of directive
-    var outputBuffer = StringBuffer('part of ');
+    var outputBuffer = StringBuffer();
     bool hasLibraryDirective = false;
-    var namedImports = <String, String>{};
-    for (final directive in entryLib.definingCompilationUnit.computeNode().directives) {
-      if (directive.keyword.toString().contains('import')) {
-        var uriMatcher = new RegExp(r"'[\w/:.]+'");
-        String uri;
-        String namedLib;
-        directive.childEntities.forEach((entity) {
-          if (uriMatcher.hasMatch(entity.toString())) {
-            uri = entity.toString();
-          }
-          if (entity.toString().compareTo('as') == 0) {
-            namedLib = directive.findPrevious(directive.endToken).toString();
-          }
-        });
-        if (uri != null && namedLib != null) {
-          namedImports.putIfAbsent(uri, () => namedLib);
-        }
-      }
+//    for (final directive in entryLib.definingCompilationUnit.computeNode().directives) {
+//      if (directive.keyword.toString().contains('library')) {
+//        hasLibraryDirective = true;
+//        var token = directive.keyword.next;
+//        while (!(token.toString().contains(';'))) {
+//          outputBuffer.write(token.toString());
+//          token = token.next;
+//        }
+//        break;
+//      }
+//    };
 
-      if (directive.keyword.toString().contains('library')) {
-        hasLibraryDirective = true;
-        var token = directive.keyword.next;
-        while (!(token.toString().contains(';'))) {
-          outputBuffer.write(token.toString());
-          token = token.next;
-        }
-        break;
-      }
-    };
-
-    if (!hasLibraryDirective) {
-      // then the part of directive will just have the parent file name
-      outputBuffer.write('\'${inputId.pathSegments.last}\'');
-    }
-    outputBuffer.writeln(';\n');
+//    if (!hasLibraryDirective) {
+//      // then the part of directive will just have the parent file name
+//      outputBuffer.write('\'${inputId.pathSegments.last}\'');
+//    }
+      outputBuffer.writeln('import \'${inputId.pathSegments.last}\';\n');
+//    outputBuffer.writeln(';\n');
 
     var contentBuffer = new StringBuffer();
     // flatten base and children compilation units
@@ -133,7 +127,7 @@ class OverReactBuilder implements Builder {
       if (!assetId.toString().contains(_outputExtension) && await buildStep.canRead(assetId)) {
         final resolvedUnit = unit.computeNode();
         final inputContents = await buildStep.readAsString(assetId);
-        contentBuffer.write(_generateForFile(assetId, inputContents, resolvedUnit, generatedAccessorMixinClassNames, namedImports));
+        contentBuffer.write(_generateForFile(assetId, inputContents, resolvedUnit, generatedAccessorMixinClassNames, new Map<String, String>()));
       }
     }
 

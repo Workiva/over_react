@@ -21,7 +21,7 @@ import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/component_base.dart' as component_base;
 
-part 'abstract_transition.overReactBuilder.g.dart';
+import 'abstract_transition.overReactBuilder.g.dart';
 
 @AbstractProps()
 abstract class AbstractTransitionProps extends UiProps with TransitionPropsMixin {

@@ -1,11 +1,11 @@
 import 'package:over_react/over_react.dart';
 
-part 'props_mixin.overReactBuilder.g.dart';
+import 'props_mixin.overReactBuilder.g.dart';
 
 @PropsMixin()
 abstract class ExamplePropsMixinClass {
   // ignore: undefined_identifier, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForReactPropsMixin;
+  static const PropsMeta meta = $metaForExamplePropsMixinClass;
 
   Map get props;
 
