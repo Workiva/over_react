@@ -48,7 +48,7 @@ import 'package:transformer_utils/transformer_utils.dart';
 ///
 ///     * Replaces fields with generated getters/setters.
 class ImplGenerator {
-  ImplGenerator(this.logger, this.sourceFile, this.generatedAccessorMixinClassNames);
+  ImplGenerator(this.logger, this.sourceFile, this.libUriPathToImportAlias, this.ancestorClassNamesToImportAlias, this.importCounter);
 
   static const String generatedPrefix = r'_$';
   static const String publicGeneratedPrefix = r'$';
@@ -58,7 +58,10 @@ class ImplGenerator {
   StringBuffer outputContentsBuffer = new StringBuffer();
   bool shouldFixDdcAbstractAccessors = false;
 
-  List<String> generatedAccessorMixinClassNames;
+  Set<String> generatedAccessorMixinClassNames = new Set<String>();
+  Map<String, String> libUriPathToImportAlias;
+  Map<String, Set<String>>  ancestorClassNamesToImportAlias;
+  ImportCounter importCounter;
 
   SourceFile sourceFile;
 
@@ -91,7 +94,7 @@ class ImplGenerator {
     return '${publicGeneratedPrefix}metaFor$name';
   }
 
-  static List<String> getAncestorPropAccessorsMixinNames(ParsedDeclarations declarations) {
+  List<String> getAncestorPropAccessorsMixinNames(ParsedDeclarations declarations) {
     var ancestorPropNames = new List<String>();
 //    declarations?.ancestorStandardProps?.forEach((ancestorNode) {
 //      ancestorPropNames.add(getAccessorsMixinName(ancestorNode.node.name.toString()));
@@ -106,8 +109,19 @@ class ImplGenerator {
 //      ancestorPropNames.add(getAccessorsMixinName(name, isPublic: true));
 //    });
 
-    declarations?.ancestorPropsClassNames?.forEach((name) {
-      ancestorPropNames.add(getAccessorsMixinName(name, isPublic: true));
+    declarations?.ancestorCompUnits?.forEach((unit) {
+      var ancestorClassName = unit.declaredElement.name;
+      if (declarations.ancestorPropsClassNames.contains(ancestorClassName)) {
+        var accessorsMixinName = getAccessorsMixinName(
+            unit.declaredElement.name, isPublic: true);
+        var prefix = libUriPathToImportAlias[getLibraryUriPathFromCompilationUnit(
+            unit).replaceAll('.dart', outputExtension)];
+        if (prefix == null) {
+          ancestorPropNames.add(accessorsMixinName);
+        } else {
+          ancestorPropNames.add('$prefix.$accessorsMixinName');
+        }
+      }
     });
 
     return ancestorPropNames;
@@ -125,7 +139,6 @@ class ImplGenerator {
 
   generate(ParsedDeclarations declarations) {
     StringBuffer implementations = new StringBuffer();
-
 
     if (declarations.declaresComponent) {
       final String factoryName = declarations.factory.node.variables.variables.first.name.toString();
@@ -171,16 +184,15 @@ class ImplGenerator {
       if (parentType != null) {
         parentTypeParamComment = ' /* from `subtypeOf: ${getSpan(sourceFile, parentType).text}` */';
 
-        if (parentType is PrefixedIdentifier) {
-          var prefix = parentType.prefix.name;
-          var parentClassName = parentType.identifier.name;
-
-          parentTypeParam = prefix + '.' + getComponentFactoryName(parentClassName);
-        } else {
-          var parentClassName = parentType.name;
-
-          parentTypeParam = getComponentFactoryName(parentClassName);
+        var parentLibPath = parentType.staticElement.library.source.uri.path.replaceAll('.dart', outputExtension);
+        if (!libUriPathToImportAlias.containsKey(parentLibPath)) {
+          var importAlias = getLibAlias(importCounter.count++);
+          libUriPathToImportAlias[parentLibPath] = importAlias;
         }
+        var prefix = libUriPathToImportAlias[parentLibPath];
+        logger.warning(prefix);
+        String parentClassName = parentType is PrefixedIdentifier ? parentType.identifier.name : parentType.name;
+        parentTypeParam = '$prefix.${getComponentFactoryName(parentClassName)}';
       }
 
       if (parentTypeParam == componentFactoryName) {
@@ -255,6 +267,7 @@ class ImplGenerator {
         final stateName = getClassNameFromNode(declarations.state);
         final stateImplName = '$generatedPrefix${stateName}Impl';
 
+        /// TODO: Implement state super class mixins
         outputContentsBuffer
           ..writeln('// Concrete state implementation.')
           ..writeln('//')
