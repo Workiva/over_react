@@ -54,3 +54,10 @@ transformers:
         - --use-new-source-info
         - --show-package-warnings
         - --enable-experimental-mirrors
+
+dependency_overrides:
+  react:
+    git:
+      url: git@github.com:aaronlademann-wf/react-dart.git
+      ref: 4.5.0_rc
+
