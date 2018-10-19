@@ -19,9 +19,12 @@ library over_react.rem_util;
 import 'dart:async';
 import 'dart:html';
 
+import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 import 'package:over_react/src/util/css_value_util.dart';
 import 'package:over_react/react_dom.dart' as react_dom;
+import 'package:platform_detect/platform_detect.dart';
 
 double _computeRootFontSize() {
   return new CssValue.parse(document.documentElement.getComputedStyle().fontSize).number.toDouble();
@@ -30,22 +33,30 @@ double _computeRootFontSize() {
 double _rootFontSize = _computeRootFontSize();
 
 var _changeSensor;
+@visibleForTesting
+dynamic get changeSensor => _changeSensor;
+
+Element _changeSensorMountNode;
+@visibleForTesting
+Element get changeSensorMountNode => _changeSensorMountNode;
+
 void _initRemChangeSensor() {
   if (_changeSensor != null) return;
   // Force lazy-initialization of this variable if it hasn't happened already.
   _rootFontSize;
 
-  var mountNode = new DivElement()
+  _changeSensorMountNode = new DivElement()
     ..id = 'rem_change_sensor';
 
   // Ensure the sensor doesn't interfere with the rest of the page.
-  mountNode.style
+  _changeSensorMountNode.style
     ..width = '0'
     ..height = '0'
+    ..overflow = 'hidden'
     ..position = 'absolute'
     ..zIndex = '-1';
 
-  document.body.append(mountNode);
+  document.body.append(_changeSensorMountNode);
 
   _changeSensor = react_dom.render((Dom.div()
     ..style = const {
@@ -60,7 +71,7 @@ void _initRemChangeSensor() {
     (ResizeSensor()..onResize = (ResizeSensorEvent e) {
       recomputeRootFontSize();
     })()
-  ), mountNode);
+  ), _changeSensorMountNode);
 }
 
 final StreamController<double> _remChange = new StreamController.broadcast(onListen: () {
@@ -87,6 +98,20 @@ void recomputeRootFontSize() {
   }
 }
 
+/// A utility that destroys the [_changeSensor] added to the DOM by [_initRemChangeSensor].
+///
+/// Can be used, for example, to clean up the DOM in the `tearDown` of a unit test.
+Future<Null> destroyRemChangeSensor() async {
+  if (_changeSensor == null) return;
+
+  _changeSensor = null;
+
+  react_dom.unmountComponentAtNode(_changeSensorMountNode);
+  _changeSensorMountNode?.remove();
+
+  _changeSensorMountNode = null;
+}
+
 /// Converts a pixel (`px`) [value] to its `rem` equivalent using the current font size
 /// found on the [HtmlDocument].
 ///
@@ -108,6 +133,22 @@ void recomputeRootFontSize() {
 ///
 /// > Related: [toPx]
 CssValue toRem(dynamic value, {bool treatNumAsRem: false, bool passThroughUnsupportedUnits: false}) {
+  // Because Chrome changes the value of its root font size when zoomed out lower than 90%, we need
+  // to automatically wire up the rem change sensor so that any calls to `toRem` when the viewport is
+  // zoomed return an accurate value.
+  //
+  // Only run them when `testMode` is false as a workaround to not break all the individual `toRem` tests
+  // that rely on `onRemChange.first`, and so that the dom node that is mounted via `_initRemChangeSensor`
+  // is not suddenly present in the dom of all consumer tests - which could break their assertions about
+  // a "clean" / empty `document.body`.
+  //
+  // See: https://jira.atl.workiva.net/browse/AF-1048 / https://bugs.chromium.org/p/chromium/issues/detail?id=429140
+  if (browser.isChrome && !component_base.UiProps.testMode) {
+    // TODO: Why does Zone.ROOT.run not work in unit tests?  Passing in Zone.current from the call to toRem() within the test also does not work.
+//    Zone.ROOT.run(_initRemChangeSensor);
+    _initRemChangeSensor();
+  }
+
   if (value == null) return null;
 
   num remValueNum;
