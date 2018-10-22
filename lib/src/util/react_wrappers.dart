@@ -276,7 +276,7 @@ ReactElement cloneElement(ReactElement element, [Map props, Iterable children]) 
 /// Returns the native Dart component associated with a mounted component [instance].
 ///
 /// Returns `null` if the [instance] is not Dart-based _(an [Element] or a JS composite component)_.
-react.Component getDartComponent(/* ReactElement|ReactComponent|Element */ instance) {
+T getDartComponent<T extends react.Component>(/* ReactElement|ReactComponent|Element */ instance) {
   if (instance is Element) {
     return null;
   }
