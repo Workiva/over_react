@@ -11,11 +11,16 @@ import 'package:over_react/over_react.dart';
 
 import '../../test_util/test_util.dart';
 
-part 'flux_component_test/default.dart';
+part 'flux_component_test/basic.dart';
 part 'flux_component_test/handler_precedence.dart';
 part 'flux_component_test/prop_validation.dart';
 part 'flux_component_test/redraw_on.dart';
 part 'flux_component_test/store_handlers.dart';
+part 'flux_component_test/stateful/basic.dart';
+part 'flux_component_test/stateful/handler_precedence.dart';
+part 'flux_component_test/stateful/prop_validation.dart';
+part 'flux_component_test/stateful/redraw_on.dart';
+part 'flux_component_test/stateful/store_handlers.dart';
 
 void main() {
   Future nextTick() async {
@@ -25,33 +30,33 @@ void main() {
 
   group('FluxUiProps', () {
     test('exposes an actions getter', () {
-      var props = TestDefault();
+      var props = TestBasic();
       var testActions = new TestActions();
 
       props.actions = testActions;
 
       expect(props.actions, equals(testActions));
-      expect(props, containsPair('TestDefaultProps.actions', testActions),
+      expect(props, containsPair('TestBasicProps.actions', testActions),
           reason: 'should have an `actions` getter with the a properly-namespaced prop key');
     });
 
     test('exposes a store getter', () {
-      var props = TestDefault();
+      var props = TestBasic();
       var testStore = new TestStore();
 
       props.store = testStore;
 
       expect(props.store, equals(testStore));
-      expect(props, containsPair('TestDefaultProps.store', testStore),
+      expect(props, containsPair('TestBasicProps.store', testStore),
           reason: 'should have a `store` getter with the a properly-namespaced prop key');
     });
   });
 
-  group('FluxUiComponent', () {
+  void sharedComponentTests(BaseTestComponents testComponents) {
     test('subscribes to a single store by default', () async {
       var store = new TestStore();
-      var renderedInstance = render(TestDefault()..store = store);
-      TestDefaultComponent component = getDartComponent(renderedInstance);
+      var renderedInstance = render(testComponents.basic()..store = store);
+      dynamic component = getDartComponent(renderedInstance);
 
       store.trigger();
       await nextTick();
@@ -68,8 +73,8 @@ void main() {
 
     test('subscribes to any stores returned in redrawOn', () async {
       var stores = new TestStores();
-      var renderedInstance = render(TestRedrawOn()..store = stores);
-      TestRedrawOnComponent component = getDartComponent(renderedInstance);
+      var renderedInstance = render(testComponents.redrawOn()..store = stores);
+      dynamic component = getDartComponent(renderedInstance);
 
       stores.store1.trigger();
       await nextTick();
@@ -87,8 +92,8 @@ void main() {
 
     test('prefers a handler specified in getStoreHandlers over redrawOn', () async {
       var stores = new TestStores();
-      var renderedInstance = render(TestHandlerPrecedence()..store = stores);
-      TestHandlerPrecedenceComponent component = getDartComponent(renderedInstance);
+      var renderedInstance = render(testComponents.handlerPrecedence()..store = stores);
+      dynamic component = getDartComponent(renderedInstance);
 
       stores.store1.trigger();
       await nextTick();
@@ -103,8 +108,8 @@ void main() {
 
     test('should not attempt subscription if store is a composite of stores', () async {
       var stores = new TestStores();
-      var renderedInstance = render(TestDefault()..store = stores);
-      TestDefaultComponent component = getDartComponent(renderedInstance);
+      var renderedInstance = render(testComponents.basic()..store = stores);
+      dynamic component = getDartComponent(renderedInstance);
 
       stores.store1.trigger();
       await nextTick();
@@ -117,8 +122,8 @@ void main() {
 
     test('calls handlers specified in getStoreHandlers when each store triggers', () async {
       var store = new TestStore();
-      var renderedInstance = render(TestStoreHandlers()..store = store);
-      TestStoreHandlersComponent component = getDartComponent(renderedInstance);
+      var renderedInstance = render(testComponents.storeHandlers()..store = store);
+      dynamic component = getDartComponent(renderedInstance);
 
       store.trigger();
       await nextTick();
@@ -137,8 +142,8 @@ void main() {
       // Setup a new subscription on a component
       int numberOfCalls = 0;
       StreamController controller = new StreamController();
-      var renderedInstance = render(TestDefault());
-      TestDefaultComponent component = getDartComponent(renderedInstance);
+      var renderedInstance = render(testComponents.basic());
+      dynamic component = getDartComponent(renderedInstance);
       component.addSubscription(controller.stream.listen((_) {
         numberOfCalls += 1;
       }));
@@ -158,8 +163,8 @@ void main() {
     });
 
     test('should not redraw after being unmounted', () async {
-      var renderedInstance = render(TestDefault());
-      TestDefaultComponent component = getDartComponent(renderedInstance);
+      var renderedInstance = render(testComponents.basic());
+      dynamic component = getDartComponent(renderedInstance);
       component.componentWillUnmount();
       component.redraw();
       await nextTick();
@@ -175,16 +180,19 @@ void main() {
       });
 
       test('componentWillReceiveProps', () {
-        var jacket = mount((TestPropValidation()..required = 'foo')());
+        var jacket = mount((testComponents.propValidation()..required = 'foo')());
         expect(() {
-          jacket.rerender(TestPropValidation()());
-        }, throwsPropError_Required('TestPropValidationProps.required'),
+          jacket.rerender(testComponents.propValidation()());
+        }, throwsA(anyOf(
+          hasToStringValue('V8 Exception'), /* workaround for https://github.com/dart-lang/sdk/issues/26093 */
+          hasToStringValue(contains('RequiredPropError:')),
+        )),
             reason: 'should have called super, triggering prop validation logic');
       });
 
       test('componentWillUnmount', () {
-        var jacket = mount(TestDefault()());
-        TestDefaultComponent component = jacket.getDartInstance();
+        var jacket = mount(testComponents.basic()());
+        dynamic component = jacket.getDartInstance();
         // Bind this since expectAsync doesn't seem to play well when
         // called from react-dart's Zone
         component.getManagedDisposer(Zone.current.bindCallback(
@@ -193,6 +201,14 @@ void main() {
         jacket.unmount();
       });
     });
+  }
+
+  group('FluxUiComponent', () {
+    sharedComponentTests(new TestComponents());
+  });
+
+  group('FluxUiStatefulComponent', () {
+    sharedComponentTests(new TestStatefulComponents());
   });
 }
 
@@ -204,4 +220,28 @@ class TestStores {
   TestStore store1 = new TestStore();
   TestStore store2 = new TestStore();
   TestStore store3 = new TestStore();
+}
+
+abstract class BaseTestComponents {
+  TestBasicProps basic();
+  TestHandlerPrecedenceProps handlerPrecedence();
+  TestPropValidationProps propValidation();
+  TestRedrawOnProps redrawOn();
+  TestStoreHandlersProps storeHandlers();
+}
+
+class TestComponents extends BaseTestComponents {
+  @override TestBasicProps basic() => TestBasic();
+  @override TestHandlerPrecedenceProps handlerPrecedence() => TestHandlerPrecedence();
+  @override TestPropValidationProps propValidation() => TestPropValidation();
+  @override TestRedrawOnProps redrawOn() => TestRedrawOn();
+  @override TestStoreHandlersProps storeHandlers() => TestStoreHandlers();
+}
+
+class TestStatefulComponents extends BaseTestComponents {
+  @override TestStatefulBasicProps basic() => TestStatefulBasic();
+  @override TestStatefulHandlerPrecedenceProps handlerPrecedence() => TestStatefulHandlerPrecedence();
+  @override TestStatefulPropValidationProps propValidation() => TestStatefulPropValidation();
+  @override TestStatefulRedrawOnProps redrawOn() => TestStatefulRedrawOn();
+  @override TestStatefulStoreHandlersProps storeHandlers() => TestStatefulStoreHandlers();
 }
