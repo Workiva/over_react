@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:analyzer/analyzer.dart';
+import 'package:analyzer/dart/ast/token.dart';
 import 'package:build/build.dart';
 
 import 'package:over_react/src/builder/generation/declaration_parsing.dart';
@@ -33,7 +34,8 @@ class OverReactBuilder implements Builder {
       CompilationUnit resolvedUnit, Map<String, String> libUriPathToImportAlias,
       List<String> importDirectives,
       Map<String, Set<String>> ancestorClassNamesToImportAlias,
-      ImportCounter importCounter) {
+      ImportCounter importCounter,
+      AssetId outputId) {
     var sourceFile = new SourceFile.fromString(
         primaryInputContents, url: idToPackageUri(inputId));
     var output = new StringBuffer();
@@ -41,7 +43,16 @@ class OverReactBuilder implements Builder {
     ImplGenerator generator;
     ParsedDeclarations declarations;
     if (ParsedDeclarations.mightContainDeclarations(primaryInputContents)) {
-      declarations = new ParsedDeclarations(resolvedUnit, sourceFile, log, libUriPathToImportAlias, ancestorClassNamesToImportAlias, importCounter);
+      declarations = new ParsedDeclarations(resolvedUnit, sourceFile, log);
+      // Don't need to add any imports if this generated class is in the base library
+
+      declarations.propAncestorCompUnits?.forEach((compUnit) {
+        addLibUriPathToMap(compUnit, libUriPathToImportAlias, outputId, importCounter);
+      });
+
+      declarations.stateAncestorCompUnits?.forEach((compUnit) {
+        addLibUriPathToMap(compUnit, libUriPathToImportAlias, outputId, importCounter);
+      });
 
       if (!declarations.hasErrors && declarations.hasDeclarations) {
         generator = new ImplGenerator(log, sourceFile, libUriPathToImportAlias, ancestorClassNamesToImportAlias, importCounter)
@@ -62,12 +73,6 @@ class OverReactBuilder implements Builder {
           'no declarations found for file: ${inputId.toString()}');
     }
     if (generator?.outputContentsBuffer?.isNotEmpty ?? false) {
-//      // Add all ancestor lib imports to get props accessors mixin classes (will all come from generated files)
-//      declarations.ancestorLibImports.forEach((directive) {
-//        if (!importDirectives.contains(directive)) {
-//          importDirectives.add(directive);
-//        }
-//      });
       output.write(generator?.outputContentsBuffer);
       return output.toString();
     }
@@ -104,8 +109,9 @@ class OverReactBuilder implements Builder {
     // (nearly) Always need to import the parent library file to access props
     // and component classes for the factory.
     // TODO: Don't need to add target class import in cases where the gen'd factory is not present
+    var overReactImportDirective = 'import \'package:over_react/over_react.dart\';';
     var importDirectives = <String>[
-      'import \'package:over_react/over_react.dart\';',
+      overReactImportDirective,
     ];
 
     // Maps library source uri to the named alias for that import
@@ -126,15 +132,28 @@ class OverReactBuilder implements Builder {
       if (!assetId.toString().contains(outputExtension) && await buildStep.canRead(assetId)) {
         final resolvedUnit = unit.computeNode();
         final inputContents = await buildStep.readAsString(assetId);
-        contentBuffer.write(_generateForFile(assetId, inputContents, resolvedUnit, libUriPathToImportAlias, importDirectives, ancestorClassNamesToImportAlias, importCounter));
+        contentBuffer.write(_generateForFile(assetId, inputContents, resolvedUnit, libUriPathToImportAlias, importDirectives, ancestorClassNamesToImportAlias, importCounter, outputId));
       }
     }
 
-    libUriPathToImportAlias.forEach((libUriPath, importAlias) => importDirectives.add(getImportDirective(libUriPath, importAlias)));
+    libUriPathToImportAlias.forEach((libUriPath, importAlias) {
+      if (!getImportDirective(libUriPath, importAlias).contains(outputId.pathSegments.last)) {
+        importDirectives.add(getImportDirective(libUriPath, importAlias));
+      }
+    });
+
+    entryLib.definingCompilationUnit.computeNode().directives.forEach((directive) {
+      if (directive.keyword.toString().compareTo('import') == 0) {
+        if (directive.toSource().compareTo(overReactImportDirective) != 0 &&
+            !directive.toSource().contains(outputId.pathSegments.last)) {
+          importDirectives.add(directive.toSource());
+        }
+      }
+    });
+
     importDirectives.add('import \'${inputId.pathSegments.last}\';');
 
     if (contentBuffer.isNotEmpty) {
-      // TODO: Decide if we need to copy over imports from component file. Probs, since prop fields could be typed with something from a lib
       // Remove duplicates
       importDirectives.toSet();
       outputBuffer.writeln(importDirectives.join('\n'));
@@ -150,15 +169,14 @@ class OverReactBuilder implements Builder {
       {'.dart': const [outputExtension]};
 }
 
-class BuildTracker {
-  final AssetId assetId;
-  final String inputContents;
-  final CompilationUnit buildTargetCompUnit;
-
-  /// Maps a base props implementation class to a set of that class's generated
-  /// accessors mixin classes.
-  Map<String, Set<String>> generatedAncestorAccessorMixinClassNames;
-
+void addLibUriPathToMap(CompilationUnitMember compUnit, Map<String, String> libUriPathToImportAlias, AssetId outputId, ImportCounter importCounter) {
+  var libUriPath = compUnit.declaredElement.library.source.uri.path.replaceAll(
+      '.dart', outputExtension);
+  if (!libUriPath.contains(outputId.pathSegments.last)) {
+    if (!libUriPathToImportAlias.containsKey(libUriPath)) {
+      var importAlias = getLibAlias(importCounter.count++);
+      libUriPathToImportAlias[libUriPath] = importAlias;
+    }
+  }
 }
-
 

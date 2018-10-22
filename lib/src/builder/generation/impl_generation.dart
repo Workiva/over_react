@@ -15,6 +15,8 @@
 library over_react.transformer.impl_generation;
 
 import 'package:analyzer/analyzer.dart';
+import 'package:analyzer/dart/ast/token.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:logging/logging.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/builder/builder_util.dart';
@@ -78,12 +80,12 @@ class ImplGenerator {
     return '$publicGeneratedPrefix${componentClassName}Factory';
   }
 
-  static String getAccessorsMixinName(String className, {isPublic: false}) {
+  static String getAccessorsMixinName(String className) {
     if (className == null) {
       throw new ArgumentError.notNull(className);
     }
 
-    return isPublic ? '$publicGeneratedPrefix${className}AccessorsMixin' : '$generatedPrefix${className}AccessorsMixin';
+    return '$publicGeneratedPrefix${className}AccessorsMixin';
   }
 
   static String getMetaClassName(String name) {
@@ -96,31 +98,13 @@ class ImplGenerator {
 
   List<String> getAncestorPropAccessorsMixinNames(ParsedDeclarations declarations) {
     var ancestorPropNames = new List<String>();
-//    declarations?.ancestorStandardProps?.forEach((ancestorNode) {
-//      ancestorPropNames.add(getAccessorsMixinName(ancestorNode.node.name.toString()));
-//    });
-//    declarations?.ancestorAbstractProps?.forEach((ancestorNode) {
-//      ancestorPropNames.add(getAccessorsMixinName(ancestorNode.node.name.toString()));
-//    });
-//    declarations?.ancestorPropsMixin?.forEach((ancestorNode) {
-//      ancestorPropNames.add(getAccessorsMixinName(ancestorNode.node.name.toString()));
-//    });
-//    declarations?.exportedAncestorClassNames?.forEach((name) {
-//      ancestorPropNames.add(getAccessorsMixinName(name, isPublic: true));
-//    });
-
-    declarations?.ancestorCompUnits?.forEach((unit) {
-      var ancestorClassName = unit.declaredElement.name;
-      if (declarations.ancestorPropsClassNames.contains(ancestorClassName)) {
-        var accessorsMixinName = getAccessorsMixinName(
-            unit.declaredElement.name, isPublic: true);
-        var prefix = libUriPathToImportAlias[getLibraryUriPathFromCompilationUnit(
-            unit).replaceAll('.dart', outputExtension)];
-        if (prefix == null) {
-          ancestorPropNames.add(accessorsMixinName);
-        } else {
-          ancestorPropNames.add('$prefix.$accessorsMixinName');
-        }
+    declarations?.propAncestorCompUnits?.forEach((unit) {
+      var accessorsMixinName = getAccessorsMixinName(unit.declaredElement.name);
+      var prefix = libUriPathToImportAlias[getLibraryUriPathFromCompilationUnit(unit).replaceAll('.dart', outputExtension)];
+      if (prefix == null) {
+        ancestorPropNames.add(accessorsMixinName);
+      } else {
+        ancestorPropNames.add('$prefix.$accessorsMixinName');
       }
     });
 
@@ -144,10 +128,8 @@ class ImplGenerator {
       final String factoryName = declarations.factory.node.variables.variables.first.name.toString();
 
       final String propsName = declarations.props.node.name.toString();
-      final String propsImplName = '$generatedPrefix${propsName}';
-      final String propsAccessorsMixinName = getAccessorsMixinName(propsName, isPublic: true);
-//          isPublic: hasExportGeneratedAccessorsAnnotation(
-//              declarations.props.node.metadata));
+      final String propsImplName = '$generatedPrefix$propsName';
+      final String propsAccessorsMixinName = getAccessorsMixinName(propsName);
 
       final String componentClassName = declarations.component.node.name
           .toString();
@@ -190,7 +172,6 @@ class ImplGenerator {
           libUriPathToImportAlias[parentLibPath] = importAlias;
         }
         var prefix = libUriPathToImportAlias[parentLibPath];
-        logger.warning(prefix);
         String parentClassName = parentType is PrefixedIdentifier ? parentType.identifier.name : parentType.name;
         parentTypeParam = '$prefix.${getComponentFactoryName(parentClassName)}';
       }
@@ -225,19 +206,6 @@ class ImplGenerator {
       // Generate accessor classes for base class and all ancestor classes
       outputContentsBuffer.write(_generateAccessorsClass(AccessorType.props, propsAccessorsMixinName, declarations.props, propsName));
       outputContentsBuffer.write(_generateMetaClass(AccessorType.props, propsName, propsAccessorsMixinName));
-//
-//      // Write inherited classes that were not already publicly available
-//      declarations.ancestorStandardProps.forEach((ancestor) {
-//        generateAccessorsMixinAndMetaClasses(AccessorType.props, ancestor);
-//      });
-//
-//      declarations.ancestorAbstractProps.forEach((ancestor) {
-//        generateAccessorsMixinAndMetaClasses(AccessorType.props, ancestor);
-//      });
-//
-//      declarations.ancestorPropsMixin.forEach((ancestor) {
-//        generateAccessorsMixinAndMetaClasses(AccessorType.props, ancestor);
-//      });
 
       /// _$BasicProps $Basic([Map backingProps]) => new _$BasicProps(backingProps);
       outputContentsBuffer.writeln('$propsImplName \$$factoryName([Map backingProps]) => new $propsImplName(backingProps);');
@@ -250,13 +218,6 @@ class ImplGenerator {
           componentFactoryName, propKeyNamespace,
           getAncestorPropAccessorsMixinNames(declarations)
       ));
-
-      typedPropsFactoryImpl =
-          '@override '
-          // Don't type this so that it doesn't interfere with classes with generic parameter props type:
-          //    class FooComponent<T extends FooProps> extends UiComponent<T> {...}
-          // TODO use long-term solution of component impl class instantiated via factory constructor
-          'typedPropsFactory(Map backingMap) => new $propsImplName(backingMap) as dynamic;';
 
       // ----------------------------------------------------------------------
       //   State implementation
@@ -285,13 +246,6 @@ class ImplGenerator {
           ..writeln('  bool get \$isClassGenerated => true;')
           ..writeln('}')
           ..writeln();
-
-        typedStateFactoryImpl =
-          '@override '
-          // Don't type this so that it doesn't interfere with classes with generic parameter state type:
-          //    class FooComponent<T extends FooProps, T extends FooState> extends UiStatefulComponent<T> {...}
-          // TODO use long-term solution of component impl class instantiated via factory constructor
-          'typedStateFactory(Map backingMap) => new $stateImplName(backingMap) as dynamic;';
       }
 
       // ----------------------------------------------------------------------
@@ -317,22 +271,6 @@ class ImplGenerator {
                         'const [${getMetaClassName(propsName)}];')
         ..writeln('}');
 
-      if (declarations.component.node.withClause != null) {
-//        transformedFile?.insert(
-//            sourceFile?.location(declarations.component.node.withClause.mixinTypes.last.end),
-//            ', $componentClassImplMixinName'
-//        );
-      } else if (declarations.component.node.extendsClause != null) {
-//        transformedFile?.insert(
-//            sourceFile?.location(declarations.component.node.extendsClause.end),
-//            ' with $componentClassImplMixinName'
-//        );
-      } else {
-//        transformedFile?.insert(
-//            sourceFile?.location(declarations.component.node.name.end),
-//            ' extends Object with $componentClassImplMixinName'
-//        );
-      }
 
       var implementsTypedPropsStateFactory = declarations.component.node.members.any((member) =>
           member is MethodDeclaration &&
@@ -346,14 +284,6 @@ class ImplGenerator {
             'Components should not add their own implementions of typedPropsFactory or typedStateFactory.',
 //            span: getSpan(sourceFile, declarations.component.node)
         );
-      } else {
-        // For some reason, strong mode is okay with these declarations being in the component,
-        // but not in the mixin.
-        // TODO use long-term solution of component impl class instantiated via factory constructor
-//        transformedFile?.insert(
-//            sourceFile?.location(declarations.component.node.leftBracket.end),
-//            '   /* GENERATED IMPLEMENTATIONS */ $typedPropsFactoryImpl $typedStateFactoryImpl'
-//        );
       }
     }
 
@@ -411,9 +341,7 @@ class ImplGenerator {
 
   void generateAccessorsMixinAndMetaClasses(AccessorType type, NodeWithMeta classNode) {
     var className = getClassNameFromNode(classNode);
-    var accessorMixinName = getAccessorsMixinName(className,
-        isPublic: true);//hasExportGeneratedAccessorsAnnotation(
-//            classNode.node.metadata));
+    var accessorMixinName = getAccessorsMixinName(className);
     if (!generatedAccessorMixinClassNames.contains(accessorMixinName)) {
       outputContentsBuffer.write(_generateAccessorsClass(type, accessorMixinName, classNode, className));
       outputContentsBuffer.write(_generateMetaClass(type, className, accessorMixinName));
@@ -476,9 +404,6 @@ class ImplGenerator {
         .forEach((_field) {
           final field = _field as FieldDeclaration; // ignore: avoid_as
 
-          T getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
-            return member.metadata.any((annotation) => annotation.name?.name == name) ? value : null;
-          }
 
           annotations.Accessor accessorMeta = instantiateAnnotation(field, annotations.Accessor);
           annotations.Accessor requiredProp = getConstantAnnotation(field, 'requiredProp', annotations.requiredProp);
@@ -486,10 +411,6 @@ class ImplGenerator {
           // ignore: deprecated_member_use
           annotations.Required requiredMeta = instantiateAnnotation(field, annotations.Required);
 
-//          logger.warning('printing the library which the element belongs to');
-//          logger.warning(field);
-////          logger.warning(field.)
-//          logger.warning(field.declaredElement?.library);
 
           if (accessorMeta?.doNotGenerate == true) {
             logger.fine('Skipping generation of field `$field`.',
@@ -650,7 +571,7 @@ class ImplGenerator {
   }
 
   String _generateAccessorsClass(AccessorType type, String accessorsMixinName,
-      NodeWithMeta node, String name) {
+      NodeWithMeta<ClassDeclaration, annotations.TypedMap> node, String name) {
     var isProps = type == AccessorType.props;
     StringBuffer generatedClass = new StringBuffer();
     generatedClass.writeln(
