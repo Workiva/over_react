@@ -75,9 +75,10 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
 
   @mustCallSuper
   @override
-  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
-  // ignore: must_call_super
-  void componentWillMount();
+  void componentWillMount() {
+    super.componentWillMount();
+    _componentWillMount();
+  }
 
   @mustCallSuper
   @override
@@ -91,9 +92,10 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
 
   @mustCallSuper
   @override
-  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
-  // ignore: must_call_super
-  void componentWillUnmount();
+  void componentWillUnmount() {
+    super.componentWillUnmount();
+    _componentWillUnmount();
+  }
 }
 
 /// Builds on top of [UiStatefulComponent], adding `w_flux` integration, much like the [FluxComponent] in w_flux.
@@ -114,9 +116,10 @@ abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extend
 
   @mustCallSuper
   @override
-  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
-  // ignore: must_call_super
-  void componentWillMount();
+  void componentWillMount() {
+    super.componentWillMount();
+    _componentWillMount();
+  }
 
   @mustCallSuper
   @override
@@ -130,9 +133,10 @@ abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extend
 
   @mustCallSuper
   @override
-  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
-  // ignore: must_call_super
-  void componentWillUnmount();
+  void componentWillUnmount() {
+    super.componentWillUnmount();
+    _componentWillUnmount();
+  }
 }
 
 /// Helper mixin to keep [FluxUiComponent] and [FluxUiStatefulComponent] clean/DRY.
@@ -141,8 +145,8 @@ abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extend
 abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements UiComponent<TProps>, BatchedRedraws {
   static final Logger _logger = new Logger('over_react._FluxComponentMixin');
 
-  @override
-  void componentWillMount() {
+  // This is private and called by classes to work around super-calls not being supported in mixins
+  void _componentWillMount() {
     /// Subscribe to all applicable stores.
     ///
     /// [Store]s returned by [redrawOn] will have their triggers mapped directly to this components
@@ -169,8 +173,8 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements UiComp
     });
   }
 
-  @override
-  void componentWillUnmount() {
+  // This is private and called by classes to work around super-calls not being supported in mixins
+  void _componentWillUnmount() {
     // Ensure that unmounted components don't batch render
     shouldBatchRedraw = false;
   }
