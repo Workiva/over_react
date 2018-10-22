@@ -142,8 +142,14 @@ abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extend
 /// Helper mixin to keep [FluxUiComponent] and [FluxUiStatefulComponent] clean/DRY.
 ///
 /// Private so it will only get used in this file, since having lifecycle methods in a mixin is risky.
-abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements UiComponent<TProps>, BatchedRedraws {
+abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements BatchedRedraws {
   static final Logger _logger = new Logger('over_react._FluxComponentMixin');
+  TProps get props;
+
+  /// List of store subscriptions created when the component mounts.
+  ///
+  /// These subscriptions are canceled when the component is unmounted.
+  List<StreamSubscription> _subscriptions = [];
 
   // This is private and called by classes to work around super-calls not being supported in mixins
   void _componentWillMount() {
@@ -169,7 +175,8 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements UiComp
 
       if (isDisposedOrDisposing) _logger.warning(message);
 
-      listenToStream(store, handler);
+      StreamSubscription subscription = store.listen(handler);
+      _subscriptions.add(subscription);
     });
   }
 
@@ -177,6 +184,13 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements UiComp
   void _componentWillUnmount() {
     // Ensure that unmounted components don't batch render
     shouldBatchRedraw = false;
+
+    // Cancel all store subscriptions.
+    _subscriptions.forEach((StreamSubscription subscription) {
+      if (subscription != null) {
+        subscription.cancel();
+      }
+    });
   }
 
   /// Define the list of [Store] instances that this component should listen to.
@@ -215,13 +229,10 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements UiComp
     return {};
   }
 
-  /// Deprecated: use
-  ///
   /// Register a [subscription] that should be canceled when the component unmounts.
   ///
   /// Cancellation will be handled automatically by [componentWillUnmount].
-  @Deprecated('3.0.0')
   void addSubscription(StreamSubscription subscription) {
-    getManagedDisposer(subscription.cancel);
+    _subscriptions.add(subscription);
   }
 }
