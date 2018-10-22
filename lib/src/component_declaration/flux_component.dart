@@ -138,15 +138,10 @@ abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extend
 /// Helper mixin to keep [FluxUiComponent] and [FluxUiStatefulComponent] clean/DRY.
 ///
 /// Private so it will only get used in this file, since having lifecycle methods in a mixin is risky.
-abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements BatchedRedraws {
+abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements UiComponent<TProps>, BatchedRedraws {
   static final Logger _logger = new Logger('over_react._FluxComponentMixin');
-  TProps get props;
 
-  /// List of store subscriptions created when the component mounts.
-  ///
-  /// These subscriptions are canceled when the component is unmounted.
-  List<StreamSubscription> _subscriptions = [];
-
+  @override
   void componentWillMount() {
     /// Subscribe to all applicable stores.
     ///
@@ -170,21 +165,14 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
 
       if (isDisposedOrDisposing) _logger.warning(message);
 
-      StreamSubscription subscription = store.listen(handler);
-      _subscriptions.add(subscription);
+      listenToStream(store, handler);
     });
   }
 
+  @override
   void componentWillUnmount() {
     // Ensure that unmounted components don't batch render
     shouldBatchRedraw = false;
-
-    // Cancel all store subscriptions.
-    _subscriptions.forEach((StreamSubscription subscription) {
-      if (subscription != null) {
-        subscription.cancel();
-      }
-    });
   }
 
   /// Define the list of [Store] instances that this component should listen to.
@@ -223,10 +211,13 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
     return {};
   }
 
+  /// Deprecated: use
+  ///
   /// Register a [subscription] that should be canceled when the component unmounts.
   ///
   /// Cancellation will be handled automatically by [componentWillUnmount].
+  @Deprecated('3.0.0')
   void addSubscription(StreamSubscription subscription) {
-    _subscriptions.add(subscription);
+    getManagedDisposer(subscription.cancel);
   }
 }
