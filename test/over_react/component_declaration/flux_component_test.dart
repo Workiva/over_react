@@ -183,10 +183,7 @@ void main() {
         var jacket = mount((testComponents.propValidation()..required = 'foo')());
         expect(() {
           jacket.rerender(testComponents.propValidation()());
-        }, throwsA(anyOf(
-          hasToStringValue('V8 Exception'), /* workaround for https://github.com/dart-lang/sdk/issues/26093 */
-          hasToStringValue(contains('RequiredPropError:')),
-        )),
+        }, throwsA(hasToStringValue(contains('RequiredPropError:'))),
             reason: 'should have called super, triggering prop validation logic');
       });
 

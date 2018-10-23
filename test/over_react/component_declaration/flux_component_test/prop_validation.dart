@@ -11,14 +11,6 @@ class TestPropValidationProps extends FluxUiProps {
 
 @Component()
 class TestPropValidationComponent extends FluxUiComponent<TestPropValidationProps> {
-  int numberOfRedraws = 0;
-
   @override
   render() => Dom.div()();
-
-  @override
-  void setState(_, [callback()]) {
-    numberOfRedraws++;
-    if (callback != null) callback();
-  }
 }
