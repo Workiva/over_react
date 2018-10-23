@@ -15,6 +15,7 @@ __New Features__
 __Improvements__
 
 * [#192]: Make return type of `getDartComponent` generic
+* [#190]: Merge `style` prop into styles applied to the top-level ResizeSensor node
 
 
 ## 1.27.0
