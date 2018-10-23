@@ -174,8 +174,8 @@ void main() {
     group('calls super in the appropriate lifecycle methods', () {
       test('componentWillMount', () {
         expect(() {
-          mount(TestPropValidation()());
-        }, throwsPropError_Required('TestPropValidationProps.required'),
+          mount(testComponents.propValidation()());
+        }, throwsA(hasToStringValue(contains('RequiredPropError:'))),
             reason: 'should have called super, triggering prop validation logic');
       });
 
