@@ -6,8 +6,11 @@ UiFactory<TestStatefulHandlerPrecedenceProps> TestStatefulHandlerPrecedence;
 @Props()
 class TestStatefulHandlerPrecedenceProps extends FluxUiProps<TestActions, TestStores> implements TestHandlerPrecedenceProps {}
 
+@State()
+class TestStatefulHandlerPrecedenceState extends UiState {}
+
 @Component()
-class TestStatefulHandlerPrecedenceComponent extends FluxUiComponent<TestStatefulHandlerPrecedenceProps> {
+class TestStatefulHandlerPrecedenceComponent extends FluxUiStatefulComponent<TestStatefulHandlerPrecedenceProps, TestStatefulHandlerPrecedenceState> {
   int numberOfRedraws = 0;
   int numberOfHandlerCalls = 0;
 

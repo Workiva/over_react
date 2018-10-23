@@ -10,8 +10,11 @@ class TestStatefulPropValidationProps extends FluxUiProps implements TestPropVal
   String required;
 }
 
+@State()
+class TestStatefulPropValidationState extends UiState {}
+
 @Component()
-class TestStatefulPropValidationComponent extends FluxUiComponent<TestStatefulPropValidationProps> {
+class TestStatefulPropValidationComponent extends FluxUiStatefulComponent<TestStatefulPropValidationProps, TestStatefulPropValidationState> {
   @override
   render() => Dom.div()();
 }

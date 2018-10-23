@@ -6,8 +6,11 @@ UiFactory<TestStatefulRedrawOnProps> TestStatefulRedrawOn;
 @Props()
 class TestStatefulRedrawOnProps extends FluxUiProps<TestActions, TestStores> implements TestRedrawOnProps {}
 
+@State()
+class TestStatefulRedrawOnState extends UiState {}
+
 @Component()
-class TestStatefulRedrawOnComponent extends FluxUiComponent<TestStatefulRedrawOnProps> {
+class TestStatefulRedrawOnComponent extends FluxUiStatefulComponent<TestStatefulRedrawOnProps, TestStatefulRedrawOnState> {
   int numberOfRedraws = 0;
 
   @override
