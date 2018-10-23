@@ -151,33 +151,62 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
   /// These subscriptions are canceled when the component is unmounted.
   List<StreamSubscription> _subscriptions = [];
 
-  // This is private and called by classes to work around super-calls not being supported in mixins
-  void _componentWillMount() {
-    /// Subscribe to all applicable stores.
-    ///
-    /// [Store]s returned by [redrawOn] will have their triggers mapped directly to this components
-    /// redraw function.
-    ///
-    /// [Store]s included in the [getStoreHandlers] result will be listened to and wired up to their
-    /// respective handlers.
-    Map<Store, StoreHandler> handlers = new Map.fromIterable(redrawOn(),
-        value: (_) => (_) => redraw())..addAll(getStoreHandlers());
+  void _validateStoreDisposalState(Store store) {
+    String message = 'Cannot listen to a disposed/disposing Store.';
 
-    handlers.forEach((store, handler) {
-      String message = 'Cannot listen to a disposed/disposing Store.';
+    var isDisposedOrDisposing = store.isOrWillBeDisposed ?? false;
 
-      var isDisposedOrDisposing = store.isOrWillBeDisposed ?? false;
-
-      assert(!isDisposedOrDisposing, '$message This can be caused by BatchedRedraws '
+    assert(!isDisposedOrDisposing, '$message This can be caused by BatchedRedraws '
         'mounting the component asynchronously after the store has been disposed. If you are '
         'in a test environment, try adding an `await window.animationFrame;` before disposing your '
         'store.');
 
-      if (isDisposedOrDisposing) _logger.warning(message);
+    if (isDisposedOrDisposing) _logger.warning(message);
+  }
 
+  // This is private and called by classes to work around super-calls not being supported in mixins
+  void _componentWillMount() {
+    // Subscribe to all applicable stores.
+    //
+    // Stores returned by `redrawOn()` will have their triggers mapped directly
+    // to `handleRedrawOn`, which invokes this component's redraw function.
+    //
+    // Stores included in the `getStoreHandlers()` result will be listened to
+    // and wired up to their respective handlers.
+    final customStoreHandlers = getStoreHandlers();
+    final storesWithoutCustomHandlers = redrawOn().where((store) => !customStoreHandlers.containsKey(store));
+
+    customStoreHandlers.forEach((store, handler) {
+      _validateStoreDisposalState(store);
       StreamSubscription subscription = store.listen(handler);
       _subscriptions.add(subscription);
     });
+    storesWithoutCustomHandlers.forEach(listenToStoreForRedraw);
+  }
+
+  /// Used to register [handleRedrawOn] as a listeners for the given [store].
+  ///
+  /// Called for each the stores returned by [redrawOn] that don't have custom
+  /// store handlers (defined in [getStoreHandlers]).
+  ///
+  /// Override to set up custom listener behavior.
+  @protected
+  void listenToStoreForRedraw(Store store) {
+    _validateStoreDisposalState(store);
+    _subscriptions.add(store.listen(handleRedrawOn));
+  }
+
+  /// Redraws the component for a given [store].
+  ///
+  /// Called whenever an event is emitted by one of the stores returned by
+  /// [redrawOn] that don't have custom store handlers (defined in
+  /// [getStoreHandlers]).
+  ///
+  /// Override and call super to add custom behavior.
+  @mustCallSuper
+  @protected
+  void handleRedrawOn(Store store) {
+    redraw();
   }
 
   // This is private and called by classes to work around super-calls not being supported in mixins
