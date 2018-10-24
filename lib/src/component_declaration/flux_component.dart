@@ -184,7 +184,7 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
     storesWithoutCustomHandlers.forEach(listenToStoreForRedraw);
   }
 
-  /// Used to register [handleRedrawOn] as a listeners for the given [store].
+  /// Used to register [handleRedrawOn] as a listener for the given [store].
   ///
   /// Called for each the stores returned by [redrawOn] that don't have custom
   /// store handlers (defined in [getStoreHandlers]).
