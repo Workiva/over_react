@@ -14,6 +14,7 @@
 
 
 import 'package:analyzer/analyzer.dart';
+import 'package:analyzer/dart/element/type.dart';
 import 'package:logging/logging.dart';
 import 'package:over_react/src/builder/builder_util.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
@@ -314,56 +315,158 @@ class ParsedDeclarations {
     return key_any_annotation.hasMatch(source);
   }
 
-  static List<CompilationUnitMember> getAncestorClassCompilationUnits(ClassDeclaration node, Logger logger) {
-    var baseType = getPropsOrStateType(node);
-    if (baseType == PropsOrStateType.none) {
-      return [];
+  static void populateFieldsFromClassDeclaration(InterfaceType classType,
+      Set<String> fields, Set<String> covariantFields, Set<String> overriddenFields,
+     Map<ClassDeclaration, Set<String>> ancestorClassesToRegenerate,
+      Set<String> topLevelMembers) {
+    var classDeclaration = classType.element.computeNode();
+    if (classDeclaration is ClassDeclaration) {
+      classDeclaration.members
+          .where((member) => member is FieldDeclaration && !member.isStatic)
+          .forEach((_field) {
+        final field = _field as FieldDeclaration; // ignore: avoid_as
+        var variableName = field.fields.variables.first.name.toString();
+        // look for covariant keyword
+        if (field.covariantKeyword != null) {
+          // TODO: Right now, this expects the variable to be the only one declared. See if we can declare multiple vars w/covariant & override
+          covariantFields.add(variableName);
+          if (overriddenFields.contains(variableName) && !topLevelMembers.contains(variableName)) {
+            var values = ancestorClassesToRegenerate.putIfAbsent(
+                classDeclaration, () => [variableName].toSet());
+            values.add(variableName);
+            topLevelMembers.add(variableName);
+          }
+        }
+
+        // Look for override annotation
+        for (final annotation in field.metadata) {
+          if (annotation.name.beginToken.toString().compareTo('override') == 0) {
+            overriddenFields.add(variableName);
+            if (covariantFields.contains(variableName) && !topLevelMembers.contains(variableName)) {
+              var values = ancestorClassesToRegenerate.putIfAbsent(
+                  classDeclaration, () => [variableName].toSet());
+              values.add(variableName);
+              topLevelMembers.add(variableName);
+            }
+          }
+        }
+      });
     }
-    var addedClasses = <String, Set<String>>{};
-    var ancestorCompUnits = <CompilationUnitMember>[];
+  }
 
-    var overriddenMembers = <ClassMember>[];
-    node.members.forEach((member) {
-      // TODO: This currently only works if there is an `@override` annotation present. Look to see if there's a way to investigate whether the override exists without looking at metadata
-      if (member?.declaredElement?.hasOverride ?? false) {
-        overriddenMembers.add(member);
-      }
+  static Set<String> getFieldsFor(InterfaceType classType, Set<String> covariantFields, Set<String> overriddenFields, Map<ClassDeclaration, Set<String>> ancestorClassesToRegenerate, Set<String> topLevelMembers) {
+    var fieldsDeclarations = new Set<String>();
+
+    // fields in the base class have the highest precedent
+    populateFieldsFromClassDeclaration(classType, fieldsDeclarations, covariantFields, overriddenFields, ancestorClassesToRegenerate, topLevelMembers);
+
+    if (classType.superclass == null &&
+        classType.mixins.isEmpty &&
+        classType.interfaces.isEmpty) {
+      return fieldsDeclarations;
+    }
+
+    // mixins have precedent order of last > first as they appear in the class
+    // declaration. The dart analyzer lib populates the mixins list in order of
+    // first to last as they appear in the class declaration.
+    var mixinsInOrderOfPrecedence = classType.mixins.reversed.toList();
+    mixinsInOrderOfPrecedence.forEach((mixin) {
+      fieldsDeclarations.addAll(getFieldsFor(mixin, covariantFields, overriddenFields, ancestorClassesToRegenerate, topLevelMembers));
     });
-//    node.members
-//        .where((member) => member is FieldDeclaration && !member.isStatic)
-//        .forEach((_field) {
-//          _field.metadata.forEach((annotation) {
-//            if (annotation)
-//          });
+
+    // The direct super class has the next highest precedence
+    fieldsDeclarations.addAll(getFieldsFor(classType.superclass, covariantFields, overriddenFields, ancestorClassesToRegenerate, topLevelMembers));
+
+    classType.interfaces.forEach((interface) {
+      fieldsDeclarations.addAll(getFieldsFor(interface, covariantFields, overriddenFields, ancestorClassesToRegenerate, topLevelMembers));
+    });
+    return fieldsDeclarations;
+  }
+
+  static List<CompilationUnitMember> getAncestorClassCompilationUnits(ClassDeclaration node, Logger logger) {
+    var classType = node.declaredElement.type;
+//    logger.warning('getting stuff for class ${node.declaredElement.name}');
+
+//    logger.warning('getting variables for: ${node.declaredElement.name}');
+    var covariantFields = new Set<String>();
+    var overriddenFields = new Set<String>();
+    var topLevelMembers = new Set<String>();
+    var ancestorClassesToRegenerate = <ClassDeclaration, Set<String>>{};
+    var allVariables = getFieldsFor(classType, covariantFields, overriddenFields, ancestorClassesToRegenerate, topLevelMembers);
+
+//    if (ancestorClassesToRegenerate.keys.isNotEmpty) {
+//      logger.warning('Found class with precedent in override-covariant relationship');
+//    }
+//    for (var classDeclaration in ancestorClassesToRegenerate.keys) {
+//      logger.warning('class: ${classDeclaration.name}');
+//      logger.warning('overridden methods: ${ancestorClassesToRegenerate[classDeclaration]}');
+//    }
+
 //
+//    /// linear walking of supertypes, not tree w/precedence. TODO: Remove
+//    var baseType = getPropsOrStateType(node);
+//    if (baseType == PropsOrStateType.none) {
+//      return [];
+//    }
+//    var addedClasses = <String, Set<String>>{};
+    var ancestorCompUnits = <CompilationUnitMember>[];
+//
+//
+//    if (node is ClassDeclaration) {
+//      checkForOverriddenCovariantMembers(node,
+//          covariantFields, overriddenFields, ancestorClassesToRegenerate);
+//    }
+//
+//    // Keys are compilation Units representing classes to regenerate, values is the set of
+//    node.declaredElement?.allSupertypes?.forEach((superClass) {
+////      logger.warning(superClass.displayName);
+//      var compUnit = superClass.element.computeNode();
+//      var libUriPath = getLibraryUriPathFromCompilationUnit(
+//          compUnit, isGeneratedLib: true);
+//      var superClassName = superClass.element.name;
+//
+//      // Ancestor classes which should be of the same type(Props|State) as the base class
+//      if (baseType != getPropsOrStateType(compUnit)) {
+//        return;
+//      }
+//
+//      // Don't need to add the class if it's already been added
+//      if (addedClasses[libUriPath]?.contains(superClassName) ?? false) {
+//        return;
+//      }
+//
+//      if (compUnit is ClassDeclaration) {
+//        checkForOverriddenCovariantMembers(compUnit,
+//            covariantFields, overriddenFields, ancestorClassesToRegenerate);
+//      }
+//
+//      if (!addedClasses.containsKey(libUriPath)) {
+//        addedClasses[libUriPath] = new Set();
+//      }
+//      addedClasses[libUriPath].add(superClassName);
+//      ancestorCompUnits.add(compUnit);
 //    });
-//    logger.warning(node.declaredElement?.supertype?.displayName); //.superclass.super
-    node.declaredElement?.allSupertypes?.forEach((superClass) {
-//      logger.warning(superClass.displayName);
-      var compUnit = superClass.element.computeNode();
-      var libUriPath = getLibraryUriPathFromCompilationUnit(
-          compUnit, isGeneratedLib: true);
-      var superClassName = superClass.element.name;
-
-      // Ancestor classes which should be of the same type(Props|State) as the base class
-      if (baseType != getPropsOrStateType(compUnit)) {
-        return;
-      }
-
-      // Don't need to add the class if it's already been added
-      if (addedClasses[libUriPath]?.contains(superClassName) ?? false) {
-        return;
-      }
-
-      if (!addedClasses.containsKey(libUriPath)) {
-        addedClasses[libUriPath] = new Set();
-      }
-      addedClasses[libUriPath].add(superClassName);
-      ancestorCompUnits.add(compUnit);
-    });
+//
+////    for (var classUnit in ancestorClassesToRegenerate.keys) {
+////      logger.warning('found class which needs to be regen: ${classUnit.declaredElement.name}');
+////      logger.warning('with methods: ${ancestorClassesToRegenerate[classUnit]}');
+////    }
     return ancestorCompUnits.reversed.toList();
   }
 
+//  static void checkForOverriddenCovariantMembers(
+//      ClassDeclaration compUnitAsClassDeclaration, Set<String> covariantFields,
+//      Set<String> overriddenFields,
+//      Map<ClassDeclaration, Set<String>> ancestorClassesToRegenerate) {
+//    compUnitAsClassDeclaration.members
+//        .where((member) => member is FieldDeclaration && !member.isStatic)
+//        .forEach((_field) {
+//      final field = _field as FieldDeclaration; // ignore: avoid_as
+//
+//
+//      }
+//    });
+//  }
   static PropsOrStateType getPropsOrStateType(CompilationUnitMember compUnit) {
     PropsOrStateType propsClassType;
     for (var annotation in compUnit.metadata) {

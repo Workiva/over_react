@@ -204,6 +204,8 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
 
       // Generate accessor classes for base class and all ancestor classes
+
+      // TODO: Look into using accessors+meta generation function
       outputContentsBuffer.write(_generateAccessorsClass(AccessorType.props, propsAccessorsMixinName, declarations.props, propsName));
       outputContentsBuffer.write(_generateMetaClass(AccessorType.props, propsName, propsAccessorsMixinName));
 
