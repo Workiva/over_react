@@ -1,15 +1,16 @@
 import 'package:over_react/over_react.dart';
 import 'props_mixin.dart';
 
-//part 'basic.template.g.dart';
-//part 'basic.template.overReactBuilder.g.dart';
 part 'basic.overReactBuilder.g.dart';
 
 @Factory()
-UiFactory<_$BasicProps> Basic = $Basic;
+UiFactory<BasicProps> Basic = $Basic;
+
+// ignore: mixin_of_non_class,undefined_class
+class BasicProps extends UiProps with _$BasicPropsMixin implements _$BasicProps {}
 
 @Props()
-abstract class _$BasicProps extends UiProps {// with ExamplePropsMixinClass {
+class _$BasicProps extends UiProps with ExamplePropsMixinClass {
   static const PropsMeta meta = $metaForBasicProps;
 
   String basicProp;
@@ -21,7 +22,7 @@ abstract class _$BasicProps extends UiProps {// with ExamplePropsMixinClass {
 }
 
 @Component()
-class BasicComponent extends UiComponent<_$BasicProps> {
+class BasicComponent extends UiComponent<BasicProps> {
   getDefaultProps() => newProps()..id = 'basic';
 
   @override

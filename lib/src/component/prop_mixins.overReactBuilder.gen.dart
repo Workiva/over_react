@@ -1,6 +1,6 @@
 part of 'prop_mixins.dart';
 
-abstract class $ReactPropsMixinAccessorsMixin {
+abstract class _$$ReactPropsMixin implements _$ReactPropsMixin{
   Map get props;
 
   List get children => props[_$key__children__ReactPropsMixin];
@@ -18,11 +18,11 @@ abstract class $ReactPropsMixinAccessorsMixin {
 }
 
 const PropsMeta $metaForReactPropsMixin = const PropsMeta(
-  fields: $ReactPropsMixinAccessorsMixin.$props,
-  keys: $ReactPropsMixinAccessorsMixin.$propKeys,
+  fields: _$$ReactPropsMixin.$props,
+  keys: _$$ReactPropsMixin.$propKeys,
 );
 
-abstract class $DomPropsMixinAccessorsMixin {
+abstract class _$$DomPropsMixin implements _$DomPropsMixin {
   Map get props;
 
   int get cols => props[_$key__cols__DomPropsMixin];
@@ -708,13 +708,13 @@ abstract class $DomPropsMixinAccessorsMixin {
 }
 
 const PropsMeta $metaForDomPropsMixin = const PropsMeta(
-  fields: $DomPropsMixinAccessorsMixin.$props,
-  keys: $DomPropsMixinAccessorsMixin.$propKeys,
+  fields: _$$DomPropsMixin.$props,
+  keys: _$$DomPropsMixin.$propKeys,
 );
 
 
 
-abstract class $SvgPropsMixinAccessorsMixin {
+abstract class _$$SvgPropsMixin implements _$SvgPropsMixin {
   Map get props;
 
   dynamic get clipPath => props[_$key__clipPath__SvgPropsMixin];
@@ -940,11 +940,11 @@ abstract class $SvgPropsMixinAccessorsMixin {
 }
 
 const PropsMeta $metaForSvgPropsMixin = const PropsMeta(
-  fields: $SvgPropsMixinAccessorsMixin.$props,
-  keys: $SvgPropsMixinAccessorsMixin.$propKeys,
+  fields: _$$SvgPropsMixin.$props,
+  keys: _$$SvgPropsMixin.$propKeys,
 );
 
-abstract class $UbiquitousDomPropsMixinAccessorsMixin {
+abstract class _$$UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   Map get props;
 
   dynamic get tabIndex => props[_$key__tabIndex__UbiquitousDomPropsMixin];
@@ -1114,8 +1114,8 @@ abstract class $UbiquitousDomPropsMixinAccessorsMixin {
 }
 
 const PropsMeta $metaForUbiquitousDomPropsMixin = const PropsMeta(
-  fields: $UbiquitousDomPropsMixinAccessorsMixin.$props,
-  keys: $UbiquitousDomPropsMixinAccessorsMixin.$propKeys,
+  fields: _$$UbiquitousDomPropsMixin.$props,
+  keys: _$$UbiquitousDomPropsMixin.$propKeys,
 );
 
 

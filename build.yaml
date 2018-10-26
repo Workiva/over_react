@@ -29,7 +29,7 @@ targets:
       over_react|overReactBuilder:
         enabled: true
         generate_for:
-#          - "example/**"
+          - "example/**"
 #          - "lib/src/**"
 #          - "test/component_files/**"
 #          - "example/builder/basic.dart"

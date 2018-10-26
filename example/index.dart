@@ -11,6 +11,7 @@ import './builder/basic.dart';
 
 main() {
   setClientConfiguration();
+  print('working...');
   react_dom.render(
       Dom.div()(
         Dom.h3()('Components'),
