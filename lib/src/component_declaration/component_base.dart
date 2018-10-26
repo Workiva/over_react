@@ -690,6 +690,11 @@ abstract class UiProps extends MapBase
   }
 
   Function get componentFactory;
+
+  Map get defaultProps => componentFactory is ReactDartComponentFactoryProxy
+      // ignore: avoid_as
+      ? (componentFactory as ReactDartComponentFactoryProxy).defaultProps
+      : const {};
 }
 
 /// A class that declares the `_map` getter shared by [PropsMapViewMixin]/[StateMapViewMixin] and [MapViewMixin].

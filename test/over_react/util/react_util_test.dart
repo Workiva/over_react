@@ -32,6 +32,10 @@ main() {
         expect(() => mapView.testId, throwsUnimplementedError);
       });
 
+      test('`defaultProps`', () {
+        expect(() => mapView.defaultProps, throwsUnimplementedError);
+      });
+
       test('`getTestId()`', () {
         expect(() => mapView.getTestId(), throwsUnimplementedError);
       });

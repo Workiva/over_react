@@ -17,7 +17,7 @@ library over_react.component_declaration.transformer_integration_tests.component
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
-import './required_prop_integration_test.dart';
+import './required_prop_integration_test.dart' as r;
 import '../../../test_util/test_util.dart';
 
 main() {
@@ -97,6 +97,14 @@ main() {
         expect(ComponentTest()..customKeyAndNamespaceProp = 'test',
             containsPair('custom namespace~~custom key!', 'test'));
       });
+
+      test('default props', () {
+        expect(ComponentTest().defaultProps, equals({'id':'testId'}));
+      });
+
+      test('empty map when no default props set', () {
+        expect(r.ComponentTest().defaultProps, equals({}));
+      });
     });
 
     test('omits props declared in the @Props() class when forwarding by default', () {
@@ -113,10 +121,10 @@ main() {
       var shallowProps = getProps(shallowInstance);
       Iterable<String> shallowPropKeys = shallowProps.keys;
 
-      expect(shallowPropKeys.where((String key) => !key.startsWith('data-prop-')), unorderedEquals(['extraneous', 'children']));
+      expect(shallowPropKeys.where((String key) => !key.startsWith('data-prop-')), unorderedEquals(['id', 'extraneous', 'children']));
     });
 
-    requiredPropsIntegrationTest();
+    r.requiredPropsIntegrationTest();
   });
 }
 
@@ -142,6 +150,9 @@ class ComponentTestProps extends UiProps {
 
 @Component()
 class ComponentTestComponent extends UiComponent<ComponentTestProps> {
+  @override
+  Map getDefaultProps() => newProps()..id = 'testId';
+
   @override
   render() => (Dom.div()
     ..addProps(copyUnconsumedProps())
