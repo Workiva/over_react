@@ -6,8 +6,11 @@ UiFactory<TestStatefulBasicProps> TestStatefulBasic;
 @Props()
 class TestStatefulBasicProps extends FluxUiProps implements TestBasicProps {}
 
+@State()
+class TestStatefulBasicState extends UiState {}
+
 @Component()
-class TestStatefulBasicComponent extends FluxUiComponent<TestStatefulBasicProps> {
+class TestStatefulBasicComponent extends FluxUiStatefulComponent<TestStatefulBasicProps, TestStatefulBasicState> {
   int numberOfRedraws = 0;
 
   @override

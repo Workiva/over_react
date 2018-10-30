@@ -6,8 +6,11 @@ UiFactory<TestStoreHandlersProps> TestStatefulStoreHandlers;
 @Props()
 class TestStatefulStoreHandlersProps extends FluxUiProps<TestActions, TestStore> implements TestStoreHandlersProps {}
 
+@State()
+class TestStatefulStoreHandlersState extends UiState {}
+
 @Component()
-class TestStatefulStoreHandlersComponent extends FluxUiComponent<TestStatefulStoreHandlersProps> {
+class TestStatefulStoreHandlersComponent extends FluxUiStatefulComponent<TestStatefulStoreHandlersProps, TestStatefulStoreHandlersState> {
   int numberOfHandlerCalls = 0;
 
   @override
