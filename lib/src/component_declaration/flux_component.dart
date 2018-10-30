@@ -75,9 +75,10 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
 
   @mustCallSuper
   @override
-  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
-  // ignore: must_call_super
-  void componentWillMount();
+  void componentWillMount() {
+    super.componentWillMount();
+    _componentWillMount();
+  }
 
   @mustCallSuper
   @override
@@ -91,9 +92,10 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
 
   @mustCallSuper
   @override
-  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
-  // ignore: must_call_super
-  void componentWillUnmount();
+  void componentWillUnmount() {
+    super.componentWillUnmount();
+    _componentWillUnmount();
+  }
 }
 
 /// Builds on top of [UiStatefulComponent], adding `w_flux` integration, much like the [FluxComponent] in w_flux.
@@ -114,9 +116,10 @@ abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extend
 
   @mustCallSuper
   @override
-  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
-  // ignore: must_call_super
-  void componentWillMount();
+  void componentWillMount() {
+    super.componentWillMount();
+    _componentWillMount();
+  }
 
   @mustCallSuper
   @override
@@ -130,9 +133,10 @@ abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extend
 
   @mustCallSuper
   @override
-  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
-  // ignore: must_call_super
-  void componentWillUnmount();
+  void componentWillUnmount() {
+    super.componentWillUnmount();
+    _componentWillUnmount();
+  }
 }
 
 /// Helper mixin to keep [FluxUiComponent] and [FluxUiStatefulComponent] clean/DRY.
@@ -147,35 +151,66 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
   /// These subscriptions are canceled when the component is unmounted.
   List<StreamSubscription> _subscriptions = [];
 
-  void componentWillMount() {
-    /// Subscribe to all applicable stores.
-    ///
-    /// [Store]s returned by [redrawOn] will have their triggers mapped directly to this components
-    /// redraw function.
-    ///
-    /// [Store]s included in the [getStoreHandlers] result will be listened to and wired up to their
-    /// respective handlers.
-    Map<Store, StoreHandler> handlers = new Map.fromIterable(redrawOn(),
-        value: (_) => (_) => redraw())..addAll(getStoreHandlers());
+  void _validateStoreDisposalState(Store store) {
+    String message = 'Cannot listen to a disposed/disposing Store.';
 
-    handlers.forEach((store, handler) {
-      String message = 'Cannot listen to a disposed/disposing Store.';
+    var isDisposedOrDisposing = store.isOrWillBeDisposed ?? false;
 
-      var isDisposedOrDisposing = store.isOrWillBeDisposed ?? false;
-
-      assert(!isDisposedOrDisposing, '$message This can be caused by BatchedRedraws '
+    assert(!isDisposedOrDisposing, '$message This can be caused by BatchedRedraws '
         'mounting the component asynchronously after the store has been disposed. If you are '
         'in a test environment, try adding an `await window.animationFrame;` before disposing your '
         'store.');
 
-      if (isDisposedOrDisposing) _logger.warning(message);
+    if (isDisposedOrDisposing) _logger.warning(message);
+  }
 
+  // This is private and called by classes to work around super-calls not being supported in mixins
+  void _componentWillMount() {
+    // Subscribe to all applicable stores.
+    //
+    // Stores returned by `redrawOn()` will have their triggers mapped directly
+    // to `handleRedrawOn`, which invokes this component's redraw function.
+    //
+    // Stores included in the `getStoreHandlers()` result will be listened to
+    // and wired up to their respective handlers.
+    final customStoreHandlers = getStoreHandlers();
+    final storesWithoutCustomHandlers = redrawOn().where((store) => !customStoreHandlers.containsKey(store));
+
+    customStoreHandlers.forEach((store, handler) {
+      _validateStoreDisposalState(store);
       StreamSubscription subscription = store.listen(handler);
       _subscriptions.add(subscription);
     });
+    storesWithoutCustomHandlers.forEach(listenToStoreForRedraw);
   }
 
-  void componentWillUnmount() {
+  /// Used to register [handleRedrawOn] as a listener for the given [store].
+  ///
+  /// Called for each of the stores returned by [redrawOn] that don't have custom
+  /// store handlers (defined in [getStoreHandlers]).
+  ///
+  /// Override to set up custom listener behavior.
+  @protected
+  void listenToStoreForRedraw(Store store) {
+    _validateStoreDisposalState(store);
+    _subscriptions.add(store.listen(handleRedrawOn));
+  }
+
+  /// Redraws the component for a given [store].
+  ///
+  /// Called whenever an event is emitted by one of the stores returned by
+  /// [redrawOn] that don't have custom store handlers (defined in
+  /// [getStoreHandlers]).
+  ///
+  /// Override and call super to add custom behavior.
+  @mustCallSuper
+  @protected
+  void handleRedrawOn(Store store) {
+    redraw();
+  }
+
+  // This is private and called by classes to work around super-calls not being supported in mixins
+  void _componentWillUnmount() {
     // Ensure that unmounted components don't batch render
     shouldBatchRedraw = false;
 

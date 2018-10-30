@@ -248,10 +248,13 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
       wrapperStyles = _wrapperStyles;;
     }
 
+    var mergedStyle = newStyleFromProps(props);
+    mergedStyle = {}..addAll(wrapperStyles)..addAll(mergedStyle);
+
     return (Dom.div()
       ..addProps(copyUnconsumedDomProps())
       ..className = forwardingClassNameBuilder().toClassName()
-      ..style = wrapperStyles
+      ..style = mergedStyle
     )(
       props.children,
       resizeSensor

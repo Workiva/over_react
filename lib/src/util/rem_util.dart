@@ -36,46 +36,66 @@ var _changeSensor;
 @visibleForTesting
 dynamic get changeSensor => _changeSensor;
 
+bool _shouldStillMountRemChangeSensor = false;
 Element _changeSensorMountNode;
 @visibleForTesting
 Element get changeSensorMountNode => _changeSensorMountNode;
 
-void _initRemChangeSensor() {
-  if (_changeSensor != null) return;
-  // Force lazy-initialization of this variable if it hasn't happened already.
-  _rootFontSize;
+@visibleForTesting
+Future<Null> initRemChangeSensor() {
+  _shouldStillMountRemChangeSensor = true;
 
-  _changeSensorMountNode = new DivElement()
-    ..id = 'rem_change_sensor';
-
-  // Ensure the sensor doesn't interfere with the rest of the page.
-  _changeSensorMountNode.style
-    ..width = '0'
-    ..height = '0'
-    ..overflow = 'hidden'
-    ..position = 'absolute'
-    ..zIndex = '-1';
-
-  document.body.append(_changeSensorMountNode);
-
-  _changeSensor = react_dom.render((Dom.div()
-    ..style = const {
-      'position': 'absolute',
-      'visibility': 'hidden',
-      // ResizeSensor doesn't pick up sub-pixel changes due to its use of offsetWidth/Height,
-      // so use 100rem for greater precision.
-      'width': '100rem',
-      'height': '100rem',
+  // Mount this asynchronously in case this initialization was triggered by
+  // a `toRem` call inside a component's `render`.
+  // (React emits a warning and sometimes gets in a bad state
+  // when mounting component from inside `render`).
+  return new Future(() {
+    // Short-circuit if destroyed during the async gap.
+    if (!_shouldStillMountRemChangeSensor) {
+      return;
     }
-  )(
-    (ResizeSensor()..onResize = (ResizeSensorEvent e) {
-      recomputeRootFontSize();
-    })()
-  ), _changeSensorMountNode);
+
+    // Short-circuit if already initialized (needs a check after async gap
+    // to handle race conditions when this was called multiple times).
+    if (changeSensorMountNode != null) {
+      return;
+    }
+
+    // Force lazy-initialization of this variable if it hasn't happened already.
+    _rootFontSize;
+
+    _changeSensorMountNode = new DivElement()
+      ..id = 'rem_change_sensor';
+
+    // Ensure the sensor doesn't interfere with the rest of the page.
+    _changeSensorMountNode.style
+      ..width = '0'
+      ..height = '0'
+      ..overflow = 'hidden'
+      ..position = 'absolute'
+      ..zIndex = '-1';
+
+    document.body.append(_changeSensorMountNode);
+
+    _changeSensor = react_dom.render((Dom.div()
+      ..style = const {
+        'position': 'absolute',
+        'visibility': 'hidden',
+        // ResizeSensor doesn't pick up sub-pixel changes due to its use of offsetWidth/Height,
+        // so use 100rem for greater precision.
+        'width': '100rem',
+        'height': '100rem',
+      }
+    )(
+      (ResizeSensor()..onResize = (ResizeSensorEvent e) {
+        recomputeRootFontSize();
+      })()
+    ), _changeSensorMountNode);
+  });
 }
 
 final StreamController<double> _remChange = new StreamController.broadcast(onListen: () {
-  _initRemChangeSensor();
+  initRemChangeSensor();
 });
 
 /// The latest component root font size (rem) value, in pixels.
@@ -98,18 +118,21 @@ void recomputeRootFontSize() {
   }
 }
 
-/// A utility that destroys the [_changeSensor] added to the DOM by [_initRemChangeSensor].
+/// A utility that destroys the [_changeSensor] added to the DOM by [initRemChangeSensor].
 ///
 /// Can be used, for example, to clean up the DOM in the `tearDown` of a unit test.
-Future<Null> destroyRemChangeSensor() async {
-  if (_changeSensor == null) return;
+// TODO make this a void function
+Future<Null> destroyRemChangeSensor() {
+  return new Future.sync(() {
+    _shouldStillMountRemChangeSensor = false;
 
-  _changeSensor = null;
-
-  react_dom.unmountComponentAtNode(_changeSensorMountNode);
-  _changeSensorMountNode?.remove();
-
-  _changeSensorMountNode = null;
+    if (_changeSensor != null) {
+      react_dom.unmountComponentAtNode(_changeSensorMountNode);
+      _changeSensorMountNode.remove();
+      _changeSensorMountNode = null;
+      _changeSensor = null;
+    }
+  });
 }
 
 /// Converts a pixel (`px`) [value] to its `rem` equivalent using the current font size
@@ -146,7 +169,7 @@ CssValue toRem(dynamic value, {bool treatNumAsRem: false, bool passThroughUnsupp
   if (browser.isChrome && !component_base.UiProps.testMode) {
     // TODO: Why does Zone.ROOT.run not work in unit tests?  Passing in Zone.current from the call to toRem() within the test also does not work.
 //    Zone.ROOT.run(_initRemChangeSensor);
-    _initRemChangeSensor();
+    initRemChangeSensor();
   }
 
   if (value == null) return null;
