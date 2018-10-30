@@ -36,24 +36,28 @@ var _changeSensor;
 @visibleForTesting
 dynamic get changeSensor => _changeSensor;
 
-bool _isRemChangeSensorMountingOrMounted = false;
+bool _shouldStillMountRemChangeSensor = false;
 Element _changeSensorMountNode;
 @visibleForTesting
 Element get changeSensorMountNode => _changeSensorMountNode;
 
-void _initRemChangeSensor() {
-  // If it's already mounted, do nothing.
-  if (_isRemChangeSensorMountingOrMounted) return;
-
-  _isRemChangeSensorMountingOrMounted = true;
+@visibleForTesting
+Future<Null> initRemChangeSensor() {
+  _shouldStillMountRemChangeSensor = true;
 
   // Mount this asynchronously in case this initialization was triggered by
   // a `toRem` call inside a component's `render`.
   // (React emits a warning and sometimes gets in a bad state
   // when mounting component from inside `render`).
-  new Future(() {
-    // Short-circuit if uninitialized during the async gap.
-    if (!_isRemChangeSensorMountingOrMounted) {
+  return new Future(() {
+    // Short-circuit if destroyed during the async gap.
+    if (!_shouldStillMountRemChangeSensor) {
+      return;
+    }
+
+    // Short-circuit if already initialized (needs a check after async gap
+    // to handle race conditions when this was called multiple times).
+    if (changeSensorMountNode != null) {
       return;
     }
 
@@ -91,7 +95,7 @@ void _initRemChangeSensor() {
 }
 
 final StreamController<double> _remChange = new StreamController.broadcast(onListen: () {
-  _initRemChangeSensor();
+  initRemChangeSensor();
 });
 
 /// The latest component root font size (rem) value, in pixels.
@@ -114,14 +118,13 @@ void recomputeRootFontSize() {
   }
 }
 
-/// A utility that destroys the [_changeSensor] added to the DOM by [_initRemChangeSensor].
+/// A utility that destroys the [_changeSensor] added to the DOM by [initRemChangeSensor].
 ///
 /// Can be used, for example, to clean up the DOM in the `tearDown` of a unit test.
+// TODO make this a void function
 Future<Null> destroyRemChangeSensor() {
-  return new Future(() {
-    if (!_isRemChangeSensorMountingOrMounted) return;
-
-    _isRemChangeSensorMountingOrMounted = false;
+  return new Future.sync(() {
+    _shouldStillMountRemChangeSensor = false;
 
     if (_changeSensor != null) {
       react_dom.unmountComponentAtNode(_changeSensorMountNode);
@@ -166,7 +169,7 @@ CssValue toRem(dynamic value, {bool treatNumAsRem: false, bool passThroughUnsupp
   if (browser.isChrome && !component_base.UiProps.testMode) {
     // TODO: Why does Zone.ROOT.run not work in unit tests?  Passing in Zone.current from the call to toRem() within the test also does not work.
 //    Zone.ROOT.run(_initRemChangeSensor);
-    _initRemChangeSensor();
+    initRemChangeSensor();
   }
 
   if (value == null) return null;

@@ -42,13 +42,6 @@ main() {
       document.documentElement.style.fontSize = null;
     }
 
-    Future<Null> initChangeSensorNode() async {
-      final listener = onRemChange.listen((_) {});
-      // Wait for the async mounting of the rem change sensor node.
-      await new Future(() {});
-      await listener.cancel();
-    }
-
     group('toRem', () {
       setUp(() {
         setRootFontSize('20px');
@@ -242,7 +235,7 @@ main() {
       group('', () {
         setUpAll(() async {
           // These tests depend on the sensor being initialized before the test starts.
-          await initChangeSensorNode();
+          await initRemChangeSensor();
         });
 
         test('does not dispatch duplicate events when there are multiple listeners', () async {
@@ -288,7 +281,7 @@ main() {
 
     test('rootFontSize returns the latest root font size computed', () async {
       // This test depends on the sensor being initialized before the test starts.
-      await initChangeSensorNode();
+      await initRemChangeSensor();
 
       setRootFontSize('15px');
       await onRemChange.first;
@@ -302,12 +295,8 @@ main() {
     });
 
     group('destroyRemChangeSensor', () {
-      StreamSubscription<double> listener;
-
       setUpAll(() async {
-        listener = onRemChange.listen((_) {});
-        // Wait for the async mounting of the rem change sensor node.
-        await new Future(() {});
+        await initRemChangeSensor();
         expect(changeSensor, isNotNull, reason: 'test setup sanity check');
         expect(changeSensorMountNode, isNotNull, reason: 'test setup sanity check');
         expect(document.body.children.single, changeSensorMountNode, reason: 'test setup sanity check');
@@ -315,17 +304,33 @@ main() {
         await destroyRemChangeSensor();
       });
 
-      tearDownAll(() async {
-        await listener?.cancel();
-      });
-
-      test('removes the `#rem_change_sensor` element', () {
+      test('adds the `#rem_change_sensor` element', () {
         expect(changeSensorMountNode, isNull);
         expect(document.body.children, isEmpty);
       });
 
       test('sets `_changeSensor` to null', () {
         expect(changeSensor, isNull);
+      });
+    });
+
+    group('initRemChangeSensor', () {
+      setUpAll(() async {
+        await destroyRemChangeSensor();
+        expect(changeSensor, isNull, reason: 'test setup sanity check');
+        expect(changeSensorMountNode, isNull, reason: 'test setup sanity check');
+        expect(document.body.children, isEmpty, reason: 'test setup sanity check');
+
+        await initRemChangeSensor();
+      });
+
+      test('adds the `#rem_change_sensor` element', () {
+        expect(changeSensorMountNode, isNotNull);
+        expect(document.body.children, [changeSensorMountNode]);
+      });
+
+      test('initializes `_changeSensor` ', () {
+        expect(changeSensor, isNotNull);
       });
     });
 
@@ -372,5 +377,54 @@ main() {
         expect(querySelector('#rem_change_sensor'), isNull, reason: 'test setup sanity check');
       }, testOn: '!chrome && !dartium');
     }, testOn: 'browser');
+
+    group('interleaved asynchonous intialization/destruction of change sensors works without race conditions:', () {
+      setUp(() async {
+        // Ensure we start with no sensor.
+        await destroyRemChangeSensor();
+      });
+
+      tearDown(() async {
+        await destroyRemChangeSensor();
+      });
+
+      test('multiple unawaited init calls in a row', () async {
+        await initRemChangeSensor();
+        await initRemChangeSensor();
+        await new Future(() {});
+
+        expect(querySelectorAll('#rem_change_sensor'), hasLength(1),
+            reason: 'inits the sensor properly wihtout creating duplicates');
+
+        await destroyRemChangeSensor();
+        expect(querySelector('#rem_change_sensor'), isNull,
+            reason: 'can properly destroy the sensor afterwards since it was not left in a bad state');
+      });
+
+      test('destroy after unawaited init', () async {
+        initRemChangeSensor();
+        await destroyRemChangeSensor();
+
+        expect(querySelector('#rem_change_sensor'), isNull,
+            reason: 'destroys the sensor (or completes it from being inited)');
+
+        await initRemChangeSensor();
+        expect(querySelector('#rem_change_sensor'), isNotNull,
+            reason: 'can properly init the sensor afterwards since it was not left in a bad state');
+      });
+
+      test('init after unawaited destroy', () async {
+        destroyRemChangeSensor();
+        await initRemChangeSensor();
+        await new Future(() {});
+
+        expect(querySelector('#rem_change_sensor'), isNotNull,
+            reason: 'inits the sensor, since destruction should be sync');
+
+        await destroyRemChangeSensor();
+        expect(querySelector('#rem_change_sensor'), isNull,
+            reason: 'can properly destroy the sensor afterwards since it was not left in a bad state');
+      });
+    });
   });
 }
