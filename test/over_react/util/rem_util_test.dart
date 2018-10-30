@@ -27,6 +27,12 @@ import '../../test_util/test_util.dart';
 /// Main entry point for rem_util testing
 main() {
   group('rem_util', () {
+    // Ensure this suite cleans up any sensor nodes it adds to the body,
+    // and doesn't pollute other tests.
+    tearDownAll(() async {
+      await destroyRemChangeSensor();
+    });
+
     void setRootFontSize(String value) {
       document.documentElement.style.fontSize = value;
       expect(document.documentElement.getComputedStyle().fontSize, value);
@@ -34,6 +40,13 @@ main() {
 
     void unsetRootFontSize() {
       document.documentElement.style.fontSize = null;
+    }
+
+    Future<Null> initChangeSensorNode() async {
+      final listener = onRemChange.listen((_) {});
+      // Wait for the async mounting of the rem change sensor node.
+      await new Future(() {});
+      await listener.cancel();
     }
 
     group('toRem', () {
@@ -210,6 +223,9 @@ main() {
         var calls = <double>[];
         var listener = onRemChange.listen(calls.add);
 
+        // Wait for the async mounting of the rem change sensor node.
+        await new Future(() {});
+
         expect(querySelector('#rem_change_sensor'), isNotNull);
         expect(calls, isEmpty);
 
@@ -223,41 +239,57 @@ main() {
         listener.cancel();
       });
 
-      test('does not dispatch duplicate events when there are multiple listeners', () async {
-        List<double> calls = [];
+      group('', () {
+        setUpAll(() async {
+          // These tests depend on the sensor being initialized before the test starts.
+          await initChangeSensorNode();
+        });
 
-        var listener1 = onRemChange.listen((_) {});
-        var listener2 = onRemChange.listen(calls.add);
+        test('does not dispatch duplicate events when there are multiple listeners', () async {
+          List<double> calls = [];
 
-        var nextChange = onRemChange.first;
-        setRootFontSize('17px');
+          var listener1 = onRemChange.listen((_) {});
+          var listener2 = onRemChange.listen(calls.add);
 
-        await nextChange;
+          // Wait for the async mounting of the rem change sensor node.
+          await new Future(() {});
 
-        expect(calls, hasLength(1));
+          var nextChange = onRemChange.first;
+          setRootFontSize('17px');
 
-        listener1.cancel();
-        listener2.cancel();
-      });
+          await nextChange;
 
-      test('does not dispatch events when recomputeRootFontSize is called and there is no change', () async {
-        List<double> calls = [];
-        var listener = onRemChange.listen(calls.add);
+          expect(calls, hasLength(1));
 
-        recomputeRootFontSize();
+          listener1.cancel();
+          listener2.cancel();
+        });
 
-        var nextChange = onRemChange.first;
-        setRootFontSize('17px');
+        test('does not dispatch events when recomputeRootFontSize is called and there is no change', () async {
+          List<double> calls = [];
+          var listener = onRemChange.listen(calls.add);
 
-        await nextChange;
+          // Wait for the async mounting of the rem change sensor node.
+          await new Future(() {});
 
-        expect(calls, [17]);
+          recomputeRootFontSize();
 
-        listener.cancel();
+          var nextChange = onRemChange.first;
+          setRootFontSize('17px');
+
+          await nextChange;
+
+          expect(calls, [17]);
+
+          listener.cancel();
+        });
       });
     });
 
     test('rootFontSize returns the latest root font size computed', () async {
+      // This test depends on the sensor being initialized before the test starts.
+      await initChangeSensorNode();
+
       setRootFontSize('15px');
       await onRemChange.first;
 
@@ -274,6 +306,8 @@ main() {
 
       setUpAll(() async {
         listener = onRemChange.listen((_) {});
+        // Wait for the async mounting of the rem change sensor node.
+        await new Future(() {});
         expect(changeSensor, isNotNull, reason: 'test setup sanity check');
         expect(changeSensorMountNode, isNotNull, reason: 'test setup sanity check');
         expect(document.body.children.single, changeSensorMountNode, reason: 'test setup sanity check');
@@ -296,27 +330,29 @@ main() {
     });
 
     group('automatically mounts a "rem change sensor" when `toRem` is called for the first time', () {
-      setUp(() {
-        destroyRemChangeSensor();
+      setUp(() async {
+        await destroyRemChangeSensor();
         // Disabling test mode to ensure that the rem change sensor is created.
         // See workaround comment in `toRem`.
         disableTestMode();
       });
 
-      tearDown(() {
-        destroyRemChangeSensor();
+      tearDown(() async {
+        await destroyRemChangeSensor();
         // Re-enable test mode
         enableTestMode();
       });
 
       group('in Google Chrome', () {
-        setUp(() {
+        setUp(() async {
           expect(querySelector('#rem_change_sensor'), isNull,
               reason: '#rem_change_sensor element should not get mounted until `toRem` is first called.');
           expect(document.documentElement.getComputedStyle().fontSize, isNot('20px'),
               reason: 'The tests in this group will not work if the root font size is already 20px.');
 
           toRem('1rem');
+          // Wait for the async mounting of the rem change sensor node.
+          await new Future(() {});
         });
 
         test('', () {
