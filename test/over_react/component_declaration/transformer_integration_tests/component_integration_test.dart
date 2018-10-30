@@ -99,11 +99,11 @@ main() {
       });
 
       test('default props', () {
-        expect(ComponentTest().defaultProps, equals({'id':'testId'}));
+        expect(ComponentTest().componentDefaultProps, equals({'id':'testId'}));
       });
 
       test('empty map when no default props set', () {
-        expect(r.ComponentTest().defaultProps, equals({}));
+        expect(r.ComponentTest().componentDefaultProps, equals({}));
       });
     });
 

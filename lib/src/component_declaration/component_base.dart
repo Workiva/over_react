@@ -691,7 +691,7 @@ abstract class UiProps extends MapBase
 
   Function get componentFactory;
 
-  Map get defaultProps => componentFactory is ReactDartComponentFactoryProxy
+  Map get componentDefaultProps => componentFactory is ReactDartComponentFactoryProxy
       // ignore: avoid_as
       ? (componentFactory as ReactDartComponentFactoryProxy).defaultProps
       : const {};

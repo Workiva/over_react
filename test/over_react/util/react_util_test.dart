@@ -33,7 +33,7 @@ main() {
       });
 
       test('`defaultProps`', () {
-        expect(() => mapView.defaultProps, throwsUnimplementedError);
+        expect(() => mapView.componentDefaultProps, throwsUnimplementedError);
       });
 
       test('`getTestId()`', () {
