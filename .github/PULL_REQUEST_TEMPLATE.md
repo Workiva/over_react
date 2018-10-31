@@ -13,4 +13,4 @@
 
 ---
 
-> __FYA:__ @greglittlefield-wf @aaronlademann-wf @jacehensley-wf @clairesarsam-wf @joelleibow-wf
+> __FYA:__ @greglittlefield-wf @aaronlademann-wf @kealjones-wk @evanweible-wf @maxwellpeterson-wf

@@ -1,13 +1,13 @@
 part of over_react.component_declaration.flux_component_test;
 
 @Factory()
-UiFactory<TestDefaultProps> TestDefault;
+UiFactory<TestBasicProps> TestBasic;
 
 @Props()
-class TestDefaultProps extends FluxUiProps {}
+class TestBasicProps extends FluxUiProps {}
 
 @Component()
-class TestDefaultComponent extends FluxUiComponent {
+class TestBasicComponent extends FluxUiComponent<TestBasicProps> {
   int numberOfRedraws = 0;
 
   @override

@@ -169,6 +169,14 @@ void main() {
           expect(nodeStyleDecl.getPropertyValue('flex'), '1 1 0%');
         }
       });
+
+      test('when overridden by consumer', () {
+        var renderedNode = renderAndGetDom((ResizeSensor()..style = {'width':'auto','height':'auto'})());
+
+        expect(renderedNode.style.position, equals('relative'));
+        expect(renderedNode.style.width, equals('auto'));
+        expect(renderedNode.style.height, equals('auto'));
+      });
     });
 
     // Test that every last ResizeSensor node is hidden with both visibility and opacity,
@@ -429,6 +437,86 @@ void main() {
           expect(secondEvent.newHeight, defaultContainerHeight + 20, reason: 'should report the newSize properly');
         });
       });
+    });
+
+    group('should indicate that the sensor needs to be reset', () {
+      Element validTarget;
+      Element detachedTarget;
+      Map<String, bool> calls;
+
+      setUp(() {
+        calls = <String, bool>{};
+      });
+
+      tearDown(() {
+        calls = null;
+      });
+
+      group('when mounted into a node that is not attached to the DOM', () {
+        setUp(() {
+          ValidationUtil.WARNINGS_ENABLED = true;
+          startRecordingValidationWarnings();
+          detachedTarget = new DivElement();
+          detachedTarget.style.width = '200px';
+          detachedTarget.style.height = '200px';
+          mount((ResizeSensor()
+            ..onDetachedMountCheck = (needsReset) { calls['onDetachedMountCheck'] = needsReset; }
+          )(), attachedToDocument: false, mountNode: detachedTarget);
+        });
+
+        tearDown(() {
+          stopRecordingValidationWarnings();
+          detachedTarget = null;
+        });
+
+        test('by providing a `true` argument value to the `props.onDetachedMountCheck` callback', () {
+          expect(calls['onDetachedMountCheck'], isTrue);
+        });
+
+        test('and does not emit a validation warning about not needing to set the `onDetachedMountCheck` callback.', () {
+          rejectValidationWarning(contains('The ResizeSensor was not mounted detached from the DOM'));
+        });
+      });
+
+      group('unless mounted into a node that is attached to the DOM', () {
+        setUp(() {
+          ValidationUtil.WARNINGS_ENABLED = true;
+          startRecordingValidationWarnings();
+          validTarget = new DivElement();
+          validTarget.style.width = '200px';
+          validTarget.style.height = '200px';
+          document.body.append(validTarget);
+          mount((ResizeSensor()
+            ..onDetachedMountCheck = (needsReset) { calls['onDetachedMountCheck'] = needsReset; }
+          )(), attachedToDocument: true, mountNode: validTarget);
+        });
+
+        tearDown(() {
+          stopRecordingValidationWarnings();
+          validTarget.remove();
+          validTarget = null;
+        });
+
+        test('- providing a `false` argument value to the `props.onDetachedMountCheck` callback', () {
+          expect(calls['onDetachedMountCheck'], isFalse);
+        });
+
+        test('and emits a validation warning about not needing to set the `onDetachedMountCheck` callback.', () {
+          verifyValidationWarning(contains('The ResizeSensor was not mounted detached from the DOM'));
+        });
+      });
+    });
+
+    test('provides a `forceResetDetachedSensor` method that calls `_reset`', () {
+      var calls = [];
+      TestJacket<ResizeSensorComponent> jacket = mount((ResizeSensor()
+        ..onDidReset = () { calls.add('onDidReset'); }
+      )());
+      calls.clear();
+
+      jacket.getDartInstance().forceResetDetachedSensor();
+
+      expect(calls, ['onDidReset']);
     });
 
     group('common component functionality:', () {

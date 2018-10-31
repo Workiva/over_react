@@ -1,5 +1,129 @@
 # OverReact Changelog
 
+## 1.29.0
+
+> [Complete `1.29.0` Changeset](https://github.com/Workiva/over_react/compare/1.28.0...1.29.0)
+
+__Bug fixes__
+
+* [#197] Mount the rem-change-detecting node for a `ResizeSensor` asynchronously to prevent react from getting into a bad state
+
+__New Features__
+
+* [#195]: Add hooks for Flux component redraws that occur in response to store updates: `listenToStoreForRedraw`/`handleRedrawOn` 
+    * Implements the stuff that was missed in [#193]
+
+
+## 1.28.0
+
+> [Complete `1.28.0` Changeset](https://github.com/Workiva/over_react/compare/1.27.0...1.28.0)
+
+__Bug fixes__
+
+* [#193] Fix missing super calls in Flux component lifecycle methods that prevented disposal and prop validation
+
+__New Features__
+
+* [#193]: ~~Add hooks for Flux component redraws that occur in response to store updates: `listenToStoreForRedraw`/`handleRedrawOn`~~ 
+    * _Actually implemented via [#195] in `1.29.0`_
+
+__Improvements__
+
+* [#192]: Make return type of `getDartComponent` generic
+* [#190]: Merge `style` prop into styles applied to the top-level ResizeSensor node
+
+
+## 1.27.0
+
+> [Complete `1.27.0` Changeset](https://github.com/Workiva/over_react/compare/1.26.2...1.27.0)
+
+__New Features__
+
+* [#187]: New `ResizSensorProps.onDetachedMountCheck` prop callback and `ResizeSensorComponent.forceResetDetachedSensor` method
+
+__Improvements__
+
+* [#188]: Use `isNotEmpty` instead of `length == 0` check
+    * _Thanks @teresy!!!_
+
+
+## 1.26.2
+
+__Bug fixes__
+
+* [5fb73f](https://github.com/Workiva/over_react/commit/5fb73f26f92182ebd5c45c2ad5bb015a662bc3b4) Make rem change sensor container is `overflow:hidden` so it doesn't interfere with the page layout
+
+## 1.26.1
+
+__Dependency Updates__
+
+* [e8fc86](https://github.com/Workiva/over_react/commit/e8fc86c9748c4cfb8af7bde91b0959827a5a7a63) Loosen lower bound of `built_value`
+    * built_value `>=4.6.1 <5.2.0` (was `>=5.1.3 <5.2.0`)
+
+## 1.26.0
+
+> [Complete `1.26.0` Changeset](https://github.com/Workiva/over_react/compare/1.25.0...1.26.0)
+
+__New Features__
+
+* [#178]: Automatic document root font-size change detection in Google Chrome to overcome https://bugs.chromium.org/p/chromium/issues/detail?id=429140
+
+__Dependency Updates__
+
+* [881c0c](https://github.com/Workiva/over_react/commit/881c0ca0806d265ad7baf1f45aace632561ab05c) Tighten version constraints to speed up pub get
+    * analyzer `>=0.30.0+4 <=0.31.0` (was `>=0.30.0 <=0.31.0`)
+    * built_redux `^7.4.2` (was `^7.4.1`)
+    * built_value `>=5.1.3 <5.2.0` (was `>=4.2.0 <5.2.0`)
+    * js `^0.6.1+1` (was `^0.6.0`)
+    * logging `>=0.11.3+2 <1.0.0` (was `>=0.11.3+1 <1.0.0`)
+    * meta `^1.1.6` (was `^1.0.4`)
+    * path `^1.5.1` (was `^1.4.1`)
+    * react `^4.4.2` (was `^4.4.1`)
+    * source_span `^1.4.1` (was `^1.4.0`)
+    * transformer_utils `^0.1.5` (was `^0.1.1`)
+    * w_common `^1.13.0` (was `^1.10.0`)
+    * w_flux `^2.9.5` (was `^2.7.1`)
+    * platform_detect `^1.3.4` (was `^1.3.2`)
+    * quiver `>=0.25.0 <=0.28.0` (was `>=0.21.4 <=0.28.0`)
+
+__Tech Debt__
+
+* [#179]: Update CI build
+
+
+## 1.25.0
+
+> [Complete `1.25.0` Changeset](https://github.com/Workiva/over_react/compare/1.24.1...1.25.0)
+
+__New Features__ 
+
+* [#167]: New `ClassNameBuilder.merge` method and `ClassNameBuilder.merged` constructor.
+* [#168]: Expose `react_wrappers` library that was previously only available via a `src/` import.
+
+
+## 1.24.0
+
+> [Complete `1.24.0` Changeset](https://github.com/Workiva/over_react/compare/1.23.1...1.24.0)
+
+__Dependency Updates__
+
+* [#153] react `^4.3.0` (was `^3.7.0`)
+* [#151] 
+    * built_redux `^7.4.1` (was `>=6.1.0 <8.0.0`)
+    * built_value `>=4.2.0 <5.2.0` (was `>=4.2.0 <6.0.0`)
+    
+__New Features__ 
+
+* [#154]: Expose `react_dom.render`/`react_dom.unmountComponentAtNode` from the react library
+    
+__Tech Debt__
+
+* [#151] Prepare for Dart 2 SDK
+    * Address Dart 2.x SDK lints / warnings that do not constitute breaking changes
+    * Address `DisposableManagerV6` deprecation
+    * `UiProps` and `UiState` now extend from `MapBase`
+    
+
 ## 1.24.1
 
 > [Complete `1.24.1` Changeset](https://github.com/Workiva/over_react/compare/1.24.0...1.24.1)
