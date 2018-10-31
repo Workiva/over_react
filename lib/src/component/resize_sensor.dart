@@ -126,6 +126,11 @@ abstract class ResizeSensorPropsMixin {
   /// Default: false
   bool quickMount;
 
+  /// Set to true if you are experiencing unusual behavior in a browser that supports the `ResizeObserver` API.
+  ///
+  /// Default: false
+  bool disableResizeObserver;
+
   /// A callback that returns a `bool` that indicates whether the [ResizeSensor] was detached from the DOM
   /// when it first mounted.
   ///
@@ -171,6 +176,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
   @override
   Map getDefaultProps() => (newProps()
     ..addProps(ResizeSensorPropsMixin.defaultProps)
+    ..disableResizeObserver = false
   );
 
   @mustCallSuper
@@ -196,10 +202,12 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
         _lastHeight = newHeight;
       }
 
+  bool get useResizeObserver => ResizeObserver.supported && !props.disableResizeObserver;
+
   @mustCallSuper
   @override
   void componentDidMount() {
-    if (ResizeObserver.supported) {
+    if (useResizeObserver) {
       Element el = findDomNode(this);
       _lastHeight = 0;
       _lastWidth = 0;
@@ -263,7 +271,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
 
     // If we have the Resize Observer API, the resize sensor is a no-op
     // otherwise, wire up the div, expand and collapse sensor just as before
-    var resizeSensor = ResizeObserver.supported ? null : (Dom.div()
+    var resizeSensor = useResizeObserver ? null : (Dom.div()
       ..className = 'resize-sensor'
       ..style = props.shrink ? _shrinkBaseStyle : _baseStyle
       ..key = 'resizeSensor'
