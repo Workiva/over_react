@@ -1,5 +1,19 @@
 # OverReact Changelog
 
+## 1.29.0
+
+> [Complete `1.29.0` Changeset](https://github.com/Workiva/over_react/compare/1.28.0...1.29.0)
+
+__Bug fixes__
+
+* [#197] Mount the rem-change-detecting node for a `ResizeSensor` asynchronously to prevent react from getting into a bad state
+
+__New Features__
+
+* [#195]: Add hooks for Flux component redraws that occur in response to store updates: `listenToStoreForRedraw`/`handleRedrawOn` 
+    * Implements the stuff that was missed in [#193]
+
+
 ## 1.28.0
 
 > [Complete `1.28.0` Changeset](https://github.com/Workiva/over_react/compare/1.27.0...1.28.0)
@@ -10,7 +24,8 @@ __Bug fixes__
 
 __New Features__
 
-* [#193]: Add hooks for Flux component redraws that occur in response to store updates: `listenToStoreForRedraw`/`handleRedrawOn` 
+* [#193]: ~~Add hooks for Flux component redraws that occur in response to store updates: `listenToStoreForRedraw`/`handleRedrawOn`~~ 
+    * _Actually implemented via [#195] in `1.29.0`_
 
 __Improvements__
 
