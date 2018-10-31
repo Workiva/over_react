@@ -189,18 +189,18 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
     cancelAnimationFrames();
   }
 
-  /// Private handler for ResizeObserver events to convert to ResizeSensorEvents
+  /// Private handler to convert [ResizeObserver] events to [ResizeSensorEvent]s.
   void _onResize(Element element, num x, num y, num width, num height, num top, num bottom, num left, num right) {
-        // Since the resize observer API can return sub-pixel accuracy and the
-        // ResizeSensorEvent expects integers, we need to convert to integers
-        // possibly losing some precision.
-        int newWidth = width.round();
-        int newHeight = height.round();
-        var event = new ResizeSensorEvent(newWidth, newHeight, _lastWidth, _lastHeight);
-        props.onResize(event);
-        _lastWidth = newWidth;
-        _lastHeight = newHeight;
-      }
+    // Since the resize observer API can return sub-pixel accuracy and the
+    // ResizeSensorEvent expects integers, we need to convert to integers
+    // possibly losing some precision.
+    int newWidth = width.round();
+    int newHeight = height.round();
+    var event = new ResizeSensorEvent(newWidth, newHeight, _lastWidth, _lastHeight);
+    props.onResize(event);
+    _lastWidth = newWidth;
+    _lastHeight = newHeight;
+  }
 
   bool get useResizeObserver => ResizeObserver.supported && !props.disableResizeObserver;
 
