@@ -19,8 +19,11 @@ import 'dart:async';
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart' show
     ClassNameBuilder,
+    $CssClassPropsMixin,
     CssClassPropsMixin,
+    $ReactPropsMixin,
     ReactPropsMixin,
+    $UbiquitousDomPropsMixin,
     UbiquitousDomPropsMixin,
     getPropsToForward,
     DummyComponent,
@@ -479,7 +482,8 @@ typedef PropsModifier(Map props);
 /// don't need a constructor. The generated implementations can mix that functionality in.
 abstract class UiProps extends Object
     with MapViewMixin, PropsMapViewMixin,
-         ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin {
+// ignore: mixin_of_non_class,undefined_class
+         $ReactPropsMixin, ReactPropsMixin, $UbiquitousDomPropsMixin, UbiquitousDomPropsMixin, $CssClassPropsMixin, CssClassPropsMixin {
 
   UiProps() {
     // Work around https://github.com/dart-lang/sdk/issues/27647 for all UiProps instances

@@ -4,30 +4,42 @@ import 'package:over_react/over_react.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_dom.dart' as react_dom;
 
-//import './builder/abstract_inheritance.dart';
+import './builder/abstract_inheritance.dart';
 import './builder/basic.dart';
-//import './builder/generic_inheritance_sub.dart';
-//import './builder/generic_inheritance_super.dart';
+import './builder/basic_library.dart';
+import './builder/generic_inheritance_sub.dart';
+import './builder/generic_inheritance_super.dart';
 
 main() {
   setClientConfiguration();
   print('working...');
   react_dom.render(
       Dom.div()(
+        // ignore: invocation_of_non_function_expression
         Dom.h3()('Components'),
-          (Basic()..basic1 = '<fucking basick prop yoooo>'),
-
-//        (Sub()
-//          ..superProp = '<superProp value>'
-//          ..subProp = '<subProp value>'
-//        )(),
-//        (GenericSuper()
-//          ..superProp = '<superProp>'
-//        )(),
-//        (GenericSub()
-//          ..superProp = '<superProp value>'
-//          ..subProp = '<subProp value>'
-//        )(),
+        (Basic()
+          ..basic1 = '<fucking basick prop>'
+          ..propMixin1 = 'This is a prop mixin'
+        )(),
+        (Sub()
+          ..superProp = '<superProp value>'
+          ..subProp = '<subProp value>'
+        )(),
+        (GenericSub()
+          ..superProp = '<superProp value>'
+          ..subProp = '<subProp value>'
+        )(),
+        (GenericSuper()
+          ..superProp = '<superProp>'
+        )(),
+        (BasicPartOfLib()
+          ..basicProp = 'basic part of lib'
+          ..propMixin1 = 'mixin to basic part of lib'
+        )(),
+        (SubPartOfLib()
+          ..subProp = 'sub prop part of lib'
+          ..superProp = 'super prop part of lib'
+        )(),
         Dom.h3()('getDefaultProps via component factories'),
         componentConstructorsByName.keys.map((name) => Dom.div()(
           'new $name()',
@@ -42,9 +54,9 @@ typedef Map GetDefaultProps();
 
 final componentConstructorsByName = <String, GetDefaultProps>{
   'BasicComponent': () => getDefaultPropsFor(Basic),
-//  'SubComponent': () => getDefaultPropsFor(Sub),
-//  'GenericSuperComponent': () => getDefaultPropsFor(GenericSuper),
-//  'GenericSubComponent': () => getDefaultPropsFor(GenericSub),
+  'SubComponent': () => getDefaultPropsFor(Sub),
+  'GenericSuperComponent': () => getDefaultPropsFor(GenericSuper),
+  'GenericSubComponent': () => getDefaultPropsFor(GenericSub),
 };
 
 /// FIXME move to over_react public API

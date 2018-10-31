@@ -14,8 +14,7 @@ Builder overReactBuilder(BuilderOptions options) => new OverReactBuilder();
 class OverReactBuilder implements Builder {
   OverReactBuilder();
 
-
-  static const _outputExtension = '.overReactBuilder.g.dart';
+  static const _outputExtension = '.overReact.g.dart';
 
   /// Converts [id] to a "package:" URI.
   ///
@@ -29,7 +28,6 @@ class OverReactBuilder implements Builder {
     return new Uri(scheme: 'package',
         path: p.url.join(id.package, id.path.replaceFirst('lib/', '')));
   }
-
 
   String _generateForFile(AssetId inputId, String primaryInputContents, CompilationUnit resolvedUnit, List<String> generatedAccessorMixinClassNames) {
     var sourceFile = new SourceFile.fromString(
@@ -80,25 +78,7 @@ class OverReactBuilder implements Builder {
     // part of directive
     var outputBuffer = StringBuffer('part of ');
     bool hasLibraryDirective = false;
-//    var namedImports = <String, String>{};
     for (final directive in entryLib.definingCompilationUnit.computeNode().directives) {
-//      if (directive.keyword.toString().contains('import')) {
-//        var uriMatcher = new RegExp(r"'[\w/:.]+'");
-//        String uri;
-//        String namedLib;
-//        directive.childEntities.forEach((entity) {
-//          if (uriMatcher.hasMatch(entity.toString())) {
-//            uri = entity.toString();
-//          }
-//          if (entity.toString().compareTo('as') == 0) {
-//            namedLib = directive.findPrevious(directive.endToken).toString();
-//          }
-//        });
-//        if (uri != null && namedLib != null) {
-//          namedImports.putIfAbsent(uri, () => namedLib);
-//        }
-//      }
-
       if (directive.keyword.toString().contains('library')) {
         hasLibraryDirective = true;
         var token = directive.keyword.next;
@@ -117,6 +97,7 @@ class OverReactBuilder implements Builder {
     outputBuffer.writeln(';\n');
 
     var contentBuffer = new StringBuffer();
+
     // flatten base and children compilation units
     final compUnits = [
       [entryLib.definingCompilationUnit],

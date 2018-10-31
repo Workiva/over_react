@@ -23,7 +23,7 @@ import 'package:meta/meta.dart';
 import 'package:platform_detect/platform_detect.dart';
 import 'package:over_react/over_react.dart';
 
-//part 'resize_sensor.overReactBuilder.g.dart';
+part 'resize_sensor.overReact.g.dart';
 
 /// A wrapper component that detects when its parent is resized.
 ///
@@ -37,7 +37,7 @@ import 'package:over_react/over_react.dart';
 UiFactory<ResizeSensorProps> ResizeSensor;
 
 @PropsMixin()
-abstract class ResizeSensorPropsMixin {
+abstract class $ResizeSensorPropsMixin {
   static final ResizeSensorPropsMixinMapView defaultProps = new ResizeSensorPropsMixinMapView({})
     ..isFlexChild = false
     ..isFlexContainer = false
@@ -89,8 +89,14 @@ abstract class ResizeSensorPropsMixin {
   bool quickMount;
 }
 
+class ResizeSensorProps extends UiProps
+// ignore: mixin_of_non_class,undefined_class
+    with _$ResizeSensorPropsAccessorsMixin
+    implements _$ResizeSensorProps {}
+
 @Props()
-class ResizeSensorProps extends UiProps with ResizeSensorPropsMixin {}
+// ignore: mixin_of_non_class,undefined_class
+class _$ResizeSensorProps extends UiProps with $ResizeSensorPropsMixin, ResizeSensorPropsMixin {}
 
 @Component()
 class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAnimationFrameMixin {
@@ -101,7 +107,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
 
   @override
   Map getDefaultProps() => (newProps()
-    ..addProps(ResizeSensorPropsMixin.defaultProps)
+    ..addProps($ResizeSensorPropsMixin.defaultProps)
   );
 
   @mustCallSuper
@@ -354,7 +360,8 @@ class ResizeSensorEvent {
 }
 
 /// A MapView with the typed getters/setters for all HitArea display variation props.
-class ResizeSensorPropsMixinMapView extends MapView with ResizeSensorPropsMixin {
+// ignore: mixin_of_non_class,undefined_class
+class ResizeSensorPropsMixinMapView extends MapView with $ResizeSensorPropsMixin, ResizeSensorPropsMixin {
   /// Create a new instance backed by the specified map.
   ResizeSensorPropsMixinMapView(Map map) : super(map);
 

@@ -2,16 +2,21 @@ import 'package:over_react/over_react.dart';
 import 'package:react/react_client.dart';
 
 //part 'generic_inheritance_super.g.dart';
-part 'generic_inheritance_super.overReactBuilder.g.dart';
+part 'generic_inheritance_super.overReact.g.dart';
 
 @Factory()
 UiFactory<GenericSuperProps> GenericSuper = $GenericSuper;
 
+// ignore: mixin_of_non_class,undefined_class
+class GenericSuperProps extends UiProps with _$GenericSuperPropsAccessorsMixin implements _$GenericSuperProps {}
+
 @Props()
-class GenericSuperProps extends UiProps {
+class _$GenericSuperProps extends UiProps {
   static const PropsMeta meta = $metaForGenericSuperProps;
 
+  String otherSuperProp;
   String superProp;
+  String superProp1;
 }
 
 @Component()

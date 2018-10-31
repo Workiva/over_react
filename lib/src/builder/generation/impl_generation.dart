@@ -337,30 +337,46 @@ class ImplGenerator {
     // ----------------------------------------------------------------------
     declarations.abstractProps.forEach((abstractPropsClass) {
       var className = getClassNameFromNode(abstractPropsClass);
-      _generateMetaClass(AccessorType.props, getAccessorsMixinNameFromConsumerName(className), getPublicClassNameFromClassName(className));
+      outputContentsBuffer.write(_generateAccessorsClass(
+          AccessorType.props, getAccessorsMixinNameFromConsumerName(className), abstractPropsClass,
+          className));
+      outputContentsBuffer.write(_generateMetaClass(
+          AccessorType.props, getAccessorsMixinNameFromConsumerName(className),
+          getPublicClassNameFromClassName(className)));
     });
 
     declarations.abstractState.forEach((abstractStateClass) {
       var className = getClassNameFromNode(abstractStateClass);
-      _generateMetaClass(AccessorType.state, getAccessorsMixinNameFromConsumerName(className), getPublicClassNameFromClassName(className));
+      outputContentsBuffer.write(_generateAccessorsClass(
+          AccessorType.state, getAccessorsMixinNameFromConsumerName(className), abstractStateClass,
+          className));
+      outputContentsBuffer.write(_generateMetaClass(
+          AccessorType.state, getAccessorsMixinNameFromConsumerName(className),
+          getPublicClassNameFromClassName(className)));
     });
   }
 
   void checkGettersAndGenerateAccessorsMixinAndMetaClass(AccessorType type, NodeWithMeta node) {
     var isProps = type == AccessorType.props;
     if (!hasAbstractGetter(node.node, 'Map', isProps ? 'props' : 'state')) {
-        logger.severe(
-            '${isProps ? 'Props' : 'State'} mixin classes must declare an abstract state getter `Map get state;` '
+      logger.severe(
+        '${isProps
+            ? 'Props'
+            : 'State'} mixin classes must declare an abstract state getter `Map get state;` '
             'so that they can be statically analyzed properly.',
 //            span: getSpan(sourceFile, stateMixin.node)
-        );
-        logger.severe(getSpan(sourceFile, node.node));
-      }
+      );
+      logger.severe(getSpan(sourceFile, node.node));
+    }
 
-      var consumerClassname = getClassNameFromNode(node);
-      
-      _generateAccessorsClass(type, getAccessorsMixinNameFromConsumerName(consumerClassname), node, consumerClassname);
-      _generateMetaClass(type, getImplClassNameFromClassName(consumerClassname), getPublicClassNameFromClassName(consumerClassname));
+    var consumerClassname = getClassNameFromNode(node);
+    var generatedPropsMixinName = consumerClassname.replaceFirst('\$', '');
+    outputContentsBuffer.write(_generateAccessorsClass(
+        type, generatedPropsMixinName, node,
+        consumerClassname));
+    outputContentsBuffer.write(_generateMetaClass(
+        type, generatedPropsMixinName,
+        getPublicClassNameFromClassName(consumerClassname)));
   }
 
   bool hasAbstractGetter(ClassDeclaration classDeclaration, String type, String name) {
@@ -626,12 +642,15 @@ class ImplGenerator {
         ..writeln('//')
         ..writeln('// Implements constructor and backing map, and links up to generated component factory.')
         ..write(classDeclaration)
-        ..writeln('  /// The backing props map proxied by this class.')
-        ..writeln('  @override')
-        ..writeln('  final Map props;')
+        ..writeln('  $implName(Map backingMap) : this._props = {} {')
+        ..writeln('    this._props = backingMap ?? ({});')
+        ..writeln('  }')
         ..writeln()
         // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
-        ..writeln('  $implName(Map backingMap) : this.props = backingMap ?? ({});')
+        ..writeln('  /// The backing props map proxied by this class.')
+        ..writeln('  @override')
+        ..writeln('  Map get props => _props;')
+        ..writeln('  Map _props;')
         ..writeln()
         ..writeln('  /// Let [UiProps] internals know that this class has been generated.')
         ..writeln('  @override')

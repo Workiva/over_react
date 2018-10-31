@@ -15,25 +15,19 @@
 /// Various prop related mixins to be used with [UiComponent] descendants.
 library over_react.prop_mixins;
 
-import 'package:over_react/over_react.dart' show AriaPropsMapView, AriaPropsMixin, DomProps;
+import 'package:over_react/over_react.dart' show AriaPropsMapView, $AriaPropsMixin, DomProps;
 // Must import these consts because they are used in the transformed code.
 // ignore: unused_import
 import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps, PropsMeta;
 import 'package:over_react/src/component/callback_typedefs.dart';
 import 'package:over_react/src/component_declaration/annotations.dart';
 
-part 'prop_mixins.overReactBuilder.gen.dart';
-
-// ignore: mixin_of_non_class,undefined_class, implements_non_class
-abstract class ReactPropsMixin implements _$$ReactPropsMixin {
-  // ignore: undefined_identifier, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForReactPropsMixin;
-}
+part 'prop_mixins.overReact.g.dart';
 
 /// Typed getters/setters for reserved React props.
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
-abstract class _$ReactPropsMixin {
+abstract class $ReactPropsMixin {
   // ignore: undefined_identifier, const_initialized_with_non_constant_value
   static const PropsMeta meta = $metaForReactPropsMixin;
 
@@ -63,16 +57,10 @@ abstract class _$ReactPropsMixin {
   dynamic ref;
 }
 
-// ignore: mixin_of_non_class,undefined_class, implements_non_class
-abstract class DomPropsMixin implements _$$DomPropsMixin {
-  // ignore: undefined_identifier, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForDomPropsMixin;
-}
-
 /// Typed getters/setters for reserved DOM-related props.
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
-abstract class _$DomPropsMixin {
+abstract class $DomPropsMixin {
   // ignore: undefined_identifier, const_initialized_with_non_constant_value
   static const PropsMeta meta = $metaForDomPropsMixin;
 
@@ -125,14 +113,8 @@ abstract class _$DomPropsMixin {
   bool autoFocus;
 }
 
-// ignore: mixin_of_non_class,undefined_class, implements_non_class
-abstract class SvgPropsMixin implements _$$SvgPropsMixin {
-  // ignore: undefined_identifier, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForSvgPropsMixin;
-}
-
 @PropsMixin(keyNamespace: '')
-abstract class _$SvgPropsMixin {
+abstract class $SvgPropsMixin {
   // ignore: undefined_identifier, const_initialized_with_non_constant_value
   static const PropsMeta meta = $metaForSvgPropsMixin;
 
@@ -145,16 +127,10 @@ abstract class _$SvgPropsMixin {
     xlinkHref, xlinkRole, xlinkShow, xlinkTitle, xlinkType, xmlBase, xmlLang, xmlSpace, y1, y2, y;
 }
 
-// ignore: mixin_of_non_class,undefined_class, implements_non_class
-abstract class UbiquitousDomPropsMixin implements _$$UbiquitousDomPropsMixin {
-  // ignore: undefined_identifier, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForUbiquitousDomPropsMixin;
-}
-
 /// Typed getters/setters for reserved DOM-related props that can be used by all UIP components.
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
-abstract class _$UbiquitousDomPropsMixin {
+abstract class $UbiquitousDomPropsMixin {
   // ignore: undefined_identifier, const_initialized_with_non_constant_value
   static const PropsMeta meta = $metaForUbiquitousDomPropsMixin;
 
@@ -175,7 +151,7 @@ abstract class _$UbiquitousDomPropsMixin {
   ///     (Button()
   ///       ..aria.controls = 'my_popover'
   ///     )('Open popover')
-  AriaPropsMixin get aria {
+  $AriaPropsMixin get aria {
     _aria ??= new AriaPropsMapView(props);
     return _aria;
   }
@@ -187,7 +163,7 @@ abstract class _$UbiquitousDomPropsMixin {
   ///     (Tab()
   ///       ..dom.draggable = true
   ///     )('Untitled Document')
-  DomPropsMixin get dom {
+  $DomPropsMixin get dom {
     _dom ??= new DomProps(null, props);
     return _dom;
   }

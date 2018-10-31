@@ -2,9 +2,9 @@ builders:
   overReactBuilder:
     import: "package:over_react/src/builder/builder.dart"
     builder_factories: ["overReactBuilder"]
-    build_extensions: {".dart" : [".overReactBuilder.g.dart"]}
+    build_extensions: {".dart" : [".overReact.g.dart"]}
     auto_apply: dependents 
-    build_to: source 
+    build_to: source
 
 targets:
   $default:
@@ -15,8 +15,8 @@ targets:
 #        - "lib/src/component/**"
       exclude:
         - ".dart_tool"
-        - "lib/src/builder/**"
-        - "lib/src/transformer/**"
+#        - "lib/src/builder/**"
+#        - "lib/src/transformer/**"
 #        - "test/over_react_builder_test.dart"
         - "test/component_files/**"
         - "test/gold_files/**"
@@ -29,7 +29,7 @@ targets:
       over_react|overReactBuilder:
         enabled: true
         generate_for:
-          - "example/**"
+#          - "example/builder/props_mixin.dart"
 #          - "lib/src/**"
 #          - "test/component_files/**"
 #          - "example/builder/basic.dart"

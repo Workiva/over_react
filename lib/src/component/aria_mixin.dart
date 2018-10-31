@@ -21,13 +21,12 @@ import 'dart:collection';
 import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps, PropsMeta;
 import 'package:over_react/src/component_declaration/annotations.dart';
 
-//part 'aria_mixin.overReactBuilder.g.dart';
+part 'aria_mixin.overReact.g.dart';
 
 /// Typed getters/setters for accessibility props.
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
-@ExportGeneratedAccessors()
-abstract class AriaPropsMixin {
+abstract class $AriaPropsMixin {
   Map get props;
 
   /// Identifies the currently active descendant of a compositewidget.
@@ -1755,7 +1754,8 @@ class Role {
 }
 
 /// A MapView with the typed getters/setters for all aria props.
-class AriaPropsMapView extends MapView with AriaPropsMixin {
+// ignore: mixin_of_non_class,undefined_class
+class AriaPropsMapView extends MapView with $AriaPropsMixin, AriaPropsMixin {
   /// Create a new instance backed by the specified map.
   AriaPropsMapView(Map map) : super(map);
 

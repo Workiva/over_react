@@ -7,7 +7,8 @@ import 'package:react/react_client.dart';
 /// A `MapView` helper that stubs in unimplemented pieces of [UiProps].
 ///
 /// Useful when you need a `MapView` for a [PropsMixin] that implements [UiProps].
-class UiPropsMapView extends MapView with ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
+// ignore: mixin_of_non_class,undefined_class
+class UiPropsMapView extends MapView with $ReactPropsMixin, ReactPropsMixin, $UbiquitousDomPropsMixin, UbiquitousDomPropsMixin, $CssClassPropsMixin, CssClassPropsMixin
     implements component_base.UiProps {
   /// Create a new instance backed by the specified map.
   UiPropsMapView(Map map) : super(map);

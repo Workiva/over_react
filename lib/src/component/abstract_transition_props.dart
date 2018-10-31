@@ -18,13 +18,12 @@ import 'dart:collection';
 
 import 'package:over_react/over_react.dart';
 
-//part 'abstract_transition_props.overReactBuilder.g.dart';
+part 'abstract_transition_props.overReact.g.dart';
 
 /// Props that mirror the implementation of [AbstractTransitionProps], made available as a mixin for components
 /// that cannot extend directly from [AbstractTransitionComponent].
 @PropsMixin()
-@ExportGeneratedAccessors()
-abstract class TransitionPropsMixin {
+abstract class $TransitionPropsMixin {
   // ignore: undefined_identifier, const_initialized_with_non_constant_value
   static const PropsMeta meta = $metaForTransitionPropsMixin;
 
@@ -68,7 +67,8 @@ abstract class TransitionPropsMixin {
 }
 
 class TransitionPropsMapView extends MapView with
-    TransitionPropsMixin {
+// ignore: mixin_of_non_class,undefined_class
+    $TransitionPropsMixin, TransitionPropsMixin {
   /// Create a new instance backed by the specified map.
   TransitionPropsMapView(Map map) : super(map);
 
