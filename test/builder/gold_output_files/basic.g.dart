@@ -12,7 +12,7 @@ final $BasicComponentFactory = registerComponent(() => new _$BasicComponent(),
 );
 
 abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
-  Map get props;
+  @override  Map get props;
 
   @override
   String get basicProp => props[_$key__basicProp___$BasicProps];

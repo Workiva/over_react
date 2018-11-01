@@ -36,8 +36,8 @@ main() {
 //      print(log.message);
     }
 
-    void checkBuildForFile(String assetPath, String expectedOutputAssetPath, String expectedContentFileLocation) async {
-
+    void checkBuildForFile(String assetPath, String expectedOutputAssetPath,
+        String expectedContentFileLocation) async {
       var basicAsset = makeAssetId(assetPath);
       var expectedContent = new File(expectedContentFileLocation).readAsStringSync();
       var outputs = {
@@ -78,6 +78,10 @@ main() {
 
     test('builds from basic_with_state file', () async {
       await checkBuildForFile('over_react|test/builder/component_files/basic_with_state.dart', 'over_react|test/builder/component_files/basic_with_state.overReact.g.dart', '${p.absolute(p.current)}/test/builder/gold_output_files/basic_with_state.g.dart');
+    });
+
+    test('builds from state_mixin file', () async {
+      await checkBuildForFile('over_react|test/builder/component_files/state_mixin.dart', 'over_react|test/builder/component_files/state_mixin.overReact.g.dart', '${p.absolute(p.current)}/test/builder/gold_output_files/state_mixin.g.dart');
     });
   });
 }

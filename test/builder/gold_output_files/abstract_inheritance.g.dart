@@ -12,7 +12,7 @@ final $SubComponentFactory = registerComponent(() => new _$SubComponent(),
 );
 
 abstract class _$SubPropsAccessorsMixin implements _$SubProps {
-  Map get props;
+  @override  Map get props;
 
   @override
   String get subProp => props[_$key__subProp___$SubProps];
@@ -63,6 +63,45 @@ class _$$SubProps extends _$SubProps with _$SubPropsAccessorsMixin implements Su
   call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
 }
 
+abstract class _$SubStateAccessorsMixin implements _$SubState {
+  @override  Map get state;
+
+  @override
+  String get subState => state[_$key__subState___$SubState];
+  @override
+  set subState(String value) => state[_$key__subState___$SubState] = value;
+  /* GENERATED CONSTANTS */
+  static const StateDescriptor _$prop__subState___$SubState = const StateDescriptor(_$key__subState___$SubState);
+  static const String _$key__subState___$SubState = 'SubState.subState';
+
+  static const List<StateDescriptor> $state = const [_$prop__subState___$SubState];
+  static const List<String> $stateKeys = const [_$key__subState___$SubState];
+}
+
+const StateMeta $metaForSubState = const StateMeta(
+  fields: _$SubStateAccessorsMixin.$state,
+  keys: _$SubStateAccessorsMixin.$stateKeys,
+);
+
+// Concrete state implementation.
+//
+// Implements constructor and backing map.
+class _$$SubState extends _$SubState with _$SubStateAccessorsMixin implements SubState{
+  _$$SubState(Map backingMap) : this._state = ({}) {
+    this._state = backingMap ?? ({});
+  }
+
+  /// The backing state map proxied by this class.
+  @override
+  Map get state => _state;
+  Map _state;
+
+
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+}
+
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -71,6 +110,8 @@ class _$SubComponent extends SubComponent {
   @override
   _$$SubProps typedPropsFactory(Map backingMap) => new _$$SubProps(backingMap);
 
+  @override
+  typedStateFactory(Map backingMap) => new _$$SubState(backingMap) as dynamic;
   /// Let [UiComponent] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -81,7 +122,7 @@ class _$SubComponent extends SubComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [$metaForSubProps];
 }
 abstract class _$SuperPropsAccessorsMixin implements _$SuperProps {
-  Map get props;
+  @override  Map get props;
 
   @override
   String get superProp => props[_$key__superProp___$SuperProps];
@@ -98,5 +139,25 @@ abstract class _$SuperPropsAccessorsMixin implements _$SuperProps {
 const PropsMeta $metaForSuperProps = const PropsMeta(
   fields: _$SuperPropsAccessorsMixin.$props,
   keys: _$SuperPropsAccessorsMixin.$propKeys,
+);
+
+abstract class _$SuperStateAccessorsMixin implements _$SuperState {
+  @override  Map get state;
+
+  @override
+  String get superState => state[_$key__superState___$SuperState];
+  @override
+  set superState(String value) => state[_$key__superState___$SuperState] = value;
+  /* GENERATED CONSTANTS */
+  static const StateDescriptor _$prop__superState___$SuperState = const StateDescriptor(_$key__superState___$SuperState);
+  static const String _$key__superState___$SuperState = 'SuperState.superState';
+
+  static const List<StateDescriptor> $state = const [_$prop__superState___$SuperState];
+  static const List<String> $stateKeys = const [_$key__superState___$SuperState];
+}
+
+const StateMeta $metaForSuperState = const StateMeta(
+  fields: _$SuperStateAccessorsMixin.$state,
+  keys: _$SuperStateAccessorsMixin.$stateKeys,
 );
 

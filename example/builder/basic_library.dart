@@ -3,6 +3,8 @@ library basic.library;
 
 import 'package:over_react/over_react.dart';
 import 'props_mixin.dart';
+import 'state_mixin.dart';
+
 
 part 'part_of_basic_library.dart';
 part 'part_of_basic_library_2.dart';

@@ -7,7 +7,9 @@ UiFactory<BasicPartOfLibProps> BasicPartOfLib = $BasicPartOfLib;
 class BasicPartOfLibProps extends UiProps with _$BasicPartOfLibPropsAccessorsMixin implements _$BasicPartOfLibProps {}
 
 @Props()
-class _$BasicPartOfLibProps extends UiProps with ExamplePropsMixinClass {
+class _$BasicPartOfLibProps extends UiProps
+// ignore: mixin_of_non_class,undefined_class
+    with $ExamplePropsMixinClass, ExamplePropsMixinClass {
   static const PropsMeta meta = $metaForBasicPartOfLibProps;
 
   String basicProp;
@@ -18,12 +20,30 @@ class _$BasicPartOfLibProps extends UiProps with ExamplePropsMixinClass {
   String basic5;
 }
 
+// ignore: mixin_of_non_class,undefined_class
+abstract class BasicPartOfLibState extends UiState with _$BasicPartOfLibStateAccessorsMixin implements _$BasicPartOfLibState {}
+
+@State()
+class _$BasicPartOfLibState extends UiState
+// ignore: mixin_of_non_class,undefined_class
+    with $ExampleStateMixinClass, ExampleStateMixinClass {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const StateMeta meta = $metaForBasicPartOfLibState;
+
+  String basicState;
+}
+
 @Component()
-class BasicPartOfLibComponent extends UiComponent<BasicPartOfLibProps> {
+class BasicPartOfLibComponent extends UiStatefulComponent<BasicPartOfLibProps, BasicPartOfLibState> {
   getDefaultProps() => newProps()..id = 'BasicPartOfLib';
+
+  getInitialState() => newState()..basicState = '<Basic state>'
+      ..stateMixin1 = '<state mixin>';
 
   @override
   render() {
-    return Dom.div()('BasicPartOfLibComponent: ${props.basicProp}, ${props.propMixin1}');
+    return Dom.div()(
+        'BasicPartOfLibComponentProps: ${props.basicProp}, ${props.propMixin1}',
+        'BasicPartOfLibComponentState: ${state.basicState}, ${state.stateMixin1}');
   }
 }

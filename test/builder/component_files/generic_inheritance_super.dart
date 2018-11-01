@@ -19,15 +19,33 @@ class _$GenericSuperProps extends UiProps {
   String superProp1;
 }
 
+
+// ignore: mixin_of_non_class,undefined_class
+abstract class GenericSuperState extends UiState with _$GenericSuperStateAccessorsMixin implements _$GenericSuperState {}
+
+@State()
+class _$GenericSuperState extends UiState {
+  static const StateMeta meta = $metaForGenericSuperState;
+
+  String superState;
+}
+
+
 @Component()
-class GenericSuperComponent<T extends GenericSuperProps> extends UiComponent<T> {
+class GenericSuperComponent<T extends GenericSuperProps, V extends GenericSuperState> extends UiStatefulComponent<T, V> {
   getDefaultProps() => newProps()..id = 'generic_super';
 
   @override
+  getInitialState() => newState()..superState = '<generic super state>';
+
+  @override
   render() {
-    return Dom.div()('GenericSuper', {
+    return Dom.div()('GenericSuperProps', {
       'props.superProp': props.superProp,
-//      'props': props.toString(),
-    }.toString());
+    }.toString(),
+      'GenericSuperState', {
+      'state.superState': state.superState,
+    }.toString()
+    );
   }
 }

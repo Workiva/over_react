@@ -1,4 +1,4 @@
-part of 'basic_with_state.dart';
+part of 'basic.dart';
 
 // React component factory implementation.
 //
@@ -12,7 +12,7 @@ final $BasicComponentFactory = registerComponent(() => new _$BasicComponent(),
 );
 
 abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
-  @override  Map get props;
+  Map get props;
 
   @override
   String get basicProp => props[_$key__basicProp___$BasicProps];
@@ -94,7 +94,7 @@ class _$$BasicProps extends _$BasicProps with _$BasicPropsAccessorsMixin impleme
 }
 
 abstract class _$BasicStateAccessorsMixin implements _$BasicState {
-  @override  Map get state;
+  Map get state;
 
   @override
   String get basicState => state[_$key__basicState___$BasicState];
@@ -116,8 +116,8 @@ const StateMeta $metaForBasicState = const StateMeta(
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$BasicState extends _$BasicState with _$BasicStateAccessorsMixin implements BasicState{
-  _$$BasicState(Map backingMap) : this._state = ({}) {
+class _$$BasicState extends _$BasicState with _$BasicStateAccessorsMixin implements BasicState {
+  _$$BasicState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? ({});
   }
 
@@ -125,7 +125,6 @@ class _$$BasicState extends _$BasicState with _$BasicStateAccessorsMixin impleme
   @override
   Map get state => _state;
   Map _state;
-
 
   /// Let [UiState] internals know that this class has been generated.
   @override
@@ -141,7 +140,12 @@ class _$BasicComponent extends BasicComponent {
   _$$BasicProps typedPropsFactory(Map backingMap) => new _$$BasicProps(backingMap);
 
   @override
-  typedStateFactory(Map backingMap) => new _$$BasicState(backingMap) as dynamic;
+  _$$BasicState typedStateFactory(Map backingMap) {
+    print('in state factory');
+    print(backingMap);
+    return new _$$BasicState(backingMap);
+  }
+
   /// Let [UiComponent] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;

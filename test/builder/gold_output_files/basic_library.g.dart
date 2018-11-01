@@ -12,7 +12,7 @@ final $BasicPartOfLibComponentFactory = registerComponent(() => new _$BasicPartO
 );
 
 abstract class _$BasicPartOfLibPropsAccessorsMixin implements _$BasicPartOfLibProps {
-  Map get props;
+  @override  Map get props;
 
   @override
   String get basicProp => props[_$key__basicProp___$BasicPartOfLibProps];
@@ -93,6 +93,45 @@ class _$$BasicPartOfLibProps extends _$BasicPartOfLibProps with _$BasicPartOfLib
   call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
 }
 
+abstract class _$BasicPartOfLibStateAccessorsMixin implements _$BasicPartOfLibState {
+  @override  Map get state;
+
+  @override
+  String get basicState => state[_$key__basicState___$BasicPartOfLibState];
+  @override
+  set basicState(String value) => state[_$key__basicState___$BasicPartOfLibState] = value;
+  /* GENERATED CONSTANTS */
+  static const StateDescriptor _$prop__basicState___$BasicPartOfLibState = const StateDescriptor(_$key__basicState___$BasicPartOfLibState);
+  static const String _$key__basicState___$BasicPartOfLibState = 'BasicPartOfLibState.basicState';
+
+  static const List<StateDescriptor> $state = const [_$prop__basicState___$BasicPartOfLibState];
+  static const List<String> $stateKeys = const [_$key__basicState___$BasicPartOfLibState];
+}
+
+const StateMeta $metaForBasicPartOfLibState = const StateMeta(
+  fields: _$BasicPartOfLibStateAccessorsMixin.$state,
+  keys: _$BasicPartOfLibStateAccessorsMixin.$stateKeys,
+);
+
+// Concrete state implementation.
+//
+// Implements constructor and backing map.
+class _$$BasicPartOfLibState extends _$BasicPartOfLibState with _$BasicPartOfLibStateAccessorsMixin implements BasicPartOfLibState{
+  _$$BasicPartOfLibState(Map backingMap) : this._state = ({}) {
+    this._state = backingMap ?? ({});
+  }
+
+  /// The backing state map proxied by this class.
+  @override
+  Map get state => _state;
+  Map _state;
+
+
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+}
+
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -101,6 +140,8 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
   @override
   _$$BasicPartOfLibProps typedPropsFactory(Map backingMap) => new _$$BasicPartOfLibProps(backingMap);
 
+  @override
+  typedStateFactory(Map backingMap) => new _$$BasicPartOfLibState(backingMap) as dynamic;
   /// Let [UiComponent] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -122,7 +163,7 @@ final $SubPartOfLibComponentFactory = registerComponent(() => new _$SubPartOfLib
 );
 
 abstract class _$SubPartOfLibPropsAccessorsMixin implements _$SubPartOfLibProps {
-  Map get props;
+  @override  Map get props;
 
   @override
   String get subProp => props[_$key__subProp___$SubPartOfLibProps];
@@ -191,7 +232,7 @@ class _$SubPartOfLibComponent extends SubPartOfLibComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [$metaForSubPartOfLibProps];
 }
 abstract class _$SuperPartOfLibPropsAccessorsMixin implements _$SuperPartOfLibProps {
-  Map get props;
+  @override  Map get props;
 
   @override
   String get superProp => props[_$key__superProp___$SuperPartOfLibProps];

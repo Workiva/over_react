@@ -252,11 +252,12 @@ class ImplGenerator {
           ..writeln();
 
         typedStateFactoryImpl =
-          '@override\n'
+          '  @override\n'
           // Don't type this so that it doesn't interfere with classes with generic parameter state type:
           //    class FooComponent<T extends FooProps, T extends FooState> extends UiStatefulComponent<T> {...}
           // TODO use long-term solution of component impl class instantiated via factory constructor
-          '$stateImplName typedStateFactory(Map backingMap) => new $stateImplName(backingMap) as dynamic;\n';
+          // TODO: Check if this lack of typing will work with dart 2's strong typing req's.
+          '  typedStateFactory(Map backingMap) => new $stateImplName(backingMap) as dynamic;\n';
       }
 
       // ----------------------------------------------------------------------
@@ -629,6 +630,7 @@ class ImplGenerator {
     StringBuffer generatedClass = new StringBuffer();
     generatedClass.writeln(
         'abstract class $accessorsMixinName implements $consumerClassName {\n' +
+        '  @override' +
         '  Map get ${isProps ? 'props': 'state'};\n'
     );
 

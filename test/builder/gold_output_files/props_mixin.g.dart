@@ -1,7 +1,7 @@
 part of 'props_mixin.dart';
 
 abstract class ExamplePropsMixinClass implements $ExamplePropsMixinClass {
-  Map get props;
+  @override  Map get props;
 
   @override
   String get propMixin1 => props[_$key__propMixin1__$ExamplePropsMixinClass];

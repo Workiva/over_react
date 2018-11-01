@@ -12,7 +12,7 @@ final $GenericSuperComponentFactory = registerComponent(() => new _$GenericSuper
 );
 
 abstract class _$GenericSuperPropsAccessorsMixin implements _$GenericSuperProps {
-  Map get props;
+  @override  Map get props;
 
   @override
   String get otherSuperProp => props[_$key__otherSuperProp___$GenericSuperProps];
@@ -75,6 +75,45 @@ class _$$GenericSuperProps extends _$GenericSuperProps with _$GenericSuperPropsA
   call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
 }
 
+abstract class _$GenericSuperStateAccessorsMixin implements _$GenericSuperState {
+  @override  Map get state;
+
+  @override
+  String get superState => state[_$key__superState___$GenericSuperState];
+  @override
+  set superState(String value) => state[_$key__superState___$GenericSuperState] = value;
+  /* GENERATED CONSTANTS */
+  static const StateDescriptor _$prop__superState___$GenericSuperState = const StateDescriptor(_$key__superState___$GenericSuperState);
+  static const String _$key__superState___$GenericSuperState = 'GenericSuperState.superState';
+
+  static const List<StateDescriptor> $state = const [_$prop__superState___$GenericSuperState];
+  static const List<String> $stateKeys = const [_$key__superState___$GenericSuperState];
+}
+
+const StateMeta $metaForGenericSuperState = const StateMeta(
+  fields: _$GenericSuperStateAccessorsMixin.$state,
+  keys: _$GenericSuperStateAccessorsMixin.$stateKeys,
+);
+
+// Concrete state implementation.
+//
+// Implements constructor and backing map.
+class _$$GenericSuperState extends _$GenericSuperState with _$GenericSuperStateAccessorsMixin implements GenericSuperState{
+  _$$GenericSuperState(Map backingMap) : this._state = ({}) {
+    this._state = backingMap ?? ({});
+  }
+
+  /// The backing state map proxied by this class.
+  @override
+  Map get state => _state;
+  Map _state;
+
+
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+}
+
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -83,6 +122,8 @@ class _$GenericSuperComponent extends GenericSuperComponent {
   @override
   _$$GenericSuperProps typedPropsFactory(Map backingMap) => new _$$GenericSuperProps(backingMap);
 
+  @override
+  typedStateFactory(Map backingMap) => new _$$GenericSuperState(backingMap) as dynamic;
   /// Let [UiComponent] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
