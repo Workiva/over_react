@@ -226,20 +226,24 @@ class ImplGenerator {
         final stateImplName = getImplClassNameFromClassName(stateName);
         final stateAccessorsMixinName = getAccessorsMixinNameFromConsumerName(stateName);
 
-        _generateMetaClass(AccessorType.state, stateAccessorsMixinName, publicStateName);
-
+        outputContentsBuffer.write(_generateAccessorsClass(AccessorType.state, stateAccessorsMixinName, declarations.state, stateName));
+        outputContentsBuffer.write(_generateMetaClass(AccessorType.state, stateAccessorsMixinName, publicStateName));
 
         outputContentsBuffer
           ..writeln('// Concrete state implementation.')
           ..writeln('//')
           ..writeln('// Implements constructor and backing map.')
-          ..writeln('class $stateImplName extends $stateName {')
+          ..writeln('class $stateImplName extends $stateName with $stateAccessorsMixinName implements $publicStateName{')
+          ..writeln('  $stateImplName(Map backingMap) : this._state = ({}) {')
+          ..writeln('    this._state = backingMap ?? ({});')
+          ..writeln('  }')
+          ..writeln()
           ..writeln('  /// The backing state map proxied by this class.')
           ..writeln('  @override')
-          ..writeln('  final Map state;')
+          ..writeln('  Map get state => _state;')
+          ..writeln('  Map _state;')
           ..writeln()
           // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
-          ..writeln('  $stateImplName(Map backingMap) : this.state = backingMap ?? ({});')
           ..writeln()
           ..writeln('  /// Let [UiState] internals know that this class has been generated.')
           ..writeln('  @override')
@@ -248,11 +252,11 @@ class ImplGenerator {
           ..writeln();
 
         typedStateFactoryImpl =
-          '@override '
+          '@override\n'
           // Don't type this so that it doesn't interfere with classes with generic parameter state type:
           //    class FooComponent<T extends FooProps, T extends FooState> extends UiStatefulComponent<T> {...}
           // TODO use long-term solution of component impl class instantiated via factory constructor
-          'typedStateFactory(Map backingMap) => new $stateImplName(backingMap) as dynamic;';
+          '$stateImplName typedStateFactory(Map backingMap) => new $stateImplName(backingMap) as dynamic;\n';
       }
 
       // ----------------------------------------------------------------------
@@ -267,6 +271,7 @@ class ImplGenerator {
         ..writeln('  @override')
         ..writeln('  $propsImplName typedPropsFactory(Map backingMap) => new $propsImplName(backingMap);')
         ..writeln()
+        ..write(typedStateFactoryImpl)
         ..writeln('  /// Let [UiComponent] internals know that this class has been generated.')
         ..writeln('  @override')
         ..writeln('  bool get \$isClassGenerated => true;')

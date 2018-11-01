@@ -12,6 +12,16 @@ class _$SuperProps extends UiProps {
 
   String superProp;
 }
+//
+//// ignore: mixin_of_non_class,undefined_class
+//class SuperState extends UiState with _$SuperStateAccessorsMixin implements _$SuperState {}
+//
+//@AbstractState()
+//class _$SuperState extends UiState {
+//  static const StateMeta meta = $metaForSuperState;
+//
+//  String superProp;
+//}
 
 @AbstractComponent()
 abstract class SuperComponent<T extends SuperProps> extends UiComponent<T> {
@@ -26,6 +36,7 @@ abstract class SuperComponent<T extends SuperProps> extends UiComponent<T> {
   }
 }
 
+//---------------------------- Sub Component ----------------------------
 @Factory()
 UiFactory<SubProps> Sub = $Sub;
 
@@ -33,12 +44,21 @@ UiFactory<SubProps> Sub = $Sub;
 class SubProps extends UiProps with _$SubPropsAccessorsMixin implements _$SubProps {}
 
 @Props()
-// Heads up: props class inheritance doesn't work properly currently
 class _$SubProps extends SuperProps {
  static const PropsMeta meta = $metaForSubProps;
 
   String subProp;
 }
+//
+//// ignore: mixin_of_non_class,undefined_class
+//class SubState extends UiState with _$SubStateAccessorsMixin implements _$SubState {}
+//
+//@State()
+//class _$SubState extends SuperState {
+// static const StateMeta meta = $metaForSubState;
+//
+//  String subState;
+//}
 
 @Component()
 class SubComponent extends SuperComponent<SubProps> {
