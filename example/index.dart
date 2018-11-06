@@ -19,7 +19,8 @@ main() {
         Dom.h3()('Components'),
         (Basic()
           ..basic1 = '<fucking basick prop>'
-          ..propMixin1 = 'This is a prop mixin'
+//          ..propMixin1 = 'This is a prop mixin'
+          ..id = 'the id of this component'
         )(),
         (Sub()
           ..superProp = '<superProp value>'

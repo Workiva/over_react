@@ -4,17 +4,17 @@ import 'package:over_react/over_react.dart';
 part 'abstract_inheritance.overReact.g.dart';
 
 // ignore: mixin_of_non_class,undefined_class
-class SuperProps extends UiProps with _$SuperPropsAccessorsMixin implements _$SuperProps {}
+abstract class SuperProps extends _$SuperProps with _$SuperPropsAccessorsMixin {}
 
 @AbstractProps()
-class _$SuperProps extends UiProps {
+abstract class _$SuperProps extends UiProps {
   static const PropsMeta meta = $metaForSuperProps;
 
   String superProp;
 }
 
 // ignore: mixin_of_non_class,undefined_class
-abstract class SuperState extends UiState with _$SuperStateAccessorsMixin implements _$SuperState {}
+abstract class SuperState extends _$SuperState with _$SuperStateAccessorsMixin {}
 
 @AbstractState()
 abstract class _$SuperState extends UiState {
@@ -42,7 +42,7 @@ abstract class SuperComponent<T extends SuperProps, V extends SuperState> extend
 UiFactory<SubProps> Sub = $Sub;
 
 // ignore: mixin_of_non_class,undefined_class
-class SubProps extends UiProps with _$SubPropsAccessorsMixin implements _$SubProps {}
+class SubProps extends _$SubProps with _$SubPropsAccessorsMixin {}
 
 @Props()
 class _$SubProps extends SuperProps {
@@ -52,7 +52,7 @@ class _$SubProps extends SuperProps {
 }
 
 // ignore: mixin_of_non_class,undefined_class
-abstract class SubState extends UiState with _$SubStateAccessorsMixin implements _$SubState {}
+abstract class SubState extends _$SubState with _$SubStateAccessorsMixin {}
 
 @State()
 class _$SubState extends SuperState {// ignore: non_abstract_class_inherits_abstract_member_two

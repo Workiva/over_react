@@ -483,7 +483,7 @@ typedef PropsModifier(Map props);
 abstract class UiProps extends Object
     with MapViewMixin, PropsMapViewMixin,
 // ignore: mixin_of_non_class,undefined_class
-         $ReactPropsMixin, ReactPropsMixin, $UbiquitousDomPropsMixin, UbiquitousDomPropsMixin, $CssClassPropsMixin, CssClassPropsMixin {
+         ReactPropsMixin, $ReactPropsMixin, UbiquitousDomPropsMixin, $UbiquitousDomPropsMixin, CssClassPropsMixin, $CssClassPropsMixin {
 
   UiProps() {
     // Work around https://github.com/dart-lang/sdk/issues/27647 for all UiProps instances

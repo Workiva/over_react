@@ -3,10 +3,23 @@ import 'package:over_react/over_react.dart';
 part 'props_mixin.overReact.g.dart';
 
 @PropsMixin()
-abstract class $ExamplePropsMixinClass implements UiProps {
+abstract class ExamplePropsMixinClass implements UiProps {
   @override
   Map get props;
 
+  static const PropsMeta meta = $metaForExamplePropsMixinClass;
+
   String propMixin1;
+}
+
+@PropsMixin()
+abstract class MixesInOtherMixinMixin
+    implements ExamplePropsMixinClass {
+  @override
+  Map get props;
+
+  static const PropsMeta meta = $metaForMixesInOtherMixinMixin;
+
+  String otherPropMixin;
 }
 

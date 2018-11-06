@@ -29,7 +29,7 @@ part 'class_names.overReact.g.dart';
 ///
 /// Universally available on all OverReact components via [UiProps].
 @PropsMixin(keyNamespace: '')
-abstract class $CssClassPropsMixin {
+abstract class CssClassPropsMixin {
   // ignore: undefined_identifier, const_initialized_with_non_constant_value
   static const PropsMeta meta = $metaForCssClassPropsMixin;
 
@@ -50,7 +50,7 @@ abstract class $CssClassPropsMixin {
 
 /// A `MapView` with typed getters/setters for all CSS-class-related props.
 // ignore: mixin_of_non_class,undefined_class
-class CssClassPropsMapView extends MapView with $CssClassPropsMixin, CssClassPropsMixin {
+class CssClassPropsMapView extends MapView with CssClassPropsMixin, $CssClassPropsMixin {
   /// Create a new instance backed by the specified map.
   CssClassPropsMapView(Map map) : super(map);
 

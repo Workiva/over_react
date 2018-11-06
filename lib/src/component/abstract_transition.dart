@@ -25,7 +25,7 @@ part 'abstract_transition.overReact.g.dart';
 
 @AbstractProps()
 // ignore: mixin_of_non_class,undefined_class
-abstract class AbstractTransitionProps extends UiProps with $TransitionPropsMixin, TransitionPropsMixin {
+abstract class AbstractTransitionProps extends UiProps with TransitionPropsMixin, $TransitionPropsMixin {
   // ignore: undefined_identifier, const_initialized_with_non_constant_value
   static const PropsMeta meta = $metaForAbstractTransitionProps;
 }
@@ -103,12 +103,12 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   @override
   get consumedProps => const [
     AbstractTransitionProps.meta,
-    $TransitionPropsMixin.meta,
+    TransitionPropsMixin.meta,
   ];
 
   @override
   Map getDefaultProps() => (newProps()
-    ..addProps($TransitionPropsMixin.defaultProps)
+    ..addProps(TransitionPropsMixin.defaultProps)
   );
 
   @override

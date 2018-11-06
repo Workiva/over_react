@@ -4,12 +4,12 @@ part of basic.library;
 UiFactory<BasicPartOfLibProps> BasicPartOfLib = $BasicPartOfLib;
 
 // ignore: mixin_of_non_class,undefined_class
-class BasicPartOfLibProps extends UiProps with _$BasicPartOfLibPropsAccessorsMixin implements _$BasicPartOfLibProps {}
+class BasicPartOfLibProps extends _$BasicPartOfLibProps with _$BasicPartOfLibPropsAccessorsMixin {}
 
 @Props()
 class _$BasicPartOfLibProps extends UiProps
 // ignore: mixin_of_non_class,undefined_class
-    with $ExamplePropsMixinClass, ExamplePropsMixinClass {
+    with  ExamplePropsMixinClass, $ExamplePropsMixinClass {
   static const PropsMeta meta = $metaForBasicPartOfLibProps;
 
   String basicProp;
@@ -21,12 +21,12 @@ class _$BasicPartOfLibProps extends UiProps
 }
 
 // ignore: mixin_of_non_class,undefined_class
-abstract class BasicPartOfLibState extends UiState with _$BasicPartOfLibStateAccessorsMixin implements _$BasicPartOfLibState {}
+abstract class BasicPartOfLibState extends _$BasicPartOfLibState with _$BasicPartOfLibStateAccessorsMixin {}
 
 @State()
 class _$BasicPartOfLibState extends UiState
 // ignore: mixin_of_non_class,undefined_class
-    with $ExampleStateMixinClass, ExampleStateMixinClass {
+    with ExampleStateMixinClass, $ExampleStateMixinClass {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
   static const StateMeta meta = $metaForBasicPartOfLibState;
 

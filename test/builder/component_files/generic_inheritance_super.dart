@@ -8,7 +8,7 @@ part 'generic_inheritance_super.overReact.g.dart';
 UiFactory<GenericSuperProps> GenericSuper = $GenericSuper;
 
 // ignore: mixin_of_non_class,undefined_class
-class GenericSuperProps extends UiProps with _$GenericSuperPropsAccessorsMixin implements _$GenericSuperProps {}
+class GenericSuperProps extends _$GenericSuperProps with _$GenericSuperPropsAccessorsMixin {}
 
 @Props()
 class _$GenericSuperProps extends UiProps {
@@ -21,7 +21,7 @@ class _$GenericSuperProps extends UiProps {
 
 
 // ignore: mixin_of_non_class,undefined_class
-abstract class GenericSuperState extends UiState with _$GenericSuperStateAccessorsMixin implements _$GenericSuperState {}
+abstract class GenericSuperState extends _$GenericSuperState with _$GenericSuperStateAccessorsMixin {}
 
 @State()
 class _$GenericSuperState extends UiState {

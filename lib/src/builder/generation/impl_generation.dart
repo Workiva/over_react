@@ -329,12 +329,10 @@ class ImplGenerator {
     // ----------------------------------------------------------------------
 
     declarations.propsMixins.forEach((propMixin) {
-      // TODO: Do something different b/c of mixin output
       checkGettersAndGenerateAccessorsMixinAndMetaClass(AccessorType.props, propMixin);
     });
 
     declarations.stateMixins.forEach((stateMixin) {
-      // TODO: Do something different b/c of mixin output
       checkGettersAndGenerateAccessorsMixinAndMetaClass(AccessorType.state, stateMixin);
     });
 
@@ -375,14 +373,15 @@ class ImplGenerator {
       logger.severe(getSpan(sourceFile, node.node));
     }
 
-    var consumerClassname = getClassNameFromNode(node);
-    var generatedPropsMixinName = consumerClassname.replaceFirst('\$', '');
+    var consumerClassName = getClassNameFromNode(node);
+//    var publicClassName = getPublicClassNameFromClassName(consumerClassName);
+    var generatedPropsMixinName = '\$$consumerClassName';
     outputContentsBuffer.write(_generateAccessorsClass(
         type, generatedPropsMixinName, node,
-        consumerClassname));
+        consumerClassName, isMixin: true, publicClassName: consumerClassName));
     outputContentsBuffer.write(_generateMetaClass(
         type, generatedPropsMixinName,
-        getPublicClassNameFromClassName(consumerClassname)));
+        getPublicClassNameFromClassName(consumerClassName)));
   }
 
   bool hasAbstractGetter(ClassDeclaration classDeclaration, String type, String name) {
@@ -625,7 +624,7 @@ class ImplGenerator {
   }
 
   String _generateAccessorsClass(AccessorType type, String accessorsMixinName,
-      NodeWithMeta node, String consumerClassName) {
+      NodeWithMeta node, String consumerClassName, {bool isMixin: false, String publicClassName: ''}) {
     var isProps = type == AccessorType.props;
     StringBuffer generatedClass = new StringBuffer();
     generatedClass.writeln(

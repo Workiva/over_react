@@ -37,7 +37,7 @@ part 'resize_sensor.overReact.g.dart';
 UiFactory<ResizeSensorProps> ResizeSensor;
 
 @PropsMixin()
-abstract class $ResizeSensorPropsMixin {
+abstract class ResizeSensorPropsMixin {
   static final ResizeSensorPropsMixinMapView defaultProps = new ResizeSensorPropsMixinMapView({})
     ..isFlexChild = false
     ..isFlexContainer = false
@@ -96,7 +96,7 @@ class ResizeSensorProps extends UiProps
 
 @Props()
 // ignore: mixin_of_non_class,undefined_class
-class _$ResizeSensorProps extends UiProps with $ResizeSensorPropsMixin, ResizeSensorPropsMixin {}
+class _$ResizeSensorProps extends UiProps with ResizeSensorPropsMixin, $ResizeSensorPropsMixin {}
 
 @Component()
 class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAnimationFrameMixin {
@@ -107,7 +107,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
 
   @override
   Map getDefaultProps() => (newProps()
-    ..addProps($ResizeSensorPropsMixin.defaultProps)
+    ..addProps(ResizeSensorPropsMixin.defaultProps)
   );
 
   @mustCallSuper
@@ -361,7 +361,7 @@ class ResizeSensorEvent {
 
 /// A MapView with the typed getters/setters for all HitArea display variation props.
 // ignore: mixin_of_non_class,undefined_class
-class ResizeSensorPropsMixinMapView extends MapView with $ResizeSensorPropsMixin, ResizeSensorPropsMixin {
+class ResizeSensorPropsMixinMapView extends MapView with ResizeSensorPropsMixin, $ResizeSensorPropsMixin {
   /// Create a new instance backed by the specified map.
   ResizeSensorPropsMixinMapView(Map map) : super(map);
 

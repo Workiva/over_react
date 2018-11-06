@@ -79,5 +79,5 @@ Map<String, dynamic> newStyleFromProps(Map props) {
 }
 
 final Set _validDomProps = new Set()
-  ..addAll($DomPropsMixin.meta.keys)
-  ..addAll($SvgPropsMixin.meta.keys);
+  ..addAll(DomPropsMixin.meta.keys)
+  ..addAll(SvgPropsMixin.meta.keys);

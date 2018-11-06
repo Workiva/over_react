@@ -1,7 +1,7 @@
 part of basic.library;
 
 // ignore: mixin_of_non_class,undefined_class
-class SuperPartOfLibProps extends UiProps with _$SuperPartOfLibPropsAccessorsMixin implements _$SuperPartOfLibProps {}
+class SuperPartOfLibProps extends _$SuperPartOfLibProps with _$SuperPartOfLibPropsAccessorsMixin {}
 
 @AbstractProps()
 class _$SuperPartOfLibProps extends UiProps {
@@ -27,7 +27,7 @@ abstract class SuperPartOfLibComponent<T extends SuperPartOfLibProps> extends Ui
 UiFactory<SubPartOfLibProps> SubPartOfLib = $SubPartOfLib;
 
 // ignore: mixin_of_non_class,undefined_class
-class SubPartOfLibProps extends UiProps with _$SubPartOfLibPropsAccessorsMixin implements _$SubPartOfLibProps {}
+class SubPartOfLibProps extends _$SubPartOfLibProps with _$SubPartOfLibPropsAccessorsMixin {}
 
 @Props()
 // Heads up: props class inheritance doesn't work properly currently
