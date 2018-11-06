@@ -33,6 +33,7 @@ main() {
     });
 
     void onLog(LogRecord log) {
+      // uncomment to print debug logs from the builder
 //      print(log.message);
     }
 
@@ -82,6 +83,12 @@ main() {
 
     test('builds from state_mixin file', () async {
       await checkBuildForFile('over_react|test/builder/component_files/state_mixin.dart', 'over_react|test/builder/component_files/state_mixin.overReact.g.dart', '${p.absolute(p.current)}/test/builder/gold_output_files/state_mixin.g.dart');
+    });
+
+    test('does not have a build output for a file with no over_react annotations', () async {
+      var basicAsset = makeAssetId('over_react|test/builder/component_files/no_annoations.dart');
+      await runBuilder(builder, [basicAsset], reader, writerSpy, AnalyzerResolvers());
+      expect(writerSpy.assetsWritten.isEmpty, isTrue);
     });
   });
 }

@@ -42,20 +42,6 @@ class ParsedDeclarations {
     bool hasErrors = false;
     bool hasDeclarations = false;
 
-    PropsClassType getPropsType(String annotation) {
-      if (annotation.compareTo(key_props) == 0) {
-        return PropsClassType.standard;
-      }
-      if (annotation.compareTo(key_abstractProps) == 0) {
-        return PropsClassType.abstract;
-      }
-      if (annotation.compareTo(key_propsMixin) == 0) {
-        return PropsClassType.mixin;
-      }
-      return PropsClassType.none;
-    }
-
-
     void error(String message, [SourceSpan span]) {
       hasErrors = true;
       logger.severe(message);
@@ -73,9 +59,6 @@ class ParsedDeclarations {
       key_abstractState:     <CompilationUnitMember>[],
       key_propsMixin:        <CompilationUnitMember>[],
       key_stateMixin:        <CompilationUnitMember>[],
-      key_ancestorStandardProps:     <CompilationUnitMember>[],
-      key_ancestorAbstractProps:     <CompilationUnitMember>[],
-      key_ancestorPropsMixin:     <CompilationUnitMember>[],
     };
 
     unit.declarations.forEach((CompilationUnitMember member) {
@@ -88,65 +71,6 @@ class ParsedDeclarations {
         }
       });
     });
-
-    // Walk AST and add all parent props classes that are not already generated
-
-    var exportedAncestorClassNames = <String>[];
-    var ancestorPropsClassNames = <String>[];
-    if (declarationMap[key_props].isNotEmpty) {
-      var astWrapper = new AstWrapper(logger);
-      astWrapper.visitClassDeclaration(declarationMap[key_props]?.first);
-
-      astWrapper.superCompUnits.forEach((unit) {
-        var propsClassType = PropsClassType.none;
-        var isExported = false;
-
-        unit.metadata.forEach((annotation) {
-          var name = annotation.name.toString();
-          // We expect only 1 props class annotation per class, at most. Therefore,
-          // once we've found the props type, don't check the next annotation to
-          // see it's prop type. (there can be other annotations that are not
-          // the prop type in addition to the prop type annotation)
-          if (propsClassType == PropsClassType.none) {
-            propsClassType = getPropsType(name);
-          }
-          if (name.compareTo(key_exportGeneratedAccessors) == 0) {
-            isExported = true;
-          }
-        });
-
-        if (!isExported) {
-          switch (propsClassType) {
-            case PropsClassType.standard:
-              logger.fine('adding class: ${unit.declaredElement.toString()}');
-              declarationMap[key_ancestorStandardProps].add(unit);
-              break;
-            case PropsClassType.abstract:
-              logger.fine('adding class: ${unit.declaredElement.toString()}');
-              declarationMap[key_ancestorAbstractProps].add(unit);
-              break;
-            case PropsClassType.mixin:
-              logger.fine('adding class: ${unit.declaredElement.toString()}');
-              declarationMap[key_ancestorPropsMixin].add(unit);
-              break;
-            case PropsClassType.none:
-            default:
-              logger.fine('ignoring class completey: ${unit.declaredElement.name
-                  .toString()}');
-          }
-        } else if (!exportedAncestorClassNames.contains(
-            unit.declaredElement.name.toString()) && !(propsClassType == PropsClassType.none)) {
-          logger.fine(
-              'adding just className for already publicly available generated accessors class: ${unit
-                  .declaredElement.name.toString()}');
-          exportedAncestorClassNames.add(unit.declaredElement.name.toString());
-        }
-        if (!ancestorPropsClassNames.contains(
-            unit.declaredElement.name.toString()) && !(propsClassType == PropsClassType.none)) {
-          ancestorPropsClassNames.add(unit.declaredElement.name.toString());
-        }
-      });
-    }
 
     // Validate the types of the annotated declarations.
 
@@ -195,9 +119,6 @@ class ParsedDeclarations {
       key_abstractState,
       key_propsMixin,
       key_stateMixin,
-      key_ancestorStandardProps,
-      key_ancestorAbstractProps,
-      key_ancestorPropsMixin,
     ].forEach((annotationName) {
       declarationMap[annotationName] = classesOnly(annotationName, declarationMap[annotationName]);
     });
@@ -285,12 +206,6 @@ class ParsedDeclarations {
         propsMixins:   declarationMap[key_propsMixin],
         stateMixins:   declarationMap[key_stateMixin],
 
-        ancestorStandardProps: declarationMap[key_ancestorStandardProps],
-        ancestorAbstractProps: declarationMap[key_ancestorAbstractProps],
-        ancestorPropsMixin: declarationMap[key_ancestorPropsMixin],
-        exportedAncestorClassNames: exportedAncestorClassNames,
-        ancestorPropsClassNames: ancestorPropsClassNames,
-
         hasErrors: hasErrors,
         hasDeclarations: hasDeclarations,
     );
@@ -308,12 +223,6 @@ class ParsedDeclarations {
       List<ClassDeclaration> propsMixins,
       List<ClassDeclaration> stateMixins,
 
-      List<ClassDeclaration> ancestorStandardProps,
-      List<ClassDeclaration> ancestorAbstractProps,
-      List<ClassDeclaration> ancestorPropsMixin,
-      List<String> exportedAncestorClassNames,
-      List<String> ancestorPropsClassNames,
-
       this.hasErrors,
       this.hasDeclarations,
   }) :
@@ -327,12 +236,6 @@ class ParsedDeclarations {
 
       this.propsMixins   = new List.unmodifiable(propsMixins.map((propsMixin) => new PropsMixinNode(propsMixin))),
       this.stateMixins   = new List.unmodifiable(stateMixins.map((stateMixin) => new StateMixinNode(stateMixin))),
-
-      this.ancestorStandardProps   = new List.unmodifiable(ancestorStandardProps.map((ancestor) => new PropsNode(ancestor))),
-      this.ancestorAbstractProps   = new List.unmodifiable(ancestorAbstractProps.map((ancestor) => new AbstractPropsNode(ancestor))),
-      this.ancestorPropsMixin   = new List.unmodifiable(ancestorPropsMixin.map((ancestor) => new PropsMixinNode(ancestor))),
-      this.exportedAncestorClassNames = exportedAncestorClassNames,
-      this.ancestorPropsClassNames = ancestorPropsClassNames,
 
       this.declaresComponent = factory != null
   {
@@ -359,10 +262,6 @@ class ParsedDeclarations {
   static final String key_stateMixin        = getName(annotations.StateMixin);
 
   static final String key_exportGeneratedAccessors = getName(annotations.ExportGeneratedAccessors);
-
-  static final String key_ancestorAbstractProps     = 'ancestor_abstract_props';
-  static final String key_ancestorStandardProps     = 'ancestor_standard_props';
-  static final String key_ancestorPropsMixin     = 'ancestor_props_mixin';
 
   static final List<String> key_allComponentRequired = new List.unmodifiable([
     key_factory,
@@ -405,12 +304,6 @@ class ParsedDeclarations {
 
   final List<PropsMixinNode> propsMixins;
   final List<StateMixinNode> stateMixins;
-
-  final List<PropsNode> ancestorStandardProps;
-  final List<AbstractPropsNode> ancestorAbstractProps;
-  final List<PropsMixinNode> ancestorPropsMixin;
-  final List<String> exportedAncestorClassNames;
-  final List<String> ancestorPropsClassNames;
 
   final bool hasErrors;
   final bool hasDeclarations;
@@ -459,26 +352,3 @@ class AbstractStateNode     extends NodeWithMeta<ClassDeclaration, annotations.A
 class PropsMixinNode        extends NodeWithMeta<ClassDeclaration, annotations.PropsMixin>         {PropsMixinNode(unit)        : super(unit);}
 class StateMixinNode        extends NodeWithMeta<ClassDeclaration, annotations.StateMixin>         {StateMixinNode(unit)        : super(unit);}
 
-
-class AstWrapper extends RecursiveAstVisitor {
-  AstWrapper(this._logger);
-
-  final Logger _logger;
-  List<String> _superTypes = new List<String>();
-  List<CompilationUnitMember> _superCompUnits = new List<CompilationUnitMember>();
-  List<CompilationUnitMember> get superCompUnits => _superCompUnits;
-
-  List<String> get superTypes => _superTypes;
-
-  @override
-  visitClassDeclaration(ClassDeclaration node) {
-    var token = node.firstTokenAfterCommentAndMetadata;
-
-    node?.declaredElement?.supertype?.element?.allSupertypes?.forEach((superClass) {
-      if (!(superClass.toString() == 'Object')) {
-        _superCompUnits.add(superClass.element.computeNode());
-      }
-    });
-    super.visitClassDeclaration(node);
-  }
-}

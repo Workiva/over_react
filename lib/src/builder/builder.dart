@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:analyzer/analyzer.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 
 import 'package:over_react/src/builder/generation/declaration_parsing.dart';
@@ -29,55 +30,11 @@ class OverReactBuilder implements Builder {
         path: p.url.join(id.package, id.path.replaceFirst('lib/', '')));
   }
 
-  String _generateForFile(AssetId inputId, String primaryInputContents, CompilationUnit resolvedUnit, List<String> generatedAccessorMixinClassNames) {
-    var sourceFile = new SourceFile.fromString(
-        primaryInputContents, url: idToPackageUri(inputId));
-
-    ImplGenerator generator;
-    if (ParsedDeclarations.mightContainDeclarations(primaryInputContents)) {
-      var declarations = new ParsedDeclarations(resolvedUnit, sourceFile, log);
-
-      if (!declarations.hasErrors && declarations.hasDeclarations) {
-        generator = new ImplGenerator(log, sourceFile, generatedAccessorMixinClassNames)
-          ..generate(declarations);
-      } else {
-        if (declarations.hasErrors) {
-          log.fine(
-              'There was an error parsing the file declarations for file: ${inputId.toString()}');
-        }
-        if (!declarations.hasDeclarations) {
-          log.fine(
-              'There were no declarations found for file: ${inputId
-                  .toString()}');
-        }
-      }
-    } else {
-      log.fine(
-          'no declarations found for file: ${inputId.toString()}');
-    }
-    return generator?.outputContentsBuffer?.toString() ?? '';
-  }
-
-  @override
-  Future build(BuildStep buildStep) async {
-    // This check returns false if the file is a part file. We don't want to build
-    // on part files, and instead rely on building from the library file and
-    // accessing each part file from there
-    if (!await buildStep.resolver.isLibrary(buildStep.inputId)) {
-      return;
-    }
-
-    var generatedAccessorMixinClassNames = <String>[];
-    final outputId = buildStep.inputId.changeExtension(_outputExtension);
-
-    // Process both the main and part files of a given library.
-    final entryLib = await buildStep.inputLibrary;
-
-    final inputId = await buildStep.inputId;
-
-    // part of directive
+  /// Generates the part of directive for the build output from the build target
+  /// library.
+  String _generatePartOfDirective(LibraryElement entryLib, AssetId inputId) {
     var outputBuffer = StringBuffer('part of ');
-    bool hasLibraryDirective = false;
+    var hasLibraryDirective = false;
     for (final directive in entryLib.definingCompilationUnit.computeNode().directives) {
       if (directive.keyword.toString().contains('library')) {
         hasLibraryDirective = true;
@@ -95,30 +52,75 @@ class OverReactBuilder implements Builder {
       outputBuffer.write('\'${inputId.pathSegments.last}\'');
     }
     outputBuffer.writeln(';\n');
+    return outputBuffer.toString();
+  }
 
-    var contentBuffer = new StringBuffer();
+  String _generateForFile(AssetId inputId, String primaryInputContents, CompilationUnit resolvedUnit) {
+    void _logNoDeclarations() {
+      log.fine(
+          'There were no declarations found for file: ${inputId
+              .toString()}');
+    }
 
-    // flatten base and children compilation units
+    var sourceFile = new SourceFile.fromString(
+        primaryInputContents, url: idToPackageUri(inputId));
+
+    ImplGenerator generator;
+    if (ParsedDeclarations.mightContainDeclarations(primaryInputContents)) {
+      var declarations = new ParsedDeclarations(resolvedUnit, sourceFile, log);
+
+      if (!declarations.hasErrors && declarations.hasDeclarations) {
+        generator = new ImplGenerator(log, sourceFile)..generate(declarations);
+      } else {
+        if (declarations.hasErrors) {
+          log.severe(
+              'There was an error parsing the file declarations for file: ${inputId.toString()}');
+        }
+        if (!declarations.hasDeclarations) {
+          _logNoDeclarations();
+        }
+      }
+    } else {
+      _logNoDeclarations();
+    }
+    return generator?.outputContentsBuffer?.toString() ?? '';
+  }
+
+  @override
+  Future build(BuildStep buildStep) async {
+    // Don't build on part files
+    if (!await buildStep.resolver.isLibrary(buildStep.inputId)) {
+      return;
+    }
+
+    final inputId = await buildStep.inputId;
+    final outputId = buildStep.inputId.changeExtension(_outputExtension);
+    final entryLib = await buildStep.inputLibrary;
+
+
+    // Get list of compilation units for each part in this library
     final compUnits = [
       [entryLib.definingCompilationUnit],
       entryLib.parts.expand((p) => [p]),
     ].expand((t) => t).toList();
 
+    var contentBuffer = new StringBuffer();
     for (final unit in compUnits) {
       log.fine('Generating implementations for file: ${unit.name}');
-      // For the base library file, unit.uri will be null
-      final assetId = AssetId.resolve(unit.uri ?? unit.name ?? '', from: inputId);
+      // unit.uri is null for the base library file
+      final assetId = AssetId.resolve(unit.uri ?? unit.name, from: inputId);
 
       // Only generate on part files which were not generated by this builder and
       // which can be read.
       if (!assetId.toString().contains(_outputExtension) && await buildStep.canRead(assetId)) {
         final resolvedUnit = unit.computeNode();
         final inputContents = await buildStep.readAsString(assetId);
-        contentBuffer.write(_generateForFile(assetId, inputContents, resolvedUnit, generatedAccessorMixinClassNames));
+        contentBuffer.write(_generateForFile(assetId, inputContents, resolvedUnit));
       }
     }
 
     if (contentBuffer.isNotEmpty) {
+      var outputBuffer = new StringBuffer(_generatePartOfDirective(entryLib, inputId));
       outputBuffer.write(contentBuffer);
       await buildStep.writeAsString(outputId, outputBuffer.toString());
     } else {

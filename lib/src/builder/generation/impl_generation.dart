@@ -48,7 +48,7 @@ import 'package:transformer_utils/transformer_utils.dart';
 ///
 ///     * Replaces fields with generated getters/setters.
 class ImplGenerator {
-  ImplGenerator(this.logger, this.sourceFile, this.generatedAccessorMixinClassNames);
+  ImplGenerator(this.logger, this.sourceFile);
 
   static const String generatedPrefix = r'_$';
   static const String publicGeneratedPrefix = r'$';
@@ -57,8 +57,6 @@ class ImplGenerator {
   TransformedSourceFile transformedFile;
   StringBuffer outputContentsBuffer = new StringBuffer();
   bool shouldFixDdcAbstractAccessors = false;
-
-  List<String> generatedAccessorMixinClassNames;
 
   SourceFile sourceFile;
 
@@ -632,6 +630,11 @@ class ImplGenerator {
         '  @override' +
         '  Map get ${isProps ? 'props': 'state'};\n'
     );
+//    if (isMixin) {
+//      // TODO: don't use string literal for 'StateMeta'|'PropsMeta'
+//      var metaType = isProps ? 'PropsMeta' : 'StateMeta';
+//      generatedClass.writeln('static const $metaType meta = ${getMetaClassName(publicClassName)};');
+//    }
 
     generatedClass.write(generateAccessors(type, node).implementations);
     generatedClass.writeln('}');
