@@ -19,7 +19,7 @@ import 'dart:collection';
 
 import 'package:over_react/over_react.dart' show
     // Must import these consts because they are used in the transformed code.
-    PropDescriptor, ConsumedProps, // ignore: unused_shown_name
+    PropsMeta, PropDescriptor, ConsumedProps, // ignore: unused_shown_name
     UiComponent, UiProps;
 import 'package:over_react/src/component_declaration/annotations.dart';
 
@@ -28,7 +28,8 @@ import 'package:over_react/src/component_declaration/annotations.dart';
 /// Universally available on all OverReact components via [UiProps].
 @PropsMixin(keyNamespace: '')
 abstract class CssClassPropsMixin {
-  Map get props;
+  // ignore: undefined_class, undefined_identifier
+  static PropsMeta get meta => $metaForCssClassPropsMixin;
 
   /// String of space-delimited CSS classes to be added to the resultant DOM.
   ///
