@@ -154,11 +154,11 @@ class ImplGenerator {
         propKeyNamespace, declarations.props, propsAccessorsMixinName, publicPropsName));
 
       typedPropsFactoryImpl =
-          '@override '
+          '  @override\n'
           // Don't type this so that it doesn't interfere with classes with generic parameter props type:
           //    class FooComponent<T extends FooProps> extends UiComponent<T> {...}
           // TODO use long-term solution of component impl class instantiated via factory constructor
-          'typedPropsFactory(Map backingMap) => new $propsImplName(backingMap) as dynamic;';
+          '  typedPropsFactory(Map backingMap) => new $propsImplName(backingMap) as dynamic;\n\n';
 
       // ----------------------------------------------------------------------
       //   State implementation
@@ -200,7 +200,7 @@ class ImplGenerator {
           //    class FooComponent<T extends FooProps, T extends FooState> extends UiStatefulComponent<T> {...}
           // TODO use long-term solution of component impl class instantiated via factory constructor
           // TODO: Check if this lack of typing will work with dart 2's strong typing req's.
-          '  typedStateFactory(Map backingMap) => new $stateImplName(backingMap) as dynamic;\n';
+          '  typedStateFactory(Map backingMap) => new $stateImplName(backingMap) as dynamic;\n\n';
       }
 
       // ----------------------------------------------------------------------
@@ -213,7 +213,6 @@ class ImplGenerator {
         ..writeln('// generated for the associated props class.')
         ..writeln('class $componentClassImplMixinName extends $componentClassName {')
         ..write(typedPropsFactoryImpl)
-        ..writeln()
         ..write(typedStateFactoryImpl)
         ..writeln('  /// Let [UiComponent] internals know that this class has been generated.')
         ..writeln('  @override')

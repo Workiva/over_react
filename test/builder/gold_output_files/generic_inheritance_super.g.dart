@@ -120,10 +120,11 @@ class _$$GenericSuperState extends _$GenericSuperState with _$GenericSuperStateA
 // generated for the associated props class.
 class _$GenericSuperComponent extends GenericSuperComponent {
   @override
-  _$$GenericSuperProps typedPropsFactory(Map backingMap) => new _$$GenericSuperProps(backingMap);
+  typedPropsFactory(Map backingMap) => new _$$GenericSuperProps(backingMap) as dynamic;
 
   @override
   typedStateFactory(Map backingMap) => new _$$GenericSuperState(backingMap) as dynamic;
+
   /// Let [UiComponent] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;

@@ -138,10 +138,11 @@ class _$$BasicState extends _$BasicState with _$BasicStateAccessorsMixin impleme
 // generated for the associated props class.
 class _$BasicComponent extends BasicComponent {
   @override
-  _$$BasicProps typedPropsFactory(Map backingMap) => new _$$BasicProps(backingMap);
+  typedPropsFactory(Map backingMap) => new _$$BasicProps(backingMap) as dynamic;
 
   @override
   typedStateFactory(Map backingMap) => new _$$BasicState(backingMap) as dynamic;
+
   /// Let [UiComponent] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;

@@ -108,10 +108,11 @@ class _$$SubState extends _$SubState with _$SubStateAccessorsMixin implements Su
 // generated for the associated props class.
 class _$SubComponent extends SubComponent {
   @override
-  _$$SubProps typedPropsFactory(Map backingMap) => new _$$SubProps(backingMap);
+  typedPropsFactory(Map backingMap) => new _$$SubProps(backingMap) as dynamic;
 
   @override
   typedStateFactory(Map backingMap) => new _$$SubState(backingMap) as dynamic;
+
   /// Let [UiComponent] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;

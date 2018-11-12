@@ -108,10 +108,11 @@ class _$$GenericSubState extends _$GenericSubState with _$GenericSubStateAccesso
 // generated for the associated props class.
 class _$GenericSubComponent extends GenericSubComponent {
   @override
-  _$$GenericSubProps typedPropsFactory(Map backingMap) => new _$$GenericSubProps(backingMap);
+  typedPropsFactory(Map backingMap) => new _$$GenericSubProps(backingMap) as dynamic;
 
   @override
   typedStateFactory(Map backingMap) => new _$$GenericSubState(backingMap) as dynamic;
+
   /// Let [UiComponent] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;

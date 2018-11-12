@@ -138,10 +138,11 @@ class _$$BasicPartOfLibState extends _$BasicPartOfLibState with _$BasicPartOfLib
 // generated for the associated props class.
 class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
   @override
-  _$$BasicPartOfLibProps typedPropsFactory(Map backingMap) => new _$$BasicPartOfLibProps(backingMap);
+  typedPropsFactory(Map backingMap) => new _$$BasicPartOfLibProps(backingMap) as dynamic;
 
   @override
   typedStateFactory(Map backingMap) => new _$$BasicPartOfLibState(backingMap) as dynamic;
+
   /// Let [UiComponent] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -220,7 +221,7 @@ class _$$SubPartOfLibProps extends _$SubPartOfLibProps with _$SubPartOfLibPropsA
 // generated for the associated props class.
 class _$SubPartOfLibComponent extends SubPartOfLibComponent {
   @override
-  _$$SubPartOfLibProps typedPropsFactory(Map backingMap) => new _$$SubPartOfLibProps(backingMap);
+  typedPropsFactory(Map backingMap) => new _$$SubPartOfLibProps(backingMap) as dynamic;
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override

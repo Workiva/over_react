@@ -99,7 +99,7 @@ class _$$BasicProps extends _$BasicProps with _$BasicPropsAccessorsMixin impleme
 // generated for the associated props class.
 class _$BasicComponent extends BasicComponent {
   @override
-  _$$BasicProps typedPropsFactory(Map backingMap) => new _$$BasicProps(backingMap);
+  typedPropsFactory(Map backingMap) => new _$$BasicProps(backingMap) as dynamic;
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
