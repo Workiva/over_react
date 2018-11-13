@@ -1,0 +1,5 @@
+#version: 1
+#
+#raven_monitored_files:
+#  ^lib/src/transformed_source_file\.dart$:
+#    reason: HTML construction via string concatenation

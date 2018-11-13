@@ -1,0 +1,9 @@
+language: dart
+dart:
+  - 1.24.3
+script:
+  - pub run dart_dev format --check
+  - pub run dart_dev analyze
+  - pub run dart_dev test
+  - pub run dart_dev coverage --no-html --no-open
+  - bash <(curl -s https://codecov.io/bash) -f coverage/coverage.lcov
