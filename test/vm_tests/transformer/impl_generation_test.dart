@@ -256,6 +256,55 @@ main() {
               reason: 'should preserve existing inheritance');
         });
 
+        test('with static PropsMeta declaration', () {
+          final transformedLine = 'static const PropsMeta meta = \$Props(FooProps);';
+
+          setUpAndGenerate('''
+           @Factory()
+           UiFactory<FooProps> Foo;
+        
+           @Props()
+           class FooProps {
+            static const PropsMeta meta = \$metaForFooProps;
+           }
+           
+           @Component()
+           class FooComponent {
+            render() => null;
+           }
+           '''
+          );
+
+          var transformedSource = transformedFile.getTransformedText();
+          expect(transformedSource, contains(transformedLine));
+        });
+
+        test('with static StateMeta declaration', () {
+          final transformedLine = 'static const StateMeta meta = \$State(FooState);';
+
+          setUpAndGenerate('''
+           @Factory()
+           UiFactory<FooProps> Foo;
+        
+           @Props()
+           class FooProps {}
+           
+           @State()
+           class FooState {
+            static const StateMeta meta = \$metaForFooState;
+           }
+           
+           @Component()
+           class FooComponent {
+            render() => null;
+           }
+           '''
+          );
+
+          var transformedSource = transformedFile.getTransformedText();
+          expect(transformedSource, contains(transformedLine));
+        });
+
         group('that subtypes another component, referencing the component class via', () {
           test('a simple identifier', () {
             preservedLineNumbersTest('''
