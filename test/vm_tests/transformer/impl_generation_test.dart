@@ -256,8 +256,11 @@ main() {
               reason: 'should preserve existing inheritance');
         });
 
-        test('with static PropsMeta declaration', () {
-          final transformedLine = 'static const PropsMeta meta = \$Props(FooProps);';
+        test('with static PropsMeta and StateMeta declaration', () {
+          final originalPropsMetaLine = 'static const PropsMeta meta = \$metaForFooProps;';
+          final originalStateMetaLine = 'static const StateMeta meta = \$metaForFooState;';
+          final transformedPropsMetaLine = 'static const PropsMeta meta = \$Props(FooProps);';
+          final transformedStateMetaLine = 'static const StateMeta meta = \$State(FooState);';
 
           setUpAndGenerate('''
            @Factory()
@@ -267,27 +270,6 @@ main() {
            class FooProps {
             static const PropsMeta meta = \$metaForFooProps;
            }
-           
-           @Component()
-           class FooComponent {
-            render() => null;
-           }
-           '''
-          );
-
-          var transformedSource = transformedFile.getTransformedText();
-          expect(transformedSource, contains(transformedLine));
-        });
-
-        test('with static StateMeta declaration', () {
-          final transformedLine = 'static const StateMeta meta = \$State(FooState);';
-
-          setUpAndGenerate('''
-           @Factory()
-           UiFactory<FooProps> Foo;
-        
-           @Props()
-           class FooProps {}
            
            @State()
            class FooState {
@@ -302,6 +284,28 @@ main() {
           );
 
           var transformedSource = transformedFile.getTransformedText();
+          expect(transformedSource.contains(originalPropsMetaLine), isFalse);
+          expect(transformedSource.contains(originalStateMetaLine), isFalse);
+          expect(transformedSource, contains(transformedPropsMetaLine));
+          expect(transformedSource, contains(transformedStateMetaLine));
+        });
+
+        test('with static PropsMeta declaration in PropsMixin', () {
+          final originalLine = 'static const PropsMeta meta = \$metaForFooPropsMixin;';
+          final transformedLine = 'static const PropsMeta meta = \$Props(FooPropsMixin);';
+
+          setUpAndGenerate('''
+            @PropsMixin()
+            class FooPropsMixin {
+              static const PropsMeta meta = \$metaForFooPropsMixin;
+              
+              Map get props;
+            }
+          '''
+          );
+
+          var transformedSource = transformedFile.getTransformedText();
+          expect(transformedSource.contains(originalLine), isFalse);
           expect(transformedSource, contains(transformedLine));
         });
 

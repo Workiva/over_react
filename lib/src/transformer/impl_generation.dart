@@ -414,16 +414,6 @@ class ImplGenerator {
         .forEach((_field) {
           final field = _field as FieldDeclaration; // ignore: avoid_as
 
-          annotations.Accessor accessorMeta = instantiateAnnotation(field, annotations.Accessor);
-
-          if (accessorMeta?.doNotGenerate == true) {
-            logger.fine('Skipping generation of field `$field`.',
-                span: getSpan(sourceFile, field)
-            );
-
-            return;
-          }
-
           final name = typedMap.node.name.name;
           final metaType = type == AccessorType.props ? 'Props' : 'State';
 
