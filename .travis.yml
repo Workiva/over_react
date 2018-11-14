@@ -1,4 +1,5 @@
 language: dart
+<<<<<<< HEAD
 #<<<<<<< HEAD
 #dist: precise
 #dart:
@@ -66,3 +67,24 @@ jobs:
 #        - ./tool/generate_coverage.sh
 #        - bash <(curl -s https://codecov.io/bash) -f coverage/coverage.lcov
 #>>>>>>> upstream/2.0.0-dev
+=======
+dist: precise
+dart:
+  - "1.24.3"
+env:
+  - DARTIUM_EXPIRATION_TIME="1577836800"
+with_content_shell: true
+before_install:
+  - export DISPLAY=:99.0
+  - ./tool/setup_dartium.sh
+  - export PATH=$PATH":$PWD"
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3 # give xvfb some time to start
+script:
+  - dart ./tool/build.dart
+  - pub run dart_dev analyze
+  - pub run dependency_validator --no-fatal-pins -i coverage
+  - pub run dart_dev test --integration
+  - ./tool/generate_coverage.sh
+  - bash <(curl -s https://codecov.io/bash) -f coverage/coverage.lcov
+>>>>>>> seb/AF-2922

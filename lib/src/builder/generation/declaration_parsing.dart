@@ -180,7 +180,7 @@ class ParsedDeclarations {
           }
         }
 
-        if (noneOfAnyRequiredDecl && declarations.length != 0) {
+        if (noneOfAnyRequiredDecl && declarations.isNotEmpty) {
           error(
               'To define a component, a `@$annotationName` must be accompanied by '
               'the following annotations within the same file: '

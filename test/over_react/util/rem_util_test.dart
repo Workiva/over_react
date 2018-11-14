@@ -14,10 +14,12 @@
 
 library rem_util_test;
 
+import 'dart:async';
 import 'dart:html';
 
 import 'package:over_react/src/util/css_value_util.dart';
 import 'package:over_react/src/util/rem_util.dart';
+import 'package:over_react/src/util/test_mode.dart';
 import 'package:test/test.dart';
 
 import '../../test_util/test_util.dart';
@@ -266,5 +268,73 @@ main() {
 
       expect(rootFontSize, 16);
     });
+
+    group('destroyRemChangeSensor', () {
+      StreamSubscription<double> listener;
+
+      setUpAll(() async {
+        listener = onRemChange.listen((_) {});
+        expect(changeSensor, isNotNull, reason: 'test setup sanity check');
+        expect(changeSensorMountNode, isNotNull, reason: 'test setup sanity check');
+        expect(document.body.children.single, changeSensorMountNode, reason: 'test setup sanity check');
+
+        await destroyRemChangeSensor();
+      });
+
+      tearDownAll(() async {
+        await listener?.cancel();
+      });
+
+      test('removes the `#rem_change_sensor` element', () {
+        expect(changeSensorMountNode, isNull);
+        expect(document.body.children, isEmpty);
+      });
+
+      test('sets `_changeSensor` to null', () {
+        expect(changeSensor, isNull);
+      });
+    });
+
+    group('automatically mounts a "rem change sensor" when `toRem` is called for the first time', () {
+      setUp(() {
+        destroyRemChangeSensor();
+        // Disabling test mode to ensure that the rem change sensor is created.
+        // See workaround comment in `toRem`.
+        disableTestMode();
+      });
+
+      tearDown(() {
+        destroyRemChangeSensor();
+        // Re-enable test mode
+        enableTestMode();
+      });
+
+      group('in Google Chrome', () {
+        setUp(() {
+          expect(querySelector('#rem_change_sensor'), isNull,
+              reason: '#rem_change_sensor element should not get mounted until `toRem` is first called.');
+          expect(document.documentElement.getComputedStyle().fontSize, isNot('20px'),
+              reason: 'The tests in this group will not work if the root font size is already 20px.');
+
+          toRem('1rem');
+        });
+
+        test('', () {
+          expect(querySelector('#rem_change_sensor'), isNotNull, reason: 'test setup sanity check');
+        });
+
+        test('that results in `toRem` returning the expected value when the root document font size changes', () async {
+          setRootFontSize('20px');
+          await new Future.delayed(const Duration(milliseconds: 100));
+          expect(toRem('20px').number, 1);
+        });
+      }, testOn: 'dartium || chrome');
+
+      test('only in Google Chrome', () async {
+        toRem('1rem');
+        await new Future.delayed(const Duration(milliseconds: 100));
+        expect(querySelector('#rem_change_sensor'), isNull, reason: 'test setup sanity check');
+      }, testOn: '!chrome && !dartium');
+    }, testOn: 'browser');
   });
 }
