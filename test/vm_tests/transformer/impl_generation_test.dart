@@ -309,6 +309,25 @@ main() {
           expect(transformedSource, contains(transformedLine));
         });
 
+        test('with static StateMeta declaration in StateMixin', () {
+          final originalLine = 'static const StateMeta meta = \$metaForFooStateMixin; ';
+          final transformedLine = 'static const StateMeta meta = \$State(FooStateMixin);';
+
+          setUpAndGenerate('''
+            @StateMixin()
+            class FooStateMixin {
+              static const StateMeta meta = \$metaForFooStateMixin;   
+              
+              Map get state;           
+            }
+          '''
+          );
+
+          var transformedSource = transformedFile.getTransformedText();
+          expect(transformedSource.contains(originalLine), isFalse);
+          expect(transformedSource, contains(transformedLine));
+        });
+
         group('that subtypes another component, referencing the component class via', () {
           test('a simple identifier', () {
             preservedLineNumbersTest('''
