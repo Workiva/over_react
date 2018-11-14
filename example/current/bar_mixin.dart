@@ -1,21 +1,21 @@
 import 'package:over_react/over_react.dart';
 
-@Factory()
+//@Factory()
 UiFactory<BarProps> Bar;
 
-@PropsMixin()
+//@PropsMixin()
 abstract class BarPropsMixin {
   Map get props;
 
   String barMixinProp;
 }
 
-@Props()
+//@Props()
 class BarProps extends UiProps with BarPropsMixin {
   String barProp;
 }
 
-@Component()
+//@Component()
 class BarComponent extends UiComponent<BarProps> {
   @override
   render() {

@@ -9,7 +9,6 @@ import 'package:over_react/src/builder/generation/impl_generation.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 
-
 Builder overReactBuilder(BuilderOptions options) => new OverReactBuilder();
 
 class OverReactBuilder implements Builder {

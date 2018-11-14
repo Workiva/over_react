@@ -18,11 +18,10 @@ import 'package:analyzer/analyzer.dart';
 import 'package:logging/logging.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/builder/generation/declaration_parsing.dart';
-import 'package:over_react/src/transformer/impl_generation.dart';
 import 'package:source_span/source_span.dart';
-import 'package:transformer_utils/src/text_util.dart' show stringLiteral;
-import 'package:transformer_utils/src/transformed_source_file.dart' show getSpan;
-import 'package:transformer_utils/transformer_utils.dart';
+import 'package:builder_utils/src/text_util.dart' show stringLiteral;
+import 'package:builder_utils/src/build_utils.dart' show getSpan;
+import 'package:builder_utils/builder_utils.dart';
 
 /// A utility class that modifies a [TransformedSourceFile] by generating implementations for a set of [ParsedDeclarations].
 ///
@@ -52,7 +51,6 @@ class ImplGenerator {
   static const String publicGeneratedPrefix = r'$';
 
   Logger logger;
-  TransformedSourceFile transformedFile;
   StringBuffer outputContentsBuffer = new StringBuffer();
   bool shouldFixDdcAbstractAccessors = false;
 
@@ -711,9 +709,9 @@ class ImplGenerator {
         var type = accessor.returnType?.toSource();
         var typeString = type == null ? '' : '$type ';
 
-        transformedFile?.insert(sourceFile?.location(accessor.end),
-            // use `covariant` here to be extra safe in this typing
-            '${generatedComment}set $name(covariant ${typeString}value);');
+//        transformedFile?.insert(sourceFile?.location(accessor.end),
+//            // use `covariant` here to be extra safe in this typing
+//            '${generatedComment}set $name(covariant ${typeString}value);');
       } else {
         var parameter = accessor.parameters.parameters.single;
         var type = parameter is SimpleFormalParameter
@@ -722,11 +720,17 @@ class ImplGenerator {
             : null;
         var typeString = type == null ? '' : '$type ';
 
-        transformedFile?.insert(sourceFile?.location(accessor.end),
-            '$generatedComment${typeString}get $name;');
+//        transformedFile?.insert(sourceFile?.location(accessor.end),
+//            '$generatedComment${typeString}get $name;');
       }
     }
   }
 }
 
 enum AccessorType {props, state}
+
+class AccessorOutput {
+  final String implementations;
+
+  AccessorOutput(this.implementations);
+}

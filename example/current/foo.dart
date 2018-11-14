@@ -1,14 +1,14 @@
 import 'package:over_react/over_react.dart';
 
-@Factory()
+//@Factory()
 UiFactory<FooProps> Foo;
 
-@Props()
+//@Props()
 class FooProps extends UiProps {
   String fooProp;
 }
 
-@Component()
+//@Component()
 class FooComponent extends UiComponent<FooProps> {
   @override
   render() {

@@ -14,13 +14,12 @@
 
 
 import 'package:analyzer/analyzer.dart';
-import 'package:analyzer/dart/element/element.dart';
 import 'package:logging/logging.dart';
 import 'package:over_react/src/builder/builder_util.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:source_span/source_span.dart';
-import 'package:transformer_utils/src/transformed_source_file.dart' show getSpan;
-import 'package:transformer_utils/transformer_utils.dart' show NodeWithMeta;
+import 'package:builder_utils/src/build_utils.dart' show getSpan;
+import 'package:builder_utils/builder_utils.dart' show NodeWithMeta;
 
 enum PropsClassType {
   standard,

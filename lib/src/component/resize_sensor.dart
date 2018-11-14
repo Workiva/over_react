@@ -38,6 +38,8 @@ UiFactory<ResizeSensorProps> ResizeSensor;
 
 @PropsMixin()
 abstract class ResizeSensorPropsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForAutosizeTextareaProps;
   static final ResizeSensorPropsMixinMapView defaultProps = new ResizeSensorPropsMixinMapView({})
     ..isFlexChild = false
     ..isFlexContainer = false
