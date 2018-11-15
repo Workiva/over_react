@@ -864,6 +864,80 @@ main() {
       });
     });
 
+    group('Dart 1 compatibility', () {
+      test('ignore line is not removed if expected part directive does not follow', () {
+        final ignoreLine = '\/\/ ignore: uri_does_not_exist, uri_has_not_been_generated';
+
+        setUpAndGenerate('''
+            // ignore: uri_does_not_exist, uri_has_not_been_generated
+            part 'component.dart';
+
+            @Factory()
+            UiFactory<FooProps> Foo;
+
+            @Props()
+            class FooProps {}
+
+            @Component()
+            class FooComponent {
+              render() => null;
+            }
+          ''');
+
+        var transformedSource = transformedFile.getTransformedText();
+
+        expect(transformedSource, contains(ignoreLine));
+      });
+
+
+      test('ignore line and part directive is removed from component file', () {
+        final ignoreLine = '\/\/ ignore: uri_does_not_exist, uri_has_not_been_generated';
+        final partLine = "part \'component\.overReact\.g\.dart\';";
+
+        setUpAndGenerate('''
+            // ignore: uri_does_not_exist, uri_has_not_been_generated
+            part 'component.overReact.g.dart';
+
+            @Factory()
+            UiFactory<FooProps> Foo;
+
+            @Props()
+            class FooProps {}
+
+            @Component()
+            class FooComponent {
+              render() => null;
+            }
+          ''');
+
+        var transformedSource = transformedFile.getTransformedText();
+
+        expect(transformedSource.contains(ignoreLine), isFalse);
+        expect(transformedSource.contains(partLine), isFalse);
+      });
+
+      test('ignore line and part directive is removed from library file', () {
+        final ignoreLine = '\/\/ ignore: uri_does_not_exist, uri_has_not_been_generated';
+        final partLine = "part \'component\.overReact\.g\.dart\';";
+
+        setUpAndGenerate('''
+            import 'dart:html';
+            
+            import 'package:web_skin:web_skin.dart';
+            
+            part 'component/text/label.dart';
+          
+            // ignore: uri_does_not_exist, uri_has_not_been_generated
+            part 'component.overReact.g.dart';
+          ''');
+
+        var transformedSource = transformedFile.getTransformedText();
+
+        expect(transformedSource.contains(ignoreLine), isFalse);
+        expect(transformedSource.contains(partLine), isFalse);
+      });
+    });
+
     group('generates `call` on the _\$*PropsImpl class that matches the signature of UiProps', () {
       MethodDeclaration uiPropsCall;
 
@@ -922,3 +996,4 @@ main() {
 
 
 class MockTransformLogger extends Mock implements TransformLogger {}
+

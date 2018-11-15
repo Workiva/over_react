@@ -98,6 +98,27 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
     TransformedSourceFile transformedFile = new TransformedSourceFile(sourceFile);
     TransformLogger logger = new JetBrainsFriendlyLogger(transform.logger);
 
+    var ignoreCommentPattern = new RegExp(r'\/\/\s?ignore:\s?uri_does_not_exist,\s?uri_has_not_been_generated');
+    var partPattern = new RegExp(r'(\s*?)part\s(.*?).overReact.g.dart(.;)');
+
+    // For Dart 1 compatibility the part directive pointing the the generated file the new builder
+    // requires needs to be removed from both component and library files. Additionally, the ignore
+    // comment above the part directive will also needs removal.
+    if (sourceFile.getText(0).contains(ignoreCommentPattern)) {
+      ignoreCommentPattern.allMatches(sourceFile.getText(0)).forEach((ignoreCommentMatch) {
+        if (sourceFile.getText(ignoreCommentMatch.end).startsWith(partPattern)) {
+
+          var partMatch = partPattern.allMatches(sourceFile.getText(0))
+              .firstWhere((match) => match.start == ignoreCommentMatch.end);
+
+          if (partMatch != null) {
+            transformedFile.remove(sourceFile.span(ignoreCommentMatch.start, ignoreCommentMatch.end));
+            transformedFile.remove(sourceFile.span(partMatch.start, partMatch.end));
+          }
+        }
+      });
+    }
+
     // If the source file might contain annotations that necessitate generation,
     // parse the declarations and generate code.
     // If not, don't skip this step to avoid parsing files that definitely won't generate anything.
