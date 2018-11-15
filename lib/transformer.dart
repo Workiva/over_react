@@ -107,7 +107,6 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
     if (sourceFile.getText(0).contains(ignoreCommentPattern)) {
       ignoreCommentPattern.allMatches(sourceFile.getText(0)).forEach((ignoreCommentMatch) {
         if (sourceFile.getText(ignoreCommentMatch.end).startsWith(partPattern)) {
-
           var partMatch = partPattern.allMatches(sourceFile.getText(0))
               .firstWhere((match) => match.start == ignoreCommentMatch.end);
 

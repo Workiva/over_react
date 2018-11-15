@@ -996,4 +996,3 @@ main() {
 
 
 class MockTransformLogger extends Mock implements TransformLogger {}
-
