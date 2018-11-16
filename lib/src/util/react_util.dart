@@ -47,6 +47,9 @@ class UiPropsMapView extends MapView with ReactPropsMixin, UbiquitousDomPropsMix
   String get testId => getTestId();
 
   @override
+  Map get componentDefaultProps => throw new UnimplementedError('@PropsMixin instances do not implement defaultProps');
+
+  @override
   ReactElement build([dynamic children]) =>
       throw new UnimplementedError('@PropsMixin instances do not implement build');
 
