@@ -104,16 +104,15 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
     // For Dart 1 compatibility the part directive pointing the the generated file the new builder
     // requires needs to be removed from both component and library files. Additionally, the ignore
     // comment above the part directive will also needs removal.
-    if (sourceFile.getText(0).contains(ignoreCommentPattern)) {
-      ignoreCommentPattern.allMatches(sourceFile.getText(0)).forEach((ignoreCommentMatch) {
-        if (sourceFile.getText(ignoreCommentMatch.end).startsWith(partPattern)) {
-          var partMatch = partPattern.allMatches(sourceFile.getText(0))
-              .firstWhere((match) => match.start == ignoreCommentMatch.end);
+    if (sourceFile.getText(0).contains(partPattern)) {
+      partPattern.allMatches(sourceFile.getText(0)).forEach((partPatternMatch) {
+        var ignoreCommentMatch = ignoreCommentPattern.allMatches(sourceFile.getText(0))
+            .firstWhere((match) => match.end == partPatternMatch.start);
 
-          if (partMatch != null) {
-            transformedFile.remove(sourceFile.span(ignoreCommentMatch.start, ignoreCommentMatch.end));
-            transformedFile.remove(sourceFile.span(partMatch.start, partMatch.end));
-          }
+        transformedFile.remove(sourceFile.span(partPatternMatch.start, partPatternMatch.end));
+
+        if (ignoreCommentMatch != null) {
+          transformedFile.remove(sourceFile.span(ignoreCommentMatch.start, ignoreCommentMatch.end));
         }
       });
     }
