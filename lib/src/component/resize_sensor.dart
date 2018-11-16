@@ -63,12 +63,14 @@ part 'resize_sensor.overReact.g.dart';
 ///
 /// > The component _must_ be put in a relative or absolutely positioned container.
 @Factory()
-UiFactory<ResizeSensorProps> ResizeSensor;
+// ignore: undefined_identifier
+UiFactory<ResizeSensorProps> ResizeSensor = $ResizeSensor;
 
 @PropsMixin()
 abstract class ResizeSensorPropsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForAutosizeTextareaProps;
+  static const PropsMeta meta = $metaForResizeSensorPropsMixin;
+
   static final ResizeSensorPropsMixinMapView defaultProps = new ResizeSensorPropsMixinMapView({})
     ..isFlexChild = false
     ..isFlexContainer = false
@@ -161,14 +163,16 @@ abstract class ResizeSensorPropsMixin {
   Callback onDidReset;
 }
 
-class ResizeSensorProps extends UiProps
+class ResizeSensorProps extends _$ResizeSensorProps
 // ignore: mixin_of_non_class,undefined_class
-    with _$ResizeSensorPropsAccessorsMixin
-    implements _$ResizeSensorProps {}
+    with _$ResizeSensorPropsAccessorsMixin {}
 
 @Props()
 // ignore: mixin_of_non_class,undefined_class
-class _$ResizeSensorProps extends UiProps with ResizeSensorPropsMixin, $ResizeSensorPropsMixin {}
+class _$ResizeSensorProps extends UiProps with 
+    ResizeSensorPropsMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $ResizeSensorPropsMixin {}
 
 @Component()
 class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAnimationFrameMixin {
@@ -494,7 +498,10 @@ class ResizeSensorEvent {
 
 /// A MapView with the typed getters/setters for all HitArea display variation props.
 // ignore: mixin_of_non_class,undefined_class
-class ResizeSensorPropsMixinMapView extends MapView with ResizeSensorPropsMixin, $ResizeSensorPropsMixin {
+class ResizeSensorPropsMixinMapView extends MapView with 
+    ResizeSensorPropsMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $ResizeSensorPropsMixin {
   /// Create a new instance backed by the specified map.
   ResizeSensorPropsMixinMapView(Map map) : super(map);
 

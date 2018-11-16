@@ -26,7 +26,10 @@ part 'aria_mixin.overReact.g.dart';
 /// Typed getters/setters for accessibility props.
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
-abstract class $AriaPropsMixin {
+abstract class AriaPropsMixin {
+  // ignore: undefined_identifier, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForAriaPropsMixin;
+
   Map get props;
 
   /// Identifies the currently active descendant of a compositewidget.
@@ -1755,7 +1758,10 @@ class Role {
 
 /// A MapView with the typed getters/setters for all aria props.
 // ignore: mixin_of_non_class,undefined_class
-class AriaPropsMapView extends MapView with $AriaPropsMixin, AriaPropsMixin {
+class AriaPropsMapView extends MapView with
+    AriaPropsMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $AriaPropsMixin {
   /// Create a new instance backed by the specified map.
   AriaPropsMapView(Map map) : super(map);
 

@@ -31,7 +31,7 @@ export './component_base.dart'
 /// __Deprecated.__ Replace usages of $PropKeys with the new boilerplate
 /// that wires up generated constants: FIXME link to boilerplate updates doc, add example
 ///
-///     -const $PropKeys(FooProps)
+///     -FooProps.meta.keys
 ///     +FooProps.meta.keys
 ///
 /// ---
@@ -46,7 +46,7 @@ class $PropKeys implements List<String> {
   /// __Deprecated.__ Replace usages of $PropKeys with the new boilerplate
   /// that wires up generated constants: FIXME link to boilerplate updates doc, add example
   ///
-  ///     -const $PropKeys(FooProps)
+  ///     -FooProps.meta.keys
   ///     +FooProps.meta.keys
   ///
   /// ---
@@ -66,7 +66,7 @@ class $PropKeys implements List<String> {
 /// __Deprecated.__ Replace usages of $Props with the new boilerplate
 /// that wires up generated constants: FIXME link to boilerplate updates doc, add example
 ///
-///     -const $Props(FooProps)
+///     -FooProps.meta
 ///     +FooProps.meta.fields
 ///
 /// ---
@@ -81,7 +81,7 @@ class $Props implements component_base.ConsumedProps {
   /// __Deprecated.__ Replace usages of $Props with the new boilerplate
   /// that wires up generated constants: FIXME link to boilerplate updates doc, add example
   ///
-  ///     -const $PropKeys(FooProps)
+  ///     -FooProps.meta.keys
   ///     +FooProps.meta.fields
   ///
   /// ---

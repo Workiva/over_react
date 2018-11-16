@@ -50,7 +50,10 @@ abstract class CssClassPropsMixin {
 
 /// A `MapView` with typed getters/setters for all CSS-class-related props.
 // ignore: mixin_of_non_class,undefined_class
-class CssClassPropsMapView extends MapView with CssClassPropsMixin, $CssClassPropsMixin {
+class CssClassPropsMapView extends MapView with 
+    CssClassPropsMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $CssClassPropsMixin {
   /// Create a new instance backed by the specified map.
   CssClassPropsMapView(Map map) : super(map);
 

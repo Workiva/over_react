@@ -15,7 +15,7 @@
 /// Various prop related mixins to be used with [UiComponent] descendants.
 library over_react.prop_mixins;
 
-import 'package:over_react/over_react.dart' show AriaPropsMapView, $AriaPropsMixin, DomProps;
+import 'package:over_react/over_react.dart' show AriaPropsMapView, AriaPropsMixin, DomProps;
 // Must import these consts because they are used in the transformed code.
 // ignore: unused_import
 import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps, PropsMeta;
@@ -151,7 +151,7 @@ abstract class UbiquitousDomPropsMixin {
   ///     (Button()
   ///       ..aria.controls = 'my_popover'
   ///     )('Open popover')
-  $AriaPropsMixin get aria {
+  AriaPropsMixin get aria {
     _aria ??= new AriaPropsMapView(props);
     return _aria;
   }
