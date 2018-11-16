@@ -410,6 +410,21 @@ class ImplGenerator {
     Map constants = {};
 
     typedMap.node.members
+        .where((member) => member is FieldDeclaration && member.isStatic)
+        .forEach((_field) {
+          final field = _field as FieldDeclaration; // ignore: avoid_as
+
+          final name = typedMap.node.name.name;
+          final metaType = type == AccessorType.props ? 'Props' : 'State';
+
+          field.fields.variables.forEach((VariableDeclaration variable) {
+            if (variable.name.toString() == 'meta' && variable.initializer != null) {
+              transformedFile.replace(sourceFile.span(variable.initializer.offset, variable.initializer.end), '\$$metaType($name)');
+            }
+          });
+    });
+
+    typedMap.node.members
         .where((member) => member is FieldDeclaration && !member.isStatic)
         .forEach((_field) {
           final field = _field as FieldDeclaration; // ignore: avoid_as
