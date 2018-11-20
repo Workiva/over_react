@@ -15,6 +15,7 @@
 library over_react.transformer;
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:analyzer/analyzer.dart';
 import 'package:barback/barback.dart';
@@ -98,21 +99,22 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
     TransformedSourceFile transformedFile = new TransformedSourceFile(sourceFile);
     TransformLogger logger = new JetBrainsFriendlyLogger(transform.logger);
 
-    var ignoreCommentPattern = new RegExp(r'\/\/\s?ignore:\s?uri_does_not_exist,\s?uri_has_not_been_generated');
-    var partPattern = new RegExp(r'(\s*?)part\s(.*?).overReact.g.dart(.;)');
+    var partPattern = new RegExp(r"part\s+['].+.overReact.g.dart['];");
 
-    // For Dart 1 compatibility the part directive pointing the the generated file the new builder
-    // requires needs to be removed from both component and library files. Additionally, the ignore
-    // comment above the part directive will also needs removal.
+    // For Dart 1 compatibility an empty generated part file will be created when a file contains
+    // the part directive pointing to the generated file the new builder requires.
     if (sourceFile.getText(0).contains(partPattern)) {
-      partPattern.allMatches(sourceFile.getText(0)).forEach((partPatternMatch) {
-        var ignoreCommentMatch = ignoreCommentPattern.allMatches(sourceFile.getText(0))
-            .firstWhere((match) => match.end == partPatternMatch.start);
+      partPattern.allMatches(sourceFile.getText(0)).forEach((match) {
+        var partDirective = sourceFile.getText(match.start, match.end);
+        var sourceFileDirectory = sourceFile.url.toFilePath();
+        var fileNameAndPath = p.absolute(sourceFileDirectory.substring(0, sourceFileDirectory.lastIndexOf('/') + 1)
+            + partDirective.substring(partDirective.indexOf("'") + 1, partDirective.lastIndexOf("'")));
+        var emptyPartFile = new File(fileNameAndPath);
 
-        transformedFile.remove(sourceFile.span(partPatternMatch.start, partPatternMatch.end));
-
-        if (ignoreCommentMatch != null) {
-          transformedFile.remove(sourceFile.span(ignoreCommentMatch.start, ignoreCommentMatch.end));
+        if (!emptyPartFile.existsSync()) {
+          var sink = emptyPartFile.openWrite();
+          sink.write('');
+          sink.close();
         }
       });
     }

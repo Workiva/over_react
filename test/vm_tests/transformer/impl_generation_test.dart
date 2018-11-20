@@ -15,6 +15,7 @@
 @TestOn('vm')
 library impl_generation_test;
 
+import 'dart:io';
 import 'dart:isolate';
 
 import 'package:analyzer/analyzer.dart' hide startsWith;
@@ -22,6 +23,7 @@ import 'package:barback/barback.dart';
 import 'package:mockito/mockito.dart';
 import 'package:over_react/src/transformer/declaration_parsing.dart';
 import 'package:over_react/src/transformer/impl_generation.dart';
+import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 import 'package:transformer_utils/transformer_utils.dart';
@@ -865,34 +867,8 @@ main() {
     });
 
     group('Dart 1 compatibility', () {
-      test('ignore line is not removed if expected part directive does not follow', () {
-        final ignoreLine = '\/\/ ignore: uri_does_not_exist, uri_has_not_been_generated';
-
-        setUpAndGenerate('''
-            // ignore: uri_does_not_exist, uri_has_not_been_generated
-            part 'component.dart';
-
-            @Factory()
-            UiFactory<FooProps> Foo;
-
-            @Props()
-            class FooProps {}
-
-            @Component()
-            class FooComponent {
-              render() => null;
-            }
-          ''');
-
-        var transformedSource = transformedFile.getTransformedText();
-
-        expect(transformedSource, contains(ignoreLine));
-      });
-
-
-      test('ignore line and part directive is removed from component file', () {
-        final ignoreLine = '\/\/ ignore: uri_does_not_exist, uri_has_not_been_generated';
-        final partLine = "part \'component\.overReact\.g\.dart\';";
+      test('empty part file is emitted by the transformer to satisfy builder compatibility', () {
+        final file = new File(p.absolute('test/vm_tests/transformer/component.overReact.g.dart'));
 
         setUpAndGenerate('''
             // ignore: uri_does_not_exist, uri_has_not_been_generated
@@ -910,31 +886,8 @@ main() {
             }
           ''');
 
-        var transformedSource = transformedFile.getTransformedText();
-
-        expect(transformedSource.contains(ignoreLine), isFalse);
-        expect(transformedSource.contains(partLine), isFalse);
-      });
-
-      test('ignore line and part directive is removed from library file', () {
-        final ignoreLine = '\/\/ ignore: uri_does_not_exist, uri_has_not_been_generated';
-        final partLine = "part \'component\.overReact\.g\.dart\';";
-
-        setUpAndGenerate('''
-            import 'dart:html';
-            
-            import 'package:web_skin:web_skin.dart';
-            
-            part 'component/text/label.dart';
-          
-            // ignore: uri_does_not_exist, uri_has_not_been_generated
-            part 'component.overReact.g.dart';
-          ''');
-
-        var transformedSource = transformedFile.getTransformedText();
-
-        expect(transformedSource.contains(ignoreLine), isFalse);
-        expect(transformedSource.contains(partLine), isFalse);
+        expect(file.existsSync(), isTrue);
+        file.deleteSync();
       });
     });
 
