@@ -868,7 +868,7 @@ main() {
 
     group('Dart 1 compatibility', () {
       test('empty part file is emitted by the transformer to satisfy builder compatibility', () {
-        final file = new File(p.absolute('test/vm_tests/transformer/component.overReact.g.dart'));
+        final file = new File(p.relative('test/vm_tests/transformer/component.overReact.g.dart'));
 
         setUpAndGenerate('''
             // ignore: uri_does_not_exist, uri_has_not_been_generated

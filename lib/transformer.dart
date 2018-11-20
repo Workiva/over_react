@@ -107,7 +107,7 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
       partPattern.allMatches(sourceFile.getText(0)).forEach((match) {
         var partDirective = sourceFile.getText(match.start, match.end);
         var sourceFileDirectory = sourceFile.url.toFilePath();
-        var fileNameAndPath = p.absolute(sourceFileDirectory.substring(0, sourceFileDirectory.lastIndexOf('/') + 1)
+        var fileNameAndPath = p.relative(sourceFileDirectory.substring(0, sourceFileDirectory.lastIndexOf('/') + 1)
             + partDirective.substring(partDirective.indexOf("'") + 1, partDirective.lastIndexOf("'")));
         var emptyPartFile = new File(fileNameAndPath);
 
