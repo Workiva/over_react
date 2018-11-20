@@ -15,7 +15,6 @@
 library over_react.transformer;
 
 import 'dart:async';
-import 'dart:io';
 
 import 'package:analyzer/analyzer.dart';
 import 'package:barback/barback.dart';
@@ -99,23 +98,18 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
     TransformedSourceFile transformedFile = new TransformedSourceFile(sourceFile);
     TransformLogger logger = new JetBrainsFriendlyLogger(transform.logger);
 
-    var partPattern = new RegExp(r"part\s+['].+.overReact.g.dart['];");
+    var partPattern = new RegExp(r'''part\s+['"](.+.overReact.g.dart)['"];''');
+    var partFilename = partPattern.firstMatch(sourceFile.getText(0));
 
     // For Dart 1 compatibility an empty generated part file will be created when a file contains
     // the part directive pointing to the generated file the new builder requires.
-    if (sourceFile.getText(0).contains(partPattern)) {
+    if (partFilename != null) {
       partPattern.allMatches(sourceFile.getText(0)).forEach((match) {
-        var partDirective = sourceFile.getText(match.start, match.end);
-        var sourceFileDirectory = sourceFile.url.toFilePath();
-        var fileNameAndPath = p.relative(sourceFileDirectory.substring(0, sourceFileDirectory.lastIndexOf('/') + 1)
-            + partDirective.substring(partDirective.indexOf("'") + 1, partDirective.lastIndexOf("'")));
-        var emptyPartFile = new File(fileNameAndPath);
+        var sourceFileDirectory = p.dirname(sourceFile.url.toFilePath());
+        var partFilePath = p.join(sourceFileDirectory, partFilename.group(1));
+        var asset = new Asset.fromString(new AssetId(transform.primaryInput.id.package, partFilePath), '');
 
-        if (!emptyPartFile.existsSync()) {
-          var sink = emptyPartFile.openWrite();
-          sink.write('');
-          sink.close();
-        }
+        transform.addOutput(asset);
       });
     }
 

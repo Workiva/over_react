@@ -866,31 +866,6 @@ main() {
       });
     });
 
-    group('Dart 1 compatibility', () {
-      test('empty part file is emitted by the transformer to satisfy builder compatibility', () {
-        final file = new File(p.relative('test/vm_tests/transformer/component.overReact.g.dart'));
-
-        setUpAndGenerate('''
-            // ignore: uri_does_not_exist, uri_has_not_been_generated
-            part 'component.overReact.g.dart';
-
-            @Factory()
-            UiFactory<FooProps> Foo;
-
-            @Props()
-            class FooProps {}
-
-            @Component()
-            class FooComponent {
-              render() => null;
-            }
-          ''');
-
-        expect(file.existsSync(), isTrue);
-        file.deleteSync();
-      });
-    });
-
     group('generates `call` on the _\$*PropsImpl class that matches the signature of UiProps', () {
       MethodDeclaration uiPropsCall;
 
