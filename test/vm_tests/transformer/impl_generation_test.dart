@@ -15,7 +15,6 @@
 @TestOn('vm')
 library impl_generation_test;
 
-import 'dart:io';
 import 'dart:isolate';
 
 import 'package:analyzer/analyzer.dart' hide startsWith;
@@ -23,7 +22,6 @@ import 'package:barback/barback.dart';
 import 'package:mockito/mockito.dart';
 import 'package:over_react/src/transformer/declaration_parsing.dart';
 import 'package:over_react/src/transformer/impl_generation.dart';
-import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 import 'package:transformer_utils/transformer_utils.dart';
