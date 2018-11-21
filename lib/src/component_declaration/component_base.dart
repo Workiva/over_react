@@ -601,11 +601,15 @@ abstract class UiProps extends Object
 
       final factory = componentFactory;
       if (factory is ReactComponentFactoryProxy) {
+        // In dart 2, invocation.positionalArguments will be a list of length
+        // equal to the number of positional arguments, with the unsupplied
+        // arguments replaced by `null`. This remove these.
+        var children = invocation.positionalArguments.where((child) => child != null).toList(growable: false);
         // Use `build` instead of using emulated function behavior to work around DDC issue
         // https://github.com/dart-lang/sdk/issues/29904
         // Should have the benefit of better performance; TODO optimize type check?
         // ignore: avoid_as
-        return factory.build(props, invocation.positionalArguments);
+        return factory.build(props, children);
       } else {
         var parameters = []
           ..add(props)
