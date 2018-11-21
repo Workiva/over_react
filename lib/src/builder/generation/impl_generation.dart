@@ -305,7 +305,8 @@ class ImplGenerator {
 
   AccessorOutput generateAccessors(
       AccessorType type,
-      NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap
+      NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap,
+      String consumerClassName
   ) {
 //    if (shouldFixDdcAbstractAccessors) {
 //      fixDdcAbstractAccessors(type, typedMap);
@@ -430,8 +431,10 @@ class ImplGenerator {
 
             String generatedAccessor =
                 '  @override\n'
+                '  /// Go to [$consumerClassName.$accessorName] to see the source code for this prop\n'
                 '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName];\n'
                 '  @override\n'
+                '  /// Go to [$consumerClassName.$accessorName] to see the source code for this prop\n'
                 '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;\n';
 
             output.write(generatedAccessor);
@@ -575,7 +578,7 @@ class ImplGenerator {
       logger.severe(
         '${isProps
             ? 'Props'
-            : 'State'} mixin classes must declare an abstract state getter `Map get state;` '
+            : 'State'} mixin classes must declare an abstract state getter `Map get ${isProps ? 'props': 'state'};` '
             'so that they can be statically analyzed properly.',
 //            span: getSpan(sourceFile, stateMixin.node)
       );
@@ -620,7 +623,7 @@ class ImplGenerator {
         '  Map get ${isProps ? 'props': 'state'};\n'
     );
 
-    generatedClass.write(generateAccessors(type, node).implementations);
+    generatedClass.write(generateAccessors(type, node, consumerClassName).implementations);
     generatedClass.writeln('}');
     generatedClass.writeln();
     return generatedClass.toString();
