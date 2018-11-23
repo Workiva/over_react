@@ -88,6 +88,11 @@ class ImplGenerator {
       // We can safely make this abstract, since we already have a runtime warning when it's
       // instantiated.
       if (!declarations.props.node.isAbstract) {
+
+        if (declarations.props.node.metadata.isEmpty && declarations.props.node.withClause != null) {
+          transformedFile.remove(getSpan(sourceFile, declarations.props.node.withClause));
+        }
+
         transformedFile.insert(
             sourceFile.location(declarations.props.node.classKeyword.offset),
             'abstract '
@@ -213,6 +218,10 @@ class ImplGenerator {
       if (declarations.state != null) {
         final String stateName = declarations.state.node.name.toString();
         final String stateImplName = '$generatedPrefix${stateName}Impl';
+
+        if (declarations.state.node.metadata.isEmpty && declarations.state.node.withClause != null) {
+          transformedFile.remove(getSpan(sourceFile, declarations.state.node.withClause));
+        }
 
         generateAccessors(AccessorType.state, declarations.state);
 
@@ -415,7 +424,7 @@ class ImplGenerator {
           final field = _field as FieldDeclaration; // ignore: avoid_as
 
           final name = typedMap.node.name.name;
-          final metaType = type == AccessorType.props ? 'Props' : 'State';
+          final metaType = isProps ? 'Props' : 'State';
 
           field.fields.variables.forEach((VariableDeclaration variable) {
             if (variable.name.toString() == 'meta' && variable.initializer != null) {

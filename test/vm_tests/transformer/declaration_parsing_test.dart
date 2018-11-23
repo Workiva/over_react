@@ -140,6 +140,26 @@ main() {
           expect(declarations.declaresComponent, isTrue);
         });
 
+        test('a component with builder compatible annotated private props class', () {
+          setUpAndParse('''
+            @Factory()    UiFactory<FooProps> Foo;
+            class FooProps {}
+            @Props()      class _\$FooProps {}
+            @Component()  class FooComponent {}
+          ''');
+
+          expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
+          expect(declarations.props.node?.name?.name, 'FooProps');
+          expect(declarations.component.node?.name?.name, 'FooComponent');
+
+          expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
+          expect(declarations.props.meta,     null);
+          expect(declarations.component.meta, new isInstanceOf<annotations.Component>());
+
+          expectEmptyDeclarations(factory: false, props: false, component: false);
+          expect(declarations.declaresComponent, isTrue);
+        });
+
         test('a stateful component', () {
           setUpAndParse('''
             @Factory()    UiFactory<FooProps> Foo;
@@ -156,6 +176,29 @@ main() {
           expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
           expect(declarations.props.meta,     new isInstanceOf<annotations.Props>());
           expect(declarations.state.meta,     new isInstanceOf<annotations.State>());
+          expect(declarations.component.meta, new isInstanceOf<annotations.Component>());
+
+          expectEmptyDeclarations(factory: false, props: false, state: false, component: false);
+          expect(declarations.declaresComponent, isTrue);
+        });
+
+        test('a stateful component with builder compatible annotated private state class', () {
+          setUpAndParse('''
+            @Factory()    UiFactory<FooProps> Foo;
+            @Props()      class FooProps {}
+            class FooState {}
+            @State()      class _\$FooState {}
+            @Component()  class FooComponent {}
+          ''');
+
+          expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
+          expect(declarations.props.node?.name?.name, 'FooProps');
+          expect(declarations.state.node?.name?.name, 'FooState');
+          expect(declarations.component.node?.name?.name, 'FooComponent');
+
+          expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
+          expect(declarations.props.meta,     new isInstanceOf<annotations.Props>());
+          expect(declarations.state.meta,     null);
           expect(declarations.component.meta, new isInstanceOf<annotations.Component>());
 
           expectEmptyDeclarations(factory: false, props: false, state: false, component: false);
