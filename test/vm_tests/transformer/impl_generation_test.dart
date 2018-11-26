@@ -328,6 +328,56 @@ main() {
           expect(transformedSource, contains(transformedLine));
         });
 
+        test ('with \$props|\$state mixin classes in props|state class with clause', () {
+          final transformedDollarPropsMixin = 'abstract class \$FooPropsMixin {}';
+          final transformedDollarStateMixin = 'abstract class \$FooStateMixin {}';
+
+          setUpAndGenerate('''
+           @Factory()
+           UiFactory<FooProps> Foo;
+           
+           @PropsMixin()
+           abstract class FooPropsMixin {
+              static const PropsMeta meta = \$metaForFooPropsMixin;
+              
+              Map get props;
+           }
+           
+           @StateMixin()
+           abstract class FooStateMixin {
+              static const StateMeta meta = \$metaForFooStateMixin;
+              
+              Map get state;
+           }
+                    
+           @Props()
+           class FooProps extends UiProps with FooPropsMixin, 
+           // TODO: AF-#### This will be removed once the transition to Dart 2 is complete.
+           // ignore: mixin_of_non_class,undefined_class
+           \$FooPropsMixin {
+            static const PropsMeta meta = \$metaForFooProps;
+           }
+           
+           @State()
+           class FooState extends UiState with FooStateMixin, 
+           // TODO: AF-#### This will be removed once the transition to Dart 2 is complete.
+           // ignore: mixin_of_non_class,undefined_class
+           \$FooStateMixin {
+            static const StateMeta meta = \$metaForFooState;
+           }
+           
+           @Component()
+           class FooComponent {
+            render() => null;
+           }
+           '''
+          );
+
+          var transformedSource = transformedFile.getTransformedText();
+          expect(transformedSource, contains(transformedDollarPropsMixin));
+          expect(transformedSource, contains(transformedDollarStateMixin));
+        });
+
         group('that subtypes another component, referencing the component class via', () {
           test('a simple identifier', () {
             preservedLineNumbersTest('''

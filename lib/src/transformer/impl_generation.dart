@@ -167,6 +167,16 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
       generateAccessors(AccessorType.props, declarations.props);
 
+      // Generate an empty abstract $ sign prefixed props mixins when found since Dart 2 builder compatible
+      // boiler plate prefixes props mixins with a $ sign and adds the mixin to props class via the with clause.
+      if (declarations.props.node.withClause != null) {
+        declarations.props.node.withClause.mixinTypes.forEach((type) {
+          if (type.toString().startsWith('\$')) {
+            transformedFile.insert(sourceFile.location(declarations.factory.node.end), '\n\nabstract class $type {}');
+          }
+        });
+      }
+
       final String propKeyNamespace = getAccessorKeyNamespace(declarations.props);
 
       implementations
@@ -211,6 +221,17 @@ class ImplGenerator {
       //   State implementation
       // ----------------------------------------------------------------------
       if (declarations.state != null) {
+
+        // Generate an empty abstract $ sign prefixed state mixins when found since Dart 2 builder compatible
+        // boiler plate prefixes state mixins with a $ sign and adds the mixin to state class via the with clause.
+        if (declarations.state.node.withClause != null) {
+          declarations.state.node.withClause.mixinTypes.forEach((type) {
+            if (type.toString().startsWith('\$')) {
+              transformedFile.insert(sourceFile.location(declarations.factory.node.end), '\n\nabstract class $type {}');
+            }
+          });
+        }
+
         final String stateName = declarations.state.node.name.toString();
         final String stateImplName = '$generatedPrefix${stateName}Impl';
 
