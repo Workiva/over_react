@@ -152,9 +152,9 @@ main() {
           expect(declarations.props.node?.name?.name, 'FooProps');
           expect(declarations.component.node?.name?.name, 'FooComponent');
 
-          expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
-          expect(declarations.props.meta,     null);
-          expect(declarations.component.meta, new isInstanceOf<annotations.Component>());
+          expect(declarations.factory.meta,   const isInstanceOf<annotations.Factory>());
+          expect(declarations.props.meta,     isNull);
+          expect(declarations.component.meta, const isInstanceOf<annotations.Component>());
 
           expectEmptyDeclarations(factory: false, props: false, component: false);
           expect(declarations.declaresComponent, isTrue);
@@ -196,10 +196,10 @@ main() {
           expect(declarations.state.node?.name?.name, 'FooState');
           expect(declarations.component.node?.name?.name, 'FooComponent');
 
-          expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
-          expect(declarations.props.meta,     new isInstanceOf<annotations.Props>());
-          expect(declarations.state.meta,     null);
-          expect(declarations.component.meta, new isInstanceOf<annotations.Component>());
+          expect(declarations.factory.meta,   const isInstanceOf<annotations.Factory>());
+          expect(declarations.props.meta,     const isInstanceOf<annotations.Props>());
+          expect(declarations.state.meta,     isNull);
+          expect(declarations.component.meta, const isInstanceOf<annotations.Component>());
 
           expectEmptyDeclarations(factory: false, props: false, state: false, component: false);
           expect(declarations.declaresComponent, isTrue);

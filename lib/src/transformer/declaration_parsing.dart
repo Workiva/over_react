@@ -53,12 +53,12 @@ class ParsedDeclarations {
       key_stateMixin:        <CompilationUnitMember>[],
     };
 
-    var propsClassPattern = new RegExp(r'^.*class\s(_[$].*?\s)');
+    var propsAndStateClassPattern = new RegExp(r'^.*class\s(_[$].*?\s)');
 
     unit.declarations.forEach((CompilationUnitMember member) {
       member.metadata.forEach((annotation) {
         var name = annotation.name.toString();
-        var match = propsClassPattern.firstMatch(member.toString());
+        var match = propsAndStateClassPattern.firstMatch(member.toString());
 
         if ((name == 'Props' || name == 'State') && match != null) {
           var publicMember = unit.declarations.where((CompilationUnitMember member) => member.toString().contains(match.group(1).substring(2)));
