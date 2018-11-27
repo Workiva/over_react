@@ -170,7 +170,6 @@ class ImplGenerator {
       // Remove $ sign prefixed props mixins when found in the props class with clause.
       if (declarations.props.node.withClause != null &&
           declarations.props.node.withClause.mixinTypes.any((type) => type.toString().startsWith('\$'))) {
-
         var withClauseMixinTypes = [];
 
         declarations.props.node.withClause.mixinTypes.forEach((type) {
