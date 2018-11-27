@@ -328,56 +328,6 @@ main() {
           expect(transformedSource, contains(transformedLine));
         });
 
-        test ('with \$props|\$state mixin classes in props|state class with clause', () {
-          final transformedDollarPropsMixin = 'abstract class \$FooPropsMixin {}';
-          final transformedDollarStateMixin = 'abstract class \$FooStateMixin {}';
-
-          setUpAndGenerate('''
-           @Factory()
-           UiFactory<FooProps> Foo;
-           
-           @PropsMixin()
-           abstract class FooPropsMixin {
-              static const PropsMeta meta = \$metaForFooPropsMixin;
-              
-              Map get props;
-           }
-           
-           @StateMixin()
-           abstract class FooStateMixin {
-              static const StateMeta meta = \$metaForFooStateMixin;
-              
-              Map get state;
-           }
-                    
-           @Props()
-           class FooProps extends UiProps with FooPropsMixin, 
-           // TODO: AF-#### This will be removed once the transition to Dart 2 is complete.
-           // ignore: mixin_of_non_class,undefined_class
-           \$FooPropsMixin {
-            static const PropsMeta meta = \$metaForFooProps;
-           }
-           
-           @State()
-           class FooState extends UiState with FooStateMixin, 
-           // TODO: AF-#### This will be removed once the transition to Dart 2 is complete.
-           // ignore: mixin_of_non_class,undefined_class
-           \$FooStateMixin {
-            static const StateMeta meta = \$metaForFooState;
-           }
-           
-           @Component()
-           class FooComponent {
-            render() => null;
-           }
-           '''
-          );
-
-          var transformedSource = transformedFile.getTransformedText();
-          expect(transformedSource, contains(transformedDollarPropsMixin));
-          expect(transformedSource, contains(transformedDollarStateMixin));
-        });
-
         group('that subtypes another component, referencing the component class via', () {
           test('a simple identifier', () {
             preservedLineNumbersTest('''
@@ -679,6 +629,110 @@ main() {
             });
           });
         });
+      });
+    });
+
+    group('Dart 2 compatible boiler plate', () {
+      test ('with one \$props|\$state mixin classes in props|state class with clause removed', () {
+        final originalPropsWithClause = '''
+            with FooPropsMixin, 
+            // TODO: AF-#### This will be removed once the transition to Dart 2 is complete.
+            // ignore: mixin_of_non_class,undefined_class
+            \$FooPropsMixin
+            ''';
+        final originalStateWithClause = '''
+            with FooStateMixin, 
+            // TODO: AF-#### This will be removed once the transition to Dart 2 is complete.
+            // ignore: mixin_of_non_class,undefined_class
+            \$FooStateMixin
+            ''';
+
+        final transformedPropsWithClause = 'with FooPropsMixin';
+        final transformedStateWithClause = 'with FooStateMixin';
+
+        setUpAndGenerate('''
+            @Factory()
+            UiFactory<FooProps> Foo;
+                    
+            @Props()
+            class FooProps extends UiProps with FooPropsMixin, 
+            // TODO: AF-#### This will be removed once the transition to Dart 2 is complete.
+            // ignore: mixin_of_non_class,undefined_class
+            \$FooPropsMixin {
+              static const PropsMeta meta = \$metaForFooProps;
+            }
+           
+            @State()
+            class FooState extends UiState with FooStateMixin, 
+            // TODO: AF-#### This will be removed once the transition to Dart 2 is complete.
+            // ignore: mixin_of_non_class,undefined_class
+            \$FooStateMixin {
+              static const StateMeta meta = \$metaForFooState;
+            }
+           
+            @Component()
+            class FooComponent {
+              render() => null;
+            }
+            '''
+        );
+
+        var transformedSource = transformedFile.getTransformedText();
+        expect(transformedSource, isNot(contains(originalPropsWithClause)));
+        expect(transformedSource, isNot(contains(originalStateWithClause)));
+        expect(transformedSource, contains(transformedPropsWithClause));
+        expect(transformedSource, contains(transformedStateWithClause));
+      });
+
+      test ('with multiple \$props|\$state mixin classes in props|state class with clause removed', () {
+        final originalPropsWithClause = '''
+            with FooPropsMixin, 
+            // TODO: AF-#### This will be removed once the transition to Dart 2 is complete.
+            // ignore: mixin_of_non_class,undefined_class
+            \$FooPropsMixin, BarPropsMixin, \$BarPropsMixin
+            ''';
+        final originalStateWithClause = '''
+            with FooStateMixin, 
+            // TODO: AF-#### This will be removed once the transition to Dart 2 is complete.
+            // ignore: mixin_of_non_class,undefined_class
+            \$FooStateMixin, \$BarStateMixin, BarStateMixin
+            ''';
+
+        final transformedPropsWithClause = 'with FooPropsMixin, BarPropsMixin';
+        final transformedStateWithClause = 'with FooStateMixin, BarStateMixin';
+
+        setUpAndGenerate('''
+            @Factory()
+            UiFactory<FooProps> Foo;
+                    
+            @Props()
+            class FooProps extends UiProps with FooPropsMixin, 
+            // TODO: AF-#### This will be removed once the transition to Dart 2 is complete.
+            // ignore: mixin_of_non_class,undefined_class
+            \$FooPropsMixin, BarPropsMixin, \$BarPropsMixin {
+              static const PropsMeta meta = \$metaForFooProps;
+            }
+           
+            @State()
+            class FooState extends UiState with FooStateMixin, 
+            // TODO: AF-#### This will be removed once the transition to Dart 2 is complete.
+            // ignore: mixin_of_non_class,undefined_class
+            \$FooStateMixin, \$BarStateMixin, BarStateMixin {
+              static const StateMeta meta = \$metaForFooState;
+            }
+           
+            @Component()
+            class FooComponent {
+              render() => null;
+            }
+            '''
+        );
+
+        var transformedSource = transformedFile.getTransformedText();
+        expect(transformedSource, isNot(contains(originalPropsWithClause)));
+        expect(transformedSource, isNot(contains(originalStateWithClause)));
+        expect(transformedSource, contains(transformedPropsWithClause));
+        expect(transformedSource, contains(transformedStateWithClause));
       });
     });
 

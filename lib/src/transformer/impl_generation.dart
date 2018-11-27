@@ -167,14 +167,21 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
       generateAccessors(AccessorType.props, declarations.props);
 
-      // Generate an empty abstract $ sign prefixed props mixins when found since Dart 2 builder compatible
-      // boiler plate prefixes props mixins with a $ sign and adds the mixin to props class via the with clause.
-      if (declarations.props.node.withClause != null) {
+      // Remove $ sign prefixed props mixins when found in the props class with clause.
+      if (declarations.props.node.withClause != null &&
+          declarations.props.node.withClause.mixinTypes.any((type) => type.toString().startsWith('\$'))) {
+
+        var withClauseMixinTypes = [];
+
         declarations.props.node.withClause.mixinTypes.forEach((type) {
-          if (type.toString().startsWith('\$')) {
-            transformedFile.insert(sourceFile.location(declarations.factory.node.end), '\n\nabstract class $type {}');
+          if (!type.toString().startsWith('\$')) {
+            withClauseMixinTypes.add(type.toString());
           }
         });
+
+        transformedFile.replace(
+            sourceFile.span(declarations.props.node.withClause.mixinTypes.first.offset,
+                declarations.props.node.withClause.end), withClauseMixinTypes.join(', '));
       }
 
       final String propKeyNamespace = getAccessorKeyNamespace(declarations.props);
@@ -222,14 +229,20 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
       if (declarations.state != null) {
 
-        // Generate an empty abstract $ sign prefixed state mixins when found since Dart 2 builder compatible
-        // boiler plate prefixes state mixins with a $ sign and adds the mixin to state class via the with clause.
-        if (declarations.state.node.withClause != null) {
+        // Remove $ sign prefixed state mixins when found in the props class with clause.
+        if (declarations.state.node.withClause != null &&
+            declarations.state.node.withClause.mixinTypes.any((type) => type.toString().startsWith('\$'))) {
+          var withClauseMixinTypes = [];
+
           declarations.state.node.withClause.mixinTypes.forEach((type) {
-            if (type.toString().startsWith('\$')) {
-              transformedFile.insert(sourceFile.location(declarations.factory.node.end), '\n\nabstract class $type {}');
+            if (!type.toString().startsWith('\$')) {
+              withClauseMixinTypes.add(type.toString());
             }
           });
+
+          transformedFile.replace(
+              sourceFile.span(declarations.state.node.withClause.mixinTypes.first.offset,
+                  declarations.state.node.withClause.end), withClauseMixinTypes.join(', '));
         }
 
         final String stateName = declarations.state.node.name.toString();
