@@ -3,8 +3,8 @@ builders:
     import: "package:over_react/src/builder/builder.dart"
     builder_factories: ["overReactBuilder"]
     build_extensions: {".dart" : [".overReact.g.dart"]}
-    auto_apply: dependents 
-    build_to: source
+    auto_apply: all_packages 
+    build_to: cache
 
 targets:
   $default:
@@ -26,9 +26,9 @@ targets:
         enabled: false
       built_redux|built_redux:
         enabled: false
-      over_react|overReactBuilder:
-        enabled: true
-        generate_for:
+        #over_react|overReactBuilder:
+        #  enabled: true
+        #  generate_for:
 #          - "example/builder/props_mixin.dart"
 #          - "lib/src/**"
 #          - "test/component_files/**"
