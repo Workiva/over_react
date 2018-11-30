@@ -58,12 +58,10 @@ main() {
 
       var fileAssets = verify(mockTransform.addOutput(captureThat(isDartFile))).captured;
 
-      expect(fileAssets.length, equals(3));
+      expect(fileAssets.length, equals(2));
       expect(fileAssets[0].id.toString(), equals('testId|foo.over_react.g.dart'));
-      expect(fileAssets[1].id.toString(), equals('testId|bar.over_react.g.dart'));
-      expect(fileAssets[2].id.toString(), equals('testId|componentWithPartDirective.dart'));
+      expect(fileAssets[1].id.toString(), equals('testId|componentWithPartDirective.dart'));
       expect(fileAssets[0].toString(), equals('String ""'));
-      expect(fileAssets[1].toString(), equals('String ""'));
     });
 
     group('loads config value:', () {
