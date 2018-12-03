@@ -330,16 +330,16 @@ main() {
 
         test('with builder compatible private props class', () {
           final originalPrivateFooPropsLine = 'class _\$FooProps extends UiProps {}';
-          final originalPublicFooPropsLine = 'class FooProps extends UiProps with _\$FooPropsAccessorsMixin implements _\$FooProps';
-          final transformedFooPropsLine = 'class FooProps extends UiProps  implements _\$FooProps';
+          final originalPublicFooPropsLine = 'class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {';
+          final transformedFooPropsLine = 'class FooProps extends _\$FooProps';
           final fooPropsImplExtendsPublicClass = 'class _\$FooPropsImpl extends FooProps';
           final fooPropsImplExtendsPrivateClass = 'class _\$FooPropsImpl extends _\$FooProps';
 
-          preservedLineNumbersTest('''
+          setUpAndGenerate('''
             @Factory()
             UiFactory<FooProps> Foo;
         
-            class FooProps extends UiProps with _\$FooPropsAccessorsMixin implements _\$FooProps {
+            class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {
               // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
               static const PropsMeta meta = \$metaForFooProps;
             }
@@ -367,16 +367,16 @@ main() {
 
         test('with builder compatible private state class', () {
           final originalPrivateFooStateLine = 'class _\$FooState extends UiState {}';
-          final originalPublicFooStateLine = 'class FooState extends UiState with _\$FooStateAccessorsMixin implements _\$FooState';
-          final transformedFooStateLine = 'class FooState extends UiState  implements _\$FooState';
+          final originalPublicFooStateLine = 'class FooState extends _\$FooState with _\$FooStateAccessorsMixin {';
+          final transformedFooStateLine = 'class FooState extends _\$FooState';
           final fooStateImplExtendsPublicClass = 'class _\$FooStateImpl extends FooState';
           final fooStateImplExtendsPrivateClass = 'class _\$FooStateImpl extends _\$FooState';
 
-          preservedLineNumbersTest('''
+          setUpAndGenerate('''
             @Factory()
             UiFactory<FooProps> Foo;
         
-            class FooState extends UiState with _\$FooStateAccessorsMixin implements _\$FooState {
+            class FooState extends _\$FooState with _\$FooStateAccessorsMixin {
               // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
               static const StateMeta meta = \$metaForFooState;
             }

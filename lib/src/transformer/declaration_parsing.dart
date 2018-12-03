@@ -53,7 +53,7 @@ class ParsedDeclarations {
       key_stateMixin:        <CompilationUnitMember>[],
     };
 
-    var privatePropsAndStateClassPattern = new RegExp(r'^.*class\s(_[$].*?\s)');
+    var privatePropsAndStateClassPattern = new RegExp(r'^(?:\@Props\(\)\s*|\@State\(\)\s*)(?:abstract\s)?class\s(_\$\w*?)\s');
 
     unit.declarations.forEach((CompilationUnitMember member) {
       member.metadata.forEach((annotation) {
@@ -61,9 +61,10 @@ class ParsedDeclarations {
         var match = privatePropsAndStateClassPattern.firstMatch(member.toString());
 
         if ((name == 'Props' || name == 'State') && match != null) {
-          var publicMember = unit.declarations.where((CompilationUnitMember member) => member.toString().contains(match.group(1).substring(2)));
+          var publicName = match.group(1).replaceFirst('_\$', '');
+          var publicMember = unit.declarations.firstWhere((CompilationUnitMember member) => member is ClassDeclaration && member.name.name == publicName, orElse: () => null);
 
-          declarationMap[name]?.add(publicMember.first);
+          declarationMap[name]?.add(publicMember ?? member);
         } else {
           declarationMap[name]?.add(member);
         }

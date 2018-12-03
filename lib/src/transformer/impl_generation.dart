@@ -89,10 +89,10 @@ class ImplGenerator {
       // instantiated.
       if (!declarations.props.node.isAbstract) {
 
-        // Remove the with clause from the public props class signature for dart 2 builder compatibility.
-        // In Dart 2 there will be a dual class set up requiring a private and public props class. The private
-        // annotated class defines the interface via uninitialized fields. The public un-annotated class is a
-        // stub and needs to be transformed to include the concrete accessor implementations.
+        // The public props class signature includes a with <PropsClass>AccessorsMixin clause
+        // for dart 2 builder compatibility. But in Dart 1, the transformer is able to generate
+        // the concrete accessors inline without a separate mixin. For this reason, the transformer
+        // first removes this with clause and then generates the concrete accessors.
         if (declarations.props.node.metadata.isEmpty && declarations.props.node.withClause != null) {
           transformedFile.remove(getSpan(sourceFile, declarations.props.node.withClause));
         }
@@ -223,10 +223,10 @@ class ImplGenerator {
         final String stateName = declarations.state.node.name.toString();
         final String stateImplName = '$generatedPrefix${stateName}Impl';
 
-        // Remove the with clause from the public state class signature for dart 2 builder compatibility.
-        // In Dart 2 there will be a dual class set up requiring a private and public state class. The private
-        // annotated class defines the interface via uninitialized fields. The public un-annotated class is a
-        // stub and needs to be transformed to include the concrete accessor implementations.
+        // The public state class signature includes a with <PropsClass>AccessorsMixin clause
+        // for dart 2 builder compatibility. But in Dart 1, the transformer is able to generate
+        // the concrete accessors inline without a separate mixin. For this reason, the transformer
+        // first removes this with clause and then generates the concrete accessors.
         if (declarations.state.node.metadata.isEmpty && declarations.state.node.withClause != null) {
           transformedFile.remove(getSpan(sourceFile, declarations.state.node.withClause));
         }

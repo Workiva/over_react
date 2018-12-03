@@ -143,7 +143,7 @@ main() {
         test('a component with builder compatible annotated private props class', () {
           setUpAndParse('''
             @Factory()    UiFactory<FooProps> Foo;
-            class FooProps {}
+            class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {}
             @Props()      class _\$FooProps {}
             @Component()  class FooComponent {}
           ''');
@@ -186,7 +186,7 @@ main() {
           setUpAndParse('''
             @Factory()    UiFactory<FooProps> Foo;
             @Props()      class FooProps {}
-            class FooState {}
+            class FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
             @State()      class _\$FooState {}
             @Component()  class FooComponent {}
           ''');
