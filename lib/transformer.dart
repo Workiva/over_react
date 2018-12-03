@@ -104,13 +104,11 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
     // For Dart 1 compatibility an empty generated part file will be created when a file contains
     // the part directive pointing to the generated file the new builder requires.
     if (partFilename != null) {
-      partPattern.allMatches(sourceFile.getText(0)).forEach((match) {
         var sourceFileDirectory = p.dirname(sourceFile.url.toFilePath());
-        var partFilePath = p.join(sourceFileDirectory, match.group(1));
+        var partFilePath = p.join(sourceFileDirectory, partFilename.group(1));
         var asset = new Asset.fromString(new AssetId(transform.primaryInput.id.package, partFilePath), '');
 
         transform.addOutput(asset);
-      });
     }
 
     // If the source file might contain annotations that necessitate generation,

@@ -41,7 +41,7 @@ main() {
     });
 
     test('outputs an empty file when dart 2 boiler plate compatible part directive is found', () async {
-      AssetId fakeInputFileAssetId = new AssetId('testId', 'componentWithPartDirective.dart');
+      AssetId fakeInputFileAssetId = new AssetId('testId', 'component_with_part_directive.dart');
 
       MockAsset inputFile;
       MockTransform mockTransform;
@@ -52,16 +52,16 @@ main() {
       when(inputFile.id).thenReturn(fakeInputFileAssetId);
       when(mockTransform.primaryInput).thenReturn(inputFile);
       when(inputFile.readAsString())
-          .thenReturn(new File.fromUri(Uri.parse('test/vm_tests/transformer/test_data/componentWithPartDirective.dart')).readAsString());
+          .thenReturn(new File.fromUri(Uri.parse('test/vm_tests/transformer/test_data/component_with_part_directive.dart')).readAsString());
 
       await initWithConfig({}).apply(mockTransform);
 
-      var fileAssets = verify(mockTransform.addOutput(captureThat(isDartFile))).captured;
+      List<Asset> fileAssets = verify(mockTransform.addOutput(captureThat(isDartFile))).captured;
 
       expect(fileAssets.length, equals(2));
       expect(fileAssets[0].id.toString(), equals('testId|foo.over_react.g.dart'));
-      expect(fileAssets[1].id.toString(), equals('testId|componentWithPartDirective.dart'));
-      expect(fileAssets[0].toString(), equals('String ""'));
+      expect(fileAssets[1].id.toString(), equals('testId|component_with_part_directive.dart'));
+      expect(await fileAssets[0].readAsString(), isEmpty);
     });
 
     group('loads config value:', () {
