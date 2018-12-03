@@ -21,6 +21,8 @@ import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/component_base.dart' as component_base;
 
+class TestPropsMeta extends PropsMeta {}
+
 @AbstractProps()
 abstract class AbstractTransitionProps extends UiProps with TransitionPropsMixin {}
 

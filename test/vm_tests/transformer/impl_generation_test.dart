@@ -277,79 +277,7 @@ main() {
           expect(transformedSource, isNot(contains(originalUiFactoryLine)));
           expect(transformedSource, contains(transformedUiFactoryLine));
         });
-
-        test('with static PropsMeta and StateMeta declaration', () {
-          final originalPropsMetaLine = 'static const PropsMeta meta = \$metaForFooProps;';
-          final originalStateMetaLine = 'static const StateMeta meta = \$metaForFooState;';
-          final transformedPropsMetaLine = 'static const PropsMeta meta = \$Props(FooProps);';
-          final transformedStateMetaLine = 'static const StateMeta meta = \$State(FooState);';
-
-          setUpAndGenerate('''
-           @Factory()
-           UiFactory<FooProps> Foo;
         
-           @Props()
-           class FooProps {
-            static const PropsMeta meta = \$metaForFooProps;
-           }
-           
-           @State()
-           class FooState {
-            static const StateMeta meta = \$metaForFooState;
-           }
-           
-           @Component()
-           class FooComponent {
-            render() => null;
-           }
-           '''
-          );
-
-          var transformedSource = transformedFile.getTransformedText();
-          expect(transformedSource.contains(originalPropsMetaLine), isFalse);
-          expect(transformedSource.contains(originalStateMetaLine), isFalse);
-          expect(transformedSource, contains(transformedPropsMetaLine));
-          expect(transformedSource, contains(transformedStateMetaLine));
-        });
-
-        test('with static PropsMeta declaration in PropsMixin', () {
-          final originalLine = 'static const PropsMeta meta = \$metaForFooPropsMixin;';
-          final transformedLine = 'static const PropsMeta meta = \$Props(FooPropsMixin);';
-
-          setUpAndGenerate('''
-            @PropsMixin()
-            class FooPropsMixin {
-              static const PropsMeta meta = \$metaForFooPropsMixin;
-              
-              Map get props;
-            }
-          '''
-          );
-
-          var transformedSource = transformedFile.getTransformedText();
-          expect(transformedSource.contains(originalLine), isFalse);
-          expect(transformedSource, contains(transformedLine));
-        });
-
-        test('with static StateMeta declaration in StateMixin', () {
-          final originalLine = 'static const StateMeta meta = \$metaForFooStateMixin; ';
-          final transformedLine = 'static const StateMeta meta = \$State(FooStateMixin);';
-
-          setUpAndGenerate('''
-            @StateMixin()
-            class FooStateMixin {
-              static const StateMeta meta = \$metaForFooStateMixin;   
-              
-              Map get state;           
-            }
-          '''
-          );
-
-          var transformedSource = transformedFile.getTransformedText();
-          expect(transformedSource.contains(originalLine), isFalse);
-          expect(transformedSource, contains(transformedLine));
-        });
-
         test('with builder-compatible dual-class props setup', () {
           final originalPrivateFooPropsLine = 'class _\$FooProps extends UiProps {';
           final originalPublicFooPropsLine = 'class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {';
@@ -448,7 +376,7 @@ main() {
           
             class AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {
               // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-              static const AbstractFooPropsMeta meta = \$metaForAbstractFooProps;
+              static const PropsMeta meta = \$metaForAbstractFooProps;
             }
             
             @AbstractProps() 
@@ -484,7 +412,7 @@ main() {
             
             class AbstractStateProps extends _\$AbstractStateProps with _\$AbstractFooStateAccessorsMixin {
               // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-              static const AbstractFooStateMeta meta = \$metaForAbstractStateProps;
+              static const StateMeta meta = \$metaForAbstractStateProps;
             }
               
             @AbstractState() 
@@ -802,6 +730,33 @@ main() {
             });
           });
         });
+      });
+
+      group('static meta field', () {
+        void testStaticMetaField(String testName, StaticMetaTest smt) {
+          test(testName, () {
+            setUpAndGenerate(smt.source);
+
+            final metaClassName = '_\$${smt.className}Meta';
+            final expectedMetaClass = 'class $metaClassName {';
+            final expectedMetaForInstance = (new StringBuffer()
+              ..writeln('const ${smt.metaStructName} \$metaFor${smt.className} = const ${smt.metaStructName}(')
+              ..writeln('  fields: $metaClassName.${smt.constantListName},')
+              ..writeln('  keys: $metaClassName.${smt.keyListName},')
+              ..writeln(');')
+            ).toString();
+
+            expect(transformedFile.getTransformedText(), contains(expectedMetaClass));
+            expect(transformedFile.getTransformedText(), contains(expectedMetaForInstance));
+          });
+        }
+
+        testStaticMetaField('props class', StaticMetaTest.props);
+        testStaticMetaField('state class', StaticMetaTest.state);
+        testStaticMetaField('props mixin', StaticMetaTest.propsMixin);
+        testStaticMetaField('state mixin', StaticMetaTest.stateMixin);
+        testStaticMetaField('abstract props', StaticMetaTest.abstractProps);
+        testStaticMetaField('abstract state', StaticMetaTest.abstractState);
       });
     });
 
@@ -1178,5 +1133,44 @@ main() {
   });
 }
 
+class StaticMetaTest {
+  static const StaticMetaTest abstractProps = const StaticMetaTest._('@AbstractProps()', 'AbstractFooProps');
+  static const StaticMetaTest abstractState = const StaticMetaTest._('@AbstractState()', 'AbstractFooState');
+  static const StaticMetaTest props = const StaticMetaTest._('@Props()', 'FooProps');
+  static const StaticMetaTest propsMixin = const StaticMetaTest._('@PropsMixin()', 'FooPropsMixin');
+  static const StaticMetaTest state = const StaticMetaTest._('@State()', 'FooState');
+  static const StaticMetaTest stateMixin = const StaticMetaTest._('@StateMixin()', 'FooStateMixin');
+
+  final String annotation;
+  final String className;
+
+  const StaticMetaTest._(this.annotation, this.className);
+
+  bool get isAbstract => annotation.contains('Abstract') || annotation.contains('Mixin');
+  bool get isProps => annotation.contains('Props');
+  String get constantListName => isProps ? '\$props' : '\$state';
+  String get keyListName => isProps ? '\$propKeys' : '\$stateKeys';
+  String get metaStructName => isProps ? 'PropsMeta' : 'StateMeta';
+  bool get needsComponent => !isAbstract;
+
+  String get source {
+    final buffer = new StringBuffer();
+    if (needsComponent) {
+      buffer.writeln('@Factory() UiFactory<FooProps> Foo;');
+      if (!isProps) {
+        buffer.writeln('@Props() class FooProps {}');
+      }
+      buffer.writeln('@Component() class FooComponent {}');
+    }
+    buffer
+      ..writeln('$annotation ${isAbstract ? "abstract " : ""}class $className {')
+      ..writeln('  static const $metaStructName meta = \$metaFor$className;');
+    if (isAbstract) {
+      buffer.writeln('  Map get ${isProps ? "props" : "state"};');
+    }
+    buffer.writeln('}');
+    return buffer.toString();
+  }
+}
 
 class MockTransformLogger extends Mock implements TransformLogger {}
