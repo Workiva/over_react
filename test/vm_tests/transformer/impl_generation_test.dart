@@ -684,10 +684,10 @@ main() {
           ''');
 
           verify(logger.error('Factory variables are stubs for the generated factories, and should not have initializers'
-              ' unless initialized with \$<UiFactory> for Dart 2 builder compatibility.', span: any));
+              ' unless initialized with \$Foo for Dart 2 builder compatibility.', span: any));
         });
 
-        test('declared with an \$ prefixed initializer', () {
+        test('declared with an \$ prefixed initializer matching the factory name', () {
           setUpAndGenerate('''
             @Factory()
             UiFactory<FooProps> Foo = \$Foo;
@@ -696,7 +696,7 @@ main() {
           ''');
 
           verifyNever(logger.error('Factory variables are stubs for the generated factories, and should not have initializers'
-              ' unless initialized with \$<UiFactory> for Dart 2 builder compatibility.', span: any));
+              ' unless initialized with \$Foo for Dart 2 builder compatibility.', span: any));
         });
       });
 

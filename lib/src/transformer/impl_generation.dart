@@ -107,7 +107,7 @@ class ImplGenerator {
         if (variable.initializer != null && !(variable.initializer.toString() == '\$$factoryName')) {
           logger.error(
               'Factory variables are stubs for the generated factories, and should not have initializers '
-              'unless initialized with \$<UiFactory> for Dart 2 builder compatibility.',
+              'unless initialized with \$$factoryName for Dart 2 builder compatibility.',
               span: getSpan(sourceFile, variable.initializer)
           );
         }
