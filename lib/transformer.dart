@@ -114,17 +114,18 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
           if (outerLoopType.name.name.startsWith('\$')) {
             member.withClause.mixinTypes.forEach((innerLoopType) {
               if (outerLoopType.name.name.substring(1) == innerLoopType.name.name) {
-                if (member.withClause.mixinTypes.last == outerLoopType && member.withClause.mixinTypes.length != 2) {
-                  // remove the last comma in the with clause as well as the $ prefixed mixin
-                  transformedFile.remove(sourceFile.span(outerLoopType.offset - 2, outerLoopType.end));
-                } else if (member.withClause.mixinTypes.last == outerLoopType && member.withClause.mixinTypes.length == 2) {
-                  // remove the only comma as well as the $ prefixed mixin
-                  transformedFile.remove(sourceFile.span(member.withClause.mixinTypes.first.end, member.withClause.mixinTypes.first.end + 1));
-                  transformedFile.remove(sourceFile.span(outerLoopType.offset, outerLoopType.end));
-                } else {
-                  // remove comma and space in front of the $ prefixed mixin
-                  transformedFile.remove(sourceFile.span(outerLoopType.offset, outerLoopType.end + 2));
+                // remove the $ prefixed mixin type
+                transformedFile.remove(sourceFile.span(outerLoopType.offset, outerLoopType.end));
+
+                var prevToken = outerLoopType.beginToken.previous;
+
+                // find the correct comma to remove
+                while (prevToken.toString() != ',') {
+                  prevToken = prevToken.previous;
                 }
+
+                // remove the comma
+                transformedFile.remove(sourceFile.span(prevToken.offset, prevToken.end));
               }
             });
           }

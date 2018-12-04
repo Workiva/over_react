@@ -41,10 +41,10 @@ main() {
           '\$FooStateMixin';
       // $FizzPropsMixin is expected remain since it does not have a un-prefixed version in the
       // the props class with clause.
-      final transformedPropsWithClause = 'with FooPropsMixin,\n'
+      final transformedPropsWithClause = 'with FooPropsMixin\n'
           '// TODO: AF-#### This will be removed once the transition to Dart 2 is complete.\n'
           '// ignore: mixin_of_non_class,undefined_class\n'
-          'BarPropsMixin, \$FizzPropsMixin ';
+          ', BarPropsMixin, \$FizzPropsMixin ';
       final transformedStateWithClause = 'with FooStateMixin\n'
           '// TODO: AF-#### This will be removed once the transition to Dart 2 is complete.\n'
           '// ignore: mixin_of_non_class,undefined_class\n'
@@ -78,10 +78,10 @@ main() {
           '// TODO: AF-#### This will be removed once the transition to Dart 2 is complete.\n'
           '// ignore: mixin_of_non_class,undefined_class\n'
           '\$FooPropsMixin, BarPropsMixin, \$BarPropsMixin';
-      final transformedWithClause = 'with FooPropsMixin,\n'
+      final transformedWithClause = 'with FooPropsMixin\n'
           '// TODO: AF-#### This will be removed once the transition to Dart 2 is complete.\n'
           '// ignore: mixin_of_non_class,undefined_class\n'
-          'BarPropsMixin';
+          ', BarPropsMixin';
       AssetId fakeInputFileAssetId = new AssetId('testId', 'class_with_prefixed_mixins.dart');
 
       MockAsset inputFile;
