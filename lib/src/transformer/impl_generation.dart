@@ -167,22 +167,6 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
       generateAccessors(AccessorType.props, declarations.props);
 
-      // Remove $ sign prefixed props mixins when found in the props class with clause.
-      if (declarations.props.node.withClause != null &&
-          declarations.props.node.withClause.mixinTypes.any((type) => type.toString().startsWith('\$'))) {
-        var withClauseMixinTypes = [];
-
-        declarations.props.node.withClause.mixinTypes.forEach((type) {
-          if (!type.toString().startsWith('\$')) {
-            withClauseMixinTypes.add(type.toString());
-          }
-        });
-
-        transformedFile.replace(
-            sourceFile.span(declarations.props.node.withClause.mixinTypes.first.offset,
-                declarations.props.node.withClause.end), withClauseMixinTypes.join(', '));
-      }
-
       final String propKeyNamespace = getAccessorKeyNamespace(declarations.props);
 
       implementations
@@ -227,23 +211,6 @@ class ImplGenerator {
       //   State implementation
       // ----------------------------------------------------------------------
       if (declarations.state != null) {
-
-        // Remove $ sign prefixed state mixins when found in the props class with clause.
-        if (declarations.state.node.withClause != null &&
-            declarations.state.node.withClause.mixinTypes.any((type) => type.toString().startsWith('\$'))) {
-          var withClauseMixinTypes = [];
-
-          declarations.state.node.withClause.mixinTypes.forEach((type) {
-            if (!type.toString().startsWith('\$')) {
-              withClauseMixinTypes.add(type.toString());
-            }
-          });
-
-          transformedFile.replace(
-              sourceFile.span(declarations.state.node.withClause.mixinTypes.first.offset,
-                  declarations.state.node.withClause.end), withClauseMixinTypes.join(', '));
-        }
-
         final String stateName = declarations.state.node.name.toString();
         final String stateImplName = '$generatedPrefix${stateName}Impl';
 
