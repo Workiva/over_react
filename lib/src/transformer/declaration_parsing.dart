@@ -53,21 +53,21 @@ class ParsedDeclarations {
       key_stateMixin:        <CompilationUnitMember>[],
     };
 
-    var privatePropsAndStateClassPattern = new RegExp(r'^(?:\@Props\(\)\s*|\@State\(\)\s*)(?:abstract\s)?class\s(_\$\w*?)\s');
-
     unit.declarations.forEach((CompilationUnitMember member) {
       member.metadata.forEach((annotation) {
         var name = annotation.name.toString();
-        var match = privatePropsAndStateClassPattern.firstMatch(member.toString());
+        var publicMember;
 
-        if ((name == 'Props' || name == 'State') && match != null) {
-          var publicName = match.group(1).replaceFirst('_\$', '');
-          var publicMember = unit.declarations.firstWhere((CompilationUnitMember member) => member is ClassDeclaration && member.name.name == publicName, orElse: () => null);
-
-          declarationMap[name]?.add(publicMember ?? member);
-        } else {
-          declarationMap[name]?.add(member);
+        if (member is ClassDeclaration && member.name.name.startsWith('_\$')) {
+          unit.declarations.forEach((CompilationUnitMember innerLoopMember) {
+            // Look for a matching public class.
+            if (innerLoopMember is ClassDeclaration && member.name.name.substring(2) == innerLoopMember.name.name) {
+              publicMember = innerLoopMember;
+            }
+          });
         }
+
+        declarationMap[name]?.add(publicMember ?? member);
       });
     });
 
