@@ -66,7 +66,7 @@ main() {
     });
 
     test('does not output a generated part file when dart 2 boiler plate compatible part directive is not found', () async {
-      AssetId fakeInputFileAssetId = new AssetId('testId', 'component_with_part_directive.dart');
+      AssetId fakeInputFileAssetId = new AssetId('testId', 'component_without_part_directive.dart');
 
       MockAsset inputFile;
       MockTransform mockTransform;
@@ -84,8 +84,7 @@ main() {
       List<Asset> fileAssets = verify(mockTransform.addOutput(captureThat(isDartFile))).captured;
 
       expect(fileAssets.length, equals(1));
-      expect(fileAssets[0].id.toString(), equals('testId|component_with_part_directive.dart'));
-      expect(fileAssets[0].id.toString(), isNot(equals('testId|foo.over_react.g.dart')));
+      expect(fileAssets[0].id.toString(), equals('testId|component_without_part_directive.dart'));
     });
 
     group('loads config value:', () {
