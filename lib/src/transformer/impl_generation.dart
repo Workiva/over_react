@@ -92,7 +92,10 @@ class ImplGenerator {
         // The public props class signature includes a with <PropsClass>AccessorsMixin clause
         // for dart 2 builder compatibility. But in Dart 1, the transformer is able to generate
         // the concrete accessors inline without a separate mixin. For this reason, the transformer
-        // first removes this with clause and then generates the concrete accessors.
+        // removes this with clause and then generates the concrete accessors. To prevent the
+        // with clause being removed unnecessarily a check is preformed to identify if the class
+        // has an annotation since the public class added for dart 2 builder compatibility will not be
+        // annotated.
         if (declarations.props.node.metadata.isEmpty && declarations.props.node.withClause != null) {
           transformedFile.remove(getSpan(sourceFile, declarations.props.node.withClause));
         }
@@ -223,10 +226,13 @@ class ImplGenerator {
         final String stateName = declarations.state.node.name.toString();
         final String stateImplName = '$generatedPrefix${stateName}Impl';
 
-        // The public state class signature includes a with <PropsClass>AccessorsMixin clause
+        // The public state class signature includes a with <StateClass>AccessorsMixin clause
         // for dart 2 builder compatibility. But in Dart 1, the transformer is able to generate
         // the concrete accessors inline without a separate mixin. For this reason, the transformer
-        // first removes this with clause and then generates the concrete accessors.
+        // removes this with clause and then generates the concrete accessors. To prevent the
+        // with clause being removed unnecessarily a check is preformed to identify if the class
+        // has an annotation since the public class added for dart 2 builder compatibility will not be
+        // annotated.
         if (declarations.state.node.metadata.isEmpty && declarations.state.node.withClause != null) {
           transformedFile.remove(getSpan(sourceFile, declarations.state.node.withClause));
         }
@@ -373,10 +379,32 @@ class ImplGenerator {
     //   Abstract Props/State implementations
     // ----------------------------------------------------------------------
     declarations.abstractProps.forEach((abstractPropsClass) {
+      // The public abstract props class signature includes a with <AbstractPropsClass>AccessorsMixin clause
+      // for dart 2 builder compatibility. But in Dart 1, the transformer is able to generate
+      // the concrete accessors inline without a separate mixin. For this reason, the transformer
+      // removes this with clause and then generates the concrete accessors. To prevent the
+      // with clause being removed unnecessarily a check is preformed to identify if the class
+      // has an annotation since the public class added for dart 2 builder compatibility will not be
+      // annotated.
+      if (abstractPropsClass.node.metadata.isEmpty && abstractPropsClass.node.withClause != null) {
+        transformedFile.remove(getSpan(sourceFile, abstractPropsClass.node.withClause));
+      }
+
       generateAccessors(AccessorType.props, abstractPropsClass);
     });
 
     declarations.abstractState.forEach((abstractStateClass) {
+      // The public abstract state class signature includes a with <AbstractStateClass>AccessorsMixin clause
+      // for dart 2 builder compatibility. But in Dart 1, the transformer is able to generate
+      // the concrete accessors inline without a separate mixin. For this reason, the transformer
+      // removes this with clause and then generates the concrete accessors. To prevent the
+      // with clause being removed unnecessarily a check is preformed to identify if the class
+      // has an annotation since the public class added for dart 2 builder compatibility will not be
+      // annotated.
+      if (abstractStateClass.node.metadata.isEmpty && abstractStateClass.node.withClause != null) {
+        transformedFile.remove(getSpan(sourceFile, abstractStateClass.node.withClause));
+      }
+
       generateAccessors(AccessorType.state, abstractStateClass);
     });
   }

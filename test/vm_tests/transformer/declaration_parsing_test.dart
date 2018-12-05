@@ -140,6 +140,25 @@ main() {
           expect(declarations.declaresComponent, isTrue);
         });
 
+        test('a component with a private \$ prefixed props class without a matching public class', () {
+          setUpAndParse('''
+            @Factory()    UiFactory<FooProps> Foo;
+            @Props()      class _\$FooProps {}
+            @Component()  class FooComponent {}
+          ''');
+
+          expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
+          expect(declarations.props.node?.name?.name, '_\$FooProps');
+          expect(declarations.component.node?.name?.name, 'FooComponent');
+
+          expect(declarations.factory.meta,   const isInstanceOf<annotations.Factory>());
+          expect(declarations.props.meta,     const isInstanceOf<annotations.Props>());
+          expect(declarations.component.meta, const isInstanceOf<annotations.Component>());
+
+          expectEmptyDeclarations(factory: false, props: false, component: false);
+          expect(declarations.declaresComponent, isTrue);
+        });
+
         test('a component with builder compatible annotated private props class', () {
           setUpAndParse('''
             @Factory()    UiFactory<FooProps> Foo;

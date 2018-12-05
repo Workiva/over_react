@@ -335,7 +335,7 @@ main() {
           final fooPropsImplExtendsPublicClass = 'class _\$FooPropsImpl extends FooProps';
           final fooPropsImplExtendsPrivateClass = 'class _\$FooPropsImpl extends _\$FooProps';
 
-          setUpAndGenerate('''
+          preservedLineNumbersTest('''
             @Factory()
             UiFactory<FooProps> Foo;
         
@@ -346,6 +346,11 @@ main() {
            
             @Props()
             class _\$FooProps extends UiProps {}
+            
+            @AbstractProps() class AbstractFooProps {
+              var bar;
+              var baz;
+            }
             
             @State()
             class FooState {}
@@ -372,7 +377,7 @@ main() {
           final fooStateImplExtendsPublicClass = 'class _\$FooStateImpl extends FooState';
           final fooStateImplExtendsPrivateClass = 'class _\$FooStateImpl extends _\$FooState';
 
-          setUpAndGenerate('''
+          preservedLineNumbersTest('''
             @Factory()
             UiFactory<FooProps> Foo;
         
@@ -400,6 +405,78 @@ main() {
           expect(transformedSource, contains(transformedFooStateLine));
           expect(transformedSource, contains(fooStateImplExtendsPublicClass));
           expect(transformedSource, isNot(contains(fooStateImplExtendsPrivateClass)));
+        });
+
+        test('with builder compatible private abstract props class', () {
+          final originalPrivateClassLine = 'class _\$AbstractFooProps {';
+          final originalPublicClassLine = 'class AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {';
+          final transformedFooStateLine = 'class AbstractFooProps extends _\$AbstractFooProps';
+
+          preservedLineNumbersTest('''
+            @Factory()
+            UiFactory<FooProps> Foo;
+            
+            @Props()
+            class FooProps extends UiProps {}
+            
+            @Component()
+            class FooComponent {
+              render() => null;
+            }
+          
+            class AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {
+              // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+              static const AbstractFooPropsMeta meta = \$metaForAbstractFooProps;
+            }
+            
+            @AbstractProps() 
+            class _\$AbstractFooProps {
+              var bar;
+              var baz;
+            }
+          '''
+          );
+
+          var transformedSource = transformedFile.getTransformedText();
+          expect(transformedSource, contains(originalPrivateClassLine));
+          expect(transformedSource, isNot(contains(originalPublicClassLine)));
+          expect(transformedSource, contains(transformedFooStateLine));
+        });
+
+        test('with builder compatible private abstract state class', () {
+          final originalPrivateClassLine = 'class _\$AbstractStateProps {';
+          final originalPublicClassLine = 'class AbstractStateProps extends _\$AbstractStateProps with _\$AbstractStatePropsAccessorsMixin {';
+          final transformedFooStateLine = 'class AbstractStateProps extends _\$AbstractStateProps';
+
+          preservedLineNumbersTest('''
+            @Factory()
+            UiFactory<FooProps> Foo;
+            
+            @Props()
+            class FooProps extends UiProps {}
+            
+            @Component()
+            class FooComponent {
+              render() => null;
+            }
+            
+            class AbstractStateProps extends _\$AbstractStateProps with _\$AbstractFooStateAccessorsMixin {
+              // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+              static const AbstractFooStateMeta meta = \$metaForAbstractStateProps;
+            }
+              
+            @AbstractState() 
+            class _\$AbstractStateProps {
+              var bar;
+              var baz;
+            }
+          '''
+          );
+
+          var transformedSource = transformedFile.getTransformedText();
+          expect(transformedSource, contains(originalPrivateClassLine));
+          expect(transformedSource, isNot(contains(originalPublicClassLine)));
+          expect(transformedSource, contains(transformedFooStateLine));
         });
 
         group('that subtypes another component, referencing the component class via', () {
