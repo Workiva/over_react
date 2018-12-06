@@ -165,6 +165,10 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
       //   Props implementation
       // ----------------------------------------------------------------------
+      if (declarations.props.node.withClause != null) {
+        insertPrefixedPropsOrStateMixin(declarations.props.node.withClause, transformedFile, sourceFile, sourceFile.location(declarations.props.node.end));
+      }
+
       generateAccessors(AccessorType.props, declarations.props);
 
       final String propKeyNamespace = getAccessorKeyNamespace(declarations.props);
@@ -211,6 +215,10 @@ class ImplGenerator {
       //   State implementation
       // ----------------------------------------------------------------------
       if (declarations.state != null) {
+        if (declarations.state.node.withClause != null) {
+          insertPrefixedPropsOrStateMixin(declarations.state.node.withClause, transformedFile, sourceFile, sourceFile.location(declarations.state.node.end));
+        }
+
         final String stateName = declarations.state.node.name.toString();
         final String stateImplName = '$generatedPrefix${stateName}Impl';
 
@@ -680,3 +688,22 @@ class ImplGenerator {
 }
 
 enum AccessorType {props, state}
+
+// Insert a $ sign prefixed props or state mixins when a non $ sign prefixed mixin with the same
+// name is found in the class declaration with clause.
+void insertPrefixedPropsOrStateMixin(WithClause withClause,
+    TransformedSourceFile transformedFile,
+    SourceFile sourceFile,
+    FileLocation sourceFileLocation) {
+  withClause.mixinTypes.forEach((outerLoopType) {
+    if (outerLoopType.name.name.startsWith('\$')) {
+      withClause.mixinTypes.forEach((innerLoopType) {
+        if (outerLoopType.name.name.substring(1) == innerLoopType.name.name) {
+          transformedFile.insert(sourceFileLocation,
+              '\nabstract class ${outerLoopType.name.name} {}'
+          );
+        }
+      });
+    }
+  });
+}

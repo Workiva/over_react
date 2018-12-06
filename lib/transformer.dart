@@ -98,45 +98,17 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
     TransformedSourceFile transformedFile = new TransformedSourceFile(sourceFile);
     TransformLogger logger = new JetBrainsFriendlyLogger(transform.logger);
 
-    // Parse the source file on its own and use the resultant AST to...
-    var unit = parseCompilationUnit(primaryInputContents,
-        suppressErrors: true,
-        name: transform.primaryInput.id.path,
-        parseFunctionBodies: false
-    );
-
-    // Remove $ sign prefixed props or state mixins when a non $ sign prefixed mixin with the same
-    // name is found in the class declaration. Props or state mixins can be found within a with clause of
-    // class declarations in non component files which is why this check is preformed here.
-    unit.declarations.forEach((CompilationUnitMember member) {
-      if (member is ClassDeclaration && member.withClause != null) {
-        member.withClause.mixinTypes.forEach((outerLoopType) {
-          if (outerLoopType.name.name.startsWith('\$')) {
-            member.withClause.mixinTypes.forEach((innerLoopType) {
-              if (outerLoopType.name.name.substring(1) == innerLoopType.name.name) {
-                // remove the $ prefixed mixin type
-                transformedFile.remove(sourceFile.span(outerLoopType.offset, outerLoopType.end));
-
-                var prevToken = outerLoopType.beginToken.previous;
-
-                // find the correct comma to remove
-                while (prevToken.toString() != ',') {
-                  prevToken = prevToken.previous;
-                }
-
-                // remove the comma
-                transformedFile.remove(sourceFile.span(prevToken.offset, prevToken.end));
-              }
-            });
-          }
-        });
-      }
-    });
-
     // If the source file might contain annotations that necessitate generation,
     // parse the declarations and generate code.
     // If not, don't skip this step to avoid parsing files that definitely won't generate anything.
     if (ParsedDeclarations.mightContainDeclarations(primaryInputContents)) {
+      // Parse the source file on its own and use the resultant AST to...
+      var unit = parseCompilationUnit(primaryInputContents,
+          suppressErrors: true,
+          name: transform.primaryInput.id.path,
+          parseFunctionBodies: false
+      );
+
       ParsedDeclarations declarations = new ParsedDeclarations(unit, sourceFile, logger);
 
       // If there are no errors, generate the component.

@@ -328,6 +328,43 @@ main() {
           expect(transformedSource, contains(transformedLine));
         });
 
+        test('with Props|State with clause contain \$ prefixed and non-prefixed mixin pairs', () {
+          final prefixedFooPropsMixin = 'abstract class \$FooPropsMixin {}';
+          final prefixedBarPropsMixin = 'abstract class \$BarPropsMixin {}';
+          final prefixedFizzPropsMixin = 'abstract class \$FizzPropsMixin {}';
+          final prefixedFooStateMixin = 'abstract class \$FooStateMixin {}';
+
+          setUpAndGenerate('''
+            @Factory()
+            UiFactory<FooProps> Foo;
+        
+            @Props()
+            class FooProps extends UiProps with FooPropsMixin,
+            // TODO: AF-#### This will be removed once the transition to Dart 2 is complete.
+            // ignore: mixin_of_non_class,undefined_class
+            \$FooPropsMixin, BarPropsMixin, \$FizzPropsMixin, \$BarPropsMixin {}
+
+            @State()
+            class FooState extends UiState with FooStateMixin,
+            // TODO: AF-#### This will be removed once the transition to Dart 2 is complete.
+            // ignore: mixin_of_non_class,undefined_class
+            \$FooStateMixin {}
+
+            @Component()  
+            class FooComponent {
+              render() => null;
+            }
+          ''');
+
+          var transformedSource = transformedFile.getTransformedText();
+          expect(transformedSource, contains(prefixedFooPropsMixin));
+          expect(transformedSource, contains(prefixedBarPropsMixin));
+          // It's expected that $FizzPropsMixin will not have a class stub generated for it
+          // because it does not have a non $ prefixed pair within the FooProps with clause.
+          expect(transformedSource, isNot(contains(prefixedFizzPropsMixin)));
+          expect(transformedSource, contains(prefixedFooStateMixin));
+        });
+
         group('that subtypes another component, referencing the component class via', () {
           test('a simple identifier', () {
             preservedLineNumbersTest('''
