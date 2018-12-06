@@ -2,7 +2,7 @@ import 'package:over_react/over_react.dart';
 import 'package:react/react_client.dart';
 
 //part 'generic_inheritance_super.g.dart';
-part 'generic_inheritance_super.overReact.g.dart';
+part 'generic_inheritance_super.over_react.g.dart';
 
 @Factory()
 UiFactory<GenericSuperProps> GenericSuper = $GenericSuper;

@@ -1,6 +1,6 @@
 import 'package:over_react/over_react.dart';
 
-part 'state_mixin.overReact.g.dart';
+part 'state_mixin.over_react.g.dart';
 
 @StateMixin()
 abstract class ExampleStateMixinClass implements UiState {

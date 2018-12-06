@@ -21,7 +21,7 @@ import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/component_base.dart' as component_base;
 
-part 'abstract_transition.overReact.g.dart';
+part 'abstract_transition.over_react.g.dart';
 
 @AbstractProps()
 // ignore: mixin_of_non_class,undefined_class

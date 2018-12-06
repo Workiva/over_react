@@ -14,7 +14,7 @@ Builder overReactBuilder(BuilderOptions options) => new OverReactBuilder();
 class OverReactBuilder implements Builder {
   OverReactBuilder();
 
-  static const _outputExtension = '.overReact.g.dart';
+  static const _outputExtension = '.over_react.g.dart';
 
   /// Converts [id] to a "package:" URI.
   ///

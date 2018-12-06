@@ -1,7 +1,7 @@
 import 'package:over_react/over_react.dart';
 import 'props_mixin.dart' as pm;
 
-part 'basic.overReact.g.dart';
+part 'basic.over_react.g.dart';
 
 @Factory()
 UiFactory<BasicProps> Basic = $Basic;

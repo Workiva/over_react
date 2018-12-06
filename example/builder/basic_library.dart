@@ -10,4 +10,4 @@ part 'part_of_basic_library.dart';
 part 'part_of_basic_library_2.dart';
 
 // generated part files
-part 'basic_library.overReact.g.dart';
+part 'basic_library.over_react.g.dart';

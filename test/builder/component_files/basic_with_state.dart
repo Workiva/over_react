@@ -3,7 +3,7 @@ import 'props_mixin.dart' as pm;
 import 'state_mixin.dart';
 
 
-part 'basic_with_state.overReact.g.dart';
+part 'basic_with_state.over_react.g.dart';
 
 @Factory()
 UiFactory<BasicProps> Basic = $Basic;

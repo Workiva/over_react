@@ -1,7 +1,7 @@
 import 'package:over_react/over_react.dart';
 
 //part 'abstract_inheritance.g.dart';
-part 'abstract_inheritance.overReact.g.dart';
+part 'abstract_inheritance.over_react.g.dart';
 
 // ignore: mixin_of_non_class,undefined_class
 abstract class SuperProps extends _$SuperProps with _$SuperPropsAccessorsMixin {}

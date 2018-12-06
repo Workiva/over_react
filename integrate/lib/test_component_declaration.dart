@@ -17,7 +17,7 @@ library over_react.integrate.test_component_declaration;
 import 'package:over_react/over_react.dart';
 
 // ignore: uri_does_not_exist, uri_has_not_been_generated
-part 'test_component_declaration.overReact.g.dart';
+part 'test_component_declaration.over_react.g.dart';
 
 @Factory()
 // ignore: undefined_identifier
