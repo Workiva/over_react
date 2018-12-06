@@ -140,25 +140,6 @@ main() {
           expect(declarations.declaresComponent, isTrue);
         });
 
-        test('a component with a private \$ prefixed props class without a matching public class', () {
-          setUpAndParse('''
-            @Factory()    UiFactory<FooProps> Foo;
-            @Props()      class _\$FooProps {}
-            @Component()  class FooComponent {}
-          ''');
-
-          expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
-          expect(declarations.props.node?.name?.name, '_\$FooProps');
-          expect(declarations.component.node?.name?.name, 'FooComponent');
-
-          expect(declarations.factory.meta,   const isInstanceOf<annotations.Factory>());
-          expect(declarations.props.meta,     const isInstanceOf<annotations.Props>());
-          expect(declarations.component.meta, const isInstanceOf<annotations.Component>());
-
-          expectEmptyDeclarations(factory: false, props: false, component: false);
-          expect(declarations.declaresComponent, isTrue);
-        });
-
         test('a component with builder compatible annotated private props class', () {
           setUpAndParse('''
             @Factory()    UiFactory<FooProps> Foo;
@@ -482,6 +463,20 @@ main() {
       });
 
       group('and throws an error when', () {
+        test('a public props class when an private \$ prefixed props class is declared', () {
+          setUpAndParse('''
+              @Factory()    
+              UiFactory<FooProps> Foo;
+              
+              @Props()      
+              class _\$FooProps {}
+              
+              @Component()  
+              class FooComponent {}
+            ''');
+          verify(logger.error('_\$FooProps must have an accompanying public class within the same file for Dart 2 builder compatibility, but one was not found.', span: any));
+        });
+
         test('`subtypeOf` is an unsupported expression that is not an identifier', () {
           expect(() {
             setUpAndParse('''

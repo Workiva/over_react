@@ -58,13 +58,19 @@ class ParsedDeclarations {
         var name = annotation.name.toString();
         var publicMember;
 
-        if (member is ClassDeclaration && member.name.name.startsWith('_\$')) {
-          unit.declarations.forEach((CompilationUnitMember innerLoopMember) {
-            // Look for a matching public class.
-            if (innerLoopMember is ClassDeclaration && member.name.name.substring(2) == innerLoopMember.name.name) {
-              publicMember = innerLoopMember;
+        if (name == 'Props' || name == 'State' || name == 'AbstractProps' || name == 'AbstractState') {
+          if (member is ClassDeclaration && member.name.name.startsWith('_\$')) {
+            var matchingPublicPropsOrStateClasses =
+              unit.declarations.where((CompilationUnitMember innerLoopMember) =>
+                innerLoopMember is ClassDeclaration && member.name.name.substring(2) == innerLoopMember.name.name);
+
+            if (matchingPublicPropsOrStateClasses.isEmpty) {
+              error('${member.name.name} must have an accompanying public class within the '
+                  'same file for Dart 2 builder compatibility, but one was not found.', getSpan(sourceFile, member));
+            } else {
+              publicMember = matchingPublicPropsOrStateClasses.first;
             }
-          });
+          }
         }
 
         declarationMap[name]?.add(publicMember ?? member);

@@ -88,18 +88,6 @@ class ImplGenerator {
       // We can safely make this abstract, since we already have a runtime warning when it's
       // instantiated.
       if (!declarations.props.node.isAbstract) {
-
-        // The public props class signature includes a with <PropsClass>AccessorsMixin clause
-        // for dart 2 builder compatibility. But in Dart 1, the transformer is able to generate
-        // the concrete accessors inline without a separate mixin. For this reason, the transformer
-        // removes this with clause and then generates the concrete accessors. To prevent the
-        // with clause being removed unnecessarily a check is preformed to identify if the class
-        // has an annotation since the public class added for dart 2 builder compatibility will not be
-        // annotated.
-        if (declarations.props.node.metadata.isEmpty && declarations.props.node.withClause != null) {
-          transformedFile.remove(getSpan(sourceFile, declarations.props.node.withClause));
-        }
-
         transformedFile.insert(
             sourceFile.location(declarations.props.node.classKeyword.offset),
             'abstract '
@@ -177,6 +165,8 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
       //   Props implementation
       // ----------------------------------------------------------------------
+      removeWithClauseIfNecessary(declarations.props.node, sourceFile, transformedFile);
+
       generateAccessors(AccessorType.props, declarations.props);
 
       final String propKeyNamespace = getAccessorKeyNamespace(declarations.props);
@@ -226,16 +216,7 @@ class ImplGenerator {
         final String stateName = declarations.state.node.name.toString();
         final String stateImplName = '$generatedPrefix${stateName}Impl';
 
-        // The public state class signature includes a with <StateClass>AccessorsMixin clause
-        // for dart 2 builder compatibility. But in Dart 1, the transformer is able to generate
-        // the concrete accessors inline without a separate mixin. For this reason, the transformer
-        // removes this with clause and then generates the concrete accessors. To prevent the
-        // with clause being removed unnecessarily a check is preformed to identify if the class
-        // has an annotation since the public class added for dart 2 builder compatibility will not be
-        // annotated.
-        if (declarations.state.node.metadata.isEmpty && declarations.state.node.withClause != null) {
-          transformedFile.remove(getSpan(sourceFile, declarations.state.node.withClause));
-        }
+        removeWithClauseIfNecessary(declarations.state.node, sourceFile, transformedFile);
 
         generateAccessors(AccessorType.state, declarations.state);
 
@@ -379,31 +360,13 @@ class ImplGenerator {
     //   Abstract Props/State implementations
     // ----------------------------------------------------------------------
     declarations.abstractProps.forEach((abstractPropsClass) {
-      // The public abstract props class signature includes a with <AbstractPropsClass>AccessorsMixin clause
-      // for dart 2 builder compatibility. But in Dart 1, the transformer is able to generate
-      // the concrete accessors inline without a separate mixin. For this reason, the transformer
-      // removes this with clause and then generates the concrete accessors. To prevent the
-      // with clause being removed unnecessarily a check is preformed to identify if the class
-      // has an annotation since the public class added for dart 2 builder compatibility will not be
-      // annotated.
-      if (abstractPropsClass.node.metadata.isEmpty && abstractPropsClass.node.withClause != null) {
-        transformedFile.remove(getSpan(sourceFile, abstractPropsClass.node.withClause));
-      }
+      removeWithClauseIfNecessary(abstractPropsClass.node, sourceFile, transformedFile);
 
       generateAccessors(AccessorType.props, abstractPropsClass);
     });
 
     declarations.abstractState.forEach((abstractStateClass) {
-      // The public abstract state class signature includes a with <AbstractStateClass>AccessorsMixin clause
-      // for dart 2 builder compatibility. But in Dart 1, the transformer is able to generate
-      // the concrete accessors inline without a separate mixin. For this reason, the transformer
-      // removes this with clause and then generates the concrete accessors. To prevent the
-      // with clause being removed unnecessarily a check is preformed to identify if the class
-      // has an annotation since the public class added for dart 2 builder compatibility will not be
-      // annotated.
-      if (abstractStateClass.node.metadata.isEmpty && abstractStateClass.node.withClause != null) {
-        transformedFile.remove(getSpan(sourceFile, abstractStateClass.node.withClause));
-      }
+      removeWithClauseIfNecessary(abstractStateClass.node, sourceFile, transformedFile);
 
       generateAccessors(AccessorType.state, abstractStateClass);
     });
@@ -725,3 +688,16 @@ class ImplGenerator {
 }
 
 enum AccessorType {props, state}
+
+// The public Props|State|AbstractProps|AbstractState class signatures includes a with
+// <PropsClass>AccessorsMixin clause for dart 2 builder compatibility. But in Dart 1,
+// the transformer is able to generate the concrete accessors inline without a separate
+// mixin. For this reason, the transformer removes this with clause and then generates
+// the concrete accessors. To prevent the with clause being removed unnecessarily a check
+// is preformed to identify if the class has an annotation since the public class added
+// for dart 2 builder compatibility will not be annotated.
+void removeWithClauseIfNecessary(ClassDeclaration declaration, SourceFile sourceFile, TransformedSourceFile transformedFile) {
+  if (declaration.metadata.isEmpty && declaration.withClause != null) {
+    transformedFile.remove(getSpan(sourceFile, declaration.withClause));
+  }
+}
