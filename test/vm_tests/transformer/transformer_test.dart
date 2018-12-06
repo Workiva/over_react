@@ -15,10 +15,7 @@
 @TestOn('vm')
 library transformer_test;
 
-import 'dart:io';
-
 import 'package:barback/barback.dart';
-import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 import 'package:over_react/transformer.dart';

@@ -104,9 +104,9 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
     if (ParsedDeclarations.mightContainDeclarations(primaryInputContents)) {
       // Parse the source file on its own and use the resultant AST to...
       var unit = parseCompilationUnit(primaryInputContents,
-          suppressErrors: true,
-          name: transform.primaryInput.id.path,
-          parseFunctionBodies: false
+        suppressErrors: true,
+        name: transform.primaryInput.id.path,
+        parseFunctionBodies: false
       );
 
       ParsedDeclarations declarations = new ParsedDeclarations(unit, sourceFile, logger);
