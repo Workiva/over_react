@@ -354,6 +354,30 @@ main() {
             class FooComponent {
               render() => null;
             }
+            
+            @PropsMixin()
+            class FooPropsMixin {
+              Map get props;
+
+              var bar;
+              var baz;
+            }
+            
+            @PropsMixin()
+            class BarPropsMixin {
+              Map get props;
+
+              var bar;
+              var baz;
+            }
+            
+            @StateMixin() 
+            class FooStateMixin {
+              Map get state;
+
+              var bar;
+              var baz;
+            } 
           ''');
 
           var transformedSource = transformedFile.getTransformedText();
