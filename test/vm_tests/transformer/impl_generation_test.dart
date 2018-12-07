@@ -1009,7 +1009,10 @@ main() {
         MethodDeclaration propsImplCall = propsImplClass.members
             .singleWhere((entity) => entity is MethodDeclaration && entity.name?.name == 'call');
 
-        expect(propsImplCall.parameters.toSource(), uiPropsCall.parameters.toSource(),
+        var generatedParameterList = uiPropsCall.parameters.parameters.expand((param) => [param.identifier.name]);
+        var expectedParameterList = uiPropsCall.parameters.parameters.expand((param) => [param.identifier.name]);
+
+        expect(generatedParameterList.toString(), expectedParameterList.toString(),
             reason: 'should have the correct number of arguments');
         expect(propsImplCall.metadata, contains(predicate((meta) => meta.name?.name == 'override')),
             reason: 'should have @override');
