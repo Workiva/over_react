@@ -30,56 +30,103 @@ import '../../test_util/test_util.dart';
 import '../shared/map_proxy_tests.dart';
 
 main() {
-  group('component base:', () {
-    group('UiProps', () {
-      group('warns and throws when rendering a DOM component', () {
-        bool warningsWereEnabled;
-        setUp(() {
-          warningsWereEnabled = ValidationUtil.WARNINGS_ENABLED;
-          ValidationUtil.WARNINGS_ENABLED = false;
-          startRecordingValidationWarnings();
-        });
+  void _commonNonInvokedBuilderTests(UiProps factory) {
+    bool warningsWereEnabled;
+    setUp(() {
+      warningsWereEnabled = ValidationUtil.WARNINGS_ENABLED;
+      ValidationUtil.WARNINGS_ENABLED = false;
+      startRecordingValidationWarnings();
+    });
 
-        tearDown(() {
-          ValidationUtil.WARNINGS_ENABLED = warningsWereEnabled;
-          stopRecordingValidationWarnings();
-        });
+    tearDown(() {
+      ValidationUtil.WARNINGS_ENABLED = warningsWereEnabled;
+      stopRecordingValidationWarnings();
+    });
 
-        test('when a single non-invoked builder child is passed in', () {
-          expect(() => Dom.div()(Dom.div()), throwsArgumentError);
-          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
-        });
+    test('when a single non-invoked builder child is passed in', () {
+      expect(() => factory(Dom.div()), throwsArgumentError);
+      verifyValidationWarning(contains(
+          'It looks like you are trying to use a non-invoked builder as a child.'));
+    });
 
-        test('when a list with a non-invoked builder child passed in', () {
-          expect(() => Dom.div()([
+    test('when a list with a non-invoked builder child passed in', () {
+      expect(() =>
+          factory([
             Dom.div(),
             Dom.p()(),
             Dom.div()
           ]), throwsArgumentError);
-          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
-        });
+      verifyValidationWarning(contains(
+          'It looks like you are trying to use a non-invoked builder as a child.'));
+    });
 
-        test('except when an iterable with a non-invoked builder child passed in', () {
-          var children = (() sync* {
-            yield Dom.div();
-            yield Dom.p()();
-            yield Dom.div();
-          })();
-          expect(() => Dom.div()(children), returnsNormally);
-          rejectValidationWarning(anything);
-        });
+    test(
+        'except when an iterable with a non-invoked builder child passed in', () {
+      var children = (() sync* {
+        yield Dom.div();
+        yield Dom.p()();
+        yield Dom.div();
+      })();
+      expect(() => factory(children), returnsNormally);
+      rejectValidationWarning(anything);
+    });
 
-        test('when non-invoked builder children are passed in variadically via noSuchMethod', () {
-          expect(() => Dom.div()(
-            Dom.div(),
-            Dom.p()(),
-            Dom.div()
+    test('when non-invoked builder children are passed in variadically', () {
+      expect(() =>
+          factory(
+              Dom.div(),
+              Dom.p()(),
+              Dom.div()
           ), throwsArgumentError);
-          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
+      verifyValidationWarning(contains(
+          'It looks like you are trying to use a non-invoked builder as a child.'));
+    });
+  }
+
+  void _commonVariadicChildrenTests(UiProps factory) {
+    // There are different code paths for 0, 1, 2, 3, 4, 5, 6, and 6+ arguments.
+    // Test all of them.
+    group('a number of variadic children:', () {
+      test('0', () {
+        final instance = factory();
+        expect(getJsChildren(instance), isNull);
+      });
+
+      test('1', () {
+        final instance = factory(1);
+        expect(getJsChildren(instance), equals(1));
+      });
+
+      const firstGeneralCaseVariadicChildCount = 2;
+      const maxSupportedVariadicChildCount = 40;
+      for (var i = firstGeneralCaseVariadicChildCount; i < maxSupportedVariadicChildCount; i++) {
+        final childrenCount = i;
+        test('$childrenCount', () {
+          final expectedChildren = new List.generate(childrenCount, (i) => i + 1);
+          final arguments = <dynamic>[]..add(expectedChildren);
+          final instance = Function.apply(factory, arguments);
+          expect(getJsChildren(instance), expectedChildren);
         });
+      }
+
+      test('$maxSupportedVariadicChildCount (and passes static analysis)', () {
+        final instance = factory(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40);
+        // Generate these instead of hard coding them to ensure the arguments passed into this test match maxSupportedVariadicChildCount
+        final expectedChildren = new List.generate(maxSupportedVariadicChildCount, (i) => i + 1);
+        expect(getJsChildren(instance), equals(expectedChildren));
+      });
+    });
+  }
+
+  group('component base:', () {
+    group('UiProps', () {
+      group('warns and throws when rendering a DOM component', () {
+        _commonNonInvokedBuilderTests(Dom.div());
       }, testOn: '!js');
 
       group('renders a DOM component with the correct children when', () {
+        _commonVariadicChildrenTests(Dom.div());
+
         test('no children are passed in', () {
           var renderedNode = renderAndGetDom(Dom.div()());
 
@@ -124,7 +171,7 @@ main() {
           expect(childNodes[1].text, equals('Second Child'));
         });
 
-        test('children are set variadically via noSuchMethod', () {
+        test('children are set variadically', () {
           var firstChild = 'First Child';
           var secondChild = 'Second Child';
           var renderedNode = renderAndGetDom(Dom.div()(firstChild, secondChild));
@@ -137,54 +184,14 @@ main() {
       });
 
       group('warns and throws when rendering a Dart composite component', () {
-        bool warningsWereEnabled;
-        setUp(() {
-          warningsWereEnabled = ValidationUtil.WARNINGS_ENABLED;
-          ValidationUtil.WARNINGS_ENABLED = false;
-          startRecordingValidationWarnings();
-        });
-
-        tearDown(() {
-          ValidationUtil.WARNINGS_ENABLED = warningsWereEnabled;
-          stopRecordingValidationWarnings();
-        });
-
-        test('when a single non-invoked builder child is passed in', () {
-          expect(() => TestComponent()(Dom.div()), throwsArgumentError);
-          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
-        });
-
-        test('when a list with a non-invoked builder child passed in', () {
-          expect(() => TestComponent()([
-            Dom.div(),
-            Dom.p()(),
-            Dom.div()
-          ]), throwsArgumentError);
-          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
-        });
-
-        test('except when an iterable with a non-invoked builder passed in', () {
-          var children = (() sync* {
-            yield Dom.div();
-            yield Dom.p()();
-            yield Dom.div();
-          })();
-          expect(() => TestComponent()(children), returnsNormally);
-          rejectValidationWarning(anything);
-        });
-
-        test('when non-invoked builder children are passed in variadically via noSuchMethod', () {
-          expect(() => TestComponent()(
-            Dom.div(),
-            Dom.p()(),
-            Dom.div()
-          ), throwsArgumentError);
-          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
-        });
+        _commonNonInvokedBuilderTests(Dom.div());
       }, testOn: '!js');
 
       group('renders a composite Dart component with the correct children when', () {
+        _commonVariadicChildrenTests(TestComponent());
+
         test('no children are passed in', () {
+
           var renderedInstance = render(TestComponent()());
 
           expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
@@ -237,7 +244,7 @@ main() {
           expect(getJsChildren(renderedInstance), orderedEquals(children));
         });
 
-        test('children are set variadically via noSuchMethod', () {
+        test('children are set variadically', () {
           var firstChild = 'First Child';
           var secondChild = 'Second Child';
           var renderedInstance = render(TestComponent()(firstChild, secondChild));

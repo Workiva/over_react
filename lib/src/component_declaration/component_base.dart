@@ -590,34 +590,49 @@ abstract class UiProps extends Object
   ///
   /// Restricted statically to 40 arguments until the dart2js fix in
   /// <https://github.com/dart-lang/sdk/pull/26032> is released.
-  ReactElement call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
-
-  /// Supports variadic children of the form `call([child1, child2, child3...])`.
-  @override
-  dynamic noSuchMethod(Invocation invocation) {
-    if (invocation.memberName == #call && invocation.isMethod) {
-      final positionalArguments = invocation.positionalArguments;
-      assert(_validateChildren(positionalArguments.length == 1 ? positionalArguments.single : positionalArguments));
-
-      final factory = componentFactory;
-      if (factory is ReactComponentFactoryProxy) {
-        // In dart 2, invocation.positionalArguments will be a list of length
-        // equal to the number of positional arguments, with the unsupplied
-        // arguments replaced by `null`. This remove these.
-        var children = invocation.positionalArguments.where((child) => child != null).toList(growable: false);
-        // Use `build` instead of using emulated function behavior to work around DDC issue
-        // https://github.com/dart-lang/sdk/issues/29904
-        // Should have the benefit of better performance; TODO optimize type check?
-        // ignore: avoid_as
-        return factory.build(props, children);
-      } else {
-        var parameters = []
-          ..add(props)
-          ..addAll(invocation.positionalArguments);
-        return Function.apply(factory, parameters);
-      }
+  ///
+  ReactElement call([c1 = _notSpecified, c2 = _notSpecified, c3 = _notSpecified, c4 = _notSpecified, c5 = _notSpecified, c6 = _notSpecified, c7 = _notSpecified, c8 = _notSpecified, c9 = _notSpecified, c10 = _notSpecified, c11 = _notSpecified, c12 = _notSpecified, c13 = _notSpecified, c14 = _notSpecified, c15 = _notSpecified, c16 = _notSpecified, c17 = _notSpecified, c18 = _notSpecified, c19 = _notSpecified, c20 = _notSpecified, c21 = _notSpecified, c22 = _notSpecified, c23 = _notSpecified, c24 = _notSpecified, c25 = _notSpecified, c26 = _notSpecified, c27 = _notSpecified, c28 = _notSpecified, c29 = _notSpecified, c30 = _notSpecified, c31 = _notSpecified, c32 = _notSpecified, c33 = _notSpecified, c34 = _notSpecified, c35 = _notSpecified, c36 = _notSpecified, c37 = _notSpecified, c38 = _notSpecified, c39 = _notSpecified, c40 = _notSpecified]) {
+    List childArguments;
+    // Use `identical` since it compiles down to `===` in dart2js instead of calling equality helper functions,
+    // and we don't want to allow any object overriding `operator==` to claim it's equal to `_notSpecified`.
+    if (identical(c1, _notSpecified)) {
+      childArguments = [];
+    } else if (identical(c2, _notSpecified)) {
+      childArguments = [c1];
+    } else if (identical(c3, _notSpecified)) {
+      childArguments = [c1, c2];
+    } else if (identical(c4, _notSpecified)) {
+      childArguments = [c1, c2, c3];
+    } else if (identical(c5, _notSpecified)) {
+      childArguments = [c1, c2, c3, c4];
+    } else if (identical(c6, _notSpecified)) {
+      childArguments = [c1, c2, c3, c4, c5];
+    } else if (identical(c7, _notSpecified)) {
+      childArguments = [c1, c2, c3, c4, c5, c6];
+    } else {
+      childArguments = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]
+        .takeWhile((child) => !identical(child, _notSpecified))
+        .toList();
     }
 
+    assert(_validateChildren(childArguments.length == 1 ? childArguments.single : childArguments));
+
+    final factory = componentFactory;
+    if (factory is ReactComponentFactoryProxy) {
+      // Use `build` instead of using emulated function behavior to work around DDC issue
+      // https://github.com/dart-lang/sdk/issues/29904
+      // Should have the benefit of better performance; TODO optimize type check?
+      return factory.build(props, childArguments);
+    } else {
+      var parameters = []
+        ..add(props)
+        ..addAll(childArguments);
+      return Function.apply(factory, parameters);
+    }
+  }
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) {
     return super.noSuchMethod(invocation);
   }
 
@@ -834,4 +849,9 @@ class StateMeta implements AccessorMeta<StateDescriptor> {
   // @override
   // List<StateMeta> get inherited =>
   //     throw new UnimplementedError('Metadata for inherited classes is not yet implemented');
+}
+
+const _notSpecified = const NotSpecified();
+class NotSpecified {
+    const NotSpecified();
 }
