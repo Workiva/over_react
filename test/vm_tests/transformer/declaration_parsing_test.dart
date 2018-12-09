@@ -130,6 +130,7 @@ main() {
 
           expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
           expect(declarations.props.node?.name?.name, 'FooProps');
+          expect(declarations.props.companionNode, isNull);
           expect(declarations.component.node?.name?.name, 'FooComponent');
 
           expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
@@ -140,7 +141,7 @@ main() {
           expect(declarations.declaresComponent, isTrue);
         });
 
-        test('a component with builder compatible annotated private props class', () {
+        test('a component with builder-compatible dual-class props setup', () {
           setUpAndParse('''
             @Factory()    UiFactory<FooProps> Foo;
             class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {}
@@ -149,11 +150,12 @@ main() {
           ''');
 
           expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
-          expect(declarations.props.node?.name?.name, 'FooProps');
+          expect(declarations.props.node?.name?.name, '_\$FooProps');
+          expect(declarations.props.companionNode?.name?.name, 'FooProps');
           expect(declarations.component.node?.name?.name, 'FooComponent');
 
           expect(declarations.factory.meta,   const isInstanceOf<annotations.Factory>());
-          expect(declarations.props.meta,     isNull);
+          expect(declarations.props.meta,     const isInstanceOf<annotations.Props>());
           expect(declarations.component.meta, const isInstanceOf<annotations.Component>());
 
           expectEmptyDeclarations(factory: false, props: false, component: false);
@@ -170,7 +172,9 @@ main() {
 
           expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
           expect(declarations.props.node?.name?.name, 'FooProps');
+          expect(declarations.props.companionNode, isNull);
           expect(declarations.state.node?.name?.name, 'FooState');
+          expect(declarations.state.companionNode, isNull);
           expect(declarations.component.node?.name?.name, 'FooComponent');
 
           expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
@@ -182,7 +186,7 @@ main() {
           expect(declarations.declaresComponent, isTrue);
         });
 
-        test('a stateful component with builder compatible annotated private state class', () {
+        test('a stateful component with builder-compatible dual-class state setup', () {
           setUpAndParse('''
             @Factory()    UiFactory<FooProps> Foo;
             @Props()      class FooProps {}
@@ -193,12 +197,14 @@ main() {
 
           expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
           expect(declarations.props.node?.name?.name, 'FooProps');
-          expect(declarations.state.node?.name?.name, 'FooState');
+          expect(declarations.props.companionNode, isNull);
+          expect(declarations.state.node?.name?.name, '_\$FooState');
+          expect(declarations.state.companionNode?.name?.name, 'FooState');
           expect(declarations.component.node?.name?.name, 'FooComponent');
 
           expect(declarations.factory.meta,   const isInstanceOf<annotations.Factory>());
           expect(declarations.props.meta,     const isInstanceOf<annotations.Props>());
-          expect(declarations.state.meta,     isNull);
+          expect(declarations.state.meta,     const isInstanceOf<annotations.State>());
           expect(declarations.component.meta, const isInstanceOf<annotations.Component>());
 
           expectEmptyDeclarations(factory: false, props: false, state: false, component: false);
@@ -248,12 +254,26 @@ main() {
           expect(declarations.abstractProps, hasLength(2));
 
           expect(declarations.abstractProps[0].node.name.name, 'AbstractFooProps1');
+          expect(declarations.abstractProps[0].companionNode, isNull);
           expect(declarations.abstractProps[1].node.name.name, 'AbstractFooProps2');
+          expect(declarations.abstractProps[1].companionNode, isNull);
           expect(declarations.abstractProps[0].meta, new isInstanceOf<annotations.AbstractProps>());
           expect(declarations.abstractProps[1].meta, new isInstanceOf<annotations.AbstractProps>());
 
           expectEmptyDeclarations(abstractProps: false);
           expect(declarations.declaresComponent, isFalse);
+        });
+
+        test('abstract props class with builder-compatible dual-class setup', () {
+          setUpAndParse('''
+            @AbstractProps() class _\$AbstractFooProps {}
+            class AbstractFooProps {}
+          ''');
+
+          expect(declarations.abstractProps, hasLength(1));
+          expect(declarations.abstractProps[0].node?.name?.name, '_\$AbstractFooProps');
+          expect(declarations.abstractProps[0].companionNode?.name?.name, 'AbstractFooProps');
+          expect(declarations.abstractProps[0].meta, new isInstanceOf<annotations.AbstractProps>());
         });
 
         test('abstract state classes', () {
@@ -265,12 +285,26 @@ main() {
           expect(declarations.abstractState, hasLength(2));
 
           expect(declarations.abstractState[0].node.name.name, 'AbstractFooState1');
+          expect(declarations.abstractState[0].companionNode, isNull);
           expect(declarations.abstractState[1].node.name.name, 'AbstractFooState2');
+          expect(declarations.abstractState[1].companionNode, isNull);
           expect(declarations.abstractState[0].meta, new isInstanceOf<annotations.AbstractState>());
           expect(declarations.abstractState[1].meta, new isInstanceOf<annotations.AbstractState>());
 
           expectEmptyDeclarations(abstractState: false);
           expect(declarations.declaresComponent, isFalse);
+        });
+
+        test('abstract state class with builder-compatible dual-class setup', () {
+          setUpAndParse('''
+            @AbstractState() class _\$AbstractFooState {}
+            class AbstractFooState {}
+          ''');
+
+          expect(declarations.abstractState, hasLength(1));
+          expect(declarations.abstractState[0].node?.name?.name, '_\$AbstractFooState');
+          expect(declarations.abstractState[0].companionNode?.name?.name, 'AbstractFooState');
+          expect(declarations.abstractState[0].meta, new isInstanceOf<annotations.AbstractState>());
         });
 
         group('and initializes annotations with the correct arguments for', () {

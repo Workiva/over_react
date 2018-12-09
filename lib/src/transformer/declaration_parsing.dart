@@ -215,14 +215,14 @@ class ParsedDeclarations {
       stateCompanion = companionMap[state.name.name];
     }
 
-    Iterable<ClassDeclaration> pairClassWithCompanion(ClassDeclaration cd)
+    List<ClassDeclaration> pairClassWithCompanion(ClassDeclaration cd)
       => companionMap.containsKey(cd.name.name) ? [cd, companionMap[cd.name.name]] : [cd];
 
     final List<ClassDeclaration> abstractProps = declarationMap[key_abstractProps];
-    final abstractPropsPairs = abstractProps.map(pairClassWithCompanion);
+    final abstractPropsPairs = abstractProps.map(pairClassWithCompanion).toList();
 
     final List<ClassDeclaration> abstractStates = declarationMap[key_abstractState];
-    final abstractStatePairs = abstractStates.map(pairClassWithCompanion);
+    final abstractStatePairs = abstractStates.map(pairClassWithCompanion).toList();
 
     return new ParsedDeclarations._(
         factory:        singleOrNull(declarationMap[key_factory]),
