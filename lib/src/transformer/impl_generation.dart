@@ -71,7 +71,7 @@ class ImplGenerator {
     if (declarations.declaresComponent) {
       final String factoryName = declarations.factory.node.variables.variables.first.name.toString();
 
-      final String propsName = declarations.props.node.name.toString();
+      final String propsName = (declarations.props.companionNode ?? declarations.props.node).name.toString();
       final String propsImplName = '$generatedPrefix${propsName}Impl';
 
       final String componentClassName = declarations.component.node.name.toString();
@@ -90,6 +90,12 @@ class ImplGenerator {
       if (!declarations.props.node.isAbstract) {
         transformedFile.insert(
             sourceFile.location(declarations.props.node.classKeyword.offset),
+            'abstract '
+        );
+      }
+      if (declarations.props.companionNode != null && !declarations.props.companionNode.isAbstract) {
+        transformedFile.insert(
+            sourceFile.location(declarations.props.companionNode.classKeyword.offset),
             'abstract '
         );
       }
@@ -166,7 +172,7 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
       //   Props implementation
       // ----------------------------------------------------------------------
-      removeWithClauseIfNecessary(declarations.props.node, sourceFile, transformedFile);
+      removeWithClauseIfNecessary(declarations.props.companionNode, sourceFile, transformedFile);
 
       generateAccessors(AccessorType.props, declarations.props);
 
@@ -214,10 +220,10 @@ class ImplGenerator {
       //   State implementation
       // ----------------------------------------------------------------------
       if (declarations.state != null) {
-        final String stateName = declarations.state.node.name.toString();
+        final String stateName = (declarations.state.companionNode ?? declarations.state.node).name.toString();
         final String stateImplName = '$generatedPrefix${stateName}Impl';
 
-        removeWithClauseIfNecessary(declarations.state.node, sourceFile, transformedFile);
+        removeWithClauseIfNecessary(declarations.state.companionNode, sourceFile, transformedFile);
 
         generateAccessors(AccessorType.state, declarations.state);
 
@@ -361,13 +367,13 @@ class ImplGenerator {
     //   Abstract Props/State implementations
     // ----------------------------------------------------------------------
     declarations.abstractProps.forEach((abstractPropsClass) {
-      removeWithClauseIfNecessary(abstractPropsClass.node, sourceFile, transformedFile);
+      removeWithClauseIfNecessary(abstractPropsClass.companionNode, sourceFile, transformedFile);
 
       generateAccessors(AccessorType.props, abstractPropsClass);
     });
 
     declarations.abstractState.forEach((abstractStateClass) {
-      removeWithClauseIfNecessary(abstractStateClass.node, sourceFile, transformedFile);
+      removeWithClauseIfNecessary(abstractStateClass.companionNode, sourceFile, transformedFile);
 
       generateAccessors(AccessorType.state, abstractStateClass);
     });
@@ -389,9 +395,21 @@ class ImplGenerator {
 
   static const String staticConsumedPropsName = '${publicGeneratedPrefix}consumedProps';
 
+  static getCompanionNodeOrNull(NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap) {
+    if (typedMap is! NodeWithMetaAndCompanion) {
+      return null;
+    }
+    final NodeWithMetaAndCompanion<ClassDeclaration, annotations.TypedMap> typedMapWithCompanion = typedMap;
+    return typedMapWithCompanion.companionNode;
+  }
+
   static String getAccessorKeyNamespace(NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap) {
     // Default to the name of the class followed by a period.
     var defaultNamespace = typedMap.node.name.name + '.';
+    final companionNode = getCompanionNodeOrNull(typedMap);
+    if (companionNode != null) {
+      defaultNamespace = companionNode.name.name + '.';
+    }
     // Allow the consumer to specify a custom namespace that trumps the default.
     var specifiedKeyNamespace = typedMap.meta?.keyNamespace;
 
@@ -582,49 +600,77 @@ class ImplGenerator {
           }
         });
 
+    var staticConstNamespace = typedMap.node.name.name;
     var keyConstantsImpl;
+    var keyConstantsCompanionImpl;
     var constantsImpl;
+    var constantsCompanionImpl;
 
     if (keyConstants.keys.isEmpty) {
       keyConstantsImpl = '';
+      keyConstantsCompanionImpl = '';
     } else {
       keyConstantsImpl =
           'static const String ' +
           keyConstants.keys.map((keyName) => '$keyName = ${keyConstants[keyName]}').join(', ') +
           '; ';
+      keyConstantsCompanionImpl =
+          'static const String ' +
+          keyConstants.keys.map((keyName) => '$keyName = $staticConstNamespace.$keyName').join(', ') +
+          '; ';
     }
 
     if (constants.keys.isEmpty) {
       constantsImpl = '';
+      constantsCompanionImpl = '';
     } else {
       constantsImpl =
           'static const $constConstructorName ' +
           constants.keys.map((constantName) => '$constantName = ${constants[constantName]}').join(', ') +
           '; ';
+      constantsCompanionImpl =
+          'static const $constConstructorName ' +
+          constants.keys.map((constantName) => '$constantName = $staticConstNamespace.$constantName').join(', ') +
+          '; ';
     }
 
-    String keyListImpl =
+    final keyListImpl =
         'static const List<String> $keyListName = const [' +
         keyConstants.keys.join(', ') +
         ']; ';
+    final keyListCompanionImpl =
+        'static const List<String> $keyListName = $staticConstNamespace.$keyListName; ';
 
-    String listImpl =
+    final listImpl =
         'static const List<$constConstructorName> $constantListName = const [' +
         constants.keys.join(', ') +
         ']; ';
+    final listCompanionImpl =
+        'static const List<$constConstructorName> $constantListName = $staticConstNamespace.$constantListName; ';
 
-    String consumedImpl = '';
+    var consumedImpl = '';
+    var consumedCompanionImpl = '';
 
     if (isProps) {
       consumedImpl = 'static const ConsumedProps $staticConsumedPropsName = const ConsumedProps($constantListName, $keyListName); ';
+      consumedCompanionImpl = 'static const ConsumedProps $staticConsumedPropsName = $staticConstNamespace.$staticConsumedPropsName; ';
     }
 
-    String staticVariablesImpl = '    /* GENERATED CONSTANTS */ $consumedImpl$constantsImpl$listImpl$keyConstantsImpl$keyListImpl';
+    final staticVariablesImpl = '    /* GENERATED CONSTANTS */ $consumedImpl$constantsImpl$listImpl$keyConstantsImpl$keyListImpl';
+    final staticGettersCompanionImpl = '    /* GENERATED CONSTANTS */ $consumedCompanionImpl$constantsCompanionImpl$listCompanionImpl$keyConstantsCompanionImpl$keyListCompanionImpl';
 
     transformedFile.insert(
         sourceFile.location(typedMap.node.leftBracket.end),
         staticVariablesImpl
     );
+
+    final companionNode = getCompanionNodeOrNull(typedMap);
+    if (companionNode != null) {
+      transformedFile.insert(
+          sourceFile.location(companionNode.leftBracket.end),
+          staticGettersCompanionImpl
+      );
+    }
   }
 
   /// Apply a workaround for an issue where, in the DDC, abstract getter or setter overrides declared in a class clobber
@@ -698,6 +744,7 @@ enum AccessorType {props, state}
 // is preformed to identify if the class has an annotation since the public class added
 // for dart 2 builder compatibility will not be annotated.
 void removeWithClauseIfNecessary(ClassDeclaration declaration, SourceFile sourceFile, TransformedSourceFile transformedFile) {
+  if (declaration == null) return;
   if (declaration.metadata.isEmpty && declaration.withClause != null) {
     transformedFile.remove(getSpan(sourceFile, declaration.withClause));
   }

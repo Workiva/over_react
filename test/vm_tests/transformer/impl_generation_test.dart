@@ -350,8 +350,8 @@ main() {
           expect(transformedSource, contains(transformedLine));
         });
 
-        test('with builder compatible private props class', () {
-          final originalPrivateFooPropsLine = 'class _\$FooProps extends UiProps {}';
+        test('with builder-compatible dual-class props setup', () {
+          final originalPrivateFooPropsLine = 'class _\$FooProps extends UiProps {';
           final originalPublicFooPropsLine = 'class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {';
           final transformedFooPropsLine = 'class FooProps extends _\$FooProps';
           final fooPropsImplExtendsPublicClass = 'class _\$FooPropsImpl extends FooProps';
@@ -392,8 +392,8 @@ main() {
           expect(transformedSource, isNot(contains(fooPropsImplExtendsPrivateClass)));
         });
 
-        test('with builder compatible private state class', () {
-          final originalPrivateFooStateLine = 'class _\$FooState extends UiState {}';
+        test('with builder-compatible dual-class state setup', () {
+          final originalPrivateFooStateLine = 'class _\$FooState extends UiState {';
           final originalPublicFooStateLine = 'class FooState extends _\$FooState with _\$FooStateAccessorsMixin {';
           final transformedFooStateLine = 'class FooState extends _\$FooState';
           final fooStateImplExtendsPublicClass = 'class _\$FooStateImpl extends FooState';
@@ -429,7 +429,7 @@ main() {
           expect(transformedSource, isNot(contains(fooStateImplExtendsPrivateClass)));
         });
 
-        test('with builder compatible private abstract props class', () {
+        test('with builder-compatible dual-class abstract props setup', () {
           final originalPrivateClassLine = 'class _\$AbstractFooProps {';
           final originalPublicClassLine = 'class AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {';
           final transformedFooStateLine = 'class AbstractFooProps extends _\$AbstractFooProps';
@@ -465,7 +465,7 @@ main() {
           expect(transformedSource, contains(transformedFooStateLine));
         });
 
-        test('with builder compatible private abstract state class', () {
+        test('with builder-compatible dual-class abstract state setup', () {
           final originalPrivateClassLine = 'class _\$AbstractStateProps {';
           final originalPublicClassLine = 'class AbstractStateProps extends _\$AbstractStateProps with _\$AbstractStatePropsAccessorsMixin {';
           final transformedFooStateLine = 'class AbstractStateProps extends _\$AbstractStateProps';
