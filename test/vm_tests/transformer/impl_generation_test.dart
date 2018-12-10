@@ -330,40 +330,11 @@ main() {
 
         test('with Props|State with clause contain \$ prefixed and non-prefixed mixin pairs', () {
           final prefixedFooPropsMixin = 'abstract class \$FooPropsMixin {}';
-          final prefixedBarPropsMixin = 'abstract class \$BarPropsMixin {}';
           final prefixedFooStateMixin = 'abstract class \$FooStateMixin {}';
 
           preservedLineNumbersTest('''
-            @Factory()
-            UiFactory<FooProps> Foo;
-        
-            @Props()
-            class FooProps extends UiProps with FooPropsMixin,
-            // TODO: AF-#### This will be removed once the transition to Dart 2 is complete.
-            // ignore: mixin_of_non_class,undefined_class
-            \$FooPropsMixin, BarPropsMixin, \$BarPropsMixin {}
-
-            @State()
-            class FooState extends UiState with FooStateMixin,
-            // TODO: AF-#### This will be removed once the transition to Dart 2 is complete.
-            // ignore: mixin_of_non_class,undefined_class
-            \$FooStateMixin {}
-
-            @Component()  
-            class FooComponent {
-              render() => null;
-            }
-            
             @PropsMixin()
             class FooPropsMixin {
-              Map get props;
-
-              var bar;
-              var baz;
-            }
-            
-            @PropsMixin()
-            class BarPropsMixin {
               Map get props;
 
               var bar;
@@ -381,7 +352,6 @@ main() {
 
           var transformedSource = transformedFile.getTransformedText();
           expect(transformedSource, contains(prefixedFooPropsMixin));
-          expect(transformedSource, contains(prefixedBarPropsMixin));
           expect(transformedSource, contains(prefixedFooStateMixin));
         });
 
