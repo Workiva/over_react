@@ -736,16 +736,30 @@ class ImplGenerator {
 
 enum AccessorType {props, state}
 
-// The public Props|State|AbstractProps|AbstractState class signatures includes a with
-// <PropsClass>AccessorsMixin clause for dart 2 builder compatibility. But in Dart 1,
-// the transformer is able to generate the concrete accessors inline without a separate
-// mixin. For this reason, the transformer removes this with clause and then generates
-// the concrete accessors. To prevent the with clause being removed unnecessarily a check
-// is preformed to identify if the class has an annotation since the public class added
-// for dart 2 builder compatibility will not be annotated.
+/// Check if the passed in class declaration is null, if not, remove it's with clause.
+///
+/// The public Props|State|AbstractProps|AbstractState class signatures includes a with
+/// <PropsClass>AccessorsMixin clause for dart 2 builder compatibility. But in Dart 1,
+/// the transformer is able to generate the concrete accessors inline without a separate
+/// mixin. For this reason, the transformer removes the with clause from the public class
+/// signatures.
+///
+/// Builder-compatible dual class props setup example:
+///
+///     class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
+///       // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+///       static const PropsMeta meta = $metaForFooProps;
+///     }
+///
+///     @Props()
+///     class _$FooProps extends UiProps {}
+///
+/// The builder is responsible for generating the _$FooPropsAccessorsMixin found in FooProps
+/// with clause, but since the transformer can inline concrete accessors _$FooPropsAccessorsMixin
+/// is not required and needs to be removed.
 void removeWithClauseIfNecessary(ClassDeclaration declaration, SourceFile sourceFile, TransformedSourceFile transformedFile) {
   if (declaration == null) return;
-  if (declaration.metadata.isEmpty && declaration.withClause != null) {
+  else {
     transformedFile.remove(getSpan(sourceFile, declaration.withClause));
   }
 }
