@@ -57,8 +57,6 @@ class ImplGenerator {
 
   SourceFile get sourceFile => transformedFile.sourceFile;
 
-  List<String> mixinClassesToGenerate = [];
-
   static String getComponentFactoryName(String componentClassName) {
     if (componentClassName == null) {
       throw new ArgumentError.notNull(componentClassName);
@@ -167,10 +165,6 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
       //   Props implementation
       // ----------------------------------------------------------------------
-      if (declarations.props.node.withClause != null && declarations.props.node.metadata.isNotEmpty) {
-        mixinClassesToGenerate.addAll(createListOfMixinClassesToGenerate(declarations.props.node.withClause));
-      }
-
       generateAccessors(AccessorType.props, declarations.props);
 
       final String propKeyNamespace = getAccessorKeyNamespace(declarations.props);
@@ -219,10 +213,6 @@ class ImplGenerator {
       if (declarations.state != null) {
         final String stateName = declarations.state.node.name.toString();
         final String stateImplName = '$generatedPrefix${stateName}Impl';
-
-        if (declarations.state.node.withClause != null && declarations.state.node.metadata.isNotEmpty) {
-          mixinClassesToGenerate.addAll(createListOfMixinClassesToGenerate(declarations.state.node.withClause));
-        }
 
         generateAccessors(AccessorType.state, declarations.state);
 
@@ -347,11 +337,12 @@ class ImplGenerator {
         );
       }
 
-      mixinClassesToGenerate?.forEach((mixin) {
-        if (mixin.substring(1) == propMixin.node.name.name) {
-          transformedFile.insert(sourceFile.location(propMixin.node.end), '\nabstract class $mixin {}');
-        }
-      });
+      /// Generates an empty $ prefixed mixin class for each prop mixin.
+      ///
+      /// This is because with the builder compatible boilerplate, Props
+      /// and State mixin classes are renamed to include a $ prefix with the assumption that
+      /// the actual class with concrete accessor implementations will be generated.
+      transformedFile.insert(sourceFile.location(propMixin.node.end), 'abstract class \$${propMixin.node.name.name} {}');
 
       generateAccessors(AccessorType.props, propMixin);
     });
@@ -365,11 +356,12 @@ class ImplGenerator {
         );
       }
 
-      mixinClassesToGenerate?.forEach((mixin) {
-        if (mixin.substring(1) == stateMixin.node.name.name) {
-          transformedFile.insert(sourceFile.location(stateMixin.node.end), '\nabstract class $mixin {}');
-        }
-      });
+      /// Generates an empty $ prefixed mixin class for each state mixin.
+      ///
+      /// This is because with the builder compatible boilerplate, Props
+      /// and State mixin classes are renamed to include a $ prefix with the assumption that
+      /// the actual class with concrete accessor implementations will be generated.
+      transformedFile.insert(sourceFile.location(stateMixin.node.end), 'abstract class \$${stateMixin.node.name.name} {}');
 
       generateAccessors(AccessorType.state, stateMixin);
     });
@@ -702,26 +694,3 @@ class ImplGenerator {
 }
 
 enum AccessorType {props, state}
-
-/// Creates a list of Props and State mixin classes that need to be generated when a
-/// Props or State class declaration with clause contains a $ prefixed mixin as well
-/// as a non prefixed pair.
-///
-/// This is because with the builder compatible boilerplate, Props
-/// and State mixin classes are renamed to include a $ prefix with the assumption that
-/// the actual class with concrete accessor implementations will be generated.
-List<String> createListOfMixinClassesToGenerate(WithClause withClause) {
-  List<String> mixinClassesToGenerate = [];
-
-  withClause.mixinTypes.forEach((outerLoopType) {
-    if (outerLoopType.name.name.startsWith('\$')) {
-      withClause.mixinTypes.forEach((innerLoopType) {
-        if (outerLoopType.name.name.substring(1) == innerLoopType.name.name) {
-          mixinClassesToGenerate.add(outerLoopType.name.name);
-        }
-      });
-    }
-  });
-
-  return mixinClassesToGenerate;
-}
