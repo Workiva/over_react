@@ -256,6 +256,28 @@ main() {
               reason: 'should preserve existing inheritance');
         });
 
+        test('with an initialized UiFactory with \$<UiFactory>', () {
+          final originalUiFactoryLine = 'UiFactory<FooProps> Foo = \$Foo;';
+          final transformedUiFactoryLine = 'UiFactory<FooProps> Foo = ([Map backingProps]) => new _\$FooPropsImpl(backingProps);';
+
+          preservedLineNumbersTest('''
+              @Factory()
+              UiFactory<FooProps> Foo = \$Foo;
+
+              @Props()
+              class FooProps {}
+
+              @Component()
+              class FooComponent {
+                render() => null;
+              }
+            ''');
+
+          var transformedSource = transformedFile.getTransformedText();
+          expect(transformedSource, isNot(contains(originalUiFactoryLine)));
+          expect(transformedSource, contains(transformedUiFactoryLine));
+        });
+
         test('with static PropsMeta and StateMeta declaration', () {
           final originalPropsMetaLine = 'static const PropsMeta meta = \$metaForFooProps;';
           final originalStateMetaLine = 'static const StateMeta meta = \$metaForFooState;';
@@ -812,7 +834,20 @@ main() {
             $restOfComponent
           ''');
 
-          verify(logger.error('Factory variables are stubs for the generated factories, and should not have initializers.', span: any));
+          verify(logger.error('Factory variables are stubs for the generated factories, and should not have initializers'
+              ' unless initialized with \$Foo for Dart 2 builder compatibility.', span: any));
+        });
+
+        test('declared with an \$ prefixed initializer matching the factory name', () {
+          setUpAndGenerate('''
+            @Factory()
+            UiFactory<FooProps> Foo = \$Foo;
+
+            $restOfComponent
+          ''');
+
+          verifyNever(logger.error('Factory variables are stubs for the generated factories, and should not have initializers'
+              ' unless initialized with \$Foo for Dart 2 builder compatibility.', span: any));
         });
       });
 

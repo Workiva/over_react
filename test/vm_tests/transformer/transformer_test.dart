@@ -15,17 +15,79 @@
 @TestOn('vm')
 library transformer_test;
 
+import 'dart:async';
+import 'dart:io';
+
 import 'package:barback/barback.dart';
+import 'package:mockito/mockito.dart';
+import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 
 import 'package:over_react/transformer.dart';
 
 main() {
-  group('over_react transformer', () {
-    group('loads config value:', () {
-      WebSkinDartTransformer initWithConfig(Map config) =>
-          new WebSkinDartTransformer.asPlugin(new BarbackSettings(config, BarbackMode.DEBUG));
+  final Matcher isDartFile = predicate((Asset asset) => asset.id.extension == '.dart');
 
+  group('over_react transformer', () {
+    const String fakePackage = 'fake_package';
+
+    WebSkinDartTransformer initWithConfig(Map config) =>
+        new WebSkinDartTransformer.asPlugin(new BarbackSettings(config, BarbackMode.DEBUG));
+
+    test('declares the correct input assets', () {
+      expect(initWithConfig({}).isPrimary(new AssetId(fakePackage, 'web/src/demo_components/button.dart')), isTrue);
+      expect(initWithConfig({}).isPrimary(new AssetId(fakePackage, 'web/src/index.html')), isFalse);
+      expect(initWithConfig({}).isPrimary(new AssetId(fakePackage, 'dart_test.yaml')), isFalse);
+    });
+
+    test('outputs a generated part file when dart 2 boiler plate compatible part directive is found', () async {
+      final generatedPartFileContents = 'part of \'component_with_part_directive.dart\';';
+      AssetId fakeInputFileAssetId = new AssetId('testId', 'component_with_part_directive.dart');
+
+      MockAsset inputFile;
+      MockTransform mockTransform;
+
+      inputFile = new MockAsset();
+      mockTransform = new MockTransform();
+
+      when(inputFile.id).thenReturn(fakeInputFileAssetId);
+      when(mockTransform.primaryInput).thenReturn(inputFile);
+      when(inputFile.readAsString())
+          .thenReturn(new File.fromUri(Uri.parse('test/vm_tests/transformer/test_data/component_with_part_directive.dart')).readAsString());
+
+      await initWithConfig({}).apply(mockTransform);
+
+      List<Asset> fileAssets = verify(mockTransform.addOutput(captureThat(isDartFile))).captured;
+
+      expect(fileAssets.length, equals(2));
+      expect(fileAssets[0].id.toString(), equals('testId|foo.over_react.g.dart'));
+      expect(fileAssets[1].id.toString(), equals('testId|component_with_part_directive.dart'));
+      expect(await fileAssets[0].readAsString(), equals(generatedPartFileContents));
+    });
+
+    test('does not output a generated part file when dart 2 boiler plate compatible part directive is not found', () async {
+      AssetId fakeInputFileAssetId = new AssetId('testId', 'component_without_part_directive.dart');
+
+      MockAsset inputFile;
+      MockTransform mockTransform;
+
+      inputFile = new MockAsset();
+      mockTransform = new MockTransform();
+
+      when(inputFile.id).thenReturn(fakeInputFileAssetId);
+      when(mockTransform.primaryInput).thenReturn(inputFile);
+      when(inputFile.readAsString())
+          .thenReturn(new File.fromUri(Uri.parse('test/vm_tests/transformer/test_data/component_without_part_directive.dart')).readAsString());
+
+      await initWithConfig({}).apply(mockTransform);
+
+      List<Asset> fileAssets = verify(mockTransform.addOutput(captureThat(isDartFile))).captured;
+
+      expect(fileAssets.length, equals(1));
+      expect(fileAssets[0].id.toString(), equals('testId|component_without_part_directive.dart'));
+    });
+
+    group('loads config value:', () {
       group('"fixDdcAbstractAccessors"', () {
         const String configKey = 'fixDdcAbstractAccessors';
 
@@ -47,3 +109,8 @@ main() {
     });
   });
 }
+
+// Transformer Mocks
+class MockAsset extends Mock implements Asset {}
+
+class MockTransform extends Mock implements Transform {}
