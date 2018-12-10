@@ -631,11 +631,6 @@ abstract class UiProps extends Object
     }
   }
 
-  @override
-  dynamic noSuchMethod(Invocation invocation) {
-    return super.noSuchMethod(invocation);
-  }
-
   /// Validates that no [children] are instances of [UiProps], and prints a helpful message for a better debugging
   /// experience.
   bool _validateChildren(dynamic children) {
