@@ -32,6 +32,7 @@ import 'package:transformer_utils/transformer_utils.dart';
 /// * Any number of mixins: `@PropsMixin()`, `@StateMixin()`
 class ParsedDeclarations {
   factory ParsedDeclarations(CompilationUnit unit, SourceFile sourceFile, TransformLogger logger) {
+    const companionPrefix = r'_$';
     bool hasErrors = false;
 
     void error(String message, [SourceSpan span]) {
@@ -60,9 +61,9 @@ class ParsedDeclarations {
         var name = annotation.name.toString();
 
         if (name == 'Props' || name == 'State' || name == 'AbstractProps' || name == 'AbstractState') {
-          if (member is ClassDeclaration && member.name.name.startsWith('_\$')) {
+          if (member is ClassDeclaration && member.name.name.startsWith(companionPrefix)) {
             final className = member.name.name;
-            final companionName = member.name.name.substring(2);
+            final companionName = member.name.name.substring(companionPrefix.length);
             final companionClass = unit.declarations.firstWhere(
               (innerLoopMember) => innerLoopMember is ClassDeclaration && innerLoopMember.name.name == companionName,
               orElse: () => null);

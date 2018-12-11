@@ -277,7 +277,54 @@ main() {
           expect(transformedSource, isNot(contains(originalUiFactoryLine)));
           expect(transformedSource, contains(transformedUiFactoryLine));
         });
-        
+
+        test('with Props|State with clause contain \$ prefixed and non-prefixed mixin pairs', () {
+          final prefixedFooPropsMixin = 'abstract class \$FooPropsMixin {}';
+          final prefixedFooStateMixin = 'abstract class \$FooStateMixin {}';
+          final prefixedBarPropsMixin = 'abstract class \$BarPropsMixin {}';
+          final prefixedBarStateMixin = 'abstract class \$BarStateMixin {}';
+
+          preservedLineNumbersTest('''
+            @PropsMixin()
+            class FooPropsMixin {
+              Map get props;
+
+              var bar;
+              var baz;
+            }
+            
+            @PropsMixin()
+            class BarPropsMixin {
+              Map get props;
+
+              var bar;
+              var baz;
+            }
+            
+            @StateMixin() 
+            class FooStateMixin {
+              Map get state;
+
+              var bar;
+              var baz;
+            } 
+            
+            @StateMixin() 
+            class BarStateMixin {
+              Map get state;
+
+              var bar;
+              var baz;
+            } 
+          ''');
+
+          var transformedSource = transformedFile.getTransformedText();
+          expect(transformedSource, contains(prefixedFooPropsMixin));
+          expect(transformedSource, contains(prefixedFooStateMixin));
+          expect(transformedSource, contains(prefixedBarPropsMixin));
+          expect(transformedSource, contains(prefixedBarStateMixin));
+        });
+
         test('with builder-compatible dual-class props setup', () {
           final originalPrivateFooPropsLine = 'class _\$FooProps extends UiProps {';
           final originalPublicFooPropsLine = 'class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {';
@@ -296,14 +343,6 @@ main() {
            
             @Props()
             class _\$FooProps extends UiProps {}
-            
-            @AbstractProps() class AbstractFooProps {
-              var bar;
-              var baz;
-            }
-            
-            @State()
-            class FooState {}
            
             @Component()
             class FooComponent {
@@ -363,17 +402,6 @@ main() {
           final transformedFooStateLine = 'class AbstractFooProps extends _\$AbstractFooProps';
 
           preservedLineNumbersTest('''
-            @Factory()
-            UiFactory<FooProps> Foo;
-            
-            @Props()
-            class FooProps extends UiProps {}
-            
-            @Component()
-            class FooComponent {
-              render() => null;
-            }
-          
             class AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {
               // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
               static const PropsMeta meta = \$metaForAbstractFooProps;
@@ -394,29 +422,18 @@ main() {
         });
 
         test('with builder-compatible dual-class abstract state setup', () {
-          final originalPrivateClassLine = 'class _\$AbstractStateProps {';
-          final originalPublicClassLine = 'class AbstractStateProps extends _\$AbstractStateProps with _\$AbstractStatePropsAccessorsMixin {';
-          final transformedFooStateLine = 'class AbstractStateProps extends _\$AbstractStateProps';
+          final originalPrivateClassLine = 'class _\$AbstractFooState {';
+          final originalPublicClassLine = 'class AbstractFooState extends _\$AbstractFooState with _\$AbstractFooStateAccessorsMixin {';
+          final transformedFooStateLine = 'class AbstractFooState extends _\$AbstractFooState';
 
           preservedLineNumbersTest('''
-            @Factory()
-            UiFactory<FooProps> Foo;
-            
-            @Props()
-            class FooProps extends UiProps {}
-            
-            @Component()
-            class FooComponent {
-              render() => null;
-            }
-            
-            class AbstractStateProps extends _\$AbstractStateProps with _\$AbstractFooStateAccessorsMixin {
+            class AbstractFooState extends _\$AbstractFooState with _\$AbstractFooStateAccessorsMixin {
               // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-              static const StateMeta meta = \$metaForAbstractStateProps;
+              static const StateMeta meta = \$metaForAbstractFooState;
             }
               
             @AbstractState() 
-            class _\$AbstractStateProps {
+            class _\$AbstractFooState {
               var bar;
               var baz;
             }

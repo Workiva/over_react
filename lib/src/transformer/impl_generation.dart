@@ -343,6 +343,13 @@ class ImplGenerator {
 
       final accessorOutput = generateAccessors(AccessorType.props, propMixin);
       implementations.writeln(accessorOutput.implementations);
+      
+      /// Generates an empty $ prefixed mixin class for each prop mixin.
+      ///
+      /// This is because with the builder compatible boilerplate, Props
+      /// and State mixin classes are renamed to include a $ prefix with the assumption that
+      /// the actual class with concrete accessor implementations will be generated.
+      transformedFile.insert(sourceFile.location(propMixin.node.end), 'abstract class \$${propMixin.node.name.name} {}');
     });
 
     declarations.stateMixins.forEach((stateMixin) {
@@ -356,6 +363,13 @@ class ImplGenerator {
 
       final accessorOutput = generateAccessors(AccessorType.state, stateMixin);
       implementations.writeln(accessorOutput.implementations);
+
+      /// Generates an empty $ prefixed mixin class for each state mixin.
+      ///
+      /// This is because with the builder compatible boilerplate, Props
+      /// and State mixin classes are renamed to include a $ prefix with the assumption that
+      /// the actual class with concrete accessor implementations will be generated.
+      transformedFile.insert(sourceFile.location(stateMixin.node.end), 'abstract class \$${stateMixin.node.name.name} {}');
     });
 
     // ----------------------------------------------------------------------
@@ -750,16 +764,28 @@ class AccessorOutput {
    AccessorOutput(this.implementations);
 }
 
-// The public Props|State|AbstractProps|AbstractState class signatures includes a with
-// <PropsClass>AccessorsMixin clause for dart 2 builder compatibility. But in Dart 1,
-// the transformer is able to generate the concrete accessors inline without a separate
-// mixin. For this reason, the transformer removes this with clause and then generates
-// the concrete accessors. To prevent the with clause being removed unnecessarily a check
-// is preformed to identify if the class has an annotation since the public class added
-// for dart 2 builder compatibility will not be annotated.
+/// Check if the passed in class declaration is null, if not, remove its with clause.
+///
+/// The public Props|State|AbstractProps|AbstractState class signatures includes a with
+/// <Class>AccessorsMixin clause for dart 2 builder compatibility. But in Dart 1,
+/// the transformer is able to generate the concrete accessors inline without a separate
+/// mixin. For this reason, the transformer removes the with clause from the public class
+/// signatures.
+///
+/// Builder-compatible dual class props setup example:
+///
+///     class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
+///       // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+///       static const PropsMeta meta = $metaForFooProps;
+///     }
+///
+///     @Props()
+///     class _$FooProps extends UiProps {}
+///
+/// The builder is responsible for generating the _$FooPropsAccessorsMixin found in FooProps
+/// with clause, but since the transformer can inline concrete accessors _$FooPropsAccessorsMixin
+/// is not required and needs to be removed.
 void removeWithClauseIfNecessary(ClassDeclaration declaration, SourceFile sourceFile, TransformedSourceFile transformedFile) {
   if (declaration == null) return;
-  if (declaration.metadata.isEmpty && declaration.withClause != null) {
-    transformedFile.remove(getSpan(sourceFile, declaration.withClause));
-  }
+  transformedFile.remove(getSpan(sourceFile, declaration.withClause));
 }
