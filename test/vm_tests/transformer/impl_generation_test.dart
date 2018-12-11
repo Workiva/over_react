@@ -350,6 +350,53 @@ main() {
           expect(transformedSource, contains(transformedLine));
         });
 
+        test('with Props|State with clause contain \$ prefixed and non-prefixed mixin pairs', () {
+          final prefixedFooPropsMixin = 'abstract class \$FooPropsMixin {}';
+          final prefixedFooStateMixin = 'abstract class \$FooStateMixin {}';
+          final prefixedBarPropsMixin = 'abstract class \$BarPropsMixin {}';
+          final prefixedBarStateMixin = 'abstract class \$BarStateMixin {}';
+
+          preservedLineNumbersTest('''
+            @PropsMixin()
+            class FooPropsMixin {
+              Map get props;
+
+              var bar;
+              var baz;
+            }
+            
+            @PropsMixin()
+            class BarPropsMixin {
+              Map get props;
+
+              var bar;
+              var baz;
+            }
+            
+            @StateMixin() 
+            class FooStateMixin {
+              Map get state;
+
+              var bar;
+              var baz;
+            } 
+            
+            @StateMixin() 
+            class BarStateMixin {
+              Map get state;
+
+              var bar;
+              var baz;
+            } 
+          ''');
+
+          var transformedSource = transformedFile.getTransformedText();
+          expect(transformedSource, contains(prefixedFooPropsMixin));
+          expect(transformedSource, contains(prefixedFooStateMixin));
+          expect(transformedSource, contains(prefixedBarPropsMixin));
+          expect(transformedSource, contains(prefixedBarStateMixin));
+        });
+
         test('with builder-compatible dual-class props setup', () {
           final originalPrivateFooPropsLine = 'class _\$FooProps extends UiProps {';
           final originalPublicFooPropsLine = 'class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {';

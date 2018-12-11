@@ -348,6 +348,13 @@ class ImplGenerator {
         );
       }
 
+      /// Generates an empty $ prefixed mixin class for each prop mixin.
+      ///
+      /// This is because with the builder compatible boilerplate, Props
+      /// and State mixin classes are renamed to include a $ prefix with the assumption that
+      /// the actual class with concrete accessor implementations will be generated.
+      transformedFile.insert(sourceFile.location(propMixin.node.end), 'abstract class \$${propMixin.node.name.name} {}');
+
       generateAccessors(AccessorType.props, propMixin);
     });
 
@@ -359,6 +366,13 @@ class ImplGenerator {
             span: getSpan(sourceFile, stateMixin.node)
         );
       }
+
+      /// Generates an empty $ prefixed mixin class for each state mixin.
+      ///
+      /// This is because with the builder compatible boilerplate, Props
+      /// and State mixin classes are renamed to include a $ prefix with the assumption that
+      /// the actual class with concrete accessor implementations will be generated.
+      transformedFile.insert(sourceFile.location(stateMixin.node.end), 'abstract class \$${stateMixin.node.name.name} {}');
 
       generateAccessors(AccessorType.state, stateMixin);
     });
