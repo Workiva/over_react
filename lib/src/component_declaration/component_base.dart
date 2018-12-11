@@ -888,7 +888,7 @@ class PropsMeta implements ConsumedProps, AccessorMeta<PropDescriptor> {
 /// What the metadata looks like:
 ///     main() {
 ///       print(FooState.meta.keys); // [FooState.foo, custom_namespace.custom_key]
-///       print(FooState.meta.fields.map((p) => p.key); // [FooState.foo, custom_namespace.custom_key]
+///       print(FooState.meta.fields.map((s) => s.key); // [FooState.foo, custom_namespace.custom_key]
 ///     }
 class StateMeta implements AccessorMeta<StateDescriptor> {
   /// Rich views of state field declarations.
@@ -897,7 +897,7 @@ class StateMeta implements AccessorMeta<StateDescriptor> {
   @override
   final List<StateDescriptor> fields;
 
-  /// Top-level accessor of string keys of props stored in [fields].
+  /// Top-level accessor of string keys of state stored in [fields].
   @override
   final List<String> keys;
 
