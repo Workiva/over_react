@@ -415,14 +415,6 @@ main() {
            
             @Props()
             class _\$FooProps extends UiProps {}
-            
-            @AbstractProps() class AbstractFooProps {
-              var bar;
-              var baz;
-            }
-            
-            @State()
-            class FooState {}
            
             @Component()
             class FooComponent {
@@ -482,20 +474,9 @@ main() {
           final transformedFooStateLine = 'class AbstractFooProps extends _\$AbstractFooProps';
 
           preservedLineNumbersTest('''
-            @Factory()
-            UiFactory<FooProps> Foo;
-            
-            @Props()
-            class FooProps extends UiProps {}
-            
-            @Component()
-            class FooComponent {
-              render() => null;
-            }
-          
             class AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {
               // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-              static const AbstractFooPropsMeta meta = \$metaForAbstractFooProps;
+              static const PropsMeta meta = \$metaForAbstractFooProps;
             }
             
             @AbstractProps() 
@@ -518,20 +499,9 @@ main() {
           final transformedFooStateLine = 'class AbstractStateProps extends _\$AbstractStateProps';
 
           preservedLineNumbersTest('''
-            @Factory()
-            UiFactory<FooProps> Foo;
-            
-            @Props()
-            class FooProps extends UiProps {}
-            
-            @Component()
-            class FooComponent {
-              render() => null;
-            }
-            
             class AbstractStateProps extends _\$AbstractStateProps with _\$AbstractFooStateAccessorsMixin {
               // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-              static const AbstractFooStateMeta meta = \$metaForAbstractStateProps;
+              static const StateMeta meta = \$metaForAbstractFooState;
             }
               
             @AbstractState() 
