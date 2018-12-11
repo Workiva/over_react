@@ -397,6 +397,127 @@ main() {
           expect(transformedSource, contains(prefixedBarStateMixin));
         });
 
+        test('with builder-compatible dual-class props setup', () {
+          final originalPrivateFooPropsLine = 'class _\$FooProps extends UiProps {';
+          final originalPublicFooPropsLine = 'class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {';
+          final transformedFooPropsLine = 'class FooProps extends _\$FooProps';
+          final fooPropsImplExtendsPublicClass = 'class _\$FooPropsImpl extends FooProps';
+          final fooPropsImplExtendsPrivateClass = 'class _\$FooPropsImpl extends _\$FooProps';
+
+          preservedLineNumbersTest('''
+            @Factory()
+            UiFactory<FooProps> Foo;
+        
+            class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {
+              // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+              static const PropsMeta meta = \$metaForFooProps;
+            }
+           
+            @Props()
+            class _\$FooProps extends UiProps {}
+           
+            @Component()
+            class FooComponent {
+              render() => null;
+            }
+          '''
+          );
+
+          var transformedSource = transformedFile.getTransformedText();
+          expect(transformedSource, contains(originalPrivateFooPropsLine));
+          expect(transformedSource, isNot(contains(originalPublicFooPropsLine)));
+          expect(transformedSource, contains(transformedFooPropsLine));
+          expect(transformedSource, contains(fooPropsImplExtendsPublicClass));
+          expect(transformedSource, isNot(contains(fooPropsImplExtendsPrivateClass)));
+        });
+
+        test('with builder-compatible dual-class state setup', () {
+          final originalPrivateFooStateLine = 'class _\$FooState extends UiState {';
+          final originalPublicFooStateLine = 'class FooState extends _\$FooState with _\$FooStateAccessorsMixin {';
+          final transformedFooStateLine = 'class FooState extends _\$FooState';
+          final fooStateImplExtendsPublicClass = 'class _\$FooStateImpl extends FooState';
+          final fooStateImplExtendsPrivateClass = 'class _\$FooStateImpl extends _\$FooState';
+
+          preservedLineNumbersTest('''
+            @Factory()
+            UiFactory<FooProps> Foo;
+        
+            class FooState extends _\$FooState with _\$FooStateAccessorsMixin {
+              // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+              static const StateMeta meta = \$metaForFooState;
+            }
+           
+            @Props()
+            class FooProps extends UiProps {}
+           
+            @State()
+            class _\$FooState extends UiState {}
+           
+            @Component()
+            class FooComponent {
+              render() => null;
+            }
+          '''
+          );
+
+          var transformedSource = transformedFile.getTransformedText();
+          expect(transformedSource, contains(originalPrivateFooStateLine));
+          expect(transformedSource, isNot(contains(originalPublicFooStateLine)));
+          expect(transformedSource, contains(transformedFooStateLine));
+          expect(transformedSource, contains(fooStateImplExtendsPublicClass));
+          expect(transformedSource, isNot(contains(fooStateImplExtendsPrivateClass)));
+        });
+
+        test('with builder-compatible dual-class abstract props setup', () {
+          final originalPrivateClassLine = 'class _\$AbstractFooProps {';
+          final originalPublicClassLine = 'class AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {';
+          final transformedFooStateLine = 'class AbstractFooProps extends _\$AbstractFooProps';
+
+          preservedLineNumbersTest('''
+            class AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {
+              // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+              static const PropsMeta meta = \$metaForAbstractFooProps;
+            }
+            
+            @AbstractProps() 
+            class _\$AbstractFooProps {
+              var bar;
+              var baz;
+            }
+          '''
+          );
+
+          var transformedSource = transformedFile.getTransformedText();
+          expect(transformedSource, contains(originalPrivateClassLine));
+          expect(transformedSource, isNot(contains(originalPublicClassLine)));
+          expect(transformedSource, contains(transformedFooStateLine));
+        });
+
+        test('with builder-compatible dual-class abstract state setup', () {
+          final originalPrivateClassLine = 'class _\$AbstractStateProps {';
+          final originalPublicClassLine = 'class AbstractStateProps extends _\$AbstractStateProps with _\$AbstractStatePropsAccessorsMixin {';
+          final transformedFooStateLine = 'class AbstractStateProps extends _\$AbstractStateProps';
+
+          preservedLineNumbersTest('''
+            class AbstractStateProps extends _\$AbstractStateProps with _\$AbstractFooStateAccessorsMixin {
+              // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+              static const StateMeta meta = \$metaForAbstractFooState;
+            }
+              
+            @AbstractState() 
+            class _\$AbstractStateProps {
+              var bar;
+              var baz;
+            }
+          '''
+          );
+
+          var transformedSource = transformedFile.getTransformedText();
+          expect(transformedSource, contains(originalPrivateClassLine));
+          expect(transformedSource, isNot(contains(originalPublicClassLine)));
+          expect(transformedSource, contains(transformedFooStateLine));
+        });
+
         group('that subtypes another component, referencing the component class via', () {
           test('a simple identifier', () {
             preservedLineNumbersTest('''
