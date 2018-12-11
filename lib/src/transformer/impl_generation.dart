@@ -736,10 +736,10 @@ class ImplGenerator {
 
 enum AccessorType {props, state}
 
-/// Check if the passed in class declaration is null, if not, remove it's with clause.
+/// Check if the passed in class declaration is null, if not, remove its with clause.
 ///
 /// The public Props|State|AbstractProps|AbstractState class signatures includes a with
-/// <PropsClass>AccessorsMixin clause for dart 2 builder compatibility. But in Dart 1,
+/// <Class>AccessorsMixin clause for dart 2 builder compatibility. But in Dart 1,
 /// the transformer is able to generate the concrete accessors inline without a separate
 /// mixin. For this reason, the transformer removes the with clause from the public class
 /// signatures.
@@ -759,7 +759,5 @@ enum AccessorType {props, state}
 /// is not required and needs to be removed.
 void removeWithClauseIfNecessary(ClassDeclaration declaration, SourceFile sourceFile, TransformedSourceFile transformedFile) {
   if (declaration == null) return;
-  else {
-    transformedFile.remove(getSpan(sourceFile, declaration.withClause));
-  }
+  transformedFile.remove(getSpan(sourceFile, declaration.withClause));
 }
