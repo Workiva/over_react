@@ -4,7 +4,7 @@ builders:
     builder_factories: ["overReactBuilder"]
     build_extensions: {".dart" : [".over_react.g.dart"]}
     auto_apply: all_packages 
-    build_to: source 
+    build_to: cache 
 
 targets:
   $default:
