@@ -19,9 +19,7 @@ import 'package:logging/logging.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/builder/generation/declaration_parsing.dart';
 import 'package:source_span/source_span.dart';
-import 'package:builder_utils/src/text_util.dart' show stringLiteral;
-import 'package:builder_utils/src/build_utils.dart' show getSpan;
-import 'package:builder_utils/builder_utils.dart';
+import 'package:transformer_utils/transformer_utils.dart';
 
 /// A utility class that modifies a [TransformedSourceFile] by generating implementations for a set of [ParsedDeclarations].
 ///
