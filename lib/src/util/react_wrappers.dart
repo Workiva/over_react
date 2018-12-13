@@ -86,11 +86,12 @@ Map _dartifyJsMap(jsMap) {
 ///
 /// If `style` is specified in props, then it too is shallow-converted and included
 /// in the returned Map.
+/// TODO: Move this to react-dart as part of 2.0.0 transition and reexport it from over_react
 Map getJsProps(/* ReactElement|ReactComponent */ instance) {
   var props = _dartifyJsMap(instance.props);
-  eventPropKeyToEventFactory.keys.forEach((key) {
-    props[key] = unconvertJsEventHandler(props[key]);
-  });
+//  eventPropKeyToEventFactory.keys.forEach((key) {
+//    props[key] = unconvertJsEventHandler(props[key]);
+//  });
 
   // Convert the nested style map so it can be read by Dart code.
   var style = props['style'];
