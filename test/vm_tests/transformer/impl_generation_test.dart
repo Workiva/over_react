@@ -985,43 +985,6 @@ main() {
         uiPropsCall = uiPropsClass.members
             .singleWhere((entity) => entity is MethodDeclaration && entity.name?.name == 'call');
       });
-
-      test('generates `call` override on the _\$*PropsImpl class correctly, as a workaround for dart-lang/sdk#16030', () {
-        setUpAndGenerate('''
-          @Factory()
-          UiFactory<FooProps> Foo;
-
-          @Props()
-          class FooProps {}
-
-          @Component()
-          class FooComponent {
-            render() => null;
-          }
-        ''');
-
-        var transformedSource = transformedFile.getTransformedText();
-        var parsedTransformedSource = parseCompilationUnit(transformedSource);
-
-        ClassDeclaration propsImplClass = parsedTransformedSource.declarations
-            .singleWhere((entity) => entity is ClassDeclaration && entity.name?.name == r'_$FooPropsImpl');
-
-        MethodDeclaration propsImplCall = propsImplClass.members
-            .singleWhere((entity) => entity is MethodDeclaration && entity.name?.name == 'call');
-
-        var generatedParameterList = uiPropsCall.parameters.parameters.expand((param) => [param.identifier.name]);
-        var expectedParameterList = uiPropsCall.parameters.parameters.expand((param) => [param.identifier.name]);
-
-        expect(generatedParameterList.toString(), expectedParameterList.toString(),
-            reason: 'should have the correct number of arguments');
-        expect(propsImplCall.metadata, contains(predicate((meta) => meta.name?.name == 'override')),
-            reason: 'should have @override');
-        expect(propsImplCall.returnType, null,
-            reason: 'should not be typed, since ReactElement may not be imported');
-        expect(propsImplCall.isAbstract, isTrue,
-            reason: 'should be abstract; the declaration is only for dart2js bug workaround purposes, '
-                'and the inherited implementation should be used');
-      });
     });
 
     test('getComponentFactoryName() throws an error when its argument is null', () {
