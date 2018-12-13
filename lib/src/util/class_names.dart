@@ -20,7 +20,7 @@ import 'dart:collection';
 import 'package:over_react/over_react.dart' show
     // Must import these consts because they are used in the transformed code.
     PropDescriptor, ConsumedProps, // ignore: unused_shown_name
-    UiComponent, UiProps;
+    PropsMeta, UiComponent, UiProps;
 import 'package:over_react/src/component_declaration/annotations.dart';
 
 /// Typed getters/setters for props related to CSS class manipulation.

@@ -17,8 +17,8 @@ library over_react.aria_mixin;
 import 'dart:collection';
 
 // Must import these consts because they are used in the transformed code.
-// ignore: unused_import
-import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps;
+// ignore: unused_shown_name
+import 'package:over_react/over_react.dart' show PropDescriptor, PropsMeta, ConsumedProps;
 import 'package:over_react/src/component_declaration/annotations.dart';
 
 /// Typed getters/setters for accessibility props.

@@ -133,6 +133,14 @@ class ParsedDeclarations {
       declarationMap[annotationName] = classesOnly(annotationName, declarationMap[annotationName]);
     });
 
+    ClassDeclaration props;
+    ClassDeclaration propsCompanion;
+    ClassDeclaration state;
+    ClassDeclaration stateCompanion;
+    List<List<ClassDeclaration>> abstractPropsPairs;
+    List<List<ClassDeclaration>> abstractStatePairs;
+    List<ClassDeclaration> propsMixins;
+    List<ClassDeclaration> stateMixins;
 
     // Validate that all the declarations that make up a component are used correctly.
 
@@ -173,8 +181,6 @@ class ParsedDeclarations {
               );
             }
           }
-
-          declarationMap[annotationName] = [];
         });
       }
 
@@ -199,31 +205,87 @@ class ParsedDeclarations {
               getSpan(sourceFile, declarations.first)
           );
         }
-
-        declarationMap[annotationName] = [];
       });
+    } else {
+      void validateMetaField(ClassDeclaration cd, String expectedType) {
+        bool isPropsOrStateMeta(ClassMember member) {
+          if (member is! FieldDeclaration) return false;
+          final FieldDeclaration fd = member;
+          if (!fd.isStatic) return false;
+          if (fd.fields.variables.length > 1) return false;
+          if (fd.fields.variables.single.name.name != 'meta') return false;
+          return true;
+        }
+        final FieldDeclaration metaField = cd.members.firstWhere(isPropsOrStateMeta, orElse: () => null);
+        if (metaField == null) return;
+
+        if (metaField.fields.type?.toSource() != expectedType) {
+          error(
+              'Static meta field in accessor class must be of type `$expectedType`',
+              getSpan(sourceFile, metaField),
+          );
+        }
+        final initializer = metaField.fields.variables.single.initializer.toSource();
+        final targetClass = initializer.replaceFirst('\$metaFor', '');
+        if (!initializer.startsWith('\$metaFor') || targetClass != cd.name.name) {
+          error(
+              'Static $expectedType field in accessor class must be initialized to '
+              '`\$metaFor${cd.name.name}`',
+              getSpan(sourceFile, metaField),
+          );
+        }
+      }
+
+      props = singleOrNull(declarationMap[key_props]);
+      if (props != null && companionMap.containsKey(props.name.name)) {
+        propsCompanion = companionMap[props.name.name];
+        validateMetaField(propsCompanion, 'PropsMeta');
+      }
+
+      state = singleOrNull(declarationMap[key_state]);
+      if (state != null && companionMap.containsKey(state.name.name)) {
+        stateCompanion = companionMap[state.name.name];
+        validateMetaField(stateCompanion, 'StateMeta');
+      }
+
+      List<ClassDeclaration> pairClassWithCompanion(ClassDeclaration cd, String expectedType) {
+        if (companionMap.containsKey(cd.name.name)) {
+          validateMetaField(companionMap[cd.name.name], expectedType);
+          return [cd, companionMap[cd.name.name]];
+        }
+        return [cd];
+      }
+
+      List<ClassDeclaration> abstractProps = declarationMap[key_abstractProps];
+      abstractPropsPairs = abstractProps.map((cd) => pairClassWithCompanion(cd, 'PropsMeta')).toList();
+
+      List<ClassDeclaration> abstractStates = declarationMap[key_abstractState];
+      abstractStatePairs = abstractStates.map((cd) => pairClassWithCompanion(cd, 'StateMeta')).toList();
+
+      propsMixins = declarationMap[key_propsMixin];
+      for (final propsMixin in propsMixins) {
+        validateMetaField(propsMixin, 'PropsMeta');
+      }
+
+      stateMixins = declarationMap[key_stateMixin];
+      for (final stateMixin in stateMixins) {
+        validateMetaField(stateMixin, 'StateMeta');
+      }
     }
 
-    final ClassDeclaration props = singleOrNull(declarationMap[key_props]);
-    var propsCompanion;
-    if (props != null && companionMap.containsKey(props.name.name)) {
-      propsCompanion = companionMap[props.name.name];
+    if (hasErrors) {
+      for (final key in declarationMap.keys) {
+        declarationMap[key] = [];
+      }
+      props = null;
+      propsCompanion = null;
+      state = null;
+      stateCompanion = null;
+      abstractPropsPairs = [];
+      abstractStatePairs = [];
+      propsMixins = [];
+      stateMixins = [];
     }
-
-    final ClassDeclaration state = singleOrNull(declarationMap[key_state]);
-    var stateCompanion;
-    if (state != null && companionMap.containsKey(state.name.name)) {
-      stateCompanion = companionMap[state.name.name];
-    }
-
-    List<ClassDeclaration> pairClassWithCompanion(ClassDeclaration cd)
-      => companionMap.containsKey(cd.name.name) ? [cd, companionMap[cd.name.name]] : [cd];
-
-    final List<ClassDeclaration> abstractProps = declarationMap[key_abstractProps];
-    final abstractPropsPairs = abstractProps.map(pairClassWithCompanion).toList();
-
-    final List<ClassDeclaration> abstractStates = declarationMap[key_abstractState];
-    final abstractStatePairs = abstractStates.map(pairClassWithCompanion).toList();
 
     return new ParsedDeclarations._(
         factory:        singleOrNull(declarationMap[key_factory]),
@@ -236,8 +298,8 @@ class ParsedDeclarations {
         abstractProps:  abstractPropsPairs,
         abstractState:  abstractStatePairs,
 
-        propsMixins:    declarationMap[key_propsMixin],
-        stateMixins:    declarationMap[key_stateMixin],
+        propsMixins:    propsMixins,
+        stateMixins:    stateMixins,
 
         hasErrors: hasErrors
     );

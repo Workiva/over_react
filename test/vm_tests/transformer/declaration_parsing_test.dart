@@ -363,11 +363,13 @@ main() {
       });
 
       group('and logs a hard error when', () {
-        const String factorySrc   = '\n@Factory()\nUiFactory<FooProps> Foo;\n';
-        const String propsSrc     = '\n@Props()\nclass FooProps {}\n';
-        const String componentSrc = '\n@Component()\nclass FooComponent {}\n';
+        const String factorySrc      = '\n@Factory()\nUiFactory<FooProps> Foo;\n';
+        const String propsSrc        = '\n@Props()\nclass FooProps {}\n';
+        const String privatePropsSrc = '\n@Props()\nclass _\$FooProps {}\n';
+        const String componentSrc    = '\n@Component()\nclass FooComponent {}\n';
 
-        const String stateSrc     = '\n@State()\nclass FooState {}\n';
+        const String stateSrc        = '\n@State()\nclass FooState {}\n';
+        const String privateStateSrc = '\n@State()\nclass _\$FooState {}\n';
 
         tearDown(() {
           expect(declarations.hasErrors, isTrue, reason: 'Declarations with errors should always set `hasErrors` to true.');
@@ -492,6 +494,132 @@ main() {
           test('@StateMixin on a non-class', () {
             setUpAndParse('@StateMixin() var notAClass;');
             verify(logger.error('`@StateMixin` can only be used on classes.', span: any));
+          });
+        });
+
+        group('a static meta field', () {
+          group('for a props class', () {
+            test('has the wrong type', () {
+              setUpAndParse(factorySrc + privatePropsSrc + componentSrc + '''
+                class FooProps {
+                  static const StateMeta meta = \$metaForFooProps;
+                }
+              ''');
+              verify(logger.error('Static meta field in accessor class must be of type `PropsMeta`', span: any));
+            });
+
+            test('is initialized incorrectly', () {
+              setUpAndParse(factorySrc + privatePropsSrc + componentSrc + '''
+                class FooProps {
+                  static const PropsMeta meta = \$metaForBarProps;
+                }
+              ''');
+              verify(logger.error('Static PropsMeta field in accessor class must be initialized to `\$metaForFooProps`', span: any));
+            });
+          });
+
+          group('for a state class', () {
+            test('has the wrong type', () {
+              setUpAndParse(factorySrc + propsSrc + privateStateSrc + componentSrc + '''
+                class FooState {
+                  static const PropsMeta meta = \$metaForFooState;
+                }
+              ''');
+              verify(logger.error('Static meta field in accessor class must be of type `StateMeta`', span: any));
+            });
+
+            test('is initialized incorrectly', () {
+              setUpAndParse(factorySrc + propsSrc + privateStateSrc + componentSrc + '''
+                class FooState {
+                  static const StateMeta meta = \$metaForBarState;
+                }
+              ''');
+              verify(logger.error('Static StateMeta field in accessor class must be initialized to `\$metaForFooState`', span: any));
+            });
+          });
+
+          group('for an abstract props class', () {
+            test('has the wrong type', () {
+              setUpAndParse('''
+                @AbstractProps() abstract class _\$AbstractFooProps {}
+                abstract class AbstractFooProps {
+                  static const StateMeta meta = \$metaForAbstractFooProps;
+                }
+              ''');
+              verify(logger.error('Static meta field in accessor class must be of type `PropsMeta`', span: any));
+            });
+
+            test('is initialized incorrectly', () {
+              setUpAndParse('''
+                @AbstractProps() abstract class _\$AbstractFooProps {}
+                abstract class AbstractFooProps {
+                  static const PropsMeta meta = \$metaForAbstractBarProps;
+                }
+              ''');
+              verify(logger.error('Static PropsMeta field in accessor class must be initialized to `\$metaForAbstractFooProps`', span: any));
+            });
+          });
+
+          group('for an abstract state class', () {
+            test('has the wrong type', () {
+              setUpAndParse('''
+                @AbstractState() abstract class _\$AbstractFooState {}
+                abstract class AbstractFooState {
+                  static const PropsMeta meta = \$metaForAbstractFooState;
+                }
+              ''');
+              verify(logger.error('Static meta field in accessor class must be of type `StateMeta`', span: any));
+            });
+
+            test('is initialized incorrectly', () {
+              setUpAndParse('''
+                @AbstractState() abstract class _\$AbstractFooState {}
+                abstract class AbstractFooState {
+                  static const StateMeta meta = \$metaForAbstractBarState;
+                }
+              ''');
+              verify(logger.error('Static StateMeta field in accessor class must be initialized to `\$metaForAbstractFooState`', span: any));
+            });
+          });
+
+          group('for a props mixin', () {
+            test('has the wrong type', () {
+              setUpAndParse('''
+                @PropsMixin() abstract class FooPropsMixin {
+                  static const StateMeta meta = \$metaForFooPropsMixin;
+                }
+              ''');
+              verify(logger.error('Static meta field in accessor class must be of type `PropsMeta`', span: any));
+            });
+
+            test('is initialized incorrectly', () {
+              setUpAndParse('''
+                @PropsMixin() abstract class FooPropsMixin {
+                  static const PropsMeta meta = \$metaForBarPropsMixin;
+                }
+              ''');
+              verify(logger.error('Static PropsMeta field in accessor class must be initialized to `\$metaForFooPropsMixin`', span: any));
+            });
+          });
+
+          group('for a state mixin', () {
+            test('has the wrong type', () {
+              setUpAndParse('''
+                @StateMixin() abstract class FooStateMixin {
+                  static const PropsMeta meta = \$metaForFooStateMixin;
+                }
+              ''');
+              verify(logger.error('Static meta field in accessor class must be of type `StateMeta`', span: any));
+            });
+
+            test('is initialized incorrectly', () {
+              setUpAndParse('''
+                @StateMixin() abstract class FooStateMixin {
+                  static const StateMeta meta = \$metaForBarStateMixin;
+                }
+              ''');
+              verify(logger.error('Static StateMeta field in accessor class must be initialized to `\$metaForFooStateMixin`', span: any));
+            });
           });
         });
       });
