@@ -8,6 +8,7 @@ import 'package:dart_dev/util.dart' show copyDirectory;
 import 'package:test/test.dart';
 
 const String strongModeProject = 'test_fixtures/strong_mode';
+const String strongModeDart2Project = 'test_fixtures/strong_mode_dart2';
 
 /// Runs the dart analzyer task for the given project.
 Future<ProcessResult> analyzeProject(String projectPath) async {
@@ -56,6 +57,17 @@ main() {
   group('OverReact strong mode compliance:', () {
     test('generates strong mode compliant code', () async {
       var testProject = copyProject(strongModeProject);
+
+      new File('$testProject/pubspec.yaml').writeAsStringSync(getPubspec());
+
+      expect(await Process.run('pub', ['get'], workingDirectory: testProject), succeeded);
+      expect(await Process.run('pub', ['build', '--mode="debug"'], workingDirectory: testProject), succeeded);
+
+      expect(await analyzeProject('$testProject/build/web'), succeeded);
+    });
+
+    test('generates strong mode compliant code with dart2-compatible boilerplate', () async {
+      var testProject = copyProject(strongModeDart2Project);
 
       new File('$testProject/pubspec.yaml').writeAsStringSync(getPubspec());
 

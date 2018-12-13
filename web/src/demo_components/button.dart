@@ -5,10 +5,11 @@ part of over_react.web.demo_components;
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/list-group/>
 @Factory()
-UiFactory<ButtonProps> Button;
+// ignore: undefined_identifier
+UiFactory<ButtonProps> Button = $Button;
 
 @Props()
-class ButtonProps extends UiProps {
+class _$ButtonProps extends UiProps {
   /// The skin / "context" for the [Button].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#examples>.
@@ -72,7 +73,7 @@ class ButtonProps extends UiProps {
 }
 
 @State()
-class ButtonState extends UiState {}
+class _$ButtonState extends UiState {}
 
 @Component()
 class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiStatefulComponent<T, S> {
@@ -198,4 +199,18 @@ class ButtonSize extends ClassNameConstant {
   /// [className] value: 'btn-sm'
   static const ButtonSize SMALL =
       const ButtonSize._('SMALL', 'btn-sm');
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class ButtonProps extends _$ButtonProps with _$ButtonPropsAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForButtonProps;
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class ButtonState extends _$ButtonState with _$ButtonStateAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const StateMeta meta = $metaForButtonState;
 }

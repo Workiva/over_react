@@ -79,5 +79,5 @@ Map<String, dynamic> newStyleFromProps(Map props) {
 }
 
 SplayTreeSet _validDomProps = new SplayTreeSet()
-  ..addAll(const $PropKeys(DomPropsMixin))
-  ..addAll(const $PropKeys(SvgPropsMixin));
+  ..addAll(DomPropsMixin.meta.keys)
+  ..addAll(SvgPropsMixin.meta.keys);

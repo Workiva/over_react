@@ -49,6 +49,7 @@ class ImplGenerator {
   ImplGenerator(this.logger, this.transformedFile);
 
   static const String generatedPrefix = r'_$';
+  static const String privatePrefix = r'_';
   static const String publicGeneratedPrefix = r'$';
 
   final TransformLogger logger;
@@ -110,7 +111,11 @@ class ImplGenerator {
       }
 
       declarations.factory.node.variables.variables.forEach((variable) {
-        if (variable.initializer != null && !(variable.initializer.toString() == '\$$factoryName')) {
+        final isPrivate = factoryName.startsWith('_');
+        final validInitializer = isPrivate
+            ? '_\$${factoryName.substring(1)}'
+            : '\$$factoryName';
+        if (variable.initializer != null && variable.initializer.toString() != validInitializer) {
           logger.error(
               'Factory variables are stubs for the generated factories, and should not have initializers '
               'unless initialized with \$$factoryName for Dart 2 builder compatibility.',
@@ -415,7 +420,7 @@ class ImplGenerator {
 
   static const String staticConsumedPropsName = '${publicGeneratedPrefix}consumedProps';
 
-  static getCompanionNodeOrNull(NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap) {
+  static ClassDeclaration getCompanionNodeOrNull(NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap) {
     if (typedMap is! NodeWithMetaAndCompanion) {
       return null;
     }
@@ -677,12 +682,16 @@ class ImplGenerator {
       );
     }
     
-    final name = typedMap.node.name.name;
+    final name = (companionNode ?? typedMap.node).name.name;
+    final isPrivate = name.startsWith(privatePrefix);
+    final publicName = isPrivate ? name.substring(privatePrefix.length) : name;
     final metaClassName = '$generatedPrefix${name}Meta';
+    final metaInstanceName = isPrivate
+        ? '${generatedPrefix}metaFor$publicName'
+        : '${publicGeneratedPrefix}metaFor$publicName';
     final metaStructName = type == AccessorType.props
         ? 'PropsMeta'
         : 'StateMeta';
-    final metaInstanceName = '${publicGeneratedPrefix}metaFor$name';
     final output = new StringBuffer();
     output.writeln('/// A class that allows us to reuse generated code from the accessors class.');
     output.writeln('/// This is only used by other generated code, and can be simplified if needed.');

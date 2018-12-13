@@ -14,11 +14,15 @@
 
 import 'package:over_react/over_react.dart';
 
+// ignore: uri_has_not_been_generated
+part 'dummy_composite_component.over_react.g.dart';
+
 @Factory()
-UiFactory<TestCompositeComponentProps> TestCompositeComponent;
+// ignore: undefined_identifier
+UiFactory<TestCompositeComponentProps> TestCompositeComponent = $TestCompositeComponent;
 
 @Props()
-class TestCompositeComponentProps extends UiProps {
+class _$TestCompositeComponentProps extends UiProps {
   Function onComponentDidMount;
   Function onComponentWillUnmount;
   Function onComponentDidUpdate;
@@ -53,4 +57,11 @@ class TestCompositeComponentComponent extends UiComponent<TestCompositeComponent
   render() {
     return Dom.div()('oh hai');
   }
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class TestCompositeComponentProps extends _$TestCompositeComponentProps with _$TestCompositeComponentPropsAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForTestCompositeComponentProps;
 }

@@ -64,8 +64,11 @@ class ParsedDeclarations {
           if (member is ClassDeclaration && member.name.name.startsWith(companionPrefix)) {
             final className = member.name.name;
             final companionName = member.name.name.substring(companionPrefix.length);
+            final privateCompanionName = '_$companionName';
             final companionClass = unit.declarations.firstWhere(
-              (innerLoopMember) => innerLoopMember is ClassDeclaration && innerLoopMember.name.name == companionName,
+              (innerMember) =>
+                innerMember is ClassDeclaration &&
+                (innerMember.name.name == companionName || innerMember.name.name == privateCompanionName),
               orElse: () => null);
 
             if (companionClass == null) {
@@ -225,12 +228,16 @@ class ParsedDeclarations {
               getSpan(sourceFile, metaField),
           );
         }
+        final isClassPrivate = cd.name.name.startsWith('_');
+        final expectedInitializer = isClassPrivate
+            ? '_\$metaFor${cd.name.name.substring(1)}'
+            : '\$metaFor${cd.name.name}';
+
         final initializer = metaField.fields.variables.single.initializer.toSource();
-        final targetClass = initializer.replaceFirst('\$metaFor', '');
-        if (!initializer.startsWith('\$metaFor') || targetClass != cd.name.name) {
+        if (initializer != expectedInitializer) {
           error(
               'Static $expectedType field in accessor class must be initialized to '
-              '`\$metaFor${cd.name.name}`',
+              '`$expectedInitializer`',
               getSpan(sourceFile, metaField),
           );
         }

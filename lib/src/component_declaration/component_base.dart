@@ -18,17 +18,7 @@ import 'dart:async';
 import 'dart:collection';
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart' show
-    ClassNameBuilder,
-    CssClassPropsMixin,
-    ReactPropsMixin,
-    UbiquitousDomPropsMixin,
-    getPropsToForward,
-    DummyComponent,
-    ValidationUtil,
-    prettyPrintMap,
-    unindent,
-    PropError;
+import 'package:over_react/over_react.dart';
 
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:over_react/src/util/ddc_emulated_function_name_bug.dart' as ddc_emulated_function_name_bug;
@@ -504,8 +494,20 @@ typedef PropsModifier(Map props);
 /// > Note: Implements [MapViewMixin] instead of extending it so that the abstract [Props] declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
 abstract class UiProps extends MapBase
-    with ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
-    implements PropsMapViewMixin, MapViewMixin, Map {
+    with 
+        ReactPropsMixin,
+        // ignore: mixin_of_non_class, undefined_class
+        $ReactPropsMixin, 
+        UbiquitousDomPropsMixin,
+        // ignore: mixin_of_non_class, undefined_class
+        $UbiquitousDomPropsMixin, 
+        CssClassPropsMixin,
+        // ignore: mixin_of_non_class, undefined_class
+        $CssClassPropsMixin
+    implements
+        PropsMapViewMixin,
+        MapViewMixin,
+        Map {
 
   UiProps() {
     // Work around https://github.com/dart-lang/sdk/issues/27647 for all UiProps instances
