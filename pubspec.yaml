@@ -40,7 +40,9 @@ dev_dependencies:
 
 dependency_overrides:
   built_redux:
-    path: /Users/corwinsheahan/workspaces/repos/built_redux
+    git:
+      url: git@github.com:corwinsheahan-wf/built_redux.git
+      ref: 9c9580242e8af6b905ef26c452600dca2195a98b # from bump_build_runner
   transformer_utils:
     git:
       url: git@github.com:workiva/dart_transformer_utils.git

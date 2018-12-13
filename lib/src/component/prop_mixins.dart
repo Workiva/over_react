@@ -163,7 +163,7 @@ abstract class UbiquitousDomPropsMixin {
   ///     (Tab()
   ///       ..dom.draggable = true
   ///     )('Untitled Document')
-  $DomPropsMixin get dom {
+  DomPropsMixin get dom {
     _dom ??= new DomProps(null, props);
     return _dom;
   }
