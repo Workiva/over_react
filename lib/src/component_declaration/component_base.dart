@@ -494,8 +494,20 @@ typedef PropsModifier(Map props);
 /// > Note: Implements [MapViewMixin] instead of extending it so that the abstract [Props] declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
 abstract class UiProps extends MapBase
-    with ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin
-    implements PropsMapViewMixin, MapViewMixin, Map {
+    with 
+        ReactPropsMixin,
+        // ignore: mixin_of_non_class, undefined_class
+        $ReactPropsMixin, 
+        UbiquitousDomPropsMixin,
+        // ignore: mixin_of_non_class, undefined_class
+        $UbiquitousDomPropsMixin, 
+        CssClassPropsMixin,
+        // ignore: mixin_of_non_class, undefined_class
+        $CssClassPropsMixin
+    implements
+        PropsMapViewMixin,
+        MapViewMixin,
+        Map {
 
   UiProps() {
     // Work around https://github.com/dart-lang/sdk/issues/27647 for all UiProps instances

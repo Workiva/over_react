@@ -1,10 +1,11 @@
 part of over_react.component_declaration.flux_component_test;
 
 @Factory()
-UiFactory<TestStoreHandlersProps> TestStoreHandlers;
+// ignore: undefined_identifier
+UiFactory<TestStoreHandlersProps> TestStoreHandlers = $TestStoreHandlers;
 
 @Props()
-class TestStoreHandlersProps extends FluxUiProps<TestActions, TestStore> {}
+class _$TestStoreHandlersProps extends FluxUiProps<TestActions, TestStore> {}
 
 @Component()
 class TestStoreHandlersComponent extends FluxUiComponent<TestStoreHandlersProps> {
@@ -19,4 +20,11 @@ class TestStoreHandlersComponent extends FluxUiComponent<TestStoreHandlersProps>
   increment(Store store) {
     numberOfHandlerCalls += 1;
   }
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class TestStoreHandlersProps extends _$TestStoreHandlersProps with _$TestStoreHandlersPropsAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForTestStoreHandlersProps;
 }

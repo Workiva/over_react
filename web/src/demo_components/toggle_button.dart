@@ -5,10 +5,14 @@ part of over_react.web.demo_components;
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#checkbox-and-radio-buttons>
 @Factory()
-UiFactory<ToggleButtonProps> ToggleButton;
+// ignore: undefined_identifier
+UiFactory<ToggleButtonProps> ToggleButton = $ToggleButton;
 
 @Props()
-class ToggleButtonProps extends ButtonProps with AbstractInputPropsMixin {
+class _$ToggleButtonProps extends ButtonProps with 
+    AbstractInputPropsMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $AbstractInputPropsMixin {
   /// Whether the `<input>` rendered by the [ToggleButton] should have focus upon mounting.
   ///
   /// _Proxies [DomProps.autoFocus]._
@@ -48,7 +52,10 @@ class ToggleButtonProps extends ButtonProps with AbstractInputPropsMixin {
 }
 
 @State()
-class ToggleButtonState extends ButtonState with AbstractInputStateMixin {
+class _$ToggleButtonState extends ButtonState with 
+    AbstractInputStateMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $AbstractInputStateMixin {
   /// Tracks if the [ToggleButton] is focused. Determines whether to render with the `js-focus` CSS
   /// class.
   ///
@@ -83,9 +90,9 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
 
   @override
   get consumedProps => const [
-    const $Props(ToggleButtonProps),
-    const $Props(ButtonProps),
-    const $Props(AbstractInputPropsMixin),
+    ToggleButtonProps.meta,
+    ButtonProps.meta,
+    AbstractInputPropsMixin.meta,
   ];
 
   @override
@@ -206,4 +213,18 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   /// Attempts to use [AbstractInputPropsMixin.id] _(specified by the consumer)_, falling back to
   /// [AbstractInputStateMixin.id] _(auto-generated)_.
   String get id => props.id ?? state.id;
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class ToggleButtonProps extends _$ToggleButtonProps with _$ToggleButtonPropsAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForToggleButtonProps;
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class ToggleButtonState extends _$ToggleButtonState with _$ToggleButtonStateAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const StateMeta meta = $metaForToggleButtonState;
 }
