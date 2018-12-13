@@ -88,6 +88,9 @@ Map _dartifyJsMap(jsMap) {
 /// in the returned Map.
 Map getJsProps(/* ReactElement|ReactComponent */ instance) {
   var props = _dartifyJsMap(instance.props);
+  eventPropKeyToEventFactory.keys.forEach((key) {
+    props[key] = unconvertJsEventHandler(props[key]);
+  });
 
   // Convert the nested style map so it can be read by Dart code.
   var style = props['style'];
