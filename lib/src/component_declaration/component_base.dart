@@ -18,17 +18,7 @@ import 'dart:async';
 import 'dart:collection';
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart' show
-    ClassNameBuilder,
-    CssClassPropsMixin,
-    ReactPropsMixin,
-    UbiquitousDomPropsMixin,
-    getPropsToForward,
-    DummyComponent,
-    ValidationUtil,
-    prettyPrintMap,
-    unindent,
-    PropError;
+import 'package:over_react/over_react.dart';
 
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:over_react/src/util/ddc_emulated_function_name_bug.dart' as ddc_emulated_function_name_bug;
