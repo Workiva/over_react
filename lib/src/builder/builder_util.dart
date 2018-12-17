@@ -3,6 +3,8 @@ import 'dart:mirrors';
 import 'package:path/path.dart' as p;
 import 'package:build/build.dart' show AssetId;
 
+const outputExtension = '.over_react.g.dart';
+
 String getName(Type type) {
   return MirrorSystem.getName(reflectType(type).simpleName);
 }
