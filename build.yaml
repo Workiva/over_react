@@ -1,10 +1,18 @@
 builders:
   overReactBuilder:
-    import: "package:over_react/src/builder/builder.dart"
-    builder_factories: ["overReactBuilder"]
-    build_extensions: {".dart" : [".over_react.g.dart"]}
-    auto_apply: all_packages 
-    build_to: cache 
+#    import: "package:over_react/src/builder/builder.dart"
+#    builder_factories: ["overReactBuilder"]
+#    build_extensions: {".dart" : [".over_react.g.dart"]}
+#    auto_apply: all_packages
+#    build_to: cache
+
+#    target: ":built_redux"
+    import: "package:over_react/src/builder/generator.dart"
+    builder_factories: ["overReactBuilderTestOfPartBuilder"]
+    build_extensions: {".dart": [".over_react.g.part"]}
+    auto_apply: all_packages
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]
 
 targets:
   $default:
