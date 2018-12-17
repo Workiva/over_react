@@ -1,6 +1,6 @@
 ## Available Dart 2 Builder-Compatible Code Snippets
 
-Below is a list of all available Dart 2 builder-compatible over_react snippets and their <br>
+Below is a list of all available Dart 2 builder-compatible over_react snippets and their<br>
 triggers for Webstorm/IntelliJ and VS Code. 
 
 | Trigger  | Content |
@@ -12,7 +12,7 @@ triggers for Webstorm/IntelliJ and VS Code.
 | `or_stateful`   | dart 2 stateful component skeleton |
 | `or_stateful_commented`   | dart 2 commneted stateful component skeleton |
 | `or_abstract_stateful`  | dart 2 abstract stateful component skeleton |
-| `or_abstract_statefule_commented`  | dart 2 commented abstract stateful component skeleton |
+| `or_abstract_stateful_commented`  | dart 2 commented abstract stateful component skeleton |
 | `or_props_mixin`  | dart 2 prop mixin skeleton |
 | `or_state_mixin`  | dart 2 state mixin skeleton |
 
@@ -24,12 +24,12 @@ triggers for Webstorm/IntelliJ and VS Code.
 2. Click on the Editor drop down and select Live Templates
 3. Click the "+" button in the upper right corner and select "Template Group..."
     1. Provide a meaningful name for your template group like "OverReactDart2"
-    2. Alternatively, you can select an existing group, click on the "+" button and <br>
+    2. Alternatively, you can select an existing group, click on the "+" button and<br>
        select "Live Template" to add a new template to that group
-4. Click the "+" again once you've created or selected the template group to which you'd <br> 
+4. Click the "+" again once you've created or selected the template group to which you'd<br> 
    like to add a new template and select "Live Template"
 5. Enter the suggested abbreviation and description for the snippet you're adding
-6. Copy the snippet code block you'd like to add from the available code blocks below and <br>
+6. Copy the snippet code block you'd like to add from the available code blocks below and<br>
    paste it into the "Template text:" section 
 7. Click "Define" next to "No applicable context." at the bottom and toggle the "Dart" check box
 8. Click "Apply" and add another snippet or click OK to exit
