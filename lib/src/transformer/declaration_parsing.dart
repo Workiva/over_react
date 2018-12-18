@@ -233,7 +233,7 @@ class ParsedDeclarations {
             ? '_\$metaFor${cd.name.name.substring(1)}'
             : '\$metaFor${cd.name.name}';
 
-        final initializer = metaField.fields.variables.single.initializer.toSource();
+        final initializer = metaField.fields.variables.single.initializer?.toSource();
         if (initializer != expectedInitializer) {
           error(
               'Static $expectedType field in accessor class must be initialized to '

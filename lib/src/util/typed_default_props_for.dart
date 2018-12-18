@@ -1,6 +1,7 @@
 import 'package:over_react/src/component_declaration/component_base.dart';
 
-/// Returns the default component props for a factory as a typed props object.
+/// Returns a typed view into the unmodifiable default props map for the
+/// component associated with [factory].
 ///
 ///     // Component Declaration
 ///     @Factory()

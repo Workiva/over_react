@@ -278,53 +278,6 @@ main() {
           expect(transformedSource, contains(transformedUiFactoryLine));
         });
 
-        test('with Props|State with clause contain \$ prefixed and non-prefixed mixin pairs', () {
-          final prefixedFooPropsMixin = 'abstract class \$FooPropsMixin {}';
-          final prefixedFooStateMixin = 'abstract class \$FooStateMixin {}';
-          final prefixedBarPropsMixin = 'abstract class \$BarPropsMixin {}';
-          final prefixedBarStateMixin = 'abstract class \$BarStateMixin {}';
-
-          preservedLineNumbersTest('''
-            @PropsMixin()
-            class FooPropsMixin {
-              Map get props;
-
-              var bar;
-              var baz;
-            }
-            
-            @PropsMixin()
-            class BarPropsMixin {
-              Map get props;
-
-              var bar;
-              var baz;
-            }
-            
-            @StateMixin() 
-            class FooStateMixin {
-              Map get state;
-
-              var bar;
-              var baz;
-            } 
-            
-            @StateMixin() 
-            class BarStateMixin {
-              Map get state;
-
-              var bar;
-              var baz;
-            } 
-          ''');
-
-          var transformedSource = transformedFile.getTransformedText();
-          expect(transformedSource, contains(prefixedFooPropsMixin));
-          expect(transformedSource, contains(prefixedFooStateMixin));
-          expect(transformedSource, contains(prefixedBarPropsMixin));
-          expect(transformedSource, contains(prefixedBarStateMixin));
-        });
-
         test('with builder-compatible dual-class props setup', () {
           final originalPrivateFooPropsLine = 'class _\$FooProps extends UiProps {';
           final originalPublicFooPropsLine = 'class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {';
@@ -396,56 +349,6 @@ main() {
           expect(transformedSource, isNot(contains(fooStateImplExtendsPrivateClass)));
         });
 
-        test('with builder-compatible dual-class abstract props setup', () {
-          final originalPrivateClassLine = 'class _\$AbstractFooProps {';
-          final originalPublicClassLine = 'class AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {';
-          final transformedFooStateLine = 'class AbstractFooProps extends _\$AbstractFooProps';
-
-          preservedLineNumbersTest('''
-            class AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {
-              // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-              static const PropsMeta meta = \$metaForAbstractFooProps;
-            }
-            
-            @AbstractProps() 
-            class _\$AbstractFooProps {
-              var bar;
-              var baz;
-            }
-          '''
-          );
-
-          var transformedSource = transformedFile.getTransformedText();
-          expect(transformedSource, contains(originalPrivateClassLine));
-          expect(transformedSource, isNot(contains(originalPublicClassLine)));
-          expect(transformedSource, contains(transformedFooStateLine));
-        });
-
-        test('with builder-compatible dual-class abstract state setup', () {
-          final originalPrivateClassLine = 'class _\$AbstractFooState {';
-          final originalPublicClassLine = 'class AbstractFooState extends _\$AbstractFooState with _\$AbstractFooStateAccessorsMixin {';
-          final transformedFooStateLine = 'class AbstractFooState extends _\$AbstractFooState';
-
-          preservedLineNumbersTest('''
-            class AbstractFooState extends _\$AbstractFooState with _\$AbstractFooStateAccessorsMixin {
-              // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-              static const StateMeta meta = \$metaForAbstractFooState;
-            }
-              
-            @AbstractState() 
-            class _\$AbstractFooState {
-              var bar;
-              var baz;
-            }
-          '''
-          );
-
-          var transformedSource = transformedFile.getTransformedText();
-          expect(transformedSource, contains(originalPrivateClassLine));
-          expect(transformedSource, isNot(contains(originalPublicClassLine)));
-          expect(transformedSource, contains(transformedFooStateLine));
-        });
-
         group('that subtypes another component, referencing the component class via', () {
           test('a simple identifier', () {
             preservedLineNumbersTest('''
@@ -488,6 +391,9 @@ main() {
             var baz;
           }
         ''');
+
+        var transformedSource = transformedFile.getTransformedText();
+        expect(transformedSource, contains('abstract class \$FooPropsMixin {}'));
       });
 
       test('state mixins', () {
@@ -499,6 +405,9 @@ main() {
             var baz;
           }
         ''');
+
+        var transformedSource = transformedFile.getTransformedText();
+        expect(transformedSource, contains('abstract class \$FooStateMixin {}'));
       });
 
       test('abstract props classes', () {
@@ -510,6 +419,31 @@ main() {
         ''');
       });
 
+      test('abstract props classes with builder-compatible dual-class setup', () {
+        final originalPrivateClassLine = 'class _\$AbstractFooProps {';
+        final originalPublicClassLine = 'class AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {';
+        final transformedFooPropsLine = 'class AbstractFooProps extends _\$AbstractFooProps';
+
+        preservedLineNumbersTest('''
+          class AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {
+            // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+            static const PropsMeta meta = \$metaForAbstractFooProps;
+          }
+
+          @AbstractProps()
+          class _\$AbstractFooProps {
+            var bar;
+            var baz;
+          }
+        '''
+        );
+
+        var transformedSource = transformedFile.getTransformedText();
+        expect(transformedSource, contains(originalPrivateClassLine));
+        expect(transformedSource, isNot(contains(originalPublicClassLine)));
+        expect(transformedSource, contains(transformedFooPropsLine));
+      });
+
       test('abstract state classes', () {
         preservedLineNumbersTest('''
           @AbstractState() class AbstractFooState {
@@ -517,6 +451,31 @@ main() {
             var baz;
           }
         ''');
+      });
+
+      test('abstract state classes with builder-compatible dual-class setup', () {
+        final originalPrivateClassLine = 'class _\$AbstractFooState {';
+        final originalPublicClassLine = 'class AbstractFooState extends _\$AbstractFooState with _\$AbstractFooStateAccessorsMixin {';
+        final transformedFooStateLine = 'class AbstractFooState extends _\$AbstractFooState';
+
+        preservedLineNumbersTest('''
+          class AbstractFooState extends _\$AbstractFooState with _\$AbstractFooStateAccessorsMixin {
+            // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+            static const StateMeta meta = \$metaForAbstractFooState;
+          }
+
+          @AbstractState()
+          class _\$AbstractFooState {
+            var bar;
+            var baz;
+          }
+        '''
+        );
+
+        var transformedSource = transformedFile.getTransformedText();
+        expect(transformedSource, contains(originalPrivateClassLine));
+        expect(transformedSource, isNot(contains(originalPublicClassLine)));
+        expect(transformedSource, contains(transformedFooStateLine));
       });
 
       test('covariant keyword', () {
@@ -807,7 +766,8 @@ main() {
           ''');
 
           verify(logger.error('Factory variables are stubs for the generated factories, and should not have initializers'
-              ' unless initialized with \$Foo for Dart 2 builder compatibility.', span: any));
+              ' unless initialized with \$Foo for Dart 2 builder compatibility. Should be:\n'
+              '    \$Foo', span: any));
         });
 
         test('declared with an \$ prefixed initializer matching the factory name', () {

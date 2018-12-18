@@ -111,14 +111,15 @@ class ImplGenerator {
       }
 
       declarations.factory.node.variables.variables.forEach((variable) {
-        final isPrivate = factoryName.startsWith('_');
+        final isPrivate = factoryName.startsWith(privatePrefix);
         final validInitializer = isPrivate
-            ? '_\$${factoryName.substring(1)}'
-            : '\$$factoryName';
+            ? '$generatedPrefix${factoryName.substring(privatePrefix.length)}'
+            : '$publicGeneratedPrefix$factoryName';
         if (variable.initializer != null && variable.initializer.toString() != validInitializer) {
           logger.error(
               'Factory variables are stubs for the generated factories, and should not have initializers '
-              'unless initialized with \$$factoryName for Dart 2 builder compatibility.',
+              'unless initialized with \$$factoryName for Dart 2 builder compatibility. '
+              'Should be:\n    $validInitializer',
               span: getSpan(sourceFile, variable.initializer)
           );
         }
@@ -177,7 +178,7 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
       //   Props implementation
       // ----------------------------------------------------------------------
-      removeWithClauseIfNecessary(declarations.props.companionNode, sourceFile, transformedFile);
+      removeWithClauseFromCompanion(declarations.props.companionNode, sourceFile, transformedFile);
 
       final accessorOutput = generateAccessors(AccessorType.props, declarations.props);
       implementations.writeln(accessorOutput.implementations);
@@ -229,7 +230,7 @@ class ImplGenerator {
         final String stateName = (declarations.state.companionNode ?? declarations.state.node).name.toString();
         final String stateImplName = '$generatedPrefix${stateName}Impl';
 
-        removeWithClauseIfNecessary(declarations.state.companionNode, sourceFile, transformedFile);
+        removeWithClauseFromCompanion(declarations.state.companionNode, sourceFile, transformedFile);
 
         final accessorOutput = generateAccessors(AccessorType.state, declarations.state);
         implementations.writeln(accessorOutput.implementations);
@@ -354,7 +355,7 @@ class ImplGenerator {
       /// This is because with the builder compatible boilerplate, Props
       /// and State mixin classes are renamed to include a $ prefix with the assumption that
       /// the actual class with concrete accessor implementations will be generated.
-      transformedFile.insert(sourceFile.location(propMixin.node.end), 'abstract class \$${propMixin.node.name.name} {}');
+      transformedFile.insert(sourceFile.location(propMixin.node.end), ' abstract class \$${propMixin.node.name.name} {}');
     });
 
     declarations.stateMixins.forEach((stateMixin) {
@@ -381,14 +382,14 @@ class ImplGenerator {
     //   Abstract Props/State implementations
     // ----------------------------------------------------------------------
     declarations.abstractProps.forEach((abstractPropsClass) {
-      removeWithClauseIfNecessary(abstractPropsClass.companionNode, sourceFile, transformedFile);
+      removeWithClauseFromCompanion(abstractPropsClass.companionNode, sourceFile, transformedFile);
 
       final accessorOutput = generateAccessors(AccessorType.props, abstractPropsClass);
       implementations.writeln(accessorOutput.implementations);
     });
 
     declarations.abstractState.forEach((abstractStateClass) {
-      removeWithClauseIfNecessary(abstractStateClass.companionNode, sourceFile, transformedFile);
+      removeWithClauseFromCompanion(abstractStateClass.companionNode, sourceFile, transformedFile);
 
       final accessorOutput = generateAccessors(AccessorType.state, abstractStateClass);
       implementations.writeln(accessorOutput.implementations);
@@ -794,7 +795,7 @@ class AccessorOutput {
 /// The builder is responsible for generating the _$FooPropsAccessorsMixin found in FooProps
 /// with clause, but since the transformer can inline concrete accessors _$FooPropsAccessorsMixin
 /// is not required and needs to be removed.
-void removeWithClauseIfNecessary(ClassDeclaration declaration, SourceFile sourceFile, TransformedSourceFile transformedFile) {
+void removeWithClauseFromCompanion(ClassDeclaration declaration, SourceFile sourceFile, TransformedSourceFile transformedFile) {
   if (declaration == null) return;
   transformedFile.remove(getSpan(sourceFile, declaration.withClause));
 }

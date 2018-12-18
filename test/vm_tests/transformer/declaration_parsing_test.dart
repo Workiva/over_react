@@ -658,15 +658,6 @@ main() {
 
         test('a public abstract props class is not found  when an private \$ prefixed abstract props class is declared', () {
           setUpAndParse('''
-              @Factory()    
-              UiFactory<FooProps> Foo;
-              
-              @Props()      
-              class FooProps {}
-              
-              @Component()  
-              class FooComponent {}
-              
               @AbstractProps() 
               class _\$AbstractFooProps {}
             ''');
@@ -675,15 +666,6 @@ main() {
 
         test('a public abstract state class is not found when an private \$ prefixed abstract state class is declared', () {
           setUpAndParse('''
-              @Factory()    
-              UiFactory<FooProps> Foo;
-              
-              @Props()      
-              class FooProps {}
-              
-              @Component()  
-              class FooComponent {}
-              
               @AbstractState() 
               class _\$AbstractStateProps {}
              ''');
