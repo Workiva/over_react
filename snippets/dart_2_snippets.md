@@ -1,4 +1,4 @@
-## Available Dart 2 Builder-Compatible Code Snippets
+## Available Dart 1 and Dart 2 Backwards Compatible Code Snippets
 
 Below is a list of all available Dart 2 builder-compatible over_react snippets and their<br>
 triggers for Webstorm/IntelliJ and VS Code. 
