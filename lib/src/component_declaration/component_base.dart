@@ -15,22 +15,10 @@
 library over_react.component_declaration.component_base;
 
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart' show
-    ClassNameBuilder,
-    $CssClassPropsMixin,
-    CssClassPropsMixin,
-    $ReactPropsMixin,
-    ReactPropsMixin,
-    $UbiquitousDomPropsMixin,
-    UbiquitousDomPropsMixin,
-    getPropsToForward,
-    DummyComponent,
-    ValidationUtil,
-    prettyPrintMap,
-    unindent,
-    PropError;
+import 'package:over_react/over_react.dart';
 
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:over_react/src/util/ddc_emulated_function_name_bug.dart' as ddc_emulated_function_name_bug;
@@ -480,10 +468,21 @@ typedef PropsModifier(Map props);
 ///
 /// > Note: Implements [MapViewMixin] instead of extending it so that the abstract [Props] declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
-abstract class UiProps extends Object
-    with MapViewMixin, PropsMapViewMixin,
-// ignore: mixin_of_non_class,undefined_class
-         ReactPropsMixin, $ReactPropsMixin, UbiquitousDomPropsMixin, $UbiquitousDomPropsMixin, CssClassPropsMixin, $CssClassPropsMixin {
+abstract class UiProps extends MapBase
+    with
+        MapViewMixin,
+        ReactPropsMixin,
+        // ignore: mixin_of_non_class, undefined_class
+        $ReactPropsMixin, 
+        UbiquitousDomPropsMixin,
+        // ignore: mixin_of_non_class, undefined_class
+        $UbiquitousDomPropsMixin, 
+        CssClassPropsMixin,
+        // ignore: mixin_of_non_class, undefined_class
+        $CssClassPropsMixin
+    implements
+        PropsMapViewMixin,
+        Map {
 
   UiProps() {
     // Work around https://github.com/dart-lang/sdk/issues/27647 for all UiProps instances
@@ -659,7 +658,8 @@ abstract class UiProps extends Object
 
   ReactComponentFactoryProxy get componentFactory;
 
-  /// The default props for this component brought in from the [componentFactory].
+  /// An unmodifiable map view of the default props for this component brought
+  /// in from the [componentFactory].
   Map get componentDefaultProps => componentFactory is ReactDartComponentFactoryProxy
       // ignore: avoid_as
       ? (componentFactory as ReactDartComponentFactoryProxy).defaultProps
@@ -795,11 +795,36 @@ class ConsumedProps {
 abstract class AccessorMeta<T extends _Descriptor> {
   List<T> get fields;
   List<String> get keys;
-  // Example of what we could eventually do with builders now that we have
-  // a resolved AST:
-  // List<AccessorMeta<T>> get inherited;
 }
 
+/// Metadata for the prop fields declared in a specific props class--
+/// a class annotated with @[Props], @[PropsMixin], @[AbstractProps], etc.
+/// for which prop accessors are generated.
+///
+/// This metadata includes map key values corresponding to these fields, which
+/// is used in [UiComponent.consumedPropKeys], as well as other prop
+/// configuration done via @[Accessor]/@[requiredProp]/etc., which is used to
+/// perform prop validation within [UiComponent] lifecycle methods.
+///
+/// This metadata is generated as part of the over_react builder, and should be
+/// exposed like so:
+///     @Props()
+///     class FooProps {
+///       static const PropsMeta meta = $metaForFooProps;
+///
+///       String foo;
+///
+///       @Accessor(isRequired: true, key: 'custom_key', keyNamespace: 'custom_namespace')
+///       int bar;
+///     }
+///
+/// What the metadata looks like:
+///     main() {
+///       print(FooProps.meta.keys); // [FooProps.foo, custom_namespace.custom_key]
+///       print(FooProps.meta.props.map((p) => p.isRequired); // (false, true))
+///     }
+///
+/// _See also: [getPropKey]_
 class PropsMeta implements ConsumedProps, AccessorMeta<PropDescriptor> {
   /// Rich views of prop field declarations.
   ///
@@ -814,37 +839,45 @@ class PropsMeta implements ConsumedProps, AccessorMeta<PropDescriptor> {
   const PropsMeta({this.fields, this.keys});
 
   @override
-  @override
   List<PropDescriptor> get props => fields;
-
-  // Example of what we could eventually do with builders now that we have
-  // a resolved AST:
-  // @override
-  // List<PropsMeta> get inherited =>
-  //     throw new UnimplementedError('Metadata for inherited classes is not yet implemented');
 }
 
+/// Metadata for the state fields declared in a specific state class--
+/// a class annotated with @[State], @[StateMixin], @[AbstractState], etc.
+/// for which state accessors are generated.
+///
+/// This metadata includes map key values corresponding to these fields, which
+/// is used to perform state validation within [UiComponent] lifecycle methods.
+///
+/// This metadata is generated as part of the over_react builder, and should be
+/// exposed like so:
+///     @State()
+///     class FooState {
+///       static const StateMeta meta = $metaForFooState;
+///
+///       String foo;
+///
+///       @Accessor(key: 'custom_key', keyNamespace: 'custom_namespace')
+///       int bar;
+///     }
+///
+/// What the metadata looks like:
+///     main() {
+///       print(FooState.meta.keys); // [FooState.foo, custom_namespace.custom_key]
+///       print(FooState.meta.fields.map((s) => s.key); // [FooState.foo, custom_namespace.custom_key]
+///     }
 class StateMeta implements AccessorMeta<StateDescriptor> {
   /// Rich views of state field declarations.
   ///
   /// This includes string keys, and required state validation related fields.
-  ///
   @override
   final List<StateDescriptor> fields;
-  /// Top-level accessor of string keys of props stored in [fields].
+
+  /// Top-level accessor of string keys of state stored in [fields].
   @override
   final List<String> keys;
 
-  const StateMeta({
-    this.fields,
-    this.keys,
-  });
-
-  // Example of what we could eventually do with builders now that we have
-  // a resolved AST:
-  // @override
-  // List<StateMeta> get inherited =>
-  //     throw new UnimplementedError('Metadata for inherited classes is not yet implemented');
+  const StateMeta({this.fields, this.keys});
 }
 
 const _notSpecified = const NotSpecified();

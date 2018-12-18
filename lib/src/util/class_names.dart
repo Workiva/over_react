@@ -19,8 +19,8 @@ import 'dart:collection';
 
 import 'package:over_react/over_react.dart' show
     // Must import these consts because they are used in the transformed code.
-    PropsMeta, PropDescriptor, ConsumedProps, // ignore: unused_shown_name
-    UiComponent, UiProps;
+    PropDescriptor, ConsumedProps, // ignore: unused_shown_name
+    PropsMeta, UiComponent, UiProps;
 import 'package:over_react/src/component_declaration/annotations.dart';
 
 part 'class_names.over_react.g.dart';
@@ -30,7 +30,9 @@ part 'class_names.over_react.g.dart';
 /// Universally available on all OverReact components via [UiProps].
 @PropsMixin(keyNamespace: '')
 abstract class CssClassPropsMixin {
-  // ignore: undefined_identifier, const_initialized_with_non_constant_value
+  // To ensure the codemod regression checking works properly, please keep this
+  // field at the top of the class!
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
   static const PropsMeta meta = $metaForCssClassPropsMixin;
 
   Map get props;
@@ -49,8 +51,7 @@ abstract class CssClassPropsMixin {
 }
 
 /// A `MapView` with typed getters/setters for all CSS-class-related props.
-// ignore: mixin_of_non_class,undefined_class
-class CssClassPropsMapView extends MapView with 
+class CssClassPropsMapView extends MapView with
     CssClassPropsMixin,
     // ignore: mixin_of_non_class, undefined_class
     $CssClassPropsMixin {

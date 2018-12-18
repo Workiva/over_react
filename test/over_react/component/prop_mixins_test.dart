@@ -91,7 +91,7 @@ main() {
         expect(() {instance['notThere'];}, throwsArgumentError);
       });
 
-      for (var propKey in const $PropKeys(AriaPropsMixin)) {
+      for (var propKey in AriaPropsMixin.meta.keys) {
         test('prop: $propKey can have its value set / read', () {
           var instance = new AriaPropMixinsTest({});
           testProp(new Symbol(propKey.replaceFirst('aria-', '')), propKey, instance, null);
@@ -100,7 +100,10 @@ main() {
   });
 }
 
-class DomPropMixinsTest extends MapView with DomPropsMixin {
+class DomPropMixinsTest extends MapView with 
+    DomPropsMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $DomPropsMixin {
   /// Create a new instance backed by the specified map.
   DomPropMixinsTest(Map map) : super(map);
 
@@ -118,7 +121,10 @@ class DomPropMixinsTest extends MapView with DomPropsMixin {
   }
 }
 
-class SvgPropMixinsTest extends MapView with SvgPropsMixin {
+class SvgPropMixinsTest extends MapView with 
+    SvgPropsMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $SvgPropsMixin {
   /// Create a new instance backed by the specified map.
   SvgPropMixinsTest(Map map) : super(map);
 
@@ -136,7 +142,10 @@ class SvgPropMixinsTest extends MapView with SvgPropsMixin {
   }
 }
 
-class ReactPropMixinsTest extends MapView with ReactPropsMixin {
+class ReactPropMixinsTest extends MapView with 
+    ReactPropsMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $ReactPropsMixin {
   /// Create a new instance backed by the specified map.
   ReactPropMixinsTest(Map map) : super(map);
 
@@ -154,7 +163,10 @@ class ReactPropMixinsTest extends MapView with ReactPropsMixin {
   }
 }
 
-class CssClassPropMixinsTest extends MapView with CssClassPropsMixin {
+class CssClassPropMixinsTest extends MapView with 
+    CssClassPropsMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $CssClassPropsMixin {
   /// Create a new instance backed by the specified map.
   CssClassPropMixinsTest(Map map) : super(map);
 
@@ -172,7 +184,10 @@ class CssClassPropMixinsTest extends MapView with CssClassPropsMixin {
   }
 }
 
-class UbiquitousPropMixinsTest extends MapView with UbiquitousDomPropsMixin {
+class UbiquitousPropMixinsTest extends MapView with 
+    UbiquitousDomPropsMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $UbiquitousDomPropsMixin {
   UbiquitousPropMixinsTest(Map map) : super (map);
 
   /// The props to be manipulated via the getters/setters.
@@ -189,7 +204,10 @@ class UbiquitousPropMixinsTest extends MapView with UbiquitousDomPropsMixin {
   }
 }
 
-class AriaPropMixinsTest extends MapView with AriaPropsMixin {
+class AriaPropMixinsTest extends MapView with 
+    AriaPropsMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $AriaPropsMixin {
   AriaPropMixinsTest(Map map) : super (map);
 
   /// The props to be manipulated via the getters/setters.

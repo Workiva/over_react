@@ -7,18 +7,19 @@ import 'package:over_react/over_react.dart';
 /// A `MapView` helper that stubs in unimplemented pieces of [UiProps].
 ///
 /// Useful when you need a `MapView` for a [PropsMixin] that implements [UiProps].
-// ignore: mixin_of_non_class,undefined_class
-class UiPropsMapView extends MapView with
-    ReactPropsMixin,
-    // ignore: mixin_of_non_class, undefined_class
-    $ReactPropsMixin,
-    UbiquitousDomPropsMixin,
-    // ignore: mixin_of_non_class, undefined_class
-    $UbiquitousDomPropsMixin,
-    CssClassPropsMixin,
-    // ignore: mixin_of_non_class, undefined_class
-    $CssClassPropsMixin
-    implements component_base.UiProps {
+class UiPropsMapView extends MapView
+    with
+        ReactPropsMixin,
+        // ignore: mixin_of_non_class, undefined_class
+        $ReactPropsMixin, 
+        UbiquitousDomPropsMixin,
+        // ignore: mixin_of_non_class, undefined_class
+        $UbiquitousDomPropsMixin, 
+        CssClassPropsMixin,
+        // ignore: mixin_of_non_class, undefined_class
+        $CssClassPropsMixin
+    implements
+        component_base.UiProps {
   /// Create a new instance backed by the specified map.
   UiPropsMapView(Map map) : super(map);
 

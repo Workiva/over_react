@@ -20,5 +20,4 @@ part 'demo_components/toggle_button_group.dart';
 part 'demo_components/toggle_button.dart';
 
 // ignore: uri_has_not_been_generated
-
-//part 'demo_components.over_react.g.dart';
+part 'demo_components.over_react.g.dart';

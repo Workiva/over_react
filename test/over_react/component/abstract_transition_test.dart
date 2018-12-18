@@ -25,6 +25,9 @@ import 'package:test/test.dart';
 
 import '../../test_util/test_util.dart';
 
+// ignore: uri_has_not_been_generated
+part 'abstract_transition_test.over_react.g.dart';
+
 /// Main entry point for AbstractTransition testing
 main() {
   group('AbstractTransition', () {
@@ -633,10 +636,11 @@ main() {
 }
 
 @Factory()
-UiFactory<TransitionerProps> Transitioner;
+// ignore: undefined_identifier
+UiFactory<TransitionerProps> Transitioner = $Transitioner;
 
 @Props()
-class TransitionerProps extends AbstractTransitionProps {
+class _$TransitionerProps extends AbstractTransitionProps {
   Callback onHandlePreShowing;
   Callback onHandleShowing;
   Callback onHandleShown;
@@ -653,7 +657,7 @@ class TransitionerProps extends AbstractTransitionProps {
 }
 
 @State()
-class TransitionerState extends AbstractTransitionState {}
+class _$TransitionerState extends AbstractTransitionState {}
 
 @Component()
 class TransitionerComponent extends AbstractTransitionComponent<TransitionerProps, TransitionerState> {
@@ -751,4 +755,18 @@ class TransitionerComponent extends AbstractTransitionComponent<TransitionerProp
     super.setState(newState, callback);
     transitionPhasesSet.add(newState.transitionPhase);
   }
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class TransitionerProps extends _$TransitionerProps with _$TransitionerPropsAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForTransitionerProps;
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class TransitionerState extends _$TransitionerState with _$TransitionerStateAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const StateMeta meta = $metaForTransitionerState;
 }

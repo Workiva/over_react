@@ -78,6 +78,6 @@ Map<String, dynamic> newStyleFromProps(Map props) {
   return existingStyle == null ? <String, dynamic>{} : new Map.from(existingStyle);
 }
 
-final Set _validDomProps = new Set()
+SplayTreeSet _validDomProps = new SplayTreeSet()
   ..addAll(DomPropsMixin.meta.keys)
   ..addAll(SvgPropsMixin.meta.keys);

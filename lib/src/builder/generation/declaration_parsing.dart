@@ -36,7 +36,6 @@ enum PropsClassType {
 /// * Any number of mixins: `@PropsMixin()`, `@StateMixin()`
 class ParsedDeclarations {
   factory ParsedDeclarations(CompilationUnit unit, SourceFile sourceFile, Logger logger) {
-
     bool hasErrors = false;
     bool hasDeclarations = false;
 
@@ -121,7 +120,6 @@ class ParsedDeclarations {
       declarationMap[annotationName] = classesOnly(annotationName, declarationMap[annotationName]);
     });
 
-
     // Validate that all the declarations that make up a component are used correctly.
 
     Iterable<List<CompilationUnitMember>> requiredDecls =
@@ -161,8 +159,6 @@ class ParsedDeclarations {
               );
             }
           }
-
-          declarationMap[annotationName] = [];
         });
       }
 
@@ -187,10 +183,93 @@ class ParsedDeclarations {
               getSpan(sourceFile, declarations.first)
           );
         }
-
-        declarationMap[annotationName] = [];
       });
+    } else {
+      void validateMetaField(ClassDeclaration cd, String expectedType) {
+        bool isPropsOrStateMeta(ClassMember member) {
+          if (member is! FieldDeclaration) return false;
+          final FieldDeclaration fd = member;
+          if (!fd.isStatic) return false;
+          if (fd.fields.variables.length > 1) return false;
+          if (fd.fields.variables.single.name.name != 'meta') return false;
+          return true;
+        }
+        final FieldDeclaration metaField = cd.members.firstWhere(isPropsOrStateMeta, orElse: () => null);
+        if (metaField == null) return;
+
+        if (metaField.fields.type?.toSource() != expectedType) {
+          error(
+              'Static meta field in accessor class must be of type `$expectedType`',
+              getSpan(sourceFile, metaField),
+          );
+        }
+        final isClassPrivate = cd.name.name.startsWith('_');
+        final expectedInitializer = isClassPrivate
+            ? '_\$metaFor${cd.name.name.substring(1)}'
+            : '\$metaFor${cd.name.name}';
+
+        final initializer = metaField.fields.variables.single.initializer?.toSource();
+        if (initializer != expectedInitializer) {
+          error(
+              'Static $expectedType field in accessor class must be initialized to '
+              '`$expectedInitializer`',
+              getSpan(sourceFile, metaField),
+          );
+        }
+      }
+
+      // TODO: validate meta field, but not with the companionMap logic, as it's
+      // not needed with the builder. The builder just keys off of o.r. annotation
+//      props = singleOrNull(declarationMap[key_props]);
+//      if (props != null && companionMap.containsKey(props.name.name)) {
+//        propsCompanion = companionMap[props.name.name];
+//        validateMetaField(propsCompanion, 'PropsMeta');
+//      }
+
+//      state = singleOrNull(declarationMap[key_state]);
+//      if (state != null && companionMap.containsKey(state.name.name)) {
+//        stateCompanion = companionMap[state.name.name];
+//        validateMetaField(stateCompanion, 'StateMeta');
+//      }
+//
+//      List<ClassDeclaration> pairClassWithCompanion(ClassDeclaration cd, String expectedType) {
+//        if (companionMap.containsKey(cd.name.name)) {
+//          validateMetaField(companionMap[cd.name.name], expectedType);
+//          return [cd, companionMap[cd.name.name]];
+//        }
+//        return [cd];
+//      }
+//
+//      List<ClassDeclaration> abstractProps = declarationMap[key_abstractProps];
+//      abstractPropsPairs = abstractProps.map((cd) => pairClassWithCompanion(cd, 'PropsMeta')).toList();
+//
+//      List<ClassDeclaration> abstractStates = declarationMap[key_abstractState];
+//      abstractStatePairs = abstractStates.map((cd) => pairClassWithCompanion(cd, 'StateMeta')).toList();
+//
+//      propsMixins = declarationMap[key_propsMixin];
+//      for (final propsMixin in propsMixins) {
+//        validateMetaField(propsMixin, 'PropsMeta');
+//      }
+//
+//      stateMixins = declarationMap[key_stateMixin];
+//      for (final stateMixin in stateMixins) {
+//        validateMetaField(stateMixin, 'StateMeta');
+//      }
     }
+
+//    if (hasErrors) {
+//      for (final key in declarationMap.keys) {
+//        declarationMap[key] = [];
+//      }
+//      props = null;
+//      propsCompanion = null;
+//      state = null;
+//      stateCompanion = null;
+//      abstractPropsPairs = [];
+//      abstractStatePairs = [];
+//      propsMixins = [];
+//      stateMixins = [];
+//    }
 
     return new ParsedDeclarations._(
         factory:       singleOrNull(declarationMap[key_factory]),

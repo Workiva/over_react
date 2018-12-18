@@ -16,7 +16,7 @@ library over_react.integrate.test_component_declaration;
 
 import 'package:over_react/over_react.dart';
 
-// ignore: uri_does_not_exist, uri_has_not_been_generated
+// ignore: uri_has_not_been_generated
 part 'test_component_declaration.over_react.g.dart';
 
 @Factory()
@@ -40,16 +40,16 @@ class FooComponent extends UiStatefulComponent<FooProps, FooState> {
   }
 }
 
-// AF-#### This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class FooState extends _$FooState with _$FooStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = $metaForFooState;
-}
-
-// AF-#### This will be removed once the transition to Dart 2 is complete.
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
 // ignore: mixin_of_non_class, undefined_class
 class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
   static const PropsMeta meta = $metaForFooProps;
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class FooState extends _$FooState with _$FooStateAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const StateMeta meta = $metaForFooState;
 }

@@ -39,13 +39,13 @@ typedef DomProps DomPropsFactory();
 // Include pieces from transformer_helpers so that consumers can type these instances
 // as the `UiProps` exposed in `over_react.dart` and not have to pull in `component_base`.
 class DomProps extends component_base.UiProps
-// ignore: mixin_of_non_class,undefined_class
-    with 
-    DomPropsMixin,
-    // ignore: mixin_of_non_class, undefined_class
-    $DomPropsMixin,
-    transformer_helpers.GeneratedClass
-    implements transformer_helpers.UiProps {
+    with
+        DomPropsMixin,
+        // ignore: mixin_of_non_class, undefined_class
+        $DomPropsMixin,
+        transformer_helpers.GeneratedClass
+    implements
+        transformer_helpers.UiProps {
   // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
   DomProps(this.componentFactory, [Map props]) : this.props = props ?? ({});
 
@@ -62,15 +62,16 @@ class DomProps extends component_base.UiProps
 // Include pieces from transformer_helpers so that consumers can type these instances
 // as the `UiProps` exposed in `over_react.dart` and not have to pull in `component_base`.
 class SvgProps extends component_base.UiProps
-// ignore: mixin_of_non_class,undefined_class
-    with 
-    DomPropsMixin,
-    // ignore: mixin_of_non_class, undefined_class
-    $DomPropsMixin,
-    SvgPropsMixin,
-    // ignore: mixin_of_non_class, undefined_class
-    $SvgPropsMixin, transformer_helpers.GeneratedClass
-    implements DomProps {
+    with
+        DomPropsMixin,
+        // ignore: mixin_of_non_class, undefined_class
+        $DomPropsMixin, 
+        SvgPropsMixin,
+        // ignore: mixin_of_non_class, undefined_class
+        $SvgPropsMixin,
+        transformer_helpers.GeneratedClass
+    implements
+        DomProps {
   // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
   SvgProps(this.componentFactory, [Map props]) : this.props = props ?? ({});
 

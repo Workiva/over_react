@@ -23,6 +23,7 @@ import 'package:meta/meta.dart';
 import 'package:platform_detect/platform_detect.dart';
 import 'package:over_react/over_react.dart';
 
+// ignore: uri_has_not_been_generated
 part 'resize_sensor.over_react.g.dart';
 
 /// A wrapper component that detects when its parent is resized, providing a [ResizeSensorEvent]
@@ -68,6 +69,8 @@ UiFactory<ResizeSensorProps> ResizeSensor = $ResizeSensor;
 
 @PropsMixin()
 abstract class ResizeSensorPropsMixin {
+  // To ensure the codemod regression checking works properly, please keep this
+  // field at the top of the class!
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
   static const PropsMeta meta = $metaForResizeSensorPropsMixin;
 
@@ -163,13 +166,8 @@ abstract class ResizeSensorPropsMixin {
   Callback onDidReset;
 }
 
-class ResizeSensorProps extends _$ResizeSensorProps
-// ignore: mixin_of_non_class,undefined_class
-    with _$ResizeSensorPropsAccessorsMixin {}
-
 @Props()
-// ignore: mixin_of_non_class,undefined_class
-class _$ResizeSensorProps extends UiProps with 
+class _$ResizeSensorProps extends UiProps with
     ResizeSensorPropsMixin,
     // ignore: mixin_of_non_class, undefined_class
     $ResizeSensorPropsMixin {}
@@ -497,8 +495,7 @@ class ResizeSensorEvent {
 }
 
 /// A MapView with the typed getters/setters for all HitArea display variation props.
-// ignore: mixin_of_non_class,undefined_class
-class ResizeSensorPropsMixinMapView extends MapView with 
+class ResizeSensorPropsMixinMapView extends MapView with
     ResizeSensorPropsMixin,
     // ignore: mixin_of_non_class, undefined_class
     $ResizeSensorPropsMixin {
@@ -534,4 +531,11 @@ class _SafeAnimationFrameMixin {
   void cancelAnimationFrames() {
     _animationFrameIds.forEach(window.cancelAnimationFrame);
   }
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class ResizeSensorProps extends _$ResizeSensorProps with _$ResizeSensorPropsAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForResizeSensorProps;
 }
