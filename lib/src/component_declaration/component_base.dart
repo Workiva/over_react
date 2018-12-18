@@ -659,6 +659,7 @@ abstract class UiProps extends Object
 
   ReactComponentFactoryProxy get componentFactory;
 
+  /// The default props for this component brought in from the [componentFactory].
   Map get componentDefaultProps => componentFactory is ReactDartComponentFactoryProxy
       // ignore: avoid_as
       ? (componentFactory as ReactDartComponentFactoryProxy).defaultProps
@@ -848,5 +849,5 @@ class StateMeta implements AccessorMeta<StateDescriptor> {
 
 const _notSpecified = const NotSpecified();
 class NotSpecified {
-    const NotSpecified();
+  const NotSpecified();
 }

@@ -105,6 +105,10 @@ main() {
       test('empty map when no default props set', () {
         expect(r.ComponentTest().componentDefaultProps, equals({}));
       });
+
+      test('empty map when componentFactory is not ReactDartComponentFactoryProxy', () {
+        expect(Dom.div().componentDefaultProps, equals({}));
+      });
     });
 
     test('omits props declared in the @Props() class when forwarding by default', () {

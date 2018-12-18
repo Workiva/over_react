@@ -256,6 +256,100 @@ main() {
               reason: 'should preserve existing inheritance');
         });
 
+        test('with an initialized UiFactory with \$<UiFactory>', () {
+          final originalUiFactoryLine = 'UiFactory<FooProps> Foo = \$Foo;';
+          final transformedUiFactoryLine = 'UiFactory<FooProps> Foo = ([Map backingProps]) => new _\$FooPropsImpl(backingProps);';
+
+          preservedLineNumbersTest('''
+              @Factory()
+              UiFactory<FooProps> Foo = \$Foo;
+
+              @Props()
+              class FooProps {}
+
+              @Component()
+              class FooComponent {
+                render() => null;
+              }
+            ''');
+
+          var transformedSource = transformedFile.getTransformedText();
+          expect(transformedSource, isNot(contains(originalUiFactoryLine)));
+          expect(transformedSource, contains(transformedUiFactoryLine));
+        });
+
+        test('with static PropsMeta and StateMeta declaration', () {
+          final originalPropsMetaLine = 'static const PropsMeta meta = \$metaForFooProps;';
+          final originalStateMetaLine = 'static const StateMeta meta = \$metaForFooState;';
+          final transformedPropsMetaLine = 'static const PropsMeta meta = \$Props(FooProps);';
+          final transformedStateMetaLine = 'static const StateMeta meta = \$State(FooState);';
+
+          setUpAndGenerate('''
+           @Factory()
+           UiFactory<FooProps> Foo;
+        
+           @Props()
+           class FooProps {
+            static const PropsMeta meta = \$metaForFooProps;
+           }
+           
+           @State()
+           class FooState {
+            static const StateMeta meta = \$metaForFooState;
+           }
+           
+           @Component()
+           class FooComponent {
+            render() => null;
+           }
+           '''
+          );
+
+          var transformedSource = transformedFile.getTransformedText();
+          expect(transformedSource.contains(originalPropsMetaLine), isFalse);
+          expect(transformedSource.contains(originalStateMetaLine), isFalse);
+          expect(transformedSource, contains(transformedPropsMetaLine));
+          expect(transformedSource, contains(transformedStateMetaLine));
+        });
+
+        test('with static PropsMeta declaration in PropsMixin', () {
+          final originalLine = 'static const PropsMeta meta = \$metaForFooPropsMixin;';
+          final transformedLine = 'static const PropsMeta meta = \$Props(FooPropsMixin);';
+
+          setUpAndGenerate('''
+            @PropsMixin()
+            class FooPropsMixin {
+              static const PropsMeta meta = \$metaForFooPropsMixin;
+              
+              Map get props;
+            }
+          '''
+          );
+
+          var transformedSource = transformedFile.getTransformedText();
+          expect(transformedSource.contains(originalLine), isFalse);
+          expect(transformedSource, contains(transformedLine));
+        });
+
+        test('with static StateMeta declaration in StateMixin', () {
+          final originalLine = 'static const StateMeta meta = \$metaForFooStateMixin; ';
+          final transformedLine = 'static const StateMeta meta = \$State(FooStateMixin);';
+
+          setUpAndGenerate('''
+            @StateMixin()
+            class FooStateMixin {
+              static const StateMeta meta = \$metaForFooStateMixin;   
+              
+              Map get state;           
+            }
+          '''
+          );
+
+          var transformedSource = transformedFile.getTransformedText();
+          expect(transformedSource.contains(originalLine), isFalse);
+          expect(transformedSource, contains(transformedLine));
+        });
+
         group('that subtypes another component, referencing the component class via', () {
           test('a simple identifier', () {
             preservedLineNumbersTest('''
@@ -589,7 +683,20 @@ main() {
             $restOfComponent
           ''');
 
-          verify(logger.error('Factories are stubbed for the generated factories and may only be initialized with the generated factory.', span: any));
+          verify(logger.error('Factory variables are stubs for the generated factories, and should not have initializers'
+              ' unless initialized with \$Foo for Dart 2 builder compatibility.', span: any));
+        });
+
+        test('declared with an \$ prefixed initializer matching the factory name', () {
+          setUpAndGenerate('''
+            @Factory()
+            UiFactory<FooProps> Foo = \$Foo;
+
+            $restOfComponent
+          ''');
+
+          verifyNever(logger.error('Factory variables are stubs for the generated factories, and should not have initializers'
+              ' unless initialized with \$Foo for Dart 2 builder compatibility.', span: any));
         });
       });
 
@@ -877,43 +984,6 @@ main() {
 
         uiPropsCall = uiPropsClass.members
             .singleWhere((entity) => entity is MethodDeclaration && entity.name?.name == 'call');
-      });
-
-      test('generates `call` override on the _\$*PropsImpl class correctly, as a workaround for dart-lang/sdk#16030', () {
-        setUpAndGenerate('''
-          @Factory()
-          UiFactory<FooProps> Foo;
-
-          @Props()
-          class FooProps {}
-
-          @Component()
-          class FooComponent {
-            render() => null;
-          }
-        ''');
-
-        var transformedSource = transformedFile.getTransformedText();
-        var parsedTransformedSource = parseCompilationUnit(transformedSource);
-
-        ClassDeclaration propsImplClass = parsedTransformedSource.declarations
-            .singleWhere((entity) => entity is ClassDeclaration && entity.name?.name == r'_$FooPropsImpl');
-
-        MethodDeclaration propsImplCall = propsImplClass.members
-            .singleWhere((entity) => entity is MethodDeclaration && entity.name?.name == 'call');
-
-        var generatedParameterList = uiPropsCall.parameters.parameters.expand((param) => [param.identifier.name]);
-        var expectedParameterList = uiPropsCall.parameters.parameters.expand((param) => [param.identifier.name]);
-
-        expect(generatedParameterList.toString(), expectedParameterList.toString(),
-            reason: 'should have the correct number of arguments');
-        expect(propsImplCall.metadata, contains(predicate((meta) => meta.name?.name == 'override')),
-            reason: 'should have @override');
-        expect(propsImplCall.returnType, null,
-            reason: 'should not be typed, since ReactElement may not be imported');
-        expect(propsImplCall.isAbstract, isTrue,
-            reason: 'should be abstract; the declaration is only for dart2js bug workaround purposes, '
-                'and the inherited implementation should be used');
       });
     });
 

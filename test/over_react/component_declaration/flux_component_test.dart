@@ -12,11 +12,13 @@ import 'package:over_react/over_react.dart';
 import '../../test_util/test_util.dart';
 
 part 'flux_component_test/basic.dart';
+part 'flux_component_test/handler_lifecycle.dart';
 part 'flux_component_test/handler_precedence.dart';
 part 'flux_component_test/prop_validation.dart';
 part 'flux_component_test/redraw_on.dart';
 part 'flux_component_test/store_handlers.dart';
 part 'flux_component_test/stateful/basic.dart';
+part 'flux_component_test/stateful/handler_lifecycle.dart';
 part 'flux_component_test/stateful/handler_precedence.dart';
 part 'flux_component_test/stateful/prop_validation.dart';
 part 'flux_component_test/stateful/redraw_on.dart';
@@ -138,6 +140,26 @@ void main() {
           reason: 'component should no longer be listening');
     });
 
+    test('should call lifecycle methods related to store handlers', () async {
+      final store = new TestStore();
+      var renderedInstance = render(testComponents.handlerLifecycle()..store = store);
+      dynamic component = getDartComponent(renderedInstance);
+
+      expect(component.lifecycleCalls, [
+        ['listenToStoreForRedraw', store],
+      ]);
+      component.lifecycleCalls.clear();
+
+      // Cause store to trigger, wait for it to propagate
+      store.trigger();
+      await nextTick();
+      await nextTick();
+
+      expect(component.lifecycleCalls, [
+        ['handleRedrawOn', store],
+      ]);
+    });
+
     test('cancels any subscriptions added with addSubscription', () async {
       // Setup a new subscription on a component
       int numberOfCalls = 0;
@@ -225,6 +247,7 @@ abstract class BaseTestComponents {
   TestPropValidationProps propValidation();
   TestRedrawOnProps redrawOn();
   TestStoreHandlersProps storeHandlers();
+  TestHandlerLifecycleProps handlerLifecycle();
 }
 
 class TestComponents extends BaseTestComponents {
@@ -233,6 +256,7 @@ class TestComponents extends BaseTestComponents {
   @override TestPropValidationProps propValidation() => TestPropValidation();
   @override TestRedrawOnProps redrawOn() => TestRedrawOn();
   @override TestStoreHandlersProps storeHandlers() => TestStoreHandlers();
+  @override TestHandlerLifecycleProps handlerLifecycle() => TestHandlerLifecycle();
 }
 
 class TestStatefulComponents extends BaseTestComponents {
@@ -241,4 +265,5 @@ class TestStatefulComponents extends BaseTestComponents {
   @override TestStatefulPropValidationProps propValidation() => TestStatefulPropValidation();
   @override TestStatefulRedrawOnProps redrawOn() => TestStatefulRedrawOn();
   @override TestStatefulStoreHandlersProps storeHandlers() => TestStatefulStoreHandlers();
+  @override TestStatefulHandlerLifecycleProps handlerLifecycle() => TestStatefulHandlerLifecycle();
 }
