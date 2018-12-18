@@ -10,7 +10,7 @@ triggers for Webstorm/IntelliJ and VS Code.
 | `orAbsStless`  | Dart 2 abstract stateless component skeleton |
 | `orCAbsStless`  | Dart 2 commented abstract stateless component skeleton |
 | `orStful`   | Dart 2 stateful component skeleton |
-| `orCStful`   | Dart 2 commneted stateful component skeleton |
+| `orCStful`   | Dart 2 commented stateful component skeleton |
 | `orAbsStful`  | Dart 2 abstract stateful component skeleton |
 | `orCAbsStful`  | Dart 2 commented abstract stateful component skeleton |
 | `orPropsMixin`  | Dart 2 prop mixin skeleton |
