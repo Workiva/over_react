@@ -1,4 +1,5 @@
 @TestOn('vm')
+@Timeout(const Duration(minutes: 1))
 library over_react.strong_mode;
 
 import 'dart:async';
