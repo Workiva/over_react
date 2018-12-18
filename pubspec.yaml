@@ -36,14 +36,7 @@ dev_dependencies:
   #over_react_test: any #^1.5.0
   source_gen: any #^0.7.4+3
   test: '>=0.12.30 <2.0.0'
-  transformer_utils: ^0.1.5
-
-dependency_overrides:
-  built_redux:
-    git:
-      url: git@github.com:corwinsheahan-wf/built_redux.git
-      ref: 9c9580242e8af6b905ef26c452600dca2195a98b # from bump_build_runner
-  transformer_utils:
+  transformer_utils: #^0.1.5
     git:
       url: git@github.com:workiva/dart_transformer_utils.git
-      ref: cc2200ab8e6fb408899b64e53b4aedb0ac69ca5f # from dart2_compat
+      ref: master 
