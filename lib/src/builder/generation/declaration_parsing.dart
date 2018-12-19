@@ -159,6 +159,7 @@ class ParsedDeclarations {
               );
             }
           }
+          declarationMap[annotationName] = [];
         });
       }
 
@@ -183,6 +184,7 @@ class ParsedDeclarations {
               getSpan(sourceFile, declarations.first)
           );
         }
+        declarationMap[annotationName] = [];
       });
     } else {
       void validateMetaField(ClassDeclaration cd, String expectedType) {

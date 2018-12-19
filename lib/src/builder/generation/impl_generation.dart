@@ -90,8 +90,8 @@ class ImplGenerator {
         if (variable.initializer != null && variable.initializer.toString() != validInitializer) {
           logger.severe(
             'Factory variables are stubs for the generated factories, and should not have initializers '
-            'unless initialized with \$$factoryName for Dart 2 builder compatibility.',
-//              span: getSpan(sourceFile, variable.initializer)
+            // TODO: Figure out good way to format span output. Idea: look at tranformer logger span optional arg usage
+            'unless initialized with \$$factoryName for Dart 2 builder compatibility. Span: ${getSpan(sourceFile, variable.initializer)}'
           );
         }
       });
