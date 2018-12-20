@@ -98,6 +98,21 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
     TransformedSourceFile transformedFile = new TransformedSourceFile(sourceFile);
     TransformLogger logger = new JetBrainsFriendlyLogger(transform.logger);
 
+    var partPattern = new RegExp(r'''part\s+['"](.+\.over_react\.g\.dart)['"];''');
+    var partFilename = partPattern.firstMatch(sourceFile.getText(0));
+
+    // For Dart 1 compatibility an empty generated part file will be created when a file contains
+    // the part directive pointing to the generated file the new builder requires.
+    if (partFilename != null) {
+      var sourceFileDirectory = p.dirname(transform.primaryInput.id.path);
+      var sourceFilename = p.basename(transform.primaryInput.id.path);
+      var partFilePath = p.join(sourceFileDirectory, partFilename.group(1));
+      var contents = "part of '$sourceFilename';";
+      var asset = new Asset.fromString(new AssetId(transform.primaryInput.id.package, partFilePath), contents);
+
+      transform.addOutput(asset);
+    }
+
     // If the source file might contain annotations that necessitate generation,
     // parse the declarations and generate code.
     // If not, don't skip this step to avoid parsing files that definitely won't generate anything.

@@ -49,6 +49,7 @@ class ImplGenerator {
   ImplGenerator(this.logger, this.transformedFile);
 
   static const String generatedPrefix = r'_$';
+  static const String privatePrefix = r'_';
   static const String publicGeneratedPrefix = r'$';
 
   final TransformLogger logger;
@@ -71,7 +72,7 @@ class ImplGenerator {
     if (declarations.declaresComponent) {
       final String factoryName = declarations.factory.node.variables.variables.first.name.toString();
 
-      final String propsName = declarations.props.node.name.toString();
+      final String propsName = (declarations.props.companionNode ?? declarations.props.node).name.toString();
       final String propsImplName = '$generatedPrefix${propsName}Impl';
 
       final String componentClassName = declarations.component.node.name.toString();
@@ -93,6 +94,12 @@ class ImplGenerator {
             'abstract '
         );
       }
+      if (declarations.props.companionNode != null && !declarations.props.companionNode.isAbstract) {
+        transformedFile.insert(
+            sourceFile.location(declarations.props.companionNode.classKeyword.offset),
+            'abstract '
+        );
+      }
 
       // ----------------------------------------------------------------------
       //   Factory implementation
@@ -104,10 +111,15 @@ class ImplGenerator {
       }
 
       declarations.factory.node.variables.variables.forEach((variable) {
-        if (variable.initializer != null && !(variable.initializer.toString() == '\$$factoryName')) {
+        final isPrivate = factoryName.startsWith(privatePrefix);
+        final validInitializer = isPrivate
+            ? '$generatedPrefix${factoryName.substring(privatePrefix.length)}'
+            : '$publicGeneratedPrefix$factoryName';
+        if (variable.initializer != null && variable.initializer.toString() != validInitializer) {
           logger.error(
               'Factory variables are stubs for the generated factories, and should not have initializers '
-              'unless initialized with \$$factoryName for Dart 2 builder compatibility.',
+              'unless initialized with \$$factoryName for Dart 2 builder compatibility. '
+              'Should be:\n    $validInitializer',
               span: getSpan(sourceFile, variable.initializer)
           );
         }
@@ -166,7 +178,10 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
       //   Props implementation
       // ----------------------------------------------------------------------
-      generateAccessors(AccessorType.props, declarations.props);
+      removeWithClauseFromCompanion(declarations.props.companionNode, sourceFile, transformedFile);
+
+      final accessorOutput = generateAccessors(AccessorType.props, declarations.props);
+      implementations.writeln(accessorOutput.implementations);
 
       final String propKeyNamespace = getAccessorKeyNamespace(declarations.props);
 
@@ -207,10 +222,13 @@ class ImplGenerator {
       //   State implementation
       // ----------------------------------------------------------------------
       if (declarations.state != null) {
-        final String stateName = declarations.state.node.name.toString();
+        final String stateName = (declarations.state.companionNode ?? declarations.state.node).name.toString();
         final String stateImplName = '$generatedPrefix${stateName}Impl';
 
-        generateAccessors(AccessorType.state, declarations.state);
+        removeWithClauseFromCompanion(declarations.state.companionNode, sourceFile, transformedFile);
+
+        final accessorOutput = generateAccessors(AccessorType.state, declarations.state);
+        implementations.writeln(accessorOutput.implementations);
 
         implementations
           ..writeln('// Concrete state implementation.')
@@ -298,15 +316,6 @@ class ImplGenerator {
       }
     }
 
-    if (implementations.isNotEmpty) {
-      transformedFile.insert(sourceFile.location(sourceFile.length),
-          '\n\n' +
-          commentBanner('GENERATED IMPLEMENTATIONS', bottomBorder: false) +
-          implementations.toString() +
-          commentBanner('END GENERATED IMPLEMENTATIONS', topBorder: false)
-      );
-    }
-
 
     // ----------------------------------------------------------------------
     //   Props/State Mixins implementations
@@ -333,7 +342,15 @@ class ImplGenerator {
         );
       }
 
-      generateAccessors(AccessorType.props, propMixin);
+      final accessorOutput = generateAccessors(AccessorType.props, propMixin);
+      implementations.writeln(accessorOutput.implementations);
+      
+      /// Generates an empty $ prefixed mixin class for each prop mixin.
+      ///
+      /// This is because with the builder compatible boilerplate, Props
+      /// and State mixin classes are renamed to include a $ prefix with the assumption that
+      /// the actual class with concrete accessor implementations will be generated.
+      transformedFile.insert(sourceFile.location(propMixin.node.end), ' abstract class \$${propMixin.node.name.name} {}');
     });
 
     declarations.stateMixins.forEach((stateMixin) {
@@ -345,19 +362,42 @@ class ImplGenerator {
         );
       }
 
-      generateAccessors(AccessorType.state, stateMixin);
+      final accessorOutput = generateAccessors(AccessorType.state, stateMixin);
+      implementations.writeln(accessorOutput.implementations);
+
+      /// Generates an empty $ prefixed mixin class for each state mixin.
+      ///
+      /// This is because with the builder compatible boilerplate, Props
+      /// and State mixin classes are renamed to include a $ prefix with the assumption that
+      /// the actual class with concrete accessor implementations will be generated.
+      transformedFile.insert(sourceFile.location(stateMixin.node.end), 'abstract class \$${stateMixin.node.name.name} {}');
     });
 
     // ----------------------------------------------------------------------
     //   Abstract Props/State implementations
     // ----------------------------------------------------------------------
     declarations.abstractProps.forEach((abstractPropsClass) {
-      generateAccessors(AccessorType.props, abstractPropsClass);
+      removeWithClauseFromCompanion(abstractPropsClass.companionNode, sourceFile, transformedFile);
+
+      final accessorOutput = generateAccessors(AccessorType.props, abstractPropsClass);
+      implementations.writeln(accessorOutput.implementations);
     });
 
     declarations.abstractState.forEach((abstractStateClass) {
-      generateAccessors(AccessorType.state, abstractStateClass);
+      removeWithClauseFromCompanion(abstractStateClass.companionNode, sourceFile, transformedFile);
+
+      final accessorOutput = generateAccessors(AccessorType.state, abstractStateClass);
+      implementations.writeln(accessorOutput.implementations);
     });
+
+    if (implementations.isNotEmpty) {
+      transformedFile.insert(sourceFile.location(sourceFile.length),
+          '\n\n' +
+          commentBanner('GENERATED IMPLEMENTATIONS', bottomBorder: false) +
+          implementations.toString() +
+          commentBanner('END GENERATED IMPLEMENTATIONS', topBorder: false)
+      );
+    }
   }
 
 
@@ -376,16 +416,28 @@ class ImplGenerator {
 
   static const String staticConsumedPropsName = '${publicGeneratedPrefix}consumedProps';
 
+  static ClassDeclaration getCompanionNodeOrNull(NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap) {
+    if (typedMap is! NodeWithMetaAndCompanion) {
+      return null;
+    }
+    final NodeWithMetaAndCompanion<ClassDeclaration, annotations.TypedMap> typedMapWithCompanion = typedMap;
+    return typedMapWithCompanion.companionNode;
+  }
+
   static String getAccessorKeyNamespace(NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap) {
     // Default to the name of the class followed by a period.
     var defaultNamespace = typedMap.node.name.name + '.';
+    final companionNode = getCompanionNodeOrNull(typedMap);
+    if (companionNode != null) {
+      defaultNamespace = companionNode.name.name + '.';
+    }
     // Allow the consumer to specify a custom namespace that trumps the default.
     var specifiedKeyNamespace = typedMap.meta?.keyNamespace;
 
     return specifiedKeyNamespace ?? defaultNamespace;
   }
 
-  void generateAccessors(
+  AccessorOutput generateAccessors(
       AccessorType type,
       NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap
   ) {
@@ -404,21 +456,6 @@ class ImplGenerator {
 
     Map keyConstants = {};
     Map constants = {};
-
-    typedMap.node.members
-        .where((member) => member is FieldDeclaration && member.isStatic)
-        .forEach((_field) {
-          final field = _field as FieldDeclaration; // ignore: avoid_as
-
-          final name = typedMap.node.name.name;
-          final metaType = type == AccessorType.props ? 'Props' : 'State';
-
-          field.fields.variables.forEach((VariableDeclaration variable) {
-            if (variable.name.toString() == 'meta' && variable.initializer != null) {
-              transformedFile.replace(sourceFile.span(variable.initializer.offset, variable.initializer.end), '\$$metaType($name)');
-            }
-          });
-    });
 
     typedMap.node.members
         .where((member) => member is FieldDeclaration && !member.isStatic)
@@ -569,49 +606,99 @@ class ImplGenerator {
           }
         });
 
+    var staticConstNamespace = typedMap.node.name.name;
     var keyConstantsImpl;
+    var keyConstantsCompanionImpl;
     var constantsImpl;
+    var constantsCompanionImpl;
 
     if (keyConstants.keys.isEmpty) {
       keyConstantsImpl = '';
+      keyConstantsCompanionImpl = '';
     } else {
       keyConstantsImpl =
           'static const String ' +
           keyConstants.keys.map((keyName) => '$keyName = ${keyConstants[keyName]}').join(', ') +
           '; ';
+      keyConstantsCompanionImpl =
+          'static const String ' +
+          keyConstants.keys.map((keyName) => '$keyName = $staticConstNamespace.$keyName').join(', ') +
+          '; ';
     }
 
     if (constants.keys.isEmpty) {
       constantsImpl = '';
+      constantsCompanionImpl = '';
     } else {
       constantsImpl =
           'static const $constConstructorName ' +
           constants.keys.map((constantName) => '$constantName = ${constants[constantName]}').join(', ') +
           '; ';
+      constantsCompanionImpl =
+          'static const $constConstructorName ' +
+          constants.keys.map((constantName) => '$constantName = $staticConstNamespace.$constantName').join(', ') +
+          '; ';
     }
 
-    String keyListImpl =
+    final keyListImpl =
         'static const List<String> $keyListName = const [' +
         keyConstants.keys.join(', ') +
         ']; ';
+    final keyListCompanionImpl =
+        'static const List<String> $keyListName = $staticConstNamespace.$keyListName; ';
 
-    String listImpl =
+    final listImpl =
         'static const List<$constConstructorName> $constantListName = const [' +
         constants.keys.join(', ') +
         ']; ';
+    final listCompanionImpl =
+        'static const List<$constConstructorName> $constantListName = $staticConstNamespace.$constantListName; ';
 
-    String consumedImpl = '';
+    var consumedImpl = '';
+    var consumedCompanionImpl = '';
 
     if (isProps) {
       consumedImpl = 'static const ConsumedProps $staticConsumedPropsName = const ConsumedProps($constantListName, $keyListName); ';
+      consumedCompanionImpl = 'static const ConsumedProps $staticConsumedPropsName = $staticConstNamespace.$staticConsumedPropsName; ';
     }
 
-    String staticVariablesImpl = '    /* GENERATED CONSTANTS */ $consumedImpl$constantsImpl$listImpl$keyConstantsImpl$keyListImpl';
+    final staticVariablesImpl = '    /* GENERATED CONSTANTS */ $consumedImpl$constantsImpl$listImpl$keyConstantsImpl$keyListImpl';
+    final staticGettersCompanionImpl = '    /* GENERATED CONSTANTS */ $consumedCompanionImpl$constantsCompanionImpl$listCompanionImpl$keyConstantsCompanionImpl$keyListCompanionImpl';
 
     transformedFile.insert(
         sourceFile.location(typedMap.node.leftBracket.end),
         staticVariablesImpl
     );
+
+    final companionNode = getCompanionNodeOrNull(typedMap);
+    if (companionNode != null) {
+      transformedFile.insert(
+          sourceFile.location(companionNode.leftBracket.end),
+          staticGettersCompanionImpl
+      );
+    }
+    
+    final name = (companionNode ?? typedMap.node).name.name;
+    final isPrivate = name.startsWith(privatePrefix);
+    final publicName = isPrivate ? name.substring(privatePrefix.length) : name;
+    final metaClassName = '$generatedPrefix${name}Meta';
+    final metaInstanceName = isPrivate
+        ? '${generatedPrefix}metaFor$publicName'
+        : '${publicGeneratedPrefix}metaFor$publicName';
+    final metaStructName = type == AccessorType.props
+        ? 'PropsMeta'
+        : 'StateMeta';
+    final output = new StringBuffer();
+    output.writeln('/// A class that allows us to reuse generated code from the accessors class.');
+    output.writeln('/// This is only used by other generated code, and can be simplified if needed.');
+    output.writeln('class $metaClassName {');
+    output.writeln(staticVariablesImpl);
+    output.writeln('}');
+    output.writeln('const $metaStructName $metaInstanceName = const $metaStructName(');
+    output.writeln('  fields: $metaClassName.$constantListName,');
+    output.writeln('  keys: $metaClassName.$keyListName,');
+    output.writeln(');');
+    return new AccessorOutput(output.toString());
   }
 
   /// Apply a workaround for an issue where, in the DDC, abstract getter or setter overrides declared in a class clobber
@@ -676,3 +763,34 @@ class ImplGenerator {
 }
 
 enum AccessorType {props, state}
+
+class AccessorOutput {
+  final String implementations;
+   AccessorOutput(this.implementations);
+}
+
+/// Check if the passed in class declaration is null, if not, remove its with clause.
+///
+/// The public Props|State|AbstractProps|AbstractState class signatures includes a with
+/// <Class>AccessorsMixin clause for dart 2 builder compatibility. But in Dart 1,
+/// the transformer is able to generate the concrete accessors inline without a separate
+/// mixin. For this reason, the transformer removes the with clause from the public class
+/// signatures.
+///
+/// Builder-compatible dual class props setup example:
+///
+///     class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
+///       // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+///       static const PropsMeta meta = $metaForFooProps;
+///     }
+///
+///     @Props()
+///     class _$FooProps extends UiProps {}
+///
+/// The builder is responsible for generating the _$FooPropsAccessorsMixin found in FooProps
+/// with clause, but since the transformer can inline concrete accessors _$FooPropsAccessorsMixin
+/// is not required and needs to be removed.
+void removeWithClauseFromCompanion(ClassDeclaration declaration, SourceFile sourceFile, TransformedSourceFile transformedFile) {
+  if (declaration == null) return;
+  transformedFile.remove(getSpan(sourceFile, declaration.withClause));
+}

@@ -17,14 +17,19 @@ library over_react.aria_mixin;
 import 'dart:collection';
 
 // Must import these consts because they are used in the transformed code.
-// ignore: unused_import
-import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps;
+// ignore: unused_shown_name
+import 'package:over_react/over_react.dart' show PropDescriptor, PropsMeta, ConsumedProps;
 import 'package:over_react/src/component_declaration/annotations.dart';
 
 /// Typed getters/setters for accessibility props.
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
 abstract class AriaPropsMixin {
+  // To ensure the codemod regression checking works properly, please keep this
+  // field at the top of the class!
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForAriaPropsMixin;
+
   Map get props;
 
   /// Identifies the currently active descendant of a compositewidget.
@@ -1752,7 +1757,10 @@ class Role {
 }
 
 /// A MapView with the typed getters/setters for all aria props.
-class AriaPropsMapView extends MapView with AriaPropsMixin {
+class AriaPropsMapView extends MapView with 
+    AriaPropsMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $AriaPropsMixin {
   /// Create a new instance backed by the specified map.
   AriaPropsMapView(Map map) : super(map);
 

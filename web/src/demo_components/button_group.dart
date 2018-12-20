@@ -4,10 +4,11 @@ part of over_react.web.demo_components;
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/button-group/>.
 @Factory()
-UiFactory<ButtonGroupProps> ButtonGroup;
+// ignore: undefined_identifier
+UiFactory<ButtonGroupProps> ButtonGroup = $ButtonGroup;
 
 @Props()
-class ButtonGroupProps extends UiProps {
+class _$ButtonGroupProps extends UiProps {
   /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#sizing>.
@@ -27,7 +28,7 @@ class ButtonGroupProps extends UiProps {
 }
 
 @State()
-class ButtonGroupState extends UiState {}
+class _$ButtonGroupState extends UiState {}
 
 @Component()
 class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupState>
@@ -154,3 +155,17 @@ final Map<ButtonSize, ButtonGroupSize> buttonToButtonGroupSize = const <ButtonSi
   ButtonSize.DEFAULT: ButtonGroupSize.DEFAULT,
   ButtonSize.LARGE:   ButtonGroupSize.LARGE,
 };
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class ButtonGroupProps extends _$ButtonGroupProps with _$ButtonGroupPropsAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForButtonGroupProps;
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class ButtonGroupState extends _$ButtonGroupState with _$ButtonGroupStateAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const StateMeta meta = $metaForButtonGroupState;
+}

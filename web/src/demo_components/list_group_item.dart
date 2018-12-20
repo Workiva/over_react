@@ -5,10 +5,11 @@ part of over_react.web.demo_components;
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/list-group/>
 @Factory()
-UiFactory<ListGroupItemProps> ListGroupItem;
+// ignore: undefined_identifier
+UiFactory<ListGroupItemProps> ListGroupItem = $ListGroupItem;
 
 @Props()
-class ListGroupItemProps extends UiProps {
+class _$ListGroupItemProps extends UiProps {
   /// The HTML element type for the [ListGroupItem], specifying its DOM
   /// representation when rendered.
   ///
@@ -240,4 +241,11 @@ class ListGroupItemHeaderElementSize {
   /// A [Dom.h6] (HTML `<h6>` element)
   static final ListGroupItemHeaderElementSize H6 =
       new ListGroupItemHeaderElementSize._internal(Dom.h6);
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class ListGroupItemProps extends _$ListGroupItemProps with _$ListGroupItemPropsAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForListGroupItemProps;
 }

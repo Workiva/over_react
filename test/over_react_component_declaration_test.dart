@@ -32,6 +32,14 @@ import 'over_react/component_declaration/transformer_integration_tests/abstract_
 import 'over_react/component_declaration/transformer_integration_tests/accessor_mixin_integration_test.dart' as accessor_mixin_integration_test;
 import 'over_react/component_declaration/transformer_integration_tests/component_integration_test.dart' as component_integration_test;
 import 'over_react/component_declaration/transformer_integration_tests/constant_required_accessor_integration_test.dart' as constant_required_accessor_integration_test;
+import 'over_react/component_declaration/transformer_integration_tests/dart2/abstract_accessor_integration_test.dart' as dart2_abstract_accessor_integration_test;
+import 'over_react/component_declaration/transformer_integration_tests/dart2/accessor_mixin_integration_test.dart' as dart2_accessor_mixin_integration_test;
+import 'over_react/component_declaration/transformer_integration_tests/dart2/component_integration_test.dart' as dart2_component_integration_test;
+import 'over_react/component_declaration/transformer_integration_tests/dart2/constant_required_accessor_integration_test.dart' as dart2_constant_required_accessor_integration_test;
+import 'over_react/component_declaration/transformer_integration_tests/dart2/do_not_generate_accessor_integration_test.dart' as dart2_do_not_generate_accessor_integration_test;
+import 'over_react/component_declaration/transformer_integration_tests/dart2/namespaced_accessor_integration_test.dart' as dart2_namespaced_accessor_integration_test;
+import 'over_react/component_declaration/transformer_integration_tests/dart2/required_accessor_integration_test.dart' as dart2_required_accessor_integration_test;
+import 'over_react/component_declaration/transformer_integration_tests/dart2/stateful_component_integration_test.dart' as dart2_stateful_component_integration_test;
 import 'over_react/component_declaration/transformer_integration_tests/do_not_generate_accessor_integration_test.dart' as do_not_generate_accessor_integration_test;
 import 'over_react/component_declaration/transformer_integration_tests/namespaced_accessor_integration_test.dart' as namespaced_accessor_integration_test;
 import 'over_react/component_declaration/transformer_integration_tests/required_accessor_integration_test.dart' as required_accessor_integration_test;
@@ -55,4 +63,13 @@ main() {
   namespaced_accessor_integration_test.main();
   required_accessor_integration_test.main();
   stateful_component_integration_test.main();
+
+  dart2_abstract_accessor_integration_test.main();
+  dart2_accessor_mixin_integration_test.main();
+  dart2_component_integration_test.main();
+  dart2_constant_required_accessor_integration_test.main();
+  dart2_do_not_generate_accessor_integration_test.main();
+  dart2_namespaced_accessor_integration_test.main();
+  dart2_required_accessor_integration_test.main();
+  dart2_stateful_component_integration_test.main();
 }
