@@ -60,7 +60,9 @@ class ImplGenerator {
       final factoryName = declarations.factory.node.variables.variables.first.name.toString();
 
       final consumerPropsName = declarations.props.node.name.toString();
-      final publicPropsName = _publicPropsClassNameFromConsumerClassName(consumerPropsName);
+      final publicPropsName = _publicPropsOrStateClassNameFromConsumerClassName(consumerPropsName);
+      final consumablePropsName = '${declarations.hasPrivatePropsClass ? privatePrefix : ''}$publicPropsName';
+
       final propsImplName = _propsImplClassNameFromConsumerClassName(consumerPropsName);
       final propsAccessorsMixinName = _accessorsMixinNameFromConsumerName(consumerPropsName);
 
@@ -151,9 +153,9 @@ class ImplGenerator {
 
       final String propKeyNamespace = _getAccessorKeyNamespace(declarations.props);
 
-      outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
+      outputContentsBuffer.write(_generateConcretePropsImpl(
         AccessorType.props, consumerPropsName, propsImplName, generatedComponentFactoryName,
-        propKeyNamespace, declarations.props, propsAccessorsMixinName, publicPropsName));
+        propKeyNamespace, declarations.props, propsAccessorsMixinName, consumablePropsName));
 
       typedPropsFactoryImpl =
           '  @override\n'
@@ -167,7 +169,8 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
       if (declarations.state != null) {
         final stateName = _classNameFromNode(declarations.state);
-        final publicStateName = _publicPropsClassNameFromConsumerClassName(stateName);
+        final publicStateName = _publicPropsOrStateClassNameFromConsumerClassName(stateName);
+        final consumableStateName = '${declarations.hasPrivateStateClass ? privatePrefix : ''}$publicStateName';
         final stateImplName = _propsImplClassNameFromConsumerClassName(stateName);
         final stateAccessorsMixinName = _accessorsMixinNameFromConsumerName(stateName);
 
@@ -178,7 +181,7 @@ class ImplGenerator {
           ..writeln('// Concrete state implementation.')
           ..writeln('//')
           ..writeln('// Implements constructor and backing map.')
-          ..writeln('class $stateImplName extends $stateName with $stateAccessorsMixinName implements $publicStateName{')
+          ..writeln('class $stateImplName extends $stateName with $stateAccessorsMixinName implements $consumableStateName {')
           ..writeln('  $stateImplName(Map backingMap) : this._state = ({}) {')
           ..writeln('    this._state = backingMap ?? ({});')
           ..writeln('  }')
@@ -264,7 +267,7 @@ class ImplGenerator {
           className));
       outputContentsBuffer.write(_generateMetaConstant(
           AccessorType.props, _accessorsMixinNameFromConsumerName(className),
-          _publicPropsClassNameFromConsumerClassName(className)));
+          _publicPropsOrStateClassNameFromConsumerClassName(className)));
     });
 
     declarations.abstractState.forEach((abstractStateClass) {
@@ -274,7 +277,7 @@ class ImplGenerator {
           className));
       outputContentsBuffer.write(_generateMetaConstant(
           AccessorType.state, _accessorsMixinNameFromConsumerName(className),
-          _publicPropsClassNameFromConsumerClassName(className)));
+          _publicPropsOrStateClassNameFromConsumerClassName(className)));
     });
   }
 
@@ -510,7 +513,7 @@ class ImplGenerator {
 
   static String _getAccessorKeyNamespace(NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap) {
     // Default to the name of the class followed by a period.
-    var defaultNamespace = _publicPropsClassNameFromConsumerClassName(typedMap.node.name.name) + '.';
+    var defaultNamespace = _publicPropsOrStateClassNameFromConsumerClassName(typedMap.node.name.name) + '.';
     // Allow the consumer to specify a custom namespace that trumps the default.
     var specifiedKeyNamespace = typedMap.meta?.keyNamespace;
 
@@ -545,7 +548,7 @@ class ImplGenerator {
   /// Example:
   ///   Input: '_$FooProps'
   ///   Output: 'FooProps'
-  static String _publicPropsClassNameFromConsumerClassName(String className) {
+  static String _publicPropsOrStateClassNameFromConsumerClassName(String className) {
     if (className == null) {
       throw new ArgumentError.notNull(className);
     }
@@ -612,7 +615,7 @@ class ImplGenerator {
         consumerClassName, isMixin: true));
     outputContentsBuffer.write(_generateMetaConstant(
         type, generatedPropsMixinName,
-        _publicPropsClassNameFromConsumerClassName(consumerClassName)));
+        _publicPropsOrStateClassNameFromConsumerClassName(consumerClassName)));
   }
 //=======
 //          'static const $constConstructorName ' +
@@ -685,10 +688,10 @@ class ImplGenerator {
     return generatedClass.toString();
   }
 
-  String _generateConcretePropsOrStateImpl(AccessorType type, String consumerName, String implName,
-      String componentFactoryName, String propKeyNamespace, NodeWithMeta node, String accessorsMixinName, String publicName) {
+  String _generateConcretePropsImpl(AccessorType type, String consumerName, String implName,
+      String componentFactoryName, String propKeyNamespace, NodeWithMeta node, String accessorsMixinName, String consumableName) {
     var classDeclaration = new StringBuffer()
-      ..write('class $implName extends $consumerName with $accessorsMixinName implements $publicName {\n');
+      ..write('class $implName extends $consumerName with $accessorsMixinName implements $consumableName {\n');
     return (new StringBuffer()
         ..writeln('// Concrete props implementation.')
         ..writeln('//')
@@ -715,7 +718,6 @@ class ImplGenerator {
         ..writeln('  /// The default namespace for the prop getters/setters generated for this class.')
         ..writeln('  @override')
         ..writeln('  String get propKeyNamespace => ${stringLiteral(propKeyNamespace)};')
-//        ..write(generateAccessors(type, node).implementations)
         ..writeln('}')
         ..writeln())
         .toString();

@@ -58,9 +58,44 @@ class ParsedDeclarations {
       key_stateMixin:        <CompilationUnitMember>[],
     };
 
+    var companionPrefix = r'_$';
+    bool hasPrivateStateClass = false;
+    bool hasPrivatePropsClass = false;
     unit.declarations.forEach((CompilationUnitMember member) {
       member.metadata.forEach((annotation) {
         var name = annotation.name.toString();
+        bool isPropsClass(String annotation) {
+          return (name == 'Props' || name == 'AbstractProps');
+        }
+
+        bool isStateClass(String annotation) {
+          return (name == 'State' || name == 'AbstractState');
+        }
+
+        if (isPropsClass(name) || isStateClass(name)) {
+          if (member is ClassDeclaration && member.name.name.startsWith(companionPrefix)) {
+            final companionName = member.name.name.substring(companionPrefix.length);
+            final privateCompanionName = '_$companionName';
+            final privateCompanionClass = unit.declarations.firstWhere(
+                    (innerMember) =>
+                innerMember is ClassDeclaration && innerMember.name.name == privateCompanionName,
+                orElse: () => null);
+            final publicCompanionClass = unit.declarations.firstWhere(
+                    (innerMember) =>
+                innerMember is ClassDeclaration && innerMember.name.name == companionName,
+                orElse: () => null);
+
+            if (privateCompanionClass == null && publicCompanionClass == null) {
+              error('${member.name.name} must have an accompanying consumable class within the '
+                  'same file for Dart 2 builder compatibility, but one was not found.', getSpan(sourceFile, member));
+            } else {
+              if (privateCompanionClass != null) {
+                hasPrivateStateClass = isStateClass(name) || hasPrivateStateClass;
+                hasPrivatePropsClass = isPropsClass(name) || hasPrivatePropsClass;
+              }
+            }
+          }
+        }
 
         if (declarationMap[name] != null) {
           hasDeclarations = true;
@@ -287,6 +322,9 @@ class ParsedDeclarations {
 
         hasErrors: hasErrors,
         hasDeclarations: hasDeclarations,
+
+        hasPrivatePropsClass: hasPrivatePropsClass,
+        hasPrivateStateClass: hasPrivateStateClass
     );
   }
 
@@ -302,6 +340,9 @@ class ParsedDeclarations {
       List<ClassDeclaration> propsMixins,
       List<ClassDeclaration> stateMixins,
 
+      hasPrivatePropsClass,
+      hasPrivateStateClass,
+
       this.hasErrors,
       this.hasDeclarations,
   }) :
@@ -316,7 +357,10 @@ class ParsedDeclarations {
       this.propsMixins   = new List.unmodifiable(propsMixins.map((propsMixin) => new PropsMixinNode(propsMixin))),
       this.stateMixins   = new List.unmodifiable(stateMixins.map((stateMixin) => new StateMixinNode(stateMixin))),
 
-      this.declaresComponent = factory != null
+      this.declaresComponent = factory != null,
+
+      this.hasPrivatePropsClass = hasPrivatePropsClass,
+      this.hasPrivateStateClass = hasPrivateStateClass
   {
     assert(
         ((this.factory == null && this.component == null && this.props == null) ||
@@ -383,6 +427,9 @@ class ParsedDeclarations {
 
   final List<PropsMixinNode> propsMixins;
   final List<StateMixinNode> stateMixins;
+
+  final hasPrivateStateClass;
+  final hasPrivatePropsClass;
 
   final bool hasErrors;
   final bool hasDeclarations;

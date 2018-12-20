@@ -625,7 +625,7 @@ abstract class UiProps extends MapBase
     if (factory is ReactComponentFactoryProxy) {
       // Use `build` instead of using emulated function behavior to work around DDC issue
       // https://github.com/dart-lang/sdk/issues/29904
-      // Should have the benefit of better performance; TODO optimize type check?
+      // Should have the benefit of better performance;
       return factory.build(props, childArguments);
     } else {
       var parameters = []
