@@ -278,76 +278,75 @@ main() {
           expect(transformedSource, contains(transformedUiFactoryLine));
         });
 
-        test('with static PropsMeta and StateMeta declaration', () {
-          final originalPropsMetaLine = 'static const PropsMeta meta = \$metaForFooProps;';
-          final originalStateMetaLine = 'static const StateMeta meta = \$metaForFooState;';
-          final transformedPropsMetaLine = 'static const PropsMeta meta = \$Props(FooProps);';
-          final transformedStateMetaLine = 'static const StateMeta meta = \$State(FooState);';
+        test('with builder-compatible dual-class props setup', () {
+          final originalPrivateFooPropsLine = 'class _\$FooProps extends UiProps {';
+          final originalPublicFooPropsLine = 'class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {';
+          final transformedFooPropsLine = 'class FooProps extends _\$FooProps';
+          final fooPropsImplExtendsPublicClass = 'class _\$FooPropsImpl extends FooProps';
+          final fooPropsImplExtendsPrivateClass = 'class _\$FooPropsImpl extends _\$FooProps';
 
-          setUpAndGenerate('''
-           @Factory()
-           UiFactory<FooProps> Foo;
+          preservedLineNumbersTest('''
+            @Factory()
+            UiFactory<FooProps> Foo;
         
-           @Props()
-           class FooProps {
-            static const PropsMeta meta = \$metaForFooProps;
-           }
+            class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {
+              // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+              static const PropsMeta meta = \$metaForFooProps;
+            }
            
-           @State()
-           class FooState {
-            static const StateMeta meta = \$metaForFooState;
-           }
+            @Props()
+            class _\$FooProps extends UiProps {}
            
-           @Component()
-           class FooComponent {
-            render() => null;
-           }
-           '''
-          );
-
-          var transformedSource = transformedFile.getTransformedText();
-          expect(transformedSource.contains(originalPropsMetaLine), isFalse);
-          expect(transformedSource.contains(originalStateMetaLine), isFalse);
-          expect(transformedSource, contains(transformedPropsMetaLine));
-          expect(transformedSource, contains(transformedStateMetaLine));
-        });
-
-        test('with static PropsMeta declaration in PropsMixin', () {
-          final originalLine = 'static const PropsMeta meta = \$metaForFooPropsMixin;';
-          final transformedLine = 'static const PropsMeta meta = \$Props(FooPropsMixin);';
-
-          setUpAndGenerate('''
-            @PropsMixin()
-            class FooPropsMixin {
-              static const PropsMeta meta = \$metaForFooPropsMixin;
-              
-              Map get props;
+            @Component()
+            class FooComponent {
+              render() => null;
             }
           '''
           );
 
           var transformedSource = transformedFile.getTransformedText();
-          expect(transformedSource.contains(originalLine), isFalse);
-          expect(transformedSource, contains(transformedLine));
+          expect(transformedSource, contains(originalPrivateFooPropsLine));
+          expect(transformedSource, isNot(contains(originalPublicFooPropsLine)));
+          expect(transformedSource, contains(transformedFooPropsLine));
+          expect(transformedSource, contains(fooPropsImplExtendsPublicClass));
+          expect(transformedSource, isNot(contains(fooPropsImplExtendsPrivateClass)));
         });
 
-        test('with static StateMeta declaration in StateMixin', () {
-          final originalLine = 'static const StateMeta meta = \$metaForFooStateMixin; ';
-          final transformedLine = 'static const StateMeta meta = \$State(FooStateMixin);';
+        test('with builder-compatible dual-class state setup', () {
+          final originalPrivateFooStateLine = 'class _\$FooState extends UiState {';
+          final originalPublicFooStateLine = 'class FooState extends _\$FooState with _\$FooStateAccessorsMixin {';
+          final transformedFooStateLine = 'class FooState extends _\$FooState';
+          final fooStateImplExtendsPublicClass = 'class _\$FooStateImpl extends FooState';
+          final fooStateImplExtendsPrivateClass = 'class _\$FooStateImpl extends _\$FooState';
 
-          setUpAndGenerate('''
-            @StateMixin()
-            class FooStateMixin {
-              static const StateMeta meta = \$metaForFooStateMixin;   
-              
-              Map get state;           
+          preservedLineNumbersTest('''
+            @Factory()
+            UiFactory<FooProps> Foo;
+        
+            class FooState extends _\$FooState with _\$FooStateAccessorsMixin {
+              // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+              static const StateMeta meta = \$metaForFooState;
+            }
+           
+            @Props()
+            class FooProps extends UiProps {}
+           
+            @State()
+            class _\$FooState extends UiState {}
+           
+            @Component()
+            class FooComponent {
+              render() => null;
             }
           '''
           );
 
           var transformedSource = transformedFile.getTransformedText();
-          expect(transformedSource.contains(originalLine), isFalse);
-          expect(transformedSource, contains(transformedLine));
+          expect(transformedSource, contains(originalPrivateFooStateLine));
+          expect(transformedSource, isNot(contains(originalPublicFooStateLine)));
+          expect(transformedSource, contains(transformedFooStateLine));
+          expect(transformedSource, contains(fooStateImplExtendsPublicClass));
+          expect(transformedSource, isNot(contains(fooStateImplExtendsPrivateClass)));
         });
 
         group('that subtypes another component, referencing the component class via', () {
@@ -392,6 +391,9 @@ main() {
             var baz;
           }
         ''');
+
+        var transformedSource = transformedFile.getTransformedText();
+        expect(transformedSource, contains('abstract class \$FooPropsMixin {}'));
       });
 
       test('state mixins', () {
@@ -403,6 +405,9 @@ main() {
             var baz;
           }
         ''');
+
+        var transformedSource = transformedFile.getTransformedText();
+        expect(transformedSource, contains('abstract class \$FooStateMixin {}'));
       });
 
       test('abstract props classes', () {
@@ -414,6 +419,31 @@ main() {
         ''');
       });
 
+      test('abstract props classes with builder-compatible dual-class setup', () {
+        final originalPrivateClassLine = 'class _\$AbstractFooProps {';
+        final originalPublicClassLine = 'class AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {';
+        final transformedFooPropsLine = 'class AbstractFooProps extends _\$AbstractFooProps';
+
+        preservedLineNumbersTest('''
+          class AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {
+            // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+            static const PropsMeta meta = \$metaForAbstractFooProps;
+          }
+
+          @AbstractProps()
+          class _\$AbstractFooProps {
+            var bar;
+            var baz;
+          }
+        '''
+        );
+
+        var transformedSource = transformedFile.getTransformedText();
+        expect(transformedSource, contains(originalPrivateClassLine));
+        expect(transformedSource, isNot(contains(originalPublicClassLine)));
+        expect(transformedSource, contains(transformedFooPropsLine));
+      });
+
       test('abstract state classes', () {
         preservedLineNumbersTest('''
           @AbstractState() class AbstractFooState {
@@ -421,6 +451,31 @@ main() {
             var baz;
           }
         ''');
+      });
+
+      test('abstract state classes with builder-compatible dual-class setup', () {
+        final originalPrivateClassLine = 'class _\$AbstractFooState {';
+        final originalPublicClassLine = 'class AbstractFooState extends _\$AbstractFooState with _\$AbstractFooStateAccessorsMixin {';
+        final transformedFooStateLine = 'class AbstractFooState extends _\$AbstractFooState';
+
+        preservedLineNumbersTest('''
+          class AbstractFooState extends _\$AbstractFooState with _\$AbstractFooStateAccessorsMixin {
+            // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+            static const StateMeta meta = \$metaForAbstractFooState;
+          }
+
+          @AbstractState()
+          class _\$AbstractFooState {
+            var bar;
+            var baz;
+          }
+        '''
+        );
+
+        var transformedSource = transformedFile.getTransformedText();
+        expect(transformedSource, contains(originalPrivateClassLine));
+        expect(transformedSource, isNot(contains(originalPublicClassLine)));
+        expect(transformedSource, contains(transformedFooStateLine));
       });
 
       test('covariant keyword', () {
@@ -652,6 +707,33 @@ main() {
           });
         });
       });
+
+      group('static meta field', () {
+        void testStaticMetaField(String testName, StaticMetaTest smt) {
+          test(testName, () {
+            setUpAndGenerate(smt.source);
+
+            final metaClassName = '_\$${smt.className}Meta';
+            final expectedMetaClass = 'class $metaClassName {';
+            final expectedMetaForInstance = (new StringBuffer()
+              ..writeln('const ${smt.metaStructName} \$metaFor${smt.className} = const ${smt.metaStructName}(')
+              ..writeln('  fields: $metaClassName.${smt.constantListName},')
+              ..writeln('  keys: $metaClassName.${smt.keyListName},')
+              ..writeln(');')
+            ).toString();
+
+            expect(transformedFile.getTransformedText(), contains(expectedMetaClass));
+            expect(transformedFile.getTransformedText(), contains(expectedMetaForInstance));
+          });
+        }
+
+        testStaticMetaField('props class', StaticMetaTest.props);
+        testStaticMetaField('state class', StaticMetaTest.state);
+        testStaticMetaField('props mixin', StaticMetaTest.propsMixin);
+        testStaticMetaField('state mixin', StaticMetaTest.stateMixin);
+        testStaticMetaField('abstract props', StaticMetaTest.abstractProps);
+        testStaticMetaField('abstract state', StaticMetaTest.abstractState);
+      });
     });
 
     group('logs an error when', () {
@@ -684,7 +766,8 @@ main() {
           ''');
 
           verify(logger.error('Factory variables are stubs for the generated factories, and should not have initializers'
-              ' unless initialized with \$Foo for Dart 2 builder compatibility.', span: any));
+              ' unless initialized with \$Foo for Dart 2 builder compatibility. Should be:\n'
+              '    \$Foo', span: any));
         });
 
         test('declared with an \$ prefixed initializer matching the factory name', () {
@@ -1027,5 +1110,44 @@ main() {
   });
 }
 
+class StaticMetaTest {
+  static const StaticMetaTest abstractProps = const StaticMetaTest._('@AbstractProps()', 'AbstractFooProps');
+  static const StaticMetaTest abstractState = const StaticMetaTest._('@AbstractState()', 'AbstractFooState');
+  static const StaticMetaTest props = const StaticMetaTest._('@Props()', 'FooProps');
+  static const StaticMetaTest propsMixin = const StaticMetaTest._('@PropsMixin()', 'FooPropsMixin');
+  static const StaticMetaTest state = const StaticMetaTest._('@State()', 'FooState');
+  static const StaticMetaTest stateMixin = const StaticMetaTest._('@StateMixin()', 'FooStateMixin');
+
+  final String annotation;
+  final String className;
+
+  const StaticMetaTest._(this.annotation, this.className);
+
+  bool get isAbstract => annotation.contains('Abstract') || annotation.contains('Mixin');
+  bool get isProps => annotation.contains('Props');
+  String get constantListName => isProps ? '\$props' : '\$state';
+  String get keyListName => isProps ? '\$propKeys' : '\$stateKeys';
+  String get metaStructName => isProps ? 'PropsMeta' : 'StateMeta';
+  bool get needsComponent => !isAbstract;
+
+  String get source {
+    final buffer = new StringBuffer();
+    if (needsComponent) {
+      buffer.writeln('@Factory() UiFactory<FooProps> Foo;');
+      if (!isProps) {
+        buffer.writeln('@Props() class FooProps {}');
+      }
+      buffer.writeln('@Component() class FooComponent {}');
+    }
+    buffer
+      ..writeln('$annotation ${isAbstract ? "abstract " : ""}class $className {')
+      ..writeln('  static const $metaStructName meta = \$metaFor$className;');
+    if (isAbstract) {
+      buffer.writeln('  Map get ${isProps ? "props" : "state"};');
+    }
+    buffer.writeln('}');
+    return buffer.toString();
+  }
+}
 
 class MockTransformLogger extends Mock implements TransformLogger {}

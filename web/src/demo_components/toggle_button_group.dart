@@ -19,13 +19,20 @@ part of over_react.web.demo_components;
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#checkbox-and-radio-buttons>
 @Factory()
-UiFactory <ToggleButtonGroupProps> ToggleButtonGroup;
+// ignore: undefined_identifier
+UiFactory <ToggleButtonGroupProps> ToggleButtonGroup = $ToggleButtonGroup;
 
 @Props()
-class ToggleButtonGroupProps extends ButtonGroupProps with AbstractInputPropsMixin {}
+class _$ToggleButtonGroupProps extends ButtonGroupProps with 
+    AbstractInputPropsMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $AbstractInputPropsMixin {}
 
 @State()
-class ToggleButtonGroupState extends ButtonGroupState with AbstractInputStateMixin {}
+class _$ToggleButtonGroupState extends ButtonGroupState with 
+    AbstractInputStateMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $AbstractInputStateMixin {}
 
 @Component(subtypeOf: ButtonGroupComponent)
 class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupProps, ToggleButtonGroupState> {
@@ -53,7 +60,7 @@ class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupP
 
   @override
   get consumedProps => const [
-    const $Props(ToggleButtonGroupProps),
+    ToggleButtonGroupProps.meta,
   ];
 
   /// The props that should be added when we clone the given [child] using
@@ -89,4 +96,18 @@ class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupP
   /// The factory expected for each child of [ToggleButtonGroup].
   @override
   UiFactory<ToggleButtonProps> get childFactory => ToggleButton;
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class ToggleButtonGroupProps extends _$ToggleButtonGroupProps with _$ToggleButtonGroupPropsAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForToggleButtonGroupProps;
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class ToggleButtonGroupState extends _$ToggleButtonGroupState with _$ToggleButtonGroupStateAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const StateMeta meta = $metaForToggleButtonGroupState;
 }
