@@ -22,9 +22,9 @@ triggers for Webstorm/IntelliJ and VS Code.
 
 <img src="webstorm_intelliJ.gif" alt="How to install and use snippets in WebStorm and IntelliJ"/><br>
 
-1. Copy the command below and run in your terminal.
+1. Copy the command below and run it in your terminal.
    
-   `````` 
+   ```curl https://raw.githubusercontent.com/Workiva/over_react/278f66475bf0d9b892936dccff6e2aef88c14c1e/snippets/snippets.xml | pbcopy``` 
    
 2. Open preferences and select "Editor" > "Live Templates"
 3. (Optional) Create a new "OverReact Snippets" group by clicking the "+" button in the<br> 
@@ -39,9 +39,9 @@ triggers for Webstorm/IntelliJ and VS Code.
 
 <img src="vs_code.gif" alt="How to install and use snippets in VS Code"/><br>
 
-1. Copy the command below and run in your terminal.
+1. Copy the command below and run it in your terminal.
 
-   ``````
+   ```curl https://raw.githubusercontent.com/Workiva/over_react/278f66475bf0d9b892936dccff6e2aef88c14c1e/snippets/snippets.json | pbcopy```
 
 2. Click on "Code", select "Preferences" and select "User Snippets"
 3. Select "New Global Snippet file..."
