@@ -24,8 +24,8 @@ triggers for Webstorm/IntelliJ and VS Code.
 
 1. Copy the command below and run it in your terminal.
 
-   ```
-   curl https://raw.githubusercontent.com/Workiva/over_react/278f66475bf0d9b892936dccff6e2aef88c14c1e/snippets/snippets.xml | pbcopy
+   ```bash
+   curl https://raw.githubusercontent.com/Workiva/over_react/master/snippets/snippets.xml | pbcopy
    ``` 
    
 2. Open preferences and select "Editor" > "Live Templates"
@@ -43,8 +43,8 @@ triggers for Webstorm/IntelliJ and VS Code.
 
 1. Copy the command below and run it in your terminal.
 
-   ```
-   curl https://raw.githubusercontent.com/Workiva/over_react/278f66475bf0d9b892936dccff6e2aef88c14c1e/snippets/snippets.json | pbcopy
+   ```bash
+   curl https://raw.githubusercontent.com/Workiva/over_react/master/snippets/snippets.json | pbcopy
    ```
 
 2. Click on "Code", select "Preferences" and select "User Snippets"
