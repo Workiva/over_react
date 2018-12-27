@@ -23,7 +23,15 @@ import '../../test_util/prop_utils.dart';
 
 main() {
   group('ReactProps', () {
-    testKeys(ReactPropsMixin.meta.keys, (() => new ReactPropMixinsTest({})));
+    testInvalidKey((() => new ReactPropMixinsTest({})));
+    test('uses unnamespaced keys', () {
+      // Test two keys to reduce the possibility that the key we picked might have a custom @Accessor annotation on it
+      expect(
+          new ReactPropMixinsTest({})
+            ..ref = null
+            ..key = null,
+          {'ref': null, 'key': null});
+    });
 
     group('prop: key can have its value set to', () {
       test('an int and be read as a String', () {
@@ -50,19 +58,47 @@ main() {
   });
 
   group('CssClassProps', () {
-    testKeys(CssClassPropsMixin.meta.keys, (() => new CssClassPropMixinsTest({})));
+    testInvalidKey((() => new CssClassPropMixinsTest({})));
+    test('uses unnamespaced keys', () {
+      // Test two keys to reduce the possibility that the key we picked might have a custom @Accessor annotation on it
+      expect(new CssClassPropMixinsTest({})..className = null..classNameBlacklist = null, {'className': null, 'classNameBlacklist': null});
+    });
   });
 
   group('DomPropsMixin', () {
-    testKeys(DomPropsMixin.meta.keys, (() => new DomPropMixinsTest({})));
+    testInvalidKey((() => new DomPropMixinsTest({})));
+    test('uses unnamespaced keys', () {
+      // Test two keys to reduce the possibility that the key we picked might have a custom @Accessor annotation on it
+      expect(
+          new DomPropMixinsTest({})
+            ..style = null
+            ..id = null,
+          {'style': null, 'id': null});
+    });
   });
 
   group('SvgPropsMixin', () {
-    testKeys(SvgPropsMixin.meta.keys, (() => new SvgPropMixinsTest({})));
+    testInvalidKey((() => new SvgPropMixinsTest({})));
+    test('uses unnamespaced keys', () {
+      // Test two keys to reduce the possibility that the key we picked might have a custom @Accessor annotation on it
+      expect(
+          new SvgPropMixinsTest({})
+            ..clipPath = null
+            ..cx= null,
+          {'clipPath': null, 'cx': null});
+    });
   });
 
   group('UbiquitousProps', () {
-    testKeys(UbiquitousDomPropsMixin.meta.keys, (() => new UbiquitousPropMixinsTest({})));
+    testInvalidKey((() => new UbiquitousPropMixinsTest({})));
+    test('uses unnamespaced keys', () {
+      // Test two keys to reduce the possibility that the key we picked might have a custom @Accessor annotation on it
+      expect(
+          new UbiquitousPropMixinsTest({})
+            ..tabIndex = null
+            ..id = null,
+          {'tabIndex': null, 'id': null});
+    });
 
     group('has a getter that provides a typed view of', () {
       test('aria props', () {
@@ -86,17 +122,16 @@ main() {
   });
 
   group('AriaProps', () {
-      test('cannot set / read values that are not its prop map', () {
-        var instance = new AriaPropMixinsTest({});
-        expect(() {instance['notThere'];}, throwsArgumentError);
-      });
+    testInvalidKey(() => new AriaPropMixinsTest({}));
 
-      for (var propKey in AriaPropsMixin.meta.keys) {
-        test('prop: $propKey can have its value set / read', () {
-          var instance = new AriaPropMixinsTest({});
-          testProp(new Symbol(propKey.replaceFirst('aria-', '')), propKey, instance, null);
-        });
-      }
+    test('uses unnamespaced keys with \'aria-\' prefix', () {
+      // Test two keys to reduce the possibility that the key we picked might have a custom @Accessor annotation on it
+      expect(
+          new AriaPropMixinsTest({})
+            ..activedescendant = null
+            ..atomic = null,
+          {'aria-activedescendant': null, 'aria-atomic': null});
+    });
   });
 }
 
