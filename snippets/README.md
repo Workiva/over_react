@@ -50,7 +50,7 @@ triggers for Webstorm/IntelliJ and VS Code.
 2. Click on "Code", select "Preferences" and select "User Snippets"
 3. Select "New Global Snippet file..."
 4. Name the file something meaningful like "OverReact Snippets"
-5. Select all of the boiler plate in the snippet file just created and replace it by pasting the<br<
+5. Select all of the boiler plate in the snippet file just created and replace it by pasting the<br>
    VS Code snippets json copied after running the command in step 1
 6. Use any "prefix" or "trigger" from the table above in any ".dart" file to invoke a snippet
 7. Press "tab" to move to and set the next variable.
