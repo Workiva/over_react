@@ -17,29 +17,6 @@ library mock_classes;
 import 'dart:async';
 import 'dart:html';
 
-// Tell dart2js that the `mockito` package only needs to reflect the specified mock/spied types.
-// This speeds up compilation and makes JS output much smaller.
-@MirrorsUsed(targets: const [
-  'dart.async.Timer',
-  'MockTimer',
-  // Also include Mock classes we use from w_test_tools.
-  'dart.dom.html.KeyEvent',
-  'dart.dom.html.HtmlDocument',
-  'w_test_tools.src.mock_classes.MockKeyEvent',
-  'w_test_tools.src.mock_classes.MockDocument',
-  'MockFileList',
-  'MockFile',
-  'MockFileUploadInputElement',
-  'dart.dom.html.FileList',
-  'dart.dom.html.File',
-  'dart.dom.html.FileUploadInputElement',
-  'MockSyntheticEvent',
-  'MockSyntheticMouseEvent',
-  'react.SyntheticEvent',
-  'react.SyntheticMouseEvent',
-], override: 'mockito')
-import 'dart:mirrors';
-
 import 'package:mockito/mockito.dart';
 import 'package:react/react.dart' as react;
 
