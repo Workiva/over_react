@@ -1,5 +1,27 @@
 # OverReact Changelog
 
+## 1.30.0
+
+> [Complete `1.30.0` Changeset](https://github.com/Workiva/over_react/compare/1.29.0...1.30.0)
+
+__New Features__
+
+* [#196] Add `componentDefaultProps` getter to `UiProps` for retrieving the
+  immutable map view of a component's default props. This is an alternative to
+  constructing a `UiComponent` directly and calling `getDefaultProps()`, which
+  will no longer work in Dart 2.
+
+* [#208] Add `typedDefaultPropsFor(factory)` utility function to easily obtain
+  a typed view of the immutable default props for any `UiFactory`. This is
+  effectively a strongly-typed version of the above `componentDefaultProps`
+  getter.
+
+__Improvements__
+
+* [#200] [#201] [#205] [#208] Update the transformer to support new `over_react`
+  component boilerplate that is compatible with both Dart 1 and Dart 2. This is
+  the first step towards Dart 2 compatibility. For more information, see [#210].
+
 ## 1.29.0
 
 > [Complete `1.29.0` Changeset](https://github.com/Workiva/over_react/compare/1.28.0...1.29.0)
