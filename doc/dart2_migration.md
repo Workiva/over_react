@@ -364,12 +364,6 @@ default.
 
 ### Accompanying Classes for Props, State, AbstractProps, AbstractState
 
-In order to support the generation of concrete getters/setters for props/state
-fields while still maintaining the ability to extend props and state classes on
-Dart 2, the classes you define will need to be named with a `_$` prefix. This
-allows the builder to generate the public, un-prefixed version that will be used
-everywhere else.
-
 ```diff
   @Props()
 - class FooProps extends UiProps { ... }
