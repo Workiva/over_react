@@ -453,6 +453,7 @@ main() {
           expect(() => getDartComponent(instance), prints(messageMatcher));
         }, testOn: 'dart-vm');
 
+        // TODO: figure out if we can keep this test. Maybe just test w/dart2js?
         test('does not when passed a ReactElement in JS', () {
           ReactElement instance = Wrapper()();
           expect(() => getDartComponent(instance), isNot(prints(messageMatcher)));

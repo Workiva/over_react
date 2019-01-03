@@ -11,8 +11,8 @@ import 'package:path/path.dart' as p;
 import 'package:over_react/src/builder/builder.dart';
 
 main() {
-  group('OverReactBuilder', () {
-    final builder = new OverReactBuilder();
+  group('overReactBuilder', () {
+    final builder = overReactBuilder(null);
 
     AssetReader reader;
     InMemoryAssetWriter writer;

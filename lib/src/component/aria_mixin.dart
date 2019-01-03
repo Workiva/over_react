@@ -21,6 +21,7 @@ import 'dart:collection';
 import 'package:over_react/over_react.dart' show PropDescriptor, PropsMeta, ConsumedProps;
 import 'package:over_react/src/component_declaration/annotations.dart';
 
+// ignore: uri_has_not_been_generated
 part 'aria_mixin.over_react.g.dart';
 
 /// Typed getters/setters for accessibility props.

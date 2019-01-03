@@ -64,7 +64,7 @@ void mapProxyTests(Map mapProxyFactory(Map proxiedMap)) {
     });
 
     test('operator[]=', () {
-      when(mock[any] = any).thenReturn('value');
+      when(mock['key'] = 'key').thenReturn('value');
 
       expect(proxy['key'] = 'value', 'value');
       verify(mock['key'] = 'value');

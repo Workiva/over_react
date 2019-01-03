@@ -369,13 +369,13 @@ main() {
           await new Future.delayed(const Duration(milliseconds: 100));
           expect(toRem('20px').number, 1);
         });
-      }, testOn: 'dartium || chrome');
+      }, testOn: 'chrome');
 
       test('only in Google Chrome', () async {
         toRem('1rem');
         await new Future.delayed(const Duration(milliseconds: 100));
         expect(querySelector('#rem_change_sensor'), isNull, reason: 'test setup sanity check');
-      }, testOn: '!chrome && !dartium');
+      }, testOn: '!chrome');
     }, testOn: 'browser');
 
     group('interleaved asynchonous intialization/destruction of change sensors works without race conditions:', () {

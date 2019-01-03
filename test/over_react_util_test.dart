@@ -33,7 +33,6 @@ import 'over_react/util/guid_util_test.dart' as guid_util_test;
 import 'over_react/util/handler_chain_util_test.dart' as handler_chain_util_test;
 import 'over_react/util/map_util_test.dart' as map_util_test;
 import 'over_react/util/pretty_print_test.dart' as pretty_print_test;
-import 'over_react/util/prop_key_util_test.dart' as prop_key_util_test;
 import 'over_react/util/prop_key_util_test_dart2.dart' as prop_key_util_test_dart2;
 import 'over_react/util/react_util_test.dart' as react_util_test;
 import 'over_react/util/react_wrappers_test.dart' as react_wrappers_test;
@@ -56,7 +55,6 @@ void main() {
   handler_chain_util_test.main();
   map_util_test.main();
   pretty_print_test.main();
-  prop_key_util_test.main();
   prop_key_util_test_dart2.main();
   react_util_test.main();
   react_wrappers_test.main();

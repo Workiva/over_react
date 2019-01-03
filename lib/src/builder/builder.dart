@@ -6,5 +6,4 @@ import './generator.dart';
 
 
 Builder overReactBuilder(BuilderOptions options) =>
-    new PartBuilder([new OverReactGenerator()], outputExtension,
-        formatOutput: (String generatedOutput) => generatedOutput);
+    new PartBuilder([new OverReactGenerator()], outputExtension);

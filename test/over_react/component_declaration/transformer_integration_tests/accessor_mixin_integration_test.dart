@@ -11,14 +11,14 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-library over_react.component_declaration.transformer_integration_tests.accessor_mixin_integration_test;
-
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
+// ignore: uri_has_not_been_generated
+part 'accessor_mixin_integration_test.over_react.g.dart';
+
 main() {
-  group('transformed accessor mixin integration:', () {
+  group('(dart 2) transformed accessor mixin integration:', () {
     group('@PropsMixin()', () {
       group('generates prop getters/setters with', () {
         test('the props class name as a namespace and the prop name as the key by default', () {
@@ -148,6 +148,11 @@ main() {
 
 @PropsMixin()
 abstract class TestPropsMixin {
+  // To ensure the codemod regression checking works properly, please keep this
+  // field at the top of the class!
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForTestPropsMixin;
+
   Map get props;
 
   String stringProp;
@@ -164,13 +169,21 @@ abstract class TestPropsMixin {
   var customKeyAndNamespaceProp;
 }
 
-class TestPropsMixinSubclass extends Object with TestPropsMixin {
+class TestPropsMixinSubclass extends Object with 
+    TestPropsMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $TestPropsMixin {
   @override final Map props = {};
 }
 
 
 @PropsMixin(keyNamespace: 'custom mixin namespace**')
 abstract class TestCustomNamespacePropsMixin {
+  // To ensure the codemod regression checking works properly, please keep this
+  // field at the top of the class!
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForTestCustomNamespacePropsMixin;
+
   Map get props;
 
   String stringProp;
@@ -187,13 +200,21 @@ abstract class TestCustomNamespacePropsMixin {
   var customKeyAndNamespaceProp;
 }
 
-class TestCustomNamespacePropsMixinSubclass extends Object with TestCustomNamespacePropsMixin {
+class TestCustomNamespacePropsMixinSubclass extends Object with 
+    TestCustomNamespacePropsMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $TestCustomNamespacePropsMixin {
   @override final Map props = {};
 }
 
 
 @StateMixin()
 abstract class TestStateMixin {
+  // To ensure the codemod regression checking works properly, please keep this
+  // field at the top of the class!
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const StateMeta meta = $metaForTestStateMixin;
+
   Map get state;
 
   String stringState;
@@ -210,13 +231,21 @@ abstract class TestStateMixin {
   var customKeyAndNamespaceState;
 }
 
-class TestStateMixinSubclass extends Object with TestStateMixin {
+class TestStateMixinSubclass extends Object with 
+    TestStateMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $TestStateMixin {
   @override final Map state = {};
 }
 
 
 @StateMixin(keyNamespace: 'custom mixin namespace**')
 abstract class TestCustomNamespaceStateMixin {
+  // To ensure the codemod regression checking works properly, please keep this
+  // field at the top of the class!
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const StateMeta meta = $metaForTestCustomNamespaceStateMixin;
+
   Map get state;
 
   String stringState;
@@ -233,6 +262,9 @@ abstract class TestCustomNamespaceStateMixin {
   var customKeyAndNamespaceState;
 }
 
-class TestCustomNamespaceStateMixinSubclass extends Object with TestCustomNamespaceStateMixin {
+class TestCustomNamespaceStateMixinSubclass extends Object with 
+    TestCustomNamespaceStateMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $TestCustomNamespaceStateMixin {
   @override final Map state = {};
 }

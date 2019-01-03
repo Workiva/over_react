@@ -51,7 +51,7 @@ class ImplGenerator {
 
   Logger logger;
   StringBuffer outputContentsBuffer = new StringBuffer();
-  bool shouldFixDdcAbstractAccessors = false;
+//  bool shouldFixDdcAbstractAccessors = false;
 
   SourceFile sourceFile;
 
@@ -315,6 +315,7 @@ class ImplGenerator {
       NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap,
       String consumerClassName
   ) {
+    // TODO: Ensure we don't need this anymore
 //    if (shouldFixDdcAbstractAccessors) {
 //      fixDdcAbstractAccessors(type, typedMap);
 //    }

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@TestOn('content-shell || dartium')
+@TestOn('chrome')
 library over_react.integrate.test_runtime_import;
 
 import 'package:react/react_client.dart' show setClientConfiguration;

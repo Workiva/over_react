@@ -11,25 +11,17 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-library over_react.component_declaration.transformer_integration_tests.component_integration_test;
-
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
-import './required_prop_integration_test.dart' as r;
+import './required_prop_integration_tests.dart' as r;
 import '../../../test_util/test_util.dart';
 
-main() {
-  group('transformed component integration:', () {
-    test('component class can be instantiated directly', () {
-      var instance;
-      expect(() {
-        instance = new ComponentTestComponent();
-      }, returnsNormally);
-      expect(instance, const isInstanceOf<ComponentTestComponent>());
-    });
+// ignore: uri_has_not_been_generated
+part 'component_integration_test.over_react.g.dart';
 
+main() {
+  group('(dart 2) transformed component integration:', () {
     test('renders a component from end to end, successfully reading props via typed getters', () {
       var instance = render((ComponentTest()
         ..stringProp = '1'
@@ -123,7 +115,7 @@ main() {
       )());
 
       var shallowProps = getProps(shallowInstance);
-      Iterable<String> shallowPropKeys = shallowProps.keys.cast();
+      Iterable<String> shallowPropKeys = shallowProps.keys.map((key) => key as String); // ignore: avoid_as
 
       expect(shallowPropKeys.where((String key) => !key.startsWith('data-prop-')), unorderedEquals(['id', 'extraneous', 'children']));
     });
@@ -134,10 +126,11 @@ main() {
 
 
 @Factory()
-UiFactory<ComponentTestProps> ComponentTest;
+// ignore: undefined_identifier
+UiFactory<ComponentTestProps> ComponentTest = $ComponentTest;
 
 @Props()
-class ComponentTestProps extends UiProps {
+class _$ComponentTestProps extends UiProps {
   String stringProp;
   dynamic dynamicProp;
   var untypedProp;
@@ -167,4 +160,11 @@ class ComponentTestComponent extends UiComponent<ComponentTestProps> {
     ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
     ..addProp('data-prop-custom-key-and-namespace-prop', props.customKeyAndNamespaceProp)
   )('rendered content');
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class ComponentTestProps extends _$ComponentTestProps with _$ComponentTestPropsAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForComponentTestProps;
 }

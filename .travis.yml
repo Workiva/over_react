@@ -2,13 +2,13 @@ language: dart
 # TODO: Make sure this is what is in Master, then get dart 2 compat
 dist: precise
 dart:
-  - "1.24.3"
+  - stable
 env:
   - DARTIUM_EXPIRATION_TIME="1577836800"
 with_content_shell: true
 before_install:
   - export DISPLAY=:99.0
-  - ./tool/setup_dartium.sh
+#  - ./tool/setup_dartium.sh
   - export PATH=$PATH":$PWD"
   - sh -e /etc/init.d/xvfb start
   - sleep 3 # give xvfb some time to start

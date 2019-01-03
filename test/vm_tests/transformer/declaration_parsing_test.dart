@@ -16,10 +16,10 @@
 library declaration_parsing_test;
 
 import 'package:analyzer/analyzer.dart' hide startsWith;
-import 'package:barback/barback.dart';
+import 'package:logging/logging.dart';
 import 'package:mockito/mockito.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
-import 'package:over_react/src/transformer/declaration_parsing.dart';
+import 'package:over_react/src/builder/generation/declaration_parsing.dart';
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 
@@ -53,29 +53,21 @@ main() {
     });
 
     group('parses', () {
-      MockTransformLogger logger;
+      MockLogger logger;
       SourceFile sourceFile;
       CompilationUnit unit;
       ParsedDeclarations declarations;
 
       void setUpAndParse(String source) {
-        logger = new MockTransformLogger();
+        logger = new MockLogger();
         sourceFile = new SourceFile.fromString(source);
         unit = parseCompilationUnit(source);
         declarations = new ParsedDeclarations(unit, sourceFile, logger);
       }
 
       void verifyNoErrorLogs() {
-        // Check all permutations of optional parameters being specified
-        // since they look like different calls to Mockito.
         verifyNever(logger.warning(any));
-        verifyNever(logger.warning(any, span: any));
-        verifyNever(logger.warning(any, asset: any));
-        verifyNever(logger.warning(any, span: any, asset: any));
-        verifyNever(logger.error(any));
-        verifyNever(logger.error(any, span: any));
-        verifyNever(logger.error(any, asset: any));
-        verifyNever(logger.error(any, span: any, asset: any));
+        verifyNever(logger.severe(any));
       }
 
       tearDown(() {
@@ -130,7 +122,7 @@ main() {
 
           expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
           expect(declarations.props.node?.name?.name, 'FooProps');
-          expect(declarations.props.companionNode, isNull);
+//          expect(declarations.props.companionNode, isNull);
           expect(declarations.component.node?.name?.name, 'FooComponent');
 
           expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
@@ -151,7 +143,7 @@ main() {
 
           expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
           expect(declarations.props.node?.name?.name, '_\$FooProps');
-          expect(declarations.props.companionNode?.name?.name, 'FooProps');
+//          expect(declarations.props.companionNode?.name?.name, 'FooProps');
           expect(declarations.component.node?.name?.name, 'FooComponent');
 
           expect(declarations.factory.meta,   const isInstanceOf<annotations.Factory>());
@@ -172,9 +164,9 @@ main() {
 
           expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
           expect(declarations.props.node?.name?.name, 'FooProps');
-          expect(declarations.props.companionNode, isNull);
+//          expect(declarations.props.companionNode, isNull);
           expect(declarations.state.node?.name?.name, 'FooState');
-          expect(declarations.state.companionNode, isNull);
+//          expect(declarations.state.companionNode, isNull);
           expect(declarations.component.node?.name?.name, 'FooComponent');
 
           expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
@@ -197,9 +189,9 @@ main() {
 
           expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
           expect(declarations.props.node?.name?.name, 'FooProps');
-          expect(declarations.props.companionNode, isNull);
+//          expect(declarations.props.companionNode, isNull);
           expect(declarations.state.node?.name?.name, '_\$FooState');
-          expect(declarations.state.companionNode?.name?.name, 'FooState');
+//          expect(declarations.state.companionNode?.name?.name, 'FooState');
           expect(declarations.component.node?.name?.name, 'FooComponent');
 
           expect(declarations.factory.meta,   const isInstanceOf<annotations.Factory>());
@@ -254,9 +246,9 @@ main() {
           expect(declarations.abstractProps, hasLength(2));
 
           expect(declarations.abstractProps[0].node.name.name, 'AbstractFooProps1');
-          expect(declarations.abstractProps[0].companionNode, isNull);
+//          expect(declarations.abstractProps[0].companionNode, isNull);
           expect(declarations.abstractProps[1].node.name.name, 'AbstractFooProps2');
-          expect(declarations.abstractProps[1].companionNode, isNull);
+//          expect(declarations.abstractProps[1].companionNode, isNull);
           expect(declarations.abstractProps[0].meta, new isInstanceOf<annotations.AbstractProps>());
           expect(declarations.abstractProps[1].meta, new isInstanceOf<annotations.AbstractProps>());
 
@@ -272,7 +264,7 @@ main() {
 
           expect(declarations.abstractProps, hasLength(1));
           expect(declarations.abstractProps[0].node?.name?.name, '_\$AbstractFooProps');
-          expect(declarations.abstractProps[0].companionNode?.name?.name, 'AbstractFooProps');
+//          expect(declarations.abstractProps[0].companionNode?.name?.name, 'AbstractFooProps');
           expect(declarations.abstractProps[0].meta, new isInstanceOf<annotations.AbstractProps>());
         });
 
@@ -285,9 +277,9 @@ main() {
           expect(declarations.abstractState, hasLength(2));
 
           expect(declarations.abstractState[0].node.name.name, 'AbstractFooState1');
-          expect(declarations.abstractState[0].companionNode, isNull);
+//          expect(declarations.abstractState[0].companionNode, isNull);
           expect(declarations.abstractState[1].node.name.name, 'AbstractFooState2');
-          expect(declarations.abstractState[1].companionNode, isNull);
+//          expect(declarations.abstractState[1].companionNode, isNull);
           expect(declarations.abstractState[0].meta, new isInstanceOf<annotations.AbstractState>());
           expect(declarations.abstractState[1].meta, new isInstanceOf<annotations.AbstractState>());
 
@@ -303,7 +295,7 @@ main() {
 
           expect(declarations.abstractState, hasLength(1));
           expect(declarations.abstractState[0].node?.name?.name, '_\$AbstractFooState');
-          expect(declarations.abstractState[0].companionNode?.name?.name, 'AbstractFooState');
+//          expect(declarations.abstractState[0].companionNode?.name?.name, 'AbstractFooState');
           expect(declarations.abstractState[0].meta, new isInstanceOf<annotations.AbstractState>());
         });
 
@@ -379,78 +371,78 @@ main() {
         group('a component is declared without', () {
           test('a factory', () {
             setUpAndParse(propsSrc + componentSrc);
-            verify(logger.error('To define a component, there must also be a `@Factory` within the same file, but none were found.', span: any));
+            verify(logger.severe('To define a component, there must also be a `@Factory` within the same file, but none were found.'));
           });
 
           test('a props class', () {
             setUpAndParse(factorySrc + componentSrc);
-            verify(logger.error('To define a component, there must also be a `@Props` within the same file, but none were found.', span: any));
+            verify(logger.severe('To define a component, there must also be a `@Props` within the same file, but none were found.'));
           });
 
           test('a component class', () {
             setUpAndParse(factorySrc + propsSrc);
-            verify(logger.error('To define a component, there must also be a `@Component` within the same file, but none were found.', span: any));
+            verify(logger.severe('To define a component, there must also be a `@Component` within the same file, but none were found.'));
           });
 
           test('a factory or a props class', () {
             setUpAndParse(componentSrc);
-            verify(logger.error('To define a component, there must also be a `@Factory` within the same file, but none were found.', span: any));
-            verify(logger.error('To define a component, there must also be a `@Props` within the same file, but none were found.', span: any));
+            verify(logger.severe('To define a component, there must also be a `@Factory` within the same file, but none were found.'));
+            verify(logger.severe('To define a component, there must also be a `@Props` within the same file, but none were found.'));
           });
 
           test('a factory or a component class', () {
             setUpAndParse(propsSrc);
-            verify(logger.error('To define a component, there must also be a `@Factory` within the same file, but none were found.', span: any));
-            verify(logger.error('To define a component, there must also be a `@Component` within the same file, but none were found.', span: any));
+            verify(logger.severe('To define a component, there must also be a `@Factory` within the same file, but none were found.'));
+            verify(logger.severe('To define a component, there must also be a `@Component` within the same file, but none were found.'));
           });
 
           test('a component or props class', () {
             setUpAndParse(factorySrc);
-            verify(logger.error('To define a component, there must also be a `@Component` within the same file, but none were found.', span: any));
-            verify(logger.error('To define a component, there must also be a `@Props` within the same file, but none were found.', span: any));
+            verify(logger.severe('To define a component, there must also be a `@Component` within the same file, but none were found.'));
+            verify(logger.severe('To define a component, there must also be a `@Props` within the same file, but none were found.'));
           });
         });
 
         group('a state class is declared without', () {
           test('any component pieces', () {
             setUpAndParse(stateSrc);
-            verify(logger.error('To define a component, a `@State` must be accompanied by the following annotations within the same file: @Factory, @Component, @Props.', span: any));
+            verify(logger.severe('To define a component, a `@State` must be accompanied by the following annotations within the same file: @Factory, @Component, @Props.'));
           });
 
           test('some component pieces', () {
             setUpAndParse(stateSrc + componentSrc);
             /// Should only log regarding the missing pieces, and not the state.
-            verify(logger.error('To define a component, there must also be a `@Factory` within the same file, but none were found.', span: any));
-            verify(logger.error('To define a component, there must also be a `@Props` within the same file, but none were found.', span: any));
+            verify(logger.severe('To define a component, there must also be a `@Factory` within the same file, but none were found.'));
+            verify(logger.severe('To define a component, there must also be a `@Props` within the same file, but none were found.'));
           });
         });
 
         group('a component is declared with multiple', () {
           test('factories', () {
             setUpAndParse(factorySrc * 2 + propsSrc + componentSrc);
-            verify(logger.error(
-                argThat(startsWith('To define a component, there must be a single `@Factory` per file, but 2 were found.')), span: any
+            verify(logger.severe(
+                argThat(startsWith('To define a component, there must be a single `@Factory` per file, but 2 were found.'))
             )).called(2);
           });
 
           test('props classes', () {
             setUpAndParse(factorySrc + propsSrc * 2 + componentSrc);
-            verify(logger.error(
-                argThat(startsWith('To define a component, there must be a single `@Props` per file, but 2 were found.')), span: any
+            verify(logger.severe(
+                argThat(startsWith('To define a component, there must be a single `@Props` per file, but 2 were found.'))
             )).called(2);
           });
 
           test('component classes', () {
             setUpAndParse(factorySrc + propsSrc + componentSrc * 2);
-            verify(logger.error(
-                argThat(startsWith('To define a component, there must be a single `@Component` per file, but 2 were found.')), span: any
+            verify(logger.severe(
+                argThat(startsWith('To define a component, there must be a single `@Component` per file, but 2 were found.'))
             )).called(2);
           });
 
           test('state classes', () {
             setUpAndParse(factorySrc + propsSrc + componentSrc + stateSrc * 2);
-            verify(logger.error(
-                argThat(startsWith('To define a component, there must not be more than one `@State` per file, but 2 were found.')), span: any
+            verify(logger.severe(
+                argThat(startsWith('To define a component, there must not be more than one `@State` per file, but 2 were found.'))
             )).called(2);
           });
         });
@@ -458,42 +450,42 @@ main() {
         group('an annotation is used on the wrong kind of declaration:', () {
           test('@Factory on a non-top-level-variable', () {
             setUpAndParse('@Factory() class NotAVariable {}');
-            verify(logger.error('`@Factory` can only be used on top-level variable declarations.', span: any));
+            verify(logger.severe('`@Factory` can only be used on top-level variable declarations.'));
           });
 
           test('@Props on a non-class', () {
             setUpAndParse('@Props() var notAClass;');
-            verify(logger.error('`@Props` can only be used on classes.', span: any));
+            verify(logger.severe('`@Props` can only be used on classes.'));
           });
 
           test('@Component on a non-class', () {
             setUpAndParse('@Component() var notAClass;');
-            verify(logger.error('`@Component` can only be used on classes.', span: any));
+            verify(logger.severe('`@Component` can only be used on classes.'));
           });
 
           test('@State on a non-class', () {
             setUpAndParse('@Props() var notAClass;');
-            verify(logger.error('`@Props` can only be used on classes.', span: any));
+            verify(logger.severe('`@Props` can only be used on classes.'));
           });
 
           test('@AbstractProps on a non-class', () {
             setUpAndParse('@AbstractProps() var notAClass;');
-            verify(logger.error('`@AbstractProps` can only be used on classes.', span: any));
+            verify(logger.severe('`@AbstractProps` can only be used on classes.'));
           });
 
           test('@AbstractState on a non-class', () {
             setUpAndParse('@AbstractState() var notAClass;');
-            verify(logger.error('`@AbstractState` can only be used on classes.', span: any));
+            verify(logger.severe('`@AbstractState` can only be used on classes.'));
           });
 
           test('@PropsMixin on a non-class', () {
             setUpAndParse('@PropsMixin() var notAClass;');
-            verify(logger.error('`@PropsMixin` can only be used on classes.', span: any));
+            verify(logger.severe('`@PropsMixin` can only be used on classes.'));
           });
 
           test('@StateMixin on a non-class', () {
             setUpAndParse('@StateMixin() var notAClass;');
-            verify(logger.error('`@StateMixin` can only be used on classes.', span: any));
+            verify(logger.severe('`@StateMixin` can only be used on classes.'));
           });
         });
 
@@ -505,7 +497,7 @@ main() {
                   static const StateMeta meta = \$metaForFooProps;
                 }
               ''');
-              verify(logger.error('Static meta field in accessor class must be of type `PropsMeta`', span: any));
+              verify(logger.severe('Static meta field in accessor class must be of type `PropsMeta`'));
             });
 
             test('is initialized incorrectly', () {
@@ -514,7 +506,7 @@ main() {
                   static const PropsMeta meta = \$metaForBarProps;
                 }
               ''');
-              verify(logger.error('Static PropsMeta field in accessor class must be initialized to `\$metaForFooProps`', span: any));
+              verify(logger.severe('Static PropsMeta field in accessor class must be initialized to `\$metaForFooProps`'));
             });
           });
 
@@ -525,7 +517,7 @@ main() {
                   static const PropsMeta meta = \$metaForFooState;
                 }
               ''');
-              verify(logger.error('Static meta field in accessor class must be of type `StateMeta`', span: any));
+              verify(logger.severe('Static meta field in accessor class must be of type `StateMeta`'));
             });
 
             test('is initialized incorrectly', () {
@@ -534,7 +526,7 @@ main() {
                   static const StateMeta meta = \$metaForBarState;
                 }
               ''');
-              verify(logger.error('Static StateMeta field in accessor class must be initialized to `\$metaForFooState`', span: any));
+              verify(logger.severe('Static StateMeta field in accessor class must be initialized to `\$metaForFooState`'));
             });
           });
 
@@ -546,7 +538,7 @@ main() {
                   static const StateMeta meta = \$metaForAbstractFooProps;
                 }
               ''');
-              verify(logger.error('Static meta field in accessor class must be of type `PropsMeta`', span: any));
+              verify(logger.severe('Static meta field in accessor class must be of type `PropsMeta`'));
             });
 
             test('is initialized incorrectly', () {
@@ -556,7 +548,7 @@ main() {
                   static const PropsMeta meta = \$metaForAbstractBarProps;
                 }
               ''');
-              verify(logger.error('Static PropsMeta field in accessor class must be initialized to `\$metaForAbstractFooProps`', span: any));
+              verify(logger.severe('Static PropsMeta field in accessor class must be initialized to `\$metaForAbstractFooProps`'));
             });
           });
 
@@ -568,7 +560,7 @@ main() {
                   static const PropsMeta meta = \$metaForAbstractFooState;
                 }
               ''');
-              verify(logger.error('Static meta field in accessor class must be of type `StateMeta`', span: any));
+              verify(logger.severe('Static meta field in accessor class must be of type `StateMeta`'));
             });
 
             test('is initialized incorrectly', () {
@@ -578,7 +570,7 @@ main() {
                   static const StateMeta meta = \$metaForAbstractBarState;
                 }
               ''');
-              verify(logger.error('Static StateMeta field in accessor class must be initialized to `\$metaForAbstractFooState`', span: any));
+              verify(logger.severe('Static StateMeta field in accessor class must be initialized to `\$metaForAbstractFooState`'));
             });
           });
 
@@ -589,7 +581,7 @@ main() {
                   static const StateMeta meta = \$metaForFooPropsMixin;
                 }
               ''');
-              verify(logger.error('Static meta field in accessor class must be of type `PropsMeta`', span: any));
+              verify(logger.severe('Static meta field in accessor class must be of type `PropsMeta`'));
             });
 
             test('is initialized incorrectly', () {
@@ -598,7 +590,7 @@ main() {
                   static const PropsMeta meta = \$metaForBarPropsMixin;
                 }
               ''');
-              verify(logger.error('Static PropsMeta field in accessor class must be initialized to `\$metaForFooPropsMixin`', span: any));
+              verify(logger.severe('Static PropsMeta field in accessor class must be initialized to `\$metaForFooPropsMixin`'));
             });
           });
 
@@ -609,7 +601,7 @@ main() {
                   static const PropsMeta meta = \$metaForFooStateMixin;
                 }
               ''');
-              verify(logger.error('Static meta field in accessor class must be of type `StateMeta`', span: any));
+              verify(logger.severe('Static meta field in accessor class must be of type `StateMeta`'));
             });
 
             test('is initialized incorrectly', () {
@@ -618,7 +610,7 @@ main() {
                   static const StateMeta meta = \$metaForBarStateMixin;
                 }
               ''');
-              verify(logger.error('Static StateMeta field in accessor class must be initialized to `\$metaForFooStateMixin`', span: any));
+              verify(logger.severe('Static StateMeta field in accessor class must be initialized to `\$metaForFooStateMixin`'));
             });
           });
         });
@@ -636,7 +628,7 @@ main() {
               @Component()  
               class FooComponent {}
             ''');
-          verify(logger.error('_\$FooProps must have an accompanying public class within the same file for Dart 2 builder compatibility, but one was not found.', span: any));
+          verify(logger.severe('_\$FooProps must have an accompanying public class within the same file for Dart 2 builder compatibility, but one was not found.'));
         });
 
         test('a public state class is not found when an private \$ prefixed state class is declared', () {
@@ -653,7 +645,7 @@ main() {
               @Component()  
               class FooComponent {}
             ''');
-          verify(logger.error('_\$FooState must have an accompanying public class within the same file for Dart 2 builder compatibility, but one was not found.', span: any));
+          verify(logger.severe('_\$FooState must have an accompanying public class within the same file for Dart 2 builder compatibility, but one was not found.'));
         });
 
         test('a public abstract props class is not found  when an private \$ prefixed abstract props class is declared', () {
@@ -661,7 +653,7 @@ main() {
               @AbstractProps() 
               class _\$AbstractFooProps {}
             ''');
-          verify(logger.error('_\$AbstractFooProps must have an accompanying public class within the same file for Dart 2 builder compatibility, but one was not found.', span: any));
+          verify(logger.severe('_\$AbstractFooProps must have an accompanying public class within the same file for Dart 2 builder compatibility, but one was not found.'));
         });
 
         test('a public abstract state class is not found when an private \$ prefixed abstract state class is declared', () {
@@ -669,7 +661,7 @@ main() {
               @AbstractState() 
               class _\$AbstractStateProps {}
              ''');
-          verify(logger.error('_\$AbstractStateProps must have an accompanying public class within the same file for Dart 2 builder compatibility, but one was not found.', span: any));
+          verify(logger.severe('_\$AbstractStateProps must have an accompanying public class within the same file for Dart 2 builder compatibility, but one was not found.'));
         });
 
         test('`subtypeOf` is an unsupported expression that is not an identifier', () {
@@ -692,4 +684,4 @@ main() {
 }
 
 
-class MockTransformLogger extends Mock implements TransformLogger {}
+class MockLogger extends Mock implements Logger {}
