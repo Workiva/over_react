@@ -355,7 +355,7 @@ class ImplGenerator {
       /// This is because with the builder compatible boilerplate, Props
       /// and State mixin classes are renamed to include a $ prefix with the assumption that
       /// the actual class with concrete accessor implementations will be generated.
-      transformedFile.insert(sourceFile.location(propMixin.node.end), ' abstract class \$${propMixin.node.name.name} {}');
+      transformedFile.insert(sourceFile.location(propMixin.node.end), ' abstract class \$${propMixin.node.name.name}${propMixin.node.typeParameters ?? ''} {}');
     });
 
     declarations.stateMixins.forEach((stateMixin) {
@@ -375,7 +375,7 @@ class ImplGenerator {
       /// This is because with the builder compatible boilerplate, Props
       /// and State mixin classes are renamed to include a $ prefix with the assumption that
       /// the actual class with concrete accessor implementations will be generated.
-      transformedFile.insert(sourceFile.location(stateMixin.node.end), 'abstract class \$${stateMixin.node.name.name} {}');
+      transformedFile.insert(sourceFile.location(stateMixin.node.end), 'abstract class \$${stateMixin.node.name.name}${stateMixin.node.typeParameters ?? ''} {}');
     });
 
     // ----------------------------------------------------------------------
