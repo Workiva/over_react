@@ -382,32 +382,60 @@ main() {
         });
       });
 
-      test('props mixins', () {
-        preservedLineNumbersTest('''
-          @PropsMixin() class FooPropsMixin {
-            Map get props;
+      group('for props mixins', () {
+        test('without type parameters', () {
+          preservedLineNumbersTest('''
+            @PropsMixin() class FooPropsMixin {
+              Map get props;
 
-            var bar;
-            var baz;
-          }
-        ''');
+              List<T> bar;
+              var baz;
+            }
+          ''');
 
-        var transformedSource = transformedFile.getTransformedText();
-        expect(transformedSource, contains('abstract class \$FooPropsMixin {}'));
+          expect(transformedFile.getTransformedText(), contains('abstract class \$FooPropsMixin {}'));
+        });
+
+        test('with type parameters', () {
+          preservedLineNumbersTest('''
+            @PropsMixin() class FooPropsMixin<T> {
+              Map get props;
+
+              List<T> bar;
+              var baz;
+            }
+          ''');
+
+          expect(transformedFile.getTransformedText(), contains('abstract class \$FooPropsMixin<T> {}'));
+        });
       });
 
-      test('state mixins', () {
-        preservedLineNumbersTest('''
-          @StateMixin() class FooStateMixin {
-            Map get state;
+      group('for state mixins', () {
+        test('without type parameters', () {
+          preservedLineNumbersTest('''
+            @StateMixin() class FooStateMixin {
+              Map get state;
 
-            var bar;
-            var baz;
-          }
-        ''');
+              var bar;
+              var baz;
+            }
+          ''');
 
-        var transformedSource = transformedFile.getTransformedText();
-        expect(transformedSource, contains('abstract class \$FooStateMixin {}'));
+          expect(transformedFile.getTransformedText(), contains('abstract class \$FooStateMixin {}'));
+        });
+
+        test('with type parameters', () {
+          preservedLineNumbersTest('''
+            @StateMixin() class FooStateMixin<T> {
+              Map get state;
+
+              List<T> bar;
+              var baz;
+            }
+          ''');
+
+          expect(transformedFile.getTransformedText(), contains('abstract class \$FooStateMixin<T> {}'));
+        });
       });
 
       test('abstract props classes', () {
