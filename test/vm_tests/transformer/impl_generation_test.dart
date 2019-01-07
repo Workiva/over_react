@@ -388,7 +388,7 @@ main() {
             @PropsMixin() class FooPropsMixin {
               Map get props;
 
-              List<T> bar;
+              var bar;
               var baz;
             }
           ''');
@@ -398,15 +398,15 @@ main() {
 
         test('with type parameters', () {
           preservedLineNumbersTest('''
-            @PropsMixin() class FooPropsMixin<T> {
+            @PropsMixin() class FooPropsMixin<T extends Iterable<T>, U> {
               Map get props;
 
               List<T> bar;
-              var baz;
+              U baz;
             }
           ''');
 
-          expect(transformedFile.getTransformedText(), contains('abstract class \$FooPropsMixin<T> {}'));
+          expect(transformedFile.getTransformedText(), contains('abstract class \$FooPropsMixin<T extends Iterable<T>, U> {}'));
         });
       });
 
@@ -426,15 +426,15 @@ main() {
 
         test('with type parameters', () {
           preservedLineNumbersTest('''
-            @StateMixin() class FooStateMixin<T> {
+            @StateMixin() class FooStateMixin<T extends Iterable<T>, U> {
               Map get state;
 
               List<T> bar;
-              var baz;
+              U baz;
             }
           ''');
 
-          expect(transformedFile.getTransformedText(), contains('abstract class \$FooStateMixin<T> {}'));
+          expect(transformedFile.getTransformedText(), contains('abstract class \$FooStateMixin<T extends Iterable<T>, U> {}'));
         });
       });
 
