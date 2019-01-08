@@ -89,6 +89,8 @@ main() {
         abstractState: true,
         propsMixins: true,
         stateMixins: true,
+        hasPrivateStateClass: false,
+        hasPrivatePropsClass: false,
         String reason
       }) {
         expect(declarations.factory,       factory       ? isNull  : isNotNull,  reason: reason);
@@ -99,6 +101,8 @@ main() {
         expect(declarations.abstractState, abstractState ? isEmpty : isNotEmpty, reason: reason);
         expect(declarations.propsMixins,   propsMixins   ? isEmpty : isNotEmpty, reason: reason);
         expect(declarations.stateMixins,   stateMixins   ? isEmpty : isNotEmpty, reason: reason);
+        expect(declarations.hasPrivateStateClass, hasPrivateStateClass);
+        expect(declarations.hasPrivatePropsClass, hasPrivatePropsClass);
       }
 
       group('and successfully collects declarations for', () {
@@ -112,95 +116,120 @@ main() {
           expectEmptyDeclarations();
           expect(declarations.declaresComponent, isFalse);
         });
-
-        test('a component', () {
-          setUpAndParse('''
-            @Factory()    UiFactory<FooProps> Foo;
-            @Props()      class FooProps {}
-            @Component()  class FooComponent {}
-          ''');
-
-          expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
-          expect(declarations.props.node?.name?.name, 'FooProps');
+//
+        // TODO: Remove this test or update it to toss an error since there's not accompanying consumable props class. I think I need to add that error checking in anyways
+//        test('a component', () {
+//          setUpAndParse('''
+//            @Factory()    UiFactory<FooProps> Foo;
+//            @Props()      class FooProps {}
+//            @Component()  class FooComponent {}
+//          ''');
+//
+//          expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
+//          expect(declarations.props.node?.name?.name, 'FooProps');
 //          expect(declarations.props.companionNode, isNull);
-          expect(declarations.component.node?.name?.name, 'FooComponent');
+//          expect(declarations.component.node?.name?.name, 'FooComponent');
+//
+//          expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
+//          expect(declarations.props.meta,     new isInstanceOf<annotations.Props>());
+//          expect(declarations.component.meta, new isInstanceOf<annotations.Component>());
+//
+//          expectEmptyDeclarations(factory: false, props: false, component: false);
+//          expect(declarations.declaresComponent, isTrue);
+//        });
 
-          expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
-          expect(declarations.props.meta,     new isInstanceOf<annotations.Props>());
-          expect(declarations.component.meta, new isInstanceOf<annotations.Component>());
+        group('a component with builder-compatible dual-class props setup', () {
+          void testPropsDualClassSetup({bool isPrivate: false}) {
+            setUpAndParse('''
+              @Factory()    UiFactory<FooProps> Foo;
+              class ${isPrivate ? '_' : ''}FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {}
+              @Props()      class _\$FooProps {}
+              @Component()  class FooComponent {}
+            ''');
 
-          expectEmptyDeclarations(factory: false, props: false, component: false);
-          expect(declarations.declaresComponent, isTrue);
+            expect(declarations.factory.node?.variables?.variables?.single?.name
+                ?.name, 'Foo');
+            expect(declarations.props.node?.name?.name, '_\$FooProps');
+            expect(declarations.hasPrivatePropsClass, isPrivate);
+            expect(declarations.component.node?.name?.name, 'FooComponent');
+
+            expect(declarations.factory.meta,
+                const isInstanceOf<annotations.Factory>());
+            expect(declarations.props.meta,
+                const isInstanceOf<annotations.Props>());
+            expect(declarations.component.meta,
+                const isInstanceOf<annotations.Component>());
+
+            expectEmptyDeclarations(
+                factory: false, props: false, component: false, hasPrivatePropsClass: isPrivate);
+            expect(declarations.declaresComponent, isTrue);
+          }
+          test('with public consumable class', () {
+            testPropsDualClassSetup();
+          });
+          test('with priavte consumable class', () {
+            testPropsDualClassSetup(isPrivate: true);
+          });
         });
 
-        test('a component with builder-compatible dual-class props setup', () {
-          setUpAndParse('''
-            @Factory()    UiFactory<FooProps> Foo;
-            class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {}
-            @Props()      class _\$FooProps {}
-            @Component()  class FooComponent {}
-          ''');
+        // TODO: Write code and test to throw error if code formatted like this
+//        test('a stateful component', () {
+//          setUpAndParse('''
+//            @Factory()    UiFactory<FooProps> Foo;
+//            @Props()      class FooProps {}
+//            @State()      class FooState {}
+//            @Component()  class FooComponent {}
+//          ''');
+//
+//          expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
+//          expect(declarations.props.node?.name?.name, 'FooProps');
+////          expect(declarations.props.companionNode, isNull);
+//          expect(declarations.state.node?.name?.name, 'FooState');
+////          expect(declarations.state.companionNode, isNull);
+//          expect(declarations.component.node?.name?.name, 'FooComponent');
+//
+//          expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
+//          expect(declarations.props.meta,     new isInstanceOf<annotations.Props>());
+//          expect(declarations.state.meta,     new isInstanceOf<annotations.State>());
+//          expect(declarations.component.meta, new isInstanceOf<annotations.Component>());
+//
+//          expectEmptyDeclarations(factory: false, props: false, state: false, component: false);
+//          expect(declarations.declaresComponent, isTrue);
+//        });
 
-          expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
-          expect(declarations.props.node?.name?.name, '_\$FooProps');
-//          expect(declarations.props.companionNode?.name?.name, 'FooProps');
-          expect(declarations.component.node?.name?.name, 'FooComponent');
+        group('a stateful component with builder-compatible dual-class state setup', () {
+          void testStateDualClassSetup({bool isPrivate: false}) {
+            var possiblePrivatePrefix = isPrivate ? '_' : '';
+            setUpAndParse('''
+              @Factory()    UiFactory<${possiblePrivatePrefix}FooProps> Foo = $possiblePrivatePrefix\$Foo;
+              class ${possiblePrivatePrefix}FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {}
+              @Props()      class _\$FooProps {}
+              @Component()  class FooComponent {}
+              class ${possiblePrivatePrefix}FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
+              @State()      class _\$FooState {}
+            ''');
 
-          expect(declarations.factory.meta,   const isInstanceOf<annotations.Factory>());
-          expect(declarations.props.meta,     const isInstanceOf<annotations.Props>());
-          expect(declarations.component.meta, const isInstanceOf<annotations.Component>());
+            expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
+            expect(declarations.props.node?.name?.name, '_\$FooProps');
+            expect(declarations.hasPrivatePropsClass, isPrivate);
+            expect(declarations.state.node?.name?.name, '_\$FooState');
+            expect(declarations.hasPrivateStateClass, isPrivate);
+            expect(declarations.component.node?.name?.name, 'FooComponent');
 
-          expectEmptyDeclarations(factory: false, props: false, component: false);
-          expect(declarations.declaresComponent, isTrue);
-        });
+            expect(declarations.factory.meta,   const isInstanceOf<annotations.Factory>());
+            expect(declarations.props.meta,     const isInstanceOf<annotations.Props>());
+            expect(declarations.state.meta,     const isInstanceOf<annotations.State>());
+            expect(declarations.component.meta, const isInstanceOf<annotations.Component>());
 
-        test('a stateful component', () {
-          setUpAndParse('''
-            @Factory()    UiFactory<FooProps> Foo;
-            @Props()      class FooProps {}
-            @State()      class FooState {}
-            @Component()  class FooComponent {}
-          ''');
-
-          expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
-          expect(declarations.props.node?.name?.name, 'FooProps');
-//          expect(declarations.props.companionNode, isNull);
-          expect(declarations.state.node?.name?.name, 'FooState');
-//          expect(declarations.state.companionNode, isNull);
-          expect(declarations.component.node?.name?.name, 'FooComponent');
-
-          expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
-          expect(declarations.props.meta,     new isInstanceOf<annotations.Props>());
-          expect(declarations.state.meta,     new isInstanceOf<annotations.State>());
-          expect(declarations.component.meta, new isInstanceOf<annotations.Component>());
-
-          expectEmptyDeclarations(factory: false, props: false, state: false, component: false);
-          expect(declarations.declaresComponent, isTrue);
-        });
-
-        test('a stateful component with builder-compatible dual-class state setup', () {
-          setUpAndParse('''
-            @Factory()    UiFactory<FooProps> Foo;
-            @Props()      class FooProps {}
-            class FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
-            @State()      class _\$FooState {}
-            @Component()  class FooComponent {}
-          ''');
-
-          expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
-          expect(declarations.props.node?.name?.name, 'FooProps');
-//          expect(declarations.props.companionNode, isNull);
-          expect(declarations.state.node?.name?.name, '_\$FooState');
-//          expect(declarations.state.companionNode?.name?.name, 'FooState');
-          expect(declarations.component.node?.name?.name, 'FooComponent');
-
-          expect(declarations.factory.meta,   const isInstanceOf<annotations.Factory>());
-          expect(declarations.props.meta,     const isInstanceOf<annotations.Props>());
-          expect(declarations.state.meta,     const isInstanceOf<annotations.State>());
-          expect(declarations.component.meta, const isInstanceOf<annotations.Component>());
-
-          expectEmptyDeclarations(factory: false, props: false, state: false, component: false);
-          expect(declarations.declaresComponent, isTrue);
+            expectEmptyDeclarations(factory: false, props: false, state: false, component: false, hasPrivateStateClass: isPrivate, hasPrivatePropsClass: isPrivate);
+            expect(declarations.declaresComponent, isTrue);
+          }
+          test('with public consumable class', () {
+            testStateDualClassSetup();
+          });
+          test('with priavte consumable class', () {
+            testStateDualClassSetup(isPrivate: true);
+          });
         });
 
         test('props mixins', () {
@@ -237,66 +266,84 @@ main() {
           expect(declarations.declaresComponent, isFalse);
         });
 
-        test('abstract props classes', () {
-          setUpAndParse('''
-            @AbstractProps() class AbstractFooProps1 {}
-            @AbstractProps() class AbstractFooProps2 {}
-          ''');
+        // TODO: write error for no-companion class and test
+//        test('abstract props classes', () {
+//          setUpAndParse('''
+//            @AbstractProps() class AbstractFooProps1 {}
+//            @AbstractProps() class AbstractFooProps2 {}
+//          ''');
+//
+//          expect(declarations.abstractProps, hasLength(2));
+//
+//          expect(declarations.abstractProps[0].node.name.name, 'AbstractFooProps1');
+////          expect(declarations.abstractProps[0].companionNode, isNull);
+//          expect(declarations.abstractProps[1].node.name.name, 'AbstractFooProps2');
+////          expect(declarations.abstractProps[1].companionNode, isNull);
+//          expect(declarations.abstractProps[0].meta, new isInstanceOf<annotations.AbstractProps>());
+//          expect(declarations.abstractProps[1].meta, new isInstanceOf<annotations.AbstractProps>());
+//
+//          expectEmptyDeclarations(abstractProps: false);
+//          expect(declarations.declaresComponent, isFalse);
+//        });
 
-          expect(declarations.abstractProps, hasLength(2));
+        group('abstract props class with builder-compatible dual-class setup', () {
+          void testAbstractPropsDualClassSetup({isPrivate: false}) {
+            setUpAndParse('''
+              @AbstractProps() class _\$AbstractFooProps {}
+              class ${isPrivate ? '_' : ''}AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {}
+            ''');
 
-          expect(declarations.abstractProps[0].node.name.name, 'AbstractFooProps1');
-//          expect(declarations.abstractProps[0].companionNode, isNull);
-          expect(declarations.abstractProps[1].node.name.name, 'AbstractFooProps2');
-//          expect(declarations.abstractProps[1].companionNode, isNull);
-          expect(declarations.abstractProps[0].meta, new isInstanceOf<annotations.AbstractProps>());
-          expect(declarations.abstractProps[1].meta, new isInstanceOf<annotations.AbstractProps>());
-
-          expectEmptyDeclarations(abstractProps: false);
-          expect(declarations.declaresComponent, isFalse);
+            expect(declarations.abstractProps, hasLength(1));
+            expect(declarations.abstractProps[0].node?.name?.name, '_\$AbstractFooProps');
+            expect(declarations.hasPrivatePropsClass, isPrivate);
+            expect(declarations.abstractProps[0].meta, new isInstanceOf<annotations.AbstractProps>());
+          }
+          test('with public consumable class', () {
+            testAbstractPropsDualClassSetup();
+          });
+          test('with priavte consumable class', () {
+            testAbstractPropsDualClassSetup(isPrivate: true);
+          });
         });
 
-        test('abstract props class with builder-compatible dual-class setup', () {
-          setUpAndParse('''
-            @AbstractProps() class _\$AbstractFooProps {}
-            class AbstractFooProps {}
-          ''');
+        // TODO: write and test error for missing consumable class
+//        test('abstract state classes', () {
+//          setUpAndParse('''
+//            @AbstractState() class AbstractFooState1 {}
+//            @AbstractState() class AbstractFooState2 {}
+//          ''');
+//
+//          expect(declarations.abstractState, hasLength(2));
+//
+//          expect(declarations.abstractState[0].node.name.name, 'AbstractFooState1');
+////          expect(declarations.abstractState[0].companionNode, isNull);
+//          expect(declarations.abstractState[1].node.name.name, 'AbstractFooState2');
+////          expect(declarations.abstractState[1].companionNode, isNull);
+//          expect(declarations.abstractState[0].meta, new isInstanceOf<annotations.AbstractState>());
+//          expect(declarations.abstractState[1].meta, new isInstanceOf<annotations.AbstractState>());
+//
+//          expectEmptyDeclarations(abstractState: false);
+//          expect(declarations.declaresComponent, isFalse);
+//        });
 
-          expect(declarations.abstractProps, hasLength(1));
-          expect(declarations.abstractProps[0].node?.name?.name, '_\$AbstractFooProps');
-//          expect(declarations.abstractProps[0].companionNode?.name?.name, 'AbstractFooProps');
-          expect(declarations.abstractProps[0].meta, new isInstanceOf<annotations.AbstractProps>());
-        });
+        group('abstract state class with builder-compatible dual-class setup', () {
+          void testAbstractStateDualClassSetup({isPrivate: false}) {
+            setUpAndParse('''
+              @AbstractState() class _\$AbstractFooState {}
+              class ${isPrivate ? '_' : ''}AbstractFooState extends _\$AbstractFooState with _\$AbstractFooStateAccessorsMixin {}
+            ''');
 
-        test('abstract state classes', () {
-          setUpAndParse('''
-            @AbstractState() class AbstractFooState1 {}
-            @AbstractState() class AbstractFooState2 {}
-          ''');
-
-          expect(declarations.abstractState, hasLength(2));
-
-          expect(declarations.abstractState[0].node.name.name, 'AbstractFooState1');
-//          expect(declarations.abstractState[0].companionNode, isNull);
-          expect(declarations.abstractState[1].node.name.name, 'AbstractFooState2');
-//          expect(declarations.abstractState[1].companionNode, isNull);
-          expect(declarations.abstractState[0].meta, new isInstanceOf<annotations.AbstractState>());
-          expect(declarations.abstractState[1].meta, new isInstanceOf<annotations.AbstractState>());
-
-          expectEmptyDeclarations(abstractState: false);
-          expect(declarations.declaresComponent, isFalse);
-        });
-
-        test('abstract state class with builder-compatible dual-class setup', () {
-          setUpAndParse('''
-            @AbstractState() class _\$AbstractFooState {}
-            class AbstractFooState {}
-          ''');
-
-          expect(declarations.abstractState, hasLength(1));
-          expect(declarations.abstractState[0].node?.name?.name, '_\$AbstractFooState');
-//          expect(declarations.abstractState[0].companionNode?.name?.name, 'AbstractFooState');
-          expect(declarations.abstractState[0].meta, new isInstanceOf<annotations.AbstractState>());
+            expect(declarations.abstractState, hasLength(1));
+            expect(declarations.abstractState[0].node?.name?.name, '_\$AbstractFooState');
+            expect(declarations.hasPrivateStateClass, isPrivate);
+            expect(declarations.abstractState[0].meta, new isInstanceOf<annotations.AbstractState>());
+          }
+          test('with public consumable class', () {
+            testAbstractStateDualClassSetup();
+          });
+          test('with priavte consumable class', () {
+            testAbstractStateDualClassSetup(isPrivate: true);
+          });
         });
 
         group('and initializes annotations with the correct arguments for', () {
@@ -306,10 +353,14 @@ main() {
               UiFactory<FooProps> Foo;
 
               @Props(keyNamespace: "bar")
-              class FooProps {}
+              class _\$FooProps {}
+              
+              class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {}
 
               @State(keyNamespace: "baz")
-              class FooState {}
+              class _\$FooState {}
+              
+              class FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
 
               @Component(isWrapper: true)
               class FooComponent {}
@@ -339,7 +390,8 @@ main() {
           test('an abstract props class', () {
             setUpAndParse('''
               @AbstractProps(keyNamespace: "bar")
-              class AbstractFooProps {}
+              class _\$AbstractFooProps {}
+              class AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {}
             ''');
             expect(declarations.abstractProps.single.meta.keyNamespace, 'bar');
           });
@@ -347,7 +399,8 @@ main() {
           test('an abstract state class', () {
             setUpAndParse('''
               @AbstractState(keyNamespace: "bar")
-              class AbstractFooState {}
+              class _\$AbstractFooState {}
+              class AbstractFooState extends _\$AbstractFooState with _\$AbstractFooStateAccessorsMixin {}
             ''');
             expect(declarations.abstractState.single.meta.keyNamespace, 'bar');
           });

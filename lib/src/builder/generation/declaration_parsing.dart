@@ -393,8 +393,8 @@ class ParsedDeclarations {
   final List<PropsMixinNode> propsMixins;
   final List<StateMixinNode> stateMixins;
 
-  final hasPrivateStateClass;
-  final hasPrivatePropsClass;
+  final bool hasPrivateStateClass;
+  final bool hasPrivatePropsClass;
 
   final bool hasErrors;
   final bool hasDeclarations;
