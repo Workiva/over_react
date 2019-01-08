@@ -628,7 +628,7 @@ main() {
               @Component()  
               class FooComponent {}
             ''');
-          verify(logger.severe('_\$FooProps must have an accompanying public class within the same file for Dart 2 builder compatibility, but one was not found.'));
+          verify(logger.severe('_\$FooProps must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.'));
         });
 
         test('a public state class is not found when an private \$ prefixed state class is declared', () {
@@ -645,7 +645,7 @@ main() {
               @Component()  
               class FooComponent {}
             ''');
-          verify(logger.severe('_\$FooState must have an accompanying public class within the same file for Dart 2 builder compatibility, but one was not found.'));
+          verify(logger.severe('_\$FooState must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.'));
         });
 
         test('a public abstract props class is not found  when an private \$ prefixed abstract props class is declared', () {
@@ -653,7 +653,7 @@ main() {
               @AbstractProps() 
               class _\$AbstractFooProps {}
             ''');
-          verify(logger.severe('_\$AbstractFooProps must have an accompanying public class within the same file for Dart 2 builder compatibility, but one was not found.'));
+          verify(logger.severe('_\$AbstractFooProps must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.'));
         });
 
         test('a public abstract state class is not found when an private \$ prefixed abstract state class is declared', () {
@@ -661,7 +661,7 @@ main() {
               @AbstractState() 
               class _\$AbstractStateProps {}
              ''');
-          verify(logger.severe('_\$AbstractStateProps must have an accompanying public class within the same file for Dart 2 builder compatibility, but one was not found.'));
+          verify(logger.severe('_\$AbstractStateProps must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.'));
         });
 
         test('`subtypeOf` is an unsupported expression that is not an identifier', () {
