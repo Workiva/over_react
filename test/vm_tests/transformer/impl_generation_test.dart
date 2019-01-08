@@ -370,30 +370,69 @@ main() {
         });
       });
 
-      test('props mixins', () {
-        generateFromSource('''
-          @PropsMixin() class FooPropsMixin {
-            Map get props;
+      group('for props mixins', () {
+        test('without type parameters', () {
+          generateFromSource('''
+            @PropsMixin() class FooPropsMixin {
+              Map get props;
 
-            var bar;
-            var baz;
-          }
-        ''');
+              var bar;
+              var baz;
+            }
+          ''');
 
-        expect(implGenerator.outputContentsBuffer.toString(), contains('abstract class \$FooPropsMixin'));
+          expect(implGenerator.outputContentsBuffer.toString(), contains('abstract class \$FooPropsMixin'));
+        });
+
+        test('with type parameters', () {
+          generateFromSource('''
+            @PropsMixin() class FooPropsMixin<T extends Iterable<T>, U> {
+              Map get props;
+
+              List<T> bar;
+              U baz;
+            }
+          ''');
+
+          expect(implGenerator.outputContentsBuffer.toString(), contains('abstract class \$FooPropsMixin<T extends Iterable<T>, U> {}'));
+        });
       });
 
-      test('state mixins', () {
-        generateFromSource('''
-          @StateMixin() class FooStateMixin {
-            Map get state;
+      group('for state mixins', () {
+        test('without type parameters', () {
+          generateFromSource('''
+            @StateMixin() class FooStateMixin {
+              Map get state;
 
+              var bar;
+              var baz;
+            }
+          ''');
+
+          expect(implGenerator.outputContentsBuffer.toString(), contains('abstract class \$FooStateMixin'));
+        });
+
+        test('with type parameters', () {
+          generateFromSource('''
+            @StateMixin() class FooStateMixin<T extends Iterable<T>, U> {
+              Map get state;
+
+              List<T> bar;
+              U baz;
+            }
+          ''');
+
+          expect(implGenerator.outputContentsBuffer.toString(), contains('abstract class \$FooStateMixin<T extends Iterable<T>, U> {}'));
+        });
+      });
+
+      test('abstract props classes', () {
+        generateFromSource('''
+          @AbstractProps() class AbstractFooProps {
             var bar;
             var baz;
           }
         ''');
-
-        expect(implGenerator.outputContentsBuffer.toString(), contains('abstract class \$FooStateMixin'));
       });
 //
 //      test('abstract props classes', () {

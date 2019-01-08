@@ -610,12 +610,13 @@ class ImplGenerator {
     }
 
     var consumerClassName = _classNameFromNode(node);
-    var generatedPropsMixinName = '\$$consumerClassName';
+    var accessorsMixinName = '\$$consumerClassName';
+    var typeParameters = (node.node as ClassDeclaration).typeParameters?.toString() ?? ''; // ignore: avoid_as
     outputContentsBuffer.write(_generateAccessorsMixin(
-        type, generatedPropsMixinName, node,
-        consumerClassName, isMixin: true));
+        type, accessorsMixinName, node,
+        consumerClassName, isPropsOrStateMixin: true, typeParameters: typeParameters));
     outputContentsBuffer.write(_generateMetaConstant(
-        type, generatedPropsMixinName,
+        type, accessorsMixinName,
         _publicPropsOrStateClassNameFromConsumerClassName(consumerClassName)));
   }
 //=======
@@ -671,13 +672,13 @@ class ImplGenerator {
   }
 
   String _generateAccessorsMixin(AccessorType type, String accessorsMixinName,
-      NodeWithMeta node, String consumerClassName, {isMixin: true}) {
+      NodeWithMeta node, String consumerClassName, {bool isPropsOrStateMixin: true, String typeParameters: ''}) {
+
     var isProps = type == AccessorType.props;
     StringBuffer generatedClass = new StringBuffer();
-    var implementsClause = isMixin ? 'implements $consumerClassName ' : '';
-//    implementsClause = '';
+    var implementsClause = isPropsOrStateMixin ? 'implements $consumerClassName$typeParameters ' : '';
     generatedClass.writeln(
-        'abstract class $accessorsMixinName $implementsClause{\n' +
+        'abstract class $accessorsMixinName$typeParameters $implementsClause{\n' +
         '  @override' +
         '  Map get ${isProps ? 'props': 'state'};\n'
     );

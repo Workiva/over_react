@@ -1,5 +1,24 @@
 # OverReact Changelog
 
+## 1.30.1
+
+> [Complete `1.30.1` Changeset](https://github.com/Workiva/over_react/compare/1.30.0...1.30.1)
+
+__Bug Fixes__
+
+* [#220] Fix an issue for Dart 2 compatibility with how the transformer handles
+  props and state mixins that have generic type parameters.
+
+__Tech-Debt__
+
+* [#219] Remove `dart:mirrors` usages from tests (necessary for Dart 2
+  compatibility).
+
+__Documentation__
+
+* [#210] Add a [Dart 2 migration guide](https://github.com/Workiva/over_react/blob/master/doc/dart2_migration.md).
+* [#209] Add [Dart 1 / 2 code snippets for VSCode and WebStorm/IntelliJ](https://github.com/Workiva/over_react/blob/master/snippets/README.md).
+
 ## 1.30.0
 
 > [Complete `1.30.0` Changeset](https://github.com/Workiva/over_react/compare/1.29.0...1.30.0)
