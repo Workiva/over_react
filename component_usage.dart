@@ -1,4 +1,5 @@
-// Taken straight from over_react_format
+// This file is straight from over_react_format
+
 import 'package:analyzer/analyzer.dart';
 
 /// A usage of an OverReact component via its fluent interface.
