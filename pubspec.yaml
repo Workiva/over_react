@@ -34,14 +34,6 @@ dev_dependencies:
   dart_dev: ">=1.9.6 <3.0.0"
   dependency_validator: ^1.2.2
   mockito: any #^2.2.3
-  #over_react_test: any #^1.5.0
+  over_react_test: ^2.0.0
   source_gen: ^0.9.0
   test: '>=0.12.30 <2.0.0'
-
-
-dependency_overrides:
-  over_react_test:
-    git:
-      url: git@github.com:Workiva/over_react_test.git
-      ref: a7128af5cd511b38e426a54f954c2ba26e42706a # from AF-3567_dart2
-
