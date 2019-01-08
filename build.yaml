@@ -10,12 +10,20 @@ targets:
   $default:
     sources:
       exclude:
-        # builder uses mirrors and will cause a build to fail if using build web compilers
-        - "lib/src/builder/**"
-        - "test/builder/**"
-
-        # vm tests require the use of mirrors
-        - "test/vm_tests/**"
-
         # has some faulty component declarations, might not need generation, but comment out for now cuz it breaks things
         - "test/over_react/component_declaration/transformer_helpers_test.dart"
+
+    builders:
+      # builder uses mirrors and will cause a build to fail when using build web compilers
+      # vm tests require the use of mirrors
+      build_web_compilers|ddc:
+        generate_for:
+          exclude:
+            - "test/vm_tests/**"
+            - "test/builder/**"
+      build_web_compilers|entrypoint:
+        generate_for:
+          exclude:
+            - "test/vm_tests/**"
+            - "test/builder/**"
+
