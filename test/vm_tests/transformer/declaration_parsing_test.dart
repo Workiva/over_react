@@ -408,22 +408,110 @@ main() {
       });
 
       group('and logs a hard error when', () {
-        const String factorySrc      = '\n@Factory()\nUiFactory<FooProps> Foo;\n';
-        const String propsSrc        = '\n@Props()\nclass FooProps {}\n';
-        const String privatePropsSrc = '\n@Props()\nclass _\$FooProps {}\n';
-        const String componentSrc    = '\n@Component()\nclass FooComponent {}\n';
+        const String factorySrc            = '\n@Factory()\nUiFactory<FooProps> Foo = \$Foo;\n';
+        const String componentSrc          = '\n@Component()\nclass FooComponent {}\n';
+        const String abstractComponentSrc  = '\n@AbstractComponent()\nclass AbstractFooComponent {}\n';
 
-        const String stateSrc        = '\n@State()\nclass FooState {}\n';
-        const String privateStateSrc = '\n@State()\nclass _\$FooState {}\n';
+        const String propsSrc              = '\n@Props()\nclass _\$FooProps {}\n';
+        const String propsSrcDart1         = '\n@Props()\nclass FooProps {}\n';
+        const String abstractPropsSrc      = '\n@AbstractProps()\nclass _\$AbstractFooProps {}\n';
+        const String abstractPropsSrcDart1 = '\n@AbstractProps()\nclass AbstractFooProps {}\n';
+        const String companionClassProps   = 'class FooProps {}';
+        const String companionClassAbstractProps   = 'class AbstractFooProps {}';
+
+        const String stateSrc              = '\n@State()\nclass _\$FooState {}\n';
+        const String stateSrcDart1         = '\n@State()\nclass FooState {}\n';
+        const String abstractStateSrcDart1 = '\n@AbstractState()\nclass AbstractFooState {}\n';
+        const String companionClassState   = 'class FooState {}';
+        const String companionClassAbstractState   = 'class AbstractFooState {}';
 
         tearDown(() {
           expect(declarations.hasErrors, isTrue, reason: 'Declarations with errors should always set `hasErrors` to true.');
           expectEmptyDeclarations(reason: 'Declarations with errors should always be null/empty.');
         });
 
+        test('a companion props class is not found when a private _\$ prefixed props class is declared', () {
+          setUpAndParse(factorySrc + propsSrc + componentSrc);
+//          '''
+//              @Factory()
+//              UiFactory<FooProps> Foo = \$Foo;
+//
+//              @Props()
+//              class _\$FooProps {}
+//
+//              @Component()
+//              class FooComponent {}
+//            ''');
+          verify(logger.severe('_\$FooProps must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.'));
+        });
+
+        test('a companion state class is not found when an private _\$ prefixed state class is declared', () {
+          setUpAndParse('''
+              @Factory()    
+              UiFactory<FooProps> Foo = \$Foo;
+              
+              @Props()      
+              class _\$FooProps {}
+              class FooProps {}
+              
+              @State()
+              class _\$FooState {}
+              
+              @Component()  
+              class FooComponent {}
+            ''');
+          verify(logger.severe('_\$FooState must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.'));
+        });
+
+        test('a companion abstract props class is not found  when an private _\$ prefixed abstract props class is declared', () {
+          setUpAndParse('''
+              @AbstractProps() 
+              class _\$AbstractFooProps {}
+            ''');
+          verify(logger.severe('_\$AbstractFooProps must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.'));
+        });
+
+        test('a compaion abstract state class is not found when an private _\$ prefixed abstract state class is declared', () {
+          setUpAndParse('''
+              @AbstractState() 
+              class _\$AbstractStateProps {}
+             ''');
+          verify(logger.severe('_\$AbstractStateProps must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.'));
+        });
+
+        group('there is not Dart-2 compatible naming on', () {
+          test('a class annotated with @Props()', () {
+            setUpAndParse(propsSrcDart1 + componentSrc + factorySrc);
+            verify(logger.severe(
+                'The class `FooProps` does not start with _\$. All Props, State, '
+                    'AbstractProps, and AbstractState classes should begin with _\$ under Dart 2'));
+          });
+
+          test('a class annotated with @State()', () {
+            setUpAndParse(stateSrcDart1 + componentSrc + propsSrc + companionClassProps + factorySrc);
+            verify(logger.severe(
+                'The class `FooState` does not start with _\$. All Props, State, '
+                    'AbstractProps, and AbstractState classes should begin with _\$ under Dart 2'));
+          });
+
+          test('a class annotated with @AbstractProps()', () {
+            setUpAndParse(abstractPropsSrcDart1 + abstractComponentSrc);
+            verify(logger.severe(
+                'The class `AbstractFooProps` does not start with _\$. All Props, State, '
+                    'AbstractProps, and AbstractState classes should begin with _\$ under Dart 2'));
+          });
+
+          test('a class annotated with @AbstractState()', () {
+            setUpAndParse(abstractStateSrcDart1 + abstractComponentSrc + abstractPropsSrc + companionClassAbstractProps);
+            verify(logger.severe(
+                'The class `AbstractFooState` does not start with _\$. All Props, State, '
+                    'AbstractProps, and AbstractState classes should begin with _\$ under Dart 2'));
+          });
+        });
+
         group('a component is declared without', () {
           test('a factory', () {
-            setUpAndParse(propsSrc + componentSrc);
+            setUpAndParse(propsSrc + companionClassProps + componentSrc);
             verify(logger.severe('To define a component, there must also be a `@Factory` within the same file, but none were found.'));
           });
 
@@ -433,7 +521,7 @@ main() {
           });
 
           test('a component class', () {
-            setUpAndParse(factorySrc + propsSrc);
+            setUpAndParse(factorySrc + propsSrc + companionClassProps);
             verify(logger.severe('To define a component, there must also be a `@Component` within the same file, but none were found.'));
           });
 
@@ -444,7 +532,7 @@ main() {
           });
 
           test('a factory or a component class', () {
-            setUpAndParse(propsSrc);
+            setUpAndParse(propsSrc + companionClassProps);
             verify(logger.severe('To define a component, there must also be a `@Factory` within the same file, but none were found.'));
             verify(logger.severe('To define a component, there must also be a `@Component` within the same file, but none were found.'));
           });
@@ -458,12 +546,12 @@ main() {
 
         group('a state class is declared without', () {
           test('any component pieces', () {
-            setUpAndParse(stateSrc);
+            setUpAndParse(stateSrc + companionClassState);
             verify(logger.severe('To define a component, a `@State` must be accompanied by the following annotations within the same file: @Factory, @Component, @Props.'));
           });
 
           test('some component pieces', () {
-            setUpAndParse(stateSrc + componentSrc);
+            setUpAndParse(stateSrc + componentSrc + companionClassState);
             /// Should only log regarding the missing pieces, and not the state.
             verify(logger.severe('To define a component, there must also be a `@Factory` within the same file, but none were found.'));
             verify(logger.severe('To define a component, there must also be a `@Props` within the same file, but none were found.'));
@@ -472,28 +560,28 @@ main() {
 
         group('a component is declared with multiple', () {
           test('factories', () {
-            setUpAndParse(factorySrc * 2 + propsSrc + componentSrc);
+            setUpAndParse(factorySrc * 2 + propsSrc + companionClassProps + componentSrc);
             verify(logger.severe(
                 argThat(startsWith('To define a component, there must be a single `@Factory` per file, but 2 were found.'))
             )).called(2);
           });
 
           test('props classes', () {
-            setUpAndParse(factorySrc + propsSrc * 2 + componentSrc);
+            setUpAndParse(factorySrc + propsSrc * 2 + companionClassProps*2 + componentSrc);
             verify(logger.severe(
                 argThat(startsWith('To define a component, there must be a single `@Props` per file, but 2 were found.'))
             )).called(2);
           });
 
           test('component classes', () {
-            setUpAndParse(factorySrc + propsSrc + componentSrc * 2);
+            setUpAndParse(factorySrc + propsSrc + companionClassProps + componentSrc * 2);
             verify(logger.severe(
                 argThat(startsWith('To define a component, there must be a single `@Component` per file, but 2 were found.'))
             )).called(2);
           });
 
           test('state classes', () {
-            setUpAndParse(factorySrc + propsSrc + componentSrc + stateSrc * 2);
+            setUpAndParse(factorySrc + propsSrc + companionClassProps + componentSrc + stateSrc * 2 + companionClassState*2);
             verify(logger.severe(
                 argThat(startsWith('To define a component, there must not be more than one `@State` per file, but 2 were found.'))
             )).called(2);
@@ -545,7 +633,7 @@ main() {
         group('a static meta field', () {
           group('for a props class', () {
             test('has the wrong type', () {
-              setUpAndParse(factorySrc + privatePropsSrc + componentSrc + '''
+              setUpAndParse(factorySrc + propsSrc + componentSrc + '''
                 class FooProps {
                   static const StateMeta meta = \$metaForFooProps;
                 }
@@ -554,7 +642,7 @@ main() {
             });
 
             test('is initialized incorrectly', () {
-              setUpAndParse(factorySrc + privatePropsSrc + componentSrc + '''
+              setUpAndParse(factorySrc + propsSrc + componentSrc + '''
                 class FooProps {
                   static const PropsMeta meta = \$metaForBarProps;
                 }
@@ -565,7 +653,7 @@ main() {
 
           group('for a state class', () {
             test('has the wrong type', () {
-              setUpAndParse(factorySrc + propsSrc + privateStateSrc + componentSrc + '''
+              setUpAndParse(factorySrc + propsSrc + companionClassProps + stateSrc + componentSrc + '''
                 class FooState {
                   static const PropsMeta meta = \$metaForFooState;
                 }
@@ -574,7 +662,7 @@ main() {
             });
 
             test('is initialized incorrectly', () {
-              setUpAndParse(factorySrc + propsSrc + privateStateSrc + componentSrc + '''
+              setUpAndParse(factorySrc + propsSrc + companionClassProps + stateSrc + componentSrc + '''
                 class FooState {
                   static const StateMeta meta = \$metaForBarState;
                 }
@@ -669,61 +757,16 @@ main() {
         });
       });
 
+      // TODO: Throw an error when the factory is incorrectly initialized
       group('and throws an error when', () {
-        test('a public props class is not found when an private \$ prefixed props class is declared', () {
-          setUpAndParse('''
-              @Factory()    
-              UiFactory<FooProps> Foo;
-              
-              @Props()      
-              class _\$FooProps {}
-              
-              @Component()  
-              class FooComponent {}
-            ''');
-          verify(logger.severe('_\$FooProps must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.'));
-        });
-
-        test('a public state class is not found when an private \$ prefixed state class is declared', () {
-          setUpAndParse('''
-              @Factory()    
-              UiFactory<FooProps> Foo;
-              
-              @Props()      
-              class FooProps {}
-              
-              @State()
-              class _\$FooState {}
-              
-              @Component()  
-              class FooComponent {}
-            ''');
-          verify(logger.severe('_\$FooState must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.'));
-        });
-
-        test('a public abstract props class is not found  when an private \$ prefixed abstract props class is declared', () {
-          setUpAndParse('''
-              @AbstractProps() 
-              class _\$AbstractFooProps {}
-            ''');
-          verify(logger.severe('_\$AbstractFooProps must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.'));
-        });
-
-        test('a public abstract state class is not found when an private \$ prefixed abstract state class is declared', () {
-          setUpAndParse('''
-              @AbstractState() 
-              class _\$AbstractStateProps {}
-             ''');
-          verify(logger.severe('_\$AbstractStateProps must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.'));
-        });
-
         test('`subtypeOf` is an unsupported expression that is not an identifier', () {
           expect(() {
             setUpAndParse('''
               @Factory()
-              UiFactory<FooProps> Foo;
+              UiFactory<FooProps> Foo = \$Foo;
 
               @Props()
+              class _\$FooProps {}
               class FooProps {}
 
               @Component(subtypeOf: const [])

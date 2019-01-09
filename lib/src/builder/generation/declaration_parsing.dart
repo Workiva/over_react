@@ -105,8 +105,8 @@ class ParsedDeclarations {
           return (name == 'State' || name == 'AbstractState');
         }
 
-        if (isPropsClass(name) || isStateClass(name)) {
-          if (member is ClassDeclaration && member.name.name.startsWith(companionPrefix)) {
+        if ((isPropsClass(name) || isStateClass(name)) && member is ClassDeclaration) {
+          if (member.name.name.startsWith(companionPrefix)) {
             final companionName = member.name.name.substring(companionPrefix.length);
             final privateCompanionName = '_$companionName';
             final privateCompanionClass = unit.declarations.firstWhere(
@@ -130,6 +130,11 @@ class ParsedDeclarations {
                 validateMetaField(publicCompanionClass, isPropsClass(name) ? 'PropsMeta': 'StateMeta');
               }
             }
+          } else {
+            // Props or state class has the incorrect naming (should start with [companionPrefix]
+            error('The class `${member.name.name}` does not start with $companionPrefix. All Props, State, '
+                'AbstractProps, and AbstractState classes should begin with $companionPrefix under Dart 2',
+              getSpan(sourceFile, member));
           }
         }
 
