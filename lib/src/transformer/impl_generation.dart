@@ -112,14 +112,14 @@ class ImplGenerator {
 
       declarations.factory.node.variables.variables.forEach((variable) {
         final isPrivate = factoryName.startsWith(privatePrefix);
-        final validInitializer = isPrivate
-            ? '$generatedPrefix${factoryName.substring(privatePrefix.length)}'
-            : '$publicGeneratedPrefix$factoryName';
-        if (variable.initializer != null && variable.initializer.toString() != validInitializer) {
+        final validInitializers = isPrivate
+            ? ['$generatedPrefix${factoryName.substring(privatePrefix.length)}', '$generatedPrefix$factoryName']
+            : ['$publicGeneratedPrefix$factoryName'];
+        if (variable.initializer != null && !validInitializers.contains(variable.initializer.toString())) {
           logger.error(
               'Factory variables are stubs for the generated factories, and should not have initializers '
               'unless initialized with \$$factoryName for Dart 2 builder compatibility. '
-              'Should be:\n    $validInitializer',
+              'Should be one of:\n    $validInitializers',
               span: getSpan(sourceFile, variable.initializer)
           );
         }
