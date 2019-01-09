@@ -24,7 +24,6 @@ import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/src/transformed_source_file.dart' show getSpan;
 import 'package:transformer_utils/transformer_utils.dart';
 
-
 /// A set of [NodeWithMeta] component pieces declared using `over_react` transformer annotations.
 ///
 /// Can include:
@@ -231,8 +230,9 @@ class ParsedDeclarations {
         final initializer = metaField.fields.variables.single.initializer?.toSource();
         if (!expectedInitializers.contains(initializer)) {
           error(
-              'Static $expectedType field in accessor class must be initialized to one of:'
-              '`$expectedInitializers`',
+              'Static $expectedType field in accessor class must be initialized to:'
+              // The second in the list of expected initializers is the one it will need to be once on Dart 2
+              '`${expectedInitializers[1]}`',
               getSpan(sourceFile, metaField),
           );
         }
@@ -278,24 +278,31 @@ class ParsedDeclarations {
     // validate that the factory is initialized correctly
     final factory = declarationMap[key_factory].length <= 1 ? singleOrNull(declarationMap[key_factory]) : null;
     if (factory != null && factory is TopLevelVariableDeclaration) {
-      final String factoryName = factory.variables.variables.first.name.toString();
-      factory.variables.variables.forEach((variable) {
-        final isPrivate = factoryName.startsWith('_');
-        var expectedInitializers = ['\$$factoryName', '_\$$factoryName'];
-        if (isPrivate) {
-          expectedInitializers.add('_\$${factoryName.substring(1)}');
-        }
+      final String factoryName = factory.variables.variables.first.name.name;
 
-        if (variable.initializer != null &&
-            !expectedInitializers.contains(variable.initializer.toString())) {
-          error(
-              'Factory variables are stubs for the generated factories, and should not have initializers '
-                  'unless initialized with a valid variable name for Dart 2 builder compatibility. '
-                  'Should be one of:\n    $expectedInitializers',
-              getSpan(sourceFile, variable.initializer)
-          );
-        }
-      });
+      if (factory.variables.variables.length != 1) {
+        error('Factory declarations must be a single variable.',
+            getSpan(sourceFile, factory.variables));
+      }
+
+      final variable = factory.variables.variables.first;
+      final isPrivate = factoryName.startsWith('_');
+      var expectedInitializers = ['\$$factoryName', '_\$$factoryName'];
+
+      if (isPrivate) {
+        expectedInitializers.add('_\$${factoryName.substring(1)}');
+      }
+
+      if (variable.initializer != null &&
+          !expectedInitializers.contains(variable.initializer.toString())) {
+        error(
+            'Factory variables are stubs for the generated factories, and should not have initializers '
+                'unless initialized with a valid variable name for Dart 2 builder compatibility. '
+                // The second in the list of expected initializers is the one it will need to be once on Dart 2
+                'Should be:\n    ${expectedInitializers[1]}',
+            getSpan(sourceFile, variable.initializer)
+        );
+      }
     }
 
     if (hasErrors) {

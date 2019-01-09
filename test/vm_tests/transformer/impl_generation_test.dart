@@ -764,22 +764,8 @@ main() {
       });
     });
 
-
     group('logs an error when', () {
-      test('a factory is declared using multiple variables', () {
-        setUpAndGenerate('''
-          @Factory()
-          UiFactory<FooProps> Foo, Bar;
 
-          @Props()
-          class FooProps {}
-
-          @Component()
-          class FooComponent {}
-        ''');
-
-        verify(logger.error('Factory declarations must a single variable.', span: any));
-      });
 
       group('a component class', () {
         test('subtypes itself', () {

@@ -105,11 +105,6 @@ class ImplGenerator {
       //   Factory implementation
       // ----------------------------------------------------------------------
 
-      if (declarations.factory.node.variables.variables.length != 1) {
-        logger.error('Factory declarations must a single variable.',
-            span: getSpan(sourceFile, declarations.factory.node.variables));
-      }
-
       transformedFile.replace(
           sourceFile.span(
               declarations.factory.node.variables.variables.first.name.end,
