@@ -362,6 +362,77 @@ main() {
         });
       });
 
+      const String restOfComponent = '''
+        @Props()
+        class FooProps {}
+
+        @Component()
+        class FooComponent {}
+      ''';
+
+      group('does not log a hard error when', () {
+        group('the factory is', () {
+          group('public and initialized with', () {
+            test('correct \$ prefixed variable name', () {
+              setUpAndParse('''
+                @Factory()
+                UiFactory<FooProps> Foo = \$Foo;
+
+                $restOfComponent
+              ''');
+
+              verifyNever(logger.error(any, span: any));
+            });
+
+            test('correct _\$ prefixed variable name', () {
+              setUpAndParse('''
+                @Factory()
+                UiFactory<FooProps> Foo = _\$Foo;
+
+                $restOfComponent
+              ''');
+
+              verifyNever(logger.error(any, span: any));
+            });
+          });
+
+          group('private and initialized with', () {
+            test('correct \$ prefixed variable name', () {
+              setUpAndParse('''
+                @Factory()
+                UiFactory<FooProps> _Foo = \$_Foo;
+
+                $restOfComponent
+              ''');
+
+              verifyNever(logger.error(any, span: any));
+            });
+
+            test('correct _\$ prefixed variable name', () {
+              setUpAndParse('''
+                @Factory()
+                UiFactory<FooProps> _Foo = _\$_Foo;
+
+                $restOfComponent
+              ''');
+
+              verifyNever(logger.error(any, span: any));
+            });
+
+            test('_\$ prefixed variable name with private prefix stripped', () {
+              setUpAndParse('''
+                @Factory()
+                UiFactory<FooProps> _Foo = _\$_Foo;
+
+                $restOfComponent
+              ''');
+
+              verifyNever(logger.error(any, span: any));
+            });
+          });
+        });
+      });
+
       group('and logs a hard error when', () {
         const String factorySrc      = '\n@Factory()\nUiFactory<FooProps> Foo;\n';
         const String propsSrc        = '\n@Props()\nclass FooProps {}\n';
@@ -497,6 +568,36 @@ main() {
           });
         });
 
+        group('a factory is', () {
+          test('public and declared with an initializer', () {
+            setUpAndParse('''
+            @Factory()
+            UiFactory<FooProps> Foo = null;
+
+            $restOfComponent
+          ''');
+
+            verify(logger.error(
+                'Factory variables are stubs for the generated factories, and should not have initializers'
+                    ' unless initialized with a valid variable name for Dart 2 builder compatibility. Should be one of:\n'
+                    '    [\$Foo, _\$Foo]', span: any));
+          });
+
+          test('private and declared with an initializer', () {
+            setUpAndParse('''
+            @Factory()
+            UiFactory<FooProps> _Foo = null;
+
+            $restOfComponent
+          ''');
+
+            verify(logger.error(
+                'Factory variables are stubs for the generated factories, and should not have initializers'
+                    ' unless initialized with a valid variable name for Dart 2 builder compatibility. Should be one of:\n'
+                    '    [\$_Foo, _\$_Foo, _\$Foo]', span: any));
+          });
+        });
+
         group('a static meta field', () {
           group('for a props class', () {
             test('has the wrong type', () {
@@ -514,7 +615,18 @@ main() {
                   static const PropsMeta meta = \$metaForBarProps;
                 }
               ''');
-              verify(logger.error('Static PropsMeta field in accessor class must be initialized to `\$metaForFooProps`', span: any));
+              verify(logger.error('Static PropsMeta field in accessor class must be initialized to one of:'
+                  '`[\$metaForFooProps, _\$metaForFooProps]`', span: any));
+            });
+
+            test('is private and initialized incorrectly', () {
+              setUpAndParse(factorySrc + privatePropsSrc + componentSrc + '''
+                class _FooProps {
+                  static const PropsMeta meta = \$metaForBarProps;
+                }
+              ''');
+              verify(logger.error('Static PropsMeta field in accessor class must be initialized to one of:'
+                  '`[\$metaFor_FooProps, _\$metaFor_FooProps, _\$metaForFooProps]`', span: any));
             });
           });
 
@@ -534,7 +646,18 @@ main() {
                   static const StateMeta meta = \$metaForBarState;
                 }
               ''');
-              verify(logger.error('Static StateMeta field in accessor class must be initialized to `\$metaForFooState`', span: any));
+              verify(logger.error('Static StateMeta field in accessor class must be initialized to one of:'
+                  '`[\$metaForFooState, _\$metaForFooState]`', span: any));
+            });
+
+            test('is private and initialized incorrectly', () {
+              setUpAndParse(factorySrc + propsSrc + privateStateSrc + componentSrc + '''
+                class _FooState {
+                  static const StateMeta meta = \$metaForBarState;
+                }
+              ''');
+              verify(logger.error('Static StateMeta field in accessor class must be initialized to one of:'
+                  '`[\$metaFor_FooState, _\$metaFor_FooState, _\$metaForFooState]`', span: any));
             });
           });
 
@@ -556,7 +679,19 @@ main() {
                   static const PropsMeta meta = \$metaForAbstractBarProps;
                 }
               ''');
-              verify(logger.error('Static PropsMeta field in accessor class must be initialized to `\$metaForAbstractFooProps`', span: any));
+              verify(logger.error('Static PropsMeta field in accessor class must be initialized to one of:'
+                    '`[\$metaForAbstractFooProps, _\$metaForAbstractFooProps]`', span: any));
+            });
+
+            test('is private and initialized incorrectly', () {
+              setUpAndParse('''
+                @AbstractProps() abstract class _\$AbstractFooProps {}
+                abstract class _AbstractFooProps {
+                  static const PropsMeta meta = \$metaForAbstractBarProps;
+                }
+              ''');
+              verify(logger.error('Static PropsMeta field in accessor class must be initialized to one of:'
+                    '`[\$metaFor_AbstractFooProps, _\$metaFor_AbstractFooProps, _\$metaForAbstractFooProps]`', span: any));
             });
           });
 
@@ -578,7 +713,19 @@ main() {
                   static const StateMeta meta = \$metaForAbstractBarState;
                 }
               ''');
-              verify(logger.error('Static StateMeta field in accessor class must be initialized to `\$metaForAbstractFooState`', span: any));
+              verify(logger.error('Static StateMeta field in accessor class must be initialized to one of:'
+                  '`[\$metaForAbstractFooState, _\$metaForAbstractFooState]`', span: any));
+            });
+
+            test('is private and initialized incorrectly', () {
+              setUpAndParse('''
+                @AbstractState() abstract class _\$AbstractFooState {}
+                abstract class _AbstractFooState {
+                  static const StateMeta meta = \$metaForAbstractBarState;
+                }
+              ''');
+              verify(logger.error('Static StateMeta field in accessor class must be initialized to one of:'
+                  '`[\$metaFor_AbstractFooState, _\$metaFor_AbstractFooState, _\$metaForAbstractFooState]`', span: any));
             });
           });
 
@@ -598,7 +745,18 @@ main() {
                   static const PropsMeta meta = \$metaForBarPropsMixin;
                 }
               ''');
-              verify(logger.error('Static PropsMeta field in accessor class must be initialized to `\$metaForFooPropsMixin`', span: any));
+              verify(logger.error('Static PropsMeta field in accessor class must be initialized to one of:'
+                  '`[\$metaForFooPropsMixin, _\$metaForFooPropsMixin]`', span: any));
+            });
+
+            test('is private and initialized incorrectly', () {
+              setUpAndParse('''
+                @PropsMixin() abstract class _FooPropsMixin {
+                  static const PropsMeta meta = \$metaForBarPropsMixin;
+                }
+              ''');
+              verify(logger.error('Static PropsMeta field in accessor class must be initialized to one of:'
+                  '`[\$metaFor_FooPropsMixin, _\$metaFor_FooPropsMixin, _\$metaForFooPropsMixin]`', span: any));
             });
           });
 
@@ -618,7 +776,18 @@ main() {
                   static const StateMeta meta = \$metaForBarStateMixin;
                 }
               ''');
-              verify(logger.error('Static StateMeta field in accessor class must be initialized to `\$metaForFooStateMixin`', span: any));
+              verify(logger.error('Static StateMeta field in accessor class must be initialized to one of:'
+                  '`[\$metaForFooStateMixin, _\$metaForFooStateMixin]`', span: any));
+            });
+
+            test('is private and initialized incorrectly', () {
+              setUpAndParse('''
+                @StateMixin() abstract class _FooStateMixin {
+                  static const StateMeta meta = \$metaForBarStateMixin;
+                }
+              ''');
+              verify(logger.error('Static StateMeta field in accessor class must be initialized to one of:'
+                  '`[\$metaFor_FooStateMixin, _\$metaFor_FooStateMixin, _\$metaForFooStateMixin]`', span: any));
             });
           });
         });

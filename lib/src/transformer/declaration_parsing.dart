@@ -19,9 +19,11 @@ import 'dart:mirrors';
 import 'package:analyzer/analyzer.dart';
 import 'package:barback/barback.dart' show TransformLogger;
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
+import 'package:over_react/src/transformer/util.dart' show getMetaField;
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/src/transformed_source_file.dart' show getSpan;
 import 'package:transformer_utils/transformer_utils.dart';
+
 
 /// A set of [NodeWithMeta] component pieces declared using `over_react` transformer annotations.
 ///
@@ -211,15 +213,7 @@ class ParsedDeclarations {
       });
     } else {
       void validateMetaField(ClassDeclaration cd, String expectedType) {
-        bool isPropsOrStateMeta(ClassMember member) {
-          if (member is! FieldDeclaration) return false;
-          final FieldDeclaration fd = member;
-          if (!fd.isStatic) return false;
-          if (fd.fields.variables.length > 1) return false;
-          if (fd.fields.variables.single.name.name != 'meta') return false;
-          return true;
-        }
-        final FieldDeclaration metaField = cd.members.firstWhere(isPropsOrStateMeta, orElse: () => null);
+        final metaField = getMetaField(cd);
         if (metaField == null) return;
 
         if (metaField.fields.type?.toSource() != expectedType) {
@@ -229,15 +223,16 @@ class ParsedDeclarations {
           );
         }
         final isClassPrivate = cd.name.name.startsWith('_');
-        final expectedInitializer = isClassPrivate
-            ? '_\$metaFor${cd.name.name.substring(1)}'
-            : '\$metaFor${cd.name.name}';
+        var expectedInitializers = ['\$metaFor${cd.name.name}', '_\$metaFor${cd.name.name}'];
+        if (isClassPrivate) {
+          expectedInitializers.add('_\$metaFor${cd.name.name.substring(1)}');
+        }
 
         final initializer = metaField.fields.variables.single.initializer?.toSource();
-        if (initializer != expectedInitializer) {
+        if (!expectedInitializers.contains(initializer)) {
           error(
-              'Static $expectedType field in accessor class must be initialized to '
-              '`$expectedInitializer`',
+              'Static $expectedType field in accessor class must be initialized to one of:'
+              '`$expectedInitializers`',
               getSpan(sourceFile, metaField),
           );
         }
@@ -278,6 +273,29 @@ class ParsedDeclarations {
       for (final stateMixin in stateMixins) {
         validateMetaField(stateMixin, 'StateMeta');
       }
+    }
+
+    // validate that the factory is initialized correctly
+    final factory = declarationMap[key_factory].length <= 1 ? singleOrNull(declarationMap[key_factory]) : null;
+    if (factory != null && factory is TopLevelVariableDeclaration) {
+      final String factoryName = factory.variables.variables.first.name.toString();
+      factory.variables.variables.forEach((variable) {
+        final isPrivate = factoryName.startsWith('_');
+        var expectedInitializers = ['\$$factoryName', '_\$$factoryName'];
+        if (isPrivate) {
+          expectedInitializers.add('_\$${factoryName.substring(1)}');
+        }
+
+        if (variable.initializer != null &&
+            !expectedInitializers.contains(variable.initializer.toString())) {
+          error(
+              'Factory variables are stubs for the generated factories, and should not have initializers '
+                  'unless initialized with a valid variable name for Dart 2 builder compatibility. '
+                  'Should be one of:\n    $expectedInitializers',
+              getSpan(sourceFile, variable.initializer)
+          );
+        }
+      });
     }
 
     if (hasErrors) {

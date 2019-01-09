@@ -764,65 +764,21 @@ main() {
       });
     });
 
-    const String restOfComponent = '''
-      @Props()
-      class FooProps {}
-
-      @Component()
-      class FooComponent {}
-    ''';
-
-    group('does not log an error when', () {
-      test('declared with a \$ prefixed initializer matching the factory name', () {
-        setUpAndGenerate('''
-            @Factory()
-            UiFactory<FooProps> Foo = \$Foo;
-
-            $restOfComponent
-        ''');
-
-        verifyNever(logger.error(any, span: any));
-      });
-
-      test('declared with a _\$ prefixed initializer matching the private factory name', () {
-        setUpAndGenerate('''
-            @Factory()
-            UiFactory<FooProps> _Foo = _\$_Foo;
-
-            $restOfComponent
-        ''');
-
-        verifyNever(logger.error(any, span: any));
-      });
-    });
 
     group('logs an error when', () {
-      group('a factory is', () {
+      test('a factory is declared using multiple variables', () {
+        setUpAndGenerate('''
+          @Factory()
+          UiFactory<FooProps> Foo, Bar;
 
-        test('declared using multiple variables', () {
-          setUpAndGenerate('''
-            @Factory()
-            UiFactory<FooProps> Foo, Bar;
+          @Props()
+          class FooProps {}
 
-            $restOfComponent
-          ''');
+          @Component()
+          class FooComponent {}
+        ''');
 
-          verify(logger.error('Factory declarations must a single variable.', span: any));
-        });
-
-        test('declared with an initializer', () {
-          setUpAndGenerate('''
-            @Factory()
-            UiFactory<FooProps> Foo = null;
-
-            $restOfComponent
-          ''');
-
-          verify(logger.error('Factory variables are stubs for the generated factories, and should not have initializers'
-              ' unless initialized with \$Foo for Dart 2 builder compatibility. Should be one of:\n'
-              '    [\$Foo]', span: any));
-        });
-
+        verify(logger.error('Factory declarations must a single variable.', span: any));
       });
 
       group('a component class', () {
