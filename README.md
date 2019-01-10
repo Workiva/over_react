@@ -10,6 +10,15 @@
 
 > A library for building statically-typed React UI components using Dart.
 
+---
+
+> **Dart 2 Migration Guide**
+>
+> If you have existing over_react code written on Dart 1 and want to upgrade to
+> Dart 2, please read the [**Dart 2 Migration Guide**](/doc/dart2_migration.md)
+
+---
+
 
 * __[Using it in your project](#using-it-in-your-project)__
     * [Running tests in your project](#running-tests-in-your-project)
@@ -677,7 +686,7 @@ that you get for free from OverReact, you're ready to start building your own cu
 
 ### Component Boilerplate Templates
 
-* #### [VS Code Snippet Extension](https://marketplace.visualstudio.com/items?itemName=JaceHensley.over-react-snippets)
+* #### [Dart 1 and Dart 2 Backwards Compatible VS Code and WebStorm/IntelliJ Snippets](snippets/README.md)
 
 * #### Component Boilerplate
 

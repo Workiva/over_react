@@ -1,5 +1,55 @@
 # OverReact Changelog
 
+## 1.30.2
+
+> [Complete `1.30.2` Changeset](https://github.com/Workiva/over_react/compare/1.30.1...1.30.2)
+
+__Bug Fixes__
+
+* [#222] Fix the initializer validation for component factories and the static
+  `meta` field on props and state classes.
+
+## 1.30.1
+
+> [Complete `1.30.1` Changeset](https://github.com/Workiva/over_react/compare/1.30.0...1.30.1)
+
+__Bug Fixes__
+
+* [#220] Fix an issue for Dart 2 compatibility with how the transformer handles
+  props and state mixins that have generic type parameters.
+
+__Tech-Debt__
+
+* [#219] Remove `dart:mirrors` usages from tests (necessary for Dart 2
+  compatibility).
+
+__Documentation__
+
+* [#210] Add a [Dart 2 migration guide](https://github.com/Workiva/over_react/blob/master/doc/dart2_migration.md).
+* [#209] Add [Dart 1 / 2 code snippets for VSCode and WebStorm/IntelliJ](https://github.com/Workiva/over_react/blob/master/snippets/README.md).
+
+## 1.30.0
+
+> [Complete `1.30.0` Changeset](https://github.com/Workiva/over_react/compare/1.29.0...1.30.0)
+
+__New Features__
+
+* [#196] Add `componentDefaultProps` getter to `UiProps` for retrieving the
+  immutable map view of a component's default props. This is an alternative to
+  constructing a `UiComponent` directly and calling `getDefaultProps()`, which
+  will no longer work in Dart 2.
+
+* [#208] Add `typedDefaultPropsFor(factory)` utility function to easily obtain
+  a typed view of the immutable default props for any `UiFactory`. This is
+  effectively a strongly-typed version of the above `componentDefaultProps`
+  getter.
+
+__Improvements__
+
+* [#200] [#201] [#205] [#208] Update the transformer to support new `over_react`
+  component boilerplate that is compatible with both Dart 1 and Dart 2. This is
+  the first step towards Dart 2 compatibility. For more information, see [#210].
+
 ## 1.29.0
 
 > [Complete `1.29.0` Changeset](https://github.com/Workiva/over_react/compare/1.28.0...1.29.0)

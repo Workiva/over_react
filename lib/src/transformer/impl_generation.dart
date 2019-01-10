@@ -18,7 +18,7 @@ import 'package:analyzer/analyzer.dart';
 import 'package:barback/barback.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/transformer/declaration_parsing.dart';
-import 'package:over_react/src/transformer/text_util.dart';
+import 'package:over_react/src/transformer/util.dart';
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/src/text_util.dart' show stringLiteral;
 import 'package:transformer_utils/src/transformed_source_file.dart' show getSpan;
@@ -104,26 +104,6 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
       //   Factory implementation
       // ----------------------------------------------------------------------
-
-      if (declarations.factory.node.variables.variables.length != 1) {
-        logger.error('Factory declarations must a single variable.',
-            span: getSpan(sourceFile, declarations.factory.node.variables));
-      }
-
-      declarations.factory.node.variables.variables.forEach((variable) {
-        final isPrivate = factoryName.startsWith(privatePrefix);
-        final validInitializer = isPrivate
-            ? '$generatedPrefix${factoryName.substring(privatePrefix.length)}'
-            : '$publicGeneratedPrefix$factoryName';
-        if (variable.initializer != null && variable.initializer.toString() != validInitializer) {
-          logger.error(
-              'Factory variables are stubs for the generated factories, and should not have initializers '
-              'unless initialized with \$$factoryName for Dart 2 builder compatibility. '
-              'Should be:\n    $validInitializer',
-              span: getSpan(sourceFile, variable.initializer)
-          );
-        }
-      });
 
       transformedFile.replace(
           sourceFile.span(
@@ -350,7 +330,7 @@ class ImplGenerator {
       /// This is because with the builder compatible boilerplate, Props
       /// and State mixin classes are renamed to include a $ prefix with the assumption that
       /// the actual class with concrete accessor implementations will be generated.
-      transformedFile.insert(sourceFile.location(propMixin.node.end), ' abstract class \$${propMixin.node.name.name} {}');
+      transformedFile.insert(sourceFile.location(propMixin.node.end), ' abstract class \$${propMixin.node.name.name}${propMixin.node.typeParameters ?? ''} {}');
     });
 
     declarations.stateMixins.forEach((stateMixin) {
@@ -370,7 +350,7 @@ class ImplGenerator {
       /// This is because with the builder compatible boilerplate, Props
       /// and State mixin classes are renamed to include a $ prefix with the assumption that
       /// the actual class with concrete accessor implementations will be generated.
-      transformedFile.insert(sourceFile.location(stateMixin.node.end), 'abstract class \$${stateMixin.node.name.name} {}');
+      transformedFile.insert(sourceFile.location(stateMixin.node.end), 'abstract class \$${stateMixin.node.name.name}${stateMixin.node.typeParameters ?? ''} {}');
     });
 
     // ----------------------------------------------------------------------
@@ -677,27 +657,30 @@ class ImplGenerator {
           staticGettersCompanionImpl
       );
     }
-    
-    final name = (companionNode ?? typedMap.node).name.name;
-    final isPrivate = name.startsWith(privatePrefix);
-    final publicName = isPrivate ? name.substring(privatePrefix.length) : name;
-    final metaClassName = '$generatedPrefix${name}Meta';
-    final metaInstanceName = isPrivate
-        ? '${generatedPrefix}metaFor$publicName'
-        : '${publicGeneratedPrefix}metaFor$publicName';
-    final metaStructName = type == AccessorType.props
-        ? 'PropsMeta'
-        : 'StateMeta';
+
+    final classDeclaration = (companionNode ?? typedMap.node);
+    final metaField = getMetaField(classDeclaration);
     final output = new StringBuffer();
-    output.writeln('/// A class that allows us to reuse generated code from the accessors class.');
-    output.writeln('/// This is only used by other generated code, and can be simplified if needed.');
-    output.writeln('class $metaClassName {');
-    output.writeln(staticVariablesImpl);
-    output.writeln('}');
-    output.writeln('const $metaStructName $metaInstanceName = const $metaStructName(');
-    output.writeln('  fields: $metaClassName.$constantListName,');
-    output.writeln('  keys: $metaClassName.$keyListName,');
-    output.writeln(');');
+    // if metaField is null, we are on Dart 1 code which has not transitioned
+    // to the transitional Dart 2 compatible boilerplate, and thus the $metaFor
+    // constant is not needed
+    if (metaField != null) {
+      final name = classDeclaration.name.name;
+      final metaClassName = '$generatedPrefix${name}Meta';
+      final metaInstanceName = metaField.fields.variables.single.initializer.toSource();
+      final metaStructName = type == AccessorType.props
+          ? 'PropsMeta'
+          : 'StateMeta';
+      output.writeln('/// A class that allows us to reuse generated code from the accessors class.');
+      output.writeln('/// This is only used by other generated code, and can be simplified if needed.');
+      output.writeln('class $metaClassName {');
+      output.writeln(staticVariablesImpl);
+      output.writeln('}');
+      output.writeln('const $metaStructName $metaInstanceName = const $metaStructName(');
+      output.writeln('  fields: $metaClassName.$constantListName,');
+      output.writeln('  keys: $metaClassName.$keyListName,');
+      output.writeln(');');
+    }
     return new AccessorOutput(output.toString());
   }
 

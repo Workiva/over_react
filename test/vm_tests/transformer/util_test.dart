@@ -15,7 +15,7 @@
 @TestOn('vm')
 library text_util_test;
 
-import 'package:over_react/src/transformer/text_util.dart';
+import 'package:over_react/src/transformer/util.dart';
 import 'package:test/test.dart';
 
 main() {

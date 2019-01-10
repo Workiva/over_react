@@ -382,32 +382,60 @@ main() {
         });
       });
 
-      test('props mixins', () {
-        preservedLineNumbersTest('''
-          @PropsMixin() class FooPropsMixin {
-            Map get props;
+      group('for props mixins', () {
+        test('without type parameters', () {
+          preservedLineNumbersTest('''
+            @PropsMixin() class FooPropsMixin {
+              Map get props;
 
-            var bar;
-            var baz;
-          }
-        ''');
+              var bar;
+              var baz;
+            }
+          ''');
 
-        var transformedSource = transformedFile.getTransformedText();
-        expect(transformedSource, contains('abstract class \$FooPropsMixin {}'));
+          expect(transformedFile.getTransformedText(), contains('abstract class \$FooPropsMixin {}'));
+        });
+
+        test('with type parameters', () {
+          preservedLineNumbersTest('''
+            @PropsMixin() class FooPropsMixin<T extends Iterable<T>, U> {
+              Map get props;
+
+              List<T> bar;
+              U baz;
+            }
+          ''');
+
+          expect(transformedFile.getTransformedText(), contains('abstract class \$FooPropsMixin<T extends Iterable<T>, U> {}'));
+        });
       });
 
-      test('state mixins', () {
-        preservedLineNumbersTest('''
-          @StateMixin() class FooStateMixin {
-            Map get state;
+      group('for state mixins', () {
+        test('without type parameters', () {
+          preservedLineNumbersTest('''
+            @StateMixin() class FooStateMixin {
+              Map get state;
 
-            var bar;
-            var baz;
-          }
-        ''');
+              var bar;
+              var baz;
+            }
+          ''');
 
-        var transformedSource = transformedFile.getTransformedText();
-        expect(transformedSource, contains('abstract class \$FooStateMixin {}'));
+          expect(transformedFile.getTransformedText(), contains('abstract class \$FooStateMixin {}'));
+        });
+
+        test('with type parameters', () {
+          preservedLineNumbersTest('''
+            @StateMixin() class FooStateMixin<T extends Iterable<T>, U> {
+              Map get state;
+
+              List<T> bar;
+              U baz;
+            }
+          ''');
+
+          expect(transformedFile.getTransformedText(), contains('abstract class \$FooStateMixin<T extends Iterable<T>, U> {}'));
+        });
       });
 
       test('abstract props classes', () {
@@ -737,51 +765,7 @@ main() {
     });
 
     group('logs an error when', () {
-      group('a factory is', () {
-        const String restOfComponent = '''
-          @Props()
-          class FooProps {}
 
-          @Component()
-          class FooComponent {}
-        ''';
-
-        test('declared using multiple variables', () {
-          setUpAndGenerate('''
-            @Factory()
-            UiFactory<FooProps> Foo, Bar;
-
-            $restOfComponent
-          ''');
-
-          verify(logger.error('Factory declarations must a single variable.', span: any));
-        });
-
-        test('declared with an initializer', () {
-          setUpAndGenerate('''
-            @Factory()
-            UiFactory<FooProps> Foo = null;
-
-            $restOfComponent
-          ''');
-
-          verify(logger.error('Factory variables are stubs for the generated factories, and should not have initializers'
-              ' unless initialized with \$Foo for Dart 2 builder compatibility. Should be:\n'
-              '    \$Foo', span: any));
-        });
-
-        test('declared with an \$ prefixed initializer matching the factory name', () {
-          setUpAndGenerate('''
-            @Factory()
-            UiFactory<FooProps> Foo = \$Foo;
-
-            $restOfComponent
-          ''');
-
-          verifyNever(logger.error('Factory variables are stubs for the generated factories, and should not have initializers'
-              ' unless initialized with \$Foo for Dart 2 builder compatibility.', span: any));
-        });
-      });
 
       group('a component class', () {
         test('subtypes itself', () {
