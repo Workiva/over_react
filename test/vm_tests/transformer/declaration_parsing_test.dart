@@ -89,8 +89,9 @@ main() {
         abstractState: true,
         propsMixins: true,
         stateMixins: true,
-        hasPrivateStateClass: false,
-        hasPrivatePropsClass: false,
+        // TODO: EIther remove the hasPrivate functionality if it's no longer needed, or update individual tests to test for private-ness
+//        hasPrivateStateClass: false,
+//        hasPrivatePropsClass: false,
         String reason
       }) {
         expect(declarations.factory,       factory       ? isNull  : isNotNull,  reason: reason);
@@ -101,8 +102,8 @@ main() {
         expect(declarations.abstractState, abstractState ? isEmpty : isNotEmpty, reason: reason);
         expect(declarations.propsMixins,   propsMixins   ? isEmpty : isNotEmpty, reason: reason);
         expect(declarations.stateMixins,   stateMixins   ? isEmpty : isNotEmpty, reason: reason);
-        expect(declarations.hasPrivateStateClass, hasPrivateStateClass);
-        expect(declarations.hasPrivatePropsClass, hasPrivatePropsClass);
+//        expect(declarations.hasPrivateStateClass, hasPrivateStateClass);
+//        expect(declarations.hasPrivatePropsClass, hasPrivatePropsClass);
       }
 
       group('and successfully collects declarations for', () {
@@ -116,27 +117,6 @@ main() {
           expectEmptyDeclarations();
           expect(declarations.declaresComponent, isFalse);
         });
-//
-        // TODO: Remove this test or update it to toss an error since there's not accompanying consumable props class. I think I need to add that error checking in anyways
-//        test('a component', () {
-//          setUpAndParse('''
-//            @Factory()    UiFactory<FooProps> Foo;
-//            @Props()      class FooProps {}
-//            @Component()  class FooComponent {}
-//          ''');
-//
-//          expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
-//          expect(declarations.props.node?.name?.name, 'FooProps');
-//          expect(declarations.props.companionNode, isNull);
-//          expect(declarations.component.node?.name?.name, 'FooComponent');
-//
-//          expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
-//          expect(declarations.props.meta,     new isInstanceOf<annotations.Props>());
-//          expect(declarations.component.meta, new isInstanceOf<annotations.Component>());
-//
-//          expectEmptyDeclarations(factory: false, props: false, component: false);
-//          expect(declarations.declaresComponent, isTrue);
-//        });
 
         group('a component with builder-compatible dual-class props setup', () {
           void testPropsDualClassSetup({bool isPrivate: false}) {
@@ -161,7 +141,7 @@ main() {
                 const isInstanceOf<annotations.Component>());
 
             expectEmptyDeclarations(
-                factory: false, props: false, component: false, hasPrivatePropsClass: isPrivate);
+                factory: false, props: false, component: false);
             expect(declarations.declaresComponent, isTrue);
           }
           test('with public consumable class', () {
@@ -171,31 +151,6 @@ main() {
             testPropsDualClassSetup(isPrivate: true);
           });
         });
-
-        // TODO: Write code and test to throw error if code formatted like this
-//        test('a stateful component', () {
-//          setUpAndParse('''
-//            @Factory()    UiFactory<FooProps> Foo;
-//            @Props()      class FooProps {}
-//            @State()      class FooState {}
-//            @Component()  class FooComponent {}
-//          ''');
-//
-//          expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
-//          expect(declarations.props.node?.name?.name, 'FooProps');
-////          expect(declarations.props.companionNode, isNull);
-//          expect(declarations.state.node?.name?.name, 'FooState');
-////          expect(declarations.state.companionNode, isNull);
-//          expect(declarations.component.node?.name?.name, 'FooComponent');
-//
-//          expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
-//          expect(declarations.props.meta,     new isInstanceOf<annotations.Props>());
-//          expect(declarations.state.meta,     new isInstanceOf<annotations.State>());
-//          expect(declarations.component.meta, new isInstanceOf<annotations.Component>());
-//
-//          expectEmptyDeclarations(factory: false, props: false, state: false, component: false);
-//          expect(declarations.declaresComponent, isTrue);
-//        });
 
         group('a stateful component with builder-compatible dual-class state setup', () {
           void testStateDualClassSetup({bool isPrivate: false}) {
@@ -221,7 +176,7 @@ main() {
             expect(declarations.state.meta,     const isInstanceOf<annotations.State>());
             expect(declarations.component.meta, const isInstanceOf<annotations.Component>());
 
-            expectEmptyDeclarations(factory: false, props: false, state: false, component: false, hasPrivateStateClass: isPrivate, hasPrivatePropsClass: isPrivate);
+            expectEmptyDeclarations(factory: false, props: false, state: false, component: false);
             expect(declarations.declaresComponent, isTrue);
           }
           test('with public consumable class', () {
@@ -266,26 +221,6 @@ main() {
           expect(declarations.declaresComponent, isFalse);
         });
 
-        // TODO: write error for no-companion class and test
-//        test('abstract props classes', () {
-//          setUpAndParse('''
-//            @AbstractProps() class AbstractFooProps1 {}
-//            @AbstractProps() class AbstractFooProps2 {}
-//          ''');
-//
-//          expect(declarations.abstractProps, hasLength(2));
-//
-//          expect(declarations.abstractProps[0].node.name.name, 'AbstractFooProps1');
-////          expect(declarations.abstractProps[0].companionNode, isNull);
-//          expect(declarations.abstractProps[1].node.name.name, 'AbstractFooProps2');
-////          expect(declarations.abstractProps[1].companionNode, isNull);
-//          expect(declarations.abstractProps[0].meta, new isInstanceOf<annotations.AbstractProps>());
-//          expect(declarations.abstractProps[1].meta, new isInstanceOf<annotations.AbstractProps>());
-//
-//          expectEmptyDeclarations(abstractProps: false);
-//          expect(declarations.declaresComponent, isFalse);
-//        });
-
         group('abstract props class with builder-compatible dual-class setup', () {
           void testAbstractPropsDualClassSetup({isPrivate: false}) {
             setUpAndParse('''
@@ -305,26 +240,6 @@ main() {
             testAbstractPropsDualClassSetup(isPrivate: true);
           });
         });
-
-        // TODO: write and test error for missing consumable class
-//        test('abstract state classes', () {
-//          setUpAndParse('''
-//            @AbstractState() class AbstractFooState1 {}
-//            @AbstractState() class AbstractFooState2 {}
-//          ''');
-//
-//          expect(declarations.abstractState, hasLength(2));
-//
-//          expect(declarations.abstractState[0].node.name.name, 'AbstractFooState1');
-////          expect(declarations.abstractState[0].companionNode, isNull);
-//          expect(declarations.abstractState[1].node.name.name, 'AbstractFooState2');
-////          expect(declarations.abstractState[1].companionNode, isNull);
-//          expect(declarations.abstractState[0].meta, new isInstanceOf<annotations.AbstractState>());
-//          expect(declarations.abstractState[1].meta, new isInstanceOf<annotations.AbstractState>());
-//
-//          expectEmptyDeclarations(abstractState: false);
-//          expect(declarations.declaresComponent, isFalse);
-//        });
 
         group('abstract state class with builder-compatible dual-class setup', () {
           void testAbstractStateDualClassSetup({isPrivate: false}) {
@@ -409,6 +324,7 @@ main() {
 
       const String restOfComponent = '''
         @Props()
+        class _\$FooProps {}
         class FooProps {}
 
         @Component()
@@ -418,17 +334,6 @@ main() {
       group('does not log a hard error when', () {
         group('the factory is', () {
           group('public and initialized with', () {
-            test('correct \$ prefixed variable name', () {
-              setUpAndParse('''
-                @Factory()
-                UiFactory<FooProps> Foo = \$Foo;
-
-                $restOfComponent
-              ''');
-
-              verifyNever(logger.severe(any));
-            });
-
             test('correct _\$ prefixed variable name', () {
               setUpAndParse('''
                 @Factory()
@@ -442,32 +347,10 @@ main() {
           });
 
           group('private and initialized with', () {
-            test('correct \$ prefixed variable name', () {
-              setUpAndParse('''
-                @Factory()
-                UiFactory<FooProps> _Foo = \$_Foo;
-
-                $restOfComponent
-              ''');
-
-              verifyNever(logger.severe(any));
-            });
-
             test('correct _\$ prefixed variable name', () {
               setUpAndParse('''
                 @Factory()
                 UiFactory<FooProps> _Foo = _\$_Foo;
-
-                $restOfComponent
-              ''');
-
-              verifyNever(logger.severe(any));
-            });
-
-            test('_\$ prefixed variable name with private prefix stripped', () {
-              setUpAndParse('''
-                @Factory()
-                UiFactory<FooProps> _Foo = _\$Foo;
 
                 $restOfComponent
               ''');
@@ -479,22 +362,22 @@ main() {
       });
 
       group('and logs a hard error when', () {
-        const String factorySrc            = '\n@Factory()\nUiFactory<FooProps> Foo = \$Foo;\n';
-        const String componentSrc          = '\n@Component()\nclass FooComponent {}\n';
-        const String abstractComponentSrc  = '\n@AbstractComponent()\nclass AbstractFooComponent {}\n';
+        const String factorySrc                  = '\n@Factory()\nUiFactory<FooProps> Foo = \$Foo;\n';
+        const String componentSrc                = '\n@Component()\nclass FooComponent {}\n';
+        const String abstractComponentSrc        = '\n@AbstractComponent()\nclass AbstractFooComponent {}\n';
 
-        const String propsSrc              = '\n@Props()\nclass _\$FooProps {}\n';
-        const String propsSrcDart1         = '\n@Props()\nclass FooProps {}\n';
-        const String abstractPropsSrc      = '\n@AbstractProps()\nclass _\$AbstractFooProps {}\n';
-        const String abstractPropsSrcDart1 = '\n@AbstractProps()\nclass AbstractFooProps {}\n';
-        const String companionClassProps   = 'class FooProps {}';
-        const String companionClassAbstractProps   = 'class AbstractFooProps {}';
+        const String propsSrc                    = '\n@Props()\nclass _\$FooProps {}\n';
+        const String propsSrcDart1               = '\n@Props()\nclass FooProps {}\n';
+        const String abstractPropsSrc            = '\n@AbstractProps()\nclass _\$AbstractFooProps {}\n';
+        const String abstractPropsSrcDart1       = '\n@AbstractProps()\nclass AbstractFooProps {}\n';
+        const String companionClassProps         = 'class FooProps {}';
+        const String companionClassAbstractProps = 'class AbstractFooProps {}';
 
-        const String stateSrc              = '\n@State()\nclass _\$FooState {}\n';
-        const String stateSrcDart1         = '\n@State()\nclass FooState {}\n';
-        const String abstractStateSrcDart1 = '\n@AbstractState()\nclass AbstractFooState {}\n';
-        const String companionClassState   = 'class FooState {}';
-        const String companionClassAbstractState   = 'class AbstractFooState {}';
+        const String stateSrc                    = '\n@State()\nclass _\$FooState {}\n';
+        const String stateSrcDart1               = '\n@State()\nclass FooState {}\n';
+        const String abstractStateSrc            = '\n@AbstractState()\nclass _\$AbstractFooState {}\n';
+        const String abstractStateSrcDart1       = '\n@AbstractState()\nclass AbstractFooState {}\n';
+        const String companionClassState         = 'class FooState {}';
 
         tearDown(() {
           expect(declarations.hasErrors, isTrue, reason: 'Declarations with errors should always set `hasErrors` to true.');
@@ -503,51 +386,22 @@ main() {
 
         test('a companion props class is not found when a private _\$ prefixed props class is declared', () {
           setUpAndParse(factorySrc + propsSrc + componentSrc);
-//          '''
-//              @Factory()
-//              UiFactory<FooProps> Foo = \$Foo;
-//
-//              @Props()
-//              class _\$FooProps {}
-//
-//              @Component()
-//              class FooComponent {}
-//            ''');
           verify(logger.severe('_\$FooProps must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.'));
         });
 
         test('a companion state class is not found when an private _\$ prefixed state class is declared', () {
-          setUpAndParse('''
-              @Factory()    
-              UiFactory<FooProps> Foo = \$Foo;
-              
-              @Props()      
-              class _\$FooProps {}
-              class FooProps {}
-              
-              @State()
-              class _\$FooState {}
-              
-              @Component()  
-              class FooComponent {}
-            ''');
+          setUpAndParse(factorySrc + propsSrc + companionClassProps + stateSrc + componentSrc);
           verify(logger.severe('_\$FooState must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.'));
         });
 
         test('a companion abstract props class is not found  when an private _\$ prefixed abstract props class is declared', () {
-          setUpAndParse('''
-              @AbstractProps() 
-              class _\$AbstractFooProps {}
-            ''');
+          setUpAndParse(abstractPropsSrc);
           verify(logger.severe('_\$AbstractFooProps must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.'));
         });
 
         test('a compaion abstract state class is not found when an private _\$ prefixed abstract state class is declared', () {
-          setUpAndParse('''
-              @AbstractState() 
-              class _\$AbstractStateProps {}
-             ''');
-          verify(logger.severe('_\$AbstractStateProps must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.'));
+          setUpAndParse(abstractStateSrc);
+          verify(logger.severe('_\$AbstractFooState must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.'));
         });
 
         group('there is not Dart-2 compatible naming on', () {
@@ -795,7 +649,7 @@ main() {
             });
 
             test('is private and initialized incorrectly', () {
-              setUpAndParse(factorySrc + propsSrc + companionClassProps + componentSrc + '''
+              setUpAndParse(factorySrc + propsSrc + companionClassProps + componentSrc + stateSrc + '''
                 class _FooState {
                   static const StateMeta meta = \$metaForBarState;
                 }
