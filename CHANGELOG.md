@@ -1,5 +1,14 @@
 # OverReact Changelog
 
+## 1.30.2
+
+> [Complete `1.30.2` Changeset](https://github.com/Workiva/over_react/compare/1.30.1...1.30.2)
+
+__Bug Fixes__
+
+* [#222] Fix the initializer validation for component factories and the static
+  `meta` field on props and state classes.
+
 ## 1.30.1
 
 > [Complete `1.30.1` Changeset](https://github.com/Workiva/over_react/compare/1.30.0...1.30.1)
