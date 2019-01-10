@@ -18,6 +18,7 @@ import 'package:analyzer/analyzer.dart';
 import 'package:logging/logging.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/builder/generation/declaration_parsing.dart';
+import 'package:over_react/src/transformer/util.dart';
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/transformer_utils.dart';
 
@@ -77,26 +78,6 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
       //   Factory implementation
       // ----------------------------------------------------------------------
-
-      if (declarations.factory.node.variables.variables.length != 1) {
-        logger.severe('Factory declarations must a single variable.');
-//            span: getSpan(sourceFile, declarations.factory.node.variables));
-      }
-
-      /// Factories are stubbed for the generated factories and may only be initialized with the generated factory.
-      declarations.factory.node.variables.variables.forEach((variable) {
-        final isPrivate = factoryName.startsWith(privatePrefix);
-        final validInitializer = isPrivate
-            ? '$generatedPrefix${factoryName.substring(privatePrefix.length)}'
-            : '$publicGeneratedPrefix$factoryName';
-        if (variable.initializer != null && variable.initializer.toString() != validInitializer) {
-          logger.severe(
-            'Factory variables are stubs for the generated factories, and should not have initializers '
-            // TODO: Figure out good way to format span output. Idea: look at tranformer logger span optional arg usage
-            'unless initialized with \$$factoryName for Dart 2 builder compatibility. Span: ${getSpan(sourceFile, variable.initializer)}'
-          );
-        }
-      });
 
       String parentTypeParam = 'null';
       String parentTypeParamComment = '';
@@ -472,18 +453,8 @@ class ImplGenerator {
 //      keyConstantsCompanionImpl = '';
     } else {
       keyConstantsImpl =
-//<<<<<<< HEAD:lib/src/builder/generation/impl_generation.dart
           keyConstants.keys.map((keyName) => '  static const String $keyName = ${keyConstants[keyName]}').join(';\n') +
           ';\n';
-//=======
-//          'static const String ' +
-//          keyConstants.keys.map((keyName) => '$keyName = ${keyConstants[keyName]}').join(', ') +
-//          '; ';
-//      keyConstantsCompanionImpl =
-//          'static const String ' +
-//          keyConstants.keys.map((keyName) => '$keyName = $staticConstNamespace.$keyName').join(', ') +
-//          '; ';
-//>>>>>>> upstream/builder_compat_transformer_integration:lib/src/transformer/impl_generation.dart
     }
 
     if (constants.keys.isEmpty) {
@@ -491,7 +462,6 @@ class ImplGenerator {
 //      constantsCompanionImpl = '';
     } else {
       constantsImpl =
-//<<<<<<< HEAD:lib/src/builder/generation/impl_generation.dart
           constants.keys.map((constantName) => '  static const $constConstructorName $constantName = ${constants[constantName]}').join(';\n') +
           ';\n';
     }
@@ -619,43 +589,25 @@ class ImplGenerator {
         type, accessorsMixinName,
         _publicPropsOrStateClassNameFromConsumerClassName(consumerClassName)));
   }
-//=======
-//          'static const $constConstructorName ' +
-//          constants.keys.map((constantName) => '$constantName = ${constants[constantName]}').join(', ') +
-//          '; ';
-//      constantsCompanionImpl =
-//          'static const $constConstructorName ' +
-//          constants.keys.map((constantName) => '$constantName = $staticConstNamespace.$constantName').join(', ') +
-//          '; ';
-//    }
-//
-//    final keyListImpl =
-//        'static const List<String> $keyListName = const [' +
-//        keyConstants.keys.join(', ') +
-//        ']; ';
-//    final keyListCompanionImpl =
-//        'static const List<String> $keyListName = $staticConstNamespace.$keyListName; ';
-//
-//    final listImpl =
-//        'static const List<$constConstructorName> $constantListName = const [' +
-//        constants.keys.join(', ') +
-//        ']; ';
-//    final listCompanionImpl =
-//        'static const List<$constConstructorName> $constantListName = $staticConstNamespace.$constantListName; ';
-//
-//    var consumedImpl = '';
-//    var consumedCompanionImpl = '';
-//
-//    if (isProps) {
-//      consumedImpl = 'static const ConsumedProps $staticConsumedPropsName = const ConsumedProps($constantListName, $keyListName); ';
-//      consumedCompanionImpl = 'static const ConsumedProps $staticConsumedPropsName = $staticConstNamespace.$staticConsumedPropsName; ';
-//    }
-//
-//    final staticVariablesImpl = '    /* GENERATED CONSTANTS */ $consumedImpl$constantsImpl$listImpl$keyConstantsImpl$keyListImpl';
-//    final staticGettersCompanionImpl = '    /* GENERATED CONSTANTS */ $consumedCompanionImpl$constantsCompanionImpl$listCompanionImpl$keyConstantsCompanionImpl$keyListCompanionImpl';
-//>>>>>>> upstream/builder_compat_transformer_integration:lib/src/transformer/impl_generation.dart
 
   String _generateMetaConstant(AccessorType type, String accessorsMixinName, String publicName) {
+    // TODO: Get metaObjectName from getMetaField, see below commented code
+//    getMetaField(classDeclaration);
+//  final name = classDeclaration.name.name;
+//      final metaClassName = '$generatedPrefix${name}Meta';
+//      final metaInstanceName = metaField.fields.variables.single.initializer.toSource();
+//      final metaStructName = type == AccessorType.props
+//          ? 'PropsMeta'
+//          : 'StateMeta';
+//      output.writeln('/// A class that allows us to reuse generated code from the accessors class.');
+//      output.writeln('/// This is only used by other generated code, and can be simplified if needed.');
+//      output.writeln('class $metaClassName {');
+//      output.writeln(staticVariablesImpl);
+//      output.writeln('}');
+//      output.writeln('const $metaStructName $metaInstanceName = const $metaStructName(');
+//      output.writeln('  fields: $metaClassName.$constantListName,');
+//      output.writeln('  keys: $metaClassName.$keyListName,');
+//      output.writeln(');');
     var isProps = type == AccessorType.props;
     final metaStructName = isProps ? 'PropsMeta' : 'StateMeta';
     final String keyListName = isProps ? staticPropKeysName : staticStateKeysName;
@@ -683,7 +635,6 @@ class ImplGenerator {
         '  Map get ${isProps ? 'props': 'state'};\n'
     );
 
-//<<<<<<< HEAD:lib/src/builder/generation/impl_generation.dart
     generatedClass.write(generateAccessors(type, node, consumerClassName).implementations);
     generatedClass.writeln('}');
     generatedClass.writeln();
@@ -723,37 +674,6 @@ class ImplGenerator {
         ..writeln('}')
         ..writeln())
         .toString();
-//=======
-//    final companionNode = getCompanionNodeOrNull(typedMap);
-//    if (companionNode != null) {
-//      transformedFile.insert(
-//          sourceFile.location(companionNode.leftBracket.end),
-//          staticGettersCompanionImpl
-//      );
-//    }
-//
-//    final name = (companionNode ?? typedMap.node).name.name;
-//    final isPrivate = name.startsWith(privatePrefix);
-//    final publicName = isPrivate ? name.substring(privatePrefix.length) : name;
-//    final metaClassName = '$generatedPrefix${name}Meta';
-//    final metaInstanceName = isPrivate
-//        ? '${generatedPrefix}metaFor$publicName'
-//        : '${publicGeneratedPrefix}metaFor$publicName';
-//    final metaStructName = type == AccessorType.props
-//        ? 'PropsMeta'
-//        : 'StateMeta';
-//    final output = new StringBuffer();
-//    output.writeln('/// A class that allows us to reuse generated code from the accessors class.');
-//    output.writeln('/// This is only used by other generated code, and can be simplified if needed.');
-//    output.writeln('class $metaClassName {');
-//    output.writeln(staticVariablesImpl);
-//    output.writeln('}');
-//    output.writeln('const $metaStructName $metaInstanceName = const $metaStructName(');
-//    output.writeln('  fields: $metaClassName.$constantListName,');
-//    output.writeln('  keys: $metaClassName.$keyListName,');
-//    output.writeln(');');
-//    return new AccessorOutput(output.toString());
-//>>>>>>> upstream/builder_compat_transformer_integration:lib/src/transformer/impl_generation.dart
   }
 
   /// Apply a workaround for an issue where, in the DDC, abstract getter or setter overrides declared in a class clobber
