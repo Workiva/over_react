@@ -765,51 +765,7 @@ main() {
     });
 
     group('logs an error when', () {
-      group('a factory is', () {
-        const String restOfComponent = '''
-          @Props()
-          class FooProps {}
 
-          @Component()
-          class FooComponent {}
-        ''';
-
-        test('declared using multiple variables', () {
-          setUpAndGenerate('''
-            @Factory()
-            UiFactory<FooProps> Foo, Bar;
-
-            $restOfComponent
-          ''');
-
-          verify(logger.error('Factory declarations must a single variable.', span: any));
-        });
-
-        test('declared with an initializer', () {
-          setUpAndGenerate('''
-            @Factory()
-            UiFactory<FooProps> Foo = null;
-
-            $restOfComponent
-          ''');
-
-          verify(logger.error('Factory variables are stubs for the generated factories, and should not have initializers'
-              ' unless initialized with \$Foo for Dart 2 builder compatibility. Should be:\n'
-              '    \$Foo', span: any));
-        });
-
-        test('declared with an \$ prefixed initializer matching the factory name', () {
-          setUpAndGenerate('''
-            @Factory()
-            UiFactory<FooProps> Foo = \$Foo;
-
-            $restOfComponent
-          ''');
-
-          verifyNever(logger.error('Factory variables are stubs for the generated factories, and should not have initializers'
-              ' unless initialized with \$Foo for Dart 2 builder compatibility.', span: any));
-        });
-      });
 
       group('a component class', () {
         test('subtypes itself', () {

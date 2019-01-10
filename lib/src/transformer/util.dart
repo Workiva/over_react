@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library over_react.transformer.text_util;
+library over_react.transformer.util;
+
+import 'package:analyzer/analyzer.dart';
 
 String commentBanner(String bannerText, {
     int bannerWidth: 80, int textIndent: 2, bool topBorder: true, bool bottomBorder: true
@@ -29,4 +31,18 @@ String commentBanner(String bannerText, {
       '${bannerLead.trimRight()}\n' +
       (bottomBorder ? bannerBorder : '') +
       '\n';
+}
+
+/// Returns a [FieldDeclaration] for the meta field on a [ClassDeclaration] if
+/// it exists, otherwise returns null.
+FieldDeclaration getMetaField(ClassDeclaration cd) {
+  bool isPropsOrStateMeta(ClassMember member) {
+    if (member is! FieldDeclaration) return false;
+    final FieldDeclaration fd = member;
+    if (!fd.isStatic) return false;
+    if (fd.fields.variables.length > 1) return false;
+    if (fd.fields.variables.single.name.name != 'meta') return false;
+    return true;
+  }
+  return cd.members.firstWhere(isPropsOrStateMeta, orElse: () => null);
 }
