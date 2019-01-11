@@ -7,7 +7,7 @@ abstract class ExampleStateMixinClass implements UiState {
   @override
   Map get state;
 
-  static const StateMeta meta = $metaForExampleStateMixinClass;
+  static const StateMeta meta = _$metaForExampleStateMixinClass;
 
   String stateMixin1;
 }

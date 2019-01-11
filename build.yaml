@@ -21,9 +21,11 @@ targets:
           exclude:
             - "test/vm_tests/**"
             - "test/builder/**"
+            - "lib/src/builder/**"
       build_web_compilers|entrypoint:
         generate_for:
           exclude:
             - "test/vm_tests/**"
             - "test/builder/**"
+            - "lib/src/builder/**"
 

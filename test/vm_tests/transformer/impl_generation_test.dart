@@ -19,13 +19,11 @@ import 'dart:isolate';
 
 import 'package:analyzer/analyzer.dart' hide startsWith;
 import 'package:logging/logging.dart';
-//import 'package:barback/barback.dart';
 import 'package:mockito/mockito.dart';
 import 'package:over_react/src/builder/generation/declaration_parsing.dart';
 import 'package:over_react/src/builder/generation/impl_generation.dart';
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
-import 'package:transformer_utils/transformer_utils.dart';
 
 main() {
   group('ImplGenerator', () {
@@ -66,7 +64,7 @@ main() {
     }
 
     void verifyImplGenerationIsValid() {
-      // TODO: verify this works for hte builder. Might not be able to parse compilation unit b/c build output is a part file.
+      // TODO: verify this works for the builder. Might not be able to parse compilation unit b/c build output is a part file.
       // With the builder, impl_gen outputs the contents to a string buffer,
       // [outputContentsBuffer]. Since this is a separate file which is part of
       // the source file's lib, it likely won't analyze on it
@@ -75,7 +73,7 @@ main() {
 
       expect(() {
         parseCompilationUnit(buildOutput);
-      }, returnsNormally, reason: 'transformed source should parse without errors:\n$transformedSource');
+      }, returnsNormally, reason: 'transformed source should parse without errors:\n');//$transformedSource');
     }
 
     group('generates an implementation that parses correctly, preserving line numbers', () {
