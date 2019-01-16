@@ -6,7 +6,7 @@ import 'state_mixin.dart';
 part 'basic_with_state.over_react.g.dart';
 
 @Factory()
-UiFactory<BasicProps> Basic = $Basic;
+UiFactory<BasicProps> Basic = _$Basic;
 
 // ignore: mixin_of_non_class,undefined_class
 class BasicProps extends _$BasicProps with _$BasicPropsAccessorsMixin {}
@@ -15,7 +15,7 @@ class BasicProps extends _$BasicProps with _$BasicPropsAccessorsMixin {}
 //// ignore: mixin_of_non_class,undefined_class
 class _$BasicProps extends UiProps with  pm.ExamplePropsMixinClass, pm.$ExamplePropsMixinClass {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForBasicProps;
+  static const PropsMeta meta = _$metaForBasicProps;
 
   String basicProp;
   String basic1;
@@ -32,7 +32,7 @@ abstract class BasicState extends _$BasicState with _$BasicStateAccessorsMixin {
 //// ignore: mixin_of_non_class,undefined_class
 class _$BasicState extends UiState with $ExampleStateMixinClass, ExampleStateMixinClass {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = $metaForBasicState;
+  static const StateMeta meta = _$metaForBasicState;
 
   String basicState;
 }

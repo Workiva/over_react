@@ -151,7 +151,7 @@ abstract class TestPropsMixin {
   // To ensure the codemod regression checking works properly, please keep this
   // field at the top of the class!
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForTestPropsMixin;
+  static const PropsMeta meta = _$metaForTestPropsMixin;
 
   Map get props;
 
@@ -182,7 +182,7 @@ abstract class TestCustomNamespacePropsMixin {
   // To ensure the codemod regression checking works properly, please keep this
   // field at the top of the class!
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForTestCustomNamespacePropsMixin;
+  static const PropsMeta meta = _$metaForTestCustomNamespacePropsMixin;
 
   Map get props;
 
@@ -213,7 +213,7 @@ abstract class TestStateMixin {
   // To ensure the codemod regression checking works properly, please keep this
   // field at the top of the class!
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = $metaForTestStateMixin;
+  static const StateMeta meta = _$metaForTestStateMixin;
 
   Map get state;
 
@@ -244,7 +244,7 @@ abstract class TestCustomNamespaceStateMixin {
   // To ensure the codemod regression checking works properly, please keep this
   // field at the top of the class!
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = $metaForTestCustomNamespaceStateMixin;
+  static const StateMeta meta = _$metaForTestCustomNamespaceStateMixin;
 
   Map get state;
 

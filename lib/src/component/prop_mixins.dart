@@ -32,7 +32,7 @@ abstract class ReactPropsMixin {
   // To ensure the codemod regression checking works properly, please keep this
   // field at the top of the class!
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForReactPropsMixin;
+  static const PropsMeta meta = _$metaForReactPropsMixin;
 
   Map get props;
 
@@ -67,7 +67,7 @@ abstract class DomPropsMixin {
   // To ensure the codemod regression checking works properly, please keep this
   // field at the top of the class!
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForDomPropsMixin;
+  static const PropsMeta meta = _$metaForDomPropsMixin;
 
   Map get props;
 
@@ -123,7 +123,7 @@ abstract class SvgPropsMixin {
   // To ensure the codemod regression checking works properly, please keep this
   // field at the top of the class!
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForSvgPropsMixin;
+  static const PropsMeta meta = _$metaForSvgPropsMixin;
 
   Map get props;
 
@@ -141,7 +141,7 @@ abstract class UbiquitousDomPropsMixin {
   // To ensure the codemod regression checking works properly, please keep this
   // field at the top of the class!
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForUbiquitousDomPropsMixin;
+  static const PropsMeta meta = _$metaForUbiquitousDomPropsMixin;
 
   Map get props;
 

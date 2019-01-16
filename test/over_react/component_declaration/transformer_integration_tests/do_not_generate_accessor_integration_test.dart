@@ -86,7 +86,7 @@ main() {
 
 @Factory()
 // ignore: undefined_identifier
-UiFactory<DoNotGenerateAccessorTestProps> DoNotGenerateAccessorTest = $DoNotGenerateAccessorTest;
+UiFactory<DoNotGenerateAccessorTestProps> DoNotGenerateAccessorTest = _$DoNotGenerateAccessorTest;
 
 @Props()
 class _$DoNotGenerateAccessorTestProps extends UiProps {
@@ -126,12 +126,12 @@ class DoNotGenerateAccessorTestComponent extends UiStatefulComponent<DoNotGenera
 // ignore: mixin_of_non_class, undefined_class
 class DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps with _$DoNotGenerateAccessorTestPropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForDoNotGenerateAccessorTestProps;
+  static const PropsMeta meta = _$metaForDoNotGenerateAccessorTestProps;
 }
 
 // AF-3369 This will be removed once the transition to Dart 2 is complete.
 // ignore: mixin_of_non_class, undefined_class
 class DoNotGenerateAccessorTestState extends _$DoNotGenerateAccessorTestState with _$DoNotGenerateAccessorTestStateAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = $metaForDoNotGenerateAccessorTestState;
+  static const StateMeta meta = _$metaForDoNotGenerateAccessorTestState;
 }

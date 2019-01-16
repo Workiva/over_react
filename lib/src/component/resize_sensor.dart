@@ -65,14 +65,14 @@ part 'resize_sensor.over_react.g.dart';
 /// > The component _must_ be put in a relative or absolutely positioned container.
 @Factory()
 // ignore: undefined_identifier
-UiFactory<ResizeSensorProps> ResizeSensor = $ResizeSensor;
+UiFactory<ResizeSensorProps> ResizeSensor = _$ResizeSensor;
 
 @PropsMixin()
 abstract class ResizeSensorPropsMixin {
   // To ensure the codemod regression checking works properly, please keep this
   // field at the top of the class!
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForResizeSensorPropsMixin;
+  static const PropsMeta meta = _$metaForResizeSensorPropsMixin;
 
   static final ResizeSensorPropsMixinMapView defaultProps = new ResizeSensorPropsMixinMapView({})
     ..isFlexChild = false
@@ -537,5 +537,5 @@ class _SafeAnimationFrameMixin {
 // ignore: mixin_of_non_class, undefined_class
 class ResizeSensorProps extends _$ResizeSensorProps with _$ResizeSensorPropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForResizeSensorProps;
+  static const PropsMeta meta = _$metaForResizeSensorProps;
 }

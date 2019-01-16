@@ -2,7 +2,7 @@ part of over_react.component_declaration.redux_component_test;
 
 @Factory()
 // ignore: undefined_identifier
-UiFactory<TestDefaultProps> TestDefault = $TestDefault;
+UiFactory<TestDefaultProps> TestDefault = _$TestDefault;
 
 @Props()
 class _$TestDefaultProps extends BuiltReduxUiProps<BaseState, BaseStateBuilder, BaseActions> {}
@@ -27,5 +27,5 @@ class TestDefaultComponent extends BuiltReduxUiComponent<BaseState, BaseStateBui
 // ignore: mixin_of_non_class, undefined_class
 class TestDefaultProps extends _$TestDefaultProps with _$TestDefaultPropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForTestDefaultProps;
+  static const PropsMeta meta = _$metaForTestDefaultProps;
 }

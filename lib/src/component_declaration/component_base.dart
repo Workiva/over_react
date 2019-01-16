@@ -814,7 +814,7 @@ abstract class AccessorMeta<T extends _Descriptor> {
 /// exposed like so:
 ///     @Props()
 ///     class FooProps {
-///       static const PropsMeta meta = $metaForFooProps;
+///       static const PropsMeta meta = _$metaForFooProps;
 ///
 ///       String foo;
 ///
@@ -857,7 +857,7 @@ class PropsMeta implements ConsumedProps, AccessorMeta<PropDescriptor> {
 /// exposed like so:
 ///     @State()
 ///     class FooState {
-///       static const StateMeta meta = $metaForFooState;
+///       static const StateMeta meta = _$metaForFooState;
 ///
 ///       String foo;
 ///

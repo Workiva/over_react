@@ -21,7 +21,7 @@ part 'two_level_wrapper.over_react.g.dart';
 
 @Factory()
 // ignore: undefined_identifier
-UiFactory<TwoLevelWrapperProps> TwoLevelWrapper = $TwoLevelWrapper;
+UiFactory<TwoLevelWrapperProps> TwoLevelWrapper = _$TwoLevelWrapper;
 
 @Props()
 class _$TwoLevelWrapperProps extends UiProps {}
@@ -36,5 +36,5 @@ class TwoLevelWrapperComponent extends UiComponent<TwoLevelWrapperProps> {
 // ignore: mixin_of_non_class, undefined_class
 class TwoLevelWrapperProps extends _$TwoLevelWrapperProps with _$TwoLevelWrapperPropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForTwoLevelWrapperProps;
+  static const PropsMeta meta = _$metaForTwoLevelWrapperProps;
 }

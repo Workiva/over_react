@@ -18,7 +18,7 @@ library over_react.component_declaration.annotations;
 /// Annotation used with the `over_react` transformer to declare a [UiFactory] for a component.
 ///
 ///     @Factory()
-///     UiFactory<FooProps> Foo;
+///     UiFactory<FooProps> Foo = _$Foo;
 ///
 /// Must be accompanied by a [Props] and [Component] declaration.
 class Factory {
@@ -30,7 +30,7 @@ class Factory {
 /// Props are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
 ///     @Props()
-///     class FooProps extends UiProps {
+///     class _$FooProps extends UiProps {
 ///       String bar;
 ///     }
 ///
@@ -48,7 +48,7 @@ class Props implements TypedMap {
 /// State properties are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
 ///     @State()
-///     class FooState extends UiState {
+///     class _$FooState extends UiState {
 ///       bool baz;
 ///     }
 ///
@@ -81,13 +81,13 @@ class Component {
   /// E.g., if component `Bar` is a subtype of component `Foo`:
   ///
   ///     @Factory()
-  ///     UiFactory<...> Foo;
+  ///     UiFactory<...> Foo = _$Foo;
   ///     ...
   ///     @Component()
   ///     class FooComponent ... {...}
   ///
   ///     @Factory()
-  ///     UiFactory<...> Bar;
+  ///     UiFactory<...> Bar = _$Bar;
   ///     ...
   ///     @Component(subtypeOf: FooComponent)
   ///     class BarComponent ... {...}
@@ -109,7 +109,7 @@ class Component {
 /// Props are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
 ///     @AbstractProps()
-///     abstract class QuxProps extends UiProps {
+///     abstract class _$QuxProps extends UiProps {
 ///       int quux;
 ///     }
 class AbstractProps implements TypedMap {
@@ -125,7 +125,7 @@ class AbstractProps implements TypedMap {
 /// State properties are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
 ///     @AbstractState()
-///     abstract class QuxState extends UiState {
+///     abstract class _$QuxState extends UiState {
 ///       String corge;
 ///     }
 class AbstractState implements TypedMap {
@@ -195,7 +195,7 @@ class StateMixin implements TypedMap {
 /// `componentWillReceiveProps`.
 ///
 ///     @Props()
-///     abstract class FooProps {
+///     abstract class _$FooProps {
 ///       @requiredProp
 ///       String requiredProp;
 ///     }
@@ -207,7 +207,7 @@ const Accessor requiredProp = const Accessor(isRequired: true);
 /// `componentWillReceiveProps`.
 ///
 ///     @Props()
-///     abstract class FooProps {
+///     abstract class _$FooProps {
 ///       @nullableRequiredProp
 ///       String nullableRequiredProp;
 ///     }
@@ -219,7 +219,7 @@ const Accessor nullableRequiredProp = const Accessor(isRequired: true, isNullabl
 /// `componentWillReceiveProps`.
 ///
 ///     @Props()
-///     abstract class FooProps {
+///     abstract class _$FooProps {
 ///       @Accessor(keyNamespace: '', key: 'custom_key')
 ///       String bar;
 ///

@@ -4,7 +4,7 @@ import 'props_mixin.dart' as pm;
 part 'basic.over_react.g.dart';
 
 @Factory()
-UiFactory<BasicProps> Basic = $Basic;
+UiFactory<BasicProps> Basic = _$Basic;
 
 // ignore: mixin_of_non_class,undefined_class
 class BasicProps extends _$BasicProps with _$BasicPropsAccessorsMixin {}
@@ -13,7 +13,7 @@ class BasicProps extends _$BasicProps with _$BasicPropsAccessorsMixin {}
 //// ignore: mixin_of_non_class,undefined_class
 class _$BasicProps extends UiProps with pm.ExamplePropsMixinClass, pm.$ExamplePropsMixinClass, pm.MixesInOtherMixinMixin, pm.$MixesInOtherMixinMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForBasicProps;
+  static const PropsMeta meta = _$metaForBasicProps;
 
   String basicProp;
   String basic1;

@@ -7,18 +7,18 @@ abstract class ExamplePropsMixinClass implements UiProps {
   @override
   Map get props;
 
-  static const PropsMeta meta = $metaForExamplePropsMixinClass;
+  static const PropsMeta meta = _$metaForExamplePropsMixinClass;
 
   String propMixin1;
 }
 
 @PropsMixin()
-abstract class MixesInOtherMixinMixin
+abstract class MixesInOtherMixinMixin<T extends Iterable, U>
     implements ExamplePropsMixinClass {
   @override
   Map get props;
 
-  static const PropsMeta meta = $metaForMixesInOtherMixinMixin;
+  static const PropsMeta meta = _$metaForMixesInOtherMixinMixin;
 
   String otherPropMixin;
 }

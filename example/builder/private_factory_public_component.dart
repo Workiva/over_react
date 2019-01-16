@@ -7,7 +7,6 @@ part 'private_factory_public_component.over_react.g.dart';
 // ignore: undefined_identifier
 UiFactory<FormActionInputProps> _FormActionInput = _$FormActionInput;
 
-
 UiFactory<FormActionInputProps> FormSubmitInput = ([Map backingMap]) =>
     _FormActionInput(backingMap);
 
@@ -31,5 +30,5 @@ class FormActionInputComponent extends UiComponent<FormActionInputProps> {
 // ignore: mixin_of_non_class, undefined_class
 class FormActionInputProps extends _$FormActionInputProps with _$FormActionInputPropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForFormActionInputProps;
+  static const PropsMeta meta = _$metaForFormActionInputProps;
 }

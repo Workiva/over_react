@@ -127,7 +127,7 @@ main() {
 
 @Factory()
 // ignore: undefined_identifier
-UiFactory<ComponentTestProps> ComponentTest = $ComponentTest;
+UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
 
 @Props()
 class _$ComponentTestProps extends UiProps {
@@ -166,5 +166,5 @@ class ComponentTestComponent extends UiComponent<ComponentTestProps> {
 // ignore: mixin_of_non_class, undefined_class
 class ComponentTestProps extends _$ComponentTestProps with _$ComponentTestPropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForComponentTestProps;
+  static const PropsMeta meta = _$metaForComponentTestProps;
 }

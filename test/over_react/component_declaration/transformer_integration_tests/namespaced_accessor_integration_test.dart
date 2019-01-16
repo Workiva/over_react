@@ -105,7 +105,7 @@ main() {
 
 @Factory()
 // ignore: undefined_identifier
-UiFactory<NamespacedAccessorTestProps> NamespacedAccessorTest = $NamespacedAccessorTest;
+UiFactory<NamespacedAccessorTestProps> NamespacedAccessorTest = _$NamespacedAccessorTest;
 
 @Props(keyNamespace: 'custom props class namespace**')
 class _$NamespacedAccessorTestProps extends UiProps {
@@ -151,12 +151,12 @@ class NamespacedAccessorTestComponent extends UiStatefulComponent<NamespacedAcce
 // ignore: mixin_of_non_class, undefined_class
 class NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps with _$NamespacedAccessorTestPropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForNamespacedAccessorTestProps;
+  static const PropsMeta meta = _$metaForNamespacedAccessorTestProps;
 }
 
 // AF-3369 This will be removed once the transition to Dart 2 is complete.
 // ignore: mixin_of_non_class, undefined_class
 class NamespacedAccessorTestState extends _$NamespacedAccessorTestState with _$NamespacedAccessorTestStateAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = $metaForNamespacedAccessorTestState;
+  static const StateMeta meta = _$metaForNamespacedAccessorTestState;
 }

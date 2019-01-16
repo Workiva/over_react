@@ -22,7 +22,7 @@ part 'subsubtype.over_react.g.dart';
 
 @Factory()
 // ignore: undefined_identifier
-UiFactory<TestSubsubtypeProps> TestSubsubtype = $TestSubsubtype;
+UiFactory<TestSubsubtypeProps> TestSubsubtype = _$TestSubsubtype;
 
 @Props()
 class _$TestSubsubtypeProps extends UiProps {}
@@ -37,5 +37,5 @@ class TestSubsubtypeComponent extends UiComponent<TestSubsubtypeProps> {
 // ignore: mixin_of_non_class, undefined_class
 class TestSubsubtypeProps extends _$TestSubsubtypeProps with _$TestSubsubtypePropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForTestSubsubtypeProps;
+  static const PropsMeta meta = _$metaForTestSubsubtypeProps;
 }

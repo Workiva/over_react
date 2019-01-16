@@ -31,5 +31,5 @@ abstract class TestAbstractComponent<T extends TestAbstractProps> extends UiComp
 // ignore: mixin_of_non_class, undefined_class
 abstract class TestAbstractProps extends _$TestAbstractProps with _$TestAbstractPropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForTestAbstractProps;
+  static const PropsMeta meta = _$metaForTestAbstractProps;
 }

@@ -81,7 +81,7 @@ main() {
 
 @Factory()
 // ignore: undefined_identifier
-UiFactory<StatefulComponentTestProps> StatefulComponentTest = $StatefulComponentTest;
+UiFactory<StatefulComponentTestProps> StatefulComponentTest = _$StatefulComponentTest;
 
 @Props()
 class _$StatefulComponentTestProps extends UiProps {}
@@ -131,12 +131,12 @@ class StatefulComponentTestComponent extends UiStatefulComponent<StatefulCompone
 // ignore: mixin_of_non_class, undefined_class
 class StatefulComponentTestProps extends _$StatefulComponentTestProps with _$StatefulComponentTestPropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForStatefulComponentTestProps;
+  static const PropsMeta meta = _$metaForStatefulComponentTestProps;
 }
 
 // AF-3369 This will be removed once the transition to Dart 2 is complete.
 // ignore: mixin_of_non_class, undefined_class
 class StatefulComponentTestState extends _$StatefulComponentTestState with _$StatefulComponentTestStateAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = $metaForStatefulComponentTestState;
+  static const StateMeta meta = _$metaForStatefulComponentTestState;
 }

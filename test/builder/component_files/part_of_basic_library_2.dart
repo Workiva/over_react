@@ -5,7 +5,7 @@ class SuperPartOfLibProps extends _$SuperPartOfLibProps with _$SuperPartOfLibPro
 
 @AbstractProps()
 class _$SuperPartOfLibProps extends UiProps {
-  static const PropsMeta meta = $metaForSuperPartOfLibProps;
+  static const PropsMeta meta = _$metaForSuperPartOfLibProps;
 
   String superProp;
 }
@@ -24,7 +24,7 @@ abstract class SuperPartOfLibComponent<T extends SuperPartOfLibProps> extends Ui
 }
 
 @Factory()
-UiFactory<SubPartOfLibProps> SubPartOfLib = $SubPartOfLib;
+UiFactory<SubPartOfLibProps> SubPartOfLib = _$SubPartOfLib;
 
 // ignore: mixin_of_non_class,undefined_class
 class SubPartOfLibProps extends _$SubPartOfLibProps with _$SubPartOfLibPropsAccessorsMixin {}
@@ -32,7 +32,7 @@ class SubPartOfLibProps extends _$SubPartOfLibProps with _$SubPartOfLibPropsAcce
 @Props()
 // Heads up: props class inheritance doesn't work properly currently
 class _$SubPartOfLibProps extends SuperPartOfLibProps {
- static const PropsMeta meta = $metaForSubPartOfLibProps;
+ static const PropsMeta meta = _$metaForSubPartOfLibProps;
 
   String subProp;
 }
