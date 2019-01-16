@@ -5,7 +5,7 @@ part 'stateless_component.over_react.g.dart';
 
 @Factory()
 // ignore: undefined_identifier
-UiFactory<StatelessProps> Stateless = $Stateless;
+UiFactory<StatelessProps> Stateless = _$Stateless;
 
 @Props()
 class _$StatelessProps extends UiProps {}
@@ -20,5 +20,5 @@ class StatelessComponent extends UiComponent<StatelessProps> {
 // ignore: mixin_of_non_class, undefined_class
 class StatelessProps extends _$StatelessProps with _$StatelessPropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForStatelessProps;
+  static const PropsMeta meta = _$metaForStatelessProps;
 }

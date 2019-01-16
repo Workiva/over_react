@@ -452,12 +452,12 @@ enum TransitionPhase {
 // ignore: mixin_of_non_class, undefined_class
 abstract class AbstractTransitionProps extends _$AbstractTransitionProps with _$AbstractTransitionPropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForAbstractTransitionProps;
+  static const PropsMeta meta = _$metaForAbstractTransitionProps;
 }
 
 // AF-3369 This will be removed once the transition to Dart 2 is complete.
 // ignore: mixin_of_non_class, undefined_class
 abstract class AbstractTransitionState extends _$AbstractTransitionState with _$AbstractTransitionStateAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = $metaForAbstractTransitionState;
+  static const StateMeta meta = _$metaForAbstractTransitionState;
 }

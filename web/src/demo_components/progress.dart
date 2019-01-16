@@ -6,7 +6,7 @@ part of over_react.web.demo_components;
 /// See: <http://v4-alpha.getbootstrap.com/components/progress/>
 @Factory()
 // ignore: undefined_identifier
-UiFactory<ProgressProps> Progress = $Progress;
+UiFactory<ProgressProps> Progress = _$Progress;
 
 @Props()
 class _$ProgressProps extends UiProps {
@@ -192,12 +192,12 @@ class ProgressSkin extends ClassNameConstant {
 // ignore: mixin_of_non_class, undefined_class
 class ProgressProps extends _$ProgressProps with _$ProgressPropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForProgressProps;
+  static const PropsMeta meta = _$metaForProgressProps;
 }
 
 // AF-3369 This will be removed once the transition to Dart 2 is complete.
 // ignore: mixin_of_non_class, undefined_class
 class ProgressState extends _$ProgressState with _$ProgressStateAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = $metaForProgressState;
+  static const StateMeta meta = _$metaForProgressState;
 }

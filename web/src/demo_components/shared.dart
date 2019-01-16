@@ -43,7 +43,7 @@ abstract class AbstractInputPropsMixin {
   // To ensure the codemod regression checking works properly, please keep this
   // field at the top of the class!
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForAbstractInputPropsMixin;
+  static const PropsMeta meta = _$metaForAbstractInputPropsMixin;
 
   Map get props;
 
@@ -85,7 +85,7 @@ abstract class AbstractInputStateMixin {
   // To ensure the codemod regression checking works properly, please keep this
   // field at the top of the class!
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = $metaForAbstractInputStateMixin;
+  static const StateMeta meta = _$metaForAbstractInputStateMixin;
 
   Map get state;
 

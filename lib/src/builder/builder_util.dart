@@ -1,5 +1,6 @@
 import 'dart:mirrors';
 
+import 'package:analyzer/analyzer.dart';
 import 'package:path/path.dart' as p;
 import 'package:build/build.dart' show AssetId;
 
@@ -20,4 +21,34 @@ Uri idToPackageUri(AssetId id) {
 
   return new Uri(scheme: 'package',
       path: p.url.join(id.package, id.path.replaceFirst('lib/', '')));
+}
+
+/// Returns a string representing a [TypeParameterList], but type bounds removed.
+///
+/// Example:
+///   Input:
+///     '<T extends Iterable, U>' //TypeParameterList.toSource()
+///   Output:
+///     '<T, U>'
+String removeBoundsFromTypeParameters(TypeParameterList typeParameters) {
+  return typeParameters != null ? (StringBuffer()
+    ..write('<')..write(
+        typeParameters.typeParameters.map((t) => t.name.name).join(
+            ', '))..write('>'))
+      .toString()
+      : '';
+}
+
+/// Returns a [FieldDeclaration] for the meta field on a [ClassDeclaration] if
+/// it exists, otherwise returns null.
+FieldDeclaration getMetaField(ClassDeclaration cd) {
+  bool isPropsOrStateMeta(ClassMember member) {
+    if (member is! FieldDeclaration) return false;
+    final FieldDeclaration fd = member;
+    if (!fd.isStatic) return false;
+    if (fd.fields.variables.length > 1) return false;
+    if (fd.fields.variables.single.name.name != 'meta') return false;
+    return true;
+  }
+  return cd.members.firstWhere(isPropsOrStateMeta, orElse: () => null);
 }

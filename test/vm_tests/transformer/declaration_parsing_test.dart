@@ -23,6 +23,8 @@ import 'package:over_react/src/builder/generation/declaration_parsing.dart';
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 
+import './util.dart';
+
 main() {
   group('ComponentDeclarations', () {
     group('mightContainDeclarations()', () {
@@ -156,7 +158,7 @@ main() {
           void testStateDualClassSetup({bool isPrivate: false}) {
             var possiblePrivatePrefix = isPrivate ? '_' : '';
             setUpAndParse('''
-              @Factory()    UiFactory<${possiblePrivatePrefix}FooProps> Foo = $possiblePrivatePrefix\$Foo;
+              @Factory()    UiFactory<${possiblePrivatePrefix}FooProps> Foo = _\$${possiblePrivatePrefix}Foo;
               class ${possiblePrivatePrefix}FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {}
               @Props()      class _\$FooProps {}
               @Component()  class FooComponent {}
@@ -362,23 +364,6 @@ main() {
       });
 
       group('and logs a hard error when', () {
-        const String factorySrc                  = '\n@Factory()\nUiFactory<FooProps> Foo = \$Foo;\n';
-        const String componentSrc                = '\n@Component()\nclass FooComponent {}\n';
-        const String abstractComponentSrc        = '\n@AbstractComponent()\nclass AbstractFooComponent {}\n';
-
-        const String propsSrc                    = '\n@Props()\nclass _\$FooProps {}\n';
-        const String propsSrcDart1               = '\n@Props()\nclass FooProps {}\n';
-        const String abstractPropsSrc            = '\n@AbstractProps()\nclass _\$AbstractFooProps {}\n';
-        const String abstractPropsSrcDart1       = '\n@AbstractProps()\nclass AbstractFooProps {}\n';
-        const String companionClassProps         = 'class FooProps {}';
-        const String companionClassAbstractProps = 'class AbstractFooProps {}';
-
-        const String stateSrc                    = '\n@State()\nclass _\$FooState {}\n';
-        const String stateSrcDart1               = '\n@State()\nclass FooState {}\n';
-        const String abstractStateSrc            = '\n@AbstractState()\nclass _\$AbstractFooState {}\n';
-        const String abstractStateSrcDart1       = '\n@AbstractState()\nclass AbstractFooState {}\n';
-        const String companionClassState         = 'class FooState {}';
-
         tearDown(() {
           expect(declarations.hasErrors, isTrue, reason: 'Declarations with errors should always set `hasErrors` to true.');
           expectEmptyDeclarations(reason: 'Declarations with errors should always be null/empty.');
@@ -812,6 +797,3 @@ main() {
     });
   });
 }
-
-
-class MockLogger extends Mock implements Logger {}

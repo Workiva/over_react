@@ -18,7 +18,7 @@ import 'package:analyzer/analyzer.dart';
 import 'package:logging/logging.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/builder/generation/declaration_parsing.dart';
-import 'package:over_react/src/transformer/util.dart';
+import 'package:over_react/src/builder/builder_util.dart';
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/transformer_utils.dart';
 
@@ -61,8 +61,7 @@ class ImplGenerator {
       final factoryName = declarations.factory.node.variables.variables.first.name.toString();
 
       final consumerPropsName = declarations.props.node.name.toString();
-      final publicPropsName = _publicPropsOrStateClassNameFromConsumerClassName(consumerPropsName);
-      final consumablePropsName = '${declarations.hasPrivatePropsClass ? privatePrefix : ''}$publicPropsName';
+      final consumablePropsName = _publicPropsOrStateClassNameFromConsumerClassName(consumerPropsName);
 
       final propsImplName = _propsImplClassNameFromConsumerClassName(consumerPropsName);
       final propsAccessorsMixinName = _accessorsMixinNameFromConsumerName(consumerPropsName);
@@ -126,11 +125,15 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
 
       // Generate accessors mixin and props metaFor constant
-      outputContentsBuffer.write(_generateAccessorsMixin(AccessorType.props, propsAccessorsMixinName, declarations.props, consumerPropsName));
-      outputContentsBuffer.write(_generateMetaConstant(AccessorType.props, propsAccessorsMixinName, publicPropsName));
+      outputContentsBuffer.write(_generateAccessorsMixin(
+          AccessorType.props, propsAccessorsMixinName, declarations.props,
+          consumerPropsName,
+          typeParameters: declarations.props.node.typeParameters));
+      outputContentsBuffer.write(
+          _generateMetaConstant(AccessorType.props, declarations.props));
 
       /// FooProps $Foo([Map backingProps]) => new FooProps(backingProps);
-      outputContentsBuffer.writeln('$propsImplName \$$factoryName([Map backingProps]) => new $propsImplName(backingProps);');
+      outputContentsBuffer.writeln('$propsImplName $generatedPrefix$factoryName([Map backingProps]) => new $propsImplName(backingProps);');
 
       final String propKeyNamespace = _getAccessorKeyNamespace(declarations.props);
 
@@ -156,7 +159,7 @@ class ImplGenerator {
         final stateAccessorsMixinName = _accessorsMixinNameFromConsumerName(stateName);
 
         outputContentsBuffer.write(_generateAccessorsMixin(AccessorType.state, stateAccessorsMixinName, declarations.state, stateName));
-        outputContentsBuffer.write(_generateMetaConstant(AccessorType.state, stateAccessorsMixinName, publicStateName));
+        outputContentsBuffer.write(_generateMetaConstant(AccessorType.state, declarations.state));
 
         outputContentsBuffer
           ..writeln('// Concrete state implementation.')
@@ -208,7 +211,7 @@ class ImplGenerator {
         ..writeln('  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.')
         ..writeln('  @override')
         ..writeln('  final List<ConsumedProps> \$defaultConsumedProps = '
-                        'const [${_metaConstantName(publicPropsName)}];')
+                        'const [${_metaConstantName(consumablePropsName)}];')
         ..writeln('}');
 
       var implementsTypedPropsStateFactory = declarations.component.node.members.any((member) =>
@@ -247,8 +250,7 @@ class ImplGenerator {
           AccessorType.props, _accessorsMixinNameFromConsumerName(className), abstractPropsClass,
           className));
       outputContentsBuffer.write(_generateMetaConstant(
-          AccessorType.props, _accessorsMixinNameFromConsumerName(className),
-          _publicPropsOrStateClassNameFromConsumerClassName(className)));
+          AccessorType.props, abstractPropsClass));
     });
 
     declarations.abstractState.forEach((abstractStateClass) {
@@ -256,9 +258,7 @@ class ImplGenerator {
       outputContentsBuffer.write(_generateAccessorsMixin(
           AccessorType.state, _accessorsMixinNameFromConsumerName(className), abstractStateClass,
           className));
-      outputContentsBuffer.write(_generateMetaConstant(
-          AccessorType.state, _accessorsMixinNameFromConsumerName(className),
-          _publicPropsOrStateClassNameFromConsumerClassName(className)));
+      outputContentsBuffer.write(_generateMetaConstant(AccessorType.state, abstractStateClass));
     });
   }
 
@@ -413,17 +413,24 @@ class ImplGenerator {
             constants[constantName] = constantValue;
 
             final type = field.fields.type?.toSource();
-            String typeString = type == null ? '' : '$type ';
+            var typeString = type == null ? '' : '$type ';
+            var metadataSrc = new StringBuffer();
+            for (var annotation in field.metadata) {
+              metadataSrc.writeln('  ${annotation.toSource()}');
+            }
+
             String setterTypeString = field.covariantKeyword == null
                 ? typeString
                 : '${field.covariantKeyword} $typeString';
 
             String generatedAccessor =
-                '  @override\n'
                 '  /// Go to [$consumerClassName.$accessorName] to see the source code for this prop\n'
+                '  @override\n'
+                '${metadataSrc.toString()}'
                 '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName];\n'
-                '  @override\n'
                 '  /// Go to [$consumerClassName.$accessorName] to see the source code for this prop\n'
+                '  @override\n'
+                '${metadataSrc.toString()}'
                 '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;\n';
 
             output.write(generatedAccessor);
@@ -505,6 +512,8 @@ class ImplGenerator {
   /// Example:
   ///   Input: '_$FooProps'
   ///   Output: '_$$FooProps'
+  ///   Input: '_$_FooProps'
+  ///   Output: '_$$_FooProps'
   static String _propsImplClassNameFromConsumerClassName(String className) {
     if (className == null) {
       throw new ArgumentError.notNull(className);
@@ -513,12 +522,14 @@ class ImplGenerator {
     return className.replaceFirst(generatedPrefix, '$generatedPrefix\$');
   }
 
-  /// Converts the consumer's written props classname to a public classname by
-  /// stripping [generatedPrefix] from the classname.
+  /// Converts the consumer's written props classname to the consumable props
+  /// classname by stripping [generatedPrefix] from the classname.
   ///
   /// Example:
   ///   Input: '_$FooProps'
   ///   Output: 'FooProps'
+  ///   Input: '_$_FooProps'
+  ///   Output: '_FooProps'
   static String _publicPropsOrStateClassNameFromConsumerClassName(String className) {
     if (className == null) {
       throw new ArgumentError.notNull(className);
@@ -545,6 +556,8 @@ class ImplGenerator {
   /// Example:
   ///   Input: _$FooProps
   ///   Output: _$FooPropsAccessorsMixin
+  ///   Input: _$_FooProps
+  ///   Output: _$_FooPropsAccessorsMixin
   static String _accessorsMixinNameFromConsumerName(String className) {
     if (className == null) {
       throw new ArgumentError.notNull(className);
@@ -558,21 +571,22 @@ class ImplGenerator {
   /// Example:
   ///   Input: FooProps
   ///   Output: $metaForFooProps
-  static String _metaConstantName(String publicPropsClassname) {
-    if (publicPropsClassname == null) {
-      throw new ArgumentError.notNull(publicPropsClassname);
+  static String _metaConstantName(String consumableClassName) {
+    if (consumableClassName == null) {
+      throw new ArgumentError.notNull(consumableClassName);
     }
 
-    return '${publicGeneratedPrefix}metaFor$publicPropsClassname';
+    return '${generatedPrefix}metaFor$consumableClassName';
   }
 
   void _generateAccessorsAndMetaConstantForMixin(AccessorType type, NodeWithMeta node) {
     var isProps = type == AccessorType.props;
     if (!hasAbstractGetter(node.node, 'Map', isProps ? 'props' : 'state')) {
+      var propsOrState = isProps ? 'props': 'state';
       logger.severe(
         '${isProps
             ? 'Props'
-            : 'State'} mixin classes must declare an abstract state getter `Map get ${isProps ? 'props': 'state'};` '
+            : 'State'} mixin classes must declare an abstract $propsOrState getter `Map get $propsOrState;` '
             'so that they can be statically analyzed properly.',
 //            span: getSpan(sourceFile, stateMixin.node)
       );
@@ -581,42 +595,28 @@ class ImplGenerator {
 
     var consumerClassName = _classNameFromNode(node);
     var accessorsMixinName = '\$$consumerClassName';
-    var typeParameters = (node.node as ClassDeclaration).typeParameters?.toString() ?? ''; // ignore: avoid_as
+    var typeParameters = (node.node as ClassDeclaration).typeParameters; // ignore: avoid_as
     outputContentsBuffer.write(_generateAccessorsMixin(
         type, accessorsMixinName, node,
         consumerClassName, isPropsOrStateMixin: true, typeParameters: typeParameters));
-    outputContentsBuffer.write(_generateMetaConstant(
-        type, accessorsMixinName,
-        _publicPropsOrStateClassNameFromConsumerClassName(consumerClassName)));
+    outputContentsBuffer.write(_generateMetaConstant(type, node, accessorsMixinNameOverride: accessorsMixinName));
   }
 
-  String _generateMetaConstant(AccessorType type, String accessorsMixinName, String publicName) {
-    // TODO: Get metaObjectName from getMetaField, see below commented code
-//    getMetaField(classDeclaration);
-//  final name = classDeclaration.name.name;
-//      final metaClassName = '$generatedPrefix${name}Meta';
-//      final metaInstanceName = metaField.fields.variables.single.initializer.toSource();
-//      final metaStructName = type == AccessorType.props
-//          ? 'PropsMeta'
-//          : 'StateMeta';
-//      output.writeln('/// A class that allows us to reuse generated code from the accessors class.');
-//      output.writeln('/// This is only used by other generated code, and can be simplified if needed.');
-//      output.writeln('class $metaClassName {');
-//      output.writeln(staticVariablesImpl);
-//      output.writeln('}');
-//      output.writeln('const $metaStructName $metaInstanceName = const $metaStructName(');
-//      output.writeln('  fields: $metaClassName.$constantListName,');
-//      output.writeln('  keys: $metaClassName.$keyListName,');
-//      output.writeln(');');
+  String _generateMetaConstant(AccessorType type, NodeWithMeta node, {String accessorsMixinNameOverride}) {
+    var classDeclaration = node.node;
+    var className = _classNameFromNode(node);
+    getMetaField(classDeclaration);
+    var accessorsMixinName = accessorsMixinNameOverride ?? _accessorsMixinNameFromConsumerName(className);
     var isProps = type == AccessorType.props;
     final metaStructName = isProps ? 'PropsMeta' : 'StateMeta';
     final String keyListName = isProps ? staticPropKeysName : staticStateKeysName;
-    final String constantListName = isProps ? staticPropsName : staticStateName;
-    final String metaObjectName = _metaConstantName(publicName);
+    final String fieldListName = isProps ? staticPropsName : staticStateName;
+
+    final String metaInstanceName = _metaConstantName(_publicPropsOrStateClassNameFromConsumerClassName(className));
 
     var output = new StringBuffer();
-    output.writeln('const $metaStructName $metaObjectName = const $metaStructName(');
-    output.writeln('  fields: $accessorsMixinName.$constantListName,');
+    output.writeln('const $metaStructName $metaInstanceName = const $metaStructName(');
+    output.writeln('  fields: $accessorsMixinName.$fieldListName,');
     output.writeln('  keys: $accessorsMixinName.$keyListName,');
     output.writeln(');');
     output.writeln();
@@ -624,13 +624,15 @@ class ImplGenerator {
   }
 
   String _generateAccessorsMixin(AccessorType type, String accessorsMixinName,
-      NodeWithMeta node, String consumerClassName, {bool isPropsOrStateMixin: true, String typeParameters: ''}) {
+      NodeWithMeta node, String consumerClassName, {bool isPropsOrStateMixin: true, TypeParameterList typeParameters}) {
+    var typeParamsOnClass = typeParameters?.toSource() ?? '';
+    var typeParamsOnSuper = removeBoundsFromTypeParameters(typeParameters);
 
     var isProps = type == AccessorType.props;
     StringBuffer generatedClass = new StringBuffer();
-    var implementsClause = isPropsOrStateMixin ? 'implements $consumerClassName$typeParameters ' : '';
+    var implementsClause = isPropsOrStateMixin ? 'implements $consumerClassName$typeParamsOnSuper ' : '';
     generatedClass.writeln(
-        'abstract class $accessorsMixinName$typeParameters $implementsClause{\n' +
+        'abstract class $accessorsMixinName$typeParamsOnClass $implementsClause{\n' +
         '  @override' +
         '  Map get ${isProps ? 'props': 'state'};\n'
     );
@@ -642,9 +644,11 @@ class ImplGenerator {
   }
 
   String _generateConcretePropsImpl(AccessorType type, String consumerName, String implName,
-      String componentFactoryName, String propKeyNamespace, NodeWithMeta node, String accessorsMixinName, String consumableName) {
+      String componentFactoryName, String propKeyNamespace, NodeWithMeta<ClassDeclaration, annotations.Props> node, String accessorsMixinName, String consumableName) {
+    var typeParamsOnClass = node.node.typeParameters?.toSource() ?? '';
+    var typeParamsOnSuper = removeBoundsFromTypeParameters(node.node.typeParameters);
     var classDeclaration = new StringBuffer()
-      ..write('class $implName extends $consumerName with $accessorsMixinName implements $consumableName {\n');
+      ..write('class $implName$typeParamsOnClass extends $consumerName$typeParamsOnSuper with $accessorsMixinName$typeParamsOnSuper implements $consumableName$typeParamsOnSuper {\n');
     return (new StringBuffer()
         ..writeln('// Concrete props implementation.')
         ..writeln('//')
