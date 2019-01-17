@@ -30,13 +30,20 @@ abstract class _Checker {
 
 abstract class ComponentUsageChecker extends SimpleElementVisitor<Null> with _Checker {
   void visitComponentUsage(
-      CompilationUnitElement element, FluentComponentUsage usage);
+      CompilationUnit unit, FluentComponentUsage usage);
 
   @override
-  Null visitCompilationUnitElement(CompilationUnitElement element) {
+  Null visitCompilationUnitElement(CompilationUnitElement unit) {
+    visitCompilationUnit(unit.computeNode());
+
+    return null;
+  }
+
+  
+  Null visitCompilationUnit(CompilationUnit unit) {
     var astVisitor = new ComponentUsageVisitor(
-        (usage) => visitComponentUsage(element, usage));
-    element.computeNode().accept(astVisitor);
+            (usage) => visitComponentUsage(unit, usage));
+    unit..accept(astVisitor);
 
     return null;
   }
@@ -44,22 +51,22 @@ abstract class ComponentUsageChecker extends SimpleElementVisitor<Null> with _Ch
 
 typedef void _OnComponent(FluentComponentUsage usage);
 
-class ComponentUsageVisitor<R> extends RecursiveAstVisitor<R> {
+class ComponentUsageVisitor extends RecursiveAstVisitor<void> {
   final _OnComponent onComponent;
 
   ComponentUsageVisitor(this.onComponent);
 
   @override
-  R visitFunctionExpressionInvocation(FunctionExpressionInvocation node) {
+  void visitFunctionExpressionInvocation(FunctionExpressionInvocation node) {
     return visitInvocationExpression(node);
   }
 
   @override
-  R visitMethodInvocation(MethodInvocation node) {
+  void visitMethodInvocation(MethodInvocation node) {
     return visitInvocationExpression(node);
   }
 
-  R visitInvocationExpression(InvocationExpression node) {
+  void visitInvocationExpression(InvocationExpression node) {
     var usage = getComponentUsage(node);
     if (usage != null) {
       onComponent(usage);
@@ -69,6 +76,33 @@ class ComponentUsageVisitor<R> extends RecursiveAstVisitor<R> {
     return null;
   }
 }
+
+//
+//class ComponentUsageElementVisitor extends RecursiveElementVisitor<void> {
+//  final _OnComponent onComponent;
+//
+//  ComponentUsageElementVisitor(this.onComponent);
+//
+//  @override
+//  void visitFunctionExpressionInvocation(FunctionExpressionInvocation node) {
+//    return visitInvocationExpression(node);
+//  }
+//
+//  @override
+//  void visitMethodInvocation(MethodInvocation node) {
+//    return visitInvocationExpression(node);
+//  }
+//
+//  void visitInvocationExpression(InvocationExpression node) {
+//    var usage = getComponentUsage(node);
+//    if (usage != null) {
+//      onComponent(usage);
+//    }
+//
+//    node.visitChildren(this);
+//    return null;
+//  }
+//}
 
 class CheckerError {
   /// The code of the error

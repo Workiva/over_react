@@ -90,30 +90,28 @@ FluentComponentUsage getComponentUsage(InvocationExpression node) {
 }
 
 /// A visitor that detects whether a given node is a [FluentComponentUsage].
-class ComponentDetector<R> extends SimpleAstVisitor<R> {
+class ComponentDetector extends SimpleAstVisitor<void> {
   bool detected = false;
 
-  ComponentDetector();
-
   @override
-  R visitFunctionExpressionInvocation(FunctionExpressionInvocation node) {
+  void visitFunctionExpressionInvocation(FunctionExpressionInvocation node) {
     return visitInvocationExpression(node);
   }
 
   @override
-  R visitMethodInvocation(MethodInvocation node) {
+  void visitMethodInvocation(MethodInvocation node) {
     return visitInvocationExpression(node);
   }
 
   @override
-  R visitParenthesizedExpression(ParenthesizedExpression node) {
+  void visitParenthesizedExpression(ParenthesizedExpression node) {
     // Recursively traverse parentheses, in case there are extra parens on the component.
     node.visitChildren(this);
 
     return null;
   }
 
-  R visitInvocationExpression(InvocationExpression node) {
+  void visitInvocationExpression(InvocationExpression node) {
     if (getComponentUsage(node) != null) {
       detected = true;
     }
@@ -130,4 +128,24 @@ bool hasChildComponent(ArgumentList arguments) {
   arguments.visitChildren(detector);
 
   return detector.detected;
+}
+
+
+
+
+/// Attempt to find and return the closest expression that encloses the [node]
+/// and is an independent Flutter `Widget`.  Return `null` if nothing found.
+FluentComponentUsage identifyUsage(AstNode node) {
+  for (; node != null; node = node.parent) {
+    if (node is InvocationExpression) {
+      final usage = getComponentUsage(node);
+      if (usage != null) {
+        return usage;
+      }
+    }
+    if (node is ArgumentList || node is Statement || node is FunctionBody) {
+      return null;
+    }
+  }
+  return null;
 }

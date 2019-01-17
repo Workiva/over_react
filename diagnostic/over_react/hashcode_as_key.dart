@@ -13,8 +13,7 @@ class HashCodeAsKeyChecker extends ComponentUsageChecker {
       'Verifies that `.hashCode` is not used as a React key since it is not unique';
 
   @override
-  void visitComponentUsage(
-      CompilationUnitElement element, FluentComponentUsage usage) {
+  void visitComponentUsage(_, FluentComponentUsage usage) {
     final cascade = usage.cascadeExpression;
     if (cascade == null) {
       return;

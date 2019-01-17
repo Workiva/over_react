@@ -52,7 +52,7 @@ class Checker {
 
     for (final compilationUnit in libraryElement.units) {
       for (var checker in checkers) {
-        checker.visitCompilationUnitElement(compilationUnit);
+        checker.visitCompilationUnit(compilationUnit.unit);
         final errors = checker.getErrors();
 
         for (var error in errors) {

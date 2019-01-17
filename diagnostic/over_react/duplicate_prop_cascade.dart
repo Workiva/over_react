@@ -13,8 +13,7 @@ class DuplicatePropCascadeChecker extends ComponentUsageChecker {
       'Verifies that props aren\'t set more than once in the same cascade, which is usually a typo.';
 
   @override
-  void visitComponentUsage(
-      CompilationUnitElement element, FluentComponentUsage usage) {
+  void visitComponentUsage(_, FluentComponentUsage usage) {
     final cascade = usage.cascadeExpression;
     if (cascade == null) {
       return;

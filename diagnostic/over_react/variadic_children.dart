@@ -1,7 +1,6 @@
 // Adapted from dart_medic `misc` branch containing over_react diagnostics
 
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/element/element.dart';
 import 'package:over_react/src/plugin/diagnostic/over_react/component_usage.dart';
 
 class VariadicChildrenChecker extends ComponentUsageChecker {
@@ -13,8 +12,7 @@ class VariadicChildrenChecker extends ComponentUsageChecker {
       'Verifies that variadic children are used where possible instead of lists';
 
   @override
-  void visitComponentUsage(
-      CompilationUnitElement element, FluentComponentUsage usage) {
+  void visitComponentUsage(unit, FluentComponentUsage usage) {
     final arguments = usage.node.argumentList.arguments;
     if (arguments.length == 1 && arguments.single is ListLiteral) {
       ListLiteral list = arguments.single;
@@ -25,7 +23,7 @@ class VariadicChildrenChecker extends ComponentUsageChecker {
         end: list.end,
         // TODO preserve comments
         // todo is there a better way to get a replacement based on the source?
-        fix: element.source.contents.data.substring(list.leftBracket.end, list.rightBracket.offset),
+        fix: unit.declaredElement.source.contents.data.substring(list.leftBracket.end, list.rightBracket.offset),
         fixMessage: 'Unwrap children from list literal',
       );
     }

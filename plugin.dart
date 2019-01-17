@@ -39,13 +39,21 @@ import 'package:analyzer/src/context/builder.dart';
 import 'package:analyzer/src/context/context_root.dart';
 // ignore: implementation_imports
 import 'package:analyzer/src/dart/analysis/driver.dart';
+import 'package:analyzer_plugin/plugin/assist_mixin.dart';
+import 'package:analyzer_plugin/plugin/navigation_mixin.dart';
+import 'package:analyzer_plugin/plugin/outline_mixin.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart' as plugin;
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
+import 'package:analyzer_plugin/utilities/assist/assist.dart';
+import 'package:analyzer_plugin/utilities/navigation/navigation.dart';
+import 'package:analyzer_plugin/utilities/outline/outline.dart';
+import 'package:over_react/src/plugin/assist/wrap_unwrap.dart';
 import 'package:over_react/src/plugin/checker.dart';
+import 'package:over_react/src/plugin/outline/element_outline.dart';
 
 /// Analyzer plugin for over_react.
-class OverReactAnalyzerPlugin extends ServerPlugin {
+class OverReactAnalyzerPlugin extends ServerPlugin with OutlineMixin, DartOutlineMixin, AssistsMixin, DartAssistsMixin {
   final Checker checker = new Checker();
 
   OverReactAnalyzerPlugin(ResourceProvider provider) : super(provider);
@@ -79,6 +87,8 @@ class OverReactAnalyzerPlugin extends ServerPlugin {
 
   @override
   String get contactInfo => 'https://github.com/Workiva/over_react/issues';
+
+//  List<ErrorConntributor> get
 
   /// Computes errors based on an analysis result and notifies the analyzer.
   void _processResult(AnalysisResult analysisResult) {
@@ -139,5 +149,19 @@ class OverReactAnalyzerPlugin extends ServerPlugin {
           .toNotification());
       return new plugin.EditGetFixesResult([]);
     }
+  }
+
+  @override
+  List<OutlineContributor> getOutlineContributors(String path) {
+    return [
+      new ReactElementOutlineContributor(),
+    ];
+  }
+
+  @override
+  List<AssistContributor> getAssistContributors(String path) {
+    return [
+      new WrapUnwrapAssistContributor(),
+    ];
   }
 }
