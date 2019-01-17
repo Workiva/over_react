@@ -474,8 +474,8 @@ main() {
           test('a field', () {
             setUpAndGenerate('''
               @PropsMixin()
-              absract class FooPropsMixin {
-//                Map props;
+              abstract class FooPropsMixin {
+                Map props;
 
                 var bar;
               }
@@ -597,7 +597,7 @@ main() {
             'You can use `@Accessor(required: true)` or `isNullable: true` instead of the shorthand versions.';
 
         test('the Accessor and requiredProp annotation', () {
-          var body = ''''@Accessor()
+          var body = '''@Accessor()
               @requiredProp
               var bar;''';
           setUpAndGenerate(PropsOrStateSrc(AnnotationType.abstractProps, body, 'AbstractFooProps', null).src);
@@ -613,7 +613,7 @@ main() {
         });
 
         test('the requiredProp and nullableRequiredProp annotation', () {
-          var body = ''''@requiredProp
+          var body = '''@requiredProp
               @nullableRequiredProp
               var bar;''';
           setUpAndGenerate(PropsOrStateSrc(AnnotationType.abstractProps, body, 'AbstractFooProps', null).src);
@@ -664,7 +664,7 @@ main() {
         });
 
         test('with annotations', () {
-          var body = ''''@Annotation()
+          var body = '''@Annotation()
             var bar, baz;''';
           setUpAndGenerate(PropsOrStateSrc(AnnotationType.abstractProps, body, 'AbstractFooProps', null).src);
           verify(logger.warning(expectedCommaSeparatedWarning));

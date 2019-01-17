@@ -25,17 +25,18 @@ class OverReactGenerator extends Generator {
     if (ParsedDeclarations.mightContainDeclarations(primaryInputContents)) {
       var declarations = new ParsedDeclarations(resolvedUnit, sourceFile, log);
 
-      if (!declarations.hasErrors && declarations.hasDeclarations) {
-        generator = new ImplGenerator(log, sourceFile)..generate(declarations);
-      } else {
-        if (declarations.hasErrors) {
-          log.severe(
-              'There was an error parsing the file declarations for file: ${inputId.toString()}');
-        }
-        if (!declarations.hasDeclarations) {
-          _logNoDeclarations();
-        }
+      if (declarations.hasErrors) {
+        log.severe(
+            'There was an error parsing the file declarations for file: ${inputId.toString()}');
+        return '';
       }
+
+      // TODO: Do we need this case anymore? I honestly can't remember why I put it here
+//      if (!declarations.hasDeclarations) {
+//        _logNoDeclarations();
+//        return '';
+//      }
+      generator = new ImplGenerator(log, sourceFile)..generate(declarations);
     } else {
       _logNoDeclarations();
     }

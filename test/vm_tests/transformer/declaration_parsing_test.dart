@@ -16,7 +16,6 @@
 library declaration_parsing_test;
 
 import 'package:analyzer/analyzer.dart' hide startsWith;
-import 'package:logging/logging.dart';
 import 'package:mockito/mockito.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/builder/generation/declaration_parsing.dart';
@@ -132,7 +131,7 @@ main() {
             expect(declarations.factory.node?.variables?.variables?.single?.name
                 ?.name, 'Foo');
             expect(declarations.props.node?.name?.name, '_\$FooProps');
-            expect(declarations.hasPrivatePropsClass, isPrivate);
+//            expect(declarations.hasPrivatePropsClass, isPrivate);
             expect(declarations.component.node?.name?.name, 'FooComponent');
 
             expect(declarations.factory.meta,
@@ -156,22 +155,22 @@ main() {
 
         group('a stateful component with builder-compatible dual-class state setup', () {
           void testStateDualClassSetup({bool isPrivate: false}) {
-            var possiblePrivatePrefix = isPrivate ? '_' : '';
+            var factoryName = '${isPrivate ? '_' : ''}Foo';
             setUpAndParse('''
-              @Factory()    UiFactory<${possiblePrivatePrefix}FooProps> Foo = _\$${possiblePrivatePrefix}Foo;
-              class ${possiblePrivatePrefix}FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {}
-              @Props()      class _\$FooProps {}
-              @Component()  class FooComponent {}
-              class ${possiblePrivatePrefix}FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
-              @State()      class _\$FooState {}
+              @Factory()    UiFactory<${factoryName}Props> $factoryName = _\$$factoryName;
+              class ${factoryName}Props extends _\$${factoryName}Props with _\$${factoryName}PropsAccessorsMixin {}
+              @Props()      class _\$${factoryName}Props {}
+              @Component()  class ${factoryName}Component {}
+              class ${factoryName}State extends _\$${factoryName}State with _\$${factoryName}StateAccessorsMixin {}
+              @State()      class _\$${factoryName}State {}
             ''');
 
-            expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
-            expect(declarations.props.node?.name?.name, '_\$FooProps');
-            expect(declarations.hasPrivatePropsClass, isPrivate);
-            expect(declarations.state.node?.name?.name, '_\$FooState');
-            expect(declarations.hasPrivateStateClass, isPrivate);
-            expect(declarations.component.node?.name?.name, 'FooComponent');
+            expect(declarations.factory.node?.variables?.variables?.single?.name?.name, factoryName);
+            expect(declarations.props.node?.name?.name, '_\$${factoryName}Props');
+//            expect(declarations.hasPrivatePropsClass, isPrivate);
+            expect(declarations.state.node?.name?.name, '_\$${factoryName}State');
+//            expect(declarations.hasPrivateStateClass, isPrivate);
+            expect(declarations.component.node?.name?.name, '${factoryName}Component');
 
             expect(declarations.factory.meta,   const isInstanceOf<annotations.Factory>());
             expect(declarations.props.meta,     const isInstanceOf<annotations.Props>());
@@ -184,7 +183,7 @@ main() {
           test('with public consumable class', () {
             testStateDualClassSetup();
           });
-          test('with priavte consumable class', () {
+          test('with private consumable class', () {
             testStateDualClassSetup(isPrivate: true);
           });
         });
@@ -232,7 +231,7 @@ main() {
 
             expect(declarations.abstractProps, hasLength(1));
             expect(declarations.abstractProps[0].node?.name?.name, '_\$AbstractFooProps');
-            expect(declarations.hasPrivatePropsClass, isPrivate);
+//            expect(declarations.hasPrivatePropsClass, isPrivate);
             expect(declarations.abstractProps[0].meta, new isInstanceOf<annotations.AbstractProps>());
           }
           test('with public consumable class', () {
@@ -252,7 +251,7 @@ main() {
 
             expect(declarations.abstractState, hasLength(1));
             expect(declarations.abstractState[0].node?.name?.name, '_\$AbstractFooState');
-            expect(declarations.hasPrivateStateClass, isPrivate);
+//            expect(declarations.hasPrivateStateClass, isPrivate);
             expect(declarations.abstractState[0].meta, new isInstanceOf<annotations.AbstractState>());
           }
           test('with public consumable class', () {

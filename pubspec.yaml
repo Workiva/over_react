@@ -37,3 +37,11 @@ dev_dependencies:
   over_react_test: ^2.0.0
   source_gen: ^0.9.0
   test: '>=0.12.30 <2.0.0'
+
+
+dependency_overrides:
+  over_react_test:
+    git:
+      url: git@github.com:Workiva/over_react_test.git
+      ref: 21307533927e1bfba2a14131be4ea74eb54a1ff5 # from orcm2
+

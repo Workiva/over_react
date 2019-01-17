@@ -120,8 +120,8 @@ class ParsedDeclarations {
             } else {
               if (privateCompanionClass != null) {
                 validateMetaField(privateCompanionClass, isPropsClass(name) ? 'PropsMeta': 'StateMeta');
-                hasPrivateStateClass = isStateClass(name) || hasPrivateStateClass;
-                hasPrivatePropsClass = isPropsClass(name) || hasPrivatePropsClass;
+//                hasPrivateStateClass = isStateClass(name) || hasPrivateStateClass;
+//                hasPrivatePropsClass = isPropsClass(name) || hasPrivatePropsClass;
               } else {
                 validateMetaField(publicCompanionClass, isPropsClass(name) ? 'PropsMeta': 'StateMeta');
               }
