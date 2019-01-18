@@ -2,7 +2,7 @@ analyzer:
   exclude:
     - integrate/**
     - _site/**
-  strong-mode: true
+    - test/builder/gold_output_files/**
 linter:
   rules:
     - annotate_overrides
@@ -22,8 +22,6 @@ linter:
     - package_prefixed_library_names
     - prefer_is_not_empty
     - slash_for_doc_comments
-    - sort_constructors_first
-    - sort_unnamed_constructors_first
     - type_init_formals
     - unnecessary_brace_in_string_interps
     - unnecessary_getters_setters

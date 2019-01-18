@@ -16,7 +16,6 @@ library over_react.map_util;
 
 import 'dart:collection';
 
-import 'package:over_react/src/component_declaration/transformer_helpers.dart';
 import 'package:over_react/src/component/dom_components.dart';
 import 'package:over_react/src/component/prop_mixins.dart';
 

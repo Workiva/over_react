@@ -17,7 +17,7 @@ library over_react.prop_mixins;
 
 import 'package:over_react/over_react.dart' show AriaPropsMapView, AriaPropsMixin, DomProps, PropsMeta;
 // Must import these consts because they are used in the transformed code.
-// ignore: unused_import
+// ignore: unused_import, deprecated_member_use
 import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps, $Props, PropsMeta;
 import 'package:over_react/src/component/callback_typedefs.dart';
 import 'package:over_react/src/component_declaration/annotations.dart';

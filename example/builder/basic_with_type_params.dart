@@ -20,7 +20,8 @@ class _$BasicProps<T, U extends UiProps> extends UiProps {
 
 @Component()
 class BasicComponent extends UiComponent<BasicProps> {
-  getDefaultProps() => newProps()..id = 'basic component';
+  @override
+  Map getDefaultProps() => newProps()..id = 'basic component';
 
   @override
   render() {

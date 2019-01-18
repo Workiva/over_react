@@ -40,12 +40,13 @@ class _$BasicState extends UiState with $ExampleStateMixinClass, ExampleStateMix
 
 @Component()
 class BasicComponent extends UiStatefulComponent<BasicProps, BasicState> {
-  getDefaultProps() => newProps()..id = 'basic component'
+  @override
+  Map getDefaultProps() => newProps()..id = 'basic component'
       ..basicProp = 'defaultBasicProps';
 
-  getInitialState() => newState()..basicState = '<basic state>'
-      ..stateMixin1 = '<state mixin>'
-  ;
+  @override
+  Map getInitialState() => newState()..basicState = '<basic state>'
+      ..stateMixin1 = '<state mixin>';
 
   @override
   render() {

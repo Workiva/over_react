@@ -16,9 +16,11 @@ library over_react.transformer_generation.helpers_test;
 
 import 'package:over_react/src/component_declaration/transformer_helpers.dart';
 import 'package:test/test.dart';
+// ignore: uri_has_not_been_generated
+part 'transformer_helpers_test.over_react.g.dart';
 
-final Matcher throwsUngeneratedError          = throwsA(const isInstanceOf<UngeneratedError>());
-final Matcher throwsIllegalInstantiationError = throwsA(const isInstanceOf<IllegalInstantiationError>());
+final Matcher throwsUngeneratedError          = throwsA(const TypeMatcher<UngeneratedError>());
+final Matcher throwsIllegalInstantiationError = throwsA(const TypeMatcher<IllegalInstantiationError>());
 
 main() {
   group('transformation generation helpers:', () {
@@ -138,22 +140,25 @@ main() {
       });
     });
 
-    group('\$PropKeys (ungenerated)', () {
+    group('\$PropKeys (DEPRECATED - ungenerated)', () {
       setUpAll(() {
-        expect(() => const $PropKeys(Null), returnsNormally,
+        // ignore: deprecated_member_use
+        expect(() => Null.meta.keys, returnsNormally,
             reason: 'Instanitating a const \$PropKeys should not have thrown an error. '
                     'Ensure that the over_react transformer is NOT running for this test file.'
         );
       });
 
+      // ignore: deprecated_member_use
       $PropKeys stub;
 
       setUp(() {
-         stub = const $PropKeys(Null);
+        // ignore: deprecated_member_use
+        stub = Null.meta.keys;
       });
 
       test('implements List', () {
-        expect(stub, const isInstanceOf<List<String>>());
+        expect(stub, const TypeMatcher<List<String>>());
       });
 
       group('throws errors when List members are invoked:', () {
@@ -162,22 +167,25 @@ main() {
       });
     });
 
-    group('\$Props (ungenerated)', () {
+    group('\$Props (DEPRECATED - ungenerated)', () {
       setUpAll(() {
-        expect(() => const $Props(Null), returnsNormally,
+        // ignore: deprecated_member_use
+        expect(() => Null.meta, returnsNormally,
             reason: 'Instanitating a const \$Props should not have thrown an error. '
                     'Ensure that the over_react transformer is NOT running for this test file.'
         );
       });
 
+      // ignore: deprecated_member_use
       $Props stub;
 
       setUp(() {
-         stub = const $Props(Null);
+        // ignore: deprecated_member_use
+        stub = Null.meta;
       });
 
       test('implements ConsumedProps', () {
-        expect(stub, const isInstanceOf<ConsumedProps>());
+        expect(stub, const TypeMatcher<ConsumedProps>());
       });
 
       group('throws errors when ConsumedProps members are invoked:', () {

@@ -25,11 +25,11 @@ class _$BasicProps extends UiProps with pm.ExamplePropsMixinClass, pm.$ExamplePr
 
 @Component()
 class BasicComponent extends UiComponent<BasicProps> {
-  getDefaultProps() => newProps()..id = 'basic component'
+  @override
+  Map getDefaultProps() => newProps()..id = 'basic component'
       ..basicProp = 'defaultBasicProps'
       ..otherPropMixin = '<mixin from other mixin class>'
-      ..propMixin1 = '<mixin prop from example mixin>'
-  ;
+      ..propMixin1 = '<mixin prop from example mixin>';
 
   @override
   render() {

@@ -11,7 +11,9 @@ abstract class BarPropsMixin {
 }
 
 //@Props()
-class BarProps extends UiProps with BarPropsMixin {
+class BarProps extends UiProps with BarPropsMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $BarPropsMixin {
   String barProp;
 }
 

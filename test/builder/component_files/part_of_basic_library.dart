@@ -35,9 +35,11 @@ class _$BasicPartOfLibState extends UiState
 
 @Component()
 class BasicPartOfLibComponent extends UiStatefulComponent<BasicPartOfLibProps, BasicPartOfLibState> {
-  getDefaultProps() => newProps()..id = 'BasicPartOfLib';
+  @override
+  Map getDefaultProps() => newProps()..id = 'BasicPartOfLib';
 
-  getInitialState() => newState()..basicState = '<Basic state>'
+  @override
+  Map getInitialState() => newState()..basicState = '<Basic state>'
       ..stateMixin1 = '<state mixin>';
 
   @override

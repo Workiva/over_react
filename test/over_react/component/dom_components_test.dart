@@ -94,15 +94,15 @@ main() {
       final SvgProps svg = Dom.circle();
 
       test('DomProps is a subtype of `UiProps` exported by over_react.dart', () {
-        expect(dom, const isInstanceOf<UiProps>());
+        expect(dom, const TypeMatcher<UiProps>());
       });
 
       test('SvgProps is a subtype of `UiProps` exported by over_react.dart', () {
-        expect(svg, const isInstanceOf<UiProps>());
+        expect(svg, const TypeMatcher<UiProps>());
       });
 
       test('SvgProps is a subtype of `DomProps`', () {
-        expect(svg, const isInstanceOf<DomProps>());
+        expect(svg, const TypeMatcher<DomProps>());
       });
     });
   });

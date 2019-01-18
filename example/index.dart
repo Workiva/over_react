@@ -1,7 +1,7 @@
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
-import 'package:react/react_client.dart';
+import 'package:react/react_client.dart' show ReactDartComponentFactoryProxy;
 import 'package:react/react_dom.dart' as react_dom;
 
 import './builder/abstract_inheritance.dart';

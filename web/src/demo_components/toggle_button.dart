@@ -1,4 +1,10 @@
-part of over_react.web.demo_components;
+import 'dart:html';
+
+import 'package:over_react/over_react.dart';
+
+import '../demo_components.dart';
+// ignore: uri_has_not_been_generated
+part 'toggle_button.over_react.g.dart';
 
 /// Use [ToggleButton]s in order to render functional `<input type="checkbox">`
 /// or `<input type="radio">` elements that look like a [Button].
@@ -52,7 +58,7 @@ class _$ToggleButtonProps extends ButtonProps with
 }
 
 @State()
-class _$ToggleButtonState extends ButtonState with 
+class _$ToggleButtonState extends ButtonState with
     AbstractInputStateMixin,
     // ignore: mixin_of_non_class, undefined_class
     $AbstractInputStateMixin {
@@ -185,7 +191,7 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   ///
   /// Does not refresh the state if [ToggleButtonProps.checked] is not null
   /// (the component is a "controlled" component).
-  void _refreshState() {
+  void refreshState() {
     if (!_isControlled) setState(newState()..isChecked = inputRef.checked);
   }
 
@@ -200,13 +206,13 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   bool get _isControlled => props.checked != null;
 
   @override
-  bool get _isActive => state.isChecked;
+  bool get isActive => state.isChecked;
 
   @override
-  String get _type => null;
+  String get type => null;
 
   @override
-  BuilderOnlyUiFactory<DomProps> get _buttonDomNodeFactory => Dom.label;
+  BuilderOnlyUiFactory<DomProps> get buttonDomNodeFactory => Dom.label;
 
   /// The id to use for a [ToggleButton].
   ///

@@ -28,8 +28,9 @@ class _$BasicProps extends UiProps with pm.ExamplePropsMixinClass, pm.$ExamplePr
 
 @Component()
 class BasicComponent extends UiComponent<BasicProps> {
-  getDefaultProps() => newProps()..id = 'basic component'
-      ..basicProp = 'defaultBasicProps'
+  @override
+  Map getDefaultProps() => newProps()..id = 'basic component'
+      ..basicProp = 'defaultBasicProps' // ignore: deprecated_member_use
       ..otherPropMixin = '<mixin from other mixin class>'
       ..propMixin1 = '<mixin prop from example mixin>'
   ;
@@ -39,7 +40,7 @@ class BasicComponent extends UiComponent<BasicProps> {
     return Dom.div()(
         Dom.div()('props for mixin in basic.dart: ${props.propMixin1}'),
         Dom.div()('prop id: ${props.id}'),
-        Dom.div()('default prop testing: ${props.basicProp}'),
+        Dom.div()('default prop testing: ${props.basicProp}'), // ignore: deprecated_member_use
         Dom.div()('default prop testing: ${props.basic1}'),
         Dom.div()('Mixin from other props mixin class on basic.dart: ${props.otherPropMixin}'),
     );

@@ -135,11 +135,11 @@ main() {
             expect(declarations.component.node?.name?.name, 'FooComponent');
 
             expect(declarations.factory.meta,
-                const isInstanceOf<annotations.Factory>());
+                const TypeMatcher<annotations.Factory>());
             expect(declarations.props.meta,
-                const isInstanceOf<annotations.Props>());
+                const TypeMatcher<annotations.Props>());
             expect(declarations.component.meta,
-                const isInstanceOf<annotations.Component>());
+                const TypeMatcher<annotations.Component>());
 
             expectEmptyDeclarations(
                 factory: false, props: false, component: false);
@@ -172,10 +172,10 @@ main() {
 //            expect(declarations.hasPrivateStateClass, isPrivate);
             expect(declarations.component.node?.name?.name, '${factoryName}Component');
 
-            expect(declarations.factory.meta,   const isInstanceOf<annotations.Factory>());
-            expect(declarations.props.meta,     const isInstanceOf<annotations.Props>());
-            expect(declarations.state.meta,     const isInstanceOf<annotations.State>());
-            expect(declarations.component.meta, const isInstanceOf<annotations.Component>());
+            expect(declarations.factory.meta,   const TypeMatcher<annotations.Factory>());
+            expect(declarations.props.meta,     const TypeMatcher<annotations.Props>());
+            expect(declarations.state.meta,     const TypeMatcher<annotations.State>());
+            expect(declarations.component.meta, const TypeMatcher<annotations.Component>());
 
             expectEmptyDeclarations(factory: false, props: false, state: false, component: false);
             expect(declarations.declaresComponent, isTrue);
@@ -198,8 +198,8 @@ main() {
 
           expect(declarations.propsMixins[0].node.name.name, 'FooPropsMixin1');
           expect(declarations.propsMixins[1].node.name.name, 'FooPropsMixin2');
-          expect(declarations.propsMixins[0].meta, new isInstanceOf<annotations.PropsMixin>());
-          expect(declarations.propsMixins[1].meta, new isInstanceOf<annotations.PropsMixin>());
+          expect(declarations.propsMixins[0].meta, const TypeMatcher<annotations.PropsMixin>());
+          expect(declarations.propsMixins[1].meta, const TypeMatcher<annotations.PropsMixin>());
 
           expectEmptyDeclarations(propsMixins: false);
           expect(declarations.declaresComponent, isFalse);
@@ -215,8 +215,8 @@ main() {
 
           expect(declarations.stateMixins[0].node.name.name, 'FooStateMixin1');
           expect(declarations.stateMixins[1].node.name.name, 'FooStateMixin2');
-          expect(declarations.stateMixins[0].meta, new isInstanceOf<annotations.StateMixin>());
-          expect(declarations.stateMixins[1].meta, new isInstanceOf<annotations.StateMixin>());
+          expect(declarations.stateMixins[0].meta, const TypeMatcher<annotations.StateMixin>());
+          expect(declarations.stateMixins[1].meta, const TypeMatcher<annotations.StateMixin>());
 
           expectEmptyDeclarations(stateMixins: false);
           expect(declarations.declaresComponent, isFalse);
@@ -232,7 +232,7 @@ main() {
             expect(declarations.abstractProps, hasLength(1));
             expect(declarations.abstractProps[0].node?.name?.name, '_\$AbstractFooProps');
 //            expect(declarations.hasPrivatePropsClass, isPrivate);
-            expect(declarations.abstractProps[0].meta, new isInstanceOf<annotations.AbstractProps>());
+            expect(declarations.abstractProps[0].meta, const TypeMatcher<annotations.AbstractProps>());
           }
           test('with public consumable class', () {
             testAbstractPropsDualClassSetup();
@@ -252,7 +252,7 @@ main() {
             expect(declarations.abstractState, hasLength(1));
             expect(declarations.abstractState[0].node?.name?.name, '_\$AbstractFooState');
 //            expect(declarations.hasPrivateStateClass, isPrivate);
-            expect(declarations.abstractState[0].meta, new isInstanceOf<annotations.AbstractState>());
+            expect(declarations.abstractState[0].meta, const TypeMatcher<annotations.AbstractState>());
           }
           test('with public consumable class', () {
             testAbstractStateDualClassSetup();

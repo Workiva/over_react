@@ -1,4 +1,8 @@
-part of over_react.web.demo_components;
+import 'package:over_react/over_react.dart';
+
+import '../demo_components.dart';
+// ignore: uri_has_not_been_generated
+part 'list_group.over_react.g.dart';
 
 /// Bootstrap's `ListGroup` component is flexible and powerful for
 /// displaying lists of [ListGroupItem] components.

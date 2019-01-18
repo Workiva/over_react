@@ -1,4 +1,8 @@
-part of over_react.web.demo_components;
+import 'package:over_react/over_react.dart';
+
+import '../demo_components.dart';
+// ignore: uri_has_not_been_generated
+part 'button.over_react.g.dart';
 
 /// Nest one or more `Button` components within a [ListGroup]
 /// to render individual items within a list.
@@ -93,17 +97,17 @@ class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiSt
   }
 
   ReactElement renderButton(dynamic children) {
-    BuilderOnlyUiFactory<DomProps> factory = _buttonDomNodeFactory;
+    BuilderOnlyUiFactory<DomProps> factory = buttonDomNodeFactory;
 
     return (factory()
       ..addProps(copyUnconsumedDomProps())
       ..className = getButtonClasses().toClassName()
       ..href = props.href
       ..target = props.target
-      ..type = _type
-      ..disabled = _isAnchorLink ? null : props.isDisabled
+      ..type = type
+      ..disabled = isAnchorLink ? null : props.isDisabled
       ..addProps(ariaProps()
-        ..disabled = _isAnchorLink ? props.isDisabled : null
+        ..disabled = isAnchorLink ? props.isDisabled : null
       )
     )(children);
   }
@@ -112,19 +116,19 @@ class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiSt
     return forwardingClassNameBuilder()
       ..add('btn')
       ..add('btn-block', props.isBlock)
-      ..add('active', _isActive)
+      ..add('active', isActive)
       ..add('disabled', props.isDisabled)
       ..add(props.skin.className)
       ..add(props.size.className);
   }
 
-  BuilderOnlyUiFactory<DomProps> get _buttonDomNodeFactory => _isAnchorLink ? Dom.a : Dom.button;
+  BuilderOnlyUiFactory<DomProps> get buttonDomNodeFactory => isAnchorLink ? Dom.a : Dom.button;
 
-  bool get _isAnchorLink => props.href != null;
+  bool get isAnchorLink => props.href != null;
 
-  bool get _isActive => props.isActive;
+  bool get isActive => props.isActive;
 
-  String get _type => _isAnchorLink ? null : props.type.typeName;
+  String get type => isAnchorLink ? null : props.type.typeName;
 }
 
 /// Contextual skin options for a [Button] component.

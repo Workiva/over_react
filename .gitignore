@@ -35,6 +35,7 @@ _site
 packages
 .packages
 .dart_tool
+*.g.dart
 build/
 
 

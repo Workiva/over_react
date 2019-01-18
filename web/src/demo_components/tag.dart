@@ -1,4 +1,6 @@
-part of over_react.web.demo_components;
+import 'package:over_react/over_react.dart';
+// ignore: uri_has_not_been_generated
+part 'tag.over_react.g.dart';
 
 /// Bootstrap's `Tag` component renders a small and adaptive tag
 /// for adding context to just about any content.
