@@ -25,7 +25,8 @@ abstract class _$SuperState extends UiState {
 
 @AbstractComponent()
 abstract class SuperComponent<T extends SuperProps, V extends SuperState> extends UiStatefulComponent<T, V> {
-  getDefaultProps() => newProps()..id = 'super';
+  @override
+  Map getDefaultProps() => newProps()..id = 'super';
 
   @override
   render() {
@@ -64,13 +65,14 @@ class _$SubState extends SuperState {// ignore: non_abstract_class_inherits_abst
 
 @Component()
 class SubComponent extends SuperComponent<SubProps, SubState> {
-  getDefaultProps() => newProps()..id = 'sub';
+  @override
+  Map getDefaultProps() => newProps()..id = 'sub';
 
   @override
-  getInitialState() {
-    return newState()..superState = '<the super state value>'
-      ..subState = '<the sub state value>'
-    ;
+  Map getInitialState() {
+    return newState()
+      ..superState = '<the super state value>'
+      ..subState = '<the sub state value>';
   }
 
   @override

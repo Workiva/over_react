@@ -14,8 +14,6 @@
 
 library over_react.transformer.util;
 
-import 'package:analyzer/analyzer.dart';
-
 String commentBanner(String bannerText, {
     int bannerWidth: 80, int textIndent: 2, bool topBorder: true, bool bottomBorder: true
 }) {

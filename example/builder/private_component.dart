@@ -19,10 +19,10 @@ class _$_CustomColorInputState extends UiState {
 
 @Component()
 class CustomColorInputComponent extends UiStatefulComponent<_CustomColorInputProps, _CustomColorInputState> {
+  @override
   render() {
     return Dom.div()();
   }
-
 }
 
 // AF-#### This will be removed once the transition to Dart 2 is complete.

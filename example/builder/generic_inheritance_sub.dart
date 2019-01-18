@@ -28,10 +28,11 @@ class _$GenericSubState extends GenericSuperState {
 
 @Component()
 class GenericSubComponent extends GenericSuperComponent<GenericSubProps, GenericSubState> {
-  getDefaultProps() => newProps()..id = 'generic_sub';
+  @override
+  Map getDefaultProps() => newProps()..id = 'generic_sub';
 
   @override
-  getInitialState() => newState()
+  Map getInitialState() => newState()
     ..subState = '<generic sub state>'
     ..superState= '<generic super state>';
 

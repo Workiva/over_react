@@ -24,7 +24,7 @@ main() {
     test('state class cannot be instantiated directly', () {
       expect(() {
         new StatefulComponentTestState();
-      }, throwsA(const isInstanceOf<IllegalInstantiationError>()));
+      }, throwsA(const TypeMatcher<IllegalInstantiationError>()));
     });
 
     test('renders a component from end to end, successfully reading state via typed getters', () {

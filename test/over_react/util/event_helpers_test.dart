@@ -148,7 +148,7 @@ main() {
     expect(fakeEvent.isTrusted, isFalse);
     expect(fakeEvent.nativeEvent, isNull);
     expect(fakeEvent.target, element);
-    expect(fakeEvent.timeStamp, new isInstanceOf<int>());
+    expect(fakeEvent.timeStamp, const TypeMatcher<int>());
     expect(fakeEvent.type, 'change');
   });
 }

@@ -12,7 +12,8 @@ class _$SuperPartOfLibProps extends UiProps {
 
 @AbstractComponent()
 abstract class SuperPartOfLibComponent<T extends SuperPartOfLibProps> extends UiComponent<T> {
-  getDefaultProps() => newProps()..id = 'super';
+  @override
+  Map getDefaultProps() => newProps()..id = 'super';
 
   @override
   render() {
@@ -39,7 +40,8 @@ class _$SubPartOfLibProps extends SuperPartOfLibProps {
 
 @Component()
 class SubPartOfLibComponent extends SuperPartOfLibComponent<SubPartOfLibProps> {
-  getDefaultProps() => newProps()..id = 'sub';
+  @override
+  Map getDefaultProps() => newProps()..id = 'sub';
 
   @override
   render() {
