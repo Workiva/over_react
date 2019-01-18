@@ -1,4 +1,8 @@
-part of over_react.web.demo_components;
+import 'package:over_react/over_react.dart';
+
+import '../demo_components.dart';
+// ignore: uri_has_not_been_generated
+part 'list_group_item.over_react.g.dart';
 
 /// Nest one or more `ListGroupItem` components within a [ListGroup]
 /// to render individual items within a list.

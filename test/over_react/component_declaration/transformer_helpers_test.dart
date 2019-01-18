@@ -16,6 +16,8 @@ library over_react.transformer_generation.helpers_test;
 
 import 'package:over_react/src/component_declaration/transformer_helpers.dart';
 import 'package:test/test.dart';
+// ignore: uri_has_not_been_generated
+part 'transformer_helpers_test.over_react.g.dart';
 
 final Matcher throwsUngeneratedError          = throwsA(const TypeMatcher<UngeneratedError>());
 final Matcher throwsIllegalInstantiationError = throwsA(const TypeMatcher<IllegalInstantiationError>());
@@ -141,7 +143,7 @@ main() {
     group('\$PropKeys (DEPRECATED - ungenerated)', () {
       setUpAll(() {
         // ignore: deprecated_member_use
-        expect(() => const $PropKeys(Null), returnsNormally,
+        expect(() => Null.meta.keys, returnsNormally,
             reason: 'Instanitating a const \$PropKeys should not have thrown an error. '
                     'Ensure that the over_react transformer is NOT running for this test file.'
         );
@@ -152,7 +154,7 @@ main() {
 
       setUp(() {
         // ignore: deprecated_member_use
-        stub = const $PropKeys(Null);
+        stub = Null.meta.keys;
       });
 
       test('implements List', () {
@@ -168,7 +170,7 @@ main() {
     group('\$Props (DEPRECATED - ungenerated)', () {
       setUpAll(() {
         // ignore: deprecated_member_use
-        expect(() => const $Props(Null), returnsNormally,
+        expect(() => Null.meta, returnsNormally,
             reason: 'Instanitating a const \$Props should not have thrown an error. '
                     'Ensure that the over_react transformer is NOT running for this test file.'
         );
@@ -179,7 +181,7 @@ main() {
 
       setUp(() {
         // ignore: deprecated_member_use
-        stub = const $Props(Null);
+        stub = Null.meta;
       });
 
       test('implements ConsumedProps', () {

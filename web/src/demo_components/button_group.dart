@@ -1,4 +1,8 @@
-part of over_react.web.demo_components;
+import 'package:over_react/over_react.dart';
+
+import '../demo_components.dart';
+// ignore: uri_has_not_been_generated
+part 'button_group.over_react.g.dart';
 
 /// Groups a series of [Button]s together on a single line.
 ///

@@ -1,4 +1,8 @@
-part of over_react.web.demo_components;
+import 'dart:math';
+
+import 'package:over_react/over_react.dart';
+// ignore: uri_has_not_been_generated
+part 'progress.over_react.g.dart';
 
 /// Bootstrap's `Progress` component stylizes the HTML5 `<progress>` element with a
 /// few extra CSS classes and some crafty browser-specific CSS.

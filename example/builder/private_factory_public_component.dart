@@ -5,7 +5,9 @@ part 'private_factory_public_component.over_react.g.dart';
 
 @Factory()
 // ignore: undefined_identifier
-UiFactory<FormActionInputProps> _FormActionInput = _$FormActionInput;
+UiFactory<FormActionInputProps> _FormActionInput =
+    // ignore: undefined_identifier
+    _$_FormActionInput;
 
 UiFactory<FormActionInputProps> FormSubmitInput = ([Map backingMap]) =>
     _FormActionInput(backingMap);

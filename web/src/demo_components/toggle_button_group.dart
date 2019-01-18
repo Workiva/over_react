@@ -1,4 +1,8 @@
-part of over_react.web.demo_components;
+import 'package:over_react/over_react.dart';
+
+import '../demo_components.dart';
+// ignore: uri_has_not_been_generated
+part 'toggle_button_group.over_react.g.dart';
 
 /// A specialized [ButtonGroup] component that will surround one or more child
 /// [ToggleButton] components so that a single shared [ToggleButtonGroupProps.name]
@@ -29,7 +33,7 @@ class _$ToggleButtonGroupProps extends ButtonGroupProps with
     $AbstractInputPropsMixin {}
 
 @State()
-class _$ToggleButtonGroupState extends ButtonGroupState with 
+class _$ToggleButtonGroupState extends ButtonGroupState with
     AbstractInputStateMixin,
     // ignore: mixin_of_non_class, undefined_class
     $AbstractInputStateMixin {}
@@ -87,9 +91,9 @@ class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupP
   }
 
   /// The handler for when one of the children of the [ToggleButtonGroup] is changed or unchecked
-  void _handleOnChange(react.SyntheticFormEvent event) {
+  void _handleOnChange(SyntheticFormEvent event) {
     _toggleButtonRefs.values.forEach((childComponent) {
-      if (childComponent is ToggleButtonComponent) childComponent._refreshState();
+      if (childComponent is ToggleButtonComponent) childComponent.refreshState();
     });
   }
 
