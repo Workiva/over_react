@@ -11,14 +11,19 @@ export 'package:over_react/src/plugin/component_usage.dart';
 abstract class _Checker {
   String get name;
   String get description;
+  
+  int get _modificationStamp;
 
   List<CheckerError> _errors = [];
 
   void emitHint({String message, int offset, int end, String fix, String fixMessage}) {
-    _errors.add(new CheckerError(name, message, offset, end, AnalysisErrorSeverity.INFO, AnalysisErrorType.LINT, fix, fixMessage));
+    _errors.add(new CheckerError(name, message, offset, end, AnalysisErrorSeverity.INFO, AnalysisErrorType.LINT, fix, fixMessage, _modificationStamp));
   }
   void emitWarning({String message, int offset, int end, String fix, String fixMessage}) {
-    _errors.add(new CheckerError(name, message, offset, end,  AnalysisErrorSeverity.WARNING, AnalysisErrorType.LINT, fix, fixMessage));
+    _errors.add(new CheckerError(name, message, offset, end,  AnalysisErrorSeverity.WARNING, AnalysisErrorType.LINT, fix, fixMessage, _modificationStamp));
+  }
+  void emitError({String message, int offset, int end, String fix, String fixMessage}) {
+    _errors.add(new CheckerError(name, message, offset, end,  AnalysisErrorSeverity.ERROR, AnalysisErrorType.LINT, fix, fixMessage, _modificationStamp));
   }
 
   List<CheckerError> getErrors() => _errors.toList();
@@ -38,12 +43,17 @@ abstract class ComponentUsageChecker extends SimpleElementVisitor<Null> with _Ch
 
     return null;
   }
-
+  
+  int _modificationStamp;
   
   Null visitCompilationUnit(CompilationUnit unit) {
+    _modificationStamp = unit?.declaredElement?.source?.modificationStamp;
+
     var astVisitor = new ComponentUsageVisitor(
             (usage) => visitComponentUsage(unit, usage));
     unit..accept(astVisitor);
+
+    _modificationStamp = null;
 
     return null;
   }
@@ -117,6 +127,8 @@ class CheckerError {
   /// Optionally, the length of the incorrect code.
   final int end;
 
+  final int modificationStamp;
+
   String fixMessage;
 
   int get length => end - offset;
@@ -128,7 +140,7 @@ class CheckerError {
 
   AnalysisErrorType type;
 
-  CheckerError(this.code, this.message, this.offset, this.end, this.severity, this.type, this.fix, this.fixMessage) {
+  CheckerError(this.code, this.message, this.offset, this.end, this.severity, this.type, this.fix, this.fixMessage, this.modificationStamp) {
     if (((offset == null) != (end == null)) ||
         ((offset == null) && (fix != null))) {
       throw new ArgumentError(

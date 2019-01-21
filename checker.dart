@@ -33,7 +33,9 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
+import 'package:over_react/src/plugin/diagnostic/over_react/arrow_function_prop.dart';
 import 'package:over_react/src/plugin/diagnostic/over_react/duplicate_prop_cascade.dart';
+import 'package:over_react/src/plugin/diagnostic/over_react/extra_invocations.dart';
 import 'package:over_react/src/plugin/diagnostic/over_react/hashcode_as_key.dart';
 import 'package:over_react/src/plugin/diagnostic/over_react/variadic_children.dart';
 
@@ -48,6 +50,8 @@ class Checker {
       new DuplicatePropCascadeChecker(),
       new HashCodeAsKeyChecker(),
       new VariadicChildrenChecker(),
+      new ArrowFunctionPropCascadeChecker(),
+      new ExtraInvocationsChecker(),
     ];
 
     for (final compilationUnit in libraryElement.units) {
@@ -72,14 +76,27 @@ class Checker {
 
           PrioritizedSourceChange fix;
           if (error.fix != null) {
+            int priority;
+            switch (error.severity) {
+              case AnalysisErrorSeverity.INFO:
+                priority = 1000000;
+                break;
+              case AnalysisErrorSeverity.WARNING:
+                priority = 1000002;
+                break;
+              case AnalysisErrorSeverity.ERROR:
+                priority = 1000003;
+                break;
+            }
+
             fix = new PrioritizedSourceChange(
-                1000000,
+                priority,
                 new SourceChange(
                   error.fixMessage,
                   edits: [
                     new SourceFileEdit(
                       compilationUnit.source.fullName,
-                      compilationUnit.source.modificationStamp,
+                      error.modificationStamp,
                       edits: [new SourceEdit(error.offset, error.length, error.fix)],
                     )
                   ],

@@ -48,6 +48,7 @@ import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
 import 'package:analyzer_plugin/utilities/navigation/navigation.dart';
 import 'package:analyzer_plugin/utilities/outline/outline.dart';
+import 'package:over_react/src/plugin/assist/add_props.dart';
 import 'package:over_react/src/plugin/assist/wrap_unwrap.dart';
 import 'package:over_react/src/plugin/checker.dart';
 import 'package:over_react/src/plugin/outline/element_outline.dart';
@@ -161,6 +162,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin with OutlineMixin, DartOutlin
   @override
   List<AssistContributor> getAssistContributors(String path) {
     return [
+      new AddPropsAssistContributor(),
       new WrapUnwrapAssistContributor(),
     ];
   }
