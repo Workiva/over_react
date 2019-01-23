@@ -151,6 +151,7 @@ class OverReactSrc {
 
   String get componentName => '${baseName}Component';
   String get constantListName => isProps(annotation) ? '\$props' : '\$state';
+  String get factoryInitializer => '_\$$baseName';
   String get keyListName => isProps(annotation) ? '\$propKeys' : '\$stateKeys';
   String get propsClassName => '${baseName}Props';
   String get propsMixinClassName => '${baseName}PropsMixin';

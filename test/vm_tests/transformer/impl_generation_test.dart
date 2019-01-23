@@ -104,30 +104,75 @@ main() {
       });
 
       group('and includes concrete accessors class for ', () {
-        void testAccessorGeneration(String testName, OverReactSrc srcContainer) {
+        void testAccessorGeneration(String testName, OverReactSrc ors) {
           group(testName, () {
             bool isProps;
             String className;
+            String descriptorType;
             setUp(() {
-              generateFromSource(srcContainer.source);
-              isProps = srcContainer.isProps(srcContainer.annotation);
-              className = isProps ? srcContainer.propsClassName : srcContainer.stateClassName;
+              generateFromSource(ors.source);
+              isProps = ors.isProps(ors.annotation);
+              className = isProps ? ors.propsClassName : ors.stateClassName;
+              descriptorType = '${isProps ? 'Prop' : 'State'}Descriptor';
             });
 
             test('with proper accessors class declaration, retaining type parameters', () {
               expect(implGenerator.outputContentsBuffer.toString(), contains(
-                  'abstract class _\$${className}AccessorsMixin${srcContainer.typeParamSrc} '
-                      'implements _\$$className${srcContainer.typeParamSrcWithoutBounds} {'));
+                  'abstract class _\$${className}AccessorsMixin${ors.typeParamSrc} '
+                      'implements _\$$className${ors.typeParamSrcWithoutBounds} {'));
             });
 
             test('with abstract props/state getter', () {
               expect(implGenerator.outputContentsBuffer.toString(), contains('@override  Map get ${isProps ? 'props' : 'state'};'));
             });
 
+            test('contains props or state descriptors for all fields', () {
+              expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  '  static const $descriptorType _\$prop__someField___\$$className = const $descriptorType(_\$key__someField___\$$className);\n'
+                  '  static const $descriptorType _\$prop__foo___\$$className = const $descriptorType(_\$key__foo___\$$className);\n'
+                  '  static const $descriptorType _\$prop__bar___\$$className = const $descriptorType(_\$key__bar___\$$className);\n'
+                  '  static const $descriptorType _\$prop__baz___\$$className = const $descriptorType(_\$key__baz___\$$className);\n'));
+            });
+
+            test('contains string keys', () {
+              expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  '  static const String _\$key__someField___\$$className = \'$className.someField\';\n'
+                  '  static const String _\$key__foo___\$$className = \'$className.foo\';\n'
+                  '  static const String _\$key__bar___\$$className = \'$className.bar\';\n'
+                  '  static const String _\$key__baz___\$$className = \'$className.baz\';\n'));
+            });
+
+            test('contains list of descriptors', () {
+              expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  '  static const List<$descriptorType> ${ors.constantListName} = '
+                  'const [_\$prop__someField___\$$className, '
+                  '_\$prop__foo___\$$className, '
+                  '_\$prop__bar___\$$className, '
+                  '_\$prop__baz___\$$className];\n'));
+            });
+
+            test('contains list of keys', () {
+              expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  '  static const List<String> ${ors.keyListName} = '
+                  'const [_\$key__someField___\$$className, '
+                  '_\$key__foo___\$$className, '
+                  '_\$key__bar___\$$className, '
+                  '_\$key__baz___\$$className];\n'));
+            });
+
             group('with concrete implementations', () {
               test('', () {
                 expect(implGenerator.outputContentsBuffer.toString(), contains('  String get someField => ${isProps ? 'props' : 'state'}[_\$key__someField___\$$className];\n'));
                 expect(implGenerator.outputContentsBuffer.toString(), contains('  set someField(String value) => ${isProps ? 'props' : 'state'}[_\$key__someField___\$$className] = value'));
+              });
+
+              test('for multiple fields declared on same line', () {
+                expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get foo => ${isProps ? 'props' : 'state'}[_\$key__foo___\$$className];\n'));
+                expect(implGenerator.outputContentsBuffer.toString(), contains('  set foo(bool value) => ${isProps ? 'props' : 'state'}[_\$key__foo___\$$className] = value'));
+                expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get bar => ${isProps ? 'props' : 'state'}[_\$key__bar___\$$className];\n'));
+                expect(implGenerator.outputContentsBuffer.toString(), contains('  set bar(bool value) => ${isProps ? 'props' : 'state'}[_\$key__bar___\$$className] = value'));
+                expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get baz => ${isProps ? 'props' : 'state'}[_\$key__baz___\$$className];\n'));
+                expect(implGenerator.outputContentsBuffer.toString(), contains('  set baz(bool value) => ${isProps ? 'props' : 'state'}[_\$key__baz___\$$className] = value'));
               });
 
               test('containing links to source', () {
@@ -150,20 +195,20 @@ main() {
           });
         }
 
-        void testAccessorGenerationForMixins(String testName, OverReactSrc srcContainer) {
+        void testAccessorGenerationForMixins(String testName, OverReactSrc ors) {
           group(testName, () {
             bool isProps;
             String className;
             setUp(() {
-              generateFromSource(srcContainer.source);
-              isProps = srcContainer.isProps(srcContainer.annotation);
-              className = isProps ? srcContainer.propsMixinClassName : srcContainer.stateMixinClassName;
+              generateFromSource(ors.source);
+              isProps = ors.isProps(ors.annotation);
+              className = isProps ? ors.propsMixinClassName : ors.stateMixinClassName;
             });
 
             test('with proper accessors class declaration, retaining type parameters', () {
               expect(implGenerator.outputContentsBuffer.toString(), contains(
-                  'abstract class \$$className${srcContainer.typeParamSrc} '
-                      'implements $className${srcContainer.typeParamSrcWithoutBounds} {'));
+                  'abstract class \$$className${ors.typeParamSrc} '
+                      'implements $className${ors.typeParamSrcWithoutBounds} {'));
             });
 
             test('with abstract props/state getter', () {
@@ -174,6 +219,15 @@ main() {
               test('', () {
                 expect(implGenerator.outputContentsBuffer.toString(), contains('  String get someField => ${isProps ? 'props' : 'state'}[_\$key__someField__$className];\n'));
                 expect(implGenerator.outputContentsBuffer.toString(), contains('  set someField(String value) => ${isProps ? 'props' : 'state'}[_\$key__someField__$className] = value'));
+              });
+
+              test('for multiple fields declared on same line', () {
+                expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get foo => ${isProps ? 'props' : 'state'}[_\$key__foo__$className];\n'));
+                expect(implGenerator.outputContentsBuffer.toString(), contains('  set foo(bool value) => ${isProps ? 'props' : 'state'}[_\$key__foo__$className] = value'));
+                expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get bar => ${isProps ? 'props' : 'state'}[_\$key__bar__$className];\n'));
+                expect(implGenerator.outputContentsBuffer.toString(), contains('  set bar(bool value) => ${isProps ? 'props' : 'state'}[_\$key__bar__$className] = value'));
+                expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get baz => ${isProps ? 'props' : 'state'}[_\$key__baz__$className];\n'));
+                expect(implGenerator.outputContentsBuffer.toString(), contains('  set baz(bool value) => ${isProps ? 'props' : 'state'}[_\$key__baz__$className] = value'));
               });
 
               test('containing links to source', () {
@@ -196,7 +250,7 @@ main() {
           });
         }
 
-        final body = '\n@deprecated()\nString someField; \nString get abstractGetter;\n';
+        final body = '\n/// Doc comments\n@deprecated()\nString someField;\nbool foo, bar, baz;\nString get abstractGetter;\n';
         testAccessorGeneration('abstract props classes which are public without type parameters', OverReactSrc.abstractProps(body: body));
         testAccessorGeneration('abstract props classes which are private without type parameters', OverReactSrc.abstractProps(body: body, isPrivate: true));
         testAccessorGeneration('abstract props classes which are public with type parameters', OverReactSrc.abstractProps(body: body, typeParameters: true));
@@ -228,51 +282,175 @@ main() {
         testAccessorGenerationForMixins('state mixins which are private with type parameters', OverReactSrc.stateMixin(body: body, isPrivate: true, typeParameters: true));
       });
 
-      test('for abstract state classes', () {
-        generateFromSource(OverReactSrc.abstractState().source);
-      });
-
-      test('for covariant keyword', () {
-        generateFromSource(OverReactSrc.abstractProps(body: 'covariant String foo;').source);
-        expect(implGenerator.outputContentsBuffer.toString(), contains('String get foo => props[_\$key__foo___\$AbstractFooProps];'));
-        expect(implGenerator.outputContentsBuffer.toString(), contains('set foo(covariant String value) => props[_\$key__foo___\$AbstractFooProps] = value;'));
-      });
-
-      group('accessors', () {
-        test('that are absent', () {
-          generateFromSource(OverReactSrc.abstractProps().source);
-        });
-
-        test('with doc comments and annotations', () {
-          var body = '''/// Doc comment
-              @Annotation()
-              var bar;''';
-          generateFromSource(OverReactSrc.abstractProps(body: body).source);
-        });
-
-        group('defined using comma-separated variables', () {
-          test('on the same line', () {
-            generateFromSource(OverReactSrc.abstractProps(body: 'var bar, baz, qux;').source);
+      group('and includes the react component factory implementation', () {
+        void testReactComponentFactory(String testName, OverReactSrc ors) {
+          test(testName, () {
+            setUpAndGenerate(ors.source);
+            final baseName = ors.baseName;
+            expect(implGenerator.outputContentsBuffer.toString(), contains(
+                'final \$${baseName}ComponentFactory = registerComponent(() => new _\$${baseName}Component(),\n'
+                '    builderFactory: $baseName,\n'
+                '    componentClass: ${baseName}Component,\n'
+                '    isWrapper: false,\n'
+                '    parentType: null,\n'
+                '    displayName: \'$baseName\'\n'
+              ');\n'));
           });
-        });
+        }
+
+        testReactComponentFactory('for a public concrete component class with only props', OverReactSrc.props());
+        testReactComponentFactory('for a private concrete component class with only props', OverReactSrc.props(isPrivate: true));
+        testReactComponentFactory('for a public concrete component class with props and state', OverReactSrc.state());
+        testReactComponentFactory('for a private concrete component class with props and state', OverReactSrc.state(isPrivate: true));
+      });
+
+      group('and creates factory initializer implementation', () {
+        void testReactComponentFactory(String testName, OverReactSrc ors) {
+          test(testName, () {
+            setUpAndGenerate(ors.source);
+            final baseName = ors.baseName;
+            expect(implGenerator.outputContentsBuffer.toString(), contains(
+                '_\$\$${baseName}Props ${ors.factoryInitializer}([Map backingProps]) => new _\$\$${baseName}Props(backingProps);\n'));
+          });
+        }
+
+        testReactComponentFactory('for a public concrete component class with only props', OverReactSrc.props());
+        testReactComponentFactory('for a private concrete component class with only props', OverReactSrc.props(isPrivate: true));
+        testReactComponentFactory('for a public concrete component class with props and state', OverReactSrc.state());
+        testReactComponentFactory('for a private concrete component class with props and state', OverReactSrc.state(isPrivate: true));
+      });
+
+      group('and creates concrete props implementation', () {
+        void testConcretePropsGeneration(String testName, OverReactSrc ors) {
+          group(testName, () {
+            setUp(() {
+              generateFromSource(ors.source);
+            });
+
+            test('with the correct class declaration', () {
+              expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  'class _\$\$${ors.baseName}Props${ors.typeParamSrc} '
+                  'extends _\$${ors.propsClassName}${ors.typeParamSrcWithoutBounds} '
+                  'with _\$${ors.propsClassName}AccessorsMixin${ors.typeParamSrcWithoutBounds} '
+                  'implements ${ors.propsClassName}${ors.typeParamSrcWithoutBounds} {'));
+            });
+
+            test('with the correct constructor', () {
+              expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  '  _\$\$${ors.baseName}Props(Map backingMap) : this._props = {} {\n'
+                  '    this._props = backingMap ?? ({});\n'
+                  '  }'));
+            });
+
+            test('with props backing map getter', () {
+              expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  '  @override\n'
+                  '  Map get props => _props;\n'
+                  '  Map _props;'));
+            });
+
+            test('overrides `\$isClassGenerated` to return `true`', () {
+              expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  '  @override\n'
+                  '  bool get \$isClassGenerated => true;\n'));
+            });
+
+            test('overrides `componentFactory` to return the correct component factory', () {
+              expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  '  @override\n'
+                  '  ReactComponentFactoryProxy get componentFactory => \$${ors.baseName}ComponentFactory;\n'));
+            });
+
+            test('sets the default prop key namespace', () {
+              expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  '  @override\n'
+                  '  String get propKeyNamespace => \'${ors.propsClassName}.\';\n'));
+            });
+          });
+        }
+
+        testConcretePropsGeneration('for a public props class without type parameters when no state class is declared', OverReactSrc.props());
+        testConcretePropsGeneration('for a public props class with type parameters when no state class is declared', OverReactSrc.props(typeParameters: true));
+        testConcretePropsGeneration('for a private props class without type parameters when no state class is declared', OverReactSrc.props(isPrivate: true));
+        testConcretePropsGeneration('for a private props class with type parameters when no state class is declared', OverReactSrc.props(isPrivate: true, typeParameters: true));
+
+        testConcretePropsGeneration('for a public props class without type parameters when a state class is declared', OverReactSrc.state());
+        testConcretePropsGeneration('for a public props class with type parameters when a state class is declared', OverReactSrc.state(typeParameters: true));
+        testConcretePropsGeneration('for a private props class without type parameters when a state class is declared', OverReactSrc.state(isPrivate: true));
+        testConcretePropsGeneration('for a private props class with type parameters when a state class is declared', OverReactSrc.state(isPrivate: true, typeParameters: true));
+      });
+
+      test('does not include react component factory implementation for abstract component', () {
+        setUpAndGenerate(OverReactSrc.abstractProps(needsComponent: true).source);
+        expect(implGenerator.outputContentsBuffer.toString(), isNot(contains('registerComponent(()')));
+      });
+
+      test('for covariant keywords', () {
+        final ors = OverReactSrc.abstractProps(body: 'covariant String foo;');
+        generateFromSource(ors.source);
+        expect(implGenerator.outputContentsBuffer.toString(), contains('String get foo => props[_\$key__foo___\$${ors.propsClassName}];'));
+        expect(implGenerator.outputContentsBuffer.toString(), contains('set foo(covariant String value) => props[_\$key__foo___\$${ors.propsClassName}] = value;'));
+      });
+
+      group('and creates concrete state implementation', () {
+        void testConcretePropsGeneration(String testName, OverReactSrc ors) {
+          group(testName, () {
+            setUp(() {
+              generateFromSource(ors.source);
+            });
+
+            test('with the correct class declaration', () {
+              expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  'class _\$\$${ors.baseName}State${ors.typeParamSrc} '
+                  'extends _\$${ors.stateClassName}${ors.typeParamSrcWithoutBounds} '
+                  'with _\$${ors.stateClassName}AccessorsMixin${ors.typeParamSrcWithoutBounds} '
+                  'implements ${ors.stateClassName}${ors.typeParamSrcWithoutBounds} {'));
+            });
+
+            test('with the correct constructor', () {
+              expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  '  _\$\$${ors.baseName}State(Map backingMap) : this._state = {} {\n'
+                  '    this._state = backingMap ?? ({});\n'
+                  '  }'));
+            });
+
+            test('with state backing map getter', () {
+              expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  '  @override\n'
+                  '  Map get state => _state;\n'
+                  '  Map _state;'));
+            });
+
+            test('overrides `\$isClassGenerated` to return `true`', () {
+              expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  '  @override\n'
+                  '  bool get \$isClassGenerated => true;\n'));
+            });
+          });
+        }
+
+        testConcretePropsGeneration('for a public state class without type parameters', OverReactSrc.state());
+        testConcretePropsGeneration('for a public state class with type parameters', OverReactSrc.state(typeParameters: true));
+        testConcretePropsGeneration('for a private state class without type parameters', OverReactSrc.state(isPrivate: true));
+        testConcretePropsGeneration('for a private state class with type parameters', OverReactSrc.state(isPrivate: true, typeParameters: true));
       });
 
       group('static meta field', () {
-        void testStaticMetaField(String testName, OverReactSrc srcContainer) {
+        void testStaticMetaField(String testName, OverReactSrc ors) {
           test(testName, () {
-            setUpAndGenerate(srcContainer.source);
+            setUpAndGenerate(ors.source);
             final accessorsClassName = testName.contains('mixin')
-                ? '\$${srcContainer.propsOrStateOrMixinClassName}'
-                : '_\$${srcContainer
+                ? '\$${ors.propsOrStateOrMixinClassName}'
+                : '_\$${ors
                 .propsOrStateOrMixinClassName}AccessorsMixin';
-            final propsOrStateOrMixinClassName = srcContainer.propsOrStateOrMixinClassName;
+            final propsOrStateOrMixinClassName = ors.propsOrStateOrMixinClassName;
             final annotatedPropsOrStateOrMixinClassName = testName.contains('mixin') ? propsOrStateOrMixinClassName : '_\$$propsOrStateOrMixinClassName';
             final expectedAccessorsMixinClass = 'abstract class $accessorsClassName implements $annotatedPropsOrStateOrMixinClassName';
-            final metaStructName = srcContainer.metaStructName(srcContainer.annotation);
+            final metaStructName = ors.metaStructName(ors.annotation);
             final expectedMetaForInstance = (new StringBuffer()
               ..writeln('const $metaStructName _\$metaFor$propsOrStateOrMixinClassName = const $metaStructName(')
-              ..writeln('  fields: $accessorsClassName.${srcContainer.constantListName},')
-              ..writeln('  keys: $accessorsClassName.${srcContainer.keyListName},')
+              ..writeln('  fields: $accessorsClassName.${ors.constantListName},')
+              ..writeln('  keys: $accessorsClassName.${ors.keyListName},')
               ..writeln(');')
             ).toString();
 

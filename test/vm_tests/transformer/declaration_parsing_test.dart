@@ -116,13 +116,13 @@ main() {
 
         group('a component with Dart 1 and Dart 2 compatible dual-class props setup', () {
           void testPropsDualClassSetup({bool isPrivate: false}) {
-            final srcContainer = OverReactSrc.props(isPrivate: isPrivate);
-            setUpAndParse(srcContainer.source);
+            final ors = OverReactSrc.props(isPrivate: isPrivate);
+            setUpAndParse(ors.source);
 
             expect(declarations.factory.node?.variables?.variables?.single?.name
-                ?.name, srcContainer.baseName);
-            expect(declarations.props.node?.name?.name, '_\$${srcContainer.baseName}Props');
-            expect(declarations.component.node?.name?.name, '${srcContainer.baseName}Component');
+                ?.name, ors.baseName);
+            expect(declarations.props.node?.name?.name, '_\$${ors.baseName}Props');
+            expect(declarations.component.node?.name?.name, '${ors.baseName}Component');
 
             expect(declarations.factory.meta,
                 const TypeMatcher<annotations.Factory>());
@@ -145,13 +145,13 @@ main() {
 
         group('a stateful component with builder-compatible dual-class state setup', () {
           void testStateDualClassSetup({bool isPrivate: false}) {
-            final srcContainer = OverReactSrc.state(isPrivate: isPrivate);
-            setUpAndParse(srcContainer.source);
+            final ors = OverReactSrc.state(isPrivate: isPrivate);
+            setUpAndParse(ors.source);
 
-            expect(declarations.factory.node?.variables?.variables?.single?.name?.name, srcContainer.baseName);
-            expect(declarations.props.node?.name?.name, '_\$${srcContainer.baseName}Props');
-            expect(declarations.state.node?.name?.name, '_\$${srcContainer.baseName}State');
-            expect(declarations.component.node?.name?.name, '${srcContainer.baseName}Component');
+            expect(declarations.factory.node?.variables?.variables?.single?.name?.name, ors.baseName);
+            expect(declarations.props.node?.name?.name, '_\$${ors.baseName}Props');
+            expect(declarations.state.node?.name?.name, '_\$${ors.baseName}State');
+            expect(declarations.component.node?.name?.name, '${ors.baseName}Component');
 
             expect(declarations.factory.meta,   const TypeMatcher<annotations.Factory>());
             expect(declarations.props.meta,     const TypeMatcher<annotations.Props>());
@@ -205,11 +205,11 @@ main() {
 
         group('abstract props class with builder-compatible dual-class setup', () {
           void testAbstractPropsDualClassSetup({isPrivate: false}) {
-            final srcContainer = OverReactSrc.abstractProps(isPrivate: isPrivate);
-            setUpAndParse(srcContainer.source);
+            final ors = OverReactSrc.abstractProps(isPrivate: isPrivate);
+            setUpAndParse(ors.source);
 
             expect(declarations.abstractProps, hasLength(1));
-            expect(declarations.abstractProps[0].node?.name?.name, '_\$${srcContainer.baseName}Props');
+            expect(declarations.abstractProps[0].node?.name?.name, '_\$${ors.baseName}Props');
             expect(declarations.abstractProps[0].meta, new TypeMatcher<annotations.AbstractProps>());
           }
           test('with public consumable class', () {
@@ -222,11 +222,11 @@ main() {
 
         group('abstract state class with builder-compatible dual-class setup', () {
           void testAbstractStateDualClassSetup({isPrivate: false}) {
-            final srcContainer = OverReactSrc.abstractState(isPrivate: isPrivate);
-            setUpAndParse(srcContainer.source);
+            final ors = OverReactSrc.abstractState(isPrivate: isPrivate);
+            setUpAndParse(ors.source);
 
             expect(declarations.abstractState, hasLength(1));
-            expect(declarations.abstractState[0].node?.name?.name, '_\$${srcContainer.baseName}State');
+            expect(declarations.abstractState[0].node?.name?.name, '_\$${ors.baseName}State');
             expect(declarations.abstractState[0].meta, new TypeMatcher<annotations.AbstractState>());
           }
           test('with public consumable class', () {

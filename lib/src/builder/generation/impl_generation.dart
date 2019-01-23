@@ -155,6 +155,8 @@ class ImplGenerator {
         final consumableStateName = '${declarations.hasPrivateStateClass ? privatePrefix : ''}$publicStateName';
         final stateImplName = _propsImplClassNameFromConsumerClassName(stateName);
         final stateAccessorsMixinName = _accessorsMixinNameFromConsumerName(stateName);
+        final typeParamsOnClass = declarations.state.node.typeParameters?.toSource() ?? '';
+        final typeParamsOnSuper = removeBoundsFromTypeParameters(declarations.state.node.typeParameters);
 
         outputContentsBuffer.write(_generateAccessorsMixin(
             AccessorType.state, stateAccessorsMixinName, declarations.state,
@@ -166,8 +168,8 @@ class ImplGenerator {
           ..writeln('// Concrete state implementation.')
           ..writeln('//')
           ..writeln('// Implements constructor and backing map.')
-          ..writeln('class $stateImplName extends $stateName with $stateAccessorsMixinName implements $consumableStateName {')
-          ..writeln('  $stateImplName(Map backingMap) : this._state = ({}) {')
+          ..writeln('class $stateImplName$typeParamsOnClass extends $stateName$typeParamsOnSuper with $stateAccessorsMixinName$typeParamsOnSuper implements $consumableStateName$typeParamsOnSuper {')
+          ..writeln('  $stateImplName(Map backingMap) : this._state = {} {')
           ..writeln('    this._state = backingMap ?? ({});')
           ..writeln('  }')
           ..writeln()
@@ -175,8 +177,6 @@ class ImplGenerator {
           ..writeln('  @override')
           ..writeln('  Map get state => _state;')
           ..writeln('  Map _state;')
-          ..writeln()
-          // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
           ..writeln()
           ..writeln('  /// Let [UiState] internals know that this class has been generated.')
           ..writeln('  @override')
