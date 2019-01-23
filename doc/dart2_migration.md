@@ -266,7 +266,7 @@ If you don't need to support a backwards-compatible migration path and just want
 to get from Dart 1 to Dart 2 as quickly as possible, you have two options:
 
 1. Update your code manually using the above diffs as a guide.
-2. Use our [`migrate_dart1_to_dart2` codemod script][orcm-dart1-to-dart2]
+2. Use our [`over_react_codemod:dart2_upgrade` script][orcm]
    to automate the migration.
 
 If, however, you do need to migrate your `over_react` code from Dart 1 to Dart 2
@@ -275,7 +275,7 @@ approach:
 
 ### 1. Migrate to the Forwards- and Backwards-compatible Setup
 
-Use our [`migrate_dart1_to_dart1_and_dart2` codemod script][orcm-dart1-to-dart1-and-dart2]
+Use our [`over_react_codemod:dart2_upgrade --backwards-compat` script][orcm]
 to update your code to a state that is compatible with both the Dart 1
 transformer and the Dart 2 builder. _In this state, you will notice some extra
 boilerplate and comments. This will be cleaned up when the transition to Dart 2
@@ -283,7 +283,7 @@ is completed and Dart 1 compatibility is no longer desired/needed, but is
 necessary during the transition._
 
 If the transition may take a while, you can use that same codemod script as a CI
-check to prevent regressions – just add the `--check` flag.
+check to prevent regressions – just add the `--fail-on-changes` flag.
 
 While in this state, you should also update your package's `pubspec.yaml` to
 include both the 1.x and 2.x versions of the Dart SDK:
@@ -302,10 +302,9 @@ does.
 
 ### 2. Migrate to the Dart 2-only Setup
 
-Use our [`migrate_dart1_and_dart2_to_dart2` codemod script][orcm-dart1-and-dart2-to-dart2]
-to update your code to a state that is only compatible with Dart 2. This mostly
-involves cleaning up the extra boilerplate that was required during the
-transition.
+Use our [`over_react_codemod:dart2_upgrade` script][orcm] to update your code to
+a state that is only compatible with Dart 2. This mostly involves cleaning up
+the extra boilerplate that was required during the transition.
 
 ## Temporary Transitional Boilerplate
 
@@ -437,7 +436,5 @@ in `BarPropsMixin` in this example), because the mixin definition will be
 renamed to `_$BarPropsMixin` and the builder will handle generating
 `BarPropsMixin`.
 
-[orcm-dart1-to-dart2]: https://github.com/Workiva/over_react_codemod
-[orcm-dart1-to-dart1-and-dart2]: https://github.com/Workiva/over_react_codemod
-[orcm-dart1-and-dart2-to-dart2]: https://github.com/Workiva/over_react_codemod
+[orcm]: https://github.com/Workiva/over_react_codemod
 [transformers-to-builders]: https://github.com/dart-lang/build/blob/master/docs/from_barback_transformer.md
