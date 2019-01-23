@@ -32,9 +32,9 @@ Uri idToPackageUri(AssetId id) {
 ///     '<T, U>'
 String removeBoundsFromTypeParameters(TypeParameterList typeParameters) {
   return typeParameters != null ? (StringBuffer()
-    ..write('<')..write(
+    ..write('${typeParameters.leftBracket}')..write(
         typeParameters.typeParameters.map((t) => t.name.name).join(
-            ', '))..write('>'))
+            ', '))..write('${typeParameters.rightBracket}'))
       .toString()
       : '';
 }

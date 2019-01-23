@@ -52,7 +52,6 @@ class ImplGenerator {
 
   Logger logger;
   StringBuffer outputContentsBuffer = new StringBuffer();
-//  bool shouldFixDdcAbstractAccessors = false;
 
   SourceFile sourceFile;
 
@@ -110,7 +109,6 @@ class ImplGenerator {
         ..writeln('// React component factory implementation.')
         ..writeln('//')
         ..writeln('// Registers component implementation and links type meta to builder factory.')
-        // TODO: verify that the component class has a default constructor?
         ..writeln('final $generatedComponentFactoryName = registerComponent(() => new $componentClassImplMixinName(),')
         ..writeln('    builderFactory: $factoryName,')
         ..writeln('    componentClass: $componentClassName,')
@@ -678,67 +676,6 @@ class ImplGenerator {
         ..writeln('}')
         ..writeln())
         .toString();
-  }
-
-  /// Apply a workaround for an issue where, in the DDC, abstract getter or setter overrides declared in a class clobber
-  /// the inherited concrete implementations. <https://github.com/dart-lang/sdk/issues/29914>
-  ///
-  /// Fixes the issue by generating corresponding abstract getters/setters to complete the pair
-  /// for accessors with the `@override` annotation.
-  /// NOTE: This is fixed as of dart 2.1.0
-  void fixDdcAbstractAccessors(
-    AccessorType accessorType,
-    NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap,
-  ) {
-    var candidateAccessors = new List<MethodDeclaration>.from(
-        typedMap.node.members.where((member) =>
-            member is MethodDeclaration &&
-            (member.isGetter || member.isSetter) &&
-            !member.isSynthetic &&
-            !member.isStatic &&
-            member.metadata.any((meta) => meta.name.name == 'override')
-        )
-    );
-
-    for (var accessor in candidateAccessors) {
-      // Non-abstract accessors don't exhibit this issue.
-      if (!accessor.isAbstract) return;
-
-      var name = accessor.name.name;
-
-      // Don't generate for `Map get props;`/`Map get state;` in mixins
-      if (accessorType == AccessorType.props && name == 'props') continue;
-      if (accessorType == AccessorType.state && name == 'state') continue;
-
-      if (candidateAccessors.any((other) => other != accessor && other.name.name == name)) {
-        // Don't generate when both the getter and the setter are declared.
-        continue;
-      }
-
-      /// Warning: tests rely on this comment as a means of determining whether this fix was applied.
-      ///
-      /// DO NOT modify or remove without updating tests
-      const String generatedComment = ' /* fixDdcAbstractAccessors workaround: */ ';
-
-      if (accessor.isGetter) {
-        var type = accessor.returnType?.toSource();
-        var typeString = type == null ? '' : '$type ';
-
-//        transformedFile?.insert(sourceFile?.location(accessor.end),
-//            // use `covariant` here to be extra safe in this typing
-//            '${generatedComment}set $name(covariant ${typeString}value);');
-      } else {
-        var parameter = accessor.parameters.parameters.single;
-        var type = parameter is SimpleFormalParameter
-            ? parameter.type?.toSource()
-            // This `null` case is mainly for [FunctionTypedFormalParameter].
-            : null;
-        var typeString = type == null ? '' : '$type ';
-
-//        transformedFile?.insert(sourceFile?.location(accessor.end),
-//            '$generatedComment${typeString}get $name;');
-      }
-    }
   }
 }
 
