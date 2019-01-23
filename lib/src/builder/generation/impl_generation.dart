@@ -156,8 +156,11 @@ class ImplGenerator {
         final stateImplName = _propsImplClassNameFromConsumerClassName(stateName);
         final stateAccessorsMixinName = _accessorsMixinNameFromConsumerName(stateName);
 
-        outputContentsBuffer.write(_generateAccessorsMixin(AccessorType.state, stateAccessorsMixinName, declarations.state, stateName));
-        outputContentsBuffer.write(_generateMetaConstant(AccessorType.state, declarations.state));
+        outputContentsBuffer.write(_generateAccessorsMixin(
+            AccessorType.state, stateAccessorsMixinName, declarations.state,
+            stateName, typeParameters: declarations.state.node.typeParameters));
+        outputContentsBuffer.write(
+            _generateMetaConstant(AccessorType.state, declarations.state));
 
         outputContentsBuffer
           ..writeln('// Concrete state implementation.')
@@ -246,7 +249,7 @@ class ImplGenerator {
       var className = _classNameFromNode(abstractPropsClass);
       outputContentsBuffer.write(_generateAccessorsMixin(
           AccessorType.props, _accessorsMixinNameFromConsumerName(className), abstractPropsClass,
-          className));
+          className, typeParameters: abstractPropsClass.node.typeParameters));
       outputContentsBuffer.write(_generateMetaConstant(
           AccessorType.props, abstractPropsClass));
     });
@@ -255,7 +258,7 @@ class ImplGenerator {
       var className = _classNameFromNode(abstractStateClass);
       outputContentsBuffer.write(_generateAccessorsMixin(
           AccessorType.state, _accessorsMixinNameFromConsumerName(className), abstractStateClass,
-          className));
+          className, typeParameters: abstractStateClass.node.typeParameters));
       outputContentsBuffer.write(_generateMetaConstant(AccessorType.state, abstractStateClass));
     });
   }

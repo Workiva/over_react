@@ -103,46 +103,129 @@ main() {
         });
       });
 
-      group('for props mixins', () {
-        test('without type parameters', () {
-          generateFromSource(OverReactSrc.propsMixin().source);
-          expect(implGenerator.outputContentsBuffer.toString(), contains('abstract class \$FooPropsMixin'));
-        });
+      group('and includes concrete accessors class for ', () {
+        void testAccessorGeneration(String testName, OverReactSrc srcContainer) {
+          group(testName, () {
+            bool isProps;
+            String className;
+            setUp(() {
+              generateFromSource(srcContainer.source);
+              isProps = srcContainer.isProps(srcContainer.annotation);
+              className = isProps ? srcContainer.propsClassName : srcContainer.stateClassName;
+            });
 
-        test('with type parameters', () {
-          generateFromSource(OverReactSrc.propsMixin(typeParameters: true).source);
-          expect(implGenerator.outputContentsBuffer.toString(), contains('abstract class \$FooPropsMixin<T extends Iterable, U> implements FooPropsMixin<T, U> {'));
-        });
-      });
+            test('with proper accessors class declaration, retaining type parameters', () {
+              expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  'abstract class _\$${className}AccessorsMixin${srcContainer.typeParamSrc} '
+                      'implements _\$$className${srcContainer.typeParamSrcWithoutBounds} {'));
+            });
 
-      group('and includes concrete accessors class for state mixins', () {
-        test('without type parameters', () {
-          generateFromSource(OverReactSrc.stateMixin().source);
-          expect(implGenerator.outputContentsBuffer.toString(), contains('abstract class \$FooStateMixin'));
-        });
+            test('with abstract props/state getter', () {
+              expect(implGenerator.outputContentsBuffer.toString(), contains('@override  Map get ${isProps ? 'props' : 'state'};'));
+            });
 
-        test('with type parameters', () {
-          generateFromSource(OverReactSrc.stateMixin(typeParameters: true).source);
-          expect(implGenerator.outputContentsBuffer.toString(), contains('abstract class \$FooStateMixin<T extends Iterable, U> implements FooStateMixin<T, U> {'));
-        });
-      });
+            group('with concrete implementations', () {
+              test('', () {
+                expect(implGenerator.outputContentsBuffer.toString(), contains('  String get someField => ${isProps ? 'props' : 'state'}[_\$key__someField___\$$className];\n'));
+                expect(implGenerator.outputContentsBuffer.toString(), contains('  set someField(String value) => ${isProps ? 'props' : 'state'}[_\$key__someField___\$$className] = value'));
+              });
 
-      group('and includes concrete accessors class for abstract props classes', () {
-        test('without type parameters', () {
-          final sourceContainer = OverReactSrc.abstractProps();
-          generateFromSource(sourceContainer.source);
-          expect(implGenerator.outputContentsBuffer.toString(), contains(
-              'abstract class _\$${sourceContainer
-                  .propsClassName}AccessorsMixin implements _\$${sourceContainer.propsClassName} {'));
-        });
+              test('containing links to source', () {
+                expect(implGenerator.outputContentsBuffer.toString(), contains('  /// Go to [_\$$className.someField] to see the source code for this prop\n'));
+              });
 
-        test('with type parameters', () {
-          final sourceContainer = OverReactSrc.abstractProps();
-          generateFromSource(sourceContainer.source);
-          expect(implGenerator.outputContentsBuffer.toString(), contains(
-              'abstract class _\$${sourceContainer
-                  .propsClassName}AccessorsMixin${sourceContainer.typeParamSrc} implements _\$${sourceContainer.propsClassName}${sourceContainer.typeParamSrcWithoutBounds} {'));
-        });
+              test('that carry over annotations', () {
+                expect(implGenerator.outputContentsBuffer.toString(), contains(
+                    '  @deprecated()\n'
+                    '  String get someField => '));
+                expect(implGenerator.outputContentsBuffer.toString(), contains(
+                    '  @deprecated()\n'
+                    '  set someField(String value) => '));
+              });
+
+              test('but does not create implementations for non-fields', () {
+                expect(implGenerator.outputContentsBuffer.toString(), isNot(contains('abstractGetter')));
+              });
+            });
+          });
+        }
+
+        void testAccessorGenerationForMixins(String testName, OverReactSrc srcContainer) {
+          group(testName, () {
+            bool isProps;
+            String className;
+            setUp(() {
+              generateFromSource(srcContainer.source);
+              isProps = srcContainer.isProps(srcContainer.annotation);
+              className = isProps ? srcContainer.propsMixinClassName : srcContainer.stateMixinClassName;
+            });
+
+            test('with proper accessors class declaration, retaining type parameters', () {
+              expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  'abstract class \$$className${srcContainer.typeParamSrc} '
+                      'implements $className${srcContainer.typeParamSrcWithoutBounds} {'));
+            });
+
+            test('with abstract props/state getter', () {
+              expect(implGenerator.outputContentsBuffer.toString(), contains('@override  Map get ${isProps ? 'props' : 'state'};'));
+            });
+
+            group('with concrete implementations', () {
+              test('', () {
+                expect(implGenerator.outputContentsBuffer.toString(), contains('  String get someField => ${isProps ? 'props' : 'state'}[_\$key__someField__$className];\n'));
+                expect(implGenerator.outputContentsBuffer.toString(), contains('  set someField(String value) => ${isProps ? 'props' : 'state'}[_\$key__someField__$className] = value'));
+              });
+
+              test('containing links to source', () {
+                expect(implGenerator.outputContentsBuffer.toString(), contains('  /// Go to [$className.someField] to see the source code for this prop\n'));
+              });
+
+              test('that carry over annotations', () {
+                expect(implGenerator.outputContentsBuffer.toString(), contains(
+                    '  @deprecated()\n'
+                    '  String get someField => '));
+                expect(implGenerator.outputContentsBuffer.toString(), contains(
+                    '  @deprecated()\n'
+                    '  set someField(String value) => '));
+              });
+
+              test('but does not create implementations for non-fields', () {
+                expect(implGenerator.outputContentsBuffer.toString(), isNot(contains('abstractGetter')));
+              });
+            });
+          });
+        }
+
+        final body = '\n@deprecated()\nString someField; \nString get abstractGetter;\n';
+        testAccessorGeneration('abstract props classes which are public without type parameters', OverReactSrc.abstractProps(body: body));
+        testAccessorGeneration('abstract props classes which are private without type parameters', OverReactSrc.abstractProps(body: body, isPrivate: true));
+        testAccessorGeneration('abstract props classes which are public with type parameters', OverReactSrc.abstractProps(body: body, typeParameters: true));
+        testAccessorGeneration('abstract props classes which are private with type parameters', OverReactSrc.abstractProps(body: body, isPrivate: true, typeParameters: true));
+
+        testAccessorGeneration('abstract state classes which are public without type parameters', OverReactSrc.abstractState(body: body));
+        testAccessorGeneration('abstract state classes which are private without type parameters', OverReactSrc.abstractState(body: body, isPrivate: true));
+        testAccessorGeneration('abstract state classes which are public with type parameters', OverReactSrc.abstractState(body: body, typeParameters: true));
+        testAccessorGeneration('abstract state classes which are private with type parameters', OverReactSrc.abstractState(body: body, isPrivate: true, typeParameters: true));
+
+        testAccessorGeneration('props classes which are public without type parameters', OverReactSrc.props(body: body));
+        testAccessorGeneration('props classes which are private without type parameters', OverReactSrc.props(body: body, isPrivate: true));
+        testAccessorGeneration('props classes which are public with type parameters', OverReactSrc.props(body: body, typeParameters: true));
+        testAccessorGeneration('props classes which are private with type parameters', OverReactSrc.props(body: body, isPrivate: true, typeParameters: true));
+
+        testAccessorGeneration('state classes which are public without type parameters', OverReactSrc.state(body: body));
+        testAccessorGeneration('state classes which are private without type parameters', OverReactSrc.state(body: body, isPrivate: true));
+        testAccessorGeneration('state classes which are public with type parameters', OverReactSrc.state(body: body, typeParameters: true));
+        testAccessorGeneration('state classes which are private with type parameters', OverReactSrc.state(body: body, isPrivate: true, typeParameters: true));
+
+        testAccessorGenerationForMixins('props mixins which are public without type parameters', OverReactSrc.propsMixin(body: body));
+        testAccessorGenerationForMixins('props mixins which are private without type parameters', OverReactSrc.propsMixin(body: body, isPrivate: true));
+        testAccessorGenerationForMixins('props mixins which are public with type parameters', OverReactSrc.propsMixin(body: body, typeParameters: true));
+        testAccessorGenerationForMixins('props mixins which are private with type parameters', OverReactSrc.propsMixin(body: body, isPrivate: true, typeParameters: true));
+
+        testAccessorGenerationForMixins('state mixins which are public without type parameters', OverReactSrc.stateMixin(body: body));
+        testAccessorGenerationForMixins('state mixins which are private without type parameters', OverReactSrc.stateMixin(body: body, isPrivate: true));
+        testAccessorGenerationForMixins('state mixins which are public with type parameters', OverReactSrc.stateMixin(body: body, typeParameters: true));
+        testAccessorGenerationForMixins('state mixins which are private with type parameters', OverReactSrc.stateMixin(body: body, isPrivate: true, typeParameters: true));
       });
 
       test('for abstract state classes', () {
@@ -175,21 +258,21 @@ main() {
       });
 
       group('static meta field', () {
-        void testStaticMetaField(String testName, OverReactSrc sourceContainer) {
+        void testStaticMetaField(String testName, OverReactSrc srcContainer) {
           test(testName, () {
-            setUpAndGenerate(sourceContainer.source);
+            setUpAndGenerate(srcContainer.source);
             final accessorsClassName = testName.contains('mixin')
-                ? '\$${sourceContainer.propsOrStateOrMixinClassName}'
-                : '_\$${sourceContainer
+                ? '\$${srcContainer.propsOrStateOrMixinClassName}'
+                : '_\$${srcContainer
                 .propsOrStateOrMixinClassName}AccessorsMixin';
-            final propsOrStateOrMixinClassName = sourceContainer.propsOrStateOrMixinClassName;
+            final propsOrStateOrMixinClassName = srcContainer.propsOrStateOrMixinClassName;
             final annotatedPropsOrStateOrMixinClassName = testName.contains('mixin') ? propsOrStateOrMixinClassName : '_\$$propsOrStateOrMixinClassName';
             final expectedAccessorsMixinClass = 'abstract class $accessorsClassName implements $annotatedPropsOrStateOrMixinClassName';
-            final metaStructName = sourceContainer.metaStructName(sourceContainer.annotation);
+            final metaStructName = srcContainer.metaStructName(srcContainer.annotation);
             final expectedMetaForInstance = (new StringBuffer()
               ..writeln('const $metaStructName _\$metaFor$propsOrStateOrMixinClassName = const $metaStructName(')
-              ..writeln('  fields: $accessorsClassName.${sourceContainer.constantListName},')
-              ..writeln('  keys: $accessorsClassName.${sourceContainer.keyListName},')
+              ..writeln('  fields: $accessorsClassName.${srcContainer.constantListName},')
+              ..writeln('  keys: $accessorsClassName.${srcContainer.keyListName},')
               ..writeln(');')
             ).toString();
 
