@@ -28,9 +28,6 @@ import './util.dart';
 
 main() {
   group('ImplGenerator', () {
-    var validPropsSrc = PropsOrStateSrc(AnnotationType.props, '', 'FooProps', null).src;
-    var validStateSrc = PropsOrStateSrc(AnnotationType.state, '', 'FooState', null).src;
-
     ImplGenerator implGenerator;
 
     MockLogger logger;
@@ -52,11 +49,10 @@ main() {
       implGenerator = new ImplGenerator(logger, sourceFile);
     }
 
-    void setUpAndGenerate(String source, {bool shouldFixDdcAbstractAccessors: false}) {
+    void setUpAndGenerate(String source) {
       setUpAndParse(source);
 
       implGenerator = new ImplGenerator(logger, sourceFile);
-//        ..shouldFixDdcAbstractAccessors = shouldFixDdcAbstractAccessors;
       implGenerator.generate(declarations);
     }
 
@@ -75,381 +71,146 @@ main() {
       }, returnsNormally, reason: 'transformed source should parse without errors:\n');
     }
 
+    void generateFromSource(String source) {
+      setUpAndParse(source);
+      implGenerator.generate(declarations);
+    }
+
     group('generates an implementation that parses correctly', () {
-      void generateFromSource(String source) {
-        setUpAndParse(source);
-
-        implGenerator.generate(declarations);
-      }
-
       tearDown(() {
         // Verify that there were no errors other than the ones we explicitly verified.
         verifyNoErrorLogs();
-
         verifyImplGenerationIsValid();
       });
 
       test('stateful components', () {
-        generateFromSource(factorySrc + validPropsSrc + validStateSrc + componentSrc);
+        generateFromSource(OverReactSrc.state().source);
       });
 
-      group('component', () {
-        test('without extends/with/implements clause', () {
-          generateFromSource(factorySrc + validPropsSrc + componentSrc);
+      test('component', () {
+        generateFromSource(OverReactSrc.props().source);
+      });
+
+      group('that subtypes another component, referencing the component class via', () {
+        test('a simple identifier', () {
+          generateFromSource(OverReactSrc.props(componentAnnotationArg: 'subtypeOf: BarComponent').source);
+          expect(implGenerator.outputContentsBuffer.toString(), contains('parentType: \$BarComponentFactory'));
         });
 
-        test('with extends clause', () {
-          generateFromSource(factorySrc + validPropsSrc + '''
-            @Component()
-            class FooComponent extends Bar {
-              render() => null;
-            }
-          ''');
-        });
-
-        test('with extends/with clauses', () {
-          generateFromSource(factorySrc + validPropsSrc + '''
-            @Component()
-            class FooComponent extends Bar with Baz {
-              render() => null;
-            }
-          ''');
-        });
-
-        test('with extends/with clauses (multiple mixins)', () {
-          generateFromSource(factorySrc + validPropsSrc + '''
-            @Component()
-            class FooComponent extends Bar with Baz, Qux {
-              render() => null;
-            }
-          ''');
-        });
-
-        test('with implements clause', () {
-          generateFromSource(factorySrc + validPropsSrc + '''
-            @Component()
-            class FooComponent implements Quux {
-              render() => null;
-            }
-          ''');
-        });
-
-        test('with extends/with/implements clauses', () {
-          generateFromSource(factorySrc + validPropsSrc + '''
-            @Component()
-            class FooComponent extends Bar with Baz, Qux implements Quux {
-              render() => null;
-            }
-          ''');
-        });
-
-        group('that subtypes another component, referencing the component class via', () {
-          test('a simple identifier', () {
-            generateFromSource(factorySrc + validPropsSrc + '''
-              @Component(subtypeOf: BarComponent)
-              class FooComponent {}
-            ''');
-
-            expect(implGenerator.outputContentsBuffer.toString(), contains('parentType: \$BarComponentFactory'));
-          });
-
-          test('a prefixed identifier', () {
-            generateFromSource(factorySrc + validPropsSrc + '''
-              @Component(subtypeOf: baz.BarComponent)
-              class FooComponent {}
-            ''');
-
-            expect(implGenerator.outputContentsBuffer.toString(), contains('parentType: baz.\$BarComponentFactory'));
-          });
+        test('a prefixed identifier', () {
+          generateFromSource(OverReactSrc.props(componentAnnotationArg: 'subtypeOf: baz.BarComponent').source);
+          expect(implGenerator.outputContentsBuffer.toString(), contains('parentType: baz.\$BarComponentFactory'));
         });
       });
 
       group('for props mixins', () {
         test('without type parameters', () {
-          generateFromSource('''
-            @PropsMixin() 
-            class FooPropsMixin {
-              Map get props;
-
-              var bar;
-              var baz;
-            }
-          ''');
-
+          generateFromSource(OverReactSrc.propsMixin().source);
           expect(implGenerator.outputContentsBuffer.toString(), contains('abstract class \$FooPropsMixin'));
         });
 
         test('with type parameters', () {
-          generateFromSource('''
-            @PropsMixin() 
-            class FooPropsMixin<T extends Iterable, U> {
-              Map get props;
-
-              List<T> bar;
-              U baz;
-            }
-          ''');
-
+          generateFromSource(OverReactSrc.propsMixin(typeParameters: true).source);
           expect(implGenerator.outputContentsBuffer.toString(), contains('abstract class \$FooPropsMixin<T extends Iterable, U> implements FooPropsMixin<T, U> {'));
         });
       });
 
-      group('for state mixins', () {
+      group('and includes concrete accessors class for state mixins', () {
         test('without type parameters', () {
-          generateFromSource('''
-            @StateMixin() class FooStateMixin {
-              Map get state;
-
-              var bar;
-              var baz;
-            }
-          ''');
-
+          generateFromSource(OverReactSrc.stateMixin().source);
           expect(implGenerator.outputContentsBuffer.toString(), contains('abstract class \$FooStateMixin'));
         });
 
         test('with type parameters', () {
-          generateFromSource('''
-            @StateMixin() class FooStateMixin<T extends Iterable<T>, U> {
-              Map get state;
-
-              List<T> bar;
-              U baz;
-            }
-          ''');
-
-          expect(implGenerator.outputContentsBuffer.toString(), contains('abstract class \$FooStateMixin<T extends Iterable<T>, U> implements FooStateMixin<T, U> {'));
+          generateFromSource(OverReactSrc.stateMixin(typeParameters: true).source);
+          expect(implGenerator.outputContentsBuffer.toString(), contains('abstract class \$FooStateMixin<T extends Iterable, U> implements FooStateMixin<T, U> {'));
         });
       });
 
-      test('abstract props classes', () {
-        generateFromSource(PropsOrStateSrc(AnnotationType.abstractProps, 'var bar;\nvar baz;', 'AbstractFooProps', null).src);
+      group('and includes concrete accessors class for abstract props classes', () {
+        test('without type parameters', () {
+          final sourceContainer = OverReactSrc.abstractProps();
+          generateFromSource(sourceContainer.source);
+          expect(implGenerator.outputContentsBuffer.toString(), contains(
+              'abstract class _\$${sourceContainer
+                  .propsClassName}AccessorsMixin implements _\$${sourceContainer.propsClassName} {'));
+        });
+
+        test('with type parameters', () {
+          final sourceContainer = OverReactSrc.abstractProps();
+          generateFromSource(sourceContainer.source);
+          expect(implGenerator.outputContentsBuffer.toString(), contains(
+              'abstract class _\$${sourceContainer
+                  .propsClassName}AccessorsMixin${sourceContainer.typeParamSrc} implements _\$${sourceContainer.propsClassName}${sourceContainer.typeParamSrcWithoutBounds} {'));
+        });
       });
 
-      test('abstract state classes', () {
-        generateFromSource(PropsOrStateSrc(AnnotationType.abstractState, 'var bar;\nvar baz;', 'AbstractFooState', null).src);
+      test('for abstract state classes', () {
+        generateFromSource(OverReactSrc.abstractState().source);
       });
 
-      test('covariant keyword', () {
-        generateFromSource(PropsOrStateSrc(AnnotationType.abstractProps, 'covariant String foo;', 'AbstractFooProps', null).src);
+      test('for covariant keyword', () {
+        generateFromSource(OverReactSrc.abstractProps(body: 'covariant String foo;').source);
         expect(implGenerator.outputContentsBuffer.toString(), contains('String get foo => props[_\$key__foo___\$AbstractFooProps];'));
         expect(implGenerator.outputContentsBuffer.toString(), contains('set foo(covariant String value) => props[_\$key__foo___\$AbstractFooProps] = value;'));
       });
 
       group('accessors', () {
         test('that are absent', () {
-          generateFromSource(PropsOrStateSrc(AnnotationType.abstractProps, '', 'AbstractFooProps', null).src);
+          generateFromSource(OverReactSrc.abstractProps().source);
         });
 
         test('with doc comments and annotations', () {
           var body = '''/// Doc comment
               @Annotation()
               var bar;''';
-          generateFromSource(PropsOrStateSrc(AnnotationType.abstractProps, body, 'AbstractFooProps', null).src);
+          generateFromSource(OverReactSrc.abstractProps(body: body).source);
         });
 
         group('defined using comma-separated variables', () {
           test('on the same line', () {
-            generateFromSource(PropsOrStateSrc(AnnotationType.abstractProps, 'var bar, baz, qux;', 'AbstractFooProps', null).src);
+            generateFromSource(OverReactSrc.abstractProps(body: 'var bar, baz, qux;').source);
           });
         });
-
-        // TODO: Do we need these abstract accessors tests?
-//        group('shouldFixDdcAbstractAccessors', () {
-//          /// The comment always inserted by this patching logic.
-//          const String abstractAccessorsPatchComment = '/* fixDdcAbstractAccessors workaround: */';
-//
-//          group('does not patch abstract getters corresponding to the backing map for', () {
-//            test('props classes', () {
-//              setUpAndGenerate('''
-//                @PropsMixin() class FooPropsMixin {
-//                  // override isn't typically used here, but it's necessary to trigger the patching logic
-//                  @override
-//                  Map get props;
-//
-//                  var bar;
-//                  var baz;
-//                }
-//              ''', shouldFixDdcAbstractAccessors: true);
-//
-//              expect(transformedFile.getTransformedText(), isNot(contains(abstractAccessorsPatchComment)));
-//            });
-//
-//            test('state classes', () {
-//              setUpAndGenerate('''
-//                @StateMixin() class FooStateMixin {
-//                  // override isn't typically used here, but it's necessary to trigger the patching logic
-//                  @override
-//                  Map get state;
-//                }
-//              ''', shouldFixDdcAbstractAccessors: true);
-//
-//              expect(transformedFile.getTransformedText(), isNot(contains(abstractAccessorsPatchComment)));
-//            });
-//          });
-//
-//          group('patches abstract accessors', () {
-//            group('getters', () {
-//              test('with types', () {
-//                setUpAndGenerate('''
-//                  @PropsMixin() abstract class FooPropsMixin {
-//                    Map get props;
-//
-//                    @override
-//                    Iterable get bar;
-//                  }
-//                ''', shouldFixDdcAbstractAccessors: true);
-//
-//                expect(transformedFile.getTransformedText(), contains(
-//                    'Iterable get bar; $abstractAccessorsPatchComment set bar(covariant Iterable value);'
-//                ));
-//              });
-//
-//              test('without types', () {
-//                setUpAndGenerate('''
-//                  @PropsMixin() abstract class FooPropsMixin {
-//                    Map get props;
-//
-//                    @override
-//                    get bar;
-//                  }
-//                ''', shouldFixDdcAbstractAccessors: true);
-//
-//                expect(transformedFile.getTransformedText(), contains(
-//                    'get bar; $abstractAccessorsPatchComment set bar(covariant value);'
-//                ));
-//              });
-//            });
-//
-//            group('setters', () {
-//              test('with types', () {
-//                setUpAndGenerate('''
-//                  @PropsMixin() abstract class FooPropsMixin {
-//                    Map get props;
-//
-//                    @override
-//                    set bar(Iterable value);
-//                  }
-//                ''', shouldFixDdcAbstractAccessors: true);
-//
-//                expect(transformedFile.getTransformedText(), contains(
-//                    'set bar(Iterable value); $abstractAccessorsPatchComment Iterable get bar;'
-//                ));
-//              });
-//
-//              test('without types', () {
-//                setUpAndGenerate('''
-//                  @PropsMixin() abstract class FooPropsMixin {
-//                    Map get props;
-//
-//                    @override
-//                    set bar(value);
-//                  }
-//                ''', shouldFixDdcAbstractAccessors: true);
-//
-//                expect(transformedFile.getTransformedText(), contains(
-//                    'set bar(value); $abstractAccessorsPatchComment get bar;'
-//                ));
-//              });
-//            });
-//
-//            group('in all generated accessor classes', () {
-//              const types = const <String, String>{
-//                'props mixin': '''
-//                    @PropsMixin() abstract class FooPropsMixin {
-//                      Map get props;
-//                      @override get bar;
-//                    }
-//                ''',
-//                'state mixin': '''
-//                    @StateMixin() abstract class FooStateMixin {
-//                      Map get state;
-//                      @override get bar;
-//                    }
-//                ''',
-//                'props class': '''
-//                    @Factory() UiFactory<FooProps> Foo;
-//                    @Props() class FooProps {
-//                      @override get bar;
-//                    }
-//                    @Component() class FooComponent {}
-//                ''',
-//                'state class': '''
-//                    @Factory() UiFactory<FooProps> Foo;
-//                    @Props() class FooProps {}
-//                    @State() class FooState {
-//                      @override get bar;
-//                    }
-//                    @Component() class FooComponent {}
-//                ''',
-//                'abstract props class': '''
-//                    @AbstractProps() abstract class AbstractFooProps {
-//                      @override get bar;
-//                    }
-//                ''',
-//                'abstract state class': '''
-//                    @AbstractState() abstract class AbstractFooState {
-//                      @override get bar;
-//                    }
-//                ''',
-//              };
-//
-//              types.forEach((String name, String source) {
-//                test(name, () {
-//                  setUpAndGenerate(source, shouldFixDdcAbstractAccessors: true);
-//                  expect(transformedFile.getTransformedText(), contains(abstractAccessorsPatchComment));
-//                });
-//              });
-//
-//              group('unless shouldFixDdcAbstractAccessors is false', () {
-//                types.forEach((String name, String source) {
-//                  test(name, () {
-//                    setUpAndGenerate(source, shouldFixDdcAbstractAccessors: false);
-//                    expect(transformedFile.getTransformedText(), isNot(contains(abstractAccessorsPatchComment)));
-//                  });
-//                });
-//              });
-//            });
-//          });
-//        });
       });
 
-//      group('static meta field', () {
-//        void testStaticMetaField(String testName, StaticMetaTest smt) {
-//          test(testName, () {
-//            setUpAndGenerate(smt.source);
-//
-//            final metaClassName = '_\$${smt.className}Meta';
-//            final expectedMetaClass = 'class $metaClassName {';
-//            final expectedMetaForInstance = (new StringBuffer()
-//              ..writeln('const ${smt.metaStructName} \$metaFor${smt.className} = const ${smt.metaStructName}(')
-//              ..writeln('  fields: $metaClassName.${smt.constantListName},')
-//              ..writeln('  keys: $metaClassName.${smt.keyListName},')
-//              ..writeln(');')
-//            ).toString();
-//
-//            expect(transformedFile.getTransformedText(), contains(expectedMetaClass));
-//            expect(transformedFile.getTransformedText(), contains(expectedMetaForInstance));
-//          });
-//        }
-//
-//        testStaticMetaField('props class', StaticMetaTest.props);
-//        testStaticMetaField('state class', StaticMetaTest.state);
-//        testStaticMetaField('props mixin', StaticMetaTest.propsMixin);
-//        testStaticMetaField('state mixin', StaticMetaTest.stateMixin);
-//        testStaticMetaField('abstract props', StaticMetaTest.abstractProps);
-//        testStaticMetaField('abstract state', StaticMetaTest.abstractState);
-//      });
+      group('static meta field', () {
+        void testStaticMetaField(String testName, OverReactSrc sourceContainer) {
+          test(testName, () {
+            setUpAndGenerate(sourceContainer.source);
+            final accessorsClassName = testName.contains('mixin')
+                ? '\$${sourceContainer.propsOrStateOrMixinClassName}'
+                : '_\$${sourceContainer
+                .propsOrStateOrMixinClassName}AccessorsMixin';
+            final propsOrStateOrMixinClassName = sourceContainer.propsOrStateOrMixinClassName;
+            final annotatedPropsOrStateOrMixinClassName = testName.contains('mixin') ? propsOrStateOrMixinClassName : '_\$$propsOrStateOrMixinClassName';
+            final expectedAccessorsMixinClass = 'abstract class $accessorsClassName implements $annotatedPropsOrStateOrMixinClassName';
+            final metaStructName = sourceContainer.metaStructName(sourceContainer.annotation);
+            final expectedMetaForInstance = (new StringBuffer()
+              ..writeln('const $metaStructName _\$metaFor$propsOrStateOrMixinClassName = const $metaStructName(')
+              ..writeln('  fields: $accessorsClassName.${sourceContainer.constantListName},')
+              ..writeln('  keys: $accessorsClassName.${sourceContainer.keyListName},')
+              ..writeln(');')
+            ).toString();
+
+            expect(implGenerator.outputContentsBuffer.toString(), contains(expectedAccessorsMixinClass));
+            expect(implGenerator.outputContentsBuffer.toString(), contains(expectedMetaForInstance));
+          });
+        }
+
+        testStaticMetaField('props class', OverReactSrc.props());
+        testStaticMetaField('state class', OverReactSrc.state());
+        testStaticMetaField('props mixin', OverReactSrc.propsMixin());
+        testStaticMetaField('state mixin', OverReactSrc.stateMixin());
+        testStaticMetaField('abstract props', OverReactSrc.abstractProps());
+        testStaticMetaField('abstract state', OverReactSrc.abstractState());
+      });
     });
 
     group('logs an error when', () {
       group('a component class', () {
         test('subtypes itself', () {
-          setUpAndGenerate(factorySrc + validPropsSrc + '''
-            @Component(subtypeOf: FooComponent)
-            class FooComponent {}
-          ''');
-
+          setUpAndGenerate(OverReactSrc.props(componentAnnotationArg: 'subtypeOf: FooComponent').source);
           verify(logger.severe('A component cannot be a subtype of itself.'));
         });
       });
@@ -587,7 +348,7 @@ main() {
       });
 
       test('accessors are declared as fields with initializers', () {
-        setUpAndGenerate(PropsOrStateSrc(AnnotationType.abstractProps, 'var bar = null;', 'AbstractFooProps', null).src);
+        setUpAndGenerate(OverReactSrc.abstractProps(body: 'var bar = null;').source);
         verify(logger.severe('Fields are stubs for generated setters/getters and should not have initializers.'));
       });
 
@@ -599,7 +360,7 @@ main() {
           var body = '''@Accessor()
               @requiredProp
               var bar;''';
-          setUpAndGenerate(PropsOrStateSrc(AnnotationType.abstractProps, body, 'AbstractFooProps', null).src);
+          setUpAndGenerate(OverReactSrc.abstractProps(body: body).source);
           verify(logger.severe(expectedAccessorErrorMessage));
         });
 
@@ -607,7 +368,7 @@ main() {
           var body = '''@Accessor()
               @nullableRequiredProp
               var bar;''';
-          setUpAndGenerate(PropsOrStateSrc(AnnotationType.abstractProps, body, 'AbstractFooProps', null).src);
+          setUpAndGenerate(OverReactSrc.abstractProps(body: body).source);
           verify(logger.severe(expectedAccessorErrorMessage));
         });
 
@@ -615,7 +376,7 @@ main() {
           var body = '''@requiredProp
               @nullableRequiredProp
               var bar;''';
-          setUpAndGenerate(PropsOrStateSrc(AnnotationType.abstractProps, body, 'AbstractFooProps', null).src);
+          setUpAndGenerate(OverReactSrc.abstractProps(body: body).source);
           verify(logger.severe(expectedAccessorErrorMessage));
         });
       });
@@ -628,24 +389,12 @@ main() {
 
       group('a Component', () {
         test('implements typedPropsFactory', () {
-          setUpAndGenerate(factorySrc + validPropsSrc + '''
-            @Component()
-            class FooComponent {
-              typedPropsFactory(Map backingMap) => {};
-            }
-          ''');
-
+          setUpAndGenerate(OverReactSrc.props(componentBody: 'typedPropsFactory(Map backingMap) => {};').source);
           verify(logger.warning('Components should not add their own implementions of typedPropsFactory or typedStateFactory.'));
         });
 
         test('implements typedStateFactory', () {
-          setUpAndGenerate(factorySrc + validPropsSrc + '''
-            @Component()
-            class FooComponent {
-              typedStateFactory(Map backingMap) => {};
-            }
-          ''');
-
+          setUpAndGenerate(OverReactSrc.props(componentBody: 'typedStateFactory(Map backingMap) => {};').source);
           verify(logger.warning('Components should not add their own implementions of typedPropsFactory or typedStateFactory.'));
         });
       });
@@ -658,77 +407,18 @@ main() {
         test('with doc comments', () {
           var body = '''/// Doc comment
               var bar, baz;''';
-          setUpAndGenerate(PropsOrStateSrc(AnnotationType.abstractProps, body, 'AbstractFooProps', null).src);
+          setUpAndGenerate(OverReactSrc.abstractProps(body: body).source);
           verify(logger.warning(expectedCommaSeparatedWarning));
         });
 
         test('with annotations', () {
           var body = '''@Annotation()
             var bar, baz;''';
-          setUpAndGenerate(PropsOrStateSrc(AnnotationType.abstractProps, body, 'AbstractFooProps', null).src);
+          setUpAndGenerate(OverReactSrc.abstractProps(body: body).source);
           verify(logger.warning(expectedCommaSeparatedWarning));
         });
       });
     });
-
-    group('generates `call` on the _\$*PropsImpl class that matches the signature of UiProps', () {
-      MethodDeclaration uiPropsCall;
-
-      setUpAll(() async {
-        var componentBase = parseDartFile((await Isolate.resolvePackageUri(Uri.parse(
-            'package:over_react/src/component_declaration/component_base.dart'
-        ))).toFilePath());
-
-        ClassDeclaration uiPropsClass = componentBase.declarations
-            .singleWhere((member) => member is ClassDeclaration && member.name?.name == 'UiProps');
-
-        uiPropsCall = uiPropsClass.members
-            .singleWhere((entity) => entity is MethodDeclaration && entity.name?.name == 'call');
-      });
-    });
-
-    test('getComponentFactoryName() throws an error when its argument is null', () {
-//      expect(() => ImplGenerator.getComponentFactoryName(null), throwsArgumentError);
-    });
   });
 }
 
-class StaticMetaTest {
-  static const StaticMetaTest abstractProps = const StaticMetaTest._('@AbstractProps()', 'AbstractFooProps');
-  static const StaticMetaTest abstractState = const StaticMetaTest._('@AbstractState()', 'AbstractFooState');
-  static const StaticMetaTest props = const StaticMetaTest._('@Props()', 'FooProps');
-  static const StaticMetaTest propsMixin = const StaticMetaTest._('@PropsMixin()', 'FooPropsMixin');
-  static const StaticMetaTest state = const StaticMetaTest._('@State()', 'FooState');
-  static const StaticMetaTest stateMixin = const StaticMetaTest._('@StateMixin()', 'FooStateMixin');
-
-  final String annotation;
-  final String className;
-
-  const StaticMetaTest._(this.annotation, this.className);
-
-  bool get isAbstract => annotation.contains('Abstract') || annotation.contains('Mixin');
-  bool get isProps => annotation.contains('Props');
-  String get constantListName => isProps ? '\$props' : '\$state';
-  String get keyListName => isProps ? '\$propKeys' : '\$stateKeys';
-  String get metaStructName => isProps ? 'PropsMeta' : 'StateMeta';
-  bool get needsComponent => !isAbstract;
-
-  String get source {
-    final buffer = new StringBuffer();
-    if (needsComponent) {
-      buffer.writeln('@Factory() UiFactory<FooProps> Foo;');
-      if (!isProps) {
-        buffer.writeln('@Props() class FooProps {}');
-      }
-      buffer.writeln('@Component() class FooComponent {}');
-    }
-    buffer
-      ..writeln('$annotation ${isAbstract ? "abstract " : ""}class $className {')
-      ..writeln('  static const $metaStructName meta = \$metaFor$className;');
-    if (isAbstract) {
-      buffer.writeln('  Map get ${isProps ? "props" : "state"};');
-    }
-    buffer.writeln('}');
-    return buffer.toString();
-  }
-}

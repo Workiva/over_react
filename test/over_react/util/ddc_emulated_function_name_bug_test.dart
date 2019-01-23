@@ -21,7 +21,7 @@ main() {
     group('isBugPresent correctly detects whether the bug is present', () {
       test('in dart2js', () {
         expect(isBugPresent, isFalse);
-      }, testOn: 'js', tags: 'no-ddc');
+      }, testOn: 'js');
 
       test('in content_shell/Dartium', () {
         expect(isBugPresent, isFalse);

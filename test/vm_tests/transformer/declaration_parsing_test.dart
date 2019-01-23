@@ -30,15 +30,15 @@ main() {
       bool mightContainDeclarations(String source) => ParsedDeclarations.mightContainDeclarations(source);
 
       group('returns true when the source contains', () {
-        test('"@Factory"',           () => expect(mightContainDeclarations('@Factory()\nvar Foo;'), isTrue));
-        test('"@Props"',             () => expect(mightContainDeclarations('@Props()\nclass Foo {}'), isTrue));
-        test('"@State"',             () => expect(mightContainDeclarations('@State()\nclass Foo {}'), isTrue));
-        test('"@Component"',         () => expect(mightContainDeclarations('@Component()\nclass Foo {}'), isTrue));
-        test('"@AbstractProps"',     () => expect(mightContainDeclarations('@AbstractProps()\nclass Foo {}'), isTrue));
-        test('"@AbstractState"',     () => expect(mightContainDeclarations('@AbstractState()\nclass Foo {}'), isTrue));
-        test('"@AbstractComponent"', () => expect(mightContainDeclarations('@AbstractComponent()\nclass Foo {}'), isTrue));
-        test('"@PropsMixin"',        () => expect(mightContainDeclarations('@PropsMixin()\nclass Foo {}'), isTrue));
-        test('"@StateMixin"',        () => expect(mightContainDeclarations('@StateMixin()\nclass Foo {}'), isTrue));
+        test('"@Factory"',           () => expect(mightContainDeclarations(factorySrc), isTrue));
+        test('"@Props"',             () => expect(mightContainDeclarations(propsSrc), isTrue));
+        test('"@State"',             () => expect(mightContainDeclarations(stateSrc), isTrue));
+        test('"@Component"',         () => expect(mightContainDeclarations(componentSrc), isTrue));
+        test('"@AbstractProps"',     () => expect(mightContainDeclarations(abstractPropsSrc), isTrue));
+        test('"@AbstractState"',     () => expect(mightContainDeclarations(abstractStateSrc), isTrue));
+        test('"@AbstractComponent"', () => expect(mightContainDeclarations(abstractComponentSrc), isTrue));
+        test('"@PropsMixin"',        () => expect(mightContainDeclarations(propsMixinSrc), isTrue));
+        test('"@StateMixin"',        () => expect(mightContainDeclarations(stateMixinSrc), isTrue));
       });
 
       test('returns false when no matching annotations are found', () {
@@ -90,9 +90,6 @@ main() {
         abstractState: true,
         propsMixins: true,
         stateMixins: true,
-        // TODO: EIther remove the hasPrivate functionality if it's no longer needed, or update individual tests to test for private-ness
-//        hasPrivateStateClass: false,
-//        hasPrivatePropsClass: false,
         String reason
       }) {
         expect(declarations.factory,       factory       ? isNull  : isNotNull,  reason: reason);
@@ -103,8 +100,6 @@ main() {
         expect(declarations.abstractState, abstractState ? isEmpty : isNotEmpty, reason: reason);
         expect(declarations.propsMixins,   propsMixins   ? isEmpty : isNotEmpty, reason: reason);
         expect(declarations.stateMixins,   stateMixins   ? isEmpty : isNotEmpty, reason: reason);
-//        expect(declarations.hasPrivateStateClass, hasPrivateStateClass);
-//        expect(declarations.hasPrivatePropsClass, hasPrivatePropsClass);
       }
 
       group('and successfully collects declarations for', () {
@@ -119,20 +114,15 @@ main() {
           expect(declarations.declaresComponent, isFalse);
         });
 
-        group('a component with builder-compatible dual-class props setup', () {
+        group('a component with Dart 1 and Dart 2 compatible dual-class props setup', () {
           void testPropsDualClassSetup({bool isPrivate: false}) {
-            setUpAndParse('''
-              @Factory()    UiFactory<FooProps> Foo;
-              class ${isPrivate ? '_' : ''}FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {}
-              @Props()      class _\$FooProps {}
-              @Component()  class FooComponent {}
-            ''');
+            final sourceContainer = OverReactSrc.props(isPrivate: isPrivate);
+            setUpAndParse(sourceContainer.source);
 
             expect(declarations.factory.node?.variables?.variables?.single?.name
-                ?.name, 'Foo');
-            expect(declarations.props.node?.name?.name, '_\$FooProps');
-//            expect(declarations.hasPrivatePropsClass, isPrivate);
-            expect(declarations.component.node?.name?.name, 'FooComponent');
+                ?.name, sourceContainer.baseName);
+            expect(declarations.props.node?.name?.name, '_\$${sourceContainer.baseName}Props');
+            expect(declarations.component.node?.name?.name, '${sourceContainer.baseName}Component');
 
             expect(declarations.factory.meta,
                 const TypeMatcher<annotations.Factory>());
@@ -155,22 +145,13 @@ main() {
 
         group('a stateful component with builder-compatible dual-class state setup', () {
           void testStateDualClassSetup({bool isPrivate: false}) {
-            var factoryName = '${isPrivate ? '_' : ''}Foo';
-            setUpAndParse('''
-              @Factory()    UiFactory<${factoryName}Props> $factoryName = _\$$factoryName;
-              class ${factoryName}Props extends _\$${factoryName}Props with _\$${factoryName}PropsAccessorsMixin {}
-              @Props()      class _\$${factoryName}Props {}
-              @Component()  class ${factoryName}Component {}
-              class ${factoryName}State extends _\$${factoryName}State with _\$${factoryName}StateAccessorsMixin {}
-              @State()      class _\$${factoryName}State {}
-            ''');
+            final sourceContainer = OverReactSrc.state(isPrivate: isPrivate);
+            setUpAndParse(sourceContainer.source);
 
-            expect(declarations.factory.node?.variables?.variables?.single?.name?.name, factoryName);
-            expect(declarations.props.node?.name?.name, '_\$${factoryName}Props');
-//            expect(declarations.hasPrivatePropsClass, isPrivate);
-            expect(declarations.state.node?.name?.name, '_\$${factoryName}State');
-//            expect(declarations.hasPrivateStateClass, isPrivate);
-            expect(declarations.component.node?.name?.name, '${factoryName}Component');
+            expect(declarations.factory.node?.variables?.variables?.single?.name?.name, sourceContainer.baseName);
+            expect(declarations.props.node?.name?.name, '_\$${sourceContainer.baseName}Props');
+            expect(declarations.state.node?.name?.name, '_\$${sourceContainer.baseName}State');
+            expect(declarations.component.node?.name?.name, '${sourceContainer.baseName}Component');
 
             expect(declarations.factory.meta,   const TypeMatcher<annotations.Factory>());
             expect(declarations.props.meta,     const TypeMatcher<annotations.Props>());
@@ -224,15 +205,12 @@ main() {
 
         group('abstract props class with builder-compatible dual-class setup', () {
           void testAbstractPropsDualClassSetup({isPrivate: false}) {
-            setUpAndParse('''
-              @AbstractProps() class _\$AbstractFooProps {}
-              class ${isPrivate ? '_' : ''}AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {}
-            ''');
+            final sourceContainer = OverReactSrc.abstractProps(isPrivate: isPrivate);
+            setUpAndParse(sourceContainer.source);
 
             expect(declarations.abstractProps, hasLength(1));
-            expect(declarations.abstractProps[0].node?.name?.name, '_\$AbstractFooProps');
-//            expect(declarations.hasPrivatePropsClass, isPrivate);
-            expect(declarations.abstractProps[0].meta, const TypeMatcher<annotations.AbstractProps>());
+            expect(declarations.abstractProps[0].node?.name?.name, '_\$${sourceContainer.baseName}Props');
+            expect(declarations.abstractProps[0].meta, new TypeMatcher<annotations.AbstractProps>());
           }
           test('with public consumable class', () {
             testAbstractPropsDualClassSetup();
@@ -244,15 +222,12 @@ main() {
 
         group('abstract state class with builder-compatible dual-class setup', () {
           void testAbstractStateDualClassSetup({isPrivate: false}) {
-            setUpAndParse('''
-              @AbstractState() class _\$AbstractFooState {}
-              class ${isPrivate ? '_' : ''}AbstractFooState extends _\$AbstractFooState with _\$AbstractFooStateAccessorsMixin {}
-            ''');
+            final sourceContainer = OverReactSrc.abstractState(isPrivate: isPrivate);
+            setUpAndParse(sourceContainer.source);
 
             expect(declarations.abstractState, hasLength(1));
-            expect(declarations.abstractState[0].node?.name?.name, '_\$AbstractFooState');
-//            expect(declarations.hasPrivateStateClass, isPrivate);
-            expect(declarations.abstractState[0].meta, const TypeMatcher<annotations.AbstractState>());
+            expect(declarations.abstractState[0].node?.name?.name, '_\$${sourceContainer.baseName}State');
+            expect(declarations.abstractState[0].meta, new TypeMatcher<annotations.AbstractState>());
           }
           test('with public consumable class', () {
             testAbstractStateDualClassSetup();
@@ -775,7 +750,6 @@ main() {
         });
       });
 
-      // TODO: Throw an error when the factory is incorrectly initialized
       group('and throws an error when', () {
         test('`subtypeOf` is an unsupported expression that is not an identifier', () {
           expect(() {
