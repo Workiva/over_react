@@ -10,14 +10,15 @@ class ReactElementOutlineContributor implements OutlineContributor {
   @override
   void computeOutline(OutlineRequest request, OutlineCollector collector) {
     if (request is! DartOutlineRequest) return;
+    if (!request.path.contains('example')) return;
 
     final result = (request as DartOutlineRequest).result;
-
-    // need at least one outline for some reason
-    final element = new plugin.Element(plugin.ElementKind.UNKNOWN, '', 0);
-    // Outlines work intermittently, less so when this element does not constitute the whole file
-    collector.startElement(element, result.unit.offset, result.unit.length);
-    collector.endElement();
+//
+//    // need at least one outline for some reason
+//    final element = new plugin.Element(plugin.ElementKind.UNKNOWN, '', 0);
+//    // Outlines work intermittently, less so when this element does not constitute the whole file
+//    collector.startElement(element, result.unit.offset, result.unit.length);
+//    collector.endElement();
 
     result.unit.declaredElement.lineInfo;
 
@@ -25,8 +26,8 @@ class ReactElementOutlineContributor implements OutlineContributor {
 
     final visitor = new ComponentUsageVisitor((usage) {
       {
-        final start = usage.node.offset;
-        final end = usage.node.end;
+        final start = usage.node.argumentList.offset;
+        final end = usage.node.argumentList.end;
 
         while (elementEndStack.isNotEmpty && start >= elementEndStack.last) {
           collector.endElement();
@@ -42,9 +43,17 @@ class ReactElementOutlineContributor implements OutlineContributor {
     });
     result.unit.accept(visitor);
 
-    while (elementEndStack.isNotEmpty) {
-      elementEndStack.removeLast();
+    if (elementEndStack.isEmpty) {
+      // need at least one outline for some reason
+      final element = new plugin.Element(plugin.ElementKind.UNKNOWN, '', 0);
+      // Outlines work intermittently, less so when this element does not constitute the whole file
+      collector.startElement(element, result.unit.offset, result.unit.length);
       collector.endElement();
+    } else {
+      while (elementEndStack.isNotEmpty) {
+        elementEndStack.removeLast();
+        collector.endElement();
+      }
     }
   }
 }
