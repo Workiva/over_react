@@ -338,7 +338,7 @@ main() {
             test('with the correct constructor', () {
               expect(implGenerator.outputContentsBuffer.toString(), contains(
                   '  _\$\$${ors.baseName}Props(Map backingMap) : this._props = {} {\n'
-                  '    this._props = backingMap ?? ({});\n'
+                  '    this._props = backingMap ?? {};\n'
                   '  }'));
             });
 
@@ -410,7 +410,7 @@ main() {
             test('with the correct constructor', () {
               expect(implGenerator.outputContentsBuffer.toString(), contains(
                   '  _\$\$${ors.baseName}State(Map backingMap) : this._state = {} {\n'
-                  '    this._state = backingMap ?? ({});\n'
+                  '    this._state = backingMap ?? {};\n'
                   '  }'));
             });
 

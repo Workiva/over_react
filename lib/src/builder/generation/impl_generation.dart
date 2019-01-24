@@ -18,7 +18,7 @@ import 'package:analyzer/analyzer.dart';
 import 'package:logging/logging.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/builder/generation/declaration_parsing.dart';
-import 'package:over_react/src/builder/builder_util.dart';
+import 'package:over_react/src/builder/util.dart';
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/transformer_utils.dart';
 
@@ -170,7 +170,7 @@ class ImplGenerator {
           ..writeln('// Implements constructor and backing map.')
           ..writeln('class $stateImplName$typeParamsOnClass extends $stateName$typeParamsOnSuper with $stateAccessorsMixinName$typeParamsOnSuper implements $consumableStateName$typeParamsOnSuper {')
           ..writeln('  $stateImplName(Map backingMap) : this._state = {} {')
-          ..writeln('    this._state = backingMap ?? ({});')
+          ..writeln('    this._state = backingMap ?? {};')
           ..writeln('  }')
           ..writeln()
           ..writeln('  /// The backing state map proxied by this class.')
@@ -189,7 +189,6 @@ class ImplGenerator {
           // Don't type this so that it doesn't interfere with classes with generic parameter state type:
           //    class FooComponent<T extends FooProps, T extends FooState> extends UiStatefulComponent<T> {...}
           // TODO use long-term solution of component impl class instantiated via factory constructor
-          // TODO: Check if this lack of typing will work with dart 2's strong typing req's.
           '  typedStateFactory(Map backingMap) => new $stateImplName(backingMap) as dynamic;\n\n';
       }
 
@@ -297,11 +296,6 @@ class ImplGenerator {
       NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap,
       String consumerClassName
   ) {
-    // TODO: Ensure we don't need this anymore
-//    if (shouldFixDdcAbstractAccessors) {
-//      fixDdcAbstractAccessors(type, typedMap);
-//    }
-
     String keyNamespace = _getAccessorKeyNamespace(typedMap);
 
     final bool isProps = type == AccessorType.props;
@@ -336,7 +330,6 @@ class ImplGenerator {
             logger.fine('Skipping generation of field `$field`.',
 //                span: getSpan(sourceFile, field)
             );
-
             return;
           }
 
@@ -450,15 +443,11 @@ class ImplGenerator {
           }
         });
 
-    var staticConstNamespace = typedMap.node.name.name;
     var keyConstantsImpl;
-//    var keyConstantsCompanionImpl;
     var constantsImpl;
-//    var constantsCompanionImpl;
 
     if (keyConstants.keys.isEmpty) {
       keyConstantsImpl = '';
-//      keyConstantsCompanionImpl = '';
     } else {
       keyConstantsImpl =
           keyConstants.keys.map((keyName) => '  static const String $keyName = ${keyConstants[keyName]}').join(';\n') +
@@ -467,7 +456,6 @@ class ImplGenerator {
 
     if (constants.keys.isEmpty) {
       constantsImpl = '';
-//      constantsCompanionImpl = '';
     } else {
       constantsImpl =
           constants.keys.map((constantName) => '  static const $constConstructorName $constantName = ${constants[constantName]}').join(';\n') +
@@ -656,10 +644,9 @@ class ImplGenerator {
         ..writeln('// Implements constructor and backing map, and links up to generated component factory.')
         ..write(classDeclaration)
         ..writeln('  $implName(Map backingMap) : this._props = {} {')
-        ..writeln('    this._props = backingMap ?? ({});')
+        ..writeln('    this._props = backingMap ?? {};')
         ..writeln('  }')
         ..writeln()
-        // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
         ..writeln('  /// The backing props map proxied by this class.')
         ..writeln('  @override')
         ..writeln('  Map get props => _props;')

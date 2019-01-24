@@ -8,7 +8,7 @@ import 'package:over_react/src/builder/generation/impl_generation.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:source_span/source_span.dart';
 
-import './builder_util.dart';
+import './util.dart';
 
 class OverReactGenerator extends Generator {
   String _generateForFile(AssetId inputId, String primaryInputContents, CompilationUnit resolvedUnit) {
