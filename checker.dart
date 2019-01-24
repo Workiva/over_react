@@ -30,80 +30,85 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:over_react/src/plugin/diagnostic/over_react/arrow_function_prop.dart';
+import 'package:over_react/src/plugin/diagnostic/over_react/component_usage.dart';
 import 'package:over_react/src/plugin/diagnostic/over_react/duplicate_prop_cascade.dart';
 import 'package:over_react/src/plugin/diagnostic/over_react/extra_invocations.dart';
 import 'package:over_react/src/plugin/diagnostic/over_react/hashcode_as_key.dart';
+import 'package:over_react/src/plugin/diagnostic/over_react/render_return_value.dart';
 import 'package:over_react/src/plugin/diagnostic/over_react/variadic_children.dart';
 
 /// Checks a library for errors related to built_value generation. Returns
 /// the errors and, where possible, corresponding fixes.
 class Checker {
   Map<AnalysisError, PrioritizedSourceChange> check(
-      LibraryElement libraryElement) {
+      CompilationUnit compilationUnit) {
+    // todo pass this in
+    final path = compilationUnit.declaredElement.source.fullName;
+
     final result = <AnalysisError, PrioritizedSourceChange>{};
 
-    final checkers = [
+    final checkers = <SubChecker>[
       new DuplicatePropCascadeChecker(),
       new HashCodeAsKeyChecker(),
       new VariadicChildrenChecker(),
       new ArrowFunctionPropCascadeChecker(),
       new ExtraInvocationsChecker(),
+      new RenderReturnValueChecker(),
     ];
 
-    for (final compilationUnit in libraryElement.units) {
-      for (var checker in checkers) {
-        checker.visitCompilationUnit(compilationUnit.unit);
-        final errors = checker.getErrors();
+    for (var checker in checkers) {
+      checker.check(compilationUnit);
+      final errors = checker.getErrors();
 
-        for (var error in errors) {
-          final lineInfo = compilationUnit.lineInfo;
-          final offsetLineLocation = lineInfo.getLocation(error.offset);
+      for (var error in errors) {
+        final lineInfo = compilationUnit.lineInfo;
+        final offsetLineLocation = lineInfo.getLocation(error.offset);
 
-          final analysisError = new AnalysisError(
-              error.severity,
-              error.type,
-              new Location(
-                  compilationUnit.source.fullName,
-                  error.offset,
-                  error.end - error.offset,
-                  offsetLineLocation.lineNumber,
-                  offsetLineLocation.columnNumber),
-              error.message, error.code);
+        final analysisError = new AnalysisError(
+            error.severity,
+            error.type,
+            new Location(
+                path,
+                error.offset,
+                error.end - error.offset,
+                offsetLineLocation.lineNumber,
+                offsetLineLocation.columnNumber),
+            error.message, error.code);
 
-          PrioritizedSourceChange fix;
-          if (error.fix != null) {
-            int priority;
-            switch (error.severity) {
-              case AnalysisErrorSeverity.INFO:
-                priority = 1000000;
-                break;
-              case AnalysisErrorSeverity.WARNING:
-                priority = 1000002;
-                break;
-              case AnalysisErrorSeverity.ERROR:
-                priority = 1000003;
-                break;
-            }
-
-            fix = new PrioritizedSourceChange(
-                priority,
-                new SourceChange(
-                  error.fixMessage,
-                  edits: [
-                    new SourceFileEdit(
-                      compilationUnit.source.fullName,
-                      error.modificationStamp,
-                      edits: [new SourceEdit(error.offset, error.length, error.fix)],
-                    )
-                  ],
-                ));
+        PrioritizedSourceChange fix;
+        if (error.hasFix) {
+          int priority;
+          switch (error.severity) {
+            case AnalysisErrorSeverity.INFO:
+              priority = 1000000;
+              break;
+            case AnalysisErrorSeverity.WARNING:
+              priority = 1000002;
+              break;
+            case AnalysisErrorSeverity.ERROR:
+              priority = 1000003;
+              break;
           }
-          result[analysisError] = fix;
+
+          fix = new PrioritizedSourceChange(
+              priority,
+              new SourceChange(
+                error.fixMessage,
+                edits: [
+                  new SourceFileEdit(
+                    path,
+                    error.modificationStamp,
+                    edits: error.fixEdits ?? [new SourceEdit(error.offset, error.length, error.fix)],
+                  )
+                ],
+              ));
         }
+        result[analysisError] = fix;
       }
     }
 

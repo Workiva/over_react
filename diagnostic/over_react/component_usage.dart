@@ -8,22 +8,23 @@ import 'package:over_react/src/plugin/component_usage.dart';
 
 export 'package:over_react/src/plugin/component_usage.dart';
 
-abstract class _Checker {
+
+abstract class SubChecker {
   String get name;
   String get description;
   
-  int get _modificationStamp;
+  int modificationStamp;
 
   List<CheckerError> _errors = [];
 
-  void emitHint({String message, int offset, int end, String fix, String fixMessage}) {
-    _errors.add(new CheckerError(name, message, offset, end, AnalysisErrorSeverity.INFO, AnalysisErrorType.LINT, fix, fixMessage, _modificationStamp));
+  void emitHint({String message, int offset, int end, String fix, List<SourceEdit> fixEdits, String fixMessage}) {
+    _errors.add(new CheckerError(name, message, offset, end, AnalysisErrorSeverity.INFO, AnalysisErrorType.LINT, fix, fixEdits, fixMessage, modificationStamp));
   }
-  void emitWarning({String message, int offset, int end, String fix, String fixMessage}) {
-    _errors.add(new CheckerError(name, message, offset, end,  AnalysisErrorSeverity.WARNING, AnalysisErrorType.LINT, fix, fixMessage, _modificationStamp));
+  void emitWarning({String message, int offset, int end, String fix, List<SourceEdit> fixEdits, String fixMessage}) {
+    _errors.add(new CheckerError(name, message, offset, end,  AnalysisErrorSeverity.WARNING, AnalysisErrorType.LINT, fix, fixEdits, fixMessage, modificationStamp));
   }
-  void emitError({String message, int offset, int end, String fix, String fixMessage}) {
-    _errors.add(new CheckerError(name, message, offset, end,  AnalysisErrorSeverity.ERROR, AnalysisErrorType.LINT, fix, fixMessage, _modificationStamp));
+  void emitError({String message, int offset, int end, String fix, List<SourceEdit> fixEdits, String fixMessage}) {
+    _errors.add(new CheckerError(name, message, offset, end,  AnalysisErrorSeverity.ERROR, AnalysisErrorType.LINT, fix, fixEdits, fixMessage, modificationStamp));
   }
 
   List<CheckerError> getErrors() => _errors.toList();
@@ -31,29 +32,24 @@ abstract class _Checker {
   void clearErrors() {
     _errors.clear();
   }
+
+  void check(CompilationUnit compilationUnit);
 }
 
-abstract class ComponentUsageChecker extends SimpleElementVisitor<Null> with _Checker {
+
+abstract class ComponentUsageChecker extends SubChecker {
   void visitComponentUsage(
-      CompilationUnit unit, FluentComponentUsage usage);
+  CompilationUnit unit, FluentComponentUsage usage);
 
   @override
-  Null visitCompilationUnitElement(CompilationUnitElement unit) {
-    visitCompilationUnit(unit.computeNode());
-
-    return null;
-  }
-  
-  int _modificationStamp;
-  
-  Null visitCompilationUnit(CompilationUnit unit) {
-    _modificationStamp = unit?.declaredElement?.source?.modificationStamp;
+  void check(CompilationUnit unit) {
+    modificationStamp = unit?.declaredElement?.source?.modificationStamp;
 
     var astVisitor = new ComponentUsageVisitor(
-            (usage) => visitComponentUsage(unit, usage));
-    unit..accept(astVisitor);
+    (usage) => visitComponentUsage(unit, usage));
+    unit.accept(astVisitor);
 
-    _modificationStamp = null;
+    modificationStamp = null;
 
     return null;
   }
@@ -131,6 +127,8 @@ class CheckerError {
 
   String fixMessage;
 
+  List<SourceEdit> fixEdits;
+
   int get length => end - offset;
 
   /// Optionally, the fix for the incorrect code.
@@ -140,12 +138,14 @@ class CheckerError {
 
   AnalysisErrorType type;
 
-  CheckerError(this.code, this.message, this.offset, this.end, this.severity, this.type, this.fix, this.fixMessage, this.modificationStamp) {
+  CheckerError(this.code, this.message, this.offset, this.end, this.severity, this.type, this.fix, this.fixEdits, this.fixMessage, this.modificationStamp) {
     if (((offset == null) != (end == null)) ||
-        ((offset == null) && (fix != null))) {
+        ((offset == null) && (fix != null || fixEdits != null))) {
       throw new ArgumentError(
           'Offset, end and fix must either all be null or all non-null. '
               'Got: offset $offset, end $end, fix $fix');
     }
   }
+
+  bool get hasFix => fix != null || fixEdits != null;
 }
