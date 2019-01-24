@@ -1,6 +1,5 @@
 analyzer:
   exclude:
-    - integrate/**
     - _site/**
     - test/builder/gold_output_files/**
 linter:

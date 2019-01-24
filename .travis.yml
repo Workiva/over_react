@@ -2,6 +2,8 @@ language: dart
 dist: precise
 dart:
   - stable
+addons:
+  chrome: stable
 before_install:
   - export DISPLAY=:99.0
   - export PATH=$PATH":$PWD"
