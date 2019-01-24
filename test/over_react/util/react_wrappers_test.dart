@@ -457,7 +457,7 @@ main() {
         test('does not when passed a ReactElement in JS', () {
           ReactElement instance = Wrapper()();
           expect(() => getDartComponent(instance), isNot(prints(messageMatcher)));
-        }, testOn: 'js', tags: 'no-ddc');
+        }, testOn: 'js', tags: 'dart2js-only');
 
         test('does not warn when passed a ReactComponent', () {
           var renderedInstance = render(Wrapper());
@@ -948,7 +948,7 @@ main() {
 
           expect(result1, containsPair('dartProp', 'dart'), reason: 'test setup sanity check');
           expect(result2, same(result1), reason: 'should have returned the same object');
-        }, tags: 'no-ddc');
+        }, tags: 'dart2js-only');
 
         test('unless the runtime is the DDC', () {
           ReactElement element = TestComponentFactory({

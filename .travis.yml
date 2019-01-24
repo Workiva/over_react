@@ -1,21 +1,17 @@
 language: dart
-# TODO: Make sure this is what is in Master, then get dart 2 compat
 dist: precise
 dart:
   - stable
-env:
-  - DARTIUM_EXPIRATION_TIME="1577836800"
-with_content_shell: true
 before_install:
   - export DISPLAY=:99.0
-#  - ./tool/setup_dartium.sh
   - export PATH=$PATH":$PWD"
   - sh -e /etc/init.d/xvfb start
   - sleep 3 # give xvfb some time to start
 script:
-  - dart ./tool/build.dart
+  - pub run build_runner build
   - pub run dart_dev analyze
-  - pub run dependency_validator --no-fatal-pins -i coverage
-  - pub run dart_dev test --integration
-  - ./tool/generate_coverage.sh
-  - bash <(curl -s https://codecov.io/bash) -f coverage/coverage.lcov
+  - pub run dependency_validator --no-fatal-pins -i coverage, build, build_runner, build_web_compilers
+  # run tests on dart2js output
+  - pub run build_runner test -r -- -P dart2js
+  # run tests on ddc output
+  - pub run build_runner test -- -P dartdevc

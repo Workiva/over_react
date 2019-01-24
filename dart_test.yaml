@@ -10,15 +10,24 @@ tags:
 
 presets:
   dartdevc:
-    exclude_tags: no-ddc && mirrors
+    concurrency: 4
+    exclude_tags: no-ddc || mirrors || dart2js-only
     platforms:
       - chrome
       - vm
+    paths:
+      - test/vm_tests/
+      - test/over_react_component_declaration_test.dart
+      - test/over_react_component_test.dart
+      - test/over_react_dom_test.dart
+      - test/over_react_util_test.dart
 
   dart2js:
-    exclude_tags: ddc && mirrors
+    include_tags: dart2js-only
     platforms:
       - chrome
+    paths:
+      - test/over_react_util_test.dart
 
   travis:
     reporter: expanded

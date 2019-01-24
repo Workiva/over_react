@@ -27,7 +27,6 @@ main(List<String> args) async {
   config.copyLicense.directories = ['integrate']..addAll(directories);
 
   config.test
-    ..pubServe = true
     ..platforms = [
       'vm',
       'chrome',
@@ -39,9 +38,6 @@ main(List<String> args) async {
       'test/over_react_dom_test.dart',
       'test/over_react_util_test.dart',
     ]
-    ..integrationTests = [
-      'test/integration/'
-    ];
 
   config.coverage
     ..html = false
