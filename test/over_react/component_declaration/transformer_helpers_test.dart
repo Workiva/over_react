@@ -16,8 +16,6 @@ library over_react.transformer_generation.helpers_test;
 
 import 'package:over_react/src/component_declaration/transformer_helpers.dart';
 import 'package:test/test.dart';
-// ignore: uri_has_not_been_generated
-part 'transformer_helpers_test.over_react.g.dart';
 
 final Matcher throwsUngeneratedError          = throwsA(const TypeMatcher<UngeneratedError>());
 final Matcher throwsIllegalInstantiationError = throwsA(const TypeMatcher<IllegalInstantiationError>());

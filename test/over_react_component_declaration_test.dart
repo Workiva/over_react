@@ -27,7 +27,7 @@ import 'over_react/component_declaration/component_base_test.dart' as component_
 import 'over_react/component_declaration/component_type_checking_test.dart' as component_type_checking_test;
 import 'over_react/component_declaration/flux_component_test.dart' as flux_component_test;
 import 'over_react/component_declaration/redux_component_test.dart' as redux_component_test;
-//import 'over_react/component_declaration/transformer_helpers_test.dart' as transformer_helpers_test;
+import 'over_react/component_declaration/transformer_helpers_test.dart' as transformer_helpers_test;
 import 'over_react/component_declaration/transformer_integration_tests/abstract_accessor_integration_test.dart' as dart2_abstract_accessor_integration_test;
 import 'over_react/component_declaration/transformer_integration_tests/accessor_mixin_integration_test.dart' as dart2_accessor_mixin_integration_test;
 import 'over_react/component_declaration/transformer_integration_tests/component_integration_test.dart' as dart2_component_integration_test;
@@ -48,7 +48,7 @@ main() {
   redux_component_test.main();
 
   // TODO: Put this back in/update to dart2 once the build for this file is figured out
-//  transformer_helpers_test.main();
+  transformer_helpers_test.main();
 
   dart2_abstract_accessor_integration_test.main();
   dart2_accessor_mixin_integration_test.main();
