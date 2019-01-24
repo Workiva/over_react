@@ -1,14 +1,6 @@
 language: dart
-sudo: required
-addons:
-  chrome: stable
 dart:
   - stable
-before_install:
-  - export DISPLAY=:99.0
-  - export PATH=$PATH":$PWD"
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3 # give xvfb some time to start
 script:
   - pub run build_runner build
   - pub run dart_dev analyze
