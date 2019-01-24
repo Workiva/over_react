@@ -1,10 +1,9 @@
 language: dart
-dist: precise
-dart:
-  - stable
 sudo: required
 addons:
   chrome: stable
+dart:
+  - stable
 before_install:
   - export DISPLAY=:99.0
   - export PATH=$PATH":$PWD"
@@ -16,6 +15,6 @@ script:
   # TODO: Remove ignore on analyzer once the wdesk ecosystem is all on a Dart 2 compat major version and we no longer need a "pinned" dep
   - pub run dependency_validator --no-fatal-pins -i coverage,build_web_compilers,analyzer
   # run tests on dart2js output
-  - pub run build_runner test -r -- -P dart2js
-  # run tests on ddc output
   - pub run build_runner test -- -P dartdevc
+  # run tests on ddc output
+  - pub run build_runner test -r -- -P dart2js
