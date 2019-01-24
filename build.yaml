@@ -10,7 +10,7 @@ targets:
   $default:
     sources:
       exclude:
-        # has some faulty component declarations, might not need generation, but comment out for now cuz it breaks things
+        # TODO: has some faulty component declarations, might not need generation, but comment out for now cuz it breaks things
         - "test/over_react/component_declaration/transformer_helpers_test.dart"
 
     builders:

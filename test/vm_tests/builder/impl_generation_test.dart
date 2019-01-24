@@ -15,8 +15,6 @@
 @TestOn('vm')
 library impl_generation_test;
 
-import 'dart:isolate';
-
 import 'package:analyzer/analyzer.dart' hide startsWith;
 import 'package:mockito/mockito.dart';
 import 'package:over_react/src/builder/generation/declaration_parsing.dart';

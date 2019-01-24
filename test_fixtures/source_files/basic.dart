@@ -10,6 +10,7 @@ class BasicProps extends _$BasicProps with _$BasicPropsAccessorsMixin {
 }
 
 @Props()
+//// ignore: mixin_of_non_class,undefined_class
 class _$BasicProps extends UiProps {
   @deprecated
   @requiredProp

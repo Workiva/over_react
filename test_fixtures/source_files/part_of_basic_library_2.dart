@@ -1,11 +1,11 @@
 part of basic.library;
 
-// ignore: mixin_of_non_class,undefined_class
-class SuperPartOfLibProps extends _$SuperPartOfLibProps with _$SuperPartOfLibPropsAccessorsMixin {}
+class SuperPartOfLibProps extends _$SuperPartOfLibProps with _$SuperPartOfLibPropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForSuperPartOfLibProps;
+}
 
 @AbstractProps()
 class _$SuperPartOfLibProps extends UiProps {
-  static const PropsMeta meta = _$metaForSuperPartOfLibProps;
 
   String superProp;
 }
@@ -19,7 +19,6 @@ abstract class SuperPartOfLibComponent<T extends SuperPartOfLibProps> extends Ui
   render() {
     return Dom.div()('SuperPartOfLib', {
       'props.superProp': props.superProp,
-//      'props': props.toString(),
     }.toString());
   }
 }
@@ -27,13 +26,13 @@ abstract class SuperPartOfLibComponent<T extends SuperPartOfLibProps> extends Ui
 @Factory()
 UiFactory<SubPartOfLibProps> SubPartOfLib = _$SubPartOfLib;
 
-// ignore: mixin_of_non_class,undefined_class
-class SubPartOfLibProps extends _$SubPartOfLibProps with _$SubPartOfLibPropsAccessorsMixin {}
+class SubPartOfLibProps extends _$SubPartOfLibProps with _$SubPartOfLibPropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForSubPartOfLibProps;
+}
 
 @Props()
 // Heads up: props class inheritance doesn't work properly currently
 class _$SubPartOfLibProps extends SuperPartOfLibProps {
- static const PropsMeta meta = _$metaForSubPartOfLibProps;
 
   String subProp;
 }
@@ -48,7 +47,6 @@ class SubPartOfLibComponent extends SuperPartOfLibComponent<SubPartOfLibProps> {
     return Dom.div()('SubPartOfLib', {
       'props.subProp': props.subProp,
       'props.superProp': props.superProp,
-//      'props': props.toString(),
     }.toString());
   }
 }

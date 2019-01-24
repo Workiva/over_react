@@ -205,7 +205,7 @@ class OverReactSrc {
     if (isMixin(annotation)) {
       return '$baseName${type}Mixin';
     } else {
-      return '$baseName${type}';
+      return '$baseName$type';
     }
   }
 

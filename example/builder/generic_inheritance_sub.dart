@@ -6,23 +6,22 @@ part 'generic_inheritance_sub.over_react.g.dart';
 @Factory()
 UiFactory<GenericSubProps> GenericSub = _$GenericSub;
 
-// ignore: mixin_of_non_class,undefined_class
-class GenericSubProps extends _$GenericSubProps with _$GenericSubPropsAccessorsMixin {}
+class GenericSubProps extends _$GenericSubProps with _$GenericSubPropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForGenericSubProps;
+}
 
 @Props()
 class _$GenericSubProps extends GenericSuperProps {
-  static const PropsMeta meta = _$metaForGenericSubProps;
-
   String subProp;
 }
 
 // ignore: mixin_of_non_class,undefined_class
-abstract class GenericSubState extends _$GenericSubState with _$GenericSubStateAccessorsMixin {}
+abstract class GenericSubState extends _$GenericSubState with _$GenericSubStateAccessorsMixin {
+  static const StateMeta meta = _$metaForGenericSubState;
+}
 
 @State()
 class _$GenericSubState extends GenericSuperState {
-  static const StateMeta meta = _$metaForGenericSubState;
-
   String subState;
 }
 

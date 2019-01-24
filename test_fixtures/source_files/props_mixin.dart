@@ -13,7 +13,7 @@ abstract class ExamplePropsMixinClass implements UiProps {
 }
 
 @PropsMixin()
-abstract class MixesInOtherMixinMixin
+abstract class MixesInOtherMixinMixin<T extends Iterable, U>
     implements ExamplePropsMixinClass {
   @override
   Map get props;

@@ -1,7 +1,7 @@
 analyzer:
   exclude:
     - _site/**
-    - test/builder/gold_output_files/**
+    - test_fixtures/**
 linter:
   rules:
     - annotate_overrides
