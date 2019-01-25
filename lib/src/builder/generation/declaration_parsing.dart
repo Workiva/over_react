@@ -87,8 +87,6 @@ class ParsedDeclarations {
     };
 
     var companionPrefix = r'_$';
-    bool hasPrivateStateClass = false;
-    bool hasPrivatePropsClass = false;
     unit.declarations.forEach((CompilationUnitMember member) {
       member.metadata.forEach((annotation) {
         var name = annotation.name.toString();
@@ -315,9 +313,6 @@ class ParsedDeclarations {
 
         hasErrors: hasErrors,
         hasDeclarations: hasDeclarations,
-
-        hasPrivatePropsClass: hasPrivatePropsClass,
-        hasPrivateStateClass: hasPrivateStateClass
     );
   }
 
@@ -333,9 +328,6 @@ class ParsedDeclarations {
       List<ClassDeclaration> propsMixins,
       List<ClassDeclaration> stateMixins,
 
-      hasPrivatePropsClass,
-      hasPrivateStateClass,
-
       this.hasErrors,
       this.hasDeclarations,
   }) :
@@ -350,10 +342,7 @@ class ParsedDeclarations {
       this.propsMixins   = new List.unmodifiable(propsMixins.map((propsMixin) => new PropsMixinNode(propsMixin))),
       this.stateMixins   = new List.unmodifiable(stateMixins.map((stateMixin) => new StateMixinNode(stateMixin))),
 
-      this.declaresComponent = factory != null,
-
-      this.hasPrivatePropsClass = hasPrivatePropsClass,
-      this.hasPrivateStateClass = hasPrivateStateClass
+      this.declaresComponent = factory != null
   {
     assert(
         ((this.factory == null && this.component == null && this.props == null) ||
@@ -420,9 +409,6 @@ class ParsedDeclarations {
 
   final List<PropsMixinNode> propsMixins;
   final List<StateMixinNode> stateMixins;
-
-  final bool hasPrivateStateClass;
-  final bool hasPrivatePropsClass;
 
   final bool hasErrors;
   final bool hasDeclarations;

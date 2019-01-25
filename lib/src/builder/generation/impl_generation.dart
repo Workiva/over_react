@@ -151,8 +151,7 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
       if (declarations.state != null) {
         final stateName = _classNameFromNode(declarations.state);
-        final publicStateName = _publicPropsOrStateClassNameFromConsumerClassName(stateName);
-        final consumableStateName = '${declarations.hasPrivateStateClass ? privatePrefix : ''}$publicStateName';
+        final consumableStateName = _publicPropsOrStateClassNameFromConsumerClassName(stateName);
         final stateImplName = _propsImplClassNameFromConsumerClassName(stateName);
         final stateAccessorsMixinName = _accessorsMixinNameFromConsumerName(stateName);
         final typeParamsOnClass = declarations.state.node.typeParameters?.toSource() ?? '';
