@@ -470,7 +470,7 @@ main() {
       group('a component class', () {
         test('subtypes itself', () {
           setUpAndGenerate(OverReactSrc.props(componentAnnotationArg: 'subtypeOf: FooComponent').source);
-          verify(logger.severe('A component cannot be a subtype of itself.'));
+          verify(logger.severe(contains('A component cannot be a subtype of itself.')));
         });
       });
 
@@ -486,7 +486,7 @@ main() {
               var bar;
             }
           ''');
-          verify(logger.severe(expectedPropsGetterError));
+          verify(logger.severe(contains(expectedPropsGetterError)));
         });
 
         group('declared with a malformed `props` getter:', () {
@@ -499,7 +499,7 @@ main() {
                 var bar;
               }
             ''');
-            verify(logger.severe(expectedPropsGetterError));
+            verify(logger.severe(contains(expectedPropsGetterError)));
           });
 
           test('a getter of the wrong type', () {
@@ -511,7 +511,7 @@ main() {
                 var bar;
               }
             ''');
-            verify(logger.severe(expectedPropsGetterError));
+            verify(logger.severe(contains(expectedPropsGetterError)));
           });
 
           test('an untyped getter', () {
@@ -523,7 +523,7 @@ main() {
                 var bar;
               }
             ''');
-            verify(logger.severe(expectedPropsGetterError));
+            verify(logger.severe(contains(expectedPropsGetterError)));
           });
 
           test('a concrete getter', () {
@@ -535,7 +535,7 @@ main() {
                 var bar;
               }
             ''');
-            verify(logger.severe(expectedPropsGetterError));
+            verify(logger.severe(contains(expectedPropsGetterError)));
           });
         });
       });
@@ -552,7 +552,7 @@ main() {
               var bar;
             }
           ''');
-          verify(logger.severe(expectedStateGetterError));
+          verify(logger.severe(contains(expectedStateGetterError)));
         });
 
         group('declared with a malformed `state` getter:', () {
@@ -565,7 +565,7 @@ main() {
                 var bar;
               }
             ''');
-            verify(logger.severe(expectedStateGetterError));
+            verify(logger.severe(contains(expectedStateGetterError)));
           });
 
           test('a getter of the wrong type', () {
@@ -577,7 +577,7 @@ main() {
                 var bar;
               }
             ''');
-            verify(logger.severe(expectedStateGetterError));
+            verify(logger.severe(contains(expectedStateGetterError)));
           });
 
           test('an untyped getter', () {
@@ -589,7 +589,7 @@ main() {
                 var bar;
               }
             ''');
-            verify(logger.severe(expectedStateGetterError));
+            verify(logger.severe(contains(expectedStateGetterError)));
           });
 
           test('a concrete getter', () {
@@ -601,14 +601,14 @@ main() {
                 var bar;
               }
             ''');
-            verify(logger.severe(expectedStateGetterError));
+            verify(logger.severe(contains(expectedStateGetterError)));
           });
         });
       });
 
       test('accessors are declared as fields with initializers', () {
         setUpAndGenerate(OverReactSrc.abstractProps(body: 'var bar = null;').source);
-        verify(logger.severe('Fields are stubs for generated setters/getters and should not have initializers.'));
+        verify(logger.severe(contains('Fields are stubs for generated setters/getters and should not have initializers.')));
       });
 
       group('accessors have', () {
@@ -620,7 +620,7 @@ main() {
               @requiredProp
               var bar;''';
           setUpAndGenerate(OverReactSrc.abstractProps(body: body).source);
-          verify(logger.severe(expectedAccessorErrorMessage));
+          verify(logger.severe(contains(expectedAccessorErrorMessage)));
         });
 
         test('the Accessor and nullableRequiredProp annotation', () {
@@ -628,7 +628,7 @@ main() {
               @nullableRequiredProp
               var bar;''';
           setUpAndGenerate(OverReactSrc.abstractProps(body: body).source);
-          verify(logger.severe(expectedAccessorErrorMessage));
+          verify(logger.severe(contains(expectedAccessorErrorMessage)));
         });
 
         test('the requiredProp and nullableRequiredProp annotation', () {
@@ -636,7 +636,7 @@ main() {
               @nullableRequiredProp
               var bar;''';
           setUpAndGenerate(OverReactSrc.abstractProps(body: body).source);
-          verify(logger.severe(expectedAccessorErrorMessage));
+          verify(logger.severe(contains(expectedAccessorErrorMessage)));
         });
       });
     });
@@ -649,12 +649,12 @@ main() {
       group('a Component', () {
         test('implements typedPropsFactory', () {
           setUpAndGenerate(OverReactSrc.props(componentBody: 'typedPropsFactory(Map backingMap) => {};').source);
-          verify(logger.warning('Components should not add their own implementions of typedPropsFactory or typedStateFactory.'));
+          verify(logger.warning(contains('Components should not add their own implementions of typedPropsFactory or typedStateFactory.')));
         });
 
         test('implements typedStateFactory', () {
           setUpAndGenerate(OverReactSrc.props(componentBody: 'typedStateFactory(Map backingMap) => {};').source);
-          verify(logger.warning('Components should not add their own implementions of typedPropsFactory or typedStateFactory.'));
+          verify(logger.warning(contains('Components should not add their own implementions of typedPropsFactory or typedStateFactory.')));
         });
       });
 
@@ -667,14 +667,14 @@ main() {
           var body = '''/// Doc comment
               var bar, baz;''';
           setUpAndGenerate(OverReactSrc.abstractProps(body: body).source);
-          verify(logger.warning(expectedCommaSeparatedWarning));
+          verify(logger.warning(contains(expectedCommaSeparatedWarning)));
         });
 
         test('with annotations', () {
           var body = '''@Annotation()
             var bar, baz;''';
           setUpAndGenerate(OverReactSrc.abstractProps(body: body).source);
-          verify(logger.warning(expectedCommaSeparatedWarning));
+          verify(logger.warning(contains(expectedCommaSeparatedWarning)));
         });
       });
     });

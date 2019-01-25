@@ -69,14 +69,14 @@ main() {
       await checkBuildForFile(
           'over_react|test_fixtures/source_files/basic.dart',
           'over_react|test_fixtures/source_files/basic.over_react.g.dart',
-          '${p.absolute(p.current)}/test_fixtures/gold_output_files/basic.over_react.g.dart');
+          '${p.absolute(p.current)}/test_fixtures/gold_output_files/basic.over_react.g.dart.goldFile');
     });
 
     test('builds from basic multi-part library', () async {
       await checkBuildForFile(
           'over_react|test_fixtures/source_files/basic_library.dart',
           'over_react|test_fixtures/source_files/basic_library.over_react.g.dart',
-          '${p.absolute(p.current)}/test_fixtures/gold_output_files/basic_library.over_react.g.dart');
+          '${p.absolute(p.current)}/test_fixtures/gold_output_files/basic_library.over_react.g.dart.goldFile');
     });
 
     test('does not produce a build output for a file with no over_react annotations', () async {

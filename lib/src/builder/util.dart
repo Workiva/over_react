@@ -3,6 +3,7 @@ import 'dart:mirrors';
 import 'package:analyzer/analyzer.dart';
 import 'package:path/path.dart' as p;
 import 'package:build/build.dart' show AssetId;
+import 'package:source_span/source_span.dart';
 
 const outputExtension = '.over_react.g.dart';
 
@@ -52,3 +53,9 @@ FieldDeclaration getMetaField(ClassDeclaration cd) {
   }
   return cd.members.firstWhere(isPropsOrStateMeta, orElse: () => null);
 }
+
+String messageWithSpan(String message, {SourceSpan span}) {
+  final spanMsg = span != null ? '\nSource: ${span.highlight()}' : '';
+  return '$message$spanMsg';
+}
+

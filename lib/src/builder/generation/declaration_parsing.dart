@@ -27,7 +27,7 @@ enum PropsClassType {
   none,
 }
 
-/// A set of [NodeWithMeta] component pieces declared using `over_react` transformer annotations.
+/// A set of [NodeWithMeta] component pieces declared using `over_react` builder annotations.
 ///
 /// Can include:
 ///
@@ -41,7 +41,7 @@ class ParsedDeclarations {
 
     void error(String message, [SourceSpan span]) {
       hasErrors = true;
-      logger.severe(message);
+      logger.severe(messageWithSpan(message, span: span));
     }
 
     void validateMetaField(ClassDeclaration cd, String expectedType) {

@@ -345,100 +345,100 @@ main() {
 
         test('a companion props class is not found when a private _\$ prefixed props class is declared', () {
           setUpAndParse(factorySrc + propsSrc + componentSrc);
-          verify(logger.severe('_\$FooProps must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.'));
+          verify(logger.severe(contains('_\$FooProps must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.')));
         });
 
         test('a companion state class is not found when an private _\$ prefixed state class is declared', () {
           setUpAndParse(factorySrc + propsSrc + companionClassProps + stateSrc + componentSrc);
-          verify(logger.severe('_\$FooState must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.'));
+          verify(logger.severe(contains('_\$FooState must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.')));
         });
 
         test('a companion abstract props class is not found  when an private _\$ prefixed abstract props class is declared', () {
           setUpAndParse(abstractPropsSrc);
-          verify(logger.severe('_\$AbstractFooProps must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.'));
+          verify(logger.severe(contains('_\$AbstractFooProps must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.')));
         });
 
         test('a compaion abstract state class is not found when an private _\$ prefixed abstract state class is declared', () {
           setUpAndParse(abstractStateSrc);
-          verify(logger.severe('_\$AbstractFooState must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.'));
+          verify(logger.severe(contains('_\$AbstractFooState must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.')));
         });
 
         group('there is not Dart-2 compatible naming on', () {
           test('a class annotated with @Props()', () {
             setUpAndParse(propsSrcDart1 + componentSrc + factorySrc);
-            verify(logger.severe(
+            verify(logger.severe(contains(
                 'The class `FooProps` does not start with _\$. All Props, State, '
-                    'AbstractProps, and AbstractState classes should begin with _\$ under Dart 2'));
+                    'AbstractProps, and AbstractState classes should begin with _\$ under Dart 2')));
           });
 
           test('a class annotated with @State()', () {
             setUpAndParse(stateSrcDart1 + componentSrc + propsSrc + companionClassProps + factorySrc);
-            verify(logger.severe(
+            verify(logger.severe(contains(
                 'The class `FooState` does not start with _\$. All Props, State, '
-                    'AbstractProps, and AbstractState classes should begin with _\$ under Dart 2'));
+                    'AbstractProps, and AbstractState classes should begin with _\$ under Dart 2')));
           });
 
           test('a class annotated with @AbstractProps()', () {
             setUpAndParse(abstractPropsSrcDart1 + abstractComponentSrc);
-            verify(logger.severe(
+            verify(logger.severe(contains(
                 'The class `AbstractFooProps` does not start with _\$. All Props, State, '
-                    'AbstractProps, and AbstractState classes should begin with _\$ under Dart 2'));
+                    'AbstractProps, and AbstractState classes should begin with _\$ under Dart 2')));
           });
 
           test('a class annotated with @AbstractState()', () {
             setUpAndParse(abstractStateSrcDart1 + abstractComponentSrc + abstractPropsSrc + companionClassAbstractProps);
-            verify(logger.severe(
+            verify(logger.severe(contains(
                 'The class `AbstractFooState` does not start with _\$. All Props, State, '
-                    'AbstractProps, and AbstractState classes should begin with _\$ under Dart 2'));
+                    'AbstractProps, and AbstractState classes should begin with _\$ under Dart 2')));
           });
         });
 
         group('a component is declared without', () {
           test('a factory', () {
             setUpAndParse(propsSrc + companionClassProps + componentSrc);
-            verify(logger.severe('To define a component, there must also be a `@Factory` within the same file, but none were found.'));
+            verify(logger.severe(contains('To define a component, there must also be a `@Factory` within the same file, but none were found.')));
           });
 
           test('a props class', () {
             setUpAndParse(factorySrc + componentSrc);
-            verify(logger.severe('To define a component, there must also be a `@Props` within the same file, but none were found.'));
+            verify(logger.severe(contains('To define a component, there must also be a `@Props` within the same file, but none were found.')));
           });
 
           test('a component class', () {
             setUpAndParse(factorySrc + propsSrc + companionClassProps);
-            verify(logger.severe('To define a component, there must also be a `@Component` within the same file, but none were found.'));
+            verify(logger.severe(contains('To define a component, there must also be a `@Component` within the same file, but none were found.')));
           });
 
           test('a factory or a props class', () {
             setUpAndParse(componentSrc);
-            verify(logger.severe('To define a component, there must also be a `@Factory` within the same file, but none were found.'));
-            verify(logger.severe('To define a component, there must also be a `@Props` within the same file, but none were found.'));
+            verify(logger.severe(contains('To define a component, there must also be a `@Factory` within the same file, but none were found.')));
+            verify(logger.severe(contains('To define a component, there must also be a `@Props` within the same file, but none were found.')));
           });
 
           test('a factory or a component class', () {
             setUpAndParse(propsSrc + companionClassProps);
-            verify(logger.severe('To define a component, there must also be a `@Factory` within the same file, but none were found.'));
-            verify(logger.severe('To define a component, there must also be a `@Component` within the same file, but none were found.'));
+            verify(logger.severe(contains('To define a component, there must also be a `@Factory` within the same file, but none were found.')));
+            verify(logger.severe(contains('To define a component, there must also be a `@Component` within the same file, but none were found.')));
           });
 
           test('a component or props class', () {
             setUpAndParse(factorySrc);
-            verify(logger.severe('To define a component, there must also be a `@Component` within the same file, but none were found.'));
-            verify(logger.severe('To define a component, there must also be a `@Props` within the same file, but none were found.'));
+            verify(logger.severe(contains('To define a component, there must also be a `@Component` within the same file, but none were found.')));
+            verify(logger.severe(contains('To define a component, there must also be a `@Props` within the same file, but none were found.')));
           });
         });
 
         group('a state class is declared without', () {
           test('any component pieces', () {
             setUpAndParse(stateSrc + companionClassState);
-            verify(logger.severe('To define a component, a `@State` must be accompanied by the following annotations within the same file: @Factory, @Component, @Props.'));
+            verify(logger.severe(contains('To define a component, a `@State` must be accompanied by the following annotations within the same file: @Factory, @Component, @Props.')));
           });
 
           test('some component pieces', () {
             setUpAndParse(stateSrc + componentSrc + companionClassState);
             /// Should only log regarding the missing pieces, and not the state.
-            verify(logger.severe('To define a component, there must also be a `@Factory` within the same file, but none were found.'));
-            verify(logger.severe('To define a component, there must also be a `@Props` within the same file, but none were found.'));
+            verify(logger.severe(contains('To define a component, there must also be a `@Factory` within the same file, but none were found.')));
+            verify(logger.severe(contains('To define a component, there must also be a `@Props` within the same file, but none were found.')));
           });
         });
 
@@ -475,42 +475,42 @@ main() {
         group('an annotation is used on the wrong kind of declaration:', () {
           test('@Factory on a non-top-level-variable', () {
             setUpAndParse('@Factory() class NotAVariable {}');
-            verify(logger.severe('`@Factory` can only be used on top-level variable declarations.'));
+            verify(logger.severe(contains('`@Factory` can only be used on top-level variable declarations.')));
           });
 
           test('@Props on a non-class', () {
             setUpAndParse('@Props() var notAClass;');
-            verify(logger.severe('`@Props` can only be used on classes.'));
+            verify(logger.severe(contains('`@Props` can only be used on classes.')));
           });
 
           test('@Component on a non-class', () {
             setUpAndParse('@Component() var notAClass;');
-            verify(logger.severe('`@Component` can only be used on classes.'));
+            verify(logger.severe(contains('`@Component` can only be used on classes.')));
           });
 
           test('@State on a non-class', () {
             setUpAndParse('@Props() var notAClass;');
-            verify(logger.severe('`@Props` can only be used on classes.'));
+            verify(logger.severe(contains('`@Props` can only be used on classes.')));
           });
 
           test('@AbstractProps on a non-class', () {
             setUpAndParse('@AbstractProps() var notAClass;');
-            verify(logger.severe('`@AbstractProps` can only be used on classes.'));
+            verify(logger.severe(contains('`@AbstractProps` can only be used on classes.')));
           });
 
           test('@AbstractState on a non-class', () {
             setUpAndParse('@AbstractState() var notAClass;');
-            verify(logger.severe('`@AbstractState` can only be used on classes.'));
+            verify(logger.severe(contains('`@AbstractState` can only be used on classes.')));
           });
 
           test('@PropsMixin on a non-class', () {
             setUpAndParse('@PropsMixin() var notAClass;');
-            verify(logger.severe('`@PropsMixin` can only be used on classes.'));
+            verify(logger.severe(contains('`@PropsMixin` can only be used on classes.')));
           });
 
           test('@StateMixin on a non-class', () {
             setUpAndParse('@StateMixin() var notAClass;');
-            verify(logger.severe('`@StateMixin` can only be used on classes.'));
+            verify(logger.severe(contains('`@StateMixin` can only be used on classes.')));
           });
         });
 
@@ -523,7 +523,7 @@ main() {
               $restOfComponent
             ''');
 
-            verify(logger.severe('Factory declarations must be a single variable.'));
+            verify(logger.severe(contains('Factory declarations must be a single variable.')));
           });
 
           test('public and declared with an invalid initializer', () {
@@ -534,10 +534,10 @@ main() {
               $restOfComponent
             ''');
 
-            verify(logger.severe(
+            verify(logger.severe(contains(
                 'Factory variables are stubs for the generated factories, and should not have initializers'
                     ' unless initialized with a valid variable name for Dart 2 builder compatibility. Should be:\n'
-                    '    _\$Foo'));
+                    '    _\$Foo')));
           });
 
           test('private and declared with an invalid initializer', () {
@@ -548,10 +548,10 @@ main() {
               $restOfComponent
             ''');
 
-            verify(logger.severe(
+            verify(logger.severe(contains(
                 'Factory variables are stubs for the generated factories, and should not have initializers'
                     ' unless initialized with a valid variable name for Dart 2 builder compatibility. Should be:\n'
-                    '    _\$_Foo'));
+                    '    _\$_Foo')));
           });
         });
 
@@ -563,7 +563,7 @@ main() {
                   static const StateMeta meta = \$metaForFooProps;
                 }
               ''');
-              verify(logger.severe('Static meta field in accessor class must be of type `PropsMeta`'));
+              verify(logger.severe(contains('Static meta field in accessor class must be of type `PropsMeta`')));
             });
 
             test('is initialized incorrectly', () {
@@ -572,8 +572,8 @@ main() {
                   static const PropsMeta meta = \$metaForBarProps;
                 }
               ''');
-              verify(logger.severe('Static PropsMeta field in accessor class must be initialized to:'
-                  '`_\$metaForFooProps`'));
+              verify(logger.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
+                  '`_\$metaForFooProps`')));
             });
 
             test('is private and initialized incorrectly', () {
@@ -582,8 +582,8 @@ main() {
                   static const PropsMeta meta = \$metaForBarProps;
                 }
               ''');
-              verify(logger.severe('Static PropsMeta field in accessor class must be initialized to:'
-                  '`_\$metaFor_FooProps`'));
+              verify(logger.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
+                  '`_\$metaFor_FooProps`')));
             });
           });
 
@@ -594,7 +594,7 @@ main() {
                   static const PropsMeta meta = \$metaForFooState;
                 }
               ''');
-              verify(logger.severe('Static meta field in accessor class must be of type `StateMeta`'));
+              verify(logger.severe(contains('Static meta field in accessor class must be of type `StateMeta`')));
             });
 
             test('is initialized incorrectly', () {
@@ -603,8 +603,8 @@ main() {
                   static const StateMeta meta = \$metaForBarState;
                 }
               ''');
-              verify(logger.severe('Static StateMeta field in accessor class must be initialized to:'
-                  '`_\$metaForFooState`'));
+              verify(logger.severe(contains('Static StateMeta field in accessor class must be initialized to:'
+                  '`_\$metaForFooState`')));
             });
 
             test('is private and initialized incorrectly', () {
@@ -613,8 +613,8 @@ main() {
                   static const StateMeta meta = \$metaForBarState;
                 }
               ''');
-              verify(logger.severe('Static StateMeta field in accessor class must be initialized to:'
-                  '`_\$metaFor_FooState`'));
+              verify(logger.severe(contains('Static StateMeta field in accessor class must be initialized to:'
+                  '`_\$metaFor_FooState`')));
             });
           });
 
@@ -626,7 +626,7 @@ main() {
                   static const StateMeta meta = \$metaForAbstractFooProps;
                 }
               ''');
-              verify(logger.severe('Static meta field in accessor class must be of type `PropsMeta`'));
+              verify(logger.severe(contains('Static meta field in accessor class must be of type `PropsMeta`')));
             });
 
             test('is initialized incorrectly', () {
@@ -636,8 +636,8 @@ main() {
                   static const PropsMeta meta = \$metaForAbstractBarProps;
                 }
               ''');
-              verify(logger.severe('Static PropsMeta field in accessor class must be initialized to:'
-                    '`_\$metaForAbstractFooProps`'));
+              verify(logger.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
+                    '`_\$metaForAbstractFooProps`')));
             });
 
             test('is private and initialized incorrectly', () {
@@ -647,8 +647,8 @@ main() {
                   static const PropsMeta meta = \$metaForAbstractBarProps;
                 }
               ''');
-              verify(logger.severe('Static PropsMeta field in accessor class must be initialized to:'
-                    '`_\$metaFor_AbstractFooProps`'));
+              verify(logger.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
+                    '`_\$metaFor_AbstractFooProps`')));
             });
           });
 
@@ -660,7 +660,7 @@ main() {
                   static const PropsMeta meta = \$metaForAbstractFooState;
                 }
               ''');
-              verify(logger.severe('Static meta field in accessor class must be of type `StateMeta`'));
+              verify(logger.severe(contains('Static meta field in accessor class must be of type `StateMeta`')));
             });
 
             test('is initialized incorrectly', () {
@@ -670,8 +670,8 @@ main() {
                   static const StateMeta meta = \$metaForAbstractBarState;
                 }
               ''');
-              verify(logger.severe('Static StateMeta field in accessor class must be initialized to:'
-                  '`_\$metaForAbstractFooState`'));
+              verify(logger.severe(contains('Static StateMeta field in accessor class must be initialized to:'
+                  '`_\$metaForAbstractFooState`')));
             });
 
             test('is private and initialized incorrectly', () {
@@ -681,8 +681,8 @@ main() {
                   static const StateMeta meta = \$metaForAbstractBarState;
                 }
               ''');
-              verify(logger.severe('Static StateMeta field in accessor class must be initialized to:'
-                  '`_\$metaFor_AbstractFooState`'));
+              verify(logger.severe(contains('Static StateMeta field in accessor class must be initialized to:'
+                  '`_\$metaFor_AbstractFooState`')));
             });
           });
 
@@ -693,7 +693,7 @@ main() {
                   static const StateMeta meta = \$metaForFooPropsMixin;
                 }
               ''');
-              verify(logger.severe('Static meta field in accessor class must be of type `PropsMeta`'));
+              verify(logger.severe(contains('Static meta field in accessor class must be of type `PropsMeta`')));
             });
 
             test('is initialized incorrectly', () {
@@ -702,8 +702,8 @@ main() {
                   static const PropsMeta meta = \$metaForBarPropsMixin;
                 }
               ''');
-              verify(logger.severe('Static PropsMeta field in accessor class must be initialized to:'
-                  '`_\$metaForFooPropsMixin`'));
+              verify(logger.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
+                  '`_\$metaForFooPropsMixin`')));
             });
 
             test('is private and initialized incorrectly', () {
@@ -712,8 +712,8 @@ main() {
                   static const PropsMeta meta = \$metaForBarPropsMixin;
                 }
               ''');
-              verify(logger.severe('Static PropsMeta field in accessor class must be initialized to:'
-                  '`_\$metaFor_FooPropsMixin`'));
+              verify(logger.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
+                  '`_\$metaFor_FooPropsMixin`')));
             });
           });
 
@@ -724,7 +724,7 @@ main() {
                   static const PropsMeta meta = \$metaForFooStateMixin;
                 }
               ''');
-              verify(logger.severe('Static meta field in accessor class must be of type `StateMeta`'));
+              verify(logger.severe(contains('Static meta field in accessor class must be of type `StateMeta`')));
             });
 
             test('is initialized incorrectly', () {
@@ -733,8 +733,8 @@ main() {
                   static const StateMeta meta = \$metaForBarStateMixin;
                 }
               ''');
-              verify(logger.severe('Static StateMeta field in accessor class must be initialized to:'
-                  '`_\$metaForFooStateMixin`'));
+              verify(logger.severe(contains('Static StateMeta field in accessor class must be initialized to:'
+                  '`_\$metaForFooStateMixin`')));
             });
 
             test('is private and initialized incorrectly', () {
@@ -743,8 +743,8 @@ main() {
                   static const StateMeta meta = \$metaForBarStateMixin;
                 }
               ''');
-              verify(logger.severe('Static StateMeta field in accessor class must be initialized to:'
-                  '`_\$metaFor_FooStateMixin`'));
+              verify(logger.severe(contains('Static StateMeta field in accessor class must be initialized to:'
+                  '`_\$metaFor_FooStateMixin`')));
             });
           });
         });

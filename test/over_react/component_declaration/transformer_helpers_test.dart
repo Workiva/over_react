@@ -137,60 +137,6 @@ main() {
         expect(component.consumedProps, equals([const ConsumedProps(const [], const ['prop1', 'prop2'])]));
       });
     });
-
-    group('\$PropKeys (DEPRECATED - ungenerated)', () {
-      setUpAll(() {
-        // ignore: deprecated_member_use
-        expect(() => Null.meta.keys, returnsNormally,
-            reason: 'Instanitating a const \$PropKeys should not have thrown an error. '
-                    'Ensure that the over_react transformer is NOT running for this test file.'
-        );
-      });
-
-      // ignore: deprecated_member_use
-      $PropKeys stub;
-
-      setUp(() {
-        // ignore: deprecated_member_use
-        stub = Null.meta.keys;
-      });
-
-      test('implements List', () {
-        expect(stub, const TypeMatcher<List<String>>());
-      });
-
-      group('throws errors when List members are invoked:', () {
-        test('isEmpty', () {expect(() => stub.isEmpty,             throwsUngeneratedError);});
-        test('forEach', () {expect(() => stub.forEach((value) {}), throwsUngeneratedError);});
-      });
-    });
-
-    group('\$Props (DEPRECATED - ungenerated)', () {
-      setUpAll(() {
-        // ignore: deprecated_member_use
-        expect(() => Null.meta, returnsNormally,
-            reason: 'Instanitating a const \$Props should not have thrown an error. '
-                    'Ensure that the over_react transformer is NOT running for this test file.'
-        );
-      });
-
-      // ignore: deprecated_member_use
-      $Props stub;
-
-      setUp(() {
-        // ignore: deprecated_member_use
-        stub = Null.meta;
-      });
-
-      test('implements ConsumedProps', () {
-        expect(stub, const TypeMatcher<ConsumedProps>());
-      });
-
-      group('throws errors when ConsumedProps members are invoked:', () {
-        test('keys',  () {expect(() => stub.keys,  throwsUngeneratedError);});
-        test('props', () {expect(() => stub.props, throwsUngeneratedError);});
-      });
-    });
   });
 }
 

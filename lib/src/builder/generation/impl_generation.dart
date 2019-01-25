@@ -22,7 +22,7 @@ import 'package:over_react/src/builder/util.dart';
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/transformer_utils.dart';
 
-/// A utility class that modifies a [TransformedSourceFile] by generating implementations for a set of [ParsedDeclarations].
+/// A utility class that generating implementations for a set of [ParsedDeclarations] obtained from a [SourceFile].
 ///
 /// Generates implementations for:
 ///
@@ -30,19 +30,19 @@ import 'package:transformer_utils/transformer_utils.dart';
 ///
 ///     * Generates:
 ///
-///          * private subclasses for the component, props, and state classes, implementing stubbed methods.
-///          * a private React component factory via a call to `registerComponent`.
+///          * Private subclasses for the component, props, and state classes, implementing stubbed methods.
+///          * A private React component factory via a call to `registerComponent`.
 ///
 ///     * Wires up all the generated component pieces and exposes them via a function assigned to
-///     the previously uninitialized factory function variable.
+///     the initializer of factory function variable.
 ///
 /// * Any number of abstract component pieces: `@AbstractProps()`, `@AbstractState()`
 ///
-///     * Replaces fields with generated getters/setters.
+///     * Generate private subclasses which implement stubbed methods
 ///
 /// * Any number of mixins: `@PropsMixin()`, `@StateMixin()`
 ///
-///     * Replaces fields with generated getters/setters.
+///     * Generates public subclasses which implement stubbed methods for any number of mixins in a library
 class ImplGenerator {
   ImplGenerator(this.logger, this.sourceFile);
 
@@ -100,8 +100,8 @@ class ImplGenerator {
         /// It doesn't make sense to have a component subtype itself, and also an error occurs
         /// if a component's factory variable tries to reference itself during its initialization.
         /// Therefore, this is not allowed.
-        logger.severe('A component cannot be a subtype of itself.',
-//            span: getSpan(sourceFile, declarations.component.metaNode)
+        logger.severe(messageWithSpan('A component cannot be a subtype of itself.',
+            span: getSpan(sourceFile, declarations.component.metaNode))
         );
       }
 
@@ -222,9 +222,9 @@ class ImplGenerator {
 
       if (implementsTypedPropsStateFactory) {
         // Can't be an error, because consumers may be implementing typedPropsFactory or typedStateFactory in their components.
-        logger.warning(
+        logger.warning(messageWithSpan(
             'Components should not add their own implementions of typedPropsFactory or typedStateFactory.',
-//            span: getSpan(sourceFile, declarations.component.node)
+            span: getSpan(sourceFile, declarations.component.node))
         );
       }
     }
@@ -291,7 +291,7 @@ class ImplGenerator {
   static const String staticConsumedPropsName = '${publicGeneratedPrefix}consumedProps';
 
 
-  AccessorOutput generateAccessors(
+  AccessorOutput _generateAccessors(
       AccessorType type,
       NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap,
       String consumerClassName
@@ -327,17 +327,17 @@ class ImplGenerator {
 
 
           if (accessorMeta?.doNotGenerate == true) {
-            logger.fine('Skipping generation of field `$field`.',
-//                span: getSpan(sourceFile, field)
+            logger.fine(messageWithSpan('Skipping generation of field `$field`.',
+                span: getSpan(sourceFile, field))
             );
             return;
           }
 
           field.fields.variables.forEach((VariableDeclaration variable) {
             if (variable.initializer != null) {
-              logger.severe(
+              logger.severe(messageWithSpan(
                   'Fields are stubs for generated setters/getters and should not have initializers.',
-//                  span: getSpan(sourceFile, variable)
+                  span: getSpan(sourceFile, variable))
               );
             }
 
@@ -394,10 +394,10 @@ class ImplGenerator {
             }
 
             if (annotationCount > 1) {
-              logger.severe(
+              logger.severe(messageWithSpan(
                   '@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
                   'You can use `@Accessor(required: true)` or `isNullable: true` instead of the shorthand versions.',
-//                  span: getSpan(sourceFile, field)
+                  span: getSpan(sourceFile, field))
               );
             }
 
@@ -429,16 +429,16 @@ class ImplGenerator {
 
             output.write(generatedAccessor);
 
-            logger.fine('Generated accessor `$accessorName` with key $keyValue.');
-//                span: getSpan(sourceFile, variable)
+            logger.fine(messageWithSpan('Generated accessor `$accessorName` with key $keyValue.',
+                span: getSpan(sourceFile, variable)));
           });
 
           if (field.fields.variables.length > 1 &&
               (field.documentationComment != null || field.metadata.isNotEmpty)) {
-            logger.warning(
+            logger.warning(messageWithSpan(
                 'Note: accessors declared as comma-separated variables will not all be generated '
                 'with the original doc comments and annotations; only the first variable will.',
-//                span: getSpan(sourceFile, field.fields)
+                span: getSpan(sourceFile, field.fields))
             );
           }
         });
@@ -572,14 +572,13 @@ class ImplGenerator {
     var isProps = type == AccessorType.props;
     if (!hasAbstractGetter(node.node, 'Map', isProps ? 'props' : 'state')) {
       var propsOrState = isProps ? 'props': 'state';
-      logger.severe(
+      logger.severe(messageWithSpan(
         '${isProps
             ? 'Props'
             : 'State'} mixin classes must declare an abstract $propsOrState getter `Map get $propsOrState;` '
             'so that they can be statically analyzed properly.',
-//            span: getSpan(sourceFile, stateMixin.node)
+            span: getSpan(sourceFile, node.node))
       );
-      logger.severe(getSpan(sourceFile, node.node));
     }
 
     var consumerClassName = _classNameFromNode(node);
@@ -626,7 +625,7 @@ class ImplGenerator {
         '  Map get ${isProps ? 'props': 'state'};\n'
     );
 
-    generatedClass.write(generateAccessors(type, node, consumerClassName).implementations);
+    generatedClass.write(_generateAccessors(type, node, consumerClassName).implementations);
     generatedClass.writeln('}');
     generatedClass.writeln();
     return generatedClass.toString();

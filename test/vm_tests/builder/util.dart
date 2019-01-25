@@ -30,15 +30,34 @@ enum AnnotationType {
   stateMixin
 }
 
-/// class used to generate valid over_react source code which can be used for
-/// testing the builder pieces
+/// Used to generate valid over_react source code which can be used for
+/// testing the builder pieces. See one of the named constructors for usage
+/// details:
+///   [OverReactSrc.abstractProps]
+///   [OverReactSrc.abstractState]
+///   [OverReactSrc.props]
+///   [OverReactSrc.propsMixin]
+///   [OverReactSrc.state]
+///   [OverReactSrc.stateMixin]
 class OverReactSrc {
   /// Creates valid over_react [source] with an abstract props class included.
   ///
   /// Can optionally specify an accompanying abstract component class by setting
-  /// [needsComponent] to true. Set [typeParameters] to true to add type
-  /// parameters to the abstract props class. Set [isPrivate] to true to make
-  /// the class private.
+  /// [needsComponent] to true.
+  ///
+  /// Set [typeParameters] to true to add type parameters to the abstract props
+  /// class.
+  ///
+  /// Set [isPrivate] to true to make the class private.
+  ///
+  /// Use [annotationArg] to add an argument to the `@Props()` annotation.
+  ///
+  /// Use [body] to specify a body for the `@Props()` annotated class.
+  ///
+  /// Use [componentBody] to specify a body for the `@Component()` annotated class.
+  ///
+  /// Use [componentAnnotationArg] to add an argument to the `@Component()`
+  /// annotation.
   const OverReactSrc.abstractProps({
     this.annotationArg: '',
     this.body: '',
@@ -55,9 +74,21 @@ class OverReactSrc {
   ///
   /// Can optionally specify an accompanying abstract component class by setting
   /// [needsComponent] to `true`. If [needsComponent] is true, an abstract props
-  /// class will also be included in the [source]. Set [typeParameters] to true
-  /// to add type parameters to the abstract state class. Set [isPrivate] to
-  /// true to make the class private.
+  /// class will also be included in the [source].
+  ///
+  /// Set [typeParameters] to true to add type parameters to the abstract state
+  /// class.
+  ///
+  /// Set [isPrivate] to true to make the class private.
+  ///
+  /// Use [annotationArg] to add an argument to the `@Props()` annotation.
+  ///
+  /// Use [body] to specify a body for the `@Props()` annotated class.
+  ///
+  /// Use [componentBody] to specify a body for the `@Component()` annotated class.
+  ///
+  /// Use [componentAnnotationArg] to add an argument to the `@Component()`
+  /// annotation.
   const OverReactSrc.abstractState({
     this.annotationArg: '',
     this.body: '',
@@ -73,8 +104,18 @@ class OverReactSrc {
   /// Creates valid over_react [source] with a props class included.
   ///
   /// Will also include a factory and component in the [source]. Set
-  /// [typeParameters] to true to add type parameters to the props class. Set
-  /// [isPrivate] to true to make the class private.
+  /// [typeParameters] to true to add type parameters to the props class.
+  ///
+  /// Set [isPrivate] to true to make the class private.
+  ///
+  /// Use [annotationArg] to add an argument to the `@Props()` annotation.
+  ///
+  /// Use [body] to specify a body for the `@Props()` annotated class.
+  ///
+  /// Use [componentBody] to specify a body for the `@Component()` annotated class.
+  ///
+  /// Use [componentAnnotationArg] to add an argument to the `@Component()`
+  /// annotation.
   const OverReactSrc.props({
     this.annotationArg: '',
     this.body: '',
@@ -91,7 +132,17 @@ class OverReactSrc {
   ///
   /// This will not include a factory and component in the [source]. Set
   /// [typeParameters] to true to add type parameters to the props mixin class.
+  ///
   /// Set [isPrivate] to true to make the class private.
+  ///
+  /// Use [annotationArg] to add an argument to the `@Props()` annotation.
+  ///
+  /// Use [body] to specify a body for the `@Props()` annotated class.
+  ///
+  /// Use [componentBody] to specify a body for the `@Component()` annotated class.
+  ///
+  /// Use [componentAnnotationArg] to add an argument to the `@Component()`
+  /// annotation.
   const OverReactSrc.propsMixin({
     this.annotationArg: '',
     this.body: '',
@@ -104,30 +155,22 @@ class OverReactSrc {
         this.baseName = '${isPrivate ? '_' : ''}Foo',
         this.needsComponent = false;
 
-  /// Creates valid over_react [source] with a props mixin class included.
-  ///
-  ///
-  /// This will not include a factory and component in the [source]. Set
-  /// [typeParameters] to true to add type parameters to the state mixin class.
-  /// Set [isPrivate] to true to make the class private.
-  const OverReactSrc.stateMixin({
-    this.annotationArg: '',
-    this.body: '',
-    this.componentAnnotationArg: '',
-    this.componentBody: '',
-    this.typeParameters: false,
-    isPrivate: false})
-      :
-        this.annotation = AnnotationType.stateMixin,
-        this.baseName = '${isPrivate ? '_' : ''}Foo',
-        this.needsComponent = false;
-
   /// Creates valid over_react [source] with a state class included.
   ///
   /// Will also include a factory, component, and props in the [source], since
   /// these are required when a @State() class is present. Set [typeParameters]
-  /// to true to add type parameters to the state class. Set [isPrivate] to true
-  /// to make the class private.
+  /// to true to add type parameters to the state class.
+  ///
+  /// Set [isPrivate] to true to make the class private.
+  ///
+  /// Use [annotationArg] to add an argument to the `@Props()` annotation.
+  ///
+  /// Use [body] to specify a body for the `@Props()` annotated class.
+  ///
+  /// Use [componentBody] to specify a body for the `@Component()` annotated class.
+  ///
+  /// Use [componentAnnotationArg] to add an argument to the `@Component()`
+  /// annotation.
   const OverReactSrc.state({
     this.annotationArg: '',
     this.body: '',
@@ -139,6 +182,34 @@ class OverReactSrc {
         this.annotation = AnnotationType.state,
         this.baseName = '${isPrivate ? '_' : ''}Foo',
         this.needsComponent = true;
+
+  /// Creates valid over_react [source] with a props mixin class included.
+  ///
+  ///
+  /// This will not include a factory and component in the [source]. Set
+  /// [typeParameters] to true to add type parameters to the state mixin class.
+  ///
+  /// Set [isPrivate] to true to make the class private.
+  ///
+  /// Use [annotationArg] to add an argument to the `@Props()` annotation.
+  ///
+  /// Use [body] to specify a body for the `@Props()` annotated class.
+  ///
+  /// Use [componentBody] to specify a body for the `@Component()` annotated class.
+  ///
+  /// Use [componentAnnotationArg] to add an argument to the `@Component()`
+  /// annotation.
+  const OverReactSrc.stateMixin({
+    this.annotationArg: '',
+    this.body: '',
+    this.componentAnnotationArg: '',
+    this.componentBody: '',
+    this.typeParameters: false,
+    isPrivate: false})
+      :
+        this.annotation = AnnotationType.stateMixin,
+        this.baseName = '${isPrivate ? '_' : ''}Foo',
+        this.needsComponent = false;
 
   final AnnotationType annotation;
   final String componentAnnotationArg;
