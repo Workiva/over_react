@@ -47,7 +47,6 @@ main() {
   flux_component_test.main();
   redux_component_test.main();
 
-  // TODO: Put this back in/update to dart2 once the build for this file is figured out
   transformer_helpers_test.main();
 
   dart2_abstract_accessor_integration_test.main();

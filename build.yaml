@@ -8,10 +8,6 @@ builders:
 
 targets:
   $default:
-    sources:
-      exclude:
-        # TODO: has some faulty component declarations, might not need generation, but comment out for now cuz it breaks things
-
     builders:
       over_react|overReactBuilder:
         generate_for:
