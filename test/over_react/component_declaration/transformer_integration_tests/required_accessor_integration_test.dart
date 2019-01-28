@@ -23,7 +23,7 @@ import '../../../test_util/test_util.dart';
 part 'required_accessor_integration_test.over_react.g.dart';
 
 void main() {
-  group('(dart 2) properly identifies required props by', () {
+  group('properly identifies required props by', () {
     group('throwing when a prop is required and not set', () {
       test('on mount', () {
         expect(() => render(ComponentTest()..nullable = true),

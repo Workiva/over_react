@@ -20,138 +20,155 @@ import 'package:test/test.dart';
 void mapProxyTests(Map mapProxyFactory(Map proxiedMap)) {
   group('proxies the Map member:', () {
     Map proxy;
-    MockMap mock;
+    MockMap backingMap;
 
     setUp(() {
-      mock = new MockMap();
-      proxy = mapProxyFactory(mock);
+      backingMap = new MockMap();
+      proxy = mapProxyFactory(backingMap);
     });
 
     tearDown(() {
       // Ensure that there were no calls other than the ones we verified explicitly.
-      verifyNoMoreInteractions(mock);
+      verifyNoMoreInteractions(backingMap);
     });
 
-    // TODO: Implement me
-//    test('map', () {});
+    test('map', () {
+      var callback = (key, value) {};
 
-    // TODO: Implement me
-//    test('entries', () {});
+      proxy.map(callback);
+      verify(backingMap.map(callback));
+    });
 
-    // TODO: Implement me
-//    test('addEntries', () {});
+    test('entries', () {
+      var entries = <MapEntry>[];
+      when(backingMap.entries).thenReturn(entries);
+      expect(proxy.entries, entries);
+      verify(proxy.entries);
+    });
 
-    // TODO: Implement me
-//    test('removeWhere', () {});
+    test('addEntries', () {
+      var entry = MapEntry('key', 'value');
+      proxy.addEntries([entry]);
+      verify(proxy.addEntries([entry]));
+    });
 
-    // TODO: Implement me
-//    test('update', () {});
+    test('removeWhere', () {
+      var callback = (key, value) {};
+      proxy.removeWhere(callback);
+      verify(backingMap.removeWhere(callback));
+    });
 
-    // TODO: Implement me
-//    test('updateAll', () {});
+    test('update', () {
+      var updater = (value) {};
+      proxy.update('key', updater);
+      verify(backingMap.update('key', updater));
+    });
 
-    // TODO: Implement me
-//    test('cast', () {});
+    test('updateAll', () {
+      var updater = (key, value) {};
+      proxy.updateAll(updater);
+      verify(backingMap.updateAll(updater));
+    });
 
-    // TODO: Implement me
-//    test('retype', () {});
+    test('cast', () {
+      var castMap = {};
+      when(backingMap.cast()).thenReturn(castMap);
+      expect(proxy.cast(), castMap);
+      verify(backingMap.cast());
+    });
 
     test('operator[]', () {
-      when(mock[any]).thenReturn('value');
+      when(backingMap[any]).thenReturn('value');
 
       expect(proxy['key'], 'value');
-      verify(mock['key']);
+      verify(backingMap['key']);
     });
 
     test('operator[]=', () {
-      when(mock['key'] = 'key').thenReturn('value');
+      when(backingMap['key'] = 'key').thenReturn('value');
 
       expect(proxy['key'] = 'value', 'value');
-      verify(mock['key'] = 'value');
+      verify(backingMap['key'] = 'value');
     });
 
-    // TODO: Fix me
-//    test('addAll', () {
-//      var testMap = {};
-//      when(mock.addAll(any)).thenReturn('value');
-//
-//      expect(proxy.addAll(testMap), isNull);
-//      verify(mock.addAll(argThat(same(testMap))));
-//    });
+    test('addAll', () {
+      var testMap = {};
 
-    // TODO: Fix me
-//    test('clear', () {
-//      expect(proxy.clear(), isNull);
-//      verify(mock.clear());
-//    });
+      proxy.addAll(testMap);
+      verify(backingMap.addAll(argThat(same(testMap))));
+    });
+
+    test('clear', () {
+      proxy.clear();
+      verify(backingMap.clear());
+    });
 
     test('putIfAbsent', () {
       var ifAbsent = () => 'absent';
 
       expect(proxy.putIfAbsent('key', ifAbsent), isNull);
-      verify(mock.putIfAbsent('key', ifAbsent));
+      verify(backingMap.putIfAbsent('key', ifAbsent));
     });
 
     test('containsKey', () {
-      when(mock.containsKey(any)).thenReturn(true);
+      when(backingMap.containsKey(any)).thenReturn(true);
 
       expect(proxy.containsKey('key'), isTrue);
-      verify(mock.containsKey('key'));
+      verify(backingMap.containsKey('key'));
     });
 
     test('containsValue', () {
-      when(mock.containsValue(any)).thenReturn(true);
+      when(backingMap.containsValue(any)).thenReturn(true);
 
       expect(proxy.containsValue('value'), isTrue);
-      verify(mock.containsValue('value'));
+      verify(backingMap.containsValue('value'));
     });
 
-    // TODO: Fix me
-//    test('forEach', () {
-//      var callback = (key, value) {};
-//
-//      expect(proxy.forEach(callback), isNull);
-//      verify(mock.forEach(callback));
-//    });
+    test('forEach', () {
+      var callback = (key, value) {};
+
+      proxy.forEach(callback);
+      verify(backingMap.forEach(callback));
+    });
 
     test('isEmpty', () {
-      when(mock.isEmpty).thenReturn(true);
+      when(backingMap.isEmpty).thenReturn(true);
 
       expect(proxy.isEmpty, isTrue);
-      verify(mock.isEmpty);
+      verify(backingMap.isEmpty);
     });
 
     test('isNotEmpty', () {
-      when(mock.isNotEmpty).thenReturn(true);
+      when(backingMap.isNotEmpty).thenReturn(true);
 
       expect(proxy.isNotEmpty, isTrue);
-      verify(mock.isNotEmpty);
+      verify(backingMap.isNotEmpty);
     });
 
     test('length', () {
-      when(mock.length).thenReturn(1);
+      when(backingMap.length).thenReturn(1);
 
       expect(proxy.length, 1);
-      verify(mock.length);
+      verify(backingMap.length);
     });
 
     test('keys', () {
-      when(mock.keys).thenReturn(['key']);
+      when(backingMap.keys).thenReturn(['key']);
 
       expect(proxy.keys, equals(['key']));
-      verify(mock.keys);
+      verify(backingMap.keys);
     });
 
     test('remove', () {
       expect(proxy.remove('key'), isNull);
-      verify(mock.remove('key'));
+      verify(backingMap.remove('key'));
     });
 
     test('values', () {
-      when(mock.values).thenReturn(['value']);
+      when(backingMap.values).thenReturn(['value']);
 
       expect(proxy.values, equals(['value']));
-      verify(mock.values);
+      verify(backingMap.values);
     });
   });
 }

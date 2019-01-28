@@ -15,11 +15,9 @@ main() {
   print('working...');
   react_dom.render(
       Dom.div()(
-        // ignore: invocation_of_non_function_expression
         Dom.h3()('Components'),
         (Basic()
-          ..basic1 = '<fucking basick prop>'
-//          ..propMixin1 = 'This is a prop mixin'
+          ..basic1 = '<basic prop>'
           ..id = 'the id of this component'
         )(),
         (Sub()

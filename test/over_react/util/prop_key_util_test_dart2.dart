@@ -5,7 +5,7 @@ import 'package:over_react/over_react.dart';
 part 'prop_key_util_test_dart2.over_react.g.dart';
 
 main() {
-  group('(dart 2) getPropKey', () {
+  group('getPropKey', () {
     test('returns the expected key', () {
       var testProps = Test()..foo = 'baz';
       var fooPropKey = getPropKey((Map props) { (props as TestProps).foo; }, Test);   // ignore: avoid_as

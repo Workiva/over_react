@@ -11,7 +11,7 @@ tags:
 presets:
   dartdevc:
     concurrency: 4
-    exclude_tags: no-ddc || mirrors || dart2js-only
+    exclude_tags: no-ddc || dart2js-only
     platforms:
       - chrome
       - vm

@@ -20,7 +20,7 @@ import '../../../test_util/test_util.dart';
 part 'do_not_generate_accessor_integration_test.over_react.g.dart';
 
 main() {
-  group('(dart 2) acessors with doNotGenerate integration', () {
+  group('acessors with doNotGenerate integration', () {
     group('generates prop getters/setters properly', () {
       test('for prop fields listed before the field annotated with doNotGenerate', () {
         expect((DoNotGenerateAccessorTest()..generated1Prop = 'test').values.single, 'test');

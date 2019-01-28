@@ -468,11 +468,6 @@ typedef PropsModifier(Map props);
 ///
 /// > Note: Implements [MapViewMixin] instead of extending it so that the abstract [Props] declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
-/// FIXME: ^^ We need to extend from [MapViewMixin] and [PropsMapViewMixin] b/c
-/// not doing so break things on Dart 2. For [MapViewMixin], the noSuchMethod implementation
-/// here obscured some errors of subclasses not having all the concrete implementations it needed,
-/// as in AF-3458. For [PropsMapViewMixin], omitting it causes lots of test errors
-/// with null references. Not sure why yet.
 abstract class UiProps extends MapBase
     with
         MapViewMixin,

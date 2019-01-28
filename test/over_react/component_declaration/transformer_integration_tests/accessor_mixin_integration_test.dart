@@ -18,7 +18,7 @@ import 'package:test/test.dart';
 part 'accessor_mixin_integration_test.over_react.g.dart';
 
 main() {
-  group('(dart 2) transformed accessor mixin integration:', () {
+  group('transformed accessor mixin integration:', () {
     group('@PropsMixin()', () {
       group('generates prop getters/setters with', () {
         test('the props class name as a namespace and the prop name as the key by default', () {

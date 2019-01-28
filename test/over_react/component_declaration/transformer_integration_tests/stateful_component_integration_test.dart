@@ -20,7 +20,7 @@ import '../../../test_util/test_util.dart';
 part 'stateful_component_integration_test.over_react.g.dart';
 
 main() {
-  group('(dart 2) transformed stateful component integration:', () {
+  group('transformed stateful component integration:', () {
     test('state class cannot be instantiated directly', () {
       expect(() {
         new StatefulComponentTestState();
