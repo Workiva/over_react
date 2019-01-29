@@ -12,12 +12,12 @@ import './util.dart';
 
 class OverReactGenerator extends Generator {
   String _generateForFile(AssetId inputId, String primaryInputContents, CompilationUnit resolvedUnit) {
-    var sourceFile = new SourceFile.fromString(
+    final sourceFile = new SourceFile.fromString(
         primaryInputContents, url: idToPackageUri(inputId));
 
     ImplGenerator generator;
     if (ParsedDeclarations.mightContainDeclarations(primaryInputContents)) {
-      var declarations = new ParsedDeclarations(resolvedUnit, sourceFile, log);
+      final declarations = new ParsedDeclarations(resolvedUnit, sourceFile, log);
 
       if (declarations.hasErrors) {
         log.severe('There was an error parsing the file declarations for file: $inputId');
@@ -48,7 +48,7 @@ class OverReactGenerator extends Generator {
       entryLib.parts.expand((p) => [p]),
     ].expand((t) => t).toList();
 
-    var contentBuffer = new StringBuffer();
+    final contentBuffer = new StringBuffer();
     for (final unit in compUnits) {
       log.fine('Generating implementations for file: ${unit.name}');
       // unit.uri is needed for part files, but is null for the parent file.

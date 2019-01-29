@@ -55,7 +55,7 @@ class ParsedDeclarations {
           );
         }
         final isClassPrivate = cd.name.name.startsWith('_');
-        var expectedInitializers = ['\$metaFor${cd.name.name}', '_\$metaFor${cd.name.name}'];
+        final expectedInitializers = ['\$metaFor${cd.name.name}', '_\$metaFor${cd.name.name}'];
         if (isClassPrivate) {
           expectedInitializers.add('_\$metaFor${cd.name.name.substring(1)}');
         }
@@ -86,10 +86,10 @@ class ParsedDeclarations {
       key_stateMixin:        <CompilationUnitMember>[],
     };
 
-    var companionPrefix = r'_$';
+    final companionPrefix = r'_$';
     unit.declarations.forEach((CompilationUnitMember member) {
       member.metadata.forEach((annotation) {
-        var name = annotation.name.toString();
+        final name = annotation.name.toString();
         bool isPropsClass(String annotation) {
           return (name == 'Props' || name == 'AbstractProps');
         }
@@ -139,7 +139,7 @@ class ParsedDeclarations {
     // Validate the types of the annotated declarations.
 
     List<TopLevelVariableDeclaration> topLevelVarsOnly(String annotationName, Iterable<CompilationUnitMember> declarations) {
-      var topLevelVarDeclarations = <TopLevelVariableDeclaration>[];
+      final topLevelVarDeclarations = <TopLevelVariableDeclaration>[];
 
       declarations.forEach((declaration) {
         if (declaration is TopLevelVariableDeclaration) {
@@ -156,7 +156,7 @@ class ParsedDeclarations {
     };
 
     List<ClassDeclaration> classesOnly(String annotationName, Iterable<CompilationUnitMember> declarations) {
-      var classDeclarations = <ClassDeclaration>[];
+      final classDeclarations = <ClassDeclaration>[];
 
       declarations.forEach((declaration) {
         if (declaration is ClassDeclaration) {
@@ -211,7 +211,7 @@ class ParsedDeclarations {
     if (!areDeclarationsValid) {
       if (!noneOfAnyRequiredDecl) {
         key_allComponentRequired.forEach((annotationName) {
-          var declarations = declarationMap[annotationName];
+          final declarations = declarationMap[annotationName];
           if (declarations.length == 0) {
             error(
                 'To define a component, there must also be a `@$annotationName` within the same file, '
@@ -231,7 +231,7 @@ class ParsedDeclarations {
       }
 
       key_allComponentOptional.forEach((annotationName) {
-        var declarations = declarationMap[annotationName];
+        final declarations = declarationMap[annotationName];
 
         if (declarations.length > 1) {
           for (int i = 0; i < declarations.length; i++) {
@@ -275,7 +275,7 @@ class ParsedDeclarations {
 
       final variable = factory.variables.variables.first;
       final isPrivate = factoryName.startsWith('_');
-      var expectedInitializers = ['\$$factoryName', '_\$$factoryName'];
+      final expectedInitializers = ['\$$factoryName', '_\$$factoryName'];
 
       if (isPrivate) {
         expectedInitializers.add('_\$${factoryName.substring(1)}');
