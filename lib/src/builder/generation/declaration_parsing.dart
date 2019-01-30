@@ -38,6 +38,10 @@ class ParsedDeclarations {
   factory ParsedDeclarations(CompilationUnit unit, SourceFile sourceFile, Logger logger) {
     bool hasErrors = false;
     bool hasDeclarations = false;
+    bool hasPropsCompanionClass = false;
+    bool hasAbstractPropsCompanionClass = false;
+    bool hasStateCompanionClass = false;
+    bool hasAbstractStateCompanionClass = false;
 
     void error(String message, [SourceSpan span]) {
       hasErrors = true;
@@ -90,6 +94,24 @@ class ParsedDeclarations {
     unit.declarations.forEach((CompilationUnitMember member) {
       member.metadata.forEach((annotation) {
         var name = annotation.name.toString();
+
+        void updateCompanionClass(String annotation, bool value) {
+          switch(annotation) {
+            case 'Props':
+              hasPropsCompanionClass = value;
+              break;
+            case 'AbstractProps':
+              hasAbstractPropsCompanionClass = value;
+              break;
+            case 'State':
+              hasStateCompanionClass = value;
+              break;
+            case 'AbstractState':
+              hasAbstractStateCompanionClass = value;
+              break;
+          }
+        }
+
         bool isPropsClass(String annotation) {
           return (name == 'Props' || name == 'AbstractProps');
         }
@@ -99,33 +121,24 @@ class ParsedDeclarations {
         }
 
         if ((isPropsClass(name) || isStateClass(name)) && member is ClassDeclaration) {
-          if (member.name.name.startsWith(companionPrefix)) {
-            final companionName = member.name.name.substring(companionPrefix.length);
-            final privateCompanionName = '_$companionName';
-            final privateCompanionClass = unit.declarations.firstWhere(
-                    (innerMember) =>
-                innerMember is ClassDeclaration && innerMember.name.name == privateCompanionName,
-                orElse: () => null);
-            final publicCompanionClass = unit.declarations.firstWhere(
-                    (innerMember) =>
-                innerMember is ClassDeclaration && innerMember.name.name == companionName,
-                orElse: () => null);
+          final companionName = member.name.name.substring(companionPrefix.length);
+          final companionClass = unit.declarations.firstWhere(
+                  (innerMember) =>
+              innerMember is ClassDeclaration && innerMember.name.name == companionName,
+              orElse: () => null);
 
-            if (privateCompanionClass == null && publicCompanionClass == null) {
-              error('${member.name.name} must have an accompanying companion class within the '
-                  'same file for Dart 2 builder compatibility, but one was not found.', getSpan(sourceFile, member));
-            } else {
-              if (privateCompanionClass != null) {
-                validateMetaField(privateCompanionClass, isPropsClass(name) ? 'PropsMeta': 'StateMeta');
-              } else {
-                validateMetaField(publicCompanionClass, isPropsClass(name) ? 'PropsMeta': 'StateMeta');
-              }
-            }
+          final hasCompanionClass = companionClass != null;
+          if (hasCompanionClass) {
+            updateCompanionClass(name, true);
+            validateMetaField(companionClass, isPropsClass(name) ? 'PropsMeta': 'StateMeta');validateMetaField(companionClass, isPropsClass(name) ? 'PropsMeta': 'StateMeta');
           } else {
-            // Props or state class has the incorrect naming (should start with [companionPrefix]
-            error('The class `${member.name.name}` does not start with $companionPrefix. All Props, State, '
-                'AbstractProps, and AbstractState classes should begin with $companionPrefix under Dart 2',
-              getSpan(sourceFile, member));
+            if (!member.name.name.startsWith(companionPrefix)) {
+              // Props or state class has the incorrect naming (should start with [companionPrefix]
+              error('The class `${member.name.name}` does not start with $companionPrefix. All Props, State, '
+                  'AbstractProps, and AbstractState classes should begin with $companionPrefix under Dart 2',
+                  getSpan(sourceFile, member));
+            }
+            updateCompanionClass(name, false);
           }
         }
 
@@ -313,6 +326,10 @@ class ParsedDeclarations {
 
         hasErrors: hasErrors,
         hasDeclarations: hasDeclarations,
+        hasPropsCompanionClass: hasPropsCompanionClass,
+        hasAbstractPropsCompanionClass: hasAbstractPropsCompanionClass,
+        hasStateCompanionClass: hasStateCompanionClass,
+        hasAbstractStateCompanionClass: hasAbstractStateCompanionClass,
     );
   }
 
@@ -330,14 +347,19 @@ class ParsedDeclarations {
 
       this.hasErrors,
       this.hasDeclarations,
+
+      bool hasPropsCompanionClass,
+      bool hasAbstractPropsCompanionClass,
+      bool hasStateCompanionClass,
+      bool hasAbstractStateCompanionClass,
   }) :
       this.factory       = (factory   == null) ? null : new FactoryNode(factory),
       this.component     = (component == null) ? null : new ComponentNode(component),
-      this.props         = (props     == null) ? null : new PropsNode(props),
-      this.state         = (state     == null) ? null : new StateNode(state),
+      this.props         = (props     == null) ? null : new PropsNode(props, hasPropsCompanionClass),
+      this.state         = (state     == null) ? null : new StateNode(state, hasStateCompanionClass),
 
-      this.abstractProps = new List.unmodifiable(abstractProps.map((propsMixin) => new AbstractPropsNode(propsMixin))),
-      this.abstractState = new List.unmodifiable(abstractState.map((stateMixin) => new AbstractStateNode(stateMixin))),
+      this.abstractProps = new List.unmodifiable(abstractProps.map((props) => new AbstractPropsNode(props, hasAbstractPropsCompanionClass))),
+      this.abstractState = new List.unmodifiable(abstractState.map((state) => new AbstractStateNode(state, hasAbstractStateCompanionClass))),
 
       this.propsMixins   = new List.unmodifiable(propsMixins.map((propsMixin) => new PropsMixinNode(propsMixin))),
       this.stateMixins   = new List.unmodifiable(stateMixins.map((stateMixin) => new StateMixinNode(stateMixin))),
@@ -448,11 +470,24 @@ class ComponentNode extends NodeWithMeta<ClassDeclaration, annotations.Component
 }
 
 class FactoryNode           extends NodeWithMeta<TopLevelVariableDeclaration, annotations.Factory> {FactoryNode(unit)           : super(unit);}
-class PropsNode             extends NodeWithMeta<ClassDeclaration, annotations.Props>              {PropsNode(unit)             : super(unit);}
-class StateNode             extends NodeWithMeta<ClassDeclaration, annotations.State>              {StateNode(unit)             : super(unit);}
 
-class AbstractPropsNode     extends NodeWithMeta<ClassDeclaration, annotations.AbstractProps>      {AbstractPropsNode(unit)     : super(unit);}
-class AbstractStateNode     extends NodeWithMeta<ClassDeclaration, annotations.AbstractState>      {AbstractStateNode(unit)     : super(unit);}
+class PropsOrStateNode<T> extends NodeWithMeta<ClassDeclaration, T> {
+  final bool hasCompanionClass;
+  PropsOrStateNode(unit, this.hasCompanionClass): super(unit);
+}
+class PropsNode extends PropsOrStateNode<annotations.Props> {
+  PropsNode(unit, hasCompanionClass): super(unit, hasCompanionClass);
+}
+class StateNode extends PropsOrStateNode<annotations.State> {
+  StateNode(unit, hasCompanionClass): super(unit, hasCompanionClass);
+}
+
+class AbstractPropsNode extends PropsOrStateNode<annotations.AbstractProps> {
+  AbstractPropsNode(unit, hasCompanionClass): super(unit, hasCompanionClass);
+}
+class AbstractStateNode extends PropsOrStateNode<annotations.AbstractState> {
+  AbstractStateNode(unit, hasCompanionClass): super(unit, hasCompanionClass);
+}
 
 class PropsMixinNode        extends NodeWithMeta<ClassDeclaration, annotations.PropsMixin>         {PropsMixinNode(unit)        : super(unit);}
 class StateMixinNode        extends NodeWithMeta<ClassDeclaration, annotations.StateMixin>         {StateMixinNode(unit)        : super(unit);}

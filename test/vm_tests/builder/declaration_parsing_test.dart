@@ -343,26 +343,6 @@ main() {
           expectEmptyDeclarations(reason: 'Declarations with errors should always be null/empty.');
         });
 
-        test('a companion props class is not found when a private _\$ prefixed props class is declared', () {
-          setUpAndParse(factorySrc + propsSrc + componentSrc);
-          verify(logger.severe(contains('_\$FooProps must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.')));
-        });
-
-        test('a companion state class is not found when an private _\$ prefixed state class is declared', () {
-          setUpAndParse(factorySrc + propsSrc + companionClassProps + stateSrc + componentSrc);
-          verify(logger.severe(contains('_\$FooState must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.')));
-        });
-
-        test('a companion abstract props class is not found  when an private _\$ prefixed abstract props class is declared', () {
-          setUpAndParse(abstractPropsSrc);
-          verify(logger.severe(contains('_\$AbstractFooProps must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.')));
-        });
-
-        test('a compaion abstract state class is not found when an private _\$ prefixed abstract state class is declared', () {
-          setUpAndParse(abstractStateSrc);
-          verify(logger.severe(contains('_\$AbstractFooState must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.')));
-        });
-
         group('there is not Dart-2 compatible naming on', () {
           test('a class annotated with @Props()', () {
             setUpAndParse(propsSrcDart1 + componentSrc + factorySrc);

@@ -14,13 +14,13 @@
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
-import '../../../test_util/test_util.dart';
+import '../../../../test_util/test_util.dart';
 
 // ignore: uri_has_not_been_generated
 part 'namespaced_accessor_integration_test.over_react.g.dart';
 
 main() {
-  group('transformed custom namespaced props/state integration:', () {
+  group('(backwards compatible with Dart 1) custom namespaced props/state integration:', () {
     group('generates prop getters/setters, when there is a custom key namespace, with', () {
       test('the custom namespace and the prop name as the key by default', () {
         expect(NamespacedAccessorTest()..stringProp = 'test',

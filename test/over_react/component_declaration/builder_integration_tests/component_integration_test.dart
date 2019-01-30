@@ -21,7 +21,7 @@ import '../../../test_util/test_util.dart';
 part 'component_integration_test.over_react.g.dart';
 
 main() {
-  group('transformed component integration:', () {
+  group('component integration:', () {
     test('renders a component from end to end, successfully reading props via typed getters', () {
       var instance = render((ComponentTest()
         ..stringProp = '1'
@@ -160,11 +160,4 @@ class ComponentTestComponent extends UiComponent<ComponentTestProps> {
     ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
     ..addProp('data-prop-custom-key-and-namespace-prop', props.customKeyAndNamespaceProp)
   )('rendered content');
-}
-
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class ComponentTestProps extends _$ComponentTestProps with _$ComponentTestPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForComponentTestProps;
 }

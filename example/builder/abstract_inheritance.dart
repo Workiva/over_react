@@ -2,17 +2,9 @@ import 'package:over_react/over_react.dart';
 
 part 'abstract_inheritance.over_react.g.dart';
 
-abstract class SuperProps extends _$SuperProps with _$SuperPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForSuperProps;
-}
-
 @AbstractProps()
 abstract class _$SuperProps extends UiProps {
   String superProp;
-}
-
-abstract class SuperState extends _$SuperState with _$SuperStateAccessorsMixin {
-  static const StateMeta meta = _$metaForSuperState;
 }
 
 @AbstractState()
@@ -37,17 +29,9 @@ abstract class SuperComponent<T extends SuperProps, V extends SuperState> extend
 @Factory()
 UiFactory<SubProps> Sub = _$Sub;
 
-class SubProps extends _$SubProps with _$SubPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForSubProps;
-}
-
 @Props()
 class _$SubProps extends SuperProps {
   String subProp;
-}
-
-abstract class SubState extends _$SubState with _$SubStateAccessorsMixin {
-  static const StateMeta meta = _$metaForSubState;
 }
 
 @State()

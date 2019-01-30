@@ -20,14 +20,14 @@ import 'package:test/test.dart';
 import '../../../test_util/test_util.dart';
 
 // ignore: uri_has_not_been_generated
-part 'constant_required_accessor_integration_test.over_react.g.dart';
+part 'required_prop_integration_tests.over_react.g.dart';
 
-void main() {
+void requiredPropsIntegrationTest() {
   group('properly identifies required props by', () {
     group('throwing when a prop is required and not set', () {
       test('on mount', () {
         expect(() => render(ComponentTest()..nullable = true),
-            throwsPropError_Required('ComponentTestProps.required')
+            throwsPropError_Required('ComponentTestProps.required', 'This Prop is Required for testing purposes.')
         );
       });
 
@@ -39,7 +39,7 @@ void main() {
         )(), mountNode);
 
         expect(() => react_dom.render((ComponentTest()..nullable = true)(), mountNode),
-            throwsPropError_Required('ComponentTestProps.required')
+            throwsPropError_Required('ComponentTestProps.required', 'This Prop is Required for testing purposes.')
         );
       });
     });
@@ -64,7 +64,7 @@ void main() {
               ..required = null
               ..nullable = true
             )(), mountNode),
-            throwsPropError_Required('ComponentTestProps.required')
+            throwsPropError_Required('ComponentTestProps.required', 'This Prop is Required for testing purposes.')
         );
       });
     });
@@ -83,7 +83,7 @@ void main() {
         )(), mountNode);
 
         expect(() => react_dom.render((ComponentTest()..required = true)(), mountNode),
-            throwsPropError_Required('ComponentTestProps.nullable')
+            throwsPropError_Required('ComponentTestProps.nullable', 'This prop can be set to null!')
         );
       });
     });
@@ -140,10 +140,12 @@ UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
 
 @Props()
 class _$ComponentTestProps extends UiProps {
-  @requiredProp
+  // ignore: deprecated_member_use
+  @Required(message: 'This Prop is Required for testing purposes.')
   var required;
 
-  @nullableRequiredProp
+  // ignore: deprecated_member_use
+  @Required(isNullable: true, message: 'This prop can be set to null!')
   var nullable;
 }
 
@@ -153,9 +155,3 @@ class ComponentTestComponent extends UiComponent<ComponentTestProps> {
   render() => Dom.div()();
 }
 
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class ComponentTestProps extends _$ComponentTestProps with _$ComponentTestPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForComponentTestProps;
-}

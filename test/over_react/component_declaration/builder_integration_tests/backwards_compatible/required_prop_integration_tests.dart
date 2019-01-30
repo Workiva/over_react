@@ -17,13 +17,13 @@ import 'package:over_react/over_react.dart';
 import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:test/test.dart';
 
-import '../../../test_util/test_util.dart';
+import '../../../../test_util/test_util.dart';
 
 // ignore: uri_has_not_been_generated
 part 'required_prop_integration_tests.over_react.g.dart';
 
 void requiredPropsIntegrationTest() {
-  group('properly identifies required props by', () {
+  group('(backwards compatible with Dart 1) properly identifies required props by', () {
     group('throwing when a prop is required and not set', () {
       test('on mount', () {
         expect(() => render(ComponentTest()..nullable = true),

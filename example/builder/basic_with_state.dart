@@ -8,22 +8,14 @@ part 'basic_with_state.over_react.g.dart';
 @Factory()
 UiFactory<BasicProps> Basic = _$Basic;
 
-class BasicProps extends _$BasicProps with _$BasicPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForBasicProps;
-}
-
 @Props()
-class _$BasicProps extends UiProps with pm.ExamplePropsMixinClass, pm.$ExamplePropsMixinClass {
+class _$BasicProps extends UiProps with pm.ExamplePropsMixinClass {
   String basicProp;
   String basic1;
   String basic2;
   String basic3;
   String basic4;
   String basic5;
-}
-
-abstract class BasicState extends _$BasicState with _$BasicStateAccessorsMixin {
-  static const StateMeta meta = _$metaForBasicState;
 }
 
 @State()
