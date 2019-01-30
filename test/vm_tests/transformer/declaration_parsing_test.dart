@@ -130,11 +130,33 @@ main() {
 
           expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
           expect(declarations.props.node?.name?.name, 'FooProps');
+          expect(declarations.props.companionNode, isNull);
           expect(declarations.component.node?.name?.name, 'FooComponent');
 
           expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
           expect(declarations.props.meta,     new isInstanceOf<annotations.Props>());
           expect(declarations.component.meta, new isInstanceOf<annotations.Component>());
+
+          expectEmptyDeclarations(factory: false, props: false, component: false);
+          expect(declarations.declaresComponent, isTrue);
+        });
+
+        test('a component with builder-compatible dual-class props setup', () {
+          setUpAndParse('''
+            @Factory()    UiFactory<FooProps> Foo;
+            class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {}
+            @Props()      class _\$FooProps {}
+            @Component()  class FooComponent {}
+          ''');
+
+          expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
+          expect(declarations.props.node?.name?.name, '_\$FooProps');
+          expect(declarations.props.companionNode?.name?.name, 'FooProps');
+          expect(declarations.component.node?.name?.name, 'FooComponent');
+
+          expect(declarations.factory.meta,   const isInstanceOf<annotations.Factory>());
+          expect(declarations.props.meta,     const isInstanceOf<annotations.Props>());
+          expect(declarations.component.meta, const isInstanceOf<annotations.Component>());
 
           expectEmptyDeclarations(factory: false, props: false, component: false);
           expect(declarations.declaresComponent, isTrue);
@@ -150,13 +172,40 @@ main() {
 
           expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
           expect(declarations.props.node?.name?.name, 'FooProps');
+          expect(declarations.props.companionNode, isNull);
           expect(declarations.state.node?.name?.name, 'FooState');
+          expect(declarations.state.companionNode, isNull);
           expect(declarations.component.node?.name?.name, 'FooComponent');
 
           expect(declarations.factory.meta,   new isInstanceOf<annotations.Factory>());
           expect(declarations.props.meta,     new isInstanceOf<annotations.Props>());
           expect(declarations.state.meta,     new isInstanceOf<annotations.State>());
           expect(declarations.component.meta, new isInstanceOf<annotations.Component>());
+
+          expectEmptyDeclarations(factory: false, props: false, state: false, component: false);
+          expect(declarations.declaresComponent, isTrue);
+        });
+
+        test('a stateful component with builder-compatible dual-class state setup', () {
+          setUpAndParse('''
+            @Factory()    UiFactory<FooProps> Foo;
+            @Props()      class FooProps {}
+            class FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
+            @State()      class _\$FooState {}
+            @Component()  class FooComponent {}
+          ''');
+
+          expect(declarations.factory.node?.variables?.variables?.single?.name?.name, 'Foo');
+          expect(declarations.props.node?.name?.name, 'FooProps');
+          expect(declarations.props.companionNode, isNull);
+          expect(declarations.state.node?.name?.name, '_\$FooState');
+          expect(declarations.state.companionNode?.name?.name, 'FooState');
+          expect(declarations.component.node?.name?.name, 'FooComponent');
+
+          expect(declarations.factory.meta,   const isInstanceOf<annotations.Factory>());
+          expect(declarations.props.meta,     const isInstanceOf<annotations.Props>());
+          expect(declarations.state.meta,     const isInstanceOf<annotations.State>());
+          expect(declarations.component.meta, const isInstanceOf<annotations.Component>());
 
           expectEmptyDeclarations(factory: false, props: false, state: false, component: false);
           expect(declarations.declaresComponent, isTrue);
@@ -205,12 +254,26 @@ main() {
           expect(declarations.abstractProps, hasLength(2));
 
           expect(declarations.abstractProps[0].node.name.name, 'AbstractFooProps1');
+          expect(declarations.abstractProps[0].companionNode, isNull);
           expect(declarations.abstractProps[1].node.name.name, 'AbstractFooProps2');
+          expect(declarations.abstractProps[1].companionNode, isNull);
           expect(declarations.abstractProps[0].meta, new isInstanceOf<annotations.AbstractProps>());
           expect(declarations.abstractProps[1].meta, new isInstanceOf<annotations.AbstractProps>());
 
           expectEmptyDeclarations(abstractProps: false);
           expect(declarations.declaresComponent, isFalse);
+        });
+
+        test('abstract props class with builder-compatible dual-class setup', () {
+          setUpAndParse('''
+            @AbstractProps() class _\$AbstractFooProps {}
+            class AbstractFooProps {}
+          ''');
+
+          expect(declarations.abstractProps, hasLength(1));
+          expect(declarations.abstractProps[0].node?.name?.name, '_\$AbstractFooProps');
+          expect(declarations.abstractProps[0].companionNode?.name?.name, 'AbstractFooProps');
+          expect(declarations.abstractProps[0].meta, new isInstanceOf<annotations.AbstractProps>());
         });
 
         test('abstract state classes', () {
@@ -222,12 +285,26 @@ main() {
           expect(declarations.abstractState, hasLength(2));
 
           expect(declarations.abstractState[0].node.name.name, 'AbstractFooState1');
+          expect(declarations.abstractState[0].companionNode, isNull);
           expect(declarations.abstractState[1].node.name.name, 'AbstractFooState2');
+          expect(declarations.abstractState[1].companionNode, isNull);
           expect(declarations.abstractState[0].meta, new isInstanceOf<annotations.AbstractState>());
           expect(declarations.abstractState[1].meta, new isInstanceOf<annotations.AbstractState>());
 
           expectEmptyDeclarations(abstractState: false);
           expect(declarations.declaresComponent, isFalse);
+        });
+
+        test('abstract state class with builder-compatible dual-class setup', () {
+          setUpAndParse('''
+            @AbstractState() class _\$AbstractFooState {}
+            class AbstractFooState {}
+          ''');
+
+          expect(declarations.abstractState, hasLength(1));
+          expect(declarations.abstractState[0].node?.name?.name, '_\$AbstractFooState');
+          expect(declarations.abstractState[0].companionNode?.name?.name, 'AbstractFooState');
+          expect(declarations.abstractState[0].meta, new isInstanceOf<annotations.AbstractState>());
         });
 
         group('and initializes annotations with the correct arguments for', () {
@@ -285,12 +362,85 @@ main() {
         });
       });
 
-      group('and logs a hard error when', () {
-        const String factorySrc   = '\n@Factory()\nUiFactory<FooProps> Foo;\n';
-        const String propsSrc     = '\n@Props()\nclass FooProps {}\n';
-        const String componentSrc = '\n@Component()\nclass FooComponent {}\n';
+      const String restOfComponent = '''
+        @Props()
+        class FooProps {}
 
-        const String stateSrc     = '\n@State()\nclass FooState {}\n';
+        @Component()
+        class FooComponent {}
+      ''';
+
+      group('does not log a hard error when', () {
+        group('the factory is', () {
+          group('public and initialized with', () {
+            test('correct \$ prefixed variable name', () {
+              setUpAndParse('''
+                @Factory()
+                UiFactory<FooProps> Foo = \$Foo;
+
+                $restOfComponent
+              ''');
+
+              verifyNever(logger.error(any, span: any));
+            });
+
+            test('correct _\$ prefixed variable name', () {
+              setUpAndParse('''
+                @Factory()
+                UiFactory<FooProps> Foo = _\$Foo;
+
+                $restOfComponent
+              ''');
+
+              verifyNever(logger.error(any, span: any));
+            });
+          });
+
+          group('private and initialized with', () {
+            test('correct \$ prefixed variable name', () {
+              setUpAndParse('''
+                @Factory()
+                UiFactory<FooProps> _Foo = \$_Foo;
+
+                $restOfComponent
+              ''');
+
+              verifyNever(logger.error(any, span: any));
+            });
+
+            test('correct _\$ prefixed variable name', () {
+              setUpAndParse('''
+                @Factory()
+                UiFactory<FooProps> _Foo = _\$_Foo;
+
+                $restOfComponent
+              ''');
+
+              verifyNever(logger.error(any, span: any));
+            });
+
+            test('_\$ prefixed variable name with private prefix stripped', () {
+              setUpAndParse('''
+                @Factory()
+                UiFactory<FooProps> _Foo = _\$Foo;
+
+                $restOfComponent
+              ''');
+
+              verifyNever(logger.error(any, span: any));
+            });
+          });
+        });
+      });
+
+      group('and logs a hard error when', () {
+        const String factorySrc      = '\n@Factory()\nUiFactory<FooProps> Foo;\n';
+        const String propsSrc        = '\n@Props()\nclass FooProps {}\n';
+        const String privatePropsSrc = '\n@Props()\nclass _\$FooProps {}\n';
+        const String componentSrc    = '\n@Component()\nclass FooComponent {}\n';
+
+        const String stateSrc        = '\n@State()\nclass FooState {}\n';
+        const String privateStateSrc = '\n@State()\nclass _\$FooState {}\n';
 
         tearDown(() {
           expect(declarations.hasErrors, isTrue, reason: 'Declarations with errors should always set `hasErrors` to true.');
@@ -417,9 +567,291 @@ main() {
             verify(logger.error('`@StateMixin` can only be used on classes.', span: any));
           });
         });
+
+        group('a factory is', () {
+          test('declared using multiple variables', () {
+            setUpAndParse('''
+              @Factory()
+              UiFactory<FooProps> Foo, Bar;
+
+              $restOfComponent
+            ''');
+
+            verify(logger.error('Factory declarations must be a single variable.', span: any));
+          });
+
+          test('public and declared with an invalid initializer', () {
+            setUpAndParse('''
+              @Factory()
+              UiFactory<FooProps> Foo = null;
+
+              $restOfComponent
+            ''');
+
+            verify(logger.error(
+                'Factory variables are stubs for the generated factories, and should not have initializers'
+                    ' unless initialized with a valid variable name for Dart 2 builder compatibility. Should be:\n'
+                    '    _\$Foo', span: any));
+          });
+
+          test('private and declared with an invalid initializer', () {
+            setUpAndParse('''
+              @Factory()
+              UiFactory<FooProps> _Foo = null;
+
+              $restOfComponent
+            ''');
+
+            verify(logger.error(
+                'Factory variables are stubs for the generated factories, and should not have initializers'
+                    ' unless initialized with a valid variable name for Dart 2 builder compatibility. Should be:\n'
+                    '    _\$_Foo', span: any));
+          });
+        });
+
+        group('a static meta field', () {
+          group('for a props class', () {
+            test('has the wrong type', () {
+              setUpAndParse(factorySrc + privatePropsSrc + componentSrc + '''
+                class FooProps {
+                  static const StateMeta meta = \$metaForFooProps;
+                }
+              ''');
+              verify(logger.error('Static meta field in accessor class must be of type `PropsMeta`', span: any));
+            });
+
+            test('is initialized incorrectly', () {
+              setUpAndParse(factorySrc + privatePropsSrc + componentSrc + '''
+                class FooProps {
+                  static const PropsMeta meta = \$metaForBarProps;
+                }
+              ''');
+              verify(logger.error('Static PropsMeta field in accessor class must be initialized to:'
+                  '`_\$metaForFooProps`', span: any));
+            });
+
+            test('is private and initialized incorrectly', () {
+              setUpAndParse(factorySrc + privatePropsSrc + componentSrc + '''
+                class _FooProps {
+                  static const PropsMeta meta = \$metaForBarProps;
+                }
+              ''');
+              verify(logger.error('Static PropsMeta field in accessor class must be initialized to:'
+                  '`_\$metaFor_FooProps`', span: any));
+            });
+          });
+
+          group('for a state class', () {
+            test('has the wrong type', () {
+              setUpAndParse(factorySrc + propsSrc + privateStateSrc + componentSrc + '''
+                class FooState {
+                  static const PropsMeta meta = \$metaForFooState;
+                }
+              ''');
+              verify(logger.error('Static meta field in accessor class must be of type `StateMeta`', span: any));
+            });
+
+            test('is initialized incorrectly', () {
+              setUpAndParse(factorySrc + propsSrc + privateStateSrc + componentSrc + '''
+                class FooState {
+                  static const StateMeta meta = \$metaForBarState;
+                }
+              ''');
+              verify(logger.error('Static StateMeta field in accessor class must be initialized to:'
+                  '`_\$metaForFooState`', span: any));
+            });
+
+            test('is private and initialized incorrectly', () {
+              setUpAndParse(factorySrc + propsSrc + privateStateSrc + componentSrc + '''
+                class _FooState {
+                  static const StateMeta meta = \$metaForBarState;
+                }
+              ''');
+              verify(logger.error('Static StateMeta field in accessor class must be initialized to:'
+                  '`_\$metaFor_FooState`', span: any));
+            });
+          });
+
+          group('for an abstract props class', () {
+            test('has the wrong type', () {
+              setUpAndParse('''
+                @AbstractProps() abstract class _\$AbstractFooProps {}
+                abstract class AbstractFooProps {
+                  static const StateMeta meta = \$metaForAbstractFooProps;
+                }
+              ''');
+              verify(logger.error('Static meta field in accessor class must be of type `PropsMeta`', span: any));
+            });
+
+            test('is initialized incorrectly', () {
+              setUpAndParse('''
+                @AbstractProps() abstract class _\$AbstractFooProps {}
+                abstract class AbstractFooProps {
+                  static const PropsMeta meta = \$metaForAbstractBarProps;
+                }
+              ''');
+              verify(logger.error('Static PropsMeta field in accessor class must be initialized to:'
+                    '`_\$metaForAbstractFooProps`', span: any));
+            });
+
+            test('is private and initialized incorrectly', () {
+              setUpAndParse('''
+                @AbstractProps() abstract class _\$AbstractFooProps {}
+                abstract class _AbstractFooProps {
+                  static const PropsMeta meta = \$metaForAbstractBarProps;
+                }
+              ''');
+              verify(logger.error('Static PropsMeta field in accessor class must be initialized to:'
+                    '`_\$metaFor_AbstractFooProps`', span: any));
+            });
+          });
+
+          group('for an abstract state class', () {
+            test('has the wrong type', () {
+              setUpAndParse('''
+                @AbstractState() abstract class _\$AbstractFooState {}
+                abstract class AbstractFooState {
+                  static const PropsMeta meta = \$metaForAbstractFooState;
+                }
+              ''');
+              verify(logger.error('Static meta field in accessor class must be of type `StateMeta`', span: any));
+            });
+
+            test('is initialized incorrectly', () {
+              setUpAndParse('''
+                @AbstractState() abstract class _\$AbstractFooState {}
+                abstract class AbstractFooState {
+                  static const StateMeta meta = \$metaForAbstractBarState;
+                }
+              ''');
+              verify(logger.error('Static StateMeta field in accessor class must be initialized to:'
+                  '`_\$metaForAbstractFooState`', span: any));
+            });
+
+            test('is private and initialized incorrectly', () {
+              setUpAndParse('''
+                @AbstractState() abstract class _\$AbstractFooState {}
+                abstract class _AbstractFooState {
+                  static const StateMeta meta = \$metaForAbstractBarState;
+                }
+              ''');
+              verify(logger.error('Static StateMeta field in accessor class must be initialized to:'
+                  '`_\$metaFor_AbstractFooState`', span: any));
+            });
+          });
+
+          group('for a props mixin', () {
+            test('has the wrong type', () {
+              setUpAndParse('''
+                @PropsMixin() abstract class FooPropsMixin {
+                  static const StateMeta meta = \$metaForFooPropsMixin;
+                }
+              ''');
+              verify(logger.error('Static meta field in accessor class must be of type `PropsMeta`', span: any));
+            });
+
+            test('is initialized incorrectly', () {
+              setUpAndParse('''
+                @PropsMixin() abstract class FooPropsMixin {
+                  static const PropsMeta meta = \$metaForBarPropsMixin;
+                }
+              ''');
+              verify(logger.error('Static PropsMeta field in accessor class must be initialized to:'
+                  '`_\$metaForFooPropsMixin`', span: any));
+            });
+
+            test('is private and initialized incorrectly', () {
+              setUpAndParse('''
+                @PropsMixin() abstract class _FooPropsMixin {
+                  static const PropsMeta meta = \$metaForBarPropsMixin;
+                }
+              ''');
+              verify(logger.error('Static PropsMeta field in accessor class must be initialized to:'
+                  '`_\$metaFor_FooPropsMixin`', span: any));
+            });
+          });
+
+          group('for a state mixin', () {
+            test('has the wrong type', () {
+              setUpAndParse('''
+                @StateMixin() abstract class FooStateMixin {
+                  static const PropsMeta meta = \$metaForFooStateMixin;
+                }
+              ''');
+              verify(logger.error('Static meta field in accessor class must be of type `StateMeta`', span: any));
+            });
+
+            test('is initialized incorrectly', () {
+              setUpAndParse('''
+                @StateMixin() abstract class FooStateMixin {
+                  static const StateMeta meta = \$metaForBarStateMixin;
+                }
+              ''');
+              verify(logger.error('Static StateMeta field in accessor class must be initialized to:'
+                  '`_\$metaForFooStateMixin`', span: any));
+            });
+
+            test('is private and initialized incorrectly', () {
+              setUpAndParse('''
+                @StateMixin() abstract class _FooStateMixin {
+                  static const StateMeta meta = \$metaForBarStateMixin;
+                }
+              ''');
+              verify(logger.error('Static StateMeta field in accessor class must be initialized to:'
+                  '`_\$metaFor_FooStateMixin`', span: any));
+            });
+          });
+        });
       });
 
       group('and throws an error when', () {
+        test('a public props class is not found when an private \$ prefixed props class is declared', () {
+          setUpAndParse('''
+              @Factory()    
+              UiFactory<FooProps> Foo;
+              
+              @Props()      
+              class _\$FooProps {}
+              
+              @Component()  
+              class FooComponent {}
+            ''');
+          verify(logger.error('_\$FooProps must have an accompanying public class within the same file for Dart 2 builder compatibility, but one was not found.', span: any));
+        });
+
+        test('a public state class is not found when an private \$ prefixed state class is declared', () {
+          setUpAndParse('''
+              @Factory()    
+              UiFactory<FooProps> Foo;
+              
+              @Props()      
+              class FooProps {}
+              
+              @State()
+              class _\$FooState {}
+              
+              @Component()  
+              class FooComponent {}
+            ''');
+          verify(logger.error('_\$FooState must have an accompanying public class within the same file for Dart 2 builder compatibility, but one was not found.', span: any));
+        });
+
+        test('a public abstract props class is not found  when an private \$ prefixed abstract props class is declared', () {
+          setUpAndParse('''
+              @AbstractProps() 
+              class _\$AbstractFooProps {}
+            ''');
+          verify(logger.error('_\$AbstractFooProps must have an accompanying public class within the same file for Dart 2 builder compatibility, but one was not found.', span: any));
+        });
+
+        test('a public abstract state class is not found when an private \$ prefixed abstract state class is declared', () {
+          setUpAndParse('''
+              @AbstractState() 
+              class _\$AbstractStateProps {}
+             ''');
+          verify(logger.error('_\$AbstractStateProps must have an accompanying public class within the same file for Dart 2 builder compatibility, but one was not found.', span: any));
+        });
+
         test('`subtypeOf` is an unsupported expression that is not an identifier', () {
           expect(() {
             setUpAndParse('''

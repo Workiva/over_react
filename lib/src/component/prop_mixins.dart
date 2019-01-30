@@ -15,10 +15,10 @@
 /// Various prop related mixins to be used with [UiComponent] descendants.
 library over_react.prop_mixins;
 
-import 'package:over_react/over_react.dart' show AriaPropsMapView, AriaPropsMixin, DomProps;
+import 'package:over_react/over_react.dart' show AriaPropsMapView, AriaPropsMixin, DomProps, PropsMeta;
 // Must import these consts because they are used in the transformed code.
 // ignore: unused_import
-import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps;
+import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps, $Props;
 import 'package:over_react/src/component/callback_typedefs.dart';
 import 'package:over_react/src/component_declaration/annotations.dart';
 
@@ -26,6 +26,11 @@ import 'package:over_react/src/component_declaration/annotations.dart';
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
 abstract class ReactPropsMixin {
+  // To ensure the codemod regression checking works properly, please keep this
+  // field at the top of the class!
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForReactPropsMixin;
+
   Map get props;
 
   /// The children that were passed in to this component when it was built.
@@ -56,6 +61,11 @@ abstract class ReactPropsMixin {
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
 abstract class DomPropsMixin {
+  // To ensure the codemod regression checking works properly, please keep this
+  // field at the top of the class!
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForDomPropsMixin;
+
   Map get props;
 
   int cols, rows, size, span, start;
@@ -107,6 +117,11 @@ abstract class DomPropsMixin {
 
 @PropsMixin(keyNamespace: '')
 abstract class SvgPropsMixin {
+  // To ensure the codemod regression checking works properly, please keep this
+  // field at the top of the class!
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForSvgPropsMixin;
+
   Map get props;
 
   dynamic clipPath, cx, cy, d, dx, dy, fill, fillOpacity, fontFamily, fontSize, fx, fy, gradientTransform,
@@ -120,6 +135,11 @@ abstract class SvgPropsMixin {
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
 abstract class UbiquitousDomPropsMixin {
+  // To ensure the codemod regression checking works properly, please keep this
+  // field at the top of the class!
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForUbiquitousDomPropsMixin;
+
   Map get props;
 
   /// A cache for the MapView used for [aria].

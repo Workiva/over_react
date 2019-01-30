@@ -19,6 +19,7 @@ import 'dart:mirrors';
 import 'package:analyzer/analyzer.dart';
 import 'package:barback/barback.dart' show TransformLogger;
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
+import 'package:over_react/src/transformer/util.dart' show getMetaField;
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/src/transformed_source_file.dart' show getSpan;
 import 'package:transformer_utils/transformer_utils.dart';
@@ -32,6 +33,7 @@ import 'package:transformer_utils/transformer_utils.dart';
 /// * Any number of mixins: `@PropsMixin()`, `@StateMixin()`
 class ParsedDeclarations {
   factory ParsedDeclarations(CompilationUnit unit, SourceFile sourceFile, TransformLogger logger) {
+    const companionPrefix = r'_$';
     bool hasErrors = false;
 
     void error(String message, [SourceSpan span]) {
@@ -53,9 +55,31 @@ class ParsedDeclarations {
       key_stateMixin:        <CompilationUnitMember>[],
     };
 
+    Map<String /* class name */, ClassDeclaration> companionMap = {};
+
     unit.declarations.forEach((CompilationUnitMember member) {
       member.metadata.forEach((annotation) {
         var name = annotation.name.toString();
+
+        if (name == 'Props' || name == 'State' || name == 'AbstractProps' || name == 'AbstractState') {
+          if (member is ClassDeclaration && member.name.name.startsWith(companionPrefix)) {
+            final className = member.name.name;
+            final companionName = member.name.name.substring(companionPrefix.length);
+            final privateCompanionName = '_$companionName';
+            final companionClass = unit.declarations.firstWhere(
+              (innerMember) =>
+                innerMember is ClassDeclaration &&
+                (innerMember.name.name == companionName || innerMember.name.name == privateCompanionName),
+              orElse: () => null);
+
+            if (companionClass == null) {
+              error('${member.name.name} must have an accompanying public class within the '
+                  'same file for Dart 2 builder compatibility, but one was not found.', getSpan(sourceFile, member));
+            } else {
+              companionMap[className] = companionClass;
+            }
+          }
+        }
 
         declarationMap[name]?.add(member);
       });
@@ -113,6 +137,14 @@ class ParsedDeclarations {
       declarationMap[annotationName] = classesOnly(annotationName, declarationMap[annotationName]);
     });
 
+    ClassDeclaration props;
+    ClassDeclaration propsCompanion;
+    ClassDeclaration state;
+    ClassDeclaration stateCompanion;
+    List<List<ClassDeclaration>> abstractPropsPairs;
+    List<List<ClassDeclaration>> abstractStatePairs;
+    List<ClassDeclaration> propsMixins;
+    List<ClassDeclaration> stateMixins;
 
     // Validate that all the declarations that make up a component are used correctly.
 
@@ -153,8 +185,6 @@ class ParsedDeclarations {
               );
             }
           }
-
-          declarationMap[annotationName] = [];
         });
       }
 
@@ -179,23 +209,129 @@ class ParsedDeclarations {
               getSpan(sourceFile, declarations.first)
           );
         }
-
-        declarationMap[annotationName] = [];
       });
+    } else {
+      void validateMetaField(ClassDeclaration cd, String expectedType) {
+        final metaField = getMetaField(cd);
+        if (metaField == null) return;
+
+        if (metaField.fields.type?.toSource() != expectedType) {
+          error(
+              'Static meta field in accessor class must be of type `$expectedType`',
+              getSpan(sourceFile, metaField),
+          );
+        }
+        final isClassPrivate = cd.name.name.startsWith('_');
+        var expectedInitializers = ['\$metaFor${cd.name.name}', '_\$metaFor${cd.name.name}'];
+        if (isClassPrivate) {
+          expectedInitializers.add('_\$metaFor${cd.name.name.substring(1)}');
+        }
+
+        final initializer = metaField.fields.variables.single.initializer?.toSource();
+        if (!expectedInitializers.contains(initializer)) {
+          error(
+              'Static $expectedType field in accessor class must be initialized to:'
+              // The second in the list of expected initializers is the one it will need to be once on Dart 2
+              '`${expectedInitializers[1]}`',
+              getSpan(sourceFile, metaField),
+          );
+        }
+      }
+
+      props = singleOrNull(declarationMap[key_props]);
+      if (props != null && companionMap.containsKey(props.name.name)) {
+        propsCompanion = companionMap[props.name.name];
+        validateMetaField(propsCompanion, 'PropsMeta');
+      }
+
+      state = singleOrNull(declarationMap[key_state]);
+      if (state != null && companionMap.containsKey(state.name.name)) {
+        stateCompanion = companionMap[state.name.name];
+        validateMetaField(stateCompanion, 'StateMeta');
+      }
+
+      List<ClassDeclaration> pairClassWithCompanion(ClassDeclaration cd, String expectedType) {
+        if (companionMap.containsKey(cd.name.name)) {
+          validateMetaField(companionMap[cd.name.name], expectedType);
+          return [cd, companionMap[cd.name.name]];
+        }
+        return [cd];
+      }
+
+      List<ClassDeclaration> abstractProps = declarationMap[key_abstractProps];
+      abstractPropsPairs = abstractProps.map((cd) => pairClassWithCompanion(cd, 'PropsMeta')).toList();
+
+      List<ClassDeclaration> abstractStates = declarationMap[key_abstractState];
+      abstractStatePairs = abstractStates.map((cd) => pairClassWithCompanion(cd, 'StateMeta')).toList();
+
+      propsMixins = declarationMap[key_propsMixin];
+      for (final propsMixin in propsMixins) {
+        validateMetaField(propsMixin, 'PropsMeta');
+      }
+
+      stateMixins = declarationMap[key_stateMixin];
+      for (final stateMixin in stateMixins) {
+        validateMetaField(stateMixin, 'StateMeta');
+      }
     }
 
+    // validate that the factory is initialized correctly
+    final factory = declarationMap[key_factory].length <= 1 ? singleOrNull(declarationMap[key_factory]) : null;
+    if (factory != null && factory is TopLevelVariableDeclaration) {
+      final String factoryName = factory.variables.variables.first.name.name;
+
+      if (factory.variables.variables.length != 1) {
+        error('Factory declarations must be a single variable.',
+            getSpan(sourceFile, factory.variables));
+      }
+
+      final variable = factory.variables.variables.first;
+      final isPrivate = factoryName.startsWith('_');
+      var expectedInitializers = ['\$$factoryName', '_\$$factoryName'];
+
+      if (isPrivate) {
+        expectedInitializers.add('_\$${factoryName.substring(1)}');
+      }
+
+      if (variable.initializer != null &&
+          !expectedInitializers.contains(variable.initializer.toString())) {
+        error(
+            'Factory variables are stubs for the generated factories, and should not have initializers '
+                'unless initialized with a valid variable name for Dart 2 builder compatibility. '
+                // The second in the list of expected initializers is the one it will need to be once on Dart 2
+                'Should be:\n    ${expectedInitializers[1]}',
+            getSpan(sourceFile, variable.initializer)
+        );
+      }
+    }
+
+    if (hasErrors) {
+      for (final key in declarationMap.keys) {
+        declarationMap[key] = [];
+      }
+      props = null;
+      propsCompanion = null;
+      state = null;
+      stateCompanion = null;
+      abstractPropsPairs = [];
+      abstractStatePairs = [];
+      propsMixins = [];
+      stateMixins = [];
+    }
 
     return new ParsedDeclarations._(
-        factory:       singleOrNull(declarationMap[key_factory]),
-        component:     singleOrNull(declarationMap[key_component]),
-        props:         singleOrNull(declarationMap[key_props]),
-        state:         singleOrNull(declarationMap[key_state]),
+        factory:        singleOrNull(declarationMap[key_factory]),
+        component:      singleOrNull(declarationMap[key_component]),
+        props:          props,
+        propsCompanion: propsCompanion,
+        state:          state,
+        stateCompanion: stateCompanion,
 
-        abstractProps: declarationMap[key_abstractProps],
-        abstractState: declarationMap[key_abstractState],
+        abstractProps:  abstractPropsPairs,
+        abstractState:  abstractStatePairs,
 
-        propsMixins:   declarationMap[key_propsMixin],
-        stateMixins:   declarationMap[key_stateMixin],
+        propsMixins:    propsMixins,
+        stateMixins:    stateMixins,
 
         hasErrors: hasErrors
     );
@@ -205,26 +341,28 @@ class ParsedDeclarations {
       TopLevelVariableDeclaration factory,
       ClassDeclaration component,
       ClassDeclaration props,
+      ClassDeclaration propsCompanion,
       ClassDeclaration state,
+      ClassDeclaration stateCompanion,
 
-      List<ClassDeclaration> abstractProps,
-      List<ClassDeclaration> abstractState,
+      List<List<ClassDeclaration>> abstractProps,
+      List<List<ClassDeclaration>> abstractState,
 
       List<ClassDeclaration> propsMixins,
       List<ClassDeclaration> stateMixins,
 
       this.hasErrors
   }) :
-      this.factory       = (factory   == null) ? null : new FactoryNode(factory),
-      this.component     = (component == null) ? null : new ComponentNode(component),
-      this.props         = (props     == null) ? null : new PropsNode(props),
-      this.state         = (state     == null) ? null : new StateNode(state),
+      this.factory        = (factory        == null) ? null : new FactoryNode(factory),
+      this.component      = (component      == null) ? null : new ComponentNode(component),
+      this.props          = (props          == null) ? null : new PropsNode(props, propsCompanion),
+      this.state          = (state          == null) ? null : new StateNode(state, stateCompanion),
 
-      this.abstractProps = new List.unmodifiable(abstractProps.map((propsMixin) => new AbstractPropsNode(propsMixin))),
-      this.abstractState = new List.unmodifiable(abstractState.map((stateMixin) => new AbstractStateNode(stateMixin))),
+      this.abstractProps  = new List.unmodifiable(abstractProps.map((nodes) => new AbstractPropsNode(nodes[0], nodes.length > 1 ? nodes[1] : null))),
+      this.abstractState  = new List.unmodifiable(abstractState.map((nodes) => new AbstractStateNode(nodes[0], nodes.length > 1 ? nodes[1] : null))),
 
-      this.propsMixins   = new List.unmodifiable(propsMixins.map((propsMixin) => new PropsMixinNode(propsMixin))),
-      this.stateMixins   = new List.unmodifiable(stateMixins.map((stateMixin) => new StateMixinNode(stateMixin))),
+      this.propsMixins    = new List.unmodifiable(propsMixins.map((propsMixin) => new PropsMixinNode(propsMixin))),
+      this.stateMixins    = new List.unmodifiable(stateMixins.map((stateMixin) => new StateMixinNode(stateMixin))),
 
       this.declaresComponent = factory != null
   {
@@ -330,12 +468,20 @@ class ComponentNode extends NodeWithMeta<ClassDeclaration, annotations.Component
   }
 }
 
-class FactoryNode           extends NodeWithMeta<TopLevelVariableDeclaration, annotations.Factory> {FactoryNode(unit)           : super(unit);}
-class PropsNode             extends NodeWithMeta<ClassDeclaration, annotations.Props>              {PropsNode(unit)             : super(unit);}
-class StateNode             extends NodeWithMeta<ClassDeclaration, annotations.State>              {StateNode(unit)             : super(unit);}
+class NodeWithMetaAndCompanion<TNode extends AnnotatedNode, TMeta> extends NodeWithMeta<TNode, TMeta> {
+  /// The companion node for classes that require a dual-class setup during the
+  /// Dart1 -> Dart2 transition.
+  final TNode companionNode;
 
-class AbstractPropsNode     extends NodeWithMeta<ClassDeclaration, annotations.AbstractProps>      {AbstractPropsNode(unit)     : super(unit);}
-class AbstractStateNode     extends NodeWithMeta<ClassDeclaration, annotations.AbstractState>      {AbstractStateNode(unit)     : super(unit);}
+  NodeWithMetaAndCompanion(unit, {this.companionNode}) : super(unit);
+}
 
-class PropsMixinNode        extends NodeWithMeta<ClassDeclaration, annotations.PropsMixin>         {PropsMixinNode(unit)        : super(unit);}
-class StateMixinNode        extends NodeWithMeta<ClassDeclaration, annotations.StateMixin>         {StateMixinNode(unit)        : super(unit);}
+class FactoryNode       extends NodeWithMeta<TopLevelVariableDeclaration, annotations.Factory>        {FactoryNode(unit)                : super(unit);}
+class PropsNode         extends NodeWithMetaAndCompanion<ClassDeclaration, annotations.Props>         {PropsNode(unit, [cUnit])         : super(unit, companionNode: cUnit);}
+class StateNode         extends NodeWithMetaAndCompanion<ClassDeclaration, annotations.State>         {StateNode(unit, [cUnit])         : super(unit, companionNode: cUnit);}
+
+class AbstractPropsNode extends NodeWithMetaAndCompanion<ClassDeclaration, annotations.AbstractProps> {AbstractPropsNode(unit, [cUnit]) : super(unit, companionNode: cUnit);}
+class AbstractStateNode extends NodeWithMetaAndCompanion<ClassDeclaration, annotations.AbstractState> {AbstractStateNode(unit, [cUnit]) : super(unit, companionNode: cUnit);}
+
+class PropsMixinNode    extends NodeWithMeta<ClassDeclaration, annotations.PropsMixin>                {PropsMixinNode(unit)             : super(unit);}
+class StateMixinNode    extends NodeWithMeta<ClassDeclaration, annotations.StateMixin>                {StateMixinNode(unit)             : super(unit);}

@@ -21,11 +21,17 @@ import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/component_base.dart' as component_base;
 
+// ignore: uri_has_not_been_generated
+part 'abstract_transition.over_react.g.dart';
+
 @AbstractProps()
-abstract class AbstractTransitionProps extends UiProps with TransitionPropsMixin {}
+abstract class _$AbstractTransitionProps extends UiProps with 
+    TransitionPropsMixin,
+    // ignore: mixin_of_non_class, undefined_class
+    $TransitionPropsMixin {}
 
 @AbstractState()
-abstract class AbstractTransitionState extends UiState {
+abstract class _$AbstractTransitionState extends UiState {
   /// The current phase of transition the [AbstractTransitionComponent] is in.
   ///
   /// Default:  [AbstractTransitionComponent.initiallyShown] ? [TransitionPhase.SHOWN] : [TransitionPhase.HIDDEN]
@@ -96,8 +102,8 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
 
   @override
   get consumedProps => const [
-    const $Props(AbstractTransitionProps),
-    const $Props(TransitionPropsMixin),
+    AbstractTransitionProps.meta,
+    TransitionPropsMixin.meta,
   ];
 
   @override
@@ -440,4 +446,18 @@ enum TransitionPhase {
   PRE_SHOWING,
   /// > SHOWING: The CSS class that triggers transitions is added to the [AbstractTransitionComponent], and an `onTransitionEnd` listener is active.
   SHOWING
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+abstract class AbstractTransitionProps extends _$AbstractTransitionProps with _$AbstractTransitionPropsAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = $metaForAbstractTransitionProps;
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+abstract class AbstractTransitionState extends _$AbstractTransitionState with _$AbstractTransitionStateAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const StateMeta meta = $metaForAbstractTransitionState;
 }

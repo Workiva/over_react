@@ -17,17 +17,7 @@ library over_react.component_declaration.component_base;
 import 'dart:async';
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart' show
-    ClassNameBuilder,
-    CssClassPropsMixin,
-    ReactPropsMixin,
-    UbiquitousDomPropsMixin,
-    getPropsToForward,
-    DummyComponent,
-    ValidationUtil,
-    prettyPrintMap,
-    unindent,
-    PropError;
+import 'package:over_react/over_react.dart';
 
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:over_react/src/util/ddc_emulated_function_name_bug.dart' as ddc_emulated_function_name_bug;
@@ -477,9 +467,21 @@ typedef PropsModifier(Map props);
 ///
 /// > Note: Implements [MapViewMixin] instead of extending it so that the abstract [Props] declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
-abstract class UiProps extends Object
-    with MapViewMixin, PropsMapViewMixin,
-         ReactPropsMixin, UbiquitousDomPropsMixin, CssClassPropsMixin {
+abstract class UiProps extends MapBase
+    with 
+        ReactPropsMixin,
+        // ignore: mixin_of_non_class, undefined_class
+        $ReactPropsMixin, 
+        UbiquitousDomPropsMixin,
+        // ignore: mixin_of_non_class, undefined_class
+        $UbiquitousDomPropsMixin, 
+        CssClassPropsMixin,
+        // ignore: mixin_of_non_class, undefined_class
+        $CssClassPropsMixin
+    implements
+        PropsMapViewMixin,
+        MapViewMixin,
+        Map {
 
   UiProps() {
     // Work around https://github.com/dart-lang/sdk/issues/27647 for all UiProps instances
@@ -586,31 +588,45 @@ abstract class UiProps extends Object
   ///
   /// Restricted statically to 40 arguments until the dart2js fix in
   /// <https://github.com/dart-lang/sdk/pull/26032> is released.
-  ReactElement call([children, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]);
-
-  /// Supports variadic children of the form `call([child1, child2, child3...])`.
-  @override
-  dynamic noSuchMethod(Invocation invocation) {
-    if (invocation.memberName == #call && invocation.isMethod) {
-      final positionalArguments = invocation.positionalArguments;
-      assert(_validateChildren(positionalArguments.length == 1 ? positionalArguments.single : positionalArguments));
-
-      final factory = componentFactory;
-      if (factory is ReactComponentFactoryProxy) {
-        // Use `build` instead of using emulated function behavior to work around DDC issue
-        // https://github.com/dart-lang/sdk/issues/29904
-        // Should have the benefit of better performance; TODO optimize type check?
-        // ignore: avoid_as
-        return factory.build(props, invocation.positionalArguments);
-      } else {
-        var parameters = []
-          ..add(props)
-          ..addAll(invocation.positionalArguments);
-        return Function.apply(factory, parameters);
-      }
+  ///
+  ReactElement call([c1 = _notSpecified, c2 = _notSpecified, c3 = _notSpecified, c4 = _notSpecified, c5 = _notSpecified, c6 = _notSpecified, c7 = _notSpecified, c8 = _notSpecified, c9 = _notSpecified, c10 = _notSpecified, c11 = _notSpecified, c12 = _notSpecified, c13 = _notSpecified, c14 = _notSpecified, c15 = _notSpecified, c16 = _notSpecified, c17 = _notSpecified, c18 = _notSpecified, c19 = _notSpecified, c20 = _notSpecified, c21 = _notSpecified, c22 = _notSpecified, c23 = _notSpecified, c24 = _notSpecified, c25 = _notSpecified, c26 = _notSpecified, c27 = _notSpecified, c28 = _notSpecified, c29 = _notSpecified, c30 = _notSpecified, c31 = _notSpecified, c32 = _notSpecified, c33 = _notSpecified, c34 = _notSpecified, c35 = _notSpecified, c36 = _notSpecified, c37 = _notSpecified, c38 = _notSpecified, c39 = _notSpecified, c40 = _notSpecified]) {
+    List childArguments;
+    // Use `identical` since it compiles down to `===` in dart2js instead of calling equality helper functions,
+    // and we don't want to allow any object overriding `operator==` to claim it's equal to `_notSpecified`.
+    if (identical(c1, _notSpecified)) {
+      childArguments = [];
+    } else if (identical(c2, _notSpecified)) {
+      childArguments = [c1];
+    } else if (identical(c3, _notSpecified)) {
+      childArguments = [c1, c2];
+    } else if (identical(c4, _notSpecified)) {
+      childArguments = [c1, c2, c3];
+    } else if (identical(c5, _notSpecified)) {
+      childArguments = [c1, c2, c3, c4];
+    } else if (identical(c6, _notSpecified)) {
+      childArguments = [c1, c2, c3, c4, c5];
+    } else if (identical(c7, _notSpecified)) {
+      childArguments = [c1, c2, c3, c4, c5, c6];
+    } else {
+      childArguments = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]
+        .takeWhile((child) => !identical(child, _notSpecified))
+        .toList();
     }
 
-    return super.noSuchMethod(invocation);
+    assert(_validateChildren(childArguments.length == 1 ? childArguments.single : childArguments));
+
+    final factory = componentFactory;
+    if (factory is ReactComponentFactoryProxy) {
+      // Use `build` instead of using emulated function behavior to work around DDC issue
+      // https://github.com/dart-lang/sdk/issues/29904
+      // Should have the benefit of better performance; TODO optimize type check?
+      return factory.build(props, childArguments);
+    } else {
+      var parameters = []
+        ..add(props)
+        ..addAll(childArguments);
+      return Function.apply(factory, parameters);
+    }
   }
 
   /// Validates that no [children] are instances of [UiProps], and prints a helpful message for a better debugging
@@ -640,6 +656,13 @@ abstract class UiProps extends Object
   }
 
   ReactComponentFactoryProxy get componentFactory;
+
+  /// An unmmodifiable map view of the default props for this component brought
+  /// in from the [componentFactory].
+  Map get componentDefaultProps => componentFactory is ReactDartComponentFactoryProxy
+      // ignore: avoid_as
+      ? (componentFactory as ReactDartComponentFactoryProxy).defaultProps
+      : const {};
 }
 
 /// A class that declares the `_map` getter shared by [PropsMapViewMixin]/[StateMapViewMixin] and [MapViewMixin].
@@ -712,11 +735,16 @@ abstract class MapViewMixin<K, V> implements _OverReactMapViewBase<K, V>, Map<K,
   @override Iterable<V> get values => _map.values;
 }
 
+abstract class _Descriptor {
+  String get key;
+}
+
 /// Provides a representation of a single `prop` declared within a [UiProps] subclass or props mixin.
 ///
 /// > Related: [StateDescriptor]
-class PropDescriptor {
+class PropDescriptor implements _Descriptor {
   /// The string key associated with the `prop`.
+  @override
   final String key;
   /// Whether the `prop` is required to be set.
   final bool isRequired;
@@ -731,8 +759,9 @@ class PropDescriptor {
 /// Provides a representation of a single `state` declared within a [UiState] subclass or state mixin.
 ///
 /// > Related: [PropDescriptor]
-class StateDescriptor {
+class StateDescriptor implements _Descriptor {
   /// The string key associated with the `state`.
+  @override
   final String key;
   /// Whether the `state` is required to be set.
   ///
@@ -760,4 +789,97 @@ class ConsumedProps {
   final List<String> keys;
 
   const ConsumedProps(this.props, this.keys);
+}
+
+abstract class AccessorMeta<T extends _Descriptor> {
+  List<T> get fields;
+  List<String> get keys;
+}
+
+/// Metadata for the prop fields declared in a specific props class--
+/// a class annotated with @[Props], @[PropsMixin], @[AbstractProps], etc.
+/// for which prop accessors are generated.
+///
+/// This metadata includes map key values corresponding to these fields, which
+/// is used in [UiComponent.consumedPropKeys], as well as other prop
+/// configuration done via @[Accessor]/@[requiredProp]/etc., which is used to
+/// perform prop validation within [UiComponent] lifecycle methods.
+///
+/// This metadata is generated as part of the over_react builder, and should be
+/// exposed like so:
+///     @Props()
+///     class FooProps {
+///       static const PropsMeta meta = $metaForFooProps;
+///
+///       String foo;
+///
+///       @Accessor(isRequired: true, key: 'custom_key', keyNamespace: 'custom_namespace')
+///       int bar;
+///     }
+///
+/// What the metadata looks like:
+///     main() {
+///       print(FooProps.meta.keys); // [FooProps.foo, custom_namespace.custom_key]
+///       print(FooProps.meta.props.map((p) => p.isRequired); // (false, true))
+///     }
+///
+/// _See also: [getPropKey]_
+class PropsMeta implements ConsumedProps, AccessorMeta<PropDescriptor> {
+  /// Rich views of prop field declarations.
+  ///
+  /// This includes string keys, and required prop validation related fields.
+  @override
+  final List<PropDescriptor> fields;
+
+  /// Top-level accessor of string keys of props stored in [fields].
+  @override
+  final List<String> keys;
+
+  const PropsMeta({this.fields, this.keys});
+
+  @override
+  List<PropDescriptor> get props => fields;
+}
+
+/// Metadata for the state fields declared in a specific state class--
+/// a class annotated with @[State], @[StateMixin], @[AbstractState], etc.
+/// for which state accessors are generated.
+///
+/// This metadata includes map key values corresponding to these fields, which
+/// is used to perform state validation within [UiComponent] lifecycle methods.
+///
+/// This metadata is generated as part of the over_react builder, and should be
+/// exposed like so:
+///     @State()
+///     class FooState {
+///       static const StateMeta meta = $metaForFooState;
+///
+///       String foo;
+///
+///       @Accessor(key: 'custom_key', keyNamespace: 'custom_namespace')
+///       int bar;
+///     }
+///
+/// What the metadata looks like:
+///     main() {
+///       print(FooState.meta.keys); // [FooState.foo, custom_namespace.custom_key]
+///       print(FooState.meta.fields.map((s) => s.key); // [FooState.foo, custom_namespace.custom_key]
+///     }
+class StateMeta implements AccessorMeta<StateDescriptor> {
+  /// Rich views of state field declarations.
+  ///
+  /// This includes string keys, and required state validation related fields.
+  @override
+  final List<StateDescriptor> fields;
+
+  /// Top-level accessor of string keys of state stored in [fields].
+  @override
+  final List<String> keys;
+
+  const StateMeta({this.fields, this.keys});
+}
+
+const _notSpecified = const NotSpecified();
+class NotSpecified {
+  const NotSpecified();
 }
