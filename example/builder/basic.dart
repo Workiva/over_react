@@ -22,8 +22,8 @@ class _$BasicProps extends UiProps {
 class BasicComponent extends UiComponent<BasicProps> {
   @override
   Map getDefaultProps() => newProps()..id = 'basic component'
-      ..basicProp = 'defaultBasicProps' // ignore: deprecated_member_use
-  ;
+      ..basicProp = 'defaultBasicProps'; // ignore: deprecated_member_use
+
 
   @override
   render() {

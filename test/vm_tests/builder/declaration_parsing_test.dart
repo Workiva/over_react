@@ -66,14 +66,14 @@ main() {
         declarations = new ParsedDeclarations(unit, sourceFile, logger);
       }
 
-      void verifyNoErrorLogs() {
+      void verifyNoMoreErrorLogs() {
         verifyNever(logger.warning(any));
         verifyNever(logger.severe(any));
       }
 
       tearDown(() {
         // Verify that there were no errors other than the ones we explicitly verified.
-        verifyNoErrorLogs();
+        verifyNoMoreErrorLogs();
 
         logger = null;
         sourceFile = null;
@@ -540,7 +540,7 @@ main() {
             test('has the wrong type', () {
               setUpAndParse(factorySrc + propsSrc + componentSrc + '''
                 class FooProps {
-                  static const StateMeta meta = \$metaForFooProps;
+                  static const StateMeta meta = _\$metaForFooProps;
                 }
               ''');
               verify(logger.severe(contains('Static meta field in accessor class must be of type `PropsMeta`')));
@@ -571,7 +571,7 @@ main() {
             test('has the wrong type', () {
               setUpAndParse(factorySrc + propsSrc + companionClassProps + stateSrc + componentSrc + '''
                 class FooState {
-                  static const PropsMeta meta = \$metaForFooState;
+                  static const PropsMeta meta = _\$metaForFooState;
                 }
               ''');
               verify(logger.severe(contains('Static meta field in accessor class must be of type `StateMeta`')));
@@ -603,7 +603,7 @@ main() {
               setUpAndParse('''
                 @AbstractProps() abstract class _\$AbstractFooProps {}
                 abstract class AbstractFooProps {
-                  static const StateMeta meta = \$metaForAbstractFooProps;
+                  static const StateMeta meta = _\$metaForAbstractFooProps;
                 }
               ''');
               verify(logger.severe(contains('Static meta field in accessor class must be of type `PropsMeta`')));
@@ -637,7 +637,7 @@ main() {
               setUpAndParse('''
                 @AbstractState() abstract class _\$AbstractFooState {}
                 abstract class AbstractFooState {
-                  static const PropsMeta meta = \$metaForAbstractFooState;
+                  static const PropsMeta meta = _\$metaForAbstractFooState;
                 }
               ''');
               verify(logger.severe(contains('Static meta field in accessor class must be of type `StateMeta`')));
@@ -670,7 +670,7 @@ main() {
             test('has the wrong type', () {
               setUpAndParse('''
                 @PropsMixin() abstract class FooPropsMixin {
-                  static const StateMeta meta = \$metaForFooPropsMixin;
+                  static const StateMeta meta = _\$metaForFooPropsMixin;
                 }
               ''');
               verify(logger.severe(contains('Static meta field in accessor class must be of type `PropsMeta`')));
@@ -701,7 +701,7 @@ main() {
             test('has the wrong type', () {
               setUpAndParse('''
                 @StateMixin() abstract class FooStateMixin {
-                  static const PropsMeta meta = \$metaForFooStateMixin;
+                  static const PropsMeta meta = _\$metaForFooStateMixin;
                 }
               ''');
               verify(logger.severe(contains('Static meta field in accessor class must be of type `StateMeta`')));

@@ -12,20 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 import 'package:analyzer/analyzer.dart';
 import 'package:logging/logging.dart';
 import 'package:over_react/src/builder/util.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/transformer_utils.dart' show getSpan, NodeWithMeta;
-
-enum PropsClassType {
-  standard,
-  abstract,
-  mixin,
-  none,
-}
 
 /// A set of [NodeWithMeta] component pieces declared using `over_react` builder annotations.
 ///
@@ -48,33 +40,38 @@ class ParsedDeclarations {
       logger.severe(messageWithSpan(message, span: span));
     }
 
+    /// Validates that `meta` field in a companion class or props/state mixin
+    /// is formatted as expected.
+    ///
+    /// Meta fields should have the following format:
+    ///   `static const {Props|State}Meta meta = _$metaFor{className};`
+    ///
+    /// [cd] should be either a [ClassDeclaration] instance for the companion
+    /// class of a props/state/abstract props/abstract state class, or the
+    /// [ClassDeclaration] for a props or state mixin class.
     void validateMetaField(ClassDeclaration cd, String expectedType) {
-        final metaField = getMetaField(cd);
-        if (metaField == null) return;
+      final metaField = getMetaField(cd);
+      if (metaField == null) return;
 
-        if (metaField.fields.type?.toSource() != expectedType) {
-          error(
-              'Static meta field in accessor class must be of type `$expectedType`',
-              getSpan(sourceFile, metaField),
-          );
-        }
-        final isClassPrivate = cd.name.name.startsWith('_');
-        var expectedInitializers = ['\$metaFor${cd.name.name}', '_\$metaFor${cd.name.name}'];
-        if (isClassPrivate) {
-          expectedInitializers.add('_\$metaFor${cd.name.name.substring(1)}');
-        }
-
-        final initializer = metaField.fields.variables.single.initializer?.toSource();
-        if (!expectedInitializers.contains(initializer)) {
-          error(
-              'Static $expectedType field in accessor class must be initialized to:'
-              // The second in the list of expected initializers is the one it will need to be once on Dart 2
-              '`${expectedInitializers[1]}`',
-              getSpan(sourceFile, metaField),
-          );
-        }
+      if (metaField.fields.type?.toSource() != expectedType) {
+        error(
+          'Static meta field in accessor class must be of type `$expectedType`',
+          getSpan(sourceFile, metaField),
+        );
       }
 
+      final expectedInitializer = '${generatedPrefix}metaFor${cd.name.name}';
+
+      final initializer = metaField.fields.variables.single.initializer
+          ?.toSource();
+      if (!(expectedInitializer == initializer)) {
+        error(
+          'Static $expectedType field in accessor class must be initialized to:'
+              '`$expectedInitializer`',
+          getSpan(sourceFile, metaField),
+        );
+      }
+    }
 
     // Collect the annotated declarations.
 
@@ -90,38 +87,37 @@ class ParsedDeclarations {
       key_stateMixin:        <CompilationUnitMember>[],
     };
 
-    var companionPrefix = r'_$';
+    void updateCompanionClass(String annotation, bool value) {
+      switch (annotation) {
+        case 'Props':
+          hasPropsCompanionClass = value;
+          break;
+        case 'AbstractProps':
+          hasAbstractPropsCompanionClass = value;
+          break;
+        case 'State':
+          hasStateCompanionClass = value;
+          break;
+        case 'AbstractState':
+          hasAbstractStateCompanionClass = value;
+          break;
+      }
+    }
+
+    bool isPropsClass(String annotation) {
+      return (annotation == 'Props' || annotation == 'AbstractProps');
+    }
+
+    bool isStateClass(String annotation) {
+      return (annotation == 'State' || annotation == 'AbstractState');
+    }
+
     unit.declarations.forEach((CompilationUnitMember member) {
       member.metadata.forEach((annotation) {
-        var name = annotation.name.toString();
-
-        void updateCompanionClass(String annotation, bool value) {
-          switch(annotation) {
-            case 'Props':
-              hasPropsCompanionClass = value;
-              break;
-            case 'AbstractProps':
-              hasAbstractPropsCompanionClass = value;
-              break;
-            case 'State':
-              hasStateCompanionClass = value;
-              break;
-            case 'AbstractState':
-              hasAbstractStateCompanionClass = value;
-              break;
-          }
-        }
-
-        bool isPropsClass(String annotation) {
-          return (name == 'Props' || name == 'AbstractProps');
-        }
-
-        bool isStateClass(String annotation) {
-          return (name == 'State' || name == 'AbstractState');
-        }
-
+        final name = annotation.name.toString();
         if ((isPropsClass(name) || isStateClass(name)) && member is ClassDeclaration) {
-          final companionName = member.name.name.substring(companionPrefix.length);
+//<<<<<<< HEAD
+          final companionName = member.name.name.substring(generatedPrefix.length);
           final companionClass = unit.declarations.firstWhere(
                   (innerMember) =>
               innerMember is ClassDeclaration && innerMember.name.name == companionName,
@@ -132,13 +128,42 @@ class ParsedDeclarations {
             updateCompanionClass(name, true);
             validateMetaField(companionClass, isPropsClass(name) ? 'PropsMeta': 'StateMeta');validateMetaField(companionClass, isPropsClass(name) ? 'PropsMeta': 'StateMeta');
           } else {
-            if (!member.name.name.startsWith(companionPrefix)) {
+            if (!member.name.name.startsWith(generatedPrefix)) {
               // Props or state class has the incorrect naming (should start with [companionPrefix]
-              error('The class `${member.name.name}` does not start with $companionPrefix. All Props, State, '
-                  'AbstractProps, and AbstractState classes should begin with $companionPrefix under Dart 2',
+              error('The class `${member.name.name}` does not start with $generatedPrefix. All Props, State, '
+                  'AbstractProps, and AbstractState classes should begin with $generatedPrefix under Dart 2',
                   getSpan(sourceFile, member));
             }
             updateCompanionClass(name, false);
+//=======
+//          if (member.name.name.startsWith(generatedPrefix)) {
+//            final companionName = member.name.name.substring(generatedPrefix.length);
+//            final privateCompanionName = '$privatePrefix$companionName';
+//            final privateCompanionClass = unit.declarations.firstWhere(
+//                    (innerMember) =>
+//                innerMember is ClassDeclaration && innerMember.name.name == privateCompanionName,
+//                orElse: () => null);
+//            final publicCompanionClass = unit.declarations.firstWhere(
+//                    (innerMember) =>
+//                innerMember is ClassDeclaration && innerMember.name.name == companionName,
+//                orElse: () => null);
+//
+//            if (privateCompanionClass == null && publicCompanionClass == null) {
+//              error('${member.name.name} must have an accompanying companion class within the '
+//                  'same file for Dart 2 builder compatibility, but one was not found.', getSpan(sourceFile, member));
+//            } else {
+//              if (privateCompanionClass != null) {
+//                validateMetaField(privateCompanionClass, isPropsClass(name) ? 'PropsMeta': 'StateMeta');
+//              } else {
+//                validateMetaField(publicCompanionClass, isPropsClass(name) ? 'PropsMeta': 'StateMeta');
+//              }
+//            }
+//          } else {
+//            // Props or state class has the incorrect naming (should start with [companionPrefix]
+//            error('The class `${member.name.name}` does not start with $generatedPrefix. All Props, State, '
+//                'AbstractProps, and AbstractState classes should begin with $generatedPrefix under Dart 2',
+//              getSpan(sourceFile, member));
+//>>>>>>> builder_generate_public_class
           }
         }
 
@@ -152,7 +177,7 @@ class ParsedDeclarations {
     // Validate the types of the annotated declarations.
 
     List<TopLevelVariableDeclaration> topLevelVarsOnly(String annotationName, Iterable<CompilationUnitMember> declarations) {
-      var topLevelVarDeclarations = <TopLevelVariableDeclaration>[];
+      final topLevelVarDeclarations = <TopLevelVariableDeclaration>[];
 
       declarations.forEach((declaration) {
         if (declaration is TopLevelVariableDeclaration) {
@@ -169,7 +194,7 @@ class ParsedDeclarations {
     };
 
     List<ClassDeclaration> classesOnly(String annotationName, Iterable<CompilationUnitMember> declarations) {
-      var classDeclarations = <ClassDeclaration>[];
+      final classDeclarations = <ClassDeclaration>[];
 
       declarations.forEach((declaration) {
         if (declaration is ClassDeclaration) {
@@ -224,7 +249,7 @@ class ParsedDeclarations {
     if (!areDeclarationsValid) {
       if (!noneOfAnyRequiredDecl) {
         key_allComponentRequired.forEach((annotationName) {
-          var declarations = declarationMap[annotationName];
+          final declarations = declarationMap[annotationName];
           if (declarations.length == 0) {
             error(
                 'To define a component, there must also be a `@$annotationName` within the same file, '
@@ -244,7 +269,7 @@ class ParsedDeclarations {
       }
 
       key_allComponentOptional.forEach((annotationName) {
-        var declarations = declarationMap[annotationName];
+        final declarations = declarationMap[annotationName];
 
         if (declarations.length > 1) {
           for (int i = 0; i < declarations.length; i++) {
@@ -287,20 +312,14 @@ class ParsedDeclarations {
       }
 
       final variable = factory.variables.variables.first;
-      final isPrivate = factoryName.startsWith('_');
-      var expectedInitializers = ['\$$factoryName', '_\$$factoryName'];
-
-      if (isPrivate) {
-        expectedInitializers.add('_\$${factoryName.substring(1)}');
-      }
+      final expectedInitializer = '$generatedPrefix$factoryName';
 
       if (variable.initializer != null &&
-          !expectedInitializers.contains(variable.initializer.toString())) {
+          !expectedInitializer.contains(variable.initializer.toString())) {
         error(
             'Factory variables are stubs for the generated factories, and should not have initializers '
                 'unless initialized with a valid variable name for Dart 2 builder compatibility. '
-                // The second in the list of expected initializers is the one it will need to be once on Dart 2
-                'Should be:\n    ${expectedInitializers[1]}',
+                'Should be:\n    $expectedInitializer}',
             getSpan(sourceFile, variable.initializer)
         );
       }
@@ -387,8 +406,6 @@ class ParsedDeclarations {
 
   static final String key_propsMixin        = getName(annotations.PropsMixin);
   static final String key_stateMixin        = getName(annotations.StateMixin);
-
-  static final String key_exportGeneratedAccessors = getName(annotations.ExportGeneratedAccessors);
 
   static final List<String> key_allComponentRequired = new List.unmodifiable([
     key_factory,

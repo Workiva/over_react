@@ -5,36 +5,43 @@ part 'private_component.over_react.g.dart';
 
 @Factory()
 // ignore: undefined_identifier
-UiFactory<_CustomColorInputProps> _CustomColorInput = _$_CustomColorInput;
+UiFactory<_PrivateProps> _Private = _$_Private;
 
 @Props()
-class _$_CustomColorInputProps extends UiProps {
+class _$_PrivateProps extends UiProps {
   bool prop1;
 }
 
 @State()
-class _$_CustomColorInputState extends UiState {
+class _$_PrivateState extends UiState {
   bool state1;
 }
 
 @Component()
-class CustomColorInputComponent extends UiStatefulComponent<_CustomColorInputProps, _CustomColorInputState> {
+class PrivateComponent extends UiStatefulComponent<_PrivateProps, _PrivateState> {
+  @override
+  Map getDefaultProps() => newProps()..prop1 = true;
+
+  @override
+  Map getInitialState() => newState()..state1 = true;
+
   @override
   render() {
-    return Dom.div()();
+    return Dom.div()('PrivateComponent', {
+      'props.prop1': props.prop1,
+      'props.state1': state.state1,
+    }.toString());
   }
 }
 
-// AF-#### This will be removed once the transition to Dart 2 is complete.
 // ignore: mixin_of_non_class, undefined_class
-class _CustomColorInputProps extends _$_CustomColorInputProps with _$_CustomColorInputPropsAccessorsMixin {
+class _PrivateProps extends _$_PrivateProps with _$_PrivatePropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaFor_CustomColorInputProps;
+  static const PropsMeta meta = _$metaFor_PrivateProps;
 }
 
-// AF-#### This will be removed once the transition to Dart 2 is complete.
 // ignore: mixin_of_non_class, undefined_class
-class _CustomColorInputState extends _$_CustomColorInputState with _$_CustomColorInputStateAccessorsMixin {
+class _PrivateState extends _$_PrivateState with _$_PrivateStateAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = _$metaFor_CustomColorInputState;
+  static const StateMeta meta = _$metaFor_PrivateState;
 }

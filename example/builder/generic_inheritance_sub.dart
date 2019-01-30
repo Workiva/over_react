@@ -33,7 +33,7 @@ class GenericSubComponent extends GenericSuperComponent<GenericSubProps, Generic
   @override
   Map getInitialState() => newState()
     ..subState = '<generic sub state>'
-    ..superState= '<generic super state>';
+    ..superState = '<generic super state>';
 
   @override
   render() {
