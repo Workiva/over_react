@@ -11,7 +11,7 @@ tags:
 presets:
   dartdevc:
     concurrency: 4
-    exclude_tags: no-ddc || dart2js-only
+    exclude_tags: no-ddc
     platforms:
       - chrome
       - vm
@@ -23,7 +23,6 @@ presets:
       - test/over_react_util_test.dart
 
   dart2js:
-    include_tags: dart2js-only
     platforms:
       - chrome
     paths:
