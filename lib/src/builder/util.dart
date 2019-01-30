@@ -6,6 +6,10 @@ import 'package:build/build.dart' show AssetId;
 import 'package:source_span/source_span.dart';
 
 const outputExtension = '.over_react.g.dart';
+const generatedPrefix = r'_$';
+const privatePrefix = r'_';
+const publicGeneratedPrefix = r'$';
+
 
 String getName(Type type) {
   return MirrorSystem.getName(reflectType(type).simpleName);

@@ -1,6 +1,6 @@
 builders:
   overReactBuilder:
-    import: "package:over_react/src/builder/builder.dart"
+    import: "package:over_react/builder.dart"
     builder_factories: ["overReactBuilder"]
     build_extensions: {".dart" : [".over_react.g.dart"]}
     auto_apply: all_packages
@@ -12,6 +12,7 @@ targets:
       over_react|overReactBuilder:
         generate_for:
           exclude:
+            # This tests un-built behavior, and therefore should not be built
             - "test/over_react/component_declaration/transformer_helpers_test.dart"
 
       # builder uses mirrors and will cause a build to fail when using build web compilers

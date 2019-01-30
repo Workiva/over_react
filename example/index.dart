@@ -12,7 +12,6 @@ import './builder/generic_inheritance_super.dart';
 
 main() {
   setClientConfiguration();
-  print('working...');
   react_dom.render(
       Dom.div()(
         Dom.h3()('Components'),
@@ -52,17 +51,8 @@ main() {
 typedef Map GetDefaultProps();
 
 final componentConstructorsByName = <String, GetDefaultProps>{
-  'BasicComponent': () => getDefaultPropsFor(Basic),
-  'SubComponent': () => getDefaultPropsFor(Sub),
-  'GenericSuperComponent': () => getDefaultPropsFor(GenericSuper),
-  'GenericSubComponent': () => getDefaultPropsFor(GenericSub),
+  'BasicComponent': () => typedDefaultPropsFor(Basic),
+  'SubComponent': () => typedDefaultPropsFor(Sub),
+  'GenericSuperComponent': () => typedDefaultPropsFor(GenericSuper),
+  'GenericSubComponent': () => typedDefaultPropsFor(GenericSub),
 };
-
-/// FIXME move to over_react public API
-Map getDefaultPropsFor(BuilderOnlyUiFactory factory) {
-  final componentFactory = factory().componentFactory;
-  if (componentFactory is ReactDartComponentFactoryProxy) {
-    return componentFactory.defaultProps;
-  }
-  throw new ArgumentError.value(factory, 'factory', 'must be a ReactDartComponentFactoryProxy');
-}

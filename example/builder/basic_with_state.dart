@@ -27,7 +27,7 @@ abstract class BasicState extends _$BasicState with _$BasicStateAccessorsMixin {
 }
 
 @State()
-class _$BasicState extends UiState with $ExampleStateMixinClass, ExampleStateMixinClass {
+class _$BasicState extends UiState with ExampleStateMixinClass, $ExampleStateMixinClass {
   String basicState;
 }
 
@@ -39,8 +39,7 @@ class BasicComponent extends UiStatefulComponent<BasicProps, BasicState> {
 
   @override
   Map getInitialState() => newState()..basicState = '<basic state>'
-      ..stateMixin1 = '<state mixin>'
-  ;
+      ..stateMixin1 = '<state mixin>';
 
   @override
   render() {

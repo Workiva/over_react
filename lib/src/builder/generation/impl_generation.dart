@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library over_react.transformer.impl_generation;
-
 import 'package:analyzer/analyzer.dart';
 import 'package:logging/logging.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
@@ -45,10 +43,6 @@ import 'package:transformer_utils/transformer_utils.dart';
 ///     * Generates public subclasses which implement stubbed methods for any number of mixins in a library
 class ImplGenerator {
   ImplGenerator(this.logger, this.sourceFile);
-
-  static const String generatedPrefix = r'_$';
-  static const String privatePrefix = r'_';
-  static const String publicGeneratedPrefix = r'$';
 
   Logger logger;
   StringBuffer outputContentsBuffer = new StringBuffer();
@@ -130,7 +124,7 @@ class ImplGenerator {
       outputContentsBuffer.write(
           _generateMetaConstant(AccessorType.props, declarations.props));
 
-      /// FooProps $Foo([Map backingProps]) => new FooProps(backingProps);
+      /// _$$FooProps _$Foo([Map backingProps]) => new _$$FooProps(backingProps);
       outputContentsBuffer.writeln('$propsImplName $generatedPrefix$factoryName([Map backingProps]) => new $propsImplName(backingProps);');
 
       final String propKeyNamespace = _getAccessorKeyNamespace(declarations.props);
@@ -312,7 +306,7 @@ class ImplGenerator {
     typedMap.node.members
         .where((member) => member is FieldDeclaration && !member.isStatic)
         .forEach((_field) {
-          final field = _field as FieldDeclaration; // ignore: avoid_as
+          final FieldDeclaration field = _field;
 
           T getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
             return member.metadata.any((annotation) => annotation.name?.name == name) ? value : null;
