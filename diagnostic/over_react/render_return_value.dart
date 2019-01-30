@@ -4,6 +4,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react/src/plugin/diagnostic/over_react/component_usage.dart';
+import 'package:over_react/src/plugin/diagnostic/over_react/util.dart';
 
 class RenderReturnValueChecker extends SubChecker {
   @override
@@ -43,12 +44,10 @@ class RenderReturnValueChecker extends SubChecker {
         List<SourceEdit> fixEdits;
         String fixMessage;
 
-        if (returnTypeName.endsWith('Props')) {
-          message += '\nAre you missing the builder invocation?';
-          fixEdits = [
-            new SourceEdit(returnExpression.end, 0, '()')
-          ];
-          fixMessage = 'Add builder invocation.';
+        if (couldBeMissingBuilderInvocation(returnExpression)) {
+          message += missingBuilderMessageSuffix;
+          fixEdits = getMissingInvocationBuilderEdits(returnExpression);
+          fixMessage = missingBuilderFixMessage;
         }
 
         emitError(message: message, offset: returnStatement.offset, end: returnStatement.end, fixMessage: fixMessage, fixEdits: fixEdits);

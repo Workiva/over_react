@@ -38,6 +38,7 @@ import 'package:over_react/src/plugin/diagnostic/over_react/component_usage.dart
 import 'package:over_react/src/plugin/diagnostic/over_react/duplicate_prop_cascade.dart';
 import 'package:over_react/src/plugin/diagnostic/over_react/extra_invocations.dart';
 import 'package:over_react/src/plugin/diagnostic/over_react/hashcode_as_key.dart';
+import 'package:over_react/src/plugin/diagnostic/over_react/invalid_child.dart';
 import 'package:over_react/src/plugin/diagnostic/over_react/render_return_value.dart';
 import 'package:over_react/src/plugin/diagnostic/over_react/variadic_children.dart';
 
