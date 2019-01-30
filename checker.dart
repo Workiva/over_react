@@ -31,7 +31,6 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:over_react/src/plugin/diagnostic/over_react/arrow_function_prop.dart';
@@ -46,10 +45,7 @@ import 'package:over_react/src/plugin/diagnostic/over_react/variadic_children.da
 /// the errors and, where possible, corresponding fixes.
 class Checker {
   Map<AnalysisError, PrioritizedSourceChange> check(
-      CompilationUnit compilationUnit) {
-    // todo pass this in
-    final path = compilationUnit.declaredElement.source.fullName;
-
+      CompilationUnit compilationUnit, String path) {
     final result = <AnalysisError, PrioritizedSourceChange>{};
 
     final checkers = <SubChecker>[
@@ -59,11 +55,13 @@ class Checker {
       new ArrowFunctionPropCascadeChecker(),
       new ExtraInvocationsChecker(),
       new RenderReturnValueChecker(),
+      new InvalidChildChecker(),
     ];
 
     for (var checker in checkers) {
       checker.check(compilationUnit);
       final errors = checker.getErrors();
+      checker.clearErrors();
 
       for (var error in errors) {
         final lineInfo = compilationUnit.lineInfo;
