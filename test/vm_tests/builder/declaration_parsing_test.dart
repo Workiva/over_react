@@ -557,9 +557,9 @@ main() {
             });
 
             test('is private and initialized incorrectly', () {
-              setUpAndParse(factorySrc + propsSrc + componentSrc + '''
+              setUpAndParse(factorySrc + privatePropsSrc + componentSrc + '''
                 class _FooProps {
-                  static const PropsMeta meta = \$metaForBarProps;
+                  static const PropsMeta meta = \$metaForFooProps;
                 }
               ''');
               verify(logger.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
@@ -588,7 +588,7 @@ main() {
             });
 
             test('is private and initialized incorrectly', () {
-              setUpAndParse(factorySrc + propsSrc + companionClassProps + componentSrc + stateSrc + '''
+              setUpAndParse(factorySrc + propsSrc + companionClassProps + componentSrc + privateStateSrc + '''
                 class _FooState {
                   static const StateMeta meta = \$metaForBarState;
                 }
@@ -622,7 +622,7 @@ main() {
 
             test('is private and initialized incorrectly', () {
               setUpAndParse('''
-                @AbstractProps() abstract class _\$AbstractFooProps {}
+                @AbstractProps() abstract class _\$_AbstractFooProps {}
                 abstract class _AbstractFooProps {
                   static const PropsMeta meta = \$metaForAbstractBarProps;
                 }
@@ -656,7 +656,7 @@ main() {
 
             test('is private and initialized incorrectly', () {
               setUpAndParse('''
-                @AbstractState() abstract class _\$AbstractFooState {}
+                @AbstractState() abstract class _\$_AbstractFooState {}
                 abstract class _AbstractFooState {
                   static const StateMeta meta = \$metaForAbstractBarState;
                 }

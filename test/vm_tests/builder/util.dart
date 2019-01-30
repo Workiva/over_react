@@ -6,6 +6,7 @@ const String componentSrc                = '\n@Component()\nclass FooComponent {
 const String abstractComponentSrc        = '\n@AbstractComponent()\nclass AbstractFooComponent {}\n';
 
 const String propsSrc                    = '\n@Props()\nclass _\$FooProps {}\n';
+const String privatePropsSrc             = '\n@Props()\nclass _\$_FooProps {}\n';
 const String propsSrcDart1               = '\n@Props()\nclass FooProps {}\n';
 const String abstractPropsSrc            = '\n@AbstractProps()\nclass _\$AbstractFooProps {}\n';
 const String abstractPropsSrcDart1       = '\n@AbstractProps()\nclass AbstractFooProps {}\n';
@@ -13,6 +14,7 @@ const String companionClassProps         = 'class FooProps {}';
 const String companionClassAbstractProps = 'class AbstractFooProps {}';
 
 const String stateSrc                    = '\n@State()\nclass _\$FooState {}\n';
+const String privateStateSrc             = '\n@State()\nclass _\$_FooState {}\n';
 const String stateSrcDart1               = '\n@State()\nclass FooState {}\n';
 const String abstractStateSrc            = '\n@AbstractState()\nclass _\$AbstractFooState {}\n';
 const String abstractStateSrcDart1       = '\n@AbstractState()\nclass AbstractFooState {}\n';

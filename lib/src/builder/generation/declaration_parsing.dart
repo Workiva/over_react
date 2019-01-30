@@ -116,7 +116,6 @@ class ParsedDeclarations {
       member.metadata.forEach((annotation) {
         final name = annotation.name.toString();
         if ((isPropsClass(name) || isStateClass(name)) && member is ClassDeclaration) {
-//<<<<<<< HEAD
           final companionName = member.name.name.substring(generatedPrefix.length);
           final companionClass = unit.declarations.firstWhere(
                   (innerMember) =>
@@ -135,35 +134,6 @@ class ParsedDeclarations {
                   getSpan(sourceFile, member));
             }
             updateCompanionClass(name, false);
-//=======
-//          if (member.name.name.startsWith(generatedPrefix)) {
-//            final companionName = member.name.name.substring(generatedPrefix.length);
-//            final privateCompanionName = '$privatePrefix$companionName';
-//            final privateCompanionClass = unit.declarations.firstWhere(
-//                    (innerMember) =>
-//                innerMember is ClassDeclaration && innerMember.name.name == privateCompanionName,
-//                orElse: () => null);
-//            final publicCompanionClass = unit.declarations.firstWhere(
-//                    (innerMember) =>
-//                innerMember is ClassDeclaration && innerMember.name.name == companionName,
-//                orElse: () => null);
-//
-//            if (privateCompanionClass == null && publicCompanionClass == null) {
-//              error('${member.name.name} must have an accompanying companion class within the '
-//                  'same file for Dart 2 builder compatibility, but one was not found.', getSpan(sourceFile, member));
-//            } else {
-//              if (privateCompanionClass != null) {
-//                validateMetaField(privateCompanionClass, isPropsClass(name) ? 'PropsMeta': 'StateMeta');
-//              } else {
-//                validateMetaField(publicCompanionClass, isPropsClass(name) ? 'PropsMeta': 'StateMeta');
-//              }
-//            }
-//          } else {
-//            // Props or state class has the incorrect naming (should start with [companionPrefix]
-//            error('The class `${member.name.name}` does not start with $generatedPrefix. All Props, State, '
-//                'AbstractProps, and AbstractState classes should begin with $generatedPrefix under Dart 2',
-//              getSpan(sourceFile, member));
-//>>>>>>> builder_generate_public_class
           }
         }
 
