@@ -20,7 +20,7 @@ import 'package:over_react/src/builder/util.dart';
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/transformer_utils.dart';
 
-/// A utility class that generating implementations for a set of [ParsedDeclarations] obtained from a [SourceFile].
+/// A utility class that generates implementations for a set of [ParsedDeclarations] obtained from a [SourceFile].
 ///
 /// Generates implementations for:
 ///
@@ -30,17 +30,20 @@ import 'package:transformer_utils/transformer_utils.dart';
 ///
 ///          * Private subclasses for the component, props, and state classes, implementing stubbed methods.
 ///          * A private React component factory via a call to `registerComponent`.
+///          * Metadata containing fields and keys for all Props and State classes.
 ///
 ///     * Wires up all the generated component pieces and exposes them via a function assigned to
 ///     the initializer of factory function variable.
 ///
-/// * Any number of abstract component pieces: `@AbstractProps()`, `@AbstractState()`
+/// * Any number of abstract component pieces: `@AbstractProps()`, `@AbstractState()`.
 ///
-///     * Generate private subclasses which implement stubbed methods
+///     * Generate private subclasses which implement stubbed methods.
+///     * Metadata containing fields and keys for all Abstract Props and Abstract State classes.
 ///
-/// * Any number of mixins: `@PropsMixin()`, `@StateMixin()`
+/// * Any number of mixins: `@PropsMixin()`, `@StateMixin()`.
 ///
-///     * Generates public subclasses which implement stubbed methods for any number of mixins in a library
+///     * Generates public subclasses which implement stubbed methods for any number of mixins in a library.
+///     * Metadata containing fields and keys for all Props and State mixins.
 class ImplGenerator {
   ImplGenerator(this.logger, this.sourceFile);
 
@@ -136,10 +139,7 @@ class ImplGenerator {
 
       typedPropsFactoryImpl =
           '  @override\n'
-          // Don't type this so that it doesn't interfere with classes with generic parameter props type:
-          //    class FooComponent<T extends FooProps> extends UiComponent<T> {...}
-          // TODO use long-term solution of component impl class instantiated via factory constructor
-          '  typedPropsFactory(Map backingMap) => new $propsImplName(backingMap) as dynamic;\n\n';
+          '  typedPropsFactory(Map backingMap) => new $propsImplName(backingMap);\n\n';
 
       // ----------------------------------------------------------------------
       //   State implementation
@@ -164,14 +164,12 @@ class ImplGenerator {
           ..writeln('//')
           ..writeln('// Implements constructor and backing map.')
           ..writeln('class $stateImplName$typeParamsOnClass extends $stateName$typeParamsOnSuper with $stateAccessorsMixinName$typeParamsOnSuper implements $consumableStateName$typeParamsOnSuper {')
-          ..writeln('  $stateImplName(Map backingMap) : this._state = {} {')
-          ..writeln('    this._state = backingMap ?? {};')
-          ..writeln('  }')
+          ..writeln('  $stateImplName(Map backingMap) : this._state = backingMap ?? {};')
           ..writeln()
           ..writeln('  /// The backing state map proxied by this class.')
           ..writeln('  @override')
           ..writeln('  Map get state => _state;')
-          ..writeln('  Map _state;')
+          ..writeln('  final Map _state;')
           ..writeln()
           ..writeln('  /// Let [UiState] internals know that this class has been generated.')
           ..writeln('  @override')
@@ -181,10 +179,7 @@ class ImplGenerator {
 
         typedStateFactoryImpl =
           '  @override\n'
-          // Don't type this so that it doesn't interfere with classes with generic parameter state type:
-          //    class FooComponent<T extends FooProps, T extends FooState> extends UiStatefulComponent<T> {...}
-          // TODO use long-term solution of component impl class instantiated via factory constructor
-          '  typedStateFactory(Map backingMap) => new $stateImplName(backingMap) as dynamic;\n\n';
+          '  typedStateFactory(Map backingMap) => new $stateImplName(backingMap);\n\n';
       }
 
       // ----------------------------------------------------------------------
@@ -643,14 +638,12 @@ class ImplGenerator {
         ..writeln('//')
         ..writeln('// Implements constructor and backing map, and links up to generated component factory.')
         ..write(classDeclaration)
-        ..writeln('  $implName(Map backingMap) : this._props = {} {')
-        ..writeln('    this._props = backingMap ?? {};')
-        ..writeln('  }')
+        ..writeln('  $implName(Map backingMap) : this._props = backingMap ?? {};')
         ..writeln()
         ..writeln('  /// The backing props map proxied by this class.')
         ..writeln('  @override')
         ..writeln('  Map get props => _props;')
-        ..writeln('  Map _props;')
+        ..writeln('  final Map _props;')
         ..writeln()
         ..writeln('  /// Let [UiProps] internals know that this class has been generated.')
         ..writeln('  @override')

@@ -347,29 +347,29 @@ main() {
           test('a class annotated with @Props()', () {
             setUpAndParse(propsSrcDart1 + componentSrc + factorySrc);
             verify(logger.severe(contains(
-                'The class `FooProps` does not start with _\$. All Props, State, '
-                    'AbstractProps, and AbstractState classes should begin with _\$ under Dart 2')));
+                'The class `FooProps` does not start with `_\$`. All Props, State, '
+                    'AbstractProps, and AbstractState classes should begin with `_\$` under Dart 2')));
           });
 
           test('a class annotated with @State()', () {
             setUpAndParse(stateSrcDart1 + componentSrc + propsSrc + companionClassProps + factorySrc);
             verify(logger.severe(contains(
-                'The class `FooState` does not start with _\$. All Props, State, '
-                    'AbstractProps, and AbstractState classes should begin with _\$ under Dart 2')));
+                'The class `FooState` does not start with `_\$`. All Props, State, '
+                    'AbstractProps, and AbstractState classes should begin with `_\$` under Dart 2')));
           });
 
           test('a class annotated with @AbstractProps()', () {
             setUpAndParse(abstractPropsSrcDart1 + abstractComponentSrc);
             verify(logger.severe(contains(
-                'The class `AbstractFooProps` does not start with _\$. All Props, State, '
-                    'AbstractProps, and AbstractState classes should begin with _\$ under Dart 2')));
+                'The class `AbstractFooProps` does not start with `_\$`. All Props, State, '
+                    'AbstractProps, and AbstractState classes should begin with `_\$` under Dart 2')));
           });
 
           test('a class annotated with @AbstractState()', () {
             setUpAndParse(abstractStateSrcDart1 + abstractComponentSrc + abstractPropsSrc + companionClassAbstractProps);
             verify(logger.severe(contains(
-                'The class `AbstractFooState` does not start with _\$. All Props, State, '
-                    'AbstractProps, and AbstractState classes should begin with _\$ under Dart 2')));
+                'The class `AbstractFooState` does not start with `_\$`. All Props, State, '
+                    'AbstractProps, and AbstractState classes should begin with `_\$` under Dart 2')));
           });
         });
 

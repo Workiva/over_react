@@ -112,11 +112,12 @@ class ParsedDeclarations {
       return (annotation == 'State' || annotation == 'AbstractState');
     }
 
+    final companionPrefix = r'_$';
     unit.declarations.forEach((CompilationUnitMember member) {
       member.metadata.forEach((annotation) {
         final name = annotation.name.toString();
         if ((isPropsClass(name) || isStateClass(name)) && member is ClassDeclaration) {
-          final companionName = member.name.name.substring(generatedPrefix.length);
+          final companionName = member.name.name.substring(companionPrefix.length);
           final companionClass = unit.declarations.firstWhere(
                   (innerMember) =>
               innerMember is ClassDeclaration && innerMember.name.name == companionName,
@@ -127,10 +128,10 @@ class ParsedDeclarations {
             updateCompanionClass(name, true);
             validateMetaField(companionClass, isPropsClass(name) ? 'PropsMeta': 'StateMeta');validateMetaField(companionClass, isPropsClass(name) ? 'PropsMeta': 'StateMeta');
           } else {
-            if (!member.name.name.startsWith(generatedPrefix)) {
+            if (!member.name.name.startsWith(companionPrefix)) {
               // Props or state class has the incorrect naming (should start with [companionPrefix]
-              error('The class `${member.name.name}` does not start with $generatedPrefix. All Props, State, '
-                  'AbstractProps, and AbstractState classes should begin with $generatedPrefix under Dart 2',
+              error('The class `${member.name.name}` does not start with $companionPrefix. All Props, State, '
+                  'AbstractProps, and AbstractState classes should begin with $companionPrefix under Dart 2',
                   getSpan(sourceFile, member));
             }
             updateCompanionClass(name, false);
@@ -139,7 +140,7 @@ class ParsedDeclarations {
 
         if (declarationMap[name] != null) {
           hasDeclarations = true;
-          declarationMap[name]?.add(member);
+          declarationMap[name].add(member);
         }
       });
     });

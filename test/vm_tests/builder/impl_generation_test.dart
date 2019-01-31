@@ -335,16 +335,14 @@ main() {
 
             test('with the correct constructor', () {
               expect(implGenerator.outputContentsBuffer.toString(), contains(
-                  '  _\$\$${ors.baseName}Props(Map backingMap) : this._props = {} {\n'
-                  '    this._props = backingMap ?? {};\n'
-                  '  }'));
+                  '  _\$\$${ors.baseName}Props(Map backingMap) : this._props = backingMap ?? {};\n'));
             });
 
             test('with props backing map getter', () {
               expect(implGenerator.outputContentsBuffer.toString(), contains(
                   '  @override\n'
                   '  Map get props => _props;\n'
-                  '  Map _props;'));
+                  '  final Map _props;'));
             });
 
             test('overrides `\$isClassGenerated` to return `true`', () {
@@ -407,16 +405,14 @@ main() {
 
             test('with the correct constructor', () {
               expect(implGenerator.outputContentsBuffer.toString(), contains(
-                  '  _\$\$${ors.baseName}State(Map backingMap) : this._state = {} {\n'
-                  '    this._state = backingMap ?? {};\n'
-                  '  }'));
+                  '  _\$\$${ors.baseName}State(Map backingMap) : this._state = backingMap ?? {};\n'));
             });
 
             test('with state backing map getter', () {
               expect(implGenerator.outputContentsBuffer.toString(), contains(
                   '  @override\n'
                   '  Map get state => _state;\n'
-                  '  Map _state;'));
+                  '  final Map _state;'));
             });
 
             test('overrides `\$isClassGenerated` to return `true`', () {

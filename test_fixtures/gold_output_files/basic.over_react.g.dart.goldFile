@@ -122,14 +122,12 @@ _$$BasicProps _$Basic([Map backingProps]) => new _$$BasicProps(backingProps);
 class _$$BasicProps extends _$BasicProps
     with _$BasicPropsAccessorsMixin
     implements BasicProps {
-  _$$BasicProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$BasicProps(Map backingMap) : this._props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  Map _props;
+  final Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -150,7 +148,7 @@ class _$$BasicProps extends _$BasicProps
 // generated for the associated props class.
 class _$BasicComponent extends BasicComponent {
   @override
-  typedPropsFactory(Map backingMap) => new _$$BasicProps(backingMap) as dynamic;
+  typedPropsFactory(Map backingMap) => new _$$BasicProps(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override

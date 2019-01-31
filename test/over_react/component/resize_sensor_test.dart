@@ -503,7 +503,7 @@ void main() {
 
         test('and emits a validation warning about not needing to set the `onDetachedMountCheck` callback.', () {
           verifyValidationWarning(contains('The ResizeSensor was not mounted detached from the DOM'));
-        });
+        }, tags: 'ddc');
       });
     });
 
