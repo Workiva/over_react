@@ -371,7 +371,7 @@ main() {
         });
       }, testOn: 'chrome');
 
-      test('only in Google Chrome', () async {
+      test(', except in non-Chrome browsers', () async {
         toRem('1rem');
         await new Future.delayed(const Duration(milliseconds: 100));
         expect(querySelector('#rem_change_sensor'), isNull, reason: 'test setup sanity check');
