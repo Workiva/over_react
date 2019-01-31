@@ -133,14 +133,12 @@ _$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) =>
 class _$$BasicPartOfLibProps extends _$BasicPartOfLibProps
     with _$BasicPartOfLibPropsAccessorsMixin
     implements BasicPartOfLibProps {
-  _$$BasicPartOfLibProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$BasicPartOfLibProps(Map backingMap) : this._props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  Map _props;
+  final Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -194,14 +192,12 @@ const StateMeta _$metaForBasicPartOfLibState = const StateMeta(
 class _$$BasicPartOfLibState extends _$BasicPartOfLibState
     with _$BasicPartOfLibStateAccessorsMixin
     implements BasicPartOfLibState {
-  _$$BasicPartOfLibState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$BasicPartOfLibState(Map backingMap) : this._state = backingMap ?? {};
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  Map _state;
+  final Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override
@@ -214,12 +210,10 @@ class _$$BasicPartOfLibState extends _$BasicPartOfLibState
 // generated for the associated props class.
 class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
   @override
-  typedPropsFactory(Map backingMap) =>
-      new _$$BasicPartOfLibProps(backingMap) as dynamic;
+  typedPropsFactory(Map backingMap) => new _$$BasicPartOfLibProps(backingMap);
 
   @override
-  typedStateFactory(Map backingMap) =>
-      new _$$BasicPartOfLibState(backingMap) as dynamic;
+  typedStateFactory(Map backingMap) => new _$$BasicPartOfLibState(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -285,14 +279,12 @@ _$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) =>
 class _$$SubPartOfLibProps extends _$SubPartOfLibProps
     with _$SubPartOfLibPropsAccessorsMixin
     implements SubPartOfLibProps {
-  _$$SubPartOfLibProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$SubPartOfLibProps(Map backingMap) : this._props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  Map _props;
+  final Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -314,8 +306,7 @@ class _$$SubPartOfLibProps extends _$SubPartOfLibProps
 // generated for the associated props class.
 class _$SubPartOfLibComponent extends SubPartOfLibComponent {
   @override
-  typedPropsFactory(Map backingMap) =>
-      new _$$SubPartOfLibProps(backingMap) as dynamic;
+  typedPropsFactory(Map backingMap) => new _$$SubPartOfLibProps(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override

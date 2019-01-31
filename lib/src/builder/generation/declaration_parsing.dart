@@ -91,6 +91,7 @@ class ParsedDeclarations {
       return (annotation == 'State' || annotation == 'AbstractState');
     }
 
+    final companionPrefix = r'_$';
     unit.declarations.forEach((CompilationUnitMember member) {
       member.metadata.forEach((annotation) {
         final name = annotation.name.toString();
@@ -112,22 +113,22 @@ class ParsedDeclarations {
                   'same file for Dart 2 builder compatibility, but one was not found.', getSpan(sourceFile, member));
             } else {
               if (privateCompanionClass != null) {
-                validateMetaField(privateCompanionClass, isPropsClass(name) ? 'PropsMeta': 'StateMeta');
+                validateMetaField(privateCompanionClass, isPropsClass(name) ? 'PropsMeta' : 'StateMeta');
               } else {
-                validateMetaField(publicCompanionClass, isPropsClass(name) ? 'PropsMeta': 'StateMeta');
+                validateMetaField(publicCompanionClass, isPropsClass(name) ? 'PropsMeta' : 'StateMeta');
               }
             }
           } else {
             // Props or state class has the incorrect naming (should start with [companionPrefix]
-            error('The class `${member.name.name}` does not start with $generatedPrefix. All Props, State, '
-                'AbstractProps, and AbstractState classes should begin with $generatedPrefix under Dart 2',
+            error('The class `${member.name.name}` does not start with `$generatedPrefix`. All Props, State, '
+                'AbstractProps, and AbstractState classes should begin with `$generatedPrefix` under Dart 2',
               getSpan(sourceFile, member));
           }
         }
 
         if (declarationMap[name] != null) {
           hasDeclarations = true;
-          declarationMap[name]?.add(member);
+          declarationMap[name].add(member);
         }
       });
     });
