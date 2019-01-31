@@ -138,7 +138,7 @@ main() {
           test('with public consumable class', () {
             testPropsDualClassSetup();
           });
-          test('with priavte consumable class', () {
+          test('with private consumable class', () {
             testPropsDualClassSetup(isPrivate: true);
           });
         });
