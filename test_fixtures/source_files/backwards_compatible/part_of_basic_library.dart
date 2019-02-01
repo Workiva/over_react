@@ -3,9 +3,14 @@ part of basic.library;
 @Factory()
 UiFactory<BasicPartOfLibProps> BasicPartOfLib = _$BasicPartOfLib;
 
+// ignore: mixin_of_non_class,undefined_class
+class BasicPartOfLibProps extends _$BasicPartOfLibProps with _$BasicPartOfLibPropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForBasicPartOfLibProps;
+}
+
 @Props()
 class _$BasicPartOfLibProps extends UiProps
-    with ExamplePropsMixinClass {
+    with  ExamplePropsMixinClass, $ExamplePropsMixinClass {
 
   String basicProp;
   String basic1;
@@ -13,6 +18,10 @@ class _$BasicPartOfLibProps extends UiProps
   String basic3;
   String basic4;
   String basic5;
+}
+
+abstract class BasicPartOfLibState extends _$BasicPartOfLibState with _$BasicPartOfLibStateAccessorsMixin {
+  static const StateMeta meta = _$metaForBasicPartOfLibState;
 }
 
 @State()

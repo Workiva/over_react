@@ -5,6 +5,10 @@ part 'basic.over_react.g.dart';
 @Factory()
 UiFactory<BasicProps> Basic = _$Basic;
 
+class BasicProps extends _$BasicProps with _$BasicPropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForBasicProps;
+}
+
 @Props()
 //// ignore: mixin_of_non_class,undefined_class
 class _$BasicProps extends UiProps {
@@ -23,7 +27,8 @@ class _$BasicProps extends UiProps {
 class BasicComponent extends UiComponent<BasicProps> {
   @override
   Map getDefaultProps() => newProps()..id = 'basic component'
-      ..basicProp = 'defaultBasicProps'; // ignore: deprecated_member_use
+      ..basicProp = 'defaultBasicProps' // ignore: deprecated_member_use
+  ;
 
   @override
   render() {

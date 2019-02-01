@@ -130,8 +130,8 @@ class ParsedDeclarations {
           } else {
             if (!member.name.name.startsWith(companionPrefix)) {
               // Props or state class has the incorrect naming (should start with [companionPrefix]
-              error('The class `${member.name.name}` does not start with $companionPrefix. All Props, State, '
-                  'AbstractProps, and AbstractState classes should begin with $companionPrefix under Dart 2',
+              error('The class `${member.name.name}` does not start with `$companionPrefix`. All Props, State, '
+                  'AbstractProps, and AbstractState classes should begin with `$companionPrefix` under Dart 2',
                   getSpan(sourceFile, member));
             }
             updateCompanionClass(name, false);
