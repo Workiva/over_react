@@ -22,6 +22,9 @@ import 'package:test/test.dart';
 
 import '../../test_util/test_util.dart';
 
+// ignore: uri_has_not_been_generated
+part 'dom_util_test.over_react.g.dart';
+
 /// Main entry point for DomUtil testing
 main() {
   group('isOrContains returns', () {
@@ -386,10 +389,11 @@ main() {
 }
 
 @Factory()
-UiFactory<DomTestProps> DomTest;
+// ignore: undefined_identifier
+UiFactory<DomTestProps> DomTest = _$DomTest;
 
 @Props()
-class DomTestProps extends UiProps {}
+class _$DomTestProps extends UiProps {}
 
 @Component()
 class DomTestComponent extends UiComponent<DomTestProps> {
@@ -399,4 +403,11 @@ class DomTestComponent extends UiComponent<DomTestProps> {
       (Dom.div()..addTestId('innerComponent'))()
     );
   }
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class DomTestProps extends _$DomTestProps with _$DomTestPropsAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = _$metaForDomTestProps;
 }

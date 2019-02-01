@@ -25,7 +25,7 @@ main(List<String> args) async {
   config.test
     ..pubServe = true
     ..platforms = [
-      'content-shell'
+      'chrome'
     ]
     ..unitTests = [
       'test/test_runtime_import.dart',

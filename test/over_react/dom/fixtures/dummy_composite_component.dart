@@ -19,7 +19,7 @@ part 'dummy_composite_component.over_react.g.dart';
 
 @Factory()
 // ignore: undefined_identifier
-UiFactory<TestCompositeComponentProps> TestCompositeComponent = $TestCompositeComponent;
+UiFactory<TestCompositeComponentProps> TestCompositeComponent = _$TestCompositeComponent;
 
 @Props()
 class _$TestCompositeComponentProps extends UiProps {
@@ -63,5 +63,5 @@ class TestCompositeComponentComponent extends UiComponent<TestCompositeComponent
 // ignore: mixin_of_non_class, undefined_class
 class TestCompositeComponentProps extends _$TestCompositeComponentProps with _$TestCompositeComponentPropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForTestCompositeComponentProps;
+  static const PropsMeta meta = _$metaForTestCompositeComponentProps;
 }

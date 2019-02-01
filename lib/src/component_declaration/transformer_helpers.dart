@@ -24,49 +24,6 @@ export './component_base.dart'
     hide UiComponent, UiStatefulComponent, UiProps, UiState;
 
 // ----------------------------------------------------------------------
-//   Helpers and extras consumable by generated code and consumers of
-//   generated code.
-// ----------------------------------------------------------------------
-
-/// Placeholder helper class that allows for accessing lists of prop keys
-/// in a static yet unsafe way.
-///
-/// __For advanced usage only.__
-@proxy
-class $PropKeys implements List<String> {
-  /// A placeholder that gets swapped out by the `over_react` transformer
-  /// with the prop keys defined in [propsClass].
-  const $PropKeys(Type propsClass);
-
-  @override
-  dynamic noSuchMethod(Invocation invocation) {
-    throw new UngeneratedError(
-        message: r'The $PropKeys class should not be used at runtime, '
-                 r'but should be replaced with a list via the transformer.'
-    );
-  }
-}
-
-/// Placeholder helper class that allows for accessing lists of props
-/// in a static yet unsafe way.
-///
-/// __For advanced usage only.__
-@proxy
-class $Props implements component_base.ConsumedProps {
-  /// A placeholder that gets swapped out by the `over_react` transformer
-  /// with the prop keys defined in [propsClass].
-  const $Props(Type propsClass);
-
-  @override
-  dynamic noSuchMethod(Invocation invocation) {
-    throw new UngeneratedError(
-        message: r'The $Props class should not be used at runtime, '
-                 r'but should be replaced with a list via the transformer.'
-    );
-  }
-}
-
-// ----------------------------------------------------------------------
 //   Base classes to be used by pre-generated code that stub out
 //   to-be-generated members.
 // ----------------------------------------------------------------------

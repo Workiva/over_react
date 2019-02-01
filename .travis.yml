@@ -1,46 +1,17 @@
 language: dart
+dart:
+  - stable
+script:
+  - pub run build_runner build
+  - pub run dart_dev analyze
+  # TODO: Remove ignore on analyzer once the wdesk ecosystem is all on a Dart 2 compat major version and we no longer need a "pinned" dep
+  - pub run dependency_validator --no-fatal-pins -i coverage,build_web_compilers,analyzer,build_runner,built_value_generator
+  # run tests on ddc output
+  - pub run build_runner test -- -P dartdevc
+  # run tests on dart2js output
+  - pub run build_runner test -r -- -P dart2js
 
-# Workaround for issue with sandboxed Chrome in containerized Travis builds.
-sudo: required
-addons:
-  chrome: stable
-
-# Re-use downloaded pub packages everywhere.
 cache:
   directories:
-    - $HOME/.pub-cache
-    - $HOME/.dart_tool
-
-stages:
-  - quality
-  - test
-
-jobs:
-  include:
-    - stage: quality
-      dart: "2.0.0-dev.49.0"
-      script:
-        - pub run dart_dev analyze
-        - pub run dependency_validator --no-fatal-pins -i coverage
-
-    - stage: test
-      dart: "2.0.0-dev.49.0"
-      script: ./tool/travis.sh test:unit dartdevc
-
-    - stage: test
-      dart: "2.0.0-dev.49.0"
-      script: ./tool/travis.sh test:unit dart2js
-
-    - stage: test
-      dart: "2.0.0-dev.49.0"
-      script: ./tool/travis.sh test:integration dartdevc
-
-    - stage: test
-      dart: "2.0.0-dev.49.0"
-      script: ./tool/travis.sh test:integration dart2js
-
-#    - stage: test
-#      dart: "2.0.0-dev.49.0"
-#      script:
-#        - ./tool/generate_coverage.sh
-#        - bash <(curl -s https://codecov.io/bash) -f coverage/coverage.lcov
+   - $HOME/.pub-cache
+   - $HOME/.dart_tool/build

@@ -11,7 +11,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-@Tags(const ['mirrors'])
 library dom_components_test;
 
 import 'package:over_react/over_react.dart';
@@ -94,15 +93,15 @@ main() {
       final SvgProps svg = Dom.circle();
 
       test('DomProps is a subtype of `UiProps` exported by over_react.dart', () {
-        expect(dom, const isInstanceOf<UiProps>());
+        expect(dom, const TypeMatcher<UiProps>());
       });
 
       test('SvgProps is a subtype of `UiProps` exported by over_react.dart', () {
-        expect(svg, const isInstanceOf<UiProps>());
+        expect(svg, const TypeMatcher<UiProps>());
       });
 
       test('SvgProps is a subtype of `DomProps`', () {
-        expect(svg, const isInstanceOf<DomProps>());
+        expect(svg, const TypeMatcher<DomProps>());
       });
     });
   });

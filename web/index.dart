@@ -1,9 +1,9 @@
 import 'dart:html';
 
+import 'package:over_react/over_react.dart';
 import 'package:over_react/react_dom.dart' as react_dom;
-import 'package:react/react_client.dart' show setClientConfiguration;
-import './demos/demos.dart';
-import './demos/constants.dart';
+
+import 'src/demos.dart';
 
 void main() {
   setClientConfiguration();

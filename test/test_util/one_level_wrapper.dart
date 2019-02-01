@@ -21,7 +21,7 @@ part 'one_level_wrapper.over_react.g.dart';
 
 @Factory()
 // ignore: undefined_identifier
-UiFactory<OneLevelWrapperProps> OneLevelWrapper = $OneLevelWrapper;
+UiFactory<OneLevelWrapperProps> OneLevelWrapper = _$OneLevelWrapper;
 
 @Props()
 class _$OneLevelWrapperProps extends UiProps {}
@@ -36,5 +36,5 @@ class OneLevelWrapperComponent extends UiComponent<OneLevelWrapperProps> {
 // ignore: mixin_of_non_class, undefined_class
 class OneLevelWrapperProps extends _$OneLevelWrapperProps with _$OneLevelWrapperPropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForOneLevelWrapperProps;
+  static const PropsMeta meta = _$metaForOneLevelWrapperProps;
 }

@@ -11,13 +11,13 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-library over_react.component_declaration.transformer_integration_tests.do_not_generate_accessor_integration_test;
-
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
 import '../../../test_util/test_util.dart';
+
+// ignore: uri_has_not_been_generated
+part 'do_not_generate_accessor_integration_test.over_react.g.dart';
 
 main() {
   group('acessors with doNotGenerate integration', () {
@@ -41,13 +41,13 @@ main() {
       });
 
       test('omitting the field annotated with doNotGenerate from the list of props', () {
-        expect(const $PropKeys(DoNotGenerateAccessorTestProps), [
+        expect(DoNotGenerateAccessorTestProps.meta.keys, [
           contains('generated1Prop'),
           contains('generated2Prop'),
           contains('explicitlyGeneratedProp'),
         ], reason: 'should only include generated props');
 
-        expect(const $Props(DoNotGenerateAccessorTestProps).props.map((prop) => prop.key).toList(), [
+        expect(DoNotGenerateAccessorTestProps.meta.props.map((prop) => prop.key).toList(), [
           contains('generated1Prop'),
           contains('generated2Prop'),
           contains('explicitlyGeneratedProp'),
@@ -85,10 +85,11 @@ main() {
 
 
 @Factory()
-UiFactory<DoNotGenerateAccessorTestProps> DoNotGenerateAccessorTest;
+// ignore: undefined_identifier
+UiFactory<DoNotGenerateAccessorTestProps> DoNotGenerateAccessorTest = _$DoNotGenerateAccessorTest;
 
 @Props()
-class DoNotGenerateAccessorTestProps extends UiProps {
+class _$DoNotGenerateAccessorTestProps extends UiProps {
   var generated1Prop;
 
   @Accessor(doNotGenerate: true)
@@ -101,7 +102,7 @@ class DoNotGenerateAccessorTestProps extends UiProps {
 }
 
 @State()
-class DoNotGenerateAccessorTestState extends UiState {
+class _$DoNotGenerateAccessorTestState extends UiState {
   var generated1State;
 
   @Accessor(doNotGenerate: true)
@@ -119,4 +120,18 @@ class DoNotGenerateAccessorTestComponent extends UiStatefulComponent<DoNotGenera
   render() => (Dom.div()
     ..addProps(copyUnconsumedProps())
   )('rendered content');
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps with _$DoNotGenerateAccessorTestPropsAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = _$metaForDoNotGenerateAccessorTestProps;
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class DoNotGenerateAccessorTestState extends _$DoNotGenerateAccessorTestState with _$DoNotGenerateAccessorTestStateAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const StateMeta meta = _$metaForDoNotGenerateAccessorTestState;
 }

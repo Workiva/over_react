@@ -149,7 +149,7 @@ main() {
           expect(() {
             // Fully iterate the result by calling toList().
             getParentTypes(new Object()).toList();
-          }, throwsA(const isInstanceOf<AssertionError>()));
+          }, throwsA(const TypeMatcher<AssertionError>()));
         }, testOn: '!js');
       });
     });

@@ -11,20 +11,20 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-library over_react.component_declaration.transformer_integration_tests.stateful_component_integration_test;
-
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
 import '../../../test_util/test_util.dart';
+
+// ignore: uri_has_not_been_generated
+part 'stateful_component_integration_test.over_react.g.dart';
 
 main() {
   group('transformed stateful component integration:', () {
     test('state class cannot be instantiated directly', () {
       expect(() {
         new StatefulComponentTestState();
-      }, throwsA(const isInstanceOf<IllegalInstantiationError>()));
+      }, throwsA(const TypeMatcher<IllegalInstantiationError>()));
     });
 
     test('renders a component from end to end, successfully reading state via typed getters', () {
@@ -80,13 +80,14 @@ main() {
 
 
 @Factory()
-UiFactory<StatefulComponentTestProps> StatefulComponentTest;
+// ignore: undefined_identifier
+UiFactory<StatefulComponentTestProps> StatefulComponentTest = _$StatefulComponentTest;
 
 @Props()
-class StatefulComponentTestProps extends UiProps {}
+class _$StatefulComponentTestProps extends UiProps {}
 
 @State()
-class StatefulComponentTestState extends UiState {
+class _$StatefulComponentTestState extends UiState {
   String stringState;
   dynamic dynamicState;
   var untypedState;
@@ -124,4 +125,18 @@ class StatefulComponentTestComponent extends UiStatefulComponent<StatefulCompone
     ..addProp('data-state-custom-namespace-state', state.customNamespaceState)
     ..addProp('data-state-custom-key-and-namespace-state', state.customKeyAndNamespaceState)
   )('rendered content');
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class StatefulComponentTestProps extends _$StatefulComponentTestProps with _$StatefulComponentTestPropsAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = _$metaForStatefulComponentTestProps;
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class StatefulComponentTestState extends _$StatefulComponentTestState with _$StatefulComponentTestStateAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const StateMeta meta = _$metaForStatefulComponentTestState;
 }

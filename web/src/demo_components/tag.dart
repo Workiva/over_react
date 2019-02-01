@@ -1,4 +1,6 @@
-part of over_react.web.demo_components;
+import 'package:over_react/over_react.dart';
+// ignore: uri_has_not_been_generated
+part 'tag.over_react.g.dart';
 
 /// Bootstrap's `Tag` component renders a small and adaptive tag
 /// for adding context to just about any content.
@@ -6,7 +8,7 @@ part of over_react.web.demo_components;
 /// See: <http://v4-alpha.getbootstrap.com/components/tag/>
 @Factory()
 // ignore: undefined_identifier
-UiFactory<TagProps> Tag = $Tag;
+UiFactory<TagProps> Tag = _$Tag;
 
 @Props()
 class _$TagProps extends UiProps {
@@ -81,5 +83,5 @@ class TagSkin extends ClassNameConstant {
 // ignore: mixin_of_non_class, undefined_class
 class TagProps extends _$TagProps with _$TagPropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForTagProps;
+  static const PropsMeta meta = _$metaForTagProps;
 }

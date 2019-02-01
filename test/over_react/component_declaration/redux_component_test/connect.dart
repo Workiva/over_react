@@ -2,7 +2,7 @@ part of over_react.component_declaration.redux_component_test;
 
 @Factory()
 // ignore: undefined_identifier
-UiFactory<TestConnectProps> TestConnect = $TestConnect;
+UiFactory<TestConnectProps> TestConnect = _$TestConnect;
 
 @Props()
 class _$TestConnectProps
@@ -29,5 +29,5 @@ class TestConnectComponent
 // ignore: mixin_of_non_class, undefined_class
 class TestConnectProps extends _$TestConnectProps with _$TestConnectPropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForTestConnectProps;
+  static const PropsMeta meta = _$metaForTestConnectProps;
 }

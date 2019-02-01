@@ -11,9 +11,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-library over_react.component_declaration.transformer_integration_tests.required_accessor_integration;
-
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
@@ -21,6 +18,9 @@ import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:test/test.dart';
 
 import '../../../test_util/test_util.dart';
+
+// ignore: uri_has_not_been_generated
+part 'required_accessor_integration_test.over_react.g.dart';
 
 void main() {
   group('properly identifies required props by', () {
@@ -135,10 +135,11 @@ void main() {
 }
 
 @Factory()
-UiFactory<ComponentTestProps> ComponentTest;
+// ignore: undefined_identifier
+UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
 
 @Props()
-class ComponentTestProps extends UiProps {
+class _$ComponentTestProps extends UiProps {
   @Accessor(isRequired: true, requiredErrorMessage: 'This Prop is Required for testing purposes.')
   var required;
 
@@ -150,4 +151,11 @@ class ComponentTestProps extends UiProps {
 class ComponentTestComponent extends UiComponent<ComponentTestProps> {
   @override
   render() => Dom.div()();
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class ComponentTestProps extends _$ComponentTestProps with _$ComponentTestPropsAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = _$metaForComponentTestProps;
 }

@@ -8,7 +8,7 @@ import 'package:react/react_client.dart';
 ///
 /// Useful when you need a `MapView` for a [PropsMixin] that implements [UiProps].
 class UiPropsMapView extends MapView
-    with 
+    with
         ReactPropsMixin,
         // ignore: mixin_of_non_class, undefined_class
         $ReactPropsMixin, 

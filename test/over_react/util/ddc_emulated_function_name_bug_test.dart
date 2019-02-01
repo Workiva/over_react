@@ -21,43 +21,47 @@ main() {
     group('isBugPresent correctly detects whether the bug is present', () {
       test('in dart2js', () {
         expect(isBugPresent, isFalse);
-      }, testOn: 'js', tags: 'no-ddc');
+      }, testOn: 'js');
 
       test('in content_shell/Dartium', () {
         expect(isBugPresent, isFalse);
       }, testOn: 'dart-vm');
 
-      test('in the DDC', () {
-        expect(isBugPresent, isTrue,
-            reason: 'if this test fails, then it\'s possible that the bug was fixed in'
-                    ' a newer version of the Dart SDK, and this library can be eliminated!'
-        );
-      }, tags: 'ddc',
-          // Tests run in `ddev coverage` don't respect tags and show up as the 'vm' platform
-          // so we can use this to disable certain browser tests during coverage.
-          // Workaround for https://github.com/Workiva/dart_dev/issues/200
-          testOn: '!vm');
+      // This bug is fixed in Dart 2.
+      // TODO: Remove the whole lib this file is testing: <https://jira.atl.workiva.net/browse/CPLAT-3974>
+//      test('in the DDC', () {
+//        expect(isBugPresent, isTrue,
+//            reason: 'if this test fails, then it\'s possible that the bug was fixed in'
+//                    ' a newer version of the Dart SDK, and this library can be eliminated!'
+//        );
+//      }, tags: 'ddc',
+//          // Tests run in `ddev coverage` don't respect tags and show up as the 'vm' platform
+//          // so we can use this to disable certain browser tests during coverage.
+//          // Workaround for https://github.com/Workiva/dart_dev/issues/200
+//          testOn: '!vm');
     });
 
-    test('patchName fixes instances of a class with the issue in the DDC', () {
-      const testValue = 'test value';
-
-      var testObject = new ProblematicClass();
-
-      try {
-        testObject.name = testValue;
-      } catch(_) {}
-      expect(testObject.name, isNot(testValue), reason: 'sanity check that the bug is present');
-
-      patchName(testObject);
-
-      expect(() => testObject.name = testValue, returnsNormally);
-      expect(testObject.name, testValue);
-    }, tags: 'ddc',
-        // Tests run in `ddev coverage` don't respect tags and show up as the 'vm' platform
-        // so we can use this to disable certain browser tests during coverage.
-        // Workaround for https://github.com/Workiva/dart_dev/issues/200
-        testOn: '!vm');
+    // This bug is fixed in Dart 2.
+    // TODO: Remove the whole lib this file is testing: <https://jira.atl.workiva.net/browse/CPLAT-3974>
+//    test('patchName fixes instances of a class with the issue in the DDC', () {
+//      const testValue = 'test value';
+//
+//      var testObject = new ProblematicClass();
+//
+//      try {
+//        testObject.name = testValue;
+//      } catch(_) {}
+//      expect(testObject.name, isNot(testValue), reason: 'sanity check that the bug is present');
+//
+//      patchName(testObject);
+//
+//      expect(() => testObject.name = testValue, returnsNormally);
+//      expect(testObject.name, testValue);
+//    }, tags: 'ddc',
+//        // Tests run in `ddev coverage` don't respect tags and show up as the 'vm' platform
+//        // so we can use this to disable certain browser tests during coverage.
+//        // Workaround for https://github.com/Workiva/dart_dev/issues/200
+//        testOn: '!vm');
   });
 }
 

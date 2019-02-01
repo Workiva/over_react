@@ -15,6 +15,7 @@
 library over_react.component_declaration.component_base;
 
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
@@ -468,19 +469,19 @@ typedef PropsModifier(Map props);
 /// > Note: Implements [MapViewMixin] instead of extending it so that the abstract [Props] declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
 abstract class UiProps extends MapBase
-    with 
+    with
+        MapViewMixin,
+        PropsMapViewMixin,
         ReactPropsMixin,
         // ignore: mixin_of_non_class, undefined_class
-        $ReactPropsMixin, 
+        $ReactPropsMixin,
         UbiquitousDomPropsMixin,
         // ignore: mixin_of_non_class, undefined_class
-        $UbiquitousDomPropsMixin, 
+        $UbiquitousDomPropsMixin,
         CssClassPropsMixin,
         // ignore: mixin_of_non_class, undefined_class
         $CssClassPropsMixin
     implements
-        PropsMapViewMixin,
-        MapViewMixin,
         Map {
 
   UiProps() {
@@ -619,7 +620,7 @@ abstract class UiProps extends MapBase
     if (factory is ReactComponentFactoryProxy) {
       // Use `build` instead of using emulated function behavior to work around DDC issue
       // https://github.com/dart-lang/sdk/issues/29904
-      // Should have the benefit of better performance; TODO optimize type check?
+      // Should have the benefit of better performance;
       return factory.build(props, childArguments);
     } else {
       var parameters = []
@@ -657,7 +658,7 @@ abstract class UiProps extends MapBase
 
   ReactComponentFactoryProxy get componentFactory;
 
-  /// An unmmodifiable map view of the default props for this component brought
+  /// An unmodifiable map view of the default props for this component brought
   /// in from the [componentFactory].
   Map get componentDefaultProps => componentFactory is ReactDartComponentFactoryProxy
       // ignore: avoid_as
@@ -718,7 +719,6 @@ abstract class MapViewMixin<K, V> implements _OverReactMapViewBase<K, V>, Map<K,
   @override V update(K key, V update(V value), {V ifAbsent()}) => _map.update(key, update, ifAbsent: ifAbsent);
   @override void updateAll(V update(K key, V value)) => _map.updateAll(update);
   @override Map<RK, RV> cast<RK, RV>() => _map.cast<RK, RV>();
-  @override Map<RK, RV> retype<RK, RV>() => _map.retype<RK, RV>();
   @override V operator[](Object key) => _map[key];
   @override void operator[]=(K key, V value) { _map[key] = value; }
   @override void addAll(Map<K, V> other) { _map.addAll(other); }
@@ -809,7 +809,7 @@ abstract class AccessorMeta<T extends _Descriptor> {
 /// exposed like so:
 ///     @Props()
 ///     class FooProps {
-///       static const PropsMeta meta = $metaForFooProps;
+///       static const PropsMeta meta = _$metaForFooProps;
 ///
 ///       String foo;
 ///
@@ -852,7 +852,7 @@ class PropsMeta implements ConsumedProps, AccessorMeta<PropDescriptor> {
 /// exposed like so:
 ///     @State()
 ///     class FooState {
-///       static const StateMeta meta = $metaForFooState;
+///       static const StateMeta meta = _$metaForFooState;
 ///
 ///       String foo;
 ///

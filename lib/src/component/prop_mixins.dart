@@ -17,10 +17,13 @@ library over_react.prop_mixins;
 
 import 'package:over_react/over_react.dart' show AriaPropsMapView, AriaPropsMixin, DomProps, PropsMeta;
 // Must import these consts because they are used in the transformed code.
-// ignore: unused_import
-import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps, $Props;
+// ignore: deprecated_member_use, unused_shown_name
+import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps, PropsMeta;
 import 'package:over_react/src/component/callback_typedefs.dart';
 import 'package:over_react/src/component_declaration/annotations.dart';
+
+// ignore: uri_has_not_been_generated
+part 'prop_mixins.over_react.g.dart';
 
 /// Typed getters/setters for reserved React props.
 /// To be used as a mixin for React components and builders.
@@ -29,7 +32,7 @@ abstract class ReactPropsMixin {
   // To ensure the codemod regression checking works properly, please keep this
   // field at the top of the class!
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForReactPropsMixin;
+  static const PropsMeta meta = _$metaForReactPropsMixin;
 
   Map get props;
 
@@ -64,7 +67,7 @@ abstract class DomPropsMixin {
   // To ensure the codemod regression checking works properly, please keep this
   // field at the top of the class!
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForDomPropsMixin;
+  static const PropsMeta meta = _$metaForDomPropsMixin;
 
   Map get props;
 
@@ -120,7 +123,7 @@ abstract class SvgPropsMixin {
   // To ensure the codemod regression checking works properly, please keep this
   // field at the top of the class!
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForSvgPropsMixin;
+  static const PropsMeta meta = _$metaForSvgPropsMixin;
 
   Map get props;
 
@@ -138,7 +141,7 @@ abstract class UbiquitousDomPropsMixin {
   // To ensure the codemod regression checking works properly, please keep this
   // field at the top of the class!
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForUbiquitousDomPropsMixin;
+  static const PropsMeta meta = _$metaForUbiquitousDomPropsMixin;
 
   Map get props;
 

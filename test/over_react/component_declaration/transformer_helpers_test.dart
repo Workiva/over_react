@@ -17,8 +17,8 @@ library over_react.transformer_generation.helpers_test;
 import 'package:over_react/src/component_declaration/transformer_helpers.dart';
 import 'package:test/test.dart';
 
-final Matcher throwsUngeneratedError          = throwsA(const isInstanceOf<UngeneratedError>());
-final Matcher throwsIllegalInstantiationError = throwsA(const isInstanceOf<IllegalInstantiationError>());
+final Matcher throwsUngeneratedError          = throwsA(const TypeMatcher<UngeneratedError>());
+final Matcher throwsIllegalInstantiationError = throwsA(const TypeMatcher<IllegalInstantiationError>());
 
 main() {
   group('transformation generation helpers:', () {
@@ -135,54 +135,6 @@ main() {
       test('in UiStatefulComponent', () {
         var component = new TestConsumedPropKeysUiStatefulComponent();
         expect(component.consumedProps, equals([const ConsumedProps(const [], const ['prop1', 'prop2'])]));
-      });
-    });
-
-    group('\$PropKeys (ungenerated)', () {
-      setUpAll(() {
-        expect(() => const $PropKeys(Null), returnsNormally,
-            reason: 'Instanitating a const \$PropKeys should not have thrown an error. '
-                    'Ensure that the over_react transformer is NOT running for this test file.'
-        );
-      });
-
-      $PropKeys stub;
-
-      setUp(() {
-         stub = const $PropKeys(Null);
-      });
-
-      test('implements List', () {
-        expect(stub, const isInstanceOf<List<String>>());
-      });
-
-      group('throws errors when List members are invoked:', () {
-        test('isEmpty', () {expect(() => stub.isEmpty,             throwsUngeneratedError);});
-        test('forEach', () {expect(() => stub.forEach((value) {}), throwsUngeneratedError);});
-      });
-    });
-
-    group('\$Props (ungenerated)', () {
-      setUpAll(() {
-        expect(() => const $Props(Null), returnsNormally,
-            reason: 'Instanitating a const \$Props should not have thrown an error. '
-                    'Ensure that the over_react transformer is NOT running for this test file.'
-        );
-      });
-
-      $Props stub;
-
-      setUp(() {
-         stub = const $Props(Null);
-      });
-
-      test('implements ConsumedProps', () {
-        expect(stub, const isInstanceOf<ConsumedProps>());
-      });
-
-      group('throws errors when ConsumedProps members are invoked:', () {
-        test('keys',  () {expect(() => stub.keys,  throwsUngeneratedError);});
-        test('props', () {expect(() => stub.props, throwsUngeneratedError);});
       });
     });
   });

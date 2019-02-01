@@ -2,7 +2,7 @@ part of over_react.component_declaration.flux_component_test;
 
 @Factory()
 // ignore: undefined_identifier
-UiFactory<TestHandlerLifecycleProps> TestHandlerLifecycle = $TestHandlerLifecycle;
+UiFactory<TestHandlerLifecycleProps> TestHandlerLifecycle = _$TestHandlerLifecycle;
 
 @Props()
 class _$TestHandlerLifecycleProps extends FluxUiProps<TestActions, TestStore> {}
@@ -32,5 +32,5 @@ class TestHandlerLifecycleComponent extends FluxUiComponent<TestHandlerLifecycle
 // ignore: mixin_of_non_class, undefined_class
 class TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps with _$TestHandlerLifecyclePropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForTestHandlerLifecycleProps;
+  static const PropsMeta meta = _$metaForTestHandlerLifecycleProps;
 }

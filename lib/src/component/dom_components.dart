@@ -39,7 +39,7 @@ typedef DomProps DomPropsFactory();
 // Include pieces from transformer_helpers so that consumers can type these instances
 // as the `UiProps` exposed in `over_react.dart` and not have to pull in `component_base`.
 class DomProps extends component_base.UiProps
-    with 
+    with
         DomPropsMixin,
         // ignore: mixin_of_non_class, undefined_class
         $DomPropsMixin,
@@ -62,7 +62,7 @@ class DomProps extends component_base.UiProps
 // Include pieces from transformer_helpers so that consumers can type these instances
 // as the `UiProps` exposed in `over_react.dart` and not have to pull in `component_base`.
 class SvgProps extends component_base.UiProps
-    with 
+    with
         DomPropsMixin,
         // ignore: mixin_of_non_class, undefined_class
         $DomPropsMixin, 

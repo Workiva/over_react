@@ -21,7 +21,7 @@ part 'test_a.over_react.g.dart';
 
 @Factory()
 // ignore: undefined_identifier
-UiFactory<TestAProps> TestA = $TestA;
+UiFactory<TestAProps> TestA = _$TestA;
 
 @Props()
 class _$TestAProps extends UiProps {}
@@ -36,5 +36,5 @@ class TestAComponent extends UiComponent<TestAProps> {
 // ignore: mixin_of_non_class, undefined_class
 class TestAProps extends _$TestAProps with _$TestAPropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForTestAProps;
+  static const PropsMeta meta = _$metaForTestAProps;
 }
