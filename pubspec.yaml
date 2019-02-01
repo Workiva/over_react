@@ -40,3 +40,11 @@ dev_dependencies:
   over_react_test: ^2.2.0
   test: ^1.0.0
 
+
+
+dependency_overrides:
+  over_react_test:
+    git:
+      url: git@github.com:Workiva/over_react_test.git
+      ref: 8fcf9933dc59c3e088d481540e7ca50f1d71b279 # from build_to_source
+
