@@ -11,12 +11,10 @@ abstract class _$ExamplePropsMixinClass implements UiProps {
 }
 
 @PropsMixin()
-abstract class MixesInOtherMixinMixin<T extends Iterable, U>
+abstract class _$MixesInOtherMixinMixin<T extends Iterable, U>
     implements ExamplePropsMixinClass {
   @override
   Map get props;
-
-  static const PropsMeta meta = _$metaForMixesInOtherMixinMixin;
 
   String otherPropMixin;
 }

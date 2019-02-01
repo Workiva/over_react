@@ -5,7 +5,7 @@ UiFactory<BasicPartOfLibProps> BasicPartOfLib = _$BasicPartOfLib;
 
 @Props()
 class _$BasicPartOfLibProps extends UiProps
-    with  ExamplePropsMixinClass {
+    with ExamplePropsMixinClass {
   String basicProp;
   String basic1;
   String basic2;
@@ -16,7 +16,7 @@ class _$BasicPartOfLibProps extends UiProps
 
 @State()
 class _$BasicPartOfLibState extends UiState
-    with ExampleStateMixinClass, $ExampleStateMixinClass {
+    with ExampleStateMixinClass {
   String basicState;
 }
 

@@ -2,7 +2,6 @@ import 'package:over_react/over_react.dart';
 import 'props_mixin.dart' as pm;
 import 'state_mixin.dart';
 
-
 part 'basic_with_state.over_react.g.dart';
 
 @Factory()
@@ -19,7 +18,7 @@ class _$BasicProps extends UiProps with pm.ExamplePropsMixinClass {
 }
 
 @State()
-class _$BasicState extends UiState with ExampleStateMixinClass, $ExampleStateMixinClass {
+class _$BasicState extends UiState with ExampleStateMixinClass {
   String basicState;
 }
 

@@ -33,15 +33,3 @@ class PrivateComponent extends UiStatefulComponent<_PrivateProps, _PrivateState>
     }.toString());
   }
 }
-
-// ignore: mixin_of_non_class, undefined_class
-class _PrivateProps extends _$_PrivateProps with _$_PrivatePropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaFor_PrivateProps;
-}
-
-// ignore: mixin_of_non_class, undefined_class
-class _PrivateState extends _$_PrivateState with _$_PrivateStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = _$metaFor_PrivateState;
-}
