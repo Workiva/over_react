@@ -62,26 +62,33 @@ FluentComponentUsage getComponentUsage(InvocationExpression node) {
     builder = functionExpression;
   }
 
-  bool isComponent = false;
+  bool isComponent;
+  if (builder.staticType != null) {
+    // Resolved AST
+    isComponent = builder.staticType.name?.endsWith('Props') ?? false;
+  } else {
+    // Unresolved AST (or type wasn't available)
+    isComponent = false;
 
-  if (builder is MethodInvocation) {
-    String builderName;
-    if (builder.target != null) {
-      builderName = builder.target.toSource() + '.' + builder.methodName.name;
-    } else {
-      builderName = builder.methodName.name;
-    }
+    if (builder is MethodInvocation) {
+      String builderName;
+      if (builder.target != null) {
+        builderName = builder.target.toSource() + '.' + builder.methodName.name;
+      } else {
+        builderName = builder.methodName.name;
+      }
 
-    if (builderName != null) {
+      if (builderName != null) {
+        isComponent =
+            new RegExp(r'(?:^|\.)Dom\.[a-z0-9]+$').hasMatch(builderName) ||
+            new RegExp(r'factory|builder', caseSensitive: false)
+                .hasMatch(builderName) ||
+            new RegExp(r'(?:^|\.)[A-Z][^\.]*$').hasMatch(builderName);
+      }
+    } else if (builder is Identifier) {
       isComponent =
-          new RegExp(r'(?:^|\.)Dom\.[a-z0-9]+$').hasMatch(builderName) ||
-          new RegExp(r'factory|builder', caseSensitive: false)
-              .hasMatch(builderName) ||
-          new RegExp(r'(?:^|\.)[A-Z][^\.]*$').hasMatch(builderName);
+          new RegExp(r'builder', caseSensitive: false).hasMatch(builder.name);
     }
-  } else if (builder is Identifier) {
-    isComponent =
-        new RegExp(r'builder', caseSensitive: false).hasMatch(builder.name);
   }
 
   if (!isComponent) return null;
