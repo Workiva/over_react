@@ -4,9 +4,9 @@ import 'package:analyzer/analyzer.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/visitor.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
-import 'package:over_react/src/plugin/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 
-export 'package:over_react/src/plugin/component_usage.dart';
+export 'package:over_react_analyzer_plugin/src/component_usage.dart';
 
 
 abstract class SubChecker {

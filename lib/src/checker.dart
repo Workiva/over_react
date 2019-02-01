@@ -33,14 +33,14 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
-import 'package:over_react/src/plugin/diagnostic/over_react/arrow_function_prop.dart';
-import 'package:over_react/src/plugin/diagnostic/over_react/component_usage.dart';
-import 'package:over_react/src/plugin/diagnostic/over_react/duplicate_prop_cascade.dart';
-import 'package:over_react/src/plugin/diagnostic/over_react/extra_invocations.dart';
-import 'package:over_react/src/plugin/diagnostic/over_react/hashcode_as_key.dart';
-import 'package:over_react/src/plugin/diagnostic/over_react/invalid_child.dart';
-import 'package:over_react/src/plugin/diagnostic/over_react/render_return_value.dart';
-import 'package:over_react/src/plugin/diagnostic/over_react/variadic_children.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/arrow_function_prop.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/duplicate_prop_cascade.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/extra_invocations.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/hashcode_as_key.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/invalid_child.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/render_return_value.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/variadic_children.dart';
 
 /// Checks a library for errors related to built_value generation. Returns
 /// the errors and, where possible, corresponding fixes.

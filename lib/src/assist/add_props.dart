@@ -3,7 +3,7 @@ import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
-import 'package:over_react/src/plugin/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 
 class AddPropsAssistContributor extends Object
     implements AssistContributor {

@@ -1,5 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:over_react/src/plugin/diagnostic/over_react/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/component_usage.dart';
 
 class ExtraInvocationsChecker extends ComponentUsageChecker {
   @override

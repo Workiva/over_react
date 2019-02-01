@@ -11,7 +11,7 @@ import 'package:analyzer_plugin/utilities/assist/assist_contributor_mixin.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
 import 'package:analyzer_plugin/utilities/range_factory.dart';
-import 'package:over_react/src/plugin/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 
 class WrapUnwrapAssistContributor extends Object
     implements AssistContributor {

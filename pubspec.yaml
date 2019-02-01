@@ -1,0 +1,13 @@
+name: over_react_analyzer_plugin
+version: 0.1.0
+description: Dart analyzer plugin for OverReact
+homepage: https://github.com/Workiva/over_react/
+authors:
+  - Greg Littlefield <greg.littlefield@workiva.com>
+environment:
+  sdk: '>=2.1.0 <=3.0.0'
+dependencies:
+  analyzer: ^0.33.0
+  analyzer_plugin: 0.0.1-alpha.5
+  meta: ^1.1.6
+  path: ^1.5.1
