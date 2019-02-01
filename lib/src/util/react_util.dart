@@ -1,8 +1,8 @@
 import 'dart:collection';
 
-import 'package:react/react_client.dart';
 import 'package:over_react/component_base.dart' as component_base show UiProps;
 import 'package:over_react/over_react.dart';
+import 'package:react/react_client.dart';
 
 /// A `MapView` helper that stubs in unimplemented pieces of [UiProps].
 ///

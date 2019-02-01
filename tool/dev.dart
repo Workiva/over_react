@@ -39,12 +39,5 @@ main(List<String> args) async {
       'test/over_react_util_test.dart',
     ];
 
-  config.coverage
-    ..html = false
-    ..pubServe = true
-    ..reportOn = [
-      'lib/'
-    ];
-
   await dev(args);
 }
