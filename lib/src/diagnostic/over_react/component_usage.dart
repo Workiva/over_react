@@ -1,8 +1,6 @@
 // Adapted from dart_medic `misc` branch containing over_react diagnostics
 
 import 'package:analyzer/analyzer.dart';
-import 'package:analyzer/dart/element/element.dart';
-import 'package:analyzer/dart/element/visitor.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 
@@ -17,14 +15,14 @@ abstract class SubChecker {
 
   List<CheckerError> _errors = [];
 
-  void emitHint({String message, int offset, int end, String fix, List<SourceEdit> fixEdits, String fixMessage}) {
-    _errors.add(new CheckerError(name, message, offset, end, AnalysisErrorSeverity.INFO, AnalysisErrorType.LINT, fix, fixEdits, fixMessage, modificationStamp));
+  void emitHint({String message, int offset, int end, List<SourceEdit> fixEdits, String fixMessage}) {
+    _errors.add(new CheckerError(name, message, offset, end, AnalysisErrorSeverity.INFO, AnalysisErrorType.LINT, fixEdits, fixMessage, modificationStamp));
   }
-  void emitWarning({String message, int offset, int end, String fix, List<SourceEdit> fixEdits, String fixMessage}) {
-    _errors.add(new CheckerError(name, message, offset, end,  AnalysisErrorSeverity.WARNING, AnalysisErrorType.LINT, fix, fixEdits, fixMessage, modificationStamp));
+  void emitWarning({String message, int offset, int end, List<SourceEdit> fixEdits, String fixMessage}) {
+    _errors.add(new CheckerError(name, message, offset, end,  AnalysisErrorSeverity.WARNING, AnalysisErrorType.LINT, fixEdits, fixMessage, modificationStamp));
   }
-  void emitError({String message, int offset, int end, String fix, List<SourceEdit> fixEdits, String fixMessage}) {
-    _errors.add(new CheckerError(name, message, offset, end,  AnalysisErrorSeverity.ERROR, AnalysisErrorType.LINT, fix, fixEdits, fixMessage, modificationStamp));
+  void emitError({String message, int offset, int end, List<SourceEdit> fixEdits, String fixMessage}) {
+    _errors.add(new CheckerError(name, message, offset, end,  AnalysisErrorSeverity.ERROR, AnalysisErrorType.LINT, fixEdits, fixMessage, modificationStamp));
   }
 
   List<CheckerError> getErrors() => _errors.toList();
@@ -131,21 +129,18 @@ class CheckerError {
 
   int get length => end - offset;
 
-  /// Optionally, the fix for the incorrect code.
-  final String fix;
-
   AnalysisErrorSeverity severity;
 
   AnalysisErrorType type;
 
-  CheckerError(this.code, this.message, this.offset, this.end, this.severity, this.type, this.fix, this.fixEdits, this.fixMessage, this.modificationStamp) {
+  CheckerError(this.code, this.message, this.offset, this.end, this.severity, this.type, this.fixEdits, this.fixMessage, this.modificationStamp) {
     if (((offset == null) != (end == null)) ||
-        ((offset == null) && (fix != null || fixEdits != null))) {
+        ((offset == null) && fixEdits != null)) {
       throw new ArgumentError(
-          'Offset, end and fix must either all be null or all non-null. '
-              'Got: offset $offset, end $end, fix $fix');
+          'Offset, end and fixEdits must either all be null or all non-null. '
+              'Got: offset $offset, end $end, fixEdits $fixEdits');
     }
   }
 
-  bool get hasFix => fix != null || fixEdits != null;
+  bool get hasFix => fixEdits != null;
 }

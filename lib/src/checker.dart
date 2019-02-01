@@ -102,7 +102,7 @@ class Checker {
                   new SourceFileEdit(
                     path,
                     error.modificationStamp,
-                    edits: error.fixEdits ?? [new SourceEdit(error.offset, error.length, error.fix)],
+                    edits: error.fixEdits,
                   )
                 ],
               ));

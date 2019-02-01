@@ -1,4 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/util.dart';
 
@@ -29,7 +30,10 @@ class ArrowFunctionPropCascadeChecker extends ComponentUsageChecker {
           offset: wrapOffset,
           end: wrapEnd,
           fixMessage: 'Wrap arrow function in parentheses',
-          fix: '(' + unit.declaredElement.source.contents.data.substring(wrapOffset, wrapEnd) + ')'
+          fixEdits: [
+            new SourceEdit(wrapOffset, 0, '('),
+            new SourceEdit(wrapEnd + '('.length, 0, ')'),
+          ],
         );
       }
     });

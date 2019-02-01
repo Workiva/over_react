@@ -2,7 +2,6 @@ analyzer:
   exclude:
     - integrate/**
     - _site/**
-  strong-mode: true
   # Add this to your project `analysis_options.yaml` to enable the built_value
   # analyzer plugin. You should also add the top level `plugins` clause below.
   # The plugin surfaces generator errors in your IDE, with suggested fixes
@@ -21,7 +20,6 @@ plugins:
 linter:
   rules:
     - annotate_overrides
-    - avoid_as
     - avoid_empty_else
     - avoid_init_to_null
     - avoid_return_types_on_setters

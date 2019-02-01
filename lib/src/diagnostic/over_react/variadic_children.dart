@@ -1,6 +1,7 @@
 // Adapted from dart_medic `misc` branch containing over_react diagnostics
 
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/component_usage.dart';
 
 class VariadicChildrenChecker extends ComponentUsageChecker {
@@ -21,9 +22,10 @@ class VariadicChildrenChecker extends ComponentUsageChecker {
         message: 'Variadic children should be used instead of lists where possible',
         offset: list.offset,
         end: list.end,
-        // TODO preserve comments
-        // todo is there a better way to get a replacement based on the source?
-        fix: unit.declaredElement.source.contents.data.substring(list.leftBracket.end, list.rightBracket.offset),
+        fixEdits: [
+          new SourceEdit(list.leftBracket.offset, list.leftBracket.length, ''),
+          new SourceEdit(list.rightBracket.offset - list.leftBracket.length, list.rightBracket.length, ''),
+        ],
         fixMessage: 'Unwrap children from list literal',
       );
     }

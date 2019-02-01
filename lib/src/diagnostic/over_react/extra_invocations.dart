@@ -1,4 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/component_usage.dart';
 
 class ExtraInvocationsChecker extends ComponentUsageChecker {
@@ -25,7 +26,9 @@ class ExtraInvocationsChecker extends ComponentUsageChecker {
           offset: usage.node.offset,
           end: usage.node.end,
           fixMessage: 'Add comma after builder invocation',
-          fix: unit.declaredElement.source.contents.data.substring(usage.node.offset, usage.node.end) + ','
+          fixEdits: [
+            new SourceEdit(usage.node.end, 0, ',')
+          ]
       );
     }
   }

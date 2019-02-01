@@ -1,8 +1,8 @@
 // Adapted from dart_medic `misc` branch containing over_react diagnostics
 
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/element/element.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/util.dart';
 
 class DuplicatePropCascadeChecker extends ComponentUsageChecker {
   @override
@@ -14,31 +14,20 @@ class DuplicatePropCascadeChecker extends ComponentUsageChecker {
 
   @override
   void visitComponentUsage(_, FluentComponentUsage usage) {
-    final cascade = usage.cascadeExpression;
-    if (cascade == null) {
-      return;
-    }
+    final propUsagesByName = <String, List<PropertyAccess>>{};
+    forEachCascadedProp(usage, (lhs, rhs) {
+      propUsagesByName.putIfAbsent(lhs.propertyName.name, () => []).add(lhs);
+    });
 
-    final settersByName = <String, List<AssignmentExpression>>{};
-
-    for (var section in cascade.cascadeSections) {
-      if (section is AssignmentExpression) {
-        final lhs = section.leftHandSide;
-        if (lhs is PropertyAccess) {
-          (settersByName[lhs.propertyName.name] ??= []).add(section);
-        }
-      }
-    }
-
-    settersByName.forEach((name, setters) {
-      if (setters.length > 1) {
-        for (var i = 0; i < setters.length; i++) {
-          var setter = setters[i];
+    propUsagesByName.forEach((name, usages) {
+      if (usages.length > 1) {
+        for (var i = 0; i < usages.length; i++) {
+          final lhs = usages[i];
           emitHint(
             message:
-                'Prop `$name` is cascaded multiple times (${i + 1} of ${setters.length}). This is most likely a typo.',
-            offset: setter.leftHandSide.offset,
-            end: setter.leftHandSide.end,
+                'Prop `$name` is cascaded multiple times (${i + 1} of ${usages.length}). This is most likely a typo.',
+            offset: lhs.offset,
+            end: lhs.end,
           );
         }
       }
