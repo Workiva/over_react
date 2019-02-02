@@ -8,7 +8,7 @@ Though unsupported in Dart 1, this can still be used with Dart 1 packages by swi
 1. Add the following dependency to your app's pubspec.yaml:
     ```yaml
     dev_dependencies:
-      over_react_analyzer_plugin_host_git:
+      over_react_analyzer_plugin_host:
         git:
           url: git@github.com:greglittlefield-wf/git_playground.git
           ref: over_react_analyzer_plugin/master
@@ -48,10 +48,8 @@ To pull a local copy of this plugin into another target package (the package you
 1. **First things first:** Update the absolute path dependency in the pubspec.yaml under _plugin_hosts/git/tools/analyzer_plugin_ to point to your local clone of this repo.
 1. Within the target package's pubspec.yaml, add a path dependency to repo's _plugin_hosts/path_ directory:
     ```yaml
-    name: my_react_app
-    # ...
     dev_dependencies:
-      over_react_analyzer_plugin_host_path:
+      over_react_analyzer_plugin_host:
         path: /Users/me/workspaces/over_react_analyzer_plugin/plugin_hosts/path
     ```
 1. Run `pub get`
@@ -79,7 +77,7 @@ To pull that branch into the target package (the package you want to use the plu
 1. Within the target package's pubspec.yaml, add a Git dependency to this repo's _plugin_hosts/path_ directory:
     ```yaml
     dev_dependencies:
-      over_react_analyzer_plugin_host_git:
+      over_react_analyzer_plugin_host:
         git:
           url: git@github.com:foo-barsons-wk/git_playground.git
           ref: over_react_analyzer_plugin/new-feature-x
