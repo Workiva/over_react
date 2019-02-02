@@ -1,9 +1,0 @@
-name: over_react_plugin_loader
-version: 0.0.0
-description: This pubspec determines the version of the analyzer plugin to load. It needs to be in `tools/analyzer_plugin`
-environment:
-  sdk: '>=1.24.0-dev.1.0'
-dependencies:
-  over_react_analyzer_plugin:
-    # This might have ot be absolute since this pubspec.yaml gets copied to a temp folder and then resolved
-    path: /Users/greg.littlefield/workspaces/over_react_analyzer_plugin
