@@ -7,6 +7,6 @@ dependencies:
   over_react_analyzer_plugin:
     # If pulling in to another branch, update the ref here.
     git:
-      url: https://github.com/greglittlefield-wf/git_playground
+      url: git@github.com:greglittlefield-wf/git_playground.git
       ref: over_react_analyzer_plugin/master
       path: over_react_analyzer_plugin

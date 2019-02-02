@@ -1,7 +1,7 @@
 name: over_react_analyzer_plugin
 version: 0.1.0
 description: Dart analyzer plugin for OverReact
-homepage: https://github.com/greglittlefield-wf/git_playground/over_react_analyzer_plugin/master
+homepage: https://github.com/greglittlefield-wf/git_playground/tree/over_react_analyzer_plugin/master
 authors:
   - Greg Littlefield <greg.littlefield@workiva.com>
 environment:
