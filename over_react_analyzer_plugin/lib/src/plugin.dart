@@ -156,7 +156,8 @@ class OverReactAnalyzerPlugin extends ServerPlugin with OutlineMixin, DartOutlin
   @override
   List<OutlineContributor> getOutlineContributors(String path) {
     return [
-      new ReactElementOutlineContributor(),
+      // Disabled for now since it doesn't seem to work consistently
+//      new ReactElementOutlineContributor(),
     ];
   }
 
