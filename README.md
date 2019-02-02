@@ -12,11 +12,16 @@ Though unsupported in Dart 1, this can still be used with Dart 1 packages by swi
         git:
           url: git@github.com:greglittlefield-wf/git_playground.git
           ref: over_react_analyzer_plugin/master
-          path: over_react_analyzer_plugin
+          path: plugin_hosts/git
     ```
+1. Run `pub get`
+    - __Note:__ if using Dart 1, you'll have to use [`pub2get`](pub2get) in order to pull in this project due to the use of the Git dependency's `path` config, which was introduced in the Dart 2 solver.
+    
+      If you don't, you'll get errors that look like:
+      > Could not find a file named "pubspec.yaml" in git@&#8203;github.com:greglittlefield-wf/git_playground.git 892bd7360d91f99c220e367a4e5c0b4af6f62389.
 1. [Enable and use the plugin](#enable-and-use-the-plugin)
 
-_If you wish to develop the plugin locally, see [this section](#local-development)_
+_If you wish to develop the plugin locally, see [this section](#local-development)_.
    
 ## Repo Structure
 
@@ -70,7 +75,7 @@ To push up a branch containing plugin changes that can be easily consumed by oth
    -  ref: over_react_analyzer_plugin/master
    +  url: git@github.com:foo-barsons-wk/git_playground.git
    +  ref: over_react_analyzer_plugin/new-feature-x
-      path: over_react_analyzer_plugin
+      path: plugin_hosts/git
    ```
 
 To pull that branch into the target package (the package you want to use the plugin on):   
@@ -81,9 +86,13 @@ To pull that branch into the target package (the package you want to use the plu
         git:
           url: git@github.com:foo-barsons-wk/git_playground.git
           ref: over_react_analyzer_plugin/new-feature-x
-          path: over_react_analyzer_plugin
+          path: plugin_hosts/git
     ```
 1. Run `pub get`
+    - __Note:__ if using Dart 1, you'll have to use [`pub2get`](pub2get) in order to pull in this project due to the use of the Git dependency's `path` config, which was introduced in the Dart 2 solver.
+    
+      If you don't, you'll get errors that look like:
+      > Could not find a file named "pubspec.yaml" in git@&#8203;github.com:greglittlefield-wf/git_playground.git 892bd7360d91f99c220e367a4e5c0b4af6f62389.
 1. [Enable and use the plugin](#enable-and-use-the-plugin)
 
 ### Enable and use the plugin
