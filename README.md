@@ -32,7 +32,7 @@ See the [analyzer_plugin package structure documentation][analyzer_plugin_packag
 
 - _over_react_analyzer_plugin_ - the plugin package itself
 - _playground_ - a "target" package that consumes the plugin, useful for manually testing plugin during development 
-- plugin_hosts - plugin "host" packages that allow easily pulling in the plugin to other target packages during development
+- _plugin_hosts_ - plugin "host" packages that allow easily pulling in the plugin to other target packages during development
     - local - contains a loader that has a `path` dependency on _over_react_analyzer_plugin_.
         This points to a local copy of the plugin, will be used more often during development. 
     - git - contains a loader that has a `git` dependency on _over_react_analyzer_plugin_
