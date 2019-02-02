@@ -1,6 +1,9 @@
 # OverReact Analyzer Plugin
 
 > An experimental OverReact [Dart analyzer plugin][analyzer_plugin].
+>
+> - [Notes/planning document](https://docs.google.com/document/d/1xHjC66eUvX_SSBRXw-sVOxRzvenWfOpu8m1BQI6GmqQ/edit#)
+> - Slack channel: [#react-analyzer-plugin](https://slack.com/app_redirect?channel=react-analyzer-plugin)
 
 Though unsupported in Dart 1, this can still be used with Dart 1 packages by switching your IDE to use the Dart 2 analysis server.
 
