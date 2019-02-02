@@ -20,7 +20,7 @@ const String missingBuilderFixMessage = 'Add builder invocation.';
 
 bool couldBeMissingBuilderInvocation(Expression expression) {
   // TODO actually check against UiProps, or at the very least against Map
-  return expression.staticType.name?.endsWith('Props');
+  return expression.staticType.name?.endsWith('Props') ?? false;
 }
 
 List<SourceEdit> getMissingInvocationBuilderEdits(Expression expression) {
