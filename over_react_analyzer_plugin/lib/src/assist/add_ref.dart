@@ -4,6 +4,7 @@ import 'package:analyzer/source/line_info.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
+import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
 import 'package:over_react_analyzer_plugin/src/assist/wrap_unwrap.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
@@ -54,8 +55,12 @@ class AddRefAssistContributor extends AssistContributorBase {
 
       final lineInfo = request.result.unit.lineInfo;
       final insertionLocation = getRefInsertionLocation(usage.node, lineInfo);
-      final indent = getIndent(request.result.content, lineInfo, lineInfo.getOffsetOfLineAfter(insertionLocation) - 1);
-      builder.addInsertion(insertionLocation, (builder) {
+      final insertionOffset = insertionLocation.first;
+      final insertionParent = insertionLocation.last;
+      final indent = insertionParent is CompilationUnit
+          ? ''
+          : getIndent(request.result.content, lineInfo, insertionParent.parent.offset) + '  ';
+      builder.addInsertion(insertionOffset, (builder) {
         builder.write('$indent');
         // TODO look up component type and use writeFieldDeclaration
 //        builder.writeFieldDeclaration(refName, nameGroupName: nameGroup, typeGroupName: typeGroup);
@@ -63,7 +68,8 @@ class AddRefAssistContributor extends AssistContributorBase {
         builder.write(' ');
         builder.addSimpleLinkedEdit(nameGroup, refName);
         builder.write(';');
-        builder.write('\n\n');
+        // TODO improve newlines handling adding first ref (add extra newline after)
+        builder.write('\n');
       });
     });
     final sourceChange = changeBuilder.sourceChange
@@ -73,7 +79,7 @@ class AddRefAssistContributor extends AssistContributorBase {
   }
 }
 
-int getRefInsertionLocation(AstNode node, LineInfo lineInfo) {
+Pair<int, AstNode> getRefInsertionLocation(AstNode node, LineInfo lineInfo) {
   CompilationUnit closestUnit;
   // For now, don't support expression bodies since we can't easily insert a ref statement
   BlockFunctionBody closestFunctionBody;
@@ -104,8 +110,8 @@ int getRefInsertionLocation(AstNode node, LineInfo lineInfo) {
     parent = closestUnit;
     offset = prevLine(node.thisOrAncestorMatching((node) => node is CompilationUnitMember).offset, lineInfo);
   } else {
-    // Not sure how we got here...
-    return -1;
+    // Not sure how we got here... TODO throw error instead or handle this return value at call site
+    return new Pair(-1, null);
   }
 
   for (var child in parent.childEntities.toList().reversed) {
@@ -126,7 +132,7 @@ int getRefInsertionLocation(AstNode node, LineInfo lineInfo) {
     }
   }
 
-  return offset;
+  return new Pair(offset, parent);
 }
 
 int prevLine(int offset, LineInfo lineInfo) {
