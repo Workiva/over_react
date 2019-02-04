@@ -51,6 +51,14 @@ class RenderReturnValueChecker extends SubChecker {
         }
 
         emitError(message: message, offset: returnStatement.offset, end: returnStatement.end, fixMessage: fixMessage, fixEdits: fixEdits);
+      } else if (returnTypeName == 'bool' && returnExpression is BooleanLiteral && returnExpression.value == false) {
+        emitHint(
+          message: 'Prefer returning null over false in render. (The dart2js bug involving null has been fixed.)',
+          offset: returnExpression.offset,
+          end: returnExpression.end,
+          fixMessage: 'Change to null',
+          fixEdits: [new SourceEdit(returnExpression.offset, returnExpression.length, 'null')],
+        );
       }
     }
   }
