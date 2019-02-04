@@ -47,6 +47,7 @@ class AddRefAssistContributor extends AssistContributorBase {
           // TODO split this out somewhere, make more robust
           : (componentName != null ? '${componentName}Component' : 'var');
 
+      // TODO how to get the linked edit to show up on the ref declaration instead? Adding this afterwards messes up the offsets
       addProp(usage, builder, 'ref', (builder) {
         builder.write('(ref) { ');
         builder.addSimpleLinkedEdit(nameGroup, refName);
