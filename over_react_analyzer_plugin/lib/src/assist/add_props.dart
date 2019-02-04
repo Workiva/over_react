@@ -1,38 +1,22 @@
 import 'package:analyzer/analyzer.dart';
-import 'package:analyzer/dart/analysis/session.dart';
-import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
+import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
+import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 
-class AddPropsAssistContributor extends Object
-    implements AssistContributor {
-  static AssistKind wrapInElement = new AssistKind('addProps', 100, 'Add props');
-
-  DartAssistRequest request;
-
-  AssistCollector collector;
-
-  AstNode node;
-
-  AnalysisSession get session => request.result.session;
-
-  bool _setupCompute() {
-    var locator = new NodeLocator(request.offset, request.offset + request.length);
-    node = locator.searchWithin(request.result.unit);
-    return node != null;
-  }
+class AddPropsAssistContributor extends AssistContributorBase {
+  static AssistKind addProps = new AssistKind('addProps', 31, 'Add props');
 
   @override
-  void computeAssists(DartAssistRequest request, AssistCollector collector) {
-    this.request = request;
-    this.collector = collector;
-    if (!_setupCompute()) return;
+  Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
+    await super.computeAssists(request, collector);
+    if (!setupCompute()) return;
 
-    _wrapInElement();
+    await _addProps();
   }
 
-  void _wrapInElement() {
+  Future<void> _addProps() async {
     // todo tweak where this happens: should happen on child of element
     final usage = identifyUsage(node);
     if (usage == null || usage.node.function is ParenthesizedExpression) {
@@ -45,18 +29,20 @@ class AddPropsAssistContributor extends Object
       return;
     }
 
-    final sourceChange = new SourceChange(wrapInElement.message, id: wrapInElement.id, edits: [
-      new SourceFileEdit(request.result.path, request.result.unit.declaredElement.source.modificationStamp, edits: [
-        new SourceEdit(functionToWrap.offset, 0, '('),
-        new SourceEdit(functionToWrap.end + 1, 0, '..)'),
-      ]),
-    ], selection: new Position(request.result.path, functionToWrap.end + 1 + 2),
-      linkedEditGroups: [new LinkedEditGroup([
-        new Position(request.result.path, functionToWrap.end + 1 + 2)
-      ], 0, [])]
-    );
-
-    collector.addAssist(new PrioritizedSourceChange(wrapInElement.priority, sourceChange));
+    final changeBuilder = new DartChangeBuilder(session);
+    await changeBuilder.addFileEdit(request.result.path, (builder) {
+      builder.addSimpleInsertion(functionToWrap.offset, '(');
+      builder.addInsertion(functionToWrap.end, (builder) {
+        builder.write('..');
+        // TODO how to start completion of props?
+        builder.selectHere();
+        builder.write(')');
+      });
+    });
+    final sourceChange = changeBuilder.sourceChange
+      ..message = addProps.message
+      ..id = addProps.id;
+    collector.addAssist(new PrioritizedSourceChange(addProps.priority, sourceChange));
   }
 }
 
