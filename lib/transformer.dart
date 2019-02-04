@@ -98,64 +98,73 @@ class WebSkinDartTransformer extends Transformer implements LazyTransformer {
     TransformedSourceFile transformedFile = new TransformedSourceFile(sourceFile);
     TransformLogger logger = new JetBrainsFriendlyLogger(transform.logger);
 
-    var partPattern = new RegExp(r'''part\s+['"](.+\.over_react\.g\.dart)['"];''');
-    var partFilename = partPattern.firstMatch(sourceFile.getText(0));
-
-    // For Dart 1 compatibility an empty generated part file will be created when a file contains
-    // the part directive pointing to the generated file the new builder requires.
-    if (partFilename != null) {
-      var sourceFileDirectory = p.dirname(transform.primaryInput.id.path);
-      var sourceFilename = p.basename(transform.primaryInput.id.path);
-      var partFilePath = p.join(sourceFileDirectory, partFilename.group(1));
-      var contents = "part of '$sourceFilename';";
-      var asset = new Asset.fromString(new AssetId(transform.primaryInput.id.package, partFilePath), contents);
-
-      transform.addOutput(asset);
-    }
-
-    // If the source file might contain annotations that necessitate generation,
-    // parse the declarations and generate code.
-    // If not, don't skip this step to avoid parsing files that definitely won't generate anything.
-    if (ParsedDeclarations.mightContainDeclarations(primaryInputContents)) {
-      // Parse the source file on its own and use the resultant AST to...
-      var unit = parseCompilationUnit(primaryInputContents,
-        suppressErrors: true,
-        name: transform.primaryInput.id.path,
-        parseFunctionBodies: false
-      );
-
-      ParsedDeclarations declarations = new ParsedDeclarations(unit, sourceFile, logger);
-
-      // If there are no errors, generate the component.
-      if (!declarations.hasErrors) {
-        new ImplGenerator(logger, transformedFile)
-            ..shouldFixDdcAbstractAccessors = _shouldFixDdcAbstractAccessors
-            ..generate(declarations);
+    if (transform.primaryInput.id.path.endsWith('.over_react.g.dart')) {
+      var partOfPattern = new RegExp(r'''part[ ]+of[ ]+['"].+\.dart['"];''');
+      var partOfMatch = partOfPattern.firstMatch(sourceFile.getText(0));
+      if (partOfMatch != null) {
+        transformedFile.remove(sourceFile.span(partOfMatch.end));
       }
-    }
+    } else {
+      var partPattern = new RegExp(r'''part\s+['"](.+\.over_react\.g\.dart)['"];''');
+      var partFilename = partPattern.firstMatch(sourceFile.getText(0));
 
-    // Replace static $PropKeys instantiations with prop keys
-    if (new RegExp(r'\$PropKeys').hasMatch(primaryInputContents)) {
-      var propKeysPattern = new RegExp(r'(?:const|new)\s+\$PropKeys\s*\(\s*([\$A-Za-z0-9_\.]+)\s*\)');
-      propKeysPattern.allMatches(sourceFile.getText(0)).forEach((match) {
-        var symbolName = match.group(1);
+      // For Dart 1 compatibility an empty generated part file will be created when a file contains
+      // the part directive pointing to the generated file the new builder requires.
+      if (partFilename != null) {
+        var sourceFileDirectory = p.dirname(transform.primaryInput.id.path);
+        var partFilePath = p.join(sourceFileDirectory, partFilename.group(1));
+        var partAssetId = new AssetId(transform.primaryInput.id.package, partFilePath);
+        if (!(await transform.hasInput(partAssetId))) {
+          var sourceFilename = p.basename(transform.primaryInput.id.path);
+          var contents = "part of '$sourceFilename';";
+          transform.addOutput(new Asset.fromString(partAssetId, contents));
+        }
+      }
 
-        var replacement = '$symbolName.${ImplGenerator.staticPropKeysName} /* GENERATED from \$PropKeys usage */';
+      // If the source file might contain annotations that necessitate generation,
+      // parse the declarations and generate code.
+      // If not, don't skip this step to avoid parsing files that definitely won't generate anything.
+      if (ParsedDeclarations.mightContainDeclarations(primaryInputContents)) {
+        // Parse the source file on its own and use the resultant AST to...
+        var unit = parseCompilationUnit(primaryInputContents,
+          suppressErrors: true,
+          name: transform.primaryInput.id.path,
+          parseFunctionBodies: false
+        );
 
-        transformedFile.replace(sourceFile.span(match.start, match.end), replacement);
-      });
-    }
+        ParsedDeclarations declarations = new ParsedDeclarations(unit, sourceFile, logger);
 
-    // Replace static $Props instantiations with props
-    if (new RegExp(r'\$Props').hasMatch(primaryInputContents)) {
-      var propKeysPattern = new RegExp(r'(?:const|new)\s+\$Props\s*\(\s*([\$A-Za-z0-9_\.]+)\s*\)');
-      propKeysPattern.allMatches(sourceFile.getText(0)).forEach((match) {
-        var symbolName = match.group(1);
+        // If there are no errors, generate the component.
+        if (!declarations.hasErrors) {
+          new ImplGenerator(logger, transformedFile)
+              ..shouldFixDdcAbstractAccessors = _shouldFixDdcAbstractAccessors
+              ..generate(declarations);
+        }
+      }
 
-        var replacement = '$symbolName.${ImplGenerator.staticConsumedPropsName} /* GENERATED from \$Props usage */';
+      // Replace static $PropKeys instantiations with prop keys
+      if (new RegExp(r'\$PropKeys').hasMatch(primaryInputContents)) {
+        var propKeysPattern = new RegExp(r'(?:const|new)\s+\$PropKeys\s*\(\s*([\$A-Za-z0-9_\.]+)\s*\)');
+        propKeysPattern.allMatches(sourceFile.getText(0)).forEach((match) {
+          var symbolName = match.group(1);
 
-        transformedFile.replace(sourceFile.span(match.start, match.end), replacement);
-      });
+          var replacement = '$symbolName.${ImplGenerator.staticPropKeysName} /* GENERATED from \$PropKeys usage */';
+
+          transformedFile.replace(sourceFile.span(match.start, match.end), replacement);
+        });
+      }
+
+      // Replace static $Props instantiations with props
+      if (new RegExp(r'\$Props').hasMatch(primaryInputContents)) {
+        var propKeysPattern = new RegExp(r'(?:const|new)\s+\$Props\s*\(\s*([\$A-Za-z0-9_\.]+)\s*\)');
+        propKeysPattern.allMatches(sourceFile.getText(0)).forEach((match) {
+          var symbolName = match.group(1);
+
+          var replacement = '$symbolName.${ImplGenerator.staticConsumedPropsName} /* GENERATED from \$Props usage */';
+
+          transformedFile.replace(sourceFile.span(match.start, match.end), replacement);
+        });
+      }
     }
 
     if (transformedFile.isModified) {

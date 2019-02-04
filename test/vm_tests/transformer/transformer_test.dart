@@ -15,12 +15,10 @@
 @TestOn('vm')
 library transformer_test;
 
-import 'dart:async';
 import 'dart:io';
 
 import 'package:barback/barback.dart';
 import 'package:mockito/mockito.dart';
-import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 
 import 'package:over_react/transformer.dart';
@@ -40,7 +38,7 @@ main() {
       expect(initWithConfig({}).isPrimary(new AssetId(fakePackage, 'dart_test.yaml')), isFalse);
     });
 
-    test('outputs a generated part file when dart 2 boiler plate compatible part directive is found', () async {
+    test('outputs a generated part file when `.over_react.g.dart` part directive is found', () async {
       final generatedPartFileContents = 'part of \'component_with_part_directive.dart\';';
       AssetId fakeInputFileAssetId = new AssetId('testId', 'component_with_part_directive.dart');
 
@@ -52,6 +50,7 @@ main() {
 
       when(inputFile.id).thenReturn(fakeInputFileAssetId);
       when(mockTransform.primaryInput).thenReturn(inputFile);
+      when(mockTransform.hasInput(any)).thenReturn(false);
       when(inputFile.readAsString())
           .thenReturn(new File.fromUri(Uri.parse('test/vm_tests/transformer/test_data/component_with_part_directive.dart')).readAsString());
 
@@ -65,7 +64,7 @@ main() {
       expect(await fileAssets[0].readAsString(), equals(generatedPartFileContents));
     });
 
-    test('does not output a generated part file when dart 2 boiler plate compatible part directive is not found', () async {
+    test('does not output a generated part file when `.over_react.g.dart` part directive is not found', () async {
       AssetId fakeInputFileAssetId = new AssetId('testId', 'component_without_part_directive.dart');
 
       MockAsset inputFile;
@@ -76,6 +75,7 @@ main() {
 
       when(inputFile.id).thenReturn(fakeInputFileAssetId);
       when(mockTransform.primaryInput).thenReturn(inputFile);
+      when(mockTransform.hasInput(any)).thenReturn(false);
       when(inputFile.readAsString())
           .thenReturn(new File.fromUri(Uri.parse('test/vm_tests/transformer/test_data/component_without_part_directive.dart')).readAsString());
 
@@ -85,6 +85,59 @@ main() {
 
       expect(fileAssets.length, equals(1));
       expect(fileAssets[0].id.toString(), equals('testId|component_without_part_directive.dart'));
+    });
+
+    test('does not output a generated part file even when `.over_react.g.dart` part directive is found if the asset already exists', () async {
+      AssetId fakeInputFileAssetId = new AssetId('testId', 'component_with_part_directive.dart');
+
+      MockAsset inputFile;
+      MockTransform mockTransform;
+
+      inputFile = new MockAsset();
+      mockTransform = new MockTransform();
+
+      when(inputFile.id).thenReturn(fakeInputFileAssetId);
+      when(mockTransform.primaryInput).thenReturn(inputFile);
+      when(mockTransform.hasInput(any)).thenReturn(true);
+      when(inputFile.readAsString())
+          .thenReturn(new File.fromUri(Uri.parse('test/vm_tests/transformer/test_data/component_with_part_directive.dart')).readAsString());
+
+      await initWithConfig({}).apply(mockTransform);
+
+      List<Asset> fileAssets = verify(mockTransform.addOutput(captureThat(isDartFile))).captured;
+
+      expect(fileAssets.length, equals(1));
+      expect(fileAssets[0].id.toString(), equals('testId|component_with_part_directive.dart'));
+    });
+
+    test('transforms `.over_react.g.dart` files to remove everything after the `part of` directive', () async {
+      final generatedPartFileContents = '''
+part of 'component_with_part_directive.dart';
+var foo = 'foo';
+class Bar {}
+''';
+      final expectedTransformedContents = '''
+part of 'component_with_part_directive.dart';''';
+      AssetId fakeInputFileAssetId = new AssetId('testId', 'foo.over_react.g.dart');
+
+      MockAsset inputFile;
+      MockTransform mockTransform;
+
+      inputFile = new MockAsset();
+      mockTransform = new MockTransform();
+
+      when(inputFile.id).thenReturn(fakeInputFileAssetId);
+      when(mockTransform.primaryInput).thenReturn(inputFile);
+      when(mockTransform.hasInput(any)).thenReturn(false);
+      when(inputFile.readAsString()).thenReturn(generatedPartFileContents);
+
+      await initWithConfig({}).apply(mockTransform);
+
+      List<Asset> fileAssets = verify(mockTransform.addOutput(captureThat(isDartFile))).captured;
+
+      expect(fileAssets.length, equals(1));
+      expect(fileAssets[0].id.toString(), equals('testId|foo.over_react.g.dart'));
+      expect(await fileAssets[0].readAsString(), equals(expectedTransformedContents));
     });
 
     group('loads config value:', () {

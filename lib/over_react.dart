@@ -27,7 +27,7 @@ export 'package:react/react.dart' show
     SyntheticUIEvent,
     SyntheticWheelEvent;
 
-export 'package:react/react_client.dart' show setClientConfiguration, ReactElement;
+export 'package:react/react_client.dart' show setClientConfiguration, ReactElement, ReactComponentFactoryProxy;
 
 export 'src/component/abstract_transition.dart';
 export 'src/component/abstract_transition_props.dart';
