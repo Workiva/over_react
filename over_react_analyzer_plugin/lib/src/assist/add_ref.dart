@@ -146,7 +146,7 @@ void addProp(FluentComponentUsage usage, DartFileEditBuilder builder, String nam
     builder.addSimpleInsertion(functionToWrap.offset, '(');
   }
 
-  builder.addInsertion(functionToWrap.end, (builder) {
+  builder.addInsertion(functionToWrap.unParenthesized.end, (builder) {
     builder.write('..$name = ');
     buildValueEdit(builder);
   });
