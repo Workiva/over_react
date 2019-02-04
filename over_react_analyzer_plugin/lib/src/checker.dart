@@ -40,6 +40,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/extra_invoc
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/hashcode_as_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/render_return_value.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/string_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/variadic_children.dart';
 
 /// Checks a library for errors related to built_value generation. Returns
@@ -57,6 +58,7 @@ class Checker {
       new ExtraInvocationsChecker(),
       new RenderReturnValueChecker(),
       new InvalidChildChecker(),
+      new StringRefChecker(),
     ];
 
     for (var checker in checkers) {
