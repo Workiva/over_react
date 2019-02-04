@@ -15,6 +15,19 @@ void forEachCascadedProp(FluentComponentUsage usage, void f(PropertyAccess lhs, 
   }
 }
 
+Iterable<SimpleIdentifier> getSetPropNames(FluentComponentUsage usage) sync* {
+  if (usage.cascadeExpression == null) return;
+
+  for (var section in usage.cascadeExpression.cascadeSections) {
+    if (section is AssignmentExpression) {
+      final lhs = section.leftHandSide;
+      if (lhs is PropertyAccess) {
+        yield lhs.propertyName;
+      }
+    }
+  }
+}
+
 const String missingBuilderMessageSuffix = '\nAre you missing the builder invocation?';
 const String missingBuilderFixMessage = 'Add builder invocation.';
 

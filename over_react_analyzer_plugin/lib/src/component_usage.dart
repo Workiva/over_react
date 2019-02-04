@@ -16,7 +16,26 @@ class FluentComponentUsage {
   /// E.g., `Dom.div()`, `Button()`, `builder`
   ///
   /// Usually a [MethodInvocation] or [Identifier].
-  final AstNode builder;
+  final Expression builder;
+
+  String get componentName {
+    final typeName = builder.staticType?.name;
+    if (typeName == null) return null;
+    if (const ['dynamic', 'UiProps'].contains(typeName)) return null;
+    if (isDom) {
+      if (builder is MethodInvocation) {
+        return (builder as MethodInvocation).methodName.name;
+      }
+      return 'node';
+    }
+    if (typeName.endsWith('Props')) {
+      return typeName.substring(0, typeName.length - 'Props'.length);
+    }
+
+    return null;
+  }
+
+  bool get isDom => const ['DomProps', 'SvgProps'].contains(builder.staticType?.name);
 
   FluentComponentUsage._(this.node, this.cascadeExpression, this.builder);
 
