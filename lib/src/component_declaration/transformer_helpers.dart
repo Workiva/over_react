@@ -30,6 +30,9 @@ export './component_base.dart'
 /// in a static yet unsafe way.
 ///
 /// __For advanced usage only.__
+///
+/// __Deprecated. Will be removed in 2.0.0.__
+@deprecated
 @proxy
 class $PropKeys implements List<String> {
   /// A placeholder that gets swapped out by the `over_react` transformer
@@ -49,6 +52,9 @@ class $PropKeys implements List<String> {
 /// in a static yet unsafe way.
 ///
 /// __For advanced usage only.__
+///
+/// __Deprecated. Will be removed in 2.0.0.__
+@deprecated
 @proxy
 class $Props implements component_base.ConsumedProps {
   /// A placeholder that gets swapped out by the `over_react` transformer
