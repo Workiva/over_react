@@ -1,5 +1,16 @@
 # OverReact Changelog
 
+## 1.31.0
+
+> [Complete `1.31.0` Changeset](https://github.com/Workiva/over_react/compare/1.30.2...1.31.0)
+
+__Deprecations__
+
+* [#230] Deprecate the following APIs (they will be removed in 2.0.0):
+  * `getJsProps()` - use `getProps()` instead.
+  * `$Props` and `$PropKeys` - see the [Dart 2 migration guide](https://github.com/Workiva/over_react/blob/master/doc/dart2_migration.md)
+    for more information.
+
 ## 1.30.2
 
 > [Complete `1.30.2` Changeset](https://github.com/Workiva/over_react/compare/1.30.1...1.30.2)

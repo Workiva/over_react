@@ -86,6 +86,9 @@ Map _dartifyJsMap(jsMap) {
 ///
 /// If `style` is specified in props, then it too is shallow-converted and included
 /// in the returned Map.
+///
+/// __Deprecated. Use [getProps] instead. Will be removed in 2.0.0.__
+@deprecated
 Map getJsProps(/* ReactElement|ReactComponent */ instance) {
   var props = _dartifyJsMap(instance.props);
 
