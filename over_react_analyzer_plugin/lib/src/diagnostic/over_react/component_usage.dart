@@ -1,7 +1,9 @@
 // Adapted from dart_medic `misc` branch containing over_react diagnostics
 
 import 'package:analyzer/analyzer.dart';
-import 'package:analyzer_plugin/protocol/protocol_common.dart';
+import 'package:analyzer/dart/analysis/results.dart';
+import 'package:analyzer_plugin/protocol/protocol_common.dart' hide AnalysisError;
+import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 
 export 'package:over_react_analyzer_plugin/src/component_usage.dart';
@@ -31,7 +33,10 @@ abstract class SubChecker {
     _errors.clear();
   }
 
-  void check(CompilationUnit compilationUnit);
+  @mustCallSuper
+  void check(ResolvedUnitResult result) {
+    modificationStamp = result.unit?.declaredElement?.source?.modificationStamp;
+  }
 }
 
 
@@ -40,16 +45,12 @@ abstract class ComponentUsageChecker extends SubChecker {
   CompilationUnit unit, FluentComponentUsage usage);
 
   @override
-  void check(CompilationUnit unit) {
-    modificationStamp = unit?.declaredElement?.source?.modificationStamp;
+  void check(ResolvedUnitResult result) {
+    super.check(result);
 
     var astVisitor = new ComponentUsageVisitor(
-    (usage) => visitComponentUsage(unit, usage));
-    unit.accept(astVisitor);
-
-    modificationStamp = null;
-
-    return null;
+    (usage) => visitComponentUsage(result.unit, usage));
+    result.unit.accept(astVisitor);
   }
 }
 

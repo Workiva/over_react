@@ -30,7 +30,7 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/arrow_function_prop.dart';
@@ -39,6 +39,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/duplicate_p
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/extra_invocations.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/hashcode_as_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/invalid_child.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/missing_cascade_parens.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/render_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/string_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/variadic_children.dart';
@@ -46,9 +47,8 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/variadic_ch
 /// Checks a library for errors related to built_value generation. Returns
 /// the errors and, where possible, corresponding fixes.
 class Checker {
-  Map<AnalysisError, PrioritizedSourceChange> check(
-      CompilationUnit compilationUnit, String path) {
-    final result = <AnalysisError, PrioritizedSourceChange>{};
+  Map<AnalysisError, PrioritizedSourceChange> check(ResolvedUnitResult result) {
+    final fixesByError = <AnalysisError, PrioritizedSourceChange>{};
 
     final checkers = <SubChecker>[
       new DuplicatePropCascadeChecker(),
@@ -59,22 +59,23 @@ class Checker {
       new RenderReturnValueChecker(),
       new InvalidChildChecker(),
       new StringRefChecker(),
+      new MissingCascadeParensChecker(),
     ];
 
     for (var checker in checkers) {
-      checker.check(compilationUnit);
+      checker.check(result);
       final errors = checker.getErrors();
       checker.clearErrors();
 
       for (var error in errors) {
-        final lineInfo = compilationUnit.lineInfo;
+        final lineInfo = result.lineInfo;
         final offsetLineLocation = lineInfo.getLocation(error.offset);
 
         final analysisError = new AnalysisError(
             error.severity,
             error.type,
             new Location(
-                path,
+                result.path,
                 error.offset,
                 error.end - error.offset,
                 offsetLineLocation.lineNumber,
@@ -102,17 +103,17 @@ class Checker {
                 error.fixMessage,
                 edits: [
                   new SourceFileEdit(
-                    path,
+                    result.path,
                     error.modificationStamp,
                     edits: error.fixEdits,
                   )
                 ],
               ));
         }
-        result[analysisError] = fix;
+        fixesByError[analysisError] = fix;
       }
     }
 
-    return result;
+    return fixesByError;
   }
 }

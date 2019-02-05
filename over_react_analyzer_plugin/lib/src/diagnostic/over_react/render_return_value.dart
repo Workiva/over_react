@@ -1,5 +1,6 @@
 // Adapted from dart_medic `misc` branch containing over_react diagnostics
 
+import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
@@ -15,12 +16,12 @@ class RenderReturnValueChecker extends SubChecker {
       '';
 
   @override
-  void check(CompilationUnit compilationUnit) {
-    modificationStamp = compilationUnit.declaredElement.source.modificationStamp;
+  void check(ResolvedUnitResult result) {
+    super.check(result);
 
     // This is the return type even if it's not explicitly declared.
     final visitor = new RenderVisitor();
-    compilationUnit.accept(visitor);
+    result.unit.accept(visitor);
 
     final returnStatements = visitor.returnVisitor.returnStatements.toList();
 

@@ -98,10 +98,11 @@ class OverReactAnalyzerPlugin extends ServerPlugin with OutlineMixin, DartOutlin
             new plugin.AnalysisErrorsParams(analysisResult.path, [])
                 .toNotification());
       } else {
+
         // If there is something to analyze, do so and notify the analyzer.
         // Note that notifying with an empty set of errors is important as
         // this clears errors if they were fixed.
-        final checkResult = checker.check(analysisResult.unit, analysisResult.path);
+        final checkResult = checker.check(analysisResult);
         channel.sendNotification(new plugin.AnalysisErrorsParams(
                 analysisResult.path, checkResult.keys.toList())
             .toNotification());
@@ -127,7 +128,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin with OutlineMixin, DartOutlin
           await (driverForPath(parameters.file) as AnalysisDriver)
               .getResult(parameters.file);
       // Get errors and fixes for the file.
-      final checkResult = checker.check(analysisResult.unit, parameters.file);
+      final checkResult = checker.check(analysisResult);
 
       // Return any fixes that are for the expected file and within the given offset.
       final fixes = <plugin.AnalysisErrorFixes>[];

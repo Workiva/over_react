@@ -1,5 +1,4 @@
 import 'package:analyzer/analyzer.dart';
-import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/source/line_info.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
