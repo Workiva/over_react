@@ -21,7 +21,6 @@ import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
-import 'package:over_react/src/util/ddc_emulated_function_name_bug.dart' as ddc_emulated_function_name_bug;
 import 'package:over_react/src/util/test_mode.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
@@ -483,14 +482,6 @@ abstract class UiProps extends MapBase
         $CssClassPropsMixin
     implements
         Map {
-
-  UiProps() {
-    // Work around https://github.com/dart-lang/sdk/issues/27647 for all UiProps instances
-    if (ddc_emulated_function_name_bug.isBugPresent) {
-      ddc_emulated_function_name_bug.patchName(this);
-    }
-  }
-
   /// Adds an arbitrary [propKey]/[value] pair if [shouldAdd] is `true`.
   ///
   /// Is a noop if [shouldAdd] is `false`.
