@@ -17,6 +17,9 @@ class _$BasicProps extends UiProps {
   String basic3;
   String basic4;
   String basic5;
+
+  static const String defaultProps = 'some_default_props';
+  static String get defaultGetter => 'some_defualt_getter';
 }
 
 @Component()

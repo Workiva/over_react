@@ -115,6 +115,8 @@ const PropsMeta _$metaForBasicProps = const PropsMeta(
 );
 
 class BasicProps extends _$BasicProps with _$BasicPropsAccessorsMixin {
+  static const String defaultProps = 'some_default_props';
+  static String get defaultGetter => 'some_defualt_getter';
   static const PropsMeta meta = _$metaForBasicProps;
 }
 
@@ -152,7 +154,8 @@ class _$$BasicProps extends _$BasicProps
 // generated for the associated props class.
 class _$BasicComponent extends BasicComponent {
   @override
-  typedPropsFactory(Map backingMap) => new _$$BasicProps(backingMap);
+  _$$BasicProps typedPropsFactory(Map backingMap) =>
+      new _$$BasicProps(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override

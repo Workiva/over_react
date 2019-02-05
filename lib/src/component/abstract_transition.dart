@@ -25,10 +25,7 @@ import 'package:over_react/component_base.dart' as component_base;
 part 'abstract_transition.over_react.g.dart';
 
 @AbstractProps()
-abstract class _$AbstractTransitionProps extends UiProps with
-    TransitionPropsMixin,
-    // ignore: mixin_of_non_class, undefined_class
-    $TransitionPropsMixin {}
+abstract class _$AbstractTransitionProps extends UiProps with TransitionPropsMixin {}
 
 @AbstractState()
 abstract class _$AbstractTransitionState extends UiState {

@@ -454,9 +454,66 @@ main() {
       });
 
       group('and logs a hard error when', () {
+        void verifyErrorLog(String publicClassName) {
+          verify(logger.severe(contains(
+            'Non-static class member `meta` is declared in _\$$publicClassName. '
+            '`meta` is a field declared by the over_react builder, and is therefore not '
+            'valid for use as a class member in any class annotated with  @Props(), @State(), '
+            '@AbstractProps(), @AbstractState(), @PropsMixin(), or @StateMixin()'
+          )));
+        }
+
+        void verifyMetaErrors(String body) {
+          test('a props class', () {
+            final ors = OverReactSrc.props(backwardsCompatible: false, body: body);
+            setUpAndParse(ors.source);
+            verifyErrorLog(ors.propsClassName);
+          });
+
+          test('a state class', () {
+            final ors = OverReactSrc.state(backwardsCompatible: false, body: body);
+            setUpAndParse(ors.source);
+            verifyErrorLog(ors.stateClassName);
+          });
+
+          test('an abstract props class', () {
+            final ors = OverReactSrc.abstractProps(backwardsCompatible: false, body: body);
+            setUpAndParse(ors.source);
+            verifyErrorLog(ors.propsClassName);
+          });
+
+          test('an abstract state class', () {
+            final ors = OverReactSrc.abstractState(backwardsCompatible: false, body: body);
+            setUpAndParse(ors.source);
+            verifyErrorLog(ors.stateClassName);
+          });
+
+          test('a props mixin class', () {
+            final ors = OverReactSrc.propsMixin(backwardsCompatible: false, body: body);
+            setUpAndParse(ors.source);
+            verifyErrorLog(ors.propsMixinClassName);
+          });
+
+          test('a state mixin class', () {
+            final ors = OverReactSrc.stateMixin(backwardsCompatible: false, body: body);
+            setUpAndParse(ors.source);
+            verifyErrorLog(ors.stateMixinClassName);
+          });
+        }
+
         tearDown(() {
           expect(declarations.hasErrors, isTrue, reason: 'Declarations with errors should always set `hasErrors` to true.');
           expectEmptyDeclarations(reason: 'Declarations with errors should always be null/empty.');
+        });
+
+        group('non-static `meta` field is declared in', () {
+          final body = 'String meta;';
+          verifyMetaErrors(body);
+        });
+
+        group('non-static `meta` method is declared in', () {
+          final body = 'String get meta => \'do not do this\';';
+          verifyMetaErrors(body);
         });
 
         group('there is not Dart-2 compatible naming on', () {
@@ -464,28 +521,28 @@ main() {
             setUpAndParse(propsSrcDart1 + componentSrc + factorySrc);
             verify(logger.severe(contains(
                 'The class `FooProps` does not start with `_\$`. All Props, State, '
-                    'AbstractProps, and AbstractState classes should begin with `_\$` under Dart 2')));
+                    'AbstractProps, and AbstractState classes should begin with `_\$` on Dart 2')));
           });
 
           test('a class annotated with @State()', () {
             setUpAndParse(stateSrcDart1 + componentSrc + propsSrc + factorySrc);
             verify(logger.severe(contains(
                 'The class `FooState` does not start with `_\$`. All Props, State, '
-                    'AbstractProps, and AbstractState classes should begin with `_\$` under Dart 2')));
+                    'AbstractProps, and AbstractState classes should begin with `_\$` on Dart 2')));
           });
 
           test('a class annotated with @AbstractProps()', () {
             setUpAndParse(abstractPropsSrcDart1 + abstractComponentSrc);
             verify(logger.severe(contains(
                 'The class `AbstractFooProps` does not start with `_\$`. All Props, State, '
-                    'AbstractProps, and AbstractState classes should begin with `_\$` under Dart 2')));
+                    'AbstractProps, and AbstractState classes should begin with `_\$` on Dart 2')));
           });
 
           test('a class annotated with @AbstractState()', () {
             setUpAndParse(abstractStateSrcDart1 + abstractComponentSrc + abstractPropsSrc);
             verify(logger.severe(contains(
                 'The class `AbstractFooState` does not start with `_\$`. All Props, State, '
-                    'AbstractProps, and AbstractState classes should begin with `_\$` under Dart 2')));
+                    'AbstractProps, and AbstractState classes should begin with `_\$` on Dart 2')));
           });
         });
 
@@ -625,7 +682,7 @@ main() {
           test('public and declared with an invalid initializer', () {
             setUpAndParse('''
               @Factory()
-              UiFactory<FooProps> Foo = null;
+              UiFactory<FooProps> Foo = \$Foo;
 
               $restOfComponent
             ''');
@@ -639,7 +696,7 @@ main() {
           test('private and declared with an invalid initializer', () {
             setUpAndParse('''
               @Factory()
-              UiFactory<FooProps> _Foo = null;
+              UiFactory<FooProps> _Foo = \$_Foo;
 
               $restOfComponent
             ''');
@@ -841,6 +898,68 @@ main() {
               ''');
               verify(logger.severe(contains('Static StateMeta field in accessor class must be initialized to:'
                   '`_\$metaFor_FooStateMixin`')));
+            });
+          });
+        });
+      });
+
+      group('and logs a warning when', () {
+        group('on Dart 2 only boilerplate', () {
+          group('a static `meta` field is declared in ', () {
+            void verifyWarningLog(String publicClassName) {
+              verify(logger.warning(contains(
+                'Static class member `meta` is declared in _\$$publicClassName. '
+                '`meta` is a field declared by the over_react builder, and therefore this '
+                'class member will be unused and should be removed or renamed.'
+              )));
+            }
+
+            void verifyMetaWarnings(String body) {
+              test('a props class', () {
+                final ors = OverReactSrc.props(backwardsCompatible: false, body: body);
+                setUpAndParse(ors.source);
+                verifyWarningLog(ors.propsClassName);
+              });
+
+              test('a state class', () {
+                final ors = OverReactSrc.state(backwardsCompatible: false, body: body);
+                setUpAndParse(ors.source);
+                verifyWarningLog(ors.stateClassName);
+              });
+
+              test('an abstract props class', () {
+                final ors = OverReactSrc.abstractProps(backwardsCompatible: false, body: body);
+                setUpAndParse(ors.source);
+                verifyWarningLog(ors.propsClassName);
+              });
+
+              test('an abstract state class', () {
+                final ors = OverReactSrc.abstractState(backwardsCompatible: false, body: body);
+                setUpAndParse(ors.source);
+                verifyWarningLog(ors.stateClassName);
+              });
+
+              test('a props mixin class', () {
+                final ors = OverReactSrc.propsMixin(backwardsCompatible: false, body: body);
+                setUpAndParse(ors.source);
+                verifyWarningLog(ors.propsMixinClassName);
+              });
+
+              test('a state mixin class', () {
+                final ors = OverReactSrc.stateMixin(backwardsCompatible: false, body: body);
+                setUpAndParse(ors.source);
+                verifyWarningLog(ors.stateMixinClassName);
+              });
+            }
+
+            group('static `meta` field is declared in', () {
+              final body = 'static const String meta;';
+              verifyMetaWarnings(body);
+            });
+
+            group('static `meta` method is declared in', () {
+              final body = 'static String get meta => \'do not do this\';';
+              verifyMetaWarnings(body);
             });
           });
         });

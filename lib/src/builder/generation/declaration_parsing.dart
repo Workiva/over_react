@@ -40,6 +40,34 @@ class ParsedDeclarations {
       logger.severe(messageWithSpan(message, span: span));
     }
 
+    /// If a [ClassMember] exists in [node] with the name `meta`, this will
+    /// throw an error if the member is not static and a warning if the member
+    /// is static.
+    void checkForMetaPresence(ClassDeclaration node) {
+      final metaField = metaFieldOrNull(node);
+      final metaMethod = metaMethodOrNull(node);
+      final isNotNull = metaField != null || metaMethod != null;
+      final isStatic = (metaField?.isStatic ?? false) || (metaMethod?.isStatic ?? false);
+      if (isNotNull) {
+        // If a class declares a field or method with the name of `meta` which is
+        // not static, then we should error, since the static `meta` const in the
+        // generated implementation will have a naming collision.
+        if (!isStatic) {
+          error('Non-static class member `meta` is declared in ${node.name.name}. '
+              '`meta` is a field declared by the over_react builder, and is therefore not '
+              'valid for use as a class member in any class annotated with  @Props(), @State(), '
+              '@AbstractProps(), @AbstractState(), @PropsMixin(), or @StateMixin()',
+              getSpan(sourceFile, metaField ?? metaMethod));
+        } else {
+          // warn that static `meta` definition will not be accessible by consumers.
+          logger.warning(messageWithSpan('Static class member `meta` is declared in ${node.name.name}. '
+              '`meta` is a field declared by the over_react builder, and therefore this '
+              'class member will be unused and should be removed or renamed.',
+              span: getSpan(sourceFile, metaField ?? metaMethod)));
+        }
+      }
+    }
+
     /// Validates that `meta` field in a companion class or props/state mixin
     /// is formatted as expected.
     ///
@@ -60,7 +88,7 @@ class ParsedDeclarations {
         );
       }
 
-      final expectedInitializer = '${generatedPrefix}metaFor${cd.name.name}';
+      final expectedInitializer = '${privateSourcePrefix}metaFor${cd.name.name}';
 
       final initializer = metaField.fields.variables.single.initializer
           ?.toSource();
@@ -112,12 +140,11 @@ class ParsedDeclarations {
       return (annotation == 'State' || annotation == 'AbstractState');
     }
 
-    final companionPrefix = r'_$';
     unit.declarations.forEach((CompilationUnitMember member) {
       member.metadata.forEach((annotation) {
         final name = annotation.name.toString();
         if ((isPropsClass(name) || isStateClass(name)) && member is ClassDeclaration) {
-          final companionName = member.name.name.substring(companionPrefix.length);
+          final companionName = member.name.name.substring(privateSourcePrefix.length);
           final companionClass = unit.declarations.firstWhere(
                   (innerMember) =>
               innerMember is ClassDeclaration && innerMember.name.name == companionName,
@@ -126,15 +153,17 @@ class ParsedDeclarations {
           final hasCompanionClass = companionClass != null;
           if (hasCompanionClass) {
             updateCompanionClass(name, true);
-            validateMetaField(companionClass, isPropsClass(name) ? 'PropsMeta': 'StateMeta');validateMetaField(companionClass, isPropsClass(name) ? 'PropsMeta': 'StateMeta');
+            validateMetaField(companionClass, isPropsClass(name) ? 'PropsMeta': 'StateMeta');
           } else {
-            if (!member.name.name.startsWith(companionPrefix)) {
+            if (!member.name.name.startsWith(privateSourcePrefix)) {
               // Props or state class has the incorrect naming (should start with [companionPrefix]
-              error('The class `${member.name.name}` does not start with `$companionPrefix`. All Props, State, '
-                  'AbstractProps, and AbstractState classes should begin with `$companionPrefix` under Dart 2',
+              error('The class `${member.name.name}` does not start with `$privateSourcePrefix`. All Props, State, '
+                  'AbstractProps, and AbstractState classes should begin with `$privateSourcePrefix` on Dart 2',
                   getSpan(sourceFile, member));
+            } else {
+              checkForMetaPresence(member);
+              updateCompanionClass(name, false);
             }
-            updateCompanionClass(name, false);
           }
         }
 
@@ -263,12 +292,24 @@ class ParsedDeclarations {
         declarationMap[annotationName] = [];
       });
     } else {
+      void checkMetaForMixin(ClassDeclaration mixin, String metaStructName) {
+        final className = mixin.name.name;
+        // If the mixin starts with `_$`, then we are on Dart 2 only boilerplate,
+        // and the mixin should not have a meta field/method
+        if (className.startsWith(privateSourcePrefix)) {
+          checkForMetaPresence(mixin);
+        } else {
+          // If the mixin does start not start with `_$`, then we are on the transitional
+          // boilerplate and we need to validate the meta field.
+          validateMetaField(mixin, metaStructName);
+        }
+      }
       for (final propsMixin in declarationMap[key_propsMixin]) {
-        validateMetaField(propsMixin, 'PropsMeta');
+        checkMetaForMixin(propsMixin, 'PropsMeta');
       }
 
       for (final stateMixin in declarationMap[key_stateMixin]) {
-        validateMetaField(stateMixin, 'StateMeta');
+        checkMetaForMixin(stateMixin, 'StateMeta');
       }
     }
 
@@ -283,10 +324,9 @@ class ParsedDeclarations {
       }
 
       final variable = factory.variables.variables.first;
-      final expectedInitializer = '$generatedPrefix$factoryName';
+      final expectedInitializer = '$privateSourcePrefix$factoryName';
 
-      if (variable.initializer != null &&
-          !expectedInitializer.contains(variable.initializer.toString())) {
+      if (variable.initializer != null && expectedInitializer != variable.initializer.toString()) {
         error(
             'Factory variables are stubs for the generated factories, and should not have initializers '
                 'unless initialized with a valid variable name for Dart 2 builder compatibility. '

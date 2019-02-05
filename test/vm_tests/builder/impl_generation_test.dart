@@ -458,6 +458,149 @@ main() {
         testConsumableCompanionGeneration('for abstract state classes', OverReactSrc.abstractState(backwardsCompatible: false));
       });
 
+      group('and copies over static fields with Dart 2 only boilerplate', () {
+        final fieldDeclarations = [
+              'static const String some_string_const = \'some_string_prop\';',
+              'static final SomeMapView defaultProps = ',
+              'new SomeMapView({})',
+              '..item1 = 1',
+              '..item2 = \'some_prop\';'
+            ];
+
+        final uselessMetaField = 'static const String meta = \'some_string\';';
+        final uselessMetaMethod = 'static String get meta => \'some_string\';';
+
+        final fieldDeclarationsWithMetaField = List.from(fieldDeclarations)..add(uselessMetaField);
+        final fieldDeclarationsWithMetaMethod = List.from(fieldDeclarations)..add(uselessMetaMethod);
+
+        void testStaticFieldCopying(OverReactSrc ors) {
+          setUpAndGenerate(ors.source);
+          fieldDeclarations.forEach((piece) {
+            expect(implGenerator.outputContentsBuffer.toString().trim(), contains(piece));
+          });
+        }
+
+        group('for a props class', () {
+          test('', () {
+            testStaticFieldCopying(OverReactSrc.props(backwardsCompatible: false, body: fieldDeclarations.join('\n')));
+          });
+
+          test(', except for static `meta` field', () {
+            testStaticFieldCopying(OverReactSrc.props(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
+            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
+            // clear the warning coming from declaration parsing about having static meta
+            verify(logger.warning(any));
+          });
+
+          test(', except for static `meta` method', () {
+            testStaticFieldCopying(OverReactSrc.props(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
+            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
+            // clear the warning coming from declaration parsing about having static meta
+            verify(logger.warning(any));
+          });
+        });
+
+        group('for a state class', () {
+          test('', () {
+            testStaticFieldCopying(OverReactSrc.state(backwardsCompatible: false, body: fieldDeclarations.join('\n')));
+          });
+
+          test(', except for static `meta` field', () {
+            testStaticFieldCopying(OverReactSrc.state(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
+            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
+            // clear the warning coming from declaration parsing about having static meta
+            verify(logger.warning(any));
+          });
+
+          test(', except for static `meta` method', () {
+            testStaticFieldCopying(OverReactSrc.state(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
+            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
+            // clear the warning coming from declaration parsing about having static meta
+            verify(logger.warning(any));
+          });
+        });
+
+        group('for a abstract props class', () {
+          test('', () {
+            testStaticFieldCopying(OverReactSrc.abstractProps(backwardsCompatible: false, body: fieldDeclarations.join('\n')));
+          });
+
+          test(', except for static `meta` field', () {
+            testStaticFieldCopying(OverReactSrc.abstractProps(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
+            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
+            // clear the warning coming from declaration parsing about having static meta
+            verify(logger.warning(any));
+          });
+
+          test(', except for static `meta` method', () {
+            testStaticFieldCopying(OverReactSrc.abstractProps(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
+            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
+            // clear the warning coming from declaration parsing about having static meta
+            verify(logger.warning(any));
+          });
+        });
+
+        group('for a abstract state class', () {
+          test('', () {
+            testStaticFieldCopying(OverReactSrc.abstractState(backwardsCompatible: false, body: fieldDeclarations.join('\n')));
+          });
+
+          test(', except for static `meta` field', () {
+            testStaticFieldCopying(OverReactSrc.abstractState(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
+            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
+            // clear the warning coming from declaration parsing about having static meta
+            verify(logger.warning(any));
+          });
+
+          test(', except for static `meta` method', () {
+            testStaticFieldCopying(OverReactSrc.abstractState(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
+            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
+            // clear the warning coming from declaration parsing about having static meta
+            verify(logger.warning(any));
+          });
+        });
+
+        group('for a props mixin class', () {
+          test('', () {
+            testStaticFieldCopying(OverReactSrc.propsMixin(backwardsCompatible: false, body: fieldDeclarations.join('\n')));
+          });
+
+          test(', except for static `meta` field', () {
+            testStaticFieldCopying(OverReactSrc.propsMixin(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
+            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
+            // clear the warning coming from declaration parsing about having static meta
+            verify(logger.warning(any));
+          });
+
+          test(', except for static `meta` method', () {
+            testStaticFieldCopying(OverReactSrc.propsMixin(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
+            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
+            // clear the warning coming from declaration parsing about having static meta
+            verify(logger.warning(any));
+          });
+        });
+
+        group('for a state mixin class', () {
+          test('', () {
+            testStaticFieldCopying(OverReactSrc.stateMixin(backwardsCompatible: false, body: fieldDeclarations.join('\n')));
+          });
+
+          test(', except for static `meta` field', () {
+            testStaticFieldCopying(OverReactSrc.stateMixin(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
+            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
+            // clear the warning coming from declaration parsing about having static meta
+            verify(logger.warning(any));
+          });
+
+          test(', except for static `meta` method', () {
+            testStaticFieldCopying(OverReactSrc.stateMixin(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
+            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
+            // clear the warning coming from declaration parsing about having static meta
+            verify(logger.warning(any));
+          });
+        });
+      });
+
       group('static meta field', () {
         void testStaticMetaField(String testName, OverReactSrc ors) {
           test(testName, () {

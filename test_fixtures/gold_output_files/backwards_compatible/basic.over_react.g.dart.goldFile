@@ -148,7 +148,8 @@ class _$$BasicProps extends _$BasicProps
 // generated for the associated props class.
 class _$BasicComponent extends BasicComponent {
   @override
-  typedPropsFactory(Map backingMap) => new _$$BasicProps(backingMap);
+  _$$BasicProps typedPropsFactory(Map backingMap) =>
+      new _$$BasicProps(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
