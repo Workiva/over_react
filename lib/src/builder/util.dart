@@ -73,8 +73,14 @@ FieldDeclaration metaFieldOrNull(ClassDeclaration node) {
 /// Returns `true` if the supplied [FieldDeclaration] contains any variables named
 /// `meta`, otherwise `false`.
 bool fieldDeclarationHasMeta(FieldDeclaration field) {
+  return fieldDeclarationHasName(field, 'meta');
+}
+
+/// Returns `true` if the supplied [FieldDeclaration] contains any variables named
+/// [name], otherwise `false`.
+bool fieldDeclarationHasName(FieldDeclaration field, String name) {
   return (field.fields.variables.firstWhere((variable) =>
-      variable.name.name == 'meta', orElse: () => null)) != null;
+      variable.name.name == name, orElse: () => null)) != null;
 }
 
 /// Returns any [MethodDeclaration]s on [node] which have the name `meta`,

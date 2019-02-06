@@ -28,12 +28,7 @@ part 'prop_mixins.over_react.g.dart';
 /// Typed getters/setters for reserved React props.
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
-abstract class ReactPropsMixin {
-  // To ensure the codemod regression checking works properly, please keep this
-  // field at the top of the class!
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForReactPropsMixin;
-
+abstract class _$ReactPropsMixin {
   Map get props;
 
   /// The children that were passed in to this component when it was built.
@@ -63,12 +58,7 @@ abstract class ReactPropsMixin {
 /// Typed getters/setters for reserved DOM-related props.
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
-abstract class DomPropsMixin {
-  // To ensure the codemod regression checking works properly, please keep this
-  // field at the top of the class!
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForDomPropsMixin;
-
+abstract class _$DomPropsMixin {
   Map get props;
 
   int cols, rows, size, span, start;
@@ -119,12 +109,7 @@ abstract class DomPropsMixin {
 }
 
 @PropsMixin(keyNamespace: '')
-abstract class SvgPropsMixin {
-  // To ensure the codemod regression checking works properly, please keep this
-  // field at the top of the class!
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForSvgPropsMixin;
-
+abstract class _$SvgPropsMixin {
   Map get props;
 
   dynamic clipPath, cx, cy, d, dx, dy, fill, fillOpacity, fontFamily, fontSize, fx, fy, gradientTransform,
@@ -137,12 +122,7 @@ abstract class SvgPropsMixin {
 /// Typed getters/setters for reserved DOM-related props that can be used by all UIP components.
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
-abstract class UbiquitousDomPropsMixin {
-  // To ensure the codemod regression checking works properly, please keep this
-  // field at the top of the class!
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForUbiquitousDomPropsMixin;
-
+abstract class _$UbiquitousDomPropsMixin {
   Map get props;
 
   /// A cache for the MapView used for [aria].

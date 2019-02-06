@@ -473,14 +473,8 @@ abstract class UiProps extends MapBase
         MapViewMixin,
         PropsMapViewMixin,
         ReactPropsMixin,
-        // ignore: mixin_of_non_class, undefined_class
-        $ReactPropsMixin,
         UbiquitousDomPropsMixin,
-        // ignore: mixin_of_non_class, undefined_class
-        $UbiquitousDomPropsMixin,
-        CssClassPropsMixin,
-        // ignore: mixin_of_non_class, undefined_class
-        $CssClassPropsMixin
+        CssClassPropsMixin
     implements
         Map {
 

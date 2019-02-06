@@ -615,7 +615,8 @@ class ImplGenerator {
     );
     if (type.isMixin) {
       generatedClass.writeln(_generateStaticMetaDecl(_publicPropsOrStateClassNameFromConsumerClassName(consumerClassName), type.isProps));
-      generatedClass.write(_staticMembers(node));
+      generatedClass.write(_copyStaticMembers(node));
+      generatedClass.write(_copyClassMembers(node));
     }
 
     generatedClass.write(_generateAccessors(type, node, consumerClassName).implementations);
@@ -624,16 +625,47 @@ class ImplGenerator {
     return generatedClass.toString();
   }
 
-  String _staticMembers(NodeWithMeta<ClassDeclaration, annotations.TypedMap> node) {
+  String _copyClassMembers(NodeWithMeta<ClassDeclaration, annotations.TypedMap> node) {
+    bool isValidForCopying(ClassMember member) {
+      // Static members should be copied over as needed by [_copyStaticMembers].
+      // Otherwise, fields which are not synthetic have concrete getters/setters
+      // generated for them, so don't copy those over either. We also don't want
+      // to copy anything that would conflict with what the builder already may
+      // generate, namely `props`, `state`, and `meta`
+      final isValid = !_isStaticFieldOrMethod(member)
+          && !(member is FieldDeclaration && !member.isSynthetic)
+          && !_memberHasName(member, 'props')
+          && !_memberHasName(member, 'state')
+          && !_memberHasName(member, 'meta');
+//      logger.warning('''checking if member is valid for copying
+//member: ${member.toSource()}
+//class: ${node.node.name.name}
+//isValid: $isValid
+//      ''');
+      return isValid;
+    }
+
+    final buffer = StringBuffer();
+    node.node.members.where(isValidForCopying).forEach((member) => buffer.write(member.toSource()));
+    return buffer.toString();
+  }
+
+  bool _isStaticFieldOrMethod(ClassMember member) {
+    return (member is MethodDeclaration && member.isStatic) || (member is FieldDeclaration && member.isStatic);
+  }
+
+  bool _memberHasName(ClassMember member, String name) {
+    return (member is FieldDeclaration && fieldDeclarationHasName(member, name)) ||
+              (member is MethodDeclaration && member.name.name == name);
+  }
+
+  String _copyStaticMembers(NodeWithMeta<ClassDeclaration, annotations.TypedMap> node) {
     final buffer = StringBuffer();
     node.node.members
-        .where((member) => (member is MethodDeclaration && member.isStatic) || (member is FieldDeclaration && member.isStatic))
+        .where((member) => _isStaticFieldOrMethod(member))
         .forEach((member) {
           // Don't copy over anything named `meta`, since the static meta field is already going to be generated.
-          final metaMember = (member is FieldDeclaration && fieldDeclarationHasMeta(member)) ||
-              (member is MethodDeclaration && member.name.name == 'meta');
-
-          if (!metaMember) {
+          if (!_memberHasName(member, 'meta')) {
             buffer.writeln(member.toSource());
           }
         });
@@ -692,7 +724,7 @@ class ImplGenerator {
     final classKeywords = '${type.isAbstract ? 'abstract ' : ''}class';
     return (StringBuffer()
       ..writeln('$classKeywords $consumableClassName$typeParamsOnClass extends $className$typeParamsOnSuper with ${_accessorsMixinNameFromConsumerName(className)}$typeParamsOnSuper {')
-      ..write(_staticMembers(node))
+      ..write(_copyStaticMembers(node))
       ..writeln(_generateStaticMetaDecl(consumableClassName, type.isProps))
       ..writeln('}'))
         .toString();

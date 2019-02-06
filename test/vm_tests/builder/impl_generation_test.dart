@@ -103,7 +103,7 @@ main() {
             });
           });
 
-          group('and includes concrete accessors class for ', () {
+          group('and includes concrete accessors class for', () {
             void testAccessorGeneration(String testName, OverReactSrc ors) {
               group(testName, () {
                 bool isProps;
@@ -247,7 +247,11 @@ main() {
                   });
 
                   test('but does not create implementations for non-fields', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), isNot(contains('abstractGetter')));
+                    expect(implGenerator.outputContentsBuffer.toString(), isNot(contains('abstractGetter => ')));
+                  });
+
+                  test('and copies over non-field implementations', () {
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('String get abstractGetter;'));
                   });
                 });
               });
