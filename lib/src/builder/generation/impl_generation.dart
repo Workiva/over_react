@@ -637,12 +637,16 @@ class ImplGenerator {
           && !_memberHasName(member, 'props')
           && !_memberHasName(member, 'state')
           && !_memberHasName(member, 'meta');
-//      logger.warning('''checking if member is valid for copying
-//member: ${member.toSource()}
-//class: ${node.node.name.name}
-//isValid: $isValid
-//      ''');
-      return isValid;
+
+      // If a field is marked with `@Accessor(doNotGenerate: true)`, we should
+      // copy over that field
+      bool shouldNotBeGenerated = false;
+      if (member is FieldDeclaration) {
+        final accessorMeta = instantiateAnnotation(member, annotations.Accessor);
+        shouldNotBeGenerated = accessorMeta?.doNotGenerate ?? false;
+      }
+
+      return isValid || shouldNotBeGenerated;
     }
 
     final buffer = StringBuffer();

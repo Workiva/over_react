@@ -253,11 +253,21 @@ main() {
                   test('and copies over non-field implementations', () {
                     expect(implGenerator.outputContentsBuffer.toString(), contains('String get abstractGetter;'));
                   });
+
+                  test('and copies over fields marked with `@Accessor(doNotGenerate: true)`', () {
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('String _someNonGeneratedField;'));
+                  });
                 });
               });
             }
 
-            final body = '\n/// Doc comments\n@deprecated()\nString someField;\nbool foo, bar, baz;\nString get abstractGetter;\n';
+            final body = '\n/// Doc comments\n'
+                '@deprecated()\n'
+                'String someField;\n'
+                'bool foo, bar, baz;\n'
+                'String get abstractGetter;\n'
+                '@Accessor(doNotGenerate: true)\n'
+                'String _someNonGeneratedField;\n';
             testAccessorGeneration('abstract props classes which are public without type parameters', OverReactSrc.abstractProps(backwardsCompatible: backwardsCompatible, body: body));
             testAccessorGeneration('abstract props classes which are private without type parameters', OverReactSrc.abstractProps(backwardsCompatible: backwardsCompatible, body: body, isPrivate: true));
             testAccessorGeneration('abstract props classes which are public with type parameters', OverReactSrc.abstractProps(backwardsCompatible: backwardsCompatible, body: body, typeParameters: true));
