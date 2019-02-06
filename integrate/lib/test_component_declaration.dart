@@ -16,9 +16,12 @@ library over_react.integrate.test_component_declaration;
 
 import 'package:over_react/over_react.dart';
 
+// ignore: uri_has_not_been_generated
 part 'test_component_declaration.over_react.g.dart';
 
+
 @Factory()
+// ignore: undefined_identifier, non_type_as_type_argument
 UiFactory<FooProps> Foo = _$Foo;
 
 @Props()
@@ -28,6 +31,7 @@ class _$FooProps extends UiProps {}
 class _$FooState extends UiState {}
 
 @Component()
+// ignore: non_type_as_type_argument, type_argument_not_matching_bounds
 class FooComponent extends UiStatefulComponent<FooProps, FooState> {
   @override
   render() {
