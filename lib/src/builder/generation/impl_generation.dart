@@ -289,12 +289,10 @@ class ImplGenerator {
   ) {
     String keyNamespace = _getAccessorKeyNamespace(typedMap);
 
-    final bool isProps = type.isProps;
-
-    final String proxiedMapName = isProps ? proxiedPropsMapName : proxiedStateMapName;
-    final String keyListName = isProps ? staticPropKeysName : staticStateKeysName;
-    final String constantListName = isProps ? staticPropsName : staticStateName;
-    final String constConstructorName = isProps ? 'PropDescriptor' : 'StateDescriptor';
+    final String proxiedMapName = type.isProps ? proxiedPropsMapName : proxiedStateMapName;
+    final String keyListName = type.isProps ? staticPropKeysName : staticStateKeysName;
+    final String constantListName = type.isProps ? staticPropsName : staticStateName;
+    final String constConstructorName = type.isProps ? 'PropDescriptor' : 'StateDescriptor';
 
     Map keyConstants = {};
     Map constants = {};
@@ -557,11 +555,10 @@ class ImplGenerator {
   }
 
   void _generateAccessorsAndMetaConstantForMixin(AccessorType type, NodeWithMeta<ClassDeclaration, annotations.TypedMap> node) {
-    var isProps = type.isProps;
-    if (!hasAbstractGetter(node.node, 'Map', isProps ? 'props' : 'state')) {
-      final propsOrState = isProps ? 'props': 'state';
+    if (!hasAbstractGetter(node.node, 'Map', type.isProps ? 'props' : 'state')) {
+      final propsOrState = type.isProps ? 'props': 'state';
       logger.severe(messageWithSpan(
-        '${isProps
+        '${type.isProps
             ? 'Props'
             : 'State'} mixin classes must declare an abstract $propsOrState getter `Map get $propsOrState;` '
             'so that they can be statically analyzed properly.',
@@ -583,11 +580,10 @@ class ImplGenerator {
   String _generateMetaConstImpl(AccessorType type, NodeWithMeta<ClassDeclaration, annotations.TypedMap> node, {String accessorsMixinNameOverride}) {
     final className = _classNameFromNode(node);
     final accessorsMixinName = accessorsMixinNameOverride ?? _accessorsMixinNameFromConsumerName(className);
-    final isProps = type.isProps;
 
-    final metaStructName = isProps ? 'PropsMeta' : 'StateMeta';
-    final String keyListName = isProps ? staticPropKeysName : staticStateKeysName;
-    final String fieldListName = isProps ? staticPropsName : staticStateName;
+    final metaStructName = type.isProps ? 'PropsMeta' : 'StateMeta';
+    final String keyListName = type.isProps ? staticPropKeysName : staticStateKeysName;
+    final String fieldListName = type.isProps ? staticPropsName : staticStateName;
 
     final String metaInstanceName = _metaConstantName(_publicPropsOrStateClassNameFromConsumerClassName(className));
 
@@ -605,13 +601,12 @@ class ImplGenerator {
     final typeParamsOnClass = typeParameters?.toSource() ?? '';
     final typeParamsOnSuper = removeBoundsFromTypeParameters(typeParameters);
 
-    final isProps = type.isProps;
     StringBuffer generatedClass = new StringBuffer();
     final implementsClause = 'implements $consumerClassName$typeParamsOnSuper';
     generatedClass.writeln(
         'abstract class $accessorsMixinName$typeParamsOnClass $implementsClause {\n' +
         '  @override' +
-        '  Map get ${isProps ? 'props': 'state'};\n'
+        '  Map get ${type.isProps ? 'props': 'state'};\n'
     );
     if (type.isMixin) {
       generatedClass.writeln(_generateStaticMetaDecl(_publicPropsOrStateClassNameFromConsumerClassName(consumerClassName), type.isProps));
@@ -724,10 +719,11 @@ class ImplGenerator {
     final typeParamsOnClass = typeParameters?.toSource() ?? '';
     final typeParamsOnSuper = removeBoundsFromTypeParameters(typeParameters);
     final consumableClassName = _publicPropsOrStateClassNameFromConsumerClassName(className);
+    final accessorsMixinName = _accessorsMixinNameFromConsumerName(className);
 
     final classKeywords = '${type.isAbstract ? 'abstract ' : ''}class';
     return (StringBuffer()
-      ..writeln('$classKeywords $consumableClassName$typeParamsOnClass extends $className$typeParamsOnSuper with ${_accessorsMixinNameFromConsumerName(className)}$typeParamsOnSuper {')
+      ..writeln('$classKeywords $consumableClassName$typeParamsOnClass extends $className$typeParamsOnSuper with $accessorsMixinName$typeParamsOnSuper {')
       ..write(_copyStaticMembers(node))
       ..writeln(_generateStaticMetaDecl(consumableClassName, type.isProps))
       ..writeln('}'))

@@ -140,36 +140,48 @@ class ParsedDeclarations {
       return (annotation == 'State' || annotation == 'AbstractState');
     }
 
-    unit.declarations.forEach((CompilationUnitMember member) {
-      member.metadata.forEach((annotation) {
-        final name = annotation.name.toString();
-        if ((isPropsClass(name) || isStateClass(name)) && member is ClassDeclaration) {
-          final companionName = member.name.name.substring(privateSourcePrefix.length);
-          final companionClass = unit.declarations.firstWhere(
-                  (innerMember) =>
-              innerMember is ClassDeclaration && innerMember.name.name == companionName,
-              orElse: () => null);
+    unit.declarations.forEach((CompilationUnitMember _member) {
+      _member.metadata.forEach((_annotation) {
+        final annotation = _annotation.name.toString();
 
-          final hasCompanionClass = companionClass != null;
-          if (hasCompanionClass) {
-            updateCompanionClass(name, true);
-            validateMetaField(companionClass, isPropsClass(name) ? 'PropsMeta': 'StateMeta');
-          } else {
-            if (!member.name.name.startsWith(privateSourcePrefix)) {
-              // Props or state class has the incorrect naming (should start with [companionPrefix]
-              error('The class `${member.name.name}` does not start with `$privateSourcePrefix`. All Props, State, '
-                  'AbstractProps, and AbstractState classes should begin with `$privateSourcePrefix` on Dart 2',
-                  getSpan(sourceFile, member));
-            } else {
-              checkForMetaPresence(member);
-              updateCompanionClass(name, false);
-            }
-          }
+        // Add to declarationMap if we have a valid over_react annotation
+        if (declarationMap[annotation] != null) {
+          hasDeclarations = true;
+          declarationMap[annotation].add(_member);
         }
 
-        if (declarationMap[name] != null) {
-          hasDeclarations = true;
-          declarationMap[name].add(member);
+        // Now we need to check for a companion class on Dart 2 backwards compatible boilerplate
+        // only check for companion class for @Props(), @State, @AbstractProps(),
+        // and @AbstractState() annotated classes
+        if (_member is! ClassDeclaration || !(isPropsClass(annotation) || isStateClass(annotation))) {
+          return;
+        }
+
+        final ClassDeclaration member = _member;
+
+        // Check that class name starts with [privateSourcePrefix]
+        if (!member.name.name.startsWith(privateSourcePrefix)) {
+          error('The class `${member.name.name}` does not start with `$privateSourcePrefix`. All Props, State, '
+              'AbstractProps, and AbstractState classes should begin with `$privateSourcePrefix` on Dart 2',
+              getSpan(sourceFile, member));
+          return;
+        }
+
+        final companionName = member.name.name.substring(privateSourcePrefix.length);
+        final companionClass = unit.declarations.firstWhere(
+                (innerMember) =>
+            innerMember is ClassDeclaration && innerMember.name.name == companionName,
+            orElse: () => null);
+
+        final hasCompanionClass = companionClass != null;
+        if (hasCompanionClass) {
+          // Backwards compatible boilerplate. Verify the companion class' meta field
+          updateCompanionClass(annotation, true);
+          validateMetaField(companionClass, isPropsClass(annotation) ? 'PropsMeta': 'StateMeta');
+        } else {
+          // Dart 2 only boilerplate. Check for meta presence
+          checkForMetaPresence(member);
+          updateCompanionClass(annotation, false);
         }
       });
     });
@@ -321,18 +333,18 @@ class ParsedDeclarations {
       if (factory.variables.variables.length != 1) {
         error('Factory declarations must be a single variable.',
             getSpan(sourceFile, factory.variables));
-      }
+      } else {
+        final variable = factory.variables.variables.first;
+        final expectedInitializer = '$privateSourcePrefix$factoryName';
 
-      final variable = factory.variables.variables.first;
-      final expectedInitializer = '$privateSourcePrefix$factoryName';
-
-      if (variable.initializer != null && expectedInitializer != variable.initializer.toString()) {
-        error(
-            'Factory variables are stubs for the generated factories, and should not have initializers '
-                'unless initialized with a valid variable name for Dart 2 builder compatibility. '
-                'Should be:\n    $expectedInitializer}',
-            getSpan(sourceFile, variable.initializer)
-        );
+        if ((variable?.initializer?.toString() ?? '') != expectedInitializer) {
+          error(
+              'Factory variables are stubs for the generated factories, and should not have initializers '
+                  'unless initialized with a valid variable name for Dart 2 builder compatibility. '
+                  'Should be:\n    $expectedInitializer}',
+              getSpan(sourceFile, variable.initializer ?? variable)
+          );
+        }
       }
     }
 

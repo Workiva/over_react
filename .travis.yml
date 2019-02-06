@@ -3,8 +3,8 @@ dart:
   - stable
 script:
   - pub run build_runner build
-  # tuneup uses dart server under the hood for analysis instead of dartanalyzer. The server can resolve elements from
-  # built files under .dart_tool, the dartanalyzer cli currently does not.
+  # tuneup uses the analysis server under the hood for analysis instead of dartanalyzer. The server can
+  # resolve elements from built files under .dart_tool, the dartanalyzer cli currently does not.
   - pub global activate tuneup
   - pub global run tuneup check --ignore-infos
   # TODO: Remove ignore on analyzer once the wdesk ecosystem is all on a Dart 2 compat major version and we no longer need a "pinned" dep

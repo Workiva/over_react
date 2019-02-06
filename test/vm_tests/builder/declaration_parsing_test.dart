@@ -303,7 +303,7 @@ main() {
             test('a stateful component', () {
               setUpAndParse('''
                 @Factory()
-                UiFactory<FooProps> Foo;
+                UiFactory<FooProps> Foo = _\$Foo;
 
                 @Props(keyNamespace: "bar")
                 class _\$FooProps {}
@@ -311,7 +311,7 @@ main() {
                 class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {}
 
                 @State(keyNamespace: "baz")
-                class _\$FooState {}
+                class _\$FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
                 
                 class FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
 
@@ -363,7 +363,7 @@ main() {
             test('a stateful component', () {
               setUpAndParse('''
                 @Factory()
-                UiFactory<FooProps> Foo;
+                UiFactory<FooProps> Foo = _\$Foo;
 
                 @Props(keyNamespace: "bar")
                 class _\$FooProps {}
@@ -668,6 +668,19 @@ main() {
         });
 
         group('a factory is', () {
+          test('declared without an initializer', () {
+            setUpAndParse('''
+              @Factory()
+              UiFactory<FooProps> Foo;
+
+              $restOfComponent
+            ''');
+
+            verify(logger.severe(contains(
+                'Factory variables are stubs for the generated factories, and should not have initializers'
+                    ' unless initialized with a valid variable name for Dart 2 builder compatibility. Should be:\n'
+                    '    _\$Foo')));
+          });
           test('declared using multiple variables', () {
             setUpAndParse('''
               @Factory()
