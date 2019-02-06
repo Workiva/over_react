@@ -15,7 +15,7 @@
 // Dummy annotations that would be used by Pub code generator
 library over_react.component_declaration.annotations;
 
-/// Annotation used with the `over_react` transformer to declare a [UiFactory] for a component.
+/// Annotation used with the `over_react` builder to declare a [UiFactory] for a component.
 ///
 ///     @Factory()
 ///     UiFactory<FooProps> Foo = _$Foo;
@@ -25,7 +25,7 @@ class Factory {
   const Factory();
 }
 
-/// Annotation used with the `over_react` transformer to declare a [UiProps] class for a component.
+/// Annotation used with the `over_react` builder to declare a [UiProps] class for a component.
 ///
 /// Props are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -43,7 +43,7 @@ class Props implements TypedMap {
   const Props({this.keyNamespace});
 }
 
-/// Annotation used with the `over_react` transformer to declare a [UiState] class for a component.
+/// Annotation used with the `over_react` builder to declare a [UiState] class for a component.
 ///
 /// State properties are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -61,7 +61,7 @@ class State implements TypedMap {
   const State({this.keyNamespace});
 }
 
-/// Annotation used with the `over_react` transformer to declare a [UiComponent] class for a component.
+/// Annotation used with the `over_react` builder to declare a [UiComponent] class for a component.
 ///
 ///     @Component()
 ///     class FooComponent extends UiComponent<FooProps> {
@@ -104,7 +104,7 @@ class Component {
   });
 }
 
-/// Annotation used with the `over_react` transformer to declare an abstract [UiProps] class for an abstract component.
+/// Annotation used with the `over_react` builder to declare an abstract [UiProps] class for an abstract component.
 ///
 /// Props are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -120,7 +120,7 @@ class AbstractProps implements TypedMap {
   const AbstractProps({this.keyNamespace});
 }
 
-/// Annotation used with the `over_react` transformer to declare an abstract [UiProps] class for an abstract component.
+/// Annotation used with the `over_react` builder to declare an abstract [UiProps] class for an abstract component.
 ///
 /// State properties are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -136,7 +136,7 @@ class AbstractState implements TypedMap {
   const AbstractState({this.keyNamespace});
 }
 
-/// Annotation used with the `over_react` transformer to declare an abstract [UiComponent] class for an abstract component.
+/// Annotation used with the `over_react` builder to declare an abstract [UiComponent] class for an abstract component.
 ///
 ///     @AbstractComponent()
 ///     abstract class QuxComponent<TProps extends QuxProps> extends UiComponent<TProps> {}
@@ -144,7 +144,7 @@ class AbstractComponent {
   const AbstractComponent();
 }
 
-/// Annotation used with the `over_react` transformer to declare a mixin for use in a [UiProps] class.
+/// Annotation used with the `over_react` builder to declare a mixin for use in a [UiProps] class.
 ///
 /// Props are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -164,7 +164,7 @@ class PropsMixin implements TypedMap {
   const PropsMixin({this.keyNamespace});
 }
 
-/// Annotation used with the `over_react` transformer to declare a mixin for use in a [UiState] class.
+/// Annotation used with the `over_react` builder to declare a mixin for use in a [UiState] class.
 ///
 /// State properties are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -208,7 +208,7 @@ const Accessor requiredProp = const Accessor(isRequired: true);
 ///     }
 const Accessor nullableRequiredProp = const Accessor(isRequired: true, isNullable: true);
 
-/// Annotation used with the `over_react` transformer to customize individual accessors (props/state fields).
+/// Annotation used with the `over_react` builder to customize individual accessors (props/state fields).
 ///
 /// Validation occurs in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
 /// `componentWillReceiveProps`.

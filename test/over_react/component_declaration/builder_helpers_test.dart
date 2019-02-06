@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library over_react.transformer_generation.helpers_test;
+library over_react.builder_generation.helpers_test;
 
-import 'package:over_react/src/component_declaration/transformer_helpers.dart';
+import 'package:over_react/src/component_declaration/builder_helpers.dart';
 import 'package:test/test.dart';
 
 final Matcher throwsUngeneratedError          = throwsA(const TypeMatcher<UngeneratedError>());

@@ -13,7 +13,7 @@ targets:
         generate_for:
           exclude:
             # This tests un-built behavior, and therefore should not be built
-            - "test/over_react/component_declaration/transformer_helpers_test.dart"
+            - "test/over_react/component_declaration/builder_helpers_test.dart"
 
       # builder uses mirrors and will cause a build to fail when using build web compilers
       # vm tests require the use of mirrors

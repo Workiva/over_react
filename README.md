@@ -51,22 +51,10 @@
 
     ```yaml
     dependencies:
-      over_react: ^1.29.0
+      over_react: ^2.0.0
     ```
 
-2. Add the `over_react` [transformer] to your `pubspec.yaml`.
-
-    ```yaml
-    transformers:
-      - over_react
-      # Reminder: dart2js should come after any other transformers that touch Dart code
-      - $dart2js
-    ```
-
-    _Our transformer uses code generation to wire up the different pieces of your
-    component declarations - and to create typed getters/setters for `props` and `state`._
-
-3. Include the native JavaScript `react` and `react_dom` libraries in your app’s `index.html` file,
+2. Include the native JavaScript `react` and `react_dom` libraries in your app’s `index.html` file,
 and add an HTML element with a unique identifier where you’ll mount your OverReact UI component(s).
 
     ```html
@@ -81,8 +69,8 @@ and add an HTML element with a unique identifier where you’ll mount your OverR
 
         <script src="packages/react/react.js"></script>
         <script src="packages/react/react_dom.js"></script>
-        <script type="application/dart" src="your_app_name.dart"></script>
-        <script src="packages/browser/dart.js"></script>
+     
+        <script type="application/javascript" defer src="your_app_entrypoint.dart.js"></script>
       </body>
     </html>
     ```
@@ -117,27 +105,14 @@ mount / render it into the HTML element you created in step 3.
 
 ### Running tests in your project
 
-When running tests on code that uses our [transformer] _(or any code that imports `over_react`)_,
-__you must run your tests using Pub__.
+When running tests on code that uses our [builder] _(or any code that imports `over_react`)_,
+__you must run your tests using build_runner__.
 
-1. Add the `test/pub_serve` transformer to your `pubspec.yaml` _after_ the `over_react` transformer.
-
-    ```yaml
-    transformers:
-      - over_react
-      - test/pub_serve:
-          $include: test/**_test{.*,}.dart
-      - $dart2js
-    ```
-
-2. Use [the `--pub-serve` option](https://github.com/dart-lang/test#testing-with-barback) when running your tests:
+1. Run tests through build_runner, and specify the platform to be a browser platform. Example: 
 
     ```bash
-    $ pub run test --pub-serve=8081 test/your_test_file.dart
+    $ pub run build_runner test -- -p chrome test/your_test_file.dart
     ```
-
-    > __Note:__ `8081` is the default port used, but your project may use something different.  Be sure to take note
-     of the output when running `pub serve` to ensure you are using the correct port.
 
 &nbsp;
 &nbsp;
@@ -156,7 +131,7 @@ which handles the underlying JS interop that wraps around [React JS][react-js].
 
 The library strives to maintain a 1:1 relationship with the React JS component class and API.
 To do that, an OverReact component is comprised of four core pieces that are each wired up to our
-Pub transformer using an analogous [annotation].
+via our builder using an analogous [annotation].
 
 1. [UiFactory](#uifactory)
 2. [UiProps](#uiprops)
@@ -172,7 +147,7 @@ __`UiFactory` is a function__ that returns a new instance of a
 
 ```dart
 @Factory()
-UiFactory<FooProps> Foo;
+UiFactory<FooProps> Foo = _$Foo;
 ```
 
 * This factory is __the entry-point__ to consuming every OverReact component.
@@ -184,14 +159,18 @@ or [as a typed view into an existing props map](#uiprops-as-a-map).
 ### UiProps
 
 __`UiProps` is a Map class__ that adds statically-typed getters and setters for each React component prop.
-It can also be invoked as a function, serving as a builder for its analogous component.
+It can also be invoked as a function, serving as a builder for its analogous component. 
 
 ```dart
 @Props()
-class FooProps extends UiProps {
+class _$FooProps extends UiProps {
   // ...
 }
 ```
+* Note: The [builder] will make the concrete getters and setters available in a generated class which has the same name
+as the class annotated with `@Props()`, but without the `_$` prefix (which would be `FooProps` in the above code).
+The generated class will also have the same API. So, consumers who wish to extend the functionality of `_$FooProps` should 
+extend the generated version, `FooProps`.
 
 &nbsp;
 
@@ -199,10 +178,10 @@ class FooProps extends UiProps {
 
 ```dart
 @Factory()
-UiFactory<FooProps> Foo;
+UiFactory<FooProps> Foo = _$Foo;
 
 @Props()
-class FooProps extends UiProps {
+class _$FooProps extends UiProps {
   String color;
 }
 
@@ -237,10 +216,10 @@ void baz() {
 
 ```dart
 @Factory()
-UiFactory<FooProps> Foo;
+UiFactory<FooProps> Foo = _$Foo;
 
 @Props()
-class FooProps extends UiProps {
+class _$FooProps extends UiProps {
   String color;
 }
 
@@ -283,12 +262,16 @@ for each React component state property.
 
 ```dart
 @State()
-class FooState extends UiState {
+class _$FooState extends UiState {
   // ...
 }
 ```
 
 > UiState is optional, and won’t be used for every component.
+* Note: The [builder] will make the concrete getters and setters available in a generated class which has the same name
+as the class annotated with `@State()`, but without the `_$` prefix (which would be `FooState` in the above code).
+The generated class will also have the same API. So, consumers who wish to extend the functionality of `_$FooState` should 
+use the generated version, `FooProps`.
 
 &nbsp;
 
@@ -664,7 +647,8 @@ Now that we’ve gone over how to [use the `over_react` package in your project]
 the [anatomy of a component](#anatomy-of-an-overreact-component) and the [DOM components](#dom-components-and-props)
 that you get for free from OverReact, you're ready to start building your own custom React UI components.
 
-1. Start with one of the [component boilerplate templates](#component-boilerplate-templates) below.
+1. Start with one of the [component boilerplate templates](#component-boilerplate-templates) below 
+(Or, use OverReact's [code snippets for Intellij and Vs Code](snippets/README.md).
   * [Component](#component-boilerplate) _(props only)_
   * [Stateful Component](#stateful-component-boilerplate) _(props + state)_
   * [Flux Component](#flux-component-boilerplate) _(props + store + actions)_
@@ -674,7 +658,7 @@ that you get for free from OverReact, you're ready to start building your own cu
 4. Run [the app you’ve set up to consume `over_react`](#using-it-in-your-project)
 
     ```bash
-    $ pub serve
+    $ pub run build_runner serve
     ```
 
     _That’s it! Code will be automatically generated on the fly by Pub!_
@@ -694,10 +678,10 @@ that you get for free from OverReact, you're ready to start building your own cu
     import 'package:over_react/over_react.dart';
 
     @Factory()
-    UiFactory<FooProps> Foo;
+    UiFactory<FooProps> Foo = _$Foo;
 
     @Props()
-    class FooProps extends UiProps {
+    class _$FooProps extends UiProps {
       // Props go here, declared as fields:
       bool isDisabled;
       Iterable<String> items;
@@ -727,17 +711,17 @@ that you get for free from OverReact, you're ready to start building your own cu
     import 'package:over_react/over_react.dart';
 
     @Factory()
-    UiFactory<BarProps> Bar;
+    UiFactory<BarProps> Bar = _$Bar;
 
     @Props()
-    class BarProps extends UiProps {
+    class _$BarProps extends UiProps {
       // Props go here, declared as fields:
       bool isDisabled;
       Iterable<String> items;
     }
 
     @State()
-    class BarState extends UiState {
+    class _$BarState extends UiState {
       // State goes here, declared as fields:
       bool isShown;
     }
@@ -772,10 +756,10 @@ that you get for free from OverReact, you're ready to start building your own cu
     import 'package:over_react/over_react.dart';
 
     @Factory()
-    UiFactory<BazProps> Baz;
+    UiFactory<BazProps> Baz = _$Baz;
 
     @Props()
-    class BazProps extends FluxUiProps<BazActions, BazStore> {
+    class _$BazProps extends FluxUiProps<BazActions, BazStore> {
       // Props go here, declared as fields.
       // `actions` and `store` are already defined for you!
     }
@@ -802,16 +786,16 @@ that you get for free from OverReact, you're ready to start building your own cu
     import 'package:over_react/over_react.dart';
 
     @Factory()
-    UiFactory<BazProps> Baz;
+    UiFactory<BazProps> Baz = _$Baz;
 
     @Props()
-    class BazProps extends FluxUiProps<BazActions, BazStore> {
+    class _$BazProps extends FluxUiProps<BazActions, BazStore> {
       // Props go here, declared as fields.
       // `actions` and `store` are already defined for you!
     }
 
     @State()
-    class BazState extends UiState {
+    class _$BazState extends UiState {
       // State goes here, declared as fields.
     }
 
@@ -855,14 +839,14 @@ another component.
     ///
     /// See: <https://link-to-any-relevant-documentation>.
     @Factory()
-    UiFactory<DropdownButtonProps> DropdownButton;
+    UiFactory<DropdownButtonProps> DropdownButton = _$DropdownButton;
     ```
 
   _Bad:_
     ```dart
     /// Component Factory for a dropdown button component.
     @Factory()
-    UiFactory<DropdownButtonProps> DropdownButton;
+    UiFactory<DropdownButtonProps> DropdownButton = _$DropdownButton;
     ```
 
 &nbsp;
@@ -877,7 +861,7 @@ and document that value in a comment.
   _Good:_
     ```dart
     @Props()
-    DropdownButtonProps extends UiProps {
+    _$DropdownButtonProps extends UiProps {
       /// Whether the [DropdownButton] appears disabled.
       ///
       /// Default: `false`
@@ -893,7 +877,7 @@ and document that value in a comment.
     }
 
     @State()
-    DropdownButtonState extends UiState {
+    _$DropdownButtonState extends UiState {
       /// Whether the [DropdownButton]'s child [DropdownMenu] is open.
       ///
       /// Initial: [DropdownButtonProps.initiallyOpen]
@@ -919,13 +903,13 @@ and document that value in a comment.
   _Bad:_
     ```dart
     @Props()
-    DropdownButtonProps extends UiProps {
+    _$DropdownButtonProps extends UiProps {
       bool isDisabled;
       bool initiallyOpen;
     }
 
     @State()
-    DropdownButtonState extends UiState {
+    _$DropdownButtonState extends UiState {
       bool isOpen;
     }
 
@@ -945,7 +929,7 @@ an informative comment.
   _Good:_
     ```dart
     @Props()
-    DropdownButtonProps extends UiProps {
+    _$DropdownButtonProps extends UiProps {
       /// Whether the [DropdownButton] appears disabled.
       ///
       /// Default: `false`
@@ -961,7 +945,7 @@ an informative comment.
     }
 
     @State()
-    DropdownButtonState extends UiState {
+    _$DropdownButtonState extends UiState {
       /// Whether the [DropdownButton]'s child [DropdownMenu] is open.
       ///
       /// Initial: [DropdownButtonProps.initiallyOpen]
@@ -972,55 +956,18 @@ an informative comment.
   _Bad:_
     ```dart
     @Props()
-    DropdownButtonProps extends UiProps {
+    _$DropdownButtonProps extends UiProps {
       bool isDisabled;
       bool initiallyOpen;
     }
 
     @State()
-    DropdownButtonState extends UiState {
+    _$DropdownButtonState extends UiState {
       bool isOpen;
     }
     ```
 
 &nbsp;
-
-### Common Pitfalls
-
-Below you’ll find some common errors / issues that new consumers run into when building custom components.
-
-> Don’t see the issue you're having? [Tell us about it.][new-issue]
-
----
-
-#### `null object does not have a method 'call'`
-
-```
-ⓧ Exception: The null object does not have a method 'call'.
-```
-
-This error is thrown when you call a `@Factory()` function that has not been initialized due to
-the `over_react` [transformer] not running, you’ll get this error.
-
-__Make sure you’ve followed the [setup instructions](#using-it-in-your-project).__
-
----
-
-### 404 on `.dart` file
-
-```
-ⓧ GET http://localhost:8080/src/your_component.dart
-ⓧ An error occurred loading file: http://localhost:8080/src/your_component.dart
-```
-
-When the `over_react` [transformer] finds something wrong with your file, it logs an error in Pub and causes the
-invalid file to 404. This ensures that when the transformer breaks, `pub build` will break, and you’ll know about it.
-
-__Check your `pub serve` output for errors.__
-
-&nbsp;
-&nbsp;
-
 
 
 ## Contributing
@@ -1046,7 +993,7 @@ The `over_react` library adheres to [Semantic Versioning](http://semver.org/):
 [component demos]: https://workiva.github.io/over_react/demos
 
 [contributing-docs]: https://github.com/Workiva/over_react/blob/master/.github/CONTRIBUTING.md
-[transformer]: https://github.com/Workiva/over_react/blob/master/lib/src/transformer/README.md
+[builder]: https://github.com/Workiva/over_react/blob/master/lib/src/builder/README.md
 [annotations]: https://github.com/Workiva/over_react/blob/master/lib/src/component_declaration/annotations.dart
 [annotation]: https://github.com/Workiva/over_react/blob/master/lib/src/component_declaration/annotations.dart
 [component_base.dart]: https://github.com/Workiva/over_react/blob/master/lib/src/component_declaration/component_base.dart

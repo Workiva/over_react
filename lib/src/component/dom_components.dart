@@ -17,7 +17,7 @@ library over_react.dom_components;
 
 import 'package:over_react/src/component/prop_mixins.dart';
 import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
-import 'package:over_react/src/component_declaration/transformer_helpers.dart' as transformer_helpers;
+import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 
@@ -36,16 +36,16 @@ DomProps domProps([Map backingMap]) => new DomProps(null, backingMap);
 
 typedef DomProps DomPropsFactory();
 
-// Include pieces from transformer_helpers so that consumers can type these instances
+// Include pieces from builder_helpers so that consumers can type these instances
 // as the `UiProps` exposed in `over_react.dart` and not have to pull in `component_base`.
 class DomProps extends component_base.UiProps
     with
         DomPropsMixin,
         // ignore: mixin_of_non_class, undefined_class
         $DomPropsMixin,
-        transformer_helpers.GeneratedClass
+        builder_helpers.GeneratedClass
     implements
-        transformer_helpers.UiProps {
+        builder_helpers.UiProps {
   // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
   DomProps(this.componentFactory, [Map props]) : this.props = props ?? ({});
 
@@ -59,7 +59,7 @@ class DomProps extends component_base.UiProps
   String get propKeyNamespace => '';
 }
 
-// Include pieces from transformer_helpers so that consumers can type these instances
+// Include pieces from builder_helpers so that consumers can type these instances
 // as the `UiProps` exposed in `over_react.dart` and not have to pull in `component_base`.
 class SvgProps extends component_base.UiProps
     with
@@ -69,7 +69,7 @@ class SvgProps extends component_base.UiProps
         SvgPropsMixin,
         // ignore: mixin_of_non_class, undefined_class
         $SvgPropsMixin,
-        transformer_helpers.GeneratedClass
+        builder_helpers.GeneratedClass
     implements
         DomProps {
   // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
