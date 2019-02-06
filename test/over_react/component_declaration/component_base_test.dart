@@ -30,7 +30,6 @@ import '../../test_util/test_util.dart';
 import '../shared/map_proxy_tests.dart';
 
 main() {
-
   void _commonNonInvokedBuilderTests(UiProps builder) {
     bool warningsWereEnabled;
     setUp(() {

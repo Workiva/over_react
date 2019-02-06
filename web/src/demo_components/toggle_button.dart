@@ -3,7 +3,6 @@ import 'dart:html';
 import 'package:over_react/over_react.dart';
 
 import '../demo_components.dart';
-// ignore: uri_has_not_been_generated
 part 'toggle_button.over_react.g.dart';
 
 /// Use [ToggleButton]s in order to render functional `<input type="checkbox">`
@@ -11,14 +10,11 @@ part 'toggle_button.over_react.g.dart';
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#checkbox-and-radio-buttons>
 @Factory()
-// ignore: undefined_identifier
 UiFactory<ToggleButtonProps> ToggleButton = _$ToggleButton;
 
 @Props()
 class _$ToggleButtonProps extends ButtonProps with
-    AbstractInputPropsMixin,
-    // ignore: mixin_of_non_class, undefined_class
-    $AbstractInputPropsMixin {
+    AbstractInputPropsMixin {
   /// Whether the `<input>` rendered by the [ToggleButton] should have focus upon mounting.
   ///
   /// _Proxies [DomProps.autoFocus]._
@@ -59,9 +55,7 @@ class _$ToggleButtonProps extends ButtonProps with
 
 @State()
 class _$ToggleButtonState extends ButtonState with
-    AbstractInputStateMixin,
-    // ignore: mixin_of_non_class, undefined_class
-    $AbstractInputStateMixin {
+    AbstractInputStateMixin {
   /// Tracks if the [ToggleButton] is focused. Determines whether to render with the `js-focus` CSS
   /// class.
   ///
@@ -221,16 +215,3 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   String get id => props.id ?? state.id;
 }
 
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class ToggleButtonProps extends _$ToggleButtonProps with _$ToggleButtonPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForToggleButtonProps;
-}
-
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class ToggleButtonState extends _$ToggleButtonState with _$ToggleButtonStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = _$metaForToggleButtonState;
-}

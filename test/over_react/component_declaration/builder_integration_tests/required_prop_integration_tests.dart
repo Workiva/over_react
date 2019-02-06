@@ -19,7 +19,6 @@ import 'package:test/test.dart';
 
 import '../../../test_util/test_util.dart';
 
-// ignore: uri_has_not_been_generated
 part 'required_prop_integration_tests.over_react.g.dart';
 
 void requiredPropsIntegrationTest() {
@@ -135,7 +134,6 @@ void requiredPropsIntegrationTest() {
 }
 
 @Factory()
-// ignore: undefined_identifier
 UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
 
 @Props()

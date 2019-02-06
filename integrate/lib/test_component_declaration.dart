@@ -16,11 +16,9 @@ library over_react.integrate.test_component_declaration;
 
 import 'package:over_react/over_react.dart';
 
-// ignore: uri_has_not_been_generated
 part 'test_component_declaration.over_react.g.dart';
 
 @Factory()
-// ignore: undefined_identifier
 UiFactory<FooProps> Foo = _$Foo;
 
 @Props()
@@ -40,16 +38,3 @@ class FooComponent extends UiStatefulComponent<FooProps, FooState> {
   }
 }
 
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForFooProps;
-}
-
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class FooState extends _$FooState with _$FooStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = _$metaForFooState;
-}

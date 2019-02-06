@@ -1,14 +1,12 @@
 import 'package:over_react/over_react.dart';
 
 import '../demo_components.dart';
-// ignore: uri_has_not_been_generated
 part 'button_group.over_react.g.dart';
 
 /// Groups a series of [Button]s together on a single line.
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/button-group/>.
 @Factory()
-// ignore: undefined_identifier
 UiFactory<ButtonGroupProps> ButtonGroup = _$ButtonGroup;
 
 @Props()
@@ -160,16 +158,3 @@ final Map<ButtonSize, ButtonGroupSize> buttonToButtonGroupSize = const <ButtonSi
   ButtonSize.LARGE:   ButtonGroupSize.LARGE,
 };
 
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class ButtonGroupProps extends _$ButtonGroupProps with _$ButtonGroupPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForButtonGroupProps;
-}
-
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class ButtonGroupState extends _$ButtonGroupState with _$ButtonGroupStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = _$metaForButtonGroupState;
-}

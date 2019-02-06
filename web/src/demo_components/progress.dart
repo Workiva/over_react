@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:over_react/over_react.dart';
-// ignore: uri_has_not_been_generated
 part 'progress.over_react.g.dart';
 
 /// Bootstrap's `Progress` component stylizes the HTML5 `<progress>` element with a
@@ -9,7 +8,6 @@ part 'progress.over_react.g.dart';
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/progress/>
 @Factory()
-// ignore: undefined_identifier
 UiFactory<ProgressProps> Progress = _$Progress;
 
 @Props()
@@ -192,16 +190,3 @@ class ProgressSkin extends ClassNameConstant {
       const ProgressSkin._('INFO', 'progress-info');
 }
 
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class ProgressProps extends _$ProgressProps with _$ProgressPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForProgressProps;
-}
-
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class ProgressState extends _$ProgressState with _$ProgressStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = _$metaForProgressState;
-}

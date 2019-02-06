@@ -23,7 +23,6 @@ import 'package:over_react/over_react.dart' show
     PropsMeta, UiComponent, UiProps;
 import 'package:over_react/src/component_declaration/annotations.dart';
 
-// ignore: uri_has_not_been_generated
 part 'class_names.over_react.g.dart';
 
 /// Typed getters/setters for props related to CSS class manipulation.

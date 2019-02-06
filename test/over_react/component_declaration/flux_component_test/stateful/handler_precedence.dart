@@ -1,7 +1,6 @@
 part of over_react.component_declaration.flux_component_test;
 
 @Factory()
-// ignore: undefined_identifier
 UiFactory<TestStatefulHandlerPrecedenceProps> TestStatefulHandlerPrecedence = _$TestStatefulHandlerPrecedence;
 
 @Props()
@@ -35,16 +34,3 @@ class TestStatefulHandlerPrecedenceComponent extends FluxUiStatefulComponent<Tes
   }
 }
 
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class TestStatefulHandlerPrecedenceProps extends _$TestStatefulHandlerPrecedenceProps with _$TestStatefulHandlerPrecedencePropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForTestStatefulHandlerPrecedenceProps;
-}
-
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class TestStatefulHandlerPrecedenceState extends _$TestStatefulHandlerPrecedenceState with _$TestStatefulHandlerPrecedenceStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = _$metaForTestStatefulHandlerPrecedenceState;
-}

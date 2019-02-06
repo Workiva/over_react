@@ -15,7 +15,6 @@ part 'redux_component_test/default.dart';
 part 'redux_component_test/connect.dart';
 part 'redux_component_test/pure.dart';
 
-// ignore: uri_has_not_been_generated
 part 'redux_component_test.over_react.g.dart';
 
 void main() {

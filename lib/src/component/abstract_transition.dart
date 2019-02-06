@@ -21,7 +21,6 @@ import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/component_base.dart' as component_base;
 
-// ignore: uri_has_not_been_generated
 part 'abstract_transition.over_react.g.dart';
 
 @AbstractProps()
