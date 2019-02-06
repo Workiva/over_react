@@ -26,7 +26,6 @@ import 'package:test/test.dart';
 import 'over_react/util/class_names_test.dart' as class_names_test;
 import 'over_react/util/constants_base_test.dart' as constants_base_test;
 import 'over_react/util/css_value_util_test.dart' as css_value_util_test;
-import 'over_react/util/ddc_emulated_function_name_bug_test.dart' as ddc_emulated_function_name_bug_test;
 import 'over_react/util/dom_util_test.dart' as dom_util_test;
 import 'over_react/util/event_helpers_test.dart' as event_helpers_test;
 import 'over_react/util/guid_util_test.dart' as guid_util_test;
@@ -48,7 +47,6 @@ void main() {
   class_names_test.main();
   constants_base_test.main();
   css_value_util_test.main();
-  ddc_emulated_function_name_bug_test.main();
   dom_util_test.main();
   event_helpers_test.main();
   guid_util_test.main();
