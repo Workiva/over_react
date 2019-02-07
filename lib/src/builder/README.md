@@ -135,7 +135,7 @@ getters/setters (via the `_$FooPropsAccessorsMixin` class)
 
     ```
 
-5. Finally, it the initializer for our factory (_$Foo) is generated with a function that returns a new instance of our 
+5. Finally, the initializer for our factory (_$Foo) is generated with a function that returns a new instance of our 
 private props implementation. This factory is __the entry-point__ to externally consuming our 
 component and props class.
 

@@ -6,7 +6,6 @@
 
 [![Build Status](https://travis-ci.org/Workiva/over_react.svg?branch=master)](https://travis-ci.org/Workiva/over_react)
 [![Test Coverage](https://codecov.io/github/Workiva/over_react/coverage.svg?branch=master)](https://codecov.io/github/Workiva/over_react?branch=master)
-[![Strong Mode Compliant](https://img.shields.io/badge/strong_mode-on-brightgreen.svg)](https://github.com/Workiva/over_react/blob/master/analysis_options.yaml#L5)
 
 > A library for building statically-typed React UI components using Dart.
 
@@ -99,7 +98,7 @@ mount / render it into the HTML element you created in step 3.
     }    
     ```
 
-5. Run `pub serve` in the root of your Dart project.
+5. Run `pub run build_runner serve` in the root of your Dart project.
 
 &nbsp;
 
@@ -130,7 +129,7 @@ The `over_react` library functions as an additional "layer" atop the [Dart react
 which handles the underlying JS interop that wraps around [React JS][react-js].
 
 The library strives to maintain a 1:1 relationship with the React JS component class and API.
-To do that, an OverReact component is comprised of four core pieces that are each wired up to our
+To do that, an OverReact component is comprised of four core pieces that are each wired up 
 via our builder using an analogous [annotation].
 
 1. [UiFactory](#uifactory)
@@ -159,7 +158,7 @@ or [as a typed view into an existing props map](#uiprops-as-a-map).
 ### UiProps
 
 __`UiProps` is a Map class__ that adds statically-typed getters and setters for each React component prop.
-It can also be invoked as a function, serving as a builder for its analogous component. 
+It can also be invoked as a function, serving as a builder for its analogous component.
 
 ```dart
 @Props()
@@ -271,7 +270,7 @@ class _$FooState extends UiState {
 * Note: The [builder] will make the concrete getters and setters available in a generated class which has the same name
 as the class annotated with `@State()`, but without the `_$` prefix (which would be `FooState` in the above code).
 The generated class will also have the same API. So, consumers who wish to extend the functionality of `_$FooState` should 
-use the generated version, `FooProps`.
+use the generated version, `FooState`.
 
 &nbsp;
 
@@ -648,7 +647,7 @@ the [anatomy of a component](#anatomy-of-an-overreact-component) and the [DOM co
 that you get for free from OverReact, you're ready to start building your own custom React UI components.
 
 1. Start with one of the [component boilerplate templates](#component-boilerplate-templates) below 
-(Or, use OverReact's [code snippets for Intellij and Vs Code](snippets/README.md).
+(Or, use OverReact's [code snippets for Intellij and Vs Code](snippets/README.md)).
   * [Component](#component-boilerplate) _(props only)_
   * [Stateful Component](#stateful-component-boilerplate) _(props + state)_
   * [Flux Component](#flux-component-boilerplate) _(props + store + actions)_
@@ -661,7 +660,7 @@ that you get for free from OverReact, you're ready to start building your own cu
     $ pub run build_runner serve
     ```
 
-    _That’s it! Code will be automatically generated on the fly by Pub!_
+    _That’s it! Code will be automatically generated on the fly by the builder!_
 
 
 > __Check out some custom [component demos] to get a feel for what’s possible!__
