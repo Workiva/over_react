@@ -14,7 +14,7 @@
 > **Dart 2 Migration Guide**
 >
 > If you have existing over_react code written on Dart 1 and want to upgrade to
-> Dart 2, please read the [**Dart 2 Migration Guide**](/doc/dart2_migration.md)
+> Dart 2, please read the [**Dart 2 Migration Guide**](https://github.com/Workiva/over_react/blob/master/doc/dart2_migration.md)
 
 ---
 
@@ -106,11 +106,23 @@ mount / render it into the HTML element you created in step 3.
 
 When running tests on code that uses our [builder] _(or any code that imports `over_react`)_,
 __you must run your tests using build_runner__.
+>Warning: Do **_not_** run tests via `pub run build_runner test` in a package while another instance of `build_runner` 
+(e.g. `pub run build_runner serve`)is running in that same package. [This workflow is unsupported by build_runner](https://github.com/dart-lang/build/issues/352#issuecomment-461554316)
 
 1. Run tests through build_runner, and specify the platform to be a browser platform. Example: 
 
     ```bash
     $ pub run build_runner test -- -p chrome test/your_test_file.dart
+    ```
+1. When running tests in `over_react`, our `dart_test.yaml` specifies some handy presets for running tests in DDC and dart2js:
+> Note that these presets exist only in `over_react`.
+    1. To run tests in `over_react` compiled via DDC, run:
+    ```bash
+    $ pub run build_runner -- -P dartdevc
+    ```
+    1. To run tests in `over_react` compiled via dart2js, run:
+    ```bash
+    $ pub run build_runner -r -- -P dart2js
     ```
 
 &nbsp;
@@ -647,7 +659,7 @@ the [anatomy of a component](#anatomy-of-an-overreact-component) and the [DOM co
 that you get for free from OverReact, you're ready to start building your own custom React UI components.
 
 1. Start with one of the [component boilerplate templates](#component-boilerplate-templates) below 
-(Or, use OverReact's [code snippets for Intellij and Vs Code](snippets/README.md)).
+(Or, use OverReact's [code snippets for Intellij and Vs Code](https://github.com/Workiva/over_react/blob/master/snippets/README.md)).
   * [Component](#component-boilerplate) _(props only)_
   * [Stateful Component](#stateful-component-boilerplate) _(props + state)_
   * [Flux Component](#flux-component-boilerplate) _(props + store + actions)_
@@ -669,7 +681,7 @@ that you get for free from OverReact, you're ready to start building your own cu
 
 ### Component Boilerplate Templates
 
-* #### [Dart 1 and Dart 2 Backwards Compatible VS Code and WebStorm/IntelliJ Snippets](snippets/README.md)
+* #### [Dart 1 and Dart 2 Backwards Compatible VS Code and WebStorm/IntelliJ Snippets](https://github.com/Workiva/over_react/blob/master/snippets/README.md)
 
 * #### Component Boilerplate
 

@@ -4,3 +4,10 @@ src: README.md
 topics:
   - title: Builder
     src: lib/src/builder/README.md
+
+  - title: OverReact Dart 2 Migration Guid
+    src: doc/dart2_migration.md
+
+  - title: OverReact Dart 2 Code Snippets
+    src: snippets/README.md
+
