@@ -9,7 +9,7 @@ with Dart 1, **but it requires changes to consumer's component code.**
 
 > Note: If you intend to consume this version of over_react on Dart 1 and Dart 2
 > in the same codebase, **do not** remove the `transformers` section from your
-> `pubspec.yaml`.
+> `pubspec.yaml`. This section is ignored on Dart 2, but will still be needed on Dart 1
 
 __Breaking Changes__
 
