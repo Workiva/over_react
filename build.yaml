@@ -19,16 +19,20 @@ targets:
       # vm tests require the use of mirrors
       build_web_compilers|ddc:
         generate_for:
+          include:
+            - "example/**"
+            - "lib/**"
+            - "test/**"
+            - "web/**"
           exclude:
-            - "test/vm_tests/**"
-            - "test/builder/**"
             - "lib/src/builder/**"
-            - "tool/**"
       build_web_compilers|entrypoint:
         generate_for:
+          include:
+            - "example/builder/**"
+            - "lib/*.dart"
+            - "test/*.dart"
+            - "web/*.dart"
           exclude:
-            - "test/vm_tests/**"
-            - "test/builder/**"
             - "lib/src/builder/**"
-            - "tool/**"
 
