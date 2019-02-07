@@ -518,6 +518,9 @@ class ImplGenerator {
   /// Example:
   ///   Input: FooComponent
   ///   Output: $FooComponentFactory
+  ///
+  /// NOTE: The factory name must be public, since sub components will reference
+  /// factories from super components.
   static String _componentFactoryName(String componentClassName) {
     if (componentClassName == null) {
       throw new ArgumentError.notNull(componentClassName);

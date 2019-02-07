@@ -677,9 +677,9 @@ main() {
             ''');
 
             verify(logger.severe(contains(
-                'Factory variables are stubs for the generated factories, and should not have initializers'
-                    ' unless initialized with a valid variable name for Dart 2 builder compatibility. Should be:\n'
-                    '    _\$Foo')));
+                'Factory variables are stubs for the generated factories, and should '
+                  'be initialized with the valid variable name for builder compatibility. '
+                  'Should be: _\$Foo',)));
           });
           test('declared using multiple variables', () {
             setUpAndParse('''
@@ -701,9 +701,10 @@ main() {
             ''');
 
             verify(logger.severe(contains(
-                'Factory variables are stubs for the generated factories, and should not have initializers'
-                    ' unless initialized with a valid variable name for Dart 2 builder compatibility. Should be:\n'
-                    '    _\$Foo')));
+                'Factory variables are stubs for the generated factories, and should '
+                  'be initialized with the valid variable name for builder compatibility. '
+                  'Should be: _\$Foo')));
+
           });
 
           test('private and declared with an invalid initializer', () {
@@ -715,9 +716,9 @@ main() {
             ''');
 
             verify(logger.severe(contains(
-                'Factory variables are stubs for the generated factories, and should not have initializers'
-                    ' unless initialized with a valid variable name for Dart 2 builder compatibility. Should be:\n'
-                    '    _\$_Foo')));
+                'Factory variables are stubs for the generated factories, and should '
+                  'be initialized with the valid variable name for builder compatibility. '
+                  'Should be: _\$_Foo')));
           });
         });
 

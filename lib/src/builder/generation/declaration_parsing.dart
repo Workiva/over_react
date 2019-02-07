@@ -341,7 +341,7 @@ class ParsedDeclarations {
           error(
               'Factory variables are stubs for the generated factories, and should '
                   'be initialized with the valid variable name for builder compatibility. '
-                  'Should be:\n    $expectedInitializer}',
+                  'Should be: $expectedInitializer',
               getSpan(sourceFile, variable.initializer ?? variable)
           );
         }
