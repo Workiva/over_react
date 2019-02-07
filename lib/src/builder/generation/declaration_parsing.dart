@@ -339,8 +339,8 @@ class ParsedDeclarations {
 
         if ((variable?.initializer?.toString() ?? '') != expectedInitializer) {
           error(
-              'Factory variables are stubs for the generated factories, and should not have initializers '
-                  'unless initialized with a valid variable name for Dart 2 builder compatibility. '
+              'Factory variables are stubs for the generated factories, and should '
+                  'be initialized with the valid variable name for builder compatibility. '
                   'Should be:\n    $expectedInitializer}',
               getSpan(sourceFile, variable.initializer ?? variable)
           );
