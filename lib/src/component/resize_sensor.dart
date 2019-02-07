@@ -23,7 +23,6 @@ import 'package:meta/meta.dart';
 import 'package:platform_detect/platform_detect.dart';
 import 'package:over_react/over_react.dart';
 
-// ignore: uri_has_not_been_generated
 part 'resize_sensor.over_react.g.dart';
 
 /// A wrapper component that detects when its parent is resized, providing a [ResizeSensorEvent]
@@ -64,16 +63,10 @@ part 'resize_sensor.over_react.g.dart';
 ///
 /// > The component _must_ be put in a relative or absolutely positioned container.
 @Factory()
-// ignore: undefined_identifier
 UiFactory<ResizeSensorProps> ResizeSensor = _$ResizeSensor;
 
 @PropsMixin()
-abstract class ResizeSensorPropsMixin {
-  // To ensure the codemod regression checking works properly, please keep this
-  // field at the top of the class!
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForResizeSensorPropsMixin;
-
+abstract class _$ResizeSensorPropsMixin {
   static final ResizeSensorPropsMixinMapView defaultProps = new ResizeSensorPropsMixinMapView({})
     ..isFlexChild = false
     ..isFlexContainer = false
@@ -167,10 +160,7 @@ abstract class ResizeSensorPropsMixin {
 }
 
 @Props()
-class _$ResizeSensorProps extends UiProps with
-    ResizeSensorPropsMixin,
-    // ignore: mixin_of_non_class, undefined_class
-    $ResizeSensorPropsMixin {}
+class _$ResizeSensorProps extends UiProps with ResizeSensorPropsMixin {}
 
 @Component()
 class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAnimationFrameMixin {
@@ -496,9 +486,7 @@ class ResizeSensorEvent {
 
 /// A MapView with the typed getters/setters for all HitArea display variation props.
 class ResizeSensorPropsMixinMapView extends MapView with
-    ResizeSensorPropsMixin,
-    // ignore: mixin_of_non_class, undefined_class
-    $ResizeSensorPropsMixin {
+    ResizeSensorPropsMixin {
   /// Create a new instance backed by the specified map.
   ResizeSensorPropsMixinMapView(Map map) : super(map);
 
@@ -531,11 +519,4 @@ class _SafeAnimationFrameMixin {
   void cancelAnimationFrames() {
     _animationFrameIds.forEach(window.cancelAnimationFrame);
   }
-}
-
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class ResizeSensorProps extends _$ResizeSensorProps with _$ResizeSensorPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForResizeSensorProps;
 }

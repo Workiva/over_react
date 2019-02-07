@@ -16,11 +16,10 @@ import 'package:test/test.dart';
 
 import '../../../test_util/test_util.dart';
 
-// ignore: uri_has_not_been_generated
 part 'namespaced_accessor_integration_test.over_react.g.dart';
 
 main() {
-  group('transformed custom namespaced props/state integration:', () {
+  group('custom namespaced props/state integration:', () {
     group('generates prop getters/setters, when there is a custom key namespace, with', () {
       test('the custom namespace and the prop name as the key by default', () {
         expect(NamespacedAccessorTest()..stringProp = 'test',
@@ -104,7 +103,6 @@ main() {
 
 
 @Factory()
-// ignore: undefined_identifier
 UiFactory<NamespacedAccessorTestProps> NamespacedAccessorTest = _$NamespacedAccessorTest;
 
 @Props(keyNamespace: 'custom props class namespace**')
@@ -147,16 +145,3 @@ class NamespacedAccessorTestComponent extends UiStatefulComponent<NamespacedAcce
   )('rendered content');
 }
 
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps with _$NamespacedAccessorTestPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForNamespacedAccessorTestProps;
-}
-
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class NamespacedAccessorTestState extends _$NamespacedAccessorTestState with _$NamespacedAccessorTestStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = _$metaForNamespacedAccessorTestState;
-}

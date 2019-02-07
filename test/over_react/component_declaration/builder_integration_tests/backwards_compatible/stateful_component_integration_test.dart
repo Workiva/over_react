@@ -14,13 +14,13 @@
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
-import '../../../test_util/test_util.dart';
+import '../../../../test_util/test_util.dart';
 
 // ignore: uri_has_not_been_generated
 part 'stateful_component_integration_test.over_react.g.dart';
 
 main() {
-  group('transformed stateful component integration:', () {
+  group('(backwards compatible with Dart 1) stateful component integration:', () {
     test('state class cannot be instantiated directly', () {
       expect(() {
         new StatefulComponentTestState();

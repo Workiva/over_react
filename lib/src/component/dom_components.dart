@@ -41,8 +41,6 @@ typedef DomProps DomPropsFactory();
 class DomProps extends component_base.UiProps
     with
         DomPropsMixin,
-        // ignore: mixin_of_non_class, undefined_class
-        $DomPropsMixin,
         builder_helpers.GeneratedClass
     implements
         builder_helpers.UiProps {
@@ -64,11 +62,7 @@ class DomProps extends component_base.UiProps
 class SvgProps extends component_base.UiProps
     with
         DomPropsMixin,
-        // ignore: mixin_of_non_class, undefined_class
-        $DomPropsMixin, 
         SvgPropsMixin,
-        // ignore: mixin_of_non_class, undefined_class
-        $SvgPropsMixin,
         builder_helpers.GeneratedClass
     implements
         DomProps {

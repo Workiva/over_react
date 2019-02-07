@@ -5,10 +5,6 @@ part 'basic.over_react.g.dart';
 @Factory()
 UiFactory<BasicProps> Basic = _$Basic;
 
-class BasicProps extends _$BasicProps with _$BasicPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForBasicProps;
-}
-
 @Props()
 class _$BasicProps extends UiProps {
   @deprecated

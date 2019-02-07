@@ -1,5 +1,4 @@
 import 'package:over_react/over_react.dart';
-// ignore: uri_has_not_been_generated
 part 'constants.over_react.g.dart';
 
 const String demoMountNodeSelectorPrefix = '.component-demo__mount';
@@ -43,12 +42,7 @@ class ToggleBehaviorType extends DebugFriendlyConstant {
 }
 
 @PropsMixin()
-abstract class AbstractInputPropsMixin {
-  // To ensure the codemod regression checking works properly, please keep this
-  // field at the top of the class!
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForAbstractInputPropsMixin;
-
+abstract class _$AbstractInputPropsMixin {
   Map get props;
 
   /// The id for the input.
@@ -85,12 +79,7 @@ abstract class AbstractInputPropsMixin {
 }
 
 @StateMixin()
-abstract class AbstractInputStateMixin {
-  // To ensure the codemod regression checking works properly, please keep this
-  // field at the top of the class!
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = _$metaForAbstractInputStateMixin;
-
+abstract class _$AbstractInputStateMixin {
   Map get state;
 
   /// An auto-generated GUID, used as a fallback when the [AbstractInputPropsMixin.id] prop is unspecified,

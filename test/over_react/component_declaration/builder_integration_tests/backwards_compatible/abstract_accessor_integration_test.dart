@@ -18,7 +18,7 @@ import 'package:test/test.dart';
 part 'abstract_accessor_integration_test.over_react.g.dart';
 
 main() {
-  group('transformed abstract accessor integration:', () {
+  group('(backwards compatible with Dart 1) transformed abstract accessor integration:', () {
     group('@AbstractProps()', () {
       group('generates prop getters/setters with', () {
         test('the props class name as a namespace and the prop name as the key by default', () {

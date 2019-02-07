@@ -1,12 +1,7 @@
 part of basic.library;
 
-class SuperPartOfLibProps extends _$SuperPartOfLibProps with _$SuperPartOfLibPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForSuperPartOfLibProps;
-}
-
 @AbstractProps()
 class _$SuperPartOfLibProps extends UiProps {
-
   String superProp;
 }
 
@@ -26,14 +21,8 @@ abstract class SuperPartOfLibComponent<T extends SuperPartOfLibProps> extends Ui
 @Factory()
 UiFactory<SubPartOfLibProps> SubPartOfLib = _$SubPartOfLib;
 
-class SubPartOfLibProps extends _$SubPartOfLibProps with _$SubPartOfLibPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForSubPartOfLibProps;
-}
-
 @Props()
-// Heads up: props class inheritance doesn't work properly currently
 class _$SubPartOfLibProps extends SuperPartOfLibProps {
-
   String subProp;
 }
 
