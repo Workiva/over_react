@@ -3,7 +3,10 @@ dart:
   - stable
 script:
   - pub run build_runner build
-  - pub run dart_dev analyze
+  # tuneup uses the analysis server under the hood for analysis instead of dartanalyzer. The server can
+  # resolve elements from built files under .dart_tool, the dartanalyzer cli currently does not.
+  - pub global activate tuneup
+  - pub global run tuneup check --ignore-infos
   # TODO: Remove ignore on analyzer once the wdesk ecosystem is all on a Dart 2 compat major version and we no longer need a "pinned" dep
   - pub run dependency_validator --no-fatal-pins -i coverage,build_web_compilers,analyzer,build_runner,built_value_generator
   # run tests on ddc output

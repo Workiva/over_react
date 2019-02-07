@@ -30,10 +30,42 @@ class ParsedDeclarations {
   factory ParsedDeclarations(CompilationUnit unit, SourceFile sourceFile, Logger logger) {
     bool hasErrors = false;
     bool hasDeclarations = false;
+    bool hasPropsCompanionClass = false;
+    bool hasAbstractPropsCompanionClass = false;
+    bool hasStateCompanionClass = false;
+    bool hasAbstractStateCompanionClass = false;
 
     void error(String message, [SourceSpan span]) {
       hasErrors = true;
       logger.severe(messageWithSpan(message, span: span));
+    }
+
+    /// If a [ClassMember] exists in [node] with the name `meta`, this will
+    /// throw an error if the member is not static and a warning if the member
+    /// is static.
+    void checkForMetaPresence(ClassDeclaration node) {
+      final metaField = metaFieldOrNull(node);
+      final metaMethod = metaMethodOrNull(node);
+      final isNotNull = metaField != null || metaMethod != null;
+      final isStatic = (metaField?.isStatic ?? false) || (metaMethod?.isStatic ?? false);
+      if (isNotNull) {
+        // If a class declares a field or method with the name of `meta` which is
+        // not static, then we should error, since the static `meta` const in the
+        // generated implementation will have a naming collision.
+        if (!isStatic) {
+          error('Non-static class member `meta` is declared in ${node.name.name}. '
+              '`meta` is a field declared by the over_react builder, and is therefore not '
+              'valid for use as a class member in any class annotated with  @Props(), @State(), '
+              '@AbstractProps(), @AbstractState(), @PropsMixin(), or @StateMixin()',
+              getSpan(sourceFile, metaField ?? metaMethod));
+        } else {
+          // warn that static `meta` definition will not be accessible by consumers.
+          logger.warning(messageWithSpan('Static class member `meta` is declared in ${node.name.name}. '
+              '`meta` is a field declared by the over_react builder, and therefore this '
+              'class member will be unused and should be removed or renamed.',
+              span: getSpan(sourceFile, metaField ?? metaMethod)));
+        }
+      }
     }
 
     /// Validates that `meta` field in a companion class or props/state mixin
@@ -56,7 +88,7 @@ class ParsedDeclarations {
         );
       }
 
-      final expectedInitializer = '${generatedPrefix}metaFor${cd.name.name}';
+      final expectedInitializer = '${privateSourcePrefix}metaFor${cd.name.name}';
 
       final initializer = metaField.fields.variables.single.initializer
           ?.toSource();
@@ -83,6 +115,23 @@ class ParsedDeclarations {
       key_stateMixin:        <CompilationUnitMember>[],
     };
 
+    void updateCompanionClass(String annotation, bool value) {
+      switch (annotation) {
+        case 'Props':
+          hasPropsCompanionClass = value;
+          break;
+        case 'AbstractProps':
+          hasAbstractPropsCompanionClass = value;
+          break;
+        case 'State':
+          hasStateCompanionClass = value;
+          break;
+        case 'AbstractState':
+          hasAbstractStateCompanionClass = value;
+          break;
+      }
+    }
+
     bool isPropsClass(String annotation) {
       return (annotation == 'Props' || annotation == 'AbstractProps');
     }
@@ -91,44 +140,48 @@ class ParsedDeclarations {
       return (annotation == 'State' || annotation == 'AbstractState');
     }
 
-    final companionPrefix = r'_$';
-    unit.declarations.forEach((CompilationUnitMember member) {
-      member.metadata.forEach((annotation) {
-        final name = annotation.name.toString();
-        if ((isPropsClass(name) || isStateClass(name)) && member is ClassDeclaration) {
-          if (member.name.name.startsWith(generatedPrefix)) {
-            final companionName = member.name.name.substring(generatedPrefix.length);
-            final privateCompanionName = '$privatePrefix$companionName';
-            final privateCompanionClass = unit.declarations.firstWhere(
-                    (innerMember) =>
-                innerMember is ClassDeclaration && innerMember.name.name == privateCompanionName,
-                orElse: () => null);
-            final publicCompanionClass = unit.declarations.firstWhere(
-                    (innerMember) =>
-                innerMember is ClassDeclaration && innerMember.name.name == companionName,
-                orElse: () => null);
+    unit.declarations.forEach((CompilationUnitMember _member) {
+      _member.metadata.forEach((_annotation) {
+        final annotation = _annotation.name.toString();
 
-            if (privateCompanionClass == null && publicCompanionClass == null) {
-              error('${member.name.name} must have an accompanying companion class within the '
-                  'same file for Dart 2 builder compatibility, but one was not found.', getSpan(sourceFile, member));
-            } else {
-              if (privateCompanionClass != null) {
-                validateMetaField(privateCompanionClass, isPropsClass(name) ? 'PropsMeta' : 'StateMeta');
-              } else {
-                validateMetaField(publicCompanionClass, isPropsClass(name) ? 'PropsMeta' : 'StateMeta');
-              }
-            }
-          } else {
-            // Props or state class has the incorrect naming (should start with [companionPrefix]
-            error('The class `${member.name.name}` does not start with `$generatedPrefix`. All Props, State, '
-                'AbstractProps, and AbstractState classes should begin with `$generatedPrefix` under Dart 2',
-              getSpan(sourceFile, member));
-          }
+        // Add to declarationMap if we have a valid over_react annotation
+        if (declarationMap[annotation] != null) {
+          hasDeclarations = true;
+          declarationMap[annotation].add(_member);
         }
 
-        if (declarationMap[name] != null) {
-          hasDeclarations = true;
-          declarationMap[name].add(member);
+        // Now we need to check for a companion class on Dart 2 backwards compatible boilerplate
+        // only check for companion class for @Props(), @State, @AbstractProps(),
+        // and @AbstractState() annotated classes
+        if (_member is! ClassDeclaration || !(isPropsClass(annotation) || isStateClass(annotation))) {
+          return;
+        }
+
+        final ClassDeclaration member = _member;
+
+        // Check that class name starts with [privateSourcePrefix]
+        if (!member.name.name.startsWith(privateSourcePrefix)) {
+          error('The class `${member.name.name}` does not start with `$privateSourcePrefix`. All Props, State, '
+              'AbstractProps, and AbstractState classes should begin with `$privateSourcePrefix` on Dart 2',
+              getSpan(sourceFile, member));
+          return;
+        }
+
+        final companionName = member.name.name.substring(privateSourcePrefix.length);
+        final companionClass = unit.declarations.firstWhere(
+                (innerMember) =>
+            innerMember is ClassDeclaration && innerMember.name.name == companionName,
+            orElse: () => null);
+
+        final hasCompanionClass = companionClass != null;
+        if (hasCompanionClass) {
+          // Backwards compatible boilerplate. Verify the companion class' meta field
+          updateCompanionClass(annotation, true);
+          validateMetaField(companionClass, isPropsClass(annotation) ? 'PropsMeta': 'StateMeta');
+        } else {
+          // Dart 2 only boilerplate. Check for meta presence
+          checkForMetaPresence(member);
+          updateCompanionClass(annotation, false);
         }
       });
     });
@@ -251,12 +304,24 @@ class ParsedDeclarations {
         declarationMap[annotationName] = [];
       });
     } else {
+      void checkMetaForMixin(ClassDeclaration mixin, String metaStructName) {
+        final className = mixin.name.name;
+        // If the mixin starts with `_$`, then we are on Dart 2 only boilerplate,
+        // and the mixin should not have a meta field/method
+        if (className.startsWith(privateSourcePrefix)) {
+          checkForMetaPresence(mixin);
+        } else {
+          // If the mixin does start not start with `_$`, then we are on the transitional
+          // boilerplate and we need to validate the meta field.
+          validateMetaField(mixin, metaStructName);
+        }
+      }
       for (final propsMixin in declarationMap[key_propsMixin]) {
-        validateMetaField(propsMixin, 'PropsMeta');
+        checkMetaForMixin(propsMixin, 'PropsMeta');
       }
 
       for (final stateMixin in declarationMap[key_stateMixin]) {
-        validateMetaField(stateMixin, 'StateMeta');
+        checkMetaForMixin(stateMixin, 'StateMeta');
       }
     }
 
@@ -268,19 +333,18 @@ class ParsedDeclarations {
       if (factory.variables.variables.length != 1) {
         error('Factory declarations must be a single variable.',
             getSpan(sourceFile, factory.variables));
-      }
+      } else {
+        final variable = factory.variables.variables.first;
+        final expectedInitializer = '$privateSourcePrefix$factoryName';
 
-      final variable = factory.variables.variables.first;
-      final expectedInitializer = '$generatedPrefix$factoryName';
-
-      if (variable.initializer != null &&
-          !expectedInitializer.contains(variable.initializer.toString())) {
-        error(
-            'Factory variables are stubs for the generated factories, and should not have initializers '
-                'unless initialized with a valid variable name for Dart 2 builder compatibility. '
-                'Should be:\n    $expectedInitializer}',
-            getSpan(sourceFile, variable.initializer)
-        );
+        if ((variable?.initializer?.toString() ?? '') != expectedInitializer) {
+          error(
+              'Factory variables are stubs for the generated factories, and should '
+                  'be initialized with the valid variable name for builder compatibility. '
+                  'Should be: $expectedInitializer',
+              getSpan(sourceFile, variable.initializer ?? variable)
+          );
+        }
       }
     }
 
@@ -304,6 +368,10 @@ class ParsedDeclarations {
 
         hasErrors: hasErrors,
         hasDeclarations: hasDeclarations,
+        hasPropsCompanionClass: hasPropsCompanionClass,
+        hasAbstractPropsCompanionClass: hasAbstractPropsCompanionClass,
+        hasStateCompanionClass: hasStateCompanionClass,
+        hasAbstractStateCompanionClass: hasAbstractStateCompanionClass,
     );
   }
 
@@ -321,14 +389,19 @@ class ParsedDeclarations {
 
       this.hasErrors,
       this.hasDeclarations,
+
+      bool hasPropsCompanionClass,
+      bool hasAbstractPropsCompanionClass,
+      bool hasStateCompanionClass,
+      bool hasAbstractStateCompanionClass,
   }) :
       this.factory       = (factory   == null) ? null : new FactoryNode(factory),
       this.component     = (component == null) ? null : new ComponentNode(component),
-      this.props         = (props     == null) ? null : new PropsNode(props),
-      this.state         = (state     == null) ? null : new StateNode(state),
+      this.props         = (props     == null) ? null : new PropsNode(props, hasPropsCompanionClass),
+      this.state         = (state     == null) ? null : new StateNode(state, hasStateCompanionClass),
 
-      this.abstractProps = new List.unmodifiable(abstractProps.map((propsMixin) => new AbstractPropsNode(propsMixin))),
-      this.abstractState = new List.unmodifiable(abstractState.map((stateMixin) => new AbstractStateNode(stateMixin))),
+      this.abstractProps = new List.unmodifiable(abstractProps.map((props) => new AbstractPropsNode(props, hasAbstractPropsCompanionClass))),
+      this.abstractState = new List.unmodifiable(abstractState.map((state) => new AbstractStateNode(state, hasAbstractStateCompanionClass))),
 
       this.propsMixins   = new List.unmodifiable(propsMixins.map((propsMixin) => new PropsMixinNode(propsMixin))),
       this.stateMixins   = new List.unmodifiable(stateMixins.map((stateMixin) => new StateMixinNode(stateMixin))),
@@ -437,11 +510,24 @@ class ComponentNode extends NodeWithMeta<ClassDeclaration, annotations.Component
 }
 
 class FactoryNode           extends NodeWithMeta<TopLevelVariableDeclaration, annotations.Factory> {FactoryNode(unit)           : super(unit);}
-class PropsNode             extends NodeWithMeta<ClassDeclaration, annotations.Props>              {PropsNode(unit)             : super(unit);}
-class StateNode             extends NodeWithMeta<ClassDeclaration, annotations.State>              {StateNode(unit)             : super(unit);}
 
-class AbstractPropsNode     extends NodeWithMeta<ClassDeclaration, annotations.AbstractProps>      {AbstractPropsNode(unit)     : super(unit);}
-class AbstractStateNode     extends NodeWithMeta<ClassDeclaration, annotations.AbstractState>      {AbstractStateNode(unit)     : super(unit);}
+class PropsOrStateNode<T> extends NodeWithMeta<ClassDeclaration, T> {
+  final bool hasCompanionClass;
+  PropsOrStateNode(unit, this.hasCompanionClass): super(unit);
+}
+class PropsNode extends PropsOrStateNode<annotations.Props> {
+  PropsNode(unit, hasCompanionClass): super(unit, hasCompanionClass);
+}
+class StateNode extends PropsOrStateNode<annotations.State> {
+  StateNode(unit, hasCompanionClass): super(unit, hasCompanionClass);
+}
+
+class AbstractPropsNode extends PropsOrStateNode<annotations.AbstractProps> {
+  AbstractPropsNode(unit, hasCompanionClass): super(unit, hasCompanionClass);
+}
+class AbstractStateNode extends PropsOrStateNode<annotations.AbstractState> {
+  AbstractStateNode(unit, hasCompanionClass): super(unit, hasCompanionClass);
+}
 
 class PropsMixinNode        extends NodeWithMeta<ClassDeclaration, annotations.PropsMixin>         {PropsMixinNode(unit)        : super(unit);}
 class StateMixinNode        extends NodeWithMeta<ClassDeclaration, annotations.StateMixin>         {StateMixinNode(unit)        : super(unit);}

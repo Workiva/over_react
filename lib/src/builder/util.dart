@@ -6,10 +6,10 @@ import 'package:build/build.dart' show AssetId;
 import 'package:source_span/source_span.dart';
 
 const outputExtension = '.over_react.g.dart';
-const generatedPrefix = r'_$';
+
+const privateSourcePrefix = r'_$';
 const privatePrefix = r'_';
 const publicGeneratedPrefix = r'$';
-
 
 String getName(Type type) {
   return MirrorSystem.getName(reflectType(type).simpleName);
@@ -63,3 +63,30 @@ String messageWithSpan(String message, {SourceSpan span}) {
   return '$message$spanMsg';
 }
 
+/// Returns any [FieldDeclaration]s on [node] which have the name `meta`,
+/// otherwise `null`.
+FieldDeclaration metaFieldOrNull(ClassDeclaration node) {
+  return node.members.firstWhere((member) => member is FieldDeclaration && fieldDeclarationHasMeta(member),
+      orElse: () => null);
+}
+
+/// Returns `true` if the supplied [FieldDeclaration] contains any variables named
+/// `meta`, otherwise `false`.
+bool fieldDeclarationHasMeta(FieldDeclaration field) {
+  return fieldDeclarationHasName(field, 'meta');
+}
+
+/// Returns `true` if the supplied [FieldDeclaration] contains any variables named
+/// [name], otherwise `false`.
+bool fieldDeclarationHasName(FieldDeclaration field, String name) {
+  return (field.fields.variables.firstWhere((variable) =>
+      variable.name.name == name, orElse: () => null)) != null;
+}
+
+/// Returns any [MethodDeclaration]s on [node] which have the name `meta`,
+/// otherwise `null`.
+MethodDeclaration metaMethodOrNull(ClassDeclaration node) {
+  return node.members.firstWhere((member) =>
+      member is MethodDeclaration && member.name.name == 'meta',
+      orElse: () => null);
+}

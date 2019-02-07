@@ -1,7 +1,6 @@
 part of over_react.component_declaration.flux_component_test;
 
 @Factory()
-// ignore: undefined_identifier
 UiFactory<TestStoreHandlersProps> TestStatefulStoreHandlers = _$TestStatefulStoreHandlers;
 
 @Props()
@@ -25,16 +24,3 @@ class TestStatefulStoreHandlersComponent extends FluxUiStatefulComponent<TestSta
   }
 }
 
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps with _$TestStatefulStoreHandlersPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForTestStatefulStoreHandlersProps;
-}
-
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class TestStatefulStoreHandlersState extends _$TestStatefulStoreHandlersState with _$TestStatefulStoreHandlersStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = _$metaForTestStatefulStoreHandlersState;
-}

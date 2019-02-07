@@ -15,13 +15,13 @@ import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
 import './required_prop_integration_tests.dart' as r;
-import '../../../test_util/test_util.dart';
+import '../../../../test_util/test_util.dart';
 
 // ignore: uri_has_not_been_generated
 part 'component_integration_test.over_react.g.dart';
 
 main() {
-  group('transformed component integration:', () {
+  group('(backwards compatible with Dart 1) component integration:', () {
     test('renders a component from end to end, successfully reading props via typed getters', () {
       var instance = render((ComponentTest()
         ..stringProp = '1'

@@ -17,17 +17,17 @@ import 'package:over_react/over_react.dart';
 import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:test/test.dart';
 
-import '../../../test_util/test_util.dart';
+import '../../../../test_util/test_util.dart';
 
 // ignore: uri_has_not_been_generated
-part 'required_accessor_integration_test.over_react.g.dart';
+part 'constant_required_accessor_integration_test.over_react.g.dart';
 
 void main() {
-  group('properly identifies required props by', () {
+  group('(backwards compatible with Dart 1) properly identifies required props by', () {
     group('throwing when a prop is required and not set', () {
       test('on mount', () {
         expect(() => render(ComponentTest()..nullable = true),
-            throwsPropError_Required('ComponentTestProps.required', 'This Prop is Required for testing purposes.')
+            throwsPropError_Required('ComponentTestProps.required')
         );
       });
 
@@ -39,7 +39,7 @@ void main() {
         )(), mountNode);
 
         expect(() => react_dom.render((ComponentTest()..nullable = true)(), mountNode),
-            throwsPropError_Required('ComponentTestProps.required', 'This Prop is Required for testing purposes.')
+            throwsPropError_Required('ComponentTestProps.required')
         );
       });
     });
@@ -64,7 +64,7 @@ void main() {
               ..required = null
               ..nullable = true
             )(), mountNode),
-            throwsPropError_Required('ComponentTestProps.required', 'This Prop is Required for testing purposes.')
+            throwsPropError_Required('ComponentTestProps.required')
         );
       });
     });
@@ -83,7 +83,7 @@ void main() {
         )(), mountNode);
 
         expect(() => react_dom.render((ComponentTest()..required = true)(), mountNode),
-            throwsPropError_Required('ComponentTestProps.nullable', 'This prop can be set to null!')
+            throwsPropError_Required('ComponentTestProps.nullable')
         );
       });
     });
@@ -140,10 +140,10 @@ UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
 
 @Props()
 class _$ComponentTestProps extends UiProps {
-  @Accessor(isRequired: true, requiredErrorMessage: 'This Prop is Required for testing purposes.')
+  @requiredProp
   var required;
 
-  @Accessor(isRequired: true, isNullable: true, requiredErrorMessage: 'This prop can be set to null!')
+  @nullableRequiredProp
   var nullable;
 }
 

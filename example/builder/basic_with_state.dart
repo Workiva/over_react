@@ -2,18 +2,13 @@ import 'package:over_react/over_react.dart';
 import 'props_mixin.dart' as pm;
 import 'state_mixin.dart';
 
-
 part 'basic_with_state.over_react.g.dart';
 
 @Factory()
 UiFactory<BasicProps> Basic = _$Basic;
 
-class BasicProps extends _$BasicProps with _$BasicPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForBasicProps;
-}
-
 @Props()
-class _$BasicProps extends UiProps with pm.ExamplePropsMixinClass, pm.$ExamplePropsMixinClass {
+class _$BasicProps extends UiProps with pm.ExamplePropsMixinClass {
   String basicProp;
   String basic1;
   String basic2;
@@ -22,12 +17,8 @@ class _$BasicProps extends UiProps with pm.ExamplePropsMixinClass, pm.$ExamplePr
   String basic5;
 }
 
-abstract class BasicState extends _$BasicState with _$BasicStateAccessorsMixin {
-  static const StateMeta meta = _$metaForBasicState;
-}
-
 @State()
-class _$BasicState extends UiState with ExampleStateMixinClass, $ExampleStateMixinClass {
+class _$BasicState extends UiState with ExampleStateMixinClass {
   String basicState;
 }
 

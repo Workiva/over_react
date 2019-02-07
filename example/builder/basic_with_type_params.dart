@@ -5,10 +5,6 @@ part 'basic_with_type_params.over_react.g.dart';
 @Factory()
 UiFactory<BasicProps> Basic = _$Basic;
 
-class BasicProps<T, U extends UiProps> extends _$BasicProps<T, U> with _$BasicPropsAccessorsMixin<T, U> {
-  static const PropsMeta meta = _$metaForBasicProps;
-}
-
 @Props()
 class _$BasicProps<T, U extends UiProps> extends UiProps {
   List<T> someGenericListProp;

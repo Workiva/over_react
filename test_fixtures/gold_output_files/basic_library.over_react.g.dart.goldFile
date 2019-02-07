@@ -124,6 +124,11 @@ const PropsMeta _$metaForBasicPartOfLibProps = const PropsMeta(
   keys: _$BasicPartOfLibPropsAccessorsMixin.$propKeys,
 );
 
+class BasicPartOfLibProps extends _$BasicPartOfLibProps
+    with _$BasicPartOfLibPropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForBasicPartOfLibProps;
+}
+
 _$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) =>
     new _$$BasicPartOfLibProps(backingProps);
 
@@ -186,6 +191,11 @@ const StateMeta _$metaForBasicPartOfLibState = const StateMeta(
   keys: _$BasicPartOfLibStateAccessorsMixin.$stateKeys,
 );
 
+class BasicPartOfLibState extends _$BasicPartOfLibState
+    with _$BasicPartOfLibStateAccessorsMixin {
+  static const StateMeta meta = _$metaForBasicPartOfLibState;
+}
+
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
@@ -210,10 +220,12 @@ class _$$BasicPartOfLibState extends _$BasicPartOfLibState
 // generated for the associated props class.
 class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
   @override
-  typedPropsFactory(Map backingMap) => new _$$BasicPartOfLibProps(backingMap);
+  _$$BasicPartOfLibProps typedPropsFactory(Map backingMap) =>
+      new _$$BasicPartOfLibProps(backingMap);
 
   @override
-  typedStateFactory(Map backingMap) => new _$$BasicPartOfLibState(backingMap);
+  _$$BasicPartOfLibState typedStateFactory(Map backingMap) =>
+      new _$$BasicPartOfLibState(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -270,6 +282,11 @@ const PropsMeta _$metaForSubPartOfLibProps = const PropsMeta(
   keys: _$SubPartOfLibPropsAccessorsMixin.$propKeys,
 );
 
+class SubPartOfLibProps extends _$SubPartOfLibProps
+    with _$SubPartOfLibPropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForSubPartOfLibProps;
+}
+
 _$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) =>
     new _$$SubPartOfLibProps(backingProps);
 
@@ -306,7 +323,8 @@ class _$$SubPartOfLibProps extends _$SubPartOfLibProps
 // generated for the associated props class.
 class _$SubPartOfLibComponent extends SubPartOfLibComponent {
   @override
-  typedPropsFactory(Map backingMap) => new _$$SubPartOfLibProps(backingMap);
+  _$$SubPartOfLibProps typedPropsFactory(Map backingMap) =>
+      new _$$SubPartOfLibProps(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -351,3 +369,8 @@ const PropsMeta _$metaForSuperPartOfLibProps = const PropsMeta(
   fields: _$SuperPartOfLibPropsAccessorsMixin.$props,
   keys: _$SuperPartOfLibPropsAccessorsMixin.$propKeys,
 );
+
+abstract class SuperPartOfLibProps extends _$SuperPartOfLibProps
+    with _$SuperPartOfLibPropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForSuperPartOfLibProps;
+}

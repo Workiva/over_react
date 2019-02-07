@@ -65,20 +65,6 @@ main() {
       verifyNoErrorLogs();
     }
 
-    test('builds from basic component file', () async {
-      await checkBuildForFile(
-          'over_react|test_fixtures/source_files/basic.dart',
-          'over_react|test_fixtures/source_files/basic.over_react.g.dart',
-          '${p.absolute(p.current)}/test_fixtures/gold_output_files/basic.over_react.g.dart.goldFile');
-    });
-
-    test('builds from basic multi-part library', () async {
-      await checkBuildForFile(
-          'over_react|test_fixtures/source_files/basic_library.dart',
-          'over_react|test_fixtures/source_files/basic_library.over_react.g.dart',
-          '${p.absolute(p.current)}/test_fixtures/gold_output_files/basic_library.over_react.g.dart.goldFile');
-    });
-
     test('does not produce a build output for a file with no over_react annotations', () async {
       var basicAsset = makeAssetId('over_react|test_fixtures/source_files/no_annotations.dart');
       await runBuilder(builder, [basicAsset], reader, writerSpy, AnalyzerResolvers());
@@ -93,6 +79,38 @@ main() {
 
       expect(writerSpy.assetsWritten, isEmpty);
       verifyNoErrorLogs();
+    });
+
+    group('for backwards compatible boilerplate:', () {
+      test('builds from basic component file', () async {
+        await checkBuildForFile(
+            'over_react|test_fixtures/source_files/backwards_compatible/basic.dart',
+            'over_react|test_fixtures/source_files/backwards_compatible/basic.over_react.g.dart',
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/backwards_compatible/basic.over_react.g.dart.goldFile');
+      });
+
+      test('builds from basic multi-part library', () async {
+        await checkBuildForFile(
+            'over_react|test_fixtures/source_files/backwards_compatible/basic_library.dart',
+            'over_react|test_fixtures/source_files/backwards_compatible/basic_library.over_react.g.dart',
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/backwards_compatible/basic_library.over_react.g.dart.goldFile');
+      });
+    });
+
+    group('for Dart 2 only compatible boilerplate:', () {
+      test('builds from basic component file', () async {
+        await checkBuildForFile(
+            'over_react|test_fixtures/source_files/basic.dart',
+            'over_react|test_fixtures/source_files/basic.over_react.g.dart',
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/basic.over_react.g.dart.goldFile');
+      });
+
+      test('builds from basic multi-part library', () async {
+        await checkBuildForFile(
+            'over_react|test_fixtures/source_files/basic_library.dart',
+            'over_react|test_fixtures/source_files/basic_library.over_react.g.dart',
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/basic_library.over_react.g.dart.goldFile');
+      });
     });
   });
 }

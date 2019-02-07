@@ -1,7 +1,6 @@
 import 'package:over_react/over_react.dart';
 
 import '../demo_components.dart';
-// ignore: uri_has_not_been_generated
 part 'button.over_react.g.dart';
 
 /// Nest one or more `Button` components within a [ListGroup]
@@ -9,7 +8,6 @@ part 'button.over_react.g.dart';
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/list-group/>
 @Factory()
-// ignore: undefined_identifier
 UiFactory<ButtonProps> Button = _$Button;
 
 @Props()
@@ -205,16 +203,3 @@ class ButtonSize extends ClassNameConstant {
       const ButtonSize._('SMALL', 'btn-sm');
 }
 
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class ButtonProps extends _$ButtonProps with _$ButtonPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForButtonProps;
-}
-
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class ButtonState extends _$ButtonState with _$ButtonStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = _$metaForButtonState;
-}

@@ -114,9 +114,9 @@ main() {
           expect(declarations.declaresComponent, isFalse);
         });
 
-        group('a component with Dart 1 and Dart 2 compatible dual-class props setup', () {
-          void testPropsDualClassSetup({bool isPrivate: false}) {
-            final ors = OverReactSrc.props(isPrivate: isPrivate);
+        group('a component ', () {
+          void testPropsDualClassSetup({bool backwardsCompatible: true, bool isPrivate: false}) {
+            final ors = OverReactSrc.props(backwardsCompatible: backwardsCompatible, isPrivate: isPrivate);
             setUpAndParse(ors.source);
 
             expect(declarations.factory.node?.variables?.variables?.single?.name
@@ -124,28 +124,37 @@ main() {
             expect(declarations.props.node?.name?.name, '_\$${ors.baseName}Props');
             expect(declarations.component.node?.name?.name, '${ors.baseName}Component');
 
-            expect(declarations.factory.meta,
-                const TypeMatcher<annotations.Factory>());
-            expect(declarations.props.meta,
-                const TypeMatcher<annotations.Props>());
-            expect(declarations.component.meta,
-                const TypeMatcher<annotations.Component>());
+            expect(declarations.factory.meta,   const TypeMatcher<annotations.Factory>());
+            expect(declarations.props.meta,     const TypeMatcher<annotations.Props>());
+            expect(declarations.component.meta, const TypeMatcher<annotations.Component>());
 
             expectEmptyDeclarations(
                 factory: false, props: false, component: false);
             expect(declarations.declaresComponent, isTrue);
           }
-          test('with public consumable class', () {
-            testPropsDualClassSetup();
+
+          group('with backwards compatible boilerplate', () {
+            test('with public consumable class', () {
+              testPropsDualClassSetup();
+            });
+            test('with private consumable class', () {
+              testPropsDualClassSetup(isPrivate: true);
+            });
           });
-          test('with private consumable class', () {
-            testPropsDualClassSetup(isPrivate: true);
+
+          group('with Dart 2 only boilerplate', () {
+            test('with public consumable class', () {
+              testPropsDualClassSetup(backwardsCompatible: false);
+            });
+            test('with private consumable class', () {
+              testPropsDualClassSetup(backwardsCompatible: false, isPrivate: true);
+            });
           });
         });
 
-        group('a stateful component with builder-compatible dual-class state setup', () {
-          void testStateDualClassSetup({bool isPrivate: false}) {
-            final ors = OverReactSrc.state(isPrivate: isPrivate);
+        group('a stateful component', () {
+          void testStateDualClassSetup({bool backwardsCompatible: true, bool isPrivate: false}) {
+            final ors = OverReactSrc.state(backwardsCompatible: backwardsCompatible, isPrivate: isPrivate);
             setUpAndParse(ors.source);
 
             expect(declarations.factory.node?.variables?.variables?.single?.name?.name, ors.baseName);
@@ -161,139 +170,247 @@ main() {
             expectEmptyDeclarations(factory: false, props: false, state: false, component: false);
             expect(declarations.declaresComponent, isTrue);
           }
-          test('with public consumable class', () {
-            testStateDualClassSetup();
+
+          group('with backwards compatible boilerplate', () {
+            test('with public consumable class', () {
+              testStateDualClassSetup();
+            });
+            test('with private consumable class', () {
+              testStateDualClassSetup(isPrivate: true);
+            });
           });
-          test('with private consumable class', () {
-            testStateDualClassSetup(isPrivate: true);
+
+          group('with Dart 2 only boilerplate', () {
+            test('with public consumable class', () {
+              testStateDualClassSetup(backwardsCompatible: false);
+            });
+            test('with private consumable class', () {
+              testStateDualClassSetup(backwardsCompatible: false, isPrivate: true);
+            });
           });
         });
 
-        test('props mixins', () {
-          setUpAndParse('''
-            @PropsMixin() class FooPropsMixin1 {}
-            @PropsMixin() class FooPropsMixin2 {}
-          ''');
+        group('props mixins', () {
+          void testPropsMixins(String source, List<String> mixinNames) {
+            setUpAndParse(source);
+            expect(declarations.propsMixins, hasLength(mixinNames.length));
 
-          expect(declarations.propsMixins, hasLength(2));
+            declarations.propsMixins.forEach((propsMixin) {
+              expect(mixinNames, contains(propsMixin.node.name.name));
+              expect(propsMixin.meta, const TypeMatcher<annotations.PropsMixin>());
+            });
 
-          expect(declarations.propsMixins[0].node.name.name, 'FooPropsMixin1');
-          expect(declarations.propsMixins[1].node.name.name, 'FooPropsMixin2');
-          expect(declarations.propsMixins[0].meta, const TypeMatcher<annotations.PropsMixin>());
-          expect(declarations.propsMixins[1].meta, const TypeMatcher<annotations.PropsMixin>());
+            expectEmptyDeclarations(propsMixins: false);
+            expect(declarations.declaresComponent, isFalse);
+          }
 
-          expectEmptyDeclarations(propsMixins: false);
-          expect(declarations.declaresComponent, isFalse);
+          test('with backwards compatible boilerplate', () {
+            testPropsMixins(OverReactSrc.propsMixin(numMixins: 3).source,
+                ['FooPropsMixin1', 'FooPropsMixin2', 'FooPropsMixin3']);
+          });
+
+          test('with Dart 2 only boilerplate', () {
+            testPropsMixins(OverReactSrc.propsMixin(backwardsCompatible: false, numMixins: 3).source,
+                ['_\$FooPropsMixin1', '_\$FooPropsMixin2', '_\$FooPropsMixin3']);
+          });
         });
 
-        test('state mixins', () {
-          setUpAndParse('''
-            @StateMixin() class FooStateMixin1 {}
-            @StateMixin() class FooStateMixin2 {}
-          ''');
+        group('state mixins', () {
+           void testStateMixins(String source, List<String> mixinNames) {
+            setUpAndParse(source);
+            expect(declarations.stateMixins, hasLength(mixinNames.length));
 
-          expect(declarations.stateMixins, hasLength(2));
+            declarations.stateMixins.forEach((stateMixin) {
+              expect(mixinNames, contains(stateMixin.node.name.name));
+              expect(stateMixin.meta, const TypeMatcher<annotations.StateMixin>());
+            });
 
-          expect(declarations.stateMixins[0].node.name.name, 'FooStateMixin1');
-          expect(declarations.stateMixins[1].node.name.name, 'FooStateMixin2');
-          expect(declarations.stateMixins[0].meta, const TypeMatcher<annotations.StateMixin>());
-          expect(declarations.stateMixins[1].meta, const TypeMatcher<annotations.StateMixin>());
+            expectEmptyDeclarations(stateMixins: false);
+            expect(declarations.declaresComponent, isFalse);
+          }
 
-          expectEmptyDeclarations(stateMixins: false);
-          expect(declarations.declaresComponent, isFalse);
+           test('with backwards compatible boilerplate', () {
+             testStateMixins(OverReactSrc.stateMixin(numMixins: 3).source,
+                 ['FooStateMixin1', 'FooStateMixin2', 'FooStateMixin3']);
+           });
+
+           test('with Dart 2 only boilerplate', () {
+             testStateMixins(OverReactSrc.stateMixin(backwardsCompatible: false, numMixins: 3).source,
+                 ['_\$FooStateMixin1', '_\$FooStateMixin2', '_\$FooStateMixin3']);
+           });
         });
 
         group('abstract props class with builder-compatible dual-class setup', () {
-          void testAbstractPropsDualClassSetup({isPrivate: false}) {
-            final ors = OverReactSrc.abstractProps(isPrivate: isPrivate);
+          void testAbstractPropsDualClassSetup({backwardsCompatible: true, isPrivate: false}) {
+            final ors = OverReactSrc.abstractProps(backwardsCompatible: backwardsCompatible, isPrivate: isPrivate);
             setUpAndParse(ors.source);
 
             expect(declarations.abstractProps, hasLength(1));
             expect(declarations.abstractProps[0].node?.name?.name, '_\$${ors.baseName}Props');
             expect(declarations.abstractProps[0].meta, new TypeMatcher<annotations.AbstractProps>());
           }
-          test('with public consumable class', () {
-            testAbstractPropsDualClassSetup();
+
+          group('with backwards compatible boilerplate', () {
+            test('with public consumable class', () {
+              testAbstractPropsDualClassSetup();
+            });
+            test('with private consumable class', () {
+              testAbstractPropsDualClassSetup(isPrivate: true);
+            });
           });
-          test('with priavte consumable class', () {
-            testAbstractPropsDualClassSetup(isPrivate: true);
+
+          group('with Dart 2 only boilerplate', () {
+            test('with public consumable class', () {
+              testAbstractPropsDualClassSetup(backwardsCompatible: false);
+            });
+            test('with private consumable class', () {
+              testAbstractPropsDualClassSetup(backwardsCompatible: false, isPrivate: true);
+            });
           });
         });
 
         group('abstract state class with builder-compatible dual-class setup', () {
-          void testAbstractStateDualClassSetup({isPrivate: false}) {
-            final ors = OverReactSrc.abstractState(isPrivate: isPrivate);
+          void testAbstractStateDualClassSetup({backwardsCompatible: true, isPrivate: false}) {
+            final ors = OverReactSrc.abstractState(backwardsCompatible: true, isPrivate: isPrivate);
             setUpAndParse(ors.source);
 
             expect(declarations.abstractState, hasLength(1));
             expect(declarations.abstractState[0].node?.name?.name, '_\$${ors.baseName}State');
             expect(declarations.abstractState[0].meta, new TypeMatcher<annotations.AbstractState>());
           }
-          test('with public consumable class', () {
-            testAbstractStateDualClassSetup();
+
+          group('with backwards compatible boilerplate', () {
+            test('with public consumable class', () {
+              testAbstractStateDualClassSetup();
+            });
+            test('with private consumable class', () {
+              testAbstractStateDualClassSetup(isPrivate: true);
+            });
           });
-          test('with priavte consumable class', () {
-            testAbstractStateDualClassSetup(isPrivate: true);
+
+          group('with Dart 2 only boilerplate', () {
+            test('with public consumable class', () {
+              testAbstractStateDualClassSetup(backwardsCompatible: false);
+            });
+            test('with private consumable class', () {
+              testAbstractStateDualClassSetup(backwardsCompatible: false, isPrivate: true);
+            });
           });
         });
 
-        group('and initializes annotations with the correct arguments for', () {
-          test('a stateful component', () {
-            setUpAndParse('''
-              @Factory()
-              UiFactory<FooProps> Foo;
+        group('and initializes annotations with the correct arguments', () {
+          group('with backwards-compatible boilerplate for', () {
+            test('a stateful component', () {
+              setUpAndParse('''
+                @Factory()
+                UiFactory<FooProps> Foo = _\$Foo;
 
-              @Props(keyNamespace: "bar")
-              class _\$FooProps {}
-              
-              class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {}
+                @Props(keyNamespace: "bar")
+                class _\$FooProps {}
+                
+                class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {}
 
-              @State(keyNamespace: "baz")
-              class _\$FooState {}
-              
-              class FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
+                @State(keyNamespace: "baz")
+                class _\$FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
+                
+                class FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
 
-              @Component(isWrapper: true)
-              class FooComponent {}
-            ''');
+                @Component(isWrapper: true)
+                class FooComponent {}
+              ''');
 
-            expect(declarations.props.meta.keyNamespace, 'bar');
-            expect(declarations.state.meta.keyNamespace, 'baz');
-            expect(declarations.component.meta.isWrapper, isTrue);
+              expect(declarations.props.meta.keyNamespace, 'bar');
+              expect(declarations.state.meta.keyNamespace, 'baz');
+              expect(declarations.component.meta.isWrapper, isTrue);
+            });
+
+            test('a props mixin', () {
+              setUpAndParse('''
+                @PropsMixin(keyNamespace: "bar")
+                class FooPropsMixin {}
+              ''');
+              expect(declarations.propsMixins.single.meta.keyNamespace, 'bar');
+            });
+
+            test('a state mixin', () {
+              setUpAndParse('''
+                @StateMixin(keyNamespace: "bar")
+                class FooStateMixin {}
+              ''');
+              expect(declarations.stateMixins.single.meta.keyNamespace, 'bar');
+            });
+
+            test('an abstract props class', () {
+              setUpAndParse('''
+                @AbstractProps(keyNamespace: "bar")
+                class _\$AbstractFooProps {}
+                class AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {}
+              ''');
+              expect(declarations.abstractProps.single.meta.keyNamespace, 'bar');
+            });
+
+            test('an abstract state class', () {
+              setUpAndParse('''
+                @AbstractState(keyNamespace: "bar")
+                class _\$AbstractFooState {}
+                class AbstractFooState extends _\$AbstractFooState with _\$AbstractFooStateAccessorsMixin {}
+              ''');
+              expect(declarations.abstractState.single.meta.keyNamespace, 'bar');
+            });
           });
 
-          test('a props mixin', () {
-            setUpAndParse('''
-              @PropsMixin(keyNamespace: "bar")
-              class FooPropsMixin {}
-            ''');
-            expect(declarations.propsMixins.single.meta.keyNamespace, 'bar');
-          });
+          group('with Dart 2 only boilerplate for', () {
+            test('a stateful component', () {
+              setUpAndParse('''
+                @Factory()
+                UiFactory<FooProps> Foo = _\$Foo;
 
-          test('a state mixin', () {
-            setUpAndParse('''
-              @StateMixin(keyNamespace: "bar")
-              class FooStateMixin {}
-            ''');
-            expect(declarations.stateMixins.single.meta.keyNamespace, 'bar');
-          });
+                @Props(keyNamespace: "bar")
+                class _\$FooProps {}
 
-          test('an abstract props class', () {
-            setUpAndParse('''
-              @AbstractProps(keyNamespace: "bar")
-              class _\$AbstractFooProps {}
-              class AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {}
-            ''');
-            expect(declarations.abstractProps.single.meta.keyNamespace, 'bar');
-          });
+                @State(keyNamespace: "baz")
+                class _\$FooState {}
 
-          test('an abstract state class', () {
-            setUpAndParse('''
-              @AbstractState(keyNamespace: "bar")
-              class _\$AbstractFooState {}
-              class AbstractFooState extends _\$AbstractFooState with _\$AbstractFooStateAccessorsMixin {}
-            ''');
-            expect(declarations.abstractState.single.meta.keyNamespace, 'bar');
+                @Component(isWrapper: true)
+                class FooComponent {}
+              ''');
+
+              expect(declarations.props.meta.keyNamespace, 'bar');
+              expect(declarations.state.meta.keyNamespace, 'baz');
+              expect(declarations.component.meta.isWrapper, isTrue);
+            });
+
+            test('a props mixin', () {
+              setUpAndParse('''
+                @PropsMixin(keyNamespace: "bar")
+                class _\$FooPropsMixin {}
+              ''');
+              expect(declarations.propsMixins.single.meta.keyNamespace, 'bar');
+            });
+
+            test('a state mixin', () {
+              setUpAndParse('''
+                @StateMixin(keyNamespace: "bar")
+                class _\$FooStateMixin {}
+              ''');
+              expect(declarations.stateMixins.single.meta.keyNamespace, 'bar');
+            });
+
+            test('an abstract props class', () {
+              setUpAndParse('''
+                @AbstractProps(keyNamespace: "bar")
+                class _\$AbstractFooProps {}
+              ''');
+              expect(declarations.abstractProps.single.meta.keyNamespace, 'bar');
+            });
+
+            test('an abstract state class', () {
+              setUpAndParse('''
+                @AbstractState(keyNamespace: "bar")
+                class _\$AbstractFooState {}
+              ''');
+              expect(declarations.abstractState.single.meta.keyNamespace, 'bar');
+            });
           });
         });
       });
@@ -301,7 +418,6 @@ main() {
       const String restOfComponent = '''
         @Props()
         class _\$FooProps {}
-        class FooProps {}
 
         @Component()
         class FooComponent {}
@@ -338,29 +454,66 @@ main() {
       });
 
       group('and logs a hard error when', () {
+        void verifyErrorLog(String publicClassName) {
+          verify(logger.severe(contains(
+            'Non-static class member `meta` is declared in _\$$publicClassName. '
+            '`meta` is a field declared by the over_react builder, and is therefore not '
+            'valid for use as a class member in any class annotated with  @Props(), @State(), '
+            '@AbstractProps(), @AbstractState(), @PropsMixin(), or @StateMixin()'
+          )));
+        }
+
+        void verifyMetaErrors(String body) {
+          test('a props class', () {
+            final ors = OverReactSrc.props(backwardsCompatible: false, body: body);
+            setUpAndParse(ors.source);
+            verifyErrorLog(ors.propsClassName);
+          });
+
+          test('a state class', () {
+            final ors = OverReactSrc.state(backwardsCompatible: false, body: body);
+            setUpAndParse(ors.source);
+            verifyErrorLog(ors.stateClassName);
+          });
+
+          test('an abstract props class', () {
+            final ors = OverReactSrc.abstractProps(backwardsCompatible: false, body: body);
+            setUpAndParse(ors.source);
+            verifyErrorLog(ors.propsClassName);
+          });
+
+          test('an abstract state class', () {
+            final ors = OverReactSrc.abstractState(backwardsCompatible: false, body: body);
+            setUpAndParse(ors.source);
+            verifyErrorLog(ors.stateClassName);
+          });
+
+          test('a props mixin class', () {
+            final ors = OverReactSrc.propsMixin(backwardsCompatible: false, body: body);
+            setUpAndParse(ors.source);
+            verifyErrorLog(ors.propsMixinClassName);
+          });
+
+          test('a state mixin class', () {
+            final ors = OverReactSrc.stateMixin(backwardsCompatible: false, body: body);
+            setUpAndParse(ors.source);
+            verifyErrorLog(ors.stateMixinClassName);
+          });
+        }
+
         tearDown(() {
           expect(declarations.hasErrors, isTrue, reason: 'Declarations with errors should always set `hasErrors` to true.');
           expectEmptyDeclarations(reason: 'Declarations with errors should always be null/empty.');
         });
 
-        test('a companion props class is not found when a private `_\$` prefixed props class is declared', () {
-          setUpAndParse(factorySrc + propsSrc + componentSrc);
-          verify(logger.severe(contains('_\$FooProps must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.')));
+        group('non-static `meta` field is declared in', () {
+          final body = 'String meta;';
+          verifyMetaErrors(body);
         });
 
-        test('a companion state class is not found when a private `_\$` prefixed state class is declared', () {
-          setUpAndParse(factorySrc + propsSrc + companionClassProps + stateSrc + componentSrc);
-          verify(logger.severe(contains('_\$FooState must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.')));
-        });
-
-        test('a companion abstract props class is not found when a private `_\$` prefixed abstract props class is declared', () {
-          setUpAndParse(abstractPropsSrc);
-          verify(logger.severe(contains('_\$AbstractFooProps must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.')));
-        });
-
-        test('a compaion abstract state class is not found when a private `_\$ prefixed abstract state class is declared', () {
-          setUpAndParse(abstractStateSrc);
-          verify(logger.severe(contains('_\$AbstractFooState must have an accompanying companion class within the same file for Dart 2 builder compatibility, but one was not found.')));
+        group('non-static `meta` method is declared in', () {
+          final body = 'String get meta => \'do not do this\';';
+          verifyMetaErrors(body);
         });
 
         group('there is not Dart-2 compatible naming on', () {
@@ -368,28 +521,28 @@ main() {
             setUpAndParse(propsSrcDart1 + componentSrc + factorySrc);
             verify(logger.severe(contains(
                 'The class `FooProps` does not start with `_\$`. All Props, State, '
-                    'AbstractProps, and AbstractState classes should begin with `_\$` under Dart 2')));
+                    'AbstractProps, and AbstractState classes should begin with `_\$` on Dart 2')));
           });
 
           test('a class annotated with @State()', () {
-            setUpAndParse(stateSrcDart1 + componentSrc + propsSrc + companionClassProps + factorySrc);
+            setUpAndParse(stateSrcDart1 + componentSrc + propsSrc + factorySrc);
             verify(logger.severe(contains(
                 'The class `FooState` does not start with `_\$`. All Props, State, '
-                    'AbstractProps, and AbstractState classes should begin with `_\$` under Dart 2')));
+                    'AbstractProps, and AbstractState classes should begin with `_\$` on Dart 2')));
           });
 
           test('a class annotated with @AbstractProps()', () {
             setUpAndParse(abstractPropsSrcDart1 + abstractComponentSrc);
             verify(logger.severe(contains(
                 'The class `AbstractFooProps` does not start with `_\$`. All Props, State, '
-                    'AbstractProps, and AbstractState classes should begin with `_\$` under Dart 2')));
+                    'AbstractProps, and AbstractState classes should begin with `_\$` on Dart 2')));
           });
 
           test('a class annotated with @AbstractState()', () {
-            setUpAndParse(abstractStateSrcDart1 + abstractComponentSrc + abstractPropsSrc + companionClassAbstractProps);
+            setUpAndParse(abstractStateSrcDart1 + abstractComponentSrc + abstractPropsSrc);
             verify(logger.severe(contains(
                 'The class `AbstractFooState` does not start with `_\$`. All Props, State, '
-                    'AbstractProps, and AbstractState classes should begin with `_\$` under Dart 2')));
+                    'AbstractProps, and AbstractState classes should begin with `_\$` on Dart 2')));
           });
         });
 
@@ -405,7 +558,7 @@ main() {
           });
 
           test('a component class', () {
-            setUpAndParse(factorySrc + propsSrc + companionClassProps);
+            setUpAndParse(factorySrc + propsSrc);
             verify(logger.severe(contains('To define a component, there must also be a `@Component` within the same file, but none were found.')));
           });
 
@@ -416,7 +569,7 @@ main() {
           });
 
           test('a factory or a component class', () {
-            setUpAndParse(propsSrc + companionClassProps);
+            setUpAndParse(propsSrc);
             verify(logger.severe(contains('To define a component, there must also be a `@Factory` within the same file, but none were found.')));
             verify(logger.severe(contains('To define a component, there must also be a `@Component` within the same file, but none were found.')));
           });
@@ -430,12 +583,12 @@ main() {
 
         group('a state class is declared without', () {
           test('any component pieces', () {
-            setUpAndParse(stateSrc + companionClassState);
+            setUpAndParse(stateSrc);
             verify(logger.severe(contains('To define a component, a `@State` must be accompanied by the following annotations within the same file: @Factory, @Component, @Props.')));
           });
 
           test('some component pieces', () {
-            setUpAndParse(stateSrc + componentSrc + companionClassState);
+            setUpAndParse(stateSrc + componentSrc);
             /// Should only log regarding the missing pieces, and not the state.
             verify(logger.severe(contains('To define a component, there must also be a `@Factory` within the same file, but none were found.')));
             verify(logger.severe(contains('To define a component, there must also be a `@Props` within the same file, but none were found.')));
@@ -444,28 +597,28 @@ main() {
 
         group('a component is declared with multiple', () {
           test('factories', () {
-            setUpAndParse(factorySrc * 2 + propsSrc + companionClassProps + componentSrc);
+            setUpAndParse(factorySrc * 2 + propsSrc + componentSrc);
             verify(logger.severe(
                 argThat(startsWith('To define a component, there must be a single `@Factory` per file, but 2 were found.'))
             )).called(2);
           });
 
           test('props classes', () {
-            setUpAndParse(factorySrc + propsSrc * 2 + companionClassProps*2 + componentSrc);
+            setUpAndParse(factorySrc + propsSrc * 2 + componentSrc);
             verify(logger.severe(
                 argThat(startsWith('To define a component, there must be a single `@Props` per file, but 2 were found.'))
             )).called(2);
           });
 
           test('component classes', () {
-            setUpAndParse(factorySrc + propsSrc + companionClassProps + componentSrc * 2);
+            setUpAndParse(factorySrc + propsSrc + componentSrc * 2);
             verify(logger.severe(
                 argThat(startsWith('To define a component, there must be a single `@Component` per file, but 2 were found.'))
             )).called(2);
           });
 
           test('state classes', () {
-            setUpAndParse(factorySrc + propsSrc + companionClassProps + componentSrc + stateSrc * 2 + companionClassState*2);
+            setUpAndParse(factorySrc + propsSrc + componentSrc + stateSrc * 2);
             verify(logger.severe(
                 argThat(startsWith('To define a component, there must not be more than one `@State` per file, but 2 were found.'))
             )).called(2);
@@ -515,6 +668,19 @@ main() {
         });
 
         group('a factory is', () {
+          test('declared without an initializer', () {
+            setUpAndParse('''
+              @Factory()
+              UiFactory<FooProps> Foo;
+
+              $restOfComponent
+            ''');
+
+            verify(logger.severe(contains(
+                'Factory variables are stubs for the generated factories, and should '
+                  'be initialized with the valid variable name for builder compatibility. '
+                  'Should be: _\$Foo',)));
+          });
           test('declared using multiple variables', () {
             setUpAndParse('''
               @Factory()
@@ -529,33 +695,34 @@ main() {
           test('public and declared with an invalid initializer', () {
             setUpAndParse('''
               @Factory()
-              UiFactory<FooProps> Foo = null;
+              UiFactory<FooProps> Foo = \$Foo;
 
               $restOfComponent
             ''');
 
             verify(logger.severe(contains(
-                'Factory variables are stubs for the generated factories, and should not have initializers'
-                    ' unless initialized with a valid variable name for Dart 2 builder compatibility. Should be:\n'
-                    '    _\$Foo')));
+                'Factory variables are stubs for the generated factories, and should '
+                  'be initialized with the valid variable name for builder compatibility. '
+                  'Should be: _\$Foo')));
+
           });
 
           test('private and declared with an invalid initializer', () {
             setUpAndParse('''
               @Factory()
-              UiFactory<FooProps> _Foo = null;
+              UiFactory<FooProps> _Foo = \$_Foo;
 
               $restOfComponent
             ''');
 
             verify(logger.severe(contains(
-                'Factory variables are stubs for the generated factories, and should not have initializers'
-                    ' unless initialized with a valid variable name for Dart 2 builder compatibility. Should be:\n'
-                    '    _\$_Foo')));
+                'Factory variables are stubs for the generated factories, and should '
+                  'be initialized with the valid variable name for builder compatibility. '
+                  'Should be: _\$_Foo')));
           });
         });
 
-        group('a static meta field', () {
+        group('a static meta field with backwards compatible boilerplate', () {
           group('for a props class', () {
             test('has the wrong type', () {
               setUpAndParse(factorySrc + propsSrc + componentSrc + '''
@@ -577,9 +744,9 @@ main() {
             });
 
             test('is private and initialized incorrectly', () {
-              setUpAndParse(factorySrc + propsSrc + componentSrc + '''
+              setUpAndParse(factorySrc + privatePropsSrc + componentSrc + '''
                 class _FooProps {
-                  static const PropsMeta meta = \$metaForBarProps;
+                  static const PropsMeta meta = \$metaForFooProps;
                 }
               ''');
               verify(logger.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
@@ -608,7 +775,7 @@ main() {
             });
 
             test('is private and initialized incorrectly', () {
-              setUpAndParse(factorySrc + propsSrc + companionClassProps + componentSrc + stateSrc + '''
+              setUpAndParse(factorySrc + propsSrc + companionClassProps + componentSrc + privateStateSrc + '''
                 class _FooState {
                   static const StateMeta meta = \$metaForBarState;
                 }
@@ -642,7 +809,7 @@ main() {
 
             test('is private and initialized incorrectly', () {
               setUpAndParse('''
-                @AbstractProps() abstract class _\$AbstractFooProps {}
+                @AbstractProps() abstract class _\$_AbstractFooProps {}
                 abstract class _AbstractFooProps {
                   static const PropsMeta meta = \$metaForAbstractBarProps;
                 }
@@ -676,7 +843,7 @@ main() {
 
             test('is private and initialized incorrectly', () {
               setUpAndParse('''
-                @AbstractState() abstract class _\$AbstractFooState {}
+                @AbstractState() abstract class _\$_AbstractFooState {}
                 abstract class _AbstractFooState {
                   static const StateMeta meta = \$metaForAbstractBarState;
                 }
@@ -750,16 +917,77 @@ main() {
         });
       });
 
+      group('and logs a warning when', () {
+        group('on Dart 2 only boilerplate', () {
+          group('a static `meta` field is declared in ', () {
+            void verifyWarningLog(String publicClassName) {
+              verify(logger.warning(contains(
+                'Static class member `meta` is declared in _\$$publicClassName. '
+                '`meta` is a field declared by the over_react builder, and therefore this '
+                'class member will be unused and should be removed or renamed.'
+              )));
+            }
+
+            void verifyMetaWarnings(String body) {
+              test('a props class', () {
+                final ors = OverReactSrc.props(backwardsCompatible: false, body: body);
+                setUpAndParse(ors.source);
+                verifyWarningLog(ors.propsClassName);
+              });
+
+              test('a state class', () {
+                final ors = OverReactSrc.state(backwardsCompatible: false, body: body);
+                setUpAndParse(ors.source);
+                verifyWarningLog(ors.stateClassName);
+              });
+
+              test('an abstract props class', () {
+                final ors = OverReactSrc.abstractProps(backwardsCompatible: false, body: body);
+                setUpAndParse(ors.source);
+                verifyWarningLog(ors.propsClassName);
+              });
+
+              test('an abstract state class', () {
+                final ors = OverReactSrc.abstractState(backwardsCompatible: false, body: body);
+                setUpAndParse(ors.source);
+                verifyWarningLog(ors.stateClassName);
+              });
+
+              test('a props mixin class', () {
+                final ors = OverReactSrc.propsMixin(backwardsCompatible: false, body: body);
+                setUpAndParse(ors.source);
+                verifyWarningLog(ors.propsMixinClassName);
+              });
+
+              test('a state mixin class', () {
+                final ors = OverReactSrc.stateMixin(backwardsCompatible: false, body: body);
+                setUpAndParse(ors.source);
+                verifyWarningLog(ors.stateMixinClassName);
+              });
+            }
+
+            group('static `meta` field is declared in', () {
+              final body = 'static const String meta;';
+              verifyMetaWarnings(body);
+            });
+
+            group('static `meta` method is declared in', () {
+              final body = 'static String get meta => \'do not do this\';';
+              verifyMetaWarnings(body);
+            });
+          });
+        });
+      });
+
       group('and throws an error when', () {
         test('`subtypeOf` is an unsupported expression that is not an identifier', () {
           expect(() {
             setUpAndParse('''
               @Factory()
-              UiFactory<FooProps> Foo = \$Foo;
+              UiFactory<FooProps> Foo = _\$Foo;
 
               @Props()
               class _\$FooProps {}
-              class FooProps {}
 
               @Component(subtypeOf: const [])
               class FooComponent {}
