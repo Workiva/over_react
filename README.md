@@ -106,7 +106,7 @@ mount / render it into the HTML element you created in step 3.
 
 When running tests on code that uses our [builder] _(or any code that imports `over_react`)_,
 __you must run your tests using build_runner__.
->Warning: Do **_not_** run tests via `pub run build_runner test` in a package while another instance of `build_runner` 
+>**Warning:** Do **_not_** run tests via `pub run build_runner test` in a package while another instance of `build_runner` 
 (e.g. `pub run build_runner serve`)is running in that same package. [This workflow is unsupported by build_runner](https://github.com/dart-lang/build/issues/352#issuecomment-461554316)
 
 1. Run tests through build_runner, and specify the platform to be a browser platform. Example: 
@@ -114,13 +114,14 @@ __you must run your tests using build_runner__.
     ```bash
     $ pub run build_runner test -- -p chrome test/your_test_file.dart
     ```
+    
 1. When running tests in `over_react`, our `dart_test.yaml` specifies some handy presets for running tests in DDC and dart2js:
-> Note that these presets exist only in `over_react`.
-    1. To run tests in `over_react` compiled via DDC, run:
+    > **Note:** These presets exist only in `over_react`.
+    * To run tests in `over_react` compiled via DDC, run:
     ```bash
     $ pub run build_runner -- -P dartdevc
     ```
-    1. To run tests in `over_react` compiled via dart2js, run:
+    * To run tests in `over_react` compiled via dart2js, run:
     ```bash
     $ pub run build_runner -r -- -P dart2js
     ```
