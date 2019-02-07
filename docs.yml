@@ -5,7 +5,7 @@ topics:
   - title: Builder
     src: lib/src/builder/README.md
 
-  - title: OverReact Dart 2 Migration Guid
+  - title: OverReact Dart 2 Migration Guide
     src: doc/dart2_migration.md
 
   - title: OverReact Dart 2 Code Snippets
