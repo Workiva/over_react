@@ -20,11 +20,11 @@ import 'package:meta/meta.dart';
 import 'package:w_flux/w_flux.dart';
 
 import './annotations.dart' as annotations;
-import './transformer_helpers.dart';
+import './builder_helpers.dart';
 
 /// Builds on top of [UiProps], adding typed props for [Action]s and [Store]s in order to integrate with w_flux.
 ///
-/// Use with the over_react transformer via the `@Props()` ([annotations.Props]) annotation.
+/// Use with the over_react builder via the `@Props()` ([annotations.Props]) annotation.
 abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
   String get _actionsPropKey => '${propKeyNamespace}actions';
   String get _storePropKey => '${propKeyNamespace}store';
@@ -65,7 +65,7 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
 /// * Flux components can use data from one or many [Store] instances to define
 ///   the resulting component.
 ///
-/// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
+/// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
 ///
 /// > Related: [FluxUiStatefulComponent]
 abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<TProps>
@@ -105,7 +105,7 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
 /// * Flux components can use data from one or many [Store] instances to define
 ///   the resulting component.
 ///
-/// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
+/// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
 ///
 /// > Related: [FluxUiComponent]
 abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extends UiState>

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library over_react.component_declaration.transformer_helpers;
+library over_react.component_declaration.builder_helpers;
 
 import 'package:react/react_client.dart';
 
@@ -47,7 +47,7 @@ class GeneratedClass {
 
 /// See: [component_base.UiComponent]
 ///
-/// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
+/// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
 abstract class UiComponent<TProps extends UiProps> extends component_base.UiComponent<TProps> with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiComponent() {
@@ -75,7 +75,7 @@ abstract class UiComponent<TProps extends UiProps> extends component_base.UiComp
 
 /// See: [component_base.UiStatefulComponent]
 ///
-/// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
+/// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
 abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState>
     extends component_base.UiStatefulComponent<TProps, TState> with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
@@ -119,7 +119,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 /// For use as a typed view into existing props [Map]s, or as a builder to create new component
 /// instances via a fluent-style interface.
 ///
-/// Use with the over_react transformer via the `@Props()` ([annotations.Props]) annotation.
+/// Use with the over_react builder via the `@Props()` ([annotations.Props]) annotation.
 abstract class UiProps extends component_base.UiProps with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiProps() {
@@ -134,7 +134,7 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.
 ///
-/// Use with the over_react transformer via the `@State()` ([annotations.State]) annotation.
+/// Use with the over_react builder via the `@State()` ([annotations.State]) annotation.
 abstract class UiState extends component_base.UiState with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiState() {
@@ -161,7 +161,7 @@ class _ToBeGenerated {
 /// Thrown when stubbed code (usually annotated with [ToBeGenerated]) that expects to be
 /// overridden by generated code is called unexpectedly.
 ///
-/// Usually this is due to improper usage of the code-generating transformer.
+/// Usually this is due to improper usage of the code-generating builder.
 class UngeneratedError extends Error implements UnimplementedError {
   @override
   final String message;
@@ -171,8 +171,7 @@ class UngeneratedError extends Error implements UnimplementedError {
   @override
   String toString() =>
       "UngeneratedError: $message.\n\n"
-      "Ensure that the `over_react` transformer is included in your pubspec.yaml, "
-      "and that this code is being run using Pub.";
+      "Ensure that you're running a build via build_runner.";
 }
 
 /// Thrown when a class is directly instantiated when it should not be.

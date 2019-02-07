@@ -40,7 +40,7 @@ export 'src/component/prop_typedefs.dart';
 export 'src/component/resize_sensor.dart';
 export 'src/component_declaration/flux_component.dart';
 export 'src/component_declaration/built_redux_component.dart';
-export 'src/component_declaration/transformer_helpers.dart';
+export 'src/component_declaration/builder_helpers.dart';
 export 'src/util/character_constants.dart';
 export 'src/util/class_names.dart';
 export 'src/util/constants_base.dart';
