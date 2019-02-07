@@ -71,16 +71,6 @@ bool isDartComponent(/* ReactElement|ReactComponent|Element */ instance) {
   return _getInternal(instance) != null;
 }
 
-@JS('Object.keys')
-external Iterable _objectKeys(object);
-
-/// Returns a Dart Map copy of the JS property key-value pairs in [jsMap].
-Map _dartifyJsMap(jsMap) {
-  return new Map.fromIterable(_objectKeys(jsMap),
-      value: (key) => getProperty(jsMap, key)
-  );
-}
-
 /// Returns the props for a [ReactElement] or composite [ReactComponent] [instance],
 /// shallow-converted to a Dart Map for convenience.
 ///
@@ -90,15 +80,7 @@ Map _dartifyJsMap(jsMap) {
 /// __Deprecated. Use [getProps] instead. Will be removed in 2.0.0.__
 @deprecated
 Map getJsProps(/* ReactElement|ReactComponent */ instance) {
-  var props = _dartifyJsMap(instance.props);
-
-  // Convert the nested style map so it can be read by Dart code.
-  var style = props['style'];
-  if (style != null) {
-    props['style'] = _dartifyJsMap(style);
-  }
-
-  return props;
+  return unconvertJsProps(instance);
 }
 
 /// Whether [Expando]s can be used on [ReactElement]s.
@@ -131,7 +113,7 @@ final Expando<UnmodifiableMapView> _elementPropsCache = _canUseExpandoOnReactEle
 /// Returns an unmodifiable Map view of props for a [ReactElement] or composite [ReactComponent] [instance].
 ///
 /// For a native Dart component, this returns its [react.Component.props] in an unmodifiable Map view.
-/// For a JS component, this returns the result of [getJsProps] in an unmodifiable Map view.
+/// For a JS component, this returns the result of [unconvertJsProps] in an unmodifiable Map view.
 ///
 /// If [traverseWrappers] is `true` then it will return an unmodifiable Map view of props of the first non-"Wrapper"
 /// instance.
@@ -170,7 +152,7 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers:
       if (cachedView != null) return cachedView;
     }
 
-    var propsMap = isDartComponent(instance) ? _getExtendedProps(instance) : getJsProps(instance);
+    var propsMap = isDartComponent(instance) ? _getExtendedProps(instance) : unconvertJsProps(instance);
     var view = new UnmodifiableMapView(propsMap);
 
     if (_elementPropsCache != null && !isCompositeComponent) {

@@ -50,8 +50,8 @@ main() {
           // If these objects are equal, then they proxy the same JS props object.
           expect(clone.props, isNot(equals(original.props)));
 
-          Map originalProps = getJsProps(original);
-          Map cloneProps = getJsProps(clone);
+          Map originalProps = unconvertJsProps(original);
+          Map cloneProps = unconvertJsProps(clone);
 
           // Verify all props (children included) are equal.
           expect(cloneProps, equals(originalProps));
@@ -64,8 +64,8 @@ main() {
           // If these objects are equal, then they proxy the same JS props object.
           expect(clone.props, isNot(equals(original.props)));
 
-          Map originalProps = getJsProps(original);
-          Map cloneProps = getJsProps(clone);
+          Map originalProps = unconvertJsProps(original);
+          Map cloneProps = unconvertJsProps(clone);
 
           // Verify all props (including children, excluding react-dart internals) are equal.
           Map originalShallowProps = new Map.from(originalProps);
@@ -105,7 +105,7 @@ main() {
           var original = (Dom.div()..addProps(testProps))(testChildren);
           var clone = cloneElement(original, testPropsToAdd);
 
-          Map cloneProps = getJsProps(clone);
+          Map cloneProps = unconvertJsProps(clone);
 
           // Verify all props (children included) are equal.
           expect(cloneProps, equals(expectedPropsMerge));
@@ -196,7 +196,7 @@ main() {
               var clone = cloneElement(original, testPropsToAdd);
 
               var renderedClone = react_test_utils.renderIntoDocument(clone);
-              Map cloneProps = getJsProps(renderedClone);
+              Map cloneProps = unconvertJsProps(renderedClone);
 
               expect(() {
                 // Retrieve an automatically JS-proxied version of the callback passed to the component.
@@ -281,7 +281,7 @@ main() {
           var original = (Dom.div()..addProps(testProps))(testChildren);
           var clone = cloneElement(original, null, testOverrideChildren);
 
-          Map cloneProps = getJsProps(clone);
+          Map cloneProps = unconvertJsProps(clone);
 
           expect(cloneProps['children'], equals(testOverrideChildren));
         });
@@ -293,7 +293,7 @@ main() {
           var renderedClone = render(clone);
 
           // Verify that children are overridden according to React
-          Map cloneProps = getJsProps(renderedClone);
+          Map cloneProps = unconvertJsProps(renderedClone);
           expect(cloneProps['children'], equals(testOverrideChildren));
 
           // Verify that children are overridden according to the Dart component.
