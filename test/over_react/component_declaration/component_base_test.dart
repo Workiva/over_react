@@ -969,7 +969,7 @@ main() {
   });
 }
 
-dynamic getJsChildren(instance) => getJsProps(instance)['children'];
+dynamic getJsChildren(instance) => unconvertJsProps(instance)['children'];
 
 dynamic getDartChildren(var renderedInstance) {
   assert(isDartComponent(renderedInstance));

@@ -11,6 +11,11 @@ __Deprecations__
   * `$Props` and `$PropKeys` - see the [Dart 2 migration guide](https://github.com/Workiva/over_react/blob/master/doc/dart2_migration.md)
     for more information.
 
+* [#207] Override `call()` instead of `noSuchMethod()` in the `UiProps` class.
+    This was a requirement for Dart 2 compatibility, but also serves as an
+    improvement - by no longer overriding `noSuchMethod()`, we will no longer be
+    obscuring certain analyzer errors that should be seen by consumers.
+
 ## 1.30.2
 
 > [Complete `1.30.2` Changeset](https://github.com/Workiva/over_react/compare/1.30.1...1.30.2)
