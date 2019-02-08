@@ -71,15 +71,6 @@ bool isDartComponent(/* ReactElement|ReactComponent|Element */ instance) {
   return _getInternal(instance) != null;
 }
 
-/// Returns the props for a [ReactElement] or composite [ReactComponent] [instance],
-/// shallow-converted to a Dart Map for convenience.
-///
-/// If `style` is specified in props, then it too is shallow-converted and included
-/// in the returned Map.
-Map getJsProps(/* ReactElement|ReactComponent */ instance) {
-  return unconvertJsProps(instance);
-}
-
 /// Whether [Expando]s can be used on [ReactElement]s.
 ///
 /// At the time this was written, this should return:
@@ -110,7 +101,7 @@ final Expando<UnmodifiableMapView> _elementPropsCache = _canUseExpandoOnReactEle
 /// Returns an unmodifiable Map view of props for a [ReactElement] or composite [ReactComponent] [instance].
 ///
 /// For a native Dart component, this returns its [react.Component.props] in an unmodifiable Map view.
-/// For a JS component, this returns the result of [getJsProps] in an unmodifiable Map view.
+/// For a JS component, this returns the result of [unconvertJsProps] in an unmodifiable Map view.
 ///
 /// If [traverseWrappers] is `true` then it will return an unmodifiable Map view of props of the first non-"Wrapper"
 /// instance.
