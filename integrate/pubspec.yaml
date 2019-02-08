@@ -3,11 +3,6 @@ version: 0.0.1
 description: Test importing over_react
 environment:
   sdk: ">=1.19.1 <2.0.0"
-dependency_overrides:
-  react:
-    git:
-      url: git://github.com/evanweible-wf/react-dart.git
-      ref: unconvertJsProps
 dependencies:
   browser: ">=0.10.0 <0.11.0"
   over_react:
