@@ -294,8 +294,8 @@ class ImplGenerator {
     final String constantListName = type.isProps ? staticPropsName : staticStateName;
     final String constConstructorName = type.isProps ? 'PropDescriptor' : 'StateDescriptor';
 
-    Map keyConstants = {};
-    Map constants = {};
+    final keyConstants = <String>[];
+    final constants = <String>[];
 
     StringBuffer output = new StringBuffer();
 
@@ -335,16 +335,8 @@ class ImplGenerator {
             String individualKeyNamespace = accessorMeta?.keyNamespace ?? keyNamespace;
             String individualKey = accessorMeta?.key ?? accessorName;
 
-            /// Necessary to work around issue where private static declarations in different classes
-            /// conflict with each other in strong mode: https://github.com/dart-lang/sdk/issues/29751
-            /// TODO remove once that issue is resolved
-            String staticConstNamespace = typedMap.node.name.name;
-
-            String keyConstantName = '${privateSourcePrefix}key__${accessorName}__$staticConstNamespace';
             String keyValue = stringLiteral(individualKeyNamespace + individualKey);
-
-            String constantName = '${privateSourcePrefix}prop__${accessorName}__$staticConstNamespace';
-            String constantValue = 'const $constConstructorName($keyConstantName';
+            String constantValue = 'const $constConstructorName($keyValue';
 
             var annotationCount = 0;
 
@@ -392,8 +384,8 @@ class ImplGenerator {
 
             constantValue += ')';
 
-            keyConstants[keyConstantName] = keyValue;
-            constants[constantName] = constantValue;
+            keyConstants.add(keyValue);
+            constants.add(constantValue);
 
             final type = field.fields.type?.toSource();
             final typeString = type == null ? '' : '$type ';
@@ -410,11 +402,11 @@ class ImplGenerator {
                 '  /// Go to [$consumerClassName.$accessorName] to see the source code for this prop\n'
                 '  @override\n'
                 '${metadataSrc.toString()}'
-                '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName];\n'
+                '  ${typeString}get $accessorName => $proxiedMapName[$keyValue];\n'
                 '  /// Go to [$consumerClassName.$accessorName] to see the source code for this prop\n'
                 '  @override\n'
                 '${metadataSrc.toString()}'
-                '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;\n';
+                '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyValue] = value;\n';
 
             output.write(generatedAccessor);
 
@@ -432,36 +424,17 @@ class ImplGenerator {
           }
         });
 
-    var keyConstantsImpl;
-    var constantsImpl;
-
-    if (keyConstants.keys.isEmpty) {
-      keyConstantsImpl = '';
-    } else {
-      keyConstantsImpl =
-          keyConstants.keys.map((keyName) => '  static const String $keyName = ${keyConstants[keyName]}').join(';\n') +
-          ';\n';
-    }
-
-    if (constants.keys.isEmpty) {
-      constantsImpl = '';
-    } else {
-      constantsImpl =
-          constants.keys.map((constantName) => '  static const $constConstructorName $constantName = ${constants[constantName]}').join(';\n') +
-          ';\n';
-    }
-
     String keyListImpl =
         '  static const List<String> $keyListName = const [' +
-        keyConstants.keys.join(', ') +
+        keyConstants.join(', ') +
         '];\n';
 
     String listImpl =
         '  static const List<$constConstructorName> $constantListName = const [' +
-        constants.keys.join(', ') +
+        constants.join(',\n') +
         '];\n';
 
-    String staticVariablesImpl = '  /* GENERATED CONSTANTS */\n$constantsImpl$keyConstantsImpl\n$listImpl$keyListImpl';
+    String staticVariablesImpl = '  /* GENERATED CONSTANTS */\n$listImpl$keyListImpl';
 
     output.write(staticVariablesImpl);
     return new AccessorOutput(output.toString());
