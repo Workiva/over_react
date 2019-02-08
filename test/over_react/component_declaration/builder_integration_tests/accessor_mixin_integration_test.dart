@@ -147,9 +147,6 @@ main() {
 
 @PropsMixin()
 abstract class _$TestPropsMixin {
-  // To ensure the codemod regression checking works properly, please keep this
-  // field at the top of the class!
-
   Map get props;
 
   String stringProp;
@@ -174,9 +171,6 @@ class TestPropsMixinSubclass extends Object with
 
 @PropsMixin(keyNamespace: 'custom mixin namespace**')
 abstract class _$TestCustomNamespacePropsMixin {
-  // To ensure the codemod regression checking works properly, please keep this
-  // field at the top of the class!
-
   Map get props;
 
   String stringProp;
@@ -201,9 +195,6 @@ class TestCustomNamespacePropsMixinSubclass extends Object with
 
 @StateMixin()
 abstract class _$TestStateMixin {
-  // To ensure the codemod regression checking works properly, please keep this
-  // field at the top of the class!
-
   Map get state;
 
   String stringState;
@@ -228,9 +219,6 @@ class TestStateMixinSubclass extends Object with
 
 @StateMixin(keyNamespace: 'custom mixin namespace**')
 abstract class _$TestCustomNamespaceStateMixin {
-  // To ensure the codemod regression checking works properly, please keep this
-  // field at the top of the class!
-
   Map get state;
 
   String stringState;
