@@ -1,5 +1,57 @@
 # OverReact Changelog
 
+## 2.0.0
+
+> [Complete `2.0.0` Changeset](https://github.com/Workiva/over_react/compare/1.31.0...2.0.0)
+
+This release adds support for Dart 2 while retaining backwards-compatibility
+with Dart 1, **but it requires changes to consumer's component code.**
+
+> Note: If you intend to consume this version of over_react on Dart 1 and Dart 2
+> in the same codebase, **do not** remove the `transformers` section from your
+> `pubspec.yaml`. This section is ignored on Dart 2, but will still be needed on Dart 1
+
+__Breaking Changes__
+
+* In order to add support for Dart 2, consumers need to update their over_react
+    component code! Please see our [Dart 2 migration guide](https://github.com/Workiva/over_react/blob/master/doc/dart2_migration.md)
+    for more information.
+
+    We've created a codemod tool that will automatically update your code:
+
+    ```bash
+    # On Dart 2.1.0
+    $ pub global activate over_react_codemod ^1.0.2
+
+    # If you need backwards-compatibility with Dart 1:
+    $ pub global run over_react_codemod:dart2_upgrade --backwards-compat
+
+    # Or, if you are okay with dropping Dart 1 support:
+    $ pub global run over_react_codemod:dart2_upgrade
+    ```
+
+    The tool (and additional info) can be found here: https://github.com/Workiva/over_react_codemod/
+
+* Removals:
+  * `getJsProps()` - use `getProps()` instead
+  * `$Props` and `$PropKeys` - see the migration guide above
+
+## 1.31.0
+
+> [Complete `1.31.0` Changeset](https://github.com/Workiva/over_react/compare/1.30.2...1.31.0)
+
+__Deprecations__
+
+* [#230] Deprecate the following APIs (they will be removed in 2.0.0):
+  * `getJsProps()` - use `getProps()` instead.
+  * `$Props` and `$PropKeys` - see the [Dart 2 migration guide](https://github.com/Workiva/over_react/blob/master/doc/dart2_migration.md)
+    for more information.
+
+* [#207] Override `call()` instead of `noSuchMethod()` in the `UiProps` class.
+    This was a requirement for Dart 2 compatibility, but also serves as an
+    improvement - by no longer overriding `noSuchMethod()`, we will no longer be
+    obscuring certain analyzer errors that should be seen by consumers.
+
 ## 1.30.2
 
 > [Complete `1.30.2` Changeset](https://github.com/Workiva/over_react/compare/1.30.1...1.30.2)
