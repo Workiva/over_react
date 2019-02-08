@@ -100,6 +100,9 @@ mount / render it into the HTML element you created in step 3.
 
 5. Run `pub run build_runner serve` in the root of your Dart project.
 
+> **Note:** After running a build, you'll have to restart your analysis server in your IDE for the built types to resolve
+properly. Unfortunately, this is a known limitation in the analysis server at this time. See: https://github.com/dart-lang/sdk/issues/34344
+
 &nbsp;
 
 ### Running tests in your project
