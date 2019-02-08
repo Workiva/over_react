@@ -39,8 +39,3 @@ dev_dependencies:
   mockito: ^4.0.0
   over_react_test: ^2.2.0
   test: ^1.0.0
-dependency_overrides:
-  react:
-    git:
-      url: git://github.com/evanweible-wf/react-dart.git
-      ref: unconvertJsProps
