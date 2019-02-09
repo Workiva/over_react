@@ -25,165 +25,118 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// Go to [_$TransitionerProps.onHandlePreShowing] to see the source code for this prop
   @override
   Callback get onHandlePreShowing =>
-      props[_$key__onHandlePreShowing___$TransitionerProps];
+      props['TransitionerProps.onHandlePreShowing'];
 
   /// Go to [_$TransitionerProps.onHandlePreShowing] to see the source code for this prop
   @override
   set onHandlePreShowing(Callback value) =>
-      props[_$key__onHandlePreShowing___$TransitionerProps] = value;
+      props['TransitionerProps.onHandlePreShowing'] = value;
 
   /// Go to [_$TransitionerProps.onHandleShowing] to see the source code for this prop
   @override
-  Callback get onHandleShowing =>
-      props[_$key__onHandleShowing___$TransitionerProps];
+  Callback get onHandleShowing => props['TransitionerProps.onHandleShowing'];
 
   /// Go to [_$TransitionerProps.onHandleShowing] to see the source code for this prop
   @override
   set onHandleShowing(Callback value) =>
-      props[_$key__onHandleShowing___$TransitionerProps] = value;
+      props['TransitionerProps.onHandleShowing'] = value;
 
   /// Go to [_$TransitionerProps.onHandleShown] to see the source code for this prop
   @override
-  Callback get onHandleShown =>
-      props[_$key__onHandleShown___$TransitionerProps];
+  Callback get onHandleShown => props['TransitionerProps.onHandleShown'];
 
   /// Go to [_$TransitionerProps.onHandleShown] to see the source code for this prop
   @override
   set onHandleShown(Callback value) =>
-      props[_$key__onHandleShown___$TransitionerProps] = value;
+      props['TransitionerProps.onHandleShown'] = value;
 
   /// Go to [_$TransitionerProps.onHandleHiding] to see the source code for this prop
   @override
-  Callback get onHandleHiding =>
-      props[_$key__onHandleHiding___$TransitionerProps];
+  Callback get onHandleHiding => props['TransitionerProps.onHandleHiding'];
 
   /// Go to [_$TransitionerProps.onHandleHiding] to see the source code for this prop
   @override
   set onHandleHiding(Callback value) =>
-      props[_$key__onHandleHiding___$TransitionerProps] = value;
+      props['TransitionerProps.onHandleHiding'] = value;
 
   /// Go to [_$TransitionerProps.onHandleHidden] to see the source code for this prop
   @override
-  Callback get onHandleHidden =>
-      props[_$key__onHandleHidden___$TransitionerProps];
+  Callback get onHandleHidden => props['TransitionerProps.onHandleHidden'];
 
   /// Go to [_$TransitionerProps.onHandleHidden] to see the source code for this prop
   @override
   set onHandleHidden(Callback value) =>
-      props[_$key__onHandleHidden___$TransitionerProps] = value;
+      props['TransitionerProps.onHandleHidden'] = value;
 
   /// Go to [_$TransitionerProps.onPrepareShow] to see the source code for this prop
   @override
-  Callback get onPrepareShow =>
-      props[_$key__onPrepareShow___$TransitionerProps];
+  Callback get onPrepareShow => props['TransitionerProps.onPrepareShow'];
 
   /// Go to [_$TransitionerProps.onPrepareShow] to see the source code for this prop
   @override
   set onPrepareShow(Callback value) =>
-      props[_$key__onPrepareShow___$TransitionerProps] = value;
+      props['TransitionerProps.onPrepareShow'] = value;
 
   /// Go to [_$TransitionerProps.onPrepareHide] to see the source code for this prop
   @override
-  Callback get onPrepareHide =>
-      props[_$key__onPrepareHide___$TransitionerProps];
+  Callback get onPrepareHide => props['TransitionerProps.onPrepareHide'];
 
   /// Go to [_$TransitionerProps.onPrepareHide] to see the source code for this prop
   @override
   set onPrepareHide(Callback value) =>
-      props[_$key__onPrepareHide___$TransitionerProps] = value;
+      props['TransitionerProps.onPrepareHide'] = value;
 
   /// Go to [_$TransitionerProps.hasTransition] to see the source code for this prop
   @override
-  bool get hasTransition => props[_$key__hasTransition___$TransitionerProps];
+  bool get hasTransition => props['TransitionerProps.hasTransition'];
 
   /// Go to [_$TransitionerProps.hasTransition] to see the source code for this prop
   @override
   set hasTransition(bool value) =>
-      props[_$key__hasTransition___$TransitionerProps] = value;
+      props['TransitionerProps.hasTransition'] = value;
 
   /// Go to [_$TransitionerProps.initiallyShown] to see the source code for this prop
   @override
-  bool get initiallyShown => props[_$key__initiallyShown___$TransitionerProps];
+  bool get initiallyShown => props['TransitionerProps.initiallyShown'];
 
   /// Go to [_$TransitionerProps.initiallyShown] to see the source code for this prop
   @override
   set initiallyShown(bool value) =>
-      props[_$key__initiallyShown___$TransitionerProps] = value;
+      props['TransitionerProps.initiallyShown'] = value;
 
   /// Go to [_$TransitionerProps.transitionTimeout] to see the source code for this prop
   @override
   Duration get transitionTimeout =>
-      props[_$key__transitionTimeout___$TransitionerProps];
+      props['TransitionerProps.transitionTimeout'];
 
   /// Go to [_$TransitionerProps.transitionTimeout] to see the source code for this prop
   @override
   set transitionTimeout(Duration value) =>
-      props[_$key__transitionTimeout___$TransitionerProps] = value;
+      props['TransitionerProps.transitionTimeout'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__onHandlePreShowing___$TransitionerProps =
-      const PropDescriptor(_$key__onHandlePreShowing___$TransitionerProps);
-  static const PropDescriptor _$prop__onHandleShowing___$TransitionerProps =
-      const PropDescriptor(_$key__onHandleShowing___$TransitionerProps);
-  static const PropDescriptor _$prop__onHandleShown___$TransitionerProps =
-      const PropDescriptor(_$key__onHandleShown___$TransitionerProps);
-  static const PropDescriptor _$prop__onHandleHiding___$TransitionerProps =
-      const PropDescriptor(_$key__onHandleHiding___$TransitionerProps);
-  static const PropDescriptor _$prop__onHandleHidden___$TransitionerProps =
-      const PropDescriptor(_$key__onHandleHidden___$TransitionerProps);
-  static const PropDescriptor _$prop__onPrepareShow___$TransitionerProps =
-      const PropDescriptor(_$key__onPrepareShow___$TransitionerProps);
-  static const PropDescriptor _$prop__onPrepareHide___$TransitionerProps =
-      const PropDescriptor(_$key__onPrepareHide___$TransitionerProps);
-  static const PropDescriptor _$prop__hasTransition___$TransitionerProps =
-      const PropDescriptor(_$key__hasTransition___$TransitionerProps);
-  static const PropDescriptor _$prop__initiallyShown___$TransitionerProps =
-      const PropDescriptor(_$key__initiallyShown___$TransitionerProps);
-  static const PropDescriptor _$prop__transitionTimeout___$TransitionerProps =
-      const PropDescriptor(_$key__transitionTimeout___$TransitionerProps);
-  static const String _$key__onHandlePreShowing___$TransitionerProps =
-      'TransitionerProps.onHandlePreShowing';
-  static const String _$key__onHandleShowing___$TransitionerProps =
-      'TransitionerProps.onHandleShowing';
-  static const String _$key__onHandleShown___$TransitionerProps =
-      'TransitionerProps.onHandleShown';
-  static const String _$key__onHandleHiding___$TransitionerProps =
-      'TransitionerProps.onHandleHiding';
-  static const String _$key__onHandleHidden___$TransitionerProps =
-      'TransitionerProps.onHandleHidden';
-  static const String _$key__onPrepareShow___$TransitionerProps =
-      'TransitionerProps.onPrepareShow';
-  static const String _$key__onPrepareHide___$TransitionerProps =
-      'TransitionerProps.onPrepareHide';
-  static const String _$key__hasTransition___$TransitionerProps =
-      'TransitionerProps.hasTransition';
-  static const String _$key__initiallyShown___$TransitionerProps =
-      'TransitionerProps.initiallyShown';
-  static const String _$key__transitionTimeout___$TransitionerProps =
-      'TransitionerProps.transitionTimeout';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__onHandlePreShowing___$TransitionerProps,
-    _$prop__onHandleShowing___$TransitionerProps,
-    _$prop__onHandleShown___$TransitionerProps,
-    _$prop__onHandleHiding___$TransitionerProps,
-    _$prop__onHandleHidden___$TransitionerProps,
-    _$prop__onPrepareShow___$TransitionerProps,
-    _$prop__onPrepareHide___$TransitionerProps,
-    _$prop__hasTransition___$TransitionerProps,
-    _$prop__initiallyShown___$TransitionerProps,
-    _$prop__transitionTimeout___$TransitionerProps
+    const PropDescriptor('TransitionerProps.onHandlePreShowing'),
+    const PropDescriptor('TransitionerProps.onHandleShowing'),
+    const PropDescriptor('TransitionerProps.onHandleShown'),
+    const PropDescriptor('TransitionerProps.onHandleHiding'),
+    const PropDescriptor('TransitionerProps.onHandleHidden'),
+    const PropDescriptor('TransitionerProps.onPrepareShow'),
+    const PropDescriptor('TransitionerProps.onPrepareHide'),
+    const PropDescriptor('TransitionerProps.hasTransition'),
+    const PropDescriptor('TransitionerProps.initiallyShown'),
+    const PropDescriptor('TransitionerProps.transitionTimeout')
   ];
   static const List<String> $propKeys = const [
-    _$key__onHandlePreShowing___$TransitionerProps,
-    _$key__onHandleShowing___$TransitionerProps,
-    _$key__onHandleShown___$TransitionerProps,
-    _$key__onHandleHiding___$TransitionerProps,
-    _$key__onHandleHidden___$TransitionerProps,
-    _$key__onPrepareShow___$TransitionerProps,
-    _$key__onPrepareHide___$TransitionerProps,
-    _$key__hasTransition___$TransitionerProps,
-    _$key__initiallyShown___$TransitionerProps,
-    _$key__transitionTimeout___$TransitionerProps
+    'TransitionerProps.onHandlePreShowing',
+    'TransitionerProps.onHandleShowing',
+    'TransitionerProps.onHandleShown',
+    'TransitionerProps.onHandleHiding',
+    'TransitionerProps.onHandleHidden',
+    'TransitionerProps.onPrepareShow',
+    'TransitionerProps.onPrepareHide',
+    'TransitionerProps.hasTransition',
+    'TransitionerProps.initiallyShown',
+    'TransitionerProps.transitionTimeout'
   ];
 }
 
@@ -233,7 +186,6 @@ abstract class _$TransitionerStateAccessorsMixin
   Map get state;
 
   /* GENERATED CONSTANTS */
-
   static const List<StateDescriptor> $state = const [];
   static const List<String> $stateKeys = const [];
 }

@@ -23,25 +23,17 @@ abstract class _$ListGroupPropsAccessorsMixin implements _$ListGroupProps {
 
   /// Go to [_$ListGroupProps.elementType] to see the source code for this prop
   @override
-  ListGroupElementType get elementType =>
-      props[_$key__elementType___$ListGroupProps];
+  ListGroupElementType get elementType => props['ListGroupProps.elementType'];
 
   /// Go to [_$ListGroupProps.elementType] to see the source code for this prop
   @override
   set elementType(ListGroupElementType value) =>
-      props[_$key__elementType___$ListGroupProps] = value;
+      props['ListGroupProps.elementType'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__elementType___$ListGroupProps =
-      const PropDescriptor(_$key__elementType___$ListGroupProps);
-  static const String _$key__elementType___$ListGroupProps =
-      'ListGroupProps.elementType';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__elementType___$ListGroupProps
+    const PropDescriptor('ListGroupProps.elementType')
   ];
-  static const List<String> $propKeys = const [
-    _$key__elementType___$ListGroupProps
-  ];
+  static const List<String> $propKeys = const ['ListGroupProps.elementType'];
 }
 
 const PropsMeta _$metaForListGroupProps = const PropsMeta(

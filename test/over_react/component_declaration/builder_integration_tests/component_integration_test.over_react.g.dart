@@ -24,109 +24,77 @@ abstract class _$ComponentTestPropsAccessorsMixin
 
   /// Go to [_$ComponentTestProps.stringProp] to see the source code for this prop
   @override
-  String get stringProp => props[_$key__stringProp___$ComponentTestProps];
+  String get stringProp => props['ComponentTestProps.stringProp'];
 
   /// Go to [_$ComponentTestProps.stringProp] to see the source code for this prop
   @override
   set stringProp(String value) =>
-      props[_$key__stringProp___$ComponentTestProps] = value;
+      props['ComponentTestProps.stringProp'] = value;
 
   /// Go to [_$ComponentTestProps.dynamicProp] to see the source code for this prop
   @override
-  dynamic get dynamicProp => props[_$key__dynamicProp___$ComponentTestProps];
+  dynamic get dynamicProp => props['ComponentTestProps.dynamicProp'];
 
   /// Go to [_$ComponentTestProps.dynamicProp] to see the source code for this prop
   @override
   set dynamicProp(dynamic value) =>
-      props[_$key__dynamicProp___$ComponentTestProps] = value;
+      props['ComponentTestProps.dynamicProp'] = value;
 
   /// Go to [_$ComponentTestProps.untypedProp] to see the source code for this prop
   @override
-  get untypedProp => props[_$key__untypedProp___$ComponentTestProps];
+  get untypedProp => props['ComponentTestProps.untypedProp'];
 
   /// Go to [_$ComponentTestProps.untypedProp] to see the source code for this prop
   @override
-  set untypedProp(value) =>
-      props[_$key__untypedProp___$ComponentTestProps] = value;
+  set untypedProp(value) => props['ComponentTestProps.untypedProp'] = value;
 
   /// Go to [_$ComponentTestProps.customKeyProp] to see the source code for this prop
   @override
   @Accessor(key: 'custom key!')
-  get customKeyProp => props[_$key__customKeyProp___$ComponentTestProps];
+  get customKeyProp => props['ComponentTestProps.custom key!'];
 
   /// Go to [_$ComponentTestProps.customKeyProp] to see the source code for this prop
   @override
   @Accessor(key: 'custom key!')
-  set customKeyProp(value) =>
-      props[_$key__customKeyProp___$ComponentTestProps] = value;
+  set customKeyProp(value) => props['ComponentTestProps.custom key!'] = value;
 
   /// Go to [_$ComponentTestProps.customNamespaceProp] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceProp =>
-      props[_$key__customNamespaceProp___$ComponentTestProps];
+  get customNamespaceProp => props['custom namespace~~customNamespaceProp'];
 
   /// Go to [_$ComponentTestProps.customNamespaceProp] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceProp(value) =>
-      props[_$key__customNamespaceProp___$ComponentTestProps] = value;
+      props['custom namespace~~customNamespaceProp'] = value;
 
   /// Go to [_$ComponentTestProps.customKeyAndNamespaceProp] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceProp =>
-      props[_$key__customKeyAndNamespaceProp___$ComponentTestProps];
+  get customKeyAndNamespaceProp => props['custom namespace~~custom key!'];
 
   /// Go to [_$ComponentTestProps.customKeyAndNamespaceProp] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceProp(value) =>
-      props[_$key__customKeyAndNamespaceProp___$ComponentTestProps] = value;
+      props['custom namespace~~custom key!'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__stringProp___$ComponentTestProps =
-      const PropDescriptor(_$key__stringProp___$ComponentTestProps);
-  static const PropDescriptor _$prop__dynamicProp___$ComponentTestProps =
-      const PropDescriptor(_$key__dynamicProp___$ComponentTestProps);
-  static const PropDescriptor _$prop__untypedProp___$ComponentTestProps =
-      const PropDescriptor(_$key__untypedProp___$ComponentTestProps);
-  static const PropDescriptor _$prop__customKeyProp___$ComponentTestProps =
-      const PropDescriptor(_$key__customKeyProp___$ComponentTestProps);
-  static const PropDescriptor
-      _$prop__customNamespaceProp___$ComponentTestProps =
-      const PropDescriptor(_$key__customNamespaceProp___$ComponentTestProps);
-  static const PropDescriptor
-      _$prop__customKeyAndNamespaceProp___$ComponentTestProps =
-      const PropDescriptor(
-          _$key__customKeyAndNamespaceProp___$ComponentTestProps);
-  static const String _$key__stringProp___$ComponentTestProps =
-      'ComponentTestProps.stringProp';
-  static const String _$key__dynamicProp___$ComponentTestProps =
-      'ComponentTestProps.dynamicProp';
-  static const String _$key__untypedProp___$ComponentTestProps =
-      'ComponentTestProps.untypedProp';
-  static const String _$key__customKeyProp___$ComponentTestProps =
-      'ComponentTestProps.custom key!';
-  static const String _$key__customNamespaceProp___$ComponentTestProps =
-      'custom namespace~~customNamespaceProp';
-  static const String _$key__customKeyAndNamespaceProp___$ComponentTestProps =
-      'custom namespace~~custom key!';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__stringProp___$ComponentTestProps,
-    _$prop__dynamicProp___$ComponentTestProps,
-    _$prop__untypedProp___$ComponentTestProps,
-    _$prop__customKeyProp___$ComponentTestProps,
-    _$prop__customNamespaceProp___$ComponentTestProps,
-    _$prop__customKeyAndNamespaceProp___$ComponentTestProps
+    const PropDescriptor('ComponentTestProps.stringProp'),
+    const PropDescriptor('ComponentTestProps.dynamicProp'),
+    const PropDescriptor('ComponentTestProps.untypedProp'),
+    const PropDescriptor('ComponentTestProps.custom key!'),
+    const PropDescriptor('custom namespace~~customNamespaceProp'),
+    const PropDescriptor('custom namespace~~custom key!')
   ];
   static const List<String> $propKeys = const [
-    _$key__stringProp___$ComponentTestProps,
-    _$key__dynamicProp___$ComponentTestProps,
-    _$key__untypedProp___$ComponentTestProps,
-    _$key__customKeyProp___$ComponentTestProps,
-    _$key__customNamespaceProp___$ComponentTestProps,
-    _$key__customKeyAndNamespaceProp___$ComponentTestProps
+    'ComponentTestProps.stringProp',
+    'ComponentTestProps.dynamicProp',
+    'ComponentTestProps.untypedProp',
+    'ComponentTestProps.custom key!',
+    'custom namespace~~customNamespaceProp',
+    'custom namespace~~custom key!'
   ];
 }
 

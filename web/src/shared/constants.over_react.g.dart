@@ -16,55 +16,42 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   /// Go to [_$AbstractInputPropsMixin.name] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  String get name => props[_$key__name___$AbstractInputPropsMixin];
+  String get name => props['name'];
 
   /// Go to [_$AbstractInputPropsMixin.name] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  set name(String value) =>
-      props[_$key__name___$AbstractInputPropsMixin] = value;
+  set name(String value) => props['name'] = value;
 
   /// Go to [_$AbstractInputPropsMixin.value] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  dynamic get value => props[_$key__value___$AbstractInputPropsMixin];
+  dynamic get value => props['value'];
 
   /// Go to [_$AbstractInputPropsMixin.value] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  set value(dynamic value) =>
-      props[_$key__value___$AbstractInputPropsMixin] = value;
+  set value(dynamic value) => props['value'] = value;
 
   /// Go to [_$AbstractInputPropsMixin.toggleType] to see the source code for this prop
   @override
   ToggleBehaviorType get toggleType =>
-      props[_$key__toggleType___$AbstractInputPropsMixin];
+      props['AbstractInputPropsMixin.toggleType'];
 
   /// Go to [_$AbstractInputPropsMixin.toggleType] to see the source code for this prop
   @override
   set toggleType(ToggleBehaviorType value) =>
-      props[_$key__toggleType___$AbstractInputPropsMixin] = value;
+      props['AbstractInputPropsMixin.toggleType'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__name___$AbstractInputPropsMixin =
-      const PropDescriptor(_$key__name___$AbstractInputPropsMixin);
-  static const PropDescriptor _$prop__value___$AbstractInputPropsMixin =
-      const PropDescriptor(_$key__value___$AbstractInputPropsMixin);
-  static const PropDescriptor _$prop__toggleType___$AbstractInputPropsMixin =
-      const PropDescriptor(_$key__toggleType___$AbstractInputPropsMixin);
-  static const String _$key__name___$AbstractInputPropsMixin = 'name';
-  static const String _$key__value___$AbstractInputPropsMixin = 'value';
-  static const String _$key__toggleType___$AbstractInputPropsMixin =
-      'AbstractInputPropsMixin.toggleType';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__name___$AbstractInputPropsMixin,
-    _$prop__value___$AbstractInputPropsMixin,
-    _$prop__toggleType___$AbstractInputPropsMixin
+    const PropDescriptor('name'),
+    const PropDescriptor('value'),
+    const PropDescriptor('AbstractInputPropsMixin.toggleType')
   ];
   static const List<String> $propKeys = const [
-    _$key__name___$AbstractInputPropsMixin,
-    _$key__value___$AbstractInputPropsMixin,
-    _$key__toggleType___$AbstractInputPropsMixin
+    'name',
+    'value',
+    'AbstractInputPropsMixin.toggleType'
   ];
 }
 
@@ -81,37 +68,27 @@ abstract class AbstractInputStateMixin implements _$AbstractInputStateMixin {
 
   /// Go to [_$AbstractInputStateMixin.id] to see the source code for this prop
   @override
-  String get id => state[_$key__id___$AbstractInputStateMixin];
+  String get id => state['AbstractInputStateMixin.id'];
 
   /// Go to [_$AbstractInputStateMixin.id] to see the source code for this prop
   @override
-  set id(String value) => state[_$key__id___$AbstractInputStateMixin] = value;
+  set id(String value) => state['AbstractInputStateMixin.id'] = value;
 
   /// Go to [_$AbstractInputStateMixin.name] to see the source code for this prop
   @override
-  String get name => state[_$key__name___$AbstractInputStateMixin];
+  String get name => state['AbstractInputStateMixin.name'];
 
   /// Go to [_$AbstractInputStateMixin.name] to see the source code for this prop
   @override
-  set name(String value) =>
-      state[_$key__name___$AbstractInputStateMixin] = value;
+  set name(String value) => state['AbstractInputStateMixin.name'] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__id___$AbstractInputStateMixin =
-      const StateDescriptor(_$key__id___$AbstractInputStateMixin);
-  static const StateDescriptor _$prop__name___$AbstractInputStateMixin =
-      const StateDescriptor(_$key__name___$AbstractInputStateMixin);
-  static const String _$key__id___$AbstractInputStateMixin =
-      'AbstractInputStateMixin.id';
-  static const String _$key__name___$AbstractInputStateMixin =
-      'AbstractInputStateMixin.name';
-
   static const List<StateDescriptor> $state = const [
-    _$prop__id___$AbstractInputStateMixin,
-    _$prop__name___$AbstractInputStateMixin
+    const StateDescriptor('AbstractInputStateMixin.id'),
+    const StateDescriptor('AbstractInputStateMixin.name')
   ];
   static const List<String> $stateKeys = const [
-    _$key__id___$AbstractInputStateMixin,
-    _$key__name___$AbstractInputStateMixin
+    'AbstractInputStateMixin.id',
+    'AbstractInputStateMixin.name'
   ];
 }
 

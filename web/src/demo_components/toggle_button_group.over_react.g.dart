@@ -24,7 +24,6 @@ abstract class _$ToggleButtonGroupPropsAccessorsMixin
   Map get props;
 
   /* GENERATED CONSTANTS */
-
   static const List<PropDescriptor> $props = const [];
   static const List<String> $propKeys = const [];
 }
@@ -75,7 +74,6 @@ abstract class _$ToggleButtonGroupStateAccessorsMixin
   Map get state;
 
   /* GENERATED CONSTANTS */
-
   static const List<StateDescriptor> $state = const [];
   static const List<String> $stateKeys = const [];
 }

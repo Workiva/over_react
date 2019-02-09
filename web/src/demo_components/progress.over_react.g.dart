@@ -23,163 +23,118 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
 
   /// Go to [_$ProgressProps.value] to see the source code for this prop
   @override
-  double get value => props[_$key__value___$ProgressProps];
+  double get value => props['ProgressProps.value'];
 
   /// Go to [_$ProgressProps.value] to see the source code for this prop
   @override
-  set value(double value) => props[_$key__value___$ProgressProps] = value;
+  set value(double value) => props['ProgressProps.value'] = value;
 
   /// Go to [_$ProgressProps.min] to see the source code for this prop
   @override
-  double get min => props[_$key__min___$ProgressProps];
+  double get min => props['ProgressProps.min'];
 
   /// Go to [_$ProgressProps.min] to see the source code for this prop
   @override
-  set min(double value) => props[_$key__min___$ProgressProps] = value;
+  set min(double value) => props['ProgressProps.min'] = value;
 
   /// Go to [_$ProgressProps.max] to see the source code for this prop
   @override
-  double get max => props[_$key__max___$ProgressProps];
+  double get max => props['ProgressProps.max'];
 
   /// Go to [_$ProgressProps.max] to see the source code for this prop
   @override
-  set max(double value) => props[_$key__max___$ProgressProps] = value;
+  set max(double value) => props['ProgressProps.max'] = value;
 
   /// Go to [_$ProgressProps.skin] to see the source code for this prop
   @override
-  ProgressSkin get skin => props[_$key__skin___$ProgressProps];
+  ProgressSkin get skin => props['ProgressProps.skin'];
 
   /// Go to [_$ProgressProps.skin] to see the source code for this prop
   @override
-  set skin(ProgressSkin value) => props[_$key__skin___$ProgressProps] = value;
+  set skin(ProgressSkin value) => props['ProgressProps.skin'] = value;
 
   /// Go to [_$ProgressProps.isStriped] to see the source code for this prop
   @override
-  bool get isStriped => props[_$key__isStriped___$ProgressProps];
+  bool get isStriped => props['ProgressProps.isStriped'];
 
   /// Go to [_$ProgressProps.isStriped] to see the source code for this prop
   @override
-  set isStriped(bool value) => props[_$key__isStriped___$ProgressProps] = value;
+  set isStriped(bool value) => props['ProgressProps.isStriped'] = value;
 
   /// Go to [_$ProgressProps.isAnimated] to see the source code for this prop
   @override
-  bool get isAnimated => props[_$key__isAnimated___$ProgressProps];
+  bool get isAnimated => props['ProgressProps.isAnimated'];
 
   /// Go to [_$ProgressProps.isAnimated] to see the source code for this prop
   @override
-  set isAnimated(bool value) =>
-      props[_$key__isAnimated___$ProgressProps] = value;
+  set isAnimated(bool value) => props['ProgressProps.isAnimated'] = value;
 
   /// Go to [_$ProgressProps.caption] to see the source code for this prop
   @override
-  String get caption => props[_$key__caption___$ProgressProps];
+  String get caption => props['ProgressProps.caption'];
 
   /// Go to [_$ProgressProps.caption] to see the source code for this prop
   @override
-  set caption(String value) => props[_$key__caption___$ProgressProps] = value;
+  set caption(String value) => props['ProgressProps.caption'] = value;
 
   /// Go to [_$ProgressProps.captionProps] to see the source code for this prop
   @override
-  Map get captionProps => props[_$key__captionProps___$ProgressProps];
+  Map get captionProps => props['ProgressProps.captionProps'];
 
   /// Go to [_$ProgressProps.captionProps] to see the source code for this prop
   @override
-  set captionProps(Map value) =>
-      props[_$key__captionProps___$ProgressProps] = value;
+  set captionProps(Map value) => props['ProgressProps.captionProps'] = value;
 
   /// Go to [_$ProgressProps.showCaption] to see the source code for this prop
   @override
-  bool get showCaption => props[_$key__showCaption___$ProgressProps];
+  bool get showCaption => props['ProgressProps.showCaption'];
 
   /// Go to [_$ProgressProps.showCaption] to see the source code for this prop
   @override
-  set showCaption(bool value) =>
-      props[_$key__showCaption___$ProgressProps] = value;
+  set showCaption(bool value) => props['ProgressProps.showCaption'] = value;
 
   /// Go to [_$ProgressProps.showPercentComplete] to see the source code for this prop
   @override
-  bool get showPercentComplete =>
-      props[_$key__showPercentComplete___$ProgressProps];
+  bool get showPercentComplete => props['ProgressProps.showPercentComplete'];
 
   /// Go to [_$ProgressProps.showPercentComplete] to see the source code for this prop
   @override
   set showPercentComplete(bool value) =>
-      props[_$key__showPercentComplete___$ProgressProps] = value;
+      props['ProgressProps.showPercentComplete'] = value;
 
   /// Go to [_$ProgressProps.rootNodeProps] to see the source code for this prop
   @override
-  Map get rootNodeProps => props[_$key__rootNodeProps___$ProgressProps];
+  Map get rootNodeProps => props['ProgressProps.rootNodeProps'];
 
   /// Go to [_$ProgressProps.rootNodeProps] to see the source code for this prop
   @override
-  set rootNodeProps(Map value) =>
-      props[_$key__rootNodeProps___$ProgressProps] = value;
+  set rootNodeProps(Map value) => props['ProgressProps.rootNodeProps'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__value___$ProgressProps =
-      const PropDescriptor(_$key__value___$ProgressProps);
-  static const PropDescriptor _$prop__min___$ProgressProps =
-      const PropDescriptor(_$key__min___$ProgressProps);
-  static const PropDescriptor _$prop__max___$ProgressProps =
-      const PropDescriptor(_$key__max___$ProgressProps);
-  static const PropDescriptor _$prop__skin___$ProgressProps =
-      const PropDescriptor(_$key__skin___$ProgressProps);
-  static const PropDescriptor _$prop__isStriped___$ProgressProps =
-      const PropDescriptor(_$key__isStriped___$ProgressProps);
-  static const PropDescriptor _$prop__isAnimated___$ProgressProps =
-      const PropDescriptor(_$key__isAnimated___$ProgressProps);
-  static const PropDescriptor _$prop__caption___$ProgressProps =
-      const PropDescriptor(_$key__caption___$ProgressProps);
-  static const PropDescriptor _$prop__captionProps___$ProgressProps =
-      const PropDescriptor(_$key__captionProps___$ProgressProps);
-  static const PropDescriptor _$prop__showCaption___$ProgressProps =
-      const PropDescriptor(_$key__showCaption___$ProgressProps);
-  static const PropDescriptor _$prop__showPercentComplete___$ProgressProps =
-      const PropDescriptor(_$key__showPercentComplete___$ProgressProps);
-  static const PropDescriptor _$prop__rootNodeProps___$ProgressProps =
-      const PropDescriptor(_$key__rootNodeProps___$ProgressProps);
-  static const String _$key__value___$ProgressProps = 'ProgressProps.value';
-  static const String _$key__min___$ProgressProps = 'ProgressProps.min';
-  static const String _$key__max___$ProgressProps = 'ProgressProps.max';
-  static const String _$key__skin___$ProgressProps = 'ProgressProps.skin';
-  static const String _$key__isStriped___$ProgressProps =
-      'ProgressProps.isStriped';
-  static const String _$key__isAnimated___$ProgressProps =
-      'ProgressProps.isAnimated';
-  static const String _$key__caption___$ProgressProps = 'ProgressProps.caption';
-  static const String _$key__captionProps___$ProgressProps =
-      'ProgressProps.captionProps';
-  static const String _$key__showCaption___$ProgressProps =
-      'ProgressProps.showCaption';
-  static const String _$key__showPercentComplete___$ProgressProps =
-      'ProgressProps.showPercentComplete';
-  static const String _$key__rootNodeProps___$ProgressProps =
-      'ProgressProps.rootNodeProps';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__value___$ProgressProps,
-    _$prop__min___$ProgressProps,
-    _$prop__max___$ProgressProps,
-    _$prop__skin___$ProgressProps,
-    _$prop__isStriped___$ProgressProps,
-    _$prop__isAnimated___$ProgressProps,
-    _$prop__caption___$ProgressProps,
-    _$prop__captionProps___$ProgressProps,
-    _$prop__showCaption___$ProgressProps,
-    _$prop__showPercentComplete___$ProgressProps,
-    _$prop__rootNodeProps___$ProgressProps
+    const PropDescriptor('ProgressProps.value'),
+    const PropDescriptor('ProgressProps.min'),
+    const PropDescriptor('ProgressProps.max'),
+    const PropDescriptor('ProgressProps.skin'),
+    const PropDescriptor('ProgressProps.isStriped'),
+    const PropDescriptor('ProgressProps.isAnimated'),
+    const PropDescriptor('ProgressProps.caption'),
+    const PropDescriptor('ProgressProps.captionProps'),
+    const PropDescriptor('ProgressProps.showCaption'),
+    const PropDescriptor('ProgressProps.showPercentComplete'),
+    const PropDescriptor('ProgressProps.rootNodeProps')
   ];
   static const List<String> $propKeys = const [
-    _$key__value___$ProgressProps,
-    _$key__min___$ProgressProps,
-    _$key__max___$ProgressProps,
-    _$key__skin___$ProgressProps,
-    _$key__isStriped___$ProgressProps,
-    _$key__isAnimated___$ProgressProps,
-    _$key__caption___$ProgressProps,
-    _$key__captionProps___$ProgressProps,
-    _$key__showCaption___$ProgressProps,
-    _$key__showPercentComplete___$ProgressProps,
-    _$key__rootNodeProps___$ProgressProps
+    'ProgressProps.value',
+    'ProgressProps.min',
+    'ProgressProps.max',
+    'ProgressProps.skin',
+    'ProgressProps.isStriped',
+    'ProgressProps.isAnimated',
+    'ProgressProps.caption',
+    'ProgressProps.captionProps',
+    'ProgressProps.showCaption',
+    'ProgressProps.showPercentComplete',
+    'ProgressProps.rootNodeProps'
   ];
 }
 
@@ -227,20 +182,16 @@ abstract class _$ProgressStateAccessorsMixin implements _$ProgressState {
 
   /// Go to [_$ProgressState.id] to see the source code for this prop
   @override
-  String get id => state[_$key__id___$ProgressState];
+  String get id => state['ProgressState.id'];
 
   /// Go to [_$ProgressState.id] to see the source code for this prop
   @override
-  set id(String value) => state[_$key__id___$ProgressState] = value;
+  set id(String value) => state['ProgressState.id'] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__id___$ProgressState =
-      const StateDescriptor(_$key__id___$ProgressState);
-  static const String _$key__id___$ProgressState = 'ProgressState.id';
-
   static const List<StateDescriptor> $state = const [
-    _$prop__id___$ProgressState
+    const StateDescriptor('ProgressState.id')
   ];
-  static const List<String> $stateKeys = const [_$key__id___$ProgressState];
+  static const List<String> $stateKeys = const ['ProgressState.id'];
 }
 
 const StateMeta _$metaForProgressState = const StateMeta(

@@ -24,98 +24,67 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
 
   /// Go to [_$BasicPartOfLibProps.basicProp] to see the source code for this prop
   @override
-  String get basicProp => props[_$key__basicProp___$BasicPartOfLibProps];
+  String get basicProp => props['BasicPartOfLibProps.basicProp'];
 
   /// Go to [_$BasicPartOfLibProps.basicProp] to see the source code for this prop
   @override
-  set basicProp(String value) =>
-      props[_$key__basicProp___$BasicPartOfLibProps] = value;
+  set basicProp(String value) => props['BasicPartOfLibProps.basicProp'] = value;
 
   /// Go to [_$BasicPartOfLibProps.basic1] to see the source code for this prop
   @override
-  String get basic1 => props[_$key__basic1___$BasicPartOfLibProps];
+  String get basic1 => props['BasicPartOfLibProps.basic1'];
 
   /// Go to [_$BasicPartOfLibProps.basic1] to see the source code for this prop
   @override
-  set basic1(String value) =>
-      props[_$key__basic1___$BasicPartOfLibProps] = value;
+  set basic1(String value) => props['BasicPartOfLibProps.basic1'] = value;
 
   /// Go to [_$BasicPartOfLibProps.basic2] to see the source code for this prop
   @override
-  String get basic2 => props[_$key__basic2___$BasicPartOfLibProps];
+  String get basic2 => props['BasicPartOfLibProps.basic2'];
 
   /// Go to [_$BasicPartOfLibProps.basic2] to see the source code for this prop
   @override
-  set basic2(String value) =>
-      props[_$key__basic2___$BasicPartOfLibProps] = value;
+  set basic2(String value) => props['BasicPartOfLibProps.basic2'] = value;
 
   /// Go to [_$BasicPartOfLibProps.basic3] to see the source code for this prop
   @override
-  String get basic3 => props[_$key__basic3___$BasicPartOfLibProps];
+  String get basic3 => props['BasicPartOfLibProps.basic3'];
 
   /// Go to [_$BasicPartOfLibProps.basic3] to see the source code for this prop
   @override
-  set basic3(String value) =>
-      props[_$key__basic3___$BasicPartOfLibProps] = value;
+  set basic3(String value) => props['BasicPartOfLibProps.basic3'] = value;
 
   /// Go to [_$BasicPartOfLibProps.basic4] to see the source code for this prop
   @override
-  String get basic4 => props[_$key__basic4___$BasicPartOfLibProps];
+  String get basic4 => props['BasicPartOfLibProps.basic4'];
 
   /// Go to [_$BasicPartOfLibProps.basic4] to see the source code for this prop
   @override
-  set basic4(String value) =>
-      props[_$key__basic4___$BasicPartOfLibProps] = value;
+  set basic4(String value) => props['BasicPartOfLibProps.basic4'] = value;
 
   /// Go to [_$BasicPartOfLibProps.basic5] to see the source code for this prop
   @override
-  String get basic5 => props[_$key__basic5___$BasicPartOfLibProps];
+  String get basic5 => props['BasicPartOfLibProps.basic5'];
 
   /// Go to [_$BasicPartOfLibProps.basic5] to see the source code for this prop
   @override
-  set basic5(String value) =>
-      props[_$key__basic5___$BasicPartOfLibProps] = value;
+  set basic5(String value) => props['BasicPartOfLibProps.basic5'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__basicProp___$BasicPartOfLibProps =
-      const PropDescriptor(_$key__basicProp___$BasicPartOfLibProps);
-  static const PropDescriptor _$prop__basic1___$BasicPartOfLibProps =
-      const PropDescriptor(_$key__basic1___$BasicPartOfLibProps);
-  static const PropDescriptor _$prop__basic2___$BasicPartOfLibProps =
-      const PropDescriptor(_$key__basic2___$BasicPartOfLibProps);
-  static const PropDescriptor _$prop__basic3___$BasicPartOfLibProps =
-      const PropDescriptor(_$key__basic3___$BasicPartOfLibProps);
-  static const PropDescriptor _$prop__basic4___$BasicPartOfLibProps =
-      const PropDescriptor(_$key__basic4___$BasicPartOfLibProps);
-  static const PropDescriptor _$prop__basic5___$BasicPartOfLibProps =
-      const PropDescriptor(_$key__basic5___$BasicPartOfLibProps);
-  static const String _$key__basicProp___$BasicPartOfLibProps =
-      'BasicPartOfLibProps.basicProp';
-  static const String _$key__basic1___$BasicPartOfLibProps =
-      'BasicPartOfLibProps.basic1';
-  static const String _$key__basic2___$BasicPartOfLibProps =
-      'BasicPartOfLibProps.basic2';
-  static const String _$key__basic3___$BasicPartOfLibProps =
-      'BasicPartOfLibProps.basic3';
-  static const String _$key__basic4___$BasicPartOfLibProps =
-      'BasicPartOfLibProps.basic4';
-  static const String _$key__basic5___$BasicPartOfLibProps =
-      'BasicPartOfLibProps.basic5';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__basicProp___$BasicPartOfLibProps,
-    _$prop__basic1___$BasicPartOfLibProps,
-    _$prop__basic2___$BasicPartOfLibProps,
-    _$prop__basic3___$BasicPartOfLibProps,
-    _$prop__basic4___$BasicPartOfLibProps,
-    _$prop__basic5___$BasicPartOfLibProps
+    const PropDescriptor('BasicPartOfLibProps.basicProp'),
+    const PropDescriptor('BasicPartOfLibProps.basic1'),
+    const PropDescriptor('BasicPartOfLibProps.basic2'),
+    const PropDescriptor('BasicPartOfLibProps.basic3'),
+    const PropDescriptor('BasicPartOfLibProps.basic4'),
+    const PropDescriptor('BasicPartOfLibProps.basic5')
   ];
   static const List<String> $propKeys = const [
-    _$key__basicProp___$BasicPartOfLibProps,
-    _$key__basic1___$BasicPartOfLibProps,
-    _$key__basic2___$BasicPartOfLibProps,
-    _$key__basic3___$BasicPartOfLibProps,
-    _$key__basic4___$BasicPartOfLibProps,
-    _$key__basic5___$BasicPartOfLibProps
+    'BasicPartOfLibProps.basicProp',
+    'BasicPartOfLibProps.basic1',
+    'BasicPartOfLibProps.basic2',
+    'BasicPartOfLibProps.basic3',
+    'BasicPartOfLibProps.basic4',
+    'BasicPartOfLibProps.basic5'
   ];
 }
 
@@ -166,23 +135,18 @@ abstract class _$BasicPartOfLibStateAccessorsMixin
 
   /// Go to [_$BasicPartOfLibState.basicState] to see the source code for this prop
   @override
-  String get basicState => state[_$key__basicState___$BasicPartOfLibState];
+  String get basicState => state['BasicPartOfLibState.basicState'];
 
   /// Go to [_$BasicPartOfLibState.basicState] to see the source code for this prop
   @override
   set basicState(String value) =>
-      state[_$key__basicState___$BasicPartOfLibState] = value;
+      state['BasicPartOfLibState.basicState'] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__basicState___$BasicPartOfLibState =
-      const StateDescriptor(_$key__basicState___$BasicPartOfLibState);
-  static const String _$key__basicState___$BasicPartOfLibState =
-      'BasicPartOfLibState.basicState';
-
   static const List<StateDescriptor> $state = const [
-    _$prop__basicState___$BasicPartOfLibState
+    const StateDescriptor('BasicPartOfLibState.basicState')
   ];
   static const List<String> $stateKeys = const [
-    _$key__basicState___$BasicPartOfLibState
+    'BasicPartOfLibState.basicState'
   ];
 }
 
@@ -257,24 +221,16 @@ abstract class _$SubPartOfLibPropsAccessorsMixin
 
   /// Go to [_$SubPartOfLibProps.subProp] to see the source code for this prop
   @override
-  String get subProp => props[_$key__subProp___$SubPartOfLibProps];
+  String get subProp => props['SubPartOfLibProps.subProp'];
 
   /// Go to [_$SubPartOfLibProps.subProp] to see the source code for this prop
   @override
-  set subProp(String value) =>
-      props[_$key__subProp___$SubPartOfLibProps] = value;
+  set subProp(String value) => props['SubPartOfLibProps.subProp'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__subProp___$SubPartOfLibProps =
-      const PropDescriptor(_$key__subProp___$SubPartOfLibProps);
-  static const String _$key__subProp___$SubPartOfLibProps =
-      'SubPartOfLibProps.subProp';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__subProp___$SubPartOfLibProps
+    const PropDescriptor('SubPartOfLibProps.subProp')
   ];
-  static const List<String> $propKeys = const [
-    _$key__subProp___$SubPartOfLibProps
-  ];
+  static const List<String> $propKeys = const ['SubPartOfLibProps.subProp'];
 }
 
 const PropsMeta _$metaForSubPartOfLibProps = const PropsMeta(
@@ -345,24 +301,16 @@ abstract class _$SuperPartOfLibPropsAccessorsMixin
 
   /// Go to [_$SuperPartOfLibProps.superProp] to see the source code for this prop
   @override
-  String get superProp => props[_$key__superProp___$SuperPartOfLibProps];
+  String get superProp => props['SuperPartOfLibProps.superProp'];
 
   /// Go to [_$SuperPartOfLibProps.superProp] to see the source code for this prop
   @override
-  set superProp(String value) =>
-      props[_$key__superProp___$SuperPartOfLibProps] = value;
+  set superProp(String value) => props['SuperPartOfLibProps.superProp'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__superProp___$SuperPartOfLibProps =
-      const PropDescriptor(_$key__superProp___$SuperPartOfLibProps);
-  static const String _$key__superProp___$SuperPartOfLibProps =
-      'SuperPartOfLibProps.superProp';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__superProp___$SuperPartOfLibProps
+    const PropDescriptor('SuperPartOfLibProps.superProp')
   ];
-  static const List<String> $propKeys = const [
-    _$key__superProp___$SuperPartOfLibProps
-  ];
+  static const List<String> $propKeys = const ['SuperPartOfLibProps.superProp'];
 }
 
 const PropsMeta _$metaForSuperPartOfLibProps = const PropsMeta(

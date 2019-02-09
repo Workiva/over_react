@@ -14,23 +14,18 @@ abstract class ExamplePropsMixinClass implements _$ExamplePropsMixinClass {
 
   /// Go to [_$ExamplePropsMixinClass.propMixin1] to see the source code for this prop
   @override
-  String get propMixin1 => props[_$key__propMixin1___$ExamplePropsMixinClass];
+  String get propMixin1 => props['ExamplePropsMixinClass.propMixin1'];
 
   /// Go to [_$ExamplePropsMixinClass.propMixin1] to see the source code for this prop
   @override
   set propMixin1(String value) =>
-      props[_$key__propMixin1___$ExamplePropsMixinClass] = value;
+      props['ExamplePropsMixinClass.propMixin1'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__propMixin1___$ExamplePropsMixinClass =
-      const PropDescriptor(_$key__propMixin1___$ExamplePropsMixinClass);
-  static const String _$key__propMixin1___$ExamplePropsMixinClass =
-      'ExamplePropsMixinClass.propMixin1';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__propMixin1___$ExamplePropsMixinClass
+    const PropDescriptor('ExamplePropsMixinClass.propMixin1')
   ];
   static const List<String> $propKeys = const [
-    _$key__propMixin1___$ExamplePropsMixinClass
+    'ExamplePropsMixinClass.propMixin1'
   ];
 }
 
@@ -48,24 +43,18 @@ abstract class MixesInOtherMixinMixin<T extends Iterable, U>
 
   /// Go to [_$MixesInOtherMixinMixin.otherPropMixin] to see the source code for this prop
   @override
-  String get otherPropMixin =>
-      props[_$key__otherPropMixin___$MixesInOtherMixinMixin];
+  String get otherPropMixin => props['MixesInOtherMixinMixin.otherPropMixin'];
 
   /// Go to [_$MixesInOtherMixinMixin.otherPropMixin] to see the source code for this prop
   @override
   set otherPropMixin(String value) =>
-      props[_$key__otherPropMixin___$MixesInOtherMixinMixin] = value;
+      props['MixesInOtherMixinMixin.otherPropMixin'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__otherPropMixin___$MixesInOtherMixinMixin =
-      const PropDescriptor(_$key__otherPropMixin___$MixesInOtherMixinMixin);
-  static const String _$key__otherPropMixin___$MixesInOtherMixinMixin =
-      'MixesInOtherMixinMixin.otherPropMixin';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__otherPropMixin___$MixesInOtherMixinMixin
+    const PropDescriptor('MixesInOtherMixinMixin.otherPropMixin')
   ];
   static const List<String> $propKeys = const [
-    _$key__otherPropMixin___$MixesInOtherMixinMixin
+    'MixesInOtherMixinMixin.otherPropMixin'
   ];
 }
 

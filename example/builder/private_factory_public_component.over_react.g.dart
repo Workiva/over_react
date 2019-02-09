@@ -24,24 +24,16 @@ abstract class _$FormActionInputPropsAccessorsMixin
 
   /// Go to [_$FormActionInputProps.prop1] to see the source code for this prop
   @override
-  String get prop1 => props[_$key__prop1___$FormActionInputProps];
+  String get prop1 => props['FormActionInputProps.prop1'];
 
   /// Go to [_$FormActionInputProps.prop1] to see the source code for this prop
   @override
-  set prop1(String value) =>
-      props[_$key__prop1___$FormActionInputProps] = value;
+  set prop1(String value) => props['FormActionInputProps.prop1'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__prop1___$FormActionInputProps =
-      const PropDescriptor(_$key__prop1___$FormActionInputProps);
-  static const String _$key__prop1___$FormActionInputProps =
-      'FormActionInputProps.prop1';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__prop1___$FormActionInputProps
+    const PropDescriptor('FormActionInputProps.prop1')
   ];
-  static const List<String> $propKeys = const [
-    _$key__prop1___$FormActionInputProps
-  ];
+  static const List<String> $propKeys = const ['FormActionInputProps.prop1'];
 }
 
 const PropsMeta _$metaForFormActionInputProps = const PropsMeta(

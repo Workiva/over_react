@@ -13,108 +13,76 @@ abstract class _$TestAbstractPropsAccessorsMixin
 
   /// Go to [_$TestAbstractProps.stringProp] to see the source code for this prop
   @override
-  String get stringProp => props[_$key__stringProp___$TestAbstractProps];
+  String get stringProp => props['TestAbstractProps.stringProp'];
 
   /// Go to [_$TestAbstractProps.stringProp] to see the source code for this prop
   @override
-  set stringProp(String value) =>
-      props[_$key__stringProp___$TestAbstractProps] = value;
+  set stringProp(String value) => props['TestAbstractProps.stringProp'] = value;
 
   /// Go to [_$TestAbstractProps.dynamicProp] to see the source code for this prop
   @override
-  dynamic get dynamicProp => props[_$key__dynamicProp___$TestAbstractProps];
+  dynamic get dynamicProp => props['TestAbstractProps.dynamicProp'];
 
   /// Go to [_$TestAbstractProps.dynamicProp] to see the source code for this prop
   @override
   set dynamicProp(dynamic value) =>
-      props[_$key__dynamicProp___$TestAbstractProps] = value;
+      props['TestAbstractProps.dynamicProp'] = value;
 
   /// Go to [_$TestAbstractProps.untypedProp] to see the source code for this prop
   @override
-  get untypedProp => props[_$key__untypedProp___$TestAbstractProps];
+  get untypedProp => props['TestAbstractProps.untypedProp'];
 
   /// Go to [_$TestAbstractProps.untypedProp] to see the source code for this prop
   @override
-  set untypedProp(value) =>
-      props[_$key__untypedProp___$TestAbstractProps] = value;
+  set untypedProp(value) => props['TestAbstractProps.untypedProp'] = value;
 
   /// Go to [_$TestAbstractProps.customKeyProp] to see the source code for this prop
   @override
   @Accessor(key: 'custom key!')
-  get customKeyProp => props[_$key__customKeyProp___$TestAbstractProps];
+  get customKeyProp => props['TestAbstractProps.custom key!'];
 
   /// Go to [_$TestAbstractProps.customKeyProp] to see the source code for this prop
   @override
   @Accessor(key: 'custom key!')
-  set customKeyProp(value) =>
-      props[_$key__customKeyProp___$TestAbstractProps] = value;
+  set customKeyProp(value) => props['TestAbstractProps.custom key!'] = value;
 
   /// Go to [_$TestAbstractProps.customNamespaceProp] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceProp =>
-      props[_$key__customNamespaceProp___$TestAbstractProps];
+  get customNamespaceProp => props['custom namespace~~customNamespaceProp'];
 
   /// Go to [_$TestAbstractProps.customNamespaceProp] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceProp(value) =>
-      props[_$key__customNamespaceProp___$TestAbstractProps] = value;
+      props['custom namespace~~customNamespaceProp'] = value;
 
   /// Go to [_$TestAbstractProps.customKeyAndNamespaceProp] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceProp =>
-      props[_$key__customKeyAndNamespaceProp___$TestAbstractProps];
+  get customKeyAndNamespaceProp => props['custom namespace~~custom key!'];
 
   /// Go to [_$TestAbstractProps.customKeyAndNamespaceProp] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceProp(value) =>
-      props[_$key__customKeyAndNamespaceProp___$TestAbstractProps] = value;
+      props['custom namespace~~custom key!'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__stringProp___$TestAbstractProps =
-      const PropDescriptor(_$key__stringProp___$TestAbstractProps);
-  static const PropDescriptor _$prop__dynamicProp___$TestAbstractProps =
-      const PropDescriptor(_$key__dynamicProp___$TestAbstractProps);
-  static const PropDescriptor _$prop__untypedProp___$TestAbstractProps =
-      const PropDescriptor(_$key__untypedProp___$TestAbstractProps);
-  static const PropDescriptor _$prop__customKeyProp___$TestAbstractProps =
-      const PropDescriptor(_$key__customKeyProp___$TestAbstractProps);
-  static const PropDescriptor _$prop__customNamespaceProp___$TestAbstractProps =
-      const PropDescriptor(_$key__customNamespaceProp___$TestAbstractProps);
-  static const PropDescriptor
-      _$prop__customKeyAndNamespaceProp___$TestAbstractProps =
-      const PropDescriptor(
-          _$key__customKeyAndNamespaceProp___$TestAbstractProps);
-  static const String _$key__stringProp___$TestAbstractProps =
-      'TestAbstractProps.stringProp';
-  static const String _$key__dynamicProp___$TestAbstractProps =
-      'TestAbstractProps.dynamicProp';
-  static const String _$key__untypedProp___$TestAbstractProps =
-      'TestAbstractProps.untypedProp';
-  static const String _$key__customKeyProp___$TestAbstractProps =
-      'TestAbstractProps.custom key!';
-  static const String _$key__customNamespaceProp___$TestAbstractProps =
-      'custom namespace~~customNamespaceProp';
-  static const String _$key__customKeyAndNamespaceProp___$TestAbstractProps =
-      'custom namespace~~custom key!';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__stringProp___$TestAbstractProps,
-    _$prop__dynamicProp___$TestAbstractProps,
-    _$prop__untypedProp___$TestAbstractProps,
-    _$prop__customKeyProp___$TestAbstractProps,
-    _$prop__customNamespaceProp___$TestAbstractProps,
-    _$prop__customKeyAndNamespaceProp___$TestAbstractProps
+    const PropDescriptor('TestAbstractProps.stringProp'),
+    const PropDescriptor('TestAbstractProps.dynamicProp'),
+    const PropDescriptor('TestAbstractProps.untypedProp'),
+    const PropDescriptor('TestAbstractProps.custom key!'),
+    const PropDescriptor('custom namespace~~customNamespaceProp'),
+    const PropDescriptor('custom namespace~~custom key!')
   ];
   static const List<String> $propKeys = const [
-    _$key__stringProp___$TestAbstractProps,
-    _$key__dynamicProp___$TestAbstractProps,
-    _$key__untypedProp___$TestAbstractProps,
-    _$key__customKeyProp___$TestAbstractProps,
-    _$key__customNamespaceProp___$TestAbstractProps,
-    _$key__customKeyAndNamespaceProp___$TestAbstractProps
+    'TestAbstractProps.stringProp',
+    'TestAbstractProps.dynamicProp',
+    'TestAbstractProps.untypedProp',
+    'TestAbstractProps.custom key!',
+    'custom namespace~~customNamespaceProp',
+    'custom namespace~~custom key!'
   ];
 }
 
@@ -135,126 +103,79 @@ abstract class _$TestCustomNamespaceAbstractPropsAccessorsMixin
 
   /// Go to [_$TestCustomNamespaceAbstractProps.stringProp] to see the source code for this prop
   @override
-  String get stringProp =>
-      props[_$key__stringProp___$TestCustomNamespaceAbstractProps];
+  String get stringProp => props['custom mixin namespace**stringProp'];
 
   /// Go to [_$TestCustomNamespaceAbstractProps.stringProp] to see the source code for this prop
   @override
   set stringProp(String value) =>
-      props[_$key__stringProp___$TestCustomNamespaceAbstractProps] = value;
+      props['custom mixin namespace**stringProp'] = value;
 
   /// Go to [_$TestCustomNamespaceAbstractProps.dynamicProp] to see the source code for this prop
   @override
-  dynamic get dynamicProp =>
-      props[_$key__dynamicProp___$TestCustomNamespaceAbstractProps];
+  dynamic get dynamicProp => props['custom mixin namespace**dynamicProp'];
 
   /// Go to [_$TestCustomNamespaceAbstractProps.dynamicProp] to see the source code for this prop
   @override
   set dynamicProp(dynamic value) =>
-      props[_$key__dynamicProp___$TestCustomNamespaceAbstractProps] = value;
+      props['custom mixin namespace**dynamicProp'] = value;
 
   /// Go to [_$TestCustomNamespaceAbstractProps.untypedProp] to see the source code for this prop
   @override
-  get untypedProp =>
-      props[_$key__untypedProp___$TestCustomNamespaceAbstractProps];
+  get untypedProp => props['custom mixin namespace**untypedProp'];
 
   /// Go to [_$TestCustomNamespaceAbstractProps.untypedProp] to see the source code for this prop
   @override
   set untypedProp(value) =>
-      props[_$key__untypedProp___$TestCustomNamespaceAbstractProps] = value;
+      props['custom mixin namespace**untypedProp'] = value;
 
   /// Go to [_$TestCustomNamespaceAbstractProps.customKeyProp] to see the source code for this prop
   @override
   @Accessor(key: 'custom key!')
-  get customKeyProp =>
-      props[_$key__customKeyProp___$TestCustomNamespaceAbstractProps];
+  get customKeyProp => props['custom mixin namespace**custom key!'];
 
   /// Go to [_$TestCustomNamespaceAbstractProps.customKeyProp] to see the source code for this prop
   @override
   @Accessor(key: 'custom key!')
   set customKeyProp(value) =>
-      props[_$key__customKeyProp___$TestCustomNamespaceAbstractProps] = value;
+      props['custom mixin namespace**custom key!'] = value;
 
   /// Go to [_$TestCustomNamespaceAbstractProps.customNamespaceProp] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceProp =>
-      props[_$key__customNamespaceProp___$TestCustomNamespaceAbstractProps];
+  get customNamespaceProp => props['custom namespace~~customNamespaceProp'];
 
   /// Go to [_$TestCustomNamespaceAbstractProps.customNamespaceProp] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceProp(value) =>
-      props[_$key__customNamespaceProp___$TestCustomNamespaceAbstractProps] =
-          value;
+      props['custom namespace~~customNamespaceProp'] = value;
 
   /// Go to [_$TestCustomNamespaceAbstractProps.customKeyAndNamespaceProp] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceProp => props[
-      _$key__customKeyAndNamespaceProp___$TestCustomNamespaceAbstractProps];
+  get customKeyAndNamespaceProp => props['custom namespace~~custom key!'];
 
   /// Go to [_$TestCustomNamespaceAbstractProps.customKeyAndNamespaceProp] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceProp(value) => props[
-          _$key__customKeyAndNamespaceProp___$TestCustomNamespaceAbstractProps] =
-      value;
+  set customKeyAndNamespaceProp(value) =>
+      props['custom namespace~~custom key!'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor
-      _$prop__stringProp___$TestCustomNamespaceAbstractProps =
-      const PropDescriptor(
-          _$key__stringProp___$TestCustomNamespaceAbstractProps);
-  static const PropDescriptor
-      _$prop__dynamicProp___$TestCustomNamespaceAbstractProps =
-      const PropDescriptor(
-          _$key__dynamicProp___$TestCustomNamespaceAbstractProps);
-  static const PropDescriptor
-      _$prop__untypedProp___$TestCustomNamespaceAbstractProps =
-      const PropDescriptor(
-          _$key__untypedProp___$TestCustomNamespaceAbstractProps);
-  static const PropDescriptor
-      _$prop__customKeyProp___$TestCustomNamespaceAbstractProps =
-      const PropDescriptor(
-          _$key__customKeyProp___$TestCustomNamespaceAbstractProps);
-  static const PropDescriptor
-      _$prop__customNamespaceProp___$TestCustomNamespaceAbstractProps =
-      const PropDescriptor(
-          _$key__customNamespaceProp___$TestCustomNamespaceAbstractProps);
-  static const PropDescriptor
-      _$prop__customKeyAndNamespaceProp___$TestCustomNamespaceAbstractProps =
-      const PropDescriptor(
-          _$key__customKeyAndNamespaceProp___$TestCustomNamespaceAbstractProps);
-  static const String _$key__stringProp___$TestCustomNamespaceAbstractProps =
-      'custom mixin namespace**stringProp';
-  static const String _$key__dynamicProp___$TestCustomNamespaceAbstractProps =
-      'custom mixin namespace**dynamicProp';
-  static const String _$key__untypedProp___$TestCustomNamespaceAbstractProps =
-      'custom mixin namespace**untypedProp';
-  static const String _$key__customKeyProp___$TestCustomNamespaceAbstractProps =
-      'custom mixin namespace**custom key!';
-  static const String
-      _$key__customNamespaceProp___$TestCustomNamespaceAbstractProps =
-      'custom namespace~~customNamespaceProp';
-  static const String
-      _$key__customKeyAndNamespaceProp___$TestCustomNamespaceAbstractProps =
-      'custom namespace~~custom key!';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__stringProp___$TestCustomNamespaceAbstractProps,
-    _$prop__dynamicProp___$TestCustomNamespaceAbstractProps,
-    _$prop__untypedProp___$TestCustomNamespaceAbstractProps,
-    _$prop__customKeyProp___$TestCustomNamespaceAbstractProps,
-    _$prop__customNamespaceProp___$TestCustomNamespaceAbstractProps,
-    _$prop__customKeyAndNamespaceProp___$TestCustomNamespaceAbstractProps
+    const PropDescriptor('custom mixin namespace**stringProp'),
+    const PropDescriptor('custom mixin namespace**dynamicProp'),
+    const PropDescriptor('custom mixin namespace**untypedProp'),
+    const PropDescriptor('custom mixin namespace**custom key!'),
+    const PropDescriptor('custom namespace~~customNamespaceProp'),
+    const PropDescriptor('custom namespace~~custom key!')
   ];
   static const List<String> $propKeys = const [
-    _$key__stringProp___$TestCustomNamespaceAbstractProps,
-    _$key__dynamicProp___$TestCustomNamespaceAbstractProps,
-    _$key__untypedProp___$TestCustomNamespaceAbstractProps,
-    _$key__customKeyProp___$TestCustomNamespaceAbstractProps,
-    _$key__customNamespaceProp___$TestCustomNamespaceAbstractProps,
-    _$key__customKeyAndNamespaceProp___$TestCustomNamespaceAbstractProps
+    'custom mixin namespace**stringProp',
+    'custom mixin namespace**dynamicProp',
+    'custom mixin namespace**untypedProp',
+    'custom mixin namespace**custom key!',
+    'custom namespace~~customNamespaceProp',
+    'custom namespace~~custom key!'
   ];
 }
 
@@ -276,109 +197,77 @@ abstract class _$TestAbstractStateAccessorsMixin
 
   /// Go to [_$TestAbstractState.stringState] to see the source code for this prop
   @override
-  String get stringState => state[_$key__stringState___$TestAbstractState];
+  String get stringState => state['TestAbstractState.stringState'];
 
   /// Go to [_$TestAbstractState.stringState] to see the source code for this prop
   @override
   set stringState(String value) =>
-      state[_$key__stringState___$TestAbstractState] = value;
+      state['TestAbstractState.stringState'] = value;
 
   /// Go to [_$TestAbstractState.dynamicState] to see the source code for this prop
   @override
-  dynamic get dynamicState => state[_$key__dynamicState___$TestAbstractState];
+  dynamic get dynamicState => state['TestAbstractState.dynamicState'];
 
   /// Go to [_$TestAbstractState.dynamicState] to see the source code for this prop
   @override
   set dynamicState(dynamic value) =>
-      state[_$key__dynamicState___$TestAbstractState] = value;
+      state['TestAbstractState.dynamicState'] = value;
 
   /// Go to [_$TestAbstractState.untypedState] to see the source code for this prop
   @override
-  get untypedState => state[_$key__untypedState___$TestAbstractState];
+  get untypedState => state['TestAbstractState.untypedState'];
 
   /// Go to [_$TestAbstractState.untypedState] to see the source code for this prop
   @override
-  set untypedState(value) =>
-      state[_$key__untypedState___$TestAbstractState] = value;
+  set untypedState(value) => state['TestAbstractState.untypedState'] = value;
 
   /// Go to [_$TestAbstractState.customKeyState] to see the source code for this prop
   @override
   @Accessor(key: 'custom key!')
-  get customKeyState => state[_$key__customKeyState___$TestAbstractState];
+  get customKeyState => state['TestAbstractState.custom key!'];
 
   /// Go to [_$TestAbstractState.customKeyState] to see the source code for this prop
   @override
   @Accessor(key: 'custom key!')
-  set customKeyState(value) =>
-      state[_$key__customKeyState___$TestAbstractState] = value;
+  set customKeyState(value) => state['TestAbstractState.custom key!'] = value;
 
   /// Go to [_$TestAbstractState.customNamespaceState] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceState =>
-      state[_$key__customNamespaceState___$TestAbstractState];
+  get customNamespaceState => state['custom namespace~~customNamespaceState'];
 
   /// Go to [_$TestAbstractState.customNamespaceState] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceState(value) =>
-      state[_$key__customNamespaceState___$TestAbstractState] = value;
+      state['custom namespace~~customNamespaceState'] = value;
 
   /// Go to [_$TestAbstractState.customKeyAndNamespaceState] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceState =>
-      state[_$key__customKeyAndNamespaceState___$TestAbstractState];
+  get customKeyAndNamespaceState => state['custom namespace~~custom key!'];
 
   /// Go to [_$TestAbstractState.customKeyAndNamespaceState] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceState(value) =>
-      state[_$key__customKeyAndNamespaceState___$TestAbstractState] = value;
+      state['custom namespace~~custom key!'] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__stringState___$TestAbstractState =
-      const StateDescriptor(_$key__stringState___$TestAbstractState);
-  static const StateDescriptor _$prop__dynamicState___$TestAbstractState =
-      const StateDescriptor(_$key__dynamicState___$TestAbstractState);
-  static const StateDescriptor _$prop__untypedState___$TestAbstractState =
-      const StateDescriptor(_$key__untypedState___$TestAbstractState);
-  static const StateDescriptor _$prop__customKeyState___$TestAbstractState =
-      const StateDescriptor(_$key__customKeyState___$TestAbstractState);
-  static const StateDescriptor
-      _$prop__customNamespaceState___$TestAbstractState =
-      const StateDescriptor(_$key__customNamespaceState___$TestAbstractState);
-  static const StateDescriptor
-      _$prop__customKeyAndNamespaceState___$TestAbstractState =
-      const StateDescriptor(
-          _$key__customKeyAndNamespaceState___$TestAbstractState);
-  static const String _$key__stringState___$TestAbstractState =
-      'TestAbstractState.stringState';
-  static const String _$key__dynamicState___$TestAbstractState =
-      'TestAbstractState.dynamicState';
-  static const String _$key__untypedState___$TestAbstractState =
-      'TestAbstractState.untypedState';
-  static const String _$key__customKeyState___$TestAbstractState =
-      'TestAbstractState.custom key!';
-  static const String _$key__customNamespaceState___$TestAbstractState =
-      'custom namespace~~customNamespaceState';
-  static const String _$key__customKeyAndNamespaceState___$TestAbstractState =
-      'custom namespace~~custom key!';
-
   static const List<StateDescriptor> $state = const [
-    _$prop__stringState___$TestAbstractState,
-    _$prop__dynamicState___$TestAbstractState,
-    _$prop__untypedState___$TestAbstractState,
-    _$prop__customKeyState___$TestAbstractState,
-    _$prop__customNamespaceState___$TestAbstractState,
-    _$prop__customKeyAndNamespaceState___$TestAbstractState
+    const StateDescriptor('TestAbstractState.stringState'),
+    const StateDescriptor('TestAbstractState.dynamicState'),
+    const StateDescriptor('TestAbstractState.untypedState'),
+    const StateDescriptor('TestAbstractState.custom key!'),
+    const StateDescriptor('custom namespace~~customNamespaceState'),
+    const StateDescriptor('custom namespace~~custom key!')
   ];
   static const List<String> $stateKeys = const [
-    _$key__stringState___$TestAbstractState,
-    _$key__dynamicState___$TestAbstractState,
-    _$key__untypedState___$TestAbstractState,
-    _$key__customKeyState___$TestAbstractState,
-    _$key__customNamespaceState___$TestAbstractState,
-    _$key__customKeyAndNamespaceState___$TestAbstractState
+    'TestAbstractState.stringState',
+    'TestAbstractState.dynamicState',
+    'TestAbstractState.untypedState',
+    'TestAbstractState.custom key!',
+    'custom namespace~~customNamespaceState',
+    'custom namespace~~custom key!'
   ];
 }
 
@@ -399,127 +288,79 @@ abstract class _$TestCustomNamespaceAbstractStateAccessorsMixin
 
   /// Go to [_$TestCustomNamespaceAbstractState.stringState] to see the source code for this prop
   @override
-  String get stringState =>
-      state[_$key__stringState___$TestCustomNamespaceAbstractState];
+  String get stringState => state['custom mixin namespace**stringState'];
 
   /// Go to [_$TestCustomNamespaceAbstractState.stringState] to see the source code for this prop
   @override
   set stringState(String value) =>
-      state[_$key__stringState___$TestCustomNamespaceAbstractState] = value;
+      state['custom mixin namespace**stringState'] = value;
 
   /// Go to [_$TestCustomNamespaceAbstractState.dynamicState] to see the source code for this prop
   @override
-  dynamic get dynamicState =>
-      state[_$key__dynamicState___$TestCustomNamespaceAbstractState];
+  dynamic get dynamicState => state['custom mixin namespace**dynamicState'];
 
   /// Go to [_$TestCustomNamespaceAbstractState.dynamicState] to see the source code for this prop
   @override
   set dynamicState(dynamic value) =>
-      state[_$key__dynamicState___$TestCustomNamespaceAbstractState] = value;
+      state['custom mixin namespace**dynamicState'] = value;
 
   /// Go to [_$TestCustomNamespaceAbstractState.untypedState] to see the source code for this prop
   @override
-  get untypedState =>
-      state[_$key__untypedState___$TestCustomNamespaceAbstractState];
+  get untypedState => state['custom mixin namespace**untypedState'];
 
   /// Go to [_$TestCustomNamespaceAbstractState.untypedState] to see the source code for this prop
   @override
   set untypedState(value) =>
-      state[_$key__untypedState___$TestCustomNamespaceAbstractState] = value;
+      state['custom mixin namespace**untypedState'] = value;
 
   /// Go to [_$TestCustomNamespaceAbstractState.customKeyState] to see the source code for this prop
   @override
   @Accessor(key: 'custom key!')
-  get customKeyState =>
-      state[_$key__customKeyState___$TestCustomNamespaceAbstractState];
+  get customKeyState => state['custom mixin namespace**custom key!'];
 
   /// Go to [_$TestCustomNamespaceAbstractState.customKeyState] to see the source code for this prop
   @override
   @Accessor(key: 'custom key!')
   set customKeyState(value) =>
-      state[_$key__customKeyState___$TestCustomNamespaceAbstractState] = value;
+      state['custom mixin namespace**custom key!'] = value;
 
   /// Go to [_$TestCustomNamespaceAbstractState.customNamespaceState] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceState =>
-      state[_$key__customNamespaceState___$TestCustomNamespaceAbstractState];
+  get customNamespaceState => state['custom namespace~~customNamespaceState'];
 
   /// Go to [_$TestCustomNamespaceAbstractState.customNamespaceState] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceState(value) =>
-      state[_$key__customNamespaceState___$TestCustomNamespaceAbstractState] =
-          value;
+      state['custom namespace~~customNamespaceState'] = value;
 
   /// Go to [_$TestCustomNamespaceAbstractState.customKeyAndNamespaceState] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceState => state[
-      _$key__customKeyAndNamespaceState___$TestCustomNamespaceAbstractState];
+  get customKeyAndNamespaceState => state['custom namespace~~custom key!'];
 
   /// Go to [_$TestCustomNamespaceAbstractState.customKeyAndNamespaceState] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceState(value) => state[
-          _$key__customKeyAndNamespaceState___$TestCustomNamespaceAbstractState] =
-      value;
+  set customKeyAndNamespaceState(value) =>
+      state['custom namespace~~custom key!'] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor
-      _$prop__stringState___$TestCustomNamespaceAbstractState =
-      const StateDescriptor(
-          _$key__stringState___$TestCustomNamespaceAbstractState);
-  static const StateDescriptor
-      _$prop__dynamicState___$TestCustomNamespaceAbstractState =
-      const StateDescriptor(
-          _$key__dynamicState___$TestCustomNamespaceAbstractState);
-  static const StateDescriptor
-      _$prop__untypedState___$TestCustomNamespaceAbstractState =
-      const StateDescriptor(
-          _$key__untypedState___$TestCustomNamespaceAbstractState);
-  static const StateDescriptor
-      _$prop__customKeyState___$TestCustomNamespaceAbstractState =
-      const StateDescriptor(
-          _$key__customKeyState___$TestCustomNamespaceAbstractState);
-  static const StateDescriptor
-      _$prop__customNamespaceState___$TestCustomNamespaceAbstractState =
-      const StateDescriptor(
-          _$key__customNamespaceState___$TestCustomNamespaceAbstractState);
-  static const StateDescriptor
-      _$prop__customKeyAndNamespaceState___$TestCustomNamespaceAbstractState =
-      const StateDescriptor(
-          _$key__customKeyAndNamespaceState___$TestCustomNamespaceAbstractState);
-  static const String _$key__stringState___$TestCustomNamespaceAbstractState =
-      'custom mixin namespace**stringState';
-  static const String _$key__dynamicState___$TestCustomNamespaceAbstractState =
-      'custom mixin namespace**dynamicState';
-  static const String _$key__untypedState___$TestCustomNamespaceAbstractState =
-      'custom mixin namespace**untypedState';
-  static const String
-      _$key__customKeyState___$TestCustomNamespaceAbstractState =
-      'custom mixin namespace**custom key!';
-  static const String
-      _$key__customNamespaceState___$TestCustomNamespaceAbstractState =
-      'custom namespace~~customNamespaceState';
-  static const String
-      _$key__customKeyAndNamespaceState___$TestCustomNamespaceAbstractState =
-      'custom namespace~~custom key!';
-
   static const List<StateDescriptor> $state = const [
-    _$prop__stringState___$TestCustomNamespaceAbstractState,
-    _$prop__dynamicState___$TestCustomNamespaceAbstractState,
-    _$prop__untypedState___$TestCustomNamespaceAbstractState,
-    _$prop__customKeyState___$TestCustomNamespaceAbstractState,
-    _$prop__customNamespaceState___$TestCustomNamespaceAbstractState,
-    _$prop__customKeyAndNamespaceState___$TestCustomNamespaceAbstractState
+    const StateDescriptor('custom mixin namespace**stringState'),
+    const StateDescriptor('custom mixin namespace**dynamicState'),
+    const StateDescriptor('custom mixin namespace**untypedState'),
+    const StateDescriptor('custom mixin namespace**custom key!'),
+    const StateDescriptor('custom namespace~~customNamespaceState'),
+    const StateDescriptor('custom namespace~~custom key!')
   ];
   static const List<String> $stateKeys = const [
-    _$key__stringState___$TestCustomNamespaceAbstractState,
-    _$key__dynamicState___$TestCustomNamespaceAbstractState,
-    _$key__untypedState___$TestCustomNamespaceAbstractState,
-    _$key__customKeyState___$TestCustomNamespaceAbstractState,
-    _$key__customNamespaceState___$TestCustomNamespaceAbstractState,
-    _$key__customKeyAndNamespaceState___$TestCustomNamespaceAbstractState
+    'custom mixin namespace**stringState',
+    'custom mixin namespace**dynamicState',
+    'custom mixin namespace**untypedState',
+    'custom mixin namespace**custom key!',
+    'custom namespace~~customNamespaceState',
+    'custom namespace~~custom key!'
   ];
 }
 

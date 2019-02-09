@@ -22,7 +22,6 @@ abstract class _$TestParentPropsAccessorsMixin implements _$TestParentProps {
   Map get props;
 
   /* GENERATED CONSTANTS */
-
   static const List<PropDescriptor> $props = const [];
   static const List<String> $propKeys = const [];
 }

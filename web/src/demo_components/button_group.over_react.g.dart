@@ -23,50 +23,37 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
 
   /// Go to [_$ButtonGroupProps.size] to see the source code for this prop
   @override
-  ButtonGroupSize get size => props[_$key__size___$ButtonGroupProps];
+  ButtonGroupSize get size => props['ButtonGroupProps.size'];
 
   /// Go to [_$ButtonGroupProps.size] to see the source code for this prop
   @override
-  set size(ButtonGroupSize value) =>
-      props[_$key__size___$ButtonGroupProps] = value;
+  set size(ButtonGroupSize value) => props['ButtonGroupProps.size'] = value;
 
   /// Go to [_$ButtonGroupProps.skin] to see the source code for this prop
   @override
-  ButtonSkin get skin => props[_$key__skin___$ButtonGroupProps];
+  ButtonSkin get skin => props['ButtonGroupProps.skin'];
 
   /// Go to [_$ButtonGroupProps.skin] to see the source code for this prop
   @override
-  set skin(ButtonSkin value) => props[_$key__skin___$ButtonGroupProps] = value;
+  set skin(ButtonSkin value) => props['ButtonGroupProps.skin'] = value;
 
   /// Go to [_$ButtonGroupProps.isVertical] to see the source code for this prop
   @override
-  bool get isVertical => props[_$key__isVertical___$ButtonGroupProps];
+  bool get isVertical => props['ButtonGroupProps.isVertical'];
 
   /// Go to [_$ButtonGroupProps.isVertical] to see the source code for this prop
   @override
-  set isVertical(bool value) =>
-      props[_$key__isVertical___$ButtonGroupProps] = value;
+  set isVertical(bool value) => props['ButtonGroupProps.isVertical'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__size___$ButtonGroupProps =
-      const PropDescriptor(_$key__size___$ButtonGroupProps);
-  static const PropDescriptor _$prop__skin___$ButtonGroupProps =
-      const PropDescriptor(_$key__skin___$ButtonGroupProps);
-  static const PropDescriptor _$prop__isVertical___$ButtonGroupProps =
-      const PropDescriptor(_$key__isVertical___$ButtonGroupProps);
-  static const String _$key__size___$ButtonGroupProps = 'ButtonGroupProps.size';
-  static const String _$key__skin___$ButtonGroupProps = 'ButtonGroupProps.skin';
-  static const String _$key__isVertical___$ButtonGroupProps =
-      'ButtonGroupProps.isVertical';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__size___$ButtonGroupProps,
-    _$prop__skin___$ButtonGroupProps,
-    _$prop__isVertical___$ButtonGroupProps
+    const PropDescriptor('ButtonGroupProps.size'),
+    const PropDescriptor('ButtonGroupProps.skin'),
+    const PropDescriptor('ButtonGroupProps.isVertical')
   ];
   static const List<String> $propKeys = const [
-    _$key__size___$ButtonGroupProps,
-    _$key__skin___$ButtonGroupProps,
-    _$key__isVertical___$ButtonGroupProps
+    'ButtonGroupProps.size',
+    'ButtonGroupProps.skin',
+    'ButtonGroupProps.isVertical'
   ];
 }
 
@@ -115,7 +102,6 @@ abstract class _$ButtonGroupStateAccessorsMixin implements _$ButtonGroupState {
   Map get state;
 
   /* GENERATED CONSTANTS */
-
   static const List<StateDescriptor> $state = const [];
   static const List<String> $stateKeys = const [];
 }

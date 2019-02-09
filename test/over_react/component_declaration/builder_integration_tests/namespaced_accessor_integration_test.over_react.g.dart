@@ -24,120 +24,79 @@ abstract class _$NamespacedAccessorTestPropsAccessorsMixin
 
   /// Go to [_$NamespacedAccessorTestProps.stringProp] to see the source code for this prop
   @override
-  String get stringProp =>
-      props[_$key__stringProp___$NamespacedAccessorTestProps];
+  String get stringProp => props['custom props class namespace**stringProp'];
 
   /// Go to [_$NamespacedAccessorTestProps.stringProp] to see the source code for this prop
   @override
   set stringProp(String value) =>
-      props[_$key__stringProp___$NamespacedAccessorTestProps] = value;
+      props['custom props class namespace**stringProp'] = value;
 
   /// Go to [_$NamespacedAccessorTestProps.dynamicProp] to see the source code for this prop
   @override
-  dynamic get dynamicProp =>
-      props[_$key__dynamicProp___$NamespacedAccessorTestProps];
+  dynamic get dynamicProp => props['custom props class namespace**dynamicProp'];
 
   /// Go to [_$NamespacedAccessorTestProps.dynamicProp] to see the source code for this prop
   @override
   set dynamicProp(dynamic value) =>
-      props[_$key__dynamicProp___$NamespacedAccessorTestProps] = value;
+      props['custom props class namespace**dynamicProp'] = value;
 
   /// Go to [_$NamespacedAccessorTestProps.untypedProp] to see the source code for this prop
   @override
-  get untypedProp => props[_$key__untypedProp___$NamespacedAccessorTestProps];
+  get untypedProp => props['custom props class namespace**untypedProp'];
 
   /// Go to [_$NamespacedAccessorTestProps.untypedProp] to see the source code for this prop
   @override
   set untypedProp(value) =>
-      props[_$key__untypedProp___$NamespacedAccessorTestProps] = value;
+      props['custom props class namespace**untypedProp'] = value;
 
   /// Go to [_$NamespacedAccessorTestProps.customKeyProp] to see the source code for this prop
   @override
   @Accessor(key: 'custom key!')
-  get customKeyProp =>
-      props[_$key__customKeyProp___$NamespacedAccessorTestProps];
+  get customKeyProp => props['custom props class namespace**custom key!'];
 
   /// Go to [_$NamespacedAccessorTestProps.customKeyProp] to see the source code for this prop
   @override
   @Accessor(key: 'custom key!')
   set customKeyProp(value) =>
-      props[_$key__customKeyProp___$NamespacedAccessorTestProps] = value;
+      props['custom props class namespace**custom key!'] = value;
 
   /// Go to [_$NamespacedAccessorTestProps.customNamespaceProp] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceProp =>
-      props[_$key__customNamespaceProp___$NamespacedAccessorTestProps];
+  get customNamespaceProp => props['custom namespace~~customNamespaceProp'];
 
   /// Go to [_$NamespacedAccessorTestProps.customNamespaceProp] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceProp(value) =>
-      props[_$key__customNamespaceProp___$NamespacedAccessorTestProps] = value;
+      props['custom namespace~~customNamespaceProp'] = value;
 
   /// Go to [_$NamespacedAccessorTestProps.customKeyAndNamespaceProp] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceProp =>
-      props[_$key__customKeyAndNamespaceProp___$NamespacedAccessorTestProps];
+  get customKeyAndNamespaceProp => props['custom namespace~~custom key!'];
 
   /// Go to [_$NamespacedAccessorTestProps.customKeyAndNamespaceProp] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceProp(value) =>
-      props[_$key__customKeyAndNamespaceProp___$NamespacedAccessorTestProps] =
-          value;
+      props['custom namespace~~custom key!'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor
-      _$prop__stringProp___$NamespacedAccessorTestProps =
-      const PropDescriptor(_$key__stringProp___$NamespacedAccessorTestProps);
-  static const PropDescriptor
-      _$prop__dynamicProp___$NamespacedAccessorTestProps =
-      const PropDescriptor(_$key__dynamicProp___$NamespacedAccessorTestProps);
-  static const PropDescriptor
-      _$prop__untypedProp___$NamespacedAccessorTestProps =
-      const PropDescriptor(_$key__untypedProp___$NamespacedAccessorTestProps);
-  static const PropDescriptor
-      _$prop__customKeyProp___$NamespacedAccessorTestProps =
-      const PropDescriptor(_$key__customKeyProp___$NamespacedAccessorTestProps);
-  static const PropDescriptor
-      _$prop__customNamespaceProp___$NamespacedAccessorTestProps =
-      const PropDescriptor(
-          _$key__customNamespaceProp___$NamespacedAccessorTestProps);
-  static const PropDescriptor
-      _$prop__customKeyAndNamespaceProp___$NamespacedAccessorTestProps =
-      const PropDescriptor(
-          _$key__customKeyAndNamespaceProp___$NamespacedAccessorTestProps);
-  static const String _$key__stringProp___$NamespacedAccessorTestProps =
-      'custom props class namespace**stringProp';
-  static const String _$key__dynamicProp___$NamespacedAccessorTestProps =
-      'custom props class namespace**dynamicProp';
-  static const String _$key__untypedProp___$NamespacedAccessorTestProps =
-      'custom props class namespace**untypedProp';
-  static const String _$key__customKeyProp___$NamespacedAccessorTestProps =
-      'custom props class namespace**custom key!';
-  static const String
-      _$key__customNamespaceProp___$NamespacedAccessorTestProps =
-      'custom namespace~~customNamespaceProp';
-  static const String
-      _$key__customKeyAndNamespaceProp___$NamespacedAccessorTestProps =
-      'custom namespace~~custom key!';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__stringProp___$NamespacedAccessorTestProps,
-    _$prop__dynamicProp___$NamespacedAccessorTestProps,
-    _$prop__untypedProp___$NamespacedAccessorTestProps,
-    _$prop__customKeyProp___$NamespacedAccessorTestProps,
-    _$prop__customNamespaceProp___$NamespacedAccessorTestProps,
-    _$prop__customKeyAndNamespaceProp___$NamespacedAccessorTestProps
+    const PropDescriptor('custom props class namespace**stringProp'),
+    const PropDescriptor('custom props class namespace**dynamicProp'),
+    const PropDescriptor('custom props class namespace**untypedProp'),
+    const PropDescriptor('custom props class namespace**custom key!'),
+    const PropDescriptor('custom namespace~~customNamespaceProp'),
+    const PropDescriptor('custom namespace~~custom key!')
   ];
   static const List<String> $propKeys = const [
-    _$key__stringProp___$NamespacedAccessorTestProps,
-    _$key__dynamicProp___$NamespacedAccessorTestProps,
-    _$key__untypedProp___$NamespacedAccessorTestProps,
-    _$key__customKeyProp___$NamespacedAccessorTestProps,
-    _$key__customNamespaceProp___$NamespacedAccessorTestProps,
-    _$key__customKeyAndNamespaceProp___$NamespacedAccessorTestProps
+    'custom props class namespace**stringProp',
+    'custom props class namespace**dynamicProp',
+    'custom props class namespace**untypedProp',
+    'custom props class namespace**custom key!',
+    'custom namespace~~customNamespaceProp',
+    'custom namespace~~custom key!'
   ];
 }
 
@@ -189,121 +148,80 @@ abstract class _$NamespacedAccessorTestStateAccessorsMixin
 
   /// Go to [_$NamespacedAccessorTestState.stringState] to see the source code for this prop
   @override
-  String get stringState =>
-      state[_$key__stringState___$NamespacedAccessorTestState];
+  String get stringState => state['custom state class namespace**stringState'];
 
   /// Go to [_$NamespacedAccessorTestState.stringState] to see the source code for this prop
   @override
   set stringState(String value) =>
-      state[_$key__stringState___$NamespacedAccessorTestState] = value;
+      state['custom state class namespace**stringState'] = value;
 
   /// Go to [_$NamespacedAccessorTestState.dynamicState] to see the source code for this prop
   @override
   dynamic get dynamicState =>
-      state[_$key__dynamicState___$NamespacedAccessorTestState];
+      state['custom state class namespace**dynamicState'];
 
   /// Go to [_$NamespacedAccessorTestState.dynamicState] to see the source code for this prop
   @override
   set dynamicState(dynamic value) =>
-      state[_$key__dynamicState___$NamespacedAccessorTestState] = value;
+      state['custom state class namespace**dynamicState'] = value;
 
   /// Go to [_$NamespacedAccessorTestState.untypedState] to see the source code for this prop
   @override
-  get untypedState => state[_$key__untypedState___$NamespacedAccessorTestState];
+  get untypedState => state['custom state class namespace**untypedState'];
 
   /// Go to [_$NamespacedAccessorTestState.untypedState] to see the source code for this prop
   @override
   set untypedState(value) =>
-      state[_$key__untypedState___$NamespacedAccessorTestState] = value;
+      state['custom state class namespace**untypedState'] = value;
 
   /// Go to [_$NamespacedAccessorTestState.customKeyState] to see the source code for this prop
   @override
   @Accessor(key: 'custom key!')
-  get customKeyState =>
-      state[_$key__customKeyState___$NamespacedAccessorTestState];
+  get customKeyState => state['custom state class namespace**custom key!'];
 
   /// Go to [_$NamespacedAccessorTestState.customKeyState] to see the source code for this prop
   @override
   @Accessor(key: 'custom key!')
   set customKeyState(value) =>
-      state[_$key__customKeyState___$NamespacedAccessorTestState] = value;
+      state['custom state class namespace**custom key!'] = value;
 
   /// Go to [_$NamespacedAccessorTestState.customNamespaceState] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceState =>
-      state[_$key__customNamespaceState___$NamespacedAccessorTestState];
+  get customNamespaceState => state['custom namespace~~customNamespaceState'];
 
   /// Go to [_$NamespacedAccessorTestState.customNamespaceState] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceState(value) =>
-      state[_$key__customNamespaceState___$NamespacedAccessorTestState] = value;
+      state['custom namespace~~customNamespaceState'] = value;
 
   /// Go to [_$NamespacedAccessorTestState.customKeyAndNamespaceState] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceState =>
-      state[_$key__customKeyAndNamespaceState___$NamespacedAccessorTestState];
+  get customKeyAndNamespaceState => state['custom namespace~~custom key!'];
 
   /// Go to [_$NamespacedAccessorTestState.customKeyAndNamespaceState] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceState(value) =>
-      state[_$key__customKeyAndNamespaceState___$NamespacedAccessorTestState] =
-          value;
+      state['custom namespace~~custom key!'] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor
-      _$prop__stringState___$NamespacedAccessorTestState =
-      const StateDescriptor(_$key__stringState___$NamespacedAccessorTestState);
-  static const StateDescriptor
-      _$prop__dynamicState___$NamespacedAccessorTestState =
-      const StateDescriptor(_$key__dynamicState___$NamespacedAccessorTestState);
-  static const StateDescriptor
-      _$prop__untypedState___$NamespacedAccessorTestState =
-      const StateDescriptor(_$key__untypedState___$NamespacedAccessorTestState);
-  static const StateDescriptor
-      _$prop__customKeyState___$NamespacedAccessorTestState =
-      const StateDescriptor(
-          _$key__customKeyState___$NamespacedAccessorTestState);
-  static const StateDescriptor
-      _$prop__customNamespaceState___$NamespacedAccessorTestState =
-      const StateDescriptor(
-          _$key__customNamespaceState___$NamespacedAccessorTestState);
-  static const StateDescriptor
-      _$prop__customKeyAndNamespaceState___$NamespacedAccessorTestState =
-      const StateDescriptor(
-          _$key__customKeyAndNamespaceState___$NamespacedAccessorTestState);
-  static const String _$key__stringState___$NamespacedAccessorTestState =
-      'custom state class namespace**stringState';
-  static const String _$key__dynamicState___$NamespacedAccessorTestState =
-      'custom state class namespace**dynamicState';
-  static const String _$key__untypedState___$NamespacedAccessorTestState =
-      'custom state class namespace**untypedState';
-  static const String _$key__customKeyState___$NamespacedAccessorTestState =
-      'custom state class namespace**custom key!';
-  static const String
-      _$key__customNamespaceState___$NamespacedAccessorTestState =
-      'custom namespace~~customNamespaceState';
-  static const String
-      _$key__customKeyAndNamespaceState___$NamespacedAccessorTestState =
-      'custom namespace~~custom key!';
-
   static const List<StateDescriptor> $state = const [
-    _$prop__stringState___$NamespacedAccessorTestState,
-    _$prop__dynamicState___$NamespacedAccessorTestState,
-    _$prop__untypedState___$NamespacedAccessorTestState,
-    _$prop__customKeyState___$NamespacedAccessorTestState,
-    _$prop__customNamespaceState___$NamespacedAccessorTestState,
-    _$prop__customKeyAndNamespaceState___$NamespacedAccessorTestState
+    const StateDescriptor('custom state class namespace**stringState'),
+    const StateDescriptor('custom state class namespace**dynamicState'),
+    const StateDescriptor('custom state class namespace**untypedState'),
+    const StateDescriptor('custom state class namespace**custom key!'),
+    const StateDescriptor('custom namespace~~customNamespaceState'),
+    const StateDescriptor('custom namespace~~custom key!')
   ];
   static const List<String> $stateKeys = const [
-    _$key__stringState___$NamespacedAccessorTestState,
-    _$key__dynamicState___$NamespacedAccessorTestState,
-    _$key__untypedState___$NamespacedAccessorTestState,
-    _$key__customKeyState___$NamespacedAccessorTestState,
-    _$key__customNamespaceState___$NamespacedAccessorTestState,
-    _$key__customKeyAndNamespaceState___$NamespacedAccessorTestState
+    'custom state class namespace**stringState',
+    'custom state class namespace**dynamicState',
+    'custom state class namespace**untypedState',
+    'custom state class namespace**custom key!',
+    'custom namespace~~customNamespaceState',
+    'custom namespace~~custom key!'
   ];
 }
 

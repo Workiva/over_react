@@ -14,23 +14,18 @@ abstract class ExampleStateMixinClass implements _$ExampleStateMixinClass {
 
   /// Go to [_$ExampleStateMixinClass.stateMixin1] to see the source code for this prop
   @override
-  String get stateMixin1 => state[_$key__stateMixin1___$ExampleStateMixinClass];
+  String get stateMixin1 => state['ExampleStateMixinClass.stateMixin1'];
 
   /// Go to [_$ExampleStateMixinClass.stateMixin1] to see the source code for this prop
   @override
   set stateMixin1(String value) =>
-      state[_$key__stateMixin1___$ExampleStateMixinClass] = value;
+      state['ExampleStateMixinClass.stateMixin1'] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__stateMixin1___$ExampleStateMixinClass =
-      const StateDescriptor(_$key__stateMixin1___$ExampleStateMixinClass);
-  static const String _$key__stateMixin1___$ExampleStateMixinClass =
-      'ExampleStateMixinClass.stateMixin1';
-
   static const List<StateDescriptor> $state = const [
-    _$prop__stateMixin1___$ExampleStateMixinClass
+    const StateDescriptor('ExampleStateMixinClass.stateMixin1')
   ];
   static const List<String> $stateKeys = const [
-    _$key__stateMixin1___$ExampleStateMixinClass
+    'ExampleStateMixinClass.stateMixin1'
   ];
 }
 

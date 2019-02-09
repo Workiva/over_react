@@ -24,54 +24,38 @@ abstract class _$GenericSuperPropsAccessorsMixin
 
   /// Go to [_$GenericSuperProps.otherSuperProp] to see the source code for this prop
   @override
-  String get otherSuperProp =>
-      props[_$key__otherSuperProp___$GenericSuperProps];
+  String get otherSuperProp => props['GenericSuperProps.otherSuperProp'];
 
   /// Go to [_$GenericSuperProps.otherSuperProp] to see the source code for this prop
   @override
   set otherSuperProp(String value) =>
-      props[_$key__otherSuperProp___$GenericSuperProps] = value;
+      props['GenericSuperProps.otherSuperProp'] = value;
 
   /// Go to [_$GenericSuperProps.superProp] to see the source code for this prop
   @override
-  String get superProp => props[_$key__superProp___$GenericSuperProps];
+  String get superProp => props['GenericSuperProps.superProp'];
 
   /// Go to [_$GenericSuperProps.superProp] to see the source code for this prop
   @override
-  set superProp(String value) =>
-      props[_$key__superProp___$GenericSuperProps] = value;
+  set superProp(String value) => props['GenericSuperProps.superProp'] = value;
 
   /// Go to [_$GenericSuperProps.superProp1] to see the source code for this prop
   @override
-  String get superProp1 => props[_$key__superProp1___$GenericSuperProps];
+  String get superProp1 => props['GenericSuperProps.superProp1'];
 
   /// Go to [_$GenericSuperProps.superProp1] to see the source code for this prop
   @override
-  set superProp1(String value) =>
-      props[_$key__superProp1___$GenericSuperProps] = value;
+  set superProp1(String value) => props['GenericSuperProps.superProp1'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__otherSuperProp___$GenericSuperProps =
-      const PropDescriptor(_$key__otherSuperProp___$GenericSuperProps);
-  static const PropDescriptor _$prop__superProp___$GenericSuperProps =
-      const PropDescriptor(_$key__superProp___$GenericSuperProps);
-  static const PropDescriptor _$prop__superProp1___$GenericSuperProps =
-      const PropDescriptor(_$key__superProp1___$GenericSuperProps);
-  static const String _$key__otherSuperProp___$GenericSuperProps =
-      'GenericSuperProps.otherSuperProp';
-  static const String _$key__superProp___$GenericSuperProps =
-      'GenericSuperProps.superProp';
-  static const String _$key__superProp1___$GenericSuperProps =
-      'GenericSuperProps.superProp1';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__otherSuperProp___$GenericSuperProps,
-    _$prop__superProp___$GenericSuperProps,
-    _$prop__superProp1___$GenericSuperProps
+    const PropDescriptor('GenericSuperProps.otherSuperProp'),
+    const PropDescriptor('GenericSuperProps.superProp'),
+    const PropDescriptor('GenericSuperProps.superProp1')
   ];
   static const List<String> $propKeys = const [
-    _$key__otherSuperProp___$GenericSuperProps,
-    _$key__superProp___$GenericSuperProps,
-    _$key__superProp1___$GenericSuperProps
+    'GenericSuperProps.otherSuperProp',
+    'GenericSuperProps.superProp',
+    'GenericSuperProps.superProp1'
   ];
 }
 
@@ -122,24 +106,16 @@ abstract class _$GenericSuperStateAccessorsMixin
 
   /// Go to [_$GenericSuperState.superState] to see the source code for this prop
   @override
-  String get superState => state[_$key__superState___$GenericSuperState];
+  String get superState => state['GenericSuperState.superState'];
 
   /// Go to [_$GenericSuperState.superState] to see the source code for this prop
   @override
-  set superState(String value) =>
-      state[_$key__superState___$GenericSuperState] = value;
+  set superState(String value) => state['GenericSuperState.superState'] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__superState___$GenericSuperState =
-      const StateDescriptor(_$key__superState___$GenericSuperState);
-  static const String _$key__superState___$GenericSuperState =
-      'GenericSuperState.superState';
-
   static const List<StateDescriptor> $state = const [
-    _$prop__superState___$GenericSuperState
+    const StateDescriptor('GenericSuperState.superState')
   ];
-  static const List<String> $stateKeys = const [
-    _$key__superState___$GenericSuperState
-  ];
+  static const List<String> $stateKeys = const ['GenericSuperState.superState'];
 }
 
 const StateMeta _$metaForGenericSuperState = const StateMeta(

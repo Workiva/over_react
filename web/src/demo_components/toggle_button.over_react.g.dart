@@ -26,55 +26,42 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// Go to [_$ToggleButtonProps.autoFocus] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  bool get autoFocus => props[_$key__autoFocus___$ToggleButtonProps];
+  bool get autoFocus => props['autoFocus'];
 
   /// Go to [_$ToggleButtonProps.autoFocus] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  set autoFocus(bool value) =>
-      props[_$key__autoFocus___$ToggleButtonProps] = value;
+  set autoFocus(bool value) => props['autoFocus'] = value;
 
   /// Go to [_$ToggleButtonProps.defaultChecked] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  bool get defaultChecked => props[_$key__defaultChecked___$ToggleButtonProps];
+  bool get defaultChecked => props['defaultChecked'];
 
   /// Go to [_$ToggleButtonProps.defaultChecked] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  set defaultChecked(bool value) =>
-      props[_$key__defaultChecked___$ToggleButtonProps] = value;
+  set defaultChecked(bool value) => props['defaultChecked'] = value;
 
   /// Go to [_$ToggleButtonProps.checked] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  bool get checked => props[_$key__checked___$ToggleButtonProps];
+  bool get checked => props['checked'];
 
   /// Go to [_$ToggleButtonProps.checked] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  set checked(bool value) => props[_$key__checked___$ToggleButtonProps] = value;
+  set checked(bool value) => props['checked'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__autoFocus___$ToggleButtonProps =
-      const PropDescriptor(_$key__autoFocus___$ToggleButtonProps);
-  static const PropDescriptor _$prop__defaultChecked___$ToggleButtonProps =
-      const PropDescriptor(_$key__defaultChecked___$ToggleButtonProps);
-  static const PropDescriptor _$prop__checked___$ToggleButtonProps =
-      const PropDescriptor(_$key__checked___$ToggleButtonProps);
-  static const String _$key__autoFocus___$ToggleButtonProps = 'autoFocus';
-  static const String _$key__defaultChecked___$ToggleButtonProps =
-      'defaultChecked';
-  static const String _$key__checked___$ToggleButtonProps = 'checked';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__autoFocus___$ToggleButtonProps,
-    _$prop__defaultChecked___$ToggleButtonProps,
-    _$prop__checked___$ToggleButtonProps
+    const PropDescriptor('autoFocus'),
+    const PropDescriptor('defaultChecked'),
+    const PropDescriptor('checked')
   ];
   static const List<String> $propKeys = const [
-    _$key__autoFocus___$ToggleButtonProps,
-    _$key__defaultChecked___$ToggleButtonProps,
-    _$key__checked___$ToggleButtonProps
+    'autoFocus',
+    'defaultChecked',
+    'checked'
   ];
 }
 
@@ -125,38 +112,27 @@ abstract class _$ToggleButtonStateAccessorsMixin
 
   /// Go to [_$ToggleButtonState.isFocused] to see the source code for this prop
   @override
-  bool get isFocused => state[_$key__isFocused___$ToggleButtonState];
+  bool get isFocused => state['ToggleButtonState.isFocused'];
 
   /// Go to [_$ToggleButtonState.isFocused] to see the source code for this prop
   @override
-  set isFocused(bool value) =>
-      state[_$key__isFocused___$ToggleButtonState] = value;
+  set isFocused(bool value) => state['ToggleButtonState.isFocused'] = value;
 
   /// Go to [_$ToggleButtonState.isChecked] to see the source code for this prop
   @override
-  bool get isChecked => state[_$key__isChecked___$ToggleButtonState];
+  bool get isChecked => state['ToggleButtonState.isChecked'];
 
   /// Go to [_$ToggleButtonState.isChecked] to see the source code for this prop
   @override
-  set isChecked(bool value) =>
-      state[_$key__isChecked___$ToggleButtonState] = value;
+  set isChecked(bool value) => state['ToggleButtonState.isChecked'] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__isFocused___$ToggleButtonState =
-      const StateDescriptor(_$key__isFocused___$ToggleButtonState);
-  static const StateDescriptor _$prop__isChecked___$ToggleButtonState =
-      const StateDescriptor(_$key__isChecked___$ToggleButtonState);
-  static const String _$key__isFocused___$ToggleButtonState =
-      'ToggleButtonState.isFocused';
-  static const String _$key__isChecked___$ToggleButtonState =
-      'ToggleButtonState.isChecked';
-
   static const List<StateDescriptor> $state = const [
-    _$prop__isFocused___$ToggleButtonState,
-    _$prop__isChecked___$ToggleButtonState
+    const StateDescriptor('ToggleButtonState.isFocused'),
+    const StateDescriptor('ToggleButtonState.isChecked')
   ];
   static const List<String> $stateKeys = const [
-    _$key__isFocused___$ToggleButtonState,
-    _$key__isChecked___$ToggleButtonState
+    'ToggleButtonState.isFocused',
+    'ToggleButtonState.isChecked'
   ];
 }
 

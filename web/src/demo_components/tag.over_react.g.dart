@@ -22,34 +22,27 @@ abstract class _$TagPropsAccessorsMixin implements _$TagProps {
 
   /// Go to [_$TagProps.skin] to see the source code for this prop
   @override
-  TagSkin get skin => props[_$key__skin___$TagProps];
+  TagSkin get skin => props['TagProps.skin'];
 
   /// Go to [_$TagProps.skin] to see the source code for this prop
   @override
-  set skin(TagSkin value) => props[_$key__skin___$TagProps] = value;
+  set skin(TagSkin value) => props['TagProps.skin'] = value;
 
   /// Go to [_$TagProps.isPill] to see the source code for this prop
   @override
-  bool get isPill => props[_$key__isPill___$TagProps];
+  bool get isPill => props['TagProps.isPill'];
 
   /// Go to [_$TagProps.isPill] to see the source code for this prop
   @override
-  set isPill(bool value) => props[_$key__isPill___$TagProps] = value;
+  set isPill(bool value) => props['TagProps.isPill'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__skin___$TagProps =
-      const PropDescriptor(_$key__skin___$TagProps);
-  static const PropDescriptor _$prop__isPill___$TagProps =
-      const PropDescriptor(_$key__isPill___$TagProps);
-  static const String _$key__skin___$TagProps = 'TagProps.skin';
-  static const String _$key__isPill___$TagProps = 'TagProps.isPill';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__skin___$TagProps,
-    _$prop__isPill___$TagProps
+    const PropDescriptor('TagProps.skin'),
+    const PropDescriptor('TagProps.isPill')
   ];
   static const List<String> $propKeys = const [
-    _$key__skin___$TagProps,
-    _$key__isPill___$TagProps
+    'TagProps.skin',
+    'TagProps.isPill'
   ];
 }
 

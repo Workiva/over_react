@@ -14,38 +14,27 @@ abstract class CssClassPropsMixin implements _$CssClassPropsMixin {
 
   /// Go to [_$CssClassPropsMixin.className] to see the source code for this prop
   @override
-  String get className => props[_$key__className___$CssClassPropsMixin];
+  String get className => props['className'];
 
   /// Go to [_$CssClassPropsMixin.className] to see the source code for this prop
   @override
-  set className(String value) =>
-      props[_$key__className___$CssClassPropsMixin] = value;
+  set className(String value) => props['className'] = value;
 
   /// Go to [_$CssClassPropsMixin.classNameBlacklist] to see the source code for this prop
   @override
-  String get classNameBlacklist =>
-      props[_$key__classNameBlacklist___$CssClassPropsMixin];
+  String get classNameBlacklist => props['classNameBlacklist'];
 
   /// Go to [_$CssClassPropsMixin.classNameBlacklist] to see the source code for this prop
   @override
-  set classNameBlacklist(String value) =>
-      props[_$key__classNameBlacklist___$CssClassPropsMixin] = value;
+  set classNameBlacklist(String value) => props['classNameBlacklist'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__className___$CssClassPropsMixin =
-      const PropDescriptor(_$key__className___$CssClassPropsMixin);
-  static const PropDescriptor _$prop__classNameBlacklist___$CssClassPropsMixin =
-      const PropDescriptor(_$key__classNameBlacklist___$CssClassPropsMixin);
-  static const String _$key__className___$CssClassPropsMixin = 'className';
-  static const String _$key__classNameBlacklist___$CssClassPropsMixin =
-      'classNameBlacklist';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__className___$CssClassPropsMixin,
-    _$prop__classNameBlacklist___$CssClassPropsMixin
+    const PropDescriptor('className'),
+    const PropDescriptor('classNameBlacklist')
   ];
   static const List<String> $propKeys = const [
-    _$key__className___$CssClassPropsMixin,
-    _$key__classNameBlacklist___$CssClassPropsMixin
+    'className',
+    'classNameBlacklist'
   ];
 }
 

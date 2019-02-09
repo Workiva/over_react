@@ -25,65 +25,42 @@ abstract class _$TestCompositeComponentPropsAccessorsMixin
   /// Go to [_$TestCompositeComponentProps.onComponentDidMount] to see the source code for this prop
   @override
   Function get onComponentDidMount =>
-      props[_$key__onComponentDidMount___$TestCompositeComponentProps];
+      props['TestCompositeComponentProps.onComponentDidMount'];
 
   /// Go to [_$TestCompositeComponentProps.onComponentDidMount] to see the source code for this prop
   @override
   set onComponentDidMount(Function value) =>
-      props[_$key__onComponentDidMount___$TestCompositeComponentProps] = value;
+      props['TestCompositeComponentProps.onComponentDidMount'] = value;
 
   /// Go to [_$TestCompositeComponentProps.onComponentWillUnmount] to see the source code for this prop
   @override
   Function get onComponentWillUnmount =>
-      props[_$key__onComponentWillUnmount___$TestCompositeComponentProps];
+      props['TestCompositeComponentProps.onComponentWillUnmount'];
 
   /// Go to [_$TestCompositeComponentProps.onComponentWillUnmount] to see the source code for this prop
   @override
   set onComponentWillUnmount(Function value) =>
-      props[_$key__onComponentWillUnmount___$TestCompositeComponentProps] =
-          value;
+      props['TestCompositeComponentProps.onComponentWillUnmount'] = value;
 
   /// Go to [_$TestCompositeComponentProps.onComponentDidUpdate] to see the source code for this prop
   @override
   Function get onComponentDidUpdate =>
-      props[_$key__onComponentDidUpdate___$TestCompositeComponentProps];
+      props['TestCompositeComponentProps.onComponentDidUpdate'];
 
   /// Go to [_$TestCompositeComponentProps.onComponentDidUpdate] to see the source code for this prop
   @override
   set onComponentDidUpdate(Function value) =>
-      props[_$key__onComponentDidUpdate___$TestCompositeComponentProps] = value;
+      props['TestCompositeComponentProps.onComponentDidUpdate'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor
-      _$prop__onComponentDidMount___$TestCompositeComponentProps =
-      const PropDescriptor(
-          _$key__onComponentDidMount___$TestCompositeComponentProps);
-  static const PropDescriptor
-      _$prop__onComponentWillUnmount___$TestCompositeComponentProps =
-      const PropDescriptor(
-          _$key__onComponentWillUnmount___$TestCompositeComponentProps);
-  static const PropDescriptor
-      _$prop__onComponentDidUpdate___$TestCompositeComponentProps =
-      const PropDescriptor(
-          _$key__onComponentDidUpdate___$TestCompositeComponentProps);
-  static const String
-      _$key__onComponentDidMount___$TestCompositeComponentProps =
-      'TestCompositeComponentProps.onComponentDidMount';
-  static const String
-      _$key__onComponentWillUnmount___$TestCompositeComponentProps =
-      'TestCompositeComponentProps.onComponentWillUnmount';
-  static const String
-      _$key__onComponentDidUpdate___$TestCompositeComponentProps =
-      'TestCompositeComponentProps.onComponentDidUpdate';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__onComponentDidMount___$TestCompositeComponentProps,
-    _$prop__onComponentWillUnmount___$TestCompositeComponentProps,
-    _$prop__onComponentDidUpdate___$TestCompositeComponentProps
+    const PropDescriptor('TestCompositeComponentProps.onComponentDidMount'),
+    const PropDescriptor('TestCompositeComponentProps.onComponentWillUnmount'),
+    const PropDescriptor('TestCompositeComponentProps.onComponentDidUpdate')
   ];
   static const List<String> $propKeys = const [
-    _$key__onComponentDidMount___$TestCompositeComponentProps,
-    _$key__onComponentWillUnmount___$TestCompositeComponentProps,
-    _$key__onComponentDidUpdate___$TestCompositeComponentProps
+    'TestCompositeComponentProps.onComponentDidMount',
+    'TestCompositeComponentProps.onComponentWillUnmount',
+    'TestCompositeComponentProps.onComponentDidUpdate'
   ];
 }
 

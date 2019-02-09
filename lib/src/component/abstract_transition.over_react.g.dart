@@ -12,7 +12,6 @@ abstract class _$AbstractTransitionPropsAccessorsMixin
   Map get props;
 
   /* GENERATED CONSTANTS */
-
   static const List<PropDescriptor> $props = const [];
   static const List<String> $propKeys = const [];
 }
@@ -35,24 +34,18 @@ abstract class _$AbstractTransitionStateAccessorsMixin
   /// Go to [_$AbstractTransitionState.transitionPhase] to see the source code for this prop
   @override
   TransitionPhase get transitionPhase =>
-      state[_$key__transitionPhase___$AbstractTransitionState];
+      state['AbstractTransitionState.transitionPhase'];
 
   /// Go to [_$AbstractTransitionState.transitionPhase] to see the source code for this prop
   @override
   set transitionPhase(TransitionPhase value) =>
-      state[_$key__transitionPhase___$AbstractTransitionState] = value;
+      state['AbstractTransitionState.transitionPhase'] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor
-      _$prop__transitionPhase___$AbstractTransitionState =
-      const StateDescriptor(_$key__transitionPhase___$AbstractTransitionState);
-  static const String _$key__transitionPhase___$AbstractTransitionState =
-      'AbstractTransitionState.transitionPhase';
-
   static const List<StateDescriptor> $state = const [
-    _$prop__transitionPhase___$AbstractTransitionState
+    const StateDescriptor('AbstractTransitionState.transitionPhase')
   ];
   static const List<String> $stateKeys = const [
-    _$key__transitionPhase___$AbstractTransitionState
+    'AbstractTransitionState.transitionPhase'
   ];
 }
 

@@ -23,7 +23,6 @@ abstract class _$StatefulComponentTestPropsAccessorsMixin
   Map get props;
 
   /* GENERATED CONSTANTS */
-
   static const List<PropDescriptor> $props = const [];
   static const List<String> $propKeys = const [];
 }
@@ -76,121 +75,79 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
 
   /// Go to [_$StatefulComponentTestState.stringState] to see the source code for this prop
   @override
-  String get stringState =>
-      state[_$key__stringState___$StatefulComponentTestState];
+  String get stringState => state['StatefulComponentTestState.stringState'];
 
   /// Go to [_$StatefulComponentTestState.stringState] to see the source code for this prop
   @override
   set stringState(String value) =>
-      state[_$key__stringState___$StatefulComponentTestState] = value;
+      state['StatefulComponentTestState.stringState'] = value;
 
   /// Go to [_$StatefulComponentTestState.dynamicState] to see the source code for this prop
   @override
-  dynamic get dynamicState =>
-      state[_$key__dynamicState___$StatefulComponentTestState];
+  dynamic get dynamicState => state['StatefulComponentTestState.dynamicState'];
 
   /// Go to [_$StatefulComponentTestState.dynamicState] to see the source code for this prop
   @override
   set dynamicState(dynamic value) =>
-      state[_$key__dynamicState___$StatefulComponentTestState] = value;
+      state['StatefulComponentTestState.dynamicState'] = value;
 
   /// Go to [_$StatefulComponentTestState.untypedState] to see the source code for this prop
   @override
-  get untypedState => state[_$key__untypedState___$StatefulComponentTestState];
+  get untypedState => state['StatefulComponentTestState.untypedState'];
 
   /// Go to [_$StatefulComponentTestState.untypedState] to see the source code for this prop
   @override
   set untypedState(value) =>
-      state[_$key__untypedState___$StatefulComponentTestState] = value;
+      state['StatefulComponentTestState.untypedState'] = value;
 
   /// Go to [_$StatefulComponentTestState.customKeyState] to see the source code for this prop
   @override
   @Accessor(key: 'custom key!')
-  get customKeyState =>
-      state[_$key__customKeyState___$StatefulComponentTestState];
+  get customKeyState => state['StatefulComponentTestState.custom key!'];
 
   /// Go to [_$StatefulComponentTestState.customKeyState] to see the source code for this prop
   @override
   @Accessor(key: 'custom key!')
   set customKeyState(value) =>
-      state[_$key__customKeyState___$StatefulComponentTestState] = value;
+      state['StatefulComponentTestState.custom key!'] = value;
 
   /// Go to [_$StatefulComponentTestState.customNamespaceState] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceState =>
-      state[_$key__customNamespaceState___$StatefulComponentTestState];
+  get customNamespaceState => state['custom namespace~~customNamespaceState'];
 
   /// Go to [_$StatefulComponentTestState.customNamespaceState] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceState(value) =>
-      state[_$key__customNamespaceState___$StatefulComponentTestState] = value;
+      state['custom namespace~~customNamespaceState'] = value;
 
   /// Go to [_$StatefulComponentTestState.customKeyAndNamespaceState] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceState =>
-      state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState];
+  get customKeyAndNamespaceState => state['custom namespace~~custom key!'];
 
   /// Go to [_$StatefulComponentTestState.customKeyAndNamespaceState] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceState(value) =>
-      state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState] =
-          value;
+      state['custom namespace~~custom key!'] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor
-      _$prop__stringState___$StatefulComponentTestState =
-      const StateDescriptor(_$key__stringState___$StatefulComponentTestState);
-  static const StateDescriptor
-      _$prop__dynamicState___$StatefulComponentTestState =
-      const StateDescriptor(_$key__dynamicState___$StatefulComponentTestState);
-  static const StateDescriptor
-      _$prop__untypedState___$StatefulComponentTestState =
-      const StateDescriptor(_$key__untypedState___$StatefulComponentTestState);
-  static const StateDescriptor
-      _$prop__customKeyState___$StatefulComponentTestState =
-      const StateDescriptor(
-          _$key__customKeyState___$StatefulComponentTestState);
-  static const StateDescriptor
-      _$prop__customNamespaceState___$StatefulComponentTestState =
-      const StateDescriptor(
-          _$key__customNamespaceState___$StatefulComponentTestState);
-  static const StateDescriptor
-      _$prop__customKeyAndNamespaceState___$StatefulComponentTestState =
-      const StateDescriptor(
-          _$key__customKeyAndNamespaceState___$StatefulComponentTestState);
-  static const String _$key__stringState___$StatefulComponentTestState =
-      'StatefulComponentTestState.stringState';
-  static const String _$key__dynamicState___$StatefulComponentTestState =
-      'StatefulComponentTestState.dynamicState';
-  static const String _$key__untypedState___$StatefulComponentTestState =
-      'StatefulComponentTestState.untypedState';
-  static const String _$key__customKeyState___$StatefulComponentTestState =
-      'StatefulComponentTestState.custom key!';
-  static const String
-      _$key__customNamespaceState___$StatefulComponentTestState =
-      'custom namespace~~customNamespaceState';
-  static const String
-      _$key__customKeyAndNamespaceState___$StatefulComponentTestState =
-      'custom namespace~~custom key!';
-
   static const List<StateDescriptor> $state = const [
-    _$prop__stringState___$StatefulComponentTestState,
-    _$prop__dynamicState___$StatefulComponentTestState,
-    _$prop__untypedState___$StatefulComponentTestState,
-    _$prop__customKeyState___$StatefulComponentTestState,
-    _$prop__customNamespaceState___$StatefulComponentTestState,
-    _$prop__customKeyAndNamespaceState___$StatefulComponentTestState
+    const StateDescriptor('StatefulComponentTestState.stringState'),
+    const StateDescriptor('StatefulComponentTestState.dynamicState'),
+    const StateDescriptor('StatefulComponentTestState.untypedState'),
+    const StateDescriptor('StatefulComponentTestState.custom key!'),
+    const StateDescriptor('custom namespace~~customNamespaceState'),
+    const StateDescriptor('custom namespace~~custom key!')
   ];
   static const List<String> $stateKeys = const [
-    _$key__stringState___$StatefulComponentTestState,
-    _$key__dynamicState___$StatefulComponentTestState,
-    _$key__untypedState___$StatefulComponentTestState,
-    _$key__customKeyState___$StatefulComponentTestState,
-    _$key__customNamespaceState___$StatefulComponentTestState,
-    _$key__customKeyAndNamespaceState___$StatefulComponentTestState
+    'StatefulComponentTestState.stringState',
+    'StatefulComponentTestState.dynamicState',
+    'StatefulComponentTestState.untypedState',
+    'StatefulComponentTestState.custom key!',
+    'custom namespace~~customNamespaceState',
+    'custom namespace~~custom key!'
   ];
 }
 

@@ -22,34 +22,27 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
 
   /// Go to [_$TestProps.foo] to see the source code for this prop
   @override
-  String get foo => props[_$key__foo___$TestProps];
+  String get foo => props['TestProps.foo'];
 
   /// Go to [_$TestProps.foo] to see the source code for this prop
   @override
-  set foo(String value) => props[_$key__foo___$TestProps] = value;
+  set foo(String value) => props['TestProps.foo'] = value;
 
   /// Go to [_$TestProps.bar] to see the source code for this prop
   @override
-  String get bar => props[_$key__bar___$TestProps];
+  String get bar => props['TestProps.bar'];
 
   /// Go to [_$TestProps.bar] to see the source code for this prop
   @override
-  set bar(String value) => props[_$key__bar___$TestProps] = value;
+  set bar(String value) => props['TestProps.bar'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__foo___$TestProps =
-      const PropDescriptor(_$key__foo___$TestProps);
-  static const PropDescriptor _$prop__bar___$TestProps =
-      const PropDescriptor(_$key__bar___$TestProps);
-  static const String _$key__foo___$TestProps = 'TestProps.foo';
-  static const String _$key__bar___$TestProps = 'TestProps.bar';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__foo___$TestProps,
-    _$prop__bar___$TestProps
+    const PropDescriptor('TestProps.foo'),
+    const PropDescriptor('TestProps.bar')
   ];
   static const List<String> $propKeys = const [
-    _$key__foo___$TestProps,
-    _$key__bar___$TestProps
+    'TestProps.foo',
+    'TestProps.bar'
   ];
 }
 

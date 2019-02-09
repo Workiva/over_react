@@ -22,118 +22,93 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
 
   /// Go to [_$ButtonProps.skin] to see the source code for this prop
   @override
-  ButtonSkin get skin => props[_$key__skin___$ButtonProps];
+  ButtonSkin get skin => props['ButtonProps.skin'];
 
   /// Go to [_$ButtonProps.skin] to see the source code for this prop
   @override
-  set skin(ButtonSkin value) => props[_$key__skin___$ButtonProps] = value;
+  set skin(ButtonSkin value) => props['ButtonProps.skin'] = value;
 
   /// Go to [_$ButtonProps.size] to see the source code for this prop
   @override
-  ButtonSize get size => props[_$key__size___$ButtonProps];
+  ButtonSize get size => props['ButtonProps.size'];
 
   /// Go to [_$ButtonProps.size] to see the source code for this prop
   @override
-  set size(ButtonSize value) => props[_$key__size___$ButtonProps] = value;
+  set size(ButtonSize value) => props['ButtonProps.size'] = value;
 
   /// Go to [_$ButtonProps.isActive] to see the source code for this prop
   @override
-  bool get isActive => props[_$key__isActive___$ButtonProps];
+  bool get isActive => props['ButtonProps.isActive'];
 
   /// Go to [_$ButtonProps.isActive] to see the source code for this prop
   @override
-  set isActive(bool value) => props[_$key__isActive___$ButtonProps] = value;
+  set isActive(bool value) => props['ButtonProps.isActive'] = value;
 
   /// Go to [_$ButtonProps.isDisabled] to see the source code for this prop
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
-  bool get isDisabled => props[_$key__isDisabled___$ButtonProps];
+  bool get isDisabled => props['disabled'];
 
   /// Go to [_$ButtonProps.isDisabled] to see the source code for this prop
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
-  set isDisabled(bool value) => props[_$key__isDisabled___$ButtonProps] = value;
+  set isDisabled(bool value) => props['disabled'] = value;
 
   /// Go to [_$ButtonProps.isBlock] to see the source code for this prop
   @override
-  bool get isBlock => props[_$key__isBlock___$ButtonProps];
+  bool get isBlock => props['ButtonProps.isBlock'];
 
   /// Go to [_$ButtonProps.isBlock] to see the source code for this prop
   @override
-  set isBlock(bool value) => props[_$key__isBlock___$ButtonProps] = value;
+  set isBlock(bool value) => props['ButtonProps.isBlock'] = value;
 
   /// Go to [_$ButtonProps.href] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  String get href => props[_$key__href___$ButtonProps];
+  String get href => props['href'];
 
   /// Go to [_$ButtonProps.href] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  set href(String value) => props[_$key__href___$ButtonProps] = value;
+  set href(String value) => props['href'] = value;
 
   /// Go to [_$ButtonProps.target] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  String get target => props[_$key__target___$ButtonProps];
+  String get target => props['target'];
 
   /// Go to [_$ButtonProps.target] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  set target(String value) => props[_$key__target___$ButtonProps] = value;
+  set target(String value) => props['target'] = value;
 
   /// Go to [_$ButtonProps.type] to see the source code for this prop
   @override
-  ButtonType get type => props[_$key__type___$ButtonProps];
+  ButtonType get type => props['ButtonProps.type'];
 
   /// Go to [_$ButtonProps.type] to see the source code for this prop
   @override
-  set type(ButtonType value) => props[_$key__type___$ButtonProps] = value;
+  set type(ButtonType value) => props['ButtonProps.type'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__skin___$ButtonProps =
-      const PropDescriptor(_$key__skin___$ButtonProps);
-  static const PropDescriptor _$prop__size___$ButtonProps =
-      const PropDescriptor(_$key__size___$ButtonProps);
-  static const PropDescriptor _$prop__isActive___$ButtonProps =
-      const PropDescriptor(_$key__isActive___$ButtonProps);
-  static const PropDescriptor _$prop__isDisabled___$ButtonProps =
-      const PropDescriptor(_$key__isDisabled___$ButtonProps);
-  static const PropDescriptor _$prop__isBlock___$ButtonProps =
-      const PropDescriptor(_$key__isBlock___$ButtonProps);
-  static const PropDescriptor _$prop__href___$ButtonProps =
-      const PropDescriptor(_$key__href___$ButtonProps);
-  static const PropDescriptor _$prop__target___$ButtonProps =
-      const PropDescriptor(_$key__target___$ButtonProps);
-  static const PropDescriptor _$prop__type___$ButtonProps =
-      const PropDescriptor(_$key__type___$ButtonProps);
-  static const String _$key__skin___$ButtonProps = 'ButtonProps.skin';
-  static const String _$key__size___$ButtonProps = 'ButtonProps.size';
-  static const String _$key__isActive___$ButtonProps = 'ButtonProps.isActive';
-  static const String _$key__isDisabled___$ButtonProps = 'disabled';
-  static const String _$key__isBlock___$ButtonProps = 'ButtonProps.isBlock';
-  static const String _$key__href___$ButtonProps = 'href';
-  static const String _$key__target___$ButtonProps = 'target';
-  static const String _$key__type___$ButtonProps = 'ButtonProps.type';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__skin___$ButtonProps,
-    _$prop__size___$ButtonProps,
-    _$prop__isActive___$ButtonProps,
-    _$prop__isDisabled___$ButtonProps,
-    _$prop__isBlock___$ButtonProps,
-    _$prop__href___$ButtonProps,
-    _$prop__target___$ButtonProps,
-    _$prop__type___$ButtonProps
+    const PropDescriptor('ButtonProps.skin'),
+    const PropDescriptor('ButtonProps.size'),
+    const PropDescriptor('ButtonProps.isActive'),
+    const PropDescriptor('disabled'),
+    const PropDescriptor('ButtonProps.isBlock'),
+    const PropDescriptor('href'),
+    const PropDescriptor('target'),
+    const PropDescriptor('ButtonProps.type')
   ];
   static const List<String> $propKeys = const [
-    _$key__skin___$ButtonProps,
-    _$key__size___$ButtonProps,
-    _$key__isActive___$ButtonProps,
-    _$key__isDisabled___$ButtonProps,
-    _$key__isBlock___$ButtonProps,
-    _$key__href___$ButtonProps,
-    _$key__target___$ButtonProps,
-    _$key__type___$ButtonProps
+    'ButtonProps.skin',
+    'ButtonProps.size',
+    'ButtonProps.isActive',
+    'disabled',
+    'ButtonProps.isBlock',
+    'href',
+    'target',
+    'ButtonProps.type'
   ];
 }
 
@@ -179,7 +154,6 @@ abstract class _$ButtonStateAccessorsMixin implements _$ButtonState {
   Map get state;
 
   /* GENERATED CONSTANTS */
-
   static const List<StateDescriptor> $state = const [];
   static const List<String> $stateKeys = const [];
 }

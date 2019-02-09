@@ -22,7 +22,6 @@ abstract class _$TestBasicPropsAccessorsMixin implements _$TestBasicProps {
   Map get props;
 
   /* GENERATED CONSTANTS */
-
   static const List<PropDescriptor> $props = const [];
   static const List<String> $propKeys = const [];
 }
@@ -104,7 +103,6 @@ abstract class _$TestHandlerLifecyclePropsAccessorsMixin
   Map get props;
 
   /* GENERATED CONSTANTS */
-
   static const List<PropDescriptor> $props = const [];
   static const List<String> $propKeys = const [];
 }
@@ -187,7 +185,6 @@ abstract class _$TestHandlerPrecedencePropsAccessorsMixin
   Map get props;
 
   /* GENERATED CONSTANTS */
-
   static const List<PropDescriptor> $props = const [];
   static const List<String> $propKeys = const [];
 }
@@ -273,25 +270,19 @@ abstract class _$TestPropValidationPropsAccessorsMixin
   /// Go to [_$TestPropValidationProps.required] to see the source code for this prop
   @override
   @requiredProp
-  String get required => props[_$key__required___$TestPropValidationProps];
+  String get required => props['TestPropValidationProps.required'];
 
   /// Go to [_$TestPropValidationProps.required] to see the source code for this prop
   @override
   @requiredProp
   set required(String value) =>
-      props[_$key__required___$TestPropValidationProps] = value;
+      props['TestPropValidationProps.required'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__required___$TestPropValidationProps =
-      const PropDescriptor(_$key__required___$TestPropValidationProps,
-          isRequired: true);
-  static const String _$key__required___$TestPropValidationProps =
-      'TestPropValidationProps.required';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__required___$TestPropValidationProps
+    const PropDescriptor('TestPropValidationProps.required', isRequired: true)
   ];
   static const List<String> $propKeys = const [
-    _$key__required___$TestPropValidationProps
+    'TestPropValidationProps.required'
   ];
 }
 
@@ -373,7 +364,6 @@ abstract class _$TestRedrawOnPropsAccessorsMixin
   Map get props;
 
   /* GENERATED CONSTANTS */
-
   static const List<PropDescriptor> $props = const [];
   static const List<String> $propKeys = const [];
 }
@@ -456,7 +446,6 @@ abstract class _$TestStoreHandlersPropsAccessorsMixin
   Map get props;
 
   /* GENERATED CONSTANTS */
-
   static const List<PropDescriptor> $props = const [];
   static const List<String> $propKeys = const [];
 }
@@ -539,7 +528,6 @@ abstract class _$TestStatefulBasicPropsAccessorsMixin
   Map get props;
 
   /* GENERATED CONSTANTS */
-
   static const List<PropDescriptor> $props = const [];
   static const List<String> $propKeys = const [];
 }
@@ -590,7 +578,6 @@ abstract class _$TestStatefulBasicStateAccessorsMixin
   Map get state;
 
   /* GENERATED CONSTANTS */
-
   static const List<StateDescriptor> $state = const [];
   static const List<String> $stateKeys = const [];
 }
@@ -665,7 +652,6 @@ abstract class _$TestStatefulHandlerLifecyclePropsAccessorsMixin
   Map get props;
 
   /* GENERATED CONSTANTS */
-
   static const List<PropDescriptor> $props = const [];
   static const List<String> $propKeys = const [];
 }
@@ -720,7 +706,6 @@ abstract class _$TestStatefulHandlerLifecycleStateAccessorsMixin
   Map get state;
 
   /* GENERATED CONSTANTS */
-
   static const List<StateDescriptor> $state = const [];
   static const List<String> $stateKeys = const [];
 }
@@ -799,7 +784,6 @@ abstract class _$TestStatefulHandlerPrecedencePropsAccessorsMixin
   Map get props;
 
   /* GENERATED CONSTANTS */
-
   static const List<PropDescriptor> $props = const [];
   static const List<String> $propKeys = const [];
 }
@@ -854,7 +838,6 @@ abstract class _$TestStatefulHandlerPrecedenceStateAccessorsMixin
   Map get state;
 
   /* GENERATED CONSTANTS */
-
   static const List<StateDescriptor> $state = const [];
   static const List<String> $stateKeys = const [];
 }
@@ -936,28 +919,21 @@ abstract class _$TestStatefulPropValidationPropsAccessorsMixin
   @override
   @override
   @requiredProp
-  String get required =>
-      props[_$key__required___$TestStatefulPropValidationProps];
+  String get required => props['TestStatefulPropValidationProps.required'];
 
   /// Go to [_$TestStatefulPropValidationProps.required] to see the source code for this prop
   @override
   @override
   @requiredProp
   set required(String value) =>
-      props[_$key__required___$TestStatefulPropValidationProps] = value;
+      props['TestStatefulPropValidationProps.required'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor
-      _$prop__required___$TestStatefulPropValidationProps =
-      const PropDescriptor(_$key__required___$TestStatefulPropValidationProps,
-          isRequired: true);
-  static const String _$key__required___$TestStatefulPropValidationProps =
-      'TestStatefulPropValidationProps.required';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__required___$TestStatefulPropValidationProps
+    const PropDescriptor('TestStatefulPropValidationProps.required',
+        isRequired: true)
   ];
   static const List<String> $propKeys = const [
-    _$key__required___$TestStatefulPropValidationProps
+    'TestStatefulPropValidationProps.required'
   ];
 }
 
@@ -1010,7 +986,6 @@ abstract class _$TestStatefulPropValidationStateAccessorsMixin
   Map get state;
 
   /* GENERATED CONSTANTS */
-
   static const List<StateDescriptor> $state = const [];
   static const List<String> $stateKeys = const [];
 }
@@ -1088,7 +1063,6 @@ abstract class _$TestStatefulRedrawOnPropsAccessorsMixin
   Map get props;
 
   /* GENERATED CONSTANTS */
-
   static const List<PropDescriptor> $props = const [];
   static const List<String> $propKeys = const [];
 }
@@ -1139,7 +1113,6 @@ abstract class _$TestStatefulRedrawOnStateAccessorsMixin
   Map get state;
 
   /* GENERATED CONSTANTS */
-
   static const List<StateDescriptor> $state = const [];
   static const List<String> $stateKeys = const [];
 }
@@ -1214,7 +1187,6 @@ abstract class _$TestStatefulStoreHandlersPropsAccessorsMixin
   Map get props;
 
   /* GENERATED CONSTANTS */
-
   static const List<PropDescriptor> $props = const [];
   static const List<String> $propKeys = const [];
 }
@@ -1267,7 +1239,6 @@ abstract class _$TestStatefulStoreHandlersStateAccessorsMixin
   Map get state;
 
   /* GENERATED CONSTANTS */
-
   static const List<StateDescriptor> $state = const [];
   static const List<String> $stateKeys = const [];
 }

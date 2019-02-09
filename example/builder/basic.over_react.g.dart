@@ -24,88 +24,69 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
   @override
   @deprecated
   @requiredProp
-  String get basicProp => props[_$key__basicProp___$BasicProps];
+  String get basicProp => props['BasicProps.basicProp'];
 
   /// Go to [_$BasicProps.basicProp] to see the source code for this prop
   @override
   @deprecated
   @requiredProp
-  set basicProp(String value) => props[_$key__basicProp___$BasicProps] = value;
+  set basicProp(String value) => props['BasicProps.basicProp'] = value;
 
   /// Go to [_$BasicProps.basic1] to see the source code for this prop
   @override
-  String get basic1 => props[_$key__basic1___$BasicProps];
+  String get basic1 => props['BasicProps.basic1'];
 
   /// Go to [_$BasicProps.basic1] to see the source code for this prop
   @override
-  set basic1(String value) => props[_$key__basic1___$BasicProps] = value;
+  set basic1(String value) => props['BasicProps.basic1'] = value;
 
   /// Go to [_$BasicProps.basic2] to see the source code for this prop
   @override
-  String get basic2 => props[_$key__basic2___$BasicProps];
+  String get basic2 => props['BasicProps.basic2'];
 
   /// Go to [_$BasicProps.basic2] to see the source code for this prop
   @override
-  set basic2(String value) => props[_$key__basic2___$BasicProps] = value;
+  set basic2(String value) => props['BasicProps.basic2'] = value;
 
   /// Go to [_$BasicProps.basic3] to see the source code for this prop
   @override
-  String get basic3 => props[_$key__basic3___$BasicProps];
+  String get basic3 => props['BasicProps.basic3'];
 
   /// Go to [_$BasicProps.basic3] to see the source code for this prop
   @override
-  set basic3(String value) => props[_$key__basic3___$BasicProps] = value;
+  set basic3(String value) => props['BasicProps.basic3'] = value;
 
   /// Go to [_$BasicProps.basic4] to see the source code for this prop
   @override
-  String get basic4 => props[_$key__basic4___$BasicProps];
+  String get basic4 => props['BasicProps.basic4'];
 
   /// Go to [_$BasicProps.basic4] to see the source code for this prop
   @override
-  set basic4(String value) => props[_$key__basic4___$BasicProps] = value;
+  set basic4(String value) => props['BasicProps.basic4'] = value;
 
   /// Go to [_$BasicProps.basic5] to see the source code for this prop
   @override
-  String get basic5 => props[_$key__basic5___$BasicProps];
+  String get basic5 => props['BasicProps.basic5'];
 
   /// Go to [_$BasicProps.basic5] to see the source code for this prop
   @override
-  set basic5(String value) => props[_$key__basic5___$BasicProps] = value;
+  set basic5(String value) => props['BasicProps.basic5'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__basicProp___$BasicProps =
-      const PropDescriptor(_$key__basicProp___$BasicProps, isRequired: true);
-  static const PropDescriptor _$prop__basic1___$BasicProps =
-      const PropDescriptor(_$key__basic1___$BasicProps);
-  static const PropDescriptor _$prop__basic2___$BasicProps =
-      const PropDescriptor(_$key__basic2___$BasicProps);
-  static const PropDescriptor _$prop__basic3___$BasicProps =
-      const PropDescriptor(_$key__basic3___$BasicProps);
-  static const PropDescriptor _$prop__basic4___$BasicProps =
-      const PropDescriptor(_$key__basic4___$BasicProps);
-  static const PropDescriptor _$prop__basic5___$BasicProps =
-      const PropDescriptor(_$key__basic5___$BasicProps);
-  static const String _$key__basicProp___$BasicProps = 'BasicProps.basicProp';
-  static const String _$key__basic1___$BasicProps = 'BasicProps.basic1';
-  static const String _$key__basic2___$BasicProps = 'BasicProps.basic2';
-  static const String _$key__basic3___$BasicProps = 'BasicProps.basic3';
-  static const String _$key__basic4___$BasicProps = 'BasicProps.basic4';
-  static const String _$key__basic5___$BasicProps = 'BasicProps.basic5';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__basicProp___$BasicProps,
-    _$prop__basic1___$BasicProps,
-    _$prop__basic2___$BasicProps,
-    _$prop__basic3___$BasicProps,
-    _$prop__basic4___$BasicProps,
-    _$prop__basic5___$BasicProps
+    const PropDescriptor('BasicProps.basicProp', isRequired: true),
+    const PropDescriptor('BasicProps.basic1'),
+    const PropDescriptor('BasicProps.basic2'),
+    const PropDescriptor('BasicProps.basic3'),
+    const PropDescriptor('BasicProps.basic4'),
+    const PropDescriptor('BasicProps.basic5')
   ];
   static const List<String> $propKeys = const [
-    _$key__basicProp___$BasicProps,
-    _$key__basic1___$BasicProps,
-    _$key__basic2___$BasicProps,
-    _$key__basic3___$BasicProps,
-    _$key__basic4___$BasicProps,
-    _$key__basic5___$BasicProps
+    'BasicProps.basicProp',
+    'BasicProps.basic1',
+    'BasicProps.basic2',
+    'BasicProps.basic3',
+    'BasicProps.basic4',
+    'BasicProps.basic5'
   ];
 }
 

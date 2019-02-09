@@ -24,66 +24,44 @@ abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
 
   /// Go to [_$DoNotGenerateAccessorTestProps.generated1Prop] to see the source code for this prop
   @override
-  get generated1Prop =>
-      props[_$key__generated1Prop___$DoNotGenerateAccessorTestProps];
+  get generated1Prop => props['DoNotGenerateAccessorTestProps.generated1Prop'];
 
   /// Go to [_$DoNotGenerateAccessorTestProps.generated1Prop] to see the source code for this prop
   @override
   set generated1Prop(value) =>
-      props[_$key__generated1Prop___$DoNotGenerateAccessorTestProps] = value;
+      props['DoNotGenerateAccessorTestProps.generated1Prop'] = value;
 
   /// Go to [_$DoNotGenerateAccessorTestProps.generated2Prop] to see the source code for this prop
   @override
-  get generated2Prop =>
-      props[_$key__generated2Prop___$DoNotGenerateAccessorTestProps];
+  get generated2Prop => props['DoNotGenerateAccessorTestProps.generated2Prop'];
 
   /// Go to [_$DoNotGenerateAccessorTestProps.generated2Prop] to see the source code for this prop
   @override
   set generated2Prop(value) =>
-      props[_$key__generated2Prop___$DoNotGenerateAccessorTestProps] = value;
+      props['DoNotGenerateAccessorTestProps.generated2Prop'] = value;
 
   /// Go to [_$DoNotGenerateAccessorTestProps.explicitlyGeneratedProp] to see the source code for this prop
   @override
   @Accessor(doNotGenerate: false)
   get explicitlyGeneratedProp =>
-      props[_$key__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps];
+      props['DoNotGenerateAccessorTestProps.explicitlyGeneratedProp'];
 
   /// Go to [_$DoNotGenerateAccessorTestProps.explicitlyGeneratedProp] to see the source code for this prop
   @override
   @Accessor(doNotGenerate: false)
   set explicitlyGeneratedProp(value) =>
-      props[_$key__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps] =
-          value;
+      props['DoNotGenerateAccessorTestProps.explicitlyGeneratedProp'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor
-      _$prop__generated1Prop___$DoNotGenerateAccessorTestProps =
-      const PropDescriptor(
-          _$key__generated1Prop___$DoNotGenerateAccessorTestProps);
-  static const PropDescriptor
-      _$prop__generated2Prop___$DoNotGenerateAccessorTestProps =
-      const PropDescriptor(
-          _$key__generated2Prop___$DoNotGenerateAccessorTestProps);
-  static const PropDescriptor
-      _$prop__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps =
-      const PropDescriptor(
-          _$key__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps);
-  static const String _$key__generated1Prop___$DoNotGenerateAccessorTestProps =
-      'DoNotGenerateAccessorTestProps.generated1Prop';
-  static const String _$key__generated2Prop___$DoNotGenerateAccessorTestProps =
-      'DoNotGenerateAccessorTestProps.generated2Prop';
-  static const String
-      _$key__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps =
-      'DoNotGenerateAccessorTestProps.explicitlyGeneratedProp';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__generated1Prop___$DoNotGenerateAccessorTestProps,
-    _$prop__generated2Prop___$DoNotGenerateAccessorTestProps,
-    _$prop__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps
+    const PropDescriptor('DoNotGenerateAccessorTestProps.generated1Prop'),
+    const PropDescriptor('DoNotGenerateAccessorTestProps.generated2Prop'),
+    const PropDescriptor(
+        'DoNotGenerateAccessorTestProps.explicitlyGeneratedProp')
   ];
   static const List<String> $propKeys = const [
-    _$key__generated1Prop___$DoNotGenerateAccessorTestProps,
-    _$key__generated2Prop___$DoNotGenerateAccessorTestProps,
-    _$key__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps
+    'DoNotGenerateAccessorTestProps.generated1Prop',
+    'DoNotGenerateAccessorTestProps.generated2Prop',
+    'DoNotGenerateAccessorTestProps.explicitlyGeneratedProp'
   ];
 }
 
@@ -132,65 +110,45 @@ abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
   /// Go to [_$DoNotGenerateAccessorTestState.generated1State] to see the source code for this prop
   @override
   get generated1State =>
-      state[_$key__generated1State___$DoNotGenerateAccessorTestState];
+      state['DoNotGenerateAccessorTestState.generated1State'];
 
   /// Go to [_$DoNotGenerateAccessorTestState.generated1State] to see the source code for this prop
   @override
   set generated1State(value) =>
-      state[_$key__generated1State___$DoNotGenerateAccessorTestState] = value;
+      state['DoNotGenerateAccessorTestState.generated1State'] = value;
 
   /// Go to [_$DoNotGenerateAccessorTestState.generated2State] to see the source code for this prop
   @override
   get generated2State =>
-      state[_$key__generated2State___$DoNotGenerateAccessorTestState];
+      state['DoNotGenerateAccessorTestState.generated2State'];
 
   /// Go to [_$DoNotGenerateAccessorTestState.generated2State] to see the source code for this prop
   @override
   set generated2State(value) =>
-      state[_$key__generated2State___$DoNotGenerateAccessorTestState] = value;
+      state['DoNotGenerateAccessorTestState.generated2State'] = value;
 
   /// Go to [_$DoNotGenerateAccessorTestState.explicitlyGeneratedState] to see the source code for this prop
   @override
   @Accessor(doNotGenerate: false)
   get explicitlyGeneratedState =>
-      state[_$key__explicitlyGeneratedState___$DoNotGenerateAccessorTestState];
+      state['DoNotGenerateAccessorTestState.explicitlyGeneratedState'];
 
   /// Go to [_$DoNotGenerateAccessorTestState.explicitlyGeneratedState] to see the source code for this prop
   @override
   @Accessor(doNotGenerate: false)
   set explicitlyGeneratedState(value) =>
-      state[_$key__explicitlyGeneratedState___$DoNotGenerateAccessorTestState] =
-          value;
+      state['DoNotGenerateAccessorTestState.explicitlyGeneratedState'] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor
-      _$prop__generated1State___$DoNotGenerateAccessorTestState =
-      const StateDescriptor(
-          _$key__generated1State___$DoNotGenerateAccessorTestState);
-  static const StateDescriptor
-      _$prop__generated2State___$DoNotGenerateAccessorTestState =
-      const StateDescriptor(
-          _$key__generated2State___$DoNotGenerateAccessorTestState);
-  static const StateDescriptor
-      _$prop__explicitlyGeneratedState___$DoNotGenerateAccessorTestState =
-      const StateDescriptor(
-          _$key__explicitlyGeneratedState___$DoNotGenerateAccessorTestState);
-  static const String _$key__generated1State___$DoNotGenerateAccessorTestState =
-      'DoNotGenerateAccessorTestState.generated1State';
-  static const String _$key__generated2State___$DoNotGenerateAccessorTestState =
-      'DoNotGenerateAccessorTestState.generated2State';
-  static const String
-      _$key__explicitlyGeneratedState___$DoNotGenerateAccessorTestState =
-      'DoNotGenerateAccessorTestState.explicitlyGeneratedState';
-
   static const List<StateDescriptor> $state = const [
-    _$prop__generated1State___$DoNotGenerateAccessorTestState,
-    _$prop__generated2State___$DoNotGenerateAccessorTestState,
-    _$prop__explicitlyGeneratedState___$DoNotGenerateAccessorTestState
+    const StateDescriptor('DoNotGenerateAccessorTestState.generated1State'),
+    const StateDescriptor('DoNotGenerateAccessorTestState.generated2State'),
+    const StateDescriptor(
+        'DoNotGenerateAccessorTestState.explicitlyGeneratedState')
   ];
   static const List<String> $stateKeys = const [
-    _$key__generated1State___$DoNotGenerateAccessorTestState,
-    _$key__generated2State___$DoNotGenerateAccessorTestState,
-    _$key__explicitlyGeneratedState___$DoNotGenerateAccessorTestState
+    'DoNotGenerateAccessorTestState.generated1State',
+    'DoNotGenerateAccessorTestState.generated2State',
+    'DoNotGenerateAccessorTestState.explicitlyGeneratedState'
   ];
 }
 

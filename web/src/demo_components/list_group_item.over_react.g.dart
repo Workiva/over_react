@@ -25,161 +25,116 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// Go to [_$ListGroupItemProps.elementType] to see the source code for this prop
   @override
   ListGroupItemElementType get elementType =>
-      props[_$key__elementType___$ListGroupItemProps];
+      props['ListGroupItemProps.elementType'];
 
   /// Go to [_$ListGroupItemProps.elementType] to see the source code for this prop
   @override
   set elementType(ListGroupItemElementType value) =>
-      props[_$key__elementType___$ListGroupItemProps] = value;
+      props['ListGroupItemProps.elementType'] = value;
 
   /// Go to [_$ListGroupItemProps.header] to see the source code for this prop
   @override
-  dynamic get header => props[_$key__header___$ListGroupItemProps];
+  dynamic get header => props['ListGroupItemProps.header'];
 
   /// Go to [_$ListGroupItemProps.header] to see the source code for this prop
   @override
-  set header(dynamic value) =>
-      props[_$key__header___$ListGroupItemProps] = value;
+  set header(dynamic value) => props['ListGroupItemProps.header'] = value;
 
   /// Go to [_$ListGroupItemProps.headerSize] to see the source code for this prop
   @override
   ListGroupItemHeaderElementSize get headerSize =>
-      props[_$key__headerSize___$ListGroupItemProps];
+      props['ListGroupItemProps.headerSize'];
 
   /// Go to [_$ListGroupItemProps.headerSize] to see the source code for this prop
   @override
   set headerSize(ListGroupItemHeaderElementSize value) =>
-      props[_$key__headerSize___$ListGroupItemProps] = value;
+      props['ListGroupItemProps.headerSize'] = value;
 
   /// Go to [_$ListGroupItemProps.headerProps] to see the source code for this prop
   @override
-  Map get headerProps => props[_$key__headerProps___$ListGroupItemProps];
+  Map get headerProps => props['ListGroupItemProps.headerProps'];
 
   /// Go to [_$ListGroupItemProps.headerProps] to see the source code for this prop
   @override
-  set headerProps(Map value) =>
-      props[_$key__headerProps___$ListGroupItemProps] = value;
+  set headerProps(Map value) => props['ListGroupItemProps.headerProps'] = value;
 
   /// Go to [_$ListGroupItemProps.skin] to see the source code for this prop
   @override
-  ListGroupItemSkin get skin => props[_$key__skin___$ListGroupItemProps];
+  ListGroupItemSkin get skin => props['ListGroupItemProps.skin'];
 
   /// Go to [_$ListGroupItemProps.skin] to see the source code for this prop
   @override
-  set skin(ListGroupItemSkin value) =>
-      props[_$key__skin___$ListGroupItemProps] = value;
+  set skin(ListGroupItemSkin value) => props['ListGroupItemProps.skin'] = value;
 
   /// Go to [_$ListGroupItemProps.isActive] to see the source code for this prop
   @override
-  bool get isActive => props[_$key__isActive___$ListGroupItemProps];
+  bool get isActive => props['ListGroupItemProps.isActive'];
 
   /// Go to [_$ListGroupItemProps.isActive] to see the source code for this prop
   @override
-  set isActive(bool value) =>
-      props[_$key__isActive___$ListGroupItemProps] = value;
+  set isActive(bool value) => props['ListGroupItemProps.isActive'] = value;
 
   /// Go to [_$ListGroupItemProps.isDisabled] to see the source code for this prop
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
-  bool get isDisabled => props[_$key__isDisabled___$ListGroupItemProps];
+  bool get isDisabled => props['disabled'];
 
   /// Go to [_$ListGroupItemProps.isDisabled] to see the source code for this prop
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
-  set isDisabled(bool value) =>
-      props[_$key__isDisabled___$ListGroupItemProps] = value;
+  set isDisabled(bool value) => props['disabled'] = value;
 
   /// Go to [_$ListGroupItemProps.href] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  String get href => props[_$key__href___$ListGroupItemProps];
+  String get href => props['href'];
 
   /// Go to [_$ListGroupItemProps.href] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  set href(String value) => props[_$key__href___$ListGroupItemProps] = value;
+  set href(String value) => props['href'] = value;
 
   /// Go to [_$ListGroupItemProps.target] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  String get target => props[_$key__target___$ListGroupItemProps];
+  String get target => props['target'];
 
   /// Go to [_$ListGroupItemProps.target] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  set target(String value) =>
-      props[_$key__target___$ListGroupItemProps] = value;
+  set target(String value) => props['target'] = value;
 
   /// Go to [_$ListGroupItemProps.type] to see the source code for this prop
   @override
-  ButtonType get type => props[_$key__type___$ListGroupItemProps];
+  ButtonType get type => props['ListGroupItemProps.type'];
 
   /// Go to [_$ListGroupItemProps.type] to see the source code for this prop
   @override
-  set type(ButtonType value) =>
-      props[_$key__type___$ListGroupItemProps] = value;
+  set type(ButtonType value) => props['ListGroupItemProps.type'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__elementType___$ListGroupItemProps =
-      const PropDescriptor(_$key__elementType___$ListGroupItemProps);
-  static const PropDescriptor _$prop__header___$ListGroupItemProps =
-      const PropDescriptor(_$key__header___$ListGroupItemProps);
-  static const PropDescriptor _$prop__headerSize___$ListGroupItemProps =
-      const PropDescriptor(_$key__headerSize___$ListGroupItemProps);
-  static const PropDescriptor _$prop__headerProps___$ListGroupItemProps =
-      const PropDescriptor(_$key__headerProps___$ListGroupItemProps);
-  static const PropDescriptor _$prop__skin___$ListGroupItemProps =
-      const PropDescriptor(_$key__skin___$ListGroupItemProps);
-  static const PropDescriptor _$prop__isActive___$ListGroupItemProps =
-      const PropDescriptor(_$key__isActive___$ListGroupItemProps);
-  static const PropDescriptor _$prop__isDisabled___$ListGroupItemProps =
-      const PropDescriptor(_$key__isDisabled___$ListGroupItemProps);
-  static const PropDescriptor _$prop__href___$ListGroupItemProps =
-      const PropDescriptor(_$key__href___$ListGroupItemProps);
-  static const PropDescriptor _$prop__target___$ListGroupItemProps =
-      const PropDescriptor(_$key__target___$ListGroupItemProps);
-  static const PropDescriptor _$prop__type___$ListGroupItemProps =
-      const PropDescriptor(_$key__type___$ListGroupItemProps);
-  static const String _$key__elementType___$ListGroupItemProps =
-      'ListGroupItemProps.elementType';
-  static const String _$key__header___$ListGroupItemProps =
-      'ListGroupItemProps.header';
-  static const String _$key__headerSize___$ListGroupItemProps =
-      'ListGroupItemProps.headerSize';
-  static const String _$key__headerProps___$ListGroupItemProps =
-      'ListGroupItemProps.headerProps';
-  static const String _$key__skin___$ListGroupItemProps =
-      'ListGroupItemProps.skin';
-  static const String _$key__isActive___$ListGroupItemProps =
-      'ListGroupItemProps.isActive';
-  static const String _$key__isDisabled___$ListGroupItemProps = 'disabled';
-  static const String _$key__href___$ListGroupItemProps = 'href';
-  static const String _$key__target___$ListGroupItemProps = 'target';
-  static const String _$key__type___$ListGroupItemProps =
-      'ListGroupItemProps.type';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__elementType___$ListGroupItemProps,
-    _$prop__header___$ListGroupItemProps,
-    _$prop__headerSize___$ListGroupItemProps,
-    _$prop__headerProps___$ListGroupItemProps,
-    _$prop__skin___$ListGroupItemProps,
-    _$prop__isActive___$ListGroupItemProps,
-    _$prop__isDisabled___$ListGroupItemProps,
-    _$prop__href___$ListGroupItemProps,
-    _$prop__target___$ListGroupItemProps,
-    _$prop__type___$ListGroupItemProps
+    const PropDescriptor('ListGroupItemProps.elementType'),
+    const PropDescriptor('ListGroupItemProps.header'),
+    const PropDescriptor('ListGroupItemProps.headerSize'),
+    const PropDescriptor('ListGroupItemProps.headerProps'),
+    const PropDescriptor('ListGroupItemProps.skin'),
+    const PropDescriptor('ListGroupItemProps.isActive'),
+    const PropDescriptor('disabled'),
+    const PropDescriptor('href'),
+    const PropDescriptor('target'),
+    const PropDescriptor('ListGroupItemProps.type')
   ];
   static const List<String> $propKeys = const [
-    _$key__elementType___$ListGroupItemProps,
-    _$key__header___$ListGroupItemProps,
-    _$key__headerSize___$ListGroupItemProps,
-    _$key__headerProps___$ListGroupItemProps,
-    _$key__skin___$ListGroupItemProps,
-    _$key__isActive___$ListGroupItemProps,
-    _$key__isDisabled___$ListGroupItemProps,
-    _$key__href___$ListGroupItemProps,
-    _$key__target___$ListGroupItemProps,
-    _$key__type___$ListGroupItemProps
+    'ListGroupItemProps.elementType',
+    'ListGroupItemProps.header',
+    'ListGroupItemProps.headerSize',
+    'ListGroupItemProps.headerProps',
+    'ListGroupItemProps.skin',
+    'ListGroupItemProps.isActive',
+    'disabled',
+    'href',
+    'target',
+    'ListGroupItemProps.type'
   ];
 }
 

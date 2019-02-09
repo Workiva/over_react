@@ -17,35 +17,25 @@ abstract class ReactPropsMixin implements _$ReactPropsMixin {
 
   /// Go to [_$ReactPropsMixin.children] to see the source code for this prop
   @override
-  List get children => props[_$key__children___$ReactPropsMixin];
+  List get children => props['children'];
 
   /// Go to [_$ReactPropsMixin.children] to see the source code for this prop
   @override
-  set children(List value) => props[_$key__children___$ReactPropsMixin] = value;
+  set children(List value) => props['children'] = value;
 
   /// Go to [_$ReactPropsMixin.ref] to see the source code for this prop
   @override
-  dynamic get ref => props[_$key__ref___$ReactPropsMixin];
+  dynamic get ref => props['ref'];
 
   /// Go to [_$ReactPropsMixin.ref] to see the source code for this prop
   @override
-  set ref(dynamic value) => props[_$key__ref___$ReactPropsMixin] = value;
+  set ref(dynamic value) => props['ref'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__children___$ReactPropsMixin =
-      const PropDescriptor(_$key__children___$ReactPropsMixin);
-  static const PropDescriptor _$prop__ref___$ReactPropsMixin =
-      const PropDescriptor(_$key__ref___$ReactPropsMixin);
-  static const String _$key__children___$ReactPropsMixin = 'children';
-  static const String _$key__ref___$ReactPropsMixin = 'ref';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__children___$ReactPropsMixin,
-    _$prop__ref___$ReactPropsMixin
+    const PropDescriptor('children'),
+    const PropDescriptor('ref')
   ];
-  static const List<String> $propKeys = const [
-    _$key__children___$ReactPropsMixin,
-    _$key__ref___$ReactPropsMixin
-  ];
+  static const List<String> $propKeys = const ['children', 'ref'];
 }
 
 const PropsMeta _$metaForReactPropsMixin = const PropsMeta(
@@ -61,2390 +51,1730 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.cols] to see the source code for this prop
   @override
-  int get cols => props[_$key__cols___$DomPropsMixin];
+  int get cols => props['cols'];
 
   /// Go to [_$DomPropsMixin.cols] to see the source code for this prop
   @override
-  set cols(int value) => props[_$key__cols___$DomPropsMixin] = value;
+  set cols(int value) => props['cols'] = value;
 
   /// Go to [_$DomPropsMixin.rows] to see the source code for this prop
   @override
-  int get rows => props[_$key__rows___$DomPropsMixin];
+  int get rows => props['rows'];
 
   /// Go to [_$DomPropsMixin.rows] to see the source code for this prop
   @override
-  set rows(int value) => props[_$key__rows___$DomPropsMixin] = value;
+  set rows(int value) => props['rows'] = value;
 
   /// Go to [_$DomPropsMixin.size] to see the source code for this prop
   @override
-  int get size => props[_$key__size___$DomPropsMixin];
+  int get size => props['size'];
 
   /// Go to [_$DomPropsMixin.size] to see the source code for this prop
   @override
-  set size(int value) => props[_$key__size___$DomPropsMixin] = value;
+  set size(int value) => props['size'] = value;
 
   /// Go to [_$DomPropsMixin.span] to see the source code for this prop
   @override
-  int get span => props[_$key__span___$DomPropsMixin];
+  int get span => props['span'];
 
   /// Go to [_$DomPropsMixin.span] to see the source code for this prop
   @override
-  set span(int value) => props[_$key__span___$DomPropsMixin] = value;
+  set span(int value) => props['span'] = value;
 
   /// Go to [_$DomPropsMixin.start] to see the source code for this prop
   @override
-  int get start => props[_$key__start___$DomPropsMixin];
+  int get start => props['start'];
 
   /// Go to [_$DomPropsMixin.start] to see the source code for this prop
   @override
-  set start(int value) => props[_$key__start___$DomPropsMixin] = value;
+  set start(int value) => props['start'] = value;
 
   /// Go to [_$DomPropsMixin.allowFullScreen] to see the source code for this prop
   @override
-  bool get allowFullScreen => props[_$key__allowFullScreen___$DomPropsMixin];
+  bool get allowFullScreen => props['allowFullScreen'];
 
   /// Go to [_$DomPropsMixin.allowFullScreen] to see the source code for this prop
   @override
-  set allowFullScreen(bool value) =>
-      props[_$key__allowFullScreen___$DomPropsMixin] = value;
+  set allowFullScreen(bool value) => props['allowFullScreen'] = value;
 
   /// Go to [_$DomPropsMixin.async] to see the source code for this prop
   @override
-  bool get async => props[_$key__async___$DomPropsMixin];
+  bool get async => props['async'];
 
   /// Go to [_$DomPropsMixin.async] to see the source code for this prop
   @override
-  set async(bool value) => props[_$key__async___$DomPropsMixin] = value;
+  set async(bool value) => props['async'] = value;
 
   /// Go to [_$DomPropsMixin.autoPlay] to see the source code for this prop
   @override
-  bool get autoPlay => props[_$key__autoPlay___$DomPropsMixin];
+  bool get autoPlay => props['autoPlay'];
 
   /// Go to [_$DomPropsMixin.autoPlay] to see the source code for this prop
   @override
-  set autoPlay(bool value) => props[_$key__autoPlay___$DomPropsMixin] = value;
+  set autoPlay(bool value) => props['autoPlay'] = value;
 
   /// Go to [_$DomPropsMixin.checked] to see the source code for this prop
   @override
-  bool get checked => props[_$key__checked___$DomPropsMixin];
+  bool get checked => props['checked'];
 
   /// Go to [_$DomPropsMixin.checked] to see the source code for this prop
   @override
-  set checked(bool value) => props[_$key__checked___$DomPropsMixin] = value;
+  set checked(bool value) => props['checked'] = value;
 
   /// Go to [_$DomPropsMixin.controls] to see the source code for this prop
   @override
-  bool get controls => props[_$key__controls___$DomPropsMixin];
+  bool get controls => props['controls'];
 
   /// Go to [_$DomPropsMixin.controls] to see the source code for this prop
   @override
-  set controls(bool value) => props[_$key__controls___$DomPropsMixin] = value;
+  set controls(bool value) => props['controls'] = value;
 
   /// Go to [_$DomPropsMixin.defer] to see the source code for this prop
   @override
-  bool get defer => props[_$key__defer___$DomPropsMixin];
+  bool get defer => props['defer'];
 
   /// Go to [_$DomPropsMixin.defer] to see the source code for this prop
   @override
-  set defer(bool value) => props[_$key__defer___$DomPropsMixin] = value;
+  set defer(bool value) => props['defer'] = value;
 
   /// Go to [_$DomPropsMixin.disabled] to see the source code for this prop
   @override
-  bool get disabled => props[_$key__disabled___$DomPropsMixin];
+  bool get disabled => props['disabled'];
 
   /// Go to [_$DomPropsMixin.disabled] to see the source code for this prop
   @override
-  set disabled(bool value) => props[_$key__disabled___$DomPropsMixin] = value;
+  set disabled(bool value) => props['disabled'] = value;
 
   /// Go to [_$DomPropsMixin.formNoValidate] to see the source code for this prop
   @override
-  bool get formNoValidate => props[_$key__formNoValidate___$DomPropsMixin];
+  bool get formNoValidate => props['formNoValidate'];
 
   /// Go to [_$DomPropsMixin.formNoValidate] to see the source code for this prop
   @override
-  set formNoValidate(bool value) =>
-      props[_$key__formNoValidate___$DomPropsMixin] = value;
+  set formNoValidate(bool value) => props['formNoValidate'] = value;
 
   /// Go to [_$DomPropsMixin.hidden] to see the source code for this prop
   @override
-  bool get hidden => props[_$key__hidden___$DomPropsMixin];
+  bool get hidden => props['hidden'];
 
   /// Go to [_$DomPropsMixin.hidden] to see the source code for this prop
   @override
-  set hidden(bool value) => props[_$key__hidden___$DomPropsMixin] = value;
+  set hidden(bool value) => props['hidden'] = value;
 
   /// Go to [_$DomPropsMixin.loop] to see the source code for this prop
   @override
-  bool get loop => props[_$key__loop___$DomPropsMixin];
+  bool get loop => props['loop'];
 
   /// Go to [_$DomPropsMixin.loop] to see the source code for this prop
   @override
-  set loop(bool value) => props[_$key__loop___$DomPropsMixin] = value;
+  set loop(bool value) => props['loop'] = value;
 
   /// Go to [_$DomPropsMixin.multiple] to see the source code for this prop
   @override
-  bool get multiple => props[_$key__multiple___$DomPropsMixin];
+  bool get multiple => props['multiple'];
 
   /// Go to [_$DomPropsMixin.multiple] to see the source code for this prop
   @override
-  set multiple(bool value) => props[_$key__multiple___$DomPropsMixin] = value;
+  set multiple(bool value) => props['multiple'] = value;
 
   /// Go to [_$DomPropsMixin.muted] to see the source code for this prop
   @override
-  bool get muted => props[_$key__muted___$DomPropsMixin];
+  bool get muted => props['muted'];
 
   /// Go to [_$DomPropsMixin.muted] to see the source code for this prop
   @override
-  set muted(bool value) => props[_$key__muted___$DomPropsMixin] = value;
+  set muted(bool value) => props['muted'] = value;
 
   /// Go to [_$DomPropsMixin.noValidate] to see the source code for this prop
   @override
-  bool get noValidate => props[_$key__noValidate___$DomPropsMixin];
+  bool get noValidate => props['noValidate'];
 
   /// Go to [_$DomPropsMixin.noValidate] to see the source code for this prop
   @override
-  set noValidate(bool value) =>
-      props[_$key__noValidate___$DomPropsMixin] = value;
+  set noValidate(bool value) => props['noValidate'] = value;
 
   /// Go to [_$DomPropsMixin.readOnly] to see the source code for this prop
   @override
-  bool get readOnly => props[_$key__readOnly___$DomPropsMixin];
+  bool get readOnly => props['readOnly'];
 
   /// Go to [_$DomPropsMixin.readOnly] to see the source code for this prop
   @override
-  set readOnly(bool value) => props[_$key__readOnly___$DomPropsMixin] = value;
+  set readOnly(bool value) => props['readOnly'] = value;
 
   /// Go to [_$DomPropsMixin.required] to see the source code for this prop
   @override
-  bool get required => props[_$key__required___$DomPropsMixin];
+  bool get required => props['required'];
 
   /// Go to [_$DomPropsMixin.required] to see the source code for this prop
   @override
-  set required(bool value) => props[_$key__required___$DomPropsMixin] = value;
+  set required(bool value) => props['required'] = value;
 
   /// Go to [_$DomPropsMixin.seamless] to see the source code for this prop
   @override
-  bool get seamless => props[_$key__seamless___$DomPropsMixin];
+  bool get seamless => props['seamless'];
 
   /// Go to [_$DomPropsMixin.seamless] to see the source code for this prop
   @override
-  set seamless(bool value) => props[_$key__seamless___$DomPropsMixin] = value;
+  set seamless(bool value) => props['seamless'] = value;
 
   /// Go to [_$DomPropsMixin.selected] to see the source code for this prop
   @override
-  bool get selected => props[_$key__selected___$DomPropsMixin];
+  bool get selected => props['selected'];
 
   /// Go to [_$DomPropsMixin.selected] to see the source code for this prop
   @override
-  set selected(bool value) => props[_$key__selected___$DomPropsMixin] = value;
+  set selected(bool value) => props['selected'] = value;
 
   /// Go to [_$DomPropsMixin.style] to see the source code for this prop
   @override
-  Map<String, dynamic> get style => props[_$key__style___$DomPropsMixin];
+  Map<String, dynamic> get style => props['style'];
 
   /// Go to [_$DomPropsMixin.style] to see the source code for this prop
   @override
-  set style(Map<String, dynamic> value) =>
-      props[_$key__style___$DomPropsMixin] = value;
+  set style(Map<String, dynamic> value) => props['style'] = value;
 
   /// Go to [_$DomPropsMixin.className] to see the source code for this prop
   @override
-  String get className => props[_$key__className___$DomPropsMixin];
+  String get className => props['className'];
 
   /// Go to [_$DomPropsMixin.className] to see the source code for this prop
   @override
-  set className(String value) =>
-      props[_$key__className___$DomPropsMixin] = value;
+  set className(String value) => props['className'] = value;
 
   /// Go to [_$DomPropsMixin.title] to see the source code for this prop
   @override
-  String get title => props[_$key__title___$DomPropsMixin];
+  String get title => props['title'];
 
   /// Go to [_$DomPropsMixin.title] to see the source code for this prop
   @override
-  set title(String value) => props[_$key__title___$DomPropsMixin] = value;
+  set title(String value) => props['title'] = value;
 
   /// Go to [_$DomPropsMixin.id] to see the source code for this prop
   @override
-  String get id => props[_$key__id___$DomPropsMixin];
+  String get id => props['id'];
 
   /// Go to [_$DomPropsMixin.id] to see the source code for this prop
   @override
-  set id(String value) => props[_$key__id___$DomPropsMixin] = value;
+  set id(String value) => props['id'] = value;
 
   /// Go to [_$DomPropsMixin.accept] to see the source code for this prop
   @override
-  dynamic get accept => props[_$key__accept___$DomPropsMixin];
+  dynamic get accept => props['accept'];
 
   /// Go to [_$DomPropsMixin.accept] to see the source code for this prop
   @override
-  set accept(dynamic value) => props[_$key__accept___$DomPropsMixin] = value;
+  set accept(dynamic value) => props['accept'] = value;
 
   /// Go to [_$DomPropsMixin.acceptCharset] to see the source code for this prop
   @override
-  dynamic get acceptCharset => props[_$key__acceptCharset___$DomPropsMixin];
+  dynamic get acceptCharset => props['acceptCharset'];
 
   /// Go to [_$DomPropsMixin.acceptCharset] to see the source code for this prop
   @override
-  set acceptCharset(dynamic value) =>
-      props[_$key__acceptCharset___$DomPropsMixin] = value;
+  set acceptCharset(dynamic value) => props['acceptCharset'] = value;
 
   /// Go to [_$DomPropsMixin.accessKey] to see the source code for this prop
   @override
-  dynamic get accessKey => props[_$key__accessKey___$DomPropsMixin];
+  dynamic get accessKey => props['accessKey'];
 
   /// Go to [_$DomPropsMixin.accessKey] to see the source code for this prop
   @override
-  set accessKey(dynamic value) =>
-      props[_$key__accessKey___$DomPropsMixin] = value;
+  set accessKey(dynamic value) => props['accessKey'] = value;
 
   /// Go to [_$DomPropsMixin.action] to see the source code for this prop
   @override
-  dynamic get action => props[_$key__action___$DomPropsMixin];
+  dynamic get action => props['action'];
 
   /// Go to [_$DomPropsMixin.action] to see the source code for this prop
   @override
-  set action(dynamic value) => props[_$key__action___$DomPropsMixin] = value;
+  set action(dynamic value) => props['action'] = value;
 
   /// Go to [_$DomPropsMixin.allowTransparency] to see the source code for this prop
   @override
-  dynamic get allowTransparency =>
-      props[_$key__allowTransparency___$DomPropsMixin];
+  dynamic get allowTransparency => props['allowTransparency'];
 
   /// Go to [_$DomPropsMixin.allowTransparency] to see the source code for this prop
   @override
-  set allowTransparency(dynamic value) =>
-      props[_$key__allowTransparency___$DomPropsMixin] = value;
+  set allowTransparency(dynamic value) => props['allowTransparency'] = value;
 
   /// Go to [_$DomPropsMixin.alt] to see the source code for this prop
   @override
-  dynamic get alt => props[_$key__alt___$DomPropsMixin];
+  dynamic get alt => props['alt'];
 
   /// Go to [_$DomPropsMixin.alt] to see the source code for this prop
   @override
-  set alt(dynamic value) => props[_$key__alt___$DomPropsMixin] = value;
+  set alt(dynamic value) => props['alt'] = value;
 
   /// Go to [_$DomPropsMixin.autoComplete] to see the source code for this prop
   @override
-  dynamic get autoComplete => props[_$key__autoComplete___$DomPropsMixin];
+  dynamic get autoComplete => props['autoComplete'];
 
   /// Go to [_$DomPropsMixin.autoComplete] to see the source code for this prop
   @override
-  set autoComplete(dynamic value) =>
-      props[_$key__autoComplete___$DomPropsMixin] = value;
+  set autoComplete(dynamic value) => props['autoComplete'] = value;
 
   /// Go to [_$DomPropsMixin.cellPadding] to see the source code for this prop
   @override
-  dynamic get cellPadding => props[_$key__cellPadding___$DomPropsMixin];
+  dynamic get cellPadding => props['cellPadding'];
 
   /// Go to [_$DomPropsMixin.cellPadding] to see the source code for this prop
   @override
-  set cellPadding(dynamic value) =>
-      props[_$key__cellPadding___$DomPropsMixin] = value;
+  set cellPadding(dynamic value) => props['cellPadding'] = value;
 
   /// Go to [_$DomPropsMixin.cellSpacing] to see the source code for this prop
   @override
-  dynamic get cellSpacing => props[_$key__cellSpacing___$DomPropsMixin];
+  dynamic get cellSpacing => props['cellSpacing'];
 
   /// Go to [_$DomPropsMixin.cellSpacing] to see the source code for this prop
   @override
-  set cellSpacing(dynamic value) =>
-      props[_$key__cellSpacing___$DomPropsMixin] = value;
+  set cellSpacing(dynamic value) => props['cellSpacing'] = value;
 
   /// Go to [_$DomPropsMixin.charSet] to see the source code for this prop
   @override
-  dynamic get charSet => props[_$key__charSet___$DomPropsMixin];
+  dynamic get charSet => props['charSet'];
 
   /// Go to [_$DomPropsMixin.charSet] to see the source code for this prop
   @override
-  set charSet(dynamic value) => props[_$key__charSet___$DomPropsMixin] = value;
+  set charSet(dynamic value) => props['charSet'] = value;
 
   /// Go to [_$DomPropsMixin.classID] to see the source code for this prop
   @override
-  dynamic get classID => props[_$key__classID___$DomPropsMixin];
+  dynamic get classID => props['classID'];
 
   /// Go to [_$DomPropsMixin.classID] to see the source code for this prop
   @override
-  set classID(dynamic value) => props[_$key__classID___$DomPropsMixin] = value;
+  set classID(dynamic value) => props['classID'] = value;
 
   /// Go to [_$DomPropsMixin.colSpan] to see the source code for this prop
   @override
-  dynamic get colSpan => props[_$key__colSpan___$DomPropsMixin];
+  dynamic get colSpan => props['colSpan'];
 
   /// Go to [_$DomPropsMixin.colSpan] to see the source code for this prop
   @override
-  set colSpan(dynamic value) => props[_$key__colSpan___$DomPropsMixin] = value;
+  set colSpan(dynamic value) => props['colSpan'] = value;
 
   /// Go to [_$DomPropsMixin.content] to see the source code for this prop
   @override
-  dynamic get content => props[_$key__content___$DomPropsMixin];
+  dynamic get content => props['content'];
 
   /// Go to [_$DomPropsMixin.content] to see the source code for this prop
   @override
-  set content(dynamic value) => props[_$key__content___$DomPropsMixin] = value;
+  set content(dynamic value) => props['content'] = value;
 
   /// Go to [_$DomPropsMixin.contentEditable] to see the source code for this prop
   @override
-  dynamic get contentEditable => props[_$key__contentEditable___$DomPropsMixin];
+  dynamic get contentEditable => props['contentEditable'];
 
   /// Go to [_$DomPropsMixin.contentEditable] to see the source code for this prop
   @override
-  set contentEditable(dynamic value) =>
-      props[_$key__contentEditable___$DomPropsMixin] = value;
+  set contentEditable(dynamic value) => props['contentEditable'] = value;
 
   /// Go to [_$DomPropsMixin.contextMenu] to see the source code for this prop
   @override
-  dynamic get contextMenu => props[_$key__contextMenu___$DomPropsMixin];
+  dynamic get contextMenu => props['contextMenu'];
 
   /// Go to [_$DomPropsMixin.contextMenu] to see the source code for this prop
   @override
-  set contextMenu(dynamic value) =>
-      props[_$key__contextMenu___$DomPropsMixin] = value;
+  set contextMenu(dynamic value) => props['contextMenu'] = value;
 
   /// Go to [_$DomPropsMixin.coords] to see the source code for this prop
   @override
-  dynamic get coords => props[_$key__coords___$DomPropsMixin];
+  dynamic get coords => props['coords'];
 
   /// Go to [_$DomPropsMixin.coords] to see the source code for this prop
   @override
-  set coords(dynamic value) => props[_$key__coords___$DomPropsMixin] = value;
+  set coords(dynamic value) => props['coords'] = value;
 
   /// Go to [_$DomPropsMixin.crossOrigin] to see the source code for this prop
   @override
-  dynamic get crossOrigin => props[_$key__crossOrigin___$DomPropsMixin];
+  dynamic get crossOrigin => props['crossOrigin'];
 
   /// Go to [_$DomPropsMixin.crossOrigin] to see the source code for this prop
   @override
-  set crossOrigin(dynamic value) =>
-      props[_$key__crossOrigin___$DomPropsMixin] = value;
+  set crossOrigin(dynamic value) => props['crossOrigin'] = value;
 
   /// Go to [_$DomPropsMixin.data] to see the source code for this prop
   @override
-  dynamic get data => props[_$key__data___$DomPropsMixin];
+  dynamic get data => props['data'];
 
   /// Go to [_$DomPropsMixin.data] to see the source code for this prop
   @override
-  set data(dynamic value) => props[_$key__data___$DomPropsMixin] = value;
+  set data(dynamic value) => props['data'] = value;
 
   /// Go to [_$DomPropsMixin.dateTime] to see the source code for this prop
   @override
-  dynamic get dateTime => props[_$key__dateTime___$DomPropsMixin];
+  dynamic get dateTime => props['dateTime'];
 
   /// Go to [_$DomPropsMixin.dateTime] to see the source code for this prop
   @override
-  set dateTime(dynamic value) =>
-      props[_$key__dateTime___$DomPropsMixin] = value;
+  set dateTime(dynamic value) => props['dateTime'] = value;
 
   /// Go to [_$DomPropsMixin.dir] to see the source code for this prop
   @override
-  dynamic get dir => props[_$key__dir___$DomPropsMixin];
+  dynamic get dir => props['dir'];
 
   /// Go to [_$DomPropsMixin.dir] to see the source code for this prop
   @override
-  set dir(dynamic value) => props[_$key__dir___$DomPropsMixin] = value;
+  set dir(dynamic value) => props['dir'] = value;
 
   /// Go to [_$DomPropsMixin.download] to see the source code for this prop
   @override
-  dynamic get download => props[_$key__download___$DomPropsMixin];
+  dynamic get download => props['download'];
 
   /// Go to [_$DomPropsMixin.download] to see the source code for this prop
   @override
-  set download(dynamic value) =>
-      props[_$key__download___$DomPropsMixin] = value;
+  set download(dynamic value) => props['download'] = value;
 
   /// Go to [_$DomPropsMixin.draggable] to see the source code for this prop
   @override
-  dynamic get draggable => props[_$key__draggable___$DomPropsMixin];
+  dynamic get draggable => props['draggable'];
 
   /// Go to [_$DomPropsMixin.draggable] to see the source code for this prop
   @override
-  set draggable(dynamic value) =>
-      props[_$key__draggable___$DomPropsMixin] = value;
+  set draggable(dynamic value) => props['draggable'] = value;
 
   /// Go to [_$DomPropsMixin.encType] to see the source code for this prop
   @override
-  dynamic get encType => props[_$key__encType___$DomPropsMixin];
+  dynamic get encType => props['encType'];
 
   /// Go to [_$DomPropsMixin.encType] to see the source code for this prop
   @override
-  set encType(dynamic value) => props[_$key__encType___$DomPropsMixin] = value;
+  set encType(dynamic value) => props['encType'] = value;
 
   /// Go to [_$DomPropsMixin.form] to see the source code for this prop
   @override
-  dynamic get form => props[_$key__form___$DomPropsMixin];
+  dynamic get form => props['form'];
 
   /// Go to [_$DomPropsMixin.form] to see the source code for this prop
   @override
-  set form(dynamic value) => props[_$key__form___$DomPropsMixin] = value;
+  set form(dynamic value) => props['form'] = value;
 
   /// Go to [_$DomPropsMixin.frameBorder] to see the source code for this prop
   @override
-  dynamic get frameBorder => props[_$key__frameBorder___$DomPropsMixin];
+  dynamic get frameBorder => props['frameBorder'];
 
   /// Go to [_$DomPropsMixin.frameBorder] to see the source code for this prop
   @override
-  set frameBorder(dynamic value) =>
-      props[_$key__frameBorder___$DomPropsMixin] = value;
+  set frameBorder(dynamic value) => props['frameBorder'] = value;
 
   /// Go to [_$DomPropsMixin.height] to see the source code for this prop
   @override
-  dynamic get height => props[_$key__height___$DomPropsMixin];
+  dynamic get height => props['height'];
 
   /// Go to [_$DomPropsMixin.height] to see the source code for this prop
   @override
-  set height(dynamic value) => props[_$key__height___$DomPropsMixin] = value;
+  set height(dynamic value) => props['height'] = value;
 
   /// Go to [_$DomPropsMixin.href] to see the source code for this prop
   @override
-  dynamic get href => props[_$key__href___$DomPropsMixin];
+  dynamic get href => props['href'];
 
   /// Go to [_$DomPropsMixin.href] to see the source code for this prop
   @override
-  set href(dynamic value) => props[_$key__href___$DomPropsMixin] = value;
+  set href(dynamic value) => props['href'] = value;
 
   /// Go to [_$DomPropsMixin.hrefLang] to see the source code for this prop
   @override
-  dynamic get hrefLang => props[_$key__hrefLang___$DomPropsMixin];
+  dynamic get hrefLang => props['hrefLang'];
 
   /// Go to [_$DomPropsMixin.hrefLang] to see the source code for this prop
   @override
-  set hrefLang(dynamic value) =>
-      props[_$key__hrefLang___$DomPropsMixin] = value;
+  set hrefLang(dynamic value) => props['hrefLang'] = value;
 
   /// Go to [_$DomPropsMixin.htmlFor] to see the source code for this prop
   @override
-  dynamic get htmlFor => props[_$key__htmlFor___$DomPropsMixin];
+  dynamic get htmlFor => props['htmlFor'];
 
   /// Go to [_$DomPropsMixin.htmlFor] to see the source code for this prop
   @override
-  set htmlFor(dynamic value) => props[_$key__htmlFor___$DomPropsMixin] = value;
+  set htmlFor(dynamic value) => props['htmlFor'] = value;
 
   /// Go to [_$DomPropsMixin.httpEquiv] to see the source code for this prop
   @override
-  dynamic get httpEquiv => props[_$key__httpEquiv___$DomPropsMixin];
+  dynamic get httpEquiv => props['httpEquiv'];
 
   /// Go to [_$DomPropsMixin.httpEquiv] to see the source code for this prop
   @override
-  set httpEquiv(dynamic value) =>
-      props[_$key__httpEquiv___$DomPropsMixin] = value;
+  set httpEquiv(dynamic value) => props['httpEquiv'] = value;
 
   /// Go to [_$DomPropsMixin.icon] to see the source code for this prop
   @override
-  dynamic get icon => props[_$key__icon___$DomPropsMixin];
+  dynamic get icon => props['icon'];
 
   /// Go to [_$DomPropsMixin.icon] to see the source code for this prop
   @override
-  set icon(dynamic value) => props[_$key__icon___$DomPropsMixin] = value;
+  set icon(dynamic value) => props['icon'] = value;
 
   /// Go to [_$DomPropsMixin.label] to see the source code for this prop
   @override
-  dynamic get label => props[_$key__label___$DomPropsMixin];
+  dynamic get label => props['label'];
 
   /// Go to [_$DomPropsMixin.label] to see the source code for this prop
   @override
-  set label(dynamic value) => props[_$key__label___$DomPropsMixin] = value;
+  set label(dynamic value) => props['label'] = value;
 
   /// Go to [_$DomPropsMixin.lang] to see the source code for this prop
   @override
-  dynamic get lang => props[_$key__lang___$DomPropsMixin];
+  dynamic get lang => props['lang'];
 
   /// Go to [_$DomPropsMixin.lang] to see the source code for this prop
   @override
-  set lang(dynamic value) => props[_$key__lang___$DomPropsMixin] = value;
+  set lang(dynamic value) => props['lang'] = value;
 
   /// Go to [_$DomPropsMixin.list] to see the source code for this prop
   @override
-  dynamic get list => props[_$key__list___$DomPropsMixin];
+  dynamic get list => props['list'];
 
   /// Go to [_$DomPropsMixin.list] to see the source code for this prop
   @override
-  set list(dynamic value) => props[_$key__list___$DomPropsMixin] = value;
+  set list(dynamic value) => props['list'] = value;
 
   /// Go to [_$DomPropsMixin.manifest] to see the source code for this prop
   @override
-  dynamic get manifest => props[_$key__manifest___$DomPropsMixin];
+  dynamic get manifest => props['manifest'];
 
   /// Go to [_$DomPropsMixin.manifest] to see the source code for this prop
   @override
-  set manifest(dynamic value) =>
-      props[_$key__manifest___$DomPropsMixin] = value;
+  set manifest(dynamic value) => props['manifest'] = value;
 
   /// Go to [_$DomPropsMixin.max] to see the source code for this prop
   @override
-  dynamic get max => props[_$key__max___$DomPropsMixin];
+  dynamic get max => props['max'];
 
   /// Go to [_$DomPropsMixin.max] to see the source code for this prop
   @override
-  set max(dynamic value) => props[_$key__max___$DomPropsMixin] = value;
+  set max(dynamic value) => props['max'] = value;
 
   /// Go to [_$DomPropsMixin.maxLength] to see the source code for this prop
   @override
-  dynamic get maxLength => props[_$key__maxLength___$DomPropsMixin];
+  dynamic get maxLength => props['maxLength'];
 
   /// Go to [_$DomPropsMixin.maxLength] to see the source code for this prop
   @override
-  set maxLength(dynamic value) =>
-      props[_$key__maxLength___$DomPropsMixin] = value;
+  set maxLength(dynamic value) => props['maxLength'] = value;
 
   /// Go to [_$DomPropsMixin.media] to see the source code for this prop
   @override
-  dynamic get media => props[_$key__media___$DomPropsMixin];
+  dynamic get media => props['media'];
 
   /// Go to [_$DomPropsMixin.media] to see the source code for this prop
   @override
-  set media(dynamic value) => props[_$key__media___$DomPropsMixin] = value;
+  set media(dynamic value) => props['media'] = value;
 
   /// Go to [_$DomPropsMixin.mediaGroup] to see the source code for this prop
   @override
-  dynamic get mediaGroup => props[_$key__mediaGroup___$DomPropsMixin];
+  dynamic get mediaGroup => props['mediaGroup'];
 
   /// Go to [_$DomPropsMixin.mediaGroup] to see the source code for this prop
   @override
-  set mediaGroup(dynamic value) =>
-      props[_$key__mediaGroup___$DomPropsMixin] = value;
+  set mediaGroup(dynamic value) => props['mediaGroup'] = value;
 
   /// Go to [_$DomPropsMixin.method] to see the source code for this prop
   @override
-  dynamic get method => props[_$key__method___$DomPropsMixin];
+  dynamic get method => props['method'];
 
   /// Go to [_$DomPropsMixin.method] to see the source code for this prop
   @override
-  set method(dynamic value) => props[_$key__method___$DomPropsMixin] = value;
+  set method(dynamic value) => props['method'] = value;
 
   /// Go to [_$DomPropsMixin.min] to see the source code for this prop
   @override
-  dynamic get min => props[_$key__min___$DomPropsMixin];
+  dynamic get min => props['min'];
 
   /// Go to [_$DomPropsMixin.min] to see the source code for this prop
   @override
-  set min(dynamic value) => props[_$key__min___$DomPropsMixin] = value;
+  set min(dynamic value) => props['min'] = value;
 
   /// Go to [_$DomPropsMixin.name] to see the source code for this prop
   @override
-  dynamic get name => props[_$key__name___$DomPropsMixin];
+  dynamic get name => props['name'];
 
   /// Go to [_$DomPropsMixin.name] to see the source code for this prop
   @override
-  set name(dynamic value) => props[_$key__name___$DomPropsMixin] = value;
+  set name(dynamic value) => props['name'] = value;
 
   /// Go to [_$DomPropsMixin.open] to see the source code for this prop
   @override
-  dynamic get open => props[_$key__open___$DomPropsMixin];
+  dynamic get open => props['open'];
 
   /// Go to [_$DomPropsMixin.open] to see the source code for this prop
   @override
-  set open(dynamic value) => props[_$key__open___$DomPropsMixin] = value;
+  set open(dynamic value) => props['open'] = value;
 
   /// Go to [_$DomPropsMixin.pattern] to see the source code for this prop
   @override
-  dynamic get pattern => props[_$key__pattern___$DomPropsMixin];
+  dynamic get pattern => props['pattern'];
 
   /// Go to [_$DomPropsMixin.pattern] to see the source code for this prop
   @override
-  set pattern(dynamic value) => props[_$key__pattern___$DomPropsMixin] = value;
+  set pattern(dynamic value) => props['pattern'] = value;
 
   /// Go to [_$DomPropsMixin.placeholder] to see the source code for this prop
   @override
-  dynamic get placeholder => props[_$key__placeholder___$DomPropsMixin];
+  dynamic get placeholder => props['placeholder'];
 
   /// Go to [_$DomPropsMixin.placeholder] to see the source code for this prop
   @override
-  set placeholder(dynamic value) =>
-      props[_$key__placeholder___$DomPropsMixin] = value;
+  set placeholder(dynamic value) => props['placeholder'] = value;
 
   /// Go to [_$DomPropsMixin.poster] to see the source code for this prop
   @override
-  dynamic get poster => props[_$key__poster___$DomPropsMixin];
+  dynamic get poster => props['poster'];
 
   /// Go to [_$DomPropsMixin.poster] to see the source code for this prop
   @override
-  set poster(dynamic value) => props[_$key__poster___$DomPropsMixin] = value;
+  set poster(dynamic value) => props['poster'] = value;
 
   /// Go to [_$DomPropsMixin.preload] to see the source code for this prop
   @override
-  dynamic get preload => props[_$key__preload___$DomPropsMixin];
+  dynamic get preload => props['preload'];
 
   /// Go to [_$DomPropsMixin.preload] to see the source code for this prop
   @override
-  set preload(dynamic value) => props[_$key__preload___$DomPropsMixin] = value;
+  set preload(dynamic value) => props['preload'] = value;
 
   /// Go to [_$DomPropsMixin.radioGroup] to see the source code for this prop
   @override
-  dynamic get radioGroup => props[_$key__radioGroup___$DomPropsMixin];
+  dynamic get radioGroup => props['radioGroup'];
 
   /// Go to [_$DomPropsMixin.radioGroup] to see the source code for this prop
   @override
-  set radioGroup(dynamic value) =>
-      props[_$key__radioGroup___$DomPropsMixin] = value;
+  set radioGroup(dynamic value) => props['radioGroup'] = value;
 
   /// Go to [_$DomPropsMixin.rel] to see the source code for this prop
   @override
-  dynamic get rel => props[_$key__rel___$DomPropsMixin];
+  dynamic get rel => props['rel'];
 
   /// Go to [_$DomPropsMixin.rel] to see the source code for this prop
   @override
-  set rel(dynamic value) => props[_$key__rel___$DomPropsMixin] = value;
+  set rel(dynamic value) => props['rel'] = value;
 
   /// Go to [_$DomPropsMixin.role] to see the source code for this prop
   @override
-  dynamic get role => props[_$key__role___$DomPropsMixin];
+  dynamic get role => props['role'];
 
   /// Go to [_$DomPropsMixin.role] to see the source code for this prop
   @override
-  set role(dynamic value) => props[_$key__role___$DomPropsMixin] = value;
+  set role(dynamic value) => props['role'] = value;
 
   /// Go to [_$DomPropsMixin.rowSpan] to see the source code for this prop
   @override
-  dynamic get rowSpan => props[_$key__rowSpan___$DomPropsMixin];
+  dynamic get rowSpan => props['rowSpan'];
 
   /// Go to [_$DomPropsMixin.rowSpan] to see the source code for this prop
   @override
-  set rowSpan(dynamic value) => props[_$key__rowSpan___$DomPropsMixin] = value;
+  set rowSpan(dynamic value) => props['rowSpan'] = value;
 
   /// Go to [_$DomPropsMixin.sandbox] to see the source code for this prop
   @override
-  dynamic get sandbox => props[_$key__sandbox___$DomPropsMixin];
+  dynamic get sandbox => props['sandbox'];
 
   /// Go to [_$DomPropsMixin.sandbox] to see the source code for this prop
   @override
-  set sandbox(dynamic value) => props[_$key__sandbox___$DomPropsMixin] = value;
+  set sandbox(dynamic value) => props['sandbox'] = value;
 
   /// Go to [_$DomPropsMixin.scope] to see the source code for this prop
   @override
-  dynamic get scope => props[_$key__scope___$DomPropsMixin];
+  dynamic get scope => props['scope'];
 
   /// Go to [_$DomPropsMixin.scope] to see the source code for this prop
   @override
-  set scope(dynamic value) => props[_$key__scope___$DomPropsMixin] = value;
+  set scope(dynamic value) => props['scope'] = value;
 
   /// Go to [_$DomPropsMixin.scrolling] to see the source code for this prop
   @override
-  dynamic get scrolling => props[_$key__scrolling___$DomPropsMixin];
+  dynamic get scrolling => props['scrolling'];
 
   /// Go to [_$DomPropsMixin.scrolling] to see the source code for this prop
   @override
-  set scrolling(dynamic value) =>
-      props[_$key__scrolling___$DomPropsMixin] = value;
+  set scrolling(dynamic value) => props['scrolling'] = value;
 
   /// Go to [_$DomPropsMixin.shape] to see the source code for this prop
   @override
-  dynamic get shape => props[_$key__shape___$DomPropsMixin];
+  dynamic get shape => props['shape'];
 
   /// Go to [_$DomPropsMixin.shape] to see the source code for this prop
   @override
-  set shape(dynamic value) => props[_$key__shape___$DomPropsMixin] = value;
+  set shape(dynamic value) => props['shape'] = value;
 
   /// Go to [_$DomPropsMixin.sizes] to see the source code for this prop
   @override
-  dynamic get sizes => props[_$key__sizes___$DomPropsMixin];
+  dynamic get sizes => props['sizes'];
 
   /// Go to [_$DomPropsMixin.sizes] to see the source code for this prop
   @override
-  set sizes(dynamic value) => props[_$key__sizes___$DomPropsMixin] = value;
+  set sizes(dynamic value) => props['sizes'] = value;
 
   /// Go to [_$DomPropsMixin.spellCheck] to see the source code for this prop
   @override
-  dynamic get spellCheck => props[_$key__spellCheck___$DomPropsMixin];
+  dynamic get spellCheck => props['spellCheck'];
 
   /// Go to [_$DomPropsMixin.spellCheck] to see the source code for this prop
   @override
-  set spellCheck(dynamic value) =>
-      props[_$key__spellCheck___$DomPropsMixin] = value;
+  set spellCheck(dynamic value) => props['spellCheck'] = value;
 
   /// Go to [_$DomPropsMixin.src] to see the source code for this prop
   @override
-  dynamic get src => props[_$key__src___$DomPropsMixin];
+  dynamic get src => props['src'];
 
   /// Go to [_$DomPropsMixin.src] to see the source code for this prop
   @override
-  set src(dynamic value) => props[_$key__src___$DomPropsMixin] = value;
+  set src(dynamic value) => props['src'] = value;
 
   /// Go to [_$DomPropsMixin.srcDoc] to see the source code for this prop
   @override
-  dynamic get srcDoc => props[_$key__srcDoc___$DomPropsMixin];
+  dynamic get srcDoc => props['srcDoc'];
 
   /// Go to [_$DomPropsMixin.srcDoc] to see the source code for this prop
   @override
-  set srcDoc(dynamic value) => props[_$key__srcDoc___$DomPropsMixin] = value;
+  set srcDoc(dynamic value) => props['srcDoc'] = value;
 
   /// Go to [_$DomPropsMixin.srcSet] to see the source code for this prop
   @override
-  dynamic get srcSet => props[_$key__srcSet___$DomPropsMixin];
+  dynamic get srcSet => props['srcSet'];
 
   /// Go to [_$DomPropsMixin.srcSet] to see the source code for this prop
   @override
-  set srcSet(dynamic value) => props[_$key__srcSet___$DomPropsMixin] = value;
+  set srcSet(dynamic value) => props['srcSet'] = value;
 
   /// Go to [_$DomPropsMixin.step] to see the source code for this prop
   @override
-  dynamic get step => props[_$key__step___$DomPropsMixin];
+  dynamic get step => props['step'];
 
   /// Go to [_$DomPropsMixin.step] to see the source code for this prop
   @override
-  set step(dynamic value) => props[_$key__step___$DomPropsMixin] = value;
+  set step(dynamic value) => props['step'] = value;
 
   /// Go to [_$DomPropsMixin.tabIndex] to see the source code for this prop
   @override
-  dynamic get tabIndex => props[_$key__tabIndex___$DomPropsMixin];
+  dynamic get tabIndex => props['tabIndex'];
 
   /// Go to [_$DomPropsMixin.tabIndex] to see the source code for this prop
   @override
-  set tabIndex(dynamic value) =>
-      props[_$key__tabIndex___$DomPropsMixin] = value;
+  set tabIndex(dynamic value) => props['tabIndex'] = value;
 
   /// Go to [_$DomPropsMixin.target] to see the source code for this prop
   @override
-  dynamic get target => props[_$key__target___$DomPropsMixin];
+  dynamic get target => props['target'];
 
   /// Go to [_$DomPropsMixin.target] to see the source code for this prop
   @override
-  set target(dynamic value) => props[_$key__target___$DomPropsMixin] = value;
+  set target(dynamic value) => props['target'] = value;
 
   /// Go to [_$DomPropsMixin.type] to see the source code for this prop
   @override
-  dynamic get type => props[_$key__type___$DomPropsMixin];
+  dynamic get type => props['type'];
 
   /// Go to [_$DomPropsMixin.type] to see the source code for this prop
   @override
-  set type(dynamic value) => props[_$key__type___$DomPropsMixin] = value;
+  set type(dynamic value) => props['type'] = value;
 
   /// Go to [_$DomPropsMixin.useMap] to see the source code for this prop
   @override
-  dynamic get useMap => props[_$key__useMap___$DomPropsMixin];
+  dynamic get useMap => props['useMap'];
 
   /// Go to [_$DomPropsMixin.useMap] to see the source code for this prop
   @override
-  set useMap(dynamic value) => props[_$key__useMap___$DomPropsMixin] = value;
+  set useMap(dynamic value) => props['useMap'] = value;
 
   /// Go to [_$DomPropsMixin.value] to see the source code for this prop
   @override
-  dynamic get value => props[_$key__value___$DomPropsMixin];
+  dynamic get value => props['value'];
 
   /// Go to [_$DomPropsMixin.value] to see the source code for this prop
   @override
-  set value(dynamic value) => props[_$key__value___$DomPropsMixin] = value;
+  set value(dynamic value) => props['value'] = value;
 
   /// Go to [_$DomPropsMixin.width] to see the source code for this prop
   @override
-  dynamic get width => props[_$key__width___$DomPropsMixin];
+  dynamic get width => props['width'];
 
   /// Go to [_$DomPropsMixin.width] to see the source code for this prop
   @override
-  set width(dynamic value) => props[_$key__width___$DomPropsMixin] = value;
+  set width(dynamic value) => props['width'] = value;
 
   /// Go to [_$DomPropsMixin.wmode] to see the source code for this prop
   @override
-  dynamic get wmode => props[_$key__wmode___$DomPropsMixin];
+  dynamic get wmode => props['wmode'];
 
   /// Go to [_$DomPropsMixin.wmode] to see the source code for this prop
   @override
-  set wmode(dynamic value) => props[_$key__wmode___$DomPropsMixin] = value;
+  set wmode(dynamic value) => props['wmode'] = value;
 
   /// Go to [_$DomPropsMixin.onCopy] to see the source code for this prop
   @override
-  ClipboardEventCallback get onCopy => props[_$key__onCopy___$DomPropsMixin];
+  ClipboardEventCallback get onCopy => props['onCopy'];
 
   /// Go to [_$DomPropsMixin.onCopy] to see the source code for this prop
   @override
-  set onCopy(ClipboardEventCallback value) =>
-      props[_$key__onCopy___$DomPropsMixin] = value;
+  set onCopy(ClipboardEventCallback value) => props['onCopy'] = value;
 
   /// Go to [_$DomPropsMixin.onCut] to see the source code for this prop
   @override
-  ClipboardEventCallback get onCut => props[_$key__onCut___$DomPropsMixin];
+  ClipboardEventCallback get onCut => props['onCut'];
 
   /// Go to [_$DomPropsMixin.onCut] to see the source code for this prop
   @override
-  set onCut(ClipboardEventCallback value) =>
-      props[_$key__onCut___$DomPropsMixin] = value;
+  set onCut(ClipboardEventCallback value) => props['onCut'] = value;
 
   /// Go to [_$DomPropsMixin.onPaste] to see the source code for this prop
   @override
-  ClipboardEventCallback get onPaste => props[_$key__onPaste___$DomPropsMixin];
+  ClipboardEventCallback get onPaste => props['onPaste'];
 
   /// Go to [_$DomPropsMixin.onPaste] to see the source code for this prop
   @override
-  set onPaste(ClipboardEventCallback value) =>
-      props[_$key__onPaste___$DomPropsMixin] = value;
+  set onPaste(ClipboardEventCallback value) => props['onPaste'] = value;
 
   /// Go to [_$DomPropsMixin.onKeyDown] to see the source code for this prop
   @override
-  KeyboardEventCallback get onKeyDown =>
-      props[_$key__onKeyDown___$DomPropsMixin];
+  KeyboardEventCallback get onKeyDown => props['onKeyDown'];
 
   /// Go to [_$DomPropsMixin.onKeyDown] to see the source code for this prop
   @override
-  set onKeyDown(KeyboardEventCallback value) =>
-      props[_$key__onKeyDown___$DomPropsMixin] = value;
+  set onKeyDown(KeyboardEventCallback value) => props['onKeyDown'] = value;
 
   /// Go to [_$DomPropsMixin.onKeyPress] to see the source code for this prop
   @override
-  KeyboardEventCallback get onKeyPress =>
-      props[_$key__onKeyPress___$DomPropsMixin];
+  KeyboardEventCallback get onKeyPress => props['onKeyPress'];
 
   /// Go to [_$DomPropsMixin.onKeyPress] to see the source code for this prop
   @override
-  set onKeyPress(KeyboardEventCallback value) =>
-      props[_$key__onKeyPress___$DomPropsMixin] = value;
+  set onKeyPress(KeyboardEventCallback value) => props['onKeyPress'] = value;
 
   /// Go to [_$DomPropsMixin.onKeyUp] to see the source code for this prop
   @override
-  KeyboardEventCallback get onKeyUp => props[_$key__onKeyUp___$DomPropsMixin];
+  KeyboardEventCallback get onKeyUp => props['onKeyUp'];
 
   /// Go to [_$DomPropsMixin.onKeyUp] to see the source code for this prop
   @override
-  set onKeyUp(KeyboardEventCallback value) =>
-      props[_$key__onKeyUp___$DomPropsMixin] = value;
+  set onKeyUp(KeyboardEventCallback value) => props['onKeyUp'] = value;
 
   /// Go to [_$DomPropsMixin.onFocus] to see the source code for this prop
   @override
-  FocusEventCallback get onFocus => props[_$key__onFocus___$DomPropsMixin];
+  FocusEventCallback get onFocus => props['onFocus'];
 
   /// Go to [_$DomPropsMixin.onFocus] to see the source code for this prop
   @override
-  set onFocus(FocusEventCallback value) =>
-      props[_$key__onFocus___$DomPropsMixin] = value;
+  set onFocus(FocusEventCallback value) => props['onFocus'] = value;
 
   /// Go to [_$DomPropsMixin.onBlur] to see the source code for this prop
   @override
-  FocusEventCallback get onBlur => props[_$key__onBlur___$DomPropsMixin];
+  FocusEventCallback get onBlur => props['onBlur'];
 
   /// Go to [_$DomPropsMixin.onBlur] to see the source code for this prop
   @override
-  set onBlur(FocusEventCallback value) =>
-      props[_$key__onBlur___$DomPropsMixin] = value;
+  set onBlur(FocusEventCallback value) => props['onBlur'] = value;
 
   /// Go to [_$DomPropsMixin.onChange] to see the source code for this prop
   @override
-  FormEventCallback get onChange => props[_$key__onChange___$DomPropsMixin];
+  FormEventCallback get onChange => props['onChange'];
 
   /// Go to [_$DomPropsMixin.onChange] to see the source code for this prop
   @override
-  set onChange(FormEventCallback value) =>
-      props[_$key__onChange___$DomPropsMixin] = value;
+  set onChange(FormEventCallback value) => props['onChange'] = value;
 
   /// Go to [_$DomPropsMixin.onInput] to see the source code for this prop
   @override
-  FormEventCallback get onInput => props[_$key__onInput___$DomPropsMixin];
+  FormEventCallback get onInput => props['onInput'];
 
   /// Go to [_$DomPropsMixin.onInput] to see the source code for this prop
   @override
-  set onInput(FormEventCallback value) =>
-      props[_$key__onInput___$DomPropsMixin] = value;
+  set onInput(FormEventCallback value) => props['onInput'] = value;
 
   /// Go to [_$DomPropsMixin.onSubmit] to see the source code for this prop
   @override
-  FormEventCallback get onSubmit => props[_$key__onSubmit___$DomPropsMixin];
+  FormEventCallback get onSubmit => props['onSubmit'];
 
   /// Go to [_$DomPropsMixin.onSubmit] to see the source code for this prop
   @override
-  set onSubmit(FormEventCallback value) =>
-      props[_$key__onSubmit___$DomPropsMixin] = value;
+  set onSubmit(FormEventCallback value) => props['onSubmit'] = value;
 
   /// Go to [_$DomPropsMixin.onReset] to see the source code for this prop
   @override
-  FormEventCallback get onReset => props[_$key__onReset___$DomPropsMixin];
+  FormEventCallback get onReset => props['onReset'];
 
   /// Go to [_$DomPropsMixin.onReset] to see the source code for this prop
   @override
-  set onReset(FormEventCallback value) =>
-      props[_$key__onReset___$DomPropsMixin] = value;
+  set onReset(FormEventCallback value) => props['onReset'] = value;
 
   /// Go to [_$DomPropsMixin.onClick] to see the source code for this prop
   @override
-  MouseEventCallback get onClick => props[_$key__onClick___$DomPropsMixin];
+  MouseEventCallback get onClick => props['onClick'];
 
   /// Go to [_$DomPropsMixin.onClick] to see the source code for this prop
   @override
-  set onClick(MouseEventCallback value) =>
-      props[_$key__onClick___$DomPropsMixin] = value;
+  set onClick(MouseEventCallback value) => props['onClick'] = value;
 
   /// Go to [_$DomPropsMixin.onContextMenu] to see the source code for this prop
   @override
-  MouseEventCallback get onContextMenu =>
-      props[_$key__onContextMenu___$DomPropsMixin];
+  MouseEventCallback get onContextMenu => props['onContextMenu'];
 
   /// Go to [_$DomPropsMixin.onContextMenu] to see the source code for this prop
   @override
-  set onContextMenu(MouseEventCallback value) =>
-      props[_$key__onContextMenu___$DomPropsMixin] = value;
+  set onContextMenu(MouseEventCallback value) => props['onContextMenu'] = value;
 
   /// Go to [_$DomPropsMixin.onDoubleClick] to see the source code for this prop
   @override
-  MouseEventCallback get onDoubleClick =>
-      props[_$key__onDoubleClick___$DomPropsMixin];
+  MouseEventCallback get onDoubleClick => props['onDoubleClick'];
 
   /// Go to [_$DomPropsMixin.onDoubleClick] to see the source code for this prop
   @override
-  set onDoubleClick(MouseEventCallback value) =>
-      props[_$key__onDoubleClick___$DomPropsMixin] = value;
+  set onDoubleClick(MouseEventCallback value) => props['onDoubleClick'] = value;
 
   /// Go to [_$DomPropsMixin.onDrag] to see the source code for this prop
   @override
-  MouseEventCallback get onDrag => props[_$key__onDrag___$DomPropsMixin];
+  MouseEventCallback get onDrag => props['onDrag'];
 
   /// Go to [_$DomPropsMixin.onDrag] to see the source code for this prop
   @override
-  set onDrag(MouseEventCallback value) =>
-      props[_$key__onDrag___$DomPropsMixin] = value;
+  set onDrag(MouseEventCallback value) => props['onDrag'] = value;
 
   /// Go to [_$DomPropsMixin.onDragEnd] to see the source code for this prop
   @override
-  MouseEventCallback get onDragEnd => props[_$key__onDragEnd___$DomPropsMixin];
+  MouseEventCallback get onDragEnd => props['onDragEnd'];
 
   /// Go to [_$DomPropsMixin.onDragEnd] to see the source code for this prop
   @override
-  set onDragEnd(MouseEventCallback value) =>
-      props[_$key__onDragEnd___$DomPropsMixin] = value;
+  set onDragEnd(MouseEventCallback value) => props['onDragEnd'] = value;
 
   /// Go to [_$DomPropsMixin.onDragEnter] to see the source code for this prop
   @override
-  MouseEventCallback get onDragEnter =>
-      props[_$key__onDragEnter___$DomPropsMixin];
+  MouseEventCallback get onDragEnter => props['onDragEnter'];
 
   /// Go to [_$DomPropsMixin.onDragEnter] to see the source code for this prop
   @override
-  set onDragEnter(MouseEventCallback value) =>
-      props[_$key__onDragEnter___$DomPropsMixin] = value;
+  set onDragEnter(MouseEventCallback value) => props['onDragEnter'] = value;
 
   /// Go to [_$DomPropsMixin.onDragExit] to see the source code for this prop
   @override
-  MouseEventCallback get onDragExit =>
-      props[_$key__onDragExit___$DomPropsMixin];
+  MouseEventCallback get onDragExit => props['onDragExit'];
 
   /// Go to [_$DomPropsMixin.onDragExit] to see the source code for this prop
   @override
-  set onDragExit(MouseEventCallback value) =>
-      props[_$key__onDragExit___$DomPropsMixin] = value;
+  set onDragExit(MouseEventCallback value) => props['onDragExit'] = value;
 
   /// Go to [_$DomPropsMixin.onDragLeave] to see the source code for this prop
   @override
-  MouseEventCallback get onDragLeave =>
-      props[_$key__onDragLeave___$DomPropsMixin];
+  MouseEventCallback get onDragLeave => props['onDragLeave'];
 
   /// Go to [_$DomPropsMixin.onDragLeave] to see the source code for this prop
   @override
-  set onDragLeave(MouseEventCallback value) =>
-      props[_$key__onDragLeave___$DomPropsMixin] = value;
+  set onDragLeave(MouseEventCallback value) => props['onDragLeave'] = value;
 
   /// Go to [_$DomPropsMixin.onDragOver] to see the source code for this prop
   @override
-  MouseEventCallback get onDragOver =>
-      props[_$key__onDragOver___$DomPropsMixin];
+  MouseEventCallback get onDragOver => props['onDragOver'];
 
   /// Go to [_$DomPropsMixin.onDragOver] to see the source code for this prop
   @override
-  set onDragOver(MouseEventCallback value) =>
-      props[_$key__onDragOver___$DomPropsMixin] = value;
+  set onDragOver(MouseEventCallback value) => props['onDragOver'] = value;
 
   /// Go to [_$DomPropsMixin.onDragStart] to see the source code for this prop
   @override
-  MouseEventCallback get onDragStart =>
-      props[_$key__onDragStart___$DomPropsMixin];
+  MouseEventCallback get onDragStart => props['onDragStart'];
 
   /// Go to [_$DomPropsMixin.onDragStart] to see the source code for this prop
   @override
-  set onDragStart(MouseEventCallback value) =>
-      props[_$key__onDragStart___$DomPropsMixin] = value;
+  set onDragStart(MouseEventCallback value) => props['onDragStart'] = value;
 
   /// Go to [_$DomPropsMixin.onDrop] to see the source code for this prop
   @override
-  MouseEventCallback get onDrop => props[_$key__onDrop___$DomPropsMixin];
+  MouseEventCallback get onDrop => props['onDrop'];
 
   /// Go to [_$DomPropsMixin.onDrop] to see the source code for this prop
   @override
-  set onDrop(MouseEventCallback value) =>
-      props[_$key__onDrop___$DomPropsMixin] = value;
+  set onDrop(MouseEventCallback value) => props['onDrop'] = value;
 
   /// Go to [_$DomPropsMixin.onMouseDown] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseDown =>
-      props[_$key__onMouseDown___$DomPropsMixin];
+  MouseEventCallback get onMouseDown => props['onMouseDown'];
 
   /// Go to [_$DomPropsMixin.onMouseDown] to see the source code for this prop
   @override
-  set onMouseDown(MouseEventCallback value) =>
-      props[_$key__onMouseDown___$DomPropsMixin] = value;
+  set onMouseDown(MouseEventCallback value) => props['onMouseDown'] = value;
 
   /// Go to [_$DomPropsMixin.onMouseEnter] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseEnter =>
-      props[_$key__onMouseEnter___$DomPropsMixin];
+  MouseEventCallback get onMouseEnter => props['onMouseEnter'];
 
   /// Go to [_$DomPropsMixin.onMouseEnter] to see the source code for this prop
   @override
-  set onMouseEnter(MouseEventCallback value) =>
-      props[_$key__onMouseEnter___$DomPropsMixin] = value;
+  set onMouseEnter(MouseEventCallback value) => props['onMouseEnter'] = value;
 
   /// Go to [_$DomPropsMixin.onMouseLeave] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseLeave =>
-      props[_$key__onMouseLeave___$DomPropsMixin];
+  MouseEventCallback get onMouseLeave => props['onMouseLeave'];
 
   /// Go to [_$DomPropsMixin.onMouseLeave] to see the source code for this prop
   @override
-  set onMouseLeave(MouseEventCallback value) =>
-      props[_$key__onMouseLeave___$DomPropsMixin] = value;
+  set onMouseLeave(MouseEventCallback value) => props['onMouseLeave'] = value;
 
   /// Go to [_$DomPropsMixin.onMouseMove] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseMove =>
-      props[_$key__onMouseMove___$DomPropsMixin];
+  MouseEventCallback get onMouseMove => props['onMouseMove'];
 
   /// Go to [_$DomPropsMixin.onMouseMove] to see the source code for this prop
   @override
-  set onMouseMove(MouseEventCallback value) =>
-      props[_$key__onMouseMove___$DomPropsMixin] = value;
+  set onMouseMove(MouseEventCallback value) => props['onMouseMove'] = value;
 
   /// Go to [_$DomPropsMixin.onMouseOut] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseOut =>
-      props[_$key__onMouseOut___$DomPropsMixin];
+  MouseEventCallback get onMouseOut => props['onMouseOut'];
 
   /// Go to [_$DomPropsMixin.onMouseOut] to see the source code for this prop
   @override
-  set onMouseOut(MouseEventCallback value) =>
-      props[_$key__onMouseOut___$DomPropsMixin] = value;
+  set onMouseOut(MouseEventCallback value) => props['onMouseOut'] = value;
 
   /// Go to [_$DomPropsMixin.onMouseOver] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseOver =>
-      props[_$key__onMouseOver___$DomPropsMixin];
+  MouseEventCallback get onMouseOver => props['onMouseOver'];
 
   /// Go to [_$DomPropsMixin.onMouseOver] to see the source code for this prop
   @override
-  set onMouseOver(MouseEventCallback value) =>
-      props[_$key__onMouseOver___$DomPropsMixin] = value;
+  set onMouseOver(MouseEventCallback value) => props['onMouseOver'] = value;
 
   /// Go to [_$DomPropsMixin.onMouseUp] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseUp => props[_$key__onMouseUp___$DomPropsMixin];
+  MouseEventCallback get onMouseUp => props['onMouseUp'];
 
   /// Go to [_$DomPropsMixin.onMouseUp] to see the source code for this prop
   @override
-  set onMouseUp(MouseEventCallback value) =>
-      props[_$key__onMouseUp___$DomPropsMixin] = value;
+  set onMouseUp(MouseEventCallback value) => props['onMouseUp'] = value;
 
   /// Go to [_$DomPropsMixin.onTouchCancel] to see the source code for this prop
   @override
-  TouchEventCallback get onTouchCancel =>
-      props[_$key__onTouchCancel___$DomPropsMixin];
+  TouchEventCallback get onTouchCancel => props['onTouchCancel'];
 
   /// Go to [_$DomPropsMixin.onTouchCancel] to see the source code for this prop
   @override
-  set onTouchCancel(TouchEventCallback value) =>
-      props[_$key__onTouchCancel___$DomPropsMixin] = value;
+  set onTouchCancel(TouchEventCallback value) => props['onTouchCancel'] = value;
 
   /// Go to [_$DomPropsMixin.onTouchEnd] to see the source code for this prop
   @override
-  TouchEventCallback get onTouchEnd =>
-      props[_$key__onTouchEnd___$DomPropsMixin];
+  TouchEventCallback get onTouchEnd => props['onTouchEnd'];
 
   /// Go to [_$DomPropsMixin.onTouchEnd] to see the source code for this prop
   @override
-  set onTouchEnd(TouchEventCallback value) =>
-      props[_$key__onTouchEnd___$DomPropsMixin] = value;
+  set onTouchEnd(TouchEventCallback value) => props['onTouchEnd'] = value;
 
   /// Go to [_$DomPropsMixin.onTouchMove] to see the source code for this prop
   @override
-  TouchEventCallback get onTouchMove =>
-      props[_$key__onTouchMove___$DomPropsMixin];
+  TouchEventCallback get onTouchMove => props['onTouchMove'];
 
   /// Go to [_$DomPropsMixin.onTouchMove] to see the source code for this prop
   @override
-  set onTouchMove(TouchEventCallback value) =>
-      props[_$key__onTouchMove___$DomPropsMixin] = value;
+  set onTouchMove(TouchEventCallback value) => props['onTouchMove'] = value;
 
   /// Go to [_$DomPropsMixin.onTouchStart] to see the source code for this prop
   @override
-  TouchEventCallback get onTouchStart =>
-      props[_$key__onTouchStart___$DomPropsMixin];
+  TouchEventCallback get onTouchStart => props['onTouchStart'];
 
   /// Go to [_$DomPropsMixin.onTouchStart] to see the source code for this prop
   @override
-  set onTouchStart(TouchEventCallback value) =>
-      props[_$key__onTouchStart___$DomPropsMixin] = value;
+  set onTouchStart(TouchEventCallback value) => props['onTouchStart'] = value;
 
   /// Go to [_$DomPropsMixin.onScroll] to see the source code for this prop
   @override
-  UIEventCallback get onScroll => props[_$key__onScroll___$DomPropsMixin];
+  UIEventCallback get onScroll => props['onScroll'];
 
   /// Go to [_$DomPropsMixin.onScroll] to see the source code for this prop
   @override
-  set onScroll(UIEventCallback value) =>
-      props[_$key__onScroll___$DomPropsMixin] = value;
+  set onScroll(UIEventCallback value) => props['onScroll'] = value;
 
   /// Go to [_$DomPropsMixin.onWheel] to see the source code for this prop
   @override
-  WheelEventCallback get onWheel => props[_$key__onWheel___$DomPropsMixin];
+  WheelEventCallback get onWheel => props['onWheel'];
 
   /// Go to [_$DomPropsMixin.onWheel] to see the source code for this prop
   @override
-  set onWheel(WheelEventCallback value) =>
-      props[_$key__onWheel___$DomPropsMixin] = value;
+  set onWheel(WheelEventCallback value) => props['onWheel'] = value;
 
   /// Go to [_$DomPropsMixin.onCopyCapture] to see the source code for this prop
   @override
-  ClipboardEventCallback get onCopyCapture =>
-      props[_$key__onCopyCapture___$DomPropsMixin];
+  ClipboardEventCallback get onCopyCapture => props['onCopyCapture'];
 
   /// Go to [_$DomPropsMixin.onCopyCapture] to see the source code for this prop
   @override
   set onCopyCapture(ClipboardEventCallback value) =>
-      props[_$key__onCopyCapture___$DomPropsMixin] = value;
+      props['onCopyCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onCutCapture] to see the source code for this prop
   @override
-  ClipboardEventCallback get onCutCapture =>
-      props[_$key__onCutCapture___$DomPropsMixin];
+  ClipboardEventCallback get onCutCapture => props['onCutCapture'];
 
   /// Go to [_$DomPropsMixin.onCutCapture] to see the source code for this prop
   @override
   set onCutCapture(ClipboardEventCallback value) =>
-      props[_$key__onCutCapture___$DomPropsMixin] = value;
+      props['onCutCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onPasteCapture] to see the source code for this prop
   @override
-  ClipboardEventCallback get onPasteCapture =>
-      props[_$key__onPasteCapture___$DomPropsMixin];
+  ClipboardEventCallback get onPasteCapture => props['onPasteCapture'];
 
   /// Go to [_$DomPropsMixin.onPasteCapture] to see the source code for this prop
   @override
   set onPasteCapture(ClipboardEventCallback value) =>
-      props[_$key__onPasteCapture___$DomPropsMixin] = value;
+      props['onPasteCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onKeyDownCapture] to see the source code for this prop
   @override
-  KeyboardEventCallback get onKeyDownCapture =>
-      props[_$key__onKeyDownCapture___$DomPropsMixin];
+  KeyboardEventCallback get onKeyDownCapture => props['onKeyDownCapture'];
 
   /// Go to [_$DomPropsMixin.onKeyDownCapture] to see the source code for this prop
   @override
   set onKeyDownCapture(KeyboardEventCallback value) =>
-      props[_$key__onKeyDownCapture___$DomPropsMixin] = value;
+      props['onKeyDownCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onKeyPressCapture] to see the source code for this prop
   @override
-  KeyboardEventCallback get onKeyPressCapture =>
-      props[_$key__onKeyPressCapture___$DomPropsMixin];
+  KeyboardEventCallback get onKeyPressCapture => props['onKeyPressCapture'];
 
   /// Go to [_$DomPropsMixin.onKeyPressCapture] to see the source code for this prop
   @override
   set onKeyPressCapture(KeyboardEventCallback value) =>
-      props[_$key__onKeyPressCapture___$DomPropsMixin] = value;
+      props['onKeyPressCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onKeyUpCapture] to see the source code for this prop
   @override
-  KeyboardEventCallback get onKeyUpCapture =>
-      props[_$key__onKeyUpCapture___$DomPropsMixin];
+  KeyboardEventCallback get onKeyUpCapture => props['onKeyUpCapture'];
 
   /// Go to [_$DomPropsMixin.onKeyUpCapture] to see the source code for this prop
   @override
   set onKeyUpCapture(KeyboardEventCallback value) =>
-      props[_$key__onKeyUpCapture___$DomPropsMixin] = value;
+      props['onKeyUpCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onFocusCapture] to see the source code for this prop
   @override
-  FocusEventCallback get onFocusCapture =>
-      props[_$key__onFocusCapture___$DomPropsMixin];
+  FocusEventCallback get onFocusCapture => props['onFocusCapture'];
 
   /// Go to [_$DomPropsMixin.onFocusCapture] to see the source code for this prop
   @override
   set onFocusCapture(FocusEventCallback value) =>
-      props[_$key__onFocusCapture___$DomPropsMixin] = value;
+      props['onFocusCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onBlurCapture] to see the source code for this prop
   @override
-  FocusEventCallback get onBlurCapture =>
-      props[_$key__onBlurCapture___$DomPropsMixin];
+  FocusEventCallback get onBlurCapture => props['onBlurCapture'];
 
   /// Go to [_$DomPropsMixin.onBlurCapture] to see the source code for this prop
   @override
-  set onBlurCapture(FocusEventCallback value) =>
-      props[_$key__onBlurCapture___$DomPropsMixin] = value;
+  set onBlurCapture(FocusEventCallback value) => props['onBlurCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onChangeCapture] to see the source code for this prop
   @override
-  FormEventCallback get onChangeCapture =>
-      props[_$key__onChangeCapture___$DomPropsMixin];
+  FormEventCallback get onChangeCapture => props['onChangeCapture'];
 
   /// Go to [_$DomPropsMixin.onChangeCapture] to see the source code for this prop
   @override
   set onChangeCapture(FormEventCallback value) =>
-      props[_$key__onChangeCapture___$DomPropsMixin] = value;
+      props['onChangeCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onInputCapture] to see the source code for this prop
   @override
-  FormEventCallback get onInputCapture =>
-      props[_$key__onInputCapture___$DomPropsMixin];
+  FormEventCallback get onInputCapture => props['onInputCapture'];
 
   /// Go to [_$DomPropsMixin.onInputCapture] to see the source code for this prop
   @override
   set onInputCapture(FormEventCallback value) =>
-      props[_$key__onInputCapture___$DomPropsMixin] = value;
+      props['onInputCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onSubmitCapture] to see the source code for this prop
   @override
-  FormEventCallback get onSubmitCapture =>
-      props[_$key__onSubmitCapture___$DomPropsMixin];
+  FormEventCallback get onSubmitCapture => props['onSubmitCapture'];
 
   /// Go to [_$DomPropsMixin.onSubmitCapture] to see the source code for this prop
   @override
   set onSubmitCapture(FormEventCallback value) =>
-      props[_$key__onSubmitCapture___$DomPropsMixin] = value;
+      props['onSubmitCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onResetCapture] to see the source code for this prop
   @override
-  FormEventCallback get onResetCapture =>
-      props[_$key__onResetCapture___$DomPropsMixin];
+  FormEventCallback get onResetCapture => props['onResetCapture'];
 
   /// Go to [_$DomPropsMixin.onResetCapture] to see the source code for this prop
   @override
   set onResetCapture(FormEventCallback value) =>
-      props[_$key__onResetCapture___$DomPropsMixin] = value;
+      props['onResetCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onClickCapture] to see the source code for this prop
   @override
-  MouseEventCallback get onClickCapture =>
-      props[_$key__onClickCapture___$DomPropsMixin];
+  MouseEventCallback get onClickCapture => props['onClickCapture'];
 
   /// Go to [_$DomPropsMixin.onClickCapture] to see the source code for this prop
   @override
   set onClickCapture(MouseEventCallback value) =>
-      props[_$key__onClickCapture___$DomPropsMixin] = value;
+      props['onClickCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onContextMenuCapture] to see the source code for this prop
   @override
-  MouseEventCallback get onContextMenuCapture =>
-      props[_$key__onContextMenuCapture___$DomPropsMixin];
+  MouseEventCallback get onContextMenuCapture => props['onContextMenuCapture'];
 
   /// Go to [_$DomPropsMixin.onContextMenuCapture] to see the source code for this prop
   @override
   set onContextMenuCapture(MouseEventCallback value) =>
-      props[_$key__onContextMenuCapture___$DomPropsMixin] = value;
+      props['onContextMenuCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onDoubleClickCapture] to see the source code for this prop
   @override
-  MouseEventCallback get onDoubleClickCapture =>
-      props[_$key__onDoubleClickCapture___$DomPropsMixin];
+  MouseEventCallback get onDoubleClickCapture => props['onDoubleClickCapture'];
 
   /// Go to [_$DomPropsMixin.onDoubleClickCapture] to see the source code for this prop
   @override
   set onDoubleClickCapture(MouseEventCallback value) =>
-      props[_$key__onDoubleClickCapture___$DomPropsMixin] = value;
+      props['onDoubleClickCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onDragCapture] to see the source code for this prop
   @override
-  MouseEventCallback get onDragCapture =>
-      props[_$key__onDragCapture___$DomPropsMixin];
+  MouseEventCallback get onDragCapture => props['onDragCapture'];
 
   /// Go to [_$DomPropsMixin.onDragCapture] to see the source code for this prop
   @override
-  set onDragCapture(MouseEventCallback value) =>
-      props[_$key__onDragCapture___$DomPropsMixin] = value;
+  set onDragCapture(MouseEventCallback value) => props['onDragCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onDragEndCapture] to see the source code for this prop
   @override
-  MouseEventCallback get onDragEndCapture =>
-      props[_$key__onDragEndCapture___$DomPropsMixin];
+  MouseEventCallback get onDragEndCapture => props['onDragEndCapture'];
 
   /// Go to [_$DomPropsMixin.onDragEndCapture] to see the source code for this prop
   @override
   set onDragEndCapture(MouseEventCallback value) =>
-      props[_$key__onDragEndCapture___$DomPropsMixin] = value;
+      props['onDragEndCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onDragEnterCapture] to see the source code for this prop
   @override
-  MouseEventCallback get onDragEnterCapture =>
-      props[_$key__onDragEnterCapture___$DomPropsMixin];
+  MouseEventCallback get onDragEnterCapture => props['onDragEnterCapture'];
 
   /// Go to [_$DomPropsMixin.onDragEnterCapture] to see the source code for this prop
   @override
   set onDragEnterCapture(MouseEventCallback value) =>
-      props[_$key__onDragEnterCapture___$DomPropsMixin] = value;
+      props['onDragEnterCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onDragExitCapture] to see the source code for this prop
   @override
-  MouseEventCallback get onDragExitCapture =>
-      props[_$key__onDragExitCapture___$DomPropsMixin];
+  MouseEventCallback get onDragExitCapture => props['onDragExitCapture'];
 
   /// Go to [_$DomPropsMixin.onDragExitCapture] to see the source code for this prop
   @override
   set onDragExitCapture(MouseEventCallback value) =>
-      props[_$key__onDragExitCapture___$DomPropsMixin] = value;
+      props['onDragExitCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onDragLeaveCapture] to see the source code for this prop
   @override
-  MouseEventCallback get onDragLeaveCapture =>
-      props[_$key__onDragLeaveCapture___$DomPropsMixin];
+  MouseEventCallback get onDragLeaveCapture => props['onDragLeaveCapture'];
 
   /// Go to [_$DomPropsMixin.onDragLeaveCapture] to see the source code for this prop
   @override
   set onDragLeaveCapture(MouseEventCallback value) =>
-      props[_$key__onDragLeaveCapture___$DomPropsMixin] = value;
+      props['onDragLeaveCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onDragOverCapture] to see the source code for this prop
   @override
-  MouseEventCallback get onDragOverCapture =>
-      props[_$key__onDragOverCapture___$DomPropsMixin];
+  MouseEventCallback get onDragOverCapture => props['onDragOverCapture'];
 
   /// Go to [_$DomPropsMixin.onDragOverCapture] to see the source code for this prop
   @override
   set onDragOverCapture(MouseEventCallback value) =>
-      props[_$key__onDragOverCapture___$DomPropsMixin] = value;
+      props['onDragOverCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onDragStartCapture] to see the source code for this prop
   @override
-  MouseEventCallback get onDragStartCapture =>
-      props[_$key__onDragStartCapture___$DomPropsMixin];
+  MouseEventCallback get onDragStartCapture => props['onDragStartCapture'];
 
   /// Go to [_$DomPropsMixin.onDragStartCapture] to see the source code for this prop
   @override
   set onDragStartCapture(MouseEventCallback value) =>
-      props[_$key__onDragStartCapture___$DomPropsMixin] = value;
+      props['onDragStartCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onDropCapture] to see the source code for this prop
   @override
-  MouseEventCallback get onDropCapture =>
-      props[_$key__onDropCapture___$DomPropsMixin];
+  MouseEventCallback get onDropCapture => props['onDropCapture'];
 
   /// Go to [_$DomPropsMixin.onDropCapture] to see the source code for this prop
   @override
-  set onDropCapture(MouseEventCallback value) =>
-      props[_$key__onDropCapture___$DomPropsMixin] = value;
+  set onDropCapture(MouseEventCallback value) => props['onDropCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onMouseDownCapture] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseDownCapture =>
-      props[_$key__onMouseDownCapture___$DomPropsMixin];
+  MouseEventCallback get onMouseDownCapture => props['onMouseDownCapture'];
 
   /// Go to [_$DomPropsMixin.onMouseDownCapture] to see the source code for this prop
   @override
   set onMouseDownCapture(MouseEventCallback value) =>
-      props[_$key__onMouseDownCapture___$DomPropsMixin] = value;
+      props['onMouseDownCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onMouseEnterCapture] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseEnterCapture =>
-      props[_$key__onMouseEnterCapture___$DomPropsMixin];
+  MouseEventCallback get onMouseEnterCapture => props['onMouseEnterCapture'];
 
   /// Go to [_$DomPropsMixin.onMouseEnterCapture] to see the source code for this prop
   @override
   set onMouseEnterCapture(MouseEventCallback value) =>
-      props[_$key__onMouseEnterCapture___$DomPropsMixin] = value;
+      props['onMouseEnterCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onMouseLeaveCapture] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseLeaveCapture =>
-      props[_$key__onMouseLeaveCapture___$DomPropsMixin];
+  MouseEventCallback get onMouseLeaveCapture => props['onMouseLeaveCapture'];
 
   /// Go to [_$DomPropsMixin.onMouseLeaveCapture] to see the source code for this prop
   @override
   set onMouseLeaveCapture(MouseEventCallback value) =>
-      props[_$key__onMouseLeaveCapture___$DomPropsMixin] = value;
+      props['onMouseLeaveCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onMouseMoveCapture] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseMoveCapture =>
-      props[_$key__onMouseMoveCapture___$DomPropsMixin];
+  MouseEventCallback get onMouseMoveCapture => props['onMouseMoveCapture'];
 
   /// Go to [_$DomPropsMixin.onMouseMoveCapture] to see the source code for this prop
   @override
   set onMouseMoveCapture(MouseEventCallback value) =>
-      props[_$key__onMouseMoveCapture___$DomPropsMixin] = value;
+      props['onMouseMoveCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onMouseOutCapture] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseOutCapture =>
-      props[_$key__onMouseOutCapture___$DomPropsMixin];
+  MouseEventCallback get onMouseOutCapture => props['onMouseOutCapture'];
 
   /// Go to [_$DomPropsMixin.onMouseOutCapture] to see the source code for this prop
   @override
   set onMouseOutCapture(MouseEventCallback value) =>
-      props[_$key__onMouseOutCapture___$DomPropsMixin] = value;
+      props['onMouseOutCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onMouseOverCapture] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseOverCapture =>
-      props[_$key__onMouseOverCapture___$DomPropsMixin];
+  MouseEventCallback get onMouseOverCapture => props['onMouseOverCapture'];
 
   /// Go to [_$DomPropsMixin.onMouseOverCapture] to see the source code for this prop
   @override
   set onMouseOverCapture(MouseEventCallback value) =>
-      props[_$key__onMouseOverCapture___$DomPropsMixin] = value;
+      props['onMouseOverCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onMouseUpCapture] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseUpCapture =>
-      props[_$key__onMouseUpCapture___$DomPropsMixin];
+  MouseEventCallback get onMouseUpCapture => props['onMouseUpCapture'];
 
   /// Go to [_$DomPropsMixin.onMouseUpCapture] to see the source code for this prop
   @override
   set onMouseUpCapture(MouseEventCallback value) =>
-      props[_$key__onMouseUpCapture___$DomPropsMixin] = value;
+      props['onMouseUpCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onTouchCancelCapture] to see the source code for this prop
   @override
-  TouchEventCallback get onTouchCancelCapture =>
-      props[_$key__onTouchCancelCapture___$DomPropsMixin];
+  TouchEventCallback get onTouchCancelCapture => props['onTouchCancelCapture'];
 
   /// Go to [_$DomPropsMixin.onTouchCancelCapture] to see the source code for this prop
   @override
   set onTouchCancelCapture(TouchEventCallback value) =>
-      props[_$key__onTouchCancelCapture___$DomPropsMixin] = value;
+      props['onTouchCancelCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onTouchEndCapture] to see the source code for this prop
   @override
-  TouchEventCallback get onTouchEndCapture =>
-      props[_$key__onTouchEndCapture___$DomPropsMixin];
+  TouchEventCallback get onTouchEndCapture => props['onTouchEndCapture'];
 
   /// Go to [_$DomPropsMixin.onTouchEndCapture] to see the source code for this prop
   @override
   set onTouchEndCapture(TouchEventCallback value) =>
-      props[_$key__onTouchEndCapture___$DomPropsMixin] = value;
+      props['onTouchEndCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onTouchMoveCapture] to see the source code for this prop
   @override
-  TouchEventCallback get onTouchMoveCapture =>
-      props[_$key__onTouchMoveCapture___$DomPropsMixin];
+  TouchEventCallback get onTouchMoveCapture => props['onTouchMoveCapture'];
 
   /// Go to [_$DomPropsMixin.onTouchMoveCapture] to see the source code for this prop
   @override
   set onTouchMoveCapture(TouchEventCallback value) =>
-      props[_$key__onTouchMoveCapture___$DomPropsMixin] = value;
+      props['onTouchMoveCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onTouchStartCapture] to see the source code for this prop
   @override
-  TouchEventCallback get onTouchStartCapture =>
-      props[_$key__onTouchStartCapture___$DomPropsMixin];
+  TouchEventCallback get onTouchStartCapture => props['onTouchStartCapture'];
 
   /// Go to [_$DomPropsMixin.onTouchStartCapture] to see the source code for this prop
   @override
   set onTouchStartCapture(TouchEventCallback value) =>
-      props[_$key__onTouchStartCapture___$DomPropsMixin] = value;
+      props['onTouchStartCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onScrollCapture] to see the source code for this prop
   @override
-  UIEventCallback get onScrollCapture =>
-      props[_$key__onScrollCapture___$DomPropsMixin];
+  UIEventCallback get onScrollCapture => props['onScrollCapture'];
 
   /// Go to [_$DomPropsMixin.onScrollCapture] to see the source code for this prop
   @override
   set onScrollCapture(UIEventCallback value) =>
-      props[_$key__onScrollCapture___$DomPropsMixin] = value;
+      props['onScrollCapture'] = value;
 
   /// Go to [_$DomPropsMixin.onWheelCapture] to see the source code for this prop
   @override
-  WheelEventCallback get onWheelCapture =>
-      props[_$key__onWheelCapture___$DomPropsMixin];
+  WheelEventCallback get onWheelCapture => props['onWheelCapture'];
 
   /// Go to [_$DomPropsMixin.onWheelCapture] to see the source code for this prop
   @override
   set onWheelCapture(WheelEventCallback value) =>
-      props[_$key__onWheelCapture___$DomPropsMixin] = value;
+      props['onWheelCapture'] = value;
 
   /// Go to [_$DomPropsMixin.defaultChecked] to see the source code for this prop
   @override
-  bool get defaultChecked => props[_$key__defaultChecked___$DomPropsMixin];
+  bool get defaultChecked => props['defaultChecked'];
 
   /// Go to [_$DomPropsMixin.defaultChecked] to see the source code for this prop
   @override
-  set defaultChecked(bool value) =>
-      props[_$key__defaultChecked___$DomPropsMixin] = value;
+  set defaultChecked(bool value) => props['defaultChecked'] = value;
 
   /// Go to [_$DomPropsMixin.defaultValue] to see the source code for this prop
   @override
-  dynamic get defaultValue => props[_$key__defaultValue___$DomPropsMixin];
+  dynamic get defaultValue => props['defaultValue'];
 
   /// Go to [_$DomPropsMixin.defaultValue] to see the source code for this prop
   @override
-  set defaultValue(dynamic value) =>
-      props[_$key__defaultValue___$DomPropsMixin] = value;
+  set defaultValue(dynamic value) => props['defaultValue'] = value;
 
   /// Go to [_$DomPropsMixin.autoFocus] to see the source code for this prop
   @override
-  bool get autoFocus => props[_$key__autoFocus___$DomPropsMixin];
+  bool get autoFocus => props['autoFocus'];
 
   /// Go to [_$DomPropsMixin.autoFocus] to see the source code for this prop
   @override
-  set autoFocus(bool value) => props[_$key__autoFocus___$DomPropsMixin] = value;
+  set autoFocus(bool value) => props['autoFocus'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__cols___$DomPropsMixin =
-      const PropDescriptor(_$key__cols___$DomPropsMixin);
-  static const PropDescriptor _$prop__rows___$DomPropsMixin =
-      const PropDescriptor(_$key__rows___$DomPropsMixin);
-  static const PropDescriptor _$prop__size___$DomPropsMixin =
-      const PropDescriptor(_$key__size___$DomPropsMixin);
-  static const PropDescriptor _$prop__span___$DomPropsMixin =
-      const PropDescriptor(_$key__span___$DomPropsMixin);
-  static const PropDescriptor _$prop__start___$DomPropsMixin =
-      const PropDescriptor(_$key__start___$DomPropsMixin);
-  static const PropDescriptor _$prop__allowFullScreen___$DomPropsMixin =
-      const PropDescriptor(_$key__allowFullScreen___$DomPropsMixin);
-  static const PropDescriptor _$prop__async___$DomPropsMixin =
-      const PropDescriptor(_$key__async___$DomPropsMixin);
-  static const PropDescriptor _$prop__autoPlay___$DomPropsMixin =
-      const PropDescriptor(_$key__autoPlay___$DomPropsMixin);
-  static const PropDescriptor _$prop__checked___$DomPropsMixin =
-      const PropDescriptor(_$key__checked___$DomPropsMixin);
-  static const PropDescriptor _$prop__controls___$DomPropsMixin =
-      const PropDescriptor(_$key__controls___$DomPropsMixin);
-  static const PropDescriptor _$prop__defer___$DomPropsMixin =
-      const PropDescriptor(_$key__defer___$DomPropsMixin);
-  static const PropDescriptor _$prop__disabled___$DomPropsMixin =
-      const PropDescriptor(_$key__disabled___$DomPropsMixin);
-  static const PropDescriptor _$prop__formNoValidate___$DomPropsMixin =
-      const PropDescriptor(_$key__formNoValidate___$DomPropsMixin);
-  static const PropDescriptor _$prop__hidden___$DomPropsMixin =
-      const PropDescriptor(_$key__hidden___$DomPropsMixin);
-  static const PropDescriptor _$prop__loop___$DomPropsMixin =
-      const PropDescriptor(_$key__loop___$DomPropsMixin);
-  static const PropDescriptor _$prop__multiple___$DomPropsMixin =
-      const PropDescriptor(_$key__multiple___$DomPropsMixin);
-  static const PropDescriptor _$prop__muted___$DomPropsMixin =
-      const PropDescriptor(_$key__muted___$DomPropsMixin);
-  static const PropDescriptor _$prop__noValidate___$DomPropsMixin =
-      const PropDescriptor(_$key__noValidate___$DomPropsMixin);
-  static const PropDescriptor _$prop__readOnly___$DomPropsMixin =
-      const PropDescriptor(_$key__readOnly___$DomPropsMixin);
-  static const PropDescriptor _$prop__required___$DomPropsMixin =
-      const PropDescriptor(_$key__required___$DomPropsMixin);
-  static const PropDescriptor _$prop__seamless___$DomPropsMixin =
-      const PropDescriptor(_$key__seamless___$DomPropsMixin);
-  static const PropDescriptor _$prop__selected___$DomPropsMixin =
-      const PropDescriptor(_$key__selected___$DomPropsMixin);
-  static const PropDescriptor _$prop__style___$DomPropsMixin =
-      const PropDescriptor(_$key__style___$DomPropsMixin);
-  static const PropDescriptor _$prop__className___$DomPropsMixin =
-      const PropDescriptor(_$key__className___$DomPropsMixin);
-  static const PropDescriptor _$prop__title___$DomPropsMixin =
-      const PropDescriptor(_$key__title___$DomPropsMixin);
-  static const PropDescriptor _$prop__id___$DomPropsMixin =
-      const PropDescriptor(_$key__id___$DomPropsMixin);
-  static const PropDescriptor _$prop__accept___$DomPropsMixin =
-      const PropDescriptor(_$key__accept___$DomPropsMixin);
-  static const PropDescriptor _$prop__acceptCharset___$DomPropsMixin =
-      const PropDescriptor(_$key__acceptCharset___$DomPropsMixin);
-  static const PropDescriptor _$prop__accessKey___$DomPropsMixin =
-      const PropDescriptor(_$key__accessKey___$DomPropsMixin);
-  static const PropDescriptor _$prop__action___$DomPropsMixin =
-      const PropDescriptor(_$key__action___$DomPropsMixin);
-  static const PropDescriptor _$prop__allowTransparency___$DomPropsMixin =
-      const PropDescriptor(_$key__allowTransparency___$DomPropsMixin);
-  static const PropDescriptor _$prop__alt___$DomPropsMixin =
-      const PropDescriptor(_$key__alt___$DomPropsMixin);
-  static const PropDescriptor _$prop__autoComplete___$DomPropsMixin =
-      const PropDescriptor(_$key__autoComplete___$DomPropsMixin);
-  static const PropDescriptor _$prop__cellPadding___$DomPropsMixin =
-      const PropDescriptor(_$key__cellPadding___$DomPropsMixin);
-  static const PropDescriptor _$prop__cellSpacing___$DomPropsMixin =
-      const PropDescriptor(_$key__cellSpacing___$DomPropsMixin);
-  static const PropDescriptor _$prop__charSet___$DomPropsMixin =
-      const PropDescriptor(_$key__charSet___$DomPropsMixin);
-  static const PropDescriptor _$prop__classID___$DomPropsMixin =
-      const PropDescriptor(_$key__classID___$DomPropsMixin);
-  static const PropDescriptor _$prop__colSpan___$DomPropsMixin =
-      const PropDescriptor(_$key__colSpan___$DomPropsMixin);
-  static const PropDescriptor _$prop__content___$DomPropsMixin =
-      const PropDescriptor(_$key__content___$DomPropsMixin);
-  static const PropDescriptor _$prop__contentEditable___$DomPropsMixin =
-      const PropDescriptor(_$key__contentEditable___$DomPropsMixin);
-  static const PropDescriptor _$prop__contextMenu___$DomPropsMixin =
-      const PropDescriptor(_$key__contextMenu___$DomPropsMixin);
-  static const PropDescriptor _$prop__coords___$DomPropsMixin =
-      const PropDescriptor(_$key__coords___$DomPropsMixin);
-  static const PropDescriptor _$prop__crossOrigin___$DomPropsMixin =
-      const PropDescriptor(_$key__crossOrigin___$DomPropsMixin);
-  static const PropDescriptor _$prop__data___$DomPropsMixin =
-      const PropDescriptor(_$key__data___$DomPropsMixin);
-  static const PropDescriptor _$prop__dateTime___$DomPropsMixin =
-      const PropDescriptor(_$key__dateTime___$DomPropsMixin);
-  static const PropDescriptor _$prop__dir___$DomPropsMixin =
-      const PropDescriptor(_$key__dir___$DomPropsMixin);
-  static const PropDescriptor _$prop__download___$DomPropsMixin =
-      const PropDescriptor(_$key__download___$DomPropsMixin);
-  static const PropDescriptor _$prop__draggable___$DomPropsMixin =
-      const PropDescriptor(_$key__draggable___$DomPropsMixin);
-  static const PropDescriptor _$prop__encType___$DomPropsMixin =
-      const PropDescriptor(_$key__encType___$DomPropsMixin);
-  static const PropDescriptor _$prop__form___$DomPropsMixin =
-      const PropDescriptor(_$key__form___$DomPropsMixin);
-  static const PropDescriptor _$prop__frameBorder___$DomPropsMixin =
-      const PropDescriptor(_$key__frameBorder___$DomPropsMixin);
-  static const PropDescriptor _$prop__height___$DomPropsMixin =
-      const PropDescriptor(_$key__height___$DomPropsMixin);
-  static const PropDescriptor _$prop__href___$DomPropsMixin =
-      const PropDescriptor(_$key__href___$DomPropsMixin);
-  static const PropDescriptor _$prop__hrefLang___$DomPropsMixin =
-      const PropDescriptor(_$key__hrefLang___$DomPropsMixin);
-  static const PropDescriptor _$prop__htmlFor___$DomPropsMixin =
-      const PropDescriptor(_$key__htmlFor___$DomPropsMixin);
-  static const PropDescriptor _$prop__httpEquiv___$DomPropsMixin =
-      const PropDescriptor(_$key__httpEquiv___$DomPropsMixin);
-  static const PropDescriptor _$prop__icon___$DomPropsMixin =
-      const PropDescriptor(_$key__icon___$DomPropsMixin);
-  static const PropDescriptor _$prop__label___$DomPropsMixin =
-      const PropDescriptor(_$key__label___$DomPropsMixin);
-  static const PropDescriptor _$prop__lang___$DomPropsMixin =
-      const PropDescriptor(_$key__lang___$DomPropsMixin);
-  static const PropDescriptor _$prop__list___$DomPropsMixin =
-      const PropDescriptor(_$key__list___$DomPropsMixin);
-  static const PropDescriptor _$prop__manifest___$DomPropsMixin =
-      const PropDescriptor(_$key__manifest___$DomPropsMixin);
-  static const PropDescriptor _$prop__max___$DomPropsMixin =
-      const PropDescriptor(_$key__max___$DomPropsMixin);
-  static const PropDescriptor _$prop__maxLength___$DomPropsMixin =
-      const PropDescriptor(_$key__maxLength___$DomPropsMixin);
-  static const PropDescriptor _$prop__media___$DomPropsMixin =
-      const PropDescriptor(_$key__media___$DomPropsMixin);
-  static const PropDescriptor _$prop__mediaGroup___$DomPropsMixin =
-      const PropDescriptor(_$key__mediaGroup___$DomPropsMixin);
-  static const PropDescriptor _$prop__method___$DomPropsMixin =
-      const PropDescriptor(_$key__method___$DomPropsMixin);
-  static const PropDescriptor _$prop__min___$DomPropsMixin =
-      const PropDescriptor(_$key__min___$DomPropsMixin);
-  static const PropDescriptor _$prop__name___$DomPropsMixin =
-      const PropDescriptor(_$key__name___$DomPropsMixin);
-  static const PropDescriptor _$prop__open___$DomPropsMixin =
-      const PropDescriptor(_$key__open___$DomPropsMixin);
-  static const PropDescriptor _$prop__pattern___$DomPropsMixin =
-      const PropDescriptor(_$key__pattern___$DomPropsMixin);
-  static const PropDescriptor _$prop__placeholder___$DomPropsMixin =
-      const PropDescriptor(_$key__placeholder___$DomPropsMixin);
-  static const PropDescriptor _$prop__poster___$DomPropsMixin =
-      const PropDescriptor(_$key__poster___$DomPropsMixin);
-  static const PropDescriptor _$prop__preload___$DomPropsMixin =
-      const PropDescriptor(_$key__preload___$DomPropsMixin);
-  static const PropDescriptor _$prop__radioGroup___$DomPropsMixin =
-      const PropDescriptor(_$key__radioGroup___$DomPropsMixin);
-  static const PropDescriptor _$prop__rel___$DomPropsMixin =
-      const PropDescriptor(_$key__rel___$DomPropsMixin);
-  static const PropDescriptor _$prop__role___$DomPropsMixin =
-      const PropDescriptor(_$key__role___$DomPropsMixin);
-  static const PropDescriptor _$prop__rowSpan___$DomPropsMixin =
-      const PropDescriptor(_$key__rowSpan___$DomPropsMixin);
-  static const PropDescriptor _$prop__sandbox___$DomPropsMixin =
-      const PropDescriptor(_$key__sandbox___$DomPropsMixin);
-  static const PropDescriptor _$prop__scope___$DomPropsMixin =
-      const PropDescriptor(_$key__scope___$DomPropsMixin);
-  static const PropDescriptor _$prop__scrolling___$DomPropsMixin =
-      const PropDescriptor(_$key__scrolling___$DomPropsMixin);
-  static const PropDescriptor _$prop__shape___$DomPropsMixin =
-      const PropDescriptor(_$key__shape___$DomPropsMixin);
-  static const PropDescriptor _$prop__sizes___$DomPropsMixin =
-      const PropDescriptor(_$key__sizes___$DomPropsMixin);
-  static const PropDescriptor _$prop__spellCheck___$DomPropsMixin =
-      const PropDescriptor(_$key__spellCheck___$DomPropsMixin);
-  static const PropDescriptor _$prop__src___$DomPropsMixin =
-      const PropDescriptor(_$key__src___$DomPropsMixin);
-  static const PropDescriptor _$prop__srcDoc___$DomPropsMixin =
-      const PropDescriptor(_$key__srcDoc___$DomPropsMixin);
-  static const PropDescriptor _$prop__srcSet___$DomPropsMixin =
-      const PropDescriptor(_$key__srcSet___$DomPropsMixin);
-  static const PropDescriptor _$prop__step___$DomPropsMixin =
-      const PropDescriptor(_$key__step___$DomPropsMixin);
-  static const PropDescriptor _$prop__tabIndex___$DomPropsMixin =
-      const PropDescriptor(_$key__tabIndex___$DomPropsMixin);
-  static const PropDescriptor _$prop__target___$DomPropsMixin =
-      const PropDescriptor(_$key__target___$DomPropsMixin);
-  static const PropDescriptor _$prop__type___$DomPropsMixin =
-      const PropDescriptor(_$key__type___$DomPropsMixin);
-  static const PropDescriptor _$prop__useMap___$DomPropsMixin =
-      const PropDescriptor(_$key__useMap___$DomPropsMixin);
-  static const PropDescriptor _$prop__value___$DomPropsMixin =
-      const PropDescriptor(_$key__value___$DomPropsMixin);
-  static const PropDescriptor _$prop__width___$DomPropsMixin =
-      const PropDescriptor(_$key__width___$DomPropsMixin);
-  static const PropDescriptor _$prop__wmode___$DomPropsMixin =
-      const PropDescriptor(_$key__wmode___$DomPropsMixin);
-  static const PropDescriptor _$prop__onCopy___$DomPropsMixin =
-      const PropDescriptor(_$key__onCopy___$DomPropsMixin);
-  static const PropDescriptor _$prop__onCut___$DomPropsMixin =
-      const PropDescriptor(_$key__onCut___$DomPropsMixin);
-  static const PropDescriptor _$prop__onPaste___$DomPropsMixin =
-      const PropDescriptor(_$key__onPaste___$DomPropsMixin);
-  static const PropDescriptor _$prop__onKeyDown___$DomPropsMixin =
-      const PropDescriptor(_$key__onKeyDown___$DomPropsMixin);
-  static const PropDescriptor _$prop__onKeyPress___$DomPropsMixin =
-      const PropDescriptor(_$key__onKeyPress___$DomPropsMixin);
-  static const PropDescriptor _$prop__onKeyUp___$DomPropsMixin =
-      const PropDescriptor(_$key__onKeyUp___$DomPropsMixin);
-  static const PropDescriptor _$prop__onFocus___$DomPropsMixin =
-      const PropDescriptor(_$key__onFocus___$DomPropsMixin);
-  static const PropDescriptor _$prop__onBlur___$DomPropsMixin =
-      const PropDescriptor(_$key__onBlur___$DomPropsMixin);
-  static const PropDescriptor _$prop__onChange___$DomPropsMixin =
-      const PropDescriptor(_$key__onChange___$DomPropsMixin);
-  static const PropDescriptor _$prop__onInput___$DomPropsMixin =
-      const PropDescriptor(_$key__onInput___$DomPropsMixin);
-  static const PropDescriptor _$prop__onSubmit___$DomPropsMixin =
-      const PropDescriptor(_$key__onSubmit___$DomPropsMixin);
-  static const PropDescriptor _$prop__onReset___$DomPropsMixin =
-      const PropDescriptor(_$key__onReset___$DomPropsMixin);
-  static const PropDescriptor _$prop__onClick___$DomPropsMixin =
-      const PropDescriptor(_$key__onClick___$DomPropsMixin);
-  static const PropDescriptor _$prop__onContextMenu___$DomPropsMixin =
-      const PropDescriptor(_$key__onContextMenu___$DomPropsMixin);
-  static const PropDescriptor _$prop__onDoubleClick___$DomPropsMixin =
-      const PropDescriptor(_$key__onDoubleClick___$DomPropsMixin);
-  static const PropDescriptor _$prop__onDrag___$DomPropsMixin =
-      const PropDescriptor(_$key__onDrag___$DomPropsMixin);
-  static const PropDescriptor _$prop__onDragEnd___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragEnd___$DomPropsMixin);
-  static const PropDescriptor _$prop__onDragEnter___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragEnter___$DomPropsMixin);
-  static const PropDescriptor _$prop__onDragExit___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragExit___$DomPropsMixin);
-  static const PropDescriptor _$prop__onDragLeave___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragLeave___$DomPropsMixin);
-  static const PropDescriptor _$prop__onDragOver___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragOver___$DomPropsMixin);
-  static const PropDescriptor _$prop__onDragStart___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragStart___$DomPropsMixin);
-  static const PropDescriptor _$prop__onDrop___$DomPropsMixin =
-      const PropDescriptor(_$key__onDrop___$DomPropsMixin);
-  static const PropDescriptor _$prop__onMouseDown___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseDown___$DomPropsMixin);
-  static const PropDescriptor _$prop__onMouseEnter___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseEnter___$DomPropsMixin);
-  static const PropDescriptor _$prop__onMouseLeave___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseLeave___$DomPropsMixin);
-  static const PropDescriptor _$prop__onMouseMove___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseMove___$DomPropsMixin);
-  static const PropDescriptor _$prop__onMouseOut___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseOut___$DomPropsMixin);
-  static const PropDescriptor _$prop__onMouseOver___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseOver___$DomPropsMixin);
-  static const PropDescriptor _$prop__onMouseUp___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseUp___$DomPropsMixin);
-  static const PropDescriptor _$prop__onTouchCancel___$DomPropsMixin =
-      const PropDescriptor(_$key__onTouchCancel___$DomPropsMixin);
-  static const PropDescriptor _$prop__onTouchEnd___$DomPropsMixin =
-      const PropDescriptor(_$key__onTouchEnd___$DomPropsMixin);
-  static const PropDescriptor _$prop__onTouchMove___$DomPropsMixin =
-      const PropDescriptor(_$key__onTouchMove___$DomPropsMixin);
-  static const PropDescriptor _$prop__onTouchStart___$DomPropsMixin =
-      const PropDescriptor(_$key__onTouchStart___$DomPropsMixin);
-  static const PropDescriptor _$prop__onScroll___$DomPropsMixin =
-      const PropDescriptor(_$key__onScroll___$DomPropsMixin);
-  static const PropDescriptor _$prop__onWheel___$DomPropsMixin =
-      const PropDescriptor(_$key__onWheel___$DomPropsMixin);
-  static const PropDescriptor _$prop__onCopyCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onCopyCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onCutCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onCutCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onPasteCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onPasteCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onKeyDownCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onKeyDownCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onKeyPressCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onKeyPressCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onKeyUpCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onKeyUpCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onFocusCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onFocusCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onBlurCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onBlurCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onChangeCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onChangeCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onInputCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onInputCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onSubmitCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onSubmitCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onResetCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onResetCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onClickCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onClickCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onContextMenuCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onContextMenuCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onDoubleClickCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onDoubleClickCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onDragCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onDragEndCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragEndCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onDragEnterCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragEnterCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onDragExitCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragExitCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onDragLeaveCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragLeaveCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onDragOverCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragOverCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onDragStartCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragStartCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onDropCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onDropCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onMouseDownCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseDownCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onMouseEnterCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseEnterCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onMouseLeaveCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseLeaveCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onMouseMoveCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseMoveCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onMouseOutCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseOutCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onMouseOverCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseOverCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onMouseUpCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseUpCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onTouchCancelCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onTouchCancelCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onTouchEndCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onTouchEndCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onTouchMoveCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onTouchMoveCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onTouchStartCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onTouchStartCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onScrollCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onScrollCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__onWheelCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onWheelCapture___$DomPropsMixin);
-  static const PropDescriptor _$prop__defaultChecked___$DomPropsMixin =
-      const PropDescriptor(_$key__defaultChecked___$DomPropsMixin);
-  static const PropDescriptor _$prop__defaultValue___$DomPropsMixin =
-      const PropDescriptor(_$key__defaultValue___$DomPropsMixin);
-  static const PropDescriptor _$prop__autoFocus___$DomPropsMixin =
-      const PropDescriptor(_$key__autoFocus___$DomPropsMixin);
-  static const String _$key__cols___$DomPropsMixin = 'cols';
-  static const String _$key__rows___$DomPropsMixin = 'rows';
-  static const String _$key__size___$DomPropsMixin = 'size';
-  static const String _$key__span___$DomPropsMixin = 'span';
-  static const String _$key__start___$DomPropsMixin = 'start';
-  static const String _$key__allowFullScreen___$DomPropsMixin =
-      'allowFullScreen';
-  static const String _$key__async___$DomPropsMixin = 'async';
-  static const String _$key__autoPlay___$DomPropsMixin = 'autoPlay';
-  static const String _$key__checked___$DomPropsMixin = 'checked';
-  static const String _$key__controls___$DomPropsMixin = 'controls';
-  static const String _$key__defer___$DomPropsMixin = 'defer';
-  static const String _$key__disabled___$DomPropsMixin = 'disabled';
-  static const String _$key__formNoValidate___$DomPropsMixin = 'formNoValidate';
-  static const String _$key__hidden___$DomPropsMixin = 'hidden';
-  static const String _$key__loop___$DomPropsMixin = 'loop';
-  static const String _$key__multiple___$DomPropsMixin = 'multiple';
-  static const String _$key__muted___$DomPropsMixin = 'muted';
-  static const String _$key__noValidate___$DomPropsMixin = 'noValidate';
-  static const String _$key__readOnly___$DomPropsMixin = 'readOnly';
-  static const String _$key__required___$DomPropsMixin = 'required';
-  static const String _$key__seamless___$DomPropsMixin = 'seamless';
-  static const String _$key__selected___$DomPropsMixin = 'selected';
-  static const String _$key__style___$DomPropsMixin = 'style';
-  static const String _$key__className___$DomPropsMixin = 'className';
-  static const String _$key__title___$DomPropsMixin = 'title';
-  static const String _$key__id___$DomPropsMixin = 'id';
-  static const String _$key__accept___$DomPropsMixin = 'accept';
-  static const String _$key__acceptCharset___$DomPropsMixin = 'acceptCharset';
-  static const String _$key__accessKey___$DomPropsMixin = 'accessKey';
-  static const String _$key__action___$DomPropsMixin = 'action';
-  static const String _$key__allowTransparency___$DomPropsMixin =
-      'allowTransparency';
-  static const String _$key__alt___$DomPropsMixin = 'alt';
-  static const String _$key__autoComplete___$DomPropsMixin = 'autoComplete';
-  static const String _$key__cellPadding___$DomPropsMixin = 'cellPadding';
-  static const String _$key__cellSpacing___$DomPropsMixin = 'cellSpacing';
-  static const String _$key__charSet___$DomPropsMixin = 'charSet';
-  static const String _$key__classID___$DomPropsMixin = 'classID';
-  static const String _$key__colSpan___$DomPropsMixin = 'colSpan';
-  static const String _$key__content___$DomPropsMixin = 'content';
-  static const String _$key__contentEditable___$DomPropsMixin =
-      'contentEditable';
-  static const String _$key__contextMenu___$DomPropsMixin = 'contextMenu';
-  static const String _$key__coords___$DomPropsMixin = 'coords';
-  static const String _$key__crossOrigin___$DomPropsMixin = 'crossOrigin';
-  static const String _$key__data___$DomPropsMixin = 'data';
-  static const String _$key__dateTime___$DomPropsMixin = 'dateTime';
-  static const String _$key__dir___$DomPropsMixin = 'dir';
-  static const String _$key__download___$DomPropsMixin = 'download';
-  static const String _$key__draggable___$DomPropsMixin = 'draggable';
-  static const String _$key__encType___$DomPropsMixin = 'encType';
-  static const String _$key__form___$DomPropsMixin = 'form';
-  static const String _$key__frameBorder___$DomPropsMixin = 'frameBorder';
-  static const String _$key__height___$DomPropsMixin = 'height';
-  static const String _$key__href___$DomPropsMixin = 'href';
-  static const String _$key__hrefLang___$DomPropsMixin = 'hrefLang';
-  static const String _$key__htmlFor___$DomPropsMixin = 'htmlFor';
-  static const String _$key__httpEquiv___$DomPropsMixin = 'httpEquiv';
-  static const String _$key__icon___$DomPropsMixin = 'icon';
-  static const String _$key__label___$DomPropsMixin = 'label';
-  static const String _$key__lang___$DomPropsMixin = 'lang';
-  static const String _$key__list___$DomPropsMixin = 'list';
-  static const String _$key__manifest___$DomPropsMixin = 'manifest';
-  static const String _$key__max___$DomPropsMixin = 'max';
-  static const String _$key__maxLength___$DomPropsMixin = 'maxLength';
-  static const String _$key__media___$DomPropsMixin = 'media';
-  static const String _$key__mediaGroup___$DomPropsMixin = 'mediaGroup';
-  static const String _$key__method___$DomPropsMixin = 'method';
-  static const String _$key__min___$DomPropsMixin = 'min';
-  static const String _$key__name___$DomPropsMixin = 'name';
-  static const String _$key__open___$DomPropsMixin = 'open';
-  static const String _$key__pattern___$DomPropsMixin = 'pattern';
-  static const String _$key__placeholder___$DomPropsMixin = 'placeholder';
-  static const String _$key__poster___$DomPropsMixin = 'poster';
-  static const String _$key__preload___$DomPropsMixin = 'preload';
-  static const String _$key__radioGroup___$DomPropsMixin = 'radioGroup';
-  static const String _$key__rel___$DomPropsMixin = 'rel';
-  static const String _$key__role___$DomPropsMixin = 'role';
-  static const String _$key__rowSpan___$DomPropsMixin = 'rowSpan';
-  static const String _$key__sandbox___$DomPropsMixin = 'sandbox';
-  static const String _$key__scope___$DomPropsMixin = 'scope';
-  static const String _$key__scrolling___$DomPropsMixin = 'scrolling';
-  static const String _$key__shape___$DomPropsMixin = 'shape';
-  static const String _$key__sizes___$DomPropsMixin = 'sizes';
-  static const String _$key__spellCheck___$DomPropsMixin = 'spellCheck';
-  static const String _$key__src___$DomPropsMixin = 'src';
-  static const String _$key__srcDoc___$DomPropsMixin = 'srcDoc';
-  static const String _$key__srcSet___$DomPropsMixin = 'srcSet';
-  static const String _$key__step___$DomPropsMixin = 'step';
-  static const String _$key__tabIndex___$DomPropsMixin = 'tabIndex';
-  static const String _$key__target___$DomPropsMixin = 'target';
-  static const String _$key__type___$DomPropsMixin = 'type';
-  static const String _$key__useMap___$DomPropsMixin = 'useMap';
-  static const String _$key__value___$DomPropsMixin = 'value';
-  static const String _$key__width___$DomPropsMixin = 'width';
-  static const String _$key__wmode___$DomPropsMixin = 'wmode';
-  static const String _$key__onCopy___$DomPropsMixin = 'onCopy';
-  static const String _$key__onCut___$DomPropsMixin = 'onCut';
-  static const String _$key__onPaste___$DomPropsMixin = 'onPaste';
-  static const String _$key__onKeyDown___$DomPropsMixin = 'onKeyDown';
-  static const String _$key__onKeyPress___$DomPropsMixin = 'onKeyPress';
-  static const String _$key__onKeyUp___$DomPropsMixin = 'onKeyUp';
-  static const String _$key__onFocus___$DomPropsMixin = 'onFocus';
-  static const String _$key__onBlur___$DomPropsMixin = 'onBlur';
-  static const String _$key__onChange___$DomPropsMixin = 'onChange';
-  static const String _$key__onInput___$DomPropsMixin = 'onInput';
-  static const String _$key__onSubmit___$DomPropsMixin = 'onSubmit';
-  static const String _$key__onReset___$DomPropsMixin = 'onReset';
-  static const String _$key__onClick___$DomPropsMixin = 'onClick';
-  static const String _$key__onContextMenu___$DomPropsMixin = 'onContextMenu';
-  static const String _$key__onDoubleClick___$DomPropsMixin = 'onDoubleClick';
-  static const String _$key__onDrag___$DomPropsMixin = 'onDrag';
-  static const String _$key__onDragEnd___$DomPropsMixin = 'onDragEnd';
-  static const String _$key__onDragEnter___$DomPropsMixin = 'onDragEnter';
-  static const String _$key__onDragExit___$DomPropsMixin = 'onDragExit';
-  static const String _$key__onDragLeave___$DomPropsMixin = 'onDragLeave';
-  static const String _$key__onDragOver___$DomPropsMixin = 'onDragOver';
-  static const String _$key__onDragStart___$DomPropsMixin = 'onDragStart';
-  static const String _$key__onDrop___$DomPropsMixin = 'onDrop';
-  static const String _$key__onMouseDown___$DomPropsMixin = 'onMouseDown';
-  static const String _$key__onMouseEnter___$DomPropsMixin = 'onMouseEnter';
-  static const String _$key__onMouseLeave___$DomPropsMixin = 'onMouseLeave';
-  static const String _$key__onMouseMove___$DomPropsMixin = 'onMouseMove';
-  static const String _$key__onMouseOut___$DomPropsMixin = 'onMouseOut';
-  static const String _$key__onMouseOver___$DomPropsMixin = 'onMouseOver';
-  static const String _$key__onMouseUp___$DomPropsMixin = 'onMouseUp';
-  static const String _$key__onTouchCancel___$DomPropsMixin = 'onTouchCancel';
-  static const String _$key__onTouchEnd___$DomPropsMixin = 'onTouchEnd';
-  static const String _$key__onTouchMove___$DomPropsMixin = 'onTouchMove';
-  static const String _$key__onTouchStart___$DomPropsMixin = 'onTouchStart';
-  static const String _$key__onScroll___$DomPropsMixin = 'onScroll';
-  static const String _$key__onWheel___$DomPropsMixin = 'onWheel';
-  static const String _$key__onCopyCapture___$DomPropsMixin = 'onCopyCapture';
-  static const String _$key__onCutCapture___$DomPropsMixin = 'onCutCapture';
-  static const String _$key__onPasteCapture___$DomPropsMixin = 'onPasteCapture';
-  static const String _$key__onKeyDownCapture___$DomPropsMixin =
-      'onKeyDownCapture';
-  static const String _$key__onKeyPressCapture___$DomPropsMixin =
-      'onKeyPressCapture';
-  static const String _$key__onKeyUpCapture___$DomPropsMixin = 'onKeyUpCapture';
-  static const String _$key__onFocusCapture___$DomPropsMixin = 'onFocusCapture';
-  static const String _$key__onBlurCapture___$DomPropsMixin = 'onBlurCapture';
-  static const String _$key__onChangeCapture___$DomPropsMixin =
-      'onChangeCapture';
-  static const String _$key__onInputCapture___$DomPropsMixin = 'onInputCapture';
-  static const String _$key__onSubmitCapture___$DomPropsMixin =
-      'onSubmitCapture';
-  static const String _$key__onResetCapture___$DomPropsMixin = 'onResetCapture';
-  static const String _$key__onClickCapture___$DomPropsMixin = 'onClickCapture';
-  static const String _$key__onContextMenuCapture___$DomPropsMixin =
-      'onContextMenuCapture';
-  static const String _$key__onDoubleClickCapture___$DomPropsMixin =
-      'onDoubleClickCapture';
-  static const String _$key__onDragCapture___$DomPropsMixin = 'onDragCapture';
-  static const String _$key__onDragEndCapture___$DomPropsMixin =
-      'onDragEndCapture';
-  static const String _$key__onDragEnterCapture___$DomPropsMixin =
-      'onDragEnterCapture';
-  static const String _$key__onDragExitCapture___$DomPropsMixin =
-      'onDragExitCapture';
-  static const String _$key__onDragLeaveCapture___$DomPropsMixin =
-      'onDragLeaveCapture';
-  static const String _$key__onDragOverCapture___$DomPropsMixin =
-      'onDragOverCapture';
-  static const String _$key__onDragStartCapture___$DomPropsMixin =
-      'onDragStartCapture';
-  static const String _$key__onDropCapture___$DomPropsMixin = 'onDropCapture';
-  static const String _$key__onMouseDownCapture___$DomPropsMixin =
-      'onMouseDownCapture';
-  static const String _$key__onMouseEnterCapture___$DomPropsMixin =
-      'onMouseEnterCapture';
-  static const String _$key__onMouseLeaveCapture___$DomPropsMixin =
-      'onMouseLeaveCapture';
-  static const String _$key__onMouseMoveCapture___$DomPropsMixin =
-      'onMouseMoveCapture';
-  static const String _$key__onMouseOutCapture___$DomPropsMixin =
-      'onMouseOutCapture';
-  static const String _$key__onMouseOverCapture___$DomPropsMixin =
-      'onMouseOverCapture';
-  static const String _$key__onMouseUpCapture___$DomPropsMixin =
-      'onMouseUpCapture';
-  static const String _$key__onTouchCancelCapture___$DomPropsMixin =
-      'onTouchCancelCapture';
-  static const String _$key__onTouchEndCapture___$DomPropsMixin =
-      'onTouchEndCapture';
-  static const String _$key__onTouchMoveCapture___$DomPropsMixin =
-      'onTouchMoveCapture';
-  static const String _$key__onTouchStartCapture___$DomPropsMixin =
-      'onTouchStartCapture';
-  static const String _$key__onScrollCapture___$DomPropsMixin =
-      'onScrollCapture';
-  static const String _$key__onWheelCapture___$DomPropsMixin = 'onWheelCapture';
-  static const String _$key__defaultChecked___$DomPropsMixin = 'defaultChecked';
-  static const String _$key__defaultValue___$DomPropsMixin = 'defaultValue';
-  static const String _$key__autoFocus___$DomPropsMixin = 'autoFocus';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__cols___$DomPropsMixin,
-    _$prop__rows___$DomPropsMixin,
-    _$prop__size___$DomPropsMixin,
-    _$prop__span___$DomPropsMixin,
-    _$prop__start___$DomPropsMixin,
-    _$prop__allowFullScreen___$DomPropsMixin,
-    _$prop__async___$DomPropsMixin,
-    _$prop__autoPlay___$DomPropsMixin,
-    _$prop__checked___$DomPropsMixin,
-    _$prop__controls___$DomPropsMixin,
-    _$prop__defer___$DomPropsMixin,
-    _$prop__disabled___$DomPropsMixin,
-    _$prop__formNoValidate___$DomPropsMixin,
-    _$prop__hidden___$DomPropsMixin,
-    _$prop__loop___$DomPropsMixin,
-    _$prop__multiple___$DomPropsMixin,
-    _$prop__muted___$DomPropsMixin,
-    _$prop__noValidate___$DomPropsMixin,
-    _$prop__readOnly___$DomPropsMixin,
-    _$prop__required___$DomPropsMixin,
-    _$prop__seamless___$DomPropsMixin,
-    _$prop__selected___$DomPropsMixin,
-    _$prop__style___$DomPropsMixin,
-    _$prop__className___$DomPropsMixin,
-    _$prop__title___$DomPropsMixin,
-    _$prop__id___$DomPropsMixin,
-    _$prop__accept___$DomPropsMixin,
-    _$prop__acceptCharset___$DomPropsMixin,
-    _$prop__accessKey___$DomPropsMixin,
-    _$prop__action___$DomPropsMixin,
-    _$prop__allowTransparency___$DomPropsMixin,
-    _$prop__alt___$DomPropsMixin,
-    _$prop__autoComplete___$DomPropsMixin,
-    _$prop__cellPadding___$DomPropsMixin,
-    _$prop__cellSpacing___$DomPropsMixin,
-    _$prop__charSet___$DomPropsMixin,
-    _$prop__classID___$DomPropsMixin,
-    _$prop__colSpan___$DomPropsMixin,
-    _$prop__content___$DomPropsMixin,
-    _$prop__contentEditable___$DomPropsMixin,
-    _$prop__contextMenu___$DomPropsMixin,
-    _$prop__coords___$DomPropsMixin,
-    _$prop__crossOrigin___$DomPropsMixin,
-    _$prop__data___$DomPropsMixin,
-    _$prop__dateTime___$DomPropsMixin,
-    _$prop__dir___$DomPropsMixin,
-    _$prop__download___$DomPropsMixin,
-    _$prop__draggable___$DomPropsMixin,
-    _$prop__encType___$DomPropsMixin,
-    _$prop__form___$DomPropsMixin,
-    _$prop__frameBorder___$DomPropsMixin,
-    _$prop__height___$DomPropsMixin,
-    _$prop__href___$DomPropsMixin,
-    _$prop__hrefLang___$DomPropsMixin,
-    _$prop__htmlFor___$DomPropsMixin,
-    _$prop__httpEquiv___$DomPropsMixin,
-    _$prop__icon___$DomPropsMixin,
-    _$prop__label___$DomPropsMixin,
-    _$prop__lang___$DomPropsMixin,
-    _$prop__list___$DomPropsMixin,
-    _$prop__manifest___$DomPropsMixin,
-    _$prop__max___$DomPropsMixin,
-    _$prop__maxLength___$DomPropsMixin,
-    _$prop__media___$DomPropsMixin,
-    _$prop__mediaGroup___$DomPropsMixin,
-    _$prop__method___$DomPropsMixin,
-    _$prop__min___$DomPropsMixin,
-    _$prop__name___$DomPropsMixin,
-    _$prop__open___$DomPropsMixin,
-    _$prop__pattern___$DomPropsMixin,
-    _$prop__placeholder___$DomPropsMixin,
-    _$prop__poster___$DomPropsMixin,
-    _$prop__preload___$DomPropsMixin,
-    _$prop__radioGroup___$DomPropsMixin,
-    _$prop__rel___$DomPropsMixin,
-    _$prop__role___$DomPropsMixin,
-    _$prop__rowSpan___$DomPropsMixin,
-    _$prop__sandbox___$DomPropsMixin,
-    _$prop__scope___$DomPropsMixin,
-    _$prop__scrolling___$DomPropsMixin,
-    _$prop__shape___$DomPropsMixin,
-    _$prop__sizes___$DomPropsMixin,
-    _$prop__spellCheck___$DomPropsMixin,
-    _$prop__src___$DomPropsMixin,
-    _$prop__srcDoc___$DomPropsMixin,
-    _$prop__srcSet___$DomPropsMixin,
-    _$prop__step___$DomPropsMixin,
-    _$prop__tabIndex___$DomPropsMixin,
-    _$prop__target___$DomPropsMixin,
-    _$prop__type___$DomPropsMixin,
-    _$prop__useMap___$DomPropsMixin,
-    _$prop__value___$DomPropsMixin,
-    _$prop__width___$DomPropsMixin,
-    _$prop__wmode___$DomPropsMixin,
-    _$prop__onCopy___$DomPropsMixin,
-    _$prop__onCut___$DomPropsMixin,
-    _$prop__onPaste___$DomPropsMixin,
-    _$prop__onKeyDown___$DomPropsMixin,
-    _$prop__onKeyPress___$DomPropsMixin,
-    _$prop__onKeyUp___$DomPropsMixin,
-    _$prop__onFocus___$DomPropsMixin,
-    _$prop__onBlur___$DomPropsMixin,
-    _$prop__onChange___$DomPropsMixin,
-    _$prop__onInput___$DomPropsMixin,
-    _$prop__onSubmit___$DomPropsMixin,
-    _$prop__onReset___$DomPropsMixin,
-    _$prop__onClick___$DomPropsMixin,
-    _$prop__onContextMenu___$DomPropsMixin,
-    _$prop__onDoubleClick___$DomPropsMixin,
-    _$prop__onDrag___$DomPropsMixin,
-    _$prop__onDragEnd___$DomPropsMixin,
-    _$prop__onDragEnter___$DomPropsMixin,
-    _$prop__onDragExit___$DomPropsMixin,
-    _$prop__onDragLeave___$DomPropsMixin,
-    _$prop__onDragOver___$DomPropsMixin,
-    _$prop__onDragStart___$DomPropsMixin,
-    _$prop__onDrop___$DomPropsMixin,
-    _$prop__onMouseDown___$DomPropsMixin,
-    _$prop__onMouseEnter___$DomPropsMixin,
-    _$prop__onMouseLeave___$DomPropsMixin,
-    _$prop__onMouseMove___$DomPropsMixin,
-    _$prop__onMouseOut___$DomPropsMixin,
-    _$prop__onMouseOver___$DomPropsMixin,
-    _$prop__onMouseUp___$DomPropsMixin,
-    _$prop__onTouchCancel___$DomPropsMixin,
-    _$prop__onTouchEnd___$DomPropsMixin,
-    _$prop__onTouchMove___$DomPropsMixin,
-    _$prop__onTouchStart___$DomPropsMixin,
-    _$prop__onScroll___$DomPropsMixin,
-    _$prop__onWheel___$DomPropsMixin,
-    _$prop__onCopyCapture___$DomPropsMixin,
-    _$prop__onCutCapture___$DomPropsMixin,
-    _$prop__onPasteCapture___$DomPropsMixin,
-    _$prop__onKeyDownCapture___$DomPropsMixin,
-    _$prop__onKeyPressCapture___$DomPropsMixin,
-    _$prop__onKeyUpCapture___$DomPropsMixin,
-    _$prop__onFocusCapture___$DomPropsMixin,
-    _$prop__onBlurCapture___$DomPropsMixin,
-    _$prop__onChangeCapture___$DomPropsMixin,
-    _$prop__onInputCapture___$DomPropsMixin,
-    _$prop__onSubmitCapture___$DomPropsMixin,
-    _$prop__onResetCapture___$DomPropsMixin,
-    _$prop__onClickCapture___$DomPropsMixin,
-    _$prop__onContextMenuCapture___$DomPropsMixin,
-    _$prop__onDoubleClickCapture___$DomPropsMixin,
-    _$prop__onDragCapture___$DomPropsMixin,
-    _$prop__onDragEndCapture___$DomPropsMixin,
-    _$prop__onDragEnterCapture___$DomPropsMixin,
-    _$prop__onDragExitCapture___$DomPropsMixin,
-    _$prop__onDragLeaveCapture___$DomPropsMixin,
-    _$prop__onDragOverCapture___$DomPropsMixin,
-    _$prop__onDragStartCapture___$DomPropsMixin,
-    _$prop__onDropCapture___$DomPropsMixin,
-    _$prop__onMouseDownCapture___$DomPropsMixin,
-    _$prop__onMouseEnterCapture___$DomPropsMixin,
-    _$prop__onMouseLeaveCapture___$DomPropsMixin,
-    _$prop__onMouseMoveCapture___$DomPropsMixin,
-    _$prop__onMouseOutCapture___$DomPropsMixin,
-    _$prop__onMouseOverCapture___$DomPropsMixin,
-    _$prop__onMouseUpCapture___$DomPropsMixin,
-    _$prop__onTouchCancelCapture___$DomPropsMixin,
-    _$prop__onTouchEndCapture___$DomPropsMixin,
-    _$prop__onTouchMoveCapture___$DomPropsMixin,
-    _$prop__onTouchStartCapture___$DomPropsMixin,
-    _$prop__onScrollCapture___$DomPropsMixin,
-    _$prop__onWheelCapture___$DomPropsMixin,
-    _$prop__defaultChecked___$DomPropsMixin,
-    _$prop__defaultValue___$DomPropsMixin,
-    _$prop__autoFocus___$DomPropsMixin
+    const PropDescriptor('cols'),
+    const PropDescriptor('rows'),
+    const PropDescriptor('size'),
+    const PropDescriptor('span'),
+    const PropDescriptor('start'),
+    const PropDescriptor('allowFullScreen'),
+    const PropDescriptor('async'),
+    const PropDescriptor('autoPlay'),
+    const PropDescriptor('checked'),
+    const PropDescriptor('controls'),
+    const PropDescriptor('defer'),
+    const PropDescriptor('disabled'),
+    const PropDescriptor('formNoValidate'),
+    const PropDescriptor('hidden'),
+    const PropDescriptor('loop'),
+    const PropDescriptor('multiple'),
+    const PropDescriptor('muted'),
+    const PropDescriptor('noValidate'),
+    const PropDescriptor('readOnly'),
+    const PropDescriptor('required'),
+    const PropDescriptor('seamless'),
+    const PropDescriptor('selected'),
+    const PropDescriptor('style'),
+    const PropDescriptor('className'),
+    const PropDescriptor('title'),
+    const PropDescriptor('id'),
+    const PropDescriptor('accept'),
+    const PropDescriptor('acceptCharset'),
+    const PropDescriptor('accessKey'),
+    const PropDescriptor('action'),
+    const PropDescriptor('allowTransparency'),
+    const PropDescriptor('alt'),
+    const PropDescriptor('autoComplete'),
+    const PropDescriptor('cellPadding'),
+    const PropDescriptor('cellSpacing'),
+    const PropDescriptor('charSet'),
+    const PropDescriptor('classID'),
+    const PropDescriptor('colSpan'),
+    const PropDescriptor('content'),
+    const PropDescriptor('contentEditable'),
+    const PropDescriptor('contextMenu'),
+    const PropDescriptor('coords'),
+    const PropDescriptor('crossOrigin'),
+    const PropDescriptor('data'),
+    const PropDescriptor('dateTime'),
+    const PropDescriptor('dir'),
+    const PropDescriptor('download'),
+    const PropDescriptor('draggable'),
+    const PropDescriptor('encType'),
+    const PropDescriptor('form'),
+    const PropDescriptor('frameBorder'),
+    const PropDescriptor('height'),
+    const PropDescriptor('href'),
+    const PropDescriptor('hrefLang'),
+    const PropDescriptor('htmlFor'),
+    const PropDescriptor('httpEquiv'),
+    const PropDescriptor('icon'),
+    const PropDescriptor('label'),
+    const PropDescriptor('lang'),
+    const PropDescriptor('list'),
+    const PropDescriptor('manifest'),
+    const PropDescriptor('max'),
+    const PropDescriptor('maxLength'),
+    const PropDescriptor('media'),
+    const PropDescriptor('mediaGroup'),
+    const PropDescriptor('method'),
+    const PropDescriptor('min'),
+    const PropDescriptor('name'),
+    const PropDescriptor('open'),
+    const PropDescriptor('pattern'),
+    const PropDescriptor('placeholder'),
+    const PropDescriptor('poster'),
+    const PropDescriptor('preload'),
+    const PropDescriptor('radioGroup'),
+    const PropDescriptor('rel'),
+    const PropDescriptor('role'),
+    const PropDescriptor('rowSpan'),
+    const PropDescriptor('sandbox'),
+    const PropDescriptor('scope'),
+    const PropDescriptor('scrolling'),
+    const PropDescriptor('shape'),
+    const PropDescriptor('sizes'),
+    const PropDescriptor('spellCheck'),
+    const PropDescriptor('src'),
+    const PropDescriptor('srcDoc'),
+    const PropDescriptor('srcSet'),
+    const PropDescriptor('step'),
+    const PropDescriptor('tabIndex'),
+    const PropDescriptor('target'),
+    const PropDescriptor('type'),
+    const PropDescriptor('useMap'),
+    const PropDescriptor('value'),
+    const PropDescriptor('width'),
+    const PropDescriptor('wmode'),
+    const PropDescriptor('onCopy'),
+    const PropDescriptor('onCut'),
+    const PropDescriptor('onPaste'),
+    const PropDescriptor('onKeyDown'),
+    const PropDescriptor('onKeyPress'),
+    const PropDescriptor('onKeyUp'),
+    const PropDescriptor('onFocus'),
+    const PropDescriptor('onBlur'),
+    const PropDescriptor('onChange'),
+    const PropDescriptor('onInput'),
+    const PropDescriptor('onSubmit'),
+    const PropDescriptor('onReset'),
+    const PropDescriptor('onClick'),
+    const PropDescriptor('onContextMenu'),
+    const PropDescriptor('onDoubleClick'),
+    const PropDescriptor('onDrag'),
+    const PropDescriptor('onDragEnd'),
+    const PropDescriptor('onDragEnter'),
+    const PropDescriptor('onDragExit'),
+    const PropDescriptor('onDragLeave'),
+    const PropDescriptor('onDragOver'),
+    const PropDescriptor('onDragStart'),
+    const PropDescriptor('onDrop'),
+    const PropDescriptor('onMouseDown'),
+    const PropDescriptor('onMouseEnter'),
+    const PropDescriptor('onMouseLeave'),
+    const PropDescriptor('onMouseMove'),
+    const PropDescriptor('onMouseOut'),
+    const PropDescriptor('onMouseOver'),
+    const PropDescriptor('onMouseUp'),
+    const PropDescriptor('onTouchCancel'),
+    const PropDescriptor('onTouchEnd'),
+    const PropDescriptor('onTouchMove'),
+    const PropDescriptor('onTouchStart'),
+    const PropDescriptor('onScroll'),
+    const PropDescriptor('onWheel'),
+    const PropDescriptor('onCopyCapture'),
+    const PropDescriptor('onCutCapture'),
+    const PropDescriptor('onPasteCapture'),
+    const PropDescriptor('onKeyDownCapture'),
+    const PropDescriptor('onKeyPressCapture'),
+    const PropDescriptor('onKeyUpCapture'),
+    const PropDescriptor('onFocusCapture'),
+    const PropDescriptor('onBlurCapture'),
+    const PropDescriptor('onChangeCapture'),
+    const PropDescriptor('onInputCapture'),
+    const PropDescriptor('onSubmitCapture'),
+    const PropDescriptor('onResetCapture'),
+    const PropDescriptor('onClickCapture'),
+    const PropDescriptor('onContextMenuCapture'),
+    const PropDescriptor('onDoubleClickCapture'),
+    const PropDescriptor('onDragCapture'),
+    const PropDescriptor('onDragEndCapture'),
+    const PropDescriptor('onDragEnterCapture'),
+    const PropDescriptor('onDragExitCapture'),
+    const PropDescriptor('onDragLeaveCapture'),
+    const PropDescriptor('onDragOverCapture'),
+    const PropDescriptor('onDragStartCapture'),
+    const PropDescriptor('onDropCapture'),
+    const PropDescriptor('onMouseDownCapture'),
+    const PropDescriptor('onMouseEnterCapture'),
+    const PropDescriptor('onMouseLeaveCapture'),
+    const PropDescriptor('onMouseMoveCapture'),
+    const PropDescriptor('onMouseOutCapture'),
+    const PropDescriptor('onMouseOverCapture'),
+    const PropDescriptor('onMouseUpCapture'),
+    const PropDescriptor('onTouchCancelCapture'),
+    const PropDescriptor('onTouchEndCapture'),
+    const PropDescriptor('onTouchMoveCapture'),
+    const PropDescriptor('onTouchStartCapture'),
+    const PropDescriptor('onScrollCapture'),
+    const PropDescriptor('onWheelCapture'),
+    const PropDescriptor('defaultChecked'),
+    const PropDescriptor('defaultValue'),
+    const PropDescriptor('autoFocus')
   ];
   static const List<String> $propKeys = const [
-    _$key__cols___$DomPropsMixin,
-    _$key__rows___$DomPropsMixin,
-    _$key__size___$DomPropsMixin,
-    _$key__span___$DomPropsMixin,
-    _$key__start___$DomPropsMixin,
-    _$key__allowFullScreen___$DomPropsMixin,
-    _$key__async___$DomPropsMixin,
-    _$key__autoPlay___$DomPropsMixin,
-    _$key__checked___$DomPropsMixin,
-    _$key__controls___$DomPropsMixin,
-    _$key__defer___$DomPropsMixin,
-    _$key__disabled___$DomPropsMixin,
-    _$key__formNoValidate___$DomPropsMixin,
-    _$key__hidden___$DomPropsMixin,
-    _$key__loop___$DomPropsMixin,
-    _$key__multiple___$DomPropsMixin,
-    _$key__muted___$DomPropsMixin,
-    _$key__noValidate___$DomPropsMixin,
-    _$key__readOnly___$DomPropsMixin,
-    _$key__required___$DomPropsMixin,
-    _$key__seamless___$DomPropsMixin,
-    _$key__selected___$DomPropsMixin,
-    _$key__style___$DomPropsMixin,
-    _$key__className___$DomPropsMixin,
-    _$key__title___$DomPropsMixin,
-    _$key__id___$DomPropsMixin,
-    _$key__accept___$DomPropsMixin,
-    _$key__acceptCharset___$DomPropsMixin,
-    _$key__accessKey___$DomPropsMixin,
-    _$key__action___$DomPropsMixin,
-    _$key__allowTransparency___$DomPropsMixin,
-    _$key__alt___$DomPropsMixin,
-    _$key__autoComplete___$DomPropsMixin,
-    _$key__cellPadding___$DomPropsMixin,
-    _$key__cellSpacing___$DomPropsMixin,
-    _$key__charSet___$DomPropsMixin,
-    _$key__classID___$DomPropsMixin,
-    _$key__colSpan___$DomPropsMixin,
-    _$key__content___$DomPropsMixin,
-    _$key__contentEditable___$DomPropsMixin,
-    _$key__contextMenu___$DomPropsMixin,
-    _$key__coords___$DomPropsMixin,
-    _$key__crossOrigin___$DomPropsMixin,
-    _$key__data___$DomPropsMixin,
-    _$key__dateTime___$DomPropsMixin,
-    _$key__dir___$DomPropsMixin,
-    _$key__download___$DomPropsMixin,
-    _$key__draggable___$DomPropsMixin,
-    _$key__encType___$DomPropsMixin,
-    _$key__form___$DomPropsMixin,
-    _$key__frameBorder___$DomPropsMixin,
-    _$key__height___$DomPropsMixin,
-    _$key__href___$DomPropsMixin,
-    _$key__hrefLang___$DomPropsMixin,
-    _$key__htmlFor___$DomPropsMixin,
-    _$key__httpEquiv___$DomPropsMixin,
-    _$key__icon___$DomPropsMixin,
-    _$key__label___$DomPropsMixin,
-    _$key__lang___$DomPropsMixin,
-    _$key__list___$DomPropsMixin,
-    _$key__manifest___$DomPropsMixin,
-    _$key__max___$DomPropsMixin,
-    _$key__maxLength___$DomPropsMixin,
-    _$key__media___$DomPropsMixin,
-    _$key__mediaGroup___$DomPropsMixin,
-    _$key__method___$DomPropsMixin,
-    _$key__min___$DomPropsMixin,
-    _$key__name___$DomPropsMixin,
-    _$key__open___$DomPropsMixin,
-    _$key__pattern___$DomPropsMixin,
-    _$key__placeholder___$DomPropsMixin,
-    _$key__poster___$DomPropsMixin,
-    _$key__preload___$DomPropsMixin,
-    _$key__radioGroup___$DomPropsMixin,
-    _$key__rel___$DomPropsMixin,
-    _$key__role___$DomPropsMixin,
-    _$key__rowSpan___$DomPropsMixin,
-    _$key__sandbox___$DomPropsMixin,
-    _$key__scope___$DomPropsMixin,
-    _$key__scrolling___$DomPropsMixin,
-    _$key__shape___$DomPropsMixin,
-    _$key__sizes___$DomPropsMixin,
-    _$key__spellCheck___$DomPropsMixin,
-    _$key__src___$DomPropsMixin,
-    _$key__srcDoc___$DomPropsMixin,
-    _$key__srcSet___$DomPropsMixin,
-    _$key__step___$DomPropsMixin,
-    _$key__tabIndex___$DomPropsMixin,
-    _$key__target___$DomPropsMixin,
-    _$key__type___$DomPropsMixin,
-    _$key__useMap___$DomPropsMixin,
-    _$key__value___$DomPropsMixin,
-    _$key__width___$DomPropsMixin,
-    _$key__wmode___$DomPropsMixin,
-    _$key__onCopy___$DomPropsMixin,
-    _$key__onCut___$DomPropsMixin,
-    _$key__onPaste___$DomPropsMixin,
-    _$key__onKeyDown___$DomPropsMixin,
-    _$key__onKeyPress___$DomPropsMixin,
-    _$key__onKeyUp___$DomPropsMixin,
-    _$key__onFocus___$DomPropsMixin,
-    _$key__onBlur___$DomPropsMixin,
-    _$key__onChange___$DomPropsMixin,
-    _$key__onInput___$DomPropsMixin,
-    _$key__onSubmit___$DomPropsMixin,
-    _$key__onReset___$DomPropsMixin,
-    _$key__onClick___$DomPropsMixin,
-    _$key__onContextMenu___$DomPropsMixin,
-    _$key__onDoubleClick___$DomPropsMixin,
-    _$key__onDrag___$DomPropsMixin,
-    _$key__onDragEnd___$DomPropsMixin,
-    _$key__onDragEnter___$DomPropsMixin,
-    _$key__onDragExit___$DomPropsMixin,
-    _$key__onDragLeave___$DomPropsMixin,
-    _$key__onDragOver___$DomPropsMixin,
-    _$key__onDragStart___$DomPropsMixin,
-    _$key__onDrop___$DomPropsMixin,
-    _$key__onMouseDown___$DomPropsMixin,
-    _$key__onMouseEnter___$DomPropsMixin,
-    _$key__onMouseLeave___$DomPropsMixin,
-    _$key__onMouseMove___$DomPropsMixin,
-    _$key__onMouseOut___$DomPropsMixin,
-    _$key__onMouseOver___$DomPropsMixin,
-    _$key__onMouseUp___$DomPropsMixin,
-    _$key__onTouchCancel___$DomPropsMixin,
-    _$key__onTouchEnd___$DomPropsMixin,
-    _$key__onTouchMove___$DomPropsMixin,
-    _$key__onTouchStart___$DomPropsMixin,
-    _$key__onScroll___$DomPropsMixin,
-    _$key__onWheel___$DomPropsMixin,
-    _$key__onCopyCapture___$DomPropsMixin,
-    _$key__onCutCapture___$DomPropsMixin,
-    _$key__onPasteCapture___$DomPropsMixin,
-    _$key__onKeyDownCapture___$DomPropsMixin,
-    _$key__onKeyPressCapture___$DomPropsMixin,
-    _$key__onKeyUpCapture___$DomPropsMixin,
-    _$key__onFocusCapture___$DomPropsMixin,
-    _$key__onBlurCapture___$DomPropsMixin,
-    _$key__onChangeCapture___$DomPropsMixin,
-    _$key__onInputCapture___$DomPropsMixin,
-    _$key__onSubmitCapture___$DomPropsMixin,
-    _$key__onResetCapture___$DomPropsMixin,
-    _$key__onClickCapture___$DomPropsMixin,
-    _$key__onContextMenuCapture___$DomPropsMixin,
-    _$key__onDoubleClickCapture___$DomPropsMixin,
-    _$key__onDragCapture___$DomPropsMixin,
-    _$key__onDragEndCapture___$DomPropsMixin,
-    _$key__onDragEnterCapture___$DomPropsMixin,
-    _$key__onDragExitCapture___$DomPropsMixin,
-    _$key__onDragLeaveCapture___$DomPropsMixin,
-    _$key__onDragOverCapture___$DomPropsMixin,
-    _$key__onDragStartCapture___$DomPropsMixin,
-    _$key__onDropCapture___$DomPropsMixin,
-    _$key__onMouseDownCapture___$DomPropsMixin,
-    _$key__onMouseEnterCapture___$DomPropsMixin,
-    _$key__onMouseLeaveCapture___$DomPropsMixin,
-    _$key__onMouseMoveCapture___$DomPropsMixin,
-    _$key__onMouseOutCapture___$DomPropsMixin,
-    _$key__onMouseOverCapture___$DomPropsMixin,
-    _$key__onMouseUpCapture___$DomPropsMixin,
-    _$key__onTouchCancelCapture___$DomPropsMixin,
-    _$key__onTouchEndCapture___$DomPropsMixin,
-    _$key__onTouchMoveCapture___$DomPropsMixin,
-    _$key__onTouchStartCapture___$DomPropsMixin,
-    _$key__onScrollCapture___$DomPropsMixin,
-    _$key__onWheelCapture___$DomPropsMixin,
-    _$key__defaultChecked___$DomPropsMixin,
-    _$key__defaultValue___$DomPropsMixin,
-    _$key__autoFocus___$DomPropsMixin
+    'cols',
+    'rows',
+    'size',
+    'span',
+    'start',
+    'allowFullScreen',
+    'async',
+    'autoPlay',
+    'checked',
+    'controls',
+    'defer',
+    'disabled',
+    'formNoValidate',
+    'hidden',
+    'loop',
+    'multiple',
+    'muted',
+    'noValidate',
+    'readOnly',
+    'required',
+    'seamless',
+    'selected',
+    'style',
+    'className',
+    'title',
+    'id',
+    'accept',
+    'acceptCharset',
+    'accessKey',
+    'action',
+    'allowTransparency',
+    'alt',
+    'autoComplete',
+    'cellPadding',
+    'cellSpacing',
+    'charSet',
+    'classID',
+    'colSpan',
+    'content',
+    'contentEditable',
+    'contextMenu',
+    'coords',
+    'crossOrigin',
+    'data',
+    'dateTime',
+    'dir',
+    'download',
+    'draggable',
+    'encType',
+    'form',
+    'frameBorder',
+    'height',
+    'href',
+    'hrefLang',
+    'htmlFor',
+    'httpEquiv',
+    'icon',
+    'label',
+    'lang',
+    'list',
+    'manifest',
+    'max',
+    'maxLength',
+    'media',
+    'mediaGroup',
+    'method',
+    'min',
+    'name',
+    'open',
+    'pattern',
+    'placeholder',
+    'poster',
+    'preload',
+    'radioGroup',
+    'rel',
+    'role',
+    'rowSpan',
+    'sandbox',
+    'scope',
+    'scrolling',
+    'shape',
+    'sizes',
+    'spellCheck',
+    'src',
+    'srcDoc',
+    'srcSet',
+    'step',
+    'tabIndex',
+    'target',
+    'type',
+    'useMap',
+    'value',
+    'width',
+    'wmode',
+    'onCopy',
+    'onCut',
+    'onPaste',
+    'onKeyDown',
+    'onKeyPress',
+    'onKeyUp',
+    'onFocus',
+    'onBlur',
+    'onChange',
+    'onInput',
+    'onSubmit',
+    'onReset',
+    'onClick',
+    'onContextMenu',
+    'onDoubleClick',
+    'onDrag',
+    'onDragEnd',
+    'onDragEnter',
+    'onDragExit',
+    'onDragLeave',
+    'onDragOver',
+    'onDragStart',
+    'onDrop',
+    'onMouseDown',
+    'onMouseEnter',
+    'onMouseLeave',
+    'onMouseMove',
+    'onMouseOut',
+    'onMouseOver',
+    'onMouseUp',
+    'onTouchCancel',
+    'onTouchEnd',
+    'onTouchMove',
+    'onTouchStart',
+    'onScroll',
+    'onWheel',
+    'onCopyCapture',
+    'onCutCapture',
+    'onPasteCapture',
+    'onKeyDownCapture',
+    'onKeyPressCapture',
+    'onKeyUpCapture',
+    'onFocusCapture',
+    'onBlurCapture',
+    'onChangeCapture',
+    'onInputCapture',
+    'onSubmitCapture',
+    'onResetCapture',
+    'onClickCapture',
+    'onContextMenuCapture',
+    'onDoubleClickCapture',
+    'onDragCapture',
+    'onDragEndCapture',
+    'onDragEnterCapture',
+    'onDragExitCapture',
+    'onDragLeaveCapture',
+    'onDragOverCapture',
+    'onDragStartCapture',
+    'onDropCapture',
+    'onMouseDownCapture',
+    'onMouseEnterCapture',
+    'onMouseLeaveCapture',
+    'onMouseMoveCapture',
+    'onMouseOutCapture',
+    'onMouseOverCapture',
+    'onMouseUpCapture',
+    'onTouchCancelCapture',
+    'onTouchEndCapture',
+    'onTouchMoveCapture',
+    'onTouchStartCapture',
+    'onScrollCapture',
+    'onWheelCapture',
+    'defaultChecked',
+    'defaultValue',
+    'autoFocus'
   ];
 }
 
@@ -2461,746 +1791,549 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.clipPath] to see the source code for this prop
   @override
-  dynamic get clipPath => props[_$key__clipPath___$SvgPropsMixin];
+  dynamic get clipPath => props['clipPath'];
 
   /// Go to [_$SvgPropsMixin.clipPath] to see the source code for this prop
   @override
-  set clipPath(dynamic value) =>
-      props[_$key__clipPath___$SvgPropsMixin] = value;
+  set clipPath(dynamic value) => props['clipPath'] = value;
 
   /// Go to [_$SvgPropsMixin.cx] to see the source code for this prop
   @override
-  dynamic get cx => props[_$key__cx___$SvgPropsMixin];
+  dynamic get cx => props['cx'];
 
   /// Go to [_$SvgPropsMixin.cx] to see the source code for this prop
   @override
-  set cx(dynamic value) => props[_$key__cx___$SvgPropsMixin] = value;
+  set cx(dynamic value) => props['cx'] = value;
 
   /// Go to [_$SvgPropsMixin.cy] to see the source code for this prop
   @override
-  dynamic get cy => props[_$key__cy___$SvgPropsMixin];
+  dynamic get cy => props['cy'];
 
   /// Go to [_$SvgPropsMixin.cy] to see the source code for this prop
   @override
-  set cy(dynamic value) => props[_$key__cy___$SvgPropsMixin] = value;
+  set cy(dynamic value) => props['cy'] = value;
 
   /// Go to [_$SvgPropsMixin.d] to see the source code for this prop
   @override
-  dynamic get d => props[_$key__d___$SvgPropsMixin];
+  dynamic get d => props['d'];
 
   /// Go to [_$SvgPropsMixin.d] to see the source code for this prop
   @override
-  set d(dynamic value) => props[_$key__d___$SvgPropsMixin] = value;
+  set d(dynamic value) => props['d'] = value;
 
   /// Go to [_$SvgPropsMixin.dx] to see the source code for this prop
   @override
-  dynamic get dx => props[_$key__dx___$SvgPropsMixin];
+  dynamic get dx => props['dx'];
 
   /// Go to [_$SvgPropsMixin.dx] to see the source code for this prop
   @override
-  set dx(dynamic value) => props[_$key__dx___$SvgPropsMixin] = value;
+  set dx(dynamic value) => props['dx'] = value;
 
   /// Go to [_$SvgPropsMixin.dy] to see the source code for this prop
   @override
-  dynamic get dy => props[_$key__dy___$SvgPropsMixin];
+  dynamic get dy => props['dy'];
 
   /// Go to [_$SvgPropsMixin.dy] to see the source code for this prop
   @override
-  set dy(dynamic value) => props[_$key__dy___$SvgPropsMixin] = value;
+  set dy(dynamic value) => props['dy'] = value;
 
   /// Go to [_$SvgPropsMixin.fill] to see the source code for this prop
   @override
-  dynamic get fill => props[_$key__fill___$SvgPropsMixin];
+  dynamic get fill => props['fill'];
 
   /// Go to [_$SvgPropsMixin.fill] to see the source code for this prop
   @override
-  set fill(dynamic value) => props[_$key__fill___$SvgPropsMixin] = value;
+  set fill(dynamic value) => props['fill'] = value;
 
   /// Go to [_$SvgPropsMixin.fillOpacity] to see the source code for this prop
   @override
-  dynamic get fillOpacity => props[_$key__fillOpacity___$SvgPropsMixin];
+  dynamic get fillOpacity => props['fillOpacity'];
 
   /// Go to [_$SvgPropsMixin.fillOpacity] to see the source code for this prop
   @override
-  set fillOpacity(dynamic value) =>
-      props[_$key__fillOpacity___$SvgPropsMixin] = value;
+  set fillOpacity(dynamic value) => props['fillOpacity'] = value;
 
   /// Go to [_$SvgPropsMixin.fontFamily] to see the source code for this prop
   @override
-  dynamic get fontFamily => props[_$key__fontFamily___$SvgPropsMixin];
+  dynamic get fontFamily => props['fontFamily'];
 
   /// Go to [_$SvgPropsMixin.fontFamily] to see the source code for this prop
   @override
-  set fontFamily(dynamic value) =>
-      props[_$key__fontFamily___$SvgPropsMixin] = value;
+  set fontFamily(dynamic value) => props['fontFamily'] = value;
 
   /// Go to [_$SvgPropsMixin.fontSize] to see the source code for this prop
   @override
-  dynamic get fontSize => props[_$key__fontSize___$SvgPropsMixin];
+  dynamic get fontSize => props['fontSize'];
 
   /// Go to [_$SvgPropsMixin.fontSize] to see the source code for this prop
   @override
-  set fontSize(dynamic value) =>
-      props[_$key__fontSize___$SvgPropsMixin] = value;
+  set fontSize(dynamic value) => props['fontSize'] = value;
 
   /// Go to [_$SvgPropsMixin.fx] to see the source code for this prop
   @override
-  dynamic get fx => props[_$key__fx___$SvgPropsMixin];
+  dynamic get fx => props['fx'];
 
   /// Go to [_$SvgPropsMixin.fx] to see the source code for this prop
   @override
-  set fx(dynamic value) => props[_$key__fx___$SvgPropsMixin] = value;
+  set fx(dynamic value) => props['fx'] = value;
 
   /// Go to [_$SvgPropsMixin.fy] to see the source code for this prop
   @override
-  dynamic get fy => props[_$key__fy___$SvgPropsMixin];
+  dynamic get fy => props['fy'];
 
   /// Go to [_$SvgPropsMixin.fy] to see the source code for this prop
   @override
-  set fy(dynamic value) => props[_$key__fy___$SvgPropsMixin] = value;
+  set fy(dynamic value) => props['fy'] = value;
 
   /// Go to [_$SvgPropsMixin.gradientTransform] to see the source code for this prop
   @override
-  dynamic get gradientTransform =>
-      props[_$key__gradientTransform___$SvgPropsMixin];
+  dynamic get gradientTransform => props['gradientTransform'];
 
   /// Go to [_$SvgPropsMixin.gradientTransform] to see the source code for this prop
   @override
-  set gradientTransform(dynamic value) =>
-      props[_$key__gradientTransform___$SvgPropsMixin] = value;
+  set gradientTransform(dynamic value) => props['gradientTransform'] = value;
 
   /// Go to [_$SvgPropsMixin.gradientUnits] to see the source code for this prop
   @override
-  dynamic get gradientUnits => props[_$key__gradientUnits___$SvgPropsMixin];
+  dynamic get gradientUnits => props['gradientUnits'];
 
   /// Go to [_$SvgPropsMixin.gradientUnits] to see the source code for this prop
   @override
-  set gradientUnits(dynamic value) =>
-      props[_$key__gradientUnits___$SvgPropsMixin] = value;
+  set gradientUnits(dynamic value) => props['gradientUnits'] = value;
 
   /// Go to [_$SvgPropsMixin.markerEnd] to see the source code for this prop
   @override
-  dynamic get markerEnd => props[_$key__markerEnd___$SvgPropsMixin];
+  dynamic get markerEnd => props['markerEnd'];
 
   /// Go to [_$SvgPropsMixin.markerEnd] to see the source code for this prop
   @override
-  set markerEnd(dynamic value) =>
-      props[_$key__markerEnd___$SvgPropsMixin] = value;
+  set markerEnd(dynamic value) => props['markerEnd'] = value;
 
   /// Go to [_$SvgPropsMixin.markerMid] to see the source code for this prop
   @override
-  dynamic get markerMid => props[_$key__markerMid___$SvgPropsMixin];
+  dynamic get markerMid => props['markerMid'];
 
   /// Go to [_$SvgPropsMixin.markerMid] to see the source code for this prop
   @override
-  set markerMid(dynamic value) =>
-      props[_$key__markerMid___$SvgPropsMixin] = value;
+  set markerMid(dynamic value) => props['markerMid'] = value;
 
   /// Go to [_$SvgPropsMixin.markerStart] to see the source code for this prop
   @override
-  dynamic get markerStart => props[_$key__markerStart___$SvgPropsMixin];
+  dynamic get markerStart => props['markerStart'];
 
   /// Go to [_$SvgPropsMixin.markerStart] to see the source code for this prop
   @override
-  set markerStart(dynamic value) =>
-      props[_$key__markerStart___$SvgPropsMixin] = value;
+  set markerStart(dynamic value) => props['markerStart'] = value;
 
   /// Go to [_$SvgPropsMixin.offset] to see the source code for this prop
   @override
-  dynamic get offset => props[_$key__offset___$SvgPropsMixin];
+  dynamic get offset => props['offset'];
 
   /// Go to [_$SvgPropsMixin.offset] to see the source code for this prop
   @override
-  set offset(dynamic value) => props[_$key__offset___$SvgPropsMixin] = value;
+  set offset(dynamic value) => props['offset'] = value;
 
   /// Go to [_$SvgPropsMixin.opacity] to see the source code for this prop
   @override
-  dynamic get opacity => props[_$key__opacity___$SvgPropsMixin];
+  dynamic get opacity => props['opacity'];
 
   /// Go to [_$SvgPropsMixin.opacity] to see the source code for this prop
   @override
-  set opacity(dynamic value) => props[_$key__opacity___$SvgPropsMixin] = value;
+  set opacity(dynamic value) => props['opacity'] = value;
 
   /// Go to [_$SvgPropsMixin.patternContentUnits] to see the source code for this prop
   @override
-  dynamic get patternContentUnits =>
-      props[_$key__patternContentUnits___$SvgPropsMixin];
+  dynamic get patternContentUnits => props['patternContentUnits'];
 
   /// Go to [_$SvgPropsMixin.patternContentUnits] to see the source code for this prop
   @override
   set patternContentUnits(dynamic value) =>
-      props[_$key__patternContentUnits___$SvgPropsMixin] = value;
+      props['patternContentUnits'] = value;
 
   /// Go to [_$SvgPropsMixin.patternUnits] to see the source code for this prop
   @override
-  dynamic get patternUnits => props[_$key__patternUnits___$SvgPropsMixin];
+  dynamic get patternUnits => props['patternUnits'];
 
   /// Go to [_$SvgPropsMixin.patternUnits] to see the source code for this prop
   @override
-  set patternUnits(dynamic value) =>
-      props[_$key__patternUnits___$SvgPropsMixin] = value;
+  set patternUnits(dynamic value) => props['patternUnits'] = value;
 
   /// Go to [_$SvgPropsMixin.points] to see the source code for this prop
   @override
-  dynamic get points => props[_$key__points___$SvgPropsMixin];
+  dynamic get points => props['points'];
 
   /// Go to [_$SvgPropsMixin.points] to see the source code for this prop
   @override
-  set points(dynamic value) => props[_$key__points___$SvgPropsMixin] = value;
+  set points(dynamic value) => props['points'] = value;
 
   /// Go to [_$SvgPropsMixin.preserveAspectRatio] to see the source code for this prop
   @override
-  dynamic get preserveAspectRatio =>
-      props[_$key__preserveAspectRatio___$SvgPropsMixin];
+  dynamic get preserveAspectRatio => props['preserveAspectRatio'];
 
   /// Go to [_$SvgPropsMixin.preserveAspectRatio] to see the source code for this prop
   @override
   set preserveAspectRatio(dynamic value) =>
-      props[_$key__preserveAspectRatio___$SvgPropsMixin] = value;
+      props['preserveAspectRatio'] = value;
 
   /// Go to [_$SvgPropsMixin.r] to see the source code for this prop
   @override
-  dynamic get r => props[_$key__r___$SvgPropsMixin];
+  dynamic get r => props['r'];
 
   /// Go to [_$SvgPropsMixin.r] to see the source code for this prop
   @override
-  set r(dynamic value) => props[_$key__r___$SvgPropsMixin] = value;
+  set r(dynamic value) => props['r'] = value;
 
   /// Go to [_$SvgPropsMixin.rx] to see the source code for this prop
   @override
-  dynamic get rx => props[_$key__rx___$SvgPropsMixin];
+  dynamic get rx => props['rx'];
 
   /// Go to [_$SvgPropsMixin.rx] to see the source code for this prop
   @override
-  set rx(dynamic value) => props[_$key__rx___$SvgPropsMixin] = value;
+  set rx(dynamic value) => props['rx'] = value;
 
   /// Go to [_$SvgPropsMixin.ry] to see the source code for this prop
   @override
-  dynamic get ry => props[_$key__ry___$SvgPropsMixin];
+  dynamic get ry => props['ry'];
 
   /// Go to [_$SvgPropsMixin.ry] to see the source code for this prop
   @override
-  set ry(dynamic value) => props[_$key__ry___$SvgPropsMixin] = value;
+  set ry(dynamic value) => props['ry'] = value;
 
   /// Go to [_$SvgPropsMixin.spreadMethod] to see the source code for this prop
   @override
-  dynamic get spreadMethod => props[_$key__spreadMethod___$SvgPropsMixin];
+  dynamic get spreadMethod => props['spreadMethod'];
 
   /// Go to [_$SvgPropsMixin.spreadMethod] to see the source code for this prop
   @override
-  set spreadMethod(dynamic value) =>
-      props[_$key__spreadMethod___$SvgPropsMixin] = value;
+  set spreadMethod(dynamic value) => props['spreadMethod'] = value;
 
   /// Go to [_$SvgPropsMixin.stopColor] to see the source code for this prop
   @override
-  dynamic get stopColor => props[_$key__stopColor___$SvgPropsMixin];
+  dynamic get stopColor => props['stopColor'];
 
   /// Go to [_$SvgPropsMixin.stopColor] to see the source code for this prop
   @override
-  set stopColor(dynamic value) =>
-      props[_$key__stopColor___$SvgPropsMixin] = value;
+  set stopColor(dynamic value) => props['stopColor'] = value;
 
   /// Go to [_$SvgPropsMixin.stopOpacity] to see the source code for this prop
   @override
-  dynamic get stopOpacity => props[_$key__stopOpacity___$SvgPropsMixin];
+  dynamic get stopOpacity => props['stopOpacity'];
 
   /// Go to [_$SvgPropsMixin.stopOpacity] to see the source code for this prop
   @override
-  set stopOpacity(dynamic value) =>
-      props[_$key__stopOpacity___$SvgPropsMixin] = value;
+  set stopOpacity(dynamic value) => props['stopOpacity'] = value;
 
   /// Go to [_$SvgPropsMixin.stroke] to see the source code for this prop
   @override
-  dynamic get stroke => props[_$key__stroke___$SvgPropsMixin];
+  dynamic get stroke => props['stroke'];
 
   /// Go to [_$SvgPropsMixin.stroke] to see the source code for this prop
   @override
-  set stroke(dynamic value) => props[_$key__stroke___$SvgPropsMixin] = value;
+  set stroke(dynamic value) => props['stroke'] = value;
 
   /// Go to [_$SvgPropsMixin.strokeDasharray] to see the source code for this prop
   @override
-  dynamic get strokeDasharray => props[_$key__strokeDasharray___$SvgPropsMixin];
+  dynamic get strokeDasharray => props['strokeDasharray'];
 
   /// Go to [_$SvgPropsMixin.strokeDasharray] to see the source code for this prop
   @override
-  set strokeDasharray(dynamic value) =>
-      props[_$key__strokeDasharray___$SvgPropsMixin] = value;
+  set strokeDasharray(dynamic value) => props['strokeDasharray'] = value;
 
   /// Go to [_$SvgPropsMixin.strokeLinecap] to see the source code for this prop
   @override
-  dynamic get strokeLinecap => props[_$key__strokeLinecap___$SvgPropsMixin];
+  dynamic get strokeLinecap => props['strokeLinecap'];
 
   /// Go to [_$SvgPropsMixin.strokeLinecap] to see the source code for this prop
   @override
-  set strokeLinecap(dynamic value) =>
-      props[_$key__strokeLinecap___$SvgPropsMixin] = value;
+  set strokeLinecap(dynamic value) => props['strokeLinecap'] = value;
 
   /// Go to [_$SvgPropsMixin.strokeOpacity] to see the source code for this prop
   @override
-  dynamic get strokeOpacity => props[_$key__strokeOpacity___$SvgPropsMixin];
+  dynamic get strokeOpacity => props['strokeOpacity'];
 
   /// Go to [_$SvgPropsMixin.strokeOpacity] to see the source code for this prop
   @override
-  set strokeOpacity(dynamic value) =>
-      props[_$key__strokeOpacity___$SvgPropsMixin] = value;
+  set strokeOpacity(dynamic value) => props['strokeOpacity'] = value;
 
   /// Go to [_$SvgPropsMixin.strokeWidth] to see the source code for this prop
   @override
-  dynamic get strokeWidth => props[_$key__strokeWidth___$SvgPropsMixin];
+  dynamic get strokeWidth => props['strokeWidth'];
 
   /// Go to [_$SvgPropsMixin.strokeWidth] to see the source code for this prop
   @override
-  set strokeWidth(dynamic value) =>
-      props[_$key__strokeWidth___$SvgPropsMixin] = value;
+  set strokeWidth(dynamic value) => props['strokeWidth'] = value;
 
   /// Go to [_$SvgPropsMixin.textAnchor] to see the source code for this prop
   @override
-  dynamic get textAnchor => props[_$key__textAnchor___$SvgPropsMixin];
+  dynamic get textAnchor => props['textAnchor'];
 
   /// Go to [_$SvgPropsMixin.textAnchor] to see the source code for this prop
   @override
-  set textAnchor(dynamic value) =>
-      props[_$key__textAnchor___$SvgPropsMixin] = value;
+  set textAnchor(dynamic value) => props['textAnchor'] = value;
 
   /// Go to [_$SvgPropsMixin.transform] to see the source code for this prop
   @override
-  dynamic get transform => props[_$key__transform___$SvgPropsMixin];
+  dynamic get transform => props['transform'];
 
   /// Go to [_$SvgPropsMixin.transform] to see the source code for this prop
   @override
-  set transform(dynamic value) =>
-      props[_$key__transform___$SvgPropsMixin] = value;
+  set transform(dynamic value) => props['transform'] = value;
 
   /// Go to [_$SvgPropsMixin.version] to see the source code for this prop
   @override
-  dynamic get version => props[_$key__version___$SvgPropsMixin];
+  dynamic get version => props['version'];
 
   /// Go to [_$SvgPropsMixin.version] to see the source code for this prop
   @override
-  set version(dynamic value) => props[_$key__version___$SvgPropsMixin] = value;
+  set version(dynamic value) => props['version'] = value;
 
   /// Go to [_$SvgPropsMixin.viewBox] to see the source code for this prop
   @override
-  dynamic get viewBox => props[_$key__viewBox___$SvgPropsMixin];
+  dynamic get viewBox => props['viewBox'];
 
   /// Go to [_$SvgPropsMixin.viewBox] to see the source code for this prop
   @override
-  set viewBox(dynamic value) => props[_$key__viewBox___$SvgPropsMixin] = value;
+  set viewBox(dynamic value) => props['viewBox'] = value;
 
   /// Go to [_$SvgPropsMixin.x1] to see the source code for this prop
   @override
-  dynamic get x1 => props[_$key__x1___$SvgPropsMixin];
+  dynamic get x1 => props['x1'];
 
   /// Go to [_$SvgPropsMixin.x1] to see the source code for this prop
   @override
-  set x1(dynamic value) => props[_$key__x1___$SvgPropsMixin] = value;
+  set x1(dynamic value) => props['x1'] = value;
 
   /// Go to [_$SvgPropsMixin.x2] to see the source code for this prop
   @override
-  dynamic get x2 => props[_$key__x2___$SvgPropsMixin];
+  dynamic get x2 => props['x2'];
 
   /// Go to [_$SvgPropsMixin.x2] to see the source code for this prop
   @override
-  set x2(dynamic value) => props[_$key__x2___$SvgPropsMixin] = value;
+  set x2(dynamic value) => props['x2'] = value;
 
   /// Go to [_$SvgPropsMixin.x] to see the source code for this prop
   @override
-  dynamic get x => props[_$key__x___$SvgPropsMixin];
+  dynamic get x => props['x'];
 
   /// Go to [_$SvgPropsMixin.x] to see the source code for this prop
   @override
-  set x(dynamic value) => props[_$key__x___$SvgPropsMixin] = value;
+  set x(dynamic value) => props['x'] = value;
 
   /// Go to [_$SvgPropsMixin.xlinkActuate] to see the source code for this prop
   @override
-  dynamic get xlinkActuate => props[_$key__xlinkActuate___$SvgPropsMixin];
+  dynamic get xlinkActuate => props['xlinkActuate'];
 
   /// Go to [_$SvgPropsMixin.xlinkActuate] to see the source code for this prop
   @override
-  set xlinkActuate(dynamic value) =>
-      props[_$key__xlinkActuate___$SvgPropsMixin] = value;
+  set xlinkActuate(dynamic value) => props['xlinkActuate'] = value;
 
   /// Go to [_$SvgPropsMixin.xlinkArcrole] to see the source code for this prop
   @override
-  dynamic get xlinkArcrole => props[_$key__xlinkArcrole___$SvgPropsMixin];
+  dynamic get xlinkArcrole => props['xlinkArcrole'];
 
   /// Go to [_$SvgPropsMixin.xlinkArcrole] to see the source code for this prop
   @override
-  set xlinkArcrole(dynamic value) =>
-      props[_$key__xlinkArcrole___$SvgPropsMixin] = value;
+  set xlinkArcrole(dynamic value) => props['xlinkArcrole'] = value;
 
   /// Go to [_$SvgPropsMixin.xlinkHref] to see the source code for this prop
   @override
-  dynamic get xlinkHref => props[_$key__xlinkHref___$SvgPropsMixin];
+  dynamic get xlinkHref => props['xlinkHref'];
 
   /// Go to [_$SvgPropsMixin.xlinkHref] to see the source code for this prop
   @override
-  set xlinkHref(dynamic value) =>
-      props[_$key__xlinkHref___$SvgPropsMixin] = value;
+  set xlinkHref(dynamic value) => props['xlinkHref'] = value;
 
   /// Go to [_$SvgPropsMixin.xlinkRole] to see the source code for this prop
   @override
-  dynamic get xlinkRole => props[_$key__xlinkRole___$SvgPropsMixin];
+  dynamic get xlinkRole => props['xlinkRole'];
 
   /// Go to [_$SvgPropsMixin.xlinkRole] to see the source code for this prop
   @override
-  set xlinkRole(dynamic value) =>
-      props[_$key__xlinkRole___$SvgPropsMixin] = value;
+  set xlinkRole(dynamic value) => props['xlinkRole'] = value;
 
   /// Go to [_$SvgPropsMixin.xlinkShow] to see the source code for this prop
   @override
-  dynamic get xlinkShow => props[_$key__xlinkShow___$SvgPropsMixin];
+  dynamic get xlinkShow => props['xlinkShow'];
 
   /// Go to [_$SvgPropsMixin.xlinkShow] to see the source code for this prop
   @override
-  set xlinkShow(dynamic value) =>
-      props[_$key__xlinkShow___$SvgPropsMixin] = value;
+  set xlinkShow(dynamic value) => props['xlinkShow'] = value;
 
   /// Go to [_$SvgPropsMixin.xlinkTitle] to see the source code for this prop
   @override
-  dynamic get xlinkTitle => props[_$key__xlinkTitle___$SvgPropsMixin];
+  dynamic get xlinkTitle => props['xlinkTitle'];
 
   /// Go to [_$SvgPropsMixin.xlinkTitle] to see the source code for this prop
   @override
-  set xlinkTitle(dynamic value) =>
-      props[_$key__xlinkTitle___$SvgPropsMixin] = value;
+  set xlinkTitle(dynamic value) => props['xlinkTitle'] = value;
 
   /// Go to [_$SvgPropsMixin.xlinkType] to see the source code for this prop
   @override
-  dynamic get xlinkType => props[_$key__xlinkType___$SvgPropsMixin];
+  dynamic get xlinkType => props['xlinkType'];
 
   /// Go to [_$SvgPropsMixin.xlinkType] to see the source code for this prop
   @override
-  set xlinkType(dynamic value) =>
-      props[_$key__xlinkType___$SvgPropsMixin] = value;
+  set xlinkType(dynamic value) => props['xlinkType'] = value;
 
   /// Go to [_$SvgPropsMixin.xmlBase] to see the source code for this prop
   @override
-  dynamic get xmlBase => props[_$key__xmlBase___$SvgPropsMixin];
+  dynamic get xmlBase => props['xmlBase'];
 
   /// Go to [_$SvgPropsMixin.xmlBase] to see the source code for this prop
   @override
-  set xmlBase(dynamic value) => props[_$key__xmlBase___$SvgPropsMixin] = value;
+  set xmlBase(dynamic value) => props['xmlBase'] = value;
 
   /// Go to [_$SvgPropsMixin.xmlLang] to see the source code for this prop
   @override
-  dynamic get xmlLang => props[_$key__xmlLang___$SvgPropsMixin];
+  dynamic get xmlLang => props['xmlLang'];
 
   /// Go to [_$SvgPropsMixin.xmlLang] to see the source code for this prop
   @override
-  set xmlLang(dynamic value) => props[_$key__xmlLang___$SvgPropsMixin] = value;
+  set xmlLang(dynamic value) => props['xmlLang'] = value;
 
   /// Go to [_$SvgPropsMixin.xmlSpace] to see the source code for this prop
   @override
-  dynamic get xmlSpace => props[_$key__xmlSpace___$SvgPropsMixin];
+  dynamic get xmlSpace => props['xmlSpace'];
 
   /// Go to [_$SvgPropsMixin.xmlSpace] to see the source code for this prop
   @override
-  set xmlSpace(dynamic value) =>
-      props[_$key__xmlSpace___$SvgPropsMixin] = value;
+  set xmlSpace(dynamic value) => props['xmlSpace'] = value;
 
   /// Go to [_$SvgPropsMixin.y1] to see the source code for this prop
   @override
-  dynamic get y1 => props[_$key__y1___$SvgPropsMixin];
+  dynamic get y1 => props['y1'];
 
   /// Go to [_$SvgPropsMixin.y1] to see the source code for this prop
   @override
-  set y1(dynamic value) => props[_$key__y1___$SvgPropsMixin] = value;
+  set y1(dynamic value) => props['y1'] = value;
 
   /// Go to [_$SvgPropsMixin.y2] to see the source code for this prop
   @override
-  dynamic get y2 => props[_$key__y2___$SvgPropsMixin];
+  dynamic get y2 => props['y2'];
 
   /// Go to [_$SvgPropsMixin.y2] to see the source code for this prop
   @override
-  set y2(dynamic value) => props[_$key__y2___$SvgPropsMixin] = value;
+  set y2(dynamic value) => props['y2'] = value;
 
   /// Go to [_$SvgPropsMixin.y] to see the source code for this prop
   @override
-  dynamic get y => props[_$key__y___$SvgPropsMixin];
+  dynamic get y => props['y'];
 
   /// Go to [_$SvgPropsMixin.y] to see the source code for this prop
   @override
-  set y(dynamic value) => props[_$key__y___$SvgPropsMixin] = value;
+  set y(dynamic value) => props['y'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__clipPath___$SvgPropsMixin =
-      const PropDescriptor(_$key__clipPath___$SvgPropsMixin);
-  static const PropDescriptor _$prop__cx___$SvgPropsMixin =
-      const PropDescriptor(_$key__cx___$SvgPropsMixin);
-  static const PropDescriptor _$prop__cy___$SvgPropsMixin =
-      const PropDescriptor(_$key__cy___$SvgPropsMixin);
-  static const PropDescriptor _$prop__d___$SvgPropsMixin =
-      const PropDescriptor(_$key__d___$SvgPropsMixin);
-  static const PropDescriptor _$prop__dx___$SvgPropsMixin =
-      const PropDescriptor(_$key__dx___$SvgPropsMixin);
-  static const PropDescriptor _$prop__dy___$SvgPropsMixin =
-      const PropDescriptor(_$key__dy___$SvgPropsMixin);
-  static const PropDescriptor _$prop__fill___$SvgPropsMixin =
-      const PropDescriptor(_$key__fill___$SvgPropsMixin);
-  static const PropDescriptor _$prop__fillOpacity___$SvgPropsMixin =
-      const PropDescriptor(_$key__fillOpacity___$SvgPropsMixin);
-  static const PropDescriptor _$prop__fontFamily___$SvgPropsMixin =
-      const PropDescriptor(_$key__fontFamily___$SvgPropsMixin);
-  static const PropDescriptor _$prop__fontSize___$SvgPropsMixin =
-      const PropDescriptor(_$key__fontSize___$SvgPropsMixin);
-  static const PropDescriptor _$prop__fx___$SvgPropsMixin =
-      const PropDescriptor(_$key__fx___$SvgPropsMixin);
-  static const PropDescriptor _$prop__fy___$SvgPropsMixin =
-      const PropDescriptor(_$key__fy___$SvgPropsMixin);
-  static const PropDescriptor _$prop__gradientTransform___$SvgPropsMixin =
-      const PropDescriptor(_$key__gradientTransform___$SvgPropsMixin);
-  static const PropDescriptor _$prop__gradientUnits___$SvgPropsMixin =
-      const PropDescriptor(_$key__gradientUnits___$SvgPropsMixin);
-  static const PropDescriptor _$prop__markerEnd___$SvgPropsMixin =
-      const PropDescriptor(_$key__markerEnd___$SvgPropsMixin);
-  static const PropDescriptor _$prop__markerMid___$SvgPropsMixin =
-      const PropDescriptor(_$key__markerMid___$SvgPropsMixin);
-  static const PropDescriptor _$prop__markerStart___$SvgPropsMixin =
-      const PropDescriptor(_$key__markerStart___$SvgPropsMixin);
-  static const PropDescriptor _$prop__offset___$SvgPropsMixin =
-      const PropDescriptor(_$key__offset___$SvgPropsMixin);
-  static const PropDescriptor _$prop__opacity___$SvgPropsMixin =
-      const PropDescriptor(_$key__opacity___$SvgPropsMixin);
-  static const PropDescriptor _$prop__patternContentUnits___$SvgPropsMixin =
-      const PropDescriptor(_$key__patternContentUnits___$SvgPropsMixin);
-  static const PropDescriptor _$prop__patternUnits___$SvgPropsMixin =
-      const PropDescriptor(_$key__patternUnits___$SvgPropsMixin);
-  static const PropDescriptor _$prop__points___$SvgPropsMixin =
-      const PropDescriptor(_$key__points___$SvgPropsMixin);
-  static const PropDescriptor _$prop__preserveAspectRatio___$SvgPropsMixin =
-      const PropDescriptor(_$key__preserveAspectRatio___$SvgPropsMixin);
-  static const PropDescriptor _$prop__r___$SvgPropsMixin =
-      const PropDescriptor(_$key__r___$SvgPropsMixin);
-  static const PropDescriptor _$prop__rx___$SvgPropsMixin =
-      const PropDescriptor(_$key__rx___$SvgPropsMixin);
-  static const PropDescriptor _$prop__ry___$SvgPropsMixin =
-      const PropDescriptor(_$key__ry___$SvgPropsMixin);
-  static const PropDescriptor _$prop__spreadMethod___$SvgPropsMixin =
-      const PropDescriptor(_$key__spreadMethod___$SvgPropsMixin);
-  static const PropDescriptor _$prop__stopColor___$SvgPropsMixin =
-      const PropDescriptor(_$key__stopColor___$SvgPropsMixin);
-  static const PropDescriptor _$prop__stopOpacity___$SvgPropsMixin =
-      const PropDescriptor(_$key__stopOpacity___$SvgPropsMixin);
-  static const PropDescriptor _$prop__stroke___$SvgPropsMixin =
-      const PropDescriptor(_$key__stroke___$SvgPropsMixin);
-  static const PropDescriptor _$prop__strokeDasharray___$SvgPropsMixin =
-      const PropDescriptor(_$key__strokeDasharray___$SvgPropsMixin);
-  static const PropDescriptor _$prop__strokeLinecap___$SvgPropsMixin =
-      const PropDescriptor(_$key__strokeLinecap___$SvgPropsMixin);
-  static const PropDescriptor _$prop__strokeOpacity___$SvgPropsMixin =
-      const PropDescriptor(_$key__strokeOpacity___$SvgPropsMixin);
-  static const PropDescriptor _$prop__strokeWidth___$SvgPropsMixin =
-      const PropDescriptor(_$key__strokeWidth___$SvgPropsMixin);
-  static const PropDescriptor _$prop__textAnchor___$SvgPropsMixin =
-      const PropDescriptor(_$key__textAnchor___$SvgPropsMixin);
-  static const PropDescriptor _$prop__transform___$SvgPropsMixin =
-      const PropDescriptor(_$key__transform___$SvgPropsMixin);
-  static const PropDescriptor _$prop__version___$SvgPropsMixin =
-      const PropDescriptor(_$key__version___$SvgPropsMixin);
-  static const PropDescriptor _$prop__viewBox___$SvgPropsMixin =
-      const PropDescriptor(_$key__viewBox___$SvgPropsMixin);
-  static const PropDescriptor _$prop__x1___$SvgPropsMixin =
-      const PropDescriptor(_$key__x1___$SvgPropsMixin);
-  static const PropDescriptor _$prop__x2___$SvgPropsMixin =
-      const PropDescriptor(_$key__x2___$SvgPropsMixin);
-  static const PropDescriptor _$prop__x___$SvgPropsMixin =
-      const PropDescriptor(_$key__x___$SvgPropsMixin);
-  static const PropDescriptor _$prop__xlinkActuate___$SvgPropsMixin =
-      const PropDescriptor(_$key__xlinkActuate___$SvgPropsMixin);
-  static const PropDescriptor _$prop__xlinkArcrole___$SvgPropsMixin =
-      const PropDescriptor(_$key__xlinkArcrole___$SvgPropsMixin);
-  static const PropDescriptor _$prop__xlinkHref___$SvgPropsMixin =
-      const PropDescriptor(_$key__xlinkHref___$SvgPropsMixin);
-  static const PropDescriptor _$prop__xlinkRole___$SvgPropsMixin =
-      const PropDescriptor(_$key__xlinkRole___$SvgPropsMixin);
-  static const PropDescriptor _$prop__xlinkShow___$SvgPropsMixin =
-      const PropDescriptor(_$key__xlinkShow___$SvgPropsMixin);
-  static const PropDescriptor _$prop__xlinkTitle___$SvgPropsMixin =
-      const PropDescriptor(_$key__xlinkTitle___$SvgPropsMixin);
-  static const PropDescriptor _$prop__xlinkType___$SvgPropsMixin =
-      const PropDescriptor(_$key__xlinkType___$SvgPropsMixin);
-  static const PropDescriptor _$prop__xmlBase___$SvgPropsMixin =
-      const PropDescriptor(_$key__xmlBase___$SvgPropsMixin);
-  static const PropDescriptor _$prop__xmlLang___$SvgPropsMixin =
-      const PropDescriptor(_$key__xmlLang___$SvgPropsMixin);
-  static const PropDescriptor _$prop__xmlSpace___$SvgPropsMixin =
-      const PropDescriptor(_$key__xmlSpace___$SvgPropsMixin);
-  static const PropDescriptor _$prop__y1___$SvgPropsMixin =
-      const PropDescriptor(_$key__y1___$SvgPropsMixin);
-  static const PropDescriptor _$prop__y2___$SvgPropsMixin =
-      const PropDescriptor(_$key__y2___$SvgPropsMixin);
-  static const PropDescriptor _$prop__y___$SvgPropsMixin =
-      const PropDescriptor(_$key__y___$SvgPropsMixin);
-  static const String _$key__clipPath___$SvgPropsMixin = 'clipPath';
-  static const String _$key__cx___$SvgPropsMixin = 'cx';
-  static const String _$key__cy___$SvgPropsMixin = 'cy';
-  static const String _$key__d___$SvgPropsMixin = 'd';
-  static const String _$key__dx___$SvgPropsMixin = 'dx';
-  static const String _$key__dy___$SvgPropsMixin = 'dy';
-  static const String _$key__fill___$SvgPropsMixin = 'fill';
-  static const String _$key__fillOpacity___$SvgPropsMixin = 'fillOpacity';
-  static const String _$key__fontFamily___$SvgPropsMixin = 'fontFamily';
-  static const String _$key__fontSize___$SvgPropsMixin = 'fontSize';
-  static const String _$key__fx___$SvgPropsMixin = 'fx';
-  static const String _$key__fy___$SvgPropsMixin = 'fy';
-  static const String _$key__gradientTransform___$SvgPropsMixin =
-      'gradientTransform';
-  static const String _$key__gradientUnits___$SvgPropsMixin = 'gradientUnits';
-  static const String _$key__markerEnd___$SvgPropsMixin = 'markerEnd';
-  static const String _$key__markerMid___$SvgPropsMixin = 'markerMid';
-  static const String _$key__markerStart___$SvgPropsMixin = 'markerStart';
-  static const String _$key__offset___$SvgPropsMixin = 'offset';
-  static const String _$key__opacity___$SvgPropsMixin = 'opacity';
-  static const String _$key__patternContentUnits___$SvgPropsMixin =
-      'patternContentUnits';
-  static const String _$key__patternUnits___$SvgPropsMixin = 'patternUnits';
-  static const String _$key__points___$SvgPropsMixin = 'points';
-  static const String _$key__preserveAspectRatio___$SvgPropsMixin =
-      'preserveAspectRatio';
-  static const String _$key__r___$SvgPropsMixin = 'r';
-  static const String _$key__rx___$SvgPropsMixin = 'rx';
-  static const String _$key__ry___$SvgPropsMixin = 'ry';
-  static const String _$key__spreadMethod___$SvgPropsMixin = 'spreadMethod';
-  static const String _$key__stopColor___$SvgPropsMixin = 'stopColor';
-  static const String _$key__stopOpacity___$SvgPropsMixin = 'stopOpacity';
-  static const String _$key__stroke___$SvgPropsMixin = 'stroke';
-  static const String _$key__strokeDasharray___$SvgPropsMixin =
-      'strokeDasharray';
-  static const String _$key__strokeLinecap___$SvgPropsMixin = 'strokeLinecap';
-  static const String _$key__strokeOpacity___$SvgPropsMixin = 'strokeOpacity';
-  static const String _$key__strokeWidth___$SvgPropsMixin = 'strokeWidth';
-  static const String _$key__textAnchor___$SvgPropsMixin = 'textAnchor';
-  static const String _$key__transform___$SvgPropsMixin = 'transform';
-  static const String _$key__version___$SvgPropsMixin = 'version';
-  static const String _$key__viewBox___$SvgPropsMixin = 'viewBox';
-  static const String _$key__x1___$SvgPropsMixin = 'x1';
-  static const String _$key__x2___$SvgPropsMixin = 'x2';
-  static const String _$key__x___$SvgPropsMixin = 'x';
-  static const String _$key__xlinkActuate___$SvgPropsMixin = 'xlinkActuate';
-  static const String _$key__xlinkArcrole___$SvgPropsMixin = 'xlinkArcrole';
-  static const String _$key__xlinkHref___$SvgPropsMixin = 'xlinkHref';
-  static const String _$key__xlinkRole___$SvgPropsMixin = 'xlinkRole';
-  static const String _$key__xlinkShow___$SvgPropsMixin = 'xlinkShow';
-  static const String _$key__xlinkTitle___$SvgPropsMixin = 'xlinkTitle';
-  static const String _$key__xlinkType___$SvgPropsMixin = 'xlinkType';
-  static const String _$key__xmlBase___$SvgPropsMixin = 'xmlBase';
-  static const String _$key__xmlLang___$SvgPropsMixin = 'xmlLang';
-  static const String _$key__xmlSpace___$SvgPropsMixin = 'xmlSpace';
-  static const String _$key__y1___$SvgPropsMixin = 'y1';
-  static const String _$key__y2___$SvgPropsMixin = 'y2';
-  static const String _$key__y___$SvgPropsMixin = 'y';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__clipPath___$SvgPropsMixin,
-    _$prop__cx___$SvgPropsMixin,
-    _$prop__cy___$SvgPropsMixin,
-    _$prop__d___$SvgPropsMixin,
-    _$prop__dx___$SvgPropsMixin,
-    _$prop__dy___$SvgPropsMixin,
-    _$prop__fill___$SvgPropsMixin,
-    _$prop__fillOpacity___$SvgPropsMixin,
-    _$prop__fontFamily___$SvgPropsMixin,
-    _$prop__fontSize___$SvgPropsMixin,
-    _$prop__fx___$SvgPropsMixin,
-    _$prop__fy___$SvgPropsMixin,
-    _$prop__gradientTransform___$SvgPropsMixin,
-    _$prop__gradientUnits___$SvgPropsMixin,
-    _$prop__markerEnd___$SvgPropsMixin,
-    _$prop__markerMid___$SvgPropsMixin,
-    _$prop__markerStart___$SvgPropsMixin,
-    _$prop__offset___$SvgPropsMixin,
-    _$prop__opacity___$SvgPropsMixin,
-    _$prop__patternContentUnits___$SvgPropsMixin,
-    _$prop__patternUnits___$SvgPropsMixin,
-    _$prop__points___$SvgPropsMixin,
-    _$prop__preserveAspectRatio___$SvgPropsMixin,
-    _$prop__r___$SvgPropsMixin,
-    _$prop__rx___$SvgPropsMixin,
-    _$prop__ry___$SvgPropsMixin,
-    _$prop__spreadMethod___$SvgPropsMixin,
-    _$prop__stopColor___$SvgPropsMixin,
-    _$prop__stopOpacity___$SvgPropsMixin,
-    _$prop__stroke___$SvgPropsMixin,
-    _$prop__strokeDasharray___$SvgPropsMixin,
-    _$prop__strokeLinecap___$SvgPropsMixin,
-    _$prop__strokeOpacity___$SvgPropsMixin,
-    _$prop__strokeWidth___$SvgPropsMixin,
-    _$prop__textAnchor___$SvgPropsMixin,
-    _$prop__transform___$SvgPropsMixin,
-    _$prop__version___$SvgPropsMixin,
-    _$prop__viewBox___$SvgPropsMixin,
-    _$prop__x1___$SvgPropsMixin,
-    _$prop__x2___$SvgPropsMixin,
-    _$prop__x___$SvgPropsMixin,
-    _$prop__xlinkActuate___$SvgPropsMixin,
-    _$prop__xlinkArcrole___$SvgPropsMixin,
-    _$prop__xlinkHref___$SvgPropsMixin,
-    _$prop__xlinkRole___$SvgPropsMixin,
-    _$prop__xlinkShow___$SvgPropsMixin,
-    _$prop__xlinkTitle___$SvgPropsMixin,
-    _$prop__xlinkType___$SvgPropsMixin,
-    _$prop__xmlBase___$SvgPropsMixin,
-    _$prop__xmlLang___$SvgPropsMixin,
-    _$prop__xmlSpace___$SvgPropsMixin,
-    _$prop__y1___$SvgPropsMixin,
-    _$prop__y2___$SvgPropsMixin,
-    _$prop__y___$SvgPropsMixin
+    const PropDescriptor('clipPath'),
+    const PropDescriptor('cx'),
+    const PropDescriptor('cy'),
+    const PropDescriptor('d'),
+    const PropDescriptor('dx'),
+    const PropDescriptor('dy'),
+    const PropDescriptor('fill'),
+    const PropDescriptor('fillOpacity'),
+    const PropDescriptor('fontFamily'),
+    const PropDescriptor('fontSize'),
+    const PropDescriptor('fx'),
+    const PropDescriptor('fy'),
+    const PropDescriptor('gradientTransform'),
+    const PropDescriptor('gradientUnits'),
+    const PropDescriptor('markerEnd'),
+    const PropDescriptor('markerMid'),
+    const PropDescriptor('markerStart'),
+    const PropDescriptor('offset'),
+    const PropDescriptor('opacity'),
+    const PropDescriptor('patternContentUnits'),
+    const PropDescriptor('patternUnits'),
+    const PropDescriptor('points'),
+    const PropDescriptor('preserveAspectRatio'),
+    const PropDescriptor('r'),
+    const PropDescriptor('rx'),
+    const PropDescriptor('ry'),
+    const PropDescriptor('spreadMethod'),
+    const PropDescriptor('stopColor'),
+    const PropDescriptor('stopOpacity'),
+    const PropDescriptor('stroke'),
+    const PropDescriptor('strokeDasharray'),
+    const PropDescriptor('strokeLinecap'),
+    const PropDescriptor('strokeOpacity'),
+    const PropDescriptor('strokeWidth'),
+    const PropDescriptor('textAnchor'),
+    const PropDescriptor('transform'),
+    const PropDescriptor('version'),
+    const PropDescriptor('viewBox'),
+    const PropDescriptor('x1'),
+    const PropDescriptor('x2'),
+    const PropDescriptor('x'),
+    const PropDescriptor('xlinkActuate'),
+    const PropDescriptor('xlinkArcrole'),
+    const PropDescriptor('xlinkHref'),
+    const PropDescriptor('xlinkRole'),
+    const PropDescriptor('xlinkShow'),
+    const PropDescriptor('xlinkTitle'),
+    const PropDescriptor('xlinkType'),
+    const PropDescriptor('xmlBase'),
+    const PropDescriptor('xmlLang'),
+    const PropDescriptor('xmlSpace'),
+    const PropDescriptor('y1'),
+    const PropDescriptor('y2'),
+    const PropDescriptor('y')
   ];
   static const List<String> $propKeys = const [
-    _$key__clipPath___$SvgPropsMixin,
-    _$key__cx___$SvgPropsMixin,
-    _$key__cy___$SvgPropsMixin,
-    _$key__d___$SvgPropsMixin,
-    _$key__dx___$SvgPropsMixin,
-    _$key__dy___$SvgPropsMixin,
-    _$key__fill___$SvgPropsMixin,
-    _$key__fillOpacity___$SvgPropsMixin,
-    _$key__fontFamily___$SvgPropsMixin,
-    _$key__fontSize___$SvgPropsMixin,
-    _$key__fx___$SvgPropsMixin,
-    _$key__fy___$SvgPropsMixin,
-    _$key__gradientTransform___$SvgPropsMixin,
-    _$key__gradientUnits___$SvgPropsMixin,
-    _$key__markerEnd___$SvgPropsMixin,
-    _$key__markerMid___$SvgPropsMixin,
-    _$key__markerStart___$SvgPropsMixin,
-    _$key__offset___$SvgPropsMixin,
-    _$key__opacity___$SvgPropsMixin,
-    _$key__patternContentUnits___$SvgPropsMixin,
-    _$key__patternUnits___$SvgPropsMixin,
-    _$key__points___$SvgPropsMixin,
-    _$key__preserveAspectRatio___$SvgPropsMixin,
-    _$key__r___$SvgPropsMixin,
-    _$key__rx___$SvgPropsMixin,
-    _$key__ry___$SvgPropsMixin,
-    _$key__spreadMethod___$SvgPropsMixin,
-    _$key__stopColor___$SvgPropsMixin,
-    _$key__stopOpacity___$SvgPropsMixin,
-    _$key__stroke___$SvgPropsMixin,
-    _$key__strokeDasharray___$SvgPropsMixin,
-    _$key__strokeLinecap___$SvgPropsMixin,
-    _$key__strokeOpacity___$SvgPropsMixin,
-    _$key__strokeWidth___$SvgPropsMixin,
-    _$key__textAnchor___$SvgPropsMixin,
-    _$key__transform___$SvgPropsMixin,
-    _$key__version___$SvgPropsMixin,
-    _$key__viewBox___$SvgPropsMixin,
-    _$key__x1___$SvgPropsMixin,
-    _$key__x2___$SvgPropsMixin,
-    _$key__x___$SvgPropsMixin,
-    _$key__xlinkActuate___$SvgPropsMixin,
-    _$key__xlinkArcrole___$SvgPropsMixin,
-    _$key__xlinkHref___$SvgPropsMixin,
-    _$key__xlinkRole___$SvgPropsMixin,
-    _$key__xlinkShow___$SvgPropsMixin,
-    _$key__xlinkTitle___$SvgPropsMixin,
-    _$key__xlinkType___$SvgPropsMixin,
-    _$key__xmlBase___$SvgPropsMixin,
-    _$key__xmlLang___$SvgPropsMixin,
-    _$key__xmlSpace___$SvgPropsMixin,
-    _$key__y1___$SvgPropsMixin,
-    _$key__y2___$SvgPropsMixin,
-    _$key__y___$SvgPropsMixin
+    'clipPath',
+    'cx',
+    'cy',
+    'd',
+    'dx',
+    'dy',
+    'fill',
+    'fillOpacity',
+    'fontFamily',
+    'fontSize',
+    'fx',
+    'fy',
+    'gradientTransform',
+    'gradientUnits',
+    'markerEnd',
+    'markerMid',
+    'markerStart',
+    'offset',
+    'opacity',
+    'patternContentUnits',
+    'patternUnits',
+    'points',
+    'preserveAspectRatio',
+    'r',
+    'rx',
+    'ry',
+    'spreadMethod',
+    'stopColor',
+    'stopOpacity',
+    'stroke',
+    'strokeDasharray',
+    'strokeLinecap',
+    'strokeOpacity',
+    'strokeWidth',
+    'textAnchor',
+    'transform',
+    'version',
+    'viewBox',
+    'x1',
+    'x2',
+    'x',
+    'xlinkActuate',
+    'xlinkArcrole',
+    'xlinkHref',
+    'xlinkRole',
+    'xlinkShow',
+    'xlinkTitle',
+    'xlinkType',
+    'xmlBase',
+    'xmlLang',
+    'xmlSpace',
+    'y1',
+    'y2',
+    'y'
   ];
 }
 
@@ -3230,622 +2363,407 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
 
   /// Go to [_$UbiquitousDomPropsMixin.tabIndex] to see the source code for this prop
   @override
-  dynamic get tabIndex => props[_$key__tabIndex___$UbiquitousDomPropsMixin];
+  dynamic get tabIndex => props['tabIndex'];
 
   /// Go to [_$UbiquitousDomPropsMixin.tabIndex] to see the source code for this prop
   @override
-  set tabIndex(dynamic value) =>
-      props[_$key__tabIndex___$UbiquitousDomPropsMixin] = value;
+  set tabIndex(dynamic value) => props['tabIndex'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.id] to see the source code for this prop
   @override
-  String get id => props[_$key__id___$UbiquitousDomPropsMixin];
+  String get id => props['id'];
 
   /// Go to [_$UbiquitousDomPropsMixin.id] to see the source code for this prop
   @override
-  set id(String value) => props[_$key__id___$UbiquitousDomPropsMixin] = value;
+  set id(String value) => props['id'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.title] to see the source code for this prop
   @override
-  String get title => props[_$key__title___$UbiquitousDomPropsMixin];
+  String get title => props['title'];
 
   /// Go to [_$UbiquitousDomPropsMixin.title] to see the source code for this prop
   @override
-  set title(String value) =>
-      props[_$key__title___$UbiquitousDomPropsMixin] = value;
+  set title(String value) => props['title'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.style] to see the source code for this prop
   @override
-  Map<String, dynamic> get style =>
-      props[_$key__style___$UbiquitousDomPropsMixin];
+  Map<String, dynamic> get style => props['style'];
 
   /// Go to [_$UbiquitousDomPropsMixin.style] to see the source code for this prop
   @override
-  set style(Map<String, dynamic> value) =>
-      props[_$key__style___$UbiquitousDomPropsMixin] = value;
+  set style(Map<String, dynamic> value) => props['style'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onCopy] to see the source code for this prop
   @override
-  ClipboardEventCallback get onCopy =>
-      props[_$key__onCopy___$UbiquitousDomPropsMixin];
+  ClipboardEventCallback get onCopy => props['onCopy'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onCopy] to see the source code for this prop
   @override
-  set onCopy(ClipboardEventCallback value) =>
-      props[_$key__onCopy___$UbiquitousDomPropsMixin] = value;
+  set onCopy(ClipboardEventCallback value) => props['onCopy'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onCut] to see the source code for this prop
   @override
-  ClipboardEventCallback get onCut =>
-      props[_$key__onCut___$UbiquitousDomPropsMixin];
+  ClipboardEventCallback get onCut => props['onCut'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onCut] to see the source code for this prop
   @override
-  set onCut(ClipboardEventCallback value) =>
-      props[_$key__onCut___$UbiquitousDomPropsMixin] = value;
+  set onCut(ClipboardEventCallback value) => props['onCut'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onPaste] to see the source code for this prop
   @override
-  ClipboardEventCallback get onPaste =>
-      props[_$key__onPaste___$UbiquitousDomPropsMixin];
+  ClipboardEventCallback get onPaste => props['onPaste'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onPaste] to see the source code for this prop
   @override
-  set onPaste(ClipboardEventCallback value) =>
-      props[_$key__onPaste___$UbiquitousDomPropsMixin] = value;
+  set onPaste(ClipboardEventCallback value) => props['onPaste'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onKeyDown] to see the source code for this prop
   @override
-  KeyboardEventCallback get onKeyDown =>
-      props[_$key__onKeyDown___$UbiquitousDomPropsMixin];
+  KeyboardEventCallback get onKeyDown => props['onKeyDown'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onKeyDown] to see the source code for this prop
   @override
-  set onKeyDown(KeyboardEventCallback value) =>
-      props[_$key__onKeyDown___$UbiquitousDomPropsMixin] = value;
+  set onKeyDown(KeyboardEventCallback value) => props['onKeyDown'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onKeyPress] to see the source code for this prop
   @override
-  KeyboardEventCallback get onKeyPress =>
-      props[_$key__onKeyPress___$UbiquitousDomPropsMixin];
+  KeyboardEventCallback get onKeyPress => props['onKeyPress'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onKeyPress] to see the source code for this prop
   @override
-  set onKeyPress(KeyboardEventCallback value) =>
-      props[_$key__onKeyPress___$UbiquitousDomPropsMixin] = value;
+  set onKeyPress(KeyboardEventCallback value) => props['onKeyPress'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onKeyUp] to see the source code for this prop
   @override
-  KeyboardEventCallback get onKeyUp =>
-      props[_$key__onKeyUp___$UbiquitousDomPropsMixin];
+  KeyboardEventCallback get onKeyUp => props['onKeyUp'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onKeyUp] to see the source code for this prop
   @override
-  set onKeyUp(KeyboardEventCallback value) =>
-      props[_$key__onKeyUp___$UbiquitousDomPropsMixin] = value;
+  set onKeyUp(KeyboardEventCallback value) => props['onKeyUp'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onFocus] to see the source code for this prop
   @override
-  FocusEventCallback get onFocus =>
-      props[_$key__onFocus___$UbiquitousDomPropsMixin];
+  FocusEventCallback get onFocus => props['onFocus'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onFocus] to see the source code for this prop
   @override
-  set onFocus(FocusEventCallback value) =>
-      props[_$key__onFocus___$UbiquitousDomPropsMixin] = value;
+  set onFocus(FocusEventCallback value) => props['onFocus'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onBlur] to see the source code for this prop
   @override
-  FocusEventCallback get onBlur =>
-      props[_$key__onBlur___$UbiquitousDomPropsMixin];
+  FocusEventCallback get onBlur => props['onBlur'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onBlur] to see the source code for this prop
   @override
-  set onBlur(FocusEventCallback value) =>
-      props[_$key__onBlur___$UbiquitousDomPropsMixin] = value;
+  set onBlur(FocusEventCallback value) => props['onBlur'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onChange] to see the source code for this prop
   @override
-  FormEventCallback get onChange =>
-      props[_$key__onChange___$UbiquitousDomPropsMixin];
+  FormEventCallback get onChange => props['onChange'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onChange] to see the source code for this prop
   @override
-  set onChange(FormEventCallback value) =>
-      props[_$key__onChange___$UbiquitousDomPropsMixin] = value;
+  set onChange(FormEventCallback value) => props['onChange'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onInput] to see the source code for this prop
   @override
-  FormEventCallback get onInput =>
-      props[_$key__onInput___$UbiquitousDomPropsMixin];
+  FormEventCallback get onInput => props['onInput'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onInput] to see the source code for this prop
   @override
-  set onInput(FormEventCallback value) =>
-      props[_$key__onInput___$UbiquitousDomPropsMixin] = value;
+  set onInput(FormEventCallback value) => props['onInput'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onSubmit] to see the source code for this prop
   @override
-  FormEventCallback get onSubmit =>
-      props[_$key__onSubmit___$UbiquitousDomPropsMixin];
+  FormEventCallback get onSubmit => props['onSubmit'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onSubmit] to see the source code for this prop
   @override
-  set onSubmit(FormEventCallback value) =>
-      props[_$key__onSubmit___$UbiquitousDomPropsMixin] = value;
+  set onSubmit(FormEventCallback value) => props['onSubmit'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onReset] to see the source code for this prop
   @override
-  FormEventCallback get onReset =>
-      props[_$key__onReset___$UbiquitousDomPropsMixin];
+  FormEventCallback get onReset => props['onReset'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onReset] to see the source code for this prop
   @override
-  set onReset(FormEventCallback value) =>
-      props[_$key__onReset___$UbiquitousDomPropsMixin] = value;
+  set onReset(FormEventCallback value) => props['onReset'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onClick] to see the source code for this prop
   @override
-  MouseEventCallback get onClick =>
-      props[_$key__onClick___$UbiquitousDomPropsMixin];
+  MouseEventCallback get onClick => props['onClick'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onClick] to see the source code for this prop
   @override
-  set onClick(MouseEventCallback value) =>
-      props[_$key__onClick___$UbiquitousDomPropsMixin] = value;
+  set onClick(MouseEventCallback value) => props['onClick'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onContextMenu] to see the source code for this prop
   @override
-  MouseEventCallback get onContextMenu =>
-      props[_$key__onContextMenu___$UbiquitousDomPropsMixin];
+  MouseEventCallback get onContextMenu => props['onContextMenu'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onContextMenu] to see the source code for this prop
   @override
-  set onContextMenu(MouseEventCallback value) =>
-      props[_$key__onContextMenu___$UbiquitousDomPropsMixin] = value;
+  set onContextMenu(MouseEventCallback value) => props['onContextMenu'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onDoubleClick] to see the source code for this prop
   @override
-  MouseEventCallback get onDoubleClick =>
-      props[_$key__onDoubleClick___$UbiquitousDomPropsMixin];
+  MouseEventCallback get onDoubleClick => props['onDoubleClick'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onDoubleClick] to see the source code for this prop
   @override
-  set onDoubleClick(MouseEventCallback value) =>
-      props[_$key__onDoubleClick___$UbiquitousDomPropsMixin] = value;
+  set onDoubleClick(MouseEventCallback value) => props['onDoubleClick'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onDrag] to see the source code for this prop
   @override
-  MouseEventCallback get onDrag =>
-      props[_$key__onDrag___$UbiquitousDomPropsMixin];
+  MouseEventCallback get onDrag => props['onDrag'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onDrag] to see the source code for this prop
   @override
-  set onDrag(MouseEventCallback value) =>
-      props[_$key__onDrag___$UbiquitousDomPropsMixin] = value;
+  set onDrag(MouseEventCallback value) => props['onDrag'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onDragEnd] to see the source code for this prop
   @override
-  MouseEventCallback get onDragEnd =>
-      props[_$key__onDragEnd___$UbiquitousDomPropsMixin];
+  MouseEventCallback get onDragEnd => props['onDragEnd'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onDragEnd] to see the source code for this prop
   @override
-  set onDragEnd(MouseEventCallback value) =>
-      props[_$key__onDragEnd___$UbiquitousDomPropsMixin] = value;
+  set onDragEnd(MouseEventCallback value) => props['onDragEnd'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onDragEnter] to see the source code for this prop
   @override
-  MouseEventCallback get onDragEnter =>
-      props[_$key__onDragEnter___$UbiquitousDomPropsMixin];
+  MouseEventCallback get onDragEnter => props['onDragEnter'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onDragEnter] to see the source code for this prop
   @override
-  set onDragEnter(MouseEventCallback value) =>
-      props[_$key__onDragEnter___$UbiquitousDomPropsMixin] = value;
+  set onDragEnter(MouseEventCallback value) => props['onDragEnter'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onDragExit] to see the source code for this prop
   @override
-  MouseEventCallback get onDragExit =>
-      props[_$key__onDragExit___$UbiquitousDomPropsMixin];
+  MouseEventCallback get onDragExit => props['onDragExit'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onDragExit] to see the source code for this prop
   @override
-  set onDragExit(MouseEventCallback value) =>
-      props[_$key__onDragExit___$UbiquitousDomPropsMixin] = value;
+  set onDragExit(MouseEventCallback value) => props['onDragExit'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onDragLeave] to see the source code for this prop
   @override
-  MouseEventCallback get onDragLeave =>
-      props[_$key__onDragLeave___$UbiquitousDomPropsMixin];
+  MouseEventCallback get onDragLeave => props['onDragLeave'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onDragLeave] to see the source code for this prop
   @override
-  set onDragLeave(MouseEventCallback value) =>
-      props[_$key__onDragLeave___$UbiquitousDomPropsMixin] = value;
+  set onDragLeave(MouseEventCallback value) => props['onDragLeave'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onDragOver] to see the source code for this prop
   @override
-  MouseEventCallback get onDragOver =>
-      props[_$key__onDragOver___$UbiquitousDomPropsMixin];
+  MouseEventCallback get onDragOver => props['onDragOver'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onDragOver] to see the source code for this prop
   @override
-  set onDragOver(MouseEventCallback value) =>
-      props[_$key__onDragOver___$UbiquitousDomPropsMixin] = value;
+  set onDragOver(MouseEventCallback value) => props['onDragOver'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onDragStart] to see the source code for this prop
   @override
-  MouseEventCallback get onDragStart =>
-      props[_$key__onDragStart___$UbiquitousDomPropsMixin];
+  MouseEventCallback get onDragStart => props['onDragStart'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onDragStart] to see the source code for this prop
   @override
-  set onDragStart(MouseEventCallback value) =>
-      props[_$key__onDragStart___$UbiquitousDomPropsMixin] = value;
+  set onDragStart(MouseEventCallback value) => props['onDragStart'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onDrop] to see the source code for this prop
   @override
-  MouseEventCallback get onDrop =>
-      props[_$key__onDrop___$UbiquitousDomPropsMixin];
+  MouseEventCallback get onDrop => props['onDrop'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onDrop] to see the source code for this prop
   @override
-  set onDrop(MouseEventCallback value) =>
-      props[_$key__onDrop___$UbiquitousDomPropsMixin] = value;
+  set onDrop(MouseEventCallback value) => props['onDrop'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onMouseDown] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseDown =>
-      props[_$key__onMouseDown___$UbiquitousDomPropsMixin];
+  MouseEventCallback get onMouseDown => props['onMouseDown'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onMouseDown] to see the source code for this prop
   @override
-  set onMouseDown(MouseEventCallback value) =>
-      props[_$key__onMouseDown___$UbiquitousDomPropsMixin] = value;
+  set onMouseDown(MouseEventCallback value) => props['onMouseDown'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onMouseEnter] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseEnter =>
-      props[_$key__onMouseEnter___$UbiquitousDomPropsMixin];
+  MouseEventCallback get onMouseEnter => props['onMouseEnter'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onMouseEnter] to see the source code for this prop
   @override
-  set onMouseEnter(MouseEventCallback value) =>
-      props[_$key__onMouseEnter___$UbiquitousDomPropsMixin] = value;
+  set onMouseEnter(MouseEventCallback value) => props['onMouseEnter'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onMouseLeave] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseLeave =>
-      props[_$key__onMouseLeave___$UbiquitousDomPropsMixin];
+  MouseEventCallback get onMouseLeave => props['onMouseLeave'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onMouseLeave] to see the source code for this prop
   @override
-  set onMouseLeave(MouseEventCallback value) =>
-      props[_$key__onMouseLeave___$UbiquitousDomPropsMixin] = value;
+  set onMouseLeave(MouseEventCallback value) => props['onMouseLeave'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onMouseMove] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseMove =>
-      props[_$key__onMouseMove___$UbiquitousDomPropsMixin];
+  MouseEventCallback get onMouseMove => props['onMouseMove'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onMouseMove] to see the source code for this prop
   @override
-  set onMouseMove(MouseEventCallback value) =>
-      props[_$key__onMouseMove___$UbiquitousDomPropsMixin] = value;
+  set onMouseMove(MouseEventCallback value) => props['onMouseMove'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onMouseOut] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseOut =>
-      props[_$key__onMouseOut___$UbiquitousDomPropsMixin];
+  MouseEventCallback get onMouseOut => props['onMouseOut'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onMouseOut] to see the source code for this prop
   @override
-  set onMouseOut(MouseEventCallback value) =>
-      props[_$key__onMouseOut___$UbiquitousDomPropsMixin] = value;
+  set onMouseOut(MouseEventCallback value) => props['onMouseOut'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onMouseOver] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseOver =>
-      props[_$key__onMouseOver___$UbiquitousDomPropsMixin];
+  MouseEventCallback get onMouseOver => props['onMouseOver'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onMouseOver] to see the source code for this prop
   @override
-  set onMouseOver(MouseEventCallback value) =>
-      props[_$key__onMouseOver___$UbiquitousDomPropsMixin] = value;
+  set onMouseOver(MouseEventCallback value) => props['onMouseOver'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onMouseUp] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseUp =>
-      props[_$key__onMouseUp___$UbiquitousDomPropsMixin];
+  MouseEventCallback get onMouseUp => props['onMouseUp'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onMouseUp] to see the source code for this prop
   @override
-  set onMouseUp(MouseEventCallback value) =>
-      props[_$key__onMouseUp___$UbiquitousDomPropsMixin] = value;
+  set onMouseUp(MouseEventCallback value) => props['onMouseUp'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onTouchCancel] to see the source code for this prop
   @override
-  TouchEventCallback get onTouchCancel =>
-      props[_$key__onTouchCancel___$UbiquitousDomPropsMixin];
+  TouchEventCallback get onTouchCancel => props['onTouchCancel'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onTouchCancel] to see the source code for this prop
   @override
-  set onTouchCancel(TouchEventCallback value) =>
-      props[_$key__onTouchCancel___$UbiquitousDomPropsMixin] = value;
+  set onTouchCancel(TouchEventCallback value) => props['onTouchCancel'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onTouchEnd] to see the source code for this prop
   @override
-  TouchEventCallback get onTouchEnd =>
-      props[_$key__onTouchEnd___$UbiquitousDomPropsMixin];
+  TouchEventCallback get onTouchEnd => props['onTouchEnd'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onTouchEnd] to see the source code for this prop
   @override
-  set onTouchEnd(TouchEventCallback value) =>
-      props[_$key__onTouchEnd___$UbiquitousDomPropsMixin] = value;
+  set onTouchEnd(TouchEventCallback value) => props['onTouchEnd'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onTouchMove] to see the source code for this prop
   @override
-  TouchEventCallback get onTouchMove =>
-      props[_$key__onTouchMove___$UbiquitousDomPropsMixin];
+  TouchEventCallback get onTouchMove => props['onTouchMove'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onTouchMove] to see the source code for this prop
   @override
-  set onTouchMove(TouchEventCallback value) =>
-      props[_$key__onTouchMove___$UbiquitousDomPropsMixin] = value;
+  set onTouchMove(TouchEventCallback value) => props['onTouchMove'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onTouchStart] to see the source code for this prop
   @override
-  TouchEventCallback get onTouchStart =>
-      props[_$key__onTouchStart___$UbiquitousDomPropsMixin];
+  TouchEventCallback get onTouchStart => props['onTouchStart'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onTouchStart] to see the source code for this prop
   @override
-  set onTouchStart(TouchEventCallback value) =>
-      props[_$key__onTouchStart___$UbiquitousDomPropsMixin] = value;
+  set onTouchStart(TouchEventCallback value) => props['onTouchStart'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onScroll] to see the source code for this prop
   @override
-  UIEventCallback get onScroll =>
-      props[_$key__onScroll___$UbiquitousDomPropsMixin];
+  UIEventCallback get onScroll => props['onScroll'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onScroll] to see the source code for this prop
   @override
-  set onScroll(UIEventCallback value) =>
-      props[_$key__onScroll___$UbiquitousDomPropsMixin] = value;
+  set onScroll(UIEventCallback value) => props['onScroll'] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.onWheel] to see the source code for this prop
   @override
-  WheelEventCallback get onWheel =>
-      props[_$key__onWheel___$UbiquitousDomPropsMixin];
+  WheelEventCallback get onWheel => props['onWheel'];
 
   /// Go to [_$UbiquitousDomPropsMixin.onWheel] to see the source code for this prop
   @override
-  set onWheel(WheelEventCallback value) =>
-      props[_$key__onWheel___$UbiquitousDomPropsMixin] = value;
+  set onWheel(WheelEventCallback value) => props['onWheel'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__tabIndex___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__tabIndex___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__id___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__id___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__title___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__title___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__style___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__style___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onCopy___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onCopy___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onCut___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onCut___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onPaste___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onPaste___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onKeyDown___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onKeyDown___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onKeyPress___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onKeyPress___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onKeyUp___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onKeyUp___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onFocus___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onFocus___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onBlur___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onBlur___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onChange___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onChange___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onInput___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onInput___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onSubmit___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onSubmit___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onReset___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onReset___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onClick___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onClick___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onContextMenu___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onContextMenu___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onDoubleClick___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onDoubleClick___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onDrag___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onDrag___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onDragEnd___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onDragEnd___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onDragEnter___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onDragEnter___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onDragExit___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onDragExit___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onDragLeave___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onDragLeave___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onDragOver___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onDragOver___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onDragStart___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onDragStart___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onDrop___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onDrop___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onMouseDown___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onMouseDown___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onMouseEnter___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onMouseEnter___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onMouseLeave___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onMouseLeave___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onMouseMove___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onMouseMove___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onMouseOut___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onMouseOut___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onMouseOver___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onMouseOver___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onMouseUp___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onMouseUp___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onTouchCancel___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onTouchCancel___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onTouchEnd___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onTouchEnd___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onTouchMove___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onTouchMove___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onTouchStart___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onTouchStart___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onScroll___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onScroll___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__onWheel___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onWheel___$UbiquitousDomPropsMixin);
-  static const String _$key__tabIndex___$UbiquitousDomPropsMixin = 'tabIndex';
-  static const String _$key__id___$UbiquitousDomPropsMixin = 'id';
-  static const String _$key__title___$UbiquitousDomPropsMixin = 'title';
-  static const String _$key__style___$UbiquitousDomPropsMixin = 'style';
-  static const String _$key__onCopy___$UbiquitousDomPropsMixin = 'onCopy';
-  static const String _$key__onCut___$UbiquitousDomPropsMixin = 'onCut';
-  static const String _$key__onPaste___$UbiquitousDomPropsMixin = 'onPaste';
-  static const String _$key__onKeyDown___$UbiquitousDomPropsMixin = 'onKeyDown';
-  static const String _$key__onKeyPress___$UbiquitousDomPropsMixin =
-      'onKeyPress';
-  static const String _$key__onKeyUp___$UbiquitousDomPropsMixin = 'onKeyUp';
-  static const String _$key__onFocus___$UbiquitousDomPropsMixin = 'onFocus';
-  static const String _$key__onBlur___$UbiquitousDomPropsMixin = 'onBlur';
-  static const String _$key__onChange___$UbiquitousDomPropsMixin = 'onChange';
-  static const String _$key__onInput___$UbiquitousDomPropsMixin = 'onInput';
-  static const String _$key__onSubmit___$UbiquitousDomPropsMixin = 'onSubmit';
-  static const String _$key__onReset___$UbiquitousDomPropsMixin = 'onReset';
-  static const String _$key__onClick___$UbiquitousDomPropsMixin = 'onClick';
-  static const String _$key__onContextMenu___$UbiquitousDomPropsMixin =
-      'onContextMenu';
-  static const String _$key__onDoubleClick___$UbiquitousDomPropsMixin =
-      'onDoubleClick';
-  static const String _$key__onDrag___$UbiquitousDomPropsMixin = 'onDrag';
-  static const String _$key__onDragEnd___$UbiquitousDomPropsMixin = 'onDragEnd';
-  static const String _$key__onDragEnter___$UbiquitousDomPropsMixin =
-      'onDragEnter';
-  static const String _$key__onDragExit___$UbiquitousDomPropsMixin =
-      'onDragExit';
-  static const String _$key__onDragLeave___$UbiquitousDomPropsMixin =
-      'onDragLeave';
-  static const String _$key__onDragOver___$UbiquitousDomPropsMixin =
-      'onDragOver';
-  static const String _$key__onDragStart___$UbiquitousDomPropsMixin =
-      'onDragStart';
-  static const String _$key__onDrop___$UbiquitousDomPropsMixin = 'onDrop';
-  static const String _$key__onMouseDown___$UbiquitousDomPropsMixin =
-      'onMouseDown';
-  static const String _$key__onMouseEnter___$UbiquitousDomPropsMixin =
-      'onMouseEnter';
-  static const String _$key__onMouseLeave___$UbiquitousDomPropsMixin =
-      'onMouseLeave';
-  static const String _$key__onMouseMove___$UbiquitousDomPropsMixin =
-      'onMouseMove';
-  static const String _$key__onMouseOut___$UbiquitousDomPropsMixin =
-      'onMouseOut';
-  static const String _$key__onMouseOver___$UbiquitousDomPropsMixin =
-      'onMouseOver';
-  static const String _$key__onMouseUp___$UbiquitousDomPropsMixin = 'onMouseUp';
-  static const String _$key__onTouchCancel___$UbiquitousDomPropsMixin =
-      'onTouchCancel';
-  static const String _$key__onTouchEnd___$UbiquitousDomPropsMixin =
-      'onTouchEnd';
-  static const String _$key__onTouchMove___$UbiquitousDomPropsMixin =
-      'onTouchMove';
-  static const String _$key__onTouchStart___$UbiquitousDomPropsMixin =
-      'onTouchStart';
-  static const String _$key__onScroll___$UbiquitousDomPropsMixin = 'onScroll';
-  static const String _$key__onWheel___$UbiquitousDomPropsMixin = 'onWheel';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__tabIndex___$UbiquitousDomPropsMixin,
-    _$prop__id___$UbiquitousDomPropsMixin,
-    _$prop__title___$UbiquitousDomPropsMixin,
-    _$prop__style___$UbiquitousDomPropsMixin,
-    _$prop__onCopy___$UbiquitousDomPropsMixin,
-    _$prop__onCut___$UbiquitousDomPropsMixin,
-    _$prop__onPaste___$UbiquitousDomPropsMixin,
-    _$prop__onKeyDown___$UbiquitousDomPropsMixin,
-    _$prop__onKeyPress___$UbiquitousDomPropsMixin,
-    _$prop__onKeyUp___$UbiquitousDomPropsMixin,
-    _$prop__onFocus___$UbiquitousDomPropsMixin,
-    _$prop__onBlur___$UbiquitousDomPropsMixin,
-    _$prop__onChange___$UbiquitousDomPropsMixin,
-    _$prop__onInput___$UbiquitousDomPropsMixin,
-    _$prop__onSubmit___$UbiquitousDomPropsMixin,
-    _$prop__onReset___$UbiquitousDomPropsMixin,
-    _$prop__onClick___$UbiquitousDomPropsMixin,
-    _$prop__onContextMenu___$UbiquitousDomPropsMixin,
-    _$prop__onDoubleClick___$UbiquitousDomPropsMixin,
-    _$prop__onDrag___$UbiquitousDomPropsMixin,
-    _$prop__onDragEnd___$UbiquitousDomPropsMixin,
-    _$prop__onDragEnter___$UbiquitousDomPropsMixin,
-    _$prop__onDragExit___$UbiquitousDomPropsMixin,
-    _$prop__onDragLeave___$UbiquitousDomPropsMixin,
-    _$prop__onDragOver___$UbiquitousDomPropsMixin,
-    _$prop__onDragStart___$UbiquitousDomPropsMixin,
-    _$prop__onDrop___$UbiquitousDomPropsMixin,
-    _$prop__onMouseDown___$UbiquitousDomPropsMixin,
-    _$prop__onMouseEnter___$UbiquitousDomPropsMixin,
-    _$prop__onMouseLeave___$UbiquitousDomPropsMixin,
-    _$prop__onMouseMove___$UbiquitousDomPropsMixin,
-    _$prop__onMouseOut___$UbiquitousDomPropsMixin,
-    _$prop__onMouseOver___$UbiquitousDomPropsMixin,
-    _$prop__onMouseUp___$UbiquitousDomPropsMixin,
-    _$prop__onTouchCancel___$UbiquitousDomPropsMixin,
-    _$prop__onTouchEnd___$UbiquitousDomPropsMixin,
-    _$prop__onTouchMove___$UbiquitousDomPropsMixin,
-    _$prop__onTouchStart___$UbiquitousDomPropsMixin,
-    _$prop__onScroll___$UbiquitousDomPropsMixin,
-    _$prop__onWheel___$UbiquitousDomPropsMixin
+    const PropDescriptor('tabIndex'),
+    const PropDescriptor('id'),
+    const PropDescriptor('title'),
+    const PropDescriptor('style'),
+    const PropDescriptor('onCopy'),
+    const PropDescriptor('onCut'),
+    const PropDescriptor('onPaste'),
+    const PropDescriptor('onKeyDown'),
+    const PropDescriptor('onKeyPress'),
+    const PropDescriptor('onKeyUp'),
+    const PropDescriptor('onFocus'),
+    const PropDescriptor('onBlur'),
+    const PropDescriptor('onChange'),
+    const PropDescriptor('onInput'),
+    const PropDescriptor('onSubmit'),
+    const PropDescriptor('onReset'),
+    const PropDescriptor('onClick'),
+    const PropDescriptor('onContextMenu'),
+    const PropDescriptor('onDoubleClick'),
+    const PropDescriptor('onDrag'),
+    const PropDescriptor('onDragEnd'),
+    const PropDescriptor('onDragEnter'),
+    const PropDescriptor('onDragExit'),
+    const PropDescriptor('onDragLeave'),
+    const PropDescriptor('onDragOver'),
+    const PropDescriptor('onDragStart'),
+    const PropDescriptor('onDrop'),
+    const PropDescriptor('onMouseDown'),
+    const PropDescriptor('onMouseEnter'),
+    const PropDescriptor('onMouseLeave'),
+    const PropDescriptor('onMouseMove'),
+    const PropDescriptor('onMouseOut'),
+    const PropDescriptor('onMouseOver'),
+    const PropDescriptor('onMouseUp'),
+    const PropDescriptor('onTouchCancel'),
+    const PropDescriptor('onTouchEnd'),
+    const PropDescriptor('onTouchMove'),
+    const PropDescriptor('onTouchStart'),
+    const PropDescriptor('onScroll'),
+    const PropDescriptor('onWheel')
   ];
   static const List<String> $propKeys = const [
-    _$key__tabIndex___$UbiquitousDomPropsMixin,
-    _$key__id___$UbiquitousDomPropsMixin,
-    _$key__title___$UbiquitousDomPropsMixin,
-    _$key__style___$UbiquitousDomPropsMixin,
-    _$key__onCopy___$UbiquitousDomPropsMixin,
-    _$key__onCut___$UbiquitousDomPropsMixin,
-    _$key__onPaste___$UbiquitousDomPropsMixin,
-    _$key__onKeyDown___$UbiquitousDomPropsMixin,
-    _$key__onKeyPress___$UbiquitousDomPropsMixin,
-    _$key__onKeyUp___$UbiquitousDomPropsMixin,
-    _$key__onFocus___$UbiquitousDomPropsMixin,
-    _$key__onBlur___$UbiquitousDomPropsMixin,
-    _$key__onChange___$UbiquitousDomPropsMixin,
-    _$key__onInput___$UbiquitousDomPropsMixin,
-    _$key__onSubmit___$UbiquitousDomPropsMixin,
-    _$key__onReset___$UbiquitousDomPropsMixin,
-    _$key__onClick___$UbiquitousDomPropsMixin,
-    _$key__onContextMenu___$UbiquitousDomPropsMixin,
-    _$key__onDoubleClick___$UbiquitousDomPropsMixin,
-    _$key__onDrag___$UbiquitousDomPropsMixin,
-    _$key__onDragEnd___$UbiquitousDomPropsMixin,
-    _$key__onDragEnter___$UbiquitousDomPropsMixin,
-    _$key__onDragExit___$UbiquitousDomPropsMixin,
-    _$key__onDragLeave___$UbiquitousDomPropsMixin,
-    _$key__onDragOver___$UbiquitousDomPropsMixin,
-    _$key__onDragStart___$UbiquitousDomPropsMixin,
-    _$key__onDrop___$UbiquitousDomPropsMixin,
-    _$key__onMouseDown___$UbiquitousDomPropsMixin,
-    _$key__onMouseEnter___$UbiquitousDomPropsMixin,
-    _$key__onMouseLeave___$UbiquitousDomPropsMixin,
-    _$key__onMouseMove___$UbiquitousDomPropsMixin,
-    _$key__onMouseOut___$UbiquitousDomPropsMixin,
-    _$key__onMouseOver___$UbiquitousDomPropsMixin,
-    _$key__onMouseUp___$UbiquitousDomPropsMixin,
-    _$key__onTouchCancel___$UbiquitousDomPropsMixin,
-    _$key__onTouchEnd___$UbiquitousDomPropsMixin,
-    _$key__onTouchMove___$UbiquitousDomPropsMixin,
-    _$key__onTouchStart___$UbiquitousDomPropsMixin,
-    _$key__onScroll___$UbiquitousDomPropsMixin,
-    _$key__onWheel___$UbiquitousDomPropsMixin
+    'tabIndex',
+    'id',
+    'title',
+    'style',
+    'onCopy',
+    'onCut',
+    'onPaste',
+    'onKeyDown',
+    'onKeyPress',
+    'onKeyUp',
+    'onFocus',
+    'onBlur',
+    'onChange',
+    'onInput',
+    'onSubmit',
+    'onReset',
+    'onClick',
+    'onContextMenu',
+    'onDoubleClick',
+    'onDrag',
+    'onDragEnd',
+    'onDragEnter',
+    'onDragExit',
+    'onDragLeave',
+    'onDragOver',
+    'onDragStart',
+    'onDrop',
+    'onMouseDown',
+    'onMouseEnter',
+    'onMouseLeave',
+    'onMouseMove',
+    'onMouseOut',
+    'onMouseOver',
+    'onMouseUp',
+    'onTouchCancel',
+    'onTouchEnd',
+    'onTouchMove',
+    'onTouchStart',
+    'onScroll',
+    'onWheel'
   ];
 }
 

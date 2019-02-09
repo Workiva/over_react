@@ -21,7 +21,6 @@ abstract class _$TestBPropsAccessorsMixin implements _$TestBProps {
   Map get props;
 
   /* GENERATED CONSTANTS */
-
   static const List<PropDescriptor> $props = const [];
   static const List<String> $propKeys = const [];
 }

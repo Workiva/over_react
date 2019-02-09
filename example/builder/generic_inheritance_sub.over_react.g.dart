@@ -23,23 +23,16 @@ abstract class _$GenericSubPropsAccessorsMixin implements _$GenericSubProps {
 
   /// Go to [_$GenericSubProps.subProp] to see the source code for this prop
   @override
-  String get subProp => props[_$key__subProp___$GenericSubProps];
+  String get subProp => props['GenericSubProps.subProp'];
 
   /// Go to [_$GenericSubProps.subProp] to see the source code for this prop
   @override
-  set subProp(String value) => props[_$key__subProp___$GenericSubProps] = value;
+  set subProp(String value) => props['GenericSubProps.subProp'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__subProp___$GenericSubProps =
-      const PropDescriptor(_$key__subProp___$GenericSubProps);
-  static const String _$key__subProp___$GenericSubProps =
-      'GenericSubProps.subProp';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__subProp___$GenericSubProps
+    const PropDescriptor('GenericSubProps.subProp')
   ];
-  static const List<String> $propKeys = const [
-    _$key__subProp___$GenericSubProps
-  ];
+  static const List<String> $propKeys = const ['GenericSubProps.subProp'];
 }
 
 const PropsMeta _$metaForGenericSubProps = const PropsMeta(
@@ -88,24 +81,16 @@ abstract class _$GenericSubStateAccessorsMixin implements _$GenericSubState {
 
   /// Go to [_$GenericSubState.subState] to see the source code for this prop
   @override
-  String get subState => state[_$key__subState___$GenericSubState];
+  String get subState => state['GenericSubState.subState'];
 
   /// Go to [_$GenericSubState.subState] to see the source code for this prop
   @override
-  set subState(String value) =>
-      state[_$key__subState___$GenericSubState] = value;
+  set subState(String value) => state['GenericSubState.subState'] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__subState___$GenericSubState =
-      const StateDescriptor(_$key__subState___$GenericSubState);
-  static const String _$key__subState___$GenericSubState =
-      'GenericSubState.subState';
-
   static const List<StateDescriptor> $state = const [
-    _$prop__subState___$GenericSubState
+    const StateDescriptor('GenericSubState.subState')
   ];
-  static const List<String> $stateKeys = const [
-    _$key__subState___$GenericSubState
-  ];
+  static const List<String> $stateKeys = const ['GenericSubState.subState'];
 }
 
 const StateMeta _$metaForGenericSubState = const StateMeta(

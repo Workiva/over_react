@@ -27,14 +27,14 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @Accessor(
       isRequired: true,
       requiredErrorMessage: 'This Prop is Required for testing purposes.')
-  get required => props[_$key__required___$ComponentTestProps];
+  get required => props['ComponentTestProps.required'];
 
   /// Go to [_$ComponentTestProps.required] to see the source code for this prop
   @override
   @Accessor(
       isRequired: true,
       requiredErrorMessage: 'This Prop is Required for testing purposes.')
-  set required(value) => props[_$key__required___$ComponentTestProps] = value;
+  set required(value) => props['ComponentTestProps.required'] = value;
 
   /// Go to [_$ComponentTestProps.nullable] to see the source code for this prop
   @override
@@ -42,7 +42,7 @@ abstract class _$ComponentTestPropsAccessorsMixin
       isRequired: true,
       isNullable: true,
       requiredErrorMessage: 'This prop can be set to null!')
-  get nullable => props[_$key__nullable___$ComponentTestProps];
+  get nullable => props['ComponentTestProps.nullable'];
 
   /// Go to [_$ComponentTestProps.nullable] to see the source code for this prop
   @override
@@ -50,29 +50,20 @@ abstract class _$ComponentTestPropsAccessorsMixin
       isRequired: true,
       isNullable: true,
       requiredErrorMessage: 'This prop can be set to null!')
-  set nullable(value) => props[_$key__nullable___$ComponentTestProps] = value;
+  set nullable(value) => props['ComponentTestProps.nullable'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__required___$ComponentTestProps =
-      const PropDescriptor(_$key__required___$ComponentTestProps,
-          isRequired: true,
-          errorMessage: 'This Prop is Required for testing purposes.');
-  static const PropDescriptor _$prop__nullable___$ComponentTestProps =
-      const PropDescriptor(_$key__nullable___$ComponentTestProps,
-          isRequired: true,
-          isNullable: true,
-          errorMessage: 'This prop can be set to null!');
-  static const String _$key__required___$ComponentTestProps =
-      'ComponentTestProps.required';
-  static const String _$key__nullable___$ComponentTestProps =
-      'ComponentTestProps.nullable';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__required___$ComponentTestProps,
-    _$prop__nullable___$ComponentTestProps
+    const PropDescriptor('ComponentTestProps.required',
+        isRequired: true,
+        errorMessage: 'This Prop is Required for testing purposes.'),
+    const PropDescriptor('ComponentTestProps.nullable',
+        isRequired: true,
+        isNullable: true,
+        errorMessage: 'This prop can be set to null!')
   ];
   static const List<String> $propKeys = const [
-    _$key__required___$ComponentTestProps,
-    _$key__nullable___$ComponentTestProps
+    'ComponentTestProps.required',
+    'ComponentTestProps.nullable'
   ];
 }
 

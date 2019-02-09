@@ -23,39 +23,28 @@ abstract class _$BasicPropsAccessorsMixin<T, U extends UiProps>
 
   /// Go to [_$BasicProps.someGenericListProp] to see the source code for this prop
   @override
-  List<T> get someGenericListProp =>
-      props[_$key__someGenericListProp___$BasicProps];
+  List<T> get someGenericListProp => props['BasicProps.someGenericListProp'];
 
   /// Go to [_$BasicProps.someGenericListProp] to see the source code for this prop
   @override
   set someGenericListProp(List<T> value) =>
-      props[_$key__someGenericListProp___$BasicProps] = value;
+      props['BasicProps.someGenericListProp'] = value;
 
   /// Go to [_$BasicProps.somePropsClass] to see the source code for this prop
   @override
-  U get somePropsClass => props[_$key__somePropsClass___$BasicProps];
+  U get somePropsClass => props['BasicProps.somePropsClass'];
 
   /// Go to [_$BasicProps.somePropsClass] to see the source code for this prop
   @override
-  set somePropsClass(U value) =>
-      props[_$key__somePropsClass___$BasicProps] = value;
+  set somePropsClass(U value) => props['BasicProps.somePropsClass'] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__someGenericListProp___$BasicProps =
-      const PropDescriptor(_$key__someGenericListProp___$BasicProps);
-  static const PropDescriptor _$prop__somePropsClass___$BasicProps =
-      const PropDescriptor(_$key__somePropsClass___$BasicProps);
-  static const String _$key__someGenericListProp___$BasicProps =
-      'BasicProps.someGenericListProp';
-  static const String _$key__somePropsClass___$BasicProps =
-      'BasicProps.somePropsClass';
-
   static const List<PropDescriptor> $props = const [
-    _$prop__someGenericListProp___$BasicProps,
-    _$prop__somePropsClass___$BasicProps
+    const PropDescriptor('BasicProps.someGenericListProp'),
+    const PropDescriptor('BasicProps.somePropsClass')
   ];
   static const List<String> $propKeys = const [
-    _$key__someGenericListProp___$BasicProps,
-    _$key__somePropsClass___$BasicProps
+    'BasicProps.someGenericListProp',
+    'BasicProps.somePropsClass'
   ];
 }
 
