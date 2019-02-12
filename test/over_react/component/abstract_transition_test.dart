@@ -25,7 +25,6 @@ import 'package:test/test.dart';
 
 import '../../test_util/test_util.dart';
 
-// ignore: uri_has_not_been_generated
 part 'abstract_transition_test.over_react.g.dart';
 
 /// Main entry point for AbstractTransition testing
@@ -559,7 +558,9 @@ main() {
           // Have to use MutationObserver since setting the state to PRE_SHOWING
           // synchronously updates the state to SHOWING.
           var transitionAttrMutations = <List<String>>[];
-          var observer = new MutationObserver((records, observer) {
+
+          // List<dynamic> is being used to work around a Dart HTML internals issue in the DDC
+          var observer = new MutationObserver((List<dynamic> records, observer) {
             for (var record in records) {
               if (record.attributeName != transitionPhaseTestAttr) continue;
               transitionAttrMutations.add([
@@ -634,8 +635,7 @@ main() {
 }
 
 @Factory()
-// ignore: undefined_identifier
-UiFactory<TransitionerProps> Transitioner = $Transitioner;
+UiFactory<TransitionerProps> Transitioner = _$Transitioner;
 
 @Props()
 class _$TransitionerProps extends AbstractTransitionProps {
@@ -753,18 +753,4 @@ class TransitionerComponent extends AbstractTransitionComponent<TransitionerProp
     super.setState(newState, callback);
     transitionPhasesSet.add(newState.transitionPhase);
   }
-}
-
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class TransitionerProps extends _$TransitionerProps with _$TransitionerPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForTransitionerProps;
-}
-
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class TransitionerState extends _$TransitionerState with _$TransitionerStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = $metaForTransitionerState;
 }

@@ -71,18 +71,6 @@ bool isDartComponent(/* ReactElement|ReactComponent|Element */ instance) {
   return _getInternal(instance) != null;
 }
 
-/// Returns the props for a [ReactElement] or composite [ReactComponent] [instance],
-/// shallow-converted to a Dart Map for convenience.
-///
-/// If `style` is specified in props, then it too is shallow-converted and included
-/// in the returned Map.
-///
-/// __Deprecated. Use [getProps] instead. Will be removed in 2.0.0.__
-@deprecated
-Map getJsProps(/* ReactElement|ReactComponent */ instance) {
-  return unconvertJsProps(instance);
-}
-
 /// Whether [Expando]s can be used on [ReactElement]s.
 ///
 /// At the time this was written, this should return:
@@ -266,7 +254,7 @@ T getDartComponent<T extends react.Component>(/* ReactElement|ReactComponent|Ele
     return null;
   }
 
-  assert(() {
+  bool instanceIsMounted() {
     if (isValidElement(instance)) {
       // `print` instead of `ValidationUtil.warn` so that this message shows up
       // in the test output when running `ddev test`.
@@ -298,7 +286,9 @@ T getDartComponent<T extends react.Component>(/* ReactElement|ReactComponent|Ele
       ));
     }
     return true;
-  });
+  }
+
+  assert(instanceIsMounted());
 
   // ignore: avoid_as
   return (instance as ReactComponent).dartComponent;

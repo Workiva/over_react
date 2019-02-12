@@ -1,0 +1,49 @@
+builders:
+  overReactBuilder:
+    import: "package:over_react/builder.dart"
+    builder_factories: ["overReactBuilder"]
+    build_extensions: {".dart" : [".over_react.g.dart"]}
+    auto_apply: all_packages
+    build_to: cache
+
+  # Builder just for this package.
+  overReactLocalBuilder:
+    import: "package:over_react/builder.dart"
+    builder_factories: ["overReactBuilder"]
+    build_extensions: {".dart" : [".over_react.g.dart"]}
+    auto_apply: none
+    build_to: source
+
+targets:
+  $default:
+    builders:
+      over_react|overReactLocalBuilder:
+        enabled: true
+        generate_for:
+          exclude:
+            # This tests un-built behavior, and therefore should not be built
+            - "test/over_react/component_declaration/builder_helpers_test.dart"
+      over_react|overReactBuilder:
+        enabled: false
+
+      # builder uses mirrors and will cause a build to fail when using build web compilers
+      # vm tests require the use of mirrors
+      build_web_compilers|ddc:
+        generate_for:
+          include:
+            - "example/**"
+            - "lib/**"
+            - "test/**"
+            - "web/**"
+          exclude:
+            - "lib/src/builder/**"
+      build_web_compilers|entrypoint:
+        generate_for:
+          include:
+            - "example/builder/**"
+            - "lib/*.dart"
+            - "test/*.dart"
+            - "web/*.dart"
+          exclude:
+            - "lib/src/builder/**"
+

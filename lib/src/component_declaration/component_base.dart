@@ -21,7 +21,6 @@ import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
-import 'package:over_react/src/util/ddc_emulated_function_name_bug.dart' as ddc_emulated_function_name_bug;
 import 'package:over_react/src/util/test_mode.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
@@ -46,8 +45,7 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
     Type componentClass,
     String displayName
 }) {
-  // ignore: avoid_as
-  final reactComponentFactory = react.registerComponent(dartComponentFactory) as ReactDartComponentFactoryProxy;
+  ReactDartComponentFactoryProxy reactComponentFactory = react.registerComponent(dartComponentFactory);
 
   if (displayName != null) {
     reactComponentFactory.reactClass.displayName = displayName;
@@ -451,31 +449,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 ///
 /// > Note: Implements [MapViewMixin] instead of extending it so that the abstract state declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
-abstract class UiState extends MapBase implements StateMapViewMixin, MapViewMixin, Map {
-  // Manually implement members from `StateMapViewMixin`,
-  // since mixing that class in doesn't play well with the DDC.
-  // TODO find out root cause and reduced test case.
-  @override Map get _map => this.state;
-  @override String toString() => '$runtimeType: ${prettyPrintMap(_map)}';
-
-  // Manually implement members from `MapViewMixin`,
-  // since mixing that class in doesn't play well with the DDC.
-  // TODO find out root cause and reduced test case.
-  @override operator[](Object key) => _map[key];
-  @override void operator[]=(key, value) { _map[key] = value; }
-  @override void addAll(other) { _map.addAll(other); }
-  @override void clear() { _map.clear(); }
-  @override putIfAbsent(key, ifAbsent()) => _map.putIfAbsent(key, ifAbsent);
-  @override bool containsKey(Object key) => _map.containsKey(key);
-  @override bool containsValue(Object value) => _map.containsValue(value);
-  @override void forEach(void action(key, value)) { _map.forEach(action); }
-  @override bool get isEmpty => _map.isEmpty;
-  @override bool get isNotEmpty => _map.isNotEmpty;
-  @override int get length => _map.length;
-  @override Iterable get keys => _map.keys;
-  @override remove(Object key) => _map.remove(key);
-  @override Iterable get values => _map.values;
-}
+abstract class UiState extends Object with MapViewMixin, StateMapViewMixin {}
 
 /// The string used by default for the key of the attribute added by [UiProps.addTestId].
 const defaultTestIdKey = 'data-test-id';
@@ -494,52 +468,14 @@ typedef PropsModifier(Map props);
 /// > Note: Implements [MapViewMixin] instead of extending it so that the abstract [Props] declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
 abstract class UiProps extends MapBase
-    with 
-        ReactPropsMixin,
-        // ignore: mixin_of_non_class, undefined_class
-        $ReactPropsMixin, 
-        UbiquitousDomPropsMixin,
-        // ignore: mixin_of_non_class, undefined_class
-        $UbiquitousDomPropsMixin, 
-        CssClassPropsMixin,
-        // ignore: mixin_of_non_class, undefined_class
-        $CssClassPropsMixin
-    implements
-        PropsMapViewMixin,
+    with
         MapViewMixin,
+        PropsMapViewMixin,
+        ReactPropsMixin,
+        UbiquitousDomPropsMixin,
+        CssClassPropsMixin
+    implements
         Map {
-
-  UiProps() {
-    // Work around https://github.com/dart-lang/sdk/issues/27647 for all UiProps instances
-    if (ddc_emulated_function_name_bug.isBugPresent) {
-      ddc_emulated_function_name_bug.patchName(this);
-    }
-  }
-
-  // Manually implement members from `MapViewMixin`,
-  // since mixing that class in doesn't play well with the DDC.
-  // TODO find out root cause and reduced test case.
-  @override operator[](Object key) => _map[key];
-  @override void operator[]=(key, value) { _map[key] = value; }
-  @override void addAll(other) { _map.addAll(other); }
-  @override void clear() { _map.clear(); }
-  @override putIfAbsent(key, ifAbsent()) => _map.putIfAbsent(key, ifAbsent);
-  @override bool containsKey(Object key) => _map.containsKey(key);
-  @override bool containsValue(Object value) => _map.containsValue(value);
-  @override void forEach(void action(key, value)) { _map.forEach(action); }
-  @override bool get isEmpty => _map.isEmpty;
-  @override bool get isNotEmpty => _map.isNotEmpty;
-  @override int get length => _map.length;
-  @override Iterable get keys => _map.keys;
-  @override remove(Object key) => _map.remove(key);
-  @override Iterable get values => _map.values;
-
-  // Manually implement members from `StateMapViewMixin`,
-  // since mixing that class in doesn't play well with the DDC.
-  // TODO find out root cause and reduced test case.
-  @override Map get _map => this.props;
-  @override String toString() => '$runtimeType: ${prettyPrintMap(_map)}';
-
   /// Adds an arbitrary [propKey]/[value] pair if [shouldAdd] is `true`.
   ///
   /// Is a noop if [shouldAdd] is `false`.
@@ -669,7 +605,7 @@ abstract class UiProps extends MapBase
     if (factory is ReactComponentFactoryProxy) {
       // Use `build` instead of using emulated function behavior to work around DDC issue
       // https://github.com/dart-lang/sdk/issues/29904
-      // Should have the benefit of better performance; TODO optimize type check?
+      // Should have the benefit of better performance;
       return factory.build(props, childArguments);
     } else {
       var parameters = []
@@ -705,9 +641,9 @@ abstract class UiProps extends MapBase
     return true;
   }
 
-  Function get componentFactory;
+  ReactComponentFactoryProxy get componentFactory;
 
-  /// An unmmodifiable map view of the default props for this component brought
+  /// An unmodifiable map view of the default props for this component brought
   /// in from the [componentFactory].
   Map get componentDefaultProps => componentFactory is ReactDartComponentFactoryProxy
       // ignore: avoid_as
@@ -760,21 +696,28 @@ abstract class StateMapViewMixin implements _OverReactMapViewBase {
 ///
 /// For use by concrete [UiProps] and [UiState] implementations (either generated or manual),
 /// and thus must remain public.
-abstract class MapViewMixin<K, V> implements _OverReactMapViewBase<K, V> {
-  V operator[](Object key) => _map[key];
-  void operator[]=(K key, V value) { _map[key] = value; }
-  void addAll(Map<K, V> other) { _map.addAll(other); }
-  void clear() { _map.clear(); }
-  V putIfAbsent(K key, V ifAbsent()) => _map.putIfAbsent(key, ifAbsent);
-  bool containsKey(Object key) => _map.containsKey(key);
-  bool containsValue(Object value) => _map.containsValue(value);
-  void forEach(void action(K key, V value)) { _map.forEach(action); }
-  bool get isEmpty => _map.isEmpty;
-  bool get isNotEmpty => _map.isNotEmpty;
-  int get length => _map.length;
-  Iterable<K> get keys => _map.keys;
-  V remove(Object key) => _map.remove(key);
-  Iterable<V> get values => _map.values;
+abstract class MapViewMixin<K, V> implements _OverReactMapViewBase<K, V>, Map<K, V> {
+  @override Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> f(K key, V value)) => _map.map<K2, V2>(f);
+  @override Iterable<MapEntry<K, V>> get entries => _map.entries;
+  @override void addEntries(Iterable<MapEntry<K, V>> newEntries) => _map.addEntries(newEntries);
+  @override void removeWhere(bool predicate(K key, V value)) => _map.removeWhere(predicate);
+  @override V update(K key, V update(V value), {V ifAbsent()}) => _map.update(key, update, ifAbsent: ifAbsent);
+  @override void updateAll(V update(K key, V value)) => _map.updateAll(update);
+  @override Map<RK, RV> cast<RK, RV>() => _map.cast<RK, RV>();
+  @override V operator[](Object key) => _map[key];
+  @override void operator[]=(K key, V value) { _map[key] = value; }
+  @override void addAll(Map<K, V> other) { _map.addAll(other); }
+  @override void clear() { _map.clear(); }
+  @override V putIfAbsent(K key, V ifAbsent()) => _map.putIfAbsent(key, ifAbsent);
+  @override bool containsKey(Object key) => _map.containsKey(key);
+  @override bool containsValue(Object value) => _map.containsValue(value);
+  @override void forEach(void action(K key, V value)) { _map.forEach(action); }
+  @override bool get isEmpty => _map.isEmpty;
+  @override bool get isNotEmpty => _map.isNotEmpty;
+  @override int get length => _map.length;
+  @override Iterable<K> get keys => _map.keys;
+  @override V remove(Object key) => _map.remove(key);
+  @override Iterable<V> get values => _map.values;
 }
 
 abstract class _Descriptor {
@@ -851,7 +794,7 @@ abstract class AccessorMeta<T extends _Descriptor> {
 /// exposed like so:
 ///     @Props()
 ///     class FooProps {
-///       static const PropsMeta meta = $metaForFooProps;
+///       static const PropsMeta meta = _$metaForFooProps;
 ///
 ///       String foo;
 ///
@@ -894,7 +837,7 @@ class PropsMeta implements ConsumedProps, AccessorMeta<PropDescriptor> {
 /// exposed like so:
 ///     @State()
 ///     class FooState {
-///       static const StateMeta meta = $metaForFooState;
+///       static const StateMeta meta = _$metaForFooState;
 ///
 ///       String foo;
 ///

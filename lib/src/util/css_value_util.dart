@@ -69,9 +69,10 @@ class CssValue implements Comparable<CssValue> {
         unit = 'px';
       }
 
-      number = double.parse(unitMatch.input.substring(0, unitMatch.start), (_) {
+      number = double.tryParse(unitMatch.input.substring(0, unitMatch.start));
+      if (number == null) {
         error = new ArgumentError.value(source, 'value', 'Invalid number/unit for CSS value');
-      });
+      }
     }
 
     if (number != null && !number.isFinite) {

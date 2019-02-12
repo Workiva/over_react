@@ -1,12 +1,14 @@
-part of over_react.web.demo_components;
+import 'package:over_react/over_react.dart';
+
+import '../demo_components.dart';
+part 'list_group.over_react.g.dart';
 
 /// Bootstrap's `ListGroup` component is flexible and powerful for
 /// displaying lists of [ListGroupItem] components.
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/list-group/>
 @Factory()
-// ignore: undefined_identifier
-UiFactory<ListGroupProps> ListGroup = $ListGroup;
+UiFactory<ListGroupProps> ListGroup = _$ListGroup;
 
 @Props()
 class _$ListGroupProps extends UiProps {
@@ -49,9 +51,3 @@ class ListGroupElementType {
   static final ListGroupElementType DIV = new ListGroupElementType._internal(Dom.div);
 }
 
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class ListGroupProps extends _$ListGroupProps with _$ListGroupPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForListGroupProps;
-}

@@ -1,20 +1,17 @@
 language: dart
-dist: precise
 dart:
-  - "1.24.3"
-env:
-  - DARTIUM_EXPIRATION_TIME="1577836800"
-with_content_shell: true
-before_install:
-  - export DISPLAY=:99.0
-  - ./tool/setup_dartium.sh
-  - export PATH=$PATH":$PWD"
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3 # give xvfb some time to start
+  - stable
 script:
-  - dart ./tool/build.dart
+  - pub run build_runner build --delete-conflicting-outputs
   - pub run dart_dev analyze
-  - pub run dependency_validator --no-fatal-pins -i coverage
-  - pub run dart_dev test --integration
-  - ./tool/generate_coverage.sh
-  - bash <(curl -s https://codecov.io/bash) -f coverage/coverage.lcov
+  # TODO: Remove ignore on analyzer once the wdesk ecosystem is all on a Dart 2 compat major version and we no longer need a "pinned" dep
+  - pub run dependency_validator --no-fatal-pins -i coverage,build_web_compilers,analyzer,build_runner,built_value_generator
+  # run tests on ddc output
+  - pub run build_runner test --delete-conflicting-outputs -- -P dartdevc
+  # run tests on dart2js output
+  - pub run build_runner test -r  --delete-conflicting-outputs -- -P dart2js
+
+cache:
+  directories:
+   - $HOME/.pub-cache
+   - $HOME/.dart_tool/build

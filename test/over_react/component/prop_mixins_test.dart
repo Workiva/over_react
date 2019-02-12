@@ -136,9 +136,7 @@ main() {
 }
 
 class DomPropMixinsTest extends MapView with 
-    DomPropsMixin,
-    // ignore: mixin_of_non_class, undefined_class
-    $DomPropsMixin {
+    DomPropsMixin {
   /// Create a new instance backed by the specified map.
   DomPropMixinsTest(Map map) : super(map);
 
@@ -157,9 +155,7 @@ class DomPropMixinsTest extends MapView with
 }
 
 class SvgPropMixinsTest extends MapView with 
-    SvgPropsMixin,
-    // ignore: mixin_of_non_class, undefined_class
-    $SvgPropsMixin {
+    SvgPropsMixin {
   /// Create a new instance backed by the specified map.
   SvgPropMixinsTest(Map map) : super(map);
 
@@ -178,9 +174,7 @@ class SvgPropMixinsTest extends MapView with
 }
 
 class ReactPropMixinsTest extends MapView with 
-    ReactPropsMixin,
-    // ignore: mixin_of_non_class, undefined_class
-    $ReactPropsMixin {
+    ReactPropsMixin {
   /// Create a new instance backed by the specified map.
   ReactPropMixinsTest(Map map) : super(map);
 
@@ -199,9 +193,7 @@ class ReactPropMixinsTest extends MapView with
 }
 
 class CssClassPropMixinsTest extends MapView with 
-    CssClassPropsMixin,
-    // ignore: mixin_of_non_class, undefined_class
-    $CssClassPropsMixin {
+    CssClassPropsMixin {
   /// Create a new instance backed by the specified map.
   CssClassPropMixinsTest(Map map) : super(map);
 
@@ -220,9 +212,7 @@ class CssClassPropMixinsTest extends MapView with
 }
 
 class UbiquitousPropMixinsTest extends MapView with 
-    UbiquitousDomPropsMixin,
-    // ignore: mixin_of_non_class, undefined_class
-    $UbiquitousDomPropsMixin {
+    UbiquitousDomPropsMixin {
   UbiquitousPropMixinsTest(Map map) : super (map);
 
   /// The props to be manipulated via the getters/setters.
@@ -240,9 +230,7 @@ class UbiquitousPropMixinsTest extends MapView with
 }
 
 class AriaPropMixinsTest extends MapView with 
-    AriaPropsMixin,
-    // ignore: mixin_of_non_class, undefined_class
-    $AriaPropsMixin {
+    AriaPropsMixin {
   AriaPropMixinsTest(Map map) : super (map);
 
   /// The props to be manipulated via the getters/setters.

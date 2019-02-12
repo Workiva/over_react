@@ -17,12 +17,10 @@ library test_component.type_inheritance.extendedtype;
 import 'package:over_react/over_react.dart';
 import './abstract.dart';
 
-// ignore: uri_has_not_been_generated
 part 'extendedtype.over_react.g.dart';
 
 @Factory()
-// ignore: undefined_identifier
-UiFactory<TestExtendtypeProps> TestExtendtype = $TestExtendtype;
+UiFactory<TestExtendtypeProps> TestExtendtype = _$TestExtendtype;
 
 @Props()
 class _$TestExtendtypeProps extends TestAbstractProps {}
@@ -33,9 +31,3 @@ class TestExtendtypeComponent extends TestAbstractComponent<TestExtendtypeProps>
   render() => Dom.div()();
 }
 
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class TestExtendtypeProps extends _$TestExtendtypeProps with _$TestExtendtypePropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForTestExtendtypeProps;
-}

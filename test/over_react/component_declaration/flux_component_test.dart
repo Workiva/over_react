@@ -24,7 +24,6 @@ part 'flux_component_test/stateful/prop_validation.dart';
 part 'flux_component_test/stateful/redraw_on.dart';
 part 'flux_component_test/stateful/store_handlers.dart';
 
-// ignore: uri_has_not_been_generated
 part 'flux_component_test.over_react.g.dart';
 
 void main() {

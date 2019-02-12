@@ -23,7 +23,7 @@ import 'package:over_react/over_react.dart';
 
 /// Builds on top of [UiProps], adding typed props for [Store] in order to integrate with `built_redux`.
 ///
-/// Use with the over_react transformer via the `@Props()` ([annotations.Props]) annotation.
+/// Use with the over_react builder via the `@Props()` ([annotations.Props]) annotation.
 ///
 /// __Warning:__ This will be deprecated in an upcoming release in favor of a different approach to
 /// creating a `built_redux` component.
@@ -45,7 +45,7 @@ abstract class BuiltReduxUiProps<V extends Built<V, B>, B extends Builder<V, B>,
 ///   user interactions and events into [Action]s.
 /// * Redux components can use data from one [Store] instance to define the resulting component.
 ///
-/// Use with the over_react transformer via the `@Component()` ([annotations.Component]) annotation.
+/// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
 ///
 /// __Note:__ [Substate] must be a comparable object to avoid unnecessary redraws,
 /// it is reccomended that [Substate] either be a primitive, built_value, build_collection or an Object

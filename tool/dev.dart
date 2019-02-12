@@ -27,14 +27,9 @@ main(List<String> args) async {
   config.copyLicense.directories = ['integrate']..addAll(directories);
 
   config.test
-    ..pubServe = true
     ..platforms = [
       'vm',
-      'dartium',
-      // Can't run tests in dart2js on Travis since the suite takes too long to load and times out.
-      // Run on Smithy instead.
-      // See https://github.com/Workiva/over_react/issues/36
-      // 'chrome',
+      'chrome',
     ]
     ..unitTests = [
       'test/vm_tests/',
@@ -42,16 +37,6 @@ main(List<String> args) async {
       'test/over_react_component_test.dart',
       'test/over_react_dom_test.dart',
       'test/over_react_util_test.dart',
-    ]
-    ..integrationTests = [
-      'test/integration/'
-    ];
-
-  config.coverage
-    ..html = false
-    ..pubServe = true
-    ..reportOn = [
-      'lib/'
     ];
 
   await dev(args);

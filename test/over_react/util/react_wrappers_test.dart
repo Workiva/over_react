@@ -427,7 +427,7 @@ main() {
     group('getDartComponent', () {
       test('returns the correct Dart component that is rendered', () {
         var renderedInstance = render(Wrapper());
-        expect(getDartComponent(renderedInstance), new isInstanceOf<WrapperComponent>());
+        expect(getDartComponent(renderedInstance), const TypeMatcher<WrapperComponent>());
       });
 
       test('returns null for a JS composite component', () {
@@ -1011,7 +1011,7 @@ main() {
                 cloneElement(instanceWithRef, {'ref': chainedRef})
             );
             var component = getDartComponent(renderedInstance);
-            expect(component, const isInstanceOf<react.Component>(), reason: 'test setup sanity check');
+            expect(component, const TypeMatcher<react.Component>(), reason: 'test setup sanity check');
 
             expect(calls, equals([
               ['original ref', component],
@@ -1076,7 +1076,7 @@ main() {
               cloneElement(instanceWithoutRef, {'ref': chainedRef})
           );
           var component = getDartComponent(renderedInstance);
-          expect(component, const isInstanceOf<react.Component>(), reason: 'test setup sanity check');
+          expect(component, const TypeMatcher<react.Component>(), reason: 'test setup sanity check');
 
           expect(calls, equals([
             ['chained ref', component],
@@ -1096,7 +1096,7 @@ main() {
               cloneElement(instanceWithRef, {'ref': chainedRef})
           );
           var component = getDartComponent(renderedInstance);
-          expect(component, const isInstanceOf<react.Component>(), reason: 'test setup sanity check');
+          expect(component, const TypeMatcher<react.Component>(), reason: 'test setup sanity check');
 
           expect(calls, equals([
             ['original ref', component],

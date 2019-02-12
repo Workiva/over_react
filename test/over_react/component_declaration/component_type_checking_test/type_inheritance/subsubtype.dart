@@ -17,12 +17,10 @@ library test_component.type_inheritance.subsubtype;
 import 'package:over_react/over_react.dart';
 import './subtype.dart';
 
-// ignore: uri_has_not_been_generated
 part 'subsubtype.over_react.g.dart';
 
 @Factory()
-// ignore: undefined_identifier
-UiFactory<TestSubsubtypeProps> TestSubsubtype = $TestSubsubtype;
+UiFactory<TestSubsubtypeProps> TestSubsubtype = _$TestSubsubtype;
 
 @Props()
 class _$TestSubsubtypeProps extends UiProps {}
@@ -33,9 +31,3 @@ class TestSubsubtypeComponent extends UiComponent<TestSubsubtypeProps> {
   render() => Dom.div()();
 }
 
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class TestSubsubtypeProps extends _$TestSubsubtypeProps with _$TestSubsubtypePropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForTestSubsubtypeProps;
-}

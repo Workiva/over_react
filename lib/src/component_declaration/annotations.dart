@@ -15,22 +15,22 @@
 // Dummy annotations that would be used by Pub code generator
 library over_react.component_declaration.annotations;
 
-/// Annotation used with the `over_react` transformer to declare a [UiFactory] for a component.
+/// Annotation used with the `over_react` builder to declare a [UiFactory] for a component.
 ///
 ///     @Factory()
-///     UiFactory<FooProps> Foo;
+///     UiFactory<FooProps> Foo = _$Foo;
 ///
 /// Must be accompanied by a [Props] and [Component] declaration.
 class Factory {
   const Factory();
 }
 
-/// Annotation used with the `over_react` transformer to declare a [UiProps] class for a component.
+/// Annotation used with the `over_react` builder to declare a [UiProps] class for a component.
 ///
 /// Props are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
 ///     @Props()
-///     class FooProps extends UiProps {
+///     class _$FooProps extends UiProps {
 ///       String bar;
 ///     }
 ///
@@ -43,12 +43,12 @@ class Props implements TypedMap {
   const Props({this.keyNamespace});
 }
 
-/// Annotation used with the `over_react` transformer to declare a [UiState] class for a component.
+/// Annotation used with the `over_react` builder to declare a [UiState] class for a component.
 ///
 /// State properties are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
 ///     @State()
-///     class FooState extends UiState {
+///     class _$FooState extends UiState {
 ///       bool baz;
 ///     }
 ///
@@ -61,7 +61,7 @@ class State implements TypedMap {
   const State({this.keyNamespace});
 }
 
-/// Annotation used with the `over_react` transformer to declare a [UiComponent] class for a component.
+/// Annotation used with the `over_react` builder to declare a [UiComponent] class for a component.
 ///
 ///     @Component()
 ///     class FooComponent extends UiComponent<FooProps> {
@@ -81,13 +81,13 @@ class Component {
   /// E.g., if component `Bar` is a subtype of component `Foo`:
   ///
   ///     @Factory()
-  ///     UiFactory<...> Foo;
+  ///     UiFactory<...> Foo = _$Foo;
   ///     ...
   ///     @Component()
   ///     class FooComponent ... {...}
   ///
   ///     @Factory()
-  ///     UiFactory<...> Bar;
+  ///     UiFactory<...> Bar = _$Bar;
   ///     ...
   ///     @Component(subtypeOf: FooComponent)
   ///     class BarComponent ... {...}
@@ -104,12 +104,12 @@ class Component {
   });
 }
 
-/// Annotation used with the `over_react` transformer to declare an abstract [UiProps] class for an abstract component.
+/// Annotation used with the `over_react` builder to declare an abstract [UiProps] class for an abstract component.
 ///
 /// Props are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
 ///     @AbstractProps()
-///     abstract class QuxProps extends UiProps {
+///     abstract class _$QuxProps extends UiProps {
 ///       int quux;
 ///     }
 class AbstractProps implements TypedMap {
@@ -120,12 +120,12 @@ class AbstractProps implements TypedMap {
   const AbstractProps({this.keyNamespace});
 }
 
-/// Annotation used with the `over_react` transformer to declare an abstract [UiProps] class for an abstract component.
+/// Annotation used with the `over_react` builder to declare an abstract [UiProps] class for an abstract component.
 ///
 /// State properties are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
 ///     @AbstractState()
-///     abstract class QuxState extends UiState {
+///     abstract class _$QuxState extends UiState {
 ///       String corge;
 ///     }
 class AbstractState implements TypedMap {
@@ -136,7 +136,7 @@ class AbstractState implements TypedMap {
   const AbstractState({this.keyNamespace});
 }
 
-/// Annotation used with the `over_react` transformer to declare an abstract [UiComponent] class for an abstract component.
+/// Annotation used with the `over_react` builder to declare an abstract [UiComponent] class for an abstract component.
 ///
 ///     @AbstractComponent()
 ///     abstract class QuxComponent<TProps extends QuxProps> extends UiComponent<TProps> {}
@@ -144,7 +144,7 @@ class AbstractComponent {
   const AbstractComponent();
 }
 
-/// Annotation used with with the `over_react` transformer to declare a mixin for use in a [UiProps] class.
+/// Annotation used with the `over_react` builder to declare a mixin for use in a [UiProps] class.
 ///
 /// Props are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -164,7 +164,7 @@ class PropsMixin implements TypedMap {
   const PropsMixin({this.keyNamespace});
 }
 
-/// Annotation used with the `over_react` transformer to declare a mixin for use in a [UiState] class.
+/// Annotation used with the `over_react` builder to declare a mixin for use in a [UiState] class.
 ///
 /// State properties are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -190,7 +190,7 @@ class StateMixin implements TypedMap {
 /// `componentWillReceiveProps`.
 ///
 ///     @Props()
-///     abstract class FooProps {
+///     abstract class _$FooProps {
 ///       @requiredProp
 ///       String requiredProp;
 ///     }
@@ -202,19 +202,19 @@ const Accessor requiredProp = const Accessor(isRequired: true);
 /// `componentWillReceiveProps`.
 ///
 ///     @Props()
-///     abstract class FooProps {
+///     abstract class _$FooProps {
 ///       @nullableRequiredProp
 ///       String nullableRequiredProp;
 ///     }
 const Accessor nullableRequiredProp = const Accessor(isRequired: true, isNullable: true);
 
-/// Annotation used with the `over_react` transformer to customize individual accessors (props/state fields).
+/// Annotation used with the `over_react` builder to customize individual accessors (props/state fields).
 ///
 /// Validation occurs in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
 /// `componentWillReceiveProps`.
 ///
 ///     @Props()
-///     abstract class FooProps {
+///     abstract class _$FooProps {
 ///       @Accessor(keyNamespace: '', key: 'custom_key')
 ///       String bar;
 ///
