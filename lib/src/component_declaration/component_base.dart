@@ -446,7 +446,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 
 class WarnOnModify<K, V> extends MapView<K, V> {
   WarnOnModify(Map componentData): super(componentData);
-  
+
   @override
   operator []=(K key, V value) {
     assert(
