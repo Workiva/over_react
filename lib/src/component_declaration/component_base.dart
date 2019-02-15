@@ -245,7 +245,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
     var unwrappedProps = this.unwrappedProps;
     var typedProps = _typedPropsCache[unwrappedProps];
     if (typedProps == null) {
-      typedProps = typedPropsFactory(unwrappedProps);
+      typedProps = typedPropsFactory(WarnOnModify(unwrappedProps));
       _typedPropsCache[unwrappedProps] = typedProps;
     }
     return typedProps;
@@ -415,7 +415,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
     var unwrappedState = this.unwrappedState;
     var typedState = _typedStateCache[unwrappedState];
     if (typedState == null) {
-      typedState = typedStateFactory(unwrappedState);
+      typedState = typedStateFactory(WarnOnModify(unwrappedState));
       _typedStateCache[unwrappedState] = typedState;
     }
     return typedState;
@@ -444,6 +444,18 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   // ----------------------------------------------------------------------
 }
 
+class WarnOnModify<K, V> extends MapView<K, V> {
+  WarnOnModify(Map componentData): super(componentData);
+  
+  @override
+  operator []=(K key, V value) {
+    assert(
+      super[key] != value,
+      'Mutating the state or props directly will soon be impossible without causing breakages.'
+    );
+    super[key] = value;
+  }
+}
 
 /// A `dart.collection.MapView`-like class with strongly-typed getters/setters for React state.
 ///
