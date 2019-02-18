@@ -131,7 +131,7 @@ main() {
         expect(() {
           component.props['id'] = 'test';
         }, throwsA(const TypeMatcher<AssertionError>()));
-      });
+      }, testOn: '!js');
 
       group('renders a DOM component with the correct children when', () {
         _commonVariadicChildrenTests(Dom.div());
@@ -838,11 +838,11 @@ main() {
           });
 
           test('warns against setting state directly', () {
-            
+
             expect(() {
               statefulComponent.state['test'] = true;
             }, throwsA(const TypeMatcher<AssertionError>()));
-          });
+          }, testOn: '!js');
         });
 
         group('setter:', () {
