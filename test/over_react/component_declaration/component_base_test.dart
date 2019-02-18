@@ -125,7 +125,6 @@ main() {
       }, testOn: '!js');
 
       test('warns against setting props directly', () {
-
         var instance = render(TestComponent()());
         var component = getDartComponent(instance);
         var changeProps = () => component.props['id'] = 'test';
