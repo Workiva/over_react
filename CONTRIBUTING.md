@@ -47,13 +47,13 @@ For every release, do the following:
 
     Name | Branch
     ---- | ------
-    over_react 2.x.x-dart1 | master_dart1
+    over_react 2.x.x+dart1 | master_dart1
     over_react 2.x.x | master
 
-1. Trigger the `over_react 2.x.x-dart1` release first and review the PR:
+1. Trigger the `over_react 2.x.x+dart1` release first and review the PR:
 
    - Ensure the updated `pubspec.yaml` version is correct, including the
-     `-dart1` suffix.
+     `+dart1` suffix.
 
    - Ensure the build passes.
 
