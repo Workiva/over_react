@@ -452,7 +452,7 @@ class WarnOnModify<K, V> extends MapView<K, V> {
   @override
   operator []=(K key, V value) {
     assert(
-      super[key] != value,
+      false,
       'Mutating the state or props directly will soon be impossible without causing breakages.'
     );
     super[key] = value;
