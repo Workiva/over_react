@@ -124,6 +124,15 @@ main() {
         _commonNonInvokedBuilderTests(Dom.div());
       }, testOn: '!js');
 
+      test('warns against setting props directly', () {
+
+        var instance = render(TestComponent()());
+        var component = getDartComponent(instance);
+        var changeProps = () => component.props['id'] = 'test';
+
+        expect(changeProps, throwsA(const TypeMatcher<AssertionError>()));
+      });
+
       group('renders a DOM component with the correct children when', () {
         _commonVariadicChildrenTests(Dom.div());
 
@@ -800,7 +809,7 @@ main() {
 
       setUp(() {
         statefulComponent = new TestStatefulComponentComponent();
-        statefulComponent.unwrappedState = {};
+        statefulComponent.unwrappedState = {'test': true};
       });
 
       group('`state`', () {
@@ -826,6 +835,12 @@ main() {
             var stateAfterChange = statefulComponent.state;
 
             expect(stateBeforeChange, isNot(same(stateAfterChange)));
+          });
+
+          test('warns against setting state directly', () {
+            var changeState = () => statefulComponent.state['test'] = true;
+
+            expect(changeState, throwsA(const TypeMatcher<AssertionError>()));
           });
         });
 
