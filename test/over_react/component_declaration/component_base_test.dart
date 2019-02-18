@@ -838,7 +838,6 @@ main() {
           });
 
           test('warns against setting state directly', () {
-
             expect(() {
               statefulComponent.state['test'] = true;
             }, throwsA(const TypeMatcher<AssertionError>()));
