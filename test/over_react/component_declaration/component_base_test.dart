@@ -127,9 +127,10 @@ main() {
       test('warns against setting props directly', () {
         var instance = render(TestComponent()());
         var component = getDartComponent(instance);
-        var changeProps = () => component.props['id'] = 'test';
 
-        expect(changeProps, throwsA(const TypeMatcher<AssertionError>()));
+        expect(() {
+          component.props['id'] = 'test';
+        }, throwsA(const TypeMatcher<AssertionError>()));
       });
 
       group('renders a DOM component with the correct children when', () {
@@ -837,9 +838,10 @@ main() {
           });
 
           test('warns against setting state directly', () {
-            var changeState = () => statefulComponent.state['test'] = true;
-
-            expect(changeState, throwsA(const TypeMatcher<AssertionError>()));
+            
+            expect(() {
+              statefulComponent.state['test'] = true;
+            }, throwsA(const TypeMatcher<AssertionError>()));
           });
         });
 
