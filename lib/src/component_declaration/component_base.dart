@@ -16,6 +16,7 @@ library over_react.component_declaration.component_base;
 
 import 'dart:async';
 import 'dart:collection';
+import 'dart:html';
 
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
@@ -247,7 +248,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
     var unwrappedProps = this.unwrappedProps;
     var typedProps = _typedPropsCache[unwrappedProps];
     if (typedProps == null) {
-      typedProps = typedPropsFactory(WarnOnModify(unwrappedProps));
+      typedProps = typedPropsFactory(inReactDevMode ? _WarnOnModify(unwrappedProps, true) : unwrappedProps);
       _typedPropsCache[unwrappedProps] = typedProps;
     }
     return typedProps;
@@ -417,7 +418,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
     var unwrappedState = this.unwrappedState;
     var typedState = _typedStateCache[unwrappedState];
     if (typedState == null) {
-      typedState = typedStateFactory(WarnOnModify(unwrappedState));
+      typedState = typedStateFactory(inReactDevMode ? _WarnOnModify(unwrappedProps, false) : unwrappedProps);
       _typedStateCache[unwrappedState] = typedState;
     }
     return typedState;
@@ -446,15 +447,35 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   // ----------------------------------------------------------------------
 }
 
-class WarnOnModify<K, V> extends MapView<K, V> {
-  WarnOnModify(Map componentData): super(componentData);
+class _WarnOnModify<K, V> extends MapView<K, V> {
+
+  //Used to customize warning based on whether the data is props or state
+  bool isProps;
+
+  _WarnOnModify(Map componentData, bool isProps): super(componentData){
+    this.isProps = isProps;
+  }
 
   @override
   operator []=(K key, V value) {
-    assert(
-      false,
-      'Mutating the state or props directly will soon be impossible without causing breakages.'
-    );
+    if (isProps) {
+      window.console.warn(unindent(
+        '''
+          props["$key"] was updated incorrectly. Never mutate this.props directly, as it can cause unexpected behavior; props must be updated only by passing in new values when rerendering this component.
+
+          This will throw in UiComponentV2 (to be released as part of the React 16 upgrade).
+        '''
+      ));
+    } else {
+      window.console.warn(unindent(
+        '''
+          state["$key"] was updated incorrectly. Never this.state directly, as it can cause unexpected behavior; state must be updated only via setState.
+
+          This will throw in UiComponentV2 (to be released as part of the React 16 upgrade).
+        '''
+      ));
+    }
+
     super[key] = value;
   }
 }
