@@ -129,7 +129,6 @@ main() {
         var instance = render(TestComponent()());
         var component = getDartComponent(instance);
         var changeProps = () => component.props['id'] = 'test';
-
         changeProps();
         verifyValidationWarning(contains('Never mutate this.props directly'));
         stopRecordingValidationWarnings();
@@ -871,7 +870,6 @@ main() {
           test('warns against setting state directly', () {
             startRecordingValidationWarnings();
             var changeState = () => statefulComponent.state['test'] = true;
-
             changeState();
             verifyValidationWarning(contains('Never mutate this.state directly'));
             stopRecordingValidationWarnings();
