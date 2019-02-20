@@ -869,10 +869,12 @@ main() {
           });
 
           test('warns against setting state directly', () {
+            startRecordingValidationWarnings();
             var changeState = () => statefulComponent.state['test'] = true;
 
             changeState();
             verifyValidationWarning(contains('Never mutate this.state directly'));
+            stopRecordingValidationWarnings();
           });
         });
 
