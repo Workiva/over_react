@@ -128,10 +128,11 @@ main() {
         startRecordingValidationWarnings();
         var instance = render(TestComponent()());
         var component = getDartComponent(instance);
-        var test = () => component.props['id'] = 'test';
+        var changeProps = () => component.props['id'] = 'test';
 
-        test();
+        changeProps();
         verifyValidationWarning(contains('Never mutate this.props directly'));
+        stopRecordingValidationWarnings();
       });
 
       group('renders a DOM component with the correct children when', () {
