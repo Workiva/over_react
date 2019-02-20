@@ -446,15 +446,12 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 }
 
 class _WarnOnModify<K, V> extends MapView<K, V> {
-
   //Used to customize warning based on whether the data is props or state
   bool isProps;
 
   String message;
 
-  _WarnOnModify(Map componentData, bool isProps): super(componentData){
-    this.isProps = isProps;
-  }
+  _WarnOnModify(Map componentData, this.isProps): super(componentData);
 
   @override
   operator []=(K key, V value) {
