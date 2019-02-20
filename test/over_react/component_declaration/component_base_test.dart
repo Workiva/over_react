@@ -125,13 +125,14 @@ main() {
       }, testOn: '!js');
 
       test('warns against setting props directly', () {
+        startRecordingValidationWarnings();
         var instance = render(TestComponent()());
         var component = getDartComponent(instance);
+        var test = () => component.props['id'] = 'test';
 
-        expect(() {
-          component.props['id'] = 'test';
-        }, throwsA(const TypeMatcher<AssertionError>()));
-      }, testOn: '!js');
+        test();
+        verifyValidationWarning(contains('Never mutate this.props directly'));
+      });
 
       group('renders a DOM component with the correct children when', () {
         _commonVariadicChildrenTests(Dom.div());
@@ -867,10 +868,11 @@ main() {
           });
 
           test('warns against setting state directly', () {
-            expect(() {
-              statefulComponent.state['test'] = true;
-            }, throwsA(const TypeMatcher<AssertionError>()));
-          }, testOn: '!js');
+            var changeState = () => statefulComponent.state['test'] = true;
+
+            changeState();
+            verifyValidationWarning(contains('Never mutate this.state directly'));
+          });
         });
 
         group('setter:', () {

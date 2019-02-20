@@ -418,7 +418,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
     var unwrappedState = this.unwrappedState;
     var typedState = _typedStateCache[unwrappedState];
     if (typedState == null) {
-      typedState = typedStateFactory(inReactDevMode ? _WarnOnModify(unwrappedProps, false) : unwrappedProps);
+    typedState = typedStateFactory(inReactDevMode ? _WarnOnModify(unwrappedState, false) : unwrappedState);
       _typedStateCache[unwrappedState] = typedState;
     }
     return typedState;
@@ -452,6 +452,8 @@ class _WarnOnModify<K, V> extends MapView<K, V> {
   //Used to customize warning based on whether the data is props or state
   bool isProps;
 
+  String message;
+
   _WarnOnModify(Map componentData, bool isProps): super(componentData){
     this.isProps = isProps;
   }
@@ -459,24 +461,22 @@ class _WarnOnModify<K, V> extends MapView<K, V> {
   @override
   operator []=(K key, V value) {
     if (isProps) {
-      window.console.warn(unindent(
+      message =
         '''
           props["$key"] was updated incorrectly. Never mutate this.props directly, as it can cause unexpected behavior; props must be updated only by passing in new values when rerendering this component.
 
           This will throw in UiComponentV2 (to be released as part of the React 16 upgrade).
-        '''
-      ));
+        ''';
     } else {
-      window.console.warn(unindent(
+      message =
         '''
-          state["$key"] was updated incorrectly. Never this.state directly, as it can cause unexpected behavior; state must be updated only via setState.
+          state["$key"] was updated incorrectly. Never mutate this.state directly, as it can cause unexpected behavior; state must be updated only via setState.
 
           This will throw in UiComponentV2 (to be released as part of the React 16 upgrade).
-        '''
-      ));
+        ''';
     }
-
     super[key] = value;
+    ValidationUtil.warn(message);
   }
 }
 
