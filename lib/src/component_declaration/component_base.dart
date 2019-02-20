@@ -461,14 +461,16 @@ class _WarnOnModify<K, V> extends MapView<K, V> {
     if (isProps) {
       message =
         '''
-          props["$key"] was updated incorrectly. Never mutate this.props directly, as it can cause unexpected behavior; props must be updated only by passing in new values when rerendering this component.
+          props["$key"] was updated incorrectly. Never mutate this.props directly, as it can cause unexpected behavior; 
+          props must be updated only by passing in new values when re-rendering this component.
 
           This will throw in UiComponentV2 (to be released as part of the React 16 upgrade).
         ''';
     } else {
       message =
         '''
-          state["$key"] was updated incorrectly. Never mutate this.state directly, as it can cause unexpected behavior; state must be updated only via setState.
+          state["$key"] was updated incorrectly. Never mutate this.state directly, as it can cause unexpected behavior; 
+          state must be updated only via setState.
 
           This will throw in UiComponentV2 (to be released as part of the React 16 upgrade).
         ''';
