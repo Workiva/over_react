@@ -3,7 +3,7 @@ builders:
     import: "package:over_react/builder.dart"
     builder_factories: ["overReactBuilder"]
     build_extensions: {".dart" : [".over_react.g.dart"]}
-    auto_apply: all_packages
+    auto_apply: dependents
     build_to: cache
 
   # Builder just for this package.
