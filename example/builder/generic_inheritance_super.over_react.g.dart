@@ -94,12 +94,14 @@ _$$GenericSuperProps _$GenericSuper([Map backingProps]) =>
 class _$$GenericSuperProps extends _$GenericSuperProps
     with _$GenericSuperPropsAccessorsMixin
     implements GenericSuperProps {
-  _$$GenericSuperProps(Map backingMap) : this._props = backingMap ?? {};
+  _$$GenericSuperProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

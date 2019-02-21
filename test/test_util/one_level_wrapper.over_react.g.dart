@@ -47,12 +47,14 @@ _$$OneLevelWrapperProps _$OneLevelWrapper([Map backingProps]) =>
 class _$$OneLevelWrapperProps extends _$OneLevelWrapperProps
     with _$OneLevelWrapperPropsAccessorsMixin
     implements OneLevelWrapperProps {
-  _$$OneLevelWrapperProps(Map backingMap) : this._props = backingMap ?? {};
+  _$$OneLevelWrapperProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

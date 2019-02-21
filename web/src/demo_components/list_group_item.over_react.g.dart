@@ -202,12 +202,14 @@ _$$ListGroupItemProps _$ListGroupItem([Map backingProps]) =>
 class _$$ListGroupItemProps extends _$ListGroupItemProps
     with _$ListGroupItemPropsAccessorsMixin
     implements ListGroupItemProps {
-  _$$ListGroupItemProps(Map backingMap) : this._props = backingMap ?? {};
+  _$$ListGroupItemProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

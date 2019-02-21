@@ -201,12 +201,14 @@ _$$ProgressProps _$Progress([Map backingProps]) =>
 class _$$ProgressProps extends _$ProgressProps
     with _$ProgressPropsAccessorsMixin
     implements ProgressProps {
-  _$$ProgressProps(Map backingMap) : this._props = backingMap ?? {};
+  _$$ProgressProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

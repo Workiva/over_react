@@ -70,12 +70,14 @@ _$$TestProps _$Test([Map backingProps]) => new _$$TestProps(backingProps);
 class _$$TestProps extends _$TestProps
     with _$TestPropsAccessorsMixin
     implements TestProps {
-  _$$TestProps(Map backingMap) : this._props = backingMap ?? {};
+  _$$TestProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
