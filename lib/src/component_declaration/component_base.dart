@@ -473,7 +473,7 @@ class _WarnOnModify<K, V> extends MapView<K, V> {
         ''';
     }
     super[key] = value;
-    ValidationUtil.warn(message);
+    ValidationUtil.warn(unindent(message));
   }
 }
 
