@@ -48,7 +48,7 @@ _$$TestExtendtypeProps _$TestExtendtype([Map backingProps]) =>
 class _$$TestExtendtypeProps extends _$TestExtendtypeProps
     with _$TestExtendtypePropsAccessorsMixin
     implements TestExtendtypeProps {
-  _$$TestExtendtypeProps(Map backingMap) : this._props = {} {
+  _$$TestExtendtypeProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 

@@ -154,7 +154,7 @@ _$$ButtonProps _$Button([Map backingProps]) => new _$$ButtonProps(backingProps);
 class _$$ButtonProps extends _$ButtonProps
     with _$ButtonPropsAccessorsMixin
     implements ButtonProps {
-  _$$ButtonProps(Map backingMap) : this._props = {} {
+  _$$ButtonProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -201,12 +201,14 @@ class ButtonState extends _$ButtonState with _$ButtonStateAccessorsMixin {
 class _$$ButtonState extends _$ButtonState
     with _$ButtonStateAccessorsMixin
     implements ButtonState {
-  _$$ButtonState(Map backingMap) : this._state = backingMap ?? {};
+  _$$ButtonState(Map backingMap) : this._state = backingMap ?? {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

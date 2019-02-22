@@ -94,7 +94,7 @@ _$$GenericSuperProps _$GenericSuper([Map backingProps]) =>
 class _$$GenericSuperProps extends _$GenericSuperProps
     with _$GenericSuperPropsAccessorsMixin
     implements GenericSuperProps {
-  _$$GenericSuperProps(Map backingMap) : this._props = {} {
+  _$$GenericSuperProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -160,12 +160,14 @@ class GenericSuperState extends _$GenericSuperState
 class _$$GenericSuperState extends _$GenericSuperState
     with _$GenericSuperStateAccessorsMixin
     implements GenericSuperState {
-  _$$GenericSuperState(Map backingMap) : this._state = backingMap ?? {};
+  _$$GenericSuperState(Map backingMap) : this._state = backingMap ?? {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

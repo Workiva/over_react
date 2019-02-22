@@ -122,7 +122,7 @@ _$$BasicProps _$Basic([Map backingProps]) => new _$$BasicProps(backingProps);
 class _$$BasicProps extends _$BasicProps
     with _$BasicPropsAccessorsMixin
     implements BasicProps {
-  _$$BasicProps(Map backingMap) : this._props = {} {
+  _$$BasicProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -184,12 +184,14 @@ class BasicState extends _$BasicState with _$BasicStateAccessorsMixin {
 class _$$BasicState extends _$BasicState
     with _$BasicStateAccessorsMixin
     implements BasicState {
-  _$$BasicState(Map backingMap) : this._state = backingMap ?? {};
+  _$$BasicState(Map backingMap) : this._state = backingMap ?? {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

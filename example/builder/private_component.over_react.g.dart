@@ -57,7 +57,7 @@ _$$_PrivateProps _$_Private([Map backingProps]) =>
 class _$$_PrivateProps extends _$_PrivateProps
     with _$_PrivatePropsAccessorsMixin
     implements _PrivateProps {
-  _$$_PrivateProps(Map backingMap) : this._props = {} {
+  _$$_PrivateProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -116,12 +116,14 @@ class _PrivateState extends _$_PrivateState with _$_PrivateStateAccessorsMixin {
 class _$$_PrivateState extends _$_PrivateState
     with _$_PrivateStateAccessorsMixin
     implements _PrivateState {
-  _$$_PrivateState(Map backingMap) : this._state = backingMap ?? {};
+  _$$_PrivateState(Map backingMap) : this._state = backingMap ?? {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

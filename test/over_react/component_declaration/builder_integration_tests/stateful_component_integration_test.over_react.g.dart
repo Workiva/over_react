@@ -47,7 +47,8 @@ _$$StatefulComponentTestProps _$StatefulComponentTest([Map backingProps]) =>
 class _$$StatefulComponentTestProps extends _$StatefulComponentTestProps
     with _$StatefulComponentTestPropsAccessorsMixin
     implements StatefulComponentTestProps {
-  _$$StatefulComponentTestProps(Map backingMap) : this._props = {} {
+  _$$StatefulComponentTestProps(Map backingMap)
+      : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -212,12 +213,14 @@ class _$$StatefulComponentTestState extends _$StatefulComponentTestState
     with _$StatefulComponentTestStateAccessorsMixin
     implements StatefulComponentTestState {
   _$$StatefulComponentTestState(Map backingMap)
-      : this._state = backingMap ?? {};
+      : this._state = backingMap ?? {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

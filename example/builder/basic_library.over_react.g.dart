@@ -138,7 +138,7 @@ _$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) =>
 class _$$BasicPartOfLibProps extends _$BasicPartOfLibProps
     with _$BasicPartOfLibPropsAccessorsMixin
     implements BasicPartOfLibProps {
-  _$$BasicPartOfLibProps(Map backingMap) : this._props = {} {
+  _$$BasicPartOfLibProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -204,12 +204,14 @@ class BasicPartOfLibState extends _$BasicPartOfLibState
 class _$$BasicPartOfLibState extends _$BasicPartOfLibState
     with _$BasicPartOfLibStateAccessorsMixin
     implements BasicPartOfLibState {
-  _$$BasicPartOfLibState(Map backingMap) : this._state = backingMap ?? {};
+  _$$BasicPartOfLibState(Map backingMap) : this._state = backingMap ?? {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override
@@ -298,7 +300,7 @@ _$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) =>
 class _$$SubPartOfLibProps extends _$SubPartOfLibProps
     with _$SubPartOfLibPropsAccessorsMixin
     implements SubPartOfLibProps {
-  _$$SubPartOfLibProps(Map backingMap) : this._props = {} {
+  _$$SubPartOfLibProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 

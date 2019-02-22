@@ -70,7 +70,7 @@ _$$TestProps _$Test([Map backingProps]) => new _$$TestProps(backingProps);
 class _$$TestProps extends _$TestProps
     with _$TestPropsAccessorsMixin
     implements TestProps {
-  _$$TestProps(Map backingMap) : this._props = {} {
+  _$$TestProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 

@@ -97,7 +97,7 @@ _$$ToggleButtonProps _$ToggleButton([Map backingProps]) =>
 class _$$ToggleButtonProps extends _$ToggleButtonProps
     with _$ToggleButtonPropsAccessorsMixin
     implements ToggleButtonProps {
-  _$$ToggleButtonProps(Map backingMap) : this._props = {} {
+  _$$ToggleButtonProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -178,12 +178,14 @@ class ToggleButtonState extends _$ToggleButtonState
 class _$$ToggleButtonState extends _$ToggleButtonState
     with _$ToggleButtonStateAccessorsMixin
     implements ToggleButtonState {
-  _$$ToggleButtonState(Map backingMap) : this._state = backingMap ?? {};
+  _$$ToggleButtonState(Map backingMap) : this._state = backingMap ?? {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

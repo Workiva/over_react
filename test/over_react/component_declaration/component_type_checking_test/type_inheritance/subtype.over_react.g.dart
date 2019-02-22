@@ -47,7 +47,7 @@ _$$TestSubtypeProps _$TestSubtype([Map backingProps]) =>
 class _$$TestSubtypeProps extends _$TestSubtypeProps
     with _$TestSubtypePropsAccessorsMixin
     implements TestSubtypeProps {
-  _$$TestSubtypeProps(Map backingMap) : this._props = {} {
+  _$$TestSubtypeProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 

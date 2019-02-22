@@ -126,7 +126,7 @@ _$$BasicProps _$Basic([Map backingProps]) => new _$$BasicProps(backingProps);
 class _$$BasicProps extends _$BasicProps
     with _$BasicPropsAccessorsMixin
     implements BasicProps {
-  _$$BasicProps(Map backingMap) : this._props = {} {
+  _$$BasicProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 

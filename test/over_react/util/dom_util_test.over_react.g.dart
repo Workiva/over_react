@@ -45,7 +45,7 @@ _$$DomTestProps _$DomTest([Map backingProps]) =>
 class _$$DomTestProps extends _$DomTestProps
     with _$DomTestPropsAccessorsMixin
     implements DomTestProps {
-  _$$DomTestProps(Map backingMap) : this._props = {} {
+  _$$DomTestProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 

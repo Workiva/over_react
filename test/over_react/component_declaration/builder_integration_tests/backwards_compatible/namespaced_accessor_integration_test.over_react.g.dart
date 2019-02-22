@@ -155,7 +155,8 @@ _$$NamespacedAccessorTestProps _$NamespacedAccessorTest([Map backingProps]) =>
 class _$$NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
     with _$NamespacedAccessorTestPropsAccessorsMixin
     implements NamespacedAccessorTestProps {
-  _$$NamespacedAccessorTestProps(Map backingMap) : this._props = {} {
+  _$$NamespacedAccessorTestProps(Map backingMap)
+      : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -315,12 +316,14 @@ class _$$NamespacedAccessorTestState extends _$NamespacedAccessorTestState
     with _$NamespacedAccessorTestStateAccessorsMixin
     implements NamespacedAccessorTestState {
   _$$NamespacedAccessorTestState(Map backingMap)
-      : this._state = backingMap ?? {};
+      : this._state = backingMap ?? {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

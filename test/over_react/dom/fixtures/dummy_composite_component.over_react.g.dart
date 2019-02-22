@@ -106,7 +106,8 @@ _$$TestCompositeComponentProps _$TestCompositeComponent([Map backingProps]) =>
 class _$$TestCompositeComponentProps extends _$TestCompositeComponentProps
     with _$TestCompositeComponentPropsAccessorsMixin
     implements TestCompositeComponentProps {
-  _$$TestCompositeComponentProps(Map backingMap) : this._props = {} {
+  _$$TestCompositeComponentProps(Map backingMap)
+      : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 

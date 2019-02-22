@@ -47,7 +47,7 @@ _$$TwoLevelWrapperProps _$TwoLevelWrapper([Map backingProps]) =>
 class _$$TwoLevelWrapperProps extends _$TwoLevelWrapperProps
     with _$TwoLevelWrapperPropsAccessorsMixin
     implements TwoLevelWrapperProps {
-  _$$TwoLevelWrapperProps(Map backingMap) : this._props = {} {
+  _$$TwoLevelWrapperProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 

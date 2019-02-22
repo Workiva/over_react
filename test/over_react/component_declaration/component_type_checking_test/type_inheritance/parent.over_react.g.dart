@@ -46,7 +46,7 @@ _$$TestParentProps _$TestParent([Map backingProps]) =>
 class _$$TestParentProps extends _$TestParentProps
     with _$TestParentPropsAccessorsMixin
     implements TestParentProps {
-  _$$TestParentProps(Map backingMap) : this._props = {} {
+  _$$TestParentProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 

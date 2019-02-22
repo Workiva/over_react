@@ -201,7 +201,7 @@ _$$ProgressProps _$Progress([Map backingProps]) =>
 class _$$ProgressProps extends _$ProgressProps
     with _$ProgressPropsAccessorsMixin
     implements ProgressProps {
-  _$$ProgressProps(Map backingMap) : this._props = {} {
+  _$$ProgressProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -260,12 +260,14 @@ class ProgressState extends _$ProgressState with _$ProgressStateAccessorsMixin {
 class _$$ProgressState extends _$ProgressState
     with _$ProgressStateAccessorsMixin
     implements ProgressState {
-  _$$ProgressState(Map backingMap) : this._state = backingMap ?? {};
+  _$$ProgressState(Map backingMap) : this._state = backingMap ?? {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

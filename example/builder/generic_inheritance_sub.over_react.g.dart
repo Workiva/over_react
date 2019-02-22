@@ -61,7 +61,7 @@ _$$GenericSubProps _$GenericSub([Map backingProps]) =>
 class _$$GenericSubProps extends _$GenericSubProps
     with _$GenericSubPropsAccessorsMixin
     implements GenericSubProps {
-  _$$GenericSubProps(Map backingMap) : this._props = {} {
+  _$$GenericSubProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -126,12 +126,14 @@ class GenericSubState extends _$GenericSubState
 class _$$GenericSubState extends _$GenericSubState
     with _$GenericSubStateAccessorsMixin
     implements GenericSubState {
-  _$$GenericSubState(Map backingMap) : this._state = backingMap ?? {};
+  _$$GenericSubState(Map backingMap) : this._state = backingMap ?? {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

@@ -70,7 +70,7 @@ _$$TagProps _$Tag([Map backingProps]) => new _$$TagProps(backingProps);
 class _$$TagProps extends _$TagProps
     with _$TagPropsAccessorsMixin
     implements TagProps {
-  _$$TagProps(Map backingMap) : this._props = {} {
+  _$$TagProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 

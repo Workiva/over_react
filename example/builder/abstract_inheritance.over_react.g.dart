@@ -55,7 +55,7 @@ _$$SubProps _$Sub([Map backingProps]) => new _$$SubProps(backingProps);
 class _$$SubProps extends _$SubProps
     with _$SubPropsAccessorsMixin
     implements SubProps {
-  _$$SubProps(Map backingMap) : this._props = {} {
+  _$$SubProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -114,12 +114,14 @@ class SubState extends _$SubState with _$SubStateAccessorsMixin {
 class _$$SubState extends _$SubState
     with _$SubStateAccessorsMixin
     implements SubState {
-  _$$SubState(Map backingMap) : this._state = backingMap ?? {};
+  _$$SubState(Map backingMap) : this._state = backingMap ?? {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

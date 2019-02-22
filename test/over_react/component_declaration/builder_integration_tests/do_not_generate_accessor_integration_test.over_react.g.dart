@@ -107,7 +107,8 @@ _$$DoNotGenerateAccessorTestProps _$DoNotGenerateAccessorTest(
 class _$$DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
     with _$DoNotGenerateAccessorTestPropsAccessorsMixin
     implements DoNotGenerateAccessorTestProps {
-  _$$DoNotGenerateAccessorTestProps(Map backingMap) : this._props = {} {
+  _$$DoNotGenerateAccessorTestProps(Map backingMap)
+      : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -217,12 +218,14 @@ class _$$DoNotGenerateAccessorTestState extends _$DoNotGenerateAccessorTestState
     with _$DoNotGenerateAccessorTestStateAccessorsMixin
     implements DoNotGenerateAccessorTestState {
   _$$DoNotGenerateAccessorTestState(Map backingMap)
-      : this._state = backingMap ?? {};
+      : this._state = backingMap ?? {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

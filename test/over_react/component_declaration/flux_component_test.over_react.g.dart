@@ -46,7 +46,7 @@ _$$TestBasicProps _$TestBasic([Map backingProps]) =>
 class _$$TestBasicProps extends _$TestBasicProps
     with _$TestBasicPropsAccessorsMixin
     implements TestBasicProps {
-  _$$TestBasicProps(Map backingMap) : this._props = {} {
+  _$$TestBasicProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -130,7 +130,8 @@ _$$TestHandlerLifecycleProps _$TestHandlerLifecycle([Map backingProps]) =>
 class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
     with _$TestHandlerLifecyclePropsAccessorsMixin
     implements TestHandlerLifecycleProps {
-  _$$TestHandlerLifecycleProps(Map backingMap) : this._props = {} {
+  _$$TestHandlerLifecycleProps(Map backingMap)
+      : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -215,7 +216,8 @@ _$$TestHandlerPrecedenceProps _$TestHandlerPrecedence([Map backingProps]) =>
 class _$$TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
     with _$TestHandlerPrecedencePropsAccessorsMixin
     implements TestHandlerPrecedenceProps {
-  _$$TestHandlerPrecedenceProps(Map backingMap) : this._props = {} {
+  _$$TestHandlerPrecedenceProps(Map backingMap)
+      : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -319,7 +321,7 @@ _$$TestPropValidationProps _$TestPropValidation([Map backingProps]) =>
 class _$$TestPropValidationProps extends _$TestPropValidationProps
     with _$TestPropValidationPropsAccessorsMixin
     implements TestPropValidationProps {
-  _$$TestPropValidationProps(Map backingMap) : this._props = {} {
+  _$$TestPropValidationProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -404,7 +406,7 @@ _$$TestRedrawOnProps _$TestRedrawOn([Map backingProps]) =>
 class _$$TestRedrawOnProps extends _$TestRedrawOnProps
     with _$TestRedrawOnPropsAccessorsMixin
     implements TestRedrawOnProps {
-  _$$TestRedrawOnProps(Map backingMap) : this._props = {} {
+  _$$TestRedrawOnProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -489,7 +491,7 @@ _$$TestStoreHandlersProps _$TestStoreHandlers([Map backingProps]) =>
 class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
     with _$TestStoreHandlersPropsAccessorsMixin
     implements TestStoreHandlersProps {
-  _$$TestStoreHandlersProps(Map backingMap) : this._props = {} {
+  _$$TestStoreHandlersProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -574,7 +576,7 @@ _$$TestStatefulBasicProps _$TestStatefulBasic([Map backingProps]) =>
 class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
     with _$TestStatefulBasicPropsAccessorsMixin
     implements TestStatefulBasicProps {
-  _$$TestStatefulBasicProps(Map backingMap) : this._props = {} {
+  _$$TestStatefulBasicProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -624,12 +626,14 @@ class TestStatefulBasicState extends _$TestStatefulBasicState
 class _$$TestStatefulBasicState extends _$TestStatefulBasicState
     with _$TestStatefulBasicStateAccessorsMixin
     implements TestStatefulBasicState {
-  _$$TestStatefulBasicState(Map backingMap) : this._state = backingMap ?? {};
+  _$$TestStatefulBasicState(Map backingMap) : this._state = backingMap ?? {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override
@@ -705,7 +709,8 @@ class _$$TestStatefulHandlerLifecycleProps
     extends _$TestStatefulHandlerLifecycleProps
     with _$TestStatefulHandlerLifecyclePropsAccessorsMixin
     implements TestStatefulHandlerLifecycleProps {
-  _$$TestStatefulHandlerLifecycleProps(Map backingMap) : this._props = {} {
+  _$$TestStatefulHandlerLifecycleProps(Map backingMap)
+      : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -758,12 +763,14 @@ class _$$TestStatefulHandlerLifecycleState
     with _$TestStatefulHandlerLifecycleStateAccessorsMixin
     implements TestStatefulHandlerLifecycleState {
   _$$TestStatefulHandlerLifecycleState(Map backingMap)
-      : this._state = backingMap ?? {};
+      : this._state = backingMap ?? {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override
@@ -840,7 +847,8 @@ class _$$TestStatefulHandlerPrecedenceProps
     extends _$TestStatefulHandlerPrecedenceProps
     with _$TestStatefulHandlerPrecedencePropsAccessorsMixin
     implements TestStatefulHandlerPrecedenceProps {
-  _$$TestStatefulHandlerPrecedenceProps(Map backingMap) : this._props = {} {
+  _$$TestStatefulHandlerPrecedenceProps(Map backingMap)
+      : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -893,12 +901,14 @@ class _$$TestStatefulHandlerPrecedenceState
     with _$TestStatefulHandlerPrecedenceStateAccessorsMixin
     implements TestStatefulHandlerPrecedenceState {
   _$$TestStatefulHandlerPrecedenceState(Map backingMap)
-      : this._state = backingMap ?? {};
+      : this._state = backingMap ?? {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override
@@ -997,7 +1007,8 @@ class _$$TestStatefulPropValidationProps
     extends _$TestStatefulPropValidationProps
     with _$TestStatefulPropValidationPropsAccessorsMixin
     implements TestStatefulPropValidationProps {
-  _$$TestStatefulPropValidationProps(Map backingMap) : this._props = {} {
+  _$$TestStatefulPropValidationProps(Map backingMap)
+      : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -1049,12 +1060,14 @@ class _$$TestStatefulPropValidationState
     with _$TestStatefulPropValidationStateAccessorsMixin
     implements TestStatefulPropValidationState {
   _$$TestStatefulPropValidationState(Map backingMap)
-      : this._state = backingMap ?? {};
+      : this._state = backingMap ?? {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override
@@ -1128,7 +1141,8 @@ _$$TestStatefulRedrawOnProps _$TestStatefulRedrawOn([Map backingProps]) =>
 class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
     with _$TestStatefulRedrawOnPropsAccessorsMixin
     implements TestStatefulRedrawOnProps {
-  _$$TestStatefulRedrawOnProps(Map backingMap) : this._props = {} {
+  _$$TestStatefulRedrawOnProps(Map backingMap)
+      : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -1178,12 +1192,15 @@ class TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState
 class _$$TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState
     with _$TestStatefulRedrawOnStateAccessorsMixin
     implements TestStatefulRedrawOnState {
-  _$$TestStatefulRedrawOnState(Map backingMap) : this._state = backingMap ?? {};
+  _$$TestStatefulRedrawOnState(Map backingMap)
+      : this._state = backingMap ?? {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override
@@ -1257,7 +1274,8 @@ _$$TestStatefulStoreHandlersProps _$TestStatefulStoreHandlers(
 class _$$TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
     with _$TestStatefulStoreHandlersPropsAccessorsMixin
     implements TestStatefulStoreHandlersProps {
-  _$$TestStatefulStoreHandlersProps(Map backingMap) : this._props = {} {
+  _$$TestStatefulStoreHandlersProps(Map backingMap)
+      : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 
@@ -1308,12 +1326,14 @@ class _$$TestStatefulStoreHandlersState extends _$TestStatefulStoreHandlersState
     with _$TestStatefulStoreHandlersStateAccessorsMixin
     implements TestStatefulStoreHandlersState {
   _$$TestStatefulStoreHandlersState(Map backingMap)
-      : this._state = backingMap ?? {};
+      : this._state = backingMap ?? {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

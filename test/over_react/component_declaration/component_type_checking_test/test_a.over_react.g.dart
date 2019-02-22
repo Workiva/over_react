@@ -43,7 +43,7 @@ _$$TestAProps _$TestA([Map backingProps]) => new _$$TestAProps(backingProps);
 class _$$TestAProps extends _$TestAProps
     with _$TestAPropsAccessorsMixin
     implements TestAProps {
-  _$$TestAProps(Map backingMap) : this._props = {} {
+  _$$TestAProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 

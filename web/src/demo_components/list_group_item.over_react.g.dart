@@ -202,7 +202,7 @@ _$$ListGroupItemProps _$ListGroupItem([Map backingProps]) =>
 class _$$ListGroupItemProps extends _$ListGroupItemProps
     with _$ListGroupItemPropsAccessorsMixin
     implements ListGroupItemProps {
-  _$$ListGroupItemProps(Map backingMap) : this._props = {} {
+  _$$ListGroupItemProps(Map backingMap) : this._props = backingMap ?? {} {
     this._props = backingMap ?? {};
   }
 

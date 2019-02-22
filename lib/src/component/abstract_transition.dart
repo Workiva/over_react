@@ -32,6 +32,7 @@ abstract class _$AbstractTransitionState extends UiState {
   ///
   /// Default:  [AbstractTransitionComponent.initiallyShown] ? [TransitionPhase.SHOWN] : [TransitionPhase.HIDDEN]
   TransitionPhase transitionPhase;
+  // I added a comment
 }
 
 /// How to use [AbstractTransitionComponent]:
