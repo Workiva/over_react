@@ -63,7 +63,7 @@ _$$FormActionInputProps _$_FormActionInput([Map backingProps]) =>
 class _$$FormActionInputProps extends _$FormActionInputProps
     with _$FormActionInputPropsAccessorsMixin
     implements FormActionInputProps {
-  _$$FormActionInputProps(Map backingMap) : this._props = backingMap ?? {} {
+  _$$FormActionInputProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 

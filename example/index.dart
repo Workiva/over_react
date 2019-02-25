@@ -18,7 +18,7 @@ main() {
         (Basic()
           ..basic1 = '<basic prop>'
           ..id = 'the id of this component'
-        )(),
+        )('this is a child'),
         (Sub()
           ..superProp = '<superProp value>'
           ..subProp = '<subProp value>'

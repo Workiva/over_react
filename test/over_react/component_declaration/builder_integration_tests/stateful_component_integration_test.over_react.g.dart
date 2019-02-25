@@ -47,8 +47,7 @@ _$$StatefulComponentTestProps _$StatefulComponentTest([Map backingProps]) =>
 class _$$StatefulComponentTestProps extends _$StatefulComponentTestProps
     with _$StatefulComponentTestPropsAccessorsMixin
     implements StatefulComponentTestProps {
-  _$$StatefulComponentTestProps(Map backingMap)
-      : this._props = backingMap ?? {} {
+  _$$StatefulComponentTestProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -212,8 +211,7 @@ class StatefulComponentTestState extends _$StatefulComponentTestState
 class _$$StatefulComponentTestState extends _$StatefulComponentTestState
     with _$StatefulComponentTestStateAccessorsMixin
     implements StatefulComponentTestState {
-  _$$StatefulComponentTestState(Map backingMap)
-      : this._state = backingMap ?? {} {
+  _$$StatefulComponentTestState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 

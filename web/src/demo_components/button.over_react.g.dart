@@ -154,7 +154,7 @@ _$$ButtonProps _$Button([Map backingProps]) => new _$$ButtonProps(backingProps);
 class _$$ButtonProps extends _$ButtonProps
     with _$ButtonPropsAccessorsMixin
     implements ButtonProps {
-  _$$ButtonProps(Map backingMap) : this._props = backingMap ?? {} {
+  _$$ButtonProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -201,7 +201,7 @@ class ButtonState extends _$ButtonState with _$ButtonStateAccessorsMixin {
 class _$$ButtonState extends _$ButtonState
     with _$ButtonStateAccessorsMixin
     implements ButtonState {
-  _$$ButtonState(Map backingMap) : this._state = backingMap ?? {} {
+  _$$ButtonState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 

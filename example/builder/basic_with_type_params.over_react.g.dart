@@ -77,7 +77,7 @@ _$$BasicProps _$Basic([Map backingProps]) => new _$$BasicProps(backingProps);
 class _$$BasicProps<T, U extends UiProps> extends _$BasicProps<T, U>
     with _$BasicPropsAccessorsMixin<T, U>
     implements BasicProps<T, U> {
-  _$$BasicProps(Map backingMap) : this._props = backingMap ?? {} {
+  _$$BasicProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 

@@ -107,8 +107,7 @@ _$$DoNotGenerateAccessorTestProps _$DoNotGenerateAccessorTest(
 class _$$DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
     with _$DoNotGenerateAccessorTestPropsAccessorsMixin
     implements DoNotGenerateAccessorTestProps {
-  _$$DoNotGenerateAccessorTestProps(Map backingMap)
-      : this._props = backingMap ?? {} {
+  _$$DoNotGenerateAccessorTestProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -217,8 +216,7 @@ class DoNotGenerateAccessorTestState extends _$DoNotGenerateAccessorTestState
 class _$$DoNotGenerateAccessorTestState extends _$DoNotGenerateAccessorTestState
     with _$DoNotGenerateAccessorTestStateAccessorsMixin
     implements DoNotGenerateAccessorTestState {
-  _$$DoNotGenerateAccessorTestState(Map backingMap)
-      : this._state = backingMap ?? {} {
+  _$$DoNotGenerateAccessorTestState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 

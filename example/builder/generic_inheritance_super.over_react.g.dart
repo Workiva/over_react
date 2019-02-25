@@ -94,7 +94,7 @@ _$$GenericSuperProps _$GenericSuper([Map backingProps]) =>
 class _$$GenericSuperProps extends _$GenericSuperProps
     with _$GenericSuperPropsAccessorsMixin
     implements GenericSuperProps {
-  _$$GenericSuperProps(Map backingMap) : this._props = backingMap ?? {} {
+  _$$GenericSuperProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -160,7 +160,7 @@ class GenericSuperState extends _$GenericSuperState
 class _$$GenericSuperState extends _$GenericSuperState
     with _$GenericSuperStateAccessorsMixin
     implements GenericSuperState {
-  _$$GenericSuperState(Map backingMap) : this._state = backingMap ?? {} {
+  _$$GenericSuperState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 

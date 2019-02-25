@@ -48,7 +48,7 @@ _$$ToggleButtonGroupProps _$ToggleButtonGroup([Map backingProps]) =>
 class _$$ToggleButtonGroupProps extends _$ToggleButtonGroupProps
     with _$ToggleButtonGroupPropsAccessorsMixin
     implements ToggleButtonGroupProps {
-  _$$ToggleButtonGroupProps(Map backingMap) : this._props = backingMap ?? {} {
+  _$$ToggleButtonGroupProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -98,7 +98,7 @@ class ToggleButtonGroupState extends _$ToggleButtonGroupState
 class _$$ToggleButtonGroupState extends _$ToggleButtonGroupState
     with _$ToggleButtonGroupStateAccessorsMixin
     implements ToggleButtonGroupState {
-  _$$ToggleButtonGroupState(Map backingMap) : this._state = backingMap ?? {} {
+  _$$ToggleButtonGroupState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 

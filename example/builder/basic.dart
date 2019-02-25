@@ -24,13 +24,13 @@ class BasicComponent extends UiComponent<BasicProps> {
   Map getDefaultProps() => newProps()..id = 'basic component'
       ..basicProp = 'defaultBasicProps'; // ignore: deprecated_member_use
 
-
   @override
   render() {
     return Dom.div()(
         Dom.div()('prop id: ${props.id}'),
         Dom.div()('default prop testing: ${props.basicProp}'), // ignore: deprecated_member_use
         Dom.div()('default prop testing: ${props.basic1}'),
+        Dom.div()('children: ${props.children}'),
     );
   }
 }

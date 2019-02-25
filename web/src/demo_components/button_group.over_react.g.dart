@@ -89,7 +89,7 @@ _$$ButtonGroupProps _$ButtonGroup([Map backingProps]) =>
 class _$$ButtonGroupProps extends _$ButtonGroupProps
     with _$ButtonGroupPropsAccessorsMixin
     implements ButtonGroupProps {
-  _$$ButtonGroupProps(Map backingMap) : this._props = backingMap ?? {} {
+  _$$ButtonGroupProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -138,7 +138,7 @@ class ButtonGroupState extends _$ButtonGroupState
 class _$$ButtonGroupState extends _$ButtonGroupState
     with _$ButtonGroupStateAccessorsMixin
     implements ButtonGroupState {
-  _$$ButtonGroupState(Map backingMap) : this._state = backingMap ?? {} {
+  _$$ButtonGroupState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 

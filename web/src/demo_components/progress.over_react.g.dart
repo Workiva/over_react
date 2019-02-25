@@ -201,7 +201,7 @@ _$$ProgressProps _$Progress([Map backingProps]) =>
 class _$$ProgressProps extends _$ProgressProps
     with _$ProgressPropsAccessorsMixin
     implements ProgressProps {
-  _$$ProgressProps(Map backingMap) : this._props = backingMap ?? {} {
+  _$$ProgressProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -260,7 +260,7 @@ class ProgressState extends _$ProgressState with _$ProgressStateAccessorsMixin {
 class _$$ProgressState extends _$ProgressState
     with _$ProgressStateAccessorsMixin
     implements ProgressState {
-  _$$ProgressState(Map backingMap) : this._state = backingMap ?? {} {
+  _$$ProgressState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 

@@ -46,7 +46,7 @@ _$$TestDefaultProps _$TestDefault([Map backingProps]) =>
 class _$$TestDefaultProps extends _$TestDefaultProps
     with _$TestDefaultPropsAccessorsMixin
     implements TestDefaultProps {
-  _$$TestDefaultProps(Map backingMap) : this._props = backingMap ?? {} {
+  _$$TestDefaultProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -130,7 +130,7 @@ _$$TestConnectProps _$TestConnect([Map backingProps]) =>
 class _$$TestConnectProps extends _$TestConnectProps
     with _$TestConnectPropsAccessorsMixin
     implements TestConnectProps {
-  _$$TestConnectProps(Map backingMap) : this._props = backingMap ?? {} {
+  _$$TestConnectProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -213,7 +213,7 @@ _$$TestPureProps _$TestPure([Map backingProps]) =>
 class _$$TestPureProps extends _$TestPureProps
     with _$TestPurePropsAccessorsMixin
     implements TestPureProps {
-  _$$TestPureProps(Map backingMap) : this._props = backingMap ?? {} {
+  _$$TestPureProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 

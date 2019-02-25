@@ -122,7 +122,7 @@ _$$BasicProps _$Basic([Map backingProps]) => new _$$BasicProps(backingProps);
 class _$$BasicProps extends _$BasicProps
     with _$BasicPropsAccessorsMixin
     implements BasicProps {
-  _$$BasicProps(Map backingMap) : this._props = backingMap ?? {} {
+  _$$BasicProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -184,7 +184,7 @@ class BasicState extends _$BasicState with _$BasicStateAccessorsMixin {
 class _$$BasicState extends _$BasicState
     with _$BasicStateAccessorsMixin
     implements BasicState {
-  _$$BasicState(Map backingMap) : this._state = backingMap ?? {} {
+  _$$BasicState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 

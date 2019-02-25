@@ -47,7 +47,7 @@ _$$ResizeSensorProps _$ResizeSensor([Map backingProps]) =>
 class _$$ResizeSensorProps extends _$ResizeSensorProps
     with _$ResizeSensorPropsAccessorsMixin
     implements ResizeSensorProps {
-  _$$ResizeSensorProps(Map backingMap) : this._props = backingMap ?? {} {
+  _$$ResizeSensorProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 

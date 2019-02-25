@@ -155,8 +155,7 @@ _$$NamespacedAccessorTestProps _$NamespacedAccessorTest([Map backingProps]) =>
 class _$$NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
     with _$NamespacedAccessorTestPropsAccessorsMixin
     implements NamespacedAccessorTestProps {
-  _$$NamespacedAccessorTestProps(Map backingMap)
-      : this._props = backingMap ?? {} {
+  _$$NamespacedAccessorTestProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -315,8 +314,7 @@ const StateMeta _$metaForNamespacedAccessorTestState = const StateMeta(
 class _$$NamespacedAccessorTestState extends _$NamespacedAccessorTestState
     with _$NamespacedAccessorTestStateAccessorsMixin
     implements NamespacedAccessorTestState {
-  _$$NamespacedAccessorTestState(Map backingMap)
-      : this._state = backingMap ?? {} {
+  _$$NamespacedAccessorTestState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 

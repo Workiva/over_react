@@ -206,7 +206,7 @@ _$$TransitionerProps _$Transitioner([Map backingProps]) =>
 class _$$TransitionerProps extends _$TransitionerProps
     with _$TransitionerPropsAccessorsMixin
     implements TransitionerProps {
-  _$$TransitionerProps(Map backingMap) : this._props = backingMap ?? {} {
+  _$$TransitionerProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -256,7 +256,7 @@ class TransitionerState extends _$TransitionerState
 class _$$TransitionerState extends _$TransitionerState
     with _$TransitionerStateAccessorsMixin
     implements TransitionerState {
-  _$$TransitionerState(Map backingMap) : this._state = backingMap ?? {} {
+  _$$TransitionerState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
