@@ -23,8 +23,9 @@ abstract class _$GenericSubPropsAccessorsMixin implements _$GenericSubProps {
 
   /// Go to [_$GenericSubProps.subProp] to see the source code for this prop
   @override
-  String get subProp => props[_$key__subProp___$GenericSubProps];
-
+  String get subProp =>
+      props[_$key__subProp___$GenericSubProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$GenericSubProps.subProp] to see the source code for this prop
   @override
   set subProp(String value) => props[_$key__subProp___$GenericSubProps] = value;
@@ -88,8 +89,9 @@ abstract class _$GenericSubStateAccessorsMixin implements _$GenericSubState {
 
   /// Go to [_$GenericSubState.subState] to see the source code for this prop
   @override
-  String get subState => state[_$key__subState___$GenericSubState];
-
+  String get subState =>
+      state[_$key__subState___$GenericSubState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$GenericSubState.subState] to see the source code for this prop
   @override
   set subState(String value) =>

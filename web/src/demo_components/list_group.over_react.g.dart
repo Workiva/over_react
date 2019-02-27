@@ -24,8 +24,8 @@ abstract class _$ListGroupPropsAccessorsMixin implements _$ListGroupProps {
   /// Go to [_$ListGroupProps.elementType] to see the source code for this prop
   @override
   ListGroupElementType get elementType =>
-      props[_$key__elementType___$ListGroupProps];
-
+      props[_$key__elementType___$ListGroupProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ListGroupProps.elementType] to see the source code for this prop
   @override
   set elementType(ListGroupElementType value) =>

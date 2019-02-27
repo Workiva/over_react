@@ -25,8 +25,8 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// Go to [_$ListGroupItemProps.elementType] to see the source code for this prop
   @override
   ListGroupItemElementType get elementType =>
-      props[_$key__elementType___$ListGroupItemProps];
-
+      props[_$key__elementType___$ListGroupItemProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ListGroupItemProps.elementType] to see the source code for this prop
   @override
   set elementType(ListGroupItemElementType value) =>
@@ -34,8 +34,9 @@ abstract class _$ListGroupItemPropsAccessorsMixin
 
   /// Go to [_$ListGroupItemProps.header] to see the source code for this prop
   @override
-  dynamic get header => props[_$key__header___$ListGroupItemProps];
-
+  dynamic get header =>
+      props[_$key__header___$ListGroupItemProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ListGroupItemProps.header] to see the source code for this prop
   @override
   set header(dynamic value) =>
@@ -44,8 +45,8 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// Go to [_$ListGroupItemProps.headerSize] to see the source code for this prop
   @override
   ListGroupItemHeaderElementSize get headerSize =>
-      props[_$key__headerSize___$ListGroupItemProps];
-
+      props[_$key__headerSize___$ListGroupItemProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ListGroupItemProps.headerSize] to see the source code for this prop
   @override
   set headerSize(ListGroupItemHeaderElementSize value) =>
@@ -53,8 +54,9 @@ abstract class _$ListGroupItemPropsAccessorsMixin
 
   /// Go to [_$ListGroupItemProps.headerProps] to see the source code for this prop
   @override
-  Map get headerProps => props[_$key__headerProps___$ListGroupItemProps];
-
+  Map get headerProps =>
+      props[_$key__headerProps___$ListGroupItemProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ListGroupItemProps.headerProps] to see the source code for this prop
   @override
   set headerProps(Map value) =>
@@ -62,8 +64,9 @@ abstract class _$ListGroupItemPropsAccessorsMixin
 
   /// Go to [_$ListGroupItemProps.skin] to see the source code for this prop
   @override
-  ListGroupItemSkin get skin => props[_$key__skin___$ListGroupItemProps];
-
+  ListGroupItemSkin get skin =>
+      props[_$key__skin___$ListGroupItemProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ListGroupItemProps.skin] to see the source code for this prop
   @override
   set skin(ListGroupItemSkin value) =>
@@ -71,8 +74,9 @@ abstract class _$ListGroupItemPropsAccessorsMixin
 
   /// Go to [_$ListGroupItemProps.isActive] to see the source code for this prop
   @override
-  bool get isActive => props[_$key__isActive___$ListGroupItemProps];
-
+  bool get isActive =>
+      props[_$key__isActive___$ListGroupItemProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ListGroupItemProps.isActive] to see the source code for this prop
   @override
   set isActive(bool value) =>
@@ -81,8 +85,9 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// Go to [_$ListGroupItemProps.isDisabled] to see the source code for this prop
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
-  bool get isDisabled => props[_$key__isDisabled___$ListGroupItemProps];
-
+  bool get isDisabled =>
+      props[_$key__isDisabled___$ListGroupItemProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ListGroupItemProps.isDisabled] to see the source code for this prop
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
@@ -92,8 +97,9 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// Go to [_$ListGroupItemProps.href] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  String get href => props[_$key__href___$ListGroupItemProps];
-
+  String get href =>
+      props[_$key__href___$ListGroupItemProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ListGroupItemProps.href] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
@@ -102,8 +108,9 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// Go to [_$ListGroupItemProps.target] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  String get target => props[_$key__target___$ListGroupItemProps];
-
+  String get target =>
+      props[_$key__target___$ListGroupItemProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ListGroupItemProps.target] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
@@ -112,8 +119,9 @@ abstract class _$ListGroupItemPropsAccessorsMixin
 
   /// Go to [_$ListGroupItemProps.type] to see the source code for this prop
   @override
-  ButtonType get type => props[_$key__type___$ListGroupItemProps];
-
+  ButtonType get type =>
+      props[_$key__type___$ListGroupItemProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ListGroupItemProps.type] to see the source code for this prop
   @override
   set type(ButtonType value) =>

@@ -17,16 +17,18 @@ abstract class ReactPropsMixin implements _$ReactPropsMixin {
 
   /// Go to [_$ReactPropsMixin.children] to see the source code for this prop
   @override
-  List get children => props[_$key__children___$ReactPropsMixin];
-
+  List get children =>
+      props[_$key__children___$ReactPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ReactPropsMixin.children] to see the source code for this prop
   @override
   set children(List value) => props[_$key__children___$ReactPropsMixin] = value;
 
   /// Go to [_$ReactPropsMixin.ref] to see the source code for this prop
   @override
-  dynamic get ref => props[_$key__ref___$ReactPropsMixin];
-
+  dynamic get ref =>
+      props[_$key__ref___$ReactPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ReactPropsMixin.ref] to see the source code for this prop
   @override
   set ref(dynamic value) => props[_$key__ref___$ReactPropsMixin] = value;
@@ -61,48 +63,54 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.cols] to see the source code for this prop
   @override
-  int get cols => props[_$key__cols___$DomPropsMixin];
-
+  int get cols =>
+      props[_$key__cols___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.cols] to see the source code for this prop
   @override
   set cols(int value) => props[_$key__cols___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.rows] to see the source code for this prop
   @override
-  int get rows => props[_$key__rows___$DomPropsMixin];
-
+  int get rows =>
+      props[_$key__rows___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.rows] to see the source code for this prop
   @override
   set rows(int value) => props[_$key__rows___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.size] to see the source code for this prop
   @override
-  int get size => props[_$key__size___$DomPropsMixin];
-
+  int get size =>
+      props[_$key__size___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.size] to see the source code for this prop
   @override
   set size(int value) => props[_$key__size___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.span] to see the source code for this prop
   @override
-  int get span => props[_$key__span___$DomPropsMixin];
-
+  int get span =>
+      props[_$key__span___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.span] to see the source code for this prop
   @override
   set span(int value) => props[_$key__span___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.start] to see the source code for this prop
   @override
-  int get start => props[_$key__start___$DomPropsMixin];
-
+  int get start =>
+      props[_$key__start___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.start] to see the source code for this prop
   @override
   set start(int value) => props[_$key__start___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.allowFullScreen] to see the source code for this prop
   @override
-  bool get allowFullScreen => props[_$key__allowFullScreen___$DomPropsMixin];
-
+  bool get allowFullScreen =>
+      props[_$key__allowFullScreen___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.allowFullScreen] to see the source code for this prop
   @override
   set allowFullScreen(bool value) =>
@@ -110,56 +118,63 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.async] to see the source code for this prop
   @override
-  bool get async => props[_$key__async___$DomPropsMixin];
-
+  bool get async =>
+      props[_$key__async___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.async] to see the source code for this prop
   @override
   set async(bool value) => props[_$key__async___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.autoPlay] to see the source code for this prop
   @override
-  bool get autoPlay => props[_$key__autoPlay___$DomPropsMixin];
-
+  bool get autoPlay =>
+      props[_$key__autoPlay___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.autoPlay] to see the source code for this prop
   @override
   set autoPlay(bool value) => props[_$key__autoPlay___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.checked] to see the source code for this prop
   @override
-  bool get checked => props[_$key__checked___$DomPropsMixin];
-
+  bool get checked =>
+      props[_$key__checked___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.checked] to see the source code for this prop
   @override
   set checked(bool value) => props[_$key__checked___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.controls] to see the source code for this prop
   @override
-  bool get controls => props[_$key__controls___$DomPropsMixin];
-
+  bool get controls =>
+      props[_$key__controls___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.controls] to see the source code for this prop
   @override
   set controls(bool value) => props[_$key__controls___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.defer] to see the source code for this prop
   @override
-  bool get defer => props[_$key__defer___$DomPropsMixin];
-
+  bool get defer =>
+      props[_$key__defer___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.defer] to see the source code for this prop
   @override
   set defer(bool value) => props[_$key__defer___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.disabled] to see the source code for this prop
   @override
-  bool get disabled => props[_$key__disabled___$DomPropsMixin];
-
+  bool get disabled =>
+      props[_$key__disabled___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.disabled] to see the source code for this prop
   @override
   set disabled(bool value) => props[_$key__disabled___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.formNoValidate] to see the source code for this prop
   @override
-  bool get formNoValidate => props[_$key__formNoValidate___$DomPropsMixin];
-
+  bool get formNoValidate =>
+      props[_$key__formNoValidate___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.formNoValidate] to see the source code for this prop
   @override
   set formNoValidate(bool value) =>
@@ -167,40 +182,45 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.hidden] to see the source code for this prop
   @override
-  bool get hidden => props[_$key__hidden___$DomPropsMixin];
-
+  bool get hidden =>
+      props[_$key__hidden___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.hidden] to see the source code for this prop
   @override
   set hidden(bool value) => props[_$key__hidden___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.loop] to see the source code for this prop
   @override
-  bool get loop => props[_$key__loop___$DomPropsMixin];
-
+  bool get loop =>
+      props[_$key__loop___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.loop] to see the source code for this prop
   @override
   set loop(bool value) => props[_$key__loop___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.multiple] to see the source code for this prop
   @override
-  bool get multiple => props[_$key__multiple___$DomPropsMixin];
-
+  bool get multiple =>
+      props[_$key__multiple___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.multiple] to see the source code for this prop
   @override
   set multiple(bool value) => props[_$key__multiple___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.muted] to see the source code for this prop
   @override
-  bool get muted => props[_$key__muted___$DomPropsMixin];
-
+  bool get muted =>
+      props[_$key__muted___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.muted] to see the source code for this prop
   @override
   set muted(bool value) => props[_$key__muted___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.noValidate] to see the source code for this prop
   @override
-  bool get noValidate => props[_$key__noValidate___$DomPropsMixin];
-
+  bool get noValidate =>
+      props[_$key__noValidate___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.noValidate] to see the source code for this prop
   @override
   set noValidate(bool value) =>
@@ -208,40 +228,45 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.readOnly] to see the source code for this prop
   @override
-  bool get readOnly => props[_$key__readOnly___$DomPropsMixin];
-
+  bool get readOnly =>
+      props[_$key__readOnly___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.readOnly] to see the source code for this prop
   @override
   set readOnly(bool value) => props[_$key__readOnly___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.required] to see the source code for this prop
   @override
-  bool get required => props[_$key__required___$DomPropsMixin];
-
+  bool get required =>
+      props[_$key__required___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.required] to see the source code for this prop
   @override
   set required(bool value) => props[_$key__required___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.seamless] to see the source code for this prop
   @override
-  bool get seamless => props[_$key__seamless___$DomPropsMixin];
-
+  bool get seamless =>
+      props[_$key__seamless___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.seamless] to see the source code for this prop
   @override
   set seamless(bool value) => props[_$key__seamless___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.selected] to see the source code for this prop
   @override
-  bool get selected => props[_$key__selected___$DomPropsMixin];
-
+  bool get selected =>
+      props[_$key__selected___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.selected] to see the source code for this prop
   @override
   set selected(bool value) => props[_$key__selected___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.style] to see the source code for this prop
   @override
-  Map<String, dynamic> get style => props[_$key__style___$DomPropsMixin];
-
+  Map<String, dynamic> get style =>
+      props[_$key__style___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.style] to see the source code for this prop
   @override
   set style(Map<String, dynamic> value) =>
@@ -249,8 +274,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.className] to see the source code for this prop
   @override
-  String get className => props[_$key__className___$DomPropsMixin];
-
+  String get className =>
+      props[_$key__className___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.className] to see the source code for this prop
   @override
   set className(String value) =>
@@ -258,32 +284,36 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.title] to see the source code for this prop
   @override
-  String get title => props[_$key__title___$DomPropsMixin];
-
+  String get title =>
+      props[_$key__title___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.title] to see the source code for this prop
   @override
   set title(String value) => props[_$key__title___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.id] to see the source code for this prop
   @override
-  String get id => props[_$key__id___$DomPropsMixin];
-
+  String get id =>
+      props[_$key__id___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.id] to see the source code for this prop
   @override
   set id(String value) => props[_$key__id___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.accept] to see the source code for this prop
   @override
-  dynamic get accept => props[_$key__accept___$DomPropsMixin];
-
+  dynamic get accept =>
+      props[_$key__accept___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.accept] to see the source code for this prop
   @override
   set accept(dynamic value) => props[_$key__accept___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.acceptCharset] to see the source code for this prop
   @override
-  dynamic get acceptCharset => props[_$key__acceptCharset___$DomPropsMixin];
-
+  dynamic get acceptCharset =>
+      props[_$key__acceptCharset___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.acceptCharset] to see the source code for this prop
   @override
   set acceptCharset(dynamic value) =>
@@ -291,8 +321,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.accessKey] to see the source code for this prop
   @override
-  dynamic get accessKey => props[_$key__accessKey___$DomPropsMixin];
-
+  dynamic get accessKey =>
+      props[_$key__accessKey___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.accessKey] to see the source code for this prop
   @override
   set accessKey(dynamic value) =>
@@ -300,8 +331,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.action] to see the source code for this prop
   @override
-  dynamic get action => props[_$key__action___$DomPropsMixin];
-
+  dynamic get action =>
+      props[_$key__action___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.action] to see the source code for this prop
   @override
   set action(dynamic value) => props[_$key__action___$DomPropsMixin] = value;
@@ -309,8 +341,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.allowTransparency] to see the source code for this prop
   @override
   dynamic get allowTransparency =>
-      props[_$key__allowTransparency___$DomPropsMixin];
-
+      props[_$key__allowTransparency___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.allowTransparency] to see the source code for this prop
   @override
   set allowTransparency(dynamic value) =>
@@ -318,16 +350,18 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.alt] to see the source code for this prop
   @override
-  dynamic get alt => props[_$key__alt___$DomPropsMixin];
-
+  dynamic get alt =>
+      props[_$key__alt___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.alt] to see the source code for this prop
   @override
   set alt(dynamic value) => props[_$key__alt___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.autoComplete] to see the source code for this prop
   @override
-  dynamic get autoComplete => props[_$key__autoComplete___$DomPropsMixin];
-
+  dynamic get autoComplete =>
+      props[_$key__autoComplete___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.autoComplete] to see the source code for this prop
   @override
   set autoComplete(dynamic value) =>
@@ -335,8 +369,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.cellPadding] to see the source code for this prop
   @override
-  dynamic get cellPadding => props[_$key__cellPadding___$DomPropsMixin];
-
+  dynamic get cellPadding =>
+      props[_$key__cellPadding___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.cellPadding] to see the source code for this prop
   @override
   set cellPadding(dynamic value) =>
@@ -344,8 +379,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.cellSpacing] to see the source code for this prop
   @override
-  dynamic get cellSpacing => props[_$key__cellSpacing___$DomPropsMixin];
-
+  dynamic get cellSpacing =>
+      props[_$key__cellSpacing___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.cellSpacing] to see the source code for this prop
   @override
   set cellSpacing(dynamic value) =>
@@ -353,40 +389,45 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.charSet] to see the source code for this prop
   @override
-  dynamic get charSet => props[_$key__charSet___$DomPropsMixin];
-
+  dynamic get charSet =>
+      props[_$key__charSet___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.charSet] to see the source code for this prop
   @override
   set charSet(dynamic value) => props[_$key__charSet___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.classID] to see the source code for this prop
   @override
-  dynamic get classID => props[_$key__classID___$DomPropsMixin];
-
+  dynamic get classID =>
+      props[_$key__classID___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.classID] to see the source code for this prop
   @override
   set classID(dynamic value) => props[_$key__classID___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.colSpan] to see the source code for this prop
   @override
-  dynamic get colSpan => props[_$key__colSpan___$DomPropsMixin];
-
+  dynamic get colSpan =>
+      props[_$key__colSpan___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.colSpan] to see the source code for this prop
   @override
   set colSpan(dynamic value) => props[_$key__colSpan___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.content] to see the source code for this prop
   @override
-  dynamic get content => props[_$key__content___$DomPropsMixin];
-
+  dynamic get content =>
+      props[_$key__content___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.content] to see the source code for this prop
   @override
   set content(dynamic value) => props[_$key__content___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.contentEditable] to see the source code for this prop
   @override
-  dynamic get contentEditable => props[_$key__contentEditable___$DomPropsMixin];
-
+  dynamic get contentEditable =>
+      props[_$key__contentEditable___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.contentEditable] to see the source code for this prop
   @override
   set contentEditable(dynamic value) =>
@@ -394,8 +435,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.contextMenu] to see the source code for this prop
   @override
-  dynamic get contextMenu => props[_$key__contextMenu___$DomPropsMixin];
-
+  dynamic get contextMenu =>
+      props[_$key__contextMenu___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.contextMenu] to see the source code for this prop
   @override
   set contextMenu(dynamic value) =>
@@ -403,16 +445,18 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.coords] to see the source code for this prop
   @override
-  dynamic get coords => props[_$key__coords___$DomPropsMixin];
-
+  dynamic get coords =>
+      props[_$key__coords___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.coords] to see the source code for this prop
   @override
   set coords(dynamic value) => props[_$key__coords___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.crossOrigin] to see the source code for this prop
   @override
-  dynamic get crossOrigin => props[_$key__crossOrigin___$DomPropsMixin];
-
+  dynamic get crossOrigin =>
+      props[_$key__crossOrigin___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.crossOrigin] to see the source code for this prop
   @override
   set crossOrigin(dynamic value) =>
@@ -420,16 +464,18 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.data] to see the source code for this prop
   @override
-  dynamic get data => props[_$key__data___$DomPropsMixin];
-
+  dynamic get data =>
+      props[_$key__data___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.data] to see the source code for this prop
   @override
   set data(dynamic value) => props[_$key__data___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.dateTime] to see the source code for this prop
   @override
-  dynamic get dateTime => props[_$key__dateTime___$DomPropsMixin];
-
+  dynamic get dateTime =>
+      props[_$key__dateTime___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.dateTime] to see the source code for this prop
   @override
   set dateTime(dynamic value) =>
@@ -437,16 +483,18 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.dir] to see the source code for this prop
   @override
-  dynamic get dir => props[_$key__dir___$DomPropsMixin];
-
+  dynamic get dir =>
+      props[_$key__dir___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.dir] to see the source code for this prop
   @override
   set dir(dynamic value) => props[_$key__dir___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.download] to see the source code for this prop
   @override
-  dynamic get download => props[_$key__download___$DomPropsMixin];
-
+  dynamic get download =>
+      props[_$key__download___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.download] to see the source code for this prop
   @override
   set download(dynamic value) =>
@@ -454,8 +502,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.draggable] to see the source code for this prop
   @override
-  dynamic get draggable => props[_$key__draggable___$DomPropsMixin];
-
+  dynamic get draggable =>
+      props[_$key__draggable___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.draggable] to see the source code for this prop
   @override
   set draggable(dynamic value) =>
@@ -463,24 +512,27 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.encType] to see the source code for this prop
   @override
-  dynamic get encType => props[_$key__encType___$DomPropsMixin];
-
+  dynamic get encType =>
+      props[_$key__encType___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.encType] to see the source code for this prop
   @override
   set encType(dynamic value) => props[_$key__encType___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.form] to see the source code for this prop
   @override
-  dynamic get form => props[_$key__form___$DomPropsMixin];
-
+  dynamic get form =>
+      props[_$key__form___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.form] to see the source code for this prop
   @override
   set form(dynamic value) => props[_$key__form___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.frameBorder] to see the source code for this prop
   @override
-  dynamic get frameBorder => props[_$key__frameBorder___$DomPropsMixin];
-
+  dynamic get frameBorder =>
+      props[_$key__frameBorder___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.frameBorder] to see the source code for this prop
   @override
   set frameBorder(dynamic value) =>
@@ -488,24 +540,27 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.height] to see the source code for this prop
   @override
-  dynamic get height => props[_$key__height___$DomPropsMixin];
-
+  dynamic get height =>
+      props[_$key__height___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.height] to see the source code for this prop
   @override
   set height(dynamic value) => props[_$key__height___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.href] to see the source code for this prop
   @override
-  dynamic get href => props[_$key__href___$DomPropsMixin];
-
+  dynamic get href =>
+      props[_$key__href___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.href] to see the source code for this prop
   @override
   set href(dynamic value) => props[_$key__href___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.hrefLang] to see the source code for this prop
   @override
-  dynamic get hrefLang => props[_$key__hrefLang___$DomPropsMixin];
-
+  dynamic get hrefLang =>
+      props[_$key__hrefLang___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.hrefLang] to see the source code for this prop
   @override
   set hrefLang(dynamic value) =>
@@ -513,16 +568,18 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.htmlFor] to see the source code for this prop
   @override
-  dynamic get htmlFor => props[_$key__htmlFor___$DomPropsMixin];
-
+  dynamic get htmlFor =>
+      props[_$key__htmlFor___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.htmlFor] to see the source code for this prop
   @override
   set htmlFor(dynamic value) => props[_$key__htmlFor___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.httpEquiv] to see the source code for this prop
   @override
-  dynamic get httpEquiv => props[_$key__httpEquiv___$DomPropsMixin];
-
+  dynamic get httpEquiv =>
+      props[_$key__httpEquiv___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.httpEquiv] to see the source code for this prop
   @override
   set httpEquiv(dynamic value) =>
@@ -530,40 +587,45 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.icon] to see the source code for this prop
   @override
-  dynamic get icon => props[_$key__icon___$DomPropsMixin];
-
+  dynamic get icon =>
+      props[_$key__icon___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.icon] to see the source code for this prop
   @override
   set icon(dynamic value) => props[_$key__icon___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.label] to see the source code for this prop
   @override
-  dynamic get label => props[_$key__label___$DomPropsMixin];
-
+  dynamic get label =>
+      props[_$key__label___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.label] to see the source code for this prop
   @override
   set label(dynamic value) => props[_$key__label___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.lang] to see the source code for this prop
   @override
-  dynamic get lang => props[_$key__lang___$DomPropsMixin];
-
+  dynamic get lang =>
+      props[_$key__lang___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.lang] to see the source code for this prop
   @override
   set lang(dynamic value) => props[_$key__lang___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.list] to see the source code for this prop
   @override
-  dynamic get list => props[_$key__list___$DomPropsMixin];
-
+  dynamic get list =>
+      props[_$key__list___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.list] to see the source code for this prop
   @override
   set list(dynamic value) => props[_$key__list___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.manifest] to see the source code for this prop
   @override
-  dynamic get manifest => props[_$key__manifest___$DomPropsMixin];
-
+  dynamic get manifest =>
+      props[_$key__manifest___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.manifest] to see the source code for this prop
   @override
   set manifest(dynamic value) =>
@@ -571,16 +633,18 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.max] to see the source code for this prop
   @override
-  dynamic get max => props[_$key__max___$DomPropsMixin];
-
+  dynamic get max =>
+      props[_$key__max___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.max] to see the source code for this prop
   @override
   set max(dynamic value) => props[_$key__max___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.maxLength] to see the source code for this prop
   @override
-  dynamic get maxLength => props[_$key__maxLength___$DomPropsMixin];
-
+  dynamic get maxLength =>
+      props[_$key__maxLength___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.maxLength] to see the source code for this prop
   @override
   set maxLength(dynamic value) =>
@@ -588,16 +652,18 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.media] to see the source code for this prop
   @override
-  dynamic get media => props[_$key__media___$DomPropsMixin];
-
+  dynamic get media =>
+      props[_$key__media___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.media] to see the source code for this prop
   @override
   set media(dynamic value) => props[_$key__media___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.mediaGroup] to see the source code for this prop
   @override
-  dynamic get mediaGroup => props[_$key__mediaGroup___$DomPropsMixin];
-
+  dynamic get mediaGroup =>
+      props[_$key__mediaGroup___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.mediaGroup] to see the source code for this prop
   @override
   set mediaGroup(dynamic value) =>
@@ -605,48 +671,54 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.method] to see the source code for this prop
   @override
-  dynamic get method => props[_$key__method___$DomPropsMixin];
-
+  dynamic get method =>
+      props[_$key__method___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.method] to see the source code for this prop
   @override
   set method(dynamic value) => props[_$key__method___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.min] to see the source code for this prop
   @override
-  dynamic get min => props[_$key__min___$DomPropsMixin];
-
+  dynamic get min =>
+      props[_$key__min___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.min] to see the source code for this prop
   @override
   set min(dynamic value) => props[_$key__min___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.name] to see the source code for this prop
   @override
-  dynamic get name => props[_$key__name___$DomPropsMixin];
-
+  dynamic get name =>
+      props[_$key__name___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.name] to see the source code for this prop
   @override
   set name(dynamic value) => props[_$key__name___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.open] to see the source code for this prop
   @override
-  dynamic get open => props[_$key__open___$DomPropsMixin];
-
+  dynamic get open =>
+      props[_$key__open___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.open] to see the source code for this prop
   @override
   set open(dynamic value) => props[_$key__open___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.pattern] to see the source code for this prop
   @override
-  dynamic get pattern => props[_$key__pattern___$DomPropsMixin];
-
+  dynamic get pattern =>
+      props[_$key__pattern___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.pattern] to see the source code for this prop
   @override
   set pattern(dynamic value) => props[_$key__pattern___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.placeholder] to see the source code for this prop
   @override
-  dynamic get placeholder => props[_$key__placeholder___$DomPropsMixin];
-
+  dynamic get placeholder =>
+      props[_$key__placeholder___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.placeholder] to see the source code for this prop
   @override
   set placeholder(dynamic value) =>
@@ -654,24 +726,27 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.poster] to see the source code for this prop
   @override
-  dynamic get poster => props[_$key__poster___$DomPropsMixin];
-
+  dynamic get poster =>
+      props[_$key__poster___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.poster] to see the source code for this prop
   @override
   set poster(dynamic value) => props[_$key__poster___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.preload] to see the source code for this prop
   @override
-  dynamic get preload => props[_$key__preload___$DomPropsMixin];
-
+  dynamic get preload =>
+      props[_$key__preload___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.preload] to see the source code for this prop
   @override
   set preload(dynamic value) => props[_$key__preload___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.radioGroup] to see the source code for this prop
   @override
-  dynamic get radioGroup => props[_$key__radioGroup___$DomPropsMixin];
-
+  dynamic get radioGroup =>
+      props[_$key__radioGroup___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.radioGroup] to see the source code for this prop
   @override
   set radioGroup(dynamic value) =>
@@ -679,48 +754,54 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.rel] to see the source code for this prop
   @override
-  dynamic get rel => props[_$key__rel___$DomPropsMixin];
-
+  dynamic get rel =>
+      props[_$key__rel___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.rel] to see the source code for this prop
   @override
   set rel(dynamic value) => props[_$key__rel___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.role] to see the source code for this prop
   @override
-  dynamic get role => props[_$key__role___$DomPropsMixin];
-
+  dynamic get role =>
+      props[_$key__role___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.role] to see the source code for this prop
   @override
   set role(dynamic value) => props[_$key__role___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.rowSpan] to see the source code for this prop
   @override
-  dynamic get rowSpan => props[_$key__rowSpan___$DomPropsMixin];
-
+  dynamic get rowSpan =>
+      props[_$key__rowSpan___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.rowSpan] to see the source code for this prop
   @override
   set rowSpan(dynamic value) => props[_$key__rowSpan___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.sandbox] to see the source code for this prop
   @override
-  dynamic get sandbox => props[_$key__sandbox___$DomPropsMixin];
-
+  dynamic get sandbox =>
+      props[_$key__sandbox___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.sandbox] to see the source code for this prop
   @override
   set sandbox(dynamic value) => props[_$key__sandbox___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.scope] to see the source code for this prop
   @override
-  dynamic get scope => props[_$key__scope___$DomPropsMixin];
-
+  dynamic get scope =>
+      props[_$key__scope___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.scope] to see the source code for this prop
   @override
   set scope(dynamic value) => props[_$key__scope___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.scrolling] to see the source code for this prop
   @override
-  dynamic get scrolling => props[_$key__scrolling___$DomPropsMixin];
-
+  dynamic get scrolling =>
+      props[_$key__scrolling___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.scrolling] to see the source code for this prop
   @override
   set scrolling(dynamic value) =>
@@ -728,24 +809,27 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.shape] to see the source code for this prop
   @override
-  dynamic get shape => props[_$key__shape___$DomPropsMixin];
-
+  dynamic get shape =>
+      props[_$key__shape___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.shape] to see the source code for this prop
   @override
   set shape(dynamic value) => props[_$key__shape___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.sizes] to see the source code for this prop
   @override
-  dynamic get sizes => props[_$key__sizes___$DomPropsMixin];
-
+  dynamic get sizes =>
+      props[_$key__sizes___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.sizes] to see the source code for this prop
   @override
   set sizes(dynamic value) => props[_$key__sizes___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.spellCheck] to see the source code for this prop
   @override
-  dynamic get spellCheck => props[_$key__spellCheck___$DomPropsMixin];
-
+  dynamic get spellCheck =>
+      props[_$key__spellCheck___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.spellCheck] to see the source code for this prop
   @override
   set spellCheck(dynamic value) =>
@@ -753,40 +837,45 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.src] to see the source code for this prop
   @override
-  dynamic get src => props[_$key__src___$DomPropsMixin];
-
+  dynamic get src =>
+      props[_$key__src___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.src] to see the source code for this prop
   @override
   set src(dynamic value) => props[_$key__src___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.srcDoc] to see the source code for this prop
   @override
-  dynamic get srcDoc => props[_$key__srcDoc___$DomPropsMixin];
-
+  dynamic get srcDoc =>
+      props[_$key__srcDoc___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.srcDoc] to see the source code for this prop
   @override
   set srcDoc(dynamic value) => props[_$key__srcDoc___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.srcSet] to see the source code for this prop
   @override
-  dynamic get srcSet => props[_$key__srcSet___$DomPropsMixin];
-
+  dynamic get srcSet =>
+      props[_$key__srcSet___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.srcSet] to see the source code for this prop
   @override
   set srcSet(dynamic value) => props[_$key__srcSet___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.step] to see the source code for this prop
   @override
-  dynamic get step => props[_$key__step___$DomPropsMixin];
-
+  dynamic get step =>
+      props[_$key__step___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.step] to see the source code for this prop
   @override
   set step(dynamic value) => props[_$key__step___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.tabIndex] to see the source code for this prop
   @override
-  dynamic get tabIndex => props[_$key__tabIndex___$DomPropsMixin];
-
+  dynamic get tabIndex =>
+      props[_$key__tabIndex___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.tabIndex] to see the source code for this prop
   @override
   set tabIndex(dynamic value) =>
@@ -794,56 +883,63 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.target] to see the source code for this prop
   @override
-  dynamic get target => props[_$key__target___$DomPropsMixin];
-
+  dynamic get target =>
+      props[_$key__target___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.target] to see the source code for this prop
   @override
   set target(dynamic value) => props[_$key__target___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.type] to see the source code for this prop
   @override
-  dynamic get type => props[_$key__type___$DomPropsMixin];
-
+  dynamic get type =>
+      props[_$key__type___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.type] to see the source code for this prop
   @override
   set type(dynamic value) => props[_$key__type___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.useMap] to see the source code for this prop
   @override
-  dynamic get useMap => props[_$key__useMap___$DomPropsMixin];
-
+  dynamic get useMap =>
+      props[_$key__useMap___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.useMap] to see the source code for this prop
   @override
   set useMap(dynamic value) => props[_$key__useMap___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.value] to see the source code for this prop
   @override
-  dynamic get value => props[_$key__value___$DomPropsMixin];
-
+  dynamic get value =>
+      props[_$key__value___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.value] to see the source code for this prop
   @override
   set value(dynamic value) => props[_$key__value___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.width] to see the source code for this prop
   @override
-  dynamic get width => props[_$key__width___$DomPropsMixin];
-
+  dynamic get width =>
+      props[_$key__width___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.width] to see the source code for this prop
   @override
   set width(dynamic value) => props[_$key__width___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.wmode] to see the source code for this prop
   @override
-  dynamic get wmode => props[_$key__wmode___$DomPropsMixin];
-
+  dynamic get wmode =>
+      props[_$key__wmode___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.wmode] to see the source code for this prop
   @override
   set wmode(dynamic value) => props[_$key__wmode___$DomPropsMixin] = value;
 
   /// Go to [_$DomPropsMixin.onCopy] to see the source code for this prop
   @override
-  ClipboardEventCallback get onCopy => props[_$key__onCopy___$DomPropsMixin];
-
+  ClipboardEventCallback get onCopy =>
+      props[_$key__onCopy___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onCopy] to see the source code for this prop
   @override
   set onCopy(ClipboardEventCallback value) =>
@@ -851,8 +947,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.onCut] to see the source code for this prop
   @override
-  ClipboardEventCallback get onCut => props[_$key__onCut___$DomPropsMixin];
-
+  ClipboardEventCallback get onCut =>
+      props[_$key__onCut___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onCut] to see the source code for this prop
   @override
   set onCut(ClipboardEventCallback value) =>
@@ -860,8 +957,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.onPaste] to see the source code for this prop
   @override
-  ClipboardEventCallback get onPaste => props[_$key__onPaste___$DomPropsMixin];
-
+  ClipboardEventCallback get onPaste =>
+      props[_$key__onPaste___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onPaste] to see the source code for this prop
   @override
   set onPaste(ClipboardEventCallback value) =>
@@ -870,8 +968,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onKeyDown] to see the source code for this prop
   @override
   KeyboardEventCallback get onKeyDown =>
-      props[_$key__onKeyDown___$DomPropsMixin];
-
+      props[_$key__onKeyDown___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onKeyDown] to see the source code for this prop
   @override
   set onKeyDown(KeyboardEventCallback value) =>
@@ -880,8 +978,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onKeyPress] to see the source code for this prop
   @override
   KeyboardEventCallback get onKeyPress =>
-      props[_$key__onKeyPress___$DomPropsMixin];
-
+      props[_$key__onKeyPress___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onKeyPress] to see the source code for this prop
   @override
   set onKeyPress(KeyboardEventCallback value) =>
@@ -889,8 +987,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.onKeyUp] to see the source code for this prop
   @override
-  KeyboardEventCallback get onKeyUp => props[_$key__onKeyUp___$DomPropsMixin];
-
+  KeyboardEventCallback get onKeyUp =>
+      props[_$key__onKeyUp___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onKeyUp] to see the source code for this prop
   @override
   set onKeyUp(KeyboardEventCallback value) =>
@@ -898,8 +997,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.onFocus] to see the source code for this prop
   @override
-  FocusEventCallback get onFocus => props[_$key__onFocus___$DomPropsMixin];
-
+  FocusEventCallback get onFocus =>
+      props[_$key__onFocus___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onFocus] to see the source code for this prop
   @override
   set onFocus(FocusEventCallback value) =>
@@ -907,8 +1007,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.onBlur] to see the source code for this prop
   @override
-  FocusEventCallback get onBlur => props[_$key__onBlur___$DomPropsMixin];
-
+  FocusEventCallback get onBlur =>
+      props[_$key__onBlur___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onBlur] to see the source code for this prop
   @override
   set onBlur(FocusEventCallback value) =>
@@ -916,8 +1017,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.onChange] to see the source code for this prop
   @override
-  FormEventCallback get onChange => props[_$key__onChange___$DomPropsMixin];
-
+  FormEventCallback get onChange =>
+      props[_$key__onChange___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onChange] to see the source code for this prop
   @override
   set onChange(FormEventCallback value) =>
@@ -925,8 +1027,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.onInput] to see the source code for this prop
   @override
-  FormEventCallback get onInput => props[_$key__onInput___$DomPropsMixin];
-
+  FormEventCallback get onInput =>
+      props[_$key__onInput___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onInput] to see the source code for this prop
   @override
   set onInput(FormEventCallback value) =>
@@ -934,8 +1037,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.onSubmit] to see the source code for this prop
   @override
-  FormEventCallback get onSubmit => props[_$key__onSubmit___$DomPropsMixin];
-
+  FormEventCallback get onSubmit =>
+      props[_$key__onSubmit___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onSubmit] to see the source code for this prop
   @override
   set onSubmit(FormEventCallback value) =>
@@ -943,8 +1047,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.onReset] to see the source code for this prop
   @override
-  FormEventCallback get onReset => props[_$key__onReset___$DomPropsMixin];
-
+  FormEventCallback get onReset =>
+      props[_$key__onReset___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onReset] to see the source code for this prop
   @override
   set onReset(FormEventCallback value) =>
@@ -952,8 +1057,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.onClick] to see the source code for this prop
   @override
-  MouseEventCallback get onClick => props[_$key__onClick___$DomPropsMixin];
-
+  MouseEventCallback get onClick =>
+      props[_$key__onClick___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onClick] to see the source code for this prop
   @override
   set onClick(MouseEventCallback value) =>
@@ -962,8 +1068,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onContextMenu] to see the source code for this prop
   @override
   MouseEventCallback get onContextMenu =>
-      props[_$key__onContextMenu___$DomPropsMixin];
-
+      props[_$key__onContextMenu___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onContextMenu] to see the source code for this prop
   @override
   set onContextMenu(MouseEventCallback value) =>
@@ -972,8 +1078,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onDoubleClick] to see the source code for this prop
   @override
   MouseEventCallback get onDoubleClick =>
-      props[_$key__onDoubleClick___$DomPropsMixin];
-
+      props[_$key__onDoubleClick___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onDoubleClick] to see the source code for this prop
   @override
   set onDoubleClick(MouseEventCallback value) =>
@@ -981,8 +1087,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.onDrag] to see the source code for this prop
   @override
-  MouseEventCallback get onDrag => props[_$key__onDrag___$DomPropsMixin];
-
+  MouseEventCallback get onDrag =>
+      props[_$key__onDrag___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onDrag] to see the source code for this prop
   @override
   set onDrag(MouseEventCallback value) =>
@@ -990,8 +1097,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.onDragEnd] to see the source code for this prop
   @override
-  MouseEventCallback get onDragEnd => props[_$key__onDragEnd___$DomPropsMixin];
-
+  MouseEventCallback get onDragEnd =>
+      props[_$key__onDragEnd___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onDragEnd] to see the source code for this prop
   @override
   set onDragEnd(MouseEventCallback value) =>
@@ -1000,8 +1108,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onDragEnter] to see the source code for this prop
   @override
   MouseEventCallback get onDragEnter =>
-      props[_$key__onDragEnter___$DomPropsMixin];
-
+      props[_$key__onDragEnter___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onDragEnter] to see the source code for this prop
   @override
   set onDragEnter(MouseEventCallback value) =>
@@ -1010,8 +1118,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onDragExit] to see the source code for this prop
   @override
   MouseEventCallback get onDragExit =>
-      props[_$key__onDragExit___$DomPropsMixin];
-
+      props[_$key__onDragExit___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onDragExit] to see the source code for this prop
   @override
   set onDragExit(MouseEventCallback value) =>
@@ -1020,8 +1128,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onDragLeave] to see the source code for this prop
   @override
   MouseEventCallback get onDragLeave =>
-      props[_$key__onDragLeave___$DomPropsMixin];
-
+      props[_$key__onDragLeave___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onDragLeave] to see the source code for this prop
   @override
   set onDragLeave(MouseEventCallback value) =>
@@ -1030,8 +1138,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onDragOver] to see the source code for this prop
   @override
   MouseEventCallback get onDragOver =>
-      props[_$key__onDragOver___$DomPropsMixin];
-
+      props[_$key__onDragOver___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onDragOver] to see the source code for this prop
   @override
   set onDragOver(MouseEventCallback value) =>
@@ -1040,8 +1148,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onDragStart] to see the source code for this prop
   @override
   MouseEventCallback get onDragStart =>
-      props[_$key__onDragStart___$DomPropsMixin];
-
+      props[_$key__onDragStart___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onDragStart] to see the source code for this prop
   @override
   set onDragStart(MouseEventCallback value) =>
@@ -1049,8 +1157,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.onDrop] to see the source code for this prop
   @override
-  MouseEventCallback get onDrop => props[_$key__onDrop___$DomPropsMixin];
-
+  MouseEventCallback get onDrop =>
+      props[_$key__onDrop___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onDrop] to see the source code for this prop
   @override
   set onDrop(MouseEventCallback value) =>
@@ -1059,8 +1168,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onMouseDown] to see the source code for this prop
   @override
   MouseEventCallback get onMouseDown =>
-      props[_$key__onMouseDown___$DomPropsMixin];
-
+      props[_$key__onMouseDown___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onMouseDown] to see the source code for this prop
   @override
   set onMouseDown(MouseEventCallback value) =>
@@ -1069,8 +1178,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onMouseEnter] to see the source code for this prop
   @override
   MouseEventCallback get onMouseEnter =>
-      props[_$key__onMouseEnter___$DomPropsMixin];
-
+      props[_$key__onMouseEnter___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onMouseEnter] to see the source code for this prop
   @override
   set onMouseEnter(MouseEventCallback value) =>
@@ -1079,8 +1188,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onMouseLeave] to see the source code for this prop
   @override
   MouseEventCallback get onMouseLeave =>
-      props[_$key__onMouseLeave___$DomPropsMixin];
-
+      props[_$key__onMouseLeave___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onMouseLeave] to see the source code for this prop
   @override
   set onMouseLeave(MouseEventCallback value) =>
@@ -1089,8 +1198,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onMouseMove] to see the source code for this prop
   @override
   MouseEventCallback get onMouseMove =>
-      props[_$key__onMouseMove___$DomPropsMixin];
-
+      props[_$key__onMouseMove___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onMouseMove] to see the source code for this prop
   @override
   set onMouseMove(MouseEventCallback value) =>
@@ -1099,8 +1208,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onMouseOut] to see the source code for this prop
   @override
   MouseEventCallback get onMouseOut =>
-      props[_$key__onMouseOut___$DomPropsMixin];
-
+      props[_$key__onMouseOut___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onMouseOut] to see the source code for this prop
   @override
   set onMouseOut(MouseEventCallback value) =>
@@ -1109,8 +1218,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onMouseOver] to see the source code for this prop
   @override
   MouseEventCallback get onMouseOver =>
-      props[_$key__onMouseOver___$DomPropsMixin];
-
+      props[_$key__onMouseOver___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onMouseOver] to see the source code for this prop
   @override
   set onMouseOver(MouseEventCallback value) =>
@@ -1118,8 +1227,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.onMouseUp] to see the source code for this prop
   @override
-  MouseEventCallback get onMouseUp => props[_$key__onMouseUp___$DomPropsMixin];
-
+  MouseEventCallback get onMouseUp =>
+      props[_$key__onMouseUp___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onMouseUp] to see the source code for this prop
   @override
   set onMouseUp(MouseEventCallback value) =>
@@ -1128,8 +1238,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onTouchCancel] to see the source code for this prop
   @override
   TouchEventCallback get onTouchCancel =>
-      props[_$key__onTouchCancel___$DomPropsMixin];
-
+      props[_$key__onTouchCancel___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onTouchCancel] to see the source code for this prop
   @override
   set onTouchCancel(TouchEventCallback value) =>
@@ -1138,8 +1248,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onTouchEnd] to see the source code for this prop
   @override
   TouchEventCallback get onTouchEnd =>
-      props[_$key__onTouchEnd___$DomPropsMixin];
-
+      props[_$key__onTouchEnd___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onTouchEnd] to see the source code for this prop
   @override
   set onTouchEnd(TouchEventCallback value) =>
@@ -1148,8 +1258,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onTouchMove] to see the source code for this prop
   @override
   TouchEventCallback get onTouchMove =>
-      props[_$key__onTouchMove___$DomPropsMixin];
-
+      props[_$key__onTouchMove___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onTouchMove] to see the source code for this prop
   @override
   set onTouchMove(TouchEventCallback value) =>
@@ -1158,8 +1268,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onTouchStart] to see the source code for this prop
   @override
   TouchEventCallback get onTouchStart =>
-      props[_$key__onTouchStart___$DomPropsMixin];
-
+      props[_$key__onTouchStart___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onTouchStart] to see the source code for this prop
   @override
   set onTouchStart(TouchEventCallback value) =>
@@ -1167,8 +1277,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.onScroll] to see the source code for this prop
   @override
-  UIEventCallback get onScroll => props[_$key__onScroll___$DomPropsMixin];
-
+  UIEventCallback get onScroll =>
+      props[_$key__onScroll___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onScroll] to see the source code for this prop
   @override
   set onScroll(UIEventCallback value) =>
@@ -1176,8 +1287,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.onWheel] to see the source code for this prop
   @override
-  WheelEventCallback get onWheel => props[_$key__onWheel___$DomPropsMixin];
-
+  WheelEventCallback get onWheel =>
+      props[_$key__onWheel___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onWheel] to see the source code for this prop
   @override
   set onWheel(WheelEventCallback value) =>
@@ -1186,8 +1298,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onCopyCapture] to see the source code for this prop
   @override
   ClipboardEventCallback get onCopyCapture =>
-      props[_$key__onCopyCapture___$DomPropsMixin];
-
+      props[_$key__onCopyCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onCopyCapture] to see the source code for this prop
   @override
   set onCopyCapture(ClipboardEventCallback value) =>
@@ -1196,8 +1308,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onCutCapture] to see the source code for this prop
   @override
   ClipboardEventCallback get onCutCapture =>
-      props[_$key__onCutCapture___$DomPropsMixin];
-
+      props[_$key__onCutCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onCutCapture] to see the source code for this prop
   @override
   set onCutCapture(ClipboardEventCallback value) =>
@@ -1206,8 +1318,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onPasteCapture] to see the source code for this prop
   @override
   ClipboardEventCallback get onPasteCapture =>
-      props[_$key__onPasteCapture___$DomPropsMixin];
-
+      props[_$key__onPasteCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onPasteCapture] to see the source code for this prop
   @override
   set onPasteCapture(ClipboardEventCallback value) =>
@@ -1216,8 +1328,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onKeyDownCapture] to see the source code for this prop
   @override
   KeyboardEventCallback get onKeyDownCapture =>
-      props[_$key__onKeyDownCapture___$DomPropsMixin];
-
+      props[_$key__onKeyDownCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onKeyDownCapture] to see the source code for this prop
   @override
   set onKeyDownCapture(KeyboardEventCallback value) =>
@@ -1226,8 +1338,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onKeyPressCapture] to see the source code for this prop
   @override
   KeyboardEventCallback get onKeyPressCapture =>
-      props[_$key__onKeyPressCapture___$DomPropsMixin];
-
+      props[_$key__onKeyPressCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onKeyPressCapture] to see the source code for this prop
   @override
   set onKeyPressCapture(KeyboardEventCallback value) =>
@@ -1236,8 +1348,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onKeyUpCapture] to see the source code for this prop
   @override
   KeyboardEventCallback get onKeyUpCapture =>
-      props[_$key__onKeyUpCapture___$DomPropsMixin];
-
+      props[_$key__onKeyUpCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onKeyUpCapture] to see the source code for this prop
   @override
   set onKeyUpCapture(KeyboardEventCallback value) =>
@@ -1246,8 +1358,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onFocusCapture] to see the source code for this prop
   @override
   FocusEventCallback get onFocusCapture =>
-      props[_$key__onFocusCapture___$DomPropsMixin];
-
+      props[_$key__onFocusCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onFocusCapture] to see the source code for this prop
   @override
   set onFocusCapture(FocusEventCallback value) =>
@@ -1256,8 +1368,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onBlurCapture] to see the source code for this prop
   @override
   FocusEventCallback get onBlurCapture =>
-      props[_$key__onBlurCapture___$DomPropsMixin];
-
+      props[_$key__onBlurCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onBlurCapture] to see the source code for this prop
   @override
   set onBlurCapture(FocusEventCallback value) =>
@@ -1266,8 +1378,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onChangeCapture] to see the source code for this prop
   @override
   FormEventCallback get onChangeCapture =>
-      props[_$key__onChangeCapture___$DomPropsMixin];
-
+      props[_$key__onChangeCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onChangeCapture] to see the source code for this prop
   @override
   set onChangeCapture(FormEventCallback value) =>
@@ -1276,8 +1388,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onInputCapture] to see the source code for this prop
   @override
   FormEventCallback get onInputCapture =>
-      props[_$key__onInputCapture___$DomPropsMixin];
-
+      props[_$key__onInputCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onInputCapture] to see the source code for this prop
   @override
   set onInputCapture(FormEventCallback value) =>
@@ -1286,8 +1398,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onSubmitCapture] to see the source code for this prop
   @override
   FormEventCallback get onSubmitCapture =>
-      props[_$key__onSubmitCapture___$DomPropsMixin];
-
+      props[_$key__onSubmitCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onSubmitCapture] to see the source code for this prop
   @override
   set onSubmitCapture(FormEventCallback value) =>
@@ -1296,8 +1408,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onResetCapture] to see the source code for this prop
   @override
   FormEventCallback get onResetCapture =>
-      props[_$key__onResetCapture___$DomPropsMixin];
-
+      props[_$key__onResetCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onResetCapture] to see the source code for this prop
   @override
   set onResetCapture(FormEventCallback value) =>
@@ -1306,8 +1418,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onClickCapture] to see the source code for this prop
   @override
   MouseEventCallback get onClickCapture =>
-      props[_$key__onClickCapture___$DomPropsMixin];
-
+      props[_$key__onClickCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onClickCapture] to see the source code for this prop
   @override
   set onClickCapture(MouseEventCallback value) =>
@@ -1316,8 +1428,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onContextMenuCapture] to see the source code for this prop
   @override
   MouseEventCallback get onContextMenuCapture =>
-      props[_$key__onContextMenuCapture___$DomPropsMixin];
-
+      props[_$key__onContextMenuCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onContextMenuCapture] to see the source code for this prop
   @override
   set onContextMenuCapture(MouseEventCallback value) =>
@@ -1326,8 +1438,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onDoubleClickCapture] to see the source code for this prop
   @override
   MouseEventCallback get onDoubleClickCapture =>
-      props[_$key__onDoubleClickCapture___$DomPropsMixin];
-
+      props[_$key__onDoubleClickCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onDoubleClickCapture] to see the source code for this prop
   @override
   set onDoubleClickCapture(MouseEventCallback value) =>
@@ -1336,8 +1448,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onDragCapture] to see the source code for this prop
   @override
   MouseEventCallback get onDragCapture =>
-      props[_$key__onDragCapture___$DomPropsMixin];
-
+      props[_$key__onDragCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onDragCapture] to see the source code for this prop
   @override
   set onDragCapture(MouseEventCallback value) =>
@@ -1346,8 +1458,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onDragEndCapture] to see the source code for this prop
   @override
   MouseEventCallback get onDragEndCapture =>
-      props[_$key__onDragEndCapture___$DomPropsMixin];
-
+      props[_$key__onDragEndCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onDragEndCapture] to see the source code for this prop
   @override
   set onDragEndCapture(MouseEventCallback value) =>
@@ -1356,8 +1468,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onDragEnterCapture] to see the source code for this prop
   @override
   MouseEventCallback get onDragEnterCapture =>
-      props[_$key__onDragEnterCapture___$DomPropsMixin];
-
+      props[_$key__onDragEnterCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onDragEnterCapture] to see the source code for this prop
   @override
   set onDragEnterCapture(MouseEventCallback value) =>
@@ -1366,8 +1478,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onDragExitCapture] to see the source code for this prop
   @override
   MouseEventCallback get onDragExitCapture =>
-      props[_$key__onDragExitCapture___$DomPropsMixin];
-
+      props[_$key__onDragExitCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onDragExitCapture] to see the source code for this prop
   @override
   set onDragExitCapture(MouseEventCallback value) =>
@@ -1376,8 +1488,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onDragLeaveCapture] to see the source code for this prop
   @override
   MouseEventCallback get onDragLeaveCapture =>
-      props[_$key__onDragLeaveCapture___$DomPropsMixin];
-
+      props[_$key__onDragLeaveCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onDragLeaveCapture] to see the source code for this prop
   @override
   set onDragLeaveCapture(MouseEventCallback value) =>
@@ -1386,8 +1498,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onDragOverCapture] to see the source code for this prop
   @override
   MouseEventCallback get onDragOverCapture =>
-      props[_$key__onDragOverCapture___$DomPropsMixin];
-
+      props[_$key__onDragOverCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onDragOverCapture] to see the source code for this prop
   @override
   set onDragOverCapture(MouseEventCallback value) =>
@@ -1396,8 +1508,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onDragStartCapture] to see the source code for this prop
   @override
   MouseEventCallback get onDragStartCapture =>
-      props[_$key__onDragStartCapture___$DomPropsMixin];
-
+      props[_$key__onDragStartCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onDragStartCapture] to see the source code for this prop
   @override
   set onDragStartCapture(MouseEventCallback value) =>
@@ -1406,8 +1518,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onDropCapture] to see the source code for this prop
   @override
   MouseEventCallback get onDropCapture =>
-      props[_$key__onDropCapture___$DomPropsMixin];
-
+      props[_$key__onDropCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onDropCapture] to see the source code for this prop
   @override
   set onDropCapture(MouseEventCallback value) =>
@@ -1416,8 +1528,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onMouseDownCapture] to see the source code for this prop
   @override
   MouseEventCallback get onMouseDownCapture =>
-      props[_$key__onMouseDownCapture___$DomPropsMixin];
-
+      props[_$key__onMouseDownCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onMouseDownCapture] to see the source code for this prop
   @override
   set onMouseDownCapture(MouseEventCallback value) =>
@@ -1426,8 +1538,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onMouseEnterCapture] to see the source code for this prop
   @override
   MouseEventCallback get onMouseEnterCapture =>
-      props[_$key__onMouseEnterCapture___$DomPropsMixin];
-
+      props[_$key__onMouseEnterCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onMouseEnterCapture] to see the source code for this prop
   @override
   set onMouseEnterCapture(MouseEventCallback value) =>
@@ -1436,8 +1548,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onMouseLeaveCapture] to see the source code for this prop
   @override
   MouseEventCallback get onMouseLeaveCapture =>
-      props[_$key__onMouseLeaveCapture___$DomPropsMixin];
-
+      props[_$key__onMouseLeaveCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onMouseLeaveCapture] to see the source code for this prop
   @override
   set onMouseLeaveCapture(MouseEventCallback value) =>
@@ -1446,8 +1558,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onMouseMoveCapture] to see the source code for this prop
   @override
   MouseEventCallback get onMouseMoveCapture =>
-      props[_$key__onMouseMoveCapture___$DomPropsMixin];
-
+      props[_$key__onMouseMoveCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onMouseMoveCapture] to see the source code for this prop
   @override
   set onMouseMoveCapture(MouseEventCallback value) =>
@@ -1456,8 +1568,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onMouseOutCapture] to see the source code for this prop
   @override
   MouseEventCallback get onMouseOutCapture =>
-      props[_$key__onMouseOutCapture___$DomPropsMixin];
-
+      props[_$key__onMouseOutCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onMouseOutCapture] to see the source code for this prop
   @override
   set onMouseOutCapture(MouseEventCallback value) =>
@@ -1466,8 +1578,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onMouseOverCapture] to see the source code for this prop
   @override
   MouseEventCallback get onMouseOverCapture =>
-      props[_$key__onMouseOverCapture___$DomPropsMixin];
-
+      props[_$key__onMouseOverCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onMouseOverCapture] to see the source code for this prop
   @override
   set onMouseOverCapture(MouseEventCallback value) =>
@@ -1476,8 +1588,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onMouseUpCapture] to see the source code for this prop
   @override
   MouseEventCallback get onMouseUpCapture =>
-      props[_$key__onMouseUpCapture___$DomPropsMixin];
-
+      props[_$key__onMouseUpCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onMouseUpCapture] to see the source code for this prop
   @override
   set onMouseUpCapture(MouseEventCallback value) =>
@@ -1486,8 +1598,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onTouchCancelCapture] to see the source code for this prop
   @override
   TouchEventCallback get onTouchCancelCapture =>
-      props[_$key__onTouchCancelCapture___$DomPropsMixin];
-
+      props[_$key__onTouchCancelCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onTouchCancelCapture] to see the source code for this prop
   @override
   set onTouchCancelCapture(TouchEventCallback value) =>
@@ -1496,8 +1608,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onTouchEndCapture] to see the source code for this prop
   @override
   TouchEventCallback get onTouchEndCapture =>
-      props[_$key__onTouchEndCapture___$DomPropsMixin];
-
+      props[_$key__onTouchEndCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onTouchEndCapture] to see the source code for this prop
   @override
   set onTouchEndCapture(TouchEventCallback value) =>
@@ -1506,8 +1618,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onTouchMoveCapture] to see the source code for this prop
   @override
   TouchEventCallback get onTouchMoveCapture =>
-      props[_$key__onTouchMoveCapture___$DomPropsMixin];
-
+      props[_$key__onTouchMoveCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onTouchMoveCapture] to see the source code for this prop
   @override
   set onTouchMoveCapture(TouchEventCallback value) =>
@@ -1516,8 +1628,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onTouchStartCapture] to see the source code for this prop
   @override
   TouchEventCallback get onTouchStartCapture =>
-      props[_$key__onTouchStartCapture___$DomPropsMixin];
-
+      props[_$key__onTouchStartCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onTouchStartCapture] to see the source code for this prop
   @override
   set onTouchStartCapture(TouchEventCallback value) =>
@@ -1526,8 +1638,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onScrollCapture] to see the source code for this prop
   @override
   UIEventCallback get onScrollCapture =>
-      props[_$key__onScrollCapture___$DomPropsMixin];
-
+      props[_$key__onScrollCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onScrollCapture] to see the source code for this prop
   @override
   set onScrollCapture(UIEventCallback value) =>
@@ -1536,8 +1648,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// Go to [_$DomPropsMixin.onWheelCapture] to see the source code for this prop
   @override
   WheelEventCallback get onWheelCapture =>
-      props[_$key__onWheelCapture___$DomPropsMixin];
-
+      props[_$key__onWheelCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.onWheelCapture] to see the source code for this prop
   @override
   set onWheelCapture(WheelEventCallback value) =>
@@ -1545,8 +1657,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.defaultChecked] to see the source code for this prop
   @override
-  bool get defaultChecked => props[_$key__defaultChecked___$DomPropsMixin];
-
+  bool get defaultChecked =>
+      props[_$key__defaultChecked___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.defaultChecked] to see the source code for this prop
   @override
   set defaultChecked(bool value) =>
@@ -1554,8 +1667,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.defaultValue] to see the source code for this prop
   @override
-  dynamic get defaultValue => props[_$key__defaultValue___$DomPropsMixin];
-
+  dynamic get defaultValue =>
+      props[_$key__defaultValue___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.defaultValue] to see the source code for this prop
   @override
   set defaultValue(dynamic value) =>
@@ -1563,8 +1677,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// Go to [_$DomPropsMixin.autoFocus] to see the source code for this prop
   @override
-  bool get autoFocus => props[_$key__autoFocus___$DomPropsMixin];
-
+  bool get autoFocus =>
+      props[_$key__autoFocus___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DomPropsMixin.autoFocus] to see the source code for this prop
   @override
   set autoFocus(bool value) => props[_$key__autoFocus___$DomPropsMixin] = value;
@@ -2461,8 +2576,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.clipPath] to see the source code for this prop
   @override
-  dynamic get clipPath => props[_$key__clipPath___$SvgPropsMixin];
-
+  dynamic get clipPath =>
+      props[_$key__clipPath___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.clipPath] to see the source code for this prop
   @override
   set clipPath(dynamic value) =>
@@ -2470,56 +2586,63 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.cx] to see the source code for this prop
   @override
-  dynamic get cx => props[_$key__cx___$SvgPropsMixin];
-
+  dynamic get cx =>
+      props[_$key__cx___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.cx] to see the source code for this prop
   @override
   set cx(dynamic value) => props[_$key__cx___$SvgPropsMixin] = value;
 
   /// Go to [_$SvgPropsMixin.cy] to see the source code for this prop
   @override
-  dynamic get cy => props[_$key__cy___$SvgPropsMixin];
-
+  dynamic get cy =>
+      props[_$key__cy___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.cy] to see the source code for this prop
   @override
   set cy(dynamic value) => props[_$key__cy___$SvgPropsMixin] = value;
 
   /// Go to [_$SvgPropsMixin.d] to see the source code for this prop
   @override
-  dynamic get d => props[_$key__d___$SvgPropsMixin];
-
+  dynamic get d =>
+      props[_$key__d___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.d] to see the source code for this prop
   @override
   set d(dynamic value) => props[_$key__d___$SvgPropsMixin] = value;
 
   /// Go to [_$SvgPropsMixin.dx] to see the source code for this prop
   @override
-  dynamic get dx => props[_$key__dx___$SvgPropsMixin];
-
+  dynamic get dx =>
+      props[_$key__dx___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.dx] to see the source code for this prop
   @override
   set dx(dynamic value) => props[_$key__dx___$SvgPropsMixin] = value;
 
   /// Go to [_$SvgPropsMixin.dy] to see the source code for this prop
   @override
-  dynamic get dy => props[_$key__dy___$SvgPropsMixin];
-
+  dynamic get dy =>
+      props[_$key__dy___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.dy] to see the source code for this prop
   @override
   set dy(dynamic value) => props[_$key__dy___$SvgPropsMixin] = value;
 
   /// Go to [_$SvgPropsMixin.fill] to see the source code for this prop
   @override
-  dynamic get fill => props[_$key__fill___$SvgPropsMixin];
-
+  dynamic get fill =>
+      props[_$key__fill___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.fill] to see the source code for this prop
   @override
   set fill(dynamic value) => props[_$key__fill___$SvgPropsMixin] = value;
 
   /// Go to [_$SvgPropsMixin.fillOpacity] to see the source code for this prop
   @override
-  dynamic get fillOpacity => props[_$key__fillOpacity___$SvgPropsMixin];
-
+  dynamic get fillOpacity =>
+      props[_$key__fillOpacity___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.fillOpacity] to see the source code for this prop
   @override
   set fillOpacity(dynamic value) =>
@@ -2527,8 +2650,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.fontFamily] to see the source code for this prop
   @override
-  dynamic get fontFamily => props[_$key__fontFamily___$SvgPropsMixin];
-
+  dynamic get fontFamily =>
+      props[_$key__fontFamily___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.fontFamily] to see the source code for this prop
   @override
   set fontFamily(dynamic value) =>
@@ -2536,8 +2660,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.fontSize] to see the source code for this prop
   @override
-  dynamic get fontSize => props[_$key__fontSize___$SvgPropsMixin];
-
+  dynamic get fontSize =>
+      props[_$key__fontSize___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.fontSize] to see the source code for this prop
   @override
   set fontSize(dynamic value) =>
@@ -2545,16 +2670,18 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.fx] to see the source code for this prop
   @override
-  dynamic get fx => props[_$key__fx___$SvgPropsMixin];
-
+  dynamic get fx =>
+      props[_$key__fx___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.fx] to see the source code for this prop
   @override
   set fx(dynamic value) => props[_$key__fx___$SvgPropsMixin] = value;
 
   /// Go to [_$SvgPropsMixin.fy] to see the source code for this prop
   @override
-  dynamic get fy => props[_$key__fy___$SvgPropsMixin];
-
+  dynamic get fy =>
+      props[_$key__fy___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.fy] to see the source code for this prop
   @override
   set fy(dynamic value) => props[_$key__fy___$SvgPropsMixin] = value;
@@ -2562,8 +2689,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// Go to [_$SvgPropsMixin.gradientTransform] to see the source code for this prop
   @override
   dynamic get gradientTransform =>
-      props[_$key__gradientTransform___$SvgPropsMixin];
-
+      props[_$key__gradientTransform___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.gradientTransform] to see the source code for this prop
   @override
   set gradientTransform(dynamic value) =>
@@ -2571,8 +2698,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.gradientUnits] to see the source code for this prop
   @override
-  dynamic get gradientUnits => props[_$key__gradientUnits___$SvgPropsMixin];
-
+  dynamic get gradientUnits =>
+      props[_$key__gradientUnits___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.gradientUnits] to see the source code for this prop
   @override
   set gradientUnits(dynamic value) =>
@@ -2580,8 +2708,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.markerEnd] to see the source code for this prop
   @override
-  dynamic get markerEnd => props[_$key__markerEnd___$SvgPropsMixin];
-
+  dynamic get markerEnd =>
+      props[_$key__markerEnd___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.markerEnd] to see the source code for this prop
   @override
   set markerEnd(dynamic value) =>
@@ -2589,8 +2718,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.markerMid] to see the source code for this prop
   @override
-  dynamic get markerMid => props[_$key__markerMid___$SvgPropsMixin];
-
+  dynamic get markerMid =>
+      props[_$key__markerMid___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.markerMid] to see the source code for this prop
   @override
   set markerMid(dynamic value) =>
@@ -2598,8 +2728,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.markerStart] to see the source code for this prop
   @override
-  dynamic get markerStart => props[_$key__markerStart___$SvgPropsMixin];
-
+  dynamic get markerStart =>
+      props[_$key__markerStart___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.markerStart] to see the source code for this prop
   @override
   set markerStart(dynamic value) =>
@@ -2607,16 +2738,18 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.offset] to see the source code for this prop
   @override
-  dynamic get offset => props[_$key__offset___$SvgPropsMixin];
-
+  dynamic get offset =>
+      props[_$key__offset___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.offset] to see the source code for this prop
   @override
   set offset(dynamic value) => props[_$key__offset___$SvgPropsMixin] = value;
 
   /// Go to [_$SvgPropsMixin.opacity] to see the source code for this prop
   @override
-  dynamic get opacity => props[_$key__opacity___$SvgPropsMixin];
-
+  dynamic get opacity =>
+      props[_$key__opacity___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.opacity] to see the source code for this prop
   @override
   set opacity(dynamic value) => props[_$key__opacity___$SvgPropsMixin] = value;
@@ -2624,8 +2757,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// Go to [_$SvgPropsMixin.patternContentUnits] to see the source code for this prop
   @override
   dynamic get patternContentUnits =>
-      props[_$key__patternContentUnits___$SvgPropsMixin];
-
+      props[_$key__patternContentUnits___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.patternContentUnits] to see the source code for this prop
   @override
   set patternContentUnits(dynamic value) =>
@@ -2633,8 +2766,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.patternUnits] to see the source code for this prop
   @override
-  dynamic get patternUnits => props[_$key__patternUnits___$SvgPropsMixin];
-
+  dynamic get patternUnits =>
+      props[_$key__patternUnits___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.patternUnits] to see the source code for this prop
   @override
   set patternUnits(dynamic value) =>
@@ -2642,8 +2776,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.points] to see the source code for this prop
   @override
-  dynamic get points => props[_$key__points___$SvgPropsMixin];
-
+  dynamic get points =>
+      props[_$key__points___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.points] to see the source code for this prop
   @override
   set points(dynamic value) => props[_$key__points___$SvgPropsMixin] = value;
@@ -2651,8 +2786,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// Go to [_$SvgPropsMixin.preserveAspectRatio] to see the source code for this prop
   @override
   dynamic get preserveAspectRatio =>
-      props[_$key__preserveAspectRatio___$SvgPropsMixin];
-
+      props[_$key__preserveAspectRatio___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.preserveAspectRatio] to see the source code for this prop
   @override
   set preserveAspectRatio(dynamic value) =>
@@ -2660,32 +2795,36 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.r] to see the source code for this prop
   @override
-  dynamic get r => props[_$key__r___$SvgPropsMixin];
-
+  dynamic get r =>
+      props[_$key__r___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.r] to see the source code for this prop
   @override
   set r(dynamic value) => props[_$key__r___$SvgPropsMixin] = value;
 
   /// Go to [_$SvgPropsMixin.rx] to see the source code for this prop
   @override
-  dynamic get rx => props[_$key__rx___$SvgPropsMixin];
-
+  dynamic get rx =>
+      props[_$key__rx___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.rx] to see the source code for this prop
   @override
   set rx(dynamic value) => props[_$key__rx___$SvgPropsMixin] = value;
 
   /// Go to [_$SvgPropsMixin.ry] to see the source code for this prop
   @override
-  dynamic get ry => props[_$key__ry___$SvgPropsMixin];
-
+  dynamic get ry =>
+      props[_$key__ry___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.ry] to see the source code for this prop
   @override
   set ry(dynamic value) => props[_$key__ry___$SvgPropsMixin] = value;
 
   /// Go to [_$SvgPropsMixin.spreadMethod] to see the source code for this prop
   @override
-  dynamic get spreadMethod => props[_$key__spreadMethod___$SvgPropsMixin];
-
+  dynamic get spreadMethod =>
+      props[_$key__spreadMethod___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.spreadMethod] to see the source code for this prop
   @override
   set spreadMethod(dynamic value) =>
@@ -2693,8 +2832,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.stopColor] to see the source code for this prop
   @override
-  dynamic get stopColor => props[_$key__stopColor___$SvgPropsMixin];
-
+  dynamic get stopColor =>
+      props[_$key__stopColor___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.stopColor] to see the source code for this prop
   @override
   set stopColor(dynamic value) =>
@@ -2702,8 +2842,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.stopOpacity] to see the source code for this prop
   @override
-  dynamic get stopOpacity => props[_$key__stopOpacity___$SvgPropsMixin];
-
+  dynamic get stopOpacity =>
+      props[_$key__stopOpacity___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.stopOpacity] to see the source code for this prop
   @override
   set stopOpacity(dynamic value) =>
@@ -2711,16 +2852,18 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.stroke] to see the source code for this prop
   @override
-  dynamic get stroke => props[_$key__stroke___$SvgPropsMixin];
-
+  dynamic get stroke =>
+      props[_$key__stroke___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.stroke] to see the source code for this prop
   @override
   set stroke(dynamic value) => props[_$key__stroke___$SvgPropsMixin] = value;
 
   /// Go to [_$SvgPropsMixin.strokeDasharray] to see the source code for this prop
   @override
-  dynamic get strokeDasharray => props[_$key__strokeDasharray___$SvgPropsMixin];
-
+  dynamic get strokeDasharray =>
+      props[_$key__strokeDasharray___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.strokeDasharray] to see the source code for this prop
   @override
   set strokeDasharray(dynamic value) =>
@@ -2728,8 +2871,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.strokeLinecap] to see the source code for this prop
   @override
-  dynamic get strokeLinecap => props[_$key__strokeLinecap___$SvgPropsMixin];
-
+  dynamic get strokeLinecap =>
+      props[_$key__strokeLinecap___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.strokeLinecap] to see the source code for this prop
   @override
   set strokeLinecap(dynamic value) =>
@@ -2737,8 +2881,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.strokeOpacity] to see the source code for this prop
   @override
-  dynamic get strokeOpacity => props[_$key__strokeOpacity___$SvgPropsMixin];
-
+  dynamic get strokeOpacity =>
+      props[_$key__strokeOpacity___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.strokeOpacity] to see the source code for this prop
   @override
   set strokeOpacity(dynamic value) =>
@@ -2746,8 +2891,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.strokeWidth] to see the source code for this prop
   @override
-  dynamic get strokeWidth => props[_$key__strokeWidth___$SvgPropsMixin];
-
+  dynamic get strokeWidth =>
+      props[_$key__strokeWidth___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.strokeWidth] to see the source code for this prop
   @override
   set strokeWidth(dynamic value) =>
@@ -2755,8 +2901,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.textAnchor] to see the source code for this prop
   @override
-  dynamic get textAnchor => props[_$key__textAnchor___$SvgPropsMixin];
-
+  dynamic get textAnchor =>
+      props[_$key__textAnchor___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.textAnchor] to see the source code for this prop
   @override
   set textAnchor(dynamic value) =>
@@ -2764,8 +2911,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.transform] to see the source code for this prop
   @override
-  dynamic get transform => props[_$key__transform___$SvgPropsMixin];
-
+  dynamic get transform =>
+      props[_$key__transform___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.transform] to see the source code for this prop
   @override
   set transform(dynamic value) =>
@@ -2773,48 +2921,54 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.version] to see the source code for this prop
   @override
-  dynamic get version => props[_$key__version___$SvgPropsMixin];
-
+  dynamic get version =>
+      props[_$key__version___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.version] to see the source code for this prop
   @override
   set version(dynamic value) => props[_$key__version___$SvgPropsMixin] = value;
 
   /// Go to [_$SvgPropsMixin.viewBox] to see the source code for this prop
   @override
-  dynamic get viewBox => props[_$key__viewBox___$SvgPropsMixin];
-
+  dynamic get viewBox =>
+      props[_$key__viewBox___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.viewBox] to see the source code for this prop
   @override
   set viewBox(dynamic value) => props[_$key__viewBox___$SvgPropsMixin] = value;
 
   /// Go to [_$SvgPropsMixin.x1] to see the source code for this prop
   @override
-  dynamic get x1 => props[_$key__x1___$SvgPropsMixin];
-
+  dynamic get x1 =>
+      props[_$key__x1___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.x1] to see the source code for this prop
   @override
   set x1(dynamic value) => props[_$key__x1___$SvgPropsMixin] = value;
 
   /// Go to [_$SvgPropsMixin.x2] to see the source code for this prop
   @override
-  dynamic get x2 => props[_$key__x2___$SvgPropsMixin];
-
+  dynamic get x2 =>
+      props[_$key__x2___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.x2] to see the source code for this prop
   @override
   set x2(dynamic value) => props[_$key__x2___$SvgPropsMixin] = value;
 
   /// Go to [_$SvgPropsMixin.x] to see the source code for this prop
   @override
-  dynamic get x => props[_$key__x___$SvgPropsMixin];
-
+  dynamic get x =>
+      props[_$key__x___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.x] to see the source code for this prop
   @override
   set x(dynamic value) => props[_$key__x___$SvgPropsMixin] = value;
 
   /// Go to [_$SvgPropsMixin.xlinkActuate] to see the source code for this prop
   @override
-  dynamic get xlinkActuate => props[_$key__xlinkActuate___$SvgPropsMixin];
-
+  dynamic get xlinkActuate =>
+      props[_$key__xlinkActuate___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.xlinkActuate] to see the source code for this prop
   @override
   set xlinkActuate(dynamic value) =>
@@ -2822,8 +2976,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.xlinkArcrole] to see the source code for this prop
   @override
-  dynamic get xlinkArcrole => props[_$key__xlinkArcrole___$SvgPropsMixin];
-
+  dynamic get xlinkArcrole =>
+      props[_$key__xlinkArcrole___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.xlinkArcrole] to see the source code for this prop
   @override
   set xlinkArcrole(dynamic value) =>
@@ -2831,8 +2986,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.xlinkHref] to see the source code for this prop
   @override
-  dynamic get xlinkHref => props[_$key__xlinkHref___$SvgPropsMixin];
-
+  dynamic get xlinkHref =>
+      props[_$key__xlinkHref___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.xlinkHref] to see the source code for this prop
   @override
   set xlinkHref(dynamic value) =>
@@ -2840,8 +2996,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.xlinkRole] to see the source code for this prop
   @override
-  dynamic get xlinkRole => props[_$key__xlinkRole___$SvgPropsMixin];
-
+  dynamic get xlinkRole =>
+      props[_$key__xlinkRole___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.xlinkRole] to see the source code for this prop
   @override
   set xlinkRole(dynamic value) =>
@@ -2849,8 +3006,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.xlinkShow] to see the source code for this prop
   @override
-  dynamic get xlinkShow => props[_$key__xlinkShow___$SvgPropsMixin];
-
+  dynamic get xlinkShow =>
+      props[_$key__xlinkShow___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.xlinkShow] to see the source code for this prop
   @override
   set xlinkShow(dynamic value) =>
@@ -2858,8 +3016,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.xlinkTitle] to see the source code for this prop
   @override
-  dynamic get xlinkTitle => props[_$key__xlinkTitle___$SvgPropsMixin];
-
+  dynamic get xlinkTitle =>
+      props[_$key__xlinkTitle___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.xlinkTitle] to see the source code for this prop
   @override
   set xlinkTitle(dynamic value) =>
@@ -2867,8 +3026,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.xlinkType] to see the source code for this prop
   @override
-  dynamic get xlinkType => props[_$key__xlinkType___$SvgPropsMixin];
-
+  dynamic get xlinkType =>
+      props[_$key__xlinkType___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.xlinkType] to see the source code for this prop
   @override
   set xlinkType(dynamic value) =>
@@ -2876,24 +3036,27 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.xmlBase] to see the source code for this prop
   @override
-  dynamic get xmlBase => props[_$key__xmlBase___$SvgPropsMixin];
-
+  dynamic get xmlBase =>
+      props[_$key__xmlBase___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.xmlBase] to see the source code for this prop
   @override
   set xmlBase(dynamic value) => props[_$key__xmlBase___$SvgPropsMixin] = value;
 
   /// Go to [_$SvgPropsMixin.xmlLang] to see the source code for this prop
   @override
-  dynamic get xmlLang => props[_$key__xmlLang___$SvgPropsMixin];
-
+  dynamic get xmlLang =>
+      props[_$key__xmlLang___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.xmlLang] to see the source code for this prop
   @override
   set xmlLang(dynamic value) => props[_$key__xmlLang___$SvgPropsMixin] = value;
 
   /// Go to [_$SvgPropsMixin.xmlSpace] to see the source code for this prop
   @override
-  dynamic get xmlSpace => props[_$key__xmlSpace___$SvgPropsMixin];
-
+  dynamic get xmlSpace =>
+      props[_$key__xmlSpace___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.xmlSpace] to see the source code for this prop
   @override
   set xmlSpace(dynamic value) =>
@@ -2901,24 +3064,27 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// Go to [_$SvgPropsMixin.y1] to see the source code for this prop
   @override
-  dynamic get y1 => props[_$key__y1___$SvgPropsMixin];
-
+  dynamic get y1 =>
+      props[_$key__y1___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.y1] to see the source code for this prop
   @override
   set y1(dynamic value) => props[_$key__y1___$SvgPropsMixin] = value;
 
   /// Go to [_$SvgPropsMixin.y2] to see the source code for this prop
   @override
-  dynamic get y2 => props[_$key__y2___$SvgPropsMixin];
-
+  dynamic get y2 =>
+      props[_$key__y2___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.y2] to see the source code for this prop
   @override
   set y2(dynamic value) => props[_$key__y2___$SvgPropsMixin] = value;
 
   /// Go to [_$SvgPropsMixin.y] to see the source code for this prop
   @override
-  dynamic get y => props[_$key__y___$SvgPropsMixin];
-
+  dynamic get y =>
+      props[_$key__y___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SvgPropsMixin.y] to see the source code for this prop
   @override
   set y(dynamic value) => props[_$key__y___$SvgPropsMixin] = value;
@@ -3230,8 +3396,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
 
   /// Go to [_$UbiquitousDomPropsMixin.tabIndex] to see the source code for this prop
   @override
-  dynamic get tabIndex => props[_$key__tabIndex___$UbiquitousDomPropsMixin];
-
+  dynamic get tabIndex =>
+      props[_$key__tabIndex___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.tabIndex] to see the source code for this prop
   @override
   set tabIndex(dynamic value) =>
@@ -3239,16 +3406,18 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
 
   /// Go to [_$UbiquitousDomPropsMixin.id] to see the source code for this prop
   @override
-  String get id => props[_$key__id___$UbiquitousDomPropsMixin];
-
+  String get id =>
+      props[_$key__id___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.id] to see the source code for this prop
   @override
   set id(String value) => props[_$key__id___$UbiquitousDomPropsMixin] = value;
 
   /// Go to [_$UbiquitousDomPropsMixin.title] to see the source code for this prop
   @override
-  String get title => props[_$key__title___$UbiquitousDomPropsMixin];
-
+  String get title =>
+      props[_$key__title___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.title] to see the source code for this prop
   @override
   set title(String value) =>
@@ -3257,8 +3426,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.style] to see the source code for this prop
   @override
   Map<String, dynamic> get style =>
-      props[_$key__style___$UbiquitousDomPropsMixin];
-
+      props[_$key__style___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.style] to see the source code for this prop
   @override
   set style(Map<String, dynamic> value) =>
@@ -3267,8 +3436,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onCopy] to see the source code for this prop
   @override
   ClipboardEventCallback get onCopy =>
-      props[_$key__onCopy___$UbiquitousDomPropsMixin];
-
+      props[_$key__onCopy___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onCopy] to see the source code for this prop
   @override
   set onCopy(ClipboardEventCallback value) =>
@@ -3277,8 +3446,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onCut] to see the source code for this prop
   @override
   ClipboardEventCallback get onCut =>
-      props[_$key__onCut___$UbiquitousDomPropsMixin];
-
+      props[_$key__onCut___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onCut] to see the source code for this prop
   @override
   set onCut(ClipboardEventCallback value) =>
@@ -3287,8 +3456,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onPaste] to see the source code for this prop
   @override
   ClipboardEventCallback get onPaste =>
-      props[_$key__onPaste___$UbiquitousDomPropsMixin];
-
+      props[_$key__onPaste___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onPaste] to see the source code for this prop
   @override
   set onPaste(ClipboardEventCallback value) =>
@@ -3297,8 +3466,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onKeyDown] to see the source code for this prop
   @override
   KeyboardEventCallback get onKeyDown =>
-      props[_$key__onKeyDown___$UbiquitousDomPropsMixin];
-
+      props[_$key__onKeyDown___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onKeyDown] to see the source code for this prop
   @override
   set onKeyDown(KeyboardEventCallback value) =>
@@ -3307,8 +3476,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onKeyPress] to see the source code for this prop
   @override
   KeyboardEventCallback get onKeyPress =>
-      props[_$key__onKeyPress___$UbiquitousDomPropsMixin];
-
+      props[_$key__onKeyPress___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onKeyPress] to see the source code for this prop
   @override
   set onKeyPress(KeyboardEventCallback value) =>
@@ -3317,8 +3486,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onKeyUp] to see the source code for this prop
   @override
   KeyboardEventCallback get onKeyUp =>
-      props[_$key__onKeyUp___$UbiquitousDomPropsMixin];
-
+      props[_$key__onKeyUp___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onKeyUp] to see the source code for this prop
   @override
   set onKeyUp(KeyboardEventCallback value) =>
@@ -3327,8 +3496,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onFocus] to see the source code for this prop
   @override
   FocusEventCallback get onFocus =>
-      props[_$key__onFocus___$UbiquitousDomPropsMixin];
-
+      props[_$key__onFocus___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onFocus] to see the source code for this prop
   @override
   set onFocus(FocusEventCallback value) =>
@@ -3337,8 +3506,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onBlur] to see the source code for this prop
   @override
   FocusEventCallback get onBlur =>
-      props[_$key__onBlur___$UbiquitousDomPropsMixin];
-
+      props[_$key__onBlur___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onBlur] to see the source code for this prop
   @override
   set onBlur(FocusEventCallback value) =>
@@ -3347,8 +3516,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onChange] to see the source code for this prop
   @override
   FormEventCallback get onChange =>
-      props[_$key__onChange___$UbiquitousDomPropsMixin];
-
+      props[_$key__onChange___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onChange] to see the source code for this prop
   @override
   set onChange(FormEventCallback value) =>
@@ -3357,8 +3526,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onInput] to see the source code for this prop
   @override
   FormEventCallback get onInput =>
-      props[_$key__onInput___$UbiquitousDomPropsMixin];
-
+      props[_$key__onInput___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onInput] to see the source code for this prop
   @override
   set onInput(FormEventCallback value) =>
@@ -3367,8 +3536,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onSubmit] to see the source code for this prop
   @override
   FormEventCallback get onSubmit =>
-      props[_$key__onSubmit___$UbiquitousDomPropsMixin];
-
+      props[_$key__onSubmit___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onSubmit] to see the source code for this prop
   @override
   set onSubmit(FormEventCallback value) =>
@@ -3377,8 +3546,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onReset] to see the source code for this prop
   @override
   FormEventCallback get onReset =>
-      props[_$key__onReset___$UbiquitousDomPropsMixin];
-
+      props[_$key__onReset___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onReset] to see the source code for this prop
   @override
   set onReset(FormEventCallback value) =>
@@ -3387,8 +3556,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onClick] to see the source code for this prop
   @override
   MouseEventCallback get onClick =>
-      props[_$key__onClick___$UbiquitousDomPropsMixin];
-
+      props[_$key__onClick___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onClick] to see the source code for this prop
   @override
   set onClick(MouseEventCallback value) =>
@@ -3397,8 +3566,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onContextMenu] to see the source code for this prop
   @override
   MouseEventCallback get onContextMenu =>
-      props[_$key__onContextMenu___$UbiquitousDomPropsMixin];
-
+      props[_$key__onContextMenu___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onContextMenu] to see the source code for this prop
   @override
   set onContextMenu(MouseEventCallback value) =>
@@ -3407,8 +3576,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onDoubleClick] to see the source code for this prop
   @override
   MouseEventCallback get onDoubleClick =>
-      props[_$key__onDoubleClick___$UbiquitousDomPropsMixin];
-
+      props[_$key__onDoubleClick___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onDoubleClick] to see the source code for this prop
   @override
   set onDoubleClick(MouseEventCallback value) =>
@@ -3417,8 +3586,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onDrag] to see the source code for this prop
   @override
   MouseEventCallback get onDrag =>
-      props[_$key__onDrag___$UbiquitousDomPropsMixin];
-
+      props[_$key__onDrag___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onDrag] to see the source code for this prop
   @override
   set onDrag(MouseEventCallback value) =>
@@ -3427,8 +3596,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onDragEnd] to see the source code for this prop
   @override
   MouseEventCallback get onDragEnd =>
-      props[_$key__onDragEnd___$UbiquitousDomPropsMixin];
-
+      props[_$key__onDragEnd___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onDragEnd] to see the source code for this prop
   @override
   set onDragEnd(MouseEventCallback value) =>
@@ -3437,8 +3606,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onDragEnter] to see the source code for this prop
   @override
   MouseEventCallback get onDragEnter =>
-      props[_$key__onDragEnter___$UbiquitousDomPropsMixin];
-
+      props[_$key__onDragEnter___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onDragEnter] to see the source code for this prop
   @override
   set onDragEnter(MouseEventCallback value) =>
@@ -3447,8 +3616,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onDragExit] to see the source code for this prop
   @override
   MouseEventCallback get onDragExit =>
-      props[_$key__onDragExit___$UbiquitousDomPropsMixin];
-
+      props[_$key__onDragExit___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onDragExit] to see the source code for this prop
   @override
   set onDragExit(MouseEventCallback value) =>
@@ -3457,8 +3626,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onDragLeave] to see the source code for this prop
   @override
   MouseEventCallback get onDragLeave =>
-      props[_$key__onDragLeave___$UbiquitousDomPropsMixin];
-
+      props[_$key__onDragLeave___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onDragLeave] to see the source code for this prop
   @override
   set onDragLeave(MouseEventCallback value) =>
@@ -3467,8 +3636,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onDragOver] to see the source code for this prop
   @override
   MouseEventCallback get onDragOver =>
-      props[_$key__onDragOver___$UbiquitousDomPropsMixin];
-
+      props[_$key__onDragOver___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onDragOver] to see the source code for this prop
   @override
   set onDragOver(MouseEventCallback value) =>
@@ -3477,8 +3646,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onDragStart] to see the source code for this prop
   @override
   MouseEventCallback get onDragStart =>
-      props[_$key__onDragStart___$UbiquitousDomPropsMixin];
-
+      props[_$key__onDragStart___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onDragStart] to see the source code for this prop
   @override
   set onDragStart(MouseEventCallback value) =>
@@ -3487,8 +3656,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onDrop] to see the source code for this prop
   @override
   MouseEventCallback get onDrop =>
-      props[_$key__onDrop___$UbiquitousDomPropsMixin];
-
+      props[_$key__onDrop___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onDrop] to see the source code for this prop
   @override
   set onDrop(MouseEventCallback value) =>
@@ -3497,8 +3666,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onMouseDown] to see the source code for this prop
   @override
   MouseEventCallback get onMouseDown =>
-      props[_$key__onMouseDown___$UbiquitousDomPropsMixin];
-
+      props[_$key__onMouseDown___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onMouseDown] to see the source code for this prop
   @override
   set onMouseDown(MouseEventCallback value) =>
@@ -3507,8 +3676,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onMouseEnter] to see the source code for this prop
   @override
   MouseEventCallback get onMouseEnter =>
-      props[_$key__onMouseEnter___$UbiquitousDomPropsMixin];
-
+      props[_$key__onMouseEnter___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onMouseEnter] to see the source code for this prop
   @override
   set onMouseEnter(MouseEventCallback value) =>
@@ -3517,8 +3686,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onMouseLeave] to see the source code for this prop
   @override
   MouseEventCallback get onMouseLeave =>
-      props[_$key__onMouseLeave___$UbiquitousDomPropsMixin];
-
+      props[_$key__onMouseLeave___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onMouseLeave] to see the source code for this prop
   @override
   set onMouseLeave(MouseEventCallback value) =>
@@ -3527,8 +3696,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onMouseMove] to see the source code for this prop
   @override
   MouseEventCallback get onMouseMove =>
-      props[_$key__onMouseMove___$UbiquitousDomPropsMixin];
-
+      props[_$key__onMouseMove___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onMouseMove] to see the source code for this prop
   @override
   set onMouseMove(MouseEventCallback value) =>
@@ -3537,8 +3706,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onMouseOut] to see the source code for this prop
   @override
   MouseEventCallback get onMouseOut =>
-      props[_$key__onMouseOut___$UbiquitousDomPropsMixin];
-
+      props[_$key__onMouseOut___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onMouseOut] to see the source code for this prop
   @override
   set onMouseOut(MouseEventCallback value) =>
@@ -3547,8 +3716,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onMouseOver] to see the source code for this prop
   @override
   MouseEventCallback get onMouseOver =>
-      props[_$key__onMouseOver___$UbiquitousDomPropsMixin];
-
+      props[_$key__onMouseOver___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onMouseOver] to see the source code for this prop
   @override
   set onMouseOver(MouseEventCallback value) =>
@@ -3557,8 +3726,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onMouseUp] to see the source code for this prop
   @override
   MouseEventCallback get onMouseUp =>
-      props[_$key__onMouseUp___$UbiquitousDomPropsMixin];
-
+      props[_$key__onMouseUp___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onMouseUp] to see the source code for this prop
   @override
   set onMouseUp(MouseEventCallback value) =>
@@ -3567,8 +3736,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onTouchCancel] to see the source code for this prop
   @override
   TouchEventCallback get onTouchCancel =>
-      props[_$key__onTouchCancel___$UbiquitousDomPropsMixin];
-
+      props[_$key__onTouchCancel___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onTouchCancel] to see the source code for this prop
   @override
   set onTouchCancel(TouchEventCallback value) =>
@@ -3577,8 +3746,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onTouchEnd] to see the source code for this prop
   @override
   TouchEventCallback get onTouchEnd =>
-      props[_$key__onTouchEnd___$UbiquitousDomPropsMixin];
-
+      props[_$key__onTouchEnd___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onTouchEnd] to see the source code for this prop
   @override
   set onTouchEnd(TouchEventCallback value) =>
@@ -3587,8 +3756,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onTouchMove] to see the source code for this prop
   @override
   TouchEventCallback get onTouchMove =>
-      props[_$key__onTouchMove___$UbiquitousDomPropsMixin];
-
+      props[_$key__onTouchMove___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onTouchMove] to see the source code for this prop
   @override
   set onTouchMove(TouchEventCallback value) =>
@@ -3597,8 +3766,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onTouchStart] to see the source code for this prop
   @override
   TouchEventCallback get onTouchStart =>
-      props[_$key__onTouchStart___$UbiquitousDomPropsMixin];
-
+      props[_$key__onTouchStart___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onTouchStart] to see the source code for this prop
   @override
   set onTouchStart(TouchEventCallback value) =>
@@ -3607,8 +3776,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onScroll] to see the source code for this prop
   @override
   UIEventCallback get onScroll =>
-      props[_$key__onScroll___$UbiquitousDomPropsMixin];
-
+      props[_$key__onScroll___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onScroll] to see the source code for this prop
   @override
   set onScroll(UIEventCallback value) =>
@@ -3617,8 +3786,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// Go to [_$UbiquitousDomPropsMixin.onWheel] to see the source code for this prop
   @override
   WheelEventCallback get onWheel =>
-      props[_$key__onWheel___$UbiquitousDomPropsMixin];
-
+      props[_$key__onWheel___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$UbiquitousDomPropsMixin.onWheel] to see the source code for this prop
   @override
   set onWheel(WheelEventCallback value) =>

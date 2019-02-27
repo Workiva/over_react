@@ -16,8 +16,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   @override
   @Accessor(key: 'aria-activedescendant')
   String get activedescendant =>
-      props[_$key__activedescendant___$AriaPropsMixin];
-
+      props[_$key__activedescendant___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.activedescendant] to see the source code for this prop
   @override
   @Accessor(key: 'aria-activedescendant')
@@ -27,8 +27,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.atomic] to see the source code for this prop
   @override
   @Accessor(key: 'aria-atomic')
-  bool get atomic => props[_$key__atomic___$AriaPropsMixin];
-
+  bool get atomic =>
+      props[_$key__atomic___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.atomic] to see the source code for this prop
   @override
   @Accessor(key: 'aria-atomic')
@@ -37,8 +38,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.autocomplete] to see the source code for this prop
   @override
   @Accessor(key: 'aria-autocomplete')
-  dynamic get autocomplete => props[_$key__autocomplete___$AriaPropsMixin];
-
+  dynamic get autocomplete =>
+      props[_$key__autocomplete___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.autocomplete] to see the source code for this prop
   @override
   @Accessor(key: 'aria-autocomplete')
@@ -48,8 +50,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.busy] to see the source code for this prop
   @override
   @Accessor(key: 'aria-busy')
-  bool get busy => props[_$key__busy___$AriaPropsMixin];
-
+  bool get busy =>
+      props[_$key__busy___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.busy] to see the source code for this prop
   @override
   @Accessor(key: 'aria-busy')
@@ -58,8 +61,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.checked] to see the source code for this prop
   @override
   @Accessor(key: 'aria-checked')
-  dynamic get checked => props[_$key__checked___$AriaPropsMixin];
-
+  dynamic get checked =>
+      props[_$key__checked___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.checked] to see the source code for this prop
   @override
   @Accessor(key: 'aria-checked')
@@ -68,8 +72,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.controls] to see the source code for this prop
   @override
   @Accessor(key: 'aria-controls')
-  dynamic get controls => props[_$key__controls___$AriaPropsMixin];
-
+  dynamic get controls =>
+      props[_$key__controls___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.controls] to see the source code for this prop
   @override
   @Accessor(key: 'aria-controls')
@@ -79,8 +84,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.describedby] to see the source code for this prop
   @override
   @Accessor(key: 'aria-describedby')
-  dynamic get describedby => props[_$key__describedby___$AriaPropsMixin];
-
+  dynamic get describedby =>
+      props[_$key__describedby___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.describedby] to see the source code for this prop
   @override
   @Accessor(key: 'aria-describedby')
@@ -90,8 +96,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.disabled] to see the source code for this prop
   @override
   @Accessor(key: 'aria-disabled')
-  bool get disabled => props[_$key__disabled___$AriaPropsMixin];
-
+  bool get disabled =>
+      props[_$key__disabled___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.disabled] to see the source code for this prop
   @override
   @Accessor(key: 'aria-disabled')
@@ -100,8 +107,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.dropeffect] to see the source code for this prop
   @override
   @Accessor(key: 'aria-dropeffect')
-  dynamic get dropeffect => props[_$key__dropeffect___$AriaPropsMixin];
-
+  dynamic get dropeffect =>
+      props[_$key__dropeffect___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.dropeffect] to see the source code for this prop
   @override
   @Accessor(key: 'aria-dropeffect')
@@ -111,8 +119,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.expanded] to see the source code for this prop
   @override
   @Accessor(key: 'aria-expanded')
-  dynamic get expanded => props[_$key__expanded___$AriaPropsMixin];
-
+  dynamic get expanded =>
+      props[_$key__expanded___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.expanded] to see the source code for this prop
   @override
   @Accessor(key: 'aria-expanded')
@@ -122,8 +131,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.flowto] to see the source code for this prop
   @override
   @Accessor(key: 'aria-flowto')
-  dynamic get flowto => props[_$key__flowto___$AriaPropsMixin];
-
+  dynamic get flowto =>
+      props[_$key__flowto___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.flowto] to see the source code for this prop
   @override
   @Accessor(key: 'aria-flowto')
@@ -132,8 +142,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.grabbed] to see the source code for this prop
   @override
   @Accessor(key: 'aria-grabbed')
-  dynamic get grabbed => props[_$key__grabbed___$AriaPropsMixin];
-
+  dynamic get grabbed =>
+      props[_$key__grabbed___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.grabbed] to see the source code for this prop
   @override
   @Accessor(key: 'aria-grabbed')
@@ -142,8 +153,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.haspopup] to see the source code for this prop
   @override
   @Accessor(key: 'aria-haspopup')
-  bool get haspopup => props[_$key__haspopup___$AriaPropsMixin];
-
+  bool get haspopup =>
+      props[_$key__haspopup___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.haspopup] to see the source code for this prop
   @override
   @Accessor(key: 'aria-haspopup')
@@ -152,8 +164,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.hidden] to see the source code for this prop
   @override
   @Accessor(key: 'aria-hidden')
-  bool get hidden => props[_$key__hidden___$AriaPropsMixin];
-
+  bool get hidden =>
+      props[_$key__hidden___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.hidden] to see the source code for this prop
   @override
   @Accessor(key: 'aria-hidden')
@@ -162,8 +175,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.invalid] to see the source code for this prop
   @override
   @Accessor(key: 'aria-invalid')
-  dynamic get invalid => props[_$key__invalid___$AriaPropsMixin];
-
+  dynamic get invalid =>
+      props[_$key__invalid___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.invalid] to see the source code for this prop
   @override
   @Accessor(key: 'aria-invalid')
@@ -172,8 +186,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.label] to see the source code for this prop
   @override
   @Accessor(key: 'aria-label')
-  String get label => props[_$key__label___$AriaPropsMixin];
-
+  String get label =>
+      props[_$key__label___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.label] to see the source code for this prop
   @override
   @Accessor(key: 'aria-label')
@@ -182,8 +197,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.labelledby] to see the source code for this prop
   @override
   @Accessor(key: 'aria-labelledby')
-  dynamic get labelledby => props[_$key__labelledby___$AriaPropsMixin];
-
+  dynamic get labelledby =>
+      props[_$key__labelledby___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.labelledby] to see the source code for this prop
   @override
   @Accessor(key: 'aria-labelledby')
@@ -193,8 +209,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.level] to see the source code for this prop
   @override
   @Accessor(key: 'aria-level')
-  int get level => props[_$key__level___$AriaPropsMixin];
-
+  int get level =>
+      props[_$key__level___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.level] to see the source code for this prop
   @override
   @Accessor(key: 'aria-level')
@@ -203,8 +220,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.live] to see the source code for this prop
   @override
   @Accessor(key: 'aria-live')
-  dynamic get live => props[_$key__live___$AriaPropsMixin];
-
+  dynamic get live =>
+      props[_$key__live___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.live] to see the source code for this prop
   @override
   @Accessor(key: 'aria-live')
@@ -213,8 +231,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.multiline] to see the source code for this prop
   @override
   @Accessor(key: 'aria-multiline')
-  bool get multiline => props[_$key__multiline___$AriaPropsMixin];
-
+  bool get multiline =>
+      props[_$key__multiline___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.multiline] to see the source code for this prop
   @override
   @Accessor(key: 'aria-multiline')
@@ -224,8 +243,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.multiselectable] to see the source code for this prop
   @override
   @Accessor(key: 'aria-multiselectable')
-  bool get multiselectable => props[_$key__multiselectable___$AriaPropsMixin];
-
+  bool get multiselectable =>
+      props[_$key__multiselectable___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.multiselectable] to see the source code for this prop
   @override
   @Accessor(key: 'aria-multiselectable')
@@ -235,8 +255,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.orientation] to see the source code for this prop
   @override
   @Accessor(key: 'aria-orientation')
-  dynamic get orientation => props[_$key__orientation___$AriaPropsMixin];
-
+  dynamic get orientation =>
+      props[_$key__orientation___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.orientation] to see the source code for this prop
   @override
   @Accessor(key: 'aria-orientation')
@@ -246,8 +267,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.owns] to see the source code for this prop
   @override
   @Accessor(key: 'aria-owns')
-  dynamic get owns => props[_$key__owns___$AriaPropsMixin];
-
+  dynamic get owns =>
+      props[_$key__owns___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.owns] to see the source code for this prop
   @override
   @Accessor(key: 'aria-owns')
@@ -256,8 +278,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.posinset] to see the source code for this prop
   @override
   @Accessor(key: 'aria-posinset')
-  int get posinset => props[_$key__posinset___$AriaPropsMixin];
-
+  int get posinset =>
+      props[_$key__posinset___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.posinset] to see the source code for this prop
   @override
   @Accessor(key: 'aria-posinset')
@@ -266,8 +289,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.pressed] to see the source code for this prop
   @override
   @Accessor(key: 'aria-pressed')
-  dynamic get pressed => props[_$key__pressed___$AriaPropsMixin];
-
+  dynamic get pressed =>
+      props[_$key__pressed___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.pressed] to see the source code for this prop
   @override
   @Accessor(key: 'aria-pressed')
@@ -276,8 +300,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.readonly] to see the source code for this prop
   @override
   @Accessor(key: 'aria-readonly')
-  bool get readonly => props[_$key__readonly___$AriaPropsMixin];
-
+  bool get readonly =>
+      props[_$key__readonly___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.readonly] to see the source code for this prop
   @override
   @Accessor(key: 'aria-readonly')
@@ -286,8 +311,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.relevant] to see the source code for this prop
   @override
   @Accessor(key: 'aria-relevant')
-  dynamic get relevant => props[_$key__relevant___$AriaPropsMixin];
-
+  dynamic get relevant =>
+      props[_$key__relevant___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.relevant] to see the source code for this prop
   @override
   @Accessor(key: 'aria-relevant')
@@ -297,8 +323,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.required] to see the source code for this prop
   @override
   @Accessor(key: 'aria-required')
-  bool get required => props[_$key__required___$AriaPropsMixin];
-
+  bool get required =>
+      props[_$key__required___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.required] to see the source code for this prop
   @override
   @Accessor(key: 'aria-required')
@@ -306,8 +333,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
 
   /// Go to [_$AriaPropsMixin.role] to see the source code for this prop
   @override
-  String get role => props[_$key__role___$AriaPropsMixin];
-
+  String get role =>
+      props[_$key__role___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.role] to see the source code for this prop
   @override
   set role(String value) => props[_$key__role___$AriaPropsMixin] = value;
@@ -315,8 +343,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.selected] to see the source code for this prop
   @override
   @Accessor(key: 'aria-selected')
-  dynamic get selected => props[_$key__selected___$AriaPropsMixin];
-
+  dynamic get selected =>
+      props[_$key__selected___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.selected] to see the source code for this prop
   @override
   @Accessor(key: 'aria-selected')
@@ -326,8 +355,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.setsize] to see the source code for this prop
   @override
   @Accessor(key: 'aria-setsize')
-  int get setsize => props[_$key__setsize___$AriaPropsMixin];
-
+  int get setsize =>
+      props[_$key__setsize___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.setsize] to see the source code for this prop
   @override
   @Accessor(key: 'aria-setsize')
@@ -336,8 +366,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.sort] to see the source code for this prop
   @override
   @Accessor(key: 'aria-sort')
-  dynamic get sort => props[_$key__sort___$AriaPropsMixin];
-
+  dynamic get sort =>
+      props[_$key__sort___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.sort] to see the source code for this prop
   @override
   @Accessor(key: 'aria-sort')
@@ -346,8 +377,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.valuemax] to see the source code for this prop
   @override
   @Accessor(key: 'aria-valuemax')
-  num get valuemax => props[_$key__valuemax___$AriaPropsMixin];
-
+  num get valuemax =>
+      props[_$key__valuemax___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.valuemax] to see the source code for this prop
   @override
   @Accessor(key: 'aria-valuemax')
@@ -356,8 +388,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.valuemin] to see the source code for this prop
   @override
   @Accessor(key: 'aria-valuemin')
-  num get valuemin => props[_$key__valuemin___$AriaPropsMixin];
-
+  num get valuemin =>
+      props[_$key__valuemin___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.valuemin] to see the source code for this prop
   @override
   @Accessor(key: 'aria-valuemin')
@@ -366,8 +399,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.valuenow] to see the source code for this prop
   @override
   @Accessor(key: 'aria-valuenow')
-  num get valuenow => props[_$key__valuenow___$AriaPropsMixin];
-
+  num get valuenow =>
+      props[_$key__valuenow___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.valuenow] to see the source code for this prop
   @override
   @Accessor(key: 'aria-valuenow')
@@ -376,8 +410,9 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Go to [_$AriaPropsMixin.valuetext] to see the source code for this prop
   @override
   @Accessor(key: 'aria-valuetext')
-  String get valuetext => props[_$key__valuetext___$AriaPropsMixin];
-
+  String get valuetext =>
+      props[_$key__valuetext___$AriaPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AriaPropsMixin.valuetext] to see the source code for this prop
   @override
   @Accessor(key: 'aria-valuetext')

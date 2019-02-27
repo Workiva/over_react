@@ -35,8 +35,8 @@ abstract class _$AbstractTransitionStateAccessorsMixin
   /// Go to [_$AbstractTransitionState.transitionPhase] to see the source code for this prop
   @override
   TransitionPhase get transitionPhase =>
-      state[_$key__transitionPhase___$AbstractTransitionState];
-
+      state[_$key__transitionPhase___$AbstractTransitionState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AbstractTransitionState.transitionPhase] to see the source code for this prop
   @override
   set transitionPhase(TransitionPhase value) =>

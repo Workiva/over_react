@@ -24,8 +24,9 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
   @override
   @deprecated
   @requiredProp
-  String get basicProp => props[_$key__basicProp___$BasicProps];
-
+  String get basicProp =>
+      props[_$key__basicProp___$BasicProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$BasicProps.basicProp] to see the source code for this prop
   @override
   @deprecated
@@ -34,40 +35,45 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
 
   /// Go to [_$BasicProps.basic1] to see the source code for this prop
   @override
-  String get basic1 => props[_$key__basic1___$BasicProps];
-
+  String get basic1 =>
+      props[_$key__basic1___$BasicProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$BasicProps.basic1] to see the source code for this prop
   @override
   set basic1(String value) => props[_$key__basic1___$BasicProps] = value;
 
   /// Go to [_$BasicProps.basic2] to see the source code for this prop
   @override
-  String get basic2 => props[_$key__basic2___$BasicProps];
-
+  String get basic2 =>
+      props[_$key__basic2___$BasicProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$BasicProps.basic2] to see the source code for this prop
   @override
   set basic2(String value) => props[_$key__basic2___$BasicProps] = value;
 
   /// Go to [_$BasicProps.basic3] to see the source code for this prop
   @override
-  String get basic3 => props[_$key__basic3___$BasicProps];
-
+  String get basic3 =>
+      props[_$key__basic3___$BasicProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$BasicProps.basic3] to see the source code for this prop
   @override
   set basic3(String value) => props[_$key__basic3___$BasicProps] = value;
 
   /// Go to [_$BasicProps.basic4] to see the source code for this prop
   @override
-  String get basic4 => props[_$key__basic4___$BasicProps];
-
+  String get basic4 =>
+      props[_$key__basic4___$BasicProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$BasicProps.basic4] to see the source code for this prop
   @override
   set basic4(String value) => props[_$key__basic4___$BasicProps] = value;
 
   /// Go to [_$BasicProps.basic5] to see the source code for this prop
   @override
-  String get basic5 => props[_$key__basic5___$BasicProps];
-
+  String get basic5 =>
+      props[_$key__basic5___$BasicProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$BasicProps.basic5] to see the source code for this prop
   @override
   set basic5(String value) => props[_$key__basic5___$BasicProps] = value;

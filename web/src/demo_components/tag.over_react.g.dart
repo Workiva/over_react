@@ -22,16 +22,18 @@ abstract class _$TagPropsAccessorsMixin implements _$TagProps {
 
   /// Go to [_$TagProps.skin] to see the source code for this prop
   @override
-  TagSkin get skin => props[_$key__skin___$TagProps];
-
+  TagSkin get skin =>
+      props[_$key__skin___$TagProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TagProps.skin] to see the source code for this prop
   @override
   set skin(TagSkin value) => props[_$key__skin___$TagProps] = value;
 
   /// Go to [_$TagProps.isPill] to see the source code for this prop
   @override
-  bool get isPill => props[_$key__isPill___$TagProps];
-
+  bool get isPill =>
+      props[_$key__isPill___$TagProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TagProps.isPill] to see the source code for this prop
   @override
   set isPill(bool value) => props[_$key__isPill___$TagProps] = value;

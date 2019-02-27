@@ -25,8 +25,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// Go to [_$TransitionerProps.onHandlePreShowing] to see the source code for this prop
   @override
   Callback get onHandlePreShowing =>
-      props[_$key__onHandlePreShowing___$TransitionerProps];
-
+      props[_$key__onHandlePreShowing___$TransitionerProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TransitionerProps.onHandlePreShowing] to see the source code for this prop
   @override
   set onHandlePreShowing(Callback value) =>
@@ -35,8 +35,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// Go to [_$TransitionerProps.onHandleShowing] to see the source code for this prop
   @override
   Callback get onHandleShowing =>
-      props[_$key__onHandleShowing___$TransitionerProps];
-
+      props[_$key__onHandleShowing___$TransitionerProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TransitionerProps.onHandleShowing] to see the source code for this prop
   @override
   set onHandleShowing(Callback value) =>
@@ -45,8 +45,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// Go to [_$TransitionerProps.onHandleShown] to see the source code for this prop
   @override
   Callback get onHandleShown =>
-      props[_$key__onHandleShown___$TransitionerProps];
-
+      props[_$key__onHandleShown___$TransitionerProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TransitionerProps.onHandleShown] to see the source code for this prop
   @override
   set onHandleShown(Callback value) =>
@@ -55,8 +55,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// Go to [_$TransitionerProps.onHandleHiding] to see the source code for this prop
   @override
   Callback get onHandleHiding =>
-      props[_$key__onHandleHiding___$TransitionerProps];
-
+      props[_$key__onHandleHiding___$TransitionerProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TransitionerProps.onHandleHiding] to see the source code for this prop
   @override
   set onHandleHiding(Callback value) =>
@@ -65,8 +65,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// Go to [_$TransitionerProps.onHandleHidden] to see the source code for this prop
   @override
   Callback get onHandleHidden =>
-      props[_$key__onHandleHidden___$TransitionerProps];
-
+      props[_$key__onHandleHidden___$TransitionerProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TransitionerProps.onHandleHidden] to see the source code for this prop
   @override
   set onHandleHidden(Callback value) =>
@@ -75,8 +75,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// Go to [_$TransitionerProps.onPrepareShow] to see the source code for this prop
   @override
   Callback get onPrepareShow =>
-      props[_$key__onPrepareShow___$TransitionerProps];
-
+      props[_$key__onPrepareShow___$TransitionerProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TransitionerProps.onPrepareShow] to see the source code for this prop
   @override
   set onPrepareShow(Callback value) =>
@@ -85,8 +85,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// Go to [_$TransitionerProps.onPrepareHide] to see the source code for this prop
   @override
   Callback get onPrepareHide =>
-      props[_$key__onPrepareHide___$TransitionerProps];
-
+      props[_$key__onPrepareHide___$TransitionerProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TransitionerProps.onPrepareHide] to see the source code for this prop
   @override
   set onPrepareHide(Callback value) =>
@@ -94,8 +94,9 @@ abstract class _$TransitionerPropsAccessorsMixin
 
   /// Go to [_$TransitionerProps.hasTransition] to see the source code for this prop
   @override
-  bool get hasTransition => props[_$key__hasTransition___$TransitionerProps];
-
+  bool get hasTransition =>
+      props[_$key__hasTransition___$TransitionerProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TransitionerProps.hasTransition] to see the source code for this prop
   @override
   set hasTransition(bool value) =>
@@ -103,8 +104,9 @@ abstract class _$TransitionerPropsAccessorsMixin
 
   /// Go to [_$TransitionerProps.initiallyShown] to see the source code for this prop
   @override
-  bool get initiallyShown => props[_$key__initiallyShown___$TransitionerProps];
-
+  bool get initiallyShown =>
+      props[_$key__initiallyShown___$TransitionerProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TransitionerProps.initiallyShown] to see the source code for this prop
   @override
   set initiallyShown(bool value) =>
@@ -113,8 +115,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// Go to [_$TransitionerProps.transitionTimeout] to see the source code for this prop
   @override
   Duration get transitionTimeout =>
-      props[_$key__transitionTimeout___$TransitionerProps];
-
+      props[_$key__transitionTimeout___$TransitionerProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TransitionerProps.transitionTimeout] to see the source code for this prop
   @override
   set transitionTimeout(Duration value) =>

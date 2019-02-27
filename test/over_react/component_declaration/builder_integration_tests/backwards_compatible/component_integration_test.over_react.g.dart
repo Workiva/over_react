@@ -24,8 +24,9 @@ abstract class _$ComponentTestPropsAccessorsMixin
 
   /// Go to [_$ComponentTestProps.stringProp] to see the source code for this prop
   @override
-  String get stringProp => props[_$key__stringProp___$ComponentTestProps];
-
+  String get stringProp =>
+      props[_$key__stringProp___$ComponentTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ComponentTestProps.stringProp] to see the source code for this prop
   @override
   set stringProp(String value) =>
@@ -33,8 +34,9 @@ abstract class _$ComponentTestPropsAccessorsMixin
 
   /// Go to [_$ComponentTestProps.dynamicProp] to see the source code for this prop
   @override
-  dynamic get dynamicProp => props[_$key__dynamicProp___$ComponentTestProps];
-
+  dynamic get dynamicProp =>
+      props[_$key__dynamicProp___$ComponentTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ComponentTestProps.dynamicProp] to see the source code for this prop
   @override
   set dynamicProp(dynamic value) =>
@@ -42,8 +44,9 @@ abstract class _$ComponentTestPropsAccessorsMixin
 
   /// Go to [_$ComponentTestProps.untypedProp] to see the source code for this prop
   @override
-  get untypedProp => props[_$key__untypedProp___$ComponentTestProps];
-
+  get untypedProp =>
+      props[_$key__untypedProp___$ComponentTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ComponentTestProps.untypedProp] to see the source code for this prop
   @override
   set untypedProp(value) =>
@@ -52,8 +55,9 @@ abstract class _$ComponentTestPropsAccessorsMixin
   /// Go to [_$ComponentTestProps.customKeyProp] to see the source code for this prop
   @override
   @Accessor(key: 'custom key!')
-  get customKeyProp => props[_$key__customKeyProp___$ComponentTestProps];
-
+  get customKeyProp =>
+      props[_$key__customKeyProp___$ComponentTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ComponentTestProps.customKeyProp] to see the source code for this prop
   @override
   @Accessor(key: 'custom key!')
@@ -64,8 +68,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   get customNamespaceProp =>
-      props[_$key__customNamespaceProp___$ComponentTestProps];
-
+      props[_$key__customNamespaceProp___$ComponentTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ComponentTestProps.customNamespaceProp] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
@@ -76,8 +80,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   get customKeyAndNamespaceProp =>
-      props[_$key__customKeyAndNamespaceProp___$ComponentTestProps];
-
+      props[_$key__customKeyAndNamespaceProp___$ComponentTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ComponentTestProps.customKeyAndNamespaceProp] to see the source code for this prop
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
