@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:over_react/component_base.dart' as component_base show UiProps;
 import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component_declaration/util.dart';
 import 'package:react/react_client.dart';
 
 /// A `MapView` helper that stubs in unimplemented pieces of [UiProps].
@@ -64,5 +65,5 @@ class UiPropsMapView extends MapView
       throw new UnimplementedError('@PropsMixin instances do not implement componentFactory');
 
   @override
-  ReactElement call([c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]) => throw new UnimplementedError('@PropsMixin instances do not implement call');
+  ReactElement call([c1 = notSpecified, c2 = notSpecified, c3 = notSpecified, c4 = notSpecified, c5 = notSpecified, c6 = notSpecified, c7 = notSpecified, c8 = notSpecified, c9 = notSpecified, c10 = notSpecified, c11 = notSpecified, c12 = notSpecified, c13 = notSpecified, c14 = notSpecified, c15 = notSpecified, c16 = notSpecified, c17 = notSpecified, c18 = notSpecified, c19 = notSpecified, c20 = notSpecified, c21 = notSpecified, c22 = notSpecified, c23 = notSpecified, c24 = notSpecified, c25 = notSpecified, c26 = notSpecified, c27 = notSpecified, c28 = notSpecified, c29 = notSpecified, c30 = notSpecified, c31 = notSpecified, c32 = notSpecified, c33 = notSpecified, c34 = notSpecified, c35 = notSpecified, c36 = notSpecified, c37 = notSpecified, c38 = notSpecified, c39 = notSpecified, c40 = notSpecified]) => throw new UnimplementedError('@PropsMixin instances do not implement call');
 }
