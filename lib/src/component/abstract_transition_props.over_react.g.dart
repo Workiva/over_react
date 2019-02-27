@@ -17,8 +17,8 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   /// Go to [_$TransitionPropsMixin.transitionCount] to see the source code for this prop
   @override
   int get transitionCount =>
-      props[_$key__transitionCount___$TransitionPropsMixin];
-
+      props[_$key__transitionCount___$TransitionPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TransitionPropsMixin.transitionCount] to see the source code for this prop
   @override
   set transitionCount(int value) =>
@@ -27,8 +27,8 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   /// Go to [_$TransitionPropsMixin.transitionInCount] to see the source code for this prop
   @override
   int get transitionInCount =>
-      props[_$key__transitionInCount___$TransitionPropsMixin];
-
+      props[_$key__transitionInCount___$TransitionPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TransitionPropsMixin.transitionInCount] to see the source code for this prop
   @override
   set transitionInCount(int value) =>
@@ -37,8 +37,8 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   /// Go to [_$TransitionPropsMixin.transitionOutCount] to see the source code for this prop
   @override
   int get transitionOutCount =>
-      props[_$key__transitionOutCount___$TransitionPropsMixin];
-
+      props[_$key__transitionOutCount___$TransitionPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TransitionPropsMixin.transitionOutCount] to see the source code for this prop
   @override
   set transitionOutCount(int value) =>
@@ -46,8 +46,9 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
 
   /// Go to [_$TransitionPropsMixin.onWillHide] to see the source code for this prop
   @override
-  Callback get onWillHide => props[_$key__onWillHide___$TransitionPropsMixin];
-
+  Callback get onWillHide =>
+      props[_$key__onWillHide___$TransitionPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TransitionPropsMixin.onWillHide] to see the source code for this prop
   @override
   set onWillHide(Callback value) =>
@@ -55,8 +56,9 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
 
   /// Go to [_$TransitionPropsMixin.onDidHide] to see the source code for this prop
   @override
-  Callback get onDidHide => props[_$key__onDidHide___$TransitionPropsMixin];
-
+  Callback get onDidHide =>
+      props[_$key__onDidHide___$TransitionPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TransitionPropsMixin.onDidHide] to see the source code for this prop
   @override
   set onDidHide(Callback value) =>
@@ -64,8 +66,9 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
 
   /// Go to [_$TransitionPropsMixin.onWillShow] to see the source code for this prop
   @override
-  Callback get onWillShow => props[_$key__onWillShow___$TransitionPropsMixin];
-
+  Callback get onWillShow =>
+      props[_$key__onWillShow___$TransitionPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TransitionPropsMixin.onWillShow] to see the source code for this prop
   @override
   set onWillShow(Callback value) =>
@@ -73,8 +76,9 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
 
   /// Go to [_$TransitionPropsMixin.onDidShow] to see the source code for this prop
   @override
-  Callback get onDidShow => props[_$key__onDidShow___$TransitionPropsMixin];
-
+  Callback get onDidShow =>
+      props[_$key__onDidShow___$TransitionPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TransitionPropsMixin.onDidShow] to see the source code for this prop
   @override
   set onDidShow(Callback value) =>

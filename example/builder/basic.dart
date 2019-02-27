@@ -30,7 +30,7 @@ class BasicComponent extends UiComponent<BasicProps> {
         Dom.div()('prop id: ${props.id}'),
         Dom.div()('default prop testing: ${props.basicProp}'), // ignore: deprecated_member_use
         Dom.div()('default prop testing: ${props.basic1}'),
-        Dom.div()('children: ${props.children}'),
+        Dom.div()(null, props.basic4, 'children: ${props.children}' ),
     );
   }
 }

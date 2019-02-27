@@ -37,6 +37,7 @@ import 'over_react/component_declaration/builder_integration_tests/do_not_genera
 import 'over_react/component_declaration/builder_integration_tests/namespaced_accessor_integration_test.dart' as namespaced_accessor_integration_test;
 import 'over_react/component_declaration/builder_integration_tests/required_accessor_integration_test.dart' as required_accessor_integration_test;
 import 'over_react/component_declaration/builder_integration_tests/stateful_component_integration_test.dart' as stateful_component_integration_test;
+import 'over_react/component_declaration/builder_integration_tests/unassigned_prop_integration_test.dart' as unassigned_prop_integration_test;
 import 'over_react/component_declaration/builder_integration_tests/backwards_compatible/abstract_accessor_integration_test.dart' as backwards_compat_abstract_accessor_integration_test;
 import 'over_react/component_declaration/builder_integration_tests/backwards_compatible/accessor_mixin_integration_test.dart' as backwards_compat_accessor_mixin_integration_test;
 import 'over_react/component_declaration/builder_integration_tests/backwards_compatible/component_integration_test.dart' as backwards_compat_component_integration_test;
@@ -45,6 +46,7 @@ import 'over_react/component_declaration/builder_integration_tests/backwards_com
 import 'over_react/component_declaration/builder_integration_tests/backwards_compatible/namespaced_accessor_integration_test.dart' as backwards_compat_namespaced_accessor_integration_test;
 import 'over_react/component_declaration/builder_integration_tests/backwards_compatible/required_accessor_integration_test.dart' as backwards_compat_required_accessor_integration_test;
 import 'over_react/component_declaration/builder_integration_tests/backwards_compatible/stateful_component_integration_test.dart' as backwards_compat_stateful_component_integration_test;
+import 'over_react/component_declaration/builder_integration_tests/backwards_compatible/unassigned_prop_integration_test.dart' as backwards_compat_unassigned_prop_integration_test;
 
 main() {
   setClientConfiguration();
@@ -66,6 +68,7 @@ main() {
   namespaced_accessor_integration_test.main();
   required_accessor_integration_test.main();
   stateful_component_integration_test.main();
+  unassigned_prop_integration_test.main();
 
   backwards_compat_abstract_accessor_integration_test.main();
   backwards_compat_accessor_mixin_integration_test.main();
@@ -75,4 +78,5 @@ main() {
   backwards_compat_namespaced_accessor_integration_test.main();
   backwards_compat_required_accessor_integration_test.main();
   backwards_compat_stateful_component_integration_test.main();
+  backwards_compat_unassigned_prop_integration_test.main();
 }

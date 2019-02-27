@@ -22,24 +22,27 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
 
   /// Go to [_$ButtonProps.skin] to see the source code for this prop
   @override
-  ButtonSkin get skin => props[_$key__skin___$ButtonProps];
-
+  ButtonSkin get skin =>
+      props[_$key__skin___$ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ButtonProps.skin] to see the source code for this prop
   @override
   set skin(ButtonSkin value) => props[_$key__skin___$ButtonProps] = value;
 
   /// Go to [_$ButtonProps.size] to see the source code for this prop
   @override
-  ButtonSize get size => props[_$key__size___$ButtonProps];
-
+  ButtonSize get size =>
+      props[_$key__size___$ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ButtonProps.size] to see the source code for this prop
   @override
   set size(ButtonSize value) => props[_$key__size___$ButtonProps] = value;
 
   /// Go to [_$ButtonProps.isActive] to see the source code for this prop
   @override
-  bool get isActive => props[_$key__isActive___$ButtonProps];
-
+  bool get isActive =>
+      props[_$key__isActive___$ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ButtonProps.isActive] to see the source code for this prop
   @override
   set isActive(bool value) => props[_$key__isActive___$ButtonProps] = value;
@@ -47,8 +50,9 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// Go to [_$ButtonProps.isDisabled] to see the source code for this prop
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
-  bool get isDisabled => props[_$key__isDisabled___$ButtonProps];
-
+  bool get isDisabled =>
+      props[_$key__isDisabled___$ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ButtonProps.isDisabled] to see the source code for this prop
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
@@ -56,8 +60,9 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
 
   /// Go to [_$ButtonProps.isBlock] to see the source code for this prop
   @override
-  bool get isBlock => props[_$key__isBlock___$ButtonProps];
-
+  bool get isBlock =>
+      props[_$key__isBlock___$ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ButtonProps.isBlock] to see the source code for this prop
   @override
   set isBlock(bool value) => props[_$key__isBlock___$ButtonProps] = value;
@@ -65,8 +70,9 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// Go to [_$ButtonProps.href] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  String get href => props[_$key__href___$ButtonProps];
-
+  String get href =>
+      props[_$key__href___$ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ButtonProps.href] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
@@ -75,8 +81,9 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// Go to [_$ButtonProps.target] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  String get target => props[_$key__target___$ButtonProps];
-
+  String get target =>
+      props[_$key__target___$ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ButtonProps.target] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
@@ -84,8 +91,9 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
 
   /// Go to [_$ButtonProps.type] to see the source code for this prop
   @override
-  ButtonType get type => props[_$key__type___$ButtonProps];
-
+  ButtonType get type =>
+      props[_$key__type___$ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ButtonProps.type] to see the source code for this prop
   @override
   set type(ButtonType value) => props[_$key__type___$ButtonProps] = value;

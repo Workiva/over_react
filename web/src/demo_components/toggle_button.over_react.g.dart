@@ -26,8 +26,9 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// Go to [_$ToggleButtonProps.autoFocus] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  bool get autoFocus => props[_$key__autoFocus___$ToggleButtonProps];
-
+  bool get autoFocus =>
+      props[_$key__autoFocus___$ToggleButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ToggleButtonProps.autoFocus] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
@@ -37,8 +38,9 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// Go to [_$ToggleButtonProps.defaultChecked] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  bool get defaultChecked => props[_$key__defaultChecked___$ToggleButtonProps];
-
+  bool get defaultChecked =>
+      props[_$key__defaultChecked___$ToggleButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ToggleButtonProps.defaultChecked] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
@@ -48,8 +50,9 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// Go to [_$ToggleButtonProps.checked] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  bool get checked => props[_$key__checked___$ToggleButtonProps];
-
+  bool get checked =>
+      props[_$key__checked___$ToggleButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ToggleButtonProps.checked] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
@@ -127,8 +130,9 @@ abstract class _$ToggleButtonStateAccessorsMixin
 
   /// Go to [_$ToggleButtonState.isFocused] to see the source code for this prop
   @override
-  bool get isFocused => state[_$key__isFocused___$ToggleButtonState];
-
+  bool get isFocused =>
+      state[_$key__isFocused___$ToggleButtonState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ToggleButtonState.isFocused] to see the source code for this prop
   @override
   set isFocused(bool value) =>
@@ -136,8 +140,9 @@ abstract class _$ToggleButtonStateAccessorsMixin
 
   /// Go to [_$ToggleButtonState.isChecked] to see the source code for this prop
   @override
-  bool get isChecked => state[_$key__isChecked___$ToggleButtonState];
-
+  bool get isChecked =>
+      state[_$key__isChecked___$ToggleButtonState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ToggleButtonState.isChecked] to see the source code for this prop
   @override
   set isChecked(bool value) =>

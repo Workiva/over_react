@@ -25,8 +25,8 @@ abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
   /// Go to [_$DoNotGenerateAccessorTestProps.generated1Prop] to see the source code for this prop
   @override
   get generated1Prop =>
-      props[_$key__generated1Prop___$DoNotGenerateAccessorTestProps];
-
+      props[_$key__generated1Prop___$DoNotGenerateAccessorTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DoNotGenerateAccessorTestProps.generated1Prop] to see the source code for this prop
   @override
   set generated1Prop(value) =>
@@ -35,8 +35,8 @@ abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
   /// Go to [_$DoNotGenerateAccessorTestProps.generated2Prop] to see the source code for this prop
   @override
   get generated2Prop =>
-      props[_$key__generated2Prop___$DoNotGenerateAccessorTestProps];
-
+      props[_$key__generated2Prop___$DoNotGenerateAccessorTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DoNotGenerateAccessorTestProps.generated2Prop] to see the source code for this prop
   @override
   set generated2Prop(value) =>
@@ -46,8 +46,8 @@ abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
   @override
   @Accessor(doNotGenerate: false)
   get explicitlyGeneratedProp =>
-      props[_$key__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps];
-
+      props[_$key__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DoNotGenerateAccessorTestProps.explicitlyGeneratedProp] to see the source code for this prop
   @override
   @Accessor(doNotGenerate: false)
@@ -133,8 +133,8 @@ abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
   /// Go to [_$DoNotGenerateAccessorTestState.generated1State] to see the source code for this prop
   @override
   get generated1State =>
-      state[_$key__generated1State___$DoNotGenerateAccessorTestState];
-
+      state[_$key__generated1State___$DoNotGenerateAccessorTestState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DoNotGenerateAccessorTestState.generated1State] to see the source code for this prop
   @override
   set generated1State(value) =>
@@ -143,8 +143,8 @@ abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
   /// Go to [_$DoNotGenerateAccessorTestState.generated2State] to see the source code for this prop
   @override
   get generated2State =>
-      state[_$key__generated2State___$DoNotGenerateAccessorTestState];
-
+      state[_$key__generated2State___$DoNotGenerateAccessorTestState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DoNotGenerateAccessorTestState.generated2State] to see the source code for this prop
   @override
   set generated2State(value) =>
@@ -154,8 +154,9 @@ abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
   @override
   @Accessor(doNotGenerate: false)
   get explicitlyGeneratedState =>
-      state[_$key__explicitlyGeneratedState___$DoNotGenerateAccessorTestState];
-
+      state[
+          _$key__explicitlyGeneratedState___$DoNotGenerateAccessorTestState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$DoNotGenerateAccessorTestState.explicitlyGeneratedState] to see the source code for this prop
   @override
   @Accessor(doNotGenerate: false)

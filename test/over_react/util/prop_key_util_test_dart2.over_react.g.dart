@@ -22,16 +22,18 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
 
   /// Go to [_$TestProps.foo] to see the source code for this prop
   @override
-  String get foo => props[_$key__foo___$TestProps];
-
+  String get foo =>
+      props[_$key__foo___$TestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TestProps.foo] to see the source code for this prop
   @override
   set foo(String value) => props[_$key__foo___$TestProps] = value;
 
   /// Go to [_$TestProps.bar] to see the source code for this prop
   @override
-  String get bar => props[_$key__bar___$TestProps];
-
+  String get bar =>
+      props[_$key__bar___$TestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TestProps.bar] to see the source code for this prop
   @override
   set bar(String value) => props[_$key__bar___$TestProps] = value;

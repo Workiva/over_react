@@ -16,8 +16,9 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   /// Go to [_$AbstractInputPropsMixin.name] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  String get name => props[_$key__name___$AbstractInputPropsMixin];
-
+  String get name =>
+      props[_$key__name___$AbstractInputPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AbstractInputPropsMixin.name] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
@@ -27,8 +28,9 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   /// Go to [_$AbstractInputPropsMixin.value] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
-  dynamic get value => props[_$key__value___$AbstractInputPropsMixin];
-
+  dynamic get value =>
+      props[_$key__value___$AbstractInputPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AbstractInputPropsMixin.value] to see the source code for this prop
   @override
   @Accessor(keyNamespace: '')
@@ -38,8 +40,8 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   /// Go to [_$AbstractInputPropsMixin.toggleType] to see the source code for this prop
   @override
   ToggleBehaviorType get toggleType =>
-      props[_$key__toggleType___$AbstractInputPropsMixin];
-
+      props[_$key__toggleType___$AbstractInputPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AbstractInputPropsMixin.toggleType] to see the source code for this prop
   @override
   set toggleType(ToggleBehaviorType value) =>
@@ -81,16 +83,18 @@ abstract class AbstractInputStateMixin implements _$AbstractInputStateMixin {
 
   /// Go to [_$AbstractInputStateMixin.id] to see the source code for this prop
   @override
-  String get id => state[_$key__id___$AbstractInputStateMixin];
-
+  String get id =>
+      state[_$key__id___$AbstractInputStateMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AbstractInputStateMixin.id] to see the source code for this prop
   @override
   set id(String value) => state[_$key__id___$AbstractInputStateMixin] = value;
 
   /// Go to [_$AbstractInputStateMixin.name] to see the source code for this prop
   @override
-  String get name => state[_$key__name___$AbstractInputStateMixin];
-
+  String get name =>
+      state[_$key__name___$AbstractInputStateMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$AbstractInputStateMixin.name] to see the source code for this prop
   @override
   set name(String value) =>

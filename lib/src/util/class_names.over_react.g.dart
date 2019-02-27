@@ -14,8 +14,9 @@ abstract class CssClassPropsMixin implements _$CssClassPropsMixin {
 
   /// Go to [_$CssClassPropsMixin.className] to see the source code for this prop
   @override
-  String get className => props[_$key__className___$CssClassPropsMixin];
-
+  String get className =>
+      props[_$key__className___$CssClassPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$CssClassPropsMixin.className] to see the source code for this prop
   @override
   set className(String value) =>
@@ -24,8 +25,8 @@ abstract class CssClassPropsMixin implements _$CssClassPropsMixin {
   /// Go to [_$CssClassPropsMixin.classNameBlacklist] to see the source code for this prop
   @override
   String get classNameBlacklist =>
-      props[_$key__classNameBlacklist___$CssClassPropsMixin];
-
+      props[_$key__classNameBlacklist___$CssClassPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$CssClassPropsMixin.classNameBlacklist] to see the source code for this prop
   @override
   set classNameBlacklist(String value) =>
