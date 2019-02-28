@@ -158,8 +158,13 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers:
 ///
 /// This method simply wraps react.findDOMNode with strong typing for the return value
 /// (and for the function itself, which is declared using `var` in react-dart).
-Element findDomNode(dynamic instance) => react_dom.findDOMNode(instance);
-
+Element findDomNode(dynamic instance) {
+  try {
+    return react_dom.findDOMNode(instance);
+  } catch(e) {
+    return null;
+  }
+}
 /// Dart wrapper for React.isValidElement.
 ///
 /// _From the JS docs:_
@@ -260,27 +265,27 @@ T getDartComponent<T extends react.Component>(/* ReactElement|ReactComponent|Ele
       // in the test output when running `ddev test`.
       print(unindent(
           '''
-          * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
-          * WARNING: `getDartComponent`                                                                                                       
-          *                                                                                            
-          * react-dart 4.0 no longer supports retrieving Dart components from                                                                                           
-          * `ReactElement` (pre-mounted VDOM instances) in order to prevent memory leaks.                                                                                            
-          *                                                                                            
-          * This call to `getDartComponent` will return `null`.                                                                                           
-          *                                                                                            
-          * Start using the mounted JS component instance instead:                                                                                           
-          *                                                                                            
-          * Example:                                                                                           
-          *     // Before                                                                                           
-          *     var vdom = Button()('Click me');                                                                                           
-          *     react_dom.render(vdom, mountNode);                                                                                           
-          *     var dartInstance = getDartComponent(vdom);                                                                                           
-          *                                                                                                
-          *     // Fixed                                                                                           
-          *     var vdom = Button()('Click me');                                                                                           
-          *     var jsInstance = react_dom.render(vdom, mountNode);                                                                                           
-          *     var dartInstance = getDartComponent(jsInstance);                            
-          *                                                                                 
+          * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+          * WARNING: `getDartComponent`
+          *
+          * react-dart 4.0 no longer supports retrieving Dart components from
+          * `ReactElement` (pre-mounted VDOM instances) in order to prevent memory leaks.
+          *
+          * This call to `getDartComponent` will return `null`.
+          *
+          * Start using the mounted JS component instance instead:
+          *
+          * Example:
+          *     // Before
+          *     var vdom = Button()('Click me');
+          *     react_dom.render(vdom, mountNode);
+          *     var dartInstance = getDartComponent(vdom);
+          *
+          *     // Fixed
+          *     var vdom = Button()('Click me');
+          *     var jsInstance = react_dom.render(vdom, mountNode);
+          *     var dartInstance = getDartComponent(jsInstance);
+          *
           * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
           '''
       ));
