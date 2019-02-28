@@ -24,8 +24,9 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
 
   /// Go to [_$BasicPartOfLibProps.basicProp] to see the source code for this prop
   @override
-  String get basicProp => props[_$key__basicProp___$BasicPartOfLibProps];
-
+  String get basicProp =>
+      props[_$key__basicProp___$BasicPartOfLibProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$BasicPartOfLibProps.basicProp] to see the source code for this prop
   @override
   set basicProp(String value) =>
@@ -33,8 +34,9 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
 
   /// Go to [_$BasicPartOfLibProps.basic1] to see the source code for this prop
   @override
-  String get basic1 => props[_$key__basic1___$BasicPartOfLibProps];
-
+  String get basic1 =>
+      props[_$key__basic1___$BasicPartOfLibProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$BasicPartOfLibProps.basic1] to see the source code for this prop
   @override
   set basic1(String value) =>
@@ -42,8 +44,9 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
 
   /// Go to [_$BasicPartOfLibProps.basic2] to see the source code for this prop
   @override
-  String get basic2 => props[_$key__basic2___$BasicPartOfLibProps];
-
+  String get basic2 =>
+      props[_$key__basic2___$BasicPartOfLibProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$BasicPartOfLibProps.basic2] to see the source code for this prop
   @override
   set basic2(String value) =>
@@ -51,8 +54,9 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
 
   /// Go to [_$BasicPartOfLibProps.basic3] to see the source code for this prop
   @override
-  String get basic3 => props[_$key__basic3___$BasicPartOfLibProps];
-
+  String get basic3 =>
+      props[_$key__basic3___$BasicPartOfLibProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$BasicPartOfLibProps.basic3] to see the source code for this prop
   @override
   set basic3(String value) =>
@@ -60,8 +64,9 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
 
   /// Go to [_$BasicPartOfLibProps.basic4] to see the source code for this prop
   @override
-  String get basic4 => props[_$key__basic4___$BasicPartOfLibProps];
-
+  String get basic4 =>
+      props[_$key__basic4___$BasicPartOfLibProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$BasicPartOfLibProps.basic4] to see the source code for this prop
   @override
   set basic4(String value) =>
@@ -69,8 +74,9 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
 
   /// Go to [_$BasicPartOfLibProps.basic5] to see the source code for this prop
   @override
-  String get basic5 => props[_$key__basic5___$BasicPartOfLibProps];
-
+  String get basic5 =>
+      props[_$key__basic5___$BasicPartOfLibProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$BasicPartOfLibProps.basic5] to see the source code for this prop
   @override
   set basic5(String value) =>
@@ -161,8 +167,9 @@ abstract class _$BasicPartOfLibStateAccessorsMixin
 
   /// Go to [_$BasicPartOfLibState.basicState] to see the source code for this prop
   @override
-  String get basicState => state[_$key__basicState___$BasicPartOfLibState];
-
+  String get basicState =>
+      state[_$key__basicState___$BasicPartOfLibState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$BasicPartOfLibState.basicState] to see the source code for this prop
   @override
   set basicState(String value) =>
@@ -247,8 +254,9 @@ abstract class _$SubPartOfLibPropsAccessorsMixin
 
   /// Go to [_$SubPartOfLibProps.subProp] to see the source code for this prop
   @override
-  String get subProp => props[_$key__subProp___$SubPartOfLibProps];
-
+  String get subProp =>
+      props[_$key__subProp___$SubPartOfLibProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SubPartOfLibProps.subProp] to see the source code for this prop
   @override
   set subProp(String value) =>
@@ -330,8 +338,9 @@ abstract class _$SuperPartOfLibPropsAccessorsMixin
 
   /// Go to [_$SuperPartOfLibProps.superProp] to see the source code for this prop
   @override
-  String get superProp => props[_$key__superProp___$SuperPartOfLibProps];
-
+  String get superProp =>
+      props[_$key__superProp___$SuperPartOfLibProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SuperPartOfLibProps.superProp] to see the source code for this prop
   @override
   set superProp(String value) =>

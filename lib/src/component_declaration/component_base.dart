@@ -22,6 +22,7 @@ import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
+import 'package:over_react/src/component_declaration/util.dart';
 import 'package:over_react/src/util/test_mode.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
@@ -607,27 +608,27 @@ abstract class UiProps extends MapBase
   /// Restricted statically to 40 arguments until the dart2js fix in
   /// <https://github.com/dart-lang/sdk/pull/26032> is released.
   ///
-  ReactElement call([c1 = _notSpecified, c2 = _notSpecified, c3 = _notSpecified, c4 = _notSpecified, c5 = _notSpecified, c6 = _notSpecified, c7 = _notSpecified, c8 = _notSpecified, c9 = _notSpecified, c10 = _notSpecified, c11 = _notSpecified, c12 = _notSpecified, c13 = _notSpecified, c14 = _notSpecified, c15 = _notSpecified, c16 = _notSpecified, c17 = _notSpecified, c18 = _notSpecified, c19 = _notSpecified, c20 = _notSpecified, c21 = _notSpecified, c22 = _notSpecified, c23 = _notSpecified, c24 = _notSpecified, c25 = _notSpecified, c26 = _notSpecified, c27 = _notSpecified, c28 = _notSpecified, c29 = _notSpecified, c30 = _notSpecified, c31 = _notSpecified, c32 = _notSpecified, c33 = _notSpecified, c34 = _notSpecified, c35 = _notSpecified, c36 = _notSpecified, c37 = _notSpecified, c38 = _notSpecified, c39 = _notSpecified, c40 = _notSpecified]) {
+  ReactElement call([c1 = notSpecified, c2 = notSpecified, c3 = notSpecified, c4 = notSpecified, c5 = notSpecified, c6 = notSpecified, c7 = notSpecified, c8 = notSpecified, c9 = notSpecified, c10 = notSpecified, c11 = notSpecified, c12 = notSpecified, c13 = notSpecified, c14 = notSpecified, c15 = notSpecified, c16 = notSpecified, c17 = notSpecified, c18 = notSpecified, c19 = notSpecified, c20 = notSpecified, c21 = notSpecified, c22 = notSpecified, c23 = notSpecified, c24 = notSpecified, c25 = notSpecified, c26 = notSpecified, c27 = notSpecified, c28 = notSpecified, c29 = notSpecified, c30 = notSpecified, c31 = notSpecified, c32 = notSpecified, c33 = notSpecified, c34 = notSpecified, c35 = notSpecified, c36 = notSpecified, c37 = notSpecified, c38 = notSpecified, c39 = notSpecified, c40 = notSpecified]) {
     List childArguments;
     // Use `identical` since it compiles down to `===` in dart2js instead of calling equality helper functions,
     // and we don't want to allow any object overriding `operator==` to claim it's equal to `_notSpecified`.
-    if (identical(c1, _notSpecified)) {
+    if (identical(c1, notSpecified)) {
       childArguments = [];
-    } else if (identical(c2, _notSpecified)) {
+    } else if (identical(c2, notSpecified)) {
       childArguments = [c1];
-    } else if (identical(c3, _notSpecified)) {
+    } else if (identical(c3, notSpecified)) {
       childArguments = [c1, c2];
-    } else if (identical(c4, _notSpecified)) {
+    } else if (identical(c4, notSpecified)) {
       childArguments = [c1, c2, c3];
-    } else if (identical(c5, _notSpecified)) {
+    } else if (identical(c5, notSpecified)) {
       childArguments = [c1, c2, c3, c4];
-    } else if (identical(c6, _notSpecified)) {
+    } else if (identical(c6, notSpecified)) {
       childArguments = [c1, c2, c3, c4, c5];
-    } else if (identical(c7, _notSpecified)) {
+    } else if (identical(c7, notSpecified)) {
       childArguments = [c1, c2, c3, c4, c5, c6];
     } else {
       childArguments = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]
-        .takeWhile((child) => !identical(child, _notSpecified))
+        .takeWhile((child) => !identical(child, notSpecified))
         .toList();
     }
 
@@ -896,7 +897,3 @@ class StateMeta implements AccessorMeta<StateDescriptor> {
   const StateMeta({this.fields, this.keys});
 }
 
-const _notSpecified = const NotSpecified();
-class NotSpecified {
-  const NotSpecified();
-}

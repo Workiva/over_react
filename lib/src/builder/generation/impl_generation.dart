@@ -410,7 +410,7 @@ class ImplGenerator {
                 '  /// Go to [$consumerClassName.$accessorName] to see the source code for this prop\n'
                 '  @override\n'
                 '${metadataSrc.toString()}'
-                '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName];\n'
+                '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName] ?? null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;\n'
                 '  /// Go to [$consumerClassName.$accessorName] to see the source code for this prop\n'
                 '  @override\n'
                 '${metadataSrc.toString()}'

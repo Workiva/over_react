@@ -104,8 +104,8 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   /// Go to [_$ResizeSensorPropsMixin.onInitialize] to see the source code for this prop
   @override
   ResizeSensorHandler get onInitialize =>
-      props[_$key__onInitialize___$ResizeSensorPropsMixin];
-
+      props[_$key__onInitialize___$ResizeSensorPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ResizeSensorPropsMixin.onInitialize] to see the source code for this prop
   @override
   set onInitialize(ResizeSensorHandler value) =>
@@ -114,8 +114,8 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   /// Go to [_$ResizeSensorPropsMixin.onResize] to see the source code for this prop
   @override
   ResizeSensorHandler get onResize =>
-      props[_$key__onResize___$ResizeSensorPropsMixin];
-
+      props[_$key__onResize___$ResizeSensorPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ResizeSensorPropsMixin.onResize] to see the source code for this prop
   @override
   set onResize(ResizeSensorHandler value) =>
@@ -123,8 +123,9 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
 
   /// Go to [_$ResizeSensorPropsMixin.isFlexChild] to see the source code for this prop
   @override
-  bool get isFlexChild => props[_$key__isFlexChild___$ResizeSensorPropsMixin];
-
+  bool get isFlexChild =>
+      props[_$key__isFlexChild___$ResizeSensorPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ResizeSensorPropsMixin.isFlexChild] to see the source code for this prop
   @override
   set isFlexChild(bool value) =>
@@ -133,8 +134,8 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   /// Go to [_$ResizeSensorPropsMixin.isFlexContainer] to see the source code for this prop
   @override
   bool get isFlexContainer =>
-      props[_$key__isFlexContainer___$ResizeSensorPropsMixin];
-
+      props[_$key__isFlexContainer___$ResizeSensorPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ResizeSensorPropsMixin.isFlexContainer] to see the source code for this prop
   @override
   set isFlexContainer(bool value) =>
@@ -142,8 +143,9 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
 
   /// Go to [_$ResizeSensorPropsMixin.shrink] to see the source code for this prop
   @override
-  bool get shrink => props[_$key__shrink___$ResizeSensorPropsMixin];
-
+  bool get shrink =>
+      props[_$key__shrink___$ResizeSensorPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ResizeSensorPropsMixin.shrink] to see the source code for this prop
   @override
   set shrink(bool value) =>
@@ -151,8 +153,9 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
 
   /// Go to [_$ResizeSensorPropsMixin.quickMount] to see the source code for this prop
   @override
-  bool get quickMount => props[_$key__quickMount___$ResizeSensorPropsMixin];
-
+  bool get quickMount =>
+      props[_$key__quickMount___$ResizeSensorPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ResizeSensorPropsMixin.quickMount] to see the source code for this prop
   @override
   set quickMount(bool value) =>
@@ -161,8 +164,8 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   /// Go to [_$ResizeSensorPropsMixin.onDetachedMountCheck] to see the source code for this prop
   @override
   BoolCallback get onDetachedMountCheck =>
-      props[_$key__onDetachedMountCheck___$ResizeSensorPropsMixin];
-
+      props[_$key__onDetachedMountCheck___$ResizeSensorPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ResizeSensorPropsMixin.onDetachedMountCheck] to see the source code for this prop
   @override
   set onDetachedMountCheck(BoolCallback value) =>
@@ -171,8 +174,9 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   /// Go to [_$ResizeSensorPropsMixin.onDidReset] to see the source code for this prop
   @override
   @visibleForTesting
-  Callback get onDidReset => props[_$key__onDidReset___$ResizeSensorPropsMixin];
-
+  Callback get onDidReset =>
+      props[_$key__onDidReset___$ResizeSensorPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ResizeSensorPropsMixin.onDidReset] to see the source code for this prop
   @override
   @visibleForTesting

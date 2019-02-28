@@ -23,8 +23,9 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
 
   /// Go to [_$ButtonGroupProps.size] to see the source code for this prop
   @override
-  ButtonGroupSize get size => props[_$key__size___$ButtonGroupProps];
-
+  ButtonGroupSize get size =>
+      props[_$key__size___$ButtonGroupProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ButtonGroupProps.size] to see the source code for this prop
   @override
   set size(ButtonGroupSize value) =>
@@ -32,16 +33,18 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
 
   /// Go to [_$ButtonGroupProps.skin] to see the source code for this prop
   @override
-  ButtonSkin get skin => props[_$key__skin___$ButtonGroupProps];
-
+  ButtonSkin get skin =>
+      props[_$key__skin___$ButtonGroupProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ButtonGroupProps.skin] to see the source code for this prop
   @override
   set skin(ButtonSkin value) => props[_$key__skin___$ButtonGroupProps] = value;
 
   /// Go to [_$ButtonGroupProps.isVertical] to see the source code for this prop
   @override
-  bool get isVertical => props[_$key__isVertical___$ButtonGroupProps];
-
+  bool get isVertical =>
+      props[_$key__isVertical___$ButtonGroupProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ButtonGroupProps.isVertical] to see the source code for this prop
   @override
   set isVertical(bool value) =>

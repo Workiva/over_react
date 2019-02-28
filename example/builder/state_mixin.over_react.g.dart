@@ -14,8 +14,9 @@ abstract class ExampleStateMixinClass implements _$ExampleStateMixinClass {
 
   /// Go to [_$ExampleStateMixinClass.stateMixin1] to see the source code for this prop
   @override
-  String get stateMixin1 => state[_$key__stateMixin1___$ExampleStateMixinClass];
-
+  String get stateMixin1 =>
+      state[_$key__stateMixin1___$ExampleStateMixinClass] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ExampleStateMixinClass.stateMixin1] to see the source code for this prop
   @override
   set stateMixin1(String value) =>
