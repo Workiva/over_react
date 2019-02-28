@@ -24,6 +24,11 @@ import 'package:over_react/src/component_declaration/annotations.dart';
 
 part 'prop_mixins.over_react.g.dart';
 
+/// This class is only present to allow for consumers which have used the
+/// --backwards-compat flag with over_react_codemod to statically analyze:
+/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+abstract class $ReactPropsMixin {}
+
 /// Typed getters/setters for reserved React props.
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
@@ -53,6 +58,11 @@ abstract class _$ReactPropsMixin {
   /// See: <https://facebook.github.io/react/docs/more-about-refs.html>.
   dynamic ref;
 }
+
+/// This class is only present to allow for consumers which have used the
+/// --backwards-compat flag with over_react_codemod to statically analyze:
+/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+abstract class $DomPropsMixin {}
 
 /// Typed getters/setters for reserved DOM-related props.
 /// To be used as a mixin for React components and builders.
@@ -107,6 +117,11 @@ abstract class _$DomPropsMixin {
   bool autoFocus;
 }
 
+/// This class is only present to allow for consumers which have used the
+/// --backwards-compat flag with over_react_codemod to statically analyze:
+/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+abstract class $SvgPropsMixin {}
+
 @PropsMixin(keyNamespace: '')
 abstract class _$SvgPropsMixin {
   Map get props;
@@ -117,6 +132,10 @@ abstract class _$SvgPropsMixin {
     strokeOpacity, strokeWidth, textAnchor, transform, version, viewBox, x1, x2, x, xlinkActuate, xlinkArcrole,
     xlinkHref, xlinkRole, xlinkShow, xlinkTitle, xlinkType, xmlBase, xmlLang, xmlSpace, y1, y2, y;
 }
+/// This class is only present to allow for consumers which have used the
+/// --backwards-compat flag with over_react_codemod to statically analyze:
+/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+abstract class $UbiquitousDomPropsMixin {}
 
 /// Typed getters/setters for reserved DOM-related props that can be used by all UIP components.
 /// To be used as a mixin for React components and builders.
