@@ -23,48 +23,54 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
 
   /// Go to [_$ProgressProps.value] to see the source code for this prop
   @override
-  double get value => props[_$key__value___$ProgressProps];
-
+  double get value =>
+      props[_$key__value___$ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ProgressProps.value] to see the source code for this prop
   @override
   set value(double value) => props[_$key__value___$ProgressProps] = value;
 
   /// Go to [_$ProgressProps.min] to see the source code for this prop
   @override
-  double get min => props[_$key__min___$ProgressProps];
-
+  double get min =>
+      props[_$key__min___$ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ProgressProps.min] to see the source code for this prop
   @override
   set min(double value) => props[_$key__min___$ProgressProps] = value;
 
   /// Go to [_$ProgressProps.max] to see the source code for this prop
   @override
-  double get max => props[_$key__max___$ProgressProps];
-
+  double get max =>
+      props[_$key__max___$ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ProgressProps.max] to see the source code for this prop
   @override
   set max(double value) => props[_$key__max___$ProgressProps] = value;
 
   /// Go to [_$ProgressProps.skin] to see the source code for this prop
   @override
-  ProgressSkin get skin => props[_$key__skin___$ProgressProps];
-
+  ProgressSkin get skin =>
+      props[_$key__skin___$ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ProgressProps.skin] to see the source code for this prop
   @override
   set skin(ProgressSkin value) => props[_$key__skin___$ProgressProps] = value;
 
   /// Go to [_$ProgressProps.isStriped] to see the source code for this prop
   @override
-  bool get isStriped => props[_$key__isStriped___$ProgressProps];
-
+  bool get isStriped =>
+      props[_$key__isStriped___$ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ProgressProps.isStriped] to see the source code for this prop
   @override
   set isStriped(bool value) => props[_$key__isStriped___$ProgressProps] = value;
 
   /// Go to [_$ProgressProps.isAnimated] to see the source code for this prop
   @override
-  bool get isAnimated => props[_$key__isAnimated___$ProgressProps];
-
+  bool get isAnimated =>
+      props[_$key__isAnimated___$ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ProgressProps.isAnimated] to see the source code for this prop
   @override
   set isAnimated(bool value) =>
@@ -72,16 +78,18 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
 
   /// Go to [_$ProgressProps.caption] to see the source code for this prop
   @override
-  String get caption => props[_$key__caption___$ProgressProps];
-
+  String get caption =>
+      props[_$key__caption___$ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ProgressProps.caption] to see the source code for this prop
   @override
   set caption(String value) => props[_$key__caption___$ProgressProps] = value;
 
   /// Go to [_$ProgressProps.captionProps] to see the source code for this prop
   @override
-  Map get captionProps => props[_$key__captionProps___$ProgressProps];
-
+  Map get captionProps =>
+      props[_$key__captionProps___$ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ProgressProps.captionProps] to see the source code for this prop
   @override
   set captionProps(Map value) =>
@@ -89,8 +97,9 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
 
   /// Go to [_$ProgressProps.showCaption] to see the source code for this prop
   @override
-  bool get showCaption => props[_$key__showCaption___$ProgressProps];
-
+  bool get showCaption =>
+      props[_$key__showCaption___$ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ProgressProps.showCaption] to see the source code for this prop
   @override
   set showCaption(bool value) =>
@@ -99,8 +108,8 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   /// Go to [_$ProgressProps.showPercentComplete] to see the source code for this prop
   @override
   bool get showPercentComplete =>
-      props[_$key__showPercentComplete___$ProgressProps];
-
+      props[_$key__showPercentComplete___$ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ProgressProps.showPercentComplete] to see the source code for this prop
   @override
   set showPercentComplete(bool value) =>
@@ -108,8 +117,9 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
 
   /// Go to [_$ProgressProps.rootNodeProps] to see the source code for this prop
   @override
-  Map get rootNodeProps => props[_$key__rootNodeProps___$ProgressProps];
-
+  Map get rootNodeProps =>
+      props[_$key__rootNodeProps___$ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ProgressProps.rootNodeProps] to see the source code for this prop
   @override
   set rootNodeProps(Map value) =>
@@ -227,8 +237,9 @@ abstract class _$ProgressStateAccessorsMixin implements _$ProgressState {
 
   /// Go to [_$ProgressState.id] to see the source code for this prop
   @override
-  String get id => state[_$key__id___$ProgressState];
-
+  String get id =>
+      state[_$key__id___$ProgressState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ProgressState.id] to see the source code for this prop
   @override
   set id(String value) => state[_$key__id___$ProgressState] = value;

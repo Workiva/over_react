@@ -24,8 +24,9 @@ abstract class _$FormActionInputPropsAccessorsMixin
 
   /// Go to [_$FormActionInputProps.prop1] to see the source code for this prop
   @override
-  String get prop1 => props[_$key__prop1___$FormActionInputProps];
-
+  String get prop1 =>
+      props[_$key__prop1___$FormActionInputProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$FormActionInputProps.prop1] to see the source code for this prop
   @override
   set prop1(String value) =>

@@ -273,8 +273,9 @@ abstract class _$TestPropValidationPropsAccessorsMixin
   /// Go to [_$TestPropValidationProps.required] to see the source code for this prop
   @override
   @requiredProp
-  String get required => props[_$key__required___$TestPropValidationProps];
-
+  String get required =>
+      props[_$key__required___$TestPropValidationProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TestPropValidationProps.required] to see the source code for this prop
   @override
   @requiredProp
@@ -937,8 +938,8 @@ abstract class _$TestStatefulPropValidationPropsAccessorsMixin
   @override
   @requiredProp
   String get required =>
-      props[_$key__required___$TestStatefulPropValidationProps];
-
+      props[_$key__required___$TestStatefulPropValidationProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$TestStatefulPropValidationProps.required] to see the source code for this prop
   @override
   @override

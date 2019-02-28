@@ -25,8 +25,9 @@ abstract class _$ComponentTestPropsAccessorsMixin
   /// Go to [_$ComponentTestProps.required] to see the source code for this prop
   @override
   @Required(message: 'This Prop is Required for testing purposes.')
-  get required => props[_$key__required___$ComponentTestProps];
-
+  get required =>
+      props[_$key__required___$ComponentTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ComponentTestProps.required] to see the source code for this prop
   @override
   @Required(message: 'This Prop is Required for testing purposes.')
@@ -35,8 +36,9 @@ abstract class _$ComponentTestPropsAccessorsMixin
   /// Go to [_$ComponentTestProps.nullable] to see the source code for this prop
   @override
   @Required(isNullable: true, message: 'This prop can be set to null!')
-  get nullable => props[_$key__nullable___$ComponentTestProps];
-
+  get nullable =>
+      props[_$key__nullable___$ComponentTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$ComponentTestProps.nullable] to see the source code for this prop
   @override
   @Required(isNullable: true, message: 'This prop can be set to null!')

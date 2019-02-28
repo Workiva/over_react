@@ -22,8 +22,9 @@ abstract class _$SubPropsAccessorsMixin implements _$SubProps {
 
   /// Go to [_$SubProps.subProp] to see the source code for this prop
   @override
-  String get subProp => props[_$key__subProp___$SubProps];
-
+  String get subProp =>
+      props[_$key__subProp___$SubProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SubProps.subProp] to see the source code for this prop
   @override
   set subProp(String value) => props[_$key__subProp___$SubProps] = value;
@@ -81,8 +82,9 @@ abstract class _$SubStateAccessorsMixin implements _$SubState {
 
   /// Go to [_$SubState.subState] to see the source code for this prop
   @override
-  String get subState => state[_$key__subState___$SubState];
-
+  String get subState =>
+      state[_$key__subState___$SubState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SubState.subState] to see the source code for this prop
   @override
   set subState(String value) => state[_$key__subState___$SubState] = value;
@@ -151,8 +153,9 @@ abstract class _$SuperPropsAccessorsMixin implements _$SuperProps {
 
   /// Go to [_$SuperProps.superProp] to see the source code for this prop
   @override
-  String get superProp => props[_$key__superProp___$SuperProps];
-
+  String get superProp =>
+      props[_$key__superProp___$SuperProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SuperProps.superProp] to see the source code for this prop
   @override
   set superProp(String value) => props[_$key__superProp___$SuperProps] = value;
@@ -182,8 +185,9 @@ abstract class _$SuperStateAccessorsMixin implements _$SuperState {
 
   /// Go to [_$SuperState.superState] to see the source code for this prop
   @override
-  String get superState => state[_$key__superState___$SuperState];
-
+  String get superState =>
+      state[_$key__superState___$SuperState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Go to [_$SuperState.superState] to see the source code for this prop
   @override
   set superState(String value) =>
