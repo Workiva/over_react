@@ -28,6 +28,7 @@ part 'class_names.over_react.g.dart';
 /// Typed getters/setters for props related to CSS class manipulation.
 ///
 /// Universally available on all OverReact components via [UiProps].
+abstract class $CssClassPropsMixin {}
 @PropsMixin(keyNamespace: '')
 abstract class _$CssClassPropsMixin {
   Map get props;

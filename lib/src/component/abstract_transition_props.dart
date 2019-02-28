@@ -22,6 +22,7 @@ part 'abstract_transition_props.over_react.g.dart';
 
 /// Props that mirror the implementation of [AbstractTransitionProps], made available as a mixin for components
 /// that cannot extend directly from [AbstractTransitionComponent].
+abstract class $TransitionPropsMixin {}
 @PropsMixin()
 abstract class _$TransitionPropsMixin {
   static final TransitionPropsMapView defaultProps = new TransitionPropsMapView({})

@@ -26,6 +26,7 @@ part 'prop_mixins.over_react.g.dart';
 
 /// Typed getters/setters for reserved React props.
 /// To be used as a mixin for React components and builders.
+abstract class $ReactPropsMixin {}
 @PropsMixin(keyNamespace: '')
 abstract class _$ReactPropsMixin {
   Map get props;
@@ -56,6 +57,7 @@ abstract class _$ReactPropsMixin {
 
 /// Typed getters/setters for reserved DOM-related props.
 /// To be used as a mixin for React components and builders.
+abstract class $DomPropsMixin {}
 @PropsMixin(keyNamespace: '')
 abstract class _$DomPropsMixin {
   Map get props;
@@ -107,6 +109,7 @@ abstract class _$DomPropsMixin {
   bool autoFocus;
 }
 
+abstract class $SvgPropsMixin {}
 @PropsMixin(keyNamespace: '')
 abstract class _$SvgPropsMixin {
   Map get props;
@@ -120,6 +123,7 @@ abstract class _$SvgPropsMixin {
 
 /// Typed getters/setters for reserved DOM-related props that can be used by all UIP components.
 /// To be used as a mixin for React components and builders.
+abstract class $UbiquitousDomPropsMixin {}
 @PropsMixin(keyNamespace: '')
 abstract class _$UbiquitousDomPropsMixin {
   Map get props;

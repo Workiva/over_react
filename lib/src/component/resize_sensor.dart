@@ -65,6 +65,7 @@ part 'resize_sensor.over_react.g.dart';
 @Factory()
 UiFactory<ResizeSensorProps> ResizeSensor = _$ResizeSensor;
 
+abstract class $ResizeSensorPropsMixin {}
 @PropsMixin()
 abstract class _$ResizeSensorPropsMixin {
   static final ResizeSensorPropsMixinMapView defaultProps = new ResizeSensorPropsMixinMapView({})
