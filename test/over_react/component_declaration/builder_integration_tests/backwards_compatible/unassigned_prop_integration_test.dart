@@ -32,16 +32,6 @@ UiFactory<FooProps> Foo = _$Foo;
 class _$FooProps extends UiProps {
   String stringProp;
   String unassignedProp;
-  var untypedProp;
-
-  @Accessor(key: 'custom key!')
-  var customKeyProp;
-
-  @Accessor(keyNamespace: 'custom namespace~~')
-  var customNamespaceProp;
-
-  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  var customKeyAndNamespaceProp;
 }
 
 @Component()

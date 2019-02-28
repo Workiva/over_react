@@ -38,88 +38,22 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
   @override
   set unassignedProp(String value) =>
       props[_$key__unassignedProp___$FooProps] = value;
-
-  /// Go to [_$FooProps.untypedProp] to see the source code for this prop
-  @override
-  get untypedProp =>
-      props[_$key__untypedProp___$FooProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$FooProps.untypedProp] to see the source code for this prop
-  @override
-  set untypedProp(value) => props[_$key__untypedProp___$FooProps] = value;
-
-  /// Go to [_$FooProps.customKeyProp] to see the source code for this prop
-  @override
-  @Accessor(key: 'custom key!')
-  get customKeyProp =>
-      props[_$key__customKeyProp___$FooProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$FooProps.customKeyProp] to see the source code for this prop
-  @override
-  @Accessor(key: 'custom key!')
-  set customKeyProp(value) => props[_$key__customKeyProp___$FooProps] = value;
-
-  /// Go to [_$FooProps.customNamespaceProp] to see the source code for this prop
-  @override
-  @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceProp =>
-      props[_$key__customNamespaceProp___$FooProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$FooProps.customNamespaceProp] to see the source code for this prop
-  @override
-  @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceProp(value) =>
-      props[_$key__customNamespaceProp___$FooProps] = value;
-
-  /// Go to [_$FooProps.customKeyAndNamespaceProp] to see the source code for this prop
-  @override
-  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceProp =>
-      props[_$key__customKeyAndNamespaceProp___$FooProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$FooProps.customKeyAndNamespaceProp] to see the source code for this prop
-  @override
-  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceProp(value) =>
-      props[_$key__customKeyAndNamespaceProp___$FooProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__stringProp___$FooProps =
       const PropDescriptor(_$key__stringProp___$FooProps);
   static const PropDescriptor _$prop__unassignedProp___$FooProps =
       const PropDescriptor(_$key__unassignedProp___$FooProps);
-  static const PropDescriptor _$prop__untypedProp___$FooProps =
-      const PropDescriptor(_$key__untypedProp___$FooProps);
-  static const PropDescriptor _$prop__customKeyProp___$FooProps =
-      const PropDescriptor(_$key__customKeyProp___$FooProps);
-  static const PropDescriptor _$prop__customNamespaceProp___$FooProps =
-      const PropDescriptor(_$key__customNamespaceProp___$FooProps);
-  static const PropDescriptor _$prop__customKeyAndNamespaceProp___$FooProps =
-      const PropDescriptor(_$key__customKeyAndNamespaceProp___$FooProps);
   static const String _$key__stringProp___$FooProps = 'FooProps.stringProp';
   static const String _$key__unassignedProp___$FooProps =
       'FooProps.unassignedProp';
-  static const String _$key__untypedProp___$FooProps = 'FooProps.untypedProp';
-  static const String _$key__customKeyProp___$FooProps = 'FooProps.custom key!';
-  static const String _$key__customNamespaceProp___$FooProps =
-      'custom namespace~~customNamespaceProp';
-  static const String _$key__customKeyAndNamespaceProp___$FooProps =
-      'custom namespace~~custom key!';
 
   static const List<PropDescriptor> $props = const [
     _$prop__stringProp___$FooProps,
-    _$prop__unassignedProp___$FooProps,
-    _$prop__untypedProp___$FooProps,
-    _$prop__customKeyProp___$FooProps,
-    _$prop__customNamespaceProp___$FooProps,
-    _$prop__customKeyAndNamespaceProp___$FooProps
+    _$prop__unassignedProp___$FooProps
   ];
   static const List<String> $propKeys = const [
     _$key__stringProp___$FooProps,
-    _$key__unassignedProp___$FooProps,
-    _$key__untypedProp___$FooProps,
-    _$key__customKeyProp___$FooProps,
-    _$key__customNamespaceProp___$FooProps,
-    _$key__customKeyAndNamespaceProp___$FooProps
+    _$key__unassignedProp___$FooProps
   ];
 }
 
