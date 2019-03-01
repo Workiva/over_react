@@ -58,12 +58,17 @@ _$$_PrivateProps _$_Private([Map backingProps]) =>
 class _$$_PrivateProps extends _$_PrivateProps
     with _$_PrivatePropsAccessorsMixin
     implements _PrivateProps {
-  _$$_PrivateProps(Map backingMap) : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$_PrivateProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -116,12 +121,17 @@ class _PrivateState extends _$_PrivateState with _$_PrivateStateAccessorsMixin {
 class _$$_PrivateState extends _$_PrivateState
     with _$_PrivateStateAccessorsMixin
     implements _PrivateState {
-  _$$_PrivateState(Map backingMap) : this._state = backingMap ?? {};
+  // This initializer of `_state` to an empty map, as well as the reassignment
+  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$_PrivateState(Map backingMap) : this._state = {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

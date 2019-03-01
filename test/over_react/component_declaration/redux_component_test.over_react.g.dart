@@ -46,12 +46,17 @@ _$$TestDefaultProps _$TestDefault([Map backingProps]) =>
 class _$$TestDefaultProps extends _$TestDefaultProps
     with _$TestDefaultPropsAccessorsMixin
     implements TestDefaultProps {
-  _$$TestDefaultProps(Map backingMap) : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestDefaultProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -128,12 +133,17 @@ _$$TestConnectProps _$TestConnect([Map backingProps]) =>
 class _$$TestConnectProps extends _$TestConnectProps
     with _$TestConnectPropsAccessorsMixin
     implements TestConnectProps {
-  _$$TestConnectProps(Map backingMap) : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestConnectProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -209,12 +219,17 @@ _$$TestPureProps _$TestPure([Map backingProps]) =>
 class _$$TestPureProps extends _$TestPureProps
     with _$TestPurePropsAccessorsMixin
     implements TestPureProps {
-  _$$TestPureProps(Map backingMap) : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestPureProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

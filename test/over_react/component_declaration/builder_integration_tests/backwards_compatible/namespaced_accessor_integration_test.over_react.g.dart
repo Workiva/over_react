@@ -156,13 +156,17 @@ _$$NamespacedAccessorTestProps _$NamespacedAccessorTest([Map backingProps]) =>
 class _$$NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
     with _$NamespacedAccessorTestPropsAccessorsMixin
     implements NamespacedAccessorTestProps {
-  _$$NamespacedAccessorTestProps(Map backingMap)
-      : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$NamespacedAccessorTestProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -315,13 +319,17 @@ const StateMeta _$metaForNamespacedAccessorTestState = const StateMeta(
 class _$$NamespacedAccessorTestState extends _$NamespacedAccessorTestState
     with _$NamespacedAccessorTestStateAccessorsMixin
     implements NamespacedAccessorTestState {
-  _$$NamespacedAccessorTestState(Map backingMap)
-      : this._state = backingMap ?? {};
+  // This initializer of `_state` to an empty map, as well as the reassignment
+  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$NamespacedAccessorTestState(Map backingMap) : this._state = {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override
