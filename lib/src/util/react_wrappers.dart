@@ -158,13 +158,8 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers:
 ///
 /// This method simply wraps react.findDOMNode with strong typing for the return value
 /// (and for the function itself, which is declared using `var` in react-dart).
-Element findDomNode(dynamic instance) {
-  try {
-    return react_dom.findDOMNode(instance);
-  } catch(e) {
-    return null;
-  }
-}
+Element findDomNode(dynamic instance) => react_dom.findDOMNode(instance);
+
 /// Dart wrapper for React.isValidElement.
 ///
 /// _From the JS docs:_
