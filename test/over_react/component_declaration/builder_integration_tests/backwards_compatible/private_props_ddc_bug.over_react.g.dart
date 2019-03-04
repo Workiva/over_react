@@ -20,15 +20,6 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
   @override
   Map get props;
 
-  /// Go to [_$FooProps.stringProp] to see the source code for this prop
-  @override
-  String get stringProp =>
-      props[_$key__stringProp___$FooProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$FooProps.stringProp] to see the source code for this prop
-  @override
-  set stringProp(String value) => props[_$key__stringProp___$FooProps] = value;
-
   /// Go to [_$FooProps._privateProp] to see the source code for this prop
   @override
   String get _privateProp =>
@@ -39,21 +30,14 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
   set _privateProp(String value) =>
       props[_$key___privateProp___$FooProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__stringProp___$FooProps =
-      const PropDescriptor(_$key__stringProp___$FooProps);
   static const PropDescriptor _$prop___privateProp___$FooProps =
       const PropDescriptor(_$key___privateProp___$FooProps);
-  static const String _$key__stringProp___$FooProps = 'FooProps.stringProp';
   static const String _$key___privateProp___$FooProps = 'FooProps._privateProp';
 
   static const List<PropDescriptor> $props = const [
-    _$prop__stringProp___$FooProps,
     _$prop___privateProp___$FooProps
   ];
-  static const List<String> $propKeys = const [
-    _$key__stringProp___$FooProps,
-    _$key___privateProp___$FooProps
-  ];
+  static const List<String> $propKeys = const [_$key___privateProp___$FooProps];
 }
 
 const PropsMeta _$metaForFooProps = const PropsMeta(
