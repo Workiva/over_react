@@ -7,9 +7,7 @@ part 'private_props_ddc_bug.over_react.g.dart';
 
 main() {
   test('sets private props correctly in `getDefaultProps`', () {
-    var instance = render((Foo()
-      ..stringProp = 'some string value'
-    )());
+    var instance = render((Foo())());
 
     expect(instance, isNotNull); // sanity check
 
@@ -25,7 +23,6 @@ UiFactory<FooProps> Foo = _$Foo;
 
 @Props()
 class _$FooProps extends UiProps {
-  String stringProp;
   String _privateProp;
 }
 
