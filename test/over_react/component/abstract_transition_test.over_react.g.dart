@@ -208,12 +208,17 @@ _$$TransitionerProps _$Transitioner([Map backingProps]) =>
 class _$$TransitionerProps extends _$TransitionerProps
     with _$TransitionerPropsAccessorsMixin
     implements TransitionerProps {
-  _$$TransitionerProps(Map backingMap) : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TransitionerProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -256,12 +261,17 @@ class TransitionerState extends _$TransitionerState
 class _$$TransitionerState extends _$TransitionerState
     with _$TransitionerStateAccessorsMixin
     implements TransitionerState {
-  _$$TransitionerState(Map backingMap) : this._state = backingMap ?? {};
+  // This initializer of `_state` to an empty map, as well as the reassignment
+  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TransitionerState(Map backingMap) : this._state = {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

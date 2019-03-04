@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'unassigned_prop_integration_test.dart';
+part of 'private_props_ddc_bug.dart';
 
 // **************************************************************************
 // OverReactGenerator
@@ -20,51 +20,30 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
   @override
   Map get props;
 
-  /// Go to [_$FooProps.stringProp] to see the source code for this prop
+  /// Go to [_$FooProps._privateProp] to see the source code for this prop
   @override
-  String get stringProp =>
-      props[_$key__stringProp___$FooProps] ??
+  String get _privateProp =>
+      props[_$key___privateProp___$FooProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$FooProps.stringProp] to see the source code for this prop
+  /// Go to [_$FooProps._privateProp] to see the source code for this prop
   @override
-  set stringProp(String value) => props[_$key__stringProp___$FooProps] = value;
-
-  /// Go to [_$FooProps.unassignedProp] to see the source code for this prop
-  @override
-  String get unassignedProp =>
-      props[_$key__unassignedProp___$FooProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$FooProps.unassignedProp] to see the source code for this prop
-  @override
-  set unassignedProp(String value) =>
-      props[_$key__unassignedProp___$FooProps] = value;
+  set _privateProp(String value) =>
+      props[_$key___privateProp___$FooProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__stringProp___$FooProps =
-      const PropDescriptor(_$key__stringProp___$FooProps);
-  static const PropDescriptor _$prop__unassignedProp___$FooProps =
-      const PropDescriptor(_$key__unassignedProp___$FooProps);
-  static const String _$key__stringProp___$FooProps = 'FooProps.stringProp';
-  static const String _$key__unassignedProp___$FooProps =
-      'FooProps.unassignedProp';
+  static const PropDescriptor _$prop___privateProp___$FooProps =
+      const PropDescriptor(_$key___privateProp___$FooProps);
+  static const String _$key___privateProp___$FooProps = 'FooProps._privateProp';
 
   static const List<PropDescriptor> $props = const [
-    _$prop__stringProp___$FooProps,
-    _$prop__unassignedProp___$FooProps
+    _$prop___privateProp___$FooProps
   ];
-  static const List<String> $propKeys = const [
-    _$key__stringProp___$FooProps,
-    _$key__unassignedProp___$FooProps
-  ];
+  static const List<String> $propKeys = const [_$key___privateProp___$FooProps];
 }
 
 const PropsMeta _$metaForFooProps = const PropsMeta(
   fields: _$FooPropsAccessorsMixin.$props,
   keys: _$FooPropsAccessorsMixin.$propKeys,
 );
-
-class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForFooProps;
-}
 
 _$$FooProps _$Foo([Map backingProps]) => new _$$FooProps(backingProps);
 

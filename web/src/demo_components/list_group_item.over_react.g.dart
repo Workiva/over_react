@@ -210,12 +210,17 @@ _$$ListGroupItemProps _$ListGroupItem([Map backingProps]) =>
 class _$$ListGroupItemProps extends _$ListGroupItemProps
     with _$ListGroupItemPropsAccessorsMixin
     implements ListGroupItemProps {
-  _$$ListGroupItemProps(Map backingMap) : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$ListGroupItemProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

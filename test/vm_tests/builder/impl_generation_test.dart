@@ -340,6 +340,7 @@ main() {
           group('and creates concrete props implementation', () {
             void testConcretePropsGeneration(String testName, OverReactSrc ors) {
               group(testName, () {
+
                 setUp(() {
                   generateFromSource(ors.source);
                 });
@@ -354,14 +355,16 @@ main() {
 
                 test('with the correct constructor', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
-                      '  _\$\$${ors.baseName}Props(Map backingMap) : this._props = backingMap ?? {};\n'));
+                      '  _\$\$${ors.baseName}Props(Map backingMap) : this._props = {} {\n'
+                      '     this._props = backingMap ?? {};\n'
+                      '  }'));
                 });
 
                 test('with props backing map getter', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
                       '  @override\n'
                       '  Map get props => _props;\n'
-                      '  final Map _props;'));
+                      '  Map _props;'));
                 });
 
                 test('overrides `\$isClassGenerated` to return `true`', () {
@@ -424,14 +427,16 @@ main() {
 
                 test('with the correct constructor', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
-                      '  _\$\$${ors.baseName}State(Map backingMap) : this._state = backingMap ?? {};\n'));
+                      '  _\$\$${ors.baseName}State(Map backingMap) : this._state = {} {\n'
+                      '     this._state = backingMap ?? {};\n'
+                      '  }'));
                 });
 
                 test('with state backing map getter', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
                       '  @override\n'
                       '  Map get state => _state;\n'
-                      '  final Map _state;'));
+                      '  Map _state;'));
                 });
 
                 test('overrides `\$isClassGenerated` to return `true`', () {
