@@ -248,7 +248,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
     var unwrappedProps = this.unwrappedProps;
     var typedProps = _typedPropsCache[unwrappedProps];
     if (typedProps == null) {
-      typedProps = typedPropsFactory(inReactDevMode ? _WarnOnModify(unwrappedProps, true) : unwrappedProps);
+      typedProps = typedPropsFactory(inReactDevMode ? new _WarnOnModify(unwrappedProps, true) : unwrappedProps);
       _typedPropsCache[unwrappedProps] = typedProps;
     }
     return typedProps;
@@ -418,7 +418,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
     var unwrappedState = this.unwrappedState;
     var typedState = _typedStateCache[unwrappedState];
     if (typedState == null) {
-    typedState = typedStateFactory(inReactDevMode ? _WarnOnModify(unwrappedState, false) : unwrappedState);
+    typedState = typedStateFactory(inReactDevMode ? new _WarnOnModify(unwrappedState, false) : unwrappedState);
       _typedStateCache[unwrappedState] = typedState;
     }
     return typedState;
