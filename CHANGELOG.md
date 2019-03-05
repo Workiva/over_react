@@ -7,26 +7,26 @@
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.0.0+dart2...2.1.0)
 > - Dart 1 (no changes)
 
-- [#254][#254] Add IDE snippets (WebStorm/IntelliJ and VSCode) for Dart2-only
+- [#254] Add IDE snippets (WebStorm/IntelliJ and VSCode) for Dart2-only
   component boilerplate.
 
-- [#253][#253] Fix a bug that would cause a runtime exception for consumers that
-  are leveraging the backwards-compatible component boilerplate when mixing in
-  a `@PropsMixin` or `@StateMixin` from this package.
+- [#253] Fix a bug that would cause a runtime exception for consumers that are
+  leveraging the backwards-compatible component boilerplate when mixing in a
+  `@PropsMixin` or `@StateMixin` from this package.
 
-- [#256][#256] Workaround a Dart Dev Compiler bug that affects private
-  props/state members and classes.
+- [#256] Workaround a Dart Dev Compiler bug that affects private props/state
+  members and classes.
 
-- [#252][#252] Workaround the following Dart Dev Compiler bug that results in
+- [#252] Workaround the following Dart Dev Compiler bug that results in
   incorrect behavior in certain scenarios when using uninitialized props/state
   fields: [dart-lang/sdk#36052](https://github.com/dart-lang/sdk/issues/36052)
 
-- [#251][#251] Update the builder's `auto_apply` option to `dependents` instead
-  of `all_packages`. This means it will only run on packages that explicitly
+- [#251] Update the builder's `auto_apply` option to `dependents` instead of
+  `all_packages`. This means it will only run on packages that explicitly
   declare a dependency on `over_react`, which makes more sense for the purpose
   of this builder _and_ is more performant because it runs on fewer packages.
 
-- [#250][#250] Fail CI if changes are detected after running a build via
+- [#250] Fail CI if changes are detected after running a build via
   `pub run build_runner build`. This ensures that we don't forget to commit
   changes to generated files.
 
