@@ -66,6 +66,14 @@ __Breaking Changes__
   * `getJsProps()` - use `getProps()` instead
   * `$Props` and `$PropKeys` - see the migration guide above
 
+## 1.32.0
+
+> [Complete `1.32.0` Changeset](https://github.com/Workiva/over_react/compare/1.31.0...1.32.0)
+
+* [#249] Warn consumers about props / state mutation 
+  * Directly mutating props and state is an antipattern and can cause unpredictable rendering.
+      Avoiding this will be especially important for components to behave correctly in React 16's [concurrent mode](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-q2-2019-the-one-with-concurrent-mode).
+
 ## 1.31.0
 
 > [Complete `1.31.0` Changeset](https://github.com/Workiva/over_react/compare/1.30.2...1.31.0)
