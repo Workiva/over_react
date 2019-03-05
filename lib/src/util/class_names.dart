@@ -20,14 +20,22 @@ import 'dart:collection';
 import 'package:over_react/over_react.dart' show
     // Must import these consts because they are used in the transformed code.
     PropDescriptor, ConsumedProps, // ignore: unused_shown_name
-    UiComponent, UiProps;
+    PropsMeta, UiComponent, UiProps;
 import 'package:over_react/src/component_declaration/annotations.dart';
+
+part 'class_names.over_react.g.dart';
+
+
+/// This class is only present to allow for consumers which have used the
+/// --backwards-compat flag with over_react_codemod to statically analyze:
+/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+abstract class $CssClassPropsMixin {}
 
 /// Typed getters/setters for props related to CSS class manipulation.
 ///
 /// Universally available on all OverReact components via [UiProps].
 @PropsMixin(keyNamespace: '')
-abstract class CssClassPropsMixin {
+abstract class _$CssClassPropsMixin {
   Map get props;
 
   /// String of space-delimited CSS classes to be added to the resultant DOM.
@@ -44,7 +52,8 @@ abstract class CssClassPropsMixin {
 }
 
 /// A `MapView` with typed getters/setters for all CSS-class-related props.
-class CssClassPropsMapView extends MapView with CssClassPropsMixin {
+class CssClassPropsMapView extends MapView with
+    CssClassPropsMixin {
   /// Create a new instance backed by the specified map.
   CssClassPropsMapView(Map map) : super(map);
 

@@ -82,7 +82,7 @@ main() {
         });
 
         test('and returns an `Element` reference', () {
-          expect(renderedInstance, const isInstanceOf<Element>());
+          expect(renderedInstance, const TypeMatcher<Element>());
         });
 
         test('within the provided `mountNode`', () {

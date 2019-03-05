@@ -14,11 +14,13 @@
 
 import 'package:over_react/over_react.dart';
 
+part 'dummy_composite_component.over_react.g.dart';
+
 @Factory()
-UiFactory<TestCompositeComponentProps> TestCompositeComponent;
+UiFactory<TestCompositeComponentProps> TestCompositeComponent = _$TestCompositeComponent;
 
 @Props()
-class TestCompositeComponentProps extends UiProps {
+class _$TestCompositeComponentProps extends UiProps {
   Function onComponentDidMount;
   Function onComponentWillUnmount;
   Function onComponentDidUpdate;

@@ -21,11 +21,13 @@ import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/component_base.dart' as component_base;
 
+part 'abstract_transition.over_react.g.dart';
+
 @AbstractProps()
-abstract class AbstractTransitionProps extends UiProps with TransitionPropsMixin {}
+abstract class _$AbstractTransitionProps extends UiProps with TransitionPropsMixin {}
 
 @AbstractState()
-abstract class AbstractTransitionState extends UiState {
+abstract class _$AbstractTransitionState extends UiState {
   /// The current phase of transition the [AbstractTransitionComponent] is in.
   ///
   /// Default:  [AbstractTransitionComponent.initiallyShown] ? [TransitionPhase.SHOWN] : [TransitionPhase.HIDDEN]
@@ -96,8 +98,8 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
 
   @override
   get consumedProps => const [
-    const $Props(AbstractTransitionProps),
-    const $Props(TransitionPropsMixin),
+    AbstractTransitionProps.meta,
+    TransitionPropsMixin.meta,
   ];
 
   @override

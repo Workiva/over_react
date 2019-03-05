@@ -23,19 +23,55 @@ import 'package:meta/meta.dart';
 import 'package:platform_detect/platform_detect.dart';
 import 'package:over_react/over_react.dart';
 
-/// A wrapper component that detects when its parent is resized.
+part 'resize_sensor.over_react.g.dart';
+
+/// A wrapper component that detects when its parent is resized, providing a [ResizeSensorEvent]
+/// as a callback argument to [ResizeSensorPropsMixin.onResize].
 ///
-/// This component _must_ be put in a relative or absolutely positioned
-/// container.
+/// Intended for use as a [https://wicg.github.io/ResizeObserver/](`ResizeObserver`) polyfill.
 ///
-///     (ResizeSensor()..onResize = () => print('resized'))(children)
+///     (ResizeSensor()
+///       ..onResize = (ResizeSensorEvent event) {
+///         print('''
+///           Width was ${event.prevWidth}px, and is now ${event.newWidth}px.
+///           Height was ${event.prevHeight}px, and is now ${event.newHeight}px.
+///         ''');
+///       }
+///     )(
+///       // children that will change width / height
+///     )
 ///
-/// See: <https://docs.workiva.org/web_skin_dart/latest/components/#resize-sensor>.
+/// If your implementation needs to know what the dimensions of the node were when it first mounted,
+/// [ResizeSensorPropsMixin.onInitialize] can be set, _as long as [ResizeSensorPropsMixin.quickMount] is `false`_.
+///
+///     (ResizeSensor()
+///       ..onInitialize = (ResizeSensorEvent event) {
+///         print('''
+///           Width was ${event.prevWidth}px when first mounted.
+///           Height was ${event.prevHeight}px, and is now ${event.newHeight}px.
+///         ''');
+///       }
+///       ..onResize = (ResizeSensorEvent event) {
+///         print('''
+///           Width was ${event.prevWidth}px, and is now ${event.newWidth}px.
+///           Height was ${event.prevHeight}px, and is now ${event.newHeight}px.
+///         ''');
+///       }
+///     )(
+///       // children that will change width / height
+///     )
+///
+/// > The component _must_ be put in a relative or absolutely positioned container.
 @Factory()
-UiFactory<ResizeSensorProps> ResizeSensor;
+UiFactory<ResizeSensorProps> ResizeSensor = _$ResizeSensor;
+
+/// This class is only present to allow for consumers which have used the
+/// --backwards-compat flag with over_react_codemod to statically analyze:
+/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+abstract class $ResizeSensorPropsMixin {}
 
 @PropsMixin()
-abstract class ResizeSensorPropsMixin {
+abstract class _$ResizeSensorPropsMixin {
   static final ResizeSensorPropsMixinMapView defaultProps = new ResizeSensorPropsMixinMapView({})
     ..isFlexChild = false
     ..isFlexContainer = false
@@ -44,10 +80,20 @@ abstract class ResizeSensorPropsMixin {
 
   Map get props;
 
-  /// A function invoked when the resize sensor is initialized.
+  /// A function invoked with a `ResizeSensorEvent` argument when the resize sensor is initialized.
+  ///
+  /// > Will never be called if [quickMount] is `true`.
+  ///
+  /// Related: [onResize]
   ResizeSensorHandler onInitialize;
 
-  /// A function invoked when the parent element is resized.
+  /// A function invoked with a `ResizeSensorEvent` argument when the [ResizeSensor]
+  /// resizes, either due to its parent or children resizing.
+  ///
+  /// > __If this callback is not firing when you expect it to__,
+  ///   check out [onDetachedMountCheck] for a possible workaround.
+  ///
+  /// Related: [onInitialize]
   ResizeSensorHandler onResize;
 
   /// Whether the [ResizeSensor] is a child of a flex item. Necessary to apply the correct styling.
@@ -85,10 +131,41 @@ abstract class ResizeSensorPropsMixin {
   ///
   /// Default: false
   bool quickMount;
+
+  /// A callback that returns a `bool` that indicates whether the [ResizeSensor] was detached from the DOM
+  /// when it first mounted.
+  ///
+  /// ### Why would I need to set this callback? ###
+  ///
+  /// If you have a [ResizeSensor] that is not emitting its [onResize] events, then the sensor was most likely
+  /// mounted detached from the DOM. In that situation, the use of this callback is the recommended way to
+  /// repair the resize behavior via a call to [ResizeSensorComponent.forceResetDetachedSensor] at a time
+  /// when you are sure that the sensor has become attached to the DOM.
+  ///
+  /// ### What does the bool argument indicate? ###
+  ///
+  /// * A `true` argument indicates that __the [ResizeSensor] was mounted detached from the DOM__,
+  ///   and a call to [ResizeSensorComponent.forceResetDetachedSensor] will be necessary to re-initialize the sensor.
+  ///
+  ///   > __NOTE:__ The re-initialization comes at the expense of force-clamping the `scrollLeft` / `scrollTop`
+  ///     values of the expand / collapse sensor nodes to the maximum possible value - which is what forces the
+  ///     reflow / paint that makes the [onResize] callbacks begin firing when expected again.
+  ///
+  /// * A `false` argument indicates that __the [ResizeSensor] was mounted attached to the DOM__.
+  ///
+  ///   > __NOTE:__ If this happens - you most likely do not need to set this callback. If for some reason the callback
+  ///     sometimes returns `true`, and sometimes returns `false` _(unexpected)_,
+  ///     you may have other underlying issues in your implementation that should be addressed separately.
+  BoolCallback onDetachedMountCheck;
+
+  /// A callback intended for use only within internal unit tests that is called when [ResizeSensorComponent._reset]
+  /// is called.
+  @visibleForTesting
+  Callback onDidReset;
 }
 
 @Props()
-class ResizeSensorProps extends UiProps with ResizeSensorPropsMixin {}
+class _$ResizeSensorProps extends UiProps with ResizeSensorPropsMixin {}
 
 @Component()
 class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAnimationFrameMixin {
@@ -113,6 +190,8 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
   @mustCallSuper
   @override
   void componentDidMount() {
+    _checkForDetachedMount();
+
     if (props.quickMount) {
       assert(props.onInitialize == null || ValidationUtil.warn(
           'props.onInitialize will not be called when props.quickMount is true.',
@@ -176,10 +255,13 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
       wrapperStyles = _wrapperStyles;;
     }
 
+    var mergedStyle = newStyleFromProps(props);
+    mergedStyle = {}..addAll(wrapperStyles)..addAll(mergedStyle);
+
     return (Dom.div()
       ..addProps(copyUnconsumedDomProps())
       ..className = forwardingClassNameBuilder().toClassName()
-      ..style = wrapperStyles
+      ..style = mergedStyle
     )(
       props.children,
       resizeSensor
@@ -187,7 +269,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
   }
 
   /// When the expand or collapse sensors are resized, builds a [ResizeSensorEvent] and calls
-  /// props.onResize with it. Then, calls through to [_reset()].
+  /// props.onResize with it. Then, calls through to [_reset].
   void _handleSensorScroll(SyntheticEvent _) {
     if (_scrollEventsToIgnore > 0) {
       _scrollEventsToIgnore--;
@@ -213,6 +295,8 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
   /// resizes will trigger scroll events.
   ///
   /// Additionally update the state with the new [_lastWidth] and [_lastHeight] when [updateLastDimensions] is true.
+  ///
+  /// > Related: [forceResetDetachedSensor]
   void _reset({bool updateLastDimensions: true}) {
     if (updateLastDimensions) {
       var sensor = findDomNode(this);
@@ -230,6 +314,58 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
     _collapseSensorRef
       ..scrollLeft = _maxSensorSize
       ..scrollTop = _maxSensorSize;
+
+    if (props.onDidReset != null) {
+      props.onDidReset();
+    }
+  }
+
+  /// Call to repair / re-initialize a [ResizeSensor] that was detached from the DOM when it mounted.
+  ///
+  /// ### How do I know if I need to call this? ###
+  ///
+  /// If you have a [ResizeSensor] that is not emitting its [ResizeSensorPropsMixin.onResize] events,
+  /// then the sensor was most likely mounted detached from the DOM.
+  /// In that situation, set the [ResizeSensorPropsMixin.onDetachedMountCheck] callback and use a `true`
+  /// return value to give your application knowledge that a call to this method _(at a time when you are
+  /// sure that the sensor has become attached to the DOM)_ to repair the [ResizeSensorPropsMixin.onResize] behavior.
+  ///
+  /// > __See: [ResizeSensorPropsMixin.onDetachedMountCheck] for more information.__
+  void forceResetDetachedSensor() => _reset();
+
+  /// Returns whether the node rendered by this component was attached to the DOM when it was mounted.
+  ///
+  /// A `false` return value indicates that a call to [forceResetDetachedSensor]
+  /// is necessary to ensure the [ResizeSensorPropsMixin.onResize] callback is emitted as expected.
+  ///
+  /// > __See: [ResizeSensorPropsMixin.onDetachedMountCheck] for more information.__
+  bool _isAttachedToDocument() {
+    Node current = findDomNode(this);
+    while (current != null) {
+      if (current == document.body) return true;
+      current = current.parentNode;
+    }
+    return false;
+  }
+
+  /// See: [ResizeSensorPropsMixin.onDetachedMountCheck]
+  void _checkForDetachedMount() {
+    // Only perform this check if the consumer sets the callback.
+    if (props.onDetachedMountCheck == null) return;
+
+    var wasMountedDetachedFromDom = !_isAttachedToDocument();
+
+    assert(wasMountedDetachedFromDom || ValidationUtil.warn(unindent(
+        '''
+        The ResizeSensor was not mounted detached from the DOM, 
+        so you most likely do not need to set `props.onDetachedMountCheck`.
+        
+        If for some reason the callback sometimes returns `true`, and sometimes returns `false` _(unexpected)_, 
+        you may have other underlying issues in your implementation that should be addressed separately.
+        '''
+    )));
+
+    props.onDetachedMountCheck(wasMountedDetachedFromDom);
   }
 
   /// The number of future scroll events to ignore.
@@ -338,6 +474,8 @@ final String _displayFlex = (() {
 })();
 
 /// Used with [ResizeSensorHandler] to provide information about a resize.
+///
+/// > Emitted via [ResizeSensorPropsMixin.onResize] and [ResizeSensorPropsMixin.onInitialize].
 class ResizeSensorEvent {
   /// The new width, in pixels.
   final int newWidth;
@@ -352,7 +490,8 @@ class ResizeSensorEvent {
 }
 
 /// A MapView with the typed getters/setters for all HitArea display variation props.
-class ResizeSensorPropsMixinMapView extends MapView with ResizeSensorPropsMixin {
+class ResizeSensorPropsMixinMapView extends MapView with
+    ResizeSensorPropsMixin {
   /// Create a new instance backed by the specified map.
   ResizeSensorPropsMixinMapView(Map map) : super(map);
 

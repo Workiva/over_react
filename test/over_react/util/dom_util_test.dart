@@ -22,6 +22,8 @@ import 'package:test/test.dart';
 
 import '../../test_util/test_util.dart';
 
+part 'dom_util_test.over_react.g.dart';
+
 /// Main entry point for DomUtil testing
 main() {
   group('isOrContains returns', () {
@@ -386,10 +388,10 @@ main() {
 }
 
 @Factory()
-UiFactory<DomTestProps> DomTest;
+UiFactory<DomTestProps> DomTest = _$DomTest;
 
 @Props()
-class DomTestProps extends UiProps {}
+class _$DomTestProps extends UiProps {}
 
 @Component()
 class DomTestComponent extends UiComponent<DomTestProps> {
@@ -400,3 +402,4 @@ class DomTestComponent extends UiComponent<DomTestProps> {
     );
   }
 }
+

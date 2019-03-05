@@ -1,14 +1,17 @@
-part of over_react.web.demo_components;
+import 'package:over_react/over_react.dart';
+
+import '../demo_components.dart';
+part 'list_group.over_react.g.dart';
 
 /// Bootstrap's `ListGroup` component is flexible and powerful for
 /// displaying lists of [ListGroupItem] components.
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/list-group/>
 @Factory()
-UiFactory<ListGroupProps> ListGroup;
+UiFactory<ListGroupProps> ListGroup = _$ListGroup;
 
 @Props()
-class ListGroupProps extends UiProps {
+class _$ListGroupProps extends UiProps {
   /// The HTML element type for the [ListGroup], specifying its
   /// DOM representation when rendered.
   ///
@@ -47,3 +50,4 @@ class ListGroupElementType {
   /// A [Dom.div] (HTML `<div>` element)
   static final ListGroupElementType DIV = new ListGroupElementType._internal(Dom.div);
 }
+

@@ -16,8 +16,10 @@ library test_component.type_inheritance.abstract;
 
 import 'package:over_react/over_react.dart';
 
+part 'abstract.over_react.g.dart';
+
 @AbstractProps()
-abstract class TestAbstractProps extends UiProps {}
+abstract class _$TestAbstractProps extends UiProps {}
 
 var $TestAbstractComponentFactory = registerAbstractComponent(TestAbstractComponent);
 

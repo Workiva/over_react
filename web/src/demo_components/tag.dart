@@ -1,14 +1,15 @@
-part of over_react.web.demo_components;
+import 'package:over_react/over_react.dart';
+part 'tag.over_react.g.dart';
 
 /// Bootstrap's `Tag` component renders a small and adaptive tag
 /// for adding context to just about any content.
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/tag/>
 @Factory()
-UiFactory<TagProps> Tag;
+UiFactory<TagProps> Tag = _$Tag;
 
 @Props()
-class TagProps extends UiProps {
+class _$TagProps extends UiProps {
   /// The skin / "context" for the [Tag].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/tag/#contextual-variations>.
@@ -75,3 +76,4 @@ class TagSkin extends ClassNameConstant {
   static const TagSkin INFO =
       const TagSkin._('INFO', 'tag-info');
 }
+

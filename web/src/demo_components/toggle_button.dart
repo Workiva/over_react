@@ -1,14 +1,20 @@
-part of over_react.web.demo_components;
+import 'dart:html';
+
+import 'package:over_react/over_react.dart';
+
+import '../demo_components.dart';
+part 'toggle_button.over_react.g.dart';
 
 /// Use [ToggleButton]s in order to render functional `<input type="checkbox">`
 /// or `<input type="radio">` elements that look like a [Button].
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#checkbox-and-radio-buttons>
 @Factory()
-UiFactory<ToggleButtonProps> ToggleButton;
+UiFactory<ToggleButtonProps> ToggleButton = _$ToggleButton;
 
 @Props()
-class ToggleButtonProps extends ButtonProps with AbstractInputPropsMixin {
+class _$ToggleButtonProps extends ButtonProps with
+    AbstractInputPropsMixin {
   /// Whether the `<input>` rendered by the [ToggleButton] should have focus upon mounting.
   ///
   /// _Proxies [DomProps.autoFocus]._
@@ -48,7 +54,8 @@ class ToggleButtonProps extends ButtonProps with AbstractInputPropsMixin {
 }
 
 @State()
-class ToggleButtonState extends ButtonState with AbstractInputStateMixin {
+class _$ToggleButtonState extends ButtonState with
+    AbstractInputStateMixin {
   /// Tracks if the [ToggleButton] is focused. Determines whether to render with the `js-focus` CSS
   /// class.
   ///
@@ -83,9 +90,9 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
 
   @override
   get consumedProps => const [
-    const $Props(ToggleButtonProps),
-    const $Props(ButtonProps),
-    const $Props(AbstractInputPropsMixin),
+    ToggleButtonProps.meta,
+    ButtonProps.meta,
+    AbstractInputPropsMixin.meta,
   ];
 
   @override
@@ -178,7 +185,7 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   ///
   /// Does not refresh the state if [ToggleButtonProps.checked] is not null
   /// (the component is a "controlled" component).
-  void _refreshState() {
+  void refreshState() {
     if (!_isControlled) setState(newState()..isChecked = inputRef.checked);
   }
 
@@ -193,13 +200,13 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   bool get _isControlled => props.checked != null;
 
   @override
-  bool get _isActive => state.isChecked;
+  bool get isActive => state.isChecked;
 
   @override
-  String get _type => null;
+  String get type => null;
 
   @override
-  BuilderOnlyUiFactory<DomProps> get _buttonDomNodeFactory => Dom.label;
+  BuilderOnlyUiFactory<DomProps> get buttonDomNodeFactory => Dom.label;
 
   /// The id to use for a [ToggleButton].
   ///
@@ -207,3 +214,4 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   /// [AbstractInputStateMixin.id] _(auto-generated)_.
   String get id => props.id ?? state.id;
 }
+

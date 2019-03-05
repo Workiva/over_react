@@ -1,10 +1,10 @@
 part of over_react.component_declaration.flux_component_test;
 
 @Factory()
-UiFactory<TestHandlerPrecedenceProps> TestHandlerPrecedence;
+UiFactory<TestHandlerPrecedenceProps> TestHandlerPrecedence = _$TestHandlerPrecedence;
 
 @Props()
-class TestHandlerPrecedenceProps extends FluxUiProps<TestActions, TestStores> {}
+class _$TestHandlerPrecedenceProps extends FluxUiProps<TestActions, TestStores> {}
 
 @Component()
 class TestHandlerPrecedenceComponent extends FluxUiComponent<TestHandlerPrecedenceProps> {
@@ -30,3 +30,4 @@ class TestHandlerPrecedenceComponent extends FluxUiComponent<TestHandlerPreceden
     if (callback != null) callback();
   }
 }
+

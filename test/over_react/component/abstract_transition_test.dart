@@ -25,6 +25,8 @@ import 'package:test/test.dart';
 
 import '../../test_util/test_util.dart';
 
+part 'abstract_transition_test.over_react.g.dart';
+
 /// Main entry point for AbstractTransition testing
 main() {
   group('AbstractTransition', () {
@@ -556,7 +558,9 @@ main() {
           // Have to use MutationObserver since setting the state to PRE_SHOWING
           // synchronously updates the state to SHOWING.
           var transitionAttrMutations = <List<String>>[];
-          var observer = new MutationObserver((records, observer) {
+
+          // List<dynamic> is being used to work around a Dart HTML internals issue in the DDC
+          var observer = new MutationObserver((List<dynamic> records, observer) {
             for (var record in records) {
               if (record.attributeName != transitionPhaseTestAttr) continue;
               transitionAttrMutations.add([
@@ -631,10 +635,10 @@ main() {
 }
 
 @Factory()
-UiFactory<TransitionerProps> Transitioner;
+UiFactory<TransitionerProps> Transitioner = _$Transitioner;
 
 @Props()
-class TransitionerProps extends AbstractTransitionProps {
+class _$TransitionerProps extends AbstractTransitionProps {
   Callback onHandlePreShowing;
   Callback onHandleShowing;
   Callback onHandleShown;
@@ -651,7 +655,7 @@ class TransitionerProps extends AbstractTransitionProps {
 }
 
 @State()
-class TransitionerState extends AbstractTransitionState {}
+class _$TransitionerState extends AbstractTransitionState {}
 
 @Component()
 class TransitionerComponent extends AbstractTransitionComponent<TransitionerProps, TransitionerState> {

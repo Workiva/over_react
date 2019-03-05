@@ -2,5 +2,12 @@ title: over_react
 base: github:Workiva/over_react/
 src: README.md
 topics:
-  - title: Transformer
-    src: lib/src/transformer/README.md
+  - title: Builder
+    src: lib/src/builder/README.md
+
+  - title: OverReact Dart 2 Migration Guide
+    src: doc/dart2_migration.md
+
+  - title: OverReact Dart 2 Code Snippets
+    src: snippets/README.md
+

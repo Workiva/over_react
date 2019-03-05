@@ -1,10 +1,10 @@
 part of over_react.component_declaration.flux_component_test;
 
 @Factory()
-UiFactory<TestRedrawOnProps> TestRedrawOn;
+UiFactory<TestRedrawOnProps> TestRedrawOn = _$TestRedrawOn;
 
 @Props()
-class TestRedrawOnProps extends FluxUiProps<TestActions, TestStores> {}
+class _$TestRedrawOnProps extends FluxUiProps<TestActions, TestStores> {}
 
 @Component()
 class TestRedrawOnComponent extends FluxUiComponent<TestRedrawOnProps> {
@@ -22,3 +22,4 @@ class TestRedrawOnComponent extends FluxUiComponent<TestRedrawOnProps> {
     if (callback != null) callback();
   }
 }
+

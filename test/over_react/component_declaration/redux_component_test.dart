@@ -15,6 +15,8 @@ part 'redux_component_test/default.dart';
 part 'redux_component_test/connect.dart';
 part 'redux_component_test/pure.dart';
 
+part 'redux_component_test.over_react.g.dart';
+
 void main() {
   ReducerBuilder<BaseState, BaseStateBuilder> baseReducerBuilder;
   BaseState baseState;

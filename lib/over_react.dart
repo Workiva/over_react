@@ -29,7 +29,7 @@ export 'package:react/react.dart' show
 
 export 'package:react/src/react_client/js_backed_map.dart' show JsBackedMap;
 
-export 'package:react/react_client.dart' show setClientConfiguration, ReactElement;
+export 'package:react/react_client.dart' show setClientConfiguration, ReactElement, ReactComponentFactoryProxy;
 
 export 'src/component/abstract_transition.dart';
 export 'src/component/abstract_transition_props.dart';
@@ -42,7 +42,7 @@ export 'src/component/prop_typedefs.dart';
 export 'src/component/resize_sensor.dart';
 export 'src/component_declaration/flux_component.dart';
 export 'src/component_declaration/built_redux_component.dart';
-export 'src/component_declaration/transformer_helpers.dart';
+export 'src/component_declaration/builder_helpers.dart';
 export 'src/util/character_constants.dart';
 export 'src/util/class_names.dart';
 export 'src/util/constants_base.dart';
@@ -61,4 +61,5 @@ export 'src/util/react_wrappers.dart';
 export 'src/util/rem_util.dart';
 export 'src/util/string_util.dart';
 export 'src/util/test_mode.dart';
+export 'src/util/typed_default_props_for.dart';
 export 'src/util/validation_util.dart';

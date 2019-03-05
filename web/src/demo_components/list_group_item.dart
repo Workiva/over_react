@@ -1,14 +1,17 @@
-part of over_react.web.demo_components;
+import 'package:over_react/over_react.dart';
+
+import '../demo_components.dart';
+part 'list_group_item.over_react.g.dart';
 
 /// Nest one or more `ListGroupItem` components within a [ListGroup]
 /// to render individual items within a list.
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/list-group/>
 @Factory()
-UiFactory<ListGroupItemProps> ListGroupItem;
+UiFactory<ListGroupItemProps> ListGroupItem = _$ListGroupItem;
 
 @Props()
-class ListGroupItemProps extends UiProps {
+class _$ListGroupItemProps extends UiProps {
   /// The HTML element type for the [ListGroupItem], specifying its DOM
   /// representation when rendered.
   ///
@@ -241,3 +244,4 @@ class ListGroupItemHeaderElementSize {
   static final ListGroupItemHeaderElementSize H6 =
       new ListGroupItemHeaderElementSize._internal(Dom.h6);
 }
+

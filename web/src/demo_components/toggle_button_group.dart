@@ -1,4 +1,7 @@
-part of over_react.web.demo_components;
+import 'package:over_react/over_react.dart';
+
+import '../demo_components.dart';
+part 'toggle_button_group.over_react.g.dart';
 
 /// A specialized [ButtonGroup] component that will surround one or more child
 /// [ToggleButton] components so that a single shared [ToggleButtonGroupProps.name]
@@ -19,13 +22,15 @@ part of over_react.web.demo_components;
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#checkbox-and-radio-buttons>
 @Factory()
-UiFactory <ToggleButtonGroupProps> ToggleButtonGroup;
+UiFactory <ToggleButtonGroupProps> ToggleButtonGroup = _$ToggleButtonGroup;
 
 @Props()
-class ToggleButtonGroupProps extends ButtonGroupProps with AbstractInputPropsMixin {}
+class _$ToggleButtonGroupProps extends ButtonGroupProps with
+    AbstractInputPropsMixin {}
 
 @State()
-class ToggleButtonGroupState extends ButtonGroupState with AbstractInputStateMixin {}
+class _$ToggleButtonGroupState extends ButtonGroupState with
+    AbstractInputStateMixin {}
 
 @Component(subtypeOf: ButtonGroupComponent)
 class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupProps, ToggleButtonGroupState> {
@@ -53,7 +58,7 @@ class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupP
 
   @override
   get consumedProps => const [
-    const $Props(ToggleButtonGroupProps),
+    ToggleButtonGroupProps.meta,
   ];
 
   /// The props that should be added when we clone the given [child] using
@@ -80,9 +85,9 @@ class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupP
   }
 
   /// The handler for when one of the children of the [ToggleButtonGroup] is changed or unchecked
-  void _handleOnChange(react.SyntheticFormEvent event) {
+  void _handleOnChange(SyntheticFormEvent event) {
     _toggleButtonRefs.values.forEach((childComponent) {
-      if (childComponent is ToggleButtonComponent) childComponent._refreshState();
+      if (childComponent is ToggleButtonComponent) childComponent.refreshState();
     });
   }
 
@@ -90,3 +95,4 @@ class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupP
   @override
   UiFactory<ToggleButtonProps> get childFactory => ToggleButton;
 }
+

@@ -16,14 +16,17 @@ library test_component.test_b;
 
 import 'package:over_react/over_react.dart';
 
+part 'test_b.over_react.g.dart';
+
 @Factory()
-UiFactory<TestBProps> TestB;
+UiFactory<TestBProps> TestB = _$TestB;
 
 @Props()
-class TestBProps extends UiProps {}
+class _$TestBProps extends UiProps {}
 
 @Component()
 class TestBComponent extends UiComponent<TestBProps> {
   @override
   render() => Dom.div()();
 }
+

@@ -1,20 +1,10 @@
-library over_react.web.demo_components;
+export 'shared/constants.dart';
 
-// Imports
-import 'dart:html';
-import 'dart:math';
-import 'package:react/react.dart' as react;
-import 'package:react/react_client.dart';
-import 'package:over_react/over_react.dart';
-
-// Parts
-part 'demo_components/shared.dart';
-
-part 'demo_components/button.dart';
-part 'demo_components/button_group.dart';
-part 'demo_components/list_group.dart';
-part 'demo_components/list_group_item.dart';
-part 'demo_components/progress.dart';
-part 'demo_components/tag.dart';
-part 'demo_components/toggle_button_group.dart';
-part 'demo_components/toggle_button.dart';
+export 'demo_components/button.dart';
+export 'demo_components/button_group.dart';
+export 'demo_components/list_group.dart';
+export 'demo_components/list_group_item.dart';
+export 'demo_components/progress.dart';
+export 'demo_components/tag.dart';
+export 'demo_components/toggle_button_group.dart';
+export 'demo_components/toggle_button.dart';

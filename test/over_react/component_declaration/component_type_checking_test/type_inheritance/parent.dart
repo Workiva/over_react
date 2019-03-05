@@ -16,14 +16,17 @@ library test_component.type_inheritance.parent;
 
 import 'package:over_react/over_react.dart';
 
+part 'parent.over_react.g.dart';
+
 @Factory()
-UiFactory<TestParentProps> TestParent;
+UiFactory<TestParentProps> TestParent = _$TestParent;
 
 @Props()
-class TestParentProps extends UiProps {}
+class _$TestParentProps extends UiProps {}
 
 @Component()
 class TestParentComponent extends UiComponent<TestParentProps> {
   @override
   render() => Dom.div()();
 }
+

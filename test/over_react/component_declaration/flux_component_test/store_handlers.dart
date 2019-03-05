@@ -1,10 +1,10 @@
 part of over_react.component_declaration.flux_component_test;
 
 @Factory()
-UiFactory<TestStoreHandlersProps> TestStoreHandlers;
+UiFactory<TestStoreHandlersProps> TestStoreHandlers = _$TestStoreHandlers;
 
 @Props()
-class TestStoreHandlersProps extends FluxUiProps<TestActions, TestStore> {}
+class _$TestStoreHandlersProps extends FluxUiProps<TestActions, TestStore> {}
 
 @Component()
 class TestStoreHandlersComponent extends FluxUiComponent<TestStoreHandlersProps> {
@@ -20,3 +20,4 @@ class TestStoreHandlersComponent extends FluxUiComponent<TestStoreHandlersProps>
     numberOfHandlerCalls += 1;
   }
 }
+

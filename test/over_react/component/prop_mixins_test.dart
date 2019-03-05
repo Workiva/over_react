@@ -23,7 +23,15 @@ import '../../test_util/prop_utils.dart';
 
 main() {
   group('ReactProps', () {
-    testKeys(const $PropKeys(ReactPropsMixin), (() => new ReactPropMixinsTest({})));
+    testInvalidKey((() => new ReactPropMixinsTest({})));
+    test('uses unnamespaced keys', () {
+      // Test two keys to reduce the possibility that the key we picked might have a custom @Accessor annotation on it
+      expect(
+          new ReactPropMixinsTest({})
+            ..ref = null
+            ..key = null,
+          {'ref': null, 'key': null});
+    });
 
     group('prop: key can have its value set to', () {
       test('an int and be read as a String', () {
@@ -50,19 +58,47 @@ main() {
   });
 
   group('CssClassProps', () {
-    testKeys(const $PropKeys(CssClassPropsMixin), (() => new CssClassPropMixinsTest({})));
+    testInvalidKey((() => new CssClassPropMixinsTest({})));
+    test('uses unnamespaced keys', () {
+      // Test two keys to reduce the possibility that the key we picked might have a custom @Accessor annotation on it
+      expect(new CssClassPropMixinsTest({})..className = null..classNameBlacklist = null, {'className': null, 'classNameBlacklist': null});
+    });
   });
 
   group('DomPropsMixin', () {
-    testKeys(const $PropKeys(DomPropsMixin), (() => new DomPropMixinsTest({})));
+    testInvalidKey((() => new DomPropMixinsTest({})));
+    test('uses unnamespaced keys', () {
+      // Test two keys to reduce the possibility that the key we picked might have a custom @Accessor annotation on it
+      expect(
+          new DomPropMixinsTest({})
+            ..style = null
+            ..id = null,
+          {'style': null, 'id': null});
+    });
   });
 
   group('SvgPropsMixin', () {
-    testKeys(const $PropKeys(SvgPropsMixin), (() => new SvgPropMixinsTest({})));
+    testInvalidKey((() => new SvgPropMixinsTest({})));
+    test('uses unnamespaced keys', () {
+      // Test two keys to reduce the possibility that the key we picked might have a custom @Accessor annotation on it
+      expect(
+          new SvgPropMixinsTest({})
+            ..clipPath = null
+            ..cx= null,
+          {'clipPath': null, 'cx': null});
+    });
   });
 
   group('UbiquitousProps', () {
-    testKeys(const $PropKeys(UbiquitousDomPropsMixin), (() => new UbiquitousPropMixinsTest({})));
+    testInvalidKey((() => new UbiquitousPropMixinsTest({})));
+    test('uses unnamespaced keys', () {
+      // Test two keys to reduce the possibility that the key we picked might have a custom @Accessor annotation on it
+      expect(
+          new UbiquitousPropMixinsTest({})
+            ..tabIndex = null
+            ..id = null,
+          {'tabIndex': null, 'id': null});
+    });
 
     group('has a getter that provides a typed view of', () {
       test('aria props', () {
@@ -86,21 +122,21 @@ main() {
   });
 
   group('AriaProps', () {
-      test('cannot set / read values that are not its prop map', () {
-        var instance = new AriaPropMixinsTest({});
-        expect(() {instance['notThere'];}, throwsArgumentError);
-      });
+    testInvalidKey(() => new AriaPropMixinsTest({}));
 
-      for (var propKey in const $PropKeys(AriaPropsMixin)) {
-        test('prop: $propKey can have its value set / read', () {
-          var instance = new AriaPropMixinsTest({});
-          testProp(new Symbol(propKey.replaceFirst('aria-', '')), propKey, instance, null);
-        });
-      }
+    test('uses unnamespaced keys with \'aria-\' prefix', () {
+      // Test two keys to reduce the possibility that the key we picked might have a custom @Accessor annotation on it
+      expect(
+          new AriaPropMixinsTest({})
+            ..activedescendant = null
+            ..atomic = null,
+          {'aria-activedescendant': null, 'aria-atomic': null});
+    });
   });
 }
 
-class DomPropMixinsTest extends MapView with DomPropsMixin {
+class DomPropMixinsTest extends MapView with 
+    DomPropsMixin {
   /// Create a new instance backed by the specified map.
   DomPropMixinsTest(Map map) : super(map);
 
@@ -118,7 +154,8 @@ class DomPropMixinsTest extends MapView with DomPropsMixin {
   }
 }
 
-class SvgPropMixinsTest extends MapView with SvgPropsMixin {
+class SvgPropMixinsTest extends MapView with 
+    SvgPropsMixin {
   /// Create a new instance backed by the specified map.
   SvgPropMixinsTest(Map map) : super(map);
 
@@ -136,7 +173,8 @@ class SvgPropMixinsTest extends MapView with SvgPropsMixin {
   }
 }
 
-class ReactPropMixinsTest extends MapView with ReactPropsMixin {
+class ReactPropMixinsTest extends MapView with 
+    ReactPropsMixin {
   /// Create a new instance backed by the specified map.
   ReactPropMixinsTest(Map map) : super(map);
 
@@ -154,7 +192,8 @@ class ReactPropMixinsTest extends MapView with ReactPropsMixin {
   }
 }
 
-class CssClassPropMixinsTest extends MapView with CssClassPropsMixin {
+class CssClassPropMixinsTest extends MapView with 
+    CssClassPropsMixin {
   /// Create a new instance backed by the specified map.
   CssClassPropMixinsTest(Map map) : super(map);
 
@@ -172,7 +211,8 @@ class CssClassPropMixinsTest extends MapView with CssClassPropsMixin {
   }
 }
 
-class UbiquitousPropMixinsTest extends MapView with UbiquitousDomPropsMixin {
+class UbiquitousPropMixinsTest extends MapView with 
+    UbiquitousDomPropsMixin {
   UbiquitousPropMixinsTest(Map map) : super (map);
 
   /// The props to be manipulated via the getters/setters.
@@ -189,7 +229,8 @@ class UbiquitousPropMixinsTest extends MapView with UbiquitousDomPropsMixin {
   }
 }
 
-class AriaPropMixinsTest extends MapView with AriaPropsMixin {
+class AriaPropMixinsTest extends MapView with 
+    AriaPropsMixin {
   AriaPropMixinsTest(Map map) : super (map);
 
   /// The props to be manipulated via the getters/setters.

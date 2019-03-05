@@ -1,10 +1,10 @@
 part of over_react.component_declaration.redux_component_test;
 
 @Factory()
-UiFactory<TestConnectProps> TestConnect;
+UiFactory<TestConnectProps> TestConnect = _$TestConnect;
 
 @Props()
-class TestConnectProps
+class _$TestConnectProps
     extends BuiltReduxUiProps<BaseState, BaseStateBuilder, BaseActions> {}
 
 @Component()
@@ -23,3 +23,4 @@ class TestConnectComponent
   @override
   int connect(BaseState state) => state.count1;
 }
+

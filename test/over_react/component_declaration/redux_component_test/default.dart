@@ -1,10 +1,10 @@
 part of over_react.component_declaration.redux_component_test;
 
 @Factory()
-UiFactory<TestDefaultProps> TestDefault;
+UiFactory<TestDefaultProps> TestDefault = _$TestDefault;
 
 @Props()
-class TestDefaultProps extends BuiltReduxUiProps<BaseState, BaseStateBuilder, BaseActions> {}
+class _$TestDefaultProps extends BuiltReduxUiProps<BaseState, BaseStateBuilder, BaseActions> {}
 
 @Component()
 class TestDefaultComponent extends BuiltReduxUiComponent<BaseState, BaseStateBuilder, BaseActions, TestDefaultProps, BaseState> {
@@ -21,3 +21,4 @@ class TestDefaultComponent extends BuiltReduxUiComponent<BaseState, BaseStateBui
   @override
   render() => Dom.div()();
 }
+

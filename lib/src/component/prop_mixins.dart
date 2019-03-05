@@ -15,17 +15,24 @@
 /// Various prop related mixins to be used with [UiComponent] descendants.
 library over_react.prop_mixins;
 
-import 'package:over_react/over_react.dart' show AriaPropsMapView, AriaPropsMixin, DomProps;
+import 'package:over_react/over_react.dart' show AriaPropsMapView, AriaPropsMixin, DomProps, PropsMeta;
 // Must import these consts because they are used in the transformed code.
-// ignore: unused_import
-import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps;
+// ignore: deprecated_member_use, unused_shown_name
+import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps, PropsMeta;
 import 'package:over_react/src/component/callback_typedefs.dart';
 import 'package:over_react/src/component_declaration/annotations.dart';
+
+part 'prop_mixins.over_react.g.dart';
+
+/// This class is only present to allow for consumers which have used the
+/// --backwards-compat flag with over_react_codemod to statically analyze:
+/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+abstract class $ReactPropsMixin {}
 
 /// Typed getters/setters for reserved React props.
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
-abstract class ReactPropsMixin {
+abstract class _$ReactPropsMixin {
   Map get props;
 
   /// The children that were passed in to this component when it was built.
@@ -52,10 +59,15 @@ abstract class ReactPropsMixin {
   dynamic ref;
 }
 
+/// This class is only present to allow for consumers which have used the
+/// --backwards-compat flag with over_react_codemod to statically analyze:
+/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+abstract class $DomPropsMixin {}
+
 /// Typed getters/setters for reserved DOM-related props.
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
-abstract class DomPropsMixin {
+abstract class _$DomPropsMixin {
   Map get props;
 
   int cols, rows, size, span, start;
@@ -105,8 +117,13 @@ abstract class DomPropsMixin {
   bool autoFocus;
 }
 
+/// This class is only present to allow for consumers which have used the
+/// --backwards-compat flag with over_react_codemod to statically analyze:
+/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+abstract class $SvgPropsMixin {}
+
 @PropsMixin(keyNamespace: '')
-abstract class SvgPropsMixin {
+abstract class _$SvgPropsMixin {
   Map get props;
 
   dynamic clipPath, cx, cy, d, dx, dy, fill, fillOpacity, fontFamily, fontSize, fx, fy, gradientTransform,
@@ -115,11 +132,15 @@ abstract class SvgPropsMixin {
     strokeOpacity, strokeWidth, textAnchor, transform, version, viewBox, x1, x2, x, xlinkActuate, xlinkArcrole,
     xlinkHref, xlinkRole, xlinkShow, xlinkTitle, xlinkType, xmlBase, xmlLang, xmlSpace, y1, y2, y;
 }
+/// This class is only present to allow for consumers which have used the
+/// --backwards-compat flag with over_react_codemod to statically analyze:
+/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+abstract class $UbiquitousDomPropsMixin {}
 
 /// Typed getters/setters for reserved DOM-related props that can be used by all UIP components.
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
-abstract class UbiquitousDomPropsMixin {
+abstract class _$UbiquitousDomPropsMixin {
   Map get props;
 
   /// A cache for the MapView used for [aria].

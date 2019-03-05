@@ -1,0 +1,56 @@
+<template name="ord2AbsStful" value="import 'package:over_react/over_react.dart';&#10;&#10;part '$FileName$.over_react.g.dart';&#10;&#10;@AbstractProps()&#10;abstract class _$$$MyComponent$Props extends UiProps {}&#10;&#10;@AbstractState()&#10;abstract class _$$$MyComponent$State extends UiState {}&#10;&#10;@AbstractComponent()&#10;abstract class $MyComponent$Component&lt;T extends $MyComponent$Props, S extends $MyComponent$State&gt; extends UiStatefulComponent&lt;T, S&gt; {&#10;  @override&#10;  Map getDefaultProps() =&gt; (newProps());&#10;&#10;  @override&#10;  Map getInitialState() =&gt; (newState());&#10;&#10;  @override&#10;  render() {}&#10;}" description="Creates an abstract stateful over_react component" toReformat="false" toShortenFQNames="true">
+    <variable name="FileName" expression="" defaultValue="&quot;foo&quot;" alwaysStopAt="true" />
+    <variable name="MyComponent" expression="" defaultValue="&quot;Foo&quot;" alwaysStopAt="true" />
+    <context>
+        <option name="DART" value="true" />
+    </context>
+</template>
+<template name="ord2AbsStless" value="import 'package:over_react/over_react.dart';&#10;&#10;part '$FileName$.over_react.g.dart';&#10;&#10;@AbstractProps()&#10;abstract class _$$$MyComponent$Props extends UiProps {}&#10;&#10;@AbstractComponent()&#10;abstract class $MyComponent$Component&lt;T extends $MyComponent$Props&gt; extends UiComponent&lt;T&gt; {&#10;  @override&#10;  Map getDefaultProps() =&gt; (newProps());&#10;&#10;  @override&#10;  render() {}&#10;}" description="Creates an abstract stateless over_react component" toReformat="false" toShortenFQNames="true">
+<variable name="FileName" expression="" defaultValue="&quot;foo&quot;" alwaysStopAt="true" />
+<variable name="MyComponent" expression="" defaultValue="&quot;Foo&quot;" alwaysStopAt="true" />
+<context>
+    <option name="DART" value="true" />
+</context>
+</template>
+<template name="ord2CAbsStful" value="import 'package:over_react/over_react.dart';&#10;&#10;part '$FileName$.over_react.g.dart';&#10;&#10;@AbstractProps()&#10;abstract class _$$$MyComponent$Props extends UiProps {}&#10;&#10;@AbstractState()&#10;abstract class _$$$MyComponent$State extends UiState {}&#10;&#10;@AbstractComponent()&#10;abstract class $MyComponent$Component&lt;T extends $MyComponent$Props, S extends $MyComponent$State&gt; extends UiStatefulComponent&lt;T, S&gt; {&#10;// --------------------------------------------------------------------------&#10;// React Component Specifications and Lifecycle Methods&#10;// --------------------------------------------------------------------------&#10;&#10;  @override&#10;  Map getDefaultProps() =&gt; (newProps());&#10;&#10;  @override&#10;  Map getInitialState() =&gt; (newState());&#10;&#10;  @override&#10;  render() {}&#10;&#10;// --------------------------------------------------------------------------&#10;// Private Utility Methods&#10;// --------------------------------------------------------------------------&#10;&#10;// --------------------------------------------------------------------------&#10;// Public Utility Methods&#10;// --------------------------------------------------------------------------&#10;&#10;// --------------------------------------------------------------------------&#10;// Public API Methods&#10;// --------------------------------------------------------------------------&#10;}" description="Creates a commented abstract stateful over_react component" toReformat="false" toShortenFQNames="true">
+<variable name="FileName" expression="" defaultValue="&quot;foo&quot;" alwaysStopAt="true" />
+<variable name="MyComponent" expression="" defaultValue="&quot;Foo&quot;" alwaysStopAt="true" />
+<context>
+    <option name="DART" value="true" />
+</context>
+</template>
+<template name="ord2CAbsStless" value="import 'package:over_react/over_react.dart';&#10;&#10;part '$FileName$.over_react.g.dart';&#10;&#10;@AbstractProps()&#10;abstract class _$$$MyComponent$Props extends UiProps {}&#10;&#10;@AbstractComponent()&#10;abstract class $MyComponent$Component&lt;T extends $MyComponent$Props&gt; extends UiComponent&lt;T&gt; {&#10;// --------------------------------------------------------------------------&#10;// React Component Specifications and Lifecycle Methods&#10;// --------------------------------------------------------------------------&#10;&#10;  @override&#10;  Map getDefaultProps() =&gt; (newProps());&#10;&#10;  @override&#10;  render() {}&#10;&#10;// --------------------------------------------------------------------------&#10;// Private Utility Methods&#10;// --------------------------------------------------------------------------&#10;&#10;// --------------------------------------------------------------------------&#10;// Public Utility Methods&#10;// --------------------------------------------------------------------------&#10;&#10;// --------------------------------------------------------------------------&#10;// Public API Methods&#10;// --------------------------------------------------------------------------&#10;}" description="Creates a commented abstract stateless over_react component" toReformat="false" toShortenFQNames="true">
+<variable name="FileName" expression="" defaultValue="&quot;foo&quot;" alwaysStopAt="true" />
+<variable name="MyComponent" expression="" defaultValue="&quot;Foo&quot;" alwaysStopAt="true" />
+<context>
+    <option name="DART" value="true" />
+</context>
+</template>
+<template name="ord2CStful" value="import 'package:over_react/over_react.dart';&#10;&#10;part '$FileName$.over_react.g.dart';&#10;&#10;@Factory()&#10;UiFactory&lt;$MyComponent$Props&gt; $MyComponent$ = _$$$MyComponent$;&#10;&#10;@Props()&#10;class _$$$MyComponent$Props extends UiProps {}&#10;&#10;@State()&#10;class _$$$MyComponent$State extends UiState {}&#10;&#10;@Component()&#10;class $MyComponent$Component extends UiStatefulComponent&lt;$MyComponent$Props, $MyComponent$State&gt; {&#10;// --------------------------------------------------------------------------&#10;// React Component Specifications and Lifecycle Methods&#10;// --------------------------------------------------------------------------&#10;&#10;  @override&#10;  Map getDefaultProps() =&gt; (newProps());&#10;&#10;  @override&#10;  Map getInitialState() =&gt; (newState());&#10;&#10;  @override&#10;  render() {}&#10;  &#10;// --------------------------------------------------------------------------&#10;// Private Utility Methods&#10;// --------------------------------------------------------------------------&#10;&#10;// --------------------------------------------------------------------------&#10;// Public Utility Methods&#10;// --------------------------------------------------------------------------&#10;&#10;// --------------------------------------------------------------------------&#10;// Public API Methods&#10;// --------------------------------------------------------------------------&#10;}" description="Creates a commented stateful over_react component" toReformat="false" toShortenFQNames="true">
+<variable name="FileName" expression="" defaultValue="&quot;foo&quot;" alwaysStopAt="true" />
+<variable name="MyComponent" expression="" defaultValue="&quot;Foo&quot;" alwaysStopAt="true" />
+<context>
+    <option name="DART" value="true" />
+</context>
+</template>
+<template name="ord2CStless" value="import 'package:over_react/over_react.dart';&#10;&#10;part '$FileName$.over_react.g.dart';&#10;&#10;@Factory()&#10;UiFactory&lt;$MyComponent$Props&gt; $MyComponent$ = _$$$MyComponent$;&#10;&#10;@Props()&#10;class _$$$MyComponent$Props extends UiProps {}&#10;&#10;@Component()&#10;class $MyComponent$Component extends UiComponent&lt;$MyComponent$Props&gt; {&#10;// --------------------------------------------------------------------------&#10;// React Component Specifications and Lifecycle Methods&#10;// --------------------------------------------------------------------------&#10;&#10;  @override&#10;  Map getDefaultProps() =&gt; (newProps());&#10;&#10;  @override&#10;  render() {}&#10;  &#10;// --------------------------------------------------------------------------&#10;// Private Utility Methods&#10;// --------------------------------------------------------------------------&#10;&#10;// --------------------------------------------------------------------------&#10;// Public Utility Methods&#10;// --------------------------------------------------------------------------&#10;&#10;// --------------------------------------------------------------------------&#10;// Public A Methods&#10;// --------------------------------------------------------------------------&#10;}" description="Creates a commented stateless over_react component" toReformat="false" toShortenFQNames="true">
+<variable name="FileName" expression="" defaultValue="&quot;foo&quot;" alwaysStopAt="true" />
+<variable name="MyComponent" expression="" defaultValue="&quot;Foo&quot;" alwaysStopAt="true" />
+<context>
+    <option name="DART" value="true" />
+</context>
+</template>
+<template name="ord2Stful" value="import 'package:over_react/over_react.dart';&#10;&#10;part '$FileName$.over_react.g.dart';&#10;&#10;@Factory()&#10;UiFactory&lt;$MyComponent$Props&gt; $MyComponent$ = _$$$MyComponent$;&#10;&#10;@Props()&#10;class _$$$MyComponent$Props extends UiProps {}&#10;&#10;@State()&#10;class _$$$MyComponent$State extends UiState {}&#10;&#10;@Component()&#10;class $MyComponent$Component extends UiStatefulComponent&lt;$MyComponent$Props, $MyComponent$State&gt; {&#10;  @override&#10;  Map getDefaultProps() =&gt; (newProps());&#10;&#10;  @override&#10;  Map getInitialState() =&gt; (newState());&#10;&#10;  @override&#10;  render() {}&#10;}" description="Creates a stateful over_react component" toReformat="false" toShortenFQNames="true">
+<variable name="FileName" expression="" defaultValue="&quot;foo&quot;" alwaysStopAt="true" />
+<variable name="MyComponent" expression="" defaultValue="&quot;Foo&quot;" alwaysStopAt="true" />
+<context>
+    <option name="DART" value="true" />
+</context>
+</template>
+<template name="ord2Stless" value="import 'package:over_react/over_react.dart';&#10;&#10;part '$FileName$.over_react.g.dart';&#10;&#10;@Factory()&#10;UiFactory&lt;$MyComponent$Props&gt; $MyComponent$ = _$$$MyComponent$;&#10;&#10;@Props()&#10;class _$$$MyComponent$Props extends UiProps {}&#10;&#10;@Component()&#10;class $MyComponent$Component extends UiComponent&lt;$MyComponent$Props&gt; {&#10;  @override&#10;  Map getDefaultProps() =&gt; (newProps());&#10;&#10;  @override&#10;  render() {}&#10;}" description="Creates a stateless over_react component" toReformat="false" toShortenFQNames="true">
+<variable name="FileName" expression="" defaultValue="&quot;foo&quot;" alwaysStopAt="true" />
+<variable name="MyComponent" expression="" defaultValue="&quot;Foo&quot;" alwaysStopAt="true" />
+<context>
+    <option name="DART" value="true" />
+</context>
+</template>

@@ -1,13 +1,16 @@
-part of over_react.web.demo_components;
+import 'package:over_react/over_react.dart';
+
+import '../demo_components.dart';
+part 'button_group.over_react.g.dart';
 
 /// Groups a series of [Button]s together on a single line.
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/button-group/>.
 @Factory()
-UiFactory<ButtonGroupProps> ButtonGroup;
+UiFactory<ButtonGroupProps> ButtonGroup = _$ButtonGroup;
 
 @Props()
-class ButtonGroupProps extends UiProps {
+class _$ButtonGroupProps extends UiProps {
   /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#sizing>.
@@ -27,7 +30,7 @@ class ButtonGroupProps extends UiProps {
 }
 
 @State()
-class ButtonGroupState extends UiState {}
+class _$ButtonGroupState extends UiState {}
 
 @Component()
 class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupState>
@@ -154,3 +157,4 @@ final Map<ButtonSize, ButtonGroupSize> buttonToButtonGroupSize = const <ButtonSi
   ButtonSize.DEFAULT: ButtonGroupSize.DEFAULT,
   ButtonSize.LARGE:   ButtonGroupSize.LARGE,
 };
+

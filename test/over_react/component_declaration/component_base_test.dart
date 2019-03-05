@@ -30,56 +30,113 @@ import '../../test_util/test_util.dart';
 import '../shared/map_proxy_tests.dart';
 
 main() {
-  group('component base:', () {
-    group('UiProps', () {
-      group('warns and throws when rendering a DOM component', () {
-        bool warningsWereEnabled;
-        setUp(() {
-          warningsWereEnabled = ValidationUtil.WARNINGS_ENABLED;
-          ValidationUtil.WARNINGS_ENABLED = false;
-          startRecordingValidationWarnings();
-        });
+  void _commonNonInvokedBuilderTests(UiProps builder) {
+    bool warningsWereEnabled;
+    setUp(() {
+      warningsWereEnabled = ValidationUtil.WARNINGS_ENABLED;
+      ValidationUtil.WARNINGS_ENABLED = false;
+      startRecordingValidationWarnings();
+    });
 
-        tearDown(() {
-          ValidationUtil.WARNINGS_ENABLED = warningsWereEnabled;
-          stopRecordingValidationWarnings();
-        });
+    tearDown(() {
+      ValidationUtil.WARNINGS_ENABLED = warningsWereEnabled;
+      stopRecordingValidationWarnings();
+    });
 
-        test('when a single non-invoked builder child is passed in', () {
-          expect(() => Dom.div()(Dom.div()), throwsArgumentError);
-          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
-        });
+    test('when a single non-invoked builder child is passed in', () {
+      expect(() => builder(Dom.div()), throwsArgumentError);
+      verifyValidationWarning(contains(
+          'It looks like you are trying to use a non-invoked builder as a child.'));
+    });
 
-        test('when a list with a non-invoked builder child passed in', () {
-          expect(() => Dom.div()([
+    test('when a list with a non-invoked builder child passed in', () {
+      expect(() =>
+          builder([
             Dom.div(),
             Dom.p()(),
             Dom.div()
           ]), throwsArgumentError);
-          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
-        });
+      verifyValidationWarning(contains(
+          'It looks like you are trying to use a non-invoked builder as a child.'));
+    });
 
-        test('except when an iterable with a non-invoked builder child passed in', () {
-          var children = (() sync* {
-            yield Dom.div();
-            yield Dom.p()();
-            yield Dom.div();
-          })();
-          expect(() => Dom.div()(children), returnsNormally);
-          rejectValidationWarning(anything);
-        });
+    test(
+        'except when an iterable with a non-invoked builder child passed in', () {
+      var children = (() sync* {
+        yield Dom.div();
+        yield Dom.p()();
+        yield Dom.div();
+      })();
+      expect(() => builder(children), returnsNormally);
+      rejectValidationWarning(anything);
+    });
 
-        test('when non-invoked builder children are passed in variadically via noSuchMethod', () {
-          expect(() => Dom.div()(
-            Dom.div(),
-            Dom.p()(),
-            Dom.div()
+    test('when non-invoked builder children are passed in variadically', () {
+      expect(() =>
+          builder(
+              Dom.div(),
+              Dom.p()(),
+              Dom.div()
           ), throwsArgumentError);
-          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
+      verifyValidationWarning(contains(
+          'It looks like you are trying to use a non-invoked builder as a child.'));
+    });
+  }
+
+  void _commonVariadicChildrenTests(UiProps builder) {
+    // There are different code paths for 0, 1, 2, 3, 4, 5, 6, and 6+ arguments.
+    // Test all of them.
+    group('a number of variadic children:', () {
+      test('0', () {
+        final instance = builder();
+        expect(getJsChildren(instance), isNull);
+      });
+
+      test('1', () {
+        final instance = builder(1);
+        expect(getJsChildren(instance), equals(1));
+      });
+
+      const firstGeneralCaseVariadicChildCount = 2;
+      const maxSupportedVariadicChildCount = 40;
+      for (var i = firstGeneralCaseVariadicChildCount; i < maxSupportedVariadicChildCount; i++) {
+        final childrenCount = i;
+        test('$childrenCount', () {
+          final expectedChildren = new List.generate(childrenCount, (i) => i + 1);
+          final arguments = <dynamic>[]..addAll(expectedChildren);
+          final instance = Function.apply(builder, arguments);
+          expect(getJsChildren(instance), expectedChildren);
         });
+      }
+
+      test('$maxSupportedVariadicChildCount (and passes static analysis)', () {
+        final instance = builder(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40);
+        // Generate these instead of hard coding them to ensure the arguments passed into this test match maxSupportedVariadicChildCount
+        final expectedChildren = new List.generate(maxSupportedVariadicChildCount, (i) => i + 1);
+        expect(getJsChildren(instance), equals(expectedChildren));
+      });
+    });
+  }
+
+  group('component base:', () {
+    group('UiProps', () {
+      group('warns and throws when rendering a DOM component', () {
+        _commonNonInvokedBuilderTests(Dom.div());
       }, testOn: '!js');
 
+      test('warns against setting props directly', () {
+        startRecordingValidationWarnings();
+        var instance = render(TestComponent()());
+        var component = getDartComponent(instance);
+        var changeProps = () => component.props['id'] = 'test';
+        changeProps();
+        verifyValidationWarning(contains('Never mutate this.props directly'));
+        stopRecordingValidationWarnings();
+      });
+
       group('renders a DOM component with the correct children when', () {
+        _commonVariadicChildrenTests(Dom.div());
+
         test('no children are passed in', () {
           var renderedNode = renderAndGetDom(Dom.div()());
 
@@ -124,7 +181,7 @@ main() {
           expect(childNodes[1].text, equals('Second Child'));
         });
 
-        test('children are set variadically via noSuchMethod', () {
+        test('children are set variadically', () {
           var firstChild = 'First Child';
           var secondChild = 'Second Child';
           var renderedNode = renderAndGetDom(Dom.div()(firstChild, secondChild));
@@ -137,57 +194,17 @@ main() {
       });
 
       group('warns and throws when rendering a Dart composite component', () {
-        bool warningsWereEnabled;
-        setUp(() {
-          warningsWereEnabled = ValidationUtil.WARNINGS_ENABLED;
-          ValidationUtil.WARNINGS_ENABLED = false;
-          startRecordingValidationWarnings();
-        });
-
-        tearDown(() {
-          ValidationUtil.WARNINGS_ENABLED = warningsWereEnabled;
-          stopRecordingValidationWarnings();
-        });
-
-        test('when a single non-invoked builder child is passed in', () {
-          expect(() => TestComponent()(Dom.div()), throwsArgumentError);
-          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
-        });
-
-        test('when a list with a non-invoked builder child passed in', () {
-          expect(() => TestComponent()([
-            Dom.div(),
-            Dom.p()(),
-            Dom.div()
-          ]), throwsArgumentError);
-          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
-        });
-
-        test('except when an iterable with a non-invoked builder passed in', () {
-          var children = (() sync* {
-            yield Dom.div();
-            yield Dom.p()();
-            yield Dom.div();
-          })();
-          expect(() => TestComponent()(children), returnsNormally);
-          rejectValidationWarning(anything);
-        });
-
-        test('when non-invoked builder children are passed in variadically via noSuchMethod', () {
-          expect(() => TestComponent()(
-            Dom.div(),
-            Dom.p()(),
-            Dom.div()
-          ), throwsArgumentError);
-          verifyValidationWarning(contains('It looks like you are trying to use a non-invoked builder as a child.'));
-        });
+        _commonNonInvokedBuilderTests(Dom.div());
       }, testOn: '!js');
 
       group('renders a composite Dart component with the correct children when', () {
+        _commonVariadicChildrenTests(TestComponent());
+
         test('no children are passed in', () {
+
           var renderedInstance = render(TestComponent()());
 
-          expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getDartChildren(renderedInstance), isEmpty);
 
           expect(getJsChildren(renderedInstance), isNull);
@@ -196,7 +213,7 @@ main() {
         test('children is null', () {
           var renderedInstance = render(TestComponent()(null));
 
-          expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getDartChildren(renderedInstance), isEmpty);
 
           expect(getJsChildren(renderedInstance), isNull);
@@ -206,7 +223,7 @@ main() {
           var child = 'Only child';
           var renderedInstance = render(TestComponent()(child));
 
-          expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getDartChildren(renderedInstance), equals([child]));
 
           expect(getJsChildren(renderedInstance), equals(child));
@@ -216,10 +233,10 @@ main() {
           var children = ['First Child', 'Second Child'];
           var renderedInstance = render(TestComponent()(children));
 
-          expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getDartChildren(renderedInstance), equals(children));
 
-          expect(getJsChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getJsChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getJsChildren(renderedInstance), equals(children));
         });
 
@@ -230,59 +247,29 @@ main() {
           })();
           var renderedInstance = render(TestComponent()(children));
 
-          expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getDartChildren(renderedInstance), orderedEquals(children));
 
-          expect(getJsChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getJsChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getJsChildren(renderedInstance), orderedEquals(children));
         });
 
-        test('children are set variadically via noSuchMethod', () {
+        test('children are set variadically', () {
           var firstChild = 'First Child';
           var secondChild = 'Second Child';
           var renderedInstance = render(TestComponent()(firstChild, secondChild));
 
-          expect(getDartChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getDartChildren(renderedInstance), equals([firstChild, secondChild]));
 
-          expect(getJsChildren(renderedInstance), new isInstanceOf<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getJsChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getJsChildren(renderedInstance), equals([firstChild, secondChild]));
         });
       });
 
-      test('invokes a non-ReactComponentFactoryProxy componentFactory function properly when invoked', () {
-        final ReactElement expectedReturnValue = Dom.div()();
-        const expectedProps = const {'testProp': 'testValue'};
-
-        var calls = [];
-
-        ReactElement customFactory([Map props, a = 0, b = 0, c = 0, d = 0]) {
-          calls.add([props, a, b, c, d]);
-          return expectedReturnValue;
-        }
-
-        var builder = new TestUiPropsWithCustomComponentFactory()
-          ..componentFactory = customFactory
-          ..['testProp'] = 'testValue';
-
-        expect(builder(), expectedReturnValue);
-        expect(builder(1), expectedReturnValue);
-        expect(builder(1, 2), expectedReturnValue);
-        expect(builder(1, 2, 3), expectedReturnValue);
-        expect(builder(1, 2, 3, 4), expectedReturnValue);
-
-        expect(calls, [
-          [expectedProps, 0, 0, 0, 0],
-          [expectedProps, 1, 0, 0, 0],
-          [expectedProps, 1, 2, 0, 0],
-          [expectedProps, 1, 2, 3, 0],
-          [expectedProps, 1, 2, 3, 4],
-        ]);
-      });
-
       group('provides Map functionality:', () {
         test('is a Map', () {
-          expect(new TestComponentProps(), const isInstanceOf<Map>());
+          expect(new TestComponentProps(), const TypeMatcher<Map>());
         });
 
         test('toString() returns a user-friendly String that includes the key-value pairs', () {
@@ -448,7 +435,7 @@ main() {
     group('UiState', () {
       group('provides Map functionality:', () {
         test('is a Map', () {
-          expect(new TestStatefulComponentState(), const isInstanceOf<Map>());
+          expect(new TestStatefulComponentState(), const TypeMatcher<Map>());
         });
 
         test('toString() returns a user-friendly String that includes the key-value pairs', () {
@@ -498,7 +485,7 @@ main() {
       group('`props`', () {
         group('getter:', () {
           test('returns a UiProps view into the component\'s props map', () {
-            expect(component.props, const isInstanceOf<TestComponentProps>());
+            expect(component.props, const TypeMatcher<TestComponentProps>());
 
             expect(component.props, isNot(same(component.unwrappedProps)));
 
@@ -533,8 +520,8 @@ main() {
       test('newProps() returns a new UiProps instance backed by a new Map', () {
         var newProps1 = component.newProps();
         var newProps2 = component.newProps();
-        expect(newProps1, const isInstanceOf<TestComponentProps>());
-        expect(newProps2, const isInstanceOf<TestComponentProps>());
+        expect(newProps1, const TypeMatcher<TestComponentProps>());
+        expect(newProps2, const TypeMatcher<TestComponentProps>());
         expect(newProps1, isNot(same(newProps2)));
       });
 
@@ -706,7 +693,7 @@ main() {
         test('should complete delayed Future with ObjectDisposedException', () async {
           expect(component.getManagedDelayedFuture(shortDuration,
               expectAsync0(() {}, count: 0, reason: 'Did not expect callback to be invoked.')),
-            throwsA(new isInstanceOf<ObjectDisposedException>()));
+            throwsA(const TypeMatcher<ObjectDisposedException>()));
 
           await unmountAndDisposal();
         });
@@ -714,7 +701,7 @@ main() {
         test('should call managed disposer returned by getManagedDisposer', () async {
           var disposerCalled = false;
           var disposer = component.getManagedDisposer(() async => disposerCalled = true);
-          expect(disposer, new isInstanceOf<ManagedDisposer>());
+          expect(disposer, const TypeMatcher<ManagedDisposer>());
 
           expect(disposerCalled, isFalse);
           await unmountAndDisposal();
@@ -746,7 +733,7 @@ main() {
           var streamSubscription = component.listenToStream(streamController.stream, expectAsync1((_) {},
               count: 0,
               reason: 'Did not expect event after cancelling subscription'));
-          expect(streamSubscription, new isInstanceOf<StreamSubscription>());
+          expect(streamSubscription, const TypeMatcher<StreamSubscription>());
 
           await unmountAndDisposal();
 
@@ -766,8 +753,9 @@ main() {
         test('should complete uncompleted managed Completer with ObjectDisposedException', () async {
           var completer = new Completer<Null>();
           component.manageCompleter(completer);
-          completer.future.catchError(expectAsync1((Object err) =>
-            expect(err, new isInstanceOf<ObjectDisposedException>())));
+          completer.future.catchError(expectAsync1((Object err) {
+            expect(err, const TypeMatcher<ObjectDisposedException>());
+          }));
 
           expect(completer.isCompleted, isFalse);
           await unmountAndDisposal();
@@ -822,13 +810,13 @@ main() {
 
       setUp(() {
         statefulComponent = new TestStatefulComponentComponent();
-        statefulComponent.unwrappedState = {};
+        statefulComponent.unwrappedState = {'test': true};
       });
 
       group('`state`', () {
         group('getter:', () {
           test('returns a UiState view into the component\'s state map', () {
-            expect(statefulComponent.state, const isInstanceOf<TestStatefulComponentState>());
+            expect(statefulComponent.state, const TypeMatcher<TestStatefulComponentState>());
 
             expect(statefulComponent.state, isNot(same(statefulComponent.unwrappedState)));
 
@@ -849,6 +837,14 @@ main() {
 
             expect(stateBeforeChange, isNot(same(stateAfterChange)));
           });
+
+          test('warns against setting state directly', () {
+            startRecordingValidationWarnings();
+            var changeState = () => statefulComponent.state['test'] = true;
+            changeState();
+            verifyValidationWarning(contains('Never mutate this.state directly'));
+            stopRecordingValidationWarnings();
+          });
         });
 
         group('setter:', () {
@@ -863,8 +859,8 @@ main() {
       test('newState() returns a new UiProps instance backed by a new Map', () {
         var newState1 = statefulComponent.newState();
         var newState2 = statefulComponent.newState();
-        expect(newState1, const isInstanceOf<TestStatefulComponentState>());
-        expect(newState2, const isInstanceOf<TestStatefulComponentState>());
+        expect(newState1, const TypeMatcher<TestStatefulComponentState>());
+        expect(newState2, const TypeMatcher<TestStatefulComponentState>());
         expect(newState1, isNot(same(newState2)));
       });
     });
@@ -962,7 +958,7 @@ main() {
   });
 }
 
-dynamic getJsChildren(instance) => getJsProps(instance)['children'];
+dynamic getJsChildren(instance) => unconvertJsProps(instance)['children'];
 
 dynamic getDartChildren(var renderedInstance) {
   assert(isDartComponent(renderedInstance));
@@ -973,7 +969,7 @@ dynamic getDartChildren(var renderedInstance) {
 UiFactory<TestComponentProps> TestComponent = ([Map props]) => new TestComponentProps(props);
 
 class TestComponentProps extends UiProps {
-  @override final Function componentFactory = _TestComponentComponentFactory;
+  @override final ReactComponentFactoryProxy componentFactory = _TestComponentComponentFactory;
   @override final Map props;
 
   TestComponentProps([Map props]) : this.props = props ?? ({});
@@ -1004,7 +1000,7 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
 UiFactory<TestStatefulComponentProps> TestStatefulComponent = ([Map props]) => new TestStatefulComponentProps(props);
 
 class TestStatefulComponentProps extends UiProps {
-  @override final Function componentFactory = _TestStatefulComponentComponentFactory;
+  @override final ReactComponentFactoryProxy componentFactory = _TestStatefulComponentComponentFactory;
   @override final Map props;
 
   TestStatefulComponentProps([Map props]) : this.props = props ?? ({});
@@ -1045,7 +1041,7 @@ class TestStateMapViewMixin extends MapBase with MapViewMixin, StateMapViewMixin
 
 class TestUiPropsWithCustomComponentFactory extends UiProps {
   @override
-  Function componentFactory;
+  ReactComponentFactoryProxy componentFactory;
 
   @override
   final Map props = {};

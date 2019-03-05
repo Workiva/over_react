@@ -1,5 +1,198 @@
 # OverReact Changelog
 
+## 2.0.0
+
+> [Complete `2.0.0` Changeset](https://github.com/Workiva/over_react/compare/1.31.0...2.0.0)
+
+This release adds support for Dart 2 while retaining backwards-compatibility
+with Dart 1, **but it requires changes to consumer's component code.**
+
+> Note: If you intend to consume this version of over_react on Dart 1 and Dart 2
+> in the same codebase, **do not** remove the `transformers` section from your
+> `pubspec.yaml`. This section is ignored on Dart 2, but will still be needed on Dart 1
+
+__Breaking Changes__
+
+* In order to add support for Dart 2, consumers need to update their over_react
+    component code! Please see our [Dart 2 migration guide](https://github.com/Workiva/over_react/blob/master/doc/dart2_migration.md)
+    for more information.
+
+    We've created a codemod tool that will automatically update your code:
+
+    ```bash
+    # On Dart 2.1.0
+    $ pub global activate over_react_codemod ^1.0.2
+
+    # If you need backwards-compatibility with Dart 1:
+    $ pub global run over_react_codemod:dart2_upgrade --backwards-compat
+
+    # Or, if you are okay with dropping Dart 1 support:
+    $ pub global run over_react_codemod:dart2_upgrade
+    ```
+
+    The tool (and additional info) can be found here: https://github.com/Workiva/over_react_codemod/
+
+* Removals:
+  * `getJsProps()` - use `getProps()` instead
+  * `$Props` and `$PropKeys` - see the migration guide above
+
+## 1.31.0
+
+> [Complete `1.31.0` Changeset](https://github.com/Workiva/over_react/compare/1.30.2...1.31.0)
+
+__Deprecations__
+
+* [#230] Deprecate the following APIs (they will be removed in 2.0.0):
+  * `getJsProps()` - use `getProps()` instead.
+  * `$Props` and `$PropKeys` - see the [Dart 2 migration guide](https://github.com/Workiva/over_react/blob/master/doc/dart2_migration.md)
+    for more information.
+
+* [#207] Override `call()` instead of `noSuchMethod()` in the `UiProps` class.
+    This was a requirement for Dart 2 compatibility, but also serves as an
+    improvement - by no longer overriding `noSuchMethod()`, we will no longer be
+    obscuring certain analyzer errors that should be seen by consumers.
+
+## 1.30.2
+
+> [Complete `1.30.2` Changeset](https://github.com/Workiva/over_react/compare/1.30.1...1.30.2)
+
+__Bug Fixes__
+
+* [#222] Fix the initializer validation for component factories and the static
+  `meta` field on props and state classes.
+
+## 1.30.1
+
+> [Complete `1.30.1` Changeset](https://github.com/Workiva/over_react/compare/1.30.0...1.30.1)
+
+__Bug Fixes__
+
+* [#220] Fix an issue for Dart 2 compatibility with how the transformer handles
+  props and state mixins that have generic type parameters.
+
+__Tech-Debt__
+
+* [#219] Remove `dart:mirrors` usages from tests (necessary for Dart 2
+  compatibility).
+
+__Documentation__
+
+* [#210] Add a [Dart 2 migration guide](https://github.com/Workiva/over_react/blob/master/doc/dart2_migration.md).
+* [#209] Add [Dart 1 / 2 code snippets for VSCode and WebStorm/IntelliJ](https://github.com/Workiva/over_react/blob/master/snippets/README.md).
+
+## 1.30.0
+
+> [Complete `1.30.0` Changeset](https://github.com/Workiva/over_react/compare/1.29.0...1.30.0)
+
+__New Features__
+
+* [#196] Add `componentDefaultProps` getter to `UiProps` for retrieving the
+  immutable map view of a component's default props. This is an alternative to
+  constructing a `UiComponent` directly and calling `getDefaultProps()`, which
+  will no longer work in Dart 2.
+
+* [#208] Add `typedDefaultPropsFor(factory)` utility function to easily obtain
+  a typed view of the immutable default props for any `UiFactory`. This is
+  effectively a strongly-typed version of the above `componentDefaultProps`
+  getter.
+
+__Improvements__
+
+* [#200] [#201] [#205] [#208] Update the transformer to support new `over_react`
+  component boilerplate that is compatible with both Dart 1 and Dart 2. This is
+  the first step towards Dart 2 compatibility. For more information, see [#210].
+
+## 1.29.0
+
+> [Complete `1.29.0` Changeset](https://github.com/Workiva/over_react/compare/1.28.0...1.29.0)
+
+__Bug fixes__
+
+* [#197] Mount the rem-change-detecting node for a `ResizeSensor` asynchronously to prevent react from getting into a bad state
+
+__New Features__
+
+* [#195]: Add hooks for Flux component redraws that occur in response to store updates: `listenToStoreForRedraw`/`handleRedrawOn` 
+    * Implements the stuff that was missed in [#193]
+
+
+## 1.28.0
+
+> [Complete `1.28.0` Changeset](https://github.com/Workiva/over_react/compare/1.27.0...1.28.0)
+
+__Bug fixes__
+
+* [#193] Fix missing super calls in Flux component lifecycle methods that prevented disposal and prop validation
+
+__New Features__
+
+* [#193]: ~~Add hooks for Flux component redraws that occur in response to store updates: `listenToStoreForRedraw`/`handleRedrawOn`~~ 
+    * _Actually implemented via [#195] in `1.29.0`_
+
+__Improvements__
+
+* [#192]: Make return type of `getDartComponent` generic
+* [#190]: Merge `style` prop into styles applied to the top-level ResizeSensor node
+
+
+## 1.27.0
+
+> [Complete `1.27.0` Changeset](https://github.com/Workiva/over_react/compare/1.26.2...1.27.0)
+
+__New Features__
+
+* [#187]: New `ResizSensorProps.onDetachedMountCheck` prop callback and `ResizeSensorComponent.forceResetDetachedSensor` method
+
+__Improvements__
+
+* [#188]: Use `isNotEmpty` instead of `length == 0` check
+    * _Thanks @teresy!!!_
+
+
+## 1.26.2
+
+__Bug fixes__
+
+* [5fb73f](https://github.com/Workiva/over_react/commit/5fb73f26f92182ebd5c45c2ad5bb015a662bc3b4) Make rem change sensor container is `overflow:hidden` so it doesn't interfere with the page layout
+
+## 1.26.1
+
+__Dependency Updates__
+
+* [e8fc86](https://github.com/Workiva/over_react/commit/e8fc86c9748c4cfb8af7bde91b0959827a5a7a63) Loosen lower bound of `built_value`
+    * built_value `>=4.6.1 <5.2.0` (was `>=5.1.3 <5.2.0`)
+
+## 1.26.0
+
+> [Complete `1.26.0` Changeset](https://github.com/Workiva/over_react/compare/1.25.0...1.26.0)
+
+__New Features__
+
+* [#178]: Automatic document root font-size change detection in Google Chrome to overcome https://bugs.chromium.org/p/chromium/issues/detail?id=429140
+
+__Dependency Updates__
+
+* [881c0c](https://github.com/Workiva/over_react/commit/881c0ca0806d265ad7baf1f45aace632561ab05c) Tighten version constraints to speed up pub get
+    * analyzer `>=0.30.0+4 <=0.31.0` (was `>=0.30.0 <=0.31.0`)
+    * built_redux `^7.4.2` (was `^7.4.1`)
+    * built_value `>=5.1.3 <5.2.0` (was `>=4.2.0 <5.2.0`)
+    * js `^0.6.1+1` (was `^0.6.0`)
+    * logging `>=0.11.3+2 <1.0.0` (was `>=0.11.3+1 <1.0.0`)
+    * meta `^1.1.6` (was `^1.0.4`)
+    * path `^1.5.1` (was `^1.4.1`)
+    * react `^4.4.2` (was `^4.4.1`)
+    * source_span `^1.4.1` (was `^1.4.0`)
+    * transformer_utils `^0.1.5` (was `^0.1.1`)
+    * w_common `^1.13.0` (was `^1.10.0`)
+    * w_flux `^2.9.5` (was `^2.7.1`)
+    * platform_detect `^1.3.4` (was `^1.3.2`)
+    * quiver `>=0.25.0 <=0.28.0` (was `>=0.21.4 <=0.28.0`)
+
+__Tech Debt__
+
+* [#179]: Update CI build
+
+
 ## 1.25.0
 
 > [Complete `1.25.0` Changeset](https://github.com/Workiva/over_react/compare/1.24.1...1.25.0)

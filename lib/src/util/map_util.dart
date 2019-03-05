@@ -16,7 +16,6 @@ library over_react.map_util;
 
 import 'dart:collection';
 
-import 'package:over_react/src/component_declaration/transformer_helpers.dart';
 import 'package:over_react/src/component/dom_components.dart';
 import 'package:over_react/src/component/prop_mixins.dart';
 import 'package:react/src/react_client/js_backed_map.dart';
@@ -80,5 +79,5 @@ Map<String, dynamic> newStyleFromProps(Map props) {
 }
 
 SplayTreeSet _validDomProps = new SplayTreeSet()
-  ..addAll(const $PropKeys(DomPropsMixin))
-  ..addAll(const $PropKeys(SvgPropsMixin));
+  ..addAll(DomPropsMixin.meta.keys)
+  ..addAll(SvgPropsMixin.meta.keys);

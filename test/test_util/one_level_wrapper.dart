@@ -16,14 +16,17 @@ library test_util.one_level_wrapper;
 
 import 'package:over_react/over_react.dart';
 
+part 'one_level_wrapper.over_react.g.dart';
+
 @Factory()
-UiFactory<OneLevelWrapperProps> OneLevelWrapper;
+UiFactory<OneLevelWrapperProps> OneLevelWrapper = _$OneLevelWrapper;
 
 @Props()
-class OneLevelWrapperProps extends UiProps {}
+class _$OneLevelWrapperProps extends UiProps {}
 
 @Component(isWrapper: true)
 class OneLevelWrapperComponent extends UiComponent<OneLevelWrapperProps> {
   @override
   render() => Dom.div()(props.children.single);
 }
+

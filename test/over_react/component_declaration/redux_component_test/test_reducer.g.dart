@@ -3,16 +3,51 @@
 part of over_react.component_declaration.redux_component.reducer;
 
 // **************************************************************************
-// Generator: BuiltValueGenerator
+// BuiltReduxGenerator
+// **************************************************************************
+
+// ignore_for_file: avoid_classes_with_only_static_members
+// ignore_for_file: annotate_overrides
+
+class _$BaseActions extends BaseActions {
+  factory _$BaseActions() => new _$BaseActions._();
+  _$BaseActions._() : super._();
+
+  final ActionDispatcher<Null> trigger1 =
+      new ActionDispatcher<Null>('BaseActions-trigger1');
+  final ActionDispatcher<Null> trigger2 =
+      new ActionDispatcher<Null>('BaseActions-trigger2');
+
+  @override
+  void setDispatcher(Dispatcher dispatcher) {
+    trigger1.setDispatcher(dispatcher);
+    trigger2.setDispatcher(dispatcher);
+  }
+}
+
+class BaseActionsNames {
+  static final ActionName<Null> trigger1 =
+      new ActionName<Null>('BaseActions-trigger1');
+  static final ActionName<Null> trigger2 =
+      new ActionName<Null>('BaseActions-trigger2');
+}
+
+// **************************************************************************
+// BuiltValueGenerator
 // **************************************************************************
 
 // ignore_for_file: always_put_control_body_on_new_line
 // ignore_for_file: annotate_overrides
 // ignore_for_file: avoid_annotating_with_dynamic
+// ignore_for_file: avoid_catches_without_on_clauses
 // ignore_for_file: avoid_returning_this
+// ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: omit_local_variable_types
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
+// ignore_for_file: unnecessary_const
+// ignore_for_file: unnecessary_new
+// ignore_for_file: test_types_in_equals
 
 class _$BaseState extends BaseState {
   @override
@@ -24,8 +59,12 @@ class _$BaseState extends BaseState {
       (new BaseStateBuilder()..update(updates)).build();
 
   _$BaseState._({this.count1, this.count2}) : super._() {
-    if (count1 == null) throw new ArgumentError.notNull('count1');
-    if (count2 == null) throw new ArgumentError.notNull('count2');
+    if (count1 == null) {
+      throw new BuiltValueNullFieldError('BaseState', 'count1');
+    }
+    if (count2 == null) {
+      throw new BuiltValueNullFieldError('BaseState', 'count2');
+    }
   }
 
   @override
@@ -36,10 +75,11 @@ class _$BaseState extends BaseState {
   BaseStateBuilder toBuilder() => new BaseStateBuilder()..replace(this);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! BaseState) return false;
-    return count1 == other.count1 && count2 == other.count2;
+    return other is BaseState &&
+        count1 == other.count1 &&
+        count2 == other.count2;
   }
 
   @override
@@ -80,7 +120,9 @@ class BaseStateBuilder implements Builder<BaseState, BaseStateBuilder> {
 
   @override
   void replace(BaseState other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
     _$v = other as _$BaseState;
   }
 
@@ -95,31 +137,4 @@ class BaseStateBuilder implements Builder<BaseState, BaseStateBuilder> {
     replace(_$result);
     return _$result;
   }
-}
-
-// **************************************************************************
-// Generator: BuiltReduxGenerator
-// **************************************************************************
-
-class _$BaseActions extends BaseActions {
-  factory _$BaseActions() => new _$BaseActions._();
-  _$BaseActions._() : super._();
-
-  final ActionDispatcher<Null> trigger1 =
-      new ActionDispatcher<Null>('BaseActions-trigger1');
-  final ActionDispatcher<Null> trigger2 =
-      new ActionDispatcher<Null>('BaseActions-trigger2');
-
-  @override
-  void setDispatcher(Dispatcher dispatcher) {
-    trigger1.setDispatcher(dispatcher);
-    trigger2.setDispatcher(dispatcher);
-  }
-}
-
-class BaseActionsNames {
-  static final ActionName<Null> trigger1 =
-      new ActionName<Null>('BaseActions-trigger1');
-  static final ActionName<Null> trigger2 =
-      new ActionName<Null>('BaseActions-trigger2');
 }
