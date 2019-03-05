@@ -136,7 +136,7 @@ class ImplGenerator {
           '$propsImplName $privateSourcePrefix$factoryName([Map backingProps]) => '
           // FIXME clean up this logic and the null-awares (or lack thereof in the two impl classes)
           // note: if we remove null-awares will that rbeak stuff like `typedPropsFactory(null)`? Does it even matter?
-            'backingProps == null ? new $jsMapImplName(new JsBackedMap()) : new $propsImplName(backingProps)'
+            'backingProps == null ? new $jsMapImplName(new JsBackedMap()) : new $propsImplName(backingProps);'
       );
 
       final String propKeyNamespace = _getAccessorKeyNamespace(declarations.props);
@@ -529,11 +529,11 @@ class ImplGenerator {
   }
 
   static String _plainMapPropsImplClassNameFromPropsImplClassName(String implName) {
-    return '${implName}_PlainMap';
+    return '${implName}\$PlainMap';
   }
 
   static String _jsMapPropsImplClassNameFromPropsImplClassName(String implName) {
-    return '${implName}_JsMap';
+    return '${implName}\$JsMap';
   }
 
   /// Converts the consumer's written props classname to the consumable props
