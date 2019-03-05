@@ -494,8 +494,11 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2 imp
   /// A typed props object corresponding to the current untyped props Map ([unwrappedProps]).
   ///
   /// Created using [typedPropsFactory] and cached for each Map instance.
+  // FIXME explain that this needs to be concrete in Dart 2 for soundness; link to issue
   @override
-  TProps get props;
+  TProps get props {
+    throw new UngeneratedError();
+  }
 
   /// Equivalent to setting [unwrappedProps], but needed by react-dart to effect props changes.
   @override
@@ -705,15 +708,11 @@ abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiSta
   /// A typed state object corresponding to the current untyped state Map ([unwrappedState]).
   ///
   /// Created using [typedStateFactory] and cached for each Map instance.
+  // FIXME explain that this needs to be concrete in Dart 2 for soundness; link to issue
+  // FIXME get state working
   @override
   TState get state {
-    var unwrappedState = this.unwrappedState;
-    var typedState = _typedStateCache[unwrappedState];
-    if (typedState == null) {
-      typedState = typedStateFactory(unwrappedState);
-      _typedStateCache[unwrappedState] = typedState;
-    }
-    return typedState;
+    throw new UngeneratedError();
   }
   /// Equivalent to setting [unwrappedState], but needed by react-dart to effect state changes.
   @override
