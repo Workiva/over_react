@@ -57,6 +57,8 @@ For every release, do the following:
 
    - Ensure the build passes.
 
+   - Merge the Dart 1 release and publish it to pub.
+
 1. Trigger the `over_react 2.x.x` release second and review the PR:
 
    - Ensure the updated `pubspec.yaml` version is correct.
@@ -65,9 +67,7 @@ For every release, do the following:
 
    - **Add any necessary changelog updates to the Dart 2 version.**
 
-1. **Merge the Dart 1 release first and publish it to pub.**
-
-1. Merge the Dart 2 release second and publish it to pub.
+   - Merge the Dart 2 release and publish it to pub.
 
 1. Re-recreate the Dart 1 release in MARV (it does not get recreated
    automatically like the default release does).
