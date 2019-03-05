@@ -208,7 +208,7 @@ dynamic preparePropsChangeset(ReactElement element, Map newProps, [Iterable newC
         propsChangeset = jsify(convertedProps);
       } else {
         final ReactClass reactClass = type;
-        if (reactClass.isDartClass == true) {
+        if (reactClass.dartComponentVersion == 2) {
           propsChangeset = ReactDartComponentFactoryProxy2.generateExtendedJsProps(newProps);
         } else {
           propsChangeset = jsify(newProps);
