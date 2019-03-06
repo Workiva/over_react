@@ -94,7 +94,9 @@ const PropsMeta _$metaForDoNotGenerateAccessorTestProps = const PropsMeta(
 
 _$$DoNotGenerateAccessorTestProps _$DoNotGenerateAccessorTest(
         [Map backingProps]) =>
-    new _$$DoNotGenerateAccessorTestProps(backingProps);
+    backingProps == null
+        ? new _$$DoNotGenerateAccessorTestProps$JsMap(new JsBackedMap())
+        : new _$$DoNotGenerateAccessorTestProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -102,17 +104,14 @@ _$$DoNotGenerateAccessorTestProps _$DoNotGenerateAccessorTest(
 class _$$DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
     with _$DoNotGenerateAccessorTestPropsAccessorsMixin
     implements DoNotGenerateAccessorTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$DoNotGenerateAccessorTestProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$DoNotGenerateAccessorTestProps._();
+  factory _$$DoNotGenerateAccessorTestProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$DoNotGenerateAccessorTestProps$PlainMap(backingMap);
+    } else {
+      return new _$$DoNotGenerateAccessorTestProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -126,6 +125,40 @@ class _$$DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'DoNotGenerateAccessorTestProps.';
+}
+
+class _$$DoNotGenerateAccessorTestProps$PlainMap
+    extends _$$DoNotGenerateAccessorTestProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$DoNotGenerateAccessorTestProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$DoNotGenerateAccessorTestProps$JsMap
+    extends _$$DoNotGenerateAccessorTestProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$DoNotGenerateAccessorTestProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
 }
 
 abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
@@ -236,6 +269,10 @@ class _$DoNotGenerateAccessorTestComponent
   @override
   _$$DoNotGenerateAccessorTestProps typedPropsFactory(Map backingMap) =>
       new _$$DoNotGenerateAccessorTestProps(backingMap);
+  @override
+  _$$DoNotGenerateAccessorTestProps$JsMap typedPropsFactoryJs(
+          JsBackedMap backingMap) =>
+      new _$$DoNotGenerateAccessorTestProps$JsMap(backingMap);
 
   @override
   _$$DoNotGenerateAccessorTestState typedStateFactory(Map backingMap) =>
@@ -251,4 +288,12 @@ class _$DoNotGenerateAccessorTestComponent
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForDoNotGenerateAccessorTestProps
   ];
+  _$$DoNotGenerateAccessorTestProps$JsMap _cachedTypedProps;
+  @override
+  _$$DoNotGenerateAccessorTestProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }

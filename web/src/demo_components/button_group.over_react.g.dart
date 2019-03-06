@@ -83,8 +83,9 @@ class ButtonGroupProps extends _$ButtonGroupProps
   static const PropsMeta meta = _$metaForButtonGroupProps;
 }
 
-_$$ButtonGroupProps _$ButtonGroup([Map backingProps]) =>
-    new _$$ButtonGroupProps(backingProps);
+_$$ButtonGroupProps _$ButtonGroup([Map backingProps]) => backingProps == null
+    ? new _$$ButtonGroupProps$JsMap(new JsBackedMap())
+    : new _$$ButtonGroupProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -92,17 +93,14 @@ _$$ButtonGroupProps _$ButtonGroup([Map backingProps]) =>
 class _$$ButtonGroupProps extends _$ButtonGroupProps
     with _$ButtonGroupPropsAccessorsMixin
     implements ButtonGroupProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$ButtonGroupProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$ButtonGroupProps._();
+  factory _$$ButtonGroupProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$ButtonGroupProps$PlainMap(backingMap);
+    } else {
+      return new _$$ButtonGroupProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -116,6 +114,38 @@ class _$$ButtonGroupProps extends _$ButtonGroupProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ButtonGroupProps.';
+}
+
+class _$$ButtonGroupProps$PlainMap extends _$$ButtonGroupProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$ButtonGroupProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$ButtonGroupProps$JsMap extends _$$ButtonGroupProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$ButtonGroupProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
 }
 
 abstract class _$ButtonGroupStateAccessorsMixin implements _$ButtonGroupState {
@@ -169,6 +199,9 @@ class _$ButtonGroupComponent extends ButtonGroupComponent {
   @override
   _$$ButtonGroupProps typedPropsFactory(Map backingMap) =>
       new _$$ButtonGroupProps(backingMap);
+  @override
+  _$$ButtonGroupProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$ButtonGroupProps$JsMap(backingMap);
 
   @override
   _$$ButtonGroupState typedStateFactory(Map backingMap) =>
@@ -184,4 +217,12 @@ class _$ButtonGroupComponent extends ButtonGroupComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForButtonGroupProps
   ];
+  _$$ButtonGroupProps$JsMap _cachedTypedProps;
+  @override
+  _$$ButtonGroupProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }

@@ -49,8 +49,9 @@ class _PrivateProps extends _$_PrivateProps with _$_PrivatePropsAccessorsMixin {
   static const PropsMeta meta = _$metaFor_PrivateProps;
 }
 
-_$$_PrivateProps _$_Private([Map backingProps]) =>
-    new _$$_PrivateProps(backingProps);
+_$$_PrivateProps _$_Private([Map backingProps]) => backingProps == null
+    ? new _$$_PrivateProps$JsMap(new JsBackedMap())
+    : new _$$_PrivateProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -58,17 +59,14 @@ _$$_PrivateProps _$_Private([Map backingProps]) =>
 class _$$_PrivateProps extends _$_PrivateProps
     with _$_PrivatePropsAccessorsMixin
     implements _PrivateProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$_PrivateProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$_PrivateProps._();
+  factory _$$_PrivateProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$_PrivateProps$PlainMap(backingMap);
+    } else {
+      return new _$$_PrivateProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -81,6 +79,38 @@ class _$$_PrivateProps extends _$_PrivateProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '_PrivateProps.';
+}
+
+class _$$_PrivateProps$PlainMap extends _$$_PrivateProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$_PrivateProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$_PrivateProps$JsMap extends _$$_PrivateProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$_PrivateProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
 }
 
 abstract class _$_PrivateStateAccessorsMixin implements _$_PrivateState {
@@ -146,6 +176,9 @@ class _$PrivateComponent extends PrivateComponent {
   @override
   _$$_PrivateProps typedPropsFactory(Map backingMap) =>
       new _$$_PrivateProps(backingMap);
+  @override
+  _$$_PrivateProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$_PrivateProps$JsMap(backingMap);
 
   @override
   _$$_PrivateState typedStateFactory(Map backingMap) =>
@@ -161,4 +194,12 @@ class _$PrivateComponent extends PrivateComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaFor_PrivateProps
   ];
+  _$$_PrivateProps$JsMap _cachedTypedProps;
+  @override
+  _$$_PrivateProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }

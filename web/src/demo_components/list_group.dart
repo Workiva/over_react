@@ -1,6 +1,7 @@
 import 'package:over_react/over_react.dart';
 
 import '../demo_components.dart';
+import 'package:react/react.dart' as react;
 part 'list_group.over_react.g.dart';
 
 /// Bootstrap's `ListGroup` component is flexible and powerful for
@@ -20,7 +21,7 @@ class _$ListGroupProps extends UiProps {
 }
 
 @Component()
-class ListGroupComponent extends UiComponent<ListGroupProps> {
+class ListGroupComponent extends UiComponent2<ListGroupProps> {
   @override
   Map getDefaultProps() => (newProps()
     ..elementType = ListGroupElementType.DIV

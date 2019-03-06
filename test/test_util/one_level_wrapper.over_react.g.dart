@@ -39,7 +39,9 @@ class OneLevelWrapperProps extends _$OneLevelWrapperProps
 }
 
 _$$OneLevelWrapperProps _$OneLevelWrapper([Map backingProps]) =>
-    new _$$OneLevelWrapperProps(backingProps);
+    backingProps == null
+        ? new _$$OneLevelWrapperProps$JsMap(new JsBackedMap())
+        : new _$$OneLevelWrapperProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -47,17 +49,14 @@ _$$OneLevelWrapperProps _$OneLevelWrapper([Map backingProps]) =>
 class _$$OneLevelWrapperProps extends _$OneLevelWrapperProps
     with _$OneLevelWrapperPropsAccessorsMixin
     implements OneLevelWrapperProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$OneLevelWrapperProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$OneLevelWrapperProps._();
+  factory _$$OneLevelWrapperProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$OneLevelWrapperProps$PlainMap(backingMap);
+    } else {
+      return new _$$OneLevelWrapperProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -73,6 +72,38 @@ class _$$OneLevelWrapperProps extends _$OneLevelWrapperProps
   String get propKeyNamespace => 'OneLevelWrapperProps.';
 }
 
+class _$$OneLevelWrapperProps$PlainMap extends _$$OneLevelWrapperProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$OneLevelWrapperProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$OneLevelWrapperProps$JsMap extends _$$OneLevelWrapperProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$OneLevelWrapperProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -81,6 +112,9 @@ class _$OneLevelWrapperComponent extends OneLevelWrapperComponent {
   @override
   _$$OneLevelWrapperProps typedPropsFactory(Map backingMap) =>
       new _$$OneLevelWrapperProps(backingMap);
+  @override
+  _$$OneLevelWrapperProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$OneLevelWrapperProps$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -92,4 +126,12 @@ class _$OneLevelWrapperComponent extends OneLevelWrapperComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForOneLevelWrapperProps
   ];
+  _$$OneLevelWrapperProps$JsMap _cachedTypedProps;
+  @override
+  _$$OneLevelWrapperProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }

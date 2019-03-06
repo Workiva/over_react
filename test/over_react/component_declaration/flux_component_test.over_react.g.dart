@@ -37,8 +37,9 @@ class TestBasicProps extends _$TestBasicProps
   static const PropsMeta meta = _$metaForTestBasicProps;
 }
 
-_$$TestBasicProps _$TestBasic([Map backingProps]) =>
-    new _$$TestBasicProps(backingProps);
+_$$TestBasicProps _$TestBasic([Map backingProps]) => backingProps == null
+    ? new _$$TestBasicProps$JsMap(new JsBackedMap())
+    : new _$$TestBasicProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -46,17 +47,14 @@ _$$TestBasicProps _$TestBasic([Map backingProps]) =>
 class _$$TestBasicProps extends _$TestBasicProps
     with _$TestBasicPropsAccessorsMixin
     implements TestBasicProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestBasicProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$TestBasicProps._();
+  factory _$$TestBasicProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$TestBasicProps$PlainMap(backingMap);
+    } else {
+      return new _$$TestBasicProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -71,6 +69,38 @@ class _$$TestBasicProps extends _$TestBasicProps
   String get propKeyNamespace => 'TestBasicProps.';
 }
 
+class _$$TestBasicProps$PlainMap extends _$$TestBasicProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestBasicProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$TestBasicProps$JsMap extends _$$TestBasicProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestBasicProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -79,6 +109,9 @@ class _$TestBasicComponent extends TestBasicComponent {
   @override
   _$$TestBasicProps typedPropsFactory(Map backingMap) =>
       new _$$TestBasicProps(backingMap);
+  @override
+  _$$TestBasicProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$TestBasicProps$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -90,6 +123,14 @@ class _$TestBasicComponent extends TestBasicComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestBasicProps
   ];
+  _$$TestBasicProps$JsMap _cachedTypedProps;
+  @override
+  _$$TestBasicProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }
 
 // React component factory implementation.
@@ -125,7 +166,9 @@ class TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
 }
 
 _$$TestHandlerLifecycleProps _$TestHandlerLifecycle([Map backingProps]) =>
-    new _$$TestHandlerLifecycleProps(backingProps);
+    backingProps == null
+        ? new _$$TestHandlerLifecycleProps$JsMap(new JsBackedMap())
+        : new _$$TestHandlerLifecycleProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -133,17 +176,14 @@ _$$TestHandlerLifecycleProps _$TestHandlerLifecycle([Map backingProps]) =>
 class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
     with _$TestHandlerLifecyclePropsAccessorsMixin
     implements TestHandlerLifecycleProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestHandlerLifecycleProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$TestHandlerLifecycleProps._();
+  factory _$$TestHandlerLifecycleProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$TestHandlerLifecycleProps$PlainMap(backingMap);
+    } else {
+      return new _$$TestHandlerLifecycleProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -159,6 +199,39 @@ class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
   String get propKeyNamespace => 'TestHandlerLifecycleProps.';
 }
 
+class _$$TestHandlerLifecycleProps$PlainMap
+    extends _$$TestHandlerLifecycleProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestHandlerLifecycleProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$TestHandlerLifecycleProps$JsMap extends _$$TestHandlerLifecycleProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestHandlerLifecycleProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -167,6 +240,10 @@ class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
   @override
   _$$TestHandlerLifecycleProps typedPropsFactory(Map backingMap) =>
       new _$$TestHandlerLifecycleProps(backingMap);
+  @override
+  _$$TestHandlerLifecycleProps$JsMap typedPropsFactoryJs(
+          JsBackedMap backingMap) =>
+      new _$$TestHandlerLifecycleProps$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -178,6 +255,14 @@ class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestHandlerLifecycleProps
   ];
+  _$$TestHandlerLifecycleProps$JsMap _cachedTypedProps;
+  @override
+  _$$TestHandlerLifecycleProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }
 
 // React component factory implementation.
@@ -213,7 +298,9 @@ class TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
 }
 
 _$$TestHandlerPrecedenceProps _$TestHandlerPrecedence([Map backingProps]) =>
-    new _$$TestHandlerPrecedenceProps(backingProps);
+    backingProps == null
+        ? new _$$TestHandlerPrecedenceProps$JsMap(new JsBackedMap())
+        : new _$$TestHandlerPrecedenceProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -221,17 +308,14 @@ _$$TestHandlerPrecedenceProps _$TestHandlerPrecedence([Map backingProps]) =>
 class _$$TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
     with _$TestHandlerPrecedencePropsAccessorsMixin
     implements TestHandlerPrecedenceProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestHandlerPrecedenceProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$TestHandlerPrecedenceProps._();
+  factory _$$TestHandlerPrecedenceProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$TestHandlerPrecedenceProps$PlainMap(backingMap);
+    } else {
+      return new _$$TestHandlerPrecedenceProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -247,6 +331,40 @@ class _$$TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
   String get propKeyNamespace => 'TestHandlerPrecedenceProps.';
 }
 
+class _$$TestHandlerPrecedenceProps$PlainMap
+    extends _$$TestHandlerPrecedenceProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestHandlerPrecedenceProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$TestHandlerPrecedenceProps$JsMap
+    extends _$$TestHandlerPrecedenceProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestHandlerPrecedenceProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -255,6 +373,10 @@ class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
   @override
   _$$TestHandlerPrecedenceProps typedPropsFactory(Map backingMap) =>
       new _$$TestHandlerPrecedenceProps(backingMap);
+  @override
+  _$$TestHandlerPrecedenceProps$JsMap typedPropsFactoryJs(
+          JsBackedMap backingMap) =>
+      new _$$TestHandlerPrecedenceProps$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -266,6 +388,14 @@ class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestHandlerPrecedenceProps
   ];
+  _$$TestHandlerPrecedenceProps$JsMap _cachedTypedProps;
+  @override
+  _$$TestHandlerPrecedenceProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }
 
 // React component factory implementation.
@@ -321,7 +451,9 @@ class TestPropValidationProps extends _$TestPropValidationProps
 }
 
 _$$TestPropValidationProps _$TestPropValidation([Map backingProps]) =>
-    new _$$TestPropValidationProps(backingProps);
+    backingProps == null
+        ? new _$$TestPropValidationProps$JsMap(new JsBackedMap())
+        : new _$$TestPropValidationProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -329,17 +461,14 @@ _$$TestPropValidationProps _$TestPropValidation([Map backingProps]) =>
 class _$$TestPropValidationProps extends _$TestPropValidationProps
     with _$TestPropValidationPropsAccessorsMixin
     implements TestPropValidationProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestPropValidationProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$TestPropValidationProps._();
+  factory _$$TestPropValidationProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$TestPropValidationProps$PlainMap(backingMap);
+    } else {
+      return new _$$TestPropValidationProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -355,6 +484,38 @@ class _$$TestPropValidationProps extends _$TestPropValidationProps
   String get propKeyNamespace => 'TestPropValidationProps.';
 }
 
+class _$$TestPropValidationProps$PlainMap extends _$$TestPropValidationProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestPropValidationProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$TestPropValidationProps$JsMap extends _$$TestPropValidationProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestPropValidationProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -363,6 +524,10 @@ class _$TestPropValidationComponent extends TestPropValidationComponent {
   @override
   _$$TestPropValidationProps typedPropsFactory(Map backingMap) =>
       new _$$TestPropValidationProps(backingMap);
+  @override
+  _$$TestPropValidationProps$JsMap typedPropsFactoryJs(
+          JsBackedMap backingMap) =>
+      new _$$TestPropValidationProps$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -374,6 +539,14 @@ class _$TestPropValidationComponent extends TestPropValidationComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestPropValidationProps
   ];
+  _$$TestPropValidationProps$JsMap _cachedTypedProps;
+  @override
+  _$$TestPropValidationProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }
 
 // React component factory implementation.
@@ -408,8 +581,9 @@ class TestRedrawOnProps extends _$TestRedrawOnProps
   static const PropsMeta meta = _$metaForTestRedrawOnProps;
 }
 
-_$$TestRedrawOnProps _$TestRedrawOn([Map backingProps]) =>
-    new _$$TestRedrawOnProps(backingProps);
+_$$TestRedrawOnProps _$TestRedrawOn([Map backingProps]) => backingProps == null
+    ? new _$$TestRedrawOnProps$JsMap(new JsBackedMap())
+    : new _$$TestRedrawOnProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -417,17 +591,14 @@ _$$TestRedrawOnProps _$TestRedrawOn([Map backingProps]) =>
 class _$$TestRedrawOnProps extends _$TestRedrawOnProps
     with _$TestRedrawOnPropsAccessorsMixin
     implements TestRedrawOnProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestRedrawOnProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$TestRedrawOnProps._();
+  factory _$$TestRedrawOnProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$TestRedrawOnProps$PlainMap(backingMap);
+    } else {
+      return new _$$TestRedrawOnProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -443,6 +614,38 @@ class _$$TestRedrawOnProps extends _$TestRedrawOnProps
   String get propKeyNamespace => 'TestRedrawOnProps.';
 }
 
+class _$$TestRedrawOnProps$PlainMap extends _$$TestRedrawOnProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestRedrawOnProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$TestRedrawOnProps$JsMap extends _$$TestRedrawOnProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestRedrawOnProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -451,6 +654,9 @@ class _$TestRedrawOnComponent extends TestRedrawOnComponent {
   @override
   _$$TestRedrawOnProps typedPropsFactory(Map backingMap) =>
       new _$$TestRedrawOnProps(backingMap);
+  @override
+  _$$TestRedrawOnProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$TestRedrawOnProps$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -462,6 +668,14 @@ class _$TestRedrawOnComponent extends TestRedrawOnComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestRedrawOnProps
   ];
+  _$$TestRedrawOnProps$JsMap _cachedTypedProps;
+  @override
+  _$$TestRedrawOnProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }
 
 // React component factory implementation.
@@ -497,7 +711,9 @@ class TestStoreHandlersProps extends _$TestStoreHandlersProps
 }
 
 _$$TestStoreHandlersProps _$TestStoreHandlers([Map backingProps]) =>
-    new _$$TestStoreHandlersProps(backingProps);
+    backingProps == null
+        ? new _$$TestStoreHandlersProps$JsMap(new JsBackedMap())
+        : new _$$TestStoreHandlersProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -505,17 +721,14 @@ _$$TestStoreHandlersProps _$TestStoreHandlers([Map backingProps]) =>
 class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
     with _$TestStoreHandlersPropsAccessorsMixin
     implements TestStoreHandlersProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStoreHandlersProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$TestStoreHandlersProps._();
+  factory _$$TestStoreHandlersProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$TestStoreHandlersProps$PlainMap(backingMap);
+    } else {
+      return new _$$TestStoreHandlersProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -531,6 +744,38 @@ class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
   String get propKeyNamespace => 'TestStoreHandlersProps.';
 }
 
+class _$$TestStoreHandlersProps$PlainMap extends _$$TestStoreHandlersProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestStoreHandlersProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$TestStoreHandlersProps$JsMap extends _$$TestStoreHandlersProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestStoreHandlersProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -539,6 +784,9 @@ class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
   @override
   _$$TestStoreHandlersProps typedPropsFactory(Map backingMap) =>
       new _$$TestStoreHandlersProps(backingMap);
+  @override
+  _$$TestStoreHandlersProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$TestStoreHandlersProps$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -550,6 +798,14 @@ class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestStoreHandlersProps
   ];
+  _$$TestStoreHandlersProps$JsMap _cachedTypedProps;
+  @override
+  _$$TestStoreHandlersProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }
 
 // React component factory implementation.
@@ -585,7 +841,9 @@ class TestStatefulBasicProps extends _$TestStatefulBasicProps
 }
 
 _$$TestStatefulBasicProps _$TestStatefulBasic([Map backingProps]) =>
-    new _$$TestStatefulBasicProps(backingProps);
+    backingProps == null
+        ? new _$$TestStatefulBasicProps$JsMap(new JsBackedMap())
+        : new _$$TestStatefulBasicProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -593,17 +851,14 @@ _$$TestStatefulBasicProps _$TestStatefulBasic([Map backingProps]) =>
 class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
     with _$TestStatefulBasicPropsAccessorsMixin
     implements TestStatefulBasicProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulBasicProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$TestStatefulBasicProps._();
+  factory _$$TestStatefulBasicProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$TestStatefulBasicProps$PlainMap(backingMap);
+    } else {
+      return new _$$TestStatefulBasicProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -617,6 +872,38 @@ class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulBasicProps.';
+}
+
+class _$$TestStatefulBasicProps$PlainMap extends _$$TestStatefulBasicProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestStatefulBasicProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$TestStatefulBasicProps$JsMap extends _$$TestStatefulBasicProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestStatefulBasicProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
 }
 
 abstract class _$TestStatefulBasicStateAccessorsMixin
@@ -671,6 +958,9 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
   @override
   _$$TestStatefulBasicProps typedPropsFactory(Map backingMap) =>
       new _$$TestStatefulBasicProps(backingMap);
+  @override
+  _$$TestStatefulBasicProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$TestStatefulBasicProps$JsMap(backingMap);
 
   @override
   _$$TestStatefulBasicState typedStateFactory(Map backingMap) =>
@@ -686,6 +976,14 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestStatefulBasicProps
   ];
+  _$$TestStatefulBasicProps$JsMap _cachedTypedProps;
+  @override
+  _$$TestStatefulBasicProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }
 
 // React component factory implementation.
@@ -723,7 +1021,9 @@ class TestStatefulHandlerLifecycleProps
 
 _$$TestStatefulHandlerLifecycleProps _$TestStatefulHandlerLifecycle(
         [Map backingProps]) =>
-    new _$$TestStatefulHandlerLifecycleProps(backingProps);
+    backingProps == null
+        ? new _$$TestStatefulHandlerLifecycleProps$JsMap(new JsBackedMap())
+        : new _$$TestStatefulHandlerLifecycleProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -732,17 +1032,14 @@ class _$$TestStatefulHandlerLifecycleProps
     extends _$TestStatefulHandlerLifecycleProps
     with _$TestStatefulHandlerLifecyclePropsAccessorsMixin
     implements TestStatefulHandlerLifecycleProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulHandlerLifecycleProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$TestStatefulHandlerLifecycleProps._();
+  factory _$$TestStatefulHandlerLifecycleProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$TestStatefulHandlerLifecycleProps$PlainMap(backingMap);
+    } else {
+      return new _$$TestStatefulHandlerLifecycleProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -756,6 +1053,40 @@ class _$$TestStatefulHandlerLifecycleProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulHandlerLifecycleProps.';
+}
+
+class _$$TestStatefulHandlerLifecycleProps$PlainMap
+    extends _$$TestStatefulHandlerLifecycleProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestStatefulHandlerLifecycleProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$TestStatefulHandlerLifecycleProps$JsMap
+    extends _$$TestStatefulHandlerLifecycleProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestStatefulHandlerLifecycleProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
 }
 
 abstract class _$TestStatefulHandlerLifecycleStateAccessorsMixin
@@ -813,6 +1144,10 @@ class _$TestStatefulHandlerLifecycleComponent
   @override
   _$$TestStatefulHandlerLifecycleProps typedPropsFactory(Map backingMap) =>
       new _$$TestStatefulHandlerLifecycleProps(backingMap);
+  @override
+  _$$TestStatefulHandlerLifecycleProps$JsMap typedPropsFactoryJs(
+          JsBackedMap backingMap) =>
+      new _$$TestStatefulHandlerLifecycleProps$JsMap(backingMap);
 
   @override
   _$$TestStatefulHandlerLifecycleState typedStateFactory(Map backingMap) =>
@@ -828,6 +1163,14 @@ class _$TestStatefulHandlerLifecycleComponent
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestStatefulHandlerLifecycleProps
   ];
+  _$$TestStatefulHandlerLifecycleProps$JsMap _cachedTypedProps;
+  @override
+  _$$TestStatefulHandlerLifecycleProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }
 
 // React component factory implementation.
@@ -865,7 +1208,9 @@ class TestStatefulHandlerPrecedenceProps
 
 _$$TestStatefulHandlerPrecedenceProps _$TestStatefulHandlerPrecedence(
         [Map backingProps]) =>
-    new _$$TestStatefulHandlerPrecedenceProps(backingProps);
+    backingProps == null
+        ? new _$$TestStatefulHandlerPrecedenceProps$JsMap(new JsBackedMap())
+        : new _$$TestStatefulHandlerPrecedenceProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -874,17 +1219,14 @@ class _$$TestStatefulHandlerPrecedenceProps
     extends _$TestStatefulHandlerPrecedenceProps
     with _$TestStatefulHandlerPrecedencePropsAccessorsMixin
     implements TestStatefulHandlerPrecedenceProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulHandlerPrecedenceProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$TestStatefulHandlerPrecedenceProps._();
+  factory _$$TestStatefulHandlerPrecedenceProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$TestStatefulHandlerPrecedenceProps$PlainMap(backingMap);
+    } else {
+      return new _$$TestStatefulHandlerPrecedenceProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -898,6 +1240,40 @@ class _$$TestStatefulHandlerPrecedenceProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulHandlerPrecedenceProps.';
+}
+
+class _$$TestStatefulHandlerPrecedenceProps$PlainMap
+    extends _$$TestStatefulHandlerPrecedenceProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestStatefulHandlerPrecedenceProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$TestStatefulHandlerPrecedenceProps$JsMap
+    extends _$$TestStatefulHandlerPrecedenceProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestStatefulHandlerPrecedenceProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
 }
 
 abstract class _$TestStatefulHandlerPrecedenceStateAccessorsMixin
@@ -955,6 +1331,10 @@ class _$TestStatefulHandlerPrecedenceComponent
   @override
   _$$TestStatefulHandlerPrecedenceProps typedPropsFactory(Map backingMap) =>
       new _$$TestStatefulHandlerPrecedenceProps(backingMap);
+  @override
+  _$$TestStatefulHandlerPrecedenceProps$JsMap typedPropsFactoryJs(
+          JsBackedMap backingMap) =>
+      new _$$TestStatefulHandlerPrecedenceProps$JsMap(backingMap);
 
   @override
   _$$TestStatefulHandlerPrecedenceState typedStateFactory(Map backingMap) =>
@@ -970,6 +1350,14 @@ class _$TestStatefulHandlerPrecedenceComponent
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestStatefulHandlerPrecedenceProps
   ];
+  _$$TestStatefulHandlerPrecedenceProps$JsMap _cachedTypedProps;
+  @override
+  _$$TestStatefulHandlerPrecedenceProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }
 
 // React component factory implementation.
@@ -1029,7 +1417,9 @@ class TestStatefulPropValidationProps extends _$TestStatefulPropValidationProps
 
 _$$TestStatefulPropValidationProps _$TestStatefulPropValidation(
         [Map backingProps]) =>
-    new _$$TestStatefulPropValidationProps(backingProps);
+    backingProps == null
+        ? new _$$TestStatefulPropValidationProps$JsMap(new JsBackedMap())
+        : new _$$TestStatefulPropValidationProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -1038,17 +1428,14 @@ class _$$TestStatefulPropValidationProps
     extends _$TestStatefulPropValidationProps
     with _$TestStatefulPropValidationPropsAccessorsMixin
     implements TestStatefulPropValidationProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulPropValidationProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$TestStatefulPropValidationProps._();
+  factory _$$TestStatefulPropValidationProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$TestStatefulPropValidationProps$PlainMap(backingMap);
+    } else {
+      return new _$$TestStatefulPropValidationProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -1062,6 +1449,40 @@ class _$$TestStatefulPropValidationProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulPropValidationProps.';
+}
+
+class _$$TestStatefulPropValidationProps$PlainMap
+    extends _$$TestStatefulPropValidationProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestStatefulPropValidationProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$TestStatefulPropValidationProps$JsMap
+    extends _$$TestStatefulPropValidationProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestStatefulPropValidationProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
 }
 
 abstract class _$TestStatefulPropValidationStateAccessorsMixin
@@ -1118,6 +1539,10 @@ class _$TestStatefulPropValidationComponent
   @override
   _$$TestStatefulPropValidationProps typedPropsFactory(Map backingMap) =>
       new _$$TestStatefulPropValidationProps(backingMap);
+  @override
+  _$$TestStatefulPropValidationProps$JsMap typedPropsFactoryJs(
+          JsBackedMap backingMap) =>
+      new _$$TestStatefulPropValidationProps$JsMap(backingMap);
 
   @override
   _$$TestStatefulPropValidationState typedStateFactory(Map backingMap) =>
@@ -1133,6 +1558,14 @@ class _$TestStatefulPropValidationComponent
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestStatefulPropValidationProps
   ];
+  _$$TestStatefulPropValidationProps$JsMap _cachedTypedProps;
+  @override
+  _$$TestStatefulPropValidationProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }
 
 // React component factory implementation.
@@ -1168,7 +1601,9 @@ class TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
 }
 
 _$$TestStatefulRedrawOnProps _$TestStatefulRedrawOn([Map backingProps]) =>
-    new _$$TestStatefulRedrawOnProps(backingProps);
+    backingProps == null
+        ? new _$$TestStatefulRedrawOnProps$JsMap(new JsBackedMap())
+        : new _$$TestStatefulRedrawOnProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -1176,17 +1611,14 @@ _$$TestStatefulRedrawOnProps _$TestStatefulRedrawOn([Map backingProps]) =>
 class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
     with _$TestStatefulRedrawOnPropsAccessorsMixin
     implements TestStatefulRedrawOnProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulRedrawOnProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$TestStatefulRedrawOnProps._();
+  factory _$$TestStatefulRedrawOnProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$TestStatefulRedrawOnProps$PlainMap(backingMap);
+    } else {
+      return new _$$TestStatefulRedrawOnProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -1200,6 +1632,39 @@ class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulRedrawOnProps.';
+}
+
+class _$$TestStatefulRedrawOnProps$PlainMap
+    extends _$$TestStatefulRedrawOnProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestStatefulRedrawOnProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$TestStatefulRedrawOnProps$JsMap extends _$$TestStatefulRedrawOnProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestStatefulRedrawOnProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
 }
 
 abstract class _$TestStatefulRedrawOnStateAccessorsMixin
@@ -1254,6 +1719,10 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
   @override
   _$$TestStatefulRedrawOnProps typedPropsFactory(Map backingMap) =>
       new _$$TestStatefulRedrawOnProps(backingMap);
+  @override
+  _$$TestStatefulRedrawOnProps$JsMap typedPropsFactoryJs(
+          JsBackedMap backingMap) =>
+      new _$$TestStatefulRedrawOnProps$JsMap(backingMap);
 
   @override
   _$$TestStatefulRedrawOnState typedStateFactory(Map backingMap) =>
@@ -1269,6 +1738,14 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestStatefulRedrawOnProps
   ];
+  _$$TestStatefulRedrawOnProps$JsMap _cachedTypedProps;
+  @override
+  _$$TestStatefulRedrawOnProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }
 
 // React component factory implementation.
@@ -1305,7 +1782,9 @@ class TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
 
 _$$TestStatefulStoreHandlersProps _$TestStatefulStoreHandlers(
         [Map backingProps]) =>
-    new _$$TestStatefulStoreHandlersProps(backingProps);
+    backingProps == null
+        ? new _$$TestStatefulStoreHandlersProps$JsMap(new JsBackedMap())
+        : new _$$TestStatefulStoreHandlersProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -1313,17 +1792,14 @@ _$$TestStatefulStoreHandlersProps _$TestStatefulStoreHandlers(
 class _$$TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
     with _$TestStatefulStoreHandlersPropsAccessorsMixin
     implements TestStatefulStoreHandlersProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulStoreHandlersProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$TestStatefulStoreHandlersProps._();
+  factory _$$TestStatefulStoreHandlersProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$TestStatefulStoreHandlersProps$PlainMap(backingMap);
+    } else {
+      return new _$$TestStatefulStoreHandlersProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -1337,6 +1813,40 @@ class _$$TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulStoreHandlersProps.';
+}
+
+class _$$TestStatefulStoreHandlersProps$PlainMap
+    extends _$$TestStatefulStoreHandlersProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestStatefulStoreHandlersProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$TestStatefulStoreHandlersProps$JsMap
+    extends _$$TestStatefulStoreHandlersProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestStatefulStoreHandlersProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
 }
 
 abstract class _$TestStatefulStoreHandlersStateAccessorsMixin
@@ -1392,6 +1902,10 @@ class _$TestStatefulStoreHandlersComponent
   @override
   _$$TestStatefulStoreHandlersProps typedPropsFactory(Map backingMap) =>
       new _$$TestStatefulStoreHandlersProps(backingMap);
+  @override
+  _$$TestStatefulStoreHandlersProps$JsMap typedPropsFactoryJs(
+          JsBackedMap backingMap) =>
+      new _$$TestStatefulStoreHandlersProps$JsMap(backingMap);
 
   @override
   _$$TestStatefulStoreHandlersState typedStateFactory(Map backingMap) =>
@@ -1407,4 +1921,12 @@ class _$TestStatefulStoreHandlersComponent
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestStatefulStoreHandlersProps
   ];
+  _$$TestStatefulStoreHandlersProps$JsMap _cachedTypedProps;
+  @override
+  _$$TestStatefulStoreHandlersProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }

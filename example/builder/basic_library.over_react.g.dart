@@ -136,7 +136,9 @@ class BasicPartOfLibProps extends _$BasicPartOfLibProps
 }
 
 _$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) =>
-    new _$$BasicPartOfLibProps(backingProps);
+    backingProps == null
+        ? new _$$BasicPartOfLibProps$JsMap(new JsBackedMap())
+        : new _$$BasicPartOfLibProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -144,17 +146,14 @@ _$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) =>
 class _$$BasicPartOfLibProps extends _$BasicPartOfLibProps
     with _$BasicPartOfLibPropsAccessorsMixin
     implements BasicPartOfLibProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$BasicPartOfLibProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$BasicPartOfLibProps._();
+  factory _$$BasicPartOfLibProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$BasicPartOfLibProps$PlainMap(backingMap);
+    } else {
+      return new _$$BasicPartOfLibProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -168,6 +167,38 @@ class _$$BasicPartOfLibProps extends _$BasicPartOfLibProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'BasicPartOfLibProps.';
+}
+
+class _$$BasicPartOfLibProps$PlainMap extends _$$BasicPartOfLibProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$BasicPartOfLibProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$BasicPartOfLibProps$JsMap extends _$$BasicPartOfLibProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$BasicPartOfLibProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
 }
 
 abstract class _$BasicPartOfLibStateAccessorsMixin
@@ -239,6 +270,9 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
   @override
   _$$BasicPartOfLibProps typedPropsFactory(Map backingMap) =>
       new _$$BasicPartOfLibProps(backingMap);
+  @override
+  _$$BasicPartOfLibProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$BasicPartOfLibProps$JsMap(backingMap);
 
   @override
   _$$BasicPartOfLibState typedStateFactory(Map backingMap) =>
@@ -254,6 +288,14 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForBasicPartOfLibProps
   ];
+  _$$BasicPartOfLibProps$JsMap _cachedTypedProps;
+  @override
+  _$$BasicPartOfLibProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }
 
 // React component factory implementation.
@@ -305,8 +347,9 @@ class SubPartOfLibProps extends _$SubPartOfLibProps
   static const PropsMeta meta = _$metaForSubPartOfLibProps;
 }
 
-_$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) =>
-    new _$$SubPartOfLibProps(backingProps);
+_$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) => backingProps == null
+    ? new _$$SubPartOfLibProps$JsMap(new JsBackedMap())
+    : new _$$SubPartOfLibProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -314,17 +357,14 @@ _$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) =>
 class _$$SubPartOfLibProps extends _$SubPartOfLibProps
     with _$SubPartOfLibPropsAccessorsMixin
     implements SubPartOfLibProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$SubPartOfLibProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$SubPartOfLibProps._();
+  factory _$$SubPartOfLibProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$SubPartOfLibProps$PlainMap(backingMap);
+    } else {
+      return new _$$SubPartOfLibProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -340,6 +380,38 @@ class _$$SubPartOfLibProps extends _$SubPartOfLibProps
   String get propKeyNamespace => 'SubPartOfLibProps.';
 }
 
+class _$$SubPartOfLibProps$PlainMap extends _$$SubPartOfLibProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$SubPartOfLibProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$SubPartOfLibProps$JsMap extends _$$SubPartOfLibProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$SubPartOfLibProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -348,6 +420,9 @@ class _$SubPartOfLibComponent extends SubPartOfLibComponent {
   @override
   _$$SubPartOfLibProps typedPropsFactory(Map backingMap) =>
       new _$$SubPartOfLibProps(backingMap);
+  @override
+  _$$SubPartOfLibProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$SubPartOfLibProps$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -359,6 +434,14 @@ class _$SubPartOfLibComponent extends SubPartOfLibComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForSubPartOfLibProps
   ];
+  _$$SubPartOfLibProps$JsMap _cachedTypedProps;
+  @override
+  _$$SubPartOfLibProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }
 
 abstract class _$SuperPartOfLibPropsAccessorsMixin

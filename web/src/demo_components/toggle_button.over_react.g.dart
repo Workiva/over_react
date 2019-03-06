@@ -91,8 +91,9 @@ class ToggleButtonProps extends _$ToggleButtonProps
   static const PropsMeta meta = _$metaForToggleButtonProps;
 }
 
-_$$ToggleButtonProps _$ToggleButton([Map backingProps]) =>
-    new _$$ToggleButtonProps(backingProps);
+_$$ToggleButtonProps _$ToggleButton([Map backingProps]) => backingProps == null
+    ? new _$$ToggleButtonProps$JsMap(new JsBackedMap())
+    : new _$$ToggleButtonProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -100,17 +101,14 @@ _$$ToggleButtonProps _$ToggleButton([Map backingProps]) =>
 class _$$ToggleButtonProps extends _$ToggleButtonProps
     with _$ToggleButtonPropsAccessorsMixin
     implements ToggleButtonProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$ToggleButtonProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$ToggleButtonProps._();
+  factory _$$ToggleButtonProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$ToggleButtonProps$PlainMap(backingMap);
+    } else {
+      return new _$$ToggleButtonProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -124,6 +122,38 @@ class _$$ToggleButtonProps extends _$ToggleButtonProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ToggleButtonProps.';
+}
+
+class _$$ToggleButtonProps$PlainMap extends _$$ToggleButtonProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$ToggleButtonProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$ToggleButtonProps$JsMap extends _$$ToggleButtonProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$ToggleButtonProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
 }
 
 abstract class _$ToggleButtonStateAccessorsMixin
@@ -211,6 +241,9 @@ class _$ToggleButtonComponent extends ToggleButtonComponent {
   @override
   _$$ToggleButtonProps typedPropsFactory(Map backingMap) =>
       new _$$ToggleButtonProps(backingMap);
+  @override
+  _$$ToggleButtonProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$ToggleButtonProps$JsMap(backingMap);
 
   @override
   _$$ToggleButtonState typedStateFactory(Map backingMap) =>
@@ -226,4 +259,12 @@ class _$ToggleButtonComponent extends ToggleButtonComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForToggleButtonProps
   ];
+  _$$ToggleButtonProps$JsMap _cachedTypedProps;
+  @override
+  _$$ToggleButtonProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }

@@ -39,7 +39,9 @@ class TwoLevelWrapperProps extends _$TwoLevelWrapperProps
 }
 
 _$$TwoLevelWrapperProps _$TwoLevelWrapper([Map backingProps]) =>
-    new _$$TwoLevelWrapperProps(backingProps);
+    backingProps == null
+        ? new _$$TwoLevelWrapperProps$JsMap(new JsBackedMap())
+        : new _$$TwoLevelWrapperProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -47,17 +49,14 @@ _$$TwoLevelWrapperProps _$TwoLevelWrapper([Map backingProps]) =>
 class _$$TwoLevelWrapperProps extends _$TwoLevelWrapperProps
     with _$TwoLevelWrapperPropsAccessorsMixin
     implements TwoLevelWrapperProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TwoLevelWrapperProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$TwoLevelWrapperProps._();
+  factory _$$TwoLevelWrapperProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$TwoLevelWrapperProps$PlainMap(backingMap);
+    } else {
+      return new _$$TwoLevelWrapperProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -73,6 +72,38 @@ class _$$TwoLevelWrapperProps extends _$TwoLevelWrapperProps
   String get propKeyNamespace => 'TwoLevelWrapperProps.';
 }
 
+class _$$TwoLevelWrapperProps$PlainMap extends _$$TwoLevelWrapperProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TwoLevelWrapperProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$TwoLevelWrapperProps$JsMap extends _$$TwoLevelWrapperProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TwoLevelWrapperProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -81,6 +112,9 @@ class _$TwoLevelWrapperComponent extends TwoLevelWrapperComponent {
   @override
   _$$TwoLevelWrapperProps typedPropsFactory(Map backingMap) =>
       new _$$TwoLevelWrapperProps(backingMap);
+  @override
+  _$$TwoLevelWrapperProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$TwoLevelWrapperProps$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -92,4 +126,12 @@ class _$TwoLevelWrapperComponent extends TwoLevelWrapperComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTwoLevelWrapperProps
   ];
+  _$$TwoLevelWrapperProps$JsMap _cachedTypedProps;
+  @override
+  _$$TwoLevelWrapperProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }

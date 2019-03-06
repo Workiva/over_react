@@ -53,8 +53,9 @@ class GenericSubProps extends _$GenericSubProps
   static const PropsMeta meta = _$metaForGenericSubProps;
 }
 
-_$$GenericSubProps _$GenericSub([Map backingProps]) =>
-    new _$$GenericSubProps(backingProps);
+_$$GenericSubProps _$GenericSub([Map backingProps]) => backingProps == null
+    ? new _$$GenericSubProps$JsMap(new JsBackedMap())
+    : new _$$GenericSubProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -62,17 +63,14 @@ _$$GenericSubProps _$GenericSub([Map backingProps]) =>
 class _$$GenericSubProps extends _$GenericSubProps
     with _$GenericSubPropsAccessorsMixin
     implements GenericSubProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$GenericSubProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$GenericSubProps._();
+  factory _$$GenericSubProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$GenericSubProps$PlainMap(backingMap);
+    } else {
+      return new _$$GenericSubProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -86,6 +84,38 @@ class _$$GenericSubProps extends _$GenericSubProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'GenericSubProps.';
+}
+
+class _$$GenericSubProps$PlainMap extends _$$GenericSubProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$GenericSubProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$GenericSubProps$JsMap extends _$$GenericSubProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$GenericSubProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
 }
 
 abstract class _$GenericSubStateAccessorsMixin implements _$GenericSubState {
@@ -156,6 +186,9 @@ class _$GenericSubComponent extends GenericSubComponent {
   @override
   _$$GenericSubProps typedPropsFactory(Map backingMap) =>
       new _$$GenericSubProps(backingMap);
+  @override
+  _$$GenericSubProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$GenericSubProps$JsMap(backingMap);
 
   @override
   _$$GenericSubState typedStateFactory(Map backingMap) =>
@@ -171,4 +204,12 @@ class _$GenericSubComponent extends GenericSubComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForGenericSubProps
   ];
+  _$$GenericSubProps$JsMap _cachedTypedProps;
+  @override
+  _$$GenericSubProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }

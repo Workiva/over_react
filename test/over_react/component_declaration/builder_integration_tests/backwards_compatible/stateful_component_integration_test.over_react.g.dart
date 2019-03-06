@@ -34,7 +34,9 @@ const PropsMeta _$metaForStatefulComponentTestProps = const PropsMeta(
 );
 
 _$$StatefulComponentTestProps _$StatefulComponentTest([Map backingProps]) =>
-    new _$$StatefulComponentTestProps(backingProps);
+    backingProps == null
+        ? new _$$StatefulComponentTestProps$JsMap(new JsBackedMap())
+        : new _$$StatefulComponentTestProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -42,17 +44,14 @@ _$$StatefulComponentTestProps _$StatefulComponentTest([Map backingProps]) =>
 class _$$StatefulComponentTestProps extends _$StatefulComponentTestProps
     with _$StatefulComponentTestPropsAccessorsMixin
     implements StatefulComponentTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$StatefulComponentTestProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$StatefulComponentTestProps._();
+  factory _$$StatefulComponentTestProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$StatefulComponentTestProps$PlainMap(backingMap);
+    } else {
+      return new _$$StatefulComponentTestProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -66,6 +65,40 @@ class _$$StatefulComponentTestProps extends _$StatefulComponentTestProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'StatefulComponentTestProps.';
+}
+
+class _$$StatefulComponentTestProps$PlainMap
+    extends _$$StatefulComponentTestProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$StatefulComponentTestProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$StatefulComponentTestProps$JsMap
+    extends _$$StatefulComponentTestProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$StatefulComponentTestProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
 }
 
 abstract class _$StatefulComponentTestStateAccessorsMixin
@@ -230,6 +263,10 @@ class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
   @override
   _$$StatefulComponentTestProps typedPropsFactory(Map backingMap) =>
       new _$$StatefulComponentTestProps(backingMap);
+  @override
+  _$$StatefulComponentTestProps$JsMap typedPropsFactoryJs(
+          JsBackedMap backingMap) =>
+      new _$$StatefulComponentTestProps$JsMap(backingMap);
 
   @override
   _$$StatefulComponentTestState typedStateFactory(Map backingMap) =>
@@ -245,4 +282,12 @@ class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForStatefulComponentTestProps
   ];
+  _$$StatefulComponentTestProps$JsMap _cachedTypedProps;
+  @override
+  _$$StatefulComponentTestProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }

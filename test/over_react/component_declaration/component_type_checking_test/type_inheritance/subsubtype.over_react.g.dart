@@ -40,7 +40,9 @@ class TestSubsubtypeProps extends _$TestSubsubtypeProps
 }
 
 _$$TestSubsubtypeProps _$TestSubsubtype([Map backingProps]) =>
-    new _$$TestSubsubtypeProps(backingProps);
+    backingProps == null
+        ? new _$$TestSubsubtypeProps$JsMap(new JsBackedMap())
+        : new _$$TestSubsubtypeProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -48,17 +50,14 @@ _$$TestSubsubtypeProps _$TestSubsubtype([Map backingProps]) =>
 class _$$TestSubsubtypeProps extends _$TestSubsubtypeProps
     with _$TestSubsubtypePropsAccessorsMixin
     implements TestSubsubtypeProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestSubsubtypeProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$TestSubsubtypeProps._();
+  factory _$$TestSubsubtypeProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$TestSubsubtypeProps$PlainMap(backingMap);
+    } else {
+      return new _$$TestSubsubtypeProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -74,6 +73,38 @@ class _$$TestSubsubtypeProps extends _$TestSubsubtypeProps
   String get propKeyNamespace => 'TestSubsubtypeProps.';
 }
 
+class _$$TestSubsubtypeProps$PlainMap extends _$$TestSubsubtypeProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestSubsubtypeProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$TestSubsubtypeProps$JsMap extends _$$TestSubsubtypeProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestSubsubtypeProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -82,6 +113,9 @@ class _$TestSubsubtypeComponent extends TestSubsubtypeComponent {
   @override
   _$$TestSubsubtypeProps typedPropsFactory(Map backingMap) =>
       new _$$TestSubsubtypeProps(backingMap);
+  @override
+  _$$TestSubsubtypeProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$TestSubsubtypeProps$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -93,4 +127,12 @@ class _$TestSubsubtypeComponent extends TestSubsubtypeComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestSubsubtypeProps
   ];
+  _$$TestSubsubtypeProps$JsMap _cachedTypedProps;
+  @override
+  _$$TestSubsubtypeProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }

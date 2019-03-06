@@ -64,7 +64,9 @@ class TagProps extends _$TagProps with _$TagPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTagProps;
 }
 
-_$$TagProps _$Tag([Map backingProps]) => new _$$TagProps(backingProps);
+_$$TagProps _$Tag([Map backingProps]) => backingProps == null
+    ? new _$$TagProps$JsMap(new JsBackedMap())
+    : new _$$TagProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -72,17 +74,14 @@ _$$TagProps _$Tag([Map backingProps]) => new _$$TagProps(backingProps);
 class _$$TagProps extends _$TagProps
     with _$TagPropsAccessorsMixin
     implements TagProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TagProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$TagProps._();
+  factory _$$TagProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$TagProps$PlainMap(backingMap);
+    } else {
+      return new _$$TagProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -97,6 +96,38 @@ class _$$TagProps extends _$TagProps
   String get propKeyNamespace => 'TagProps.';
 }
 
+class _$$TagProps$PlainMap extends _$$TagProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TagProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$TagProps$JsMap extends _$$TagProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TagProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -104,6 +135,9 @@ class _$$TagProps extends _$TagProps
 class _$TagComponent extends TagComponent {
   @override
   _$$TagProps typedPropsFactory(Map backingMap) => new _$$TagProps(backingMap);
+  @override
+  _$$TagProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$TagProps$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -113,4 +147,12 @@ class _$TagComponent extends TagComponent {
   /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTagProps];
+  _$$TagProps$JsMap _cachedTypedProps;
+  @override
+  _$$TagProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }

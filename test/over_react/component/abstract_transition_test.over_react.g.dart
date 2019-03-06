@@ -199,8 +199,9 @@ class TransitionerProps extends _$TransitionerProps
   static const PropsMeta meta = _$metaForTransitionerProps;
 }
 
-_$$TransitionerProps _$Transitioner([Map backingProps]) =>
-    new _$$TransitionerProps(backingProps);
+_$$TransitionerProps _$Transitioner([Map backingProps]) => backingProps == null
+    ? new _$$TransitionerProps$JsMap(new JsBackedMap())
+    : new _$$TransitionerProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -208,17 +209,14 @@ _$$TransitionerProps _$Transitioner([Map backingProps]) =>
 class _$$TransitionerProps extends _$TransitionerProps
     with _$TransitionerPropsAccessorsMixin
     implements TransitionerProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TransitionerProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$TransitionerProps._();
+  factory _$$TransitionerProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$TransitionerProps$PlainMap(backingMap);
+    } else {
+      return new _$$TransitionerProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -232,6 +230,38 @@ class _$$TransitionerProps extends _$TransitionerProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TransitionerProps.';
+}
+
+class _$$TransitionerProps$PlainMap extends _$$TransitionerProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TransitionerProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$TransitionerProps$JsMap extends _$$TransitionerProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TransitionerProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
 }
 
 abstract class _$TransitionerStateAccessorsMixin
@@ -286,6 +316,9 @@ class _$TransitionerComponent extends TransitionerComponent {
   @override
   _$$TransitionerProps typedPropsFactory(Map backingMap) =>
       new _$$TransitionerProps(backingMap);
+  @override
+  _$$TransitionerProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$TransitionerProps$JsMap(backingMap);
 
   @override
   _$$TransitionerState typedStateFactory(Map backingMap) =>
@@ -301,4 +334,12 @@ class _$TransitionerComponent extends TransitionerComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTransitionerProps
   ];
+  _$$TransitionerProps$JsMap _cachedTypedProps;
+  @override
+  _$$TransitionerProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }

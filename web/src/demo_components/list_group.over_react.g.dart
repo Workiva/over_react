@@ -54,8 +54,9 @@ class ListGroupProps extends _$ListGroupProps
   static const PropsMeta meta = _$metaForListGroupProps;
 }
 
-_$$ListGroupProps _$ListGroup([Map backingProps]) =>
-    new _$$ListGroupProps(backingProps);
+_$$ListGroupProps _$ListGroup([Map backingProps]) => backingProps == null
+    ? new _$$ListGroupProps$JsMap(new JsBackedMap())
+    : new _$$ListGroupProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -63,17 +64,14 @@ _$$ListGroupProps _$ListGroup([Map backingProps]) =>
 class _$$ListGroupProps extends _$ListGroupProps
     with _$ListGroupPropsAccessorsMixin
     implements ListGroupProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$ListGroupProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$ListGroupProps._();
+  factory _$$ListGroupProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$ListGroupProps$PlainMap(backingMap);
+    } else {
+      return new _$$ListGroupProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -88,6 +86,38 @@ class _$$ListGroupProps extends _$ListGroupProps
   String get propKeyNamespace => 'ListGroupProps.';
 }
 
+class _$$ListGroupProps$PlainMap extends _$$ListGroupProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$ListGroupProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$ListGroupProps$JsMap extends _$$ListGroupProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$ListGroupProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -96,6 +126,9 @@ class _$ListGroupComponent extends ListGroupComponent {
   @override
   _$$ListGroupProps typedPropsFactory(Map backingMap) =>
       new _$$ListGroupProps(backingMap);
+  @override
+  _$$ListGroupProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$ListGroupProps$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -107,4 +140,12 @@ class _$ListGroupComponent extends ListGroupComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForListGroupProps
   ];
+  _$$ListGroupProps$JsMap _cachedTypedProps;
+  @override
+  _$$ListGroupProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }

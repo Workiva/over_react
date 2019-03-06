@@ -202,8 +202,9 @@ class ProgressProps extends _$ProgressProps with _$ProgressPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForProgressProps;
 }
 
-_$$ProgressProps _$Progress([Map backingProps]) =>
-    new _$$ProgressProps(backingProps);
+_$$ProgressProps _$Progress([Map backingProps]) => backingProps == null
+    ? new _$$ProgressProps$JsMap(new JsBackedMap())
+    : new _$$ProgressProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -211,17 +212,14 @@ _$$ProgressProps _$Progress([Map backingProps]) =>
 class _$$ProgressProps extends _$ProgressProps
     with _$ProgressPropsAccessorsMixin
     implements ProgressProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$ProgressProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$ProgressProps._();
+  factory _$$ProgressProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$ProgressProps$PlainMap(backingMap);
+    } else {
+      return new _$$ProgressProps$JsMap(backingMap);
+    }
   }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -234,6 +232,38 @@ class _$$ProgressProps extends _$ProgressProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ProgressProps.';
+}
+
+class _$$ProgressProps$PlainMap extends _$$ProgressProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$ProgressProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+class _$$ProgressProps$JsMap extends _$$ProgressProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$ProgressProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
 }
 
 abstract class _$ProgressStateAccessorsMixin implements _$ProgressState {
@@ -299,6 +329,9 @@ class _$ProgressComponent extends ProgressComponent {
   @override
   _$$ProgressProps typedPropsFactory(Map backingMap) =>
       new _$$ProgressProps(backingMap);
+  @override
+  _$$ProgressProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$ProgressProps$JsMap(backingMap);
 
   @override
   _$$ProgressState typedStateFactory(Map backingMap) =>
@@ -314,4 +347,12 @@ class _$ProgressComponent extends ProgressComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForProgressProps
   ];
+  _$$ProgressProps$JsMap _cachedTypedProps;
+  @override
+  _$$ProgressProps$JsMap get props => _cachedTypedProps;
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
 }
