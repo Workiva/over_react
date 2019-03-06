@@ -226,45 +226,58 @@ main() {
         });
       });
 
-      group('updates the "key" props properly', () {
-        const Map originalKeyProps = const {
+      group('updates the "key" and "ref" props properly', () {
+        var originalRefCalled = false;
+        var cloneRefCalled = false;
+        Map originalKeyRefProps = {
           'key': 'original',
+          'ref': (ref) { originalRefCalled = true; }
         };
 
-        const Map overrideKeyProps = const {
+        Map overrideKeyRefProps = {
           'key': 'clone',
+          'ref': allowInterop((ref) { cloneRefCalled = true; })
         };
+
+        tearDown((){
+          originalRefCalled = false;
+          cloneRefCalled = false;
+        });
 
         test('for a plain React JS component', () {
-          var original = (Dom.div()..addProps(originalKeyProps))(testChildren);
-          var clone = cloneElement(original, overrideKeyProps);
+          var original = (Dom.div()..addProps(originalKeyRefProps))(testChildren);
+          var clone = cloneElement(original, overrideKeyRefProps);
 
-          // Verify that "key" are overridden according to React
-          expect(clone.key, equals(overrideKeyProps['key']));
+          // Verify that "key" and "ref" are overridden according to React
+          expect(clone.key, equals(overrideKeyRefProps['key']));
+          expect(clone.ref, equals(overrideKeyRefProps['ref']));
         });
 
         test('for a Dart component', () {
           ReactElement original;
           ReactElement clone;
 
+          // The 'ref' property can only be used from within a render() method, so use RenderingContainerComponent
+          // to clone and render the test component.
           var holder = RenderingContainerComponentFactory({
             'renderer': () {
-              original = TestComponentFactory(originalKeyProps, testChildren);
-              clone = cloneElement(original, overrideKeyProps);
+              original = TestComponentFactory(originalKeyRefProps, testChildren);
+              clone = cloneElement(original, overrideKeyRefProps);
 
               return clone;
             }
           });
           var renderedHolder = render(holder);
 
-          // Verify that "key" are overridden according to React
-          expect(clone.key, equals(overrideKeyProps['key']));
+          // Verify that "key" and "ref" are overridden according to React
+          expect(clone.key, equals(overrideKeyRefProps['key']));
+          expect(cloneRefCalled, isTrue);
 
           var renderedClone = react_test_utils.findRenderedComponentWithTypeV2(renderedHolder, TestComponentFactory);
 
           Map cloneDartProps = getDartComponent(renderedClone).props;
-          expect(cloneDartProps, isNot(anyOf(contains('key'))),
-              reason: '"key" should not be visible to the rendered cloned component');
+          expect(cloneDartProps, isNot(anyOf(contains('key'), contains('ref'))),
+              reason: '"key" and "ref" should not be visible to the rendered cloned component');
         });
       });
 
