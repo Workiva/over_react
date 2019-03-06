@@ -45,5 +45,5 @@ dependency_overrides:
   react:
     git:
       url: git@github.com:greglittlefield-wf/react-dart.git
-      ref: ee377ec3aee23d58a5f09176e6d6485da1c3ede1 # from js_map_perf/dart_2
+      ref: ee873c1843cbeb388199769cd1f4a801f6f613af # from js_map_perf/dart_2
 

@@ -24,3 +24,4 @@ linter:
     - type_init_formals
     - unnecessary_brace_in_string_interps
     - unnecessary_getters_setters
+    - unrelated_type_equality_checks
