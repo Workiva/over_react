@@ -937,7 +937,6 @@ dynamic getDartChildren(var renderedInstance) {
   assert(isDartComponent(renderedInstance));
   return getProps(renderedInstance)['children'];
 }
-var fooRef;
 
 UiFactory<TestComponentProps> TestComponent = ([Map props]) => new TestComponentProps(props);
 
@@ -956,7 +955,7 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
   TestComponentComponent({List<ConsumedProps> testConsumedProps}) : consumedProps = testConsumedProps;
 
   @override
-  render() => (Dom.div()..ref = (ref){fooRef = ref;})();
+  render() => Dom.div()();
 
   @override
   TestComponentProps typedPropsFactory(Map propsMap) => new TestComponentProps(propsMap);
