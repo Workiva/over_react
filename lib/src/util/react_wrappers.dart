@@ -260,27 +260,27 @@ T getDartComponent<T extends react.Component>(/* ReactElement|ReactComponent|Ele
       // in the test output when running `ddev test`.
       print(unindent(
           '''
-          * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
-          * WARNING: `getDartComponent`                                                                                                       
-          *                                                                                            
-          * react-dart 4.0 no longer supports retrieving Dart components from                                                                                           
-          * `ReactElement` (pre-mounted VDOM instances) in order to prevent memory leaks.                                                                                            
-          *                                                                                            
-          * This call to `getDartComponent` will return `null`.                                                                                           
-          *                                                                                            
-          * Start using the mounted JS component instance instead:                                                                                           
-          *                                                                                            
-          * Example:                                                                                           
-          *     // Before                                                                                           
-          *     var vdom = Button()('Click me');                                                                                           
-          *     react_dom.render(vdom, mountNode);                                                                                           
-          *     var dartInstance = getDartComponent(vdom);                                                                                           
-          *                                                                                                
-          *     // Fixed                                                                                           
-          *     var vdom = Button()('Click me');                                                                                           
-          *     var jsInstance = react_dom.render(vdom, mountNode);                                                                                           
-          *     var dartInstance = getDartComponent(jsInstance);                            
-          *                                                                                 
+          * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+          * WARNING: `getDartComponent`
+          *
+          * react-dart 4.0 no longer supports retrieving Dart components from
+          * `ReactElement` (pre-mounted VDOM instances) in order to prevent memory leaks.
+          *
+          * This call to `getDartComponent` will return `null`.
+          *
+          * Start using the mounted JS component instance instead:
+          *
+          * Example:
+          *     // Before
+          *     var vdom = Button()('Click me');
+          *     react_dom.render(vdom, mountNode);
+          *     var dartInstance = getDartComponent(vdom);
+          *
+          *     // Fixed
+          *     var vdom = Button()('Click me');
+          *     var jsInstance = react_dom.render(vdom, mountNode);
+          *     var dartInstance = getDartComponent(jsInstance);
+          *
           * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
           '''
       ));
