@@ -468,7 +468,7 @@ main() {
           var renderedInstance = render(TestComponent()());
           TestComponentComponent component = getDartComponent(renderedInstance);
 
-           expect(component.ref('foo'), isNotNull);
+          expect(component.ref('foo'), isNotNull);
         });
       });
 
