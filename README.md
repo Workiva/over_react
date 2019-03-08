@@ -59,7 +59,7 @@ and add an HTML element with a unique identifier where you’ll mount your OverR
     ```html
     <html>
       <head>
-       <!-- ... -->  
+       <!-- ... -->
       </head>
       <body>
         <div id="react_mount_point">
@@ -68,21 +68,21 @@ and add an HTML element with a unique identifier where you’ll mount your OverR
 
         <script src="packages/react/react.js"></script>
         <script src="packages/react/react_dom.js"></script>
-     
+
         <script type="application/javascript" defer src="your_app_entrypoint.dart.js"></script>
       </body>
     </html>
     ```
 
     > __Note:__ When serving your application in production, use `packages/react/react_with_react_dom_prod.js`
-    file instead of the un-minified `react.js` / `react_dom.js` files shown in the example above.  
+    file instead of the un-minified `react.js` / `react_dom.js` files shown in the example above.
 
 4. Import the `over_react` and `react_dom` libraries into `your_app_name.dart`, and initialize
 React within your Dart application. Then [build a custom component](#building-custom-components) and
 mount / render it into the HTML element you created in step 3.
 
     > Be sure to namespace the `react_dom.dart` import as `react_dom` to avoid collisions with `UiComponent.render`
-      when [creating custom components](#building-custom-components). 
+      when [creating custom components](#building-custom-components).
 
     ```dart
     import 'dart:html';
@@ -95,7 +95,7 @@ mount / render it into the HTML element you created in step 3.
 
       // Mount / render your component.
       react_dom.render(Foo()(), querySelector('#react_mount_point'));
-    }    
+    }
     ```
 
 5. Run `pub run build_runner serve` in the root of your Dart project.
@@ -109,24 +109,24 @@ properly. Unfortunately, this is a known limitation in the analysis server at th
 
 When running tests on code that uses our [builder] _(or any code that imports `over_react`)_,
 __you must run your tests using build_runner__.
->**Warning:** Do **_not_** run tests via `pub run build_runner test` in a package while another instance of `build_runner` 
+>**Warning:** Do **_not_** run tests via `pub run build_runner test` in a package while another instance of `build_runner`
 (e.g. `pub run build_runner serve`)is running in that same package. [This workflow is unsupported by build_runner](https://github.com/dart-lang/build/issues/352#issuecomment-461554316)
 
-1. Run tests through build_runner, and specify the platform to be a browser platform. Example: 
+1. Run tests through build_runner, and specify the platform to be a browser platform. Example:
 
     ```bash
     $ pub run build_runner test -- -p chrome test/your_test_file.dart
     ```
-    
+
 1. When running tests in `over_react`, our `dart_test.yaml` specifies some handy presets for running tests in DDC and dart2js:
     > **Note:** These presets exist only in `over_react`.
     * To run tests in `over_react` compiled via DDC, run:
     ```bash
-    $ pub run build_runner -- -P dartdevc
+    $ pub run build_runner test -- -P dartdevc
     ```
     * To run tests in `over_react` compiled via dart2js, run:
     ```bash
-    $ pub run build_runner -r -- -P dart2js
+    $ pub run build_runner test -r -- -P dart2js
     ```
 
 &nbsp;
@@ -145,7 +145,7 @@ The `over_react` library functions as an additional "layer" atop the [Dart react
 which handles the underlying JS interop that wraps around [React JS][react-js].
 
 The library strives to maintain a 1:1 relationship with the React JS component class and API.
-To do that, an OverReact component is comprised of four core pieces that are each wired up 
+To do that, an OverReact component is comprised of four core pieces that are each wired up
 via our builder using an analogous [annotation].
 
 1. [UiFactory](#uifactory)
@@ -184,7 +184,7 @@ class _$FooProps extends UiProps {
 ```
 * Note: The [builder] will make the concrete getters and setters available in a generated class which has the same name
 as the class annotated with `@Props()`, but without the `_$` prefix (which would be `FooProps` in the above code).
-The generated class will also have the same API. So, consumers who wish to extend the functionality of `_$FooProps` should 
+The generated class will also have the same API. So, consumers who wish to extend the functionality of `_$FooProps` should
 extend the generated version, `FooProps`.
 
 &nbsp;
@@ -202,7 +202,7 @@ class _$FooProps extends UiProps {
 
 @Component()
 class FooComponent extends UiComponent<FooProps> {
-  // ...  
+  // ...
 }
 
 void bar() {
@@ -285,7 +285,7 @@ class _$FooState extends UiState {
 > UiState is optional, and won’t be used for every component.
 * Note: The [builder] will make the concrete getters and setters available in a generated class which has the same name
 as the class annotated with `@State()`, but without the `_$` prefix (which would be `FooState` in the above code).
-The generated class will also have the same API. So, consumers who wish to extend the functionality of `_$FooState` should 
+The generated class will also have the same API. So, consumers who wish to extend the functionality of `_$FooState` should
 use the generated version, `FooState`.
 
 &nbsp;
@@ -662,7 +662,7 @@ Now that we’ve gone over how to [use the `over_react` package in your project]
 the [anatomy of a component](#anatomy-of-an-overreact-component) and the [DOM components](#dom-components-and-props)
 that you get for free from OverReact, you're ready to start building your own custom React UI components.
 
-1. Start with one of the [component boilerplate templates](#component-boilerplate-templates) below 
+1. Start with one of the [component boilerplate templates](#component-boilerplate-templates) below
 (Or, use OverReact's [code snippets for Intellij and Vs Code](https://github.com/Workiva/over_react/blob/master/snippets/README.md)).
   * [Component](#component-boilerplate) _(props only)_
   * [Stateful Component](#stateful-component-boilerplate) _(props + state)_

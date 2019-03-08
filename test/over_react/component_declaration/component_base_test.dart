@@ -965,7 +965,6 @@ dynamic getDartChildren(var renderedInstance) {
   return getProps(renderedInstance)['children'];
 }
 
-
 UiFactory<TestComponentProps> TestComponent = ([Map props]) => new TestComponentProps(props);
 
 class TestComponentProps extends UiProps {

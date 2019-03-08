@@ -48,7 +48,7 @@ For every release, do the following:
     Name | Branch
     ---- | ------
     over_react 2.x.x+dart1 | master_dart1
-    over_react 2.x.x | master
+    over_react 2.x.x+dart2 | master
 
 1. Trigger the `over_react 2.x.x+dart1` release first and review the PR:
 
@@ -57,7 +57,9 @@ For every release, do the following:
 
    - Ensure the build passes.
 
-1. Trigger the `over_react 2.x.x` release second and review the PR:
+   - Merge the Dart 1 release and publish it to pub.
+
+1. Trigger the `over_react 2.x.x+dart2` release second and review the PR:
 
    - Ensure the updated `pubspec.yaml` version is correct.
 
@@ -65,9 +67,9 @@ For every release, do the following:
 
    - **Add any necessary changelog updates to the Dart 2 version.**
 
-1. **Merge the Dart 1 release first and publish it to pub.**
-
-1. Merge the Dart 2 release second and publish it to pub.
+   - Merge the Dart 2 release and publish it to pub.
 
 1. Re-recreate the Dart 1 release in MARV (it does not get recreated
    automatically like the default release does).
+
+1. Add the `+dart2` suffix to the automatically created release.
