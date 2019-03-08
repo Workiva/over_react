@@ -4,7 +4,7 @@
 
 > Complete `2.2.0` Changsets:
 >
-> - [Dart 2](https://github.com/Workiva/over_react/compare/2.1.0+dart2...2.2.0+dart1)
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.1.0+dart2...2.2.0+dart2)
 > - [Dart 1](https://github.com/Workiva/over_react/compare/2.1.0+dart1...2.2.0+dart1)
 
 - [#249] Warn consumers about props / state mutation 
@@ -12,11 +12,12 @@
       Avoiding this will be especially important for components to behave correctly in React 16's [concurrent mode](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-q2-2019-the-one-with-concurrent-mode).
 
 - [#255] Update for future compatibility with `react` 5.0.0
+
 ## 2.1.0
 
 > Complete `2.1.0` Changsets:
 >
-> - [Dart 2](https://github.com/Workiva/over_react/compare/2.0.0+dart2...2.1.0)
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.0.0+dart2...2.1.0+dart2)
 > - Dart 1 (no changes)
 
 - [#249] Warn consumers about props / state mutation 
