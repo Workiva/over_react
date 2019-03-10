@@ -40,6 +40,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/extra_invoc
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/hashcode_as_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/missing_cascade_parens.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/missing_required_prop.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/render_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/string_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/variadic_children.dart';
@@ -49,6 +50,9 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/variadic_ch
 class Checker {
   Map<AnalysisError, PrioritizedSourceChange> check(ResolvedUnitResult result) {
     final fixesByError = <AnalysisError, PrioritizedSourceChange>{};
+
+    // Don't analyze if there's no source; there's nothing to do.
+    if (result.unit?.declaredElement?.source == null) return {};
 
     final checkers = <SubChecker>[
       new DuplicatePropCascadeChecker(),

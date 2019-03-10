@@ -32,6 +32,7 @@
 
 import 'dart:async';
 
+import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/file_system/file_system.dart';
 // ignore: implementation_imports
 import 'package:analyzer/src/context/builder.dart';
@@ -39,11 +40,11 @@ import 'package:analyzer/src/context/builder.dart';
 import 'package:analyzer/src/context/context_root.dart';
 // ignore: implementation_imports
 import 'package:analyzer/src/dart/analysis/driver.dart';
-import 'package:analyzer_plugin/plugin/outline_mixin.dart';
+//import 'package:analyzer_plugin/plugin/outline_mixin.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart' as plugin;
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
-import 'package:analyzer_plugin/utilities/outline/outline.dart';
+//import 'package:analyzer_plugin/utilities/outline/outline.dart';
 import 'package:over_react_analyzer_plugin/src/assist/add_props.dart';
 import 'package:over_react_analyzer_plugin/src/assist/add_ref.dart';
 import 'package:over_react_analyzer_plugin/src/assist/wrap_unwrap.dart';
@@ -51,10 +52,12 @@ import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:over_react_analyzer_plugin/src/checker.dart';
 
 /// Analyzer plugin for over_react.
-class OverReactAnalyzerPlugin extends ServerPlugin with OutlineMixin, DartOutlineMixin, AsyncAssistsMixin, AsyncDartAssistsMixin {
-  final Checker checker = new Checker();
-
+class OverReactAnalyzerPlugin extends ServerPlugin with
+//    OutlineMixin, DartOutlineMixin,
+    AsyncAssistsMixin, AsyncDartAssistsMixin {
   OverReactAnalyzerPlugin(ResourceProvider provider) : super(provider);
+
+  final Checker checker = new Checker();
 
   @override
   AnalysisDriverGeneric createAnalysisDriver(plugin.ContextRoot contextRoot) {
@@ -84,12 +87,12 @@ class OverReactAnalyzerPlugin extends ServerPlugin with OutlineMixin, DartOutlin
   String get version => '1.0.0-alpha.0';
 
   @override
-  String get contactInfo => 'https://github.com/Workiva/over_react/issues';
+  String get contactInfo => 'Workiva Slack channel: #react-analyzer-plugin';
 
 //  List<ErrorConntributor> get
 
   /// Computes errors based on an analysis result and notifies the analyzer.
-  void _processResult(AnalysisResult analysisResult) {
+  void _processResult(ResolvedUnitResult analysisResult) {
     try {
       // If there is no relevant analysis result, notify the analyzer of no errors.
       if (analysisResult.unit == null ||
@@ -124,11 +127,9 @@ class OverReactAnalyzerPlugin extends ServerPlugin with OutlineMixin, DartOutlin
   Future<plugin.EditGetFixesResult> handleEditGetFixes(
       plugin.EditGetFixesParams parameters) async {
     try {
-      final analysisResult =
-          await (driverForPath(parameters.file) as AnalysisDriver)
-              .getResult(parameters.file);
+      final unitResult = await getResolvedUnitResult(parameters.file);
       // Get errors and fixes for the file.
-      final checkResult = checker.check(analysisResult);
+      final checkResult = checker.check(unitResult);
 
       // Return any fixes that are for the expected file and within the given offset.
       final fixes = <plugin.AnalysisErrorFixes>[];
@@ -151,13 +152,13 @@ class OverReactAnalyzerPlugin extends ServerPlugin with OutlineMixin, DartOutlin
     }
   }
 
-  @override
-  List<OutlineContributor> getOutlineContributors(String path) {
-    return [
+//  @override
+//  List<OutlineContributor> getOutlineContributors(String path) {
+//    return [
       // Disabled for now since it doesn't seem to work consistently
 //      new ReactElementOutlineContributor(),
-    ];
-  }
+//    ];
+//  }
 
   @override
   List<AsyncAssistContributor> getAssistContributors(String path) {

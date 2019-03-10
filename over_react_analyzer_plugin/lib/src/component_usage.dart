@@ -1,9 +1,12 @@
-// This file is straight from over_react_format
+// This file is based on over_react_format's FluentComponentUsage
 
-import 'package:analyzer/analyzer.dart';
+import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/visitor.dart';
 
 /// A usage of an OverReact component via its fluent interface.
 class FluentComponentUsage {
+  FluentComponentUsage._(this.node, this.cascadeExpression, this.builder);
+
   /// The top-level node of this usage.
   final InvocationExpression node;
 
@@ -37,7 +40,6 @@ class FluentComponentUsage {
 
   bool get isDom => const ['DomProps', 'SvgProps'].contains(builder.staticType?.name);
 
-  FluentComponentUsage._(this.node, this.cascadeExpression, this.builder);
 
   /// Whether the invocation contains one or more children passed as arguments instead of a list.
   bool get hasVariadicChildren =>

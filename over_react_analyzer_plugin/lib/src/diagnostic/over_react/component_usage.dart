@@ -1,13 +1,13 @@
 // Adapted from dart_medic `misc` branch containing over_react diagnostics
 
-import 'package:analyzer/analyzer.dart';
 import 'package:analyzer/dart/analysis/results.dart';
+import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart' hide AnalysisError;
 import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 
 export 'package:over_react_analyzer_plugin/src/component_usage.dart';
-
 
 abstract class SubChecker {
   String get name;
@@ -57,9 +57,9 @@ abstract class ComponentUsageChecker extends SubChecker {
 typedef void _OnComponent(FluentComponentUsage usage);
 
 class ComponentUsageVisitor extends RecursiveAstVisitor<void> {
-  final _OnComponent onComponent;
-
   ComponentUsageVisitor(this.onComponent);
+
+  final _OnComponent onComponent;
 
   @override
   void visitFunctionExpressionInvocation(FunctionExpressionInvocation node) {
@@ -110,6 +110,15 @@ class ComponentUsageVisitor extends RecursiveAstVisitor<void> {
 //}
 
 class CheckerError {
+  CheckerError(this.code, this.message, this.offset, this.end, this.severity, this.type, this.fixEdits, this.fixMessage, this.modificationStamp) {
+    if (((offset == null) != (end == null)) ||
+        ((offset == null) && fixEdits != null)) {
+      throw new ArgumentError(
+          'Offset, end and fixEdits must either all be null or all non-null. '
+              'Got: offset $offset, end $end, fixEdits $fixEdits');
+    }
+  }
+
   /// The code of the error
   final String code;
   
@@ -133,15 +142,6 @@ class CheckerError {
   AnalysisErrorSeverity severity;
 
   AnalysisErrorType type;
-
-  CheckerError(this.code, this.message, this.offset, this.end, this.severity, this.type, this.fixEdits, this.fixMessage, this.modificationStamp) {
-    if (((offset == null) != (end == null)) ||
-        ((offset == null) && fixEdits != null)) {
-      throw new ArgumentError(
-          'Offset, end and fixEdits must either all be null or all non-null. '
-              'Got: offset $offset, end $end, fixEdits $fixEdits');
-    }
-  }
 
   bool get hasFix => fixEdits != null;
 }

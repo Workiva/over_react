@@ -99,7 +99,7 @@ abstract class AsyncDartAssistsMixin implements AsyncAssistsMixin {
   Future<AssistRequest> getAssistRequest(
       EditGetAssistsParams parameters) async {
     final path = parameters.file;
-    final result = await getResolveResult(path);
+    final result = await getResolvedUnitResult(path);
     return new _DartAssistRequestImpl(
         resourceProvider, parameters.offset, parameters.length, result);
   }
@@ -107,6 +107,10 @@ abstract class AsyncDartAssistsMixin implements AsyncAssistsMixin {
 
 /// A concrete implementation of [DartAssistRequest].
 class _DartAssistRequestImpl implements DartAssistRequest {
+  /// Initialize a newly create request with the given data.
+  _DartAssistRequestImpl(
+      this.resourceProvider, this.offset, this.length, this.result);
+
   @override
   final ResourceProvider resourceProvider;
 
@@ -117,9 +121,5 @@ class _DartAssistRequestImpl implements DartAssistRequest {
   final int length;
 
   @override
-  final ResolveResult result;
-
-  /// Initialize a newly create request with the given data.
-  _DartAssistRequestImpl(
-      this.resourceProvider, this.offset, this.length, this.result);
+  final ResolvedUnitResult result;
 }

@@ -3,8 +3,7 @@ version: 0.0.0
 environment:
   sdk: '>=1.24.0 <3.0.0'
 dependencies:
-  # Currently only solves under Dart 1, since the Dart 2 -dev branch isn't out yet
-  over_react: ">=1.30.2 <3.0.0"
+  over_react: ^2.0.0
 dev_dependencies:
   over_react_analyzer_plugin_host:
     path: ../plugin_hosts/path
