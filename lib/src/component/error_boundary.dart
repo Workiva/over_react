@@ -97,10 +97,8 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
       ? props.fallbackUIRenderer(_error, _componentStack)
       : props.children.single;
 
-  // TODO: Make this fallback UI more useful.
-  ReactElement _renderDefaultFallbackUI(_, __) {
-    return Dom.h3()('Something went wrong.');
-  }
+  ReactElement _renderDefaultFallbackUI(_, __) =>
+      throw new UnimplementedError('Fallback UI will not be supported until support for ReactJS 16 is released in version 3.0.0');
 
   @mustCallSuper
   @override
