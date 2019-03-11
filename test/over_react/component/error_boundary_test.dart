@@ -38,7 +38,7 @@ void main() {
     test('initializes with the expected default prop values', () {
       jacket = mount(ErrorBoundary()(dummyChild));
 
-      expect(ErrorBoundary(jacket.getProps()).fallbackUIRenderer(null, null), const isInstanceOf<ReactElement>());
+      expect(() => ErrorBoundary(jacket.getProps()).fallbackUIRenderer(null, null), throwsUnimplementedError);
     });
 
     test('initializes with the expected initial state values', () {
@@ -59,10 +59,9 @@ void main() {
         test('', () {
           jacket = mount(ErrorBoundary()(dummyChild));
           final component = jacket.getDartInstance();
-          component.setState(component.newState()..hasError = true);
 
-          expect(jacket.getNode(), hasNodeName('H3'));
-          expect(jacket.getNode().text, 'Something went wrong.');
+          // Using throws for now since this is temporary, and the throwsUnimplementedError doesn't work here for some reason
+          expect(() => component.setState(component.newState()..hasError = true), throws);
         });
 
         // TODO: Update this test to assert the error / component stack values passed to the callback once the actual ReactJS 16 error lifecycle methods are implemented.
