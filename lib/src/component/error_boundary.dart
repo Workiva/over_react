@@ -1,7 +1,6 @@
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 
-// ignore: uri_has_not_been_generated
 part 'error_boundary.over_react.g.dart';
 
 // TODO: Need to type the second argument once react-dart implements bindings for the ReactJS "componentStack".
@@ -21,8 +20,7 @@ typedef ReactElement _FallbackUiRenderer(Error error, /*ComponentStack*/dynamic 
 /// > It will begin providing the boundary / fallback UI behavior once support
 ///   for ReactJS 16 is released in over_react version 3.0.0
 @Factory()
-// ignore: undefined_identifier
-UiFactory<ErrorBoundaryProps> ErrorBoundary = $ErrorBoundary;
+UiFactory<ErrorBoundaryProps> ErrorBoundary = _$ErrorBoundary;
 
 @Props()
 class _$ErrorBoundaryProps extends UiProps {
@@ -112,16 +110,4 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
       throw new PropError.value(children, 'children', 'ErrorBoundary accepts only a single ReactComponent child.');
     }
   }
-}
-
-// ignore: mixin_of_non_class, undefined_class
-class ErrorBoundaryProps extends _$ErrorBoundaryProps with _$ErrorBoundaryPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = $metaForErrorBoundaryProps;
-}
-
-// ignore: mixin_of_non_class, undefined_class
-class ErrorBoundaryState extends _$ErrorBoundaryState with _$ErrorBoundaryStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = $metaForErrorBoundaryState;
 }
