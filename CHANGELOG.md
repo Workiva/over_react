@@ -1,5 +1,12 @@
 # OverReact Changelog
 
+## 1.33.0
+
+> [Complete `1.33.0` Changeset](https://github.com/Workiva/over_react/compare/1.32.0...1.33.0)
+
+* [#266] Add `ErrorBoundary` Component 
+  > This component does not actually hook into any ReactJS 16 lifecycle yet. It won't until support for ReactJS 16 is added to react-dart in version 5.0.0, and to over_react in version 3.0.0.
+
 ## 1.32.0
 
 > [Complete `1.32.0` Changeset](https://github.com/Workiva/over_react/compare/1.31.0...1.32.0)
