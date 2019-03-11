@@ -108,7 +108,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
     super.validateProps(appliedProps);
     final children = domProps(appliedProps).children;
 
-    if (children.length > 1) {
+    if (children.length != 1) {
       throw new PropError.value(children, 'children', 'ErrorBoundary accepts only a single child.');
     } else if (!isValidElement(children.single)) {
       throw new PropError.value(children, 'children', 'ErrorBoundary accepts only a single ReactComponent child.');
