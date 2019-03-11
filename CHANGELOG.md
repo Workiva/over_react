@@ -1,5 +1,15 @@
 # OverReact Changelog
 
+## 2.3.0
+
+> Complete `2.3.0` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.2.0+dart2...2.3.0+dart2)
+> - [Dart 1](https://github.com/Workiva/over_react/compare/2.2.0+dart1...2.3.0+dart1)
+
+* [#266] Add `ErrorBoundary` Component 
+  > This component does not actually hook into any ReactJS 16 lifecycle yet. It won't until support for ReactJS 16 is added to react-dart in version 5.0.0, and to over_react in version 3.0.0.
+
 ## 2.2.0
 
 > Complete `2.2.0` Changsets:
@@ -82,6 +92,13 @@ __Breaking Changes__
 * Removals:
   * `getJsProps()` - use `getProps()` instead
   * `$Props` and `$PropKeys` - see the migration guide above
+
+## 1.33.0
+
+> [Complete `1.33.0` Changeset](https://github.com/Workiva/over_react/compare/1.32.0...1.33.0)
+
+* [#266] Add `ErrorBoundary` Component
+  > This component does not actually hook into any ReactJS 16 lifecycle yet. It won't until support for ReactJS 16 is added to react-dart in version 5.0.0, and to over_react in version 3.0.0.
 
 ## 1.32.0
 
