@@ -177,7 +177,8 @@ class ImplGenerator {
       }
       typedPropsFactoryImpl
         ..writeln('  @override')
-        ..writeln('  $propsImplName typedPropsFactory(Map backingMap) => new $propsImplName(backingMap);');
+        ..writeln('  $propsImplName typedPropsFactory(Map backingMap) => new $propsImplName(backingMap);')
+        ..writeln();
 
 
       // ----------------------------------------------------------------------
@@ -229,7 +230,8 @@ class ImplGenerator {
         }
         typedStateFactoryImpl
           ..writeln('  @override')
-          ..writeln('  $stateImplName typedStateFactory(Map backingMap) => new $stateImplName(backingMap);');
+          ..writeln('  $stateImplName typedStateFactory(Map backingMap) => new $stateImplName(backingMap);')
+          ..writeln();
       }
 
       // ----------------------------------------------------------------------
@@ -761,7 +763,7 @@ class ImplGenerator {
     final buffer = new StringBuffer()
       ..writeln('// Concrete $propsOrState implementation.')
       ..writeln('//')
-      ..writeln('// Implements constructor and backing map, and links up to generated component factory.')
+      ..writeln('// Implements constructor and backing map${type.isProps ? ', and links up to generated component factory' : ''}.')
       ..writeln(classDeclaration);
 
     // Constructors
@@ -789,6 +791,14 @@ class ImplGenerator {
     }
 
     // Members
+    if (!isComponent2) {
+      buffer
+        ..writeln()
+        ..writeln('  /// The backing $propsOrState map proxied by this class.')
+        ..writeln('  @override')
+        ..writeln('  Map get $propsOrState => _$propsOrState;')
+        ..writeln('  Map _$propsOrState;');
+    }
     buffer
       ..writeln()
       ..writeln('  /// Let [${type.isProps ? 'UiProps' : 'UiState'}] internals know that this class has been generated.')
@@ -806,20 +816,14 @@ class ImplGenerator {
         ..writeln('  String get propKeyNamespace => ${stringLiteral(propKeyNamespace)};');
     }
 
-    // Other members/classes
-    if (!isComponent2) {
-      buffer
-        ..writeln()
-        ..writeln('  /// The backing $propsOrState map proxied by this class.')
-        ..writeln('  @override')
-        ..writeln('  Map get $propsOrState => _$propsOrState;')
-        ..writeln('  Map _$propsOrState;')
-        ..writeln('}');
-    } else {
+    // End of class body
+    buffer.writeln('}');
+
+    // Component2-specific classes
+    if (isComponent2) {
       final plainMapImplName = _plainMapAccessorsImplClassNameFromImplClassName(implName);
       final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(implName);
       buffer
-        ..writeln('}')
         ..writeln()
         ..writeln('class $plainMapImplName$typeParamsOnClass extends $implName$typeParamsOnSuper {')
         ..writeln('  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
