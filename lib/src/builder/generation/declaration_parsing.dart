@@ -491,7 +491,10 @@ class ComponentNode extends NodeWithMeta<ClassDeclaration, annotations.Component
   Identifier subtypeOfValue;
 
   ComponentNode(ClassDeclaration node)
-      : this.isComponent2 = node.declaredElement.allSupertypes.any((type) => type.name == 'Component2'),
+      : this.isComponent2 = node.declaredElement == null
+            // This can be null when using non-resolved AST in tests; fixme do we need to update that setup?
+            ? false
+            : node.declaredElement.allSupertypes.any((type) => type.name == 'Component2'),
         super(node) {
     // Perform special handling for the `subtypeOf` parameter of this node's annotation.
     //
