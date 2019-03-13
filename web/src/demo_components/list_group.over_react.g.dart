@@ -64,6 +64,16 @@ _$$ListGroupProps _$ListGroup([Map backingProps]) => backingProps == null
 abstract class _$$ListGroupProps extends _$ListGroupProps
     with _$ListGroupPropsAccessorsMixin
     implements ListGroupProps {
+  _$$ListGroupProps._();
+
+  factory _$$ListGroupProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$ListGroupProps$JsMap(backingMap);
+    } else {
+      return new _$$ListGroupProps$PlainMap(backingMap);
+    }
+  }
+
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -75,16 +85,6 @@ abstract class _$$ListGroupProps extends _$ListGroupProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ListGroupProps.';
-
-  _$$ListGroupProps._();
-
-  factory _$$ListGroupProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$ListGroupProps$JsMap(backingMap);
-    } else {
-      return new _$$ListGroupProps$PlainMap(backingMap);
-    }
-  }
 }
 
 class _$$ListGroupProps$PlainMap extends _$$ListGroupProps {
@@ -124,10 +124,8 @@ class _$$ListGroupProps$JsMap extends _$$ListGroupProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ListGroupComponent extends ListGroupComponent {
-  @override
-  _$$ListGroupProps typedPropsFactory(Map backingMap) =>
-      new _$$ListGroupProps(backingMap);
   _$$ListGroupProps$JsMap _cachedTypedProps;
+
   @override
   _$$ListGroupProps$JsMap get props => _cachedTypedProps;
 
@@ -140,6 +138,10 @@ class _$ListGroupComponent extends ListGroupComponent {
   @override
   _$$ListGroupProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
       new _$$ListGroupProps$JsMap(backingMap);
+
+  @override
+  _$$ListGroupProps typedPropsFactory(Map backingMap) =>
+      new _$$ListGroupProps(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override

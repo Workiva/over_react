@@ -132,18 +132,6 @@ _$$BasicProps _$Basic([Map backingProps]) => new _$$BasicProps(backingProps);
 class _$$BasicProps extends _$BasicProps
     with _$BasicPropsAccessorsMixin
     implements BasicProps {
-  /// Let [UiProps] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
-  /// The [ReactComponentFactory] associated with the component built by this class.
-  @override
-  ReactComponentFactoryProxy get componentFactory => $BasicComponentFactory;
-
-  /// The default namespace for the prop getters/setters generated for this class.
-  @override
-  String get propKeyNamespace => 'BasicProps.';
-
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
@@ -155,6 +143,18 @@ class _$$BasicProps extends _$BasicProps
   @override
   Map get props => _props;
   Map _props;
+
+  /// Let [UiProps] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The [ReactComponentFactory] associated with the component built by this class.
+  @override
+  ReactComponentFactoryProxy get componentFactory => $BasicComponentFactory;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => 'BasicProps.';
 }
 
 // Concrete component implementation mixin.

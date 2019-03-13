@@ -212,6 +212,16 @@ _$$ProgressProps _$Progress([Map backingProps]) => backingProps == null
 abstract class _$$ProgressProps extends _$ProgressProps
     with _$ProgressPropsAccessorsMixin
     implements ProgressProps {
+  _$$ProgressProps._();
+
+  factory _$$ProgressProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$ProgressProps$JsMap(backingMap);
+    } else {
+      return new _$$ProgressProps$PlainMap(backingMap);
+    }
+  }
+
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -223,16 +233,6 @@ abstract class _$$ProgressProps extends _$ProgressProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ProgressProps.';
-
-  _$$ProgressProps._();
-
-  factory _$$ProgressProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$ProgressProps$JsMap(backingMap);
-    } else {
-      return new _$$ProgressProps$PlainMap(backingMap);
-    }
-  }
 }
 
 class _$$ProgressProps$PlainMap extends _$$ProgressProps {
@@ -301,14 +301,10 @@ class ProgressState extends _$ProgressState with _$ProgressStateAccessorsMixin {
 
 // Concrete state implementation.
 //
-// Implements constructor and backing map, and links up to generated component factory.
+// Implements constructor and backing map.
 abstract class _$$ProgressState extends _$ProgressState
     with _$ProgressStateAccessorsMixin
     implements ProgressState {
-  /// Let [UiState] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
   _$$ProgressState._();
 
   factory _$$ProgressState(Map backingMap) {
@@ -318,6 +314,10 @@ abstract class _$$ProgressState extends _$ProgressState
       return new _$$ProgressState$PlainMap(backingMap);
     }
   }
+
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
 }
 
 class _$$ProgressState$PlainMap extends _$$ProgressState {
@@ -357,10 +357,8 @@ class _$$ProgressState$JsMap extends _$$ProgressState {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ProgressComponent extends ProgressComponent {
-  @override
-  _$$ProgressProps typedPropsFactory(Map backingMap) =>
-      new _$$ProgressProps(backingMap);
   _$$ProgressProps$JsMap _cachedTypedProps;
+
   @override
   _$$ProgressProps$JsMap get props => _cachedTypedProps;
 
@@ -373,9 +371,11 @@ class _$ProgressComponent extends ProgressComponent {
   @override
   _$$ProgressProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
       new _$$ProgressProps$JsMap(backingMap);
+
   @override
-  _$$ProgressState typedStateFactory(Map backingMap) =>
-      new _$$ProgressState(backingMap);
+  _$$ProgressProps typedPropsFactory(Map backingMap) =>
+      new _$$ProgressProps(backingMap);
+
   _$$ProgressState$JsMap _cachedTypedState;
   @override
   _$$ProgressState$JsMap get state => _cachedTypedState;
@@ -389,6 +389,10 @@ class _$ProgressComponent extends ProgressComponent {
   @override
   _$$ProgressState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
       new _$$ProgressState$JsMap(backingMap);
+
+  @override
+  _$$ProgressState typedStateFactory(Map backingMap) =>
+      new _$$ProgressState(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override

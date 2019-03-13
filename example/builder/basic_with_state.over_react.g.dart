@@ -128,18 +128,6 @@ _$$BasicProps _$Basic([Map backingProps]) => new _$$BasicProps(backingProps);
 class _$$BasicProps extends _$BasicProps
     with _$BasicPropsAccessorsMixin
     implements BasicProps {
-  /// Let [UiProps] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
-  /// The [ReactComponentFactory] associated with the component built by this class.
-  @override
-  ReactComponentFactoryProxy get componentFactory => $BasicComponentFactory;
-
-  /// The default namespace for the prop getters/setters generated for this class.
-  @override
-  String get propKeyNamespace => 'BasicProps.';
-
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
@@ -151,6 +139,18 @@ class _$$BasicProps extends _$BasicProps
   @override
   Map get props => _props;
   Map _props;
+
+  /// Let [UiProps] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The [ReactComponentFactory] associated with the component built by this class.
+  @override
+  ReactComponentFactoryProxy get componentFactory => $BasicComponentFactory;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => 'BasicProps.';
 }
 
 abstract class _$BasicStateAccessorsMixin implements _$BasicState {
@@ -190,14 +190,10 @@ class BasicState extends _$BasicState with _$BasicStateAccessorsMixin {
 
 // Concrete state implementation.
 //
-// Implements constructor and backing map, and links up to generated component factory.
+// Implements constructor and backing map.
 class _$$BasicState extends _$BasicState
     with _$BasicStateAccessorsMixin
     implements BasicState {
-  /// Let [UiState] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
@@ -209,6 +205,10 @@ class _$$BasicState extends _$BasicState
   @override
   Map get state => _state;
   Map _state;
+
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -219,6 +219,7 @@ class _$BasicComponent extends BasicComponent {
   @override
   _$$BasicProps typedPropsFactory(Map backingMap) =>
       new _$$BasicProps(backingMap);
+
   @override
   _$$BasicState typedStateFactory(Map backingMap) =>
       new _$$BasicState(backingMap);

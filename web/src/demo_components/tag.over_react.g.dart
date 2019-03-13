@@ -74,6 +74,16 @@ _$$TagProps _$Tag([Map backingProps]) => backingProps == null
 abstract class _$$TagProps extends _$TagProps
     with _$TagPropsAccessorsMixin
     implements TagProps {
+  _$$TagProps._();
+
+  factory _$$TagProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$TagProps$JsMap(backingMap);
+    } else {
+      return new _$$TagProps$PlainMap(backingMap);
+    }
+  }
+
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -85,16 +95,6 @@ abstract class _$$TagProps extends _$TagProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TagProps.';
-
-  _$$TagProps._();
-
-  factory _$$TagProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$TagProps$JsMap(backingMap);
-    } else {
-      return new _$$TagProps$PlainMap(backingMap);
-    }
-  }
 }
 
 class _$$TagProps$PlainMap extends _$$TagProps {
@@ -134,9 +134,8 @@ class _$$TagProps$JsMap extends _$$TagProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TagComponent extends TagComponent {
-  @override
-  _$$TagProps typedPropsFactory(Map backingMap) => new _$$TagProps(backingMap);
   _$$TagProps$JsMap _cachedTypedProps;
+
   @override
   _$$TagProps$JsMap get props => _cachedTypedProps;
 
@@ -149,6 +148,9 @@ class _$TagComponent extends TagComponent {
   @override
   _$$TagProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
       new _$$TagProps$JsMap(backingMap);
+
+  @override
+  _$$TagProps typedPropsFactory(Map backingMap) => new _$$TagProps(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override

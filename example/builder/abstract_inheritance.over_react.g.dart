@@ -56,18 +56,6 @@ _$$SubProps _$Sub([Map backingProps]) => new _$$SubProps(backingProps);
 class _$$SubProps extends _$SubProps
     with _$SubPropsAccessorsMixin
     implements SubProps {
-  /// Let [UiProps] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
-  /// The [ReactComponentFactory] associated with the component built by this class.
-  @override
-  ReactComponentFactoryProxy get componentFactory => $SubComponentFactory;
-
-  /// The default namespace for the prop getters/setters generated for this class.
-  @override
-  String get propKeyNamespace => 'SubProps.';
-
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
@@ -79,6 +67,18 @@ class _$$SubProps extends _$SubProps
   @override
   Map get props => _props;
   Map _props;
+
+  /// Let [UiProps] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The [ReactComponentFactory] associated with the component built by this class.
+  @override
+  ReactComponentFactoryProxy get componentFactory => $SubComponentFactory;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => 'SubProps.';
 }
 
 abstract class _$SubStateAccessorsMixin implements _$SubState {
@@ -115,14 +115,10 @@ class SubState extends _$SubState with _$SubStateAccessorsMixin {
 
 // Concrete state implementation.
 //
-// Implements constructor and backing map, and links up to generated component factory.
+// Implements constructor and backing map.
 class _$$SubState extends _$SubState
     with _$SubStateAccessorsMixin
     implements SubState {
-  /// Let [UiState] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
@@ -134,6 +130,10 @@ class _$$SubState extends _$SubState
   @override
   Map get state => _state;
   Map _state;
+
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -143,6 +143,7 @@ class _$$SubState extends _$SubState
 class _$SubComponent extends SubComponent {
   @override
   _$$SubProps typedPropsFactory(Map backingMap) => new _$$SubProps(backingMap);
+
   @override
   _$$SubState typedStateFactory(Map backingMap) => new _$$SubState(backingMap);
 

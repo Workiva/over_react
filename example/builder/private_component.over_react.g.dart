@@ -58,18 +58,6 @@ _$$_PrivateProps _$_Private([Map backingProps]) =>
 class _$$_PrivateProps extends _$_PrivateProps
     with _$_PrivatePropsAccessorsMixin
     implements _PrivateProps {
-  /// Let [UiProps] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
-  /// The [ReactComponentFactory] associated with the component built by this class.
-  @override
-  ReactComponentFactoryProxy get componentFactory => $PrivateComponentFactory;
-
-  /// The default namespace for the prop getters/setters generated for this class.
-  @override
-  String get propKeyNamespace => '_PrivateProps.';
-
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
@@ -81,6 +69,18 @@ class _$$_PrivateProps extends _$_PrivateProps
   @override
   Map get props => _props;
   Map _props;
+
+  /// Let [UiProps] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The [ReactComponentFactory] associated with the component built by this class.
+  @override
+  ReactComponentFactoryProxy get componentFactory => $PrivateComponentFactory;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => '_PrivateProps.';
 }
 
 abstract class _$_PrivateStateAccessorsMixin implements _$_PrivateState {
@@ -117,14 +117,10 @@ class _PrivateState extends _$_PrivateState with _$_PrivateStateAccessorsMixin {
 
 // Concrete state implementation.
 //
-// Implements constructor and backing map, and links up to generated component factory.
+// Implements constructor and backing map.
 class _$$_PrivateState extends _$_PrivateState
     with _$_PrivateStateAccessorsMixin
     implements _PrivateState {
-  /// Let [UiState] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
@@ -136,6 +132,10 @@ class _$$_PrivateState extends _$_PrivateState
   @override
   Map get state => _state;
   Map _state;
+
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -146,6 +146,7 @@ class _$PrivateComponent extends PrivateComponent {
   @override
   _$$_PrivateProps typedPropsFactory(Map backingMap) =>
       new _$$_PrivateProps(backingMap);
+
   @override
   _$$_PrivateState typedStateFactory(Map backingMap) =>
       new _$$_PrivateState(backingMap);

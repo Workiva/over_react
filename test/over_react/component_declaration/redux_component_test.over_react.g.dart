@@ -46,6 +46,18 @@ _$$TestDefaultProps _$TestDefault([Map backingProps]) =>
 class _$$TestDefaultProps extends _$TestDefaultProps
     with _$TestDefaultPropsAccessorsMixin
     implements TestDefaultProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestDefaultProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -58,18 +70,6 @@ class _$$TestDefaultProps extends _$TestDefaultProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestDefaultProps.';
-
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestDefaultProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 }
 
 // Concrete component implementation mixin.
@@ -133,6 +133,18 @@ _$$TestConnectProps _$TestConnect([Map backingProps]) =>
 class _$$TestConnectProps extends _$TestConnectProps
     with _$TestConnectPropsAccessorsMixin
     implements TestConnectProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestConnectProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -145,18 +157,6 @@ class _$$TestConnectProps extends _$TestConnectProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestConnectProps.';
-
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestConnectProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 }
 
 // Concrete component implementation mixin.
@@ -219,18 +219,6 @@ _$$TestPureProps _$TestPure([Map backingProps]) =>
 class _$$TestPureProps extends _$TestPureProps
     with _$TestPurePropsAccessorsMixin
     implements TestPureProps {
-  /// Let [UiProps] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
-  /// The [ReactComponentFactory] associated with the component built by this class.
-  @override
-  ReactComponentFactoryProxy get componentFactory => $TestPureComponentFactory;
-
-  /// The default namespace for the prop getters/setters generated for this class.
-  @override
-  String get propKeyNamespace => 'TestPureProps.';
-
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
@@ -242,6 +230,18 @@ class _$$TestPureProps extends _$TestPureProps
   @override
   Map get props => _props;
   Map _props;
+
+  /// Let [UiProps] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The [ReactComponentFactory] associated with the component built by this class.
+  @override
+  ReactComponentFactoryProxy get componentFactory => $TestPureComponentFactory;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => 'TestPureProps.';
 }
 
 // Concrete component implementation mixin.

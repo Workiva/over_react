@@ -96,6 +96,18 @@ _$$GenericSuperProps _$GenericSuper([Map backingProps]) =>
 class _$$GenericSuperProps extends _$GenericSuperProps
     with _$GenericSuperPropsAccessorsMixin
     implements GenericSuperProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$GenericSuperProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -108,18 +120,6 @@ class _$$GenericSuperProps extends _$GenericSuperProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'GenericSuperProps.';
-
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$GenericSuperProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 }
 
 abstract class _$GenericSuperStateAccessorsMixin
@@ -162,14 +162,10 @@ class GenericSuperState extends _$GenericSuperState
 
 // Concrete state implementation.
 //
-// Implements constructor and backing map, and links up to generated component factory.
+// Implements constructor and backing map.
 class _$$GenericSuperState extends _$GenericSuperState
     with _$GenericSuperStateAccessorsMixin
     implements GenericSuperState {
-  /// Let [UiState] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
@@ -181,6 +177,10 @@ class _$$GenericSuperState extends _$GenericSuperState
   @override
   Map get state => _state;
   Map _state;
+
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -191,6 +191,7 @@ class _$GenericSuperComponent extends GenericSuperComponent {
   @override
   _$$GenericSuperProps typedPropsFactory(Map backingMap) =>
       new _$$GenericSuperProps(backingMap);
+
   @override
   _$$GenericSuperState typedStateFactory(Map backingMap) =>
       new _$$GenericSuperState(backingMap);

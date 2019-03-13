@@ -46,18 +46,6 @@ _$$TestBasicProps _$TestBasic([Map backingProps]) =>
 class _$$TestBasicProps extends _$TestBasicProps
     with _$TestBasicPropsAccessorsMixin
     implements TestBasicProps {
-  /// Let [UiProps] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
-  /// The [ReactComponentFactory] associated with the component built by this class.
-  @override
-  ReactComponentFactoryProxy get componentFactory => $TestBasicComponentFactory;
-
-  /// The default namespace for the prop getters/setters generated for this class.
-  @override
-  String get propKeyNamespace => 'TestBasicProps.';
-
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
@@ -69,6 +57,18 @@ class _$$TestBasicProps extends _$TestBasicProps
   @override
   Map get props => _props;
   Map _props;
+
+  /// Let [UiProps] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The [ReactComponentFactory] associated with the component built by this class.
+  @override
+  ReactComponentFactoryProxy get componentFactory => $TestBasicComponentFactory;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => 'TestBasicProps.';
 }
 
 // Concrete component implementation mixin.
@@ -133,6 +133,18 @@ _$$TestHandlerLifecycleProps _$TestHandlerLifecycle([Map backingProps]) =>
 class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
     with _$TestHandlerLifecyclePropsAccessorsMixin
     implements TestHandlerLifecycleProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestHandlerLifecycleProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -145,18 +157,6 @@ class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestHandlerLifecycleProps.';
-
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestHandlerLifecycleProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 }
 
 // Concrete component implementation mixin.
@@ -221,6 +221,18 @@ _$$TestHandlerPrecedenceProps _$TestHandlerPrecedence([Map backingProps]) =>
 class _$$TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
     with _$TestHandlerPrecedencePropsAccessorsMixin
     implements TestHandlerPrecedenceProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestHandlerPrecedenceProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -233,18 +245,6 @@ class _$$TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestHandlerPrecedenceProps.';
-
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestHandlerPrecedenceProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 }
 
 // Concrete component implementation mixin.
@@ -329,6 +329,18 @@ _$$TestPropValidationProps _$TestPropValidation([Map backingProps]) =>
 class _$$TestPropValidationProps extends _$TestPropValidationProps
     with _$TestPropValidationPropsAccessorsMixin
     implements TestPropValidationProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestPropValidationProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -341,18 +353,6 @@ class _$$TestPropValidationProps extends _$TestPropValidationProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestPropValidationProps.';
-
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestPropValidationProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 }
 
 // Concrete component implementation mixin.
@@ -417,6 +417,18 @@ _$$TestRedrawOnProps _$TestRedrawOn([Map backingProps]) =>
 class _$$TestRedrawOnProps extends _$TestRedrawOnProps
     with _$TestRedrawOnPropsAccessorsMixin
     implements TestRedrawOnProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestRedrawOnProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -429,18 +441,6 @@ class _$$TestRedrawOnProps extends _$TestRedrawOnProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestRedrawOnProps.';
-
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestRedrawOnProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 }
 
 // Concrete component implementation mixin.
@@ -505,6 +505,18 @@ _$$TestStoreHandlersProps _$TestStoreHandlers([Map backingProps]) =>
 class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
     with _$TestStoreHandlersPropsAccessorsMixin
     implements TestStoreHandlersProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestStoreHandlersProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -517,18 +529,6 @@ class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStoreHandlersProps.';
-
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStoreHandlersProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 }
 
 // Concrete component implementation mixin.
@@ -593,6 +593,18 @@ _$$TestStatefulBasicProps _$TestStatefulBasic([Map backingProps]) =>
 class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
     with _$TestStatefulBasicPropsAccessorsMixin
     implements TestStatefulBasicProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestStatefulBasicProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -605,18 +617,6 @@ class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulBasicProps.';
-
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulBasicProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 }
 
 abstract class _$TestStatefulBasicStateAccessorsMixin
@@ -642,14 +642,10 @@ class TestStatefulBasicState extends _$TestStatefulBasicState
 
 // Concrete state implementation.
 //
-// Implements constructor and backing map, and links up to generated component factory.
+// Implements constructor and backing map.
 class _$$TestStatefulBasicState extends _$TestStatefulBasicState
     with _$TestStatefulBasicStateAccessorsMixin
     implements TestStatefulBasicState {
-  /// Let [UiState] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
@@ -661,6 +657,10 @@ class _$$TestStatefulBasicState extends _$TestStatefulBasicState
   @override
   Map get state => _state;
   Map _state;
+
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -671,6 +671,7 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
   @override
   _$$TestStatefulBasicProps typedPropsFactory(Map backingMap) =>
       new _$$TestStatefulBasicProps(backingMap);
+
   @override
   _$$TestStatefulBasicState typedStateFactory(Map backingMap) =>
       new _$$TestStatefulBasicState(backingMap);
@@ -731,6 +732,18 @@ class _$$TestStatefulHandlerLifecycleProps
     extends _$TestStatefulHandlerLifecycleProps
     with _$TestStatefulHandlerLifecyclePropsAccessorsMixin
     implements TestStatefulHandlerLifecycleProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestStatefulHandlerLifecycleProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -743,18 +756,6 @@ class _$$TestStatefulHandlerLifecycleProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulHandlerLifecycleProps.';
-
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulHandlerLifecycleProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 }
 
 abstract class _$TestStatefulHandlerLifecycleStateAccessorsMixin
@@ -781,15 +782,11 @@ class TestStatefulHandlerLifecycleState
 
 // Concrete state implementation.
 //
-// Implements constructor and backing map, and links up to generated component factory.
+// Implements constructor and backing map.
 class _$$TestStatefulHandlerLifecycleState
     extends _$TestStatefulHandlerLifecycleState
     with _$TestStatefulHandlerLifecycleStateAccessorsMixin
     implements TestStatefulHandlerLifecycleState {
-  /// Let [UiState] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
@@ -801,6 +798,10 @@ class _$$TestStatefulHandlerLifecycleState
   @override
   Map get state => _state;
   Map _state;
+
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -812,6 +813,7 @@ class _$TestStatefulHandlerLifecycleComponent
   @override
   _$$TestStatefulHandlerLifecycleProps typedPropsFactory(Map backingMap) =>
       new _$$TestStatefulHandlerLifecycleProps(backingMap);
+
   @override
   _$$TestStatefulHandlerLifecycleState typedStateFactory(Map backingMap) =>
       new _$$TestStatefulHandlerLifecycleState(backingMap);
@@ -872,6 +874,18 @@ class _$$TestStatefulHandlerPrecedenceProps
     extends _$TestStatefulHandlerPrecedenceProps
     with _$TestStatefulHandlerPrecedencePropsAccessorsMixin
     implements TestStatefulHandlerPrecedenceProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestStatefulHandlerPrecedenceProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -884,18 +898,6 @@ class _$$TestStatefulHandlerPrecedenceProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulHandlerPrecedenceProps.';
-
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulHandlerPrecedenceProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 }
 
 abstract class _$TestStatefulHandlerPrecedenceStateAccessorsMixin
@@ -922,15 +924,11 @@ class TestStatefulHandlerPrecedenceState
 
 // Concrete state implementation.
 //
-// Implements constructor and backing map, and links up to generated component factory.
+// Implements constructor and backing map.
 class _$$TestStatefulHandlerPrecedenceState
     extends _$TestStatefulHandlerPrecedenceState
     with _$TestStatefulHandlerPrecedenceStateAccessorsMixin
     implements TestStatefulHandlerPrecedenceState {
-  /// Let [UiState] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
@@ -942,6 +940,10 @@ class _$$TestStatefulHandlerPrecedenceState
   @override
   Map get state => _state;
   Map _state;
+
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -953,6 +955,7 @@ class _$TestStatefulHandlerPrecedenceComponent
   @override
   _$$TestStatefulHandlerPrecedenceProps typedPropsFactory(Map backingMap) =>
       new _$$TestStatefulHandlerPrecedenceProps(backingMap);
+
   @override
   _$$TestStatefulHandlerPrecedenceState typedStateFactory(Map backingMap) =>
       new _$$TestStatefulHandlerPrecedenceState(backingMap);
@@ -1035,6 +1038,18 @@ class _$$TestStatefulPropValidationProps
     extends _$TestStatefulPropValidationProps
     with _$TestStatefulPropValidationPropsAccessorsMixin
     implements TestStatefulPropValidationProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestStatefulPropValidationProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -1047,18 +1062,6 @@ class _$$TestStatefulPropValidationProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulPropValidationProps.';
-
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulPropValidationProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 }
 
 abstract class _$TestStatefulPropValidationStateAccessorsMixin
@@ -1084,15 +1087,11 @@ class TestStatefulPropValidationState extends _$TestStatefulPropValidationState
 
 // Concrete state implementation.
 //
-// Implements constructor and backing map, and links up to generated component factory.
+// Implements constructor and backing map.
 class _$$TestStatefulPropValidationState
     extends _$TestStatefulPropValidationState
     with _$TestStatefulPropValidationStateAccessorsMixin
     implements TestStatefulPropValidationState {
-  /// Let [UiState] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
@@ -1104,6 +1103,10 @@ class _$$TestStatefulPropValidationState
   @override
   Map get state => _state;
   Map _state;
+
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -1115,6 +1118,7 @@ class _$TestStatefulPropValidationComponent
   @override
   _$$TestStatefulPropValidationProps typedPropsFactory(Map backingMap) =>
       new _$$TestStatefulPropValidationProps(backingMap);
+
   @override
   _$$TestStatefulPropValidationState typedStateFactory(Map backingMap) =>
       new _$$TestStatefulPropValidationState(backingMap);
@@ -1172,6 +1176,18 @@ _$$TestStatefulRedrawOnProps _$TestStatefulRedrawOn([Map backingProps]) =>
 class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
     with _$TestStatefulRedrawOnPropsAccessorsMixin
     implements TestStatefulRedrawOnProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestStatefulRedrawOnProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -1184,18 +1200,6 @@ class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulRedrawOnProps.';
-
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulRedrawOnProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 }
 
 abstract class _$TestStatefulRedrawOnStateAccessorsMixin
@@ -1221,14 +1225,10 @@ class TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState
 
 // Concrete state implementation.
 //
-// Implements constructor and backing map, and links up to generated component factory.
+// Implements constructor and backing map.
 class _$$TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState
     with _$TestStatefulRedrawOnStateAccessorsMixin
     implements TestStatefulRedrawOnState {
-  /// Let [UiState] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
@@ -1240,6 +1240,10 @@ class _$$TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState
   @override
   Map get state => _state;
   Map _state;
+
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -1250,6 +1254,7 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
   @override
   _$$TestStatefulRedrawOnProps typedPropsFactory(Map backingMap) =>
       new _$$TestStatefulRedrawOnProps(backingMap);
+
   @override
   _$$TestStatefulRedrawOnState typedStateFactory(Map backingMap) =>
       new _$$TestStatefulRedrawOnState(backingMap);
@@ -1308,6 +1313,18 @@ _$$TestStatefulStoreHandlersProps _$TestStatefulStoreHandlers(
 class _$$TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
     with _$TestStatefulStoreHandlersPropsAccessorsMixin
     implements TestStatefulStoreHandlersProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestStatefulStoreHandlersProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -1320,18 +1337,6 @@ class _$$TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestStatefulStoreHandlersProps.';
-
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulStoreHandlersProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 }
 
 abstract class _$TestStatefulStoreHandlersStateAccessorsMixin
@@ -1357,14 +1362,10 @@ class TestStatefulStoreHandlersState extends _$TestStatefulStoreHandlersState
 
 // Concrete state implementation.
 //
-// Implements constructor and backing map, and links up to generated component factory.
+// Implements constructor and backing map.
 class _$$TestStatefulStoreHandlersState extends _$TestStatefulStoreHandlersState
     with _$TestStatefulStoreHandlersStateAccessorsMixin
     implements TestStatefulStoreHandlersState {
-  /// Let [UiState] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
@@ -1376,6 +1377,10 @@ class _$$TestStatefulStoreHandlersState extends _$TestStatefulStoreHandlersState
   @override
   Map get state => _state;
   Map _state;
+
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -1387,6 +1392,7 @@ class _$TestStatefulStoreHandlersComponent
   @override
   _$$TestStatefulStoreHandlersProps typedPropsFactory(Map backingMap) =>
       new _$$TestStatefulStoreHandlersProps(backingMap);
+
   @override
   _$$TestStatefulStoreHandlersState typedStateFactory(Map backingMap) =>
       new _$$TestStatefulStoreHandlersState(backingMap);

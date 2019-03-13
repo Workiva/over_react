@@ -144,6 +144,18 @@ _$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) =>
 class _$$BasicPartOfLibProps extends _$BasicPartOfLibProps
     with _$BasicPartOfLibPropsAccessorsMixin
     implements BasicPartOfLibProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$BasicPartOfLibProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -156,18 +168,6 @@ class _$$BasicPartOfLibProps extends _$BasicPartOfLibProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'BasicPartOfLibProps.';
-
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$BasicPartOfLibProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 }
 
 abstract class _$BasicPartOfLibStateAccessorsMixin
@@ -210,14 +210,10 @@ class BasicPartOfLibState extends _$BasicPartOfLibState
 
 // Concrete state implementation.
 //
-// Implements constructor and backing map, and links up to generated component factory.
+// Implements constructor and backing map.
 class _$$BasicPartOfLibState extends _$BasicPartOfLibState
     with _$BasicPartOfLibStateAccessorsMixin
     implements BasicPartOfLibState {
-  /// Let [UiState] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
@@ -229,6 +225,10 @@ class _$$BasicPartOfLibState extends _$BasicPartOfLibState
   @override
   Map get state => _state;
   Map _state;
+
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -239,6 +239,7 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
   @override
   _$$BasicPartOfLibProps typedPropsFactory(Map backingMap) =>
       new _$$BasicPartOfLibProps(backingMap);
+
   @override
   _$$BasicPartOfLibState typedStateFactory(Map backingMap) =>
       new _$$BasicPartOfLibState(backingMap);
@@ -313,6 +314,18 @@ _$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) =>
 class _$$SubPartOfLibProps extends _$SubPartOfLibProps
     with _$SubPartOfLibPropsAccessorsMixin
     implements SubPartOfLibProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$SubPartOfLibProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -325,18 +338,6 @@ class _$$SubPartOfLibProps extends _$SubPartOfLibProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'SubPartOfLibProps.';
-
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$SubPartOfLibProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 }
 
 // Concrete component implementation mixin.

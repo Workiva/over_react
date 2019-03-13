@@ -212,6 +212,16 @@ _$$ListGroupItemProps _$ListGroupItem([Map backingProps]) =>
 abstract class _$$ListGroupItemProps extends _$ListGroupItemProps
     with _$ListGroupItemPropsAccessorsMixin
     implements ListGroupItemProps {
+  _$$ListGroupItemProps._();
+
+  factory _$$ListGroupItemProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$ListGroupItemProps$JsMap(backingMap);
+    } else {
+      return new _$$ListGroupItemProps$PlainMap(backingMap);
+    }
+  }
+
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -224,16 +234,6 @@ abstract class _$$ListGroupItemProps extends _$ListGroupItemProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ListGroupItemProps.';
-
-  _$$ListGroupItemProps._();
-
-  factory _$$ListGroupItemProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$ListGroupItemProps$JsMap(backingMap);
-    } else {
-      return new _$$ListGroupItemProps$PlainMap(backingMap);
-    }
-  }
 }
 
 class _$$ListGroupItemProps$PlainMap extends _$$ListGroupItemProps {
@@ -273,10 +273,8 @@ class _$$ListGroupItemProps$JsMap extends _$$ListGroupItemProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ListGroupItemComponent extends ListGroupItemComponent {
-  @override
-  _$$ListGroupItemProps typedPropsFactory(Map backingMap) =>
-      new _$$ListGroupItemProps(backingMap);
   _$$ListGroupItemProps$JsMap _cachedTypedProps;
+
   @override
   _$$ListGroupItemProps$JsMap get props => _cachedTypedProps;
 
@@ -289,6 +287,10 @@ class _$ListGroupItemComponent extends ListGroupItemComponent {
   @override
   _$$ListGroupItemProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
       new _$$ListGroupItemProps$JsMap(backingMap);
+
+  @override
+  _$$ListGroupItemProps typedPropsFactory(Map backingMap) =>
+      new _$$ListGroupItemProps(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override

@@ -156,6 +156,18 @@ _$$NamespacedAccessorTestProps _$NamespacedAccessorTest([Map backingProps]) =>
 class _$$NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
     with _$NamespacedAccessorTestPropsAccessorsMixin
     implements NamespacedAccessorTestProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$NamespacedAccessorTestProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -168,18 +180,6 @@ class _$$NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'custom props class namespace**';
-
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$NamespacedAccessorTestProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
 }
 
 abstract class _$NamespacedAccessorTestStateAccessorsMixin
@@ -315,14 +315,10 @@ const StateMeta _$metaForNamespacedAccessorTestState = const StateMeta(
 
 // Concrete state implementation.
 //
-// Implements constructor and backing map, and links up to generated component factory.
+// Implements constructor and backing map.
 class _$$NamespacedAccessorTestState extends _$NamespacedAccessorTestState
     with _$NamespacedAccessorTestStateAccessorsMixin
     implements NamespacedAccessorTestState {
-  /// Let [UiState] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
@@ -334,6 +330,10 @@ class _$$NamespacedAccessorTestState extends _$NamespacedAccessorTestState
   @override
   Map get state => _state;
   Map _state;
+
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -345,6 +345,7 @@ class _$NamespacedAccessorTestComponent
   @override
   _$$NamespacedAccessorTestProps typedPropsFactory(Map backingMap) =>
       new _$$NamespacedAccessorTestProps(backingMap);
+
   @override
   _$$NamespacedAccessorTestState typedStateFactory(Map backingMap) =>
       new _$$NamespacedAccessorTestState(backingMap);
