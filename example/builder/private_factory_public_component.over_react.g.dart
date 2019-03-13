@@ -56,9 +56,7 @@ class FormActionInputProps extends _$FormActionInputProps
 }
 
 _$$FormActionInputProps _$_FormActionInput([Map backingProps]) =>
-    backingProps == null
-        ? new _$$FormActionInputProps$JsMap(new JsBackedMap())
-        : new _$$FormActionInputProps(backingProps);
+    new _$$FormActionInputProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -66,15 +64,6 @@ _$$FormActionInputProps _$_FormActionInput([Map backingProps]) =>
 class _$$FormActionInputProps extends _$FormActionInputProps
     with _$FormActionInputPropsAccessorsMixin
     implements FormActionInputProps {
-  _$$FormActionInputProps._();
-  factory _$$FormActionInputProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$FormActionInputProps$PlainMap(backingMap);
-    } else {
-      return new _$$FormActionInputProps$JsMap(backingMap);
-    }
-  }
-
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -87,15 +76,11 @@ class _$$FormActionInputProps extends _$FormActionInputProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'FormActionInputProps.';
-}
 
-class _$$FormActionInputProps$PlainMap extends _$$FormActionInputProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$FormActionInputProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
+  _$$FormActionInputProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -103,22 +88,6 @@ class _$$FormActionInputProps$PlainMap extends _$$FormActionInputProps {
   @override
   Map get props => _props;
   Map _props;
-}
-
-class _$$FormActionInputProps$JsMap extends _$$FormActionInputProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$FormActionInputProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }
 
 // Concrete component implementation mixin.
@@ -129,9 +98,6 @@ class _$FormActionInputComponent extends FormActionInputComponent {
   @override
   _$$FormActionInputProps typedPropsFactory(Map backingMap) =>
       new _$$FormActionInputProps(backingMap);
-  @override
-  _$$FormActionInputProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$FormActionInputProps$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -143,12 +109,4 @@ class _$FormActionInputComponent extends FormActionInputComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForFormActionInputProps
   ];
-  _$$FormActionInputProps$JsMap _cachedTypedProps;
-  @override
-  _$$FormActionInputProps$JsMap get props => _cachedTypedProps;
-  @override
-  set props(Map value) {
-    super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
-  }
 }

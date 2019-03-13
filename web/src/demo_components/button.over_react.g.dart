@@ -161,18 +161,9 @@ _$$ButtonProps _$Button([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$ButtonProps extends _$ButtonProps
+abstract class _$$ButtonProps extends _$ButtonProps
     with _$ButtonPropsAccessorsMixin
     implements ButtonProps {
-  _$$ButtonProps._();
-  factory _$$ButtonProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$ButtonProps$PlainMap(backingMap);
-    } else {
-      return new _$$ButtonProps$JsMap(backingMap);
-    }
-  }
-
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -184,6 +175,16 @@ class _$$ButtonProps extends _$ButtonProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ButtonProps.';
+
+  _$$ButtonProps._();
+
+  factory _$$ButtonProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$ButtonProps$JsMap(backingMap);
+    } else {
+      return new _$$ButtonProps$PlainMap(backingMap);
+    }
+  }
 }
 
 class _$$ButtonProps$PlainMap extends _$$ButtonProps {
@@ -239,14 +240,32 @@ class ButtonState extends _$ButtonState with _$ButtonStateAccessorsMixin {
 
 // Concrete state implementation.
 //
-// Implements constructor and backing map.
-class _$$ButtonState extends _$ButtonState
+// Implements constructor and backing map, and links up to generated component factory.
+abstract class _$$ButtonState extends _$ButtonState
     with _$ButtonStateAccessorsMixin
     implements ButtonState {
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  _$$ButtonState._();
+
+  factory _$$ButtonState(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$ButtonState$JsMap(backingMap);
+    } else {
+      return new _$$ButtonState$PlainMap(backingMap);
+    }
+  }
+}
+
+class _$$ButtonState$PlainMap extends _$$ButtonState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$ButtonState(Map backingMap) : this._state = {} {
+  _$$ButtonState$PlainMap(Map backingMap)
+      : this._state = {},
+        super._() {
     this._state = backingMap ?? {};
   }
 
@@ -254,10 +273,22 @@ class _$$ButtonState extends _$ButtonState
   @override
   Map get state => _state;
   Map _state;
+}
 
-  /// Let [UiState] internals know that this class has been generated.
+class _$$ButtonState$JsMap extends _$$ButtonState {
+  // This initializer of `_state` to an empty map, as well as the reassignment
+  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$ButtonState$JsMap(JsBackedMap backingMap)
+      : this._state = new JsBackedMap(),
+        super._() {
+    this._state = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing state map proxied by this class.
   @override
-  bool get $isClassGenerated => true;
+  JsBackedMap get state => _state;
+  JsBackedMap _state;
 }
 
 // Concrete component implementation mixin.
@@ -268,13 +299,35 @@ class _$ButtonComponent extends ButtonComponent {
   @override
   _$$ButtonProps typedPropsFactory(Map backingMap) =>
       new _$$ButtonProps(backingMap);
+  _$$ButtonProps$JsMap _cachedTypedProps;
+  @override
+  _$$ButtonProps$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
+
   @override
   _$$ButtonProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
       new _$$ButtonProps$JsMap(backingMap);
-
   @override
   _$$ButtonState typedStateFactory(Map backingMap) =>
       new _$$ButtonState(backingMap);
+  _$$ButtonState$JsMap _cachedTypedState;
+  @override
+  _$$ButtonState$JsMap get state => _cachedTypedState;
+
+  @override
+  set state(Map value) {
+    super.state = value;
+    _cachedTypedState = typedStateFactoryJs(value);
+  }
+
+  @override
+  _$$ButtonState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
+      new _$$ButtonState$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -286,12 +339,4 @@ class _$ButtonComponent extends ButtonComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForButtonProps
   ];
-  _$$ButtonProps$JsMap _cachedTypedProps;
-  @override
-  _$$ButtonProps$JsMap get props => _cachedTypedProps;
-  @override
-  set props(Map value) {
-    super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
-  }
 }

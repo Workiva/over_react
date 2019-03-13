@@ -40,9 +40,7 @@ class TestExtendtypeProps extends _$TestExtendtypeProps
 }
 
 _$$TestExtendtypeProps _$TestExtendtype([Map backingProps]) =>
-    backingProps == null
-        ? new _$$TestExtendtypeProps$JsMap(new JsBackedMap())
-        : new _$$TestExtendtypeProps(backingProps);
+    new _$$TestExtendtypeProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -50,15 +48,6 @@ _$$TestExtendtypeProps _$TestExtendtype([Map backingProps]) =>
 class _$$TestExtendtypeProps extends _$TestExtendtypeProps
     with _$TestExtendtypePropsAccessorsMixin
     implements TestExtendtypeProps {
-  _$$TestExtendtypeProps._();
-  factory _$$TestExtendtypeProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$TestExtendtypeProps$PlainMap(backingMap);
-    } else {
-      return new _$$TestExtendtypeProps$JsMap(backingMap);
-    }
-  }
-
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -71,15 +60,11 @@ class _$$TestExtendtypeProps extends _$TestExtendtypeProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestExtendtypeProps.';
-}
 
-class _$$TestExtendtypeProps$PlainMap extends _$$TestExtendtypeProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestExtendtypeProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
+  _$$TestExtendtypeProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -87,22 +72,6 @@ class _$$TestExtendtypeProps$PlainMap extends _$$TestExtendtypeProps {
   @override
   Map get props => _props;
   Map _props;
-}
-
-class _$$TestExtendtypeProps$JsMap extends _$$TestExtendtypeProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestExtendtypeProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }
 
 // Concrete component implementation mixin.
@@ -113,9 +82,6 @@ class _$TestExtendtypeComponent extends TestExtendtypeComponent {
   @override
   _$$TestExtendtypeProps typedPropsFactory(Map backingMap) =>
       new _$$TestExtendtypeProps(backingMap);
-  @override
-  _$$TestExtendtypeProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$TestExtendtypeProps$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -127,12 +93,4 @@ class _$TestExtendtypeComponent extends TestExtendtypeComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestExtendtypeProps
   ];
-  _$$TestExtendtypeProps$JsMap _cachedTypedProps;
-  @override
-  _$$TestExtendtypeProps$JsMap get props => _cachedTypedProps;
-  @override
-  set props(Map value) {
-    super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
-  }
 }

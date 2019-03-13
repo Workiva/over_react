@@ -48,9 +48,7 @@ class SubProps extends _$SubProps with _$SubPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForSubProps;
 }
 
-_$$SubProps _$Sub([Map backingProps]) => backingProps == null
-    ? new _$$SubProps$JsMap(new JsBackedMap())
-    : new _$$SubProps(backingProps);
+_$$SubProps _$Sub([Map backingProps]) => new _$$SubProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -58,15 +56,6 @@ _$$SubProps _$Sub([Map backingProps]) => backingProps == null
 class _$$SubProps extends _$SubProps
     with _$SubPropsAccessorsMixin
     implements SubProps {
-  _$$SubProps._();
-  factory _$$SubProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$SubProps$PlainMap(backingMap);
-    } else {
-      return new _$$SubProps$JsMap(backingMap);
-    }
-  }
-
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -78,15 +67,11 @@ class _$$SubProps extends _$SubProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'SubProps.';
-}
 
-class _$$SubProps$PlainMap extends _$$SubProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$SubProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
+  _$$SubProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -94,22 +79,6 @@ class _$$SubProps$PlainMap extends _$$SubProps {
   @override
   Map get props => _props;
   Map _props;
-}
-
-class _$$SubProps$JsMap extends _$$SubProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$SubProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }
 
 abstract class _$SubStateAccessorsMixin implements _$SubState {
@@ -146,10 +115,14 @@ class SubState extends _$SubState with _$SubStateAccessorsMixin {
 
 // Concrete state implementation.
 //
-// Implements constructor and backing map.
+// Implements constructor and backing map, and links up to generated component factory.
 class _$$SubState extends _$SubState
     with _$SubStateAccessorsMixin
     implements SubState {
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
@@ -161,10 +134,6 @@ class _$$SubState extends _$SubState
   @override
   Map get state => _state;
   Map _state;
-
-  /// Let [UiState] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -174,10 +143,6 @@ class _$$SubState extends _$SubState
 class _$SubComponent extends SubComponent {
   @override
   _$$SubProps typedPropsFactory(Map backingMap) => new _$$SubProps(backingMap);
-  @override
-  _$$SubProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$SubProps$JsMap(backingMap);
-
   @override
   _$$SubState typedStateFactory(Map backingMap) => new _$$SubState(backingMap);
 
@@ -189,14 +154,6 @@ class _$SubComponent extends SubComponent {
   /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForSubProps];
-  _$$SubProps$JsMap _cachedTypedProps;
-  @override
-  _$$SubProps$JsMap get props => _cachedTypedProps;
-  @override
-  set props(Map value) {
-    super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
-  }
 }
 
 abstract class _$SuperPropsAccessorsMixin implements _$SuperProps {

@@ -35,9 +35,7 @@ class TestAProps extends _$TestAProps with _$TestAPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestAProps;
 }
 
-_$$TestAProps _$TestA([Map backingProps]) => backingProps == null
-    ? new _$$TestAProps$JsMap(new JsBackedMap())
-    : new _$$TestAProps(backingProps);
+_$$TestAProps _$TestA([Map backingProps]) => new _$$TestAProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -45,15 +43,6 @@ _$$TestAProps _$TestA([Map backingProps]) => backingProps == null
 class _$$TestAProps extends _$TestAProps
     with _$TestAPropsAccessorsMixin
     implements TestAProps {
-  _$$TestAProps._();
-  factory _$$TestAProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$TestAProps$PlainMap(backingMap);
-    } else {
-      return new _$$TestAProps$JsMap(backingMap);
-    }
-  }
-
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -65,15 +54,11 @@ class _$$TestAProps extends _$TestAProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestAProps.';
-}
 
-class _$$TestAProps$PlainMap extends _$$TestAProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestAProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
+  _$$TestAProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -81,22 +66,6 @@ class _$$TestAProps$PlainMap extends _$$TestAProps {
   @override
   Map get props => _props;
   Map _props;
-}
-
-class _$$TestAProps$JsMap extends _$$TestAProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestAProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }
 
 // Concrete component implementation mixin.
@@ -107,9 +76,6 @@ class _$TestAComponent extends TestAComponent {
   @override
   _$$TestAProps typedPropsFactory(Map backingMap) =>
       new _$$TestAProps(backingMap);
-  @override
-  _$$TestAProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$TestAProps$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -119,12 +85,4 @@ class _$TestAComponent extends TestAComponent {
   /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestAProps];
-  _$$TestAProps$JsMap _cachedTypedProps;
-  @override
-  _$$TestAProps$JsMap get props => _cachedTypedProps;
-  @override
-  set props(Map value) {
-    super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
-  }
 }

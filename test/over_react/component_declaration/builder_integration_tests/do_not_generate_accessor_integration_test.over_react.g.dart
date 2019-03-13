@@ -99,9 +99,7 @@ class DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
 
 _$$DoNotGenerateAccessorTestProps _$DoNotGenerateAccessorTest(
         [Map backingProps]) =>
-    backingProps == null
-        ? new _$$DoNotGenerateAccessorTestProps$JsMap(new JsBackedMap())
-        : new _$$DoNotGenerateAccessorTestProps(backingProps);
+    new _$$DoNotGenerateAccessorTestProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -109,15 +107,6 @@ _$$DoNotGenerateAccessorTestProps _$DoNotGenerateAccessorTest(
 class _$$DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
     with _$DoNotGenerateAccessorTestPropsAccessorsMixin
     implements DoNotGenerateAccessorTestProps {
-  _$$DoNotGenerateAccessorTestProps._();
-  factory _$$DoNotGenerateAccessorTestProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$DoNotGenerateAccessorTestProps$PlainMap(backingMap);
-    } else {
-      return new _$$DoNotGenerateAccessorTestProps$JsMap(backingMap);
-    }
-  }
-
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -130,16 +119,11 @@ class _$$DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'DoNotGenerateAccessorTestProps.';
-}
 
-class _$$DoNotGenerateAccessorTestProps$PlainMap
-    extends _$$DoNotGenerateAccessorTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$DoNotGenerateAccessorTestProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
+  _$$DoNotGenerateAccessorTestProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -147,23 +131,6 @@ class _$$DoNotGenerateAccessorTestProps$PlainMap
   @override
   Map get props => _props;
   Map _props;
-}
-
-class _$$DoNotGenerateAccessorTestProps$JsMap
-    extends _$$DoNotGenerateAccessorTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$DoNotGenerateAccessorTestProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }
 
 abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
@@ -249,10 +216,14 @@ class DoNotGenerateAccessorTestState extends _$DoNotGenerateAccessorTestState
 
 // Concrete state implementation.
 //
-// Implements constructor and backing map.
+// Implements constructor and backing map, and links up to generated component factory.
 class _$$DoNotGenerateAccessorTestState extends _$DoNotGenerateAccessorTestState
     with _$DoNotGenerateAccessorTestStateAccessorsMixin
     implements DoNotGenerateAccessorTestState {
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
@@ -264,10 +235,6 @@ class _$$DoNotGenerateAccessorTestState extends _$DoNotGenerateAccessorTestState
   @override
   Map get state => _state;
   Map _state;
-
-  /// Let [UiState] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -279,11 +246,6 @@ class _$DoNotGenerateAccessorTestComponent
   @override
   _$$DoNotGenerateAccessorTestProps typedPropsFactory(Map backingMap) =>
       new _$$DoNotGenerateAccessorTestProps(backingMap);
-  @override
-  _$$DoNotGenerateAccessorTestProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
-      new _$$DoNotGenerateAccessorTestProps$JsMap(backingMap);
-
   @override
   _$$DoNotGenerateAccessorTestState typedStateFactory(Map backingMap) =>
       new _$$DoNotGenerateAccessorTestState(backingMap);
@@ -298,12 +260,4 @@ class _$DoNotGenerateAccessorTestComponent
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForDoNotGenerateAccessorTestProps
   ];
-  _$$DoNotGenerateAccessorTestProps$JsMap _cachedTypedProps;
-  @override
-  _$$DoNotGenerateAccessorTestProps$JsMap get props => _cachedTypedProps;
-  @override
-  set props(Map value) {
-    super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
-  }
 }

@@ -153,9 +153,7 @@ class NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
 }
 
 _$$NamespacedAccessorTestProps _$NamespacedAccessorTest([Map backingProps]) =>
-    backingProps == null
-        ? new _$$NamespacedAccessorTestProps$JsMap(new JsBackedMap())
-        : new _$$NamespacedAccessorTestProps(backingProps);
+    new _$$NamespacedAccessorTestProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -163,15 +161,6 @@ _$$NamespacedAccessorTestProps _$NamespacedAccessorTest([Map backingProps]) =>
 class _$$NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
     with _$NamespacedAccessorTestPropsAccessorsMixin
     implements NamespacedAccessorTestProps {
-  _$$NamespacedAccessorTestProps._();
-  factory _$$NamespacedAccessorTestProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$NamespacedAccessorTestProps$PlainMap(backingMap);
-    } else {
-      return new _$$NamespacedAccessorTestProps$JsMap(backingMap);
-    }
-  }
-
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -184,16 +173,11 @@ class _$$NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'custom props class namespace**';
-}
 
-class _$$NamespacedAccessorTestProps$PlainMap
-    extends _$$NamespacedAccessorTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$NamespacedAccessorTestProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
+  _$$NamespacedAccessorTestProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -201,23 +185,6 @@ class _$$NamespacedAccessorTestProps$PlainMap
   @override
   Map get props => _props;
   Map _props;
-}
-
-class _$$NamespacedAccessorTestProps$JsMap
-    extends _$$NamespacedAccessorTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$NamespacedAccessorTestProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }
 
 abstract class _$NamespacedAccessorTestStateAccessorsMixin
@@ -358,10 +325,14 @@ class NamespacedAccessorTestState extends _$NamespacedAccessorTestState
 
 // Concrete state implementation.
 //
-// Implements constructor and backing map.
+// Implements constructor and backing map, and links up to generated component factory.
 class _$$NamespacedAccessorTestState extends _$NamespacedAccessorTestState
     with _$NamespacedAccessorTestStateAccessorsMixin
     implements NamespacedAccessorTestState {
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
@@ -373,10 +344,6 @@ class _$$NamespacedAccessorTestState extends _$NamespacedAccessorTestState
   @override
   Map get state => _state;
   Map _state;
-
-  /// Let [UiState] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -388,11 +355,6 @@ class _$NamespacedAccessorTestComponent
   @override
   _$$NamespacedAccessorTestProps typedPropsFactory(Map backingMap) =>
       new _$$NamespacedAccessorTestProps(backingMap);
-  @override
-  _$$NamespacedAccessorTestProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
-      new _$$NamespacedAccessorTestProps$JsMap(backingMap);
-
   @override
   _$$NamespacedAccessorTestState typedStateFactory(Map backingMap) =>
       new _$$NamespacedAccessorTestState(backingMap);
@@ -407,12 +369,4 @@ class _$NamespacedAccessorTestComponent
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForNamespacedAccessorTestProps
   ];
-  _$$NamespacedAccessorTestProps$JsMap _cachedTypedProps;
-  @override
-  _$$NamespacedAccessorTestProps$JsMap get props => _cachedTypedProps;
-  @override
-  set props(Map value) {
-    super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
-  }
 }

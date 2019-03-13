@@ -71,9 +71,7 @@ const PropsMeta _$metaForComponentTestProps = const PropsMeta(
 );
 
 _$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
-    backingProps == null
-        ? new _$$ComponentTestProps$JsMap(new JsBackedMap())
-        : new _$$ComponentTestProps(backingProps);
+    new _$$ComponentTestProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -81,15 +79,6 @@ _$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
 class _$$ComponentTestProps extends _$ComponentTestProps
     with _$ComponentTestPropsAccessorsMixin
     implements ComponentTestProps {
-  _$$ComponentTestProps._();
-  factory _$$ComponentTestProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$ComponentTestProps$PlainMap(backingMap);
-    } else {
-      return new _$$ComponentTestProps$JsMap(backingMap);
-    }
-  }
-
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -102,15 +91,11 @@ class _$$ComponentTestProps extends _$ComponentTestProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ComponentTestProps.';
-}
 
-class _$$ComponentTestProps$PlainMap extends _$$ComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$ComponentTestProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
+  _$$ComponentTestProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -118,22 +103,6 @@ class _$$ComponentTestProps$PlainMap extends _$$ComponentTestProps {
   @override
   Map get props => _props;
   Map _props;
-}
-
-class _$$ComponentTestProps$JsMap extends _$$ComponentTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$ComponentTestProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }
 
 // Concrete component implementation mixin.
@@ -144,9 +113,6 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   @override
   _$$ComponentTestProps typedPropsFactory(Map backingMap) =>
       new _$$ComponentTestProps(backingMap);
-  @override
-  _$$ComponentTestProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$ComponentTestProps$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -158,12 +124,4 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForComponentTestProps
   ];
-  _$$ComponentTestProps$JsMap _cachedTypedProps;
-  @override
-  _$$ComponentTestProps$JsMap get props => _cachedTypedProps;
-  @override
-  set props(Map value) {
-    super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
-  }
 }

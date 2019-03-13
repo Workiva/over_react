@@ -37,9 +37,8 @@ class TestDefaultProps extends _$TestDefaultProps
   static const PropsMeta meta = _$metaForTestDefaultProps;
 }
 
-_$$TestDefaultProps _$TestDefault([Map backingProps]) => backingProps == null
-    ? new _$$TestDefaultProps$JsMap(new JsBackedMap())
-    : new _$$TestDefaultProps(backingProps);
+_$$TestDefaultProps _$TestDefault([Map backingProps]) =>
+    new _$$TestDefaultProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -47,15 +46,6 @@ _$$TestDefaultProps _$TestDefault([Map backingProps]) => backingProps == null
 class _$$TestDefaultProps extends _$TestDefaultProps
     with _$TestDefaultPropsAccessorsMixin
     implements TestDefaultProps {
-  _$$TestDefaultProps._();
-  factory _$$TestDefaultProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$TestDefaultProps$PlainMap(backingMap);
-    } else {
-      return new _$$TestDefaultProps$JsMap(backingMap);
-    }
-  }
-
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -68,15 +58,11 @@ class _$$TestDefaultProps extends _$TestDefaultProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestDefaultProps.';
-}
 
-class _$$TestDefaultProps$PlainMap extends _$$TestDefaultProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestDefaultProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
+  _$$TestDefaultProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -84,22 +70,6 @@ class _$$TestDefaultProps$PlainMap extends _$$TestDefaultProps {
   @override
   Map get props => _props;
   Map _props;
-}
-
-class _$$TestDefaultProps$JsMap extends _$$TestDefaultProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestDefaultProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }
 
 // Concrete component implementation mixin.
@@ -110,9 +80,6 @@ class _$TestDefaultComponent extends TestDefaultComponent {
   @override
   _$$TestDefaultProps typedPropsFactory(Map backingMap) =>
       new _$$TestDefaultProps(backingMap);
-  @override
-  _$$TestDefaultProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$TestDefaultProps$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -124,14 +91,6 @@ class _$TestDefaultComponent extends TestDefaultComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestDefaultProps
   ];
-  _$$TestDefaultProps$JsMap _cachedTypedProps;
-  @override
-  _$$TestDefaultProps$JsMap get props => _cachedTypedProps;
-  @override
-  set props(Map value) {
-    super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
-  }
 }
 
 // React component factory implementation.
@@ -165,9 +124,8 @@ class TestConnectProps extends _$TestConnectProps
   static const PropsMeta meta = _$metaForTestConnectProps;
 }
 
-_$$TestConnectProps _$TestConnect([Map backingProps]) => backingProps == null
-    ? new _$$TestConnectProps$JsMap(new JsBackedMap())
-    : new _$$TestConnectProps(backingProps);
+_$$TestConnectProps _$TestConnect([Map backingProps]) =>
+    new _$$TestConnectProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -175,15 +133,6 @@ _$$TestConnectProps _$TestConnect([Map backingProps]) => backingProps == null
 class _$$TestConnectProps extends _$TestConnectProps
     with _$TestConnectPropsAccessorsMixin
     implements TestConnectProps {
-  _$$TestConnectProps._();
-  factory _$$TestConnectProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$TestConnectProps$PlainMap(backingMap);
-    } else {
-      return new _$$TestConnectProps$JsMap(backingMap);
-    }
-  }
-
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -196,15 +145,11 @@ class _$$TestConnectProps extends _$TestConnectProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestConnectProps.';
-}
 
-class _$$TestConnectProps$PlainMap extends _$$TestConnectProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestConnectProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
+  _$$TestConnectProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -212,22 +157,6 @@ class _$$TestConnectProps$PlainMap extends _$$TestConnectProps {
   @override
   Map get props => _props;
   Map _props;
-}
-
-class _$$TestConnectProps$JsMap extends _$$TestConnectProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestConnectProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }
 
 // Concrete component implementation mixin.
@@ -238,9 +167,6 @@ class _$TestConnectComponent extends TestConnectComponent {
   @override
   _$$TestConnectProps typedPropsFactory(Map backingMap) =>
       new _$$TestConnectProps(backingMap);
-  @override
-  _$$TestConnectProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$TestConnectProps$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -252,14 +178,6 @@ class _$TestConnectComponent extends TestConnectComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestConnectProps
   ];
-  _$$TestConnectProps$JsMap _cachedTypedProps;
-  @override
-  _$$TestConnectProps$JsMap get props => _cachedTypedProps;
-  @override
-  set props(Map value) {
-    super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
-  }
 }
 
 // React component factory implementation.
@@ -292,9 +210,8 @@ class TestPureProps extends _$TestPureProps with _$TestPurePropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestPureProps;
 }
 
-_$$TestPureProps _$TestPure([Map backingProps]) => backingProps == null
-    ? new _$$TestPureProps$JsMap(new JsBackedMap())
-    : new _$$TestPureProps(backingProps);
+_$$TestPureProps _$TestPure([Map backingProps]) =>
+    new _$$TestPureProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -302,15 +219,6 @@ _$$TestPureProps _$TestPure([Map backingProps]) => backingProps == null
 class _$$TestPureProps extends _$TestPureProps
     with _$TestPurePropsAccessorsMixin
     implements TestPureProps {
-  _$$TestPureProps._();
-  factory _$$TestPureProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$TestPureProps$PlainMap(backingMap);
-    } else {
-      return new _$$TestPureProps$JsMap(backingMap);
-    }
-  }
-
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -322,15 +230,11 @@ class _$$TestPureProps extends _$TestPureProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TestPureProps.';
-}
 
-class _$$TestPureProps$PlainMap extends _$$TestPureProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestPureProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
+  _$$TestPureProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -338,22 +242,6 @@ class _$$TestPureProps$PlainMap extends _$$TestPureProps {
   @override
   Map get props => _props;
   Map _props;
-}
-
-class _$$TestPureProps$JsMap extends _$$TestPureProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestPureProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }
 
 // Concrete component implementation mixin.
@@ -364,9 +252,6 @@ class _$TestPureComponent extends TestPureComponent {
   @override
   _$$TestPureProps typedPropsFactory(Map backingMap) =>
       new _$$TestPureProps(backingMap);
-  @override
-  _$$TestPureProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$TestPureProps$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -378,12 +263,4 @@ class _$TestPureComponent extends TestPureComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestPureProps
   ];
-  _$$TestPureProps$JsMap _cachedTypedProps;
-  @override
-  _$$TestPureProps$JsMap get props => _cachedTypedProps;
-  @override
-  set props(Map value) {
-    super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
-  }
 }

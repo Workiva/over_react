@@ -45,9 +45,7 @@ const PropsMeta _$metaForFooProps = const PropsMeta(
   keys: _$FooPropsAccessorsMixin.$propKeys,
 );
 
-_$$FooProps _$Foo([Map backingProps]) => backingProps == null
-    ? new _$$FooProps$JsMap(new JsBackedMap())
-    : new _$$FooProps(backingProps);
+_$$FooProps _$Foo([Map backingProps]) => new _$$FooProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -55,15 +53,6 @@ _$$FooProps _$Foo([Map backingProps]) => backingProps == null
 class _$$FooProps extends _$FooProps
     with _$FooPropsAccessorsMixin
     implements FooProps {
-  _$$FooProps._();
-  factory _$$FooProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$FooProps$PlainMap(backingMap);
-    } else {
-      return new _$$FooProps$JsMap(backingMap);
-    }
-  }
-
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -75,15 +64,11 @@ class _$$FooProps extends _$FooProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'FooProps.';
-}
 
-class _$$FooProps$PlainMap extends _$$FooProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$FooProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
+  _$$FooProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -93,22 +78,6 @@ class _$$FooProps$PlainMap extends _$$FooProps {
   Map _props;
 }
 
-class _$$FooProps$JsMap extends _$$FooProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$FooProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -116,9 +85,6 @@ class _$$FooProps$JsMap extends _$$FooProps {
 class _$FooComponent extends FooComponent {
   @override
   _$$FooProps typedPropsFactory(Map backingMap) => new _$$FooProps(backingMap);
-  @override
-  _$$FooProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$FooProps$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -128,12 +94,4 @@ class _$FooComponent extends FooComponent {
   /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForFooProps];
-  _$$FooProps$JsMap _cachedTypedProps;
-  @override
-  _$$FooProps$JsMap get props => _cachedTypedProps;
-  @override
-  set props(Map value) {
-    super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
-  }
 }

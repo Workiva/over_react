@@ -71,18 +71,9 @@ _$$TagProps _$Tag([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TagProps extends _$TagProps
+abstract class _$$TagProps extends _$TagProps
     with _$TagPropsAccessorsMixin
     implements TagProps {
-  _$$TagProps._();
-  factory _$$TagProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$TagProps$PlainMap(backingMap);
-    } else {
-      return new _$$TagProps$JsMap(backingMap);
-    }
-  }
-
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -94,6 +85,16 @@ class _$$TagProps extends _$TagProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'TagProps.';
+
+  _$$TagProps._();
+
+  factory _$$TagProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$TagProps$JsMap(backingMap);
+    } else {
+      return new _$$TagProps$PlainMap(backingMap);
+    }
+  }
 }
 
 class _$$TagProps$PlainMap extends _$$TagProps {
@@ -135,6 +136,16 @@ class _$$TagProps$JsMap extends _$$TagProps {
 class _$TagComponent extends TagComponent {
   @override
   _$$TagProps typedPropsFactory(Map backingMap) => new _$$TagProps(backingMap);
+  _$$TagProps$JsMap _cachedTypedProps;
+  @override
+  _$$TagProps$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
+
   @override
   _$$TagProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
       new _$$TagProps$JsMap(backingMap);
@@ -147,12 +158,4 @@ class _$TagComponent extends TagComponent {
   /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTagProps];
-  _$$TagProps$JsMap _cachedTypedProps;
-  @override
-  _$$TagProps$JsMap get props => _cachedTypedProps;
-  @override
-  set props(Map value) {
-    super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
-  }
 }

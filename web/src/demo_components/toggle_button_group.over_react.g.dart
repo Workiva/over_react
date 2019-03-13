@@ -47,18 +47,9 @@ _$$ToggleButtonGroupProps _$ToggleButtonGroup([Map backingProps]) =>
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$ToggleButtonGroupProps extends _$ToggleButtonGroupProps
+abstract class _$$ToggleButtonGroupProps extends _$ToggleButtonGroupProps
     with _$ToggleButtonGroupPropsAccessorsMixin
     implements ToggleButtonGroupProps {
-  _$$ToggleButtonGroupProps._();
-  factory _$$ToggleButtonGroupProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$ToggleButtonGroupProps$PlainMap(backingMap);
-    } else {
-      return new _$$ToggleButtonGroupProps$JsMap(backingMap);
-    }
-  }
-
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -71,6 +62,16 @@ class _$$ToggleButtonGroupProps extends _$ToggleButtonGroupProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ToggleButtonGroupProps.';
+
+  _$$ToggleButtonGroupProps._();
+
+  factory _$$ToggleButtonGroupProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$ToggleButtonGroupProps$JsMap(backingMap);
+    } else {
+      return new _$$ToggleButtonGroupProps$PlainMap(backingMap);
+    }
+  }
 }
 
 class _$$ToggleButtonGroupProps$PlainMap extends _$$ToggleButtonGroupProps {
@@ -128,14 +129,32 @@ class ToggleButtonGroupState extends _$ToggleButtonGroupState
 
 // Concrete state implementation.
 //
-// Implements constructor and backing map.
-class _$$ToggleButtonGroupState extends _$ToggleButtonGroupState
+// Implements constructor and backing map, and links up to generated component factory.
+abstract class _$$ToggleButtonGroupState extends _$ToggleButtonGroupState
     with _$ToggleButtonGroupStateAccessorsMixin
     implements ToggleButtonGroupState {
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  _$$ToggleButtonGroupState._();
+
+  factory _$$ToggleButtonGroupState(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$ToggleButtonGroupState$JsMap(backingMap);
+    } else {
+      return new _$$ToggleButtonGroupState$PlainMap(backingMap);
+    }
+  }
+}
+
+class _$$ToggleButtonGroupState$PlainMap extends _$$ToggleButtonGroupState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$ToggleButtonGroupState(Map backingMap) : this._state = {} {
+  _$$ToggleButtonGroupState$PlainMap(Map backingMap)
+      : this._state = {},
+        super._() {
     this._state = backingMap ?? {};
   }
 
@@ -143,10 +162,22 @@ class _$$ToggleButtonGroupState extends _$ToggleButtonGroupState
   @override
   Map get state => _state;
   Map _state;
+}
 
-  /// Let [UiState] internals know that this class has been generated.
+class _$$ToggleButtonGroupState$JsMap extends _$$ToggleButtonGroupState {
+  // This initializer of `_state` to an empty map, as well as the reassignment
+  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$ToggleButtonGroupState$JsMap(JsBackedMap backingMap)
+      : this._state = new JsBackedMap(),
+        super._() {
+    this._state = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing state map proxied by this class.
   @override
-  bool get $isClassGenerated => true;
+  JsBackedMap get state => _state;
+  JsBackedMap _state;
 }
 
 // Concrete component implementation mixin.
@@ -157,13 +188,35 @@ class _$ToggleButtonGroupComponent extends ToggleButtonGroupComponent {
   @override
   _$$ToggleButtonGroupProps typedPropsFactory(Map backingMap) =>
       new _$$ToggleButtonGroupProps(backingMap);
+  _$$ToggleButtonGroupProps$JsMap _cachedTypedProps;
+  @override
+  _$$ToggleButtonGroupProps$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
+
   @override
   _$$ToggleButtonGroupProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
       new _$$ToggleButtonGroupProps$JsMap(backingMap);
-
   @override
   _$$ToggleButtonGroupState typedStateFactory(Map backingMap) =>
       new _$$ToggleButtonGroupState(backingMap);
+  _$$ToggleButtonGroupState$JsMap _cachedTypedState;
+  @override
+  _$$ToggleButtonGroupState$JsMap get state => _cachedTypedState;
+
+  @override
+  set state(Map value) {
+    super.state = value;
+    _cachedTypedState = typedStateFactoryJs(value);
+  }
+
+  @override
+  _$$ToggleButtonGroupState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
+      new _$$ToggleButtonGroupState$JsMap(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
@@ -175,12 +228,4 @@ class _$ToggleButtonGroupComponent extends ToggleButtonGroupComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForToggleButtonGroupProps
   ];
-  _$$ToggleButtonGroupProps$JsMap _cachedTypedProps;
-  @override
-  _$$ToggleButtonGroupProps$JsMap get props => _cachedTypedProps;
-  @override
-  set props(Map value) {
-    super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
-  }
 }

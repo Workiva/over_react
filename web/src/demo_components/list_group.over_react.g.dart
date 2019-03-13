@@ -61,18 +61,9 @@ _$$ListGroupProps _$ListGroup([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$ListGroupProps extends _$ListGroupProps
+abstract class _$$ListGroupProps extends _$ListGroupProps
     with _$ListGroupPropsAccessorsMixin
     implements ListGroupProps {
-  _$$ListGroupProps._();
-  factory _$$ListGroupProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$ListGroupProps$PlainMap(backingMap);
-    } else {
-      return new _$$ListGroupProps$JsMap(backingMap);
-    }
-  }
-
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
@@ -84,6 +75,16 @@ class _$$ListGroupProps extends _$ListGroupProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ListGroupProps.';
+
+  _$$ListGroupProps._();
+
+  factory _$$ListGroupProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$ListGroupProps$JsMap(backingMap);
+    } else {
+      return new _$$ListGroupProps$PlainMap(backingMap);
+    }
+  }
 }
 
 class _$$ListGroupProps$PlainMap extends _$$ListGroupProps {
@@ -126,6 +127,16 @@ class _$ListGroupComponent extends ListGroupComponent {
   @override
   _$$ListGroupProps typedPropsFactory(Map backingMap) =>
       new _$$ListGroupProps(backingMap);
+  _$$ListGroupProps$JsMap _cachedTypedProps;
+  @override
+  _$$ListGroupProps$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
+
   @override
   _$$ListGroupProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
       new _$$ListGroupProps$JsMap(backingMap);
@@ -140,12 +151,4 @@ class _$ListGroupComponent extends ListGroupComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForListGroupProps
   ];
-  _$$ListGroupProps$JsMap _cachedTypedProps;
-  @override
-  _$$ListGroupProps$JsMap get props => _cachedTypedProps;
-  @override
-  set props(Map value) {
-    super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
-  }
 }
