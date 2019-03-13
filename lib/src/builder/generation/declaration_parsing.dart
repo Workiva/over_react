@@ -485,10 +485,14 @@ class ParsedDeclarations {
 class ComponentNode extends NodeWithMeta<ClassDeclaration, annotations.Component> {
   static const String _subtypeOfParamName = 'subtypeOf';
 
+  final bool isComponent2;
+
   /// The value of the `subtypeOf` parameter passed in to this node's annotation.
   Identifier subtypeOfValue;
 
-  ComponentNode(unit) : super(unit) {
+  ComponentNode(ClassDeclaration node)
+      : this.isComponent2 = node.declaredElement.allSupertypes.any((type) => type.name == 'Component2'),
+        super(node) {
     // Perform special handling for the `subtypeOf` parameter of this node's annotation.
     //
     // If valid, omit it from `unsupportedArguments` so that the `meta` can be accessed without it

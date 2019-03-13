@@ -14,6 +14,7 @@
 
 import 'package:analyzer/analyzer.dart';
 import 'package:logging/logging.dart';
+import 'package:meta/meta.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/builder/generation/declaration_parsing.dart';
 import 'package:over_react/src/builder/util.dart';
@@ -67,8 +68,8 @@ class ImplGenerator {
 
       final generatedComponentFactoryName = _componentFactoryName(componentClassName);
 
-      String typedPropsFactoryImpl = '';
-      String typedStateFactoryImpl = '';
+      StringBuffer typedPropsFactoryImpl = new StringBuffer();
+      StringBuffer typedStateFactoryImpl = new StringBuffer();
 
       // ----------------------------------------------------------------------
       //   Factory implementation
@@ -128,42 +129,53 @@ class ImplGenerator {
           _generateMetaConstImpl(AccessorType.props, declarations.props));
       outputContentsBuffer.write(_generateConsumablePropsOrStateClass(AccessorType.props, declarations.props));
 
-      final jsMapImplName = _jsMapPropsImplClassNameFromPropsImplClassName(propsImplName);
+      outputContentsBuffer.write(
+          '$propsImplName $privateSourcePrefix$factoryName([Map backingProps]) => ');
+      if (!declarations.component.isComponent2) {
+        /// _$$FooProps _$Foo([Map backingProps]) => new _$$FooProps(backingProps);
+        outputContentsBuffer.writeln('new $propsImplName(backingProps);');
+      } else {
+        final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(propsImplName);
+        outputContentsBuffer.writeln(
+            // FIXME clean up this logic and the null-awares (or lack thereof in the two impl classes)
+            // note: if we remove null-awares will that rbeak stuff like `typedPropsFactory(null)`? Does it even matter?
+              'backingProps == null ? new $jsMapImplName(new JsBackedMap()) : new $propsImplName(backingProps);'
+        );
+      }
 
-      // fixme update this comment
-      /// _$$FooProps _$Foo([Map backingProps]) => new _$$FooProps(backingProps);
-      outputContentsBuffer.writeln(
-          '$propsImplName $privateSourcePrefix$factoryName([Map backingProps]) => '
-          // FIXME clean up this logic and the null-awares (or lack thereof in the two impl classes)
-          // note: if we remove null-awares will that rbeak stuff like `typedPropsFactory(null)`? Does it even matter?
-            'backingProps == null ? new $jsMapImplName(new JsBackedMap()) : new $propsImplName(backingProps);'
-      );
+      outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
+        type: AccessorType.props,
+        consumerName: consumerPropsName,
+        implName: propsImplName,
+        componentFactoryName: generatedComponentFactoryName,
+        propKeyNamespace: _getAccessorKeyNamespace(declarations.props),
+        node: declarations.props,
+        accessorsMixinName: propsAccessorsMixinName,
+        consumableName: consumablePropsName,
+        isComponent2: declarations.component.isComponent2,
+      ));
 
-      final String propKeyNamespace = _getAccessorKeyNamespace(declarations.props);
-
-      outputContentsBuffer.write(_generateConcretePropsImpl(
-        AccessorType.props, consumerPropsName, propsImplName, generatedComponentFactoryName,
-        propKeyNamespace, declarations.props, propsAccessorsMixinName, consumablePropsName));
-
-      // fixme: is this implementation still needed here, or can we do it in the superclass?
-      // This implementation here is necessary so that mixin accesses aren't compiled as index$ax
-      final propsGetterTyping = '''  
-        $jsMapImplName _cachedTypedProps;
-        @override 
-        $jsMapImplName get props => _cachedTypedProps;
-        
-        @override
-        set props(Map value) {
-          super.props = value;
-          _cachedTypedProps = typedPropsFactoryJs(value);
-        }
-      '''.split('\n').join(' ');
-
-      typedPropsFactoryImpl =
-          '  @override\n'
-          '  $propsImplName typedPropsFactory(Map backingMap) => new $propsImplName(backingMap);\n'
-          '  @override '
-          '  $jsMapImplName typedPropsFactoryJs(JsBackedMap backingMap) => new $jsMapImplName(backingMap);\n\n';
+      typedPropsFactoryImpl
+        ..writeln('  @override')
+        ..writeln('  $propsImplName typedPropsFactory(Map backingMap) => new $propsImplName(backingMap);');
+      if (declarations.component.isComponent2) {
+        final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(propsImplName);
+        // fixme: is this implementation still needed here, or can we do it in the superclass?
+        // This implementation here is necessary so that mixin accesses aren't compiled as index$ax
+        typedPropsFactoryImpl
+          ..writeln('  $jsMapImplName _cachedTypedProps;')
+          ..writeln('  @override')
+          ..writeln('  $jsMapImplName get props => _cachedTypedProps;')
+          ..writeln('  ')
+          ..writeln('  @override')
+          ..writeln('  set props(Map value) {')
+          ..writeln('    super.props = value;')
+          ..writeln('    _cachedTypedProps = typedPropsFactoryJs(value);')
+          ..writeln('  }')
+          ..writeln()
+          ..writeln('  @override ')
+          ..writeln('  $jsMapImplName typedPropsFactoryJs(JsBackedMap backingMap) => new $jsMapImplName(backingMap);');
+      }
 
 
       // ----------------------------------------------------------------------
@@ -174,8 +186,6 @@ class ImplGenerator {
         final consumableStateName = _publicPropsOrStateClassNameFromConsumerClassName(stateName);
         final stateImplName = _propsImplClassNameFromConsumerClassName(stateName);
         final stateAccessorsMixinName = _accessorsMixinNameFromConsumerName(stateName);
-        final typeParamsOnClass = declarations.state.node.typeParameters?.toSource() ?? '';
-        final typeParamsOnSuper = removeBoundsFromTypeParameters(declarations.state.node.typeParameters);
 
         outputContentsBuffer.write(_generateAccessorsMixin(
             AccessorType.state, stateAccessorsMixinName, declarations.state,
@@ -184,32 +194,39 @@ class ImplGenerator {
             _generateMetaConstImpl(AccessorType.state, declarations.state));
         outputContentsBuffer.write(_generateConsumablePropsOrStateClass(AccessorType.state, declarations.state));
 
-        outputContentsBuffer
-          ..writeln('// Concrete state implementation.')
-          ..writeln('//')
-          ..writeln('// Implements constructor and backing map.')
-          ..writeln('class $stateImplName$typeParamsOnClass extends $stateName$typeParamsOnSuper with $stateAccessorsMixinName$typeParamsOnSuper implements $consumableStateName$typeParamsOnSuper {')
-          ..writeln('  // This initializer of `_state` to an empty map, as well as the reassignment')
-          ..writeln('  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.')
-          ..writeln('  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details')
-          ..writeln('  $stateImplName(Map backingMap) : this._state = {} {')
-          ..writeln('     this._state = backingMap ?? {};')
-          ..writeln('  }')
-          ..writeln()
-          ..writeln('  /// The backing state map proxied by this class.')
-          ..writeln('  @override')
-          ..writeln('  Map get state => _state;')
-          ..writeln('  Map _state;')
-          ..writeln()
-          ..writeln('  /// Let [UiState] internals know that this class has been generated.')
-          ..writeln('  @override')
-          ..writeln('  bool get \$isClassGenerated => true;')
-          ..writeln('}')
-          ..writeln();
+        outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
+          type: AccessorType.state,
+          consumerName: stateName,
+          implName: stateImplName,
+          componentFactoryName: generatedComponentFactoryName,
+          propKeyNamespace: null,
+          node: declarations.state,
+          accessorsMixinName: stateAccessorsMixinName,
+          consumableName: consumableStateName,
+          isComponent2: declarations.component.isComponent2,
+        ));
 
-        typedStateFactoryImpl =
-          '  @override\n'
-          '  $stateImplName typedStateFactory(Map backingMap) => new $stateImplName(backingMap);\n\n';
+        typedStateFactoryImpl
+          ..writeln('  @override')
+          ..writeln('  $stateImplName typedStateFactory(Map backingMap) => new $stateImplName(backingMap);');
+        if (declarations.component.isComponent2) {
+          final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(stateImplName);
+          // fixme: is this implementation still needed here, or can we do it in the superclass?
+          // This implementation here is necessary so that mixin accesses aren't compiled as index$ax
+          typedStateFactoryImpl
+            ..writeln('  $jsMapImplName _cachedTypedState;')
+            ..writeln('  @override')
+            ..writeln('  $jsMapImplName get state => _cachedTypedState;')
+            ..writeln('  ')
+            ..writeln('  @override')
+            ..writeln('  set state(Map value) {')
+            ..writeln('    super.state = value;')
+            ..writeln('    _cachedTypedState = typedStateFactoryJs(value);')
+            ..writeln('  }')
+            ..writeln()
+            ..writeln('  @override ')
+            ..writeln('  $jsMapImplName typedStateFactoryJs(JsBackedMap backingMap) => new $jsMapImplName(backingMap);');
+        }
       }
 
       // ----------------------------------------------------------------------
@@ -232,7 +249,6 @@ class ImplGenerator {
         ..writeln('  @override')
         ..writeln('  final List<ConsumedProps> \$defaultConsumedProps = '
                         'const [${_metaConstantName(consumablePropsName)}];')
-        ..writeln('$propsGetterTyping')
         ..writeln('}');
 
       final implementsTypedPropsStateFactory = declarations.component.node.members.any((member) =>
@@ -342,7 +358,7 @@ class ImplGenerator {
           annotations.Accessor accessorMeta = instantiateAnnotation(field, annotations.Accessor);
           annotations.Accessor requiredProp = getConstantAnnotation(field, 'requiredProp', annotations.requiredProp);
           annotations.Accessor nullableRequiredProp = getConstantAnnotation(field, 'nullableRequiredProp', annotations.nullableRequiredProp);
-          // ignore: deprecated_member_use
+          // ignore: deprecated_member_use_from_same_package
           annotations.Required requiredMeta = instantiateAnnotation(field, annotations.Required);
 
 
@@ -528,12 +544,12 @@ class ImplGenerator {
     return className.replaceFirst(privateSourcePrefix, '$privateSourcePrefix\$');
   }
 
-  static String _plainMapPropsImplClassNameFromPropsImplClassName(String implName) {
-    return '${implName}\$PlainMap';
+  static String _plainMapAccessorsImplClassNameFromImplClassName(String implName) {
+    return '$implName\$PlainMap';
   }
 
-  static String _jsMapPropsImplClassNameFromPropsImplClassName(String implName) {
-    return '${implName}\$JsMap';
+  static String _jsMapAccessorImplClassNameFromImplClassName(String implName) {
+    return '$implName\$JsMap';
   }
 
   /// Converts the consumer's written props classname to the consumable props
@@ -713,35 +729,43 @@ class ImplGenerator {
     return buffer.toString();
   }
 
-  String _generateConcretePropsImpl(AccessorType type, String consumerName, String implName,
-      String componentFactoryName, String propKeyNamespace, NodeWithMeta<ClassDeclaration, annotations.Props> node, String accessorsMixinName, String consumableName) {
+  String _generateConcretePropsOrStateImpl({
+    @required AccessorType type,
+    @required String consumerName,
+    @required String implName,
+    @required String componentFactoryName,
+    @required String propKeyNamespace,
+    @required NodeWithMeta<ClassDeclaration, annotations.TypedMap> node,
+    @required String accessorsMixinName,
+    @required String consumableName,
+    @required bool isComponent2,
+  }) {
     final typeParamsOnClass = node.node.typeParameters?.toSource() ?? '';
     final typeParamsOnSuper = removeBoundsFromTypeParameters(node.node.typeParameters);
 
-    final plainMapImplName = _plainMapPropsImplClassNameFromPropsImplClassName(implName);
-    final jsMapImplName = _jsMapPropsImplClassNameFromPropsImplClassName(implName);
+    final classDeclaration = new StringBuffer();
+    if (isComponent2) {
+      classDeclaration.write('abstract ');
+    }
+    classDeclaration.write('class $implName$typeParamsOnClass '
+        'extends $consumerName$typeParamsOnSuper '
+        'with $accessorsMixinName$typeParamsOnSuper '
+        'implements $consumableName$typeParamsOnSuper { ');
 
+    final propsOrState = type.isProps ? 'props' : 'state';
+    
+    final buffer = new StringBuffer()
+      ..writeln('// Concrete $propsOrState implementation.')
+      ..writeln('//')
+      ..writeln('// Implements constructor and backing map, and links up to generated component factory.')
+      ..writeln(classDeclaration)
+      ..writeln('  /// Let [${type.isProps ? 'UiProps' : 'UiState'}] internals know that this class has been generated.')
+      ..writeln('  @override')
+      ..writeln('  bool get \$isClassGenerated => true;')
+      ..writeln();
 
-    final classDeclaration = new StringBuffer()
-      ..write('class $implName$typeParamsOnClass extends $consumerName$typeParamsOnSuper with $accessorsMixinName$typeParamsOnSuper implements $consumableName$typeParamsOnSuper {\n');
-    return (new StringBuffer()
-        ..writeln('// Concrete props implementation.')
-        ..writeln('//')
-        ..writeln('// Implements constructor and backing map, and links up to generated component factory.')
-        ..write(classDeclaration)
-        ..writeln('  $implName._();')
-        ..writeln('  factory $implName(Map backingMap) {')
-        ..writeln('    if (backingMap is JsBackedMap) {')
-        ..writeln('      return new $plainMapImplName(backingMap);')
-        ..writeln('    } else {')
-        ..writeln('      return new $jsMapImplName(backingMap);')
-        ..writeln('    }')
-        ..writeln('  }')
-        ..writeln()
-        ..writeln('  /// Let [UiProps] internals know that this class has been generated.')
-        ..writeln('  @override')
-        ..writeln('  bool get \$isClassGenerated => true;')
-        ..writeln()
+    if (type.isProps) {
+      buffer
         ..writeln('  /// The [ReactComponentFactory] associated with the component built by this class.')
         ..writeln('  @override')
         ..writeln('  ReactComponentFactoryProxy get componentFactory => $componentFactoryName;')
@@ -749,35 +773,66 @@ class ImplGenerator {
         ..writeln('  /// The default namespace for the prop getters/setters generated for this class.')
         ..writeln('  @override')
         ..writeln('  String get propKeyNamespace => ${stringLiteral(propKeyNamespace)};')
-        ..writeln('}')
-        ..writeln('class $plainMapImplName$typeParamsOnClass extends $implName$typeParamsOnSuper {')
-        ..writeln('  // This initializer of `_props` to an empty map, as well as the reassignment')
-        ..writeln('  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.')
+        ..writeln();
+    }
+    
+    if (!isComponent2) {
+      buffer
+        ..writeln('  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
+        ..writeln('  // of `_$propsOrState` in the constructor body is necessary to work around an unknown ddc issue.')
         ..writeln('  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details')
-        ..writeln('  $plainMapImplName(Map backingMap) : this._props = {}, super._() {')
-        ..writeln('     this._props = backingMap ?? {};')
+        ..writeln('  $implName(Map backingMap) : this._$propsOrState = {} {')
+        ..writeln('     this._$propsOrState = backingMap ?? {};')
         ..writeln('  }')
         ..writeln()
-        ..writeln('  /// The backing props map proxied by this class.')
+        ..writeln('  /// The backing $propsOrState map proxied by this class.')
         ..writeln('  @override')
-        ..writeln('  Map get props => _props;')
-        ..writeln('  Map _props;')
+        ..writeln('  Map get $propsOrState => _$propsOrState;')
+        ..writeln('  Map _$propsOrState;')
+        ..writeln('}');
+    } else {
+      final plainMapImplName = _plainMapAccessorsImplClassNameFromImplClassName(implName);
+      final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(implName);
+      buffer
+        ..writeln('  $implName._();')
+        ..writeln()
+        ..writeln('  factory $implName(Map backingMap) {')
+        ..writeln('    if (backingMap is JsBackedMap) {')
+        ..writeln('      return new $jsMapImplName(backingMap);')
+        ..writeln('    } else {')
+        ..writeln('      return new $plainMapImplName(backingMap);')
+        ..writeln('    }')
+        ..writeln('  }')
+        ..writeln('}')
+        ..writeln()
+        ..writeln('class $plainMapImplName$typeParamsOnClass extends $implName$typeParamsOnSuper {')
+        ..writeln('  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
+        ..writeln('  // of `_$propsOrState` in the constructor body is necessary to work around an unknown ddc issue.')
+        ..writeln('  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details')
+        ..writeln('  $plainMapImplName(Map backingMap) : this._$propsOrState = {}, super._() {')
+        ..writeln('     this._$propsOrState = backingMap ?? {};')
+        ..writeln('  }')
+        ..writeln()
+        ..writeln('  /// The backing $propsOrState map proxied by this class.')
+        ..writeln('  @override')
+        ..writeln('  Map get $propsOrState => _$propsOrState;')
+        ..writeln('  Map _$propsOrState;')
         ..writeln('}')
         ..writeln('class $jsMapImplName$typeParamsOnClass extends $implName$typeParamsOnSuper {')
-        ..writeln('  // This initializer of `_props` to an empty map, as well as the reassignment')
-        ..writeln('  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.')
+        ..writeln('  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
+        ..writeln('  // of `_$propsOrState` in the constructor body is necessary to work around an unknown ddc issue.')
         ..writeln('  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details')
-        ..writeln('  $jsMapImplName(JsBackedMap backingMap) : this._props = new JsBackedMap(), super._() {')
-        ..writeln('     this._props = backingMap ?? new JsBackedMap();')
+        ..writeln('  $jsMapImplName(JsBackedMap backingMap) : this._$propsOrState = new JsBackedMap(), super._() {')
+        ..writeln('     this._$propsOrState = backingMap ?? new JsBackedMap();')
         ..writeln('  }')
         ..writeln()
-        ..writeln('  /// The backing props map proxied by this class.')
+        ..writeln('  /// The backing $propsOrState map proxied by this class.')
         ..writeln('  @override')
-        ..writeln('  JsBackedMap get props => _props;')
-        ..writeln('  JsBackedMap _props;')
-        ..writeln('}')
-        ..writeln())
-        .toString();
+        ..writeln('  JsBackedMap get $propsOrState => _$propsOrState;')
+        ..writeln('  JsBackedMap _$propsOrState;')
+        ..writeln('}');
+      }
+    return buffer.toString();
   }
 
   String _generateConsumablePropsOrStateClass(AccessorType type, NodeWithMeta<ClassDeclaration, annotations.TypedMap> node) {
