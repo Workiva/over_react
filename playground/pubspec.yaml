@@ -7,3 +7,5 @@ dependencies:
 dev_dependencies:
   over_react_analyzer_plugin_host:
     path: ../plugin_hosts/path
+  build_runner: '>=0.8.10 <2.0.0'
+  build_web_compilers: '>=0.3.6 <2.0.0'
