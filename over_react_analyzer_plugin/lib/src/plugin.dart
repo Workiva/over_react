@@ -41,19 +41,23 @@ import 'package:analyzer/src/context/context_root.dart';
 // ignore: implementation_imports
 import 'package:analyzer/src/dart/analysis/driver.dart';
 //import 'package:analyzer_plugin/plugin/outline_mixin.dart';
+import 'package:analyzer_plugin/plugin/navigation_mixin.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart' as plugin;
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
+import 'package:analyzer_plugin/utilities/navigation/navigation.dart';
 //import 'package:analyzer_plugin/utilities/outline/outline.dart';
 import 'package:over_react_analyzer_plugin/src/assist/add_props.dart';
 import 'package:over_react_analyzer_plugin/src/assist/add_ref.dart';
 import 'package:over_react_analyzer_plugin/src/assist/wrap_unwrap.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:over_react_analyzer_plugin/src/checker.dart';
+import 'package:over_react_analyzer_plugin/src/navigation/prop_navigation_contributor.dart';
 
 /// Analyzer plugin for over_react.
 class OverReactAnalyzerPlugin extends ServerPlugin with
 //    OutlineMixin, DartOutlineMixin,
+    NavigationMixin, DartNavigationMixin,
     AsyncAssistsMixin, AsyncDartAssistsMixin {
   OverReactAnalyzerPlugin(ResourceProvider provider) : super(provider);
 
@@ -168,4 +172,14 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
       new WrapUnwrapAssistContributor(),
     ];
   }
+
+  @override
+  List<NavigationContributor> getNavigationContributors(String path) {
+    return [
+      /// NOTE: when developing in JetBrains IDEs, clear caches after reloading this
+      /// plugin, or it may not request the latest navigation regions from this plugin.
+      new PropNavigationContributor(),
+    ];
+  }
 }
+
