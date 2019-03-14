@@ -176,7 +176,7 @@ main() {
                   });
 
                   test('containing links to source', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  /// Go to [_\$$className.someField] to see the source code for this prop\n'));
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('  /// <!-- Generated from [_\$$className.someField] -->\n'));
                   });
 
                   test('that carry over annotations', () {
@@ -234,7 +234,7 @@ main() {
                   });
 
                   test('containing links to source', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  /// Go to [$className.someField] to see the source code for this prop\n'));
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('  /// <!-- Generated from [$className.someField] -->\n'));
                   });
 
                   test('that carry over annotations', () {
