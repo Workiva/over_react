@@ -74,6 +74,7 @@ abstract class _$$StatefulComponentTestProps
   String get propKeyNamespace => 'StatefulComponentTestProps.';
 }
 
+// Concrete props implementation that can be backed by any [Map].
 class _$$StatefulComponentTestProps$PlainMap
     extends _$$StatefulComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
@@ -90,6 +91,8 @@ class _$$StatefulComponentTestProps$PlainMap
   Map _props;
 }
 
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$StatefulComponentTestProps$JsMap
     extends _$$StatefulComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
@@ -264,6 +267,7 @@ abstract class _$$StatefulComponentTestState
   bool get $isClassGenerated => true;
 }
 
+// Concrete state implementation that can be backed by any [Map].
 class _$$StatefulComponentTestState$PlainMap
     extends _$$StatefulComponentTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
@@ -280,6 +284,8 @@ class _$$StatefulComponentTestState$PlainMap
   Map _state;
 }
 
+// Concrete state implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$StatefulComponentTestState$JsMap
     extends _$$StatefulComponentTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment

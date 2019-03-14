@@ -99,6 +99,7 @@ abstract class _$$FooProps extends _$FooProps
   String get propKeyNamespace => 'FooProps.';
 }
 
+// Concrete props implementation that can be backed by any [Map].
 class _$$FooProps$PlainMap extends _$$FooProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -114,6 +115,8 @@ class _$$FooProps$PlainMap extends _$$FooProps {
   Map _props;
 }
 
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$FooProps$JsMap extends _$$FooProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217

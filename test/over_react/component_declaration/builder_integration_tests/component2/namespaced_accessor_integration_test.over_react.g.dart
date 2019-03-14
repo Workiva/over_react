@@ -188,6 +188,7 @@ abstract class _$$NamespacedAccessorTestProps
   String get propKeyNamespace => 'custom props class namespace**';
 }
 
+// Concrete props implementation that can be backed by any [Map].
 class _$$NamespacedAccessorTestProps$PlainMap
     extends _$$NamespacedAccessorTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
@@ -204,6 +205,8 @@ class _$$NamespacedAccessorTestProps$PlainMap
   Map _props;
 }
 
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$NamespacedAccessorTestProps$JsMap
     extends _$$NamespacedAccessorTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
@@ -378,6 +381,7 @@ abstract class _$$NamespacedAccessorTestState
   bool get $isClassGenerated => true;
 }
 
+// Concrete state implementation that can be backed by any [Map].
 class _$$NamespacedAccessorTestState$PlainMap
     extends _$$NamespacedAccessorTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
@@ -394,6 +398,8 @@ class _$$NamespacedAccessorTestState$PlainMap
   Map _state;
 }
 
+// Concrete state implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$NamespacedAccessorTestState$JsMap
     extends _$$NamespacedAccessorTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment

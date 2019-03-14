@@ -125,6 +125,7 @@ abstract class _$$ToggleButtonProps extends _$ToggleButtonProps
   String get propKeyNamespace => 'ToggleButtonProps.';
 }
 
+// Concrete props implementation that can be backed by any [Map].
 class _$$ToggleButtonProps$PlainMap extends _$$ToggleButtonProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -140,6 +141,8 @@ class _$$ToggleButtonProps$PlainMap extends _$$ToggleButtonProps {
   Map _props;
 }
 
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ToggleButtonProps$JsMap extends _$$ToggleButtonProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -230,6 +233,7 @@ abstract class _$$ToggleButtonState extends _$ToggleButtonState
   bool get $isClassGenerated => true;
 }
 
+// Concrete state implementation that can be backed by any [Map].
 class _$$ToggleButtonState$PlainMap extends _$$ToggleButtonState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -245,6 +249,8 @@ class _$$ToggleButtonState$PlainMap extends _$$ToggleButtonState {
   Map _state;
 }
 
+// Concrete state implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ToggleButtonState$JsMap extends _$$ToggleButtonState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217

@@ -236,6 +236,7 @@ abstract class _$$ListGroupItemProps extends _$ListGroupItemProps
   String get propKeyNamespace => 'ListGroupItemProps.';
 }
 
+// Concrete props implementation that can be backed by any [Map].
 class _$$ListGroupItemProps$PlainMap extends _$$ListGroupItemProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -251,6 +252,8 @@ class _$$ListGroupItemProps$PlainMap extends _$$ListGroupItemProps {
   Map _props;
 }
 
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ListGroupItemProps$JsMap extends _$$ListGroupItemProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217

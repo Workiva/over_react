@@ -134,6 +134,7 @@ abstract class _$$DoNotGenerateAccessorTestProps
   String get propKeyNamespace => 'DoNotGenerateAccessorTestProps.';
 }
 
+// Concrete props implementation that can be backed by any [Map].
 class _$$DoNotGenerateAccessorTestProps$PlainMap
     extends _$$DoNotGenerateAccessorTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
@@ -150,6 +151,8 @@ class _$$DoNotGenerateAccessorTestProps$PlainMap
   Map _props;
 }
 
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$DoNotGenerateAccessorTestProps$JsMap
     extends _$$DoNotGenerateAccessorTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
@@ -269,6 +272,7 @@ abstract class _$$DoNotGenerateAccessorTestState
   bool get $isClassGenerated => true;
 }
 
+// Concrete state implementation that can be backed by any [Map].
 class _$$DoNotGenerateAccessorTestState$PlainMap
     extends _$$DoNotGenerateAccessorTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
@@ -285,6 +289,8 @@ class _$$DoNotGenerateAccessorTestState$PlainMap
   Map _state;
 }
 
+// Concrete state implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$DoNotGenerateAccessorTestState$JsMap
     extends _$$DoNotGenerateAccessorTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment

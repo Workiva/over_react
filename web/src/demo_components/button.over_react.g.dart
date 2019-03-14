@@ -187,6 +187,7 @@ abstract class _$$ButtonProps extends _$ButtonProps
   String get propKeyNamespace => 'ButtonProps.';
 }
 
+// Concrete props implementation that can be backed by any [Map].
 class _$$ButtonProps$PlainMap extends _$$ButtonProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -202,6 +203,8 @@ class _$$ButtonProps$PlainMap extends _$$ButtonProps {
   Map _props;
 }
 
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ButtonProps$JsMap extends _$$ButtonProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -257,6 +260,7 @@ abstract class _$$ButtonState extends _$ButtonState
   bool get $isClassGenerated => true;
 }
 
+// Concrete state implementation that can be backed by any [Map].
 class _$$ButtonState$PlainMap extends _$$ButtonState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -272,6 +276,8 @@ class _$$ButtonState$PlainMap extends _$$ButtonState {
   Map _state;
 }
 
+// Concrete state implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ButtonState$JsMap extends _$$ButtonState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217

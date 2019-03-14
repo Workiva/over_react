@@ -235,6 +235,7 @@ abstract class _$$ProgressProps extends _$ProgressProps
   String get propKeyNamespace => 'ProgressProps.';
 }
 
+// Concrete props implementation that can be backed by any [Map].
 class _$$ProgressProps$PlainMap extends _$$ProgressProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -250,6 +251,8 @@ class _$$ProgressProps$PlainMap extends _$$ProgressProps {
   Map _props;
 }
 
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ProgressProps$JsMap extends _$$ProgressProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -318,6 +321,7 @@ abstract class _$$ProgressState extends _$ProgressState
   bool get $isClassGenerated => true;
 }
 
+// Concrete state implementation that can be backed by any [Map].
 class _$$ProgressState$PlainMap extends _$$ProgressState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -333,6 +337,8 @@ class _$$ProgressState$PlainMap extends _$$ProgressState {
   Map _state;
 }
 
+// Concrete state implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ProgressState$JsMap extends _$$ProgressState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
