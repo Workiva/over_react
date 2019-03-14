@@ -20,12 +20,12 @@ abstract class _$SubPropsAccessorsMixin implements _$SubProps {
   @override
   Map get props;
 
-  /// Go to [_$SubProps.subProp] to see the source code for this prop
+  /// <!-- Generated from [_$SubProps.subProp] -->
   @override
   String get subProp =>
       props[_$key__subProp___$SubProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$SubProps.subProp] to see the source code for this prop
+  /// <!-- Generated from [_$SubProps.subProp] -->
   @override
   set subProp(String value) => props[_$key__subProp___$SubProps] = value;
   /* GENERATED CONSTANTS */
@@ -85,12 +85,12 @@ abstract class _$SubStateAccessorsMixin implements _$SubState {
   @override
   Map get state;
 
-  /// Go to [_$SubState.subState] to see the source code for this prop
+  /// <!-- Generated from [_$SubState.subState] -->
   @override
   String get subState =>
       state[_$key__subState___$SubState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$SubState.subState] to see the source code for this prop
+  /// <!-- Generated from [_$SubState.subState] -->
   @override
   set subState(String value) => state[_$key__subState___$SubState] = value;
   /* GENERATED CONSTANTS */
@@ -161,12 +161,12 @@ abstract class _$SuperPropsAccessorsMixin implements _$SuperProps {
   @override
   Map get props;
 
-  /// Go to [_$SuperProps.superProp] to see the source code for this prop
+  /// <!-- Generated from [_$SuperProps.superProp] -->
   @override
   String get superProp =>
       props[_$key__superProp___$SuperProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$SuperProps.superProp] to see the source code for this prop
+  /// <!-- Generated from [_$SuperProps.superProp] -->
   @override
   set superProp(String value) => props[_$key__superProp___$SuperProps] = value;
   /* GENERATED CONSTANTS */
@@ -193,12 +193,12 @@ abstract class _$SuperStateAccessorsMixin implements _$SuperState {
   @override
   Map get state;
 
-  /// Go to [_$SuperState.superState] to see the source code for this prop
+  /// <!-- Generated from [_$SuperState.superState] -->
   @override
   String get superState =>
       state[_$key__superState___$SuperState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$SuperState.superState] to see the source code for this prop
+  /// <!-- Generated from [_$SuperState.superState] -->
   @override
   set superState(String value) =>
       state[_$key__superState___$SuperState] = value;

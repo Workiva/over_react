@@ -22,22 +22,66 @@ abstract class _$ErrorBoundaryPropsAccessorsMixin
   @override
   Map get props;
 
-  /// Go to [_$ErrorBoundaryProps.onComponentDidCatch] to see the source code for this prop
+  /// An optional callback that will be called with an [Error] and a `ComponentStack`
+  /// containing information about which component in the tree threw the error when
+  /// the `componentDidCatch` lifecycle method is called.
+  ///
+  /// This callback can be used to log component errors like so:
+  ///
+  ///     (ErrorBoundary()
+  ///       ..onComponentDidCatch = (error, componentStack) {
+  ///         // It is up to you to implement the service / thing that calls the service.
+  ///         logComponentStackToAService(error, componentStack);
+  ///       }
+  ///     )(
+  ///       // The rest of your component tree
+  ///     )
+  ///
+  /// > See: <https://reactjs.org/docs/react-component.html#componentdidcatch>
+  ///
+  /// <!-- Generated from [_$ErrorBoundaryProps.onComponentDidCatch] -->
   @override
   _ComponentDidCatchCallback get onComponentDidCatch =>
       props[_$key__onComponentDidCatch___$ErrorBoundaryProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ErrorBoundaryProps.onComponentDidCatch] to see the source code for this prop
+  /// An optional callback that will be called with an [Error] and a `ComponentStack`
+  /// containing information about which component in the tree threw the error when
+  /// the `componentDidCatch` lifecycle method is called.
+  ///
+  /// This callback can be used to log component errors like so:
+  ///
+  ///     (ErrorBoundary()
+  ///       ..onComponentDidCatch = (error, componentStack) {
+  ///         // It is up to you to implement the service / thing that calls the service.
+  ///         logComponentStackToAService(error, componentStack);
+  ///       }
+  ///     )(
+  ///       // The rest of your component tree
+  ///     )
+  ///
+  /// > See: <https://reactjs.org/docs/react-component.html#componentdidcatch>
+  ///
+  /// <!-- Generated from [_$ErrorBoundaryProps.onComponentDidCatch] -->
   @override
   set onComponentDidCatch(_ComponentDidCatchCallback value) =>
       props[_$key__onComponentDidCatch___$ErrorBoundaryProps] = value;
 
-  /// Go to [_$ErrorBoundaryProps.fallbackUIRenderer] to see the source code for this prop
+  /// A renderer that will be used to render "fallback" UI instead of the child
+  /// component tree that crashed.
+  ///
+  /// > Default: [ErrorBoundaryComponent._renderDefaultFallbackUI]
+  ///
+  /// <!-- Generated from [_$ErrorBoundaryProps.fallbackUIRenderer] -->
   @override
   _FallbackUiRenderer get fallbackUIRenderer =>
       props[_$key__fallbackUIRenderer___$ErrorBoundaryProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ErrorBoundaryProps.fallbackUIRenderer] to see the source code for this prop
+  /// A renderer that will be used to render "fallback" UI instead of the child
+  /// component tree that crashed.
+  ///
+  /// > Default: [ErrorBoundaryComponent._renderDefaultFallbackUI]
+  ///
+  /// <!-- Generated from [_$ErrorBoundaryProps.fallbackUIRenderer] -->
   @override
   set fallbackUIRenderer(_FallbackUiRenderer value) =>
       props[_$key__fallbackUIRenderer___$ErrorBoundaryProps] = value;
@@ -112,12 +156,20 @@ abstract class _$ErrorBoundaryStateAccessorsMixin
   @override
   Map get state;
 
-  /// Go to [_$ErrorBoundaryState.hasError] to see the source code for this prop
+  /// Whether the tree that the [ErrorBoundary] is wrapping around threw an error.
+  ///
+  /// When `true`, fallback UI will be rendered using [ErrorBoundaryProps.fallbackUIRenderer].
+  ///
+  /// <!-- Generated from [_$ErrorBoundaryState.hasError] -->
   @override
   bool get hasError =>
       state[_$key__hasError___$ErrorBoundaryState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ErrorBoundaryState.hasError] to see the source code for this prop
+  /// Whether the tree that the [ErrorBoundary] is wrapping around threw an error.
+  ///
+  /// When `true`, fallback UI will be rendered using [ErrorBoundaryProps.fallbackUIRenderer].
+  ///
+  /// <!-- Generated from [_$ErrorBoundaryState.hasError] -->
   @override
   set hasError(bool value) =>
       state[_$key__hasError___$ErrorBoundaryState] = value;

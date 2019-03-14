@@ -22,32 +22,32 @@ abstract class _$GenericSuperPropsAccessorsMixin
   @override
   Map get props;
 
-  /// Go to [_$GenericSuperProps.otherSuperProp] to see the source code for this prop
+  /// <!-- Generated from [_$GenericSuperProps.otherSuperProp] -->
   @override
   String get otherSuperProp =>
       props[_$key__otherSuperProp___$GenericSuperProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$GenericSuperProps.otherSuperProp] to see the source code for this prop
+  /// <!-- Generated from [_$GenericSuperProps.otherSuperProp] -->
   @override
   set otherSuperProp(String value) =>
       props[_$key__otherSuperProp___$GenericSuperProps] = value;
 
-  /// Go to [_$GenericSuperProps.superProp] to see the source code for this prop
+  /// <!-- Generated from [_$GenericSuperProps.superProp] -->
   @override
   String get superProp =>
       props[_$key__superProp___$GenericSuperProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$GenericSuperProps.superProp] to see the source code for this prop
+  /// <!-- Generated from [_$GenericSuperProps.superProp] -->
   @override
   set superProp(String value) =>
       props[_$key__superProp___$GenericSuperProps] = value;
 
-  /// Go to [_$GenericSuperProps.superProp1] to see the source code for this prop
+  /// <!-- Generated from [_$GenericSuperProps.superProp1] -->
   @override
   String get superProp1 =>
       props[_$key__superProp1___$GenericSuperProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$GenericSuperProps.superProp1] to see the source code for this prop
+  /// <!-- Generated from [_$GenericSuperProps.superProp1] -->
   @override
   set superProp1(String value) =>
       props[_$key__superProp1___$GenericSuperProps] = value;
@@ -127,12 +127,12 @@ abstract class _$GenericSuperStateAccessorsMixin
   @override
   Map get state;
 
-  /// Go to [_$GenericSuperState.superState] to see the source code for this prop
+  /// <!-- Generated from [_$GenericSuperState.superState] -->
   @override
   String get superState =>
       state[_$key__superState___$GenericSuperState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$GenericSuperState.superState] to see the source code for this prop
+  /// <!-- Generated from [_$GenericSuperState.superState] -->
   @override
   set superState(String value) =>
       state[_$key__superState___$GenericSuperState] = value;
