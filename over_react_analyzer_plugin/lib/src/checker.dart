@@ -64,6 +64,7 @@ class Checker {
       new InvalidChildChecker(),
       new StringRefChecker(),
       new MissingCascadeParensChecker(),
+      new MissingRequiredPropChecker(),
     ];
 
     for (var checker in checkers) {
