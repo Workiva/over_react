@@ -460,10 +460,14 @@ class ImplGenerator {
 
             String generatedAccessor =
                 '  /// Go to [$consumerClassName.$accessorName] to see the source code for this prop\n'
+                // TODO reinstate inlining once https://github.com/dart-lang/sdk/issues/36217 is fixed and all workarounds are removed
+                // inlining is necessary to get mixins to use $index/$indexSet instead of $index$asx
+                // '  @tryInline\n'
                 '  @override\n'
                 '${metadataSrc.toString()}'
                 '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName] ?? null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;\n'
                 '  /// Go to [$consumerClassName.$accessorName] to see the source code for this prop\n'
+                // '  @tryInline\n'
                 '  @override\n'
                 '${metadataSrc.toString()}'
                 '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;\n';
@@ -783,8 +787,8 @@ class ImplGenerator {
     } else {
       buffer
         ..writeln('  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
-        ..writeln('  // of `_$propsOrState` in the constructor body is necessary to work around an unknown ddc issue.')
-        ..writeln('  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details')
+        ..writeln('  // of `_$propsOrState` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
+        // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
         ..writeln('  $implName(Map backingMap) : this._$propsOrState = {} {')
         ..writeln('     this._$propsOrState = backingMap ?? {};')
         ..writeln('  }');
@@ -827,8 +831,8 @@ class ImplGenerator {
         ..writeln()
         ..writeln('class $plainMapImplName$typeParamsOnClass extends $implName$typeParamsOnSuper {')
         ..writeln('  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
-        ..writeln('  // of `_$propsOrState` in the constructor body is necessary to work around an unknown ddc issue.')
-        ..writeln('  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details')
+        ..writeln('  // of `_$propsOrState` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
+        // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
         ..writeln('  $plainMapImplName(Map backingMap) : this._$propsOrState = {}, super._() {')
         ..writeln('     this._$propsOrState = backingMap ?? {};')
         ..writeln('  }')
@@ -841,8 +845,8 @@ class ImplGenerator {
         ..writeln()
         ..writeln('class $jsMapImplName$typeParamsOnClass extends $implName$typeParamsOnSuper {')
         ..writeln('  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
-        ..writeln('  // of `_$propsOrState` in the constructor body is necessary to work around an unknown ddc issue.')
-        ..writeln('  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details')
+        ..writeln('  // of `_$propsOrState` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
+        // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
         ..writeln('  $jsMapImplName(JsBackedMap backingMap) : this._$propsOrState = new JsBackedMap(), super._() {')
         ..writeln('     this._$propsOrState = backingMap ?? new JsBackedMap();')
         ..writeln('  }')
