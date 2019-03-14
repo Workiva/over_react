@@ -20,6 +20,8 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
   @override
   Map get props;
 
+  /// Test that doc comment is copied over.
+  ///
   /// <!-- Generated from [_$BasicProps.basicProp] -->
   @override
   @deprecated
@@ -27,6 +29,8 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
   String get basicProp =>
       props[_$key__basicProp___$BasicProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Test that doc comment is copied over.
+  ///
   /// <!-- Generated from [_$BasicProps.basicProp] -->
   @override
   @deprecated
