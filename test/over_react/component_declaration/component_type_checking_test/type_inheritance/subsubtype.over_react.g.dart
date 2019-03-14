@@ -49,8 +49,7 @@ class _$$TestSubsubtypeProps extends _$TestSubsubtypeProps
     with _$TestSubsubtypePropsAccessorsMixin
     implements TestSubsubtypeProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestSubsubtypeProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }

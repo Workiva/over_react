@@ -76,8 +76,7 @@ abstract class _$$ToggleButtonGroupProps extends _$ToggleButtonGroupProps
 
 class _$$ToggleButtonGroupProps$PlainMap extends _$$ToggleButtonGroupProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ToggleButtonGroupProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
@@ -92,8 +91,7 @@ class _$$ToggleButtonGroupProps$PlainMap extends _$$ToggleButtonGroupProps {
 
 class _$$ToggleButtonGroupProps$JsMap extends _$$ToggleButtonGroupProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ToggleButtonGroupProps$JsMap(JsBackedMap backingMap)
       : this._props = new JsBackedMap(),
         super._() {
@@ -150,8 +148,7 @@ abstract class _$$ToggleButtonGroupState extends _$ToggleButtonGroupState
 
 class _$$ToggleButtonGroupState$PlainMap extends _$$ToggleButtonGroupState {
   // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ToggleButtonGroupState$PlainMap(Map backingMap)
       : this._state = {},
         super._() {
@@ -166,8 +163,7 @@ class _$$ToggleButtonGroupState$PlainMap extends _$$ToggleButtonGroupState {
 
 class _$$ToggleButtonGroupState$JsMap extends _$$ToggleButtonGroupState {
   // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ToggleButtonGroupState$JsMap(JsBackedMap backingMap)
       : this._state = new JsBackedMap(),
         super._() {
