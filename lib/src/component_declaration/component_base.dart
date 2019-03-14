@@ -512,6 +512,13 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2 imp
   ///
   /// Required to properly instantiate the generic [TProps] class.
   TProps typedPropsFactory(Map propsMap);
+
+  /// Returns a typed props object backed by the specified [propsMap].
+  ///
+  /// Required to properly instantiate the generic [TProps] class.
+  ///
+  /// This should be used where possible over [typedPropsFactory] to allow for
+  /// more efficient dart2js output.
   TProps typedPropsFactoryJs(JsBackedMap propsMap);
 
   /// Returns a typed props object backed by a new Map.

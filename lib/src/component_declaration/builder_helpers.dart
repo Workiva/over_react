@@ -15,10 +15,11 @@
 library over_react.component_declaration.builder_helpers;
 
 import 'package:react/react_client.dart';
+// FIXME use public entrypoint
+import 'package:react/src/react_client/js_backed_map.dart';
 
 import './component_base.dart' as component_base;
 import './annotations.dart' as annotations;
-import 'package:react/src/react_client/js_backed_map.dart';
 
 export './annotations.dart';
 export './component_base.dart'
@@ -95,6 +96,15 @@ abstract class UiComponent2<TProps extends UiProps> extends component_base.UiCom
   @override
   @toBeGenerated
   TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedPropsFactory);
+
+  /// Returns a typed props object backed by the specified [propsMap].
+  ///
+  /// Required to properly instantiate the generic [TProps] class.
+  ///
+  /// This should be used where possible over [typedPropsFactory] to allow for
+  /// more efficient dart2js output.
+  @override
+  @toBeGenerated
   TProps typedPropsFactoryJs(JsBackedMap propsMap) => throw new UngeneratedError(member: #typedPropsFactoryJs);
 }
 

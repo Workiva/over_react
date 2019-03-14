@@ -27,6 +27,7 @@ export 'package:react/react.dart' show
     SyntheticUIEvent,
     SyntheticWheelEvent;
 
+// FIXME use public entrypoint
 export 'package:react/src/react_client/js_backed_map.dart' show JsBackedMap;
 
 export 'package:react/react_client.dart' show setClientConfiguration, ReactElement, ReactComponentFactoryProxy;

@@ -45,7 +45,9 @@ class DomProps extends component_base.UiProps
         builder_helpers.GeneratedClass
     implements
         builder_helpers.UiProps {
-  // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
+  // Initialize to a JsBackedMap so that copying can be optimized
+  // when converting props during ReactElement creation.
+  // todo generate JsBackedMap-based implementation used when no backing map is provided, like we do for Component2
   DomProps(this.componentFactory, [Map props]) : this.props = props ?? new JsBackedMap();
 
   @override
@@ -67,7 +69,9 @@ class SvgProps extends component_base.UiProps
         builder_helpers.GeneratedClass
     implements
         DomProps {
-  // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
+  // Initialize to a JsBackedMap so that copying can be optimized
+  // when converting props during ReactElement creation.
+  // todo generate JsBackedMap-based implementation used when no backing map is provided, like we do for Component2
   SvgProps(this.componentFactory, [Map props]) : this.props = props ?? new JsBackedMap();
 
   @override
