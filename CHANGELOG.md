@@ -1,5 +1,14 @@
 # OverReact Changelog
 
+## 2.3.1
+
+> Complete `2.3.1` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.3.0+dart2...2.3.1+dart2)
+> - [Dart 1](https://github.com/Workiva/over_react/compare/2.3.0+dart1...2.3.1+dart1)
+
+* [#272] Add `min-height: 0` to `ResizeSensor` wrapper nodes to fix issues with it not shrinking in a flexbox layout
+
 ## 2.3.0
 
 > Complete `2.3.0` Changsets:
@@ -92,6 +101,10 @@ __Breaking Changes__
 * Removals:
   * `getJsProps()` - use `getProps()` instead
   * `$Props` and `$PropKeys` - see the migration guide above
+
+## 1.33.1
+
+* [#272] Add `min-height: 0` to `ResizeSensor` wrapper nodes to fix issues with it not shrinking in a flexbox layout
 
 ## 1.33.0
 
