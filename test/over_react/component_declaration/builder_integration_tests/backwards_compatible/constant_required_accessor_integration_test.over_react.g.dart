@@ -22,24 +22,24 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @override
   Map get props;
 
-  /// Go to [_$ComponentTestProps.required] to see the source code for this prop
+  /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @requiredProp
   get required =>
       props[_$key__required___$ComponentTestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ComponentTestProps.required] to see the source code for this prop
+  /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @requiredProp
   set required(value) => props[_$key__required___$ComponentTestProps] = value;
 
-  /// Go to [_$ComponentTestProps.nullable] to see the source code for this prop
+  /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @nullableRequiredProp
   get nullable =>
       props[_$key__nullable___$ComponentTestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ComponentTestProps.nullable] to see the source code for this prop
+  /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @nullableRequiredProp
   set nullable(value) => props[_$key__nullable___$ComponentTestProps] = value;

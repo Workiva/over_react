@@ -21,31 +21,59 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   @override
   Map get props;
 
-  /// Go to [_$ButtonGroupProps.size] to see the source code for this prop
+  /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#sizing>.
+  ///
+  /// Default: [ButtonGroupSize.DEFAULT]
+  ///
+  /// <!-- Generated from [_$ButtonGroupProps.size] -->
   @override
   ButtonGroupSize get size =>
       props[_$key__size___$ButtonGroupProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ButtonGroupProps.size] to see the source code for this prop
+  /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#sizing>.
+  ///
+  /// Default: [ButtonGroupSize.DEFAULT]
+  ///
+  /// <!-- Generated from [_$ButtonGroupProps.size] -->
   @override
   set size(ButtonGroupSize value) =>
       props[_$key__size___$ButtonGroupProps] = value;
 
-  /// Go to [_$ButtonGroupProps.skin] to see the source code for this prop
+  /// The [ButtonSkin] variation applied to every [Button] within the [ButtonGroup].
+  ///
+  /// <!-- Generated from [_$ButtonGroupProps.skin] -->
   @override
   ButtonSkin get skin =>
       props[_$key__skin___$ButtonGroupProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ButtonGroupProps.skin] to see the source code for this prop
+  /// The [ButtonSkin] variation applied to every [Button] within the [ButtonGroup].
+  ///
+  /// <!-- Generated from [_$ButtonGroupProps.skin] -->
   @override
   set skin(ButtonSkin value) => props[_$key__skin___$ButtonGroupProps] = value;
 
-  /// Go to [_$ButtonGroupProps.isVertical] to see the source code for this prop
+  /// Make the [Button]s within a [ButtonGroup] stack vertically.
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#vertical-variation>.
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$ButtonGroupProps.isVertical] -->
   @override
   bool get isVertical =>
       props[_$key__isVertical___$ButtonGroupProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ButtonGroupProps.isVertical] to see the source code for this prop
+  /// Make the [Button]s within a [ButtonGroup] stack vertically.
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#vertical-variation>.
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$ButtonGroupProps.isVertical] -->
   @override
   set isVertical(bool value) =>
       props[_$key__isVertical___$ButtonGroupProps] = value;

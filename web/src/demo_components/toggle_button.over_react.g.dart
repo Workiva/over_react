@@ -23,37 +23,99 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   @override
   Map get props;
 
-  /// Go to [_$ToggleButtonProps.autoFocus] to see the source code for this prop
+  /// Whether the `<input>` rendered by the [ToggleButton] should have focus upon mounting.
+  ///
+  /// _Proxies [DomProps.autoFocus]._
+  ///
+  /// Default: `false`
+  ///
+  /// <!-- Generated from [_$ToggleButtonProps.autoFocus] -->
   @override
   @Accessor(keyNamespace: '')
   bool get autoFocus =>
       props[_$key__autoFocus___$ToggleButtonProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ToggleButtonProps.autoFocus] to see the source code for this prop
+  /// Whether the `<input>` rendered by the [ToggleButton] should have focus upon mounting.
+  ///
+  /// _Proxies [DomProps.autoFocus]._
+  ///
+  /// Default: `false`
+  ///
+  /// <!-- Generated from [_$ToggleButtonProps.autoFocus] -->
   @override
   @Accessor(keyNamespace: '')
   set autoFocus(bool value) =>
       props[_$key__autoFocus___$ToggleButtonProps] = value;
 
-  /// Go to [_$ToggleButtonProps.defaultChecked] to see the source code for this prop
+  /// Whether the [ToggleButton] is checked by default.
+  ///
+  /// Setting this without the setting the [checked] prop to will make the
+  /// [ToggleButton] _uncontrolled_; it will initially render checked or unchecked
+  /// depending on the value of this prop, and then update itself automatically
+  /// in response to user input, like a normal HTML input.
+  ///
+  /// Related: [checked]
+  ///
+  /// _Proxies [DomProps.defaultChecked]._
+  ///
+  /// See: <https://facebook.github.io/react/docs/forms.html#uncontrolled-components>.
+  ///
+  /// <!-- Generated from [_$ToggleButtonProps.defaultChecked] -->
   @override
   @Accessor(keyNamespace: '')
   bool get defaultChecked =>
       props[_$key__defaultChecked___$ToggleButtonProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ToggleButtonProps.defaultChecked] to see the source code for this prop
+  /// Whether the [ToggleButton] is checked by default.
+  ///
+  /// Setting this without the setting the [checked] prop to will make the
+  /// [ToggleButton] _uncontrolled_; it will initially render checked or unchecked
+  /// depending on the value of this prop, and then update itself automatically
+  /// in response to user input, like a normal HTML input.
+  ///
+  /// Related: [checked]
+  ///
+  /// _Proxies [DomProps.defaultChecked]._
+  ///
+  /// See: <https://facebook.github.io/react/docs/forms.html#uncontrolled-components>.
+  ///
+  /// <!-- Generated from [_$ToggleButtonProps.defaultChecked] -->
   @override
   @Accessor(keyNamespace: '')
   set defaultChecked(bool value) =>
       props[_$key__defaultChecked___$ToggleButtonProps] = value;
 
-  /// Go to [_$ToggleButtonProps.checked] to see the source code for this prop
+  /// Whether the [ToggleButton] is checked.
+  ///
+  /// Setting this will make the [ToggleButton] _controlled_; it will not update
+  /// automatically in response to user input, but instead will always render
+  /// checked or unchecked depending on the value of this prop.
+  ///
+  /// Related: [defaultChecked]
+  ///
+  /// _Proxies [DomProps.checked]._
+  ///
+  /// See: <https://facebook.github.io/react/docs/forms.html#controlled-components>.
+  ///
+  /// <!-- Generated from [_$ToggleButtonProps.checked] -->
   @override
   @Accessor(keyNamespace: '')
   bool get checked =>
       props[_$key__checked___$ToggleButtonProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ToggleButtonProps.checked] to see the source code for this prop
+  /// Whether the [ToggleButton] is checked.
+  ///
+  /// Setting this will make the [ToggleButton] _controlled_; it will not update
+  /// automatically in response to user input, but instead will always render
+  /// checked or unchecked depending on the value of this prop.
+  ///
+  /// Related: [defaultChecked]
+  ///
+  /// _Proxies [DomProps.checked]._
+  ///
+  /// See: <https://facebook.github.io/react/docs/forms.html#controlled-components>.
+  ///
+  /// <!-- Generated from [_$ToggleButtonProps.checked] -->
   @override
   @Accessor(keyNamespace: '')
   set checked(bool value) => props[_$key__checked___$ToggleButtonProps] = value;
@@ -131,22 +193,40 @@ abstract class _$ToggleButtonStateAccessorsMixin
   @override
   Map get state;
 
-  /// Go to [_$ToggleButtonState.isFocused] to see the source code for this prop
+  /// Tracks if the [ToggleButton] is focused. Determines whether to render with the `js-focus` CSS
+  /// class.
+  ///
+  /// Initial: [ToggleButtonProps.autoFocus]
+  ///
+  /// <!-- Generated from [_$ToggleButtonState.isFocused] -->
   @override
   bool get isFocused =>
       state[_$key__isFocused___$ToggleButtonState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ToggleButtonState.isFocused] to see the source code for this prop
+  /// Tracks if the [ToggleButton] is focused. Determines whether to render with the `js-focus` CSS
+  /// class.
+  ///
+  /// Initial: [ToggleButtonProps.autoFocus]
+  ///
+  /// <!-- Generated from [_$ToggleButtonState.isFocused] -->
   @override
   set isFocused(bool value) =>
       state[_$key__isFocused___$ToggleButtonState] = value;
 
-  /// Go to [_$ToggleButtonState.isChecked] to see the source code for this prop
+  /// Tracks if the [ToggleButton] input is `checked`. Determines whether to render with the `active` CSS class.
+  ///
+  /// Initial: [ToggleButtonProps.checked] `??` [ToggleButtonProps.defaultChecked] `?? false`
+  ///
+  /// <!-- Generated from [_$ToggleButtonState.isChecked] -->
   @override
   bool get isChecked =>
       state[_$key__isChecked___$ToggleButtonState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ToggleButtonState.isChecked] to see the source code for this prop
+  /// Tracks if the [ToggleButton] input is `checked`. Determines whether to render with the `active` CSS class.
+  ///
+  /// Initial: [ToggleButtonProps.checked] `??` [ToggleButtonProps.defaultChecked] `?? false`
+  ///
+  /// <!-- Generated from [_$ToggleButtonState.isChecked] -->
   @override
   set isChecked(bool value) =>
       state[_$key__isChecked___$ToggleButtonState] = value;

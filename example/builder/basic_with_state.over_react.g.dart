@@ -20,57 +20,57 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
   @override
   Map get props;
 
-  /// Go to [_$BasicProps.basicProp] to see the source code for this prop
+  /// <!-- Generated from [_$BasicProps.basicProp] -->
   @override
   String get basicProp =>
       props[_$key__basicProp___$BasicProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$BasicProps.basicProp] to see the source code for this prop
+  /// <!-- Generated from [_$BasicProps.basicProp] -->
   @override
   set basicProp(String value) => props[_$key__basicProp___$BasicProps] = value;
 
-  /// Go to [_$BasicProps.basic1] to see the source code for this prop
+  /// <!-- Generated from [_$BasicProps.basic1] -->
   @override
   String get basic1 =>
       props[_$key__basic1___$BasicProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$BasicProps.basic1] to see the source code for this prop
+  /// <!-- Generated from [_$BasicProps.basic1] -->
   @override
   set basic1(String value) => props[_$key__basic1___$BasicProps] = value;
 
-  /// Go to [_$BasicProps.basic2] to see the source code for this prop
+  /// <!-- Generated from [_$BasicProps.basic2] -->
   @override
   String get basic2 =>
       props[_$key__basic2___$BasicProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$BasicProps.basic2] to see the source code for this prop
+  /// <!-- Generated from [_$BasicProps.basic2] -->
   @override
   set basic2(String value) => props[_$key__basic2___$BasicProps] = value;
 
-  /// Go to [_$BasicProps.basic3] to see the source code for this prop
+  /// <!-- Generated from [_$BasicProps.basic3] -->
   @override
   String get basic3 =>
       props[_$key__basic3___$BasicProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$BasicProps.basic3] to see the source code for this prop
+  /// <!-- Generated from [_$BasicProps.basic3] -->
   @override
   set basic3(String value) => props[_$key__basic3___$BasicProps] = value;
 
-  /// Go to [_$BasicProps.basic4] to see the source code for this prop
+  /// <!-- Generated from [_$BasicProps.basic4] -->
   @override
   String get basic4 =>
       props[_$key__basic4___$BasicProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$BasicProps.basic4] to see the source code for this prop
+  /// <!-- Generated from [_$BasicProps.basic4] -->
   @override
   set basic4(String value) => props[_$key__basic4___$BasicProps] = value;
 
-  /// Go to [_$BasicProps.basic5] to see the source code for this prop
+  /// <!-- Generated from [_$BasicProps.basic5] -->
   @override
   String get basic5 =>
       props[_$key__basic5___$BasicProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$BasicProps.basic5] to see the source code for this prop
+  /// <!-- Generated from [_$BasicProps.basic5] -->
   @override
   set basic5(String value) => props[_$key__basic5___$BasicProps] = value;
   /* GENERATED CONSTANTS */
@@ -157,12 +157,12 @@ abstract class _$BasicStateAccessorsMixin implements _$BasicState {
   @override
   Map get state;
 
-  /// Go to [_$BasicState.basicState] to see the source code for this prop
+  /// <!-- Generated from [_$BasicState.basicState] -->
   @override
   String get basicState =>
       state[_$key__basicState___$BasicState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$BasicState.basicState] to see the source code for this prop
+  /// <!-- Generated from [_$BasicState.basicState] -->
   @override
   set basicState(String value) =>
       state[_$key__basicState___$BasicState] = value;

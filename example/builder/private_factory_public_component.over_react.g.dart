@@ -22,12 +22,12 @@ abstract class _$FormActionInputPropsAccessorsMixin
   @override
   Map get props;
 
-  /// Go to [_$FormActionInputProps.prop1] to see the source code for this prop
+  /// <!-- Generated from [_$FormActionInputProps.prop1] -->
   @override
   String get prop1 =>
       props[_$key__prop1___$FormActionInputProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$FormActionInputProps.prop1] to see the source code for this prop
+  /// <!-- Generated from [_$FormActionInputProps.prop1] -->
   @override
   set prop1(String value) =>
       props[_$key__prop1___$FormActionInputProps] = value;

@@ -22,33 +22,33 @@ abstract class _$TestCompositeComponentPropsAccessorsMixin
   @override
   Map get props;
 
-  /// Go to [_$TestCompositeComponentProps.onComponentDidMount] to see the source code for this prop
+  /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidMount] -->
   @override
   Function get onComponentDidMount =>
       props[_$key__onComponentDidMount___$TestCompositeComponentProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$TestCompositeComponentProps.onComponentDidMount] to see the source code for this prop
+  /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidMount] -->
   @override
   set onComponentDidMount(Function value) =>
       props[_$key__onComponentDidMount___$TestCompositeComponentProps] = value;
 
-  /// Go to [_$TestCompositeComponentProps.onComponentWillUnmount] to see the source code for this prop
+  /// <!-- Generated from [_$TestCompositeComponentProps.onComponentWillUnmount] -->
   @override
   Function get onComponentWillUnmount =>
       props[_$key__onComponentWillUnmount___$TestCompositeComponentProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$TestCompositeComponentProps.onComponentWillUnmount] to see the source code for this prop
+  /// <!-- Generated from [_$TestCompositeComponentProps.onComponentWillUnmount] -->
   @override
   set onComponentWillUnmount(Function value) =>
       props[_$key__onComponentWillUnmount___$TestCompositeComponentProps] =
           value;
 
-  /// Go to [_$TestCompositeComponentProps.onComponentDidUpdate] to see the source code for this prop
+  /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidUpdate] -->
   @override
   Function get onComponentDidUpdate =>
       props[_$key__onComponentDidUpdate___$TestCompositeComponentProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$TestCompositeComponentProps.onComponentDidUpdate] to see the source code for this prop
+  /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidUpdate] -->
   @override
   set onComponentDidUpdate(Function value) =>
       props[_$key__onComponentDidUpdate___$TestCompositeComponentProps] = value;
