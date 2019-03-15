@@ -493,9 +493,9 @@ class ComponentNode extends NodeWithMeta<ClassDeclaration, annotations.Component
 
   ComponentNode(ClassDeclaration node)
       : this.isComponent2 = node.declaredElement == null
-            // This can be null when using non-resolved AST in tests; fixme do we need to update that setup?
+            // This can be null when using non-resolved AST in tests; FIXME 3.0.0-wip do we need to update that setup?
             ? false
-            // todo is there a better way to check against react's Component2?
+            // TODO 3.0.0-wip is there a better way to check against react's Component2?
             : node.declaredElement.allSupertypes.any((type) {
               return type.name == 'Component2';
             }),

@@ -157,7 +157,6 @@ class ImplGenerator {
 
       if (declarations.component.isComponent2) {
         final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(propsImplName);
-        // fixme: is this implementation still needed here, or can we do it in the superclass?
         // This implementation here is necessary so that mixin accesses aren't compiled as index$ax
         typedPropsFactoryImpl
           ..writeln('  $jsMapImplName _cachedTypedProps;')
@@ -168,6 +167,7 @@ class ImplGenerator {
           ..writeln('  @override')
           ..writeln('  set props(Map value) {')
           ..writeln('    super.props = value;')
+          // FIXME 3.0.0-wip: is this implementation still needed here to get good dart2js output, or can we do it in the superclass?
           ..writeln('    _cachedTypedProps = typedPropsFactoryJs(value);')
           ..writeln('  }')
           ..writeln()
@@ -211,7 +211,6 @@ class ImplGenerator {
 
         if (declarations.component.isComponent2) {
           final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(stateImplName);
-          // fixme: is this implementation still needed here, or can we do it in the superclass?
           // This implementation here is necessary so that mixin accesses aren't compiled as index$ax
           typedStateFactoryImpl
             ..writeln('  $jsMapImplName _cachedTypedState;')
@@ -225,6 +224,7 @@ class ImplGenerator {
             ..writeln('  }')
             ..writeln()
             ..writeln('  @override ')
+            // FIXME 3.0.0-wip: is this implementation still needed here to get good dart2js output, or can we do it in the superclass?
             ..writeln('  $jsMapImplName typedStateFactoryJs(JsBackedMap backingMap) => new $jsMapImplName(backingMap);')
             ..writeln();
         }
@@ -553,10 +553,21 @@ class ImplGenerator {
     return className.replaceFirst(privateSourcePrefix, '$privateSourcePrefix\$');
   }
 
+  /// Converts the abstract generated props/state implementation's classname
+  /// into the name of its subclass that can be backed by any Map.
+  ///
+  /// Example:
+  ///   Input: '_$$FooProps'
+  ///   Output: '_$$FooProps$PlainMap'
   static String _plainMapAccessorsImplClassNameFromImplClassName(String implName) {
     return '$implName\$PlainMap';
   }
-
+  /// Converts the abstract generated props/state implementation's classname
+  /// into the name of its subclass that can be backed by only JsMaps.
+  ///
+  /// Example:
+  ///   Input: '_$$FooProps'
+  ///   Output: '_$$FooProps$JsMap'
   static String _jsMapAccessorImplClassNameFromImplClassName(String implName) {
     return '$implName\$JsMap';
   }

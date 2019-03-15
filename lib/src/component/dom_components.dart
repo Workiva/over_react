@@ -47,7 +47,7 @@ class DomProps extends component_base.UiProps
         builder_helpers.UiProps {
   // Initialize to a JsBackedMap so that copying can be optimized
   // when converting props during ReactElement creation.
-  // todo generate JsBackedMap-based implementation used when no backing map is provided, like we do for Component2
+  // TODO 3.0.0-wip generate JsBackedMap-based implementation used when no backing map is provided, like we do for Component2
   DomProps(this.componentFactory, [Map props]) : this.props = props ?? new JsBackedMap();
 
   @override
@@ -71,7 +71,7 @@ class SvgProps extends component_base.UiProps
         DomProps {
   // Initialize to a JsBackedMap so that copying can be optimized
   // when converting props during ReactElement creation.
-  // todo generate JsBackedMap-based implementation used when no backing map is provided, like we do for Component2
+  // TODO 3.0.0-wip generate JsBackedMap-based implementation used when no backing map is provided, like we do for Component2
   SvgProps(this.componentFactory, [Map props]) : this.props = props ?? new JsBackedMap();
 
   @override
