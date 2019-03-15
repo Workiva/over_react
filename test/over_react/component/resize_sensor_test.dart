@@ -142,6 +142,7 @@ void main() {
 
         expect(renderedNode.style.position, equals('relative'));
         expect(renderedNode.style.display, equals('block'));
+        expect(renderedNode.style.minHeight, '0px');
 
         var nodeStyleDecl = renderedNode.style;
         if (browser.isInternetExplorer && browser.version.major < 11) {
@@ -157,6 +158,7 @@ void main() {
         var renderedNode = renderAndGetDom((ResizeSensor()..isFlexContainer = true)());
 
         expect(renderedNode.style.position, equals('relative'));
+        expect(renderedNode.style.minHeight, '0px');
 
         var nodeStyleDecl = renderedNode.style;
         if (browser.isInternetExplorer && browser.version.major < 11) {
