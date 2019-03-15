@@ -46,16 +46,8 @@ class GeneratedClass {
   }
 }
 
-
-/// See: [component_base.UiComponent]
-///
-/// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
-abstract class UiComponent<TProps extends UiProps> extends component_base.UiComponent<TProps> with GeneratedClass {
-  /// This class should not be instantiated directly, and throws an error to indicate this.
-  UiComponent() {
-    _throwIfNotGenerated();
-  }
-
+mixin _GeneratedUiComponentStubs<TProps extends UiProps>
+    on component_base.UiComponent<TProps>, GeneratedClass {
   /// The default consumed props, taken from the keys generated in the associated @[annotations.Props] class.
   @toBeGenerated
   Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
@@ -74,29 +66,53 @@ abstract class UiComponent<TProps extends UiProps> extends component_base.UiComp
   TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedPropsFactory);
 }
 
-abstract class UiComponent2<TProps extends UiProps> extends component_base.UiComponent2<TProps> with GeneratedClass {
+mixin _GeneratedUiStatefulComponentStubs<TProps extends UiProps, TState extends UiState>
+    on component_base.UiStatefulComponent<TProps, TState>, GeneratedClass {
+  /// Returns a typed state object backed by the specified [stateMap].
+  ///
+  /// Required to properly instantiate the generic [TState] class.
+  @override
+  @toBeGenerated
+  TState typedStateFactory(Map stateMap) => throw new UngeneratedError(member: #typedStateFactory, message:
+      '${#typedStateFactory}` should be implemented by code generation.\n\n'
+      'This error may be due to your `UiState` class not being annotated with `@State()`,\n'
+      'or because you are extending a stateful component without redeclaring your own `@State()`, like so:\n\n'
+      '    @State()\n'
+      '    class MyState extends SuperState {}\n'
+  );
+}
+
+/// See: [component_base.UiComponent]
+///
+/// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
+abstract class UiComponent<TProps extends UiProps>
+    extends component_base.UiComponent<TProps>
+    with
+        GeneratedClass,
+        _GeneratedUiComponentStubs<TProps> {
   /// This class should not be instantiated directly, and throws an error to indicate this.
-  UiComponent2() {
+  UiComponent() {
     _throwIfNotGenerated();
   }
+}
 
-  /// The default consumed props, taken from the keys generated in the associated @[annotations.Props] class.
-  @toBeGenerated
-  Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
+/// See: [component_base.UiStatefulComponent]
+///
+/// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
+abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState>
+    extends component_base.UiStatefulComponent<TProps, TState>
+    with
+        GeneratedClass,
+        _GeneratedUiComponentStubs<TProps>,
+        _GeneratedUiStatefulComponentStubs<TProps, TState> {
+  /// This class should not be instantiated directly, and throws an error to indicate this.
+  UiStatefulComponent() {
+    _throwIfNotGenerated();
+  }
+}
 
-  /// The keys for the non-forwarding props defined in this component.
-  ///
-  /// For generated components, this defaults to the keys generated in the associated @[annotations.Props] class
-  /// if this getter is not overridden.
-  @override
-  Iterable<component_base.ConsumedProps> get consumedProps => $defaultConsumedProps;
-
-  /// Returns a typed props object backed by the specified [propsMap].
-  /// Required to properly instantiate the generic [TProps] class.
-  @override
-  @toBeGenerated
-  TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedPropsFactory);
-
+mixin _GeneratedUiComponent2Stubs<TProps extends UiProps>
+    on component_base.UiComponent2<TProps>, GeneratedClass {
   /// Returns a typed props object backed by the specified [propsMap].
   ///
   /// Required to properly instantiate the generic [TProps] class.
@@ -108,82 +124,39 @@ abstract class UiComponent2<TProps extends UiProps> extends component_base.UiCom
   TProps typedPropsFactoryJs(JsBackedMap propsMap) => throw new UngeneratedError(member: #typedPropsFactoryJs);
 }
 
-
-/// See: [component_base.UiStatefulComponent]
-///
-/// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
-abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState>
-    extends component_base.UiStatefulComponent<TProps, TState> with GeneratedClass {
+abstract class UiComponent2<TProps extends UiProps>
+    extends component_base.UiComponent2<TProps>
+    with
+        GeneratedClass,
+        _GeneratedUiComponentStubs<TProps>,
+        _GeneratedUiComponent2Stubs<TProps> {
   /// This class should not be instantiated directly, and throws an error to indicate this.
-  UiStatefulComponent() {
+  UiComponent2() {
     _throwIfNotGenerated();
   }
-
-  /// The default consumed prop keys, taken from the keys generated in the associated @[annotations.Props] class.
-  @toBeGenerated
-  Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
-
-  /// The keys for the non-forwarding props defined in this component.
-  ///
-  /// For generated components, this defaults to the keys generated in the associated @[annotations.Props] class
-  /// if this getter is not overridden.
-  @override
-  Iterable<component_base.ConsumedProps> get consumedProps => $defaultConsumedProps;
-
-  /// Returns a typed props object backed by the specified [propsMap].
-  ///
-  /// Required to properly instantiate the generic [TProps] class.
-  @override
-  @toBeGenerated
-  TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedPropsFactory);
-
-  /// Returns a typed state object backed by the specified [stateMap].
-  ///
-  /// Required to properly instantiate the generic [TState] class.
-  @override @toBeGenerated TState typedStateFactory(Map stateMap) => throw new UngeneratedError(member: #typedStateFactory, message:
-      '${#typedStateFactory}` should be implemented by code generation.\n\n'
-      'This error may be due to your `UiState` class not being annotated with `@State()`,\n'
-      'or because you are extending a stateful component without redeclaring your own `@State()`, like so:\n\n'
-      '    @State()\n'
-      '    class MyState extends SuperState {}\n'
-  );
 }
 
 abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiState>
-    extends component_base.UiStatefulComponent2<TProps, TState> with GeneratedClass {
+    extends component_base.UiStatefulComponent2<TProps, TState>
+    with
+        GeneratedClass,
+        _GeneratedUiComponentStubs<TProps>,
+        _GeneratedUiComponent2Stubs<TProps>,
+        _GeneratedUiStatefulComponentStubs<TProps, TState> {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiStatefulComponent2() {
     _throwIfNotGenerated();
   }
 
-  /// The default consumed prop keys, taken from the keys generated in the associated @[annotations.Props] class.
-  @toBeGenerated
-  Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
-
-  /// The keys for the non-forwarding props defined in this component.
-  ///
-  /// For generated components, this defaults to the keys generated in the associated @[annotations.Props] class
-  /// if this getter is not overridden.
-  @override
-  Iterable<component_base.ConsumedProps> get consumedProps => $defaultConsumedProps;
-
-  /// Returns a typed props object backed by the specified [propsMap].
-  ///
-  /// Required to properly instantiate the generic [TProps] class.
-  @override
-  @toBeGenerated
-  TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedPropsFactory);
-  /// Returns a typed props object backed by the specified [propsMap].
-  ///
-  /// Required to properly instantiate the generic [TProps] class.
-  @override
-  @toBeGenerated
-  TProps typedPropsFactoryJs(JsBackedMap propsMap) => throw new UngeneratedError(member: #typedPropsFactoryJs);
-
   /// Returns a typed state object backed by the specified [stateMap].
   ///
   /// Required to properly instantiate the generic [TState] class.
-  @override @toBeGenerated TState typedStateFactory(Map stateMap) => throw new UngeneratedError(member: #typedStateFactory, message:
+  ///
+  /// This should be used where possible over [typedStateFactory] to allow for
+  /// more efficient dart2js output.
+  @override
+  @toBeGenerated
+  TState typedStateFactoryJs(JsBackedMap stateMap) => throw new UngeneratedError(member: #typedStateFactory, message:
       '${#typedStateFactory}` should be implemented by code generation.\n\n'
       'This error may be due to your `UiState` class not being annotated with `@State()`,\n'
       'or because you are extending a stateful component without redeclaring your own `@State()`, like so:\n\n'
