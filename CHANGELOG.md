@@ -1,5 +1,9 @@
 # OverReact Changelog
 
+## 1.33.1
+
+* [#272] Add `min-height: 0` to `ResizeSensor` wrapper nodes to fix issues with it not shrinking in a flexbox layout
+
 ## 1.33.0
 
 > [Complete `1.33.0` Changeset](https://github.com/Workiva/over_react/compare/1.32.0...1.33.0)
