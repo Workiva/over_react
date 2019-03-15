@@ -126,7 +126,7 @@ abstract class _$$ComponentTestProps extends _$ComponentTestProps
 // Concrete props implementation that can be backed by any [Map].
 class _$$ComponentTestProps$PlainMap extends _$$ComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ComponentTestProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
@@ -143,7 +143,7 @@ class _$$ComponentTestProps$PlainMap extends _$$ComponentTestProps {
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ComponentTestProps$JsMap extends _$$ComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ComponentTestProps$JsMap(JsBackedMap backingMap)
       : this._props = new JsBackedMap(),
         super._() {

@@ -190,7 +190,7 @@ abstract class _$$ButtonProps extends _$ButtonProps
 // Concrete props implementation that can be backed by any [Map].
 class _$$ButtonProps$PlainMap extends _$$ButtonProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ButtonProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
@@ -207,7 +207,7 @@ class _$$ButtonProps$PlainMap extends _$$ButtonProps {
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ButtonProps$JsMap extends _$$ButtonProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ButtonProps$JsMap(JsBackedMap backingMap)
       : this._props = new JsBackedMap(),
         super._() {
@@ -263,7 +263,7 @@ abstract class _$$ButtonState extends _$ButtonState
 // Concrete state implementation that can be backed by any [Map].
 class _$$ButtonState$PlainMap extends _$$ButtonState {
   // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ButtonState$PlainMap(Map backingMap)
       : this._state = {},
         super._() {
@@ -280,7 +280,7 @@ class _$$ButtonState$PlainMap extends _$$ButtonState {
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ButtonState$JsMap extends _$$ButtonState {
   // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ButtonState$JsMap(JsBackedMap backingMap)
       : this._state = new JsBackedMap(),
         super._() {

@@ -43,7 +43,7 @@ class _$$StatefulComponentTestProps extends _$StatefulComponentTestProps
     with _$StatefulComponentTestPropsAccessorsMixin
     implements StatefulComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$StatefulComponentTestProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
@@ -205,7 +205,7 @@ class _$$StatefulComponentTestState extends _$StatefulComponentTestState
     with _$StatefulComponentTestStateAccessorsMixin
     implements StatefulComponentTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$StatefulComponentTestState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }

@@ -47,7 +47,7 @@ class _$$TestParentProps extends _$TestParentProps
     with _$TestParentPropsAccessorsMixin
     implements TestParentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestParentProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }

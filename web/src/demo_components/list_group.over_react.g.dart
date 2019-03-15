@@ -90,7 +90,7 @@ abstract class _$$ListGroupProps extends _$ListGroupProps
 // Concrete props implementation that can be backed by any [Map].
 class _$$ListGroupProps$PlainMap extends _$$ListGroupProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ListGroupProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
@@ -107,7 +107,7 @@ class _$$ListGroupProps$PlainMap extends _$$ListGroupProps {
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ListGroupProps$JsMap extends _$$ListGroupProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ListGroupProps$JsMap(JsBackedMap backingMap)
       : this._props = new JsBackedMap(),
         super._() {

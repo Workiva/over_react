@@ -85,7 +85,7 @@ abstract class _$$FooProps extends _$FooProps
 // Concrete props implementation that can be backed by any [Map].
 class _$$FooProps$PlainMap extends _$$FooProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$FooProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
@@ -102,7 +102,7 @@ class _$$FooProps$PlainMap extends _$$FooProps {
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$FooProps$JsMap extends _$$FooProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$FooProps$JsMap(JsBackedMap backingMap)
       : this._props = new JsBackedMap(),
         super._() {

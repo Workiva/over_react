@@ -78,7 +78,7 @@ abstract class _$$StatefulComponentTestProps
 class _$$StatefulComponentTestProps$PlainMap
     extends _$$StatefulComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$StatefulComponentTestProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
@@ -96,7 +96,7 @@ class _$$StatefulComponentTestProps$PlainMap
 class _$$StatefulComponentTestProps$JsMap
     extends _$$StatefulComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$StatefulComponentTestProps$JsMap(JsBackedMap backingMap)
       : this._props = new JsBackedMap(),
         super._() {
@@ -271,7 +271,7 @@ abstract class _$$StatefulComponentTestState
 class _$$StatefulComponentTestState$PlainMap
     extends _$$StatefulComponentTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$StatefulComponentTestState$PlainMap(Map backingMap)
       : this._state = {},
         super._() {
@@ -289,7 +289,7 @@ class _$$StatefulComponentTestState$PlainMap
 class _$$StatefulComponentTestState$JsMap
     extends _$$StatefulComponentTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$StatefulComponentTestState$JsMap(JsBackedMap backingMap)
       : this._state = new JsBackedMap(),
         super._() {

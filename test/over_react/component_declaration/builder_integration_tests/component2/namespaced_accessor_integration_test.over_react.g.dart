@@ -192,7 +192,7 @@ abstract class _$$NamespacedAccessorTestProps
 class _$$NamespacedAccessorTestProps$PlainMap
     extends _$$NamespacedAccessorTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$NamespacedAccessorTestProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
@@ -210,7 +210,7 @@ class _$$NamespacedAccessorTestProps$PlainMap
 class _$$NamespacedAccessorTestProps$JsMap
     extends _$$NamespacedAccessorTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$NamespacedAccessorTestProps$JsMap(JsBackedMap backingMap)
       : this._props = new JsBackedMap(),
         super._() {
@@ -385,7 +385,7 @@ abstract class _$$NamespacedAccessorTestState
 class _$$NamespacedAccessorTestState$PlainMap
     extends _$$NamespacedAccessorTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$NamespacedAccessorTestState$PlainMap(Map backingMap)
       : this._state = {},
         super._() {
@@ -403,7 +403,7 @@ class _$$NamespacedAccessorTestState$PlainMap
 class _$$NamespacedAccessorTestState$JsMap
     extends _$$NamespacedAccessorTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$NamespacedAccessorTestState$JsMap(JsBackedMap backingMap)
       : this._state = new JsBackedMap(),
         super._() {

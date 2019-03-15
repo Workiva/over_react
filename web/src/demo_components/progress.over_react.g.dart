@@ -238,7 +238,7 @@ abstract class _$$ProgressProps extends _$ProgressProps
 // Concrete props implementation that can be backed by any [Map].
 class _$$ProgressProps$PlainMap extends _$$ProgressProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ProgressProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
@@ -255,7 +255,7 @@ class _$$ProgressProps$PlainMap extends _$$ProgressProps {
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ProgressProps$JsMap extends _$$ProgressProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ProgressProps$JsMap(JsBackedMap backingMap)
       : this._props = new JsBackedMap(),
         super._() {
@@ -324,7 +324,7 @@ abstract class _$$ProgressState extends _$ProgressState
 // Concrete state implementation that can be backed by any [Map].
 class _$$ProgressState$PlainMap extends _$$ProgressState {
   // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ProgressState$PlainMap(Map backingMap)
       : this._state = {},
         super._() {
@@ -341,7 +341,7 @@ class _$$ProgressState$PlainMap extends _$$ProgressState {
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ProgressState$JsMap extends _$$ProgressState {
   // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ProgressState$JsMap(JsBackedMap backingMap)
       : this._state = new JsBackedMap(),
         super._() {

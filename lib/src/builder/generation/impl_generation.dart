@@ -789,7 +789,7 @@ class ImplGenerator {
     } else {
       buffer
         ..writeln('  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
-        ..writeln('  // of `_$propsOrState` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
+        ..writeln('  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
         // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
         ..writeln('  $implName(Map backingMap) : this._$propsOrState = {} {')
         ..writeln('     this._$propsOrState = backingMap ?? {};')
@@ -834,7 +834,7 @@ class ImplGenerator {
         ..writeln('// Concrete $propsOrState implementation that can be backed by any [Map].')
         ..writeln('class $plainMapImplName$typeParamsOnClass extends $implName$typeParamsOnSuper {')
         ..writeln('  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
-        ..writeln('  // of `_$propsOrState` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
+        ..writeln('  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
         // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
         ..writeln('  $plainMapImplName(Map backingMap) : this._$propsOrState = {}, super._() {')
         ..writeln('     this._$propsOrState = backingMap ?? {};')
@@ -850,7 +850,7 @@ class ImplGenerator {
         ..writeln('// allowing dart2js to compile more optimal code for key-value pair reads/writes.')
         ..writeln('class $jsMapImplName$typeParamsOnClass extends $implName$typeParamsOnSuper {')
         ..writeln('  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
-        ..writeln('  // of `_$propsOrState` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
+        ..writeln('  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
         // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
         ..writeln('  $jsMapImplName(JsBackedMap backingMap) : this._$propsOrState = new JsBackedMap(), super._() {')
         ..writeln('     this._$propsOrState = backingMap ?? new JsBackedMap();')

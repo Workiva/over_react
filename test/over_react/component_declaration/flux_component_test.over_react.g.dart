@@ -47,7 +47,7 @@ class _$$TestBasicProps extends _$TestBasicProps
     with _$TestBasicPropsAccessorsMixin
     implements TestBasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestBasicProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
@@ -133,7 +133,7 @@ class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
     with _$TestHandlerLifecyclePropsAccessorsMixin
     implements TestHandlerLifecycleProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestHandlerLifecycleProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
@@ -220,7 +220,7 @@ class _$$TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
     with _$TestHandlerPrecedencePropsAccessorsMixin
     implements TestHandlerPrecedenceProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestHandlerPrecedenceProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
@@ -327,7 +327,7 @@ class _$$TestPropValidationProps extends _$TestPropValidationProps
     with _$TestPropValidationPropsAccessorsMixin
     implements TestPropValidationProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestPropValidationProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
@@ -414,7 +414,7 @@ class _$$TestRedrawOnProps extends _$TestRedrawOnProps
     with _$TestRedrawOnPropsAccessorsMixin
     implements TestRedrawOnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestRedrawOnProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
@@ -501,7 +501,7 @@ class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
     with _$TestStoreHandlersPropsAccessorsMixin
     implements TestStoreHandlersProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStoreHandlersProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
@@ -588,7 +588,7 @@ class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
     with _$TestStatefulBasicPropsAccessorsMixin
     implements TestStatefulBasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulBasicProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
@@ -640,7 +640,7 @@ class _$$TestStatefulBasicState extends _$TestStatefulBasicState
     with _$TestStatefulBasicStateAccessorsMixin
     implements TestStatefulBasicState {
   // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulBasicState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
@@ -725,7 +725,7 @@ class _$$TestStatefulHandlerLifecycleProps
     with _$TestStatefulHandlerLifecyclePropsAccessorsMixin
     implements TestStatefulHandlerLifecycleProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulHandlerLifecycleProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
@@ -779,7 +779,7 @@ class _$$TestStatefulHandlerLifecycleState
     with _$TestStatefulHandlerLifecycleStateAccessorsMixin
     implements TestStatefulHandlerLifecycleState {
   // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulHandlerLifecycleState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
@@ -865,7 +865,7 @@ class _$$TestStatefulHandlerPrecedenceProps
     with _$TestStatefulHandlerPrecedencePropsAccessorsMixin
     implements TestStatefulHandlerPrecedenceProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulHandlerPrecedenceProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
@@ -919,7 +919,7 @@ class _$$TestStatefulHandlerPrecedenceState
     with _$TestStatefulHandlerPrecedenceStateAccessorsMixin
     implements TestStatefulHandlerPrecedenceState {
   // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulHandlerPrecedenceState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
@@ -1027,7 +1027,7 @@ class _$$TestStatefulPropValidationProps
     with _$TestStatefulPropValidationPropsAccessorsMixin
     implements TestStatefulPropValidationProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulPropValidationProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
@@ -1080,7 +1080,7 @@ class _$$TestStatefulPropValidationState
     with _$TestStatefulPropValidationStateAccessorsMixin
     implements TestStatefulPropValidationState {
   // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulPropValidationState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
@@ -1163,7 +1163,7 @@ class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
     with _$TestStatefulRedrawOnPropsAccessorsMixin
     implements TestStatefulRedrawOnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulRedrawOnProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
@@ -1215,7 +1215,7 @@ class _$$TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState
     with _$TestStatefulRedrawOnStateAccessorsMixin
     implements TestStatefulRedrawOnState {
   // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulRedrawOnState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
@@ -1298,7 +1298,7 @@ class _$$TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
     with _$TestStatefulStoreHandlersPropsAccessorsMixin
     implements TestStatefulStoreHandlersProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulStoreHandlersProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
@@ -1350,7 +1350,7 @@ class _$$TestStatefulStoreHandlersState extends _$TestStatefulStoreHandlersState
     with _$TestStatefulStoreHandlersStateAccessorsMixin
     implements TestStatefulStoreHandlersState {
   // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulStoreHandlersState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }

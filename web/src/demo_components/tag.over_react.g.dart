@@ -100,7 +100,7 @@ abstract class _$$TagProps extends _$TagProps
 // Concrete props implementation that can be backed by any [Map].
 class _$$TagProps$PlainMap extends _$$TagProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TagProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
@@ -117,7 +117,7 @@ class _$$TagProps$PlainMap extends _$$TagProps {
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$TagProps$JsMap extends _$$TagProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TagProps$JsMap(JsBackedMap backingMap)
       : this._props = new JsBackedMap(),
         super._() {
