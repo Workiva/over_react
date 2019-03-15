@@ -463,6 +463,8 @@ const Map<String, dynamic> _wrapperStylesFlexChild = const {
   'flex': '1 1 0%',
   'msFlex': '1 1 0%',
   'display': 'block',
+  // Fix ResizeSensor not shrinking properly: https://www.chromestatus.com/feature/6736527476391936
+  'minHeight': '0',
 };
 
 final Map<String, dynamic> _wrapperStylesFlexContainer = {
@@ -470,6 +472,8 @@ final Map<String, dynamic> _wrapperStylesFlexContainer = {
   'flex': '1 1 0%',
   'msFlex': '1 1 0%',
   'display': _displayFlex,
+  // Fix ResizeSensor not shrinking properly: https://www.chromestatus.com/feature/6736527476391936
+  'minHeight': '0',
 };
 
 /// The browser-prefixed value for the CSS `display` property that enables flexbox.
