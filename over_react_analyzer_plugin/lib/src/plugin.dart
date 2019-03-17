@@ -34,16 +34,20 @@ import 'dart:async';
 
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/file_system/file_system.dart';
+import 'package:analyzer/source/line_info.dart';
 // ignore: implementation_imports
 import 'package:analyzer/src/context/builder.dart';
 // ignore: implementation_imports
 import 'package:analyzer/src/context/context_root.dart';
 // ignore: implementation_imports
 import 'package:analyzer/src/dart/analysis/driver.dart';
+// ignore: implementation_imports
+import 'package:analyzer/src/task/dart.dart' show IgnoreInfo;
 //import 'package:analyzer_plugin/plugin/outline_mixin.dart';
 import 'package:analyzer_plugin/plugin/navigation_mixin.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart' as plugin;
+import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
 import 'package:analyzer_plugin/utilities/navigation/navigation.dart';
 //import 'package:analyzer_plugin/utilities/outline/outline.dart';
@@ -52,6 +56,7 @@ import 'package:over_react_analyzer_plugin/src/assist/add_ref.dart';
 import 'package:over_react_analyzer_plugin/src/assist/wrap_unwrap.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:over_react_analyzer_plugin/src/checker.dart';
+import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 import 'package:over_react_analyzer_plugin/src/navigation/prop_navigation_contributor.dart';
 
 /// Analyzer plugin for over_react.
@@ -105,13 +110,20 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
             new plugin.AnalysisErrorsParams(analysisResult.path, [])
                 .toNotification());
       } else {
-
         // If there is something to analyze, do so and notify the analyzer.
         // Note that notifying with an empty set of errors is important as
         // this clears errors if they were fixed.
         final checkResult = checker.check(analysisResult);
+
+        // The analyzer normally filters out errors with "ignore" comments,
+        // but it doesn't do it for plugin errors, so we need to do that here.
+        LineInfo lineInfo = analysisResult.unit.lineInfo;
+        final errors = checkResult.keys.toList();
+        final filteredErrors = filterIgnores(errors, lineInfo,
+            () => IgnoreInfo.calculateIgnores(analysisResult.content, lineInfo));
+
         channel.sendNotification(new plugin.AnalysisErrorsParams(
-                analysisResult.path, checkResult.keys.toList())
+                analysisResult.path, filteredErrors)
             .toNotification());
       }
     } catch (e, stackTrace) {
@@ -182,4 +194,3 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
     ];
   }
 }
-
