@@ -22,107 +22,221 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   @override
   Map get props;
 
-  /// Go to [_$ListGroupItemProps.elementType] to see the source code for this prop
+  /// The HTML element type for the [ListGroupItem], specifying its DOM
+  /// representation when rendered.
+  ///
+  /// Will only be used if [href] and [onClick] are both `null`.
+  ///
+  /// Default: [ListGroupItemElementType.SPAN]
+  ///
+  /// <!-- Generated from [_$ListGroupItemProps.elementType] -->
   @override
   ListGroupItemElementType get elementType =>
       props[_$key__elementType___$ListGroupItemProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ListGroupItemProps.elementType] to see the source code for this prop
+  /// The HTML element type for the [ListGroupItem], specifying its DOM
+  /// representation when rendered.
+  ///
+  /// Will only be used if [href] and [onClick] are both `null`.
+  ///
+  /// Default: [ListGroupItemElementType.SPAN]
+  ///
+  /// <!-- Generated from [_$ListGroupItemProps.elementType] -->
   @override
   set elementType(ListGroupItemElementType value) =>
       props[_$key__elementType___$ListGroupItemProps] = value;
 
-  /// Go to [_$ListGroupItemProps.header] to see the source code for this prop
+  /// Optional header text to display within the [ListGroupItem] above
+  /// the value of [children].
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#custom-content>.
+  ///
+  /// <!-- Generated from [_$ListGroupItemProps.header] -->
   @override
   dynamic get header =>
       props[_$key__header___$ListGroupItemProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ListGroupItemProps.header] to see the source code for this prop
+  /// Optional header text to display within the [ListGroupItem] above
+  /// the value of [children].
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#custom-content>.
+  ///
+  /// <!-- Generated from [_$ListGroupItemProps.header] -->
   @override
   set header(dynamic value) =>
       props[_$key__header___$ListGroupItemProps] = value;
 
-  /// Go to [_$ListGroupItemProps.headerSize] to see the source code for this prop
+  /// The size of the [header] text you desire.
+  ///
+  /// Default: [ListGroupItemHeaderElementSize.H5]
+  ///
+  /// <!-- Generated from [_$ListGroupItemProps.headerSize] -->
   @override
   ListGroupItemHeaderElementSize get headerSize =>
       props[_$key__headerSize___$ListGroupItemProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ListGroupItemProps.headerSize] to see the source code for this prop
+  /// The size of the [header] text you desire.
+  ///
+  /// Default: [ListGroupItemHeaderElementSize.H5]
+  ///
+  /// <!-- Generated from [_$ListGroupItemProps.headerSize] -->
   @override
   set headerSize(ListGroupItemHeaderElementSize value) =>
       props[_$key__headerSize___$ListGroupItemProps] = value;
 
-  /// Go to [_$ListGroupItemProps.headerProps] to see the source code for this prop
+  /// Additional props to be added to the [header] element _(if specified)_.
+  ///
+  /// <!-- Generated from [_$ListGroupItemProps.headerProps] -->
   @override
   Map get headerProps =>
       props[_$key__headerProps___$ListGroupItemProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ListGroupItemProps.headerProps] to see the source code for this prop
+  /// Additional props to be added to the [header] element _(if specified)_.
+  ///
+  /// <!-- Generated from [_$ListGroupItemProps.headerProps] -->
   @override
   set headerProps(Map value) =>
       props[_$key__headerProps___$ListGroupItemProps] = value;
 
-  /// Go to [_$ListGroupItemProps.skin] to see the source code for this prop
+  /// The skin / "context" for the [ListGroupItem].
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#contextual-classes>.
+  ///
+  /// Default: [ListGroupItemSkin.DEFAULT]
+  ///
+  /// <!-- Generated from [_$ListGroupItemProps.skin] -->
   @override
   ListGroupItemSkin get skin =>
       props[_$key__skin___$ListGroupItemProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ListGroupItemProps.skin] to see the source code for this prop
+  /// The skin / "context" for the [ListGroupItem].
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#contextual-classes>.
+  ///
+  /// Default: [ListGroupItemSkin.DEFAULT]
+  ///
+  /// <!-- Generated from [_$ListGroupItemProps.skin] -->
   @override
   set skin(ListGroupItemSkin value) =>
       props[_$key__skin___$ListGroupItemProps] = value;
 
-  /// Go to [_$ListGroupItemProps.isActive] to see the source code for this prop
+  /// Whether the [ListGroupItem] should appear "active".
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#anchors-and-buttons>
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$ListGroupItemProps.isActive] -->
   @override
   bool get isActive =>
       props[_$key__isActive___$ListGroupItemProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ListGroupItemProps.isActive] to see the source code for this prop
+  /// Whether the [ListGroupItem] should appear "active".
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#anchors-and-buttons>
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$ListGroupItemProps.isActive] -->
   @override
   set isActive(bool value) =>
       props[_$key__isActive___$ListGroupItemProps] = value;
 
-  /// Go to [_$ListGroupItemProps.isDisabled] to see the source code for this prop
+  /// Whether the [ListGroupItem] is disabled.
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#disabled-items>
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$ListGroupItemProps.isDisabled] -->
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
   bool get isDisabled =>
       props[_$key__isDisabled___$ListGroupItemProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ListGroupItemProps.isDisabled] to see the source code for this prop
+  /// Whether the [ListGroupItem] is disabled.
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#disabled-items>
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$ListGroupItemProps.isDisabled] -->
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
   set isDisabled(bool value) =>
       props[_$key__isDisabled___$ListGroupItemProps] = value;
 
-  /// Go to [_$ListGroupItemProps.href] to see the source code for this prop
+  /// The HTML `href` attribute value for the [ListGroupItem].
+  ///
+  /// If set, the item will render via [Dom.a].
+  ///
+  /// _Proxies [DomProps.href]_
+  ///
+  /// <!-- Generated from [_$ListGroupItemProps.href] -->
   @override
   @Accessor(keyNamespace: '')
   String get href =>
       props[_$key__href___$ListGroupItemProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ListGroupItemProps.href] to see the source code for this prop
+  /// The HTML `href` attribute value for the [ListGroupItem].
+  ///
+  /// If set, the item will render via [Dom.a].
+  ///
+  /// _Proxies [DomProps.href]_
+  ///
+  /// <!-- Generated from [_$ListGroupItemProps.href] -->
   @override
   @Accessor(keyNamespace: '')
   set href(String value) => props[_$key__href___$ListGroupItemProps] = value;
 
-  /// Go to [_$ListGroupItemProps.target] to see the source code for this prop
+  /// The HTML `target` attribute value for the [ListGroupItem].
+  ///
+  /// If set, the item will render via [Dom.a].
+  ///
+  /// _Proxies [DomProps.target]_
+  ///
+  /// <!-- Generated from [_$ListGroupItemProps.target] -->
   @override
   @Accessor(keyNamespace: '')
   String get target =>
       props[_$key__target___$ListGroupItemProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ListGroupItemProps.target] to see the source code for this prop
+  /// The HTML `target` attribute value for the [ListGroupItem].
+  ///
+  /// If set, the item will render via [Dom.a].
+  ///
+  /// _Proxies [DomProps.target]_
+  ///
+  /// <!-- Generated from [_$ListGroupItemProps.target] -->
   @override
   @Accessor(keyNamespace: '')
   set target(String value) =>
       props[_$key__target___$ListGroupItemProps] = value;
 
-  /// Go to [_$ListGroupItemProps.type] to see the source code for this prop
+  /// The HTML `type` attribute value for the [ListGroupItem] when
+  /// rendered via [Dom.button].
+  ///
+  /// This will only be applied if [onClick] is also set.
+  ///
+  /// _Proxies [DomProps.type]_
+  ///
+  /// Default: [ButtonType.BUTTON]
+  ///
+  /// <!-- Generated from [_$ListGroupItemProps.type] -->
   @override
   ButtonType get type =>
       props[_$key__type___$ListGroupItemProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ListGroupItemProps.type] to see the source code for this prop
+  /// The HTML `type` attribute value for the [ListGroupItem] when
+  /// rendered via [Dom.button].
+  ///
+  /// This will only be applied if [onClick] is also set.
+  ///
+  /// _Proxies [DomProps.type]_
+  ///
+  /// Default: [ButtonType.BUTTON]
+  ///
+  /// <!-- Generated from [_$ListGroupItemProps.type] -->
   @override
   set type(ButtonType value) =>
       props[_$key__type___$ListGroupItemProps] = value;

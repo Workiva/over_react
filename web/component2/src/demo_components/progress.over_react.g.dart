@@ -21,106 +21,202 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   @override
   Map get props;
 
-  /// Go to [_$ProgressProps.value] to see the source code for this prop
+  /// The current value of the [Progress] component.
+  ///
+  /// This value should be between the [min] and [max] values.
+  ///
+  /// Default: `0.0`
+  ///
+  /// <!-- Generated from [_$ProgressProps.value] -->
   @override
   double get value =>
       props[_$key__value___$ProgressProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ProgressProps.value] to see the source code for this prop
+  /// The current value of the [Progress] component.
+  ///
+  /// This value should be between the [min] and [max] values.
+  ///
+  /// Default: `0.0`
+  ///
+  /// <!-- Generated from [_$ProgressProps.value] -->
   @override
   set value(double value) => props[_$key__value___$ProgressProps] = value;
 
-  /// Go to [_$ProgressProps.min] to see the source code for this prop
+  /// The min value of the [Progress] component.
+  ///
+  /// Default: `0.0`
+  ///
+  /// <!-- Generated from [_$ProgressProps.min] -->
   @override
   double get min =>
       props[_$key__min___$ProgressProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ProgressProps.min] to see the source code for this prop
+  /// The min value of the [Progress] component.
+  ///
+  /// Default: `0.0`
+  ///
+  /// <!-- Generated from [_$ProgressProps.min] -->
   @override
   set min(double value) => props[_$key__min___$ProgressProps] = value;
 
-  /// Go to [_$ProgressProps.max] to see the source code for this prop
+  /// The max value of the [Progress] component.
+  ///
+  /// Default: `100.0`
+  ///
+  /// <!-- Generated from [_$ProgressProps.max] -->
   @override
   double get max =>
       props[_$key__max___$ProgressProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ProgressProps.max] to see the source code for this prop
+  /// The max value of the [Progress] component.
+  ///
+  /// Default: `100.0`
+  ///
+  /// <!-- Generated from [_$ProgressProps.max] -->
   @override
   set max(double value) => props[_$key__max___$ProgressProps] = value;
 
-  /// Go to [_$ProgressProps.skin] to see the source code for this prop
+  /// The skin / "context" for the [Progress] component.
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/progress/#contextual-alternatives>.
+  ///
+  /// Default: [ProgressSkin.DEFAULT]
+  ///
+  /// <!-- Generated from [_$ProgressProps.skin] -->
   @override
   ProgressSkin get skin =>
       props[_$key__skin___$ProgressProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ProgressProps.skin] to see the source code for this prop
+  /// The skin / "context" for the [Progress] component.
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/progress/#contextual-alternatives>.
+  ///
+  /// Default: [ProgressSkin.DEFAULT]
+  ///
+  /// <!-- Generated from [_$ProgressProps.skin] -->
   @override
   set skin(ProgressSkin value) => props[_$key__skin___$ProgressProps] = value;
 
-  /// Go to [_$ProgressProps.isStriped] to see the source code for this prop
+  /// Whether to render a "Barber Pole" gradient stripe effect in the [Progress] component.
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$ProgressProps.isStriped] -->
   @override
   bool get isStriped =>
       props[_$key__isStriped___$ProgressProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ProgressProps.isStriped] to see the source code for this prop
+  /// Whether to render a "Barber Pole" gradient stripe effect in the [Progress] component.
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$ProgressProps.isStriped] -->
   @override
   set isStriped(bool value) => props[_$key__isStriped___$ProgressProps] = value;
 
-  /// Go to [_$ProgressProps.isAnimated] to see the source code for this prop
+  /// Whether to animate the "Barber Pole" gradient stripe effect in the [Progress] component.
+  ///
+  /// __Note:__ Has no effect if [isStriped] is `false`.
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$ProgressProps.isAnimated] -->
   @override
   bool get isAnimated =>
       props[_$key__isAnimated___$ProgressProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ProgressProps.isAnimated] to see the source code for this prop
+  /// Whether to animate the "Barber Pole" gradient stripe effect in the [Progress] component.
+  ///
+  /// __Note:__ Has no effect if [isStriped] is `false`.
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$ProgressProps.isAnimated] -->
   @override
   set isAnimated(bool value) =>
       props[_$key__isAnimated___$ProgressProps] = value;
 
-  /// Go to [_$ProgressProps.caption] to see the source code for this prop
+  /// Optionally add a caption that describes the context of the [Progress] component.
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/progress/#example>.
+  ///
+  /// Default: [ProgressComponent._getPercentComplete]%
+  ///
+  /// <!-- Generated from [_$ProgressProps.caption] -->
   @override
   String get caption =>
       props[_$key__caption___$ProgressProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ProgressProps.caption] to see the source code for this prop
+  /// Optionally add a caption that describes the context of the [Progress] component.
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/progress/#example>.
+  ///
+  /// Default: [ProgressComponent._getPercentComplete]%
+  ///
+  /// <!-- Generated from [_$ProgressProps.caption] -->
   @override
   set caption(String value) => props[_$key__caption___$ProgressProps] = value;
 
-  /// Go to [_$ProgressProps.captionProps] to see the source code for this prop
+  /// Additional props to be added to the [caption] element _(if specified)_.
+  ///
+  /// <!-- Generated from [_$ProgressProps.captionProps] -->
   @override
   Map get captionProps =>
       props[_$key__captionProps___$ProgressProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ProgressProps.captionProps] to see the source code for this prop
+  /// Additional props to be added to the [caption] element _(if specified)_.
+  ///
+  /// <!-- Generated from [_$ProgressProps.captionProps] -->
   @override
   set captionProps(Map value) =>
       props[_$key__captionProps___$ProgressProps] = value;
 
-  /// Go to [_$ProgressProps.showCaption] to see the source code for this prop
+  /// Whether the [caption] should be visible.
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$ProgressProps.showCaption] -->
   @override
   bool get showCaption =>
       props[_$key__showCaption___$ProgressProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ProgressProps.showCaption] to see the source code for this prop
+  /// Whether the [caption] should be visible.
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$ProgressProps.showCaption] -->
   @override
   set showCaption(bool value) =>
       props[_$key__showCaption___$ProgressProps] = value;
 
-  /// Go to [_$ProgressProps.showPercentComplete] to see the source code for this prop
+  /// Whether the [caption] should be appended with the value of [value].
+  ///
+  /// Default: true
+  ///
+  /// <!-- Generated from [_$ProgressProps.showPercentComplete] -->
   @override
   bool get showPercentComplete =>
       props[_$key__showPercentComplete___$ProgressProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ProgressProps.showPercentComplete] to see the source code for this prop
+  /// Whether the [caption] should be appended with the value of [value].
+  ///
+  /// Default: true
+  ///
+  /// <!-- Generated from [_$ProgressProps.showPercentComplete] -->
   @override
   set showPercentComplete(bool value) =>
       props[_$key__showPercentComplete___$ProgressProps] = value;
 
-  /// Go to [_$ProgressProps.rootNodeProps] to see the source code for this prop
+  /// Additional props to be added to the [Dom.div] that wraps around the [caption] element and `<progress>` element.
+  ///
+  /// <!-- Generated from [_$ProgressProps.rootNodeProps] -->
   @override
   Map get rootNodeProps =>
       props[_$key__rootNodeProps___$ProgressProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ProgressProps.rootNodeProps] to see the source code for this prop
+  /// Additional props to be added to the [Dom.div] that wraps around the [caption] element and `<progress>` element.
+  ///
+  /// <!-- Generated from [_$ProgressProps.rootNodeProps] -->
   @override
   set rootNodeProps(Map value) =>
       props[_$key__rootNodeProps___$ProgressProps] = value;
@@ -272,12 +368,24 @@ abstract class _$ProgressStateAccessorsMixin implements _$ProgressState {
   @override
   Map get state;
 
-  /// Go to [_$ProgressState.id] to see the source code for this prop
+  /// An autogenerated GUID, used as a fallback when [ProgressProps.id] is unspecified, and
+  /// saved on the state so it will persist across remounts.
+  ///
+  /// HTML id attributes are needed on `<progress>` elements for proper accessibility support,
+  /// so this state value ensures there's always a valid ID value to use.
+  ///
+  /// <!-- Generated from [_$ProgressState.id] -->
   @override
   String get id =>
       state[_$key__id___$ProgressState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ProgressState.id] to see the source code for this prop
+  /// An autogenerated GUID, used as a fallback when [ProgressProps.id] is unspecified, and
+  /// saved on the state so it will persist across remounts.
+  ///
+  /// HTML id attributes are needed on `<progress>` elements for proper accessibility support,
+  /// so this state value ensures there's always a valid ID value to use.
+  ///
+  /// <!-- Generated from [_$ProgressState.id] -->
   @override
   set id(String value) => state[_$key__id___$ProgressState] = value;
   /* GENERATED CONSTANTS */
