@@ -78,7 +78,7 @@ class _$ButtonProps extends UiProps {
 class _$ButtonState extends UiState {}
 
 @Component()
-class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiStatefulComponent2<T, S> {
+class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiStatefulComponent<T, S> {
   @override
   Map getDefaultProps() => (newProps()
     ..skin = ButtonSkin.PRIMARY

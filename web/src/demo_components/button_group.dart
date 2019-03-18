@@ -34,7 +34,7 @@ class _$ButtonGroupState extends UiState {}
 
 @Component()
 class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupState>
-    extends UiStatefulComponent2<T, S> {
+    extends UiStatefulComponent<T, S> {
   @override
   Map getDefaultProps() => (newProps()
     ..size = ButtonGroupSize.DEFAULT
@@ -149,7 +149,7 @@ class ButtonGroupSize extends ClassNameConstant {
 ///     }
 ///
 ///     @Component()
-///     class MyComponent extends UiComponent2<MyProps> {
+///     class MyComponent extends UiComponent<MyProps> {
 ///       ButtonGroupSize matchingButtonGroupSize = buttonToButtonGroupSize[props.size];
 ///     }
 final Map<ButtonSize, ButtonGroupSize> buttonToButtonGroupSize = const <ButtonSize, ButtonGroupSize>{

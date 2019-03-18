@@ -27,7 +27,7 @@ class _$TagProps extends UiProps {
 }
 
 @Component()
-class TagComponent extends UiComponent2<TagProps> {
+class TagComponent extends UiComponent<TagProps> {
   @override
   Map getDefaultProps() => (newProps()
     ..skin = TagSkin.DEFAULT

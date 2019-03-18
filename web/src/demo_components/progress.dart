@@ -83,7 +83,7 @@ class _$ProgressState extends UiState {
 }
 
 @Component()
-class ProgressComponent extends UiStatefulComponent2<ProgressProps, ProgressState> {
+class ProgressComponent extends UiStatefulComponent<ProgressProps, ProgressState> {
   @override
   Map getDefaultProps() => (newProps()
     ..value = 0.0

@@ -154,25 +154,24 @@ class ButtonProps extends _$ButtonProps with _$ButtonPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForButtonProps;
 }
 
-_$$ButtonProps _$Button([Map backingProps]) => backingProps == null
-    ? new _$$ButtonProps$JsMap(new JsBackedMap())
-    : new _$$ButtonProps(backingProps);
+_$$ButtonProps _$Button([Map backingProps]) => new _$$ButtonProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$ButtonProps extends _$ButtonProps
+class _$$ButtonProps extends _$ButtonProps
     with _$ButtonPropsAccessorsMixin
     implements ButtonProps {
-  _$$ButtonProps._();
-
-  factory _$$ButtonProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$ButtonProps$JsMap(backingMap);
-    } else {
-      return new _$$ButtonProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ButtonProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -185,39 +184,6 @@ abstract class _$$ButtonProps extends _$ButtonProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ButtonProps.';
-}
-
-// Concrete props implementation that can be backed by any [Map].
-class _$$ButtonProps$PlainMap extends _$$ButtonProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ButtonProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$ButtonProps$JsMap extends _$$ButtonProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ButtonProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }
 
 abstract class _$ButtonStateAccessorsMixin implements _$ButtonState {
@@ -242,31 +208,12 @@ class ButtonState extends _$ButtonState with _$ButtonStateAccessorsMixin {
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$ButtonState extends _$ButtonState
+class _$$ButtonState extends _$ButtonState
     with _$ButtonStateAccessorsMixin
     implements ButtonState {
-  _$$ButtonState._();
-
-  factory _$$ButtonState(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$ButtonState$JsMap(backingMap);
-    } else {
-      return new _$$ButtonState$PlainMap(backingMap);
-    }
-  }
-
-  /// Let [UiState] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-class _$$ButtonState$PlainMap extends _$$ButtonState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ButtonState$PlainMap(Map backingMap)
-      : this._state = {},
-        super._() {
+  _$$ButtonState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -274,23 +221,10 @@ class _$$ButtonState$PlainMap extends _$$ButtonState {
   @override
   Map get state => _state;
   Map _state;
-}
 
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$ButtonState$JsMap extends _$$ButtonState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ButtonState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? new JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
+  /// Let [UiState] internals know that this class has been generated.
   @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -298,38 +232,9 @@ class _$$ButtonState$JsMap extends _$$ButtonState {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ButtonComponent extends ButtonComponent {
-  _$$ButtonProps$JsMap _cachedTypedProps;
-
-  @override
-  _$$ButtonProps$JsMap get props => _cachedTypedProps;
-
-  @override
-  set props(Map value) {
-    super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
-  }
-
-  @override
-  _$$ButtonProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$ButtonProps$JsMap(backingMap);
-
   @override
   _$$ButtonProps typedPropsFactory(Map backingMap) =>
       new _$$ButtonProps(backingMap);
-
-  _$$ButtonState$JsMap _cachedTypedState;
-  @override
-  _$$ButtonState$JsMap get state => _cachedTypedState;
-
-  @override
-  set state(Map value) {
-    super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
-  }
-
-  @override
-  _$$ButtonState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      new _$$ButtonState$JsMap(backingMap);
 
   @override
   _$$ButtonState typedStateFactory(Map backingMap) =>

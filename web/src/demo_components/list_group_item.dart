@@ -84,7 +84,7 @@ class _$ListGroupItemProps extends UiProps {
 }
 
 @Component()
-class ListGroupItemComponent extends UiComponent2<ListGroupItemProps> {
+class ListGroupItemComponent extends UiComponent<ListGroupItemProps> {
   @override
   Map getDefaultProps() => (newProps()
     ..elementType = ListGroupItemElementType.SPAN

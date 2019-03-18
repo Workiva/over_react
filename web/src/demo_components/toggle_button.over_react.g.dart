@@ -91,25 +91,25 @@ class ToggleButtonProps extends _$ToggleButtonProps
   static const PropsMeta meta = _$metaForToggleButtonProps;
 }
 
-_$$ToggleButtonProps _$ToggleButton([Map backingProps]) => backingProps == null
-    ? new _$$ToggleButtonProps$JsMap(new JsBackedMap())
-    : new _$$ToggleButtonProps(backingProps);
+_$$ToggleButtonProps _$ToggleButton([Map backingProps]) =>
+    new _$$ToggleButtonProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$ToggleButtonProps extends _$ToggleButtonProps
+class _$$ToggleButtonProps extends _$ToggleButtonProps
     with _$ToggleButtonPropsAccessorsMixin
     implements ToggleButtonProps {
-  _$$ToggleButtonProps._();
-
-  factory _$$ToggleButtonProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$ToggleButtonProps$JsMap(backingMap);
-    } else {
-      return new _$$ToggleButtonProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ToggleButtonProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -123,39 +123,6 @@ abstract class _$$ToggleButtonProps extends _$ToggleButtonProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'ToggleButtonProps.';
-}
-
-// Concrete props implementation that can be backed by any [Map].
-class _$$ToggleButtonProps$PlainMap extends _$$ToggleButtonProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ToggleButtonProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$ToggleButtonProps$JsMap extends _$$ToggleButtonProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ToggleButtonProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }
 
 abstract class _$ToggleButtonStateAccessorsMixin
@@ -215,31 +182,12 @@ class ToggleButtonState extends _$ToggleButtonState
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$ToggleButtonState extends _$ToggleButtonState
+class _$$ToggleButtonState extends _$ToggleButtonState
     with _$ToggleButtonStateAccessorsMixin
     implements ToggleButtonState {
-  _$$ToggleButtonState._();
-
-  factory _$$ToggleButtonState(Map backingMap) {
-    if (backingMap is JsBackedMap) {
-      return new _$$ToggleButtonState$JsMap(backingMap);
-    } else {
-      return new _$$ToggleButtonState$PlainMap(backingMap);
-    }
-  }
-
-  /// Let [UiState] internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-class _$$ToggleButtonState$PlainMap extends _$$ToggleButtonState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ToggleButtonState$PlainMap(Map backingMap)
-      : this._state = {},
-        super._() {
+  _$$ToggleButtonState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -247,23 +195,10 @@ class _$$ToggleButtonState$PlainMap extends _$$ToggleButtonState {
   @override
   Map get state => _state;
   Map _state;
-}
 
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$ToggleButtonState$JsMap extends _$$ToggleButtonState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ToggleButtonState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? new JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
+  /// Let [UiState] internals know that this class has been generated.
   @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -271,38 +206,9 @@ class _$$ToggleButtonState$JsMap extends _$$ToggleButtonState {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ToggleButtonComponent extends ToggleButtonComponent {
-  _$$ToggleButtonProps$JsMap _cachedTypedProps;
-
-  @override
-  _$$ToggleButtonProps$JsMap get props => _cachedTypedProps;
-
-  @override
-  set props(Map value) {
-    super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
-  }
-
-  @override
-  _$$ToggleButtonProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$ToggleButtonProps$JsMap(backingMap);
-
   @override
   _$$ToggleButtonProps typedPropsFactory(Map backingMap) =>
       new _$$ToggleButtonProps(backingMap);
-
-  _$$ToggleButtonState$JsMap _cachedTypedState;
-  @override
-  _$$ToggleButtonState$JsMap get state => _cachedTypedState;
-
-  @override
-  set state(Map value) {
-    super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
-  }
-
-  @override
-  _$$ToggleButtonState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      new _$$ToggleButtonState$JsMap(backingMap);
 
   @override
   _$$ToggleButtonState typedStateFactory(Map backingMap) =>
