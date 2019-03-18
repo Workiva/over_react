@@ -22,6 +22,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   Map getDefaultProps() => new JsBackedMap();
 
   /// The props for the non-forwarding props defined in this component.
+  @override
   Iterable<ConsumedProps> get consumedProps => null;
 
   /// Returns a copy of this component's props with keys found in [consumedProps] omitted.
@@ -29,6 +30,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// > Should be used alongside [forwardingClassNameBuilder].
   ///
   /// > Related [copyUnconsumedDomProps]
+  @override
   Map copyUnconsumedProps() {
     var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
 
@@ -40,6 +42,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// > Should be used alongside [forwardingClassNameBuilder].
   ///
   /// > Related [copyUnconsumedProps]
+  @override
   Map copyUnconsumedDomProps() {
     var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
 
@@ -48,6 +51,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
 
   /// Returns a copy of this component's props with React props optionally omitted, and
   /// with the specified [keysToOmit] and [keySetsToOmit] omitted.
+  @override
   Map copyProps({bool omitReservedReactProps: true, bool onlyCopyDomProps: false, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
     return getPropsToForward(this.props,
         omitReactProps: omitReservedReactProps,
@@ -74,11 +78,13 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///       }
   ///     }
   @mustCallSuper
+  @override
   void validateProps(Map appliedProps) {
     validateRequiredProps(appliedProps);
   }
 
   /// Validates that props with the `@requiredProp` annotation are present.
+  @override
   void validateRequiredProps(Map appliedProps) {
     consumedProps?.forEach((ConsumedProps consumedProps) {
       consumedProps.props.forEach((PropDescriptor prop) {
@@ -97,24 +103,9 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// This method should be used as the basis for the classNames of components receiving forwarded props.
   ///
   /// > Should be used alongside [copyUnconsumedProps] or [copyUnconsumedDomProps].
+  @override
   ClassNameBuilder forwardingClassNameBuilder() {
     return new ClassNameBuilder.fromProps(this.props);
-  }
-
-  @override
-  @mustCallSuper
-  void componentWillReceiveProps(Map nextProps) {
-    if (inReactDevMode) {
-      validateProps(nextProps);
-    }
-  }
-
-  @override
-  @mustCallSuper
-  void componentWillMount() {
-    if (inReactDevMode) {
-      validateProps(props);
-    }
   }
 
   @override
@@ -143,12 +134,15 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   set props(Map value) => super.props = value;
 
   /// The props Map that will be used to create the typed [props] object.
+  @override
   Map get unwrappedProps => super.props;
+  @override
   set unwrappedProps(Map value) => super.props = value;
 
   /// Returns a typed props object backed by the specified [propsMap].
   ///
   /// Required to properly instantiate the generic [TProps] class.
+  @override
   TProps typedPropsFactory(Map propsMap);
 
   /// Returns a typed props object backed by the specified [propsMap].
@@ -162,6 +156,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// Returns a typed props object backed by a new Map.
   ///
   /// Convenient for use with [getDefaultProps].
+  @override
   TProps newProps() => typedPropsFactoryJs(new JsBackedMap());
 
   //
@@ -194,12 +189,15 @@ abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiSta
   set state(Map value) => super.state = value;
 
   /// The state Map that will be used to create the typed [state] object.
+  @override
   Map get unwrappedState => super.state;
+  @override
   set unwrappedState(Map value) => super.state = value;
 
   /// Returns a typed state object backed by the specified [stateMap].
   ///
   /// Required to properly instantiate the generic [TState] class.
+  @override
   TState typedStateFactory(Map stateMap);
 
   /// Returns a typed state object backed by the specified [stateMap].
@@ -213,6 +211,7 @@ abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiSta
   /// Returns a typed state object backed by a new Map.
   ///
   /// Convenient for use with [getInitialState] and [setState].
+  @override
   TState newState() => typedStateFactoryJs(new JsBackedMap());
 
   //
