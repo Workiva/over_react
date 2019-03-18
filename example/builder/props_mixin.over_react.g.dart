@@ -12,12 +12,12 @@ abstract class ExamplePropsMixinClass implements _$ExamplePropsMixinClass {
 
   static const PropsMeta meta = _$metaForExamplePropsMixinClass;
 
-  /// Go to [_$ExamplePropsMixinClass.propMixin1] to see the source code for this prop
+  /// <!-- Generated from [_$ExamplePropsMixinClass.propMixin1] -->
   @override
   String get propMixin1 =>
       props[_$key__propMixin1___$ExamplePropsMixinClass] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ExamplePropsMixinClass.propMixin1] to see the source code for this prop
+  /// <!-- Generated from [_$ExamplePropsMixinClass.propMixin1] -->
   @override
   set propMixin1(String value) =>
       props[_$key__propMixin1___$ExamplePropsMixinClass] = value;
@@ -47,12 +47,12 @@ abstract class MixesInOtherMixinMixin<T extends Iterable, U>
 
   static const PropsMeta meta = _$metaForMixesInOtherMixinMixin;
 
-  /// Go to [_$MixesInOtherMixinMixin.otherPropMixin] to see the source code for this prop
+  /// <!-- Generated from [_$MixesInOtherMixinMixin.otherPropMixin] -->
   @override
   String get otherPropMixin =>
       props[_$key__otherPropMixin___$MixesInOtherMixinMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$MixesInOtherMixinMixin.otherPropMixin] to see the source code for this prop
+  /// <!-- Generated from [_$MixesInOtherMixinMixin.otherPropMixin] -->
   @override
   set otherPropMixin(String value) =>
       props[_$key__otherPropMixin___$MixesInOtherMixinMixin] = value;

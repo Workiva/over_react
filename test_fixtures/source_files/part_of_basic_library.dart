@@ -7,6 +7,7 @@ UiFactory<BasicPartOfLibProps> BasicPartOfLib = _$BasicPartOfLib;
 class _$BasicPartOfLibProps extends UiProps
     with ExamplePropsMixinClass {
 
+  /// Test that doc comment is copied over.
   String basicProp;
   String basic1;
   String basic2;

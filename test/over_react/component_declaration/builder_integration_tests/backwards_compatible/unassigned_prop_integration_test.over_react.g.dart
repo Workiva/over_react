@@ -20,21 +20,21 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
   @override
   Map get props;
 
-  /// Go to [_$FooProps.stringProp] to see the source code for this prop
+  /// <!-- Generated from [_$FooProps.stringProp] -->
   @override
   String get stringProp =>
       props[_$key__stringProp___$FooProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$FooProps.stringProp] to see the source code for this prop
+  /// <!-- Generated from [_$FooProps.stringProp] -->
   @override
   set stringProp(String value) => props[_$key__stringProp___$FooProps] = value;
 
-  /// Go to [_$FooProps.unassignedProp] to see the source code for this prop
+  /// <!-- Generated from [_$FooProps.unassignedProp] -->
   @override
   String get unassignedProp =>
       props[_$key__unassignedProp___$FooProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$FooProps.unassignedProp] to see the source code for this prop
+  /// <!-- Generated from [_$FooProps.unassignedProp] -->
   @override
   set unassignedProp(String value) =>
       props[_$key__unassignedProp___$FooProps] = value;

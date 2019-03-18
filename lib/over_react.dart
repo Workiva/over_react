@@ -36,6 +36,7 @@ export 'src/component/abstract_transition.dart';
 export 'src/component/abstract_transition_props.dart';
 export 'src/component/aria_mixin.dart';
 export 'src/component/callback_typedefs.dart';
+export 'src/component/error_boundary.dart';
 export 'src/component/dom_components.dart';
 export 'src/component/dummy_component.dart';
 export 'src/component/prop_mixins.dart';

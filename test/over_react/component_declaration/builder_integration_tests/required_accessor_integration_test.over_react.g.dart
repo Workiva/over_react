@@ -22,7 +22,7 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @override
   Map get props;
 
-  /// Go to [_$ComponentTestProps.required] to see the source code for this prop
+  /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @Accessor(
       isRequired: true,
@@ -30,14 +30,14 @@ abstract class _$ComponentTestPropsAccessorsMixin
   get required =>
       props[_$key__required___$ComponentTestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ComponentTestProps.required] to see the source code for this prop
+  /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @Accessor(
       isRequired: true,
       requiredErrorMessage: 'This Prop is Required for testing purposes.')
   set required(value) => props[_$key__required___$ComponentTestProps] = value;
 
-  /// Go to [_$ComponentTestProps.nullable] to see the source code for this prop
+  /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @Accessor(
       isRequired: true,
@@ -46,7 +46,7 @@ abstract class _$ComponentTestPropsAccessorsMixin
   get nullable =>
       props[_$key__nullable___$ComponentTestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$ComponentTestProps.nullable] to see the source code for this prop
+  /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @Accessor(
       isRequired: true,

@@ -20,12 +20,12 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
   @override
   Map get props;
 
-  /// Go to [_$FooProps._privateProp] to see the source code for this prop
+  /// <!-- Generated from [_$FooProps._privateProp] -->
   @override
   String get _privateProp =>
       props[_$key___privateProp___$FooProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Go to [_$FooProps._privateProp] to see the source code for this prop
+  /// <!-- Generated from [_$FooProps._privateProp] -->
   @override
   set _privateProp(String value) =>
       props[_$key___privateProp___$FooProps] = value;
