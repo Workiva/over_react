@@ -16,7 +16,6 @@ library over_react.component_declaration.component_base;
 
 import 'dart:async';
 import 'dart:collection';
-import 'dart:html';
 
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
@@ -44,13 +43,16 @@ part 'component_base/disposable_manager_proxy.dart';
 /// used as types for [isComponentOfType]/[getComponentFactory].
 ///
 /// * [displayName]: the name of the component for use when debugging.
+// ignore: deprecated_member_use
 ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFactory(), {
     bool isWrapper: false,
+    // ignore: deprecated_member_use
     ReactDartComponentFactoryProxy parentType,
     UiFactory builderFactory,
     Type componentClass,
     String displayName
 }) {
+  // ignore: deprecated_member_use
   ReactDartComponentFactoryProxy reactComponentFactory = react.registerComponent(dartComponentFactory);
 
   if (displayName != null) {
@@ -71,6 +73,7 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
 /// __The result must be stored in a variable that is named very specifically:__
 ///
 ///     var $`AbstractComponentClassName`Factory = registerAbstractComponent(`AbstractComponentClassName`);
+// ignore: deprecated_member_use
 ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentClass, {ReactDartComponentFactoryProxy parentType}) =>
     registerComponent(() => new DummyComponent(), componentClass: abstractComponentClass, parentType: parentType);
 
@@ -580,8 +583,9 @@ abstract class UiProps extends MapBase
 
   /// An unmodifiable map view of the default props for this component brought
   /// in from the [componentFactory].
+  // ignore: deprecated_member_use
   Map get componentDefaultProps => componentFactory is ReactDartComponentFactoryProxy
-      // ignore: avoid_as
+      // ignore: avoid_as, deprecated_member_use
       ? (componentFactory as ReactDartComponentFactoryProxy).defaultProps
       : const {};
 }

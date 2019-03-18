@@ -1,7 +1,6 @@
 import 'package:over_react/over_react.dart';
 
 import '../demo_components.dart';
-import 'package:react/react.dart' as react;
 part 'list_group.over_react.g.dart';
 
 /// Bootstrap's `ListGroup` component is flexible and powerful for

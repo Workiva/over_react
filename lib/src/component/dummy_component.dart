@@ -19,6 +19,7 @@ import 'package:react/react.dart' as react;
 /// Dummy component useful for:
 ///
 /// - Allowing sub-typing of components.
+// ignore: deprecated_member_use
 class DummyComponent extends react.Component {
   @override
   render() => false;
