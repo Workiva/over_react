@@ -130,7 +130,8 @@ void requiredPropsIntegrationTest() {
         )(), mountNode), returnsNormally);
       });
     });
-  });
+  // FIXME 3.0.0-wip unskip once implemented in CPLAT-4887
+  }, skip: 'Component2 prop validation will be added in CPLAT-4887');
 }
 
 @Factory()
