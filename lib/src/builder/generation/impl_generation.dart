@@ -363,8 +363,6 @@ class ImplGenerator {
           annotations.Accessor accessorMeta = instantiateAnnotation(field, annotations.Accessor);
           annotations.Accessor requiredProp = getConstantAnnotation(field, 'requiredProp', annotations.requiredProp);
           annotations.Accessor nullableRequiredProp = getConstantAnnotation(field, 'nullableRequiredProp', annotations.nullableRequiredProp);
-          // ignore: deprecated_member_use_from_same_package
-          annotations.Required requiredMeta = instantiateAnnotation(field, annotations.Required);
 
 
           if (accessorMeta?.doNotGenerate == true) {
@@ -411,16 +409,6 @@ class ImplGenerator {
                 if (accessorMeta.requiredErrorMessage != null && accessorMeta.requiredErrorMessage.isNotEmpty) {
                   constantValue += ', errorMessage: ${stringLiteral(accessorMeta.requiredErrorMessage)}';
                 }
-              }
-            }
-
-            if (requiredMeta != null) {
-              constantValue += ', isRequired: true';
-
-              if (requiredMeta.isNullable) constantValue += ', isNullable: true';
-
-              if (requiredMeta.message != null && requiredMeta.message.isNotEmpty) {
-                constantValue += ', errorMessage: ${stringLiteral(requiredMeta.message)}';
               }
             }
 
