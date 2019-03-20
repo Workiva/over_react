@@ -20,6 +20,7 @@ import 'package:over_react/src/component_declaration/component_base.dart' as com
 import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
+import 'package:react/src/react_client/js_backed_map.dart';
 
 /// Returns a new [DomProps], optionally backed by a specified Map.
 ///
@@ -44,8 +45,10 @@ class DomProps extends component_base.UiProps
         builder_helpers.GeneratedClass
     implements
         builder_helpers.UiProps {
-  // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
-  DomProps(this.componentFactory, [Map props]) : this.props = props ?? ({});
+  // Initialize to a JsBackedMap so that copying can be optimized
+  // when converting props during ReactElement creation.
+  // TODO 3.0.0-wip generate JsBackedMap-based implementation used when no backing map is provided, like we do for Component2
+  DomProps(this.componentFactory, [Map props]) : this.props = props ?? new JsBackedMap();
 
   @override
   final ReactDomComponentFactoryProxy componentFactory;
@@ -66,8 +69,10 @@ class SvgProps extends component_base.UiProps
         builder_helpers.GeneratedClass
     implements
         DomProps {
-  // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
-  SvgProps(this.componentFactory, [Map props]) : this.props = props ?? ({});
+  // Initialize to a JsBackedMap so that copying can be optimized
+  // when converting props during ReactElement creation.
+  // TODO 3.0.0-wip generate JsBackedMap-based implementation used when no backing map is provided, like we do for Component2
+  SvgProps(this.componentFactory, [Map props]) : this.props = props ?? new JsBackedMap();
 
   @override
   final ReactDomComponentFactoryProxy componentFactory;

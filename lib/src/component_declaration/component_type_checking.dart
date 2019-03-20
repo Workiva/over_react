@@ -27,10 +27,12 @@ import 'package:react/react_client/react_interop.dart';
 // ----------------------------------------------------------------------
 
 
+// ignore: deprecated_member_use
 Expando<ReactDartComponentFactoryProxy> _typeAliasToFactory = new Expando<ReactDartComponentFactoryProxy>();
 
 /// Registers a type alias for the specified factory, so that [getComponentTypeFromAlias] can be
 /// called with [typeAlias] to retrieve [factory]'s [ReactClass] type.
+// ignore: deprecated_member_use
 void registerComponentTypeAlias(ReactDartComponentFactoryProxy factory, dynamic typeAlias) {
   if (typeAlias != null) {
     _typeAliasToFactory[typeAlias] = factory;
@@ -45,8 +47,10 @@ const String _componentTypeMetaKey = '_componentTypeMeta';
 /// the component type of the specified [factory].
 ///
 /// This meta is retrievable via [getComponentTypeMeta].
+// ignore: deprecated_member_use
 void setComponentTypeMeta(ReactDartComponentFactoryProxy factory, {
     bool isWrapper,
+    // ignore: deprecated_member_use
     ReactDartComponentFactoryProxy parentType
 }) {
   setProperty(factory.type, _componentTypeMetaKey, new ComponentTypeMeta(isWrapper, parentType));
@@ -109,6 +113,7 @@ class ComponentTypeMeta {
   ///     isComponentOfType(Bar()(), Foo); // true (due to parent type-checking)
   ///
   /// > See: `subtypeOf` (within [annotations.Component])
+  // ignore: deprecated_member_use
   final ReactDartComponentFactoryProxy parentType;
 
   ComponentTypeMeta(this.isWrapper, this.parentType);

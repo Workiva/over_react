@@ -48,8 +48,7 @@ class _$$ResizeSensorProps extends _$ResizeSensorProps
     with _$ResizeSensorPropsAccessorsMixin
     implements ResizeSensorProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ResizeSensorProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }

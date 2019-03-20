@@ -27,6 +27,9 @@ export 'package:react/react.dart' show
     SyntheticUIEvent,
     SyntheticWheelEvent;
 
+// FIXME 3.0.0-wip use public entrypoint
+export 'package:react/src/react_client/js_backed_map.dart' show JsBackedMap;
+
 export 'package:react/react_client.dart' show setClientConfiguration, ReactElement, ReactComponentFactoryProxy;
 
 export 'src/component/abstract_transition.dart';

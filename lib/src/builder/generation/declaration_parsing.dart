@@ -485,10 +485,21 @@ class ParsedDeclarations {
 class ComponentNode extends NodeWithMeta<ClassDeclaration, annotations.Component> {
   static const String _subtypeOfParamName = 'subtypeOf';
 
+  /// Whether the component extends from Component2.
+  final bool isComponent2;
+
   /// The value of the `subtypeOf` parameter passed in to this node's annotation.
   Identifier subtypeOfValue;
 
-  ComponentNode(unit) : super(unit) {
+  ComponentNode(ClassDeclaration node)
+      : this.isComponent2 = node.declaredElement == null
+            // This can be null when using non-resolved AST in tests; FIXME 3.0.0-wip do we need to update that setup?
+            ? false
+            // TODO 3.0.0-wip is there a better way to check against react's Component2?
+            : node.declaredElement.allSupertypes.any((type) {
+              return type.name == 'Component2';
+            }),
+        super(node) {
     // Perform special handling for the `subtypeOf` parameter of this node's annotation.
     //
     // If valid, omit it from `unsupportedArguments` so that the `meta` can be accessed without it

@@ -43,7 +43,7 @@ targets:
             - "example/**"
             - "lib/*.dart"
             - "test/*.dart"
-            - "web/*.dart"
+            - "web/**/index.dart"
           exclude:
             - "lib/src/builder/**"
 
