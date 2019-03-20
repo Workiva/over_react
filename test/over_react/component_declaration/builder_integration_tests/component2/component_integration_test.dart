@@ -20,7 +20,7 @@ import '../../../../test_util/test_util.dart';
 part 'component_integration_test.over_react.g.dart';
 
 main() {
-  group('component integration:', () {
+  group('(Component2) component integration:', () {
     test('renders a component from end to end, successfully reading props via typed getters', () {
       var instance = render((ComponentTest()
         ..stringProp = '1'

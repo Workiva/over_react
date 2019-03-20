@@ -6,7 +6,7 @@ import '../../../../test_util/test_util.dart';
 part 'unassigned_prop_integration_test.over_react.g.dart';
 
 main() {
-  test('renders all children, even with unassigned props present', () {
+  test('(Component2) renders all children, even with unassigned props present', () {
     var instance = render((Foo()
       ..stringProp = 'some string value'
     )());

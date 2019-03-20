@@ -22,7 +22,7 @@ import '../../../../test_util/test_util.dart';
 part 'required_prop_integration_tests.over_react.g.dart';
 
 void requiredPropsIntegrationTest() {
-  group('properly identifies required props by', () {
+  group('(Component2) properly identifies required props by', () {
     group('throwing when a prop is required and not set', () {
       test('on mount', () {
         expect(() => render(ComponentTest()..nullable = true),

@@ -6,7 +6,7 @@ import '../../../../test_util/test_util.dart';
 part 'private_props_ddc_bug.over_react.g.dart';
 
 main() {
-  test('sets private props correctly in `getDefaultProps`', () {
+  test('(Component2) sets private props correctly in `getDefaultProps`', () {
     var instance = render((Foo())());
 
     expect(instance, isNotNull); // sanity check
