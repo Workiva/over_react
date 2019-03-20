@@ -5,7 +5,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/component_usage.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/util.dart';
+import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 class RenderReturnValueChecker extends SubChecker {
   @override
@@ -37,6 +37,7 @@ class RenderReturnValueChecker extends SubChecker {
     
     for (var returnStatement in returnStatements) {
       final returnExpression = returnStatement.expression;
+      if (returnExpression == null) continue; // valueless returns
       final returnType = returnExpression.staticType;
       final returnTypeName = returnType?.name;
 

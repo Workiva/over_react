@@ -1,13 +1,14 @@
 import 'package:analyzer/analyzer.dart';
 import 'package:analyzer/source/line_info.dart';
+import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
 import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
-import 'package:over_react_analyzer_plugin/src/assist/wrap_unwrap.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/util.dart';
+import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
+import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 
 class AddRefAssistContributor extends AssistContributorBase {
   static AssistKind addRef = new AssistKind('addRef', 32, 'Add callback ref');
@@ -31,7 +32,7 @@ class AddRefAssistContributor extends AssistContributorBase {
     }
 
     final changeBuilder = new DartChangeBuilder(session);
-    await changeBuilder.addFileEdit(request.result.path, (builder) {
+    await changeBuilder.addFileEdit(request.result.path, (fileBuilder) {
       const nameGroup = 'refName';
       const typeGroup = 'refType';
 
@@ -46,21 +47,15 @@ class AddRefAssistContributor extends AssistContributorBase {
           // TODO split this out somewhere, make more robust
           : (componentName != null ? '${componentName}Component' : 'var');
 
-      // TODO how to get the linked edit to show up on the ref declaration instead? Adding this afterwards messes up the offsets
-      addProp(usage, builder, 'ref', (builder) {
-        builder.write('(ref) { ');
-        builder.addSimpleLinkedEdit(nameGroup, refName);
-        builder.write(' = ref; }');
-      });
-
       final lineInfo = request.result.unit.lineInfo;
+
       final insertionLocation = getRefInsertionLocation(usage.node, lineInfo);
       final insertionOffset = insertionLocation.first;
       final insertionParent = insertionLocation.last;
       final indent = insertionParent is CompilationUnit
           ? ''
           : getIndent(request.result.content, lineInfo, insertionParent.parent.offset) + '  ';
-      builder.addInsertion(insertionOffset, (builder) {
+      fileBuilder.addInsertion(insertionOffset, (builder) {
         builder.write('$indent');
         // TODO look up component type and use writeFieldDeclaration
 //        builder.writeFieldDeclaration(refName, nameGroupName: nameGroup, typeGroupName: typeGroup);
@@ -70,6 +65,15 @@ class AddRefAssistContributor extends AssistContributorBase {
         builder.write(';');
         // TODO improve newlines handling adding first ref (add extra newline after)
         builder.write('\n');
+      });
+
+      // TODO how to get the linked edit to show up on the ref declaration instead? Adding this afterwards messes up the offsets
+      addProp(usage, fileBuilder, request.result.content, lineInfo,
+          name: 'ref',
+          buildValueEdit: (builder) {
+        builder.write('(ref) { ');
+        builder.addSimpleLinkedEdit(nameGroup, refName);
+        builder.write(' = ref; }');
       });
     });
     final sourceChange = changeBuilder.sourceChange
@@ -140,24 +144,4 @@ int prevLine(int offset, LineInfo lineInfo) {
 }
 int nextLine(int offset, LineInfo lineInfo) {
   return lineInfo.getOffsetOfLineAfter(offset);
-}
-
-
-
-void addProp(FluentComponentUsage usage, DartFileEditBuilder builder, String name, void buildValueEdit(DartEditBuilder builder)) {
-  final functionToWrap = usage.node.function;
-  final needsParens = usage.node.function is! ParenthesizedExpression;
-
-  if (needsParens) {
-    builder.addSimpleInsertion(functionToWrap.offset, '(');
-  }
-
-  builder.addInsertion(functionToWrap.unParenthesized.end, (builder) {
-    builder.write('..$name = ');
-    buildValueEdit(builder);
-  });
-
-  if (needsParens) {
-    builder.addSimpleInsertion(functionToWrap.end, ')');
-  }
 }

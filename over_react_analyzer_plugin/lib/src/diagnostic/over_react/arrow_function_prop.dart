@@ -1,7 +1,7 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/component_usage.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/util.dart';
+import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 class ArrowFunctionPropCascadeChecker extends ComponentUsageChecker {
   @override

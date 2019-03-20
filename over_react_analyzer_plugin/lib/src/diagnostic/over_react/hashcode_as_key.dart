@@ -1,7 +1,7 @@
 // Adapted from dart_medic `misc` branch containing over_react diagnostics
 
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/component_usage.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/util.dart';
+import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 class HashCodeAsKeyChecker extends ComponentUsageChecker {
   @override

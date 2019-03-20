@@ -4,9 +4,10 @@ import 'package:analyzer_plugin/utilities/assist/assist.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
 import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 class AddPropsAssistContributor extends AssistContributorBase {
-  static AssistKind addProps = new AssistKind('addProps', 31, 'Add props');
+  static AssistKind addPropsKind = new AssistKind('addProps', 31, 'Add props');
 
   @override
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
@@ -19,7 +20,7 @@ class AddPropsAssistContributor extends AssistContributorBase {
   Future<void> _addProps() async {
     // todo tweak where this happens: should happen on child of element
     final usage = identifyUsage(node);
-    if (usage == null || usage.node.function is ParenthesizedExpression) {
+    if (usage == null || usage.cascadeExpression != null) {
       return;
     }
 
@@ -31,18 +32,16 @@ class AddPropsAssistContributor extends AssistContributorBase {
 
     final changeBuilder = new DartChangeBuilder(session);
     await changeBuilder.addFileEdit(request.result.path, (builder) {
-      builder.addSimpleInsertion(functionToWrap.offset, '(');
-      builder.addInsertion(functionToWrap.end, (builder) {
-        builder.write('..');
+      addProp(usage, builder, request.result.content, request.result.lineInfo, buildNameEdit: (builder) {
         // TODO how to start completion of props?
         builder.selectHere();
-        builder.write(')');
       });
     });
+
     final sourceChange = changeBuilder.sourceChange
-      ..message = addProps.message
-      ..id = addProps.id;
-    collector.addAssist(new PrioritizedSourceChange(addProps.priority, sourceChange));
+      ..message = addPropsKind.message
+      ..id = addPropsKind.id;
+    collector.addAssist(new PrioritizedSourceChange(addPropsKind.priority, sourceChange));
   }
 }
 

@@ -3,7 +3,7 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart' as protocol;
 import 'package:analyzer_plugin/utilities/navigation/navigation.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/component_usage.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/util.dart';
+import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 /// Provides navigation regions from props to their non-generated definitions.
 ///
