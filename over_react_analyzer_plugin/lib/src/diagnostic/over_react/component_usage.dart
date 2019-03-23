@@ -41,11 +41,13 @@ abstract class SubChecker {
 
 
 abstract class ComponentUsageChecker extends SubChecker {
-  void visitComponentUsage(
-  CompilationUnit unit, FluentComponentUsage usage);
+  ResolvedUnitResult result;
+
+  void visitComponentUsage(CompilationUnit unit, FluentComponentUsage usage);
 
   @override
   void check(ResolvedUnitResult result) {
+    result = null;
     super.check(result);
 
     var astVisitor = new ComponentUsageVisitor(
