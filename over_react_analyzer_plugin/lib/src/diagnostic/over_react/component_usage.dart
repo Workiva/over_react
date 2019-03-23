@@ -47,7 +47,7 @@ abstract class ComponentUsageChecker extends SubChecker {
 
   @override
   void check(ResolvedUnitResult result) {
-    result = null;
+    this.result = null;
     super.check(result);
 
     var astVisitor = new ComponentUsageVisitor(
