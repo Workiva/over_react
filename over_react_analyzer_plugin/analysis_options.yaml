@@ -1,4 +1,10 @@
 analyzer:
+  errors:
+    # Overrides from https://github.com/flutter/flutter/blob/master/analysis_options.yaml
+    # treat missing required parameters as a warning (not a hint)
+    missing_required_param: warning
+    # treat missing returns as a warning (not a hint)
+    missing_return: warning
   exclude:
     - tools
   # Add this to your project `analysis_options.yaml` to enable the built_value
