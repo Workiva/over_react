@@ -55,6 +55,16 @@ class AddRefAssistContributor extends AssistContributorBase {
       final indent = insertionParent is CompilationUnit
           ? ''
           : getIndent(request.result.content, lineInfo, insertionParent.parent.offset) + '  ';
+
+      // TODO how to get the linked edit to show up on the ref declaration instead? Why does this afterwards messes up the offsets?
+      addProp(usage, fileBuilder, request.result.content, lineInfo,
+          name: 'ref',
+          buildValueEdit: (builder) {
+        builder.write('(ref) { ');
+        builder.addSimpleLinkedEdit(nameGroup, refName);
+        builder.write(' = ref; }');
+      });
+
       fileBuilder.addInsertion(insertionOffset, (builder) {
         builder.write('$indent');
         // TODO look up component type and use writeFieldDeclaration
@@ -66,16 +76,8 @@ class AddRefAssistContributor extends AssistContributorBase {
         // TODO improve newlines handling adding first ref (add extra newline after)
         builder.write('\n');
       });
-
-      // TODO how to get the linked edit to show up on the ref declaration instead? Adding this afterwards messes up the offsets
-      addProp(usage, fileBuilder, request.result.content, lineInfo,
-          name: 'ref',
-          buildValueEdit: (builder) {
-        builder.write('(ref) { ');
-        builder.addSimpleLinkedEdit(nameGroup, refName);
-        builder.write(' = ref; }');
-      });
     });
+
     final sourceChange = changeBuilder.sourceChange
       ..message = addRef.message
       ..id = addRef.id;

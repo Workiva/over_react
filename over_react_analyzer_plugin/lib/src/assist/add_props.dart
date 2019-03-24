@@ -34,6 +34,7 @@ class AddPropsAssistContributor extends AssistContributorBase {
     await changeBuilder.addFileEdit(request.result.path, (builder) {
       addProp(usage, builder, request.result.content, request.result.lineInfo, buildNameEdit: (builder) {
         // TODO how to start completion of props?
+        // TODO figure out why the offset of this of off
         builder.selectHere();
       });
     });
