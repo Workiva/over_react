@@ -29,7 +29,8 @@ class FluentComponentUsage {
       if (builder is MethodInvocation) {
         return (builder as MethodInvocation).methodName.name;
       }
-      return 'node';
+      // unknown, not a direct method invocation on `Dom`
+      return null;
     }
     if (typeName.endsWith('Props')) {
       return typeName.substring(0, typeName.length - 'Props'.length);
@@ -39,6 +40,7 @@ class FluentComponentUsage {
   }
 
   bool get isDom => const ['DomProps', 'SvgProps'].contains(builder.staticType?.name);
+  bool get isSvg => const ['SvgProps'].contains(builder.staticType?.name);
 
 
   /// Whether the invocation contains one or more children passed as arguments instead of a list.

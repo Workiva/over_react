@@ -35,6 +35,7 @@ import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/arrow_function_prop.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/dom_prop_types.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/duplicate_prop_cascade.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/extra_invocations.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/hashcode_as_key.dart';
@@ -67,6 +68,7 @@ class Checker {
       new MissingCascadeParensChecker(),
       new MissingRequiredPropChecker(),
       new PseudoStaticLifecycleChecker(),
+      new InvalidDomAttributeChecker(),
     ];
 
     for (var checker in checkers) {
