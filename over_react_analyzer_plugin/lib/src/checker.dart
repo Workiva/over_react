@@ -41,6 +41,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/hashcode_as
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/missing_cascade_parens.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/missing_required_prop.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/pseudo_static_lifecycle.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/render_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/string_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/variadic_children.dart';
@@ -65,6 +66,7 @@ class Checker {
       new StringRefChecker(),
       new MissingCascadeParensChecker(),
       new MissingRequiredPropChecker(),
+      new PseudoStaticLifecycleChecker(),
     ];
 
     for (var checker in checkers) {
