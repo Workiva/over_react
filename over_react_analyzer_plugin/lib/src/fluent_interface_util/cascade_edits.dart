@@ -13,7 +13,7 @@ void addProp(
   String value,
   void buildNameEdit(DartEditBuilder builder),
   void buildValueEdit(DartEditBuilder builder),
-  bool forceOwnLine: false,
+  bool forceOwnLine = false,
 }) {
   if ((name == null) == (buildNameEdit == null)) {
     throw new ArgumentError();

@@ -34,20 +34,15 @@ import 'dart:async';
 
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/file_system/file_system.dart';
-import 'package:analyzer/source/line_info.dart';
-// ignore: implementation_imports
-import 'package:analyzer/src/context/builder.dart';
-// ignore: implementation_imports
-import 'package:analyzer/src/context/context_root.dart';
-// ignore: implementation_imports
-import 'package:analyzer/src/dart/analysis/driver.dart';
-// ignore: implementation_imports
-import 'package:analyzer/src/task/dart.dart' show IgnoreInfo;
+import 'package:analyzer/source/line_info.dart'; // ignore: implementation_imports
+import 'package:analyzer/src/context/builder.dart'; // ignore: implementation_imports
+import 'package:analyzer/src/context/context_root.dart'; // ignore: implementation_imports
+import 'package:analyzer/src/dart/analysis/driver.dart'; // ignore: implementation_imports
+import 'package:analyzer/src/task/dart.dart' show IgnoreInfo; // ignore: implementation_imports
 //import 'package:analyzer_plugin/plugin/outline_mixin.dart';
 import 'package:analyzer_plugin/plugin/navigation_mixin.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart' as plugin;
-import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
 import 'package:analyzer_plugin/utilities/navigation/navigation.dart';
 //import 'package:analyzer_plugin/utilities/outline/outline.dart';

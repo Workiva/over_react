@@ -4,7 +4,7 @@
 
 // ignore: implementation_imports
 import 'package:analyzer/source/line_info.dart';
-import 'package:analyzer/src/task/dart.dart' show IgnoreInfo;
+import 'package:analyzer/src/task/dart.dart' show IgnoreInfo; // ignore: implementation_imports
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 
 List<AnalysisError> filterIgnores(List<AnalysisError> errors, LineInfo lineInfo,  IgnoreInfo lazyIgnoreInfo()) {

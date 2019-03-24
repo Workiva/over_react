@@ -1,6 +1,5 @@
-import 'package:analyzer/analyzer.dart';
+import 'package:analyzer/analyzer.dart'; // ignore: deprecated_member_use
 import 'package:analyzer/source/line_info.dart';
-import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';

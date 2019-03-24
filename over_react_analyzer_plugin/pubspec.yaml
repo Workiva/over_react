@@ -11,3 +11,5 @@ dependencies:
   analyzer_plugin: '>=0.0.1-alpha.5 <0.0.1-alpha.8'
   meta: ^1.1.6
   path: ^1.5.1
+dev_dependencies:
+  pedantic: ^1.5.0

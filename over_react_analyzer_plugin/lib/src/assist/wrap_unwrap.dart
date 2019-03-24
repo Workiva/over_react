@@ -11,7 +11,7 @@ class WrapUnwrapAssistContributor extends AssistContributorBase {
 
   @override
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
-    super.computeAssists(request, collector);
+    await super.computeAssists(request, collector);
     if (!setupCompute()) return;
 
     await _wrapInElement();
