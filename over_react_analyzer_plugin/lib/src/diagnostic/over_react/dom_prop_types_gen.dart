@@ -60,6 +60,7 @@ String _elToReactEl(String el) {
 }
 
 // From https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
+// TODO use https://www.w3.org/TR/2017/REC-html52-20171214/fullindex.html#attributes-table to generate doc comments and metadata for over_react props
 const _rawTable = '''
 accept	<form>, <input>
 accept-charset	<form>
