@@ -14,6 +14,7 @@ dependencies:
   build: ^1.0.0
   built_redux: ^7.4.2
   built_value: ^5.4.4
+  collection: ^1.14.6
   js: ^0.6.1+1
   logging: ">=0.11.3+2 <1.0.0"
   meta: ^1.1.6

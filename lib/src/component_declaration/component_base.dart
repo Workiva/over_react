@@ -16,8 +16,8 @@ library over_react.component_declaration.component_base;
 
 import 'dart:async';
 import 'dart:collection';
-import 'dart:html';
 
+import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 
@@ -83,6 +83,22 @@ typedef TProps UiFactory<TProps extends UiProps>([Map backingProps]);
 /// For use as a Function variable type when the `backingProps` argument is not required.
 typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 
+class _ReactElementSafeEquality<E> implements Equality<E> {
+  const _ReactElementSafeEquality();
+
+  @override
+  bool equals(Object e1, Object e2) => e1 == e2;
+
+  @override
+  // This returns 0 when the object is a ReactElement to work around
+  // https://github.com/dart-lang/sdk/issues/36354. The behavior of `hashCode`
+  // under dart2js is to return 0, so we do the same here.
+  int hash(Object e) => isValidElement(e) ? 0 : e.hashCode;
+
+  @override
+  bool isValidKey(Object o) => true;
+}
+
 /// The basis for an over_react component.
 ///
 /// Includes support for strongly-typed [UiProps] and utilities for prop and CSS classname forwarding.
@@ -128,6 +144,10 @@ typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 /// > Related: [UiStatefulComponent]
 abstract class UiComponent<TProps extends UiProps> extends react.Component implements DisposableManagerV7 {
   Disposable _disposableProxy;
+
+  bool propsAreEqual(TProps otherProps) {
+    return const MapEquality(values: const _ReactElementSafeEquality()).equals(props, otherProps);
+  }
 
   /// The props for the non-forwarding props defined in this component.
   Iterable<ConsumedProps> get consumedProps => null;
