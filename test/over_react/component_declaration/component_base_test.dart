@@ -517,6 +517,44 @@ main() {
         });
       });
 
+      group('propsAreEqual()', () {
+        test('returns true when props match', () {
+          var componentProps = {
+            'foo': 'bar',
+          };
+
+          component.unwrappedProps = componentProps;
+
+          var otherProps = component.typedPropsFactory(componentProps);
+
+          expect(component.propsAreEqual(otherProps), isTrue);
+        });
+
+        test('returns false when props differ', () {
+          component.unwrappedProps = {
+            'foo': 'bar',
+          };
+
+          var otherProps = component.typedPropsFactory({
+            'foo': 'baz',
+          });
+
+          expect(component.propsAreEqual(otherProps), isFalse);
+        });
+
+        test('does not error when props contain ReactElement', () {
+          var componentProps = {
+            'foo': TestComponent()(),
+          };
+
+          component.unwrappedProps = componentProps;
+
+          var otherProps = component.typedPropsFactory(componentProps);
+
+          expect(() => component.propsAreEqual(otherProps), returnsNormally);
+        });
+      });
+
       test('newProps() returns a new UiProps instance backed by a new Map', () {
         var newProps1 = component.newProps();
         var newProps2 = component.newProps();
