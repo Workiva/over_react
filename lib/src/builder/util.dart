@@ -1,6 +1,6 @@
 import 'dart:mirrors';
 
-import 'package:analyzer/analyzer.dart';
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:path/path.dart' as p;
 import 'package:build/build.dart' show AssetId;
 import 'package:source_span/source_span.dart';
@@ -27,6 +27,10 @@ Uri idToPackageUri(AssetId id) {
   return new Uri(scheme: 'package',
       path: p.url.join(id.package, id.path.replaceFirst('lib/', '')));
 }
+
+/// Returns true if the given compilation unit is a part file.
+bool isPart(CompilationUnit unit) =>
+    unit.directives.any((directive) => directive is PartOfDirective);
 
 /// Returns a string representing a [TypeParameterList], but type bounds removed.
 ///
