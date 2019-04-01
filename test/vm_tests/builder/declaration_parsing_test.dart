@@ -62,7 +62,7 @@ main() {
       void setUpAndParse(String source) {
         logger = new MockLogger();
         sourceFile = new SourceFile.fromString(source);
-        unit = parseCompilationUnit(source);
+        unit = parseCompilationUnit(source, suppressErrors: false, parseFunctionBodies: true);
         declarations = new ParsedDeclarations(unit, sourceFile, logger);
       }
 
@@ -967,7 +967,7 @@ main() {
             }
 
             group('static `meta` field is declared in', () {
-              final body = 'static const String meta;';
+              final body = 'static const String meta = "foo";';
               verifyMetaWarnings(body);
             });
 
