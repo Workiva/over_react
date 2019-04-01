@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of over_react.class_names;
+part of 'class_names.dart';
 
 // **************************************************************************
 // OverReactGenerator

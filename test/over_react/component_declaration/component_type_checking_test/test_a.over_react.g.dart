@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of test_component.test_a;
+part of 'test_a.dart';
 
 // **************************************************************************
 // OverReactGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of over_react.component_declaration.redux_component_test;
+part of 'redux_component_test.dart';
 
 // **************************************************************************
 // OverReactGenerator

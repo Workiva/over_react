@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of over_react.component_declaration.flux_component_test;
+part of 'flux_component_test.dart';
 
 // **************************************************************************
 // OverReactGenerator

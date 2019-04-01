@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of basic.library;
+part of 'basic_library.dart';
 
 // **************************************************************************
 // OverReactGenerator

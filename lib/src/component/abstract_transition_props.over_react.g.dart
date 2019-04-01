@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of over_react.abstract_transition_props;
+part of 'abstract_transition_props.dart';
 
 // **************************************************************************
 // OverReactGenerator

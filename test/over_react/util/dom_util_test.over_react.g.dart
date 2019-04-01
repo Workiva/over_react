@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of dom_util_test;
+part of 'dom_util_test.dart';
 
 // **************************************************************************
 // OverReactGenerator

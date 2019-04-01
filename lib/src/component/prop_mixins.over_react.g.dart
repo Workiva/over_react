@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of over_react.prop_mixins;
+part of 'prop_mixins.dart';
 
 // **************************************************************************
 // OverReactGenerator

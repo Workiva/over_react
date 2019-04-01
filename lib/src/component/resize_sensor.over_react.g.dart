@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of over_react.resize_sensor;
+part of 'resize_sensor.dart';
 
 // **************************************************************************
 // OverReactGenerator

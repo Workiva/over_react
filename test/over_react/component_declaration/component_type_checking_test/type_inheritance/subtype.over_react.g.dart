@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of test_component.type_inheritance.subtype;
+part of 'subtype.dart';
 
 // **************************************************************************
 // OverReactGenerator

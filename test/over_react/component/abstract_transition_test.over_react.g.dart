@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of abstract_transition_test;
+part of 'abstract_transition_test.dart';
 
 // **************************************************************************
 // OverReactGenerator
