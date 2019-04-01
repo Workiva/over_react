@@ -23,6 +23,7 @@ targets:
           exclude:
             # This tests un-built behavior, and therefore should not be built
             - "test/over_react/component_declaration/builder_helpers_test.dart"
+
       over_react|overReactBuilder:
         enabled: false
 
@@ -37,13 +38,9 @@ targets:
             - "web/**"
           exclude:
             - "lib/src/builder/**"
+
       build_web_compilers|entrypoint:
         generate_for:
-          include:
-            - "example/**"
-            - "lib/*.dart"
-            - "test/*.dart"
-            - "web/*.dart"
-          exclude:
-            - "lib/src/builder/**"
-
+          - "example/**.dart"
+          - "test/*.browser_test.dart"
+          - "web/*.dart"
