@@ -3,7 +3,7 @@
 part of 'prop_mixins.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 abstract class ReactPropsMixin implements _$ReactPropsMixin {

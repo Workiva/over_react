@@ -3,7 +3,7 @@
 part of 'class_names.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 abstract class CssClassPropsMixin implements _$CssClassPropsMixin {

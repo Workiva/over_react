@@ -3,7 +3,7 @@
 part of 'constants.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {

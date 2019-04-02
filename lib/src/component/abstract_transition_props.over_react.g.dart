@@ -3,7 +3,7 @@
 part of 'abstract_transition_props.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 abstract class TransitionPropsMixin implements _$TransitionPropsMixin {

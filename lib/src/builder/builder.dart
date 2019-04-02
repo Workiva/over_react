@@ -13,6 +13,76 @@ import './util.dart';
 Builder overReactBuilder(BuilderOptions options) => new OverReactBuilder();
 
 class OverReactBuilder extends Builder {
+  @override
+  Map<String, List<String>> get buildExtensions => {
+    '.dart': [outputExtension],
+  };
+
+  @override
+  FutureOr<void> build(BuildStep buildStep) async {
+    final source = await buildStep.readAsString(buildStep.inputId);
+    if (!_mightContainDeclarations(source)) {
+      return;
+    }
+
+    final libraryUnit = _tryParseCompilationUnit(source, buildStep.inputId);
+    if (libraryUnit == null) {
+      return;
+    }
+    if (isPart(libraryUnit)) {
+      return;
+    }
+
+    final outputs = <String>[];
+    void generateForFile(String source, AssetId id, CompilationUnit unit) {
+      if (!ParsedDeclarations.mightContainDeclarations(source)) {
+        return;
+      }
+      final sourceFile = new SourceFile.fromString(
+        source, url: idToPackageUri(id));
+      final declarations = new ParsedDeclarations(unit, sourceFile, log);
+      if (declarations.hasErrors) {
+        log.severe('There was an error parsing the file declarations for file: $id');
+        return;
+      }
+      final generator = new ImplGenerator(log, sourceFile)
+        ..generate(declarations);
+      final generatedOutput = generator.outputContentsBuffer.toString().trim();
+      if (generatedOutput.isNotEmpty) {
+        outputs.add(generatedOutput);
+      }
+    }
+
+    // Collect all of the part files for this library.
+    final parts = libraryUnit.directives
+      .whereType<PartDirective>()
+      // Ignore all generated `.g.dart` parts.
+      .where((part) => !part.uri.stringValue.endsWith('.g.dart'));
+
+    // Generate over_react code for the input library.
+    generateForFile(source, buildStep.inputId, libraryUnit);
+
+    // Generate over_react code for each part file of the input library.
+    for (final part in parts) {
+      final partId = new AssetId.resolve(
+        part.uri.stringValue,
+        from: buildStep.inputId);
+      if (!await buildStep.canRead(partId)) {
+        continue;
+      }
+      final partSource = await buildStep.readAsString(partId);
+      final partUnit = _tryParseCompilationUnit(partSource, partId);
+      if (partUnit == null) {
+        continue;
+      }
+      generateForFile(partSource, partId, partUnit);
+    }
+
+    if (outputs.isNotEmpty) {
+      await _writePart(buildStep, outputs);
+    }
+  }
+
   static final _headerLine = '// '.padRight(77, '*');
 
   static final _formatter = new DartFormatter();
@@ -22,99 +92,26 @@ class OverReactBuilder extends Builder {
   );
 
   static bool _mightContainDeclarations(String source) {
-    return ParsedDeclarations.key_any_annotation.hasMatch(source) ||
+    return ParsedDeclarations.mightContainDeclarations(source) ||
       _overReactPartDirective.hasMatch(source);
   }
 
-  @override
-  FutureOr<void> build(BuildStep buildStep) async {
-    final source = await buildStep.readAsString(buildStep.inputId);
-    if (!_mightContainDeclarations(source)) {
-      return;
-    }
-
-    CompilationUnit libraryUnit;
+  static CompilationUnit _tryParseCompilationUnit(String source, AssetId id) {
     try {
-      libraryUnit = parseCompilationUnit(
+      return parseCompilationUnit(
         source,
-        name: buildStep.inputId.path,
+        name: id.path,
         suppressErrors: false,
         parseFunctionBodies: true);
     } catch (error, stackTrace) {
-      log.severe('There was an error parsing the compilation unit for file: ${buildStep.inputId}');
+      log.severe('There was an error parsing the compilation unit for file: $id');
       log.fine(error);
       log.fine(stackTrace);
-      return;
+      return null;
     }
-
-    if (isPart(libraryUnit)) {
-      return;
-    }
-
-    final librarySourceFile = new SourceFile.fromString(
-      source,
-      url: idToPackageUri(buildStep.inputId));
-    final libraryDeclarations = new ParsedDeclarations(
-      libraryUnit,
-      librarySourceFile,
-      log);
-    if (libraryDeclarations.hasErrors) {
-      log.severe('There was an error parsing the file declarations for file: ${buildStep.inputId}');
-      return;
-    }
-
-    final outputs = <String>[];
-    final libraryGenerator = new ImplGenerator(log, librarySourceFile)
-      ..generate(libraryDeclarations);
-    outputs.add(libraryGenerator.outputContentsBuffer.toString());
-
-    final parts = libraryUnit.directives
-      .whereType<PartDirective>()
-      // Ignore `.over_react.g.dart` parts - that's what we're generating.
-      .where((part) => !part.uri.stringValue.endsWith(outputExtension));
-
-    for (final part in parts) {
-      final partId = new AssetId.resolve(
-        part.uri.stringValue,
-        from: buildStep.inputId);
-      final partSource = await buildStep.readAsString(partId);
-      final partSourceFile = new SourceFile.fromString(
-        partSource,
-        url: idToPackageUri(partId));
-      CompilationUnit partUnit;
-      try {
-        partUnit = parseCompilationUnit(
-          partSource,
-          name: partId.path,
-          suppressErrors: false,
-          parseFunctionBodies: true);
-      } catch (error, stackTrace) {
-        log.severe('There was an error parsing the compilation unit for file: $partId');
-        log.fine(error);
-        log.fine(stackTrace);
-        return;
-      }
-      final partDeclarations = new ParsedDeclarations(partUnit, partSourceFile, log);
-      if (partDeclarations.hasErrors) {
-        log.severe('There was an error parsing the file declarations for file: ${buildStep.inputId}');
-        return;
-      }
-      final partGenerator = new ImplGenerator(log, partSourceFile)
-        ..generate(partDeclarations);
-      outputs.add(partGenerator.outputContentsBuffer.toString());
-    }
-
-    final nonEmptyOutputs = outputs
-      .map((s) => s.trim())
-      .where((s) => s.isNotEmpty);
-    if (nonEmptyOutputs.isEmpty) {
-      return;
-    }
-
-    await _writePart(buildStep, nonEmptyOutputs);
   }
 
-  FutureOr<void> _writePart(BuildStep buildStep, Iterable<String> outputs) async {
+  static FutureOr<void> _writePart(BuildStep buildStep, Iterable<String> outputs) async {
     final outputId = buildStep.inputId.changeExtension(outputExtension);
     final partOf = "'${p.basename(buildStep.inputId.uri.toString())}'";
 
@@ -124,7 +121,7 @@ class OverReactBuilder extends Builder {
       ..writeln('part of $partOf;')
       ..writeln()
       ..writeln(_headerLine)
-      ..writeln('// OverReactGenerator')
+      ..writeln('// OverReactBuilder (package:over_react/src/builder.dart)')
       ..writeln(_headerLine);
 
     for (final item in outputs) {
@@ -136,9 +133,4 @@ class OverReactBuilder extends Builder {
     final output = _formatter.format(buffer.toString());
     await buildStep.writeAsString(outputId, output);
   }
-
-  @override
-  Map<String, List<String>> get buildExtensions => {
-    '.dart': [outputExtension],
-  };
 }
