@@ -21,10 +21,6 @@ class OverReactBuilder extends Builder {
   @override
   FutureOr<void> build(BuildStep buildStep) async {
     final source = await buildStep.readAsString(buildStep.inputId);
-    if (!_mightContainDeclarations(source)) {
-      return;
-    }
-
     final libraryUnit = _tryParseCompilationUnit(source, buildStep.inputId);
     if (libraryUnit == null) {
       return;
@@ -79,7 +75,18 @@ class OverReactBuilder extends Builder {
     }
 
     if (outputs.isNotEmpty) {
-      await _writePart(buildStep, outputs);
+      final outputId = buildStep.inputId.changeExtension(outputExtension);
+
+      // Verify that the library file has an `.over_react.g.dart` part.
+      final expectedPart = p.basename(outputId.path);
+      final partUris = libraryUnit.directives
+        .whereType<PartDirective>()
+        .map((p) => p.uri.stringValue);
+      if (!partUris.contains(expectedPart)) {
+        log.warning('Missing "part \'$expectedPart\';".');
+      }
+
+      await _writePart(buildStep, outputId, outputs);
     }
   }
 
@@ -111,8 +118,7 @@ class OverReactBuilder extends Builder {
     }
   }
 
-  static FutureOr<void> _writePart(BuildStep buildStep, Iterable<String> outputs) async {
-    final outputId = buildStep.inputId.changeExtension(outputExtension);
+  static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs) async {
     final partOf = "'${p.basename(buildStep.inputId.uri.toString())}'";
 
     final buffer = new StringBuffer()
