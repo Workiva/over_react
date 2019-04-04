@@ -1,9 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of test_util.one_level_wrapper;
+part of 'one_level_wrapper.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.

@@ -3,7 +3,7 @@
 part of 'private_props_ddc_bug.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.

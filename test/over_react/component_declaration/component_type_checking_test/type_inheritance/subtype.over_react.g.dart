@@ -1,9 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of test_component.type_inheritance.subtype;
+part of 'subtype.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.

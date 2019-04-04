@@ -3,7 +3,7 @@
 part of 'state_mixin.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 abstract class ExampleStateMixinClass implements _$ExampleStateMixinClass {

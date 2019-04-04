@@ -14,12 +14,12 @@ dependencies:
   build: ^1.0.0
   built_redux: ^7.4.2
   built_value: ^5.4.4
+  dart_style: '>=0.1.7 <2.0.0'
   js: ^0.6.1+1
   logging: ">=0.11.3+2 <1.0.0"
   meta: ^1.1.6
   path: ^1.5.1
   react: ^4.6.0
-  source_gen: ^0.9.0
   source_span: ^1.4.1
   transformer_utils: ^0.2.0
   w_common: ^1.13.0

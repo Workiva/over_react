@@ -3,7 +3,7 @@
 part of 'required_prop_integration_tests.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.

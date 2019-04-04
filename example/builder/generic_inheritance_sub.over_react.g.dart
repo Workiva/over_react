@@ -3,7 +3,7 @@
 part of 'generic_inheritance_sub.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.

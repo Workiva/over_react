@@ -3,7 +3,7 @@
 part of 'prop_key_util_test_dart2.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.
