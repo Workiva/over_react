@@ -4,10 +4,10 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
-class InvalidChildChecker extends ComponentUsageChecker {
+class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
   @override
   String get name => 'over-react-element-invalid-child';
 
@@ -58,7 +58,7 @@ class InvalidChildChecker extends ComponentUsageChecker {
           message += ' Must be a ReactElement, Iterable, string, number, boolean, or null.';
         }
 
-        emitWarning(message: message, offset: argument.offset, end: argument.end, fixMessage: fixMessage, fixEdits: fixEdits);
+        addWarning(message: message, offset: argument.offset, end: argument.end, fixMessage: fixMessage, fixEdits: fixEdits);
       });
     }
   }

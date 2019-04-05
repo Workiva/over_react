@@ -4,10 +4,10 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
-class RenderReturnValueChecker extends SubChecker {
+class RenderReturnValueDiagnostic extends SubDiagnostic {
   @override
   String get name => 'over-react-render-return-value';
 
@@ -52,9 +52,9 @@ class RenderReturnValueChecker extends SubChecker {
           fixMessage = missingBuilderFixMessage;
         }
 
-        emitError(message: message, offset: returnStatement.offset, end: returnStatement.end, fixMessage: fixMessage, fixEdits: fixEdits);
+        addError(message: message, offset: returnStatement.offset, end: returnStatement.end, fixMessage: fixMessage, fixEdits: fixEdits);
       } else if (returnTypeName == 'bool' && returnExpression is BooleanLiteral && returnExpression.value == false) {
-        emitHint(
+        addHint(
           message: 'Prefer returning null over false in render. (The dart2js bug involving null has been fixed.)',
           offset: returnExpression.offset,
           end: returnExpression.end,

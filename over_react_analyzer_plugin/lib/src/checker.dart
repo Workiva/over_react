@@ -33,19 +33,19 @@
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/arrow_function_prop.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/component_usage.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/dom_prop_types.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/duplicate_prop_cascade.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/extra_invocations.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/hashcode_as_key.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/invalid_child.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/missing_cascade_parens.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/missing_required_prop.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/pseudo_static_lifecycle.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/render_return_value.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/string_ref.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/variadic_children.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/arrow_function_prop.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/dom_prop_types.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/duplicate_prop_cascade.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/extra_invocations.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/hashcode_as_key.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/missing_cascade_parens.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/missing_required_prop.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/pseudo_static_lifecycle.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/render_return_value.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/string_ref.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
 
 /// Checks a library for errors related to built_value generation. Returns
 /// the errors and, where possible, corresponding fixes.
@@ -56,19 +56,19 @@ class Checker {
     // Don't analyze if there's no source; there's nothing to do.
     if (result.unit?.declaredElement?.source == null) return {};
 
-    final checkers = <SubChecker>[
-      new DuplicatePropCascadeChecker(),
-      new HashCodeAsKeyChecker(),
-      new VariadicChildrenChecker(),
-      new ArrowFunctionPropCascadeChecker(),
-      new ExtraInvocationsChecker(),
-      new RenderReturnValueChecker(),
-      new InvalidChildChecker(),
-      new StringRefChecker(),
-      new MissingCascadeParensChecker(),
-      new MissingRequiredPropChecker(),
-      new PseudoStaticLifecycleChecker(),
-      new InvalidDomAttributeChecker(),
+    final checkers = <SubDiagnostic>[
+      new DuplicatePropCascadeDiagnostic(),
+      new HashCodeAsKeyDiagnostic(),
+      new VariadicChildrenDiagnostic(),
+      new ArrowFunctionPropCascadeDiagnostic(),
+      new ExtraInvocationsDiagnostic(),
+      new RenderReturnValueDiagnostic(),
+      new InvalidChildDiagnostic(),
+      new StringRefDiagnostic(),
+      new MissingCascadeParensDiagnostic(),
+      new MissingRequiredPropDiagnostic(),
+      new PseudoStaticLifecycleDiagnostic(),
+      new InvalidDomAttributeDiagnostic(),
     ];
 
     for (var checker in checkers) {

@@ -7,6 +7,8 @@ import 'package:analyzer/source/line_info.dart';
 import 'package:analyzer/src/task/dart.dart' show IgnoreInfo; // ignore: implementation_imports
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 
+export 'package:analyzer/src/task/dart.dart' show IgnoreInfo; // ignore: implementation_imports
+
 List<AnalysisError> filterIgnores(List<AnalysisError> errors, LineInfo lineInfo,  IgnoreInfo lazyIgnoreInfo()) {
   if (errors.isEmpty) {
     return errors;

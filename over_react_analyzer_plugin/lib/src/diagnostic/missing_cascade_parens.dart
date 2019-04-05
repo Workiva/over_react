@@ -2,9 +2,9 @@ import 'package:analyzer/analyzer.dart'; // ignore: deprecated_member_use
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 
-class MissingCascadeParensChecker extends SubChecker {
+class MissingCascadeParensDiagnostic extends SubDiagnostic {
   @override
   String get name => 'missing-cascade-parens';
 
@@ -48,7 +48,7 @@ class MissingCascadeParensChecker extends SubChecker {
             final cascade = assignment.parent;
             if (cascade is CascadeExpression) {
               if (cascade.target.staticType?.name?.endsWith('Props') ?? false) {
-                emitWarning(
+                addWarning(
                   message:
                       'Are you missing parentheses around the builder cascade?',
                   offset: cascade.offset,

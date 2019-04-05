@@ -2,10 +2,10 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
-class MissingRequiredPropChecker extends ComponentUsageChecker {
+class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor {
   @override
   String get name => 'missing-required-prop';
 
@@ -78,7 +78,7 @@ class MissingRequiredPropChecker extends ComponentUsageChecker {
     });
 
     for (var name in missingRequiredFieldNames) {
-      emitWarning(
+      addWarning(
         message: 'Missing required prop `$name`',
         offset: usage.builder.offset,
         end: usage.builder.end,

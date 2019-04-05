@@ -2,7 +2,7 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 
 const staticMethodNames = ['getDefaultProps', 'getDerivedStateFromProps'];
 const instanceMemberWhitelist = [
@@ -14,7 +14,7 @@ const instanceMemberWhitelist = [
   'typedStateFactoryJs',
 ];
 
-class PseudoStaticLifecycleChecker extends SubChecker {
+class PseudoStaticLifecycleDiagnostic extends SubDiagnostic {
   @override
   String get name => 'over_react_pseudo_static_lifecycle';
 
@@ -62,7 +62,7 @@ class PseudoStaticLifecycleChecker extends SubChecker {
       offset ??= reference.offset;
       end ??= reference.end;
 
-      emitError(message:
+      addError(message:
           '\'${enclosingMethodName.name}\' must be treated as a static method;'
           ' only super-calls and props/state utility methods (like \'newProps\' and \'typedPropsFactory\') are allowed.',
           offset: offset, end: end);

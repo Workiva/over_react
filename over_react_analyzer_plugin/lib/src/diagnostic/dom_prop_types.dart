@@ -1,15 +1,16 @@
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
-class InvalidDomAttributeChecker extends ComponentUsageChecker {
-  @override
-  String get name => 'over_react_invalid_dom_attribute';
+class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor {
+  static const code = const ErrorCode(
+    'over_react_invalid_dom_attribute',
+    "'?.' isn't a valid HTML attribute prop for '?.'. It may only be used on ?.",
+    AnalysisErrorSeverity.WARNING,
+    AnalysisErrorType.STATIC_WARNING,
+  );
 
   @override
-  String get description => '';
-
-  @override
-  void visitComponentUsage(_, FluentComponentUsage usage) {
+  void computeErrorsForUsage(unit, collector, usage) {
     // todo support SVG icons
     // Don't support SVG icons since we only have HTML element metadata.
     if (!usage.isDom || usage.isSvg) return;
@@ -27,12 +28,9 @@ class InvalidDomAttributeChecker extends ComponentUsageChecker {
       if (allowedElements == null) return;
 
       if (!allowedElements.contains(nodeName)) {
-        emitWarning(
-          message: '\'$propName\' isn\'t a valid HTML attribute prop for \'$nodeName\'. '
-              'It may only be used on '
-              '${allowedElements.map((el) => '<$el>').join(', ')}',
-          offset: lhs.propertyName.offset,
-          end: lhs.propertyName.end,
+        collector.addErrorWithCode(
+          location(unit, offset: lhs.propertyName.offset, end: lhs.propertyName.end),
+          code,
         );
       }
     });

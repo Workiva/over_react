@@ -1,8 +1,8 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 
-class ExtraInvocationsChecker extends ComponentUsageChecker {
+class ExtraInvocationsDiagnostic extends ComponentUsageDiagnosticContributor {
   @override
   String get name => 'over-react-extra-invocations';
 
@@ -21,7 +21,7 @@ class ExtraInvocationsChecker extends ComponentUsageChecker {
     // expression being invoked with `Bar()..bar = true` , which
     // is being invoked with `2`
     if (parent is FunctionExpressionInvocation && parent.function == usage.node) {
-      emitError(
+      addError(
           message: 'Extraneous invocations; are you missing a comma between ReactElements?',
           offset: usage.node.offset,
           end: usage.node.end,

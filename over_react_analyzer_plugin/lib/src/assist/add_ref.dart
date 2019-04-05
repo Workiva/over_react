@@ -1,4 +1,4 @@
-import 'package:analyzer/analyzer.dart'; // ignore: deprecated_member_use
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/line_info.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/assist/assist.dart';

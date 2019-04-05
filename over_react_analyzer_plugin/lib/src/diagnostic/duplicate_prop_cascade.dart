@@ -1,10 +1,10 @@
 // Adapted from dart_medic `misc` branch containing over_react diagnostics
 
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/over_react/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
-class DuplicatePropCascadeChecker extends ComponentUsageChecker {
+class DuplicatePropCascadeDiagnostic extends ComponentUsageDiagnosticContributor {
   @override
   String get name => 'over-react-duplicate-prop-cascade';
 
@@ -23,7 +23,7 @@ class DuplicatePropCascadeChecker extends ComponentUsageChecker {
       if (usages.length > 1) {
         for (var i = 0; i < usages.length; i++) {
           final lhs = usages[i];
-          emitHint(
+          addHint(
             message:
                 'Prop `$name` is cascaded multiple times (${i + 1} of ${usages.length}). This is most likely a typo.',
             offset: lhs.offset,

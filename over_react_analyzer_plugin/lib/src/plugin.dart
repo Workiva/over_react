@@ -30,33 +30,31 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import 'dart:async';
-
-import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/file_system/file_system.dart';
-import 'package:analyzer/source/line_info.dart'; // ignore: implementation_imports
-import 'package:analyzer/src/context/builder.dart'; // ignore: implementation_imports
-import 'package:analyzer/src/context/context_root.dart'; // ignore: implementation_imports
-import 'package:analyzer/src/dart/analysis/driver.dart'; // ignore: implementation_imports
-import 'package:analyzer/src/task/dart.dart' show IgnoreInfo; // ignore: implementation_imports
-//import 'package:analyzer_plugin/plugin/outline_mixin.dart';
+// ignore: implementation_imports
+import 'package:analyzer/src/context/builder.dart';
+// ignore: implementation_imports
+import 'package:analyzer/src/context/context_root.dart';
+// ignore: implementation_imports
+import 'package:analyzer/src/dart/analysis/driver.dart';
 import 'package:analyzer_plugin/plugin/navigation_mixin.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
-import 'package:analyzer_plugin/protocol/protocol_common.dart' as plugin;
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
 import 'package:analyzer_plugin/utilities/navigation/navigation.dart';
-//import 'package:analyzer_plugin/utilities/outline/outline.dart';
 import 'package:over_react_analyzer_plugin/src/assist/add_props.dart';
 import 'package:over_react_analyzer_plugin/src/assist/add_ref.dart';
 import 'package:over_react_analyzer_plugin/src/assist/wrap_unwrap.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
+import 'package:over_react_analyzer_plugin/src/async_plugin_apis/diagnostic.dart';
 import 'package:over_react_analyzer_plugin/src/checker.dart';
-import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/navigation/prop_navigation_contributor.dart';
+
 
 /// Analyzer plugin for over_react.
 class OverReactAnalyzerPlugin extends ServerPlugin with
 //    OutlineMixin, DartOutlineMixin,
+    DiagnosticMixin,
     NavigationMixin, DartNavigationMixin,
     AsyncAssistsMixin, AsyncDartAssistsMixin {
   OverReactAnalyzerPlugin(ResourceProvider provider) : super(provider);
@@ -75,7 +73,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
           ..performanceLog = performanceLog
           ..fileContentOverlay = fileContentOverlay;
     final result = contextBuilder.buildDriver(root);
-    result.results.listen(_processResult);
+    result.results.listen(processDiagnosticsForResult);
     return result;
   }
 
@@ -93,74 +91,9 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
   @override
   String get contactInfo => 'Workiva Slack channel: #react-analyzer-plugin';
 
-//  List<ErrorConntributor> get
-
-  /// Computes errors based on an analysis result and notifies the analyzer.
-  void _processResult(ResolvedUnitResult analysisResult) {
-    try {
-      // If there is no relevant analysis result, notify the analyzer of no errors.
-      if (analysisResult.unit == null ||
-          analysisResult.libraryElement == null) {
-        channel.sendNotification(
-            new plugin.AnalysisErrorsParams(analysisResult.path, [])
-                .toNotification());
-      } else {
-        // If there is something to analyze, do so and notify the analyzer.
-        // Note that notifying with an empty set of errors is important as
-        // this clears errors if they were fixed.
-        final checkResult = checker.check(analysisResult);
-
-        // The analyzer normally filters out errors with "ignore" comments,
-        // but it doesn't do it for plugin errors, so we need to do that here.
-        LineInfo lineInfo = analysisResult.unit.lineInfo;
-        final errors = checkResult.keys.toList();
-        final filteredErrors = filterIgnores(errors, lineInfo,
-            () => IgnoreInfo.calculateIgnores(analysisResult.content, lineInfo));
-
-        channel.sendNotification(new plugin.AnalysisErrorsParams(
-                analysisResult.path, filteredErrors)
-            .toNotification());
-      }
-    } catch (e, stackTrace) {
-      // Notify the analyzer that an exception happened.
-      channel.sendNotification(new plugin.PluginErrorParams(
-              false, e.toString(), stackTrace.toString())
-          .toNotification());
-    }
-  }
-
   @override
   void contentChanged(String path) {
     super.driverForPath(path).addFile(path);
-  }
-
-  @override
-  Future<plugin.EditGetFixesResult> handleEditGetFixes(
-      plugin.EditGetFixesParams parameters) async {
-    try {
-      final unitResult = await getResolvedUnitResult(parameters.file);
-      // Get errors and fixes for the file.
-      final checkResult = checker.check(unitResult);
-
-      // Return any fixes that are for the expected file and within the given offset.
-      final fixes = <plugin.AnalysisErrorFixes>[];
-      for (final error in checkResult.keys) {
-        final fix = checkResult[error];
-        if (error.location.file == parameters.file && fix != null) {
-          if (parameters.offset >= error.location.offset && parameters.offset <= error.location.offset + error.location.length) {
-            fixes.add(new plugin.AnalysisErrorFixes(error, fixes: [fix]));
-          }
-        }
-      }
-
-      return new plugin.EditGetFixesResult(fixes);
-    } catch (e, stackTrace) {
-      // Notify the analyzer that an exception happened.
-      channel.sendNotification(new plugin.PluginErrorParams(
-              false, e.toString(), stackTrace.toString())
-          .toNotification());
-      return new plugin.EditGetFixesResult([]);
-    }
   }
 
 //  @override
@@ -188,4 +121,12 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
       new PropNavigationContributor(),
     ];
   }
+
+  @override
+  List<DiagnosticContributor> getDiagnosticContributors(String path) {
+    return [
+
+    ];
+  }
 }
+
