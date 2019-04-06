@@ -1,28 +1,23 @@
-import 'package:analyzer/dart/analysis/results.dart';
-import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor {
-  @override
-  String get name => 'missing-required-prop';
+  static final code = new ErrorCode(
+      'over-react-missing-required-prop',
+      'The prop {0} is required.',
+      AnalysisErrorSeverity.WARNING,
+      AnalysisErrorType.STATIC_WARNING);
 
-  @override
-  String get description =>
-      '';
+  static final fixKind = new FixKind(
+      code.name, 200, 'Add required prop \'{0}\'');
 
   ClassElement _cachedAccessorClass;
 
   @override
-  void check(ResolvedUnitResult result) {
-    _cachedAccessorClass = null;
-    super.check(result);
-  }
+  computeErrorsForUsage(result, collector, usage) async {
 
-  @override
-  void visitComponentUsage(CompilationUnit unit, FluentComponentUsage usage) {
     final requiredFields = <FieldElement>[];
 
     // FIXME this almost definitely needs optimization/caching
@@ -78,10 +73,10 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     });
 
     for (var name in missingRequiredFieldNames) {
-      addWarning(
-        message: 'Missing required prop `$name`',
-        offset: usage.builder.offset,
-        end: usage.builder.end,
+      collector.addError(
+        code,
+        location(result, range: range.node(usage.builder)),
+        errorMessageArgs: [name],
         // todo fix to add prop
       );
     }

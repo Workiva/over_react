@@ -1,6 +1,5 @@
-// Adapted from dart_medic `misc` branch containing over_react diagnostics
+import 'dart:async';
 
-import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:meta/meta.dart';
@@ -8,19 +7,18 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
-  @override
-  String get name => 'over-react-element-invalid-child';
+  static final code = ErrorCode(
+      'over_react_invalid_child',
+      "Invalid child type: '{0}'. Must be a ReactElement, Fragment, string, number, boolean, null, or an Iterable of those types.{1}",
+      AnalysisErrorSeverity.WARNING,
+      AnalysisErrorType.STATIC_TYPE_WARNING);
 
   @override
-  String get description =>
-      '';
+  computeErrorsForUsage(result, collector, usage) async {
+    final typeProvider = result.unit.declaredElement.context.typeProvider;
+    final typeSystem = result.unit.declaredElement.context.typeSystem;
 
-  @override
-  void visitComponentUsage(CompilationUnit unit, FluentComponentUsage usage) {
-    final typeProvider = unit.declaredElement.context.typeProvider;
-    final typeSystem = unit.declaredElement.context.typeSystem;
-
-    void _validateType(DartType type, {@required void onInvalidType(DartType invalidType)}) {
+    Future<void> _validateType(DartType type, {@required FutureOr<void> onInvalidType(DartType invalidType)}) async {
       // Couldn't be resolved
       if (type == null || type.isUndefined) return;
       // Couldn't be resolved to anything more specific; `Object` might be
@@ -37,28 +35,32 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
       // `iterableType` since the latter has an uninstantiated type argument of `E`.
       if (type.isSubtypeOf(typeProvider.iterableDynamicType)) {
         var typeArg = typeSystem.mostSpecificTypeArgument(type, typeProvider.iterableType);
-        _validateType(typeArg, onInvalidType: onInvalidType);
+        await _validateType(typeArg, onInvalidType: onInvalidType);
         return;
       }
 
-      onInvalidType(type);
+      await onInvalidType(type);
     }
 
     for (var argument in usage.node.argumentList.arguments) {
-      _validateType(argument.staticType, onInvalidType: (invalidType) {
-        var message = 'Invalid child type: `${invalidType.displayName}`.';;
-        List<SourceEdit> fixEdits;
-        String fixMessage;
+      await _validateType(argument.staticType, onInvalidType: (invalidType) async {
+        final location = this.location(result, range: range.node(argument));
 
         if (couldBeMissingBuilderInvocation(argument)) {
-          message += missingBuilderMessageSuffix;
-          fixEdits = getMissingInvocationBuilderEdits(argument);
-          fixMessage = missingBuilderFixMessage;
+          await collector.addErrorWithFix(code, location,
+            errorMessageArgs: [invalidType.displayName, missingBuilderMessageSuffix],
+            fixKind: addBuilderInvocationFix,
+            computeFix: () async {
+              final builder = new DartChangeBuilder(result.session);
+              await builder.addFileEdit(result.path, (builder) {
+                buildMissingInvocationEdits(argument, builder);
+              });
+              return builder.sourceChange;
+            },
+          );
         } else {
-          message += ' Must be a ReactElement, Iterable, string, number, boolean, or null.';
+          collector.addError(code, location, errorMessageArgs: [invalidType.displayName, '']);
         }
-
-        addWarning(message: message, offset: argument.offset, end: argument.end, fixMessage: fixMessage, fixEdits: fixEdits);
       });
     }
   }

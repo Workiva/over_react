@@ -4,13 +4,13 @@ import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor {
   static const code = const ErrorCode(
     'over_react_invalid_dom_attribute',
-    "'?.' isn't a valid HTML attribute prop for '?.'. It may only be used on ?.",
+    "{}' isn't a valid HTML attribute prop for '{}'. It may only be used on: {}",
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
   );
 
   @override
-  void computeErrorsForUsage(unit, collector, usage) {
+  computeErrorsForUsage(result, collector, usage) async {
     // todo support SVG icons
     // Don't support SVG icons since we only have HTML element metadata.
     if (!usage.isDom || usage.isSvg) return;
@@ -28,9 +28,9 @@ class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor 
       if (allowedElements == null) return;
 
       if (!allowedElements.contains(nodeName)) {
-        collector.addErrorWithCode(
-          location(unit, offset: lhs.propertyName.offset, end: lhs.propertyName.end),
-          code,
+        collector.addError(code,
+            location(result, range: range.node(lhs.propertyName)),
+            errorMessageArgs: [propName, nodeName, allowedElements.join(',')]
         );
       }
     });

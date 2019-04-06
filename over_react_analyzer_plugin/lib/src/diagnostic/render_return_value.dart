@@ -1,24 +1,33 @@
-// Adapted from dart_medic `misc` branch containing over_react diagnostics
-
-import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
-class RenderReturnValueDiagnostic extends SubDiagnostic {
-  @override
-  String get name => 'over-react-render-return-value';
+class RenderReturnValueDiagnostic extends DiagnosticContributor {
+  static final react15InvalidTypeErrorCode = ErrorCode(
+      'over-react-invalid-render-return-type',
+      "Invalid render() return type: '{0}'. Must be a ReactElement, null, false.{1}",
+      AnalysisErrorSeverity.WARNING,
+      AnalysisErrorType.STATIC_TYPE_WARNING);
+
+  static final react16InvalidTypeErrorCode = ErrorCode(
+      'over-react-invalid-render-return-type',
+      "Invalid render() return type: '{0}'. Must be a ReactElement, Fragment, null, false, or an Iterable of those types.{1}",
+      AnalysisErrorSeverity.WARNING,
+      AnalysisErrorType.STATIC_TYPE_WARNING);
+
+  static final preferNullOverFalseErrorCode = ErrorCode(
+      'over_react_prefer_null_over_false',
+      'Prefer returning null over false in render. (The dart2js bug involving null has been fixed.)',
+      AnalysisErrorSeverity.WARNING,
+      AnalysisErrorType.STATIC_TYPE_WARNING);
+
+  static final nullToFalseFix = FixKind(
+      preferNullOverFalseErrorCode.name, 200, missingBuilderFixMessage);
 
   @override
-  String get description =>
-      '';
-
-  @override
-  void check(ResolvedUnitResult result) {
-    super.check(result);
-
+   computeErrors(result, collector) async {
     // This is the return type even if it's not explicitly declared.
     final visitor = new RenderVisitor();
     result.unit.accept(visitor);
@@ -39,27 +48,41 @@ class RenderReturnValueDiagnostic extends SubDiagnostic {
       final returnExpression = returnStatement.expression;
       if (returnExpression == null) continue; // valueless returns
       final returnType = returnExpression.staticType;
-      final returnTypeName = returnType?.name;
+      if (returnType == null || returnType.isUndefined || returnType.isObject || returnType.isVoid) {
+        continue;
+      }
 
-      if (!allowedTypes.contains(returnTypeName)) {
-        var message = 'Invalid render() return type: `${returnType.displayName}`. Must be a ReactElement, null, or false.';
-        List<SourceEdit> fixEdits;
-        String fixMessage;
+      if (!allowedTypes.contains(returnType.name)) {
+        // todo check if React 16
+        final code = react15InvalidTypeErrorCode;
+        final location = this.location(result, range: range.node(returnStatement));
 
         if (couldBeMissingBuilderInvocation(returnExpression)) {
-          message += missingBuilderMessageSuffix;
-          fixEdits = getMissingInvocationBuilderEdits(returnExpression);
-          fixMessage = missingBuilderFixMessage;
+          await collector.addErrorWithFix(code, location,
+            errorMessageArgs: [returnType.name, missingBuilderMessageSuffix],
+            fixKind: addBuilderInvocationFix,
+            computeFix: () async {
+              final builder = new DartChangeBuilder(result.session);
+              await builder.addFileEdit(result.path, (builder) {
+                buildMissingInvocationEdits(returnExpression, builder);
+              });
+              return builder.sourceChange;
+            },
+          );
+        } else {
+          await collector.addError(code, location, errorMessageArgs: [returnType.name, '']);
         }
-
-        addError(message: message, offset: returnStatement.offset, end: returnStatement.end, fixMessage: fixMessage, fixEdits: fixEdits);
-      } else if (returnTypeName == 'bool' && returnExpression is BooleanLiteral && returnExpression.value == false) {
-        addHint(
-          message: 'Prefer returning null over false in render. (The dart2js bug involving null has been fixed.)',
-          offset: returnExpression.offset,
-          end: returnExpression.end,
-          fixMessage: 'Change to null',
-          fixEdits: [new SourceEdit(returnExpression.offset, returnExpression.length, 'null')],
+      } else if (returnType.name == 'bool' && returnExpression is BooleanLiteral && returnExpression.value == false) {
+        await collector.addErrorWithFix(
+          preferNullOverFalseErrorCode,
+          location(result, range: range.node(returnExpression)),
+          computeFix: () async {
+            final builder = new DartChangeBuilder(result.session);
+            await builder.addFileEdit(result.path, (builder) {
+              builder.addSimpleReplacement(range.node(returnExpression), 'null');
+            });
+            return builder.sourceChange;
+          },
         );
       }
     }

@@ -6,6 +6,7 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/source/source_range.dart';
+import 'package:analyzer_plugin/channel/channel.dart';
 import 'package:analyzer_plugin/protocol/protocol.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart' hide AnalysisError;
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
@@ -65,19 +66,33 @@ abstract class DiagnosticContributor {
   /// Contribute errors for the location in the file specified by the given
   /// [result] into the given [collector].
   Future<void> computeErrors(ResolvedUnitResult result, DiagnosticCollector collector);
-  
+
   Location location(ResolvedUnitResult result, {
     int offset,
     int end,
     int length,
     SourceRange range,
   }) {
-    if (end != 0 && length != 0) {
-      throw new ArgumentError('Cannot specify both `end` and `length`.');
+    if (range != null) {
+      offset = range.offset;
+      length = range.length;
+      end = range.end;
+    } else {
+      if (offset == null) {
+        throw new ArgumentError.notNull('offset or range');
+      }
+      if (end != null && length != null) {
+        throw new ArgumentError('Cannot specify both `end` and `length`.');
+      } else if (length != null) {
+        end = offset + length;
+      } else if (end != null) {
+        length = end - offset;
+      } else {
+        end = offset;
+        length = 0;
+      }
     }
-    if (length == null) {
-      length = end != null ? end - offset : 0;
-    }
+
     final info = result.lineInfo.getLocation(offset);
     return new Location(result.path, offset, length, info.lineNumber, info.columnNumber);
   }
@@ -95,15 +110,16 @@ class DiagnosticGenerator {
   final List<DiagnosticContributor> contributors;
 
   // TODO dry up
+  // todo use generatorResult
   /// Create an 'edit.getErrors' response for the location in the file specified
   /// by the given [request]. If any of the contributors throws an exception,
   /// also create a non-fatal 'plugin.error' notification.
-  Future<List<AnalysisError>> generateErrorsResponse(ResolvedUnitResult unitResult) async {
+  Future<GeneratorResult<List<AnalysisError>>> generateErrors(ResolvedUnitResult unitResult) async {
     final notifications = <Notification>[];
-    final collector = new DiagnosticCollectorImpl();
+    final collector = new DiagnosticCollectorImpl(false);
     for (DiagnosticContributor contributor in contributors) {
       try {
-        await contributor.computeErrors(unitResult, collector, false);
+        await contributor.computeErrors(unitResult, collector);
       } catch (exception, stackTrace) {
         notifications.add(new PluginErrorParams(
                 false, exception.toString(), stackTrace.toString())
@@ -117,17 +133,17 @@ class DiagnosticGenerator {
     final filteredErrors = filterIgnores(collector.errors, lineInfo,
       () => IgnoreInfo.calculateIgnores(unitResult.content, lineInfo));
 
-    return filteredErrors;
+    return GeneratorResult(filteredErrors, notifications);
   }
 
 
-  Future<EditGetFixesResult> generateFixesResponse(DartFixesRequest request) async {
+  Future<GeneratorResult<EditGetFixesResult>> generateFixesResponse(DartFixesRequest request) async {
     final notifications = <Notification>[];
-    final collector = new DiagnosticCollectorImpl();
+    final collector = new DiagnosticCollectorImpl(true);
 
     for (var contributor in contributors) {
       try {
-        await contributor.computeErrors(request.result, collector, false);
+        await contributor.computeErrors(request.result, collector);
       } catch (exception, stackTrace) {
         notifications.add(new PluginErrorParams(
                 false, exception.toString(), stackTrace.toString())
@@ -166,7 +182,23 @@ class DiagnosticGenerator {
       }
     }
 
-    return EditGetFixesResult(fixes);
+//    final lineInfo = request.result.lineInfo;
+//    int offsetLine = lineInfo.getLocation(request.offset).lineNumber;
+//    for (var i = 0; i < collector.errors.length; i++) {
+//      final newError = collector.errors[i];
+//      final errorLine = lineInfo.getLocation(newError.location.offset).lineNumber;
+////      if (newError.location.file == request.result.path && newError.location.startLine == request.result.lineInfo.getLocation(request.offset).lineNumber) {
+//        // TODO Pass in the same error that was passed with the request
+//        if (errorLine == offsetLine) {
+//          fixes.add(AnalysisErrorFixes(
+//            newError,
+//            fixes: [collector.fixes[i]],
+//          ));
+//        }
+////      }
+//    }
+
+    return GeneratorResult(new EditGetFixesResult(fixes), notifications);
   }
 
   /// Custom comparison of [a] and [b].
@@ -189,7 +221,19 @@ class DiagnosticGenerator {
 /// Clients may not extend, implement or mix-in this class.
 abstract class DiagnosticCollector {
   void addRawError(AnalysisError error, {PrioritizedSourceChange fix});
-  void addError(ErrorCode code, Location location, {FixKind fixKind, SourceChange fixChange, List<Object> errorMessageArgs, List<Object> fixMessageArgs, bool hasFix});
+  void addError(ErrorCode code, Location location, {bool hasFix, List<Object> errorMessageArgs});
+  ///
+  ///
+  ///
+  ///     computeFix: () {
+  ///       final builder = new DartChangeBuilder(result.session);
+  ///       await builder.addFileEdit(result.path, (builder) {
+  ///         builder.addSimpleInsertion(cascade.offset, '(');
+  ///         builder.addSimpleInsertion(cascade.end, ')');
+  ///       });
+  ///       return builder.sourceChange;
+  ///     }
+  ///
   Future<void> addErrorWithFix(ErrorCode code, Location location, {FixKind fixKind, FutureOr<SourceChange> computeFix(), List<Object> errorMessageArgs, List<Object> fixMessageArgs});
 }
 
@@ -211,7 +255,7 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
   @override
   void addError(ErrorCode code, Location location, {bool hasFix = false, FixKind fixKind, SourceChange fixChange, List<Object> errorMessageArgs, List<Object> fixMessageArgs}) {
     PrioritizedSourceChange fix;
-    if (fix != null) {
+    if (fixChange != null) {
       if (fixChange.edits.isNotEmpty) {
         fixChange.message = formatList(fixKind.message, fixMessageArgs);
         fix = new PrioritizedSourceChange(fixKind.priority, fixChange);
@@ -220,13 +264,13 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
 
     // fixme add hasFix
     final error = AnalysisError(
-      AnalysisErrorSeverity.ERROR,
+      code.errorSeverity,
       code.type,
       location,
       formatList(code.message, errorMessageArgs),
       code.name,
       correction: null,
-      hasFix: fix != null || hasFix,
+      hasFix: hasFix,
     );
 
     addRawError(error, fix: fix);
@@ -238,7 +282,7 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
           Object> errorMessageArgs, List<Object> fixMessageArgs}) async {
     addError(code, location, hasFix: true,
       fixKind: fixKind,
-      fixChange: await computeFix(),
+      fixChange: shouldComputeFixes ? await computeFix() : null,
       errorMessageArgs: errorMessageArgs,
       fixMessageArgs: fixMessageArgs,);
   }
@@ -246,6 +290,7 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
 
 
 abstract class ComponentUsageDiagnosticContributor extends DiagnosticContributor {
+  // computeErrorsForUsage(result, collector, usage) async {
   Future<void> computeErrorsForUsage(ResolvedUnitResult result, DiagnosticCollector collector, FluentComponentUsage usage);
 
   @override
@@ -311,39 +356,28 @@ class ComponentUsageVisitor extends RecursiveAstVisitor<void> {
 //  }
 //}
 
-class DiagnosticError {
-  DiagnosticError(this.code, this.message, this.offset, this.end, this.severity, this.type, this.fixEdits, this.fixMessage, this.modificationStamp) {
-    if (((offset == null) != (end == null)) ||
-        ((offset == null) && fixEdits != null)) {
-      throw new ArgumentError(
-          'Offset, end and fixEdits must either all be null or all non-null. '
-              'Got: offset $offset, end $end, fixEdits $fixEdits');
+
+/// The result produced by a generator.
+///
+/// Clients may not extend, implement or mix-in this class.
+class GeneratorResult<T> {
+  /// The result to be sent to the server, or `null` if there is no response, as
+  /// when the generator is generating a notification.
+  final T result;
+
+  /// The notifications that should be sent to the server. The list will be empty
+  /// if there are no notifications.
+  final List<Notification> notifications;
+
+  /// Initialize a newly created generator result with the given [result] and
+  /// [notifications].
+  GeneratorResult(this.result, this.notifications);
+
+  /// Use the given communications [channel] to send the notifications to the
+  /// server.
+  void sendNotifications(PluginCommunicationChannel channel) {
+    for (final notification in notifications) {
+      channel.sendNotification(notification);
     }
   }
-
-  /// The code of the error
-  final String code;
-  
-  /// Error message for the user.
-  final String message;
-
-  /// Optionally, the offset of the incorrect code.
-  final int offset;
-
-  /// Optionally, the length of the incorrect code.
-  final int end;
-
-  final int modificationStamp;
-
-  String fixMessage;
-
-  List<SourceEdit> fixEdits;
-
-  int get length => end - offset;
-
-  AnalysisErrorSeverity severity;
-
-  AnalysisErrorType type;
-
-  bool get hasFix => fixEdits != null;
 }

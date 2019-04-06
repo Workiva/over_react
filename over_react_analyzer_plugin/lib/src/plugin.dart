@@ -30,6 +30,8 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+import 'dart:async';
+
 import 'package:analyzer/file_system/file_system.dart';
 // ignore: implementation_imports
 import 'package:analyzer/src/context/builder.dart';
@@ -46,8 +48,18 @@ import 'package:over_react_analyzer_plugin/src/assist/add_ref.dart';
 import 'package:over_react_analyzer_plugin/src/assist/wrap_unwrap.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/diagnostic.dart';
-import 'package:over_react_analyzer_plugin/src/checker.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/arrow_function_prop.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/dom_prop_types.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/duplicate_prop_cascade.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/hashcode_as_key.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/missing_cascade_parens.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/missing_required_prop.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/pseudo_static_lifecycle.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/render_return_value.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/string_ref.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
 import 'package:over_react_analyzer_plugin/src/navigation/prop_navigation_contributor.dart';
 
 
@@ -58,8 +70,6 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
     NavigationMixin, DartNavigationMixin,
     AsyncAssistsMixin, AsyncDartAssistsMixin {
   OverReactAnalyzerPlugin(ResourceProvider provider) : super(provider);
-
-  final Checker checker = new Checker();
 
   @override
   AnalysisDriverGeneric createAnalysisDriver(plugin.ContextRoot contextRoot) {
@@ -73,7 +83,12 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
           ..performanceLog = performanceLog
           ..fileContentOverlay = fileContentOverlay;
     final result = contextBuilder.buildDriver(root);
-    result.results.listen(processDiagnosticsForResult);
+    runZoned(() {
+      result.results.listen(processDiagnosticsForResult);
+    }, onError: (e, stackTrace) {
+      channel.sendNotification(new plugin.PluginErrorParams(
+              false, e.toString(), stackTrace.toString()).toNotification());
+    });
     return result;
   }
 
@@ -125,7 +140,17 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
   @override
   List<DiagnosticContributor> getDiagnosticContributors(String path) {
     return [
-
+      new DuplicatePropCascadeDiagnostic(),
+      new HashCodeAsKeyDiagnostic(),
+      new VariadicChildrenDiagnostic(),
+      new ArrowFunctionPropCascadeDiagnostic(),
+      new RenderReturnValueDiagnostic(),
+      new InvalidChildDiagnostic(),
+      new StringRefDiagnostic(),
+      new MissingCascadeParensDiagnostic(),
+      new MissingRequiredPropDiagnostic(),
+      new PseudoStaticLifecycleDiagnostic(),
+      new InvalidDomAttributeDiagnostic(),
     ];
   }
 }

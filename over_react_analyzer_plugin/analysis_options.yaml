@@ -7,20 +7,6 @@ analyzer:
     missing_return: warning
   exclude:
     - tools
-  # Add this to your project `analysis_options.yaml` to enable the built_value
-  # analyzer plugin. You should also add the top level `plugins` clause below.
-  # The plugin surfaces generator errors in your IDE, with suggested fixes
-  # where possible.
-  plugins:
-    over_react_analyzer_plugin
-
-
-# Add this to your project analysis_options.yaml to enable the built_value
-# analyzer plugin. You should also add the `plugins` clause under `analyzer`,
-# above.
-plugins:
-  over_react_analyzer_plugin:
-    enabled: true
 
 include: package:pedantic/analysis_options.yaml
 
@@ -30,6 +16,8 @@ linter:
     - avoid_empty_else
     - avoid_init_to_null
     - avoid_return_types_on_setters
+    - avoid_returning_null_for_future
+    - await_only_futures
     - camel_case_types
     - cancel_subscriptions
     - close_sinks
@@ -46,5 +34,6 @@ linter:
     - sort_constructors_first
     - sort_unnamed_constructors_first
     - type_init_formals
+    - unawaited_futures
     - unnecessary_brace_in_string_interps
     - unnecessary_getters_setters

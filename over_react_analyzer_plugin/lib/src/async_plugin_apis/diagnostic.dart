@@ -61,10 +61,11 @@ mixin DiagnosticMixin on ServerPlugin {
         // Note that notifying with an empty set of errors is important as
         // this clears errors if they were fixed.
         final generator = new DiagnosticGenerator(getDiagnosticContributors(analysisResult.path));
-        final errors = await generator.generateErrorsResponse(analysisResult);
+        final result = await generator.generateErrors(analysisResult);
         channel.sendNotification(new plugin.AnalysisErrorsParams(
-                analysisResult.path, errors)
+                analysisResult.path, result.result)
             .toNotification());
+        result.sendNotifications(channel);
       }
     } catch (e, stackTrace) {
       // Notify the analyzer that an exception happened.
@@ -77,11 +78,14 @@ mixin DiagnosticMixin on ServerPlugin {
   @override
   Future<plugin.EditGetFixesResult> handleEditGetFixes(
       plugin.EditGetFixesParams parameters) async {
+    // We want request errors to propagate if they throw
+    final request = await _getFixesRequest(parameters);
     try {
       final generator = new DiagnosticGenerator(getDiagnosticContributors(parameters.file));
-      return generator.generateFixesResponse(await getFixesRequest(parameters));
+      final result = await generator.generateFixesResponse(request);
+      result.sendNotifications(channel);
+      return result.result;
     } catch (e, stackTrace) {
-      // TODO use GeneratorResult
       // Notify the analyzer that an exception happened.
       channel.sendNotification(new plugin.PluginErrorParams(
               false, e.toString(), stackTrace.toString())
@@ -91,7 +95,7 @@ mixin DiagnosticMixin on ServerPlugin {
   }
 
   // from DartFixesMixin
-  Future<FixesRequest> getFixesRequest(EditGetFixesParams parameters) async {
+  Future<FixesRequest> _getFixesRequest(EditGetFixesParams parameters) async {
     String path = parameters.file;
     int offset = parameters.offset;
     ResolvedUnitResult result = await getResolvedUnitResult(path);

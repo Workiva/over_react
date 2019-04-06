@@ -1,4 +1,3 @@
-import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
@@ -14,33 +13,33 @@ const instanceMemberWhitelist = [
   'typedStateFactoryJs',
 ];
 
-class PseudoStaticLifecycleDiagnostic extends SubDiagnostic {
-  @override
-  String get name => 'over_react_pseudo_static_lifecycle';
+class PseudoStaticLifecycleDiagnostic
+    extends DiagnosticContributor {
+  static final code = ErrorCode(
+      'over_react_pseudo_static_lifecycle',
+      '\'{0}\' must be treated as a static method; only super-calls '
+      'and props/state utility methods (like \'newProps\' and \'typedPropsFactory\') are allowed.',
+      AnalysisErrorSeverity.ERROR,
+      AnalysisErrorType.STATIC_WARNING);
 
   @override
-  String get description =>
-      '';
-
-  @override
-  void check(ResolvedUnitResult result) {
-    super.check(result);
-
+  computeErrors(result, collector) async {
     // This is the return type even if it's not explicitly declared.
     final visitor = new LifecycleMethodVisitor();
     result.unit.accept(visitor);
 
     // FIXME account for super calls
-    
     for (var reference in visitor.nonStaticReferences) {
-      if (reference is SimpleIdentifier && instanceMemberWhitelist.contains(reference.name)) {
+      if (reference is SimpleIdentifier &&
+          instanceMemberWhitelist.contains(reference.name)) {
         continue;
       }
 
       int offset;
       int end;
 
-      final enclosingMethodName = reference.thisOrAncestorOfType<MethodDeclaration>().name;
+      final enclosingMethodName =
+          reference.thisOrAncestorOfType<MethodDeclaration>().name;
       if (reference is SuperExpression || reference is ThisExpression) {
         final parent = reference.parent;
         if (parent is MethodInvocation) {
@@ -62,10 +61,11 @@ class PseudoStaticLifecycleDiagnostic extends SubDiagnostic {
       offset ??= reference.offset;
       end ??= reference.end;
 
-      addError(message:
-          '\'${enclosingMethodName.name}\' must be treated as a static method;'
-          ' only super-calls and props/state utility methods (like \'newProps\' and \'typedPropsFactory\') are allowed.',
-          offset: offset, end: end);
+      collector.addError(
+        code,
+        location(result, offset: offset, end: end),
+        errorMessageArgs: [enclosingMethodName.name],
+      );
     }
   }
 }
@@ -90,7 +90,8 @@ class LifecycleMethodVisitor extends GeneralizingAstVisitor<void> {
 
   void visitClassOrMixinDeclaration(ClassOrMixinDeclaration node) {
     for (var member in node.members) {
-      if (member is MethodDeclaration && staticMethodNames.contains(member.name.name)) {
+      if (member is MethodDeclaration &&
+          staticMethodNames.contains(member.name.name)) {
         final visitor = new ReferenceVisitor();
         member.body?.accept(visitor);
         nonStaticReferences.addAll(visitor.nonStaticReferences);
@@ -108,7 +109,6 @@ class ReferenceVisitor extends RecursiveAstVisitor<void> {
     super.visitThisExpression(node);
   }
 
-
   @override
   void visitSuperExpression(SuperExpression node) {
     nonStaticReferences.add(node);
@@ -123,7 +123,6 @@ class ReferenceVisitor extends RecursiveAstVisitor<void> {
     super.visitSimpleIdentifier(node);
   }
 }
-
 
 /// Returns whether the given [identifier] implicitly references 'this'.
 ///
@@ -177,8 +176,7 @@ bool referencesImplicitThis(SimpleIdentifier identifier) {
   }
   // qualified method invocation
   if (parent is MethodInvocation) {
-    if (identical(parent.methodName, identifier) &&
-        parent.realTarget != null) {
+    if (identical(parent.methodName, identifier) && parent.realTarget != null) {
       return false;
     }
   }

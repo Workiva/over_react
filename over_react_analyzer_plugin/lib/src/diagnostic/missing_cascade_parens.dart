@@ -1,21 +1,26 @@
-import 'package:analyzer/analyzer.dart'; // ignore: deprecated_member_use
-import 'package:analyzer/dart/analysis/results.dart';
+// ignore: deprecated_member_use
+import 'package:analyzer/analyzer.dart'
+    show
+        StaticTypeWarningCode,
+        StaticWarningCode,
+        NodeLocator;
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 
-class MissingCascadeParensDiagnostic extends SubDiagnostic {
-  @override
-  String get name => 'missing-cascade-parens';
+class MissingCascadeParensDiagnostic extends DiagnosticContributor {
+  static final code = new ErrorCode(
+      'over-react-missing-casecade-parens',
+      'Are you missing parentheses around the builder cascade?',
+      AnalysisErrorSeverity.WARNING,
+      AnalysisErrorType.STATIC_WARNING);
+
+  static final fixKind = new FixKind(
+      code.name, 200, 'Add parentheses around cascade',
+      appliedTogetherMessage: 'Add parentheses around cascades');
 
   @override
-  String get description =>
-      '';
-
-  @override
-  void check(ResolvedUnitResult result) {
-    super.check(result);
-
+  computeErrors(result, collector) async {
     for (var error in result.errors) {
       final isBadFunction = [
         StaticTypeWarningCode.INVOCATION_OF_NON_FUNCTION,
@@ -26,15 +31,17 @@ class MissingCascadeParensDiagnostic extends SubDiagnostic {
         StaticWarningCode.EXTRA_POSITIONAL_ARGUMENTS_COULD_BE_NAMED,
         StaticWarningCode.EXTRA_POSITIONAL_ARGUMENTS,
       ].contains(error.errorCode);
-      final isVoidUsage = [
-        StaticWarningCode.USE_OF_VOID_RESULT
-      ].contains(error.errorCode);
+      final isVoidUsage =
+          [StaticWarningCode.USE_OF_VOID_RESULT].contains(error.errorCode);
 
       if (isBadFunction || isBadArity || isVoidUsage) {
-        final node = new NodeLocator(error.offset, error.offset + error.length).searchWithin(result.unit);
+        final node = new NodeLocator(error.offset, error.offset + error.length)
+            .searchWithin(result.unit);
 
         InvocationExpression invocationExpression;
-        if (isBadArity && node is ArgumentList && node.parent is InvocationExpression) {
+        if (isBadArity &&
+            node is ArgumentList &&
+            node.parent is InvocationExpression) {
           invocationExpression = node.parent;
         } else if (isBadFunction && node.parent is InvocationExpression) {
           invocationExpression = node.parent;
@@ -48,22 +55,66 @@ class MissingCascadeParensDiagnostic extends SubDiagnostic {
             final cascade = assignment.parent;
             if (cascade is CascadeExpression) {
               if (cascade.target.staticType?.name?.endsWith('Props') ?? false) {
-                addWarning(
-                  message:
-                      'Are you missing parentheses around the builder cascade?',
-                  offset: cascade.offset,
-                  end: cascade.end,
-                  fixMessage: 'Add parentheses around cascade',
-                  fixEdits: [
-                    new SourceEdit(cascade.offset, 0, '('),
-                    new SourceEdit(invocationExpression.argumentList.offset + '('.length, 0, ')'),
-                  ],
+                await collector.addErrorWithFix(
+                  code,
+                  location(result, range: range.node(cascade)),
+                  fixKind: fixKind,
+                  computeFix: () async {
+                    final builder = new DartChangeBuilder(result.session);
+                    await builder.addFileEdit(result.path, (builder) {
+                      builder.addSimpleInsertion(cascade.offset, '(');
+                      builder.addSimpleInsertion(cascade.end, ')');
+                    });
+                    return builder.sourceChange;
+                  },
                 );
               }
             }
           }
         }
+
+//        final cascade = Optional.ofNullable(invocationExpression)
+//            .map(parentNodeOfType<AssignmentExpression>())
+//            .map(parentNodeOfType<CascadeExpression>())
+//            .unwrapOrNull();
+//        if (cascade?.target?.staticType?.name?.endsWith('Props') ?? false) {
+//          await collector.addErrorWithFix(
+//            code,
+//            location(result, range: range.node(cascade)),
+//            fixKind: fixKind,
+//            computeFix: () async {
+//              final builder = new DartChangeBuilder(result.session);
+//              await builder.addFileEdit(result.path, (builder) {
+//                builder.addSimpleInsertion(cascade.offset, '(');
+//                builder.addSimpleInsertion(cascade.end, ')');
+//              });
+//              return builder.sourceChange;
+//            },
+//          );
+//        }
+
+//        await Optional.ofNullable(invocationExpression)
+//            .map(parentNodeOfType<AssignmentExpression>())
+//            .map(parentNodeOfType<CascadeExpression>())
+//            .ifPresentAsync((cascade) {
+//          if (cascade.target.staticType?.name?.endsWith('Props') ?? false) {
+//            collector.addErrorWithFix(
+//              code,
+//              location(result, range: range.node(cascade)),
+//              fixKind: fixKind,
+//              computeFix: () async {
+//                final builder = new DartChangeBuilder(result.session);
+//                await builder.addFileEdit(result.path, (builder) {
+//                  builder.addSimpleInsertion(cascade.offset, '(');
+//                  builder.addSimpleInsertion(cascade.end, ')');
+//                });
+//                return builder.sourceChange;
+//              },
+//            );
+//          }
+//        });
       }
     }
   }
 }
+

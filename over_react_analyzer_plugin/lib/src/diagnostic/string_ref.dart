@@ -14,6 +14,7 @@ class StringRefDiagnostic extends ComponentUsageDiagnosticContributor {
   computeErrorsForUsage(result, collector, usage) async {
     forEachCascadedProp(usage, (lhs, rhs) {
       if (lhs.propertyName.name == 'ref' && rhs.staticType.name == 'String') {
+        // todo add fix to convert this and usages to callback ref
         collector.addError(
           code,
           location(result, range: range.node(rhs))
