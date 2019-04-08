@@ -20,6 +20,7 @@ export 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dar
 export 'package:analyzer_plugin/utilities/fixes/fixes.dart' show FixKind;
 export 'package:analyzer_plugin/utilities/range_factory.dart' show range;
 export 'package:over_react_analyzer_plugin/src/component_usage.dart';
+export 'package:over_react_analyzer_plugin/src/util/fix.dart';
 
 class ErrorCode {
   /// Initialize a newly created error code to have the given [name]. The message
@@ -176,7 +177,15 @@ abstract class DiagnosticCollector {
   void addRawError(AnalysisError error, {PrioritizedSourceChange fix});
   void addError(ErrorCode code, Location location, {bool hasFix, List<Object> errorMessageArgs});
   ///
+  /// use of [buildFileEdit] is recommended:
+  /// // todo link to range/location tools
   ///
+  ///     computeFix: () => buildFileEdit(result, (builder) {
+  ///       builder.addSimpleInsertion(cascade.offset, '(');
+  ///       builder.addSimpleInsertion(cascade.end, ')');
+  ///     }),
+  ///
+  /// though you can still do it manually:
   ///
   ///     computeFix: () {
   ///       final builder = new DartChangeBuilder(result.session);
@@ -187,7 +196,7 @@ abstract class DiagnosticCollector {
   ///       return builder.sourceChange;
   ///     }
   ///
-  Future<void> addErrorWithFix(ErrorCode code, Location location, {FixKind fixKind, FutureOr<SourceChange> computeFix(), List<Object> errorMessageArgs, List<Object> fixMessageArgs});
+  Future<void> addErrorWithFix(ErrorCode code, Location location, {FixKind fixKind, FutureOr<SourceChange> Function() computeFix, List<Object> errorMessageArgs, List<Object> fixMessageArgs});
 }
 
 class DiagnosticCollectorImpl implements DiagnosticCollector {

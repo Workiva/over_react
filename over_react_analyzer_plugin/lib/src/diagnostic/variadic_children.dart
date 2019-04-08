@@ -24,15 +24,11 @@ class VariadicChildrenDiagnostic extends ComponentUsageDiagnosticContributor {
       await collector.addErrorWithFix(code,
         location(result, offset: list.offset, end: list.end),
         fixKind: fixKind,
-        computeFix: () async {
-          final builder = new DartChangeBuilder(result.session);
-          await builder.addFileEdit(result.path, (builder) {
-            builder.addDeletion(range.token(list.leftBracket));
-            builder.addDeletion(range.token(list.rightBracket));
-          });
+        computeFix: () => buildFileEdit(result, (builder) {
+          builder.addDeletion(range.token(list.leftBracket));
+          builder.addDeletion(range.token(list.rightBracket));
           // todo remove any keys from children as well
-          return builder.sourceChange;
-        },
+        }),
       );
     }
   }

@@ -33,14 +33,10 @@ class ArrowFunctionPropCascadeDiagnostic extends ComponentUsageDiagnosticContrib
           code,
           location(result, offset: wrapOffset, end: wrapEnd),
           fixKind: fixKind,
-          computeFix: () async {
-            final builder = new DartChangeBuilder(result.session);
-            await builder.addFileEdit(result.path, (builder) {
-              builder.addSimpleInsertion(wrapOffset, '(');
-              builder.addSimpleInsertion(wrapEnd, ')');
-            });
-            return builder.sourceChange;
-          },
+          computeFix: () => buildFileEdit(result, (builder) {
+            builder.addSimpleInsertion(wrapOffset, '(');
+            builder.addSimpleInsertion(wrapEnd, ')');
+          }),
         );
       }
     });

@@ -50,13 +50,9 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
           await collector.addErrorWithFix(code, location,
             errorMessageArgs: [invalidType.displayName, missingBuilderMessageSuffix],
             fixKind: addBuilderInvocationFix,
-            computeFix: () async {
-              final builder = new DartChangeBuilder(result.session);
-              await builder.addFileEdit(result.path, (builder) {
-                buildMissingInvocationEdits(argument, builder);
-              });
-              return builder.sourceChange;
-            },
+            computeFix: () => buildFileEdit(result, (builder) {
+              buildMissingInvocationEdits(argument, builder);
+            }),
           );
         } else {
           collector.addError(code, location, errorMessageArgs: [invalidType.displayName, '']);

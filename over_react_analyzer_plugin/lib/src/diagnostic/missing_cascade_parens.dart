@@ -59,14 +59,10 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
                   code,
                   location(result, range: range.node(cascade)),
                   fixKind: fixKind,
-                  computeFix: () async {
-                    final builder = new DartChangeBuilder(result.session);
-                    await builder.addFileEdit(result.path, (builder) {
-                      builder.addSimpleInsertion(cascade.offset, '(');
-                      builder.addSimpleInsertion(invocationExpression.argumentList.offset, ')');
-                    });
-                    return builder.sourceChange;
-                  },
+                  computeFix: () => buildFileEdit(result, (builder) {
+                    builder.addSimpleInsertion(cascade.offset, '(');
+                    builder.addSimpleInsertion(invocationExpression.argumentList.offset, ')');
+                  }),
                 );
               }
             }
@@ -76,4 +72,3 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
     }
   }
 }
-

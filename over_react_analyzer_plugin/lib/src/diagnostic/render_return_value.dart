@@ -61,13 +61,9 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
           await collector.addErrorWithFix(code, location,
             errorMessageArgs: [returnType.name, missingBuilderMessageSuffix],
             fixKind: addBuilderInvocationFix,
-            computeFix: () async {
-              final builder = new DartChangeBuilder(result.session);
-              await builder.addFileEdit(result.path, (builder) {
-                buildMissingInvocationEdits(returnExpression, builder);
-              });
-              return builder.sourceChange;
-            },
+            computeFix: () => buildFileEdit(result, (builder) {
+              buildMissingInvocationEdits(returnExpression, builder);
+            }),
           );
         } else {
           await collector.addError(code, location, errorMessageArgs: [returnType.name, '']);
@@ -76,13 +72,9 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
         await collector.addErrorWithFix(
           preferNullOverFalseErrorCode,
           location(result, range: range.node(returnExpression)),
-          computeFix: () async {
-            final builder = new DartChangeBuilder(result.session);
-            await builder.addFileEdit(result.path, (builder) {
-              builder.addSimpleReplacement(range.node(returnExpression), 'null');
-            });
-            return builder.sourceChange;
-          },
+          computeFix: () => buildFileEdit(result, (builder) {
+            builder.addSimpleReplacement(range.node(returnExpression), 'null');
+          }),
         );
       }
     }
