@@ -10,7 +10,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 
 class MissingCascadeParensDiagnostic extends DiagnosticContributor {
   static final code = new ErrorCode(
-      'over-react-missing-casecade-parens',
+      'over_react_missing_cascade_parens',
       'Are you missing parentheses around the builder cascade?',
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_WARNING);

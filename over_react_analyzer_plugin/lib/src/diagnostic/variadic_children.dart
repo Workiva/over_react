@@ -5,7 +5,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 
 class VariadicChildrenDiagnostic extends ComponentUsageDiagnosticContributor {
   static const code = const ErrorCode(
-    'over-react-variadic-children',
+    'over_react_variadic_children',
     'Variadic children should be used instead of lists where possible',
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,

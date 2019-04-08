@@ -5,7 +5,7 @@ import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor {
   static final code = new ErrorCode(
-      'over-react-missing-required-prop',
+      'over_react_required_prop',
       'The prop {0} is required.',
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_WARNING);

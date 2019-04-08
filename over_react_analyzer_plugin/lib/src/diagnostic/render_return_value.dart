@@ -6,13 +6,13 @@ import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 class RenderReturnValueDiagnostic extends DiagnosticContributor {
   static final react15InvalidTypeErrorCode = ErrorCode(
-      'over-react-invalid-render-return-type',
+      'over_react_invalid_render_return_type',
       "Invalid render() return type: '{0}'. Must be a ReactElement, null, false.{1}",
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_TYPE_WARNING);
 
   static final react16InvalidTypeErrorCode = ErrorCode(
-      'over-react-invalid-render-return-type',
+      'over_react_invalid_render_return_type',
       "Invalid render() return type: '{0}'. Must be a ReactElement, Fragment, null, false, or an Iterable of those types.{1}",
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_TYPE_WARNING);
