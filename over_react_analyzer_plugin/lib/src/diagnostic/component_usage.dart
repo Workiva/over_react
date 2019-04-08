@@ -6,25 +6,20 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/source/source_range.dart';
+import 'package:analyzer/src/generated/java_core.dart';
 import 'package:analyzer_plugin/channel/channel.dart';
 import 'package:analyzer_plugin/protocol/protocol.dart';
-import 'package:analyzer_plugin/protocol/protocol_common.dart' hide AnalysisError;
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
-import 'package:analyzer/src/generated/java_core.dart';
-import 'package:analyzer_plugin/utilities/analyzer_converter.dart';
-import 'package:analyzer_plugin/utilities/generator.dart';
-import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
-import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 
-export 'package:over_react_analyzer_plugin/src/component_usage.dart';
 export 'package:analyzer_plugin/protocol/protocol_common.dart' show AnalysisErrorType, AnalysisErrorSeverity;
+export 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
 export 'package:analyzer_plugin/utilities/fixes/fixes.dart' show FixKind;
 export 'package:analyzer_plugin/utilities/range_factory.dart' show range;
-export 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
+export 'package:over_react_analyzer_plugin/src/component_usage.dart';
 
 class ErrorCode {
   /// Initialize a newly created error code to have the given [name]. The message
@@ -151,67 +146,25 @@ class DiagnosticGenerator {
       }
     }
 
-    // Skip severity equality since it can be modified by analysis_options.yaml.
-    final convertedRequestErrors = AnalyzerConverter().convertAnalysisErrors(request.errorsToFix);
-
-    // todo use this logic?
-//    // Return any fixes that are for the expected file and within the given offset.
-//    final fixes = <plugin.AnalysisErrorFixes>[];
-//    for (final error in checkResult.keys) {
-//      final fix = checkResult[error];
-//      if (error.location.file == parameters.file && fix != null) {
-//        if (parameters.offset >= error.location.offset && parameters.offset <= error.location.offset + error.location.length) {
-//          fixes.add(new plugin.AnalysisErrorFixes(error, fixes: [fix]));
-//        }
-//      }
-//    }
-
-    // Return any fixes that match the provided errors
+    // Return any fixes that contain the given offset.
     final fixes = <AnalysisErrorFixes>[];
-    for (var convertedRequestError in convertedRequestErrors) {
-      for (var i = 0; i < collector.errors.length; i++) {
-        final newError = collector.errors[i];
-        if (_isEquivalentError(convertedRequestError, newError)) {
-          // Pass in the same error that was passed with the request
-          fixes.add(AnalysisErrorFixes(
-            convertedRequestError,
-            fixes: [collector.fixes[i]],
-          ));
-          break;
-        }
+    for (var i = 0; i < collector.errors.length; i++) {
+      final error = collector.errors[i];
+      final errorStart = error.location.offset;
+      final errorEnd = errorStart + error.location.length;
+
+      // `<=` because we do want the end to be inclusive (you should get
+      // the fix when your cursor is on the tail end of the error).
+      if (request.offset >= errorStart && request.offset <= errorEnd) {
+        fixes.add(AnalysisErrorFixes(
+          error,
+          fixes: [collector.fixes[i]],
+        ));
+        break;
       }
     }
 
-//    final lineInfo = request.result.lineInfo;
-//    int offsetLine = lineInfo.getLocation(request.offset).lineNumber;
-//    for (var i = 0; i < collector.errors.length; i++) {
-//      final newError = collector.errors[i];
-//      final errorLine = lineInfo.getLocation(newError.location.offset).lineNumber;
-////      if (newError.location.file == request.result.path && newError.location.startLine == request.result.lineInfo.getLocation(request.offset).lineNumber) {
-//        // TODO Pass in the same error that was passed with the request
-//        if (errorLine == offsetLine) {
-//          fixes.add(AnalysisErrorFixes(
-//            newError,
-//            fixes: [collector.fixes[i]],
-//          ));
-//        }
-////      }
-//    }
-
     return GeneratorResult(new EditGetFixesResult(fixes), notifications);
-  }
-
-  /// Custom comparison of [a] and [b].
-  ///
-  /// Skip severity equality since it can be modified by analysis_options.yaml.
-  /// Skip line information since one errors might not contain it,
-  ///
-  static bool _isEquivalentError(AnalysisError a, AnalysisError b) {
-    return a.code == b.code &&
-           a.message == b.message &&
-           a.location.file == b.location.file &&
-           a.location.offset == b.location.offset &&
-           a.location.length == b.location.length;
   }
 }
 

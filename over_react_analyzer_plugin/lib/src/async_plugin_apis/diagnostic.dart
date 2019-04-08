@@ -100,16 +100,18 @@ mixin DiagnosticMixin on ServerPlugin {
     int offset = parameters.offset;
     ResolvedUnitResult result = await getResolvedUnitResult(path);
     return new DartFixesRequestImpl(
-        resourceProvider, offset, _getErrors(offset, result), result);
+        resourceProvider, offset, null, result);
   }
 
   // from DartFixesMixin
   List<AnalysisError> _getErrors(int offset, ResolvedUnitResult result) {
-    LineInfo lineInfo = result.lineInfo;
-    int offsetLine = lineInfo.getLocation(offset).lineNumber;
-    return result.errors.where((AnalysisError error) {
-      int errorLine = lineInfo.getLocation(error.offset).lineNumber;
-      return errorLine == offsetLine;
-    }).toList();
+//    LineInfo lineInfo = result.lineInfo;
+//    int offsetLine = lineInfo.getLocation(offset).lineNumber;
+  // these errors don't include ones from the plugin, which doesn't seem right...
+//    return result.errors.where((AnalysisError error) {
+//      int errorLine = lineInfo.getLocation(error.offset).lineNumber;
+//      return errorLine == offsetLine;
+//    }).toList();
+    return result.errors;
   }
 }
