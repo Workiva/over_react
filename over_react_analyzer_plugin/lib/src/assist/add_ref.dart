@@ -8,6 +8,7 @@ import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/fix.dart';
 
 class AddRefAssistContributor extends AssistContributorBase {
   static AssistKind addRef = new AssistKind('addRef', 32, 'Add callback ref');
@@ -30,8 +31,7 @@ class AddRefAssistContributor extends AssistContributorBase {
       return;
     }
 
-    final changeBuilder = new DartChangeBuilder(session);
-    await changeBuilder.addFileEdit(request.result.path, (fileBuilder) {
+    final sourceChange = await buildFileEdit(request.result, (builder) {
       const nameGroup = 'refName';
       const typeGroup = 'refType';
 
@@ -56,7 +56,7 @@ class AddRefAssistContributor extends AssistContributorBase {
           : getIndent(request.result.content, lineInfo, insertionParent.parent.offset) + '  ';
 
       // TODO how to get the linked edit to show up on the ref declaration instead? Why does this afterwards messes up the offsets?
-      addProp(usage, fileBuilder, request.result.content, lineInfo,
+      addProp(usage, builder, request.result.content, lineInfo,
           name: 'ref',
           buildValueEdit: (builder) {
         builder.write('(ref) { ');
@@ -64,7 +64,7 @@ class AddRefAssistContributor extends AssistContributorBase {
         builder.write(' = ref; }');
       });
 
-      fileBuilder.addInsertion(insertionOffset, (builder) {
+      builder.addInsertion(insertionOffset, (builder) {
         builder.write('$indent');
         // TODO look up component type and use writeFieldDeclaration
 //        builder.writeFieldDeclaration(refName, nameGroupName: nameGroup, typeGroupName: typeGroup);
@@ -77,7 +77,7 @@ class AddRefAssistContributor extends AssistContributorBase {
       });
     });
 
-    final sourceChange = changeBuilder.sourceChange
+    sourceChange
       ..message = addRef.message
       ..id = addRef.id;
     collector.addAssist(new PrioritizedSourceChange(addRef.priority, sourceChange));
