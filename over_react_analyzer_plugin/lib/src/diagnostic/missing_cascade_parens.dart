@@ -63,7 +63,7 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
                     final builder = new DartChangeBuilder(result.session);
                     await builder.addFileEdit(result.path, (builder) {
                       builder.addSimpleInsertion(cascade.offset, '(');
-                      builder.addSimpleInsertion(cascade.end, ')');
+                      builder.addSimpleInsertion(invocationExpression.argumentList.offset, ')');
                     });
                     return builder.sourceChange;
                   },
@@ -72,47 +72,6 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
             }
           }
         }
-
-//        final cascade = Optional.ofNullable(invocationExpression)
-//            .map(parentNodeOfType<AssignmentExpression>())
-//            .map(parentNodeOfType<CascadeExpression>())
-//            .unwrapOrNull();
-//        if (cascade?.target?.staticType?.name?.endsWith('Props') ?? false) {
-//          await collector.addErrorWithFix(
-//            code,
-//            location(result, range: range.node(cascade)),
-//            fixKind: fixKind,
-//            computeFix: () async {
-//              final builder = new DartChangeBuilder(result.session);
-//              await builder.addFileEdit(result.path, (builder) {
-//                builder.addSimpleInsertion(cascade.offset, '(');
-//                builder.addSimpleInsertion(cascade.end, ')');
-//              });
-//              return builder.sourceChange;
-//            },
-//          );
-//        }
-
-//        await Optional.ofNullable(invocationExpression)
-//            .map(parentNodeOfType<AssignmentExpression>())
-//            .map(parentNodeOfType<CascadeExpression>())
-//            .ifPresentAsync((cascade) {
-//          if (cascade.target.staticType?.name?.endsWith('Props') ?? false) {
-//            collector.addErrorWithFix(
-//              code,
-//              location(result, range: range.node(cascade)),
-//              fixKind: fixKind,
-//              computeFix: () async {
-//                final builder = new DartChangeBuilder(result.session);
-//                await builder.addFileEdit(result.path, (builder) {
-//                  builder.addSimpleInsertion(cascade.offset, '(');
-//                  builder.addSimpleInsertion(cascade.end, ')');
-//                });
-//                return builder.sourceChange;
-//              },
-//            );
-//          }
-//        });
       }
     }
   }
