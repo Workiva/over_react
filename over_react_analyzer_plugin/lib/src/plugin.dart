@@ -60,7 +60,10 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/pseudo_static_lifecycl
 import 'package:over_react_analyzer_plugin/src/diagnostic/render_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/string_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/single_child_key'
+    '.dart';
 import 'package:over_react_analyzer_plugin/src/navigation/prop_navigation_contributor.dart';
+
 
 
 /// Analyzer plugin for over_react.
@@ -151,6 +154,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
       new MissingRequiredPropDiagnostic(),
       new PseudoStaticLifecycleDiagnostic(),
       new InvalidDomAttributeDiagnostic(),
+      new SingleChildWithKey(),
     ];
   }
 }
