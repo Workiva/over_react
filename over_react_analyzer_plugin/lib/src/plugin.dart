@@ -65,7 +65,6 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/single_child_key'
 import 'package:over_react_analyzer_plugin/src/navigation/prop_navigation_contributor.dart';
 
 
-
 /// Analyzer plugin for over_react.
 class OverReactAnalyzerPlugin extends ServerPlugin with
 //    OutlineMixin, DartOutlineMixin,
