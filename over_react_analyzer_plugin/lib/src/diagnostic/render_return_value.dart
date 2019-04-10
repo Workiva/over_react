@@ -66,7 +66,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
             }),
           );
         } else {
-          await collector.addError(code, location, errorMessageArgs: [returnType.name, '']);
+          collector.addError(code, location, errorMessageArgs: [returnType.name, '']);
         }
       } else if (returnType.name == 'bool' && returnExpression is BooleanLiteral && returnExpression.value == false) {
         await collector.addErrorWithFix(
