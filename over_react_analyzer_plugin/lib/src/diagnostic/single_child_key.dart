@@ -6,8 +6,8 @@ class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
   static final code = new ErrorCode(
       'single_child_key',
       'Only use a key when a child has siblings.',
-      AnalysisErrorSeverity.WARNING,
-      AnalysisErrorType.STATIC_WARNING);
+      AnalysisErrorSeverity.INFO,
+      AnalysisErrorType.HINT);
 
   static final fixKind = new FixKind(
       code.name, 200, 'Remove key prop',
