@@ -4,7 +4,6 @@ fixes() {
   (Dom.div()
     ..key = new Object().hashCode
     ..id = '1'
-    ..id = '2'
     ..onClick = (_) => 'arrow function'
   )([
     'could be',
