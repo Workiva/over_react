@@ -48,7 +48,7 @@ mixin DiagnosticMixin on ServerPlugin {
   List<DiagnosticContributor> getDiagnosticContributors(String path);
 
   /// Computes errors based on an analysis result and notifies the analyzer.
-  void processDiagnosticsForResult(ResolvedUnitResult analysisResult) async {
+  Future<void> processDiagnosticsForResult(ResolvedUnitResult analysisResult) async {
     try {
       // If there is no relevant analysis result, notify the analyzer of no errors.
       if (analysisResult.unit == null ||
