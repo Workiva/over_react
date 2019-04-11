@@ -59,6 +59,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/missing_required_prop.
 import 'package:over_react_analyzer_plugin/src/diagnostic/pseudo_static_lifecycle.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/render_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/string_ref.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/style_missing_unit.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
 import 'package:over_react_analyzer_plugin/src/navigation/prop_navigation_contributor.dart';
 
@@ -151,6 +152,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
       new MissingRequiredPropDiagnostic(),
       new PseudoStaticLifecycleDiagnostic(),
       new InvalidDomAttributeDiagnostic(),
+      new StyleMissingUnitDiagnostic(),
     ];
   }
 }
