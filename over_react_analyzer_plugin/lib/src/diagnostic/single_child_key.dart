@@ -6,12 +6,12 @@ import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
   static final code = new ErrorCode(
       'single_child_key',
-      'Only use a key when a child has siblings.',
+      'Only use a key when a child is in a list with siblings.',
       AnalysisErrorSeverity.INFO,
       AnalysisErrorType.HINT);
 
   static final fixKind = new FixKind(
-      code.name, 200, 'Remove key prop',
+      code.name, 200, 'Remove unnecessary key',
       appliedTogetherMessage: 'Remove key prop');
 
   @override
