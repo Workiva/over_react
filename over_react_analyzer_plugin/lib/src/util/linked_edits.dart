@@ -11,6 +11,9 @@ void _addUiComponentBoilerplateFactory(DartEditBuilder builder, {
     ..writeln('');
 
   builder
+    ..write('/// TODO: Provide a brief explanation of what the ')
+    ..addSimpleLinkedEdit(groupName, componentFactoryName)
+    ..write(' component does / renders.\n')
     ..writeln('@Factory()')
     ..write('UiFactory<')
     ..addSimpleLinkedEdit(groupName, componentFactoryName)
