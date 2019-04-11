@@ -45,6 +45,7 @@ import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
 import 'package:analyzer_plugin/utilities/navigation/navigation.dart';
 import 'package:over_react_analyzer_plugin/src/assist/add_props.dart';
 import 'package:over_react_analyzer_plugin/src/assist/add_ref.dart';
+import 'package:over_react_analyzer_plugin/src/assist/extract_component.dart';
 import 'package:over_react_analyzer_plugin/src/assist/wrap_unwrap.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/diagnostic.dart';
@@ -60,6 +61,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/missing_required_prop.
 import 'package:over_react_analyzer_plugin/src/diagnostic/pseudo_static_lifecycle.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/render_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/string_ref.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/style_missing_unit.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
 import 'package:over_react_analyzer_plugin/src/navigation/prop_navigation_contributor.dart';
 
@@ -126,6 +128,10 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
     return [
       new AddPropsAssistContributor(),
       new AddRefAssistContributor(),
+      new ExtractComponentAssistContributor(),
+      new ExtractStatefulComponentAssistContributor(),
+      new ExtractFluxComponentAssistContributor(),
+      new ExtractFluxStatefulComponentAssistContributor(),
       new WrapUnwrapAssistContributor(),
     ];
   }
@@ -154,6 +160,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
       new PseudoStaticLifecycleDiagnostic(),
       new InvalidDomAttributeDiagnostic(),
       new BoolPropNameReadabilityDiagnostic(),
+      new StyleMissingUnitDiagnostic(),
     ];
   }
 }
