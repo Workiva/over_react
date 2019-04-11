@@ -1,3 +1,4 @@
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/source_range.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
@@ -15,7 +16,24 @@ class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    final bool isSingleChild = usage.childArgumentCount == 1;
+    bool isSingleChild = false;
+
+    // Navigate up the node tree to check if the current node has siblings
+    if (usage.node.parent is ArgumentList) {
+      final one = usage.node.parent.parent;
+      if (one is InvocationExpression) {
+        var usageCheck = getComponentUsage(one);
+        if (usageCheck != null) {
+          usageCheck.childArgumentCount > 1
+              ? isSingleChild = false
+              : isSingleChild = true;
+        }
+      }
+    // If the initial else is triggered, the assumption is that the node is
+    // at the root level and would not have siblings.
+    } else {
+      isSingleChild = true;
+    }
 
     if (isSingleChild) {
      await forEachCascadedPropAsync(usage, (lhs, rhs) async {
