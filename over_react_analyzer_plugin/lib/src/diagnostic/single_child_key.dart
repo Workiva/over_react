@@ -26,6 +26,8 @@ class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
            isSingleChild = true;
         }
       }
+    } else if (!(usage.node.parent?.parent is MethodDeclaration)) {
+      isSingleChild = true;
     }
 
     if (isSingleChild) {

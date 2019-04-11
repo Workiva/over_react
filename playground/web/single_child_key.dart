@@ -66,30 +66,28 @@ class TestComponent extends UiComponent<TestComponentProps> {
     return Dom.div()(children);
   }
 
-  _renderDivs() => (Dom.div()..key = 'button')(
+  _renderDivs() => (Dom.div()..key = 'c-div')(
     (Dom.div()
-      ..key = 'n-sibbling-1'
+      ..key = 'c-n-sibbling-1'
       ..id = '2'
       ..onClick = (_) {
         final bar = 'baz';
         return false;
       }
     )(
-      [
-        (Dom.div()
-          ..key = 'n2-sibbling-1'
-          ..id = '2'
-          ..onClick = (_) {
-            final bar = 'baz';
-            return false;
-          }
-        )(
-          "Hello",
-        )
-      ]
+      (Dom.div()
+        ..key = 'c-n2-sibbling-1'
+        ..id = '2'
+        ..onClick = (_) {
+          final bar = 'baz';
+          return false;
+        }
+      )(
+        "Hello",
+      )
     ),
     (Dom.div()
-      ..key = 'sibbling-2'
+      ..key = 'c-sibbling-2'
       ..id = '2'
       ..onClick = (_) {
         final bar = 'baz';
