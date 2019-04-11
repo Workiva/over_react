@@ -2,6 +2,8 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 
+  /// Usage:
+  ///     AnalyzerDebugHelper debug = new AnalyzerDebugHelper(result, collector);
 class AnalyzerDebugHelper {
   AnalyzerDebugHelper([this.result, this.collector]);
 
@@ -15,6 +17,9 @@ class AnalyzerDebugHelper {
     );
 
 
+  /// Usage:
+  ///     AnalyzerDebugHelper debug = new AnalyzerDebugHelper(result, collector);
+  ///     debug.log('message');
   log(String message, [ResolvedUnitResult new_result, DiagnosticCollector new_collector]) {
     this.result = new_result ?? result;
     this.collector = new_collector ?? collector;
