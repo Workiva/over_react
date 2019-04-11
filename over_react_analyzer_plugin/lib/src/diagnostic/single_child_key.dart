@@ -18,10 +18,13 @@ class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
   computeErrorsForUsage(result, collector, usage) async {
     bool isSingleChild = false;
 
-    // Navigate up the node tree to check if the current node has siblings
-    if (usage.node.parent is ListLiteral) {
-      if ((usage.node.parent as ListLiteral).elements2.length == 1) {
-        isSingleChild = true;
+    if (usage.node.parent is ArgumentList) {
+      final one = usage.node.parent.parent;
+      if (one is InvocationExpression) {
+        var usageCheck = getComponentUsage(one);
+        if (usageCheck != null) {
+           isSingleChild = true;
+        }
       }
     }
 
