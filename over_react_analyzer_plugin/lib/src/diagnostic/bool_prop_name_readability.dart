@@ -11,7 +11,7 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
     'over_react_bool_prop_name_readability',
     "'{0}.{1}' isn't an easily readable Boolean prop name. Try using a prefix like: {2}",
     AnalysisErrorSeverity.INFO,
-    AnalysisErrorType.STATIC_WARNING,
+    AnalysisErrorType.LINT,
   );
 
 
