@@ -6,7 +6,7 @@ import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
   static final code = new ErrorCode(
       'single_child_key',
-      'Only use a key when a child is in a list with siblings.',
+      'React keys are only needed for children within lists.',
       AnalysisErrorSeverity.INFO,
       AnalysisErrorType.HINT);
 
@@ -19,20 +19,10 @@ class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
     bool isSingleChild = false;
 
     // Navigate up the node tree to check if the current node has siblings
-    if (usage.node.parent is ArgumentList) {
-      final one = usage.node.parent.parent;
-      if (one is InvocationExpression) {
-        var usageCheck = getComponentUsage(one);
-        if (usageCheck != null) {
-          usageCheck.childArgumentCount > 1
-              ? isSingleChild = false
-              : isSingleChild = true;
-        }
+    if (usage.node.parent is ListLiteral) {
+      if ((usage.node.parent as ListLiteral).elements2.length == 1) {
+        isSingleChild = true;
       }
-    // If the initial else is triggered, the assumption is that the node is
-    // at the root level and would not have siblings.
-    } else {
-      isSingleChild = true;
     }
 
     if (isSingleChild) {

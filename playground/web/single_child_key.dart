@@ -25,7 +25,18 @@ singleChildKey() {
           return false;
         }
       )(
-          "Child of child 1"
+          [
+            (Dom.div()
+              ..key = 'n2-sibbling-1'
+              ..id = '2'
+              ..onClick = (_) {
+                final bar = 'baz';
+                return false;
+              }
+            )(
+              "Hello",
+            )
+          ]
       ),
     ),
     (Dom.div()
