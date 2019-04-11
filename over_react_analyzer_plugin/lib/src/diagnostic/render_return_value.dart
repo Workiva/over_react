@@ -43,7 +43,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
       'void',
       'bool', // support `return false;` to render nothing
     ];
-    
+
     for (var returnStatement in returnStatements) {
       final returnExpression = returnStatement.expression;
       if (returnExpression == null) continue; // valueless returns
@@ -82,8 +82,8 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
 }
 
 //
-bool hasComponentAnnotation(AnnotatedNode c) =>
-    c.metadata.any((m) => m.toSource().contains('Component'));
+bool hasComponentAnnotation(ClassDeclaration c) =>
+    c.declaredElement.allSupertypes.any((m) => m.name == 'Component');
 
 class RenderVisitor extends SimpleAstVisitor<void> {
   RenderReturnVisitor returnVisitor = new RenderReturnVisitor();

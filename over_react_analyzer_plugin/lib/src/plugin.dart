@@ -49,6 +49,7 @@ import 'package:over_react_analyzer_plugin/src/assist/wrap_unwrap.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/diagnostic.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/arrow_function_prop.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/bool_prop_name_readability.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/dom_prop_types.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/duplicate_prop_cascade.dart';
@@ -61,6 +62,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/render_return_value.da
 import 'package:over_react_analyzer_plugin/src/diagnostic/string_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
 import 'package:over_react_analyzer_plugin/src/navigation/prop_navigation_contributor.dart';
+
 
 
 /// Analyzer plugin for over_react.
@@ -151,6 +153,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
       new MissingRequiredPropDiagnostic(),
       new PseudoStaticLifecycleDiagnostic(),
       new InvalidDomAttributeDiagnostic(),
+      new BoolPropNameReadabilityDiagnostic(),
     ];
   }
 }
