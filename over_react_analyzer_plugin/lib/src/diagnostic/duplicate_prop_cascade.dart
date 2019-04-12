@@ -1,5 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/source/source_range.dart';
+import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
@@ -16,28 +16,28 @@ class DuplicatePropCascadeDiagnostic extends ComponentUsageDiagnosticContributor
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    final propUsagesByName = <String, List<PropertyAccess>>{};
-    final propUsageRhsOffsetByName = <String, List<int>>{};
+    final propUsagesByName = <String, List<Pair<PropertyAccess, Expression>>>{};
     forEachCascadedProp(usage, (lhs, rhs) {
-      propUsagesByName.putIfAbsent(lhs.propertyName.name, () => []).add(lhs);
-      propUsageRhsOffsetByName.putIfAbsent(lhs.propertyName.name, () => []).add(rhs.end);
+      propUsagesByName
+          .putIfAbsent(lhs.propertyName.name, () => [])
+          .add(Pair(lhs, rhs));
     });
 
-    propUsagesByName.forEach((name, usages) {
-      // TODO improve quick fix to remove whitespace / newline(s)
+    for (var usages in propUsagesByName.values) {
       if (usages.length > 1) {
         for (var i = 0; i < usages.length; i++) {
-          final lhs = usages[i];
-          collector.addErrorWithFix(code,
+          final lhs = usages[i].first;
+          final rhs = usages[i].last;
+          await collector.addErrorWithFix(code,
             location(result, range: range.node(lhs)),
             errorMessageArgs: [lhs.propertyName.name, i + 1, usages.length],
             fixKind: fixKind,
             computeFix: () => buildFileEdit(result, (builder) {
-              builder.addDeletion(new SourceRange(lhs.offset, propUsageRhsOffsetByName[name][i] - lhs.offset));
+              builder.addDeletion(range.endEnd(lhs.beginToken.previous, rhs));
             }),
           );
         }
       }
-    });
+    }
   }
 }
