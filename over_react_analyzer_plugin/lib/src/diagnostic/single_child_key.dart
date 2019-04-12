@@ -37,7 +37,7 @@ class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
               location(result, range: range.node(lhs)),
               fixKind: fixKind,
               computeFix: () => buildFileEdit(result, (builder) {
-                builder.addDeletion(new SourceRange(lhs.offset, rhs.end - lhs.offset));
+                builder.addDeletion(range.endEnd(lhs.beginToken.previous, rhs));
              })
           );
         }
