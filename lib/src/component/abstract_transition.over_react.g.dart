@@ -1,9 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of over_react.abstract_transition;
+part of 'abstract_transition.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 abstract class _$AbstractTransitionPropsAccessorsMixin
@@ -32,12 +32,20 @@ abstract class _$AbstractTransitionStateAccessorsMixin
   @override
   Map get state;
 
-  /// Go to [_$AbstractTransitionState.transitionPhase] to see the source code for this prop
+  /// The current phase of transition the [AbstractTransitionComponent] is in.
+  ///
+  /// Default:  [AbstractTransitionComponent.initiallyShown] ? [TransitionPhase.SHOWN] : [TransitionPhase.HIDDEN]
+  ///
+  /// <!-- Generated from [_$AbstractTransitionState.transitionPhase] -->
   @override
   TransitionPhase get transitionPhase =>
-      state[_$key__transitionPhase___$AbstractTransitionState];
-
-  /// Go to [_$AbstractTransitionState.transitionPhase] to see the source code for this prop
+      state[_$key__transitionPhase___$AbstractTransitionState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// The current phase of transition the [AbstractTransitionComponent] is in.
+  ///
+  /// Default:  [AbstractTransitionComponent.initiallyShown] ? [TransitionPhase.SHOWN] : [TransitionPhase.HIDDEN]
+  ///
+  /// <!-- Generated from [_$AbstractTransitionState.transitionPhase] -->
   @override
   set transitionPhase(TransitionPhase value) =>
       state[_$key__transitionPhase___$AbstractTransitionState] = value;

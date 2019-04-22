@@ -162,21 +162,21 @@ main() {
 
                 group('with concrete implementations', () {
                   test('', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  String get someField => ${isProps ? 'props' : 'state'}[_\$key__someField___\$$className];\n'));
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('  String get someField => ${isProps ? 'props' : 'state'}[_\$key__someField___\$$className] ?? null;'));
                     expect(implGenerator.outputContentsBuffer.toString(), contains('  set someField(String value) => ${isProps ? 'props' : 'state'}[_\$key__someField___\$$className] = value'));
                   });
 
                   test('for multiple fields declared on same line', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get foo => ${isProps ? 'props' : 'state'}[_\$key__foo___\$$className];\n'));
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get foo => ${isProps ? 'props' : 'state'}[_\$key__foo___\$$className] ?? null;'));
                     expect(implGenerator.outputContentsBuffer.toString(), contains('  set foo(bool value) => ${isProps ? 'props' : 'state'}[_\$key__foo___\$$className] = value'));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get bar => ${isProps ? 'props' : 'state'}[_\$key__bar___\$$className];\n'));
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get bar => ${isProps ? 'props' : 'state'}[_\$key__bar___\$$className] ?? null;'));
                     expect(implGenerator.outputContentsBuffer.toString(), contains('  set bar(bool value) => ${isProps ? 'props' : 'state'}[_\$key__bar___\$$className] = value'));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get baz => ${isProps ? 'props' : 'state'}[_\$key__baz___\$$className];\n'));
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get baz => ${isProps ? 'props' : 'state'}[_\$key__baz___\$$className] ?? null;'));
                     expect(implGenerator.outputContentsBuffer.toString(), contains('  set baz(bool value) => ${isProps ? 'props' : 'state'}[_\$key__baz___\$$className] = value'));
                   });
 
                   test('containing links to source', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  /// Go to [_\$$className.someField] to see the source code for this prop\n'));
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('  /// <!-- Generated from [_\$$className.someField] -->\n'));
                   });
 
                   test('that carry over annotations', () {
@@ -220,21 +220,21 @@ main() {
 
                 group('with concrete implementations', () {
                   test('', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  String get someField => ${isProps ? 'props' : 'state'}[_\$key__someField__$className];\n'));
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('  String get someField => ${isProps ? 'props' : 'state'}[_\$key__someField__$className] ?? null;'));
                     expect(implGenerator.outputContentsBuffer.toString(), contains('  set someField(String value) => ${isProps ? 'props' : 'state'}[_\$key__someField__$className] = value'));
                   });
 
                   test('for multiple fields declared on same line', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get foo => ${isProps ? 'props' : 'state'}[_\$key__foo__$className];\n'));
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get foo => ${isProps ? 'props' : 'state'}[_\$key__foo__$className] ?? null;'));
                     expect(implGenerator.outputContentsBuffer.toString(), contains('  set foo(bool value) => ${isProps ? 'props' : 'state'}[_\$key__foo__$className] = value'));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get bar => ${isProps ? 'props' : 'state'}[_\$key__bar__$className];\n'));
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get bar => ${isProps ? 'props' : 'state'}[_\$key__bar__$className] ?? null;'));
                     expect(implGenerator.outputContentsBuffer.toString(), contains('  set bar(bool value) => ${isProps ? 'props' : 'state'}[_\$key__bar__$className] = value'));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get baz => ${isProps ? 'props' : 'state'}[_\$key__baz__$className];\n'));
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get baz => ${isProps ? 'props' : 'state'}[_\$key__baz__$className] ?? null;'));
                     expect(implGenerator.outputContentsBuffer.toString(), contains('  set baz(bool value) => ${isProps ? 'props' : 'state'}[_\$key__baz__$className] = value'));
                   });
 
                   test('containing links to source', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  /// Go to [$className.someField] to see the source code for this prop\n'));
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('  /// <!-- Generated from [$className.someField] -->\n'));
                   });
 
                   test('that carry over annotations', () {
@@ -340,6 +340,7 @@ main() {
           group('and creates concrete props implementation', () {
             void testConcretePropsGeneration(String testName, OverReactSrc ors) {
               group(testName, () {
+
                 setUp(() {
                   generateFromSource(ors.source);
                 });
@@ -354,14 +355,16 @@ main() {
 
                 test('with the correct constructor', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
-                      '  _\$\$${ors.baseName}Props(Map backingMap) : this._props = backingMap ?? {};\n'));
+                      '  _\$\$${ors.baseName}Props(Map backingMap) : this._props = {} {\n'
+                      '     this._props = backingMap ?? {};\n'
+                      '  }'));
                 });
 
                 test('with props backing map getter', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
                       '  @override\n'
                       '  Map get props => _props;\n'
-                      '  final Map _props;'));
+                      '  Map _props;'));
                 });
 
                 test('overrides `\$isClassGenerated` to return `true`', () {
@@ -403,7 +406,7 @@ main() {
           test('for covariant keywords', () {
             final ors = OverReactSrc.abstractProps(backwardsCompatible: backwardsCompatible, body: 'covariant String foo;');
             generateFromSource(ors.source);
-            expect(implGenerator.outputContentsBuffer.toString(), contains('String get foo => props[_\$key__foo___\$${ors.propsClassName}];'));
+            expect(implGenerator.outputContentsBuffer.toString(), contains('String get foo => props[_\$key__foo___\$${ors.propsClassName}] ?? null;'));
             expect(implGenerator.outputContentsBuffer.toString(), contains('set foo(covariant String value) => props[_\$key__foo___\$${ors.propsClassName}] = value;'));
           });
 
@@ -424,14 +427,16 @@ main() {
 
                 test('with the correct constructor', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
-                      '  _\$\$${ors.baseName}State(Map backingMap) : this._state = backingMap ?? {};\n'));
+                      '  _\$\$${ors.baseName}State(Map backingMap) : this._state = {} {\n'
+                      '     this._state = backingMap ?? {};\n'
+                      '  }'));
                 });
 
                 test('with state backing map getter', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
                       '  @override\n'
                       '  Map get state => _state;\n'
-                      '  final Map _state;'));
+                      '  Map _state;'));
                 });
 
                 test('overrides `\$isClassGenerated` to return `true`', () {

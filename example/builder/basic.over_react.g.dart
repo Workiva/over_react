@@ -3,7 +3,7 @@
 part of 'basic.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.
@@ -20,55 +20,61 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
   @override
   Map get props;
 
-  /// Go to [_$BasicProps.basicProp] to see the source code for this prop
+  /// <!-- Generated from [_$BasicProps.basicProp] -->
   @override
   @deprecated
   @requiredProp
-  String get basicProp => props[_$key__basicProp___$BasicProps];
-
-  /// Go to [_$BasicProps.basicProp] to see the source code for this prop
+  String get basicProp =>
+      props[_$key__basicProp___$BasicProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$BasicProps.basicProp] -->
   @override
   @deprecated
   @requiredProp
   set basicProp(String value) => props[_$key__basicProp___$BasicProps] = value;
 
-  /// Go to [_$BasicProps.basic1] to see the source code for this prop
+  /// <!-- Generated from [_$BasicProps.basic1] -->
   @override
-  String get basic1 => props[_$key__basic1___$BasicProps];
-
-  /// Go to [_$BasicProps.basic1] to see the source code for this prop
+  String get basic1 =>
+      props[_$key__basic1___$BasicProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$BasicProps.basic1] -->
   @override
   set basic1(String value) => props[_$key__basic1___$BasicProps] = value;
 
-  /// Go to [_$BasicProps.basic2] to see the source code for this prop
+  /// <!-- Generated from [_$BasicProps.basic2] -->
   @override
-  String get basic2 => props[_$key__basic2___$BasicProps];
-
-  /// Go to [_$BasicProps.basic2] to see the source code for this prop
+  String get basic2 =>
+      props[_$key__basic2___$BasicProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$BasicProps.basic2] -->
   @override
   set basic2(String value) => props[_$key__basic2___$BasicProps] = value;
 
-  /// Go to [_$BasicProps.basic3] to see the source code for this prop
+  /// <!-- Generated from [_$BasicProps.basic3] -->
   @override
-  String get basic3 => props[_$key__basic3___$BasicProps];
-
-  /// Go to [_$BasicProps.basic3] to see the source code for this prop
+  String get basic3 =>
+      props[_$key__basic3___$BasicProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$BasicProps.basic3] -->
   @override
   set basic3(String value) => props[_$key__basic3___$BasicProps] = value;
 
-  /// Go to [_$BasicProps.basic4] to see the source code for this prop
+  /// <!-- Generated from [_$BasicProps.basic4] -->
   @override
-  String get basic4 => props[_$key__basic4___$BasicProps];
-
-  /// Go to [_$BasicProps.basic4] to see the source code for this prop
+  String get basic4 =>
+      props[_$key__basic4___$BasicProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$BasicProps.basic4] -->
   @override
   set basic4(String value) => props[_$key__basic4___$BasicProps] = value;
 
-  /// Go to [_$BasicProps.basic5] to see the source code for this prop
+  /// <!-- Generated from [_$BasicProps.basic5] -->
   @override
-  String get basic5 => props[_$key__basic5___$BasicProps];
-
-  /// Go to [_$BasicProps.basic5] to see the source code for this prop
+  String get basic5 =>
+      props[_$key__basic5___$BasicProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$BasicProps.basic5] -->
   @override
   set basic5(String value) => props[_$key__basic5___$BasicProps] = value;
   /* GENERATED CONSTANTS */
@@ -126,12 +132,17 @@ _$$BasicProps _$Basic([Map backingProps]) => new _$$BasicProps(backingProps);
 class _$$BasicProps extends _$BasicProps
     with _$BasicPropsAccessorsMixin
     implements BasicProps {
-  _$$BasicProps(Map backingMap) : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$BasicProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

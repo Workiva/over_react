@@ -3,7 +3,7 @@
 part of 'stateful_component_integration_test.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.
@@ -47,13 +47,17 @@ _$$StatefulComponentTestProps _$StatefulComponentTest([Map backingProps]) =>
 class _$$StatefulComponentTestProps extends _$StatefulComponentTestProps
     with _$StatefulComponentTestPropsAccessorsMixin
     implements StatefulComponentTestProps {
-  _$$StatefulComponentTestProps(Map backingMap)
-      : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$StatefulComponentTestProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -74,66 +78,67 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   @override
   Map get state;
 
-  /// Go to [_$StatefulComponentTestState.stringState] to see the source code for this prop
+  /// <!-- Generated from [_$StatefulComponentTestState.stringState] -->
   @override
   String get stringState =>
-      state[_$key__stringState___$StatefulComponentTestState];
-
-  /// Go to [_$StatefulComponentTestState.stringState] to see the source code for this prop
+      state[_$key__stringState___$StatefulComponentTestState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$StatefulComponentTestState.stringState] -->
   @override
   set stringState(String value) =>
       state[_$key__stringState___$StatefulComponentTestState] = value;
 
-  /// Go to [_$StatefulComponentTestState.dynamicState] to see the source code for this prop
+  /// <!-- Generated from [_$StatefulComponentTestState.dynamicState] -->
   @override
   dynamic get dynamicState =>
-      state[_$key__dynamicState___$StatefulComponentTestState];
-
-  /// Go to [_$StatefulComponentTestState.dynamicState] to see the source code for this prop
+      state[_$key__dynamicState___$StatefulComponentTestState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$StatefulComponentTestState.dynamicState] -->
   @override
   set dynamicState(dynamic value) =>
       state[_$key__dynamicState___$StatefulComponentTestState] = value;
 
-  /// Go to [_$StatefulComponentTestState.untypedState] to see the source code for this prop
+  /// <!-- Generated from [_$StatefulComponentTestState.untypedState] -->
   @override
-  get untypedState => state[_$key__untypedState___$StatefulComponentTestState];
-
-  /// Go to [_$StatefulComponentTestState.untypedState] to see the source code for this prop
+  get untypedState =>
+      state[_$key__untypedState___$StatefulComponentTestState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$StatefulComponentTestState.untypedState] -->
   @override
   set untypedState(value) =>
       state[_$key__untypedState___$StatefulComponentTestState] = value;
 
-  /// Go to [_$StatefulComponentTestState.customKeyState] to see the source code for this prop
+  /// <!-- Generated from [_$StatefulComponentTestState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
   get customKeyState =>
-      state[_$key__customKeyState___$StatefulComponentTestState];
-
-  /// Go to [_$StatefulComponentTestState.customKeyState] to see the source code for this prop
+      state[_$key__customKeyState___$StatefulComponentTestState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$StatefulComponentTestState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
   set customKeyState(value) =>
       state[_$key__customKeyState___$StatefulComponentTestState] = value;
 
-  /// Go to [_$StatefulComponentTestState.customNamespaceState] to see the source code for this prop
+  /// <!-- Generated from [_$StatefulComponentTestState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   get customNamespaceState =>
-      state[_$key__customNamespaceState___$StatefulComponentTestState];
-
-  /// Go to [_$StatefulComponentTestState.customNamespaceState] to see the source code for this prop
+      state[_$key__customNamespaceState___$StatefulComponentTestState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$StatefulComponentTestState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceState(value) =>
       state[_$key__customNamespaceState___$StatefulComponentTestState] = value;
 
-  /// Go to [_$StatefulComponentTestState.customKeyAndNamespaceState] to see the source code for this prop
+  /// <!-- Generated from [_$StatefulComponentTestState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   get customKeyAndNamespaceState =>
-      state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState];
-
-  /// Go to [_$StatefulComponentTestState.customKeyAndNamespaceState] to see the source code for this prop
+      state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$StatefulComponentTestState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceState(value) =>
@@ -210,13 +215,17 @@ class StatefulComponentTestState extends _$StatefulComponentTestState
 class _$$StatefulComponentTestState extends _$StatefulComponentTestState
     with _$StatefulComponentTestStateAccessorsMixin
     implements StatefulComponentTestState {
-  _$$StatefulComponentTestState(Map backingMap)
-      : this._state = backingMap ?? {};
+  // This initializer of `_state` to an empty map, as well as the reassignment
+  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$StatefulComponentTestState(Map backingMap) : this._state = {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

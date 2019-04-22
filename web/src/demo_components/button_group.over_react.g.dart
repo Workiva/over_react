@@ -3,7 +3,7 @@
 part of 'button_group.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.
@@ -21,28 +21,59 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   @override
   Map get props;
 
-  /// Go to [_$ButtonGroupProps.size] to see the source code for this prop
+  /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#sizing>.
+  ///
+  /// Default: [ButtonGroupSize.DEFAULT]
+  ///
+  /// <!-- Generated from [_$ButtonGroupProps.size] -->
   @override
-  ButtonGroupSize get size => props[_$key__size___$ButtonGroupProps];
-
-  /// Go to [_$ButtonGroupProps.size] to see the source code for this prop
+  ButtonGroupSize get size =>
+      props[_$key__size___$ButtonGroupProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#sizing>.
+  ///
+  /// Default: [ButtonGroupSize.DEFAULT]
+  ///
+  /// <!-- Generated from [_$ButtonGroupProps.size] -->
   @override
   set size(ButtonGroupSize value) =>
       props[_$key__size___$ButtonGroupProps] = value;
 
-  /// Go to [_$ButtonGroupProps.skin] to see the source code for this prop
+  /// The [ButtonSkin] variation applied to every [Button] within the [ButtonGroup].
+  ///
+  /// <!-- Generated from [_$ButtonGroupProps.skin] -->
   @override
-  ButtonSkin get skin => props[_$key__skin___$ButtonGroupProps];
-
-  /// Go to [_$ButtonGroupProps.skin] to see the source code for this prop
+  ButtonSkin get skin =>
+      props[_$key__skin___$ButtonGroupProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// The [ButtonSkin] variation applied to every [Button] within the [ButtonGroup].
+  ///
+  /// <!-- Generated from [_$ButtonGroupProps.skin] -->
   @override
   set skin(ButtonSkin value) => props[_$key__skin___$ButtonGroupProps] = value;
 
-  /// Go to [_$ButtonGroupProps.isVertical] to see the source code for this prop
+  /// Make the [Button]s within a [ButtonGroup] stack vertically.
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#vertical-variation>.
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$ButtonGroupProps.isVertical] -->
   @override
-  bool get isVertical => props[_$key__isVertical___$ButtonGroupProps];
-
-  /// Go to [_$ButtonGroupProps.isVertical] to see the source code for this prop
+  bool get isVertical =>
+      props[_$key__isVertical___$ButtonGroupProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Make the [Button]s within a [ButtonGroup] stack vertically.
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#vertical-variation>.
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$ButtonGroupProps.isVertical] -->
   @override
   set isVertical(bool value) =>
       props[_$key__isVertical___$ButtonGroupProps] = value;
@@ -89,12 +120,17 @@ _$$ButtonGroupProps _$ButtonGroup([Map backingProps]) =>
 class _$$ButtonGroupProps extends _$ButtonGroupProps
     with _$ButtonGroupPropsAccessorsMixin
     implements ButtonGroupProps {
-  _$$ButtonGroupProps(Map backingMap) : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$ButtonGroupProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -136,12 +172,17 @@ class ButtonGroupState extends _$ButtonGroupState
 class _$$ButtonGroupState extends _$ButtonGroupState
     with _$ButtonGroupStateAccessorsMixin
     implements ButtonGroupState {
-  _$$ButtonGroupState(Map backingMap) : this._state = backingMap ?? {};
+  // This initializer of `_state` to an empty map, as well as the reassignment
+  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$ButtonGroupState(Map backingMap) : this._state = {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

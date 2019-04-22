@@ -3,7 +3,7 @@
 part of 'do_not_generate_accessor_integration_test.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.
@@ -22,33 +22,33 @@ abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
   @override
   Map get props;
 
-  /// Go to [_$DoNotGenerateAccessorTestProps.generated1Prop] to see the source code for this prop
+  /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.generated1Prop] -->
   @override
   get generated1Prop =>
-      props[_$key__generated1Prop___$DoNotGenerateAccessorTestProps];
-
-  /// Go to [_$DoNotGenerateAccessorTestProps.generated1Prop] to see the source code for this prop
+      props[_$key__generated1Prop___$DoNotGenerateAccessorTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.generated1Prop] -->
   @override
   set generated1Prop(value) =>
       props[_$key__generated1Prop___$DoNotGenerateAccessorTestProps] = value;
 
-  /// Go to [_$DoNotGenerateAccessorTestProps.generated2Prop] to see the source code for this prop
+  /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.generated2Prop] -->
   @override
   get generated2Prop =>
-      props[_$key__generated2Prop___$DoNotGenerateAccessorTestProps];
-
-  /// Go to [_$DoNotGenerateAccessorTestProps.generated2Prop] to see the source code for this prop
+      props[_$key__generated2Prop___$DoNotGenerateAccessorTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.generated2Prop] -->
   @override
   set generated2Prop(value) =>
       props[_$key__generated2Prop___$DoNotGenerateAccessorTestProps] = value;
 
-  /// Go to [_$DoNotGenerateAccessorTestProps.explicitlyGeneratedProp] to see the source code for this prop
+  /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.explicitlyGeneratedProp] -->
   @override
   @Accessor(doNotGenerate: false)
   get explicitlyGeneratedProp =>
-      props[_$key__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps];
-
-  /// Go to [_$DoNotGenerateAccessorTestProps.explicitlyGeneratedProp] to see the source code for this prop
+      props[_$key__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.explicitlyGeneratedProp] -->
   @override
   @Accessor(doNotGenerate: false)
   set explicitlyGeneratedProp(value) =>
@@ -102,13 +102,17 @@ _$$DoNotGenerateAccessorTestProps _$DoNotGenerateAccessorTest(
 class _$$DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
     with _$DoNotGenerateAccessorTestPropsAccessorsMixin
     implements DoNotGenerateAccessorTestProps {
-  _$$DoNotGenerateAccessorTestProps(Map backingMap)
-      : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$DoNotGenerateAccessorTestProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -129,33 +133,34 @@ abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
   @override
   Map get state;
 
-  /// Go to [_$DoNotGenerateAccessorTestState.generated1State] to see the source code for this prop
+  /// <!-- Generated from [_$DoNotGenerateAccessorTestState.generated1State] -->
   @override
   get generated1State =>
-      state[_$key__generated1State___$DoNotGenerateAccessorTestState];
-
-  /// Go to [_$DoNotGenerateAccessorTestState.generated1State] to see the source code for this prop
+      state[_$key__generated1State___$DoNotGenerateAccessorTestState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DoNotGenerateAccessorTestState.generated1State] -->
   @override
   set generated1State(value) =>
       state[_$key__generated1State___$DoNotGenerateAccessorTestState] = value;
 
-  /// Go to [_$DoNotGenerateAccessorTestState.generated2State] to see the source code for this prop
+  /// <!-- Generated from [_$DoNotGenerateAccessorTestState.generated2State] -->
   @override
   get generated2State =>
-      state[_$key__generated2State___$DoNotGenerateAccessorTestState];
-
-  /// Go to [_$DoNotGenerateAccessorTestState.generated2State] to see the source code for this prop
+      state[_$key__generated2State___$DoNotGenerateAccessorTestState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DoNotGenerateAccessorTestState.generated2State] -->
   @override
   set generated2State(value) =>
       state[_$key__generated2State___$DoNotGenerateAccessorTestState] = value;
 
-  /// Go to [_$DoNotGenerateAccessorTestState.explicitlyGeneratedState] to see the source code for this prop
+  /// <!-- Generated from [_$DoNotGenerateAccessorTestState.explicitlyGeneratedState] -->
   @override
   @Accessor(doNotGenerate: false)
   get explicitlyGeneratedState =>
-      state[_$key__explicitlyGeneratedState___$DoNotGenerateAccessorTestState];
-
-  /// Go to [_$DoNotGenerateAccessorTestState.explicitlyGeneratedState] to see the source code for this prop
+      state[
+          _$key__explicitlyGeneratedState___$DoNotGenerateAccessorTestState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DoNotGenerateAccessorTestState.explicitlyGeneratedState] -->
   @override
   @Accessor(doNotGenerate: false)
   set explicitlyGeneratedState(value) =>
@@ -205,13 +210,17 @@ const StateMeta _$metaForDoNotGenerateAccessorTestState = const StateMeta(
 class _$$DoNotGenerateAccessorTestState extends _$DoNotGenerateAccessorTestState
     with _$DoNotGenerateAccessorTestStateAccessorsMixin
     implements DoNotGenerateAccessorTestState {
-  _$$DoNotGenerateAccessorTestState(Map backingMap)
-      : this._state = backingMap ?? {};
+  // This initializer of `_state` to an empty map, as well as the reassignment
+  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$DoNotGenerateAccessorTestState(Map backingMap) : this._state = {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

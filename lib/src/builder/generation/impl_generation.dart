@@ -164,12 +164,17 @@ class ImplGenerator {
           ..writeln('//')
           ..writeln('// Implements constructor and backing map.')
           ..writeln('class $stateImplName$typeParamsOnClass extends $stateName$typeParamsOnSuper with $stateAccessorsMixinName$typeParamsOnSuper implements $consumableStateName$typeParamsOnSuper {')
-          ..writeln('  $stateImplName(Map backingMap) : this._state = backingMap ?? {};')
+          ..writeln('  // This initializer of `_state` to an empty map, as well as the reassignment')
+          ..writeln('  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.')
+          ..writeln('  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details')
+          ..writeln('  $stateImplName(Map backingMap) : this._state = {} {')
+          ..writeln('     this._state = backingMap ?? {};')
+          ..writeln('  }')
           ..writeln()
           ..writeln('  /// The backing state map proxied by this class.')
           ..writeln('  @override')
           ..writeln('  Map get state => _state;')
-          ..writeln('  final Map _state;')
+          ..writeln('  Map _state;')
           ..writeln()
           ..writeln('  /// Let [UiState] internals know that this class has been generated.')
           ..writeln('  @override')
@@ -406,12 +411,33 @@ class ImplGenerator {
                 ? typeString
                 : '${field.covariantKeyword} $typeString';
 
+            // Carry over the existing doc comment since IDEs don't inherit
+            // doc comments for some reason.
+            String docComment;
+            if (variable.documentationComment == null) {
+              docComment = '';
+            } else {
+              final existingCommentSource = sourceFile.getText(
+                  variable.documentationComment.offset,
+                  variable.documentationComment.end);
+              docComment =
+                  '$existingCommentSource\n'
+                  '  ///\n';
+            }
+            // Provide a link to the original declaration:
+            // - for better UX in VS Code, since the "Dart: Go to Super Class/Method" action isn't easily discoverable
+            // - to provide a reminder to the user that they probably want to look at the original declaration
+            //
+            // Use an HTML comment so it isn't rendered to the hover/quickdoc, which clutters up the comment.
+            // Even inside comments, this link will be clickable in IDEs!
+            docComment += '  /// <!-- Generated from [$consumerClassName.$accessorName] -->';
+
             String generatedAccessor =
-                '  /// Go to [$consumerClassName.$accessorName] to see the source code for this prop\n'
+                '  $docComment\n'
                 '  @override\n'
                 '${metadataSrc.toString()}'
-                '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName];\n'
-                '  /// Go to [$consumerClassName.$accessorName] to see the source code for this prop\n'
+                '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName] ?? null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;\n'
+                '  $docComment\n'
                 '  @override\n'
                 '${metadataSrc.toString()}'
                 '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;\n';
@@ -685,12 +711,17 @@ class ImplGenerator {
         ..writeln('//')
         ..writeln('// Implements constructor and backing map, and links up to generated component factory.')
         ..write(classDeclaration)
-        ..writeln('  $implName(Map backingMap) : this._props = backingMap ?? {};')
+        ..writeln('  // This initializer of `_props` to an empty map, as well as the reassignment')
+        ..writeln('  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.')
+        ..writeln('  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details')
+        ..writeln('  $implName(Map backingMap) : this._props = {} {')
+        ..writeln('     this._props = backingMap ?? {};')
+        ..writeln('  }')
         ..writeln()
         ..writeln('  /// The backing props map proxied by this class.')
         ..writeln('  @override')
         ..writeln('  Map get props => _props;')
-        ..writeln('  final Map _props;')
+        ..writeln('  Map _props;')
         ..writeln()
         ..writeln('  /// Let [UiProps] internals know that this class has been generated.')
         ..writeln('  @override')

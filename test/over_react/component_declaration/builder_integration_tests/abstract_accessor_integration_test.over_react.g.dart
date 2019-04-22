@@ -3,7 +3,7 @@
 part of 'abstract_accessor_integration_test.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 abstract class _$TestAbstractPropsAccessorsMixin
@@ -11,63 +11,67 @@ abstract class _$TestAbstractPropsAccessorsMixin
   @override
   Map get props;
 
-  /// Go to [_$TestAbstractProps.stringProp] to see the source code for this prop
+  /// <!-- Generated from [_$TestAbstractProps.stringProp] -->
   @override
-  String get stringProp => props[_$key__stringProp___$TestAbstractProps];
-
-  /// Go to [_$TestAbstractProps.stringProp] to see the source code for this prop
+  String get stringProp =>
+      props[_$key__stringProp___$TestAbstractProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestAbstractProps.stringProp] -->
   @override
   set stringProp(String value) =>
       props[_$key__stringProp___$TestAbstractProps] = value;
 
-  /// Go to [_$TestAbstractProps.dynamicProp] to see the source code for this prop
+  /// <!-- Generated from [_$TestAbstractProps.dynamicProp] -->
   @override
-  dynamic get dynamicProp => props[_$key__dynamicProp___$TestAbstractProps];
-
-  /// Go to [_$TestAbstractProps.dynamicProp] to see the source code for this prop
+  dynamic get dynamicProp =>
+      props[_$key__dynamicProp___$TestAbstractProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestAbstractProps.dynamicProp] -->
   @override
   set dynamicProp(dynamic value) =>
       props[_$key__dynamicProp___$TestAbstractProps] = value;
 
-  /// Go to [_$TestAbstractProps.untypedProp] to see the source code for this prop
+  /// <!-- Generated from [_$TestAbstractProps.untypedProp] -->
   @override
-  get untypedProp => props[_$key__untypedProp___$TestAbstractProps];
-
-  /// Go to [_$TestAbstractProps.untypedProp] to see the source code for this prop
+  get untypedProp =>
+      props[_$key__untypedProp___$TestAbstractProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestAbstractProps.untypedProp] -->
   @override
   set untypedProp(value) =>
       props[_$key__untypedProp___$TestAbstractProps] = value;
 
-  /// Go to [_$TestAbstractProps.customKeyProp] to see the source code for this prop
+  /// <!-- Generated from [_$TestAbstractProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  get customKeyProp => props[_$key__customKeyProp___$TestAbstractProps];
-
-  /// Go to [_$TestAbstractProps.customKeyProp] to see the source code for this prop
+  get customKeyProp =>
+      props[_$key__customKeyProp___$TestAbstractProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestAbstractProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
   set customKeyProp(value) =>
       props[_$key__customKeyProp___$TestAbstractProps] = value;
 
-  /// Go to [_$TestAbstractProps.customNamespaceProp] to see the source code for this prop
+  /// <!-- Generated from [_$TestAbstractProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   get customNamespaceProp =>
-      props[_$key__customNamespaceProp___$TestAbstractProps];
-
-  /// Go to [_$TestAbstractProps.customNamespaceProp] to see the source code for this prop
+      props[_$key__customNamespaceProp___$TestAbstractProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestAbstractProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceProp(value) =>
       props[_$key__customNamespaceProp___$TestAbstractProps] = value;
 
-  /// Go to [_$TestAbstractProps.customKeyAndNamespaceProp] to see the source code for this prop
+  /// <!-- Generated from [_$TestAbstractProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   get customKeyAndNamespaceProp =>
-      props[_$key__customKeyAndNamespaceProp___$TestAbstractProps];
-
-  /// Go to [_$TestAbstractProps.customKeyAndNamespaceProp] to see the source code for this prop
+      props[_$key__customKeyAndNamespaceProp___$TestAbstractProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestAbstractProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceProp(value) =>
@@ -133,68 +137,69 @@ abstract class _$TestCustomNamespaceAbstractPropsAccessorsMixin
   @override
   Map get props;
 
-  /// Go to [_$TestCustomNamespaceAbstractProps.stringProp] to see the source code for this prop
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.stringProp] -->
   @override
   String get stringProp =>
-      props[_$key__stringProp___$TestCustomNamespaceAbstractProps];
-
-  /// Go to [_$TestCustomNamespaceAbstractProps.stringProp] to see the source code for this prop
+      props[_$key__stringProp___$TestCustomNamespaceAbstractProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.stringProp] -->
   @override
   set stringProp(String value) =>
       props[_$key__stringProp___$TestCustomNamespaceAbstractProps] = value;
 
-  /// Go to [_$TestCustomNamespaceAbstractProps.dynamicProp] to see the source code for this prop
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.dynamicProp] -->
   @override
   dynamic get dynamicProp =>
-      props[_$key__dynamicProp___$TestCustomNamespaceAbstractProps];
-
-  /// Go to [_$TestCustomNamespaceAbstractProps.dynamicProp] to see the source code for this prop
+      props[_$key__dynamicProp___$TestCustomNamespaceAbstractProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.dynamicProp] -->
   @override
   set dynamicProp(dynamic value) =>
       props[_$key__dynamicProp___$TestCustomNamespaceAbstractProps] = value;
 
-  /// Go to [_$TestCustomNamespaceAbstractProps.untypedProp] to see the source code for this prop
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.untypedProp] -->
   @override
   get untypedProp =>
-      props[_$key__untypedProp___$TestCustomNamespaceAbstractProps];
-
-  /// Go to [_$TestCustomNamespaceAbstractProps.untypedProp] to see the source code for this prop
+      props[_$key__untypedProp___$TestCustomNamespaceAbstractProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.untypedProp] -->
   @override
   set untypedProp(value) =>
       props[_$key__untypedProp___$TestCustomNamespaceAbstractProps] = value;
 
-  /// Go to [_$TestCustomNamespaceAbstractProps.customKeyProp] to see the source code for this prop
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
   get customKeyProp =>
-      props[_$key__customKeyProp___$TestCustomNamespaceAbstractProps];
-
-  /// Go to [_$TestCustomNamespaceAbstractProps.customKeyProp] to see the source code for this prop
+      props[_$key__customKeyProp___$TestCustomNamespaceAbstractProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
   set customKeyProp(value) =>
       props[_$key__customKeyProp___$TestCustomNamespaceAbstractProps] = value;
 
-  /// Go to [_$TestCustomNamespaceAbstractProps.customNamespaceProp] to see the source code for this prop
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   get customNamespaceProp =>
-      props[_$key__customNamespaceProp___$TestCustomNamespaceAbstractProps];
-
-  /// Go to [_$TestCustomNamespaceAbstractProps.customNamespaceProp] to see the source code for this prop
+      props[_$key__customNamespaceProp___$TestCustomNamespaceAbstractProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceProp(value) =>
       props[_$key__customNamespaceProp___$TestCustomNamespaceAbstractProps] =
           value;
 
-  /// Go to [_$TestCustomNamespaceAbstractProps.customKeyAndNamespaceProp] to see the source code for this prop
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceProp => props[
-      _$key__customKeyAndNamespaceProp___$TestCustomNamespaceAbstractProps];
-
-  /// Go to [_$TestCustomNamespaceAbstractProps.customKeyAndNamespaceProp] to see the source code for this prop
+  get customKeyAndNamespaceProp =>
+      props[
+          _$key__customKeyAndNamespaceProp___$TestCustomNamespaceAbstractProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceProp(value) => props[
@@ -274,63 +279,67 @@ abstract class _$TestAbstractStateAccessorsMixin
   @override
   Map get state;
 
-  /// Go to [_$TestAbstractState.stringState] to see the source code for this prop
+  /// <!-- Generated from [_$TestAbstractState.stringState] -->
   @override
-  String get stringState => state[_$key__stringState___$TestAbstractState];
-
-  /// Go to [_$TestAbstractState.stringState] to see the source code for this prop
+  String get stringState =>
+      state[_$key__stringState___$TestAbstractState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestAbstractState.stringState] -->
   @override
   set stringState(String value) =>
       state[_$key__stringState___$TestAbstractState] = value;
 
-  /// Go to [_$TestAbstractState.dynamicState] to see the source code for this prop
+  /// <!-- Generated from [_$TestAbstractState.dynamicState] -->
   @override
-  dynamic get dynamicState => state[_$key__dynamicState___$TestAbstractState];
-
-  /// Go to [_$TestAbstractState.dynamicState] to see the source code for this prop
+  dynamic get dynamicState =>
+      state[_$key__dynamicState___$TestAbstractState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestAbstractState.dynamicState] -->
   @override
   set dynamicState(dynamic value) =>
       state[_$key__dynamicState___$TestAbstractState] = value;
 
-  /// Go to [_$TestAbstractState.untypedState] to see the source code for this prop
+  /// <!-- Generated from [_$TestAbstractState.untypedState] -->
   @override
-  get untypedState => state[_$key__untypedState___$TestAbstractState];
-
-  /// Go to [_$TestAbstractState.untypedState] to see the source code for this prop
+  get untypedState =>
+      state[_$key__untypedState___$TestAbstractState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestAbstractState.untypedState] -->
   @override
   set untypedState(value) =>
       state[_$key__untypedState___$TestAbstractState] = value;
 
-  /// Go to [_$TestAbstractState.customKeyState] to see the source code for this prop
+  /// <!-- Generated from [_$TestAbstractState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  get customKeyState => state[_$key__customKeyState___$TestAbstractState];
-
-  /// Go to [_$TestAbstractState.customKeyState] to see the source code for this prop
+  get customKeyState =>
+      state[_$key__customKeyState___$TestAbstractState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestAbstractState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
   set customKeyState(value) =>
       state[_$key__customKeyState___$TestAbstractState] = value;
 
-  /// Go to [_$TestAbstractState.customNamespaceState] to see the source code for this prop
+  /// <!-- Generated from [_$TestAbstractState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   get customNamespaceState =>
-      state[_$key__customNamespaceState___$TestAbstractState];
-
-  /// Go to [_$TestAbstractState.customNamespaceState] to see the source code for this prop
+      state[_$key__customNamespaceState___$TestAbstractState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestAbstractState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceState(value) =>
       state[_$key__customNamespaceState___$TestAbstractState] = value;
 
-  /// Go to [_$TestAbstractState.customKeyAndNamespaceState] to see the source code for this prop
+  /// <!-- Generated from [_$TestAbstractState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   get customKeyAndNamespaceState =>
-      state[_$key__customKeyAndNamespaceState___$TestAbstractState];
-
-  /// Go to [_$TestAbstractState.customKeyAndNamespaceState] to see the source code for this prop
+      state[_$key__customKeyAndNamespaceState___$TestAbstractState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestAbstractState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceState(value) =>
@@ -397,68 +406,69 @@ abstract class _$TestCustomNamespaceAbstractStateAccessorsMixin
   @override
   Map get state;
 
-  /// Go to [_$TestCustomNamespaceAbstractState.stringState] to see the source code for this prop
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractState.stringState] -->
   @override
   String get stringState =>
-      state[_$key__stringState___$TestCustomNamespaceAbstractState];
-
-  /// Go to [_$TestCustomNamespaceAbstractState.stringState] to see the source code for this prop
+      state[_$key__stringState___$TestCustomNamespaceAbstractState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractState.stringState] -->
   @override
   set stringState(String value) =>
       state[_$key__stringState___$TestCustomNamespaceAbstractState] = value;
 
-  /// Go to [_$TestCustomNamespaceAbstractState.dynamicState] to see the source code for this prop
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractState.dynamicState] -->
   @override
   dynamic get dynamicState =>
-      state[_$key__dynamicState___$TestCustomNamespaceAbstractState];
-
-  /// Go to [_$TestCustomNamespaceAbstractState.dynamicState] to see the source code for this prop
+      state[_$key__dynamicState___$TestCustomNamespaceAbstractState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractState.dynamicState] -->
   @override
   set dynamicState(dynamic value) =>
       state[_$key__dynamicState___$TestCustomNamespaceAbstractState] = value;
 
-  /// Go to [_$TestCustomNamespaceAbstractState.untypedState] to see the source code for this prop
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractState.untypedState] -->
   @override
   get untypedState =>
-      state[_$key__untypedState___$TestCustomNamespaceAbstractState];
-
-  /// Go to [_$TestCustomNamespaceAbstractState.untypedState] to see the source code for this prop
+      state[_$key__untypedState___$TestCustomNamespaceAbstractState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractState.untypedState] -->
   @override
   set untypedState(value) =>
       state[_$key__untypedState___$TestCustomNamespaceAbstractState] = value;
 
-  /// Go to [_$TestCustomNamespaceAbstractState.customKeyState] to see the source code for this prop
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
   get customKeyState =>
-      state[_$key__customKeyState___$TestCustomNamespaceAbstractState];
-
-  /// Go to [_$TestCustomNamespaceAbstractState.customKeyState] to see the source code for this prop
+      state[_$key__customKeyState___$TestCustomNamespaceAbstractState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
   set customKeyState(value) =>
       state[_$key__customKeyState___$TestCustomNamespaceAbstractState] = value;
 
-  /// Go to [_$TestCustomNamespaceAbstractState.customNamespaceState] to see the source code for this prop
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   get customNamespaceState =>
-      state[_$key__customNamespaceState___$TestCustomNamespaceAbstractState];
-
-  /// Go to [_$TestCustomNamespaceAbstractState.customNamespaceState] to see the source code for this prop
+      state[_$key__customNamespaceState___$TestCustomNamespaceAbstractState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceState(value) =>
       state[_$key__customNamespaceState___$TestCustomNamespaceAbstractState] =
           value;
 
-  /// Go to [_$TestCustomNamespaceAbstractState.customKeyAndNamespaceState] to see the source code for this prop
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceState => state[
-      _$key__customKeyAndNamespaceState___$TestCustomNamespaceAbstractState];
-
-  /// Go to [_$TestCustomNamespaceAbstractState.customKeyAndNamespaceState] to see the source code for this prop
+  get customKeyAndNamespaceState =>
+      state[
+          _$key__customKeyAndNamespaceState___$TestCustomNamespaceAbstractState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestCustomNamespaceAbstractState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceState(value) => state[

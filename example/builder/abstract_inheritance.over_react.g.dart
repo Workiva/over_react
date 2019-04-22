@@ -3,7 +3,7 @@
 part of 'abstract_inheritance.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.
@@ -20,11 +20,12 @@ abstract class _$SubPropsAccessorsMixin implements _$SubProps {
   @override
   Map get props;
 
-  /// Go to [_$SubProps.subProp] to see the source code for this prop
+  /// <!-- Generated from [_$SubProps.subProp] -->
   @override
-  String get subProp => props[_$key__subProp___$SubProps];
-
-  /// Go to [_$SubProps.subProp] to see the source code for this prop
+  String get subProp =>
+      props[_$key__subProp___$SubProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SubProps.subProp] -->
   @override
   set subProp(String value) => props[_$key__subProp___$SubProps] = value;
   /* GENERATED CONSTANTS */
@@ -55,12 +56,17 @@ _$$SubProps _$Sub([Map backingProps]) => new _$$SubProps(backingProps);
 class _$$SubProps extends _$SubProps
     with _$SubPropsAccessorsMixin
     implements SubProps {
-  _$$SubProps(Map backingMap) : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$SubProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -79,11 +85,12 @@ abstract class _$SubStateAccessorsMixin implements _$SubState {
   @override
   Map get state;
 
-  /// Go to [_$SubState.subState] to see the source code for this prop
+  /// <!-- Generated from [_$SubState.subState] -->
   @override
-  String get subState => state[_$key__subState___$SubState];
-
-  /// Go to [_$SubState.subState] to see the source code for this prop
+  String get subState =>
+      state[_$key__subState___$SubState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SubState.subState] -->
   @override
   set subState(String value) => state[_$key__subState___$SubState] = value;
   /* GENERATED CONSTANTS */
@@ -112,12 +119,17 @@ class SubState extends _$SubState with _$SubStateAccessorsMixin {
 class _$$SubState extends _$SubState
     with _$SubStateAccessorsMixin
     implements SubState {
-  _$$SubState(Map backingMap) : this._state = backingMap ?? {};
+  // This initializer of `_state` to an empty map, as well as the reassignment
+  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$SubState(Map backingMap) : this._state = {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override
@@ -149,11 +161,12 @@ abstract class _$SuperPropsAccessorsMixin implements _$SuperProps {
   @override
   Map get props;
 
-  /// Go to [_$SuperProps.superProp] to see the source code for this prop
+  /// <!-- Generated from [_$SuperProps.superProp] -->
   @override
-  String get superProp => props[_$key__superProp___$SuperProps];
-
-  /// Go to [_$SuperProps.superProp] to see the source code for this prop
+  String get superProp =>
+      props[_$key__superProp___$SuperProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SuperProps.superProp] -->
   @override
   set superProp(String value) => props[_$key__superProp___$SuperProps] = value;
   /* GENERATED CONSTANTS */
@@ -180,11 +193,12 @@ abstract class _$SuperStateAccessorsMixin implements _$SuperState {
   @override
   Map get state;
 
-  /// Go to [_$SuperState.superState] to see the source code for this prop
+  /// <!-- Generated from [_$SuperState.superState] -->
   @override
-  String get superState => state[_$key__superState___$SuperState];
-
-  /// Go to [_$SuperState.superState] to see the source code for this prop
+  String get superState =>
+      state[_$key__superState___$SuperState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SuperState.superState] -->
   @override
   set superState(String value) =>
       state[_$key__superState___$SuperState] = value;

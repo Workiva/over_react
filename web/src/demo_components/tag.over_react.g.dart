@@ -3,7 +3,7 @@
 part of 'tag.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.
@@ -20,19 +20,47 @@ abstract class _$TagPropsAccessorsMixin implements _$TagProps {
   @override
   Map get props;
 
-  /// Go to [_$TagProps.skin] to see the source code for this prop
+  /// The skin / "context" for the [Tag].
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/tag/#contextual-variations>.
+  ///
+  /// Default: [TagSkin.DEFAULT]
+  ///
+  /// <!-- Generated from [_$TagProps.skin] -->
   @override
-  TagSkin get skin => props[_$key__skin___$TagProps];
-
-  /// Go to [_$TagProps.skin] to see the source code for this prop
+  TagSkin get skin =>
+      props[_$key__skin___$TagProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// The skin / "context" for the [Tag].
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/tag/#contextual-variations>.
+  ///
+  /// Default: [TagSkin.DEFAULT]
+  ///
+  /// <!-- Generated from [_$TagProps.skin] -->
   @override
   set skin(TagSkin value) => props[_$key__skin___$TagProps] = value;
 
-  /// Go to [_$TagProps.isPill] to see the source code for this prop
+  /// Whether to render the [Tag] with rounded corners that make it look
+  /// more like a "pill" (a.k.a Bootstrap v3 "badge")
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/tag/#pill-tags>.
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$TagProps.isPill] -->
   @override
-  bool get isPill => props[_$key__isPill___$TagProps];
-
-  /// Go to [_$TagProps.isPill] to see the source code for this prop
+  bool get isPill =>
+      props[_$key__isPill___$TagProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Whether to render the [Tag] with rounded corners that make it look
+  /// more like a "pill" (a.k.a Bootstrap v3 "badge")
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/tag/#pill-tags>.
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$TagProps.isPill] -->
   @override
   set isPill(bool value) => props[_$key__isPill___$TagProps] = value;
   /* GENERATED CONSTANTS */
@@ -70,12 +98,17 @@ _$$TagProps _$Tag([Map backingProps]) => new _$$TagProps(backingProps);
 class _$$TagProps extends _$TagProps
     with _$TagPropsAccessorsMixin
     implements TagProps {
-  _$$TagProps(Map backingMap) : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TagProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

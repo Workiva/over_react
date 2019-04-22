@@ -1,9 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of abstract_transition_test;
+part of 'abstract_transition_test.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.
@@ -22,100 +22,102 @@ abstract class _$TransitionerPropsAccessorsMixin
   @override
   Map get props;
 
-  /// Go to [_$TransitionerProps.onHandlePreShowing] to see the source code for this prop
+  /// <!-- Generated from [_$TransitionerProps.onHandlePreShowing] -->
   @override
   Callback get onHandlePreShowing =>
-      props[_$key__onHandlePreShowing___$TransitionerProps];
-
-  /// Go to [_$TransitionerProps.onHandlePreShowing] to see the source code for this prop
+      props[_$key__onHandlePreShowing___$TransitionerProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TransitionerProps.onHandlePreShowing] -->
   @override
   set onHandlePreShowing(Callback value) =>
       props[_$key__onHandlePreShowing___$TransitionerProps] = value;
 
-  /// Go to [_$TransitionerProps.onHandleShowing] to see the source code for this prop
+  /// <!-- Generated from [_$TransitionerProps.onHandleShowing] -->
   @override
   Callback get onHandleShowing =>
-      props[_$key__onHandleShowing___$TransitionerProps];
-
-  /// Go to [_$TransitionerProps.onHandleShowing] to see the source code for this prop
+      props[_$key__onHandleShowing___$TransitionerProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TransitionerProps.onHandleShowing] -->
   @override
   set onHandleShowing(Callback value) =>
       props[_$key__onHandleShowing___$TransitionerProps] = value;
 
-  /// Go to [_$TransitionerProps.onHandleShown] to see the source code for this prop
+  /// <!-- Generated from [_$TransitionerProps.onHandleShown] -->
   @override
   Callback get onHandleShown =>
-      props[_$key__onHandleShown___$TransitionerProps];
-
-  /// Go to [_$TransitionerProps.onHandleShown] to see the source code for this prop
+      props[_$key__onHandleShown___$TransitionerProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TransitionerProps.onHandleShown] -->
   @override
   set onHandleShown(Callback value) =>
       props[_$key__onHandleShown___$TransitionerProps] = value;
 
-  /// Go to [_$TransitionerProps.onHandleHiding] to see the source code for this prop
+  /// <!-- Generated from [_$TransitionerProps.onHandleHiding] -->
   @override
   Callback get onHandleHiding =>
-      props[_$key__onHandleHiding___$TransitionerProps];
-
-  /// Go to [_$TransitionerProps.onHandleHiding] to see the source code for this prop
+      props[_$key__onHandleHiding___$TransitionerProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TransitionerProps.onHandleHiding] -->
   @override
   set onHandleHiding(Callback value) =>
       props[_$key__onHandleHiding___$TransitionerProps] = value;
 
-  /// Go to [_$TransitionerProps.onHandleHidden] to see the source code for this prop
+  /// <!-- Generated from [_$TransitionerProps.onHandleHidden] -->
   @override
   Callback get onHandleHidden =>
-      props[_$key__onHandleHidden___$TransitionerProps];
-
-  /// Go to [_$TransitionerProps.onHandleHidden] to see the source code for this prop
+      props[_$key__onHandleHidden___$TransitionerProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TransitionerProps.onHandleHidden] -->
   @override
   set onHandleHidden(Callback value) =>
       props[_$key__onHandleHidden___$TransitionerProps] = value;
 
-  /// Go to [_$TransitionerProps.onPrepareShow] to see the source code for this prop
+  /// <!-- Generated from [_$TransitionerProps.onPrepareShow] -->
   @override
   Callback get onPrepareShow =>
-      props[_$key__onPrepareShow___$TransitionerProps];
-
-  /// Go to [_$TransitionerProps.onPrepareShow] to see the source code for this prop
+      props[_$key__onPrepareShow___$TransitionerProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TransitionerProps.onPrepareShow] -->
   @override
   set onPrepareShow(Callback value) =>
       props[_$key__onPrepareShow___$TransitionerProps] = value;
 
-  /// Go to [_$TransitionerProps.onPrepareHide] to see the source code for this prop
+  /// <!-- Generated from [_$TransitionerProps.onPrepareHide] -->
   @override
   Callback get onPrepareHide =>
-      props[_$key__onPrepareHide___$TransitionerProps];
-
-  /// Go to [_$TransitionerProps.onPrepareHide] to see the source code for this prop
+      props[_$key__onPrepareHide___$TransitionerProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TransitionerProps.onPrepareHide] -->
   @override
   set onPrepareHide(Callback value) =>
       props[_$key__onPrepareHide___$TransitionerProps] = value;
 
-  /// Go to [_$TransitionerProps.hasTransition] to see the source code for this prop
+  /// <!-- Generated from [_$TransitionerProps.hasTransition] -->
   @override
-  bool get hasTransition => props[_$key__hasTransition___$TransitionerProps];
-
-  /// Go to [_$TransitionerProps.hasTransition] to see the source code for this prop
+  bool get hasTransition =>
+      props[_$key__hasTransition___$TransitionerProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TransitionerProps.hasTransition] -->
   @override
   set hasTransition(bool value) =>
       props[_$key__hasTransition___$TransitionerProps] = value;
 
-  /// Go to [_$TransitionerProps.initiallyShown] to see the source code for this prop
+  /// <!-- Generated from [_$TransitionerProps.initiallyShown] -->
   @override
-  bool get initiallyShown => props[_$key__initiallyShown___$TransitionerProps];
-
-  /// Go to [_$TransitionerProps.initiallyShown] to see the source code for this prop
+  bool get initiallyShown =>
+      props[_$key__initiallyShown___$TransitionerProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TransitionerProps.initiallyShown] -->
   @override
   set initiallyShown(bool value) =>
       props[_$key__initiallyShown___$TransitionerProps] = value;
 
-  /// Go to [_$TransitionerProps.transitionTimeout] to see the source code for this prop
+  /// <!-- Generated from [_$TransitionerProps.transitionTimeout] -->
   @override
   Duration get transitionTimeout =>
-      props[_$key__transitionTimeout___$TransitionerProps];
-
-  /// Go to [_$TransitionerProps.transitionTimeout] to see the source code for this prop
+      props[_$key__transitionTimeout___$TransitionerProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TransitionerProps.transitionTimeout] -->
   @override
   set transitionTimeout(Duration value) =>
       props[_$key__transitionTimeout___$TransitionerProps] = value;
@@ -206,12 +208,17 @@ _$$TransitionerProps _$Transitioner([Map backingProps]) =>
 class _$$TransitionerProps extends _$TransitionerProps
     with _$TransitionerPropsAccessorsMixin
     implements TransitionerProps {
-  _$$TransitionerProps(Map backingMap) : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TransitionerProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -254,12 +261,17 @@ class TransitionerState extends _$TransitionerState
 class _$$TransitionerState extends _$TransitionerState
     with _$TransitionerStateAccessorsMixin
     implements TransitionerState {
-  _$$TransitionerState(Map backingMap) : this._state = backingMap ?? {};
+  // This initializer of `_state` to an empty map, as well as the reassignment
+  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TransitionerState(Map backingMap) : this._state = {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

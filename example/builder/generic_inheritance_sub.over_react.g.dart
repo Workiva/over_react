@@ -3,7 +3,7 @@
 part of 'generic_inheritance_sub.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.
@@ -21,11 +21,12 @@ abstract class _$GenericSubPropsAccessorsMixin implements _$GenericSubProps {
   @override
   Map get props;
 
-  /// Go to [_$GenericSubProps.subProp] to see the source code for this prop
+  /// <!-- Generated from [_$GenericSubProps.subProp] -->
   @override
-  String get subProp => props[_$key__subProp___$GenericSubProps];
-
-  /// Go to [_$GenericSubProps.subProp] to see the source code for this prop
+  String get subProp =>
+      props[_$key__subProp___$GenericSubProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$GenericSubProps.subProp] -->
   @override
   set subProp(String value) => props[_$key__subProp___$GenericSubProps] = value;
   /* GENERATED CONSTANTS */
@@ -61,12 +62,17 @@ _$$GenericSubProps _$GenericSub([Map backingProps]) =>
 class _$$GenericSubProps extends _$GenericSubProps
     with _$GenericSubPropsAccessorsMixin
     implements GenericSubProps {
-  _$$GenericSubProps(Map backingMap) : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$GenericSubProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -86,11 +92,12 @@ abstract class _$GenericSubStateAccessorsMixin implements _$GenericSubState {
   @override
   Map get state;
 
-  /// Go to [_$GenericSubState.subState] to see the source code for this prop
+  /// <!-- Generated from [_$GenericSubState.subState] -->
   @override
-  String get subState => state[_$key__subState___$GenericSubState];
-
-  /// Go to [_$GenericSubState.subState] to see the source code for this prop
+  String get subState =>
+      state[_$key__subState___$GenericSubState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$GenericSubState.subState] -->
   @override
   set subState(String value) =>
       state[_$key__subState___$GenericSubState] = value;
@@ -124,12 +131,17 @@ class GenericSubState extends _$GenericSubState
 class _$$GenericSubState extends _$GenericSubState
     with _$GenericSubStateAccessorsMixin
     implements GenericSubState {
-  _$$GenericSubState(Map backingMap) : this._state = backingMap ?? {};
+  // This initializer of `_state` to an empty map, as well as the reassignment
+  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$GenericSubState(Map backingMap) : this._state = {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

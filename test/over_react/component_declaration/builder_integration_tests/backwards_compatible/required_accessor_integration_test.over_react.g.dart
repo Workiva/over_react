@@ -3,7 +3,7 @@
 part of 'required_accessor_integration_test.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.
@@ -22,29 +22,31 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @override
   Map get props;
 
-  /// Go to [_$ComponentTestProps.required] to see the source code for this prop
+  /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @Accessor(
       isRequired: true,
       requiredErrorMessage: 'This Prop is Required for testing purposes.')
-  get required => props[_$key__required___$ComponentTestProps];
-
-  /// Go to [_$ComponentTestProps.required] to see the source code for this prop
+  get required =>
+      props[_$key__required___$ComponentTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @Accessor(
       isRequired: true,
       requiredErrorMessage: 'This Prop is Required for testing purposes.')
   set required(value) => props[_$key__required___$ComponentTestProps] = value;
 
-  /// Go to [_$ComponentTestProps.nullable] to see the source code for this prop
+  /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @Accessor(
       isRequired: true,
       isNullable: true,
       requiredErrorMessage: 'This prop can be set to null!')
-  get nullable => props[_$key__nullable___$ComponentTestProps];
-
-  /// Go to [_$ComponentTestProps.nullable] to see the source code for this prop
+  get nullable =>
+      props[_$key__nullable___$ComponentTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @Accessor(
       isRequired: true,
@@ -90,12 +92,17 @@ _$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
 class _$$ComponentTestProps extends _$ComponentTestProps
     with _$ComponentTestPropsAccessorsMixin
     implements ComponentTestProps {
-  _$$ComponentTestProps(Map backingMap) : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$ComponentTestProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

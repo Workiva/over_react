@@ -3,7 +3,7 @@
 part of 'generic_inheritance_super.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.
@@ -22,30 +22,32 @@ abstract class _$GenericSuperPropsAccessorsMixin
   @override
   Map get props;
 
-  /// Go to [_$GenericSuperProps.otherSuperProp] to see the source code for this prop
+  /// <!-- Generated from [_$GenericSuperProps.otherSuperProp] -->
   @override
   String get otherSuperProp =>
-      props[_$key__otherSuperProp___$GenericSuperProps];
-
-  /// Go to [_$GenericSuperProps.otherSuperProp] to see the source code for this prop
+      props[_$key__otherSuperProp___$GenericSuperProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$GenericSuperProps.otherSuperProp] -->
   @override
   set otherSuperProp(String value) =>
       props[_$key__otherSuperProp___$GenericSuperProps] = value;
 
-  /// Go to [_$GenericSuperProps.superProp] to see the source code for this prop
+  /// <!-- Generated from [_$GenericSuperProps.superProp] -->
   @override
-  String get superProp => props[_$key__superProp___$GenericSuperProps];
-
-  /// Go to [_$GenericSuperProps.superProp] to see the source code for this prop
+  String get superProp =>
+      props[_$key__superProp___$GenericSuperProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$GenericSuperProps.superProp] -->
   @override
   set superProp(String value) =>
       props[_$key__superProp___$GenericSuperProps] = value;
 
-  /// Go to [_$GenericSuperProps.superProp1] to see the source code for this prop
+  /// <!-- Generated from [_$GenericSuperProps.superProp1] -->
   @override
-  String get superProp1 => props[_$key__superProp1___$GenericSuperProps];
-
-  /// Go to [_$GenericSuperProps.superProp1] to see the source code for this prop
+  String get superProp1 =>
+      props[_$key__superProp1___$GenericSuperProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$GenericSuperProps.superProp1] -->
   @override
   set superProp1(String value) =>
       props[_$key__superProp1___$GenericSuperProps] = value;
@@ -94,12 +96,17 @@ _$$GenericSuperProps _$GenericSuper([Map backingProps]) =>
 class _$$GenericSuperProps extends _$GenericSuperProps
     with _$GenericSuperPropsAccessorsMixin
     implements GenericSuperProps {
-  _$$GenericSuperProps(Map backingMap) : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$GenericSuperProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -120,11 +127,12 @@ abstract class _$GenericSuperStateAccessorsMixin
   @override
   Map get state;
 
-  /// Go to [_$GenericSuperState.superState] to see the source code for this prop
+  /// <!-- Generated from [_$GenericSuperState.superState] -->
   @override
-  String get superState => state[_$key__superState___$GenericSuperState];
-
-  /// Go to [_$GenericSuperState.superState] to see the source code for this prop
+  String get superState =>
+      state[_$key__superState___$GenericSuperState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$GenericSuperState.superState] -->
   @override
   set superState(String value) =>
       state[_$key__superState___$GenericSuperState] = value;
@@ -158,12 +166,17 @@ class GenericSuperState extends _$GenericSuperState
 class _$$GenericSuperState extends _$GenericSuperState
     with _$GenericSuperStateAccessorsMixin
     implements GenericSuperState {
-  _$$GenericSuperState(Map backingMap) : this._state = backingMap ?? {};
+  // This initializer of `_state` to an empty map, as well as the reassignment
+  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$GenericSuperState(Map backingMap) : this._state = {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

@@ -1,9 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of over_react.class_names;
+part of 'class_names.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 abstract class CssClassPropsMixin implements _$CssClassPropsMixin {
@@ -12,21 +12,42 @@ abstract class CssClassPropsMixin implements _$CssClassPropsMixin {
 
   static const PropsMeta meta = _$metaForCssClassPropsMixin;
 
-  /// Go to [_$CssClassPropsMixin.className] to see the source code for this prop
+  /// String of space-delimited CSS classes to be added to the resultant DOM.
+  ///
+  /// All over_react components merge any added classes with this prop and the [classNameBlacklist] prop (see
+  /// [UiComponent.forwardingClassNameBuilder]).
+  ///
+  /// <!-- Generated from [_$CssClassPropsMixin.className] -->
   @override
-  String get className => props[_$key__className___$CssClassPropsMixin];
-
-  /// Go to [_$CssClassPropsMixin.className] to see the source code for this prop
+  String get className =>
+      props[_$key__className___$CssClassPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// String of space-delimited CSS classes to be added to the resultant DOM.
+  ///
+  /// All over_react components merge any added classes with this prop and the [classNameBlacklist] prop (see
+  /// [UiComponent.forwardingClassNameBuilder]).
+  ///
+  /// <!-- Generated from [_$CssClassPropsMixin.className] -->
   @override
   set className(String value) =>
       props[_$key__className___$CssClassPropsMixin] = value;
 
-  /// Go to [_$CssClassPropsMixin.classNameBlacklist] to see the source code for this prop
+  /// String of space-delimited CSS classes to be blacklisted from being added to the resultant DOM.
+  ///
+  /// All over_react components merge any added classes with this prop and the [className] prop (see
+  /// [UiComponent.forwardingClassNameBuilder]).
+  ///
+  /// <!-- Generated from [_$CssClassPropsMixin.classNameBlacklist] -->
   @override
   String get classNameBlacklist =>
-      props[_$key__classNameBlacklist___$CssClassPropsMixin];
-
-  /// Go to [_$CssClassPropsMixin.classNameBlacklist] to see the source code for this prop
+      props[_$key__classNameBlacklist___$CssClassPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// String of space-delimited CSS classes to be blacklisted from being added to the resultant DOM.
+  ///
+  /// All over_react components merge any added classes with this prop and the [className] prop (see
+  /// [UiComponent.forwardingClassNameBuilder]).
+  ///
+  /// <!-- Generated from [_$CssClassPropsMixin.classNameBlacklist] -->
   @override
   set classNameBlacklist(String value) =>
       props[_$key__classNameBlacklist___$CssClassPropsMixin] = value;

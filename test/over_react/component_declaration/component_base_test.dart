@@ -124,6 +124,16 @@ main() {
         _commonNonInvokedBuilderTests(Dom.div());
       }, testOn: '!js');
 
+      test('warns against setting props directly', () {
+        startRecordingValidationWarnings();
+        var instance = render(TestComponent()());
+        var component = getDartComponent(instance);
+        var changeProps = () => component.props['id'] = 'test';
+        changeProps();
+        verifyValidationWarning(contains('Never mutate this.props directly'));
+        stopRecordingValidationWarnings();
+      });
+
       group('renders a DOM component with the correct children when', () {
         _commonVariadicChildrenTests(Dom.div());
 
@@ -800,7 +810,7 @@ main() {
 
       setUp(() {
         statefulComponent = new TestStatefulComponentComponent();
-        statefulComponent.unwrappedState = {};
+        statefulComponent.unwrappedState = {'test': true};
       });
 
       group('`state`', () {
@@ -826,6 +836,14 @@ main() {
             var stateAfterChange = statefulComponent.state;
 
             expect(stateBeforeChange, isNot(same(stateAfterChange)));
+          });
+
+          test('warns against setting state directly', () {
+            startRecordingValidationWarnings();
+            var changeState = () => statefulComponent.state['test'] = true;
+            changeState();
+            verifyValidationWarning(contains('Never mutate this.state directly'));
+            stopRecordingValidationWarnings();
           });
         });
 
@@ -946,7 +964,6 @@ dynamic getDartChildren(var renderedInstance) {
   assert(isDartComponent(renderedInstance));
   return getProps(renderedInstance)['children'];
 }
-
 
 UiFactory<TestComponentProps> TestComponent = ([Map props]) => new TestComponentProps(props);
 

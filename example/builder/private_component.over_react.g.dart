@@ -3,7 +3,7 @@
 part of 'private_component.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.
@@ -21,11 +21,12 @@ abstract class _$_PrivatePropsAccessorsMixin implements _$_PrivateProps {
   @override
   Map get props;
 
-  /// Go to [_$_PrivateProps.prop1] to see the source code for this prop
+  /// <!-- Generated from [_$_PrivateProps.prop1] -->
   @override
-  bool get prop1 => props[_$key__prop1___$_PrivateProps];
-
-  /// Go to [_$_PrivateProps.prop1] to see the source code for this prop
+  bool get prop1 =>
+      props[_$key__prop1___$_PrivateProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$_PrivateProps.prop1] -->
   @override
   set prop1(bool value) => props[_$key__prop1___$_PrivateProps] = value;
   /* GENERATED CONSTANTS */
@@ -57,12 +58,17 @@ _$$_PrivateProps _$_Private([Map backingProps]) =>
 class _$$_PrivateProps extends _$_PrivateProps
     with _$_PrivatePropsAccessorsMixin
     implements _PrivateProps {
-  _$$_PrivateProps(Map backingMap) : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$_PrivateProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -81,11 +87,12 @@ abstract class _$_PrivateStateAccessorsMixin implements _$_PrivateState {
   @override
   Map get state;
 
-  /// Go to [_$_PrivateState.state1] to see the source code for this prop
+  /// <!-- Generated from [_$_PrivateState.state1] -->
   @override
-  bool get state1 => state[_$key__state1___$_PrivateState];
-
-  /// Go to [_$_PrivateState.state1] to see the source code for this prop
+  bool get state1 =>
+      state[_$key__state1___$_PrivateState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$_PrivateState.state1] -->
   @override
   set state1(bool value) => state[_$key__state1___$_PrivateState] = value;
   /* GENERATED CONSTANTS */
@@ -114,12 +121,17 @@ class _PrivateState extends _$_PrivateState with _$_PrivateStateAccessorsMixin {
 class _$$_PrivateState extends _$_PrivateState
     with _$_PrivateStateAccessorsMixin
     implements _PrivateState {
-  _$$_PrivateState(Map backingMap) : this._state = backingMap ?? {};
+  // This initializer of `_state` to an empty map, as well as the reassignment
+  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$_PrivateState(Map backingMap) : this._state = {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

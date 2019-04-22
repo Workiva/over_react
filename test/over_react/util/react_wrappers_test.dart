@@ -227,15 +227,22 @@ main() {
       });
 
       group('updates the "key" and "ref" props properly', () {
-        const Map originalKeyRefProps = const {
+        var originalRefCalled = false;
+        var cloneRefCalled = false;
+        Map originalKeyRefProps = {
           'key': 'original',
-          'ref': 'original'
+          'ref': (ref) { originalRefCalled = true; }
         };
 
-        const Map overrideKeyRefProps = const {
+        Map overrideKeyRefProps = {
           'key': 'clone',
-          'ref': 'clone'
+          'ref': allowInterop((ref) { cloneRefCalled = true; })
         };
+
+        tearDown((){
+          originalRefCalled = false;
+          cloneRefCalled = false;
+        });
 
         test('for a plain React JS component', () {
           var original = (Dom.div()..addProps(originalKeyRefProps))(testChildren);
@@ -264,7 +271,7 @@ main() {
 
           // Verify that "key" and "ref" are overridden according to React
           expect(clone.key, equals(overrideKeyRefProps['key']));
-          expect(clone.ref, equals(overrideKeyRefProps['ref']));
+          expect(cloneRefCalled, isTrue);
 
           var renderedClone = react_test_utils.findRenderedComponentWithTypeV2(renderedHolder, TestComponentFactory);
 

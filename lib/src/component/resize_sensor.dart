@@ -65,6 +65,11 @@ part 'resize_sensor.over_react.g.dart';
 @Factory()
 UiFactory<ResizeSensorProps> ResizeSensor = _$ResizeSensor;
 
+/// This class is only present to allow for consumers which have used the
+/// --backwards-compat flag with over_react_codemod to statically analyze:
+/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+abstract class $ResizeSensorPropsMixin {}
+
 @PropsMixin()
 abstract class _$ResizeSensorPropsMixin {
   static final ResizeSensorPropsMixinMapView defaultProps = new ResizeSensorPropsMixinMapView({})
@@ -453,6 +458,8 @@ const Map<String, dynamic> _wrapperStylesFlexChild = const {
   'flex': '1 1 0%',
   'msFlex': '1 1 0%',
   'display': 'block',
+  // Fix ResizeSensor not shrinking properly: https://www.chromestatus.com/feature/6736527476391936
+  'minHeight': '0',
 };
 
 final Map<String, dynamic> _wrapperStylesFlexContainer = {
@@ -460,6 +467,8 @@ final Map<String, dynamic> _wrapperStylesFlexContainer = {
   'flex': '1 1 0%',
   'msFlex': '1 1 0%',
   'display': _displayFlex,
+  // Fix ResizeSensor not shrinking properly: https://www.chromestatus.com/feature/6736527476391936
+  'minHeight': '0',
 };
 
 /// The browser-prefixed value for the CSS `display` property that enables flexbox.

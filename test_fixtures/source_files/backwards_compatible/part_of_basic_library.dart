@@ -12,6 +12,7 @@ class BasicPartOfLibProps extends _$BasicPartOfLibProps with _$BasicPartOfLibPro
 class _$BasicPartOfLibProps extends UiProps
     with  ExamplePropsMixinClass, $ExamplePropsMixinClass {
 
+  /// Test that doc comment is copied over.
   String basicProp;
   String basic1;
   String basic2;

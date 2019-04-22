@@ -3,7 +3,7 @@
 part of 'dummy_composite_component.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.
@@ -22,33 +22,33 @@ abstract class _$TestCompositeComponentPropsAccessorsMixin
   @override
   Map get props;
 
-  /// Go to [_$TestCompositeComponentProps.onComponentDidMount] to see the source code for this prop
+  /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidMount] -->
   @override
   Function get onComponentDidMount =>
-      props[_$key__onComponentDidMount___$TestCompositeComponentProps];
-
-  /// Go to [_$TestCompositeComponentProps.onComponentDidMount] to see the source code for this prop
+      props[_$key__onComponentDidMount___$TestCompositeComponentProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidMount] -->
   @override
   set onComponentDidMount(Function value) =>
       props[_$key__onComponentDidMount___$TestCompositeComponentProps] = value;
 
-  /// Go to [_$TestCompositeComponentProps.onComponentWillUnmount] to see the source code for this prop
+  /// <!-- Generated from [_$TestCompositeComponentProps.onComponentWillUnmount] -->
   @override
   Function get onComponentWillUnmount =>
-      props[_$key__onComponentWillUnmount___$TestCompositeComponentProps];
-
-  /// Go to [_$TestCompositeComponentProps.onComponentWillUnmount] to see the source code for this prop
+      props[_$key__onComponentWillUnmount___$TestCompositeComponentProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestCompositeComponentProps.onComponentWillUnmount] -->
   @override
   set onComponentWillUnmount(Function value) =>
       props[_$key__onComponentWillUnmount___$TestCompositeComponentProps] =
           value;
 
-  /// Go to [_$TestCompositeComponentProps.onComponentDidUpdate] to see the source code for this prop
+  /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidUpdate] -->
   @override
   Function get onComponentDidUpdate =>
-      props[_$key__onComponentDidUpdate___$TestCompositeComponentProps];
-
-  /// Go to [_$TestCompositeComponentProps.onComponentDidUpdate] to see the source code for this prop
+      props[_$key__onComponentDidUpdate___$TestCompositeComponentProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidUpdate] -->
   @override
   set onComponentDidUpdate(Function value) =>
       props[_$key__onComponentDidUpdate___$TestCompositeComponentProps] = value;
@@ -106,13 +106,17 @@ _$$TestCompositeComponentProps _$TestCompositeComponent([Map backingProps]) =>
 class _$$TestCompositeComponentProps extends _$TestCompositeComponentProps
     with _$TestCompositeComponentPropsAccessorsMixin
     implements TestCompositeComponentProps {
-  _$$TestCompositeComponentProps(Map backingMap)
-      : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestCompositeComponentProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

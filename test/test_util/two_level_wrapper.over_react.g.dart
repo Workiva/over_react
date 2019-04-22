@@ -1,9 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of test_util.two_level_wrapper;
+part of 'two_level_wrapper.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.
@@ -47,12 +47,17 @@ _$$TwoLevelWrapperProps _$TwoLevelWrapper([Map backingProps]) =>
 class _$$TwoLevelWrapperProps extends _$TwoLevelWrapperProps
     with _$TwoLevelWrapperPropsAccessorsMixin
     implements TwoLevelWrapperProps {
-  _$$TwoLevelWrapperProps(Map backingMap) : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TwoLevelWrapperProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

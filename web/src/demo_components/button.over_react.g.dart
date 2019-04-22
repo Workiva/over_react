@@ -3,7 +3,7 @@
 part of 'button.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.
@@ -20,73 +20,181 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   @override
   Map get props;
 
-  /// Go to [_$ButtonProps.skin] to see the source code for this prop
+  /// The skin / "context" for the [Button].
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#examples>.
+  ///
+  /// Default: [ButtonSkin.PRIMARY]
+  ///
+  /// <!-- Generated from [_$ButtonProps.skin] -->
   @override
-  ButtonSkin get skin => props[_$key__skin___$ButtonProps];
-
-  /// Go to [_$ButtonProps.skin] to see the source code for this prop
+  ButtonSkin get skin =>
+      props[_$key__skin___$ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// The skin / "context" for the [Button].
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#examples>.
+  ///
+  /// Default: [ButtonSkin.PRIMARY]
+  ///
+  /// <!-- Generated from [_$ButtonProps.skin] -->
   @override
   set skin(ButtonSkin value) => props[_$key__skin___$ButtonProps] = value;
 
-  /// Go to [_$ButtonProps.size] to see the source code for this prop
+  /// The size of the [Button].
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#sizes>.
+  ///
+  /// Default: [ButtonSize.DEFAULT]
+  ///
+  /// <!-- Generated from [_$ButtonProps.size] -->
   @override
-  ButtonSize get size => props[_$key__size___$ButtonProps];
-
-  /// Go to [_$ButtonProps.size] to see the source code for this prop
+  ButtonSize get size =>
+      props[_$key__size___$ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// The size of the [Button].
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#sizes>.
+  ///
+  /// Default: [ButtonSize.DEFAULT]
+  ///
+  /// <!-- Generated from [_$ButtonProps.size] -->
   @override
   set size(ButtonSize value) => props[_$key__size___$ButtonProps] = value;
 
-  /// Go to [_$ButtonProps.isActive] to see the source code for this prop
+  /// Whether the [Button] should appear "active".
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#active-state>
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$ButtonProps.isActive] -->
   @override
-  bool get isActive => props[_$key__isActive___$ButtonProps];
-
-  /// Go to [_$ButtonProps.isActive] to see the source code for this prop
+  bool get isActive =>
+      props[_$key__isActive___$ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Whether the [Button] should appear "active".
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#active-state>
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$ButtonProps.isActive] -->
   @override
   set isActive(bool value) => props[_$key__isActive___$ButtonProps] = value;
 
-  /// Go to [_$ButtonProps.isDisabled] to see the source code for this prop
+  /// Whether the [Button] is disabled.
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#disabled-state>
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$ButtonProps.isDisabled] -->
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
-  bool get isDisabled => props[_$key__isDisabled___$ButtonProps];
-
-  /// Go to [_$ButtonProps.isDisabled] to see the source code for this prop
+  bool get isDisabled =>
+      props[_$key__isDisabled___$ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Whether the [Button] is disabled.
+  ///
+  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#disabled-state>
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$ButtonProps.isDisabled] -->
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
   set isDisabled(bool value) => props[_$key__isDisabled___$ButtonProps] = value;
 
-  /// Go to [_$ButtonProps.isBlock] to see the source code for this prop
+  /// Whether the [Button] is a block level button -- that which spans the full
+  /// width of its parent.
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$ButtonProps.isBlock] -->
   @override
-  bool get isBlock => props[_$key__isBlock___$ButtonProps];
-
-  /// Go to [_$ButtonProps.isBlock] to see the source code for this prop
+  bool get isBlock =>
+      props[_$key__isBlock___$ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Whether the [Button] is a block level button -- that which spans the full
+  /// width of its parent.
+  ///
+  /// Default: false
+  ///
+  /// <!-- Generated from [_$ButtonProps.isBlock] -->
   @override
   set isBlock(bool value) => props[_$key__isBlock___$ButtonProps] = value;
 
-  /// Go to [_$ButtonProps.href] to see the source code for this prop
+  /// The HTML `href` attribute value for the [Button].
+  ///
+  /// If set, the item will render via [Dom.a].
+  ///
+  /// _Proxies [DomProps.href]_
+  ///
+  /// <!-- Generated from [_$ButtonProps.href] -->
   @override
   @Accessor(keyNamespace: '')
-  String get href => props[_$key__href___$ButtonProps];
-
-  /// Go to [_$ButtonProps.href] to see the source code for this prop
+  String get href =>
+      props[_$key__href___$ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// The HTML `href` attribute value for the [Button].
+  ///
+  /// If set, the item will render via [Dom.a].
+  ///
+  /// _Proxies [DomProps.href]_
+  ///
+  /// <!-- Generated from [_$ButtonProps.href] -->
   @override
   @Accessor(keyNamespace: '')
   set href(String value) => props[_$key__href___$ButtonProps] = value;
 
-  /// Go to [_$ButtonProps.target] to see the source code for this prop
+  /// The HTML `target` attribute value for the [Button].
+  ///
+  /// If set, the item will render via [Dom.a].
+  ///
+  /// _Proxies [DomProps.target]_
+  ///
+  /// <!-- Generated from [_$ButtonProps.target] -->
   @override
   @Accessor(keyNamespace: '')
-  String get target => props[_$key__target___$ButtonProps];
-
-  /// Go to [_$ButtonProps.target] to see the source code for this prop
+  String get target =>
+      props[_$key__target___$ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// The HTML `target` attribute value for the [Button].
+  ///
+  /// If set, the item will render via [Dom.a].
+  ///
+  /// _Proxies [DomProps.target]_
+  ///
+  /// <!-- Generated from [_$ButtonProps.target] -->
   @override
   @Accessor(keyNamespace: '')
   set target(String value) => props[_$key__target___$ButtonProps] = value;
 
-  /// Go to [_$ButtonProps.type] to see the source code for this prop
+  /// The HTML `type` attribute value for the [Button] when
+  /// rendered via [Dom.button].
+  ///
+  /// This will only be applied if [href] is not set.
+  ///
+  /// _Proxies [DomProps.type]_
+  ///
+  /// Default: [ButtonType.BUTTON]
+  ///
+  /// <!-- Generated from [_$ButtonProps.type] -->
   @override
-  ButtonType get type => props[_$key__type___$ButtonProps];
-
-  /// Go to [_$ButtonProps.type] to see the source code for this prop
+  ButtonType get type =>
+      props[_$key__type___$ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// The HTML `type` attribute value for the [Button] when
+  /// rendered via [Dom.button].
+  ///
+  /// This will only be applied if [href] is not set.
+  ///
+  /// _Proxies [DomProps.type]_
+  ///
+  /// Default: [ButtonType.BUTTON]
+  ///
+  /// <!-- Generated from [_$ButtonProps.type] -->
   @override
   set type(ButtonType value) => props[_$key__type___$ButtonProps] = value;
   /* GENERATED CONSTANTS */
@@ -154,12 +262,17 @@ _$$ButtonProps _$Button([Map backingProps]) => new _$$ButtonProps(backingProps);
 class _$$ButtonProps extends _$ButtonProps
     with _$ButtonPropsAccessorsMixin
     implements ButtonProps {
-  _$$ButtonProps(Map backingMap) : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$ButtonProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -199,12 +312,17 @@ class ButtonState extends _$ButtonState with _$ButtonStateAccessorsMixin {
 class _$$ButtonState extends _$ButtonState
     with _$ButtonStateAccessorsMixin
     implements ButtonState {
-  _$$ButtonState(Map backingMap) : this._state = backingMap ?? {};
+  // This initializer of `_state` to an empty map, as well as the reassignment
+  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$ButtonState(Map backingMap) : this._state = {} {
+    this._state = backingMap ?? {};
+  }
 
   /// The backing state map proxied by this class.
   @override
   Map get state => _state;
-  final Map _state;
+  Map _state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

@@ -1,5 +1,92 @@
 # OverReact Changelog
 
+## 2.4.1
+
+> Complete `2.4.1` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.4.0+dart2...2.4.1+dart2)
+> - Dart 1 (no changes)
+
+* [#281] Upgrade to `analyzer ^0.35.0`.
+
+## 2.4.0
+
+> Complete `2.4.0` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.3.1+dart2...2.4.0+dart2)
+> - Dart 1 (no changes)
+
+* [#280] Optimize the over_react builder to avoid unnecessary asset reads.
+  Informal profiling in a large codebase that consumes over_react has shown in
+  the best case a speed up on rebuilds from ~1 minute to ~2 seconds, and in the
+  worst case no difference at all.
+
+## 2.3.1
+
+> Complete `2.3.1` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.3.0+dart2...2.3.1+dart2)
+> - [Dart 1](https://github.com/Workiva/over_react/compare/2.3.0+dart1...2.3.1+dart1)
+
+* [#272] Add `min-height: 0` to `ResizeSensor` wrapper nodes to fix issues with it not shrinking in a flexbox layout
+
+## 2.3.0
+
+> Complete `2.3.0` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.2.0+dart2...2.3.0+dart2)
+> - [Dart 1](https://github.com/Workiva/over_react/compare/2.2.0+dart1...2.3.0+dart1)
+
+* [#266] Add `ErrorBoundary` Component 
+  > This component does not actually hook into any ReactJS 16 lifecycle yet. It won't until support for ReactJS 16 is added to react-dart in version 5.0.0, and to over_react in version 3.0.0.
+
+## 2.2.0
+
+> Complete `2.2.0` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.1.0+dart2...2.2.0+dart2)
+> - [Dart 1](https://github.com/Workiva/over_react/compare/2.1.0+dart1...2.2.0+dart1)
+
+- [#249] Warn consumers about props / state mutation 
+  - Directly mutating props and state is an antipattern and can cause unpredictable rendering.
+      Avoiding this will be especially important for components to behave correctly in React 16's [concurrent mode](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-q2-2019-the-one-with-concurrent-mode).
+
+- [#255] Update for future compatibility with `react` 5.0.0
+
+## 2.1.0
+
+> Complete `2.1.0` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.0.0+dart2...2.1.0+dart2)
+> - Dart 1 (no changes)
+
+- [#249] Warn consumers about props / state mutation 
+  - Directly mutating props and state is an antipattern and can cause unpredictable rendering.
+      Avoiding this will be especially important for components to behave correctly in React 16's [concurrent mode](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-q2-2019-the-one-with-concurrent-mode).
+
+- [#254] Add IDE snippets (WebStorm/IntelliJ and VSCode) for Dart2-only
+  component boilerplate.
+
+- [#253] Fix a bug that would cause a runtime exception for consumers that are
+  leveraging the backwards-compatible component boilerplate when mixing in a
+  `@PropsMixin` or `@StateMixin` from this package.
+
+- [#256] Workaround a Dart Dev Compiler bug that affects private props/state
+  members and classes.
+
+- [#252] Workaround the following Dart Dev Compiler bug that results in
+  incorrect behavior in certain scenarios when using uninitialized props/state
+  fields: [dart-lang/sdk#36052](https://github.com/dart-lang/sdk/issues/36052)
+
+- [#251] Update the builder's `auto_apply` option to `dependents` instead of
+  `all_packages`. This means it will only run on packages that explicitly
+  declare a dependency on `over_react`, which makes more sense for the purpose
+  of this builder _and_ is more performant because it runs on fewer packages.
+
+- [#250] Fail CI if changes are detected after running a build via
+  `pub run build_runner build`. This ensures that we don't forget to commit
+  changes to generated files.
+
 ## 2.0.0
 
 > [Complete `2.0.0` Changeset](https://github.com/Workiva/over_react/compare/1.31.0...2.0.0)
@@ -35,6 +122,25 @@ __Breaking Changes__
 * Removals:
   * `getJsProps()` - use `getProps()` instead
   * `$Props` and `$PropKeys` - see the migration guide above
+
+## 1.33.1
+
+* [#272] Add `min-height: 0` to `ResizeSensor` wrapper nodes to fix issues with it not shrinking in a flexbox layout
+
+## 1.33.0
+
+> [Complete `1.33.0` Changeset](https://github.com/Workiva/over_react/compare/1.32.0...1.33.0)
+
+* [#266] Add `ErrorBoundary` Component
+  > This component does not actually hook into any ReactJS 16 lifecycle yet. It won't until support for ReactJS 16 is added to react-dart in version 5.0.0, and to over_react in version 3.0.0.
+
+## 1.32.0
+
+> [Complete `1.32.0` Changeset](https://github.com/Workiva/over_react/compare/1.31.0...1.32.0)
+
+* [#249] Warn consumers about props / state mutation 
+  * Directly mutating props and state is an antipattern and can cause unpredictable rendering.
+      Avoiding this will be especially important for components to behave correctly in React 16's [concurrent mode](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-q2-2019-the-one-with-concurrent-mode).
 
 ## 1.31.0
 

@@ -3,7 +3,7 @@
 part of 'state_mixin.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 abstract class ExampleStateMixinClass implements _$ExampleStateMixinClass {
@@ -12,11 +12,12 @@ abstract class ExampleStateMixinClass implements _$ExampleStateMixinClass {
 
   static const StateMeta meta = _$metaForExampleStateMixinClass;
 
-  /// Go to [_$ExampleStateMixinClass.stateMixin1] to see the source code for this prop
+  /// <!-- Generated from [_$ExampleStateMixinClass.stateMixin1] -->
   @override
-  String get stateMixin1 => state[_$key__stateMixin1___$ExampleStateMixinClass];
-
-  /// Go to [_$ExampleStateMixinClass.stateMixin1] to see the source code for this prop
+  String get stateMixin1 =>
+      state[_$key__stateMixin1___$ExampleStateMixinClass] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$ExampleStateMixinClass.stateMixin1] -->
   @override
   set stateMixin1(String value) =>
       state[_$key__stateMixin1___$ExampleStateMixinClass] = value;

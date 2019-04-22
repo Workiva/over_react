@@ -3,7 +3,7 @@
 part of 'prop_key_util_test_dart2.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.
@@ -20,19 +20,21 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
   @override
   Map get props;
 
-  /// Go to [_$TestProps.foo] to see the source code for this prop
+  /// <!-- Generated from [_$TestProps.foo] -->
   @override
-  String get foo => props[_$key__foo___$TestProps];
-
-  /// Go to [_$TestProps.foo] to see the source code for this prop
+  String get foo =>
+      props[_$key__foo___$TestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestProps.foo] -->
   @override
   set foo(String value) => props[_$key__foo___$TestProps] = value;
 
-  /// Go to [_$TestProps.bar] to see the source code for this prop
+  /// <!-- Generated from [_$TestProps.bar] -->
   @override
-  String get bar => props[_$key__bar___$TestProps];
-
-  /// Go to [_$TestProps.bar] to see the source code for this prop
+  String get bar =>
+      props[_$key__bar___$TestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestProps.bar] -->
   @override
   set bar(String value) => props[_$key__bar___$TestProps] = value;
   /* GENERATED CONSTANTS */
@@ -70,12 +72,17 @@ _$$TestProps _$Test([Map backingProps]) => new _$$TestProps(backingProps);
 class _$$TestProps extends _$TestProps
     with _$TestPropsAccessorsMixin
     implements TestProps {
-  _$$TestProps(Map backingMap) : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$TestProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

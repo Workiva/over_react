@@ -3,7 +3,7 @@
 part of 'private_factory_public_component.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.
@@ -22,11 +22,12 @@ abstract class _$FormActionInputPropsAccessorsMixin
   @override
   Map get props;
 
-  /// Go to [_$FormActionInputProps.prop1] to see the source code for this prop
+  /// <!-- Generated from [_$FormActionInputProps.prop1] -->
   @override
-  String get prop1 => props[_$key__prop1___$FormActionInputProps];
-
-  /// Go to [_$FormActionInputProps.prop1] to see the source code for this prop
+  String get prop1 =>
+      props[_$key__prop1___$FormActionInputProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$FormActionInputProps.prop1] -->
   @override
   set prop1(String value) =>
       props[_$key__prop1___$FormActionInputProps] = value;
@@ -63,12 +64,17 @@ _$$FormActionInputProps _$_FormActionInput([Map backingProps]) =>
 class _$$FormActionInputProps extends _$FormActionInputProps
     with _$FormActionInputPropsAccessorsMixin
     implements FormActionInputProps {
-  _$$FormActionInputProps(Map backingMap) : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$FormActionInputProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

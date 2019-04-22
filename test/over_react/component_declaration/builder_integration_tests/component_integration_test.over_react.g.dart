@@ -3,7 +3,7 @@
 part of 'component_integration_test.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.
@@ -22,63 +22,67 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @override
   Map get props;
 
-  /// Go to [_$ComponentTestProps.stringProp] to see the source code for this prop
+  /// <!-- Generated from [_$ComponentTestProps.stringProp] -->
   @override
-  String get stringProp => props[_$key__stringProp___$ComponentTestProps];
-
-  /// Go to [_$ComponentTestProps.stringProp] to see the source code for this prop
+  String get stringProp =>
+      props[_$key__stringProp___$ComponentTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$ComponentTestProps.stringProp] -->
   @override
   set stringProp(String value) =>
       props[_$key__stringProp___$ComponentTestProps] = value;
 
-  /// Go to [_$ComponentTestProps.dynamicProp] to see the source code for this prop
+  /// <!-- Generated from [_$ComponentTestProps.dynamicProp] -->
   @override
-  dynamic get dynamicProp => props[_$key__dynamicProp___$ComponentTestProps];
-
-  /// Go to [_$ComponentTestProps.dynamicProp] to see the source code for this prop
+  dynamic get dynamicProp =>
+      props[_$key__dynamicProp___$ComponentTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$ComponentTestProps.dynamicProp] -->
   @override
   set dynamicProp(dynamic value) =>
       props[_$key__dynamicProp___$ComponentTestProps] = value;
 
-  /// Go to [_$ComponentTestProps.untypedProp] to see the source code for this prop
+  /// <!-- Generated from [_$ComponentTestProps.untypedProp] -->
   @override
-  get untypedProp => props[_$key__untypedProp___$ComponentTestProps];
-
-  /// Go to [_$ComponentTestProps.untypedProp] to see the source code for this prop
+  get untypedProp =>
+      props[_$key__untypedProp___$ComponentTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$ComponentTestProps.untypedProp] -->
   @override
   set untypedProp(value) =>
       props[_$key__untypedProp___$ComponentTestProps] = value;
 
-  /// Go to [_$ComponentTestProps.customKeyProp] to see the source code for this prop
+  /// <!-- Generated from [_$ComponentTestProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  get customKeyProp => props[_$key__customKeyProp___$ComponentTestProps];
-
-  /// Go to [_$ComponentTestProps.customKeyProp] to see the source code for this prop
+  get customKeyProp =>
+      props[_$key__customKeyProp___$ComponentTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$ComponentTestProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
   set customKeyProp(value) =>
       props[_$key__customKeyProp___$ComponentTestProps] = value;
 
-  /// Go to [_$ComponentTestProps.customNamespaceProp] to see the source code for this prop
+  /// <!-- Generated from [_$ComponentTestProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   get customNamespaceProp =>
-      props[_$key__customNamespaceProp___$ComponentTestProps];
-
-  /// Go to [_$ComponentTestProps.customNamespaceProp] to see the source code for this prop
+      props[_$key__customNamespaceProp___$ComponentTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$ComponentTestProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceProp(value) =>
       props[_$key__customNamespaceProp___$ComponentTestProps] = value;
 
-  /// Go to [_$ComponentTestProps.customKeyAndNamespaceProp] to see the source code for this prop
+  /// <!-- Generated from [_$ComponentTestProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   get customKeyAndNamespaceProp =>
-      props[_$key__customKeyAndNamespaceProp___$ComponentTestProps];
-
-  /// Go to [_$ComponentTestProps.customKeyAndNamespaceProp] to see the source code for this prop
+      props[_$key__customKeyAndNamespaceProp___$ComponentTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$ComponentTestProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceProp(value) =>
@@ -149,12 +153,17 @@ _$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
 class _$$ComponentTestProps extends _$ComponentTestProps
     with _$ComponentTestPropsAccessorsMixin
     implements ComponentTestProps {
-  _$$ComponentTestProps(Map backingMap) : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$ComponentTestProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

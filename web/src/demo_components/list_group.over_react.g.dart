@@ -3,7 +3,7 @@
 part of 'list_group.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 // React component factory implementation.
@@ -21,12 +21,22 @@ abstract class _$ListGroupPropsAccessorsMixin implements _$ListGroupProps {
   @override
   Map get props;
 
-  /// Go to [_$ListGroupProps.elementType] to see the source code for this prop
+  /// The HTML element type for the [ListGroup], specifying its
+  /// DOM representation when rendered.
+  ///
+  /// Default: [ListGroupElementType.DIV]
+  ///
+  /// <!-- Generated from [_$ListGroupProps.elementType] -->
   @override
   ListGroupElementType get elementType =>
-      props[_$key__elementType___$ListGroupProps];
-
-  /// Go to [_$ListGroupProps.elementType] to see the source code for this prop
+      props[_$key__elementType___$ListGroupProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// The HTML element type for the [ListGroup], specifying its
+  /// DOM representation when rendered.
+  ///
+  /// Default: [ListGroupElementType.DIV]
+  ///
+  /// <!-- Generated from [_$ListGroupProps.elementType] -->
   @override
   set elementType(ListGroupElementType value) =>
       props[_$key__elementType___$ListGroupProps] = value;
@@ -63,12 +73,17 @@ _$$ListGroupProps _$ListGroup([Map backingProps]) =>
 class _$$ListGroupProps extends _$ListGroupProps
     with _$ListGroupPropsAccessorsMixin
     implements ListGroupProps {
-  _$$ListGroupProps(Map backingMap) : this._props = backingMap ?? {};
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
+  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  _$$ListGroupProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
+  }
 
   /// The backing props map proxied by this class.
   @override
   Map get props => _props;
-  final Map _props;
+  Map _props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
