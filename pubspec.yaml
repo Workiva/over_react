@@ -42,13 +42,11 @@ dev_dependencies:
   test: ^1.0.0
 
 dependency_overrides:
-#  react:
-#    git:
-#      url: git@github.com:cleandart/react-dart.git
-#      ref:  5.0.0-wip
   react:
     git:
-      url: git@github.com:greglittlefield-wf/react-dart.git
-      ref:  react-16-dart-1
+      url: git@github.com:cleandart/react-dart.git
+      ref:  5.0.0-wip
   over_react_test:
-    path: '/Users/joebingham/Documents/repos/over_react_test/'
+    git:
+      url: git@github.com:Workiva/over_react_test.git
+      ref: 4461-wip
