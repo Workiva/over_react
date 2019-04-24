@@ -1,5 +1,26 @@
 # OverReact Changelog
 
+## 2.4.1
+
+> Complete `2.4.1` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.4.0+dart2...2.4.1+dart2)
+> - Dart 1 (no changes)
+
+* [#281] Upgrade to `analyzer ^0.35.0`.
+
+## 2.4.0
+
+> Complete `2.4.0` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.3.1+dart2...2.4.0+dart2)
+> - Dart 1 (no changes)
+
+* [#280] Optimize the over_react builder to avoid unnecessary asset reads.
+  Informal profiling in a large codebase that consumes over_react has shown in
+  the best case a speed up on rebuilds from ~1 minute to ~2 seconds, and in the
+  worst case no difference at all.
+
 ## 2.3.1
 
 > Complete `2.3.1` Changsets:

@@ -3,7 +3,7 @@
 part of 'abstract_accessor_integration_test.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 abstract class _$TestAbstractPropsAccessorsMixin

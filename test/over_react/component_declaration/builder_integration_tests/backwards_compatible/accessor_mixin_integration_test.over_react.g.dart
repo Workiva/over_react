@@ -3,7 +3,7 @@
 part of 'accessor_mixin_integration_test.dart';
 
 // **************************************************************************
-// OverReactGenerator
+// OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
 abstract class $TestPropsMixin implements TestPropsMixin {
