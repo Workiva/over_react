@@ -1,4 +1,5 @@
 @TestOn('vm')
+import 'dart:async';
 import 'dart:io';
 
 import 'package:build/build.dart';
@@ -14,12 +15,14 @@ typedef void LogRecordFunction(LogRecord record);
 main() {
   group('overReactBuilder', () {
     final builder = overReactBuilder(null);
+    final logger = Logger('overReactBuilderTestLogger');
 
     AssetReader reader;
     InMemoryAssetWriter writer;
     AssetWriterSpy writerSpy;
-    List<String> logMsgs = <String>[];
-    List<Level> logLevels = <Level>[];
+    StreamSubscription logSub;
+    List<LogRecord> logs = <LogRecord>[];
+
     setUp(() async {
       reader = await PackageAssetReader.currentIsolate(
         rootPackage: 'over_react',
@@ -27,23 +30,22 @@ main() {
 
       writer = new InMemoryAssetWriter();
       writerSpy = AssetWriterSpy(writer);
+
+      logSub = logger.onRecord.listen(logs.add);
     });
 
-    tearDown(() {
-      logMsgs.clear();
+    tearDown(() async {
+      await logSub?.cancel();
+      logs.clear();
       reader = null;
       writer = null;
       writerSpy = null;
     });
 
     void verifyNoErrorLogs() {
-      expect(logLevels, isNot(contains(Level.SEVERE)));
-      expect(logLevels, isNot(contains(Level.WARNING)));
-    }
-
-    void recordLogs(LogRecord record) {
-      logMsgs.add(record.message);
-      logLevels.add(record.level);
+      expect(logs.where((log) => log.level >= Level.WARNING), isEmpty,
+        reason: 'Expected no logs at WARNING or SEVERE level, but got:\n'
+          '\t${logs.join('\n\t')}');
     }
 
     void checkBuildForFile(String assetPath, String expectedOutputAssetPath,
@@ -55,11 +57,8 @@ main() {
         expectedOutputAssetPath : expectedContent
       };
 
-      final logger = Logger('overReactBuilderTestLogger');
-      final sub = logger.onRecord.listen(recordLogs);
       await runBuilder(builder, [inputAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);
       final actual = writerSpy.assetsWritten;
-      sub.cancel();
 
       checkOutputs(expected, actual, writer);
       verifyNoErrorLogs();
@@ -67,7 +66,7 @@ main() {
 
     test('does not produce a build output for a file with no over_react annotations', () async {
       var basicAsset = makeAssetId('over_react|test_fixtures/source_files/no_annotations.dart');
-      await runBuilder(builder, [basicAsset], reader, writerSpy, AnalyzerResolvers());
+      await runBuilder(builder, [basicAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);
 
       expect(writerSpy.assetsWritten, isEmpty);
       verifyNoErrorLogs();
@@ -75,10 +74,20 @@ main() {
 
     test('does not produce a build output for just a part file', () async {
       var basicAsset = makeAssetId('over_react|test_fixtures/source_files/part_of_basic_library.dart');
-      await runBuilder(builder, [basicAsset], reader, writerSpy, AnalyzerResolvers());
+      await runBuilder(builder, [basicAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);
 
       expect(writerSpy.assetsWritten, isEmpty);
       verifyNoErrorLogs();
+    });
+
+    test('warns if the .over_react.g.dart part is missing', () async {
+      var libraryAsset = makeAssetId('over_react|test_fixtures/source_files/missing_over_react_g_part/library.dart');
+      await runBuilder(builder, [libraryAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);
+      final expectedWarning = logs.firstWhere((log) {
+        return log.level == Level.WARNING && log.message == 'Missing "part \'library.over_react.g.dart\';".';
+      }, orElse: () => null);
+      expect(expectedWarning, isNotNull,
+        reason: 'Expected a WARNING log for the missing over_react part.');
     });
 
     group('for backwards compatible boilerplate:', () {
