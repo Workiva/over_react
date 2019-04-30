@@ -130,6 +130,9 @@ mixin _GeneratedUiComponent2Stubs<TProps extends UiProps>
   TProps typedPropsFactoryJs(JsBackedMap propsMap) => throw new UngeneratedError(member: #typedPropsFactoryJs);
 }
 
+/// See: [component_base.UiComponent2]
+///
+/// Use with the over_react builder via the `@Component2()` ([annotations.Component2]) annotation.
 abstract class UiComponent2<TProps extends UiProps>
     extends component_base.UiComponent2<TProps>
     with
@@ -142,6 +145,9 @@ abstract class UiComponent2<TProps extends UiProps>
   }
 }
 
+/// See: [component_base.UiStatefulComponent2]
+///
+/// Use with the over_react builder via the `@Component2()` ([annotations.Component2]) annotation.
 abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiState>
     extends component_base.UiStatefulComponent2<TProps, TState>
     with
