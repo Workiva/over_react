@@ -85,6 +85,9 @@ mixin _GeneratedUiStatefulComponentStubs<TProps extends UiProps, TState extends 
 /// See: [component_base.UiComponent]
 ///
 /// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
+///
+/// __Deprecated.__ Use [UiComponent2] instead. Will be removed in the `4.0.0` release.
+@Deprecated('4.0.0')
 abstract class UiComponent<TProps extends UiProps>
     extends component_base.UiComponent<TProps>
     with
@@ -99,6 +102,9 @@ abstract class UiComponent<TProps extends UiProps>
 /// See: [component_base.UiStatefulComponent]
 ///
 /// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
+///
+/// __Deprecated.__ Use [UiStatefulComponent2] instead. Will be removed in the `4.0.0` release.
+@Deprecated('4.0.0')
 abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState>
     extends component_base.UiStatefulComponent<TProps, TState>
     with
