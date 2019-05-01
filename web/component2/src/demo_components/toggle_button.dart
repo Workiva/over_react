@@ -68,7 +68,7 @@ class _$ToggleButtonState extends ButtonState with
   bool isChecked;
 }
 
-@Component(subtypeOf: ButtonComponent)
+@Component2(subtypeOf: ButtonComponent)
 class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleButtonState> {
   // Refs
 

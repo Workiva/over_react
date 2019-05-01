@@ -141,7 +141,7 @@ class _$ComponentTestProps extends UiProps {
   var customKeyAndNamespaceProp;
 }
 
-@Component()
+@Component2()
 class ComponentTestComponent extends UiComponent2<ComponentTestProps> {
   @override
   Map getDefaultProps() => newProps()..id = 'testId';

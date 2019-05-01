@@ -19,7 +19,7 @@ class _$ListGroupProps extends UiProps {
   ListGroupElementType elementType;
 }
 
-@Component()
+@Component2()
 class ListGroupComponent extends UiComponent2<ListGroupProps> {
   @override
   Map getDefaultProps() => (newProps()

@@ -32,7 +32,7 @@ class _$ToggleButtonGroupProps extends ButtonGroupProps with
 class _$ToggleButtonGroupState extends ButtonGroupState with
     AbstractInputStateMixin {}
 
-@Component(subtypeOf: ButtonGroupComponent)
+@Component2(subtypeOf: ButtonGroupComponent)
 class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupProps, ToggleButtonGroupState> {
   // Refs
 

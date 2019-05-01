@@ -32,7 +32,7 @@ class _$FooProps extends UiProps {
   String unassignedProp;
 }
 
-@Component()
+@Component2()
 class FooComponent extends UiComponent2<FooProps> {
   @override
   Map getDefaultProps() => newProps()..id = 'testId';

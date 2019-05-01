@@ -77,7 +77,7 @@ class _$ButtonProps extends UiProps {
 @State()
 class _$ButtonState extends UiState {}
 
-@Component()
+@Component2()
 class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiStatefulComponent2<T, S> {
   @override
   Map getDefaultProps() => (newProps()

@@ -68,6 +68,7 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
 /// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
 ///
 /// > Related: [FluxUiStatefulComponent]
+/// FIXME: 3.0.0-wip We need to deprecate this, and create a FluxUiComponent2 class
 abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<TProps>
     with _FluxComponentMixin<TProps>, BatchedRedraws {
   // Redeclare these lifecycle methods with `mustCallSuper`, since `mustCallSuper` added to methods within
@@ -108,6 +109,7 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
 /// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
 ///
 /// > Related: [FluxUiComponent]
+/// FIXME: 3.0.0-wip We need to deprecate this, and create a FluxUiStatefulComponent2 class
 abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extends UiState>
     extends UiStatefulComponent<TProps, TState>
     with _FluxComponentMixin<TProps>, BatchedRedraws {

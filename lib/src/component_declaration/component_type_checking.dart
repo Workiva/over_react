@@ -18,7 +18,7 @@ library over_react.component_declaration.component_type_checking;
 import 'dart:js_util';
 
 import 'package:over_react/src/component_declaration/component_base.dart' show UiFactory;
-import 'package:over_react/src/component_declaration/annotations.dart' as annotations show Component;
+import 'package:over_react/src/component_declaration/annotations.dart' as annotations show Component2;
 import 'package:over_react/src/util/react_wrappers.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';
@@ -89,8 +89,8 @@ class ComponentTypeMeta {
   ///     @Factory()
   ///     UiFactory<FooProps> Foo;
   ///
-  ///     @Component()
-  ///     class FooComponent extends UiComponent<FooProps> {
+  ///     @Component2()
+  ///     class FooComponent extends UiComponent2<FooProps> {
   ///       // ...
   ///     }
   ///
@@ -101,8 +101,8 @@ class ComponentTypeMeta {
   ///     @Factory()
   ///     UiFactory<FooProps> Foo;
   ///
-  ///     @Component(subtypeOf: FooComponent)
-  ///     class BarComponent extends UiComponent<BarProps> {
+  ///     @Component2(subtypeOf: FooComponent)
+  ///     class BarComponent extends UiComponent2<BarProps> {
   ///       // ...
   ///     }
   ///
@@ -113,7 +113,8 @@ class ComponentTypeMeta {
   ///     isComponentOfType(Bar()(), Bar); // true (due to normal type-checking)
   ///     isComponentOfType(Bar()(), Foo); // true (due to parent type-checking)
   ///
-  /// > See: `subtypeOf` (within [annotations.Component])
+  /// > See: `subtypeOf` (within [annotations.Component2])
+  /// TODO: 3.0.0-wip does this need to have a different type signature for Component2?
   // ignore: deprecated_member_use
   final ReactDartComponentFactoryProxy parentType;
 

@@ -26,7 +26,7 @@ class _$FooProps extends UiProps {
   String _privateProp;
 }
 
-@Component()
+@Component2()
 class FooComponent extends UiComponent2<FooProps> {
   @override
   Map getDefaultProps() => newProps().._privateProp = 'some private value';

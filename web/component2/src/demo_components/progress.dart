@@ -82,7 +82,7 @@ class _$ProgressState extends UiState {
   String id;
 }
 
-@Component()
+@Component2()
 class ProgressComponent extends UiStatefulComponent2<ProgressProps, ProgressState> {
   @override
   Map getDefaultProps() => (newProps()
