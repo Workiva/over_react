@@ -984,7 +984,7 @@ main() {
         });
 
         test('a String', () {
-          expect(() => getProps('string'), throwsArgumentError);
+          expect(() => getProps('string'), throwsA(anything));
         });
 
         test('null', () {
