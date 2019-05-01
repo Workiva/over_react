@@ -220,6 +220,17 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
     }
   }
 
+  @mustCallSuper
+  @override
+  void componentDidUpdate(prevProps, prevState) {
+    super.componentDidUpdate(prevProps, prevState);
+
+    if (_shouldReset) {
+      _reset();
+      _shouldReset = false;
+    }
+  }
+
   @override
   render() {
     var expandSensor = (Dom.div()
@@ -288,6 +299,8 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
       }
 
       _reset();
+    } else if (newHeight == _lastHeight && newWidth == _lastWidth) {
+      _shouldReset = true;
     }
   }
 
@@ -383,6 +396,16 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
 
   /// The most recently measured value for the width of the sensor.
   int _lastWidth = 0;
+
+  /// Whether or not the resize sensor should reset in the
+  /// componentDidUpdate lifecycle event.
+  ///
+  /// It was discovered (as part of CPLAT-5032) that the sensor could be
+  /// thrown off by triggering the [_handleSensorScroll] while appearing to
+  /// not change the height or width. The [_handleSensorScroll] looks for
+  /// this and uses the [_shouldReset] flag to indicate there is a
+  /// possibility the sensor is in a bad state.
+  bool _shouldReset = false;
 }
 
 /// The maximum size, in `px`, the sensor can be: 100,000.
