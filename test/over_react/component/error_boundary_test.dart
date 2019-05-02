@@ -15,9 +15,12 @@
 @Timeout(const Duration(seconds: 2))
 library error_boundary_test;
 
+import 'dart:html';
 import 'package:over_react/over_react.dart';
 import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
+
+import './fixtures/flawed_component.dart';
 
 void main() {
   group('ErrorBoundary', () {
@@ -34,6 +37,56 @@ void main() {
     });
 
     // TODO: Add tests that exercise the actual ReactJS 16 error lifecycle methods once implemented.
+    group('catches component errors', () {
+      List<String> calls;
+      DivElement mountNode;
+
+      void verifyReact16ErrorHandlingWithoutErrorBoundary() {
+        mountNode = new DivElement();
+        document.body.append(mountNode);
+        var jacketOfFlawedComponentWithNoErrorBoundary = mount(Flawed()(), mountNode: mountNode);
+        expect(mountNode.children, isNotEmpty, reason: 'test setup sanity check');
+        jacketOfFlawedComponentWithNoErrorBoundary.getNode().click();
+        expect(mountNode.children, isEmpty,
+            reason: 'rendered trees not wrapped in an ErrorBoundary '
+                    'should get unmounted when an error is thrown within child component lifecycle methods');
+
+        mountNode.remove();
+        mountNode = new DivElement();
+        document.body.append(mountNode);
+      }
+
+      setUp(() {
+        // Verify the behavior of a component that throws when it is not wrapped in an error boundary first
+        verifyReact16ErrorHandlingWithoutErrorBoundary();
+
+        calls = [];
+        jacket = mount(
+          (ErrorBoundary()
+            ..onComponentDidCatch = (_, __) { calls.add('onComponentDidCatch'); }
+          )(Flawed()()),
+          mountNode: mountNode,
+        );
+        expect(mountNode.children, isNotEmpty, reason: 'test setup sanity check');
+        // Cause an error to be thrown within a ReactJS lifecycle method
+        jacket.getNode().click();
+      });
+
+      tearDown(() {
+        mountNode.remove();
+        mountNode = null;
+      });
+
+      test('and calls `props.onComponentDidCatch`', () {
+        expect(calls, ['onComponentDidCatch']);
+      });
+
+      test('and re-renders the tree as a result', () {
+        expect(mountNode.children, isNotEmpty,
+            reason: 'rendered trees wrapped in an ErrorBoundary '
+                    'should NOT get unmounted when an error is thrown within child component lifecycle methods');
+      });
+    });
 
     test('initializes with the expected default prop values', () {
       jacket = mount(ErrorBoundary()(dummyChild));

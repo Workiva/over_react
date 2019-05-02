@@ -5,6 +5,9 @@ import 'package:react/react_client.dart';
 import 'package:over_react/over_react.dart';
 import '../src/demo_components.dart';
 
+// ignore: uri_has_not_been_generated
+part 'demos.over_react.g.dart';
+
 // Parts
 part 'button/button-examples.dart';
 part 'button/button-types.dart';
@@ -13,6 +16,8 @@ part 'button/button-sizes.dart';
 part 'button/button-block.dart';
 part 'button/button-active.dart';
 part 'button/button-disabled.dart';
+
+part 'faulty-component.dart';
 
 part 'list-group/list-group-basic.dart';
 part 'list-group/list-group-tags.dart';
