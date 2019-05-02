@@ -59,6 +59,6 @@ transformers:
 dependency_overrides:
   react:
     git:
-      url: git@github.com:cleandart/react-dart.git
+      url: https://github.com/cleandart/react-dart.git
       ref: 5.0.0-wip
 
