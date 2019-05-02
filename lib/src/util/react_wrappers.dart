@@ -47,7 +47,8 @@ import 'package:react/react_dom.dart' as react_dom;
 /// Returns internal data structure used by react-dart to maintain the native Dart component
 /// for a given react-dart [ReactElement] or [ReactComponent] [instance].
 ReactDartComponentInternal _getInternal(/* ReactElement|ReactComponent */  instance) =>
-    (instance.props as InteropProps).internal; // ignore: avoid_as
+    // ignore: deprecated_member_use
+    (instance.props as InteropProps).internal;
 
 /// Returns the internal representation of a Dart component's props as maintained by react-dart.
 ///
@@ -155,6 +156,7 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers:
 }
 
 /// Returns the DOM node associated with a mounted React component [instance],
+// ignore: deprecated_member_use
 /// which can be a [ReactComponent]/[Element] or [react.Component].
 ///
 /// This method simply wraps react.findDOMNode with strong typing for the return value
@@ -187,8 +189,11 @@ bool _isCompositeComponent(dynamic object) {
 ///
 /// Handles both Dart and JS React components, returning the appropriate props structure for each type:
 ///
-/// * For Dart components, existing props are read from [InteropProps.internal], which are then merged with
+// ignore: deprecated_member_use
+/// * For non-[react.Component2] Dart components, existing props are read from [InteropProps.internal], which are then merged with
 ///   the new [newProps] and saved in a new [InteropProps] with the expected [ReactDartComponentInternal] structure.
+/// * For [react.Component2] Dart components, [newProps] is passed through [ReactDartComponentFactoryProxy2.generateExtendedJsProps]
+///   and then passed to React JS, which will merge the props normally.
 /// * Children are likewise copied and potentially overwritten with [newChildren] as expected.
 /// * For JS components, a copy of [newProps] is returned, since React will merge the props without any special handling.
 dynamic preparePropsChangeset(ReactElement element, Map newProps, [Iterable newChildren]) {
@@ -196,22 +201,28 @@ dynamic preparePropsChangeset(ReactElement element, Map newProps, [Iterable newC
 
   final internal = _getInternal(element);
   if (internal == null) {
-    // Plain JS component
+    // react-dart Component2, JS composite component, DOM component
     if (newProps == null) {
       propsChangeset = null;
     } else {
-      if (isDomElement(element)) {
+      final type = element.type;
+      if (type is String) { // DOM component
         // Convert props for DOM components so that style Maps and event handlers
         // are properly converted.
         Map convertedProps = new Map.from(newProps);
         ReactDomComponentFactoryProxy.convertProps(convertedProps);
         propsChangeset = jsifyAndAllowInterop(convertedProps);
       } else {
-        propsChangeset = jsifyAndAllowInterop(newProps);
+        final ReactClass reactClass = type;
+        if (reactClass.dartComponentVersion == '2') {
+          propsChangeset = ReactDartComponentFactoryProxy2.generateExtendedJsProps(newProps);
+        } else {
+          propsChangeset = jsifyAndAllowInterop(newProps);
+        }
       }
     }
   } else {
-    // react-dart component
+    // react-dart Component (not Component2)
     Map oldExtendedProps = internal.props;
 
     Map extendedProps = new Map.from(oldExtendedProps);
@@ -219,6 +230,7 @@ dynamic preparePropsChangeset(ReactElement element, Map newProps, [Iterable newC
       extendedProps.addAll(newProps);
     }
 
+    // ignore: deprecated_member_use
     propsChangeset = ReactDartComponentFactoryProxy.generateExtendedJsProps(extendedProps, newChildren ?? extendedProps['children']);
   }
 
@@ -250,6 +262,7 @@ ReactElement cloneElement(ReactElement element, [Map props, Iterable children]) 
 /// Returns the native Dart component associated with a mounted component [instance].
 ///
 /// Returns `null` if the [instance] is not Dart-based _(an [Element] or a JS composite component)_.
+// ignore: deprecated_member_use
 T getDartComponent<T extends react.Component>(/* ReactElement|ReactComponent|Element */ instance) {
   if (instance is Element) {
     return null;
@@ -302,6 +315,7 @@ T getDartComponent<T extends react.Component>(/* ReactElement|ReactComponent|Ele
 ///
 /// The component instance will be of the type:
 ///
+// ignore: deprecated_member_use
 ///   * [react.Component] for Dart components
 ///   * [ReactComponent] for JS composite components
 ///   * [Element] for DOM components
@@ -351,6 +365,7 @@ CallbackRef chainRef(ReactElement element, CallbackRef newCallbackRef) {
     // callback ref and converts the JS instance to the Dart component.
     //
     // So, we need to undo the wrapping around this chained ref and pass in the JS instance.
+    // ignore: deprecated_member_use
     existingRef(ref is react.Component ? ref.jsThis : ref);
 
     if (newCallbackRef != null) newCallbackRef(ref);

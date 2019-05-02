@@ -256,20 +256,6 @@ class Accessor {
   });
 }
 
-/// Deprecated.
-///
-/// Use [Accessor], [requiredProp], or [nullableRequiredProp] instead.
-@Deprecated('2.0.0')
-class Required {
-  /// Whether setting a prop to null is allowed.
-  final bool isNullable;
-
-  /// The message displayed when the prop is not set.
-  final String message;
-
-  const Required({this.isNullable: false, this.message});
-}
-
 abstract class TypedMap {
   String get keyNamespace;
 }

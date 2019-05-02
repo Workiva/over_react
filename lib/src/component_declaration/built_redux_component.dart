@@ -99,6 +99,7 @@ abstract class BuiltReduxUiComponent<
   void redraw([callback()]) {
     _isDirty = true;
 
+    // ignore: deprecated_member_use
     super.redraw(() {
       _isDirty = false;
 

@@ -57,8 +57,7 @@ class _$$SubProps extends _$SubProps
     with _$SubPropsAccessorsMixin
     implements SubProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$SubProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
@@ -120,8 +119,7 @@ class _$$SubState extends _$SubState
     with _$SubStateAccessorsMixin
     implements SubState {
   // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$SubState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }

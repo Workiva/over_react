@@ -129,8 +129,7 @@ class _$$BasicProps extends _$BasicProps
     with _$BasicPropsAccessorsMixin
     implements BasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$BasicProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
@@ -195,8 +194,7 @@ class _$$BasicState extends _$BasicState
     with _$BasicStateAccessorsMixin
     implements BasicState {
   // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$BasicState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }

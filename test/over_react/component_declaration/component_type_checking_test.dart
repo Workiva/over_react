@@ -47,6 +47,7 @@ main() {
 
       test('returns the ReactClass type for a ReactDartComponentFactoryProxy', () {
         var reactClass = createTestReactClass();
+        // ignore: deprecated_member_use
         var factory = new ReactDartComponentFactoryProxy(reactClass);
         expect(getComponentTypeFromAlias(factory), same(reactClass));
       });
@@ -58,6 +59,7 @@ main() {
 
       test('returns the ReactClass type for an aliased ReactDartComponentFactoryProxy', () {
         var reactClass = createTestReactClass();
+        // ignore: deprecated_member_use
         var factory = new ReactDartComponentFactoryProxy(reactClass);
 
         var typeAlias = new Object();
