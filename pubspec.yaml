@@ -38,13 +38,12 @@ dev_dependencies:
   dart_dev: ^2.0.0
   dependency_validator: ^1.2.2
   mockito: ^4.0.0
-  over_react_test: ^2.4.0
+  over_react_test: ^2.5.0
   test: ^1.0.0
 
 
 dependency_overrides:
   react:
     git:
-      url: https://github.com/cleandart/react-dart.git
+      url: git@github.com:cleandart/react-dart.git
       ref: 5.0.0-wip
-
