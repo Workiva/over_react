@@ -137,7 +137,7 @@ class _$NamespacedAccessorTestState extends UiState {
   var customKeyAndNamespaceState;
 }
 
-@Component()
+@Component2()
 class NamespacedAccessorTestComponent extends UiStatefulComponent2<NamespacedAccessorTestProps, NamespacedAccessorTestState> {
   @override
   render() => (Dom.div()

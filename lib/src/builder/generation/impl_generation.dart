@@ -55,6 +55,9 @@ class ImplGenerator {
 
   generate(ParsedDeclarations declarations) {
     if (declarations.declaresComponent) {
+      final bool isComponent2 = declarations.component2 != null;
+      final componentDeclNode = isComponent2 ? declarations.component2 : declarations.component;
+
       final factoryName = declarations.factory.node.variables.variables.first.name.toString();
 
       final consumerPropsName = declarations.props.node.name.toString();
@@ -63,7 +66,7 @@ class ImplGenerator {
       final propsImplName = _propsImplClassNameFromConsumerClassName(consumerPropsName);
       final propsAccessorsMixinName = _accessorsMixinNameFromConsumerName(consumerPropsName);
 
-      final componentClassName = declarations.component.node.name.toString();
+      final componentClassName = componentDeclNode.node.name.toString();
       final componentClassImplMixinName = '$privateSourcePrefix$componentClassName';
 
       final generatedComponentFactoryName = _componentFactoryName(componentClassName);
@@ -78,7 +81,7 @@ class ImplGenerator {
       String parentTypeParam = 'null';
       String parentTypeParamComment = '';
 
-      Identifier parentType = declarations.component.subtypeOfValue;
+      Identifier parentType = componentDeclNode.subtypeOfValue;
       if (parentType != null) {
         parentTypeParamComment = ' /* from `subtypeOf: ${getSpan(sourceFile, parentType).text}` */';
 
@@ -99,7 +102,7 @@ class ImplGenerator {
         /// if a component's factory variable tries to reference itself during its initialization.
         /// Therefore, this is not allowed.
         logger.severe(messageWithSpan('A component cannot be a subtype of itself.',
-            span: getSpan(sourceFile, declarations.component.metaNode))
+            span: getSpan(sourceFile, componentDeclNode.metaNode))
         );
       }
 
@@ -110,7 +113,7 @@ class ImplGenerator {
         ..writeln('final $generatedComponentFactoryName = registerComponent(() => new $componentClassImplMixinName(),')
         ..writeln('    builderFactory: $factoryName,')
         ..writeln('    componentClass: $componentClassName,')
-        ..writeln('    isWrapper: ${declarations.component.meta.isWrapper},')
+        ..writeln('    isWrapper: ${componentDeclNode.meta.isWrapper},')
         ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
         ..writeln('    displayName: ${stringLiteral(factoryName)}')
         ..writeln(');')
@@ -131,7 +134,8 @@ class ImplGenerator {
 
       outputContentsBuffer.write(
           '$propsImplName $privateSourcePrefix$factoryName([Map backingProps]) => ');
-      if (!declarations.component.isComponent2) {
+
+      if (!isComponent2) {
         /// _$$FooProps _$Foo([Map backingProps]) => new _$$FooProps(backingProps);
         outputContentsBuffer.writeln('new $propsImplName(backingProps);');
       } else {
@@ -152,10 +156,10 @@ class ImplGenerator {
         node: declarations.props,
         accessorsMixinName: propsAccessorsMixinName,
         consumableName: consumablePropsName,
-        isComponent2: declarations.component.isComponent2,
+        isComponent2: isComponent2,
       ));
 
-      if (declarations.component.isComponent2) {
+      if (isComponent2) {
         final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(propsImplName);
         // This implementation here is necessary so that mixin accesses aren't compiled as index$ax
         typedPropsFactoryImpl
@@ -206,10 +210,10 @@ class ImplGenerator {
           node: declarations.state,
           accessorsMixinName: stateAccessorsMixinName,
           consumableName: consumableStateName,
-          isComponent2: declarations.component.isComponent2,
+          isComponent2: isComponent2,
         ));
 
-        if (declarations.component.isComponent2) {
+        if (isComponent2) {
           final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(stateImplName);
           // This implementation here is necessary so that mixin accesses aren't compiled as index$ax
           typedStateFactoryImpl
@@ -256,7 +260,7 @@ class ImplGenerator {
                         'const [${_metaConstantName(consumablePropsName)}];')
         ..writeln('}');
 
-      final implementsTypedPropsStateFactory = declarations.component.node.members.any((member) =>
+      final implementsTypedPropsStateFactory = componentDeclNode.node.members.any((member) =>
           member is MethodDeclaration &&
           !member.isStatic &&
           (member.name.name == 'typedPropsFactory' || member.name.name == 'typedStateFactory')
@@ -266,7 +270,7 @@ class ImplGenerator {
         // Can't be an error, because consumers may be implementing typedPropsFactory or typedStateFactory in their components.
         logger.warning(messageWithSpan(
             'Components should not add their own implementions of typedPropsFactory or typedStateFactory.',
-            span: getSpan(sourceFile, declarations.component.node))
+            span: getSpan(sourceFile, componentDeclNode.node))
         );
       }
     }

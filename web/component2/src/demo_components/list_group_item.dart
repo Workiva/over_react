@@ -83,7 +83,7 @@ class _$ListGroupItemProps extends UiProps {
   ButtonType type;
 }
 
-@Component()
+@Component2()
 class ListGroupItemComponent extends UiComponent2<ListGroupItemProps> {
   @override
   Map getDefaultProps() => (newProps()

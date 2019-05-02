@@ -146,7 +146,7 @@ class _$ComponentTestProps extends UiProps {
   var nullable;
 }
 
-@Component()
+@Component2()
 class ComponentTestComponent extends UiComponent2<ComponentTestProps> {
   @override
   render() => Dom.div()();

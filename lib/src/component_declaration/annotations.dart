@@ -69,6 +69,11 @@ class State implements TypedMap {
 ///     }
 ///
 /// Must be accompanied by a [Factory] and [Props] declaration.
+///
+/// __Deprecated.__ Use the [Component2] annotation alongside `UiComponent2` / `UiStatefulComponent2` instead.
+///
+/// TODO: 3.0.0-wip is it possible to ensure that this annotation is not used on a "V2" class instance at build time?
+@Deprecated('4.0.0')
 class Component {
   /// Whether the component clones or passes through its children and needs to be
   /// treated as if it were the wrapped component when passed in to [over_react.isComponentOfType].
@@ -99,6 +104,53 @@ class Component {
   final Type subtypeOf;
 
   const Component({
+      this.isWrapper: false,
+      this.subtypeOf
+  });
+}
+
+/// Annotation used with the `over_react` builder to declare a `UiComponent2` class for a component.
+///
+///     @Component2()
+///     class FooComponent extends UiComponent2<FooProps> {
+///       render() => Dom.div()(props.bar);
+///     }
+///
+/// Must be accompanied by a [Factory] and [Props] declaration.
+///
+/// TODO: 3.0.0-wip is it possible to ensure that this annotation is not used on a "V1" class instance at build time?
+class Component2 implements Component {
+  /// Whether the component clones or passes through its children and needs to be
+  /// treated as if it were the wrapped component when passed in to `isComponentOfType`.
+  @override
+  final bool isWrapper;
+
+  /// The component class of this component's "parent type".
+  ///
+  /// Used to enable inheritance in component type-checking in `isComponentOfType`.
+  ///
+  /// E.g., if component `Bar` is a subtype of component `Foo`:
+  ///
+  ///     @Factory()
+  ///     UiFactory<...> Foo = _$Foo;
+  ///     ...
+  ///     @Component2()
+  ///     class FooComponent ... {...}
+  ///
+  ///     @Factory()
+  ///     UiFactory<...> Bar = _$Bar;
+  ///     ...
+  ///     @Component2(subtypeOf: FooComponent)
+  ///     class BarComponent ... {...}
+  ///
+  /// then:
+  ///
+  ///     isComponentOfType(Bar()(), Bar); // true (due to normal type-checking)
+  ///     isComponentOfType(Bar()(), Foo); // true (due to parent type-checking)
+  @override
+  final Type subtypeOf;
+
+  const Component2({
       this.isWrapper: false,
       this.subtypeOf
   });
@@ -140,8 +192,19 @@ class AbstractState implements TypedMap {
 ///
 ///     @AbstractComponent()
 ///     abstract class QuxComponent<TProps extends QuxProps> extends UiComponent<TProps> {}
+///
+/// __Deprecated.__ Use the [AbstractComponent2] annotation alongside `UiComponent2` / `UiStatefulComponent2` instead.
+@Deprecated('4.0.0')
 class AbstractComponent {
   const AbstractComponent();
+}
+
+/// Annotation used with the `over_react` builder to declare an abstract `UiComponent2` class for an abstract component.
+///
+///     @AbstractComponent2()
+///     abstract class FooComponent<TProps extends QuxProps> extends UiComponent2<TProps> {}
+class AbstractComponent2 implements AbstractComponent {
+  const AbstractComponent2();
 }
 
 /// Annotation used with the `over_react` builder to declare a mixin for use in a [UiProps] class.

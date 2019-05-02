@@ -42,7 +42,7 @@ class _$BaseState extends BaseState {
   @override
   final int count2;
 
-  factory _$BaseState([void updates(BaseStateBuilder b)]) =>
+  factory _$BaseState([void Function(BaseStateBuilder) updates]) =>
       (new BaseStateBuilder()..update(updates)).build();
 
   _$BaseState._({this.count1, this.count2}) : super._() {
@@ -55,7 +55,7 @@ class _$BaseState extends BaseState {
   }
 
   @override
-  BaseState rebuild(void updates(BaseStateBuilder b)) =>
+  BaseState rebuild(void Function(BaseStateBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -114,7 +114,7 @@ class BaseStateBuilder implements Builder<BaseState, BaseStateBuilder> {
   }
 
   @override
-  void update(void updates(BaseStateBuilder b)) {
+  void update(void Function(BaseStateBuilder) updates) {
     if (updates != null) updates(this);
   }
 

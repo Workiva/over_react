@@ -14,7 +14,49 @@
 
 part of over_react.component_declaration.component_base;
 
-// FIXME 3.0.0-wip update doc comment
+/// The basis for an over_react component that is compatible with ReactJS 16 ([react.Component2]).
+///
+/// Includes support for strongly-typed [UiProps] and utilities for prop and CSS classname forwarding.
+///
+/// __Prop and CSS className forwarding when your component renders a composite component:__
+///
+///     @Component2()
+///     class YourComponent extends UiComponent2<YourProps> {
+///       Map getDefaultProps() => (newProps()
+///         ..aPropOnYourComponent = /* default value */
+///       );
+///
+///       @override
+///       render() {
+///         var classes = forwardingClassNameBuilder()
+///           ..add('your-component-base-class')
+///           ..add('a-conditional-class', shouldApplyConditionalClass);
+///
+///         return (SomeChildComponent()
+///           ..addProps(copyUnconsumedProps())
+///           ..className = classes.toClassName()
+///         )(props.children);
+///       }
+///     }
+///
+/// __Prop and CSS className forwarding when your component renders a DOM component:__
+///
+///     @Component2()
+///     class YourComponent extends UiComponent2<YourProps> {
+///       @override
+///       render() {
+///         var classes = forwardingClassNameBuilder()
+///           ..add('your-component-base-class')
+///           ..add('a-conditional-class', shouldApplyConditionalClass);
+///
+///         return (Dom.div()
+///           ..addProps(copyUnconsumedDomProps())
+///           ..className = classes.toClassName()
+///         )(props.children);
+///       }
+///     }
+///
+/// > Related: [UiStatefulComponent2]
 abstract class UiComponent2<TProps extends UiProps> extends react.Component2
     with _DisposableManagerProxy
     implements UiComponent<TProps> {
@@ -165,7 +207,34 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   // ----------------------------------------------------------------------
 }
 
-// FIXME 3.0.0-wip update doc comment
+/// The basis for a _stateful_ over_react component that is compatible with ReactJS 16 ([react.Component2]).
+///
+/// Includes support for strongly-typed [UiState] in-addition-to the
+/// strongly-typed props and utilities for prop and CSS classname forwarding provided by [UiComponent].
+///
+/// __Initializing state:__
+///
+///     @Component2()
+///     class YourComponent extends UiStatefulComponent2<YourProps, YourState> {
+///       @override
+///       void init() {
+///         this.state = (newState()
+///           ..aStateKeyWithinYourStateClass = /* default value */
+///         );
+///       }
+///
+///       @override
+///       render() {
+///         var classes = forwardingClassNameBuilder()
+///           ..add('your-component-base-class')
+///           ..add('a-conditional-class', state.aStateKeyWithinYourStateClass);
+///
+///         return (SomeChildComponent()
+///           ..addProps(copyUnconsumedProps())
+///           ..className = classes.toClassName()
+///         )(props.children);
+///       }
+///     }
 abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiState>
     extends UiComponent2<TProps>
     implements UiStatefulComponent<TProps, TState> {

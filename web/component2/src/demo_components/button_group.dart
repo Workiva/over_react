@@ -32,7 +32,7 @@ class _$ButtonGroupProps extends UiProps {
 @State()
 class _$ButtonGroupState extends UiState {}
 
-@Component()
+@Component2()
 class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupState>
     extends UiStatefulComponent2<T, S> {
   @override

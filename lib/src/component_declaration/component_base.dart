@@ -133,6 +133,9 @@ typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 ///     }
 ///
 /// > Related: [UiStatefulComponent]
+///
+/// __Deprecated.__ Use [UiComponent2] instead. Will be removed in the `4.0.0` release.
+@Deprecated('4.0.0')
 abstract class UiComponent<TProps extends UiProps> extends react.Component with _DisposableManagerProxy {
   /// The props for the non-forwarding props defined in this component.
   Iterable<ConsumedProps> get consumedProps => null;
@@ -306,6 +309,9 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component with 
 ///         )(props.children);
 ///       }
 ///     }
+///
+/// __Deprecated.__ Use [UiStatefulComponent2] instead. Will be removed in the `4.0.0` release.
+@Deprecated('4.0.0')
 abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState> extends UiComponent<TProps> {
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------

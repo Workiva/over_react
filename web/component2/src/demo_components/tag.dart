@@ -26,7 +26,7 @@ class _$TagProps extends UiProps {
   bool isPill;
 }
 
-@Component()
+@Component2()
 class TagComponent extends UiComponent2<TagProps> {
   @override
   Map getDefaultProps() => (newProps()

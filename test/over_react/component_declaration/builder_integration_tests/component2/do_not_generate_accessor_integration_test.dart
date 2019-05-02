@@ -112,7 +112,7 @@ class _$DoNotGenerateAccessorTestState extends UiState {
   var explicitlyGeneratedState;
 }
 
-@Component()
+@Component2()
 class DoNotGenerateAccessorTestComponent extends UiStatefulComponent2<DoNotGenerateAccessorTestProps, DoNotGenerateAccessorTestState> {
   @override
   render() => (Dom.div()

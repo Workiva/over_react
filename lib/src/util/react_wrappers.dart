@@ -156,7 +156,6 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers:
 }
 
 /// Returns the DOM node associated with a mounted React component [instance],
-// ignore: deprecated_member_use
 /// which can be a [ReactComponent]/[Element] or [react.Component].
 ///
 /// This method simply wraps react.findDOMNode with strong typing for the return value
@@ -166,7 +165,7 @@ Element findDomNode(dynamic instance) => react_dom.findDOMNode(instance);
 /// Dart wrapper for React.isValidElement.
 ///
 /// _From the JS docs:_
-/// > Verifies the object is a ReactElement
+/// > Verifies the [object] is a ReactElement
 bool isValidElement(dynamic object) {
   return React.isValidElement(object);
 }
@@ -179,8 +178,8 @@ bool isDomElement(dynamic instance) {
 /// Returns whether [instance] is a composite [ReactComponent].
 ///
 /// __Not for external use.__
-bool _isCompositeComponent(dynamic object) {
-  return object != null && getProperty(object, 'isReactComponent') != null;
+bool _isCompositeComponent(dynamic instance) {
+  return instance != null && getProperty(instance, 'isReactComponent') != null;
 }
 
 /// Returns a new JS map with the specified props and children changes, properly prepared for consumption by
@@ -189,7 +188,6 @@ bool _isCompositeComponent(dynamic object) {
 ///
 /// Handles both Dart and JS React components, returning the appropriate props structure for each type:
 ///
-// ignore: deprecated_member_use
 /// * For non-[react.Component2] Dart components, existing props are read from [InteropProps.internal], which are then merged with
 ///   the new [newProps] and saved in a new [InteropProps] with the expected [ReactDartComponentInternal] structure.
 /// * For [react.Component2] Dart components, [newProps] is passed through [ReactDartComponentFactoryProxy2.generateExtendedJsProps]

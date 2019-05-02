@@ -100,7 +100,7 @@ class _$StatefulComponentTestState extends UiState {
   var customKeyAndNamespaceState;
 }
 
-@Component()
+@Component2()
 class StatefulComponentTestComponent extends UiStatefulComponent2<StatefulComponentTestProps, StatefulComponentTestState> {
   @override
   getInitialState() => (newState()
