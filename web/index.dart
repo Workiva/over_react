@@ -9,20 +9,32 @@ void main() {
   setClientConfiguration();
 
   react_dom.render(
-    buttonExamplesDemo(), querySelector('$demoMountNodeSelectorPrefix--button'));
+    ErrorBoundary()(buttonExamplesDemo()), querySelector('$demoMountNodeSelectorPrefix--button'));
 
   react_dom.render(
-    listGroupBasicDemo(), querySelector('$demoMountNodeSelectorPrefix--list-group'));
+    ErrorBoundary()(listGroupBasicDemo()), querySelector('$demoMountNodeSelectorPrefix--list-group'));
 
   react_dom.render(
-    progressBasicDemo(), querySelector('$demoMountNodeSelectorPrefix--progress'));
+    ErrorBoundary()(progressBasicDemo()), querySelector('$demoMountNodeSelectorPrefix--progress'));
 
   react_dom.render(
-    tagBasicDemo(), querySelector('$demoMountNodeSelectorPrefix--tag'));
+    ErrorBoundary()(tagBasicDemo()), querySelector('$demoMountNodeSelectorPrefix--tag'));
 
   react_dom.render(
-    checkboxToggleButtonDemo(), querySelector('$demoMountNodeSelectorPrefix--checkbox-toggle'));
+    ErrorBoundary()(checkboxToggleButtonDemo()), querySelector('$demoMountNodeSelectorPrefix--checkbox-toggle'));
 
   react_dom.render(
-    radioToggleButtonDemo(), querySelector('$demoMountNodeSelectorPrefix--radio-toggle'));
+    ErrorBoundary()(radioToggleButtonDemo()), querySelector('$demoMountNodeSelectorPrefix--radio-toggle'));
+
+  react_dom.render(
+    (ErrorBoundary()
+      ..onComponentDidCatch = (error, info) {
+        print('Consumer props.onComponentDidCatch($error, $info)');
+      }
+    )(Faulty()()),
+    querySelector('$demoMountNodeSelectorPrefix--faulty-component'),
+  );
+
+  react_dom.render(
+    Faulty()(), querySelector('$demoMountNodeSelectorPrefix--faulty-component-without-error-boundary'));
 }
