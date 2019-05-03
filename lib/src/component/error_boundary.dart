@@ -50,6 +50,7 @@ final ReactElement Function([Map props, List children]) _jsErrorBoundaryComponen
   // in order to define an "error boundary" component, that is not actually the case.
   //
   // The tree will never get re-rendered after an error is caught unless both are defined.
+  // ignore: argument_type_not_assignable
   js_util.setProperty(componentClass, 'getDerivedStateFromError', allowInterop((_) => js_util.newObject()));
 
   var reactFactory = React.createFactory(componentClass);
