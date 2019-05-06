@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_interop_helpers.dart';
-import 'package:react/react_client/react_interop.dart' show React, ReactClassConfig;
+import 'package:react/react_client/react_interop.dart' show React, ReactClassConfig, throwErrorFromJS;
 
 part 'error_boundary.over_react.g.dart';
 
@@ -40,8 +40,15 @@ final ReactElement Function([Map props, List children]) _jsErrorBoundaryComponen
       return js_util.getProperty(jsProps, 'children');
     }),
     'componentDidCatch': allowInteropCaptureThis((jsThis, error, info) {
-      final jsProps = js_util.getProperty(jsThis, 'props');
-      js_util.getProperty(jsProps, 'onComponentDidCatch')(error, info);
+      // Due to the error object being passed in from ReactJS it is a javascript object that does not get dartified.
+      // To fix this we throw the error again from Dart to the JS side and catch it Dart side which re-dartifies it.
+      try {
+        throwErrorFromJS(error);
+      } catch (e, stack) {
+        // The Dart stack track gets lost so we manually add it to the info object for reference.
+        info['dartStackTrace'] = stack;
+        js_util.getProperty(js_util.getProperty(jsThis, 'props'), 'onComponentDidCatch')(error, info);
+      }
     }),
   }));
 
