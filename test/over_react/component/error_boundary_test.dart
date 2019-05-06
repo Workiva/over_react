@@ -16,6 +16,7 @@
 library error_boundary_test;
 
 import 'dart:html';
+import 'dart:js';
 import 'package:over_react/over_react.dart';
 import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
@@ -38,7 +39,7 @@ void main() {
 
     // TODO: Add tests that exercise the actual ReactJS 16 error lifecycle methods once implemented.
     group('catches component errors', () {
-      List<String> calls;
+      List<Map<String, List>> calls;
       DivElement mountNode;
 
       void verifyReact16ErrorHandlingWithoutErrorBoundary() {
@@ -63,7 +64,10 @@ void main() {
         calls = [];
         jacket = mount(
           (ErrorBoundary()
-            ..onComponentDidCatch = (_, __) { calls.add('onComponentDidCatch'); }
+            ..onComponentDidCatch = (err, info) {
+              print('onComponentDidCatch');
+              calls.add({'onComponentDidCatch': [err, info]});
+            }
           )(Flawed()()),
           mountNode: mountNode,
         );
@@ -78,7 +82,12 @@ void main() {
       });
 
       test('and calls `props.onComponentDidCatch`', () {
-        expect(calls, ['onComponentDidCatch']);
+        expect(calls.single.keys, ['onComponentDidCatch']);
+        final errArg = calls.single['onComponentDidCatch'][0];
+        expect(errArg.toString(), contains('FlawedComponent.componentWillUpdate'));
+
+        final infoArg = calls.single['onComponentDidCatch'][1];
+        expect(infoArg, isNotNull);
       });
 
       test('and re-renders the tree as a result', () {
