@@ -40,14 +40,13 @@ final ReactElement Function([Map props, List children]) _jsErrorBoundaryComponen
       return js_util.getProperty(jsProps, 'children');
     }),
     'componentDidCatch': allowInteropCaptureThis((jsThis, error, info) {
+      final jsProps = js_util.getProperty(jsThis, 'props');
       // Due to the error object being passed in from ReactJS it is a javascript object that does not get dartified.
       // To fix this we throw the error again from Dart to the JS side and catch it Dart side which re-dartifies it.
       try {
         throwErrorFromJS(error);
-      } catch (e, stack) {
-        // The Dart stack track gets lost so we manually add it to the info object for reference.
-        info['dartStackTrace'] = stack;
-        js_util.getProperty(js_util.getProperty(jsThis, 'props'), 'onComponentDidCatch')(error, info);
+      } catch (error, stack) {
+        js_util.getProperty(jsProps, 'onComponentDidCatch')(error, info);
       }
     }),
   }));
@@ -67,11 +66,9 @@ final ReactElement Function([Map props, List children]) _jsErrorBoundaryComponen
 })();
 
 // TODO: Need to type the second argument once react-dart implements bindings for the ReactJS "componentStack".
-// TODO: Will it be possible to make the first argument typed as a real `Error` instance again in Dart 2?
 typedef _ComponentDidCatchCallback(/*Error*/dynamic error, /*ComponentStack*/dynamic componentStack);
 
 // TODO: Need to type the second argument once react-dart implements bindings for the ReactJS "componentStack".
-// TODO: Will it be possible to make the first argument typed as a real `Error` instance again in Dart 2?
 typedef ReactElement _FallbackUiRenderer(/*Error*/dynamic error, /*ComponentStack*/dynamic componentStack);
 
 /// A higher-order component that will catch ReactJS errors anywhere within the child component tree and
