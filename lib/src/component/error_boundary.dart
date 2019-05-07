@@ -46,7 +46,11 @@ final ReactElement Function([Map props, List children]) _jsErrorBoundaryComponen
       try {
         throwErrorFromJS(error);
       } catch (error, stack) {
-        js_util.getProperty(jsProps, 'onComponentDidCatch')(error, info);
+        final callback = js_util.getProperty(jsProps, 'onComponentDidCatch');
+
+        if (callback != null) {
+          callback(error, info);
+        }
       }
     }),
   }));

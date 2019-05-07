@@ -65,7 +65,6 @@ void main() {
         jacket = mount(
           (ErrorBoundary()
             ..onComponentDidCatch = (err, info) {
-              print('onComponentDidCatch');
               calls.add({'onComponentDidCatch': [err, info]});
             }
           )(Flawed()()),
@@ -84,6 +83,8 @@ void main() {
       test('and calls `props.onComponentDidCatch`', () {
         expect(calls.single.keys, ['onComponentDidCatch']);
         final errArg = calls.single['onComponentDidCatch'][0];
+        // TODO: Figure out why a `const isInstanceOf<Error>()` doesn't work.
+        expect(errArg.toString(), contains('Instance of \'Error\''));
         expect(errArg.toString(), contains('FlawedComponent.componentWillUpdate'));
 
         final infoArg = calls.single['onComponentDidCatch'][1];
@@ -94,6 +95,13 @@ void main() {
         expect(mountNode.children, isNotEmpty,
             reason: 'rendered trees wrapped in an ErrorBoundary '
                     'should NOT get unmounted when an error is thrown within child component lifecycle methods');
+      });
+
+      test('does not throw a null exception when `props.onComponentDidCatch` is not set', () {
+        jacket = mount(ErrorBoundary()((Flawed()..addTestId('flawed'))()), mountNode: mountNode);
+        // The click causes the componentDidCatch lifecycle method to execute
+        // and we want to ensure that no Dart null error is thrown as a result of no consumer prop callback being set.
+        expect(() => jacket.getNode().click(), returnsNormally);
       });
     });
 
