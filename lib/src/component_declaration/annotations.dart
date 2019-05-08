@@ -125,6 +125,8 @@ class Component2 implements Component {
   @override
   final bool isWrapper;
 
+  final bool isErrorBoundary;
+
   /// The component class of this component's "parent type".
   ///
   /// Used to enable inheritance in component type-checking in `isComponentOfType`.
@@ -152,7 +154,8 @@ class Component2 implements Component {
 
   const Component2({
       this.isWrapper: false,
-      this.subtypeOf
+      this.subtypeOf,
+      this.isErrorBoundary: false
   });
 }
 
