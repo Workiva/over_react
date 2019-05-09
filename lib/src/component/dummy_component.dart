@@ -24,3 +24,11 @@ class DummyComponent extends react.Component {
   @override
   render() => false;
 }
+
+/// Dummy component useful for:
+///
+/// - Allowing sub-typing of v2 components.
+class DummyComponent2 extends react.Component2 {
+  @override
+  render() => null;
+}
