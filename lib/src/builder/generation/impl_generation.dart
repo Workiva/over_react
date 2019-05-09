@@ -57,7 +57,6 @@ class ImplGenerator {
     if (declarations.declaresComponent) {
       final bool isComponent2 = declarations.component2 != null;
       final componentDeclNode = isComponent2 ? declarations.component2 : declarations.component;
-
       final factoryName = declarations.factory.node.variables.variables.first.name.toString();
 
       final consumerPropsName = declarations.props.node.name.toString();
@@ -105,8 +104,8 @@ class ImplGenerator {
             span: getSpan(sourceFile, componentDeclNode.metaNode))
         );
       }
-
-      outputContentsBuffer
+      if (isComponent2) {
+        outputContentsBuffer
         ..writeln('// React component factory implementation.')
         ..writeln('//')
         ..writeln('// Registers component implementation and links type meta to builder factory.')
@@ -115,9 +114,24 @@ class ImplGenerator {
         ..writeln('    componentClass: $componentClassName,')
         ..writeln('    isWrapper: ${componentDeclNode.meta.isWrapper},')
         ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
+        ..writeln('    isErrorBoundary: ${declarations.component2.meta.isErrorBoundary}')
         ..writeln('    displayName: ${stringLiteral(factoryName)}')
         ..writeln(');')
         ..writeln();
+      } else {
+        outputContentsBuffer
+          ..writeln('// React component factory implementation.')
+          ..writeln('//')
+          ..writeln('// Registers component implementation and links type meta to builder factory.')
+          ..writeln('final $generatedComponentFactoryName = registerComponent(() => new $componentClassImplMixinName(),')
+          ..writeln('    builderFactory: $factoryName,')
+          ..writeln('    componentClass: $componentClassName,')
+          ..writeln('    isWrapper: ${componentDeclNode.meta.isWrapper},')
+          ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
+          ..writeln('    displayName: ${stringLiteral(factoryName)}')
+          ..writeln(');')
+          ..writeln();
+      }
 
       // ----------------------------------------------------------------------
       //   Props implementation
