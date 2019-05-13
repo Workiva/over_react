@@ -87,7 +87,7 @@ ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 dartComponen
     String displayName,
     Iterable<String> skipMethods = const ['getDerivedStateFromError', 'componentDidCatch'],
 }) {
-  ReactDartComponentFactoryProxy2 reactComponentFactory = react.registerComponent2(dartComponentFactory);
+  ReactDartComponentFactoryProxy2 reactComponentFactory = react.registerComponent(dartComponentFactory, skipMethods);
 
   if (displayName != null) {
     reactComponentFactory.reactClass.displayName = displayName;

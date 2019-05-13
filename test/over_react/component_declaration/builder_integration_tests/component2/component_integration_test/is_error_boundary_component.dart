@@ -8,10 +8,19 @@ class _$IsErrorBoundaryProps extends UiProps {}
 
 @Component2(isErrorBoundary: true)
 class IsErrorBoundaryComponent extends UiComponent2<IsErrorBoundaryProps> {
-  @override
-  Map getDefaultProps() => newProps()..id = 'testId';
+  static var calls = [];
 
   @override
-  render() => (Dom.div()
-  )('rendered content');
+  Map getDerivedStateFromError(_) {
+    calls.add('getDerivedStateFromError');
+    return {};
+  }
+
+  @override
+  void componentDidCatch(_, __) {
+    calls.add('componentDidCatch');
+  }
+
+  @override
+  render() => props.children.single;
 }

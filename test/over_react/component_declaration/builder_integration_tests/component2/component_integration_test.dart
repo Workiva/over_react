@@ -14,6 +14,7 @@
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
+import '../../../component/fixtures/flawed_component.dart';
 import './constant_required_accessor_integration_test.dart' as r;
 import '../../../../test_util/test_util.dart';
 
@@ -44,15 +45,22 @@ main() {
       expect(node.dataset, containsPair('prop-custom-key-and-namespace-prop', '6'));
     });
 
-    group('isErrorBoundary tests', () {
-      group('component with isErrorBoundary', () {
-        test('is true has correct methods', () {
-          var instance = render((IsErrorBoundary()
-          ));
-        });
-        test('is false and does not have certain methods :^)', () {
-          
-        });
+    group('isErrorBoundary annotation is set to', () {
+      test('true, allowing use of getDerivedStateFromError and componentDidCatch', () {
+        var jacket = mount(
+          (IsErrorBoundary())(Flawed()()),
+          attachedToDocument: true,
+        );  
+        jacket.getNode().click();
+        expect(IsErrorBoundaryComponent.calls, unorderedEquals(['getDerivedStateFromError','componentDidCatch']));
+      });
+      test('false, restricting use of getDerivedStateFromError and componentDidCatch', () {
+        var jacket = mount(
+          (IsNotErrorBoundary())(Flawed()()),
+          attachedToDocument: true,
+        );
+        jacket.getNode().click();
+        expect(IsNotErrorBoundaryComponent.calls, []);
       });
     });
 
