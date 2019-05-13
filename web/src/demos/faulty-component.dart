@@ -1,6 +1,6 @@
 import 'package:over_react/over_react.dart';
 
-import '../demo_components.dart';
+import '../../component1/src/demo_components.dart';
 
 part 'faulty-component.over_react.g.dart';
 
