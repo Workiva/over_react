@@ -47,7 +47,7 @@ main() {
     group('isErrorBoundary tests', () {
       group('component with isErrorBoundary', () {
         test('is true has correct methods', () {
-          var instance = render((ComponentTest()
+          var instance = render((IsErrorBoundary()
           ));
         });
         test('is false and does not have certain methods :^)', () {
