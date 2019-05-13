@@ -38,7 +38,7 @@ class FlawedComponent extends UiStatefulComponent<FlawedProps, FlawedState> {
   void componentWillUpdate(_, Map nextState) {
     final tNextState = typedStateFactory(nextState);
     if (tNextState.hasError && !state.hasError) {
-      throw new Error();
+      throw new FlawedComponentException();
     }
   }
 
@@ -51,4 +51,9 @@ class FlawedComponent extends UiStatefulComponent<FlawedProps, FlawedState> {
       }
     )('oh hai');
   }
+}
+
+class FlawedComponentException implements Exception {
+  @override
+  String toString() => 'FlawedComponentException: I was thrown from inside FlawedComponent.componentWillUpdate!';
 }

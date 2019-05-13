@@ -83,7 +83,7 @@ void main() {
       test('and calls `props.onComponentDidCatch`', () {
         expect(calls.single.keys, ['onComponentDidCatch']);
         final errArg = calls.single['onComponentDidCatch'][0];
-        expect(errArg, const isInstanceOf<Error>());
+        expect(errArg, isA<FlawedComponentException>());
 
         final infoArg = calls.single['onComponentDidCatch'][1];
         expect(infoArg, isNotNull);
