@@ -8,7 +8,7 @@ export 'demos/button/button-block.dart';
 export 'demos/button/button-active.dart';
 export 'demos/button/button-disabled.dart';
 
-export 'demos/faulty-component.dart';
+export '../../src/demos/faulty-component.dart';
 
 export 'demos/list-group/list-group-basic.dart';
 export 'demos/list-group/list-group-tags.dart';
