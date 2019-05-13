@@ -9,13 +9,14 @@ part of 'button_group.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $ButtonGroupComponentFactory = registerComponent(
-    () => new _$ButtonGroupComponent(),
-    builderFactory: ButtonGroup,
-    componentClass: ButtonGroupComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'ButtonGroup');
+final $ButtonGroupComponentFactory = registerComponent2(
+  () => new _$ButtonGroupComponent(),
+  builderFactory: ButtonGroup,
+  componentClass: ButtonGroupComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'ButtonGroup',
+);
 
 abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   @override

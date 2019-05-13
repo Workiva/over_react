@@ -9,14 +9,15 @@ part of 'toggle_button_group.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $ToggleButtonGroupComponentFactory =
-    registerComponent(() => new _$ToggleButtonGroupComponent(),
-        builderFactory: ToggleButtonGroup,
-        componentClass: ToggleButtonGroupComponent,
-        isWrapper: false,
-        parentType: $ButtonGroupComponentFactory,
-        /* from `subtypeOf: ButtonGroupComponent` */
-        displayName: 'ToggleButtonGroup');
+final $ToggleButtonGroupComponentFactory = registerComponent2(
+  () => new _$ToggleButtonGroupComponent(),
+  builderFactory: ToggleButtonGroup,
+  componentClass: ToggleButtonGroupComponent,
+  isWrapper: false,
+  parentType: $ButtonGroupComponentFactory,
+  /* from `subtypeOf: ButtonGroupComponent` */
+  displayName: 'ToggleButtonGroup',
+);
 
 abstract class _$ToggleButtonGroupPropsAccessorsMixin
     implements _$ToggleButtonGroupProps {

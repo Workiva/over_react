@@ -9,13 +9,14 @@ part of 'component_integration_test.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $ComponentTestComponentFactory = registerComponent(
-    () => new _$ComponentTestComponent(),
-    builderFactory: ComponentTest,
-    componentClass: ComponentTestComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'ComponentTest');
+final $ComponentTestComponentFactory = registerComponent2(
+  () => new _$ComponentTestComponent(),
+  builderFactory: ComponentTest,
+  componentClass: ComponentTestComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'ComponentTest',
+);
 
 abstract class _$ComponentTestPropsAccessorsMixin
     implements _$ComponentTestProps {
@@ -245,5 +246,496 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForComponentTestProps
+  ];
+}
+
+// React component factory implementation.
+//
+// Registers component implementation and links type meta to builder factory.
+final $IsErrorBoundaryComponentFactory = registerComponent2(
+  () => new _$IsErrorBoundaryComponent(),
+  builderFactory: IsErrorBoundary,
+  componentClass: IsErrorBoundaryComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'IsErrorBoundary',
+  skipMethods: [],
+);
+
+abstract class _$IsErrorBoundaryPropsAccessorsMixin
+    implements _$IsErrorBoundaryProps {
+  @override
+  Map get props;
+
+  /// <!-- Generated from [_$IsErrorBoundaryProps.stringProp] -->
+  @override
+  String get stringProp =>
+      props[_$key__stringProp___$IsErrorBoundaryProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$IsErrorBoundaryProps.stringProp] -->
+  @override
+  set stringProp(String value) =>
+      props[_$key__stringProp___$IsErrorBoundaryProps] = value;
+
+  /// <!-- Generated from [_$IsErrorBoundaryProps.dynamicProp] -->
+  @override
+  dynamic get dynamicProp =>
+      props[_$key__dynamicProp___$IsErrorBoundaryProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$IsErrorBoundaryProps.dynamicProp] -->
+  @override
+  set dynamicProp(dynamic value) =>
+      props[_$key__dynamicProp___$IsErrorBoundaryProps] = value;
+
+  /// <!-- Generated from [_$IsErrorBoundaryProps.untypedProp] -->
+  @override
+  get untypedProp =>
+      props[_$key__untypedProp___$IsErrorBoundaryProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$IsErrorBoundaryProps.untypedProp] -->
+  @override
+  set untypedProp(value) =>
+      props[_$key__untypedProp___$IsErrorBoundaryProps] = value;
+
+  /// <!-- Generated from [_$IsErrorBoundaryProps.customKeyProp] -->
+  @override
+  @Accessor(key: 'custom key!')
+  get customKeyProp =>
+      props[_$key__customKeyProp___$IsErrorBoundaryProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$IsErrorBoundaryProps.customKeyProp] -->
+  @override
+  @Accessor(key: 'custom key!')
+  set customKeyProp(value) =>
+      props[_$key__customKeyProp___$IsErrorBoundaryProps] = value;
+
+  /// <!-- Generated from [_$IsErrorBoundaryProps.customNamespaceProp] -->
+  @override
+  @Accessor(keyNamespace: 'custom namespace~~')
+  get customNamespaceProp =>
+      props[_$key__customNamespaceProp___$IsErrorBoundaryProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$IsErrorBoundaryProps.customNamespaceProp] -->
+  @override
+  @Accessor(keyNamespace: 'custom namespace~~')
+  set customNamespaceProp(value) =>
+      props[_$key__customNamespaceProp___$IsErrorBoundaryProps] = value;
+
+  /// <!-- Generated from [_$IsErrorBoundaryProps.customKeyAndNamespaceProp] -->
+  @override
+  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
+  get customKeyAndNamespaceProp =>
+      props[_$key__customKeyAndNamespaceProp___$IsErrorBoundaryProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$IsErrorBoundaryProps.customKeyAndNamespaceProp] -->
+  @override
+  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
+  set customKeyAndNamespaceProp(value) =>
+      props[_$key__customKeyAndNamespaceProp___$IsErrorBoundaryProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__stringProp___$IsErrorBoundaryProps =
+      const PropDescriptor(_$key__stringProp___$IsErrorBoundaryProps);
+  static const PropDescriptor _$prop__dynamicProp___$IsErrorBoundaryProps =
+      const PropDescriptor(_$key__dynamicProp___$IsErrorBoundaryProps);
+  static const PropDescriptor _$prop__untypedProp___$IsErrorBoundaryProps =
+      const PropDescriptor(_$key__untypedProp___$IsErrorBoundaryProps);
+  static const PropDescriptor _$prop__customKeyProp___$IsErrorBoundaryProps =
+      const PropDescriptor(_$key__customKeyProp___$IsErrorBoundaryProps);
+  static const PropDescriptor
+      _$prop__customNamespaceProp___$IsErrorBoundaryProps =
+      const PropDescriptor(_$key__customNamespaceProp___$IsErrorBoundaryProps);
+  static const PropDescriptor
+      _$prop__customKeyAndNamespaceProp___$IsErrorBoundaryProps =
+      const PropDescriptor(
+          _$key__customKeyAndNamespaceProp___$IsErrorBoundaryProps);
+  static const String _$key__stringProp___$IsErrorBoundaryProps =
+      'IsErrorBoundaryProps.stringProp';
+  static const String _$key__dynamicProp___$IsErrorBoundaryProps =
+      'IsErrorBoundaryProps.dynamicProp';
+  static const String _$key__untypedProp___$IsErrorBoundaryProps =
+      'IsErrorBoundaryProps.untypedProp';
+  static const String _$key__customKeyProp___$IsErrorBoundaryProps =
+      'IsErrorBoundaryProps.custom key!';
+  static const String _$key__customNamespaceProp___$IsErrorBoundaryProps =
+      'custom namespace~~customNamespaceProp';
+  static const String _$key__customKeyAndNamespaceProp___$IsErrorBoundaryProps =
+      'custom namespace~~custom key!';
+
+  static const List<PropDescriptor> $props = const [
+    _$prop__stringProp___$IsErrorBoundaryProps,
+    _$prop__dynamicProp___$IsErrorBoundaryProps,
+    _$prop__untypedProp___$IsErrorBoundaryProps,
+    _$prop__customKeyProp___$IsErrorBoundaryProps,
+    _$prop__customNamespaceProp___$IsErrorBoundaryProps,
+    _$prop__customKeyAndNamespaceProp___$IsErrorBoundaryProps
+  ];
+  static const List<String> $propKeys = const [
+    _$key__stringProp___$IsErrorBoundaryProps,
+    _$key__dynamicProp___$IsErrorBoundaryProps,
+    _$key__untypedProp___$IsErrorBoundaryProps,
+    _$key__customKeyProp___$IsErrorBoundaryProps,
+    _$key__customNamespaceProp___$IsErrorBoundaryProps,
+    _$key__customKeyAndNamespaceProp___$IsErrorBoundaryProps
+  ];
+}
+
+const PropsMeta _$metaForIsErrorBoundaryProps = const PropsMeta(
+  fields: _$IsErrorBoundaryPropsAccessorsMixin.$props,
+  keys: _$IsErrorBoundaryPropsAccessorsMixin.$propKeys,
+);
+
+class IsErrorBoundaryProps extends _$IsErrorBoundaryProps
+    with _$IsErrorBoundaryPropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForIsErrorBoundaryProps;
+}
+
+_$$IsErrorBoundaryProps _$IsErrorBoundary([Map backingProps]) =>
+    backingProps == null
+        ? new _$$IsErrorBoundaryProps$JsMap(new JsBackedMap())
+        : new _$$IsErrorBoundaryProps(backingProps);
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+abstract class _$$IsErrorBoundaryProps extends _$IsErrorBoundaryProps
+    with _$IsErrorBoundaryPropsAccessorsMixin
+    implements IsErrorBoundaryProps {
+  _$$IsErrorBoundaryProps._();
+
+  factory _$$IsErrorBoundaryProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$IsErrorBoundaryProps$JsMap(backingMap);
+    } else {
+      return new _$$IsErrorBoundaryProps$PlainMap(backingMap);
+    }
+  }
+
+  /// Let [UiProps] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The [ReactComponentFactory] associated with the component built by this class.
+  @override
+  ReactComponentFactoryProxy get componentFactory =>
+      $IsErrorBoundaryComponentFactory;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => 'IsErrorBoundaryProps.';
+}
+
+// Concrete props implementation that can be backed by any [Map].
+class _$$IsErrorBoundaryProps$PlainMap extends _$$IsErrorBoundaryProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$IsErrorBoundaryProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+class _$$IsErrorBoundaryProps$JsMap extends _$$IsErrorBoundaryProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$IsErrorBoundaryProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+// Concrete component implementation mixin.
+//
+// Implements typed props/state factories, defaults `consumedPropKeys` to the keys
+// generated for the associated props class.
+class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
+  _$$IsErrorBoundaryProps$JsMap _cachedTypedProps;
+
+  @override
+  _$$IsErrorBoundaryProps$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
+
+  @override
+  _$$IsErrorBoundaryProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$IsErrorBoundaryProps$JsMap(backingMap);
+
+  @override
+  _$$IsErrorBoundaryProps typedPropsFactory(Map backingMap) =>
+      new _$$IsErrorBoundaryProps(backingMap);
+
+  /// Let [UiComponent] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The default consumed props, taken from _$IsErrorBoundaryProps.
+  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  @override
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForIsErrorBoundaryProps
+  ];
+}
+
+// React component factory implementation.
+//
+// Registers component implementation and links type meta to builder factory.
+final $IsNotErrorBoundaryComponentFactory = registerComponent2(
+  () => new _$IsNotErrorBoundaryComponent(),
+  builderFactory: IsNotErrorBoundary,
+  componentClass: IsNotErrorBoundaryComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'IsNotErrorBoundary',
+);
+
+abstract class _$IsNotErrorBoundaryPropsAccessorsMixin
+    implements _$IsNotErrorBoundaryProps {
+  @override
+  Map get props;
+
+  /// <!-- Generated from [_$IsNotErrorBoundaryProps.stringProp] -->
+  @override
+  String get stringProp =>
+      props[_$key__stringProp___$IsNotErrorBoundaryProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$IsNotErrorBoundaryProps.stringProp] -->
+  @override
+  set stringProp(String value) =>
+      props[_$key__stringProp___$IsNotErrorBoundaryProps] = value;
+
+  /// <!-- Generated from [_$IsNotErrorBoundaryProps.dynamicProp] -->
+  @override
+  dynamic get dynamicProp =>
+      props[_$key__dynamicProp___$IsNotErrorBoundaryProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$IsNotErrorBoundaryProps.dynamicProp] -->
+  @override
+  set dynamicProp(dynamic value) =>
+      props[_$key__dynamicProp___$IsNotErrorBoundaryProps] = value;
+
+  /// <!-- Generated from [_$IsNotErrorBoundaryProps.untypedProp] -->
+  @override
+  get untypedProp =>
+      props[_$key__untypedProp___$IsNotErrorBoundaryProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$IsNotErrorBoundaryProps.untypedProp] -->
+  @override
+  set untypedProp(value) =>
+      props[_$key__untypedProp___$IsNotErrorBoundaryProps] = value;
+
+  /// <!-- Generated from [_$IsNotErrorBoundaryProps.customKeyProp] -->
+  @override
+  @Accessor(key: 'custom key!')
+  get customKeyProp =>
+      props[_$key__customKeyProp___$IsNotErrorBoundaryProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$IsNotErrorBoundaryProps.customKeyProp] -->
+  @override
+  @Accessor(key: 'custom key!')
+  set customKeyProp(value) =>
+      props[_$key__customKeyProp___$IsNotErrorBoundaryProps] = value;
+
+  /// <!-- Generated from [_$IsNotErrorBoundaryProps.customNamespaceProp] -->
+  @override
+  @Accessor(keyNamespace: 'custom namespace~~')
+  get customNamespaceProp =>
+      props[_$key__customNamespaceProp___$IsNotErrorBoundaryProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$IsNotErrorBoundaryProps.customNamespaceProp] -->
+  @override
+  @Accessor(keyNamespace: 'custom namespace~~')
+  set customNamespaceProp(value) =>
+      props[_$key__customNamespaceProp___$IsNotErrorBoundaryProps] = value;
+
+  /// <!-- Generated from [_$IsNotErrorBoundaryProps.customKeyAndNamespaceProp] -->
+  @override
+  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
+  get customKeyAndNamespaceProp =>
+      props[_$key__customKeyAndNamespaceProp___$IsNotErrorBoundaryProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$IsNotErrorBoundaryProps.customKeyAndNamespaceProp] -->
+  @override
+  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
+  set customKeyAndNamespaceProp(value) =>
+      props[_$key__customKeyAndNamespaceProp___$IsNotErrorBoundaryProps] =
+          value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__stringProp___$IsNotErrorBoundaryProps =
+      const PropDescriptor(_$key__stringProp___$IsNotErrorBoundaryProps);
+  static const PropDescriptor _$prop__dynamicProp___$IsNotErrorBoundaryProps =
+      const PropDescriptor(_$key__dynamicProp___$IsNotErrorBoundaryProps);
+  static const PropDescriptor _$prop__untypedProp___$IsNotErrorBoundaryProps =
+      const PropDescriptor(_$key__untypedProp___$IsNotErrorBoundaryProps);
+  static const PropDescriptor _$prop__customKeyProp___$IsNotErrorBoundaryProps =
+      const PropDescriptor(_$key__customKeyProp___$IsNotErrorBoundaryProps);
+  static const PropDescriptor
+      _$prop__customNamespaceProp___$IsNotErrorBoundaryProps =
+      const PropDescriptor(
+          _$key__customNamespaceProp___$IsNotErrorBoundaryProps);
+  static const PropDescriptor
+      _$prop__customKeyAndNamespaceProp___$IsNotErrorBoundaryProps =
+      const PropDescriptor(
+          _$key__customKeyAndNamespaceProp___$IsNotErrorBoundaryProps);
+  static const String _$key__stringProp___$IsNotErrorBoundaryProps =
+      'IsNotErrorBoundaryProps.stringProp';
+  static const String _$key__dynamicProp___$IsNotErrorBoundaryProps =
+      'IsNotErrorBoundaryProps.dynamicProp';
+  static const String _$key__untypedProp___$IsNotErrorBoundaryProps =
+      'IsNotErrorBoundaryProps.untypedProp';
+  static const String _$key__customKeyProp___$IsNotErrorBoundaryProps =
+      'IsNotErrorBoundaryProps.custom key!';
+  static const String _$key__customNamespaceProp___$IsNotErrorBoundaryProps =
+      'custom namespace~~customNamespaceProp';
+  static const String
+      _$key__customKeyAndNamespaceProp___$IsNotErrorBoundaryProps =
+      'custom namespace~~custom key!';
+
+  static const List<PropDescriptor> $props = const [
+    _$prop__stringProp___$IsNotErrorBoundaryProps,
+    _$prop__dynamicProp___$IsNotErrorBoundaryProps,
+    _$prop__untypedProp___$IsNotErrorBoundaryProps,
+    _$prop__customKeyProp___$IsNotErrorBoundaryProps,
+    _$prop__customNamespaceProp___$IsNotErrorBoundaryProps,
+    _$prop__customKeyAndNamespaceProp___$IsNotErrorBoundaryProps
+  ];
+  static const List<String> $propKeys = const [
+    _$key__stringProp___$IsNotErrorBoundaryProps,
+    _$key__dynamicProp___$IsNotErrorBoundaryProps,
+    _$key__untypedProp___$IsNotErrorBoundaryProps,
+    _$key__customKeyProp___$IsNotErrorBoundaryProps,
+    _$key__customNamespaceProp___$IsNotErrorBoundaryProps,
+    _$key__customKeyAndNamespaceProp___$IsNotErrorBoundaryProps
+  ];
+}
+
+const PropsMeta _$metaForIsNotErrorBoundaryProps = const PropsMeta(
+  fields: _$IsNotErrorBoundaryPropsAccessorsMixin.$props,
+  keys: _$IsNotErrorBoundaryPropsAccessorsMixin.$propKeys,
+);
+
+class IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
+    with _$IsNotErrorBoundaryPropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForIsNotErrorBoundaryProps;
+}
+
+_$$IsNotErrorBoundaryProps _$IsNotErrorBoundary([Map backingProps]) =>
+    backingProps == null
+        ? new _$$IsNotErrorBoundaryProps$JsMap(new JsBackedMap())
+        : new _$$IsNotErrorBoundaryProps(backingProps);
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+abstract class _$$IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
+    with _$IsNotErrorBoundaryPropsAccessorsMixin
+    implements IsNotErrorBoundaryProps {
+  _$$IsNotErrorBoundaryProps._();
+
+  factory _$$IsNotErrorBoundaryProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$IsNotErrorBoundaryProps$JsMap(backingMap);
+    } else {
+      return new _$$IsNotErrorBoundaryProps$PlainMap(backingMap);
+    }
+  }
+
+  /// Let [UiProps] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The [ReactComponentFactory] associated with the component built by this class.
+  @override
+  ReactComponentFactoryProxy get componentFactory =>
+      $IsNotErrorBoundaryComponentFactory;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => 'IsNotErrorBoundaryProps.';
+}
+
+// Concrete props implementation that can be backed by any [Map].
+class _$$IsNotErrorBoundaryProps$PlainMap extends _$$IsNotErrorBoundaryProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$IsNotErrorBoundaryProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+class _$$IsNotErrorBoundaryProps$JsMap extends _$$IsNotErrorBoundaryProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$IsNotErrorBoundaryProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+// Concrete component implementation mixin.
+//
+// Implements typed props/state factories, defaults `consumedPropKeys` to the keys
+// generated for the associated props class.
+class _$IsNotErrorBoundaryComponent extends IsNotErrorBoundaryComponent {
+  _$$IsNotErrorBoundaryProps$JsMap _cachedTypedProps;
+
+  @override
+  _$$IsNotErrorBoundaryProps$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
+
+  @override
+  _$$IsNotErrorBoundaryProps$JsMap typedPropsFactoryJs(
+          JsBackedMap backingMap) =>
+      new _$$IsNotErrorBoundaryProps$JsMap(backingMap);
+
+  @override
+  _$$IsNotErrorBoundaryProps typedPropsFactory(Map backingMap) =>
+      new _$$IsNotErrorBoundaryProps(backingMap);
+
+  /// Let [UiComponent] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The default consumed props, taken from _$IsNotErrorBoundaryProps.
+  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  @override
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForIsNotErrorBoundaryProps
   ];
 }

@@ -104,20 +104,21 @@ class ImplGenerator {
             span: getSpan(sourceFile, componentDeclNode.metaNode))
         );
       }
+
       if (isComponent2) {
         outputContentsBuffer
-        ..writeln('// React component factory implementation.')
-        ..writeln('//')
-        ..writeln('// Registers component implementation and links type meta to builder factory.')
-        ..writeln('final $generatedComponentFactoryName = registerComponent2(() => new $componentClassImplMixinName(),')
-        ..writeln('    builderFactory: $factoryName,')
-        ..writeln('    componentClass: $componentClassName,')
-        ..writeln('    isWrapper: ${componentDeclNode.meta.isWrapper},')
-        ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
-        ..writeln('    isErrorBoundary: ${declarations.component2.meta.isErrorBoundary}')
-        ..writeln('    displayName: ${stringLiteral(factoryName)}')
-        ..writeln(');')
-        ..writeln();
+          ..writeln('// React component factory implementation.')
+          ..writeln('//')
+          ..writeln('// Registers component implementation and links type meta to builder factory.')
+          ..writeln('final $generatedComponentFactoryName = registerComponent2(() => new $componentClassImplMixinName(),')
+          ..writeln('    builderFactory: $factoryName,')
+          ..writeln('    componentClass: $componentClassName,')
+          ..writeln('    isWrapper: ${componentDeclNode.meta.isWrapper},')
+          ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
+          ..writeln('    displayName: ${stringLiteral(factoryName)},')
+          ..write(declarations.component2.meta.isErrorBoundary == true ? '    skipMethods: [],\n' : '')
+          ..writeln(');')
+          ..writeln();
       } else {
         outputContentsBuffer
           ..writeln('// React component factory implementation.')

@@ -52,7 +52,7 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
     ReactDartComponentFactoryProxy parentType,
     UiFactory builderFactory,
     Type componentClass,
-    String displayName
+    String displayName,
 }) {
   // ignore: deprecated_member_use
   ReactDartComponentFactoryProxy reactComponentFactory = react.registerComponent(dartComponentFactory);
@@ -84,7 +84,8 @@ ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 dartComponen
     ReactDartComponentFactoryProxy2 parentType,
     UiFactory builderFactory,
     Type componentClass,
-    String displayName
+    String displayName,
+    Iterable<String> skipMethods = const ['getDerivedStateFromError', 'componentDidCatch'],
 }) {
   ReactDartComponentFactoryProxy2 reactComponentFactory = react.registerComponent2(dartComponentFactory);
 

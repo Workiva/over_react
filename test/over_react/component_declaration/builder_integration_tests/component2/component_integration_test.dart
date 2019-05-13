@@ -18,6 +18,8 @@ import './constant_required_accessor_integration_test.dart' as r;
 import '../../../../test_util/test_util.dart';
 
 part 'component_integration_test.over_react.g.dart';
+part 'component_integration_test/is_error_boundary_component.dart';
+part 'component_integration_test/is_not_error_boundary_component.dart';
 
 main() {
   group('(Component2) component integration:', () {
@@ -40,6 +42,18 @@ main() {
       expect(node.dataset, containsPair('prop-custom-key-prop', '4'));
       expect(node.dataset, containsPair('prop-custom-namespace-prop', '5'));
       expect(node.dataset, containsPair('prop-custom-key-and-namespace-prop', '6'));
+    });
+
+    group('isErrorBoundary tests', () {
+      group('component with isErrorBoundary', () {
+        test('is true has correct methods', () {
+          var instance = render((ComponentTest()
+          ));
+        });
+        test('is false and does not have certain methods :^)', () {
+          
+        });
+      });
     });
 
     group('initializes the factory variable with a function', () {
@@ -120,7 +134,6 @@ main() {
     });
   });
 }
-
 
 @Factory()
 UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
