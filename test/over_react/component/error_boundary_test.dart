@@ -83,9 +83,7 @@ void main() {
       test('and calls `props.onComponentDidCatch`', () {
         expect(calls.single.keys, ['onComponentDidCatch']);
         final errArg = calls.single['onComponentDidCatch'][0];
-        // TODO: Figure out why a `const isInstanceOf<Error>()` doesn't work.
-        expect(errArg.toString(), contains('Instance of \'Error\''));
-        expect(errArg.toString(), contains('FlawedComponent.componentWillUpdate'));
+        expect(errArg, const isInstanceOf<Error>());
 
         final infoArg = calls.single['onComponentDidCatch'][1];
         expect(infoArg, isNotNull);
