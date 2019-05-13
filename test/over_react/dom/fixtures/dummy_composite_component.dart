@@ -53,6 +53,6 @@ class TestCompositeComponentComponent extends UiComponent<TestCompositeComponent
 
   @override
   render() {
-    return Dom.div()('oh hai');
+    return Dom.div()('oh hai', props.children);
   }
 }
