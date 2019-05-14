@@ -54,6 +54,7 @@ main() {
         jacket.getNode().click();
         expect(IsErrorBoundaryComponent.calls, unorderedEquals(['getDerivedStateFromError','componentDidCatch']));
       });
+
       test('false, restricting use of getDerivedStateFromError and componentDidCatch', () {
         var jacket = mount(
           (IsNotErrorBoundary())(Flawed()()),

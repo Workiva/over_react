@@ -156,7 +156,6 @@ class Component2 implements Component {
   const Component2({
       this.isWrapper: false,
       this.subtypeOf,
-      /// the new boolean
       this.isErrorBoundary: false,
   });
 }

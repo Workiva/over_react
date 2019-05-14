@@ -115,8 +115,17 @@ class ImplGenerator {
           ..writeln('    componentClass: $componentClassName,')
           ..writeln('    isWrapper: ${componentDeclNode.meta.isWrapper},')
           ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
-          ..writeln('    displayName: ${stringLiteral(factoryName)},')
-          ..write(declarations.component2.meta.isErrorBoundary == true ? '    skipMethods: [],\n' : '')
+          ..writeln('    displayName: ${stringLiteral(factoryName)},');
+
+        if (declarations.component2.meta.isErrorBoundary) {
+          // Override `skipMethods` as an empty list so that
+          // the `componentDidCatch` and `getDerivedStateFromError`
+          // lifecycle methods are included in the component's JS bindings. 
+          outputContentsBuffer
+            ..writeln('    skipMethods: const [],');
+        }
+
+        outputContentsBuffer
           ..writeln(');')
           ..writeln();
       } else {

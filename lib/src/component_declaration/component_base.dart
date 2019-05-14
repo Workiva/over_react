@@ -108,19 +108,8 @@ ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 dartComponen
 ///
 ///     var $`AbstractComponentClassName`Factory = registerAbstractComponent(`AbstractComponentClassName`);
 ///
-/// __Deprecated.__ Use [registerAbstractComponent2] instead.
-@Deprecated('4.0.0')
 ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentClass, {ReactDartComponentFactoryProxy parentType}) =>
     registerComponent(() => new DummyComponent(), componentClass: abstractComponentClass, parentType: parentType);
-
-/// Helper function that wraps [registerComponent2], and allows an easier way to register abstract components with the
-/// main purpose of type-checking against the abstract component.
-///
-/// __The result must be stored in a variable that is named very specifically:__
-///
-///     var $`AbstractComponentClassName`Factory = registerAbstractComponent2(`AbstractComponentClassName`);
-ReactDartComponentFactoryProxy2 registerAbstractComponent2(Type abstractComponentClass, {ReactDartComponentFactoryProxy2 parentType}) =>
-    registerComponent2(() => new DummyComponent2(), componentClass: abstractComponentClass, parentType: parentType);
 
 /// A function that returns a new [TProps] instance, optionally backed by the specified [backingProps].
 ///
