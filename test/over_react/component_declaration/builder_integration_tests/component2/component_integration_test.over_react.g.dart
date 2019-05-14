@@ -259,7 +259,7 @@ final $IsErrorBoundaryComponentFactory = registerComponent2(
   isWrapper: false,
   parentType: null,
   displayName: 'IsErrorBoundary',
-  skipMethods: [],
+  skipMethods: const [],
 );
 
 abstract class _$IsErrorBoundaryPropsAccessorsMixin
