@@ -123,6 +123,13 @@ __Breaking Changes__
   * `getJsProps()` - use `getProps()` instead
   * `$Props` and `$PropKeys` - see the migration guide above
 
+## 1.33.2
+
+* [#292] Update `react` dependency to version `^4.7.0`, and remove references to deprecated `jsify`, `getProperty` and `setProperty` members.
+* [#294] Fix issue with `AbstractTransitionComponent` that causes ReactJS `setState` warnings to appear in the browser console.
+
+
+
 ## 1.33.1
 
 * [#272] Add `min-height: 0` to `ResizeSensor` wrapper nodes to fix issues with it not shrinking in a flexbox layout
