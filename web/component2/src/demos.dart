@@ -8,6 +8,8 @@ export 'demos/button/button-block.dart';
 export 'demos/button/button-active.dart';
 export 'demos/button/button-disabled.dart';
 
+export 'demos/custom_error_boundary.dart';
+
 export '../../src/demos/faulty-component.dart';
 
 export 'demos/list-group/list-group-basic.dart';

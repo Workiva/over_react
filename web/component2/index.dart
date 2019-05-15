@@ -36,5 +36,14 @@ void main() {
   );
 
   react_dom.render(
+    (CustomErrorBoundary()
+      ..onComponentDidCatch = (error, info) {
+        print('Consumer props.onComponentDidCatch($error, $info)');
+      }
+    )(Faulty()()),
+    querySelector('$demoMountNodeSelectorPrefix--faulty-component-with-custom-error-boundary'),
+  );
+
+  react_dom.render(
     Faulty()(), querySelector('$demoMountNodeSelectorPrefix--faulty-component-without-error-boundary'));
 }
