@@ -1,5 +1,16 @@
 # OverReact Changelog
 
+## 2.4.2
+
+> Complete `2.4.2` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.4.1+dart2...2.4.2+dart2)
+> - [Dart 1](https://github.com/Workiva/over_react/compare/2.4.1+dart1...2.4.2+dart1)
+
+* [#288] Downgrade parse error to fine so as to not fail build unnecessarily.
+* [#292] Update `react` dependency to version `^4.7.0`, and remove references to deprecated `jsify`, `getProperty` and `setProperty` members.
+* [#294] Fix issue with `AbstractTransitionComponent` that causes ReactJS `setState` warnings to appear in the browser console.
+
 ## 2.4.1
 
 > Complete `2.4.1` Changsets:
