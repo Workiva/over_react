@@ -15,11 +15,12 @@
 /// Provides utilities around component type-checking.
 library over_react.component_declaration.component_type_checking;
 
+import 'dart:js_util';
+
 import 'package:over_react/src/component_declaration/component_base.dart' show UiFactory;
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations show Component;
 import 'package:over_react/src/util/react_wrappers.dart';
 import 'package:react/react_client.dart';
-import 'package:react/react_client/js_interop_helpers.dart';
 import 'package:react/react_client/react_interop.dart';
 
 // ----------------------------------------------------------------------
@@ -49,6 +50,7 @@ void setComponentTypeMeta(ReactDartComponentFactoryProxy factory, {
     bool isWrapper,
     ReactDartComponentFactoryProxy parentType
 }) {
+  // ignore: argument_type_not_assignable
   setProperty(factory.type, _componentTypeMetaKey, new ComponentTypeMeta(isWrapper, parentType));
 }
 

@@ -17,13 +17,14 @@ library over_react.react_wrappers;
 
 import 'dart:collection';
 import 'dart:html';
+import 'dart:js_util';
 
 import 'package:js/js.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
-import 'package:react/react_client/js_interop_helpers.dart';
+import 'package:react/react_client/js_interop_helpers.dart' show jsifyAndAllowInterop;
 import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_dom.dart' as react_dom;
 
@@ -216,9 +217,9 @@ dynamic preparePropsChangeset(ReactElement element, Map newProps, [Iterable newC
         // are properly converted.
         Map convertedProps = new Map.from(newProps);
         ReactDomComponentFactoryProxy.convertProps(convertedProps);
-        propsChangeset = jsify(convertedProps);
+        propsChangeset = jsifyAndAllowInterop(convertedProps);
       } else {
-        propsChangeset = jsify(newProps);
+        propsChangeset = jsifyAndAllowInterop(newProps);
       }
     }
   } else {
