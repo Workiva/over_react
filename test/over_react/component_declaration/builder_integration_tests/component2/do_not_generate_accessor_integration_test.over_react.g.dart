@@ -9,13 +9,14 @@ part of 'do_not_generate_accessor_integration_test.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $DoNotGenerateAccessorTestComponentFactory = registerComponent(
-    () => new _$DoNotGenerateAccessorTestComponent(),
-    builderFactory: DoNotGenerateAccessorTest,
-    componentClass: DoNotGenerateAccessorTestComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'DoNotGenerateAccessorTest');
+final $DoNotGenerateAccessorTestComponentFactory = registerComponent2(
+  () => new _$DoNotGenerateAccessorTestComponent(),
+  builderFactory: DoNotGenerateAccessorTest,
+  componentClass: DoNotGenerateAccessorTestComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'DoNotGenerateAccessorTest',
+);
 
 abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
     implements _$DoNotGenerateAccessorTestProps {

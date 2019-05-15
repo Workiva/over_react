@@ -9,13 +9,14 @@ part of 'list_group.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $ListGroupComponentFactory = registerComponent(
-    () => new _$ListGroupComponent(),
-    builderFactory: ListGroup,
-    componentClass: ListGroupComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'ListGroup');
+final $ListGroupComponentFactory = registerComponent2(
+  () => new _$ListGroupComponent(),
+  builderFactory: ListGroup,
+  componentClass: ListGroupComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'ListGroup',
+);
 
 abstract class _$ListGroupPropsAccessorsMixin implements _$ListGroupProps {
   @override

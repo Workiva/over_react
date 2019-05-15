@@ -125,6 +125,21 @@ class Component2 implements Component {
   @override
   final bool isWrapper;
 
+  /// Whether the component serves as a React error boundary.
+  ///
+  /// When set to `true`, this component will be able to make use of 
+  /// the `componentDidCatch` and `getDerivedStateFromError` component lifecycle
+  /// methods in order to "catch" ReactJS errors from within its child component tree.
+  ///
+  /// Check out the `ErrorBoundary` higher-order component for an example implementation.
+  ///
+  ///  > TODO (CPLAT-5037): Add an example of how to utilize the 
+  ///   `ErrorBoundaryMixin`, `ErrorBoundaryPropsMixin` and `ErrorBoundaryStateMixin` classes
+  ///   in order to add default error boundary component behaviors to custom error boundaries.
+  ///
+  /// > See: <https://reactjs.org/docs/error-boundaries.html>
+  final bool isErrorBoundary;
+
   /// The component class of this component's "parent type".
   ///
   /// Used to enable inheritance in component type-checking in `isComponentOfType`.
@@ -152,7 +167,8 @@ class Component2 implements Component {
 
   const Component2({
       this.isWrapper: false,
-      this.subtypeOf
+      this.subtypeOf,
+      this.isErrorBoundary: false,
   });
 }
 

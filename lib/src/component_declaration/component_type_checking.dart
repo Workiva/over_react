@@ -71,7 +71,6 @@ ComponentTypeMeta getComponentTypeMeta(dynamic type) {
   return const ComponentTypeMeta.none();
 }
 
-
 class ComponentTypeMeta {
   /// Whether the component clones or passes through its children and needs to be
   /// treated as if it were the wrapped component when passed into [isComponentOfType].

@@ -9,13 +9,14 @@ part of 'component_integration_test.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $ComponentTestComponentFactory = registerComponent(
-    () => new _$ComponentTestComponent(),
-    builderFactory: ComponentTest,
-    componentClass: ComponentTestComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'ComponentTest');
+final $ComponentTestComponentFactory = registerComponent2(
+  () => new _$ComponentTestComponent(),
+  builderFactory: ComponentTest,
+  componentClass: ComponentTestComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'ComponentTest',
+);
 
 abstract class _$ComponentTestPropsAccessorsMixin
     implements _$ComponentTestProps {
@@ -245,5 +246,281 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForComponentTestProps
+  ];
+}
+
+// React component factory implementation.
+//
+// Registers component implementation and links type meta to builder factory.
+final $IsErrorBoundaryComponentFactory = registerComponent2(
+  () => new _$IsErrorBoundaryComponent(),
+  builderFactory: IsErrorBoundary,
+  componentClass: IsErrorBoundaryComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'IsErrorBoundary',
+  skipMethods: const [],
+);
+
+abstract class _$IsErrorBoundaryPropsAccessorsMixin
+    implements _$IsErrorBoundaryProps {
+  @override
+  Map get props;
+
+  /* GENERATED CONSTANTS */
+
+  static const List<PropDescriptor> $props = const [];
+  static const List<String> $propKeys = const [];
+}
+
+const PropsMeta _$metaForIsErrorBoundaryProps = const PropsMeta(
+  fields: _$IsErrorBoundaryPropsAccessorsMixin.$props,
+  keys: _$IsErrorBoundaryPropsAccessorsMixin.$propKeys,
+);
+
+class IsErrorBoundaryProps extends _$IsErrorBoundaryProps
+    with _$IsErrorBoundaryPropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForIsErrorBoundaryProps;
+}
+
+_$$IsErrorBoundaryProps _$IsErrorBoundary([Map backingProps]) =>
+    backingProps == null
+        ? new _$$IsErrorBoundaryProps$JsMap(new JsBackedMap())
+        : new _$$IsErrorBoundaryProps(backingProps);
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+abstract class _$$IsErrorBoundaryProps extends _$IsErrorBoundaryProps
+    with _$IsErrorBoundaryPropsAccessorsMixin
+    implements IsErrorBoundaryProps {
+  _$$IsErrorBoundaryProps._();
+
+  factory _$$IsErrorBoundaryProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$IsErrorBoundaryProps$JsMap(backingMap);
+    } else {
+      return new _$$IsErrorBoundaryProps$PlainMap(backingMap);
+    }
+  }
+
+  /// Let [UiProps] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The [ReactComponentFactory] associated with the component built by this class.
+  @override
+  ReactComponentFactoryProxy get componentFactory =>
+      $IsErrorBoundaryComponentFactory;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => 'IsErrorBoundaryProps.';
+}
+
+// Concrete props implementation that can be backed by any [Map].
+class _$$IsErrorBoundaryProps$PlainMap extends _$$IsErrorBoundaryProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$IsErrorBoundaryProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+class _$$IsErrorBoundaryProps$JsMap extends _$$IsErrorBoundaryProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$IsErrorBoundaryProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+// Concrete component implementation mixin.
+//
+// Implements typed props/state factories, defaults `consumedPropKeys` to the keys
+// generated for the associated props class.
+class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
+  _$$IsErrorBoundaryProps$JsMap _cachedTypedProps;
+
+  @override
+  _$$IsErrorBoundaryProps$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
+
+  @override
+  _$$IsErrorBoundaryProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$IsErrorBoundaryProps$JsMap(backingMap);
+
+  @override
+  _$$IsErrorBoundaryProps typedPropsFactory(Map backingMap) =>
+      new _$$IsErrorBoundaryProps(backingMap);
+
+  /// Let [UiComponent] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The default consumed props, taken from _$IsErrorBoundaryProps.
+  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  @override
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForIsErrorBoundaryProps
+  ];
+}
+
+// React component factory implementation.
+//
+// Registers component implementation and links type meta to builder factory.
+final $IsNotErrorBoundaryComponentFactory = registerComponent2(
+  () => new _$IsNotErrorBoundaryComponent(),
+  builderFactory: IsNotErrorBoundary,
+  componentClass: IsNotErrorBoundaryComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'IsNotErrorBoundary',
+);
+
+abstract class _$IsNotErrorBoundaryPropsAccessorsMixin
+    implements _$IsNotErrorBoundaryProps {
+  @override
+  Map get props;
+
+  /* GENERATED CONSTANTS */
+
+  static const List<PropDescriptor> $props = const [];
+  static const List<String> $propKeys = const [];
+}
+
+const PropsMeta _$metaForIsNotErrorBoundaryProps = const PropsMeta(
+  fields: _$IsNotErrorBoundaryPropsAccessorsMixin.$props,
+  keys: _$IsNotErrorBoundaryPropsAccessorsMixin.$propKeys,
+);
+
+class IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
+    with _$IsNotErrorBoundaryPropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForIsNotErrorBoundaryProps;
+}
+
+_$$IsNotErrorBoundaryProps _$IsNotErrorBoundary([Map backingProps]) =>
+    backingProps == null
+        ? new _$$IsNotErrorBoundaryProps$JsMap(new JsBackedMap())
+        : new _$$IsNotErrorBoundaryProps(backingProps);
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+abstract class _$$IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
+    with _$IsNotErrorBoundaryPropsAccessorsMixin
+    implements IsNotErrorBoundaryProps {
+  _$$IsNotErrorBoundaryProps._();
+
+  factory _$$IsNotErrorBoundaryProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$IsNotErrorBoundaryProps$JsMap(backingMap);
+    } else {
+      return new _$$IsNotErrorBoundaryProps$PlainMap(backingMap);
+    }
+  }
+
+  /// Let [UiProps] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The [ReactComponentFactory] associated with the component built by this class.
+  @override
+  ReactComponentFactoryProxy get componentFactory =>
+      $IsNotErrorBoundaryComponentFactory;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => 'IsNotErrorBoundaryProps.';
+}
+
+// Concrete props implementation that can be backed by any [Map].
+class _$$IsNotErrorBoundaryProps$PlainMap extends _$$IsNotErrorBoundaryProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$IsNotErrorBoundaryProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+class _$$IsNotErrorBoundaryProps$JsMap extends _$$IsNotErrorBoundaryProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$IsNotErrorBoundaryProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+// Concrete component implementation mixin.
+//
+// Implements typed props/state factories, defaults `consumedPropKeys` to the keys
+// generated for the associated props class.
+class _$IsNotErrorBoundaryComponent extends IsNotErrorBoundaryComponent {
+  _$$IsNotErrorBoundaryProps$JsMap _cachedTypedProps;
+
+  @override
+  _$$IsNotErrorBoundaryProps$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
+
+  @override
+  _$$IsNotErrorBoundaryProps$JsMap typedPropsFactoryJs(
+          JsBackedMap backingMap) =>
+      new _$$IsNotErrorBoundaryProps$JsMap(backingMap);
+
+  @override
+  _$$IsNotErrorBoundaryProps typedPropsFactory(Map backingMap) =>
+      new _$$IsNotErrorBoundaryProps(backingMap);
+
+  /// Let [UiComponent] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The default consumed props, taken from _$IsNotErrorBoundaryProps.
+  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  @override
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForIsNotErrorBoundaryProps
   ];
 }

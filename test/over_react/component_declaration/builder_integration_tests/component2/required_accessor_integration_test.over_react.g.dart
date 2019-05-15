@@ -9,13 +9,14 @@ part of 'required_accessor_integration_test.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $ComponentTestComponentFactory = registerComponent(
-    () => new _$ComponentTestComponent(),
-    builderFactory: ComponentTest,
-    componentClass: ComponentTestComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'ComponentTest');
+final $ComponentTestComponentFactory = registerComponent2(
+  () => new _$ComponentTestComponent(),
+  builderFactory: ComponentTest,
+  componentClass: ComponentTestComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'ComponentTest',
+);
 
 abstract class _$ComponentTestPropsAccessorsMixin
     implements _$ComponentTestProps {

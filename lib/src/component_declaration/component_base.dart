@@ -43,17 +43,51 @@ part 'component_base/disposable_manager_proxy.dart';
 /// used as types for [isComponentOfType]/[getComponentFactory].
 ///
 /// * [displayName]: the name of the component for use when debugging.
-// ignore: deprecated_member_use
+///
+/// __Deprecated.__ Use [registerComponent2] instead.
+@Deprecated('4.0.0')
 ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFactory(), {
     bool isWrapper: false,
     // ignore: deprecated_member_use
     ReactDartComponentFactoryProxy parentType,
     UiFactory builderFactory,
     Type componentClass,
-    String displayName
+    String displayName,
 }) {
   // ignore: deprecated_member_use
   ReactDartComponentFactoryProxy reactComponentFactory = react.registerComponent(dartComponentFactory);
+
+  if (displayName != null) {
+    reactComponentFactory.reactClass.displayName = displayName;
+  }
+
+  registerComponentTypeAlias(reactComponentFactory, builderFactory);
+  registerComponentTypeAlias(reactComponentFactory, componentClass);
+
+  setComponentTypeMeta(reactComponentFactory, isWrapper: isWrapper, parentType: parentType);
+
+  return reactComponentFactory;
+}
+
+/// Helper function that wraps react.registerComponent2, and allows attachment of additional
+/// component factory metadata.
+///
+/// * [isWrapper]: whether the component clones or passes through its children and needs to be
+/// treated as if it were the wrapped component.
+///
+/// * [builderFactory]/[componentClass]: the [UiFactory] and [UiComponent2] members to be potentially
+/// used as types for [isComponentOfType]/[getComponentFactory].
+///
+/// * [displayName]: the name of the component for use when debugging.
+ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 dartComponentFactory(), {
+    bool isWrapper: false,
+    ReactDartComponentFactoryProxy2 parentType,
+    UiFactory builderFactory,
+    Type componentClass,
+    String displayName,
+    Iterable<String> skipMethods = const ['getDerivedStateFromError', 'componentDidCatch'],
+}) {
+  ReactDartComponentFactoryProxy2 reactComponentFactory = react.registerComponent(dartComponentFactory, skipMethods);
 
   if (displayName != null) {
     reactComponentFactory.reactClass.displayName = displayName;
@@ -73,7 +107,7 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
 /// __The result must be stored in a variable that is named very specifically:__
 ///
 ///     var $`AbstractComponentClassName`Factory = registerAbstractComponent(`AbstractComponentClassName`);
-// ignore: deprecated_member_use
+///
 ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentClass, {ReactDartComponentFactoryProxy parentType}) =>
     registerComponent(() => new DummyComponent(), componentClass: abstractComponentClass, parentType: parentType);
 

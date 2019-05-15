@@ -9,13 +9,14 @@ part of 'stateful_component_integration_test.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $StatefulComponentTestComponentFactory = registerComponent(
-    () => new _$StatefulComponentTestComponent(),
-    builderFactory: StatefulComponentTest,
-    componentClass: StatefulComponentTestComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'StatefulComponentTest');
+final $StatefulComponentTestComponentFactory = registerComponent2(
+  () => new _$StatefulComponentTestComponent(),
+  builderFactory: StatefulComponentTest,
+  componentClass: StatefulComponentTestComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'StatefulComponentTest',
+);
 
 abstract class _$StatefulComponentTestPropsAccessorsMixin
     implements _$StatefulComponentTestProps {

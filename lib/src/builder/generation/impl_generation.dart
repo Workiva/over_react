@@ -57,7 +57,6 @@ class ImplGenerator {
     if (declarations.declaresComponent) {
       final bool isComponent2 = declarations.component2 != null;
       final componentDeclNode = isComponent2 ? declarations.component2 : declarations.component;
-
       final factoryName = declarations.factory.node.variables.variables.first.name.toString();
 
       final consumerPropsName = declarations.props.node.name.toString();
@@ -106,18 +105,43 @@ class ImplGenerator {
         );
       }
 
-      outputContentsBuffer
-        ..writeln('// React component factory implementation.')
-        ..writeln('//')
-        ..writeln('// Registers component implementation and links type meta to builder factory.')
-        ..writeln('final $generatedComponentFactoryName = registerComponent(() => new $componentClassImplMixinName(),')
-        ..writeln('    builderFactory: $factoryName,')
-        ..writeln('    componentClass: $componentClassName,')
-        ..writeln('    isWrapper: ${componentDeclNode.meta.isWrapper},')
-        ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
-        ..writeln('    displayName: ${stringLiteral(factoryName)}')
-        ..writeln(');')
-        ..writeln();
+      if (isComponent2) {
+        outputContentsBuffer
+          ..writeln('// React component factory implementation.')
+          ..writeln('//')
+          ..writeln('// Registers component implementation and links type meta to builder factory.')
+          ..writeln('final $generatedComponentFactoryName = registerComponent2(() => new $componentClassImplMixinName(),')
+          ..writeln('    builderFactory: $factoryName,')
+          ..writeln('    componentClass: $componentClassName,')
+          ..writeln('    isWrapper: ${componentDeclNode.meta.isWrapper},')
+          ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
+          ..writeln('    displayName: ${stringLiteral(factoryName)},');
+
+        if (declarations.component2.meta.isErrorBoundary) {
+          // Override `skipMethods` as an empty list so that
+          // the `componentDidCatch` and `getDerivedStateFromError`
+          // lifecycle methods are included in the component's JS bindings. 
+          outputContentsBuffer
+            ..writeln('    skipMethods: const [],');
+        }
+
+        outputContentsBuffer
+          ..writeln(');')
+          ..writeln();
+      } else {
+        outputContentsBuffer
+          ..writeln('// React component factory implementation.')
+          ..writeln('//')
+          ..writeln('// Registers component implementation and links type meta to builder factory.')
+          ..writeln('final $generatedComponentFactoryName = registerComponent(() => new $componentClassImplMixinName(),')
+          ..writeln('    builderFactory: $factoryName,')
+          ..writeln('    componentClass: $componentClassName,')
+          ..writeln('    isWrapper: ${componentDeclNode.meta.isWrapper},')
+          ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
+          ..writeln('    displayName: ${stringLiteral(factoryName)}')
+          ..writeln(');')
+          ..writeln();
+      }
 
       // ----------------------------------------------------------------------
       //   Props implementation
