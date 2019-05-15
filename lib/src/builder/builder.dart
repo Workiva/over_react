@@ -111,7 +111,7 @@ class OverReactBuilder extends Builder {
         suppressErrors: false,
         parseFunctionBodies: true);
     } catch (error, stackTrace) {
-      log.severe('There was an error parsing the compilation unit for file: $id');
+      log.fine('There was an error parsing the compilation unit for file: $id');
       log.fine(error);
       log.fine(stackTrace);
       return null;
