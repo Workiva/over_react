@@ -50,6 +50,7 @@ void setComponentTypeMeta(ReactDartComponentFactoryProxy factory, {
     bool isWrapper,
     ReactDartComponentFactoryProxy parentType
 }) {
+  // ignore: argument_type_not_assignable
   setProperty(factory.type, _componentTypeMetaKey, new ComponentTypeMeta(isWrapper, parentType));
 }
 

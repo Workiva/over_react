@@ -310,6 +310,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   void componentWillUnmount() {
     super.componentWillUnmount();
     _isUnmounted = true;
+    _cancelTransitionEndTimer();
     _cancelTransitionEventListener();
   }
 

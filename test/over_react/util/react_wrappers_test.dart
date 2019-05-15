@@ -992,7 +992,7 @@ main() {
 
         test('a String', () {
           expect(() => getProps('string'), throwsArgumentError);
-        });
+        }, testOn: 'js');
 
         test('null', () {
           expect(() => getProps(null), throwsArgumentError);
