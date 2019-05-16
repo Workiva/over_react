@@ -1,7 +1,7 @@
 import 'package:over_react/over_react.dart';
-import 'package:react/react_client/react_interop.dart';
 
-part 'custom_error_boundary.over_react.g.dart';
+// ignore: uri_has_not_been_generated
+part 'custom_error_boundary_component.over_react.g.dart';
 
 @Factory()
 // ignore: undefined_identifier
@@ -15,14 +15,4 @@ class _$CustomErrorBoundaryState extends UiState with ErrorBoundaryStateMixin {}
 
 @Component2(isErrorBoundary: true)
 class CustomErrorBoundaryComponent extends UiStatefulComponent2<CustomErrorBoundaryProps, CustomErrorBoundaryState>
-    with ErrorBoundaryMixin<CustomErrorBoundaryProps, CustomErrorBoundaryState> {
-  @override
-  Map getDefaultProps() => newProps()
-    ..fallbackUIRenderer = _renderFallbackUI;
-
-  ReactElement _renderFallbackUI() {
-    return Dom.div()(
-      Dom.h3()('Error!'),
-    );
-  }
-}
+    with ErrorBoundaryMixin<CustomErrorBoundaryProps, CustomErrorBoundaryState> {}

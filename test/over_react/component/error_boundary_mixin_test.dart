@@ -13,15 +13,15 @@
 // limitations under the License.
 
 @Timeout(const Duration(seconds: 2))
-library error_boundary_test;
+library error_boundary_mixin_test;
 
-import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
+import 'fixtures/custom_error_boundary_component.dart';
 import 'shared_error_boundary_tests.dart';
 
 void main() {
-  group('ErrorBoundary', () {
-    sharedErrorBoundaryTests(() => ErrorBoundary());
+  group('ErrorBoundaryMixin', () {
+    sharedErrorBoundaryTests(() => CustomErrorBoundary());
   });
 }
