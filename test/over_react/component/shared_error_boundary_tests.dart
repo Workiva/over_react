@@ -1,7 +1,6 @@
 import 'dart:html';
 import 'package:over_react/over_react.dart';
 import 'package:over_react_test/over_react_test.dart';
-import 'package:react/react_client/react_interop.dart';
 import 'package:test/test.dart';
 
 import './fixtures/flawed_component.dart';

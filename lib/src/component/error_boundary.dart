@@ -1,5 +1,4 @@
 import 'package:over_react/over_react.dart';
-import 'package:react/react_client.dart';
 
 part 'error_boundary.over_react.g.dart';
 

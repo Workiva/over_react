@@ -1,7 +1,5 @@
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
-import 'package:react/react_client.dart';
-import 'package:react/react_client/react_interop.dart' show ReactErrorInfo;
 
 part 'error_boundary_mixins.over_react.g.dart';
 
