@@ -195,6 +195,9 @@ bool _isCompositeComponent(dynamic instance) {
 /// * Children are likewise copied and potentially overwritten with [newChildren] as expected.
 /// * For JS components, a copy of [newProps] is returned, since React will merge the props without any special handling.
 dynamic preparePropsChangeset(ReactElement element, Map newProps, [Iterable newChildren]) {
+
+  if (element == null) throw ArgumentError.notNull("element");
+
   var propsChangeset;
 
   final internal = _getInternal(element);
