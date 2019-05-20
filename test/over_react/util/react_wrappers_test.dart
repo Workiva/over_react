@@ -42,6 +42,8 @@ main() {
         'originalPropToOverride': 'original'
       };
 
+      JsBackedMap testPropsForComponent2 = JsBackedMap.from(testProps);
+
       group('returns a clone', () {
         test('for a plain React JS component', () {
           var original = (Dom.div()..addProps(testProps))(testChildren);
@@ -85,6 +87,37 @@ main() {
           expect(dartRenderedClone, isNot(same(dartRendered)));
           expect(dartRenderedClone.props, equals(dartRendered.props));
         });
+
+        test('for a Dart component version 2', () {
+          var original = TestComponent2Factory(testPropsForComponent2,
+          testChildren);
+          var clone = cloneElement(original);
+
+          // If these objects are equal, then they proxy the same JS props object.
+          expect(clone.props, isNot(equals(original.props)));
+
+          Map originalProps = unconvertJsProps(original);
+          Map cloneProps = unconvertJsProps(clone);
+
+          // Verify all props (including children, excluding react-dart internals) are equal.
+          Map originalShallowProps = new Map.from(originalProps);
+          Map clonePropsShallowProps = new Map.from(cloneProps);
+          originalShallowProps.remove('internal');
+          clonePropsShallowProps.remove('internal');
+          expect(originalShallowProps, equals(clonePropsShallowProps));
+
+          // Verify react-dart internal props are equal.
+          ReactDartComponentInternal originalInternal = originalProps['internal'];
+          ReactDartComponentInternal clonePropsInternal = cloneProps['internal'];
+
+          expect(originalInternal, equals(clonePropsInternal));
+
+          var dartRendered = getDartComponent(render(original));
+          var dartRenderedClone = getDartComponent(render(clone));
+
+          expect(dartRenderedClone, isNot(same(dartRendered)));
+          expect(dartRenderedClone.props, equals(dartRendered.props));
+        });
       });
 
       group('returns a clone with added/overridden props', () {
@@ -113,6 +146,17 @@ main() {
 
         test('for a Dart component', () {
           var original = TestComponentFactory(testProps, testChildren);
+          var clone = cloneElement(original, testPropsToAdd);
+
+          var renderedClone = render(clone);
+
+          // Verify all props are equal.
+          Map cloneDartProps = getDartComponent(renderedClone).props;
+          expect(cloneDartProps, equals(expectedPropsMerge));
+        });
+
+        test('for a Dart component version 2', () {
+          var original = TestComponent2Factory(testPropsForComponent2, testChildren);
           var clone = cloneElement(original, testPropsToAdd);
 
           var renderedClone = render(clone);
@@ -153,6 +197,17 @@ main() {
           group(', except', () {
             test('for Dart components', () {
               var original = TestComponentFactory(testProps, testChildren);
+              var clone = cloneElement(original, testPropsToAdd);
+
+              var renderedClone = react_test_utils.renderIntoDocument(clone);
+              Map cloneProps = getDartComponent(renderedClone).props;
+
+              var style = cloneProps['style'];
+              expect(style, same(testPropsToAdd['style']), reason: 'style should be the same object passed in, unaltered');
+            });
+
+            test('for Dart components version 2', () {
+              var original = TestComponent2Factory(testPropsForComponent2, testChildren);
               var clone = cloneElement(original, testPropsToAdd);
 
               var renderedClone = react_test_utils.renderIntoDocument(clone);
@@ -222,6 +277,23 @@ main() {
               }, returnsNormally, reason: 'should not throw due to mismatched arguments or otherwise');
               expect(onClickWasCalled, isTrue, reason: 'event handler that was added via cloning was not called');
             });
+
+            test('for Dart components version 2', () {
+              var original = TestComponent2Factory(testPropsForComponent2,
+                  testChildren);
+              var clone = cloneElement(original, testPropsToAdd);
+
+              var renderedClone = react_test_utils.renderIntoDocument(clone);
+              Map cloneProps = getDartComponent(renderedClone).props;
+
+              expect(() {
+                // Retrieve the callback passed to the component.
+                Function callback = cloneProps['onClick'];
+                // Call the method with one arg.
+                callback(null);
+              }, returnsNormally, reason: 'should not throw due to mismatched arguments or otherwise');
+              expect(onClickWasCalled, isTrue, reason: 'event handler that was added via cloning was not called');
+            });
           });
         });
       });
@@ -233,6 +305,9 @@ main() {
           'key': 'original',
           'ref': (ref) { originalRefCalled = true; }
         };
+
+        JsBackedMap originalKeyRefPropsForComponent2 = JsBackedMap.from
+          (originalKeyRefProps);
 
         Map overrideKeyRefProps = {
           'key': 'clone',
@@ -279,6 +354,35 @@ main() {
           expect(cloneDartProps, isNot(anyOf(contains('key'), contains('ref'))),
               reason: '"key" and "ref" should not be visible to the rendered cloned component');
         });
+
+        test('for a Dart component version 2', () {
+          ReactElement original;
+          ReactElement clone;
+
+          // The 'ref' property can only be used from within a render() method, so use RenderingContainerComponent
+          // to clone and render the test component.
+          var holder = RenderingContainerComponentFactory({
+            'renderer': () {
+              original = TestComponent2Factory(originalKeyRefPropsForComponent2,
+                  testChildren);
+              clone = cloneElement(original, overrideKeyRefProps);
+
+              return clone;
+            }
+          });
+          var renderedHolder = render(holder);
+
+          // Verify that "key" and "ref" are overridden according to React
+          expect(clone.key, equals(overrideKeyRefProps['key']));
+          expect(cloneRefCalled, isTrue);
+
+          var renderedClone = react_test_utils
+              .findRenderedComponentWithTypeV2(renderedHolder, TestComponent2Factory);
+
+          Map cloneDartProps = getDartComponent(renderedClone).props;
+          expect(cloneDartProps, isNot(anyOf(contains('key'), contains('ref'))),
+              reason: '"key" and "ref" should not be visible to the rendered cloned component');
+        });
       });
 
       group('returns a clone with replaced children', () {
@@ -295,6 +399,21 @@ main() {
 
         test('for a Dart component', () {
           var original = TestComponentFactory(testProps, testChildren);
+          var clone = cloneElement(original, null, testOverrideChildren);
+
+          var renderedClone = render(clone);
+
+          // Verify that children are overridden according to React
+          Map cloneProps = unconvertJsProps(renderedClone);
+          expect(cloneProps['children'], equals(testOverrideChildren));
+
+          // Verify that children are overridden according to the Dart component.
+          Map cloneDartProps = getDartComponent(renderedClone).props;
+          expect(cloneDartProps['children'], equals(testOverrideChildren));
+        });
+
+        test('for a Dart component version 2', () {
+          var original = TestComponent2Factory(testPropsForComponent2, testChildren);
           var clone = cloneElement(original, null, testOverrideChildren);
 
           var renderedClone = render(clone);
@@ -332,6 +451,12 @@ main() {
 
         expect(flag, isTrue);
         expect(runtimeType, equals(TestComponent));
+      });
+
+      test('throws an argument error if element is null', (){
+        expect(() => cloneElement(null), throwsArgumentError,
+            reason: 'To ensure a consumer friendly error message, the '
+                'function should short circuit and provide the Argument Error.');
       });
     });
 
@@ -1143,6 +1268,16 @@ main() {
 final TestComponentFactory = react.registerComponent(() => new TestComponent());
 // ignore: deprecated_member_use
 class TestComponent extends react.Component {
+  @override
+  render() => Dom.div()();
+}
+
+/// Helper component for testing a Dart (react-dart) React component (version
+/// 2) with cloneElement.
+final TestComponent2Factory = react.registerComponent(() => new TestComponent2
+  ());
+
+class TestComponent2 extends react.Component2 {
   @override
   render() => Dom.div()();
 }
