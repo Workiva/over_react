@@ -50,13 +50,13 @@ main() {
           var clone = cloneElement(original);
 
           // If these objects are equal, then they proxy the same JS props object.
-          expect(clone.props, isNot(equals(original.props)));
+          expect(clone.props, isNot(original.props));
 
           Map originalProps = unconvertJsProps(original);
           Map cloneProps = unconvertJsProps(clone);
 
           // Verify all props (children included) are equal.
-          expect(cloneProps, equals(originalProps));
+          expect(cloneProps, originalProps);
         });
 
         test('for a Dart component', () {
@@ -64,7 +64,7 @@ main() {
           var clone = cloneElement(original);
 
           // If these objects are equal, then they proxy the same JS props object.
-          expect(clone.props, isNot(equals(original.props)));
+          expect(clone.props, isNot(original.props));
 
           Map originalProps = unconvertJsProps(original);
           Map cloneProps = unconvertJsProps(clone);
@@ -74,18 +74,18 @@ main() {
           Map clonePropsShallowProps = new Map.from(cloneProps);
           originalShallowProps.remove('internal');
           clonePropsShallowProps.remove('internal');
-          expect(originalShallowProps, equals(clonePropsShallowProps));
+          expect(originalShallowProps, clonePropsShallowProps);
 
           // Verify react-dart internal props are equal.
           ReactDartComponentInternal originalInternal = originalProps['internal'];
           ReactDartComponentInternal clonePropsInternal = cloneProps['internal'];
-          expect(originalInternal.props, equals(clonePropsInternal.props));
+          expect(originalInternal.props, clonePropsInternal.props);
 
           var dartRendered = getDartComponent(render(original));
           var dartRenderedClone = getDartComponent(render(clone));
 
           expect(dartRenderedClone, isNot(same(dartRendered)));
-          expect(dartRenderedClone.props, equals(dartRendered.props));
+          expect(dartRenderedClone.props, dartRendered.props);
         });
 
         test('for a Dart component version 2', () {
@@ -94,7 +94,7 @@ main() {
           var clone = cloneElement(original);
 
           // If these objects are equal, then they proxy the same JS props object.
-          expect(clone.props, isNot(equals(original.props)));
+          expect(clone.props, isNot(original.props));
 
           Map originalProps = unconvertJsProps(original);
           Map cloneProps = unconvertJsProps(clone);
@@ -104,19 +104,19 @@ main() {
           Map clonePropsShallowProps = new Map.from(cloneProps);
           originalShallowProps.remove('internal');
           clonePropsShallowProps.remove('internal');
-          expect(originalShallowProps, equals(clonePropsShallowProps));
+          expect(originalShallowProps, clonePropsShallowProps);
 
           // Verify react-dart internal props are equal.
           ReactDartComponentInternal originalInternal = originalProps['internal'];
           ReactDartComponentInternal clonePropsInternal = cloneProps['internal'];
 
-          expect(originalInternal, equals(clonePropsInternal));
+          expect(originalInternal, clonePropsInternal);
 
           var dartRendered = getDartComponent(render(original));
           var dartRenderedClone = getDartComponent(render(clone));
 
           expect(dartRenderedClone, isNot(same(dartRendered)));
-          expect(dartRenderedClone.props, equals(dartRendered.props));
+          expect(dartRenderedClone.props, dartRendered.props);
         });
       });
 
@@ -141,7 +141,7 @@ main() {
           Map cloneProps = unconvertJsProps(clone);
 
           // Verify all props (children included) are equal.
-          expect(cloneProps, equals(expectedPropsMerge));
+          expect(cloneProps, expectedPropsMerge);
         });
 
         test('for a Dart component', () {
@@ -152,7 +152,7 @@ main() {
 
           // Verify all props are equal.
           Map cloneDartProps = getDartComponent(renderedClone).props;
-          expect(cloneDartProps, equals(expectedPropsMerge));
+          expect(cloneDartProps, expectedPropsMerge);
         });
 
         test('for a Dart component version 2', () {
@@ -163,7 +163,7 @@ main() {
 
           // Verify all props are equal.
           Map cloneDartProps = getDartComponent(renderedClone).props;
-          expect(cloneDartProps, equals(expectedPropsMerge));
+          expect(cloneDartProps, expectedPropsMerge);
         });
       });
 
@@ -180,7 +180,7 @@ main() {
             var renderedClone = react_test_utils.renderIntoDocument(clone);
             var renderedCloneNode = findDomNode(renderedClone);
 
-            expect(renderedCloneNode.style.width, equals('100rem'));
+            expect(renderedCloneNode.style.width, '100rem');
           });
 
           test('for JS composite components', () {
@@ -191,7 +191,7 @@ main() {
             var props = renderedClone.props as PlainObjectPropsMap; // ignore: avoid_as
 
             var convertedStyle = props.style;
-            expect(convertedStyle.width, equals('100rem'));
+            expect(convertedStyle.width, '100rem');
           });
 
           group(', except', () {
@@ -306,8 +306,7 @@ main() {
           'ref': (ref) { originalRefCalled = true; }
         };
 
-        JsBackedMap originalKeyRefPropsForComponent2 = JsBackedMap.from
-          (originalKeyRefProps);
+        JsBackedMap originalKeyRefPropsForComponent2 = JsBackedMap.from(originalKeyRefProps);
 
         Map overrideKeyRefProps = {
           'key': 'clone',
@@ -324,7 +323,7 @@ main() {
           var clone = cloneElement(original, overrideKeyRefProps);
 
           // Verify that "key" and "ref" are overridden according to React
-          expect(clone.key, equals(overrideKeyRefProps['key']));
+          expect(clone.key, overrideKeyRefProps['key']);
           expect(clone.ref, equals(overrideKeyRefProps['ref']));
         });
 
@@ -345,7 +344,7 @@ main() {
           var renderedHolder = render(holder);
 
           // Verify that "key" and "ref" are overridden according to React
-          expect(clone.key, equals(overrideKeyRefProps['key']));
+          expect(clone.key, overrideKeyRefProps['key']);
           expect(cloneRefCalled, isTrue);
 
           var renderedClone = react_test_utils.findRenderedComponentWithTypeV2(renderedHolder, TestComponentFactory);
@@ -373,7 +372,7 @@ main() {
           var renderedHolder = render(holder);
 
           // Verify that "key" and "ref" are overridden according to React
-          expect(clone.key, equals(overrideKeyRefProps['key']));
+          expect(clone.key, overrideKeyRefProps['key']);
           expect(cloneRefCalled, isTrue);
 
           var renderedClone = react_test_utils
@@ -394,7 +393,7 @@ main() {
 
           Map cloneProps = unconvertJsProps(clone);
 
-          expect(cloneProps['children'], equals(testOverrideChildren));
+          expect(cloneProps['children'], testOverrideChildren);
         });
 
         test('for a Dart component', () {
@@ -405,11 +404,11 @@ main() {
 
           // Verify that children are overridden according to React
           Map cloneProps = unconvertJsProps(renderedClone);
-          expect(cloneProps['children'], equals(testOverrideChildren));
+          expect(cloneProps['children'], testOverrideChildren);
 
           // Verify that children are overridden according to the Dart component.
           Map cloneDartProps = getDartComponent(renderedClone).props;
-          expect(cloneDartProps['children'], equals(testOverrideChildren));
+          expect(cloneDartProps['children'], testOverrideChildren);
         });
 
         test('for a Dart component version 2', () {
@@ -420,11 +419,11 @@ main() {
 
           // Verify that children are overridden according to React
           Map cloneProps = unconvertJsProps(renderedClone);
-          expect(cloneProps['children'], equals(testOverrideChildren));
+          expect(cloneProps['children'], testOverrideChildren);
 
           // Verify that children are overridden according to the Dart component.
           Map cloneDartProps = getDartComponent(renderedClone).props;
-          expect(cloneDartProps['children'], equals(testOverrideChildren));
+          expect(cloneDartProps['children'], testOverrideChildren);
         });
       });
 
@@ -450,7 +449,7 @@ main() {
         render(holder);
 
         expect(flag, isTrue);
-        expect(runtimeType, equals(TestComponent));
+        expect(runtimeType, TestComponent);
       });
 
       test('throws an argument error if element is null', (){
@@ -516,12 +515,12 @@ main() {
 
     test('getInstanceKey returns the key set on a ReactElement', () {
       ReactElement instance = (Dom.div()..key = 'foo')();
-      expect(getInstanceKey(instance), equals('foo'));
+      expect(getInstanceKey(instance), 'foo');
     });
 
     test('getInstanceRef returns the ref set on a ReactElement', () {
       ReactElement instance = (Dom.div()..ref = 'foo')();
-      expect(getInstanceRef(instance), equals('foo'));
+      expect(getInstanceRef(instance), 'foo');
     });
 
     group('isDartComponent', () {
@@ -612,11 +611,11 @@ main() {
           'style': testStyle,
         }, testChildren);
 
-        expect(getProps(instance), equals({
+        expect(getProps(instance), {
           'jsProp': 'js',
           'style': testStyle,
           'children': testChildren
-        }));
+        });
       });
 
       test('returns props for a composite JS ReactComponent', () {
@@ -625,11 +624,11 @@ main() {
           'style': testStyle,
         }, testChildren));
 
-        expect(getProps(renderedInstance), equals({
+        expect(getProps(renderedInstance), {
           'jsProp': 'js',
           'style': testStyle,
           'children': testChildren
-        }));
+        });
       });
 
       test('returns props for a composite JS ReactComponent, even when the props change', () {
@@ -639,22 +638,22 @@ main() {
           'style': testStyle,
         }, testChildren), mountNode);
 
-        expect(getProps(renderedInstance), equals({
+        expect(getProps(renderedInstance), {
           'jsProp': 'js',
           'style': testStyle,
           'children': testChildren
-        }));
+        });
 
         renderedInstance = react_dom.render(testJsComponentFactory({
           'jsProp': 'other js',
           'style': testStyle,
         }, testChildren), mountNode);
 
-        expect(getProps(renderedInstance), equals({
+        expect(getProps(renderedInstance), {
           'jsProp': 'other js',
           'style': testStyle,
           'children': testChildren
-        }));
+        });
       });
 
       test('returns props for a DOM component ReactElement', () {
@@ -663,11 +662,11 @@ main() {
           ..style = testStyle
         )(testChildren);
 
-        expect(getProps(instance), equals({
+        expect(getProps(instance), {
           'domProp': 'dom',
           'style': testStyle,
           'children': testChildren
-        }));
+        });
       });
 
       test('returns props for a Dart component ReactElement', () {
@@ -676,11 +675,11 @@ main() {
           'style': testStyle,
         }, testChildren);
 
-        expect(getProps(instance), equals({
+        expect(getProps(instance), {
           'dartProp': 'dart',
           'style': testStyle,
           'children': testChildren
-        }));
+        });
       });
 
       test('returns props for a Dart component ReactComponent', () {
@@ -689,11 +688,11 @@ main() {
           'style': testStyle,
         }, testChildren));
 
-        expect(getProps(renderedInstance), equals({
+        expect(getProps(renderedInstance), {
           'dartProp': 'dart',
           'style': testStyle,
           'children': testChildren
-        }));
+        });
       });
 
       test('returns props for a Dart component ReactComponent, even when the props change', () {
@@ -703,22 +702,22 @@ main() {
           'style': testStyle,
         }, testChildren), mountNode);
 
-        expect(getProps(renderedInstance), equals({
+        expect(getProps(renderedInstance), {
           'jsProp': 'js',
           'style': testStyle,
           'children': testChildren
-        }));
+        });
 
         renderedInstance = react_dom.render(TestComponentFactory({
           'jsProp': 'other js',
           'style': testStyle,
         }, testChildren), mountNode);
 
-        expect(getProps(renderedInstance), equals({
+        expect(getProps(renderedInstance), {
           'jsProp': 'other js',
           'style': testStyle,
           'children': testChildren
-        }));
+        });
       });
 
       group('traverses children of Wrapper components', () {
@@ -732,11 +731,11 @@ main() {
                 }, testChildren)
               );
 
-              expect(getProps(instance, traverseWrappers: true), equals({
+              expect(getProps(instance, traverseWrappers: true), {
                 'jsProp': 'js',
                 'style': testStyle,
                 'children': testChildren
-              }));
+              });
             });
 
             test('even when there are multiple levels of wrappers', () {
@@ -749,11 +748,11 @@ main() {
                 )
               );
 
-              expect(getProps(instance, traverseWrappers: true), equals({
+              expect(getProps(instance, traverseWrappers: true), {
                 'jsProp': 'js',
                 'style': testStyle,
                 'children': testChildren
-              }));
+              });
             });
 
             test('except when the top level component is not a wrapper', () {
@@ -762,11 +761,11 @@ main() {
                 'style': testStyle,
               }, testChildren);
 
-              expect(getProps(instance, traverseWrappers: true), equals({
+              expect(getProps(instance, traverseWrappers: true), {
                 'jsProp': 'js',
                 'style': testStyle,
                 'children': testChildren
-              }));
+              });
             });
 
             test('except when traverseWrappers is false', () {
@@ -777,7 +776,7 @@ main() {
                 }, testChildren)
               );
 
-              expect(getProps(instance), equals({'children': anything}));
+              expect(getProps(instance), {'children': anything});
             });
           });
 
@@ -790,11 +789,11 @@ main() {
                 }, testChildren)
               ));
 
-              expect(getProps(renderedInstance, traverseWrappers: true), equals({
+              expect(getProps(renderedInstance, traverseWrappers: true), {
                 'jsProp': 'js',
                 'style': testStyle,
                 'children': testChildren
-              }));
+              });
             });
 
             test('even when there are multiple levels of wrappers', () {
@@ -807,11 +806,11 @@ main() {
                 )
               ));
 
-              expect(getProps(renderedInstance, traverseWrappers: true), equals({
+              expect(getProps(renderedInstance, traverseWrappers: true), {
                 'jsProp': 'js',
                 'style': testStyle,
                 'children': testChildren
-              }));
+              });
             });
 
             test('even when props change', () {
@@ -823,11 +822,11 @@ main() {
                 }, testChildren)
               ), mountNode);
 
-              expect(getProps(renderedInstance, traverseWrappers: true), equals({
+              expect(getProps(renderedInstance, traverseWrappers: true), {
                 'jsProp': 'js',
                 'style': testStyle,
                 'children': testChildren
-              }));
+              });
 
               renderedInstance = react_dom.render(OneLevelWrapper()(
                 testJsComponentFactory({
@@ -836,11 +835,11 @@ main() {
                 }, testChildren)
               ), mountNode);
 
-              expect(getProps(renderedInstance, traverseWrappers: true), equals({
+              expect(getProps(renderedInstance, traverseWrappers: true), {
                 'jsProp': 'other js',
                 'style': testStyle,
                 'children': testChildren
-              }));
+              });
             });
 
             test('except when traverseWrappers is false', () {
@@ -851,7 +850,7 @@ main() {
                 }, testChildren)
               ));
 
-              expect(getProps(renderedInstance), equals({'children': anything}));
+              expect(getProps(renderedInstance), {'children': anything});
             });
           });
 
@@ -864,11 +863,11 @@ main() {
                 )(testChildren)
               );
 
-              expect(getProps(instance, traverseWrappers: true), equals({
+              expect(getProps(instance, traverseWrappers: true), {
                 'domProp': 'dom',
                 'style': testStyle,
                 'children': testChildren
-              }));
+              });
             });
 
             test('even when there are multiple levels of wrappers', () {
@@ -881,11 +880,11 @@ main() {
                 )
               );
 
-              expect(getProps(instance, traverseWrappers: true), equals({
+              expect(getProps(instance, traverseWrappers: true), {
                 'domProp': 'dom',
                 'style': testStyle,
                 'children': testChildren
-              }));
+              });
             });
 
             test('except when the top level component is not a wrapper', () {
@@ -894,11 +893,11 @@ main() {
                 ..style = testStyle
               )(testChildren);
 
-              expect(getProps(instance, traverseWrappers: true), equals({
+              expect(getProps(instance, traverseWrappers: true), {
                 'domProp': 'dom',
                 'style': testStyle,
                 'children': testChildren
-              }));
+              });
             });
 
             test('except when traverseWrappers is false', () {
@@ -909,7 +908,7 @@ main() {
                 )(testChildren)
               );
 
-              expect(getProps(instance), equals({'children': anything}));
+              expect(getProps(instance), {'children': anything});
             });
           });
 
@@ -922,11 +921,11 @@ main() {
                 }, testChildren)
               );
 
-              expect(getProps(instance, traverseWrappers: true), equals({
+              expect(getProps(instance, traverseWrappers: true), {
                 'dartProp': 'dart',
                 'style': testStyle,
                 'children': testChildren
-              }));
+              });
             });
 
             test('even when there are multiple levels of wrappers', () {
@@ -939,11 +938,11 @@ main() {
                 )
               );
 
-              expect(getProps(instance, traverseWrappers: true), equals({
+              expect(getProps(instance, traverseWrappers: true), {
                 'dartProp': 'dart',
                 'style': testStyle,
                 'children': testChildren
-              }));
+              });
             });
 
             test('except when the top level component is not a wrapper', () {
@@ -952,11 +951,11 @@ main() {
                 'style': testStyle,
               }, testChildren);
 
-              expect(getProps(instance, traverseWrappers: true), equals({
+              expect(getProps(instance, traverseWrappers: true), {
                 'dartProp': 'dart',
                 'style': testStyle,
                 'children': testChildren
-              }));
+              });
             });
 
             test('except when traverseWrappers is false', () {
@@ -967,7 +966,7 @@ main() {
                 }, testChildren)
               );
 
-              expect(getProps(instance), equals({'children': anything}));
+              expect(getProps(instance), {'children': anything});
             });
           });
 
@@ -980,11 +979,11 @@ main() {
                 }, testChildren)
               ));
 
-              expect(getProps(renderedInstance, traverseWrappers: true), equals({
+              expect(getProps(renderedInstance, traverseWrappers: true), {
                 'dartProp': 'dart',
                 'style': testStyle,
                 'children': testChildren
-              }));
+              });
             });
 
             test('even when there are multiple levels of wrappers', () {
@@ -997,11 +996,11 @@ main() {
                 )
               ));
 
-              expect(getProps(renderedInstance, traverseWrappers: true), equals({
+              expect(getProps(renderedInstance, traverseWrappers: true), {
                 'dartProp': 'dart',
                 'style': testStyle,
                 'children': testChildren
-              }));
+              });
             });
 
             test('even when props change', () {
@@ -1013,11 +1012,11 @@ main() {
                 }, testChildren)
               ), mountNode);
 
-              expect(getProps(renderedInstance, traverseWrappers: true), equals({
+              expect(getProps(renderedInstance, traverseWrappers: true), {
                 'dartProp': 'dart',
                 'style': testStyle,
                 'children': testChildren
-              }));
+              });
 
               renderedInstance = react_dom.render(OneLevelWrapper()(
                 TestComponentFactory({
@@ -1026,11 +1025,11 @@ main() {
                 }, testChildren)
               ), mountNode);
 
-              expect(getProps(renderedInstance, traverseWrappers: true), equals({
+              expect(getProps(renderedInstance, traverseWrappers: true), {
                 'dartProp': 'other dart',
                 'style': testStyle,
                 'children': testChildren
-              }));
+              });
             });
 
             test('expect when the top level component is not a wrapper', () {
@@ -1039,11 +1038,11 @@ main() {
                 'style': testStyle,
               }, testChildren));
 
-              expect(getProps(renderedInstance, traverseWrappers: true), equals({
+              expect(getProps(renderedInstance, traverseWrappers: true), {
                 'dartProp': 'dart',
                 'style': testStyle,
                 'children': testChildren
-              }));
+              });
             });
 
             test('except when traverseWrappers is false', () {
@@ -1054,7 +1053,7 @@ main() {
                 }, testChildren)
               ));
 
-              expect(getProps(renderedInstance), equals({'children': anything}));
+              expect(getProps(renderedInstance), {'children': anything});
             });
           });
         });
@@ -1146,10 +1145,10 @@ main() {
             // ignore: deprecated_member_use
             expect(component, const TypeMatcher<react.Component>(), reason: 'test setup sanity check');
 
-            expect(calls, equals([
+            expect(calls, [
               ['original ref', component],
               ['chained ref', component],
-            ]));
+            ]);
           });
 
           // TODO: 3.0.0 this is failing on Dart 2 dart2js tests only.
@@ -1168,10 +1167,10 @@ main() {
                 cloneElement(instanceWithRef, {'ref': chainedRef})
             );
 
-            expect(calls, equals([
+            expect(calls, [
               ['original ref', renderedInstance],
               ['chained ref', renderedInstance],
-            ]));
+            ]);
           });
 
           // TODO: 3.0.0 this is failing on Dart 2 dart2js tests only.
@@ -1191,10 +1190,10 @@ main() {
             );
             var renderedNode = findDomNode(renderedInstance);
 
-            expect(calls, equals([
+            expect(calls, [
               ['original ref', renderedNode],
               ['chained ref', renderedNode],
-            ]));
+            ]);
           });
         });
 
@@ -1214,9 +1213,9 @@ main() {
           // ignore: deprecated_member_use
           expect(component, const TypeMatcher<react.Component>(), reason: 'test setup sanity check');
 
-          expect(calls, equals([
+          expect(calls, [
             ['chained ref', component],
-          ]));
+          ]);
         });
 
         test('when the provided ref is null', () {
@@ -1235,9 +1234,9 @@ main() {
           // ignore: deprecated_member_use
           expect(component, const TypeMatcher<react.Component>(), reason: 'test setup sanity check');
 
-          expect(calls, equals([
+          expect(calls, [
             ['original ref', component],
-          ]));
+          ]);
         });
       });
 
@@ -1274,8 +1273,7 @@ class TestComponent extends react.Component {
 
 /// Helper component for testing a Dart (react-dart) React component (version
 /// 2) with cloneElement.
-final TestComponent2Factory = react.registerComponent(() => new TestComponent2
-  ());
+final TestComponent2Factory = react.registerComponent(() => new TestComponent2());
 
 class TestComponent2 extends react.Component2 {
   @override
