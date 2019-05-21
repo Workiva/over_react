@@ -375,8 +375,7 @@ main() {
           expect(clone.key, overrideKeyRefProps['key']);
           expect(cloneRefCalled, isTrue);
 
-          var renderedClone = react_test_utils
-              .findRenderedComponentWithTypeV2(renderedHolder, TestComponent2Factory);
+          var renderedClone = react_test_utils.findRenderedComponentWithTypeV2(renderedHolder, TestComponent2Factory);
 
           Map cloneDartProps = getDartComponent(renderedClone).props;
           expect(cloneDartProps, isNot(anyOf(contains('key'), contains('ref'))),
@@ -1271,8 +1270,7 @@ class TestComponent extends react.Component {
   render() => Dom.div()();
 }
 
-/// Helper component for testing a Dart (react-dart) React component (version
-/// 2) with cloneElement.
+/// Helper component for testing a Dart (react-dart) React component (version 2) with cloneElement.
 final TestComponent2Factory = react.registerComponent(() => new TestComponent2());
 
 class TestComponent2 extends react.Component2 {
