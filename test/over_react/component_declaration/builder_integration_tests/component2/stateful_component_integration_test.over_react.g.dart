@@ -334,8 +334,9 @@ class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
 
   @override
   set state(Map value) {
-    super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    JsBackedMap jsBackedValue = JsBackedMap.from(value);
+    super.state = jsBackedValue;
+    _cachedTypedState = typedStateFactoryJs(jsBackedValue);
   }
 
   @override
