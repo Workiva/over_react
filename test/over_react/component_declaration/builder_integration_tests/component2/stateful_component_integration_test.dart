@@ -103,14 +103,15 @@ class _$StatefulComponentTestState extends UiState {
 @Component2()
 class StatefulComponentTestComponent extends UiStatefulComponent2<StatefulComponentTestProps, StatefulComponentTestState> {
   @override
-  getInitialState() => (newState()
-    ..stringState = '1'
-    ..dynamicState = '2'
-    ..untypedState = '3'
-    ..customKeyState = '4'
-    ..customNamespaceState = '5'
-    ..customKeyAndNamespaceState = '6'
-  );
+  void init() {
+    this.state = (newState()
+        ..stringState = '1'
+        ..dynamicState = '2'
+        ..untypedState = '3'
+        ..customKeyState = '4'
+        ..customNamespaceState = '5'
+        ..customKeyAndNamespaceState = '6');
+  }
 
   @override
   render() => (Dom.div()
