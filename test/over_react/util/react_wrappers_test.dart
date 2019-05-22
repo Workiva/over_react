@@ -42,8 +42,6 @@ main() {
         'originalPropToOverride': 'original'
       };
 
-      JsBackedMap testPropsForComponent2 = JsBackedMap.from(testProps);
-
       group('returns a clone', () {
         test('for a plain React JS component', () {
           var original = (Dom.div()..addProps(testProps))(testChildren);
@@ -89,8 +87,7 @@ main() {
         });
 
         test('for a Dart component version 2', () {
-          var original = TestComponent2Factory(testPropsForComponent2,
-          testChildren);
+          var original = TestComponent2Factory(testProps, testChildren);
           var clone = cloneElement(original);
 
           // If these objects are equal, then they proxy the same JS props object.
@@ -102,15 +99,7 @@ main() {
           // Verify all props (including children, excluding react-dart internals) are equal.
           Map originalShallowProps = new Map.from(originalProps);
           Map clonePropsShallowProps = new Map.from(cloneProps);
-          originalShallowProps.remove('internal');
-          clonePropsShallowProps.remove('internal');
           expect(originalShallowProps, clonePropsShallowProps);
-
-          // Verify react-dart internal props are equal.
-          ReactDartComponentInternal originalInternal = originalProps['internal'];
-          ReactDartComponentInternal clonePropsInternal = cloneProps['internal'];
-
-          expect(originalInternal, clonePropsInternal);
 
           var dartRendered = getDartComponent(render(original));
           var dartRenderedClone = getDartComponent(render(clone));
@@ -156,7 +145,7 @@ main() {
         });
 
         test('for a Dart component version 2', () {
-          var original = TestComponent2Factory(testPropsForComponent2, testChildren);
+          var original = TestComponent2Factory(testProps, testChildren);
           var clone = cloneElement(original, testPropsToAdd);
 
           var renderedClone = render(clone);
@@ -207,7 +196,7 @@ main() {
             });
 
             test('for Dart components version 2', () {
-              var original = TestComponent2Factory(testPropsForComponent2, testChildren);
+              var original = TestComponent2Factory(testProps, testChildren);
               var clone = cloneElement(original, testPropsToAdd);
 
               var renderedClone = react_test_utils.renderIntoDocument(clone);
@@ -276,11 +265,11 @@ main() {
                 callback(null);
               }, returnsNormally, reason: 'should not throw due to mismatched arguments or otherwise');
               expect(onClickWasCalled, isTrue, reason: 'event handler that was added via cloning was not called');
+              expect(onClickWasCalled, isTrue, reason: 'event handler that was added via cloning was not called');
             });
 
             test('for Dart components version 2', () {
-              var original = TestComponent2Factory(testPropsForComponent2,
-                  testChildren);
+              var original = TestComponent2Factory(testProps, testChildren);
               var clone = cloneElement(original, testPropsToAdd);
 
               var renderedClone = react_test_utils.renderIntoDocument(clone);
@@ -305,8 +294,6 @@ main() {
           'key': 'original',
           'ref': (ref) { originalRefCalled = true; }
         };
-
-        JsBackedMap originalKeyRefPropsForComponent2 = JsBackedMap.from(originalKeyRefProps);
 
         Map overrideKeyRefProps = {
           'key': 'clone',
@@ -362,24 +349,17 @@ main() {
           // to clone and render the test component.
           var holder = RenderingContainerComponentFactory({
             'renderer': () {
-              original = TestComponent2Factory(originalKeyRefPropsForComponent2,
-                  testChildren);
+              original = TestComponent2Factory(originalKeyRefProps, testChildren);
               clone = cloneElement(original, overrideKeyRefProps);
 
               return clone;
             }
           });
-          var renderedHolder = render(holder);
+          render(holder);
 
           // Verify that "key" and "ref" are overridden according to React
           expect(clone.key, overrideKeyRefProps['key']);
           expect(cloneRefCalled, isTrue);
-
-          var renderedClone = react_test_utils.findRenderedComponentWithTypeV2(renderedHolder, TestComponent2Factory);
-
-          Map cloneDartProps = getDartComponent(renderedClone).props;
-          expect(cloneDartProps, isNot(anyOf(contains('key'), contains('ref'))),
-              reason: '"key" and "ref" should not be visible to the rendered cloned component');
         });
       });
 
@@ -411,7 +391,7 @@ main() {
         });
 
         test('for a Dart component version 2', () {
-          var original = TestComponent2Factory(testPropsForComponent2, testChildren);
+          var original = TestComponent2Factory(testProps, testChildren);
           var clone = cloneElement(original, null, testOverrideChildren);
 
           var renderedClone = render(clone);
