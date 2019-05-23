@@ -340,9 +340,12 @@ class _$DoNotGenerateAccessorTestComponent
 
   @override
   set state(Map value) {
-    JsBackedMap jsBackedValue = JsBackedMap.from(value);
-    super.state = jsBackedValue;
-    _cachedTypedState = typedStateFactoryJs(jsBackedValue);
+    assert(
+        value is JsBackedMap,
+        'Component2.state may only be set to a JsBackedMap, '
+        'and must not be set outside of the react-dart internals.');
+    super.state = value;
+    _cachedTypedState = typedStateFactoryJs(value);
   }
 
   @override

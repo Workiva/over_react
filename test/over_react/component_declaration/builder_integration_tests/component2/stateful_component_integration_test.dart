@@ -104,7 +104,7 @@ class _$StatefulComponentTestState extends UiState {
 class StatefulComponentTestComponent extends UiStatefulComponent2<StatefulComponentTestProps, StatefulComponentTestState> {
   @override
   void init() {
-    this.state = (newState()
+    this.initializeState(newState()
         ..stringState = '1'
         ..dynamicState = '2'
         ..untypedState = '3'
