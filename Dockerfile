@@ -14,9 +14,7 @@ RUN mkdir /root/.ssh/ && \
   umask 0077 && echo "$GIT_SSH_KEY" >/root/.ssh/id_rsa && \
   eval "$(ssh-agent -s)" && ssh-add /root/.ssh/id_rsa
 
-WORKDIR ./over_react_analyzer_plugin
-
-RUN pub get && \
+RUN cd over_react_analyzer_plugin && pub get && \
     pub run dart_dev analyze
 
 
