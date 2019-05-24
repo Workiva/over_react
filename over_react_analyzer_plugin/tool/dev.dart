@@ -4,7 +4,6 @@ import 'package:dart_dev/dart_dev.dart';
 
 main(args) async {
   const directories = const [
-    'lib/',
     'tool/',
   ];
 
