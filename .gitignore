@@ -1,0 +1,6 @@
+packages
+.idea
+.pub/
+.packages
+.dart_tool
+.vscode
