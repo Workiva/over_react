@@ -77,11 +77,10 @@ abstract class _$ErrorBoundaryStateMixin implements UiState {
 ///     }
 mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBoundaryStateMixin>
     on UiStatefulComponent2<T, S> {
-
   @mustCallSuper
   @override
   void init() {
-    this.initializeState(newState()..hasError = false);
+    initializeState(newState()..hasError = false);
   }
 
   @mustCallSuper
