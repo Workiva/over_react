@@ -282,6 +282,29 @@ class ParsedDeclarations {
       );
     }
 
+    // Ensure that Component2 declarations do not use removed lifecycle methods.
+
+    if (declarationMap[key_component2].isNotEmpty) {
+      if (declarationMap[key_component2].first is ClassDeclaration) {
+        ClassDeclaration componentObject = declarationMap[key_component2].first;
+        List<String> legacyLifecycleEvents =
+            ['componentWillReceiveProps', 'componentWillMount', 'componentWillUpdate'];
+
+        legacyLifecycleEvents.forEach((lifecycle) {
+          dynamic method = componentObject.getMethod(lifecycle);
+
+          if (method != null) {
+            error(
+                'Error within ${componentObject.name.name}. \n\nWhen using Component2, a class cannot '
+                    'use $lifecycle because React 16 has removed $lifecycle and renamed it UNSAFE_$lifecycle. '
+                    'See https://reactjs.org/docs/react-component.html#legacy-lifecycle-methods for '
+                    'additional information.'
+            );
+          }
+        });
+      }
+    }
+
     if (!areDeclarationsValid) {
       if (!noneOfAnyRequiredDecl) {
         if (declarationMap[key_component].isEmpty && declarationMap[key_component2].isEmpty) {
