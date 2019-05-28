@@ -9,101 +9,25 @@ part of 'error_boundary.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $ErrorBoundaryComponentFactory = registerComponent(
-    () => new _$ErrorBoundaryComponent(),
-    builderFactory: ErrorBoundary,
-    componentClass: ErrorBoundaryComponent,
-    isWrapper: true,
-    parentType: null,
-    displayName: 'ErrorBoundary');
+final $ErrorBoundaryComponentFactory = registerComponent2(
+  () => new _$ErrorBoundaryComponent(),
+  builderFactory: ErrorBoundary,
+  componentClass: ErrorBoundaryComponent,
+  isWrapper: true,
+  parentType: null,
+  displayName: 'ErrorBoundary',
+  skipMethods: const [],
+);
 
 abstract class _$ErrorBoundaryPropsAccessorsMixin
     implements _$ErrorBoundaryProps {
   @override
   Map get props;
 
-  /// An optional callback that will be called with an [Error] and a `ComponentStack`
-  /// containing information about which component in the tree threw the error when
-  /// the `componentDidCatch` lifecycle method is called.
-  ///
-  /// This callback can be used to log component errors like so:
-  ///
-  ///     (ErrorBoundary()
-  ///       ..onComponentDidCatch = (error, componentStack) {
-  ///         // It is up to you to implement the service / thing that calls the service.
-  ///         logComponentStackToAService(error, componentStack);
-  ///       }
-  ///     )(
-  ///       // The rest of your component tree
-  ///     )
-  ///
-  /// > See: <https://reactjs.org/docs/react-component.html#componentdidcatch>
-  ///
-  /// <!-- Generated from [_$ErrorBoundaryProps.onComponentDidCatch] -->
-  @override
-  _ComponentDidCatchCallback get onComponentDidCatch =>
-      props[_$key__onComponentDidCatch___$ErrorBoundaryProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// An optional callback that will be called with an [Error] and a `ComponentStack`
-  /// containing information about which component in the tree threw the error when
-  /// the `componentDidCatch` lifecycle method is called.
-  ///
-  /// This callback can be used to log component errors like so:
-  ///
-  ///     (ErrorBoundary()
-  ///       ..onComponentDidCatch = (error, componentStack) {
-  ///         // It is up to you to implement the service / thing that calls the service.
-  ///         logComponentStackToAService(error, componentStack);
-  ///       }
-  ///     )(
-  ///       // The rest of your component tree
-  ///     )
-  ///
-  /// > See: <https://reactjs.org/docs/react-component.html#componentdidcatch>
-  ///
-  /// <!-- Generated from [_$ErrorBoundaryProps.onComponentDidCatch] -->
-  @override
-  set onComponentDidCatch(_ComponentDidCatchCallback value) =>
-      props[_$key__onComponentDidCatch___$ErrorBoundaryProps] = value;
-
-  /// A renderer that will be used to render "fallback" UI instead of the child
-  /// component tree that crashed.
-  ///
-  /// > Default: [ErrorBoundaryComponent._renderDefaultFallbackUI]
-  ///
-  /// <!-- Generated from [_$ErrorBoundaryProps.fallbackUIRenderer] -->
-  @override
-  _FallbackUiRenderer get fallbackUIRenderer =>
-      props[_$key__fallbackUIRenderer___$ErrorBoundaryProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// A renderer that will be used to render "fallback" UI instead of the child
-  /// component tree that crashed.
-  ///
-  /// > Default: [ErrorBoundaryComponent._renderDefaultFallbackUI]
-  ///
-  /// <!-- Generated from [_$ErrorBoundaryProps.fallbackUIRenderer] -->
-  @override
-  set fallbackUIRenderer(_FallbackUiRenderer value) =>
-      props[_$key__fallbackUIRenderer___$ErrorBoundaryProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor
-      _$prop__onComponentDidCatch___$ErrorBoundaryProps =
-      const PropDescriptor(_$key__onComponentDidCatch___$ErrorBoundaryProps);
-  static const PropDescriptor _$prop__fallbackUIRenderer___$ErrorBoundaryProps =
-      const PropDescriptor(_$key__fallbackUIRenderer___$ErrorBoundaryProps);
-  static const String _$key__onComponentDidCatch___$ErrorBoundaryProps =
-      'ErrorBoundaryProps.onComponentDidCatch';
-  static const String _$key__fallbackUIRenderer___$ErrorBoundaryProps =
-      'ErrorBoundaryProps.fallbackUIRenderer';
 
-  static const List<PropDescriptor> $props = const [
-    _$prop__onComponentDidCatch___$ErrorBoundaryProps,
-    _$prop__fallbackUIRenderer___$ErrorBoundaryProps
-  ];
-  static const List<String> $propKeys = const [
-    _$key__onComponentDidCatch___$ErrorBoundaryProps,
-    _$key__fallbackUIRenderer___$ErrorBoundaryProps
-  ];
+  static const List<PropDescriptor> $props = const [];
+  static const List<String> $propKeys = const [];
 }
 
 const PropsMeta _$metaForErrorBoundaryProps = const PropsMeta(
@@ -117,24 +41,25 @@ class ErrorBoundaryProps extends _$ErrorBoundaryProps
 }
 
 _$$ErrorBoundaryProps _$ErrorBoundary([Map backingProps]) =>
-    new _$$ErrorBoundaryProps(backingProps);
+    backingProps == null
+        ? new _$$ErrorBoundaryProps$JsMap(new JsBackedMap())
+        : new _$$ErrorBoundaryProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$ErrorBoundaryProps extends _$ErrorBoundaryProps
+abstract class _$$ErrorBoundaryProps extends _$ErrorBoundaryProps
     with _$ErrorBoundaryPropsAccessorsMixin
     implements ErrorBoundaryProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ErrorBoundaryProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$ErrorBoundaryProps._();
 
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
+  factory _$$ErrorBoundaryProps(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$ErrorBoundaryProps$JsMap(backingMap);
+    } else {
+      return new _$$ErrorBoundaryProps$PlainMap(backingMap);
+    }
+  }
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -150,40 +75,48 @@ class _$$ErrorBoundaryProps extends _$ErrorBoundaryProps
   String get propKeyNamespace => 'ErrorBoundaryProps.';
 }
 
+// Concrete props implementation that can be backed by any [Map].
+class _$$ErrorBoundaryProps$PlainMap extends _$$ErrorBoundaryProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ErrorBoundaryProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+class _$$ErrorBoundaryProps$JsMap extends _$$ErrorBoundaryProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ErrorBoundaryProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
 abstract class _$ErrorBoundaryStateAccessorsMixin
     implements _$ErrorBoundaryState {
   @override
   Map get state;
 
-  /// Whether the tree that the [ErrorBoundary] is wrapping around threw an error.
-  ///
-  /// When `true`, fallback UI will be rendered using [ErrorBoundaryProps.fallbackUIRenderer].
-  ///
-  /// <!-- Generated from [_$ErrorBoundaryState.hasError] -->
-  @override
-  bool get hasError =>
-      state[_$key__hasError___$ErrorBoundaryState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Whether the tree that the [ErrorBoundary] is wrapping around threw an error.
-  ///
-  /// When `true`, fallback UI will be rendered using [ErrorBoundaryProps.fallbackUIRenderer].
-  ///
-  /// <!-- Generated from [_$ErrorBoundaryState.hasError] -->
-  @override
-  set hasError(bool value) =>
-      state[_$key__hasError___$ErrorBoundaryState] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__hasError___$ErrorBoundaryState =
-      const StateDescriptor(_$key__hasError___$ErrorBoundaryState);
-  static const String _$key__hasError___$ErrorBoundaryState =
-      'ErrorBoundaryState.hasError';
 
-  static const List<StateDescriptor> $state = const [
-    _$prop__hasError___$ErrorBoundaryState
-  ];
-  static const List<String> $stateKeys = const [
-    _$key__hasError___$ErrorBoundaryState
-  ];
+  static const List<StateDescriptor> $state = const [];
+  static const List<String> $stateKeys = const [];
 }
 
 const StateMeta _$metaForErrorBoundaryState = const StateMeta(
@@ -199,12 +132,31 @@ class ErrorBoundaryState extends _$ErrorBoundaryState
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$ErrorBoundaryState extends _$ErrorBoundaryState
+abstract class _$$ErrorBoundaryState extends _$ErrorBoundaryState
     with _$ErrorBoundaryStateAccessorsMixin
     implements ErrorBoundaryState {
+  _$$ErrorBoundaryState._();
+
+  factory _$$ErrorBoundaryState(Map backingMap) {
+    if (backingMap is JsBackedMap) {
+      return new _$$ErrorBoundaryState$JsMap(backingMap);
+    } else {
+      return new _$$ErrorBoundaryState$PlainMap(backingMap);
+    }
+  }
+
+  /// Let [UiState] internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+}
+
+// Concrete state implementation that can be backed by any [Map].
+class _$$ErrorBoundaryState$PlainMap extends _$$ErrorBoundaryState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ErrorBoundaryState(Map backingMap) : this._state = {} {
+  _$$ErrorBoundaryState$PlainMap(Map backingMap)
+      : this._state = {},
+        super._() {
     this._state = backingMap ?? {};
   }
 
@@ -212,10 +164,23 @@ class _$$ErrorBoundaryState extends _$ErrorBoundaryState
   @override
   Map get state => _state;
   Map _state;
+}
 
-  /// Let [UiState] internals know that this class has been generated.
+// Concrete state implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+class _$$ErrorBoundaryState$JsMap extends _$$ErrorBoundaryState {
+  // This initializer of `_state` to an empty map, as well as the reassignment
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ErrorBoundaryState$JsMap(JsBackedMap backingMap)
+      : this._state = new JsBackedMap(),
+        super._() {
+    this._state = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing state map proxied by this class.
   @override
-  bool get $isClassGenerated => true;
+  JsBackedMap get state => _state;
+  JsBackedMap _state;
 }
 
 // Concrete component implementation mixin.
@@ -223,9 +188,38 @@ class _$$ErrorBoundaryState extends _$ErrorBoundaryState
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
+  _$$ErrorBoundaryProps$JsMap _cachedTypedProps;
+
+  @override
+  _$$ErrorBoundaryProps$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(value);
+  }
+
+  @override
+  _$$ErrorBoundaryProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$ErrorBoundaryProps$JsMap(backingMap);
+
   @override
   _$$ErrorBoundaryProps typedPropsFactory(Map backingMap) =>
       new _$$ErrorBoundaryProps(backingMap);
+
+  _$$ErrorBoundaryState$JsMap _cachedTypedState;
+  @override
+  _$$ErrorBoundaryState$JsMap get state => _cachedTypedState;
+
+  @override
+  set state(Map value) {
+    super.state = value;
+    _cachedTypedState = typedStateFactoryJs(value);
+  }
+
+  @override
+  _$$ErrorBoundaryState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
+      new _$$ErrorBoundaryState$JsMap(backingMap);
 
   @override
   _$$ErrorBoundaryState typedStateFactory(Map backingMap) =>

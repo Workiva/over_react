@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'custom_error_boundary.dart';
+part of 'custom_error_boundary_component.dart';
 
 // **************************************************************************
 // OverReactBuilder (package:over_react/src/builder.dart)

@@ -31,12 +31,14 @@ export 'package:react/react.dart' show
 export 'package:react/src/react_client/js_backed_map.dart' show JsBackedMap;
 
 export 'package:react/react_client.dart' show setClientConfiguration, ReactElement, ReactComponentFactoryProxy;
+export 'package:react/react_client/react_interop.dart' show ReactErrorInfo;
 
 export 'src/component/abstract_transition.dart';
 export 'src/component/abstract_transition_props.dart';
 export 'src/component/aria_mixin.dart';
 export 'src/component/callback_typedefs.dart';
 export 'src/component/error_boundary.dart';
+export 'src/component/error_boundary_mixins.dart';
 export 'src/component/dom_components.dart';
 export 'src/component/dummy_component.dart';
 export 'src/component/prop_mixins.dart';
