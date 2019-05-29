@@ -282,7 +282,7 @@ class ParsedDeclarations {
       );
     }
 
-    // Ensure that Component2 declarations do not use removed lifecycle methods.
+    // Ensure that Component2 declarations do not use legacy lifecycle methods.
 
     if (declarationMap[key_component2].isNotEmpty) {
       if (declarationMap[key_component2].first is ClassDeclaration) {
