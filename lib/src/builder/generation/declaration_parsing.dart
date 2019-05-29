@@ -285,21 +285,26 @@ class ParsedDeclarations {
     // Ensure that Component2 declarations do not use legacy lifecycle methods.
 
     if (declarationMap[key_component2].isNotEmpty) {
-      if (declarationMap[key_component2].first is ClassDeclaration) {
-        ClassDeclaration componentObject = declarationMap[key_component2].first;
-        List<String> legacyLifecycleEvents =
-            ['componentWillReceiveProps', 'componentWillMount', 'componentWillUpdate'];
+      final firstComponent2Member = declarationMap[key_component2].first;
+      if (firstComponent2Member is ClassDeclaration) {
+        Map<String, String> legacyLifecycleMethodsMap = {
+          'componentWillReceiveProps': 'Use getDerivedStateFromProps instead.',
+          'componentWillMount': 'Use init instead.',
+          'componentWillUpdate': 'Use getSnapshotBeforeUpdate instead.',
+        };
 
-        legacyLifecycleEvents.forEach((lifecycle) {
-          dynamic method = componentObject.getMethod(lifecycle);
+        legacyLifecycleMethodsMap.forEach((methodName, helpMessage) {
+          final method = firstComponent2Member.getMethod(methodName);
 
           if (method != null) {
-            error(
-                'Error within ${componentObject.name.name}. \n\nWhen using Component2, a class cannot '
-                    'use $lifecycle because React 16 has removed $lifecycle and renamed it UNSAFE_$lifecycle. '
-                    'See https://reactjs.org/docs/react-component.html#legacy-lifecycle-methods for '
-                    'additional information.'
-            );
+            error('''Error within ${firstComponent2Member.name.name}.
+        
+                When using Component2, a class cannot use $method because React 16 has removed $method and renamed it UNSAFE_$method.
+                
+                $helpMessage
+                
+                See https://reactjs.org/docs/react-component.html#legacy-lifecycle-methods for additional information.   
+                ''');
           }
         });
       }
