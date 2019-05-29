@@ -5,7 +5,7 @@ const String factorySrc                  = '\n@Factory()\nUiFactory<FooProps> Fo
 const String componentSrc                = '\n@Component()\nclass FooComponent {render() {return null;}}\n';
 const String component2Src               = '\n@Component2()\nclass FooComponent {render() {return null;}}\n';
 const String component2LegacySrc         = '\n@Component2()\nclass FooComponent {'
-                                                'void componentWillMount() {return null;} '
+                                                'componentWillMount() {return null;} '
                                                 'componentWillReceiveProps() {return null;} '
                                                 'componentWillUpdate() {return null;} '
                                                 'render() {return null;}}\n';
