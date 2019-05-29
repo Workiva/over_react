@@ -680,6 +680,13 @@ main() {
           });
         });
 
+        test('a component v2 uses legacy lifecycle methods', () {
+          setUpAndParse(factorySrc + propsSrc + component2LegacySrc);
+          verify(logger.severe(contains('Use getDerivedStateFromProps instead.')));
+          verify(logger.severe(contains('Use init instead.')));
+          verify(logger.severe(contains('Use getSnapshotBeforeUpdate instead.')));
+        });
+
         group('a component is declared with multiple', () {
           test('factories (v1 component - deprecated)', () {
             setUpAndParse(factorySrc * 2 + propsSrc + componentSrc);
