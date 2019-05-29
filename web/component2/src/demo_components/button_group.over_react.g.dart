@@ -285,8 +285,8 @@ class _$ButtonGroupComponent extends ButtonGroupComponent {
   set state(Map value) {
     assert(
         value is JsBackedMap,
-        'Component2.state may only be set to a JsBackedMap, '
-        'and must not be set outside of the react-dart internals.');
+        'Component2.state should only be set via '
+        'initializeState (within the init lifecycle method) or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value);
   }

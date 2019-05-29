@@ -31,8 +31,9 @@ main() {
 
     test('component cannot set state directly in init', () {
       expect(() => render((StatefulComponentTest()..setStateDirectly = true)()),
-          throwsA(hasToStringValue('Assertion failed: "Component2.state may only be set to a JsBackedMap, '
-              'and must not be set outside of the react-dart internals."')));
+          throwsA(hasToStringValue('Assertion failed: "Component2.state should '
+              'only be set via initializeState (within the init lifecycle method) '
+              'or setState."')));
     });
 
     test('renders a component from end to end, successfully reading state via typed getters', () {
