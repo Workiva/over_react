@@ -299,9 +299,11 @@ class ParsedDeclarations {
 
           if (method != null) {
             error(unindent(
-                '''Error within ${firstComponent2Member.name.name}.
+                '''
+                Error within ${firstComponent2Member.name.name}.
         
-                When using Component2, a class cannot use $method because React 16 has removed $method and renamed it UNSAFE_$method.
+                When using Component2, a class cannot use ${method.name} because React 16 has removed ${method.name} 
+                and renamed it UNSAFE_${method.name}.
                 
                 $helpMessage
                 
