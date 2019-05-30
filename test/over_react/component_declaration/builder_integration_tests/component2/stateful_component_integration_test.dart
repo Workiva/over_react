@@ -34,7 +34,7 @@ main() {
           throwsA(hasToStringValue('Assertion failed: "Component2.state should '
               'only be set via initializeState (within the init lifecycle method) '
               'or setState."')));
-    });
+    }, testOn: '!js');
 
     test('renders a component from end to end, successfully reading state via typed getters', () {
       var renderedInstance = render(StatefulComponentTest()());
