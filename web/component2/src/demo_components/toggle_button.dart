@@ -96,21 +96,20 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   ];
 
   @override
-  void componentWillMount() {
-    super.componentWillMount();
-
+  void init() {
     _validateProps(props);
   }
 
   @override
-  void componentWillReceiveProps(Map newProps) {
-    super.componentWillReceiveProps(newProps);
-    var tNewProps = typedPropsFactory(newProps);
+  Map getDerivedStateFromProps(Map props, MapState) {
+    var tNewProps = typedPropsFactory(props);
 
     _validateProps(tNewProps);
 
-    if (tNewProps.checked != null && props.checked != tNewProps.checked) {
-      setState(newState()..isChecked = tNewProps.checked);
+    if (tNewProps.checked != null && this.props.checked != tNewProps.checked) {
+      return newState()..isChecked = tNewProps.checked;
+    } else {
+      return null;
     }
   }
 

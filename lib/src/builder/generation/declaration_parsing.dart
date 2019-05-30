@@ -16,6 +16,7 @@ import 'package:analyzer/analyzer.dart';
 import 'package:logging/logging.dart';
 import 'package:over_react/src/builder/util.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
+import 'package:over_react/src/util/string_util.dart';
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/transformer_utils.dart' show getSpan, NodeWithMeta;
 
@@ -280,6 +281,38 @@ class ParsedDeclarations {
           'To define a component, there must be a single `@$key_component` **OR** `@$key_component2` annotation, '
           'but never both.'
       );
+    }
+
+    // Ensure that Component2 declarations do not use legacy lifecycle methods.
+
+    if (declarationMap[key_component2].isNotEmpty) {
+      final firstComponent2Member = declarationMap[key_component2].first;
+      if (firstComponent2Member is ClassDeclaration) {
+        Map<String, String> legacyLifecycleMethodsMap = {
+          'componentWillReceiveProps': 'Use getDerivedStateFromProps instead.',
+          'componentWillMount': 'Use init instead.',
+          'componentWillUpdate': 'Use getSnapshotBeforeUpdate instead.',
+        };
+
+        legacyLifecycleMethodsMap.forEach((methodName, helpMessage) {
+          final method = firstComponent2Member.getMethod(methodName);
+
+          if (method != null) {
+            error(unindent(
+                '''
+                Error within ${firstComponent2Member.name.name}.
+        
+                When using Component2, a class cannot use ${method.name} because React 16 has removed ${method.name} 
+                and renamed it UNSAFE_${method.name}.
+                
+                $helpMessage
+                
+                See https://reactjs.org/docs/react-component.html#legacy-lifecycle-methods for additional information.   
+                '''
+            ));
+          }
+        });
+      }
     }
 
     if (!areDeclarationsValid) {
