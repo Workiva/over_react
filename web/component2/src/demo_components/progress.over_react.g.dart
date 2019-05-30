@@ -493,6 +493,10 @@ class _$ProgressComponent extends ProgressComponent {
 
   @override
   set state(Map value) {
+    assert(
+        value is JsBackedMap,
+        'Component2.state should only be set via '
+        'initializeState (within the init lifecycle method) or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value);
   }

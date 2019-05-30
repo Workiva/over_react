@@ -23,10 +23,33 @@ abstract class _$StatefulComponentTestPropsAccessorsMixin
   @override
   Map get props;
 
+  /// Used to test if a component has the capability to set state via this.setState.
+  ///
+  /// <!-- Generated from [_$StatefulComponentTestProps.setStateDirectly] -->
+  @override
+  bool get setStateDirectly =>
+      props[_$key__setStateDirectly___$StatefulComponentTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Used to test if a component has the capability to set state via this.setState.
+  ///
+  /// <!-- Generated from [_$StatefulComponentTestProps.setStateDirectly] -->
+  @override
+  set setStateDirectly(bool value) =>
+      props[_$key__setStateDirectly___$StatefulComponentTestProps] = value;
   /* GENERATED CONSTANTS */
+  static const PropDescriptor
+      _$prop__setStateDirectly___$StatefulComponentTestProps =
+      const PropDescriptor(
+          _$key__setStateDirectly___$StatefulComponentTestProps);
+  static const String _$key__setStateDirectly___$StatefulComponentTestProps =
+      'StatefulComponentTestProps.setStateDirectly';
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = const [
+    _$prop__setStateDirectly___$StatefulComponentTestProps
+  ];
+  static const List<String> $propKeys = const [
+    _$key__setStateDirectly___$StatefulComponentTestProps
+  ];
 }
 
 const PropsMeta _$metaForStatefulComponentTestProps = const PropsMeta(
@@ -334,6 +357,10 @@ class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
 
   @override
   set state(Map value) {
+    assert(
+        value is JsBackedMap,
+        'Component2.state should only be set via '
+        'initializeState (within the init lifecycle method) or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value);
   }

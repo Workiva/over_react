@@ -11,7 +11,10 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+import 'dart:html';
+
 import 'package:over_react/over_react.dart';
+import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:test/test.dart';
 
 import '../../../../test_util/test_util.dart';
@@ -25,6 +28,13 @@ main() {
         new StatefulComponentTestState();
       }, throwsA(const TypeMatcher<IllegalInstantiationError>()));
     });
+
+    test('component cannot set state directly in init', () {
+      expect(() => render((StatefulComponentTest()..setStateDirectly = true)()),
+          throwsA(hasToStringValue('Assertion failed: "Component2.state should '
+              'only be set via initializeState (within the init lifecycle method) '
+              'or setState."')));
+    }, testOn: '!js');
 
     test('renders a component from end to end, successfully reading state via typed getters', () {
       var renderedInstance = render(StatefulComponentTest()());
@@ -82,7 +92,10 @@ main() {
 UiFactory<StatefulComponentTestProps> StatefulComponentTest = _$StatefulComponentTest;
 
 @Props()
-class _$StatefulComponentTestProps extends UiProps {}
+class _$StatefulComponentTestProps extends UiProps {
+  /// Used to test if a component has the capability to set state via this.setState.
+  bool setStateDirectly;
+}
 
 @State()
 class _$StatefulComponentTestState extends UiState {
@@ -103,14 +116,23 @@ class _$StatefulComponentTestState extends UiState {
 @Component2()
 class StatefulComponentTestComponent extends UiStatefulComponent2<StatefulComponentTestProps, StatefulComponentTestState> {
   @override
-  getInitialState() => (newState()
-    ..stringState = '1'
-    ..dynamicState = '2'
-    ..untypedState = '3'
-    ..customKeyState = '4'
-    ..customNamespaceState = '5'
-    ..customKeyAndNamespaceState = '6'
-  );
+  Map getDefaultProps() => newProps()..setStateDirectly = false;
+
+  @override
+  void init() {
+    if (this.props.setStateDirectly) {
+      this.state = newState()
+        ..stringState = '1';
+    } else {
+      this.initializeState(newState()
+        ..stringState = '1'
+        ..dynamicState = '2'
+        ..untypedState = '3'
+        ..customKeyState = '4'
+        ..customNamespaceState = '5'
+        ..customKeyAndNamespaceState = '6');
+    }
+  }
 
   @override
   render() => (Dom.div()

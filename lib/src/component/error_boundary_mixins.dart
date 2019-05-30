@@ -77,10 +77,11 @@ abstract class _$ErrorBoundaryStateMixin implements UiState {
 ///     }
 mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBoundaryStateMixin>
     on UiStatefulComponent2<T, S> {
-  // TODO (CPLAT-5816): Convert this to use `init` once the generated setter doesn't cause an RTE
   @mustCallSuper
   @override
-  Map getInitialState() => newState()..hasError = false;
+  void init() {
+    initializeState(newState()..hasError = false);
+  }
 
   @mustCallSuper
   @override
