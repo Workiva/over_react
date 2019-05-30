@@ -16,6 +16,7 @@ import 'package:analyzer/analyzer.dart';
 import 'package:logging/logging.dart';
 import 'package:over_react/src/builder/util.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
+import 'package:over_react/src/util/string_util.dart';
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/transformer_utils.dart' show getSpan, NodeWithMeta;
 
@@ -297,14 +298,16 @@ class ParsedDeclarations {
           final method = firstComponent2Member.getMethod(methodName);
 
           if (method != null) {
-            error('''Error within ${firstComponent2Member.name.name}.
+            error(unindent(
+                '''Error within ${firstComponent2Member.name.name}.
         
                 When using Component2, a class cannot use $method because React 16 has removed $method and renamed it UNSAFE_$method.
                 
                 $helpMessage
                 
                 See https://reactjs.org/docs/react-component.html#legacy-lifecycle-methods for additional information.   
-                ''');
+                '''
+            ));
           }
         });
       }
