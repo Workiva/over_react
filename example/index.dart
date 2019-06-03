@@ -2,7 +2,7 @@ import 'dart:html';
 
 import 'package:over_react/over_react.dart';
 import 'package:react/react_dom.dart' as react_dom;
-
+import 'package:over_react_redux/over_react_redux.dart';
 import './builder/abstract_inheritance.dart';
 import './builder/basic.dart';
 import './builder/basic_library.dart';
@@ -11,6 +11,7 @@ import './builder/generic_inheritance_super.dart';
 
 main() {
   setClientConfiguration();
+  connect();
   react_dom.render(
       Dom.div()(
         Dom.h3()('Components'),
