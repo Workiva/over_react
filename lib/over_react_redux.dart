@@ -1,1 +1,1 @@
-export 'package:over_react_redux/over_react_redux.dart';
+export 'src/over_react_redux/lib/over_react_redux.dart';
