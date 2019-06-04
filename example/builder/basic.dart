@@ -1,4 +1,5 @@
 import 'package:over_react/over_react.dart';
+import 'package:over_react/src/over_react_redux/over_react_redux.dart';
 
 part 'basic.over_react.g.dart';
 
@@ -6,7 +7,7 @@ part 'basic.over_react.g.dart';
 UiFactory<BasicProps> Basic = _$Basic;
 
 @Props()
-class _$BasicProps extends UiProps {
+class _$BasicProps extends ReduxProps {
   @deprecated
   @requiredProp
   String basicProp;
