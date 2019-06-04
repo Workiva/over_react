@@ -16,7 +16,7 @@ main() {
   Store store = new Store(_exampleReducer);
 
   react_dom.render(
-      (ReduxProvider()..store = store)(
+//      (ReduxProvider()..store = store)(
         Dom.div()(
           Dom.h3()('Components'),
           (Basic()
@@ -49,7 +49,7 @@ main() {
             componentConstructorsByName[name]().toString(),
           )).toList(),
         ), querySelector('#content')
-      )
+//      )
   );
 }
 

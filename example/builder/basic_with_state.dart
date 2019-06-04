@@ -5,13 +5,13 @@ import 'state_mixin.dart';
 
 part 'basic_with_state.over_react.g.dart';
 
+//@Factory()
+//UiFactory<BasicProps> Basic = connect<BasicStoreState, BasicProps>
+//  (mapStateToProps: (state, _) => Basic()..basicProp = state.basicProps)
+//  (UnconnectedBasic);
+//
 @Factory()
-UiFactory<BasicProps> Basic = connect<BasicStoreState, BasicProps>
-  (mapStateToProps: (state, _) => Basic()..basicProp = state.basicProps)
-  (UnconnectedBasic);
-
-@Factory()
-UiFactory<BasicProps> UnconnectedBasic = _$Basic;
+UiFactory<BasicProps> Basic = _$Basic;
 
 @Props()
 class _$BasicProps extends UiProps with pm.ExamplePropsMixinClass {

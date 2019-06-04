@@ -36,6 +36,7 @@ targets:
             - "lib/**"
             - "test/**"
             - "web/**"
+            - "over_react_redux/**"
           exclude:
             - "lib/src/builder/**"
 

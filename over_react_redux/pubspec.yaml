@@ -22,3 +22,14 @@ dev_dependencies:
   build_web_compilers: ^1.2.0
   over_react_test: ^2.5.0
   test: ^1.0.0
+
+dependency_overrides:
+  react:
+    git:
+      url: https://github.com/cleandart/react-dart.git
+      ref: 5.1.0-wip
+  over_react:
+    git:
+      url: git@github.com:Workiva/over_react.git
+      ref: 3.1.0-wip
+
