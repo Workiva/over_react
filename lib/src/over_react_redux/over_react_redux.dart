@@ -1,3 +1,5 @@
+@JS()
+library over_react_redux;
 ////////////////////////////////////////////////////////////////////////////////
 //
 // over_react_redux
@@ -11,10 +13,9 @@ import 'package:over_react/over_react.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';
 
-//@PropsMixin(keyNamespace: '')
-//mixin ConnectProps on UiProps {
-//  void Function(dynamic action) dispatch;
-//}
+mixin ConnectProps on UiProps {
+ void Function(dynamic action) dispatch;
+}
 
 /// A wrapper around the JS react-redux `connect` function that supports OverReact components.
 ///
@@ -36,7 +37,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
   areMergedPropsEqual ??= _shallowMapEquality;
 
   UiFactory<TProps> wrapWithConnect(UiFactory<TProps> factory) {
-    final dartComponentClass = (factory().componentFactory as ReactDartComponentFactoryProxy2).reactClass;
+    final dartComponentClass = (factory().componentFactory as ReactDartComponentFactoryProxy).reactClass;
 
     JsMap handleMapStateToProps(ReactInteropValue jsState, JsMap jsOwnProps) {
       final state = unwrapInteropValue(jsState);
@@ -95,7 +96,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
 bool _defaultEquality(Object a, Object b) => a == b;
 bool _shallowMapEquality(Object a, Object b) => const MapEquality().equals(a, b);
 
-@JS('connect')
+@JS('ReactRedux.connect')
 external ReactClass Function(ReactClass) _jsConnect(
     JsMap Function(ReactInteropValue, JsMap) mapStateToProps,
     [
@@ -104,6 +105,11 @@ external ReactClass Function(ReactClass) _jsConnect(
       _JsConnectOptions options,
     ]
     );
+
+@JS('ReactRedux')
+class JsRedux {
+  external get Provider;
+}
 
 @JS()
 @anonymous
@@ -123,3 +129,4 @@ T unwrapInteropValue<T>(ReactInteropValue value) { /* ... */ }
 ReactInteropValue wrapInteropValue(dynamic value) { /* ... */ }
 
 // TODO wrap ReactReduxContext or whatever it is
+
