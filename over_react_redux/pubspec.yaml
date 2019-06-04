@@ -12,6 +12,7 @@ dependencies:
   js: any
   meta: any
   react: any
+  redux: any
   over_react: any
 
 dev_dependencies:

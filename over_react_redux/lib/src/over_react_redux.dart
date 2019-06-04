@@ -11,10 +11,10 @@ import 'package:over_react/over_react.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';
 
-@PropsMixin(keyNamespace: '')
-mixin ConnectProps on UiProps {
-  void Function(dynamic action) dispatch;
-}
+//@PropsMixin(keyNamespace: '')
+//mixin ConnectProps on UiProps {
+//  void Function(dynamic action) dispatch;
+//}
 
 /// A wrapper around the JS react-redux `connect` function that supports OverReact components.
 ///
@@ -122,5 +122,4 @@ class ReactInteropValue {}
 T unwrapInteropValue<T>(ReactInteropValue value) { /* ... */ }
 ReactInteropValue wrapInteropValue(dynamic value) { /* ... */ }
 
-// TODO wrap Provider, create adapter so react-redux can subscribe to Dart store
 // TODO wrap ReactReduxContext or whatever it is

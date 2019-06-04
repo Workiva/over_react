@@ -1,11 +1,17 @@
 import 'package:over_react/over_react.dart';
+import 'package:over_react_redux/over_react_redux.dart';
 import 'props_mixin.dart' as pm;
 import 'state_mixin.dart';
 
 part 'basic_with_state.over_react.g.dart';
 
 @Factory()
-UiFactory<BasicProps> Basic = _$Basic;
+UiFactory<BasicProps> Basic = connect<BasicStoreState, BasicProps>
+  (mapStateToProps: (state, _) => Basic()..basicProp = state.basicProps)
+  (UnconnectedBasic);
+
+@Factory()
+UiFactory<BasicProps> UnconnectedBasic = _$Basic;
 
 @Props()
 class _$BasicProps extends UiProps with pm.ExamplePropsMixinClass {
@@ -41,4 +47,8 @@ class BasicComponent extends UiStatefulComponent<BasicProps, BasicState> {
         Dom.div()('state mixin in basic.dart: ${state.stateMixin1}'),
     );
   }
+}
+
+class BasicStoreState {
+  String basicProps;
 }
