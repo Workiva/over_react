@@ -68,7 +68,7 @@ typedef Callback3Arg<T1, T2, T3>(T1 arg1, T2 arg2, T3 arg3);
 typedef Callback4Arg<T1, T2, T3, T4>(T1 arg1, T2 arg2, T3 arg3, T4 arg4);
 
 /// Generic callback chaining utilities for callbacks with no arguments.
-class CallbackUtil0Arg extends CallbackUtil<Callback0Arg> {
+class CallbackUtil0Arg extends CallbackUtil {
   const CallbackUtil0Arg();
 
   _noop() {}
@@ -96,10 +96,14 @@ class CallbackUtil0Arg extends CallbackUtil<Callback0Arg> {
       if (aDidReturnFalse || bDidReturnFalse) return false;
     };
   }
+
+  @override
+  Callback0Arg chainFromList(List<Callback0Arg> callbacks) =>
+      callbacks.fold(null, chain) ?? noop;
 }
 
 /// Generic strongly-typed callback chaining utilities for callbacks with one argument.
-class CallbackUtil1Arg<T> extends CallbackUtil<Callback1Arg<T>> {
+class CallbackUtil1Arg<T> extends CallbackUtil {
   const CallbackUtil1Arg();
 
   _noop(T arg1) {}
@@ -127,10 +131,14 @@ class CallbackUtil1Arg<T> extends CallbackUtil<Callback1Arg<T>> {
       if (aDidReturnFalse || bDidReturnFalse) return false;
     };
   }
+
+  @override
+  Callback1Arg<T> chainFromList(List<Callback1Arg<T>> callbacks) =>
+      callbacks.fold(null, chain) ?? noop;
 }
 
 /// Generic strongly-typed callback chaining utilities for callbacks with two arguments.
-class CallbackUtil2Arg<T1, T2> extends CallbackUtil<Callback2Arg<T1, T2>> {
+class CallbackUtil2Arg<T1, T2> extends CallbackUtil {
   const CallbackUtil2Arg();
 
   _noop(T1 arg1, T2 arg2) {}
@@ -158,10 +166,14 @@ class CallbackUtil2Arg<T1, T2> extends CallbackUtil<Callback2Arg<T1, T2>> {
       if (aDidReturnFalse || bDidReturnFalse) return false;
     };
   }
+
+  @override
+  Callback2Arg<T1, T2> chainFromList(List<Callback2Arg<T1, T2>> callbacks) =>
+      callbacks.fold(null, chain) ?? noop;
 }
 
 /// Generic strongly-typed callback chaining utilities for callbacks with three arguments.
-class CallbackUtil3Arg<T1, T2, T3> extends CallbackUtil<Callback3Arg<T1, T2, T3>> {
+class CallbackUtil3Arg<T1, T2, T3> extends CallbackUtil {
   const CallbackUtil3Arg();
 
   _noop(T1 arg1, T2 arg2, T3 arg3) {}
@@ -189,10 +201,14 @@ class CallbackUtil3Arg<T1, T2, T3> extends CallbackUtil<Callback3Arg<T1, T2, T3>
       if (aDidReturnFalse || bDidReturnFalse) return false;
     };
   }
+
+  @override
+  Callback3Arg<T1, T2, T3> chainFromList(List<Callback3Arg<T1, T2, T3>> callbacks) =>
+      callbacks.fold(null, chain) ?? noop;
 }
 
 /// Generic strongly-typed callback chaining utilities for callbacks with four arguments.
-class CallbackUtil4Arg<T1, T2, T3, T4> extends CallbackUtil<Callback4Arg<T1, T2, T3, T4>> {
+class CallbackUtil4Arg<T1, T2, T3, T4> extends CallbackUtil {
   const CallbackUtil4Arg();
 
   _noop(T1 arg1, T2 arg2, T3 arg3, T4 arg4) {}
@@ -220,10 +236,14 @@ class CallbackUtil4Arg<T1, T2, T3, T4> extends CallbackUtil<Callback4Arg<T1, T2,
       if (aDidReturnFalse || bDidReturnFalse) return false;
     };
   }
+
+  @override
+  Callback4Arg<T1, T2, T3, T4> chainFromList(List<Callback4Arg<T1, T2, T3, T4>> callbacks) =>
+      callbacks.fold(null, chain) ?? noop;
 }
 
 /// Base class for generic strongly-typed callback chaining utilities.
-abstract class CallbackUtil<TTypedef extends Function> {
+abstract class CallbackUtil<_> {
   const CallbackUtil();
 
   /// Returns a strongly-typed chained callback that calls through to the two provided callbacks, [a] and [b], in order.
@@ -232,7 +252,7 @@ abstract class CallbackUtil<TTypedef extends Function> {
   /// Returns `false` if one or more of the provided callbacks returns `false`.
   ///
   /// Gracefully handles when [a] and/or [b] are null, always returning a callable function.
-  TTypedef chain(TTypedef a, TTypedef b);
+  Function chain(covariant Function a, covariant Function b);
 
   /// Returns a strongly-typed chained callback that calls through to the list of provided [callbacks] in order.
   /// Useful for executing multiple callbacks where only a single callback is accepted.
@@ -240,9 +260,9 @@ abstract class CallbackUtil<TTypedef extends Function> {
   /// Returns `false` if one or more of the provided callbacks returns `false`.
   ///
   /// Gracefully handles when [callbacks] is empty or its items are null, always returning a callable function.
-  TTypedef chainFromList(List<TTypedef> callbacks) =>
+  Function chainFromList(covariant List<Function> callbacks) =>
       callbacks.fold(null, chain) ?? noop;
 
-  /// A function of type [TTypedef] that does nothing.
-  TTypedef get noop;
+  /// A function of type [Function] that does nothing.
+  Function get noop;
 }
