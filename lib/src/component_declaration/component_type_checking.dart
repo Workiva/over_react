@@ -240,7 +240,7 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias, {
     return false;
   }
 
-  if (instance.type != null && getProperty(instance.type, 'WrappedComponent') != null) {
+  if (instance.type != null && hasProperty(instance.type, 'WrappedComponent')) {
     finalInstance = instance.type.WrappedComponent;
     instanceType = instance.type.type;
   }
