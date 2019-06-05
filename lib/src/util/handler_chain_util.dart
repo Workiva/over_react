@@ -82,12 +82,13 @@ class CallbackUtil0Arg extends CallbackUtil {
     if (a == null) return b;
     if (b == null) return a;
 
-    return () {
+    dynamic chained() {
       var aDidReturnFalse = a() == false;
       var bDidReturnFalse = b() == false;
 
       if (aDidReturnFalse || bDidReturnFalse) return false;
-    };
+    }
+    return chained;
   }
 
   @override
@@ -110,12 +111,13 @@ class CallbackUtil1Arg<T> extends CallbackUtil {
     if (a == null) return b;
     if (b == null) return a;
 
-    return (T arg1) {
+    dynamic chained(T arg1) {
       var aDidReturnFalse = a(arg1) == false;
       var bDidReturnFalse = b(arg1) == false;
 
       if (aDidReturnFalse || bDidReturnFalse) return false;
-    };
+    }
+    return chained;
   }
 
   @override
@@ -138,12 +140,13 @@ class CallbackUtil2Arg<T1, T2> extends CallbackUtil {
     if (a == null) return b;
     if (b == null) return a;
 
-    return (T1 arg1, T2 arg2) {
+    dynamic chained(T1 arg1, T2 arg2) {
       var aDidReturnFalse = a(arg1, arg2) == false;
       var bDidReturnFalse = b(arg1, arg2) == false;
 
       if (aDidReturnFalse || bDidReturnFalse) return false;
-    };
+    }
+    return chained;
   }
 
   @override
@@ -166,12 +169,13 @@ class CallbackUtil3Arg<T1, T2, T3> extends CallbackUtil {
     if (a == null) return b;
     if (b == null) return a;
 
-    return (T1 arg1, T2 arg2, T3 arg3) {
+    dynamic chained(T1 arg1, T2 arg2, T3 arg3) {
       var aDidReturnFalse = a(arg1, arg2, arg3) == false;
       var bDidReturnFalse = b(arg1, arg2, arg3) == false;
 
       if (aDidReturnFalse || bDidReturnFalse) return false;
-    };
+    }
+    return chained;
   }
 
   @override
@@ -194,12 +198,13 @@ class CallbackUtil4Arg<T1, T2, T3, T4> extends CallbackUtil {
     if (a == null) return b;
     if (b == null) return a;
 
-    return (T1 arg1, T2 arg2, T3 arg3, T4 arg4) {
+    dynamic chained(T1 arg1, T2 arg2, T3 arg3, T4 arg4) {
       var aDidReturnFalse = a(arg1, arg2, arg3, arg4) == false;
       var bDidReturnFalse = b(arg1, arg2, arg3, arg4) == false;
 
       if (aDidReturnFalse || bDidReturnFalse) return false;
-    };
+    }
+    return chained;
   }
 
   @override
