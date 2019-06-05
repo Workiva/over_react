@@ -15,6 +15,7 @@
 /// Provides utilities around component type-checking.
 library over_react.component_declaration.component_type_checking;
 
+import 'dart:js';
 import 'dart:js_util';
 
 import 'package:over_react/src/component_declaration/component_base.dart' show UiFactory;
@@ -239,11 +240,9 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias, {
     return false;
   }
 
-  if (instance.type.runtimeType != String && type is Function) {
-    if (instance.type.WrappedComponent != null) {
-      finalInstance = instance.type.WrappedComponent;
-      instanceType = instance.type.type;
-    }
+  if (instance.type != null && getProperty(instance.type, 'WrappedComponent') != null) {
+    finalInstance = instance.type.WrappedComponent;
+    instanceType = instance.type.type;
   }
 
   var instanceTypeMeta = getComponentTypeMeta(instanceType);
