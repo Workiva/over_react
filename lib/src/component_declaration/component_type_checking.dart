@@ -231,20 +231,34 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias, {
     return false;
   }
 
+  var finalInstance = instance;
+  var instanceIsAJavaScriptObject = false;
+
   var type = getComponentTypeFromAlias(typeAlias);
   if (type == null) {
     return false;
   }
 
-  var instanceType = instance.type;
+  if (instance.type.runtimeType != String && type is Function) {
+    if (instance.type.WrappedComponent != null) {
+      instanceIsAJavaScriptObject = true;
+      finalInstance = instance.type.WrappedComponent;
+    }
+  }
+
+  /// If the instance is a JavaScript object, instance.type returns an object.
+  /// Therefore, in that case we, are actually looking for the type of that
+  /// nested object.
+  var instanceType = instanceIsAJavaScriptObject ? instance.type.type : finalInstance.type;
+
   var instanceTypeMeta = getComponentTypeMeta(instanceType);
 
   // Type-check instance wrappers.
   if (traverseWrappers && instanceTypeMeta.isWrapper) {
-    assert(isDartComponent(instance) &&
+    assert(isDartComponent(finalInstance) &&
        'Non-Dart components should not be wrappers' is String);
 
-    List children = getProps(instance)['children'];
+    List children = getProps(finalInstance)['children'];
     if (children == null || children.isEmpty) {
       return false;
     }
