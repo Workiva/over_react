@@ -232,7 +232,7 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias, {
   }
 
   var finalInstance = instance;
-  var instanceIsAJavaScriptObject = false;
+  var instanceType = finalInstance.type;
 
   var type = getComponentTypeFromAlias(typeAlias);
   if (type == null) {
@@ -241,15 +241,10 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias, {
 
   if (instance.type.runtimeType != String && type is Function) {
     if (instance.type.WrappedComponent != null) {
-      instanceIsAJavaScriptObject = true;
       finalInstance = instance.type.WrappedComponent;
+      instanceType = instance.type.type;
     }
   }
-
-  /// If the instance is a JavaScript object, instance.type returns an object.
-  /// Therefore, in that case we, are actually looking for the type of that
-  /// nested object.
-  var instanceType = instanceIsAJavaScriptObject ? instance.type.type : finalInstance.type;
 
   var instanceTypeMeta = getComponentTypeMeta(instanceType);
 
