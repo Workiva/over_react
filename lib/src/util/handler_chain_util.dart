@@ -29,37 +29,37 @@ import 'package:react/react.dart' show
 import '../component/callback_typedefs.dart';
 
 /// Provides chaining utilities for [DomEventCallback].
-final CallbackUtil1Arg<SyntheticEvent> domEventCallbacks                    = const CallbackUtil1Arg<SyntheticEvent>();
+const domEventCallbacks = CallbackUtil1Arg<SyntheticEvent>();
 
 /// Provides chaining utilities for [ClipboardEventCallback].
-final CallbackUtil1Arg<SyntheticClipboardEvent> clipboardEventCallbacks     = const CallbackUtil1Arg<SyntheticClipboardEvent>();
+const clipboardEventCallbacks = CallbackUtil1Arg<SyntheticClipboardEvent>();
 
 /// Provides chaining utilities for [KeyboardEventCallback].
-final CallbackUtil1Arg<SyntheticKeyboardEvent> keyboardEventCallbacks       = const CallbackUtil1Arg<SyntheticKeyboardEvent>();
+const keyboardEventCallbacks = CallbackUtil1Arg<SyntheticKeyboardEvent>();
 
 /// Provides chaining utilities for [FocusEventCallback].
-final CallbackUtil1Arg<SyntheticFocusEvent> focusEventCallbacks             = const CallbackUtil1Arg<SyntheticFocusEvent>();
+const focusEventCallbacks = CallbackUtil1Arg<SyntheticFocusEvent>();
 
 /// Provides chaining utilities for [FormEventCallback].
-final CallbackUtil1Arg<SyntheticFormEvent> formEventCallbacks               = const CallbackUtil1Arg<SyntheticFormEvent>();
+const formEventCallbacks = CallbackUtil1Arg<SyntheticFormEvent>();
 
 /// Provides chaining utilities for [MouseEventCallback].
-final CallbackUtil1Arg<SyntheticMouseEvent> mouseEventCallbacks             = const CallbackUtil1Arg<SyntheticMouseEvent>();
+const mouseEventCallbacks = CallbackUtil1Arg<SyntheticMouseEvent>();
 
 /// Provides chaining utilities for [TouchEventCallback].
-final CallbackUtil1Arg<SyntheticTouchEvent> touchEventCallbacks             = const CallbackUtil1Arg<SyntheticTouchEvent>();
+const touchEventCallbacks = CallbackUtil1Arg<SyntheticTouchEvent>();
 
 /// Provides chaining utilities for [UIEventCallback].
-final CallbackUtil1Arg<SyntheticUIEvent> uiEventCallbacks                   = const CallbackUtil1Arg<SyntheticUIEvent>();
+const uiEventCallbacks = CallbackUtil1Arg<SyntheticUIEvent>();
 
 /// Provides chaining utilities for [WheelEventCallback].
-final CallbackUtil1Arg<SyntheticWheelEvent> wheelEventCallbacks             = const CallbackUtil1Arg<SyntheticWheelEvent>();
+const wheelEventCallbacks = CallbackUtil1Arg<SyntheticWheelEvent>();
 
 /// Provides chaining utilities for [Callback].
-final CallbackUtil0Arg callbacks                                            = const CallbackUtil0Arg();
+const callbacks = CallbackUtil0Arg();
 
 /// Provides chaining utilities for [ResizeSensorHandler].
-final CallbackUtil1Arg<ResizeSensorEvent> resizeEventCallbacks              = const CallbackUtil1Arg<ResizeSensorEvent>();
+const resizeEventCallbacks = CallbackUtil1Arg<ResizeSensorEvent>();
 
 typedef Callback0Arg                 = dynamic Function();
 typedef Callback1Arg<T1>             = dynamic Function(T1 arg1);
