@@ -61,17 +61,17 @@ final CallbackUtil0Arg callbacks                                            = co
 /// Provides chaining utilities for [ResizeSensorHandler].
 final CallbackUtil1Arg<ResizeSensorEvent> resizeEventCallbacks              = const CallbackUtil1Arg<ResizeSensorEvent>();
 
-typedef Callback0Arg();
-typedef Callback1Arg<T1>(T1 arg1);
-typedef Callback2Arg<T1, T2>(T1 arg1, T2 arg2);
-typedef Callback3Arg<T1, T2, T3>(T1 arg1, T2 arg2, T3 arg3);
-typedef Callback4Arg<T1, T2, T3, T4>(T1 arg1, T2 arg2, T3 arg3, T4 arg4);
+typedef Callback0Arg                 = dynamic Function();
+typedef Callback1Arg<T1>             = dynamic Function(T1 arg1);
+typedef Callback2Arg<T1, T2>         = dynamic Function(T1 arg1, T2 arg2);
+typedef Callback3Arg<T1, T2, T3>     = dynamic Function(T1 arg1, T2 arg2, T3 arg3);
+typedef Callback4Arg<T1, T2, T3, T4> = dynamic Function(T1 arg1, T2 arg2, T3 arg3, T4 arg4);
 
 /// Generic callback chaining utilities for callbacks with no arguments.
 class CallbackUtil0Arg extends CallbackUtil {
   const CallbackUtil0Arg();
 
-  _noop() {}
+  dynamic _noop() {}
 
   @override
   Callback0Arg get noop => _noop;
@@ -100,7 +100,7 @@ class CallbackUtil0Arg extends CallbackUtil {
 class CallbackUtil1Arg<T> extends CallbackUtil {
   const CallbackUtil1Arg();
 
-  _noop(T arg1) {}
+  dynamic _noop(T arg1) {}
 
   @override
   Callback1Arg<T> get noop => _noop;
@@ -129,7 +129,7 @@ class CallbackUtil1Arg<T> extends CallbackUtil {
 class CallbackUtil2Arg<T1, T2> extends CallbackUtil {
   const CallbackUtil2Arg();
 
-  _noop(T1 arg1, T2 arg2) {}
+  dynamic _noop(T1 arg1, T2 arg2) {}
 
   @override
   Callback2Arg<T1, T2> get noop => _noop;
@@ -158,7 +158,7 @@ class CallbackUtil2Arg<T1, T2> extends CallbackUtil {
 class CallbackUtil3Arg<T1, T2, T3> extends CallbackUtil {
   const CallbackUtil3Arg();
 
-  _noop(T1 arg1, T2 arg2, T3 arg3) {}
+  dynamic _noop(T1 arg1, T2 arg2, T3 arg3) {}
 
   @override
   Callback3Arg<T1, T2, T3> get noop => _noop;
@@ -187,7 +187,7 @@ class CallbackUtil3Arg<T1, T2, T3> extends CallbackUtil {
 class CallbackUtil4Arg<T1, T2, T3, T4> extends CallbackUtil {
   const CallbackUtil4Arg();
 
-  _noop(T1 arg1, T2 arg2, T3 arg3, T4 arg4) {}
+  dynamic _noop(T1 arg1, T2 arg2, T3 arg3, T4 arg4) {}
 
   @override
   Callback4Arg<T1, T2, T3, T4> get noop => _noop;
