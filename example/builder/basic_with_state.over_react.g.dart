@@ -75,8 +75,12 @@ abstract class _$$BasicProps extends _$BasicProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
+  var _factoryOverride;
   @override
-  ReactComponentFactoryProxy get componentFactory => $BasicComponentFactory;
+  ReactComponentFactoryProxy get componentFactory =>
+      _factoryOverride ?? $BasicComponentFactory;
+  @override
+  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

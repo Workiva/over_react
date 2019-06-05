@@ -120,7 +120,7 @@ class ImplGenerator {
         if (declarations.component2.meta.isErrorBoundary) {
           // Override `skipMethods` as an empty list so that
           // the `componentDidCatch` and `getDerivedStateFromError`
-          // lifecycle methods are included in the component's JS bindings. 
+          // lifecycle methods are included in the component's JS bindings.
           outputContentsBuffer
             ..writeln('    skipMethods: const [],');
         }
@@ -865,8 +865,11 @@ class ImplGenerator {
       buffer
         ..writeln()
         ..writeln('  /// The [ReactComponentFactory] associated with the component built by this class.')
+        ..writeln('  var _factoryOverride;')
         ..writeln('  @override')
-        ..writeln('  ReactComponentFactoryProxy get componentFactory => $componentFactoryName;')
+        ..writeln('  ReactComponentFactoryProxy get componentFactory => _factoryOverride ?? $componentFactoryName;')
+        ..writeln('  @override')
+        ..writeln('  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;')
         ..writeln()
         ..writeln('  /// The default namespace for the prop getters/setters generated for this class.')
         ..writeln('  @override')

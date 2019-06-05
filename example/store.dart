@@ -1,5 +1,5 @@
 import 'package:redux/redux.dart';
-Store store = new Store<AppState>(_exampleReducer);
+Store store = new Store<AppState>(_exampleReducer, initialState: new AppState()..basicProp = 'Hello' );
 
 
 class AppState {
@@ -8,10 +8,7 @@ class AppState {
 
 
 AppState _exampleReducer(AppState state, dynamic action) {
-  if (action.type == 'UPDATE_TEXT') {
-    state.basicProp = action.text;
-  }
-  return state;
+  return new AppState()..basicProp = 'Yeeee';
 }
 
 class ReduxAction {

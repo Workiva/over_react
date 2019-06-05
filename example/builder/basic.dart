@@ -7,7 +7,7 @@ part 'basic.over_react.g.dart';
 UiFactory<BasicProps> Basic = _$Basic;
 
 @Props()
-class _$BasicProps extends ReduxProps {
+class _$BasicProps extends UiProps {
   @deprecated
   @requiredProp
   String basicProp;

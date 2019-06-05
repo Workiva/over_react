@@ -13,16 +13,14 @@ import 'store.dart';
 main() {
   setClientConfiguration();
 
-
-
   react_dom.render(
-      ReduxProvider({'store': store}, [
+      (ReduxProvider()..store = store)(
         Dom.div()(
           Dom.h3()('Components'),
           (ConnectedBasic()
             ..id = 'the id of this component'
           )(null, null, ['this is another child']),
         )
-      ]), querySelector('#content')
+      ), querySelector('#content')
   );
 }

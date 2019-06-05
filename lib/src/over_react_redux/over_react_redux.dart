@@ -1,5 +1,8 @@
 @JS()
 library over_react_redux;
+
+import 'dart:developer';
+
 ////////////////////////////////////////////////////////////////////////////////
 //
 // over_react_redux
@@ -15,15 +18,20 @@ import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:redux/redux.dart';
 
-mixin ConnectProps {
+part 'over_react_redux.over_react.g.dart';
+
+@PropsMixin(keyNamespace: '')
+abstract class _$ConnectPropsMixin {
+  Map get props;
   void Function(dynamic action) dispatch;
 }
 
 /// A wrapper around the JS react-redux `connect` function that supports OverReact components.
 ///
 /// [connect]: https://react-redux.js.org/api/connect#connect
-Function(UiFactory<TProps>) connect<TReduxState, TProps extends UiProps>({
+UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extends UiProps>({
   @required Map Function(TReduxState state, Map ownProps) mapStateToProps,
+  Map Function(Function dispatch, Map ownProps) mapDispatchToProps,
   bool Function(TReduxState next, TReduxState prev) areStatesEqual,
   bool Function(Map next, Map prev) areOwnPropsEqual,
   bool Function(Map next, Map prev) areStatePropsEqual,
@@ -38,7 +46,7 @@ Function(UiFactory<TProps>) connect<TReduxState, TProps extends UiProps>({
   areStatePropsEqual ??= _shallowMapEquality;
   areMergedPropsEqual ??= _shallowMapEquality;
 
-  wrapWithConnect(UiFactory<TProps> factory) {
+  UiFactory<TProps> wrapWithConnect(UiFactory<TProps> factory) {
     final dartComponentClass = (factory().componentFactory as ReactDartComponentFactoryProxy).reactClass;
 
     JsMap handleMapStateToProps(ReactInteropValue jsState, JsMap jsOwnProps) {
@@ -46,6 +54,16 @@ Function(UiFactory<TProps>) connect<TReduxState, TProps extends UiProps>({
       final ownProps = new JsBackedMap.backedBy(jsOwnProps);
 
       var result = mapStateToProps(state, ownProps);
+      // Pull out the underlying backing map to avoid copying where possible
+      if (result is UiProps) result = (result as UiProps).props;
+      return jsBackingMapOrJsCopy(result);
+    }
+
+    JsMap handleMapDispatchToProps(Function dispatch, JsMap jsOwnProps) {
+      final ownProps = new JsBackedMap.backedBy(jsOwnProps);
+
+      var result = mapDispatchToProps(dispatch, ownProps);
+
       // Pull out the underlying backing map to avoid copying where possible
       if (result is UiProps) result = (result as UiProps).props;
       return jsBackingMapOrJsCopy(result);
@@ -65,8 +83,7 @@ Function(UiFactory<TProps>) connect<TReduxState, TProps extends UiProps>({
 
     final hoc = _jsConnect(
       allowInterop(handleMapStateToProps),
-      // TODO mapDispatchToProps needs unwrapping?
-      null,
+      mapDispatchToProps != null ? allowInterop(handleMapDispatchToProps) : allowInterop((dispatch, _) { var val = new JsBackedMap(); val['dispatch'] = dispatch; return val.jsObject; }),
       null,
       new _JsConnectOptions(
         areStatesEqual: allowInterop(handleAreStatesEqual),
@@ -76,19 +93,14 @@ Function(UiFactory<TProps>) connect<TReduxState, TProps extends UiProps>({
         // If these are null, will connect use its own defaults? If not, need to default these above.
         forwardRef: forwardRef,
         // If these are null, will connect use its own defaults? If not, need to default these above.
-        context: context,
+        context: context ?? JsReactRedux.ReactReduxContext,
       ),
     )(dartComponentClass);
 
     final hocJsFactoryProxy = new ReactJsComponentFactoryProxy(hoc, shouldConvertDomProps: false);
 
-    ReduxProps connectedFactory([Map props]) {
-
-
-      return ReduxProps(hocJsFactoryProxy, props);
-
-      /// TODO: Remove this line if it is not needed.
-      /// return factory(props).componentFactory = hocJsFactoryProxy;
+    TProps connectedFactory([Map props]) {
+      return (factory(props)..componentFactory = hocJsFactoryProxy);
     }
 
     return connectedFactory;
@@ -99,27 +111,6 @@ Function(UiFactory<TProps>) connect<TReduxState, TProps extends UiProps>({
 
 bool _defaultEquality(Object a, Object b) => a == b;
 bool _shallowMapEquality(Object a, Object b) => const MapEquality().equals(a, b);
-
-class ReduxProps extends component_base.UiProps
-    with
-        ConnectProps,
-        builder_helpers.GeneratedClass
-    implements
-        builder_helpers.UiProps {
-  // Initialize to a JsBackedMap so that copying can be optimized
-  // when converting props during ReactElement creation.
-  // TODO 3.0.0-wip generate JsBackedMap-based implementation used when no backing map is provided, like we do for Component2
-  ReduxProps(this.componentFactory, [Map props]) : this.props = props ?? new JsBackedMap();
-
-  @override
-  final ReactComponentFactoryProxy componentFactory;
-
-  @override
-  final Map props;
-
-  @override
-  String get propKeyNamespace => '';
-}
 
 
 @JS('ReactRedux.connect')
@@ -133,11 +124,35 @@ external ReactClass Function(ReactClass) _jsConnect(
     );
 
 @JS('ReactRedux')
-class JsRedux {
+class JsReactRedux {
   external static ReactClass get Provider;
+  external static ReactContext get ReactReduxContext;
 }
 
-var ReduxProvider = ReactJsReactReduxComponentFactoryProxy(JsRedux.Provider);
+class ReduxProviderProps extends component_base.UiProps
+    with
+        builder_helpers.GeneratedClass
+    implements
+        builder_helpers.UiProps {
+  // Initialize to a JsBackedMap so that copying can be optimized
+  // when converting props during ReactElement creation.
+  // TODO 3.0.0-wip generate JsBackedMap-based implementation used when no backing map is provided, like we do for Component2
+  ReduxProviderProps(this.componentFactory, [Map props]) : this.props = props ?? new JsBackedMap();
+
+  @override
+  final ReactJsReactReduxComponentFactoryProxy componentFactory;
+
+  @override
+  final Map props;
+
+  @override
+  String get propKeyNamespace => '';
+
+  Store get store => props['store'];
+  set store(Store v) => props['store'] = v;
+}
+
+ReduxProvider() => new ReduxProviderProps(ReactJsReactReduxComponentFactoryProxy(JsReactRedux.Provider));
 
 class ReactJsReactReduxComponentFactoryProxy extends ReactJsComponentFactoryProxy {
   /// The JS class used by this factory.
@@ -171,9 +186,30 @@ class ReactJsReactReduxComponentFactoryProxy extends ReactJsComponentFactoryProx
   }
 }
 
-_reduxifyStore(Store store){
 
-  return store;
+_reduxifyStore(Store store){
+  return JsReactReduxStore(
+    getState: allowInterop(() {
+      return wrapInteropValue(store.state);
+    }),
+    subscribe: allowInterop((cb) {
+        return allowInterop(store.onChange.listen((_){cb();}).cancel);
+    }),
+    dispatch: allowInterop((action) {
+      store.dispatch(action);
+    })
+  );
+}
+
+
+@JS()
+@anonymous
+class JsReactReduxStore {
+  JsReactReduxStore({
+    ReactInteropValue Function() getState,
+    void Function(dynamic) dispatch,
+    void Function(Function) subscribe,
+  });
 }
 
 dynamic _convertArgsToChildren(List childrenArgs) {
@@ -200,9 +236,16 @@ class _JsConnectOptions {
   });
 }
 
-class ReactInteropValue {}
-T unwrapInteropValue<T>(ReactInteropValue value) { /* ... */ }
-ReactInteropValue wrapInteropValue(dynamic value) { /* ... */ }
+class ReactInteropValue {
+  var value;
+}
+T unwrapInteropValue<T>(ReactInteropValue value) {
+  return value.value;
+}
+ReactInteropValue wrapInteropValue(dynamic value) {
+  return new ReactInteropValue()..value = value;
+}
+
 
 // TODO wrap ReactReduxContext or whatever it is
 

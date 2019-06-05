@@ -66,9 +66,12 @@ abstract class _$$CustomErrorBoundaryProps extends _$CustomErrorBoundaryProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
+  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      $CustomErrorBoundaryComponentFactory;
+      _factoryOverride ?? $CustomErrorBoundaryComponentFactory;
+  @override
+  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

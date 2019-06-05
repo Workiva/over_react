@@ -62,9 +62,12 @@ class _$$TestDefaultProps extends _$TestDefaultProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
+  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      $TestDefaultComponentFactory;
+      _factoryOverride ?? $TestDefaultComponentFactory;
+  @override
+  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -148,9 +151,12 @@ class _$$TestConnectProps extends _$TestConnectProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
+  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      $TestConnectComponentFactory;
+      _factoryOverride ?? $TestConnectComponentFactory;
+  @override
+  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -233,8 +239,12 @@ class _$$TestPureProps extends _$TestPureProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
+  var _factoryOverride;
   @override
-  ReactComponentFactoryProxy get componentFactory => $TestPureComponentFactory;
+  ReactComponentFactoryProxy get componentFactory =>
+      _factoryOverride ?? $TestPureComponentFactory;
+  @override
+  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

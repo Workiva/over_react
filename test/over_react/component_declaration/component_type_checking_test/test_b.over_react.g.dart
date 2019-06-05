@@ -59,8 +59,12 @@ class _$$TestBProps extends _$TestBProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
+  var _factoryOverride;
   @override
-  ReactComponentFactoryProxy get componentFactory => $TestBComponentFactory;
+  ReactComponentFactoryProxy get componentFactory =>
+      _factoryOverride ?? $TestBComponentFactory;
+  @override
+  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
