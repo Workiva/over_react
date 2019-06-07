@@ -80,7 +80,7 @@ main() {
       verifyNoErrorLogs();
     });
 
-    test('warns if the .over_react.g.dart part is missing', () async {
+    test('warns if the .over_react.g.dart part directive is missing', () async {
       var libraryAsset = makeAssetId('over_react|test_fixtures/source_files/missing_over_react_g_part/library.dart');
       await runBuilder(builder, [libraryAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);
       final expectedWarning = logs.firstWhere((log) {
@@ -88,6 +88,26 @@ main() {
       }, orElse: () => null);
       expect(expectedWarning, isNotNull,
         reason: 'Expected a WARNING log for the missing over_react part.');
+    });
+
+    test('warns if .over_react.g.dart part directive is present and no delcarations are present, but no code is generated', () async {
+      var libraryAsset = makeAssetId('over_react|test_fixtures/source_files/has_part_directive_missing_gen/no_declarations.dart');
+      await runBuilder(builder, [libraryAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);
+      final expectedWarning = logs.firstWhere((log) {
+        return log.level == Level.WARNING && log.message == 'An over react part directive was found in test_fixtures/source_files/has_part_directive_missing_gen/no_declarations.dart, but no code was generated.';
+      }, orElse: () => null);
+      expect(expectedWarning, isNotNull,
+        reason: 'Expected a WARNING log for a part directive being present in a file with no generated output.');
+    });
+
+    test('warns if .over_react.g.dart part directive is present and delcarations are present, but no code is generated', () async {
+      var libraryAsset = makeAssetId('over_react|test_fixtures/source_files/has_part_directive_missing_gen/with_declarations.dart');
+      await runBuilder(builder, [libraryAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);
+      final expectedWarning = logs.firstWhere((log) {
+        return log.level == Level.WARNING && log.message == 'An over react part directive was found in test_fixtures/source_files/has_part_directive_missing_gen/with_declarations.dart, but no code was generated.';
+      }, orElse: () => null);
+      expect(expectedWarning, isNotNull,
+        reason: 'Expected a WARNING log for a part directive being present in a file with no generated output.');
     });
 
     group('for backwards compatible boilerplate:', () {
