@@ -94,7 +94,8 @@ main() {
       var libraryAsset = makeAssetId('over_react|test_fixtures/source_files/has_part_directive_missing_gen/no_declarations.dart');
       await runBuilder(builder, [libraryAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);
       final expectedWarning = logs.firstWhere((log) {
-        return log.level == Level.WARNING && log.message == 'An over react part directive was found in test_fixtures/source_files/has_part_directive_missing_gen/no_declarations.dart, but no code was generated.';
+        print('log.message: ${log.message}');
+        return log.level == Level.WARNING && log.message == 'An over_react part directive was found in test_fixtures/source_files/has_part_directive_missing_gen/no_declarations.dart, but no code was generated. The part directive may be unnecessary if the file does not contain any concrete components or abstract state/props classes.';
       }, orElse: () => null);
       expect(expectedWarning, isNotNull,
         reason: 'Expected a WARNING log for a part directive being present in a file with no generated output.');
@@ -104,7 +105,7 @@ main() {
       var libraryAsset = makeAssetId('over_react|test_fixtures/source_files/has_part_directive_missing_gen/with_declarations.dart');
       await runBuilder(builder, [libraryAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);
       final expectedWarning = logs.firstWhere((log) {
-        return log.level == Level.WARNING && log.message == 'An over react part directive was found in test_fixtures/source_files/has_part_directive_missing_gen/with_declarations.dart, but no code was generated.';
+        return log.level == Level.WARNING && log.message == 'An over_react part directive was found in test_fixtures/source_files/has_part_directive_missing_gen/with_declarations.dart, but no code was generated. The part directive may be unnecessary if the file does not contain any concrete components or abstract state/props classes.';
       }, orElse: () => null);
       expect(expectedWarning, isNotNull,
         reason: 'Expected a WARNING log for a part directive being present in a file with no generated output.');

@@ -94,7 +94,9 @@ class OverReactBuilder extends Builder {
       await _writePart(buildStep, outputId, outputs);
     } else {
       if (hasOutputPartDirective()) {
-        log.warning('An over react part directive was found in ${buildStep.inputId.path}, but no code was generated.');
+        log.warning('An over_react part directive was found in ${buildStep.inputId.path}, '
+            'but no code was generated. The part directive may be unnecessary if the file '
+            'does not contain any concrete components or abstract state/props classes.');
       }
     }
   }
