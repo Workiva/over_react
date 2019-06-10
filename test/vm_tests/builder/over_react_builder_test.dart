@@ -90,7 +90,7 @@ main() {
         reason: 'Expected a WARNING log for the missing over_react part.');
     });
 
-    test('warns if .over_react.g.dart part directive is present and no delcarations are present, but no code is generated', () async {
+    test('warns if .over_react.g.dart part directive is present and no declarations are present, but no code is generated', () async {
       var libraryAsset = makeAssetId('over_react|test_fixtures/source_files/has_part_directive_missing_gen/no_declarations.dart');
       await runBuilder(builder, [libraryAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);
       final expectedWarning = logs.firstWhere((log) {
@@ -101,7 +101,7 @@ main() {
         reason: 'Expected a WARNING log for a part directive being present in a file with no generated output.');
     });
 
-    test('warns if .over_react.g.dart part directive is present and delcarations are present, but no code is generated', () async {
+    test('warns if .over_react.g.dart part directive is present and declarations are present, but no code is generated', () async {
       var libraryAsset = makeAssetId('over_react|test_fixtures/source_files/has_part_directive_missing_gen/with_declarations.dart');
       await runBuilder(builder, [libraryAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);
       final expectedWarning = logs.firstWhere((log) {
