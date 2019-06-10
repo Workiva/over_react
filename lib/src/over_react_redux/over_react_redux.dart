@@ -12,7 +12,6 @@ import 'package:over_react/src/component_declaration/component_base.dart' as com
 import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
 import 'package:collection/collection.dart';
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';
@@ -30,7 +29,7 @@ abstract class _$ConnectPropsMixin {
 ///
 /// [connect]: https://react-redux.js.org/api/connect#connect
 UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extends UiProps>({
-  @required Map Function(TReduxState state, Map ownProps) mapStateToProps,
+  Map Function(TReduxState state, Map ownProps) mapStateToProps,
   Map Function(Function dispatch, Map ownProps) mapDispatchToProps,
   bool Function(TReduxState next, TReduxState prev) areStatesEqual,
   bool Function(Map next, Map prev) areOwnPropsEqual,
