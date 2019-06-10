@@ -81,7 +81,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
         areMergedPropsEqual(new JsBackedMap.backedBy(jsNext), new JsBackedMap.backedBy(jsPrev));
 
     final hoc = _jsConnect(
-      allowInterop(handleMapStateToProps),
+      mapStateToProps != null ? allowInterop(handleMapStateToProps) : null,
       mapDispatchToProps != null ? allowInterop(handleMapDispatchToProps) : allowInterop((dispatch, _) { var val = new JsBackedMap(); val['dispatch'] = dispatch; return val.jsObject; }),
       null,
       new _JsConnectOptions(
