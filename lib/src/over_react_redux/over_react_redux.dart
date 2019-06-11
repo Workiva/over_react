@@ -204,7 +204,7 @@ _reduxifyStore(Store store){
 @JS()
 @anonymous
 class JsReactReduxStore {
-  JsReactReduxStore({
+  external factory JsReactReduxStore({
     ReactInteropValue Function() getState,
     void Function(dynamic) dispatch,
     void Function(Function) subscribe,
