@@ -1,3 +1,24 @@
+
+
+/// Then, in react-dart:
+///
+/// ```diff
+///  final staticComponentInstance = componentFactory();
+///
+/// ...
+///
+/// +final propTypes = staticComponentInstance.propTypes;
+/// +final jsPropTypes = jsifyAndAllowInterio(propTypes.map((propKey, validator) {
+/// +  dynamic handlePropValidator(JsMap props, String propName, String componentName) {
+/// +    return validator(JsBackedMap.backedBy(props), propName, componentName);
+/// +  }
+/// +  return MapEntry(propKey, handlePropValidator);
+/// +}));
+/// +reactClass.propTypes = jsPropTypes;
+/// ```
+library foo;
+
+
 import 'package:over_react/over_react.dart';
 
 class FooProps extends UiProps {
