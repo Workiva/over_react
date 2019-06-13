@@ -205,6 +205,24 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   //   END Typed props helpers
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
+
+  Map propValidator<TValue>(
+    void Function(TProps props) accessProp,
+    TypedPropValidator<TProps> validate,
+  ) {
+    return new PropValidatorHelper<TProps>(accessProp, typedPropsFactory, validate).toPropTypesMap();
+  }
+
+
+  String propKey(void accessProp(TProps mapSpy)) {
+    return prop_key_util.getPropKey(accessProp, typedPropsFactory);
+  }
+
+
+
+  Map<String, TypedPropValidator<TProps>> get typedPropTypes => const {};
+
+  Map<String, PropValidator> get propTypes => const {};
 }
 
 /// The basis for a _stateful_ over_react component that is compatible with ReactJS 16 ([react.Component2]).
@@ -287,4 +305,25 @@ abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiSta
   //   END Typed state helpers
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
+}
+
+typedef dynamic PropValidator(Map props, String propName, String componentName);
+typedef dynamic TypedPropValidator<TProps extends Map>(TProps props, String propName, String componentName);
+
+class PropValidatorHelper<TProps extends UiProps> {
+  final void Function(TProps props) accessProp;
+  final UiFactory<TProps> factory;
+  final TypedPropValidator<TProps> validate;
+
+  PropValidatorHelper(this.accessProp, this.factory, this.validate);
+
+  String getKey() => getPropKey(accessProp, factory);
+
+  dynamic untypedMapValidator(Map props, String propName, String componentName) {
+    return validate(factory(props), propName, componentName);
+  }
+
+  Map<String, PropValidator> toPropTypesMap() => {
+    getKey(): untypedMapValidator,
+  };
 }

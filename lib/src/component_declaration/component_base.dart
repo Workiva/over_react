@@ -22,6 +22,7 @@ import 'package:over_react/over_react.dart';
 
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:over_react/src/component_declaration/util.dart';
+import 'package:over_react/src/util/prop_key_util.dart' as prop_key_util;
 import 'package:over_react/src/util/test_mode.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
