@@ -72,11 +72,22 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// > Should be used alongside [forwardingClassNameBuilder].
   ///
   /// > Related [copyUnconsumedDomProps]
+  ///
+  /// __Deprecated.__ Use [addUnconsumedProps] instead within
+  /// [modifyProps] (rather than [addProps]). Will be removed in the `4.0.0`
+  /// release.
   @override
+  @Deprecated('4.0.0')
   Map copyUnconsumedProps() {
     var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
 
     return copyProps(keySetsToOmit: consumedPropKeys);
+  }
+
+  void addUnconsumedProps(UiProps props) {
+    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
+
+    props.addProps(copyProps(keySetsToOmit: consumedPropKeys));
   }
 
   /// Returns a copy of this component's props with keys found in [consumedProps] and non-DOM props omitted.
@@ -84,12 +95,23 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// > Should be used alongside [forwardingClassNameBuilder].
   ///
   /// > Related [copyUnconsumedProps]
+  ///
+  /// __Deprecated.__ Use [addUnconsumedDomProps] instead within
+  /// [modifyProps] (rather than [addProps]). Will be removed in the `4.0.0` release.
   @override
+  @Deprecated('4.0.0')
   Map copyUnconsumedDomProps() {
     var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
 
     return copyProps(onlyCopyDomProps: true, keySetsToOmit: consumedPropKeys);
   }
+
+  void addUnconsumedDomProps(UiProps props) {
+    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
+
+    props.addProps(copyProps(onlyCopyDomProps: true, keySetsToOmit: consumedPropKeys));
+  }
+
 
   /// Returns a copy of this component's props with React props optionally omitted, and
   /// with the specified [keysToOmit] and [keySetsToOmit] omitted.
