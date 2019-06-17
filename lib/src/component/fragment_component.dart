@@ -24,4 +24,4 @@ class FragmentProps extends component_base.UiProps
   String get propKeyNamespace => '';
 }
 
-Fragment() => new FragmentProps(react.Fragment);
+FragmentProps Fragment() => new FragmentProps(react.Fragment);
