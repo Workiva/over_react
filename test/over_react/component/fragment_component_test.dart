@@ -22,7 +22,6 @@ import 'fixtures/dummy_component.dart';
 
 void main() {
   group('FragmentComponent', () {
-
     test('does not render in dom', () {
       var wrappingDivRef;
 
@@ -44,7 +43,6 @@ void main() {
 
     test('passes the key properly onto the fragment', () {
       var callCount = 0;
-
       var jacket = mount((Fragment()
             ..key = 1
           )(
