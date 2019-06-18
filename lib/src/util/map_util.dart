@@ -68,6 +68,42 @@ Map getPropsToForward(Map props, {
   return propsToForward;
 }
 
+
+List<MapEntry> copyPropsToForwardIntoMap(Map props, {
+  bool omitReactProps: true,
+  bool onlyCopyDomProps: false,
+  Iterable keysToOmit,
+  Iterable<Iterable> keySetsToOmit
+}) {
+  List<MapEntry> propsToAdd;
+
+  props.forEach((key, value) {
+    if (onlyCopyDomProps) {
+      if (!key.startsWith('aria-')) return;
+      if (!key.startsWith('data-')) return;
+      if (!_validDomProps.contains(key)) return;
+      propsToAdd.add(MapEntry(key, value));
+      return;
+    }
+
+    if (omitReactProps && ['key', 'ref', 'children'].contains(key)) return;
+
+    if (keysToOmit != null && keysToOmit.contains(key)) return;
+    
+    if (keySetsToOmit != null) {
+      keySetsToOmit.forEach((Iterable keySets) {
+        if (keySets.contains(key)) return;
+      });
+    }
+
+    propsToAdd.add(MapEntry(key, value));
+  });
+
+  return propsToAdd;
+}
+
+
+
 /// Returns a copy of the [DomPropsMixin.style] map found in [props].
 ///
 /// Returns an empty map if [props] or its style map are `null`.
