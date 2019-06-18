@@ -74,19 +74,14 @@ void forwardUnconsumedProps(Map props, {
   bool onlyCopyDomProps: false,
   Iterable keysToOmit,
   Iterable<Iterable> keySetsToOmit,
-  Function addProp,
+  void addProp(key, value),
 }) {
-  props.forEach((key, value) {
+  for (String key in props.keys) {
     if (onlyCopyDomProps) {
-      bool shouldAddProp = false;
-
-      /// todo: work in a way to skip checks if a single check returns true?
-      /// we don't need to do two more checks if the first one returns true
-      if (key.startsWith('aria-')) shouldAddProp = true;
-      if (key.startsWith('data-')) shouldAddProp = true;
-      if (_validDomProps.contains(key)) shouldAddProp = true;
-      if (shouldAddProp) {
-        addProp(key, value);
+      if (key.startsWith('aria-') ||
+          key.startsWith('data-') ||
+          _validDomProps.contains(key)) {
+        addProp(key, props[key]);
       }
       return;
     }
@@ -99,10 +94,10 @@ void forwardUnconsumedProps(Map props, {
       });
     }
 
-    if (omitReactProps && ['key', 'ref', 'children'].contains(key)) return;
+    if (omitReactProps && const ['key', 'ref', 'children'].contains(key)) return;
 
-    addProp(key, value);
-  });
+    addProp(key, props[key]);
+  }
 }
 
 
@@ -117,6 +112,6 @@ Map<String, dynamic> newStyleFromProps(Map props) {
   return existingStyle == null ? <String, dynamic>{} : new Map.from(existingStyle);
 }
 
-Set _validDomProps = new Set()
+HashSet _validDomProps = new HashSet()
   ..addAll(DomPropsMixin.meta.keys)
   ..addAll(SvgPropsMixin.meta.keys);
