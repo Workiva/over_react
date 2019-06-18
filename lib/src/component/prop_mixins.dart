@@ -93,6 +93,7 @@ abstract class _$DomPropsMixin {
   MouseEventCallback
     onClick, onContextMenu, onDoubleClick, onDrag, onDragEnd, onDragEnter, onDragExit, onDragLeave, onDragOver,
     onDragStart, onDrop, onMouseDown, onMouseEnter, onMouseLeave, onMouseMove, onMouseOut, onMouseOver, onMouseUp;
+  PointerEventCallback onPointerCancel, onPointerDown, onPointerEnter, onPointerLeave, onPointerMove, onPointerOver, onPointerOut, onPointerUp;
   TouchEventCallback onTouchCancel, onTouchEnd, onTouchMove, onTouchStart;
   UIEventCallback onScroll;
   WheelEventCallback onWheel;
@@ -104,6 +105,7 @@ abstract class _$DomPropsMixin {
   MouseEventCallback
     onClickCapture, onContextMenuCapture, onDoubleClickCapture, onDragCapture, onDragEndCapture, onDragEnterCapture, onDragExitCapture, onDragLeaveCapture, onDragOverCapture,
     onDragStartCapture, onDropCapture, onMouseDownCapture, onMouseEnterCapture, onMouseLeaveCapture, onMouseMoveCapture, onMouseOutCapture, onMouseOverCapture, onMouseUpCapture;
+  PointerEventCallback onGotPointerCapture, onLostPointerCapture;
   TouchEventCallback onTouchCancelCapture, onTouchEndCapture, onTouchMoveCapture, onTouchStartCapture;
   UIEventCallback onScrollCapture;
   WheelEventCallback onWheelCapture;
@@ -286,6 +288,30 @@ abstract class _$UbiquitousDomPropsMixin {
 
   /// Callback for when a user releases a mouse button over an element
   MouseEventCallback onMouseUp;
+
+  /// Callback for when the pointing device is interrupted
+  PointerEventCallback onPointerCancel;
+
+  /// Callback for when the pointer becomes active over an element
+  PointerEventCallback onPointerDown;
+
+  /// Callback for when the pointer is moved onto an element
+  PointerEventCallback onPointerEnter;
+
+  /// Callback for when the pointer is moved out of an element
+  PointerEventCallback onPointerLeave;
+
+  /// Callback for when the pointer is moving while it is over an element
+  PointerEventCallback onPointerMove;
+
+  /// Callback for when the pointing device is moved onto an element, or onto one of its children
+  PointerEventCallback onPointerOver;
+
+  /// Callback for when the pointer is moved out of an element, or out of one of its children
+  PointerEventCallback onPointerOut;
+
+  /// Callback for when the pointer becomes inactive over an element
+  PointerEventCallback onPointerUp;
 
   /// Callback for when the touch is interrupted
   TouchEventCallback onTouchCancel;
