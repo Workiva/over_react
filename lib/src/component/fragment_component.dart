@@ -24,4 +24,8 @@ class FragmentProps extends component_base.UiProps
   String get propKeyNamespace => '';
 }
 
+/// Fragment component that allows the wrapping of children without the necessity of using
+/// an element that adds an additional layer to the DOM (div, span, etc).
+///
+/// See: <https://reactjs.org/docs/fragments.html>
 FragmentProps Fragment() => new FragmentProps(react.Fragment);

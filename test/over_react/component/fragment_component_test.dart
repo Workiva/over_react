@@ -21,8 +21,8 @@ import 'package:test/test.dart';
 import 'fixtures/dummy_component.dart';
 
 void main() {
-  group('FragmentComponent', () {
-    test('does not render in dom', () {
+  group('Fragment', () {
+    test('renders only its children', () {
       var wrappingDivRef;
 
       renderAttachedToDocument((Dom.div()
