@@ -28,8 +28,6 @@ class DummyComponent extends UiComponent2<DummyProps> {
 
   @override
   render() {
-    return (Dom.button()
-      ..addTestId('DummyButton')
-    )('oh hai');
+    return (Dom.button()..addTestId('DummyButton'))('oh hai');
   }
 }

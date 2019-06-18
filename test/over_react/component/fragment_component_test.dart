@@ -25,48 +25,46 @@ void main() {
     test('renders only its children', () {
       var wrappingDivRef;
 
-      renderAttachedToDocument((Dom.div()
-        ..ref = (ref) {
-          wrappingDivRef = ref;
-        }
-      )(
-          Fragment()(
-            Dom.div()(),
-            Dom.div()(),
-            Dom.div()(),
-            Dom.div()(),
-          )
-      ));
+      renderAttachedToDocument(
+        (Dom.div()
+          ..ref = (ref) {
+            wrappingDivRef = ref;
+          })(Fragment()(
+          Dom.div()(),
+          Dom.div()(),
+          Dom.div()(),
+          Dom.div()(),
+        )),
+      );
 
       expect(wrappingDivRef.children, hasLength(4));
     });
 
     test('passes the key properly onto the fragment', () {
       var callCount = 0;
-      var jacket = mount((Fragment()
-            ..key = 1
-          )(
+      var jacket = mount(
+        (Fragment()..key = 1)(
           (Dummy()
             ..onComponentDidMount = () {
               callCount++;
-            }
-          )()
-          ),
+            })(),
+        ),
       );
 
       expect(callCount, 1);
 
-      jacket.rerender((Fragment()
-        ..key = 2
-      )(
+      jacket.rerender(
+        (Fragment()..key = 2)(
           (Dummy()
             ..onComponentDidMount = () {
               callCount++;
-            }
-          )()
-      ));
+            })(),
+        ),
+      );
 
-      expect(callCount, 2, reason: 'Dummy should have been remounted as a result of Fragment key changing');
+      expect(callCount, 2,
+          reason:
+              'Dummy should have been remounted as a result of Fragment key changing');
     });
   });
 }
