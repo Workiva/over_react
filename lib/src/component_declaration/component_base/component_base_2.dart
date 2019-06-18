@@ -84,10 +84,10 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
     return copyProps(keySetsToOmit: consumedPropKeys);
   }
 
-  void addUnconsumedProps(UiProps props) {
+  void addUnconsumedProps(Map props) {
     var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
 
-    forwardUnconsumedProps(this.props, addProp: props.addProp,
+    forwardUnconsumedProps(this.props, addProp: (props as UiProps).addProp,
         keySetsToOmit: consumedPropKeys);
   }
 
@@ -108,10 +108,10 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
     return copyProps(onlyCopyDomProps: true, keySetsToOmit: consumedPropKeys);
   }
 
-  void addUnconsumedDomProps(UiProps props) {
+  void addUnconsumedDomProps(Map props) {
     var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
 
-    forwardUnconsumedProps(this.props, addProp: props.addProp, keySetsToOmit:
+    forwardUnconsumedProps(this.props, addProp: (props as UiProps).addProp, keySetsToOmit:
         consumedPropKeys, onlyCopyDomProps: true);
   }
 
