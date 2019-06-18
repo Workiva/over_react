@@ -69,37 +69,40 @@ Map getPropsToForward(Map props, {
 }
 
 
-List<MapEntry> copyPropsToForwardIntoMap(Map props, {
+void copyPropsToForwardIntoMap(Map props, {
   bool omitReactProps: true,
   bool onlyCopyDomProps: false,
   Iterable keysToOmit,
-  Iterable<Iterable> keySetsToOmit
+  Iterable<Iterable> keySetsToOmit,
+  Function addProp,
 }) {
-  List<MapEntry> propsToAdd;
-
   props.forEach((key, value) {
     if (onlyCopyDomProps) {
-      if (!key.startsWith('aria-')) return;
-      if (!key.startsWith('data-')) return;
-      if (!_validDomProps.contains(key)) return;
-      propsToAdd.add(MapEntry(key, value));
+      bool shouldAddProp = false;
+
+      /// todo: work in a way to skip checks if a single check returns true?
+      /// we don't need to do two more checks if the first one returns true
+      if (key.startsWith('aria-')) shouldAddProp = true;
+      if (key.startsWith('data-')) shouldAddProp = true;
+      if (_validDomProps.contains(key)) shouldAddProp = true;
+      if (shouldAddProp) {
+        addProp(key, value);
+      }
       return;
     }
 
-    if (omitReactProps && ['key', 'ref', 'children'].contains(key)) return;
-
     if (keysToOmit != null && keysToOmit.contains(key)) return;
-    
+
     if (keySetsToOmit != null) {
       keySetsToOmit.forEach((Iterable keySets) {
         if (keySets.contains(key)) return;
       });
     }
 
-    propsToAdd.add(MapEntry(key, value));
-  });
+    if (omitReactProps && ['key', 'ref', 'children'].contains(key)) return;
 
-  return propsToAdd;
+    addProp(key, value);
+  });
 }
 
 
