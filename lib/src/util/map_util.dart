@@ -69,7 +69,7 @@ Map getPropsToForward(Map props, {
 }
 
 
-void copyPropsToForwardIntoMap(Map props, {
+void forwardUnconsumedProps(Map props, {
   bool omitReactProps: true,
   bool onlyCopyDomProps: false,
   Iterable keysToOmit,

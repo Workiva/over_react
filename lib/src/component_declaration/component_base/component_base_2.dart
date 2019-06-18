@@ -73,9 +73,9 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///
   /// > Related [copyUnconsumedDomProps]
   ///
-  /// __Deprecated.__ Use [addUnconsumedProps] instead within
-  /// [modifyProps] (rather than [addProps]). Will be removed in the `4.0.0`
-  /// release.
+  /// __Deprecated.__ Use [addUnconsumedProps] within
+  /// [modifyProps] (rather than [addProps]) instead. Will be removed in the
+  /// `4.0.0` release.
   @override
   @Deprecated('4.0.0')
   Map copyUnconsumedProps() {
@@ -87,7 +87,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   void addUnconsumedProps(UiProps props) {
     var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
 
-    copyPropsToForwardIntoMap(this.props, addProp: props.addProp,
+    forwardUnconsumedProps(this.props, addProp: props.addProp,
         keySetsToOmit: consumedPropKeys);
   }
 
@@ -97,8 +97,9 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///
   /// > Related [copyUnconsumedProps]
   ///
-  /// __Deprecated.__ Use [addUnconsumedDomProps] instead within
-  /// [modifyProps] (rather than [addProps]). Will be removed in the `4.0.0` release.
+  /// __Deprecated.__ Use [addUnconsumedDomProps] within
+  /// [modifyProps] (rather than [addProps]) instead. Will be removed in the
+  /// `4.0.0` release.
   @override
   @Deprecated('4.0.0')
   Map copyUnconsumedDomProps() {
@@ -110,7 +111,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   void addUnconsumedDomProps(UiProps props) {
     var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
 
-    copyPropsToForwardIntoMap(this.props, addProp: props.addProp, keySetsToOmit:
+    forwardUnconsumedProps(this.props, addProp: props.addProp, keySetsToOmit:
         consumedPropKeys, onlyCopyDomProps: true);
   }
 
