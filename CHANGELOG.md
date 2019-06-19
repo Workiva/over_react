@@ -1,5 +1,18 @@
 # OverReact Changelog
 
+## 2.4.3
+
+> Complete `2.4.3` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.4.2+dart2...2.4.3+dart2)
+> - Dart 1 (no changes)
+
+* [#302] The builder now warns if an `.over_react.g.dart` part directive is found
+  in a file that does not need one (i.e. it does not produce any generated output).
+* [#306] The handler chaining utils (e.g. `domEventCallbacks`, `Callback1Arg`, etc.)
+  have been updated to accommodate the breaking language change in Dart 2.4
+  around covariance of type variables used in super-interfaces.
+
 ## 2.4.2
 
 > Complete `2.4.2` Changsets:
