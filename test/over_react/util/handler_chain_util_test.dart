@@ -21,7 +21,7 @@ import 'package:test/test.dart';
 main() {
   group('HandlerChainUtil', () {
     group('generic chaining:', () {
-      S createTestChainFunction<S>({returnValue, onCall(List args)}) {
+      Function createTestChainFunction({returnValue, onCall(List args)}) {
         testChainFunction([
             arg1 = unspecified,
             arg2 = unspecified,
@@ -38,14 +38,13 @@ main() {
           return returnValue;
         };
 
-        // ignore: avoid_as
-        return testChainFunction as S;
+        return testChainFunction;
       }
 
       /// Shared tests for [CallbackUtil] subclasses supporting different arities.
       ///
       /// Expects callback arguments to be typed to [TestGenericType].
-      void sharedTests<T, S extends Function>(CallbackUtil<S> callbackUtil, int arity) {
+      void sharedTests<S extends Function>(CallbackUtil callbackUtil, int arity) {
         List generateArgs() {
           return new List.generate(arity, (_) => new TestGenericType());
         }
@@ -159,7 +158,7 @@ main() {
               var calls = [];
 
               var functions = new List<S>.generate(5, (index) {
-                return createTestChainFunction<S>(onCall: (args) {
+                return createTestChainFunction(onCall: (args) {
                   calls.add(['function_$index', args]);
                 });
               });
@@ -265,23 +264,23 @@ main() {
       }
 
       group('CallbackUtil0Arg', () {
-        sharedTests(const CallbackUtil0Arg(), 0);
+        sharedTests<Callback0Arg>(const CallbackUtil0Arg(), 0);
       });
 
       group('CallbackUtil1Arg', () {
-        sharedTests(const CallbackUtil1Arg<TestGenericType>(), 1);
+        sharedTests<Callback1Arg>(const CallbackUtil1Arg<TestGenericType>(), 1);
       });
 
       group('CallbackUtil2Arg', () {
-        sharedTests(const CallbackUtil2Arg<TestGenericType, TestGenericType>(), 2);
+        sharedTests<Callback2Arg>(const CallbackUtil2Arg<TestGenericType, TestGenericType>(), 2);
       });
 
       group('CallbackUtil3Arg', () {
-        sharedTests(const CallbackUtil3Arg<TestGenericType, TestGenericType, TestGenericType>(), 3);
+        sharedTests<Callback3Arg>(const CallbackUtil3Arg<TestGenericType, TestGenericType, TestGenericType>(), 3);
       });
 
       group('CallbackUtil4Arg', () {
-        sharedTests(const CallbackUtil4Arg<TestGenericType, TestGenericType, TestGenericType, TestGenericType>(), 4);
+        sharedTests<Callback4Arg>(const CallbackUtil4Arg<TestGenericType, TestGenericType, TestGenericType, TestGenericType>(), 4);
       });
     });
   });
