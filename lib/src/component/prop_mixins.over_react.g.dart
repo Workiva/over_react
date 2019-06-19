@@ -4132,14 +4132,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   set onPointerMove(PointerEventCallback value) =>
       props[_$key__onPointerMove___$UbiquitousDomPropsMixin] = value;
 
-  /// Callback for when the pointing device is moved onto an element, or onto one of its children
+  /// Callback for when the pointer is moved onto an element, or onto one of its children
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerOver] -->
   @override
   PointerEventCallback get onPointerOver =>
       props[_$key__onPointerOver___$UbiquitousDomPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Callback for when the pointing device is moved onto an element, or onto one of its children
+  /// Callback for when the pointer is moved onto an element, or onto one of its children
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerOver] -->
   @override
