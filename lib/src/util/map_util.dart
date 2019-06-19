@@ -99,9 +99,6 @@ void forwardUnconsumedProps(Map props, {
   }
 }
 
-
-
-
 /// Returns a copy of the [DomPropsMixin.style] map found in [props].
 ///
 /// Returns an empty map if [props] or its style map are `null`.
