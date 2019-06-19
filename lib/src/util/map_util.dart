@@ -74,7 +74,7 @@ void forwardUnconsumedProps(Map props, {
   bool onlyCopyDomProps: false,
   Iterable keysToOmit,
   Iterable<Iterable> keySetsToOmit,
-  Map oldProps,
+  Map propsToUpdate,
 }) {
 
   if (onlyCopyDomProps) {
@@ -95,7 +95,7 @@ void forwardUnconsumedProps(Map props, {
 
     if (omitReactProps && const ['key', 'ref', 'children'].contains(key)) continue;
 
-    oldProps[key] = props[key];
+    propsToUpdate[key] = props[key];
   }
 }
 
