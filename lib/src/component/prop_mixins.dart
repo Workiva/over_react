@@ -304,7 +304,7 @@ abstract class _$UbiquitousDomPropsMixin {
   /// Callback for when the pointer is moving while it is over an element
   PointerEventCallback onPointerMove;
 
-  /// Callback for when the pointing device is moved onto an element, or onto one of its children
+  /// Callback for when the pointer is moved onto an element, or onto one of its children
   PointerEventCallback onPointerOver;
 
   /// Callback for when the pointer is moved out of an element, or out of one of its children
