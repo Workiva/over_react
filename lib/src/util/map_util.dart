@@ -74,31 +74,31 @@ void forwardUnconsumedProps(Map props, {
   bool onlyCopyDomProps: false,
   Iterable keysToOmit,
   Iterable<Iterable> keySetsToOmit,
-  void addProp(key, value),
+  Map oldProps,
 }) {
-  for (String key in props.keys) {
-    if (onlyCopyDomProps) {
+
+  if (onlyCopyDomProps) {
+    for (String key in props.keys) {
       if (key.startsWith('aria-') ||
           key.startsWith('data-') ||
           _validDomProps.contains(key)) {
-        addProp(key, props[key]);
+        oldProps[key] = props[key];
       }
-      return;
     }
+    return;
+  }
 
-    if (keysToOmit != null && keysToOmit.contains(key)) return;
+  for (String key in props.keys) {
+    if (keysToOmit != null && keysToOmit.contains(key)) continue;
 
-    if (keySetsToOmit != null) {
-      keySetsToOmit.forEach((Iterable keySets) {
-        if (keySets.contains(key)) return;
-      });
-    }
+    if (keySetsToOmit != null && keySetsToOmit.first.contains(key)) continue;
 
-    if (omitReactProps && const ['key', 'ref', 'children'].contains(key)) return;
+    if (omitReactProps && const ['key', 'ref', 'children'].contains(key)) continue;
 
-    addProp(key, props[key]);
+    oldProps[key] = props[key];
   }
 }
+
 
 
 
