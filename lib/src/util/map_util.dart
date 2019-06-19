@@ -82,7 +82,7 @@ void forwardUnconsumedProps(Map props, {
       if (key.startsWith('aria-') ||
           key.startsWith('data-') ||
           _validDomProps.contains(key)) {
-        oldProps[key] = props[key];
+        propsToUpdate[key] = props[key];
       }
     }
     return;
