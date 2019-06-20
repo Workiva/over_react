@@ -69,7 +69,10 @@ Map getPropsToForward(Map props, {
   return propsToForward;
 }
 
-
+/// Adds unconsumed props to a passed in map reference ([propsToUpdate]).
+///
+/// Based upon configuration, the function will overlook [props] that are not
+/// meant to be passed on, such as non-DOM props or specified values.
 void forwardUnconsumedProps(Map props, {
   bool omitReactProps: true,
   bool onlyCopyDomProps: false,
@@ -91,7 +94,26 @@ void forwardUnconsumedProps(Map props, {
   for (String key in props.keys) {
     if (keysToOmit != null && keysToOmit.contains(key)) continue;
 
-    if (keySetsToOmit != null && keySetsToOmit.expand((i) => i).contains(key)) continue;
+    if (keySetsToOmit != null) {
+        /// If the passed in value of [keySetsToOmit] comes from
+        /// [addUnconsumedDomProps], there should only be a single index.
+        /// Consequently, this case exists to give the opportunity for the loop
+        /// to continue without initiating another loop (which is less
+        /// performant than `.first.contains()`).
+        if (keySetsToOmit.first.contains(key)) continue;
+
+        if (keySetsToOmit.length > 1) {
+          bool shouldContinue = false;
+          for (Iterable keySet in keySetsToOmit) {
+            if (keySet.contains(key)) {
+              shouldContinue = true;
+              continue;
+            }
+          }
+
+          if (shouldContinue) continue;
+        }
+    }
 
     if (omitReactProps && const ['key', 'ref', 'children'].contains(key)) continue;
 
