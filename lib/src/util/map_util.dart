@@ -19,6 +19,7 @@ import 'dart:collection';
 import 'package:over_react/src/component/dom_components.dart';
 import 'package:over_react/src/component/prop_mixins.dart';
 import 'package:react/src/react_client/js_backed_map.dart';
+import 'package:over_react/component_base.dart';
 
 /// Returns a copy of the specified [props] map, omitting reserved React props by default,
 /// in addition to any specified [keysToOmit] or [keySetsToOmit].
@@ -76,7 +77,6 @@ void forwardUnconsumedProps(Map props, {
   Iterable<Iterable> keySetsToOmit,
   Map propsToUpdate,
 }) {
-
   if (onlyCopyDomProps) {
     for (String key in props.keys) {
       if (key.startsWith('aria-') ||
@@ -91,7 +91,7 @@ void forwardUnconsumedProps(Map props, {
   for (String key in props.keys) {
     if (keysToOmit != null && keysToOmit.contains(key)) continue;
 
-    if (keySetsToOmit != null && keySetsToOmit.first.contains(key)) continue;
+    if (keySetsToOmit != null && keySetsToOmit.expand((i) => i).contains(key)) continue;
 
     if (omitReactProps && const ['key', 'ref', 'children'].contains(key)) continue;
 
