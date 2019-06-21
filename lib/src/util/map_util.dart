@@ -69,7 +69,7 @@ Map getPropsToForward(Map props, {
   return propsToForward;
 }
 
-/// Adds unconsumed props to a passed in map reference ([propsToUpdate]).
+/// Adds unconsumed props to a passed in [Map] reference ([propsToUpdate]).
 ///
 /// Based upon configuration, the function will overlook [props] that are not
 /// meant to be passed on, such as non-DOM props or specified values.
