@@ -18,7 +18,7 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:html';
 
-import 'package:over_react/over_react.dart' show Dom, DummyComponent, ValidationUtil;
+import 'package:over_react/over_react.dart' show Component2, Dom, DummyComponent, Factory, Props, ValidationUtil;
 import 'package:over_react_test/over_react_test.dart';
 import 'package:over_react/src/component_declaration/component_base.dart';
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
@@ -28,6 +28,7 @@ import 'package:w_common/disposable.dart';
 
 import '../../test_util/test_util.dart';
 import '../shared/map_proxy_tests.dart';
+
 
 main() {
   void _commonNonInvokedBuilderTests(UiProps builder) {
@@ -806,6 +807,101 @@ main() {
       }, timeout: new Timeout(const Duration(milliseconds: 250)));
     });
 
+
+    group('UiComponent2', () {
+      TestComponent2Component component2;
+
+      group('copyUnconsumedProps()', () {
+        test('copies props, omitting keys from `consumedProps`, as well as reserved react props', () {
+          component2 = new TestComponent2Component(testConsumedProps: [
+            const ConsumedProps(const [], const ['consumed1', 'consumed2'])
+          ]);
+
+          component2.props = new JsBackedMap.from({
+            'key': 'testKey',
+            'ref': 'testRef',
+            'children': [],
+            'consumed1': true,
+            'consumed2': true,
+            'unconsumed1': true,
+            'unconsumed2': true,
+          });
+
+          Map test = {};
+          component2.addUnconsumedProps(test);
+
+          expect(test, equals({
+            'unconsumed1': true,
+            'unconsumed2': true,
+          }));
+        });
+
+        test('copies all props when `consumedProps` is null', () {
+          component2 = new TestComponent2Component(testConsumedProps: null);
+
+          component2.props = new JsBackedMap.from({
+            'prop1': true,
+            'prop2': true,
+          });
+
+          Map test = {};
+          component2.addUnconsumedProps(test);
+
+          expect(test, equals({
+            'prop1': true,
+            'prop2': true,
+          }));
+        });
+      });
+
+      group('copyUnconsumedDomProps()', () {
+        test('copies props, omitting keys from `consumedPropKeys`, as well as reserved react props', () {
+          component2 = new TestComponent2Component(testConsumedProps: [
+            const ConsumedProps(const [], const ['consumed1', 'consumed2'])
+          ]);
+
+          component2.props = JsBackedMap.from({
+            'key': 'testKey',
+            'ref': 'testRef',
+            'children': [],
+            'consumed1': true,
+            'consumed2': true,
+            'unconsumed1': true,
+            'unconsumed2': true,
+            'tabIndex': true,
+            'className': true,
+          });
+
+          Map test = {};
+          component2.addUnconsumedDomProps(test);
+
+          expect(test, equals({
+            'tabIndex': true,
+            'className': true,
+          }));
+        });
+
+        test('copies all props when `consumedPropKeys` is null', () {
+          component2 = new TestComponent2Component(testConsumedProps: null);
+
+          component2.props = JsBackedMap.from({
+            'prop1': true,
+            'prop2': true,
+            'tabIndex': true,
+            'className': true,
+          });
+
+          Map test = {};
+          component2.addUnconsumedDomProps(test);
+
+          expect(test, equals({
+            'tabIndex': true,
+            'className': true,
+          }));
+        });
+      });
+    });
+
     group('UiStatefulComponent', () {
       TestStatefulComponentComponent statefulComponent;
 
@@ -996,6 +1092,41 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
   }
 }
 
+class TestComponent2Props extends UiProps {
+  @override final ReactComponentFactoryProxy componentFactory = _TestComponentComponentFactory;
+  TestComponent2Props(JsBackedMap backingMap)
+      : this._props = new JsBackedMap() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+class TestComponent2Component extends UiComponent2<TestComponent2Props> {
+
+  @override
+  final List<ConsumedProps> consumedProps;
+
+  @override
+  TestComponent2Props get props => typedPropsFactory(unwrappedProps);
+
+  TestComponent2Component({List<ConsumedProps> testConsumedProps}) :
+        consumedProps = testConsumedProps;
+
+  @override
+  render() => (Dom.div()..ref = 'foo')();
+
+  @override
+  TestComponent2Props typedPropsFactory(Map propsMap) => new
+  TestComponent2Props(propsMap);
+
+  @override
+  TestComponent2Props typedPropsFactoryJs(Map propsMap) => new
+  TestComponent2Props(propsMap);
+
+}
 
 UiFactory<TestStatefulComponentProps> TestStatefulComponent = ([Map props]) => new TestStatefulComponentProps(props);
 
