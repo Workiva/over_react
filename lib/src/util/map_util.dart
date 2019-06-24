@@ -95,7 +95,7 @@ void forwardUnconsumedProps(Map props, {
 
     if (keySetsToOmit != null) {
         /// If the passed in value of [keySetsToOmit] comes from
-        /// [addUnconsumedDomProps], there should only be a single index.
+        /// [addUnconsumedProps], there should only be a single index.
         /// Consequently, this case exists to give the opportunity for the loop
         /// to continue without initiating another loop (which is less
         /// performant than `.first.contains()`).
