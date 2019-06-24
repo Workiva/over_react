@@ -26,6 +26,7 @@ typedef KeyboardEventCallback(react.SyntheticKeyboardEvent event);
 typedef FocusEventCallback(react.SyntheticFocusEvent event);
 typedef FormEventCallback(react.SyntheticFormEvent event);
 typedef MouseEventCallback(react.SyntheticMouseEvent event);
+typedef PointerEventCallback(react.SyntheticPointerEvent event);
 typedef TouchEventCallback(react.SyntheticTouchEvent event);
 typedef UIEventCallback(react.SyntheticUIEvent event);
 typedef WheelEventCallback(react.SyntheticWheelEvent event);
