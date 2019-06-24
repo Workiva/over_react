@@ -1124,7 +1124,6 @@ class TestComponent2Component extends UiComponent2<TestComponent2Props> {
   @override
   TestComponent2Props typedPropsFactoryJs(Map propsMap) => new
   TestComponent2Props(propsMap);
-
 }
 
 UiFactory<TestStatefulComponentProps> TestStatefulComponent = ([Map props]) => new TestStatefulComponentProps(props);

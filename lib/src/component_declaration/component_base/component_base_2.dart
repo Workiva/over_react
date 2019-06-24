@@ -120,8 +120,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
     forwardUnconsumedProps(this.props, propsToUpdate: props, keySetsToOmit:
         consumedPropKeys, onlyCopyDomProps: true);
   }
-
-
+  
   /// Returns a copy of this component's props with React props optionally omitted, and
   /// with the specified [keysToOmit] and [keySetsToOmit] omitted.
   @override
