@@ -19,7 +19,6 @@ import 'dart:collection';
 import 'package:over_react/src/component/dom_components.dart';
 import 'package:over_react/src/component/prop_mixins.dart';
 import 'package:react/src/react_client/js_backed_map.dart';
-import 'package:over_react/component_base.dart';
 
 /// Returns a copy of the specified [props] map, omitting reserved React props by default,
 /// in addition to any specified [keysToOmit] or [keySetsToOmit].
