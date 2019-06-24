@@ -18,7 +18,7 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:html';
 
-import 'package:over_react/over_react.dart' show Component2, Dom, DummyComponent, Factory, Props, ValidationUtil;
+import 'package:over_react/over_react.dart' show Dom, DummyComponent, ValidationUtil;
 import 'package:over_react_test/over_react_test.dart';
 import 'package:over_react/src/component_declaration/component_base.dart';
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
@@ -827,10 +827,10 @@ main() {
             'unconsumed2': true,
           });
 
-          Map test = {};
-          component2.addUnconsumedProps(test);
+          Map newProps = {};
+          component2.addUnconsumedProps(newProps);
 
-          expect(test, equals({
+          expect(newProps, equals({
             'unconsumed1': true,
             'unconsumed2': true,
           }));
@@ -844,10 +844,10 @@ main() {
             'prop2': true,
           });
 
-          Map test = {};
-          component2.addUnconsumedProps(test);
+          Map newProps = {};
+          component2.addUnconsumedProps(newProps);
 
-          expect(test, equals({
+          expect(newProps, equals({
             'prop1': true,
             'prop2': true,
           }));
@@ -872,10 +872,10 @@ main() {
             'className': true,
           });
 
-          Map test = {};
-          component2.addUnconsumedDomProps(test);
+          Map newProps = {};
+          component2.addUnconsumedDomProps(newProps);
 
-          expect(test, equals({
+          expect(newProps, equals({
             'tabIndex': true,
             'className': true,
           }));
@@ -891,10 +891,10 @@ main() {
             'className': true,
           });
 
-          Map test = {};
-          component2.addUnconsumedDomProps(test);
+          Map newProps = {};
+          component2.addUnconsumedDomProps(newProps);
 
-          expect(test, equals({
+          expect(newProps, equals({
             'tabIndex': true,
             'className': true,
           }));
