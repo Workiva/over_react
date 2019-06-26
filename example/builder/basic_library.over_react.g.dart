@@ -160,10 +160,12 @@ class _$$BasicPartOfLibProps extends _$BasicPartOfLibProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      $BasicPartOfLibComponentFactory;
+      _factoryOverride ?? $BasicPartOfLibComponentFactory;
+  @override
+  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -330,10 +332,12 @@ class _$$SubPartOfLibProps extends _$SubPartOfLibProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      $SubPartOfLibComponentFactory;
+      _factoryOverride ?? $SubPartOfLibComponentFactory;
+  @override
+  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

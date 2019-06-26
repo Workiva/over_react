@@ -178,10 +178,12 @@ class _$$ToggleButtonProps extends _$ToggleButtonProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      $ToggleButtonComponentFactory;
+      _factoryOverride ?? $ToggleButtonComponentFactory;
+  @override
+  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

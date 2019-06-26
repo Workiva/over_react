@@ -459,7 +459,7 @@ class _WarnOnModify<K, V> extends MapView<K, V> {
     if (isProps) {
       message =
         '''
-          props["$key"] was updated incorrectly. Never mutate this.props directly, as it can cause unexpected behavior; 
+          props["$key"] was updated incorrectly. Never mutate this.props directly, as it can cause unexpected behavior;
           props must be updated only by passing in new values when re-rendering this component.
 
           This will throw in UiComponentV2 (to be released as part of the React 16 upgrade).
@@ -467,7 +467,7 @@ class _WarnOnModify<K, V> extends MapView<K, V> {
     } else {
       message =
         '''
-          state["$key"] was updated incorrectly. Never mutate this.state directly, as it can cause unexpected behavior; 
+          state["$key"] was updated incorrectly. Never mutate this.state directly, as it can cause unexpected behavior;
           state must be updated only via setState.
 
           This will throw in UiComponentV2 (to be released as part of the React 16 upgrade).
@@ -675,6 +675,7 @@ abstract class UiProps extends MapBase
   }
 
   ReactComponentFactoryProxy get componentFactory;
+  set componentFactory(ReactComponentFactoryProxy v) => throw new UnsupportedError('No');
 
   /// An unmodifiable map view of the default props for this component brought
   /// in from the [componentFactory].
