@@ -1,5 +1,14 @@
 # OverReact Changelog
 
+## 2.4.4
+
+> Complete `2.4.4` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.4.3+dart2...2.4.4+dart2)
+> - Dart 1 (no changes)
+
+* [#310] Upgrade to dart 2.4, analyzer 0.36.x, and build_web_compilers 2.x
+
 ## 2.4.3
 
 > Complete `2.4.3` Changsets:
