@@ -728,6 +728,7 @@ class ImplGenerator {
         ..writeln('  bool get \$isClassGenerated => true;')
         ..writeln()
         ..writeln('  var _factoryOverride;')
+        ..writeln('  /// The [ReactComponentFactory] associated with the component built by this class.')
         ..writeln('  @override')
         ..writeln('  ReactComponentFactoryProxy get componentFactory => _factoryOverride ?? $componentFactoryName;')
         ..writeln('  @override')

@@ -89,6 +89,8 @@ class _$$TestProps extends _$TestProps
   bool get $isClassGenerated => true;
 
   var _factoryOverride;
+
+  /// The [ReactComponentFactory] associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       _factoryOverride ?? $TestComponentFactory;
