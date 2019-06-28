@@ -42,5 +42,4 @@ dependency_overrides:
   react:
     git:
       url: https://github.com/cleandart/react-dart.git
-      ref: CPLAT-4304-react-fragments
-
+      ref: 5.1.0-wip
