@@ -29,6 +29,7 @@ import 'over_react/component/error_boundary_mixin_test.dart' as error_boundary_m
 import 'over_react/component/error_boundary_test.dart' as error_boundary_test;
 import 'over_react/component/prop_mixins_test.dart' as prop_mixins_test;
 import 'over_react/component/resize_sensor_test.dart' as resize_sensor_test;
+import 'over_react/component/fragment_component_test.dart' as fragment_component_test;
 
 
 void main() {
@@ -42,4 +43,5 @@ void main() {
   dom_components_test.main();
   prop_mixins_test.main();
   resize_sensor_test.main();
+  fragment_component_test.main();
 }
