@@ -806,11 +806,88 @@ main() {
       }, timeout: new Timeout(const Duration(milliseconds: 250)));
     });
 
-
     group('UiComponent2', () {
       TestComponent2Component component2;
 
       group('copyUnconsumedProps()', () {
+        test('copies props, omitting keys from `consumedProps`, as well as reserved react props', () {
+          component2 = new TestComponent2Component(testConsumedProps: [
+            const ConsumedProps(const [], const ['consumed1', 'consumed2'])
+          ]);
+
+          component2.props = new JsBackedMap.from({
+            'key': 'testKey',
+            'ref': 'testRef',
+            'children': [],
+            'consumed1': true,
+            'consumed2': true,
+            'unconsumed1': true,
+            'unconsumed2': true,
+          });
+
+          expect(component2.copyUnconsumedProps(), equals({
+            'unconsumed1': true,
+            'unconsumed2': true,
+          }));
+        });
+
+        test('copies all props when `consumedProps` is null', () {
+          component2 = new TestComponent2Component(testConsumedProps: null);
+
+          component2.props = new JsBackedMap.from({
+            'prop1': true,
+            'prop2': true,
+          });
+
+          expect(component2.copyUnconsumedProps(), equals({
+            'prop1': true,
+            'prop2': true,
+          }));
+        });
+      });
+
+      group('copyUnconsumedDomProps()', () {
+        test('copies props, omitting keys from `consumedPropKeys`, as well as reserved react props', () {
+          component2 = new TestComponent2Component(testConsumedProps: [
+            const ConsumedProps(const [], const ['consumed1', 'consumed2'])
+          ]);
+
+          component2.props = new JsBackedMap.from({
+            'key': 'testKey',
+            'ref': 'testRef',
+            'children': [],
+            'consumed1': true,
+            'consumed2': true,
+            'unconsumed1': true,
+            'unconsumed2': true,
+            'tabIndex': true,
+            'className': true,
+          });
+
+          expect(component2.copyUnconsumedDomProps(), equals({
+            'tabIndex': true,
+            'className': true,
+          }));
+        });
+
+        test('copies all props when `consumedPropKeys` is null', () {
+          component2 = new TestComponent2Component(testConsumedProps: null);
+
+          component2.props = new JsBackedMap.from({
+            'prop1': true,
+            'prop2': true,
+            'tabIndex': true,
+            'className': true,
+          });
+
+          expect(component2.copyUnconsumedDomProps(), equals({
+            'tabIndex': true,
+            'className': true,
+          }));
+        });
+      });
+
+      group('addUnconsumedProps()', () {
         test('copies props, omitting keys from `consumedProps`, as well as reserved react props', () {
           component2 = new TestComponent2Component(testConsumedProps: [
             const ConsumedProps(const [], const ['consumed1', 'consumed2'])
@@ -853,7 +930,7 @@ main() {
         });
       });
 
-      group('copyUnconsumedDomProps()', () {
+      group('addUnconsumedDomProps()', () {
         test('copies props, omitting keys from `consumedPropKeys`, as well as reserved react props', () {
           component2 = new TestComponent2Component(testConsumedProps: [
             const ConsumedProps(const [], const ['consumed1', 'consumed2'])

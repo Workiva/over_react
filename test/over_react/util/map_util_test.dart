@@ -125,13 +125,13 @@ main() {
     group('forwardUnconsumedProps() returns a copy of the specified props', () {
       group('with React props', () {
         test('omitted out by default', () {
-         Map startingProps = {
+          Map startingProps = {
             'key': 'my key',
             'ref': 'my ref',
             'other prop': 'my other prop'
           };
 
-         Map actual = {};
+          Map actual = {};
 
           forwardUnconsumedProps(startingProps, propsToUpdate: actual);
 

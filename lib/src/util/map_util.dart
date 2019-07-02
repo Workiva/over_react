@@ -94,24 +94,24 @@ void forwardUnconsumedProps(Map props, {
     if (keysToOmit != null && keysToOmit.contains(key)) continue;
 
     if (keySetsToOmit != null) {
-        /// If the passed in value of [keySetsToOmit] comes from
-        /// [addUnconsumedProps], there should only be a single index.
-        /// Consequently, this case exists to give the opportunity for the loop
-        /// to continue without initiating another loop (which is less
-        /// performant than `.first.contains()`).
-        if (keySetsToOmit.first.contains(key)) continue;
+      /// If the passed in value of [keySetsToOmit] comes from
+      /// [addUnconsumedProps], there should only be a single index.
+      /// Consequently, this case exists to give the opportunity for the loop
+      /// to continue without initiating another loop (which is less
+      /// performant than `.first.contains()`).
+      if (keySetsToOmit.first.contains(key)) continue;
 
-        if (keySetsToOmit.length > 1) {
-          bool shouldContinue = false;
-          for (Iterable keySet in keySetsToOmit) {
-            if (keySet.contains(key)) {
-              shouldContinue = true;
-              continue;
-            }
+      if (keySetsToOmit.length > 1) {
+        bool shouldContinue = false;
+        for (final keySet in keySetsToOmit) {
+          if (keySet.contains(key)) {
+            shouldContinue = true;
+            continue;
           }
-
-          if (shouldContinue) continue;
         }
+
+        if (shouldContinue) continue;
+      }
     }
 
     if (omitReactProps && const ['key', 'ref', 'children'].contains(key)) continue;

@@ -84,7 +84,18 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
     return copyProps(keySetsToOmit: consumedPropKeys);
   }
 
-  /// Passes a reference of a component's [UiProps] to be updated with unconsumed props.
+  /// A prop modifier that passes a reference of a component's `props` to be updated with any unconsumed props.
+  ///
+  /// Call within `modifyProps` like so:
+  ///
+  ///     class SomeCompositeComponent extends UiComponent<SomeCompositeComponentProps> {
+  ///       @override
+  ///       render() {
+  ///         return (SomeOtherWidget()..modifyProps(addUnconsumedProps))(
+  ///           props.children,
+  ///         );
+  ///       }
+  ///     }
   ///
   /// > Related [addUnconsumedDomProps]
   void addUnconsumedProps(Map props) {
@@ -111,7 +122,18 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
     return copyProps(onlyCopyDomProps: true, keySetsToOmit: consumedPropKeys);
   }
 
-  /// Passes a reference of a component's [UiProps] to be updated with the unconsumed DOM props.
+  /// A prop modifier that passes a reference of a component's `props` to be updated with any unconsumed `DomProps`.
+  ///
+  /// Call within `modifyProps` like so:
+  ///
+  ///     class SomeCompositeComponent extends UiComponent<SomeCompositeComponentProps> {
+  ///       @override
+  ///       render() {
+  ///         return (Dom.div()..modifyProps(addUnconsumedDomProps))(
+  ///           props.children,
+  ///         );
+  ///       }
+  ///     }
   ///
   /// > Related [addUnconsumedProps]
   void addUnconsumedDomProps(Map props) {
