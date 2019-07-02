@@ -58,6 +58,17 @@ class OverReactBuilder extends Builder {
     // Generate over_react code for the input library.
     generateForFile(source, buildStep.inputId, libraryUnit);
 
+
+    final outputId = buildStep.inputId.changeExtension(outputExtension);
+    final expectedPart = p.basename(outputId.path);
+
+    bool hasOutputPartDirective() {
+      final partUris = libraryUnit.directives
+        .whereType<PartDirective>()
+        .map((p) => p.uri.stringValue);
+      return partUris.contains(expectedPart);
+    }
+
     // Generate over_react code for each part file of the input library.
     for (final part in parts) {
       final partId = new AssetId.resolve(
@@ -75,18 +86,18 @@ class OverReactBuilder extends Builder {
     }
 
     if (outputs.isNotEmpty) {
-      final outputId = buildStep.inputId.changeExtension(outputExtension);
-
       // Verify that the library file has an `.over_react.g.dart` part.
-      final expectedPart = p.basename(outputId.path);
-      final partUris = libraryUnit.directives
-        .whereType<PartDirective>()
-        .map((p) => p.uri.stringValue);
-      if (!partUris.contains(expectedPart)) {
+      if (!hasOutputPartDirective()) {
         log.warning('Missing "part \'$expectedPart\';".');
       }
 
       await _writePart(buildStep, outputId, outputs);
+    } else {
+      if (hasOutputPartDirective()) {
+        log.warning('An over_react part directive was found in ${buildStep.inputId.path}, '
+            'but no code was generated. The part directive may be unnecessary if the file '
+            'does not contain any concrete components or abstract state/props classes.');
+      }
     }
   }
 
