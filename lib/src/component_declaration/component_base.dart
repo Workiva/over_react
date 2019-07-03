@@ -619,7 +619,7 @@ abstract class UiProps extends MapBase
     return true;
   }
 
-  ReactComponentFactoryProxy componentFactory;
+  covariant ReactComponentFactoryProxy componentFactory;
 
   /// An unmodifiable map view of the default props for this component brought
   /// in from the [componentFactory].
