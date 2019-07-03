@@ -135,10 +135,14 @@ class _$$ButtonGroupProps extends _$ButtonGroupProps
   @override
   bool get $isClassGenerated => true;
 
+  ReactComponentFactoryProxy _factoryOverride;
+
   /// The [ReactComponentFactory] associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      $ButtonGroupComponentFactory;
+      _factoryOverride ?? $ButtonGroupComponentFactory;
+  @override
+  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
