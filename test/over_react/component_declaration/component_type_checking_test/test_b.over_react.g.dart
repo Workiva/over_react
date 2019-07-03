@@ -59,7 +59,7 @@ class _$$TestBProps extends _$TestBProps
   @override
   bool get $isClassGenerated => true;
 
-  var _factoryOverride;
+  ReactComponentFactoryProxy _factoryOverride;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
   @override

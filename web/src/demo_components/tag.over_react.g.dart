@@ -114,7 +114,7 @@ class _$$TagProps extends _$TagProps
   @override
   bool get $isClassGenerated => true;
 
-  var _factoryOverride;
+  ReactComponentFactoryProxy _factoryOverride;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
   @override
