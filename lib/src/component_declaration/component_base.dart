@@ -26,6 +26,7 @@ import 'package:over_react/src/util/prop_key_util.dart' as prop_key_util;
 import 'package:over_react/src/util/test_mode.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
+import 'package:react/react_client/react_interop.dart' show TypedPropValidator;
 import 'package:react/src/react_client/js_backed_map.dart';
 import 'package:w_common/disposable.dart';
 
@@ -405,7 +406,7 @@ class _WarnOnModify<K, V> extends MapView<K, V> {
     if (isProps) {
       message =
         '''
-          props["$key"] was updated incorrectly. Never mutate this.props directly, as it can cause unexpected behavior; 
+          props["$key"] was updated incorrectly. Never mutate this.props directly, as it can cause unexpected behavior;
           props must be updated only by passing in new values when re-rendering this component.
 
           This will throw in UiComponentV2 (to be released as part of the React 16 upgrade).
@@ -413,7 +414,7 @@ class _WarnOnModify<K, V> extends MapView<K, V> {
     } else {
       message =
         '''
-          state["$key"] was updated incorrectly. Never mutate this.state directly, as it can cause unexpected behavior; 
+          state["$key"] was updated incorrectly. Never mutate this.state directly, as it can cause unexpected behavior;
           state must be updated only via setState.
 
           This will throw in UiComponentV2 (to be released as part of the React 16 upgrade).
