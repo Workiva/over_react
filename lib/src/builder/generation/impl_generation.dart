@@ -120,7 +120,7 @@ class ImplGenerator {
         if (declarations.component2.meta.isErrorBoundary) {
           // Override `skipMethods` as an empty list so that
           // the `componentDidCatch` and `getDerivedStateFromError`
-          // lifecycle methods are included in the component's JS bindings. 
+          // lifecycle methods are included in the component's JS bindings.
           outputContentsBuffer
             ..writeln('    skipMethods: const [],');
         }
