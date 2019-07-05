@@ -1249,6 +1249,86 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   set onMouseUp(MouseEventCallback value) =>
       props[_$key__onMouseUp___$DomPropsMixin] = value;
 
+  /// <!-- Generated from [_$DomPropsMixin.onPointerCancel] -->
+  @override
+  PointerEventCallback get onPointerCancel =>
+      props[_$key__onPointerCancel___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.onPointerCancel] -->
+  @override
+  set onPointerCancel(PointerEventCallback value) =>
+      props[_$key__onPointerCancel___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.onPointerDown] -->
+  @override
+  PointerEventCallback get onPointerDown =>
+      props[_$key__onPointerDown___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.onPointerDown] -->
+  @override
+  set onPointerDown(PointerEventCallback value) =>
+      props[_$key__onPointerDown___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.onPointerEnter] -->
+  @override
+  PointerEventCallback get onPointerEnter =>
+      props[_$key__onPointerEnter___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.onPointerEnter] -->
+  @override
+  set onPointerEnter(PointerEventCallback value) =>
+      props[_$key__onPointerEnter___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.onPointerLeave] -->
+  @override
+  PointerEventCallback get onPointerLeave =>
+      props[_$key__onPointerLeave___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.onPointerLeave] -->
+  @override
+  set onPointerLeave(PointerEventCallback value) =>
+      props[_$key__onPointerLeave___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.onPointerMove] -->
+  @override
+  PointerEventCallback get onPointerMove =>
+      props[_$key__onPointerMove___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.onPointerMove] -->
+  @override
+  set onPointerMove(PointerEventCallback value) =>
+      props[_$key__onPointerMove___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.onPointerOver] -->
+  @override
+  PointerEventCallback get onPointerOver =>
+      props[_$key__onPointerOver___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.onPointerOver] -->
+  @override
+  set onPointerOver(PointerEventCallback value) =>
+      props[_$key__onPointerOver___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.onPointerOut] -->
+  @override
+  PointerEventCallback get onPointerOut =>
+      props[_$key__onPointerOut___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.onPointerOut] -->
+  @override
+  set onPointerOut(PointerEventCallback value) =>
+      props[_$key__onPointerOut___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.onPointerUp] -->
+  @override
+  PointerEventCallback get onPointerUp =>
+      props[_$key__onPointerUp___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.onPointerUp] -->
+  @override
+  set onPointerUp(PointerEventCallback value) =>
+      props[_$key__onPointerUp___$DomPropsMixin] = value;
+
   /// <!-- Generated from [_$DomPropsMixin.onTouchCancel] -->
   @override
   TouchEventCallback get onTouchCancel =>
@@ -1609,6 +1689,26 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   set onMouseUpCapture(MouseEventCallback value) =>
       props[_$key__onMouseUpCapture___$DomPropsMixin] = value;
 
+  /// <!-- Generated from [_$DomPropsMixin.onGotPointerCapture] -->
+  @override
+  PointerEventCallback get onGotPointerCapture =>
+      props[_$key__onGotPointerCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.onGotPointerCapture] -->
+  @override
+  set onGotPointerCapture(PointerEventCallback value) =>
+      props[_$key__onGotPointerCapture___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.onLostPointerCapture] -->
+  @override
+  PointerEventCallback get onLostPointerCapture =>
+      props[_$key__onLostPointerCapture___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.onLostPointerCapture] -->
+  @override
+  set onLostPointerCapture(PointerEventCallback value) =>
+      props[_$key__onLostPointerCapture___$DomPropsMixin] = value;
+
   /// <!-- Generated from [_$DomPropsMixin.onTouchCancelCapture] -->
   @override
   TouchEventCallback get onTouchCancelCapture =>
@@ -1952,6 +2052,22 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__onMouseOver___$DomPropsMixin);
   static const PropDescriptor _$prop__onMouseUp___$DomPropsMixin =
       const PropDescriptor(_$key__onMouseUp___$DomPropsMixin);
+  static const PropDescriptor _$prop__onPointerCancel___$DomPropsMixin =
+      const PropDescriptor(_$key__onPointerCancel___$DomPropsMixin);
+  static const PropDescriptor _$prop__onPointerDown___$DomPropsMixin =
+      const PropDescriptor(_$key__onPointerDown___$DomPropsMixin);
+  static const PropDescriptor _$prop__onPointerEnter___$DomPropsMixin =
+      const PropDescriptor(_$key__onPointerEnter___$DomPropsMixin);
+  static const PropDescriptor _$prop__onPointerLeave___$DomPropsMixin =
+      const PropDescriptor(_$key__onPointerLeave___$DomPropsMixin);
+  static const PropDescriptor _$prop__onPointerMove___$DomPropsMixin =
+      const PropDescriptor(_$key__onPointerMove___$DomPropsMixin);
+  static const PropDescriptor _$prop__onPointerOver___$DomPropsMixin =
+      const PropDescriptor(_$key__onPointerOver___$DomPropsMixin);
+  static const PropDescriptor _$prop__onPointerOut___$DomPropsMixin =
+      const PropDescriptor(_$key__onPointerOut___$DomPropsMixin);
+  static const PropDescriptor _$prop__onPointerUp___$DomPropsMixin =
+      const PropDescriptor(_$key__onPointerUp___$DomPropsMixin);
   static const PropDescriptor _$prop__onTouchCancel___$DomPropsMixin =
       const PropDescriptor(_$key__onTouchCancel___$DomPropsMixin);
   static const PropDescriptor _$prop__onTouchEnd___$DomPropsMixin =
@@ -2024,6 +2140,10 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__onMouseOverCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onMouseUpCapture___$DomPropsMixin =
       const PropDescriptor(_$key__onMouseUpCapture___$DomPropsMixin);
+  static const PropDescriptor _$prop__onGotPointerCapture___$DomPropsMixin =
+      const PropDescriptor(_$key__onGotPointerCapture___$DomPropsMixin);
+  static const PropDescriptor _$prop__onLostPointerCapture___$DomPropsMixin =
+      const PropDescriptor(_$key__onLostPointerCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onTouchCancelCapture___$DomPropsMixin =
       const PropDescriptor(_$key__onTouchCancelCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onTouchEndCapture___$DomPropsMixin =
@@ -2169,6 +2289,15 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   static const String _$key__onMouseOut___$DomPropsMixin = 'onMouseOut';
   static const String _$key__onMouseOver___$DomPropsMixin = 'onMouseOver';
   static const String _$key__onMouseUp___$DomPropsMixin = 'onMouseUp';
+  static const String _$key__onPointerCancel___$DomPropsMixin =
+      'onPointerCancel';
+  static const String _$key__onPointerDown___$DomPropsMixin = 'onPointerDown';
+  static const String _$key__onPointerEnter___$DomPropsMixin = 'onPointerEnter';
+  static const String _$key__onPointerLeave___$DomPropsMixin = 'onPointerLeave';
+  static const String _$key__onPointerMove___$DomPropsMixin = 'onPointerMove';
+  static const String _$key__onPointerOver___$DomPropsMixin = 'onPointerOver';
+  static const String _$key__onPointerOut___$DomPropsMixin = 'onPointerOut';
+  static const String _$key__onPointerUp___$DomPropsMixin = 'onPointerUp';
   static const String _$key__onTouchCancel___$DomPropsMixin = 'onTouchCancel';
   static const String _$key__onTouchEnd___$DomPropsMixin = 'onTouchEnd';
   static const String _$key__onTouchMove___$DomPropsMixin = 'onTouchMove';
@@ -2224,6 +2353,10 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       'onMouseOverCapture';
   static const String _$key__onMouseUpCapture___$DomPropsMixin =
       'onMouseUpCapture';
+  static const String _$key__onGotPointerCapture___$DomPropsMixin =
+      'onGotPointerCapture';
+  static const String _$key__onLostPointerCapture___$DomPropsMixin =
+      'onLostPointerCapture';
   static const String _$key__onTouchCancelCapture___$DomPropsMixin =
       'onTouchCancelCapture';
   static const String _$key__onTouchEndCapture___$DomPropsMixin =
@@ -2364,6 +2497,14 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$prop__onMouseOut___$DomPropsMixin,
     _$prop__onMouseOver___$DomPropsMixin,
     _$prop__onMouseUp___$DomPropsMixin,
+    _$prop__onPointerCancel___$DomPropsMixin,
+    _$prop__onPointerDown___$DomPropsMixin,
+    _$prop__onPointerEnter___$DomPropsMixin,
+    _$prop__onPointerLeave___$DomPropsMixin,
+    _$prop__onPointerMove___$DomPropsMixin,
+    _$prop__onPointerOver___$DomPropsMixin,
+    _$prop__onPointerOut___$DomPropsMixin,
+    _$prop__onPointerUp___$DomPropsMixin,
     _$prop__onTouchCancel___$DomPropsMixin,
     _$prop__onTouchEnd___$DomPropsMixin,
     _$prop__onTouchMove___$DomPropsMixin,
@@ -2400,6 +2541,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$prop__onMouseOutCapture___$DomPropsMixin,
     _$prop__onMouseOverCapture___$DomPropsMixin,
     _$prop__onMouseUpCapture___$DomPropsMixin,
+    _$prop__onGotPointerCapture___$DomPropsMixin,
+    _$prop__onLostPointerCapture___$DomPropsMixin,
     _$prop__onTouchCancelCapture___$DomPropsMixin,
     _$prop__onTouchEndCapture___$DomPropsMixin,
     _$prop__onTouchMoveCapture___$DomPropsMixin,
@@ -2535,6 +2678,14 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$key__onMouseOut___$DomPropsMixin,
     _$key__onMouseOver___$DomPropsMixin,
     _$key__onMouseUp___$DomPropsMixin,
+    _$key__onPointerCancel___$DomPropsMixin,
+    _$key__onPointerDown___$DomPropsMixin,
+    _$key__onPointerEnter___$DomPropsMixin,
+    _$key__onPointerLeave___$DomPropsMixin,
+    _$key__onPointerMove___$DomPropsMixin,
+    _$key__onPointerOver___$DomPropsMixin,
+    _$key__onPointerOut___$DomPropsMixin,
+    _$key__onPointerUp___$DomPropsMixin,
     _$key__onTouchCancel___$DomPropsMixin,
     _$key__onTouchEnd___$DomPropsMixin,
     _$key__onTouchMove___$DomPropsMixin,
@@ -2571,6 +2722,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$key__onMouseOutCapture___$DomPropsMixin,
     _$key__onMouseOverCapture___$DomPropsMixin,
     _$key__onMouseUpCapture___$DomPropsMixin,
+    _$key__onGotPointerCapture___$DomPropsMixin,
+    _$key__onLostPointerCapture___$DomPropsMixin,
     _$key__onTouchCancelCapture___$DomPropsMixin,
     _$key__onTouchEndCapture___$DomPropsMixin,
     _$key__onTouchMoveCapture___$DomPropsMixin,
@@ -3909,6 +4062,118 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   set onMouseUp(MouseEventCallback value) =>
       props[_$key__onMouseUp___$UbiquitousDomPropsMixin] = value;
 
+  /// Callback for when the pointing device is interrupted
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerCancel] -->
+  @override
+  PointerEventCallback get onPointerCancel =>
+      props[_$key__onPointerCancel___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Callback for when the pointing device is interrupted
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerCancel] -->
+  @override
+  set onPointerCancel(PointerEventCallback value) =>
+      props[_$key__onPointerCancel___$UbiquitousDomPropsMixin] = value;
+
+  /// Callback for when the pointer becomes active over an element
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerDown] -->
+  @override
+  PointerEventCallback get onPointerDown =>
+      props[_$key__onPointerDown___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Callback for when the pointer becomes active over an element
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerDown] -->
+  @override
+  set onPointerDown(PointerEventCallback value) =>
+      props[_$key__onPointerDown___$UbiquitousDomPropsMixin] = value;
+
+  /// Callback for when the pointer is moved onto an element
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerEnter] -->
+  @override
+  PointerEventCallback get onPointerEnter =>
+      props[_$key__onPointerEnter___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Callback for when the pointer is moved onto an element
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerEnter] -->
+  @override
+  set onPointerEnter(PointerEventCallback value) =>
+      props[_$key__onPointerEnter___$UbiquitousDomPropsMixin] = value;
+
+  /// Callback for when the pointer is moved out of an element
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerLeave] -->
+  @override
+  PointerEventCallback get onPointerLeave =>
+      props[_$key__onPointerLeave___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Callback for when the pointer is moved out of an element
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerLeave] -->
+  @override
+  set onPointerLeave(PointerEventCallback value) =>
+      props[_$key__onPointerLeave___$UbiquitousDomPropsMixin] = value;
+
+  /// Callback for when the pointer is moving while it is over an element
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerMove] -->
+  @override
+  PointerEventCallback get onPointerMove =>
+      props[_$key__onPointerMove___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Callback for when the pointer is moving while it is over an element
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerMove] -->
+  @override
+  set onPointerMove(PointerEventCallback value) =>
+      props[_$key__onPointerMove___$UbiquitousDomPropsMixin] = value;
+
+  /// Callback for when the pointer is moved onto an element, or onto one of its children
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerOver] -->
+  @override
+  PointerEventCallback get onPointerOver =>
+      props[_$key__onPointerOver___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Callback for when the pointer is moved onto an element, or onto one of its children
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerOver] -->
+  @override
+  set onPointerOver(PointerEventCallback value) =>
+      props[_$key__onPointerOver___$UbiquitousDomPropsMixin] = value;
+
+  /// Callback for when the pointer is moved out of an element, or out of one of its children
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerOut] -->
+  @override
+  PointerEventCallback get onPointerOut =>
+      props[_$key__onPointerOut___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Callback for when the pointer is moved out of an element, or out of one of its children
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerOut] -->
+  @override
+  set onPointerOut(PointerEventCallback value) =>
+      props[_$key__onPointerOut___$UbiquitousDomPropsMixin] = value;
+
+  /// Callback for when the pointer becomes inactive over an element
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerUp] -->
+  @override
+  PointerEventCallback get onPointerUp =>
+      props[_$key__onPointerUp___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Callback for when the pointer becomes inactive over an element
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerUp] -->
+  @override
+  set onPointerUp(PointerEventCallback value) =>
+      props[_$key__onPointerUp___$UbiquitousDomPropsMixin] = value;
+
   /// Callback for when the touch is interrupted
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchCancel] -->
@@ -4061,6 +4326,25 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
       const PropDescriptor(_$key__onMouseOver___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onMouseUp___$UbiquitousDomPropsMixin =
       const PropDescriptor(_$key__onMouseUp___$UbiquitousDomPropsMixin);
+  static const PropDescriptor
+      _$prop__onPointerCancel___$UbiquitousDomPropsMixin =
+      const PropDescriptor(_$key__onPointerCancel___$UbiquitousDomPropsMixin);
+  static const PropDescriptor _$prop__onPointerDown___$UbiquitousDomPropsMixin =
+      const PropDescriptor(_$key__onPointerDown___$UbiquitousDomPropsMixin);
+  static const PropDescriptor
+      _$prop__onPointerEnter___$UbiquitousDomPropsMixin =
+      const PropDescriptor(_$key__onPointerEnter___$UbiquitousDomPropsMixin);
+  static const PropDescriptor
+      _$prop__onPointerLeave___$UbiquitousDomPropsMixin =
+      const PropDescriptor(_$key__onPointerLeave___$UbiquitousDomPropsMixin);
+  static const PropDescriptor _$prop__onPointerMove___$UbiquitousDomPropsMixin =
+      const PropDescriptor(_$key__onPointerMove___$UbiquitousDomPropsMixin);
+  static const PropDescriptor _$prop__onPointerOver___$UbiquitousDomPropsMixin =
+      const PropDescriptor(_$key__onPointerOver___$UbiquitousDomPropsMixin);
+  static const PropDescriptor _$prop__onPointerOut___$UbiquitousDomPropsMixin =
+      const PropDescriptor(_$key__onPointerOut___$UbiquitousDomPropsMixin);
+  static const PropDescriptor _$prop__onPointerUp___$UbiquitousDomPropsMixin =
+      const PropDescriptor(_$key__onPointerUp___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onTouchCancel___$UbiquitousDomPropsMixin =
       const PropDescriptor(_$key__onTouchCancel___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onTouchEnd___$UbiquitousDomPropsMixin =
@@ -4121,6 +4405,22 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   static const String _$key__onMouseOver___$UbiquitousDomPropsMixin =
       'onMouseOver';
   static const String _$key__onMouseUp___$UbiquitousDomPropsMixin = 'onMouseUp';
+  static const String _$key__onPointerCancel___$UbiquitousDomPropsMixin =
+      'onPointerCancel';
+  static const String _$key__onPointerDown___$UbiquitousDomPropsMixin =
+      'onPointerDown';
+  static const String _$key__onPointerEnter___$UbiquitousDomPropsMixin =
+      'onPointerEnter';
+  static const String _$key__onPointerLeave___$UbiquitousDomPropsMixin =
+      'onPointerLeave';
+  static const String _$key__onPointerMove___$UbiquitousDomPropsMixin =
+      'onPointerMove';
+  static const String _$key__onPointerOver___$UbiquitousDomPropsMixin =
+      'onPointerOver';
+  static const String _$key__onPointerOut___$UbiquitousDomPropsMixin =
+      'onPointerOut';
+  static const String _$key__onPointerUp___$UbiquitousDomPropsMixin =
+      'onPointerUp';
   static const String _$key__onTouchCancel___$UbiquitousDomPropsMixin =
       'onTouchCancel';
   static const String _$key__onTouchEnd___$UbiquitousDomPropsMixin =
@@ -4167,6 +4467,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
     _$prop__onMouseOut___$UbiquitousDomPropsMixin,
     _$prop__onMouseOver___$UbiquitousDomPropsMixin,
     _$prop__onMouseUp___$UbiquitousDomPropsMixin,
+    _$prop__onPointerCancel___$UbiquitousDomPropsMixin,
+    _$prop__onPointerDown___$UbiquitousDomPropsMixin,
+    _$prop__onPointerEnter___$UbiquitousDomPropsMixin,
+    _$prop__onPointerLeave___$UbiquitousDomPropsMixin,
+    _$prop__onPointerMove___$UbiquitousDomPropsMixin,
+    _$prop__onPointerOver___$UbiquitousDomPropsMixin,
+    _$prop__onPointerOut___$UbiquitousDomPropsMixin,
+    _$prop__onPointerUp___$UbiquitousDomPropsMixin,
     _$prop__onTouchCancel___$UbiquitousDomPropsMixin,
     _$prop__onTouchEnd___$UbiquitousDomPropsMixin,
     _$prop__onTouchMove___$UbiquitousDomPropsMixin,
@@ -4209,6 +4517,14 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
     _$key__onMouseOut___$UbiquitousDomPropsMixin,
     _$key__onMouseOver___$UbiquitousDomPropsMixin,
     _$key__onMouseUp___$UbiquitousDomPropsMixin,
+    _$key__onPointerCancel___$UbiquitousDomPropsMixin,
+    _$key__onPointerDown___$UbiquitousDomPropsMixin,
+    _$key__onPointerEnter___$UbiquitousDomPropsMixin,
+    _$key__onPointerLeave___$UbiquitousDomPropsMixin,
+    _$key__onPointerMove___$UbiquitousDomPropsMixin,
+    _$key__onPointerOver___$UbiquitousDomPropsMixin,
+    _$key__onPointerOut___$UbiquitousDomPropsMixin,
+    _$key__onPointerUp___$UbiquitousDomPropsMixin,
     _$key__onTouchCancel___$UbiquitousDomPropsMixin,
     _$key__onTouchEnd___$UbiquitousDomPropsMixin,
     _$key__onTouchMove___$UbiquitousDomPropsMixin,
