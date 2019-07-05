@@ -74,7 +74,9 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// > Related [copyUnconsumedDomProps]
   @override
   Map copyUnconsumedProps() {
-    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
+    var consumedPropKeys = consumedProps
+            ?.map((ConsumedProps consumedProps) => consumedProps.keys) ??
+        const [];
 
     return copyProps(keySetsToOmit: consumedPropKeys);
   }
@@ -86,7 +88,9 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// > Related [copyUnconsumedProps]
   @override
   Map copyUnconsumedDomProps() {
-    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
+    var consumedPropKeys = consumedProps
+            ?.map((ConsumedProps consumedProps) => consumedProps.keys) ??
+        const [];
 
     return copyProps(onlyCopyDomProps: true, keySetsToOmit: consumedPropKeys);
   }
@@ -94,13 +98,16 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// Returns a copy of this component's props with React props optionally omitted, and
   /// with the specified [keysToOmit] and [keySetsToOmit] omitted.
   @override
-  Map copyProps({bool omitReservedReactProps: true, bool onlyCopyDomProps: false, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
+  Map copyProps(
+      {bool omitReservedReactProps: true,
+      bool onlyCopyDomProps: false,
+      Iterable keysToOmit,
+      Iterable<Iterable> keySetsToOmit}) {
     return getPropsToForward(this.props,
         omitReactProps: omitReservedReactProps,
         onlyCopyDomProps: onlyCopyDomProps,
         keysToOmit: keysToOmit,
-        keySetsToOmit: keySetsToOmit
-    );
+        keySetsToOmit: keySetsToOmit);
   }
 
   /// Throws a [PropError] if [appliedProps] are invalid.
@@ -213,13 +220,17 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   @override
   Map<String, TypedPropValidator<TProps>> get propTypes => {};
 
-  get jsTypeWrappedPropTypes => propTypes.map((propKey, validator) {
-    dynamic handlePropValidator(props, propName, componentName, location, propFullName) {
-      var error = validator(typedPropsFactoryJs(props), propName, componentName, location, propFullName);
-      return error;
-    }
-    return MapEntry(propKey, handlePropValidator);
-  });
+  @override
+  get jsPropTypesMap => propTypes.map((propKey, validator) {
+        dynamic handlePropValidator(
+            props, propName, componentName, location, propFullName) {
+          var error = validator(typedPropsFactoryJs(props), propName,
+              componentName, location, propFullName);
+          return error;
+        }
+
+        return MapEntry(propKey, handlePropValidator);
+      });
 }
 
 /// The basis for a _stateful_ over_react component that is compatible with ReactJS 16 ([react.Component2]).
@@ -250,8 +261,8 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
 ///         )(props.children);
 ///       }
 ///     }
-abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiState>
-    extends UiComponent2<TProps>
+abstract class UiStatefulComponent2<TProps extends UiProps,
+        TState extends UiState> extends UiComponent2<TProps>
     implements UiStatefulComponent<TProps, TState> {
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
