@@ -26,7 +26,6 @@ import 'package:test/test.dart';
 import 'over_react/component_declaration/component_base_test.dart' as component_base_test;
 import 'over_react/component_declaration/component_type_checking_test.dart' as component_type_checking_test;
 import 'over_react/component_declaration/flux_component_test.dart' as flux_component_test;
-import 'over_react/component/forward_ref_test.dart' as forward_ref_test;
 import 'over_react/component_declaration/redux_component_test.dart' as redux_component_test;
 
 import 'over_react/component_declaration/builder_helpers_test.dart' as builder_helpers_test;
@@ -69,7 +68,6 @@ main() {
   component_base_test.main();
   component_type_checking_test.main();
   flux_component_test.main();
-  forward_ref_test.main();
   redux_component_test.main();
 
   builder_helpers_test.main();
