@@ -14,24 +14,23 @@
 
 import 'package:react/react_client.dart';
 import 'package:react/react_client.dart' as react_client;
-
-import 'component_base.dart';
+import 'package:over_react/component_base.dart';
 
 UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>(
     Function(TProps props, dynamic ref) wrapperFunction) {
 
-  UiFactory<TProps> wrapWithConnect(UiFactory<TProps> factory) {
-    dynamic wrapperWrapper(dynamic props, dynamic ref) {
+  UiFactory<TProps> wrapWithForwardRef(UiFactory<TProps> factory) {
+    wrapProps(Map props, ref) {
       return wrapperFunction(factory(props), ref);
     }
-    ReactComponentFactoryProxy hoc = react_client.forwardRef(wrapperWrapper);
+    ReactComponentFactoryProxy hoc = react_client.forwardRef(wrapProps);
 
-    TProps connectedFactory([Map props]) {
+    TProps forwardedFactory([Map props]) {
       return factory(props)..componentFactory = hoc;
     }
 
-    return connectedFactory;
+    return forwardedFactory;
   }
 
-  return wrapWithConnect;
+  return wrapWithForwardRef;
 }
