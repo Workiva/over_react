@@ -12,8 +12,7 @@
 //// See the License for the specific language governing permissions and
 //// limitations under the License.
 
-import 'package:react/react_client.dart';
-import 'package:react/react_client.dart' as react_client;
+import 'package:react/react_client.dart' as react;
 import 'package:over_react/component_base.dart';
 
 UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>(
@@ -23,7 +22,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
     wrapProps(Map props, ref) {
       return wrapperFunction(factory(props), ref);
     }
-    ReactComponentFactoryProxy hoc = react_client.forwardRef(wrapProps);
+    react.ReactComponentFactoryProxy hoc = react.forwardRef(wrapProps);
 
     TProps forwardedFactory([Map props]) {
       return factory(props)..componentFactory = hoc;

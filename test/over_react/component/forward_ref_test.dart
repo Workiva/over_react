@@ -20,7 +20,6 @@ import 'dart:js_util';
 import 'package:test/test.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/src/component/dom_components.dart';
-import 'package:react/react_client.dart' as react;
 
 import '../../test_util/test_util.dart';
 import '../component/fixtures/basic_child_component.dart';
@@ -52,7 +51,7 @@ void forwardRefTest(dynamic factory, {void verifyRefValue(dynamic refValue)}) {
       )();
     })(Basic);
 
-    var refValue = react.createRef();
+    var refValue = createRef();
 
     mount((BasicForwarded()
       ..ref = refValue
