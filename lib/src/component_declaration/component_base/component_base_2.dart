@@ -218,7 +218,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   }
 
   @override
-  Map<String, TypedPropValidator<TProps>> get propTypes => {};
+  Map<String, react.TypedPropValidator<TProps>> get propTypes => {};
 
   @override
   get jsPropTypesMap => propTypes.map((propKey, validator) {
