@@ -51,7 +51,7 @@ class DomProps extends component_base.UiProps
   DomProps(this.componentFactory, [Map props]) : this.props = props ?? new JsBackedMap();
 
   @override
-  final ReactDomComponentFactoryProxy componentFactory;
+  ReactComponentFactoryProxy componentFactory;
 
   @override
   final Map props;
@@ -75,7 +75,7 @@ class SvgProps extends component_base.UiProps
   SvgProps(this.componentFactory, [Map props]) : this.props = props ?? new JsBackedMap();
 
   @override
-  final ReactDomComponentFactoryProxy componentFactory;
+  ReactComponentFactoryProxy componentFactory;
 
   @override
   final Map props;
@@ -87,229 +87,229 @@ class SvgProps extends component_base.UiProps
 /// A class that provides namespacing for static DOM component factory methods, much like `React.DOM` in React JS.
 abstract class Dom {
   /// Returns a new [DomPropsMixin] that renders an `<a>` tag with getters/setters for all DOM-related React props
-  static DomProps a() => new DomProps(react.a);
+  static DomProps a([Map map]) => new DomProps(react.a, map);
   /// Returns a new [DomPropsMixin] that renders an `<abbr>` tag with getters/setters for all DOM-related React props
-  static DomProps abbr() => new DomProps(react.abbr);
+ static DomProps abbr([Map map]) => new DomProps(react.abbr, map);
   /// Returns a new [DomPropsMixin] that renders an `<address>` tag with getters/setters for all DOM-related React props
-  static DomProps address() => new DomProps(react.address);
+ static DomProps address([Map map]) => new DomProps(react.address, map);
   /// Returns a new [DomPropsMixin] that renders an `<area>` tag with getters/setters for all DOM-related React props
-  static DomProps area() => new DomProps(react.area);
+ static DomProps area([Map map]) => new DomProps(react.area, map);
   /// Returns a new [DomPropsMixin] that renders an `<article>` tag with getters/setters for all DOM-related React props
-  static DomProps article() => new DomProps(react.article);
+ static DomProps article([Map map]) => new DomProps(react.article, map);
   /// Returns a new [DomPropsMixin] that renders an `<aside>` tag with getters/setters for all DOM-related React props
-  static DomProps aside() => new DomProps(react.aside);
+ static DomProps aside([Map map]) => new DomProps(react.aside, map);
   /// Returns a new [DomPropsMixin] that renders an `<audio>` tag with getters/setters for all DOM-related React props
-  static DomProps audio() => new DomProps(react.audio);
+ static DomProps audio([Map map]) => new DomProps(react.audio, map);
   /// Returns a new [DomPropsMixin] that renders a `<b>` tag with getters/setters for all DOM-related React props
-  static DomProps b() => new DomProps(react.b);
+ static DomProps b([Map map]) => new DomProps(react.b, map);
   /// Returns a new [DomPropsMixin] that renders a `<base>` tag with getters/setters for all DOM-related React props
-  static DomProps base() => new DomProps(react.base);
+ static DomProps base([Map map]) => new DomProps(react.base, map);
   /// Returns a new [DomPropsMixin] that renders a `<bdi>` tag with getters/setters for all DOM-related React props
-  static DomProps bdi() => new DomProps(react.bdi);
+ static DomProps bdi([Map map]) => new DomProps(react.bdi, map);
   /// Returns a new [DomPropsMixin] that renders a `<bdo>` tag with getters/setters for all DOM-related React props
-  static DomProps bdo() => new DomProps(react.bdo);
+ static DomProps bdo([Map map]) => new DomProps(react.bdo, map);
   /// Returns a new [DomPropsMixin] that renders a `<big>` tag with getters/setters for all DOM-related React props
-  static DomProps big() => new DomProps(react.big);
+ static DomProps big([Map map]) => new DomProps(react.big, map);
   /// Returns a new [DomPropsMixin] that renders a `<blockquote>` tag with getters/setters for all DOM-related React props
-  static DomProps blockquote() => new DomProps(react.blockquote);
+ static DomProps blockquote([Map map]) => new DomProps(react.blockquote, map);
   /// Returns a new [DomPropsMixin] that renders a `<body>` tag with getters/setters for all DOM-related React props
-  static DomProps body() => new DomProps(react.body);
+ static DomProps body([Map map]) => new DomProps(react.body, map);
   /// Returns a new [DomPropsMixin] that renders a `<br>` tag with getters/setters for all DOM-related React props
-  static DomProps br() => new DomProps(react.br);
+ static DomProps br([Map map]) => new DomProps(react.br, map);
   /// Returns a new [DomPropsMixin] that renders a `<button>` tag with getters/setters for all DOM-related React props
-  static DomProps button() => new DomProps(react.button);
+ static DomProps button([Map map]) => new DomProps(react.button, map);
   /// Returns a new [DomPropsMixin] that renders a `<canvas>` tag with getters/setters for all DOM-related React props
-  static DomProps canvas() => new DomProps(react.canvas);
+ static DomProps canvas([Map map]) => new DomProps(react.canvas, map);
   /// Returns a new [DomPropsMixin] that renders a `<caption>` tag with getters/setters for all DOM-related React props
-  static DomProps caption() => new DomProps(react.caption);
+ static DomProps caption([Map map]) => new DomProps(react.caption, map);
   /// Returns a new [DomPropsMixin] that renders a `<cite>` tag with getters/setters for all DOM-related React props
-  static DomProps cite() => new DomProps(react.cite);
+ static DomProps cite([Map map]) => new DomProps(react.cite, map);
   /// Returns a new [DomPropsMixin] that renders a `<code>` tag with getters/setters for all DOM-related React props
-  static DomProps code() => new DomProps(react.code);
+ static DomProps code([Map map]) => new DomProps(react.code, map);
   /// Returns a new [DomPropsMixin] that renders a `<col>` tag with getters/setters for all DOM-related React props
-  static DomProps col() => new DomProps(react.col);
+ static DomProps col([Map map]) => new DomProps(react.col, map);
   /// Returns a new [DomPropsMixin] that renders a `<colgroup>` tag with getters/setters for all DOM-related React props
-  static DomProps colgroup() => new DomProps(react.colgroup);
+ static DomProps colgroup([Map map]) => new DomProps(react.colgroup, map);
   /// Returns a new [DomPropsMixin] that renders a `<data>` tag with getters/setters for all DOM-related React props
-  static DomProps data() => new DomProps(react.data);
+ static DomProps data([Map map]) => new DomProps(react.data, map);
   /// Returns a new [DomPropsMixin] that renders a `<datalist>` tag with getters/setters for all DOM-related React props
-  static DomProps datalist() => new DomProps(react.datalist);
+ static DomProps datalist([Map map]) => new DomProps(react.datalist, map);
   /// Returns a new [DomPropsMixin] that renders a `<dd>` tag with getters/setters for all DOM-related React props
-  static DomProps dd() => new DomProps(react.dd);
+ static DomProps dd([Map map]) => new DomProps(react.dd, map);
   /// Returns a new [DomPropsMixin] that renders a `<del>` tag with getters/setters for all DOM-related React props
-  static DomProps del() => new DomProps(react.del);
+ static DomProps del([Map map]) => new DomProps(react.del, map);
   /// Returns a new [DomPropsMixin] that renders a `<details>` tag with getters/setters for all DOM-related React props
-  static DomProps details() => new DomProps(react.details);
+ static DomProps details([Map map]) => new DomProps(react.details, map);
   /// Returns a new [DomPropsMixin] that renders a `<dfn>` tag with getters/setters for all DOM-related React props
-  static DomProps dfn() => new DomProps(react.dfn);
+ static DomProps dfn([Map map]) => new DomProps(react.dfn, map);
   /// Returns a new [DomPropsMixin] that renders a `<dialog>` tag with getters/setters for all DOM-related React props
-  static DomProps dialog() => new DomProps(react.dialog);
+ static DomProps dialog([Map map]) => new DomProps(react.dialog, map);
   /// Returns a new [DomPropsMixin] that renders a `<div>` tag with getters/setters for all DOM-related React props
-  static DomProps div() => new DomProps(react.div);
+ static DomProps div([Map map]) => new DomProps(react.div, map);
   /// Returns a new [DomPropsMixin] that renders a `<dl>` tag with getters/setters for all DOM-related React props
-  static DomProps dl() => new DomProps(react.dl);
+ static DomProps dl([Map map]) => new DomProps(react.dl, map);
   /// Returns a new [DomPropsMixin] that renders a `<dt>` tag with getters/setters for all DOM-related React props
-  static DomProps dt() => new DomProps(react.dt);
+ static DomProps dt([Map map]) => new DomProps(react.dt, map);
   /// Returns a new [DomPropsMixin] that renders an `<em>` tag with getters/setters for all DOM-related React props
-  static DomProps em() => new DomProps(react.em);
+ static DomProps em([Map map]) => new DomProps(react.em, map);
   /// Returns a new [DomPropsMixin] that renders an `<embed>` tag with getters/setters for all DOM-related React props
-  static DomProps embed() => new DomProps(react.embed);
+ static DomProps embed([Map map]) => new DomProps(react.embed, map);
   /// Returns a new [DomPropsMixin] that renders a `<fieldset>` tag with getters/setters for all DOM-related React props
-  static DomProps fieldset() => new DomProps(react.fieldset);
+ static DomProps fieldset([Map map]) => new DomProps(react.fieldset, map);
   /// Returns a new [DomPropsMixin] that renders a `<figcaption>` tag with getters/setters for all DOM-related React props
-  static DomProps figcaption() => new DomProps(react.figcaption);
+ static DomProps figcaption([Map map]) => new DomProps(react.figcaption, map);
   /// Returns a new [DomPropsMixin] that renders a `<figure>` tag with getters/setters for all DOM-related React props
-  static DomProps figure() => new DomProps(react.figure);
+ static DomProps figure([Map map]) => new DomProps(react.figure, map);
   /// Returns a new [DomPropsMixin] that renders a `<footer>` tag with getters/setters for all DOM-related React props
-  static DomProps footer() => new DomProps(react.footer);
+ static DomProps footer([Map map]) => new DomProps(react.footer, map);
   /// Returns a new [DomPropsMixin] that renders a `<form>` tag with getters/setters for all DOM-related React props
-  static DomProps form() => new DomProps(react.form);
+ static DomProps form([Map map]) => new DomProps(react.form, map);
   /// Returns a new [DomPropsMixin] that renders a `<h1>` tag with getters/setters for all DOM-related React props
-  static DomProps h1() => new DomProps(react.h1);
+ static DomProps h1([Map map]) => new DomProps(react.h1, map);
   /// Returns a new [DomPropsMixin] that renders a `<h2>` tag with getters/setters for all DOM-related React props
-  static DomProps h2() => new DomProps(react.h2);
+ static DomProps h2([Map map]) => new DomProps(react.h2, map);
   /// Returns a new [DomPropsMixin] that renders a `<h3>` tag with getters/setters for all DOM-related React props
-  static DomProps h3() => new DomProps(react.h3);
+ static DomProps h3([Map map]) => new DomProps(react.h3, map);
   /// Returns a new [DomPropsMixin] that renders a `<h4>` tag with getters/setters for all DOM-related React props
-  static DomProps h4() => new DomProps(react.h4);
+ static DomProps h4([Map map]) => new DomProps(react.h4, map);
   /// Returns a new [DomPropsMixin] that renders a `<h5>` tag with getters/setters for all DOM-related React props
-  static DomProps h5() => new DomProps(react.h5);
+ static DomProps h5([Map map]) => new DomProps(react.h5, map);
   /// Returns a new [DomPropsMixin] that renders a `<h6>` tag with getters/setters for all DOM-related React props
-  static DomProps h6() => new DomProps(react.h6);
+ static DomProps h6([Map map]) => new DomProps(react.h6, map);
   /// Returns a new [DomPropsMixin] that renders a `<head>` tag with getters/setters for all DOM-related React props
-  static DomProps head() => new DomProps(react.head);
+ static DomProps head([Map map]) => new DomProps(react.head, map);
   /// Returns a new [DomPropsMixin] that renders a `<header>` tag with getters/setters for all DOM-related React props
-  static DomProps header() => new DomProps(react.header);
+ static DomProps header([Map map]) => new DomProps(react.header, map);
   /// Returns a new [DomPropsMixin] that renders a `<hr>` tag with getters/setters for all DOM-related React props
-  static DomProps hr() => new DomProps(react.hr);
+ static DomProps hr([Map map]) => new DomProps(react.hr, map);
   /// Returns a new [DomPropsMixin] that renders a `<html>` tag with getters/setters for all DOM-related React props
-  static DomProps html() => new DomProps(react.html);
+ static DomProps html([Map map]) => new DomProps(react.html, map);
   /// Returns a new [DomPropsMixin] that renders an `<i>` tag with getters/setters for all DOM-related React props
-  static DomProps i() => new DomProps(react.i);
+ static DomProps i([Map map]) => new DomProps(react.i, map);
   /// Returns a new [DomPropsMixin] that renders an `<iframe>` tag with getters/setters for all DOM-related React props
-  static DomProps iframe() => new DomProps(react.iframe);
+ static DomProps iframe([Map map]) => new DomProps(react.iframe, map);
   /// Returns a new [DomPropsMixin] that renders an `<img>` tag with getters/setters for all DOM-related React props
-  static DomProps img() => new DomProps(react.img);
+ static DomProps img([Map map]) => new DomProps(react.img, map);
   /// Returns a new [DomPropsMixin] that renders an `<input>` tag with getters/setters for all DOM-related React props
-  static DomProps input() => new DomProps(react.input);
+ static DomProps input([Map map]) => new DomProps(react.input, map);
   /// Returns a new [DomPropsMixin] that renders an `<ins>` tag with getters/setters for all DOM-related React props
-  static DomProps ins() => new DomProps(react.ins);
+ static DomProps ins([Map map]) => new DomProps(react.ins, map);
   /// Returns a new [DomPropsMixin] that renders a `<kbd>` tag with getters/setters for all DOM-related React props
-  static DomProps kbd() => new DomProps(react.kbd);
+ static DomProps kbd([Map map]) => new DomProps(react.kbd, map);
   /// Returns a new [DomPropsMixin] that renders a `<keygen>` tag with getters/setters for all DOM-related React props
-  static DomProps keygen() => new DomProps(react.keygen);
+ static DomProps keygen([Map map]) => new DomProps(react.keygen, map);
   /// Returns a new [DomPropsMixin] that renders a `<label>` tag with getters/setters for all DOM-related React props
-  static DomProps label() => new DomProps(react.label);
+ static DomProps label([Map map]) => new DomProps(react.label, map);
   /// Returns a new [DomPropsMixin] that renders a `<legend>` tag with getters/setters for all DOM-related React props
-  static DomProps legend() => new DomProps(react.legend);
+ static DomProps legend([Map map]) => new DomProps(react.legend, map);
   /// Returns a new [DomPropsMixin] that renders a `<li>` tag with getters/setters for all DOM-related React props
-  static DomProps li() => new DomProps(react.li);
+ static DomProps li([Map map]) => new DomProps(react.li, map);
   /// Returns a new [DomPropsMixin] that renders a `<link>` tag with getters/setters for all DOM-related React props
-  static DomProps link() => new DomProps(react.link);
+ static DomProps link([Map map]) => new DomProps(react.link, map);
   /// Returns a new [DomPropsMixin] that renders a `<main>` tag with getters/setters for all DOM-related React props
-  static DomProps main() => new DomProps(react.main);
+ static DomProps main([Map map]) => new DomProps(react.main, map);
   /// Returns a new [DomPropsMixin] that renders a `<map>` tag with getters/setters for all DOM-related React props
-  static DomProps map() => new DomProps(react.map);
+ static DomProps map([Map map]) => new DomProps(react.map, map);
   /// Returns a new [DomPropsMixin] that renders a `<mark>` tag with getters/setters for all DOM-related React props
-  static DomProps mark() => new DomProps(react.mark);
+ static DomProps mark([Map map]) => new DomProps(react.mark, map);
   /// Returns a new [DomPropsMixin] that renders a `<menu>` tag with getters/setters for all DOM-related React props
-  static DomProps menu() => new DomProps(react.menu);
+ static DomProps menu([Map map]) => new DomProps(react.menu, map);
   /// Returns a new [DomPropsMixin] that renders a `<menuitem>` tag with getters/setters for all DOM-related React props
-  static DomProps menuitem() => new DomProps(react.menuitem);
+ static DomProps menuitem([Map map]) => new DomProps(react.menuitem, map);
   /// Returns a new [DomPropsMixin] that renders a `<meta>` tag with getters/setters for all DOM-related React props
-  static DomProps meta() => new DomProps(react.meta);
+ static DomProps meta([Map map]) => new DomProps(react.meta, map);
   /// Returns a new [DomPropsMixin] that renders a `<meter>` tag with getters/setters for all DOM-related React props
-  static DomProps meter() => new DomProps(react.meter);
+ static DomProps meter([Map map]) => new DomProps(react.meter, map);
   /// Returns a new [DomPropsMixin] that renders a `<nav>` tag with getters/setters for all DOM-related React props
-  static DomProps nav() => new DomProps(react.nav);
+ static DomProps nav([Map map]) => new DomProps(react.nav, map);
   /// Returns a new [DomPropsMixin] that renders a `<noscript>` tag with getters/setters for all DOM-related React props
-  static DomProps noscript() => new DomProps(react.noscript);
+ static DomProps noscript([Map map]) => new DomProps(react.noscript, map);
   /// Returns a new [DomPropsMixin] that renders an `<object>` tag with getters/setters for all DOM-related React props
-  static DomProps object() => new DomProps(react.object);
+ static DomProps object([Map map]) => new DomProps(react.object, map);
   /// Returns a new [DomPropsMixin] that renders an `<ol>` tag with getters/setters for all DOM-related React props
-  static DomProps ol() => new DomProps(react.ol);
+ static DomProps ol([Map map]) => new DomProps(react.ol, map);
   /// Returns a new [DomPropsMixin] that renders an `<optgroup>` tag with getters/setters for all DOM-related React props
-  static DomProps optgroup() => new DomProps(react.optgroup);
+ static DomProps optgroup([Map map]) => new DomProps(react.optgroup, map);
   /// Returns a new [DomPropsMixin] that renders an `<option>` tag with getters/setters for all DOM-related React props
-  static DomProps option() => new DomProps(react.option);
+ static DomProps option([Map map]) => new DomProps(react.option, map);
   /// Returns a new [DomPropsMixin] that renders an `<output>` tag with getters/setters for all DOM-related React props
-  static DomProps output() => new DomProps(react.output);
+ static DomProps output([Map map]) => new DomProps(react.output, map);
   /// Returns a new [DomPropsMixin] that renders a `<p>` tag with getters/setters for all DOM-related React props
-  static DomProps p() => new DomProps(react.p);
+ static DomProps p([Map map]) => new DomProps(react.p, map);
   /// Returns a new [DomPropsMixin] that renders a `<param>` tag with getters/setters for all DOM-related React props
-  static DomProps param() => new DomProps(react.param);
+ static DomProps param([Map map]) => new DomProps(react.param, map);
   /// Returns a new [DomPropsMixin] that renders a `<picture>` tag with getters/setters for all DOM-related React props
-  static DomProps picture() => new DomProps(react.picture);
+ static DomProps picture([Map map]) => new DomProps(react.picture, map);
   /// Returns a new [DomPropsMixin] that renders a `<pre>` tag with getters/setters for all DOM-related React props
-  static DomProps pre() => new DomProps(react.pre);
+ static DomProps pre([Map map]) => new DomProps(react.pre, map);
   /// Returns a new [DomPropsMixin] that renders a `<progress>` tag with getters/setters for all DOM-related React props
-  static DomProps progress() => new DomProps(react.progress);
+ static DomProps progress([Map map]) => new DomProps(react.progress, map);
   /// Returns a new [DomPropsMixin] that renders a `<q>` tag with getters/setters for all DOM-related React props
-  static DomProps q() => new DomProps(react.q);
+ static DomProps q([Map map]) => new DomProps(react.q, map);
   /// Returns a new [DomPropsMixin] that renders a `<rp>` tag with getters/setters for all DOM-related React props
-  static DomProps rp() => new DomProps(react.rp);
+ static DomProps rp([Map map]) => new DomProps(react.rp, map);
   /// Returns a new [DomPropsMixin] that renders a `<rt>` tag with getters/setters for all DOM-related React props
-  static DomProps rt() => new DomProps(react.rt);
+ static DomProps rt([Map map]) => new DomProps(react.rt, map);
   /// Returns a new [DomPropsMixin] that renders a `<ruby>` tag with getters/setters for all DOM-related React props
-  static DomProps ruby() => new DomProps(react.ruby);
+ static DomProps ruby([Map map]) => new DomProps(react.ruby, map);
   /// Returns a new [DomPropsMixin] that renders a `<s>` tag with getters/setters for all DOM-related React props
-  static DomProps s() => new DomProps(react.s);
+ static DomProps s([Map map]) => new DomProps(react.s, map);
   /// Returns a new [DomPropsMixin] that renders a `<samp>` tag with getters/setters for all DOM-related React props
-  static DomProps samp() => new DomProps(react.samp);
+ static DomProps samp([Map map]) => new DomProps(react.samp, map);
   /// Returns a new [DomPropsMixin] that renders a `<script>` tag with getters/setters for all DOM-related React props
-  static DomProps script() => new DomProps(react.script);
+ static DomProps script([Map map]) => new DomProps(react.script, map);
   /// Returns a new [DomPropsMixin] that renders a `<section>` tag with getters/setters for all DOM-related React props
-  static DomProps section() => new DomProps(react.section);
+ static DomProps section([Map map]) => new DomProps(react.section, map);
   /// Returns a new [DomPropsMixin] that renders a `<select>` tag with getters/setters for all DOM-related React props
-  static DomProps select() => new DomProps(react.select);
+ static DomProps select([Map map]) => new DomProps(react.select, map);
   /// Returns a new [DomPropsMixin] that renders a `<small>` tag with getters/setters for all DOM-related React props
-  static DomProps small() => new DomProps(react.small);
+ static DomProps small([Map map]) => new DomProps(react.small, map);
   /// Returns a new [DomPropsMixin] that renders a `<source>` tag with getters/setters for all DOM-related React props
-  static DomProps source() => new DomProps(react.source);
+ static DomProps source([Map map]) => new DomProps(react.source, map);
   /// Returns a new [DomPropsMixin] that renders a `<span>` tag with getters/setters for all DOM-related React props
-  static DomProps span() => new DomProps(react.span);
+ static DomProps span([Map map]) => new DomProps(react.span, map);
   /// Returns a new [DomPropsMixin] that renders a `<strong>` tag with getters/setters for all DOM-related React props
-  static DomProps strong() => new DomProps(react.strong);
+ static DomProps strong([Map map]) => new DomProps(react.strong, map);
   /// Returns a new [DomPropsMixin] that renders a `<style>` tag with getters/setters for all DOM-related React props
-  static DomProps style() => new DomProps(react.style);
+ static DomProps style([Map map]) => new DomProps(react.style, map);
   /// Returns a new [DomPropsMixin] that renders a `<sub>` tag with getters/setters for all DOM-related React props
-  static DomProps sub() => new DomProps(react.sub);
+ static DomProps sub([Map map]) => new DomProps(react.sub, map);
   /// Returns a new [DomPropsMixin] that renders a `<summary>` tag with getters/setters for all DOM-related React props
-  static DomProps summary() => new DomProps(react.summary);
+ static DomProps summary([Map map]) => new DomProps(react.summary, map);
   /// Returns a new [DomPropsMixin] that renders a `<sup>` tag with getters/setters for all DOM-related React props
-  static DomProps sup() => new DomProps(react.sup);
+ static DomProps sup([Map map]) => new DomProps(react.sup, map);
   /// Returns a new [DomPropsMixin] that renders a `<table>` tag with getters/setters for all DOM-related React props
-  static DomProps table() => new DomProps(react.table);
+ static DomProps table([Map map]) => new DomProps(react.table, map);
   /// Returns a new [DomPropsMixin] that renders a `<tbody>` tag with getters/setters for all DOM-related React props
-  static DomProps tbody() => new DomProps(react.tbody);
+ static DomProps tbody([Map map]) => new DomProps(react.tbody, map);
   /// Returns a new [DomPropsMixin] that renders a `<td>` tag with getters/setters for all DOM-related React props
-  static DomProps td() => new DomProps(react.td);
+ static DomProps td([Map map]) => new DomProps(react.td, map);
   /// Returns a new [DomPropsMixin] that renders a `<textarea>` tag with getters/setters for all DOM-related React props
-  static DomProps textarea() => new DomProps(react.textarea);
+ static DomProps textarea([Map map]) => new DomProps(react.textarea, map);
   /// Returns a new [DomPropsMixin] that renders a `<tfoot>` tag with getters/setters for all DOM-related React props
-  static DomProps tfoot() => new DomProps(react.tfoot);
+ static DomProps tfoot([Map map]) => new DomProps(react.tfoot, map);
   /// Returns a new [DomPropsMixin] that renders a `<th>` tag with getters/setters for all DOM-related React props
-  static DomProps th() => new DomProps(react.th);
+ static DomProps th([Map map]) => new DomProps(react.th, map);
   /// Returns a new [DomPropsMixin] that renders a `<thead>` tag with getters/setters for all DOM-related React props
-  static DomProps thead() => new DomProps(react.thead);
+ static DomProps thead([Map map]) => new DomProps(react.thead, map);
   /// Returns a new [DomPropsMixin] that renders a `<time>` tag with getters/setters for all DOM-related React props
-  static DomProps time() => new DomProps(react.time);
+ static DomProps time([Map map]) => new DomProps(react.time, map);
   /// Returns a new [DomPropsMixin] that renders a `<title>` tag with getters/setters for all DOM-related React props
-  static DomProps title() => new DomProps(react.title);
+ static DomProps title([Map map]) => new DomProps(react.title, map);
   /// Returns a new [DomPropsMixin] that renders a `<tr>` tag with getters/setters for all DOM-related React props
-  static DomProps tr() => new DomProps(react.tr);
+ static DomProps tr([Map map]) => new DomProps(react.tr, map);
   /// Returns a new [DomPropsMixin] that renders a `<track>` tag with getters/setters for all DOM-related React props
-  static DomProps track() => new DomProps(react.track);
+ static DomProps track([Map map]) => new DomProps(react.track, map);
   /// Returns a new [DomPropsMixin] that renders an `<u>` tag with getters/setters for all DOM-related React props
-  static DomProps u() => new DomProps(react.u);
+ static DomProps u([Map map]) => new DomProps(react.u, map);
   /// Returns a new [DomPropsMixin] that renders an `<ul>` tag with getters/setters for all DOM-related React props
-  static DomProps ul() => new DomProps(react.ul);
+ static DomProps ul([Map map]) => new DomProps(react.ul, map);
   /// Returns a new [DomPropsMixin] that renders a `<var>` tag with getters/setters for all DOM-related React props
-  static DomProps variable() => new DomProps(react.variable);
+ static DomProps variable([Map map]) => new DomProps(react.variable, map);
   /// Returns a new [DomPropsMixin] that renders a `<video>` tag with getters/setters for all DOM-related React props
-  static DomProps video() => new DomProps(react.video);
+ static DomProps video([Map map]) => new DomProps(react.video, map);
   /// Returns a new [DomPropsMixin] that renders a `<wbr>` tag with getters/setters for all DOM-related React props
-  static DomProps wbr() => new DomProps(react.wbr);
+ static DomProps wbr([Map map]) => new DomProps(react.wbr, map);
 
   // SVG Elements
   /// Returns a new [SvgPropsMixin] that renders an `<a>` tag with getters/setters for all SVG-related React props
