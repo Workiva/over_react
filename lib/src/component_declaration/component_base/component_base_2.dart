@@ -218,14 +218,12 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   }
 
   @override
-  Map<String, react.TypedPropValidator<TProps>> get propTypes => {};
+  Map<String, react.PropValidator<TProps>> get propTypes => {};
 
   @override
-  get jsPropTypesMap => propTypes.map((propKey, validator) {
-        dynamic handlePropValidator(
-            props, propName, componentName, location, propFullName) {
-          var error = validator(typedPropsFactoryJs(props), propName,
-              componentName, location, propFullName);
+  Map<String, react.PropValidator<JsBackedMap>> get jsPropTypesMap => propTypes.map((propKey, validator) {
+        Error handlePropValidator(JsBackedMap props, propName, componentName, location, propFullName) {
+          var error = validator(typedPropsFactoryJs(props), propName, componentName, location, propFullName);
           return error;
         }
 
