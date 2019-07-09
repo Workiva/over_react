@@ -313,191 +313,191 @@ abstract class Dom {
 
   // SVG Elements
   /// Returns a new [SvgPropsMixin] that renders an `<a>` tag with getters/setters for all SVG-related React props
-  static SvgProps svgA() => new SvgProps(react.a);
+  static SvgProps svgA([Map map]) => new SvgProps(react.a, map);
   /// Returns a new [SvgPropsMixin] that renders an `<altGlyph>` tag with getters/setters for all SVG-related React props
-  static SvgProps altGlyph() => new SvgProps(react.altGlyph);
+  static SvgProps altGlyph([Map map]) => new SvgProps(react.altGlyph, map);
   /// Returns a new [SvgPropsMixin] that renders an `<altGlyphDef>` tag with getters/setters for all SVG-related React props
-  static SvgProps altGlyphDef() => new SvgProps(react.altGlyphDef);
+  static SvgProps altGlyphDef([Map map]) => new SvgProps(react.altGlyphDef, map);
   /// Returns a new [SvgPropsMixin] that renders an `<altGlyphItem>` tag with getters/setters for all SVG-related React props
-  static SvgProps altGlyphItem() => new SvgProps(react.altGlyphItem);
+  static SvgProps altGlyphItem([Map map]) => new SvgProps(react.altGlyphItem, map);
   /// Returns a new [SvgPropsMixin] that renders an `<animate>` tag with getters/setters for all SVG-related React props
-  static SvgProps animate() => new SvgProps(react.animate);
+  static SvgProps animate([Map map]) => new SvgProps(react.animate, map);
   /// Returns a new [SvgPropsMixin] that renders an `<animateColor>` tag with getters/setters for all SVG-related React props
-  static SvgProps animateColor() => new SvgProps(react.animateColor);
+  static SvgProps animateColor([Map map]) => new SvgProps(react.animateColor, map);
   /// Returns a new [SvgPropsMixin] that renders an `<animateMotion>` tag with getters/setters for all SVG-related React props
-  static SvgProps animateMotion() => new SvgProps(react.animateMotion);
+  static SvgProps animateMotion([Map map]) => new SvgProps(react.animateMotion, map);
   /// Returns a new [SvgPropsMixin] that renders an `<animateTransform>` tag with getters/setters for all SVG-related React props
-  static SvgProps animateTransform() => new SvgProps(react.animateTransform);
+  static SvgProps animateTransform([Map map]) => new SvgProps(react.animateTransform, map);
   /// Returns a new [SvgPropsMixin] that renders an `<audio>` tag with getters/setters for all SVG-related React props
-  static SvgProps svgAudio() => new SvgProps(react.audio);
+  static SvgProps svgAudio([Map map]) => new SvgProps(react.audio, map);
   /// Returns a new [SvgPropsMixin] that renders a `<canvas>` tag with getters/setters for all SVG-related React props
-  static SvgProps svgCanvas() => new SvgProps(react.canvas);
+  static SvgProps svgCanvas([Map map]) => new SvgProps(react.canvas, map);
   /// Returns a new [SvgPropsMixin] that renders a `<circle>` tag with getters/setters for all SVG-related React props
-  static SvgProps circle() => new SvgProps(react.circle);
+  static SvgProps circle([Map map]) => new SvgProps(react.circle, map);
   /// Returns a new [SvgPropsMixin] that renders a `<clipPath>` tag with getters/setters for all SVG-related React props
-  static SvgProps clipPath() => new SvgProps(react.clipPath);
+  static SvgProps clipPath([Map map]) => new SvgProps(react.clipPath, map);
   /// Returns a new [SvgPropsMixin] that renders a `<color-profile>` tag with getters/setters for all SVG-related React props
-  static SvgProps colorProfile() => new SvgProps(react.colorProfile);
+  static SvgProps colorProfile([Map map]) => new SvgProps(react.colorProfile, map);
   /// Returns a new [SvgPropsMixin] that renders a `<cursor>` tag with getters/setters for all SVG-related React props
-  static SvgProps cursor() => new SvgProps(react.cursor);
+  static SvgProps cursor([Map map]) => new SvgProps(react.cursor, map);
   /// Returns a new [SvgPropsMixin] that renders a `<defs>` tag with getters/setters for all SVG-related React props
-  static SvgProps defs() => new SvgProps(react.defs);
+  static SvgProps defs([Map map]) => new SvgProps(react.defs, map);
   /// Returns a new [SvgPropsMixin] that renders a `<desc>` tag with getters/setters for all SVG-related React props
-  static SvgProps desc() => new SvgProps(react.desc);
+  static SvgProps desc([Map map]) => new SvgProps(react.desc, map);
   /// Returns a new [SvgPropsMixin] that renders a `<discard>` tag with getters/setters for all SVG-related React props
-  static SvgProps discard() => new SvgProps(react.discard);
+  static SvgProps discard([Map map]) => new SvgProps(react.discard, map);
   /// Returns a new [SvgPropsMixin] that renders an `<ellipse>` tag with getters/setters for all SVG-related React props
-  static SvgProps ellipse() => new SvgProps(react.ellipse);
+  static SvgProps ellipse([Map map]) => new SvgProps(react.ellipse, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feBlend>` tag with getters/setters for all SVG-related React props
-  static SvgProps feBlend() => new SvgProps(react.feBlend);
+  static SvgProps feBlend([Map map]) => new SvgProps(react.feBlend, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feColorMatrix>` tag with getters/setters for all SVG-related React props
-  static SvgProps feColorMatrix() => new SvgProps(react.feColorMatrix);
+  static SvgProps feColorMatrix([Map map]) => new SvgProps(react.feColorMatrix, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feComponentTransfer>` tag with getters/setters for all SVG-related React props
-  static SvgProps feComponentTransfer() => new SvgProps(react.feComponentTransfer);
+  static SvgProps feComponentTransfer([Map map]) => new SvgProps(react.feComponentTransfer, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feComposite>` tag with getters/setters for all SVG-related React props
-  static SvgProps feComposite() => new SvgProps(react.feComposite);
+  static SvgProps feComposite([Map map]) => new SvgProps(react.feComposite, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feConvolveMatrix>` tag with getters/setters for all SVG-related React props
-  static SvgProps feConvolveMatrix() => new SvgProps(react.feConvolveMatrix);
+  static SvgProps feConvolveMatrix([Map map]) => new SvgProps(react.feConvolveMatrix, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feDiffuseLighting>` tag with getters/setters for all SVG-related React props
-  static SvgProps feDiffuseLighting() => new SvgProps(react.feDiffuseLighting);
+  static SvgProps feDiffuseLighting([Map map]) => new SvgProps(react.feDiffuseLighting, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feDisplacementMap>` tag with getters/setters for all SVG-related React props
-  static SvgProps feDisplacementMap() => new SvgProps(react.feDisplacementMap);
+  static SvgProps feDisplacementMap([Map map]) => new SvgProps(react.feDisplacementMap, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feDistantLight>` tag with getters/setters for all SVG-related React props
-  static SvgProps feDistantLight() => new SvgProps(react.feDistantLight);
+  static SvgProps feDistantLight([Map map]) => new SvgProps(react.feDistantLight, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feDropShadow>` tag with getters/setters for all SVG-related React props
-  static SvgProps feDropShadow() => new SvgProps(react.feDropShadow);
+  static SvgProps feDropShadow([Map map]) => new SvgProps(react.feDropShadow, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feFlood>` tag with getters/setters for all SVG-related React props
-  static SvgProps feFlood() => new SvgProps(react.feFlood);
+  static SvgProps feFlood([Map map]) => new SvgProps(react.feFlood, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feFuncA>` tag with getters/setters for all SVG-related React props
-  static SvgProps feFuncA() => new SvgProps(react.feFuncA);
+  static SvgProps feFuncA([Map map]) => new SvgProps(react.feFuncA, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feFuncB>` tag with getters/setters for all SVG-related React props
-  static SvgProps feFuncB() => new SvgProps(react.feFuncB);
+  static SvgProps feFuncB([Map map]) => new SvgProps(react.feFuncB, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feFuncG>` tag with getters/setters for all SVG-related React props
-  static SvgProps feFuncG() => new SvgProps(react.feFuncG);
+  static SvgProps feFuncG([Map map]) => new SvgProps(react.feFuncG, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feFuncR>` tag with getters/setters for all SVG-related React props
-  static SvgProps feFuncR() => new SvgProps(react.feFuncR);
+  static SvgProps feFuncR([Map map]) => new SvgProps(react.feFuncR, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feGaussianBlur>` tag with getters/setters for all SVG-related React props
-  static SvgProps feGaussianBlur() => new SvgProps(react.feGaussianBlur);
+  static SvgProps feGaussianBlur([Map map]) => new SvgProps(react.feGaussianBlur, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feImage>` tag with getters/setters for all SVG-related React props
-  static SvgProps feImage() => new SvgProps(react.feImage);
+  static SvgProps feImage([Map map]) => new SvgProps(react.feImage, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feMerge>` tag with getters/setters for all SVG-related React props
-  static SvgProps feMerge() => new SvgProps(react.feMerge);
+  static SvgProps feMerge([Map map]) => new SvgProps(react.feMerge, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feMergeNode>` tag with getters/setters for all SVG-related React props
-  static SvgProps feMergeNode() => new SvgProps(react.feMergeNode);
+  static SvgProps feMergeNode([Map map]) => new SvgProps(react.feMergeNode, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feMorphology>` tag with getters/setters for all SVG-related React props
-  static SvgProps feMorphology() => new SvgProps(react.feMorphology);
+  static SvgProps feMorphology([Map map]) => new SvgProps(react.feMorphology, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feOffset>` tag with getters/setters for all SVG-related React props
-  static SvgProps feOffset() => new SvgProps(react.feOffset);
+  static SvgProps feOffset([Map map]) => new SvgProps(react.feOffset, map);
   /// Returns a new [SvgPropsMixin] that renders a `<fePointLight>` tag with getters/setters for all SVG-related React props
-  static SvgProps fePointLight() => new SvgProps(react.fePointLight);
+  static SvgProps fePointLight([Map map]) => new SvgProps(react.fePointLight, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feSpecularLighting>` tag with getters/setters for all SVG-related React props
-  static SvgProps feSpecularLighting() => new SvgProps(react.feSpecularLighting);
+  static SvgProps feSpecularLighting([Map map]) => new SvgProps(react.feSpecularLighting, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feSpotLight>` tag with getters/setters for all SVG-related React props
-  static SvgProps feSpotLight() => new SvgProps(react.feSpotLight);
+  static SvgProps feSpotLight([Map map]) => new SvgProps(react.feSpotLight, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feTile>` tag with getters/setters for all SVG-related React props
-  static SvgProps feTile() => new SvgProps(react.feTile);
+  static SvgProps feTile([Map map]) => new SvgProps(react.feTile, map);
   /// Returns a new [SvgPropsMixin] that renders a `<feTurbulence>` tag with getters/setters for all SVG-related React props
-  static SvgProps feTurbulence() => new SvgProps(react.feTurbulence);
+  static SvgProps feTurbulence([Map map]) => new SvgProps(react.feTurbulence, map);
   /// Returns a new [SvgPropsMixin] that renders a `<filter>` tag with getters/setters for all SVG-related React props
-  static SvgProps filter() => new SvgProps(react.filter);
+  static SvgProps filter([Map map]) => new SvgProps(react.filter, map);
   /// Returns a new [SvgPropsMixin] that renders a `<font>` tag with getters/setters for all SVG-related React props
-  static SvgProps font() => new SvgProps(react.font);
+  static SvgProps font([Map map]) => new SvgProps(react.font, map);
   /// Returns a new [SvgPropsMixin] that renders a `<font-face>` tag with getters/setters for all SVG-related React props
-  static SvgProps fontFace() => new SvgProps(react.fontFace);
+  static SvgProps fontFace([Map map]) => new SvgProps(react.fontFace, map);
   /// Returns a new [SvgPropsMixin] that renders a `<font-face-format>` tag with getters/setters for all SVG-related React props
-  static SvgProps fontFaceFormat() => new SvgProps(react.fontFaceFormat);
+  static SvgProps fontFaceFormat([Map map]) => new SvgProps(react.fontFaceFormat, map);
   /// Returns a new [SvgPropsMixin] that renders a `<font-face-name>` tag with getters/setters for all SVG-related React props
-  static SvgProps fontFaceName() => new SvgProps(react.fontFaceName);
+  static SvgProps fontFaceName([Map map]) => new SvgProps(react.fontFaceName, map);
   /// Returns a new [SvgPropsMixin] that renders a `<font-face-src>` tag with getters/setters for all SVG-related React props
-  static SvgProps fontFaceSrc() => new SvgProps(react.fontFaceSrc);
+  static SvgProps fontFaceSrc([Map map]) => new SvgProps(react.fontFaceSrc, map);
   /// Returns a new [SvgPropsMixin] that renders a `<font-face-uri>` tag with getters/setters for all SVG-related React props
-  static SvgProps fontFaceUri() => new SvgProps(react.fontFaceUri);
+  static SvgProps fontFaceUri([Map map]) => new SvgProps(react.fontFaceUri, map);
   /// Returns a new [SvgPropsMixin] that renders a `<foreignObject>` tag with getters/setters for all SVG-related React props
-  static SvgProps foreignObject() => new SvgProps(react.foreignObject);
+  static SvgProps foreignObject([Map map]) => new SvgProps(react.foreignObject, map);
   /// Returns a new [SvgPropsMixin] that renders a `<g>` tag with getters/setters for all SVG-related React props
-  static SvgProps g() => new SvgProps(react.g);
+  static SvgProps g([Map map]) => new SvgProps(react.g, map);
   /// Returns a new [SvgPropsMixin] that renders a `<glyph>` tag with getters/setters for all SVG-related React props
-  static SvgProps glyph() => new SvgProps(react.glyph);
+  static SvgProps glyph([Map map]) => new SvgProps(react.glyph, map);
   /// Returns a new [SvgPropsMixin] that renders a `<glyphRef>` tag with getters/setters for all SVG-related React props
-  static SvgProps glyphRef() => new SvgProps(react.glyphRef);
+  static SvgProps glyphRef([Map map]) => new SvgProps(react.glyphRef, map);
   /// Returns a new [SvgPropsMixin] that renders a `<hatch>` tag with getters/setters for all SVG-related React props
-  static SvgProps hatch() => new SvgProps(react.hatch);
+  static SvgProps hatch([Map map]) => new SvgProps(react.hatch, map);
   /// Returns a new [SvgPropsMixin] that renders a `<hatchpath>` tag with getters/setters for all SVG-related React props
-  static SvgProps hatchpath() => new SvgProps(react.hatchpath);
+  static SvgProps hatchpath([Map map]) => new SvgProps(react.hatchpath, map);
   /// Returns a new [SvgPropsMixin] that renders a `<hkern>` tag with getters/setters for all SVG-related React props
-  static SvgProps hkern() => new SvgProps(react.hkern);
+  static SvgProps hkern([Map map]) => new SvgProps(react.hkern, map);
   /// Returns a new [SvgPropsMixin] that renders an `<iframe>` tag with getters/setters for all SVG-related React props
-  static SvgProps svgIframe() => new SvgProps(react.iframe);
+  static SvgProps svgIframe([Map map]) => new SvgProps(react.iframe, map);
   /// Returns a new [SvgPropsMixin] that renders an `<image>` tag with getters/setters for all SVG-related React props
-  static SvgProps image() => new SvgProps(react.image);
+  static SvgProps image([Map map]) => new SvgProps(react.image, map);
   /// Returns a new [SvgPropsMixin] that renders a `<line>` tag with getters/setters for all SVG-related React props
-  static SvgProps line() => new SvgProps(react.line);
+  static SvgProps line([Map map]) => new SvgProps(react.line, map);
   /// Returns a new [SvgPropsMixin] that renders a `<linearGradient>` tag with getters/setters for all SVG-related React props
-  static SvgProps linearGradient() => new SvgProps(react.linearGradient);
+  static SvgProps linearGradient([Map map]) => new SvgProps(react.linearGradient, map);
   /// Returns a new [SvgPropsMixin] that renders a `<marker>` tag with getters/setters for all SVG-related React props
-  static SvgProps marker() => new SvgProps(react.marker);
+  static SvgProps marker([Map map]) => new SvgProps(react.marker, map);
   /// Returns a new [SvgPropsMixin] that renders a `<mask>` tag with getters/setters for all SVG-related React props
-  static SvgProps mask() => new SvgProps(react.mask);
+  static SvgProps mask([Map map]) => new SvgProps(react.mask, map);
   /// Returns a new [SvgPropsMixin] that renders a `<mesh>` tag with getters/setters for all SVG-related React props
-  static SvgProps mesh() => new SvgProps(react.mesh);
+  static SvgProps mesh([Map map]) => new SvgProps(react.mesh, map);
   /// Returns a new [SvgPropsMixin] that renders a `<meshgradient>` tag with getters/setters for all SVG-related React props
-  static SvgProps meshgradient() => new SvgProps(react.meshgradient);
+  static SvgProps meshgradient([Map map]) => new SvgProps(react.meshgradient, map);
   /// Returns a new [SvgPropsMixin] that renders a `<meshpatch>` tag with getters/setters for all SVG-related React props
-  static SvgProps meshpatch() => new SvgProps(react.meshpatch);
+  static SvgProps meshpatch([Map map]) => new SvgProps(react.meshpatch, map);
   /// Returns a new [SvgPropsMixin] that renders a `<meshrow>` tag with getters/setters for all SVG-related React props
-  static SvgProps meshrow() => new SvgProps(react.meshrow);
+  static SvgProps meshrow([Map map]) => new SvgProps(react.meshrow, map);
   /// Returns a new [SvgPropsMixin] that renders a `<metadata>` tag with getters/setters for all SVG-related React props
-  static SvgProps metadata() => new SvgProps(react.metadata);
+  static SvgProps metadata([Map map]) => new SvgProps(react.metadata, map);
   /// Returns a new [SvgPropsMixin] that renders a `<missing-glyph>` tag with getters/setters for all SVG-related React props
-  static SvgProps missingGlyph() => new SvgProps(react.missingGlyph);
+  static SvgProps missingGlyph([Map map]) => new SvgProps(react.missingGlyph, map);
   /// Returns a new [SvgPropsMixin] that renders a `<mpath>` tag with getters/setters for all SVG-related React props
-  static SvgProps mpath() => new SvgProps(react.mpath);
+  static SvgProps mpath([Map map]) => new SvgProps(react.mpath, map);
   /// Returns a new [SvgPropsMixin] that renders a `<path>` tag with getters/setters for all SVG-related React props
-  static SvgProps path() => new SvgProps(react.path);
+  static SvgProps path([Map map]) => new SvgProps(react.path, map);
   /// Returns a new [SvgPropsMixin] that renders a `<pattern>` tag with getters/setters for all SVG-related React props
-  static SvgProps pattern() => new SvgProps(react.pattern);
+  static SvgProps pattern([Map map]) => new SvgProps(react.pattern, map);
   /// Returns a new [SvgPropsMixin] that renders a `<polygon>` tag with getters/setters for all SVG-related React props
-  static SvgProps polygon() => new SvgProps(react.polygon);
+  static SvgProps polygon([Map map]) => new SvgProps(react.polygon, map);
   /// Returns a new [SvgPropsMixin] that renders a `<polyline>` tag with getters/setters for all SVG-related React props
-  static SvgProps polyline() => new SvgProps(react.polyline);
+  static SvgProps polyline([Map map]) => new SvgProps(react.polyline, map);
   /// Returns a new [SvgPropsMixin] that renders a `<radialGradient>` tag with getters/setters for all SVG-related React props
-  static SvgProps radialGradient() => new SvgProps(react.radialGradient);
+  static SvgProps radialGradient([Map map]) => new SvgProps(react.radialGradient, map);
   /// Returns a new [SvgPropsMixin] that renders a `<rect>` tag with getters/setters for all SVG-related React props
-  static SvgProps rect() => new SvgProps(react.rect);
+  static SvgProps rect([Map map]) => new SvgProps(react.rect, map);
   /// Returns a new [SvgPropsMixin] that renders a `<script>` tag with getters/setters for all SVG-related React props
-  static SvgProps svgScript() => new SvgProps(react.script);
+  static SvgProps svgScript([Map map]) => new SvgProps(react.script, map);
   /// Returns a new [SvgPropsMixin] that renders a `<set>` tag with getters/setters for all SVG-related React props
-  static SvgProps svgSet() => new SvgProps(react.svgSet);
+  static SvgProps svgSet([Map map]) => new SvgProps(react.svgSet, map);
   /// Returns a new [SvgPropsMixin] that renders a `<solidcolor>` tag with getters/setters for all SVG-related React props
-  static SvgProps solidcolor() => new SvgProps(react.solidcolor);
+  static SvgProps solidcolor([Map map]) => new SvgProps(react.solidcolor, map);
   /// Returns a new [SvgPropsMixin] that renders a `<stop>` tag with getters/setters for all SVG-related React props
-  static SvgProps stop() => new SvgProps(react.stop);
+  static SvgProps stop([Map map]) => new SvgProps(react.stop, map);
   /// Returns a new [SvgPropsMixin] that renders a `<style>` tag with getters/setters for all SVG-related React props
-  static SvgProps svgStyle() => new SvgProps(react.style);
+  static SvgProps svgStyle([Map map]) => new SvgProps(react.style, map);
   /// Returns a new [SvgPropsMixin] that renders a `<svg>` tag with getters/setters for all SVG-related React props
-  static SvgProps svg() => new SvgProps(react.svg);
+  static SvgProps svg([Map map]) => new SvgProps(react.svg, map);
   /// Returns a new [SvgPropsMixin] that renders a `<switch>` tag with getters/setters for all SVG-related React props
-  static SvgProps svgSwitch() => new SvgProps(react.svgSwitch);
+  static SvgProps svgSwitch([Map map]) => new SvgProps(react.svgSwitch, map);
   /// Returns a new [SvgPropsMixin] that renders a `<symbol>` tag with getters/setters for all SVG-related React props
-  static SvgProps symbol() => new SvgProps(react.symbol);
+  static SvgProps symbol([Map map]) => new SvgProps(react.symbol, map);
   /// Returns a new [SvgPropsMixin] that renders a `<text>` tag with getters/setters for all SVG-related React props
-  static SvgProps text() => new SvgProps(react.text);
+  static SvgProps text([Map map]) => new SvgProps(react.text, map);
   /// Returns a new [SvgPropsMixin] that renders a `<textPath>` tag with getters/setters for all SVG-related React props
-  static SvgProps textPath() => new SvgProps(react.textPath);
+  static SvgProps textPath([Map map]) => new SvgProps(react.textPath, map);
   /// Returns a new [SvgPropsMixin] that renders a `<title>` tag with getters/setters for all SVG-related React props
-  static SvgProps svgTitle() => new SvgProps(react.title);
+  static SvgProps svgTitle([Map map]) => new SvgProps(react.title, map);
   /// Returns a new [SvgPropsMixin] that renders a `<tref>` tag with getters/setters for all SVG-related React props
-  static SvgProps tref() => new SvgProps(react.tref);
+  static SvgProps tref([Map map]) => new SvgProps(react.tref, map);
   /// Returns a new [SvgPropsMixin] that renders a `<tspan>` tag with getters/setters for all SVG-related React props
-  static SvgProps tspan() => new SvgProps(react.tspan);
+  static SvgProps tspan([Map map]) => new SvgProps(react.tspan, map);
   /// Returns a new [SvgPropsMixin] that renders an `<unknown>` tag with getters/setters for all SVG-related React props
-  static SvgProps unknown() => new SvgProps(react.unknown);
+  static SvgProps unknown([Map map]) => new SvgProps(react.unknown, map);
   /// Returns a new [SvgPropsMixin] that renders an `<use>` tag with getters/setters for all SVG-related React props
-  static SvgProps use() => new SvgProps(react.use);
+  static SvgProps use([Map map]) => new SvgProps(react.use, map);
   /// Returns a new [SvgPropsMixin] that renders a `<video>` tag with getters/setters for all SVG-related React props
-  static SvgProps svgVideo() => new SvgProps(react.video);
+  static SvgProps svgVideo([Map map]) => new SvgProps(react.video, map);
   /// Returns a new [SvgPropsMixin] that renders a `<view>` tag with getters/setters for all SVG-related React props
-  static SvgProps view() => new SvgProps(react.view);
+  static SvgProps view([Map map]) => new SvgProps(react.view, map);
   /// Returns a new [SvgPropsMixin] that renders a `<vkern>` tag with getters/setters for all SVG-related React props
-  static SvgProps vkern() => new SvgProps(react.vkern);
+  static SvgProps vkern([Map map]) => new SvgProps(react.vkern, map);
 }
