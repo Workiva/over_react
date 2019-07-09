@@ -42,4 +42,4 @@ dependency_overrides:
   react:
     git:
       url: https://github.com/cleandart/react-dart.git
-      ref: CPLAT-4887-propTypes_null-hack
+      ref: CPLAT-4887-propTypes
