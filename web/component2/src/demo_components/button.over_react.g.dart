@@ -403,7 +403,9 @@ class _$ButtonComponent extends ButtonComponent {
   _$$ButtonProps$JsMap _cachedTypedProps;
 
   @override
-  _$$ButtonProps$JsMap get props => _cachedTypedProps;
+  _$$ButtonProps$JsMap get props => getKeyInProgress
+      ? (typedSpiedPropsCache ??= typedPropsFactoryJs(keySpy))
+      : _cachedTypedProps;
 
   @override
   set props(Map value) {

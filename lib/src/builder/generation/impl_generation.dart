@@ -190,7 +190,7 @@ class ImplGenerator {
           ..writeln('  $jsMapImplName _cachedTypedProps;')
           ..writeln()
           ..writeln('  @override')
-          ..writeln('  $jsMapImplName get props => _cachedTypedProps;')
+          ..writeln('  $jsMapImplName get props => getKeyInProgress ? (typedSpiedPropsCache ??= typedPropsFactoryJs(keySpy)) : _cachedTypedProps;')
           ..writeln()
           ..writeln('  @override')
           ..writeln('  set props(Map value) {')

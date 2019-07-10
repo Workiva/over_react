@@ -165,7 +165,9 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   _$$ComponentTestProps$JsMap _cachedTypedProps;
 
   @override
-  _$$ComponentTestProps$JsMap get props => _cachedTypedProps;
+  _$$ComponentTestProps$JsMap get props => getKeyInProgress
+      ? (typedSpiedPropsCache ??= typedPropsFactoryJs(keySpy))
+      : _cachedTypedProps;
 
   @override
   set props(Map value) {

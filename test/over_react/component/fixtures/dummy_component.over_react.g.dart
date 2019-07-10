@@ -124,7 +124,9 @@ class _$DummyComponent extends DummyComponent {
   _$$DummyProps$JsMap _cachedTypedProps;
 
   @override
-  _$$DummyProps$JsMap get props => _cachedTypedProps;
+  _$$DummyProps$JsMap get props => getKeyInProgress
+      ? (typedSpiedPropsCache ??= typedPropsFactoryJs(keySpy))
+      : _cachedTypedProps;
 
   @override
   set props(Map value) {

@@ -217,35 +217,27 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
     return prop_key_util.getPropKey(accessProp, typedPropsFactory);
   }
 
-  static bool _getKeyInProgress = false;
-  static final SingleKeyAccessMapSpy _keySpy = new SingleKeyAccessMapSpy(const {});
-  TProps _typedSpiedPropsCache;
-
-  TProps get spiedProps {
-    if (!_getKeyInProgress) {
-      throw new StateError('`keySpy` can only be used within `getKey`');
-    }
-
-    return _typedSpiedPropsCache ??= typedPropsFactory(_keySpy);
-  }
+  bool getKeyInProgress = false;
+  final SingleKeyAccessJsBackedMapSpy keySpy = new SingleKeyAccessJsBackedMapSpy(JsBackedMap());
+  TProps typedSpiedPropsCache;
 
   String Function(void keyAccessingExpression) get getKey {
-    if (_getKeyInProgress) throw new StateError('`getKey` may not be called inside itself');
+    if (getKeyInProgress) throw new StateError('`getKey` may not be called inside itself');
 
-    _getKeyInProgress = true;
+    getKeyInProgress = true;
     // Reset just to be safe in case something got into a bad state? Might not be needed
-    _keySpy.reset();
+    keySpy.reset();
 
     return _getKeyHelper;
   }
 
-  static String _getKeyHelper(void keyAccessingExpression) {
-    _getKeyInProgress = false;
-    if (!_keySpy.hasBeenAccessed) {
+  String _getKeyHelper(void keyAccessingExpression) {
+    getKeyInProgress = false;
+    if (!keySpy.hasBeenAccessed) {
       throw new StateError('Must access a prop on spiedProps within `getKey`');
     }
-    final key = _keySpy.key as String;
-    _keySpy.reset();
+    final key = keySpy.key as String;
+    keySpy.reset();
     return key;
   }
 

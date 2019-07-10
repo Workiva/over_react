@@ -334,7 +334,9 @@ class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
   _$$StatefulComponentTestProps$JsMap _cachedTypedProps;
 
   @override
-  _$$StatefulComponentTestProps$JsMap get props => _cachedTypedProps;
+  _$$StatefulComponentTestProps$JsMap get props => getKeyInProgress
+      ? (typedSpiedPropsCache ??= typedPropsFactoryJs(keySpy))
+      : _cachedTypedProps;
 
   @override
   set props(Map value) {

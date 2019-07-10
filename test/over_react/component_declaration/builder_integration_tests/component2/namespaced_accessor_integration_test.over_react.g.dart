@@ -426,7 +426,9 @@ class _$NamespacedAccessorTestComponent
   _$$NamespacedAccessorTestProps$JsMap _cachedTypedProps;
 
   @override
-  _$$NamespacedAccessorTestProps$JsMap get props => _cachedTypedProps;
+  _$$NamespacedAccessorTestProps$JsMap get props => getKeyInProgress
+      ? (typedSpiedPropsCache ??= typedPropsFactoryJs(keySpy))
+      : _cachedTypedProps;
 
   @override
   set props(Map value) {

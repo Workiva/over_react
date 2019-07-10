@@ -32,7 +32,7 @@ class PropTypesComponent extends UiComponent2<PropTypesProps> {
   // This is closer to what it looks like in JS, but might be confusing syntax.
   @override
   get propTypes => {
-    keyFor(spiedProps.twoObjects): (props, String propName, String componentName, String location, String propFullName) {
+    keyFor(props.twoObjects): (props, String propName, String componentName, String location, String propFullName) {
       final length = props.twoObjects?.length;
       if (length != 2) {
         throw new PropError.value(length, propName, 'must have a length of 2');

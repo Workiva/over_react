@@ -142,7 +142,9 @@ class _$FooComponent extends FooComponent {
   _$$FooProps$JsMap _cachedTypedProps;
 
   @override
-  _$$FooProps$JsMap get props => _cachedTypedProps;
+  _$$FooProps$JsMap get props => getKeyInProgress
+      ? (typedSpiedPropsCache ??= typedPropsFactoryJs(keySpy))
+      : _cachedTypedProps;
 
   @override
   set props(Map value) {

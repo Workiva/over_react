@@ -16,6 +16,8 @@ library over_react.prop_key_util;
 
 import 'dart:collection';
 
+import 'package:react/react_client.dart';
+
 /// Returns the string key of the [factory] prop accessed in [accessProp].
 ///
 /// __Example:__
@@ -38,6 +40,37 @@ dynamic _getKey(void accessKey(Map keySpy)) {
 /// Helper class that stores the key accessed while getting a value within a Map.
 class SingleKeyAccessMapSpy extends MapView {
   SingleKeyAccessMapSpy(Map map) : super(map);
+
+  bool _hasBeenAccessed = false;
+  dynamic _key;
+
+  bool get hasBeenAccessed => _hasBeenAccessed;
+
+  void reset() {
+    _hasBeenAccessed = false;
+    _key = false;
+  }
+
+  dynamic get key {
+    if (!_hasBeenAccessed) throw new StateError('Key has not been accessed.');
+
+    return _key;
+  }
+
+  @override
+  operator[](key) {
+    if (_hasBeenAccessed) throw new StateError('A key has already been accessed.');
+
+    _key = key;
+    _hasBeenAccessed = true;
+
+    return null;
+  }
+}
+
+class SingleKeyAccessJsBackedMapSpy extends MapView implements JsBackedMap {
+  var jsObject;
+  SingleKeyAccessJsBackedMapSpy(JsBackedMap map) : super(map);
 
   bool _hasBeenAccessed = false;
   dynamic _key;

@@ -355,7 +355,9 @@ class _$ToggleButtonComponent extends ToggleButtonComponent {
   _$$ToggleButtonProps$JsMap _cachedTypedProps;
 
   @override
-  _$$ToggleButtonProps$JsMap get props => _cachedTypedProps;
+  _$$ToggleButtonProps$JsMap get props => getKeyInProgress
+      ? (typedSpiedPropsCache ??= typedPropsFactoryJs(keySpy))
+      : _cachedTypedProps;
 
   @override
   set props(Map value) {

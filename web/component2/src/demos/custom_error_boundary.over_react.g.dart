@@ -191,7 +191,9 @@ class _$CustomErrorBoundaryComponent extends CustomErrorBoundaryComponent {
   _$$CustomErrorBoundaryProps$JsMap _cachedTypedProps;
 
   @override
-  _$$CustomErrorBoundaryProps$JsMap get props => _cachedTypedProps;
+  _$$CustomErrorBoundaryProps$JsMap get props => getKeyInProgress
+      ? (typedSpiedPropsCache ??= typedPropsFactoryJs(keySpy))
+      : _cachedTypedProps;
 
   @override
   set props(Map value) {

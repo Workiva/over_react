@@ -166,7 +166,9 @@ class _$TagComponent extends TagComponent {
   _$$TagProps$JsMap _cachedTypedProps;
 
   @override
-  _$$TagProps$JsMap get props => _cachedTypedProps;
+  _$$TagProps$JsMap get props => getKeyInProgress
+      ? (typedSpiedPropsCache ??= typedPropsFactoryJs(keySpy))
+      : _cachedTypedProps;
 
   @override
   set props(Map value) {

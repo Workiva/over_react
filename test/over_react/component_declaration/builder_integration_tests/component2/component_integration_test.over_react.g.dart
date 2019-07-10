@@ -221,7 +221,9 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   _$$ComponentTestProps$JsMap _cachedTypedProps;
 
   @override
-  _$$ComponentTestProps$JsMap get props => _cachedTypedProps;
+  _$$ComponentTestProps$JsMap get props => getKeyInProgress
+      ? (typedSpiedPropsCache ??= typedPropsFactoryJs(keySpy))
+      : _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -359,7 +361,9 @@ class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
   _$$IsErrorBoundaryProps$JsMap _cachedTypedProps;
 
   @override
-  _$$IsErrorBoundaryProps$JsMap get props => _cachedTypedProps;
+  _$$IsErrorBoundaryProps$JsMap get props => getKeyInProgress
+      ? (typedSpiedPropsCache ??= typedPropsFactoryJs(keySpy))
+      : _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -496,7 +500,9 @@ class _$IsNotErrorBoundaryComponent extends IsNotErrorBoundaryComponent {
   _$$IsNotErrorBoundaryProps$JsMap _cachedTypedProps;
 
   @override
-  _$$IsNotErrorBoundaryProps$JsMap get props => _cachedTypedProps;
+  _$$IsNotErrorBoundaryProps$JsMap get props => getKeyInProgress
+      ? (typedSpiedPropsCache ??= typedPropsFactoryJs(keySpy))
+      : _cachedTypedProps;
 
   @override
   set props(Map value) {

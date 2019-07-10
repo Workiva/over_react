@@ -139,7 +139,9 @@ class _$ListGroupComponent extends ListGroupComponent {
   _$$ListGroupProps$JsMap _cachedTypedProps;
 
   @override
-  _$$ListGroupProps$JsMap get props => _cachedTypedProps;
+  _$$ListGroupProps$JsMap get props => getKeyInProgress
+      ? (typedSpiedPropsCache ??= typedPropsFactoryJs(keySpy))
+      : _cachedTypedProps;
 
   @override
   set props(Map value) {

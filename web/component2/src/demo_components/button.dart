@@ -100,9 +100,9 @@ class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiSt
     BuilderOnlyUiFactory<DomProps> factory = buttonDomNodeFactory;
 
     return Dom.p()(
-      'keyFor(spiedProps.size): "',
+      'keyFor(props.size): "',
       Dom.code()(
-        keyFor(spiedProps.size),
+        keyFor(props.size),
       ),
       '"',
     );

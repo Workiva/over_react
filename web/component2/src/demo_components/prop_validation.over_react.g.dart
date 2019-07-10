@@ -265,7 +265,9 @@ class _$PropTypesComponent extends PropTypesComponent {
   _$$PropTypesProps$JsMap _cachedTypedProps;
 
   @override
-  _$$PropTypesProps$JsMap get props => _cachedTypedProps;
+  _$$PropTypesProps$JsMap get props => getKeyInProgress
+      ? (typedSpiedPropsCache ??= typedPropsFactoryJs(keySpy))
+      : _cachedTypedProps;
 
   @override
   set props(Map value) {

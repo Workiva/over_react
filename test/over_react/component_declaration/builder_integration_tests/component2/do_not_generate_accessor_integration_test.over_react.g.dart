@@ -317,7 +317,9 @@ class _$DoNotGenerateAccessorTestComponent
   _$$DoNotGenerateAccessorTestProps$JsMap _cachedTypedProps;
 
   @override
-  _$$DoNotGenerateAccessorTestProps$JsMap get props => _cachedTypedProps;
+  _$$DoNotGenerateAccessorTestProps$JsMap get props => getKeyInProgress
+      ? (typedSpiedPropsCache ??= typedPropsFactoryJs(keySpy))
+      : _cachedTypedProps;
 
   @override
   set props(Map value) {

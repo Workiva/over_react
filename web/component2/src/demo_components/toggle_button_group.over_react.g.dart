@@ -191,7 +191,9 @@ class _$ToggleButtonGroupComponent extends ToggleButtonGroupComponent {
   _$$ToggleButtonGroupProps$JsMap _cachedTypedProps;
 
   @override
-  _$$ToggleButtonGroupProps$JsMap get props => _cachedTypedProps;
+  _$$ToggleButtonGroupProps$JsMap get props => getKeyInProgress
+      ? (typedSpiedPropsCache ??= typedPropsFactoryJs(keySpy))
+      : _cachedTypedProps;
 
   @override
   set props(Map value) {

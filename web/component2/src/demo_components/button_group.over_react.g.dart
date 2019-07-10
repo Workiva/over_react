@@ -261,7 +261,9 @@ class _$ButtonGroupComponent extends ButtonGroupComponent {
   _$$ButtonGroupProps$JsMap _cachedTypedProps;
 
   @override
-  _$$ButtonGroupProps$JsMap get props => _cachedTypedProps;
+  _$$ButtonGroupProps$JsMap get props => getKeyInProgress
+      ? (typedSpiedPropsCache ??= typedPropsFactoryJs(keySpy))
+      : _cachedTypedProps;
 
   @override
   set props(Map value) {

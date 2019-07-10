@@ -207,7 +207,9 @@ class _$PropTypesWrapComponent extends PropTypesWrapComponent {
   _$$PropTypesWrapProps$JsMap _cachedTypedProps;
 
   @override
-  _$$PropTypesWrapProps$JsMap get props => _cachedTypedProps;
+  _$$PropTypesWrapProps$JsMap get props => getKeyInProgress
+      ? (typedSpiedPropsCache ??= typedPropsFactoryJs(keySpy))
+      : _cachedTypedProps;
 
   @override
   set props(Map value) {

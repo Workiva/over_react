@@ -471,7 +471,9 @@ class _$ProgressComponent extends ProgressComponent {
   _$$ProgressProps$JsMap _cachedTypedProps;
 
   @override
-  _$$ProgressProps$JsMap get props => _cachedTypedProps;
+  _$$ProgressProps$JsMap get props => getKeyInProgress
+      ? (typedSpiedPropsCache ??= typedPropsFactoryJs(keySpy))
+      : _cachedTypedProps;
 
   @override
   set props(Map value) {
