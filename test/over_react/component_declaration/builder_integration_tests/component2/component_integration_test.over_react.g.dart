@@ -170,10 +170,14 @@ abstract class _$$ComponentTestProps extends _$ComponentTestProps
   @override
   bool get $isClassGenerated => true;
 
+  ReactComponentFactoryProxy _factoryOverride;
+
   /// The [ReactComponentFactory] associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      $ComponentTestComponentFactory;
+      _factoryOverride ?? $ComponentTestComponentFactory;
+  @override
+  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -308,10 +312,14 @@ abstract class _$$IsErrorBoundaryProps extends _$IsErrorBoundaryProps
   @override
   bool get $isClassGenerated => true;
 
+  ReactComponentFactoryProxy _factoryOverride;
+
   /// The [ReactComponentFactory] associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      $IsErrorBoundaryComponentFactory;
+      _factoryOverride ?? $IsErrorBoundaryComponentFactory;
+  @override
+  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -445,10 +453,14 @@ abstract class _$$IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
   @override
   bool get $isClassGenerated => true;
 
+  ReactComponentFactoryProxy _factoryOverride;
+
   /// The [ReactComponentFactory] associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      $IsNotErrorBoundaryComponentFactory;
+      _factoryOverride ?? $IsNotErrorBoundaryComponentFactory;
+  @override
+  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

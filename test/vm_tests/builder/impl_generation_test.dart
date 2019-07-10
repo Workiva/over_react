@@ -376,7 +376,7 @@ main() {
                 test('overrides `componentFactory` to return the correct component factory', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
                       '  @override\n'
-                      '  ReactComponentFactoryProxy get componentFactory => \$${ors.baseName}ComponentFactory;\n'));
+                      '  ReactComponentFactoryProxy get componentFactory => _factoryOverride ?? \$${ors.baseName}ComponentFactory;\n'));
                 });
 
                 test('sets the default prop key namespace', () {

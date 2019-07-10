@@ -28,7 +28,7 @@ class FragmentProps extends component_base.UiProps
   FragmentProps([Map props]) : this.props = props ?? new JsBackedMap();
 
   @override
-  ReactJsComponentFactoryProxy componentFactory = react.Fragment;
+  ReactComponentFactoryProxy componentFactory = react.Fragment;
 
   @override
   final Map props;
