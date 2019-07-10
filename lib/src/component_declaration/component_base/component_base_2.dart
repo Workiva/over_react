@@ -213,22 +213,13 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
 
-  String propKey(void accessProp(TProps mapSpy)) {
-    return prop_key_util.getPropKey(accessProp, typedPropsFactory);
-  }
-
   @override
   Map<String, react.PropValidator<TProps>> get propTypes => {};
 
+  // TODO: Would prefer to remove this from the public API and possibly pass it into the adapter.
   @override
-  Map<String, react.PropValidator<JsBackedMap>> get wrappedPropTypesMap => propTypes.map((propKey, validator) {
-        Error handlePropValidator(JsBackedMap props, propName, componentName, location, propFullName) {
-          var error = validator(typedPropsFactoryJs(props), propName, componentName, location, propFullName);
-          return error;
-        }
-
-        return MapEntry(propKey, handlePropValidator);
-      });
+  Map<String, react.JsPropValidator> get jsPropTypesMap =>
+    jsifyPropTypes<TProps>(propTypes, (jsMap) => typedPropsFactoryJs(JsBackedMap.fromJs(jsMap)));
 }
 
 /// The basis for a _stateful_ over_react component that is compatible with ReactJS 16 ([react.Component2]).
