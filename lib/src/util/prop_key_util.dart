@@ -28,7 +28,7 @@ String getPropKey<T extends Map>(void accessProp(T keySpy), T factory(Map props)
 }
 
 dynamic _getKey(void accessKey(Map keySpy)) {
-  var keySpy = new _SingleKeyAccessMapSpy(const {});
+  var keySpy = new SingleKeyAccessMapSpy(const {});
 
   accessKey(keySpy);
 
@@ -36,12 +36,18 @@ dynamic _getKey(void accessKey(Map keySpy)) {
 }
 
 /// Helper class that stores the key accessed while getting a value within a Map.
-class _SingleKeyAccessMapSpy extends MapView {
-  _SingleKeyAccessMapSpy(Map map) : super(map);
+class SingleKeyAccessMapSpy extends MapView {
+  SingleKeyAccessMapSpy(Map map) : super(map);
 
   bool _hasBeenAccessed = false;
-
   dynamic _key;
+
+  bool get hasBeenAccessed => _hasBeenAccessed;
+
+  void reset() {
+    _hasBeenAccessed = false;
+    _key = false;
+  }
 
   dynamic get key {
     if (!_hasBeenAccessed) throw new StateError('Key has not been accessed.');
