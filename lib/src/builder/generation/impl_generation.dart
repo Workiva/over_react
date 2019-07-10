@@ -403,8 +403,8 @@ class ImplGenerator {
             keyConstants[keyConstantName] = keyValue;
             constants[constantName] = constantValue;
 
-            final type = field.fields.type?.toSource();
-            final typeString = type == null ? '' : '$type ';
+            final typeSource = field.fields.type?.toSource();
+            final typeString = typeSource == null ? '' : '$typeSource ';
             final metadataSrc = new StringBuffer();
             for (final annotation in field.metadata) {
               metadataSrc.writeln('  ${annotation.toSource()}');
