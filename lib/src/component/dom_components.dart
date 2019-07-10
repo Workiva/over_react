@@ -271,7 +271,7 @@ abstract class Dom {
  static DomProps main([Map backingMap]) => new DomProps(react.main, backingMap);
   /// Returns a new builder that renders a `<backingMap>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
- static DomProps backingMap([Map backingMap]) => new DomProps(react.backingMap, backingMap);
+ static DomProps map([Map backingMap]) => new DomProps(react.map, backingMap);
   /// Returns a new builder that renders a `<mark>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
  static DomProps mark([Map backingMap]) => new DomProps(react.mark, backingMap);
