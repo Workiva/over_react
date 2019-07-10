@@ -99,17 +99,13 @@ class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiSt
   ReactElement renderButton(dynamic children) {
     BuilderOnlyUiFactory<DomProps> factory = buttonDomNodeFactory;
 
-    return (factory()
-      ..addProps(copyUnconsumedDomProps())
-      ..className = getButtonClasses().toClassName()
-      ..href = props.href
-      ..target = props.target
-      ..type = type
-      ..disabled = isAnchorLink ? null : props.isDisabled
-      ..addProps(ariaProps()
-        ..disabled = isAnchorLink ? props.isDisabled : null
-      )
-    )(children);
+    return Dom.p()(
+      'keyFor(spiedProps.size): "',
+      Dom.code()(
+        keyFor(spiedProps.size),
+      ),
+      '"',
+    );
   }
 
   ClassNameBuilder getButtonClasses() {

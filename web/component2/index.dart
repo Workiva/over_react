@@ -3,6 +3,7 @@ import 'dart:html';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/react_dom.dart' as react_dom;
 
+import 'src/demo_components/button.dart';
 import 'src/demos.dart';
 
 void main() {
