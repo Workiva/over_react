@@ -330,7 +330,10 @@ class ImplGenerator {
           field.fields.variables.forEach((VariableDeclaration variable) {
             if (variable.initializer != null) {
               logger.severe(messageWithSpan(
-                  'Fields are stubs for generated setters/getters and should not have initializers.',
+                  'Fields are stubs for generated setters/getters and should not have initializers.\n'
+                      'Instead, initialize ${type.isProps 
+                          ? 'prop values within getDefaultProps()' 
+                          : 'state values within getInitialState()'}.',
                   span: getSpan(sourceFile, variable))
               );
             }
