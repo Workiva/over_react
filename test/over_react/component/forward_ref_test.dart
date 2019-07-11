@@ -40,13 +40,13 @@ main() {
           )();
         })(Dom.div);
 
-        final Ref<DivElement> refValue = createRef();
+        final Ref<DivElement> refObject = createRef();
 
         mount((DivForwarded()
-          ..ref = refValue
+          ..ref = refObject
         )());
 
-        expect(refValue.current, TypeMatcher<DivElement>());
+        expect(refObject.current, TypeMatcher<DivElement>());
       });
     });
 
@@ -67,22 +67,24 @@ void forwardRefTest(dynamic factory, {void verifyRefValue(dynamic refValue)}) {
       )();
     })(Basic);
 
-    final Ref refValue = createRef();
+    final Ref refObject = createRef();
 
     mount((BasicForwarded()
-      ..ref = refValue
+      ..ref = refObject
       ..childId = 'test'
     )());
 
+    // component props are accessed differently depending on if it is a dom component
+    // or a dart component
     var idValue;
-    if (hasProperty(refValue.current, 'id')) {
-      idValue = refValue.current.id;
+    if (refObject.current is Element) {
+      idValue = refObject.current.id;
     } else {
-      idValue = refValue.current.props['id'];
+      idValue = refObject.current.props['id'];
     }
 
     expect(idValue, equals('test'), reason: 'child component should have access to parent props');
-    verifyRefValue(refValue.current);
+    verifyRefValue(refObject.current);
   });
 }
 
