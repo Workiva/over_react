@@ -170,7 +170,7 @@ class ComponentTestComponent extends UiComponent2<ComponentTestProps> {
 
   @override
   render() => (Dom.div()
-    ..addProps(copyUnconsumedProps())
+    ..modifyProps(addUnconsumedProps)
     ..addProp('data-prop-string-prop', props.stringProp)
     ..addProp('data-prop-dynamic-prop', props.dynamicProp)
     ..addProp('data-prop-untyped-prop', props.untypedProp)
