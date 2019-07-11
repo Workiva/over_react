@@ -99,6 +99,7 @@ void forwardUnconsumedProps(Map props, {
       /// Consequently, this case exists to give the opportunity for the loop
       /// to continue without initiating another loop (which is less
       /// performant than `.first.contains()`).
+      /// TODO: further optimize this by identifying the best looping / data structure
       if (keySetsToOmit.first.contains(key)) continue;
 
       if (keySetsToOmit.length > 1) {
@@ -106,7 +107,7 @@ void forwardUnconsumedProps(Map props, {
         for (final keySet in keySetsToOmit) {
           if (keySet.contains(key)) {
             shouldContinue = true;
-            continue;
+            break;
           }
         }
 

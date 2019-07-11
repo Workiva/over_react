@@ -122,7 +122,7 @@ main() {
       });
     });
 
-    group('forwardUnconsumedProps() returns a copy of the specified props', () {
+    group('forwardUnconsumedProps() modifies a passed in props reference', () {
       group('with React props', () {
         test('omitted out by default', () {
           Map startingProps = {

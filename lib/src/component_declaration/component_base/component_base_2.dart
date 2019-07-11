@@ -74,8 +74,17 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// > Related [copyUnconsumedDomProps]
   ///
   /// __Deprecated.__ Use [addUnconsumedProps] within
-  /// [modifyProps] (rather than [addProps]) instead. Will be removed in the
-  /// `4.0.0` release.
+  /// [modifyProps] (rather than [addProps]) instead.
+  ///
+  /// Replace
+  ///
+  ///   ..addProps(copyUnconsumedProps())
+  ///
+  /// with
+  ///
+  ///   ..modifyProps(addUnconsumedProps)
+  ///
+  /// Will be removed in the `4.0.0` release.
   @override
   @Deprecated('4.0.0')
   Map copyUnconsumedProps() {
@@ -99,6 +108,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///
   /// > Related [addUnconsumedDomProps]
   void addUnconsumedProps(Map props) {
+    // TODO: cache this value to avoid unnecessary looping
     var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys);
 
     forwardUnconsumedProps(this.props, propsToUpdate: props,
