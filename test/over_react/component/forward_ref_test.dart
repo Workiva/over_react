@@ -32,6 +32,22 @@ main() {
       forwardRefTest(Dom.span, verifyRefValue: (ref) {
         expect(ref, TypeMatcher<SpanElement>());
       });
+
+      test('- using DomProps', () {
+        UiFactory<DomProps> DivForwarded = forwardRef<DomProps>((props, ref) {
+          return (Dom.div()
+            ..ref = ref
+          )();
+        })(Dom.div);
+
+        final Ref<DivElement> refValue = createRef();
+
+        mount((DivForwarded()
+          ..ref = refValue
+        )());
+
+        expect(refValue.current, TypeMatcher<DivElement>());
+      });
     });
 
     group('on a component with a dart component child', () {
@@ -51,7 +67,7 @@ void forwardRefTest(dynamic factory, {void verifyRefValue(dynamic refValue)}) {
       )();
     })(Basic);
 
-    var refValue = createRef();
+    final Ref refValue = createRef();
 
     mount((BasicForwarded()
       ..ref = refValue
@@ -68,7 +84,6 @@ void forwardRefTest(dynamic factory, {void verifyRefValue(dynamic refValue)}) {
     expect(idValue, equals('test'), reason: 'child component should have access to parent props');
     verifyRefValue(refValue.current);
   });
-
 }
 
 @Factory()
