@@ -126,24 +126,20 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///         throw new PropError.value(tProps.items, 'items', 'must have an even number of items, because reasons');
   ///       }
   ///     }
+  /// __Deprecated.__ Use [propTypes] instead. Will be removed in the `4.0.0` release.
+  @Deprecated('4.0.0')
   @mustCallSuper
   @override
   void validateProps(Map appliedProps) {
-    validateRequiredProps(appliedProps);
+    throw UnsupportedError('[validateProps] is not supported in Component2, use [propTypes] instead.');
   }
 
   /// Validates that props with the `@requiredProp` annotation are present.
+  /// __Deprecated.__ Use [propTypes] instead. Will be removed in the `4.0.0` release.
+  @Deprecated('4.0.0')
   @override
   void validateRequiredProps(Map appliedProps) {
-    consumedProps?.forEach((ConsumedProps consumedProps) {
-      consumedProps.props.forEach((PropDescriptor prop) {
-        if (!prop.isRequired) return;
-        if (prop.isNullable && appliedProps.containsKey(prop.key)) return;
-        if (!prop.isNullable && appliedProps[prop.key] != null) return;
-
-        throw new PropError.required(prop.key, prop.errorMessage);
-      });
-    });
+    throw UnsupportedError('[validateRequiredProps] is not supported in Component2, use [propTypes] instead.');
   }
 
   /// Returns a new ClassNameBuilder with className and blacklist values added from [CssClassPropsMixin.className] and
@@ -218,8 +214,34 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
 
   // TODO: Would prefer to remove this from the public API and possibly pass it into the adapter.
   @override
-  Map<String, react.JsPropValidator> get jsPropTypesMap =>
-    jsifyPropTypes<TProps>(propTypes, (jsMap) => typedPropsFactoryJs(JsBackedMap.fromJs(jsMap)));
+  Map<String, react.JsPropValidator> get jsPropTypesMap {
+
+    // Add [PropValidator]s for props annotated as required.
+    var newPropTypes = Map<String, react.PropValidator<TProps>>.from(propTypes);
+    consumedProps?.forEach((ConsumedProps consumedProps) {
+      consumedProps?.props?.forEach((PropDescriptor prop) {
+        if (!prop.isRequired) return null;
+        if (prop.isNullable && (props?.containsKey(prop.key) ?? false)) return null;
+        if (!prop.isNullable && (props?.containsKey(prop.key) ?? false) && props[prop.key] != null) return null;
+        Error requiredPropValidator(
+            TProps props,
+            String propName,
+            String componentName,
+            String location,
+            String propFullName,
+          ) {
+            if (props[propName] == null) {
+              return new PropError.required(propName, prop.errorMessage);
+            }
+            return null;
+          }
+          newPropTypes.addEntries([MapEntry(prop.key, requiredPropValidator)]);
+      });
+    });
+
+    // jsifies propTypes before passing them to the javascript side.
+    return jsifyPropTypes<TProps>(newPropTypes, (jsMap) => typedPropsFactoryJs(JsBackedMap.fromJs(jsMap)));
+  }
 }
 
 /// The basis for a _stateful_ over_react component that is compatible with ReactJS 16 ([react.Component2]).
