@@ -16,10 +16,7 @@ import 'package:react/react_client.dart' hide forwardRef, createRef;
 import 'package:react/react_client.dart' as react_client show forwardRef, createRef;
 import 'package:over_react/component_base.dart';
 
-/// Creates a [Ref] object that can be attached to an element via the ref attribute.
-///
-/// When the element renders, a reference to that node becomes accessible at the
-/// [current] attribute of the [Ref].
+/// Creates a [Ref] object that can be attached to a [ReactElement] via the ref prop.
 ///
 /// __Example__:
 ///
@@ -53,8 +50,7 @@ Ref<CurrentType> createRef<CurrentType>() {
   return react_client.createRef<CurrentType>();
 }
 
-/// A function that wraps a component and allows a [Ref] to be passed through the
-/// component to one of its children.
+/// Automatically passes a [Ref] through a component to one of its children.
 ///
 /// __Example__:
 ///
