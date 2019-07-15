@@ -66,15 +66,28 @@ Ref<CurrentType> createRef<CurrentType>() {
 /// ___ OR ___
 ///
 ///     UiFactory<FooProps> FooForwarded = forwardRef<FooProps>((props, ref) {
-///       return Dom.form()(
-///         (Dom.input()
-///           ..ref = ref
-///         )(),
-///         (Dom.button()
-///           ..onClick = props.clickHandler
-///         )('Click this button'),
-///       );
+///       return (Foo()
+///         ..forwardedRef = ref
+///       )();
 ///     })(Foo);
+///
+///     @Factory()
+///     UiFactory<FooProps> Foo = _$Foo;
+///
+///     @Props()
+///     class _$FooProps extends UiProps {
+///       Ref forwardedRef;
+///     }
+///
+///     @Component2()
+///     class FooComponent extends UiComponent2<FooProps> {
+///       @override
+///       render() {
+///         return (Dom.button()
+///           ..ref = props.forwardedRef
+///         )('Click this button');
+///       }
+///     }
 ///
 /// Learn more: <https://reactjs.org/docs/forwarding-refs.html>.
 UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>(
