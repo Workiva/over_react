@@ -25,6 +25,7 @@ import 'package:over_react/src/component_declaration/util.dart';
 import 'package:over_react/src/util/test_mode.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
+import 'package:react/react_client/react_interop.dart';
 import 'package:react/src/react_client/js_backed_map.dart';
 import 'package:w_common/disposable.dart';
 
@@ -69,6 +70,21 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
   return reactComponentFactory;
 }
 
+class UiComponent2BridgeImpl extends Component2BridgeImpl {
+  UiComponent2BridgeImpl(UiComponent2 component) : super(component);
+
+  @override
+  UiComponent2 get component => component;
+
+  static UiComponent2BridgeImpl bridgeFactory(react.Component2 component) =>
+      UiComponent2BridgeImpl(component as UiComponent2);
+
+  @override
+  JsMap jsifyPropTypes(Map propTypes) {
+    // todo implement jsifyPropTypes
+  }
+}
+
 /// Helper function that wraps react.registerComponent2, and allows attachment of additional
 /// component factory metadata.
 ///
@@ -87,7 +103,11 @@ ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 dartComponen
     String displayName,
     Iterable<String> skipMethods = const ['getDerivedStateFromError', 'componentDidCatch'],
 }) {
-  ReactDartComponentFactoryProxy2 reactComponentFactory = react.registerComponent(dartComponentFactory, skipMethods);
+  final reactComponentFactory = react.registerComponent2(
+    dartComponentFactory,
+    skipMethods: skipMethods,
+    bridgeFactory: UiComponent2BridgeImpl.bridgeFactory,
+  );
 
   if (displayName != null) {
     reactComponentFactory.reactClass.displayName = displayName;
