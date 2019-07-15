@@ -280,14 +280,10 @@ abstract class _$$ButtonProps extends _$ButtonProps
   @override
   bool get $isClassGenerated => true;
 
-  ReactComponentFactoryProxy _factoryOverride;
-
   /// The [ReactComponentFactory] associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $ButtonComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $ButtonComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
