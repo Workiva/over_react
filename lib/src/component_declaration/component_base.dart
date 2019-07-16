@@ -16,6 +16,7 @@ library over_react.component_declaration.component_base;
 
 import 'dart:async';
 import 'dart:collection';
+import 'dart:js';
 
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
@@ -25,7 +26,7 @@ import 'package:over_react/src/component_declaration/util.dart';
 import 'package:over_react/src/util/test_mode.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
-import 'package:react/react_client/js_interop_helpers.dart' show jsifyPropTypes;
+import 'package:react/react_client/react_interop.dart';
 import 'package:react/src/react_client/js_backed_map.dart';
 import 'package:w_common/disposable.dart';
 
@@ -70,6 +71,65 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
   return reactComponentFactory;
 }
 
+class UiComponent2BridgeImpl extends Component2BridgeImpl {
+  UiComponent2BridgeImpl(UiComponent2 component) : super(component);
+
+  @override
+  UiComponent2 get component => super.component;
+
+  static UiComponent2BridgeImpl bridgeFactory(react.Component2 component) =>
+      UiComponent2BridgeImpl(component as UiComponent2);
+
+  @override
+  JsMap jsifyPropTypes(Map propTypes) {
+    // Add [PropValidator]s for props annotated as required.
+    var newPropTypes = Map.from(propTypes);
+    component.consumedProps?.forEach((ConsumedProps consumedProps) {
+      consumedProps?.props?.forEach((PropDescriptor prop) {
+        if (!prop.isRequired) return;
+
+        Error requiredPropValidator(
+            props,
+            String propName,
+            String componentName,
+            String location,
+            String propFullName,
+          ) {
+            if (prop.isNullable && props.containsKey(prop.key)) return null;
+            if (!prop.isNullable && props[prop.key] != null) return null;
+
+            if (props[propName] == null) {
+              return new PropError.required(propName, prop.errorMessage);
+            }
+            return null;
+          }
+          newPropTypes.addEntries([MapEntry(prop.key, requiredPropValidator)]);
+      });
+    });
+
+    return JsBackedMap.from(newPropTypes.map((propKey, validator) {
+        dynamic handlePropValidator(
+          dynamic props,
+          dynamic propName,
+          dynamic componentName,
+          dynamic location,
+          dynamic propFullName,
+          dynamic secret,
+        ) {
+          var convertedProps = component.typedPropsFactoryJs(JsBackedMap.fromJs(props));
+          var error = validator(convertedProps, propName, componentName, location, propFullName);
+          if (error != null) {
+            return JsError(error.toString());
+          }
+          return error;
+        }
+
+        return MapEntry(propKey, allowInterop(handlePropValidator));
+      })).jsObject;
+
+  }
+}
+
 /// Helper function that wraps react.registerComponent2, and allows attachment of additional
 /// component factory metadata.
 ///
@@ -88,7 +148,11 @@ ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 dartComponen
     String displayName,
     Iterable<String> skipMethods = const ['getDerivedStateFromError', 'componentDidCatch'],
 }) {
-  ReactDartComponentFactoryProxy2 reactComponentFactory = react.registerComponent(dartComponentFactory, skipMethods);
+  final reactComponentFactory = react.registerComponent2(
+    dartComponentFactory,
+    skipMethods: skipMethods,
+    bridgeFactory: UiComponent2BridgeImpl.bridgeFactory,
+  );
 
   if (displayName != null) {
     reactComponentFactory.reactClass.displayName = displayName;

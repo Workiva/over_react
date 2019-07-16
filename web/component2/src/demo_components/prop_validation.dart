@@ -3,10 +3,10 @@ import 'package:over_react/over_react.dart';
 part 'prop_validation.over_react.g.dart';
 
 @Factory()
-UiFactory<PropTypesProps> PropTypes = _$PropTypes;
+UiFactory<PropTypesTestProps> PropTypesTest = _$PropTypesTest;
 
 @Props()
-class _$PropTypesProps extends UiProps {
+class _$PropTypesTestProps extends UiProps {
   int count;
   List twoObjects;
   int defaultCount;
@@ -23,7 +23,7 @@ class _$PropTypesProps extends UiProps {
 }
 
 @Component2()
-class PropTypesComponent extends UiComponent2<PropTypesProps> {
+class PropTypesTestComponent extends UiComponent2<PropTypesTestProps> {
   @override
   render() => Fragment()(Dom.code()('props.twoObjects'), ' currently has ${props.twoObjects.length} objects passed to it.');
 

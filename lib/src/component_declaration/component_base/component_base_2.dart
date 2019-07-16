@@ -72,7 +72,21 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// > Should be used alongside [forwardingClassNameBuilder].
   ///
   /// > Related [copyUnconsumedDomProps]
+  ///
+  /// __Deprecated.__ Use [addUnconsumedProps] within
+  /// [modifyProps] (rather than [addProps]) instead.
+  ///
+  /// Replace
+  ///
+  ///   ..addProps(copyUnconsumedProps())
+  ///
+  /// with
+  ///
+  ///   ..modifyProps(addUnconsumedProps)
+  ///
+  /// Will be removed in the `4.0.0` release.
   @override
+  @Deprecated('4.0.0')
   Map copyUnconsumedProps() {
     var consumedPropKeys = consumedProps
             ?.map((ConsumedProps consumedProps) => consumedProps.keys) ??
@@ -81,18 +95,66 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
     return copyProps(keySetsToOmit: consumedPropKeys);
   }
 
+  /// A prop modifier that passes a reference of a component's `props` to be updated with any unconsumed props.
+  ///
+  /// Call within `modifyProps` like so:
+  ///
+  ///     class SomeCompositeComponent extends UiComponent<SomeCompositeComponentProps> {
+  ///       @override
+  ///       render() {
+  ///         return (SomeOtherWidget()..modifyProps(addUnconsumedProps))(
+  ///           props.children,
+  ///         );
+  ///       }
+  ///     }
+  ///
+  /// > Related [addUnconsumedDomProps]
+  void addUnconsumedProps(Map props) {
+    // TODO: cache this value to avoid unnecessary looping
+    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys);
+
+    forwardUnconsumedProps(this.props, propsToUpdate: props,
+        keySetsToOmit: consumedPropKeys);
+  }
+
   /// Returns a copy of this component's props with keys found in [consumedProps] and non-DOM props omitted.
   ///
   /// > Should be used alongside [forwardingClassNameBuilder].
   ///
   /// > Related [copyUnconsumedProps]
+  ///
+  /// __Deprecated.__ Use [addUnconsumedDomProps] within
+  /// [modifyProps] (rather than [addProps]) instead. Will be removed in the
+  /// `4.0.0` release.
   @override
+  @Deprecated('4.0.0')
   Map copyUnconsumedDomProps() {
     var consumedPropKeys = consumedProps
             ?.map((ConsumedProps consumedProps) => consumedProps.keys) ??
         const [];
 
     return copyProps(onlyCopyDomProps: true, keySetsToOmit: consumedPropKeys);
+  }
+
+  /// A prop modifier that passes a reference of a component's `props` to be updated with any unconsumed `DomProps`.
+  ///
+  /// Call within `modifyProps` like so:
+  ///
+  ///     class SomeCompositeComponent extends UiComponent<SomeCompositeComponentProps> {
+  ///       @override
+  ///       render() {
+  ///         return (Dom.div()..modifyProps(addUnconsumedDomProps))(
+  ///           props.children,
+  ///         );
+  ///       }
+  ///     }
+  ///
+  /// > Related [addUnconsumedProps]
+  void addUnconsumedDomProps(Map props) {
+    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys);
+
+    forwardUnconsumedProps(this.props, propsToUpdate: props, keySetsToOmit:
+        consumedPropKeys, onlyCopyDomProps: true);
   }
 
   /// Returns a copy of this component's props with React props optionally omitted, and
@@ -211,37 +273,6 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
 
   @override
   Map<String, react.PropValidator<TProps>> get propTypes => {};
-
-  // TODO: Would prefer to remove this from the public API and possibly pass it into the adapter.
-  @override
-  Map<String, react.JsPropValidator> get jsPropTypesMap {
-
-    // Add [PropValidator]s for props annotated as required.
-    var newPropTypes = Map<String, react.PropValidator<TProps>>.from(propTypes);
-    consumedProps?.forEach((ConsumedProps consumedProps) {
-      consumedProps?.props?.forEach((PropDescriptor prop) {
-        if (!prop.isRequired) return null;
-        if (prop.isNullable && (props?.containsKey(prop.key) ?? false)) return null;
-        if (!prop.isNullable && (props?.containsKey(prop.key) ?? false) && props[prop.key] != null) return null;
-        Error requiredPropValidator(
-            TProps props,
-            String propName,
-            String componentName,
-            String location,
-            String propFullName,
-          ) {
-            if (props[propName] == null) {
-              return new PropError.required(propName, prop.errorMessage);
-            }
-            return null;
-          }
-          newPropTypes.addEntries([MapEntry(prop.key, requiredPropValidator)]);
-      });
-    });
-
-    // jsifies propTypes before passing them to the javascript side.
-    return jsifyPropTypes<TProps>(newPropTypes, (jsMap) => typedPropsFactoryJs(JsBackedMap.fromJs(jsMap)));
-  }
 }
 
 /// The basis for a _stateful_ over_react component that is compatible with ReactJS 16 ([react.Component2]).

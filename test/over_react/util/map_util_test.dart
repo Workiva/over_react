@@ -122,6 +122,120 @@ main() {
       });
     });
 
+    group('forwardUnconsumedProps() modifies a passed in props reference', () {
+      group('with React props', () {
+        test('omitted out by default', () {
+          Map startingProps = {
+            'key': 'my key',
+            'ref': 'my ref',
+            'other prop': 'my other prop'
+          };
+
+          Map actual = {};
+
+          forwardUnconsumedProps(startingProps, propsToUpdate: actual);
+
+          var expected = {'other prop': 'my other prop'};
+
+          expect(actual, equals(expected));
+        });
+
+        test('not omitted when specified', () {
+          var actual = {};
+
+          forwardUnconsumedProps({
+            'key': 'my key',
+            'ref': 'my ref',
+            'other prop': 'my other prop'
+          }, omitReactProps: false, propsToUpdate: actual);
+
+          var expected = {
+            'key': 'my key',
+            'ref': 'my ref',
+            'other prop': 'my other prop'
+          };
+
+          expect(actual, equals(expected));
+        });
+      });
+
+      test('with the specified keys omitted', () {
+        var actual = {};
+
+        forwardUnconsumedProps({
+          'prop 1': 'my prop #1',
+          'prop 2': 'my prop #2',
+          'prop 3': 'my prop #3',
+          'prop 4': 'my prop #4',
+        }, keysToOmit: [
+          'prop 2',
+          'prop 4'
+        ], propsToUpdate: actual);
+
+        var expected = {
+          'prop 1': 'my prop #1',
+          'prop 3': 'my prop #3',
+        };
+
+        expect(actual, equals(expected));
+      });
+
+      test('with the specified sets of keys omitted', () {
+        var actual = {};
+
+        forwardUnconsumedProps({
+          'prop 1': 'my prop #1',
+          'prop 2': 'my prop #2',
+          'prop 3': 'my prop #3',
+          'prop 4': 'my prop #4',
+          'prop 5': 'my prop #5',
+          'prop 6': 'my prop #6',
+        }, keySetsToOmit: [
+          [
+            'prop 1',
+            'prop 3'
+          ],
+          [
+            'prop 4',
+            'prop 5'
+          ],
+        ], propsToUpdate: actual);
+
+        var expected = {
+          'prop 2': 'my prop #2',
+          'prop 6': 'my prop #6',
+        };
+
+        expect(actual, equals(expected));
+      });
+
+      test('with only valid DOM/SVG props', () {
+        var actual = {};
+
+        forwardUnconsumedProps({
+          'tabIndex': '0',
+          'className': 'my classname',
+          'cx': '0',
+          'stroke': 'red',
+          'data-test-prop': 'my data attr',
+          'aria-test-prop': 'my aria attr',
+          'classNameBlacklist': 'my classname blacklist',
+          'custom prop': 'my custom prop',
+        }, onlyCopyDomProps: true, propsToUpdate: actual);
+
+        var expected = {
+          'tabIndex': '0',
+          'className': 'my classname',
+          'cx': '0',
+          'stroke': 'red',
+          'data-test-prop': 'my data attr',
+          'aria-test-prop': 'my aria attr',
+        };
+
+        expect(actual, equals(expected));
+      });
+    });
+
     group('newStyleFromProps() returns', () {
       test('a copy of the style map found in the specified props', () {
         var styles = {'color': 'red', 'width': '10rem'};

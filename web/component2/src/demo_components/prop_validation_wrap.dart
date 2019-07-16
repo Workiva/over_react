@@ -26,8 +26,11 @@ class PropTypesWrapComponent extends UiStatefulComponent2<PropTypesWrapProps, Pr
   @override
   render() {
     return Fragment()(
-      (PropTypes()..twoObjects = this.state.twoObjects)(),
-      (Button()..onClick = (_){this.setState(newState()..twoObjects = []);})('Click me to pass in an invalid prop')
+      (PropTypesTest()..twoObjects = this.state.twoObjects)(),
+      (Button()..onClick = (_){
+          this.setState(newState()..twoObjects = []);
+        }
+      )('Click me to pass in an invalid prop'),
     );
   }
 }
