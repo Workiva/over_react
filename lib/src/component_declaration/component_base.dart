@@ -26,8 +26,9 @@ import 'package:over_react/src/component_declaration/util.dart';
 import 'package:over_react/src/util/test_mode.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
+import 'package:react/react_client/bridge.dart';
+import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react_client/react_interop.dart';
-import 'package:react/src/react_client/js_backed_map.dart';
 import 'package:w_common/disposable.dart';
 
 export 'package:over_react/src/component_declaration/component_type_checking.dart' show isComponentOfType, isValidElementOfType;
@@ -71,9 +72,13 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
   return reactComponentFactory;
 }
 
+/// A bridge implementation that adds typing for [UiComponent2] props/state maps.
+///
+/// See [Component2Bridge] for more info.
 class UiComponent2BridgeImpl extends Component2BridgeImpl {
   UiComponent2BridgeImpl(UiComponent2 component) : super(component);
 
+  // Tighten this type
   @override
   UiComponent2 get component => super.component;
 
