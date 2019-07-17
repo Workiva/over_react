@@ -20,7 +20,7 @@ import 'package:over_react/src/component_declaration/component_base.dart' as com
 import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
-import 'package:react/src/react_client/js_backed_map.dart';
+import 'package:react/react_client/js_backed_map.dart';
 
 /// Returns a new [DomProps], optionally backed by a specified Map.
 ///

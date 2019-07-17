@@ -41,5 +41,5 @@ dev_dependencies:
 dependency_overrides:
   react:
     git:
-      url: git@github.com:cleandart/react-dart.git
+      url: https://github.com/cleandart/react-dart.git
       ref: finalize-component2-api/dev
