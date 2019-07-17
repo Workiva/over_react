@@ -231,7 +231,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
     // This needs to be a concrete implementation in Dart 2 for soundness;
     // without it, you get a confusing error. See: https://github.com/dart-lang/sdk/issues/36191
     throw new UngeneratedError(message:
-      '`null` should be implemented by code generation.\n\n'
+      '`props` should be implemented by code generation.\n\n'
       'This error may be due to your `UiComponent2` class not being annotated with `@Component2()`'
     );
   }
@@ -316,7 +316,7 @@ abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiSta
     // This needs to be a concrete implementation in Dart 2 for soundness;
     // without it, you get a confusing error. See: https://github.com/dart-lang/sdk/issues/36191
     throw new UngeneratedError(message:
-      '`null` should be implemented by code generation.\n\n'
+      '`state` should be implemented by code generation.\n\n'
       'This error may be due to your `UiStatefulComponent2` class not being annotated with `@Component2()`'
     );
   }
