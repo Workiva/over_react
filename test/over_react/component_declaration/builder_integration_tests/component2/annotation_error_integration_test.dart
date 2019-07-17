@@ -21,7 +21,7 @@ main() {
       expect(
           () => react_dom.render(AnnotationError()(), mountNode),
           throwsA(hasToStringValue(contains(
-              '1This error may be due to your `UiComponent2` class not being annotated with `@Component2()`'))));
+              'This error may be due to your `UiComponent2` class not being annotated with `@Component2()`'))));
     });
 
     test('when rendering a UiStatefulComponent2', () {
@@ -30,7 +30,7 @@ main() {
       expect(
           () => react_dom.render(AnnotationErrorStateful()(), mountNode),
           throwsA(hasToStringValue(contains(
-              '1This error may be due to your `UiStatefulComponent2` class not being annotated with `@Component2()`'))));
+              'This error may be due to your `UiStatefulComponent2` class not being annotated with `@Component2()`'))));
     });
 
     test('when rendering a UiComponent2 with default props', () {
@@ -40,7 +40,7 @@ main() {
           () =>
               react_dom.render(AnnotationErrorDefaultProps()(), mountNode),
           throwsA(hasToStringValue(contains(
-              '1This error may be due to your `UiComponent2` or `UiStatefulComponent2` class not being annotated with `@Component2()`'))));
+              'This error may be due to your `UiComponent2` or `UiStatefulComponent2` class not being annotated with `@Component2()`'))));
     });
 
     test('when rendering a UiComponentStateful2 with default props', () {
@@ -50,7 +50,7 @@ main() {
               () =>
               react_dom.render(AnnotationErrorStatefulDefaultProps()(), mountNode),
           throwsA(hasToStringValue(contains(
-              '1This error may be due to your `UiComponent2` or `UiStatefulComponent2` class not being annotated with `@Component2()`'))));
+              'This error may be due to your `UiComponent2` or `UiStatefulComponent2` class not being annotated with `@Component2()`'))));
     });
   });
 }
