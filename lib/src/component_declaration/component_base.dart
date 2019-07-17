@@ -88,6 +88,25 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
   JsMap jsifyPropTypes(Map propTypes) {
     // todo implement jsifyPropTypes
   }
+
+  /// A version of [setStateWithTypedUpdater] whose updater is passed typed views
+  /// into the `prevState` and `props` arguments, allowing them to be typed automatically
+  /// within [UiStatefulComponent2.setStateWithTypedUpdater].
+  void setStateWithTypedUpdater<TState extends UiState, TProps extends UiProps>(
+    Map Function(TState prevState, TProps props) updater,
+    Function() callback,
+  ) {
+    // This should only be called from UiStatefulComponent2
+    final component = this.component as UiStatefulComponent2<TProps, TState>;
+
+    Map typedUpdater(Map prevState, Map props) {
+      return updater(
+        component.typedStateFactory(prevState),
+        component.typedPropsFactory(props),
+      );
+    }
+    setStateWithUpdater(typedUpdater, callback);
+  }
 }
 
 /// Helper function that wraps react.registerComponent2, and allows attachment of additional
