@@ -12,12 +12,19 @@ part 'component_integration_test/annotation_error_stateful_component.dart';
 part 'component_integration_test/annotation_error_stateful_default_props_component.dart';
 
 main() {
-  group(
-      '(Component2) throws a helpful error message when the @Component annotation is used:',
+  group('(Component2) throws a helpful error message if the @Component annotation is used:',
       () {
-    test('when rendering a UiComponent2', () {
-      var mountNode = new DivElement();
+    Element mountNode;
 
+    setUp(() {
+      mountNode = new DivElement();
+    });
+
+    tearDown(() {
+      mountNode = null;
+    });
+
+    test('when rendering a UiComponent2', () {
       expect(
           () => react_dom.render(AnnotationError()(), mountNode),
           throwsA(hasToStringValue(contains(
@@ -25,8 +32,6 @@ main() {
     });
 
     test('when rendering a UiStatefulComponent2', () {
-      var mountNode = new DivElement();
-
       expect(
           () => react_dom.render(AnnotationErrorStateful()(), mountNode),
           throwsA(hasToStringValue(contains(
@@ -34,8 +39,6 @@ main() {
     });
 
     test('when rendering a UiComponent2 with default props', () {
-      var mountNode = new DivElement();
-
       expect(
           () =>
               react_dom.render(AnnotationErrorDefaultProps()(), mountNode),
@@ -44,8 +47,6 @@ main() {
     });
 
     test('when rendering a UiComponentStateful2 with default props', () {
-      var mountNode = new DivElement();
-
       expect(
               () =>
               react_dom.render(AnnotationErrorStatefulDefaultProps()(), mountNode),
@@ -69,5 +70,5 @@ class AnnotationErrorDefaultPropsComponent
   Map getDefaultProps() => newProps()..id = 'testId';
 
   @override
-  render() => Dom.div()();
+  render() => props.children;
 }
