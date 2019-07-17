@@ -77,8 +77,9 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
 class UiComponent2BridgeImpl extends Component2BridgeImpl {
   UiComponent2BridgeImpl(UiComponent2 component) : super(component);
 
+  // Tighten this type
   @override
-  UiComponent2 get component => component;
+  UiComponent2 get component => super.component;
 
   static UiComponent2BridgeImpl bridgeFactory(react.Component2 component) =>
       UiComponent2BridgeImpl(component as UiComponent2);
