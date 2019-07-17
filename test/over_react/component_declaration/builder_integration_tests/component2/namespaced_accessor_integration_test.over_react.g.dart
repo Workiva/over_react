@@ -183,9 +183,7 @@ abstract class _$$NamespacedAccessorTestProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $NamespacedAccessorTestComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $NamespacedAccessorTestComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

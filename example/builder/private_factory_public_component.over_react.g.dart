@@ -83,9 +83,7 @@ class _$$FormActionInputProps extends _$FormActionInputProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $FormActionInputComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $FormActionInputComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

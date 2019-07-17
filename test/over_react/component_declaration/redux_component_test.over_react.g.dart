@@ -65,9 +65,7 @@ class _$$TestDefaultProps extends _$TestDefaultProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $TestDefaultComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $TestDefaultComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -154,9 +152,7 @@ class _$$TestConnectProps extends _$TestConnectProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $TestConnectComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $TestConnectComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -242,9 +238,7 @@ class _$$TestPureProps extends _$TestPureProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $TestPureComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $TestPureComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

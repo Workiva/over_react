@@ -64,9 +64,7 @@ class _$$DomTestProps extends _$DomTestProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $DomTestComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $DomTestComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

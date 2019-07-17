@@ -227,9 +227,7 @@ class _$$TransitionerProps extends _$TransitionerProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $TransitionerComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $TransitionerComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

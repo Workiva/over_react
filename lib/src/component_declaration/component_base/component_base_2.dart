@@ -72,11 +72,47 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// > Should be used alongside [forwardingClassNameBuilder].
   ///
   /// > Related [copyUnconsumedDomProps]
+  ///
+  /// __Deprecated.__ Use [addUnconsumedProps] within
+  /// [modifyProps] (rather than [addProps]) instead.
+  ///
+  /// Replace
+  ///
+  ///   ..addProps(copyUnconsumedProps())
+  ///
+  /// with
+  ///
+  ///   ..modifyProps(addUnconsumedProps)
+  ///
+  /// Will be removed in the `4.0.0` release.
   @override
+  @Deprecated('4.0.0')
   Map copyUnconsumedProps() {
     var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
 
     return copyProps(keySetsToOmit: consumedPropKeys);
+  }
+
+  /// A prop modifier that passes a reference of a component's `props` to be updated with any unconsumed props.
+  ///
+  /// Call within `modifyProps` like so:
+  ///
+  ///     class SomeCompositeComponent extends UiComponent<SomeCompositeComponentProps> {
+  ///       @override
+  ///       render() {
+  ///         return (SomeOtherWidget()..modifyProps(addUnconsumedProps))(
+  ///           props.children,
+  ///         );
+  ///       }
+  ///     }
+  ///
+  /// > Related [addUnconsumedDomProps]
+  void addUnconsumedProps(Map props) {
+    // TODO: cache this value to avoid unnecessary looping
+    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys);
+
+    forwardUnconsumedProps(this.props, propsToUpdate: props,
+        keySetsToOmit: consumedPropKeys);
   }
 
   /// Returns a copy of this component's props with keys found in [consumedProps] and non-DOM props omitted.
@@ -84,13 +120,39 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// > Should be used alongside [forwardingClassNameBuilder].
   ///
   /// > Related [copyUnconsumedProps]
+  ///
+  /// __Deprecated.__ Use [addUnconsumedDomProps] within
+  /// [modifyProps] (rather than [addProps]) instead. Will be removed in the
+  /// `4.0.0` release.
   @override
+  @Deprecated('4.0.0')
   Map copyUnconsumedDomProps() {
     var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
 
     return copyProps(onlyCopyDomProps: true, keySetsToOmit: consumedPropKeys);
   }
 
+  /// A prop modifier that passes a reference of a component's `props` to be updated with any unconsumed `DomProps`.
+  ///
+  /// Call within `modifyProps` like so:
+  ///
+  ///     class SomeCompositeComponent extends UiComponent<SomeCompositeComponentProps> {
+  ///       @override
+  ///       render() {
+  ///         return (Dom.div()..modifyProps(addUnconsumedDomProps))(
+  ///           props.children,
+  ///         );
+  ///       }
+  ///     }
+  ///
+  /// > Related [addUnconsumedProps]
+  void addUnconsumedDomProps(Map props) {
+    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys);
+
+    forwardUnconsumedProps(this.props, propsToUpdate: props, keySetsToOmit:
+        consumedPropKeys, onlyCopyDomProps: true);
+  }
+  
   /// Returns a copy of this component's props with React props optionally omitted, and
   /// with the specified [keysToOmit] and [keySetsToOmit] omitted.
   @override

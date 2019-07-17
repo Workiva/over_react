@@ -65,9 +65,7 @@ class _$$TestBasicProps extends _$TestBasicProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $TestBasicComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $TestBasicComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -155,9 +153,7 @@ class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $TestHandlerLifecycleComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $TestHandlerLifecycleComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -245,9 +241,7 @@ class _$$TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $TestHandlerPrecedenceComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $TestHandlerPrecedenceComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -355,9 +349,7 @@ class _$$TestPropValidationProps extends _$TestPropValidationProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $TestPropValidationComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $TestPropValidationComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -445,9 +437,7 @@ class _$$TestRedrawOnProps extends _$TestRedrawOnProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $TestRedrawOnComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $TestRedrawOnComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -535,9 +525,7 @@ class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $TestStoreHandlersComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $TestStoreHandlersComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -625,9 +613,7 @@ class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $TestStatefulBasicComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $TestStatefulBasicComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -765,9 +751,7 @@ class _$$TestStatefulHandlerLifecycleProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $TestStatefulHandlerLifecycleComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $TestStatefulHandlerLifecycleComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -908,9 +892,7 @@ class _$$TestStatefulHandlerPrecedenceProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $TestStatefulHandlerPrecedenceComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $TestStatefulHandlerPrecedenceComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -1073,9 +1055,7 @@ class _$$TestStatefulPropValidationProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $TestStatefulPropValidationComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $TestStatefulPropValidationComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -1212,9 +1192,7 @@ class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $TestStatefulRedrawOnComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $TestStatefulRedrawOnComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -1350,9 +1328,7 @@ class _$$TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $TestStatefulStoreHandlersComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $TestStatefulStoreHandlersComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

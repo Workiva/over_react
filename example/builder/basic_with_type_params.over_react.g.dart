@@ -97,9 +97,7 @@ class _$$BasicProps<T, U extends UiProps> extends _$BasicProps<T, U>
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $BasicComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $BasicComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

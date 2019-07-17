@@ -343,9 +343,7 @@ class _$$ListGroupItemProps extends _$ListGroupItemProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $ListGroupItemComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $ListGroupItemComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

@@ -121,9 +121,7 @@ class _$$DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $DoNotGenerateAccessorTestComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $DoNotGenerateAccessorTestComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

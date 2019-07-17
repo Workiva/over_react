@@ -77,9 +77,7 @@ class _$$_PrivateProps extends _$_PrivateProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $PrivateComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $PrivateComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

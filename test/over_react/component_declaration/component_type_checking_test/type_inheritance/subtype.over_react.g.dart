@@ -66,9 +66,7 @@ class _$$TestSubtypeProps extends _$TestSubtypeProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $TestSubtypeComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $TestSubtypeComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

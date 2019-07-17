@@ -58,9 +58,7 @@ class _$$FlawedProps extends _$FlawedProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $FlawedComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $FlawedComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

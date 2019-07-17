@@ -281,9 +281,7 @@ class _$$ButtonProps extends _$ButtonProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $ButtonComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $ButtonComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

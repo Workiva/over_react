@@ -58,9 +58,7 @@ class _$$FaultyProps extends _$FaultyProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $FaultyComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $FaultyComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

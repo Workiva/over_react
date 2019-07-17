@@ -326,9 +326,7 @@ class _$$ProgressProps extends _$ProgressProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $ProgressComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $ProgressComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

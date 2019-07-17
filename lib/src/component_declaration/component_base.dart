@@ -619,8 +619,7 @@ abstract class UiProps extends MapBase
     return true;
   }
 
-  ReactComponentFactoryProxy get componentFactory;
-  set componentFactory(ReactComponentFactoryProxy v) => throw new UnsupportedError('No');
+  ReactComponentFactoryProxy componentFactory;
 
   /// An unmodifiable map view of the default props for this component brought
   /// in from the [componentFactory].

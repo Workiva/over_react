@@ -192,9 +192,7 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
 
   @toBeGenerated String get propKeyNamespace => throw new UngeneratedError(member: #propKeyNamespace);
 
-  @override @toBeGenerated Map get props                 => throw new UngeneratedError(member: #props);
-  @override @toBeGenerated ReactComponentFactoryProxy get componentFactory => throw new UngeneratedError(member: #componentFactory);
-  @override @toBeGenerated set componentFactory(ReactComponentFactoryProxy v) => throw new UngeneratedError(member: #componentFactory);
+  @override @toBeGenerated Map get props => throw new UngeneratedError(member: #props);
 }
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.

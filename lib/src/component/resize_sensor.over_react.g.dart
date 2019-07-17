@@ -66,9 +66,7 @@ class _$$ResizeSensorProps extends _$ResizeSensorProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $ResizeSensorComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $ResizeSensorComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

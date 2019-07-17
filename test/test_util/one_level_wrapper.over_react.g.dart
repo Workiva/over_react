@@ -66,9 +66,7 @@ class _$$OneLevelWrapperProps extends _$OneLevelWrapperProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $OneLevelWrapperComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $OneLevelWrapperComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

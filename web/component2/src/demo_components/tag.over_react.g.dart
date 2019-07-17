@@ -120,9 +120,7 @@ abstract class _$$TagProps extends _$TagProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $TagComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $TagComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

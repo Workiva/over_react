@@ -67,9 +67,7 @@ class _$$TestExtendtypeProps extends _$TestExtendtypeProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $TestExtendtypeComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $TestExtendtypeComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

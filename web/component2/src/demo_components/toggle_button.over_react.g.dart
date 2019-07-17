@@ -182,9 +182,7 @@ abstract class _$$ToggleButtonProps extends _$ToggleButtonProps
   var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      _factoryOverride ?? $ToggleButtonComponentFactory;
-  @override
-  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;
+      super.componentFactory ?? $ToggleButtonComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
