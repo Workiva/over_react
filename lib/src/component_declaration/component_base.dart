@@ -76,17 +76,18 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
 ///
 /// See [Component2Bridge] for more info.
 class UiComponent2BridgeImpl extends Component2BridgeImpl {
-  UiComponent2BridgeImpl(UiComponent2 component) : super(component);
+  const UiComponent2BridgeImpl();
 
-  // Tighten this type
+  /// Returns a const bridge instance suitable for use with any [UiComponent2].
+  ///
+  /// See [Component2BridgeFactory] for more info.
+  static UiComponent2BridgeImpl bridgeFactory(react.Component2 component) {
+    assert(component is UiComponent2, 'should not be used with non-UiComponent2 components');
+    return const UiComponent2BridgeImpl();
+  }
+
   @override
-  UiComponent2 get component => super.component;
-
-  static UiComponent2BridgeImpl bridgeFactory(react.Component2 component) =>
-      UiComponent2BridgeImpl(component as UiComponent2);
-
-  @override
-  JsMap jsifyPropTypes(Map propTypes) {
+  JsMap jsifyPropTypes(covariant UiComponent2 component, Map propTypes) {
     // Add [PropValidator]s for props annotated as required.
     var newPropTypes = Map.from(propTypes);
     component.consumedProps?.forEach((ConsumedProps consumedProps) {
@@ -131,7 +132,23 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
 
         return MapEntry(propKey, allowInterop(handlePropValidator));
       })).jsObject;
+  }
 
+  /// A version of [setStateWithTypedUpdater] whose updater is passed typed views
+  /// into the `prevState` and `props` arguments, allowing them to be typed automatically
+  /// within [UiStatefulComponent2.setStateWithTypedUpdater].
+  void setStateWithTypedUpdater<TState extends UiState, TProps extends UiProps>(
+    UiStatefulComponent2<TProps, TState> component,
+    Map Function(TState prevState, TProps props) updater,
+    Function() callback,
+  ) {
+    Map typedUpdater(Map prevState, Map props) {
+      return updater(
+        component.typedStateFactory(prevState),
+        component.typedPropsFactory(props),
+      );
+    }
+    setStateWithUpdater(component, typedUpdater, callback);
   }
 }
 
