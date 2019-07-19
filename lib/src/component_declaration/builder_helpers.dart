@@ -127,7 +127,10 @@ mixin _GeneratedUiComponent2Stubs<TProps extends UiProps>
   /// more efficient dart2js output.
   @override
   @toBeGenerated
-  TProps typedPropsFactoryJs(JsBackedMap propsMap) => throw new UngeneratedError(member: #typedPropsFactoryJs);
+  TProps typedPropsFactoryJs(JsBackedMap propsMap) => throw new UngeneratedError(member: #typedPropsFactoryJs, message:
+    '${#typedPropsFactoryJs}` should be implemented by code generation.\n\n'
+    'This error may be due to your `UiComponent2` or `UiStatefulComponent2` class not being annotated with `@Component2()`'
+  );
 }
 
 /// See: [component_base.UiComponent2]
