@@ -15,8 +15,7 @@
 library over_react.component_declaration.builder_helpers;
 
 import 'package:react/react_client.dart';
-// FIXME 3.0.0-wip use public entrypoint
-import 'package:react/src/react_client/js_backed_map.dart';
+import 'package:react/react_client/js_backed_map.dart';
 
 import './component_base.dart' as component_base;
 import './annotations.dart' as annotations;

@@ -345,6 +345,12 @@ abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiSta
   @override
   TState newState() => typedStateFactoryJs(new JsBackedMap());
 
+  @override
+  void setStateWithUpdater(covariant Map Function(TState prevState, TProps props) updater, [Function() callback]) {
+    final bridge = Component2Bridge.forComponent(this) as UiComponent2BridgeImpl;
+    bridge.setStateWithTypedUpdater(this, updater, callback);
+  }
+
   //
   //   END Typed state helpers
   // ----------------------------------------------------------------------
