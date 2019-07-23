@@ -864,12 +864,9 @@ class ImplGenerator {
     if (type.isProps) {
       buffer
         ..writeln()
-        ..writeln('  ReactComponentFactoryProxy _factoryOverride;')
         ..writeln('  /// The [ReactComponentFactory] associated with the component built by this class.')
         ..writeln('  @override')
-        ..writeln('  ReactComponentFactoryProxy get componentFactory => _factoryOverride ?? $componentFactoryName;')
-        ..writeln('  @override')
-        ..writeln('  set componentFactory(ReactComponentFactoryProxy v) => _factoryOverride = v;')
+        ..writeln('  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $componentFactoryName;')
         ..writeln()
         ..writeln('  /// The default namespace for the prop getters/setters generated for this class.')
         ..writeln('  @override')

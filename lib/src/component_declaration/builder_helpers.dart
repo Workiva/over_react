@@ -15,8 +15,7 @@
 library over_react.component_declaration.builder_helpers;
 
 import 'package:react/react_client.dart';
-// FIXME 3.0.0-wip use public entrypoint
-import 'package:react/src/react_client/js_backed_map.dart';
+import 'package:react/react_client/js_backed_map.dart';
 
 import './component_base.dart' as component_base;
 import './annotations.dart' as annotations;
@@ -127,7 +126,10 @@ mixin _GeneratedUiComponent2Stubs<TProps extends UiProps>
   /// more efficient dart2js output.
   @override
   @toBeGenerated
-  TProps typedPropsFactoryJs(JsBackedMap propsMap) => throw new UngeneratedError(member: #typedPropsFactoryJs);
+  TProps typedPropsFactoryJs(JsBackedMap propsMap) => throw new UngeneratedError(member: #typedPropsFactoryJs, message:
+    '${#typedPropsFactoryJs}` should be implemented by code generation.\n\n'
+    'This error may be due to your `UiComponent2` or `UiStatefulComponent2` class not being annotated with `@Component2()`'
+  );
 }
 
 /// See: [component_base.UiComponent2]
@@ -192,9 +194,7 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
 
   @toBeGenerated String get propKeyNamespace => throw new UngeneratedError(member: #propKeyNamespace);
 
-  @override @toBeGenerated Map get props                 => throw new UngeneratedError(member: #props);
-  @override @toBeGenerated ReactComponentFactoryProxy get componentFactory => throw new UngeneratedError(member: #componentFactory);
-  @override @toBeGenerated set componentFactory(ReactComponentFactoryProxy v) => throw new UngeneratedError(member: #componentFactory);
+  @override @toBeGenerated Map get props => throw new UngeneratedError(member: #props);
 }
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.
