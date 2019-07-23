@@ -25,7 +25,9 @@ import 'package:over_react/src/component_declaration/util.dart';
 import 'package:over_react/src/util/test_mode.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
-import 'package:react/src/react_client/js_backed_map.dart';
+import 'package:react/react_client/bridge.dart';
+import 'package:react/react_client/js_backed_map.dart';
+import 'package:react/react_client/react_interop.dart';
 import 'package:w_common/disposable.dart';
 
 export 'package:over_react/src/component_declaration/component_type_checking.dart' show isComponentOfType, isValidElementOfType;
@@ -69,6 +71,43 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
   return reactComponentFactory;
 }
 
+/// A bridge implementation that adds typing for [UiComponent2] props/state maps.
+///
+/// See [Component2Bridge] for more info.
+class UiComponent2BridgeImpl extends Component2BridgeImpl {
+  const UiComponent2BridgeImpl();
+
+  /// Returns a const bridge instance suitable for use with any [UiComponent2].
+  ///
+  /// See [Component2BridgeFactory] for more info.
+  static UiComponent2BridgeImpl bridgeFactory(react.Component2 component) {
+    assert(component is UiComponent2, 'should not be used with non-UiComponent2 components');
+    return const UiComponent2BridgeImpl();
+  }
+
+  @override
+  JsMap jsifyPropTypes(covariant UiComponent2 component, Map propTypes) {
+    // todo implement jsifyPropTypes
+  }
+
+  /// A version of [setStateWithTypedUpdater] whose updater is passed typed views
+  /// into the `prevState` and `props` arguments, allowing them to be typed automatically
+  /// within [UiStatefulComponent2.setStateWithTypedUpdater].
+  void setStateWithTypedUpdater<TState extends UiState, TProps extends UiProps>(
+    UiStatefulComponent2<TProps, TState> component,
+    Map Function(TState prevState, TProps props) updater,
+    Function() callback,
+  ) {
+    Map typedUpdater(Map prevState, Map props) {
+      return updater(
+        component.typedStateFactoryJs(prevState as JsBackedMap),
+        component.typedPropsFactoryJs(props as JsBackedMap),
+      );
+    }
+    setStateWithUpdater(component, typedUpdater, callback);
+  }
+}
+
 /// Helper function that wraps react.registerComponent2, and allows attachment of additional
 /// component factory metadata.
 ///
@@ -87,7 +126,11 @@ ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 dartComponen
     String displayName,
     Iterable<String> skipMethods = const ['getDerivedStateFromError', 'componentDidCatch'],
 }) {
-  ReactDartComponentFactoryProxy2 reactComponentFactory = react.registerComponent(dartComponentFactory, skipMethods);
+  final reactComponentFactory = react.registerComponent2(
+    dartComponentFactory,
+    skipMethods: skipMethods,
+    bridgeFactory: UiComponent2BridgeImpl.bridgeFactory,
+  );
 
   if (displayName != null) {
     reactComponentFactory.reactClass.displayName = displayName;
