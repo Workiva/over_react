@@ -1,8 +1,6 @@
 @JS()
 library over_react_redux;
 
-import 'dart:developer';
-
 ////////////////////////////////////////////////////////////////////////////////
 //
 // over_react_redux
@@ -15,6 +13,7 @@ import 'package:js/js.dart';
 import 'package:over_react/over_react.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';
+import 'package:react/react_client/js_backed_map.dart';
 import 'package:redux/redux.dart';
 
 part 'over_react_redux.over_react.g.dart';
@@ -29,15 +28,17 @@ abstract class _$ConnectPropsMixin {
 ///
 /// [connect]: https://react-redux.js.org/api/connect#connect
 UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extends UiProps>({
-  Map Function(TReduxState state, Map ownProps) mapStateToProps,
-  Map Function(Function dispatch, Map ownProps) mapDispatchToProps,
+  Map Function(TReduxState state) mapStateToProps,
+  Map Function(TReduxState state, TProps ownProps) mapStateToPropsWithOwnProps,
+  Map Function(dynamic Function() dispatch) mapDispatchToProps,
+  Map Function(dynamic Function() dispatch, TProps ownProps) mapDispatchToPropsWithOwnProps,
+  Map Function(TProps stateProps, TProps dispatchProps, TProps ownProps) mergeProps,
   bool Function(TReduxState next, TReduxState prev) areStatesEqual,
   bool Function(Map next, Map prev) areOwnPropsEqual,
   bool Function(Map next, Map prev) areStatePropsEqual,
   bool Function(Map next, Map prev) areMergedPropsEqual,
-  ReactContext context,
-  // Might not be able to support this
-  //bool pure,
+  Context context,
+  bool pure: true,
   bool forwardRef: false,
 }) {
   areStatesEqual ??= _defaultEquality;
@@ -48,20 +49,47 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
   UiFactory<TProps> wrapWithConnect(UiFactory<TProps> factory) {
     final dartComponentClass = (factory().componentFactory as ReactDartComponentFactoryProxy).reactClass;
 
-    JsMap handleMapStateToProps(ReactInteropValue jsState, JsMap jsOwnProps) {
+    JsMap handleMapStateToProps(ReactInteropValue jsState) {
       final state = unwrapInteropValue(jsState);
-      final ownProps = new JsBackedMap.backedBy(jsOwnProps);
 
-      var result = mapStateToProps(state, ownProps);
+      var result = mapStateToProps(state);
       // Pull out the underlying backing map to avoid copying where possible
       if (result is UiProps) result = (result as UiProps).props;
       return jsBackingMapOrJsCopy(result);
     }
 
-    JsMap handleMapDispatchToProps(Function dispatch, JsMap jsOwnProps) {
-      final ownProps = new JsBackedMap.backedBy(jsOwnProps);
+    JsMap handleMapStateToPropsWithOwnProps(ReactInteropValue jsState, JsMap jsOwnProps) {
+      final state = unwrapInteropValue(jsState);
+      final ownProps = factory(new JsBackedMap.backedBy(jsOwnProps));
 
-      var result = mapDispatchToProps(dispatch, ownProps);
+      var result = mapStateToPropsWithOwnProps(state, ownProps);
+      // Pull out the underlying backing map to avoid copying where possible
+      if (result is UiProps) result = (result as UiProps).props;
+      return jsBackingMapOrJsCopy(result);
+    }
+
+    JsMap handleMapDispatchToProps(Function dispatch) {
+      var result = mapDispatchToProps(dispatch);
+
+      // Pull out the underlying backing map to avoid copying where possible
+      if (result is UiProps) result = (result as UiProps).props;
+      return jsBackingMapOrJsCopy(result);
+    }
+
+    JsMap handleMapDispatchToPropsWithOwnProps(Function dispatch, JsMap jsOwnProps) {
+      final ownProps = factory(new JsBackedMap.backedBy(jsOwnProps));
+      var result = mapDispatchToPropsWithOwnProps(dispatch, ownProps);
+
+      // Pull out the underlying backing map to avoid copying where possible
+      if (result is UiProps) result = (result as UiProps).props;
+      return jsBackingMapOrJsCopy(result);
+    }
+
+    JsMap handleMergeProps(JsMap jsStateProps, JsMap jsDispatchProps, JsMap jsOwnProps) {
+      final stateProps = factory(new JsBackedMap.backedBy(jsStateProps));
+      final dispatchProps = factory(new JsBackedMap.backedBy(jsDispatchProps));
+      final ownProps = factory(new JsBackedMap.backedBy(jsOwnProps));
+      var result = mergeProps(stateProps, dispatchProps, ownProps);
 
       // Pull out the underlying backing map to avoid copying where possible
       if (result is UiProps) result = (result as UiProps).props;
@@ -81,22 +109,21 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
         areMergedPropsEqual(new JsBackedMap.backedBy(jsNext), new JsBackedMap.backedBy(jsPrev));
 
     final hoc = _jsConnect(
-      mapStateToProps != null ? allowInterop(handleMapStateToProps) : null,
-      mapDispatchToProps != null ? allowInterop(handleMapDispatchToProps) : allowInterop((dispatch, _) { var val = new JsBackedMap(); val['dispatch'] = dispatch; return val.jsObject; }),
-      null,
+      mapStateToProps != null ? allowInterop(handleMapStateToProps) : mapStateToPropsWithOwnProps != null ? allowInterop(handleMapStateToPropsWithOwnProps) : null,
+      mapDispatchToProps != null ? allowInterop(handleMapDispatchToProps) : mapDispatchToPropsWithOwnProps != null ? allowInterop(handleMapDispatchToPropsWithOwnProps) : null,
+      mergeProps != null ? allowInterop(handleMergeProps) : null,
       new _JsConnectOptions(
         areStatesEqual: allowInterop(handleAreStatesEqual),
         areOwnPropsEqual: allowInterop(handleAreOwnPropsEqual),
         areStatePropsEqual: allowInterop(handleAreStatePropsEqual),
         areMergedPropsEqual: allowInterop(handleAreMergedPropsEqual),
-        // If these are null, will connect use its own defaults? If not, need to default these above.
         forwardRef: forwardRef,
-        // If these are null, will connect use its own defaults? If not, need to default these above.
-        context: context ?? JsReactRedux.ReactReduxContext,
+        pure: pure,
+        context: context?.jsThis ?? JsReactRedux.ReactReduxContext,
       ),
     )(dartComponentClass);
 
-    final hocJsFactoryProxy = new ReactJsComponentFactoryProxy(hoc, shouldConvertDomProps: false);
+    final hocJsFactoryProxy = new ReactJsComponentFactoryProxy(hoc, shouldConvertDomProps: false, alwaysReturnChildrenAsList: true);
 
     TProps connectedFactory([Map props]) {
       return (factory(props)..componentFactory = hocJsFactoryProxy);
@@ -111,16 +138,15 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
 bool _defaultEquality(Object a, Object b) => a == b;
 bool _shallowMapEquality(Object a, Object b) => const MapEquality().equals(a, b);
 
-
 @JS('ReactRedux.connect')
 external ReactClass Function(ReactClass) _jsConnect(
-    JsMap Function(ReactInteropValue, JsMap) mapStateToProps,
     [
+      Function mapStateToProps,
       dynamic mapDispatchToProps,
       dynamic mergeProps,
       _JsConnectOptions options,
     ]
-    );
+  );
 
 @JS('ReactRedux')
 class JsReactRedux {
@@ -136,55 +162,73 @@ class ReduxProviderProps extends component_base.UiProps
   // Initialize to a JsBackedMap so that copying can be optimized
   // when converting props during ReactElement creation.
   // TODO 3.0.0-wip generate JsBackedMap-based implementation used when no backing map is provided, like we do for Component2
-  ReduxProviderProps(this.componentFactory, [Map props]) : this.props = props ?? new JsBackedMap();
-
-  @override
-  final ReactJsReactReduxComponentFactoryProxy componentFactory;
+  ReduxProviderProps([Map props]) : this.props = props ?? new JsBackedMap();
 
   @override
   final Map props;
+
+  @override
+  ReactComponentFactoryProxy get componentFactory => ReactJsReactReduxComponentFactoryProxy(JsReactRedux.Provider, isProvider: true);
 
   @override
   String get propKeyNamespace => '';
 
   Store get store => props['store'];
   set store(Store v) => props['store'] = v;
+
+  dynamic get context => props['context'];
+  set context(dynamic v) => props['context'] = v;
 }
 
-ReduxProvider() => new ReduxProviderProps(ReactJsReactReduxComponentFactoryProxy(JsReactRedux.Provider));
+UiFactory<ReduxProviderProps> ReduxProvider = ([Map map]) => new ReduxProviderProps(map);
 
-class ReactJsReactReduxComponentFactoryProxy extends ReactJsComponentFactoryProxy {
+class ReactJsReactReduxComponentFactoryProxy extends ReactJsContextComponentFactoryProxy {
   /// The JS class used by this factory.
   @override
   final ReactClass type;
+
+  @override
   final Function factory;
+
+  @override
   final bool shouldConvertDomProps;
+
+  @override
+  final bool isConsumer;
+
+  @override
+  final bool isProvider;
 
   ReactJsReactReduxComponentFactoryProxy(
     ReactClass jsClass, {
     this.shouldConvertDomProps: true,
-  })  : this.type = jsClass,
+    this.isConsumer: false,
+    this.isProvider: false,
+  }) : this.type = jsClass,
         this.factory = React.createFactory(jsClass),
-        super(jsClass, shouldConvertDomProps: shouldConvertDomProps);
+        super(jsClass, isProvider: isProvider, isConsumer: isConsumer, shouldConvertDomProps: shouldConvertDomProps);
 
   @override
   ReactElement build(Map props, [List childrenArgs]) {
-    dynamic children = _convertArgsToChildren(childrenArgs);
-
-    return factory(_generateReduxJsProps(props), children);
+    return super.build(_generateReduxJsProps(props), childrenArgs);
   }
 
   /// Returns a JavaScript version of the specified [props], preprocessed for consumption by ReactJS and prepared for
   /// consumption by the [react] library internals.
-  JsMap _generateReduxJsProps(Map props) {
+  Map _generateReduxJsProps(Map props) {
     JsBackedMap propsForJs = new JsBackedMap.from(props);
 
-    propsForJs['store'] = _reduxifyStore(propsForJs['store']);
+    if (propsForJs['store'] != null) {
+      propsForJs['store'] = _reduxifyStore(propsForJs['store']);
+    }
 
-    return propsForJs.jsObject;
+    if (propsForJs['context'] != null) {
+      propsForJs['context'] = propsForJs['context'].jsThis;
+    }
+
+    return propsForJs;
   }
 }
-
 
 _reduxifyStore(Store store){
   return JsReactReduxStore(
@@ -231,6 +275,7 @@ class _JsConnectOptions {
     bool Function(JsMap, JsMap) areStatePropsEqual,
     bool Function(JsMap, JsMap) areMergedPropsEqual,
     bool forwardRef,
+    bool pure,
     ReactContext context,
   });
 }
@@ -238,13 +283,11 @@ class _JsConnectOptions {
 class ReactInteropValue {
   var value;
 }
+
 T unwrapInteropValue<T>(ReactInteropValue value) {
   return value.value;
 }
+
 ReactInteropValue wrapInteropValue(dynamic value) {
   return new ReactInteropValue()..value = value;
 }
-
-
-// TODO wrap ReactReduxContext or whatever it is
-
