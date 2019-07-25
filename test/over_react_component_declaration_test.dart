@@ -51,6 +51,7 @@ import 'over_react/component_declaration/builder_integration_tests/backwards_com
 import 'over_react/component_declaration/builder_integration_tests/backwards_compatible/unassigned_prop_integration_test.dart' as backwards_compat_unassigned_prop_integration_test;
 import 'over_react/component_declaration/builder_integration_tests/component2/abstract_accessor_integration_test.dart' as component2_abstract_accessor_integration_test;
 import 'over_react/component_declaration/builder_integration_tests/component2/accessor_mixin_integration_test.dart' as component2_accessor_mixin_integration_test;
+import 'over_react/component_declaration/builder_integration_tests/component2/annotation_error_integration_test.dart' as annotation_error_integration_test;
 import 'over_react/component_declaration/builder_integration_tests/component2/component_integration_test.dart' as component2_component_integration_test;
 import 'over_react/component_declaration/builder_integration_tests/component2/constant_required_accessor_integration_test.dart' as component2_constant_required_accessor_integration_test;
 import 'over_react/component_declaration/builder_integration_tests/component2/do_not_generate_accessor_integration_test.dart' as component2_do_not_generate_accessor_integration_test;
@@ -96,6 +97,7 @@ main() {
 
   component2_abstract_accessor_integration_test.main();
   component2_accessor_mixin_integration_test.main();
+  annotation_error_integration_test.main();
   component2_do_not_generate_accessor_integration_test.main();
   component2_component_integration_test.main();
   component2_constant_required_accessor_integration_test.main();

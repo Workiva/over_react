@@ -230,7 +230,10 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   TProps get props {
     // This needs to be a concrete implementation in Dart 2 for soundness;
     // without it, you get a confusing error. See: https://github.com/dart-lang/sdk/issues/36191
-    throw new UngeneratedError();
+    throw new UngeneratedError(message:
+      '`props` should be implemented by code generation.\n\n'
+      'This error may be due to your `UiComponent2` class not being annotated with `@Component2()`'
+    );
   }
 
   /// Equivalent to setting [unwrappedProps], but needed by react-dart to effect props changes.
@@ -312,7 +315,10 @@ abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiSta
   TState get state {
     // This needs to be a concrete implementation in Dart 2 for soundness;
     // without it, you get a confusing error. See: https://github.com/dart-lang/sdk/issues/36191
-    throw new UngeneratedError();
+    throw new UngeneratedError(message:
+      '`state` should be implemented by code generation.\n\n'
+      'This error may be due to your `UiStatefulComponent2` class not being annotated with `@Component2()`'
+    );
   }
 
   /// Equivalent to setting [unwrappedState], but needed by react-dart to effect state changes.
