@@ -62,7 +62,6 @@ class _$$TestBasicProps extends _$TestBasicProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
-  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestBasicComponentFactory;
@@ -150,7 +149,6 @@ class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
-  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestHandlerLifecycleComponentFactory;
@@ -238,7 +236,6 @@ class _$$TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
-  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestHandlerPrecedenceComponentFactory;
@@ -346,7 +343,6 @@ class _$$TestPropValidationProps extends _$TestPropValidationProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
-  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestPropValidationComponentFactory;
@@ -434,7 +430,6 @@ class _$$TestRedrawOnProps extends _$TestRedrawOnProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
-  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestRedrawOnComponentFactory;
@@ -522,7 +517,6 @@ class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
-  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestStoreHandlersComponentFactory;
@@ -610,7 +604,6 @@ class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
-  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestStatefulBasicComponentFactory;
@@ -748,7 +741,6 @@ class _$$TestStatefulHandlerLifecycleProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
-  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestStatefulHandlerLifecycleComponentFactory;
@@ -889,7 +881,6 @@ class _$$TestStatefulHandlerPrecedenceProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
-  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestStatefulHandlerPrecedenceComponentFactory;
@@ -1052,7 +1043,6 @@ class _$$TestStatefulPropValidationProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
-  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestStatefulPropValidationComponentFactory;
@@ -1189,7 +1179,6 @@ class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
-  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestStatefulRedrawOnComponentFactory;
@@ -1325,7 +1314,6 @@ class _$$TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
-  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestStatefulStoreHandlersComponentFactory;

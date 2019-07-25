@@ -62,7 +62,6 @@ class _$$TestDefaultProps extends _$TestDefaultProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
-  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestDefaultComponentFactory;
@@ -149,7 +148,6 @@ class _$$TestConnectProps extends _$TestConnectProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
-  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestConnectComponentFactory;
@@ -235,7 +233,6 @@ class _$$TestPureProps extends _$TestPureProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
-  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestPureComponentFactory;

@@ -159,7 +159,6 @@ class _$$BasicPartOfLibProps extends _$BasicPartOfLibProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
-  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $BasicPartOfLibComponentFactory;
@@ -318,7 +317,6 @@ class _$$SubPartOfLibProps extends _$SubPartOfLibProps
   bool get $isClassGenerated => true;
 
   /// The [ReactComponentFactory] associated with the component built by this class.
-  var _factoryOverride;
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $SubPartOfLibComponentFactory;
