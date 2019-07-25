@@ -865,7 +865,6 @@ class ImplGenerator {
       buffer
         ..writeln()
         ..writeln('  /// The [ReactComponentFactory] associated with the component built by this class.')
-        ..writeln('  var _factoryOverride;')
         ..writeln('  @override')
         ..writeln('  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $componentFactoryName;')
         ..writeln()

@@ -11,20 +11,20 @@ presets:
   dartdevc:
     exclude_tags: no-ddc
     paths:
-      # - test/vm_tests/
-      # - test/over_react_component_declaration_test.dart
-      # - test/over_react_component_test.dart
-      # - test/over_react_dom_test.dart
-      # - test/over_react_util_test.dart
+      - test/vm_tests/
+      - test/over_react_component_declaration_test.dart
+      - test/over_react_component_test.dart
+      - test/over_react_dom_test.dart
+      - test/over_react_util_test.dart
       - test/over_react_redux_test.dart
 
   dart2js:
     exclude_tags: ddc
     paths:
-      # - test/over_react_component_declaration_test.dart
-      # - test/over_react_component_test.dart
-      # - test/over_react_dom_test.dart
-      # - test/over_react_util_test.dart
+      - test/over_react_component_declaration_test.dart
+      - test/over_react_component_test.dart
+      - test/over_react_dom_test.dart
+      - test/over_react_util_test.dart
       - test/over_react_redux_test.dart
 
   travis:
