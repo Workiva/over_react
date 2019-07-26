@@ -146,8 +146,8 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
   ) {
     Map typedUpdater(Map prevState, Map props) {
       return updater(
-        component.typedStateFactory(prevState),
-        component.typedPropsFactory(props),
+        component.typedStateFactoryJs(prevState as JsBackedMap),
+        component.typedPropsFactoryJs(props as JsBackedMap),
       );
     }
     setStateWithUpdater(component, typedUpdater, callback);
