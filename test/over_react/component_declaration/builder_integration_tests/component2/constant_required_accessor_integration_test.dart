@@ -34,7 +34,7 @@ void main() {
       PropTypes.resetWarningCache();
 
       originalConsoleError = context['console']['error'];
-      context['console']['error'] = new JsFunction.withThis((self, message, arg1, arg2, arg3) {
+      context['console']['error'] = new JsFunction.withThis((self, message) {
         consoleErrors.add(message);
         originalConsoleError.apply([message], thisArg: self);
       });
