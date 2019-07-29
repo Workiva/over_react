@@ -25,20 +25,21 @@ class _$PropTypesTestProps extends UiProps {
 @Component2()
 class PropTypesTestComponent extends UiComponent2<PropTypesTestProps> {
   @override
-  render() => Fragment()(Dom.code()('props.twoObjects'), ' currently has ${props.twoObjects.length} objects passed to it.');
+  render() =>
+      Fragment()(Dom.code()('props.twoObjects'), ' currently has ${props.twoObjects.length} objects passed to it.');
 
   // One variation of what the API could look like.
   //
   // This is closer to what it looks like in JS, but might be confusing syntax.
   @override
   get propTypes => {
-    getPropKey((props) => props.twoObjects, typedPropsFactory): (props, String propName, String componentName, String location, String propFullName) {
-      final length = props.twoObjects?.length;
-      if (length != 2) {
-        return new PropError.value(length, propName, 'must have a length of 2');
-      }
-      return null;
-    },
-  };
-
+        getPropKey((props) => props.twoObjects, typedPropsFactory):
+            (props, propName, componentName, location, propFullName) {
+          final length = props.twoObjects?.length;
+          if (length != 2) {
+            return new PropError.value(length, propName, 'must have a length of 2');
+          }
+          return null;
+        },
+      };
 }

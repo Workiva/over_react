@@ -91,11 +91,11 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
     // Add [PropValidator]s for props annotated as required.
     var newPropTypes = Map.from(propTypes);
     component.consumedProps?.forEach((ConsumedProps consumedProps) {
-      consumedProps?.props?.forEach((PropDescriptor prop) {
+      consumedProps.props.forEach((PropDescriptor prop) {
         if (!prop.isRequired) return;
 
         Error requiredPropValidator(
-            props,
+            Map props,
             String propName,
             String componentName,
             String location,
@@ -109,18 +109,20 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
             }
             return null;
           }
-          newPropTypes.addEntries([MapEntry(prop.key, requiredPropValidator)]);
+          newPropTypes[prop.key] = requiredPropValidator;
       });
     });
 
+    // Wrap consumer-provided and required validators with ones that convert plain props maps into typed ones.
     return JsBackedMap.from(newPropTypes.map((propKey, validator) {
         dynamic handlePropValidator(
-          dynamic props,
-          dynamic propName,
-          dynamic componentName,
-          dynamic location,
-          dynamic propFullName,
-          dynamic secret,
+          JsMap props,
+          String propName,
+          String componentName,
+          String location,
+          String propFullName,
+          // This is a required argument of PropTypes validators but is hidden from the JS consumer.
+          String secret,
         ) {
           var convertedProps = component.typedPropsFactoryJs(JsBackedMap.fromJs(props));
           var error = validator(convertedProps, propName, componentName, location, propFullName);
@@ -144,8 +146,8 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
   ) {
     Map typedUpdater(Map prevState, Map props) {
       return updater(
-        component.typedStateFactory(prevState),
-        component.typedPropsFactory(props),
+        component.typedStateFactoryJs(prevState as JsBackedMap),
+        component.typedPropsFactoryJs(props as JsBackedMap),
       );
     }
     setStateWithUpdater(component, typedUpdater, callback);

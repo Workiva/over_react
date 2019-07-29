@@ -199,6 +199,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// Validates that props with the `@requiredProp` annotation are present.
   /// __Deprecated.__ Use [propTypes] instead. Will be removed in the `4.0.0` release.
   @Deprecated('4.0.0')
+  @mustCallSuper
   @override
   void validateRequiredProps(Map appliedProps) {
     throw UnsupportedError('[validateRequiredProps] is not supported in Component2, use [propTypes] instead.');
@@ -233,7 +234,10 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   TProps get props {
     // This needs to be a concrete implementation in Dart 2 for soundness;
     // without it, you get a confusing error. See: https://github.com/dart-lang/sdk/issues/36191
-    throw new UngeneratedError();
+    throw new UngeneratedError(message:
+      '`props` should be implemented by code generation.\n\n'
+      'This error may be due to your `UiComponent2` class not being annotated with `@Component2()`'
+    );
   }
 
   /// Equivalent to setting [unwrappedProps], but needed by react-dart to effect props changes.
@@ -271,6 +275,29 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
 
+  /// Allows usage of PropValidator functions to check the validity of a prop passed to it.
+  /// When an invalid value is provided for a prop, a warning will be shown in the JavaScript console.
+  /// For performance reasons, propTypes is only checked in development mode.
+  ///
+  /// Override with a custom implementation to easily add validation.
+  ///
+  ///     get propTypes => {
+  ///           getPropKey((props) => props.twoObjects, typedPropsFactory):
+  ///               (props, propName, componentName, location, propFullName) {
+  ///             final length = props.twoObjects?.length;
+  ///             if (length != 2) {
+  ///               return new PropError.value(length, propName, 'must have a length of 2');
+  ///             }
+  ///             return null;
+  ///           },
+  ///         };
+  ///
+  /// `getPropKey` is a staticlly typed helper to get the string key for a prop.
+  ///
+  /// __Note:__ An improved version of `getPropKey` will be offered once
+  /// https://jira.atl.workiva.net/browse/CPLAT-6655 is completed.
+  ///
+  /// For more info see: https://www.npmjs.com/package/prop-types
   @override
   Map<String, react.PropValidator<TProps>> get propTypes => {};
 }
@@ -318,7 +345,10 @@ abstract class UiStatefulComponent2<TProps extends UiProps,
   TState get state {
     // This needs to be a concrete implementation in Dart 2 for soundness;
     // without it, you get a confusing error. See: https://github.com/dart-lang/sdk/issues/36191
-    throw new UngeneratedError();
+    throw new UngeneratedError(message:
+      '`state` should be implemented by code generation.\n\n'
+      'This error may be due to your `UiStatefulComponent2` class not being annotated with `@Component2()`'
+    );
   }
 
   /// Equivalent to setting [unwrappedState], but needed by react-dart to effect state changes.

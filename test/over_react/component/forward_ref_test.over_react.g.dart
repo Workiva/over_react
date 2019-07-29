@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'private_props_ddc_bug.dart';
+part of 'forward_ref_test.dart';
 
 // **************************************************************************
 // OverReactBuilder (package:over_react/src/builder.dart)
@@ -9,65 +9,64 @@ part of 'private_props_ddc_bug.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $FooComponentFactory = registerComponent2(
-  () => new _$FooComponent(),
-  builderFactory: Foo,
-  componentClass: FooComponent,
+final $BasicComponentFactory = registerComponent2(
+  () => new _$BasicComponent(),
+  builderFactory: Basic,
+  componentClass: BasicComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Foo',
+  displayName: 'Basic',
 );
 
-abstract class _$FooPropsAccessorsMixin implements _$FooProps {
+abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
   @override
   Map get props;
 
-  /// <!-- Generated from [_$FooProps._privateProp] -->
+  /// <!-- Generated from [_$BasicProps.childId] -->
   @override
-  String get _privateProp =>
-      props[_$key___privateProp___$FooProps] ??
+  String get childId =>
+      props[_$key__childId___$BasicProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$FooProps._privateProp] -->
+  /// <!-- Generated from [_$BasicProps.childId] -->
   @override
-  set _privateProp(String value) =>
-      props[_$key___privateProp___$FooProps] = value;
+  set childId(String value) => props[_$key__childId___$BasicProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop___privateProp___$FooProps =
-      const PropDescriptor(_$key___privateProp___$FooProps);
-  static const String _$key___privateProp___$FooProps = 'FooProps._privateProp';
+  static const PropDescriptor _$prop__childId___$BasicProps =
+      const PropDescriptor(_$key__childId___$BasicProps);
+  static const String _$key__childId___$BasicProps = 'BasicProps.childId';
 
   static const List<PropDescriptor> $props = const [
-    _$prop___privateProp___$FooProps
+    _$prop__childId___$BasicProps
   ];
-  static const List<String> $propKeys = const [_$key___privateProp___$FooProps];
+  static const List<String> $propKeys = const [_$key__childId___$BasicProps];
 }
 
-const PropsMeta _$metaForFooProps = const PropsMeta(
-  fields: _$FooPropsAccessorsMixin.$props,
-  keys: _$FooPropsAccessorsMixin.$propKeys,
+const PropsMeta _$metaForBasicProps = const PropsMeta(
+  fields: _$BasicPropsAccessorsMixin.$props,
+  keys: _$BasicPropsAccessorsMixin.$propKeys,
 );
 
-class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForFooProps;
+class BasicProps extends _$BasicProps with _$BasicPropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForBasicProps;
 }
 
-_$$FooProps _$Foo([Map backingProps]) => backingProps == null
-    ? new _$$FooProps$JsMap(new JsBackedMap())
-    : new _$$FooProps(backingProps);
+_$$BasicProps _$Basic([Map backingProps]) => backingProps == null
+    ? new _$$BasicProps$JsMap(new JsBackedMap())
+    : new _$$BasicProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$FooProps extends _$FooProps
-    with _$FooPropsAccessorsMixin
-    implements FooProps {
-  _$$FooProps._();
+abstract class _$$BasicProps extends _$BasicProps
+    with _$BasicPropsAccessorsMixin
+    implements BasicProps {
+  _$$BasicProps._();
 
-  factory _$$FooProps(Map backingMap) {
+  factory _$$BasicProps(Map backingMap) {
     if (backingMap is JsBackedMap) {
-      return new _$$FooProps$JsMap(backingMap);
+      return new _$$BasicProps$JsMap(backingMap);
     } else {
-      return new _$$FooProps$PlainMap(backingMap);
+      return new _$$BasicProps$PlainMap(backingMap);
     }
   }
 
@@ -78,18 +77,18 @@ abstract class _$$FooProps extends _$FooProps
   /// The [ReactComponentFactory] associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $FooComponentFactory;
+      super.componentFactory ?? $BasicComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'FooProps.';
+  String get propKeyNamespace => 'BasicProps.';
 }
 
 // Concrete props implementation that can be backed by any [Map].
-class _$$FooProps$PlainMap extends _$$FooProps {
+class _$$BasicProps$PlainMap extends _$$BasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FooProps$PlainMap(Map backingMap)
+  _$$BasicProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -103,10 +102,10 @@ class _$$FooProps$PlainMap extends _$$FooProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$FooProps$JsMap extends _$$FooProps {
+class _$$BasicProps$JsMap extends _$$BasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FooProps$JsMap(JsBackedMap backingMap)
+  _$$BasicProps$JsMap(JsBackedMap backingMap)
       : this._props = new JsBackedMap(),
         super._() {
     this._props = backingMap ?? new JsBackedMap();
@@ -122,11 +121,11 @@ class _$$FooProps$JsMap extends _$$FooProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$FooComponent extends FooComponent {
-  _$$FooProps$JsMap _cachedTypedProps;
+class _$BasicComponent extends BasicComponent {
+  _$$BasicProps$JsMap _cachedTypedProps;
 
   @override
-  _$$FooProps$JsMap get props => _cachedTypedProps;
+  _$$BasicProps$JsMap get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -135,18 +134,19 @@ class _$FooComponent extends FooComponent {
   }
 
   @override
-  _$$FooProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$FooProps$JsMap(backingMap);
+  _$$BasicProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$BasicProps$JsMap(backingMap);
 
   @override
-  _$$FooProps typedPropsFactory(Map backingMap) => new _$$FooProps(backingMap);
+  _$$BasicProps typedPropsFactory(Map backingMap) =>
+      new _$$BasicProps(backingMap);
 
   /// Let [UiComponent] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$FooProps.
+  /// The default consumed props, taken from _$BasicProps.
   /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForFooProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForBasicProps];
 }

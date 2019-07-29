@@ -27,16 +27,24 @@ void main() {
     JsFunction originalConsoleError;
 
     setUp(() {
+<<<<<<< HEAD
       consoleErrors = [];
 
+=======
+>>>>>>> 94432c226eadbf9425cdd4ac04e1a28357ea4257
       // PropTypes by default will only throw a specific error one time per Component Class.
       // This resets the cache after each test so it throws again.
       // See: https://www.npmjs.com/package/prop-types#proptypesresetwarningcache
       PropTypes.resetWarningCache();
 
       originalConsoleError = context['console']['error'];
+      consoleErrors = [];
       context['console']['error'] = new JsFunction.withThis((self, message, arg1, arg2, arg3) {
+<<<<<<< HEAD
         consoleErrors.add(message);
+=======
+        if (message != null) consoleErrors.add(message);
+>>>>>>> 94432c226eadbf9425cdd4ac04e1a28357ea4257
         originalConsoleError.apply([message], thisArg: self);
       });
     });
