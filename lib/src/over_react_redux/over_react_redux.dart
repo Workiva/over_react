@@ -30,13 +30,13 @@ abstract class _$ConnectPropsMixin {
 UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extends UiProps>({
   Map Function(TReduxState state) mapStateToProps,
   Map Function(TReduxState state, TProps ownProps) mapStateToPropsWithOwnProps,
-  Map Function(dynamic Function() dispatch) mapDispatchToProps,
-  Map Function(dynamic Function() dispatch, TProps ownProps) mapDispatchToPropsWithOwnProps,
+  Map Function(dynamic Function(dynamic) dispatch) mapDispatchToProps,
+  Map Function(dynamic Function(dynamic) dispatch, TProps ownProps) mapDispatchToPropsWithOwnProps,
   Map Function(TProps stateProps, TProps dispatchProps, TProps ownProps) mergeProps,
   bool Function(TReduxState next, TReduxState prev) areStatesEqual,
-  bool Function(Map next, Map prev) areOwnPropsEqual,
-  bool Function(Map next, Map prev) areStatePropsEqual,
-  bool Function(Map next, Map prev) areMergedPropsEqual,
+  bool Function(TProps next, TProps prev) areOwnPropsEqual,
+  bool Function(TProps next, TProps prev) areStatePropsEqual,
+  bool Function(TProps next, TProps prev) areMergedPropsEqual,
   Context context,
   bool pure: true,
   bool forwardRef: false,
@@ -100,13 +100,13 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
         areStatesEqual(unwrapInteropValue(jsNext), unwrapInteropValue(jsPrev));
 
     bool handleAreOwnPropsEqual(JsMap jsNext, JsMap jsPrev) =>
-        areOwnPropsEqual(new JsBackedMap.backedBy(jsNext), new JsBackedMap.backedBy(jsPrev));
+        areOwnPropsEqual(factory(new JsBackedMap.backedBy(jsNext)), factory(new JsBackedMap.backedBy(jsPrev)));
 
     bool handleAreStatePropsEqual(JsMap jsNext, JsMap jsPrev) =>
-        areStatePropsEqual(new JsBackedMap.backedBy(jsNext), new JsBackedMap.backedBy(jsPrev));
+        areStatePropsEqual(factory(new JsBackedMap.backedBy(jsNext)), factory(new JsBackedMap.backedBy(jsPrev)));
 
     bool handleAreMergedPropsEqual(JsMap jsNext, JsMap jsPrev) =>
-        areMergedPropsEqual(new JsBackedMap.backedBy(jsNext), new JsBackedMap.backedBy(jsPrev));
+        areMergedPropsEqual(factory(new JsBackedMap.backedBy(jsNext)), factory(new JsBackedMap.backedBy(jsPrev)));
 
     final hoc = _jsConnect(
       mapStateToProps != null ? allowInterop(handleMapStateToProps) : mapStateToPropsWithOwnProps != null ? allowInterop(handleMapStateToPropsWithOwnProps) : null,
