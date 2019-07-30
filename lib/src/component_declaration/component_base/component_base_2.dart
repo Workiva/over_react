@@ -223,9 +223,9 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   //   BEGIN Typed props helpers
   //
 
-  /// A typed props object corresponding to the current untyped props Map ([unwrappedProps]).
+  /// A typed view into the component's current JS props object.
   ///
-  /// Created using [typedPropsFactory] and cached for each Map instance.
+  /// Created using [typedPropsFactoryJs] and updated whenever state changes.
   @override
   TProps get props {
     // This needs to be a concrete implementation in Dart 2 for soundness;
@@ -235,16 +235,6 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
       'This error may be due to your `UiComponent2` class not being annotated with `@Component2()`'
     );
   }
-
-  /// Equivalent to setting [unwrappedProps], but needed by react-dart to effect props changes.
-  @override
-  set props(Map value) => super.props = value;
-
-  /// The props Map that will be used to create the typed [props] object.
-  @override
-  Map get unwrappedProps => super.props;
-  @override
-  set unwrappedProps(Map value) => super.props = value;
 
   /// Returns a typed props object backed by the specified [propsMap].
   ///
@@ -265,6 +255,16 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// Convenient for use with [getDefaultProps].
   @override
   TProps newProps() => typedPropsFactoryJs(new JsBackedMap());
+
+  /// Deprecated; do not use. Will be removed alongside UiComponent.
+  @Deprecated('4.0.0')
+  @override
+  Map get unwrappedProps => props;
+
+  /// Deprecated; do not use. Will be removed alongside UiComponent.
+  @Deprecated('4.0.0')
+  @override
+  set unwrappedProps(Map value) => props = value;
 
   //
   //   END Typed props helpers
@@ -335,9 +335,9 @@ abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiSta
 ///       }
 ///     }
 mixin UiStatefulMixin2<TProps extends UiProps, TState extends UiState> on UiComponent2<TProps> {
-  /// A typed state object corresponding to the current untyped state Map ([unwrappedState]).
+  /// A typed view into the component's current JS state object.
   ///
-  /// Created using [typedStateFactory] and cached for each Map instance.
+  /// Created using [typedStateFactoryJs] and updated whenever state changes.
   @override
   TState get state {
     // This needs to be a concrete implementation in Dart 2 for soundness;
@@ -347,14 +347,6 @@ mixin UiStatefulMixin2<TProps extends UiProps, TState extends UiState> on UiComp
       'This error may be due to your `UiStatefulComponent2` class not being annotated with `@Component2()`'
     );
   }
-
-  /// Equivalent to setting [unwrappedState], but needed by react-dart to effect state changes.
-  @override
-  set state(Map value) => super.state = value;
-
-  /// The state Map that will be used to create the typed [state] object.
-  Map get unwrappedState => super.state;
-  set unwrappedState(Map value) => super.state = value;
 
   /// Returns a typed state object backed by the specified [stateMap].
   ///
@@ -379,4 +371,12 @@ mixin UiStatefulMixin2<TProps extends UiProps, TState extends UiState> on UiComp
     final bridge = Component2Bridge.forComponent(this) as UiComponent2BridgeImpl;
     bridge.setStateWithTypedUpdater(this, updater, callback);
   }
+
+  /// Deprecated; do not use. Will be removed alongside UiComponent.
+  @Deprecated('4.0.0')
+  Map get unwrappedState => state;
+
+  /// Deprecated; do not use. Will be removed alongside UiComponent.
+  @Deprecated('4.0.0')
+  set unwrappedState(Map value) => state = value;
 }
