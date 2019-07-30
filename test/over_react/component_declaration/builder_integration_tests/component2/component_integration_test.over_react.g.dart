@@ -159,7 +159,7 @@ abstract class _$$ComponentTestProps extends _$ComponentTestProps
   _$$ComponentTestProps._();
 
   factory _$$ComponentTestProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$ComponentTestProps$JsMap(backingMap);
     } else {
       return new _$$ComponentTestProps$PlainMap(backingMap);
@@ -297,7 +297,7 @@ abstract class _$$IsErrorBoundaryProps extends _$IsErrorBoundaryProps
   _$$IsErrorBoundaryProps._();
 
   factory _$$IsErrorBoundaryProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$IsErrorBoundaryProps$JsMap(backingMap);
     } else {
       return new _$$IsErrorBoundaryProps$PlainMap(backingMap);
@@ -434,7 +434,7 @@ abstract class _$$IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
   _$$IsNotErrorBoundaryProps._();
 
   factory _$$IsNotErrorBoundaryProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$IsNotErrorBoundaryProps$JsMap(backingMap);
     } else {
       return new _$$IsNotErrorBoundaryProps$PlainMap(backingMap);

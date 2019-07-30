@@ -269,7 +269,7 @@ abstract class _$$ButtonProps extends _$ButtonProps
   _$$ButtonProps._();
 
   factory _$$ButtonProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$ButtonProps$JsMap(backingMap);
     } else {
       return new _$$ButtonProps$PlainMap(backingMap);
@@ -351,7 +351,7 @@ abstract class _$$ButtonState extends _$ButtonState
   _$$ButtonState._();
 
   factory _$$ButtonState(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$ButtonState$JsMap(backingMap);
     } else {
       return new _$$ButtonState$PlainMap(backingMap);

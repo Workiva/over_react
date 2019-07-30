@@ -54,7 +54,7 @@ abstract class _$$ToggleButtonGroupProps extends _$ToggleButtonGroupProps
   _$$ToggleButtonGroupProps._();
 
   factory _$$ToggleButtonGroupProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$ToggleButtonGroupProps$JsMap(backingMap);
     } else {
       return new _$$ToggleButtonGroupProps$PlainMap(backingMap);
@@ -138,7 +138,7 @@ abstract class _$$ToggleButtonGroupState extends _$ToggleButtonGroupState
   _$$ToggleButtonGroupState._();
 
   factory _$$ToggleButtonGroupState(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$ToggleButtonGroupState$JsMap(backingMap);
     } else {
       return new _$$ToggleButtonGroupState$PlainMap(backingMap);

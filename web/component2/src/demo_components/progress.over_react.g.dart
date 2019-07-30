@@ -312,7 +312,7 @@ abstract class _$$ProgressProps extends _$ProgressProps
   _$$ProgressProps._();
 
   factory _$$ProgressProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$ProgressProps$JsMap(backingMap);
     } else {
       return new _$$ProgressProps$PlainMap(backingMap);
@@ -419,7 +419,7 @@ abstract class _$$ProgressState extends _$ProgressState
   _$$ProgressState._();
 
   factory _$$ProgressState(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$ProgressState$JsMap(backingMap);
     } else {
       return new _$$ProgressState$PlainMap(backingMap);

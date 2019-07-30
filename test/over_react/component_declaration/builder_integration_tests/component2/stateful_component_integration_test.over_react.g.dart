@@ -77,7 +77,7 @@ abstract class _$$StatefulComponentTestProps
   _$$StatefulComponentTestProps._();
 
   factory _$$StatefulComponentTestProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$StatefulComponentTestProps$JsMap(backingMap);
     } else {
       return new _$$StatefulComponentTestProps$PlainMap(backingMap);
@@ -279,7 +279,7 @@ abstract class _$$StatefulComponentTestState
   _$$StatefulComponentTestState._();
 
   factory _$$StatefulComponentTestState(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$StatefulComponentTestState$JsMap(backingMap);
     } else {
       return new _$$StatefulComponentTestState$PlainMap(backingMap);

@@ -168,7 +168,7 @@ abstract class _$$NamespacedAccessorTestProps
   _$$NamespacedAccessorTestProps._();
 
   factory _$$NamespacedAccessorTestProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$NamespacedAccessorTestProps$JsMap(backingMap);
     } else {
       return new _$$NamespacedAccessorTestProps$PlainMap(backingMap);
@@ -370,7 +370,7 @@ abstract class _$$NamespacedAccessorTestState
   _$$NamespacedAccessorTestState._();
 
   factory _$$NamespacedAccessorTestState(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$NamespacedAccessorTestState$JsMap(backingMap);
     } else {
       return new _$$NamespacedAccessorTestState$PlainMap(backingMap);
