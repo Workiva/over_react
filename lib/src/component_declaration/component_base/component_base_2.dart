@@ -275,7 +275,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
 /// The basis for a _stateful_ over_react component that is compatible with ReactJS 16 ([react.Component2]).
 ///
 /// Includes support for strongly-typed [UiState] in-addition-to the
-/// strongly-typed props and utilities for prop and CSS classname forwarding provided by [UiComponent].
+/// strongly-typed props and utilities for prop and CSS classname forwarding provided by [UiComponent2].
 ///
 /// __Initializing state:__
 ///
@@ -301,13 +301,40 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
 ///       }
 ///     }
 abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiState>
-    extends UiComponent2<TProps>
-    implements UiStatefulComponent<TProps, TState> {
-  // ----------------------------------------------------------------------
-  // ----------------------------------------------------------------------
-  //   BEGIN Typed state helpers
-  //
+    extends UiComponent2<TProps> with UiStatefulMixin2<TProps, TState>
+    implements UiStatefulComponent<TProps, TState> {}
 
+/// A mixin that allows you to add typed state to a [UiComponent2].
+///
+/// Useful for when you're extending from another [UiComponent2] that doesn't extend from [UiStatefulComponent2].
+///
+/// Includes support for strongly-typed [UiState] in-addition-to the
+/// strongly-typed props and utilities for prop and CSS classname forwarding provided by [UiComponent2].
+///
+/// __Initializing state:__
+///
+///     @Component2()
+///     class YourComponent extends UiComponent2<YourState> with UiStatefulMixin2<YourProps, YourState> {
+///       @override
+///       void init() {
+///         this.state = (newState()
+///           ..aStateKeyWithinYourStateClass = /* default value */
+///         );
+///       }
+///
+///       @override
+///       render() {
+///         var classes = forwardingClassNameBuilder()
+///           ..add('your-component-base-class')
+///           ..add('a-conditional-class', state.aStateKeyWithinYourStateClass);
+///
+///         return (SomeChildComponent()
+///           ..addProps(copyUnconsumedProps())
+///           ..className = classes.toClassName()
+///         )(props.children);
+///       }
+///     }
+mixin UiStatefulMixin2<TProps extends UiProps, TState extends UiState> on UiComponent2<TProps> {
   /// A typed state object corresponding to the current untyped state Map ([unwrappedState]).
   ///
   /// Created using [typedStateFactory] and cached for each Map instance.
@@ -326,16 +353,13 @@ abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiSta
   set state(Map value) => super.state = value;
 
   /// The state Map that will be used to create the typed [state] object.
-  @override
   Map get unwrappedState => super.state;
-  @override
   set unwrappedState(Map value) => super.state = value;
 
   /// Returns a typed state object backed by the specified [stateMap].
   ///
   /// Required to properly instantiate the generic [TState] class.
-  @override
-  TState typedStateFactory(Map stateMap);
+  TState typedStateFactory(Map stateMap) => throw new UngeneratedError(member: #typedStateFactory);
 
   /// Returns a typed state object backed by the specified [stateMap].
   ///
@@ -343,12 +367,11 @@ abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiSta
   ///
   /// This should be used where possible over [typedStateFactory] to allow for
   /// more efficient dart2js output.
-  TState typedStateFactoryJs(JsBackedMap stateMap);
+  TState typedStateFactoryJs(JsBackedMap stateMap) => throw new UngeneratedError(member: #typedStateFactoryJs);
 
   /// Returns a typed state object backed by a new Map.
   ///
   /// Convenient for use with [getInitialState] and [setState].
-  @override
   TState newState() => typedStateFactoryJs(new JsBackedMap());
 
   @override
@@ -356,9 +379,5 @@ abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiSta
     final bridge = Component2Bridge.forComponent(this) as UiComponent2BridgeImpl;
     bridge.setStateWithTypedUpdater(this, updater, callback);
   }
-
   //
-  //   END Typed state helpers
-  // ----------------------------------------------------------------------
-  // ----------------------------------------------------------------------
 }

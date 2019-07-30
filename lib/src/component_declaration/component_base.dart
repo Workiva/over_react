@@ -94,7 +94,7 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
   /// into the `prevState` and `props` arguments, allowing them to be typed automatically
   /// within [UiStatefulComponent2.setStateWithTypedUpdater].
   void setStateWithTypedUpdater<TState extends UiState, TProps extends UiProps>(
-    UiStatefulComponent2<TProps, TState> component,
+    UiStatefulMixin2<TProps, TState> component,
     Map Function(TState prevState, TProps props) updater,
     Function() callback,
   ) {

@@ -65,8 +65,7 @@ mixin _GeneratedUiComponentStubs<TProps extends UiProps>
   TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedPropsFactory);
 }
 
-mixin _GeneratedUiStatefulComponentStubs<TProps extends UiProps, TState extends UiState>
-    on component_base.UiStatefulComponent<TProps, TState>, GeneratedClass {
+mixin _GeneratedUiStatefulComponentStubs<TProps extends UiProps, TState extends UiState> on GeneratedClass {
   /// Returns a typed state object backed by the specified [stateMap].
   ///
   /// Required to properly instantiate the generic [TState] class.
@@ -151,12 +150,13 @@ abstract class UiComponent2<TProps extends UiProps>
 ///
 /// Use with the over_react builder via the `@Component2()` ([annotations.Component2]) annotation.
 abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiState>
-    extends component_base.UiStatefulComponent2<TProps, TState>
+    extends UiComponent2<TProps>
     with
         GeneratedClass,
-        _GeneratedUiComponentStubs<TProps>,
-        _GeneratedUiComponent2Stubs<TProps>,
-        _GeneratedUiStatefulComponentStubs<TProps, TState> {
+        component_base.UiStatefulMixin2<TProps, TState>,
+        _GeneratedUiStatefulComponentStubs<TProps, TState>
+    implements component_base.UiStatefulComponent2<TProps, TState>
+{
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiStatefulComponent2() {
     _throwIfNotGenerated();
