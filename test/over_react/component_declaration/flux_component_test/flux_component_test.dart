@@ -9,20 +9,20 @@ import 'package:test/test.dart';
 import 'package:w_flux/w_flux.dart';
 import 'package:over_react/over_react.dart';
 
-import '../../test_util/test_util.dart';
+import '../../../test_util/test_util.dart';
 
-part 'flux_component_test/basic.dart';
-part 'flux_component_test/handler_lifecycle.dart';
-part 'flux_component_test/handler_precedence.dart';
-part 'flux_component_test/prop_validation.dart';
-part 'flux_component_test/redraw_on.dart';
-part 'flux_component_test/store_handlers.dart';
-part 'flux_component_test/stateful/basic.dart';
-part 'flux_component_test/stateful/handler_lifecycle.dart';
-part 'flux_component_test/stateful/handler_precedence.dart';
-part 'flux_component_test/stateful/prop_validation.dart';
-part 'flux_component_test/stateful/redraw_on.dart';
-part 'flux_component_test/stateful/store_handlers.dart';
+part 'basic.dart';
+part 'handler_lifecycle.dart';
+part 'handler_precedence.dart';
+part 'prop_validation.dart';
+part 'redraw_on.dart';
+part 'store_handlers.dart';
+part 'stateful/basic.dart';
+part 'stateful/handler_lifecycle.dart';
+part 'stateful/handler_precedence.dart';
+part 'stateful/prop_validation.dart';
+part 'stateful/redraw_on.dart';
+part 'stateful/store_handlers.dart';
 
 part 'flux_component_test.over_react.g.dart';
 
