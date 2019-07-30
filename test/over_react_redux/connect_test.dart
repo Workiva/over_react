@@ -35,6 +35,21 @@ main() {
     TestJacket<CounterComponent> jacket;
     var counterRef;
 
+    JsConnectOptions connectOptions;
+    var originalConnect = mockableJsConnect;
+
+    mockableJsConnect = (
+        [
+          Function mapStateToProps,
+          dynamic mapDispatchToProps,
+          dynamic mergeProps,
+          JsConnectOptions options,
+        ]
+      ) {
+        connectOptions = options;
+        return originalConnect(mapStateToProps, mapDispatchToProps, mergeProps, options);
+      };
+
     setUp(() async {
       ConnectedCounter = null;
       jacket = null;
@@ -221,143 +236,130 @@ main() {
         expect(jacket.getNode().innerHtml, contains('Count: 1'));
       });
     });
-// areStatesEqual: (next, prev){
-//             expect(next, isA<CounterState>());
-//             expect(prev, isA<CounterProps>());
-//             return true;
-//           },
-    group('areOwnPropsEqual', (){
 
-    });
+    group('Options', () {
+      group('areOwnPropsEqual', (){
+        test('', () {
+          ConnectedCounter = connect<CounterState, CounterProps>(
+            areOwnPropsEqual: expectAsync2((next, prev) {
+              expect(next, isA<CounterProps>());
+              expect(prev, isA<CounterProps>());
+              expect(next.id, 'test');
+              expect(prev.id, 'test2');
+              return true;
+            }),
+          )(Counter);
 
-    group('areStatePropsEqual', (){
-      test('', () async {
-        List<String> methodsCalled = [];
-        ConnectedCounter = connect<CounterState, CounterProps>(
-          mapStateToProps: (state) {
-            methodsCalled.add('mapStateToProps');
-            return Counter()..currentCount = state.count;
-          },
-          areStatePropsEqual: (next, prev) {
-            expect(next, isA<CounterProps>());
-            expect(prev, isA<CounterProps>());
-            expect(next.currentCount, 1);
-            methodsCalled.add('areStatePropsEqual');
-            // Force it to always be true, meaing it shouldnt re-render if they change.
-            return true;
-          },
-          forwardRef: true,
-        )(Counter);
+          var whatever = connectOptions.areOwnPropsEqual(
+            JsBackedMap.from({'id':'test'}).jsObject,
+            JsBackedMap.from({'id':'test2'}).jsObject
+          );
 
-        jacket = mount(
-          (ReduxProvider()..store = store1)(
-            (ConnectedCounter()..ref = (ref){ counterRef = ref; }..currentCount = 0)('test'),
-          ),
-        );
-        expect(methodsCalled, ['mapStateToProps']);
-        methodsCalled.clear();
+          expect(whatever, true);
+        });
+      });
 
-        var dispatchButton = getByTestId(jacket.getInstance(), 'button-increment');
-        click(dispatchButton);
+      group('areStatePropsEqual', (){
+        test('', () async {
+          List<String> methodsCalled = [];
+          ConnectedCounter = connect<CounterState, CounterProps>(
+            mapStateToProps: (state) {
+              methodsCalled.add('mapStateToProps');
+              return Counter()..currentCount = state.count;
+            },
+            areStatePropsEqual: (next, prev) {
+              expect(next, isA<CounterProps>());
+              expect(prev, isA<CounterProps>());
+              expect(next.currentCount, 1);
+              methodsCalled.add('areStatePropsEqual');
+              // Force it to always be true, meaing it shouldnt re-render if they change.
+              return true;
+            },
+            forwardRef: true,
+          )(Counter);
 
-        // wait for the next tick for the async dispatch to propagate
-        await Future(() {});
+          jacket = mount(
+            (ReduxProvider()..store = store1)(
+              (ConnectedCounter()..ref = (ref){ counterRef = ref; }..currentCount = 0)('test'),
+            ),
+          );
+          expect(methodsCalled, ['mapStateToProps']);
+          methodsCalled.clear();
 
-        // store.state.count should be 1 but  does not re-render due to override in `areStatePropsEqual`
-        expect(methodsCalled, ['mapStateToProps', 'areStatePropsEqual']);
-        expect(jacket.getNode().innerHtml, contains('Count: 0'));
+          var dispatchButton = getByTestId(jacket.getInstance(), 'button-increment');
+          click(dispatchButton);
+
+          // wait for the next tick for the async dispatch to propagate
+          await Future(() {});
+
+          // store.state.count should be 1 but  does not re-render due to override in `areStatePropsEqual`
+          expect(methodsCalled, ['mapStateToProps', 'areStatePropsEqual']);
+          expect(jacket.getNode().innerHtml, contains('Count: 0'));
+        });
+      });
+
+      group('areMergedPropsEqual', (){
+        test('', () {
+          ConnectedCounter = connect<CounterState, CounterProps>(
+            areMergedPropsEqual: expectAsync2((next, prev) {
+              expect(next, isA<CounterProps>());
+              expect(prev, isA<CounterProps>());
+              expect(next.id, 'test');
+              expect(prev.id, 'test2');
+              return true;
+            }),
+          )(Counter);
+
+          var whatever = connectOptions.areMergedPropsEqual(
+            JsBackedMap.from({'id':'test'}).jsObject,
+            JsBackedMap.from({'id':'test2'}).jsObject
+          );
+
+          expect(whatever, true);
+
+        });
+      });
+      group('areStatesEqual', (){
+        test('', () async {
+          List<String> methodsCalled = [];
+          ConnectedCounter = connect<CounterState, CounterProps>(
+            areStatesEqual: (next, prev) {
+              expect(next, isA<CounterState>());
+              expect(prev, isA<CounterState>());
+              methodsCalled.add('areStatesEqual');
+              return true;
+            },
+            mapStateToProps: (state) {
+              methodsCalled.add('mapStateToProps');
+              return Counter()..currentCount = state.count;
+            },
+            forwardRef: true,
+          )(Counter);
+
+          jacket = mount(
+            (ReduxProvider()..store = store1)(
+              (ConnectedCounter()..ref = (ref){ counterRef = ref; }..currentCount = 0)('test'),
+            ),
+          );
+
+          // `mapStateToProps` is called once,
+          // then `areStatesEqual` shows up 2 times due to `initialState`.
+          expect(methodsCalled, ['mapStateToProps', 'areStatesEqual', 'areStatesEqual']);
+          methodsCalled.clear();
+
+          var dispatchButton = getByTestId(jacket.getInstance(), 'button-increment');
+          click(dispatchButton);
+
+          // wait for the next tick for the async dispatch to propagate
+          await Future(() {});
+
+          // only checks `areStatesEqual` and does not call `mapStateToProps` since it returned `true`.
+          expect(methodsCalled, ['areStatesEqual']);
+          expect(jacket.getNode().innerHtml, contains('Count: 0'));
+        });
       });
     });
 
-    group('areMergedPropsEqual', (){
-      // TODO: Finish these?
-      // test('', () async {
-      //   List<String> methodsCalled = [];
-      //   ConnectedCounter = connect<CounterState, CounterProps>(
-      //     mapStateToProps: (dispatch){
-      //       return Counter();
-      //     },
-      //     mapDispatchToProps: (dispatch){
-      //       return Counter();
-      //     },
-      //     mergeProps: (stateProps, dispatchProps, ownProps) {
-      //       methodsCalled.add('mergeProps');
-      //       return Counter()..id = 'test';
-      //     },
-      //     areMergedPropsEqual: (next, prev) {
-      //       expect(next, isA<CounterProps>());
-      //       expect(prev, isA<CounterProps>());
-      //       methodsCalled.add('areMergedPropsEqual');
-      //       return true;
-      //     },
-      //     forwardRef: true,
-      //   )(Counter);
-
-      //   jacket = mount(
-      //     (ReduxProvider()..store = store1)(
-      //       (ConnectedCounter()..ref = (ref){ counterRef = ref; })('test'),
-      //     ),
-      //   );
-
-      //   expect(methodsCalled, ['mergeProps']);
-      //   methodsCalled.clear();
-
-
-      //   jacket.rerender(
-      //     (ReduxProvider()..store = store1)(
-      //       (ConnectedCounter()..ref = (ref){ counterRef = ref; }..currentCount = 0)('test'),
-      //     ),
-      //   );
-      //   var dispatchButton = getByTestId(jacket.getInstance(), 'button-increment');
-      //   click(dispatchButton);
-
-      //   // wait for the next tick for the async dispatch to propagate
-      //   await Future(() {});
-
-      //   // only checks `areMergedPropsEqual` and does not re-render since it returned `true`.
-      //   expect(methodsCalled, ['areStatesEqual']);
-      //   expect(jacket.getNode().innerHtml, contains('Count: 0'));
-      // });
-    });
-    group('areStatesEqual', (){
-      test('', () async {
-        List<String> methodsCalled = [];
-        ConnectedCounter = connect<CounterState, CounterProps>(
-          areStatesEqual: (next, prev) {
-            expect(next, isA<CounterState>());
-            expect(prev, isA<CounterState>());
-            methodsCalled.add('areStatesEqual');
-            return true;
-          },
-          mapStateToProps: (state) {
-            methodsCalled.add('mapStateToProps');
-            return Counter()..currentCount = state.count;
-          },
-          forwardRef: true,
-        )(Counter);
-
-        jacket = mount(
-          (ReduxProvider()..store = store1)(
-            (ConnectedCounter()..ref = (ref){ counterRef = ref; }..currentCount = 0)('test'),
-          ),
-        );
-
-        // `mapStateToProps` is called once,
-        // then `areStatesEqual` shows up 2 times due to `initialState`.
-        expect(methodsCalled, ['mapStateToProps', 'areStatesEqual', 'areStatesEqual']);
-        methodsCalled.clear();
-
-        var dispatchButton = getByTestId(jacket.getInstance(), 'button-increment');
-        click(dispatchButton);
-
-        // wait for the next tick for the async dispatch to propagate
-        await Future(() {});
-
-        // only checks `areStatesEqual` and does not call `mapStateToProps` since it returned `true`.
-        expect(methodsCalled, ['areStatesEqual']);
-        expect(jacket.getNode().innerHtml, contains('Count: 0'));
-      });
-    });
 
     group('context', (){});
   });

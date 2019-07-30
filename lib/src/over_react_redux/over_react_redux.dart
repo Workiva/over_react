@@ -1,6 +1,7 @@
 @JS()
 library over_react_redux;
 
+import 'package:meta/meta.dart';
 ////////////////////////////////////////////////////////////////////////////////
 //
 // over_react_redux
@@ -108,11 +109,11 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
     bool handleAreMergedPropsEqual(JsMap jsNext, JsMap jsPrev) =>
         areMergedPropsEqual(factory(new JsBackedMap.backedBy(jsNext)), factory(new JsBackedMap.backedBy(jsPrev)));
 
-    final hoc = _jsConnect(
+    final hoc = mockableJsConnect(
       mapStateToProps != null ? allowInterop(handleMapStateToProps) : mapStateToPropsWithOwnProps != null ? allowInterop(handleMapStateToPropsWithOwnProps) : null,
       mapDispatchToProps != null ? allowInterop(handleMapDispatchToProps) : mapDispatchToPropsWithOwnProps != null ? allowInterop(handleMapDispatchToPropsWithOwnProps) : null,
       mergeProps != null ? allowInterop(handleMergeProps) : null,
-      new _JsConnectOptions(
+      new JsConnectOptions(
         areStatesEqual: allowInterop(handleAreStatesEqual),
         areOwnPropsEqual: allowInterop(handleAreOwnPropsEqual),
         areStatePropsEqual: allowInterop(handleAreStatePropsEqual),
@@ -144,9 +145,19 @@ external ReactClass Function(ReactClass) _jsConnect(
       Function mapStateToProps,
       dynamic mapDispatchToProps,
       dynamic mergeProps,
-      _JsConnectOptions options,
+      JsConnectOptions options,
     ]
   );
+
+@visibleForTesting
+ReactClass Function(ReactClass) Function(
+    [
+      Function mapStateToProps,
+      dynamic mapDispatchToProps,
+      dynamic mergeProps,
+      JsConnectOptions options,
+    ]
+  ) mockableJsConnect = _jsConnect;
 
 @JS('ReactRedux')
 class JsReactRedux {
@@ -266,10 +277,18 @@ dynamic _convertArgsToChildren(List childrenArgs) {
   }
 }
 
+@visibleForTesting
 @JS()
 @anonymous
-class _JsConnectOptions {
-  external factory _JsConnectOptions({
+class JsConnectOptions {
+    bool Function(ReactInteropValue, ReactInteropValue) areStatesEqual;
+    bool Function(JsMap, JsMap) areOwnPropsEqual;
+    bool Function(JsMap, JsMap) areStatePropsEqual;
+    bool Function(JsMap, JsMap) areMergedPropsEqual;
+    bool forwardRef;
+    bool pure;
+    ReactContext context;
+  external factory JsConnectOptions({
     bool Function(ReactInteropValue, ReactInteropValue) areStatesEqual,
     bool Function(JsMap, JsMap) areOwnPropsEqual,
     bool Function(JsMap, JsMap) areStatePropsEqual,
