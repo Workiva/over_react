@@ -421,8 +421,8 @@ class ImplGenerator {
             String individualKey = accessorMeta?.key ?? accessorName;
 
             /// Necessary to work around issue where private static declarations in different classes
-            /// conflict with each other in strong mode: https://github.com/dart-lang/sdk/issues/29751
-            /// TODO remove once that issue is resolved
+            /// conflict with each other in strong mode.
+            /// TODO remove once https://github.com/dart-lang/sdk/issues/29751 is resolved
             String staticConstNamespace = typedMap.node.name.name;
 
             String keyConstantName = '${privateSourcePrefix}key__${accessorName}__$staticConstNamespace';
