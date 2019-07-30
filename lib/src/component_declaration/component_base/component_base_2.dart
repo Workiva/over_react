@@ -379,5 +379,4 @@ mixin UiStatefulMixin2<TProps extends UiProps, TState extends UiState> on UiComp
     final bridge = Component2Bridge.forComponent(this) as UiComponent2BridgeImpl;
     bridge.setStateWithTypedUpdater(this, updater, callback);
   }
-  //
 }

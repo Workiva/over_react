@@ -155,14 +155,7 @@ abstract class FluxUiComponent2<TProps extends FluxUiProps> extends UiComponent2
 ///
 /// > Related: [FluxUiComponent2]
 abstract class FluxUiStatefulComponent2<TProps extends FluxUiProps, TState extends UiState>
-    extends UiStatefulComponent2<TProps, TState>
-    with BatchedRedraws, _FluxComponentMixin<TProps> {
-  @mustCallSuper
-  @override
-  void componentDidMount() {
-    _setUpStoreListeners();
-  }
-}
+    extends FluxUiComponent2<TProps> with UiStatefulMixin2<TProps, TState> {}
 
 /// Helper mixin to keep [FluxUiComponent] and [FluxUiStatefulComponent] clean/DRY.
 ///
