@@ -1,7 +1,6 @@
 ## Available Code Snippets
 
-Below is a list of all available Dart 2 builder-compatible over_react snippets and their<br>
-triggers for Webstorm/IntelliJ and VS Code. 
+Below is a list of all available over_react snippets and their Triggers for Webstorm/IntelliJ and VS Code. 
 
 | Trigger | Content |
 | -------: | ------- |
