@@ -39,5 +39,6 @@ dev_dependencies:
   test: ^1.0.0
 
 dependency_overrides:
-  react:
-    path: /Users/kealjones/Documents/GitHub/react-dart
+    git:
+      url: https://github.com/cleandart/react-dart.git
+      ref: state-setter
