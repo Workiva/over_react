@@ -22,13 +22,11 @@ import '../../../../test_util/test_util.dart';
 part 'required_accessor_integration_test.over_react.g.dart';
 
 void main() {
-  group('(Component2) propTypes properly identifies required props by', () {
+  group('(Component2) propTypes required props', () {
     List<String> consoleErrors;
     JsFunction originalConsoleError;
 
     setUp(() {
-      consoleErrors = [];
-
       // PropTypes by default will only throw a specific error one time per Component Class.
       // This resets the cache after each test so it throws again.
       // See: https://www.npmjs.com/package/prop-types#proptypesresetwarningcache
@@ -49,7 +47,7 @@ void main() {
 
       test('on mount', () {
         mount(
-          (ComponentTest()..nullable = true)(),
+          (ComponentTest()..nullable = true..requiredAndLengthLimited = [1,2])(),
           attachedToDocument: true,
         );
 
@@ -62,6 +60,7 @@ void main() {
         var jacket = mount((ComponentTest()
             ..required = true
             ..nullable = true
+            ..requiredAndLengthLimited = [1,2]
           )(),
           attachedToDocument: true,
         );
@@ -70,6 +69,7 @@ void main() {
 
         jacket.rerender((ComponentTest()
             ..nullable = true
+            ..requiredAndLengthLimited = [1,2]
           )()
         );
 
@@ -85,6 +85,7 @@ void main() {
         render((ComponentTest()
             ..required = null
             ..nullable = true
+            ..requiredAndLengthLimited = [1,2]
           )());
 
         expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
@@ -96,6 +97,7 @@ void main() {
         var jacket = mount((ComponentTest()
             ..required = true
             ..nullable = true
+            ..requiredAndLengthLimited = [1,2]
           )(),
           attachedToDocument: true,
         );
@@ -105,6 +107,7 @@ void main() {
         jacket.rerender((ComponentTest()
               ..required = null
               ..nullable = true
+              ..requiredAndLengthLimited = [1,2]
             )());
 
         expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
@@ -115,7 +118,10 @@ void main() {
 
     group('throwing when a prop is nullable and not set', () {
       test('on mount', () {
-        render((ComponentTest()..required = true)());
+        render((ComponentTest()
+          ..required = true
+          ..requiredAndLengthLimited = [1,2]
+        )());
         expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
         expect(consoleErrors, [contains('ComponentTestProps.nullable')]);
         expect(consoleErrors, [contains('This prop can be set to null!')]);
@@ -125,13 +131,17 @@ void main() {
         var jacket = mount((ComponentTest()
             ..required = true
             ..nullable = true
+            ..requiredAndLengthLimited = [1,2]
           )(),
           attachedToDocument: true,
         );
 
         expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
 
-        jacket.rerender((ComponentTest()..required = true)());
+        jacket.rerender((ComponentTest()
+          ..required = true
+          ..requiredAndLengthLimited = [1,2]
+        )());
 
         expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
         expect(consoleErrors, [contains('ComponentTestProps.nullable')]);
@@ -144,6 +154,7 @@ void main() {
         render((ComponentTest()
           ..nullable = true
           ..required = true
+          ..requiredAndLengthLimited = [1,2]
         )());
         expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
       });
@@ -152,6 +163,7 @@ void main() {
         var jacket = mount((ComponentTest()
             ..required = true
             ..nullable = true
+            ..requiredAndLengthLimited = [1,2]
           )(),
           attachedToDocument: true,
         );
@@ -161,6 +173,7 @@ void main() {
         jacket.rerender((ComponentTest()
           ..required = true
           ..nullable = true
+          ..requiredAndLengthLimited = [1,2]
         )());
 
         expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
@@ -171,6 +184,7 @@ void main() {
       test('on mount', () {
        render((ComponentTest()
           ..nullable = null
+          ..requiredAndLengthLimited = [1,2]
           ..required = true
         )());
         expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
@@ -180,6 +194,7 @@ void main() {
         var jacket = mount((ComponentTest()
             ..required = true
             ..nullable = true
+            ..requiredAndLengthLimited = [1,2]
           )(),
           attachedToDocument: true,
         );
@@ -189,9 +204,33 @@ void main() {
         jacket.rerender((ComponentTest()
           ..required = true
           ..nullable = null
+          ..requiredAndLengthLimited = [1,2]
         )());
 
         expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
+      });
+    });
+
+    group('when a consumer propType function is also provided', () {
+      test('required fires', () {
+       render((ComponentTest()
+          ..nullable = null
+          ..required = true
+        )());
+
+        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
+        expect(consoleErrors, [contains('ComponentTestProps.requiredAndLengthLimited')]);
+      });
+
+      test('consumer check fires', () {
+        render((ComponentTest()
+            ..required = true
+            ..nullable = true
+            ..requiredAndLengthLimited = [1]
+          )());
+
+        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
+        expect(consoleErrors, [contains('must have a length of 2')]);
       });
     });
   });
@@ -207,10 +246,26 @@ class _$ComponentTestProps extends UiProps {
 
   @Accessor(isRequired: true, isNullable: true, requiredErrorMessage: 'This prop can be set to null!')
   var nullable;
+
+  @Accessor(isRequired: true, isNullable: false, requiredErrorMessage: 'This Prop Array is Required for testing purposes.')
+  List requiredAndLengthLimited;
+
 }
 
 @Component2()
 class ComponentTestComponent extends UiComponent2<ComponentTestProps> {
+  @override
+  get propTypes => {
+      getPropKey((ComponentTestProps props) => props.requiredAndLengthLimited, typedPropsFactory):
+          (props, propName, componentName, location, propFullName) {
+        final length = props.requiredAndLengthLimited?.length;
+        if (length != 2) {
+          return new PropError.value(length, propName, 'must have a length of 2');
+        }
+        return null;
+      },
+    };
+
   @override
   render() => Dom.div()();
 }
