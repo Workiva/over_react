@@ -41,7 +41,7 @@ Below is a list of all available over_react snippets and their Triggers for Webs
 1. Copy the command below and run it in your terminal.
 
     ```bash
-    curl https://raw.githubusercontent.com/Workiva/over_react/master/snippets/snippets.xml | pbcopy
+    curl https://raw.githubusercontent.com/Workiva/over_react/master/snippets/snippets.json | pbcopy
     ```
 
 2. Click on "Code", select "Preferences" and select "User Snippets"
