@@ -34,7 +34,7 @@ main() {
           throwsA(hasToStringValue('Assertion failed: "Component2.state should '
               'only be set via initializeState (within the init lifecycle method) '
               'or setState."')));
-    }, testOn: '!js');
+    }, testOn: '!js', skip: 'lol jk, yes it can.');
 
     test('renders a component from end to end, successfully reading state via typed getters', () {
       var renderedInstance = render(StatefulComponentTest()());
@@ -124,7 +124,7 @@ class StatefulComponentTestComponent extends UiStatefulComponent2<StatefulCompon
       this.state = newState()
         ..stringState = '1';
     } else {
-      this.initializeState(newState()
+      this.state = (newState()
         ..stringState = '1'
         ..dynamicState = '2'
         ..untypedState = '3'

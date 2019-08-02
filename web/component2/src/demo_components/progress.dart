@@ -97,9 +97,11 @@ class ProgressComponent extends UiStatefulComponent2<ProgressProps, ProgressStat
   );
 
   @override
-  Map getInitialState() => (newState()
-    ..id = 'progress_' + generateGuid(4)
-  );
+  init(){
+    state = (newState()
+      ..id = 'progress_' + generateGuid(4)
+    );
+  }
 
   @override
   render() {

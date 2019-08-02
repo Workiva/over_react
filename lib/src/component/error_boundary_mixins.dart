@@ -80,7 +80,7 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
   @mustCallSuper
   @override
   void init() {
-    initializeState(newState()..hasError = false);
+    this.state = (newState()..hasError = false);
   }
 
   @mustCallSuper

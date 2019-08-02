@@ -357,12 +357,10 @@ class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
 
   @override
   set state(Map value) {
-    assert(
-        value is JsBackedMap,
-        'Component2.state should only be set via '
-        'initializeState (within the init lifecycle method) or setState.');
-    super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    var stateToSet =
+        (value is _$$StatefulComponentTestState$JsMap ? value.state : value);
+    super.state = stateToSet;
+    _cachedTypedState = typedStateFactoryJs(stateToSet);
   }
 
   @override
