@@ -105,7 +105,7 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
 /// > Related: [FluxUiComponent]
 ///
 ///
-/// __Deprecated.__ Use [FluxUiComponent2] instead.
+/// __Deprecated.__ Use [FluxUiStatefulComponent2] instead.
 abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extends UiState>
     extends UiStatefulComponent<TProps, TState>
     with BatchedRedraws, _FluxComponentMixin<TProps> {

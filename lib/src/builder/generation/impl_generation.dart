@@ -793,12 +793,12 @@ class ImplGenerator {
     return buffer.toString();
   }
 
-  /// Generates a concrete props or state implementation class a given component.
+  /// Generates a concrete props or state implementation class for a given component.
   ///
   /// ## For Component2
   ///
   /// Generates an additional UiProps class implementation for each component that can only be backed by JS maps,
-  /// and override the return type of `typedPropsFactoryJs`/`props` to match this.
+  /// and overrides the return type of `typedPropsFactoryJs`/`props` to match this.
   ///
   /// This allows dart2js to make some optimizations. For instance:
   ///

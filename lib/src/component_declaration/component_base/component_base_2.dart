@@ -345,7 +345,7 @@ abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiSta
 /// __Initializing state:__
 ///
 ///     @Component2()
-///     class YourComponent extends UiComponent2<YourState> with UiStatefulMixin2<YourProps, YourState> {
+///     class YourComponent extends UiComponent2<YourProps> with UiStatefulMixin2<YourProps, YourState> {
 ///       @override
 ///       void init() {
 ///         this.state = (newState()
