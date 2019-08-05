@@ -21,7 +21,7 @@ import 'dart:collection';
 /// __Example:__
 ///
 ///     var valuePropKey = getPropKey((props) => props.value, TextInput);
-String getPropKey(void accessProp(Map keySpy), Map factory(Map props)) {
+String getPropKey<T extends Map>(void accessProp(T keySpy), T factory(Map props)) {
   return _getKey((Map keySpy) {
     return accessProp(factory(keySpy));
   });

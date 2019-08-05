@@ -8,3 +8,4 @@ export 'demo_components/progress.dart';
 export 'demo_components/tag.dart';
 export 'demo_components/toggle_button_group.dart';
 export 'demo_components/toggle_button.dart';
+export 'demo_components/prop_validation.dart';

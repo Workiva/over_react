@@ -46,4 +46,6 @@ void main() {
 
   react_dom.render(
     Faulty()(), querySelector('$demoMountNodeSelectorPrefix--faulty-component-without-error-boundary'));
+
+  react_dom.render(PropTypesWrap()(), querySelector('$demoMountNodeSelectorPrefix--proptypes-component'));
 }

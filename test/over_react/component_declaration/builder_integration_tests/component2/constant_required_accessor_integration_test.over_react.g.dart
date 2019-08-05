@@ -44,6 +44,18 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @override
   @nullableRequiredProp
   set nullable(value) => props[_$key__nullable___$ComponentTestProps] = value;
+
+  /// <!-- Generated from [_$ComponentTestProps.requiredAndLengthLimited] -->
+  @override
+  @requiredProp
+  List get requiredAndLengthLimited =>
+      props[_$key__requiredAndLengthLimited___$ComponentTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$ComponentTestProps.requiredAndLengthLimited] -->
+  @override
+  @requiredProp
+  set requiredAndLengthLimited(List value) =>
+      props[_$key__requiredAndLengthLimited___$ComponentTestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__required___$ComponentTestProps =
       const PropDescriptor(_$key__required___$ComponentTestProps,
@@ -51,18 +63,27 @@ abstract class _$ComponentTestPropsAccessorsMixin
   static const PropDescriptor _$prop__nullable___$ComponentTestProps =
       const PropDescriptor(_$key__nullable___$ComponentTestProps,
           isRequired: true, isNullable: true);
+  static const PropDescriptor
+      _$prop__requiredAndLengthLimited___$ComponentTestProps =
+      const PropDescriptor(
+          _$key__requiredAndLengthLimited___$ComponentTestProps,
+          isRequired: true);
   static const String _$key__required___$ComponentTestProps =
       'ComponentTestProps.required';
   static const String _$key__nullable___$ComponentTestProps =
       'ComponentTestProps.nullable';
+  static const String _$key__requiredAndLengthLimited___$ComponentTestProps =
+      'ComponentTestProps.requiredAndLengthLimited';
 
   static const List<PropDescriptor> $props = const [
     _$prop__required___$ComponentTestProps,
-    _$prop__nullable___$ComponentTestProps
+    _$prop__nullable___$ComponentTestProps,
+    _$prop__requiredAndLengthLimited___$ComponentTestProps
   ];
   static const List<String> $propKeys = const [
     _$key__required___$ComponentTestProps,
-    _$key__nullable___$ComponentTestProps
+    _$key__nullable___$ComponentTestProps,
+    _$key__requiredAndLengthLimited___$ComponentTestProps
   ];
 }
 

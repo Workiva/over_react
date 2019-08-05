@@ -88,7 +88,9 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   @override
   @Deprecated('4.0.0')
   Map copyUnconsumedProps() {
-    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
+    var consumedPropKeys = consumedProps
+            ?.map((ConsumedProps consumedProps) => consumedProps.keys) ??
+        const [];
 
     return copyProps(keySetsToOmit: consumedPropKeys);
   }
@@ -127,7 +129,9 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   @override
   @Deprecated('4.0.0')
   Map copyUnconsumedDomProps() {
-    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
+    var consumedPropKeys = consumedProps
+            ?.map((ConsumedProps consumedProps) => consumedProps.keys) ??
+        const [];
 
     return copyProps(onlyCopyDomProps: true, keySetsToOmit: consumedPropKeys);
   }
@@ -152,17 +156,20 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
     forwardUnconsumedProps(this.props, propsToUpdate: props, keySetsToOmit:
         consumedPropKeys, onlyCopyDomProps: true);
   }
-  
+
   /// Returns a copy of this component's props with React props optionally omitted, and
   /// with the specified [keysToOmit] and [keySetsToOmit] omitted.
   @override
-  Map copyProps({bool omitReservedReactProps: true, bool onlyCopyDomProps: false, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
+  Map copyProps(
+      {bool omitReservedReactProps: true,
+      bool onlyCopyDomProps: false,
+      Iterable keysToOmit,
+      Iterable<Iterable> keySetsToOmit}) {
     return getPropsToForward(this.props,
         omitReactProps: omitReservedReactProps,
         onlyCopyDomProps: onlyCopyDomProps,
         keysToOmit: keysToOmit,
-        keySetsToOmit: keySetsToOmit
-    );
+        keySetsToOmit: keySetsToOmit);
   }
 
   /// Throws a [PropError] if [appliedProps] are invalid.
@@ -181,24 +188,21 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///         throw new PropError.value(tProps.items, 'items', 'must have an even number of items, because reasons');
   ///       }
   ///     }
+  /// __Deprecated.__ Use [propTypes] instead. Will be removed in the `4.0.0` release.
+  @Deprecated('4.0.0')
   @mustCallSuper
   @override
   void validateProps(Map appliedProps) {
-    validateRequiredProps(appliedProps);
+    throw UnsupportedError('[validateProps] is not supported in Component2, use [propTypes] instead.');
   }
 
   /// Validates that props with the `@requiredProp` annotation are present.
+  /// __Deprecated.__ Use [propTypes] instead. Will be removed in the `4.0.0` release.
+  @Deprecated('4.0.0')
+  @mustCallSuper
   @override
   void validateRequiredProps(Map appliedProps) {
-    consumedProps?.forEach((ConsumedProps consumedProps) {
-      consumedProps.props.forEach((PropDescriptor prop) {
-        if (!prop.isRequired) return;
-        if (prop.isNullable && appliedProps.containsKey(prop.key)) return;
-        if (!prop.isNullable && appliedProps[prop.key] != null) return;
-
-        throw new PropError.required(prop.key, prop.errorMessage);
-      });
-    });
+    throw UnsupportedError('[validateRequiredProps] is not supported in Component2, use [propTypes] instead.');
   }
 
   /// Returns a new ClassNameBuilder with className and blacklist values added from [CssClassPropsMixin.className] and
@@ -270,6 +274,32 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   //   END Typed props helpers
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
+
+  /// Allows usage of PropValidator functions to check the validity of a prop passed to it.
+  /// When an invalid value is provided for a prop, a warning will be shown in the JavaScript console.
+  /// For performance reasons, propTypes is only checked in development mode.
+  ///
+  /// Override with a custom implementation to easily add validation.
+  ///
+  ///     get propTypes => {
+  ///           getPropKey((props) => props.twoObjects, typedPropsFactory):
+  ///               (props, propName, componentName, location, propFullName) {
+  ///             final length = props.twoObjects?.length;
+  ///             if (length != 2) {
+  ///               return new PropError.value(length, propName, 'must have a length of 2');
+  ///             }
+  ///             return null;
+  ///           },
+  ///         };
+  ///
+  /// `getPropKey` is a staticlly typed helper to get the string key for a prop.
+  ///
+  /// __Note:__ An improved version of `getPropKey` will be offered once
+  /// https://jira.atl.workiva.net/browse/CPLAT-6655 is completed.
+  ///
+  /// For more info see: https://www.npmjs.com/package/prop-types
+  @override
+  Map<String, react.PropValidator<TProps>> get propTypes => {};
 }
 
 /// The basis for a _stateful_ over_react component that is compatible with ReactJS 16 ([react.Component2]).
@@ -301,7 +331,8 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
 ///       }
 ///     }
 abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiState>
-    extends UiComponent2<TProps> with UiStatefulMixin2<TProps, TState>
+    extends UiComponent2<TProps>
+    with UiStatefulMixin2<TProps, TState>
     implements UiStatefulComponent<TProps, TState> {}
 
 /// A mixin that allows you to add typed state to a [UiComponent2].

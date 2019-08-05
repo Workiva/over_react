@@ -11,127 +11,229 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-import 'dart:html';
+import 'dart:js';
 
 import 'package:over_react/over_react.dart';
-import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:test/test.dart';
+import 'package:react/react_client/react_interop.dart' show PropTypes;
 
 import '../../../../test_util/test_util.dart';
 
 part 'required_accessor_integration_test.over_react.g.dart';
 
 void main() {
-  group('(Component2) properly identifies required props by', () {
+  group('(Component2) propTypes required props', () {
+    List<String> consoleErrors;
+    JsFunction originalConsoleError;
+
+    setUp(() {
+      // PropTypes by default will only throw a specific error one time per Component Class.
+      // This resets the cache after each test so it throws again.
+      // See: https://www.npmjs.com/package/prop-types#proptypesresetwarningcache
+      PropTypes.resetWarningCache();
+
+      originalConsoleError = context['console']['error'];
+      consoleErrors = [];
+      context['console']['error'] = new JsFunction.withThis((self, message) {
+        consoleErrors.add(message);
+        originalConsoleError.apply([message], thisArg: self);
+      });
+    });
+
+    tearDown(() {
+      context['console']['error'] = originalConsoleError;
+    });
     group('throwing when a prop is required and not set', () {
+
       test('on mount', () {
-        expect(() => render(ComponentTest()..nullable = true),
-            throwsPropError_Required('ComponentTestProps.required', 'This Prop is Required for testing purposes.')
+        mount(
+          (ComponentTest()..nullable = true..requiredAndLengthLimited = [1,2])(),
+          attachedToDocument: true,
         );
+
+        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
+        expect(consoleErrors, [contains('ComponentTestProps.required')]);
+        expect(consoleErrors, [contains('This Prop is Required for testing purposes.')]);
       });
 
       test('on re-render', () {
-        var mountNode = new DivElement();
-        react_dom.render((ComponentTest()
-          ..required = true
-          ..nullable = true
-        )(), mountNode);
-
-        expect(() => react_dom.render((ComponentTest()..nullable = true)(), mountNode),
-            throwsPropError_Required('ComponentTestProps.required', 'This Prop is Required for testing purposes.')
+        var jacket = mount((ComponentTest()
+            ..required = true
+            ..nullable = true
+            ..requiredAndLengthLimited = [1,2]
+          )(),
+          attachedToDocument: true,
         );
+
+        expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
+
+        jacket.rerender((ComponentTest()
+            ..nullable = true
+            ..requiredAndLengthLimited = [1,2]
+          )()
+        );
+
+        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
+        expect(consoleErrors, [contains('ComponentTestProps.required')]);
+        expect(consoleErrors, [contains('This Prop is Required for testing purposes.')]);
       });
+
     });
 
     group('throwing when a prop is required and set to null', () {
       test('on mount', () {
-        expect(() => render(ComponentTest()
-          ..required = null
-          ..nullable = true
-        ), throwsPropError_Required('ComponentTestProps.required'));
+        render((ComponentTest()
+            ..required = null
+            ..nullable = true
+            ..requiredAndLengthLimited = [1,2]
+          )());
+
+        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
+        expect(consoleErrors, [contains('ComponentTestProps.required')]);
+        expect(consoleErrors, [contains('This Prop is Required for testing purposes.')]);
       });
 
       test('on re-render', () {
-        var mountNode = new DivElement();
-        react_dom.render((ComponentTest()
-          ..required = true
-          ..nullable = true
-        )(), mountNode);
+        var jacket = mount((ComponentTest()
+            ..required = true
+            ..nullable = true
+            ..requiredAndLengthLimited = [1,2]
+          )(),
+          attachedToDocument: true,
+        );
 
-        expect(
-            () => react_dom.render((ComponentTest()
+        expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
+
+        jacket.rerender((ComponentTest()
               ..required = null
               ..nullable = true
-            )(), mountNode),
-            throwsPropError_Required('ComponentTestProps.required', 'This Prop is Required for testing purposes.')
-        );
+              ..requiredAndLengthLimited = [1,2]
+            )());
+
+        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
+        expect(consoleErrors, [contains('ComponentTestProps.required')]);
+        expect(consoleErrors, [contains('This Prop is Required for testing purposes.')]);
       });
     });
 
     group('throwing when a prop is nullable and not set', () {
       test('on mount', () {
-        expect(() => render(ComponentTest()..required = true),
-            throwsPropError_Required('ComponentTestProps.nullable'));
+        render((ComponentTest()
+          ..required = true
+          ..requiredAndLengthLimited = [1,2]
+        )());
+        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
+        expect(consoleErrors, [contains('ComponentTestProps.nullable')]);
+        expect(consoleErrors, [contains('This prop can be set to null!')]);
       });
 
       test('on re-render', () {
-        var mountNode = new DivElement();
-        react_dom.render((ComponentTest()
-          ..required = true
-          ..nullable = true
-        )(), mountNode);
-
-        expect(() => react_dom.render((ComponentTest()..required = true)(), mountNode),
-            throwsPropError_Required('ComponentTestProps.nullable', 'This prop can be set to null!')
+        var jacket = mount((ComponentTest()
+            ..required = true
+            ..nullable = true
+            ..requiredAndLengthLimited = [1,2]
+          )(),
+          attachedToDocument: true,
         );
+
+        expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
+
+        jacket.rerender((ComponentTest()
+          ..required = true
+          ..requiredAndLengthLimited = [1,2]
+        )());
+
+        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
+        expect(consoleErrors, [contains('ComponentTestProps.nullable')]);
+        expect(consoleErrors, [contains('This prop can be set to null!')]);
       });
     });
 
     group('not throwing when a prop is required and set', () {
       test('on mount', () {
-        expect(() => render(ComponentTest()
+        render((ComponentTest()
           ..nullable = true
           ..required = true
-        ), returnsNormally);
+          ..requiredAndLengthLimited = [1,2]
+        )());
+        expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
       });
 
       test('on re-render', () {
-        var mountNode = new DivElement();
-        react_dom.render((ComponentTest()
-          ..required = true
-          ..nullable = true
-        )(), mountNode);
+        var jacket = mount((ComponentTest()
+            ..required = true
+            ..nullable = true
+            ..requiredAndLengthLimited = [1,2]
+          )(),
+          attachedToDocument: true,
+        );
 
-        expect(() => react_dom.render((ComponentTest()
+        expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
+
+        jacket.rerender((ComponentTest()
           ..required = true
           ..nullable = true
-        )(), mountNode), returnsNormally);
+          ..requiredAndLengthLimited = [1,2]
+        )());
+
+        expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
       });
     });
 
     group('not throwing when a prop is nullable and set to null', () {
       test('on mount', () {
-        expect(() => render(ComponentTest()
+       render((ComponentTest()
           ..nullable = null
+          ..requiredAndLengthLimited = [1,2]
           ..required = true
-        ), returnsNormally);
+        )());
+        expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
       });
 
       test('on re-render', () {
-        var mountNode = new DivElement();
-        react_dom.render((ComponentTest()
-          ..required = true
-          ..nullable = true
-        )(), mountNode);
+        var jacket = mount((ComponentTest()
+            ..required = true
+            ..nullable = true
+            ..requiredAndLengthLimited = [1,2]
+          )(),
+          attachedToDocument: true,
+        );
 
-        expect(() => react_dom.render((ComponentTest()
+        expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
+
+        jacket.rerender((ComponentTest()
           ..required = true
           ..nullable = null
-        )(), mountNode), returnsNormally);
+          ..requiredAndLengthLimited = [1,2]
+        )());
+
+        expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
       });
     });
-  // FIXME 3.0.0-wip unskip once implemented in CPLAT-4887
-  }, skip: 'Component2 prop validation will be added in CPLAT-4887');
+
+    group('when a consumer propType function is also provided', () {
+      test('required fires', () {
+       render((ComponentTest()
+          ..nullable = null
+          ..required = true
+        )());
+
+        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
+        expect(consoleErrors, [contains('ComponentTestProps.requiredAndLengthLimited')]);
+      });
+
+      test('consumer check fires', () {
+        render((ComponentTest()
+            ..required = true
+            ..nullable = true
+            ..requiredAndLengthLimited = [1]
+          )());
+
+        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
+        expect(consoleErrors, [contains('must have a length of 2')]);
+      });
+    });
+  });
 }
 
 @Factory()
@@ -144,10 +246,26 @@ class _$ComponentTestProps extends UiProps {
 
   @Accessor(isRequired: true, isNullable: true, requiredErrorMessage: 'This prop can be set to null!')
   var nullable;
+
+  @Accessor(isRequired: true, isNullable: false, requiredErrorMessage: 'This Prop Array is Required for testing purposes.')
+  List requiredAndLengthLimited;
+
 }
 
 @Component2()
 class ComponentTestComponent extends UiComponent2<ComponentTestProps> {
+  @override
+  get propTypes => {
+      getPropKey((ComponentTestProps props) => props.requiredAndLengthLimited, typedPropsFactory):
+          (props, propName, componentName, location, propFullName) {
+        final length = props.requiredAndLengthLimited?.length;
+        if (length != 2) {
+          return new PropError.value(length, propName, 'must have a length of 2');
+        }
+        return null;
+      },
+    };
+
   @override
   render() => Dom.div()();
 }

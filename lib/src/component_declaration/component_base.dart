@@ -16,6 +16,7 @@ library over_react.component_declaration.component_base;
 
 import 'dart:async';
 import 'dart:collection';
+import 'dart:js';
 
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
@@ -87,7 +88,85 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
 
   @override
   JsMap jsifyPropTypes(covariant UiComponent2 component, Map propTypes) {
-    // todo implement jsifyPropTypes
+    Error _getErrorFromConsumerValidator(
+      dynamic _validator,
+      JsBackedMap _props,
+      String _propName,
+      String _componentName,
+      String _location,
+      String _propFullName
+    ) {
+      var convertedProps = component.typedPropsFactoryJs(_props);
+      Error error = _validator(convertedProps, _propName, _componentName, _location, _propFullName);
+      return error;
+    }
+
+    // Add [PropValidator]s for props annotated as required.
+    var newPropTypes = Map.from(propTypes);
+    component.consumedProps?.forEach((ConsumedProps consumedProps) {
+      consumedProps.props.forEach((PropDescriptor prop) {
+        if (!prop.isRequired) return;
+
+        Error requiredPropValidator(
+          Map _props,
+          String _propName,
+          String _componentName,
+          String _location,
+          String _propFullName,
+        ) {
+          Error consumerError;
+          // Check if the consumer has specified a propType for this key.
+          if(propTypes[prop.key] != null) {
+            consumerError = _getErrorFromConsumerValidator(
+              propTypes[prop.key],
+              JsBackedMap.from(_props),
+              _propName,
+              _componentName,
+              _location,
+              _propFullName
+            );
+          }
+
+          if (consumerError != null) return consumerError;
+
+          if (prop.isNullable && _props.containsKey(prop.key)) return null;
+          if (!prop.isNullable && _props[prop.key] != null) return null;
+
+          if (_props[_propName] == null) {
+            return new PropError.required(_propName, prop.errorMessage);
+          }
+
+          return null;
+        }
+
+        newPropTypes[prop.key] = requiredPropValidator;
+      });
+    });
+
+    // Wrap consumer-provided and required validators with ones that convert plain props maps into typed ones.
+    return JsBackedMap.from(newPropTypes.map((_propKey, _validator) {
+        JsPropValidator handlePropValidator = (
+          JsMap _props,
+          String _propName,
+          String _componentName,
+          String _location,
+          String _propFullName,
+          // This is a required argument of PropTypes validators but is hidden from the JS consumer.
+          String secret,
+        ) {
+          Error error = _getErrorFromConsumerValidator(
+            _validator,
+            JsBackedMap.fromJs(_props),
+            _propName,
+            _componentName,
+            _location,
+            _propFullName
+          );
+          return error == null ? null : JsError(error.toString());
+        };
+
+        return MapEntry(_propKey, allowInterop(handlePropValidator));
+      })).jsObject;
   }
 
   /// A version of [setStateWithTypedUpdater] whose updater is passed typed views
