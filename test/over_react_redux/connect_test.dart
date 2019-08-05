@@ -347,7 +347,7 @@ main() {
 
 
     group('context', (){
-      test('', () async {
+      test('correctly renders with multiple contexts/stores', () async {
         var bigCounterContext = createContext();
         ConnectedCounter = connect<CounterState, CounterProps>(
               mapStateToProps: (state){
@@ -374,7 +374,7 @@ main() {
             ),
           ),
         ));
-        
+
         var bigCounter = getDartComponent(getByTestId(jacket.getInstance(), 'big-counter'));
         var dispatchButton = queryByTestId(findDomNode(bigCounter), 'button-increment');
         click(dispatchButton);
@@ -384,7 +384,7 @@ main() {
         expect(findDomNode(bigCounter).innerHtml, contains('Count: 100'));
       });
 
-      test('works when nested ', () async {
+      test('correctly renderes when contexts are nested', () async {
         var bigCounterContext = createContext();
         ConnectedCounter = connect<CounterState, CounterProps>(
               mapStateToProps: (state){
