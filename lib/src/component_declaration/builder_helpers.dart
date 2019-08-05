@@ -152,7 +152,6 @@ abstract class UiComponent2<TProps extends UiProps>
 abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiState>
     extends UiComponent2<TProps>
     with
-        GeneratedClass,
         component_base.UiStatefulMixin2<TProps, TState>,
         _GeneratedUiStatefulComponentStubs<TProps, TState>
     implements component_base.UiStatefulComponent2<TProps, TState>
