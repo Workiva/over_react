@@ -229,7 +229,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
 
   /// A typed view into the component's current JS props object.
   ///
-  /// Created using [typedPropsFactoryJs] and updated whenever state changes.
+  /// Created using [typedPropsFactoryJs] and updated whenever props changes.
   @override
   TProps get props {
     // This needs to be a concrete implementation in Dart 2 for soundness;
