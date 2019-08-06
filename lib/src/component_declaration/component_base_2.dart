@@ -110,174 +110,11 @@ ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 dartComponen
 abstract class UiComponent2<TProps extends UiProps> extends react.Component2
     with DisposableManagerProxy, GeneratedClass
     implements UiComponent<TProps> {
-  @override
-  Map getDefaultProps() => new JsBackedMap();
-
-  /// The default consumed props, taken from the keys generated in the associated @[Props] class.
-  @override
-  @toBeGenerated
-  Iterable<ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
-
-  /// The non-forwarding props defined in this component.
-  ///
-  /// For generated components, this defaults to the keys generated in the associated @[Props] class
-  /// if this getter is not overridden.
-  @override
-  Iterable<ConsumedProps> get consumedProps => $defaultConsumedProps;
-
-  /// Returns a copy of this component's props with keys found in [consumedProps] omitted.
-  ///
-  /// > Should be used alongside [forwardingClassNameBuilder].
-  ///
-  /// > Related [copyUnconsumedDomProps]
-  ///
-  /// __Deprecated.__ Use [addUnconsumedProps] within
-  /// [modifyProps] (rather than [addProps]) instead.
-  ///
-  /// Replace
-  ///
-  ///   ..addProps(copyUnconsumedProps())
-  ///
-  /// with
-  ///
-  ///   ..modifyProps(addUnconsumedProps)
-  ///
-  /// Will be removed in the `4.0.0` release.
-  @override
-  @Deprecated('4.0.0')
-  Map copyUnconsumedProps() {
-    var consumedPropKeys = consumedProps
-            ?.map((ConsumedProps consumedProps) => consumedProps.keys) ??
-        const [];
-
-    return copyProps(keySetsToOmit: consumedPropKeys);
-  }
-
-  /// A prop modifier that passes a reference of a component's `props` to be updated with any unconsumed props.
-  ///
-  /// Call within `modifyProps` like so:
-  ///
-  ///     class SomeCompositeComponent extends UiComponent<SomeCompositeComponentProps> {
-  ///       @override
-  ///       render() {
-  ///         return (SomeOtherWidget()..modifyProps(addUnconsumedProps))(
-  ///           props.children,
-  ///         );
-  ///       }
-  ///     }
-  ///
-  /// > Related [addUnconsumedDomProps]
-  void addUnconsumedProps(Map props) {
-    // TODO: cache this value to avoid unnecessary looping
-    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys);
-
-    forwardUnconsumedProps(this.props, propsToUpdate: props,
-        keySetsToOmit: consumedPropKeys);
-  }
-
-  /// Returns a copy of this component's props with keys found in [consumedProps] and non-DOM props omitted.
-  ///
-  /// > Should be used alongside [forwardingClassNameBuilder].
-  ///
-  /// > Related [copyUnconsumedProps]
-  ///
-  /// __Deprecated.__ Use [addUnconsumedDomProps] within
-  /// [modifyProps] (rather than [addProps]) instead. Will be removed in the
-  /// `4.0.0` release.
-  @override
-  @Deprecated('4.0.0')
-  Map copyUnconsumedDomProps() {
-    var consumedPropKeys = consumedProps
-            ?.map((ConsumedProps consumedProps) => consumedProps.keys) ??
-        const [];
-
-    return copyProps(onlyCopyDomProps: true, keySetsToOmit: consumedPropKeys);
-  }
-
-  /// A prop modifier that passes a reference of a component's `props` to be updated with any unconsumed `DomProps`.
-  ///
-  /// Call within `modifyProps` like so:
-  ///
-  ///     class SomeCompositeComponent extends UiComponent<SomeCompositeComponentProps> {
-  ///       @override
-  ///       render() {
-  ///         return (Dom.div()..modifyProps(addUnconsumedDomProps))(
-  ///           props.children,
-  ///         );
-  ///       }
-  ///     }
-  ///
-  /// > Related [addUnconsumedProps]
-  void addUnconsumedDomProps(Map props) {
-    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys);
-
-    forwardUnconsumedProps(this.props, propsToUpdate: props, keySetsToOmit:
-        consumedPropKeys, onlyCopyDomProps: true);
-  }
-
-  /// Returns a copy of this component's props with React props optionally omitted, and
-  /// with the specified [keysToOmit] and [keySetsToOmit] omitted.
-  @override
-  Map copyProps(
-      {bool omitReservedReactProps: true,
-      bool onlyCopyDomProps: false,
-      Iterable keysToOmit,
-      Iterable<Iterable> keySetsToOmit}) {
-    return getPropsToForward(this.props,
-        omitReactProps: omitReservedReactProps,
-        onlyCopyDomProps: onlyCopyDomProps,
-        keysToOmit: keysToOmit,
-        keySetsToOmit: keySetsToOmit);
-  }
-
-  /// Throws a [PropError] if [appliedProps] are invalid.
-  ///
-  /// This is called automatically with the latest props available during [componentWillReceiveProps] and
-  /// [componentWillMount], and can also be called manually for custom validation.
-  ///
-  /// Override with a custom implementation to easily add validation (and don't forget to call super!)
-  ///
-  ///     @mustCallSuper
-  ///     void validateProps(Map appliedProps) {
-  ///       super.validateProps(appliedProps);
-  ///
-  ///       var tProps = typedPropsFactory(appliedProps);
-  ///       if (tProps.items.length.isOdd) {
-  ///         throw new PropError.value(tProps.items, 'items', 'must have an even number of items, because reasons');
-  ///       }
-  ///     }
-  /// __Deprecated.__ Use [propTypes] instead. Will be removed in the `4.0.0` release.
-  @Deprecated('4.0.0')
-  @mustCallSuper
-  @override
-  void validateProps(Map appliedProps) {
-    throw UnsupportedError('[validateProps] is not supported in Component2, use [propTypes] instead.');
-  }
-
-  /// Validates that props with the `@requiredProp` annotation are present.
-  /// __Deprecated.__ Use [propTypes] instead. Will be removed in the `4.0.0` release.
-  @Deprecated('4.0.0')
-  @mustCallSuper
-  @override
-  void validateRequiredProps(Map appliedProps) {
-    throw UnsupportedError('[validateRequiredProps] is not supported in Component2, use [propTypes] instead.');
-  }
-
-  /// Returns a new ClassNameBuilder with className and blacklist values added from [CssClassPropsMixin.className] and
-  /// [CssClassPropsMixin.classNameBlacklist], if they are specified.
-  ///
-  /// This method should be used as the basis for the classNames of components receiving forwarded props.
-  ///
-  /// > Should be used alongside [copyUnconsumedProps] or [copyUnconsumedDomProps].
-  @override
-  ClassNameBuilder forwardingClassNameBuilder() {
-    return new ClassNameBuilder.fromProps(this.props);
-  }
-
-  // ----------------------------------------------------------------------
-  // ----------------------------------------------------------------------
-  //   BEGIN Typed props helpers
+  // ***************************************************************************
   //
+  // Typed props
+  //
+  // ***************************************************************************
 
   /// A typed view into the component's current JS props object.
   ///
@@ -314,21 +151,6 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   @override
   TProps newProps() => typedPropsFactoryJs(new JsBackedMap());
 
-  /// Deprecated; do not use. Will be removed alongside UiComponent.
-  @Deprecated('4.0.0')
-  @override
-  Map get unwrappedProps => super.props;
-
-  /// Deprecated; do not use. Will be removed alongside UiComponent.
-  @Deprecated('4.0.0')
-  @override
-  set unwrappedProps(Map value) => props = value;
-
-  //
-  //   END Typed props helpers
-  // ----------------------------------------------------------------------
-  // ----------------------------------------------------------------------
-
   /// Allows usage of PropValidator functions to check the validity of a prop passed to it.
   /// When an invalid value is provided for a prop, a warning will be shown in the JavaScript console.
   /// For performance reasons, propTypes is only checked in development mode.
@@ -354,6 +176,194 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// For more info see: https://www.npmjs.com/package/prop-types
   @override
   Map<String, react.PropValidator<TProps>> get propTypes => {};
+
+  // ***************************************************************************
+  //
+  // Prop forwarding
+  //
+  // ***************************************************************************
+
+  /// The default consumed props, taken from the keys generated in the associated @[Props] class.
+  @override
+  @toBeGenerated
+  Iterable<ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
+
+  /// The non-forwarding props defined in this component.
+  ///
+  /// For generated components, this defaults to the keys generated in the associated @[Props] class
+  /// if this getter is not overridden.
+  @override
+  Iterable<ConsumedProps> get consumedProps => $defaultConsumedProps;
+
+  /// A prop modifier that passes a reference of a component's `props` to be updated with any unconsumed props.
+  ///
+  /// Call within `modifyProps` like so:
+  ///
+  ///     class SomeCompositeComponent extends UiComponent<SomeCompositeComponentProps> {
+  ///       @override
+  ///       render() {
+  ///         return (SomeOtherWidget()..modifyProps(addUnconsumedProps))(
+  ///           props.children,
+  ///         );
+  ///       }
+  ///     }
+  ///
+  /// > Related [addUnconsumedDomProps]
+  void addUnconsumedProps(Map props) {
+    // TODO: cache this value to avoid unnecessary looping
+    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys);
+
+    forwardUnconsumedProps(this.props, propsToUpdate: props,
+        keySetsToOmit: consumedPropKeys);
+  }
+  /// A prop modifier that passes a reference of a component's `props` to be updated with any unconsumed `DomProps`.
+  ///
+  /// Call within `modifyProps` like so:
+  ///
+  ///     class SomeCompositeComponent extends UiComponent<SomeCompositeComponentProps> {
+  ///       @override
+  ///       render() {
+  ///         return (Dom.div()..modifyProps(addUnconsumedDomProps))(
+  ///           props.children,
+  ///         );
+  ///       }
+  ///     }
+  ///
+  /// > Related [addUnconsumedProps]
+  void addUnconsumedDomProps(Map props) {
+    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys);
+
+    forwardUnconsumedProps(this.props, propsToUpdate: props, keySetsToOmit:
+        consumedPropKeys, onlyCopyDomProps: true);
+  }
+
+  /// Returns a copy of this component's props with React props optionally omitted, and
+  /// with the specified [keysToOmit] and [keySetsToOmit] omitted.
+  @override
+  Map copyProps(
+      {bool omitReservedReactProps: true,
+      bool onlyCopyDomProps: false,
+      Iterable keysToOmit,
+      Iterable<Iterable> keySetsToOmit}) {
+    return getPropsToForward(this.props,
+        omitReactProps: omitReservedReactProps,
+        onlyCopyDomProps: onlyCopyDomProps,
+        keysToOmit: keysToOmit,
+        keySetsToOmit: keySetsToOmit);
+  }
+
+  /// Returns a new ClassNameBuilder with className and blacklist values added from [CssClassPropsMixin.className] and
+  /// [CssClassPropsMixin.classNameBlacklist], if they are specified.
+  ///
+  /// This method should be used as the basis for the classNames of components receiving forwarded props.
+  ///
+  /// > Should be used alongside [copyUnconsumedProps] or [copyUnconsumedDomProps].
+  @override
+  ClassNameBuilder forwardingClassNameBuilder() {
+    return new ClassNameBuilder.fromProps(this.props);
+  }
+
+  // ***************************************************************************
+  //
+  // Deprecated members
+  //
+  // ***************************************************************************
+
+  /// Deprecated; do not use. Will be removed alongside UiComponent.
+  @Deprecated('4.0.0')
+  @override
+  Map get unwrappedProps => super.props;
+
+  /// Deprecated; do not use. Will be removed alongside UiComponent.
+  @Deprecated('4.0.0')
+  @override
+  set unwrappedProps(Map value) => props = value;
+
+  /// Returns a copy of this component's props with keys found in [consumedProps] omitted.
+  ///
+  /// > Should be used alongside [forwardingClassNameBuilder].
+  ///
+  /// > Related [copyUnconsumedDomProps]
+  ///
+  /// __Deprecated.__ Use [addUnconsumedProps] within
+  /// [modifyProps] (rather than [addProps]) instead.
+  ///
+  /// Replace
+  ///
+  ///   ..addProps(copyUnconsumedProps())
+  ///
+  /// with
+  ///
+  ///   ..modifyProps(addUnconsumedProps)
+  ///
+  /// Will be removed in the `4.0.0` release.
+  @override
+  @Deprecated('4.0.0')
+  Map copyUnconsumedProps() {
+    var consumedPropKeys = consumedProps
+            ?.map((ConsumedProps consumedProps) => consumedProps.keys) ??
+        const [];
+
+    return copyProps(keySetsToOmit: consumedPropKeys);
+  }
+
+  /// Returns a copy of this component's props with keys found in [consumedProps] and non-DOM props omitted.
+  ///
+  /// > Should be used alongside [forwardingClassNameBuilder].
+  ///
+  /// > Related [copyUnconsumedProps]
+  ///
+  /// __Deprecated.__ Use [addUnconsumedDomProps] within
+  /// [modifyProps] (rather than [addProps]) instead. Will be removed in the
+  /// `4.0.0` release.
+  @override
+  @Deprecated('4.0.0')
+  Map copyUnconsumedDomProps() {
+    var consumedPropKeys = consumedProps
+            ?.map((ConsumedProps consumedProps) => consumedProps.keys) ??
+        const [];
+
+    return copyProps(onlyCopyDomProps: true, keySetsToOmit: consumedPropKeys);
+  }
+
+  // ***************************************************************************
+  //
+  // Deprecated and unsupported members
+  //
+  // ***************************************************************************
+
+  /// Throws a [PropError] if [appliedProps] are invalid.
+  ///
+  /// This is called automatically with the latest props available during [componentWillReceiveProps] and
+  /// [componentWillMount], and can also be called manually for custom validation.
+  ///
+  /// Override with a custom implementation to easily add validation (and don't forget to call super!)
+  ///
+  ///     @mustCallSuper
+  ///     void validateProps(Map appliedProps) {
+  ///       super.validateProps(appliedProps);
+  ///
+  ///       var tProps = typedPropsFactory(appliedProps);
+  ///       if (tProps.items.length.isOdd) {
+  ///         throw new PropError.value(tProps.items, 'items', 'must have an even number of items, because reasons');
+  ///       }
+  ///     }
+  /// __Deprecated.__ Use [propTypes] instead. Will be removed in the `4.0.0` release.
+  @Deprecated('4.0.0')
+  @mustCallSuper
+  @override
+  void validateProps(Map appliedProps) {
+    throw UnsupportedError('[validateProps] is not supported in Component2, use [propTypes] instead.');
+  }
+
+  /// Validates that props with the `@requiredProp` annotation are present.
+  /// __Deprecated.__ Use [propTypes] instead. Will be removed in the `4.0.0` release.
+  @Deprecated('4.0.0')
+  @mustCallSuper
+  @override
+  void validateRequiredProps(Map appliedProps) {
+    throw UnsupportedError('[validateRequiredProps] is not supported in Component2, use [propTypes] instead.');
+  }
 }
 
 /// The basis for a _stateful_ over_react component that is compatible with ReactJS 16 ([react.Component2]).
@@ -423,6 +433,12 @@ abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiSta
 ///       }
 ///     }
 mixin UiStatefulMixin2<TProps extends UiProps, TState extends UiState> on UiComponent2<TProps> {
+  // ***************************************************************************
+  //
+  // Typed state
+  //
+  // ***************************************************************************
+
   /// A typed view into the component's current JS state object.
   ///
   /// Created using [typedStateFactoryJs] and updated whenever state changes.
@@ -460,6 +476,12 @@ mixin UiStatefulMixin2<TProps extends UiProps, TState extends UiState> on UiComp
     final bridge = Component2Bridge.forComponent(this) as UiComponent2BridgeImpl;
     bridge.setStateWithTypedUpdater(this, updater, callback);
   }
+
+  // ***************************************************************************
+  //
+  // Deprecated members
+  //
+  // ***************************************************************************
 
   /// Deprecated; do not use. Will be removed alongside UiComponent.
   @Deprecated('4.0.0')
