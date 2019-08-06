@@ -75,7 +75,6 @@ main() {
   flux_component_test.main();
   component2_flux_component_test.main();
 
-
   builder_helpers_test.main();
 
   abstract_accessor_integration_test.main();
