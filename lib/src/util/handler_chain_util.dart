@@ -17,12 +17,14 @@ library over_react.handler_chain_util;
 import 'package:over_react/over_react.dart' show ResizeSensorEvent;
 import 'package:react/react.dart' show
     SyntheticEvent,
+    SyntheticAnimationEvent,
     SyntheticClipboardEvent,
     SyntheticKeyboardEvent,
     SyntheticFocusEvent,
     SyntheticFormEvent,
     SyntheticMouseEvent,
     SyntheticTouchEvent,
+    SyntheticTransitionEvent,
     SyntheticUIEvent,
     SyntheticWheelEvent;
 
@@ -30,6 +32,9 @@ import '../component/callback_typedefs.dart';
 
 /// Provides chaining utilities for [DomEventCallback].
 const domEventCallbacks = CallbackUtil1Arg<SyntheticEvent>();
+
+/// Provides chaining utilities for [AnimationEventCallback].
+const animationEventCallbacks = CallbackUtil1Arg<SyntheticAnimationEvent>();
 
 /// Provides chaining utilities for [ClipboardEventCallback].
 const clipboardEventCallbacks = CallbackUtil1Arg<SyntheticClipboardEvent>();
@@ -48,6 +53,9 @@ const mouseEventCallbacks = CallbackUtil1Arg<SyntheticMouseEvent>();
 
 /// Provides chaining utilities for [TouchEventCallback].
 const touchEventCallbacks = CallbackUtil1Arg<SyntheticTouchEvent>();
+
+/// Provides chaining utilities for [TransitionEventCallback].
+const transitionEventCallbacks = CallbackUtil1Arg<SyntheticTransitionEvent>();
 
 /// Provides chaining utilities for [UIEventCallback].
 const uiEventCallbacks = CallbackUtil1Arg<SyntheticUIEvent>();
