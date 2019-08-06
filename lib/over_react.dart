@@ -47,7 +47,11 @@ export 'src/component/prop_typedefs.dart';
 export 'src/component/resize_sensor.dart';
 export 'src/component_declaration/annotations.dart';
 export 'src/component_declaration/builder_helpers.dart' hide GeneratedErrorMessages;
-export 'src/component_declaration/component_base_2.dart';
+export 'src/component_declaration/component_base_2.dart' show
+    registerComponent2,
+    UiComponent2,
+    UiStatefulComponent2,
+    UiStatefulMixin2;
 export 'src/component_declaration/built_redux_component.dart';
 export 'src/component_declaration/flux_component.dart';
 export 'src/util/character_constants.dart';
