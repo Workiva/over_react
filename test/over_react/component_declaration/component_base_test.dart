@@ -18,7 +18,8 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:html';
 
-import 'package:over_react/over_react.dart' show Dom, DummyComponent, JsBackedMap, ValidationUtil;
+import 'package:over_react/over_react.dart' show Dom, DummyComponent, JsBackedMap, UiComponent2, ValidationUtil;
+import 'package:over_react/over_react.dart' as over_react;
 import 'package:over_react_test/over_react_test.dart';
 import 'package:over_react/src/component_declaration/component_base.dart';
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
@@ -1168,7 +1169,7 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
   }
 }
 
-class TestComponent2Props extends UiProps {
+class TestComponent2Props extends over_react.UiProps {
   @override final ReactComponentFactoryProxy componentFactory = _TestComponentComponentFactory;
   TestComponent2Props(JsBackedMap backingMap)
       : this._props = new JsBackedMap() {
@@ -1178,15 +1179,25 @@ class TestComponent2Props extends UiProps {
   @override
   JsBackedMap get props => _props;
   JsBackedMap _props;
+
+  @override
+  bool get $isClassGenerated => true;
+
+  @override
+  String get propKeyNamespace => null;
 }
 
 class TestComponent2Component extends UiComponent2<TestComponent2Props> {
-
   @override
   final List<ConsumedProps> consumedProps;
 
+  TestComponent2Props _props;
+
   @override
-  TestComponent2Props get props => typedPropsFactory(super.props);
+  TestComponent2Props get props => _props;
+
+  @override
+  set props(Map value) => _props = typedPropsFactory(value);
 
   TestComponent2Component({List<ConsumedProps> testConsumedProps}) :
         consumedProps = testConsumedProps;
@@ -1195,12 +1206,10 @@ class TestComponent2Component extends UiComponent2<TestComponent2Props> {
   render() => (Dom.div()..ref = 'foo')();
 
   @override
-  TestComponent2Props typedPropsFactory(Map propsMap) => new
-  TestComponent2Props(propsMap);
+  TestComponent2Props typedPropsFactory(Map propsMap) => new TestComponent2Props(propsMap);
 
   @override
-  TestComponent2Props typedPropsFactoryJs(Map propsMap) => new
-  TestComponent2Props(propsMap);
+  TestComponent2Props typedPropsFactoryJs(Map propsMap) => new TestComponent2Props(propsMap);
 }
 
 UiFactory<TestStatefulComponentProps> TestStatefulComponent = ([Map props]) => new TestStatefulComponentProps(props);
