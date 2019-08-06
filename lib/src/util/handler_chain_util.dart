@@ -34,7 +34,7 @@ import '../component/callback_typedefs.dart';
 final CallbackUtil1Arg<SyntheticEvent> domEventCallbacks                    = const CallbackUtil1Arg<SyntheticEvent>();
 
 /// Provides chaining utilities for [AnimationEventCallback].
-const animationEventCallbacks = CallbackUtil1Arg<SyntheticAnimationEvent>();
+const animationEventCallbacks = const CallbackUtil1Arg<SyntheticAnimationEvent>();
 
 /// Provides chaining utilities for [ClipboardEventCallback].
 final CallbackUtil1Arg<SyntheticClipboardEvent> clipboardEventCallbacks     = const CallbackUtil1Arg<SyntheticClipboardEvent>();
@@ -55,7 +55,7 @@ final CallbackUtil1Arg<SyntheticMouseEvent> mouseEventCallbacks             = co
 final CallbackUtil1Arg<SyntheticTouchEvent> touchEventCallbacks             = const CallbackUtil1Arg<SyntheticTouchEvent>();
 
 /// Provides chaining utilities for [TransitionEventCallback].
-const transitionEventCallbacks = CallbackUtil1Arg<SyntheticTransitionEvent>();
+const transitionEventCallbacks = const CallbackUtil1Arg<SyntheticTransitionEvent>();
 
 /// Provides chaining utilities for [UIEventCallback].
 final CallbackUtil1Arg<SyntheticUIEvent> uiEventCallbacks                   = const CallbackUtil1Arg<SyntheticUIEvent>();
