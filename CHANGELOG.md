@@ -10,6 +10,15 @@ __Breaking Changes__
   as a warning. In other words, the issue has been promoted from a runtime
   exception to a build-time error.
 
+## 2.5.0
+
+> Complete `2.5.0` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.4.4+dart2...2.5.0+dart2)
+> - [Dart 1](https://github.com/Workiva/over_react/compare/2.4.2+dart1...2.5.0+dart1)
+
+* [#327] Add support for `SyntheticAnimationEvent` / `SyntheticTransitionEvent`
+
 ## 2.4.4
 
 > Complete `2.4.4` Changsets:
