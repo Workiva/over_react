@@ -1186,7 +1186,7 @@ class TestComponent2Component extends UiComponent2<TestComponent2Props> {
   final List<ConsumedProps> consumedProps;
 
   @override
-  TestComponent2Props get props => typedPropsFactory(unwrappedProps);
+  TestComponent2Props get props => typedPropsFactory(super.props);
 
   TestComponent2Component({List<ConsumedProps> testConsumedProps}) :
         consumedProps = testConsumedProps;
