@@ -54,6 +54,24 @@ abstract class _$ComponentTestPropsAccessorsMixin
       isNullable: true,
       requiredErrorMessage: 'This prop can be set to null!')
   set nullable(value) => props[_$key__nullable___$ComponentTestProps] = value;
+
+  /// <!-- Generated from [_$ComponentTestProps.requiredAndLengthLimited] -->
+  @override
+  @Accessor(
+      isRequired: true,
+      isNullable: false,
+      requiredErrorMessage: 'This Prop Array is Required for testing purposes.')
+  List get requiredAndLengthLimited =>
+      props[_$key__requiredAndLengthLimited___$ComponentTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$ComponentTestProps.requiredAndLengthLimited] -->
+  @override
+  @Accessor(
+      isRequired: true,
+      isNullable: false,
+      requiredErrorMessage: 'This Prop Array is Required for testing purposes.')
+  set requiredAndLengthLimited(List value) =>
+      props[_$key__requiredAndLengthLimited___$ComponentTestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__required___$ComponentTestProps =
       const PropDescriptor(_$key__required___$ComponentTestProps,
@@ -64,18 +82,28 @@ abstract class _$ComponentTestPropsAccessorsMixin
           isRequired: true,
           isNullable: true,
           errorMessage: 'This prop can be set to null!');
+  static const PropDescriptor
+      _$prop__requiredAndLengthLimited___$ComponentTestProps =
+      const PropDescriptor(
+          _$key__requiredAndLengthLimited___$ComponentTestProps,
+          isRequired: true,
+          errorMessage: 'This Prop Array is Required for testing purposes.');
   static const String _$key__required___$ComponentTestProps =
       'ComponentTestProps.required';
   static const String _$key__nullable___$ComponentTestProps =
       'ComponentTestProps.nullable';
+  static const String _$key__requiredAndLengthLimited___$ComponentTestProps =
+      'ComponentTestProps.requiredAndLengthLimited';
 
   static const List<PropDescriptor> $props = const [
     _$prop__required___$ComponentTestProps,
-    _$prop__nullable___$ComponentTestProps
+    _$prop__nullable___$ComponentTestProps,
+    _$prop__requiredAndLengthLimited___$ComponentTestProps
   ];
   static const List<String> $propKeys = const [
     _$key__required___$ComponentTestProps,
-    _$key__nullable___$ComponentTestProps
+    _$key__nullable___$ComponentTestProps,
+    _$key__requiredAndLengthLimited___$ComponentTestProps
   ];
 }
 
