@@ -16,7 +16,7 @@ class _$CounterProps extends UiProps with ConnectPropsMixin {
 
   Map<String, dynamic> customStyles;
 
-  void Function(dynamic action) dispatcherProp;
+  Function dispatcherProp;
 }
 
 @Component2()

@@ -17,6 +17,8 @@ import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_client/js_backed_map.dart';
 import 'package:redux/redux.dart';
 
+
+
 part 'over_react_redux.over_react.g.dart';
 
 @PropsMixin(keyNamespace: '')
@@ -27,7 +29,86 @@ abstract class _$ConnectPropsMixin {
 
 /// A wrapper around the JS react-redux `connect` function that supports OverReact components.
 ///
-/// [connect]: https://react-redux.js.org/api/connect#connect
+/// __Example:__
+///
+///     UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
+///         mapStateToProps: (state) => (
+///           Counter()..intProp = state.count
+///         ),
+///         mapDispatchToProps: (dispatch) => (
+///           Counter()..increment = () => dispatch(INCREMENT_ACTION())
+///         ),
+///     )(Counter);
+///
+/// - [mapStateToProps] is used for selecting the part of the data from the store that the connected
+///  component needs.
+///  - It is called every time the store state changes.
+///  - It receives the entire store state, and should return an object of data this component needs.
+/// If you need access to the props provided to the connected component you can use [mapStateToPropsWithOwnProps],
+/// the second argument will be `ownProps`.
+/// See: <https://react-redux.js.org/using-react-redux/connect-mapstate#defining-mapstatetoprops>
+///
+/// - [mapDispatchToProps] will be called with dispatch as the first argument.
+/// You will normally make use of this by returning new functions that call dispatch() inside themselves,
+/// and either pass in a plain action directly or pass in the result of an action creator.
+/// If you need access to the props provided to the connected component you can use [mapDispatchToPropsWithOwnProps],
+/// the second argument will be `ownProps`.
+/// See: <https://react-redux.js.org/using-react-redux/connect-mapdispatch#defining-mapdispatchtoprops-as-a-function>
+///
+/// - [mergeProps] if specified, defines how the final props for the wrapped component are determined.
+/// If you do not provide [mergeProps], the wrapped component receives {...ownProps, ...stateProps, ...dispatchProps}
+/// by default.
+///
+/// - [areStatesEqual] does a simple `==` check by default.
+/// - [areOwnPropsEqual] does a shallow Map equality check by default.
+/// - [areStatePropsEqual] does a shallow Map equality check by default.
+/// - [areMergedPropsEqual] does a shallow Map equality check by default.
+///
+/// - [context] can be utilized to provide a custom context object created with `createContext`.
+/// [context] is how you can utilize multiple stores. If you must, it is not reccomended. :P
+///
+/// __Example:__
+///
+///     Store store1 = new Store<CounterState>(counterStateReducer, initialState: new CounterState(count: 0));
+///     Store store2 = new Store<BigCounterState>(bigCounterStateReducer, initialState: new BigCounterState(bigCount: 100));
+///
+///     UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
+///       mapStateToProps: (state) => (Counter()..intProp = state.count)
+///     )(Counter);
+///
+///     UiFactory<CounterProps> ConnectedBigCounter = connect<BigCounterState, CounterProps>(
+///       mapStateToProps: (state) => (Counter()..intProp = state.bigCount),
+///       context: bigCounterContext,
+///     )(Counter);
+///
+///     react_dom.render(
+///       Dom.div()(
+///         (ReduxProvider()..store = store1)(
+///           (ReduxProvider()
+///             ..store = store2
+///             ..context = bigCounterContext
+///           )(
+///             Dom.div()(
+///               Dom.h3()('ConnectedBigCounter Store2'),
+///               ConnectedBigCounter()(
+///                 Dom.h4()('ConnectedCounter Store1'),
+///                 ConnectedCounter()(),
+///               ),
+///             ),
+///           ),
+///         ),
+///       ), querySelector('#content')
+///     );
+///
+/// - [pure] if `true` (default), connect performs several equality checks that are used to avoid unnecessary
+/// calls to [mapStateToProps], [mapDispatchToProps], [mergeProps], and ultimately to [render]. These include
+/// [areStatesEqual], [areOwnPropsEqual], [areStatePropsEqual], and [areMergedPropsEqual].
+/// While the defaults are probably appropriate 99% of the time, you may wish to override them with custom
+/// implementations for performance or other reasons.
+///
+/// - [forwardRef] if `true`, the `ref` prop provided to the connected component will be return the wrapped component.
+///
+/// For more info see: https://react-redux.js.org/api/connect#connect
 UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extends UiProps>({
   Map Function(TReduxState state) mapStateToProps,
   Map Function(TReduxState state, TProps ownProps) mapStateToPropsWithOwnProps,

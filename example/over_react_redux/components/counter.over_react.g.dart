@@ -43,12 +43,12 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
 
   /// <!-- Generated from [_$CounterProps.dispatcherProp] -->
   @override
-  void Function(dynamic action) get dispatcherProp =>
+  Function get dispatcherProp =>
       props[_$key__dispatcherProp___$CounterProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$CounterProps.dispatcherProp] -->
   @override
-  set dispatcherProp(void Function(dynamic action) value) =>
+  set dispatcherProp(Function value) =>
       props[_$key__dispatcherProp___$CounterProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__intProp___$CounterProps =

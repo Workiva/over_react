@@ -10,15 +10,14 @@ import 'store.dart';
 main() {
   setClientConfiguration();
 
-  // Create a connected version of Counter with Counter Store
-  UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>
-    (mapStateToProps: (state) => (Counter()..intProp = state.count..customStyles = {'border': '1px solid blue'}))
-    (Counter);
+  UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
+    mapStateToProps: (state) => (Counter()..intProp = state.count)
+  )(Counter);
 
-  // Create a connected version of Counter with BigCounter Store
-  UiFactory<CounterProps> ConnectedBigCounter = connect<BigCounterState, CounterProps>
-    (mapStateToProps: (state) => (Counter()..intProp = state.bigCount..customStyles = {'border': '1px solid red'}), context: bigCounterContext)
-    (Counter);
+  UiFactory<CounterProps> ConnectedBigCounter = connect<BigCounterState, CounterProps>(
+    mapStateToProps: (state) => (Counter()..intProp = state.bigCount),
+    context: bigCounterContext,
+  )(Counter);
 
   react_dom.render(
     Dom.div()(
@@ -28,20 +27,9 @@ main() {
           ..context = bigCounterContext
         )(
           Dom.div()(
-            Dom.h3()('ConnectedCounter Store1'),
-            ConnectedCounter()('test'),
-            Dom.h3()('counterContext Store1 context Consumer'),
-            // bigCounterContext.Consumer()(
-            //   (dynamic val) {
-            //     print('counterContext.Consumer()');
-            //     window.console.log(val.store.getState().value.count);
-            //   }
-            // )
-          ),
-          Dom.div()(
-            Dom.h3()('ConnectedBigCounter Store2'),
+            Dom.h2()('ConnectedBigCounter Store2'),
             ConnectedBigCounter()(
-              Dom.h4()('ConnectedCounter Store1'),
+              Dom.h2()('ConnectedCounter Store1'),
               ConnectedCounter()(),
             ),
           ),
