@@ -949,6 +949,36 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   set wmode(dynamic value) => props[_$key__wmode___$DomPropsMixin] = value;
 
+  /// <!-- Generated from [_$DomPropsMixin.onAnimationEnd] -->
+  @override
+  AnimationEventCallback get onAnimationEnd =>
+      props[_$key__onAnimationEnd___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.onAnimationEnd] -->
+  @override
+  set onAnimationEnd(AnimationEventCallback value) =>
+      props[_$key__onAnimationEnd___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.onAnimationIteration] -->
+  @override
+  AnimationEventCallback get onAnimationIteration =>
+      props[_$key__onAnimationIteration___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.onAnimationIteration] -->
+  @override
+  set onAnimationIteration(AnimationEventCallback value) =>
+      props[_$key__onAnimationIteration___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.onAnimationStart] -->
+  @override
+  AnimationEventCallback get onAnimationStart =>
+      props[_$key__onAnimationStart___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.onAnimationStart] -->
+  @override
+  set onAnimationStart(AnimationEventCallback value) =>
+      props[_$key__onAnimationStart___$DomPropsMixin] = value;
+
   /// <!-- Generated from [_$DomPropsMixin.onCopy] -->
   @override
   ClipboardEventCallback get onCopy =>
@@ -1288,6 +1318,16 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   set onTouchStart(TouchEventCallback value) =>
       props[_$key__onTouchStart___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.onTransitionEnd] -->
+  @override
+  TransitionEventCallback get onTransitionEnd =>
+      props[_$key__onTransitionEnd___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.onTransitionEnd] -->
+  @override
+  set onTransitionEnd(TransitionEventCallback value) =>
+      props[_$key__onTransitionEnd___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onScroll] -->
   @override
@@ -1892,6 +1932,12 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__width___$DomPropsMixin);
   static const PropDescriptor _$prop__wmode___$DomPropsMixin =
       const PropDescriptor(_$key__wmode___$DomPropsMixin);
+  static const PropDescriptor _$prop__onAnimationEnd___$DomPropsMixin =
+      const PropDescriptor(_$key__onAnimationEnd___$DomPropsMixin);
+  static const PropDescriptor _$prop__onAnimationIteration___$DomPropsMixin =
+      const PropDescriptor(_$key__onAnimationIteration___$DomPropsMixin);
+  static const PropDescriptor _$prop__onAnimationStart___$DomPropsMixin =
+      const PropDescriptor(_$key__onAnimationStart___$DomPropsMixin);
   static const PropDescriptor _$prop__onCopy___$DomPropsMixin =
       const PropDescriptor(_$key__onCopy___$DomPropsMixin);
   static const PropDescriptor _$prop__onCut___$DomPropsMixin =
@@ -1960,6 +2006,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__onTouchMove___$DomPropsMixin);
   static const PropDescriptor _$prop__onTouchStart___$DomPropsMixin =
       const PropDescriptor(_$key__onTouchStart___$DomPropsMixin);
+  static const PropDescriptor _$prop__onTransitionEnd___$DomPropsMixin =
+      const PropDescriptor(_$key__onTransitionEnd___$DomPropsMixin);
   static const PropDescriptor _$prop__onScroll___$DomPropsMixin =
       const PropDescriptor(_$key__onScroll___$DomPropsMixin);
   static const PropDescriptor _$prop__onWheel___$DomPropsMixin =
@@ -2139,6 +2187,11 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   static const String _$key__value___$DomPropsMixin = 'value';
   static const String _$key__width___$DomPropsMixin = 'width';
   static const String _$key__wmode___$DomPropsMixin = 'wmode';
+  static const String _$key__onAnimationEnd___$DomPropsMixin = 'onAnimationEnd';
+  static const String _$key__onAnimationIteration___$DomPropsMixin =
+      'onAnimationIteration';
+  static const String _$key__onAnimationStart___$DomPropsMixin =
+      'onAnimationStart';
   static const String _$key__onCopy___$DomPropsMixin = 'onCopy';
   static const String _$key__onCut___$DomPropsMixin = 'onCut';
   static const String _$key__onPaste___$DomPropsMixin = 'onPaste';
@@ -2173,6 +2226,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   static const String _$key__onTouchEnd___$DomPropsMixin = 'onTouchEnd';
   static const String _$key__onTouchMove___$DomPropsMixin = 'onTouchMove';
   static const String _$key__onTouchStart___$DomPropsMixin = 'onTouchStart';
+  static const String _$key__onTransitionEnd___$DomPropsMixin =
+      'onTransitionEnd';
   static const String _$key__onScroll___$DomPropsMixin = 'onScroll';
   static const String _$key__onWheel___$DomPropsMixin = 'onWheel';
   static const String _$key__onCopyCapture___$DomPropsMixin = 'onCopyCapture';
@@ -2334,6 +2389,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$prop__value___$DomPropsMixin,
     _$prop__width___$DomPropsMixin,
     _$prop__wmode___$DomPropsMixin,
+    _$prop__onAnimationEnd___$DomPropsMixin,
+    _$prop__onAnimationIteration___$DomPropsMixin,
+    _$prop__onAnimationStart___$DomPropsMixin,
     _$prop__onCopy___$DomPropsMixin,
     _$prop__onCut___$DomPropsMixin,
     _$prop__onPaste___$DomPropsMixin,
@@ -2368,6 +2426,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$prop__onTouchEnd___$DomPropsMixin,
     _$prop__onTouchMove___$DomPropsMixin,
     _$prop__onTouchStart___$DomPropsMixin,
+    _$prop__onTransitionEnd___$DomPropsMixin,
     _$prop__onScroll___$DomPropsMixin,
     _$prop__onWheel___$DomPropsMixin,
     _$prop__onCopyCapture___$DomPropsMixin,
@@ -2505,6 +2564,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$key__value___$DomPropsMixin,
     _$key__width___$DomPropsMixin,
     _$key__wmode___$DomPropsMixin,
+    _$key__onAnimationEnd___$DomPropsMixin,
+    _$key__onAnimationIteration___$DomPropsMixin,
+    _$key__onAnimationStart___$DomPropsMixin,
     _$key__onCopy___$DomPropsMixin,
     _$key__onCut___$DomPropsMixin,
     _$key__onPaste___$DomPropsMixin,
@@ -2539,6 +2601,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$key__onTouchEnd___$DomPropsMixin,
     _$key__onTouchMove___$DomPropsMixin,
     _$key__onTouchStart___$DomPropsMixin,
+    _$key__onTransitionEnd___$DomPropsMixin,
     _$key__onScroll___$DomPropsMixin,
     _$key__onWheel___$DomPropsMixin,
     _$key__onCopyCapture___$DomPropsMixin,
@@ -3487,6 +3550,60 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   set style(Map<String, dynamic> value) =>
       props[_$key__style___$UbiquitousDomPropsMixin] = value;
 
+  /// Callback for when a CSS Animation has completed.
+  ///
+  /// > Related: [onAnimationIteration], [onAnimationStart], [onTransitionEnd]
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationEnd] -->
+  @override
+  AnimationEventCallback get onAnimationEnd =>
+      props[_$key__onAnimationEnd___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Callback for when a CSS Animation has completed.
+  ///
+  /// > Related: [onAnimationIteration], [onAnimationStart], [onTransitionEnd]
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationEnd] -->
+  @override
+  set onAnimationEnd(AnimationEventCallback value) =>
+      props[_$key__onAnimationEnd___$UbiquitousDomPropsMixin] = value;
+
+  /// Callback for when an iteration of a CSS Animation ends, and another one begins.
+  ///
+  /// > Related: [onAnimationEnd], [onAnimationStart]
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationIteration] -->
+  @override
+  AnimationEventCallback get onAnimationIteration =>
+      props[_$key__onAnimationIteration___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Callback for when an iteration of a CSS Animation ends, and another one begins.
+  ///
+  /// > Related: [onAnimationEnd], [onAnimationStart]
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationIteration] -->
+  @override
+  set onAnimationIteration(AnimationEventCallback value) =>
+      props[_$key__onAnimationIteration___$UbiquitousDomPropsMixin] = value;
+
+  /// Callback for when a CSS animation has started.
+  ///
+  /// > Related: [onAnimationEnd], [onAnimationIteration]
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationStart] -->
+  @override
+  AnimationEventCallback get onAnimationStart =>
+      props[_$key__onAnimationStart___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Callback for when a CSS animation has started.
+  ///
+  /// > Related: [onAnimationEnd], [onAnimationIteration]
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationStart] -->
+  @override
+  set onAnimationStart(AnimationEventCallback value) =>
+      props[_$key__onAnimationStart___$UbiquitousDomPropsMixin] = value;
+
   /// Callback for when the user copies the content of an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onCopy] -->
@@ -3965,6 +4082,24 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   set onTouchStart(TouchEventCallback value) =>
       props[_$key__onTouchStart___$UbiquitousDomPropsMixin] = value;
 
+  /// Callback for when a CSS transition has completed.
+  ///
+  /// > Related: [onAnimationEnd]
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTransitionEnd] -->
+  @override
+  TransitionEventCallback get onTransitionEnd =>
+      props[_$key__onTransitionEnd___$UbiquitousDomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Callback for when a CSS transition has completed.
+  ///
+  /// > Related: [onAnimationEnd]
+  ///
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTransitionEnd] -->
+  @override
+  set onTransitionEnd(TransitionEventCallback value) =>
+      props[_$key__onTransitionEnd___$UbiquitousDomPropsMixin] = value;
+
   /// Callback for when an element's scrollbar is being scrolled
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onScroll] -->
@@ -4001,6 +4136,16 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
       const PropDescriptor(_$key__title___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__style___$UbiquitousDomPropsMixin =
       const PropDescriptor(_$key__style___$UbiquitousDomPropsMixin);
+  static const PropDescriptor
+      _$prop__onAnimationEnd___$UbiquitousDomPropsMixin =
+      const PropDescriptor(_$key__onAnimationEnd___$UbiquitousDomPropsMixin);
+  static const PropDescriptor
+      _$prop__onAnimationIteration___$UbiquitousDomPropsMixin =
+      const PropDescriptor(
+          _$key__onAnimationIteration___$UbiquitousDomPropsMixin);
+  static const PropDescriptor
+      _$prop__onAnimationStart___$UbiquitousDomPropsMixin =
+      const PropDescriptor(_$key__onAnimationStart___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onCopy___$UbiquitousDomPropsMixin =
       const PropDescriptor(_$key__onCopy___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onCut___$UbiquitousDomPropsMixin =
@@ -4069,6 +4214,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
       const PropDescriptor(_$key__onTouchMove___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onTouchStart___$UbiquitousDomPropsMixin =
       const PropDescriptor(_$key__onTouchStart___$UbiquitousDomPropsMixin);
+  static const PropDescriptor
+      _$prop__onTransitionEnd___$UbiquitousDomPropsMixin =
+      const PropDescriptor(_$key__onTransitionEnd___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onScroll___$UbiquitousDomPropsMixin =
       const PropDescriptor(_$key__onScroll___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onWheel___$UbiquitousDomPropsMixin =
@@ -4077,6 +4225,12 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   static const String _$key__id___$UbiquitousDomPropsMixin = 'id';
   static const String _$key__title___$UbiquitousDomPropsMixin = 'title';
   static const String _$key__style___$UbiquitousDomPropsMixin = 'style';
+  static const String _$key__onAnimationEnd___$UbiquitousDomPropsMixin =
+      'onAnimationEnd';
+  static const String _$key__onAnimationIteration___$UbiquitousDomPropsMixin =
+      'onAnimationIteration';
+  static const String _$key__onAnimationStart___$UbiquitousDomPropsMixin =
+      'onAnimationStart';
   static const String _$key__onCopy___$UbiquitousDomPropsMixin = 'onCopy';
   static const String _$key__onCut___$UbiquitousDomPropsMixin = 'onCut';
   static const String _$key__onPaste___$UbiquitousDomPropsMixin = 'onPaste';
@@ -4129,6 +4283,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
       'onTouchMove';
   static const String _$key__onTouchStart___$UbiquitousDomPropsMixin =
       'onTouchStart';
+  static const String _$key__onTransitionEnd___$UbiquitousDomPropsMixin =
+      'onTransitionEnd';
   static const String _$key__onScroll___$UbiquitousDomPropsMixin = 'onScroll';
   static const String _$key__onWheel___$UbiquitousDomPropsMixin = 'onWheel';
 
@@ -4137,6 +4293,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
     _$prop__id___$UbiquitousDomPropsMixin,
     _$prop__title___$UbiquitousDomPropsMixin,
     _$prop__style___$UbiquitousDomPropsMixin,
+    _$prop__onAnimationEnd___$UbiquitousDomPropsMixin,
+    _$prop__onAnimationIteration___$UbiquitousDomPropsMixin,
+    _$prop__onAnimationStart___$UbiquitousDomPropsMixin,
     _$prop__onCopy___$UbiquitousDomPropsMixin,
     _$prop__onCut___$UbiquitousDomPropsMixin,
     _$prop__onPaste___$UbiquitousDomPropsMixin,
@@ -4171,6 +4330,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
     _$prop__onTouchEnd___$UbiquitousDomPropsMixin,
     _$prop__onTouchMove___$UbiquitousDomPropsMixin,
     _$prop__onTouchStart___$UbiquitousDomPropsMixin,
+    _$prop__onTransitionEnd___$UbiquitousDomPropsMixin,
     _$prop__onScroll___$UbiquitousDomPropsMixin,
     _$prop__onWheel___$UbiquitousDomPropsMixin
   ];
@@ -4179,6 +4339,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
     _$key__id___$UbiquitousDomPropsMixin,
     _$key__title___$UbiquitousDomPropsMixin,
     _$key__style___$UbiquitousDomPropsMixin,
+    _$key__onAnimationEnd___$UbiquitousDomPropsMixin,
+    _$key__onAnimationIteration___$UbiquitousDomPropsMixin,
+    _$key__onAnimationStart___$UbiquitousDomPropsMixin,
     _$key__onCopy___$UbiquitousDomPropsMixin,
     _$key__onCut___$UbiquitousDomPropsMixin,
     _$key__onPaste___$UbiquitousDomPropsMixin,
@@ -4213,6 +4376,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
     _$key__onTouchEnd___$UbiquitousDomPropsMixin,
     _$key__onTouchMove___$UbiquitousDomPropsMixin,
     _$key__onTouchStart___$UbiquitousDomPropsMixin,
+    _$key__onTransitionEnd___$UbiquitousDomPropsMixin,
     _$key__onScroll___$UbiquitousDomPropsMixin,
     _$key__onWheel___$UbiquitousDomPropsMixin
   ];
