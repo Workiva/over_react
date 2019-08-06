@@ -28,7 +28,7 @@ class TestStatefulHandlerPrecedenceComponent extends FluxUiStatefulComponent2<Te
   }
 
   @override
-  void setState(_, [callback()]) {
+  void setState(Map _, [callback()]) {
     numberOfRedraws++;
     if (callback != null) callback();
   }

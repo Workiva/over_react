@@ -17,7 +17,7 @@ class TestStatefulBasicComponent extends FluxUiStatefulComponent2<TestStatefulBa
   render() => Dom.div()();
 
   @override
-  void setState(_, [callback()]) {
+  void setState(Map _, [callback()]) {
     numberOfRedraws++;
     if (callback != null) callback();
   }

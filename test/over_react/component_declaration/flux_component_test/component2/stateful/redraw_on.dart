@@ -20,7 +20,7 @@ class TestStatefulRedrawOnComponent extends FluxUiStatefulComponent2<TestStatefu
   redrawOn() => [props.store.store1, props.store.store2];
 
   @override
-  void setState(_, [callback()]) {
+  void setState(Map _, [callback()]) {
     numberOfRedraws++;
     if (callback != null) callback();
   }
