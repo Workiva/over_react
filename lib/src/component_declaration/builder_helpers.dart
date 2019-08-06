@@ -14,15 +14,12 @@
 
 library over_react.component_declaration.builder_helpers;
 
-import 'package:react/react_client.dart';
-import 'package:react/react_client/js_backed_map.dart';
-
 import './component_base.dart' as component_base;
 import './annotations.dart' as annotations;
 
 export './annotations.dart';
 export './component_base.dart'
-    hide UiComponent, UiStatefulComponent, UiComponent2, UiStatefulComponent2, UiProps, UiState;
+    hide UiComponent, UiStatefulComponent, UiProps, UiState;
 
 // ----------------------------------------------------------------------
 //   Base classes to be used by pre-generated code that stub out
@@ -65,21 +62,6 @@ mixin _GeneratedUiComponentStubs<TProps extends UiProps>
   TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedPropsFactory);
 }
 
-mixin _GeneratedUiStatefulComponentStubs<TProps extends UiProps, TState extends UiState> on GeneratedClass {
-  /// Returns a typed state object backed by the specified [stateMap].
-  ///
-  /// Required to properly instantiate the generic [TState] class.
-  @override
-  @toBeGenerated
-  TState typedStateFactory(Map stateMap) => throw new UngeneratedError(member: #typedStateFactory, message:
-      '${#typedStateFactory}` should be implemented by code generation.\n\n'
-      'This error may be due to your `UiState` class not being annotated with `@State()`,\n'
-      'or because you are extending a stateful component without redeclaring your own `@State()`, like so:\n\n'
-      '    @State()\n'
-      '    class MyState extends SuperState {}\n'
-  );
-}
-
 /// See: [component_base.UiComponent]
 ///
 /// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
@@ -107,75 +89,16 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
     extends component_base.UiStatefulComponent<TProps, TState>
     with
         GeneratedClass,
-        _GeneratedUiComponentStubs<TProps>,
-        _GeneratedUiStatefulComponentStubs<TProps, TState> {
+        _GeneratedUiComponentStubs<TProps> {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiStatefulComponent() {
     _throwIfNotGenerated();
   }
-}
 
-mixin _GeneratedUiComponent2Stubs<TProps extends UiProps>
-    on component_base.UiComponent2<TProps>, GeneratedClass {
-  /// Returns a typed props object backed by the specified [propsMap].
-  ///
-  /// Required to properly instantiate the generic [TProps] class.
-  ///
-  /// This should be used where possible over [typedPropsFactory] to allow for
-  /// more efficient dart2js output.
   @override
   @toBeGenerated
-  TProps typedPropsFactoryJs(JsBackedMap propsMap) => throw new UngeneratedError(member: #typedPropsFactoryJs, message:
-    '${#typedPropsFactoryJs}` should be implemented by code generation.\n\n'
-    'This error may be due to your `UiComponent2` or `UiStatefulComponent2` class not being annotated with `@Component2()`'
-  );
-}
-
-/// See: [component_base.UiComponent2]
-///
-/// Use with the over_react builder via the `@Component2()` ([annotations.Component2]) annotation.
-abstract class UiComponent2<TProps extends UiProps>
-    extends component_base.UiComponent2<TProps>
-    with
-        GeneratedClass,
-        _GeneratedUiComponentStubs<TProps>,
-        _GeneratedUiComponent2Stubs<TProps> {
-  /// This class should not be instantiated directly, and throws an error to indicate this.
-  UiComponent2() {
-    _throwIfNotGenerated();
-  }
-}
-
-/// See: [component_base.UiStatefulComponent2]
-///
-/// Use with the over_react builder via the `@Component2()` ([annotations.Component2]) annotation.
-abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiState>
-    extends UiComponent2<TProps>
-    with
-        component_base.UiStatefulMixin2<TProps, TState>,
-        _GeneratedUiStatefulComponentStubs<TProps, TState>
-    implements component_base.UiStatefulComponent2<TProps, TState>
-{
-  /// This class should not be instantiated directly, and throws an error to indicate this.
-  UiStatefulComponent2() {
-    _throwIfNotGenerated();
-  }
-
-  /// Returns a typed state object backed by the specified [stateMap].
-  ///
-  /// Required to properly instantiate the generic [TState] class.
-  ///
-  /// This should be used where possible over [typedStateFactory] to allow for
-  /// more efficient dart2js output.
-  @override
-  @toBeGenerated
-  TState typedStateFactoryJs(JsBackedMap stateMap) => throw new UngeneratedError(member: #typedStateFactory, message:
-      '${#typedStateFactory}` should be implemented by code generation.\n\n'
-      'This error may be due to your `UiState` class not being annotated with `@State()`,\n'
-      'or because you are extending a stateful component without redeclaring your own `@State()`, like so:\n\n'
-      '    @State()\n'
-      '    class MyState extends SuperState {}\n'
-  );
+  TState typedStateFactory(Map stateMap) => throw new UngeneratedError(member: #typedStateFactory,
+      message: GeneratedErrorMessages.typedStateFactory);
 }
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React props that
@@ -230,11 +153,11 @@ class UngeneratedError extends Error implements UnimplementedError {
   @override
   final String message;
   UngeneratedError({String message, Symbol member}) :
-      this.message = message ?? "`$member` should be implemented by code generation";
+      this.message = '${member != null ? '' : '`$member` should be implemented by code generation.\n\n'}$message';
 
   @override
   String toString() =>
-      "UngeneratedError: $message.\n\n"
+      "UngeneratedError: ${message.trimRight()}.\n\n"
       "Ensure that you're running a build via build_runner.";
 }
 
@@ -253,3 +176,15 @@ class IllegalInstantiationError extends Error {
       "`package:over_react/src/component_declaration/component_base.dart` "
       "library directly. ";
 }
+
+
+abstract class GeneratedErrorMessages {
+  static const typedStateFactory = '\n\n'
+        'This error may be due to your `UiState` class not being annotated with `@State()`,\n'
+        'or because you are extending a stateful component without redeclaring your own `@State()`, like so:\n\n'
+        '    @State()\n';
+
+  static const component1AnnotationOnComponent2 = '\n\n'
+        'This error may be due to using Component() instead of Component2()';
+}
+

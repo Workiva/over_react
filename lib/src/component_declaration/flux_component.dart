@@ -17,14 +17,15 @@
 library over_react.component_declaration.flux_component;
 
 import 'dart:async';
+
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
+import 'package:over_react/component_base.dart' as component_base;
 import 'package:w_flux/w_flux.dart';
 
-import 'package:over_react/component_base.dart' as component_base;
-
-import './annotations.dart' as annotations;
-import './builder_helpers.dart';
+import 'annotations.dart' as annotations;
+import 'builder_helpers.dart';
+import 'component_base_2.dart';
 
 /// Builds on top of [UiProps], adding typed props for [Action]s and [Store]s in order to integrate with w_flux.
 ///

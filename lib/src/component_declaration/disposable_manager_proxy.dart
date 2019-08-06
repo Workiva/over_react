@@ -12,12 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-part of over_react.component_declaration.component_base;
+import 'dart:async';
+
+import 'package:meta/meta.dart';
+import 'package:react/react.dart' as react;
+import 'package:w_common/disposable.dart';
 
 /// An implementation of [DisposableManagerV7] for use by
 /// [UiComponent] and [UiComponent2].
-mixin _DisposableManagerProxy implements DisposableManagerV7 {
+mixin DisposableManagerProxy on react.Component implements DisposableManagerV7 {
   Disposable _disposableProxy;
+
+  @override
+  @mustCallSuper
+  void componentWillUnmount() {
+    super.componentWillUnmount();
+
+    _disposableProxy?.dispose();
+  }
 
   /// Instantiates a new [Disposable] instance on the first call to the
   /// [DisposableManagerV7] method.
