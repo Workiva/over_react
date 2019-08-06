@@ -17,6 +17,7 @@ library over_react;
 
 export 'package:react/react.dart' show
     SyntheticEvent,
+    SyntheticAnimationEvent,
     SyntheticClipboardEvent,
     SyntheticKeyboardEvent,
     SyntheticFocusEvent,
@@ -24,6 +25,7 @@ export 'package:react/react.dart' show
     SyntheticDataTransfer,
     SyntheticMouseEvent,
     SyntheticTouchEvent,
+    SyntheticTransitionEvent,
     SyntheticUIEvent,
     SyntheticWheelEvent;
 
