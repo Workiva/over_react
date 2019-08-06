@@ -18,7 +18,7 @@ dependencies:
   logging: ">=0.11.3+2 <1.0.0"
   meta: ^1.1.6
   path: ^1.5.1
-  react: ^4.7.0
+  react: ^4.9.0
   source_span: ^1.4.1
   transformer_utils: ^0.2.0
   w_common: ^1.13.0
@@ -37,11 +37,3 @@ dev_dependencies:
   mockito: ^4.0.0
   over_react_test: ^2.4.0
   test: ^1.0.0
-
-
-dependency_overrides:
-  react:
-    git:
-      url: https://github.com/cleandart/react-dart.git
-      ref: dec0fab61de136cc23c8f101d3017269053f3715 # from add-ontransitionend
-
