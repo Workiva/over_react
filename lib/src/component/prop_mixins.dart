@@ -86,6 +86,7 @@ abstract class _$DomPropsMixin {
     poster, preload, radioGroup, rel, role, rowSpan, sandbox, scope, scrolling, shape, sizes, spellCheck, src, srcDoc,
     srcSet, step, tabIndex, target, type, useMap, value, width, wmode;
 
+  AnimationEventCallback onAnimationEnd, onAnimationIteration, onAnimationStart;
   ClipboardEventCallback onCopy, onCut, onPaste;
   KeyboardEventCallback onKeyDown, onKeyPress, onKeyUp;
   FocusEventCallback onFocus, onBlur;
@@ -95,6 +96,7 @@ abstract class _$DomPropsMixin {
     onDragStart, onDrop, onMouseDown, onMouseEnter, onMouseLeave, onMouseMove, onMouseOut, onMouseOver, onMouseUp;
   PointerEventCallback onPointerCancel, onPointerDown, onPointerEnter, onPointerLeave, onPointerMove, onPointerOver, onPointerOut, onPointerUp;
   TouchEventCallback onTouchCancel, onTouchEnd, onTouchMove, onTouchStart;
+  TransitionEventCallback onTransitionEnd;
   UIEventCallback onScroll;
   WheelEventCallback onWheel;
 
@@ -197,6 +199,21 @@ abstract class _$UbiquitousDomPropsMixin {
   ///
   /// See: <https://facebook.github.io/react/tips/inline-styles.html>
   Map<String, dynamic> style;
+
+  /// Callback for when a CSS Animation has completed.
+  ///
+  /// > Related: [onAnimationIteration], [onAnimationStart], [onTransitionEnd]
+  AnimationEventCallback onAnimationEnd;
+
+  /// Callback for when an iteration of a CSS Animation ends, and another one begins.
+  ///
+  /// > Related: [onAnimationEnd], [onAnimationStart]
+  AnimationEventCallback onAnimationIteration;
+
+  /// Callback for when a CSS animation has started.
+  ///
+  /// > Related: [onAnimationEnd], [onAnimationIteration]
+  AnimationEventCallback onAnimationStart;
 
   /// Callback for when the user copies the content of an element
   ClipboardEventCallback onCopy;
@@ -324,6 +341,11 @@ abstract class _$UbiquitousDomPropsMixin {
 
   /// Callback for when a finger is placed on a touch screen
   TouchEventCallback onTouchStart;
+
+  /// Callback for when a CSS transition has completed.
+  ///
+  /// > Related: [onAnimationEnd]
+  TransitionEventCallback onTransitionEnd;
 
   /// Callback for when an element's scrollbar is being scrolled
   UIEventCallback onScroll;

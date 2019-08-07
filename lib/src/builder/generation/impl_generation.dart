@@ -406,7 +406,10 @@ class ImplGenerator {
           field.fields.variables.forEach((VariableDeclaration variable) {
             if (variable.initializer != null) {
               logger.severe(messageWithSpan(
-                  'Fields are stubs for generated setters/getters and should not have initializers.',
+                  'Fields are stubs for generated setters/getters and should not have initializers.\n'
+                      'Instead, initialize ${type.isProps 
+                          ? 'prop values within getDefaultProps()' 
+                          : 'state values within getInitialState()'}.',
                   span: getSpan(sourceFile, variable))
               );
             }
@@ -466,8 +469,8 @@ class ImplGenerator {
             keyConstants[keyConstantName] = keyValue;
             constants[constantName] = constantValue;
 
-            final type = field.fields.type?.toSource();
-            final typeString = type == null ? '' : '$type ';
+            final typeSource = field.fields.type?.toSource();
+            final typeString = typeSource == null ? '' : '$typeSource ';
             final metadataSrc = new StringBuffer();
             for (final annotation in field.metadata) {
               metadataSrc.writeln('  ${annotation.toSource()}');
