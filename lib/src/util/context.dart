@@ -109,9 +109,7 @@ class ProviderProps<TValue> extends component_base.UiProps
         builder_helpers.GeneratedClass
     implements
         builder_helpers.UiProps {
-  // Initialize to a JsBackedMap so that copying can be optimized
-  // when converting props during ReactElement creation.
-  // TODO 3.0.0-wip generate JsBackedMap-based implementation used when no backing map is provided, like we do for Component2
+
   ProviderProps(JsBackedMap backingMap)
       : this._props = new JsBackedMap() {
     this._props = backingMap ?? new JsBackedMap();

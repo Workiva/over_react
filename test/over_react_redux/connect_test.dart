@@ -26,8 +26,6 @@ import '../test_util/test_util.dart';
 import './fixtures/counter.dart';
 import './fixtures/store.dart';
 
-//part 'connect_test.over_react.g.dart';
-
 /// Main entry point for AbstractTransition testing
 main() {
   group('connect', () {
@@ -305,6 +303,7 @@ main() {
           expect(whatever, isTrue);
         });
       });
+
       group('areStatesEqual', (){
         test('', () async {
           List<String> methodsCalled = [];
@@ -345,7 +344,6 @@ main() {
         });
       });
     });
-
 
     group('context', (){
       test('correctly renders with multiple contexts/stores', () async {
@@ -438,7 +436,6 @@ main() {
         expect(findDomNode(bigCounter).innerHtml, contains('Count: 1</div>'));
       });
     });
-
   });
 }
 
