@@ -22,56 +22,74 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
   @override
   Map get props;
 
-  /// <!-- Generated from [_$CounterProps.intProp] -->
+  /// <!-- Generated from [_$CounterProps.currentCount] -->
   @override
-  int get intProp =>
-      props[_$key__intProp___$CounterProps] ??
+  int get currentCount =>
+      props[_$key__currentCount___$CounterProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$CounterProps.intProp] -->
+  /// <!-- Generated from [_$CounterProps.currentCount] -->
   @override
-  set intProp(int value) => props[_$key__intProp___$CounterProps] = value;
+  set currentCount(int value) =>
+      props[_$key__currentCount___$CounterProps] = value;
 
-  /// <!-- Generated from [_$CounterProps.customStyles] -->
+  /// <!-- Generated from [_$CounterProps.wrapperStyles] -->
   @override
-  Map<String, dynamic> get customStyles =>
-      props[_$key__customStyles___$CounterProps] ??
+  Map<String, dynamic> get wrapperStyles =>
+      props[_$key__wrapperStyles___$CounterProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$CounterProps.customStyles] -->
+  /// <!-- Generated from [_$CounterProps.wrapperStyles] -->
   @override
-  set customStyles(Map<String, dynamic> value) =>
-      props[_$key__customStyles___$CounterProps] = value;
+  set wrapperStyles(Map<String, dynamic> value) =>
+      props[_$key__wrapperStyles___$CounterProps] = value;
 
-  /// <!-- Generated from [_$CounterProps.dispatcherProp] -->
+  /// <!-- Generated from [_$CounterProps.increment] -->
   @override
-  Function get dispatcherProp =>
-      props[_$key__dispatcherProp___$CounterProps] ??
+  void Function() get increment =>
+      props[_$key__increment___$CounterProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$CounterProps.dispatcherProp] -->
+  /// <!-- Generated from [_$CounterProps.increment] -->
   @override
-  set dispatcherProp(Function value) =>
-      props[_$key__dispatcherProp___$CounterProps] = value;
+  set increment(void Function() value) =>
+      props[_$key__increment___$CounterProps] = value;
+
+  /// <!-- Generated from [_$CounterProps.decrement] -->
+  @override
+  void Function() get decrement =>
+      props[_$key__decrement___$CounterProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$CounterProps.decrement] -->
+  @override
+  set decrement(void Function() value) =>
+      props[_$key__decrement___$CounterProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__intProp___$CounterProps =
-      const PropDescriptor(_$key__intProp___$CounterProps);
-  static const PropDescriptor _$prop__customStyles___$CounterProps =
-      const PropDescriptor(_$key__customStyles___$CounterProps);
-  static const PropDescriptor _$prop__dispatcherProp___$CounterProps =
-      const PropDescriptor(_$key__dispatcherProp___$CounterProps);
-  static const String _$key__intProp___$CounterProps = 'CounterProps.intProp';
-  static const String _$key__customStyles___$CounterProps =
-      'CounterProps.customStyles';
-  static const String _$key__dispatcherProp___$CounterProps =
-      'CounterProps.dispatcherProp';
+  static const PropDescriptor _$prop__currentCount___$CounterProps =
+      const PropDescriptor(_$key__currentCount___$CounterProps);
+  static const PropDescriptor _$prop__wrapperStyles___$CounterProps =
+      const PropDescriptor(_$key__wrapperStyles___$CounterProps);
+  static const PropDescriptor _$prop__increment___$CounterProps =
+      const PropDescriptor(_$key__increment___$CounterProps);
+  static const PropDescriptor _$prop__decrement___$CounterProps =
+      const PropDescriptor(_$key__decrement___$CounterProps);
+  static const String _$key__currentCount___$CounterProps =
+      'CounterProps.currentCount';
+  static const String _$key__wrapperStyles___$CounterProps =
+      'CounterProps.wrapperStyles';
+  static const String _$key__increment___$CounterProps =
+      'CounterProps.increment';
+  static const String _$key__decrement___$CounterProps =
+      'CounterProps.decrement';
 
   static const List<PropDescriptor> $props = const [
-    _$prop__intProp___$CounterProps,
-    _$prop__customStyles___$CounterProps,
-    _$prop__dispatcherProp___$CounterProps
+    _$prop__currentCount___$CounterProps,
+    _$prop__wrapperStyles___$CounterProps,
+    _$prop__increment___$CounterProps,
+    _$prop__decrement___$CounterProps
   ];
   static const List<String> $propKeys = const [
-    _$key__intProp___$CounterProps,
-    _$key__customStyles___$CounterProps,
-    _$key__dispatcherProp___$CounterProps
+    _$key__currentCount___$CounterProps,
+    _$key__wrapperStyles___$CounterProps,
+    _$key__increment___$CounterProps,
+    _$key__decrement___$CounterProps
   ];
 }
 

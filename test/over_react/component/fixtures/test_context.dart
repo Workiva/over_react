@@ -14,17 +14,22 @@
 
 import 'package:over_react/over_react.dart';
 
-int calculateChangedBits(currentValue, nextValue) {
+const EVEN_UPDATES = 1 << 2;
+const ODD_UPDATES = 1 << 3;
+
+int calculateChangedBits(dynamic currentValue, dynamic nextValue) {
   int result = 0;
   if (nextValue % 2 == 0) {
     // Bit for even values
-    result |= 1 << 2;
+    result |= EVEN_UPDATES;
   }
   if (nextValue % 3 == 0) {
     // Bit for odd values
-    result |= 1 << 3;
+    result |= ODD_UPDATES;
   }
   return result;
 }
 
-Context someContext = createContext(1, calculateChangedBits);
+Context<int> counterContext = createContext(1, calculateChangedBits);
+
+Context<dynamic> someContext = createContext();

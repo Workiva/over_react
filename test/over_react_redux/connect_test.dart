@@ -42,7 +42,7 @@ main() {
         [
           Function mapStateToProps,
           dynamic mapDispatchToProps,
-          dynamic mergeProps,
+          Function mergeProps,
           JsConnectOptions options,
         ]
       ) {
@@ -143,7 +143,7 @@ main() {
             return Counter()..currentCount = state.count;
           },
           mapDispatchToProps: (dispatch){
-            return Counter()..dispatchDecrement = () => dispatch(DecrementAction());
+            return Counter()..decrement = () => dispatch(DecrementAction());
           },
           forwardRef: true,
         )(Counter);
@@ -154,7 +154,7 @@ main() {
           ),
         );
 
-        expect(getDartComponent<CounterComponent>(counterRef).props.dispatchDecrement, isA<Function>());
+        expect(getDartComponent<CounterComponent>(counterRef).props.decrement, isA<Function>());
 
         expect(getDartComponent<CounterComponent>(counterRef).props.currentCount, 0);
         expect(jacket.getNode().innerHtml, contains('Count: 0'));
@@ -178,7 +178,7 @@ main() {
             return Counter()..currentCount = state.count;
           },
           mapDispatchToProps: (dispatch){
-            return Counter()..dispatchDecrement = () => dispatch(DecrementAction());
+            return Counter()..decrement = () => dispatch(DecrementAction());
           },
           mergeProps: (stateProps, dispatchProps, ownProps) {
             expect(stateProps, isA<CounterProps>());
@@ -187,7 +187,7 @@ main() {
             return Counter()
                 // Return whatever value is passed through ownProps until the state count is over 1
                 ..currentCount = stateProps.currentCount < 1 ? ownProps.currentCount : stateProps.currentCount
-                ..dispatchDecrement = ownProps.dispatchDecrement;
+                ..decrement = ownProps.decrement;
           },
           forwardRef: true,
         )(Counter);
@@ -196,8 +196,8 @@ main() {
           (ReduxProvider()..store = store1)(
             (ConnectedCounter()
                 ..ref = (ref){ counterRef = ref; }
-                // make `dispatchDecrement` increment
-                ..dispatchDecrement = () {store1.dispatch(IncrementAction());}
+                // make `decrement` increment
+                ..decrement = () {store1.dispatch(IncrementAction());}
                 ..currentCount = 900
             )('test'),
           ),
@@ -205,7 +205,7 @@ main() {
         // `button-decrement` will be incrementing now
         var dispatchButton = getByTestId(jacket.getInstance(), 'button-decrement');
 
-        expect(getDartComponent<CounterComponent>(counterRef).props.dispatchDecrement, isA<Function>());
+        expect(getDartComponent<CounterComponent>(counterRef).props.decrement, isA<Function>());
 
         // state.count is at 0
         expect(getDartComponent<CounterComponent>(counterRef).props.currentCount, 900);
@@ -223,7 +223,7 @@ main() {
     });
 
     group('Options', () {
-      group('areOwnPropsEqual', (){
+      group('areOwnPropsEqual', () {
         test('', () {
           ConnectedCounter = connect<CounterState, CounterProps>(
             areOwnPropsEqual: expectAsync2((next, prev) {
@@ -240,7 +240,7 @@ main() {
             JsBackedMap.from({'id':'test2'}).jsObject
           );
 
-          expect(whatever, true);
+          expect(whatever, isTrue);
         });
       });
 
@@ -284,7 +284,7 @@ main() {
         });
       });
 
-      group('areMergedPropsEqual', (){
+      group('areMergedPropsEqual', () {
         test('', () {
           ConnectedCounter = connect<CounterState, CounterProps>(
             areMergedPropsEqual: expectAsync2((next, prev) {
@@ -294,6 +294,7 @@ main() {
               expect(prev.id, 'test2');
               return true;
             }),
+            pure: false,
           )(Counter);
 
           var whatever = connectOptions.areMergedPropsEqual(
@@ -301,7 +302,7 @@ main() {
             JsBackedMap.from({'id':'test2'}).jsObject
           );
 
-          expect(whatever, true);
+          expect(whatever, isTrue);
         });
       });
       group('areStatesEqual', (){

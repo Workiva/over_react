@@ -26,17 +26,13 @@ import 'fixtures/context_type_component.dart';
 import 'fixtures/test_context.dart';
 
 void main() {
-  group('Context', (){
-    setUpAll((){
-
-    });
-
+  group('Context', () {
     test('createContext() returns a correctly typed object', () {
       expect(someContext, isA<Context>());
       expect(someContext.Consumer(), isA<ConsumerProps>());
       expect(someContext.Provider(), isA<ProviderProps>());
       expect(someContext.jsThis, isA<JsMap>());
-      expect(someContext.reactDartContext, isA<react.ReactDartContext>());
+      expect(someContext.reactDartContext, isA<react.Context>());
     });
 
     group('Componentry', () {
@@ -75,17 +71,17 @@ void main() {
                 providerRef = ref;
               }
             )(
-              (someContext.Consumer()
+              (counterContext.Consumer()
                 ..key = 'EvenContextConsumer'
-                ..unstable_observedBits = 1 << 2
+                ..unstable_observedBits = EVEN_UPDATES
               )(
                 (value) {
                   consumerEvenValue = value;
                 }
               ),
-              (someContext.Consumer()
+              (counterContext.Consumer()
                 ..key = 'OddContextConsumer'
-                ..unstable_observedBits = 1 << 3
+                ..unstable_observedBits = ODD_UPDATES
               )(
                 (value) {
                   consumerOddValue = value;

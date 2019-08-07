@@ -63,9 +63,9 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   @override
   Map getDefaultProps() => new JsBackedMap();
 
-  /// Accessed once and cached when instance is created. The [contextType] property on a componemnt can be assigned
-  /// as `Context.reactDartContext` after being created by `createContext`. This lets you consume the nearest current value of
-  /// that Context using [context].
+  /// The [contextType] property lets you consume the nearest current value of that context's Provider using [context].
+  ///
+  /// [contextType] is assigned as `Context.reactDartContext` after being created by `createContext`.
   ///
   /// __Example__:
   ///
@@ -84,7 +84,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///
   /// See: <https://reactjs.org/docs/context.html#classcontexttype>
   @override
-  react.ReactDartContext get contextType => super.contextType;
+  react.Context get contextType => super.contextType;
 
   /// The props for the non-forwarding props defined in this component.
   @override

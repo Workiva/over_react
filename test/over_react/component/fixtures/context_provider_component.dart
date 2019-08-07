@@ -18,18 +18,14 @@ class _$ContextProviderWrapperState extends UiState {
 @Component2()
 class ContextProviderWrapperComponent extends UiStatefulComponent2<ContextProviderWrapperProps, ContextProviderWrapperState> {
 
+  @override
   init(){
     initializeState(newState()..latestValue = 1);
   }
-  // --------------------------------------------------------------------------
-  // React Component Specifications and Lifecycle Methods
-  // --------------------------------------------------------------------------
-  @override
-  Map getDefaultProps() => (newProps());
 
   @override
   render() {
-    return (someContext.Provider()..value = this.state.latestValue)(
+    return (counterContext.Provider()..value = this.state.latestValue)(
       props.children
     );
   }
