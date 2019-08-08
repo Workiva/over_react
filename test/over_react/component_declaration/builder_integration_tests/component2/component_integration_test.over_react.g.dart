@@ -33,6 +33,26 @@ abstract class _$ComponentTestPropsAccessorsMixin
   set stringProp(String value) =>
       props[_$key__stringProp___$ComponentTestProps] = value;
 
+  /// <!-- Generated from [_$ComponentTestProps.shouldSetPropsDirectly] -->
+  @override
+  bool get shouldSetPropsDirectly =>
+      props[_$key__shouldSetPropsDirectly___$ComponentTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$ComponentTestProps.shouldSetPropsDirectly] -->
+  @override
+  set shouldSetPropsDirectly(bool value) =>
+      props[_$key__shouldSetPropsDirectly___$ComponentTestProps] = value;
+
+  /// <!-- Generated from [_$ComponentTestProps.shouldUseJsFactory] -->
+  @override
+  bool get shouldUseJsFactory =>
+      props[_$key__shouldUseJsFactory___$ComponentTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$ComponentTestProps.shouldUseJsFactory] -->
+  @override
+  set shouldUseJsFactory(bool value) =>
+      props[_$key__shouldUseJsFactory___$ComponentTestProps] = value;
+
   /// <!-- Generated from [_$ComponentTestProps.dynamicProp] -->
   @override
   dynamic get dynamicProp =>
@@ -91,6 +111,11 @@ abstract class _$ComponentTestPropsAccessorsMixin
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__stringProp___$ComponentTestProps =
       const PropDescriptor(_$key__stringProp___$ComponentTestProps);
+  static const PropDescriptor
+      _$prop__shouldSetPropsDirectly___$ComponentTestProps =
+      const PropDescriptor(_$key__shouldSetPropsDirectly___$ComponentTestProps);
+  static const PropDescriptor _$prop__shouldUseJsFactory___$ComponentTestProps =
+      const PropDescriptor(_$key__shouldUseJsFactory___$ComponentTestProps);
   static const PropDescriptor _$prop__dynamicProp___$ComponentTestProps =
       const PropDescriptor(_$key__dynamicProp___$ComponentTestProps);
   static const PropDescriptor _$prop__untypedProp___$ComponentTestProps =
@@ -106,6 +131,10 @@ abstract class _$ComponentTestPropsAccessorsMixin
           _$key__customKeyAndNamespaceProp___$ComponentTestProps);
   static const String _$key__stringProp___$ComponentTestProps =
       'ComponentTestProps.stringProp';
+  static const String _$key__shouldSetPropsDirectly___$ComponentTestProps =
+      'ComponentTestProps.shouldSetPropsDirectly';
+  static const String _$key__shouldUseJsFactory___$ComponentTestProps =
+      'ComponentTestProps.shouldUseJsFactory';
   static const String _$key__dynamicProp___$ComponentTestProps =
       'ComponentTestProps.dynamicProp';
   static const String _$key__untypedProp___$ComponentTestProps =
@@ -119,6 +148,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
 
   static const List<PropDescriptor> $props = const [
     _$prop__stringProp___$ComponentTestProps,
+    _$prop__shouldSetPropsDirectly___$ComponentTestProps,
+    _$prop__shouldUseJsFactory___$ComponentTestProps,
     _$prop__dynamicProp___$ComponentTestProps,
     _$prop__untypedProp___$ComponentTestProps,
     _$prop__customKeyProp___$ComponentTestProps,
@@ -127,6 +158,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   ];
   static const List<String> $propKeys = const [
     _$key__stringProp___$ComponentTestProps,
+    _$key__shouldSetPropsDirectly___$ComponentTestProps,
+    _$key__shouldUseJsFactory___$ComponentTestProps,
     _$key__dynamicProp___$ComponentTestProps,
     _$key__untypedProp___$ComponentTestProps,
     _$key__customKeyProp___$ComponentTestProps,
@@ -225,8 +258,15 @@ class _$ComponentTestComponent extends ComponentTestComponent {
 
   @override
   set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
   }
 
   @override
@@ -363,8 +403,15 @@ class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
 
   @override
   set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
   }
 
   @override
@@ -500,8 +547,15 @@ class _$IsNotErrorBoundaryComponent extends IsNotErrorBoundaryComponent {
 
   @override
   set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
   }
 
   @override

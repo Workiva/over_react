@@ -117,8 +117,15 @@ class _$TestBasicComponent extends TestBasicComponent {
 
   @override
   set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
   }
 
   @override
@@ -255,8 +262,15 @@ class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
 
   @override
   set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
   }
 
   @override
@@ -396,8 +410,15 @@ class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
 
   @override
   set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
   }
 
   @override
@@ -554,8 +575,15 @@ class _$TestPropValidationComponent extends TestPropValidationComponent {
 
   @override
   set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
   }
 
   @override
@@ -691,8 +719,15 @@ class _$TestRedrawOnComponent extends TestRedrawOnComponent {
 
   @override
   set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
   }
 
   @override
@@ -828,8 +863,15 @@ class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
 
   @override
   set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
   }
 
   @override
@@ -1040,8 +1082,15 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
 
   @override
   set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
   }
 
   @override
@@ -1284,8 +1333,15 @@ class _$TestStatefulHandlerLifecycleComponent
 
   @override
   set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
   }
 
   @override
@@ -1530,8 +1586,15 @@ class _$TestStatefulHandlerPrecedenceComponent
 
   @override
   set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
   }
 
   @override
@@ -1797,8 +1860,15 @@ class _$TestStatefulPropValidationComponent
 
   @override
   set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
   }
 
   @override
@@ -2035,8 +2105,15 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
 
   @override
   set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
   }
 
   @override
@@ -2279,8 +2356,15 @@ class _$TestStatefulStoreHandlersComponent
 
   @override
   set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
   }
 
   @override
