@@ -84,62 +84,85 @@ main() {
       });
     });
 
-    group('generates prop getters/setters with', () {
-      test('the props class name as a namespace and the prop name as the key by default', () {
-        expect(ComponentTest()..stringProp = 'test',
-            containsPair('ComponentTestProps.stringProp', 'test'));
+    group('generates prop getters/setters', () {
 
-        expect(ComponentTest()..dynamicProp = 2,
-            containsPair('ComponentTestProps.dynamicProp', 2));
+      test('and throws when set directly with a normal map', () {
+        expect(() => render((ComponentTest()..shouldSetPropsDirectly = true)()),
+            throwsA(hasToStringValue(contains('Component2.props should never be set directly '
+                'in production.'))));
+      }, testOn: '!js');
 
-        expect(ComponentTest()..untypedProp = false,
-            containsPair('ComponentTestProps.untypedProp', false));
+      test('and does not throw when set directly using a typedJsFactory', () {
+        TestJacket jacket = mount((ComponentTest()
+        ..shouldSetPropsDirectly = true
+        ..shouldUseJsFactory = true)());
 
+        expect(ComponentTest(jacket.getProps()).shouldUseJsFactory, isTrue,
+            reason: 'Sanity check to ensure that setting props directly does '
+                'not throw.');
       });
 
-      test('custom prop keys', () {
-        expect(ComponentTest()..customKeyProp = 'test',
-            containsPair('ComponentTestProps.custom key!', 'test'));
+      group('with', () {
+        test('the props class name as a namespace and the prop name as the key by default', () {
+          expect(ComponentTest()..stringProp = 'test',
+              containsPair('ComponentTestProps.stringProp', 'test'));
+
+          expect(ComponentTest()..dynamicProp = 2,
+              containsPair('ComponentTestProps.dynamicProp', 2));
+
+          expect(ComponentTest()..untypedProp = false,
+              containsPair('ComponentTestProps.untypedProp', false));
+
+        });
+
+        test('custom prop keys', () {
+          expect(ComponentTest()..customKeyProp = 'test',
+              containsPair('ComponentTestProps.custom key!', 'test'));
+        });
+
+        test('custom prop key namespaces', () {
+          expect(ComponentTest()..customNamespaceProp = 'test',
+              containsPair('custom namespace~~customNamespaceProp', 'test'));
+        });
+
+        test('custom prop keys and namespaces', () {
+          expect(ComponentTest()..customKeyAndNamespaceProp = 'test',
+              containsPair('custom namespace~~custom key!', 'test'));
+        });
+
+        test('default props', () {
+          expect(ComponentTest().componentDefaultProps, equals
+            ({'id':'testId', 
+            'ComponentTestProps.shouldSetPropsDirectly': false,
+            'ComponentTestProps.shouldUseJsFactory': false,
+            }));
+        });
+
+        test('empty map when no default props set', () {
+          expect(r.ComponentTest().componentDefaultProps, equals({}));
+        });
+
+        test('empty map when componentFactory is not ReactDartComponentFactoryProxy', () {
+          expect(Dom.div().componentDefaultProps, equals({}));
+        });
       });
 
-      test('custom prop key namespaces', () {
-        expect(ComponentTest()..customNamespaceProp = 'test',
-            containsPair('custom namespace~~customNamespaceProp', 'test'));
+      test('omits props declared in the @Props() class when forwarding by default', () {
+        var shallowInstance = renderShallow((ComponentTest()
+          ..addProp('extraneous', true)
+          ..stringProp = 'test'
+          ..dynamicProp = 'test'
+          ..untypedProp = 'test'
+          ..customKeyProp = 'test'
+          ..customNamespaceProp = 'test'
+          ..customKeyAndNamespaceProp = 'test'
+        )());
+
+        var shallowProps = getProps(shallowInstance);
+        Iterable<String> shallowPropKeys = shallowProps.keys.map((key) => key as String); // ignore: avoid_as
+
+        expect(shallowPropKeys.where((String key) => !key.startsWith('data-prop-')), unorderedEquals(['id', 'extraneous', 'children']));
       });
-
-      test('custom prop keys and namespaces', () {
-        expect(ComponentTest()..customKeyAndNamespaceProp = 'test',
-            containsPair('custom namespace~~custom key!', 'test'));
-      });
-
-      test('default props', () {
-        expect(ComponentTest().componentDefaultProps, equals({'id':'testId'}));
-      });
-
-      test('empty map when no default props set', () {
-        expect(r.ComponentTest().componentDefaultProps, equals({}));
-      });
-
-      test('empty map when componentFactory is not ReactDartComponentFactoryProxy', () {
-        expect(Dom.div().componentDefaultProps, equals({}));
-      });
-    });
-
-    test('omits props declared in the @Props() class when forwarding by default', () {
-      var shallowInstance = renderShallow((ComponentTest()
-        ..addProp('extraneous', true)
-        ..stringProp = 'test'
-        ..dynamicProp = 'test'
-        ..untypedProp = 'test'
-        ..customKeyProp = 'test'
-        ..customNamespaceProp = 'test'
-        ..customKeyAndNamespaceProp = 'test'
-      )());
-
-      var shallowProps = getProps(shallowInstance);
-      Iterable<String> shallowPropKeys = shallowProps.keys.map((key) => key as String); // ignore: avoid_as
-
-      expect(shallowPropKeys.where((String key) => !key.startsWith('data-prop-')), unorderedEquals(['id', 'extraneous', 'children']));
     });
   });
 }
@@ -150,6 +173,8 @@ UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
 @Props()
 class _$ComponentTestProps extends UiProps {
   String stringProp;
+  bool shouldSetPropsDirectly;
+  bool shouldUseJsFactory;
   dynamic dynamicProp;
   var untypedProp;
 
@@ -166,7 +191,10 @@ class _$ComponentTestProps extends UiProps {
 @Component2()
 class ComponentTestComponent extends UiComponent2<ComponentTestProps> {
   @override
-  Map getDefaultProps() => newProps()..id = 'testId';
+  Map getDefaultProps() => newProps()
+    ..id = 'testId'
+    ..shouldSetPropsDirectly = false
+    ..shouldUseJsFactory = false;
 
   @override
   render() => (Dom.div()
@@ -178,4 +206,15 @@ class ComponentTestComponent extends UiComponent2<ComponentTestProps> {
     ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
     ..addProp('data-prop-custom-key-and-namespace-prop', props.customKeyAndNamespaceProp)
   )('rendered content');
+
+  @override
+  void componentDidMount() {
+    if (props.shouldSetPropsDirectly) {
+      if (props.shouldUseJsFactory) {
+        this.props = typedPropsFactoryJs(JsBackedMap());
+      } else {
+        this.props = {'shouldSetPropsDirectly': false};
+      }
+    }
+  }
 }

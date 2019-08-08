@@ -977,6 +977,40 @@ main() {
           }));
         });
       });
+
+      group('getBackingMap()', () {
+        group('when passed in a props object', () {
+          component2 = new TestComponent2Component();
+          JsBackedMap testProps = JsBackedMap.from({'id': 'test'});
+
+          var props = component2.getBackingMap(TestComponent2Props(testProps));
+
+          test('returns a map', () {
+            expect(props, TypeMatcher<Map>());
+          });
+
+          test('returns the correct custom map values', () {
+            expect(props.containsKey('id'), isTrue);
+            expect(props['id'], 'test');
+          });
+        });
+
+        group('when passed in a state object', () {
+          component2 = new TestComponent2Component();
+          JsBackedMap testState = JsBackedMap.from({'isActive': true});
+
+          var props = component2.getBackingMap(TestComponent2State(testState));
+
+          test('returns a map', () {
+            expect(props, TypeMatcher<Map>());
+          });
+
+          test('returns the correct custom map values', () {
+            expect(props.containsKey('isActive'), isTrue);
+            expect(props['isActive'], true);
+          });
+        });
+      });
     });
 
     group('UiStatefulComponent', () {
@@ -1185,6 +1219,12 @@ class TestComponent2Props extends over_react.UiProps {
 
   @override
   String get propKeyNamespace => null;
+}
+
+class TestComponent2State extends UiState {
+  @override final Map state;
+
+  TestComponent2State([Map state]) : this.state = state ?? ({});
 }
 
 class TestComponent2Component extends UiComponent2<TestComponent2Props> {
