@@ -149,9 +149,14 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
     final dartComponentClass = (factory().componentFactory as ReactDartComponentFactoryProxy).reactClass;
 
     JsMap jsMapFromProps(Map props) => jsBackingMapOrJsCopy(props is UiProps ? props.props : props);
+
     TProps jsPropsToTProps(JsMap jsProps) => factory(new JsBackedMap.backedBy(jsProps));
 
-    defineArgCount(int count, interopFunction) => js_util.callMethod(js_util.getProperty(window, 'Object'), 'defineProperty', [interopFunction, 'length', _DefinePropertyValue(value: count)]);
+    Function allowInteropWithArgCount(Function dartFunction, int count) {
+      var interopFunction = allowInterop(dartFunction);
+      js_util.callMethod(js_util.getProperty(window, 'Object'), 'defineProperty', [interopFunction, 'length', js_util.jsify({'value': count})]);
+      return interopFunction;
+    }
 
     JsMap handleMapStateToProps(ReactInteropValue jsState) {
       return jsMapFromProps(
@@ -207,31 +212,9 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
     bool handleAreMergedPropsEqual(JsMap jsNext, JsMap jsPrev) =>
         areMergedPropsEqual(jsPropsToTProps(jsNext), jsPropsToTProps(jsPrev));
 
-    var mapStateForJs;
-    if (mapStateToProps != null) {
-      var temp = allowInterop(handleMapStateToProps);
-      defineArgCount(1, temp);
-      mapStateForJs = temp;
-    } else if (mapStateToPropsWithOwnProps != null) {
-      var temp = allowInterop(handleMapStateToPropsWithOwnProps);
-      defineArgCount(2, temp);
-      mapStateForJs = temp;
-    }
-
-    var mapDispatchForJs;
-    if (mapDispatchToProps != null) {
-      var temp = allowInterop(handleMapDispatchToProps);
-      defineArgCount(1, temp);
-      mapDispatchForJs = temp;
-    } else if (mapDispatchToPropsWithOwnProps != null) {
-      var temp = allowInterop(handleMapDispatchToPropsWithOwnProps);
-      defineArgCount(2, temp);
-      mapDispatchForJs = temp;
-    }
-
     final hoc = mockableJsConnect(
-      mapStateForJs,
-      mapDispatchForJs,
+      mapStateToProps != null ? allowInteropWithArgCount(handleMapStateToProps, 1) : mapDispatchToPropsWithOwnProps != null ? allowInteropWithArgCount(handleMapStateToPropsWithOwnProps, 2) : null,
+      mapDispatchToProps != null ? allowInteropWithArgCount(handleMapDispatchToProps, 1) : mapDispatchToPropsWithOwnProps != null ? allowInteropWithArgCount(handleMapDispatchToPropsWithOwnProps, 2) : null,
       mergeProps != null ? allowInterop(handleMergeProps) : null,
       new JsConnectOptions(
         areStatesEqual: allowInterop(handleAreStatesEqual),
@@ -374,21 +357,6 @@ JsReactReduxStore _reduxifyStore(Store store){
       store.dispatch(action);
     })
   );
-}
-
-@JS()
-@anonymous
-class _DefinePropertyValue {
-  external set value(String v);
-  external set enumerable(bool v);
-  external set configurable(bool v);
-  external set writable(bool v);
-  external factory _DefinePropertyValue({
-    enumerable,
-    configurable,
-    writable,
-    value,
-  });
 }
 
 @JS()
