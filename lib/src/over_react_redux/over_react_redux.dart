@@ -32,7 +32,9 @@ part 'over_react_redux.over_react.g.dart';
 
 @PropsMixin(keyNamespace: '')
 abstract class _$ConnectPropsMixin implements UiProps {
+  @override
   Map get props;
+
   dynamic Function(dynamic action) dispatch;
 }
 
