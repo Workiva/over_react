@@ -183,6 +183,14 @@ class ImplGenerator {
         isComponent2: isComponent2,
       ));
 
+      /*
+      Map getBackingMap(Map map) {
+  if (value is UiProps) return getBackingMap(map.props);
+  if (value is UiState) return getBackingMap(map.state);
+  return map;
+}
+       */
+
       if (isComponent2) {
         // See _generateConcretePropsOrStateImpl for more info on why these additional methods are
         // implemented for Component2.
@@ -196,9 +204,15 @@ class ImplGenerator {
           ..writeln()
           ..writeln('  @override')
           ..writeln('  set props(Map value) {')
+          ..writeln('    assert(getBackingMap(value) is JsBackedMap, ')
+          ..writeln('      \'Component2.props should never be set directly in \'')
+          ..writeln('      \'production. If this is required for testing, the \'')
+          ..writeln('      \'component should be rendered within the test. If \'')
+          ..writeln('      \'that does not have the necessary result, the last \'')
+          ..writeln('      \'resort is to use typedPropsFactoryJs.\');')
           ..writeln('    super.props = value;')
           // FIXME 3.0.0-wip: is this implementation still needed here to get good dart2js output, or can we do it in the superclass?
-          ..writeln('    _cachedTypedProps = typedPropsFactoryJs(value);')
+          ..writeln('    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));')
           ..writeln('  }')
           ..writeln()
           ..writeln('  @override ')
