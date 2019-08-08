@@ -183,14 +183,6 @@ class ImplGenerator {
         isComponent2: isComponent2,
       ));
 
-      /*
-      Map getBackingMap(Map map) {
-  if (value is UiProps) return getBackingMap(map.props);
-  if (value is UiState) return getBackingMap(map.state);
-  return map;
-}
-       */
-
       if (isComponent2) {
         // See _generateConcretePropsOrStateImpl for more info on why these additional methods are
         // implemented for Component2.
