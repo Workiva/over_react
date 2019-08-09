@@ -999,15 +999,15 @@ main() {
           component2 = new TestComponent2Component();
           JsBackedMap testState = JsBackedMap.from({'isActive': true});
 
-          var props = component2.getBackingMap(TestComponent2State(testState));
+          var state = component2.getBackingMap(TestComponent2State(testState));
 
           test('returns a map', () {
-            expect(props, TypeMatcher<Map>());
+            expect(state, TypeMatcher<Map>());
           });
 
           test('returns the correct custom map values', () {
-            expect(props.containsKey('isActive'), isTrue);
-            expect(props['isActive'], true);
+            expect(state.containsKey('isActive'), isTrue);
+            expect(state['isActive'], true);
           });
         });
       });
