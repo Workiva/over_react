@@ -7,9 +7,7 @@ part 'my_provider_component.over_react.g.dart';
 UiFactory<MyProviderComponentProps> MyProviderComponent = _$MyProviderComponent;
 
 @Props()
-class _$MyProviderComponentProps extends UiProps {
-
-}
+class _$MyProviderComponentProps extends UiProps {}
 
 @State()
 class _$MyProviderComponentState extends UiState {
@@ -18,7 +16,6 @@ class _$MyProviderComponentState extends UiState {
 
 @Component2()
 class MyProviderComponentComponent extends UiStatefulComponent2<MyProviderComponentProps, MyProviderComponentState> {
-
   @override
   render() {
     return Dom.div()(
