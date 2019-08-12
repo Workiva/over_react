@@ -19,8 +19,6 @@ class _$MyProviderComponentState extends UiState {
 @Component2()
 class MyProviderComponentComponent extends UiStatefulComponent2<MyProviderComponentProps, MyProviderComponentState> {
 
-  
-
   @override
   render() {
     return Dom.div()(
