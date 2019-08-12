@@ -5,7 +5,7 @@ import 'package:react/react_client.dart';
 import 'package:react/react_dom.dart' as react_dom;
 import './components/my_provider_component.dart';
 import './components/my_context_component.dart';
-import './store.dart';
+import './context.dart';
 
 main() {
   setClientConfiguration();

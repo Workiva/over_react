@@ -1,7 +1,7 @@
 import 'package:redux/redux.dart';
 import 'package:over_react/over_react.dart';
 
-  var someContext = createContext('test');
+var someContext = createContext('test');
 /////////////////////////////// SHARED ///////////////////////////////
 class Action {
   Action({this.type, this.value});
@@ -23,7 +23,7 @@ class DecrementAction extends Action {
 }
 
 /////////////////////////////// STORE 1 "Counter" ///////////////////////////////
-Store store1 = new Store<CounterState>(counterStateReducer, initialState: new CounterState(count: 1));
+Store store1 = Store<CounterState>(counterStateReducer, initialState: CounterState(count: 1));
 
 class CounterState {
   final int count;
@@ -43,18 +43,18 @@ int _counterIncrementReducer(int currentCount, IncrementAction action) {
 }
 
 final counterActionsReducer = combineReducers<int>([
-  new TypedReducer<int, IncrementAction>(_counterIncrementReducer),
-  new TypedReducer<int, DecrementAction>(_counterDecrementReducer),
+  TypedReducer<int, IncrementAction>(_counterIncrementReducer),
+  TypedReducer<int, DecrementAction>(_counterDecrementReducer),
 ]);
 
-CounterState counterStateReducer(CounterState state, action) => new CounterState(
+CounterState counterStateReducer(CounterState state, action) => CounterState(
   count: counterActionsReducer(state.count, action),
 );
 
 /////////////////////////////// STORE 2 "BigCounter" ///////////////////////////////
 final bigCounterContext = createContext();
 
-Store store2 = new Store<BigCounterState>(bigCounterStateReducer, initialState: new BigCounterState(bigCount: 100));
+Store store2 = Store<BigCounterState>(bigCounterStateReducer, initialState:  BigCounterState(bigCount: 100));
 
 class BigCounterState {
   final int bigCount;
@@ -74,10 +74,10 @@ int _bigCounterIncrementReducer(int currentCount, IncrementAction action) {
 }
 
 final bigCounterActionsReducer = combineReducers<int>([
-  new TypedReducer<int, IncrementAction>(_bigCounterIncrementReducer),
-  new TypedReducer<int, DecrementAction>(_bigCounterDecrementReducer),
+  TypedReducer<int, IncrementAction>(_bigCounterIncrementReducer),
+  TypedReducer<int, DecrementAction>(_bigCounterDecrementReducer),
 ]);
 
-BigCounterState bigCounterStateReducer(BigCounterState state, action) => new BigCounterState(
+BigCounterState bigCounterStateReducer(BigCounterState state, action) => BigCounterState(
   bigCount: bigCounterActionsReducer(state.bigCount, action),
 );

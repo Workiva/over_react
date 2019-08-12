@@ -1,5 +1,5 @@
 import 'package:over_react/over_react.dart';
-import '../store.dart';
+import '../context.dart';
 
 part 'my_context_component.over_react.g.dart';
 
