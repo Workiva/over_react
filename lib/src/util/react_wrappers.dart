@@ -162,7 +162,7 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers:
 /// (and for the function itself, which is declared using `var` in react-dart).
 Element findDomNode(dynamic instance) => react_dom.findDOMNode(instance);
 
-/// Returns a a portal that renders [children] into a [container].
+/// Returns a portal that renders [children] into a [container].
 ///
 /// Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component.
 ///

@@ -1,6 +1,6 @@
 {
   "statelessComponentsDart2": {
-    "prefix": "ord2Stless",
+    "prefix": "orStless",
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
@@ -14,8 +14,8 @@
       "",
       "}",
       "",
-      "@Component()",
-      "class ${2:MyComponent}Component extends UiComponent<${2:MyComponent}Props> {",
+      "@Component2()",
+      "class ${2:MyComponent}Component extends UiComponent2<${2:MyComponent}Props> {",
       "\t@override",
       "\tMap getDefaultProps() => (newProps());",
       "",
@@ -26,7 +26,7 @@
     "description": "Creates a stateless OverReact component compatible with Dart 2"
   },
   "statelessCommentedComponentsDart2": {
-    "prefix": "ord2CStless",
+    "prefix": "orCStless",
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
@@ -40,8 +40,8 @@
       "",
       "}",
       "",
-      "@Component()",
-      "class ${2:MyComponent}Component extends UiComponent<${2:MyComponent}Props> {",
+      "@Component2()",
+      "class ${2:MyComponent}Component extends UiComponent2<${2:MyComponent}Props> {",
       "\t// Refs",
       "",
       "\t// --------------------------------------------------------------------------",
@@ -70,7 +70,7 @@
     "description": "Creates a commented stateless OverReact component compatible with Dart 2"
   },
   "abstractStatelessComponentsDart2": {
-    "prefix": "ord2AbsStless",
+    "prefix": "orAbsStless",
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
@@ -81,8 +81,8 @@
       "",
       "}",
       "",
-      "@AbstractComponent()",
-      "abstract class ${2:MyComponent}Component<T extends ${2:MyComponent}Props> extends UiComponent<T> {",
+      "@AbstractComponent2()",
+      "abstract class ${2:MyComponent}Component<T extends ${2:MyComponent}Props> extends UiComponent2<T> {",
       "\t@override",
       "\tMap getDefaultProps() => (newProps());",
       "",
@@ -93,7 +93,7 @@
     "description": "Creates an abstract stateless OverReact component compatible with Dart 2"
   },
   "abstractCommentedStatelessComponentsDart2": {
-    "prefix": "ord2CAbsStless",
+    "prefix": "orCAbsStless",
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
@@ -104,8 +104,8 @@
       "",
       "}",
       "",
-      "@AbstractComponent()",
-      "abstract class ${2:MyComponent}Component<T extends ${2:MyComponent}Props> extends UiComponent<T> {",
+      "@AbstractComponent2()",
+      "abstract class ${2:MyComponent}Component<T extends ${2:MyComponent}Props> extends UiComponent2<T> {",
       "\t// Refs",
       "",
       "\t// --------------------------------------------------------------------------",
@@ -134,7 +134,7 @@
     "description": "Creates an commented abstract stateless OverReact component compatible with Dart 2"
   },
   "statefulComponentsDart2": {
-    "prefix": "ord2Stful",
+    "prefix": "orStful",
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
@@ -153,13 +153,15 @@
       "",
       "}",
       "",
-      "@Component()",
-      "class ${2:MyComponent}Component extends UiStatefulComponent<${2:MyComponent}Props, ${2:MyComponent}State> {",
+      "@Component2()",
+      "class ${2:MyComponent}Component extends UiStatefulComponent2<${2:MyComponent}Props, ${2:MyComponent}State> {",
       "\t@override",
       "\tMap getDefaultProps() => (newProps());",
       "",
       "\t@override",
-      "\tMap getInitialState() => (newState());",
+      "\tvoid init() {",
+      "\t\tinitializeState(newState());",
+      "\t}",
       "",
       "\t@override",
       "\trender() { }",
@@ -168,7 +170,7 @@
     "description": "Creates a stateful OverReact component compatible with Dart 2"
   },
   "statefulCommentedComponentsDart2": {
-    "prefix": "ord2CStful",
+    "prefix": "orCStful",
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
@@ -187,8 +189,8 @@
       "",
       "}",
       "",
-      "@Component()",
-      "class ${2:MyComponent}Component extends UiStatefulComponent<${2:MyComponent}Props, ${2:MyComponent}State> {",
+      "@Component2()",
+      "class ${2:MyComponent}Component extends UiStatefulComponent2<${2:MyComponent}Props, ${2:MyComponent}State> {",
       "\t// Refs",
       "",
       "\t// --------------------------------------------------------------------------",
@@ -199,7 +201,9 @@
       "\tMap getDefaultProps() => (newProps());",
       "",
       "\t@override",
-      "\tMap getInitialState() => (newState());",
+      "\tvoid init() {",
+      "\t\tinitializeState(newState());",
+      "\t}",
       "",
       "\t@override",
       "\trender() { }",
@@ -220,7 +224,7 @@
     "description": "Creates a commented stateful OverReact component compatible with Dart 2"
   },
   "abstractStatefulComponentsDart2": {
-    "prefix": "ord2AbsStful",
+    "prefix": "orAbsStful",
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
@@ -236,13 +240,15 @@
       "",
       "}",
       "",
-      "@AbstractComponent()",
-      "abstract class ${2:MyComponent}Component<T extends ${2:MyComponent}Props, S extends ${2:MyComponent}State> extends UiStatefulComponent<T, S> {",
+      "@AbstractComponent2()",
+      "abstract class ${2:MyComponent}Component<T extends ${2:MyComponent}Props, S extends ${2:MyComponent}State> extends UiStatefulComponent2<T, S> {",
       "\t@override",
       "\tMap getDefaultProps() => (newProps());",
       "",
       "\t@override",
-      "\tMap getInitialState() => (newState());",
+      "\tvoid init() {",
+      "\t\tinitializeState(newState());",
+      "\t}",
       "",
       "\t@override",
       "\trender() { }",
@@ -251,7 +257,7 @@
     "description": "Creates an abstract stateful OverReact component compatible with Dart 2"
   },
   "abstractCommentedStatefulComponentsDart2": {
-    "prefix": "ord2CAbsStful",
+    "prefix": "orCAbsStful",
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
@@ -267,8 +273,8 @@
       "",
       "}",
       "",
-      "@AbstractComponent()",
-      "abstract class ${2:MyComponent}Component<T extends ${2:MyComponent}Props, S extends ${2:MyComponent}State> extends UiStatefulComponent<T, S> {",
+      "@AbstractComponent2()",
+      "abstract class ${2:MyComponent}Component<T extends ${2:MyComponent}Props, S extends ${2:MyComponent}State> extends UiStatefulComponent2<T, S> {",
       "\t// Refs",
       "",
       "\t// --------------------------------------------------------------------------",
@@ -279,7 +285,9 @@
       "\tMap getDefaultProps() => (newProps());",
       "",
       "\t@override",
-      "\tMap getInitialState() => (newState());",
+      "\tvoid init() {",
+      "\t\tinitializeState(newState());",
+      "\t}",
       "",
       "\t@override",
       "\trender() { }",

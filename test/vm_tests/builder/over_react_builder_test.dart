@@ -80,14 +80,14 @@ main() {
       verifyNoErrorLogs();
     });
 
-    test('warns if the .over_react.g.dart part directive is missing', () async {
+    test('fails if the .over_react.g.dart part directive is missing', () async {
       var libraryAsset = makeAssetId('over_react|test_fixtures/source_files/missing_over_react_g_part/library.dart');
       await runBuilder(builder, [libraryAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);
-      final expectedWarning = logs.firstWhere((log) {
-        return log.level == Level.WARNING && log.message == 'Missing "part \'library.over_react.g.dart\';".';
+      final expectedLog = logs.firstWhere((log) {
+        return log.level == Level.SEVERE && log.message == 'Missing "part \'library.over_react.g.dart\';".';
       }, orElse: () => null);
-      expect(expectedWarning, isNotNull,
-        reason: 'Expected a WARNING log for the missing over_react part.');
+      expect(expectedLog, isNotNull,
+        reason: 'Expected a SEVERE log for the missing over_react part.');
     });
 
     test('warns if .over_react.g.dart part directive is present and no declarations are present, but no code is generated', () async {

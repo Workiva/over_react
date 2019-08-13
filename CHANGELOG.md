@@ -1,5 +1,24 @@
 # OverReact Changelog
 
+## 3.0.0
+
+__Breaking Changes__
+
+* [#314] The `.over_react.g.dart` part directive is required on Dart 2. The
+  builder now logs at the `SEVERE` level (which causes the build to fail) when
+  a missing part directive is detected. Previously, the builder only logged this
+  as a warning. In other words, the issue has been promoted from a runtime
+  exception to a build-time error.
+
+## 2.5.0
+
+> Complete `2.5.0` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.4.4+dart2...2.5.0+dart2)
+> - [Dart 1](https://github.com/Workiva/over_react/compare/2.4.2+dart1...2.5.0+dart1)
+
+* [#327] Add support for `SyntheticAnimationEvent` / `SyntheticTransitionEvent`
+
 ## 2.4.4
 
 > Complete `2.4.4` Changsets:

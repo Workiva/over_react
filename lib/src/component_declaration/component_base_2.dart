@@ -177,7 +177,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///           },
   ///         };
   ///
-  /// `getPropKey` is a staticlly typed helper to get the string key for a prop.
+  /// `getPropKey` is a statically typed helper to get the string key for a prop.
   ///
   /// __Note:__ An improved version of `getPropKey` will be offered once
   /// https://jira.atl.workiva.net/browse/CPLAT-6655 is completed.
