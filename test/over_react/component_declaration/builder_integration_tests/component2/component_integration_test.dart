@@ -85,7 +85,6 @@ main() {
     });
 
     group('generates prop getters/setters', () {
-
       test('and throws when set directly with a normal map', () {
         expect(() => render((ComponentTest()..shouldSetPropsDirectly = true)()),
             throwsA(hasToStringValue(contains('Component2.props should never be set directly '
