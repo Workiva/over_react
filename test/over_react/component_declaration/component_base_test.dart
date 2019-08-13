@@ -1187,12 +1187,6 @@ class TestComponent2Props extends over_react.UiProps {
   String get propKeyNamespace => null;
 }
 
-class TestComponent2State extends UiState {
-  @override final Map state;
-
-  TestComponent2State([Map state]) : this.state = state ?? ({});
-}
-
 class TestComponent2Component extends UiComponent2<TestComponent2Props> {
   @override
   final List<ConsumedProps> consumedProps;
