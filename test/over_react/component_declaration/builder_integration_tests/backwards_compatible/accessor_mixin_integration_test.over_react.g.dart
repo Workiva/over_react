@@ -14,9 +14,8 @@ abstract class $TestPropsMixin implements TestPropsMixin {
 
   /// <!-- Generated from [TestPropsMixin.stringProp] -->
   @override
-  String get stringProp =>
-      props[_$key__stringProp__TestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get stringProp => props[_$key__stringProp__TestPropsMixin];
+
   /// <!-- Generated from [TestPropsMixin.stringProp] -->
   @override
   set stringProp(String value) =>
@@ -24,9 +23,8 @@ abstract class $TestPropsMixin implements TestPropsMixin {
 
   /// <!-- Generated from [TestPropsMixin.dynamicProp] -->
   @override
-  dynamic get dynamicProp =>
-      props[_$key__dynamicProp__TestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get dynamicProp => props[_$key__dynamicProp__TestPropsMixin];
+
   /// <!-- Generated from [TestPropsMixin.dynamicProp] -->
   @override
   set dynamicProp(dynamic value) =>
@@ -34,9 +32,8 @@ abstract class $TestPropsMixin implements TestPropsMixin {
 
   /// <!-- Generated from [TestPropsMixin.untypedProp] -->
   @override
-  get untypedProp =>
-      props[_$key__untypedProp__TestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get untypedProp => props[_$key__untypedProp__TestPropsMixin];
+
   /// <!-- Generated from [TestPropsMixin.untypedProp] -->
   @override
   set untypedProp(value) => props[_$key__untypedProp__TestPropsMixin] = value;
@@ -44,9 +41,8 @@ abstract class $TestPropsMixin implements TestPropsMixin {
   /// <!-- Generated from [TestPropsMixin.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  get customKeyProp =>
-      props[_$key__customKeyProp__TestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get customKeyProp => props[_$key__customKeyProp__TestPropsMixin];
+
   /// <!-- Generated from [TestPropsMixin.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
@@ -56,9 +52,8 @@ abstract class $TestPropsMixin implements TestPropsMixin {
   /// <!-- Generated from [TestPropsMixin.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceProp =>
-      props[_$key__customNamespaceProp__TestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get customNamespaceProp => props[_$key__customNamespaceProp__TestPropsMixin];
+
   /// <!-- Generated from [TestPropsMixin.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
@@ -69,8 +64,8 @@ abstract class $TestPropsMixin implements TestPropsMixin {
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   get customKeyAndNamespaceProp =>
-      props[_$key__customKeyAndNamespaceProp__TestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__customKeyAndNamespaceProp__TestPropsMixin];
+
   /// <!-- Generated from [TestPropsMixin.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
@@ -136,8 +131,8 @@ abstract class $TestCustomNamespacePropsMixin
   /// <!-- Generated from [TestCustomNamespacePropsMixin.stringProp] -->
   @override
   String get stringProp =>
-      props[_$key__stringProp__TestCustomNamespacePropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__stringProp__TestCustomNamespacePropsMixin];
+
   /// <!-- Generated from [TestCustomNamespacePropsMixin.stringProp] -->
   @override
   set stringProp(String value) =>
@@ -146,8 +141,8 @@ abstract class $TestCustomNamespacePropsMixin
   /// <!-- Generated from [TestCustomNamespacePropsMixin.dynamicProp] -->
   @override
   dynamic get dynamicProp =>
-      props[_$key__dynamicProp__TestCustomNamespacePropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__dynamicProp__TestCustomNamespacePropsMixin];
+
   /// <!-- Generated from [TestCustomNamespacePropsMixin.dynamicProp] -->
   @override
   set dynamicProp(dynamic value) =>
@@ -155,9 +150,8 @@ abstract class $TestCustomNamespacePropsMixin
 
   /// <!-- Generated from [TestCustomNamespacePropsMixin.untypedProp] -->
   @override
-  get untypedProp =>
-      props[_$key__untypedProp__TestCustomNamespacePropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get untypedProp => props[_$key__untypedProp__TestCustomNamespacePropsMixin];
+
   /// <!-- Generated from [TestCustomNamespacePropsMixin.untypedProp] -->
   @override
   set untypedProp(value) =>
@@ -167,8 +161,8 @@ abstract class $TestCustomNamespacePropsMixin
   @override
   @Accessor(key: 'custom key!')
   get customKeyProp =>
-      props[_$key__customKeyProp__TestCustomNamespacePropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__customKeyProp__TestCustomNamespacePropsMixin];
+
   /// <!-- Generated from [TestCustomNamespacePropsMixin.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
@@ -179,8 +173,8 @@ abstract class $TestCustomNamespacePropsMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   get customNamespaceProp =>
-      props[_$key__customNamespaceProp__TestCustomNamespacePropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__customNamespaceProp__TestCustomNamespacePropsMixin];
+
   /// <!-- Generated from [TestCustomNamespacePropsMixin.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
@@ -191,8 +185,8 @@ abstract class $TestCustomNamespacePropsMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   get customKeyAndNamespaceProp =>
-      props[_$key__customKeyAndNamespaceProp__TestCustomNamespacePropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__customKeyAndNamespaceProp__TestCustomNamespacePropsMixin];
+
   /// <!-- Generated from [TestCustomNamespacePropsMixin.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
@@ -266,9 +260,8 @@ abstract class $TestStateMixin implements TestStateMixin {
 
   /// <!-- Generated from [TestStateMixin.stringState] -->
   @override
-  String get stringState =>
-      state[_$key__stringState__TestStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get stringState => state[_$key__stringState__TestStateMixin];
+
   /// <!-- Generated from [TestStateMixin.stringState] -->
   @override
   set stringState(String value) =>
@@ -276,9 +269,8 @@ abstract class $TestStateMixin implements TestStateMixin {
 
   /// <!-- Generated from [TestStateMixin.dynamicState] -->
   @override
-  dynamic get dynamicState =>
-      state[_$key__dynamicState__TestStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get dynamicState => state[_$key__dynamicState__TestStateMixin];
+
   /// <!-- Generated from [TestStateMixin.dynamicState] -->
   @override
   set dynamicState(dynamic value) =>
@@ -286,9 +278,8 @@ abstract class $TestStateMixin implements TestStateMixin {
 
   /// <!-- Generated from [TestStateMixin.untypedState] -->
   @override
-  get untypedState =>
-      state[_$key__untypedState__TestStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get untypedState => state[_$key__untypedState__TestStateMixin];
+
   /// <!-- Generated from [TestStateMixin.untypedState] -->
   @override
   set untypedState(value) => state[_$key__untypedState__TestStateMixin] = value;
@@ -296,9 +287,8 @@ abstract class $TestStateMixin implements TestStateMixin {
   /// <!-- Generated from [TestStateMixin.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  get customKeyState =>
-      state[_$key__customKeyState__TestStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get customKeyState => state[_$key__customKeyState__TestStateMixin];
+
   /// <!-- Generated from [TestStateMixin.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
@@ -309,8 +299,8 @@ abstract class $TestStateMixin implements TestStateMixin {
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   get customNamespaceState =>
-      state[_$key__customNamespaceState__TestStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__customNamespaceState__TestStateMixin];
+
   /// <!-- Generated from [TestStateMixin.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
@@ -321,8 +311,8 @@ abstract class $TestStateMixin implements TestStateMixin {
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   get customKeyAndNamespaceState =>
-      state[_$key__customKeyAndNamespaceState__TestStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__customKeyAndNamespaceState__TestStateMixin];
+
   /// <!-- Generated from [TestStateMixin.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
@@ -388,8 +378,8 @@ abstract class $TestCustomNamespaceStateMixin
   /// <!-- Generated from [TestCustomNamespaceStateMixin.stringState] -->
   @override
   String get stringState =>
-      state[_$key__stringState__TestCustomNamespaceStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__stringState__TestCustomNamespaceStateMixin];
+
   /// <!-- Generated from [TestCustomNamespaceStateMixin.stringState] -->
   @override
   set stringState(String value) =>
@@ -398,8 +388,8 @@ abstract class $TestCustomNamespaceStateMixin
   /// <!-- Generated from [TestCustomNamespaceStateMixin.dynamicState] -->
   @override
   dynamic get dynamicState =>
-      state[_$key__dynamicState__TestCustomNamespaceStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__dynamicState__TestCustomNamespaceStateMixin];
+
   /// <!-- Generated from [TestCustomNamespaceStateMixin.dynamicState] -->
   @override
   set dynamicState(dynamic value) =>
@@ -407,9 +397,8 @@ abstract class $TestCustomNamespaceStateMixin
 
   /// <!-- Generated from [TestCustomNamespaceStateMixin.untypedState] -->
   @override
-  get untypedState =>
-      state[_$key__untypedState__TestCustomNamespaceStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get untypedState => state[_$key__untypedState__TestCustomNamespaceStateMixin];
+
   /// <!-- Generated from [TestCustomNamespaceStateMixin.untypedState] -->
   @override
   set untypedState(value) =>
@@ -419,8 +408,8 @@ abstract class $TestCustomNamespaceStateMixin
   @override
   @Accessor(key: 'custom key!')
   get customKeyState =>
-      state[_$key__customKeyState__TestCustomNamespaceStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__customKeyState__TestCustomNamespaceStateMixin];
+
   /// <!-- Generated from [TestCustomNamespaceStateMixin.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
@@ -431,8 +420,8 @@ abstract class $TestCustomNamespaceStateMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   get customNamespaceState =>
-      state[_$key__customNamespaceState__TestCustomNamespaceStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__customNamespaceState__TestCustomNamespaceStateMixin];
+
   /// <!-- Generated from [TestCustomNamespaceStateMixin.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
@@ -443,8 +432,8 @@ abstract class $TestCustomNamespaceStateMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   get customKeyAndNamespaceState =>
-      state[_$key__customKeyAndNamespaceState__TestCustomNamespaceStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__customKeyAndNamespaceState__TestCustomNamespaceStateMixin];
+
   /// <!-- Generated from [TestCustomNamespaceStateMixin.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')

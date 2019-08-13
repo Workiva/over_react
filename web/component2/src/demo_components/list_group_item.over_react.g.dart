@@ -33,8 +33,8 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// <!-- Generated from [_$ListGroupItemProps.elementType] -->
   @override
   ListGroupItemElementType get elementType =>
-      props[_$key__elementType___$ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__elementType___$ListGroupItemProps];
+
   /// The HTML element type for the [ListGroupItem], specifying its DOM
   /// representation when rendered.
   ///
@@ -54,9 +54,8 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ListGroupItemProps.header] -->
   @override
-  dynamic get header =>
-      props[_$key__header___$ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get header => props[_$key__header___$ListGroupItemProps];
+
   /// Optional header text to display within the [ListGroupItem] above
   /// the value of [children].
   ///
@@ -74,8 +73,8 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// <!-- Generated from [_$ListGroupItemProps.headerSize] -->
   @override
   ListGroupItemHeaderElementSize get headerSize =>
-      props[_$key__headerSize___$ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__headerSize___$ListGroupItemProps];
+
   /// The size of the [header] text you desire.
   ///
   /// Default: [ListGroupItemHeaderElementSize.H5]
@@ -89,9 +88,8 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ListGroupItemProps.headerProps] -->
   @override
-  Map get headerProps =>
-      props[_$key__headerProps___$ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  Map get headerProps => props[_$key__headerProps___$ListGroupItemProps];
+
   /// Additional props to be added to the [header] element _(if specified)_.
   ///
   /// <!-- Generated from [_$ListGroupItemProps.headerProps] -->
@@ -107,9 +105,8 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ListGroupItemProps.skin] -->
   @override
-  ListGroupItemSkin get skin =>
-      props[_$key__skin___$ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  ListGroupItemSkin get skin => props[_$key__skin___$ListGroupItemProps];
+
   /// The skin / "context" for the [ListGroupItem].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#contextual-classes>.
@@ -129,9 +126,8 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ListGroupItemProps.isActive] -->
   @override
-  bool get isActive =>
-      props[_$key__isActive___$ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get isActive => props[_$key__isActive___$ListGroupItemProps];
+
   /// Whether the [ListGroupItem] should appear "active".
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#anchors-and-buttons>
@@ -152,9 +148,8 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// <!-- Generated from [_$ListGroupItemProps.isDisabled] -->
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
-  bool get isDisabled =>
-      props[_$key__isDisabled___$ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get isDisabled => props[_$key__isDisabled___$ListGroupItemProps];
+
   /// Whether the [ListGroupItem] is disabled.
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#disabled-items>
@@ -176,9 +171,8 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// <!-- Generated from [_$ListGroupItemProps.href] -->
   @override
   @Accessor(keyNamespace: '')
-  String get href =>
-      props[_$key__href___$ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get href => props[_$key__href___$ListGroupItemProps];
+
   /// The HTML `href` attribute value for the [ListGroupItem].
   ///
   /// If set, the item will render via [Dom.a].
@@ -199,9 +193,8 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// <!-- Generated from [_$ListGroupItemProps.target] -->
   @override
   @Accessor(keyNamespace: '')
-  String get target =>
-      props[_$key__target___$ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get target => props[_$key__target___$ListGroupItemProps];
+
   /// The HTML `target` attribute value for the [ListGroupItem].
   ///
   /// If set, the item will render via [Dom.a].
@@ -225,9 +218,8 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$ListGroupItemProps.type] -->
   @override
-  ButtonType get type =>
-      props[_$key__type___$ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  ButtonType get type => props[_$key__type___$ListGroupItemProps];
+
   /// The HTML `type` attribute value for the [ListGroupItem] when
   /// rendered via [Dom.button].
   ///
@@ -353,35 +345,25 @@ abstract class _$$ListGroupItemProps extends _$ListGroupItemProps
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$ListGroupItemProps$PlainMap extends _$$ListGroupItemProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ListGroupItemProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
+      : this.props = backingMap ?? {},
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 }
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ListGroupItemProps$JsMap extends _$$ListGroupItemProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ListGroupItemProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
+      : this.props = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
+  final JsBackedMap props;
 }
 
 // Concrete component implementation mixin.

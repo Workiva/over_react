@@ -14,9 +14,8 @@ abstract class ExamplePropsMixinClass implements _$ExamplePropsMixinClass {
 
   /// <!-- Generated from [_$ExamplePropsMixinClass.propMixin1] -->
   @override
-  String get propMixin1 =>
-      props[_$key__propMixin1___$ExamplePropsMixinClass] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get propMixin1 => props[_$key__propMixin1___$ExamplePropsMixinClass];
+
   /// <!-- Generated from [_$ExamplePropsMixinClass.propMixin1] -->
   @override
   set propMixin1(String value) =>
@@ -50,8 +49,8 @@ abstract class MixesInOtherMixinMixin<T extends Iterable, U>
   /// <!-- Generated from [_$MixesInOtherMixinMixin.otherPropMixin] -->
   @override
   String get otherPropMixin =>
-      props[_$key__otherPropMixin___$MixesInOtherMixinMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__otherPropMixin___$MixesInOtherMixinMixin];
+
   /// <!-- Generated from [_$MixesInOtherMixinMixin.otherPropMixin] -->
   @override
   set otherPropMixin(String value) =>

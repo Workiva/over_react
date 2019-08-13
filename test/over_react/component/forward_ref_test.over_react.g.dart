@@ -24,9 +24,8 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
 
   /// <!-- Generated from [_$BasicProps.childId] -->
   @override
-  String get childId =>
-      props[_$key__childId___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get childId => props[_$key__childId___$BasicProps];
+
   /// <!-- Generated from [_$BasicProps.childId] -->
   @override
   set childId(String value) => props[_$key__childId___$BasicProps] = value;
@@ -86,35 +85,25 @@ abstract class _$$BasicProps extends _$BasicProps
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$BasicProps$PlainMap extends _$$BasicProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$BasicProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
+      : this.props = backingMap ?? {},
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 }
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$BasicProps$JsMap extends _$$BasicProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$BasicProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
+      : this.props = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
+  final JsBackedMap props;
 }
 
 // Concrete component implementation mixin.

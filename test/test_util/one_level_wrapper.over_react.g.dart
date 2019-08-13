@@ -49,14 +49,11 @@ class _$$OneLevelWrapperProps extends _$OneLevelWrapperProps
     implements OneLevelWrapperProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$OneLevelWrapperProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$OneLevelWrapperProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

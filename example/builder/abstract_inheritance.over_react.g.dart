@@ -22,9 +22,8 @@ abstract class _$SubPropsAccessorsMixin implements _$SubProps {
 
   /// <!-- Generated from [_$SubProps.subProp] -->
   @override
-  String get subProp =>
-      props[_$key__subProp___$SubProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get subProp => props[_$key__subProp___$SubProps];
+
   /// <!-- Generated from [_$SubProps.subProp] -->
   @override
   set subProp(String value) => props[_$key__subProp___$SubProps] = value;
@@ -58,14 +57,11 @@ class _$$SubProps extends _$SubProps
     implements SubProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SubProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$SubProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -87,9 +83,8 @@ abstract class _$SubStateAccessorsMixin implements _$SubState {
 
   /// <!-- Generated from [_$SubState.subState] -->
   @override
-  String get subState =>
-      state[_$key__subState___$SubState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get subState => state[_$key__subState___$SubState];
+
   /// <!-- Generated from [_$SubState.subState] -->
   @override
   set subState(String value) => state[_$key__subState___$SubState] = value;
@@ -121,14 +116,11 @@ class _$$SubState extends _$SubState
     implements SubState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SubState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$SubState(Map backingMap) : this.state = backingMap ?? {};
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override
@@ -162,9 +154,8 @@ abstract class _$SuperPropsAccessorsMixin implements _$SuperProps {
 
   /// <!-- Generated from [_$SuperProps.superProp] -->
   @override
-  String get superProp =>
-      props[_$key__superProp___$SuperProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get superProp => props[_$key__superProp___$SuperProps];
+
   /// <!-- Generated from [_$SuperProps.superProp] -->
   @override
   set superProp(String value) => props[_$key__superProp___$SuperProps] = value;
@@ -194,9 +185,8 @@ abstract class _$SuperStateAccessorsMixin implements _$SuperState {
 
   /// <!-- Generated from [_$SuperState.superState] -->
   @override
-  String get superState =>
-      state[_$key__superState___$SuperState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get superState => state[_$key__superState___$SuperState];
+
   /// <!-- Generated from [_$SuperState.superState] -->
   @override
   set superState(String value) =>

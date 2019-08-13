@@ -25,9 +25,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$ComponentTestProps.stringProp] -->
   @override
-  String get stringProp =>
-      props[_$key__stringProp___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get stringProp => props[_$key__stringProp___$ComponentTestProps];
+
   /// <!-- Generated from [_$ComponentTestProps.stringProp] -->
   @override
   set stringProp(String value) =>
@@ -35,9 +34,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$ComponentTestProps.dynamicProp] -->
   @override
-  dynamic get dynamicProp =>
-      props[_$key__dynamicProp___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get dynamicProp => props[_$key__dynamicProp___$ComponentTestProps];
+
   /// <!-- Generated from [_$ComponentTestProps.dynamicProp] -->
   @override
   set dynamicProp(dynamic value) =>
@@ -45,9 +43,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$ComponentTestProps.untypedProp] -->
   @override
-  get untypedProp =>
-      props[_$key__untypedProp___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get untypedProp => props[_$key__untypedProp___$ComponentTestProps];
+
   /// <!-- Generated from [_$ComponentTestProps.untypedProp] -->
   @override
   set untypedProp(value) =>
@@ -56,9 +53,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   /// <!-- Generated from [_$ComponentTestProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  get customKeyProp =>
-      props[_$key__customKeyProp___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get customKeyProp => props[_$key__customKeyProp___$ComponentTestProps];
+
   /// <!-- Generated from [_$ComponentTestProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
@@ -69,8 +65,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   get customNamespaceProp =>
-      props[_$key__customNamespaceProp___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__customNamespaceProp___$ComponentTestProps];
+
   /// <!-- Generated from [_$ComponentTestProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
@@ -81,8 +77,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   get customKeyAndNamespaceProp =>
-      props[_$key__customKeyAndNamespaceProp___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__customKeyAndNamespaceProp___$ComponentTestProps];
+
   /// <!-- Generated from [_$ComponentTestProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
@@ -182,35 +178,25 @@ abstract class _$$ComponentTestProps extends _$ComponentTestProps
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$ComponentTestProps$PlainMap extends _$$ComponentTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ComponentTestProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
+      : this.props = backingMap ?? {},
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 }
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ComponentTestProps$JsMap extends _$$ComponentTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ComponentTestProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
+      : this.props = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
+  final JsBackedMap props;
 }
 
 // Concrete component implementation mixin.
@@ -320,35 +306,25 @@ abstract class _$$IsErrorBoundaryProps extends _$IsErrorBoundaryProps
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$IsErrorBoundaryProps$PlainMap extends _$$IsErrorBoundaryProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$IsErrorBoundaryProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
+      : this.props = backingMap ?? {},
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 }
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$IsErrorBoundaryProps$JsMap extends _$$IsErrorBoundaryProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$IsErrorBoundaryProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
+      : this.props = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
+  final JsBackedMap props;
 }
 
 // Concrete component implementation mixin.
@@ -457,35 +433,25 @@ abstract class _$$IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$IsNotErrorBoundaryProps$PlainMap extends _$$IsNotErrorBoundaryProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$IsNotErrorBoundaryProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
+      : this.props = backingMap ?? {},
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 }
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$IsNotErrorBoundaryProps$JsMap extends _$$IsNotErrorBoundaryProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$IsNotErrorBoundaryProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
+      : this.props = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
+  final JsBackedMap props;
 }
 
 // Concrete component implementation mixin.

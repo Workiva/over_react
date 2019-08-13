@@ -26,9 +26,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @requiredProp
-  get required =>
-      props[_$key__required___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get required => props[_$key__required___$ComponentTestProps];
+
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @requiredProp
@@ -37,9 +36,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @nullableRequiredProp
-  get nullable =>
-      props[_$key__nullable___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get nullable => props[_$key__nullable___$ComponentTestProps];
+
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @nullableRequiredProp
@@ -49,8 +47,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @override
   @requiredProp
   List get requiredAndLengthLimited =>
-      props[_$key__requiredAndLengthLimited___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__requiredAndLengthLimited___$ComponentTestProps];
+
   /// <!-- Generated from [_$ComponentTestProps.requiredAndLengthLimited] -->
   @override
   @requiredProp
@@ -134,35 +132,25 @@ abstract class _$$ComponentTestProps extends _$ComponentTestProps
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$ComponentTestProps$PlainMap extends _$$ComponentTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ComponentTestProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
+      : this.props = backingMap ?? {},
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 }
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ComponentTestProps$JsMap extends _$$ComponentTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ComponentTestProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
+      : this.props = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
+  final JsBackedMap props;
 }
 
 // Concrete component implementation mixin.

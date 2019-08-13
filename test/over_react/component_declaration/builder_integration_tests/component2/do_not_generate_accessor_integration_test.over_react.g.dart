@@ -26,8 +26,8 @@ abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.generated1Prop] -->
   @override
   get generated1Prop =>
-      props[_$key__generated1Prop___$DoNotGenerateAccessorTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__generated1Prop___$DoNotGenerateAccessorTestProps];
+
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.generated1Prop] -->
   @override
   set generated1Prop(value) =>
@@ -36,8 +36,8 @@ abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.generated2Prop] -->
   @override
   get generated2Prop =>
-      props[_$key__generated2Prop___$DoNotGenerateAccessorTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__generated2Prop___$DoNotGenerateAccessorTestProps];
+
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.generated2Prop] -->
   @override
   set generated2Prop(value) =>
@@ -47,8 +47,8 @@ abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
   @override
   @Accessor(doNotGenerate: false)
   get explicitlyGeneratedProp =>
-      props[_$key__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps];
+
   /// <!-- Generated from [_$DoNotGenerateAccessorTestProps.explicitlyGeneratedProp] -->
   @override
   @Accessor(doNotGenerate: false)
@@ -138,36 +138,26 @@ abstract class _$$DoNotGenerateAccessorTestProps
 // Concrete props implementation that can be backed by any [Map].
 class _$$DoNotGenerateAccessorTestProps$PlainMap
     extends _$$DoNotGenerateAccessorTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$DoNotGenerateAccessorTestProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
+      : this.props = backingMap ?? {},
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 }
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$DoNotGenerateAccessorTestProps$JsMap
     extends _$$DoNotGenerateAccessorTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$DoNotGenerateAccessorTestProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
+      : this.props = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
+  final JsBackedMap props;
 }
 
 abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
@@ -178,8 +168,8 @@ abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.generated1State] -->
   @override
   get generated1State =>
-      state[_$key__generated1State___$DoNotGenerateAccessorTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__generated1State___$DoNotGenerateAccessorTestState];
+
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.generated1State] -->
   @override
   set generated1State(value) =>
@@ -188,8 +178,8 @@ abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.generated2State] -->
   @override
   get generated2State =>
-      state[_$key__generated2State___$DoNotGenerateAccessorTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__generated2State___$DoNotGenerateAccessorTestState];
+
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.generated2State] -->
   @override
   set generated2State(value) =>
@@ -199,9 +189,8 @@ abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
   @override
   @Accessor(doNotGenerate: false)
   get explicitlyGeneratedState =>
-      state[
-          _$key__explicitlyGeneratedState___$DoNotGenerateAccessorTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__explicitlyGeneratedState___$DoNotGenerateAccessorTestState];
+
   /// <!-- Generated from [_$DoNotGenerateAccessorTestState.explicitlyGeneratedState] -->
   @override
   @Accessor(doNotGenerate: false)
@@ -276,36 +265,26 @@ abstract class _$$DoNotGenerateAccessorTestState
 // Concrete state implementation that can be backed by any [Map].
 class _$$DoNotGenerateAccessorTestState$PlainMap
     extends _$$DoNotGenerateAccessorTestState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$DoNotGenerateAccessorTestState$PlainMap(Map backingMap)
-      : this._state = {},
-        super._() {
-    this._state = backingMap ?? {};
-  }
+      : this.state = backingMap ?? {},
+        super._();
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 }
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$DoNotGenerateAccessorTestState$JsMap
     extends _$$DoNotGenerateAccessorTestState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$DoNotGenerateAccessorTestState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? new JsBackedMap();
-  }
+      : this.state = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing state map proxied by this class.
   @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
+  final JsBackedMap state;
 }
 
 // Concrete component implementation mixin.

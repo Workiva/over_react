@@ -30,8 +30,8 @@ abstract class _$ListGroupPropsAccessorsMixin implements _$ListGroupProps {
   /// <!-- Generated from [_$ListGroupProps.elementType] -->
   @override
   ListGroupElementType get elementType =>
-      props[_$key__elementType___$ListGroupProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__elementType___$ListGroupProps];
+
   /// The HTML element type for the [ListGroup], specifying its
   /// DOM representation when rendered.
   ///
@@ -101,35 +101,25 @@ abstract class _$$ListGroupProps extends _$ListGroupProps
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$ListGroupProps$PlainMap extends _$$ListGroupProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ListGroupProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
+      : this.props = backingMap ?? {},
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 }
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ListGroupProps$JsMap extends _$$ListGroupProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ListGroupProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
+      : this.props = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
+  final JsBackedMap props;
 }
 
 // Concrete component implementation mixin.

@@ -76,35 +76,25 @@ abstract class _$$PropTypesWrapProps extends _$PropTypesWrapProps
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$PropTypesWrapProps$PlainMap extends _$$PropTypesWrapProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$PropTypesWrapProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
+      : this.props = backingMap ?? {},
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 }
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$PropTypesWrapProps$JsMap extends _$$PropTypesWrapProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$PropTypesWrapProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
+      : this.props = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
+  final JsBackedMap props;
 }
 
 abstract class _$PropTypesWrapStateAccessorsMixin
@@ -114,9 +104,8 @@ abstract class _$PropTypesWrapStateAccessorsMixin
 
   /// <!-- Generated from [_$PropTypesWrapState.twoObjects] -->
   @override
-  List get twoObjects =>
-      state[_$key__twoObjects___$PropTypesWrapState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  List get twoObjects => state[_$key__twoObjects___$PropTypesWrapState];
+
   /// <!-- Generated from [_$PropTypesWrapState.twoObjects] -->
   @override
   set twoObjects(List value) =>
@@ -168,35 +157,25 @@ abstract class _$$PropTypesWrapState extends _$PropTypesWrapState
 
 // Concrete state implementation that can be backed by any [Map].
 class _$$PropTypesWrapState$PlainMap extends _$$PropTypesWrapState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$PropTypesWrapState$PlainMap(Map backingMap)
-      : this._state = {},
-        super._() {
-    this._state = backingMap ?? {};
-  }
+      : this.state = backingMap ?? {},
+        super._();
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 }
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$PropTypesWrapState$JsMap extends _$$PropTypesWrapState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$PropTypesWrapState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? new JsBackedMap();
-  }
+      : this.state = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing state map proxied by this class.
   @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
+  final JsBackedMap state;
 }
 
 // Concrete component implementation mixin.

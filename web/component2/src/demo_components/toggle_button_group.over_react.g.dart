@@ -77,35 +77,25 @@ abstract class _$$ToggleButtonGroupProps extends _$ToggleButtonGroupProps
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$ToggleButtonGroupProps$PlainMap extends _$$ToggleButtonGroupProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ToggleButtonGroupProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
+      : this.props = backingMap ?? {},
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 }
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ToggleButtonGroupProps$JsMap extends _$$ToggleButtonGroupProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ToggleButtonGroupProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
+      : this.props = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
+  final JsBackedMap props;
 }
 
 abstract class _$ToggleButtonGroupStateAccessorsMixin
@@ -152,35 +142,25 @@ abstract class _$$ToggleButtonGroupState extends _$ToggleButtonGroupState
 
 // Concrete state implementation that can be backed by any [Map].
 class _$$ToggleButtonGroupState$PlainMap extends _$$ToggleButtonGroupState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ToggleButtonGroupState$PlainMap(Map backingMap)
-      : this._state = {},
-        super._() {
-    this._state = backingMap ?? {};
-  }
+      : this.state = backingMap ?? {},
+        super._();
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 }
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ToggleButtonGroupState$JsMap extends _$$ToggleButtonGroupState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ToggleButtonGroupState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? new JsBackedMap();
-  }
+      : this.state = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing state map proxied by this class.
   @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
+  final JsBackedMap state;
 }
 
 // Concrete component implementation mixin.

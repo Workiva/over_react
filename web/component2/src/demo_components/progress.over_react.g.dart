@@ -30,9 +30,8 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.value] -->
   @override
-  double get value =>
-      props[_$key__value___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  double get value => props[_$key__value___$ProgressProps];
+
   /// The current value of the [Progress] component.
   ///
   /// This value should be between the [min] and [max] values.
@@ -49,9 +48,8 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.min] -->
   @override
-  double get min =>
-      props[_$key__min___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  double get min => props[_$key__min___$ProgressProps];
+
   /// The min value of the [Progress] component.
   ///
   /// Default: `0.0`
@@ -66,9 +64,8 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.max] -->
   @override
-  double get max =>
-      props[_$key__max___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  double get max => props[_$key__max___$ProgressProps];
+
   /// The max value of the [Progress] component.
   ///
   /// Default: `100.0`
@@ -85,9 +82,8 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.skin] -->
   @override
-  ProgressSkin get skin =>
-      props[_$key__skin___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  ProgressSkin get skin => props[_$key__skin___$ProgressProps];
+
   /// The skin / "context" for the [Progress] component.
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/progress/#contextual-alternatives>.
@@ -104,9 +100,8 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.isStriped] -->
   @override
-  bool get isStriped =>
-      props[_$key__isStriped___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get isStriped => props[_$key__isStriped___$ProgressProps];
+
   /// Whether to render a "Barber Pole" gradient stripe effect in the [Progress] component.
   ///
   /// Default: false
@@ -123,9 +118,8 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.isAnimated] -->
   @override
-  bool get isAnimated =>
-      props[_$key__isAnimated___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get isAnimated => props[_$key__isAnimated___$ProgressProps];
+
   /// Whether to animate the "Barber Pole" gradient stripe effect in the [Progress] component.
   ///
   /// __Note:__ Has no effect if [isStriped] is `false`.
@@ -145,9 +139,8 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.caption] -->
   @override
-  String get caption =>
-      props[_$key__caption___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get caption => props[_$key__caption___$ProgressProps];
+
   /// Optionally add a caption that describes the context of the [Progress] component.
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/progress/#example>.
@@ -162,9 +155,8 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.captionProps] -->
   @override
-  Map get captionProps =>
-      props[_$key__captionProps___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  Map get captionProps => props[_$key__captionProps___$ProgressProps];
+
   /// Additional props to be added to the [caption] element _(if specified)_.
   ///
   /// <!-- Generated from [_$ProgressProps.captionProps] -->
@@ -178,9 +170,8 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.showCaption] -->
   @override
-  bool get showCaption =>
-      props[_$key__showCaption___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get showCaption => props[_$key__showCaption___$ProgressProps];
+
   /// Whether the [caption] should be visible.
   ///
   /// Default: false
@@ -197,8 +188,8 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   /// <!-- Generated from [_$ProgressProps.showPercentComplete] -->
   @override
   bool get showPercentComplete =>
-      props[_$key__showPercentComplete___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__showPercentComplete___$ProgressProps];
+
   /// Whether the [caption] should be appended with the value of [value].
   ///
   /// Default: true
@@ -212,9 +203,8 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.rootNodeProps] -->
   @override
-  Map get rootNodeProps =>
-      props[_$key__rootNodeProps___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  Map get rootNodeProps => props[_$key__rootNodeProps___$ProgressProps];
+
   /// Additional props to be added to the [Dom.div] that wraps around the [caption] element and `<progress>` element.
   ///
   /// <!-- Generated from [_$ProgressProps.rootNodeProps] -->
@@ -335,35 +325,25 @@ abstract class _$$ProgressProps extends _$ProgressProps
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$ProgressProps$PlainMap extends _$$ProgressProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ProgressProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
+      : this.props = backingMap ?? {},
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 }
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ProgressProps$JsMap extends _$$ProgressProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ProgressProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
+      : this.props = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
+  final JsBackedMap props;
 }
 
 abstract class _$ProgressStateAccessorsMixin implements _$ProgressState {
@@ -378,9 +358,8 @@ abstract class _$ProgressStateAccessorsMixin implements _$ProgressState {
   ///
   /// <!-- Generated from [_$ProgressState.id] -->
   @override
-  String get id =>
-      state[_$key__id___$ProgressState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get id => state[_$key__id___$ProgressState];
+
   /// An autogenerated GUID, used as a fallback when [ProgressProps.id] is unspecified, and
   /// saved on the state so it will persist across remounts.
   ///
@@ -433,35 +412,25 @@ abstract class _$$ProgressState extends _$ProgressState
 
 // Concrete state implementation that can be backed by any [Map].
 class _$$ProgressState$PlainMap extends _$$ProgressState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ProgressState$PlainMap(Map backingMap)
-      : this._state = {},
-        super._() {
-    this._state = backingMap ?? {};
-  }
+      : this.state = backingMap ?? {},
+        super._();
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 }
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ProgressState$JsMap extends _$$ProgressState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ProgressState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? new JsBackedMap();
-  }
+      : this.state = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing state map proxied by this class.
   @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
+  final JsBackedMap state;
 }
 
 // Concrete component implementation mixin.

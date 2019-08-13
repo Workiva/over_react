@@ -29,8 +29,8 @@ abstract class _$ListGroupPropsAccessorsMixin implements _$ListGroupProps {
   /// <!-- Generated from [_$ListGroupProps.elementType] -->
   @override
   ListGroupElementType get elementType =>
-      props[_$key__elementType___$ListGroupProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__elementType___$ListGroupProps];
+
   /// The HTML element type for the [ListGroup], specifying its
   /// DOM representation when rendered.
   ///
@@ -75,14 +75,11 @@ class _$$ListGroupProps extends _$ListGroupProps
     implements ListGroupProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ListGroupProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$ListGroupProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

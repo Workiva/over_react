@@ -28,8 +28,8 @@ abstract class _$StatefulComponentTestPropsAccessorsMixin
   /// <!-- Generated from [_$StatefulComponentTestProps.setStateDirectly] -->
   @override
   bool get setStateDirectly =>
-      props[_$key__setStateDirectly___$StatefulComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__setStateDirectly___$StatefulComponentTestProps];
+
   /// Used to test if a component has the capability to set state via this.setState.
   ///
   /// <!-- Generated from [_$StatefulComponentTestProps.setStateDirectly] -->
@@ -101,36 +101,26 @@ abstract class _$$StatefulComponentTestProps
 // Concrete props implementation that can be backed by any [Map].
 class _$$StatefulComponentTestProps$PlainMap
     extends _$$StatefulComponentTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$StatefulComponentTestProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
+      : this.props = backingMap ?? {},
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 }
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$StatefulComponentTestProps$JsMap
     extends _$$StatefulComponentTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$StatefulComponentTestProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
+      : this.props = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
+  final JsBackedMap props;
 }
 
 abstract class _$StatefulComponentTestStateAccessorsMixin
@@ -141,8 +131,8 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   /// <!-- Generated from [_$StatefulComponentTestState.stringState] -->
   @override
   String get stringState =>
-      state[_$key__stringState___$StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__stringState___$StatefulComponentTestState];
+
   /// <!-- Generated from [_$StatefulComponentTestState.stringState] -->
   @override
   set stringState(String value) =>
@@ -151,8 +141,8 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   /// <!-- Generated from [_$StatefulComponentTestState.dynamicState] -->
   @override
   dynamic get dynamicState =>
-      state[_$key__dynamicState___$StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__dynamicState___$StatefulComponentTestState];
+
   /// <!-- Generated from [_$StatefulComponentTestState.dynamicState] -->
   @override
   set dynamicState(dynamic value) =>
@@ -160,9 +150,8 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
 
   /// <!-- Generated from [_$StatefulComponentTestState.untypedState] -->
   @override
-  get untypedState =>
-      state[_$key__untypedState___$StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get untypedState => state[_$key__untypedState___$StatefulComponentTestState];
+
   /// <!-- Generated from [_$StatefulComponentTestState.untypedState] -->
   @override
   set untypedState(value) =>
@@ -172,8 +161,8 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   @override
   @Accessor(key: 'custom key!')
   get customKeyState =>
-      state[_$key__customKeyState___$StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__customKeyState___$StatefulComponentTestState];
+
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
@@ -184,8 +173,8 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   get customNamespaceState =>
-      state[_$key__customNamespaceState___$StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__customNamespaceState___$StatefulComponentTestState];
+
   /// <!-- Generated from [_$StatefulComponentTestState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
@@ -196,8 +185,8 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   get customKeyAndNamespaceState =>
-      state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState];
+
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
@@ -294,36 +283,26 @@ abstract class _$$StatefulComponentTestState
 // Concrete state implementation that can be backed by any [Map].
 class _$$StatefulComponentTestState$PlainMap
     extends _$$StatefulComponentTestState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$StatefulComponentTestState$PlainMap(Map backingMap)
-      : this._state = {},
-        super._() {
-    this._state = backingMap ?? {};
-  }
+      : this.state = backingMap ?? {},
+        super._();
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 }
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$StatefulComponentTestState$JsMap
     extends _$$StatefulComponentTestState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$StatefulComponentTestState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? new JsBackedMap();
-  }
+      : this.state = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing state map proxied by this class.
   @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
+  final JsBackedMap state;
 }
 
 // Concrete component implementation mixin.

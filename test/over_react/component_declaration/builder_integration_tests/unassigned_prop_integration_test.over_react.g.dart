@@ -22,18 +22,16 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
 
   /// <!-- Generated from [_$FooProps.stringProp] -->
   @override
-  String get stringProp =>
-      props[_$key__stringProp___$FooProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get stringProp => props[_$key__stringProp___$FooProps];
+
   /// <!-- Generated from [_$FooProps.stringProp] -->
   @override
   set stringProp(String value) => props[_$key__stringProp___$FooProps] = value;
 
   /// <!-- Generated from [_$FooProps.unassignedProp] -->
   @override
-  String get unassignedProp =>
-      props[_$key__unassignedProp___$FooProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get unassignedProp => props[_$key__unassignedProp___$FooProps];
+
   /// <!-- Generated from [_$FooProps.unassignedProp] -->
   @override
   set unassignedProp(String value) =>
@@ -76,14 +74,11 @@ class _$$FooProps extends _$FooProps
     implements FooProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FooProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$FooProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

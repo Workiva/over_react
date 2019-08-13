@@ -25,8 +25,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.onHandlePreShowing] -->
   @override
   Callback get onHandlePreShowing =>
-      props[_$key__onHandlePreShowing___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__onHandlePreShowing___$TransitionerProps];
+
   /// <!-- Generated from [_$TransitionerProps.onHandlePreShowing] -->
   @override
   set onHandlePreShowing(Callback value) =>
@@ -35,8 +35,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.onHandleShowing] -->
   @override
   Callback get onHandleShowing =>
-      props[_$key__onHandleShowing___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__onHandleShowing___$TransitionerProps];
+
   /// <!-- Generated from [_$TransitionerProps.onHandleShowing] -->
   @override
   set onHandleShowing(Callback value) =>
@@ -45,8 +45,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.onHandleShown] -->
   @override
   Callback get onHandleShown =>
-      props[_$key__onHandleShown___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__onHandleShown___$TransitionerProps];
+
   /// <!-- Generated from [_$TransitionerProps.onHandleShown] -->
   @override
   set onHandleShown(Callback value) =>
@@ -55,8 +55,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.onHandleHiding] -->
   @override
   Callback get onHandleHiding =>
-      props[_$key__onHandleHiding___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__onHandleHiding___$TransitionerProps];
+
   /// <!-- Generated from [_$TransitionerProps.onHandleHiding] -->
   @override
   set onHandleHiding(Callback value) =>
@@ -65,8 +65,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.onHandleHidden] -->
   @override
   Callback get onHandleHidden =>
-      props[_$key__onHandleHidden___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__onHandleHidden___$TransitionerProps];
+
   /// <!-- Generated from [_$TransitionerProps.onHandleHidden] -->
   @override
   set onHandleHidden(Callback value) =>
@@ -75,8 +75,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.onPrepareShow] -->
   @override
   Callback get onPrepareShow =>
-      props[_$key__onPrepareShow___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__onPrepareShow___$TransitionerProps];
+
   /// <!-- Generated from [_$TransitionerProps.onPrepareShow] -->
   @override
   set onPrepareShow(Callback value) =>
@@ -85,8 +85,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.onPrepareHide] -->
   @override
   Callback get onPrepareHide =>
-      props[_$key__onPrepareHide___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__onPrepareHide___$TransitionerProps];
+
   /// <!-- Generated from [_$TransitionerProps.onPrepareHide] -->
   @override
   set onPrepareHide(Callback value) =>
@@ -94,9 +94,8 @@ abstract class _$TransitionerPropsAccessorsMixin
 
   /// <!-- Generated from [_$TransitionerProps.hasTransition] -->
   @override
-  bool get hasTransition =>
-      props[_$key__hasTransition___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get hasTransition => props[_$key__hasTransition___$TransitionerProps];
+
   /// <!-- Generated from [_$TransitionerProps.hasTransition] -->
   @override
   set hasTransition(bool value) =>
@@ -104,9 +103,8 @@ abstract class _$TransitionerPropsAccessorsMixin
 
   /// <!-- Generated from [_$TransitionerProps.initiallyShown] -->
   @override
-  bool get initiallyShown =>
-      props[_$key__initiallyShown___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get initiallyShown => props[_$key__initiallyShown___$TransitionerProps];
+
   /// <!-- Generated from [_$TransitionerProps.initiallyShown] -->
   @override
   set initiallyShown(bool value) =>
@@ -115,8 +113,8 @@ abstract class _$TransitionerPropsAccessorsMixin
   /// <!-- Generated from [_$TransitionerProps.transitionTimeout] -->
   @override
   Duration get transitionTimeout =>
-      props[_$key__transitionTimeout___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__transitionTimeout___$TransitionerProps];
+
   /// <!-- Generated from [_$TransitionerProps.transitionTimeout] -->
   @override
   set transitionTimeout(Duration value) =>
@@ -210,14 +208,11 @@ class _$$TransitionerProps extends _$TransitionerProps
     implements TransitionerProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionerProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TransitionerProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -262,14 +257,11 @@ class _$$TransitionerState extends _$TransitionerState
     implements TransitionerState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionerState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$TransitionerState(Map backingMap) : this.state = backingMap ?? {};
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

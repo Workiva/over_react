@@ -24,8 +24,8 @@ abstract class _$BasicPropsAccessorsMixin<T, U extends UiProps>
   /// <!-- Generated from [_$BasicProps.someGenericListProp] -->
   @override
   List<T> get someGenericListProp =>
-      props[_$key__someGenericListProp___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__someGenericListProp___$BasicProps];
+
   /// <!-- Generated from [_$BasicProps.someGenericListProp] -->
   @override
   set someGenericListProp(List<T> value) =>
@@ -33,9 +33,8 @@ abstract class _$BasicPropsAccessorsMixin<T, U extends UiProps>
 
   /// <!-- Generated from [_$BasicProps.somePropsClass] -->
   @override
-  U get somePropsClass =>
-      props[_$key__somePropsClass___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  U get somePropsClass => props[_$key__somePropsClass___$BasicProps];
+
   /// <!-- Generated from [_$BasicProps.somePropsClass] -->
   @override
   set somePropsClass(U value) =>
@@ -80,14 +79,11 @@ class _$$BasicProps<T, U extends UiProps> extends _$BasicProps<T, U>
     implements BasicProps<T, U> {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$BasicProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

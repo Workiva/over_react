@@ -24,9 +24,8 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
   @override
   @deprecated
   @requiredProp
-  String get basicProp =>
-      props[_$key__basicProp___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basicProp => props[_$key__basicProp___$BasicProps];
+
   /// <!-- Generated from [_$BasicProps.basicProp] -->
   @override
   @deprecated
@@ -35,45 +34,40 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
 
   /// <!-- Generated from [_$BasicProps.basic1] -->
   @override
-  String get basic1 =>
-      props[_$key__basic1___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basic1 => props[_$key__basic1___$BasicProps];
+
   /// <!-- Generated from [_$BasicProps.basic1] -->
   @override
   set basic1(String value) => props[_$key__basic1___$BasicProps] = value;
 
   /// <!-- Generated from [_$BasicProps.basic2] -->
   @override
-  String get basic2 =>
-      props[_$key__basic2___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basic2 => props[_$key__basic2___$BasicProps];
+
   /// <!-- Generated from [_$BasicProps.basic2] -->
   @override
   set basic2(String value) => props[_$key__basic2___$BasicProps] = value;
 
   /// <!-- Generated from [_$BasicProps.basic3] -->
   @override
-  String get basic3 =>
-      props[_$key__basic3___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basic3 => props[_$key__basic3___$BasicProps];
+
   /// <!-- Generated from [_$BasicProps.basic3] -->
   @override
   set basic3(String value) => props[_$key__basic3___$BasicProps] = value;
 
   /// <!-- Generated from [_$BasicProps.basic4] -->
   @override
-  String get basic4 =>
-      props[_$key__basic4___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basic4 => props[_$key__basic4___$BasicProps];
+
   /// <!-- Generated from [_$BasicProps.basic4] -->
   @override
   set basic4(String value) => props[_$key__basic4___$BasicProps] = value;
 
   /// <!-- Generated from [_$BasicProps.basic5] -->
   @override
-  String get basic5 =>
-      props[_$key__basic5___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basic5 => props[_$key__basic5___$BasicProps];
+
   /// <!-- Generated from [_$BasicProps.basic5] -->
   @override
   set basic5(String value) => props[_$key__basic5___$BasicProps] = value;
@@ -134,14 +128,11 @@ class _$$BasicProps extends _$BasicProps
     implements BasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$BasicProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

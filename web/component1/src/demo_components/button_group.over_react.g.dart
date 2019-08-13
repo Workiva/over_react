@@ -29,9 +29,8 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   ///
   /// <!-- Generated from [_$ButtonGroupProps.size] -->
   @override
-  ButtonGroupSize get size =>
-      props[_$key__size___$ButtonGroupProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  ButtonGroupSize get size => props[_$key__size___$ButtonGroupProps];
+
   /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#sizing>.
@@ -47,9 +46,8 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   ///
   /// <!-- Generated from [_$ButtonGroupProps.skin] -->
   @override
-  ButtonSkin get skin =>
-      props[_$key__skin___$ButtonGroupProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  ButtonSkin get skin => props[_$key__skin___$ButtonGroupProps];
+
   /// The [ButtonSkin] variation applied to every [Button] within the [ButtonGroup].
   ///
   /// <!-- Generated from [_$ButtonGroupProps.skin] -->
@@ -64,9 +62,8 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   ///
   /// <!-- Generated from [_$ButtonGroupProps.isVertical] -->
   @override
-  bool get isVertical =>
-      props[_$key__isVertical___$ButtonGroupProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get isVertical => props[_$key__isVertical___$ButtonGroupProps];
+
   /// Make the [Button]s within a [ButtonGroup] stack vertically.
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#vertical-variation>.
@@ -122,14 +119,11 @@ class _$$ButtonGroupProps extends _$ButtonGroupProps
     implements ButtonGroupProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ButtonGroupProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$ButtonGroupProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -173,14 +167,11 @@ class _$$ButtonGroupState extends _$ButtonGroupState
     implements ButtonGroupState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ButtonGroupState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$ButtonGroupState(Map backingMap) : this.state = backingMap ?? {};
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

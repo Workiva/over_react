@@ -23,9 +23,8 @@ abstract class _$GenericSubPropsAccessorsMixin implements _$GenericSubProps {
 
   /// <!-- Generated from [_$GenericSubProps.subProp] -->
   @override
-  String get subProp =>
-      props[_$key__subProp___$GenericSubProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get subProp => props[_$key__subProp___$GenericSubProps];
+
   /// <!-- Generated from [_$GenericSubProps.subProp] -->
   @override
   set subProp(String value) => props[_$key__subProp___$GenericSubProps] = value;
@@ -64,14 +63,11 @@ class _$$GenericSubProps extends _$GenericSubProps
     implements GenericSubProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$GenericSubProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$GenericSubProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -93,9 +89,8 @@ abstract class _$GenericSubStateAccessorsMixin implements _$GenericSubState {
 
   /// <!-- Generated from [_$GenericSubState.subState] -->
   @override
-  String get subState =>
-      state[_$key__subState___$GenericSubState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get subState => state[_$key__subState___$GenericSubState];
+
   /// <!-- Generated from [_$GenericSubState.subState] -->
   @override
   set subState(String value) =>
@@ -132,14 +127,11 @@ class _$$GenericSubState extends _$GenericSubState
     implements GenericSubState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$GenericSubState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$GenericSubState(Map backingMap) : this.state = backingMap ?? {};
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

@@ -30,9 +30,8 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   ///
   /// <!-- Generated from [_$ButtonGroupProps.size] -->
   @override
-  ButtonGroupSize get size =>
-      props[_$key__size___$ButtonGroupProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  ButtonGroupSize get size => props[_$key__size___$ButtonGroupProps];
+
   /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#sizing>.
@@ -48,9 +47,8 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   ///
   /// <!-- Generated from [_$ButtonGroupProps.skin] -->
   @override
-  ButtonSkin get skin =>
-      props[_$key__skin___$ButtonGroupProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  ButtonSkin get skin => props[_$key__skin___$ButtonGroupProps];
+
   /// The [ButtonSkin] variation applied to every [Button] within the [ButtonGroup].
   ///
   /// <!-- Generated from [_$ButtonGroupProps.skin] -->
@@ -65,9 +63,8 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
   ///
   /// <!-- Generated from [_$ButtonGroupProps.isVertical] -->
   @override
-  bool get isVertical =>
-      props[_$key__isVertical___$ButtonGroupProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get isVertical => props[_$key__isVertical___$ButtonGroupProps];
+
   /// Make the [Button]s within a [ButtonGroup] stack vertically.
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#vertical-variation>.
@@ -148,35 +145,25 @@ abstract class _$$ButtonGroupProps extends _$ButtonGroupProps
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$ButtonGroupProps$PlainMap extends _$$ButtonGroupProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ButtonGroupProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
+      : this.props = backingMap ?? {},
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 }
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ButtonGroupProps$JsMap extends _$$ButtonGroupProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ButtonGroupProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
+      : this.props = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
+  final JsBackedMap props;
 }
 
 abstract class _$ButtonGroupStateAccessorsMixin implements _$ButtonGroupState {
@@ -222,35 +209,25 @@ abstract class _$$ButtonGroupState extends _$ButtonGroupState
 
 // Concrete state implementation that can be backed by any [Map].
 class _$$ButtonGroupState$PlainMap extends _$$ButtonGroupState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ButtonGroupState$PlainMap(Map backingMap)
-      : this._state = {},
-        super._() {
-    this._state = backingMap ?? {};
-  }
+      : this.state = backingMap ?? {},
+        super._();
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 }
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ButtonGroupState$JsMap extends _$$ButtonGroupState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ButtonGroupState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? new JsBackedMap();
-  }
+      : this.state = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing state map proxied by this class.
   @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
+  final JsBackedMap state;
 }
 
 // Concrete component implementation mixin.

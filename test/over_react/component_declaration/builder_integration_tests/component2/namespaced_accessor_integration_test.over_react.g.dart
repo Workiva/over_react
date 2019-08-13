@@ -26,8 +26,8 @@ abstract class _$NamespacedAccessorTestPropsAccessorsMixin
   /// <!-- Generated from [_$NamespacedAccessorTestProps.stringProp] -->
   @override
   String get stringProp =>
-      props[_$key__stringProp___$NamespacedAccessorTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__stringProp___$NamespacedAccessorTestProps];
+
   /// <!-- Generated from [_$NamespacedAccessorTestProps.stringProp] -->
   @override
   set stringProp(String value) =>
@@ -36,8 +36,8 @@ abstract class _$NamespacedAccessorTestPropsAccessorsMixin
   /// <!-- Generated from [_$NamespacedAccessorTestProps.dynamicProp] -->
   @override
   dynamic get dynamicProp =>
-      props[_$key__dynamicProp___$NamespacedAccessorTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__dynamicProp___$NamespacedAccessorTestProps];
+
   /// <!-- Generated from [_$NamespacedAccessorTestProps.dynamicProp] -->
   @override
   set dynamicProp(dynamic value) =>
@@ -45,9 +45,8 @@ abstract class _$NamespacedAccessorTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$NamespacedAccessorTestProps.untypedProp] -->
   @override
-  get untypedProp =>
-      props[_$key__untypedProp___$NamespacedAccessorTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get untypedProp => props[_$key__untypedProp___$NamespacedAccessorTestProps];
+
   /// <!-- Generated from [_$NamespacedAccessorTestProps.untypedProp] -->
   @override
   set untypedProp(value) =>
@@ -57,8 +56,8 @@ abstract class _$NamespacedAccessorTestPropsAccessorsMixin
   @override
   @Accessor(key: 'custom key!')
   get customKeyProp =>
-      props[_$key__customKeyProp___$NamespacedAccessorTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__customKeyProp___$NamespacedAccessorTestProps];
+
   /// <!-- Generated from [_$NamespacedAccessorTestProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
@@ -69,8 +68,8 @@ abstract class _$NamespacedAccessorTestPropsAccessorsMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   get customNamespaceProp =>
-      props[_$key__customNamespaceProp___$NamespacedAccessorTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__customNamespaceProp___$NamespacedAccessorTestProps];
+
   /// <!-- Generated from [_$NamespacedAccessorTestProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
@@ -81,8 +80,8 @@ abstract class _$NamespacedAccessorTestPropsAccessorsMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   get customKeyAndNamespaceProp =>
-      props[_$key__customKeyAndNamespaceProp___$NamespacedAccessorTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__customKeyAndNamespaceProp___$NamespacedAccessorTestProps];
+
   /// <!-- Generated from [_$NamespacedAccessorTestProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
@@ -192,36 +191,26 @@ abstract class _$$NamespacedAccessorTestProps
 // Concrete props implementation that can be backed by any [Map].
 class _$$NamespacedAccessorTestProps$PlainMap
     extends _$$NamespacedAccessorTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$NamespacedAccessorTestProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
+      : this.props = backingMap ?? {},
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 }
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$NamespacedAccessorTestProps$JsMap
     extends _$$NamespacedAccessorTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$NamespacedAccessorTestProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
+      : this.props = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
+  final JsBackedMap props;
 }
 
 abstract class _$NamespacedAccessorTestStateAccessorsMixin
@@ -232,8 +221,8 @@ abstract class _$NamespacedAccessorTestStateAccessorsMixin
   /// <!-- Generated from [_$NamespacedAccessorTestState.stringState] -->
   @override
   String get stringState =>
-      state[_$key__stringState___$NamespacedAccessorTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__stringState___$NamespacedAccessorTestState];
+
   /// <!-- Generated from [_$NamespacedAccessorTestState.stringState] -->
   @override
   set stringState(String value) =>
@@ -242,8 +231,8 @@ abstract class _$NamespacedAccessorTestStateAccessorsMixin
   /// <!-- Generated from [_$NamespacedAccessorTestState.dynamicState] -->
   @override
   dynamic get dynamicState =>
-      state[_$key__dynamicState___$NamespacedAccessorTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__dynamicState___$NamespacedAccessorTestState];
+
   /// <!-- Generated from [_$NamespacedAccessorTestState.dynamicState] -->
   @override
   set dynamicState(dynamic value) =>
@@ -251,9 +240,8 @@ abstract class _$NamespacedAccessorTestStateAccessorsMixin
 
   /// <!-- Generated from [_$NamespacedAccessorTestState.untypedState] -->
   @override
-  get untypedState =>
-      state[_$key__untypedState___$NamespacedAccessorTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get untypedState => state[_$key__untypedState___$NamespacedAccessorTestState];
+
   /// <!-- Generated from [_$NamespacedAccessorTestState.untypedState] -->
   @override
   set untypedState(value) =>
@@ -263,8 +251,8 @@ abstract class _$NamespacedAccessorTestStateAccessorsMixin
   @override
   @Accessor(key: 'custom key!')
   get customKeyState =>
-      state[_$key__customKeyState___$NamespacedAccessorTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__customKeyState___$NamespacedAccessorTestState];
+
   /// <!-- Generated from [_$NamespacedAccessorTestState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
@@ -275,8 +263,8 @@ abstract class _$NamespacedAccessorTestStateAccessorsMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   get customNamespaceState =>
-      state[_$key__customNamespaceState___$NamespacedAccessorTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__customNamespaceState___$NamespacedAccessorTestState];
+
   /// <!-- Generated from [_$NamespacedAccessorTestState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
@@ -287,8 +275,8 @@ abstract class _$NamespacedAccessorTestStateAccessorsMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   get customKeyAndNamespaceState =>
-      state[_$key__customKeyAndNamespaceState___$NamespacedAccessorTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__customKeyAndNamespaceState___$NamespacedAccessorTestState];
+
   /// <!-- Generated from [_$NamespacedAccessorTestState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
@@ -385,36 +373,26 @@ abstract class _$$NamespacedAccessorTestState
 // Concrete state implementation that can be backed by any [Map].
 class _$$NamespacedAccessorTestState$PlainMap
     extends _$$NamespacedAccessorTestState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$NamespacedAccessorTestState$PlainMap(Map backingMap)
-      : this._state = {},
-        super._() {
-    this._state = backingMap ?? {};
-  }
+      : this.state = backingMap ?? {},
+        super._();
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 }
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$NamespacedAccessorTestState$JsMap
     extends _$$NamespacedAccessorTestState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$NamespacedAccessorTestState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? new JsBackedMap();
-  }
+      : this.state = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing state map proxied by this class.
   @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
+  final JsBackedMap state;
 }
 
 // Concrete component implementation mixin.

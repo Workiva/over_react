@@ -41,14 +41,11 @@ class _$$FaultyProps extends _$FaultyProps
     implements FaultyProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FaultyProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$FaultyProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -70,9 +67,8 @@ abstract class _$FaultyStateAccessorsMixin implements _$FaultyState {
 
   /// <!-- Generated from [_$FaultyState.hasErrored] -->
   @override
-  bool get hasErrored =>
-      state[_$key__hasErrored___$FaultyState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get hasErrored => state[_$key__hasErrored___$FaultyState];
+
   /// <!-- Generated from [_$FaultyState.hasErrored] -->
   @override
   set hasErrored(bool value) => state[_$key__hasErrored___$FaultyState] = value;
@@ -103,14 +99,11 @@ class _$$FaultyState extends _$FaultyState
     implements FaultyState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FaultyState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$FaultyState(Map backingMap) : this.state = backingMap ?? {};
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

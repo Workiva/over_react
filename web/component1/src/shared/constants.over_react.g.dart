@@ -22,9 +22,8 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   /// <!-- Generated from [_$AbstractInputPropsMixin.name] -->
   @override
   @Accessor(keyNamespace: '')
-  String get name =>
-      props[_$key__name___$AbstractInputPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get name => props[_$key__name___$AbstractInputPropsMixin];
+
   /// The HTML `name` attribute to be applied to `<input>`.
   ///
   /// If unspecified, [AbstractInputStateMixin.name] will be generated.
@@ -47,9 +46,8 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   /// <!-- Generated from [_$AbstractInputPropsMixin.value] -->
   @override
   @Accessor(keyNamespace: '')
-  dynamic get value =>
-      props[_$key__value___$AbstractInputPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get value => props[_$key__value___$AbstractInputPropsMixin];
+
   /// The value of the input. Setting this will make the input's value _controlled_; it will not update automatically in
   /// response to user input, but instead will always render the value of this prop.
   ///
@@ -73,8 +71,8 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   /// <!-- Generated from [_$AbstractInputPropsMixin.toggleType] -->
   @override
   ToggleBehaviorType get toggleType =>
-      props[_$key__toggleType___$AbstractInputPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__toggleType___$AbstractInputPropsMixin];
+
   /// The type of "toggle" behavior an HTML `<input>` should exhibit:
   ///
   /// * [ToggleBehaviorType.CHECKBOX] - More than one can be active at once.
@@ -129,9 +127,8 @@ abstract class AbstractInputStateMixin implements _$AbstractInputStateMixin {
   ///
   /// <!-- Generated from [_$AbstractInputStateMixin.id] -->
   @override
-  String get id =>
-      state[_$key__id___$AbstractInputStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get id => state[_$key__id___$AbstractInputStateMixin];
+
   /// An auto-generated GUID, used as a fallback when the [AbstractInputPropsMixin.id] prop is unspecified,
   /// and saved on the state so it will persist across remounts.
   ///
@@ -150,9 +147,8 @@ abstract class AbstractInputStateMixin implements _$AbstractInputStateMixin {
   ///
   /// <!-- Generated from [_$AbstractInputStateMixin.name] -->
   @override
-  String get name =>
-      state[_$key__name___$AbstractInputStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get name => state[_$key__name___$AbstractInputStateMixin];
+
   /// An auto-generated GUID, used as a fallback when the [AbstractInputPropsMixin.name] is unspecified,
   /// and saved on the state so it will persist across remounts.
   ///

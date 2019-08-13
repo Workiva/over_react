@@ -25,8 +25,8 @@ abstract class _$GenericSuperPropsAccessorsMixin
   /// <!-- Generated from [_$GenericSuperProps.otherSuperProp] -->
   @override
   String get otherSuperProp =>
-      props[_$key__otherSuperProp___$GenericSuperProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__otherSuperProp___$GenericSuperProps];
+
   /// <!-- Generated from [_$GenericSuperProps.otherSuperProp] -->
   @override
   set otherSuperProp(String value) =>
@@ -34,9 +34,8 @@ abstract class _$GenericSuperPropsAccessorsMixin
 
   /// <!-- Generated from [_$GenericSuperProps.superProp] -->
   @override
-  String get superProp =>
-      props[_$key__superProp___$GenericSuperProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get superProp => props[_$key__superProp___$GenericSuperProps];
+
   /// <!-- Generated from [_$GenericSuperProps.superProp] -->
   @override
   set superProp(String value) =>
@@ -44,9 +43,8 @@ abstract class _$GenericSuperPropsAccessorsMixin
 
   /// <!-- Generated from [_$GenericSuperProps.superProp1] -->
   @override
-  String get superProp1 =>
-      props[_$key__superProp1___$GenericSuperProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get superProp1 => props[_$key__superProp1___$GenericSuperProps];
+
   /// <!-- Generated from [_$GenericSuperProps.superProp1] -->
   @override
   set superProp1(String value) =>
@@ -98,14 +96,11 @@ class _$$GenericSuperProps extends _$GenericSuperProps
     implements GenericSuperProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$GenericSuperProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$GenericSuperProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -128,9 +123,8 @@ abstract class _$GenericSuperStateAccessorsMixin
 
   /// <!-- Generated from [_$GenericSuperState.superState] -->
   @override
-  String get superState =>
-      state[_$key__superState___$GenericSuperState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get superState => state[_$key__superState___$GenericSuperState];
+
   /// <!-- Generated from [_$GenericSuperState.superState] -->
   @override
   set superState(String value) =>
@@ -167,14 +161,11 @@ class _$$GenericSuperState extends _$GenericSuperState
     implements GenericSuperState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$GenericSuperState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$GenericSuperState(Map backingMap) : this.state = backingMap ?? {};
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

@@ -33,9 +33,8 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// <!-- Generated from [_$ToggleButtonProps.autoFocus] -->
   @override
   @Accessor(keyNamespace: '')
-  bool get autoFocus =>
-      props[_$key__autoFocus___$ToggleButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get autoFocus => props[_$key__autoFocus___$ToggleButtonProps];
+
   /// Whether the `<input>` rendered by the [ToggleButton] should have focus upon mounting.
   ///
   /// _Proxies [DomProps.autoFocus]._
@@ -64,9 +63,8 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// <!-- Generated from [_$ToggleButtonProps.defaultChecked] -->
   @override
   @Accessor(keyNamespace: '')
-  bool get defaultChecked =>
-      props[_$key__defaultChecked___$ToggleButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get defaultChecked => props[_$key__defaultChecked___$ToggleButtonProps];
+
   /// Whether the [ToggleButton] is checked by default.
   ///
   /// Setting this without the setting the [checked] prop to will make the
@@ -101,9 +99,8 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// <!-- Generated from [_$ToggleButtonProps.checked] -->
   @override
   @Accessor(keyNamespace: '')
-  bool get checked =>
-      props[_$key__checked___$ToggleButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get checked => props[_$key__checked___$ToggleButtonProps];
+
   /// Whether the [ToggleButton] is checked.
   ///
   /// Setting this will make the [ToggleButton] _controlled_; it will not update
@@ -190,35 +187,25 @@ abstract class _$$ToggleButtonProps extends _$ToggleButtonProps
 
 // Concrete props implementation that can be backed by any [Map].
 class _$$ToggleButtonProps$PlainMap extends _$$ToggleButtonProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ToggleButtonProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
+      : this.props = backingMap ?? {},
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 }
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ToggleButtonProps$JsMap extends _$$ToggleButtonProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ToggleButtonProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? new JsBackedMap();
-  }
+      : this.props = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing props map proxied by this class.
   @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
+  final JsBackedMap props;
 }
 
 abstract class _$ToggleButtonStateAccessorsMixin
@@ -233,9 +220,8 @@ abstract class _$ToggleButtonStateAccessorsMixin
   ///
   /// <!-- Generated from [_$ToggleButtonState.isFocused] -->
   @override
-  bool get isFocused =>
-      state[_$key__isFocused___$ToggleButtonState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get isFocused => state[_$key__isFocused___$ToggleButtonState];
+
   /// Tracks if the [ToggleButton] is focused. Determines whether to render with the `js-focus` CSS
   /// class.
   ///
@@ -252,9 +238,8 @@ abstract class _$ToggleButtonStateAccessorsMixin
   ///
   /// <!-- Generated from [_$ToggleButtonState.isChecked] -->
   @override
-  bool get isChecked =>
-      state[_$key__isChecked___$ToggleButtonState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get isChecked => state[_$key__isChecked___$ToggleButtonState];
+
   /// Tracks if the [ToggleButton] input is `checked`. Determines whether to render with the `active` CSS class.
   ///
   /// Initial: [ToggleButtonProps.checked] `??` [ToggleButtonProps.defaultChecked] `?? false`
@@ -316,35 +301,25 @@ abstract class _$$ToggleButtonState extends _$ToggleButtonState
 
 // Concrete state implementation that can be backed by any [Map].
 class _$$ToggleButtonState$PlainMap extends _$$ToggleButtonState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ToggleButtonState$PlainMap(Map backingMap)
-      : this._state = {},
-        super._() {
-    this._state = backingMap ?? {};
-  }
+      : this.state = backingMap ?? {},
+        super._();
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 }
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$ToggleButtonState$JsMap extends _$$ToggleButtonState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ToggleButtonState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? new JsBackedMap();
-  }
+      : this.state = backingMap ?? new JsBackedMap(),
+        super._();
 
   /// The backing state map proxied by this class.
   @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
+  final JsBackedMap state;
 }
 
 // Concrete component implementation mixin.
