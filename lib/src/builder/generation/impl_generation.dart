@@ -163,10 +163,10 @@ class ImplGenerator {
         /// _$$FooProps _$Foo([Map backingProps]) => new _$$FooProps(backingProps);
         outputContentsBuffer.writeln('new $propsImplName(backingProps);');
       } else {
+        /// _$$FooProps _$Foo([Map backingProps]) => backingProps == null ? new $jsMapImplName(new JsBackedMap()) : new _$$FooProps(backingProps);
         final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(propsImplName);
+        // Optimize this case for when backingProps is null to promote inlining of `jsMapImplName` typing
         outputContentsBuffer.writeln(
-            // FIXME clean up this logic and the null-awares (or lack thereof in the two impl classes)
-            // note: if we remove null-awares will that rbeak stuff like `typedPropsFactory(null)`? Does it even matter?
               'backingProps == null ? new $jsMapImplName(new JsBackedMap()) : new $propsImplName(backingProps);'
         );
       }
@@ -184,6 +184,8 @@ class ImplGenerator {
       ));
 
       if (isComponent2) {
+        // See _generateConcretePropsOrStateImpl for more info on why these additional methods are
+        // implemented for Component2.
         final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(propsImplName);
         // This implementation here is necessary so that mixin accesses aren't compiled as index$ax
         typedPropsFactoryImpl
@@ -238,6 +240,8 @@ class ImplGenerator {
         ));
 
         if (isComponent2) {
+          // See _generateConcretePropsOrStateImpl for more info on why these additional methods are
+          // implemented for Component2.
           final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(stateImplName);
           // This implementation here is necessary so that mixin accesses aren't compiled as index$ax
           typedStateFactoryImpl
@@ -420,8 +424,8 @@ class ImplGenerator {
             String individualKey = accessorMeta?.key ?? accessorName;
 
             /// Necessary to work around issue where private static declarations in different classes
-            /// conflict with each other in strong mode: https://github.com/dart-lang/sdk/issues/29751
-            /// TODO remove once that issue is resolved
+            /// conflict with each other in strong mode.
+            /// TODO remove once https://github.com/dart-lang/sdk/issues/29751 is resolved
             String staticConstNamespace = typedMap.node.name.name;
 
             String keyConstantName = '${privateSourcePrefix}key__${accessorName}__$staticConstNamespace';
@@ -792,6 +796,48 @@ class ImplGenerator {
     return buffer.toString();
   }
 
+  /// Generates a concrete props or state implementation class for a given component.
+  ///
+  /// ## For Component2
+  ///
+  /// Generates an additional UiProps class implementation for each component that can only be backed by JS maps,
+  /// and overrides the return type of `typedPropsFactoryJs`/`props` to match this.
+  ///
+  /// This allows dart2js to make some optimizations. For instance:
+  ///
+  /// For the access of `props.isOpen` within a component, if we try to inline things
+  /// (for the purposes of understanding what's going on under the hood), then it looks like this:
+  ///
+  ///     props.isOpen;           // inlining FooProps.isOpen typed getter, this becomes...
+  ///     props.props['isOpen'];  // inlining UiProps.operator[], this becomes...
+  ///     props.props.backingMap['isOpen'];
+  ///
+  /// So, we're eventually accessing a property on the `Map backingMap`.
+  ///
+  /// But if `backingMap` is a `JsBackedMap`, we can go one layer deeper:
+  ///
+  ///     props.props.backingMap['isOpen'];  // inlining JsBackedMap.operator[], this becomes...
+  ///     getProperty(props.props.backingMap.jsMap, 'isOpen');
+  ///
+  /// Now, onto dart2js, which performs actual inlining in certain cases (like prop accesses).
+  ///
+  /// When dart2js only knows that `backingMap` is a `Map`, it emits the following code, wherein
+  /// `$index$asx` performs type-checking on the map and key, and then performs an interceptor lookup on
+  /// the backing map before finally calling into the actual key lookup function.
+  ///
+  ///     J.$index$asx(this._cachedTypedProps.props.backingMap, 'isOpen');
+  ///
+  /// However, when dart2js knows that `backingMap` is a `JsMap`, it can skip that step and emit
+  /// code that directly accesses the JS property `index$ax` instead:
+  ///
+  ///     J.$index$ax(this._cachedTypedProps.props.backingMap, 'isOpen');
+  ///
+  /// Which in some cases can just become:
+  ///
+  ///     this._cachedTypedProps.props.backingMap.jsMap.isOpen;
+  ///     // or, minified:
+  ///     this.foo.bar.baz.qux.isOpen;
+  ///
   String _generateConcretePropsOrStateImpl({
     @required AccessorType type,
     @required String consumerName,
@@ -834,7 +880,7 @@ class ImplGenerator {
         ..writeln('  $implName._();')
         ..writeln()
         ..writeln('  factory $implName(Map backingMap) {')
-        ..writeln('    if (backingMap is JsBackedMap) {')
+        ..writeln('    if (backingMap == null || backingMap is JsBackedMap) {')
         ..writeln('      return new $jsMapImplName(backingMap);')
         ..writeln('    } else {')
         ..writeln('      return new $plainMapImplName(backingMap);')

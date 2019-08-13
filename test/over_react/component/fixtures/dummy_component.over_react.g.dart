@@ -63,7 +63,7 @@ abstract class _$$DummyProps extends _$DummyProps
   _$$DummyProps._();
 
   factory _$$DummyProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$DummyProps$JsMap(backingMap);
     } else {
       return new _$$DummyProps$PlainMap(backingMap);

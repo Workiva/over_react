@@ -105,7 +105,7 @@ abstract class _$$TagProps extends _$TagProps
   _$$TagProps._();
 
   factory _$$TagProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$TagProps$JsMap(backingMap);
     } else {
       return new _$$TagProps$PlainMap(backingMap);

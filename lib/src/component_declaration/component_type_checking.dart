@@ -114,7 +114,6 @@ class ComponentTypeMeta {
   ///     isComponentOfType(Bar()(), Foo); // true (due to parent type-checking)
   ///
   /// > See: `subtypeOf` (within [annotations.Component2])
-  /// TODO: 3.0.0-wip does this need to have a different type signature for Component2?
   // ignore: deprecated_member_use
   final ReactDartComponentFactoryProxy parentType;
 

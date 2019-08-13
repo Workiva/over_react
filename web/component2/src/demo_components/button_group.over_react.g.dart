@@ -125,7 +125,7 @@ abstract class _$$ButtonGroupProps extends _$ButtonGroupProps
   _$$ButtonGroupProps._();
 
   factory _$$ButtonGroupProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$ButtonGroupProps$JsMap(backingMap);
     } else {
       return new _$$ButtonGroupProps$PlainMap(backingMap);
@@ -208,7 +208,7 @@ abstract class _$$ButtonGroupState extends _$ButtonGroupState
   _$$ButtonGroupState._();
 
   factory _$$ButtonGroupState(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$ButtonGroupState$JsMap(backingMap);
     } else {
       return new _$$ButtonGroupState$PlainMap(backingMap);
