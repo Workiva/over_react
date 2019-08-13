@@ -151,15 +151,6 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   @override
   TProps newProps() => typedPropsFactoryJs(new JsBackedMap());
 
-  /// Returns the underlying map object of either [UiProps] or [UiState].
-  ///
-  /// Used to take a typed factory object and get the underlying backing map.
-  Map getBackingMap(Map map) {
-    if (map is UiProps) return getBackingMap(map.props);
-    if (map is UiState) return getBackingMap(map.state);
-    return map;
-  }
-
   /// Allows usage of PropValidator functions to check the validity of a prop passed to it.
   /// When an invalid value is provided for a prop, a warning will be shown in the JavaScript console.
   /// For performance reasons, propTypes is only checked in development mode.

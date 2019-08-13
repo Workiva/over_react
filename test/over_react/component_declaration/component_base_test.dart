@@ -977,40 +977,6 @@ main() {
           }));
         });
       });
-
-      group('getBackingMap()', () {
-        group('when passed in a props object', () {
-          component2 = new TestComponent2Component();
-          JsBackedMap testProps = JsBackedMap.from({'id': 'test'});
-
-          var props = component2.getBackingMap(TestComponent2Props(testProps));
-
-          test('returns a map', () {
-            expect(props, TypeMatcher<Map>());
-          });
-
-          test('returns the correct custom map values', () {
-            expect(props.containsKey('id'), isTrue);
-            expect(props['id'], 'test');
-          });
-        });
-
-        group('when passed in a state object', () {
-          component2 = new TestComponent2Component();
-          JsBackedMap testState = JsBackedMap.from({'isActive': true});
-
-          var state = component2.getBackingMap(TestComponent2State(testState));
-
-          test('returns a map', () {
-            expect(state, TypeMatcher<Map>());
-          });
-
-          test('returns the correct custom map values', () {
-            expect(state.containsKey('isActive'), isTrue);
-            expect(state['isActive'], true);
-          });
-        });
-      });
     });
 
     group('UiStatefulComponent', () {

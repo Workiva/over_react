@@ -16,6 +16,7 @@ library map_util_test;
 
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
+import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 
 /// Main entrypoint for map_util testing
 main() {
@@ -253,5 +254,54 @@ main() {
         expect(newStyleFromProps(domProps()), equals({}));
       });
     });
+
+    group('getBackingMap()', () {
+      group('when passed in a props object', () {
+        JsBackedMap testMap = JsBackedMap.from({'id': 'test'});
+
+        var props = getBackingMap(TestProps(testMap));
+
+        test('returns a map', () {
+          expect(props, TypeMatcher<Map>());
+        });
+
+        test('returns the correct custom map values', () {
+          expect(props.containsKey('id'), isTrue);
+          expect(props['id'], 'test');
+        });
+      });
+
+      group('when passed in a state object', () {
+        JsBackedMap testMap = JsBackedMap.from({'isActive': true});
+
+        var state = getBackingMap(TestState(testMap));
+
+        test('returns a map', () {
+          expect(state, TypeMatcher<Map>());
+        });
+
+        test('returns the correct custom map values', () {
+          expect(state.containsKey('isActive'), isTrue);
+          expect(state['isActive'], true);
+        });
+      });
+    });
   });
+}
+
+class TestProps extends component_base.UiProps {
+  TestProps(JsBackedMap backingMap) : this._props = new JsBackedMap() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+class TestState extends component_base.UiState {
+  @override
+  final Map state;
+
+  TestState([Map state]) : this.state = state ?? ({});
 }

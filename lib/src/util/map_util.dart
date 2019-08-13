@@ -20,6 +20,8 @@ import 'package:over_react/src/component/dom_components.dart';
 import 'package:over_react/src/component/prop_mixins.dart';
 import 'package:react/react_client/js_backed_map.dart';
 
+import '../component_declaration/builder_helpers.dart';
+
 /// Returns a copy of the specified [props] map, omitting reserved React props by default,
 /// in addition to any specified [keysToOmit] or [keySetsToOmit].
 ///
@@ -129,6 +131,15 @@ Map<String, dynamic> newStyleFromProps(Map props) {
 
   var existingStyle = domProps(props).style;
   return existingStyle == null ? <String, dynamic>{} : new Map.from(existingStyle);
+}
+
+/// Returns the underlying map object of either [UiProps] or [UiState].
+///
+/// Used to take a typed factory object and get the underlying backing map.
+Map getBackingMap(Map map) {
+  if (map is UiProps) return getBackingMap(map.props);
+  if (map is UiState) return getBackingMap(map.state);
+  return map;
 }
 
 HashSet _validDomProps = new HashSet()
