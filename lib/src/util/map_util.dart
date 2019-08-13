@@ -137,6 +137,7 @@ Map<String, dynamic> newStyleFromProps(Map props) {
 ///
 /// Used to take a typed factory object and get the underlying backing map.
 Map getBackingMap(Map map) {
+  if (map is JsBackedMap) return map;
   if (map is UiProps) return getBackingMap(map.props);
   if (map is UiState) return getBackingMap(map.state);
   return map;
