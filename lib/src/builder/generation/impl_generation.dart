@@ -167,14 +167,11 @@ class ImplGenerator {
           ..writeln('  // This initializer of `_state` to an empty map, as well as the reassignment')
           ..writeln('  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.')
           ..writeln('  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details')
-          ..writeln('  $stateImplName(Map backingMap) : this._state = {} {')
-          ..writeln('     this._state = backingMap ?? {};')
-          ..writeln('  }')
+          ..writeln('  $stateImplName(Map backingMap) : this.state = backingMap ?? {};')
           ..writeln()
           ..writeln('  /// The backing state map proxied by this class.')
           ..writeln('  @override')
-          ..writeln('  Map get state => _state;')
-          ..writeln('  Map _state;')
+          ..writeln('  final Map state;')
           ..writeln()
           ..writeln('  /// Let [UiState] internals know that this class has been generated.')
           ..writeln('  @override')
@@ -439,7 +436,7 @@ class ImplGenerator {
                 '  $docComment\n'
                 '  @override\n'
                 '${metadataSrc.toString()}'
-                '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName] ?? null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;\n'
+                '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName];\n'
                 '  $docComment\n'
                 '  @override\n'
                 '${metadataSrc.toString()}'
@@ -717,14 +714,11 @@ class ImplGenerator {
         ..writeln('  // This initializer of `_props` to an empty map, as well as the reassignment')
         ..writeln('  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.')
         ..writeln('  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details')
-        ..writeln('  $implName(Map backingMap) : this._props = {} {')
-        ..writeln('     this._props = backingMap ?? {};')
-        ..writeln('  }')
+        ..writeln('  $implName(Map backingMap) : this.props = backingMap ?? {};')
         ..writeln()
         ..writeln('  /// The backing props map proxied by this class.')
         ..writeln('  @override')
-        ..writeln('  Map get props => _props;')
-        ..writeln('  Map _props;')
+        ..writeln('  final Map props;')
         ..writeln()
         ..writeln('  /// Let [UiProps] internals know that this class has been generated.')
         ..writeln('  @override')
