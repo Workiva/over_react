@@ -14,6 +14,8 @@
 
 library map_util_test;
 
+import 'dart:collection';
+
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
@@ -256,35 +258,56 @@ main() {
     });
 
     group('getBackingMap()', () {
-      group('when passed in a props object', () {
-        JsBackedMap testMap = JsBackedMap.from({'id': 'test'});
+      group('when passed in a JsBackedMap', () {
+        // Test a standard JsBackedMap
+        sharedGetBackingMapTests(startingMap: JsBackedMap.from({'id': 'test'}));
 
-        var props = getBackingMap(TestProps(testMap));
+        // Test UiProps
+        sharedGetBackingMapTests(groupDescriptionString: 'that is also a props object',
+            startingMap: JsBackedMap.from({'id': 'test'}),
+            shouldTestProps: true,);
 
-        test('returns a map', () {
-          expect(props, TypeMatcher<Map>());
-        });
-
-        test('returns the correct custom map values', () {
-          expect(props.containsKey('id'), isTrue);
-          expect(props['id'], 'test');
-        });
+        // Test UiState
+        sharedGetBackingMapTests(groupDescriptionString: 'that is also a state object',
+          startingMap: JsBackedMap.from({'isActive': true}),
+          shouldTestState: true,);
       });
 
-      group('when passed in a state object', () {
-        JsBackedMap testMap = JsBackedMap.from({'isActive': true});
+    // Test a Map
+    sharedGetBackingMapTests(groupDescriptionString: 'is passed in a standard Map',
+        startingMap: {'id': 'test'});
+    });
+  });
+}
 
-        var state = getBackingMap(TestState(testMap));
+void sharedGetBackingMapTests({
+  String groupDescriptionString = '',
+  Map startingMap,
+  bool shouldTestProps = false,
+  bool shouldTestState = false
+}) {
+  group(groupDescriptionString, () {
+    Map finalMap;
 
-        test('returns a map', () {
-          expect(state, TypeMatcher<Map>());
-        });
+    setUp(() {
+      // This function should only test one at a time.
+      assert(!(shouldTestProps && shouldTestState));
 
-        test('returns the correct custom map values', () {
-          expect(state.containsKey('isActive'), isTrue);
-          expect(state['isActive'], true);
-        });
-      });
+      if (shouldTestProps) {
+        finalMap = getBackingMap(TestProps(startingMap));
+      } else if (shouldTestState) {
+        finalMap = getBackingMap(TestState(startingMap));
+      } else {
+        finalMap = getBackingMap(startingMap);
+      }
+    });
+
+    test('returns the same map', () {
+      expect(finalMap, same(startingMap));
+    });
+
+    test('returns the correct custom map values', () {
+      expect(finalMap, startingMap);
     });
   });
 }

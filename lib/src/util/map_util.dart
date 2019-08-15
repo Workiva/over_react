@@ -17,6 +17,7 @@ library over_react.map_util;
 import 'dart:collection';
 
 import 'package:over_react/src/component/dom_components.dart';
+import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 import 'package:over_react/src/component/prop_mixins.dart';
 import 'package:react/react_client/js_backed_map.dart';
 
@@ -138,8 +139,8 @@ Map<String, dynamic> newStyleFromProps(Map props) {
 /// Used to take a typed factory object and get the underlying backing map.
 Map getBackingMap(Map map) {
   if (map is JsBackedMap) return map;
-  if (map is UiProps) return getBackingMap(map.props);
-  if (map is UiState) return getBackingMap(map.state);
+  if (map is component_base.UiProps) return getBackingMap(map.props);
+  if (map is component_base.UiState) return getBackingMap(map.state);
   return map;
 }
 
