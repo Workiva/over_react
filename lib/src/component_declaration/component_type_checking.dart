@@ -240,9 +240,10 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias, {
     return false;
   }
 
-  if (instance.type != null && getProperty(instance.type, 'WrappedComponent') != null) {
-    finalInstance = getProperty(instance.type, 'WrappedComponent');
-    instanceType = instance.type.type;
+  // When a component is wrapped in a react.memo, we can gain access to the
+  // original Dart component via the 'WrappedComponent` property.
+  if (instance.type != null && hasProperty(instance.type, 'WrappedComponent')) {
+    instanceType = getProperty(instance.type, 'WrappedComponent');
   }
 
   var instanceTypeMeta = getComponentTypeMeta(instanceType);
