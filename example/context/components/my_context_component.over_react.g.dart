@@ -53,7 +53,7 @@ abstract class _$$MyContextComponentProps extends _$MyContextComponentProps
   _$$MyContextComponentProps._();
 
   factory _$$MyContextComponentProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$MyContextComponentProps$JsMap(backingMap);
     } else {
       return new _$$MyContextComponentProps$PlainMap(backingMap);

@@ -54,7 +54,7 @@ abstract class _$$ContextProviderWrapperProps
   _$$ContextProviderWrapperProps._();
 
   factory _$$ContextProviderWrapperProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$ContextProviderWrapperProps$JsMap(backingMap);
     } else {
       return new _$$ContextProviderWrapperProps$PlainMap(backingMap);
@@ -159,7 +159,7 @@ abstract class _$$ContextProviderWrapperState
   _$$ContextProviderWrapperState._();
 
   factory _$$ContextProviderWrapperState(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$ContextProviderWrapperState$JsMap(backingMap);
     } else {
       return new _$$ContextProviderWrapperState$PlainMap(backingMap);

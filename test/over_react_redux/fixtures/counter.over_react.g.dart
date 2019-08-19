@@ -115,7 +115,7 @@ abstract class _$$CounterProps extends _$CounterProps
   _$$CounterProps._();
 
   factory _$$CounterProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$CounterProps$JsMap(backingMap);
     } else {
       return new _$$CounterProps$PlainMap(backingMap);

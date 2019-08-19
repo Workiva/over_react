@@ -51,7 +51,7 @@ abstract class _$$ContextTypeProps extends _$ContextTypeProps
   _$$ContextTypeProps._();
 
   factory _$$ContextTypeProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$ContextTypeProps$JsMap(backingMap);
     } else {
       return new _$$ContextTypeProps$PlainMap(backingMap);

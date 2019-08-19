@@ -53,7 +53,7 @@ abstract class _$$MyProviderComponentProps extends _$MyProviderComponentProps
   _$$MyProviderComponentProps._();
 
   factory _$$MyProviderComponentProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$MyProviderComponentProps$JsMap(backingMap);
     } else {
       return new _$$MyProviderComponentProps$PlainMap(backingMap);
@@ -154,7 +154,7 @@ abstract class _$$MyProviderComponentState extends _$MyProviderComponentState
   _$$MyProviderComponentState._();
 
   factory _$$MyProviderComponentState(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$MyProviderComponentState$JsMap(backingMap);
     } else {
       return new _$$MyProviderComponentState$PlainMap(backingMap);
