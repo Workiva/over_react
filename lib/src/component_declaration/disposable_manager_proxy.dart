@@ -12,12 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-part of over_react.component_declaration.component_base;
+import 'dart:async';
+
+import 'package:meta/meta.dart';
+import 'package:react/react.dart' as react;
+import 'package:w_common/disposable.dart';
 
 /// An implementation of [DisposableManagerV7] for use by
 /// [UiComponent] and [UiComponent2].
-mixin _DisposableManagerProxy implements DisposableManagerV7 {
+mixin DisposableManagerProxy on react.Component implements DisposableManagerV7 {
   Disposable _disposableProxy;
+
+  @override
+  @mustCallSuper
+  void componentWillUnmount() {
+    super.componentWillUnmount();
+
+    _disposableProxy?.dispose();
+  }
+
+  /// Instantiates a new [Disposable] instance on the first call to the
+  /// [DisposableManagerV7] method.
+  Disposable _getDisposableProxy() => _disposableProxy ??= new Disposable();
 
   @override
   Future<T> awaitBeforeDispose<T>(Future<T> future) =>
@@ -75,10 +91,6 @@ mixin _DisposableManagerProxy implements DisposableManagerV7 {
   void manageStreamSubscription(StreamSubscription subscription) =>
       _getDisposableProxy().manageStreamSubscription(subscription);
 
-  /// Instantiates a new [Disposable] instance on the first call to the
-  /// [DisposableManagerV7] method.
-  Disposable _getDisposableProxy() => _disposableProxy ??= new Disposable();
-
   /// Automatically dispose another object when this object is disposed.
   ///
   /// This method is an extension to `manageAndReturnDisposable` and returns the
@@ -104,5 +116,5 @@ mixin _DisposableManagerProxy implements DisposableManagerV7 {
   /// The parameter may not be `null`.
   @override
   T manageAndReturnTypedDisposable<T extends Disposable>(T disposable) =>
-      _disposableProxy.manageAndReturnTypedDisposable(disposable);
+      _getDisposableProxy().manageAndReturnTypedDisposable(disposable);
 }

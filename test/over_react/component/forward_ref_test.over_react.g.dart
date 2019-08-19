@@ -63,7 +63,7 @@ abstract class _$$BasicProps extends _$BasicProps
   _$$BasicProps._();
 
   factory _$$BasicProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$BasicProps$JsMap(backingMap);
     } else {
       return new _$$BasicProps$PlainMap(backingMap);

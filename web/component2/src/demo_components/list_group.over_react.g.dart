@@ -78,7 +78,7 @@ abstract class _$$ListGroupProps extends _$ListGroupProps
   _$$ListGroupProps._();
 
   factory _$$ListGroupProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$ListGroupProps$JsMap(backingMap);
     } else {
       return new _$$ListGroupProps$PlainMap(backingMap);

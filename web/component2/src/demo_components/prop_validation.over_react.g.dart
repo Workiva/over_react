@@ -212,7 +212,7 @@ abstract class _$$PropTypesTestProps extends _$PropTypesTestProps
   _$$PropTypesTestProps._();
 
   factory _$$PropTypesTestProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$PropTypesTestProps$JsMap(backingMap);
     } else {
       return new _$$PropTypesTestProps$PlainMap(backingMap);

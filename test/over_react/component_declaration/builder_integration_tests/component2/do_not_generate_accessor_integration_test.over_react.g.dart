@@ -114,7 +114,7 @@ abstract class _$$DoNotGenerateAccessorTestProps
   _$$DoNotGenerateAccessorTestProps._();
 
   factory _$$DoNotGenerateAccessorTestProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$DoNotGenerateAccessorTestProps$JsMap(backingMap);
     } else {
       return new _$$DoNotGenerateAccessorTestProps$PlainMap(backingMap);
@@ -261,7 +261,7 @@ abstract class _$$DoNotGenerateAccessorTestState
   _$$DoNotGenerateAccessorTestState._();
 
   factory _$$DoNotGenerateAccessorTestState(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$DoNotGenerateAccessorTestState$JsMap(backingMap);
     } else {
       return new _$$DoNotGenerateAccessorTestState$PlainMap(backingMap);

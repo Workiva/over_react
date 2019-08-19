@@ -1,8 +1,6 @@
-import 'dart:html';
-
 import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component_declaration/builder_helpers.dart';
 import 'package:test/test.dart';
-import 'package:over_react/react_dom.dart' as react_dom;
 
 import '../../../../test_util/test_util.dart';
 
@@ -14,44 +12,24 @@ part 'component_integration_test/annotation_error_stateful_default_props_compone
 main() {
   group('(Component2) throws a helpful error message if the @Component annotation is used:',
       () {
-    Element mountNode;
-
-    setUp(() {
-      mountNode = new DivElement();
-    });
-
-    tearDown(() {
-      mountNode = null;
-    });
+    final throwsExpectedError = throwsA(hasToStringValue(contains(
+      GeneratedErrorMessages.component1AnnotationOnComponent2,
+    )));
 
     test('when rendering a UiComponent2', () {
-      expect(
-          () => react_dom.render(AnnotationError()(), mountNode),
-          throwsA(hasToStringValue(contains(
-              'This error may be due to your `UiComponent2` class not being annotated with `@Component2()`'))));
+      expect(() => mount(AnnotationError()()), throwsExpectedError);
     });
 
     test('when rendering a UiStatefulComponent2', () {
-      expect(
-          () => react_dom.render(AnnotationErrorStateful()(), mountNode),
-          throwsA(hasToStringValue(contains(
-              'This error may be due to your `UiStatefulComponent2` class not being annotated with `@Component2()`'))));
+      expect(() => mount(AnnotationErrorStateful()()), throwsExpectedError);
     });
 
     test('when rendering a UiComponent2 with default props', () {
-      expect(
-          () =>
-              react_dom.render(AnnotationErrorDefaultProps()(), mountNode),
-          throwsA(hasToStringValue(contains(
-              'This error may be due to your `UiComponent2` or `UiStatefulComponent2` class not being annotated with `@Component2()`'))));
+      expect(() => mount(AnnotationErrorDefaultProps()()), throwsExpectedError);
     });
 
     test('when rendering a UiComponentStateful2 with default props', () {
-      expect(
-              () =>
-              react_dom.render(AnnotationErrorStatefulDefaultProps()(), mountNode),
-          throwsA(hasToStringValue(contains(
-              'This error may be due to your `UiComponent2` or `UiStatefulComponent2` class not being annotated with `@Component2()`'))));
+      expect(() => mount(AnnotationErrorStatefulDefaultProps()()), throwsExpectedError);
     });
   });
 }

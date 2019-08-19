@@ -131,7 +131,7 @@ abstract class _$$ComponentTestProps extends _$ComponentTestProps
   _$$ComponentTestProps._();
 
   factory _$$ComponentTestProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$ComponentTestProps$JsMap(backingMap);
     } else {
       return new _$$ComponentTestProps$PlainMap(backingMap);

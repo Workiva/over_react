@@ -53,7 +53,7 @@ abstract class _$$PropTypesWrapProps extends _$PropTypesWrapProps
   _$$PropTypesWrapProps._();
 
   factory _$$PropTypesWrapProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$PropTypesWrapProps$JsMap(backingMap);
     } else {
       return new _$$PropTypesWrapProps$PlainMap(backingMap);
@@ -154,7 +154,7 @@ abstract class _$$PropTypesWrapState extends _$PropTypesWrapState
   _$$PropTypesWrapState._();
 
   factory _$$PropTypesWrapState(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$PropTypesWrapState$JsMap(backingMap);
     } else {
       return new _$$PropTypesWrapState$PlainMap(backingMap);

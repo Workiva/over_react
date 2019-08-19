@@ -54,7 +54,7 @@ abstract class _$$CustomErrorBoundaryProps extends _$CustomErrorBoundaryProps
   _$$CustomErrorBoundaryProps._();
 
   factory _$$CustomErrorBoundaryProps(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$CustomErrorBoundaryProps$JsMap(backingMap);
     } else {
       return new _$$CustomErrorBoundaryProps$PlainMap(backingMap);
@@ -138,7 +138,7 @@ abstract class _$$CustomErrorBoundaryState extends _$CustomErrorBoundaryState
   _$$CustomErrorBoundaryState._();
 
   factory _$$CustomErrorBoundaryState(Map backingMap) {
-    if (backingMap is JsBackedMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
       return new _$$CustomErrorBoundaryState$JsMap(backingMap);
     } else {
       return new _$$CustomErrorBoundaryState$PlainMap(backingMap);

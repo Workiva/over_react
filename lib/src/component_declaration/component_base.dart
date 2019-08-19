@@ -14,27 +14,27 @@
 
 library over_react.component_declaration.component_base;
 
-import 'dart:async';
 import 'dart:collection';
-import 'dart:js';
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
-
-import 'package:over_react/src/component_declaration/component_type_checking.dart';
-import 'package:over_react/src/component_declaration/util.dart';
+import 'package:over_react/src/component/dummy_component.dart';
+import 'package:over_react/src/component/prop_mixins.dart';
+import 'package:over_react/src/util/class_names.dart';
+import 'package:over_react/src/util/map_util.dart';
+import 'package:over_react/src/util/pretty_print.dart';
+import 'package:over_react/src/util/prop_errors.dart';
+import 'package:over_react/src/util/string_util.dart';
 import 'package:over_react/src/util/test_mode.dart';
+import 'package:over_react/src/util/validation_util.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
-import 'package:react/react_client/bridge.dart';
-import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react_client/react_interop.dart';
-import 'package:w_common/disposable.dart';
 
-export 'package:over_react/src/component_declaration/component_type_checking.dart' show isComponentOfType, isValidElementOfType;
+import 'component_type_checking.dart';
+import 'disposable_manager_proxy.dart';
+import 'util.dart';
 
-part 'component_base/component_base_2.dart';
-part 'component_base/disposable_manager_proxy.dart';
+export 'component_type_checking.dart' show isComponentOfType, isValidElementOfType;
 
 /// Helper function that wraps react.registerComponent, and allows attachment of additional
 /// component factory metadata.
@@ -72,156 +72,6 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
   return reactComponentFactory;
 }
 
-/// A bridge implementation that adds typing for [UiComponent2] props/state maps.
-///
-/// See [Component2Bridge] for more info.
-class UiComponent2BridgeImpl extends Component2BridgeImpl {
-  const UiComponent2BridgeImpl();
-
-  /// Returns a const bridge instance suitable for use with any [UiComponent2].
-  ///
-  /// See [Component2BridgeFactory] for more info.
-  static UiComponent2BridgeImpl bridgeFactory(react.Component2 component) {
-    assert(component is UiComponent2, 'should not be used with non-UiComponent2 components');
-    return const UiComponent2BridgeImpl();
-  }
-
-  @override
-  JsMap jsifyPropTypes(covariant UiComponent2 component, Map propTypes) {
-    Error _getErrorFromConsumerValidator(
-      dynamic _validator,
-      JsBackedMap _props,
-      String _propName,
-      String _componentName,
-      String _location,
-      String _propFullName
-    ) {
-      var convertedProps = component.typedPropsFactoryJs(_props);
-      Error error = _validator(convertedProps, _propName, _componentName, _location, _propFullName);
-      return error;
-    }
-
-    // Add [PropValidator]s for props annotated as required.
-    var newPropTypes = Map.from(propTypes);
-    component.consumedProps?.forEach((ConsumedProps consumedProps) {
-      consumedProps.props.forEach((PropDescriptor prop) {
-        if (!prop.isRequired) return;
-
-        Error requiredPropValidator(
-          Map _props,
-          String _propName,
-          String _componentName,
-          String _location,
-          String _propFullName,
-        ) {
-          Error consumerError;
-          // Check if the consumer has specified a propType for this key.
-          if(propTypes[prop.key] != null) {
-            consumerError = _getErrorFromConsumerValidator(
-              propTypes[prop.key],
-              JsBackedMap.from(_props),
-              _propName,
-              _componentName,
-              _location,
-              _propFullName
-            );
-          }
-
-          if (consumerError != null) return consumerError;
-
-          if (prop.isNullable && _props.containsKey(prop.key)) return null;
-          if (!prop.isNullable && _props[prop.key] != null) return null;
-
-          if (_props[_propName] == null) {
-            return new PropError.required(_propName, prop.errorMessage);
-          }
-
-          return null;
-        }
-
-        newPropTypes[prop.key] = requiredPropValidator;
-      });
-    });
-
-    // Wrap consumer-provided and required validators with ones that convert plain props maps into typed ones.
-    return JsBackedMap.from(newPropTypes.map((_propKey, _validator) {
-        JsPropValidator handlePropValidator = (
-          JsMap _props,
-          String _propName,
-          String _componentName,
-          String _location,
-          String _propFullName,
-          // This is a required argument of PropTypes validators but is hidden from the JS consumer.
-          String secret,
-        ) {
-          Error error = _getErrorFromConsumerValidator(
-            _validator,
-            JsBackedMap.fromJs(_props),
-            _propName,
-            _componentName,
-            _location,
-            _propFullName
-          );
-          return error == null ? null : JsError(error.toString());
-        };
-
-        return MapEntry(_propKey, allowInterop(handlePropValidator));
-      })).jsObject;
-  }
-
-  /// A version of [setStateWithTypedUpdater] whose updater is passed typed views
-  /// into the `prevState` and `props` arguments, allowing them to be typed automatically
-  /// within [UiStatefulComponent2.setStateWithTypedUpdater].
-  void setStateWithTypedUpdater<TState extends UiState, TProps extends UiProps>(
-    UiStatefulComponent2<TProps, TState> component,
-    Map Function(TState prevState, TProps props) updater,
-    Function() callback,
-  ) {
-    Map typedUpdater(Map prevState, Map props) {
-      return updater(
-        component.typedStateFactoryJs(prevState as JsBackedMap),
-        component.typedPropsFactoryJs(props as JsBackedMap),
-      );
-    }
-    setStateWithUpdater(component, typedUpdater, callback);
-  }
-}
-
-/// Helper function that wraps react.registerComponent2, and allows attachment of additional
-/// component factory metadata.
-///
-/// * [isWrapper]: whether the component clones or passes through its children and needs to be
-/// treated as if it were the wrapped component.
-///
-/// * [builderFactory]/[componentClass]: the [UiFactory] and [UiComponent2] members to be potentially
-/// used as types for [isComponentOfType]/[getComponentFactory].
-///
-/// * [displayName]: the name of the component for use when debugging.
-ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 dartComponentFactory(), {
-    bool isWrapper: false,
-    ReactDartComponentFactoryProxy2 parentType,
-    UiFactory builderFactory,
-    Type componentClass,
-    String displayName,
-    Iterable<String> skipMethods = const ['getDerivedStateFromError', 'componentDidCatch'],
-}) {
-  final reactComponentFactory = react.registerComponent2(
-    dartComponentFactory,
-    skipMethods: skipMethods,
-    bridgeFactory: UiComponent2BridgeImpl.bridgeFactory,
-  );
-
-  if (displayName != null) {
-    reactComponentFactory.reactClass.displayName = displayName;
-  }
-
-  registerComponentTypeAlias(reactComponentFactory, builderFactory);
-  registerComponentTypeAlias(reactComponentFactory, componentClass);
-
-  setComponentTypeMeta(reactComponentFactory, isWrapper: isWrapper, parentType: parentType);
-
-  return reactComponentFactory;
-}
 
 /// Helper function that wraps [registerComponent], and allows an easier way to register abstract components with the
 /// main purpose of type-checking against the abstract component.
@@ -292,7 +142,7 @@ typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 ///
 /// __Deprecated.__ Use [UiComponent2] instead. Will be removed in the `4.0.0` release.
 @Deprecated('4.0.0')
-abstract class UiComponent<TProps extends UiProps> extends react.Component with _DisposableManagerProxy {
+abstract class UiComponent<TProps extends UiProps> extends react.Component with DisposableManagerProxy {
   /// The props for the non-forwarding props defined in this component.
   Iterable<ConsumedProps> get consumedProps => null;
 
@@ -388,13 +238,6 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component with 
       validateProps(props);
     }
   }
-
-  @override
-  @mustCallSuper
-  void componentWillUnmount() {
-    _disposableProxy?.dispose();
-  }
-
 
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
