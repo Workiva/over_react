@@ -241,7 +241,7 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias, {
 
   // When a component is wrapped in a react.memo, we can gain access to the
   // original Dart component via the 'WrappedComponent` property.
-  if (instance.type != null && hasProperty(instance.type, 'WrappedComponent')) {
+  if (instance.type != null && getProperty(instance.type, 'WrappedComponent') != null) {
     instanceType = getProperty(instance.type, 'WrappedComponent');
   }
 
