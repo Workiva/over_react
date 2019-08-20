@@ -1,5 +1,14 @@
 # OverReact Changelog
 
+## 2.5.1
+
+> Complete `2.5.1` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.5.0+dart2...2.5.1+dart2)
+> - Dart 1 (no changes)
+
+* Increase Dart SDK dependency lower-bound to `2.4.0`
+
 ## 2.5.0
 
 > Complete `2.5.0` Changsets:
