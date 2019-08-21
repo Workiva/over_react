@@ -231,8 +231,7 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias, {
     return false;
   }
 
-  var finalInstance = instance;
-  var instanceType = finalInstance.type;
+  var instanceType = instance.type;
 
   var type = getComponentTypeFromAlias(typeAlias);
   if (type == null) {
@@ -249,10 +248,10 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias, {
 
   // Type-check instance wrappers.
   if (traverseWrappers && instanceTypeMeta.isWrapper) {
-    assert(isDartComponent(finalInstance) &&
+    assert(isDartComponent(instance) &&
        'Non-Dart components should not be wrappers' is String);
 
-    List children = getProps(finalInstance)['children'];
+    List children = getProps(instance)['children'];
     if (children == null || children.isEmpty) {
       return false;
     }

@@ -44,4 +44,4 @@ dependency_overrides:
   react:
     git:
       url: https://github.com/cleandart/react-dart.git
-      ref: CPLAT-2779-over_react_redux-compat
+      ref: 5.1.0-wip
