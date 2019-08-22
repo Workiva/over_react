@@ -128,6 +128,29 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
         message: GeneratedErrorMessages.component1AnnotationOnComponent2);
   }
 
+  /// The [contextType] property lets you consume the nearest current value of that context's Provider using [context].
+  ///
+  /// [contextType] is assigned as `Context.reactDartContext` after being created by `createContext`.
+  ///
+  /// __Example__:
+  ///
+  ///     Context MyContext = createContext('test');
+  ///
+  ///     class MyClass extends UiComponent2 {
+  ///       @override
+  ///       final contextType = MyContext.reactDartContext;
+  ///
+  ///       render() {
+  ///         return Dom.span()(
+  ///           '${this.context}', // Outputs: 'test'
+  ///        );
+  ///       }
+  ///     }
+  ///
+  /// See: <https://reactjs.org/docs/context.html#classcontexttype>
+  @override
+  react.Context get contextType => super.contextType;
+
   /// Returns a typed props object backed by the specified [propsMap].
   ///
   /// Required to properly instantiate the generic [TProps] class.
