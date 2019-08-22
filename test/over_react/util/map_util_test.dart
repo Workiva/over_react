@@ -14,8 +14,11 @@
 
 library map_util_test;
 
+import 'dart:collection';
+
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
+import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 
 /// Main entrypoint for map_util testing
 main() {
@@ -253,5 +256,75 @@ main() {
         expect(newStyleFromProps(domProps()), equals({}));
       });
     });
+
+    group('getBackingMap()', () {
+      group('when passed in a JsBackedMap', () {
+        // Test a standard JsBackedMap
+        sharedGetBackingMapTests(startingMap: JsBackedMap.from({'id': 'test'}));
+
+        // Test UiProps
+        sharedGetBackingMapTests(groupDescriptionString: 'that is also a props object',
+            startingMap: JsBackedMap.from({'id': 'test'}),
+            shouldTestProps: true,);
+
+        // Test UiState
+        sharedGetBackingMapTests(groupDescriptionString: 'that is also a state object',
+          startingMap: JsBackedMap.from({'isActive': true}),
+          shouldTestState: true,);
+      });
+
+    // Test a Map
+    sharedGetBackingMapTests(groupDescriptionString: 'is passed in a standard Map',
+        startingMap: {'id': 'test'});
+    });
   });
+}
+
+void sharedGetBackingMapTests({
+  String groupDescriptionString = '',
+  Map startingMap,
+  bool shouldTestProps = false,
+  bool shouldTestState = false
+}) {
+  group(groupDescriptionString, () {
+    Map finalMap;
+
+    setUp(() {
+      // This function should only test one at a time.
+      assert(!(shouldTestProps && shouldTestState));
+
+      if (shouldTestProps) {
+        finalMap = getBackingMap(TestProps(startingMap));
+      } else if (shouldTestState) {
+        finalMap = getBackingMap(TestState(startingMap));
+      } else {
+        finalMap = getBackingMap(startingMap);
+      }
+    });
+
+    test('returns the same map', () {
+      expect(finalMap, same(startingMap));
+    });
+
+    test('returns the correct custom map values', () {
+      expect(finalMap, startingMap);
+    });
+  });
+}
+
+class TestProps extends component_base.UiProps {
+  TestProps(JsBackedMap backingMap) : this._props = new JsBackedMap() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+class TestState extends component_base.UiState {
+  @override
+  final Map state;
+
+  TestState([Map state]) : this.state = state ?? ({});
 }

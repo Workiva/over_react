@@ -278,8 +278,15 @@ class _$PropTypesTestComponent extends PropTypesTestComponent {
 
   @override
   set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(value);
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
   }
 
   @override
