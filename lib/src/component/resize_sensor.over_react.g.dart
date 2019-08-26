@@ -50,14 +50,11 @@ class _$$ResizeSensorProps extends _$ResizeSensorProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$ResizeSensorProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$ResizeSensorProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -115,8 +112,8 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   /// <!-- Generated from [_$ResizeSensorPropsMixin.onInitialize] -->
   @override
   ResizeSensorHandler get onInitialize =>
-      props[_$key__onInitialize___$ResizeSensorPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__onInitialize___$ResizeSensorPropsMixin];
+
   /// A function invoked with a `ResizeSensorEvent` argument when the resize sensor is initialized.
   ///
   /// > Will never be called if [quickMount] is `true`.
@@ -139,8 +136,8 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   /// <!-- Generated from [_$ResizeSensorPropsMixin.onResize] -->
   @override
   ResizeSensorHandler get onResize =>
-      props[_$key__onResize___$ResizeSensorPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__onResize___$ResizeSensorPropsMixin];
+
   /// A function invoked with a `ResizeSensorEvent` argument when the [ResizeSensor]
   /// resizes, either due to its parent or children resizing.
   ///
@@ -162,9 +159,8 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.isFlexChild] -->
   @override
-  bool get isFlexChild =>
-      props[_$key__isFlexChild___$ResizeSensorPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get isFlexChild => props[_$key__isFlexChild___$ResizeSensorPropsMixin];
+
   /// Whether the [ResizeSensor] is a child of a flex item. Necessary to apply the correct styling.
   ///
   /// See this issue for details: <https://code.google.com/p/chromium/issues/detail?id=346275>
@@ -183,8 +179,8 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   /// <!-- Generated from [_$ResizeSensorPropsMixin.isFlexContainer] -->
   @override
   bool get isFlexContainer =>
-      props[_$key__isFlexContainer___$ResizeSensorPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__isFlexContainer___$ResizeSensorPropsMixin];
+
   /// Whether the [ResizeSensor] is a flex container. Necessary to apply the correct styling.
   ///
   /// Default: false
@@ -203,9 +199,8 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.shrink] -->
   @override
-  bool get shrink =>
-      props[_$key__shrink___$ResizeSensorPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get shrink => props[_$key__shrink___$ResizeSensorPropsMixin];
+
   /// Whether the [ResizeSensor] should shrink to the size of its child.
   ///
   /// __WARNING:__ If set to true there is a possibility that the [ResizeSensor] will not work due to it being too
@@ -235,9 +230,8 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ///
   /// <!-- Generated from [_$ResizeSensorPropsMixin.quickMount] -->
   @override
-  bool get quickMount =>
-      props[_$key__quickMount___$ResizeSensorPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get quickMount => props[_$key__quickMount___$ResizeSensorPropsMixin];
+
   /// Whether quick-mount mode is enabled, which minimizes layouts caused by accessing element dimensions
   /// during initialization, allowing the component to mount faster.
   ///
@@ -286,8 +280,8 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   /// <!-- Generated from [_$ResizeSensorPropsMixin.onDetachedMountCheck] -->
   @override
   BoolCallback get onDetachedMountCheck =>
-      props[_$key__onDetachedMountCheck___$ResizeSensorPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__onDetachedMountCheck___$ResizeSensorPropsMixin];
+
   /// A callback that returns a `bool` that indicates whether the [ResizeSensor] was detached from the DOM
   /// when it first mounted.
   ///
@@ -324,9 +318,8 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   /// <!-- Generated from [_$ResizeSensorPropsMixin.onDidReset] -->
   @override
   @visibleForTesting
-  Callback get onDidReset =>
-      props[_$key__onDidReset___$ResizeSensorPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  Callback get onDidReset => props[_$key__onDidReset___$ResizeSensorPropsMixin];
+
   /// A callback intended for use only within internal unit tests that is called when [ResizeSensorComponent._reset]
   /// is called.
   ///

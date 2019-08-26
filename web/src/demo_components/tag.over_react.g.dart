@@ -28,9 +28,8 @@ abstract class _$TagPropsAccessorsMixin implements _$TagProps {
   ///
   /// <!-- Generated from [_$TagProps.skin] -->
   @override
-  TagSkin get skin =>
-      props[_$key__skin___$TagProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  TagSkin get skin => props[_$key__skin___$TagProps];
+
   /// The skin / "context" for the [Tag].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/tag/#contextual-variations>.
@@ -50,9 +49,8 @@ abstract class _$TagPropsAccessorsMixin implements _$TagProps {
   ///
   /// <!-- Generated from [_$TagProps.isPill] -->
   @override
-  bool get isPill =>
-      props[_$key__isPill___$TagProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get isPill => props[_$key__isPill___$TagProps];
+
   /// Whether to render the [Tag] with rounded corners that make it look
   /// more like a "pill" (a.k.a Bootstrap v3 "badge")
   ///
@@ -101,14 +99,11 @@ class _$$TagProps extends _$TagProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TagProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TagProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

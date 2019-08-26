@@ -19,9 +19,8 @@ abstract class CssClassPropsMixin implements _$CssClassPropsMixin {
   ///
   /// <!-- Generated from [_$CssClassPropsMixin.className] -->
   @override
-  String get className =>
-      props[_$key__className___$CssClassPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get className => props[_$key__className___$CssClassPropsMixin];
+
   /// String of space-delimited CSS classes to be added to the resultant DOM.
   ///
   /// All over_react components merge any added classes with this prop and the [classNameBlacklist] prop (see
@@ -40,8 +39,8 @@ abstract class CssClassPropsMixin implements _$CssClassPropsMixin {
   /// <!-- Generated from [_$CssClassPropsMixin.classNameBlacklist] -->
   @override
   String get classNameBlacklist =>
-      props[_$key__classNameBlacklist___$CssClassPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__classNameBlacklist___$CssClassPropsMixin];
+
   /// String of space-delimited CSS classes to be blacklisted from being added to the resultant DOM.
   ///
   /// All over_react components merge any added classes with this prop and the [className] prop (see

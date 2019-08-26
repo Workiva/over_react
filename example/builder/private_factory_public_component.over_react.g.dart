@@ -24,9 +24,8 @@ abstract class _$FormActionInputPropsAccessorsMixin
 
   /// <!-- Generated from [_$FormActionInputProps.prop1] -->
   @override
-  String get prop1 =>
-      props[_$key__prop1___$FormActionInputProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get prop1 => props[_$key__prop1___$FormActionInputProps];
+
   /// <!-- Generated from [_$FormActionInputProps.prop1] -->
   @override
   set prop1(String value) =>
@@ -67,14 +66,11 @@ class _$$FormActionInputProps extends _$FormActionInputProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$FormActionInputProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$FormActionInputProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

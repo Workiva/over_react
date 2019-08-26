@@ -22,54 +22,48 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
 
   /// <!-- Generated from [_$BasicProps.basicProp] -->
   @override
-  String get basicProp =>
-      props[_$key__basicProp___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basicProp => props[_$key__basicProp___$BasicProps];
+
   /// <!-- Generated from [_$BasicProps.basicProp] -->
   @override
   set basicProp(String value) => props[_$key__basicProp___$BasicProps] = value;
 
   /// <!-- Generated from [_$BasicProps.basic1] -->
   @override
-  String get basic1 =>
-      props[_$key__basic1___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basic1 => props[_$key__basic1___$BasicProps];
+
   /// <!-- Generated from [_$BasicProps.basic1] -->
   @override
   set basic1(String value) => props[_$key__basic1___$BasicProps] = value;
 
   /// <!-- Generated from [_$BasicProps.basic2] -->
   @override
-  String get basic2 =>
-      props[_$key__basic2___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basic2 => props[_$key__basic2___$BasicProps];
+
   /// <!-- Generated from [_$BasicProps.basic2] -->
   @override
   set basic2(String value) => props[_$key__basic2___$BasicProps] = value;
 
   /// <!-- Generated from [_$BasicProps.basic3] -->
   @override
-  String get basic3 =>
-      props[_$key__basic3___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basic3 => props[_$key__basic3___$BasicProps];
+
   /// <!-- Generated from [_$BasicProps.basic3] -->
   @override
   set basic3(String value) => props[_$key__basic3___$BasicProps] = value;
 
   /// <!-- Generated from [_$BasicProps.basic4] -->
   @override
-  String get basic4 =>
-      props[_$key__basic4___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basic4 => props[_$key__basic4___$BasicProps];
+
   /// <!-- Generated from [_$BasicProps.basic4] -->
   @override
   set basic4(String value) => props[_$key__basic4___$BasicProps] = value;
 
   /// <!-- Generated from [_$BasicProps.basic5] -->
   @override
-  String get basic5 =>
-      props[_$key__basic5___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basic5 => props[_$key__basic5___$BasicProps];
+
   /// <!-- Generated from [_$BasicProps.basic5] -->
   @override
   set basic5(String value) => props[_$key__basic5___$BasicProps] = value;
@@ -131,14 +125,11 @@ class _$$BasicProps extends _$BasicProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$BasicProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$BasicProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -159,9 +150,8 @@ abstract class _$BasicStateAccessorsMixin implements _$BasicState {
 
   /// <!-- Generated from [_$BasicState.basicState] -->
   @override
-  String get basicState =>
-      state[_$key__basicState___$BasicState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basicState => state[_$key__basicState___$BasicState];
+
   /// <!-- Generated from [_$BasicState.basicState] -->
   @override
   set basicState(String value) =>
@@ -197,14 +187,11 @@ class _$$BasicState extends _$BasicState
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$BasicState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$BasicState(Map backingMap) : this.state = backingMap ?? {};
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

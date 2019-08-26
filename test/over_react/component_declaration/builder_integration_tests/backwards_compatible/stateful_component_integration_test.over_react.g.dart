@@ -45,14 +45,11 @@ class _$$StatefulComponentTestProps extends _$StatefulComponentTestProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$StatefulComponentTestProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$StatefulComponentTestProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -76,8 +73,8 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   /// <!-- Generated from [_$StatefulComponentTestState.stringState] -->
   @override
   String get stringState =>
-      state[_$key__stringState___$StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__stringState___$StatefulComponentTestState];
+
   /// <!-- Generated from [_$StatefulComponentTestState.stringState] -->
   @override
   set stringState(String value) =>
@@ -86,8 +83,8 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   /// <!-- Generated from [_$StatefulComponentTestState.dynamicState] -->
   @override
   dynamic get dynamicState =>
-      state[_$key__dynamicState___$StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__dynamicState___$StatefulComponentTestState];
+
   /// <!-- Generated from [_$StatefulComponentTestState.dynamicState] -->
   @override
   set dynamicState(dynamic value) =>
@@ -95,9 +92,8 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
 
   /// <!-- Generated from [_$StatefulComponentTestState.untypedState] -->
   @override
-  get untypedState =>
-      state[_$key__untypedState___$StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get untypedState => state[_$key__untypedState___$StatefulComponentTestState];
+
   /// <!-- Generated from [_$StatefulComponentTestState.untypedState] -->
   @override
   set untypedState(value) =>
@@ -107,8 +103,8 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   @override
   @Accessor(key: 'custom key!')
   get customKeyState =>
-      state[_$key__customKeyState___$StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__customKeyState___$StatefulComponentTestState];
+
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
@@ -119,8 +115,8 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   get customNamespaceState =>
-      state[_$key__customNamespaceState___$StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__customNamespaceState___$StatefulComponentTestState];
+
   /// <!-- Generated from [_$StatefulComponentTestState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
@@ -131,8 +127,8 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   get customKeyAndNamespaceState =>
-      state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState];
+
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
@@ -208,14 +204,11 @@ class _$$StatefulComponentTestState extends _$StatefulComponentTestState
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$StatefulComponentTestState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$StatefulComponentTestState(Map backingMap) : this.state = backingMap ?? {};
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

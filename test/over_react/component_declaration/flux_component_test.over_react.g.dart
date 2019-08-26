@@ -49,14 +49,11 @@ class _$$TestBasicProps extends _$TestBasicProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestBasicProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestBasicProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -136,14 +133,11 @@ class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestHandlerLifecycleProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestHandlerLifecycleProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -224,14 +218,11 @@ class _$$TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestHandlerPrecedenceProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestHandlerPrecedenceProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -287,9 +278,8 @@ abstract class _$TestPropValidationPropsAccessorsMixin
   /// <!-- Generated from [_$TestPropValidationProps.required] -->
   @override
   @requiredProp
-  String get required =>
-      props[_$key__required___$TestPropValidationProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get required => props[_$key__required___$TestPropValidationProps];
+
   /// <!-- Generated from [_$TestPropValidationProps.required] -->
   @override
   @requiredProp
@@ -332,14 +322,11 @@ class _$$TestPropValidationProps extends _$TestPropValidationProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestPropValidationProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestPropValidationProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -420,14 +407,11 @@ class _$$TestRedrawOnProps extends _$TestRedrawOnProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestRedrawOnProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestRedrawOnProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -508,14 +492,11 @@ class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStoreHandlersProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestStoreHandlersProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -596,14 +577,11 @@ class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulBasicProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestStatefulBasicProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -649,14 +627,11 @@ class _$$TestStatefulBasicState extends _$TestStatefulBasicState
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulBasicState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$TestStatefulBasicState(Map backingMap) : this.state = backingMap ?? {};
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override
@@ -735,14 +710,12 @@ class _$$TestStatefulHandlerLifecycleProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulHandlerLifecycleProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestStatefulHandlerLifecycleProps(Map backingMap)
+      : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -790,14 +763,12 @@ class _$$TestStatefulHandlerLifecycleState
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulHandlerLifecycleState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$TestStatefulHandlerLifecycleState(Map backingMap)
+      : this.state = backingMap ?? {};
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override
@@ -877,14 +848,12 @@ class _$$TestStatefulHandlerPrecedenceProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulHandlerPrecedenceProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestStatefulHandlerPrecedenceProps(Map backingMap)
+      : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -932,14 +901,12 @@ class _$$TestStatefulHandlerPrecedenceState
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulHandlerPrecedenceState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$TestStatefulHandlerPrecedenceState(Map backingMap)
+      : this.state = backingMap ?? {};
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override
@@ -993,8 +960,8 @@ abstract class _$TestStatefulPropValidationPropsAccessorsMixin
   @override
   @requiredProp
   String get required =>
-      props[_$key__required___$TestStatefulPropValidationProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__required___$TestStatefulPropValidationProps];
+
   /// <!-- Generated from [_$TestStatefulPropValidationProps.required] -->
   @override
   @override
@@ -1041,14 +1008,12 @@ class _$$TestStatefulPropValidationProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulPropValidationProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestStatefulPropValidationProps(Map backingMap)
+      : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -1095,14 +1060,12 @@ class _$$TestStatefulPropValidationState
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulPropValidationState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$TestStatefulPropValidationState(Map backingMap)
+      : this.state = backingMap ?? {};
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override
@@ -1179,14 +1142,11 @@ class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulRedrawOnProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestStatefulRedrawOnProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -1232,14 +1192,11 @@ class _$$TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulRedrawOnState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$TestStatefulRedrawOnState(Map backingMap) : this.state = backingMap ?? {};
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override
@@ -1316,14 +1273,12 @@ class _$$TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulStoreHandlersProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestStatefulStoreHandlersProps(Map backingMap)
+      : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -1369,14 +1324,12 @@ class _$$TestStatefulStoreHandlersState extends _$TestStatefulStoreHandlersState
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestStatefulStoreHandlersState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$TestStatefulStoreHandlersState(Map backingMap)
+      : this.state = backingMap ?? {};
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

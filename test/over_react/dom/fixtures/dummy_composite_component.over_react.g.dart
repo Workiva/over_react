@@ -25,8 +25,8 @@ abstract class _$TestCompositeComponentPropsAccessorsMixin
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidMount] -->
   @override
   Function get onComponentDidMount =>
-      props[_$key__onComponentDidMount___$TestCompositeComponentProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__onComponentDidMount___$TestCompositeComponentProps];
+
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidMount] -->
   @override
   set onComponentDidMount(Function value) =>
@@ -35,8 +35,8 @@ abstract class _$TestCompositeComponentPropsAccessorsMixin
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentWillUnmount] -->
   @override
   Function get onComponentWillUnmount =>
-      props[_$key__onComponentWillUnmount___$TestCompositeComponentProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__onComponentWillUnmount___$TestCompositeComponentProps];
+
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentWillUnmount] -->
   @override
   set onComponentWillUnmount(Function value) =>
@@ -46,8 +46,8 @@ abstract class _$TestCompositeComponentPropsAccessorsMixin
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidUpdate] -->
   @override
   Function get onComponentDidUpdate =>
-      props[_$key__onComponentDidUpdate___$TestCompositeComponentProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__onComponentDidUpdate___$TestCompositeComponentProps];
+
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidUpdate] -->
   @override
   set onComponentDidUpdate(Function value) =>
@@ -109,14 +109,12 @@ class _$$TestCompositeComponentProps extends _$TestCompositeComponentProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$TestCompositeComponentProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$TestCompositeComponentProps(Map backingMap)
+      : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

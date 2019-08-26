@@ -25,9 +25,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @Required(message: 'This Prop is Required for testing purposes.')
-  get required =>
-      props[_$key__required___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get required => props[_$key__required___$ComponentTestProps];
+
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @Required(message: 'This Prop is Required for testing purposes.')
@@ -36,9 +35,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @Required(isNullable: true, message: 'This prop can be set to null!')
-  get nullable =>
-      props[_$key__nullable___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get nullable => props[_$key__nullable___$ComponentTestProps];
+
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @Required(isNullable: true, message: 'This prop can be set to null!')
@@ -85,14 +83,11 @@ class _$$ComponentTestProps extends _$ComponentTestProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$ComponentTestProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$ComponentTestProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override

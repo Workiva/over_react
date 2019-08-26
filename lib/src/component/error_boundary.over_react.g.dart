@@ -42,8 +42,8 @@ abstract class _$ErrorBoundaryPropsAccessorsMixin
   /// <!-- Generated from [_$ErrorBoundaryProps.onComponentDidCatch] -->
   @override
   _ComponentDidCatchCallback get onComponentDidCatch =>
-      props[_$key__onComponentDidCatch___$ErrorBoundaryProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__onComponentDidCatch___$ErrorBoundaryProps];
+
   /// An optional callback that will be called with an [Error] and a `ComponentStack`
   /// containing information about which component in the tree threw the error when
   /// the `componentDidCatch` lifecycle method is called.
@@ -74,8 +74,8 @@ abstract class _$ErrorBoundaryPropsAccessorsMixin
   /// <!-- Generated from [_$ErrorBoundaryProps.fallbackUIRenderer] -->
   @override
   _FallbackUiRenderer get fallbackUIRenderer =>
-      props[_$key__fallbackUIRenderer___$ErrorBoundaryProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__fallbackUIRenderer___$ErrorBoundaryProps];
+
   /// A renderer that will be used to render "fallback" UI instead of the child
   /// component tree that crashed.
   ///
@@ -128,14 +128,11 @@ class _$$ErrorBoundaryProps extends _$ErrorBoundaryProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$ErrorBoundaryProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$ErrorBoundaryProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -162,9 +159,8 @@ abstract class _$ErrorBoundaryStateAccessorsMixin
   ///
   /// <!-- Generated from [_$ErrorBoundaryState.hasError] -->
   @override
-  bool get hasError =>
-      state[_$key__hasError___$ErrorBoundaryState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get hasError => state[_$key__hasError___$ErrorBoundaryState];
+
   /// Whether the tree that the [ErrorBoundary] is wrapping around threw an error.
   ///
   /// When `true`, fallback UI will be rendered using [ErrorBoundaryProps.fallbackUIRenderer].
@@ -206,14 +202,11 @@ class _$$ErrorBoundaryState extends _$ErrorBoundaryState
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$ErrorBoundaryState(Map backingMap) : this._state = {} {
-    this._state = backingMap ?? {};
-  }
+  _$$ErrorBoundaryState(Map backingMap) : this.state = backingMap ?? {};
 
   /// The backing state map proxied by this class.
   @override
-  Map get state => _state;
-  Map _state;
+  final Map state;
 
   /// Let [UiState] internals know that this class has been generated.
   @override

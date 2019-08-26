@@ -24,9 +24,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$ComponentTestProps.stringProp] -->
   @override
-  String get stringProp =>
-      props[_$key__stringProp___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get stringProp => props[_$key__stringProp___$ComponentTestProps];
+
   /// <!-- Generated from [_$ComponentTestProps.stringProp] -->
   @override
   set stringProp(String value) =>
@@ -34,9 +33,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$ComponentTestProps.dynamicProp] -->
   @override
-  dynamic get dynamicProp =>
-      props[_$key__dynamicProp___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get dynamicProp => props[_$key__dynamicProp___$ComponentTestProps];
+
   /// <!-- Generated from [_$ComponentTestProps.dynamicProp] -->
   @override
   set dynamicProp(dynamic value) =>
@@ -44,9 +42,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$ComponentTestProps.untypedProp] -->
   @override
-  get untypedProp =>
-      props[_$key__untypedProp___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get untypedProp => props[_$key__untypedProp___$ComponentTestProps];
+
   /// <!-- Generated from [_$ComponentTestProps.untypedProp] -->
   @override
   set untypedProp(value) =>
@@ -55,9 +52,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   /// <!-- Generated from [_$ComponentTestProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  get customKeyProp =>
-      props[_$key__customKeyProp___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get customKeyProp => props[_$key__customKeyProp___$ComponentTestProps];
+
   /// <!-- Generated from [_$ComponentTestProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
@@ -68,8 +64,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   get customNamespaceProp =>
-      props[_$key__customNamespaceProp___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__customNamespaceProp___$ComponentTestProps];
+
   /// <!-- Generated from [_$ComponentTestProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
@@ -80,8 +76,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   get customKeyAndNamespaceProp =>
-      props[_$key__customKeyAndNamespaceProp___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__customKeyAndNamespaceProp___$ComponentTestProps];
+
   /// <!-- Generated from [_$ComponentTestProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
@@ -156,14 +152,11 @@ class _$$ComponentTestProps extends _$ComponentTestProps
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
   // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$ComponentTestProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$ComponentTestProps(Map backingMap) : this.props = backingMap ?? {};
 
   /// The backing props map proxied by this class.
   @override
-  Map get props => _props;
-  Map _props;
+  final Map props;
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
