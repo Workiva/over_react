@@ -15,9 +15,13 @@
 @Timeout(const Duration(seconds: 2))
 library error_boundary_test;
 
+import 'dart:html';
+import 'dart:js';
 import 'package:over_react/over_react.dart';
 import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
+
+import './fixtures/flawed_component.dart';
 
 void main() {
   group('ErrorBoundary', () {
@@ -34,6 +38,70 @@ void main() {
     });
 
     // TODO: Add tests that exercise the actual ReactJS 16 error lifecycle methods once implemented.
+    group('catches component errors', () {
+      List<Map<String, List>> calls;
+      DivElement mountNode;
+
+      void verifyReact16ErrorHandlingWithoutErrorBoundary() {
+        mountNode = new DivElement();
+        document.body.append(mountNode);
+        var jacketOfFlawedComponentWithNoErrorBoundary = mount(Flawed()(), mountNode: mountNode);
+        expect(mountNode.children, isNotEmpty, reason: 'test setup sanity check');
+        jacketOfFlawedComponentWithNoErrorBoundary.getNode().click();
+        expect(mountNode.children, isEmpty,
+            reason: 'rendered trees not wrapped in an ErrorBoundary '
+                    'should get unmounted when an error is thrown within child component lifecycle methods');
+
+        mountNode.remove();
+        mountNode = new DivElement();
+        document.body.append(mountNode);
+      }
+
+      setUp(() {
+        // Verify the behavior of a component that throws when it is not wrapped in an error boundary first
+        verifyReact16ErrorHandlingWithoutErrorBoundary();
+
+        calls = [];
+        jacket = mount(
+          (ErrorBoundary()
+            ..onComponentDidCatch = (err, info) {
+              calls.add({'onComponentDidCatch': [err, info]});
+            }
+          )(Flawed()()),
+          mountNode: mountNode,
+        );
+        expect(mountNode.children, isNotEmpty, reason: 'test setup sanity check');
+        // Cause an error to be thrown within a ReactJS lifecycle method
+        jacket.getNode().click();
+      });
+
+      tearDown(() {
+        mountNode.remove();
+        mountNode = null;
+      });
+
+      test('and calls `props.onComponentDidCatch`', () {
+        expect(calls.single.keys, ['onComponentDidCatch']);
+        final errArg = calls.single['onComponentDidCatch'][0];
+        expect(errArg, const isInstanceOf<FlawedComponentException>());
+
+        final infoArg = calls.single['onComponentDidCatch'][1];
+        expect(infoArg, isNotNull);
+      });
+
+      test('and re-renders the tree as a result', () {
+        expect(mountNode.children, isNotEmpty,
+            reason: 'rendered trees wrapped in an ErrorBoundary '
+                    'should NOT get unmounted when an error is thrown within child component lifecycle methods');
+      });
+
+      test('does not throw a null exception when `props.onComponentDidCatch` is not set', () {
+        jacket = mount(ErrorBoundary()((Flawed()..addTestId('flawed'))()), mountNode: mountNode);
+        // The click causes the componentDidCatch lifecycle method to execute
+        // and we want to ensure that no Dart null error is thrown as a result of no consumer prop callback being set.
+        expect(() => jacket.getNode().click(), returnsNormally);
+      });
+    });
 
     test('initializes with the expected default prop values', () {
       jacket = mount(ErrorBoundary()(dummyChild));

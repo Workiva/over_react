@@ -50,7 +50,7 @@ class DomProps extends component_base.UiProps
   DomProps(this.componentFactory, [Map props]) : this.props = props ?? ({});
 
   @override
-  final ReactDomComponentFactoryProxy componentFactory;
+  ReactComponentFactoryProxy componentFactory;
 
   @override
   final Map props;
@@ -76,7 +76,7 @@ class SvgProps extends component_base.UiProps
   SvgProps(this.componentFactory, [Map props]) : this.props = props ?? ({});
 
   @override
-  final ReactDomComponentFactoryProxy componentFactory;
+  ReactComponentFactoryProxy componentFactory;
 
   @override
   final Map props;
