@@ -42,8 +42,10 @@ class GeneratedClass {
   }
 }
 
+/// Do not implement component_base.Component even though we should. This is
+/// to work around https://github.com/dart-lang/sdk/issues/38098.
 mixin _GeneratedUiComponentStubs<TProps extends UiProps>
-    on component_base.UiComponent<TProps>, GeneratedClass {
+    implements GeneratedClass {
   /// The default consumed props, taken from the keys generated in the associated @[annotations.Props] class.
   @toBeGenerated
   Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
@@ -52,7 +54,6 @@ mixin _GeneratedUiComponentStubs<TProps extends UiProps>
   ///
   /// For generated components, this defaults to the keys generated in the associated @[annotations.Props] class
   /// if this getter is not overridden.
-  @override
   Iterable<component_base.ConsumedProps> get consumedProps => $defaultConsumedProps;
 
   /// Returns a typed props object backed by the specified [propsMap].
