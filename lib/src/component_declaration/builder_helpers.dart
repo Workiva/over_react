@@ -42,7 +42,7 @@ class GeneratedClass {
   }
 }
 
-/// Do not implement component_base.Component even though we should. This is
+/// Do not implement component_base.Component using the `on` keyword. This is
 /// to work around https://github.com/dart-lang/sdk/issues/38098.
 mixin _GeneratedUiComponentStubs<TProps extends UiProps>
     implements GeneratedClass {
