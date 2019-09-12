@@ -1,9 +1,13 @@
+@TestOn('browser')
 library react_util_test;
 
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('UiPropsMapView', () {
     UiPropsMapView mapView;
 

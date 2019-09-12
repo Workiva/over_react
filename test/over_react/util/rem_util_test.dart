@@ -12,11 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library rem_util_test;
 
 import 'dart:async';
 import 'dart:html';
 
+import 'package:over_react/over_react.dart';
 import 'package:over_react/src/util/css_value_util.dart';
 import 'package:over_react/src/util/rem_util.dart';
 import 'package:over_react/src/util/test_mode.dart';
@@ -26,6 +28,9 @@ import '../../test_util/test_util.dart';
 
 /// Main entry point for rem_util testing
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('rem_util', () {
     // Ensure this suite cleans up any sensor nodes it adds to the body,
     // and doesn't pollute other tests.

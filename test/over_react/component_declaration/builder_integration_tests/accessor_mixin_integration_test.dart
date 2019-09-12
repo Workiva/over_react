@@ -11,12 +11,16 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+@TestOn('browser')
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
 part 'accessor_mixin_integration_test.over_react.g.dart';
 
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('accessor for props/state mixin integration:', () {
     group('@PropsMixin()', () {
       group('generates prop getters/setters with', () {

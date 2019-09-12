@@ -12,13 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library over_react.component_declaration.component_base_test;
 
 import 'dart:async';
 import 'dart:collection';
 import 'dart:html';
 
-import 'package:over_react/over_react.dart' show Dom, DummyComponent, ValidationUtil;
+import 'package:over_react/over_react.dart' show Dom, DummyComponent, ValidationUtil, enableTestMode;
 import 'package:over_react_test/over_react_test.dart';
 import 'package:over_react/src/component_declaration/component_base.dart';
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
@@ -30,6 +31,9 @@ import '../../test_util/test_util.dart';
 import '../shared/map_proxy_tests.dart';
 
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   void _commonNonInvokedBuilderTests(UiProps builder) {
     bool warningsWereEnabled;
     setUp(() {

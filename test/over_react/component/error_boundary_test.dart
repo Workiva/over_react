@@ -12,11 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 @Timeout(const Duration(seconds: 2))
 library error_boundary_test;
 
 import 'dart:html';
-import 'dart:js';
+
 import 'package:over_react/over_react.dart';
 import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
@@ -24,6 +25,9 @@ import 'package:test/test.dart';
 import './fixtures/flawed_component.dart';
 
 void main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('ErrorBoundary', () {
     TestJacket<ErrorBoundaryComponent> jacket;
     ReactElement dummyChild;

@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library dom_util_test;
 
 import 'dart:html';
@@ -26,6 +27,9 @@ part 'dom_util_test.over_react.g.dart';
 
 /// Main entry point for DomUtil testing
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('isOrContains returns', () {
     group('true when', () {
       test('root is the other element', () {

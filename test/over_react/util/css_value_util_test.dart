@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library css_value_util_test;
 
 import 'package:dart2_constant/core.dart' as d2c;
@@ -20,6 +21,9 @@ import 'package:test/test.dart';
 
 /// Main entry point for  testing
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('css_value_util part', () {
     group('CssValue', () {
       group('returns the parsed value for', () {

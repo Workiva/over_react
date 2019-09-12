@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library over_react.component_declaration.component_type_checking_test;
 
 import 'package:js/js.dart';
@@ -32,6 +33,9 @@ import 'component_type_checking_test/type_inheritance/subsubtype.dart';
 import 'component_type_checking_test/type_inheritance/subtype.dart';
 
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('component type checking:', () {
     group('getComponentTypeFromAlias', () {
       group('passes through valid component types:', () {

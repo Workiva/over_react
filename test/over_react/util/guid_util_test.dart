@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library guid_util_test;
 
 import 'package:over_react/over_react.dart';
@@ -19,6 +20,9 @@ import 'package:test/test.dart';
 
 /// Main entry point for Guid Util testing
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('generateGuid returns a string with correct length', () {
     test('by default', () {
       var guid = generateGuid();

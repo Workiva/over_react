@@ -1,3 +1,4 @@
+@TestOn('browser')
 library over_react.component_declaration.redux_component_test;
 
 import 'dart:async';
@@ -18,6 +19,9 @@ part 'redux_component_test/pure.dart';
 part 'redux_component_test.over_react.g.dart';
 
 void main() {
+  setClientConfiguration();
+  enableTestMode();
+
   ReducerBuilder<BaseState, BaseStateBuilder> baseReducerBuilder;
   BaseState baseState;
   BaseActions baseActions;

@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library handler_chain_util_test;
 
 import 'package:over_react/over_react.dart';
@@ -19,6 +20,9 @@ import 'package:test/test.dart';
 
 /// Main entry point for HandlerChainUtil testing
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('HandlerChainUtil', () {
     group('generic chaining:', () {
       Function createTestChainFunction({returnValue, onCall(List args)}) {

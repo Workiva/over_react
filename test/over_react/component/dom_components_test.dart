@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+@TestOn('browser')
 library dom_components_test;
 
 import 'package:over_react/over_react.dart';
@@ -18,6 +19,9 @@ import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('Dom component:', () {
     var expectedMethodsOnDom = <Function /* dom method */, String /* method name */>{
       Dom.a: 'a', Dom.abbr: 'abbr', Dom.address: 'address', Dom.area: 'area', Dom.article: 'article',

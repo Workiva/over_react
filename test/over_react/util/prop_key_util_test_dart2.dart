@@ -1,9 +1,13 @@
+@TestOn('browser')
 import 'package:test/test.dart';
 import 'package:over_react/over_react.dart';
 
 part 'prop_key_util_test_dart2.over_react.g.dart';
 
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('getPropKey', () {
     test('returns the expected key', () {
       var testProps = Test()..foo = 'baz';

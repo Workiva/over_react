@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library class_names_test;
 
 import 'package:over_react/over_react.dart';
@@ -19,6 +20,9 @@ import 'package:test/test.dart';
 
 /// Main entrypoint for class_names testing
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('class_names part', () {
     group('ClassNameBuilder', () {
       group('created with default constructor', () {

@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library over_react.builder_generation.helpers_test;
 
 import 'package:over_react/src/component_declaration/builder_helpers.dart';

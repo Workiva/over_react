@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library event_helpers_test;
 
 import 'dart:html';
@@ -22,6 +23,9 @@ import 'package:test/test.dart';
 
 /// Main entry point for Event Helpers testing
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   test('wrapNativeKeyboardEvent', () {
     var nativeKeyboardEvent = new MockKeyboardEvent();
     var currentTarget = new DivElement();

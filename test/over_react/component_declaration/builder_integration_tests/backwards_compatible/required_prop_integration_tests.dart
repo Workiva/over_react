@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+@TestOn('browser')
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
@@ -23,6 +24,9 @@ import '../../../../test_util/test_util.dart';
 part 'required_prop_integration_tests.over_react.g.dart';
 
 void requiredPropsIntegrationTest() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('(backwards compatible with Dart 1) properly identifies required props by', () {
     group('throwing when a prop is required and not set', () {
       test('on mount', () {

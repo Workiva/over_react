@@ -12,16 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library unmount_test;
 
 import 'dart:html';
 
+import 'package:over_react/over_react.dart';
 import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:test/test.dart';
 
 import 'fixtures/dummy_composite_component.dart';
 
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('`react_dom.unmountComponentAtNode`', () {
     Element mountNode;
     bool unmountComponentAtNodeReturnValue;

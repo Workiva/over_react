@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 @Timeout(const Duration(seconds: 2))
 library resize_sensor_test;
 
@@ -25,6 +26,9 @@ import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:test/test.dart';
 
 void main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('ResizeSensor', () {
     const int defaultContainerWidth = 100;
     const int defaultContainerHeight = 100;

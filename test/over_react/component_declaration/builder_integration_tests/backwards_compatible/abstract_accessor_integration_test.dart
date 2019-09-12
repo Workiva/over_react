@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+@TestOn('browser')
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
@@ -18,6 +19,9 @@ import 'package:test/test.dart';
 part 'abstract_accessor_integration_test.over_react.g.dart';
 
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('(backwards compatible with Dart 1) transformed abstract accessor integration:', () {
     group('@AbstractProps()', () {
       group('generates prop getters/setters with', () {

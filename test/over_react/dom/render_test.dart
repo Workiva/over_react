@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library render_test;
 
 import 'dart:html';
@@ -23,6 +24,9 @@ import 'package:test/test.dart';
 import 'fixtures/dummy_composite_component.dart';
 
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('`react_dom.render`', () {
     var renderedInstance;
     Element mountNode;

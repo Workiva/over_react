@@ -12,32 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library tool.dev;
+import 'package:dart_dev/configs/workiva.dart';
+import 'package:dart_dev/dart_dev.dart';
 
-import 'package:dart_dev/dart_dev.dart' show dev, config;
-
-main(List<String> args) async {
-  const directories = const <String>[
-    'lib/',
-    'test/',
-    'tool/',
-  ];
-
-  config.analyze.entryPoints = directories;
-  config.copyLicense.directories = ['integrate']..addAll(directories);
-
-  config.test
-    ..platforms = [
-      'vm',
-      'chrome',
-    ]
-    ..unitTests = [
-      'test/vm_tests/',
-      'test/over_react_component_declaration_test.dart',
-      'test/over_react_component_test.dart',
-      'test/over_react_dom_test.dart',
-      'test/over_react_util_test.dart',
-    ];
-
-  await dev(args);
-}
+final config = {
+  ...workivaConfig,
+  'test': TestTool()
+    ..buildArgs = ['--delete-conflicting-outputs']
+};

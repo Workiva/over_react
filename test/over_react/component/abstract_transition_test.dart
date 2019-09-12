@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library abstract_transition_test;
 
 import 'dart:async';
@@ -29,6 +30,9 @@ part 'abstract_transition_test.over_react.g.dart';
 
 /// Main entry point for AbstractTransition testing
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('AbstractTransition', () {
     group('renders with correct initial state when the `initiallyShown` getter returns', () {
       test('true', () {

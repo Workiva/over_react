@@ -1,3 +1,4 @@
+@TestOn('browser')
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
@@ -6,6 +7,9 @@ import '../../../test_util/test_util.dart';
 part 'unassigned_prop_integration_test.over_react.g.dart';
 
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   test('renders all children, even with unassigned props present', () {
     var instance = render((Foo()
       ..stringProp = 'some string value'

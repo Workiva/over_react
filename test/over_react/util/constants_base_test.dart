@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library constants_base_test;
 
 import 'package:over_react/over_react.dart';
@@ -19,6 +20,9 @@ import 'package:test/test.dart';
 
 /// Main entry point for DomUtil testing
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('DebugFriendlyConstant has the correct', () {
     test('toString implementation', () {
       var debugConst = const DebugConstantTest('Name');

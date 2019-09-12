@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library map_util_test;
 
 import 'package:over_react/over_react.dart';
@@ -19,6 +20,9 @@ import 'package:test/test.dart';
 
 /// Main entrypoint for map_util testing
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('map_util part', () {
     group('getPropsToForward() returns a copy of the specified props', () {
       group('with React props', () {

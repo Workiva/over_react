@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library prop_mixins_test;
 
 import 'dart:collection' show MapView;
@@ -22,6 +23,9 @@ import 'package:test/test.dart';
 import '../../test_util/prop_utils.dart';
 
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('ReactProps', () {
     testInvalidKey((() => new ReactPropMixinsTest({})));
     test('uses unnamespaced keys', () {

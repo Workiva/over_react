@@ -13,6 +13,7 @@
 // limitations under the License.
 
 @JS()
+@TestOn('browser')
 library react_wrappers_test;
 
 import 'dart:html';
@@ -33,6 +34,9 @@ import '../../test_util/two_level_wrapper.dart';
 
 /// Main entry point for react wrappers testing
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('Dart wrappers for React:', () {
     group('cloneElement()', () {
       const List testChildren = const ['child1', 'child2'];

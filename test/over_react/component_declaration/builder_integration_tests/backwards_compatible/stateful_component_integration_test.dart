@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+@TestOn('browser')
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
@@ -20,6 +21,9 @@ import '../../../../test_util/test_util.dart';
 part 'stateful_component_integration_test.over_react.g.dart';
 
 main() {
+  setClientConfiguration();
+  enableTestMode();
+
   group('(backwards compatible with Dart 1) stateful component integration:', () {
     test('state class cannot be instantiated directly', () {
       expect(() {
