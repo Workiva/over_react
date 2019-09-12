@@ -9,6 +9,7 @@ environment:
   sdk: '>=2.1.0 <3.0.0'
 
 dependencies:
+  collection: ^1.14.11
   analyzer: '>=0.35.0 <0.37.0'
   build: ^1.0.0
   built_redux: ^7.4.2
@@ -19,6 +20,7 @@ dependencies:
   meta: ^1.1.6
   path: ^1.5.1
   react: ^4.9.0
+  redux: ^3.0.0
   source_span: ^1.4.1
   transformer_utils: ^0.2.0
   w_common: ^1.13.0
