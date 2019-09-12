@@ -29,7 +29,7 @@ class _$FooProps extends UiProps {
 @Component2()
 class FooComponent extends UiComponent2<FooProps> {
   @override
-  Map getDefaultProps() => newProps().._privateProp = 'some private value';
+  Map get defaultProps => newProps().._privateProp = 'some private value';
 
   @override
   render() => (Dom.div())(props._privateProp);

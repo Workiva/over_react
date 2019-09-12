@@ -189,8 +189,9 @@ class _$ComponentTestProps extends UiProps {
 
 @Component2()
 class ComponentTestComponent extends UiComponent2<ComponentTestProps> {
+
   @override
-  Map getDefaultProps() => newProps()
+  Map get defaultProps => newProps()
     ..id = 'testId'
     ..shouldSetPropsDirectly = false
     ..shouldUseJsFactory = false;
