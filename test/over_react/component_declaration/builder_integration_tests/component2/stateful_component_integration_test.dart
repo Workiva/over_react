@@ -119,7 +119,19 @@ class StatefulComponentTestComponent extends UiStatefulComponent2<StatefulCompon
   Map get defaultProps => newProps()..setStateDirectly = false;
 
   @override
-  Map get initialState => _generateInitialState();
+  Map get initialState {
+    if (this.props.setStateDirectly) {
+      return newState()..stringState = '1';
+    } else {
+      return newState()
+      ..stringState = '1'
+      ..dynamicState = '2'
+      ..untypedState = '3'
+      ..customKeyState = '4'
+      ..customNamespaceState = '5'
+      ..customKeyAndNamespaceState = '6';
+    }
+  }
 
   @override
   render() => (Dom.div()
@@ -132,20 +144,5 @@ class StatefulComponentTestComponent extends UiStatefulComponent2<StatefulCompon
     ..addProp('data-state-custom-namespace-state', state.customNamespaceState)
     ..addProp('data-state-custom-key-and-namespace-state', state.customKeyAndNamespaceState)
   )('rendered content');
-
-
-  Map _generateInitialState() {
-    if (this.props.setStateDirectly) {
-      return newState()..stringState = '1';
-    } else {
-      return newState()
-        ..stringState = '1'
-        ..dynamicState = '2'
-        ..untypedState = '3'
-        ..customKeyState = '4'
-        ..customNamespaceState = '5'
-        ..customKeyAndNamespaceState = '6';
-    }
-  }
 }
 

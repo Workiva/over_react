@@ -189,7 +189,6 @@ class _$ComponentTestProps extends UiProps {
 
 @Component2()
 class ComponentTestComponent extends UiComponent2<ComponentTestProps> {
-
   @override
   Map get defaultProps => newProps()
     ..id = 'testId'
