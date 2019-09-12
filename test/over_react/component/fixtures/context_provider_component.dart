@@ -19,9 +19,7 @@ class _$ContextProviderWrapperState extends UiState {
 class ContextProviderWrapperComponent extends UiStatefulComponent2<ContextProviderWrapperProps, ContextProviderWrapperState> {
 
   @override
-  init(){
-    initializeState(newState()..latestValue = 1);
-  }
+  Map get initialState => newState()..latestValue = 1;
 
   @override
   render() {

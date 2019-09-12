@@ -116,21 +116,20 @@ class _$StatefulComponentTestState extends UiState {
 @Component2()
 class StatefulComponentTestComponent extends UiStatefulComponent2<StatefulComponentTestProps, StatefulComponentTestState> {
   @override
-  Map getDefaultProps() => newProps()..setStateDirectly = false;
+  Map get defaultProps => newProps()..setStateDirectly = false;
 
   @override
-  void init() {
+  Map get initialState {
     if (this.props.setStateDirectly) {
-      this.state = newState()
-        ..stringState = '1';
+      return newState()..stringState = '1';
     } else {
-      this.initializeState(newState()
-        ..stringState = '1'
-        ..dynamicState = '2'
-        ..untypedState = '3'
-        ..customKeyState = '4'
-        ..customNamespaceState = '5'
-        ..customKeyAndNamespaceState = '6');
+      return newState()
+      ..stringState = '1'
+      ..dynamicState = '2'
+      ..untypedState = '3'
+      ..customKeyState = '4'
+      ..customNamespaceState = '5'
+      ..customKeyAndNamespaceState = '6';
     }
   }
 
