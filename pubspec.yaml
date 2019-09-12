@@ -51,5 +51,5 @@ dependency_overrides:
       ref: 5.0.0-wip
   test_html_builder:
     git:
-      url: git@github.com:Workiva/test_html_builder.git
+      url: https://github.com/Workiva/test_html_builder.git
       ref: 218116adb543034566b19ba387b05b3d43bf0add # from initial
