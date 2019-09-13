@@ -70,8 +70,6 @@ bool isDartComponent(/* ReactElement|ReactComponent|Element */ instance) {
 
 /// Returns [ReactClass.dartComponentVersion] if [type] is the [ReactClass] for a Dart component
 /// (a react-dart [ReactElement] or [ReactComponent]), and null otherwise.
-///
-/// [type] may not be null.
 String _getDartComponentVersionFromType(dynamic type) {
   // This check doesn't do much since it's an anonymous object, but it lets
   // us safely cast to ReactClass.
@@ -98,8 +96,6 @@ String _getDartComponentVersionFromInstance(/* ReactElement|ReactComponent|Eleme
 
   // We need `type` if it's a ReactElement, or `constructor` if it's a `ReactComponent`.
   final type = getProperty(instance, 'type') ?? getProperty(instance, 'constructor');
-  // This check doesn't do much since it's an anonymous object, but it lets
-  // us safely cast to ReactClass.
   return _getDartComponentVersionFromType(type);
 }
 
@@ -173,17 +169,15 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers:
     }
 
     Map rawPropsOrCopy;
-    switch (_getDartComponentVersionFromInstance(instance)) {
-      case '1':
-        rawPropsOrCopy = _getExtendedProps(instance);
-        break;
-      case '2':
-        // TODO Since JS props are frozen don't wrap in UnmodifiableMapView once https://github.com/dart-lang/sdk/issues/15432 is fixed
-        rawPropsOrCopy = JsBackedMap.backedBy(instance.props);
-        break;
-      default:
-        rawPropsOrCopy = unconvertJsProps(instance);
-        break;
+
+    final dartComponentVersion = _getDartComponentVersionFromInstance(instance);
+    if (dartComponentVersion == '1') {
+      rawPropsOrCopy = _getExtendedProps(instance);
+    } else if (dartComponentVersion == '2') {
+      // TODO Since JS props are frozen don't wrap in UnmodifiableMapView once https://github.com/dart-lang/sdk/issues/15432 is fixed
+      rawPropsOrCopy = JsBackedMap.backedBy(instance.props);
+    } else {
+      rawPropsOrCopy = unconvertJsProps(instance);
     }
 
     final unmodifiableProps = UnmodifiableMapView(rawPropsOrCopy);
@@ -248,7 +242,7 @@ bool _isCompositeComponent(dynamic instance) {
 ///   If these values might contain event handlers
 dynamic preparePropsChangeset(ReactElement element, Map newProps, [Iterable newChildren]) {
   final type = element.type;
-  final dartComponentVersion = type == null ? null : _getDartComponentVersionFromType(type);
+  final dartComponentVersion = _getDartComponentVersionFromType(type);
 
   // react.Component
   if (dartComponentVersion == '1') {
