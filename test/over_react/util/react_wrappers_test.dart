@@ -23,7 +23,7 @@ import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
-import 'package:react/react_client/react_interop.dart';
+import 'package:react/react_client/react_interop.dart' hide createRef;
 import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:test/test.dart';
@@ -1125,97 +1125,114 @@ main() {
 
     group('chainRef', () {
       group('returns a ref that chains with the existing ref', () {
-        group('when the provided instance is', () {
-          test('a Dart Component', () {
-            var calls = [];
+        List calls;
+        dynamic ref;
+        TestJacket jacket;
+        dynamic expectedRefValue;
 
-            var instanceWithRef = TestComponentFactory({'ref': (ref) {
-              calls.add(['original ref', ref]);
-            }});
+        setUp(() {
+          calls = [];
+        });
 
-            var chainedRef = chainRef(instanceWithRef, (ref) {
-              calls.add(['chained ref', ref]);
+        tearDown(() {
+          ref = null;
+          expectedRefValue = null;
+          jacket = null;
+        });
+
+        void sharedTests(void _runExpectations()) {
+          // _runExpectations needs to be called before the test block, and not in a tearDown,
+          // so that component isn't unmounted by the time the expectations are called.
+
+          group('and the provided instance is', () {
+            void Function() runExpectations;
+
+            setUp(() {
+              runExpectations = expectAsync0(() {
+                expect(expectedRefValue, isNotNull);
+                _runExpectations();
+              }, reason: 'each test case must call runExpectations');
             });
 
-            var renderedInstance = react_test_utils.renderIntoDocument(
-                cloneElement(instanceWithRef, {'ref': chainedRef})
-            );
-            var component = getDartComponent(renderedInstance);
-            // ignore: deprecated_member_use
-            expect(component, const TypeMatcher<react.Component>(), reason: 'test setup sanity check');
+            test('a Dart Component', () {
+              var instanceWithRef = TestComponentFactory({'ref': ref});
+              var chainedRef = chainRef(instanceWithRef, (ref) {
+                calls.add(['chained ref', ref]);
+              });
 
-            expect(calls, [
-              ['original ref', component],
-              ['chained ref', component],
-            ]);
+              jacket = mount(cloneElement(instanceWithRef, {'ref': chainedRef}));
+              expectedRefValue = jacket.getDartInstance();
+              // ignore: deprecated_member_use
+              expect(expectedRefValue, const TypeMatcher<react.Component>(), reason: 'test setup sanity check');
+
+              runExpectations();
+            });
+
+            test('a Dart Component2', () {
+              var instanceWithRef = TestComponent2Factory({'ref': ref});
+              var chainedRef = chainRef(instanceWithRef, (ref) {
+                calls.add(['chained ref', ref]);
+              });
+
+              jacket = mount(cloneElement(instanceWithRef, {'ref': chainedRef}));
+              expectedRefValue = jacket.getDartInstance();
+              expect(expectedRefValue, const TypeMatcher<react.Component2>(), reason: 'test setup sanity check');
+
+              runExpectations();
+            });
+
+            // TODO: 3.0.0 this is failing on Dart 2 dart2js tests only.
+            test('a JS composite component', () {
+              var instanceWithRef = testJsComponentFactoryProxy({'ref': ref});
+              var chainedRef = chainRef(instanceWithRef, (ref) {
+                calls.add(['chained ref', ref]);
+              });
+
+              jacket = mount(cloneElement(instanceWithRef, {'ref': chainedRef}));
+              expectedRefValue = jacket.getInstance();
+
+              runExpectations();
+            });
+
+            // TODO: 3.0.0 this is failing on Dart 2 dart2js tests only.
+            test('a DOM component', () {
+              var instanceWithRef = (Dom.div()..ref = ref)();
+              var chainedRef = chainRef(instanceWithRef, (ref) {
+                calls.add(['chained ref', ref]);
+              });
+
+              jacket = mount(cloneElement(instanceWithRef, domProps()..ref = chainedRef));
+              expectedRefValue = jacket.getNode();
+
+              runExpectations();
+            });
+          });
+        }
+
+        group('when the existing ref is a callback ref', () {
+          setUp(() {
+            ref = (ref) {
+              calls.add(['original ref', ref]);
+            };
           });
 
-          test('a Dart Component2', () {
-            var calls = [];
-
-            var instanceWithRef = TestComponent2Factory({'ref': (ref) {
-              calls.add(['original ref', ref]);
-            }});
-
-            var chainedRef = chainRef(instanceWithRef, (ref) {
-              calls.add(['chained ref', ref]);
-            });
-
-            var renderedInstance = react_test_utils.renderIntoDocument(
-                cloneElement(instanceWithRef, {'ref': chainedRef})
-            );
-            var component = getDartComponent(renderedInstance);
-            // ignore: deprecated_member_use
-            expect(component, const TypeMatcher<react.Component2>(), reason: 'test setup sanity check');
-
+          sharedTests(() {
             expect(calls, [
-              ['original ref', component],
-              ['chained ref', component],
+              ['original ref', expectedRefValue],
+              ['chained ref', expectedRefValue],
             ]);
           });
+        });
 
-          // TODO: 3.0.0 this is failing on Dart 2 dart2js tests only.
-          test('a JS composite component', () {
-            var calls = [];
-
-            var instanceWithRef = testJsComponentFactory({'ref': (ref) {
-              calls.add(['original ref', ref]);
-            }});
-
-            var chainedRef = chainRef(instanceWithRef, (ref) {
-              calls.add(['chained ref', ref]);
-            });
-
-            var renderedInstance = react_test_utils.renderIntoDocument(
-                cloneElement(instanceWithRef, {'ref': chainedRef})
-            );
-
-            expect(calls, [
-              ['original ref', renderedInstance],
-              ['chained ref', renderedInstance],
-            ]);
+        group('when the existing ref is an object ref', () {
+          setUp(() {
+            ref = createRef();
           });
 
-          // TODO: 3.0.0 this is failing on Dart 2 dart2js tests only.
-          test('a DOM component', () {
-            var calls = [];
-
-            var instanceWithRef = (Dom.div()..ref = (ref) {
-              calls.add(['original ref', ref]);
-            })();
-
-            var chainedRef = chainRef(instanceWithRef, (ref) {
-              calls.add(['chained ref', ref]);
-            });
-
-            var renderedInstance = react_test_utils.renderIntoDocument(
-                cloneElement(instanceWithRef, domProps()..ref = chainedRef)
-            );
-            var renderedNode = findDomNode(renderedInstance);
-
+          sharedTests(() {
+            expect((ref as Ref).current, expectedRefValue, reason: 'should have updated the original ref');
             expect(calls, [
-              ['original ref', renderedNode],
-              ['chained ref', renderedNode],
+              ['chained ref', expectedRefValue],
             ]);
           });
         });
@@ -1263,24 +1280,10 @@ main() {
         });
       });
 
-      group('throws when the provided instance', () {
-        void noopRef(_) {}
-
-        test('has a String ref', () {
-          var instanceWithStringRef = TestComponentFactory({'ref': 'foo'});
-
-          expect(() {
-            chainRef(instanceWithStringRef, noopRef);
-          }, throwsArgumentError);
-        });
-
-        test('has an invalid ref', () {
-          var instanceWithInvalidRef = TestComponentFactory({'ref': new Object()});
-
-          expect(() {
-            chainRef(instanceWithInvalidRef, noopRef);
-          }, throwsArgumentError);
-        });
+      test('throws when the provided instance has a String ref', () {
+        expect(() {
+          chainRef(TestComponentFactory({'ref': 'foo'}), (_) {});
+        }, throwsArgumentError);
       });
     });
   });
@@ -1322,3 +1325,10 @@ class RenderingContainerComponent extends react.Component {
   @override
   render() => props['renderer']();
 }
+
+// TODO update over_react_test's testJsComponentFactory with this implementation
+/// A factory for a JS composite component, for use in testing.
+final testJsComponentFactoryProxy = ReactJsComponentFactoryProxy(React.createClass(ReactClassConfig(
+  displayName: 'testJsComponent',
+  render: allowInterop(() => Dom.div()('test js component')),
+)));

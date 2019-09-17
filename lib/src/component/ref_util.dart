@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:react/react_client.dart' hide forwardRef, createRef;
-import 'package:react/react_client.dart' as react_client show forwardRef, createRef;
+import 'package:react/react_client/react_interop.dart' as react_interop;
+import 'package:react/react_client.dart';
 import 'package:over_react/component_base.dart';
 
 /// Creates a [Ref] object that can be attached to a [ReactElement] via the ref prop.
@@ -47,7 +47,7 @@ import 'package:over_react/component_base.dart';
 ///
 /// Learn more: <https://reactjs.org/docs/refs-and-the-dom.html#creating-refs>.
 Ref<CurrentType> createRef<CurrentType>() {
-  return react_client.createRef<CurrentType>();
+  return react_interop.createRef<CurrentType>();
 }
 
 /// Automatically passes a [Ref] through a component to one of its children.
@@ -97,7 +97,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
     Object wrapProps(Map props, Ref ref) {
       return wrapperFunction(factory(props), ref);
     }
-    ReactComponentFactoryProxy hoc = react_client.forwardRef(wrapProps);
+    ReactComponentFactoryProxy hoc = react_interop.forwardRef(wrapProps);
 
     TProps forwardedFactory([Map props]) {
       return factory(props)..componentFactory = hoc;
