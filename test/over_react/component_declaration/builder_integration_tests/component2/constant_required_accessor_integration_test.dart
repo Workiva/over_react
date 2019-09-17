@@ -46,16 +46,24 @@ void main() {
     group('throwing when a prop is required and not set', () {
 
       test('on mount', () {
-        mount(
-          (ComponentTest()
-            ..nullable = true
-            ..requiredAndLengthLimited = [1,2]
-          )(),
-          attachedToDocument: true,
+        var component = (ComponentTest()
+          ..nullable = true
+          ..requiredAndLengthLimited = [1,2]
         );
 
-        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
-        expect(consoleErrors, [contains('ComponentTestProps.required')]);
+        testPropTypesWithUiProps(componentProps: component,
+            customErrorMessage: 'ComponentTestProps.required');
+
+//        mount(
+//          (ComponentTest()
+//            ..nullable = true
+//            ..requiredAndLengthLimited = [1,2]
+//          )(),
+//          attachedToDocument: true,
+//        );
+//
+//        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
+//        expect(consoleErrors, [contains('ComponentTestProps.required')]);
       });
 
       test('on re-render', () {
@@ -69,28 +77,46 @@ void main() {
 
         expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
 
-        jacket.rerender((ComponentTest()
-            ..nullable = true
-            ..requiredAndLengthLimited = [1,2]
-          )()
+        var component = (ComponentTest()
+          ..nullable = true
+          ..requiredAndLengthLimited = [1,2]
         );
 
-        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
-        expect(consoleErrors, [contains('ComponentTestProps.required')]);
+        testPropTypesWithUiProps(componentProps: component,
+            customErrorMessage: 'ComponentTestProps.required', mountNode:
+            jacket.mountNode);
+
+//        jacket.rerender((ComponentTest()
+//            ..nullable = true
+//            ..requiredAndLengthLimited = [1,2]
+//          )()
+//        );
+//
+//        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
+//        expect(consoleErrors, [contains('ComponentTestProps.required')]);
       });
 
     });
 
     group('throwing when a prop is required and set to null', () {
       test('on mount', () {
-        render((ComponentTest()
+        var component = (ComponentTest()
             ..required = null
             ..nullable = true
             ..requiredAndLengthLimited = [1,2]
-          )());
+        );
 
-        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
-        expect(consoleErrors, [contains('ComponentTestProps.required')]);
+        testPropTypesWithUiProps(componentProps: component,
+            customErrorMessage: 'ComponentTestProps.required');
+
+//        render((ComponentTest()
+//            ..required = null
+//            ..nullable = true
+//            ..requiredAndLengthLimited = [1,2]
+//          )());
+//
+//        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
+//        expect(consoleErrors, [contains('ComponentTestProps.required')]);
       });
 
       test('on re-render', () {
@@ -104,25 +130,45 @@ void main() {
 
         expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
 
-        jacket.rerender((ComponentTest()
-              ..required = null
-              ..nullable = true
-              ..requiredAndLengthLimited = [1,2]
-            )());
 
-        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
-        expect(consoleErrors, [contains('ComponentTestProps.required')]);
+        var component = (ComponentTest()
+          ..required = null
+          ..nullable = true
+          ..requiredAndLengthLimited = [1,2]
+        );
+
+        testPropTypesWithUiProps(componentProps: component,
+            customErrorMessage: 'ComponentTestProps.required', mountNode:
+            jacket.mountNode);
+
+//        jacket.rerender((ComponentTest()
+//              ..required = null
+//              ..nullable = true
+//              ..requiredAndLengthLimited = [1,2]
+//            )());
+//
+//        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
+//        expect(consoleErrors, [contains('ComponentTestProps.required')]);
       });
     });
 
     group('throwing when a prop is nullable and not set', () {
       test('on mount', () {
-        render((ComponentTest()
+
+        var component = (ComponentTest()
           ..required = true
           ..requiredAndLengthLimited = [1,2]
-        )());
-        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
-        expect(consoleErrors, [contains('ComponentTestProps.nullable')]);
+        );
+
+        testPropTypesWithUiProps(componentProps: component,
+            customErrorMessage: 'ComponentTestProps.nullable');
+
+//        render((ComponentTest()
+//          ..required = true
+//          ..requiredAndLengthLimited = [1,2]
+//        )());
+//        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
+//        expect(consoleErrors, [contains('ComponentTestProps.nullable')]);
       });
 
       test('on re-render', () {
@@ -210,24 +256,42 @@ void main() {
 
     group('when a consumer propType function is also provided', () {
       test('required fires', () {
-       render((ComponentTest()
-            ..nullable = null
-            ..required = true
-          )());
+        var component = (ComponentTest()
+          ..required = true
+          ..nullable = null
+        );
 
-        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
-        expect(consoleErrors, [contains('ComponentTestProps.requiredAndLengthLimited')]);
+        testPropTypesWithUiProps(componentProps: component,
+            customErrorMessage: 'ComponentTestProps.requiredAndLengthLimited');
+
+
+//       render((ComponentTest()
+//            ..nullable = null
+//            ..required = true
+//          )());
+//
+//        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
+//        expect(consoleErrors, [contains('ComponentTestProps.requiredAndLengthLimited')]);
       });
 
       test('consumer check fires', () {
-        render((ComponentTest()
-            ..required = true
-            ..nullable = true
-            ..requiredAndLengthLimited = [1]
-          )());
+        var component = (ComponentTest()
+          ..required = true
+          ..nullable = true
+          ..requiredAndLengthLimited = [1]
+        );
 
-        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
-        expect(consoleErrors, [contains('must have a length of 2')]);
+        testPropTypesWithUiProps(componentProps: component,
+            customErrorMessage: 'must have a length of 2');
+
+//        render((ComponentTest()
+//            ..required = true
+//            ..nullable = true
+//            ..requiredAndLengthLimited = [1]
+//          )());
+//
+//        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
+//        expect(consoleErrors, [contains('must have a length of 2')]);
       });
     });
   });

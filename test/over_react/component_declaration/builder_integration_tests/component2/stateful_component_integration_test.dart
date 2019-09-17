@@ -119,18 +119,18 @@ class StatefulComponentTestComponent extends UiStatefulComponent2<StatefulCompon
   Map getDefaultProps() => newProps()..setStateDirectly = false;
 
   @override
-  void init() {
+  get initialState {
     if (this.props.setStateDirectly) {
-      this.state = newState()
+      return newState()
         ..stringState = '1';
     } else {
-      this.initializeState(newState()
+      return newState()
         ..stringState = '1'
         ..dynamicState = '2'
         ..untypedState = '3'
         ..customKeyState = '4'
         ..customNamespaceState = '5'
-        ..customKeyAndNamespaceState = '6');
+        ..customKeyAndNamespaceState = '6';
     }
   }
 
