@@ -1,5 +1,4 @@
-# Use Dart 2
-FROM google/dart:2.3.1
+FROM google/dart:2.4
 
 WORKDIR .
 
