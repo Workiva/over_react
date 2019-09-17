@@ -15,6 +15,7 @@
 /// Provides utilities around component type-checking.
 library over_react.component_declaration.component_type_checking;
 
+import 'dart:js';
 import 'dart:js_util';
 
 import 'package:over_react/src/component_declaration/component_base.dart' show UiFactory;
@@ -230,12 +231,19 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias, {
     return false;
   }
 
+  var instanceType = instance.type;
+
   var type = getComponentTypeFromAlias(typeAlias);
   if (type == null) {
     return false;
   }
 
-  var instanceType = instance.type;
+  // When a component is wrapped in a react.memo, we can gain access to the
+  // original Dart component via the 'WrappedComponent` property.
+  if (instance.type != null && getProperty(instance.type, 'WrappedComponent') != null) {
+    instanceType = getProperty(instance.type, 'WrappedComponent');
+  }
+
   var instanceTypeMeta = getComponentTypeMeta(instanceType);
 
   // Type-check instance wrappers.

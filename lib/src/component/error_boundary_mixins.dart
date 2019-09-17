@@ -78,7 +78,7 @@ abstract class _$ErrorBoundaryStateMixin implements UiState {
 mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBoundaryStateMixin>
     on UiStatefulComponent2<T, S> {
   @override
-  get initialState => newState()..hasError = false;
+  Map get initialState => newState()..hasError = false;
 
   @mustCallSuper
   @override
