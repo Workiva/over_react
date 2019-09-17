@@ -25,7 +25,7 @@ import 'package:over_react/src/component_declaration/component_type_checking.dar
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_interop_helpers.dart' show jsifyAndAllowInterop;
-import 'package:react/react_client/react_interop.dart';
+import 'package:react/react_client/react_interop.dart' hide createRef;
 import 'package:react/react_dom.dart' as react_dom;
 
 // Notes
@@ -384,10 +384,12 @@ T getDartComponent<T extends react.Component>(/* ReactElement|ReactComponent|Ele
 /// See: <http://facebook.github.io/react/docs/more-about-refs.html#the-ref-callback-attribute>.
 typedef CallbackRef(ref);
 
-/// Returns a function that chains the callback ref of the provided [element] _(if one exists)_
-/// using [newCallbackRef].
+/// Returns a function that chains the callback or [createRef]-based ref of the provided [element]
+/// with [newCallbackRef].
 ///
-/// > Throws an [ArgumentError] if [ReactElement.ref] is a `String` ref or otherwise not a [CallbackRef].
+/// If there is no existing ref, [newCallbackRef] is used.
+///
+/// Throws an [ArgumentError] if [ReactElement.ref] is a String ref.
 ///
 /// TODO: This method makes assumptions about how react-dart does callback refs for dart components, so this method should be moved there (UIP-1118).
 CallbackRef chainRef(ReactElement element, CallbackRef newCallbackRef) {
@@ -399,33 +401,31 @@ CallbackRef chainRef(ReactElement element, CallbackRef newCallbackRef) {
   if (existingRef is String) {
     throw new ArgumentError.value(existingRef, 'element.ref',
         'The existing ref is a String ref and cannot be chained');
-  } else if (existingRef is Function) {
-    // Use a local function as opposed to a function expression so that its name shows up in any stack traces.
+  }
+
+  if (existingRef is Function) { // Callback refs
     void chainedRef(ref) {
       // For Dart components, the existing ref is a function passed to the JS that wraps the Dart
       // callback ref and converts the JS instance to the Dart component.
-      //
       // So, we need to undo the wrapping around this chained ref and pass in the JS instance.
-      // ignore: deprecated_member_use
-      existingRef(ref is react.Component ? ref.jsThis : ref);
+      existingRef(ref is react.Component ? ref.jsThis : ref); // ignore: deprecated_member_use
 
       if (newCallbackRef != null) newCallbackRef(ref);
     }
 
     return chainedRef;
-  } else {
-    // Use a local function as opposed to a function expression so that its name shows up in any stack traces.
+  } else { // Assume it's a ref object created by createRef
+    assert(existingRef is! Ref,
+        'should be a JsRef; the factory that created `element` should never let a Dart ref get here');
     void chainedRef(ref) {
-      // For Dart components, the existing ref is a Dart Ref object that
-      // converts the JS instance on the JS ref to the Dart component.
-      //
+      // For Dart components, the existing ref is a Dart Ref object that converts
+      // the JS instance on the JS ref to the Dart component.
       // So, we need to undo the wrapping around this chained ref and pass in the JS instance.
       //
-      // As per https://github.com/facebook/react/issues/13029
-      // it should be fine to set current this way.
-      // ignore: deprecated_member_use
-      assert(existingRef is! Ref, 'should be a JsRef; the factory should never let a Dart ref get here');
-      setProperty(existingRef, 'current', ref is react.Component ? ref.jsThis : ref);
+      // Update `.current` manually on the ref object.
+      // As per https://github.com/facebook/react/issues/13029 it should be fine to set current this way.
+      // Use setProperty so we don't have to expose a `JsRef.current` setter, which could be misused.
+      setProperty(existingRef, 'current', ref is react.Component ? ref.jsThis : ref); // ignore: deprecated_member_use
 
       if (newCallbackRef != null) newCallbackRef(ref);
     }
