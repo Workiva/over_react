@@ -61,7 +61,7 @@ main() {
           expect(cloneProps, originalProps);
         });
 
-        test('for a Dart component', () {
+        test('for a Dart Component', () {
           var original = TestComponentFactory(testProps, testChildren);
           var clone = cloneElement(original);
 
@@ -90,7 +90,7 @@ main() {
           expect(dartRenderedClone.props, dartRendered.props);
         });
 
-        test('for a Dart component version 2', () {
+        test('for a Dart Component2', () {
           var original = TestComponent2Factory(testProps, testChildren);
           var clone = cloneElement(original);
 
@@ -137,7 +137,7 @@ main() {
           expect(cloneProps, expectedPropsMerge);
         });
 
-        test('for a Dart component', () {
+        test('for a Dart Component', () {
           var original = TestComponentFactory(testProps, testChildren);
           var clone = cloneElement(original, testPropsToAdd);
 
@@ -148,7 +148,7 @@ main() {
           expect(cloneDartProps, expectedPropsMerge);
         });
 
-        test('for a Dart component version 2', () {
+        test('for a Dart Component2', () {
           var original = TestComponent2Factory(testProps, testChildren);
           var clone = cloneElement(original, testPropsToAdd);
 
@@ -188,7 +188,7 @@ main() {
           });
 
           group(', except', () {
-            test('for Dart components', () {
+            test('for a Dart Component', () {
               var original = TestComponentFactory(testProps, testChildren);
               var clone = cloneElement(original, testPropsToAdd);
 
@@ -199,7 +199,7 @@ main() {
               expect(style, same(testPropsToAdd['style']), reason: 'style should be the same object passed in, unaltered');
             });
 
-            test('for Dart components version 2', () {
+            test('for a Dart Component2', () {
               var original = TestComponent2Factory(testProps, testChildren);
               var clone = cloneElement(original, testPropsToAdd);
 
@@ -255,7 +255,7 @@ main() {
               expect(onClickWasCalled, isTrue, reason: 'event handler that was added via cloning was not called');
             });
 
-            test('for Dart components', () {
+            test('for a Dart Component', () {
               var original = TestComponentFactory(testProps, testChildren);
               var clone = cloneElement(original, testPropsToAdd);
 
@@ -272,7 +272,7 @@ main() {
               expect(onClickWasCalled, isTrue, reason: 'event handler that was added via cloning was not called');
             });
 
-            test('for Dart components version 2', () {
+            test('for a Dart Component2', () {
               var original = TestComponent2Factory(testProps, testChildren);
               var clone = cloneElement(original, testPropsToAdd);
 
@@ -318,7 +318,7 @@ main() {
           expect(clone.ref, equals(overrideKeyRefProps['ref']));
         });
 
-        test('for a Dart component', () {
+        test('for a Dart Component', () {
           ReactElement original;
           ReactElement clone;
 
@@ -345,7 +345,7 @@ main() {
               reason: '"key" and "ref" should not be visible to the rendered cloned component');
         });
 
-        test('for a Dart component version 2', () {
+        test('for a Dart Component2', () {
           ReactElement original;
           ReactElement clone;
 
@@ -379,7 +379,7 @@ main() {
           expect(cloneProps['children'], testOverrideChildren);
         });
 
-        test('for a Dart component', () {
+        test('for a Dart Component', () {
           var original = TestComponentFactory(testProps, testChildren);
           var clone = cloneElement(original, null, testOverrideChildren);
 
@@ -394,7 +394,7 @@ main() {
           expect(cloneDartProps['children'], testOverrideChildren);
         });
 
-        test('for a Dart component version 2', () {
+        test('for a Dart Component2', () {
           var original = TestComponent2Factory(testProps, testChildren);
           var clone = cloneElement(original, null, testOverrideChildren);
 
@@ -927,7 +927,7 @@ main() {
           });
 
           {
-            void sharedTests({@required bool isComponent2, @required bool isRendered}) {
+            void sharedGetPropsWrapperTests({@required bool isComponent2, @required bool isRendered}) {
               final testComponentFactory = isComponent2 ? TestComponentFactory : TestComponent2Factory;
               final oneLevelWrapperFactory = isComponent2 ? OneLevelWrapper : OneLevelWrapper2;
               final twoLevelWrapperFactory = isComponent2 ? TwoLevelWrapper : TwoLevelWrapper2;
@@ -993,16 +993,16 @@ main() {
               });
             }
 
-            sharedTests(isComponent2: false, isRendered: false);
-            sharedTests(isComponent2: false, isRendered: true);
-            sharedTests(isComponent2: true, isRendered: false);
-            sharedTests(isComponent2: true, isRendered: true);
+            sharedGetPropsWrapperTests(isComponent2: false, isRendered: false);
+            sharedGetPropsWrapperTests(isComponent2: false, isRendered: true);
+            sharedGetPropsWrapperTests(isComponent2: true, isRendered: false);
+            sharedGetPropsWrapperTests(isComponent2: true, isRendered: true);
           }
         });
       });
 
       {
-        void sharedTests(factory, {Matcher modificationThrowsMatcher = throwsUnsupportedError}) {
+        void sharedGetPropsUnmodifiableTests(factory, {Matcher modificationThrowsMatcher = throwsUnsupportedError}) {
           test('returns props as an unmodifiable map', () {
             ReactComponent renderedInstance = render(factory({
               'dartProp': 'dart'
@@ -1044,16 +1044,16 @@ main() {
           });
         }
 
-        group('for JS component', () {
-          sharedTests(testJsComponentFactory);
+        group('for a JS component', () {
+          sharedGetPropsUnmodifiableTests(testJsComponentFactory);
         });
 
-        group('for Dart Component', () {
-          sharedTests(TestComponentFactory);
+        group('for a Dart Component', () {
+          sharedGetPropsUnmodifiableTests(TestComponentFactory);
         });
 
-        group('for Dart Component2', () {
-          sharedTests(
+        group('for a Dart Component2', () {
+          sharedGetPropsUnmodifiableTests(
             TestComponent2Factory,
             // TODO uncomment once https://github.com/dart-lang/sdk/issues/15432 is fixed and we don't need an UnmodifiableMapView
             // modificationThrowsMatcher: throwsA(hasToStringValue(contains('object is not extensible'))),
