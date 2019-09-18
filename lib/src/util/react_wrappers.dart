@@ -25,7 +25,7 @@ import 'package:over_react/src/component_declaration/component_type_checking.dar
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_interop_helpers.dart' show jsifyAndAllowInterop;
-import 'package:react/react_client/react_interop.dart' hide createRef;
+import 'package:react/react_client/react_interop.dart' hide createRef, forwardRef;
 import 'package:react/react_dom.dart' as react_dom;
 
 // Notes
