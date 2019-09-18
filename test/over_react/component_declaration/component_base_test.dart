@@ -1132,7 +1132,7 @@ main() {
   });
 }
 
-dynamic getJsChildren(instance) => unconvertJsProps(instance)['children'];
+dynamic getJsChildren(instance) => JsBackedMap.backedBy(instance.props)['children'];
 
 dynamic getDartChildren(var renderedInstance) {
   assert(isDartComponent(renderedInstance));
