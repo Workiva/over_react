@@ -33,7 +33,6 @@ import '../../test_util/component2/two_level_wrapper.dart';
 import '../../test_util/one_level_wrapper.dart';
 import '../../test_util/test_util.dart';
 import '../../test_util/two_level_wrapper.dart';
-import '../component_declaration/component_base_test.dart';
 
 /// Main entry point for react wrappers testing
 main() {
@@ -79,8 +78,8 @@ main() {
           expect(originalShallowProps, clonePropsShallowProps);
 
           // Verify react-dart internal props are equal.
-          ReactDartComponentInternal originalInternal = originalProps['internal'];
-          ReactDartComponentInternal clonePropsInternal = cloneProps['internal'];
+          ReactDartComponentInternal originalInternal = originalProps['internal']; // ignore: deprecated_member_use
+          ReactDartComponentInternal clonePropsInternal = cloneProps['internal']; // ignore: deprecated_member_use
           expect(originalInternal.props, clonePropsInternal.props);
 
           var dartRendered = getDartComponent(render(original));
@@ -337,6 +336,7 @@ main() {
           // Verify that "key" and "ref" are overridden according to React
           expect(clone.key, overrideKeyRefProps['key']);
           expect(cloneRefCalled, isTrue);
+          expect(originalRefCalled, isFalse);
 
           var renderedClone = react_test_utils.findRenderedComponentWithTypeV2(renderedHolder, TestComponentFactory);
 
@@ -364,6 +364,7 @@ main() {
           // Verify that "key" and "ref" are overridden according to React
           expect(clone.key, overrideKeyRefProps['key']);
           expect(cloneRefCalled, isTrue);
+          expect(originalRefCalled, isFalse);
         });
       });
 
@@ -1253,7 +1254,7 @@ main() {
 }
 
 /// Helper component for testing a Dart (react-dart) React component with cloneElement.
-final TestComponentFactory = react.registerComponent(() => new TestComponent());
+final TestComponentFactory = registerComponent(() => new TestComponent()); // ignore: deprecated_member_use_from_same_package
 // ignore: deprecated_member_use
 class TestComponent extends react.Component {
   @override
@@ -1261,7 +1262,7 @@ class TestComponent extends react.Component {
 }
 
 /// Helper component for testing a Dart (react-dart) React component (version 2) with cloneElement.
-final TestComponent2Factory = react.registerComponent2(() => new TestComponent2());
+final TestComponent2Factory = registerComponent2(() => new TestComponent2());
 
 class TestComponent2 extends react.Component2 {
   @override
@@ -1281,7 +1282,7 @@ class PlainObjectStyleMap {
 }
 
 /// Helper component that renders whatever you tell it to. Necessary for rendering components with the 'ref' prop.
-final RenderingContainerComponentFactory = react.registerComponent(() => new RenderingContainerComponent());
+final RenderingContainerComponentFactory = registerComponent(() => new RenderingContainerComponent()); // ignore: deprecated_member_use_from_same_package
 
 // ignore: deprecated_member_use
 class RenderingContainerComponent extends react.Component {
@@ -1291,6 +1292,7 @@ class RenderingContainerComponent extends react.Component {
 
 // TODO update over_react_test's testJsComponentFactory with this implementation
 /// A factory for a JS composite component, for use in testing.
+// ignore: deprecated_member_use
 final testJsComponentFactoryProxy = ReactJsComponentFactoryProxy(React.createClass(ReactClassConfig(
   displayName: 'testJsComponent',
   render: allowInterop(() => Dom.div()('test js component')),
