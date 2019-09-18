@@ -675,101 +675,64 @@ main() {
         });
       });
 
-      test('returns props for a Dart Component ReactElement', () {
-        ReactElement instance = TestComponentFactory({
-          'dartProp': 'dart',
-          'style': testStyle,
-        }, testChildren);
+      {
+        void sharedGetPropsTests({@required bool isComponent2}) {
+          final factory = isComponent2 ? TestComponent2Factory : TestComponentFactory;
 
-        expect(getProps(instance), {
-          'dartProp': 'dart',
-          'style': testStyle,
-          'children': testChildren
-        });
-      });
+          group('returns props for a Dart ${isComponent2 ? 'Component2' : 'Component'}', () {
+            test('ReactElement', () {
+              ReactElement instance = factory({
+                'dartProp': 'dart',
+                'style': testStyle,
+              }, testChildren);
 
-      test('returns props for a Dart Component2 ReactElement', () {
-        ReactElement instance = TestComponent2Factory({
-          'dartProp': 'dart',
-          'style': testStyle,
-        }, testChildren);
+              expect(getProps(instance), {
+                'dartProp': 'dart',
+                'style': testStyle,
+                'children': testChildren
+              });
+            });
 
-        expect(getProps(instance), {
-          'dartProp': 'dart',
-          'style': testStyle,
-          'children': testChildren
-        });
-      });
+            test('ReactComponent', () {
+              ReactComponent renderedInstance = render(factory({
+                'dartProp': 'dart',
+                'style': testStyle,
+              }, testChildren));
 
-      test('returns props for a Dart Component ReactComponent', () {
-        ReactComponent renderedInstance = render(TestComponentFactory({
-          'dartProp': 'dart',
-          'style': testStyle,
-        }, testChildren));
+              expect(getProps(renderedInstance), {
+                'dartProp': 'dart',
+                'style': testStyle,
+                'children': testChildren
+              });
+            });
 
-        expect(getProps(renderedInstance), {
-          'dartProp': 'dart',
-          'style': testStyle,
-          'children': testChildren
-        });
-      });
+            test('ReactComponent, even when the props change', () {
+              final jacket = mount(factory({
+                'jsProp': 'js',
+                'style': testStyle,
+              }, testChildren));
+              expect(getProps(jacket.getInstance()), {
+                'jsProp': 'js',
+                'style': testStyle,
+                'children': testChildren
+              });
 
-      test('returns props for a Dart Component2 ReactComponent', () {
-        ReactComponent renderedInstance = render(TestComponent2Factory({
-          'dartProp': 'dart',
-          'style': testStyle,
-        }, testChildren));
+              jacket.rerender(factory({
+                'jsProp': 'other js',
+                'style': testStyle,
+              }, testChildren));
+              expect(getProps(jacket.getInstance()), {
+                'jsProp': 'other js',
+                'style': testStyle,
+                'children': testChildren
+              });
+            });
+          });
+        }
 
-        expect(getProps(renderedInstance), {
-          'dartProp': 'dart',
-          'style': testStyle,
-          'children': testChildren
-        });
-      });
-
-      test('returns props for a Dart component ReactComponent, even when the props change', () {
-        final jacket = mount(TestComponentFactory({
-          'jsProp': 'js',
-          'style': testStyle,
-        }, testChildren));
-        expect(getProps(jacket.getInstance()), {
-          'jsProp': 'js',
-          'style': testStyle,
-          'children': testChildren
-        });
-
-        jacket.rerender(TestComponentFactory({
-          'jsProp': 'other js',
-          'style': testStyle,
-        }, testChildren));
-        expect(getProps(jacket.getInstance()), {
-          'jsProp': 'other js',
-          'style': testStyle,
-          'children': testChildren
-        });
-      });
-
-      test('returns props for a Dart component ReactComponent, even when the props change', () {
-        final jacket = mount(TestComponent2Factory({
-          'jsProp': 'js',
-          'style': testStyle,
-        }, testChildren));
-        expect(getProps(jacket.getInstance()), {
-          'jsProp': 'js',
-          'style': testStyle,
-          'children': testChildren
-        });
-
-        jacket.rerender(TestComponent2Factory({
-          'jsProp': 'other js',
-          'style': testStyle,
-        }, testChildren));
-        expect(getProps(jacket.getInstance()), {
-          'jsProp': 'other js',
-          'style': testStyle,
-          'children': testChildren
-        });
-      });
+        sharedGetPropsTests(isComponent2: false);
+        sharedGetPropsTests(isComponent2: true);
+      }
 
       group('traverses children of Wrapper components', () {
         group('and returns props for a', () {
