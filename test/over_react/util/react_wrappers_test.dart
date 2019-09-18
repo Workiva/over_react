@@ -1286,7 +1286,7 @@ main() {
 }
 
 /// Helper component for testing a Dart (react-dart) React component with cloneElement.
-final TestComponentFactory = registerComponent(() => new TestComponent()); // ignore: deprecated_member_use_from_same_package
+final TestComponentFactory = react.registerComponent(() => new TestComponent()) as ReactDartComponentFactoryProxy; // ignore: deprecated_member_use
 // ignore: deprecated_member_use
 class TestComponent extends react.Component {
   @override
@@ -1294,7 +1294,7 @@ class TestComponent extends react.Component {
 }
 
 /// Helper component for testing a Dart (react-dart) React component (version 2) with cloneElement.
-final TestComponent2Factory = registerComponent2(() => new TestComponent2());
+final TestComponent2Factory = react.registerComponent2(() => new TestComponent2());
 
 class TestComponent2 extends react.Component2 {
   @override
@@ -1314,7 +1314,7 @@ class PlainObjectStyleMap {
 }
 
 /// Helper component that renders whatever you tell it to. Necessary for rendering components with the 'ref' prop.
-final RenderingContainerComponentFactory = registerComponent(() => new RenderingContainerComponent()); // ignore: deprecated_member_use_from_same_package
+final RenderingContainerComponentFactory = react.registerComponent(() => new RenderingContainerComponent()) as ReactDartComponentFactoryProxy; // ignore: deprecated_member_use
 
 // ignore: deprecated_member_use
 class RenderingContainerComponent extends react.Component {
