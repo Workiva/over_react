@@ -933,8 +933,6 @@ main() {
               final oneLevelWrapperFactory = isComponent2 ? OneLevelWrapper : OneLevelWrapper2;
               final twoLevelWrapperFactory = isComponent2 ? TwoLevelWrapper : TwoLevelWrapper2;
 
-              dynamic getArg(ReactElement instance) => isRendered ? render(instance) : instance;
-
               group('Dart ${isComponent2 ? 'Component2' : 'Component'} ${isRendered ? 'ReactComponent' : 'ReactElement'}', () {
                 test('', () {
                   final instance = oneLevelWrapperFactory()(
@@ -944,7 +942,8 @@ main() {
                     }, testChildren),
                   );
 
-                  expect(getProps(getArg(instance), traverseWrappers: true), {
+                  final getPropsArg = isRendered ? render(instance) : instance;
+                  expect(getProps(getPropsArg, traverseWrappers: true), {
                     'dartProp': 'dart',
                     'style': testStyle,
                     'children': testChildren
@@ -961,7 +960,8 @@ main() {
                     ),
                   );
 
-                  expect(getProps(getArg(instance), traverseWrappers: true), {
+                  final getPropsArg = isRendered ? render(instance) : instance;
+                  expect(getProps(getPropsArg, traverseWrappers: true), {
                     'dartProp': 'dart',
                     'style': testStyle,
                     'children': testChildren
@@ -974,7 +974,8 @@ main() {
                     'style': testStyle,
                   }, testChildren);
 
-                  expect(getProps(getArg(instance), traverseWrappers: true), {
+                  final getPropsArg = isRendered ? render(instance) : instance;
+                  expect(getProps(getPropsArg, traverseWrappers: true), {
                     'dartProp': 'dart',
                     'style': testStyle,
                     'children': testChildren
@@ -989,8 +990,39 @@ main() {
                     }, testChildren)
                   );
 
-                  expect(getProps(getArg(instance)), {'children': anything});
+                  final getPropsArg = isRendered ? render(instance) : instance;
+                  expect(getProps(getPropsArg), {'children': anything});
                 });
+
+                if (isRendered) {
+                  test('even when props change', () {
+                    final jacket = mount(oneLevelWrapperFactory()(
+                      testComponentFactory({
+                        'dartProp': 'dart',
+                        'style': testStyle,
+                      }, testChildren)
+                    ));
+
+                    expect(getProps(jacket.getInstance(), traverseWrappers: true), {
+                      'dartProp': 'dart',
+                      'style': testStyle,
+                      'children': testChildren
+                    });
+
+                    jacket.rerender(oneLevelWrapperFactory()(
+                      testComponentFactory({
+                        'dartProp': 'other dart',
+                        'style': testStyle,
+                      }, testChildren)
+                    ));
+
+                    expect(getProps(jacket.getInstance(), traverseWrappers: true), {
+                      'dartProp': 'other dart',
+                      'style': testStyle,
+                      'children': testChildren
+                    });
+                  });
+                }
               });
             }
 
