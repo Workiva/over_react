@@ -17,6 +17,7 @@ library over_react.component_declaration.component_base_test;
 import 'dart:async';
 import 'dart:collection';
 import 'dart:html';
+import 'dart:js_util';
 
 import 'package:over_react/over_react.dart' show Dom, DummyComponent, JsBackedMap, UiComponent2, ValidationUtil;
 import 'package:over_react/over_react.dart' as over_react;
@@ -1132,7 +1133,7 @@ main() {
   });
 }
 
-dynamic getJsChildren(instance) => unconvertJsProps(instance)['children'];
+dynamic getJsChildren(instance) => getProperty(instance.props, 'children');
 
 dynamic getDartChildren(var renderedInstance) {
   assert(isDartComponent(renderedInstance));

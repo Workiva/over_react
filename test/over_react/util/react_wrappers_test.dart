@@ -27,6 +27,7 @@ import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:test/test.dart';
 
+import '../component_declaration/component_base_test.dart';
 import '../../test_util/one_level_wrapper.dart';
 import '../../test_util/test_util.dart';
 import '../../test_util/two_level_wrapper.dart';
@@ -64,8 +65,8 @@ main() {
           // If these objects are equal, then they proxy the same JS props object.
           expect(clone.props, isNot(original.props));
 
-          Map originalProps = unconvertJsProps(original);
-          Map cloneProps = unconvertJsProps(clone);
+          Map originalProps = JsBackedMap.backedBy(original.props);
+          Map cloneProps = JsBackedMap.backedBy(clone.props);
 
           // Verify all props (including children, excluding react-dart internals) are equal.
           Map originalShallowProps = new Map.from(originalProps);
@@ -382,8 +383,8 @@ main() {
           var renderedClone = render(clone);
 
           // Verify that children are overridden according to React
-          Map cloneProps = unconvertJsProps(renderedClone);
-          expect(cloneProps['children'], testOverrideChildren);
+          var clonePropsChildren = getJsChildren(renderedClone);
+          expect(clonePropsChildren, testOverrideChildren);
 
           // Verify that children are overridden according to the Dart component.
           Map cloneDartProps = getDartComponent(renderedClone).props;
