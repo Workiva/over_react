@@ -403,8 +403,8 @@ main() {
           var renderedClone = render(clone);
 
           // Verify that children are overridden according to React
-          Map cloneProps = getJsChildren(renderedClone);
-          expect(cloneProps['children'], testOverrideChildren);
+          var clonePropsChildren = getJsChildren(renderedClone);
+          expect(clonePropsChildren, testOverrideChildren);
 
           // Verify that children are overridden according to the Dart component.
           Map cloneDartProps = getDartComponent(renderedClone).props;
