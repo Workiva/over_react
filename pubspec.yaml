@@ -47,5 +47,5 @@ dependency_overrides:
       ref: 5.1.0-wip
   over_react_test:
     git:
-      url: git@github.com:Workiva/over_react_test.git
+      url: https://github.com/Workiva/over_react_test.git
       ref: CPLAT-6704-add-proptype-test-helpers
