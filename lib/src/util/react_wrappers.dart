@@ -68,18 +68,6 @@ bool isDartComponent(/* ReactElement|ReactComponent|Element */ instance) {
   return _getDartComponentVersionFromInstance(instance) != null;
 }
 
-/// Returns [ReactClass.dartComponentVersion] if [type] is the [ReactClass] for a Dart component
-/// (a react-dart [ReactElement] or [ReactComponent]), and null otherwise.
-String _getDartComponentVersionFromType(dynamic type) {
-  // This check doesn't do much since it's an anonymous object, but it lets
-  // us safely cast to ReactClass.
-  if (type is ReactClass) {
-    return type.dartComponentVersion;
-  }
-
-  return null;
-}
-
 /// Returns [ReactClass.dartComponentVersion] if [instance] is a Dart component
 /// (react-dart [ReactElement] or [ReactComponent]), and null for other types of components.
 ///
@@ -96,7 +84,8 @@ String _getDartComponentVersionFromInstance(/* ReactElement|ReactComponent|Eleme
 
   // We need `type` if it's a ReactElement, or `constructor` if it's a `ReactComponent`.
   final type = getProperty(instance, 'type') ?? getProperty(instance, 'constructor');
-  return _getDartComponentVersionFromType(type);
+  // ignore: invalid_use_of_protected_member
+  return ReactDartComponentVersion.fromType(type);
 }
 
 /// Whether [Expando]s can be used on [ReactElement]s.
@@ -171,9 +160,9 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers:
     Map rawPropsOrCopy;
 
     final dartComponentVersion = _getDartComponentVersionFromInstance(instance);
-    if (dartComponentVersion == '1') {
+    if (dartComponentVersion == ReactDartComponentVersion.component) { // ignore: invalid_use_of_protected_member
       rawPropsOrCopy = _getExtendedProps(instance);
-    } else if (dartComponentVersion == '2') {
+    } else if (dartComponentVersion == ReactDartComponentVersion.component2) { // ignore: invalid_use_of_protected_member
       // TODO Since JS props are frozen don't wrap in UnmodifiableMapView once https://github.com/dart-lang/sdk/issues/15432 is fixed
       rawPropsOrCopy = JsBackedMap.backedBy(instance.props);
     } else {
@@ -242,10 +231,10 @@ bool _isCompositeComponent(dynamic instance) {
 ///   If these values might contain event handlers
 dynamic preparePropsChangeset(ReactElement element, Map newProps, [Iterable newChildren]) {
   final type = element.type;
-  final dartComponentVersion = _getDartComponentVersionFromType(type);
+  final dartComponentVersion = ReactDartComponentVersion.fromType(type); // ignore: invalid_use_of_protected_member
 
   // react.Component
-  if (dartComponentVersion == '1') {
+  if (dartComponentVersion == ReactDartComponentVersion.component) { // ignore: invalid_use_of_protected_member
     Map oldExtendedProps = _getInternal(element).props;
 
     Map extendedProps = new Map.from(oldExtendedProps);
@@ -265,7 +254,7 @@ dynamic preparePropsChangeset(ReactElement element, Map newProps, [Iterable newC
   }
 
   // react.Component2
-  if (dartComponentVersion == '2') {
+  if (dartComponentVersion == ReactDartComponentVersion.component2) { // ignore: invalid_use_of_protected_member
     return ReactDartComponentFactoryProxy2.generateExtendedJsProps(newProps);
   }
 
