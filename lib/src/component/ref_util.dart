@@ -46,8 +46,8 @@ import 'package:over_react/component_base.dart';
 ///     }
 ///
 /// Learn more: <https://reactjs.org/docs/refs-and-the-dom.html#creating-refs>.
-Ref<CurrentType> createRef<CurrentType>() {
-  return react_interop.createRef<CurrentType>();
+Ref<T> createRef<T>() {
+  return react_interop.createRef<T>();
 }
 
 /// Automatically passes a [Ref] through a component to one of its children.

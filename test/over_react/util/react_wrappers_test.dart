@@ -480,11 +480,11 @@ main() {
           expect(isDomElement(Dom.div()()), isTrue);
         });
 
-        test('a Dart component', () {
+        test('a Dart Component', () {
           expect(isDomElement(TestComponentFactory({})), isFalse);
         });
 
-        test('a Dart component version 2', () {
+        test('a Dart Component2', () {
           expect(isDomElement(TestComponent2Factory({})), isFalse);
         });
 
