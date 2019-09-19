@@ -31,7 +31,7 @@ void main() {
         );
 
         testPropTypesWithUiProps(componentProps: component,
-            customErrorMessage: 'ComponentTestProps.required');
+            customErrorMessageList: ['ComponentTestProps.required']);
       });
 
       group('on re-render', () {
@@ -60,7 +60,7 @@ void main() {
         );
 
         testPropTypesWithUiProps(componentProps: component,
-            customErrorMessage: 'ComponentTestProps.required');
+            customErrorMessageList: ['ComponentTestProps.required']);
       });
 
       group('on re-render', () {
@@ -89,7 +89,7 @@ void main() {
         );
 
         testPropTypesWithUiProps(componentProps: component,
-            customErrorMessage: 'ComponentTestProps.nullable');
+            customErrorMessageList: ['ComponentTestProps.nullable']);
       });
 
       group('on re-render', () {
@@ -168,7 +168,8 @@ void main() {
         );
 
         testPropTypesWithUiProps(componentProps: component,
-            customErrorMessage: 'ComponentTestProps.requiredAndLengthLimited');
+            customErrorMessageList:
+                ['ComponentTestProps.requiredAndLengthLimited']);
       });
 
       test('consumer check fires', () {
@@ -179,7 +180,7 @@ void main() {
         );
 
         testPropTypesWithUiProps(componentProps: component,
-            customErrorMessage: 'must have a length of 2');
+            customErrorMessageList: ['must have a length of 2']);
       });
     });
   });
