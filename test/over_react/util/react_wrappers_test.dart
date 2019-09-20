@@ -533,17 +533,17 @@ main() {
         expect(isDartComponent(instance), isFalse);
       });
 
-      test('returns true for an mounted instance (ReactComponent) of a Dart Component', () {
+      test('returns true for a mounted instance (ReactComponent) of a Dart Component', () {
         var renderedInstance = render(TestComponentFactory({}));
         expect(isDartComponent(renderedInstance), isTrue);
       });
 
-      test('returns true for an mounted instance (ReactComponent) of a Dart Component2', () {
+      test('returns true for a mounted instance (ReactComponent) of a Dart Component2', () {
         var renderedInstance = render(TestComponent2Factory({}));
         expect(isDartComponent(renderedInstance), isTrue);
       });
 
-      test('returns false for an mounted instance (ReactComponent) of a JS composite component', () {
+      test('returns false for a mounted instance (ReactComponent) of a JS composite component', () {
         var renderedInstance = render(testJsComponentFactory({}));
         expect(isDartComponent(renderedInstance), isFalse);
       });
