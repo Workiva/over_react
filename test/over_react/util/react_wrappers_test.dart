@@ -1178,7 +1178,6 @@ main() {
               runExpectations();
             });
 
-            // TODO: 3.0.0 this is failing on Dart 2 dart2js tests only.
             test('a JS composite component', () {
               var instanceWithRef = testJsComponentFactoryProxy({'ref': ref});
               var chainedRef = chainRef(instanceWithRef, (ref) {
@@ -1191,7 +1190,6 @@ main() {
               runExpectations();
             });
 
-            // TODO: 3.0.0 this is failing on Dart 2 dart2js tests only.
             test('a DOM component', () {
               var instanceWithRef = (Dom.div()..ref = ref)();
               var chainedRef = chainRef(instanceWithRef, (ref) {
