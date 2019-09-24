@@ -27,7 +27,8 @@ export 'package:react/react.dart' show
     SyntheticTouchEvent,
     SyntheticTransitionEvent,
     SyntheticUIEvent,
-    SyntheticWheelEvent;
+    SyntheticWheelEvent,
+    TypedSnapshot;
 
 export 'package:react/react_client/js_backed_map.dart' show JsBackedMap;
 
