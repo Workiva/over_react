@@ -18,5 +18,8 @@ import 'package:dart_dev/dart_dev.dart';
 final config = {
   ...workivaConfig,
   'test': TestTool()
-    ..buildArgs = ['--delete-conflicting-outputs']
+    ..testArgs = ['--preset=dartdevc'],
+  'test-release': TestTool()
+    ..buildArgs = ['--release']
+    ..testArgs = ['--preset=dart2js'],
 };

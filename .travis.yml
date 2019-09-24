@@ -1,18 +1,17 @@
 language: dart
 dart:
-  - 2.4
+  - 2.4.1
   - stable
   - dev
 script:
   - pub run build_runner build --delete-conflicting-outputs
   - git diff --exit-code
   - pub run dart_dev analyze
-  # TODO: Remove ignore on analyzer once the wdesk ecosystem is all on a Dart 2 compat major version and we no longer need a "pinned" dep
-  - pub run dependency_validator
+  - pub run dependency_validator -i test_html_builder
   # run tests on ddc output
-  - pub run dart_dev test -P dartdevc
+  - pub run dart_dev test
   # run tests on dart2js output
-  - pub run dart_dev test -P dart2js --build-args="-r"
+  - pub run dart_dev test-release
 
 cache:
   directories:
