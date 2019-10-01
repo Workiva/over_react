@@ -374,12 +374,12 @@ main() {
 
                 @Props(keyNamespace: "bar")
                 class _\$FooProps {}
-                
+
                 class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {}
 
                 @State(keyNamespace: "baz")
                 class _\$FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
-                
+
                 class FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
 
                 @Component(isWrapper: true)
@@ -389,6 +389,29 @@ main() {
               expect(declarations.props.meta.keyNamespace, 'bar');
               expect(declarations.state.meta.keyNamespace, 'baz');
               expect(declarations.component.meta.isWrapper, isTrue);
+            });
+            test('a stateful Component2', () {
+              setUpAndParse('''
+                @Factory()
+                UiFactory<FooProps> Foo = _\$Foo;
+
+                @Props(keyNamespace: "bar")
+                class _\$FooProps {}
+
+                class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {}
+
+                @State(keyNamespace: "baz")
+                class _\$FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
+
+                class FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
+
+                @Component2(isWrapper: true)
+                class FooComponent {}
+              ''');
+
+              expect(declarations.props.meta.keyNamespace, 'bar');
+              expect(declarations.state.meta.keyNamespace, 'baz');
+              expect(declarations.component2.meta.isWrapper, isTrue);
             });
 
             test('a props mixin', () {
@@ -445,6 +468,26 @@ main() {
               expect(declarations.props.meta.keyNamespace, 'bar');
               expect(declarations.state.meta.keyNamespace, 'baz');
               expect(declarations.component.meta.isWrapper, isTrue);
+            });
+
+            test('a stateful Component2', () {
+              setUpAndParse('''
+                @Factory()
+                UiFactory<FooProps> Foo = _\$Foo;
+
+                @Props(keyNamespace: "bar")
+                class _\$FooProps {}
+
+                @State(keyNamespace: "baz")
+                class _\$FooState {}
+
+                @Component2(isWrapper: true)
+                class FooComponent {}
+              ''');
+
+              expect(declarations.props.meta.keyNamespace, 'bar');
+              expect(declarations.state.meta.keyNamespace, 'baz');
+              expect(declarations.component2.meta.isWrapper, isTrue);
             });
 
             test('a props mixin', () {
@@ -1112,10 +1155,10 @@ main() {
               setUpAndParse('''
                 @Factory()
                 UiFactory<FooProps> Foo = _\$Foo;
-  
+
                 @Props()
                 class _\$FooProps {}
-  
+
                 @$componentAnnotationName(subtypeOf: const [])
                 class FooComponent {}
               ''');

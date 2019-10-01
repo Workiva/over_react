@@ -24,6 +24,7 @@ import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 
 import 'over_react/component/abstract_transition_test.dart' as abstract_transition_test;
+import 'over_react/component/abstract_transition2_test.dart' as abstract_transition2_test;
 import 'over_react/component/dom_components_test.dart' as dom_components_test;
 import 'over_react/component/error_boundary_mixin_test.dart' as error_boundary_mixin_test;
 import 'over_react/component/error_boundary_test.dart' as error_boundary_test;
@@ -39,6 +40,7 @@ void main() {
   enableTestMode();
 
   abstract_transition_test.main();
+  abstract_transition2_test.main();
   error_boundary_mixin_test.main();
   error_boundary_test.main();
   forward_ref_test.main();

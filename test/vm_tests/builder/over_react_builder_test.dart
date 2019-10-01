@@ -141,5 +141,21 @@ main() {
             '${p.absolute(p.current)}/test_fixtures/gold_output_files/basic_library.over_react.g.dart.goldFile');
       });
     });
+
+    group('for Component2:', () {
+      test('builds from basic component file', () async {
+        await checkBuildForFile(
+            'over_react|test_fixtures/source_files/component2/basic.dart',
+            'over_react|test_fixtures/source_files/component2/basic.over_react.g.dart',
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/component2/basic.over_react.g.dart.goldFile');
+      });
+
+      test('builds from basic multi-part library', () async {
+        await checkBuildForFile(
+            'over_react|test_fixtures/source_files/component2/basic_library.dart',
+            'over_react|test_fixtures/source_files/component2/basic_library.over_react.g.dart',
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/component2/basic_library.over_react.g.dart.goldFile');
+      });
+    });
   });
 }

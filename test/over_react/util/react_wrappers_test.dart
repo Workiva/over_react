@@ -471,6 +471,11 @@ main() {
           ReactComponent instance = render(TestComponentFactory({}));
           expect(isValidElement(instance), isFalse);
         });
+
+        test('a ReactComponent from Dart Component2', () {
+          ReactComponent instance = render(TestComponent2Factory({}));
+          expect(isValidElement(instance), isFalse);
+        });
       });
     });
 
