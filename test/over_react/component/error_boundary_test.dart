@@ -83,7 +83,7 @@ void main() {
       test('and calls `props.onComponentDidCatch`', () {
         expect(calls.single.keys, ['onComponentDidCatch']);
         final errArg = calls.single['onComponentDidCatch'][0];
-        expect(errArg, const isInstanceOf<FlawedComponentException>());
+        expect(errArg.toString(), contains('FlawedComponentException: I was thrown from inside FlawedComponent.componentWillUpdate!'));
 
         final infoArg = calls.single['onComponentDidCatch'][1];
         expect(infoArg, isNotNull);
