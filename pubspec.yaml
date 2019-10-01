@@ -16,7 +16,7 @@ dependencies:
   logging: ">=0.11.3+2 <1.0.0"
   meta: ^1.1.6
   path: ^1.5.1
-  react: ^5.0.0-alpha.0
+  react: ^5.0.0-alpha
   source_span: ^1.4.1
   transformer_utils: ^0.1.5
   w_common: ^1.13.0
