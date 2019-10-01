@@ -1,5 +1,25 @@
 # OverReact Changelog
 
+## 3.0.0
+
+__ReactJS 16.x Support__ _(and Dart 1 compatible)_
+
+* The underlying `react` dependency ([version 5.0.0](https://github.com/cleandart/react-dart/pull/214)) now provides ReactJS version 16 `.js` source files.
+* Support for the new / updated lifecycle methods from ReactJS 16 [will be released in version `3.1.0`](https://github.com/Workiva/over_react/milestone/3).
+
+__Breaking Changes__
+
+* [#314] The `.over_react.g.dart` part directive is required on Dart 2. The
+  builder now logs at the `SEVERE` level (which causes the build to fail) when
+  a missing part directive is detected. Previously, the builder only logged this
+  as a warning. In other words, the issue has been promoted from a runtime
+  exception to a build-time error.
+
+> Complete `3.0.0` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.5.2+dart2...3.0.0-alpha.0+dart2)
+> - [Dart 1](https://github.com/Workiva/over_react/compare/2.5.0+dart1...3.0.0-alpha.0+dart1)
+
 ## 2.5.2
 
 > Complete `2.5.2` Changsets:

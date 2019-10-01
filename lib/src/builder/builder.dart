@@ -88,7 +88,7 @@ class OverReactBuilder extends Builder {
     if (outputs.isNotEmpty) {
       // Verify that the library file has an `.over_react.g.dart` part.
       if (!hasOutputPartDirective()) {
-        log.warning('Missing "part \'$expectedPart\';".');
+        log.severe('Missing "part \'$expectedPart\';".');
       }
 
       await _writePart(buildStep, outputId, outputs);
