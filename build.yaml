@@ -7,7 +7,7 @@ builders:
     build_to: cache
 
   # Builder just for this package.
-  overReactLocalBuilder:
+  _over_react_local_builder:
     import: "package:over_react/builder.dart"
     builder_factories: ["overReactBuilder"]
     build_extensions: {".dart" : [".over_react.g.dart"]}
@@ -17,7 +17,7 @@ builders:
 targets:
   $default:
     builders:
-      over_react|overReactLocalBuilder:
+      over_react|_over_react_local_builder:
         enabled: true
         generate_for:
           exclude:
