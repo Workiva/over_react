@@ -12,21 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library over_react.guid_util;
+library test_component2.type_inheritance.subsubtype;
 
-import 'dart:math' show Random;
+import 'package:over_react/over_react.dart';
+import './subtype.dart';
 
-final Random _guidRandom = new Random();
+part 'subsubtype.over_react.g.dart';
 
-/// Returns a random GUID with the given [length] consisting of numbers and uppercase/lowercase letters.
-String generateGuid([int length = 4]) {
-  const String characters =
-      '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+@Factory()
+UiFactory<TestSubsubtype2Props> TestSubsubtype2 = _$TestSubsubtype2;
 
-  var guid = '';
-  for (var i = 0; i < length; i++) {
-    guid += characters[_guidRandom.nextInt(characters.length)];
-  }
+@Props()
+class _$TestSubsubtype2Props extends UiProps {}
 
-  return guid;
+@Component2(subtypeOf: TestSubtype2Component)
+class TestSubsubtype2Component extends UiComponent2<TestSubsubtype2Props> {
+  @override
+  render() => Dom.div()();
 }
+

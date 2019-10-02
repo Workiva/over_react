@@ -28,7 +28,7 @@ abstract class _$ErrorBoundaryPropsMixin implements UiProps {
   ///     )
   ///
   /// > See: <https://reactjs.org/docs/react-component.html#componentdidcatch>
-  Function(/*Error*/dynamic error, ReactErrorInfo info) onComponentDidCatch;
+  Function(/*Error*/ dynamic error, ReactErrorInfo info) onComponentDidCatch;
 
   /// A renderer that will be used to render "fallback" UI instead of the child
   /// component tree that crashed.
@@ -75,8 +75,8 @@ abstract class _$ErrorBoundaryStateMixin implements UiState {
 ///         return Dom.h3()('Error!');
 ///       }
 ///     }
-mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBoundaryStateMixin>
-    on UiStatefulComponent2<T, S> {
+mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin,
+    S extends ErrorBoundaryStateMixin> on UiStatefulComponent2<T, S> {
   @override
   Map get initialState => newState()..hasError = false;
 

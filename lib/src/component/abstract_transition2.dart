@@ -24,7 +24,8 @@ import 'package:over_react/component_base.dart' as component_base;
 part 'abstract_transition2.over_react.g.dart';
 
 @AbstractProps()
-abstract class _$AbstractTransition2Props extends UiProps with TransitionPropsMixin {}
+abstract class _$AbstractTransition2Props extends UiProps
+    with TransitionPropsMixin {}
 
 @AbstractState()
 abstract class _$AbstractTransition2State extends UiState {
@@ -82,8 +83,7 @@ abstract class _$AbstractTransition2State extends UiState {
 ///   * [toggle]
 @AbstractComponent2()
 abstract class AbstractTransitionComponent2<T extends AbstractTransition2Props,
-                                           S extends AbstractTransition2State>
-  extends UiStatefulComponent2<T, S> {
+    S extends AbstractTransition2State> extends UiStatefulComponent2<T, S> {
   /// The DOM attribute used to indicate the current transition phase,
   /// added in test mode in [getTransitionTestAttributes].
   ///
@@ -98,19 +98,18 @@ abstract class AbstractTransitionComponent2<T extends AbstractTransition2Props,
 
   @override
   get consumedProps => const [
-    AbstractTransitionProps.meta,
-    TransitionPropsMixin.meta,
-  ];
+        AbstractTransitionProps.meta,
+        TransitionPropsMixin.meta,
+      ];
 
   @override
-  Map get defaultProps => (newProps()
-    ..addProps(TransitionPropsMixin.defaultProps)
-  );
+  Map get defaultProps =>
+      (newProps()..addProps(TransitionPropsMixin.defaultProps));
 
   @override
   Map get initialState => (newState()
-    ..transitionPhase = this.initiallyShown ? TransitionPhase.SHOWN : TransitionPhase.HIDDEN
-  );
+    ..transitionPhase =
+        this.initiallyShown ? TransitionPhase.SHOWN : TransitionPhase.HIDDEN);
 
   /// Stream for listening to `transitionend` events on the [AbstractTransitionComponent].
   StreamSubscription _endTransitionSubscription;
@@ -133,12 +132,14 @@ abstract class AbstractTransitionComponent2<T extends AbstractTransition2Props,
   /// The number of `transitionend` events that occur when the transition node is shown.
   ///
   /// Defaults to `1` to match previous behavior in the case where `props.transitionCount` is `null`.
-  int get transitionInCount => props.transitionInCount ?? props.transitionCount ?? 1;
+  int get transitionInCount =>
+      props.transitionInCount ?? props.transitionCount ?? 1;
 
   /// The number of `transitionend` events that occur when the transition node is hidden.
   ///
   /// Defaults to `1` to match previous behavior in the case where `props.transitionCount` is `null`.
-  int get transitionOutCount => props.transitionOutCount ?? props.transitionCount ?? 1;
+  int get transitionOutCount =>
+      props.transitionOutCount ?? props.transitionCount ?? 1;
 
   /// The duration that can elapse before a transition timeout occurs.
   Duration get transitionTimeout => const Duration(seconds: 1);
@@ -166,8 +167,9 @@ abstract class AbstractTransitionComponent2<T extends AbstractTransition2Props,
     prepareShow();
 
     setState(newState()
-      ..transitionPhase = hasTransitionIn ? TransitionPhase.PRE_SHOWING : TransitionPhase.SHOWN
-    );
+      ..transitionPhase = hasTransitionIn
+          ? TransitionPhase.PRE_SHOWING
+          : TransitionPhase.SHOWN);
   }
 
   /// Begin hiding the [AbstractTransitionComponent], unless:
@@ -186,15 +188,16 @@ abstract class AbstractTransitionComponent2<T extends AbstractTransition2Props,
     prepareHide();
 
     setState(newState()
-      ..transitionPhase = hasTransitionOut ? TransitionPhase.HIDING : TransitionPhase.HIDDEN
-    );
+      ..transitionPhase =
+          hasTransitionOut ? TransitionPhase.HIDING : TransitionPhase.HIDDEN);
   }
 
   /// Listens for the next `transitionend` event and invokes a callback after
   /// the event is dispatched.
   @mustCallSuper
   void onNextTransitionEnd(complete()) {
-    var transitionCount = isOrWillBeHidden ? transitionOutCount : transitionInCount;
+    var transitionCount =
+        isOrWillBeHidden ? transitionOutCount : transitionInCount;
 
     _cancelTransitionEventListener();
     _cancelTransitionEndTimer();
@@ -202,15 +205,18 @@ abstract class AbstractTransitionComponent2<T extends AbstractTransition2Props,
     _transitionEndTimer = new Timer(transitionTimeout, () {
       assert(ValidationUtil.warn(
           'The number of transitions expected to complete have not completed. Something is most likely wrong.',
-          this
-      ));
+          this));
 
       _cancelTransitionEventListener();
 
       complete();
     });
 
-    _endTransitionSubscription = getTransitionDomNode()?.onTransitionEnd?.skip(transitionCount - 1)?.take(1)?.listen((_) {
+    _endTransitionSubscription = getTransitionDomNode()
+        ?.onTransitionEnd
+        ?.skip(transitionCount - 1)
+        ?.take(1)
+        ?.listen((_) {
       _cancelTransitionEndTimer();
 
       complete();
@@ -230,9 +236,7 @@ abstract class AbstractTransitionComponent2<T extends AbstractTransition2Props,
   /// Whether the [AbstractTransitionComponent] should render.
   ///
   /// If this is false your [render] should return false.
-  bool get shouldRender =>
-      state.transitionPhase != TransitionPhase.HIDDEN;
-
+  bool get shouldRender => state.transitionPhase != TransitionPhase.HIDDEN;
 
   /// Whether the [AbstractTransitionComponent] is in a "visible" state.
   ///
@@ -290,7 +294,8 @@ abstract class AbstractTransitionComponent2<T extends AbstractTransition2Props,
           handleShowing();
           break;
         case TransitionPhase.HIDING:
-          _transitionNotGuaranteed = tPrevState.transitionPhase == TransitionPhase.SHOWING;
+          _transitionNotGuaranteed =
+              tPrevState.transitionPhase == TransitionPhase.SHOWING;
           handleHiding();
           break;
         case TransitionPhase.HIDDEN:
@@ -328,18 +333,14 @@ abstract class AbstractTransitionComponent2<T extends AbstractTransition2Props,
   void handlePreShowing() {
     onNextTransitionEnd(() {
       if (state.transitionPhase == TransitionPhase.SHOWING) {
-        setState(newState()
-          ..transitionPhase = TransitionPhase.SHOWN
-        );
+        setState(newState()..transitionPhase = TransitionPhase.SHOWN);
       }
     });
 
     // Force a repaint by accessing `offsetHeight` so that the changes to CSS classes are guaranteed to trigger a transition when it is applied
     getTransitionDomNode()?.offsetHeight;
 
-    setState(newState()
-      ..transitionPhase = TransitionPhase.SHOWING
-    );
+    setState(newState()..transitionPhase = TransitionPhase.SHOWING);
   }
 
   /// Method that will be called when [AbstractTransitionComponent]  first enters the `showing` state.
@@ -355,9 +356,7 @@ abstract class AbstractTransitionComponent2<T extends AbstractTransition2Props,
       //
       // TODO: possibly remove microtask once using react-dart 1.0.0
       scheduleMicrotask(() {
-        setState(newState()
-          ..transitionPhase = TransitionPhase.HIDDEN
-        );
+        setState(newState()..transitionPhase = TransitionPhase.HIDDEN);
       });
 
       _cancelTransitionEventListener();
@@ -365,9 +364,7 @@ abstract class AbstractTransitionComponent2<T extends AbstractTransition2Props,
     } else {
       onNextTransitionEnd(() {
         if (!_isUnmounted && state.transitionPhase == TransitionPhase.HIDING) {
-          setState(newState()
-            ..transitionPhase = TransitionPhase.HIDDEN
-          );
+          setState(newState()..transitionPhase = TransitionPhase.HIDDEN);
         }
       });
     }
@@ -379,7 +376,6 @@ abstract class AbstractTransitionComponent2<T extends AbstractTransition2Props,
       props.onDidHide();
     }
   }
-
 
   /// Method that will be called when [AbstractTransitionComponent]  first enters the `shown` state.
   void handleShown() {

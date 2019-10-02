@@ -48,19 +48,22 @@ mixin _GeneratedUiComponentStubs<TProps extends UiProps>
     implements GeneratedClass {
   /// The default consumed props, taken from the keys generated in the associated @[annotations.Props] class.
   @toBeGenerated
-  Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
+  Iterable<component_base.ConsumedProps> get $defaultConsumedProps =>
+      throw new UngeneratedError(member: #$defaultConsumedProps);
 
   /// The keys for the non-forwarding props defined in this component.
   ///
   /// For generated components, this defaults to the keys generated in the associated @[annotations.Props] class
   /// if this getter is not overridden.
-  Iterable<component_base.ConsumedProps> get consumedProps => $defaultConsumedProps;
+  Iterable<component_base.ConsumedProps> get consumedProps =>
+      $defaultConsumedProps;
 
   /// Returns a typed props object backed by the specified [propsMap].
   /// Required to properly instantiate the generic [TProps] class.
   @override
   @toBeGenerated
-  TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedPropsFactory);
+  TProps typedPropsFactory(Map propsMap) =>
+      throw new UngeneratedError(member: #typedPropsFactory);
 }
 
 /// See: [component_base.UiComponent]
@@ -71,9 +74,7 @@ mixin _GeneratedUiComponentStubs<TProps extends UiProps>
 @Deprecated('4.0.0')
 abstract class UiComponent<TProps extends UiProps>
     extends component_base.UiComponent<TProps>
-    with
-        GeneratedClass,
-        _GeneratedUiComponentStubs<TProps> {
+    with GeneratedClass, _GeneratedUiComponentStubs<TProps> {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiComponent() {
     _throwIfNotGenerated();
@@ -86,11 +87,10 @@ abstract class UiComponent<TProps extends UiProps>
 ///
 /// __Deprecated.__ Use [UiStatefulComponent2] instead. Will be removed in the `4.0.0` release.
 @Deprecated('4.0.0')
-abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState>
+abstract class UiStatefulComponent<TProps extends UiProps,
+        TState extends UiState>
     extends component_base.UiStatefulComponent<TProps, TState>
-    with
-        GeneratedClass,
-        _GeneratedUiComponentStubs<TProps> {
+    with GeneratedClass, _GeneratedUiComponentStubs<TProps> {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiStatefulComponent() {
     _throwIfNotGenerated();
@@ -98,7 +98,8 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 
   @override
   @toBeGenerated
-  TState typedStateFactory(Map stateMap) => throw new UngeneratedError(member: #typedStateFactory,
+  TState typedStateFactory(Map stateMap) => throw new UngeneratedError(
+      member: #typedStateFactory,
       message: GeneratedErrorMessages.typedStateFactory);
 }
 
@@ -115,9 +116,13 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
     _throwIfNotGenerated();
   }
 
-  @toBeGenerated String get propKeyNamespace => throw new UngeneratedError(member: #propKeyNamespace);
+  @toBeGenerated
+  String get propKeyNamespace =>
+      throw new UngeneratedError(member: #propKeyNamespace);
 
-  @override @toBeGenerated Map get props => throw new UngeneratedError(member: #props);
+  @override
+  @toBeGenerated
+  Map get props => throw new UngeneratedError(member: #props);
 }
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.
@@ -129,9 +134,10 @@ abstract class UiState extends component_base.UiState with GeneratedClass {
     _throwIfNotGenerated();
   }
 
-  @override @toBeGenerated Map get state => throw new UngeneratedError(member: #state);
+  @override
+  @toBeGenerated
+  Map get state => throw new UngeneratedError(member: #state);
 }
-
 
 // ----------------------------------------------------------------------
 //   Errors/annotations related to code generation
@@ -153,24 +159,24 @@ class _ToBeGenerated {
 class UngeneratedError extends Error implements UnimplementedError {
   @override
   final String message;
-  UngeneratedError({String message, Symbol member}) :
-      this.message = '${member != null ? '' : '`$member` should be implemented by code generation.\n\n'}$message';
+  UngeneratedError({String message, Symbol member})
+      : this.message =
+            '${member != null ? '' : '`$member` should be implemented by code generation.\n\n'}$message';
 
   @override
-  String toString() =>
-      "UngeneratedError: ${message.trimRight()}.\n\n"
+  String toString() => "UngeneratedError: ${message.trimRight()}.\n\n"
       "Ensure that you're running a build via build_runner.";
 }
 
 /// Thrown when a class is directly instantiated when it should not be.
 class IllegalInstantiationError extends Error {
   final String message;
-  IllegalInstantiationError({String message, Type runtimeType}) :
-      this.message = message ?? "`$runtimeType` cannot be instantated directly, but only indirectly via the UiFactory";
+  IllegalInstantiationError({String message, Type runtimeType})
+      : this.message = message ??
+            "`$runtimeType` cannot be instantated directly, but only indirectly via the UiFactory";
 
   @override
-  String toString() =>
-      "IllegalInstantiationError: $message.\n\n"
+  String toString() => "IllegalInstantiationError: $message.\n\n"
       "Be sure to follow usage instructions for over_react component classes.\n\n"
       "If you need to do something extra custom and want to implement everything without code generation, "
       "base classes are available by importing the "
@@ -178,14 +184,12 @@ class IllegalInstantiationError extends Error {
       "library directly. ";
 }
 
-
 abstract class GeneratedErrorMessages {
   static const String typedStateFactory = '\n\n'
-        'This error may be due to your `UiState` class not being annotated with `@State()`,\n'
-        'or because you are extending a stateful component without redeclaring your own `@State()`, like so:\n\n'
-        '    @State()\n';
+      'This error may be due to your `UiState` class not being annotated with `@State()`,\n'
+      'or because you are extending a stateful component without redeclaring your own `@State()`, like so:\n\n'
+      '    @State()\n';
 
   static const String component1AnnotationOnComponent2 = '\n\n'
-        'This error may be due to using @Component() instead of @Component2() on your component extending from UiComponent2.';
+      'This error may be due to using @Component() instead of @Component2() on your component extending from UiComponent2.';
 }
-

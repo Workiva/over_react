@@ -90,13 +90,14 @@ Ref<T> createRef<T>() {
 ///     }
 ///
 /// Learn more: <https://reactjs.org/docs/forwarding-refs.html>.
-UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>(
-    Function(TProps props, Ref ref) wrapperFunction) {
-
+UiFactory<TProps> Function(UiFactory<TProps>)
+    forwardRef<TProps extends UiProps>(
+        Function(TProps props, Ref ref) wrapperFunction) {
   UiFactory<TProps> wrapWithForwardRef(UiFactory<TProps> factory) {
     Object wrapProps(Map props, Ref ref) {
       return wrapperFunction(factory(props), ref);
     }
+
     ReactComponentFactoryProxy hoc = react_interop.forwardRef(wrapProps);
 
     TProps forwardedFactory([Map props]) {

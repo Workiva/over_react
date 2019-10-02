@@ -15,18 +15,19 @@
 library over_react.handler_chain_util;
 
 import 'package:over_react/over_react.dart' show ResizeSensorEvent;
-import 'package:react/react.dart' show
-    SyntheticEvent,
-    SyntheticAnimationEvent,
-    SyntheticClipboardEvent,
-    SyntheticKeyboardEvent,
-    SyntheticFocusEvent,
-    SyntheticFormEvent,
-    SyntheticMouseEvent,
-    SyntheticTouchEvent,
-    SyntheticTransitionEvent,
-    SyntheticUIEvent,
-    SyntheticWheelEvent;
+import 'package:react/react.dart'
+    show
+        SyntheticEvent,
+        SyntheticAnimationEvent,
+        SyntheticClipboardEvent,
+        SyntheticKeyboardEvent,
+        SyntheticFocusEvent,
+        SyntheticFormEvent,
+        SyntheticMouseEvent,
+        SyntheticTouchEvent,
+        SyntheticTransitionEvent,
+        SyntheticUIEvent,
+        SyntheticWheelEvent;
 
 import '../component/callback_typedefs.dart';
 
@@ -69,11 +70,12 @@ const callbacks = CallbackUtil0Arg();
 /// Provides chaining utilities for [ResizeSensorHandler].
 const resizeEventCallbacks = CallbackUtil1Arg<ResizeSensorEvent>();
 
-typedef Callback0Arg                 = dynamic Function();
-typedef Callback1Arg<T1>             = dynamic Function(T1 arg1);
-typedef Callback2Arg<T1, T2>         = dynamic Function(T1 arg1, T2 arg2);
-typedef Callback3Arg<T1, T2, T3>     = dynamic Function(T1 arg1, T2 arg2, T3 arg3);
-typedef Callback4Arg<T1, T2, T3, T4> = dynamic Function(T1 arg1, T2 arg2, T3 arg3, T4 arg4);
+typedef Callback0Arg = dynamic Function();
+typedef Callback1Arg<T1> = dynamic Function(T1 arg1);
+typedef Callback2Arg<T1, T2> = dynamic Function(T1 arg1, T2 arg2);
+typedef Callback3Arg<T1, T2, T3> = dynamic Function(T1 arg1, T2 arg2, T3 arg3);
+typedef Callback4Arg<T1, T2, T3, T4> = dynamic Function(
+    T1 arg1, T2 arg2, T3 arg3, T4 arg4);
 
 /// Generic callback chaining utilities for callbacks with no arguments.
 class CallbackUtil0Arg extends CallbackUtil {
@@ -96,6 +98,7 @@ class CallbackUtil0Arg extends CallbackUtil {
 
       if (aDidReturnFalse || bDidReturnFalse) return false;
     }
+
     return chained;
   }
 
@@ -125,6 +128,7 @@ class CallbackUtil1Arg<T> extends CallbackUtil {
 
       if (aDidReturnFalse || bDidReturnFalse) return false;
     }
+
     return chained;
   }
 
@@ -154,6 +158,7 @@ class CallbackUtil2Arg<T1, T2> extends CallbackUtil {
 
       if (aDidReturnFalse || bDidReturnFalse) return false;
     }
+
     return chained;
   }
 
@@ -172,7 +177,8 @@ class CallbackUtil3Arg<T1, T2, T3> extends CallbackUtil {
   Callback3Arg<T1, T2, T3> get noop => _noop;
 
   @override
-  Callback3Arg<T1, T2, T3> chain(Callback3Arg<T1, T2, T3> a, Callback3Arg<T1, T2, T3> b) {
+  Callback3Arg<T1, T2, T3> chain(
+      Callback3Arg<T1, T2, T3> a, Callback3Arg<T1, T2, T3> b) {
     if (a == null && b == null) return noop;
     if (a == null) return b;
     if (b == null) return a;
@@ -183,11 +189,13 @@ class CallbackUtil3Arg<T1, T2, T3> extends CallbackUtil {
 
       if (aDidReturnFalse || bDidReturnFalse) return false;
     }
+
     return chained;
   }
 
   @override
-  Callback3Arg<T1, T2, T3> chainFromList(List<Callback3Arg<T1, T2, T3>> callbacks) =>
+  Callback3Arg<T1, T2, T3> chainFromList(
+          List<Callback3Arg<T1, T2, T3>> callbacks) =>
       callbacks.fold(null, chain) ?? noop;
 }
 
@@ -201,7 +209,8 @@ class CallbackUtil4Arg<T1, T2, T3, T4> extends CallbackUtil {
   Callback4Arg<T1, T2, T3, T4> get noop => _noop;
 
   @override
-  Callback4Arg<T1, T2, T3, T4> chain(Callback4Arg<T1, T2, T3, T4> a, Callback4Arg<T1, T2, T3, T4> b) {
+  Callback4Arg<T1, T2, T3, T4> chain(
+      Callback4Arg<T1, T2, T3, T4> a, Callback4Arg<T1, T2, T3, T4> b) {
     if (a == null && b == null) return noop;
     if (a == null) return b;
     if (b == null) return a;
@@ -212,11 +221,13 @@ class CallbackUtil4Arg<T1, T2, T3, T4> extends CallbackUtil {
 
       if (aDidReturnFalse || bDidReturnFalse) return false;
     }
+
     return chained;
   }
 
   @override
-  Callback4Arg<T1, T2, T3, T4> chainFromList(List<Callback4Arg<T1, T2, T3, T4>> callbacks) =>
+  Callback4Arg<T1, T2, T3, T4> chainFromList(
+          List<Callback4Arg<T1, T2, T3, T4>> callbacks) =>
       callbacks.fold(null, chain) ?? noop;
 }
 

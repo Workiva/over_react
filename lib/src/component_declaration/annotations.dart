@@ -101,10 +101,7 @@ class Component {
   ///     isComponentOfType(Bar()(), Foo); // true (due to parent type-checking)
   final Type subtypeOf;
 
-  const Component({
-      this.isWrapper: false,
-      this.subtypeOf
-  });
+  const Component({this.isWrapper: false, this.subtypeOf});
 }
 
 /// Annotation used with the `over_react` builder to declare a `UiComponent2` class for a component.
@@ -123,13 +120,13 @@ class Component2 implements Component {
 
   /// Whether the component serves as a React error boundary.
   ///
-  /// When set to `true`, this component will be able to make use of 
+  /// When set to `true`, this component will be able to make use of
   /// the `componentDidCatch` and `getDerivedStateFromError` component lifecycle
   /// methods in order to "catch" ReactJS errors from within its child component tree.
   ///
   /// Check out the `ErrorBoundary` higher-order component for an example implementation.
   ///
-  ///  > TODO (CPLAT-5037): Add an example of how to utilize the 
+  ///  > TODO (CPLAT-5037): Add an example of how to utilize the
   ///   `ErrorBoundaryMixin`, `ErrorBoundaryPropsMixin` and `ErrorBoundaryStateMixin` classes
   ///   in order to add default error boundary component behaviors to custom error boundaries.
   ///
@@ -162,9 +159,9 @@ class Component2 implements Component {
   final Type subtypeOf;
 
   const Component2({
-      this.isWrapper: false,
-      this.subtypeOf,
-      this.isErrorBoundary: false,
+    this.isWrapper: false,
+    this.subtypeOf,
+    this.isErrorBoundary: false,
   });
 }
 
@@ -281,7 +278,8 @@ const Accessor requiredProp = const Accessor(isRequired: true);
 ///       @nullableRequiredProp
 ///       String nullableRequiredProp;
 ///     }
-const Accessor nullableRequiredProp = const Accessor(isRequired: true, isNullable: true);
+const Accessor nullableRequiredProp =
+    const Accessor(isRequired: true, isNullable: true);
 
 /// Annotation used with the `over_react` builder to customize individual accessors (props/state fields).
 ///

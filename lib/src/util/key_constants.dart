@@ -28,7 +28,7 @@ abstract class KeyValue {
   static const String ALT = 'Alt';
   static const String CAPS_LOCK = 'CapsLock';
   static const String ESC = 'Escape';
-  static const String SPACE  = ' ';
+  static const String SPACE = ' ';
   static const String PAGE_UP = 'PageUp';
   static const String PAGE_DOWN = 'PageDown';
   static const String END = 'End';
@@ -38,7 +38,6 @@ abstract class KeyValue {
   static const String ARROW_RIGHT = 'ArrowRight';
   static const String ARROW_DOWN = 'ArrowDown';
   static const String DELETE = 'Delete';
-
 
   /// All of the [KeyValue] values.
   static const List<String> values = const <String>[

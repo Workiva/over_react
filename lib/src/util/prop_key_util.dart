@@ -21,7 +21,8 @@ import 'dart:collection';
 /// __Example:__
 ///
 ///     var valuePropKey = getPropKey((props) => props.value, TextInput);
-String getPropKey<T extends Map>(void accessProp(T keySpy), T factory(Map props)) {
+String getPropKey<T extends Map>(
+    void accessProp(T keySpy), T factory(Map props)) {
   return _getKey((Map keySpy) {
     return accessProp(factory(keySpy));
   });
@@ -50,8 +51,9 @@ class _SingleKeyAccessMapSpy extends MapView {
   }
 
   @override
-  operator[](key) {
-    if (_hasBeenAccessed) throw new StateError('A key has already been accessed.');
+  operator [](key) {
+    if (_hasBeenAccessed)
+      throw new StateError('A key has already been accessed.');
 
     _key = key;
     _hasBeenAccessed = true;

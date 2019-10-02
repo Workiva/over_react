@@ -34,7 +34,8 @@ import 'component_type_checking.dart';
 import 'disposable_manager_proxy.dart';
 import 'util.dart';
 
-export 'component_type_checking.dart' show isComponentOfType, isValidElementOfType;
+export 'component_type_checking.dart'
+    show isComponentOfType, isValidElementOfType;
 
 /// Helper function that wraps react.registerComponent, and allows attachment of additional
 /// component factory metadata.
@@ -49,16 +50,18 @@ export 'component_type_checking.dart' show isComponentOfType, isValidElementOfTy
 ///
 /// __Deprecated.__ Use [registerComponent2] instead.
 @Deprecated('4.0.0')
-ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFactory(), {
-    bool isWrapper: false,
-    // ignore: deprecated_member_use
-    ReactDartComponentFactoryProxy parentType,
-    UiFactory builderFactory,
-    Type componentClass,
-    String displayName,
+ReactDartComponentFactoryProxy registerComponent(
+  react.Component dartComponentFactory(), {
+  bool isWrapper: false,
+  // ignore: deprecated_member_use
+  ReactDartComponentFactoryProxy parentType,
+  UiFactory builderFactory,
+  Type componentClass,
+  String displayName,
 }) {
   // ignore: deprecated_member_use
-  ReactDartComponentFactoryProxy reactComponentFactory = react.registerComponent(dartComponentFactory);
+  ReactDartComponentFactoryProxy reactComponentFactory =
+      react.registerComponent(dartComponentFactory);
 
   if (displayName != null) {
     reactComponentFactory.reactClass.displayName = displayName;
@@ -67,11 +70,11 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
   registerComponentTypeAlias(reactComponentFactory, builderFactory);
   registerComponentTypeAlias(reactComponentFactory, componentClass);
 
-  setComponentTypeMeta(reactComponentFactory, isWrapper: isWrapper, parentType: parentType);
+  setComponentTypeMeta(reactComponentFactory,
+      isWrapper: isWrapper, parentType: parentType);
 
   return reactComponentFactory;
 }
-
 
 /// Helper function that wraps [registerComponent], and allows an easier way to register abstract components with the
 /// main purpose of type-checking against the abstract component.
@@ -80,8 +83,11 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
 ///
 ///     var $`AbstractComponentClassName`Factory = registerAbstractComponent(`AbstractComponentClassName`);
 ///
-ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentClass, {ReactDartComponentFactoryProxy parentType}) =>
-    registerComponent(() => new DummyComponent(), componentClass: abstractComponentClass, parentType: parentType);
+ReactDartComponentFactoryProxy registerAbstractComponent(
+        Type abstractComponentClass,
+        {ReactDartComponentFactoryProxy parentType}) =>
+    registerComponent(() => new DummyComponent(),
+        componentClass: abstractComponentClass, parentType: parentType);
 
 /// A function that returns a new [TProps] instance, optionally backed by the specified [backingProps].
 ///
@@ -142,7 +148,8 @@ typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 ///
 /// __Deprecated.__ Use [UiComponent2] instead. Will be removed in the `4.0.0` release.
 @Deprecated('4.0.0')
-abstract class UiComponent<TProps extends UiProps> extends react.Component with DisposableManagerProxy {
+abstract class UiComponent<TProps extends UiProps> extends react.Component
+    with DisposableManagerProxy {
   /// The props for the non-forwarding props defined in this component.
   Iterable<ConsumedProps> get consumedProps => null;
 
@@ -152,7 +159,9 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component with 
   ///
   /// > Related [copyUnconsumedDomProps]
   Map copyUnconsumedProps() {
-    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
+    var consumedPropKeys = consumedProps
+            ?.map((ConsumedProps consumedProps) => consumedProps.keys) ??
+        const [];
 
     return copyProps(keySetsToOmit: consumedPropKeys);
   }
@@ -163,20 +172,25 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component with 
   ///
   /// > Related [copyUnconsumedProps]
   Map copyUnconsumedDomProps() {
-    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
+    var consumedPropKeys = consumedProps
+            ?.map((ConsumedProps consumedProps) => consumedProps.keys) ??
+        const [];
 
     return copyProps(onlyCopyDomProps: true, keySetsToOmit: consumedPropKeys);
   }
 
   /// Returns a copy of this component's props with React props optionally omitted, and
   /// with the specified [keysToOmit] and [keySetsToOmit] omitted.
-  Map copyProps({bool omitReservedReactProps: true, bool onlyCopyDomProps: false, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
+  Map copyProps(
+      {bool omitReservedReactProps: true,
+      bool onlyCopyDomProps: false,
+      Iterable keysToOmit,
+      Iterable<Iterable> keySetsToOmit}) {
     return getPropsToForward(this.props,
         omitReactProps: omitReservedReactProps,
         onlyCopyDomProps: onlyCopyDomProps,
         keysToOmit: keysToOmit,
-        keySetsToOmit: keySetsToOmit
-    );
+        keySetsToOmit: keySetsToOmit);
   }
 
   /// Throws a [PropError] if [appliedProps] are invalid.
@@ -254,11 +268,14 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component with 
     var unwrappedProps = this.unwrappedProps;
     var typedProps = _typedPropsCache[unwrappedProps];
     if (typedProps == null) {
-      typedProps = typedPropsFactory(inReactDevMode ? _WarnOnModify(unwrappedProps, true) : unwrappedProps);
+      typedProps = typedPropsFactory(inReactDevMode
+          ? _WarnOnModify(unwrappedProps, true)
+          : unwrappedProps);
       _typedPropsCache[unwrappedProps] = typedProps;
     }
     return typedProps;
   }
+
   /// Equivalent to setting [unwrappedProps], but needed by react-dart to effect props changes.
   @override
   set props(Map value) => super.props = value;
@@ -311,7 +328,8 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component with 
 ///
 /// __Deprecated.__ Use [UiStatefulComponent2] instead. Will be removed in the `4.0.0` release.
 @Deprecated('4.0.0')
-abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState> extends UiComponent<TProps> {
+abstract class UiStatefulComponent<TProps extends UiProps,
+    TState extends UiState> extends UiComponent<TProps> {
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
   //   BEGIN Typed state helpers
@@ -327,11 +345,14 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
     var unwrappedState = this.unwrappedState;
     var typedState = _typedStateCache[unwrappedState];
     if (typedState == null) {
-    typedState = typedStateFactory(inReactDevMode ? _WarnOnModify(unwrappedState, false) : unwrappedState);
+      typedState = typedStateFactory(inReactDevMode
+          ? _WarnOnModify(unwrappedState, false)
+          : unwrappedState);
       _typedStateCache[unwrappedState] = typedState;
     }
     return typedState;
   }
+
   /// Equivalent to setting [unwrappedState], but needed by react-dart to effect state changes.
   @override
   set state(Map value) => super.state = value;
@@ -362,21 +383,19 @@ class _WarnOnModify<K, V> extends MapView<K, V> {
 
   String message;
 
-  _WarnOnModify(Map componentData, this.isProps): super(componentData);
+  _WarnOnModify(Map componentData, this.isProps) : super(componentData);
 
   @override
   operator []=(K key, V value) {
     if (isProps) {
-      message =
-        '''
+      message = '''
           props["$key"] was updated incorrectly. Never mutate this.props directly, as it can cause unexpected behavior;
           props must be updated only by passing in new values when re-rendering this component.
 
           This will throw in UiComponentV2 (to be released as part of the React 16 upgrade).
         ''';
     } else {
-      message =
-        '''
+      message = '''
           state["$key"] was updated incorrectly. Never mutate this.state directly, as it can cause unexpected behavior;
           state must be updated only via setState.
 
@@ -417,8 +436,7 @@ abstract class UiProps extends MapBase
         ReactPropsMixin,
         UbiquitousDomPropsMixin,
         CssClassPropsMixin
-    implements
-        Map {
+    implements Map {
   /// Adds an arbitrary [propKey]/[value] pair if [shouldAdd] is `true`.
   ///
   /// Is a noop if [shouldAdd] is `false`.
@@ -446,7 +464,7 @@ abstract class UiProps extends MapBase
   /// Is a noop if [shouldModify] is `false` or [modifier] is `null`.
   ///
   /// > Related: [addProps]
-  void modifyProps(PropsModifier modifier, [bool shouldModify = true]){
+  void modifyProps(PropsModifier modifier, [bool shouldModify = true]) {
     if (!shouldModify || modifier == null) return;
 
     modifier(this);
@@ -458,7 +476,8 @@ abstract class UiProps extends MapBase
   static bool testMode = false;
 
   /// Whether [UiProps] is in a testing environment at build time.
-  static const bool _testModeFromEnvironment = const bool.fromEnvironment('testing');
+  static const bool _testModeFromEnvironment =
+      const bool.fromEnvironment('testing');
 
   /// Whether [UiProps] is in a testing environment at build time or otherwise.
   ///
@@ -518,7 +537,47 @@ abstract class UiProps extends MapBase
   /// Restricted statically to 40 arguments until the dart2js fix in
   /// <https://github.com/dart-lang/sdk/pull/26032> is released.
   ///
-  ReactElement call([c1 = notSpecified, c2 = notSpecified, c3 = notSpecified, c4 = notSpecified, c5 = notSpecified, c6 = notSpecified, c7 = notSpecified, c8 = notSpecified, c9 = notSpecified, c10 = notSpecified, c11 = notSpecified, c12 = notSpecified, c13 = notSpecified, c14 = notSpecified, c15 = notSpecified, c16 = notSpecified, c17 = notSpecified, c18 = notSpecified, c19 = notSpecified, c20 = notSpecified, c21 = notSpecified, c22 = notSpecified, c23 = notSpecified, c24 = notSpecified, c25 = notSpecified, c26 = notSpecified, c27 = notSpecified, c28 = notSpecified, c29 = notSpecified, c30 = notSpecified, c31 = notSpecified, c32 = notSpecified, c33 = notSpecified, c34 = notSpecified, c35 = notSpecified, c36 = notSpecified, c37 = notSpecified, c38 = notSpecified, c39 = notSpecified, c40 = notSpecified]) {
+  ReactElement call(
+      [c1 = notSpecified,
+      c2 = notSpecified,
+      c3 = notSpecified,
+      c4 = notSpecified,
+      c5 = notSpecified,
+      c6 = notSpecified,
+      c7 = notSpecified,
+      c8 = notSpecified,
+      c9 = notSpecified,
+      c10 = notSpecified,
+      c11 = notSpecified,
+      c12 = notSpecified,
+      c13 = notSpecified,
+      c14 = notSpecified,
+      c15 = notSpecified,
+      c16 = notSpecified,
+      c17 = notSpecified,
+      c18 = notSpecified,
+      c19 = notSpecified,
+      c20 = notSpecified,
+      c21 = notSpecified,
+      c22 = notSpecified,
+      c23 = notSpecified,
+      c24 = notSpecified,
+      c25 = notSpecified,
+      c26 = notSpecified,
+      c27 = notSpecified,
+      c28 = notSpecified,
+      c29 = notSpecified,
+      c30 = notSpecified,
+      c31 = notSpecified,
+      c32 = notSpecified,
+      c33 = notSpecified,
+      c34 = notSpecified,
+      c35 = notSpecified,
+      c36 = notSpecified,
+      c37 = notSpecified,
+      c38 = notSpecified,
+      c39 = notSpecified,
+      c40 = notSpecified]) {
     List childArguments;
     // Use `identical` since it compiles down to `===` in dart2js instead of calling equality helper functions,
     // and we don't want to allow any object overriding `operator==` to claim it's equal to `_notSpecified`.
@@ -537,12 +596,52 @@ abstract class UiProps extends MapBase
     } else if (identical(c7, notSpecified)) {
       childArguments = [c1, c2, c3, c4, c5, c6];
     } else {
-      childArguments = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40]
-        .takeWhile((child) => !identical(child, notSpecified))
-        .toList();
+      childArguments = [
+        c1,
+        c2,
+        c3,
+        c4,
+        c5,
+        c6,
+        c7,
+        c8,
+        c9,
+        c10,
+        c11,
+        c12,
+        c13,
+        c14,
+        c15,
+        c16,
+        c17,
+        c18,
+        c19,
+        c20,
+        c21,
+        c22,
+        c23,
+        c24,
+        c25,
+        c26,
+        c27,
+        c28,
+        c29,
+        c30,
+        c31,
+        c32,
+        c33,
+        c34,
+        c35,
+        c36,
+        c37,
+        c38,
+        c39,
+        c40
+      ].takeWhile((child) => !identical(child, notSpecified)).toList();
     }
 
-    assert(_validateChildren(childArguments.length == 1 ? childArguments.single : childArguments));
+    assert(_validateChildren(
+        childArguments.length == 1 ? childArguments.single : childArguments));
 
     final factory = componentFactory;
     if (factory is ReactComponentFactoryProxy) {
@@ -568,12 +667,10 @@ abstract class UiProps extends MapBase
       }
 
       if (children.any((child) => child is UiProps)) {
-        var errorMessage = unindent(
-            '''
+        var errorMessage = unindent('''
             It looks like you are trying to use a non-invoked builder as a child. That is an invalid use of UiProps, try
             invoking the builder before passing it as a child.
-            '''
-        );
+            ''');
 
         // TODO: Remove ValidationUtil.warn call when https://github.com/dart-lang/sdk/issues/26093 is resolved.
         ValidationUtil.warn(errorMessage, this);
@@ -589,10 +686,11 @@ abstract class UiProps extends MapBase
   /// An unmodifiable map view of the default props for this component brought
   /// in from the [componentFactory].
   // ignore: deprecated_member_use
-  Map get componentDefaultProps => componentFactory is ReactDartComponentFactoryProxy
-      // ignore: avoid_as, deprecated_member_use
-      ? (componentFactory as ReactDartComponentFactoryProxy).defaultProps
-      : const {};
+  Map get componentDefaultProps =>
+      componentFactory is ReactDartComponentFactoryProxy
+          // ignore: avoid_as, deprecated_member_use
+          ? (componentFactory as ReactDartComponentFactoryProxy).defaultProps
+          : const {};
 }
 
 /// A class that declares the `_map` getter shared by [PropsMapViewMixin]/[StateMapViewMixin] and [MapViewMixin].
@@ -640,28 +738,66 @@ abstract class StateMapViewMixin implements _OverReactMapViewBase {
 ///
 /// For use by concrete [UiProps] and [UiState] implementations (either generated or manual),
 /// and thus must remain public.
-abstract class MapViewMixin<K, V> implements _OverReactMapViewBase<K, V>, Map<K, V> {
-  @override Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> f(K key, V value)) => _map.map<K2, V2>(f);
-  @override Iterable<MapEntry<K, V>> get entries => _map.entries;
-  @override void addEntries(Iterable<MapEntry<K, V>> newEntries) => _map.addEntries(newEntries);
-  @override void removeWhere(bool predicate(K key, V value)) => _map.removeWhere(predicate);
-  @override V update(K key, V update(V value), {V ifAbsent()}) => _map.update(key, update, ifAbsent: ifAbsent);
-  @override void updateAll(V update(K key, V value)) => _map.updateAll(update);
-  @override Map<RK, RV> cast<RK, RV>() => _map.cast<RK, RV>();
-  @override V operator[](Object key) => _map[key];
-  @override void operator[]=(K key, V value) { _map[key] = value; }
-  @override void addAll(Map<K, V> other) { _map.addAll(other); }
-  @override void clear() { _map.clear(); }
-  @override V putIfAbsent(K key, V ifAbsent()) => _map.putIfAbsent(key, ifAbsent);
-  @override bool containsKey(Object key) => _map.containsKey(key);
-  @override bool containsValue(Object value) => _map.containsValue(value);
-  @override void forEach(void action(K key, V value)) { _map.forEach(action); }
-  @override bool get isEmpty => _map.isEmpty;
-  @override bool get isNotEmpty => _map.isNotEmpty;
-  @override int get length => _map.length;
-  @override Iterable<K> get keys => _map.keys;
-  @override V remove(Object key) => _map.remove(key);
-  @override Iterable<V> get values => _map.values;
+abstract class MapViewMixin<K, V>
+    implements _OverReactMapViewBase<K, V>, Map<K, V> {
+  @override
+  Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> f(K key, V value)) =>
+      _map.map<K2, V2>(f);
+  @override
+  Iterable<MapEntry<K, V>> get entries => _map.entries;
+  @override
+  void addEntries(Iterable<MapEntry<K, V>> newEntries) =>
+      _map.addEntries(newEntries);
+  @override
+  void removeWhere(bool predicate(K key, V value)) =>
+      _map.removeWhere(predicate);
+  @override
+  V update(K key, V update(V value), {V ifAbsent()}) =>
+      _map.update(key, update, ifAbsent: ifAbsent);
+  @override
+  void updateAll(V update(K key, V value)) => _map.updateAll(update);
+  @override
+  Map<RK, RV> cast<RK, RV>() => _map.cast<RK, RV>();
+  @override
+  V operator [](Object key) => _map[key];
+  @override
+  void operator []=(K key, V value) {
+    _map[key] = value;
+  }
+
+  @override
+  void addAll(Map<K, V> other) {
+    _map.addAll(other);
+  }
+
+  @override
+  void clear() {
+    _map.clear();
+  }
+
+  @override
+  V putIfAbsent(K key, V ifAbsent()) => _map.putIfAbsent(key, ifAbsent);
+  @override
+  bool containsKey(Object key) => _map.containsKey(key);
+  @override
+  bool containsValue(Object value) => _map.containsValue(value);
+  @override
+  void forEach(void action(K key, V value)) {
+    _map.forEach(action);
+  }
+
+  @override
+  bool get isEmpty => _map.isEmpty;
+  @override
+  bool get isNotEmpty => _map.isNotEmpty;
+  @override
+  int get length => _map.length;
+  @override
+  Iterable<K> get keys => _map.keys;
+  @override
+  V remove(Object key) => _map.remove(key);
+  @override
+  Iterable<V> get values => _map.values;
 }
 
 abstract class _Descriptor {
@@ -675,14 +811,18 @@ class PropDescriptor implements _Descriptor {
   /// The string key associated with the `prop`.
   @override
   final String key;
+
   /// Whether the `prop` is required to be set.
   final bool isRequired;
+
   /// Whether setting the `prop` to `null` is valid.
   final bool isNullable;
+
   /// The message included in the thrown [PropError] if the `prop` is not set.
   final String errorMessage;
 
-  const PropDescriptor(this.key, {this.isRequired: false, this.isNullable: false, this.errorMessage: ''});
+  const PropDescriptor(this.key,
+      {this.isRequired: false, this.isNullable: false, this.errorMessage: ''});
 }
 
 /// Provides a representation of a single `state` declared within a [UiState] subclass or state mixin.
@@ -692,20 +832,24 @@ class StateDescriptor implements _Descriptor {
   /// The string key associated with the `state`.
   @override
   final String key;
+
   /// Whether the `state` is required to be set.
   ///
   /// __Currently not used.__
   final bool isRequired;
+
   /// Whether setting the `state` to `null` is valid.
   ///
   /// __Currently not used.__
   final bool isNullable;
+
   /// The message included in the thrown error if the `state` is not set.
   ///
   /// __Currently not used.__
   final String errorMessage;
 
-  const StateDescriptor(this.key, {this.isRequired: false, this.isNullable: false, this.errorMessage});
+  const StateDescriptor(this.key,
+      {this.isRequired: false, this.isNullable: false, this.errorMessage});
 }
 
 /// Provides a list of [PropDescriptor]s and a top-level list of their keys, for easy access.
@@ -714,6 +858,7 @@ class ConsumedProps {
   ///
   /// This includes string keys, and required prop validation related fields.
   final List<PropDescriptor> props;
+
   /// Top-level accessor of string keys of props stored in [props].
   final List<String> keys;
 
@@ -807,4 +952,3 @@ class StateMeta implements AccessorMeta<StateDescriptor> {
 
   const StateMeta({this.fields, this.keys});
 }
-

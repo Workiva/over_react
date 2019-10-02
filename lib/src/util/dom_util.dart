@@ -24,10 +24,9 @@ import './validation_util.dart';
 /// Returns whether [root] is the same as or contains the [other] node.
 ///
 /// Returns false if either [root] or [other] is null.
-bool isOrContains(Element root, Element other) => (
-  (root != null && other != null) &&
-  (root == other || root.contains(other))
-);
+bool isOrContains(Element root, Element other) =>
+    ((root != null && other != null) &&
+        (root == other || root.contains(other)));
 
 /// Returns an Iterable of [element] and all its ancestors, in ascending order.
 Iterable<Element> _hierarchy(Element element) sync* {
@@ -124,7 +123,9 @@ bool supportsSelectionRange(InputElement element) {
 ///     }
 ///
 /// See: <https://bugs.chromium.org/p/chromium/issues/detail?id=324360>
-void setSelectionRange(/* TextInputElement | TextAreaElement */Element input, int start, int end, [String direction]) {
+void setSelectionRange(
+    /* TextInputElement | TextAreaElement */ Element input, int start, int end,
+    [String direction]) {
   if (input is TextAreaElement) {
     input.setSelectionRange(start, end, direction);
   } else if (input is InputElement && supportsSelectionRange(input)) {
@@ -132,12 +133,10 @@ void setSelectionRange(/* TextInputElement | TextAreaElement */Element input, in
       final inputType = input.getAttribute('type');
 
       if (inputType == 'email' || inputType == 'number') {
-        assert(ValidationUtil.warn(unindent(
-            '''
+        assert(ValidationUtil.warn(unindent('''
             Google Chrome does not support `setSelectionRange` on email or number inputs.
             See: https://bugs.chromium.org/p/chromium/issues/detail?id=324360
-            '''
-        ), input));
+            '''), input));
 
         return;
       }
@@ -145,7 +144,8 @@ void setSelectionRange(/* TextInputElement | TextAreaElement */Element input, in
 
     input.setSelectionRange(start, end, direction);
   } else {
-    throw new ArgumentError.value(input, 'input', 'must be an instance of `TextInputElementBase`, `NumberInputElement` or `TextAreaElement`');
+    throw new ArgumentError.value(input, 'input',
+        'must be an instance of `TextInputElementBase`, `NumberInputElement` or `TextAreaElement`');
   }
 }
 

@@ -54,11 +54,11 @@ abstract class BuiltReduxUiProps<V extends Built<V, B>, B extends Builder<V, B>,
 /// __Warning:__ This will be deprecated in an upcoming release in favor of a different approach to
 /// creating a `built_redux` component.
 abstract class BuiltReduxUiComponent<
-        V extends Built<V, B>,
-        B extends Builder<V, B>,
-        A extends ReduxActions,
-        T extends BuiltReduxUiProps<V, B, A>,
-        Substate> extends UiComponent<T> {
+    V extends Built<V, B>,
+    B extends Builder<V, B>,
+    A extends ReduxActions,
+    T extends BuiltReduxUiProps<V, B, A>,
+    Substate> extends UiComponent<T> {
   @mustCallSuper
   @override
   void componentWillMount() {
@@ -82,7 +82,8 @@ abstract class BuiltReduxUiComponent<
   @mustCallSuper
   @override
   bool shouldComponentUpdate(Map nextProps, Map nextState) {
-    if (isPure) return _isDirty || typedPropsFactory(nextProps).store != props.store;
+    if (isPure)
+      return _isDirty || typedPropsFactory(nextProps).store != props.store;
 
     return true;
   }

@@ -12,21 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library over_react.guid_util;
+library test_component2.type_inheritance.extendedtype;
 
-import 'dart:math' show Random;
+import 'package:over_react/over_react.dart';
+import './abstract.dart';
 
-final Random _guidRandom = new Random();
+part 'extendedtype.over_react.g.dart';
 
-/// Returns a random GUID with the given [length] consisting of numbers and uppercase/lowercase letters.
-String generateGuid([int length = 4]) {
-  const String characters =
-      '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+@Factory()
+UiFactory<TestExtendtype2Props> TestExtendtype2 = _$TestExtendtype2;
 
-  var guid = '';
-  for (var i = 0; i < length; i++) {
-    guid += characters[_guidRandom.nextInt(characters.length)];
-  }
+@Props()
+class _$TestExtendtype2Props extends TestAbstract2Props {}
 
-  return guid;
+@Component2(subtypeOf: TestAbstract2Component)
+class TestExtendtype2Component extends TestAbstract2Component<TestExtendtype2Props> {
+  @override
+  render() => Dom.div()();
 }
+

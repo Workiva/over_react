@@ -31,27 +31,27 @@ class PropError extends Error {
 
   /// Create a new [PropError], with the given [propName] and optional [message].
   PropError(this.propName, [this.message = ''])
-    : invalidValue = null,
-      prop2Name = null,
-      _messagePrefix = defaultPrefix;
+      : invalidValue = null,
+        prop2Name = null,
+        _messagePrefix = defaultPrefix;
 
   /// Create a new [PropError] that signifies the given [propName] is required to be set.
   ///
   /// > See: [requiredProp] annotation
   PropError.required(this.propName, [this.message = ''])
-    : invalidValue = null,
-      prop2Name = null,
-      _messagePrefix = requiredPrefix;
+      : invalidValue = null,
+        prop2Name = null,
+        _messagePrefix = requiredPrefix;
 
   /// Create a new [PropError] that signifies the given [propName] is set to an [invalidValue].
   PropError.value(this.invalidValue, this.propName, [this.message = ''])
-    : prop2Name = null,
-      _messagePrefix = invalidPrefix;
+      : prop2Name = null,
+        _messagePrefix = invalidPrefix;
 
   /// Create a new [PropError] that signifies the [propName] and [prop2Name] are in conflict.
   PropError.combination(this.propName, this.prop2Name, [this.message = ''])
-    : invalidValue = null,
-      _messagePrefix = combinationPrefix;
+      : invalidValue = null,
+        _messagePrefix = combinationPrefix;
 
   @override
   String toString() {
@@ -62,7 +62,8 @@ class PropError extends Error {
     } else if (_messagePrefix == invalidPrefix) {
       explanation = 'Prop $propName set to $invalidValue. ';
     } else if (_messagePrefix == combinationPrefix) {
-      explanation = 'Prop $propName and prop $prop2Name are set to incompatible values. ';
+      explanation =
+          'Prop $propName and prop $prop2Name are set to incompatible values. ';
     } else {
       explanation = 'Prop $propName. ';
     }

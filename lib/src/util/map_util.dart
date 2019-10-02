@@ -17,7 +17,8 @@ library over_react.map_util;
 import 'dart:collection';
 
 import 'package:over_react/src/component/dom_components.dart';
-import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
+import 'package:over_react/src/component_declaration/component_base.dart'
+    as component_base;
 import 'package:over_react/src/component/prop_mixins.dart';
 import 'package:react/react_client/js_backed_map.dart';
 
@@ -29,19 +30,15 @@ import '../component_declaration/builder_helpers.dart';
 /// If [onlyCopyDomProps] is `true`, only the keys found within [DomPropsMixin] and [SvgPropsMixin] will be forwarded.
 ///
 /// Useful for prop forwarding.
-Map getPropsToForward(Map props, {
-    bool omitReactProps: true,
+Map getPropsToForward(Map props,
+    {bool omitReactProps: true,
     bool onlyCopyDomProps: false,
     Iterable keysToOmit,
-    Iterable<Iterable> keySetsToOmit
-}) {
+    Iterable<Iterable> keySetsToOmit}) {
   Map propsToForward = new JsBackedMap.from(props);
 
   if (omitReactProps) {
-    propsToForward
-      ..remove('key')
-      ..remove('ref')
-      ..remove('children');
+    propsToForward..remove('key')..remove('ref')..remove('children');
   }
 
   if (keysToOmit != null) {
@@ -75,7 +72,8 @@ Map getPropsToForward(Map props, {
 ///
 /// Based upon configuration, the function will overlook [props] that are not
 /// meant to be passed on, such as non-DOM props or specified values.
-void forwardUnconsumedProps(Map props, {
+void forwardUnconsumedProps(
+  Map props, {
   bool omitReactProps: true,
   bool onlyCopyDomProps: false,
   Iterable keysToOmit,
@@ -118,7 +116,8 @@ void forwardUnconsumedProps(Map props, {
       }
     }
 
-    if (omitReactProps && const ['key', 'ref', 'children'].contains(key)) continue;
+    if (omitReactProps && const ['key', 'ref', 'children'].contains(key))
+      continue;
 
     propsToUpdate[key] = props[key];
   }
@@ -131,7 +130,9 @@ Map<String, dynamic> newStyleFromProps(Map props) {
   if (props == null) return <String, dynamic>{};
 
   var existingStyle = domProps(props).style;
-  return existingStyle == null ? <String, dynamic>{} : new Map.from(existingStyle);
+  return existingStyle == null
+      ? <String, dynamic>{}
+      : new Map.from(existingStyle);
 }
 
 /// Returns the underlying map object of either [UiProps] or [UiState].

@@ -23,7 +23,6 @@ typedef void ValidationUtilWarningCallback(String message);
 
 /// Utility for logging validation errors or warnings.
 class ValidationUtil {
-
   static bool WARNINGS_ENABLED = true;
   static bool THROW_ON_WARNING = false;
   static int WARNING_COUNT = 0;
@@ -81,17 +80,17 @@ class ValidationUtil {
       window.console.warn('VALIDATION WARNING: $message');
 
       if (data != null) {
-          window.console.groupCollapsed('(Warning info)');
-          window.console.log(data);
+        window.console.groupCollapsed('(Warning info)');
+        window.console.log(data);
 
-          if (isValidElement(data)) {
-            window.console.log('props: ${prettyPrintMap(getProps(data))}');
+        if (isValidElement(data)) {
+          window.console.log('props: ${prettyPrintMap(getProps(data))}');
           // ignore: deprecated_member_use
-          } else if (data is react.Component) {
-            window.console.log('props: ${data.props}');
-          }
+        } else if (data is react.Component) {
+          window.console.log('props: ${data.props}');
+        }
 
-          window.console.groupEnd();
+        window.console.groupEnd();
       }
     }
 

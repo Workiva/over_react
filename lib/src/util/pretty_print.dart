@@ -64,7 +64,8 @@ String _prettyObj(Object obj) {
   if (obj is List) {
     var items = obj.map(_prettyObj).toList();
 
-    if (items.length > _maxListItemsPerLine || items.any((items) => items.contains('\n'))) {
+    if (items.length > _maxListItemsPerLine ||
+        items.any((items) => items.contains('\n'))) {
       var inner = _indentString(items.join(',\n'));
       return '[\n$inner\n]';
     } else {
@@ -101,7 +102,9 @@ String _prettyObj(Object obj) {
 
       Iterable<String> subkeys = namespacedKeys[namespace];
 
-      return '$namespace…\n' + _indentString(subkeys.map(renderSubKey).map((pair) => pair + ',\n').join());
+      return '$namespace…\n' +
+          _indentString(
+              subkeys.map(renderSubKey).map((pair) => pair + ',\n').join());
     }));
 
     pairs.addAll(otherKeys.map((dynamic key) {
@@ -110,8 +113,10 @@ String _prettyObj(Object obj) {
 
     final RegExp trailingComma = new RegExp(r'\s*,\s*$');
 
-    if (pairs.length > _maxKeyValuePairsPerLine || pairs.any((pair) => pair.contains('\n'))) {
-      var inner = _indentString(pairs.join('\n')).replaceFirst(trailingComma, '');
+    if (pairs.length > _maxKeyValuePairsPerLine ||
+        pairs.any((pair) => pair.contains('\n'))) {
+      var inner =
+          _indentString(pairs.join('\n')).replaceFirst(trailingComma, '');
       return '{\n$inner\n}';
     } else {
       var inner = pairs.join(' ').replaceFirst(trailingComma, '');
