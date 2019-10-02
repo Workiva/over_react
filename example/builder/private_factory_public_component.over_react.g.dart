@@ -9,13 +9,14 @@ part of 'private_factory_public_component.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $FormActionInputComponentFactory = registerComponent(
-    () => new _$FormActionInputComponent(),
-    builderFactory: _FormActionInput,
-    componentClass: FormActionInputComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: '_FormActionInput');
+final $FormActionInputComponentFactory = registerComponent2(
+  () => new _$FormActionInputComponent(),
+  builderFactory: _FormActionInput,
+  componentClass: FormActionInputComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: '_FormActionInput',
+);
 
 abstract class _$FormActionInputPropsAccessorsMixin
     implements _$FormActionInputProps {
@@ -56,24 +57,25 @@ class FormActionInputProps extends _$FormActionInputProps
 }
 
 _$$FormActionInputProps _$_FormActionInput([Map backingProps]) =>
-    new _$$FormActionInputProps(backingProps);
+    backingProps == null
+        ? new _$$FormActionInputProps$JsMap(new JsBackedMap())
+        : new _$$FormActionInputProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$FormActionInputProps extends _$FormActionInputProps
+abstract class _$$FormActionInputProps extends _$FormActionInputProps
     with _$FormActionInputPropsAccessorsMixin
     implements FormActionInputProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FormActionInputProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$FormActionInputProps._();
 
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
+  factory _$$FormActionInputProps(Map backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return new _$$FormActionInputProps$JsMap(backingMap);
+    } else {
+      return new _$$FormActionInputProps$PlainMap(backingMap);
+    }
+  }
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
@@ -89,11 +91,66 @@ class _$$FormActionInputProps extends _$FormActionInputProps
   String get propKeyNamespace => 'FormActionInputProps.';
 }
 
+// Concrete props implementation that can be backed by any [Map].
+class _$$FormActionInputProps$PlainMap extends _$$FormActionInputProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$FormActionInputProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+class _$$FormActionInputProps$JsMap extends _$$FormActionInputProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$FormActionInputProps$JsMap(JsBackedMap backingMap)
+      : this._props = new JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? new JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$FormActionInputComponent extends FormActionInputComponent {
+  _$$FormActionInputProps$JsMap _cachedTypedProps;
+
+  @override
+  _$$FormActionInputProps$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+  }
+
+  @override
+  _$$FormActionInputProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      new _$$FormActionInputProps$JsMap(backingMap);
+
   @override
   _$$FormActionInputProps typedPropsFactory(Map backingMap) =>
       new _$$FormActionInputProps(backingMap);

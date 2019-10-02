@@ -12,10 +12,10 @@ abstract class _$SuperState extends UiState {
   String superState;
 }
 
-@AbstractComponent()
-abstract class SuperComponent<T extends SuperProps, V extends SuperState> extends UiStatefulComponent<T, V> {
+@AbstractComponent2()
+abstract class SuperComponent<T extends SuperProps, V extends SuperState> extends UiStatefulComponent2<T, V> {
   @override
-  Map getDefaultProps() => newProps()..id = 'super';
+  get defaultProps => newProps()..id = 'super';
 
   @override
   render() {
@@ -39,13 +39,13 @@ class _$SubState extends SuperState {
   String subState;
 }
 
-@Component()
+@Component2()
 class SubComponent extends SuperComponent<SubProps, SubState> {
   @override
-  Map getDefaultProps() => newProps()..id = 'sub';
+  get defaultProps => newProps()..id = 'sub';
 
   @override
-  Map getInitialState() {
+  get initialState {
     return newState()
       ..superState = '<the super state value>'
       ..subState = '<the sub state value>';
