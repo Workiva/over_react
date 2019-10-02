@@ -17,14 +17,17 @@ library over_react.class_names;
 
 import 'dart:collection';
 
-import 'package:over_react/over_react.dart' show
-    // Must import these consts because they are used in the transformed code.
-    PropDescriptor, ConsumedProps, // ignore: unused_shown_name
-    PropsMeta, UiComponent, UiProps;
+import 'package:over_react/over_react.dart'
+    show
+        // Must import these consts because they are used in the transformed code.
+        PropDescriptor,
+        ConsumedProps, // ignore: unused_shown_name
+        PropsMeta,
+        UiComponent,
+        UiProps;
 import 'package:over_react/src/component_declaration/annotations.dart';
 
 part 'class_names.over_react.g.dart';
-
 
 /// This class is only present to allow for consumers which have used the
 /// --backwards-compat flag with over_react_codemod to statically analyze:
@@ -52,8 +55,7 @@ abstract class _$CssClassPropsMixin {
 }
 
 /// A `MapView` with typed getters/setters for all CSS-class-related props.
-class CssClassPropsMapView extends MapView with
-    CssClassPropsMixin {
+class CssClassPropsMapView extends MapView with CssClassPropsMixin {
   /// Create a new instance backed by the specified map.
   CssClassPropsMapView(Map map) : super(map);
 
@@ -85,15 +87,15 @@ class ClassNameBuilder {
   }
 
   /// Creates a new `ClassNameBuilder` with [_classNamesBuffer] and [_blacklistBuffer] merged from [a] and [b].
-  ///   
+  ///
   ///     ClassNameBuilder a = new ClassNameBuilder()
   ///       ..add('a');
-  /// 
+  ///
   ///     ClassNameBuilder b = new ClassNameBuilder()
   ///       ..add('b');
-  ///     
+  ///
   ///     ClassNameBuilder builder = new ClassNameBuilder.merged(a,b);
-  /// 
+  ///
   ///     print(builder.toClassName()); // 'a b'
   ClassNameBuilder.merged(ClassNameBuilder a, ClassNameBuilder b) {
     merge(a);
@@ -175,8 +177,6 @@ class ClassNameBuilder {
     _blacklistBuffer.write(className);
   }
 
-
-
   /// Merges the classes and blacklists from [other] into this builder.
   void merge(ClassNameBuilder other) {
     if (_blacklistBuffer == null) {
@@ -219,7 +219,8 @@ class ClassNameBuilder {
     String className = _classNamesBuffer.toString();
 
     if (_blacklistBuffer != null && _blacklistBuffer.isNotEmpty) {
-      List blacklistedClasses = splitSpaceDelimitedString(_blacklistBuffer.toString());
+      List blacklistedClasses =
+          splitSpaceDelimitedString(_blacklistBuffer.toString());
 
       className = splitSpaceDelimitedString(className)
           .where((String cssClass) => !blacklistedClasses.contains(cssClass))

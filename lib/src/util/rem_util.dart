@@ -21,13 +21,17 @@ import 'dart:html';
 
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
-import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
+import 'package:over_react/src/component_declaration/component_base.dart'
+    as component_base;
 import 'package:over_react/src/util/css_value_util.dart';
 import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:platform_detect/platform_detect.dart';
 
 double _computeRootFontSize() {
-  return new CssValue.parse(document.documentElement.getComputedStyle().fontSize).number.toDouble();
+  return new CssValue.parse(
+          document.documentElement.getComputedStyle().fontSize)
+      .number
+      .toDouble();
 }
 
 double _rootFontSize = _computeRootFontSize();
@@ -64,8 +68,7 @@ Future<Null> initRemChangeSensor() {
     // Force lazy-initialization of this variable if it hasn't happened already.
     _rootFontSize;
 
-    _changeSensorMountNode = new DivElement()
-      ..id = 'rem_change_sensor';
+    _changeSensorMountNode = new DivElement()..id = 'rem_change_sensor';
 
     // Ensure the sensor doesn't interfere with the rest of the page.
     _changeSensorMountNode.style
@@ -77,24 +80,25 @@ Future<Null> initRemChangeSensor() {
 
     document.body.append(_changeSensorMountNode);
 
-    _changeSensor = react_dom.render((Dom.div()
-      ..style = const {
-        'position': 'absolute',
-        'visibility': 'hidden',
-        // ResizeSensor doesn't pick up sub-pixel changes due to its use of offsetWidth/Height,
-        // so use 100rem for greater precision.
-        'width': '100rem',
-        'height': '100rem',
-      }
-    )(
-      (ResizeSensor()..onResize = (ResizeSensorEvent e) {
-        recomputeRootFontSize();
-      })()
-    ), _changeSensorMountNode);
+    _changeSensor = react_dom.render(
+        (Dom.div()
+          ..style = const {
+            'position': 'absolute',
+            'visibility': 'hidden',
+            // ResizeSensor doesn't pick up sub-pixel changes due to its use of offsetWidth/Height,
+            // so use 100rem for greater precision.
+            'width': '100rem',
+            'height': '100rem',
+          })((ResizeSensor()
+          ..onResize = (ResizeSensorEvent e) {
+            recomputeRootFontSize();
+          })()),
+        _changeSensorMountNode);
   });
 }
 
-final StreamController<double> _remChange = new StreamController.broadcast(onListen: () {
+final StreamController<double> _remChange =
+    new StreamController.broadcast(onListen: () {
   initRemChangeSensor();
 });
 
@@ -155,7 +159,8 @@ Future<Null> destroyRemChangeSensor() {
 ///     new CssValue(1.5, 'rem');
 ///
 /// > Related: [toPx]
-CssValue toRem(dynamic value, {bool treatNumAsRem: false, bool passThroughUnsupportedUnits: false}) {
+CssValue toRem(dynamic value,
+    {bool treatNumAsRem: false, bool passThroughUnsupportedUnits: false}) {
   // Because Chrome changes the value of its root font size when zoomed out lower than 90%, we need
   // to automatically wire up the rem change sensor so that any calls to `toRem` when the viewport is
   // zoomed return an accurate value.
@@ -188,7 +193,8 @@ CssValue toRem(dynamic value, {bool treatNumAsRem: false, bool passThroughUnsupp
     } else {
       if (passThroughUnsupportedUnits) return parsedValue;
 
-      throw new ArgumentError.value(value, 'value', 'must be a px num or a String px/rem value');
+      throw new ArgumentError.value(
+          value, 'value', 'must be a px num or a String px/rem value');
     }
   }
 
@@ -215,7 +221,8 @@ CssValue toRem(dynamic value, {bool treatNumAsRem: false, bool passThroughUnsupp
 ///     toPx(new CssValue(15, 'px'));
 ///
 /// > Related: [toRem]
-CssValue toPx(dynamic value, {bool treatNumAsPx: false, bool passThroughUnsupportedUnits: false}) {
+CssValue toPx(dynamic value,
+    {bool treatNumAsPx: false, bool passThroughUnsupportedUnits: false}) {
   if (value == null) return null;
 
   num pxValueNum;
@@ -232,7 +239,8 @@ CssValue toPx(dynamic value, {bool treatNumAsPx: false, bool passThroughUnsuppor
     } else {
       if (passThroughUnsupportedUnits) return parsedValue;
 
-      throw new ArgumentError.value(value, 'value', 'must be a rem num or a String px/rem value');
+      throw new ArgumentError.value(
+          value, 'value', 'must be a rem num or a String px/rem value');
     }
   }
 

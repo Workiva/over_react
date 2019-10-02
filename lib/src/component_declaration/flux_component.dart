@@ -40,7 +40,8 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
   /// There is no strict rule on the [ActionsT] type. Depending on application
   /// structure, there may be [Action]s available directly on this object, or
   /// this object may represent a hierarchy of actions.
-  ActionsT get actions => props[_actionsPropKey] as ActionsT; // ignore: avoid_as
+  ActionsT get actions =>
+      props[_actionsPropKey] as ActionsT; // ignore: avoid_as
   set actions(ActionsT value) => props[_actionsPropKey] = value;
 
   /// The prop defined by [StoresT].
@@ -76,7 +77,8 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
 ///
 /// __Deprecated.__ Use [FluxUiComponent2] instead.
 @Deprecated('4.0.0')
-abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<TProps>
+abstract class FluxUiComponent<TProps extends FluxUiProps>
+    extends UiComponent<TProps>
     with BatchedRedraws, _FluxComponentMixin<TProps> {
   @mustCallSuper
   @override
@@ -108,8 +110,8 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
 ///
 /// __Deprecated.__ Use [FluxUiStatefulComponent2] instead.
 @Deprecated('4.0.0')
-abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extends UiState>
-    extends UiStatefulComponent<TProps, TState>
+abstract class FluxUiStatefulComponent<TProps extends FluxUiProps,
+        TState extends UiState> extends UiStatefulComponent<TProps, TState>
     with BatchedRedraws, _FluxComponentMixin<TProps> {
   @mustCallSuper
   @override
@@ -137,7 +139,8 @@ abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extend
 /// Use with the over_react builder via the `@Component2()` ([annotations.Component2]) annotation.
 ///
 /// > Related: [FluxUiStatefulComponent2]
-abstract class FluxUiComponent2<TProps extends FluxUiProps> extends UiComponent2<TProps>
+abstract class FluxUiComponent2<TProps extends FluxUiProps>
+    extends UiComponent2<TProps>
     with BatchedRedraws, _FluxComponentMixin<TProps> {
   @mustCallSuper
   @override
@@ -156,13 +159,15 @@ abstract class FluxUiComponent2<TProps extends FluxUiProps> extends UiComponent2
 /// Use with the over_react builder via the `@Component2()` ([annotations.Component2]) annotation.
 ///
 /// > Related: [FluxUiComponent2]
-abstract class FluxUiStatefulComponent2<TProps extends FluxUiProps, TState extends UiState>
-    extends FluxUiComponent2<TProps> with UiStatefulMixin2<TProps, TState> {}
+abstract class FluxUiStatefulComponent2<TProps extends FluxUiProps,
+        TState extends UiState> extends FluxUiComponent2<TProps>
+    with UiStatefulMixin2<TProps, TState> {}
 
 /// Helper mixin to keep [FluxUiComponent] and [FluxUiStatefulComponent] clean/DRY.
 ///
 /// Private so it will only get used in this file, since having lifecycle methods in a mixin is risky.
-mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiComponent<TProps>, BatchedRedraws {
+mixin _FluxComponentMixin<TProps extends FluxUiProps>
+    on component_base.UiComponent<TProps>, BatchedRedraws {
   static final Logger _logger = new Logger('over_react._FluxComponentMixin');
 
   /// List of store subscriptions created when the component mounts.
@@ -175,7 +180,9 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
 
     var isDisposedOrDisposing = store.isOrWillBeDisposed ?? false;
 
-    assert(!isDisposedOrDisposing, '$message This can be caused by BatchedRedraws '
+    assert(
+        !isDisposedOrDisposing,
+        '$message This can be caused by BatchedRedraws '
         'mounting the component asynchronously after the store has been disposed. If you are '
         'in a test environment, try adding an `await window.animationFrame;` before disposing your '
         'store.');
@@ -192,7 +199,8 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
     // Stores included in the `getStoreHandlers()` result will be listened to
     // and wired up to their respective handlers.
     final customStoreHandlers = getStoreHandlers();
-    final storesWithoutCustomHandlers = redrawOn().where((store) => !customStoreHandlers.containsKey(store));
+    final storesWithoutCustomHandlers =
+        redrawOn().where((store) => !customStoreHandlers.containsKey(store));
 
     customStoreHandlers.forEach((store, handler) {
       _validateStoreDisposalState(store);

@@ -15,10 +15,12 @@
 /// Various prop related mixins to be used with [UiComponent] descendants.
 library over_react.prop_mixins;
 
-import 'package:over_react/over_react.dart' show AriaPropsMapView, AriaPropsMixin, DomProps, PropsMeta;
+import 'package:over_react/over_react.dart'
+    show AriaPropsMapView, AriaPropsMixin, DomProps, PropsMeta;
 // Must import these consts because they are used in the transformed code.
 // ignore: deprecated_member_use, unused_shown_name
-import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps, PropsMeta;
+import 'package:over_react/over_react.dart'
+    show PropDescriptor, ConsumedProps, PropsMeta;
 import 'package:over_react/src/component/callback_typedefs.dart';
 import 'package:over_react/src/component_declaration/annotations.dart';
 
@@ -49,8 +51,9 @@ abstract class _$ReactPropsMixin {
   ///
   /// * <https://facebook.github.io/react/docs/multiple-components.html#children>
   /// * <https://facebook.github.io/react/docs/reconciliation.html>
-  String get key        => props['key'];
-  set key(Object value) => props['key'] = value == null ? null : value.toString();
+  String get key => props['key'];
+  set key(Object value) =>
+      props['key'] = value == null ? null : value.toString();
 
   /// Either a String used to retrieve the element at a later time via [react.Component.ref],
   /// or a Function that gets called with the element when it is mounted.
@@ -72,29 +75,128 @@ abstract class _$DomPropsMixin {
 
   int cols, rows, size, span, start;
 
-  bool allowFullScreen, async, autoPlay, checked, controls, defer, disabled, formNoValidate, hidden, loop, multiple,
-    muted, noValidate, readOnly, required, seamless, selected;
+  bool allowFullScreen,
+      async,
+      autoPlay,
+      checked,
+      controls,
+      defer,
+      disabled,
+      formNoValidate,
+      hidden,
+      loop,
+      multiple,
+      muted,
+      noValidate,
+      readOnly,
+      required,
+      seamless,
+      selected;
 
   Map<String, dynamic> style;
 
   String className, title, id;
 
-  dynamic accept, acceptCharset, accessKey, action, allowTransparency, alt, autoComplete, cellPadding, cellSpacing,
-    charSet, classID, colSpan, content, contentEditable, contextMenu, coords, crossOrigin, data, dateTime,
-    dir, download, draggable, encType, form, frameBorder, height, href, hrefLang, htmlFor, httpEquiv, icon, label,
-    lang, list, manifest, max, maxLength, media, mediaGroup, method, min, name, open, pattern, placeholder,
-    poster, preload, radioGroup, rel, role, rowSpan, sandbox, scope, scrolling, shape, sizes, spellCheck, src, srcDoc,
-    srcSet, step, tabIndex, target, type, useMap, value, width, wmode;
+  dynamic accept,
+      acceptCharset,
+      accessKey,
+      action,
+      allowTransparency,
+      alt,
+      autoComplete,
+      cellPadding,
+      cellSpacing,
+      charSet,
+      classID,
+      colSpan,
+      content,
+      contentEditable,
+      contextMenu,
+      coords,
+      crossOrigin,
+      data,
+      dateTime,
+      dir,
+      download,
+      draggable,
+      encType,
+      form,
+      frameBorder,
+      height,
+      href,
+      hrefLang,
+      htmlFor,
+      httpEquiv,
+      icon,
+      label,
+      lang,
+      list,
+      manifest,
+      max,
+      maxLength,
+      media,
+      mediaGroup,
+      method,
+      min,
+      name,
+      open,
+      pattern,
+      placeholder,
+      poster,
+      preload,
+      radioGroup,
+      rel,
+      role,
+      rowSpan,
+      sandbox,
+      scope,
+      scrolling,
+      shape,
+      sizes,
+      spellCheck,
+      src,
+      srcDoc,
+      srcSet,
+      step,
+      tabIndex,
+      target,
+      type,
+      useMap,
+      value,
+      width,
+      wmode;
 
   AnimationEventCallback onAnimationEnd, onAnimationIteration, onAnimationStart;
   ClipboardEventCallback onCopy, onCut, onPaste;
   KeyboardEventCallback onKeyDown, onKeyPress, onKeyUp;
   FocusEventCallback onFocus, onBlur;
   FormEventCallback onChange, onInput, onSubmit, onReset;
-  MouseEventCallback
-    onClick, onContextMenu, onDoubleClick, onDrag, onDragEnd, onDragEnter, onDragExit, onDragLeave, onDragOver,
-    onDragStart, onDrop, onMouseDown, onMouseEnter, onMouseLeave, onMouseMove, onMouseOut, onMouseOver, onMouseUp;
-  PointerEventCallback onPointerCancel, onPointerDown, onPointerEnter, onPointerLeave, onPointerMove, onPointerOver, onPointerOut, onPointerUp;
+  MouseEventCallback onClick,
+      onContextMenu,
+      onDoubleClick,
+      onDrag,
+      onDragEnd,
+      onDragEnter,
+      onDragExit,
+      onDragLeave,
+      onDragOver,
+      onDragStart,
+      onDrop,
+      onMouseDown,
+      onMouseEnter,
+      onMouseLeave,
+      onMouseMove,
+      onMouseOut,
+      onMouseOver,
+      onMouseUp;
+  PointerEventCallback onPointerCancel,
+      onPointerDown,
+      onPointerEnter,
+      onPointerLeave,
+      onPointerMove,
+      onPointerOver,
+      onPointerOut,
+      onPointerUp;
   TouchEventCallback onTouchCancel, onTouchEnd, onTouchMove, onTouchStart;
   TransitionEventCallback onTransitionEnd;
   UIEventCallback onScroll;
@@ -103,12 +205,33 @@ abstract class _$DomPropsMixin {
   ClipboardEventCallback onCopyCapture, onCutCapture, onPasteCapture;
   KeyboardEventCallback onKeyDownCapture, onKeyPressCapture, onKeyUpCapture;
   FocusEventCallback onFocusCapture, onBlurCapture;
-  FormEventCallback onChangeCapture, onInputCapture, onSubmitCapture, onResetCapture;
-  MouseEventCallback
-    onClickCapture, onContextMenuCapture, onDoubleClickCapture, onDragCapture, onDragEndCapture, onDragEnterCapture, onDragExitCapture, onDragLeaveCapture, onDragOverCapture,
-    onDragStartCapture, onDropCapture, onMouseDownCapture, onMouseEnterCapture, onMouseLeaveCapture, onMouseMoveCapture, onMouseOutCapture, onMouseOverCapture, onMouseUpCapture;
+  FormEventCallback onChangeCapture,
+      onInputCapture,
+      onSubmitCapture,
+      onResetCapture;
+  MouseEventCallback onClickCapture,
+      onContextMenuCapture,
+      onDoubleClickCapture,
+      onDragCapture,
+      onDragEndCapture,
+      onDragEnterCapture,
+      onDragExitCapture,
+      onDragLeaveCapture,
+      onDragOverCapture,
+      onDragStartCapture,
+      onDropCapture,
+      onMouseDownCapture,
+      onMouseEnterCapture,
+      onMouseLeaveCapture,
+      onMouseMoveCapture,
+      onMouseOutCapture,
+      onMouseOverCapture,
+      onMouseUpCapture;
   PointerEventCallback onGotPointerCapture, onLostPointerCapture;
-  TouchEventCallback onTouchCancelCapture, onTouchEndCapture, onTouchMoveCapture, onTouchStartCapture;
+  TouchEventCallback onTouchCancelCapture,
+      onTouchEndCapture,
+      onTouchMoveCapture,
+      onTouchStartCapture;
   UIEventCallback onScrollCapture;
   WheelEventCallback onWheelCapture;
 
@@ -130,12 +253,62 @@ abstract class $SvgPropsMixin {}
 abstract class _$SvgPropsMixin {
   Map get props;
 
-  dynamic clipPath, cx, cy, d, dx, dy, fill, fillOpacity, fontFamily, fontSize, fx, fy, gradientTransform,
-    gradientUnits, markerEnd, markerMid, markerStart, offset, opacity, patternContentUnits, patternUnits, points,
-    preserveAspectRatio, r, rx, ry, spreadMethod, stopColor, stopOpacity, stroke, strokeDasharray, strokeLinecap,
-    strokeOpacity, strokeWidth, textAnchor, transform, version, viewBox, x1, x2, x, xlinkActuate, xlinkArcrole,
-    xlinkHref, xlinkRole, xlinkShow, xlinkTitle, xlinkType, xmlBase, xmlLang, xmlSpace, y1, y2, y;
+  dynamic clipPath,
+      cx,
+      cy,
+      d,
+      dx,
+      dy,
+      fill,
+      fillOpacity,
+      fontFamily,
+      fontSize,
+      fx,
+      fy,
+      gradientTransform,
+      gradientUnits,
+      markerEnd,
+      markerMid,
+      markerStart,
+      offset,
+      opacity,
+      patternContentUnits,
+      patternUnits,
+      points,
+      preserveAspectRatio,
+      r,
+      rx,
+      ry,
+      spreadMethod,
+      stopColor,
+      stopOpacity,
+      stroke,
+      strokeDasharray,
+      strokeLinecap,
+      strokeOpacity,
+      strokeWidth,
+      textAnchor,
+      transform,
+      version,
+      viewBox,
+      x1,
+      x2,
+      x,
+      xlinkActuate,
+      xlinkArcrole,
+      xlinkHref,
+      xlinkRole,
+      xlinkShow,
+      xlinkTitle,
+      xlinkType,
+      xmlBase,
+      xmlLang,
+      xmlSpace,
+      y1,
+      y2,
+      y;
 }
+
 /// This class is only present to allow for consumers which have used the
 /// --backwards-compat flag with over_react_codemod to statically analyze:
 /// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>

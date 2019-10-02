@@ -72,11 +72,12 @@ abstract class $ResizeSensorPropsMixin {}
 
 @PropsMixin()
 abstract class _$ResizeSensorPropsMixin {
-  static final ResizeSensorPropsMixinMapView defaultProps = new ResizeSensorPropsMixinMapView({})
-    ..isFlexChild = false
-    ..isFlexContainer = false
-    ..shrink = false
-    ..quickMount = false;
+  static final ResizeSensorPropsMixinMapView defaultProps =
+      new ResizeSensorPropsMixinMapView({})
+        ..isFlexChild = false
+        ..isFlexContainer = false
+        ..shrink = false
+        ..quickMount = false;
 
   Map get props;
 
@@ -168,16 +169,16 @@ abstract class _$ResizeSensorPropsMixin {
 class _$ResizeSensorProps extends UiProps with ResizeSensorPropsMixin {}
 
 @Component()
-class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAnimationFrameMixin {
+class ResizeSensorComponent extends UiComponent<ResizeSensorProps>
+    with _SafeAnimationFrameMixin {
   // Refs
 
   Element _expandSensorRef;
   Element _collapseSensorRef;
 
   @override
-  Map getDefaultProps() => (newProps()
-    ..addProps(ResizeSensorPropsMixin.defaultProps)
-  );
+  Map getDefaultProps() =>
+      (newProps()..addProps(ResizeSensorPropsMixin.defaultProps));
 
   @mustCallSuper
   @override
@@ -193,10 +194,10 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
     _checkForDetachedMount();
 
     if (props.quickMount) {
-      assert(props.onInitialize == null || ValidationUtil.warn(
-          'props.onInitialize will not be called when props.quickMount is true.',
-          this
-      ));
+      assert(props.onInitialize == null ||
+          ValidationUtil.warn(
+              'props.onInitialize will not be called when props.quickMount is true.',
+              this));
 
       // [1] Initialize/reset the sensor in the next animation frame after mount
       //     so that resulting layouts don't happen synchronously, and are better dispersed.
@@ -206,7 +207,8 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
       //
       // [3] Don't access the dimensions of the sensor to prevent unnecessary layouts.
 
-      requestAnimationFrame(() { // [1]
+      requestAnimationFrame(() {
+        // [1]
         _scrollEventsToIgnore = 2; // [2]
         _reset(updateLastDimensions: false); // [3]
       });
@@ -226,25 +228,22 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
       ..className = 'resize-sensor-expand'
       ..onScroll = _handleSensorScroll
       ..style = props.shrink ? _shrinkBaseStyle : _baseStyle
-      ..ref = (ref) { _expandSensorRef = ref; }
-    )(
-      (Dom.div()..style = _expandSensorChildStyle)()
-    );
+      ..ref = (ref) {
+        _expandSensorRef = ref;
+      })((Dom.div()..style = _expandSensorChildStyle)());
 
     var collapseSensor = (Dom.div()
       ..className = 'resize-sensor-collapse'
       ..onScroll = _handleSensorScroll
       ..style = props.shrink ? _shrinkBaseStyle : _baseStyle
-      ..ref = (ref) { _collapseSensorRef = ref; }
-    )(
-      (Dom.div()..style = _collapseSensorChildStyle)()
-    );
+      ..ref = (ref) {
+        _collapseSensorRef = ref;
+      })((Dom.div()..style = _collapseSensorChildStyle)());
 
     var resizeSensor = (Dom.div()
       ..className = 'resize-sensor'
       ..style = props.shrink ? _shrinkBaseStyle : _baseStyle
-      ..key = 'resizeSensor'
-    )(expandSensor, collapseSensor);
+      ..key = 'resizeSensor')(expandSensor, collapseSensor);
 
     Map<String, dynamic> wrapperStyles;
     if (props.isFlexChild) {
@@ -252,7 +251,8 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
     } else if (props.isFlexContainer) {
       wrapperStyles = _wrapperStylesFlexContainer;
     } else {
-      wrapperStyles = _wrapperStyles;;
+      wrapperStyles = _wrapperStyles;
+      ;
     }
 
     var mergedStyle = newStyleFromProps(props);
@@ -261,11 +261,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
     return (Dom.div()
       ..addProps(copyUnconsumedDomProps())
       ..className = forwardingClassNameBuilder().toClassName()
-      ..style = mergedStyle
-    )(
-      props.children,
-      resizeSensor
-    );
+      ..style = mergedStyle)(props.children, resizeSensor);
   }
 
   /// When the expand or collapse sensors are resized, builds a [ResizeSensorEvent] and calls
@@ -283,7 +279,8 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
 
     if (newWidth != _lastWidth || newHeight != _lastHeight) {
       if (props.onResize != null) {
-        var event = new ResizeSensorEvent(newWidth, newHeight, _lastWidth, _lastHeight);
+        var event =
+            new ResizeSensorEvent(newWidth, newHeight, _lastWidth, _lastHeight);
         props.onResize(event);
       }
 
@@ -355,15 +352,13 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
 
     var wasMountedDetachedFromDom = !_isAttachedToDocument();
 
-    assert(wasMountedDetachedFromDom || ValidationUtil.warn(unindent(
-        '''
+    assert(wasMountedDetachedFromDom || ValidationUtil.warn(unindent('''
         The ResizeSensor was not mounted detached from the DOM, 
         so you most likely do not need to set `props.onDetachedMountCheck`.
         
         If for some reason the callback sometimes returns `true`, and sometimes returns `false` _(unexpected)_, 
         you may have other underlying issues in your implementation that should be addressed separately.
-        '''
-    )));
+        ''')));
 
     props.onDetachedMountCheck(wasMountedDetachedFromDom);
   }
@@ -446,7 +441,6 @@ final Map<String, dynamic> _collapseSensorChildStyle = const {
   'opacity': '0',
 };
 
-
 const Map<String, dynamic> _wrapperStyles = const {
   'position': 'relative',
   'height': '100%',
@@ -473,7 +467,8 @@ final Map<String, dynamic> _wrapperStylesFlexContainer = {
 
 /// The browser-prefixed value for the CSS `display` property that enables flexbox.
 final String _displayFlex = (() {
-  if (browser.isInternetExplorer && browser.version.major <= 10) return '-ms-flexbox';
+  if (browser.isInternetExplorer && browser.version.major <= 10)
+    return '-ms-flexbox';
   return 'flex';
 })();
 
@@ -483,19 +478,23 @@ final String _displayFlex = (() {
 class ResizeSensorEvent {
   /// The new width, in pixels.
   final int newWidth;
+
   /// The new height, in pixels.
   final int newHeight;
+
   /// The previous width, in pixels.
   final int prevWidth;
+
   /// The previous height, in pixels.
   final int prevHeight;
 
-  ResizeSensorEvent(this.newWidth, this.newHeight, this.prevWidth, this.prevHeight);
+  ResizeSensorEvent(
+      this.newWidth, this.newHeight, this.prevWidth, this.prevHeight);
 }
 
 /// A MapView with the typed getters/setters for all HitArea display variation props.
-class ResizeSensorPropsMixinMapView extends MapView with
-    ResizeSensorPropsMixin {
+class ResizeSensorPropsMixinMapView extends MapView
+    with ResizeSensorPropsMixin {
   /// Create a new instance backed by the specified map.
   ResizeSensorPropsMixinMapView(Map map) : super(map);
 

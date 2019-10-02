@@ -15,8 +15,8 @@ Builder overReactBuilder(BuilderOptions options) => new OverReactBuilder();
 class OverReactBuilder extends Builder {
   @override
   Map<String, List<String>> get buildExtensions => {
-    '.dart': [outputExtension],
-  };
+        '.dart': [outputExtension],
+      };
 
   @override
   FutureOr<void> build(BuildStep buildStep) async {
@@ -34,11 +34,12 @@ class OverReactBuilder extends Builder {
       if (!ParsedDeclarations.mightContainDeclarations(source)) {
         return;
       }
-      final sourceFile = new SourceFile.fromString(
-        source, url: idToPackageUri(id));
+      final sourceFile =
+          new SourceFile.fromString(source, url: idToPackageUri(id));
       final declarations = new ParsedDeclarations(unit, sourceFile, log);
       if (declarations.hasErrors) {
-        log.severe('There was an error parsing the file declarations for file: $id');
+        log.severe(
+            'There was an error parsing the file declarations for file: $id');
         return;
       }
       final generator = new ImplGenerator(log, sourceFile)
@@ -51,29 +52,27 @@ class OverReactBuilder extends Builder {
 
     // Collect all of the part files for this library.
     final parts = libraryUnit.directives
-      .whereType<PartDirective>()
-      // Ignore all generated `.g.dart` parts.
-      .where((part) => !part.uri.stringValue.endsWith('.g.dart'));
+        .whereType<PartDirective>()
+        // Ignore all generated `.g.dart` parts.
+        .where((part) => !part.uri.stringValue.endsWith('.g.dart'));
 
     // Generate over_react code for the input library.
     generateForFile(source, buildStep.inputId, libraryUnit);
-
 
     final outputId = buildStep.inputId.changeExtension(outputExtension);
     final expectedPart = p.basename(outputId.path);
 
     bool hasOutputPartDirective() {
       final partUris = libraryUnit.directives
-        .whereType<PartDirective>()
-        .map((p) => p.uri.stringValue);
+          .whereType<PartDirective>()
+          .map((p) => p.uri.stringValue);
       return partUris.contains(expectedPart);
     }
 
     // Generate over_react code for each part file of the input library.
     for (final part in parts) {
-      final partId = new AssetId.resolve(
-        part.uri.stringValue,
-        from: buildStep.inputId);
+      final partId =
+          new AssetId.resolve(part.uri.stringValue, from: buildStep.inputId);
       if (!await buildStep.canRead(partId)) {
         continue;
       }
@@ -94,7 +93,8 @@ class OverReactBuilder extends Builder {
       await _writePart(buildStep, outputId, outputs);
     } else {
       if (hasOutputPartDirective()) {
-        log.warning('An over_react part directive was found in ${buildStep.inputId.path}, '
+        log.warning(
+            'An over_react part directive was found in ${buildStep.inputId.path}, '
             'but no code was generated. The part directive may be unnecessary if the file '
             'does not contain any concrete components or abstract state/props classes.');
       }
@@ -111,16 +111,13 @@ class OverReactBuilder extends Builder {
 
   static bool _mightContainDeclarations(String source) {
     return ParsedDeclarations.mightContainDeclarations(source) ||
-      _overReactPartDirective.hasMatch(source);
+        _overReactPartDirective.hasMatch(source);
   }
 
   static CompilationUnit _tryParseCompilationUnit(String source, AssetId id) {
     try {
-      return parseCompilationUnit(
-        source,
-        name: id.path,
-        suppressErrors: false,
-        parseFunctionBodies: true);
+      return parseCompilationUnit(source,
+          name: id.path, suppressErrors: false, parseFunctionBodies: true);
     } catch (error, stackTrace) {
       log.fine('There was an error parsing the compilation unit for file: $id');
       log.fine(error);
@@ -129,7 +126,8 @@ class OverReactBuilder extends Builder {
     }
   }
 
-  static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs) async {
+  static FutureOr<void> _writePart(
+      BuildStep buildStep, AssetId outputId, Iterable<String> outputs) async {
     final partOf = "'${p.basename(buildStep.inputId.uri.toString())}'";
 
     final buffer = new StringBuffer()
@@ -142,9 +140,7 @@ class OverReactBuilder extends Builder {
       ..writeln(_headerLine);
 
     for (final item in outputs) {
-      buffer
-        ..writeln()
-        ..writeln(item);
+      buffer..writeln()..writeln(item);
     }
 
     final output = _formatter.format(buffer.toString());

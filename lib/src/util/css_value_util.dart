@@ -63,21 +63,25 @@ class CssValue implements Comparable<CssValue> {
       number = source;
       unit = 'px';
     } else {
-      var unitMatch = new RegExp(r'(?:rem|em|ex|vh|vw|vmin|vmax|%|px|cm|mm|in|pt|pc|ch)?$').firstMatch(source.toString());
-        unit = unitMatch.group(0);
+      var unitMatch =
+          new RegExp(r'(?:rem|em|ex|vh|vw|vmin|vmax|%|px|cm|mm|in|pt|pc|ch)?$')
+              .firstMatch(source.toString());
+      unit = unitMatch.group(0);
       if (unit == '') {
         unit = 'px';
       }
 
       number = double.tryParse(unitMatch.input.substring(0, unitMatch.start));
       if (number == null) {
-        error = new ArgumentError.value(source, 'value', 'Invalid number/unit for CSS value');
+        error = new ArgumentError.value(
+            source, 'value', 'Invalid number/unit for CSS value');
       }
     }
 
     if (number != null && !number.isFinite) {
       // Rule out -Infinity, Infinity, and NaN.
-      error = new ArgumentError.value(number, 'value', 'Number portion of CSS value ($source) must be finite');
+      error = new ArgumentError.value(number, 'value',
+          'Number portion of CSS value ($source) must be finite');
     }
 
     var result;
@@ -99,7 +103,8 @@ class CssValue implements Comparable<CssValue> {
   /// Used internally to prevent calculations between incompatible units.
   void _checkMatchingUnits(CssValue other) {
     if (unit != other.unit) {
-      throw new ArgumentError('Cannot compare CSS unit values of units $unit and ${other.unit}');
+      throw new ArgumentError(
+          'Cannot compare CSS unit values of units $unit and ${other.unit}');
     }
   }
 
@@ -147,7 +152,8 @@ class CssValue implements Comparable<CssValue> {
   /// Returns whether this value's [number] and [unit] are equal to that of [other].
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is CssValue && number == other.number && unit == other.unit);
+    return identical(this, other) ||
+        (other is CssValue && number == other.number && unit == other.unit);
   }
 
   @override

@@ -18,7 +18,8 @@ import 'dart:collection';
 
 // Must import these consts because they are used in the transformed code.
 // ignore: unused_shown_name
-import 'package:over_react/over_react.dart' show PropDescriptor, PropsMeta, ConsumedProps;
+import 'package:over_react/over_react.dart'
+    show PropDescriptor, PropsMeta, ConsumedProps;
 import 'package:over_react/src/component_declaration/annotations.dart';
 
 part 'aria_mixin.over_react.g.dart';
@@ -1759,8 +1760,7 @@ class Role {
 }
 
 /// A MapView with the typed getters/setters for all aria props.
-class AriaPropsMapView extends MapView with
-    AriaPropsMixin {
+class AriaPropsMapView extends MapView with AriaPropsMixin {
   /// Create a new instance backed by the specified map.
   AriaPropsMapView(Map map) : super(map);
 
@@ -1781,4 +1781,5 @@ class AriaPropsMapView extends MapView with
 /// <!>  )
 /// </pre>
 /// <!-- use pre tags and HTML markup until WebStorm fully supports Dart doc comment markdown -->
-AriaPropsMapView ariaProps([Map backingMap]) => new AriaPropsMapView(backingMap == null ? {} : backingMap);
+AriaPropsMapView ariaProps([Map backingMap]) =>
+    new AriaPropsMapView(backingMap == null ? {} : backingMap);

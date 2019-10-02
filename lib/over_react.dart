@@ -15,23 +15,25 @@
 /// Base classes for UI components and related utilities.
 library over_react;
 
-export 'package:react/react.dart' show
-    SyntheticEvent,
-    SyntheticAnimationEvent,
-    SyntheticClipboardEvent,
-    SyntheticKeyboardEvent,
-    SyntheticFocusEvent,
-    SyntheticFormEvent,
-    SyntheticDataTransfer,
-    SyntheticMouseEvent,
-    SyntheticTouchEvent,
-    SyntheticTransitionEvent,
-    SyntheticUIEvent,
-    SyntheticWheelEvent;
+export 'package:react/react.dart'
+    show
+        SyntheticEvent,
+        SyntheticAnimationEvent,
+        SyntheticClipboardEvent,
+        SyntheticKeyboardEvent,
+        SyntheticFocusEvent,
+        SyntheticFormEvent,
+        SyntheticDataTransfer,
+        SyntheticMouseEvent,
+        SyntheticTouchEvent,
+        SyntheticTransitionEvent,
+        SyntheticUIEvent,
+        SyntheticWheelEvent;
 
 export 'package:react/react_client/js_backed_map.dart' show JsBackedMap;
 
-export 'package:react/react_client.dart' show setClientConfiguration, ReactElement, ReactComponentFactoryProxy;
+export 'package:react/react_client.dart'
+    show setClientConfiguration, ReactElement, ReactComponentFactoryProxy;
 export 'package:react/react_client/react_interop.dart' show ReactErrorInfo, Ref;
 
 export 'src/component/abstract_transition.dart';
@@ -48,12 +50,14 @@ export 'src/component/prop_mixins.dart';
 export 'src/component/prop_typedefs.dart';
 export 'src/component/resize_sensor.dart';
 export 'src/component_declaration/annotations.dart';
-export 'src/component_declaration/builder_helpers.dart' hide GeneratedErrorMessages;
-export 'src/component_declaration/component_base_2.dart' show
-    registerComponent2,
-    UiComponent2,
-    UiStatefulComponent2,
-    UiStatefulMixin2;
+export 'src/component_declaration/builder_helpers.dart'
+    hide GeneratedErrorMessages;
+export 'src/component_declaration/component_base_2.dart'
+    show
+        registerComponent2,
+        UiComponent2,
+        UiStatefulComponent2,
+        UiStatefulMixin2;
 export 'src/component_declaration/built_redux_component.dart';
 export 'src/component_declaration/flux_component.dart';
 export 'src/util/character_constants.dart';

@@ -21,5 +21,6 @@ class _$ErrorBoundaryProps extends UiProps with ErrorBoundaryPropsMixin {}
 class _$ErrorBoundaryState extends UiState with ErrorBoundaryStateMixin {}
 
 @Component2(isWrapper: true, isErrorBoundary: true)
-class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBoundaryState>
-    extends UiStatefulComponent2<T, S> with ErrorBoundaryMixin<T, S> {}
+class ErrorBoundaryComponent<T extends ErrorBoundaryProps,
+        S extends ErrorBoundaryState> extends UiStatefulComponent2<T, S>
+    with ErrorBoundaryMixin<T, S> {}

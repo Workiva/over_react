@@ -28,7 +28,8 @@ library over_react.react_dom;
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
-import 'package:react/react_dom.dart' as react_dom show render, unmountComponentAtNode;
+import 'package:react/react_dom.dart' as react_dom
+    show render, unmountComponentAtNode;
 
 /// Renders the provided [element] into the DOM mounted in the provided [mountNode]
 /// and returns a reference to it based on its type:

@@ -24,7 +24,8 @@ Uri idToPackageUri(AssetId id) {
     return new Uri(path: id.path);
   }
 
-  return new Uri(scheme: 'package',
+  return new Uri(
+      scheme: 'package',
       path: p.url.join(id.package, id.path.replaceFirst('lib/', '')));
 }
 
@@ -40,11 +41,14 @@ bool isPart(CompilationUnit unit) =>
 ///   Output:
 ///     '<T, U>'
 String removeBoundsFromTypeParameters(TypeParameterList typeParameters) {
-  return typeParameters != null ? (StringBuffer()
-    ..write('${typeParameters.leftBracket}')..write(
-        typeParameters.typeParameters.map((t) => t.name.name).join(
-            ', '))..write('${typeParameters.rightBracket}'))
-      .toString()
+  return typeParameters != null
+      ? (StringBuffer()
+            ..write('${typeParameters.leftBracket}')
+            ..write(typeParameters.typeParameters
+                .map((t) => t.name.name)
+                .join(', '))
+            ..write('${typeParameters.rightBracket}'))
+          .toString()
       : '';
 }
 
@@ -59,6 +63,7 @@ FieldDeclaration getMetaField(ClassDeclaration cd) {
     if (fd.fields.variables.single.name.name != 'meta') return false;
     return true;
   }
+
   return cd.members.firstWhere(isPropsOrStateMeta, orElse: () => null);
 }
 
@@ -70,7 +75,8 @@ String messageWithSpan(String message, {SourceSpan span}) {
 /// Returns any [FieldDeclaration]s on [node] which have the name `meta`,
 /// otherwise `null`.
 FieldDeclaration metaFieldOrNull(ClassDeclaration node) {
-  return node.members.firstWhere((member) => member is FieldDeclaration && fieldDeclarationHasMeta(member),
+  return node.members.firstWhere(
+      (member) => member is FieldDeclaration && fieldDeclarationHasMeta(member),
       orElse: () => null);
 }
 
@@ -83,14 +89,16 @@ bool fieldDeclarationHasMeta(FieldDeclaration field) {
 /// Returns `true` if the supplied [FieldDeclaration] contains any variables named
 /// [name], otherwise `false`.
 bool fieldDeclarationHasName(FieldDeclaration field, String name) {
-  return (field.fields.variables.firstWhere((variable) =>
-      variable.name.name == name, orElse: () => null)) != null;
+  return (field.fields.variables.firstWhere(
+          (variable) => variable.name.name == name,
+          orElse: () => null)) !=
+      null;
 }
 
 /// Returns any [MethodDeclaration]s on [node] which have the name `meta`,
 /// otherwise `null`.
 MethodDeclaration metaMethodOrNull(ClassDeclaration node) {
-  return node.members.firstWhere((member) =>
-      member is MethodDeclaration && member.name.name == 'meta',
+  return node.members.firstWhere(
+      (member) => member is MethodDeclaration && member.name.name == 'meta',
       orElse: () => null);
 }

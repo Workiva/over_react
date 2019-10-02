@@ -15,7 +15,8 @@
 import 'package:analyzer/analyzer.dart';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
+import 'package:over_react/src/component_declaration/annotations.dart'
+    as annotations;
 import 'package:over_react/src/builder/generation/declaration_parsing.dart';
 import 'package:over_react/src/builder/util.dart';
 import 'package:source_span/source_span.dart';
@@ -56,19 +57,26 @@ class ImplGenerator {
   generate(ParsedDeclarations declarations) {
     if (declarations.declaresComponent) {
       final bool isComponent2 = declarations.component2 != null;
-      final componentDeclNode = isComponent2 ? declarations.component2 : declarations.component;
-      final factoryName = declarations.factory.node.variables.variables.first.name.toString();
+      final componentDeclNode =
+          isComponent2 ? declarations.component2 : declarations.component;
+      final factoryName =
+          declarations.factory.node.variables.variables.first.name.toString();
 
       final consumerPropsName = declarations.props.node.name.toString();
-      final consumablePropsName = _publicPropsOrStateClassNameFromConsumerClassName(consumerPropsName);
+      final consumablePropsName =
+          _publicPropsOrStateClassNameFromConsumerClassName(consumerPropsName);
 
-      final propsImplName = _propsImplClassNameFromConsumerClassName(consumerPropsName);
-      final propsAccessorsMixinName = _accessorsMixinNameFromConsumerName(consumerPropsName);
+      final propsImplName =
+          _propsImplClassNameFromConsumerClassName(consumerPropsName);
+      final propsAccessorsMixinName =
+          _accessorsMixinNameFromConsumerName(consumerPropsName);
 
       final componentClassName = componentDeclNode.node.name.toString();
-      final componentClassImplMixinName = '$privateSourcePrefix$componentClassName';
+      final componentClassImplMixinName =
+          '$privateSourcePrefix$componentClassName';
 
-      final generatedComponentFactoryName = _componentFactoryName(componentClassName);
+      final generatedComponentFactoryName =
+          _componentFactoryName(componentClassName);
 
       StringBuffer typedPropsFactoryImpl = new StringBuffer();
       StringBuffer typedStateFactoryImpl = new StringBuffer();
@@ -82,13 +90,15 @@ class ImplGenerator {
 
       Identifier parentType = componentDeclNode.subtypeOfValue;
       if (parentType != null) {
-        parentTypeParamComment = ' /* from `subtypeOf: ${getSpan(sourceFile, parentType).text}` */';
+        parentTypeParamComment =
+            ' /* from `subtypeOf: ${getSpan(sourceFile, parentType).text}` */';
 
         if (parentType is PrefixedIdentifier) {
           final prefix = parentType.prefix.name;
           final parentClassName = parentType.identifier.name;
 
-          parentTypeParam = prefix + '.' + _componentFactoryName(parentClassName);
+          parentTypeParam =
+              prefix + '.' + _componentFactoryName(parentClassName);
         } else {
           final parentClassName = parentType.name;
 
@@ -100,17 +110,19 @@ class ImplGenerator {
         /// It doesn't make sense to have a component subtype itself, and also an error occurs
         /// if a component's factory variable tries to reference itself during its initialization.
         /// Therefore, this is not allowed.
-        logger.severe(messageWithSpan('A component cannot be a subtype of itself.',
-            span: getSpan(sourceFile, componentDeclNode.metaNode))
-        );
+        logger.severe(messageWithSpan(
+            'A component cannot be a subtype of itself.',
+            span: getSpan(sourceFile, componentDeclNode.metaNode)));
       }
 
       if (isComponent2) {
         outputContentsBuffer
           ..writeln('// React component factory implementation.')
           ..writeln('//')
-          ..writeln('// Registers component implementation and links type meta to builder factory.')
-          ..writeln('final $generatedComponentFactoryName = registerComponent2(() => new $componentClassImplMixinName(),')
+          ..writeln(
+              '// Registers component implementation and links type meta to builder factory.')
+          ..writeln(
+              'final $generatedComponentFactoryName = registerComponent2(() => new $componentClassImplMixinName(),')
           ..writeln('    builderFactory: $factoryName,')
           ..writeln('    componentClass: $componentClassName,')
           ..writeln('    isWrapper: ${componentDeclNode.meta.isWrapper},')
@@ -121,19 +133,18 @@ class ImplGenerator {
           // Override `skipMethods` as an empty list so that
           // the `componentDidCatch` and `getDerivedStateFromError`
           // lifecycle methods are included in the component's JS bindings.
-          outputContentsBuffer
-            ..writeln('    skipMethods: const [],');
+          outputContentsBuffer..writeln('    skipMethods: const [],');
         }
 
-        outputContentsBuffer
-          ..writeln(');')
-          ..writeln();
+        outputContentsBuffer..writeln(');')..writeln();
       } else {
         outputContentsBuffer
           ..writeln('// React component factory implementation.')
           ..writeln('//')
-          ..writeln('// Registers component implementation and links type meta to builder factory.')
-          ..writeln('final $generatedComponentFactoryName = registerComponent(() => new $componentClassImplMixinName(),')
+          ..writeln(
+              '// Registers component implementation and links type meta to builder factory.')
+          ..writeln(
+              'final $generatedComponentFactoryName = registerComponent(() => new $componentClassImplMixinName(),')
           ..writeln('    builderFactory: $factoryName,')
           ..writeln('    componentClass: $componentClassName,')
           ..writeln('    isWrapper: ${componentDeclNode.meta.isWrapper},')
@@ -148,13 +159,13 @@ class ImplGenerator {
       // ----------------------------------------------------------------------
 
       // Generate accessors mixin and props metaFor constant
-      outputContentsBuffer.write(_generateAccessorsMixin(
-          AccessorType.props, propsAccessorsMixinName, declarations.props,
-          consumerPropsName,
+      outputContentsBuffer.write(_generateAccessorsMixin(AccessorType.props,
+          propsAccessorsMixinName, declarations.props, consumerPropsName,
           typeParameters: declarations.props.node.typeParameters));
       outputContentsBuffer.write(
           _generateMetaConstImpl(AccessorType.props, declarations.props));
-      outputContentsBuffer.write(_generateConsumablePropsOrStateClass(AccessorType.props, declarations.props));
+      outputContentsBuffer.write(_generateConsumablePropsOrStateClass(
+          AccessorType.props, declarations.props));
 
       outputContentsBuffer.write(
           '$propsImplName $privateSourcePrefix$factoryName([Map backingProps]) => ');
@@ -164,11 +175,11 @@ class ImplGenerator {
         outputContentsBuffer.writeln('new $propsImplName(backingProps);');
       } else {
         /// _$$FooProps _$Foo([Map backingProps]) => backingProps == null ? new $jsMapImplName(new JsBackedMap()) : new _$$FooProps(backingProps);
-        final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(propsImplName);
+        final jsMapImplName =
+            _jsMapAccessorImplClassNameFromImplClassName(propsImplName);
         // Optimize this case for when backingProps is null to promote inlining of `jsMapImplName` typing
         outputContentsBuffer.writeln(
-              'backingProps == null ? new $jsMapImplName(new JsBackedMap()) : new $propsImplName(backingProps);'
-        );
+            'backingProps == null ? new $jsMapImplName(new JsBackedMap()) : new $propsImplName(backingProps);');
       }
 
       outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
@@ -186,7 +197,8 @@ class ImplGenerator {
       if (isComponent2) {
         // See _generateConcretePropsOrStateImpl for more info on why these additional methods are
         // implemented for Component2.
-        final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(propsImplName);
+        final jsMapImplName =
+            _jsMapAccessorImplClassNameFromImplClassName(propsImplName);
         // This implementation here is necessary so that mixin accesses aren't compiled as index$ax
         typedPropsFactoryImpl
           ..writeln('  $jsMapImplName _cachedTypedProps;')
@@ -197,41 +209,51 @@ class ImplGenerator {
           ..writeln('  @override')
           ..writeln('  set props(Map value) {')
           ..writeln('    assert(getBackingMap(value) is JsBackedMap, ')
-          ..writeln('      \'Component2.props should never be set directly in \'')
-          ..writeln('      \'production. If this is required for testing, the \'')
-          ..writeln('      \'component should be rendered within the test. If \'')
-          ..writeln('      \'that does not have the necessary result, the last \'')
+          ..writeln(
+              '      \'Component2.props should never be set directly in \'')
+          ..writeln(
+              '      \'production. If this is required for testing, the \'')
+          ..writeln(
+              '      \'component should be rendered within the test. If \'')
+          ..writeln(
+              '      \'that does not have the necessary result, the last \'')
           ..writeln('      \'resort is to use typedPropsFactoryJs.\');')
           ..writeln('    super.props = value;')
           // FIXME 3.0.0-wip: is this implementation still needed here to get good dart2js output, or can we do it in the superclass?
-          ..writeln('    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));')
+          ..writeln(
+              '    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));')
           ..writeln('  }')
           ..writeln()
           ..writeln('  @override ')
-          ..writeln('  $jsMapImplName typedPropsFactoryJs(JsBackedMap backingMap) => new $jsMapImplName(backingMap);')
+          ..writeln(
+              '  $jsMapImplName typedPropsFactoryJs(JsBackedMap backingMap) => new $jsMapImplName(backingMap);')
           ..writeln();
       }
       typedPropsFactoryImpl
         ..writeln('  @override')
-        ..writeln('  $propsImplName typedPropsFactory(Map backingMap) => new $propsImplName(backingMap);')
+        ..writeln(
+            '  $propsImplName typedPropsFactory(Map backingMap) => new $propsImplName(backingMap);')
         ..writeln();
-
 
       // ----------------------------------------------------------------------
       //   State implementation
       // ----------------------------------------------------------------------
       if (declarations.state != null) {
         final stateName = _classNameFromNode(declarations.state);
-        final consumableStateName = _publicPropsOrStateClassNameFromConsumerClassName(stateName);
-        final stateImplName = _propsImplClassNameFromConsumerClassName(stateName);
-        final stateAccessorsMixinName = _accessorsMixinNameFromConsumerName(stateName);
+        final consumableStateName =
+            _publicPropsOrStateClassNameFromConsumerClassName(stateName);
+        final stateImplName =
+            _propsImplClassNameFromConsumerClassName(stateName);
+        final stateAccessorsMixinName =
+            _accessorsMixinNameFromConsumerName(stateName);
 
-        outputContentsBuffer.write(_generateAccessorsMixin(
-            AccessorType.state, stateAccessorsMixinName, declarations.state,
-            stateName, typeParameters: declarations.state.node.typeParameters));
+        outputContentsBuffer.write(_generateAccessorsMixin(AccessorType.state,
+            stateAccessorsMixinName, declarations.state, stateName,
+            typeParameters: declarations.state.node.typeParameters));
         outputContentsBuffer.write(
             _generateMetaConstImpl(AccessorType.state, declarations.state));
-        outputContentsBuffer.write(_generateConsumablePropsOrStateClass(AccessorType.state, declarations.state));
+        outputContentsBuffer.write(_generateConsumablePropsOrStateClass(
+            AccessorType.state, declarations.state));
 
         outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
           type: AccessorType.state,
@@ -248,7 +270,8 @@ class ImplGenerator {
         if (isComponent2) {
           // See _generateConcretePropsOrStateImpl for more info on why these additional methods are
           // implemented for Component2.
-          final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(stateImplName);
+          final jsMapImplName =
+              _jsMapAccessorImplClassNameFromImplClassName(stateImplName);
           // This implementation here is necessary so that mixin accesses aren't compiled as index$ax
           typedStateFactoryImpl
             ..writeln('  $jsMapImplName _cachedTypedState;')
@@ -259,19 +282,22 @@ class ImplGenerator {
             ..writeln('  set state(Map value) {')
             ..writeln('    assert(value is JsBackedMap, ')
             ..writeln('      \'Component2.state should only be set via \'')
-            ..writeln('      \'initializeState (within the init lifecycle method) or setState.\');')
+            ..writeln(
+                '      \'initializeState (within the init lifecycle method) or setState.\');')
             ..writeln('    super.state = value;')
             ..writeln('    _cachedTypedState = typedStateFactoryJs(value);')
             ..writeln('  }')
             ..writeln()
             ..writeln('  @override ')
             // FIXME 3.0.0-wip: is this implementation still needed here to get good dart2js output, or can we do it in the superclass?
-            ..writeln('  $jsMapImplName typedStateFactoryJs(JsBackedMap backingMap) => new $jsMapImplName(backingMap);')
+            ..writeln(
+                '  $jsMapImplName typedStateFactoryJs(JsBackedMap backingMap) => new $jsMapImplName(backingMap);')
             ..writeln();
         }
         typedStateFactoryImpl
           ..writeln('  @override')
-          ..writeln('  $stateImplName typedStateFactory(Map backingMap) => new $stateImplName(backingMap);')
+          ..writeln(
+              '  $stateImplName typedStateFactory(Map backingMap) => new $stateImplName(backingMap);')
           ..writeln();
       }
 
@@ -281,34 +307,39 @@ class ImplGenerator {
       outputContentsBuffer
         ..writeln('// Concrete component implementation mixin.')
         ..writeln('//')
-        ..writeln('// Implements typed props/state factories, defaults `consumedPropKeys` to the keys')
+        ..writeln(
+            '// Implements typed props/state factories, defaults `consumedPropKeys` to the keys')
         ..writeln('// generated for the associated props class.')
-        ..writeln('class $componentClassImplMixinName extends $componentClassName {')
+        ..writeln(
+            'class $componentClassImplMixinName extends $componentClassName {')
         ..write(typedPropsFactoryImpl)
         ..write(typedStateFactoryImpl)
-        ..writeln('  /// Let [UiComponent] internals know that this class has been generated.')
+        ..writeln(
+            '  /// Let [UiComponent] internals know that this class has been generated.')
         ..writeln('  @override')
         ..writeln('  bool get \$isClassGenerated => true;')
         ..writeln()
-        ..writeln('  /// The default consumed props, taken from $consumerPropsName.')
-        ..writeln('  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.')
+        ..writeln(
+            '  /// The default consumed props, taken from $consumerPropsName.')
+        ..writeln(
+            '  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.')
         ..writeln('  @override')
         ..writeln('  final List<ConsumedProps> \$defaultConsumedProps = '
-                        'const [${_metaConstantName(consumablePropsName)}];')
+            'const [${_metaConstantName(consumablePropsName)}];')
         ..writeln('}');
 
-      final implementsTypedPropsStateFactory = componentDeclNode.node.members.any((member) =>
-          member is MethodDeclaration &&
-          !member.isStatic &&
-          (member.name.name == 'typedPropsFactory' || member.name.name == 'typedStateFactory')
-      );
+      final implementsTypedPropsStateFactory = componentDeclNode.node.members
+          .any((member) =>
+              member is MethodDeclaration &&
+              !member.isStatic &&
+              (member.name.name == 'typedPropsFactory' ||
+                  member.name.name == 'typedStateFactory'));
 
       if (implementsTypedPropsStateFactory) {
         // Can't be an error, because consumers may be implementing typedPropsFactory or typedStateFactory in their components.
         logger.warning(messageWithSpan(
             'Components should not add their own implementions of typedPropsFactory or typedStateFactory.',
-            span: getSpan(sourceFile, componentDeclNode.node))
-        );
+            span: getSpan(sourceFile, componentDeclNode.node)));
       }
     }
 
@@ -317,11 +348,13 @@ class ImplGenerator {
     // ----------------------------------------------------------------------
 
     declarations.propsMixins.forEach((propMixin) {
-      _generateAccessorsAndMetaConstantForMixin(AccessorType.propsMixin, propMixin);
+      _generateAccessorsAndMetaConstantForMixin(
+          AccessorType.propsMixin, propMixin);
     });
 
     declarations.stateMixins.forEach((stateMixin) {
-      _generateAccessorsAndMetaConstantForMixin(AccessorType.stateMixin, stateMixin);
+      _generateAccessorsAndMetaConstantForMixin(
+          AccessorType.stateMixin, stateMixin);
     });
 
     // ----------------------------------------------------------------------
@@ -330,35 +363,43 @@ class ImplGenerator {
     declarations.abstractProps.forEach((abstractPropsClass) {
       final className = _classNameFromNode(abstractPropsClass);
       outputContentsBuffer.write(_generateAccessorsMixin(
-          AccessorType.abstractProps, _accessorsMixinNameFromConsumerName(className), abstractPropsClass,
-          className, typeParameters: abstractPropsClass.node.typeParameters));
+          AccessorType.abstractProps,
+          _accessorsMixinNameFromConsumerName(className),
+          abstractPropsClass,
+          className,
+          typeParameters: abstractPropsClass.node.typeParameters));
       outputContentsBuffer.write(_generateMetaConstImpl(
           AccessorType.abstractProps, abstractPropsClass));
-      outputContentsBuffer.write(_generateConsumablePropsOrStateClass(AccessorType.abstractProps, abstractPropsClass));
+      outputContentsBuffer.write(_generateConsumablePropsOrStateClass(
+          AccessorType.abstractProps, abstractPropsClass));
     });
 
     declarations.abstractState.forEach((abstractStateClass) {
       final className = _classNameFromNode(abstractStateClass);
       outputContentsBuffer.write(_generateAccessorsMixin(
-          AccessorType.abstractState, _accessorsMixinNameFromConsumerName(className), abstractStateClass,
-          className, typeParameters: abstractStateClass.node.typeParameters));
-      outputContentsBuffer.write(_generateMetaConstImpl(AccessorType.abstractState, abstractStateClass));
-      outputContentsBuffer.write(_generateConsumablePropsOrStateClass(AccessorType.abstractState, abstractStateClass));
+          AccessorType.abstractState,
+          _accessorsMixinNameFromConsumerName(className),
+          abstractStateClass,
+          className,
+          typeParameters: abstractStateClass.node.typeParameters));
+      outputContentsBuffer.write(_generateMetaConstImpl(
+          AccessorType.abstractState, abstractStateClass));
+      outputContentsBuffer.write(_generateConsumablePropsOrStateClass(
+          AccessorType.abstractState, abstractStateClass));
     });
   }
 
-  bool hasAbstractGetter(ClassDeclaration classDeclaration, String type, String name) {
-      return classDeclaration.members.any((member) {
-        return (
-            member is MethodDeclaration &&
-            member.isGetter &&
-            !member.isSynthetic &&
-            member.isAbstract &&
-            member.name.name == name &&
-            member.returnType?.toSource() == type
-        );
-      });
-    }
+  bool hasAbstractGetter(
+      ClassDeclaration classDeclaration, String type, String name) {
+    return classDeclaration.members.any((member) {
+      return (member is MethodDeclaration &&
+          member.isGetter &&
+          !member.isSynthetic &&
+          member.isAbstract &&
+          member.name.name == name &&
+          member.returnType?.toSource() == type);
+    });
+  }
 
   // ----------------------------------------------------------------------
   //   Accessor generation
@@ -373,19 +414,23 @@ class ImplGenerator {
   static const String staticPropsName = '${publicGeneratedPrefix}props';
   static const String staticStateName = '${publicGeneratedPrefix}state';
 
-  static const String staticConsumedPropsName = '${publicGeneratedPrefix}consumedProps';
+  static const String staticConsumedPropsName =
+      '${publicGeneratedPrefix}consumedProps';
 
   AccessorOutput _generateAccessors(
       AccessorType type,
       NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap,
-      String consumerClassName
-  ) {
+      String consumerClassName) {
     String keyNamespace = _getAccessorKeyNamespace(typedMap);
 
-    final String proxiedMapName = type.isProps ? proxiedPropsMapName : proxiedStateMapName;
-    final String keyListName = type.isProps ? staticPropKeysName : staticStateKeysName;
-    final String constantListName = type.isProps ? staticPropsName : staticStateName;
-    final String constConstructorName = type.isProps ? 'PropDescriptor' : 'StateDescriptor';
+    final String proxiedMapName =
+        type.isProps ? proxiedPropsMapName : proxiedStateMapName;
+    final String keyListName =
+        type.isProps ? staticPropKeysName : staticStateKeysName;
+    final String constantListName =
+        type.isProps ? staticPropsName : staticStateName;
+    final String constConstructorName =
+        type.isProps ? 'PropDescriptor' : 'StateDescriptor';
 
     Map keyConstants = {};
     Map constants = {};
@@ -395,151 +440,155 @@ class ImplGenerator {
     typedMap.node.members
         .where((member) => member is FieldDeclaration && !member.isStatic)
         .forEach((_field) {
-          final FieldDeclaration field = _field;
+      final FieldDeclaration field = _field;
 
-          T getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
-            return member.metadata.any((annotation) => annotation.name?.name == name) ? value : null;
+      T getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
+        return member.metadata
+                .any((annotation) => annotation.name?.name == name)
+            ? value
+            : null;
+      }
+
+      annotations.Accessor accessorMeta =
+          instantiateAnnotation(field, annotations.Accessor);
+      annotations.Accessor requiredProp = getConstantAnnotation(
+          field, 'requiredProp', annotations.requiredProp);
+      annotations.Accessor nullableRequiredProp = getConstantAnnotation(
+          field, 'nullableRequiredProp', annotations.nullableRequiredProp);
+
+      if (accessorMeta?.doNotGenerate == true) {
+        logger.fine(messageWithSpan('Skipping generation of field `$field`.',
+            span: getSpan(sourceFile, field)));
+        return;
+      }
+
+      field.fields.variables.forEach((VariableDeclaration variable) {
+        if (variable.initializer != null) {
+          logger.severe(messageWithSpan(
+              'Fields are stubs for generated setters/getters and should not have initializers.\n'
+              'Instead, initialize ${type.isProps ? 'prop values within getDefaultProps()' : 'state values within getInitialState()'}.',
+              span: getSpan(sourceFile, variable)));
+        }
+
+        String accessorName = variable.name.name;
+
+        String individualKeyNamespace =
+            accessorMeta?.keyNamespace ?? keyNamespace;
+        String individualKey = accessorMeta?.key ?? accessorName;
+
+        /// Necessary to work around issue where private static declarations in different classes
+        /// conflict with each other in strong mode.
+        /// TODO remove once https://github.com/dart-lang/sdk/issues/29751 is resolved
+        String staticConstNamespace = typedMap.node.name.name;
+
+        String keyConstantName =
+            '${privateSourcePrefix}key__${accessorName}__$staticConstNamespace';
+        String keyValue = stringLiteral(individualKeyNamespace + individualKey);
+
+        String constantName =
+            '${privateSourcePrefix}prop__${accessorName}__$staticConstNamespace';
+        String constantValue = 'const $constConstructorName($keyConstantName';
+
+        var annotationCount = 0;
+
+        if (accessorMeta != null) {
+          annotationCount++;
+
+          if (accessorMeta.isRequired) {
+            constantValue += ', isRequired: true';
+
+            if (accessorMeta.isNullable) constantValue += ', isNullable: true';
+
+            if (accessorMeta.requiredErrorMessage != null &&
+                accessorMeta.requiredErrorMessage.isNotEmpty) {
+              constantValue +=
+                  ', errorMessage: ${stringLiteral(accessorMeta.requiredErrorMessage)}';
+            }
           }
+        }
 
-          annotations.Accessor accessorMeta = instantiateAnnotation(field, annotations.Accessor);
-          annotations.Accessor requiredProp = getConstantAnnotation(field, 'requiredProp', annotations.requiredProp);
-          annotations.Accessor nullableRequiredProp = getConstantAnnotation(field, 'nullableRequiredProp', annotations.nullableRequiredProp);
+        if (requiredProp != null) {
+          annotationCount++;
+          constantValue += ', isRequired: true';
+        }
 
+        if (nullableRequiredProp != null) {
+          annotationCount++;
+          constantValue += ', isRequired: true, isNullable: true';
+        }
 
-          if (accessorMeta?.doNotGenerate == true) {
-            logger.fine(messageWithSpan('Skipping generation of field `$field`.',
-                span: getSpan(sourceFile, field))
-            );
-            return;
-          }
+        if (annotationCount > 1) {
+          logger.severe(messageWithSpan(
+              '@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
+              'You can use `@Accessor(required: true)` or `isNullable: true` instead of the shorthand versions.',
+              span: getSpan(sourceFile, field)));
+        }
 
-          field.fields.variables.forEach((VariableDeclaration variable) {
-            if (variable.initializer != null) {
-              logger.severe(messageWithSpan(
-                  'Fields are stubs for generated setters/getters and should not have initializers.\n'
-                      'Instead, initialize ${type.isProps 
-                          ? 'prop values within getDefaultProps()' 
-                          : 'state values within getInitialState()'}.',
-                  span: getSpan(sourceFile, variable))
-              );
-            }
+        constantValue += ')';
 
-            String accessorName = variable.name.name;
+        keyConstants[keyConstantName] = keyValue;
+        constants[constantName] = constantValue;
 
-            String individualKeyNamespace = accessorMeta?.keyNamespace ?? keyNamespace;
-            String individualKey = accessorMeta?.key ?? accessorName;
+        final typeSource = field.fields.type?.toSource();
+        final typeString = typeSource == null ? '' : '$typeSource ';
+        final metadataSrc = new StringBuffer();
+        for (final annotation in field.metadata) {
+          metadataSrc.writeln('  ${annotation.toSource()}');
+        }
 
-            /// Necessary to work around issue where private static declarations in different classes
-            /// conflict with each other in strong mode.
-            /// TODO remove once https://github.com/dart-lang/sdk/issues/29751 is resolved
-            String staticConstNamespace = typedMap.node.name.name;
+        String setterTypeString = field.covariantKeyword == null
+            ? typeString
+            : '${field.covariantKeyword} $typeString';
 
-            String keyConstantName = '${privateSourcePrefix}key__${accessorName}__$staticConstNamespace';
-            String keyValue = stringLiteral(individualKeyNamespace + individualKey);
+        // Carry over the existing doc comment since IDEs don't inherit
+        // doc comments for some reason.
+        String docComment;
+        if (variable.documentationComment == null) {
+          docComment = '';
+        } else {
+          final existingCommentSource = sourceFile.getText(
+              variable.documentationComment.offset,
+              variable.documentationComment.end);
+          docComment = '$existingCommentSource\n'
+              '  ///\n';
+        }
+        // Provide a link to the original declaration:
+        // - for better UX in VS Code, since the "Dart: Go to Super Class/Method" action isn't easily discoverable
+        // - to provide a reminder to the user that they probably want to look at the original declaration
+        //
+        // Use an HTML comment so it isn't rendered to the hover/quickdoc, which clutters up the comment.
+        // Even inside comments, this link will be clickable in IDEs!
+        docComment +=
+            '  /// <!-- Generated from [$consumerClassName.$accessorName] -->';
 
-            String constantName = '${privateSourcePrefix}prop__${accessorName}__$staticConstNamespace';
-            String constantValue = 'const $constConstructorName($keyConstantName';
+        String generatedAccessor = '  $docComment\n'
+            // TODO reinstate inlining once https://github.com/dart-lang/sdk/issues/36217 is fixed and all workarounds are removed
+            // inlining is necessary to get mixins to use $index/$indexSet instead of $index$asx
+            // '  @tryInline\n'
+            '  @override\n'
+            '${metadataSrc.toString()}'
+            '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName] ?? null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;\n'
+            '  $docComment\n'
+            // '  @tryInline\n'
+            '  @override\n'
+            '${metadataSrc.toString()}'
+            '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;\n';
 
-            var annotationCount = 0;
+        output.write(generatedAccessor);
 
-            if (accessorMeta != null) {
-              annotationCount++;
+        logger.fine(messageWithSpan(
+            'Generated accessor `$accessorName` with key $keyValue.',
+            span: getSpan(sourceFile, variable)));
+      });
 
-              if (accessorMeta.isRequired) {
-                constantValue += ', isRequired: true';
-
-                if (accessorMeta.isNullable) constantValue += ', isNullable: true';
-
-                if (accessorMeta.requiredErrorMessage != null && accessorMeta.requiredErrorMessage.isNotEmpty) {
-                  constantValue += ', errorMessage: ${stringLiteral(accessorMeta.requiredErrorMessage)}';
-                }
-              }
-            }
-
-            if (requiredProp != null) {
-              annotationCount++;
-              constantValue += ', isRequired: true';
-            }
-
-            if (nullableRequiredProp != null) {
-              annotationCount++;
-              constantValue += ', isRequired: true, isNullable: true';
-            }
-
-            if (annotationCount > 1) {
-              logger.severe(messageWithSpan(
-                  '@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
-                  'You can use `@Accessor(required: true)` or `isNullable: true` instead of the shorthand versions.',
-                  span: getSpan(sourceFile, field))
-              );
-            }
-
-            constantValue += ')';
-
-            keyConstants[keyConstantName] = keyValue;
-            constants[constantName] = constantValue;
-
-            final typeSource = field.fields.type?.toSource();
-            final typeString = typeSource == null ? '' : '$typeSource ';
-            final metadataSrc = new StringBuffer();
-            for (final annotation in field.metadata) {
-              metadataSrc.writeln('  ${annotation.toSource()}');
-            }
-
-            String setterTypeString = field.covariantKeyword == null
-                ? typeString
-                : '${field.covariantKeyword} $typeString';
-
-            // Carry over the existing doc comment since IDEs don't inherit
-            // doc comments for some reason.
-            String docComment;
-            if (variable.documentationComment == null) {
-              docComment = '';
-            } else {
-              final existingCommentSource = sourceFile.getText(
-                  variable.documentationComment.offset,
-                  variable.documentationComment.end);
-              docComment =
-                  '$existingCommentSource\n'
-                  '  ///\n';
-            }
-            // Provide a link to the original declaration:
-            // - for better UX in VS Code, since the "Dart: Go to Super Class/Method" action isn't easily discoverable
-            // - to provide a reminder to the user that they probably want to look at the original declaration
-            //
-            // Use an HTML comment so it isn't rendered to the hover/quickdoc, which clutters up the comment.
-            // Even inside comments, this link will be clickable in IDEs!
-            docComment += '  /// <!-- Generated from [$consumerClassName.$accessorName] -->';
-
-            String generatedAccessor =
-                '  $docComment\n'
-                // TODO reinstate inlining once https://github.com/dart-lang/sdk/issues/36217 is fixed and all workarounds are removed
-                // inlining is necessary to get mixins to use $index/$indexSet instead of $index$asx
-                // '  @tryInline\n'
-                '  @override\n'
-                '${metadataSrc.toString()}'
-                '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName] ?? null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;\n'
-                '  $docComment\n'
-                // '  @tryInline\n'
-                '  @override\n'
-                '${metadataSrc.toString()}'
-                '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;\n';
-
-            output.write(generatedAccessor);
-
-            logger.fine(messageWithSpan('Generated accessor `$accessorName` with key $keyValue.',
-                span: getSpan(sourceFile, variable)));
-          });
-
-          if (field.fields.variables.length > 1 &&
-              (field.documentationComment != null || field.metadata.isNotEmpty)) {
-            logger.warning(messageWithSpan(
-                'Note: accessors declared as comma-separated variables will not all be generated '
-                'with the original doc comments and annotations; only the first variable will.',
-                span: getSpan(sourceFile, field.fields))
-            );
-          }
-        });
+      if (field.fields.variables.length > 1 &&
+          (field.documentationComment != null || field.metadata.isNotEmpty)) {
+        logger.warning(messageWithSpan(
+            'Note: accessors declared as comma-separated variables will not all be generated '
+            'with the original doc comments and annotations; only the first variable will.',
+            span: getSpan(sourceFile, field.fields)));
+      }
+    });
 
     var keyConstantsImpl;
     var constantsImpl;
@@ -547,38 +596,45 @@ class ImplGenerator {
     if (keyConstants.keys.isEmpty) {
       keyConstantsImpl = '';
     } else {
-      keyConstantsImpl =
-          keyConstants.keys.map((keyName) => '  static const String $keyName = ${keyConstants[keyName]}').join(';\n') +
+      keyConstantsImpl = keyConstants.keys
+              .map((keyName) =>
+                  '  static const String $keyName = ${keyConstants[keyName]}')
+              .join(';\n') +
           ';\n';
     }
 
     if (constants.keys.isEmpty) {
       constantsImpl = '';
     } else {
-      constantsImpl =
-          constants.keys.map((constantName) => '  static const $constConstructorName $constantName = ${constants[constantName]}').join(';\n') +
+      constantsImpl = constants.keys
+              .map((constantName) =>
+                  '  static const $constConstructorName $constantName = ${constants[constantName]}')
+              .join(';\n') +
           ';\n';
     }
 
-    String keyListImpl =
-        '  static const List<String> $keyListName = const [' +
+    String keyListImpl = '  static const List<String> $keyListName = const [' +
         keyConstants.keys.join(', ') +
         '];\n';
 
     String listImpl =
         '  static const List<$constConstructorName> $constantListName = const [' +
-        constants.keys.join(', ') +
-        '];\n';
+            constants.keys.join(', ') +
+            '];\n';
 
-    String staticVariablesImpl = '  /* GENERATED CONSTANTS */\n$constantsImpl$keyConstantsImpl\n$listImpl$keyListImpl';
+    String staticVariablesImpl =
+        '  /* GENERATED CONSTANTS */\n$constantsImpl$keyConstantsImpl\n$listImpl$keyListImpl';
 
     output.write(staticVariablesImpl);
     return new AccessorOutput(output.toString());
   }
 
-  static String _getAccessorKeyNamespace(NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap) {
+  static String _getAccessorKeyNamespace(
+      NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap) {
     // Default to the name of the class followed by a period.
-    final defaultNamespace = _publicPropsOrStateClassNameFromConsumerClassName(typedMap.node.name.name) + '.';
+    final defaultNamespace = _publicPropsOrStateClassNameFromConsumerClassName(
+            typedMap.node.name.name) +
+        '.';
     // Allow the consumer to specify a custom namespace that trumps the default.
     final specifiedKeyNamespace = typedMap.meta?.keyNamespace;
 
@@ -586,7 +642,8 @@ class ImplGenerator {
   }
 
   /// Convenience method to get the classname belonging to [classNode].
-  static String _classNameFromNode(NodeWithMeta<ClassDeclaration, annotations.TypedMap> classNode) {
+  static String _classNameFromNode(
+      NodeWithMeta<ClassDeclaration, annotations.TypedMap> classNode) {
     return classNode.node?.name?.name ?? '';
   }
 
@@ -603,7 +660,8 @@ class ImplGenerator {
       throw new ArgumentError.notNull(className);
     }
 
-    return className.replaceFirst(privateSourcePrefix, '$privateSourcePrefix\$');
+    return className.replaceFirst(
+        privateSourcePrefix, '$privateSourcePrefix\$');
   }
 
   /// Converts the abstract generated props/state implementation's classname
@@ -612,9 +670,11 @@ class ImplGenerator {
   /// Example:
   ///   Input: '_$$FooProps'
   ///   Output: '_$$FooProps$PlainMap'
-  static String _plainMapAccessorsImplClassNameFromImplClassName(String implName) {
+  static String _plainMapAccessorsImplClassNameFromImplClassName(
+      String implName) {
     return '$implName\$PlainMap';
   }
+
   /// Converts the abstract generated props/state implementation's classname
   /// into the name of its subclass that can be backed by only JsMaps.
   ///
@@ -633,7 +693,8 @@ class ImplGenerator {
   ///   Output: 'FooProps'
   ///   Input: '_$_FooProps'
   ///   Output: '_FooProps'
-  static String _publicPropsOrStateClassNameFromConsumerClassName(String className) {
+  static String _publicPropsOrStateClassNameFromConsumerClassName(
+      String className) {
     if (className == null) {
       throw new ArgumentError.notNull(className);
     }
@@ -685,41 +746,48 @@ class ImplGenerator {
     return '${privateSourcePrefix}metaFor$consumableClassName';
   }
 
-  void _generateAccessorsAndMetaConstantForMixin(AccessorType type, NodeWithMeta<ClassDeclaration, annotations.TypedMap> node) {
-    if (!hasAbstractGetter(node.node, 'Map', type.isProps ? 'props' : 'state')) {
-      final propsOrState = type.isProps ? 'props': 'state';
+  void _generateAccessorsAndMetaConstantForMixin(AccessorType type,
+      NodeWithMeta<ClassDeclaration, annotations.TypedMap> node) {
+    if (!hasAbstractGetter(
+        node.node, 'Map', type.isProps ? 'props' : 'state')) {
+      final propsOrState = type.isProps ? 'props' : 'state';
       logger.severe(messageWithSpan(
-        '${type.isProps
-            ? 'Props'
-            : 'State'} mixin classes must declare an abstract $propsOrState getter `Map get $propsOrState;` '
-            'so that they can be statically analyzed properly.',
-            span: getSpan(sourceFile, node.node))
-      );
+          '${type.isProps ? 'Props' : 'State'} mixin classes must declare an abstract $propsOrState getter `Map get $propsOrState;` '
+          'so that they can be statically analyzed properly.',
+          span: getSpan(sourceFile, node.node)));
     }
 
     final consumerClassName = _classNameFromNode(node);
-    final accessorsMixinName = consumerClassName.startsWith(privateSourcePrefix) ?
-        _publicPropsOrStateClassNameFromConsumerClassName(consumerClassName) :
-        '\$$consumerClassName';
+    final accessorsMixinName = consumerClassName.startsWith(privateSourcePrefix)
+        ? _publicPropsOrStateClassNameFromConsumerClassName(consumerClassName)
+        : '\$$consumerClassName';
     final typeParameters = node.node.typeParameters;
     outputContentsBuffer.write(_generateAccessorsMixin(
-        type, accessorsMixinName, node,
-        consumerClassName, typeParameters: typeParameters));
-    outputContentsBuffer.write(_generateMetaConstImpl(type, node, accessorsMixinNameOverride: accessorsMixinName));
+        type, accessorsMixinName, node, consumerClassName,
+        typeParameters: typeParameters));
+    outputContentsBuffer.write(_generateMetaConstImpl(type, node,
+        accessorsMixinNameOverride: accessorsMixinName));
   }
 
-  String _generateMetaConstImpl(AccessorType type, NodeWithMeta<ClassDeclaration, annotations.TypedMap> node, {String accessorsMixinNameOverride}) {
+  String _generateMetaConstImpl(AccessorType type,
+      NodeWithMeta<ClassDeclaration, annotations.TypedMap> node,
+      {String accessorsMixinNameOverride}) {
     final className = _classNameFromNode(node);
-    final accessorsMixinName = accessorsMixinNameOverride ?? _accessorsMixinNameFromConsumerName(className);
+    final accessorsMixinName = accessorsMixinNameOverride ??
+        _accessorsMixinNameFromConsumerName(className);
 
     final metaStructName = type.isProps ? 'PropsMeta' : 'StateMeta';
-    final String keyListName = type.isProps ? staticPropKeysName : staticStateKeysName;
-    final String fieldListName = type.isProps ? staticPropsName : staticStateName;
+    final String keyListName =
+        type.isProps ? staticPropKeysName : staticStateKeysName;
+    final String fieldListName =
+        type.isProps ? staticPropsName : staticStateName;
 
-    final String metaInstanceName = _metaConstantName(_publicPropsOrStateClassNameFromConsumerClassName(className));
+    final String metaInstanceName = _metaConstantName(
+        _publicPropsOrStateClassNameFromConsumerClassName(className));
 
     final output = new StringBuffer();
-    output.writeln('const $metaStructName $metaInstanceName = const $metaStructName(');
+    output.writeln(
+        'const $metaStructName $metaInstanceName = const $metaStructName(');
     output.writeln('  fields: $accessorsMixinName.$fieldListName,');
     output.writeln('  keys: $accessorsMixinName.$keyListName,');
     output.writeln(');');
@@ -727,8 +795,12 @@ class ImplGenerator {
     return output.toString();
   }
 
-  String _generateAccessorsMixin(AccessorType type, String accessorsMixinName,
-      NodeWithMeta<ClassDeclaration, annotations.TypedMap> node, String consumerClassName, {TypeParameterList typeParameters}) {
+  String _generateAccessorsMixin(
+      AccessorType type,
+      String accessorsMixinName,
+      NodeWithMeta<ClassDeclaration, annotations.TypedMap> node,
+      String consumerClassName,
+      {TypeParameterList typeParameters}) {
     final typeParamsOnClass = typeParameters?.toSource() ?? '';
     final typeParamsOnSuper = removeBoundsFromTypeParameters(typeParameters);
 
@@ -736,39 +808,43 @@ class ImplGenerator {
     final implementsClause = 'implements $consumerClassName$typeParamsOnSuper';
     generatedClass.writeln(
         'abstract class $accessorsMixinName$typeParamsOnClass $implementsClause {\n' +
-        '  @override' +
-        '  Map get ${type.isProps ? 'props': 'state'};\n'
-    );
+            '  @override' +
+            '  Map get ${type.isProps ? 'props' : 'state'};\n');
     if (type.isMixin) {
-      generatedClass.writeln(_generateStaticMetaDecl(_publicPropsOrStateClassNameFromConsumerClassName(consumerClassName), type.isProps));
+      generatedClass.writeln(_generateStaticMetaDecl(
+          _publicPropsOrStateClassNameFromConsumerClassName(consumerClassName),
+          type.isProps));
       generatedClass.write(_copyStaticMembers(node));
       generatedClass.write(_copyClassMembers(node));
     }
 
-    generatedClass.write(_generateAccessors(type, node, consumerClassName).implementations);
+    generatedClass.write(
+        _generateAccessors(type, node, consumerClassName).implementations);
     generatedClass.writeln('}');
     generatedClass.writeln();
     return generatedClass.toString();
   }
 
-  String _copyClassMembers(NodeWithMeta<ClassDeclaration, annotations.TypedMap> node) {
+  String _copyClassMembers(
+      NodeWithMeta<ClassDeclaration, annotations.TypedMap> node) {
     bool isValidForCopying(ClassMember member) {
       // Static members should be copied over as needed by [_copyStaticMembers].
       // Otherwise, fields which are not synthetic have concrete getters/setters
       // generated for them, so don't copy those over either. We also don't want
       // to copy anything that would conflict with what the builder already may
       // generate, namely `props`, `state`, and `meta`
-      final isValid = !_isStaticFieldOrMethod(member)
-          && !(member is FieldDeclaration && !member.isSynthetic)
-          && !_memberHasName(member, 'props')
-          && !_memberHasName(member, 'state')
-          && !_memberHasName(member, 'meta');
+      final isValid = !_isStaticFieldOrMethod(member) &&
+          !(member is FieldDeclaration && !member.isSynthetic) &&
+          !_memberHasName(member, 'props') &&
+          !_memberHasName(member, 'state') &&
+          !_memberHasName(member, 'meta');
 
       // If a field is marked with `@Accessor(doNotGenerate: true)`, we should
       // copy over that field
       bool shouldNotBeGenerated = false;
       if (member is FieldDeclaration) {
-        final accessorMeta = instantiateAnnotation(member, annotations.Accessor);
+        final accessorMeta =
+            instantiateAnnotation(member, annotations.Accessor);
         shouldNotBeGenerated = accessorMeta?.doNotGenerate ?? false;
       }
 
@@ -776,29 +852,34 @@ class ImplGenerator {
     }
 
     final buffer = StringBuffer();
-    node.node.members.where(isValidForCopying).forEach((member) => buffer.write(member.toSource()));
+    node.node.members
+        .where(isValidForCopying)
+        .forEach((member) => buffer.write(member.toSource()));
     return buffer.toString();
   }
 
   bool _isStaticFieldOrMethod(ClassMember member) {
-    return (member is MethodDeclaration && member.isStatic) || (member is FieldDeclaration && member.isStatic);
+    return (member is MethodDeclaration && member.isStatic) ||
+        (member is FieldDeclaration && member.isStatic);
   }
 
   bool _memberHasName(ClassMember member, String name) {
-    return (member is FieldDeclaration && fieldDeclarationHasName(member, name)) ||
-              (member is MethodDeclaration && member.name.name == name);
+    return (member is FieldDeclaration &&
+            fieldDeclarationHasName(member, name)) ||
+        (member is MethodDeclaration && member.name.name == name);
   }
 
-  String _copyStaticMembers(NodeWithMeta<ClassDeclaration, annotations.TypedMap> node) {
+  String _copyStaticMembers(
+      NodeWithMeta<ClassDeclaration, annotations.TypedMap> node) {
     final buffer = StringBuffer();
     node.node.members
         .where((member) => _isStaticFieldOrMethod(member))
         .forEach((member) {
-          // Don't copy over anything named `meta`, since the static meta field is already going to be generated.
-          if (!_memberHasName(member, 'meta')) {
-            buffer.writeln(member.toSource());
-          }
-        });
+      // Don't copy over anything named `meta`, since the static meta field is already going to be generated.
+      if (!_memberHasName(member, 'meta')) {
+        buffer.writeln(member.toSource());
+      }
+    });
     return buffer.toString();
   }
 
@@ -856,7 +937,8 @@ class ImplGenerator {
     @required bool isComponent2,
   }) {
     final typeParamsOnClass = node.node.typeParameters?.toSource() ?? '';
-    final typeParamsOnSuper = removeBoundsFromTypeParameters(node.node.typeParameters);
+    final typeParamsOnSuper =
+        removeBoundsFromTypeParameters(node.node.typeParameters);
 
     final classDeclaration = new StringBuffer();
     if (isComponent2) {
@@ -875,13 +957,16 @@ class ImplGenerator {
     final buffer = new StringBuffer()
       ..writeln('// Concrete $propsOrState implementation.')
       ..writeln('//')
-      ..writeln('// Implements constructor and backing map${type.isProps ? ', and links up to generated component factory' : ''}.')
+      ..writeln(
+          '// Implements constructor and backing map${type.isProps ? ', and links up to generated component factory' : ''}.')
       ..writeln(classDeclaration);
 
     // Constructors
     if (isComponent2) {
-      final plainMapImplName = _plainMapAccessorsImplClassNameFromImplClassName(implName);
-      final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(implName);
+      final plainMapImplName =
+          _plainMapAccessorsImplClassNameFromImplClassName(implName);
+      final jsMapImplName =
+          _jsMapAccessorImplClassNameFromImplClassName(implName);
       buffer
         ..writeln('  $implName._();')
         ..writeln()
@@ -894,8 +979,10 @@ class ImplGenerator {
         ..writeln('  }');
     } else {
       buffer
-        ..writeln('  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
-        ..writeln('  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
+        ..writeln(
+            '  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
+        ..writeln(
+            '  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
         // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
         ..writeln('  $implName(Map backingMap) : this._$propsOrState = {} {')
         ..writeln('     this._$propsOrState = backingMap ?? {};')
@@ -913,19 +1000,24 @@ class ImplGenerator {
     }
     buffer
       ..writeln()
-      ..writeln('  /// Let [${type.isProps ? 'UiProps' : 'UiState'}] internals know that this class has been generated.')
+      ..writeln(
+          '  /// Let [${type.isProps ? 'UiProps' : 'UiState'}] internals know that this class has been generated.')
       ..writeln('  @override')
       ..writeln('  bool get \$isClassGenerated => true;');
     if (type.isProps) {
       buffer
         ..writeln()
-        ..writeln('  /// The [ReactComponentFactory] associated with the component built by this class.')
+        ..writeln(
+            '  /// The [ReactComponentFactory] associated with the component built by this class.')
         ..writeln('  @override')
-        ..writeln('  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $componentFactoryName;')
+        ..writeln(
+            '  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $componentFactoryName;')
         ..writeln()
-        ..writeln('  /// The default namespace for the prop getters/setters generated for this class.')
+        ..writeln(
+            '  /// The default namespace for the prop getters/setters generated for this class.')
         ..writeln('  @override')
-        ..writeln('  String get propKeyNamespace => ${stringLiteral(propKeyNamespace)};');
+        ..writeln(
+            '  String get propKeyNamespace => ${stringLiteral(propKeyNamespace)};');
     }
 
     // End of class body
@@ -933,16 +1025,23 @@ class ImplGenerator {
 
     // Component2-specific classes
     if (isComponent2) {
-      final plainMapImplName = _plainMapAccessorsImplClassNameFromImplClassName(implName);
-      final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(implName);
+      final plainMapImplName =
+          _plainMapAccessorsImplClassNameFromImplClassName(implName);
+      final jsMapImplName =
+          _jsMapAccessorImplClassNameFromImplClassName(implName);
       buffer
         ..writeln()
-        ..writeln('// Concrete $propsOrState implementation that can be backed by any [Map].')
-        ..writeln('class $plainMapImplName$typeParamsOnClass extends $implName$typeParamsOnSuper {')
-        ..writeln('  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
-        ..writeln('  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
+        ..writeln(
+            '// Concrete $propsOrState implementation that can be backed by any [Map].')
+        ..writeln(
+            'class $plainMapImplName$typeParamsOnClass extends $implName$typeParamsOnSuper {')
+        ..writeln(
+            '  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
+        ..writeln(
+            '  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
         // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
-        ..writeln('  $plainMapImplName(Map backingMap) : this._$propsOrState = {}, super._() {')
+        ..writeln(
+            '  $plainMapImplName(Map backingMap) : this._$propsOrState = {}, super._() {')
         ..writeln('     this._$propsOrState = backingMap ?? {};')
         ..writeln('  }')
         ..writeln()
@@ -952,13 +1051,19 @@ class ImplGenerator {
         ..writeln('  Map _$propsOrState;')
         ..writeln('}')
         ..writeln()
-        ..writeln('// Concrete $propsOrState implementation that can only be backed by [JsMap],')
-        ..writeln('// allowing dart2js to compile more optimal code for key-value pair reads/writes.')
-        ..writeln('class $jsMapImplName$typeParamsOnClass extends $implName$typeParamsOnSuper {')
-        ..writeln('  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
-        ..writeln('  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
+        ..writeln(
+            '// Concrete $propsOrState implementation that can only be backed by [JsMap],')
+        ..writeln(
+            '// allowing dart2js to compile more optimal code for key-value pair reads/writes.')
+        ..writeln(
+            'class $jsMapImplName$typeParamsOnClass extends $implName$typeParamsOnSuper {')
+        ..writeln(
+            '  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
+        ..writeln(
+            '  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
         // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
-        ..writeln('  $jsMapImplName(JsBackedMap backingMap) : this._$propsOrState = new JsBackedMap(), super._() {')
+        ..writeln(
+            '  $jsMapImplName(JsBackedMap backingMap) : this._$propsOrState = new JsBackedMap(), super._() {')
         ..writeln('     this._$propsOrState = backingMap ?? new JsBackedMap();')
         ..writeln('  }')
         ..writeln()
@@ -971,12 +1076,14 @@ class ImplGenerator {
     return buffer.toString();
   }
 
-  String _generateConsumablePropsOrStateClass(AccessorType type, NodeWithMeta<ClassDeclaration, annotations.TypedMap> node) {
+  String _generateConsumablePropsOrStateClass(AccessorType type,
+      NodeWithMeta<ClassDeclaration, annotations.TypedMap> node) {
     if (node is! PropsOrStateNode) {
       return '';
     }
 
-    if ((node as PropsOrStateNode).hasCompanionClass) {// ignore: avoid_as
+    if ((node as PropsOrStateNode).hasCompanionClass) {
+      // ignore: avoid_as
       return '';
     }
 
@@ -984,15 +1091,17 @@ class ImplGenerator {
     final typeParameters = node.node.typeParameters;
     final typeParamsOnClass = typeParameters?.toSource() ?? '';
     final typeParamsOnSuper = removeBoundsFromTypeParameters(typeParameters);
-    final consumableClassName = _publicPropsOrStateClassNameFromConsumerClassName(className);
+    final consumableClassName =
+        _publicPropsOrStateClassNameFromConsumerClassName(className);
     final accessorsMixinName = _accessorsMixinNameFromConsumerName(className);
 
     final classKeywords = '${type.isAbstract ? 'abstract ' : ''}class';
     return (StringBuffer()
-      ..writeln('$classKeywords $consumableClassName$typeParamsOnClass extends $className$typeParamsOnSuper with $accessorsMixinName$typeParamsOnSuper {')
-      ..write(_copyStaticMembers(node))
-      ..writeln(_generateStaticMetaDecl(consumableClassName, type.isProps))
-      ..writeln('}'))
+          ..writeln(
+              '$classKeywords $consumableClassName$typeParamsOnClass extends $className$typeParamsOnSuper with $accessorsMixinName$typeParamsOnSuper {')
+          ..write(_copyStaticMembers(node))
+          ..writeln(_generateStaticMetaDecl(consumableClassName, type.isProps))
+          ..writeln('}'))
         .toString();
   }
 
@@ -1009,8 +1118,10 @@ class AccessorType {
 
   static const AccessorType props = const AccessorType(true, false, false);
   static const AccessorType state = const AccessorType(false, false, false);
-  static const AccessorType abstractProps = const AccessorType(true, true, false);
-  static const AccessorType abstractState = const AccessorType(false, true, false);
+  static const AccessorType abstractProps =
+      const AccessorType(true, true, false);
+  static const AccessorType abstractState =
+      const AccessorType(false, true, false);
   static const AccessorType propsMixin = const AccessorType(true, false, true);
   static const AccessorType stateMixin = const AccessorType(false, false, true);
 }
