@@ -34,7 +34,7 @@ import 'disposable_manager_proxy.dart';
 ///
 /// __The result must be stored in a variable that is named very specifically:__
 ///
-///     var $`AbstractComponentClassName`Factory = registerAbstractComponent(`AbstractComponentClassName`);
+///     var $`AbstractComponentClassName`Factory = registerAbstractComponent2(`AbstractComponentClassName`);
 ///
 ReactDartComponentFactoryProxy2 registerAbstractComponent2(Type abstractComponentClass, {ReactDartComponentFactoryProxy2 parentType}) =>
     registerComponent2(() => new DummyComponent2(), componentClass: abstractComponentClass, parentType: parentType);
