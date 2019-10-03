@@ -30,4 +30,3 @@ class TestExtendtype2Component extends TestAbstract2Component<TestExtendtype2Pro
   @override
   render() => Dom.div()();
 }
-

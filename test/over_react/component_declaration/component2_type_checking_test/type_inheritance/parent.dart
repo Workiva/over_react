@@ -29,4 +29,3 @@ class TestParent2Component extends UiComponent2<TestParent2Props> {
   @override
   render() => Dom.div()();
 }
-

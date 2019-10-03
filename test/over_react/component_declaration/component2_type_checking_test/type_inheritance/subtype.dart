@@ -31,4 +31,3 @@ class TestSubtype2Component extends UiComponent2<TestSubtype2Props> {
   @override
   render() => Dom.div()();
 }
-
