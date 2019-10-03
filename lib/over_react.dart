@@ -51,6 +51,7 @@ export 'src/component_declaration/annotations.dart';
 export 'src/component_declaration/builder_helpers.dart' hide GeneratedErrorMessages;
 export 'src/component_declaration/component_base_2.dart' show
     registerComponent2,
+    registerAbstractComponent2,
     UiComponent2,
     UiStatefulComponent2,
     UiStatefulMixin2;

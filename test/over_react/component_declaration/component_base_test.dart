@@ -19,7 +19,7 @@ import 'dart:collection';
 import 'dart:html';
 import 'dart:js_util';
 
-import 'package:over_react/over_react.dart' show Dom, DummyComponent, JsBackedMap, UiComponent2, ValidationUtil;
+import 'package:over_react/over_react.dart' show Dom, DummyComponent, DummyComponent2, JsBackedMap, UiComponent2, ValidationUtil;
 import 'package:over_react/over_react.dart' as over_react;
 import 'package:over_react_test/over_react_test.dart';
 import 'package:over_react/src/component_declaration/component_base.dart';
@@ -1124,6 +1124,24 @@ main() {
       Type typeAlias = TestRegisterComponentClassAlias;
       var parentFactory = registerComponent(() => new DummyComponent());
       var reactComponentFactory = registerAbstractComponent(typeAlias, parentType: parentFactory);
+      var meta = getComponentTypeMeta(reactComponentFactory.type);
+
+      expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
+      expect(meta.parentType, equals(parentFactory));
+      expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias), equals(reactComponentFactory.type));
+    });
+
+    test('registerAbstractComponent2 registers a type alias for a componentClass', () {
+      Type typeAlias = TestRegisterComponentClassAlias;
+      var reactComponentFactory = over_react.registerAbstractComponent2(typeAlias);
+
+      expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias), equals(reactComponentFactory.type));
+    });
+
+    test('registerAbstractComponent2 registers a type alias for a componentClass and parentType', () {
+      Type typeAlias = TestRegisterComponentClassAlias;
+      var parentFactory = over_react.registerComponent2(() => DummyComponent2());
+      var reactComponentFactory = over_react.registerAbstractComponent2(typeAlias, parentType: parentFactory);
       var meta = getComponentTypeMeta(reactComponentFactory.type);
 
       expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');

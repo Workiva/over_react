@@ -15,6 +15,7 @@
 import 'dart:js';
 
 import 'package:meta/meta.dart';
+import 'package:over_react/src/component/dummy_component2.dart';
 import 'package:over_react/src/util/class_names.dart';
 import 'package:over_react/src/util/map_util.dart';
 import 'package:over_react/src/util/prop_errors.dart';
@@ -27,6 +28,16 @@ import 'package:react/react_client/react_interop.dart';
 import 'builder_helpers.dart';
 import 'component_type_checking.dart';
 import 'disposable_manager_proxy.dart';
+
+/// Helper function that wraps [registerComponent2], and allows an easier way to register abstract components with the
+/// main purpose of type-checking against the abstract component.
+///
+/// __The result must be stored in a variable that is named very specifically:__
+///
+///     var $`AbstractComponentClassName`Factory = registerAbstractComponent(`AbstractComponentClassName`);
+///
+ReactDartComponentFactoryProxy2 registerAbstractComponent2(Type abstractComponentClass, {ReactDartComponentFactoryProxy2 parentType}) =>
+    registerComponent2(() => new DummyComponent2(), componentClass: abstractComponentClass, parentType: parentType);
 
 /// Helper function that wraps react.registerComponent2, and allows attachment of additional
 /// component factory metadata.

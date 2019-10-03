@@ -21,7 +21,7 @@ part 'abstract.over_react.g.dart';
 @AbstractProps()
 abstract class _$TestAbstract2Props extends UiProps {}
 
-var $TestAbstract2ComponentFactory = registerAbstractComponent(TestAbstract2Component);
+var $TestAbstract2ComponentFactory = registerAbstractComponent2(TestAbstract2Component);
 
 @AbstractComponent2()
 abstract class TestAbstract2Component<T extends TestAbstract2Props> extends UiComponent2<T> {}
