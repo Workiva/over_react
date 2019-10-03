@@ -18,9 +18,7 @@ import 'package:over_react/over_react.dart';
 // ignore: undefined_identifier
 UiFactory<Dummy2Props> Dummy2 = _$Dummy2;
 
-
 class _$Dummy2Props extends UiProps {}
-
 
 class Dummy2Component extends UiComponent2<Dummy2Props> {
   @override
@@ -28,7 +26,6 @@ class Dummy2Component extends UiComponent2<Dummy2Props> {
     return null;
   }
 }
-
 
 // **************************************************************************
 // OverReactBuilder (package:over_react/src/builder.dart)
