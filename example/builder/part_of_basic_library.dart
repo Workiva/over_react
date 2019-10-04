@@ -20,13 +20,13 @@ class _$BasicPartOfLibState extends UiState
   String basicState;
 }
 
-@Component()
-class BasicPartOfLibComponent extends UiStatefulComponent<BasicPartOfLibProps, BasicPartOfLibState> {
+@Component2()
+class BasicPartOfLibComponent extends UiStatefulComponent2<BasicPartOfLibProps, BasicPartOfLibState> {
   @override
-  Map getDefaultProps() => newProps()..id = 'BasicPartOfLib';
+  get defaultProps => newProps()..id = 'BasicPartOfLib';
 
   @override
-  Map getInitialState() => newState()..basicState = '<Basic state>'
+  get initialState => newState()..basicState = '<Basic state>'
       ..stateMixin1 = '<state mixin>';
 
   @override

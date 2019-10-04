@@ -11,10 +11,10 @@ class _$BasicProps<T, U extends UiProps> extends UiProps {
   U somePropsClass;
 }
 
-@Component()
-class BasicComponent extends UiComponent<BasicProps> {
+@Component2()
+class BasicComponent extends UiComponent2<BasicProps> {
   @override
-  Map getDefaultProps() => newProps()..id = 'basic component';
+  get defaultProps => newProps()..id = 'basic component';
 
   @override
   render() {

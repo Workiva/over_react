@@ -17,8 +17,8 @@ class _$FormActionInputProps extends UiProps {
   String prop1;
 }
 
-@Component()
-class FormActionInputComponent extends UiComponent<FormActionInputProps> {
+@Component2()
+class FormActionInputComponent extends UiComponent2<FormActionInputProps> {
   @override
   render() {
     return Dom.div()(props.children);
