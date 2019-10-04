@@ -23,10 +23,27 @@ abstract class _$TypedFactoryTesterPropsAccessorsMixin
   @override
   Map get props;
 
+  /// <!-- Generated from [_$TypedFactoryTesterProps.testProp] -->
+  @override
+  bool get testProp =>
+      props[_$key__testProp___$TypedFactoryTesterProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TypedFactoryTesterProps.testProp] -->
+  @override
+  set testProp(bool value) =>
+      props[_$key__testProp___$TypedFactoryTesterProps] = value;
   /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__testProp___$TypedFactoryTesterProps =
+      const PropDescriptor(_$key__testProp___$TypedFactoryTesterProps);
+  static const String _$key__testProp___$TypedFactoryTesterProps =
+      'TypedFactoryTesterProps.testProp';
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = const [
+    _$prop__testProp___$TypedFactoryTesterProps
+  ];
+  static const List<String> $propKeys = const [
+    _$key__testProp___$TypedFactoryTesterProps
+  ];
 }
 
 const PropsMeta _$metaForTypedFactoryTesterProps = const PropsMeta(
@@ -112,10 +129,27 @@ abstract class _$TypedFactoryTesterStateAccessorsMixin
   @override
   Map get state;
 
+  /// <!-- Generated from [_$TypedFactoryTesterState.testState] -->
+  @override
+  bool get testState =>
+      state[_$key__testState___$TypedFactoryTesterState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TypedFactoryTesterState.testState] -->
+  @override
+  set testState(bool value) =>
+      state[_$key__testState___$TypedFactoryTesterState] = value;
   /* GENERATED CONSTANTS */
+  static const StateDescriptor _$prop__testState___$TypedFactoryTesterState =
+      const StateDescriptor(_$key__testState___$TypedFactoryTesterState);
+  static const String _$key__testState___$TypedFactoryTesterState =
+      'TypedFactoryTesterState.testState';
 
-  static const List<StateDescriptor> $state = const [];
-  static const List<String> $stateKeys = const [];
+  static const List<StateDescriptor> $state = const [
+    _$prop__testState___$TypedFactoryTesterState
+  ];
+  static const List<String> $stateKeys = const [
+    _$key__testState___$TypedFactoryTesterState
+  ];
 }
 
 const StateMeta _$metaForTypedFactoryTesterState = const StateMeta(
