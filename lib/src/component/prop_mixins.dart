@@ -19,6 +19,7 @@ import 'package:over_react/over_react.dart' show AriaPropsMapView, AriaPropsMixi
 // Must import these consts because they are used in the transformed code.
 // ignore: deprecated_member_use, unused_shown_name
 import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps, PropsMeta;
+import 'package:over_react/over_react.dart';
 import 'package:over_react/src/component/callback_typedefs.dart';
 import 'package:over_react/src/component_declaration/annotations.dart';
 
@@ -72,19 +73,26 @@ abstract class _$DomPropsMixin {
 
   int cols, rows, size, span, start;
 
-  bool allowFullScreen, async, autoPlay, checked, controls, defer, disabled, formNoValidate, hidden, loop, multiple,
-    muted, noValidate, readOnly, required, seamless, selected;
+  @Accessor(key: 'default')
+  bool htmlDefault;
+
+  @Accessor(key: 'is')
+  bool htmlIs;
+
+  bool allowFullScreen, async, autoPlay, checked, controls, defer, disabled, formNoValidate, headers, hidden,
+    inputMode, integrity, keyParams, keyType, kind, loop, multiple, muted, noValidate, readOnly, required, reversed,
+    scoped, seamless, selected;
 
   Map<String, dynamic> style;
 
-  String className, title, id;
+  String challenge, cite, className, controlsList, formAction, formEncType, formMethod, formTarget, nonce, summary, title, id, wrap;
 
-  dynamic accept, acceptCharset, accessKey, action, allowTransparency, alt, autoComplete, cellPadding, cellSpacing,
+  dynamic accept, acceptCharset, accessKey, action, allowTransparency, alt, autoComplete, capture, cellPadding, cellSpacing,
     charSet, classID, colSpan, content, contentEditable, contextMenu, coords, crossOrigin, data, dateTime,
-    dir, download, draggable, encType, form, frameBorder, height, href, hrefLang, htmlFor, httpEquiv, icon, label,
-    lang, list, manifest, max, maxLength, media, mediaGroup, method, min, name, open, pattern, placeholder,
-    poster, preload, radioGroup, rel, role, rowSpan, sandbox, scope, scrolling, shape, sizes, spellCheck, src, srcDoc,
-    srcSet, step, tabIndex, target, type, useMap, value, width, wmode;
+    dir, download, draggable, encType, form, frameBorder, height, high, href, hrefLang, htmlFor, httpEquiv, icon, label,
+    lang, list, low, manifest, marginHeight, marginWidth, max, maxLength, media, mediaGroup, method, min, minLength, name, open,
+    optimum, pattern, placeholder, poster, preload, radioGroup, rel, role, rowSpan, sandbox, scope, scrolling, shape, sizes, spellCheck,
+    src, srcDoc, srcLang, srcSet, step, tabIndex, target, type, useMap, value, width, wmode;
 
   AnimationEventCallback onAnimationEnd, onAnimationIteration, onAnimationStart;
   ClipboardEventCallback onCopy, onCut, onPaste;
