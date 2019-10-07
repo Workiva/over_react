@@ -19,7 +19,7 @@ import 'dart:collection';
 import 'dart:html';
 import 'dart:js_util';
 
-import 'package:over_react/over_react.dart' show Dom, DummyComponent, DummyComponent2, JsBackedMap, UiComponent2, ValidationUtil;
+import 'package:over_react/over_react.dart' show Dom, DummyComponent, DummyComponent2, JsBackedMap, UiComponent2, UiStatefulComponent2, ValidationUtil, registerComponent2;
 import 'package:over_react/over_react.dart' as over_react;
 import 'package:over_react_test/over_react_test.dart';
 import 'package:over_react/src/component_declaration/component_base.dart';
@@ -1040,6 +1040,58 @@ main() {
       });
     });
 
+    group('UiStatefulComponent2', () {
+      TestStatefulComponent2Component statefulComponent;
+
+      setUp(() {
+        statefulComponent = new TestStatefulComponent2Component();
+        statefulComponent.state = JsBackedMap.from({'test': true});
+      });
+
+      group('`state`', () {
+        group('getter:', () {
+          test('returns a UiState view into the component\'s state map', () {
+            expect(statefulComponent.state, const TypeMatcher<TestStatefulComponent2State>());
+
+            expect(statefulComponent.state, isNot(same(statefulComponent.state.state)));
+
+            statefulComponent.state.state['testKey'] = 'testValue';
+            expect(statefulComponent.state, containsPair('testKey', 'testValue'));
+          });
+
+          test('caches the UiState object for the same map', () {
+            var state1 = statefulComponent.state;
+            var state2 = statefulComponent.state;
+            expect(state1, same(state2));
+          });
+
+          test('creates a new UiState object when the state map changes', () {
+            var stateBeforeChange = statefulComponent.state;
+            statefulComponent.state = JsBackedMap.from({'test': true});
+            var stateAfterChange = statefulComponent.state;
+
+            expect(stateBeforeChange, isNot(same(stateAfterChange)));
+          });
+        });
+
+        group('setter:', () {
+          test('sets the unwrapped Map, as react-dart requires it to', () {
+            var newBackingMap = JsBackedMap.from({'test': true});
+            statefulComponent.state = newBackingMap;
+            expect(statefulComponent.state.state, same(newBackingMap));
+          });
+        });
+      });
+
+      test('newState() returns a new UiProps instance backed by a new Map', () {
+        var newState1 = statefulComponent.newState();
+        var newState2 = statefulComponent.newState();
+        expect(newState1, const TypeMatcher<TestStatefulComponent2State>());
+        expect(newState2, const TypeMatcher<TestStatefulComponent2State>());
+        expect(newState1, isNot(same(newState2)));
+      });
+    });
+
     group('registerComponent()', () {
       group('attaches metadata to the specified component class:', () {
         final ComponentFactory dummyComponentFactory = () => new DummyComponent();
@@ -1229,6 +1281,104 @@ class TestComponent2Component extends UiComponent2<TestComponent2Props> {
 
   @override
   TestComponent2Props typedPropsFactoryJs(Map propsMap) => new TestComponent2Props(propsMap);
+}
+
+UiFactory<TestStatefulComponent2Props> TestStatefulComponent2 = ([Map props]) => new TestStatefulComponent2Props(props);
+
+class TestStatefulComponent2Props extends over_react.UiProps {
+  @override final ReactComponentFactoryProxy componentFactory = _TestStatefulComponent2ComponentFactory;
+  @override Map props;
+  TestStatefulComponent2Props(JsBackedMap backingMap)
+      : this.props = new JsBackedMap() {
+    this.props = getBackingMap(backingMap) ?? new JsBackedMap();
+  }
+  @override
+  bool get $isClassGenerated => true;
+
+  @override
+  String get propKeyNamespace => null;
+}
+
+class TestStatefulComponent2State extends over_react.UiState {
+  @override Map state;
+
+  TestStatefulComponent2State(JsBackedMap backingMap)
+      : this.state = new JsBackedMap() {
+    this.state = getBackingMap(backingMap) ?? new JsBackedMap();
+  }
+  @override
+  bool get $isClassGenerated => true;
+}
+
+final _TestStatefulComponent2ComponentFactory = registerComponent2(() => new TestStatefulComponent2Component());
+class TestStatefulComponent2Component extends UiStatefulComponent2<TestStatefulComponent2Props, TestStatefulComponent2State> {
+
+  @override
+  Map get initialState => {};
+
+  @override
+  render() {}
+
+  @override
+  bool get $isClassGenerated => true;
+
+  @override
+  final List<ConsumedProps> consumedProps;
+
+  TestStatefulComponent2Props _props;
+  TestStatefulComponent2State _state;
+
+  @override
+  TestStatefulComponent2Props get props => _props;
+
+  @override
+  set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
+    super.props = value;
+    _props = typedPropsFactoryJs(getBackingMap(value));
+  }
+
+
+  @override
+  TestStatefulComponent2State get state => _state;
+
+
+  @override
+  set state(Map value) {
+    assert(
+        value is JsBackedMap,
+        'Component2.state should only be set via initialState or setState.');
+    super.state = value;
+    _state = typedStateFactoryJs(value);
+  }
+
+  TestStatefulComponent2Component({List<ConsumedProps> testConsumedProps}) :
+        consumedProps = testConsumedProps;
+
+  @override
+  TestStatefulComponent2Props typedPropsFactory(Map propsMap) => new TestStatefulComponent2Props(propsMap);
+
+  @override
+  TestStatefulComponent2Props typedPropsFactoryJs(Map propsMap) => new TestStatefulComponent2Props(propsMap);
+
+  @override
+  TestStatefulComponent2State typedStateFactory(Map state) => new TestStatefulComponent2State(state);
+
+  @override
+  TestStatefulComponent2State typedStateFactoryJs(Map propsMap) => new TestStatefulComponent2State(propsMap);
+}
+
+Map getBackingMap(Map map) {
+  if (map is JsBackedMap) return map;
+  if (map is UiProps) return getBackingMap(map.props);
+  if (map is UiState) return getBackingMap(map.state);
+  return map;
 }
 
 UiFactory<TestStatefulComponentProps> TestStatefulComponent = ([Map props]) => new TestStatefulComponentProps(props);
