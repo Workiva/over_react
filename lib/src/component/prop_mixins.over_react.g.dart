@@ -3216,6 +3216,98 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   static const PropsMeta meta = _$metaForSvgPropsMixin;
 
+  /// <!-- Generated from [_$SvgPropsMixin.htmlIn] -->
+  @override
+  @Accessor(key: 'in')
+  String get htmlIn =>
+      props[_$key__htmlIn___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.htmlIn] -->
+  @override
+  @Accessor(key: 'in')
+  set htmlIn(String value) => props[_$key__htmlIn___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.htmlValues] -->
+  @override
+  @Accessor(key: 'values')
+  String get htmlValues =>
+      props[_$key__htmlValues___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.htmlValues] -->
+  @override
+  @Accessor(key: 'values')
+  set htmlValues(String value) =>
+      props[_$key__htmlValues___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.accumulate] -->
+  @override
+  String get accumulate =>
+      props[_$key__accumulate___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.accumulate] -->
+  @override
+  set accumulate(String value) =>
+      props[_$key__accumulate___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.additive] -->
+  @override
+  String get additive =>
+      props[_$key__additive___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.additive] -->
+  @override
+  set additive(String value) => props[_$key__additive___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.alignmentBaseline] -->
+  @override
+  String get alignmentBaseline =>
+      props[_$key__alignmentBaseline___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.alignmentBaseline] -->
+  @override
+  set alignmentBaseline(String value) =>
+      props[_$key__alignmentBaseline___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.allowReorder] -->
+  @override
+  String get allowReorder =>
+      props[_$key__allowReorder___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.allowReorder] -->
+  @override
+  set allowReorder(String value) =>
+      props[_$key__allowReorder___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.arabicForm] -->
+  @override
+  String get arabicForm =>
+      props[_$key__arabicForm___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.arabicForm] -->
+  @override
+  set arabicForm(String value) =>
+      props[_$key__arabicForm___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.attributeName] -->
+  @override
+  String get attributeName =>
+      props[_$key__attributeName___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.attributeName] -->
+  @override
+  set attributeName(String value) =>
+      props[_$key__attributeName___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.attributeType] -->
+  @override
+  String get attributeType =>
+      props[_$key__attributeType___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.attributeType] -->
+  @override
+  set attributeType(String value) =>
+      props[_$key__attributeType___$SvgPropsMixin] = value;
+
   /// <!-- Generated from [_$SvgPropsMixin.clipPath] -->
   @override
   String get clipPath =>
@@ -3224,6 +3316,16 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.clipPath] -->
   @override
   set clipPath(String value) => props[_$key__clipPath___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.colorInterpolationFilters] -->
+  @override
+  String get colorInterpolationFilters =>
+      props[_$key__colorInterpolationFilters___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.colorInterpolationFilters] -->
+  @override
+  set colorInterpolationFilters(String value) =>
+      props[_$key__colorInterpolationFilters___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.d] -->
   @override
@@ -3242,6 +3344,24 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.fill] -->
   @override
   set fill(String value) => props[_$key__fill___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.fillRule] -->
+  @override
+  String get fillRule =>
+      props[_$key__fillRule___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.fillRule] -->
+  @override
+  set fillRule(String value) => props[_$key__fillRule___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.filter] -->
+  @override
+  String get filter =>
+      props[_$key__filter___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.filter] -->
+  @override
+  set filter(String value) => props[_$key__filter___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.fontFamily] -->
   @override
@@ -3303,6 +3423,15 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   set markerStart(String value) =>
       props[_$key__markerStart___$SvgPropsMixin] = value;
 
+  /// <!-- Generated from [_$SvgPropsMixin.mask] -->
+  @override
+  String get mask =>
+      props[_$key__mask___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.mask] -->
+  @override
+  set mask(String value) => props[_$key__mask___$SvgPropsMixin] = value;
+
   /// <!-- Generated from [_$SvgPropsMixin.patternContentUnits] -->
   @override
   String get patternContentUnits =>
@@ -3341,6 +3470,15 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   @override
   set preserveAspectRatio(String value) =>
       props[_$key__preserveAspectRatio___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.result] -->
+  @override
+  String get result =>
+      props[_$key__result___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.result] -->
+  @override
+  set result(String value) => props[_$key__result___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.spreadMethod] -->
   @override
@@ -3381,6 +3519,16 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   set strokeLinecap(String value) =>
       props[_$key__strokeLinecap___$SvgPropsMixin] = value;
 
+  /// <!-- Generated from [_$SvgPropsMixin.strokeLinejoin] -->
+  @override
+  String get strokeLinejoin =>
+      props[_$key__strokeLinejoin___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.strokeLinejoin] -->
+  @override
+  set strokeLinejoin(String value) =>
+      props[_$key__strokeLinejoin___$SvgPropsMixin] = value;
+
   /// <!-- Generated from [_$SvgPropsMixin.textAnchor] -->
   @override
   String get textAnchor =>
@@ -3418,6 +3566,16 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.viewBox] -->
   @override
   set viewBox(String value) => props[_$key__viewBox___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.xChannelSelector] -->
+  @override
+  String get xChannelSelector =>
+      props[_$key__xChannelSelector___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.xChannelSelector] -->
+  @override
+  set xChannelSelector(String value) =>
+      props[_$key__xChannelSelector___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.xlinkActuate] -->
   @override
@@ -3489,6 +3647,25 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   set xlinkType(String value) =>
       props[_$key__xlinkType___$SvgPropsMixin] = value;
 
+  /// <!-- Generated from [_$SvgPropsMixin.xmlns] -->
+  @override
+  String get xmlns =>
+      props[_$key__xmlns___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.xmlns] -->
+  @override
+  set xmlns(String value) => props[_$key__xmlns___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.xmlnsXlink] -->
+  @override
+  String get xmlnsXlink =>
+      props[_$key__xmlnsXlink___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.xmlnsXlink] -->
+  @override
+  set xmlnsXlink(String value) =>
+      props[_$key__xmlnsXlink___$SvgPropsMixin] = value;
+
   /// <!-- Generated from [_$SvgPropsMixin.xmlBase] -->
   @override
   String get xmlBase =>
@@ -3516,6 +3693,258 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   @override
   set xmlSpace(String value) => props[_$key__xmlSpace___$SvgPropsMixin] = value;
 
+  /// <!-- Generated from [_$SvgPropsMixin.yChannelSelector] -->
+  @override
+  String get yChannelSelector =>
+      props[_$key__yChannelSelector___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.yChannelSelector] -->
+  @override
+  set yChannelSelector(String value) =>
+      props[_$key__yChannelSelector___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.zoomAndPan] -->
+  @override
+  String get zoomAndPan =>
+      props[_$key__zoomAndPan___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.zoomAndPan] -->
+  @override
+  set zoomAndPan(String value) =>
+      props[_$key__zoomAndPan___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.accentHeight] -->
+  @override
+  dynamic get accentHeight =>
+      props[_$key__accentHeight___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.accentHeight] -->
+  @override
+  set accentHeight(dynamic value) =>
+      props[_$key__accentHeight___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.alphabetic] -->
+  @override
+  dynamic get alphabetic =>
+      props[_$key__alphabetic___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.alphabetic] -->
+  @override
+  set alphabetic(dynamic value) =>
+      props[_$key__alphabetic___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.amplitude] -->
+  @override
+  dynamic get amplitude =>
+      props[_$key__amplitude___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.amplitude] -->
+  @override
+  set amplitude(dynamic value) =>
+      props[_$key__amplitude___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.ascent] -->
+  @override
+  dynamic get ascent =>
+      props[_$key__ascent___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.ascent] -->
+  @override
+  set ascent(dynamic value) => props[_$key__ascent___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.autoReverse] -->
+  @override
+  dynamic get autoReverse =>
+      props[_$key__autoReverse___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.autoReverse] -->
+  @override
+  set autoReverse(dynamic value) =>
+      props[_$key__autoReverse___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.azimuth] -->
+  @override
+  dynamic get azimuth =>
+      props[_$key__azimuth___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.azimuth] -->
+  @override
+  set azimuth(dynamic value) => props[_$key__azimuth___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.baseFrequency] -->
+  @override
+  dynamic get baseFrequency =>
+      props[_$key__baseFrequency___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.baseFrequency] -->
+  @override
+  set baseFrequency(dynamic value) =>
+      props[_$key__baseFrequency___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.baseProfile] -->
+  @override
+  dynamic get baseProfile =>
+      props[_$key__baseProfile___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.baseProfile] -->
+  @override
+  set baseProfile(dynamic value) =>
+      props[_$key__baseProfile___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.baselineShift] -->
+  @override
+  dynamic get baselineShift =>
+      props[_$key__baselineShift___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.baselineShift] -->
+  @override
+  set baselineShift(dynamic value) =>
+      props[_$key__baselineShift___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.bbox] -->
+  @override
+  dynamic get bbox =>
+      props[_$key__bbox___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.bbox] -->
+  @override
+  set bbox(dynamic value) => props[_$key__bbox___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.begin] -->
+  @override
+  dynamic get begin =>
+      props[_$key__begin___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.begin] -->
+  @override
+  set begin(dynamic value) => props[_$key__begin___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.bias] -->
+  @override
+  dynamic get bias =>
+      props[_$key__bias___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.bias] -->
+  @override
+  set bias(dynamic value) => props[_$key__bias___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.by] -->
+  @override
+  dynamic get by =>
+      props[_$key__by___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.by] -->
+  @override
+  set by(dynamic value) => props[_$key__by___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.calcMode] -->
+  @override
+  dynamic get calcMode =>
+      props[_$key__calcMode___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.calcMode] -->
+  @override
+  set calcMode(dynamic value) =>
+      props[_$key__calcMode___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.capHeight] -->
+  @override
+  dynamic get capHeight =>
+      props[_$key__capHeight___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.capHeight] -->
+  @override
+  set capHeight(dynamic value) =>
+      props[_$key__capHeight___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.clip] -->
+  @override
+  dynamic get clip =>
+      props[_$key__clip___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.clip] -->
+  @override
+  set clip(dynamic value) => props[_$key__clip___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.clipPathUnits] -->
+  @override
+  dynamic get clipPathUnits =>
+      props[_$key__clipPathUnits___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.clipPathUnits] -->
+  @override
+  set clipPathUnits(dynamic value) =>
+      props[_$key__clipPathUnits___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.clipRule] -->
+  @override
+  dynamic get clipRule =>
+      props[_$key__clipRule___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.clipRule] -->
+  @override
+  set clipRule(dynamic value) =>
+      props[_$key__clipRule___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.colorInterpolation] -->
+  @override
+  dynamic get colorInterpolation =>
+      props[_$key__colorInterpolation___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.colorInterpolation] -->
+  @override
+  set colorInterpolation(dynamic value) =>
+      props[_$key__colorInterpolation___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.colorProfile] -->
+  @override
+  dynamic get colorProfile =>
+      props[_$key__colorProfile___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.colorProfile] -->
+  @override
+  set colorProfile(dynamic value) =>
+      props[_$key__colorProfile___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.colorRendering] -->
+  @override
+  dynamic get colorRendering =>
+      props[_$key__colorRendering___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.colorRendering] -->
+  @override
+  set colorRendering(dynamic value) =>
+      props[_$key__colorRendering___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.contentScriptType] -->
+  @override
+  dynamic get contentScriptType =>
+      props[_$key__contentScriptType___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.contentScriptType] -->
+  @override
+  set contentScriptType(dynamic value) =>
+      props[_$key__contentScriptType___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.contentStyleType] -->
+  @override
+  dynamic get contentStyleType =>
+      props[_$key__contentStyleType___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.contentStyleType] -->
+  @override
+  set contentStyleType(dynamic value) =>
+      props[_$key__contentStyleType___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.cursor] -->
+  @override
+  dynamic get cursor =>
+      props[_$key__cursor___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.cursor] -->
+  @override
+  set cursor(dynamic value) => props[_$key__cursor___$SvgPropsMixin] = value;
+
   /// <!-- Generated from [_$SvgPropsMixin.cx] -->
   @override
   dynamic get cx =>
@@ -3533,6 +3962,82 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.cy] -->
   @override
   set cy(dynamic value) => props[_$key__cy___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.decelerate] -->
+  @override
+  dynamic get decelerate =>
+      props[_$key__decelerate___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.decelerate] -->
+  @override
+  set decelerate(dynamic value) =>
+      props[_$key__decelerate___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.descent] -->
+  @override
+  dynamic get descent =>
+      props[_$key__descent___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.descent] -->
+  @override
+  set descent(dynamic value) => props[_$key__descent___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.diffuseConstant] -->
+  @override
+  dynamic get diffuseConstant =>
+      props[_$key__diffuseConstant___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.diffuseConstant] -->
+  @override
+  set diffuseConstant(dynamic value) =>
+      props[_$key__diffuseConstant___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.direction] -->
+  @override
+  dynamic get direction =>
+      props[_$key__direction___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.direction] -->
+  @override
+  set direction(dynamic value) =>
+      props[_$key__direction___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.display] -->
+  @override
+  dynamic get display =>
+      props[_$key__display___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.display] -->
+  @override
+  set display(dynamic value) => props[_$key__display___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.divisor] -->
+  @override
+  dynamic get divisor =>
+      props[_$key__divisor___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.divisor] -->
+  @override
+  set divisor(dynamic value) => props[_$key__divisor___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.dominantBaseline] -->
+  @override
+  dynamic get dominantBaseline =>
+      props[_$key__dominantBaseline___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.dominantBaseline] -->
+  @override
+  set dominantBaseline(dynamic value) =>
+      props[_$key__dominantBaseline___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.dur] -->
+  @override
+  dynamic get dur =>
+      props[_$key__dur___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.dur] -->
+  @override
+  set dur(dynamic value) => props[_$key__dur___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.dx] -->
   @override
@@ -3552,6 +4057,65 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   @override
   set dy(dynamic value) => props[_$key__dy___$SvgPropsMixin] = value;
 
+  /// <!-- Generated from [_$SvgPropsMixin.edgeMode] -->
+  @override
+  dynamic get edgeMode =>
+      props[_$key__edgeMode___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.edgeMode] -->
+  @override
+  set edgeMode(dynamic value) =>
+      props[_$key__edgeMode___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.elevation] -->
+  @override
+  dynamic get elevation =>
+      props[_$key__elevation___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.elevation] -->
+  @override
+  set elevation(dynamic value) =>
+      props[_$key__elevation___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.enableBackground] -->
+  @override
+  dynamic get enableBackground =>
+      props[_$key__enableBackground___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.enableBackground] -->
+  @override
+  set enableBackground(dynamic value) =>
+      props[_$key__enableBackground___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.end] -->
+  @override
+  dynamic get end =>
+      props[_$key__end___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.end] -->
+  @override
+  set end(dynamic value) => props[_$key__end___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.exponent] -->
+  @override
+  dynamic get exponent =>
+      props[_$key__exponent___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.exponent] -->
+  @override
+  set exponent(dynamic value) =>
+      props[_$key__exponent___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.externalResourcesRequired] -->
+  @override
+  dynamic get externalResourcesRequired =>
+      props[_$key__externalResourcesRequired___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.externalResourcesRequired] -->
+  @override
+  set externalResourcesRequired(dynamic value) =>
+      props[_$key__externalResourcesRequired___$SvgPropsMixin] = value;
+
   /// <!-- Generated from [_$SvgPropsMixin.fillOpacity] -->
   @override
   dynamic get fillOpacity =>
@@ -3562,6 +4126,56 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   set fillOpacity(dynamic value) =>
       props[_$key__fillOpacity___$SvgPropsMixin] = value;
 
+  /// <!-- Generated from [_$SvgPropsMixin.filterRes] -->
+  @override
+  dynamic get filterRes =>
+      props[_$key__filterRes___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.filterRes] -->
+  @override
+  set filterRes(dynamic value) =>
+      props[_$key__filterRes___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.filterUnits] -->
+  @override
+  dynamic get filterUnits =>
+      props[_$key__filterUnits___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.filterUnits] -->
+  @override
+  set filterUnits(dynamic value) =>
+      props[_$key__filterUnits___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.floodColor] -->
+  @override
+  dynamic get floodColor =>
+      props[_$key__floodColor___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.floodColor] -->
+  @override
+  set floodColor(dynamic value) =>
+      props[_$key__floodColor___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.floodOpacity] -->
+  @override
+  dynamic get floodOpacity =>
+      props[_$key__floodOpacity___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.floodOpacity] -->
+  @override
+  set floodOpacity(dynamic value) =>
+      props[_$key__floodOpacity___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.focusable] -->
+  @override
+  dynamic get focusable =>
+      props[_$key__focusable___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.focusable] -->
+  @override
+  set focusable(dynamic value) =>
+      props[_$key__focusable___$SvgPropsMixin] = value;
+
   /// <!-- Generated from [_$SvgPropsMixin.fontSize] -->
   @override
   dynamic get fontSize =>
@@ -3571,6 +4185,74 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   @override
   set fontSize(dynamic value) =>
       props[_$key__fontSize___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.fontSizeAdjust] -->
+  @override
+  dynamic get fontSizeAdjust =>
+      props[_$key__fontSizeAdjust___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.fontSizeAdjust] -->
+  @override
+  set fontSizeAdjust(dynamic value) =>
+      props[_$key__fontSizeAdjust___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.fontStretch] -->
+  @override
+  dynamic get fontStretch =>
+      props[_$key__fontStretch___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.fontStretch] -->
+  @override
+  set fontStretch(dynamic value) =>
+      props[_$key__fontStretch___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.fontStyle] -->
+  @override
+  dynamic get fontStyle =>
+      props[_$key__fontStyle___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.fontStyle] -->
+  @override
+  set fontStyle(dynamic value) =>
+      props[_$key__fontStyle___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.fontVariant] -->
+  @override
+  dynamic get fontVariant =>
+      props[_$key__fontVariant___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.fontVariant] -->
+  @override
+  set fontVariant(dynamic value) =>
+      props[_$key__fontVariant___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.fontWeight] -->
+  @override
+  dynamic get fontWeight =>
+      props[_$key__fontWeight___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.fontWeight] -->
+  @override
+  set fontWeight(dynamic value) =>
+      props[_$key__fontWeight___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.format] -->
+  @override
+  dynamic get format =>
+      props[_$key__format___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.format] -->
+  @override
+  set format(dynamic value) => props[_$key__format___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.from] -->
+  @override
+  dynamic get from =>
+      props[_$key__from___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.from] -->
+  @override
+  set from(dynamic value) => props[_$key__from___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.fx] -->
   @override
@@ -3590,6 +4272,364 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   @override
   set fy(dynamic value) => props[_$key__fy___$SvgPropsMixin] = value;
 
+  /// <!-- Generated from [_$SvgPropsMixin.g1] -->
+  @override
+  dynamic get g1 =>
+      props[_$key__g1___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.g1] -->
+  @override
+  set g1(dynamic value) => props[_$key__g1___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.g2] -->
+  @override
+  dynamic get g2 =>
+      props[_$key__g2___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.g2] -->
+  @override
+  set g2(dynamic value) => props[_$key__g2___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.glyphName] -->
+  @override
+  dynamic get glyphName =>
+      props[_$key__glyphName___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.glyphName] -->
+  @override
+  set glyphName(dynamic value) =>
+      props[_$key__glyphName___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.glyphOrientationHorizontal] -->
+  @override
+  dynamic get glyphOrientationHorizontal =>
+      props[_$key__glyphOrientationHorizontal___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.glyphOrientationHorizontal] -->
+  @override
+  set glyphOrientationHorizontal(dynamic value) =>
+      props[_$key__glyphOrientationHorizontal___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.glyphOrientationVertical] -->
+  @override
+  dynamic get glyphOrientationVertical =>
+      props[_$key__glyphOrientationVertical___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.glyphOrientationVertical] -->
+  @override
+  set glyphOrientationVertical(dynamic value) =>
+      props[_$key__glyphOrientationVertical___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.glyphRef] -->
+  @override
+  dynamic get glyphRef =>
+      props[_$key__glyphRef___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.glyphRef] -->
+  @override
+  set glyphRef(dynamic value) =>
+      props[_$key__glyphRef___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.hanging] -->
+  @override
+  dynamic get hanging =>
+      props[_$key__hanging___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.hanging] -->
+  @override
+  set hanging(dynamic value) => props[_$key__hanging___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.horizAdvX] -->
+  @override
+  dynamic get horizAdvX =>
+      props[_$key__horizAdvX___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.horizAdvX] -->
+  @override
+  set horizAdvX(dynamic value) =>
+      props[_$key__horizAdvX___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.horizOriginX] -->
+  @override
+  dynamic get horizOriginX =>
+      props[_$key__horizOriginX___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.horizOriginX] -->
+  @override
+  set horizOriginX(dynamic value) =>
+      props[_$key__horizOriginX___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.ideographic] -->
+  @override
+  dynamic get ideographic =>
+      props[_$key__ideographic___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.ideographic] -->
+  @override
+  set ideographic(dynamic value) =>
+      props[_$key__ideographic___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.imageRendering] -->
+  @override
+  dynamic get imageRendering =>
+      props[_$key__imageRendering___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.imageRendering] -->
+  @override
+  set imageRendering(dynamic value) =>
+      props[_$key__imageRendering___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.in2] -->
+  @override
+  dynamic get in2 =>
+      props[_$key__in2___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.in2] -->
+  @override
+  set in2(dynamic value) => props[_$key__in2___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.intercept] -->
+  @override
+  dynamic get intercept =>
+      props[_$key__intercept___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.intercept] -->
+  @override
+  set intercept(dynamic value) =>
+      props[_$key__intercept___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.k] -->
+  @override
+  dynamic get k =>
+      props[_$key__k___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.k] -->
+  @override
+  set k(dynamic value) => props[_$key__k___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.k1] -->
+  @override
+  dynamic get k1 =>
+      props[_$key__k1___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.k1] -->
+  @override
+  set k1(dynamic value) => props[_$key__k1___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.k2] -->
+  @override
+  dynamic get k2 =>
+      props[_$key__k2___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.k2] -->
+  @override
+  set k2(dynamic value) => props[_$key__k2___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.k3] -->
+  @override
+  dynamic get k3 =>
+      props[_$key__k3___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.k3] -->
+  @override
+  set k3(dynamic value) => props[_$key__k3___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.k4] -->
+  @override
+  dynamic get k4 =>
+      props[_$key__k4___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.k4] -->
+  @override
+  set k4(dynamic value) => props[_$key__k4___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.kernelMatrix] -->
+  @override
+  dynamic get kernelMatrix =>
+      props[_$key__kernelMatrix___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.kernelMatrix] -->
+  @override
+  set kernelMatrix(dynamic value) =>
+      props[_$key__kernelMatrix___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.kernelUnitLength] -->
+  @override
+  dynamic get kernelUnitLength =>
+      props[_$key__kernelUnitLength___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.kernelUnitLength] -->
+  @override
+  set kernelUnitLength(dynamic value) =>
+      props[_$key__kernelUnitLength___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.kerning] -->
+  @override
+  dynamic get kerning =>
+      props[_$key__kerning___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.kerning] -->
+  @override
+  set kerning(dynamic value) => props[_$key__kerning___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.keyPoints] -->
+  @override
+  dynamic get keyPoints =>
+      props[_$key__keyPoints___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.keyPoints] -->
+  @override
+  set keyPoints(dynamic value) =>
+      props[_$key__keyPoints___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.keySplines] -->
+  @override
+  dynamic get keySplines =>
+      props[_$key__keySplines___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.keySplines] -->
+  @override
+  set keySplines(dynamic value) =>
+      props[_$key__keySplines___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.keyTimes] -->
+  @override
+  dynamic get keyTimes =>
+      props[_$key__keyTimes___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.keyTimes] -->
+  @override
+  set keyTimes(dynamic value) =>
+      props[_$key__keyTimes___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.lengthAdjust] -->
+  @override
+  dynamic get lengthAdjust =>
+      props[_$key__lengthAdjust___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.lengthAdjust] -->
+  @override
+  set lengthAdjust(dynamic value) =>
+      props[_$key__lengthAdjust___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.letterSpacing] -->
+  @override
+  dynamic get letterSpacing =>
+      props[_$key__letterSpacing___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.letterSpacing] -->
+  @override
+  set letterSpacing(dynamic value) =>
+      props[_$key__letterSpacing___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.lightingColor] -->
+  @override
+  dynamic get lightingColor =>
+      props[_$key__lightingColor___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.lightingColor] -->
+  @override
+  set lightingColor(dynamic value) =>
+      props[_$key__lightingColor___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.limitingConeAngle] -->
+  @override
+  dynamic get limitingConeAngle =>
+      props[_$key__limitingConeAngle___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.limitingConeAngle] -->
+  @override
+  set limitingConeAngle(dynamic value) =>
+      props[_$key__limitingConeAngle___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.local] -->
+  @override
+  dynamic get local =>
+      props[_$key__local___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.local] -->
+  @override
+  set local(dynamic value) => props[_$key__local___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.markerHeight] -->
+  @override
+  dynamic get markerHeight =>
+      props[_$key__markerHeight___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.markerHeight] -->
+  @override
+  set markerHeight(dynamic value) =>
+      props[_$key__markerHeight___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.markerUnits] -->
+  @override
+  dynamic get markerUnits =>
+      props[_$key__markerUnits___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.markerUnits] -->
+  @override
+  set markerUnits(dynamic value) =>
+      props[_$key__markerUnits___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.markerWidth] -->
+  @override
+  dynamic get markerWidth =>
+      props[_$key__markerWidth___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.markerWidth] -->
+  @override
+  set markerWidth(dynamic value) =>
+      props[_$key__markerWidth___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.maskContentUnits] -->
+  @override
+  dynamic get maskContentUnits =>
+      props[_$key__maskContentUnits___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.maskContentUnits] -->
+  @override
+  set maskContentUnits(dynamic value) =>
+      props[_$key__maskContentUnits___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.maskUnits] -->
+  @override
+  dynamic get maskUnits =>
+      props[_$key__maskUnits___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.maskUnits] -->
+  @override
+  set maskUnits(dynamic value) =>
+      props[_$key__maskUnits___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.mathematical] -->
+  @override
+  dynamic get mathematical =>
+      props[_$key__mathematical___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.mathematical] -->
+  @override
+  set mathematical(dynamic value) =>
+      props[_$key__mathematical___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.mode] -->
+  @override
+  dynamic get mode =>
+      props[_$key__mode___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.mode] -->
+  @override
+  set mode(dynamic value) => props[_$key__mode___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.numOctaves] -->
+  @override
+  dynamic get numOctaves =>
+      props[_$key__numOctaves___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.numOctaves] -->
+  @override
+  set numOctaves(dynamic value) =>
+      props[_$key__numOctaves___$SvgPropsMixin] = value;
+
   /// <!-- Generated from [_$SvgPropsMixin.offset] -->
   @override
   dynamic get offset =>
@@ -3608,6 +4648,182 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   @override
   set opacity(dynamic value) => props[_$key__opacity___$SvgPropsMixin] = value;
 
+  /// <!-- Generated from [_$SvgPropsMixin.operator] -->
+  @override
+  dynamic get operator =>
+      props[_$key__operator___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.operator] -->
+  @override
+  set operator(dynamic value) =>
+      props[_$key__operator___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.order] -->
+  @override
+  dynamic get order =>
+      props[_$key__order___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.order] -->
+  @override
+  set order(dynamic value) => props[_$key__order___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.orient] -->
+  @override
+  dynamic get orient =>
+      props[_$key__orient___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.orient] -->
+  @override
+  set orient(dynamic value) => props[_$key__orient___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.orientation] -->
+  @override
+  dynamic get orientation =>
+      props[_$key__orientation___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.orientation] -->
+  @override
+  set orientation(dynamic value) =>
+      props[_$key__orientation___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.origin] -->
+  @override
+  dynamic get origin =>
+      props[_$key__origin___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.origin] -->
+  @override
+  set origin(dynamic value) => props[_$key__origin___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.overflow] -->
+  @override
+  dynamic get overflow =>
+      props[_$key__overflow___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.overflow] -->
+  @override
+  set overflow(dynamic value) =>
+      props[_$key__overflow___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.overlinePosition] -->
+  @override
+  dynamic get overlinePosition =>
+      props[_$key__overlinePosition___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.overlinePosition] -->
+  @override
+  set overlinePosition(dynamic value) =>
+      props[_$key__overlinePosition___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.overlineThickness] -->
+  @override
+  dynamic get overlineThickness =>
+      props[_$key__overlineThickness___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.overlineThickness] -->
+  @override
+  set overlineThickness(dynamic value) =>
+      props[_$key__overlineThickness___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.paintOrder] -->
+  @override
+  dynamic get paintOrder =>
+      props[_$key__paintOrder___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.paintOrder] -->
+  @override
+  set paintOrder(dynamic value) =>
+      props[_$key__paintOrder___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.panose1] -->
+  @override
+  dynamic get panose1 =>
+      props[_$key__panose1___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.panose1] -->
+  @override
+  set panose1(dynamic value) => props[_$key__panose1___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.pathLength] -->
+  @override
+  dynamic get pathLength =>
+      props[_$key__pathLength___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.pathLength] -->
+  @override
+  set pathLength(dynamic value) =>
+      props[_$key__pathLength___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.patternTransform] -->
+  @override
+  dynamic get patternTransform =>
+      props[_$key__patternTransform___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.patternTransform] -->
+  @override
+  set patternTransform(dynamic value) =>
+      props[_$key__patternTransform___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.pointerEvents] -->
+  @override
+  dynamic get pointerEvents =>
+      props[_$key__pointerEvents___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.pointerEvents] -->
+  @override
+  set pointerEvents(dynamic value) =>
+      props[_$key__pointerEvents___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.pointsAtX] -->
+  @override
+  dynamic get pointsAtX =>
+      props[_$key__pointsAtX___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.pointsAtX] -->
+  @override
+  set pointsAtX(dynamic value) =>
+      props[_$key__pointsAtX___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.pointsAtY] -->
+  @override
+  dynamic get pointsAtY =>
+      props[_$key__pointsAtY___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.pointsAtY] -->
+  @override
+  set pointsAtY(dynamic value) =>
+      props[_$key__pointsAtY___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.pointsAtZ] -->
+  @override
+  dynamic get pointsAtZ =>
+      props[_$key__pointsAtZ___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.pointsAtZ] -->
+  @override
+  set pointsAtZ(dynamic value) =>
+      props[_$key__pointsAtZ___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.preserveAlpha] -->
+  @override
+  dynamic get preserveAlpha =>
+      props[_$key__preserveAlpha___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.preserveAlpha] -->
+  @override
+  set preserveAlpha(dynamic value) =>
+      props[_$key__preserveAlpha___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.primitiveUnits] -->
+  @override
+  dynamic get primitiveUnits =>
+      props[_$key__primitiveUnits___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.primitiveUnits] -->
+  @override
+  set primitiveUnits(dynamic value) =>
+      props[_$key__primitiveUnits___$SvgPropsMixin] = value;
+
   /// <!-- Generated from [_$SvgPropsMixin.r] -->
   @override
   dynamic get r =>
@@ -3616,6 +4832,101 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.r] -->
   @override
   set r(dynamic value) => props[_$key__r___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.radius] -->
+  @override
+  dynamic get radius =>
+      props[_$key__radius___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.radius] -->
+  @override
+  set radius(dynamic value) => props[_$key__radius___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.refX] -->
+  @override
+  dynamic get refX =>
+      props[_$key__refX___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.refX] -->
+  @override
+  set refX(dynamic value) => props[_$key__refX___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.refY] -->
+  @override
+  dynamic get refY =>
+      props[_$key__refY___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.refY] -->
+  @override
+  set refY(dynamic value) => props[_$key__refY___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.renderingIntent] -->
+  @override
+  dynamic get renderingIntent =>
+      props[_$key__renderingIntent___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.renderingIntent] -->
+  @override
+  set renderingIntent(dynamic value) =>
+      props[_$key__renderingIntent___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.repeatCount] -->
+  @override
+  dynamic get repeatCount =>
+      props[_$key__repeatCount___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.repeatCount] -->
+  @override
+  set repeatCount(dynamic value) =>
+      props[_$key__repeatCount___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.repeatDur] -->
+  @override
+  dynamic get repeatDur =>
+      props[_$key__repeatDur___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.repeatDur] -->
+  @override
+  set repeatDur(dynamic value) =>
+      props[_$key__repeatDur___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.requiredExtensions] -->
+  @override
+  dynamic get requiredExtensions =>
+      props[_$key__requiredExtensions___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.requiredExtensions] -->
+  @override
+  set requiredExtensions(dynamic value) =>
+      props[_$key__requiredExtensions___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.requiredFeatures] -->
+  @override
+  dynamic get requiredFeatures =>
+      props[_$key__requiredFeatures___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.requiredFeatures] -->
+  @override
+  set requiredFeatures(dynamic value) =>
+      props[_$key__requiredFeatures___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.restart] -->
+  @override
+  dynamic get restart =>
+      props[_$key__restart___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.restart] -->
+  @override
+  set restart(dynamic value) => props[_$key__restart___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.rotate] -->
+  @override
+  dynamic get rotate =>
+      props[_$key__rotate___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.rotate] -->
+  @override
+  set rotate(dynamic value) => props[_$key__rotate___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.rx] -->
   @override
@@ -3635,6 +4946,129 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   @override
   set ry(dynamic value) => props[_$key__ry___$SvgPropsMixin] = value;
 
+  /// <!-- Generated from [_$SvgPropsMixin.scale] -->
+  @override
+  dynamic get scale =>
+      props[_$key__scale___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.scale] -->
+  @override
+  set scale(dynamic value) => props[_$key__scale___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.seed] -->
+  @override
+  dynamic get seed =>
+      props[_$key__seed___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.seed] -->
+  @override
+  set seed(dynamic value) => props[_$key__seed___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.shapeRendering] -->
+  @override
+  dynamic get shapeRendering =>
+      props[_$key__shapeRendering___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.shapeRendering] -->
+  @override
+  set shapeRendering(dynamic value) =>
+      props[_$key__shapeRendering___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.slope] -->
+  @override
+  dynamic get slope =>
+      props[_$key__slope___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.slope] -->
+  @override
+  set slope(dynamic value) => props[_$key__slope___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.spacing] -->
+  @override
+  dynamic get spacing =>
+      props[_$key__spacing___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.spacing] -->
+  @override
+  set spacing(dynamic value) => props[_$key__spacing___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.specularConstant] -->
+  @override
+  dynamic get specularConstant =>
+      props[_$key__specularConstant___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.specularConstant] -->
+  @override
+  set specularConstant(dynamic value) =>
+      props[_$key__specularConstant___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.specularExponent] -->
+  @override
+  dynamic get specularExponent =>
+      props[_$key__specularExponent___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.specularExponent] -->
+  @override
+  set specularExponent(dynamic value) =>
+      props[_$key__specularExponent___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.speed] -->
+  @override
+  dynamic get speed =>
+      props[_$key__speed___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.speed] -->
+  @override
+  set speed(dynamic value) => props[_$key__speed___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.startOffset] -->
+  @override
+  dynamic get startOffset =>
+      props[_$key__startOffset___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.startOffset] -->
+  @override
+  set startOffset(dynamic value) =>
+      props[_$key__startOffset___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.stdDeviation] -->
+  @override
+  dynamic get stdDeviation =>
+      props[_$key__stdDeviation___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.stdDeviation] -->
+  @override
+  set stdDeviation(dynamic value) =>
+      props[_$key__stdDeviation___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.stemh] -->
+  @override
+  dynamic get stemh =>
+      props[_$key__stemh___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.stemh] -->
+  @override
+  set stemh(dynamic value) => props[_$key__stemh___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.stemv] -->
+  @override
+  dynamic get stemv =>
+      props[_$key__stemv___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.stemv] -->
+  @override
+  set stemv(dynamic value) => props[_$key__stemv___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.stitchTiles] -->
+  @override
+  dynamic get stitchTiles =>
+      props[_$key__stitchTiles___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.stitchTiles] -->
+  @override
+  set stitchTiles(dynamic value) =>
+      props[_$key__stitchTiles___$SvgPropsMixin] = value;
+
   /// <!-- Generated from [_$SvgPropsMixin.stopOpacity] -->
   @override
   dynamic get stopOpacity =>
@@ -3645,6 +5079,35 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   set stopOpacity(dynamic value) =>
       props[_$key__stopOpacity___$SvgPropsMixin] = value;
 
+  /// <!-- Generated from [_$SvgPropsMixin.strikethroughPosition] -->
+  @override
+  dynamic get strikethroughPosition =>
+      props[_$key__strikethroughPosition___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.strikethroughPosition] -->
+  @override
+  set strikethroughPosition(dynamic value) =>
+      props[_$key__strikethroughPosition___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.strikethroughThickness] -->
+  @override
+  dynamic get strikethroughThickness =>
+      props[_$key__strikethroughThickness___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.strikethroughThickness] -->
+  @override
+  set strikethroughThickness(dynamic value) =>
+      props[_$key__strikethroughThickness___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.string] -->
+  @override
+  dynamic get string =>
+      props[_$key__string___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.string] -->
+  @override
+  set string(dynamic value) => props[_$key__string___$SvgPropsMixin] = value;
+
   /// <!-- Generated from [_$SvgPropsMixin.strokeDasharray] -->
   @override
   dynamic get strokeDasharray =>
@@ -3654,6 +5117,26 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   @override
   set strokeDasharray(dynamic value) =>
       props[_$key__strokeDasharray___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.strokeDashoffset] -->
+  @override
+  dynamic get strokeDashoffset =>
+      props[_$key__strokeDashoffset___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.strokeDashoffset] -->
+  @override
+  set strokeDashoffset(dynamic value) =>
+      props[_$key__strokeDashoffset___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.strokeMiterlimit] -->
+  @override
+  dynamic get strokeMiterlimit =>
+      props[_$key__strokeMiterlimit___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.strokeMiterlimit] -->
+  @override
+  set strokeMiterlimit(dynamic value) =>
+      props[_$key__strokeMiterlimit___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeOpacity] -->
   @override
@@ -3674,6 +5157,299 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   @override
   set strokeWidth(dynamic value) =>
       props[_$key__strokeWidth___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.surfaceScale] -->
+  @override
+  dynamic get surfaceScale =>
+      props[_$key__surfaceScale___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.surfaceScale] -->
+  @override
+  set surfaceScale(dynamic value) =>
+      props[_$key__surfaceScale___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.systemLanguage] -->
+  @override
+  dynamic get systemLanguage =>
+      props[_$key__systemLanguage___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.systemLanguage] -->
+  @override
+  set systemLanguage(dynamic value) =>
+      props[_$key__systemLanguage___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.tableValues] -->
+  @override
+  dynamic get tableValues =>
+      props[_$key__tableValues___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.tableValues] -->
+  @override
+  set tableValues(dynamic value) =>
+      props[_$key__tableValues___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.targetX] -->
+  @override
+  dynamic get targetX =>
+      props[_$key__targetX___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.targetX] -->
+  @override
+  set targetX(dynamic value) => props[_$key__targetX___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.targetY] -->
+  @override
+  dynamic get targetY =>
+      props[_$key__targetY___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.targetY] -->
+  @override
+  set targetY(dynamic value) => props[_$key__targetY___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.textDecoration] -->
+  @override
+  dynamic get textDecoration =>
+      props[_$key__textDecoration___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.textDecoration] -->
+  @override
+  set textDecoration(dynamic value) =>
+      props[_$key__textDecoration___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.textLength] -->
+  @override
+  dynamic get textLength =>
+      props[_$key__textLength___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.textLength] -->
+  @override
+  set textLength(dynamic value) =>
+      props[_$key__textLength___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.textRendering] -->
+  @override
+  dynamic get textRendering =>
+      props[_$key__textRendering___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.textRendering] -->
+  @override
+  set textRendering(dynamic value) =>
+      props[_$key__textRendering___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.to] -->
+  @override
+  dynamic get to =>
+      props[_$key__to___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.to] -->
+  @override
+  set to(dynamic value) => props[_$key__to___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.u1] -->
+  @override
+  dynamic get u1 =>
+      props[_$key__u1___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.u1] -->
+  @override
+  set u1(dynamic value) => props[_$key__u1___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.u2] -->
+  @override
+  dynamic get u2 =>
+      props[_$key__u2___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.u2] -->
+  @override
+  set u2(dynamic value) => props[_$key__u2___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.underlinePosition] -->
+  @override
+  dynamic get underlinePosition =>
+      props[_$key__underlinePosition___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.underlinePosition] -->
+  @override
+  set underlinePosition(dynamic value) =>
+      props[_$key__underlinePosition___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.underlineThickness] -->
+  @override
+  dynamic get underlineThickness =>
+      props[_$key__underlineThickness___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.underlineThickness] -->
+  @override
+  set underlineThickness(dynamic value) =>
+      props[_$key__underlineThickness___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.unicode] -->
+  @override
+  dynamic get unicode =>
+      props[_$key__unicode___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.unicode] -->
+  @override
+  set unicode(dynamic value) => props[_$key__unicode___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.unicodeBidi] -->
+  @override
+  dynamic get unicodeBidi =>
+      props[_$key__unicodeBidi___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.unicodeBidi] -->
+  @override
+  set unicodeBidi(dynamic value) =>
+      props[_$key__unicodeBidi___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.unicodeRange] -->
+  @override
+  dynamic get unicodeRange =>
+      props[_$key__unicodeRange___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.unicodeRange] -->
+  @override
+  set unicodeRange(dynamic value) =>
+      props[_$key__unicodeRange___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.unitsPerEm] -->
+  @override
+  dynamic get unitsPerEm =>
+      props[_$key__unitsPerEm___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.unitsPerEm] -->
+  @override
+  set unitsPerEm(dynamic value) =>
+      props[_$key__unitsPerEm___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.vAlphabetic] -->
+  @override
+  dynamic get vAlphabetic =>
+      props[_$key__vAlphabetic___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.vAlphabetic] -->
+  @override
+  set vAlphabetic(dynamic value) =>
+      props[_$key__vAlphabetic___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.vHanging] -->
+  @override
+  dynamic get vHanging =>
+      props[_$key__vHanging___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.vHanging] -->
+  @override
+  set vHanging(dynamic value) =>
+      props[_$key__vHanging___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.vIdeographic] -->
+  @override
+  dynamic get vIdeographic =>
+      props[_$key__vIdeographic___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.vIdeographic] -->
+  @override
+  set vIdeographic(dynamic value) =>
+      props[_$key__vIdeographic___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.vMathematical] -->
+  @override
+  dynamic get vMathematical =>
+      props[_$key__vMathematical___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.vMathematical] -->
+  @override
+  set vMathematical(dynamic value) =>
+      props[_$key__vMathematical___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.vectorEffect] -->
+  @override
+  dynamic get vectorEffect =>
+      props[_$key__vectorEffect___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.vectorEffect] -->
+  @override
+  set vectorEffect(dynamic value) =>
+      props[_$key__vectorEffect___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.vertAdvY] -->
+  @override
+  dynamic get vertAdvY =>
+      props[_$key__vertAdvY___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.vertAdvY] -->
+  @override
+  set vertAdvY(dynamic value) =>
+      props[_$key__vertAdvY___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.vertOriginX] -->
+  @override
+  dynamic get vertOriginX =>
+      props[_$key__vertOriginX___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.vertOriginX] -->
+  @override
+  set vertOriginX(dynamic value) =>
+      props[_$key__vertOriginX___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.vertOriginY] -->
+  @override
+  dynamic get vertOriginY =>
+      props[_$key__vertOriginY___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.vertOriginY] -->
+  @override
+  set vertOriginY(dynamic value) =>
+      props[_$key__vertOriginY___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.viewTarget] -->
+  @override
+  dynamic get viewTarget =>
+      props[_$key__viewTarget___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.viewTarget] -->
+  @override
+  set viewTarget(dynamic value) =>
+      props[_$key__viewTarget___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.visibility] -->
+  @override
+  dynamic get visibility =>
+      props[_$key__visibility___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.visibility] -->
+  @override
+  set visibility(dynamic value) =>
+      props[_$key__visibility___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.widths] -->
+  @override
+  dynamic get widths =>
+      props[_$key__widths___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.widths] -->
+  @override
+  set widths(dynamic value) => props[_$key__widths___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.wordSpacing] -->
+  @override
+  dynamic get wordSpacing =>
+      props[_$key__wordSpacing___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.wordSpacing] -->
+  @override
+  set wordSpacing(dynamic value) =>
+      props[_$key__wordSpacing___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.writingMode] -->
+  @override
+  dynamic get writingMode =>
+      props[_$key__writingMode___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.writingMode] -->
+  @override
+  set writingMode(dynamic value) =>
+      props[_$key__writingMode___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.x1] -->
   @override
@@ -3702,6 +5478,15 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   @override
   set x(dynamic value) => props[_$key__x___$SvgPropsMixin] = value;
 
+  /// <!-- Generated from [_$SvgPropsMixin.xHeight] -->
+  @override
+  dynamic get xHeight =>
+      props[_$key__xHeight___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.xHeight] -->
+  @override
+  set xHeight(dynamic value) => props[_$key__xHeight___$SvgPropsMixin] = value;
+
   /// <!-- Generated from [_$SvgPropsMixin.y1] -->
   @override
   dynamic get y1 =>
@@ -3728,13 +5513,47 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.y] -->
   @override
   set y(dynamic value) => props[_$key__y___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.z] -->
+  @override
+  dynamic get z =>
+      props[_$key__z___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.z] -->
+  @override
+  set z(dynamic value) => props[_$key__z___$SvgPropsMixin] = value;
   /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__htmlIn___$SvgPropsMixin =
+      const PropDescriptor(_$key__htmlIn___$SvgPropsMixin);
+  static const PropDescriptor _$prop__htmlValues___$SvgPropsMixin =
+      const PropDescriptor(_$key__htmlValues___$SvgPropsMixin);
+  static const PropDescriptor _$prop__accumulate___$SvgPropsMixin =
+      const PropDescriptor(_$key__accumulate___$SvgPropsMixin);
+  static const PropDescriptor _$prop__additive___$SvgPropsMixin =
+      const PropDescriptor(_$key__additive___$SvgPropsMixin);
+  static const PropDescriptor _$prop__alignmentBaseline___$SvgPropsMixin =
+      const PropDescriptor(_$key__alignmentBaseline___$SvgPropsMixin);
+  static const PropDescriptor _$prop__allowReorder___$SvgPropsMixin =
+      const PropDescriptor(_$key__allowReorder___$SvgPropsMixin);
+  static const PropDescriptor _$prop__arabicForm___$SvgPropsMixin =
+      const PropDescriptor(_$key__arabicForm___$SvgPropsMixin);
+  static const PropDescriptor _$prop__attributeName___$SvgPropsMixin =
+      const PropDescriptor(_$key__attributeName___$SvgPropsMixin);
+  static const PropDescriptor _$prop__attributeType___$SvgPropsMixin =
+      const PropDescriptor(_$key__attributeType___$SvgPropsMixin);
   static const PropDescriptor _$prop__clipPath___$SvgPropsMixin =
       const PropDescriptor(_$key__clipPath___$SvgPropsMixin);
+  static const PropDescriptor
+      _$prop__colorInterpolationFilters___$SvgPropsMixin =
+      const PropDescriptor(_$key__colorInterpolationFilters___$SvgPropsMixin);
   static const PropDescriptor _$prop__d___$SvgPropsMixin =
       const PropDescriptor(_$key__d___$SvgPropsMixin);
   static const PropDescriptor _$prop__fill___$SvgPropsMixin =
       const PropDescriptor(_$key__fill___$SvgPropsMixin);
+  static const PropDescriptor _$prop__fillRule___$SvgPropsMixin =
+      const PropDescriptor(_$key__fillRule___$SvgPropsMixin);
+  static const PropDescriptor _$prop__filter___$SvgPropsMixin =
+      const PropDescriptor(_$key__filter___$SvgPropsMixin);
   static const PropDescriptor _$prop__fontFamily___$SvgPropsMixin =
       const PropDescriptor(_$key__fontFamily___$SvgPropsMixin);
   static const PropDescriptor _$prop__gradientTransform___$SvgPropsMixin =
@@ -3747,6 +5566,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
       const PropDescriptor(_$key__markerMid___$SvgPropsMixin);
   static const PropDescriptor _$prop__markerStart___$SvgPropsMixin =
       const PropDescriptor(_$key__markerStart___$SvgPropsMixin);
+  static const PropDescriptor _$prop__mask___$SvgPropsMixin =
+      const PropDescriptor(_$key__mask___$SvgPropsMixin);
   static const PropDescriptor _$prop__patternContentUnits___$SvgPropsMixin =
       const PropDescriptor(_$key__patternContentUnits___$SvgPropsMixin);
   static const PropDescriptor _$prop__patternUnits___$SvgPropsMixin =
@@ -3755,6 +5576,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
       const PropDescriptor(_$key__points___$SvgPropsMixin);
   static const PropDescriptor _$prop__preserveAspectRatio___$SvgPropsMixin =
       const PropDescriptor(_$key__preserveAspectRatio___$SvgPropsMixin);
+  static const PropDescriptor _$prop__result___$SvgPropsMixin =
+      const PropDescriptor(_$key__result___$SvgPropsMixin);
   static const PropDescriptor _$prop__spreadMethod___$SvgPropsMixin =
       const PropDescriptor(_$key__spreadMethod___$SvgPropsMixin);
   static const PropDescriptor _$prop__stopColor___$SvgPropsMixin =
@@ -3763,6 +5586,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
       const PropDescriptor(_$key__stroke___$SvgPropsMixin);
   static const PropDescriptor _$prop__strokeLinecap___$SvgPropsMixin =
       const PropDescriptor(_$key__strokeLinecap___$SvgPropsMixin);
+  static const PropDescriptor _$prop__strokeLinejoin___$SvgPropsMixin =
+      const PropDescriptor(_$key__strokeLinejoin___$SvgPropsMixin);
   static const PropDescriptor _$prop__textAnchor___$SvgPropsMixin =
       const PropDescriptor(_$key__textAnchor___$SvgPropsMixin);
   static const PropDescriptor _$prop__transform___$SvgPropsMixin =
@@ -3771,6 +5596,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
       const PropDescriptor(_$key__version___$SvgPropsMixin);
   static const PropDescriptor _$prop__viewBox___$SvgPropsMixin =
       const PropDescriptor(_$key__viewBox___$SvgPropsMixin);
+  static const PropDescriptor _$prop__xChannelSelector___$SvgPropsMixin =
+      const PropDescriptor(_$key__xChannelSelector___$SvgPropsMixin);
   static const PropDescriptor _$prop__xlinkActuate___$SvgPropsMixin =
       const PropDescriptor(_$key__xlinkActuate___$SvgPropsMixin);
   static const PropDescriptor _$prop__xlinkArcrole___$SvgPropsMixin =
@@ -3785,61 +5612,416 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
       const PropDescriptor(_$key__xlinkTitle___$SvgPropsMixin);
   static const PropDescriptor _$prop__xlinkType___$SvgPropsMixin =
       const PropDescriptor(_$key__xlinkType___$SvgPropsMixin);
+  static const PropDescriptor _$prop__xmlns___$SvgPropsMixin =
+      const PropDescriptor(_$key__xmlns___$SvgPropsMixin);
+  static const PropDescriptor _$prop__xmlnsXlink___$SvgPropsMixin =
+      const PropDescriptor(_$key__xmlnsXlink___$SvgPropsMixin);
   static const PropDescriptor _$prop__xmlBase___$SvgPropsMixin =
       const PropDescriptor(_$key__xmlBase___$SvgPropsMixin);
   static const PropDescriptor _$prop__xmlLang___$SvgPropsMixin =
       const PropDescriptor(_$key__xmlLang___$SvgPropsMixin);
   static const PropDescriptor _$prop__xmlSpace___$SvgPropsMixin =
       const PropDescriptor(_$key__xmlSpace___$SvgPropsMixin);
+  static const PropDescriptor _$prop__yChannelSelector___$SvgPropsMixin =
+      const PropDescriptor(_$key__yChannelSelector___$SvgPropsMixin);
+  static const PropDescriptor _$prop__zoomAndPan___$SvgPropsMixin =
+      const PropDescriptor(_$key__zoomAndPan___$SvgPropsMixin);
+  static const PropDescriptor _$prop__accentHeight___$SvgPropsMixin =
+      const PropDescriptor(_$key__accentHeight___$SvgPropsMixin);
+  static const PropDescriptor _$prop__alphabetic___$SvgPropsMixin =
+      const PropDescriptor(_$key__alphabetic___$SvgPropsMixin);
+  static const PropDescriptor _$prop__amplitude___$SvgPropsMixin =
+      const PropDescriptor(_$key__amplitude___$SvgPropsMixin);
+  static const PropDescriptor _$prop__ascent___$SvgPropsMixin =
+      const PropDescriptor(_$key__ascent___$SvgPropsMixin);
+  static const PropDescriptor _$prop__autoReverse___$SvgPropsMixin =
+      const PropDescriptor(_$key__autoReverse___$SvgPropsMixin);
+  static const PropDescriptor _$prop__azimuth___$SvgPropsMixin =
+      const PropDescriptor(_$key__azimuth___$SvgPropsMixin);
+  static const PropDescriptor _$prop__baseFrequency___$SvgPropsMixin =
+      const PropDescriptor(_$key__baseFrequency___$SvgPropsMixin);
+  static const PropDescriptor _$prop__baseProfile___$SvgPropsMixin =
+      const PropDescriptor(_$key__baseProfile___$SvgPropsMixin);
+  static const PropDescriptor _$prop__baselineShift___$SvgPropsMixin =
+      const PropDescriptor(_$key__baselineShift___$SvgPropsMixin);
+  static const PropDescriptor _$prop__bbox___$SvgPropsMixin =
+      const PropDescriptor(_$key__bbox___$SvgPropsMixin);
+  static const PropDescriptor _$prop__begin___$SvgPropsMixin =
+      const PropDescriptor(_$key__begin___$SvgPropsMixin);
+  static const PropDescriptor _$prop__bias___$SvgPropsMixin =
+      const PropDescriptor(_$key__bias___$SvgPropsMixin);
+  static const PropDescriptor _$prop__by___$SvgPropsMixin =
+      const PropDescriptor(_$key__by___$SvgPropsMixin);
+  static const PropDescriptor _$prop__calcMode___$SvgPropsMixin =
+      const PropDescriptor(_$key__calcMode___$SvgPropsMixin);
+  static const PropDescriptor _$prop__capHeight___$SvgPropsMixin =
+      const PropDescriptor(_$key__capHeight___$SvgPropsMixin);
+  static const PropDescriptor _$prop__clip___$SvgPropsMixin =
+      const PropDescriptor(_$key__clip___$SvgPropsMixin);
+  static const PropDescriptor _$prop__clipPathUnits___$SvgPropsMixin =
+      const PropDescriptor(_$key__clipPathUnits___$SvgPropsMixin);
+  static const PropDescriptor _$prop__clipRule___$SvgPropsMixin =
+      const PropDescriptor(_$key__clipRule___$SvgPropsMixin);
+  static const PropDescriptor _$prop__colorInterpolation___$SvgPropsMixin =
+      const PropDescriptor(_$key__colorInterpolation___$SvgPropsMixin);
+  static const PropDescriptor _$prop__colorProfile___$SvgPropsMixin =
+      const PropDescriptor(_$key__colorProfile___$SvgPropsMixin);
+  static const PropDescriptor _$prop__colorRendering___$SvgPropsMixin =
+      const PropDescriptor(_$key__colorRendering___$SvgPropsMixin);
+  static const PropDescriptor _$prop__contentScriptType___$SvgPropsMixin =
+      const PropDescriptor(_$key__contentScriptType___$SvgPropsMixin);
+  static const PropDescriptor _$prop__contentStyleType___$SvgPropsMixin =
+      const PropDescriptor(_$key__contentStyleType___$SvgPropsMixin);
+  static const PropDescriptor _$prop__cursor___$SvgPropsMixin =
+      const PropDescriptor(_$key__cursor___$SvgPropsMixin);
   static const PropDescriptor _$prop__cx___$SvgPropsMixin =
       const PropDescriptor(_$key__cx___$SvgPropsMixin);
   static const PropDescriptor _$prop__cy___$SvgPropsMixin =
       const PropDescriptor(_$key__cy___$SvgPropsMixin);
+  static const PropDescriptor _$prop__decelerate___$SvgPropsMixin =
+      const PropDescriptor(_$key__decelerate___$SvgPropsMixin);
+  static const PropDescriptor _$prop__descent___$SvgPropsMixin =
+      const PropDescriptor(_$key__descent___$SvgPropsMixin);
+  static const PropDescriptor _$prop__diffuseConstant___$SvgPropsMixin =
+      const PropDescriptor(_$key__diffuseConstant___$SvgPropsMixin);
+  static const PropDescriptor _$prop__direction___$SvgPropsMixin =
+      const PropDescriptor(_$key__direction___$SvgPropsMixin);
+  static const PropDescriptor _$prop__display___$SvgPropsMixin =
+      const PropDescriptor(_$key__display___$SvgPropsMixin);
+  static const PropDescriptor _$prop__divisor___$SvgPropsMixin =
+      const PropDescriptor(_$key__divisor___$SvgPropsMixin);
+  static const PropDescriptor _$prop__dominantBaseline___$SvgPropsMixin =
+      const PropDescriptor(_$key__dominantBaseline___$SvgPropsMixin);
+  static const PropDescriptor _$prop__dur___$SvgPropsMixin =
+      const PropDescriptor(_$key__dur___$SvgPropsMixin);
   static const PropDescriptor _$prop__dx___$SvgPropsMixin =
       const PropDescriptor(_$key__dx___$SvgPropsMixin);
   static const PropDescriptor _$prop__dy___$SvgPropsMixin =
       const PropDescriptor(_$key__dy___$SvgPropsMixin);
+  static const PropDescriptor _$prop__edgeMode___$SvgPropsMixin =
+      const PropDescriptor(_$key__edgeMode___$SvgPropsMixin);
+  static const PropDescriptor _$prop__elevation___$SvgPropsMixin =
+      const PropDescriptor(_$key__elevation___$SvgPropsMixin);
+  static const PropDescriptor _$prop__enableBackground___$SvgPropsMixin =
+      const PropDescriptor(_$key__enableBackground___$SvgPropsMixin);
+  static const PropDescriptor _$prop__end___$SvgPropsMixin =
+      const PropDescriptor(_$key__end___$SvgPropsMixin);
+  static const PropDescriptor _$prop__exponent___$SvgPropsMixin =
+      const PropDescriptor(_$key__exponent___$SvgPropsMixin);
+  static const PropDescriptor
+      _$prop__externalResourcesRequired___$SvgPropsMixin =
+      const PropDescriptor(_$key__externalResourcesRequired___$SvgPropsMixin);
   static const PropDescriptor _$prop__fillOpacity___$SvgPropsMixin =
       const PropDescriptor(_$key__fillOpacity___$SvgPropsMixin);
+  static const PropDescriptor _$prop__filterRes___$SvgPropsMixin =
+      const PropDescriptor(_$key__filterRes___$SvgPropsMixin);
+  static const PropDescriptor _$prop__filterUnits___$SvgPropsMixin =
+      const PropDescriptor(_$key__filterUnits___$SvgPropsMixin);
+  static const PropDescriptor _$prop__floodColor___$SvgPropsMixin =
+      const PropDescriptor(_$key__floodColor___$SvgPropsMixin);
+  static const PropDescriptor _$prop__floodOpacity___$SvgPropsMixin =
+      const PropDescriptor(_$key__floodOpacity___$SvgPropsMixin);
+  static const PropDescriptor _$prop__focusable___$SvgPropsMixin =
+      const PropDescriptor(_$key__focusable___$SvgPropsMixin);
   static const PropDescriptor _$prop__fontSize___$SvgPropsMixin =
       const PropDescriptor(_$key__fontSize___$SvgPropsMixin);
+  static const PropDescriptor _$prop__fontSizeAdjust___$SvgPropsMixin =
+      const PropDescriptor(_$key__fontSizeAdjust___$SvgPropsMixin);
+  static const PropDescriptor _$prop__fontStretch___$SvgPropsMixin =
+      const PropDescriptor(_$key__fontStretch___$SvgPropsMixin);
+  static const PropDescriptor _$prop__fontStyle___$SvgPropsMixin =
+      const PropDescriptor(_$key__fontStyle___$SvgPropsMixin);
+  static const PropDescriptor _$prop__fontVariant___$SvgPropsMixin =
+      const PropDescriptor(_$key__fontVariant___$SvgPropsMixin);
+  static const PropDescriptor _$prop__fontWeight___$SvgPropsMixin =
+      const PropDescriptor(_$key__fontWeight___$SvgPropsMixin);
+  static const PropDescriptor _$prop__format___$SvgPropsMixin =
+      const PropDescriptor(_$key__format___$SvgPropsMixin);
+  static const PropDescriptor _$prop__from___$SvgPropsMixin =
+      const PropDescriptor(_$key__from___$SvgPropsMixin);
   static const PropDescriptor _$prop__fx___$SvgPropsMixin =
       const PropDescriptor(_$key__fx___$SvgPropsMixin);
   static const PropDescriptor _$prop__fy___$SvgPropsMixin =
       const PropDescriptor(_$key__fy___$SvgPropsMixin);
+  static const PropDescriptor _$prop__g1___$SvgPropsMixin =
+      const PropDescriptor(_$key__g1___$SvgPropsMixin);
+  static const PropDescriptor _$prop__g2___$SvgPropsMixin =
+      const PropDescriptor(_$key__g2___$SvgPropsMixin);
+  static const PropDescriptor _$prop__glyphName___$SvgPropsMixin =
+      const PropDescriptor(_$key__glyphName___$SvgPropsMixin);
+  static const PropDescriptor
+      _$prop__glyphOrientationHorizontal___$SvgPropsMixin =
+      const PropDescriptor(_$key__glyphOrientationHorizontal___$SvgPropsMixin);
+  static const PropDescriptor
+      _$prop__glyphOrientationVertical___$SvgPropsMixin =
+      const PropDescriptor(_$key__glyphOrientationVertical___$SvgPropsMixin);
+  static const PropDescriptor _$prop__glyphRef___$SvgPropsMixin =
+      const PropDescriptor(_$key__glyphRef___$SvgPropsMixin);
+  static const PropDescriptor _$prop__hanging___$SvgPropsMixin =
+      const PropDescriptor(_$key__hanging___$SvgPropsMixin);
+  static const PropDescriptor _$prop__horizAdvX___$SvgPropsMixin =
+      const PropDescriptor(_$key__horizAdvX___$SvgPropsMixin);
+  static const PropDescriptor _$prop__horizOriginX___$SvgPropsMixin =
+      const PropDescriptor(_$key__horizOriginX___$SvgPropsMixin);
+  static const PropDescriptor _$prop__ideographic___$SvgPropsMixin =
+      const PropDescriptor(_$key__ideographic___$SvgPropsMixin);
+  static const PropDescriptor _$prop__imageRendering___$SvgPropsMixin =
+      const PropDescriptor(_$key__imageRendering___$SvgPropsMixin);
+  static const PropDescriptor _$prop__in2___$SvgPropsMixin =
+      const PropDescriptor(_$key__in2___$SvgPropsMixin);
+  static const PropDescriptor _$prop__intercept___$SvgPropsMixin =
+      const PropDescriptor(_$key__intercept___$SvgPropsMixin);
+  static const PropDescriptor _$prop__k___$SvgPropsMixin =
+      const PropDescriptor(_$key__k___$SvgPropsMixin);
+  static const PropDescriptor _$prop__k1___$SvgPropsMixin =
+      const PropDescriptor(_$key__k1___$SvgPropsMixin);
+  static const PropDescriptor _$prop__k2___$SvgPropsMixin =
+      const PropDescriptor(_$key__k2___$SvgPropsMixin);
+  static const PropDescriptor _$prop__k3___$SvgPropsMixin =
+      const PropDescriptor(_$key__k3___$SvgPropsMixin);
+  static const PropDescriptor _$prop__k4___$SvgPropsMixin =
+      const PropDescriptor(_$key__k4___$SvgPropsMixin);
+  static const PropDescriptor _$prop__kernelMatrix___$SvgPropsMixin =
+      const PropDescriptor(_$key__kernelMatrix___$SvgPropsMixin);
+  static const PropDescriptor _$prop__kernelUnitLength___$SvgPropsMixin =
+      const PropDescriptor(_$key__kernelUnitLength___$SvgPropsMixin);
+  static const PropDescriptor _$prop__kerning___$SvgPropsMixin =
+      const PropDescriptor(_$key__kerning___$SvgPropsMixin);
+  static const PropDescriptor _$prop__keyPoints___$SvgPropsMixin =
+      const PropDescriptor(_$key__keyPoints___$SvgPropsMixin);
+  static const PropDescriptor _$prop__keySplines___$SvgPropsMixin =
+      const PropDescriptor(_$key__keySplines___$SvgPropsMixin);
+  static const PropDescriptor _$prop__keyTimes___$SvgPropsMixin =
+      const PropDescriptor(_$key__keyTimes___$SvgPropsMixin);
+  static const PropDescriptor _$prop__lengthAdjust___$SvgPropsMixin =
+      const PropDescriptor(_$key__lengthAdjust___$SvgPropsMixin);
+  static const PropDescriptor _$prop__letterSpacing___$SvgPropsMixin =
+      const PropDescriptor(_$key__letterSpacing___$SvgPropsMixin);
+  static const PropDescriptor _$prop__lightingColor___$SvgPropsMixin =
+      const PropDescriptor(_$key__lightingColor___$SvgPropsMixin);
+  static const PropDescriptor _$prop__limitingConeAngle___$SvgPropsMixin =
+      const PropDescriptor(_$key__limitingConeAngle___$SvgPropsMixin);
+  static const PropDescriptor _$prop__local___$SvgPropsMixin =
+      const PropDescriptor(_$key__local___$SvgPropsMixin);
+  static const PropDescriptor _$prop__markerHeight___$SvgPropsMixin =
+      const PropDescriptor(_$key__markerHeight___$SvgPropsMixin);
+  static const PropDescriptor _$prop__markerUnits___$SvgPropsMixin =
+      const PropDescriptor(_$key__markerUnits___$SvgPropsMixin);
+  static const PropDescriptor _$prop__markerWidth___$SvgPropsMixin =
+      const PropDescriptor(_$key__markerWidth___$SvgPropsMixin);
+  static const PropDescriptor _$prop__maskContentUnits___$SvgPropsMixin =
+      const PropDescriptor(_$key__maskContentUnits___$SvgPropsMixin);
+  static const PropDescriptor _$prop__maskUnits___$SvgPropsMixin =
+      const PropDescriptor(_$key__maskUnits___$SvgPropsMixin);
+  static const PropDescriptor _$prop__mathematical___$SvgPropsMixin =
+      const PropDescriptor(_$key__mathematical___$SvgPropsMixin);
+  static const PropDescriptor _$prop__mode___$SvgPropsMixin =
+      const PropDescriptor(_$key__mode___$SvgPropsMixin);
+  static const PropDescriptor _$prop__numOctaves___$SvgPropsMixin =
+      const PropDescriptor(_$key__numOctaves___$SvgPropsMixin);
   static const PropDescriptor _$prop__offset___$SvgPropsMixin =
       const PropDescriptor(_$key__offset___$SvgPropsMixin);
   static const PropDescriptor _$prop__opacity___$SvgPropsMixin =
       const PropDescriptor(_$key__opacity___$SvgPropsMixin);
+  static const PropDescriptor _$prop__operator___$SvgPropsMixin =
+      const PropDescriptor(_$key__operator___$SvgPropsMixin);
+  static const PropDescriptor _$prop__order___$SvgPropsMixin =
+      const PropDescriptor(_$key__order___$SvgPropsMixin);
+  static const PropDescriptor _$prop__orient___$SvgPropsMixin =
+      const PropDescriptor(_$key__orient___$SvgPropsMixin);
+  static const PropDescriptor _$prop__orientation___$SvgPropsMixin =
+      const PropDescriptor(_$key__orientation___$SvgPropsMixin);
+  static const PropDescriptor _$prop__origin___$SvgPropsMixin =
+      const PropDescriptor(_$key__origin___$SvgPropsMixin);
+  static const PropDescriptor _$prop__overflow___$SvgPropsMixin =
+      const PropDescriptor(_$key__overflow___$SvgPropsMixin);
+  static const PropDescriptor _$prop__overlinePosition___$SvgPropsMixin =
+      const PropDescriptor(_$key__overlinePosition___$SvgPropsMixin);
+  static const PropDescriptor _$prop__overlineThickness___$SvgPropsMixin =
+      const PropDescriptor(_$key__overlineThickness___$SvgPropsMixin);
+  static const PropDescriptor _$prop__paintOrder___$SvgPropsMixin =
+      const PropDescriptor(_$key__paintOrder___$SvgPropsMixin);
+  static const PropDescriptor _$prop__panose1___$SvgPropsMixin =
+      const PropDescriptor(_$key__panose1___$SvgPropsMixin);
+  static const PropDescriptor _$prop__pathLength___$SvgPropsMixin =
+      const PropDescriptor(_$key__pathLength___$SvgPropsMixin);
+  static const PropDescriptor _$prop__patternTransform___$SvgPropsMixin =
+      const PropDescriptor(_$key__patternTransform___$SvgPropsMixin);
+  static const PropDescriptor _$prop__pointerEvents___$SvgPropsMixin =
+      const PropDescriptor(_$key__pointerEvents___$SvgPropsMixin);
+  static const PropDescriptor _$prop__pointsAtX___$SvgPropsMixin =
+      const PropDescriptor(_$key__pointsAtX___$SvgPropsMixin);
+  static const PropDescriptor _$prop__pointsAtY___$SvgPropsMixin =
+      const PropDescriptor(_$key__pointsAtY___$SvgPropsMixin);
+  static const PropDescriptor _$prop__pointsAtZ___$SvgPropsMixin =
+      const PropDescriptor(_$key__pointsAtZ___$SvgPropsMixin);
+  static const PropDescriptor _$prop__preserveAlpha___$SvgPropsMixin =
+      const PropDescriptor(_$key__preserveAlpha___$SvgPropsMixin);
+  static const PropDescriptor _$prop__primitiveUnits___$SvgPropsMixin =
+      const PropDescriptor(_$key__primitiveUnits___$SvgPropsMixin);
   static const PropDescriptor _$prop__r___$SvgPropsMixin =
       const PropDescriptor(_$key__r___$SvgPropsMixin);
+  static const PropDescriptor _$prop__radius___$SvgPropsMixin =
+      const PropDescriptor(_$key__radius___$SvgPropsMixin);
+  static const PropDescriptor _$prop__refX___$SvgPropsMixin =
+      const PropDescriptor(_$key__refX___$SvgPropsMixin);
+  static const PropDescriptor _$prop__refY___$SvgPropsMixin =
+      const PropDescriptor(_$key__refY___$SvgPropsMixin);
+  static const PropDescriptor _$prop__renderingIntent___$SvgPropsMixin =
+      const PropDescriptor(_$key__renderingIntent___$SvgPropsMixin);
+  static const PropDescriptor _$prop__repeatCount___$SvgPropsMixin =
+      const PropDescriptor(_$key__repeatCount___$SvgPropsMixin);
+  static const PropDescriptor _$prop__repeatDur___$SvgPropsMixin =
+      const PropDescriptor(_$key__repeatDur___$SvgPropsMixin);
+  static const PropDescriptor _$prop__requiredExtensions___$SvgPropsMixin =
+      const PropDescriptor(_$key__requiredExtensions___$SvgPropsMixin);
+  static const PropDescriptor _$prop__requiredFeatures___$SvgPropsMixin =
+      const PropDescriptor(_$key__requiredFeatures___$SvgPropsMixin);
+  static const PropDescriptor _$prop__restart___$SvgPropsMixin =
+      const PropDescriptor(_$key__restart___$SvgPropsMixin);
+  static const PropDescriptor _$prop__rotate___$SvgPropsMixin =
+      const PropDescriptor(_$key__rotate___$SvgPropsMixin);
   static const PropDescriptor _$prop__rx___$SvgPropsMixin =
       const PropDescriptor(_$key__rx___$SvgPropsMixin);
   static const PropDescriptor _$prop__ry___$SvgPropsMixin =
       const PropDescriptor(_$key__ry___$SvgPropsMixin);
+  static const PropDescriptor _$prop__scale___$SvgPropsMixin =
+      const PropDescriptor(_$key__scale___$SvgPropsMixin);
+  static const PropDescriptor _$prop__seed___$SvgPropsMixin =
+      const PropDescriptor(_$key__seed___$SvgPropsMixin);
+  static const PropDescriptor _$prop__shapeRendering___$SvgPropsMixin =
+      const PropDescriptor(_$key__shapeRendering___$SvgPropsMixin);
+  static const PropDescriptor _$prop__slope___$SvgPropsMixin =
+      const PropDescriptor(_$key__slope___$SvgPropsMixin);
+  static const PropDescriptor _$prop__spacing___$SvgPropsMixin =
+      const PropDescriptor(_$key__spacing___$SvgPropsMixin);
+  static const PropDescriptor _$prop__specularConstant___$SvgPropsMixin =
+      const PropDescriptor(_$key__specularConstant___$SvgPropsMixin);
+  static const PropDescriptor _$prop__specularExponent___$SvgPropsMixin =
+      const PropDescriptor(_$key__specularExponent___$SvgPropsMixin);
+  static const PropDescriptor _$prop__speed___$SvgPropsMixin =
+      const PropDescriptor(_$key__speed___$SvgPropsMixin);
+  static const PropDescriptor _$prop__startOffset___$SvgPropsMixin =
+      const PropDescriptor(_$key__startOffset___$SvgPropsMixin);
+  static const PropDescriptor _$prop__stdDeviation___$SvgPropsMixin =
+      const PropDescriptor(_$key__stdDeviation___$SvgPropsMixin);
+  static const PropDescriptor _$prop__stemh___$SvgPropsMixin =
+      const PropDescriptor(_$key__stemh___$SvgPropsMixin);
+  static const PropDescriptor _$prop__stemv___$SvgPropsMixin =
+      const PropDescriptor(_$key__stemv___$SvgPropsMixin);
+  static const PropDescriptor _$prop__stitchTiles___$SvgPropsMixin =
+      const PropDescriptor(_$key__stitchTiles___$SvgPropsMixin);
   static const PropDescriptor _$prop__stopOpacity___$SvgPropsMixin =
       const PropDescriptor(_$key__stopOpacity___$SvgPropsMixin);
+  static const PropDescriptor _$prop__strikethroughPosition___$SvgPropsMixin =
+      const PropDescriptor(_$key__strikethroughPosition___$SvgPropsMixin);
+  static const PropDescriptor _$prop__strikethroughThickness___$SvgPropsMixin =
+      const PropDescriptor(_$key__strikethroughThickness___$SvgPropsMixin);
+  static const PropDescriptor _$prop__string___$SvgPropsMixin =
+      const PropDescriptor(_$key__string___$SvgPropsMixin);
   static const PropDescriptor _$prop__strokeDasharray___$SvgPropsMixin =
       const PropDescriptor(_$key__strokeDasharray___$SvgPropsMixin);
+  static const PropDescriptor _$prop__strokeDashoffset___$SvgPropsMixin =
+      const PropDescriptor(_$key__strokeDashoffset___$SvgPropsMixin);
+  static const PropDescriptor _$prop__strokeMiterlimit___$SvgPropsMixin =
+      const PropDescriptor(_$key__strokeMiterlimit___$SvgPropsMixin);
   static const PropDescriptor _$prop__strokeOpacity___$SvgPropsMixin =
       const PropDescriptor(_$key__strokeOpacity___$SvgPropsMixin);
   static const PropDescriptor _$prop__strokeWidth___$SvgPropsMixin =
       const PropDescriptor(_$key__strokeWidth___$SvgPropsMixin);
+  static const PropDescriptor _$prop__surfaceScale___$SvgPropsMixin =
+      const PropDescriptor(_$key__surfaceScale___$SvgPropsMixin);
+  static const PropDescriptor _$prop__systemLanguage___$SvgPropsMixin =
+      const PropDescriptor(_$key__systemLanguage___$SvgPropsMixin);
+  static const PropDescriptor _$prop__tableValues___$SvgPropsMixin =
+      const PropDescriptor(_$key__tableValues___$SvgPropsMixin);
+  static const PropDescriptor _$prop__targetX___$SvgPropsMixin =
+      const PropDescriptor(_$key__targetX___$SvgPropsMixin);
+  static const PropDescriptor _$prop__targetY___$SvgPropsMixin =
+      const PropDescriptor(_$key__targetY___$SvgPropsMixin);
+  static const PropDescriptor _$prop__textDecoration___$SvgPropsMixin =
+      const PropDescriptor(_$key__textDecoration___$SvgPropsMixin);
+  static const PropDescriptor _$prop__textLength___$SvgPropsMixin =
+      const PropDescriptor(_$key__textLength___$SvgPropsMixin);
+  static const PropDescriptor _$prop__textRendering___$SvgPropsMixin =
+      const PropDescriptor(_$key__textRendering___$SvgPropsMixin);
+  static const PropDescriptor _$prop__to___$SvgPropsMixin =
+      const PropDescriptor(_$key__to___$SvgPropsMixin);
+  static const PropDescriptor _$prop__u1___$SvgPropsMixin =
+      const PropDescriptor(_$key__u1___$SvgPropsMixin);
+  static const PropDescriptor _$prop__u2___$SvgPropsMixin =
+      const PropDescriptor(_$key__u2___$SvgPropsMixin);
+  static const PropDescriptor _$prop__underlinePosition___$SvgPropsMixin =
+      const PropDescriptor(_$key__underlinePosition___$SvgPropsMixin);
+  static const PropDescriptor _$prop__underlineThickness___$SvgPropsMixin =
+      const PropDescriptor(_$key__underlineThickness___$SvgPropsMixin);
+  static const PropDescriptor _$prop__unicode___$SvgPropsMixin =
+      const PropDescriptor(_$key__unicode___$SvgPropsMixin);
+  static const PropDescriptor _$prop__unicodeBidi___$SvgPropsMixin =
+      const PropDescriptor(_$key__unicodeBidi___$SvgPropsMixin);
+  static const PropDescriptor _$prop__unicodeRange___$SvgPropsMixin =
+      const PropDescriptor(_$key__unicodeRange___$SvgPropsMixin);
+  static const PropDescriptor _$prop__unitsPerEm___$SvgPropsMixin =
+      const PropDescriptor(_$key__unitsPerEm___$SvgPropsMixin);
+  static const PropDescriptor _$prop__vAlphabetic___$SvgPropsMixin =
+      const PropDescriptor(_$key__vAlphabetic___$SvgPropsMixin);
+  static const PropDescriptor _$prop__vHanging___$SvgPropsMixin =
+      const PropDescriptor(_$key__vHanging___$SvgPropsMixin);
+  static const PropDescriptor _$prop__vIdeographic___$SvgPropsMixin =
+      const PropDescriptor(_$key__vIdeographic___$SvgPropsMixin);
+  static const PropDescriptor _$prop__vMathematical___$SvgPropsMixin =
+      const PropDescriptor(_$key__vMathematical___$SvgPropsMixin);
+  static const PropDescriptor _$prop__vectorEffect___$SvgPropsMixin =
+      const PropDescriptor(_$key__vectorEffect___$SvgPropsMixin);
+  static const PropDescriptor _$prop__vertAdvY___$SvgPropsMixin =
+      const PropDescriptor(_$key__vertAdvY___$SvgPropsMixin);
+  static const PropDescriptor _$prop__vertOriginX___$SvgPropsMixin =
+      const PropDescriptor(_$key__vertOriginX___$SvgPropsMixin);
+  static const PropDescriptor _$prop__vertOriginY___$SvgPropsMixin =
+      const PropDescriptor(_$key__vertOriginY___$SvgPropsMixin);
+  static const PropDescriptor _$prop__viewTarget___$SvgPropsMixin =
+      const PropDescriptor(_$key__viewTarget___$SvgPropsMixin);
+  static const PropDescriptor _$prop__visibility___$SvgPropsMixin =
+      const PropDescriptor(_$key__visibility___$SvgPropsMixin);
+  static const PropDescriptor _$prop__widths___$SvgPropsMixin =
+      const PropDescriptor(_$key__widths___$SvgPropsMixin);
+  static const PropDescriptor _$prop__wordSpacing___$SvgPropsMixin =
+      const PropDescriptor(_$key__wordSpacing___$SvgPropsMixin);
+  static const PropDescriptor _$prop__writingMode___$SvgPropsMixin =
+      const PropDescriptor(_$key__writingMode___$SvgPropsMixin);
   static const PropDescriptor _$prop__x1___$SvgPropsMixin =
       const PropDescriptor(_$key__x1___$SvgPropsMixin);
   static const PropDescriptor _$prop__x2___$SvgPropsMixin =
       const PropDescriptor(_$key__x2___$SvgPropsMixin);
   static const PropDescriptor _$prop__x___$SvgPropsMixin =
       const PropDescriptor(_$key__x___$SvgPropsMixin);
+  static const PropDescriptor _$prop__xHeight___$SvgPropsMixin =
+      const PropDescriptor(_$key__xHeight___$SvgPropsMixin);
   static const PropDescriptor _$prop__y1___$SvgPropsMixin =
       const PropDescriptor(_$key__y1___$SvgPropsMixin);
   static const PropDescriptor _$prop__y2___$SvgPropsMixin =
       const PropDescriptor(_$key__y2___$SvgPropsMixin);
   static const PropDescriptor _$prop__y___$SvgPropsMixin =
       const PropDescriptor(_$key__y___$SvgPropsMixin);
+  static const PropDescriptor _$prop__z___$SvgPropsMixin =
+      const PropDescriptor(_$key__z___$SvgPropsMixin);
+  static const String _$key__htmlIn___$SvgPropsMixin = 'in';
+  static const String _$key__htmlValues___$SvgPropsMixin = 'values';
+  static const String _$key__accumulate___$SvgPropsMixin = 'accumulate';
+  static const String _$key__additive___$SvgPropsMixin = 'additive';
+  static const String _$key__alignmentBaseline___$SvgPropsMixin =
+      'alignmentBaseline';
+  static const String _$key__allowReorder___$SvgPropsMixin = 'allowReorder';
+  static const String _$key__arabicForm___$SvgPropsMixin = 'arabicForm';
+  static const String _$key__attributeName___$SvgPropsMixin = 'attributeName';
+  static const String _$key__attributeType___$SvgPropsMixin = 'attributeType';
   static const String _$key__clipPath___$SvgPropsMixin = 'clipPath';
+  static const String _$key__colorInterpolationFilters___$SvgPropsMixin =
+      'colorInterpolationFilters';
   static const String _$key__d___$SvgPropsMixin = 'd';
   static const String _$key__fill___$SvgPropsMixin = 'fill';
+  static const String _$key__fillRule___$SvgPropsMixin = 'fillRule';
+  static const String _$key__filter___$SvgPropsMixin = 'filter';
   static const String _$key__fontFamily___$SvgPropsMixin = 'fontFamily';
   static const String _$key__gradientTransform___$SvgPropsMixin =
       'gradientTransform';
@@ -3847,20 +6029,25 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   static const String _$key__markerEnd___$SvgPropsMixin = 'markerEnd';
   static const String _$key__markerMid___$SvgPropsMixin = 'markerMid';
   static const String _$key__markerStart___$SvgPropsMixin = 'markerStart';
+  static const String _$key__mask___$SvgPropsMixin = 'mask';
   static const String _$key__patternContentUnits___$SvgPropsMixin =
       'patternContentUnits';
   static const String _$key__patternUnits___$SvgPropsMixin = 'patternUnits';
   static const String _$key__points___$SvgPropsMixin = 'points';
   static const String _$key__preserveAspectRatio___$SvgPropsMixin =
       'preserveAspectRatio';
+  static const String _$key__result___$SvgPropsMixin = 'result';
   static const String _$key__spreadMethod___$SvgPropsMixin = 'spreadMethod';
   static const String _$key__stopColor___$SvgPropsMixin = 'stopColor';
   static const String _$key__stroke___$SvgPropsMixin = 'stroke';
   static const String _$key__strokeLinecap___$SvgPropsMixin = 'strokeLinecap';
+  static const String _$key__strokeLinejoin___$SvgPropsMixin = 'strokeLinejoin';
   static const String _$key__textAnchor___$SvgPropsMixin = 'textAnchor';
   static const String _$key__transform___$SvgPropsMixin = 'transform';
   static const String _$key__version___$SvgPropsMixin = 'version';
   static const String _$key__viewBox___$SvgPropsMixin = 'viewBox';
+  static const String _$key__xChannelSelector___$SvgPropsMixin =
+      'xChannelSelector';
   static const String _$key__xlinkActuate___$SvgPropsMixin = 'xlinkActuate';
   static const String _$key__xlinkArcrole___$SvgPropsMixin = 'xlinkArcrole';
   static const String _$key__xlinkHref___$SvgPropsMixin = 'xlinkHref';
@@ -3868,56 +6055,268 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   static const String _$key__xlinkShow___$SvgPropsMixin = 'xlinkShow';
   static const String _$key__xlinkTitle___$SvgPropsMixin = 'xlinkTitle';
   static const String _$key__xlinkType___$SvgPropsMixin = 'xlinkType';
+  static const String _$key__xmlns___$SvgPropsMixin = 'xmlns';
+  static const String _$key__xmlnsXlink___$SvgPropsMixin = 'xmlnsXlink';
   static const String _$key__xmlBase___$SvgPropsMixin = 'xmlBase';
   static const String _$key__xmlLang___$SvgPropsMixin = 'xmlLang';
   static const String _$key__xmlSpace___$SvgPropsMixin = 'xmlSpace';
+  static const String _$key__yChannelSelector___$SvgPropsMixin =
+      'yChannelSelector';
+  static const String _$key__zoomAndPan___$SvgPropsMixin = 'zoomAndPan';
+  static const String _$key__accentHeight___$SvgPropsMixin = 'accentHeight';
+  static const String _$key__alphabetic___$SvgPropsMixin = 'alphabetic';
+  static const String _$key__amplitude___$SvgPropsMixin = 'amplitude';
+  static const String _$key__ascent___$SvgPropsMixin = 'ascent';
+  static const String _$key__autoReverse___$SvgPropsMixin = 'autoReverse';
+  static const String _$key__azimuth___$SvgPropsMixin = 'azimuth';
+  static const String _$key__baseFrequency___$SvgPropsMixin = 'baseFrequency';
+  static const String _$key__baseProfile___$SvgPropsMixin = 'baseProfile';
+  static const String _$key__baselineShift___$SvgPropsMixin = 'baselineShift';
+  static const String _$key__bbox___$SvgPropsMixin = 'bbox';
+  static const String _$key__begin___$SvgPropsMixin = 'begin';
+  static const String _$key__bias___$SvgPropsMixin = 'bias';
+  static const String _$key__by___$SvgPropsMixin = 'by';
+  static const String _$key__calcMode___$SvgPropsMixin = 'calcMode';
+  static const String _$key__capHeight___$SvgPropsMixin = 'capHeight';
+  static const String _$key__clip___$SvgPropsMixin = 'clip';
+  static const String _$key__clipPathUnits___$SvgPropsMixin = 'clipPathUnits';
+  static const String _$key__clipRule___$SvgPropsMixin = 'clipRule';
+  static const String _$key__colorInterpolation___$SvgPropsMixin =
+      'colorInterpolation';
+  static const String _$key__colorProfile___$SvgPropsMixin = 'colorProfile';
+  static const String _$key__colorRendering___$SvgPropsMixin = 'colorRendering';
+  static const String _$key__contentScriptType___$SvgPropsMixin =
+      'contentScriptType';
+  static const String _$key__contentStyleType___$SvgPropsMixin =
+      'contentStyleType';
+  static const String _$key__cursor___$SvgPropsMixin = 'cursor';
   static const String _$key__cx___$SvgPropsMixin = 'cx';
   static const String _$key__cy___$SvgPropsMixin = 'cy';
+  static const String _$key__decelerate___$SvgPropsMixin = 'decelerate';
+  static const String _$key__descent___$SvgPropsMixin = 'descent';
+  static const String _$key__diffuseConstant___$SvgPropsMixin =
+      'diffuseConstant';
+  static const String _$key__direction___$SvgPropsMixin = 'direction';
+  static const String _$key__display___$SvgPropsMixin = 'display';
+  static const String _$key__divisor___$SvgPropsMixin = 'divisor';
+  static const String _$key__dominantBaseline___$SvgPropsMixin =
+      'dominantBaseline';
+  static const String _$key__dur___$SvgPropsMixin = 'dur';
   static const String _$key__dx___$SvgPropsMixin = 'dx';
   static const String _$key__dy___$SvgPropsMixin = 'dy';
+  static const String _$key__edgeMode___$SvgPropsMixin = 'edgeMode';
+  static const String _$key__elevation___$SvgPropsMixin = 'elevation';
+  static const String _$key__enableBackground___$SvgPropsMixin =
+      'enableBackground';
+  static const String _$key__end___$SvgPropsMixin = 'end';
+  static const String _$key__exponent___$SvgPropsMixin = 'exponent';
+  static const String _$key__externalResourcesRequired___$SvgPropsMixin =
+      'externalResourcesRequired';
   static const String _$key__fillOpacity___$SvgPropsMixin = 'fillOpacity';
+  static const String _$key__filterRes___$SvgPropsMixin = 'filterRes';
+  static const String _$key__filterUnits___$SvgPropsMixin = 'filterUnits';
+  static const String _$key__floodColor___$SvgPropsMixin = 'floodColor';
+  static const String _$key__floodOpacity___$SvgPropsMixin = 'floodOpacity';
+  static const String _$key__focusable___$SvgPropsMixin = 'focusable';
   static const String _$key__fontSize___$SvgPropsMixin = 'fontSize';
+  static const String _$key__fontSizeAdjust___$SvgPropsMixin = 'fontSizeAdjust';
+  static const String _$key__fontStretch___$SvgPropsMixin = 'fontStretch';
+  static const String _$key__fontStyle___$SvgPropsMixin = 'fontStyle';
+  static const String _$key__fontVariant___$SvgPropsMixin = 'fontVariant';
+  static const String _$key__fontWeight___$SvgPropsMixin = 'fontWeight';
+  static const String _$key__format___$SvgPropsMixin = 'format';
+  static const String _$key__from___$SvgPropsMixin = 'from';
   static const String _$key__fx___$SvgPropsMixin = 'fx';
   static const String _$key__fy___$SvgPropsMixin = 'fy';
+  static const String _$key__g1___$SvgPropsMixin = 'g1';
+  static const String _$key__g2___$SvgPropsMixin = 'g2';
+  static const String _$key__glyphName___$SvgPropsMixin = 'glyphName';
+  static const String _$key__glyphOrientationHorizontal___$SvgPropsMixin =
+      'glyphOrientationHorizontal';
+  static const String _$key__glyphOrientationVertical___$SvgPropsMixin =
+      'glyphOrientationVertical';
+  static const String _$key__glyphRef___$SvgPropsMixin = 'glyphRef';
+  static const String _$key__hanging___$SvgPropsMixin = 'hanging';
+  static const String _$key__horizAdvX___$SvgPropsMixin = 'horizAdvX';
+  static const String _$key__horizOriginX___$SvgPropsMixin = 'horizOriginX';
+  static const String _$key__ideographic___$SvgPropsMixin = 'ideographic';
+  static const String _$key__imageRendering___$SvgPropsMixin = 'imageRendering';
+  static const String _$key__in2___$SvgPropsMixin = 'in2';
+  static const String _$key__intercept___$SvgPropsMixin = 'intercept';
+  static const String _$key__k___$SvgPropsMixin = 'k';
+  static const String _$key__k1___$SvgPropsMixin = 'k1';
+  static const String _$key__k2___$SvgPropsMixin = 'k2';
+  static const String _$key__k3___$SvgPropsMixin = 'k3';
+  static const String _$key__k4___$SvgPropsMixin = 'k4';
+  static const String _$key__kernelMatrix___$SvgPropsMixin = 'kernelMatrix';
+  static const String _$key__kernelUnitLength___$SvgPropsMixin =
+      'kernelUnitLength';
+  static const String _$key__kerning___$SvgPropsMixin = 'kerning';
+  static const String _$key__keyPoints___$SvgPropsMixin = 'keyPoints';
+  static const String _$key__keySplines___$SvgPropsMixin = 'keySplines';
+  static const String _$key__keyTimes___$SvgPropsMixin = 'keyTimes';
+  static const String _$key__lengthAdjust___$SvgPropsMixin = 'lengthAdjust';
+  static const String _$key__letterSpacing___$SvgPropsMixin = 'letterSpacing';
+  static const String _$key__lightingColor___$SvgPropsMixin = 'lightingColor';
+  static const String _$key__limitingConeAngle___$SvgPropsMixin =
+      'limitingConeAngle';
+  static const String _$key__local___$SvgPropsMixin = 'local';
+  static const String _$key__markerHeight___$SvgPropsMixin = 'markerHeight';
+  static const String _$key__markerUnits___$SvgPropsMixin = 'markerUnits';
+  static const String _$key__markerWidth___$SvgPropsMixin = 'markerWidth';
+  static const String _$key__maskContentUnits___$SvgPropsMixin =
+      'maskContentUnits';
+  static const String _$key__maskUnits___$SvgPropsMixin = 'maskUnits';
+  static const String _$key__mathematical___$SvgPropsMixin = 'mathematical';
+  static const String _$key__mode___$SvgPropsMixin = 'mode';
+  static const String _$key__numOctaves___$SvgPropsMixin = 'numOctaves';
   static const String _$key__offset___$SvgPropsMixin = 'offset';
   static const String _$key__opacity___$SvgPropsMixin = 'opacity';
+  static const String _$key__operator___$SvgPropsMixin = 'operator';
+  static const String _$key__order___$SvgPropsMixin = 'order';
+  static const String _$key__orient___$SvgPropsMixin = 'orient';
+  static const String _$key__orientation___$SvgPropsMixin = 'orientation';
+  static const String _$key__origin___$SvgPropsMixin = 'origin';
+  static const String _$key__overflow___$SvgPropsMixin = 'overflow';
+  static const String _$key__overlinePosition___$SvgPropsMixin =
+      'overlinePosition';
+  static const String _$key__overlineThickness___$SvgPropsMixin =
+      'overlineThickness';
+  static const String _$key__paintOrder___$SvgPropsMixin = 'paintOrder';
+  static const String _$key__panose1___$SvgPropsMixin = 'panose1';
+  static const String _$key__pathLength___$SvgPropsMixin = 'pathLength';
+  static const String _$key__patternTransform___$SvgPropsMixin =
+      'patternTransform';
+  static const String _$key__pointerEvents___$SvgPropsMixin = 'pointerEvents';
+  static const String _$key__pointsAtX___$SvgPropsMixin = 'pointsAtX';
+  static const String _$key__pointsAtY___$SvgPropsMixin = 'pointsAtY';
+  static const String _$key__pointsAtZ___$SvgPropsMixin = 'pointsAtZ';
+  static const String _$key__preserveAlpha___$SvgPropsMixin = 'preserveAlpha';
+  static const String _$key__primitiveUnits___$SvgPropsMixin = 'primitiveUnits';
   static const String _$key__r___$SvgPropsMixin = 'r';
+  static const String _$key__radius___$SvgPropsMixin = 'radius';
+  static const String _$key__refX___$SvgPropsMixin = 'refX';
+  static const String _$key__refY___$SvgPropsMixin = 'refY';
+  static const String _$key__renderingIntent___$SvgPropsMixin =
+      'renderingIntent';
+  static const String _$key__repeatCount___$SvgPropsMixin = 'repeatCount';
+  static const String _$key__repeatDur___$SvgPropsMixin = 'repeatDur';
+  static const String _$key__requiredExtensions___$SvgPropsMixin =
+      'requiredExtensions';
+  static const String _$key__requiredFeatures___$SvgPropsMixin =
+      'requiredFeatures';
+  static const String _$key__restart___$SvgPropsMixin = 'restart';
+  static const String _$key__rotate___$SvgPropsMixin = 'rotate';
   static const String _$key__rx___$SvgPropsMixin = 'rx';
   static const String _$key__ry___$SvgPropsMixin = 'ry';
+  static const String _$key__scale___$SvgPropsMixin = 'scale';
+  static const String _$key__seed___$SvgPropsMixin = 'seed';
+  static const String _$key__shapeRendering___$SvgPropsMixin = 'shapeRendering';
+  static const String _$key__slope___$SvgPropsMixin = 'slope';
+  static const String _$key__spacing___$SvgPropsMixin = 'spacing';
+  static const String _$key__specularConstant___$SvgPropsMixin =
+      'specularConstant';
+  static const String _$key__specularExponent___$SvgPropsMixin =
+      'specularExponent';
+  static const String _$key__speed___$SvgPropsMixin = 'speed';
+  static const String _$key__startOffset___$SvgPropsMixin = 'startOffset';
+  static const String _$key__stdDeviation___$SvgPropsMixin = 'stdDeviation';
+  static const String _$key__stemh___$SvgPropsMixin = 'stemh';
+  static const String _$key__stemv___$SvgPropsMixin = 'stemv';
+  static const String _$key__stitchTiles___$SvgPropsMixin = 'stitchTiles';
   static const String _$key__stopOpacity___$SvgPropsMixin = 'stopOpacity';
+  static const String _$key__strikethroughPosition___$SvgPropsMixin =
+      'strikethroughPosition';
+  static const String _$key__strikethroughThickness___$SvgPropsMixin =
+      'strikethroughThickness';
+  static const String _$key__string___$SvgPropsMixin = 'string';
   static const String _$key__strokeDasharray___$SvgPropsMixin =
       'strokeDasharray';
+  static const String _$key__strokeDashoffset___$SvgPropsMixin =
+      'strokeDashoffset';
+  static const String _$key__strokeMiterlimit___$SvgPropsMixin =
+      'strokeMiterlimit';
   static const String _$key__strokeOpacity___$SvgPropsMixin = 'strokeOpacity';
   static const String _$key__strokeWidth___$SvgPropsMixin = 'strokeWidth';
+  static const String _$key__surfaceScale___$SvgPropsMixin = 'surfaceScale';
+  static const String _$key__systemLanguage___$SvgPropsMixin = 'systemLanguage';
+  static const String _$key__tableValues___$SvgPropsMixin = 'tableValues';
+  static const String _$key__targetX___$SvgPropsMixin = 'targetX';
+  static const String _$key__targetY___$SvgPropsMixin = 'targetY';
+  static const String _$key__textDecoration___$SvgPropsMixin = 'textDecoration';
+  static const String _$key__textLength___$SvgPropsMixin = 'textLength';
+  static const String _$key__textRendering___$SvgPropsMixin = 'textRendering';
+  static const String _$key__to___$SvgPropsMixin = 'to';
+  static const String _$key__u1___$SvgPropsMixin = 'u1';
+  static const String _$key__u2___$SvgPropsMixin = 'u2';
+  static const String _$key__underlinePosition___$SvgPropsMixin =
+      'underlinePosition';
+  static const String _$key__underlineThickness___$SvgPropsMixin =
+      'underlineThickness';
+  static const String _$key__unicode___$SvgPropsMixin = 'unicode';
+  static const String _$key__unicodeBidi___$SvgPropsMixin = 'unicodeBidi';
+  static const String _$key__unicodeRange___$SvgPropsMixin = 'unicodeRange';
+  static const String _$key__unitsPerEm___$SvgPropsMixin = 'unitsPerEm';
+  static const String _$key__vAlphabetic___$SvgPropsMixin = 'vAlphabetic';
+  static const String _$key__vHanging___$SvgPropsMixin = 'vHanging';
+  static const String _$key__vIdeographic___$SvgPropsMixin = 'vIdeographic';
+  static const String _$key__vMathematical___$SvgPropsMixin = 'vMathematical';
+  static const String _$key__vectorEffect___$SvgPropsMixin = 'vectorEffect';
+  static const String _$key__vertAdvY___$SvgPropsMixin = 'vertAdvY';
+  static const String _$key__vertOriginX___$SvgPropsMixin = 'vertOriginX';
+  static const String _$key__vertOriginY___$SvgPropsMixin = 'vertOriginY';
+  static const String _$key__viewTarget___$SvgPropsMixin = 'viewTarget';
+  static const String _$key__visibility___$SvgPropsMixin = 'visibility';
+  static const String _$key__widths___$SvgPropsMixin = 'widths';
+  static const String _$key__wordSpacing___$SvgPropsMixin = 'wordSpacing';
+  static const String _$key__writingMode___$SvgPropsMixin = 'writingMode';
   static const String _$key__x1___$SvgPropsMixin = 'x1';
   static const String _$key__x2___$SvgPropsMixin = 'x2';
   static const String _$key__x___$SvgPropsMixin = 'x';
+  static const String _$key__xHeight___$SvgPropsMixin = 'xHeight';
   static const String _$key__y1___$SvgPropsMixin = 'y1';
   static const String _$key__y2___$SvgPropsMixin = 'y2';
   static const String _$key__y___$SvgPropsMixin = 'y';
+  static const String _$key__z___$SvgPropsMixin = 'z';
 
   static const List<PropDescriptor> $props = const [
+    _$prop__htmlIn___$SvgPropsMixin,
+    _$prop__htmlValues___$SvgPropsMixin,
+    _$prop__accumulate___$SvgPropsMixin,
+    _$prop__additive___$SvgPropsMixin,
+    _$prop__alignmentBaseline___$SvgPropsMixin,
+    _$prop__allowReorder___$SvgPropsMixin,
+    _$prop__arabicForm___$SvgPropsMixin,
+    _$prop__attributeName___$SvgPropsMixin,
+    _$prop__attributeType___$SvgPropsMixin,
     _$prop__clipPath___$SvgPropsMixin,
+    _$prop__colorInterpolationFilters___$SvgPropsMixin,
     _$prop__d___$SvgPropsMixin,
     _$prop__fill___$SvgPropsMixin,
+    _$prop__fillRule___$SvgPropsMixin,
+    _$prop__filter___$SvgPropsMixin,
     _$prop__fontFamily___$SvgPropsMixin,
     _$prop__gradientTransform___$SvgPropsMixin,
     _$prop__gradientUnits___$SvgPropsMixin,
     _$prop__markerEnd___$SvgPropsMixin,
     _$prop__markerMid___$SvgPropsMixin,
     _$prop__markerStart___$SvgPropsMixin,
+    _$prop__mask___$SvgPropsMixin,
     _$prop__patternContentUnits___$SvgPropsMixin,
     _$prop__patternUnits___$SvgPropsMixin,
     _$prop__points___$SvgPropsMixin,
     _$prop__preserveAspectRatio___$SvgPropsMixin,
+    _$prop__result___$SvgPropsMixin,
     _$prop__spreadMethod___$SvgPropsMixin,
     _$prop__stopColor___$SvgPropsMixin,
     _$prop__stroke___$SvgPropsMixin,
     _$prop__strokeLinecap___$SvgPropsMixin,
+    _$prop__strokeLinejoin___$SvgPropsMixin,
     _$prop__textAnchor___$SvgPropsMixin,
     _$prop__transform___$SvgPropsMixin,
     _$prop__version___$SvgPropsMixin,
     _$prop__viewBox___$SvgPropsMixin,
+    _$prop__xChannelSelector___$SvgPropsMixin,
     _$prop__xlinkActuate___$SvgPropsMixin,
     _$prop__xlinkArcrole___$SvgPropsMixin,
     _$prop__xlinkHref___$SvgPropsMixin,
@@ -3925,55 +6324,240 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
     _$prop__xlinkShow___$SvgPropsMixin,
     _$prop__xlinkTitle___$SvgPropsMixin,
     _$prop__xlinkType___$SvgPropsMixin,
+    _$prop__xmlns___$SvgPropsMixin,
+    _$prop__xmlnsXlink___$SvgPropsMixin,
     _$prop__xmlBase___$SvgPropsMixin,
     _$prop__xmlLang___$SvgPropsMixin,
     _$prop__xmlSpace___$SvgPropsMixin,
+    _$prop__yChannelSelector___$SvgPropsMixin,
+    _$prop__zoomAndPan___$SvgPropsMixin,
+    _$prop__accentHeight___$SvgPropsMixin,
+    _$prop__alphabetic___$SvgPropsMixin,
+    _$prop__amplitude___$SvgPropsMixin,
+    _$prop__ascent___$SvgPropsMixin,
+    _$prop__autoReverse___$SvgPropsMixin,
+    _$prop__azimuth___$SvgPropsMixin,
+    _$prop__baseFrequency___$SvgPropsMixin,
+    _$prop__baseProfile___$SvgPropsMixin,
+    _$prop__baselineShift___$SvgPropsMixin,
+    _$prop__bbox___$SvgPropsMixin,
+    _$prop__begin___$SvgPropsMixin,
+    _$prop__bias___$SvgPropsMixin,
+    _$prop__by___$SvgPropsMixin,
+    _$prop__calcMode___$SvgPropsMixin,
+    _$prop__capHeight___$SvgPropsMixin,
+    _$prop__clip___$SvgPropsMixin,
+    _$prop__clipPathUnits___$SvgPropsMixin,
+    _$prop__clipRule___$SvgPropsMixin,
+    _$prop__colorInterpolation___$SvgPropsMixin,
+    _$prop__colorProfile___$SvgPropsMixin,
+    _$prop__colorRendering___$SvgPropsMixin,
+    _$prop__contentScriptType___$SvgPropsMixin,
+    _$prop__contentStyleType___$SvgPropsMixin,
+    _$prop__cursor___$SvgPropsMixin,
     _$prop__cx___$SvgPropsMixin,
     _$prop__cy___$SvgPropsMixin,
+    _$prop__decelerate___$SvgPropsMixin,
+    _$prop__descent___$SvgPropsMixin,
+    _$prop__diffuseConstant___$SvgPropsMixin,
+    _$prop__direction___$SvgPropsMixin,
+    _$prop__display___$SvgPropsMixin,
+    _$prop__divisor___$SvgPropsMixin,
+    _$prop__dominantBaseline___$SvgPropsMixin,
+    _$prop__dur___$SvgPropsMixin,
     _$prop__dx___$SvgPropsMixin,
     _$prop__dy___$SvgPropsMixin,
+    _$prop__edgeMode___$SvgPropsMixin,
+    _$prop__elevation___$SvgPropsMixin,
+    _$prop__enableBackground___$SvgPropsMixin,
+    _$prop__end___$SvgPropsMixin,
+    _$prop__exponent___$SvgPropsMixin,
+    _$prop__externalResourcesRequired___$SvgPropsMixin,
     _$prop__fillOpacity___$SvgPropsMixin,
+    _$prop__filterRes___$SvgPropsMixin,
+    _$prop__filterUnits___$SvgPropsMixin,
+    _$prop__floodColor___$SvgPropsMixin,
+    _$prop__floodOpacity___$SvgPropsMixin,
+    _$prop__focusable___$SvgPropsMixin,
     _$prop__fontSize___$SvgPropsMixin,
+    _$prop__fontSizeAdjust___$SvgPropsMixin,
+    _$prop__fontStretch___$SvgPropsMixin,
+    _$prop__fontStyle___$SvgPropsMixin,
+    _$prop__fontVariant___$SvgPropsMixin,
+    _$prop__fontWeight___$SvgPropsMixin,
+    _$prop__format___$SvgPropsMixin,
+    _$prop__from___$SvgPropsMixin,
     _$prop__fx___$SvgPropsMixin,
     _$prop__fy___$SvgPropsMixin,
+    _$prop__g1___$SvgPropsMixin,
+    _$prop__g2___$SvgPropsMixin,
+    _$prop__glyphName___$SvgPropsMixin,
+    _$prop__glyphOrientationHorizontal___$SvgPropsMixin,
+    _$prop__glyphOrientationVertical___$SvgPropsMixin,
+    _$prop__glyphRef___$SvgPropsMixin,
+    _$prop__hanging___$SvgPropsMixin,
+    _$prop__horizAdvX___$SvgPropsMixin,
+    _$prop__horizOriginX___$SvgPropsMixin,
+    _$prop__ideographic___$SvgPropsMixin,
+    _$prop__imageRendering___$SvgPropsMixin,
+    _$prop__in2___$SvgPropsMixin,
+    _$prop__intercept___$SvgPropsMixin,
+    _$prop__k___$SvgPropsMixin,
+    _$prop__k1___$SvgPropsMixin,
+    _$prop__k2___$SvgPropsMixin,
+    _$prop__k3___$SvgPropsMixin,
+    _$prop__k4___$SvgPropsMixin,
+    _$prop__kernelMatrix___$SvgPropsMixin,
+    _$prop__kernelUnitLength___$SvgPropsMixin,
+    _$prop__kerning___$SvgPropsMixin,
+    _$prop__keyPoints___$SvgPropsMixin,
+    _$prop__keySplines___$SvgPropsMixin,
+    _$prop__keyTimes___$SvgPropsMixin,
+    _$prop__lengthAdjust___$SvgPropsMixin,
+    _$prop__letterSpacing___$SvgPropsMixin,
+    _$prop__lightingColor___$SvgPropsMixin,
+    _$prop__limitingConeAngle___$SvgPropsMixin,
+    _$prop__local___$SvgPropsMixin,
+    _$prop__markerHeight___$SvgPropsMixin,
+    _$prop__markerUnits___$SvgPropsMixin,
+    _$prop__markerWidth___$SvgPropsMixin,
+    _$prop__maskContentUnits___$SvgPropsMixin,
+    _$prop__maskUnits___$SvgPropsMixin,
+    _$prop__mathematical___$SvgPropsMixin,
+    _$prop__mode___$SvgPropsMixin,
+    _$prop__numOctaves___$SvgPropsMixin,
     _$prop__offset___$SvgPropsMixin,
     _$prop__opacity___$SvgPropsMixin,
+    _$prop__operator___$SvgPropsMixin,
+    _$prop__order___$SvgPropsMixin,
+    _$prop__orient___$SvgPropsMixin,
+    _$prop__orientation___$SvgPropsMixin,
+    _$prop__origin___$SvgPropsMixin,
+    _$prop__overflow___$SvgPropsMixin,
+    _$prop__overlinePosition___$SvgPropsMixin,
+    _$prop__overlineThickness___$SvgPropsMixin,
+    _$prop__paintOrder___$SvgPropsMixin,
+    _$prop__panose1___$SvgPropsMixin,
+    _$prop__pathLength___$SvgPropsMixin,
+    _$prop__patternTransform___$SvgPropsMixin,
+    _$prop__pointerEvents___$SvgPropsMixin,
+    _$prop__pointsAtX___$SvgPropsMixin,
+    _$prop__pointsAtY___$SvgPropsMixin,
+    _$prop__pointsAtZ___$SvgPropsMixin,
+    _$prop__preserveAlpha___$SvgPropsMixin,
+    _$prop__primitiveUnits___$SvgPropsMixin,
     _$prop__r___$SvgPropsMixin,
+    _$prop__radius___$SvgPropsMixin,
+    _$prop__refX___$SvgPropsMixin,
+    _$prop__refY___$SvgPropsMixin,
+    _$prop__renderingIntent___$SvgPropsMixin,
+    _$prop__repeatCount___$SvgPropsMixin,
+    _$prop__repeatDur___$SvgPropsMixin,
+    _$prop__requiredExtensions___$SvgPropsMixin,
+    _$prop__requiredFeatures___$SvgPropsMixin,
+    _$prop__restart___$SvgPropsMixin,
+    _$prop__rotate___$SvgPropsMixin,
     _$prop__rx___$SvgPropsMixin,
     _$prop__ry___$SvgPropsMixin,
+    _$prop__scale___$SvgPropsMixin,
+    _$prop__seed___$SvgPropsMixin,
+    _$prop__shapeRendering___$SvgPropsMixin,
+    _$prop__slope___$SvgPropsMixin,
+    _$prop__spacing___$SvgPropsMixin,
+    _$prop__specularConstant___$SvgPropsMixin,
+    _$prop__specularExponent___$SvgPropsMixin,
+    _$prop__speed___$SvgPropsMixin,
+    _$prop__startOffset___$SvgPropsMixin,
+    _$prop__stdDeviation___$SvgPropsMixin,
+    _$prop__stemh___$SvgPropsMixin,
+    _$prop__stemv___$SvgPropsMixin,
+    _$prop__stitchTiles___$SvgPropsMixin,
     _$prop__stopOpacity___$SvgPropsMixin,
+    _$prop__strikethroughPosition___$SvgPropsMixin,
+    _$prop__strikethroughThickness___$SvgPropsMixin,
+    _$prop__string___$SvgPropsMixin,
     _$prop__strokeDasharray___$SvgPropsMixin,
+    _$prop__strokeDashoffset___$SvgPropsMixin,
+    _$prop__strokeMiterlimit___$SvgPropsMixin,
     _$prop__strokeOpacity___$SvgPropsMixin,
     _$prop__strokeWidth___$SvgPropsMixin,
+    _$prop__surfaceScale___$SvgPropsMixin,
+    _$prop__systemLanguage___$SvgPropsMixin,
+    _$prop__tableValues___$SvgPropsMixin,
+    _$prop__targetX___$SvgPropsMixin,
+    _$prop__targetY___$SvgPropsMixin,
+    _$prop__textDecoration___$SvgPropsMixin,
+    _$prop__textLength___$SvgPropsMixin,
+    _$prop__textRendering___$SvgPropsMixin,
+    _$prop__to___$SvgPropsMixin,
+    _$prop__u1___$SvgPropsMixin,
+    _$prop__u2___$SvgPropsMixin,
+    _$prop__underlinePosition___$SvgPropsMixin,
+    _$prop__underlineThickness___$SvgPropsMixin,
+    _$prop__unicode___$SvgPropsMixin,
+    _$prop__unicodeBidi___$SvgPropsMixin,
+    _$prop__unicodeRange___$SvgPropsMixin,
+    _$prop__unitsPerEm___$SvgPropsMixin,
+    _$prop__vAlphabetic___$SvgPropsMixin,
+    _$prop__vHanging___$SvgPropsMixin,
+    _$prop__vIdeographic___$SvgPropsMixin,
+    _$prop__vMathematical___$SvgPropsMixin,
+    _$prop__vectorEffect___$SvgPropsMixin,
+    _$prop__vertAdvY___$SvgPropsMixin,
+    _$prop__vertOriginX___$SvgPropsMixin,
+    _$prop__vertOriginY___$SvgPropsMixin,
+    _$prop__viewTarget___$SvgPropsMixin,
+    _$prop__visibility___$SvgPropsMixin,
+    _$prop__widths___$SvgPropsMixin,
+    _$prop__wordSpacing___$SvgPropsMixin,
+    _$prop__writingMode___$SvgPropsMixin,
     _$prop__x1___$SvgPropsMixin,
     _$prop__x2___$SvgPropsMixin,
     _$prop__x___$SvgPropsMixin,
+    _$prop__xHeight___$SvgPropsMixin,
     _$prop__y1___$SvgPropsMixin,
     _$prop__y2___$SvgPropsMixin,
-    _$prop__y___$SvgPropsMixin
+    _$prop__y___$SvgPropsMixin,
+    _$prop__z___$SvgPropsMixin
   ];
   static const List<String> $propKeys = const [
+    _$key__htmlIn___$SvgPropsMixin,
+    _$key__htmlValues___$SvgPropsMixin,
+    _$key__accumulate___$SvgPropsMixin,
+    _$key__additive___$SvgPropsMixin,
+    _$key__alignmentBaseline___$SvgPropsMixin,
+    _$key__allowReorder___$SvgPropsMixin,
+    _$key__arabicForm___$SvgPropsMixin,
+    _$key__attributeName___$SvgPropsMixin,
+    _$key__attributeType___$SvgPropsMixin,
     _$key__clipPath___$SvgPropsMixin,
+    _$key__colorInterpolationFilters___$SvgPropsMixin,
     _$key__d___$SvgPropsMixin,
     _$key__fill___$SvgPropsMixin,
+    _$key__fillRule___$SvgPropsMixin,
+    _$key__filter___$SvgPropsMixin,
     _$key__fontFamily___$SvgPropsMixin,
     _$key__gradientTransform___$SvgPropsMixin,
     _$key__gradientUnits___$SvgPropsMixin,
     _$key__markerEnd___$SvgPropsMixin,
     _$key__markerMid___$SvgPropsMixin,
     _$key__markerStart___$SvgPropsMixin,
+    _$key__mask___$SvgPropsMixin,
     _$key__patternContentUnits___$SvgPropsMixin,
     _$key__patternUnits___$SvgPropsMixin,
     _$key__points___$SvgPropsMixin,
     _$key__preserveAspectRatio___$SvgPropsMixin,
+    _$key__result___$SvgPropsMixin,
     _$key__spreadMethod___$SvgPropsMixin,
     _$key__stopColor___$SvgPropsMixin,
     _$key__stroke___$SvgPropsMixin,
     _$key__strokeLinecap___$SvgPropsMixin,
+    _$key__strokeLinejoin___$SvgPropsMixin,
     _$key__textAnchor___$SvgPropsMixin,
     _$key__transform___$SvgPropsMixin,
     _$key__version___$SvgPropsMixin,
     _$key__viewBox___$SvgPropsMixin,
+    _$key__xChannelSelector___$SvgPropsMixin,
     _$key__xlinkActuate___$SvgPropsMixin,
     _$key__xlinkArcrole___$SvgPropsMixin,
     _$key__xlinkHref___$SvgPropsMixin,
@@ -3981,32 +6565,201 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
     _$key__xlinkShow___$SvgPropsMixin,
     _$key__xlinkTitle___$SvgPropsMixin,
     _$key__xlinkType___$SvgPropsMixin,
+    _$key__xmlns___$SvgPropsMixin,
+    _$key__xmlnsXlink___$SvgPropsMixin,
     _$key__xmlBase___$SvgPropsMixin,
     _$key__xmlLang___$SvgPropsMixin,
     _$key__xmlSpace___$SvgPropsMixin,
+    _$key__yChannelSelector___$SvgPropsMixin,
+    _$key__zoomAndPan___$SvgPropsMixin,
+    _$key__accentHeight___$SvgPropsMixin,
+    _$key__alphabetic___$SvgPropsMixin,
+    _$key__amplitude___$SvgPropsMixin,
+    _$key__ascent___$SvgPropsMixin,
+    _$key__autoReverse___$SvgPropsMixin,
+    _$key__azimuth___$SvgPropsMixin,
+    _$key__baseFrequency___$SvgPropsMixin,
+    _$key__baseProfile___$SvgPropsMixin,
+    _$key__baselineShift___$SvgPropsMixin,
+    _$key__bbox___$SvgPropsMixin,
+    _$key__begin___$SvgPropsMixin,
+    _$key__bias___$SvgPropsMixin,
+    _$key__by___$SvgPropsMixin,
+    _$key__calcMode___$SvgPropsMixin,
+    _$key__capHeight___$SvgPropsMixin,
+    _$key__clip___$SvgPropsMixin,
+    _$key__clipPathUnits___$SvgPropsMixin,
+    _$key__clipRule___$SvgPropsMixin,
+    _$key__colorInterpolation___$SvgPropsMixin,
+    _$key__colorProfile___$SvgPropsMixin,
+    _$key__colorRendering___$SvgPropsMixin,
+    _$key__contentScriptType___$SvgPropsMixin,
+    _$key__contentStyleType___$SvgPropsMixin,
+    _$key__cursor___$SvgPropsMixin,
     _$key__cx___$SvgPropsMixin,
     _$key__cy___$SvgPropsMixin,
+    _$key__decelerate___$SvgPropsMixin,
+    _$key__descent___$SvgPropsMixin,
+    _$key__diffuseConstant___$SvgPropsMixin,
+    _$key__direction___$SvgPropsMixin,
+    _$key__display___$SvgPropsMixin,
+    _$key__divisor___$SvgPropsMixin,
+    _$key__dominantBaseline___$SvgPropsMixin,
+    _$key__dur___$SvgPropsMixin,
     _$key__dx___$SvgPropsMixin,
     _$key__dy___$SvgPropsMixin,
+    _$key__edgeMode___$SvgPropsMixin,
+    _$key__elevation___$SvgPropsMixin,
+    _$key__enableBackground___$SvgPropsMixin,
+    _$key__end___$SvgPropsMixin,
+    _$key__exponent___$SvgPropsMixin,
+    _$key__externalResourcesRequired___$SvgPropsMixin,
     _$key__fillOpacity___$SvgPropsMixin,
+    _$key__filterRes___$SvgPropsMixin,
+    _$key__filterUnits___$SvgPropsMixin,
+    _$key__floodColor___$SvgPropsMixin,
+    _$key__floodOpacity___$SvgPropsMixin,
+    _$key__focusable___$SvgPropsMixin,
     _$key__fontSize___$SvgPropsMixin,
+    _$key__fontSizeAdjust___$SvgPropsMixin,
+    _$key__fontStretch___$SvgPropsMixin,
+    _$key__fontStyle___$SvgPropsMixin,
+    _$key__fontVariant___$SvgPropsMixin,
+    _$key__fontWeight___$SvgPropsMixin,
+    _$key__format___$SvgPropsMixin,
+    _$key__from___$SvgPropsMixin,
     _$key__fx___$SvgPropsMixin,
     _$key__fy___$SvgPropsMixin,
+    _$key__g1___$SvgPropsMixin,
+    _$key__g2___$SvgPropsMixin,
+    _$key__glyphName___$SvgPropsMixin,
+    _$key__glyphOrientationHorizontal___$SvgPropsMixin,
+    _$key__glyphOrientationVertical___$SvgPropsMixin,
+    _$key__glyphRef___$SvgPropsMixin,
+    _$key__hanging___$SvgPropsMixin,
+    _$key__horizAdvX___$SvgPropsMixin,
+    _$key__horizOriginX___$SvgPropsMixin,
+    _$key__ideographic___$SvgPropsMixin,
+    _$key__imageRendering___$SvgPropsMixin,
+    _$key__in2___$SvgPropsMixin,
+    _$key__intercept___$SvgPropsMixin,
+    _$key__k___$SvgPropsMixin,
+    _$key__k1___$SvgPropsMixin,
+    _$key__k2___$SvgPropsMixin,
+    _$key__k3___$SvgPropsMixin,
+    _$key__k4___$SvgPropsMixin,
+    _$key__kernelMatrix___$SvgPropsMixin,
+    _$key__kernelUnitLength___$SvgPropsMixin,
+    _$key__kerning___$SvgPropsMixin,
+    _$key__keyPoints___$SvgPropsMixin,
+    _$key__keySplines___$SvgPropsMixin,
+    _$key__keyTimes___$SvgPropsMixin,
+    _$key__lengthAdjust___$SvgPropsMixin,
+    _$key__letterSpacing___$SvgPropsMixin,
+    _$key__lightingColor___$SvgPropsMixin,
+    _$key__limitingConeAngle___$SvgPropsMixin,
+    _$key__local___$SvgPropsMixin,
+    _$key__markerHeight___$SvgPropsMixin,
+    _$key__markerUnits___$SvgPropsMixin,
+    _$key__markerWidth___$SvgPropsMixin,
+    _$key__maskContentUnits___$SvgPropsMixin,
+    _$key__maskUnits___$SvgPropsMixin,
+    _$key__mathematical___$SvgPropsMixin,
+    _$key__mode___$SvgPropsMixin,
+    _$key__numOctaves___$SvgPropsMixin,
     _$key__offset___$SvgPropsMixin,
     _$key__opacity___$SvgPropsMixin,
+    _$key__operator___$SvgPropsMixin,
+    _$key__order___$SvgPropsMixin,
+    _$key__orient___$SvgPropsMixin,
+    _$key__orientation___$SvgPropsMixin,
+    _$key__origin___$SvgPropsMixin,
+    _$key__overflow___$SvgPropsMixin,
+    _$key__overlinePosition___$SvgPropsMixin,
+    _$key__overlineThickness___$SvgPropsMixin,
+    _$key__paintOrder___$SvgPropsMixin,
+    _$key__panose1___$SvgPropsMixin,
+    _$key__pathLength___$SvgPropsMixin,
+    _$key__patternTransform___$SvgPropsMixin,
+    _$key__pointerEvents___$SvgPropsMixin,
+    _$key__pointsAtX___$SvgPropsMixin,
+    _$key__pointsAtY___$SvgPropsMixin,
+    _$key__pointsAtZ___$SvgPropsMixin,
+    _$key__preserveAlpha___$SvgPropsMixin,
+    _$key__primitiveUnits___$SvgPropsMixin,
     _$key__r___$SvgPropsMixin,
+    _$key__radius___$SvgPropsMixin,
+    _$key__refX___$SvgPropsMixin,
+    _$key__refY___$SvgPropsMixin,
+    _$key__renderingIntent___$SvgPropsMixin,
+    _$key__repeatCount___$SvgPropsMixin,
+    _$key__repeatDur___$SvgPropsMixin,
+    _$key__requiredExtensions___$SvgPropsMixin,
+    _$key__requiredFeatures___$SvgPropsMixin,
+    _$key__restart___$SvgPropsMixin,
+    _$key__rotate___$SvgPropsMixin,
     _$key__rx___$SvgPropsMixin,
     _$key__ry___$SvgPropsMixin,
+    _$key__scale___$SvgPropsMixin,
+    _$key__seed___$SvgPropsMixin,
+    _$key__shapeRendering___$SvgPropsMixin,
+    _$key__slope___$SvgPropsMixin,
+    _$key__spacing___$SvgPropsMixin,
+    _$key__specularConstant___$SvgPropsMixin,
+    _$key__specularExponent___$SvgPropsMixin,
+    _$key__speed___$SvgPropsMixin,
+    _$key__startOffset___$SvgPropsMixin,
+    _$key__stdDeviation___$SvgPropsMixin,
+    _$key__stemh___$SvgPropsMixin,
+    _$key__stemv___$SvgPropsMixin,
+    _$key__stitchTiles___$SvgPropsMixin,
     _$key__stopOpacity___$SvgPropsMixin,
+    _$key__strikethroughPosition___$SvgPropsMixin,
+    _$key__strikethroughThickness___$SvgPropsMixin,
+    _$key__string___$SvgPropsMixin,
     _$key__strokeDasharray___$SvgPropsMixin,
+    _$key__strokeDashoffset___$SvgPropsMixin,
+    _$key__strokeMiterlimit___$SvgPropsMixin,
     _$key__strokeOpacity___$SvgPropsMixin,
     _$key__strokeWidth___$SvgPropsMixin,
+    _$key__surfaceScale___$SvgPropsMixin,
+    _$key__systemLanguage___$SvgPropsMixin,
+    _$key__tableValues___$SvgPropsMixin,
+    _$key__targetX___$SvgPropsMixin,
+    _$key__targetY___$SvgPropsMixin,
+    _$key__textDecoration___$SvgPropsMixin,
+    _$key__textLength___$SvgPropsMixin,
+    _$key__textRendering___$SvgPropsMixin,
+    _$key__to___$SvgPropsMixin,
+    _$key__u1___$SvgPropsMixin,
+    _$key__u2___$SvgPropsMixin,
+    _$key__underlinePosition___$SvgPropsMixin,
+    _$key__underlineThickness___$SvgPropsMixin,
+    _$key__unicode___$SvgPropsMixin,
+    _$key__unicodeBidi___$SvgPropsMixin,
+    _$key__unicodeRange___$SvgPropsMixin,
+    _$key__unitsPerEm___$SvgPropsMixin,
+    _$key__vAlphabetic___$SvgPropsMixin,
+    _$key__vHanging___$SvgPropsMixin,
+    _$key__vIdeographic___$SvgPropsMixin,
+    _$key__vMathematical___$SvgPropsMixin,
+    _$key__vectorEffect___$SvgPropsMixin,
+    _$key__vertAdvY___$SvgPropsMixin,
+    _$key__vertOriginX___$SvgPropsMixin,
+    _$key__vertOriginY___$SvgPropsMixin,
+    _$key__viewTarget___$SvgPropsMixin,
+    _$key__visibility___$SvgPropsMixin,
+    _$key__widths___$SvgPropsMixin,
+    _$key__wordSpacing___$SvgPropsMixin,
+    _$key__writingMode___$SvgPropsMixin,
     _$key__x1___$SvgPropsMixin,
     _$key__x2___$SvgPropsMixin,
     _$key__x___$SvgPropsMixin,
+    _$key__xHeight___$SvgPropsMixin,
     _$key__y1___$SvgPropsMixin,
     _$key__y2___$SvgPropsMixin,
-    _$key__y___$SvgPropsMixin
+    _$key__y___$SvgPropsMixin,
+    _$key__z___$SvgPropsMixin
   ];
 }
 

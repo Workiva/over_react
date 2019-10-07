@@ -138,13 +138,42 @@ abstract class $SvgPropsMixin {}
 abstract class _$SvgPropsMixin {
   Map get props;
 
-  String clipPath, d, fill, fontFamily, gradientTransform, gradientUnits, markerEnd, markerMid, markerStart,
-      patternContentUnits, patternUnits, points, preserveAspectRatio, spreadMethod, stopColor, stroke,
-      strokeLinecap, textAnchor, transform, version, viewBox, xlinkActuate, xlinkArcrole, xlinkHref, xlinkRole,
-      xlinkShow, xlinkTitle, xlinkType, xmlBase, xmlLang, xmlSpace;
+  @Accessor(key: 'in')
+  String htmlIn;
 
-  dynamic cx, cy, dx, dy, fillOpacity, fontSize, fx, fy, offset, opacity, r, rx, ry, stopOpacity, strokeDasharray,
-      strokeOpacity, strokeWidth, x1, x2, x, y1, y2, y;
+  @Accessor(key: 'values')
+  String htmlValues;
+
+  String accumulate, additive, alignmentBaseline, allowReorder, arabicForm, attributeName,
+    attributeType, clipPath, colorInterpolationFilters, d, fill, fillRule, filter, fontFamily,
+    gradientTransform, gradientUnits, markerEnd, markerMid, markerStart, mask, patternContentUnits,
+    patternUnits, points, preserveAspectRatio, result, spreadMethod, stopColor, stroke,
+    strokeLinecap, strokeLinejoin, textAnchor, transform, version, viewBox, xChannelSelector,
+    xlinkActuate, xlinkArcrole, xlinkHref, xlinkRole, xlinkShow, xlinkTitle, xlinkType, xmlns,
+    xmlnsXlink, xmlBase, xmlLang, xmlSpace, yChannelSelector, zoomAndPan;
+
+  dynamic accentHeight, alphabetic, amplitude, ascent, autoReverse, azimuth, baseFrequency,
+    baseProfile, baselineShift, bbox, begin, bias, by, calcMode, capHeight, clip, clipPathUnits,
+    clipRule, colorInterpolation, colorProfile, colorRendering, contentScriptType, contentStyleType,
+    cursor, cx, cy, decelerate, descent, diffuseConstant, direction, display, divisor, dominantBaseline,
+    dur, dx, dy, edgeMode, elevation, enableBackground, end, exponent, externalResourcesRequired,
+    fillOpacity, filterRes, filterUnits, floodColor, floodOpacity, focusable, fontSize, fontSizeAdjust,
+    fontStretch, fontStyle, fontVariant, fontWeight, format, from, fx, fy, g1, g2, glyphName,
+    glyphOrientationHorizontal, glyphOrientationVertical, glyphRef, hanging, horizAdvX, horizOriginX,
+    ideographic, imageRendering, in2, intercept, k, k1, k2, k3, k4, kernelMatrix, kernelUnitLength,
+    kerning, keyPoints, keySplines, keyTimes, lengthAdjust, letterSpacing, lightingColor, limitingConeAngle,
+    local, markerHeight, markerUnits, markerWidth, maskContentUnits, maskUnits, mathematical, mode,
+    numOctaves, offset, opacity, operator, order, orient, orientation, origin, overflow, overlinePosition,
+    overlineThickness, paintOrder, panose1, pathLength, patternTransform, pointerEvents, pointsAtX,
+    pointsAtY, pointsAtZ, preserveAlpha, primitiveUnits, r, radius, refX, refY, renderingIntent, repeatCount,
+    repeatDur, requiredExtensions, requiredFeatures, restart, rotate, rx, ry, scale, seed, shapeRendering,
+    slope, spacing, specularConstant, specularExponent, speed, startOffset, stdDeviation, stemh, stemv,
+    stitchTiles, stopOpacity, strikethroughPosition, strikethroughThickness, string, strokeDasharray,
+    strokeDashoffset, strokeMiterlimit, strokeOpacity, strokeWidth, surfaceScale, systemLanguage,
+    tableValues, targetX, targetY, textDecoration, textLength, textRendering, to, u1, u2, underlinePosition,
+    underlineThickness, unicode, unicodeBidi, unicodeRange, unitsPerEm, vAlphabetic, vHanging, vIdeographic,
+    vMathematical, vectorEffect, vertAdvY, vertOriginX, vertOriginY, viewTarget, visibility, widths,
+    wordSpacing, writingMode, x1, x2, x, xHeight, y1, y2, y, z;
 }
 /// This class is only present to allow for consumers which have used the
 /// --backwards-compat flag with over_react_codemod to statically analyze:
