@@ -417,8 +417,8 @@ class ImplGenerator {
             if (variable.initializer != null) {
               logger.severe(messageWithSpan(
                   'Fields are stubs for generated setters/getters and should not have initializers.\n'
-                      'Instead, initialize ${type.isProps 
-                          ? 'prop values within getDefaultProps()' 
+                      'Instead, initialize ${type.isProps
+                          ? 'prop values within getDefaultProps()'
                           : 'state values within getInitialState()'}.',
                   span: getSpan(sourceFile, variable))
               );
@@ -518,7 +518,7 @@ class ImplGenerator {
                 // '  @tryInline\n'
                 '  @override\n'
                 '${metadataSrc.toString()}'
-                '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName] ?? null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;\n'
+                '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName];\n'
                 '  $docComment\n'
                 // '  @tryInline\n'
                 '  @override\n'

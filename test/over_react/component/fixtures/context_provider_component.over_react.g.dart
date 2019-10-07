@@ -118,8 +118,8 @@ abstract class _$ContextProviderWrapperStateAccessorsMixin
   /// <!-- Generated from [_$ContextProviderWrapperState.latestValue] -->
   @override
   int get latestValue =>
-      state[_$key__latestValue___$ContextProviderWrapperState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__latestValue___$ContextProviderWrapperState];
+
   /// <!-- Generated from [_$ContextProviderWrapperState.latestValue] -->
   @override
   set latestValue(int value) =>

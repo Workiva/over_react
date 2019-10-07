@@ -24,9 +24,8 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
 
   /// <!-- Generated from [_$BasicProps.childId] -->
   @override
-  String get childId =>
-      props[_$key__childId___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get childId => props[_$key__childId___$BasicProps];
+
   /// <!-- Generated from [_$BasicProps.childId] -->
   @override
   set childId(String value) => props[_$key__childId___$BasicProps] = value;

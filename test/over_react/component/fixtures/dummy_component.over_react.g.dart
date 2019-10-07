@@ -25,8 +25,8 @@ abstract class _$DummyPropsAccessorsMixin implements _$DummyProps {
   /// <!-- Generated from [_$DummyProps.onComponentDidMount] -->
   @override
   Function get onComponentDidMount =>
-      props[_$key__onComponentDidMount___$DummyProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__onComponentDidMount___$DummyProps];
+
   /// <!-- Generated from [_$DummyProps.onComponentDidMount] -->
   @override
   set onComponentDidMount(Function value) =>

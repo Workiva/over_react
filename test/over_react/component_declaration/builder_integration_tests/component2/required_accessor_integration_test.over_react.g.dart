@@ -28,9 +28,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
   @Accessor(
       isRequired: true,
       requiredErrorMessage: 'This Prop is Required for testing purposes.')
-  get required =>
-      props[_$key__required___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get required => props[_$key__required___$ComponentTestProps];
+
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @Accessor(
@@ -44,9 +43,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
       isRequired: true,
       isNullable: true,
       requiredErrorMessage: 'This prop can be set to null!')
-  get nullable =>
-      props[_$key__nullable___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get nullable => props[_$key__nullable___$ComponentTestProps];
+
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @Accessor(
@@ -62,8 +60,8 @@ abstract class _$ComponentTestPropsAccessorsMixin
       isNullable: false,
       requiredErrorMessage: 'This Prop Array is Required for testing purposes.')
   List get requiredAndLengthLimited =>
-      props[_$key__requiredAndLengthLimited___$ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__requiredAndLengthLimited___$ComponentTestProps];
+
   /// <!-- Generated from [_$ComponentTestProps.requiredAndLengthLimited] -->
   @override
   @Accessor(

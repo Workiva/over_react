@@ -70,9 +70,8 @@ abstract class _$FlawedStateAccessorsMixin implements _$FlawedState {
 
   /// <!-- Generated from [_$FlawedState.hasError] -->
   @override
-  bool get hasError =>
-      state[_$key__hasError___$FlawedState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get hasError => state[_$key__hasError___$FlawedState];
+
   /// <!-- Generated from [_$FlawedState.hasError] -->
   @override
   set hasError(bool value) => state[_$key__hasError___$FlawedState] = value;

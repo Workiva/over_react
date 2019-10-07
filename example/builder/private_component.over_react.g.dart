@@ -24,9 +24,8 @@ abstract class _$_PrivatePropsAccessorsMixin implements _$_PrivateProps {
 
   /// <!-- Generated from [_$_PrivateProps.prop1] -->
   @override
-  bool get prop1 =>
-      props[_$key__prop1___$_PrivateProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get prop1 => props[_$key__prop1___$_PrivateProps];
+
   /// <!-- Generated from [_$_PrivateProps.prop1] -->
   @override
   set prop1(bool value) => props[_$key__prop1___$_PrivateProps] = value;
@@ -123,9 +122,8 @@ abstract class _$_PrivateStateAccessorsMixin implements _$_PrivateState {
 
   /// <!-- Generated from [_$_PrivateState.state1] -->
   @override
-  bool get state1 =>
-      state[_$key__state1___$_PrivateState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get state1 => state[_$key__state1___$_PrivateState];
+
   /// <!-- Generated from [_$_PrivateState.state1] -->
   @override
   set state1(bool value) => state[_$key__state1___$_PrivateState] = value;

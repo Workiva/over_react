@@ -26,8 +26,8 @@ abstract class _$BasicPropsAccessorsMixin<T, U extends UiProps>
   /// <!-- Generated from [_$BasicProps.someGenericListProp] -->
   @override
   List<T> get someGenericListProp =>
-      props[_$key__someGenericListProp___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__someGenericListProp___$BasicProps];
+
   /// <!-- Generated from [_$BasicProps.someGenericListProp] -->
   @override
   set someGenericListProp(List<T> value) =>
@@ -35,9 +35,8 @@ abstract class _$BasicPropsAccessorsMixin<T, U extends UiProps>
 
   /// <!-- Generated from [_$BasicProps.somePropsClass] -->
   @override
-  U get somePropsClass =>
-      props[_$key__somePropsClass___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  U get somePropsClass => props[_$key__somePropsClass___$BasicProps];
+
   /// <!-- Generated from [_$BasicProps.somePropsClass] -->
   @override
   set somePropsClass(U value) =>

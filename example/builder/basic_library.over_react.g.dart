@@ -25,9 +25,8 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
 
   /// <!-- Generated from [_$BasicPartOfLibProps.basicProp] -->
   @override
-  String get basicProp =>
-      props[_$key__basicProp___$BasicPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basicProp => props[_$key__basicProp___$BasicPartOfLibProps];
+
   /// <!-- Generated from [_$BasicPartOfLibProps.basicProp] -->
   @override
   set basicProp(String value) =>
@@ -35,9 +34,8 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
 
   /// <!-- Generated from [_$BasicPartOfLibProps.basic1] -->
   @override
-  String get basic1 =>
-      props[_$key__basic1___$BasicPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basic1 => props[_$key__basic1___$BasicPartOfLibProps];
+
   /// <!-- Generated from [_$BasicPartOfLibProps.basic1] -->
   @override
   set basic1(String value) =>
@@ -45,9 +43,8 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
 
   /// <!-- Generated from [_$BasicPartOfLibProps.basic2] -->
   @override
-  String get basic2 =>
-      props[_$key__basic2___$BasicPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basic2 => props[_$key__basic2___$BasicPartOfLibProps];
+
   /// <!-- Generated from [_$BasicPartOfLibProps.basic2] -->
   @override
   set basic2(String value) =>
@@ -55,9 +52,8 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
 
   /// <!-- Generated from [_$BasicPartOfLibProps.basic3] -->
   @override
-  String get basic3 =>
-      props[_$key__basic3___$BasicPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basic3 => props[_$key__basic3___$BasicPartOfLibProps];
+
   /// <!-- Generated from [_$BasicPartOfLibProps.basic3] -->
   @override
   set basic3(String value) =>
@@ -65,9 +61,8 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
 
   /// <!-- Generated from [_$BasicPartOfLibProps.basic4] -->
   @override
-  String get basic4 =>
-      props[_$key__basic4___$BasicPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basic4 => props[_$key__basic4___$BasicPartOfLibProps];
+
   /// <!-- Generated from [_$BasicPartOfLibProps.basic4] -->
   @override
   set basic4(String value) =>
@@ -75,9 +70,8 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
 
   /// <!-- Generated from [_$BasicPartOfLibProps.basic5] -->
   @override
-  String get basic5 =>
-      props[_$key__basic5___$BasicPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basic5 => props[_$key__basic5___$BasicPartOfLibProps];
+
   /// <!-- Generated from [_$BasicPartOfLibProps.basic5] -->
   @override
   set basic5(String value) =>
@@ -211,9 +205,8 @@ abstract class _$BasicPartOfLibStateAccessorsMixin
 
   /// <!-- Generated from [_$BasicPartOfLibState.basicState] -->
   @override
-  String get basicState =>
-      state[_$key__basicState___$BasicPartOfLibState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basicState => state[_$key__basicState___$BasicPartOfLibState];
+
   /// <!-- Generated from [_$BasicPartOfLibState.basicState] -->
   @override
   set basicState(String value) =>
@@ -379,9 +372,8 @@ abstract class _$SubPartOfLibPropsAccessorsMixin
 
   /// <!-- Generated from [_$SubPartOfLibProps.subProp] -->
   @override
-  String get subProp =>
-      props[_$key__subProp___$SubPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get subProp => props[_$key__subProp___$SubPartOfLibProps];
+
   /// <!-- Generated from [_$SubPartOfLibProps.subProp] -->
   @override
   set subProp(String value) =>
@@ -472,9 +464,8 @@ abstract class _$SuperPartOfLibPropsAccessorsMixin
 
   /// <!-- Generated from [_$SuperPartOfLibProps.superProp] -->
   @override
-  String get superProp =>
-      props[_$key__superProp___$SuperPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get superProp => props[_$key__superProp___$SuperPartOfLibProps];
+
   /// <!-- Generated from [_$SuperPartOfLibProps.superProp] -->
   @override
   set superProp(String value) =>

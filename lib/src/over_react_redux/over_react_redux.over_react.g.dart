@@ -15,8 +15,8 @@ abstract class ConnectPropsMixin implements _$ConnectPropsMixin {
   /// <!-- Generated from [_$ConnectPropsMixin.dispatch] -->
   @override
   dynamic Function(dynamic action) get dispatch =>
-      props[_$key__dispatch___$ConnectPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__dispatch___$ConnectPropsMixin];
+
   /// <!-- Generated from [_$ConnectPropsMixin.dispatch] -->
   @override
   set dispatch(dynamic Function(dynamic action) value) =>

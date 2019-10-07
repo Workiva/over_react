@@ -25,18 +25,16 @@ abstract class _$PropTypesTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$PropTypesTestProps.count] -->
   @override
-  int get count =>
-      props[_$key__count___$PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  int get count => props[_$key__count___$PropTypesTestProps];
+
   /// <!-- Generated from [_$PropTypesTestProps.count] -->
   @override
   set count(int value) => props[_$key__count___$PropTypesTestProps] = value;
 
   /// <!-- Generated from [_$PropTypesTestProps.twoObjects] -->
   @override
-  List get twoObjects =>
-      props[_$key__twoObjects___$PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  List get twoObjects => props[_$key__twoObjects___$PropTypesTestProps];
+
   /// <!-- Generated from [_$PropTypesTestProps.twoObjects] -->
   @override
   set twoObjects(List value) =>
@@ -44,9 +42,8 @@ abstract class _$PropTypesTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$PropTypesTestProps.defaultCount] -->
   @override
-  int get defaultCount =>
-      props[_$key__defaultCount___$PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  int get defaultCount => props[_$key__defaultCount___$PropTypesTestProps];
+
   /// <!-- Generated from [_$PropTypesTestProps.defaultCount] -->
   @override
   set defaultCount(int value) =>
@@ -54,9 +51,8 @@ abstract class _$PropTypesTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$PropTypesTestProps.content] -->
   @override
-  bool get content =>
-      props[_$key__content___$PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get content => props[_$key__content___$PropTypesTestProps];
+
   /// <!-- Generated from [_$PropTypesTestProps.content] -->
   @override
   set content(bool value) =>
@@ -64,9 +60,8 @@ abstract class _$PropTypesTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$PropTypesTestProps.hideHeader] -->
   @override
-  bool get hideHeader =>
-      props[_$key__hideHeader___$PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get hideHeader => props[_$key__hideHeader___$PropTypesTestProps];
+
   /// <!-- Generated from [_$PropTypesTestProps.hideHeader] -->
   @override
   set hideHeader(bool value) =>
@@ -74,9 +69,8 @@ abstract class _$PropTypesTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$PropTypesTestProps.header] -->
   @override
-  dynamic get header =>
-      props[_$key__header___$PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get header => props[_$key__header___$PropTypesTestProps];
+
   /// <!-- Generated from [_$PropTypesTestProps.header] -->
   @override
   set header(dynamic value) =>
@@ -85,8 +79,8 @@ abstract class _$PropTypesTestPropsAccessorsMixin
   /// <!-- Generated from [_$PropTypesTestProps.initiallyExpandedKeys] -->
   @override
   List get initiallyExpandedKeys =>
-      props[_$key__initiallyExpandedKeys___$PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__initiallyExpandedKeys___$PropTypesTestProps];
+
   /// <!-- Generated from [_$PropTypesTestProps.initiallyExpandedKeys] -->
   @override
   set initiallyExpandedKeys(List value) =>
@@ -94,18 +88,16 @@ abstract class _$PropTypesTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$PropTypesTestProps.targetKey] -->
   @override
-  get targetKey =>
-      props[_$key__targetKey___$PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get targetKey => props[_$key__targetKey___$PropTypesTestProps];
+
   /// <!-- Generated from [_$PropTypesTestProps.targetKey] -->
   @override
   set targetKey(value) => props[_$key__targetKey___$PropTypesTestProps] = value;
 
   /// <!-- Generated from [_$PropTypesTestProps.hideLabel] -->
   @override
-  bool get hideLabel =>
-      props[_$key__hideLabel___$PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get hideLabel => props[_$key__hideLabel___$PropTypesTestProps];
+
   /// <!-- Generated from [_$PropTypesTestProps.hideLabel] -->
   @override
   set hideLabel(bool value) =>
@@ -113,9 +105,8 @@ abstract class _$PropTypesTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$PropTypesTestProps.label] -->
   @override
-  String get label =>
-      props[_$key__label___$PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get label => props[_$key__label___$PropTypesTestProps];
+
   /// <!-- Generated from [_$PropTypesTestProps.label] -->
   @override
   set label(String value) => props[_$key__label___$PropTypesTestProps] = value;

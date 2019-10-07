@@ -24,9 +24,8 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
 
   /// <!-- Generated from [_$CounterProps.currentCount] -->
   @override
-  int get currentCount =>
-      props[_$key__currentCount___$CounterProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  int get currentCount => props[_$key__currentCount___$CounterProps];
+
   /// <!-- Generated from [_$CounterProps.currentCount] -->
   @override
   set currentCount(int value) =>
@@ -35,8 +34,8 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
   /// <!-- Generated from [_$CounterProps.wrapperStyles] -->
   @override
   Map<String, dynamic> get wrapperStyles =>
-      props[_$key__wrapperStyles___$CounterProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__wrapperStyles___$CounterProps];
+
   /// <!-- Generated from [_$CounterProps.wrapperStyles] -->
   @override
   set wrapperStyles(Map<String, dynamic> value) =>
@@ -44,9 +43,8 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
 
   /// <!-- Generated from [_$CounterProps.increment] -->
   @override
-  void Function() get increment =>
-      props[_$key__increment___$CounterProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  void Function() get increment => props[_$key__increment___$CounterProps];
+
   /// <!-- Generated from [_$CounterProps.increment] -->
   @override
   set increment(void Function() value) =>
@@ -54,9 +52,8 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
 
   /// <!-- Generated from [_$CounterProps.decrement] -->
   @override
-  void Function() get decrement =>
-      props[_$key__decrement___$CounterProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  void Function() get decrement => props[_$key__decrement___$CounterProps];
+
   /// <!-- Generated from [_$CounterProps.decrement] -->
   @override
   set decrement(void Function() value) =>

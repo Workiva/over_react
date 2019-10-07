@@ -115,8 +115,8 @@ abstract class _$MyProviderComponentStateAccessorsMixin
   /// <!-- Generated from [_$MyProviderComponentState.latestValue] -->
   @override
   String get latestValue =>
-      state[_$key__latestValue___$MyProviderComponentState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__latestValue___$MyProviderComponentState];
+
   /// <!-- Generated from [_$MyProviderComponentState.latestValue] -->
   @override
   set latestValue(String value) =>

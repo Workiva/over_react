@@ -28,9 +28,8 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.skin] -->
   @override
-  ButtonSkin get skin =>
-      props[_$key__skin___$ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  ButtonSkin get skin => props[_$key__skin___$ButtonProps];
+
   /// The skin / "context" for the [Button].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#examples>.
@@ -49,9 +48,8 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.size] -->
   @override
-  ButtonSize get size =>
-      props[_$key__size___$ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  ButtonSize get size => props[_$key__size___$ButtonProps];
+
   /// The size of the [Button].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#sizes>.
@@ -70,9 +68,8 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.isActive] -->
   @override
-  bool get isActive =>
-      props[_$key__isActive___$ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get isActive => props[_$key__isActive___$ButtonProps];
+
   /// Whether the [Button] should appear "active".
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#active-state>
@@ -92,9 +89,8 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.isDisabled] -->
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
-  bool get isDisabled =>
-      props[_$key__isDisabled___$ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get isDisabled => props[_$key__isDisabled___$ButtonProps];
+
   /// Whether the [Button] is disabled.
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#disabled-state>
@@ -113,9 +109,8 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.isBlock] -->
   @override
-  bool get isBlock =>
-      props[_$key__isBlock___$ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get isBlock => props[_$key__isBlock___$ButtonProps];
+
   /// Whether the [Button] is a block level button -- that which spans the full
   /// width of its parent.
   ///
@@ -134,9 +129,8 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.href] -->
   @override
   @Accessor(keyNamespace: '')
-  String get href =>
-      props[_$key__href___$ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get href => props[_$key__href___$ButtonProps];
+
   /// The HTML `href` attribute value for the [Button].
   ///
   /// If set, the item will render via [Dom.a].
@@ -157,9 +151,8 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.target] -->
   @override
   @Accessor(keyNamespace: '')
-  String get target =>
-      props[_$key__target___$ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get target => props[_$key__target___$ButtonProps];
+
   /// The HTML `target` attribute value for the [Button].
   ///
   /// If set, the item will render via [Dom.a].
@@ -182,9 +175,8 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.type] -->
   @override
-  ButtonType get type =>
-      props[_$key__type___$ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  ButtonType get type => props[_$key__type___$ButtonProps];
+
   /// The HTML `type` attribute value for the [Button] when
   /// rendered via [Dom.button].
   ///

@@ -39,8 +39,8 @@ abstract class _$AbstractTransitionStateAccessorsMixin
   /// <!-- Generated from [_$AbstractTransitionState.transitionPhase] -->
   @override
   TransitionPhase get transitionPhase =>
-      state[_$key__transitionPhase___$AbstractTransitionState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__transitionPhase___$AbstractTransitionState];
+
   /// The current phase of transition the [AbstractTransitionComponent] is in.
   ///
   /// Default:  [AbstractTransitionComponent.initiallyShown] ? [TransitionPhase.SHOWN] : [TransitionPhase.HIDDEN]

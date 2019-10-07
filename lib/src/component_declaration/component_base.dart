@@ -807,4 +807,3 @@ class StateMeta implements AccessorMeta<StateDescriptor> {
 
   const StateMeta({this.fields, this.keys});
 }
-

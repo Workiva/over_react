@@ -114,9 +114,8 @@ abstract class _$PropTypesWrapStateAccessorsMixin
 
   /// <!-- Generated from [_$PropTypesWrapState.twoObjects] -->
   @override
-  List get twoObjects =>
-      state[_$key__twoObjects___$PropTypesWrapState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  List get twoObjects => state[_$key__twoObjects___$PropTypesWrapState];
+
   /// <!-- Generated from [_$PropTypesWrapState.twoObjects] -->
   @override
   set twoObjects(List value) =>

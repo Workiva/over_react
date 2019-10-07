@@ -32,8 +32,8 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.onComponentDidCatch] -->
   @override
   Function(dynamic error, ReactErrorInfo info) get onComponentDidCatch =>
-      props[_$key__onComponentDidCatch___$ErrorBoundaryPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__onComponentDidCatch___$ErrorBoundaryPropsMixin];
+
   /// An optional callback that will be called with an [Error] and a [ReactErrorInfo]
   /// containing information about which component in the tree threw the error when
   /// the `componentDidCatch` lifecycle method is called.
@@ -62,8 +62,8 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.fallbackUIRenderer] -->
   @override
   ReactElement Function() get fallbackUIRenderer =>
-      props[_$key__fallbackUIRenderer___$ErrorBoundaryPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__fallbackUIRenderer___$ErrorBoundaryPropsMixin];
+
   /// A renderer that will be used to render "fallback" UI instead of the child
   /// component tree that crashed.
   ///
@@ -112,9 +112,8 @@ abstract class ErrorBoundaryStateMixin implements _$ErrorBoundaryStateMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryStateMixin.hasError] -->
   @override
-  bool get hasError =>
-      state[_$key__hasError___$ErrorBoundaryStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get hasError => state[_$key__hasError___$ErrorBoundaryStateMixin];
+
   /// Whether the tree that the [ErrorBoundary] is wrapping around threw an error.
   ///
   /// When `true`, fallback UI will be rendered using [ErrorBoundaryProps.fallbackUIRenderer].
