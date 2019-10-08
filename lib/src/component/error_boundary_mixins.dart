@@ -296,7 +296,7 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
   void _startIdenticalErrorTimer() {
     if (_identicalErrorTimer != null) return;
 
-    _identicalErrorTimer = Timer(props.identicalErrorFrequencyTolerance, _resetInternalErrorTracking);
+    _identicalErrorTimer = getManagedTimer(props.identicalErrorFrequencyTolerance, _resetInternalErrorTracking);
   }
 
   /// Resets all the internal fields used by [_handleErrorInComponentTree], and cancels
