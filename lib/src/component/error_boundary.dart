@@ -345,7 +345,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
     return (Dom.div()
       ..key = 'ohnoes'
       ..addTestId('ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode')
-      ..['dangerouslySetInnerHTML'] = {'__html': _domAtTimeOfError} ?? ''
+      ..['dangerouslySetInnerHTML'] = {'__html': _domAtTimeOfError ?? ''}
     )();
   }
 
