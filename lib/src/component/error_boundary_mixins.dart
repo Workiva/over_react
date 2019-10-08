@@ -196,10 +196,12 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
   /// This can be called manually on the component instance using a `ref` -
   /// or by passing in a new child instance after a child has thrown an error.
   void reset() {
-    setState((newState()
+    _resetInternalErrorTracking();
+
+    setState(newState()
       ..hasError = false
       ..showFallbackUIOnError = props.fallbackUIRenderer != null
-    ), _resetInternalErrorTracking);
+    );
   }
 
   // ---------------------------------------------- \/ ----------------------------------------------
