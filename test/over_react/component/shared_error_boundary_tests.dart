@@ -30,8 +30,10 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory builder) {
       document.body.append(mountNode);
       var jacketOfFlawedComponentWithNoErrorBoundary = mount(Flawed()(), mountNode: mountNode);
       expect(mountNode.children, isNotEmpty, reason: 'test setup sanity check');
+
       final buttonThatShouldThrowAnErrorWhenClicked = queryByTestId(jacketOfFlawedComponentWithNoErrorBoundary.getInstance(), 'flawedComponent_flawedButton');
       expect(buttonThatShouldThrowAnErrorWhenClicked, isNotNull, reason: 'test setup sanity check');
+
       buttonThatShouldThrowAnErrorWhenClicked.click();
       expect(mountNode.children, isEmpty,
           reason: 'rendered trees not wrapped in an ErrorBoundary '
