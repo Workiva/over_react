@@ -305,9 +305,6 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
 
   /// Called by [componentDidCatch].
   void _handleErrorInComponentTree(/*Error||Exception*/dynamic error, /*NativeJavascriptObject*/dynamic jsErrorInfo) {
-    bool sameErrorWasThrownTwiceConsecutively =
-        error.toString() == _lastError?.toString() && _getReadableErrorInfo(jsErrorInfo) == _lastErrorInfo;
-
     // ----- [1] ----- //
     if (props.fallbackUIRenderer != null) {
       _lastError = error; // [1.1]
@@ -318,6 +315,9 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
     }
     // ----- [2] ----- //
     else {
+      bool sameErrorWasThrownTwiceConsecutively =
+          error.toString() == _lastError?.toString() && _getReadableErrorInfo(jsErrorInfo) == _lastErrorInfo;
+
       if (sameErrorWasThrownTwiceConsecutively) { // [2.1]
         try { // [2.2.2]
           _domAtTimeOfError = findDomNode(this)?.innerHtml; // [2.2]
