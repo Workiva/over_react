@@ -13,15 +13,15 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   static const PropsMeta meta = _$metaForErrorBoundaryPropsMixin;
 
   /// An optional callback that will be called with an [Error] _(or [Exception])_
-  /// and a [ReactErrorInfo] containing information about which component in the tree
+  /// and `errorInfo` containing information about which component in the tree
   /// threw when the `componentDidCatch` lifecycle method is called.
   ///
   /// This callback can be used to log component errors like so:
   ///
   ///     (ErrorBoundary()
-  ///       ..onComponentDidCatch = (error, info) {
+  ///       ..onComponentDidCatch = (error, errorInfo) {
   ///         // It is up to you to implement the service / thing that calls the service.
-  ///         logComponentStackToAService(error, info);
+  ///         logComponentStackToAService(error, errorInfo);
   ///       }
   ///     )(
   ///       // The rest of your component tree
@@ -37,15 +37,15 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
       props[_$key__onComponentDidCatch___$ErrorBoundaryPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// An optional callback that will be called with an [Error] _(or [Exception])_
-  /// and a [ReactErrorInfo] containing information about which component in the tree
+  /// and `errorInfo` containing information about which component in the tree
   /// threw when the `componentDidCatch` lifecycle method is called.
   ///
   /// This callback can be used to log component errors like so:
   ///
   ///     (ErrorBoundary()
-  ///       ..onComponentDidCatch = (error, info) {
+  ///       ..onComponentDidCatch = (error, errorInfo) {
   ///         // It is up to you to implement the service / thing that calls the service.
-  ///         logComponentStackToAService(error, info);
+  ///         logComponentStackToAService(error, errorInfo);
   ///       }
   ///     )(
   ///       // The rest of your component tree
@@ -61,7 +61,7 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
       props[_$key__onComponentDidCatch___$ErrorBoundaryPropsMixin] = value;
 
   /// An optional callback that will be called _(when [fallbackUIRenderer] is not set)_
-  /// with an [Error] _(or [Exception])_ and a [ReactErrorInfo] containing information about which component in
+  /// with an [Error] _(or [Exception])_ and `errorInfo` containing information about which component in
   /// the tree threw multiple consecutive errors/exceptions frequently enough that it has the potential
   /// to lock the main thread.
   ///
@@ -72,13 +72,13 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ///
   /// When this callback is called, the tree wrapped by this [ErrorBoundary] has "crashed" - and is completely
   /// non-functional. Instead of re-mounting the component tree, the [ErrorBoundary] will simply render a
-  /// non-interactive `String` representation of the DOM that was captured at the time of the error.
+  /// static copy of the render tree's HTML that was captured at the time of the error.
   ///
   /// Once this happens, regaining interactivity within the tree wrapped by this [ErrorBoundary] is possible by:
   ///
   /// 1. Passing in a new child
   ///   _(preferably one that will not repeatedly throw errors when the [ErrorBoundary] mounts it)_.
-  /// 2. Calling the [ErrorBoundaryMixin.reset] instance method using a `ref`.
+  /// 2. Calling [ErrorBoundaryComponent.reset].
   ///
   /// > Will never be called when [fallbackUIRenderer] is set.
   ///
@@ -90,7 +90,7 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
       props[_$key__onComponentIsUnrecoverable___$ErrorBoundaryPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// An optional callback that will be called _(when [fallbackUIRenderer] is not set)_
-  /// with an [Error] _(or [Exception])_ and a [ReactErrorInfo] containing information about which component in
+  /// with an [Error] _(or [Exception])_ and `errorInfo` containing information about which component in
   /// the tree threw multiple consecutive errors/exceptions frequently enough that it has the potential
   /// to lock the main thread.
   ///
@@ -101,13 +101,13 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ///
   /// When this callback is called, the tree wrapped by this [ErrorBoundary] has "crashed" - and is completely
   /// non-functional. Instead of re-mounting the component tree, the [ErrorBoundary] will simply render a
-  /// non-interactive `String` representation of the DOM that was captured at the time of the error.
+  /// static copy of the render tree's HTML that was captured at the time of the error.
   ///
   /// Once this happens, regaining interactivity within the tree wrapped by this [ErrorBoundary] is possible by:
   ///
   /// 1. Passing in a new child
   ///   _(preferably one that will not repeatedly throw errors when the [ErrorBoundary] mounts it)_.
-  /// 2. Calling the [ErrorBoundaryMixin.reset] instance method using a `ref`.
+  /// 2. Calling [ErrorBoundaryComponent.reset].
   ///
   /// > Will never be called when [fallbackUIRenderer] is set.
   ///
@@ -148,15 +148,15 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   /// within the tree wrapped by this [ErrorBoundary].
   ///
   /// If [fallbackUIRenderer] is not set, and more than one identical error is thrown consecutively by
-  /// the exact same component anywhere within the tree wrapped by this [ErrorBoundary] - more often than
-  /// the specified duration, the [ErrorBoundary] will:
+  /// the exact same component anywhere within the tree wrapped by this [ErrorBoundary] -- more often than
+  /// the specified duration -- the [ErrorBoundary] will:
   ///
   ///   1. Call [onComponentIsUnrecoverable].
   ///   2. Stop attempting to re-mount the tree (to protect the main thread from being locked up).
-  ///   3. Render a non-interactive `String` representation of the DOM at the time of the error.
+  ///   3. Render a static copy of the render tree's HTML that was captured at the time of the error.
   ///
   /// When this happens, recovery can only occur by passing in a new child to
-  /// the [ErrorBoundary], or by calling [ErrorBoundaryMixin.reset].
+  /// the [ErrorBoundary], or by calling [ErrorBoundaryComponent.reset].
   ///
   /// __DO NOT MODIFY THIS VALUE UNLESS YOU KNOW WHAT YOU ARE DOING.__
   ///
@@ -172,15 +172,15 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   /// within the tree wrapped by this [ErrorBoundary].
   ///
   /// If [fallbackUIRenderer] is not set, and more than one identical error is thrown consecutively by
-  /// the exact same component anywhere within the tree wrapped by this [ErrorBoundary] - more often than
-  /// the specified duration, the [ErrorBoundary] will:
+  /// the exact same component anywhere within the tree wrapped by this [ErrorBoundary] -- more often than
+  /// the specified duration -- the [ErrorBoundary] will:
   ///
   ///   1. Call [onComponentIsUnrecoverable].
   ///   2. Stop attempting to re-mount the tree (to protect the main thread from being locked up).
-  ///   3. Render a non-interactive `String` representation of the DOM at the time of the error.
+  ///   3. Render a static copy of the render tree's HTML that was captured at the time of the error.
   ///
   /// When this happens, recovery can only occur by passing in a new child to
-  /// the [ErrorBoundary], or by calling [ErrorBoundaryMixin.reset].
+  /// the [ErrorBoundary], or by calling [ErrorBoundaryComponent.reset].
   ///
   /// __DO NOT MODIFY THIS VALUE UNLESS YOU KNOW WHAT YOU ARE DOING.__
   ///
@@ -252,8 +252,8 @@ abstract class ErrorBoundaryStateMixin implements _$ErrorBoundaryStateMixin {
   ///   the tree to attempt to automatically recover from the error.
   ///
   ///   If an identical error is thrown from an identical component within the tree consecutively
-  ///   more frequently than [ErrorBoundaryProps.identicalErrorFrequencyTolerance], a non-interactive
-  ///   `String` representation of the DOM that was captured at the time of the error will be rendered.
+  ///   more frequently than [ErrorBoundaryProps.identicalErrorFrequencyTolerance], a static copy of
+  ///   the render tree's HTML that was captured at the time of the error will be rendered.
   ///   See: [ErrorBoundaryProps.onComponentIsUnrecoverable] for more information about this scenario.
   ///
   /// <!-- Generated from [_$ErrorBoundaryStateMixin.hasError] -->
@@ -269,8 +269,8 @@ abstract class ErrorBoundaryStateMixin implements _$ErrorBoundaryStateMixin {
   ///   the tree to attempt to automatically recover from the error.
   ///
   ///   If an identical error is thrown from an identical component within the tree consecutively
-  ///   more frequently than [ErrorBoundaryProps.identicalErrorFrequencyTolerance], a non-interactive
-  ///   `String` representation of the DOM that was captured at the time of the error will be rendered.
+  ///   more frequently than [ErrorBoundaryProps.identicalErrorFrequencyTolerance], a static copy of
+  ///   the render tree's HTML that was captured at the time of the error will be rendered.
   ///   See: [ErrorBoundaryProps.onComponentIsUnrecoverable] for more information about this scenario.
   ///
   /// <!-- Generated from [_$ErrorBoundaryStateMixin.hasError] -->
