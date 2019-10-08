@@ -73,7 +73,7 @@ abstract class _$DomPropsMixin {
   int cols, rows, size, span, start;
 
   bool allowFullScreen, async, autoPlay, checked, controls, defer, disabled, formNoValidate, hidden, loop, multiple,
-    muted, noValidate, readOnly, required, seamless, selected;
+    muted, noValidate, open, readOnly, required, seamless, selected;
 
   Map<String, dynamic> style;
 
@@ -82,7 +82,7 @@ abstract class _$DomPropsMixin {
   dynamic accept, acceptCharset, accessKey, action, allowTransparency, alt, autoComplete, cellPadding, cellSpacing,
     charSet, classID, colSpan, content, contentEditable, contextMenu, coords, crossOrigin, data, dateTime,
     dir, download, draggable, encType, form, frameBorder, height, href, hrefLang, htmlFor, httpEquiv, icon, label,
-    lang, list, manifest, max, maxLength, media, mediaGroup, method, min, name, open, pattern, placeholder,
+    lang, list, manifest, max, maxLength, media, mediaGroup, method, min, name, pattern, placeholder,
     poster, preload, radioGroup, rel, role, rowSpan, sandbox, scope, scrolling, shape, sizes, spellCheck, src, srcDoc,
     srcSet, step, tabIndex, target, type, useMap, value, width, wmode;
 
@@ -130,11 +130,13 @@ abstract class $SvgPropsMixin {}
 abstract class _$SvgPropsMixin {
   Map get props;
 
-  dynamic clipPath, cx, cy, d, dx, dy, fill, fillOpacity, fontFamily, fontSize, fx, fy, gradientTransform,
-    gradientUnits, markerEnd, markerMid, markerStart, offset, opacity, patternContentUnits, patternUnits, points,
-    preserveAspectRatio, r, rx, ry, spreadMethod, stopColor, stopOpacity, stroke, strokeDasharray, strokeLinecap,
-    strokeOpacity, strokeWidth, textAnchor, transform, version, viewBox, x1, x2, x, xlinkActuate, xlinkArcrole,
-    xlinkHref, xlinkRole, xlinkShow, xlinkTitle, xlinkType, xmlBase, xmlLang, xmlSpace, y1, y2, y;
+  String clipPath, d, fill, fontFamily, gradientTransform, gradientUnits, markerEnd, markerMid, markerStart,
+    patternContentUnits, patternUnits, points, preserveAspectRatio, spreadMethod, stopColor, stroke,
+    strokeLinecap, textAnchor, transform, version, viewBox, xlinkActuate, xlinkArcrole, xlinkHref, xlinkRole,
+    xlinkShow, xlinkTitle, xlinkType, xmlBase, xmlLang, xmlSpace;
+
+  dynamic cx, cy, dx, dy, fillOpacity, fontSize, fx, fy, offset, opacity, r, rx, ry, stopOpacity, strokeDasharray,
+    strokeOpacity, strokeWidth, x1, x2, x, y1, y2, y;
 }
 /// This class is only present to allow for consumers which have used the
 /// --backwards-compat flag with over_react_codemod to statically analyze:
