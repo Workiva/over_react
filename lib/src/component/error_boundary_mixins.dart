@@ -242,9 +242,6 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
 
   /// Called by [componentDidCatch].
   void _handleErrorInComponentTree(/*Error||Exception*/dynamic error, ReactErrorInfo info) {
-    bool sameErrorWasThrownTwiceConsecutively =
-        error.toString() == _lastError?.toString() && info.componentStack == _lastErrorInfo.componentStack;
-
     // ----- [1] ----- //
     if (props.fallbackUIRenderer != null) {
       _lastError = error;
@@ -253,6 +250,9 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
     }
     // ----- [2] ----- //
     else {
+      bool sameErrorWasThrownTwiceConsecutively =
+          error.toString() == _lastError?.toString() && info.componentStack == _lastErrorInfo.componentStack;
+
       if (sameErrorWasThrownTwiceConsecutively) { // [2.1]
         try { // [2.2.2]
           _domAtTimeOfError = findDomNode(this)?.innerHtml; // [2.2]
