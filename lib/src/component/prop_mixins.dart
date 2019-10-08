@@ -128,11 +128,13 @@ abstract class $SvgPropsMixin {}
 abstract class _$SvgPropsMixin {
   Map get props;
 
-  dynamic clipPath, cx, cy, d, dx, dy, fill, fillOpacity, fontFamily, fontSize, fx, fy, gradientTransform,
-    gradientUnits, markerEnd, markerMid, markerStart, offset, opacity, patternContentUnits, patternUnits, points,
-    preserveAspectRatio, r, rx, ry, spreadMethod, stopColor, stopOpacity, stroke, strokeDasharray, strokeLinecap,
-    strokeOpacity, strokeWidth, textAnchor, transform, version, viewBox, x1, x2, x, xlinkActuate, xlinkArcrole,
-    xlinkHref, xlinkRole, xlinkShow, xlinkTitle, xlinkType, xmlBase, xmlLang, xmlSpace, y1, y2, y;
+  String clipPath, d, fill, fontFamily, gradientTransform, gradientUnits, markerEnd, markerMid, markerStart,
+    patternContentUnits, patternUnits, points, preserveAspectRatio, spreadMethod, stopColor, stroke,
+    strokeLinecap, textAnchor, transform, version, viewBox, xlinkActuate, xlinkArcrole, xlinkHref, xlinkRole,
+    xlinkShow, xlinkTitle, xlinkType, xmlBase, xmlLang, xmlSpace;
+
+  dynamic cx, cy, dx, dy, fillOpacity, fontSize, fx, fy, offset, opacity, r, rx, ry, stopOpacity, strokeDasharray,
+    strokeOpacity, strokeWidth, x1, x2, x, y1, y2, y;
 }
 /// This class is only present to allow for consumers which have used the
 /// --backwards-compat flag with over_react_codemod to statically analyze:
