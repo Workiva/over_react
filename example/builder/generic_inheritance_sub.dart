@@ -16,13 +16,13 @@ class _$GenericSubState extends GenericSuperState {
   String subState;
 }
 
-@Component()
+@Component2()
 class GenericSubComponent extends GenericSuperComponent<GenericSubProps, GenericSubState> {
   @override
-  Map getDefaultProps() => newProps()..id = 'generic_sub';
+  get defaultProps => newProps()..id = 'generic_sub';
 
   @override
-  Map getInitialState() => newState()
+  get initialState => newState()
     ..subState = '<generic sub state>'
     ..superState = '<generic super state>';
 

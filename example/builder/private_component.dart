@@ -15,13 +15,13 @@ class _$_PrivateState extends UiState {
   bool state1;
 }
 
-@Component()
-class PrivateComponent extends UiStatefulComponent<_PrivateProps, _PrivateState> {
+@Component2()
+class PrivateComponent extends UiStatefulComponent2<_PrivateProps, _PrivateState> {
   @override
-  Map getDefaultProps() => newProps()..prop1 = true;
+  get defaultProps => newProps()..prop1 = true;
 
   @override
-  Map getInitialState() => newState()..state1 = true;
+  get initialState => newState()..state1 = true;
 
   @override
   render() {
