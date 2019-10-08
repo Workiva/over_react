@@ -15,7 +15,7 @@ class MyContextComponentComponent extends UiComponent2<MyContextComponentProps> 
   get contextType => someContext.reactDartContext;
 
   @override
-  Map getDefaultProps() => (newProps());
+  get defaultProps => (newProps());
 
   @override
   render() {
