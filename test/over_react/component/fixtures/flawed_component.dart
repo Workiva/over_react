@@ -8,9 +8,7 @@ part 'flawed_component.over_react.g.dart';
 UiFactory<FlawedProps> Flawed = _$Flawed;
 
 @Props()
-class _$FlawedProps extends UiProps {
-  String buttonTestIdPrefix;
-}
+class _$FlawedProps extends UiProps {}
 
 // AF-3369 This will be removed once the transition to Dart 2 is complete.
 // ignore: mixin_of_non_class, undefined_class
@@ -21,8 +19,7 @@ class FlawedProps extends _$FlawedProps with _$FlawedPropsAccessorsMixin {
 
 @State()
 class _$FlawedState extends UiState {
-  int errorCount;
-  int differentTypeOfErrorCount;
+  bool hasError;
 }
 
 // AF-3369 This will be removed once the transition to Dart 2 is complete.
@@ -35,56 +32,29 @@ class FlawedState extends _$FlawedState with _$FlawedStateAccessorsMixin {
 @Component()
 class FlawedComponent extends UiStatefulComponent<FlawedProps, FlawedState> {
   @override
-  Map getDefaultProps() => (newProps()..buttonTestIdPrefix = 'flawedComponent_');
-
-  @override
-  Map getInitialState() => (newState()
-    ..errorCount = 0
-    ..differentTypeOfErrorCount = 0
-  );
+  Map getInitialState() => (newState()..hasError = false);
 
   @override
   void componentWillUpdate(_, Map nextState) {
     final tNextState = typedStateFactory(nextState);
-    if (tNextState.errorCount > state.errorCount) {
-      throw FlawedComponentException();
-    }
-
-    if (tNextState.differentTypeOfErrorCount > state.differentTypeOfErrorCount) {
-      throw FlawedComponentException2();
+    if (tNextState.hasError && !state.hasError) {
+      throw new FlawedComponentException();
     }
   }
 
   @override
   render() {
-    return Dom.div()(
-      (Dom.button()
-        ..addTestId('${props.buttonTestIdPrefix}flawedButton')
-        ..onClick = (_) {
-          setState(newState()..errorCount = state.errorCount + 1);
-        }
-      )(
-        'oh hai',
-      ),
-      (Dom.button()
-        ..addTestId('${props.buttonTestIdPrefix}flawedButtonThatThrowsADifferentError')
-        ..onClick = (_) {
-          setState(newState()..differentTypeOfErrorCount = state.differentTypeOfErrorCount + 1);
-        }
-      )(
-        'oh hai',
-      ),
-      props.children,
-    );
+    return (Dom.button()
+      ..addTestId('flawedButton')
+      ..onClick = (_) {
+        setState(newState()
+          ..hasError = true);
+      }
+    )('oh hai');
   }
 }
 
 class FlawedComponentException implements Exception {
   @override
   String toString() => 'FlawedComponentException: I was thrown from inside FlawedComponent.componentWillUpdate!';
-}
-
-class FlawedComponentException2 implements Exception {
-  @override
-  String toString() => 'FlawedComponentException2: I was thrown from inside FlawedComponent.componentWillUpdate!';
 }
