@@ -76,7 +76,7 @@ abstract class _$DomPropsMixin {
   bool htmlDefault;
 
   @Accessor(key: 'is')
-  bool htmlIs;
+  String htmlIs;
 
   bool allowFullScreen, async, autoPlay, checked, controls, defer, disabled, formNoValidate, headers, hidden,
       inputMode, integrity, keyParams, keyType, kind, loop, multiple, muted, noValidate, open, readOnly, required, reversed,

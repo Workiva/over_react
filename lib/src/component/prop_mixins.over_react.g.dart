@@ -135,13 +135,13 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.htmlIs] -->
   @override
   @Accessor(key: 'is')
-  bool get htmlIs =>
+  String get htmlIs =>
       props[_$key__htmlIs___$DomPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$DomPropsMixin.htmlIs] -->
   @override
   @Accessor(key: 'is')
-  set htmlIs(bool value) => props[_$key__htmlIs___$DomPropsMixin] = value;
+  set htmlIs(String value) => props[_$key__htmlIs___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.allowFullScreen] -->
   @override
