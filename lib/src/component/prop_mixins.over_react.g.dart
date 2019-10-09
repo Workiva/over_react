@@ -317,6 +317,15 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   set noValidate(bool value) =>
       props[_$key__noValidate___$DomPropsMixin] = value;
 
+  /// <!-- Generated from [_$DomPropsMixin.open] -->
+  @override
+  bool get open =>
+      props[_$key__open___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.open] -->
+  @override
+  set open(bool value) => props[_$key__open___$DomPropsMixin] = value;
+
   /// <!-- Generated from [_$DomPropsMixin.readOnly] -->
   @override
   bool get readOnly =>
@@ -957,15 +966,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.name] -->
   @override
   set name(dynamic value) => props[_$key__name___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.open] -->
-  @override
-  dynamic get open =>
-      props[_$key__open___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.open] -->
-  @override
-  set open(dynamic value) => props[_$key__open___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.optimum] -->
   @override
@@ -2162,6 +2162,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__muted___$DomPropsMixin);
   static const PropDescriptor _$prop__noValidate___$DomPropsMixin =
       const PropDescriptor(_$key__noValidate___$DomPropsMixin);
+  static const PropDescriptor _$prop__open___$DomPropsMixin =
+      const PropDescriptor(_$key__open___$DomPropsMixin);
   static const PropDescriptor _$prop__readOnly___$DomPropsMixin =
       const PropDescriptor(_$key__readOnly___$DomPropsMixin);
   static const PropDescriptor _$prop__required___$DomPropsMixin =
@@ -2298,8 +2300,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__minLength___$DomPropsMixin);
   static const PropDescriptor _$prop__name___$DomPropsMixin =
       const PropDescriptor(_$key__name___$DomPropsMixin);
-  static const PropDescriptor _$prop__open___$DomPropsMixin =
-      const PropDescriptor(_$key__open___$DomPropsMixin);
   static const PropDescriptor _$prop__optimum___$DomPropsMixin =
       const PropDescriptor(_$key__optimum___$DomPropsMixin);
   static const PropDescriptor _$prop__pattern___$DomPropsMixin =
@@ -2559,6 +2559,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   static const String _$key__multiple___$DomPropsMixin = 'multiple';
   static const String _$key__muted___$DomPropsMixin = 'muted';
   static const String _$key__noValidate___$DomPropsMixin = 'noValidate';
+  static const String _$key__open___$DomPropsMixin = 'open';
   static const String _$key__readOnly___$DomPropsMixin = 'readOnly';
   static const String _$key__required___$DomPropsMixin = 'required';
   static const String _$key__reversed___$DomPropsMixin = 'reversed';
@@ -2629,7 +2630,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   static const String _$key__min___$DomPropsMixin = 'min';
   static const String _$key__minLength___$DomPropsMixin = 'minLength';
   static const String _$key__name___$DomPropsMixin = 'name';
-  static const String _$key__open___$DomPropsMixin = 'open';
   static const String _$key__optimum___$DomPropsMixin = 'optimum';
   static const String _$key__pattern___$DomPropsMixin = 'pattern';
   static const String _$key__placeholder___$DomPropsMixin = 'placeholder';
@@ -2804,6 +2804,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$prop__multiple___$DomPropsMixin,
     _$prop__muted___$DomPropsMixin,
     _$prop__noValidate___$DomPropsMixin,
+    _$prop__open___$DomPropsMixin,
     _$prop__readOnly___$DomPropsMixin,
     _$prop__required___$DomPropsMixin,
     _$prop__reversed___$DomPropsMixin,
@@ -2872,7 +2873,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$prop__min___$DomPropsMixin,
     _$prop__minLength___$DomPropsMixin,
     _$prop__name___$DomPropsMixin,
-    _$prop__open___$DomPropsMixin,
     _$prop__optimum___$DomPropsMixin,
     _$prop__pattern___$DomPropsMixin,
     _$prop__placeholder___$DomPropsMixin,
@@ -3017,6 +3017,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$key__multiple___$DomPropsMixin,
     _$key__muted___$DomPropsMixin,
     _$key__noValidate___$DomPropsMixin,
+    _$key__open___$DomPropsMixin,
     _$key__readOnly___$DomPropsMixin,
     _$key__required___$DomPropsMixin,
     _$key__reversed___$DomPropsMixin,
@@ -3085,7 +3086,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$key__min___$DomPropsMixin,
     _$key__minLength___$DomPropsMixin,
     _$key__name___$DomPropsMixin,
-    _$key__open___$DomPropsMixin,
     _$key__optimum___$DomPropsMixin,
     _$key__pattern___$DomPropsMixin,
     _$key__placeholder___$DomPropsMixin,
