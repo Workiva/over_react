@@ -19,7 +19,6 @@ import 'package:over_react/over_react.dart' show AriaPropsMapView, AriaPropsMixi
 // Must import these consts because they are used in the transformed code.
 // ignore: deprecated_member_use, unused_shown_name
 import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps, PropsMeta;
-import 'package:over_react/over_react.dart';
 import 'package:over_react/src/component/callback_typedefs.dart';
 import 'package:over_react/src/component_declaration/annotations.dart';
 
@@ -80,8 +79,12 @@ abstract class _$DomPropsMixin {
   bool htmlIs;
 
   bool allowFullScreen, async, autoPlay, checked, controls, defer, disabled, formNoValidate, headers, hidden,
-    inputMode, integrity, keyParams, keyType, kind, loop, multiple, muted, noValidate, readOnly, required, reversed,
+    inputMode, integrity, keyParams, keyType, kind, loop, multiple, muted, noValidate, open, readOnly, required, reversed,
     scoped, seamless, selected;
+
+  bool allowFullScreen, async, autoPlay, checked, controls, defer, disabled, formNoValidate, hidden, loop, multiple,
+      muted, noValidate, open, readOnly, required, seamless, selected;
+
 
   Map<String, dynamic> style;
 
@@ -93,6 +96,12 @@ abstract class _$DomPropsMixin {
     lang, list, low, manifest, marginHeight, marginWidth, max, maxLength, media, mediaGroup, method, min, minLength, name, open,
     optimum, pattern, placeholder, poster, preload, radioGroup, rel, role, rowSpan, sandbox, scope, scrolling, shape, sizes, spellCheck,
     src, srcDoc, srcLang, srcSet, step, tabIndex, target, type, useMap, value, width, wmode;
+  dynamic accept, acceptCharset, accessKey, action, allowTransparency, alt, autoComplete, cellPadding, cellSpacing,
+      charSet, classID, colSpan, content, contentEditable, contextMenu, coords, crossOrigin, data, dateTime,
+      dir, download, draggable, encType, form, frameBorder, height, href, hrefLang, htmlFor, httpEquiv, icon, label,
+      lang, list, manifest, max, maxLength, media, mediaGroup, method, min, name, pattern, placeholder,
+      poster, preload, radioGroup, rel, role, rowSpan, sandbox, scope, scrolling, shape, sizes, spellCheck, src, srcDoc,
+      srcSet, step, tabIndex, target, type, useMap, value, width, wmode;
 
   AnimationEventCallback onAnimationEnd, onAnimationIteration, onAnimationStart;
   ClipboardEventCallback onCopy, onCut, onPaste;
@@ -151,6 +160,10 @@ abstract class _$SvgPropsMixin {
     strokeLinecap, strokeLinejoin, textAnchor, transform, version, viewBox, xChannelSelector,
     xlinkActuate, xlinkArcrole, xlinkHref, xlinkRole, xlinkShow, xlinkTitle, xlinkType, xmlns,
     xmlnsXlink, xmlBase, xmlLang, xmlSpace, yChannelSelector, zoomAndPan;
+  String clipPath, d, fill, fontFamily, gradientTransform, gradientUnits, markerEnd, markerMid, markerStart,
+      patternContentUnits, patternUnits, points, preserveAspectRatio, spreadMethod, stopColor, stroke,
+      strokeLinecap, textAnchor, transform, version, viewBox, xlinkActuate, xlinkArcrole, xlinkHref, xlinkRole,
+      xlinkShow, xlinkTitle, xlinkType, xmlBase, xmlLang, xmlSpace;
 
   dynamic accentHeight, alphabetic, amplitude, ascent, autoReverse, azimuth, baseFrequency,
     baseProfile, baselineShift, bbox, begin, bias, by, calcMode, capHeight, clip, clipPathUnits,
@@ -174,6 +187,8 @@ abstract class _$SvgPropsMixin {
     underlineThickness, unicode, unicodeBidi, unicodeRange, unitsPerEm, vAlphabetic, vHanging, vIdeographic,
     vMathematical, vectorEffect, vertAdvY, vertOriginX, vertOriginY, viewTarget, visibility, widths,
     wordSpacing, writingMode, x1, x2, x, xHeight, y1, y2, y, z;
+  dynamic cx, cy, dx, dy, fillOpacity, fontSize, fx, fy, offset, opacity, r, rx, ry, stopOpacity, strokeDasharray,
+      strokeOpacity, strokeWidth, x1, x2, x, y1, y2, y;
 }
 /// This class is only present to allow for consumers which have used the
 /// --backwards-compat flag with over_react_codemod to statically analyze:

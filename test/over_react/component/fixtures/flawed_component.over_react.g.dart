@@ -20,10 +20,27 @@ abstract class _$FlawedPropsAccessorsMixin implements _$FlawedProps {
   @override
   Map get props;
 
+  /// <!-- Generated from [_$FlawedProps.buttonTestIdPrefix] -->
+  @override
+  String get buttonTestIdPrefix =>
+      props[_$key__buttonTestIdPrefix___$FlawedProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$FlawedProps.buttonTestIdPrefix] -->
+  @override
+  set buttonTestIdPrefix(String value) =>
+      props[_$key__buttonTestIdPrefix___$FlawedProps] = value;
   /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__buttonTestIdPrefix___$FlawedProps =
+      const PropDescriptor(_$key__buttonTestIdPrefix___$FlawedProps);
+  static const String _$key__buttonTestIdPrefix___$FlawedProps =
+      'FlawedProps.buttonTestIdPrefix';
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = const [
+    _$prop__buttonTestIdPrefix___$FlawedProps
+  ];
+  static const List<String> $propKeys = const [
+    _$key__buttonTestIdPrefix___$FlawedProps
+  ];
 }
 
 const PropsMeta _$metaForFlawedProps = const PropsMeta(
@@ -68,23 +85,43 @@ abstract class _$FlawedStateAccessorsMixin implements _$FlawedState {
   @override
   Map get state;
 
-  /// <!-- Generated from [_$FlawedState.hasError] -->
+  /// <!-- Generated from [_$FlawedState.errorCount] -->
   @override
-  bool get hasError =>
-      state[_$key__hasError___$FlawedState] ??
+  int get errorCount =>
+      state[_$key__errorCount___$FlawedState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$FlawedState.hasError] -->
+  /// <!-- Generated from [_$FlawedState.errorCount] -->
   @override
-  set hasError(bool value) => state[_$key__hasError___$FlawedState] = value;
+  set errorCount(int value) => state[_$key__errorCount___$FlawedState] = value;
+
+  /// <!-- Generated from [_$FlawedState.differentTypeOfErrorCount] -->
+  @override
+  int get differentTypeOfErrorCount =>
+      state[_$key__differentTypeOfErrorCount___$FlawedState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$FlawedState.differentTypeOfErrorCount] -->
+  @override
+  set differentTypeOfErrorCount(int value) =>
+      state[_$key__differentTypeOfErrorCount___$FlawedState] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__hasError___$FlawedState =
-      const StateDescriptor(_$key__hasError___$FlawedState);
-  static const String _$key__hasError___$FlawedState = 'FlawedState.hasError';
+  static const StateDescriptor _$prop__errorCount___$FlawedState =
+      const StateDescriptor(_$key__errorCount___$FlawedState);
+  static const StateDescriptor
+      _$prop__differentTypeOfErrorCount___$FlawedState =
+      const StateDescriptor(_$key__differentTypeOfErrorCount___$FlawedState);
+  static const String _$key__errorCount___$FlawedState =
+      'FlawedState.errorCount';
+  static const String _$key__differentTypeOfErrorCount___$FlawedState =
+      'FlawedState.differentTypeOfErrorCount';
 
   static const List<StateDescriptor> $state = const [
-    _$prop__hasError___$FlawedState
+    _$prop__errorCount___$FlawedState,
+    _$prop__differentTypeOfErrorCount___$FlawedState
   ];
-  static const List<String> $stateKeys = const [_$key__hasError___$FlawedState];
+  static const List<String> $stateKeys = const [
+    _$key__errorCount___$FlawedState,
+    _$key__differentTypeOfErrorCount___$FlawedState
+  ];
 }
 
 const StateMeta _$metaForFlawedState = const StateMeta(
