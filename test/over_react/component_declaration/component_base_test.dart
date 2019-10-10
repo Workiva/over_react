@@ -1083,7 +1083,7 @@ main() {
         });
       });
 
-      test('newState() returns a new UiProps instance backed by a new Map', () {
+      test('newState() returns a new UiState instance backed by a new Map', () {
         var newState1 = statefulComponent.newState();
         var newState2 = statefulComponent.newState();
         expect(newState1, const TypeMatcher<TestStatefulComponent2State>());
