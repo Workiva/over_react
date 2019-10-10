@@ -566,12 +566,12 @@ main() {
     group('getDartComponent', () {
       test('returns the correct Dart Component that is rendered', () {
         var renderedInstance = render(Wrapper());
-        expect(getDartComponent(renderedInstance), const TypeMatcher<WrapperComponent>());
+        expect(getDartComponent(renderedInstance), isA<WrapperComponent>());
       });
 
       test('returns the correct Dart Component2 that is rendered', () {
         var renderedInstance = render(TestComponent2Factory({}));
-        expect(getDartComponent(renderedInstance), const TypeMatcher<TestComponent2>());
+        expect(getDartComponent(renderedInstance), isA<TestComponent2>());
       });
 
       test('returns null for a JS composite component', () {
@@ -1165,7 +1165,7 @@ main() {
               jacket = mount(cloneElement(instanceWithRef, {'ref': chainedRef}));
               expectedRefValue = jacket.getDartInstance();
               // ignore: deprecated_member_use
-              expect(expectedRefValue, const TypeMatcher<react.Component>(), reason: 'test setup sanity check');
+              expect(expectedRefValue, isA<react.Component>(), reason: 'test setup sanity check');
 
               runExpectations();
             });
@@ -1178,7 +1178,7 @@ main() {
 
               jacket = mount(cloneElement(instanceWithRef, {'ref': chainedRef}));
               expectedRefValue = jacket.getDartInstance();
-              expect(expectedRefValue, const TypeMatcher<react.Component2>(), reason: 'test setup sanity check');
+              expect(expectedRefValue, isA<react.Component2>(), reason: 'test setup sanity check');
 
               runExpectations();
             });
@@ -1251,7 +1251,7 @@ main() {
           );
           var component = getDartComponent(renderedInstance);
           // ignore: deprecated_member_use
-          expect(component, const TypeMatcher<react.Component>(), reason: 'test setup sanity check');
+          expect(component, isA<react.Component>(), reason: 'test setup sanity check');
 
           expect(calls, [
             ['chained ref', component],
@@ -1272,7 +1272,7 @@ main() {
           );
           var component = getDartComponent(renderedInstance);
           // ignore: deprecated_member_use
-          expect(component, const TypeMatcher<react.Component>(), reason: 'test setup sanity check');
+          expect(component, isA<react.Component>(), reason: 'test setup sanity check');
 
           expect(calls, [
             ['original ref', component],

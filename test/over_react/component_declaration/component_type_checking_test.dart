@@ -208,7 +208,7 @@ testComponentTypeChecking({
           expect(() {
             // Fully iterate the result by calling toList().
             getParentTypes(new Object()).toList();
-          }, throwsA(const TypeMatcher<AssertionError>()));
+          }, throwsA(isA<AssertionError>()));
         }, testOn: '!js');
       });
     });

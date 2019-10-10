@@ -206,7 +206,7 @@ main() {
 
           var renderedInstance = render(TestComponent()());
 
-          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getDartChildren(renderedInstance), isEmpty);
 
           expect(getJsChildren(renderedInstance), isNull);
@@ -215,7 +215,7 @@ main() {
         test('children is null', () {
           var renderedInstance = render(TestComponent()(null));
 
-          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getDartChildren(renderedInstance), isEmpty);
 
           expect(getJsChildren(renderedInstance), isNull);
@@ -225,7 +225,7 @@ main() {
           var child = 'Only child';
           var renderedInstance = render(TestComponent()(child));
 
-          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getDartChildren(renderedInstance), equals([child]));
 
           expect(getJsChildren(renderedInstance), equals(child));
@@ -235,10 +235,10 @@ main() {
           var children = ['First Child', 'Second Child'];
           var renderedInstance = render(TestComponent()(children));
 
-          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getDartChildren(renderedInstance), equals(children));
 
-          expect(getJsChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getJsChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getJsChildren(renderedInstance), equals(children));
         });
 
@@ -249,10 +249,10 @@ main() {
           })();
           var renderedInstance = render(TestComponent()(children));
 
-          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getDartChildren(renderedInstance), orderedEquals(children));
 
-          expect(getJsChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getJsChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getJsChildren(renderedInstance), orderedEquals(children));
         });
 
@@ -261,17 +261,17 @@ main() {
           var secondChild = 'Second Child';
           var renderedInstance = render(TestComponent()(firstChild, secondChild));
 
-          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getDartChildren(renderedInstance), equals([firstChild, secondChild]));
 
-          expect(getJsChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getJsChildren(renderedInstance), isA<List>(), reason: 'Should be a list because lists will be JSified');
           expect(getJsChildren(renderedInstance), equals([firstChild, secondChild]));
         });
       });
 
       group('provides Map functionality:', () {
         test('is a Map', () {
-          expect(new TestComponentProps(), const TypeMatcher<Map>());
+          expect(new TestComponentProps(), isA<Map>());
         });
 
         test('toString() returns a user-friendly String that includes the key-value pairs', () {
@@ -437,7 +437,7 @@ main() {
     group('UiState', () {
       group('provides Map functionality:', () {
         test('is a Map', () {
-          expect(new TestStatefulComponentState(), const TypeMatcher<Map>());
+          expect(new TestStatefulComponentState(), isA<Map>());
         });
 
         test('toString() returns a user-friendly String that includes the key-value pairs', () {
@@ -488,7 +488,7 @@ main() {
       group('`props`', () {
         group('getter:', () {
           test('returns a UiProps view into the component\'s props map', () {
-            expect(component.props, const TypeMatcher<TestComponentProps>());
+            expect(component.props, isA<TestComponentProps>());
 
             expect(component.props, isNot(same(component.unwrappedProps)));
 
@@ -523,8 +523,8 @@ main() {
       test('newProps() returns a new UiProps instance backed by a new Map', () {
         var newProps1 = component.newProps();
         var newProps2 = component.newProps();
-        expect(newProps1, const TypeMatcher<TestComponentProps>());
-        expect(newProps2, const TypeMatcher<TestComponentProps>());
+        expect(newProps1, isA<TestComponentProps>());
+        expect(newProps2, isA<TestComponentProps>());
         expect(newProps1, isNot(same(newProps2)));
       });
 
@@ -696,7 +696,7 @@ main() {
         test('should complete delayed Future with ObjectDisposedException', () async {
           expect(component.getManagedDelayedFuture(shortDuration,
               expectAsync0(() {}, count: 0, reason: 'Did not expect callback to be invoked.')),
-            throwsA(const TypeMatcher<ObjectDisposedException>()));
+            throwsA(isA<ObjectDisposedException>()));
 
           await unmountAndDisposal();
         });
@@ -704,7 +704,7 @@ main() {
         test('should call managed disposer returned by getManagedDisposer', () async {
           var disposerCalled = false;
           var disposer = component.getManagedDisposer(() async => disposerCalled = true);
-          expect(disposer, const TypeMatcher<ManagedDisposer>());
+          expect(disposer, isA<ManagedDisposer>());
 
           expect(disposerCalled, isFalse);
           await unmountAndDisposal();
@@ -736,7 +736,7 @@ main() {
           var streamSubscription = component.listenToStream(streamController.stream, expectAsync1((_) {},
               count: 0,
               reason: 'Did not expect event after cancelling subscription'));
-          expect(streamSubscription, const TypeMatcher<StreamSubscription>());
+          expect(streamSubscription, isA<StreamSubscription>());
 
           await unmountAndDisposal();
 
@@ -757,7 +757,7 @@ main() {
           var completer = new Completer<Null>();
           component.manageCompleter(completer);
           completer.future.catchError(expectAsync1((Object err) {
-            expect(err, const TypeMatcher<ObjectDisposedException>());
+            expect(err, isA<ObjectDisposedException>());
           }));
 
           expect(completer.isCompleted, isFalse);
@@ -991,7 +991,7 @@ main() {
       group('`state`', () {
         group('getter:', () {
           test('returns a UiState view into the component\'s state map', () {
-            expect(statefulComponent.state, const TypeMatcher<TestStatefulComponentState>());
+            expect(statefulComponent.state, isA<TestStatefulComponentState>());
 
             expect(statefulComponent.state, isNot(same(statefulComponent.unwrappedState)));
 
@@ -1034,8 +1034,8 @@ main() {
       test('newState() returns a new UiProps instance backed by a new Map', () {
         var newState1 = statefulComponent.newState();
         var newState2 = statefulComponent.newState();
-        expect(newState1, const TypeMatcher<TestStatefulComponentState>());
-        expect(newState2, const TypeMatcher<TestStatefulComponentState>());
+        expect(newState1, isA<TestStatefulComponentState>());
+        expect(newState2, isA<TestStatefulComponentState>());
         expect(newState1, isNot(same(newState2)));
       });
     });
@@ -1051,7 +1051,7 @@ main() {
       group('`state`', () {
         group('getter:', () {
           test('returns a UiState view into the component\'s state map', () {
-            expect(statefulComponent.state, const TypeMatcher<TestStatefulComponent2State>());
+            expect(statefulComponent.state, isA<TestStatefulComponent2State>());
 
             expect(statefulComponent.state, isNot(same(statefulComponent.state.state)));
 
@@ -1086,8 +1086,8 @@ main() {
       test('newState() returns a new UiProps instance backed by a new Map', () {
         var newState1 = statefulComponent.newState();
         var newState2 = statefulComponent.newState();
-        expect(newState1, const TypeMatcher<TestStatefulComponent2State>());
-        expect(newState2, const TypeMatcher<TestStatefulComponent2State>());
+        expect(newState1, isA<TestStatefulComponent2State>());
+        expect(newState2, isA<TestStatefulComponent2State>());
         expect(newState1, isNot(same(newState2)));
       });
     });

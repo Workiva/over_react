@@ -152,21 +152,21 @@ main() {
                 ?.name, ors.baseName);
             expect(declarations.props.node?.name?.name, '_\$${ors.baseName}Props');
 
-            expect(declarations.factory.meta, const TypeMatcher<annotations.Factory>());
-            expect(declarations.props.meta, const TypeMatcher<annotations.Props>());
+            expect(declarations.factory.meta, isA<annotations.Factory>());
+            expect(declarations.props.meta, isA<annotations.Props>());
 
             if (isStatefulComponent) {
               expect(declarations.state.node?.name?.name, '_\$${ors.baseName}State');
-              expect(declarations.state.meta, const TypeMatcher<annotations.State>());
+              expect(declarations.state.meta, isA<annotations.State>());
             }
 
             if (componentVersion == 1) {
               expect(declarations.component.node?.name?.name, '${ors.baseName}Component');
-              expect(declarations.component.meta, const TypeMatcher<annotations.Component>());
+              expect(declarations.component.meta, isA<annotations.Component>());
               expectEmptyDeclarations(factory: false, props: false, state: !isStatefulComponent, component: false);
             } else if (componentVersion == 2) {
               expect(declarations.component2.node?.name?.name, '${ors.baseName}Component');
-              expect(declarations.component2.meta, const TypeMatcher<annotations.Component2>());
+              expect(declarations.component2.meta, isA<annotations.Component2>());
               expectEmptyDeclarations(factory: false, props: false, state: !isStatefulComponent, component2: false);
             }
           }
@@ -264,7 +264,7 @@ main() {
 
             declarations.propsMixins.forEach((propsMixin) {
               expect(mixinNames, contains(propsMixin.node.name.name));
-              expect(propsMixin.meta, const TypeMatcher<annotations.PropsMixin>());
+              expect(propsMixin.meta, isA<annotations.PropsMixin>());
             });
 
             expectEmptyDeclarations(propsMixins: false);
@@ -289,7 +289,7 @@ main() {
 
             declarations.stateMixins.forEach((stateMixin) {
               expect(mixinNames, contains(stateMixin.node.name.name));
-              expect(stateMixin.meta, const TypeMatcher<annotations.StateMixin>());
+              expect(stateMixin.meta, isA<annotations.StateMixin>());
             });
 
             expectEmptyDeclarations(stateMixins: false);

@@ -67,7 +67,7 @@ main() {
           test('returns a noop function of arity $arity when both a and b are null', () {
             var chained = callbackUtil.chain(null, null);
 
-            expect(chained, const TypeMatcher<Function>());
+            expect(chained, isA<Function>());
             expect(() => Function.apply(chained, generateArgs()), returnsNormally);
           });
 
@@ -146,7 +146,7 @@ main() {
 
                 var chained = callbackUtil.chain(a, b);
 
-                expect(() => Function.apply(chained, generateBadTypeArgs()), throwsA(const TypeMatcher<TypeError>()));
+                expect(() => Function.apply(chained, generateBadTypeArgs()), throwsA(isA<TypeError>()));
               }, testOn: 'dart-vm');
             }
           });
@@ -228,7 +228,7 @@ main() {
             test('an empty list of functions', () {
               var chained = callbackUtil.chainFromList(<S>[]);
 
-              expect(chained, const TypeMatcher<Function>());
+              expect(chained, isA<Function>());
               expect(() => Function.apply(chained, generateArgs()), returnsNormally);
             });
           });
@@ -244,7 +244,7 @@ main() {
 
               var chained = callbackUtil.chainFromList(functions);
 
-              expect(() => Function.apply(chained, generateBadTypeArgs()), throwsA(const TypeMatcher<TypeError>()));
+              expect(() => Function.apply(chained, generateBadTypeArgs()), throwsA(isA<TypeError>()));
             }, testOn: 'dart-vm');
           }
         });
@@ -257,7 +257,7 @@ main() {
           if (arity != 0) {
             test('with arguments typed to the specified generic parameters', () {
               expect(() => Function.apply(callbackUtil.noop, generateBadTypeArgs()),
-                  throwsA(const TypeMatcher<TypeError>()));
+                  throwsA(isA<TypeError>()));
             }, testOn: 'dart-vm');
           }
         });

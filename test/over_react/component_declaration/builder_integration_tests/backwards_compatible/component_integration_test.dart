@@ -46,8 +46,8 @@ main() {
     group('initializes the factory variable with a function', () {
       test('that returns a new props class implementation instance', () {
         var instance = ComponentTest();
-        expect(instance, const TypeMatcher<ComponentTestProps>());
-        expect(instance, const TypeMatcher<Map>());
+        expect(instance, isA<ComponentTestProps>());
+        expect(instance, isA<Map>());
       });
 
       test('that returns a new props class implementation instance backed by an existing map', () {
