@@ -31,6 +31,15 @@
   > - [Dart 2](https://github.com/Workiva/over_react/compare/2.5.2+dart2...3.0.0-alpha.0+dart2)
   > - [Dart 1](https://github.com/Workiva/over_react/compare/2.5.0+dart1...3.0.0-alpha.0+dart1)
 
+## 2.5.3
+
+> Complete `2.5.3` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.5.2+dart2...2.5.3+dart2)
+> - Dart 1 (no changes)
+
+* [#363] Dart 2 Widen `analyzer` dependency range
+
 ## 2.5.2
 
 > Complete `2.5.2` Changesets:
