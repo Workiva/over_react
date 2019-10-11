@@ -8,7 +8,7 @@ authors:
 environment:
   sdk: ">=1.24.2 <2.0.0"
 dependencies:
-  analyzer: ">=0.30.0+4 <=0.31.0"
+  analyzer: ">=0.30.0+4 <=0.31.1"
   barback: ">=0.15.2 <=0.15.2+14"
   built_redux: ^7.4.2
   built_value: ">=4.6.1 <5.2.0" # >=5.2.0 is Dart 2 SDK only
