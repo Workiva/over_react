@@ -1,5 +1,14 @@
 # OverReact Changelog
 
+## 2.5.3
+
+> Complete `2.5.3` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.5.2+dart2...2.5.3+dart2)
+> - Dart 1 (no changes)
+
+* [#363] Dart 2 Widen `analyzer` dependency range
+
 ## 2.5.2
 
 > Complete `2.5.2` Changsets:
