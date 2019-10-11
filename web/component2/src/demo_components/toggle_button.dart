@@ -76,13 +76,13 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   InputElement inputRef;
 
   @override
-  Map getDefaultProps() => (newProps()
-    ..addProps(super.getDefaultProps())
+  Map get defaultProps => (newProps()
+    ..addProps(super.defaultProps)
     ..toggleType = ToggleBehaviorType.CHECKBOX
   );
 
   @override
-  Map getInitialState() => (newState()
+  Map get initialState => (newState()
     ..id = 'toggle_button_' + generateGuid()
     ..isFocused = props.autoFocus
     ..isChecked = props.checked ?? props.defaultChecked ?? false
@@ -133,6 +133,11 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
       ..autoFocus = props.autoFocus
       ..onChange = props.onChange
       ..onClick = props.onClick
+            // [ ] Check this box upon manual validation that this style map is receiving a value that is valid for the keys that are simple string variables.
+            // CSS number strings are no longer auto-converted to px. Ensure values are of type `num`, or have units.
+      // Incorrect value for 'width': '40'. Correct values: 40, '40px', '4em'.
+
+      // This will be removed once the transition to React 16 is complete.
       ..style = makeInputNodeInvisible
       ..ref = (ref) { inputRef = ref; }
       ..key = 'input';

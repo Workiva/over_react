@@ -225,23 +225,48 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
     var expandSensor = (Dom.div()
       ..className = 'resize-sensor-expand'
       ..onScroll = _handleSensorScroll
+            // [ ] Check this box upon manual validation that this style map is receiving a value that is valid for the keys that are simple string variables.
+            // CSS number strings are no longer auto-converted to px. Ensure values are of type `num`, or have units.
+      // Incorrect value for 'width': '40'. Correct values: 40, '40px', '4em'.
+    
+      // This will be removed once the transition to React 16 is complete.
       ..style = props.shrink ? _shrinkBaseStyle : _baseStyle
       ..ref = (ref) { _expandSensorRef = ref; }
     )(
-      (Dom.div()..style = _expandSensorChildStyle)()
+      (Dom.div()      // [ ] Check this box upon manual validation that this style map is receiving a value that is valid for the keys that are simple string variables.
+            // CSS number strings are no longer auto-converted to px. Ensure values are of type `num`, or have units.
+      // Incorrect value for 'width': '40'. Correct values: 40, '40px', '4em'.
+    
+      // This will be removed once the transition to React 16 is complete.
+      ..style = _expandSensorChildStyle)()
     );
 
     var collapseSensor = (Dom.div()
       ..className = 'resize-sensor-collapse'
       ..onScroll = _handleSensorScroll
+            // [ ] Check this box upon manual validation that this style map is receiving a value that is valid for the keys that are simple string variables.
+            // CSS number strings are no longer auto-converted to px. Ensure values are of type `num`, or have units.
+      // Incorrect value for 'width': '40'. Correct values: 40, '40px', '4em'.
+    
+      // This will be removed once the transition to React 16 is complete.
       ..style = props.shrink ? _shrinkBaseStyle : _baseStyle
       ..ref = (ref) { _collapseSensorRef = ref; }
     )(
-      (Dom.div()..style = _collapseSensorChildStyle)()
+      (Dom.div()      // [ ] Check this box upon manual validation that this style map is receiving a value that is valid for the keys that are simple string variables.
+            // CSS number strings are no longer auto-converted to px. Ensure values are of type `num`, or have units.
+      // Incorrect value for 'width': '40'. Correct values: 40, '40px', '4em'.
+    
+      // This will be removed once the transition to React 16 is complete.
+      ..style = _collapseSensorChildStyle)()
     );
 
     var resizeSensor = (Dom.div()
       ..className = 'resize-sensor'
+            // [ ] Check this box upon manual validation that this style map is receiving a value that is valid for the keys that are simple string variables.
+            // CSS number strings are no longer auto-converted to px. Ensure values are of type `num`, or have units.
+      // Incorrect value for 'width': '40'. Correct values: 40, '40px', '4em'.
+    
+      // This will be removed once the transition to React 16 is complete.
       ..style = props.shrink ? _shrinkBaseStyle : _baseStyle
       ..key = 'resizeSensor'
     )(expandSensor, collapseSensor);
@@ -261,6 +286,11 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
     return (Dom.div()
       ..addProps(copyUnconsumedDomProps())
       ..className = forwardingClassNameBuilder().toClassName()
+            // [ ] Check this box upon manual validation that this style map is receiving a value that is valid for the keys that are simple string variables.
+            // CSS number strings are no longer auto-converted to px. Ensure values are of type `num`, or have units.
+      // Incorrect value for 'width': '40'. Correct values: 40, '40px', '4em'.
+    
+      // This will be removed once the transition to React 16 is complete.
       ..style = mergedStyle
     )(
       props.children,

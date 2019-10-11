@@ -45,14 +45,14 @@ class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupP
   String get name => props.name ?? state.name;
 
   @override
-  Map getDefaultProps() => (newProps()
-    ..addProps(super.getDefaultProps())
+  Map get defaultProps => (newProps()
+    ..addProps(super.defaultProps)
     ..toggleType = ToggleBehaviorType.CHECKBOX
   );
 
   @override
-  Map getInitialState() => (newState()
-    ..addAll(super.getInitialState())
+  Map get initialState => (newState()
+    ..addAll(super.initialState)
     ..name = 'toggle_button_group_' + generateGuid()
   );
 

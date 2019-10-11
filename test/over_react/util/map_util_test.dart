@@ -243,7 +243,12 @@ main() {
       test('a copy of the style map found in the specified props', () {
         var styles = {'color': 'red', 'width': '10rem'};
         var props = domProps()
-          ..style = styles;
+                // [ ] Check this box upon manual validation that this style map is receiving a value that is valid for the keys that are simple string variables.
+            // CSS number strings are no longer auto-converted to px. Ensure values are of type `num`, or have units.
+      // Incorrect value for 'width': '40'. Correct values: 40, '40px', '4em'.
+    
+      // This will be removed once the transition to React 16 is complete.
+      ..style = styles;
 
         expect(newStyleFromProps(props), equals(styles));
       });

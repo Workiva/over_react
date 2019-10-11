@@ -86,7 +86,7 @@ class _$ListGroupItemProps extends UiProps {
 @Component2()
 class ListGroupItemComponent extends UiComponent2<ListGroupItemProps> {
   @override
-  Map getDefaultProps() => (newProps()
+  Map get defaultProps => (newProps()
     ..elementType = ListGroupItemElementType.SPAN
     ..skin = ListGroupItemSkin.DEFAULT
     ..isActive = false

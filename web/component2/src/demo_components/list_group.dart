@@ -22,7 +22,7 @@ class _$ListGroupProps extends UiProps {
 @Component2()
 class ListGroupComponent extends UiComponent2<ListGroupProps> {
   @override
-  Map getDefaultProps() => (newProps()
+  Map get defaultProps => (newProps()
     ..elementType = ListGroupElementType.DIV
   );
 

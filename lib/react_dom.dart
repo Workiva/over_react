@@ -45,7 +45,8 @@ import 'package:react/react_dom.dart' as react_dom show render, unmountComponent
 ///
 /// > Proxies [react_dom.render].
 dynamic render(ReactElement element, Element mountNode) {
-  return react_dom.render(element, mountNode);
+  return // [ ] Check this box upon manually updating this variable to be set using a callback ref instead of the return value of `react_dom.render`. This will be removed once the transition to React 16 is complete.
+react_dom.render(ErrorBoundary()(element), mountNode);
 }
 
 /// Removes a React `Component` from the DOM that was mounted via [render]

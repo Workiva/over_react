@@ -13,7 +13,7 @@ main() {
   setClientConfiguration();
 
   react_dom.render(
-      Dom.div()(
+      ErrorBoundary()(Dom.div()(
         Dom.h3()('Components'),
         (Basic()
           ..basic1 = '<basic prop>'
@@ -44,7 +44,7 @@ main() {
           ' - ',
           componentConstructorsByName[name]().toString(),
         )).toList(),
-      ), querySelector('#content')
+      )), querySelector('#content')
   );
 }
 

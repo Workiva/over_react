@@ -80,7 +80,7 @@ class _$ButtonState extends UiState {}
 @Component2()
 class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiStatefulComponent2<T, S> {
   @override
-  Map getDefaultProps() => (newProps()
+  Map get defaultProps => (newProps()
     ..skin = ButtonSkin.PRIMARY
     ..size = ButtonSize.DEFAULT
     ..isActive = false

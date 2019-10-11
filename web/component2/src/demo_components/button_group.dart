@@ -36,7 +36,7 @@ class _$ButtonGroupState extends UiState {}
 class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupState>
     extends UiStatefulComponent2<T, S> {
   @override
-  Map getDefaultProps() => (newProps()
+  Map get defaultProps => (newProps()
     ..size = ButtonGroupSize.DEFAULT
     ..isVertical = false
   );
