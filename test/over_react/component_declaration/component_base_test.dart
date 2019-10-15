@@ -750,6 +750,14 @@ main() {
           expect(disposable.isDisposed, isTrue);
         });
 
+        test('should dispose managed Disposable returned by manageAndReturnTypedDisposable', () async {
+          var disposable = new Disposable();
+          expect(component.manageAndReturnTypedDisposable(disposable), same(disposable));
+          expect(disposable.isDisposed, isFalse);
+          await unmountAndDisposal();
+          expect(disposable.isDisposed, isTrue);
+        });
+
         test('should complete uncompleted managed Completer with ObjectDisposedException', () async {
           var completer = new Completer<Null>();
           component.manageCompleter(completer);
