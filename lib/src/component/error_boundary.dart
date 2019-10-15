@@ -413,8 +413,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   String _getReadableErrorInfo(/*NativeJavascriptObject*/dynamic jsErrorInfo) =>
       getProperty(jsErrorInfo, 'componentStack');
 
-  /// The value that will be used when creating a [Logger] to log errors from this component.
-  String get loggerName {
+  String get _loggerName {
     if (props.logger != null) return props.logger.name;
 
     return props.loggerName ?? defaultErrorBoundaryLoggerName;
@@ -439,6 +438,6 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
       // The error / exception doesn't extend from Error or Exception
     }
 
-    (props.logger ?? Logger(loggerName)).severe(message, error, stackTrace);
+    (props.logger ?? Logger(_loggerName)).severe(message, error, stackTrace);
   }
 }

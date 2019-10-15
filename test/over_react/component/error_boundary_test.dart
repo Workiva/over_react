@@ -749,84 +749,25 @@ void main() {
         );
 
         logRecords = [];
-        expect(jacket.getDartInstance().loggerName, customLogger?.name ?? loggerName ?? defaultErrorBoundaryLoggerName,
-            reason: 'The loggerName getter should return the name of the logger '
-                    'that will log component errors if/when they happen.');
-        Logger(jacket.getDartInstance().loggerName).onRecord.listen(logRecords.add);
+        final subscription =
+            Logger(customLogger?.name ?? loggerName ?? defaultErrorBoundaryLoggerName).onRecord.listen(logRecords.add);
+        addTearDown(subscription.cancel);
       }
 
       tearDown(() {
-        Logger(jacket.getDartInstance().loggerName).clearListeners();
         logRecords = null;
       });
 
-      group('when `props.shouldLogErrors` is false', () {
-        test('on first mount', () {
-          sharedSetup(shouldLogErrors: false);
-          triggerAComponentError();
-          expect(logRecords, isEmpty);
-        });
-
-        test('when receiving new props', () async {
-          sharedSetup();
-          triggerAComponentError();
-          expect(logRecords, hasLength(1));
-
-          jacket.rerender(
-            (ErrorBoundary()
-              ..shouldLogErrors = false
-              ..identicalErrorFrequencyTolerance = const Duration(milliseconds: identicalErrorFrequencyToleranceInMs)
-              ..onComponentDidCatch = (err, info) {
-                calls.add({'onComponentDidCatch': [err, info]});
-              }
-              ..onComponentIsUnrecoverable = (err, info) {
-                calls.add({'onComponentIsUnrecoverable': [err, info]});
-              }
-            )(Flawed()())
-          );
-          await new Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs + 10));
-
-          triggerAComponentError();
-          expect(logRecords, hasLength(1));
-        });
+      test('when `props.shouldLogErrors` is false', () {
+        sharedSetup(shouldLogErrors: false);
+        triggerAComponentError();
+        expect(logRecords, isEmpty);
       });
 
       group('provided via `props.logger`', () {
-        test('on first mount', () {
+        test('', () {
           sharedSetup(customLogger: Logger('myCustomLoggerLoggerName'));
           triggerAComponentError();
-
-          expect(jacket.getDartInstance().loggerName, 'myCustomLoggerLoggerName',
-              reason: 'The loggerName getter should return the name of the logger passed in using props.logger');
-
-          expect(logRecords, hasLength(1));
-          expect(logRecords.single.level, Level.SEVERE);
-          expect(logRecords.single.loggerName, 'myCustomLoggerLoggerName');
-          expect(logRecords.single.error, calls.single['onComponentDidCatch'][0]);
-          expect(logRecords.single.message, 'An error was caught by an ErrorBoundary:'
-              ' \nInfo: ${calls.single['onComponentDidCatch'][1]}');
-        });
-
-        test('when receiving new props', () {
-          sharedSetup();
-
-          jacket.rerender(
-            (ErrorBoundary()
-              ..logger = Logger('myCustomLoggerLoggerName')
-              ..identicalErrorFrequencyTolerance = const Duration(milliseconds: identicalErrorFrequencyToleranceInMs)
-              ..onComponentDidCatch = (err, info) {
-                calls.add({'onComponentDidCatch': [err, info]});
-              }
-              ..onComponentIsUnrecoverable = (err, info) {
-                calls.add({'onComponentIsUnrecoverable': [err, info]});
-              }
-            )(Flawed()())
-          );
-
-          triggerAComponentError();
-
-          expect(jacket.getDartInstance().loggerName, 'myCustomLoggerLoggerName',
-              reason: 'The loggerName getter should return the name of the logger passed in using props.logger');
 
           expect(logRecords, hasLength(1));
           expect(logRecords.single.level, Level.SEVERE);
@@ -840,12 +781,11 @@ void main() {
           sharedSetup(loggerName: 'somethingElse', customLogger: Logger('myCustomLoggerLoggerName'));
           triggerAComponentError();
 
-          expect(jacket.getDartInstance().loggerName, 'myCustomLoggerLoggerName',
-              reason: 'The loggerName getter should return the name of the logger passed in using props.logger');
+          expect(logRecords.single.loggerName, 'myCustomLoggerLoggerName');
         });
       });
 
-      group('when `props.loggerName` is not set on initial mount', () {
+      group('when `props.loggerName` is not set', () {
         setUp(sharedSetup);
 
         test('and a component error is caught', () {
@@ -875,8 +815,7 @@ void main() {
 
         group('but then `props.loggerName` is set to a non-null value', () {
           setUp(() {
-            Logger(jacket.getDartInstance().loggerName).clearListeners();
-
+            Logger('myCustomErrorLoggerName').clearListeners();
             jacket.rerender(
               (ErrorBoundary()
                 ..loggerName = 'myCustomErrorLoggerName'
@@ -889,7 +828,8 @@ void main() {
                 }
               )(Flawed()())
             );
-            Logger(jacket.getDartInstance().loggerName).onRecord.listen(logRecords.add);
+            final subscription = Logger('myCustomErrorLoggerName').onRecord.listen(logRecords.add);
+            addTearDown(subscription.cancel);
           });
 
           test('and a component error is caught', () {
@@ -900,8 +840,7 @@ void main() {
 
           group('and then to a null value', () {
             setUp(() {
-              Logger(jacket.getDartInstance().loggerName).clearListeners();
-
+              Logger(defaultErrorBoundaryLoggerName).clearListeners();
               jacket.rerender(
                 (ErrorBoundary()
                   ..loggerName = null
@@ -914,7 +853,8 @@ void main() {
                   }
                 )(Flawed()())
               );
-              Logger(jacket.getDartInstance().loggerName).onRecord.listen(logRecords.add);
+              final subscription = Logger(defaultErrorBoundaryLoggerName).onRecord.listen(logRecords.add);
+              addTearDown(subscription.cancel);
             });
 
             test('and a component error is caught', () {
