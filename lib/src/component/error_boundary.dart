@@ -443,12 +443,12 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   // ----- [3] ----- //
   void _logErrorCaughtByErrorBoundary(
     /*Error|Exception*/ dynamic error,
-    /*ReactErrorInfo*/ dynamic info, {
+    /*ReactErrorInfo*/ String info, {
     bool isRecoverable = true,
   }) {
     String message = isRecoverable
-        ? 'An error was caught by an ErrorBoundary'
-        : 'An unrecoverable error was caught by an ErrorBoundary (the entire react tree had to be unmounted)';
+        ? 'An error was caught by an ErrorBoundary: \nInfo: $info'
+        : 'An unrecoverable error was caught by an ErrorBoundary (attempting to remount it was unsuccessful): \nInfo: $info';
 
     dynamic stackTrace;
     try {

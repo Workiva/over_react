@@ -768,7 +768,8 @@ void main() {
           expect(logRecords.single.level, Level.SEVERE);
           expect(logRecords.single.loggerName, defaultErrorBoundaryLoggerName);
           expect(logRecords.single.error, calls.single['onComponentDidCatch'][0]);
-          expect(logRecords.single.message, 'An error was caught by an ErrorBoundary');
+          expect(logRecords.single.message, 'An error was caught by an ErrorBoundary:'
+              ' \nInfo: ${calls.single['onComponentDidCatch'][1]}');
         });
 
         test('and an unrecoverable component error is caught', () async {
@@ -781,7 +782,8 @@ void main() {
           expect(logRecords[1].loggerName, defaultErrorBoundaryLoggerName);
           expect(logRecords[1].error, calls[2]['onComponentIsUnrecoverable'][0]);
           expect(logRecords[1].message,
-              'An unrecoverable error was caught by an ErrorBoundary (the entire react tree had to be unmounted)');
+              'An unrecoverable error was caught by an ErrorBoundary (attempting to remount it was unsuccessful):'
+              ' \nInfo: ${calls[2]['onComponentIsUnrecoverable'][1]}');
         });
 
         group('but then `props.loggerName` is set', () {
