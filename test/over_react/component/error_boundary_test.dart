@@ -16,7 +16,9 @@
 library error_boundary_test;
 
 import 'dart:html';
+import 'package:logging/logging.dart';
 import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component/error_boundary.dart' show defaultErrorBoundaryLoggerName;
 import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
 
@@ -117,6 +119,7 @@ void main() {
       jacket = mount(ErrorBoundary()(dummyChild));
 
       expect(ErrorBoundary(jacket.getProps()).identicalErrorFrequencyTolerance.inSeconds, 5);
+      expect(ErrorBoundary(jacket.getProps()).loggerName, 'over_react.ErrorBoundary');
     });
 
     test('initializes with the expected initial state values', () {
@@ -710,6 +713,150 @@ void main() {
 
               expect(errorSentToComponentDidCatchCallback, isA<FlawedComponentException2>());
               expect(errorInfoSentToComponentDidCatchCallback, isA<String>());
+            });
+          });
+        });
+      });
+    });
+
+    group('logs errors using its `logger`', () {
+      List<Map<String, List>> calls;
+      Logger logger;
+      List<LogRecord> logRecords;
+      const identicalErrorFrequencyToleranceInMs = 500;
+
+      // Cause an error to be thrown within a ReactJS lifecycle method
+      void triggerAComponentError() {
+        queryByTestId(jacket.getInstance(), 'flawedComponent_flawedButton').click();
+      }
+
+      void sharedSetup([String loggerName]) {
+        calls = [];
+        jacket = mount(
+          (ErrorBoundary()
+            ..loggerName = loggerName
+            ..identicalErrorFrequencyTolerance = const Duration(milliseconds: identicalErrorFrequencyToleranceInMs)
+            ..onComponentDidCatch = (err, info) {
+              calls.add({'onComponentDidCatch': [err, info]});
+            }
+            ..onComponentIsUnrecoverable = (err, info) {
+              calls.add({'onComponentIsUnrecoverable': [err, info]});
+            }
+          )(Flawed()()),
+          attachedToDocument: true,
+        );
+
+        logRecords = [];
+        logger = jacket.getDartInstance().logger;
+        expect(logger, isNotNull, reason: 'test setup sanity check');
+        logger.onRecord.listen(logRecords.add);
+      }
+
+      tearDown(() {
+        logger.clearListeners();
+        logger = null;
+        logRecords = null;
+      });
+
+      group('when `props.loggerName` is not set on initial mount', () {
+        setUp(sharedSetup);
+
+        test('and a component error is caught', () {
+          triggerAComponentError();
+
+          expect(logRecords, hasLength(1));
+          expect(logRecords.single.level, Level.SEVERE);
+          expect(logRecords.single.loggerName, defaultErrorBoundaryLoggerName);
+          expect(logRecords.single.error, calls.single['onComponentDidCatch'][0]);
+          expect(logRecords.single.message, 'An error was caught by an ErrorBoundary');
+        });
+
+        test('and an unrecoverable component error is caught', () async {
+          triggerAComponentError();
+          await new Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs ~/ 2));
+          triggerAComponentError();
+
+          expect(logRecords, hasLength(2));
+          expect(logRecords[1].level, Level.SEVERE);
+          expect(logRecords[1].loggerName, defaultErrorBoundaryLoggerName);
+          expect(logRecords[1].error, calls[2]['onComponentIsUnrecoverable'][0]);
+          expect(logRecords[1].message,
+              'An unrecoverable error was caught by an ErrorBoundary (the entire react tree had to be unmounted)');
+        });
+
+        group('but then `props.loggerName` is set', () {
+          group('to an empty string', () {
+            setUp(() {
+              jacket.rerender(
+                (ErrorBoundary()
+                  ..loggerName = ''
+                  ..identicalErrorFrequencyTolerance = const Duration(milliseconds: identicalErrorFrequencyToleranceInMs)
+                  ..onComponentDidCatch = (err, info) {
+                    calls.add({'onComponentDidCatch': [err, info]});
+                  }
+                  ..onComponentIsUnrecoverable = (err, info) {
+                    calls.add({'onComponentIsUnrecoverable': [err, info]});
+                  }
+                )(Flawed()())
+              );
+            });
+
+            test('and a component error is caught', () {
+              triggerAComponentError();
+
+              expect(logRecords.single.loggerName, defaultErrorBoundaryLoggerName,
+                  reason: 'The loggerName should fall back to `defaultErrorBoundaryLoggerName` '
+                          'if a consumer attempts to set it to an empty string');
+            });
+
+            group('and then to null', () {
+              setUp(() {
+                expect(ErrorBoundary(jacket.getProps()).loggerName, isEmpty, reason: 'test setup sanity check');
+
+                jacket.rerender(
+                  (ErrorBoundary()
+                    ..loggerName = null
+                    ..identicalErrorFrequencyTolerance = const Duration(milliseconds: identicalErrorFrequencyToleranceInMs)
+                    ..onComponentDidCatch = (err, info) {
+                      calls.add({'onComponentDidCatch': [err, info]});
+                    }
+                    ..onComponentIsUnrecoverable = (err, info) {
+                      calls.add({'onComponentIsUnrecoverable': [err, info]});
+                    }
+                  )(Flawed()())
+                );
+              });
+
+              test('and a component error is caught', () {
+                triggerAComponentError();
+
+                expect(logRecords.single.loggerName, defaultErrorBoundaryLoggerName,
+                    reason: 'The loggerName should fall back to `defaultErrorBoundaryLoggerName` '
+                            'if a consumer attempts to set it to null');
+              });
+            });
+          });
+
+          group('to a non-empty string', () {
+            setUp(() {
+              jacket.rerender(
+                (ErrorBoundary()
+                  ..loggerName = 'myCustomErrorLoggerName'
+                  ..identicalErrorFrequencyTolerance = const Duration(milliseconds: identicalErrorFrequencyToleranceInMs)
+                  ..onComponentDidCatch = (err, info) {
+                    calls.add({'onComponentDidCatch': [err, info]});
+                  }
+                  ..onComponentIsUnrecoverable = (err, info) {
+                    calls.add({'onComponentIsUnrecoverable': [err, info]});
+                  }
+                )(Flawed()())
+              );
+            });
+
+            test('and a component error is caught', () {
+              triggerAComponentError();
+
+              expect(logRecords.single.loggerName, 'myCustomErrorLoggerName');
             });
           });
         });

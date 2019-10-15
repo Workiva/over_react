@@ -194,6 +194,24 @@ abstract class _$ErrorBoundaryPropsAccessorsMixin
   set identicalErrorFrequencyTolerance(Duration value) =>
       props[_$key__identicalErrorFrequencyTolerance___$ErrorBoundaryProps] =
           value;
+
+  /// The name to use when the component's logger logs an error via [ErrorBoundaryComponent.componentDidCatch].
+  ///
+  /// > Default: 'over_react.ErrorBoundary'
+  ///
+  /// <!-- Generated from [_$ErrorBoundaryProps.loggerName] -->
+  @override
+  String get loggerName =>
+      props[_$key__loggerName___$ErrorBoundaryProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// The name to use when the component's logger logs an error via [ErrorBoundaryComponent.componentDidCatch].
+  ///
+  /// > Default: 'over_react.ErrorBoundary'
+  ///
+  /// <!-- Generated from [_$ErrorBoundaryProps.loggerName] -->
+  @override
+  set loggerName(String value) =>
+      props[_$key__loggerName___$ErrorBoundaryProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__onComponentDidCatch___$ErrorBoundaryProps =
@@ -208,6 +226,8 @@ abstract class _$ErrorBoundaryPropsAccessorsMixin
       _$prop__identicalErrorFrequencyTolerance___$ErrorBoundaryProps =
       const PropDescriptor(
           _$key__identicalErrorFrequencyTolerance___$ErrorBoundaryProps);
+  static const PropDescriptor _$prop__loggerName___$ErrorBoundaryProps =
+      const PropDescriptor(_$key__loggerName___$ErrorBoundaryProps);
   static const String _$key__onComponentDidCatch___$ErrorBoundaryProps =
       'ErrorBoundaryProps.onComponentDidCatch';
   static const String _$key__onComponentIsUnrecoverable___$ErrorBoundaryProps =
@@ -217,18 +237,22 @@ abstract class _$ErrorBoundaryPropsAccessorsMixin
   static const String
       _$key__identicalErrorFrequencyTolerance___$ErrorBoundaryProps =
       'ErrorBoundaryProps.identicalErrorFrequencyTolerance';
+  static const String _$key__loggerName___$ErrorBoundaryProps =
+      'ErrorBoundaryProps.loggerName';
 
   static const List<PropDescriptor> $props = const [
     _$prop__onComponentDidCatch___$ErrorBoundaryProps,
     _$prop__onComponentIsUnrecoverable___$ErrorBoundaryProps,
     _$prop__fallbackUIRenderer___$ErrorBoundaryProps,
-    _$prop__identicalErrorFrequencyTolerance___$ErrorBoundaryProps
+    _$prop__identicalErrorFrequencyTolerance___$ErrorBoundaryProps,
+    _$prop__loggerName___$ErrorBoundaryProps
   ];
   static const List<String> $propKeys = const [
     _$key__onComponentDidCatch___$ErrorBoundaryProps,
     _$key__onComponentIsUnrecoverable___$ErrorBoundaryProps,
     _$key__fallbackUIRenderer___$ErrorBoundaryProps,
-    _$key__identicalErrorFrequencyTolerance___$ErrorBoundaryProps
+    _$key__identicalErrorFrequencyTolerance___$ErrorBoundaryProps,
+    _$key__loggerName___$ErrorBoundaryProps
   ];
 }
 
