@@ -78,19 +78,19 @@ main() {
 }
 
 testComponentTypeChecking({
-  isComponent2: false,
-  TestParent,
-  TestSubtype,
-  TestSubsubtype,
-  TestExtendtype,
-  TestExtendtypeComponent,
-  TestAbstractComponent,
-  TestA,
-  TestAComponent,
-  TestB,
-  TestBComponent,
-  OneLevelWrapper,
-  TwoLevelWrapper,
+  bool isComponent2: false,
+  UiFactory TestParent,
+  UiFactory TestSubtype,
+  UiFactory TestSubsubtype,
+  UiFactory TestExtendtype,
+  Type TestExtendtypeComponent,
+  Type TestAbstractComponent,
+  UiFactory TestA,
+  Type TestAComponent,
+  UiFactory TestB,
+  Type TestBComponent,
+  UiFactory OneLevelWrapper,
+  UiFactory TwoLevelWrapper,
 }) {
   group('type checking:', () {
     group('getComponentTypeFromAlias', () {

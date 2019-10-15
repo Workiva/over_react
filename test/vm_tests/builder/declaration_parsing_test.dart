@@ -390,6 +390,7 @@ main() {
               expect(declarations.state.meta.keyNamespace, 'baz');
               expect(declarations.component.meta.isWrapper, isTrue);
             });
+
             test('a stateful Component2', () {
               setUpAndParse('''
                 @Factory()

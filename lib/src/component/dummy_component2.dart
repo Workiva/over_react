@@ -18,13 +18,13 @@ part 'dummy_component2.over_react.g.dart';
 
 @Factory()
 // ignore: undefined_identifier
-UiFactory<Dummy2Props> Dummy2 = _$Dummy2;
+UiFactory<_Dummy2Props> _Dummy2 = _$_Dummy2;
 
 @Props()
-class _$Dummy2Props extends UiProps {}
+class _$_Dummy2Props extends UiProps {}
 
 @Component2()
-class Dummy2Component extends UiComponent2<Dummy2Props> {
+class _Dummy2Component extends UiComponent2<_Dummy2Props> {
   @override
   render() {
     return null;
@@ -35,4 +35,4 @@ class Dummy2Component extends UiComponent2<Dummy2Props> {
 // and cannot simply be a react.Component2 class.
 //
 // This is to publicly expose the generated component type for use with `registerAbstractComponent2`.
-class DummyComponent2 extends _$Dummy2Component {}
+class DummyComponent2 extends _$_Dummy2Component {}
