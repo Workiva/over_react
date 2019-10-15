@@ -721,7 +721,6 @@ void main() {
 
     group('logs errors using its `logger`', () {
       List<Map<String, List>> calls;
-      Logger logger;
       List<LogRecord> logRecords;
       const identicalErrorFrequencyToleranceInMs = 500;
 
@@ -747,14 +746,11 @@ void main() {
         );
 
         logRecords = [];
-        logger = jacket.getDartInstance().logger;
-        expect(logger, isNotNull, reason: 'test setup sanity check');
-        logger.onRecord.listen(logRecords.add);
+        Logger(jacket.getDartInstance().loggerName).onRecord.listen(logRecords.add);
       }
 
       tearDown(() {
-        logger.clearListeners();
-        logger = null;
+        Logger(jacket.getDartInstance().loggerName).clearListeners();
         logRecords = null;
       });
 
@@ -786,12 +782,38 @@ void main() {
               ' \nInfo: ${calls[2]['onComponentIsUnrecoverable'][1]}');
         });
 
-        group('but then `props.loggerName` is set', () {
-          group('to an empty string', () {
+        group('but then `props.loggerName` is set to a non-null value', () {
+          setUp(() {
+            Logger(jacket.getDartInstance().loggerName).clearListeners();
+
+            jacket.rerender(
+              (ErrorBoundary()
+                ..loggerName = 'myCustomErrorLoggerName'
+                ..identicalErrorFrequencyTolerance = const Duration(milliseconds: identicalErrorFrequencyToleranceInMs)
+                ..onComponentDidCatch = (err, info) {
+                  calls.add({'onComponentDidCatch': [err, info]});
+                }
+                ..onComponentIsUnrecoverable = (err, info) {
+                  calls.add({'onComponentIsUnrecoverable': [err, info]});
+                }
+              )(Flawed()())
+            );
+            Logger(jacket.getDartInstance().loggerName).onRecord.listen(logRecords.add);
+          });
+
+          test('and a component error is caught', () {
+            triggerAComponentError();
+
+            expect(logRecords.single.loggerName, 'myCustomErrorLoggerName');
+          });
+
+          group('and then to a null value', () {
             setUp(() {
+              Logger(jacket.getDartInstance().loggerName).clearListeners();
+
               jacket.rerender(
                 (ErrorBoundary()
-                  ..loggerName = ''
+                  ..loggerName = null
                   ..identicalErrorFrequencyTolerance = const Duration(milliseconds: identicalErrorFrequencyToleranceInMs)
                   ..onComponentDidCatch = (err, info) {
                     calls.add({'onComponentDidCatch': [err, info]});
@@ -801,6 +823,7 @@ void main() {
                   }
                 )(Flawed()())
               );
+              Logger(jacket.getDartInstance().loggerName).onRecord.listen(logRecords.add);
             });
 
             test('and a component error is caught', () {
@@ -808,57 +831,7 @@ void main() {
 
               expect(logRecords.single.loggerName, defaultErrorBoundaryLoggerName,
                   reason: 'The loggerName should fall back to `defaultErrorBoundaryLoggerName` '
-                          'if a consumer attempts to set it to an empty string');
-            });
-
-            group('and then to null', () {
-              setUp(() {
-                expect(ErrorBoundary(jacket.getProps()).loggerName, isEmpty, reason: 'test setup sanity check');
-
-                jacket.rerender(
-                  (ErrorBoundary()
-                    ..loggerName = null
-                    ..identicalErrorFrequencyTolerance = const Duration(milliseconds: identicalErrorFrequencyToleranceInMs)
-                    ..onComponentDidCatch = (err, info) {
-                      calls.add({'onComponentDidCatch': [err, info]});
-                    }
-                    ..onComponentIsUnrecoverable = (err, info) {
-                      calls.add({'onComponentIsUnrecoverable': [err, info]});
-                    }
-                  )(Flawed()())
-                );
-              });
-
-              test('and a component error is caught', () {
-                triggerAComponentError();
-
-                expect(logRecords.single.loggerName, defaultErrorBoundaryLoggerName,
-                    reason: 'The loggerName should fall back to `defaultErrorBoundaryLoggerName` '
-                            'if a consumer attempts to set it to null');
-              });
-            });
-          });
-
-          group('to a non-empty string', () {
-            setUp(() {
-              jacket.rerender(
-                (ErrorBoundary()
-                  ..loggerName = 'myCustomErrorLoggerName'
-                  ..identicalErrorFrequencyTolerance = const Duration(milliseconds: identicalErrorFrequencyToleranceInMs)
-                  ..onComponentDidCatch = (err, info) {
-                    calls.add({'onComponentDidCatch': [err, info]});
-                  }
-                  ..onComponentIsUnrecoverable = (err, info) {
-                    calls.add({'onComponentIsUnrecoverable': [err, info]});
-                  }
-                )(Flawed()())
-              );
-            });
-
-            test('and a component error is caught', () {
-              triggerAComponentError();
-
-              expect(logRecords.single.loggerName, 'myCustomErrorLoggerName');
+                          'if a consumer attempts to set it to null');
             });
           });
         });

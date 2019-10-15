@@ -208,33 +208,6 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   );
 
   @mustCallSuper
-  @override
-  void componentWillMount() {
-    super.componentWillMount();
-
-    _logger = Logger(_getLoggerName());
-  }
-
-  @mustCallSuper
-  @override
-  void componentWillUnmount() {
-    super.componentWillUnmount();
-
-    _logger.clearListeners();
-  }
-
-  @mustCallSuper
-  @override
-  void componentWillReceiveProps(Map nextProps) {
-    super.componentWillReceiveProps(nextProps);
-
-    final tNextProps = typedPropsFactory(nextProps);
-    if (tNextProps.loggerName != props.loggerName) {
-      _logger = Logger(_getLoggerName(tNextProps));
-    }
-  }
-
-  @mustCallSuper
   /*@override*/
   S getDerivedStateFromError(_) {
     return newState()..hasError = true;
@@ -428,17 +401,8 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   String _getReadableErrorInfo(/*NativeJavascriptObject*/dynamic jsErrorInfo) =>
       getProperty(jsErrorInfo, 'componentStack');
 
-  /// The logger that logs errors when a component somewhere within the React tree wrapped by
-  /// this [ErrorBoundary] instance throws within the React lifecycle.
-  Logger get logger => _logger;
-  Logger _logger;
-
-  String _getLoggerName([T propsMap]) {
-    propsMap ??= props;
-    if (propsMap.loggerName != null && propsMap.loggerName.isNotEmpty) return propsMap.loggerName;
-
-    return defaultErrorBoundaryLoggerName;
-  }
+  /// The value that will be used when creating a [Logger] to log errors from this component.
+  String get loggerName => props.loggerName ?? defaultErrorBoundaryLoggerName;
 
   // ----- [3] ----- //
   void _logErrorCaughtByErrorBoundary(
@@ -457,6 +421,6 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
       // The error / exception doesn't extend from Error or Exception
     }
 
-    _logger.severe(message, error, stackTrace);
+    Logger(loggerName).severe(message, error, stackTrace);
   }
 }
