@@ -120,6 +120,7 @@ void main() {
 
       expect(ErrorBoundary(jacket.getProps()).identicalErrorFrequencyTolerance.inSeconds, 5);
       expect(ErrorBoundary(jacket.getProps()).loggerName, 'over_react.ErrorBoundary');
+      expect(ErrorBoundary(jacket.getProps()).shouldLogErrors, isTrue);
     });
 
     test('initializes with the expected initial state values', () {
@@ -719,7 +720,7 @@ void main() {
       });
     });
 
-    group('logs errors using its `logger`', () {
+    group('logs errors using a `logger`', () {
       List<Map<String, List>> calls;
       List<LogRecord> logRecords;
       const identicalErrorFrequencyToleranceInMs = 500;
@@ -729,11 +730,13 @@ void main() {
         queryByTestId(jacket.getInstance(), 'flawedComponent_flawedButton').click();
       }
 
-      void sharedSetup([String loggerName]) {
+      void sharedSetup({String loggerName, bool shouldLogErrors = true, Logger customLogger}) {
         calls = [];
         jacket = mount(
           (ErrorBoundary()
             ..loggerName = loggerName
+            ..shouldLogErrors = shouldLogErrors
+            ..logger = customLogger
             ..identicalErrorFrequencyTolerance = const Duration(milliseconds: identicalErrorFrequencyToleranceInMs)
             ..onComponentDidCatch = (err, info) {
               calls.add({'onComponentDidCatch': [err, info]});
@@ -746,12 +749,100 @@ void main() {
         );
 
         logRecords = [];
+        expect(jacket.getDartInstance().loggerName, customLogger?.name ?? loggerName ?? defaultErrorBoundaryLoggerName,
+            reason: 'The loggerName getter should return the name of the logger '
+                    'that will log component errors if/when they happen.');
         Logger(jacket.getDartInstance().loggerName).onRecord.listen(logRecords.add);
       }
 
       tearDown(() {
         Logger(jacket.getDartInstance().loggerName).clearListeners();
         logRecords = null;
+      });
+
+      group('when `props.shouldLogErrors` is false', () {
+        test('on first mount', () {
+          sharedSetup(shouldLogErrors: false);
+          triggerAComponentError();
+          expect(logRecords, isEmpty);
+        });
+
+        test('when receiving new props', () async {
+          sharedSetup();
+          triggerAComponentError();
+          expect(logRecords, hasLength(1));
+
+          jacket.rerender(
+            (ErrorBoundary()
+              ..shouldLogErrors = false
+              ..identicalErrorFrequencyTolerance = const Duration(milliseconds: identicalErrorFrequencyToleranceInMs)
+              ..onComponentDidCatch = (err, info) {
+                calls.add({'onComponentDidCatch': [err, info]});
+              }
+              ..onComponentIsUnrecoverable = (err, info) {
+                calls.add({'onComponentIsUnrecoverable': [err, info]});
+              }
+            )(Flawed()())
+          );
+          await new Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs + 10));
+
+          triggerAComponentError();
+          expect(logRecords, hasLength(1));
+        });
+      });
+
+      group('provided via `props.logger`', () {
+        test('on first mount', () {
+          sharedSetup(customLogger: Logger('myCustomLoggerLoggerName'));
+          triggerAComponentError();
+
+          expect(jacket.getDartInstance().loggerName, 'myCustomLoggerLoggerName',
+              reason: 'The loggerName getter should return the name of the logger passed in using props.logger');
+
+          expect(logRecords, hasLength(1));
+          expect(logRecords.single.level, Level.SEVERE);
+          expect(logRecords.single.loggerName, 'myCustomLoggerLoggerName');
+          expect(logRecords.single.error, calls.single['onComponentDidCatch'][0]);
+          expect(logRecords.single.message, 'An error was caught by an ErrorBoundary:'
+              ' \nInfo: ${calls.single['onComponentDidCatch'][1]}');
+        });
+
+        test('when receiving new props', () {
+          sharedSetup();
+
+          jacket.rerender(
+            (ErrorBoundary()
+              ..logger = Logger('myCustomLoggerLoggerName')
+              ..identicalErrorFrequencyTolerance = const Duration(milliseconds: identicalErrorFrequencyToleranceInMs)
+              ..onComponentDidCatch = (err, info) {
+                calls.add({'onComponentDidCatch': [err, info]});
+              }
+              ..onComponentIsUnrecoverable = (err, info) {
+                calls.add({'onComponentIsUnrecoverable': [err, info]});
+              }
+            )(Flawed()())
+          );
+
+          triggerAComponentError();
+
+          expect(jacket.getDartInstance().loggerName, 'myCustomLoggerLoggerName',
+              reason: 'The loggerName getter should return the name of the logger passed in using props.logger');
+
+          expect(logRecords, hasLength(1));
+          expect(logRecords.single.level, Level.SEVERE);
+          expect(logRecords.single.loggerName, 'myCustomLoggerLoggerName');
+          expect(logRecords.single.error, calls.single['onComponentDidCatch'][0]);
+          expect(logRecords.single.message, 'An error was caught by an ErrorBoundary:'
+              ' \nInfo: ${calls.single['onComponentDidCatch'][1]}');
+        });
+
+        test('and `props.loggerName` is also set', () {
+          sharedSetup(loggerName: 'somethingElse', customLogger: Logger('myCustomLoggerLoggerName'));
+          triggerAComponentError();
+
+          expect(jacket.getDartInstance().loggerName, 'myCustomLoggerLoggerName',
+              reason: 'The loggerName getter should return the name of the logger passed in using props.logger');
+        });
       });
 
       group('when `props.loggerName` is not set on initial mount', () {

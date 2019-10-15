@@ -167,8 +167,19 @@ class _$ErrorBoundaryProps extends UiProps {
 
   /// The name to use when the component's logger logs an error via [ErrorBoundaryComponent.componentDidCatch].
   ///
+  /// Not used if a custom [logger] is specified.
+  ///
   /// > Default: 'over_react.ErrorBoundary'
   String loggerName;
+
+  /// Whether errors caught by this [ErrorBoundary] should be logged using a [Logger].
+  ///
+  /// > Default: `true`
+  bool shouldLogErrors;
+
+  /// An optional custom logger instance that will be used to log errors caught by
+  /// this [ErrorBoundary] when [shouldLogErrors] is true.
+  Logger logger;
 }
 
 @State()
@@ -199,6 +210,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   Map getDefaultProps() => (newProps()
     ..identicalErrorFrequencyTolerance = Duration(seconds: 5)
     ..loggerName = defaultErrorBoundaryLoggerName
+    ..shouldLogErrors = true
   );
 
   @override
@@ -307,7 +319,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   //                   wrap in a try catch just in case `findDomNode` throws as a result of the
   //                   wrapped react tree rendering a string instead of a composite or dom component.
   //
-  // [3] Log the caught error using the instance Logger.
+  // [3] Log the caught error using a logger if `props.shouldLogErrors` is true.
   // ---------------------------------------------- /\ ----------------------------------------------
 
   String _domAtTimeOfError;
@@ -402,7 +414,11 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
       getProperty(jsErrorInfo, 'componentStack');
 
   /// The value that will be used when creating a [Logger] to log errors from this component.
-  String get loggerName => props.loggerName ?? defaultErrorBoundaryLoggerName;
+  String get loggerName {
+    if (props.logger != null) return props.logger.name;
+
+    return props.loggerName ?? defaultErrorBoundaryLoggerName;
+  }
 
   // ----- [3] ----- //
   void _logErrorCaughtByErrorBoundary(
@@ -410,6 +426,8 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
     /*ReactErrorInfo*/ String info, {
     bool isRecoverable = true,
   }) {
+    if (!props.shouldLogErrors) return;
+
     String message = isRecoverable
         ? 'An error was caught by an ErrorBoundary: \nInfo: $info'
         : 'An unrecoverable error was caught by an ErrorBoundary (attempting to remount it was unsuccessful): \nInfo: $info';
@@ -421,6 +439,6 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
       // The error / exception doesn't extend from Error or Exception
     }
 
-    Logger(loggerName).severe(message, error, stackTrace);
+    (props.logger ?? Logger(loggerName)).severe(message, error, stackTrace);
   }
 }
