@@ -1,3 +1,4 @@
+import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 
@@ -47,6 +48,22 @@ class _$ErrorBoundaryProps extends UiProps {
   ///
   /// > Default: [ErrorBoundaryComponent._renderDefaultFallbackUI]
   _FallbackUiRenderer fallbackUIRenderer;
+
+  /// The name to use when the component's logger logs an error via [ErrorBoundaryComponent.componentDidCatch].
+  ///
+  /// Not used if a custom [logger] is specified.
+  ///
+  /// > Default: 'over_react.ErrorBoundary'
+  String loggerName;
+
+  /// Whether errors caught by this [ErrorBoundary] should be logged using a [Logger].
+  ///
+  /// > Default: `true`
+  bool shouldLogErrors;
+
+  /// An optional custom logger instance that will be used to log errors caught by
+  /// this [ErrorBoundary] when [shouldLogErrors] is true.
+  Logger logger;
 }
 
 @State()
