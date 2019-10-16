@@ -49,7 +49,6 @@ UiComponent2 results in:
   - initial renders that are 12% faster
   - rerenders that are 28% faster
   
-  
 ### JS-Backed Maps
 Props/state key-value pairs are stored directly on JS objects, instead of within Dart Maps which are opaque to React. Results in:
 
@@ -97,13 +96,14 @@ change. There are new `PropType` testing utils within [over_react_test](https://
 
 To update your repository to use UiComponent2 / Component2, you can use 
 [over_react_codemod](https://github.com/Workiva/over_react_codemod)'s component2_upgrade executable. This codemod 
-goes throw the repository and updates components as necessary. Simply follow the directions within 
+goes through the repository and updates components as necessary. Simply follow the directions within 
 [the executable](https://github.com/Workiva/over_react_codemod/blob/master/lib/src/executables/component2_upgrade.dart#L30)
 while inside your repository.
 
 #### Flags
 
-When running the command `pub global run over_react_codemod:component2_upgrade`, there are two flags that can be used:
+When running the command `pub global run over_react_codemod:component2_upgrade` to update your components, there are 
+two flags that can be used:
 - `--no-partial-upgades`: asserts that the component is able to fully update to `Component2` 
 before making changes. If that assertion is false, then no changes will occur to that component. The most common cases 
 that would cause a component _not_ to be updated because of this flag are:
@@ -112,7 +112,7 @@ that would cause a component _not_ to be updated because of this flag are:
   codemod does not attempt to update them.
   - __Has a `with` clause.__ Because a mixin adds uncertainty, this flag will not update cases where mixins are 
   implemented.
-  - __Extends from an unknown class__. Because the highest level parent in an inheritance chain must be 
+  - __Extends from an unknown class__. Because the highest level parent in an inheritance hierarchy must be 
   `Component2` for the children to be, the usage of this flag enforces that the component to be updated must extend 
   from a known base class (UiComponent, UiStatefulComponent, UiFluxComponent, FluxUiStatefulComponent or their 
   Component2 variants).
