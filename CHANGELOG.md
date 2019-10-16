@@ -1,5 +1,15 @@
 # OverReact Changelog
 
+## 2.6.0
+
+> Complete `2.6.0` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.5.3+dart2...2.6.0+dart2)
+> - [Dart 1](https://github.com/Workiva/over_react/compare/2.5.3+dart1...2.6.0+dart1)
+
+* Adds a placeholder prop API to mirror the 3.x ErrorBoundary APIs ([#370]) added to configure logging. 
+  The API is not wired up in 2.x, but will make the transition for consumers to 3.x smoother.
+
 ## 2.5.3
 
 > Complete `2.5.3` Changsets:
