@@ -17,7 +17,9 @@ library error_boundary_test;
 
 import 'dart:async';
 import 'dart:html';
+import 'package:logging/logging.dart';
 import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component/error_boundary.dart' show defaultErrorBoundaryLoggerName;
 import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
 
@@ -118,6 +120,8 @@ void main() {
       jacket = mount(ErrorBoundary()(dummyChild));
 
       expect(ErrorBoundary(jacket.getProps()).identicalErrorFrequencyTolerance.inSeconds, 5);
+      expect(ErrorBoundary(jacket.getProps()).loggerName, 'over_react.ErrorBoundary');
+      expect(ErrorBoundary(jacket.getProps()).shouldLogErrors, isTrue);
     });
 
     test('initializes with the expected initial state values', () {
@@ -720,6 +724,160 @@ void main() {
     // The fix works as expected in dart2js though - which - for our last remnants of Dart 1 support -
     // seems good enough to me.
     }, testOn: 'js');
+
+    group('logs errors using a `logger`', () {
+      List<Map<String, List>> calls;
+      List<LogRecord> logRecords;
+      const identicalErrorFrequencyToleranceInMs = 500;
+
+      // Cause an error to be thrown within a ReactJS lifecycle method
+      void triggerAComponentError() {
+        queryByTestId(jacket.getInstance(), 'flawedComponent_flawedButton').click();
+      }
+
+      void sharedSetup({String loggerName, bool shouldLogErrors = true, Logger customLogger}) {
+        calls = [];
+        jacket = mount(
+          (ErrorBoundary()
+            ..loggerName = loggerName
+            ..shouldLogErrors = shouldLogErrors
+            ..logger = customLogger
+            ..identicalErrorFrequencyTolerance = const Duration(milliseconds: identicalErrorFrequencyToleranceInMs)
+            ..onComponentDidCatch = (err, info) {
+              calls.add({'onComponentDidCatch': [err, info]});
+            }
+            ..onComponentIsUnrecoverable = (err, info) {
+              calls.add({'onComponentIsUnrecoverable': [err, info]});
+            }
+          )(Flawed()()),
+          attachedToDocument: true,
+        );
+
+        logRecords = [];
+        final subscription =
+            new Logger(customLogger?.name ?? loggerName ?? defaultErrorBoundaryLoggerName).onRecord.listen(logRecords.add);
+        addTearDown(subscription.cancel);
+      }
+
+      tearDown(() {
+        logRecords = null;
+      });
+
+      test('when `props.shouldLogErrors` is false', () {
+        sharedSetup(shouldLogErrors: false);
+        triggerAComponentError();
+        expect(logRecords, isEmpty);
+      });
+
+      group('provided via `props.logger`', () {
+        test('', () {
+          sharedSetup(customLogger: new Logger('myCustomLoggerLoggerName'));
+          triggerAComponentError();
+
+          expect(logRecords, hasLength(1));
+          expect(logRecords.single.level, Level.SEVERE);
+          expect(logRecords.single.loggerName, 'myCustomLoggerLoggerName');
+          expect(logRecords.single.error, calls.single['onComponentDidCatch'][0]);
+          expect(logRecords.single.message, 'An error was caught by an ErrorBoundary:'
+              ' \nInfo: ${calls.single['onComponentDidCatch'][1]}');
+        });
+
+        test('and `props.loggerName` is also set', () {
+          sharedSetup(loggerName: 'somethingElse', customLogger: new Logger('myCustomLoggerLoggerName'));
+          triggerAComponentError();
+
+          expect(logRecords.single.loggerName, 'myCustomLoggerLoggerName');
+        });
+      });
+
+      group('when `props.loggerName` is not set', () {
+        setUp(sharedSetup);
+
+        test('and a component error is caught', () {
+          triggerAComponentError();
+
+          expect(logRecords, hasLength(1));
+          expect(logRecords.single.level, Level.SEVERE);
+          expect(logRecords.single.loggerName, defaultErrorBoundaryLoggerName);
+          expect(logRecords.single.error, calls.single['onComponentDidCatch'][0]);
+          expect(logRecords.single.message, 'An error was caught by an ErrorBoundary:'
+              ' \nInfo: ${calls.single['onComponentDidCatch'][1]}');
+        });
+
+        test('and an unrecoverable component error is caught', () async {
+          triggerAComponentError();
+          await new Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs ~/ 2));
+          triggerAComponentError();
+
+          expect(logRecords, hasLength(2));
+          expect(logRecords[1].level, Level.SEVERE);
+          expect(logRecords[1].loggerName, defaultErrorBoundaryLoggerName);
+          expect(logRecords[1].error, calls[2]['onComponentIsUnrecoverable'][0]);
+          expect(logRecords[1].message,
+              'An unrecoverable error was caught by an ErrorBoundary (attempting to remount it was unsuccessful):'
+              ' \nInfo: ${calls[2]['onComponentIsUnrecoverable'][1]}');
+        // Doesn't work great in Dartium since the `toString` of the errors includes the entire call stack,
+        // causing the error boundary to not think the same error was thrown, so it will keep re-mounting.
+        //
+        // The fix works as expected in dart2js though - which - for our last remnants of Dart 1 support -
+        // seems good enough to me.
+        }, testOn: 'js');
+
+        group('but then `props.loggerName` is set to a non-null value', () {
+          setUp(() {
+            new Logger('myCustomErrorLoggerName').clearListeners();
+            jacket.rerender(
+              (ErrorBoundary()
+                ..loggerName = 'myCustomErrorLoggerName'
+                ..identicalErrorFrequencyTolerance = const Duration(milliseconds: identicalErrorFrequencyToleranceInMs)
+                ..onComponentDidCatch = (err, info) {
+                  calls.add({'onComponentDidCatch': [err, info]});
+                }
+                ..onComponentIsUnrecoverable = (err, info) {
+                  calls.add({'onComponentIsUnrecoverable': [err, info]});
+                }
+              )(Flawed()())
+            );
+            final subscription = new Logger('myCustomErrorLoggerName').onRecord.listen(logRecords.add);
+            addTearDown(subscription.cancel);
+          });
+
+          test('and a component error is caught', () {
+            triggerAComponentError();
+
+            expect(logRecords.single.loggerName, 'myCustomErrorLoggerName');
+          });
+
+          group('and then to a null value', () {
+            setUp(() {
+              new Logger(defaultErrorBoundaryLoggerName).clearListeners();
+              jacket.rerender(
+                (ErrorBoundary()
+                  ..loggerName = null
+                  ..identicalErrorFrequencyTolerance = const Duration(milliseconds: identicalErrorFrequencyToleranceInMs)
+                  ..onComponentDidCatch = (err, info) {
+                    calls.add({'onComponentDidCatch': [err, info]});
+                  }
+                  ..onComponentIsUnrecoverable = (err, info) {
+                    calls.add({'onComponentIsUnrecoverable': [err, info]});
+                  }
+                )(Flawed()())
+              );
+              final subscription = new Logger(defaultErrorBoundaryLoggerName).onRecord.listen(logRecords.add);
+              addTearDown(subscription.cancel);
+            });
+
+            test('and a component error is caught', () {
+              triggerAComponentError();
+
+              expect(logRecords.single.loggerName, defaultErrorBoundaryLoggerName,
+                  reason: 'The loggerName should fall back to `defaultErrorBoundaryLoggerName` '
+                          'if a consumer attempts to set it to null');
+            });
+          });
+        });
+      });
+    });
 
     group('throws a PropError when', () {
       test('more than one child is provided', () {
