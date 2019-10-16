@@ -16,6 +16,8 @@ library over_react.dummy_component;
 
 import 'package:react/react.dart' as react;
 
+export 'dummy_component2.dart';
+
 /// Dummy component useful for:
 ///
 /// - Allowing sub-typing of components.
@@ -23,12 +25,4 @@ import 'package:react/react.dart' as react;
 class DummyComponent extends react.Component {
   @override
   render() => false;
-}
-
-/// Dummy component useful for:
-///
-/// - Allowing sub-typing of v2 components.
-class DummyComponent2 extends react.Component2 {
-  @override
-  render() => null;
 }
