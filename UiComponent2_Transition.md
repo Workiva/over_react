@@ -110,14 +110,14 @@ When running the command `pub global run over_react_codemod:component2_upgrade`,
 - `--no-partial-upgades`: asserts that the component is able to fully update to `Component2` 
 before making changes. If that assertion is false, then no changes will occur to that component. The most common cases 
 that would cause a component _not_ to be updated because of this flag are:
-  - **Use of the deprecated lifecycle methods `componentWillReceiveProps` or `componentWillUpdate`.** Because the 
+  - __Use of the deprecated lifecycle methods `componentWillReceiveProps` or `componentWillUpdate`.__ Because the 
   transition from those lifecycle methods to a new one is highly dependent upon the reason behind using them, the 
   codemod does not attempt to update them.
-  - **Has a `with` clause.** Because a mixin adds uncertainty, this flag will not update cases where mixins are 
+  - __Has a `with` clause.__ Because a mixin adds uncertainty, this flag will not update cases where mixins are 
   implemented.
-  - **Extends from an unknown class**. Because the highest level parent in an inheritance chain must be 
+  - __Extends from an unknown class__. Because the highest level parent in an inheritance chain must be 
   `Component2` for the children to be, the usage of this flag enforces that the component to be updated must extend 
   from a known base class (UiComponent, UiStatefulComponent, UiFluxComponent, FluxUiStatefulComponent or their 
   Component2 variants).
 - `--upgrade-abstract-components`: determines whether or not the codemod should upgrade classes annotated as 
-`Abstract`. If the flag is present, the codemod **will** update abstract components. 
+`Abstract`. If the flag is present, the codemod __will__ update abstract components. 
