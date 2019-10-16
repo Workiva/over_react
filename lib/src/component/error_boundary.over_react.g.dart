@@ -85,24 +85,98 @@ abstract class _$ErrorBoundaryPropsAccessorsMixin
   @override
   set fallbackUIRenderer(_FallbackUiRenderer value) =>
       props[_$key__fallbackUIRenderer___$ErrorBoundaryProps] = value;
+
+  /// The name to use when the component's logger logs an error via [ErrorBoundaryComponent.componentDidCatch].
+  ///
+  /// Not used if a custom [logger] is specified.
+  ///
+  /// > Default: 'over_react.ErrorBoundary'
+  ///
+  /// <!-- Generated from [_$ErrorBoundaryProps.loggerName] -->
+  @override
+  String get loggerName =>
+      props[_$key__loggerName___$ErrorBoundaryProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// The name to use when the component's logger logs an error via [ErrorBoundaryComponent.componentDidCatch].
+  ///
+  /// Not used if a custom [logger] is specified.
+  ///
+  /// > Default: 'over_react.ErrorBoundary'
+  ///
+  /// <!-- Generated from [_$ErrorBoundaryProps.loggerName] -->
+  @override
+  set loggerName(String value) =>
+      props[_$key__loggerName___$ErrorBoundaryProps] = value;
+
+  /// Whether errors caught by this [ErrorBoundary] should be logged using a [Logger].
+  ///
+  /// > Default: `true`
+  ///
+  /// <!-- Generated from [_$ErrorBoundaryProps.shouldLogErrors] -->
+  @override
+  bool get shouldLogErrors =>
+      props[_$key__shouldLogErrors___$ErrorBoundaryProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Whether errors caught by this [ErrorBoundary] should be logged using a [Logger].
+  ///
+  /// > Default: `true`
+  ///
+  /// <!-- Generated from [_$ErrorBoundaryProps.shouldLogErrors] -->
+  @override
+  set shouldLogErrors(bool value) =>
+      props[_$key__shouldLogErrors___$ErrorBoundaryProps] = value;
+
+  /// An optional custom logger instance that will be used to log errors caught by
+  /// this [ErrorBoundary] when [shouldLogErrors] is true.
+  ///
+  /// <!-- Generated from [_$ErrorBoundaryProps.logger] -->
+  @override
+  Logger get logger =>
+      props[_$key__logger___$ErrorBoundaryProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// An optional custom logger instance that will be used to log errors caught by
+  /// this [ErrorBoundary] when [shouldLogErrors] is true.
+  ///
+  /// <!-- Generated from [_$ErrorBoundaryProps.logger] -->
+  @override
+  set logger(Logger value) =>
+      props[_$key__logger___$ErrorBoundaryProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__onComponentDidCatch___$ErrorBoundaryProps =
       const PropDescriptor(_$key__onComponentDidCatch___$ErrorBoundaryProps);
   static const PropDescriptor _$prop__fallbackUIRenderer___$ErrorBoundaryProps =
       const PropDescriptor(_$key__fallbackUIRenderer___$ErrorBoundaryProps);
+  static const PropDescriptor _$prop__loggerName___$ErrorBoundaryProps =
+      const PropDescriptor(_$key__loggerName___$ErrorBoundaryProps);
+  static const PropDescriptor _$prop__shouldLogErrors___$ErrorBoundaryProps =
+      const PropDescriptor(_$key__shouldLogErrors___$ErrorBoundaryProps);
+  static const PropDescriptor _$prop__logger___$ErrorBoundaryProps =
+      const PropDescriptor(_$key__logger___$ErrorBoundaryProps);
   static const String _$key__onComponentDidCatch___$ErrorBoundaryProps =
       'ErrorBoundaryProps.onComponentDidCatch';
   static const String _$key__fallbackUIRenderer___$ErrorBoundaryProps =
       'ErrorBoundaryProps.fallbackUIRenderer';
+  static const String _$key__loggerName___$ErrorBoundaryProps =
+      'ErrorBoundaryProps.loggerName';
+  static const String _$key__shouldLogErrors___$ErrorBoundaryProps =
+      'ErrorBoundaryProps.shouldLogErrors';
+  static const String _$key__logger___$ErrorBoundaryProps =
+      'ErrorBoundaryProps.logger';
 
   static const List<PropDescriptor> $props = const [
     _$prop__onComponentDidCatch___$ErrorBoundaryProps,
-    _$prop__fallbackUIRenderer___$ErrorBoundaryProps
+    _$prop__fallbackUIRenderer___$ErrorBoundaryProps,
+    _$prop__loggerName___$ErrorBoundaryProps,
+    _$prop__shouldLogErrors___$ErrorBoundaryProps,
+    _$prop__logger___$ErrorBoundaryProps
   ];
   static const List<String> $propKeys = const [
     _$key__onComponentDidCatch___$ErrorBoundaryProps,
-    _$key__fallbackUIRenderer___$ErrorBoundaryProps
+    _$key__fallbackUIRenderer___$ErrorBoundaryProps,
+    _$key__loggerName___$ErrorBoundaryProps,
+    _$key__shouldLogErrors___$ErrorBoundaryProps,
+    _$key__logger___$ErrorBoundaryProps
   ];
 }
 
