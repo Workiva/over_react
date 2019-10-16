@@ -21,7 +21,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory builder) {
     dummyChild = null;
   });
 
-  group('catches component errors', () {
+  group('catches component errors', () { 
     List<Map<String, List>> calls;
     DivElement mountNode;
 
