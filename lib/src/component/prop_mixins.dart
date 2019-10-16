@@ -75,14 +75,13 @@ abstract class DomPropsMixin {
 
   Map<String, dynamic> style;
 
-  String className, title, id;
+  String accept, acceptCharset, accessKey, action, alt, autoComplete, charSet, classID, className, content, contextMenu,
+    coords, crossOrigin, data, dateTime, dir, encType, form, href, hrefLang, htmlFor, httpEquiv, id, label, lang, list, manifest, media, mediaGroup,
+    method, name, pattern, placeholder, poster, preload, radioGroup, rel, role, sandbox, scope, scrolling, shape, sizes, src,
+    srcDoc, srcSet, target, title, type, useMap, wmode;
 
-  dynamic accept, acceptCharset, accessKey, action, allowTransparency, alt, autoComplete, cellPadding, cellSpacing,
-    charSet, classID, colSpan, content, contentEditable, contextMenu, coords, crossOrigin, data, dateTime,
-    dir, download, draggable, encType, form, frameBorder, height, href, hrefLang, htmlFor, httpEquiv, icon, label,
-    lang, list, manifest, max, maxLength, media, mediaGroup, method, min, name, pattern, placeholder,
-    poster, preload, radioGroup, rel, role, rowSpan, sandbox, scope, scrolling, shape, sizes, spellCheck, src, srcDoc,
-    srcSet, step, tabIndex, target, type, useMap, value, width, wmode;
+  dynamic allowTransparency, cellPadding, cellSpacing, colSpan, contentEditable, download, draggable, frameBorder, height, icon,
+    max, maxLength, min, rowSpan, spellCheck, step, tabIndex, value, width;
 
   AnimationEventCallback onAnimationEnd, onAnimationIteration, onAnimationStart;
   ClipboardEventCallback onCopy, onCut, onPaste;
