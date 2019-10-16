@@ -2,6 +2,15 @@
 
 ## 3.0.0 (alpha)
 
+- __3.0.0-alpha.3__
+
+  * [#370] Add error logging to ErrorBoundary
+
+  > Complete `3.0.0-alpha.3` Changesets:
+  >
+  > - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0-alpha.2+dart2...3.0.0-alpha.3+dart2)
+  > - [Dart 1](https://github.com/Workiva/over_react/compare/3.0.0-alpha.2+dart1...3.0.0-alpha.3+dart1)
+
 - __3.0.0-alpha.2__
 
   * [#363] Dart 2 Widen `analyzer` dependency range
