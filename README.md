@@ -1007,7 +1007,7 @@ The `over_react` library adheres to [Semantic Versioning](http://semver.org/):
 
 [component demos]: https://workiva.github.io/over_react/demos
 
-[contributing-docs]: https://github.com/Workiva/over_react/blob/master/.github/CONTRIBUTING.md
+[contributing-docs]: https://github.com/Workiva/over_react/blob/master/CONTRIBUTING.md
 [builder]: https://github.com/Workiva/over_react/blob/master/lib/src/builder/README.md
 [annotations]: https://github.com/Workiva/over_react/blob/master/lib/src/component_declaration/annotations.dart
 [annotation]: https://github.com/Workiva/over_react/blob/master/lib/src/component_declaration/annotations.dart
