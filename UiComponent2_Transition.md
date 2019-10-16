@@ -1,8 +1,6 @@
 # UiComponent2 Transition Notes
 > A document to explain the new features and breakages when converting components from Component / UiComponent to 
 Component2 / UiComponent2.
->
-> Most of this information can also be found on the [React 16 Wiki](https://wiki.atl.workiva.net/display/CP/What%27s+new+in+Component2).
 ---
 * __[What's New in Component2](#whats-new-in-component2)__
 * __[Why a new base class?](#why-a-new-base-class)__
@@ -23,12 +21,11 @@ Component2 / UiComponent2.
 - Cons: breaks a few advanced component APIs that will require conversion, some of which will be automated with codemod
 
 Migration can happen at any time, and is opt-in. We'll provide a codemod to handle the simpler cases and run it as 
-part of cleanup, but it will take manual intervention to update some components. See [Breaking Change List: 
-Component2](https://wiki.atl.workiva.net/display/CP/Breaking+change+list) for more info.
+part of cleanup, but it will take manual intervention to update some components.
 
 ## Why a new base class?
 - It's not possible for us to automatically support both unsafe and safe lifecycle methods without a resolved AST in 
-the over_react builder, which would [increase build times dramatically](https://jira.atl.workiva.net/okta_login.jsp?RelayState=https%3A%2F%2Fjira.atl.workiva.net%2Fbrowse%2FCPLAT-5152).
+the over_react builder, which would increase build times dramatically.
 - We needed some small breakages to support
   - JS-backed maps
   - New lifecycle methods
