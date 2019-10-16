@@ -1,9 +1,13 @@
 import 'dart:async';
 
+import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 
 part 'error_boundary_mixins.over_react.g.dart';
+
+@visibleForTesting
+const String defaultErrorBoundaryLoggerName = 'over_react.ErrorBoundary';
 
 /// A props mixin you can use to implement / extend from the behaviors of an [ErrorBoundary]
 /// within a custom component.
@@ -83,6 +87,22 @@ abstract class _$ErrorBoundaryPropsMixin implements UiProps {
   ///
   /// > Default: `const Duration(seconds: 5)`
   Duration identicalErrorFrequencyTolerance;
+
+  /// The name to use when the component's logger logs an error via [ErrorBoundaryComponent.componentDidCatch].
+  ///
+  /// Not used if a custom [logger] is specified.
+  ///
+  /// > Default: 'over_react.ErrorBoundary'
+  String loggerName;
+
+  /// Whether errors caught by this [ErrorBoundary] should be logged using a [Logger].
+  ///
+  /// > Default: `true`
+  bool shouldLogErrors;
+
+  /// An optional custom logger instance that will be used to log errors caught by
+  /// this [ErrorBoundary] when [shouldLogErrors] is true.
+  Logger logger;
 }
 
 /// A state mixin you can use to implement / extend from the behaviors of an [ErrorBoundary]
@@ -143,6 +163,8 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
   @override
   Map get defaultProps => (newProps()
     ..identicalErrorFrequencyTolerance = Duration(seconds: 5)
+    ..loggerName = defaultErrorBoundaryLoggerName
+    ..shouldLogErrors = true
   );
 
   @override
@@ -233,6 +255,8 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
   //           [2.2.2] Since we should __never__ throw an error from our... uh... error boundary,
   //                   wrap in a try catch just in case `findDomNode` throws as a result of the
   //                   wrapped react tree rendering a string instead of a composite or dom component.
+  //
+  // [3] Log the caught error using a logger if `props.shouldLogErrors` is true.
   // ---------------------------------------------- /\ ----------------------------------------------
 
   String _domAtTimeOfError;
@@ -246,6 +270,7 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
     if (props.fallbackUIRenderer != null) {
       _lastError = error;
       _lastErrorInfo = info;
+      _logErrorCaughtByErrorBoundary(error, info); // [3]
       return;
     }
     // ----- [2] ----- //
@@ -261,9 +286,12 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
         if (props.onComponentIsUnrecoverable != null) { // [2.2.1]
           props.onComponentIsUnrecoverable(error, info);
         }
+
+        _logErrorCaughtByErrorBoundary(error, info, isRecoverable: false); // [3]
       } else {
         _lastError = error;
         _lastErrorInfo = info;
+        _logErrorCaughtByErrorBoundary(error, info); // [3]
       }
 
       setState(newState()
@@ -310,6 +338,27 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
     _lastErrorInfo = null;
     _identicalErrorTimer?.cancel();
     _identicalErrorTimer = null;
+  }
+
+  String get _loggerName {
+    if (props.logger != null) return props.logger.name;
+
+    return props.loggerName ?? defaultErrorBoundaryLoggerName;
+  }
+
+  // ----- [3] ----- //
+  void _logErrorCaughtByErrorBoundary(
+    /*Error|Exception*/ dynamic error,
+    ReactErrorInfo info, {
+    bool isRecoverable = true,
+  }) {
+    if (!props.shouldLogErrors) return;
+
+    String message = isRecoverable
+        ? 'An error was caught by an ErrorBoundary: \nInfo: ${info.componentStack}'
+        : 'An unrecoverable error was caught by an ErrorBoundary (attempting to remount it was unsuccessful): \nInfo: ${info.componentStack}';
+
+    (props.logger ?? Logger(_loggerName)).severe(message, error, info.dartStackTrace);
   }
 }
 
