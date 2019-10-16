@@ -22,7 +22,7 @@ class _$ListGroupProps extends UiProps {
 @Component2()
 class ListGroupComponent extends UiComponent2<ListGroupProps> {
   @override
-  Map getDefaultProps() => (newProps()
+   get defaultProps => (newProps()
     ..elementType = ListGroupElementType.DIV
   );
 
@@ -32,7 +32,7 @@ class ListGroupComponent extends UiComponent2<ListGroupProps> {
       ..add('list-group');
 
     return (props.elementType.componentBuilderFactory()
-      ..addProps(copyUnconsumedDomProps())
+      ..modifyProps(addUnconsumedDomProps)
       ..className = classes.toClassName()
     )(props.children);
   }

@@ -29,7 +29,7 @@ class _$TagProps extends UiProps {
 @Component2()
 class TagComponent extends UiComponent2<TagProps> {
   @override
-  Map getDefaultProps() => (newProps()
+   get defaultProps => (newProps()
     ..skin = TagSkin.DEFAULT
     ..isPill = false
   );
@@ -42,7 +42,7 @@ class TagComponent extends UiComponent2<TagProps> {
       ..add(props.skin.className);
 
     return (Dom.span()
-      ..addProps(copyUnconsumedDomProps())
+      ..modifyProps(addUnconsumedDomProps)
       ..className = classes.toClassName()
     )(props.children);
   }

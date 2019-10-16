@@ -85,7 +85,7 @@ class _$ProgressState extends UiState {
 @Component2()
 class ProgressComponent extends UiStatefulComponent2<ProgressProps, ProgressState> {
   @override
-  Map getDefaultProps() => (newProps()
+   get defaultProps => (newProps()
     ..value = 0.0
     ..min = 0.0
     ..max = 100.0
@@ -97,7 +97,7 @@ class ProgressComponent extends UiStatefulComponent2<ProgressProps, ProgressStat
   );
 
   @override
-  Map getInitialState() => (newState()
+   get initialState => (newState()
     ..id = 'progress_' + generateGuid(4)
   );
 
@@ -112,7 +112,7 @@ class ProgressComponent extends UiStatefulComponent2<ProgressProps, ProgressStat
 
   ReactElement renderProgressNode() {
     return (Dom.progress()
-      ..addProps(copyUnconsumedDomProps())
+      ..modifyProps(addUnconsumedDomProps)
       ..addProps(ariaProps()
         ..labelledby = captionId
       )

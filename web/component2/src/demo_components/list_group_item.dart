@@ -86,7 +86,7 @@ class _$ListGroupItemProps extends UiProps {
 @Component2()
 class ListGroupItemComponent extends UiComponent2<ListGroupItemProps> {
   @override
-  Map getDefaultProps() => (newProps()
+   get defaultProps => (newProps()
     ..elementType = ListGroupItemElementType.SPAN
     ..skin = ListGroupItemSkin.DEFAULT
     ..isActive = false
@@ -112,7 +112,7 @@ class ListGroupItemComponent extends UiComponent2<ListGroupItemProps> {
     BuilderOnlyUiFactory<DomProps> factory = _getItemDomNodeFactory();
 
     return (factory()
-      ..addProps(copyUnconsumedDomProps())
+      ..modifyProps(addUnconsumedDomProps)
       ..className = _getItemClasses().toClassName()
       ..href = props.href
       ..target = props.target
