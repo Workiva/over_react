@@ -3,6 +3,7 @@ import 'dart:js_util' as js_util;
 import 'dart:js_util';
 
 import 'package:js/js.dart';
+import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:react/react_client.dart';
@@ -75,6 +76,9 @@ typedef _ComponentDidCatchCallback(/*Error||Exception*/dynamic error, /*Componen
 
 // TODO: Need to type the second argument once react-dart implements bindings for the ReactJS "errorInfo".
 typedef ReactElement _FallbackUiRenderer(/*Error||Exception*/dynamic error, /*ComponentStack*/dynamic errorInfo);
+
+@visibleForTesting
+const String defaultErrorBoundaryLoggerName = 'over_react.ErrorBoundary';
 
 /// A higher-order component that will catch ReactJS errors anywhere within the child component tree and
 /// display a fallback UI instead of the component tree that crashed.
@@ -160,6 +164,22 @@ class _$ErrorBoundaryProps extends UiProps {
   ///
   /// > Default: `const Duration(seconds: 5)`
   Duration identicalErrorFrequencyTolerance;
+
+  /// The name to use when the component's logger logs an error via [ErrorBoundaryComponent.componentDidCatch].
+  ///
+  /// Not used if a custom [logger] is specified.
+  ///
+  /// > Default: 'over_react.ErrorBoundary'
+  String loggerName;
+
+  /// Whether errors caught by this [ErrorBoundary] should be logged using a [Logger].
+  ///
+  /// > Default: `true`
+  bool shouldLogErrors;
+
+  /// An optional custom logger instance that will be used to log errors caught by
+  /// this [ErrorBoundary] when [shouldLogErrors] is true.
+  Logger logger;
 }
 
 @State()
@@ -189,6 +209,8 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   @override
   Map getDefaultProps() => (newProps()
     ..identicalErrorFrequencyTolerance = Duration(seconds: 5)
+    ..loggerName = defaultErrorBoundaryLoggerName
+    ..shouldLogErrors = true
   );
 
   @override
@@ -296,6 +318,8 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   //           [2.2.2] Since we should __never__ throw an error from our... uh... error boundary,
   //                   wrap in a try catch just in case `findDomNode` throws as a result of the
   //                   wrapped react tree rendering a string instead of a composite or dom component.
+  //
+  // [3] Log the caught error using a logger if `props.shouldLogErrors` is true.
   // ---------------------------------------------- /\ ----------------------------------------------
 
   String _domAtTimeOfError;
@@ -309,6 +333,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
     if (props.fallbackUIRenderer != null) {
       _lastError = error; // [1.1]
       _lastErrorInfo = _getReadableErrorInfo(jsErrorInfo); // [1.1]
+      _logErrorCaughtByErrorBoundary(error, _getReadableErrorInfo(jsErrorInfo)); // [3]
 
       setState(newState()..hasError = true); // [1]
       return;
@@ -326,9 +351,12 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
         if (props.onComponentIsUnrecoverable != null) { // [2.2.1]
           props.onComponentIsUnrecoverable(error, _getReadableErrorInfo(jsErrorInfo));
         }
+
+        _logErrorCaughtByErrorBoundary(error, _getReadableErrorInfo(jsErrorInfo), isRecoverable: false); // [3]
       } else {
         _lastError = error;
         _lastErrorInfo = _getReadableErrorInfo(jsErrorInfo);
+        _logErrorCaughtByErrorBoundary(error, _getReadableErrorInfo(jsErrorInfo)); // [3]
       }
 
       setState(newState()
@@ -384,4 +412,32 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   /// were thrown by the exact same component within the tree.
   String _getReadableErrorInfo(/*NativeJavascriptObject*/dynamic jsErrorInfo) =>
       getProperty(jsErrorInfo, 'componentStack');
+
+  String get _loggerName {
+    if (props.logger != null) return props.logger.name;
+
+    return props.loggerName ?? defaultErrorBoundaryLoggerName;
+  }
+
+  // ----- [3] ----- //
+  void _logErrorCaughtByErrorBoundary(
+    /*Error|Exception*/ dynamic error,
+    /*ReactErrorInfo*/ String info, {
+    bool isRecoverable = true,
+  }) {
+    if (!props.shouldLogErrors) return;
+
+    String message = isRecoverable
+        ? 'An error was caught by an ErrorBoundary: \nInfo: $info'
+        : 'An unrecoverable error was caught by an ErrorBoundary (attempting to remount it was unsuccessful): \nInfo: $info';
+
+    dynamic stackTrace;
+    try {
+      stackTrace = error.stackTrace;
+    } catch (_) {
+      // The error / exception doesn't extend from Error or Exception
+    }
+
+    (props.logger ?? Logger(_loggerName)).severe(message, error, stackTrace);
+  }
 }
