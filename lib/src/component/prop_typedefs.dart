@@ -18,5 +18,8 @@ import 'package:over_react/over_react.dart';
 import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 import 'package:react/react_client.dart';
 
-/// A typedef for props that allow a custom rendering function to be provided to render some part of a component.
-typedef ReactElement CustomRenderFunction<TProps extends UiProps, TState extends UiState, TComponent extends component_base.UiComponent<TProps>> (TProps props, TState state, TComponent component);
+/// A custom rendering prop typedef that allows a custom rendering function to be provided
+/// with the current [props] and [state] of the [component].
+typedef ReactElement CustomRenderFunction<T extends UiProps,
+                                          S extends UiState,
+                                          C extends component_base.UiComponent> (T props, S state, C component);
