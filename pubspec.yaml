@@ -1,5 +1,5 @@
 name: over_react
-version: 3.0.0-alpha.3+dart1
+version: 3.0.0-alpha.4+dart1
 description: A library for building statically-typed React UI components using Dart.
 homepage: https://github.com/Workiva/over_react/
 authors:
