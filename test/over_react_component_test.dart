@@ -27,6 +27,7 @@ import 'over_react/component/abstract_transition_test.dart' as abstract_transiti
 import 'over_react/component/dom_components_test.dart' as dom_components_test;
 import 'over_react/component/error_boundary_test.dart' as error_boundary_test;
 import 'over_react/component/prop_mixins_test.dart' as prop_mixins_test;
+import 'over_react/component/prop_typedefs_test.dart' as prop_typedefs_test;
 import 'over_react/component/resize_sensor_test.dart' as resize_sensor_test;
 
 
@@ -39,5 +40,6 @@ void main() {
   error_boundary_test.main();
   dom_components_test.main();
   prop_mixins_test.main();
+  prop_typedefs_test.main();
   resize_sensor_test.main();
 }
