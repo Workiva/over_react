@@ -1,5 +1,14 @@
 # OverReact Changelog
 
+## 2.6.1
+
+> Complete `2.6.1` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.6.0+dart2...2.6.1+dart2)
+> - Dart 1 (No Changes)
+
+* [#382] Update prop typedef to work around [Dart 2.6 compiler regression](https://github.com/dart-lang/sdk/issues/38880)
+
 ## 2.6.0
 
 > Complete `2.6.0` Changsets:
