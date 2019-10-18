@@ -30,6 +30,7 @@ import 'over_react/component/error_boundary_mixin_test.dart' as error_boundary_m
 import 'over_react/component/error_boundary_test.dart' as error_boundary_test;
 import 'over_react/component/forward_ref_test.dart' as forward_ref_test;
 import 'over_react/component/prop_mixins_test.dart' as prop_mixins_test;
+import 'over_react/component/prop_typedefs_test.dart' as prop_typedefs_test;
 import 'over_react/component/resize_sensor_test.dart' as resize_sensor_test;
 import 'over_react/component/fragment_component_test.dart' as fragment_component_test;
 import 'over_react/component/context_test.dart' as context_test;
@@ -47,6 +48,7 @@ void main() {
   forward_ref_test.main();
   dom_components_test.main();
   prop_mixins_test.main();
+  prop_typedefs_test.main();
   resize_sensor_test.main();
   fragment_component_test.main();
   context_test.main();
