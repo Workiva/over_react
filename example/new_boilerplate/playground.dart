@@ -34,7 +34,7 @@ class APropss = UiProps with CProps, BProps, AProps;
 class BPropss = UiProps with CProps, BProps;
 
 @Component2()
-class AComponent extends UiComponent2<APropss> {
+class AComponent extends UiComponent2<AProps> {
   @override
   render() => [props.a, props.b, props.c];
 }
@@ -42,7 +42,7 @@ class AComponent extends UiComponent2<APropss> {
 //
 // Generated code
 //
-class $APropsImpl extends UiProps with
+class $APropsImpl extends APropss with
     CProps,
     // Relies on generated code as public API, but only within generated code
     $CProps,

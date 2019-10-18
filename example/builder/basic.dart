@@ -1,10 +1,10 @@
 import 'package:over_react/over_react.dart';
 
 // ignore_for_file: uri_has_not_been_generated
-import 'basic.over_react.g.dart' as $;
-export 'basic.over_react.g.dart';
+import 'new_basic.over_react.g.dart' as $;
+export 'new_basic.over_react.g.dart';
 
-UiFactory<BasicProps> Basic = $.Basic;
+UiFactory<BasicProps> Basic = $.$Basic;
 
 class BasicProps = UiProps with BasicPropsMixin;
 
@@ -20,7 +20,7 @@ mixin BasicPropsMixin on UiProps {
   String basic5;
 }
 
-class BasicComponent extends UiComponent2<BasicPropsMixin> {
+class BasicComponent extends UiComponent2<BasicProps> {
   @override
   get defaultProps => newProps()..id = 'basic component'
       ..basicProp = 'defaultBasicProps'; // ignore: deprecated_member_use_from_same_package
