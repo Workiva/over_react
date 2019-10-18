@@ -10,6 +10,7 @@ Component2 / UiComponent2.
     * [Lifecycle Method Changes](#lifecycle-method-changes)
     * [Other Method Changes](#other-method-changes)
     * [PropTypes](#prop-validation-goes-through-proptypes)
+    * [ErrorBoundary Component Added](#errorboundary-component-added)
     * [Other Breaking Changes](#other-breakages-we-made-while-we-had-the-opportunity)
 * __[Updating](#updating)__
 ## What's New in Component2
@@ -20,7 +21,8 @@ Component2 / UiComponent2.
 - Pros: slightly faster, improved dev experience, easier to maintain, easier integration with JS libs
 - Cons: breaks a few advanced component APIs that will require conversion, some of which will be automated with codemod
 
-Migration can happen at any time, and is opt-in. We'll provide a codemod to handle the simpler cases and run it as 
+Migration can happen at any time, and is opt-in. We'll provide a [codemod](#updating) to handle the simpler cases and 
+run it as 
 part of cleanup, but it will take manual intervention to update some components.
 
 ## Why a new base class?
@@ -44,7 +46,7 @@ Component2 provides a small performance boost over Component, as a result of JS-
 - For a component that reads a single prop and renders a simple div, upgrading it to UiComponent2 results in:
   - initial renders that are 11% faster
   - rerenders that are 6.5% faster
-- Special case: for the WSD `Block` component, which has a simple lifecycle and heavy prop reads, upgrading it to 
+- Special case: for a component that has simple lifecycles, but heavy prop reads, upgrading it to 
 UiComponent2 results in:
   - initial renders that are 12% faster
   - rerenders that are 28% faster
@@ -71,6 +73,17 @@ Props/state key-value pairs are stored directly on JS objects, instead of within
   
 See the [React docs](https://reactjs.org/docs/react-component.html#the-component-lifecycle) for information on why the old methods are unsafe and how to transition to the new ones. This 
 information is also available and linked to within the lifecycle methods' doc comments.
+
+### ErrorBoundary Component Added
+
+With the ability to utilize componentDidCatch / getDerivedStateFromError comes the ability to use [error boundaries](https://reactjs.org/docs/error-boundaries.html).
+A component (called ErrorBoundary) is present within OverReact and can be used to wrap a component tree to prevent it 
+from unmounting when an error is thrown. Alternatively, a custom error boundary can be created by utilizing the 
+[ErrorBoundaryMixin](lib/src/component/error_boundary_mixins.dart).
+
+Usage of the default error boundary can be found in the Component1 examples (within web), and usage of a custom error 
+boundary can be found in the Component2 examples.
+
 
 ### Other Method Changes
 - `getDefaultProps` is now `get defaultProps`
