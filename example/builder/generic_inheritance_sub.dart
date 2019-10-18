@@ -5,7 +5,7 @@ import 'generic_inheritance_super.dart';
 import 'generic_inheritance_sub.over_react.g.dart' as $;
 export 'generic_inheritance_sub.over_react.g.dart';
 
-UiFactory<GenericSubProps> GenericSub = $.GenericSub;
+UiFactory<GenericSubProps> GenericSub = $.$GenericSub;
 
 class GenericSubProps = UiProps with GenericSuperPropsMixin, GenericSubPropsMixin;
 class GenericSubState = UiState with GenericSuperStateMixin, GenericSubStateMixin;

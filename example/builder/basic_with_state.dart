@@ -6,7 +6,7 @@ import 'state_mixin.dart';
 import 'basic_with_state.over_react.g.dart' as $;
 export 'basic_with_state.over_react.g.dart';
 
-UiFactory<BasicProps> Basic = $.Basic;
+UiFactory<BasicProps> Basic = $.$Basic;
 
 class BasicProps = UiProps with pm.ExamplePropsMixinClass, BasicPropsMixin;
 class BasicState = UiState with ExampleStateMixinClass, BasicStateMixin;

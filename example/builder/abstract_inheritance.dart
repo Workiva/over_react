@@ -26,7 +26,7 @@ abstract class SuperComponent<T extends SuperPropsMixin, V extends SuperStateMix
 
 //---------------------------- Sub Component ----------------------------
 
-UiFactory<SubProps> Sub = $.Sub;
+UiFactory<SubProps> Sub = $.$Sub;
 
 mixin SubPropsMixin on UiProps {
   String subProp;

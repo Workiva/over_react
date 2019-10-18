@@ -4,7 +4,7 @@ import 'package:over_react/over_react.dart';
 import 'basic.over_react.g.dart' as $;
 export 'basic.over_react.g.dart';
 
-UiFactory<BasicProps> Basic = $.Basic;
+UiFactory<BasicProps> Basic = $.$Basic;
 
 class BasicProps = UiProps with BasicPropsMixin;
 

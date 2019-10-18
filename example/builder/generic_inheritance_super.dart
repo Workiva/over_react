@@ -4,7 +4,7 @@ import 'package:over_react/over_react.dart';
 import 'generic_inheritance_super.over_react.g.dart' as $;
 export 'generic_inheritance_super.over_react.g.dart';
 
-UiFactory<GenericSuperProps> GenericSuper = $.GenericSuper;
+UiFactory<GenericSuperProps> GenericSuper = $.$GenericSuper;
 
 class GenericSuperProps = UiProps with GenericSuperPropsMixin;
 

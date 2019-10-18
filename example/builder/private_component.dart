@@ -4,7 +4,7 @@ import 'package:over_react/over_react.dart';
 import 'private_component.over_react.g.dart' as _$;
 export 'private_component.over_react.g.dart';
 
-UiFactory<_PrivatePropsMixin> _Private = _$.Private;
+UiFactory<_PrivatePropsMixin> _Private = _$.$Private;
 
 mixin _PrivatePropsMixin on UiProps {
   bool prop1;

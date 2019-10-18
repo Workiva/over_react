@@ -4,7 +4,7 @@ import 'package:over_react/over_react.dart';
 import 'basic_with_type_params.over_react.g.dart' as $;
 export 'basic_with_type_params.over_react.g.dart';
 
-UiFactory<BasicPropsMixin> Basic = $.Basic;
+UiFactory<BasicPropsMixin> Basic = $.$Basic;
 
 mixin BasicPropsMixin<T, U extends UiProps> on UiProps {
   List<T> someGenericListProp;

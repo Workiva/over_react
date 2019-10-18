@@ -1,6 +1,6 @@
 part of basic.library;
 
-UiFactory<BasicPartOfLibProps> BasicPartOfLib = $.BasicPartOfLib;
+UiFactory<BasicPartOfLibProps> BasicPartOfLib = $.$BasicPartOfLib;
 
 class BasicPartOfLibProps = UiProps with ExamplePropsMixinClass, BasicPartOfLibPropsMixin;
 class BasicPartOfLibState = UiState with ExampleStateMixinClass, BasicPartOfLibStateMixin;
