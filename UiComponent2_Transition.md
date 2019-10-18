@@ -84,7 +84,6 @@ from unmounting when an error is thrown. Alternatively, a custom error boundary 
 Usage of the default error boundary can be found in the Component1 examples (within web), and usage of a custom error 
 boundary can be found in the Component2 examples.
 
-
 ### Other Method Changes
 - `getDefaultProps` is now `get defaultProps`
 - `getInitialState` is now `get initialState`
