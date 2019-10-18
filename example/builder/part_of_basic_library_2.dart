@@ -16,7 +16,7 @@ abstract class SuperPartOfLibComponent<T extends SuperPartOfLibPropsMixin> exten
   }
 }
 
-UiFactory<SubPartOfLibProps> SubPartOfLib = $.SubPartOfLib;
+UiFactory<SubPartOfLibProps> SubPartOfLib = $.$SubPartOfLib;
 
 class SubPartOfLibProps = UiProps with SuperPartOfLibPropsMixin, SubPartOfLibPropsMixin;
 

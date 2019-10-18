@@ -4,7 +4,7 @@ import 'package:over_react/over_react.dart';
 import 'private_factory_public_component.over_react.g.dart' as $;
 export 'private_factory_public_component.over_react.g.dart';
 
-UiFactory<FormActionInputPropsMixin> _FormActionInput = $.FormActionInput;
+UiFactory<FormActionInputPropsMixin> _FormActionInput = $.$FormActionInput;
 
 UiFactory<FormActionInputPropsMixin> FormSubmitInput = ([Map backingMap]) =>
     _FormActionInput(backingMap);
