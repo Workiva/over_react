@@ -1,11 +1,11 @@
 part of basic.library;
 
-@Factory()
-UiFactory<BasicPartOfLibProps> BasicPartOfLib = _$BasicPartOfLib;
+UiFactory<BasicPartOfLibProps> BasicPartOfLib = $.BasicPartOfLib;
 
-@Props()
-class _$BasicPartOfLibProps extends UiProps
-    with ExamplePropsMixinClass {
+class BasicPartOfLibProps = UiProps with ExamplePropsMixinClass, BasicPartOfLibPropsMixin;
+class BasicPartOfLibState = UiState with ExampleStateMixinClass, BasicPartOfLibStateMixin;
+
+mixin BasicPartOfLibPropsMixin on UiProps, ExamplePropsMixinClass {
   String basicProp;
   String basic1;
   String basic2;
@@ -14,13 +14,10 @@ class _$BasicPartOfLibProps extends UiProps
   String basic5;
 }
 
-@State()
-class _$BasicPartOfLibState extends UiState
-    with ExampleStateMixinClass {
+mixin BasicPartOfLibStateMixin on UiState, ExampleStateMixinClass {
   String basicState;
 }
 
-@Component2()
 class BasicPartOfLibComponent extends UiStatefulComponent2<BasicPartOfLibProps, BasicPartOfLibState> {
   @override
   get defaultProps => newProps()..id = 'BasicPartOfLib';

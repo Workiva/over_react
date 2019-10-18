@@ -2,13 +2,16 @@ import 'package:over_react/over_react.dart';
 import 'props_mixin.dart' as pm;
 import 'state_mixin.dart';
 
-part 'basic_with_state.over_react.g.dart';
+// ignore_for_file: uri_has_not_been_generated
+import 'basic_with_state.over_react.g.dart' as $;
+export 'basic_with_state.over_react.g.dart';
 
-@Factory()
-UiFactory<BasicProps> Basic = _$Basic;
+UiFactory<BasicProps> Basic = $.Basic;
 
-@Props()
-class _$BasicProps extends UiProps with pm.ExamplePropsMixinClass {
+class BasicProps = UiProps with pm.ExamplePropsMixinClass, BasicPropsMixin;
+class BasicState = UiState with ExampleStateMixinClass, BasicStateMixin;
+
+mixin BasicPropsMixin on UiProps, pm.ExamplePropsMixinClass {
   String basicProp;
   String basic1;
   String basic2;
@@ -17,12 +20,10 @@ class _$BasicProps extends UiProps with pm.ExamplePropsMixinClass {
   String basic5;
 }
 
-@State()
-class _$BasicState extends UiState with ExampleStateMixinClass {
+mixin BasicStateMixin on UiState, ExampleStateMixinClass {
   String basicState;
 }
 
-@Component2()
 class BasicComponent extends UiStatefulComponent2<BasicProps, BasicState> {
   @override
   get defaultProps => newProps()..id = 'basic component'

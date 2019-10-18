@@ -1,18 +1,17 @@
 import 'package:over_react/over_react.dart';
 
-part 'basic_with_type_params.over_react.g.dart';
+// ignore_for_file: uri_has_not_been_generated
+import 'basic_with_type_params.over_react.g.dart' as $;
+export 'basic_with_type_params.over_react.g.dart';
 
-@Factory()
-UiFactory<BasicProps> Basic = _$Basic;
+UiFactory<BasicPropsMixin> Basic = $.Basic;
 
-@Props()
-class _$BasicProps<T, U extends UiProps> extends UiProps {
+mixin BasicPropsMixin<T, U extends UiProps> on UiProps {
   List<T> someGenericListProp;
   U somePropsClass;
 }
 
-@Component2()
-class BasicComponent extends UiComponent2<BasicProps> {
+class BasicComponent extends UiComponent2<BasicPropsMixin> {
   @override
   get defaultProps => newProps()..id = 'basic component';
 

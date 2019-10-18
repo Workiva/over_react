@@ -1,14 +1,12 @@
 part of basic.library;
 
-@AbstractProps()
-class _$SuperPartOfLibProps extends UiProps {
+mixin SuperPartOfLibPropsMixin on UiProps {
   String superProp;
 }
 
-@AbstractComponent()
-abstract class SuperPartOfLibComponent<T extends SuperPartOfLibProps> extends UiComponent<T> {
+abstract class SuperPartOfLibComponent<T extends SuperPartOfLibPropsMixin> extends UiComponent2<T> {
   @override
-  Map getDefaultProps() => newProps()..id = 'super';
+  get defaultProps => newProps()..id = 'super';
 
   @override
   render() {
@@ -18,18 +16,17 @@ abstract class SuperPartOfLibComponent<T extends SuperPartOfLibProps> extends Ui
   }
 }
 
-@Factory()
-UiFactory<SubPartOfLibProps> SubPartOfLib = _$SubPartOfLib;
+UiFactory<SubPartOfLibProps> SubPartOfLib = $.SubPartOfLib;
 
-@Props()
-class _$SubPartOfLibProps extends SuperPartOfLibProps {
+class SubPartOfLibProps = UiProps with SuperPartOfLibPropsMixin, SubPartOfLibPropsMixin;
+
+mixin SubPartOfLibPropsMixin on UiProps, SuperPartOfLibPropsMixin {
   String subProp;
 }
 
-@Component()
 class SubPartOfLibComponent extends SuperPartOfLibComponent<SubPartOfLibProps> {
   @override
-  Map getDefaultProps() => newProps()..id = 'sub';
+  get defaultProps => newProps()..id = 'sub';
 
   @override
   render() {

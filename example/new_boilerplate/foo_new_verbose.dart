@@ -5,19 +5,19 @@ import 'foo_new_2.over_react.g.dart' as $;
 export 'foo_new_2.over_react.g.dart';
 
 @Factory()
-UiFactory<FooProps> Foo = $.foo;
+UiFactory<FooVerboseProps> Foo = $.foo;
 
 @PropsMixin()
-mixin FooPropsMixin on UiProps {
+mixin FooVerbosePropsMixin on UiProps {
   @requiredProp
   int foo;
 }
 
 @Props()
-class FooProps = UiProps with FooPropsMixin;
+class FooVerboseProps = UiProps with FooVerbosePropsMixin;
 
 @Component2()
-class FooComponent extends UiComponent2<FooProps> {
+class FooComponent extends UiComponent2<FooVerboseProps> {
   @override
   render() => [props.foo];
 }

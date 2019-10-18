@@ -1,8 +1,8 @@
 import 'package:over_react/over_react.dart';
 
 // ignore_for_file: uri_has_not_been_generated
-import 'foo_new_2.over_react.g.dart' as $;
-export 'foo_new_2.over_react.g.dart';
+import 'foo_new_terse.over_react.g.dart' as $;
+export 'foo_new_terse.over_react.g.dart';
 
 UiFactory<FooPropsMixin> Foo = $.foo;
 
