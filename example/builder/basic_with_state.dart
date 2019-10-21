@@ -3,8 +3,8 @@ import 'props_mixin.dart' as pm;
 import 'state_mixin.dart';
 
 // ignore_for_file: uri_has_not_been_generated
-import 'basic_with_state.over_react.g.dart' as $;
-export 'basic_with_state.over_react.g.dart';
+import 'basic_with_state.example.over_react.g.dart' as $;
+export 'basic_with_state.example.over_react.g.dart';
 
 UiFactory<BasicProps> Basic = $.$Basic;
 

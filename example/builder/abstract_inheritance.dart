@@ -1,8 +1,8 @@
 import 'package:over_react/over_react.dart';
 
 // ignore_for_file: uri_has_not_been_generated
-import 'abstract_inheritance.over_react.g.dart' as $;
-export 'abstract_inheritance.over_react.g.dart';
+import 'abstract_inheritance.example.over_react.g.dart' as $;
+export 'abstract_inheritance.example.over_react.g.dart';
 
 mixin SuperPropsMixin on UiProps {
   String superProp;

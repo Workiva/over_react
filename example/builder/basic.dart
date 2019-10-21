@@ -1,8 +1,8 @@
 import 'package:over_react/over_react.dart';
 
 // ignore_for_file: uri_has_not_been_generated
-import 'new_basic.over_react.g.dart' as $;
-export 'new_basic.over_react.g.dart';
+import 'basic.example.over_react.g.dart' as $;
+export 'basic.example.over_react.g.dart';
 
 UiFactory<BasicProps> Basic = $.$Basic;
 

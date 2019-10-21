@@ -1,8 +1,8 @@
 import 'package:over_react/over_react.dart';
 
 // ignore_for_file: uri_has_not_been_generated
-import 'generic_inheritance_super.over_react.g.dart' as $;
-export 'generic_inheritance_super.over_react.g.dart';
+import 'generic_inheritance_super.example.over_react.g.dart' as $;
+export 'generic_inheritance_super.example.over_react.g.dart';
 
 UiFactory<GenericSuperProps> GenericSuper = $.$GenericSuper;
 

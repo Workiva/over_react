@@ -23,6 +23,7 @@ targets:
           exclude:
             # This tests un-built behavior, and therefore should not be built
             - "test/over_react/component_declaration/builder_helpers_test.dart"
+            - "example/builder/**"
 
       over_react|overReactBuilder:
         enabled: false

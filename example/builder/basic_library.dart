@@ -9,8 +9,8 @@ import 'package:over_react/over_react.dart';
 import 'props_mixin.dart';
 import 'state_mixin.dart';
 
-import 'basic_library.over_react.g.dart' as $;
-export 'basic_library.over_react.g.dart';
+import 'basic_library.example.over_react.g.dart' as $;
+export 'basic_library.example.over_react.g.dart';
 
 part 'part_of_basic_library.dart';
 part 'part_of_basic_library_2.dart';
