@@ -70,9 +70,9 @@ abstract class $DomPropsMixin {}
 abstract class _$DomPropsMixin {
   Map get props;
 
-  int cols, rows, size, span, start;
+  int cols, colSpan, maxLength, rows, rowSpan, size, span, start;
 
-  bool allowFullScreen, async, autoPlay, checked, controls, defer, disabled, formNoValidate, hidden, loop, multiple,
+  bool allowFullScreen, allowTransparency, async, autoPlay, checked, controls, defer, disabled, formNoValidate, hidden, loop, multiple,
     muted, noValidate, open, readOnly, required, seamless, selected;
 
   Map<String, dynamic> style;
@@ -82,8 +82,8 @@ abstract class _$DomPropsMixin {
     method, name, pattern, placeholder, poster, preload, radioGroup, rel, role, sandbox, scope, scrolling, shape, sizes, src,
     srcDoc, srcSet, target, title, type, useMap, wmode;
 
-  dynamic allowTransparency, cellPadding, cellSpacing, colSpan, contentEditable, download, draggable, frameBorder, height, icon,
-    max, maxLength, min, rowSpan, spellCheck, step, tabIndex, value, width;
+  dynamic cellPadding, cellSpacing, contentEditable, download, draggable, frameBorder, height, icon,
+      max, min, spellCheck, step, tabIndex, value, width;
 
   AnimationEventCallback onAnimationEnd, onAnimationIteration, onAnimationStart;
   ClipboardEventCallback onCopy, onCut, onPaste;
