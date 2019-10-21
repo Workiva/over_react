@@ -223,7 +223,7 @@ class _$ToggleButtonGroupComponent extends ToggleButtonGroupComponent {
     assert(
         value is JsBackedMap,
         'Component2.state should only be set via '
-        'initializeState (within the init lifecycle method) or setState.');
+        'initialState or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value);
   }

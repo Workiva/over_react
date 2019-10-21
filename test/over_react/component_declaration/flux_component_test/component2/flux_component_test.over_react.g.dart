@@ -1110,7 +1110,7 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
     assert(
         value is JsBackedMap,
         'Component2.state should only be set via '
-        'initializeState (within the init lifecycle method) or setState.');
+        'initialState or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value);
   }
@@ -1362,7 +1362,7 @@ class _$TestStatefulHandlerLifecycleComponent
     assert(
         value is JsBackedMap,
         'Component2.state should only be set via '
-        'initializeState (within the init lifecycle method) or setState.');
+        'initialState or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value);
   }
@@ -1615,7 +1615,7 @@ class _$TestStatefulHandlerPrecedenceComponent
     assert(
         value is JsBackedMap,
         'Component2.state should only be set via '
-        'initializeState (within the init lifecycle method) or setState.');
+        'initialState or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value);
   }
@@ -1889,7 +1889,7 @@ class _$TestStatefulPropValidationComponent
     assert(
         value is JsBackedMap,
         'Component2.state should only be set via '
-        'initializeState (within the init lifecycle method) or setState.');
+        'initialState or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value);
   }
@@ -2134,7 +2134,7 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
     assert(
         value is JsBackedMap,
         'Component2.state should only be set via '
-        'initializeState (within the init lifecycle method) or setState.');
+        'initialState or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value);
   }
@@ -2385,7 +2385,7 @@ class _$TestStatefulStoreHandlersComponent
     assert(
         value is JsBackedMap,
         'Component2.state should only be set via '
-        'initializeState (within the init lifecycle method) or setState.');
+        'initialState or setState.');
     super.state = value;
     _cachedTypedState = typedStateFactoryJs(value);
   }

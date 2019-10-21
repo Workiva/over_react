@@ -17,8 +17,8 @@ library over_react.builder_generation.helpers_test;
 import 'package:over_react/src/component_declaration/builder_helpers.dart';
 import 'package:test/test.dart';
 
-final Matcher throwsUngeneratedError          = throwsA(const TypeMatcher<UngeneratedError>());
-final Matcher throwsIllegalInstantiationError = throwsA(const TypeMatcher<IllegalInstantiationError>());
+final Matcher throwsUngeneratedError          = throwsA(isA<UngeneratedError>());
+final Matcher throwsIllegalInstantiationError = throwsA(isA<IllegalInstantiationError>());
 
 main() {
   group('transformation generation helpers:', () {

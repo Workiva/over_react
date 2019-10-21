@@ -22,8 +22,8 @@ UiFactory<OneLevelWrapper2Props> OneLevelWrapper2 = _$OneLevelWrapper2;
 @Props()
 class _$OneLevelWrapper2Props extends UiProps {}
 
-@Component(isWrapper: true)
-class OneLevelWrapper2Component extends UiComponent<OneLevelWrapper2Props> {
+@Component2(isWrapper: true)
+class OneLevelWrapper2Component extends UiComponent2<OneLevelWrapper2Props> {
   @override
   render() => Dom.div()(props.children.single);
 }

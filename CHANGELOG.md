@@ -1,28 +1,94 @@
 # OverReact Changelog
 
-## 3.0.0
+## 3.0.0 (alpha)
 
-__ReactJS 16.x Support__ _(and Dart 1 compatible)_
+- __3.0.0-alpha.4__
 
-* The underlying `react` dependency ([version 5.0.0](https://github.com/cleandart/react-dart/pull/214)) now provides ReactJS version 16 `.js` source files.
-* Support for the new / updated lifecycle methods from ReactJS 16 [will be released in version `3.1.0`](https://github.com/Workiva/over_react/milestone/3).
+  * [#383] Update prop typedef to work around [Dart 2.6 compiler regression](https://github.com/dart-lang/sdk/issues/38880)
 
-__Breaking Changes__
+  > Complete `3.0.0-alpha.4` Changesets:
+  >
+  > - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0-alpha.3+dart2...3.0.0-alpha.4+dart2)
+  > - Dart 1 (no changes)
 
-* [#314] The `.over_react.g.dart` part directive is required on Dart 2. The
-  builder now logs at the `SEVERE` level (which causes the build to fail) when
-  a missing part directive is detected. Previously, the builder only logged this
-  as a warning. In other words, the issue has been promoted from a runtime
-  exception to a build-time error.
+- __3.0.0-alpha.3__
 
-> Complete `3.0.0` Changsets:
+  * [#370] Add error logging to ErrorBoundary
+
+  > Complete `3.0.0-alpha.3` Changesets:
+  >
+  > - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0-alpha.2+dart2...3.0.0-alpha.3+dart2)
+  > - [Dart 1](https://github.com/Workiva/over_react/compare/3.0.0-alpha.2+dart1...3.0.0-alpha.3+dart1)
+
+- __3.0.0-alpha.2__
+
+  * [#363] Dart 2 Widen `analyzer` dependency range
+
+  > Complete `3.0.0-alpha.2` Changesets:
+  >
+  > - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0-alpha.1+dart2...3.0.0-alpha.2+dart2)
+  > - Dart 1 (no changes)
+
+- __3.0.0-alpha.1__
+
+  * [#350] Improve handling of “repeat” errors thrown from components wrapped by an `ErrorBoundary`.
+
+  > Complete `3.0.0-alpha.1` Changesets:
+  >
+  > - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0-alpha.0+dart2...3.0.0-alpha.1+dart2)
+  > - [Dart 1](https://github.com/Workiva/over_react/compare/3.0.0-alpha.0+dart1...3.0.0-alpha.1+dart1)
+
+- __3.0.0-alpha.0__
+
+  __ReactJS 16.x Support__ _(and Dart 1 compatible)_
+
+  * The underlying `react` dependency ([version 5.0.0](https://github.com/cleandart/react-dart/pull/214)) now provides ReactJS version 16 `.js` source files.
+  * Support for the new / updated lifecycle methods from ReactJS 16 [will be released in version `3.1.0`](https://github.com/Workiva/over_react/milestone/3).
+
+  __Breaking Changes__
+
+  * [#314] The `.over_react.g.dart` part directive is required on Dart 2. The
+    builder now logs at the `SEVERE` level (which causes the build to fail) when
+    a missing part directive is detected. Previously, the builder only logged this
+    as a warning. In other words, the issue has been promoted from a runtime
+    exception to a build-time error.
+
+  > Complete `3.0.0-alpha.0` Changesets:
+  >
+  > - [Dart 2](https://github.com/Workiva/over_react/compare/2.5.2+dart2...3.0.0-alpha.0+dart2)
+  > - [Dart 1](https://github.com/Workiva/over_react/compare/2.5.0+dart1...3.0.0-alpha.0+dart1)
+
+## 2.6.1
+
+> Complete `2.6.1` Changsets:
 >
-> - [Dart 2](https://github.com/Workiva/over_react/compare/2.5.2+dart2...3.0.0-alpha.0+dart2)
-> - [Dart 1](https://github.com/Workiva/over_react/compare/2.5.0+dart1...3.0.0-alpha.0+dart1)
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.6.0+dart2...2.6.1+dart2)
+> - Dart 1 (No Changes)
+
+* [#382] Update prop typedef to work around [Dart 2.6 compiler regression](https://github.com/dart-lang/sdk/issues/38880)
+
+## 2.6.0
+
+> Complete `2.6.0` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.5.3+dart2...2.6.0+dart2)
+> - [Dart 1](https://github.com/Workiva/over_react/compare/2.5.3+dart1...2.6.0+dart1)
+
+* Adds a placeholder prop API to mirror the 3.x ErrorBoundary APIs ([#370]) added to configure logging. 
+  The API is not wired up in 2.x, but will make the transition for consumers to 3.x smoother.
+
+## 2.5.3
+
+> Complete `2.5.3` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.5.2+dart2...2.5.3+dart2)
+> - Dart 1 (no changes)
+
+* [#363] Dart 2 Widen `analyzer` dependency range
 
 ## 2.5.2
 
-> Complete `2.5.2` Changsets:
+> Complete `2.5.2` Changesets:
 >
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.5.1+dart2...2.5.2+dart2)
 > - Dart 1 (no changes)
@@ -31,7 +97,7 @@ __Breaking Changes__
 
 ## 2.5.1
 
-> Complete `2.5.1` Changsets:
+> Complete `2.5.1` Changesets:
 >
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.5.0+dart2...2.5.1+dart2)
 > - Dart 1 (no changes)
@@ -40,7 +106,7 @@ __Breaking Changes__
 
 ## 2.5.0
 
-> Complete `2.5.0` Changsets:
+> Complete `2.5.0` Changesets:
 >
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.4.4+dart2...2.5.0+dart2)
 > - [Dart 1](https://github.com/Workiva/over_react/compare/2.4.2+dart1...2.5.0+dart1)
@@ -49,7 +115,7 @@ __Breaking Changes__
 
 ## 2.4.4
 
-> Complete `2.4.4` Changsets:
+> Complete `2.4.4` Changesets:
 >
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.4.3+dart2...2.4.4+dart2)
 > - Dart 1 (no changes)
@@ -58,7 +124,7 @@ __Breaking Changes__
 
 ## 2.4.3
 
-> Complete `2.4.3` Changsets:
+> Complete `2.4.3` Changesets:
 >
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.4.2+dart2...2.4.3+dart2)
 > - Dart 1 (no changes)
@@ -71,7 +137,7 @@ __Breaking Changes__
 
 ## 2.4.2
 
-> Complete `2.4.2` Changsets:
+> Complete `2.4.2` Changesets:
 >
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.4.1+dart2...2.4.2+dart2)
 > - [Dart 1](https://github.com/Workiva/over_react/compare/2.4.1+dart1...2.4.2+dart1)
@@ -82,7 +148,7 @@ __Breaking Changes__
 
 ## 2.4.1
 
-> Complete `2.4.1` Changsets:
+> Complete `2.4.1` Changesets:
 >
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.4.0+dart2...2.4.1+dart2)
 > - Dart 1 (no changes)
@@ -91,7 +157,7 @@ __Breaking Changes__
 
 ## 2.4.0
 
-> Complete `2.4.0` Changsets:
+> Complete `2.4.0` Changesets:
 >
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.3.1+dart2...2.4.0+dart2)
 > - Dart 1 (no changes)
@@ -103,7 +169,7 @@ __Breaking Changes__
 
 ## 2.3.1
 
-> Complete `2.3.1` Changsets:
+> Complete `2.3.1` Changesets:
 >
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.3.0+dart2...2.3.1+dart2)
 > - [Dart 1](https://github.com/Workiva/over_react/compare/2.3.0+dart1...2.3.1+dart1)
@@ -112,7 +178,7 @@ __Breaking Changes__
 
 ## 2.3.0
 
-> Complete `2.3.0` Changsets:
+> Complete `2.3.0` Changesets:
 >
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.2.0+dart2...2.3.0+dart2)
 > - [Dart 1](https://github.com/Workiva/over_react/compare/2.2.0+dart1...2.3.0+dart1)
@@ -122,7 +188,7 @@ __Breaking Changes__
 
 ## 2.2.0
 
-> Complete `2.2.0` Changsets:
+> Complete `2.2.0` Changesets:
 >
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.1.0+dart2...2.2.0+dart2)
 > - [Dart 1](https://github.com/Workiva/over_react/compare/2.1.0+dart1...2.2.0+dart1)
@@ -135,7 +201,7 @@ __Breaking Changes__
 
 ## 2.1.0
 
-> Complete `2.1.0` Changsets:
+> Complete `2.1.0` Changesets:
 >
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.0.0+dart2...2.1.0+dart2)
 > - Dart 1 (no changes)

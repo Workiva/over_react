@@ -259,7 +259,7 @@ class ImplGenerator {
             ..writeln('  set state(Map value) {')
             ..writeln('    assert(value is JsBackedMap, ')
             ..writeln('      \'Component2.state should only be set via \'')
-            ..writeln('      \'initializeState (within the init lifecycle method) or setState.\');')
+            ..writeln('      \'initialState or setState.\');')
             ..writeln('    super.state = value;')
             ..writeln('    _cachedTypedState = typedStateFactoryJs(value);')
             ..writeln('  }')
@@ -417,8 +417,8 @@ class ImplGenerator {
             if (variable.initializer != null) {
               logger.severe(messageWithSpan(
                   'Fields are stubs for generated setters/getters and should not have initializers.\n'
-                      'Instead, initialize ${type.isProps 
-                          ? 'prop values within getDefaultProps()' 
+                      'Instead, initialize ${type.isProps
+                          ? 'prop values within getDefaultProps()'
                           : 'state values within getInitialState()'}.',
                   span: getSpan(sourceFile, variable))
               );
