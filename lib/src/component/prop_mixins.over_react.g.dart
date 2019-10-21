@@ -84,6 +84,33 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   set cols(int value) => props[_$key__cols___$DomPropsMixin] = value;
 
+  /// <!-- Generated from [_$DomPropsMixin.colSpan] -->
+  @override
+  int get colSpan =>
+      props[_$key__colSpan___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.colSpan] -->
+  @override
+  set colSpan(int value) => props[_$key__colSpan___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.maxLength] -->
+  @override
+  int get maxLength =>
+      props[_$key__maxLength___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.maxLength] -->
+  @override
+  set maxLength(int value) => props[_$key__maxLength___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.minLength] -->
+  @override
+  int get minLength =>
+      props[_$key__minLength___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.minLength] -->
+  @override
+  set minLength(int value) => props[_$key__minLength___$DomPropsMixin] = value;
+
   /// <!-- Generated from [_$DomPropsMixin.rows] -->
   @override
   int get rows =>
@@ -92,6 +119,15 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.rows] -->
   @override
   set rows(int value) => props[_$key__rows___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.rowSpan] -->
+  @override
+  int get rowSpan =>
+      props[_$key__rowSpan___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.rowSpan] -->
+  @override
+  set rowSpan(int value) => props[_$key__rowSpan___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.size] -->
   @override
@@ -119,6 +155,53 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.start] -->
   @override
   set start(int value) => props[_$key__start___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.high] -->
+  @override
+  num get high =>
+      props[_$key__high___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.high] -->
+  @override
+  set high(num value) => props[_$key__high___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.low] -->
+  @override
+  num get low =>
+      props[_$key__low___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.low] -->
+  @override
+  set low(num value) => props[_$key__low___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.marginHeight] -->
+  @override
+  num get marginHeight =>
+      props[_$key__marginHeight___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.marginHeight] -->
+  @override
+  set marginHeight(num value) =>
+      props[_$key__marginHeight___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.marginWidth] -->
+  @override
+  num get marginWidth =>
+      props[_$key__marginWidth___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.marginWidth] -->
+  @override
+  set marginWidth(num value) =>
+      props[_$key__marginWidth___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.optimum] -->
+  @override
+  num get optimum =>
+      props[_$key__optimum___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.optimum] -->
+  @override
+  set optimum(num value) => props[_$key__optimum___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.htmlDefault] -->
   @override
@@ -152,6 +235,16 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   set allowFullScreen(bool value) =>
       props[_$key__allowFullScreen___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.allowTransparency] -->
+  @override
+  bool get allowTransparency =>
+      props[_$key__allowTransparency___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.allowTransparency] -->
+  @override
+  set allowTransparency(bool value) =>
+      props[_$key__allowTransparency___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.async] -->
   @override
@@ -968,16 +1061,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   set wrap(String value) => props[_$key__wrap___$DomPropsMixin] = value;
 
-  /// <!-- Generated from [_$DomPropsMixin.allowTransparency] -->
-  @override
-  dynamic get allowTransparency =>
-      props[_$key__allowTransparency___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.allowTransparency] -->
-  @override
-  set allowTransparency(dynamic value) =>
-      props[_$key__allowTransparency___$DomPropsMixin] = value;
-
   /// <!-- Generated from [_$DomPropsMixin.capture] -->
   @override
   dynamic get capture =>
@@ -1006,15 +1089,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   set cellSpacing(dynamic value) =>
       props[_$key__cellSpacing___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.colSpan] -->
-  @override
-  dynamic get colSpan =>
-      props[_$key__colSpan___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.colSpan] -->
-  @override
-  set colSpan(dynamic value) => props[_$key__colSpan___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.contentEditable] -->
   @override
@@ -1065,15 +1139,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   set height(dynamic value) => props[_$key__height___$DomPropsMixin] = value;
 
-  /// <!-- Generated from [_$DomPropsMixin.high] -->
-  @override
-  dynamic get high =>
-      props[_$key__high___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.high] -->
-  @override
-  set high(dynamic value) => props[_$key__high___$DomPropsMixin] = value;
-
   /// <!-- Generated from [_$DomPropsMixin.icon] -->
   @override
   dynamic get icon =>
@@ -1082,35 +1147,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.icon] -->
   @override
   set icon(dynamic value) => props[_$key__icon___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.low] -->
-  @override
-  dynamic get low =>
-      props[_$key__low___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.low] -->
-  @override
-  set low(dynamic value) => props[_$key__low___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.marginHeight] -->
-  @override
-  dynamic get marginHeight =>
-      props[_$key__marginHeight___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.marginHeight] -->
-  @override
-  set marginHeight(dynamic value) =>
-      props[_$key__marginHeight___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.marginWidth] -->
-  @override
-  dynamic get marginWidth =>
-      props[_$key__marginWidth___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.marginWidth] -->
-  @override
-  set marginWidth(dynamic value) =>
-      props[_$key__marginWidth___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.max] -->
   @override
@@ -1121,16 +1157,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   set max(dynamic value) => props[_$key__max___$DomPropsMixin] = value;
 
-  /// <!-- Generated from [_$DomPropsMixin.maxLength] -->
-  @override
-  dynamic get maxLength =>
-      props[_$key__maxLength___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.maxLength] -->
-  @override
-  set maxLength(dynamic value) =>
-      props[_$key__maxLength___$DomPropsMixin] = value;
-
   /// <!-- Generated from [_$DomPropsMixin.min] -->
   @override
   dynamic get min =>
@@ -1139,34 +1165,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.min] -->
   @override
   set min(dynamic value) => props[_$key__min___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.minLength] -->
-  @override
-  dynamic get minLength =>
-      props[_$key__minLength___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.minLength] -->
-  @override
-  set minLength(dynamic value) =>
-      props[_$key__minLength___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.optimum] -->
-  @override
-  dynamic get optimum =>
-      props[_$key__optimum___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.optimum] -->
-  @override
-  set optimum(dynamic value) => props[_$key__optimum___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.rowSpan] -->
-  @override
-  dynamic get rowSpan =>
-      props[_$key__rowSpan___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.rowSpan] -->
-  @override
-  set rowSpan(dynamic value) => props[_$key__rowSpan___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.spellCheck] -->
   @override
@@ -2112,20 +2110,40 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__cols___$DomPropsMixin =
       const PropDescriptor(_$key__cols___$DomPropsMixin);
+  static const PropDescriptor _$prop__colSpan___$DomPropsMixin =
+      const PropDescriptor(_$key__colSpan___$DomPropsMixin);
+  static const PropDescriptor _$prop__maxLength___$DomPropsMixin =
+      const PropDescriptor(_$key__maxLength___$DomPropsMixin);
+  static const PropDescriptor _$prop__minLength___$DomPropsMixin =
+      const PropDescriptor(_$key__minLength___$DomPropsMixin);
   static const PropDescriptor _$prop__rows___$DomPropsMixin =
       const PropDescriptor(_$key__rows___$DomPropsMixin);
+  static const PropDescriptor _$prop__rowSpan___$DomPropsMixin =
+      const PropDescriptor(_$key__rowSpan___$DomPropsMixin);
   static const PropDescriptor _$prop__size___$DomPropsMixin =
       const PropDescriptor(_$key__size___$DomPropsMixin);
   static const PropDescriptor _$prop__span___$DomPropsMixin =
       const PropDescriptor(_$key__span___$DomPropsMixin);
   static const PropDescriptor _$prop__start___$DomPropsMixin =
       const PropDescriptor(_$key__start___$DomPropsMixin);
+  static const PropDescriptor _$prop__high___$DomPropsMixin =
+      const PropDescriptor(_$key__high___$DomPropsMixin);
+  static const PropDescriptor _$prop__low___$DomPropsMixin =
+      const PropDescriptor(_$key__low___$DomPropsMixin);
+  static const PropDescriptor _$prop__marginHeight___$DomPropsMixin =
+      const PropDescriptor(_$key__marginHeight___$DomPropsMixin);
+  static const PropDescriptor _$prop__marginWidth___$DomPropsMixin =
+      const PropDescriptor(_$key__marginWidth___$DomPropsMixin);
+  static const PropDescriptor _$prop__optimum___$DomPropsMixin =
+      const PropDescriptor(_$key__optimum___$DomPropsMixin);
   static const PropDescriptor _$prop__htmlDefault___$DomPropsMixin =
       const PropDescriptor(_$key__htmlDefault___$DomPropsMixin);
   static const PropDescriptor _$prop__htmlIs___$DomPropsMixin =
       const PropDescriptor(_$key__htmlIs___$DomPropsMixin);
   static const PropDescriptor _$prop__allowFullScreen___$DomPropsMixin =
       const PropDescriptor(_$key__allowFullScreen___$DomPropsMixin);
+  static const PropDescriptor _$prop__allowTransparency___$DomPropsMixin =
+      const PropDescriptor(_$key__allowTransparency___$DomPropsMixin);
   static const PropDescriptor _$prop__async___$DomPropsMixin =
       const PropDescriptor(_$key__async___$DomPropsMixin);
   static const PropDescriptor _$prop__autoPlay___$DomPropsMixin =
@@ -2302,16 +2320,12 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__wmode___$DomPropsMixin);
   static const PropDescriptor _$prop__wrap___$DomPropsMixin =
       const PropDescriptor(_$key__wrap___$DomPropsMixin);
-  static const PropDescriptor _$prop__allowTransparency___$DomPropsMixin =
-      const PropDescriptor(_$key__allowTransparency___$DomPropsMixin);
   static const PropDescriptor _$prop__capture___$DomPropsMixin =
       const PropDescriptor(_$key__capture___$DomPropsMixin);
   static const PropDescriptor _$prop__cellPadding___$DomPropsMixin =
       const PropDescriptor(_$key__cellPadding___$DomPropsMixin);
   static const PropDescriptor _$prop__cellSpacing___$DomPropsMixin =
       const PropDescriptor(_$key__cellSpacing___$DomPropsMixin);
-  static const PropDescriptor _$prop__colSpan___$DomPropsMixin =
-      const PropDescriptor(_$key__colSpan___$DomPropsMixin);
   static const PropDescriptor _$prop__contentEditable___$DomPropsMixin =
       const PropDescriptor(_$key__contentEditable___$DomPropsMixin);
   static const PropDescriptor _$prop__download___$DomPropsMixin =
@@ -2322,28 +2336,12 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__frameBorder___$DomPropsMixin);
   static const PropDescriptor _$prop__height___$DomPropsMixin =
       const PropDescriptor(_$key__height___$DomPropsMixin);
-  static const PropDescriptor _$prop__high___$DomPropsMixin =
-      const PropDescriptor(_$key__high___$DomPropsMixin);
   static const PropDescriptor _$prop__icon___$DomPropsMixin =
       const PropDescriptor(_$key__icon___$DomPropsMixin);
-  static const PropDescriptor _$prop__low___$DomPropsMixin =
-      const PropDescriptor(_$key__low___$DomPropsMixin);
-  static const PropDescriptor _$prop__marginHeight___$DomPropsMixin =
-      const PropDescriptor(_$key__marginHeight___$DomPropsMixin);
-  static const PropDescriptor _$prop__marginWidth___$DomPropsMixin =
-      const PropDescriptor(_$key__marginWidth___$DomPropsMixin);
   static const PropDescriptor _$prop__max___$DomPropsMixin =
       const PropDescriptor(_$key__max___$DomPropsMixin);
-  static const PropDescriptor _$prop__maxLength___$DomPropsMixin =
-      const PropDescriptor(_$key__maxLength___$DomPropsMixin);
   static const PropDescriptor _$prop__min___$DomPropsMixin =
       const PropDescriptor(_$key__min___$DomPropsMixin);
-  static const PropDescriptor _$prop__minLength___$DomPropsMixin =
-      const PropDescriptor(_$key__minLength___$DomPropsMixin);
-  static const PropDescriptor _$prop__optimum___$DomPropsMixin =
-      const PropDescriptor(_$key__optimum___$DomPropsMixin);
-  static const PropDescriptor _$prop__rowSpan___$DomPropsMixin =
-      const PropDescriptor(_$key__rowSpan___$DomPropsMixin);
   static const PropDescriptor _$prop__spellCheck___$DomPropsMixin =
       const PropDescriptor(_$key__spellCheck___$DomPropsMixin);
   static const PropDescriptor _$prop__step___$DomPropsMixin =
@@ -2533,14 +2531,25 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   static const PropDescriptor _$prop__autoFocus___$DomPropsMixin =
       const PropDescriptor(_$key__autoFocus___$DomPropsMixin);
   static const String _$key__cols___$DomPropsMixin = 'cols';
+  static const String _$key__colSpan___$DomPropsMixin = 'colSpan';
+  static const String _$key__maxLength___$DomPropsMixin = 'maxLength';
+  static const String _$key__minLength___$DomPropsMixin = 'minLength';
   static const String _$key__rows___$DomPropsMixin = 'rows';
+  static const String _$key__rowSpan___$DomPropsMixin = 'rowSpan';
   static const String _$key__size___$DomPropsMixin = 'size';
   static const String _$key__span___$DomPropsMixin = 'span';
   static const String _$key__start___$DomPropsMixin = 'start';
+  static const String _$key__high___$DomPropsMixin = 'high';
+  static const String _$key__low___$DomPropsMixin = 'low';
+  static const String _$key__marginHeight___$DomPropsMixin = 'marginHeight';
+  static const String _$key__marginWidth___$DomPropsMixin = 'marginWidth';
+  static const String _$key__optimum___$DomPropsMixin = 'optimum';
   static const String _$key__htmlDefault___$DomPropsMixin = 'default';
   static const String _$key__htmlIs___$DomPropsMixin = 'is';
   static const String _$key__allowFullScreen___$DomPropsMixin =
       'allowFullScreen';
+  static const String _$key__allowTransparency___$DomPropsMixin =
+      'allowTransparency';
   static const String _$key__async___$DomPropsMixin = 'async';
   static const String _$key__autoPlay___$DomPropsMixin = 'autoPlay';
   static const String _$key__checked___$DomPropsMixin = 'checked';
@@ -2629,29 +2638,18 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   static const String _$key__useMap___$DomPropsMixin = 'useMap';
   static const String _$key__wmode___$DomPropsMixin = 'wmode';
   static const String _$key__wrap___$DomPropsMixin = 'wrap';
-  static const String _$key__allowTransparency___$DomPropsMixin =
-      'allowTransparency';
   static const String _$key__capture___$DomPropsMixin = 'capture';
   static const String _$key__cellPadding___$DomPropsMixin = 'cellPadding';
   static const String _$key__cellSpacing___$DomPropsMixin = 'cellSpacing';
-  static const String _$key__colSpan___$DomPropsMixin = 'colSpan';
   static const String _$key__contentEditable___$DomPropsMixin =
       'contentEditable';
   static const String _$key__download___$DomPropsMixin = 'download';
   static const String _$key__draggable___$DomPropsMixin = 'draggable';
   static const String _$key__frameBorder___$DomPropsMixin = 'frameBorder';
   static const String _$key__height___$DomPropsMixin = 'height';
-  static const String _$key__high___$DomPropsMixin = 'high';
   static const String _$key__icon___$DomPropsMixin = 'icon';
-  static const String _$key__low___$DomPropsMixin = 'low';
-  static const String _$key__marginHeight___$DomPropsMixin = 'marginHeight';
-  static const String _$key__marginWidth___$DomPropsMixin = 'marginWidth';
   static const String _$key__max___$DomPropsMixin = 'max';
-  static const String _$key__maxLength___$DomPropsMixin = 'maxLength';
   static const String _$key__min___$DomPropsMixin = 'min';
-  static const String _$key__minLength___$DomPropsMixin = 'minLength';
-  static const String _$key__optimum___$DomPropsMixin = 'optimum';
-  static const String _$key__rowSpan___$DomPropsMixin = 'rowSpan';
   static const String _$key__spellCheck___$DomPropsMixin = 'spellCheck';
   static const String _$key__step___$DomPropsMixin = 'step';
   static const String _$key__tabIndex___$DomPropsMixin = 'tabIndex';
@@ -2779,13 +2777,23 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   static const List<PropDescriptor> $props = const [
     _$prop__cols___$DomPropsMixin,
+    _$prop__colSpan___$DomPropsMixin,
+    _$prop__maxLength___$DomPropsMixin,
+    _$prop__minLength___$DomPropsMixin,
     _$prop__rows___$DomPropsMixin,
+    _$prop__rowSpan___$DomPropsMixin,
     _$prop__size___$DomPropsMixin,
     _$prop__span___$DomPropsMixin,
     _$prop__start___$DomPropsMixin,
+    _$prop__high___$DomPropsMixin,
+    _$prop__low___$DomPropsMixin,
+    _$prop__marginHeight___$DomPropsMixin,
+    _$prop__marginWidth___$DomPropsMixin,
+    _$prop__optimum___$DomPropsMixin,
     _$prop__htmlDefault___$DomPropsMixin,
     _$prop__htmlIs___$DomPropsMixin,
     _$prop__allowFullScreen___$DomPropsMixin,
+    _$prop__allowTransparency___$DomPropsMixin,
     _$prop__async___$DomPropsMixin,
     _$prop__autoPlay___$DomPropsMixin,
     _$prop__checked___$DomPropsMixin,
@@ -2874,27 +2882,17 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$prop__useMap___$DomPropsMixin,
     _$prop__wmode___$DomPropsMixin,
     _$prop__wrap___$DomPropsMixin,
-    _$prop__allowTransparency___$DomPropsMixin,
     _$prop__capture___$DomPropsMixin,
     _$prop__cellPadding___$DomPropsMixin,
     _$prop__cellSpacing___$DomPropsMixin,
-    _$prop__colSpan___$DomPropsMixin,
     _$prop__contentEditable___$DomPropsMixin,
     _$prop__download___$DomPropsMixin,
     _$prop__draggable___$DomPropsMixin,
     _$prop__frameBorder___$DomPropsMixin,
     _$prop__height___$DomPropsMixin,
-    _$prop__high___$DomPropsMixin,
     _$prop__icon___$DomPropsMixin,
-    _$prop__low___$DomPropsMixin,
-    _$prop__marginHeight___$DomPropsMixin,
-    _$prop__marginWidth___$DomPropsMixin,
     _$prop__max___$DomPropsMixin,
-    _$prop__maxLength___$DomPropsMixin,
     _$prop__min___$DomPropsMixin,
-    _$prop__minLength___$DomPropsMixin,
-    _$prop__optimum___$DomPropsMixin,
-    _$prop__rowSpan___$DomPropsMixin,
     _$prop__spellCheck___$DomPropsMixin,
     _$prop__step___$DomPropsMixin,
     _$prop__tabIndex___$DomPropsMixin,
@@ -2992,13 +2990,23 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   ];
   static const List<String> $propKeys = const [
     _$key__cols___$DomPropsMixin,
+    _$key__colSpan___$DomPropsMixin,
+    _$key__maxLength___$DomPropsMixin,
+    _$key__minLength___$DomPropsMixin,
     _$key__rows___$DomPropsMixin,
+    _$key__rowSpan___$DomPropsMixin,
     _$key__size___$DomPropsMixin,
     _$key__span___$DomPropsMixin,
     _$key__start___$DomPropsMixin,
+    _$key__high___$DomPropsMixin,
+    _$key__low___$DomPropsMixin,
+    _$key__marginHeight___$DomPropsMixin,
+    _$key__marginWidth___$DomPropsMixin,
+    _$key__optimum___$DomPropsMixin,
     _$key__htmlDefault___$DomPropsMixin,
     _$key__htmlIs___$DomPropsMixin,
     _$key__allowFullScreen___$DomPropsMixin,
+    _$key__allowTransparency___$DomPropsMixin,
     _$key__async___$DomPropsMixin,
     _$key__autoPlay___$DomPropsMixin,
     _$key__checked___$DomPropsMixin,
@@ -3087,27 +3095,17 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$key__useMap___$DomPropsMixin,
     _$key__wmode___$DomPropsMixin,
     _$key__wrap___$DomPropsMixin,
-    _$key__allowTransparency___$DomPropsMixin,
     _$key__capture___$DomPropsMixin,
     _$key__cellPadding___$DomPropsMixin,
     _$key__cellSpacing___$DomPropsMixin,
-    _$key__colSpan___$DomPropsMixin,
     _$key__contentEditable___$DomPropsMixin,
     _$key__download___$DomPropsMixin,
     _$key__draggable___$DomPropsMixin,
     _$key__frameBorder___$DomPropsMixin,
     _$key__height___$DomPropsMixin,
-    _$key__high___$DomPropsMixin,
     _$key__icon___$DomPropsMixin,
-    _$key__low___$DomPropsMixin,
-    _$key__marginHeight___$DomPropsMixin,
-    _$key__marginWidth___$DomPropsMixin,
     _$key__max___$DomPropsMixin,
-    _$key__maxLength___$DomPropsMixin,
     _$key__min___$DomPropsMixin,
-    _$key__minLength___$DomPropsMixin,
-    _$key__optimum___$DomPropsMixin,
-    _$key__rowSpan___$DomPropsMixin,
     _$key__spellCheck___$DomPropsMixin,
     _$key__step___$DomPropsMixin,
     _$key__tabIndex___$DomPropsMixin,

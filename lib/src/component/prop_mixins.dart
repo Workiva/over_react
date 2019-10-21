@@ -70,7 +70,9 @@ abstract class $DomPropsMixin {}
 abstract class _$DomPropsMixin {
   Map get props;
 
-  int cols, rows, size, span, start;
+  int cols, colSpan, maxLength, minLength, rows, rowSpan, size, span, start;
+
+  num high, low, marginHeight, marginWidth, optimum;
 
   @Accessor(key: 'default')
   bool htmlDefault;
@@ -78,7 +80,7 @@ abstract class _$DomPropsMixin {
   @Accessor(key: 'is')
   String htmlIs;
 
-  bool allowFullScreen, async, autoPlay, checked, controls, defer, disabled, formNoValidate, hidden, loop, multiple,
+  bool allowFullScreen, allowTransparency, async, autoPlay, checked, controls, defer, disabled, formNoValidate, hidden, loop, multiple,
       muted, noValidate, open, readOnly, required, reversed, scoped, seamless, selected;
 
   Map<String, dynamic> style;
@@ -89,8 +91,8 @@ abstract class _$DomPropsMixin {
       method, name, nonce, pattern, placeholder, poster, preload, radioGroup, rel, role, sandbox, scope, scrolling, shape, sizes, src,
       srcDoc, srcLang, srcSet, summary, target, title, type, useMap, wmode, wrap;
 
-  dynamic allowTransparency, capture, cellPadding, cellSpacing, colSpan, contentEditable, download, draggable, frameBorder, height, high, icon,
-      low, marginHeight, marginWidth, max, maxLength, min, minLength, optimum, rowSpan, spellCheck, step, tabIndex, value, width;
+  dynamic capture, cellPadding, cellSpacing, contentEditable, download, draggable, frameBorder, height, icon,
+      max, min, spellCheck, step, tabIndex, value, width;
 
   AnimationEventCallback onAnimationEnd, onAnimationIteration, onAnimationStart;
   ClipboardEventCallback onCopy, onCut, onPaste;
