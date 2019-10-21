@@ -295,6 +295,81 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   set style(Map<String, dynamic> value) =>
       props[_$key__style___$DomPropsMixin] = value;
 
+  /// <!-- Generated from [_$DomPropsMixin.accept] -->
+  @override
+  String get accept =>
+      props[_$key__accept___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.accept] -->
+  @override
+  set accept(String value) => props[_$key__accept___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.acceptCharset] -->
+  @override
+  String get acceptCharset =>
+      props[_$key__acceptCharset___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.acceptCharset] -->
+  @override
+  set acceptCharset(String value) =>
+      props[_$key__acceptCharset___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.accessKey] -->
+  @override
+  String get accessKey =>
+      props[_$key__accessKey___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.accessKey] -->
+  @override
+  set accessKey(String value) =>
+      props[_$key__accessKey___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.action] -->
+  @override
+  String get action =>
+      props[_$key__action___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.action] -->
+  @override
+  set action(String value) => props[_$key__action___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.alt] -->
+  @override
+  String get alt =>
+      props[_$key__alt___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.alt] -->
+  @override
+  set alt(String value) => props[_$key__alt___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.autoComplete] -->
+  @override
+  String get autoComplete =>
+      props[_$key__autoComplete___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.autoComplete] -->
+  @override
+  set autoComplete(String value) =>
+      props[_$key__autoComplete___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.charSet] -->
+  @override
+  String get charSet =>
+      props[_$key__charSet___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.charSet] -->
+  @override
+  set charSet(String value) => props[_$key__charSet___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.classID] -->
+  @override
+  String get classID =>
+      props[_$key__classID___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.classID] -->
+  @override
+  set classID(String value) => props[_$key__classID___$DomPropsMixin] = value;
+
   /// <!-- Generated from [_$DomPropsMixin.className] -->
   @override
   String get className =>
@@ -305,14 +380,125 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   set className(String value) =>
       props[_$key__className___$DomPropsMixin] = value;
 
-  /// <!-- Generated from [_$DomPropsMixin.title] -->
+  /// <!-- Generated from [_$DomPropsMixin.content] -->
   @override
-  String get title =>
-      props[_$key__title___$DomPropsMixin] ??
+  String get content =>
+      props[_$key__content___$DomPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.title] -->
+  /// <!-- Generated from [_$DomPropsMixin.content] -->
   @override
-  set title(String value) => props[_$key__title___$DomPropsMixin] = value;
+  set content(String value) => props[_$key__content___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.contextMenu] -->
+  @override
+  String get contextMenu =>
+      props[_$key__contextMenu___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.contextMenu] -->
+  @override
+  set contextMenu(String value) =>
+      props[_$key__contextMenu___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.coords] -->
+  @override
+  String get coords =>
+      props[_$key__coords___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.coords] -->
+  @override
+  set coords(String value) => props[_$key__coords___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.crossOrigin] -->
+  @override
+  String get crossOrigin =>
+      props[_$key__crossOrigin___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.crossOrigin] -->
+  @override
+  set crossOrigin(String value) =>
+      props[_$key__crossOrigin___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.data] -->
+  @override
+  String get data =>
+      props[_$key__data___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.data] -->
+  @override
+  set data(String value) => props[_$key__data___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.dateTime] -->
+  @override
+  String get dateTime =>
+      props[_$key__dateTime___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.dateTime] -->
+  @override
+  set dateTime(String value) => props[_$key__dateTime___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.dir] -->
+  @override
+  String get dir =>
+      props[_$key__dir___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.dir] -->
+  @override
+  set dir(String value) => props[_$key__dir___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.encType] -->
+  @override
+  String get encType =>
+      props[_$key__encType___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.encType] -->
+  @override
+  set encType(String value) => props[_$key__encType___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.form] -->
+  @override
+  String get form =>
+      props[_$key__form___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.form] -->
+  @override
+  set form(String value) => props[_$key__form___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.href] -->
+  @override
+  String get href =>
+      props[_$key__href___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.href] -->
+  @override
+  set href(String value) => props[_$key__href___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.hrefLang] -->
+  @override
+  String get hrefLang =>
+      props[_$key__hrefLang___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.hrefLang] -->
+  @override
+  set hrefLang(String value) => props[_$key__hrefLang___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.htmlFor] -->
+  @override
+  String get htmlFor =>
+      props[_$key__htmlFor___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.htmlFor] -->
+  @override
+  set htmlFor(String value) => props[_$key__htmlFor___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.httpEquiv] -->
+  @override
+  String get httpEquiv =>
+      props[_$key__httpEquiv___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.httpEquiv] -->
+  @override
+  set httpEquiv(String value) =>
+      props[_$key__httpEquiv___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.id] -->
   @override
@@ -323,43 +509,261 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   set id(String value) => props[_$key__id___$DomPropsMixin] = value;
 
-  /// <!-- Generated from [_$DomPropsMixin.accept] -->
+  /// <!-- Generated from [_$DomPropsMixin.label] -->
   @override
-  dynamic get accept =>
-      props[_$key__accept___$DomPropsMixin] ??
+  String get label =>
+      props[_$key__label___$DomPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.accept] -->
+  /// <!-- Generated from [_$DomPropsMixin.label] -->
   @override
-  set accept(dynamic value) => props[_$key__accept___$DomPropsMixin] = value;
+  set label(String value) => props[_$key__label___$DomPropsMixin] = value;
 
-  /// <!-- Generated from [_$DomPropsMixin.acceptCharset] -->
+  /// <!-- Generated from [_$DomPropsMixin.lang] -->
   @override
-  dynamic get acceptCharset =>
-      props[_$key__acceptCharset___$DomPropsMixin] ??
+  String get lang =>
+      props[_$key__lang___$DomPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.acceptCharset] -->
+  /// <!-- Generated from [_$DomPropsMixin.lang] -->
   @override
-  set acceptCharset(dynamic value) =>
-      props[_$key__acceptCharset___$DomPropsMixin] = value;
+  set lang(String value) => props[_$key__lang___$DomPropsMixin] = value;
 
-  /// <!-- Generated from [_$DomPropsMixin.accessKey] -->
+  /// <!-- Generated from [_$DomPropsMixin.list] -->
   @override
-  dynamic get accessKey =>
-      props[_$key__accessKey___$DomPropsMixin] ??
+  String get list =>
+      props[_$key__list___$DomPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.accessKey] -->
+  /// <!-- Generated from [_$DomPropsMixin.list] -->
   @override
-  set accessKey(dynamic value) =>
-      props[_$key__accessKey___$DomPropsMixin] = value;
+  set list(String value) => props[_$key__list___$DomPropsMixin] = value;
 
-  /// <!-- Generated from [_$DomPropsMixin.action] -->
+  /// <!-- Generated from [_$DomPropsMixin.manifest] -->
   @override
-  dynamic get action =>
-      props[_$key__action___$DomPropsMixin] ??
+  String get manifest =>
+      props[_$key__manifest___$DomPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.action] -->
+  /// <!-- Generated from [_$DomPropsMixin.manifest] -->
   @override
-  set action(dynamic value) => props[_$key__action___$DomPropsMixin] = value;
+  set manifest(String value) => props[_$key__manifest___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.media] -->
+  @override
+  String get media =>
+      props[_$key__media___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.media] -->
+  @override
+  set media(String value) => props[_$key__media___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.mediaGroup] -->
+  @override
+  String get mediaGroup =>
+      props[_$key__mediaGroup___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.mediaGroup] -->
+  @override
+  set mediaGroup(String value) =>
+      props[_$key__mediaGroup___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.method] -->
+  @override
+  String get method =>
+      props[_$key__method___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.method] -->
+  @override
+  set method(String value) => props[_$key__method___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.name] -->
+  @override
+  String get name =>
+      props[_$key__name___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.name] -->
+  @override
+  set name(String value) => props[_$key__name___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.pattern] -->
+  @override
+  String get pattern =>
+      props[_$key__pattern___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.pattern] -->
+  @override
+  set pattern(String value) => props[_$key__pattern___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.placeholder] -->
+  @override
+  String get placeholder =>
+      props[_$key__placeholder___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.placeholder] -->
+  @override
+  set placeholder(String value) =>
+      props[_$key__placeholder___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.poster] -->
+  @override
+  String get poster =>
+      props[_$key__poster___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.poster] -->
+  @override
+  set poster(String value) => props[_$key__poster___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.preload] -->
+  @override
+  String get preload =>
+      props[_$key__preload___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.preload] -->
+  @override
+  set preload(String value) => props[_$key__preload___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.radioGroup] -->
+  @override
+  String get radioGroup =>
+      props[_$key__radioGroup___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.radioGroup] -->
+  @override
+  set radioGroup(String value) =>
+      props[_$key__radioGroup___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.rel] -->
+  @override
+  String get rel =>
+      props[_$key__rel___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.rel] -->
+  @override
+  set rel(String value) => props[_$key__rel___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.role] -->
+  @override
+  String get role =>
+      props[_$key__role___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.role] -->
+  @override
+  set role(String value) => props[_$key__role___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.sandbox] -->
+  @override
+  String get sandbox =>
+      props[_$key__sandbox___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.sandbox] -->
+  @override
+  set sandbox(String value) => props[_$key__sandbox___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.scope] -->
+  @override
+  String get scope =>
+      props[_$key__scope___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.scope] -->
+  @override
+  set scope(String value) => props[_$key__scope___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.scrolling] -->
+  @override
+  String get scrolling =>
+      props[_$key__scrolling___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.scrolling] -->
+  @override
+  set scrolling(String value) =>
+      props[_$key__scrolling___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.shape] -->
+  @override
+  String get shape =>
+      props[_$key__shape___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.shape] -->
+  @override
+  set shape(String value) => props[_$key__shape___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.sizes] -->
+  @override
+  String get sizes =>
+      props[_$key__sizes___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.sizes] -->
+  @override
+  set sizes(String value) => props[_$key__sizes___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.src] -->
+  @override
+  String get src =>
+      props[_$key__src___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.src] -->
+  @override
+  set src(String value) => props[_$key__src___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.srcDoc] -->
+  @override
+  String get srcDoc =>
+      props[_$key__srcDoc___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.srcDoc] -->
+  @override
+  set srcDoc(String value) => props[_$key__srcDoc___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.srcSet] -->
+  @override
+  String get srcSet =>
+      props[_$key__srcSet___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.srcSet] -->
+  @override
+  set srcSet(String value) => props[_$key__srcSet___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.target] -->
+  @override
+  String get target =>
+      props[_$key__target___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.target] -->
+  @override
+  set target(String value) => props[_$key__target___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.title] -->
+  @override
+  String get title =>
+      props[_$key__title___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.title] -->
+  @override
+  set title(String value) => props[_$key__title___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.type] -->
+  @override
+  String get type =>
+      props[_$key__type___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.type] -->
+  @override
+  set type(String value) => props[_$key__type___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.useMap] -->
+  @override
+  String get useMap =>
+      props[_$key__useMap___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.useMap] -->
+  @override
+  set useMap(String value) => props[_$key__useMap___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.wmode] -->
+  @override
+  String get wmode =>
+      props[_$key__wmode___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.wmode] -->
+  @override
+  set wmode(String value) => props[_$key__wmode___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.allowTransparency] -->
   @override
@@ -370,25 +774,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   set allowTransparency(dynamic value) =>
       props[_$key__allowTransparency___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.alt] -->
-  @override
-  dynamic get alt =>
-      props[_$key__alt___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.alt] -->
-  @override
-  set alt(dynamic value) => props[_$key__alt___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.autoComplete] -->
-  @override
-  dynamic get autoComplete =>
-      props[_$key__autoComplete___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.autoComplete] -->
-  @override
-  set autoComplete(dynamic value) =>
-      props[_$key__autoComplete___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.cellPadding] -->
   @override
@@ -410,24 +795,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   set cellSpacing(dynamic value) =>
       props[_$key__cellSpacing___$DomPropsMixin] = value;
 
-  /// <!-- Generated from [_$DomPropsMixin.charSet] -->
-  @override
-  dynamic get charSet =>
-      props[_$key__charSet___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.charSet] -->
-  @override
-  set charSet(dynamic value) => props[_$key__charSet___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.classID] -->
-  @override
-  dynamic get classID =>
-      props[_$key__classID___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.classID] -->
-  @override
-  set classID(dynamic value) => props[_$key__classID___$DomPropsMixin] = value;
-
   /// <!-- Generated from [_$DomPropsMixin.colSpan] -->
   @override
   dynamic get colSpan =>
@@ -436,15 +803,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.colSpan] -->
   @override
   set colSpan(dynamic value) => props[_$key__colSpan___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.content] -->
-  @override
-  dynamic get content =>
-      props[_$key__content___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.content] -->
-  @override
-  set content(dynamic value) => props[_$key__content___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.contentEditable] -->
   @override
@@ -455,63 +813,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   set contentEditable(dynamic value) =>
       props[_$key__contentEditable___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.contextMenu] -->
-  @override
-  dynamic get contextMenu =>
-      props[_$key__contextMenu___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.contextMenu] -->
-  @override
-  set contextMenu(dynamic value) =>
-      props[_$key__contextMenu___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.coords] -->
-  @override
-  dynamic get coords =>
-      props[_$key__coords___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.coords] -->
-  @override
-  set coords(dynamic value) => props[_$key__coords___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.crossOrigin] -->
-  @override
-  dynamic get crossOrigin =>
-      props[_$key__crossOrigin___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.crossOrigin] -->
-  @override
-  set crossOrigin(dynamic value) =>
-      props[_$key__crossOrigin___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.data] -->
-  @override
-  dynamic get data =>
-      props[_$key__data___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.data] -->
-  @override
-  set data(dynamic value) => props[_$key__data___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.dateTime] -->
-  @override
-  dynamic get dateTime =>
-      props[_$key__dateTime___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.dateTime] -->
-  @override
-  set dateTime(dynamic value) =>
-      props[_$key__dateTime___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.dir] -->
-  @override
-  dynamic get dir =>
-      props[_$key__dir___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.dir] -->
-  @override
-  set dir(dynamic value) => props[_$key__dir___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.download] -->
   @override
@@ -533,24 +834,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   set draggable(dynamic value) =>
       props[_$key__draggable___$DomPropsMixin] = value;
 
-  /// <!-- Generated from [_$DomPropsMixin.encType] -->
-  @override
-  dynamic get encType =>
-      props[_$key__encType___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.encType] -->
-  @override
-  set encType(dynamic value) => props[_$key__encType___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.form] -->
-  @override
-  dynamic get form =>
-      props[_$key__form___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.form] -->
-  @override
-  set form(dynamic value) => props[_$key__form___$DomPropsMixin] = value;
-
   /// <!-- Generated from [_$DomPropsMixin.frameBorder] -->
   @override
   dynamic get frameBorder =>
@@ -570,44 +853,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   set height(dynamic value) => props[_$key__height___$DomPropsMixin] = value;
 
-  /// <!-- Generated from [_$DomPropsMixin.href] -->
-  @override
-  dynamic get href =>
-      props[_$key__href___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.href] -->
-  @override
-  set href(dynamic value) => props[_$key__href___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.hrefLang] -->
-  @override
-  dynamic get hrefLang =>
-      props[_$key__hrefLang___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.hrefLang] -->
-  @override
-  set hrefLang(dynamic value) =>
-      props[_$key__hrefLang___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.htmlFor] -->
-  @override
-  dynamic get htmlFor =>
-      props[_$key__htmlFor___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.htmlFor] -->
-  @override
-  set htmlFor(dynamic value) => props[_$key__htmlFor___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.httpEquiv] -->
-  @override
-  dynamic get httpEquiv =>
-      props[_$key__httpEquiv___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.httpEquiv] -->
-  @override
-  set httpEquiv(dynamic value) =>
-      props[_$key__httpEquiv___$DomPropsMixin] = value;
-
   /// <!-- Generated from [_$DomPropsMixin.icon] -->
   @override
   dynamic get icon =>
@@ -616,43 +861,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.icon] -->
   @override
   set icon(dynamic value) => props[_$key__icon___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.label] -->
-  @override
-  dynamic get label =>
-      props[_$key__label___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.label] -->
-  @override
-  set label(dynamic value) => props[_$key__label___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.lang] -->
-  @override
-  dynamic get lang =>
-      props[_$key__lang___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.lang] -->
-  @override
-  set lang(dynamic value) => props[_$key__lang___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.list] -->
-  @override
-  dynamic get list =>
-      props[_$key__list___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.list] -->
-  @override
-  set list(dynamic value) => props[_$key__list___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.manifest] -->
-  @override
-  dynamic get manifest =>
-      props[_$key__manifest___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.manifest] -->
-  @override
-  set manifest(dynamic value) =>
-      props[_$key__manifest___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.max] -->
   @override
@@ -673,34 +881,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   set maxLength(dynamic value) =>
       props[_$key__maxLength___$DomPropsMixin] = value;
 
-  /// <!-- Generated from [_$DomPropsMixin.media] -->
-  @override
-  dynamic get media =>
-      props[_$key__media___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.media] -->
-  @override
-  set media(dynamic value) => props[_$key__media___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.mediaGroup] -->
-  @override
-  dynamic get mediaGroup =>
-      props[_$key__mediaGroup___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.mediaGroup] -->
-  @override
-  set mediaGroup(dynamic value) =>
-      props[_$key__mediaGroup___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.method] -->
-  @override
-  dynamic get method =>
-      props[_$key__method___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.method] -->
-  @override
-  set method(dynamic value) => props[_$key__method___$DomPropsMixin] = value;
-
   /// <!-- Generated from [_$DomPropsMixin.min] -->
   @override
   dynamic get min =>
@@ -709,80 +889,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.min] -->
   @override
   set min(dynamic value) => props[_$key__min___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.name] -->
-  @override
-  dynamic get name =>
-      props[_$key__name___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.name] -->
-  @override
-  set name(dynamic value) => props[_$key__name___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.pattern] -->
-  @override
-  dynamic get pattern =>
-      props[_$key__pattern___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.pattern] -->
-  @override
-  set pattern(dynamic value) => props[_$key__pattern___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.placeholder] -->
-  @override
-  dynamic get placeholder =>
-      props[_$key__placeholder___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.placeholder] -->
-  @override
-  set placeholder(dynamic value) =>
-      props[_$key__placeholder___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.poster] -->
-  @override
-  dynamic get poster =>
-      props[_$key__poster___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.poster] -->
-  @override
-  set poster(dynamic value) => props[_$key__poster___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.preload] -->
-  @override
-  dynamic get preload =>
-      props[_$key__preload___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.preload] -->
-  @override
-  set preload(dynamic value) => props[_$key__preload___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.radioGroup] -->
-  @override
-  dynamic get radioGroup =>
-      props[_$key__radioGroup___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.radioGroup] -->
-  @override
-  set radioGroup(dynamic value) =>
-      props[_$key__radioGroup___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.rel] -->
-  @override
-  dynamic get rel =>
-      props[_$key__rel___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.rel] -->
-  @override
-  set rel(dynamic value) => props[_$key__rel___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.role] -->
-  @override
-  dynamic get role =>
-      props[_$key__role___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.role] -->
-  @override
-  set role(dynamic value) => props[_$key__role___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.rowSpan] -->
   @override
@@ -793,52 +899,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   set rowSpan(dynamic value) => props[_$key__rowSpan___$DomPropsMixin] = value;
 
-  /// <!-- Generated from [_$DomPropsMixin.sandbox] -->
-  @override
-  dynamic get sandbox =>
-      props[_$key__sandbox___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.sandbox] -->
-  @override
-  set sandbox(dynamic value) => props[_$key__sandbox___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.scope] -->
-  @override
-  dynamic get scope =>
-      props[_$key__scope___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.scope] -->
-  @override
-  set scope(dynamic value) => props[_$key__scope___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.scrolling] -->
-  @override
-  dynamic get scrolling =>
-      props[_$key__scrolling___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.scrolling] -->
-  @override
-  set scrolling(dynamic value) =>
-      props[_$key__scrolling___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.shape] -->
-  @override
-  dynamic get shape =>
-      props[_$key__shape___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.shape] -->
-  @override
-  set shape(dynamic value) => props[_$key__shape___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.sizes] -->
-  @override
-  dynamic get sizes =>
-      props[_$key__sizes___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.sizes] -->
-  @override
-  set sizes(dynamic value) => props[_$key__sizes___$DomPropsMixin] = value;
-
   /// <!-- Generated from [_$DomPropsMixin.spellCheck] -->
   @override
   dynamic get spellCheck =>
@@ -848,33 +908,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   set spellCheck(dynamic value) =>
       props[_$key__spellCheck___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.src] -->
-  @override
-  dynamic get src =>
-      props[_$key__src___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.src] -->
-  @override
-  set src(dynamic value) => props[_$key__src___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.srcDoc] -->
-  @override
-  dynamic get srcDoc =>
-      props[_$key__srcDoc___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.srcDoc] -->
-  @override
-  set srcDoc(dynamic value) => props[_$key__srcDoc___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.srcSet] -->
-  @override
-  dynamic get srcSet =>
-      props[_$key__srcSet___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.srcSet] -->
-  @override
-  set srcSet(dynamic value) => props[_$key__srcSet___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.step] -->
   @override
@@ -895,33 +928,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   set tabIndex(dynamic value) =>
       props[_$key__tabIndex___$DomPropsMixin] = value;
 
-  /// <!-- Generated from [_$DomPropsMixin.target] -->
-  @override
-  dynamic get target =>
-      props[_$key__target___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.target] -->
-  @override
-  set target(dynamic value) => props[_$key__target___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.type] -->
-  @override
-  dynamic get type =>
-      props[_$key__type___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.type] -->
-  @override
-  set type(dynamic value) => props[_$key__type___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.useMap] -->
-  @override
-  dynamic get useMap =>
-      props[_$key__useMap___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.useMap] -->
-  @override
-  set useMap(dynamic value) => props[_$key__useMap___$DomPropsMixin] = value;
-
   /// <!-- Generated from [_$DomPropsMixin.value] -->
   @override
   dynamic get value =>
@@ -939,15 +945,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.width] -->
   @override
   set width(dynamic value) => props[_$key__width___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.wmode] -->
-  @override
-  dynamic get wmode =>
-      props[_$key__wmode___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.wmode] -->
-  @override
-  set wmode(dynamic value) => props[_$key__wmode___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onAnimationEnd] -->
   @override
@@ -1892,12 +1889,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__selected___$DomPropsMixin);
   static const PropDescriptor _$prop__style___$DomPropsMixin =
       const PropDescriptor(_$key__style___$DomPropsMixin);
-  static const PropDescriptor _$prop__className___$DomPropsMixin =
-      const PropDescriptor(_$key__className___$DomPropsMixin);
-  static const PropDescriptor _$prop__title___$DomPropsMixin =
-      const PropDescriptor(_$key__title___$DomPropsMixin);
-  static const PropDescriptor _$prop__id___$DomPropsMixin =
-      const PropDescriptor(_$key__id___$DomPropsMixin);
   static const PropDescriptor _$prop__accept___$DomPropsMixin =
       const PropDescriptor(_$key__accept___$DomPropsMixin);
   static const PropDescriptor _$prop__acceptCharset___$DomPropsMixin =
@@ -1906,26 +1897,18 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__accessKey___$DomPropsMixin);
   static const PropDescriptor _$prop__action___$DomPropsMixin =
       const PropDescriptor(_$key__action___$DomPropsMixin);
-  static const PropDescriptor _$prop__allowTransparency___$DomPropsMixin =
-      const PropDescriptor(_$key__allowTransparency___$DomPropsMixin);
   static const PropDescriptor _$prop__alt___$DomPropsMixin =
       const PropDescriptor(_$key__alt___$DomPropsMixin);
   static const PropDescriptor _$prop__autoComplete___$DomPropsMixin =
       const PropDescriptor(_$key__autoComplete___$DomPropsMixin);
-  static const PropDescriptor _$prop__cellPadding___$DomPropsMixin =
-      const PropDescriptor(_$key__cellPadding___$DomPropsMixin);
-  static const PropDescriptor _$prop__cellSpacing___$DomPropsMixin =
-      const PropDescriptor(_$key__cellSpacing___$DomPropsMixin);
   static const PropDescriptor _$prop__charSet___$DomPropsMixin =
       const PropDescriptor(_$key__charSet___$DomPropsMixin);
   static const PropDescriptor _$prop__classID___$DomPropsMixin =
       const PropDescriptor(_$key__classID___$DomPropsMixin);
-  static const PropDescriptor _$prop__colSpan___$DomPropsMixin =
-      const PropDescriptor(_$key__colSpan___$DomPropsMixin);
+  static const PropDescriptor _$prop__className___$DomPropsMixin =
+      const PropDescriptor(_$key__className___$DomPropsMixin);
   static const PropDescriptor _$prop__content___$DomPropsMixin =
       const PropDescriptor(_$key__content___$DomPropsMixin);
-  static const PropDescriptor _$prop__contentEditable___$DomPropsMixin =
-      const PropDescriptor(_$key__contentEditable___$DomPropsMixin);
   static const PropDescriptor _$prop__contextMenu___$DomPropsMixin =
       const PropDescriptor(_$key__contextMenu___$DomPropsMixin);
   static const PropDescriptor _$prop__coords___$DomPropsMixin =
@@ -1938,18 +1921,10 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__dateTime___$DomPropsMixin);
   static const PropDescriptor _$prop__dir___$DomPropsMixin =
       const PropDescriptor(_$key__dir___$DomPropsMixin);
-  static const PropDescriptor _$prop__download___$DomPropsMixin =
-      const PropDescriptor(_$key__download___$DomPropsMixin);
-  static const PropDescriptor _$prop__draggable___$DomPropsMixin =
-      const PropDescriptor(_$key__draggable___$DomPropsMixin);
   static const PropDescriptor _$prop__encType___$DomPropsMixin =
       const PropDescriptor(_$key__encType___$DomPropsMixin);
   static const PropDescriptor _$prop__form___$DomPropsMixin =
       const PropDescriptor(_$key__form___$DomPropsMixin);
-  static const PropDescriptor _$prop__frameBorder___$DomPropsMixin =
-      const PropDescriptor(_$key__frameBorder___$DomPropsMixin);
-  static const PropDescriptor _$prop__height___$DomPropsMixin =
-      const PropDescriptor(_$key__height___$DomPropsMixin);
   static const PropDescriptor _$prop__href___$DomPropsMixin =
       const PropDescriptor(_$key__href___$DomPropsMixin);
   static const PropDescriptor _$prop__hrefLang___$DomPropsMixin =
@@ -1958,8 +1933,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__htmlFor___$DomPropsMixin);
   static const PropDescriptor _$prop__httpEquiv___$DomPropsMixin =
       const PropDescriptor(_$key__httpEquiv___$DomPropsMixin);
-  static const PropDescriptor _$prop__icon___$DomPropsMixin =
-      const PropDescriptor(_$key__icon___$DomPropsMixin);
+  static const PropDescriptor _$prop__id___$DomPropsMixin =
+      const PropDescriptor(_$key__id___$DomPropsMixin);
   static const PropDescriptor _$prop__label___$DomPropsMixin =
       const PropDescriptor(_$key__label___$DomPropsMixin);
   static const PropDescriptor _$prop__lang___$DomPropsMixin =
@@ -1968,18 +1943,12 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__list___$DomPropsMixin);
   static const PropDescriptor _$prop__manifest___$DomPropsMixin =
       const PropDescriptor(_$key__manifest___$DomPropsMixin);
-  static const PropDescriptor _$prop__max___$DomPropsMixin =
-      const PropDescriptor(_$key__max___$DomPropsMixin);
-  static const PropDescriptor _$prop__maxLength___$DomPropsMixin =
-      const PropDescriptor(_$key__maxLength___$DomPropsMixin);
   static const PropDescriptor _$prop__media___$DomPropsMixin =
       const PropDescriptor(_$key__media___$DomPropsMixin);
   static const PropDescriptor _$prop__mediaGroup___$DomPropsMixin =
       const PropDescriptor(_$key__mediaGroup___$DomPropsMixin);
   static const PropDescriptor _$prop__method___$DomPropsMixin =
       const PropDescriptor(_$key__method___$DomPropsMixin);
-  static const PropDescriptor _$prop__min___$DomPropsMixin =
-      const PropDescriptor(_$key__min___$DomPropsMixin);
   static const PropDescriptor _$prop__name___$DomPropsMixin =
       const PropDescriptor(_$key__name___$DomPropsMixin);
   static const PropDescriptor _$prop__pattern___$DomPropsMixin =
@@ -1996,8 +1965,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__rel___$DomPropsMixin);
   static const PropDescriptor _$prop__role___$DomPropsMixin =
       const PropDescriptor(_$key__role___$DomPropsMixin);
-  static const PropDescriptor _$prop__rowSpan___$DomPropsMixin =
-      const PropDescriptor(_$key__rowSpan___$DomPropsMixin);
   static const PropDescriptor _$prop__sandbox___$DomPropsMixin =
       const PropDescriptor(_$key__sandbox___$DomPropsMixin);
   static const PropDescriptor _$prop__scope___$DomPropsMixin =
@@ -2008,30 +1975,60 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__shape___$DomPropsMixin);
   static const PropDescriptor _$prop__sizes___$DomPropsMixin =
       const PropDescriptor(_$key__sizes___$DomPropsMixin);
-  static const PropDescriptor _$prop__spellCheck___$DomPropsMixin =
-      const PropDescriptor(_$key__spellCheck___$DomPropsMixin);
   static const PropDescriptor _$prop__src___$DomPropsMixin =
       const PropDescriptor(_$key__src___$DomPropsMixin);
   static const PropDescriptor _$prop__srcDoc___$DomPropsMixin =
       const PropDescriptor(_$key__srcDoc___$DomPropsMixin);
   static const PropDescriptor _$prop__srcSet___$DomPropsMixin =
       const PropDescriptor(_$key__srcSet___$DomPropsMixin);
-  static const PropDescriptor _$prop__step___$DomPropsMixin =
-      const PropDescriptor(_$key__step___$DomPropsMixin);
-  static const PropDescriptor _$prop__tabIndex___$DomPropsMixin =
-      const PropDescriptor(_$key__tabIndex___$DomPropsMixin);
   static const PropDescriptor _$prop__target___$DomPropsMixin =
       const PropDescriptor(_$key__target___$DomPropsMixin);
+  static const PropDescriptor _$prop__title___$DomPropsMixin =
+      const PropDescriptor(_$key__title___$DomPropsMixin);
   static const PropDescriptor _$prop__type___$DomPropsMixin =
       const PropDescriptor(_$key__type___$DomPropsMixin);
   static const PropDescriptor _$prop__useMap___$DomPropsMixin =
       const PropDescriptor(_$key__useMap___$DomPropsMixin);
+  static const PropDescriptor _$prop__wmode___$DomPropsMixin =
+      const PropDescriptor(_$key__wmode___$DomPropsMixin);
+  static const PropDescriptor _$prop__allowTransparency___$DomPropsMixin =
+      const PropDescriptor(_$key__allowTransparency___$DomPropsMixin);
+  static const PropDescriptor _$prop__cellPadding___$DomPropsMixin =
+      const PropDescriptor(_$key__cellPadding___$DomPropsMixin);
+  static const PropDescriptor _$prop__cellSpacing___$DomPropsMixin =
+      const PropDescriptor(_$key__cellSpacing___$DomPropsMixin);
+  static const PropDescriptor _$prop__colSpan___$DomPropsMixin =
+      const PropDescriptor(_$key__colSpan___$DomPropsMixin);
+  static const PropDescriptor _$prop__contentEditable___$DomPropsMixin =
+      const PropDescriptor(_$key__contentEditable___$DomPropsMixin);
+  static const PropDescriptor _$prop__download___$DomPropsMixin =
+      const PropDescriptor(_$key__download___$DomPropsMixin);
+  static const PropDescriptor _$prop__draggable___$DomPropsMixin =
+      const PropDescriptor(_$key__draggable___$DomPropsMixin);
+  static const PropDescriptor _$prop__frameBorder___$DomPropsMixin =
+      const PropDescriptor(_$key__frameBorder___$DomPropsMixin);
+  static const PropDescriptor _$prop__height___$DomPropsMixin =
+      const PropDescriptor(_$key__height___$DomPropsMixin);
+  static const PropDescriptor _$prop__icon___$DomPropsMixin =
+      const PropDescriptor(_$key__icon___$DomPropsMixin);
+  static const PropDescriptor _$prop__max___$DomPropsMixin =
+      const PropDescriptor(_$key__max___$DomPropsMixin);
+  static const PropDescriptor _$prop__maxLength___$DomPropsMixin =
+      const PropDescriptor(_$key__maxLength___$DomPropsMixin);
+  static const PropDescriptor _$prop__min___$DomPropsMixin =
+      const PropDescriptor(_$key__min___$DomPropsMixin);
+  static const PropDescriptor _$prop__rowSpan___$DomPropsMixin =
+      const PropDescriptor(_$key__rowSpan___$DomPropsMixin);
+  static const PropDescriptor _$prop__spellCheck___$DomPropsMixin =
+      const PropDescriptor(_$key__spellCheck___$DomPropsMixin);
+  static const PropDescriptor _$prop__step___$DomPropsMixin =
+      const PropDescriptor(_$key__step___$DomPropsMixin);
+  static const PropDescriptor _$prop__tabIndex___$DomPropsMixin =
+      const PropDescriptor(_$key__tabIndex___$DomPropsMixin);
   static const PropDescriptor _$prop__value___$DomPropsMixin =
       const PropDescriptor(_$key__value___$DomPropsMixin);
   static const PropDescriptor _$prop__width___$DomPropsMixin =
       const PropDescriptor(_$key__width___$DomPropsMixin);
-  static const PropDescriptor _$prop__wmode___$DomPropsMixin =
-      const PropDescriptor(_$key__wmode___$DomPropsMixin);
   static const PropDescriptor _$prop__onAnimationEnd___$DomPropsMixin =
       const PropDescriptor(_$key__onAnimationEnd___$DomPropsMixin);
   static const PropDescriptor _$prop__onAnimationIteration___$DomPropsMixin =
@@ -2235,52 +2232,36 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   static const String _$key__seamless___$DomPropsMixin = 'seamless';
   static const String _$key__selected___$DomPropsMixin = 'selected';
   static const String _$key__style___$DomPropsMixin = 'style';
-  static const String _$key__className___$DomPropsMixin = 'className';
-  static const String _$key__title___$DomPropsMixin = 'title';
-  static const String _$key__id___$DomPropsMixin = 'id';
   static const String _$key__accept___$DomPropsMixin = 'accept';
   static const String _$key__acceptCharset___$DomPropsMixin = 'acceptCharset';
   static const String _$key__accessKey___$DomPropsMixin = 'accessKey';
   static const String _$key__action___$DomPropsMixin = 'action';
-  static const String _$key__allowTransparency___$DomPropsMixin =
-      'allowTransparency';
   static const String _$key__alt___$DomPropsMixin = 'alt';
   static const String _$key__autoComplete___$DomPropsMixin = 'autoComplete';
-  static const String _$key__cellPadding___$DomPropsMixin = 'cellPadding';
-  static const String _$key__cellSpacing___$DomPropsMixin = 'cellSpacing';
   static const String _$key__charSet___$DomPropsMixin = 'charSet';
   static const String _$key__classID___$DomPropsMixin = 'classID';
-  static const String _$key__colSpan___$DomPropsMixin = 'colSpan';
+  static const String _$key__className___$DomPropsMixin = 'className';
   static const String _$key__content___$DomPropsMixin = 'content';
-  static const String _$key__contentEditable___$DomPropsMixin =
-      'contentEditable';
   static const String _$key__contextMenu___$DomPropsMixin = 'contextMenu';
   static const String _$key__coords___$DomPropsMixin = 'coords';
   static const String _$key__crossOrigin___$DomPropsMixin = 'crossOrigin';
   static const String _$key__data___$DomPropsMixin = 'data';
   static const String _$key__dateTime___$DomPropsMixin = 'dateTime';
   static const String _$key__dir___$DomPropsMixin = 'dir';
-  static const String _$key__download___$DomPropsMixin = 'download';
-  static const String _$key__draggable___$DomPropsMixin = 'draggable';
   static const String _$key__encType___$DomPropsMixin = 'encType';
   static const String _$key__form___$DomPropsMixin = 'form';
-  static const String _$key__frameBorder___$DomPropsMixin = 'frameBorder';
-  static const String _$key__height___$DomPropsMixin = 'height';
   static const String _$key__href___$DomPropsMixin = 'href';
   static const String _$key__hrefLang___$DomPropsMixin = 'hrefLang';
   static const String _$key__htmlFor___$DomPropsMixin = 'htmlFor';
   static const String _$key__httpEquiv___$DomPropsMixin = 'httpEquiv';
-  static const String _$key__icon___$DomPropsMixin = 'icon';
+  static const String _$key__id___$DomPropsMixin = 'id';
   static const String _$key__label___$DomPropsMixin = 'label';
   static const String _$key__lang___$DomPropsMixin = 'lang';
   static const String _$key__list___$DomPropsMixin = 'list';
   static const String _$key__manifest___$DomPropsMixin = 'manifest';
-  static const String _$key__max___$DomPropsMixin = 'max';
-  static const String _$key__maxLength___$DomPropsMixin = 'maxLength';
   static const String _$key__media___$DomPropsMixin = 'media';
   static const String _$key__mediaGroup___$DomPropsMixin = 'mediaGroup';
   static const String _$key__method___$DomPropsMixin = 'method';
-  static const String _$key__min___$DomPropsMixin = 'min';
   static const String _$key__name___$DomPropsMixin = 'name';
   static const String _$key__pattern___$DomPropsMixin = 'pattern';
   static const String _$key__placeholder___$DomPropsMixin = 'placeholder';
@@ -2289,24 +2270,40 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   static const String _$key__radioGroup___$DomPropsMixin = 'radioGroup';
   static const String _$key__rel___$DomPropsMixin = 'rel';
   static const String _$key__role___$DomPropsMixin = 'role';
-  static const String _$key__rowSpan___$DomPropsMixin = 'rowSpan';
   static const String _$key__sandbox___$DomPropsMixin = 'sandbox';
   static const String _$key__scope___$DomPropsMixin = 'scope';
   static const String _$key__scrolling___$DomPropsMixin = 'scrolling';
   static const String _$key__shape___$DomPropsMixin = 'shape';
   static const String _$key__sizes___$DomPropsMixin = 'sizes';
-  static const String _$key__spellCheck___$DomPropsMixin = 'spellCheck';
   static const String _$key__src___$DomPropsMixin = 'src';
   static const String _$key__srcDoc___$DomPropsMixin = 'srcDoc';
   static const String _$key__srcSet___$DomPropsMixin = 'srcSet';
-  static const String _$key__step___$DomPropsMixin = 'step';
-  static const String _$key__tabIndex___$DomPropsMixin = 'tabIndex';
   static const String _$key__target___$DomPropsMixin = 'target';
+  static const String _$key__title___$DomPropsMixin = 'title';
   static const String _$key__type___$DomPropsMixin = 'type';
   static const String _$key__useMap___$DomPropsMixin = 'useMap';
+  static const String _$key__wmode___$DomPropsMixin = 'wmode';
+  static const String _$key__allowTransparency___$DomPropsMixin =
+      'allowTransparency';
+  static const String _$key__cellPadding___$DomPropsMixin = 'cellPadding';
+  static const String _$key__cellSpacing___$DomPropsMixin = 'cellSpacing';
+  static const String _$key__colSpan___$DomPropsMixin = 'colSpan';
+  static const String _$key__contentEditable___$DomPropsMixin =
+      'contentEditable';
+  static const String _$key__download___$DomPropsMixin = 'download';
+  static const String _$key__draggable___$DomPropsMixin = 'draggable';
+  static const String _$key__frameBorder___$DomPropsMixin = 'frameBorder';
+  static const String _$key__height___$DomPropsMixin = 'height';
+  static const String _$key__icon___$DomPropsMixin = 'icon';
+  static const String _$key__max___$DomPropsMixin = 'max';
+  static const String _$key__maxLength___$DomPropsMixin = 'maxLength';
+  static const String _$key__min___$DomPropsMixin = 'min';
+  static const String _$key__rowSpan___$DomPropsMixin = 'rowSpan';
+  static const String _$key__spellCheck___$DomPropsMixin = 'spellCheck';
+  static const String _$key__step___$DomPropsMixin = 'step';
+  static const String _$key__tabIndex___$DomPropsMixin = 'tabIndex';
   static const String _$key__value___$DomPropsMixin = 'value';
   static const String _$key__width___$DomPropsMixin = 'width';
-  static const String _$key__wmode___$DomPropsMixin = 'wmode';
   static const String _$key__onAnimationEnd___$DomPropsMixin = 'onAnimationEnd';
   static const String _$key__onAnimationIteration___$DomPropsMixin =
       'onAnimationIteration';
@@ -2452,50 +2449,36 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$prop__seamless___$DomPropsMixin,
     _$prop__selected___$DomPropsMixin,
     _$prop__style___$DomPropsMixin,
-    _$prop__className___$DomPropsMixin,
-    _$prop__title___$DomPropsMixin,
-    _$prop__id___$DomPropsMixin,
     _$prop__accept___$DomPropsMixin,
     _$prop__acceptCharset___$DomPropsMixin,
     _$prop__accessKey___$DomPropsMixin,
     _$prop__action___$DomPropsMixin,
-    _$prop__allowTransparency___$DomPropsMixin,
     _$prop__alt___$DomPropsMixin,
     _$prop__autoComplete___$DomPropsMixin,
-    _$prop__cellPadding___$DomPropsMixin,
-    _$prop__cellSpacing___$DomPropsMixin,
     _$prop__charSet___$DomPropsMixin,
     _$prop__classID___$DomPropsMixin,
-    _$prop__colSpan___$DomPropsMixin,
+    _$prop__className___$DomPropsMixin,
     _$prop__content___$DomPropsMixin,
-    _$prop__contentEditable___$DomPropsMixin,
     _$prop__contextMenu___$DomPropsMixin,
     _$prop__coords___$DomPropsMixin,
     _$prop__crossOrigin___$DomPropsMixin,
     _$prop__data___$DomPropsMixin,
     _$prop__dateTime___$DomPropsMixin,
     _$prop__dir___$DomPropsMixin,
-    _$prop__download___$DomPropsMixin,
-    _$prop__draggable___$DomPropsMixin,
     _$prop__encType___$DomPropsMixin,
     _$prop__form___$DomPropsMixin,
-    _$prop__frameBorder___$DomPropsMixin,
-    _$prop__height___$DomPropsMixin,
     _$prop__href___$DomPropsMixin,
     _$prop__hrefLang___$DomPropsMixin,
     _$prop__htmlFor___$DomPropsMixin,
     _$prop__httpEquiv___$DomPropsMixin,
-    _$prop__icon___$DomPropsMixin,
+    _$prop__id___$DomPropsMixin,
     _$prop__label___$DomPropsMixin,
     _$prop__lang___$DomPropsMixin,
     _$prop__list___$DomPropsMixin,
     _$prop__manifest___$DomPropsMixin,
-    _$prop__max___$DomPropsMixin,
-    _$prop__maxLength___$DomPropsMixin,
     _$prop__media___$DomPropsMixin,
     _$prop__mediaGroup___$DomPropsMixin,
     _$prop__method___$DomPropsMixin,
-    _$prop__min___$DomPropsMixin,
     _$prop__name___$DomPropsMixin,
     _$prop__pattern___$DomPropsMixin,
     _$prop__placeholder___$DomPropsMixin,
@@ -2504,24 +2487,38 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$prop__radioGroup___$DomPropsMixin,
     _$prop__rel___$DomPropsMixin,
     _$prop__role___$DomPropsMixin,
-    _$prop__rowSpan___$DomPropsMixin,
     _$prop__sandbox___$DomPropsMixin,
     _$prop__scope___$DomPropsMixin,
     _$prop__scrolling___$DomPropsMixin,
     _$prop__shape___$DomPropsMixin,
     _$prop__sizes___$DomPropsMixin,
-    _$prop__spellCheck___$DomPropsMixin,
     _$prop__src___$DomPropsMixin,
     _$prop__srcDoc___$DomPropsMixin,
     _$prop__srcSet___$DomPropsMixin,
-    _$prop__step___$DomPropsMixin,
-    _$prop__tabIndex___$DomPropsMixin,
     _$prop__target___$DomPropsMixin,
+    _$prop__title___$DomPropsMixin,
     _$prop__type___$DomPropsMixin,
     _$prop__useMap___$DomPropsMixin,
+    _$prop__wmode___$DomPropsMixin,
+    _$prop__allowTransparency___$DomPropsMixin,
+    _$prop__cellPadding___$DomPropsMixin,
+    _$prop__cellSpacing___$DomPropsMixin,
+    _$prop__colSpan___$DomPropsMixin,
+    _$prop__contentEditable___$DomPropsMixin,
+    _$prop__download___$DomPropsMixin,
+    _$prop__draggable___$DomPropsMixin,
+    _$prop__frameBorder___$DomPropsMixin,
+    _$prop__height___$DomPropsMixin,
+    _$prop__icon___$DomPropsMixin,
+    _$prop__max___$DomPropsMixin,
+    _$prop__maxLength___$DomPropsMixin,
+    _$prop__min___$DomPropsMixin,
+    _$prop__rowSpan___$DomPropsMixin,
+    _$prop__spellCheck___$DomPropsMixin,
+    _$prop__step___$DomPropsMixin,
+    _$prop__tabIndex___$DomPropsMixin,
     _$prop__value___$DomPropsMixin,
     _$prop__width___$DomPropsMixin,
-    _$prop__wmode___$DomPropsMixin,
     _$prop__onAnimationEnd___$DomPropsMixin,
     _$prop__onAnimationIteration___$DomPropsMixin,
     _$prop__onAnimationStart___$DomPropsMixin,
@@ -2637,50 +2634,36 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$key__seamless___$DomPropsMixin,
     _$key__selected___$DomPropsMixin,
     _$key__style___$DomPropsMixin,
-    _$key__className___$DomPropsMixin,
-    _$key__title___$DomPropsMixin,
-    _$key__id___$DomPropsMixin,
     _$key__accept___$DomPropsMixin,
     _$key__acceptCharset___$DomPropsMixin,
     _$key__accessKey___$DomPropsMixin,
     _$key__action___$DomPropsMixin,
-    _$key__allowTransparency___$DomPropsMixin,
     _$key__alt___$DomPropsMixin,
     _$key__autoComplete___$DomPropsMixin,
-    _$key__cellPadding___$DomPropsMixin,
-    _$key__cellSpacing___$DomPropsMixin,
     _$key__charSet___$DomPropsMixin,
     _$key__classID___$DomPropsMixin,
-    _$key__colSpan___$DomPropsMixin,
+    _$key__className___$DomPropsMixin,
     _$key__content___$DomPropsMixin,
-    _$key__contentEditable___$DomPropsMixin,
     _$key__contextMenu___$DomPropsMixin,
     _$key__coords___$DomPropsMixin,
     _$key__crossOrigin___$DomPropsMixin,
     _$key__data___$DomPropsMixin,
     _$key__dateTime___$DomPropsMixin,
     _$key__dir___$DomPropsMixin,
-    _$key__download___$DomPropsMixin,
-    _$key__draggable___$DomPropsMixin,
     _$key__encType___$DomPropsMixin,
     _$key__form___$DomPropsMixin,
-    _$key__frameBorder___$DomPropsMixin,
-    _$key__height___$DomPropsMixin,
     _$key__href___$DomPropsMixin,
     _$key__hrefLang___$DomPropsMixin,
     _$key__htmlFor___$DomPropsMixin,
     _$key__httpEquiv___$DomPropsMixin,
-    _$key__icon___$DomPropsMixin,
+    _$key__id___$DomPropsMixin,
     _$key__label___$DomPropsMixin,
     _$key__lang___$DomPropsMixin,
     _$key__list___$DomPropsMixin,
     _$key__manifest___$DomPropsMixin,
-    _$key__max___$DomPropsMixin,
-    _$key__maxLength___$DomPropsMixin,
     _$key__media___$DomPropsMixin,
     _$key__mediaGroup___$DomPropsMixin,
     _$key__method___$DomPropsMixin,
-    _$key__min___$DomPropsMixin,
     _$key__name___$DomPropsMixin,
     _$key__pattern___$DomPropsMixin,
     _$key__placeholder___$DomPropsMixin,
@@ -2689,24 +2672,38 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$key__radioGroup___$DomPropsMixin,
     _$key__rel___$DomPropsMixin,
     _$key__role___$DomPropsMixin,
-    _$key__rowSpan___$DomPropsMixin,
     _$key__sandbox___$DomPropsMixin,
     _$key__scope___$DomPropsMixin,
     _$key__scrolling___$DomPropsMixin,
     _$key__shape___$DomPropsMixin,
     _$key__sizes___$DomPropsMixin,
-    _$key__spellCheck___$DomPropsMixin,
     _$key__src___$DomPropsMixin,
     _$key__srcDoc___$DomPropsMixin,
     _$key__srcSet___$DomPropsMixin,
-    _$key__step___$DomPropsMixin,
-    _$key__tabIndex___$DomPropsMixin,
     _$key__target___$DomPropsMixin,
+    _$key__title___$DomPropsMixin,
     _$key__type___$DomPropsMixin,
     _$key__useMap___$DomPropsMixin,
+    _$key__wmode___$DomPropsMixin,
+    _$key__allowTransparency___$DomPropsMixin,
+    _$key__cellPadding___$DomPropsMixin,
+    _$key__cellSpacing___$DomPropsMixin,
+    _$key__colSpan___$DomPropsMixin,
+    _$key__contentEditable___$DomPropsMixin,
+    _$key__download___$DomPropsMixin,
+    _$key__draggable___$DomPropsMixin,
+    _$key__frameBorder___$DomPropsMixin,
+    _$key__height___$DomPropsMixin,
+    _$key__icon___$DomPropsMixin,
+    _$key__max___$DomPropsMixin,
+    _$key__maxLength___$DomPropsMixin,
+    _$key__min___$DomPropsMixin,
+    _$key__rowSpan___$DomPropsMixin,
+    _$key__spellCheck___$DomPropsMixin,
+    _$key__step___$DomPropsMixin,
+    _$key__tabIndex___$DomPropsMixin,
     _$key__value___$DomPropsMixin,
     _$key__width___$DomPropsMixin,
-    _$key__wmode___$DomPropsMixin,
     _$key__onAnimationEnd___$DomPropsMixin,
     _$key__onAnimationIteration___$DomPropsMixin,
     _$key__onAnimationStart___$DomPropsMixin,
