@@ -509,15 +509,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   set id(String value) => props[_$key__id___$DomPropsMixin] = value;
 
-  /// <!-- Generated from [_$DomPropsMixin.label] -->
-  @override
-  String get label =>
-      props[_$key__label___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.label] -->
-  @override
-  set label(String value) => props[_$key__label___$DomPropsMixin] = value;
-
   /// <!-- Generated from [_$DomPropsMixin.lang] -->
   @override
   String get lang =>
@@ -738,15 +729,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   set title(String value) => props[_$key__title___$DomPropsMixin] = value;
 
-  /// <!-- Generated from [_$DomPropsMixin.type] -->
-  @override
-  String get type =>
-      props[_$key__type___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.type] -->
-  @override
-  set type(String value) => props[_$key__type___$DomPropsMixin] = value;
-
   /// <!-- Generated from [_$DomPropsMixin.useMap] -->
   @override
   String get useMap =>
@@ -862,6 +844,15 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   set icon(dynamic value) => props[_$key__icon___$DomPropsMixin] = value;
 
+  /// <!-- Generated from [_$DomPropsMixin.label] -->
+  @override
+  dynamic get label =>
+      props[_$key__label___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.label] -->
+  @override
+  set label(dynamic value) => props[_$key__label___$DomPropsMixin] = value;
+
   /// <!-- Generated from [_$DomPropsMixin.max] -->
   @override
   dynamic get max =>
@@ -927,6 +918,15 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   set tabIndex(dynamic value) =>
       props[_$key__tabIndex___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.type] -->
+  @override
+  dynamic get type =>
+      props[_$key__type___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.type] -->
+  @override
+  set type(dynamic value) => props[_$key__type___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.value] -->
   @override
@@ -1835,8 +1835,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__httpEquiv___$DomPropsMixin);
   static const PropDescriptor _$prop__id___$DomPropsMixin =
       const PropDescriptor(_$key__id___$DomPropsMixin);
-  static const PropDescriptor _$prop__label___$DomPropsMixin =
-      const PropDescriptor(_$key__label___$DomPropsMixin);
   static const PropDescriptor _$prop__lang___$DomPropsMixin =
       const PropDescriptor(_$key__lang___$DomPropsMixin);
   static const PropDescriptor _$prop__list___$DomPropsMixin =
@@ -1885,8 +1883,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__target___$DomPropsMixin);
   static const PropDescriptor _$prop__title___$DomPropsMixin =
       const PropDescriptor(_$key__title___$DomPropsMixin);
-  static const PropDescriptor _$prop__type___$DomPropsMixin =
-      const PropDescriptor(_$key__type___$DomPropsMixin);
   static const PropDescriptor _$prop__useMap___$DomPropsMixin =
       const PropDescriptor(_$key__useMap___$DomPropsMixin);
   static const PropDescriptor _$prop__wmode___$DomPropsMixin =
@@ -1911,6 +1907,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__height___$DomPropsMixin);
   static const PropDescriptor _$prop__icon___$DomPropsMixin =
       const PropDescriptor(_$key__icon___$DomPropsMixin);
+  static const PropDescriptor _$prop__label___$DomPropsMixin =
+      const PropDescriptor(_$key__label___$DomPropsMixin);
   static const PropDescriptor _$prop__max___$DomPropsMixin =
       const PropDescriptor(_$key__max___$DomPropsMixin);
   static const PropDescriptor _$prop__maxLength___$DomPropsMixin =
@@ -1925,6 +1923,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__step___$DomPropsMixin);
   static const PropDescriptor _$prop__tabIndex___$DomPropsMixin =
       const PropDescriptor(_$key__tabIndex___$DomPropsMixin);
+  static const PropDescriptor _$prop__type___$DomPropsMixin =
+      const PropDescriptor(_$key__type___$DomPropsMixin);
   static const PropDescriptor _$prop__value___$DomPropsMixin =
       const PropDescriptor(_$key__value___$DomPropsMixin);
   static const PropDescriptor _$prop__width___$DomPropsMixin =
@@ -2135,7 +2135,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   static const String _$key__htmlFor___$DomPropsMixin = 'htmlFor';
   static const String _$key__httpEquiv___$DomPropsMixin = 'httpEquiv';
   static const String _$key__id___$DomPropsMixin = 'id';
-  static const String _$key__label___$DomPropsMixin = 'label';
   static const String _$key__lang___$DomPropsMixin = 'lang';
   static const String _$key__list___$DomPropsMixin = 'list';
   static const String _$key__manifest___$DomPropsMixin = 'manifest';
@@ -2160,7 +2159,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   static const String _$key__srcSet___$DomPropsMixin = 'srcSet';
   static const String _$key__target___$DomPropsMixin = 'target';
   static const String _$key__title___$DomPropsMixin = 'title';
-  static const String _$key__type___$DomPropsMixin = 'type';
   static const String _$key__useMap___$DomPropsMixin = 'useMap';
   static const String _$key__wmode___$DomPropsMixin = 'wmode';
   static const String _$key__allowTransparency___$DomPropsMixin =
@@ -2175,6 +2173,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   static const String _$key__frameBorder___$DomPropsMixin = 'frameBorder';
   static const String _$key__height___$DomPropsMixin = 'height';
   static const String _$key__icon___$DomPropsMixin = 'icon';
+  static const String _$key__label___$DomPropsMixin = 'label';
   static const String _$key__max___$DomPropsMixin = 'max';
   static const String _$key__maxLength___$DomPropsMixin = 'maxLength';
   static const String _$key__min___$DomPropsMixin = 'min';
@@ -2182,6 +2181,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   static const String _$key__spellCheck___$DomPropsMixin = 'spellCheck';
   static const String _$key__step___$DomPropsMixin = 'step';
   static const String _$key__tabIndex___$DomPropsMixin = 'tabIndex';
+  static const String _$key__type___$DomPropsMixin = 'type';
   static const String _$key__value___$DomPropsMixin = 'value';
   static const String _$key__width___$DomPropsMixin = 'width';
   static const String _$key__onAnimationEnd___$DomPropsMixin = 'onAnimationEnd';
@@ -2339,7 +2339,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$prop__htmlFor___$DomPropsMixin,
     _$prop__httpEquiv___$DomPropsMixin,
     _$prop__id___$DomPropsMixin,
-    _$prop__label___$DomPropsMixin,
     _$prop__lang___$DomPropsMixin,
     _$prop__list___$DomPropsMixin,
     _$prop__manifest___$DomPropsMixin,
@@ -2364,7 +2363,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$prop__srcSet___$DomPropsMixin,
     _$prop__target___$DomPropsMixin,
     _$prop__title___$DomPropsMixin,
-    _$prop__type___$DomPropsMixin,
     _$prop__useMap___$DomPropsMixin,
     _$prop__wmode___$DomPropsMixin,
     _$prop__allowTransparency___$DomPropsMixin,
@@ -2377,6 +2375,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$prop__frameBorder___$DomPropsMixin,
     _$prop__height___$DomPropsMixin,
     _$prop__icon___$DomPropsMixin,
+    _$prop__label___$DomPropsMixin,
     _$prop__max___$DomPropsMixin,
     _$prop__maxLength___$DomPropsMixin,
     _$prop__min___$DomPropsMixin,
@@ -2384,6 +2383,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$prop__spellCheck___$DomPropsMixin,
     _$prop__step___$DomPropsMixin,
     _$prop__tabIndex___$DomPropsMixin,
+    _$prop__type___$DomPropsMixin,
     _$prop__value___$DomPropsMixin,
     _$prop__width___$DomPropsMixin,
     _$prop__onAnimationEnd___$DomPropsMixin,
@@ -2514,7 +2514,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$key__htmlFor___$DomPropsMixin,
     _$key__httpEquiv___$DomPropsMixin,
     _$key__id___$DomPropsMixin,
-    _$key__label___$DomPropsMixin,
     _$key__lang___$DomPropsMixin,
     _$key__list___$DomPropsMixin,
     _$key__manifest___$DomPropsMixin,
@@ -2539,7 +2538,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$key__srcSet___$DomPropsMixin,
     _$key__target___$DomPropsMixin,
     _$key__title___$DomPropsMixin,
-    _$key__type___$DomPropsMixin,
     _$key__useMap___$DomPropsMixin,
     _$key__wmode___$DomPropsMixin,
     _$key__allowTransparency___$DomPropsMixin,
@@ -2552,6 +2550,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$key__frameBorder___$DomPropsMixin,
     _$key__height___$DomPropsMixin,
     _$key__icon___$DomPropsMixin,
+    _$key__label___$DomPropsMixin,
     _$key__max___$DomPropsMixin,
     _$key__maxLength___$DomPropsMixin,
     _$key__min___$DomPropsMixin,
@@ -2559,6 +2558,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$key__spellCheck___$DomPropsMixin,
     _$key__step___$DomPropsMixin,
     _$key__tabIndex___$DomPropsMixin,
+    _$key__type___$DomPropsMixin,
     _$key__value___$DomPropsMixin,
     _$key__width___$DomPropsMixin,
     _$key__onAnimationEnd___$DomPropsMixin,
