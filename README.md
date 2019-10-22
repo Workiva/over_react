@@ -8,6 +8,8 @@
 [![Test Coverage](https://codecov.io/github/Workiva/over_react/coverage.svg?branch=master)](https://codecov.io/github/Workiva/over_react?branch=master)
 
 > A library for building statically-typed React UI components using Dart.
+>
+> This library also exposes OverReact_Redux, which has [its own documentation](./OverReact_Redux_Documentation.md).
 
 ---
 
