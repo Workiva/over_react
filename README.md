@@ -683,6 +683,7 @@ that you get for free from OverReact, you're ready to start building your own cu
 
     ```dart
     import 'package:over_react/over_react.dart';
+    part 'foo_component.over_react.g.dart';
 
     @Factory()
     UiFactory<FooProps> Foo = _$Foo;
@@ -716,6 +717,7 @@ that you get for free from OverReact, you're ready to start building your own cu
     ```dart
     import 'dart:html';
     import 'package:over_react/over_react.dart';
+    part 'foo_component.over_react.g.dart';
 
     @Factory()
     UiFactory<BarProps> Bar = _$Bar;
@@ -761,6 +763,7 @@ that you get for free from OverReact, you're ready to start building your own cu
     ```dart
     import 'dart:html';
     import 'package:over_react/over_react.dart';
+    part 'foo_component.over_react.g.dart';
 
     @Factory()
     UiFactory<BazProps> Baz = _$Baz;
@@ -792,6 +795,7 @@ that you get for free from OverReact, you're ready to start building your own cu
     ```dart
     import 'dart:html';
     import 'package:over_react/over_react.dart';
+    part 'foo_component.over_react.g.dart';
 
     @Factory()
     UiFactory<BazProps> Baz = _$Baz;
