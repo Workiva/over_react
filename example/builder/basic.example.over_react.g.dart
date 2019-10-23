@@ -129,7 +129,7 @@ $BasicProps $Basic([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class $BasicProps extends BasicProps
+class $BasicProps extends UiProps
     with BasicPropsMixin, $BasicPropsMixin {
   $BasicProps._();
   // Moved meta from its own class to here... idk

@@ -4,9 +4,7 @@ import 'package:over_react/over_react.dart';
 import 'basic.example.over_react.g.dart' as $;
 export 'basic.example.over_react.g.dart';
 
-UiFactory<BasicProps> Basic = $.$Basic;
-
-class BasicProps = UiProps with BasicPropsMixin;
+UiFactory<BasicPropsMixin> Basic = $.$Basic;
 
 mixin BasicPropsMixin on UiProps {
   @deprecated
@@ -20,7 +18,7 @@ mixin BasicPropsMixin on UiProps {
   String basic5;
 }
 
-class BasicComponent extends UiComponent2<BasicProps> {
+class BasicComponent extends UiComponent2<BasicPropsMixin> {
   @override
   get defaultProps => newProps()..id = 'basic component'
       ..basicProp = 'defaultBasicProps'; // ignore: deprecated_member_use_from_same_package
