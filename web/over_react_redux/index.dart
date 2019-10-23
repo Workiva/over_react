@@ -5,11 +5,16 @@ import 'package:react/react_client.dart';
 import 'package:react/react_dom.dart' as react_dom;
 import 'package:over_react/over_react_redux.dart';
 
+import 'package:socketcluster_client/src/socket_platform.dart';
+import 'package:socketcluster_client/src/socket_platform_http.dart';
+
 import './components/counter.dart';
 import './store.dart';
 
 main() {
   setClientConfiguration();
+
+//  globalSocketPlatform = HttpSocketPlatform();
 
   UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
     mapStateToProps: (state) => (Counter()..currentCount = state.count)

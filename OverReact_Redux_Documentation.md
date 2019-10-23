@@ -174,7 +174,7 @@ Redux DevTools can be set up easily by adding only a few lines of code.
       return remoteDevtools.connect();
     }
     ```
-1. In your `main.dart` file, import `socket_platform` and `socket_platform_http`.
+1. In your `index.dart` file, import `socket_platform` and `socket_platform_http`.
     ```
     import 'package:socketcluster_client/src/socket_platform.dart';
     import 'package:socketcluster_client/src/socket_platform_http.dart';

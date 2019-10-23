@@ -38,6 +38,9 @@ dev_dependencies:
   dependency_validator: ^1.2.2
   mockito: ^4.0.0
   over_react_test: ^2.5.2
+  redux_dev_tools: 0.4.0
+  redux_remote_devtools: ^0.0.7
+  socketcluster_client: ^0.1.0
   test: ^1.0.0
 
 dependency_overrides:
@@ -45,3 +48,4 @@ dependency_overrides:
     git:
       url: https://github.com/cleandart/react-dart.git
       ref: 5.1.0-wip
+  socketcluster_client: 0.1.0
