@@ -17,6 +17,7 @@
         * [areMergedPropsEqual](#aremergedpropsequal)
         * [context](#context)
 * __[Using Multiple Stores](#using-multiple-stores)__
+* __[Using Redux DevTools](#using-redux-devtools)__
 
 ## Purpose
 [React Redux](https://react-redux.js.org) is a UI binding library that allows for better Redux integration with React. 
@@ -213,3 +214,55 @@ In the case that you need to have multiple stores, you use `context` to do so:
            ),
          )
     ```
+
+## Using Redux DevTools
+Redux DevTools can be set up easily by adding only a few lines of code.
+
+1. Add `redux_remote_devtools`, `redux_dev_tools`, and `socketcluster_client` as dependencies in your `pubspec.yaml`.
+    ```
+    dependencies:
+      redux_dev_tools: 0.4.0
+      redux_remote_devtools: ^0.0.7
+      socketcluster_client: ^0.1.0
+    ```
+    
+    > __NOTE__: You will need to override `socketcluster_client` with a fork from Github. This is a short term 
+    solution while a PR waits to get merged:
+    ```yaml
+    dependency_overrides:
+       socketcluster_client:
+         git:
+           url: https://github.com/kealjones-wk/socketcluster_client.git
+           ref: auto-platform-selection
+    ```
+1. Import `redux_remote_devtools` and `redux_dev_tools` into your store file.
+    ```
+    import 'package:redux_remote_devtools/redux_remote_devtools.dart';
+    import 'package:redux_dev_tools/redux_dev_tools.dart';
+    ```
+1. Create a store using a `DevToolsStore` rather then a traditional store.
+    ```
+    var store = new DevToolsStore<AppState>(/*ReducerName*/, initialState: /*Default App State Object*/, middleware: [remoteDevtools]);
+    ```
+1. Expose an `initDevtools()` function. This will be used to set up the devtools server.
+    ```
+    var remoteDevtools = RemoteDevToolsMiddleware('127.0.0.1:8000');
+    
+    Future initDevtools() async {
+      remoteDevtools.store = store;
+      return remoteDevtools.connect();
+    }
+    ```
+1. In your `index.dart` file, import `socket_platform` and `socket_platform_http`.
+    ```
+    import 'package:socketcluster_client/src/socket_platform.dart';
+    import 'package:socketcluster_client/src/socket_platform_http.dart';
+    ```
+1. Near the top of your `main.dart` file, spin up the `HttpSocketPlatform` and init the devtools.
+    ```dart
+      globalSocketPlatform = HttpSocketPlatform();
+      
+      await initDevtools();
+    ```
+
+You can now to go `127.0.0.1:8000` and see your devtools!
