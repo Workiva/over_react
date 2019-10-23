@@ -78,12 +78,12 @@ abstract class _$DomPropsMixin {
   Map<String, dynamic> style;
 
   String accept, acceptCharset, accessKey, action, alt, autoComplete, charSet, classID, className, content, contextMenu,
-    coords, crossOrigin, data, dateTime, dir, encType, form, href, hrefLang, htmlFor, httpEquiv, id, lang, list, manifest, media, mediaGroup,
-    method, name, pattern, placeholder, poster, preload, radioGroup, rel, role, sandbox, scope, scrolling, shape, sizes, src,
+    coords, crossOrigin, data, dateTime, dir, encType, form, hrefLang, htmlFor, httpEquiv, id, lang, list, manifest, media, mediaGroup,
+    method, name, pattern, placeholder, poster, preload, radioGroup, rel, role, sandbox, scope, scrolling, shape, sizes,
     srcDoc, srcSet, target, title, type, useMap, wmode;
 
   dynamic cellPadding, cellSpacing, contentEditable, download, draggable, frameBorder, height, icon, label,
-    max, min, spellCheck, step, tabIndex, value, width;
+    max, min, spellCheck, step, tabIndex, value, width, href, src;
 
   AnimationEventCallback onAnimationEnd, onAnimationIteration, onAnimationStart;
   ClipboardEventCallback onCopy, onCut, onPaste;

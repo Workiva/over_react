@@ -500,15 +500,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   set form(String value) => props[_$key__form___$DomPropsMixin] = value;
 
-  /// <!-- Generated from [_$DomPropsMixin.href] -->
-  @override
-  String get href =>
-      props[_$key__href___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.href] -->
-  @override
-  set href(String value) => props[_$key__href___$DomPropsMixin] = value;
-
   /// <!-- Generated from [_$DomPropsMixin.hrefLang] -->
   @override
   String get hrefLang =>
@@ -720,15 +711,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.sizes] -->
   @override
   set sizes(String value) => props[_$key__sizes___$DomPropsMixin] = value;
-
-  /// <!-- Generated from [_$DomPropsMixin.src] -->
-  @override
-  String get src =>
-      props[_$key__src___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.src] -->
-  @override
-  set src(String value) => props[_$key__src___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.srcDoc] -->
   @override
@@ -944,6 +926,24 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.width] -->
   @override
   set width(dynamic value) => props[_$key__width___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.href] -->
+  @override
+  dynamic get href =>
+      props[_$key__href___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.href] -->
+  @override
+  set href(dynamic value) => props[_$key__href___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.src] -->
+  @override
+  dynamic get src =>
+      props[_$key__src___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.src] -->
+  @override
+  set src(dynamic value) => props[_$key__src___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onAnimationEnd] -->
   @override
@@ -1832,8 +1832,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__encType___$DomPropsMixin);
   static const PropDescriptor _$prop__form___$DomPropsMixin =
       const PropDescriptor(_$key__form___$DomPropsMixin);
-  static const PropDescriptor _$prop__href___$DomPropsMixin =
-      const PropDescriptor(_$key__href___$DomPropsMixin);
   static const PropDescriptor _$prop__hrefLang___$DomPropsMixin =
       const PropDescriptor(_$key__hrefLang___$DomPropsMixin);
   static const PropDescriptor _$prop__htmlFor___$DomPropsMixin =
@@ -1880,8 +1878,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__shape___$DomPropsMixin);
   static const PropDescriptor _$prop__sizes___$DomPropsMixin =
       const PropDescriptor(_$key__sizes___$DomPropsMixin);
-  static const PropDescriptor _$prop__src___$DomPropsMixin =
-      const PropDescriptor(_$key__src___$DomPropsMixin);
   static const PropDescriptor _$prop__srcDoc___$DomPropsMixin =
       const PropDescriptor(_$key__srcDoc___$DomPropsMixin);
   static const PropDescriptor _$prop__srcSet___$DomPropsMixin =
@@ -1928,6 +1924,10 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__value___$DomPropsMixin);
   static const PropDescriptor _$prop__width___$DomPropsMixin =
       const PropDescriptor(_$key__width___$DomPropsMixin);
+  static const PropDescriptor _$prop__href___$DomPropsMixin =
+      const PropDescriptor(_$key__href___$DomPropsMixin);
+  static const PropDescriptor _$prop__src___$DomPropsMixin =
+      const PropDescriptor(_$key__src___$DomPropsMixin);
   static const PropDescriptor _$prop__onAnimationEnd___$DomPropsMixin =
       const PropDescriptor(_$key__onAnimationEnd___$DomPropsMixin);
   static const PropDescriptor _$prop__onAnimationIteration___$DomPropsMixin =
@@ -2134,7 +2134,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   static const String _$key__dir___$DomPropsMixin = 'dir';
   static const String _$key__encType___$DomPropsMixin = 'encType';
   static const String _$key__form___$DomPropsMixin = 'form';
-  static const String _$key__href___$DomPropsMixin = 'href';
   static const String _$key__hrefLang___$DomPropsMixin = 'hrefLang';
   static const String _$key__htmlFor___$DomPropsMixin = 'htmlFor';
   static const String _$key__httpEquiv___$DomPropsMixin = 'httpEquiv';
@@ -2158,7 +2157,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   static const String _$key__scrolling___$DomPropsMixin = 'scrolling';
   static const String _$key__shape___$DomPropsMixin = 'shape';
   static const String _$key__sizes___$DomPropsMixin = 'sizes';
-  static const String _$key__src___$DomPropsMixin = 'src';
   static const String _$key__srcDoc___$DomPropsMixin = 'srcDoc';
   static const String _$key__srcSet___$DomPropsMixin = 'srcSet';
   static const String _$key__target___$DomPropsMixin = 'target';
@@ -2183,6 +2181,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   static const String _$key__tabIndex___$DomPropsMixin = 'tabIndex';
   static const String _$key__value___$DomPropsMixin = 'value';
   static const String _$key__width___$DomPropsMixin = 'width';
+  static const String _$key__href___$DomPropsMixin = 'href';
+  static const String _$key__src___$DomPropsMixin = 'src';
   static const String _$key__onAnimationEnd___$DomPropsMixin = 'onAnimationEnd';
   static const String _$key__onAnimationIteration___$DomPropsMixin =
       'onAnimationIteration';
@@ -2337,7 +2337,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$prop__dir___$DomPropsMixin,
     _$prop__encType___$DomPropsMixin,
     _$prop__form___$DomPropsMixin,
-    _$prop__href___$DomPropsMixin,
     _$prop__hrefLang___$DomPropsMixin,
     _$prop__htmlFor___$DomPropsMixin,
     _$prop__httpEquiv___$DomPropsMixin,
@@ -2361,7 +2360,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$prop__scrolling___$DomPropsMixin,
     _$prop__shape___$DomPropsMixin,
     _$prop__sizes___$DomPropsMixin,
-    _$prop__src___$DomPropsMixin,
     _$prop__srcDoc___$DomPropsMixin,
     _$prop__srcSet___$DomPropsMixin,
     _$prop__target___$DomPropsMixin,
@@ -2385,6 +2383,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$prop__tabIndex___$DomPropsMixin,
     _$prop__value___$DomPropsMixin,
     _$prop__width___$DomPropsMixin,
+    _$prop__href___$DomPropsMixin,
+    _$prop__src___$DomPropsMixin,
     _$prop__onAnimationEnd___$DomPropsMixin,
     _$prop__onAnimationIteration___$DomPropsMixin,
     _$prop__onAnimationStart___$DomPropsMixin,
@@ -2512,7 +2512,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$key__dir___$DomPropsMixin,
     _$key__encType___$DomPropsMixin,
     _$key__form___$DomPropsMixin,
-    _$key__href___$DomPropsMixin,
     _$key__hrefLang___$DomPropsMixin,
     _$key__htmlFor___$DomPropsMixin,
     _$key__httpEquiv___$DomPropsMixin,
@@ -2536,7 +2535,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$key__scrolling___$DomPropsMixin,
     _$key__shape___$DomPropsMixin,
     _$key__sizes___$DomPropsMixin,
-    _$key__src___$DomPropsMixin,
     _$key__srcDoc___$DomPropsMixin,
     _$key__srcSet___$DomPropsMixin,
     _$key__target___$DomPropsMixin,
@@ -2560,6 +2558,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$key__tabIndex___$DomPropsMixin,
     _$key__value___$DomPropsMixin,
     _$key__width___$DomPropsMixin,
+    _$key__href___$DomPropsMixin,
+    _$key__src___$DomPropsMixin,
     _$key__onAnimationEnd___$DomPropsMixin,
     _$key__onAnimationIteration___$DomPropsMixin,
     _$key__onAnimationStart___$DomPropsMixin,
