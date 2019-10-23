@@ -90,9 +90,14 @@ abstract class _$DomPropsMixin {
       hrefLang, htmlFor, httpEquiv, id, inputMode, integrity, keyParams, keyType, kind, label, lang, list, manifest, media, mediaGroup,
       method, name, nonce, pattern, placeholder, poster, preload, radioGroup, rel, role, sandbox, scope, scrolling, shape, sizes, src,
       srcDoc, srcLang, srcSet, summary, target, title, type, useMap, wmode, wrap;
-
+  String accept, acceptCharset, accessKey, action, alt, autoComplete, charSet, classID, className, content, contextMenu,
+      coords, crossOrigin, data, dateTime, dir, encType, form, href, hrefLang, htmlFor, httpEquiv, id, label, lang, list, manifest, media, mediaGroup,
+      method, name, pattern, placeholder, poster, preload, radioGroup, rel, role, sandbox, scope, scrolling, shape, sizes, src,
+      srcDoc, srcSet, target, title, type, useMap, wmode;
   dynamic capture, cellPadding, cellSpacing, contentEditable, download, draggable, frameBorder, height, icon,
       max, min, spellCheck, step, tabIndex, value, width;
+  dynamic allowTransparency, cellPadding, cellSpacing, colSpan, contentEditable, download, draggable, frameBorder, height, icon,
+      max, maxLength, min, rowSpan, spellCheck, step, tabIndex, value, width;
 
   AnimationEventCallback onAnimationEnd, onAnimationIteration, onAnimationStart;
   ClipboardEventCallback onCopy, onCut, onPaste;
