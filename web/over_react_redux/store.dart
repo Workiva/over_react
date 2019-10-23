@@ -33,22 +33,20 @@ class DecrementAction extends Action {
 
 /////////////////////////////// STORE 1 "Counter" ///////////////////////////////
 
-// This is the a normal store with no devtools
- Store store1 = Store<CounterState>(counterStateReducer, initialState: CounterState(count: 1));
+/// The store the combines the reducer and default state of.
+///
+/// This store uses the Redux DevTools, but could be declared without them:
+/// Store store1 = Store<CounterState>(smallCountReducer, initialState: CounterState.defaultState());
+Store store1 = DevToolsStore<CounterState>(smallCountReducer, initialState: CounterState.defaultState(), middleware: [remoteDevtools]);
 
-// The is a store connected to the devtools
-//Store store1 = DevToolsStore<CounterState>(counterStateReducer, initialState: CounterState(count: 1), middleware: [remoteDevtools]);
+var remoteDevtools = RemoteDevToolsMiddleware('127.0.0.1:8000');
 
+Future initDevtools() async {
+  remoteDevtools.store = store1;
+  return remoteDevtools.connect();
+}
 
-// Variables to spin up the devtools
-//var remoteDevtools = RemoteDevToolsMiddleware('127.0.0.1:8000');
-//
-//Future initDevtools() async {
-//  remoteDevtools.store = store1;
-//  return remoteDevtools.connect();
-//}
-
-/// The application state class.
+/// The store state class with the properties that make up the entire store.
 class CounterState {
   final int count;
   final String name;
@@ -58,37 +56,47 @@ class CounterState {
     this.name = "Counter",
   });
 
+  /// A default state constructor.
+  ///
+  /// This is optional and is just useful for creating the initial state or
+  /// resetting the state to default (if you ever need to).
+  CounterState.defaultState({this.count = 1, this.name = "Counter"});
+
   /// Used for syntactically simple updates within the reducer.
   ///
-  /// Because Redux is pure and does not allow state mutations,
+  /// Because Redux is pure and does not allow state mutations, a constructor
+  /// that defaults to setting properties to the old state allows for DRYer code
+  /// in the reducers.
   CounterState.updateState(CounterState oldState, {int count, String name})
       : this.count = count ?? oldState.count,
         this.name = name ?? oldState.name;
-
 }
 
-int _counterDecrementReducer(int currentCount, DecrementAction action) {
-  return currentCount - (action?.value ?? 1);
+
+/// The reducer used to update the store.
+///
+/// This can be a switch, if, or use [combineReducers] as seen below.
+CounterState smallCountReducer(CounterState oldState, dynamic action) {
+  if (action is DecrementAction) {
+    return CounterState.updateState(oldState, count: oldState.count - 1);
+  } else if (action is IncrementAction) {
+    return CounterState.updateState(oldState, count: oldState.count + 1);
+  } else {
+    return oldState;
+  }
 }
-
-int _counterIncrementReducer(int currentCount, IncrementAction action) {
-  return currentCount + (action?.value ?? 1);
-}
-
-final counterActionsReducer = combineReducers<int>([
-  TypedReducer<int, IncrementAction>(_counterIncrementReducer),
-  TypedReducer<int, DecrementAction>(_counterDecrementReducer),
-]);
-
-CounterState counterStateReducer(CounterState state, action) => CounterState(
-  count: counterActionsReducer(state.count, action),
-);
 
 /////////////////////////////// STORE 2 "BigCounter" ///////////////////////////////
+
+/// A new context that is used to differentiate the second store from the first.
+///
+/// An application can have multiple stores by using the React 16 [Context] API.
 final bigCounterContext = createContext();
 
-Store store2 = Store<BigCounterState>(bigCounterStateReducer, initialState:  BigCounterState(bigCount: 100));
+/// The second store.
+Store store2 = Store<BigCounterState>(bigCounterStateReducer, initialState: BigCounterState(bigCount: 100));
 
+/// A simplistic store state object.
 class BigCounterState {
   final int bigCount;
   final String name;
@@ -98,6 +106,7 @@ class BigCounterState {
   });
 }
 
+/// Reducers for the store that combined via [combineReducers].
 int _bigCounterDecrementReducer(int currentCount, DecrementAction action) {
   return currentCount - (action?.value ?? 100);
 }
@@ -111,6 +120,8 @@ final bigCounterActionsReducer = combineReducers<int>([
   TypedReducer<int, DecrementAction>(_bigCounterDecrementReducer),
 ]);
 
+/// The reducer, that composed of the smaller more specific reducers, that
+/// returns the store state.
 BigCounterState bigCounterStateReducer(BigCounterState state, action) => BigCounterState(
   bigCount: bigCounterActionsReducer(state.bigCount, action),
 );
