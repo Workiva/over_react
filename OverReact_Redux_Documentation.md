@@ -5,20 +5,30 @@
 * __[Purpose](#purpose)__
     * [Advantages](#advantages)
 * __[Using it in your project](#using-it-in-your-project)__
+* __[ReduxProvider](#reduxprovider)__
 * __[The Connect Function](#the-connect-function)__
     * [Connect Parameters](#connect-parameters)
+        * [mapStateToProps](#mapstatetoprops)
+        * [mapDispatchToProps](#mapdispatchtoprops)
+        * [mergeProps](#mergeprops)
+        * [areStatesEqual](#arestatesequal)
+        * [areOwnPropsEqual](#areownpropsequal)
+        * [areStatePropsEqual](#arestatepropsequal)
+        * [areMergedPropsEqual](#aremergedpropsequal)
+        * [context](#context)
+* __[Using Multiple Stores](#using-multiple-stores)__
 
 ## Purpose
 [React Redux](https://react-redux.js.org) is a UI binding library that allows for better Redux integration with React. 
 This integration allows for APIs that align more closely with React design patterns while also providing more direct 
-access to store data.
+access to store data. OverReact Redux is the Dart wrapper around that library.
 
 ### Advantages
 
-A full list of advtanges can be found [here](https://react-redux.js.org/introduction/why-use-react-redux). 
+A full list of advantages can be found [here](https://react-redux.js.org/introduction/why-use-react-redux). 
 Especially useful for OverReact though, OverReact Redux allows for targeted updates that only update components 
-that need to be, rather than the whole component tree (as is the behavior with React). By utilizing the 
-`connect()` function in conjunction with `mapStateToProps()`, a component will only update when a piece of information 
+that receive data which has changed, rather than the whole component tree (as is the behavior with React). By utilizing 
+the `connect()` function in conjunction with `mapStateToProps()`, a component will only update when a piece of information 
 it uses is updated.
 
 
@@ -29,16 +39,20 @@ it uses is updated.
     dependencies:
       redux: '>=3.0.0'
     ```
-1. Add the `redux` and `react-redux` libraries into the body of your app's `index.html` under your React script tags
-    ```html
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.4/redux.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.0.3/react-redux.js"></script>
-    ```
-1. [Create a store](linkToExampleFile).
-1. Import OverReact Redux and your store into the file with your component.
-    ```
+1. Create your store and reducer. See the [example store](./web/over_react_redux/store.dart) for ways to do this.
+1. Import OverReact Redux and your store into your `index.dart`.
+    ```dart
     import 'package:over_react/over_react_redux.dart';
     ```
+1. Wrap your component tree in a `ReduxProvider` and pass in the store.
+     ```dart
+    reactDom.render(
+      (ReduxProvider()..store = fooStore)(
+        // ... React component tree with connected components
+      )
+    )
+    ```
+1. Import OverReact Redux and your store into the file with your component.
 1. Wrap your `UiFactory` with `connect()` and add the `ConnectPropsMixin` to your props class.
     ```
         // AppState is a class that represents the application's state and can be defined in the same file as the store.
@@ -60,6 +74,23 @@ it uses is updated.
         }
         
     ```
+    
+## ReduxProvider
+Redux uses React 16's `Context` API to pass information through the component tree. Consequently, the tree must be 
+wrapped in a `Provider` to hold the handle the context.
+
+For this purpose, OverReact Redux has the `ReduxProvider` component. It is required to take in a store instance, and can
+ optionally take in a context object when using multiple stores.
+ 
+ __Example:__
+ ```dart
+reactDom.render(
+  (ReduxProvider()..store = fooStore)(
+    // ... React component tree with connected components
+  )
+)
+```
+    
 ## The Connect Function
 A wrapper around the JS react-redux `connect` function that supports OverReact components.
 
@@ -77,29 +108,38 @@ __Example:__
     ```
 
 ### Connect Parameters
-- `mapStateToProps` is used for selecting the part of the data from the store that the connected
+- #### `mapStateToProps` 
+    - Is used for selecting the part of the data from the store that the connected
  component needs.
-   - It is called every time the store state changes.
-   - It receives the entire store state, and should return an object of data this component needs.
+        - It is called every time the store state changes.
+        - It receives the entire store state, and should return an object of data this component needs.
 If you need access to the props provided to the connected component you can use `mapStateToPropsWithOwnProps`,
 the second argument will be `ownProps`. 
 
      See: <https://react-redux.js.org/using-react-redux/connect-mapstate#defining-mapstatetoprops>
-- `mapDispatchToProps` will be called with dispatch as the first argument.
-You will normally make use of this by returning new functions that call dispatch() inside themselves,
+- #### `mapDispatchToProps` 
+    - Will be called with dispatch as the first argument.
+    
+        You will normally make use of this by returning new functions that call dispatch() inside themselves,
 and either pass in a plain action directly or pass in the result of an action creator.
 If you need access to the props provided to the connected component you can use `mapDispatchToPropsWithOwnProps`,
 the second argument will be `ownProps`.
 
   See: <https://react-redux.js.org/using-react-redux/connect-mapdispatch#defining-mapdispatchtoprops-as-a-function>
-- `mergeProps` if specified, defines how the final props for the wrapped component are determined.
+- #### `mergeProps` 
+    - If specified, defines how the final props for the wrapped component are determined.
 If you do not provide `mergeProps`, the wrapped component receives {...ownProps, ...stateProps, ...dispatchProps}
 by default.
-- `areStatesEqual` does a simple `==` check by default.
-- `areOwnPropsEqual` does a shallow Map equality check by default.
-- `areStatePropsEqual` does a shallow Map equality check by default.
-- `areMergedPropsEqual` does a shallow Map equality check by default.
-- `context` can be utilized to provide a custom context object created with `createContext`.
+- #### `areStatesEqual` 
+    - Does a simple `==` check by default.
+- #### `areOwnPropsEqual` 
+    - Does a shallow Map equality check by default.
+- #### `areStatePropsEqual` 
+    - Does a shallow Map equality check by default.
+- #### `areMergedPropsEqual` 
+    - Does a shallow Map equality check by default.
+- #### `context` 
+    - Can be utilized to provide a custom context object created with `createContext`.
 `context` is how you can utilize multiple stores. While supported, this is not recommended. :P
 
     See: <https://redux.js.org/api/store#a-note-for-flux-users>
@@ -143,3 +183,33 @@ implementations for performance or other reasons.
 - `forwardRef` if `true`, the `ref` prop provided to the connected component will be return the wrapped component.
 
   For more info see: https://react-redux.js.org/api/connect#connect
+  
+## Using Multiple Stores
+
+An application can have multiple stores by utilizing the `context` parameter of `ReduxProvider`. While this is 
+possible, it is not recommended. See the [context Connect() parameter](#context) for more information.
+
+In the case that you need to have multiple stores, you use `context` to do so:
+1. Create a `Context` instance to provide to the `ReduxProvider` and the components in that context.
+    ```dart
+    final fooContext = createContext();
+    ```
+1. In the `connect` function wrapping the component, pass in the context instance.
+    ```dart
+       UiFactory<BarProps> ConnectedBar = connect<BarState, BarProps>(
+          // ... mapStateToProps
+          context: fooContext,
+       )(Bar);
+    ```
+1. In a ReduxProvider, pass in your context instance.
+    ```dart
+       // ... Wrapped in a reactDom.render()
+         (ReduxProvider()..store = store1)(
+           (ReduxProvider()
+             ..store = store2
+             ..context = bigCounterContext
+           )(
+             // ... connected componentry
+           ),
+         )
+    ```

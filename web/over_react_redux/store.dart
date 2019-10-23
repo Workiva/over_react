@@ -5,8 +5,8 @@ import 'package:over_react/over_react.dart';
 
 /// An action class can be created to add typing to the actions passed into dispatch.
 ///
-/// While it makes life easier, this practice is optional as all as the reducer receives
-/// a valid type and value parameter.
+/// While it can make life easier, this practice is optional as all as the
+/// reducer receives a valid type and value parameter.
 class Action {
   Action({this.type, this.value});
 
@@ -18,7 +18,7 @@ class Action {
   }
 }
 
-// Actions to be passed into dispatch().
+/// Actions to be passed into `dispatch`.
 class IncrementAction extends Action {
   IncrementAction([value]):super(type: 'INCREMENT', value:value);
 }
@@ -29,7 +29,9 @@ class DecrementAction extends Action {
 
 /////////////////////////////// STORE 1 "Counter" ///////////////////////////////
 
-/// The store the combines the reducer and default state of.
+/// The application store.
+///
+/// It takes in a reducer and the initial state.
 Store store1 = Store<CounterState>(smallCountReducer, initialState: CounterState.defaultState());
 
 /// The store state class with the properties that make up the entire store.
@@ -50,7 +52,7 @@ class CounterState {
 
   /// Used for syntactically simple updates within the reducer.
   ///
-  /// Because Redux is pure and does not allow state mutations, a constructor
+  /// Because Redux is pure and does not allow direct state mutations, a constructor
   /// that defaults to setting properties to the old state allows for DRYer code
   /// in the reducers.
   CounterState.updateState(CounterState oldState, {int count, String name})
@@ -75,14 +77,12 @@ CounterState smallCountReducer(CounterState oldState, dynamic action) {
 /////////////////////////////// STORE 2 "BigCounter" ///////////////////////////////
 
 /// A new context that is used to differentiate the second store from the first.
-///
-/// An application can have multiple stores by using the React 16 [Context] API.
 final bigCounterContext = createContext();
 
-/// The second store.
+/// The second store
 Store store2 = Store<BigCounterState>(bigCounterStateReducer, initialState: BigCounterState(bigCount: 100));
 
-/// A simplistic store state object.
+/// A simplistic store state object
 class BigCounterState {
   final int bigCount;
   final String name;
@@ -106,7 +106,7 @@ final bigCounterActionsReducer = combineReducers<int>([
   TypedReducer<int, DecrementAction>(_bigCounterDecrementReducer),
 ]);
 
-/// The reducer, that composed of the smaller more specific reducers, that
+/// The reducer, composed of the smaller and more specific reducers, that
 /// returns the store state.
 BigCounterState bigCounterStateReducer(BigCounterState state, action) => BigCounterState(
   bigCount: bigCounterActionsReducer(state.bigCount, action),

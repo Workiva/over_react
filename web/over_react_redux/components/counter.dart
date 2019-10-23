@@ -4,6 +4,24 @@ import '../store.dart';
 
 part 'counter.over_react.g.dart';
 
+// Connect your components to Redux.
+//
+// As shown in the example below, the same component can be connected to Redux in
+// such a way that it behaves differently.
+UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
+    mapStateToProps: (state) => (Counter()..currentCount = state.count)
+)(Counter);
+
+UiFactory<CounterProps> ConnectedBigCounter = connect<BigCounterState, CounterProps>(
+  mapStateToProps: (state) => (Counter()..currentCount = state.bigCount),
+  mapDispatchToProps: (dispatch) => (
+      Counter()
+        ..increment = () { dispatch(IncrementAction(100)); }
+        ..decrement = () { dispatch(DecrementAction(100)); }
+  ),
+  context: bigCounterContext,
+)(Counter);
+
 @Factory()
 UiFactory<CounterProps> Counter = _$Counter;
 
