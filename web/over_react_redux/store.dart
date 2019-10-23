@@ -1,10 +1,6 @@
 import 'package:redux/redux.dart';
 import 'package:over_react/over_react.dart';
 
-// Imports for DevTools
-import 'package:redux_remote_devtools/redux_remote_devtools.dart';
-import 'package:redux_dev_tools/redux_dev_tools.dart';
-
 /////////////////////////////// SHARED ///////////////////////////////
 
 /// An action class can be created to add typing to the actions passed into dispatch.
@@ -34,17 +30,7 @@ class DecrementAction extends Action {
 /////////////////////////////// STORE 1 "Counter" ///////////////////////////////
 
 /// The store the combines the reducer and default state of.
-///
-/// This store uses the Redux DevTools, but could be declared without them:
-/// Store store1 = Store<CounterState>(smallCountReducer, initialState: CounterState.defaultState());
-Store store1 = DevToolsStore<CounterState>(smallCountReducer, initialState: CounterState.defaultState(), middleware: [remoteDevtools]);
-
-var remoteDevtools = RemoteDevToolsMiddleware('127.0.0.1:8000');
-
-Future initDevtools() async {
-  remoteDevtools.store = store1;
-  return remoteDevtools.connect();
-}
+Store store1 = Store<CounterState>(smallCountReducer, initialState: CounterState.defaultState());
 
 /// The store state class with the properties that make up the entire store.
 class CounterState {

@@ -2,6 +2,11 @@
 > A Dart React Redux wrapper for targeted state updates.
 
 ---
+* __[Purpose](#purpose)__
+    * [Advantages](#advantages)
+* __[Using it in your project](#using-it-in-your-project)__
+* __[The Connect Function](#the-connect-function)__
+    * [Connect Parameters](#connect-parameters)
 
 ## Purpose
 [React Redux](https://react-redux.js.org) is a UI binding library that allows for better Redux integration with React. 
@@ -9,19 +14,13 @@ This integration allows for APIs that align more closely with React design patte
 access to store data.
 
 ### Advantages
-> A full list of benefits can be found [here](https://react-redux.js.org/introduction/why-use-react-redux) - this 
-list highlights a couple specifics that pertain especially to OverReact.
 
-#### Improved Performance
-OverReact Redux allows for targeted updates that only update components that need to be updated, rather than the whole 
-component tree (as is the behavior with React). By utilizing the `connect()` function in conjunction with 
-`mapStateToProps()`, a component will only update when a piece of information it uses is updated.
+A full list of advtanges can be found [here](https://react-redux.js.org/introduction/why-use-react-redux). 
+Especially useful for OverReact though, OverReact Redux allows for targeted updates that only update components 
+that need to be, rather than the whole component tree (as is the behavior with React). By utilizing the 
+`connect()` function in conjunction with `mapStateToProps()`, a component will only update when a piece of information 
+it uses is updated.
 
-#### Redux DevTools
-
-While the Redux DevTools exist outside of React Redux, the addition of OverReact Redux opens up the ability to 
-utilize the tools to monitor the state of the store, actions being fired, and [more](https://github.com/reduxjs/redux-devtools/tree/master/packages/redux-devtools#features).
-See [Using Redux DevTools](#Using_Redux_DevTools) for more information.
 
 ## Using it in your project
 1. Add the `redux` package as a dependency in your `pubspec.yaml`.
@@ -85,8 +84,7 @@ __Example:__
 If you need access to the props provided to the connected component you can use `mapStateToPropsWithOwnProps`,
 the second argument will be `ownProps`. 
 
-     See: <https://react-redux.js
-.org/using-react-redux/connect-mapstate#defining-mapstatetoprops>
+     See: <https://react-redux.js.org/using-react-redux/connect-mapstate#defining-mapstatetoprops>
 - `mapDispatchToProps` will be called with dispatch as the first argument.
 You will normally make use of this by returning new functions that call dispatch() inside themselves,
 and either pass in a plain action directly or pass in the result of an action creator.
@@ -145,45 +143,3 @@ implementations for performance or other reasons.
 - `forwardRef` if `true`, the `ref` prop provided to the connected component will be return the wrapped component.
 
   For more info see: https://react-redux.js.org/api/connect#connect
-
-## Using Redux DevTools
-Redux DevTools can be set up easily by adding only a few lines of code.
-
-1. Add `redux_remote_devtools`, `redux_dev_tools`, and `socketcluster_client` as dependencies in your `pubspec.yaml`.
-    ```
-    dependencies:
-      redux_dev_tools: 0.4.0
-      redux_remote_devtools: ^0.0.7
-      socketcluster_client: ^0.1.0
-    ```
-1. Import `redux_remote_devtools` and `redux_dev_tools` into your store file.
-    ```
-    import 'package:redux_remote_devtools/redux_remote_devtools.dart';
-    import 'package:redux_dev_tools/redux_dev_tools.dart';
-    ```
-1. Create a store using a `DevToolsStore` rather then a traditional store.
-    ```
-    var store = new DevToolsStore<AppState>(/*ReducerName*/, initialState: /*Default App State Object*/, middleware: [remoteDevtools]);
-    ```
-1. Expose an `initDevtools()` function. This will be used to set up the devtools server.
-    ```
-    var remoteDevtools = RemoteDevToolsMiddleware('127.0.0.1:8000');
-    
-    Future initDevtools() async {
-      remoteDevtools.store = store;
-      return remoteDevtools.connect();
-    }
-    ```
-1. In your `index.dart` file, import `socket_platform` and `socket_platform_http`.
-    ```
-    import 'package:socketcluster_client/src/socket_platform.dart';
-    import 'package:socketcluster_client/src/socket_platform_http.dart';
-    ```
-1. Near the top of your `main.dart` file, spin up the `HttpSocketPlatform` and init the devtools.
-    ```dart
-      globalSocketPlatform = HttpSocketPlatform();
-      
-      await initDevtools();
-    ```
-
-You can now to go `127.0.0.1:8000` and see your devtools!
