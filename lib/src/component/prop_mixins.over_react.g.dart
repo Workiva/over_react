@@ -769,15 +769,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   set kind(String value) => props[_$key__kind___$DomPropsMixin] = value;
 
-  /// <!-- Generated from [_$DomPropsMixin.label] -->
-  @override
-  String get label =>
-      props[_$key__label___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DomPropsMixin.label] -->
-  @override
-  set label(String value) => props[_$key__label___$DomPropsMixin] = value;
-
   /// <!-- Generated from [_$DomPropsMixin.lang] -->
   @override
   String get lang =>
@@ -1147,6 +1138,15 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.icon] -->
   @override
   set icon(dynamic value) => props[_$key__icon___$DomPropsMixin] = value;
+
+  /// <!-- Generated from [_$DomPropsMixin.label] -->
+  @override
+  dynamic get label =>
+      props[_$key__label___$DomPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$DomPropsMixin.label] -->
+  @override
+  set label(dynamic value) => props[_$key__label___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.max] -->
   @override
@@ -2256,8 +2256,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__keyType___$DomPropsMixin);
   static const PropDescriptor _$prop__kind___$DomPropsMixin =
       const PropDescriptor(_$key__kind___$DomPropsMixin);
-  static const PropDescriptor _$prop__label___$DomPropsMixin =
-      const PropDescriptor(_$key__label___$DomPropsMixin);
   static const PropDescriptor _$prop__lang___$DomPropsMixin =
       const PropDescriptor(_$key__lang___$DomPropsMixin);
   static const PropDescriptor _$prop__list___$DomPropsMixin =
@@ -2338,6 +2336,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       const PropDescriptor(_$key__height___$DomPropsMixin);
   static const PropDescriptor _$prop__icon___$DomPropsMixin =
       const PropDescriptor(_$key__icon___$DomPropsMixin);
+  static const PropDescriptor _$prop__label___$DomPropsMixin =
+      const PropDescriptor(_$key__label___$DomPropsMixin);
   static const PropDescriptor _$prop__max___$DomPropsMixin =
       const PropDescriptor(_$key__max___$DomPropsMixin);
   static const PropDescriptor _$prop__min___$DomPropsMixin =
@@ -2606,7 +2606,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   static const String _$key__keyParams___$DomPropsMixin = 'keyParams';
   static const String _$key__keyType___$DomPropsMixin = 'keyType';
   static const String _$key__kind___$DomPropsMixin = 'kind';
-  static const String _$key__label___$DomPropsMixin = 'label';
   static const String _$key__lang___$DomPropsMixin = 'lang';
   static const String _$key__list___$DomPropsMixin = 'list';
   static const String _$key__manifest___$DomPropsMixin = 'manifest';
@@ -2648,6 +2647,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   static const String _$key__frameBorder___$DomPropsMixin = 'frameBorder';
   static const String _$key__height___$DomPropsMixin = 'height';
   static const String _$key__icon___$DomPropsMixin = 'icon';
+  static const String _$key__label___$DomPropsMixin = 'label';
   static const String _$key__max___$DomPropsMixin = 'max';
   static const String _$key__min___$DomPropsMixin = 'min';
   static const String _$key__spellCheck___$DomPropsMixin = 'spellCheck';
@@ -2850,7 +2850,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$prop__keyParams___$DomPropsMixin,
     _$prop__keyType___$DomPropsMixin,
     _$prop__kind___$DomPropsMixin,
-    _$prop__label___$DomPropsMixin,
     _$prop__lang___$DomPropsMixin,
     _$prop__list___$DomPropsMixin,
     _$prop__manifest___$DomPropsMixin,
@@ -2891,6 +2890,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$prop__frameBorder___$DomPropsMixin,
     _$prop__height___$DomPropsMixin,
     _$prop__icon___$DomPropsMixin,
+    _$prop__label___$DomPropsMixin,
     _$prop__max___$DomPropsMixin,
     _$prop__min___$DomPropsMixin,
     _$prop__spellCheck___$DomPropsMixin,
@@ -3063,7 +3063,6 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$key__keyParams___$DomPropsMixin,
     _$key__keyType___$DomPropsMixin,
     _$key__kind___$DomPropsMixin,
-    _$key__label___$DomPropsMixin,
     _$key__lang___$DomPropsMixin,
     _$key__list___$DomPropsMixin,
     _$key__manifest___$DomPropsMixin,
@@ -3104,6 +3103,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$key__frameBorder___$DomPropsMixin,
     _$key__height___$DomPropsMixin,
     _$key__icon___$DomPropsMixin,
+    _$key__label___$DomPropsMixin,
     _$key__max___$DomPropsMixin,
     _$key__min___$DomPropsMixin,
     _$key__spellCheck___$DomPropsMixin,
