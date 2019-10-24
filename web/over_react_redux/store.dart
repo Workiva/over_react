@@ -86,7 +86,6 @@ class CounterState {
   }
 }
 
-
 /// The reducer used to update the store.
 ///
 /// This can be a switch, if, or use [combineReducers] as seen below.
