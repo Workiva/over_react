@@ -11,6 +11,9 @@ import './store.dart';
 main() {
   setClientConfiguration();
 
+  // Spin up Redux DevTools
+  initDevtools();
+
   react_dom.render(
     ErrorBoundary()(
       (ReduxProvider()..store = store1)(

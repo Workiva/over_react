@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:redux/redux.dart';
 import 'package:over_react/over_react.dart';
 
@@ -40,6 +42,15 @@ class DecrementAction extends Action {
 /// Store store1 = Store<CounterState>(smallCountReducer, initialState: CounterState.defaultState());
 Store store1 = DevToolsStore<CounterState>(smallCountReducer, initialState: CounterState.defaultState(), middleware: [remoteDevtools]);
 
+/// Code used to spin up the devtools.
+var remoteDevtools = RemoteDevToolsMiddleware('127.0.0.1:8000');
+
+Future initDevtools() async {
+  remoteDevtools.store = store1;
+  window.console.log('Navigate to 127.0.0.1:8000 in order to see Redux DevTools.');
+  return remoteDevtools.connect();
+}
+
 /// The store state class with the properties that make up the entire store.
 class CounterState {
   final int count;
@@ -47,7 +58,7 @@ class CounterState {
 
   CounterState({
     this.count,
-    this.name = "Counter",
+    this.name,
   });
 
   /// A default state constructor.
@@ -64,6 +75,15 @@ class CounterState {
   CounterState.updateState(CounterState oldState, {int count, String name})
       : this.count = count ?? oldState.count,
         this.name = name ?? oldState.name;
+
+  /// Because this state object will be used to set the state on the JavaScript
+  /// side, it must be serializable into JSON. This method is used to facilitate that.
+  toJson() {
+    return {
+      'count': this.count,
+      'name': this.name
+    };
+  }
 }
 
 
@@ -96,6 +116,13 @@ class BigCounterState {
     this.bigCount,
     this.name = "BigCounter",
   });
+
+  toJson() {
+    return {
+      'bigCount': this.bigCount,
+      'name': this.name
+    };
+  }
 }
 
 /// Reducers for the store that combined via [combineReducers].
