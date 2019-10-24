@@ -35,7 +35,6 @@ that only update components which receive data that has changed, rather than the
 behavior with React). By utilizing the `connect()` function in conjunction with `mapStateToProps()`, a component will 
 only update when a piece of information it uses is updated.
 
-
 ## Demo Component
 A basic demo component is available in the `web` directory. In addition to running the app to see how it works, the 
 [store](../web/over_react_redux/store.dart) and [component](../web/over_react_redux/components/counter.dart) have 
@@ -52,7 +51,6 @@ If you would like to use the Redux DevTools, run the following in addition to ru
 1. Navigate to `localhost:8000` to see the devtools
 > __Note:__ Only the `ConnectedCounter Store1` state will display in the devtools because the example uses multiple 
 stores.
-
 
 ## Using it in your project
 1. Add the `redux` package as a dependency in your `pubspec.yaml`.
@@ -123,7 +121,6 @@ react_dom.render(
 A wrapper around the JS react-redux `connect` function that supports OverReact components.
 
 __Example:__
-
 ```
 UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
         mapStateToProps: (state) => (
@@ -188,7 +185,6 @@ implementations for performance or other reasons.
 > [More information about the `connect` function](https://react-redux.js.org/api/connect#connect)
   
 ## Using Multiple Stores
-
 An application can have multiple stores by both utilizing the `context` prop of `ReduxProvider` and setting the 
 `context` parameter on `connect`. While this is possible, it is not recommended.
 > See: <https://redux.js.org/api/store#a-note-for-flux-users>
