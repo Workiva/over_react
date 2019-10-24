@@ -223,7 +223,6 @@ Redux DevTools can be set up easily by adding only a few lines of code.
     dependencies:
       redux_dev_tools: 0.4.0
       redux_remote_devtools: ^0.0.7
-      socketcluster_client: ^0.1.0
     ```
     
     > __NOTE__: You will need to override `socketcluster_client` with a fork from Github. This is a short term 
