@@ -9,7 +9,7 @@
 
 > A library for building statically-typed React UI components using Dart.
 >
-> This library also exposes OverReact_Redux, which has [its own documentation](./OverReact_Redux_Documentation.md).
+> This library also exposes OverReact_Redux, which has [its own documentation](doc/over_react_redux_documentation.md).
 
 ---
 
