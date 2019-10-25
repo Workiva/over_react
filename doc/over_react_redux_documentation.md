@@ -255,18 +255,10 @@ Redux DevTools can be set up easily by adding only a few lines of code.
     ```
     dependencies:
       redux_dev_tools: 0.4.0
-      redux_remote_devtools: ^0.0.7
+      redux_remote_devtools: ^0.0.11
     ```
-    
-    > __NOTE__: You will need to override `socketcluster_client` with a fork from Github. This is a short term 
-    solution while a PR waits to get merged:
-    ```yaml
-    dependency_overrides:
-       socketcluster_client:
-         git:
-           url: https://github.com/kealjones-wk/socketcluster_client.git
-           ref: auto-platform-selection
-    ```
+    > __NOTE:__ The dependency on `redux_remote_devtools` being `>=0.0.11` is a hard line, as prior to this version 
+    the package was tailored to Flutter and reliant on `dart:io`.
 1. Import `redux_remote_devtools` and `redux_dev_tools` into your store file.
     ```
     import 'package:redux_remote_devtools/redux_remote_devtools.dart';
