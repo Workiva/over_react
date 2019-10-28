@@ -287,7 +287,7 @@ use the generated version, `FooState`.
 ### UiComponent2
 > For guidance on updating to `UiComponent2` from `UiComponent`, see [UiComponent2_Transition](doc/ui_component2_transition.md).
 
-__`UiComponent2` is a subclass of [`react.Component2`][react.component2]__, containing lifecycle methods
+__`UiComponent2` is a subclass of [`react.Component2`]__, containing lifecycle methods
 and rendering logic for components.
 
 ```dart

@@ -21,9 +21,9 @@ Component2 / UiComponent2.
 - Pros: slightly faster, improved dev experience, easier to maintain, easier integration with JS libs
 - Cons: breaks a few advanced component APIs that will require conversion, some of which will be automated with codemod
 
-Migration can happen at any time, and is opt-in. We'll provide a [codemod](#updating) to handle the simpler cases and 
-run it as 
-part of cleanup, but it will take manual intervention to update some components.
+Migration to UiComponent2 is opt-in and can happen at any time until the next major release of OverReact. A 
+[codemod](#updating) is available to handle the simpler cases, but it will take manual intervention to update some 
+components.
 
 ## Why a new base class?
 - It's not possible for us to automatically support both unsafe and safe lifecycle methods without a resolved AST in 
@@ -32,9 +32,9 @@ the over_react builder, which would increase build times dramatically.
   - JS-backed maps
   - New lifecycle methods
   - Injection of Dart->JS interop pieces into component instance (initComponentInternal) needed to change (this was 
- publicly accessible, but is not done anywhere)
+ publicly accessible, but was not used anywhere)
   - componentDidUpdate, which now takes an additional `snapshot` argument
-  - Assignment of `props`/`state` to arbitrary Maps (was not advised, but possible)
+  - Make assignment of `props`/`state` to arbitrary Maps impossible (was not advised, but possible)
   - Prop validation, which had to be reimplemented since it relied on unsafe component lifecycle transitions
 
 ## New Features, improvements, and breakages
@@ -74,6 +74,21 @@ Props/state key-value pairs are stored directly on JS objects, instead of within
 See the [React docs](https://reactjs.org/docs/react-component.html#the-component-lifecycle) for information on why the old methods are unsafe and how to transition to the new ones. This 
 information is also available and linked to within the lifecycle methods' doc comments.
 
+### Other Method Changes
+- `getDefaultProps` is now `get defaultProps`
+- `getInitialState` is now `get initialState`
+- `..addProps(copyUnconsumedProps())` is now `..modifyProps(addUnconsumedProps)`. The same is true with `DomProps`, 
+the usage being `..modifyProps(addUnconsumedDomProps)`. Using `addUnconsumedProps` was shown to render 8% faster than
+ `copyUncosumedProps`.
+
+### Prop validation via PropTypes
+- Aligns with ReactJS implementation.
+- Shows "component stack" that helps determine where the error came from
+- React automatically de-duplicates the same warnings
+- __No longer throws, but warns__. When upgrading to `Component2`, prop validation will no longer stop the component 
+from rendering. If tests exist verifying that prop validation occurs, these will likely need to change. There are new 
+`PropType` testing utils within [over_react_test](https://github.com/Workiva/over_react_test).
+
 ### ErrorBoundary Component Added
 
 With the ability to utilize componentDidCatch / getDerivedStateFromError comes the ability to use [error boundaries](https://reactjs.org/docs/error-boundaries.html).
@@ -83,18 +98,6 @@ from unmounting when an error is thrown. Alternatively, a custom error boundary 
 
 Usage of the default error boundary can be found in the Component1 examples (within web), and usage of a custom error 
 boundary can be found in the Component2 examples.
-
-### Other Method Changes
-- `getDefaultProps` is now `get defaultProps`
-- `getInitialState` is now `get initialState`
-- `..addProps(copyUnconsumedProps())` is now `..modifyProps(addUnconsumedProps)`. The same is true with `DomProps`, 
-the usage being `..modifyProps(addUnconsumedDomProps)`.
-
-### Prop validation goes through PropTypes
-- Shows "component stack" that helps determine where the error came from
-- React automatically de-duplicates the same warnings
-- __No longer throws, but warns__. If tests exist verifying that prop validation occurs, these will likely need to 
-change. There are new `PropType` testing utils within [over_react_test](https://github.com/Workiva/over_react_test).
 
 ### Other breakages we made while we had the opportunity
 - Split `Component.setState` into two methods, so that each has strong typing 
