@@ -79,7 +79,7 @@ information is also available and linked to within the lifecycle methods' doc co
 With the ability to utilize componentDidCatch / getDerivedStateFromError comes the ability to use [error boundaries](https://reactjs.org/docs/error-boundaries.html).
 A component (called ErrorBoundary) is present within OverReact and can be used to wrap a component tree to prevent it 
 from unmounting when an error is thrown. Alternatively, a custom error boundary can be created by utilizing the 
-[ErrorBoundaryMixin](lib/src/component/error_boundary_mixins.dart).
+[ErrorBoundaryMixin](../lib/src/component/error_boundary_mixins.dart).
 
 Usage of the default error boundary can be found in the Component1 examples (within web), and usage of a custom error 
 boundary can be found in the Component2 examples.

@@ -9,7 +9,7 @@
 
 > A library for building statically-typed React UI components using Dart.
 >
-> For guidance on updating to `UiComponent2` from `UiComponent`, see [UiComponent2_Transition](UiComponent2_Transition.md).
+> For guidance on updating to `UiComponent2` from `UiComponent`, see [UiComponent2_Transition](doc/ui_component2_transition.md).
 
 ---
 
@@ -285,7 +285,7 @@ use the generated version, `FooState`.
 &nbsp;
 
 ### UiComponent2
-> For guidance on updating to `UiComponent2` from `UiComponent`, see [UiComponent2_Transition](UiComponent2_Transition.md).
+> For guidance on updating to `UiComponent2` from `UiComponent`, see [UiComponent2_Transition](doc/ui_component2_transition.md).
 
 __`UiComponent2` is a subclass of [`react.Component2`][react.component2]__, containing lifecycle methods
 and rendering logic for components.
