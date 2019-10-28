@@ -37,7 +37,7 @@ only update when a piece of information it uses is updated.
 
 ## Examples
 A basic demo component is available in the `web` directory. In addition to running the app to see how it works, the 
-[store](../web/over_react_redux/store.dart) and [component](../web/over_react_redux/components/counter.dart) have 
+[store](../web/over_react_redux/store.dart) and [component](../web/over_react_redux/examples/multiple_stores/components/counter.dart) have 
 comments that provide additional explanation.
 
 To run and experiment with the demo:
