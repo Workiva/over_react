@@ -47,7 +47,7 @@ class BigDecrementAction extends Action {
 ///
 /// It takes in a reducer and the initial state. This store is also connected
 /// to the Redux DevTools, but could also be implemented without them:
-Store store = Store<CounterState>(smallCountReducer, initialState: CounterState.defaultState());
+Store store = Store<CounterState>(stateReducer, initialState: CounterState.defaultState());
 
 /// The store state class with the properties that make up the entire store.
 class CounterState {
@@ -88,17 +88,31 @@ class CounterState {
 
 /// The reducer used to update the store.
 ///
-/// This can be a switch, if, or use [combineReducers] as seen below.
-CounterState smallCountReducer(CounterState oldState, dynamic action) {
+/// Ultimately the reducer needs to return a new state object. This can be done
+/// with a simple if / switch that returns the object explicitly,
+/// [combineReducers], or as done below. See the multiple_stores example to see
+/// the implementation of the other two options.
+int smallCountReducer(CounterState oldState, dynamic action) {
   if (action is SmallDecrementAction) {
-    return CounterState.updateState(oldState, smallCount: oldState.smallCount - action.value);
+    return oldState.smallCount - action.value;
   } else if (action is SmallIncrementAction) {
-    return CounterState.updateState(oldState, smallCount: oldState.smallCount + action.value);
-  } else if (action is BigDecrementAction) {
-    return CounterState.updateState(oldState, bigCount: oldState.bigCount - action.value);
-  } else if (action is BigIncrementAction) {
-    return CounterState.updateState(oldState, bigCount: oldState.bigCount + action.value);
+    return oldState.smallCount + action.value;
   } else {
-    return oldState;
+    return oldState.smallCount;
   }
 }
+
+int bigCountReducer(CounterState oldState, dynamic action) {
+  if (action is BigDecrementAction) {
+    return oldState.bigCount - action.value;
+  } else if (action is BigIncrementAction) {
+    return oldState.bigCount + action.value;
+  } else {
+    return oldState.bigCount;
+  }
+}
+
+CounterState stateReducer([CounterState state, action]) => CounterState(
+    bigCount: bigCountReducer(state, action),
+    smallCount: smallCountReducer(state, action),
+);

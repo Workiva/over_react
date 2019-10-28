@@ -4,7 +4,8 @@
 ---
 * __[Purpose](#purpose)__
     * [Benefits](#benefits)
-* __[Demo Component](#examples)__
+* __[Examples](#examples)__
+    * [Running the Examples](#running-the-examples)
 * __[Using it in your project](#using-it-in-your-project)__
 * __[ReduxProvider](#reduxprovider)__
 * __[Connect](#connect)__
@@ -36,21 +37,22 @@ behavior with React). By utilizing the `connect()` function in conjunction with 
 only update when a piece of information it uses is updated.
 
 ## Examples
-A basic demo component is available in the `web` directory. In addition to running the app to see how it works, the 
-[store](../web/over_react_redux/store.dart) and [component](../web/over_react_redux/examples/multiple_stores/components/counter.dart) have 
-comments that provide additional explanation.
-
+Examples are available in the `web` directory. Each example illustrates a different variation or use case of OverReact
+ Redux.
+ 
+### Running the Examples
 To run and experiment with the demo:
 1. `pub get`
 1. `pub run build_runner serve web`
 1. Navigate to `localhost:8080/over_react_redux/`
 
-If you would like to use the Redux DevTools, run the following in addition to running your server (as described above):
+If you would like to use the Redux DevTools (only in the multiple_sores example), run the following in addition to 
+starting your server (as described above):
 1. `npm install -g remotedev-server`
 1. `remotedev --port 8000`
 1. Navigate to `localhost:8000` to see the devtools
-> __Note:__ Only the `ConnectedCounter Store1` state will display in the devtools because the example uses multiple 
-stores.
+> __Note:__ Only the `ConnectedCounter Store1` state will display in the devtools because only a single store should 
+be connected to devtools at once.
 
 ## Using it in your project
 1. Add the `redux` package as a dependency in your `pubspec.yaml`.

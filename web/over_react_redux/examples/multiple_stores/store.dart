@@ -70,6 +70,7 @@ class CounterState {
   }
 }
 
+/// A reducer that returns a new state object.
 CounterState smallCountReducer(CounterState oldState, dynamic action) {
   if (action is DecrementAction) {
     return CounterState.updateState(oldState, count: oldState.count - 1);
