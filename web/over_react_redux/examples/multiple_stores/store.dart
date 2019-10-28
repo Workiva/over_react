@@ -10,20 +10,12 @@ import 'package:redux_dev_tools/redux_dev_tools.dart';
 /////////////////////////////// SHARED ///////////////////////////////
 
 /// An action class can be created to add typing to the actions passed into dispatch.
-///
-/// While it can make life easier, this practice is optional as all as the
-/// reducer receives a valid type and value parameter.
 class Action {
   Action({this.type, this.value});
 
   final String type;
   final dynamic value;
 
-  /// Used to encode the data structure for the Redux DevTools.
-  ///
-  /// The DevTools expect plain JavaScript objects with the `type` property. To
-  /// facilitate that, a method such as [toJson] is necessary.
-  /// > See: <https://github.com/MichaelMarner/dart-redux-remote-devtools#encoding-actions-and-state>
   toJson() {
     return {'type': this.type, 'value': this.value};
   }
@@ -43,8 +35,7 @@ class DecrementAction extends Action {
 /// The application store.
 ///
 /// It takes in a reducer and the initial state. This store is also connected
-/// to the Redux DevTools, but could also be implemented without them:
-/// Store store1 = Store<CounterState>(smallCountReducer, initialState: CounterState.defaultState());
+/// to the Redux DevTools.
 Store store1 = DevToolsStore<CounterState>(smallCountReducer, initialState: CounterState.defaultState(), middleware: [remoteDevtools]);
 
 /// Code used to spin up the devtools.
@@ -56,7 +47,6 @@ Future initDevtools() async {
   return remoteDevtools.connect();
 }
 
-/// The store state class with the properties that make up the entire store.
 class CounterState {
   final int count;
   final String name;
@@ -66,17 +56,8 @@ class CounterState {
     this.name,
   });
 
-  /// A default state constructor.
-  ///
-  /// This is optional and is just useful for creating the initial state or
-  /// resetting the state to default (if you ever need to).
   CounterState.defaultState({this.count = 1, this.name = "Counter"});
 
-  /// Used for syntactically simple updates within the reducer.
-  ///
-  /// Because Redux is pure and does not allow direct state mutations, a constructor
-  /// that defaults to setting properties to the old state allows for DRYer code
-  /// in the reducers.
   CounterState.updateState(CounterState oldState, {int count, String name})
       : this.count = count ?? oldState.count,
         this.name = name ?? oldState.name;
@@ -89,9 +70,6 @@ class CounterState {
   }
 }
 
-/// The reducer used to update the store.
-///
-/// This can be a switch, if, or use [combineReducers] as seen below.
 CounterState smallCountReducer(CounterState oldState, dynamic action) {
   if (action is DecrementAction) {
     return CounterState.updateState(oldState, count: oldState.count - 1);
@@ -110,7 +88,6 @@ final bigCounterContext = createContext();
 /// The second store
 Store store2 = Store<BigCounterState>(bigCounterStateReducer, initialState: BigCounterState(bigCount: 100));
 
-/// A simplistic store state object
 class BigCounterState {
   final int bigCount;
   final String name;
