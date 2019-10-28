@@ -5,7 +5,7 @@ import 'package:react/react_client.dart';
 import 'package:react/react_dom.dart' as react_dom;
 import 'package:over_react/over_react_redux.dart';
 
-import './components/counter.dart';
+import '../../components/counter.dart';
 import './store.dart';
 
 main() {

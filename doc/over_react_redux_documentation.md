@@ -4,11 +4,11 @@
 ---
 * __[Purpose](#purpose)__
     * [Benefits](#benefits)
-* __[Demo Component](#demo-component)__
+* __[Demo Component](#examples)__
 * __[Using it in your project](#using-it-in-your-project)__
 * __[ReduxProvider](#reduxprovider)__
-* __[The Connect Function](#the-connect-function)__
-    * [Connect Parameters](#connect-parameters)
+* __[Connect](#connect)__
+    * [`connect` Parameters](#connect-parameters)
         * [mapStateToProps](#mapstatetoprops)
         * [mapDispatchToProps](#mapdispatchtoprops)
         * [mergeProps](#mergeprops)
@@ -23,9 +23,9 @@
 * __[Using Redux DevTools](#using-redux-devtools)__
 
 ## Purpose
-[React Redux](https://react-redux.js.org) is a UI binding library that allows for better Redux integration with React. 
-This integration allows for APIs that align more closely with React design patterns while also providing more direct 
-access to store data. OverReact Redux is the Dart wrapper around that library.
+OverReact Redux is a Dart wrapper around [React Redux](https://react-redux.js.org), a UI binding library that allows for 
+better Redux integration with React. This integration allows for APIs that align more closely with React design patterns 
+while also providing more direct access to store data.
 
 ### Benefits
 > For a full list of benefits, see <https://react-redux.js.org/introduction/why-use-react-redux>.
@@ -35,7 +35,7 @@ that only update components which receive data that has changed, rather than the
 behavior with React). By utilizing the `connect()` function in conjunction with `mapStateToProps()`, a component will 
 only update when a piece of information it uses is updated.
 
-## Demo Component
+## Examples
 A basic demo component is available in the `web` directory. In addition to running the app to see how it works, the 
 [store](../web/over_react_redux/store.dart) and [component](../web/over_react_redux/components/counter.dart) have 
 comments that provide additional explanation.
@@ -43,7 +43,7 @@ comments that provide additional explanation.
 To run and experiment with the demo:
 1. `pub get`
 1. `pub run build_runner serve web`
-1. Navigate to `localhost:8080/over_react_redux`
+1. Navigate to `localhost:8080/over_react_redux/`
 
 If you would like to use the Redux DevTools, run the following in addition to running your server (as described above):
 1. `npm install -g remotedev-server`
@@ -80,7 +80,12 @@ stores.
 1. Import OverReact Redux and your store into the file with your component.
 1. Update your component class.
     - Add a new `UiFactory`, without the usual annotation, and wrap it with `connect()`.
-    - Add the `ConnectPropsMixin` to your props class.
+    - Add the `ConnectPropsMixin` to your props class if needed. This mixin is needed if either of the following are 
+    true:
+        - You _do not_ use the `mapDispatchToProps` parameter on `connect`.
+        - You _do_ use `mapDispatchToProps` but want access to the `props.dipsatch` function. When using 
+        `mapDispatchToProps`, by default the `dispatch` property on `props` is removed. It can be added back 
+        using `ConnectPropsToMixin`. 
     ```
     // AppState is a class that represents the application's state and can be defined in the same file as the store.
     UiFactory<FooProps> ConnectedFoo = connect<AppState, FooProps>()(Foo);
@@ -117,7 +122,8 @@ react_dom.render(
 )
 ```
     
-## The Connect Function
+## `connect`
+### `Overview`
 A wrapper around the JS react-redux `connect` function that supports OverReact components.
 
 __Example:__
@@ -132,7 +138,7 @@ UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
 )(Counter);
 ```
 
-### Connect Parameters
+### `connect` Parameters
 - #### `mapStateToProps`
     - Used for selecting the part of the data from the store that the connected
  component needs.
@@ -150,8 +156,7 @@ and either pass in a plain action directly or pass in the result of an action cr
 If you need access to the props provided to the connected component you can use `mapDispatchToPropsWithOwnProps`,
 the second argument will be `ownProps`.
 
-        > See: <https://react-redux.js.org/using-react-redux/connect-mapdispatch#defining-mapdispatchtoprops-as-a
-        -function>
+        > See: <https://react-redux.js.org/using-react-redux/connect-mapdispatch#defining-mapdispatchtoprops-as-a-function>
 - #### `mergeProps` 
     - Defines how the final props for the wrapped component are determined.
 If you do not provide `mergeProps`, the wrapped component receives the default: 
@@ -168,11 +173,8 @@ If you do not provide `mergeProps`, the wrapped component receives the default:
     - Does a shallow Map equality check by default.
 - #### `context` 
     - Can be utilized to provide a custom context object created with `createContext`.
-`context` is how you can utilize multiple stores. 
-
-        For more information on having multiple stores, see [Using 
-Multiple Stores](#using-multiple-stores).
-
+  - `context` can be used to utilize multiple stores. 
+    > For more information on having multiple stores, see [Using Multiple Stores](#using-multiple-stores).
 - #### `pure` 
     - If `true` (default), connect performs several equality checks that are used to avoid unnecessary
 calls to `mapStateToProps`, `mapDispatchToProps`, `mergeProps`, and ultimately to `render`. These include
@@ -235,7 +237,8 @@ In the case that you need to have multiple stores, here are the steps to do so:
           context: fooContext,
        )(Bar);
     ```
-1. In a ReduxProvider, pass in your context instance.
+1. Add an additional `ReduxProvider`, with its `context` prop set to the next Context instance and the `store` prop 
+set to your additional store.
     ```dart
        // ... Wrapped in a reactDom.render()
          (ReduxProvider()..store = store1)(
@@ -251,7 +254,7 @@ In the case that you need to have multiple stores, here are the steps to do so:
 ## Using Redux DevTools
 Redux DevTools can be set up easily by adding only a few lines of code.
 
-1. Add `redux_remote_devtools`, `redux_dev_tools`, and `socketcluster_client` as dependencies in your `pubspec.yaml`.
+1. Add `redux_remote_devtools` and `redux_dev_tools` as dependencies in your `pubspec.yaml`.
     ```
     dependencies:
       redux_dev_tools: 0.4.0

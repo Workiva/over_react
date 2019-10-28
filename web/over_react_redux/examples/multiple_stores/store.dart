@@ -19,8 +19,13 @@ class Action {
   final String type;
   final dynamic value;
 
+  /// Used to encode the data structure for the Redux DevTools.
+  ///
+  /// The DevTools expect plain JavaScript objects with the `type` property. To
+  /// facilitate that, a method such as [toJson] is necessary.
+  /// > See: <https://github.com/MichaelMarner/dart-redux-remote-devtools#encoding-actions-and-state>
   toJson() {
-    return {'value': this.value};
+    return {'type': this.type, 'value': this.value};
   }
 }
 
@@ -76,8 +81,6 @@ class CounterState {
       : this.count = count ?? oldState.count,
         this.name = name ?? oldState.name;
 
-  /// Because this state object will be used to set the state on the JavaScript
-  /// side, it must be serializable into JSON. This method is used to facilitate that.
   toJson() {
     return {
       'count': this.count,
