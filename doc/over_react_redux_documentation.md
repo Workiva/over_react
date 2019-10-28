@@ -38,7 +38,7 @@ only update when a piece of information it uses is updated.
 
 ## Examples
 Examples are available in the `web` directory. Each example illustrates a different variation or use case of OverReact
- Redux.
+ Redux. Additionally, the store files contain comments that give further explanation.
  
 ### Running the Examples
 To run and experiment with the demo:
