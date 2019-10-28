@@ -90,9 +90,16 @@ abstract class _$DomPropsMixin {
       hrefLang, htmlFor, httpEquiv, id, inputMode, integrity, keyParams, keyType, kind, lang, list, manifest, media, mediaGroup,
       method, name, nonce, pattern, placeholder, poster, preload, radioGroup, rel, role, sandbox, scope, scrolling, shape, sizes, src,
       srcDoc, srcLang, srcSet, summary, target, title, type, useMap, wmode, wrap;
+  String className, title, id;
 
   dynamic capture, cellPadding, cellSpacing, contentEditable, download, draggable, frameBorder, height, icon, label,
       max, min, spellCheck, step, tabIndex, value, width;
+  dynamic accept, acceptCharset, accessKey, action, allowTransparency, alt, autoComplete, cellPadding, cellSpacing,
+    charSet, classID, colSpan, content, contentEditable, contextMenu, coords, crossOrigin, data, dateTime,
+    dir, download, draggable, encType, form, frameBorder, height, href, hrefLang, htmlFor, httpEquiv, icon, label,
+    lang, list, manifest, max, maxLength, media, mediaGroup, method, min, name, pattern, placeholder,
+    poster, preload, radioGroup, rel, role, rowSpan, sandbox, scope, scrolling, shape, sizes, spellCheck, src, srcDoc,
+    srcSet, step, tabIndex, target, type, useMap, value, width, wmode;
 
   AnimationEventCallback onAnimationEnd, onAnimationIteration, onAnimationStart;
   ClipboardEventCallback onCopy, onCut, onPaste;
@@ -174,6 +181,11 @@ abstract class _$SvgPropsMixin {
       underlineThickness, unicode, unicodeBidi, unicodeRange, unitsPerEm, vAlphabetic, vHanging, vIdeographic,
       vMathematical, vectorEffect, vertAdvY, vertOriginX, vertOriginY, viewTarget, visibility, widths,
       wordSpacing, writingMode, x1, x2, x, xHeight, y1, y2, y, z;
+  dynamic clipPath, cx, cy, d, dx, dy, fill, fillOpacity, fontFamily, fontSize, fx, fy, gradientTransform,
+    gradientUnits, markerEnd, markerMid, markerStart, offset, opacity, patternContentUnits, patternUnits, points,
+    preserveAspectRatio, r, rx, ry, spreadMethod, stopColor, stopOpacity, stroke, strokeDasharray, strokeLinecap,
+    strokeOpacity, strokeWidth, textAnchor, transform, version, viewBox, x1, x2, x, xlinkActuate, xlinkArcrole,
+    xlinkHref, xlinkRole, xlinkShow, xlinkTitle, xlinkType, xmlBase, xmlLang, xmlSpace, y1, y2, y;
 }
 /// This class is only present to allow for consumers which have used the
 /// --backwards-compat flag with over_react_codemod to statically analyze:
