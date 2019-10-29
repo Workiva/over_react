@@ -51,8 +51,8 @@ UiComponent2 results in:
   - initial renders that are 12% faster
   - rerenders that are 28% faster
  
-![graph one][g1]
-![graph two][g2]
+![graph one](./component2-perf-initial-mount.png)
+![graph two](./component2-perf-rerender.png)
   
 ### JS-Backed Maps
 Props/state key-value pairs are stored directly on JS objects, instead of within Dart Maps which are opaque to React. Results in:
@@ -137,6 +137,3 @@ that would cause a component _not_ to be updated because of this flag are:
   Component2 variants).
 - `--upgrade-abstract-components`: determines whether or not the codemod should upgrade classes annotated as 
 `Abstract`. If the flag is present, the codemod __will__ update abstract components. 
-
-[g1]: https://wiki.atl.workiva.net/download/thumbnails/137897644/component2-perf-initial-mount.png
-[g2]: https://wiki.atl.workiva.net/download/thumbnails/137897644/component2-perf-rerender.png
