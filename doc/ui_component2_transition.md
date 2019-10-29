@@ -2,9 +2,9 @@
 > A document to explain the new features and breakages when converting components from Component / UiComponent to 
 Component2 / UiComponent2.
 ---
-* __[What's New in Component2](#whats-new-in-component2)__
+* __[Overview](#whats-new-in-component2)__
 * __[Why a new base class?](#why-a-new-base-class)__
-* __[New Features, improvements, and breakages](#new-features-improvements-and-breakages)__
+* __[New Features, Improvements, and Breakages](#new-features-improvements-and-breakages)__
     * [Small Perf Improvements](#small-perf-improvements)
     * [JS-Backed Maps](#js-backed-maps)
     * [Lifecycle Method Changes](#lifecycle-method-changes)
@@ -13,8 +13,8 @@ Component2 / UiComponent2.
     * [ErrorBoundary Component Added](#errorboundary-component-added)
     * [Other Breaking Changes](#other-breakages-we-made-while-we-had-the-opportunity)
 * __[Updating](#updating)__
-## What's New in Component2
-`Component` and `UiComponent` are being deprecated in favor of new versions of the API: `Component2` and `UiComponent2`.
+## Overview
+In `react` 5.1.0 and `over_react` 3.1.0, `Component` and `UiComponent` were deprecated in favor of new versions of the API: `Component2` and `UiComponent2`.
 
 #### tl;dr
 
@@ -37,7 +37,7 @@ the over_react builder, which would increase build times dramatically.
   - Make assignment of `props`/`state` to arbitrary Maps impossible (was not advised, but possible)
   - Prop validation, which had to be reimplemented since it relied on unsafe component lifecycle transitions
 
-## New Features, improvements, and breakages
+## New Features, Improvements, and Breakages
 
 ### Small Perf Improvements
 Component2 provides a small performance boost over Component, as a result of JS-backed maps and other optimizations.
@@ -50,6 +50,9 @@ Component2 provides a small performance boost over Component, as a result of JS-
 UiComponent2 results in:
   - initial renders that are 12% faster
   - rerenders that are 28% faster
+ 
+![graph one][g1]
+![graph two][g2]
   
 ### JS-Backed Maps
 Props/state key-value pairs are stored directly on JS objects, instead of within Dart Maps which are opaque to React. Results in:
@@ -79,10 +82,10 @@ information is also available and linked to within the lifecycle methods' doc co
 - `getInitialState` is now `get initialState`
 - `..addProps(copyUnconsumedProps())` is now `..modifyProps(addUnconsumedProps)`. The same is true with `DomProps`, 
 the usage being `..modifyProps(addUnconsumedDomProps)`. Using `addUnconsumedProps` was shown to render 8% faster than
- `copyUncosumedProps`.
+ `copyUnconsumedProps`.
 
 ### Prop validation via PropTypes
-- Aligns with ReactJS implementation.
+- Aligns with ReactJS implementation
 - Shows "component stack" that helps determine where the error came from
 - React automatically de-duplicates the same warnings
 - __No longer throws, but warns__. When upgrading to `Component2`, prop validation will no longer stop the component 
@@ -110,9 +113,10 @@ boundary can be found in the Component2 examples.
 ## Updating
 
 To update your repository to use UiComponent2 / Component2, you can use 
-[over_react_codemod](https://github.com/Workiva/over_react_codemod)'s component2_upgrade executable. This codemod 
-goes through the repository and updates components as necessary. Simply follow the directions within 
-[the executable](https://github.com/Workiva/over_react_codemod/blob/master/lib/src/executables/component2_upgrade.dart#L30)
+[over_react_codemod](https://github.com/Workiva/over_react_codemod)'s `component2_upgrade` executable to make it 
+easier. This codemod goes through the repository and updates components as necessary. While the codemod will handle 
+many basic updates, it will still need to be supplemented with some manual checks and refactoring. 
+To run the codemod, simply follow the directions within [the executable](https://github.com/Workiva/over_react_codemod/blob/master/lib/src/executables/component2_upgrade.dart#L30)
 while inside your repository.
 
 #### Flags
@@ -133,3 +137,6 @@ that would cause a component _not_ to be updated because of this flag are:
   Component2 variants).
 - `--upgrade-abstract-components`: determines whether or not the codemod should upgrade classes annotated as 
 `Abstract`. If the flag is present, the codemod __will__ update abstract components. 
+
+[g1]: https://wiki.atl.workiva.net/download/thumbnails/137897644/component2-perf-initial-mount.png?version=2&modificationDate=1566865738226&api=v2
+[g2]: https://wiki.atl.workiva.net/download/thumbnails/137897644/component2-perf-rerender.png?version=2&modificationDate=1566865755637&api=v2

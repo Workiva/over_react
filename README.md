@@ -8,8 +8,11 @@
 [![Test Coverage](https://codecov.io/github/Workiva/over_react/coverage.svg?branch=master)](https://codecov.io/github/Workiva/over_react?branch=master)
 
 > A library for building statically-typed React UI components using Dart.
->
-> For guidance on updating to `UiComponent2` from `UiComponent`, see [UiComponent2_Transition](doc/ui_component2_transition.md).
+
+---
+ __UiComponent2 Migration Guide__
+ 
+> For guidance on updating to `UiComponent2` from `UiComponent`, see the [UiComponent2 Transition Notes](doc/ui_component2_transition.md).
 
 ---
 
@@ -285,7 +288,7 @@ use the generated version, `FooState`.
 &nbsp;
 
 ### UiComponent2
-> For guidance on updating to `UiComponent2` from `UiComponent`, see [UiComponent2_Transition](doc/ui_component2_transition.md).
+> For guidance on updating to `UiComponent2` from `UiComponent`, see [UiComponent2 Transition Notes](doc/ui_component2_transition.md).
 
 __`UiComponent2` is a subclass of [`react.Component2`]__, containing lifecycle methods
 and rendering logic for components.
