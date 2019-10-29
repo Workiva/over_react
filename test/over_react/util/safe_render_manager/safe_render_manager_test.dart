@@ -182,11 +182,16 @@ main() {
         setUp(() {
           try {
             renderManager.render((Test()
-              ..onComponentDidMount = bind0(expectAsync0(() {
+              ..onComponentDidMount = bind0(expectAsyncCompat0(() {
                 throw new TestExceptionThrownFromLifecycle();
               }, id: 'onComponentDidMount'))
             )());
-          } on TestExceptionThrownFromLifecycle catch (_) {}
+          } on TestExceptionThrownFromLifecycle catch (_) {} catch (e) {
+            // Handle the error being JSified in Dartium, preventing us from using `on`.
+            if (!e.toString().contains(TestExceptionThrownFromLifecycle.typeName)) {
+              rethrow;
+            }
+          }
         });
 
         sharedTests();
@@ -228,7 +233,7 @@ main() {
                   reason: 'should be able to dispose properly afterwards');
             });
 
-            Future<Null> sharedTest({@required VoidFunc0 setUpAndReturnTriggerRender(void doRenders()),
+            Future<Null> sharedTest({@required Func0 setUpAndReturnTriggerRender(void doRenders()),
               @required bool verifyImmediateRender,
               @required bool verifyDeferredRender,
             }) async {
@@ -241,7 +246,7 @@ main() {
               // are handled by the test zone's error handler and not swallowed
               // by whichever zone they end up being run in
               // (e.g., the root zone in the case of event handlers).
-              final doRenders = bind0Guarded(expectAsync0(() {
+              final doRenders = bind0Guarded(expectAsyncCompat0(() {
                 renderManager.render(Test()(render1Text));
                 // Catch any errors thrown synchronously by this call, which will
                 // happen only when rendering is not deferred...
@@ -249,6 +254,13 @@ main() {
                   renderManager.render((Test()..onRender = onRender)(render2Text));
                 } on TestExceptionThrownFromLifecycle catch (_) {
                   // ...but rethrow them if we're not expecting them so they aren't swallowed.
+                  if (!isThrowingTest) rethrow;
+                } catch (e) {
+                  // Handle the error being JSified in Dartium, preventing us from using `on`.
+                  if (!e.toString().contains(TestExceptionThrownFromLifecycle.typeName)) {
+                    rethrow;
+                  }
+
                   if (!isThrowingTest) rethrow;
                 }
 
@@ -278,6 +290,13 @@ main() {
                 triggerRenders();
               } on TestExceptionThrownFromLifecycle catch (_) {
                 // ...but rethrow them if we're not expecting them so they aren't swallowed.
+                if (!isThrowingTest) rethrow;
+              } catch (e) {
+                // Handle the error being JSified in Dartium, preventing us from using `on`.
+                if (!e.toString().contains(TestExceptionThrownFromLifecycle.typeName)) {
+                  rethrow;
+                }
+
                 if (!isThrowingTest) rethrow;
               }
 
@@ -429,7 +448,7 @@ main() {
 
         group('second render throws and', () {
           setUp(() {
-            onRender = bind0(expectAsync0(() {
+            onRender = bind0(expectAsyncCompat0(() {
               throw new TestExceptionThrownFromLifecycle();
             }, id: 'onRender', max: 2)); // `max: 2` since React will call this more than once for some reason.
           });
@@ -467,7 +486,7 @@ main() {
               onMaybeUnmountedCalled = false;
             });
 
-            Future<Null> sharedTest({@required VoidFunc0 setUpAndReturnUnmounter(void doUnmount()),
+            Future<Null> sharedTest({@required Func0 setUpAndReturnUnmounter(void doUnmount()),
               @required bool verifyImmediateUnmount,
               @required bool verifyDeferredUnmount,
             }) async {
@@ -479,7 +498,7 @@ main() {
               _doUnmount() {
                 expect(mountNode.text, '1', reason: 'test setup check; should not have unmounted yet');
 
-                renderManager.tryUnmount(onMaybeUnmounted: bind1Guarded(expectAsync1((isUnmounted) {
+                renderManager.tryUnmount(onMaybeUnmounted: bind1Guarded(expectAsyncCompat1((isUnmounted) {
                   onMaybeUnmountedCalled = true;
                   expect(isUnmounted, isTrue, reason: 'should have unmounted');
                 }, id: 'onMaybeUnmounted', reason: 'should always be called on unmount')));
@@ -497,7 +516,7 @@ main() {
               // are handled by the test zone's error handler and not swallowed
               // by whichever zone they end up being run in
               // (e.g., the root zone in the case of event handlers).
-              final doUnmount = bind0Guarded(expectAsync0(_doUnmount,
+              final doUnmount = bind0Guarded(expectAsyncCompat0(_doUnmount,
                   id: 'doUnmount', reason: 'must to be called as part of test'));
 
               final triggerUnmount = setUpAndReturnUnmounter(doUnmount);
@@ -514,6 +533,13 @@ main() {
                 triggerUnmount();
               } on TestExceptionThrownFromLifecycle catch (_) {
                 // ..but rethrow them if we're not expecting them so they aren't swallowed.
+                if (!isThrowingTest) rethrow;
+              } catch (e) {
+                // Handle the error being JSified in Dartium, preventing us from using `on`.
+                if (!e.toString().contains(TestExceptionThrownFromLifecycle.typeName)) {
+                  rethrow;
+                }
+
                 if (!isThrowingTest) rethrow;
               }
 
@@ -674,7 +700,7 @@ main() {
 
         group('unmounting throws and', () {
           setUp(() {
-            onComponentWillUnmount = bind0(expectAsync0(() {
+            onComponentWillUnmount = bind0(expectAsyncCompat0(() {
               throw new TestExceptionThrownFromLifecycle();
             }, id: 'onComponentWillUnmount'));
           });
@@ -688,11 +714,11 @@ main() {
 
 /// Shorthand for [Zone.bindCallback] on the current zone.
 ZoneCallback<R> bind0<R>(ZoneCallback<R> callback) =>
-    Zone.current.bindCallback(callback);
+    Zone.current.bindCallback(callback, runGuarded: false);
 
 /// Shorthand for [Zone.bindUnaryCallback] on the current zone.
 ZoneUnaryCallback<R, T> bind1<R, T>(ZoneUnaryCallback<R, T> callback) =>
-    Zone.current.bindUnaryCallback(callback);
+    Zone.current.bindUnaryCallback(callback, runGuarded: false);
 
 /// Shorthand for [Zone.bindCallbackGuarded] on the current zone.
 ZoneCallback<Null> bind0Guarded(ZoneCallback<Null> callback) =>
@@ -704,6 +730,40 @@ ZoneUnaryCallback<Null, T> bind1Guarded<T>(ZoneUnaryCallback<Null, T> callback) 
 
 /// An exception used for testing, which we can tell apart from
 /// other arbitrary exceptions via type-checking.
-class TestExceptionThrownFromLifecycle implements Exception {}
+class TestExceptionThrownFromLifecycle implements Exception {
+  static String get typeName => (TestExceptionThrownFromLifecycle).toString();
+}
 
 typedef void VoidFunc0();
+
+/// A version of [expectAsync0] that behaves more like the version in the latest,
+/// Dart-2-only version of the test package.
+///
+/// Notably, any synchronous errors thrown by [callback] are propagated normally
+/// instead of being treated as uncaught errors in the test zone.
+Func0<T> expectAsyncCompat0<T>(T callback(),
+    {int count: 1, int max: 0, String id, String reason}) {
+  // Set up a real expectation but don't run callback inside it so that any errors
+  // thrown aren't handled by expectAsync's error handlers.
+  final expectedDummy = expectAsync0(() {}, count: count, max: max, id: id, reason: reason);
+  return () {
+    expectedDummy();
+    return callback();
+  };
+}
+
+/// A version of [expectAsync1] that behaves more like the version in the latest,
+/// Dart-2-only version of the test package.
+///
+/// Notably, any synchronous errors thrown by [callback] are propagated normally
+/// instead of being treated as uncaught errors in the test zone.
+Func1<T, A> expectAsyncCompat1<T, A>(T callback(A a),
+    {int count: 1, int max: 0, String id, String reason}) {
+  // Set up a real expectation but don't run callback inside it so that any errors
+  // thrown aren't handled by expectAsync's error handlers.
+  final expectedDummy = expectAsync1((_) {}, count: count, max: max, id: id, reason: reason);
+  return ([a]) {
+    expectedDummy(a);
+    return callback(a);
+  };
+}
