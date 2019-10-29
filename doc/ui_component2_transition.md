@@ -138,5 +138,5 @@ that would cause a component _not_ to be updated because of this flag are:
 - `--upgrade-abstract-components`: determines whether or not the codemod should upgrade classes annotated as 
 `Abstract`. If the flag is present, the codemod __will__ update abstract components. 
 
-[g1]: https://wiki.atl.workiva.net/download/thumbnails/137897644/component2-perf-initial-mount.png?version=2&modificationDate=1566865738226&api=v2
-[g2]: https://wiki.atl.workiva.net/download/thumbnails/137897644/component2-perf-rerender.png?version=2&modificationDate=1566865755637&api=v2
+[g1]: https://wiki.atl.workiva.net/download/thumbnails/137897644/component2-perf-initial-mount.png
+[g2]: https://wiki.atl.workiva.net/download/thumbnails/137897644/component2-perf-rerender.png
