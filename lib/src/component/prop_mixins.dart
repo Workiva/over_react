@@ -70,16 +70,25 @@ abstract class $DomPropsMixin {}
 abstract class _$DomPropsMixin {
   Map get props;
 
-  int cols, rows, size, span, start;
+  int cols, minLength, rows, size, span, start;
+
+  num high, low, marginHeight, marginWidth, optimum;
+
+  @Accessor(key: 'default')
+  bool htmlDefault;
+
+  @Accessor(key: 'is')
+  String htmlIs;
 
   bool allowFullScreen, async, autoPlay, checked, controls, defer, disabled, formNoValidate, hidden, loop, multiple,
-    muted, noValidate, open, readOnly, required, seamless, selected;
+      muted, noValidate, open, readOnly, required, reversed, scoped, seamless, selected;
 
   Map<String, dynamic> style;
 
-  String className, title, id;
+  String challenge, cite, className, controlsList, formAction, formEncType, formMethod, formTarget, headers, id,
+      inputMode, integrity, keyParams, keyType, kind, nonce, srcLang, summary, title, wrap;
 
-  dynamic accept, acceptCharset, accessKey, action, allowTransparency, alt, autoComplete, cellPadding, cellSpacing,
+  dynamic accept, acceptCharset, accessKey, action, allowTransparency, alt, autoComplete, capture, cellPadding, cellSpacing,
     charSet, classID, colSpan, content, contentEditable, contextMenu, coords, crossOrigin, data, dateTime,
     dir, download, draggable, encType, form, frameBorder, height, href, hrefLang, htmlFor, httpEquiv, icon, label,
     lang, list, manifest, max, maxLength, media, mediaGroup, method, min, name, pattern, placeholder,
@@ -130,11 +139,37 @@ abstract class $SvgPropsMixin {}
 abstract class _$SvgPropsMixin {
   Map get props;
 
-  dynamic clipPath, cx, cy, d, dx, dy, fill, fillOpacity, fontFamily, fontSize, fx, fy, gradientTransform,
-    gradientUnits, markerEnd, markerMid, markerStart, offset, opacity, patternContentUnits, patternUnits, points,
-    preserveAspectRatio, r, rx, ry, spreadMethod, stopColor, stopOpacity, stroke, strokeDasharray, strokeLinecap,
-    strokeOpacity, strokeWidth, textAnchor, transform, version, viewBox, x1, x2, x, xlinkActuate, xlinkArcrole,
-    xlinkHref, xlinkRole, xlinkShow, xlinkTitle, xlinkType, xmlBase, xmlLang, xmlSpace, y1, y2, y;
+  @Accessor(key: 'in')
+  String htmlIn;
+
+  @Accessor(key: 'values')
+  String htmlValues;
+
+  String accumulate, additive, alignmentBaseline, allowReorder, arabicForm, attributeName, attributeType, colorInterpolationFilters,
+      fillRule, filter, mask, result, strokeLinejoin, xChannelSelector, xmlns, xmlnsXlink, yChannelSelector, zoomAndPan;
+
+  dynamic accentHeight, alphabetic, amplitude, ascent, autoReverse, azimuth, baseFrequency,
+      baseProfile, baselineShift, bbox, begin, bias, by, calcMode, capHeight, clip, clipPath, clipPathUnits,
+      clipRule, colorInterpolation, colorProfile, colorRendering, contentScriptType, contentStyleType,
+      cursor, cx, cy, d, decelerate, descent, diffuseConstant, direction, display, divisor, dominantBaseline,
+      dur, dx, dy, edgeMode, elevation, enableBackground, end, exponent, externalResourcesRequired,
+      fill, fillOpacity, filterRes, filterUnits, floodColor, floodOpacity, focusable, fontFamily, fontSize,
+      fontSizeAdjust, fontStretch, fontStyle, fontVariant, fontWeight, format, from, fx, fy, g1, g2, glyphName,
+      glyphOrientationHorizontal, glyphOrientationVertical, glyphRef, gradientTransform, gradientUnits, hanging,
+      horizAdvX, horizOriginX, ideographic, imageRendering, in2, intercept, k, k1, k2, k3, k4, kernelMatrix, kernelUnitLength,
+      kerning, keyPoints, keySplines, keyTimes, lengthAdjust, letterSpacing, lightingColor, limitingConeAngle,
+      local, markerEnd, markerHeight, markerMid, markerStart, markerUnits, markerWidth, maskContentUnits, maskUnits, mathematical,
+      mode, numOctaves, offset, opacity, operator, order, orient, orientation, origin, overflow, overlinePosition,
+      overlineThickness, paintOrder, panose1, pathLength, patternContentUnits, patternTransform, patternUnits, pointerEvents,
+      points, pointsAtX, pointsAtY, pointsAtZ, preserveAlpha, preserveAspectRatio, primitiveUnits, r, radius, refX, refY,
+      renderingIntent, repeatCount, repeatDur, requiredExtensions, requiredFeatures, restart, rotate, rx, ry, scale, seed,
+      shapeRendering, slope, spacing, specularConstant, specularExponent, speed, spreadMethod, startOffset, stdDeviation, stemh, stemv,
+      stitchTiles, stopColor, stopOpacity, strikethroughPosition, strikethroughThickness, string, stroke, strokeDasharray,
+      strokeDashoffset, strokeLinecap, strokeMiterlimit, strokeOpacity, strokeWidth, surfaceScale, systemLanguage,
+      tableValues, targetX, targetY, textAnchor, textDecoration, textLength, textRendering, to, transform, u1, u2, underlinePosition,
+      underlineThickness, unicode, unicodeBidi, unicodeRange, unitsPerEm, vAlphabetic, vHanging, vIdeographic, vMathematical,
+      vectorEffect, version, vertAdvY, vertOriginX, vertOriginY, viewBox, viewTarget, visibility, widths, wordSpacing, writingMode,
+      x, x1, x2, xHeight, xlinkActuate, xlinkArcrole, xlinkHref, xlinkRole, xlinkShow, xlinkTitle, xlinkType, xmlBase;
 }
 /// This class is only present to allow for consumers which have used the
 /// --backwards-compat flag with over_react_codemod to statically analyze:
