@@ -282,7 +282,7 @@ Redux DevTools can be set up easily by adding only a few lines of code.
       return remoteDevtools.connect();
     }
     ```
-1. Near the top of your `main.dart` file, spin up the `HttpSocketPlatform` and init the devtools.
+1. Near the top of your main.dart file call your `initDevtools`.
     ```dart
      initDevtools();
     ```
