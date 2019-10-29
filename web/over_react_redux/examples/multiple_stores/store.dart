@@ -1,11 +1,5 @@
-import 'dart:html';
-
 import 'package:redux/redux.dart';
 import 'package:over_react/over_react.dart';
-
-// Redux DevTool imports
-import 'package:redux_remote_devtools/redux_remote_devtools.dart';
-import 'package:redux_dev_tools/redux_dev_tools.dart';
 
 /////////////////////////////// SHARED ///////////////////////////////
 
@@ -32,20 +26,7 @@ class DecrementAction extends Action {
 
 /////////////////////////////// STORE 1 "Counter" ///////////////////////////////
 
-/// The application store.
-///
-/// It takes in a reducer and the initial state. This store is also connected
-/// to the Redux DevTools.
-Store store1 = DevToolsStore<CounterState>(smallCountReducer, initialState: CounterState.defaultState(), middleware: [remoteDevtools]);
-
-/// Code used to spin up the devtools.
-var remoteDevtools = RemoteDevToolsMiddleware('127.0.0.1:8000');
-
-Future initDevtools() async {
-  remoteDevtools.store = store1;
-  window.console.log('Navigate to 127.0.0.1:8000 in order to see Redux DevTools.');
-  return remoteDevtools.connect();
-}
+Store store1 = Store<CounterState>(smallCountReducer, initialState: CounterState.defaultState());
 
 class CounterState {
   final int count;

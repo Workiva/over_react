@@ -11,19 +11,17 @@ import './store.dart';
 main() {
   setClientConfiguration();
 
+  // Make the call to assign the store and connect the devtools.
+  initDevtools();
+
   react_dom.render(
     ErrorBoundary()(
-      (ReduxProvider()..store = store1)(
-        (ReduxProvider()
-          ..store = store2
-          ..context = bigCounterContext
-        )(
-          Dom.div()(
-            Dom.h2()('ConnectedBigCounter Store2'),
-            ConnectedBigCounter()(
-              Dom.h2()('ConnectedCounter Store1'),
-              ConnectedCounter()(),
-            ),
+      (ReduxProvider()..store = store)(
+        Dom.div()(
+          Dom.h2()('ConnectedBigCounter Store2'),
+          ConnectedBigCounter()(
+            Dom.h2()('ConnectedCounter Store1'),
+            ConnectedCounter()(),
           ),
         ),
       ),

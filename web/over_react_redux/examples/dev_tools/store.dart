@@ -1,9 +1,11 @@
+import 'dart:html';
+
 import 'package:redux/redux.dart';
 
-/// An action class can be created to add typing to the actions passed into dispatch.
-///
-/// While it can make life easier, this practice is optional as all as the
-/// reducer receives a valid type and value parameter.
+// Imports for the DevTools
+import 'package:redux_dev_tools/redux_dev_tools.dart';
+import 'package:redux_remote_devtools/redux_remote_devtools.dart';
+
 class Action {
   Action({this.type, this.value});
 
@@ -20,9 +22,6 @@ class Action {
   }
 }
 
-/// Actions to be passed into `dispatch`.
-///
-/// Note that the value can be hardcoded or passed into the constructor.
 class SmallIncrementAction extends Action {
   SmallIncrementAction():super(type: 'SMALL_INCREMENT_ACTION', value: 1);
 }
@@ -41,12 +40,22 @@ class BigDecrementAction extends Action {
 
 /////////////////////////////// STORE 1 "Counter" ///////////////////////////////
 
-/// The application store.
+/// A store connected to DevTools.
 ///
-/// It takes in a reducer and the initial state.
-Store store = Store<CounterState>(stateReducer, initialState: CounterState.defaultState());
+/// Note the use of the special class [DevToolsStore] and the middleware passed
+/// into the store.
+Store store = DevToolsStore<CounterState>(stateReducer, initialState: CounterState.defaultState(), middleware: [remoteDevtools]);
 
-/// The store state class with the properties that make up the entire store.
+/// DevTools object configured with the server port.
+var remoteDevtools = RemoteDevToolsMiddleware('127.0.0.1:8000');
+
+/// Method used to assign the store and connect the DevTools.
+Future initDevtools() async {
+  remoteDevtools.store = store;
+  window.console.log('Navigate to 127.0.0.1:8000 in order to see Redux DevTools.');
+  return remoteDevtools.connect();
+}
+
 class CounterState {
   final int smallCount;
   final int bigCount;
@@ -58,17 +67,8 @@ class CounterState {
     this.name,
   });
 
-  /// A default state constructor.
-  ///
-  /// This is optional and is just useful for creating the initial state or
-  /// resetting the state to default (if you ever need to).
   CounterState.defaultState({this.smallCount = 1, this.bigCount = 100, this.name = "Counter"});
 
-  /// Used for syntactically simple updates within the reducer.
-  ///
-  /// Because Redux is pure and does not allow direct state mutations, a constructor
-  /// that defaults to setting properties to the old state allows for DRYer code
-  /// in the reducers.
   CounterState.updateState(CounterState oldState, {int smallCount, int bigCount, String name})
       : this.smallCount = smallCount ?? oldState.smallCount,
         this.bigCount = bigCount ?? oldState.bigCount,
@@ -83,12 +83,6 @@ class CounterState {
   }
 }
 
-/// The reducer used to update the store.
-///
-/// Ultimately the reducer needs to return a new state object. This can be done
-/// with a simple if / switch that returns the object explicitly,
-/// [combineReducers], or as done below. See the multiple_stores example to see
-/// the implementation of the other two options.
 int smallCountReducer(CounterState oldState, dynamic action) {
   if (action is SmallDecrementAction) {
     return oldState.smallCount - action.value;
