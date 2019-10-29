@@ -38,7 +38,8 @@ only update when a piece of information it uses is updated.
 
 ## Examples
 Examples are available in the `web` directory. Each example illustrates a different variation or use case of OverReact
- Redux. Additionally, the store files contain comments that give further explanation.
+ Redux. Additionally, the store files contain comments that call out specifics pertaining to that example and 
+ provides further explanation.
  
 ### Running the Examples
 To run and experiment with the demo:
@@ -46,13 +47,11 @@ To run and experiment with the demo:
 1. `pub run build_runner serve web`
 1. Navigate to `localhost:8080/over_react_redux/`
 
-If you would like to use the Redux DevTools (only in the multiple_sores example), run the following in addition to 
+If you would like to use the Redux DevTools (only in the dev_tools example), run the following in addition to 
 starting your server (as described above):
 1. `npm install -g remotedev-server`
 1. `remotedev --port 8000`
 1. Navigate to `localhost:8000` to see the devtools
-> __Note:__ Only the `ConnectedCounter Store1` state will display in the devtools because only a single store should 
-be connected to devtools at once.
 
 ## Using it in your project
 1. Add the `redux` package as a dependency in your `pubspec.yaml`.
@@ -61,7 +60,8 @@ be connected to devtools at once.
     dependencies:
       redux: '>=3.0.0'
     ```
-1. Create your store and reducer. See the [example store](../web/over_react_redux/store.dart) for ways to do this.
+1. Create your store and reducer. See the [example store](../web/over_react_redux/examples/simple/store.dart) for 
+ways to do this.
 1. Import OverReact Redux and your store into your `index.dart`.
     ```dart
     import 'package:over_react/over_react_redux.dart';
