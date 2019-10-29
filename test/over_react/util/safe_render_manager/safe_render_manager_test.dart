@@ -228,7 +228,7 @@ main() {
                   reason: 'should be able to dispose properly afterwards');
             });
 
-            Future<Null> sharedTest({@required void Function() setUpAndReturnTriggerRender(void doRenders()),
+            Future<Null> sharedTest({@required VoidFunc0 setUpAndReturnTriggerRender(void doRenders()),
               @required bool verifyImmediateRender,
               @required bool verifyDeferredRender,
             }) async {
@@ -467,7 +467,7 @@ main() {
               onMaybeUnmountedCalled = false;
             });
 
-            Future<Null> sharedTest({@required void Function() setUpAndReturnUnmounter(void doUnmount()),
+            Future<Null> sharedTest({@required VoidFunc0 setUpAndReturnUnmounter(void doUnmount()),
               @required bool verifyImmediateUnmount,
               @required bool verifyDeferredUnmount,
             }) async {
@@ -476,7 +476,7 @@ main() {
                     'are mutually exclusive and cannot both be set to true');
               }
 
-              void _doUnmount() {
+              _doUnmount() {
                 expect(mountNode.text, '1', reason: 'test setup check; should not have unmounted yet');
 
                 renderManager.tryUnmount(onMaybeUnmounted: bind1Guarded(expectAsync1((isUnmounted) {
@@ -695,13 +695,15 @@ ZoneUnaryCallback<R, T> bind1<R, T>(ZoneUnaryCallback<R, T> callback) =>
     Zone.current.bindUnaryCallback(callback);
 
 /// Shorthand for [Zone.bindCallbackGuarded] on the current zone.
-ZoneCallback<void> bind0Guarded(ZoneCallback<void> callback) =>
-    Zone.current.bindCallbackGuarded(callback);
+ZoneCallback<Null> bind0Guarded(ZoneCallback<Null> callback) =>
+    Zone.current.bindCallback(callback, runGuarded: true);
 
 /// Shorthand for [Zone.bindUnaryCallbackGuarded] on the current zone.
-ZoneUnaryCallback<void, T> bind1Guarded<T>(ZoneUnaryCallback<void, T> callback) =>
-    Zone.current.bindUnaryCallbackGuarded(callback);
+ZoneUnaryCallback<Null, T> bind1Guarded<T>(ZoneUnaryCallback<Null, T> callback) =>
+    Zone.current.bindUnaryCallback(callback, runGuarded: true);
 
 /// An exception used for testing, which we can tell apart from
 /// other arbitrary exceptions via type-checking.
 class TestExceptionThrownFromLifecycle implements Exception {}
+
+typedef void VoidFunc0();
