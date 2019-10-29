@@ -270,10 +270,12 @@ Redux DevTools can be set up easily by adding only a few lines of code.
     import 'package:redux_remote_devtools/redux_remote_devtools.dart';
     import 'package:redux_dev_tools/redux_dev_tools.dart';
     ```
-1. Create a store using a `DevToolsStore` rather then a traditional store.
+1. Change your store to a `DevToolsStore` instance and add the `remoteDevtools` middleware.
     ```
     var store = new DevToolsStore<AppState>(/*ReducerName*/, initialState: /*Default App State Object*/, middleware: [remoteDevtools]);
     ```
+    > __NOTE:__ This should be reverted back to a normal store prior to making your code public (via publishing a 
+        package or deploying to production).
 1. Expose an `initDevtools()` function. This will be used to set up the devtools server.
     ```
     var remoteDevtools = RemoteDevToolsMiddleware('127.0.0.1:8000');
