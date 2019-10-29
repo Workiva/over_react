@@ -1,5 +1,5 @@
 @TestOn('browser')
-library safe_unmounter_test;
+library safe_render_manager_helper_test;
 
 import 'dart:async';
 
