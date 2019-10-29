@@ -53,7 +53,7 @@ class SafeRenderManager extends Disposable {
   SafeRenderManager({Element mountNode, this.autoAttachMountNode = false})
       : mountNode = mountNode ?? new DivElement();
 
-  /// Renders [content]into [mountNode], chaining existing callback refs to
+  /// Renders [content] into [mountNode], chaining existing callback refs to
   /// provide access to the rendered component via [contentRef].
   void render(ReactElement content) {
     _checkDisposalState();
@@ -103,7 +103,7 @@ class SafeRenderManager extends Disposable {
   /// with whether the component was actually unmounted.
   ///
   /// Unmounting could fail if a call to [render] is batched in with this
-  /// unmount during the propagation of this event. In that case, something
+  /// unmount during the propagation of this event. In that case, some
   /// other call wanted something rendered and trumped the unmount request.
   ///
   /// This behavior allows the same SafeRenderManager instance to be used to

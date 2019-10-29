@@ -44,10 +44,9 @@ class SafeRenderManagerHelperComponent extends UiStatefulComponent<SafeRenderMan
 
   @override
   render() {
-    final content = state.content;
-    if (content == null) return null;
+    if (state.content == null) return null;
 
-    return cloneElement(content, domProps()..ref = chainRef(content, _contentRef));
+    return cloneElement(state.content, domProps()..ref = chainRef(state.content, _contentRef));
   }
 
   void _contentRef(ref) {

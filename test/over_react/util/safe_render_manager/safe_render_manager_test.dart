@@ -1,5 +1,5 @@
 @TestOn('browser')
-library top_level_render_manager_test;
+library safe_render_manager_test;
 
 import 'dart:async';
 import 'dart:html';
@@ -14,7 +14,7 @@ import 'package:w_common/disposable.dart';
 
 import 'test_component.dart';
 
-/// Main entry point for TopLevelRenderManager testing
+/// Main entry point for SafeRenderManager testing
 main() {
   setClientConfiguration();
   enableTestMode();
@@ -72,7 +72,7 @@ main() {
           expect(mountNode.children, isNotEmpty);
         });
 
-        test('', () async {
+        test('', () {
           renderManager.tryUnmount();
           expect(mountNode.children, isEmpty);
         });
@@ -95,7 +95,7 @@ main() {
         });
       });
 
-      test('invokes the provided callback immediately when nothing has been rendered', () async {
+      test('invokes the provided callback immediately when nothing has been rendered', () {
         expect(mountNode.children, isEmpty, reason: 'test setup sanity check');
 
         bool onUnmountCalledSynchronously = false;
@@ -109,7 +109,7 @@ main() {
       });
     });
 
-    group('automatically attaches and detached the mount node', () {
+    group('automatically attaches and detaches the mount node', () {
       setUp(() async {
         // Clean up the manager from the above setUp block.
         await renderManager?.dispose();
