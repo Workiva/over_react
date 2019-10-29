@@ -2,6 +2,15 @@
 
 ## 3.0.0 (alpha)
 
+- __3.0.0-alpha.5__
+
+  * [#390] Add new SafeRenderManager utility
+  
+  > Complete `3.0.0-alpha.5` Changesets:
+  >
+  > - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0-alpha.4+dart2...3.0.0-alpha.5+dart2)
+  > - [Dart 1](https://github.com/Workiva/over_react/compare/3.0.0-alpha.4+dart1...3.0.0-alpha.5+dart1)
+
 - __3.0.0-alpha.4__
 
   * [#383] Update prop typedef to work around [Dart 2.6 compiler regression](https://github.com/dart-lang/sdk/issues/38880)
