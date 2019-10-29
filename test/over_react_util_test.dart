@@ -38,6 +38,8 @@ import 'over_react/util/prop_key_util_test_dart2.dart' as prop_key_util_test_dar
 import 'over_react/util/react_util_test.dart' as react_util_test;
 import 'over_react/util/react_wrappers_test.dart' as react_wrappers_test;
 import 'over_react/util/rem_util_test.dart' as rem_util_test;
+import 'over_react/util/safe_render_manager/safe_render_manager_test.dart' as safe_render_manager_test;
+import 'over_react/util/safe_render_manager/safe_render_manager_helper_test.dart' as safe_render_manager_helper_test;
 import 'over_react/util/string_util_test.dart' as string_util_test;
 import 'over_react/util/test_mode_test.dart' as test_mode_test;
 
@@ -61,6 +63,8 @@ void main() {
   react_util_test.main();
   react_wrappers_test.main();
   rem_util_test.main();
+  safe_render_manager_test.main();
+  safe_render_manager_helper_test.main();
   string_util_test.main();
   test_mode_test.main();
 }
