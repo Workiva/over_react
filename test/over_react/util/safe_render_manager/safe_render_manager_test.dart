@@ -9,6 +9,7 @@ import 'package:react/react.dart' as react;
 import 'package:over_react/over_react.dart';
 import 'package:over_react/src/util/safe_render_manager/safe_render_manager.dart';
 import 'package:over_react_test/over_react_test.dart';
+import 'package:react/react_client/react_interop.dart';
 import 'package:test/test.dart';
 import 'package:w_common/disposable.dart';
 
@@ -174,7 +175,7 @@ main() {
             // Should not throw
             await renderManager.dispose();
             expect(renderManager.mountNode.text, isEmpty);
-          });
+          }, skip: reactMajorVersion < 16 ? 'errored component behavior is undefined below React 16 and cannot be tested' : null);
         });
       }
 
@@ -394,7 +395,7 @@ main() {
               test('callback of setState performed within event handler', () async {
                 await sharedTest(
                   verifyImmediateRender: false,
-                  verifyDeferredRender: true,
+                  verifyDeferredRender: reactMajorVersion >= 16,
                   setUpAndReturnTriggerRender: (doRenders) {
                     TestJacket jacket;
                     jacket = mount((Wrapper()
@@ -412,7 +413,7 @@ main() {
               test('lifecycle method (pre-commit phase)', () async {
                 await sharedTest(
                   verifyImmediateRender: false,
-                  verifyDeferredRender: true,
+                  verifyDeferredRender: reactMajorVersion >= 16,
                   setUpAndReturnTriggerRender: (doRenders) {
                     final jacket = mount((Test()
                       ..onComponentWillUpdate = doRenders
@@ -426,7 +427,7 @@ main() {
               test('lifecycle method (post-commit phase)', () async {
                 await sharedTest(
                   verifyImmediateRender: false,
-                  verifyDeferredRender: true,
+                  verifyDeferredRender: reactMajorVersion >= 16,
                   setUpAndReturnTriggerRender: (doRenders) {
                     final jacket = mount((Test()
                       ..onComponentDidUpdate = doRenders
@@ -454,7 +455,7 @@ main() {
           });
 
           sharedRerenderTests(isThrowingTest: true);
-        });
+        }, skip: reactMajorVersion < 16 ? 'errored component behavior is undefined below React 16 and cannot be tested' : null);
       });
 
       group('unmounts content safely when', () {
@@ -706,7 +707,7 @@ main() {
           });
 
           sharedUnmountTests(isThrowingTest: true);
-        });
+        }, skip: reactMajorVersion < 16 ? 'errored component behavior is undefined below React 16 and cannot be tested' : null);
       });
     });
   }, timeout: const Timeout(const Duration(seconds: 1)));
@@ -767,3 +768,5 @@ Func1<T, A> expectAsyncCompat1<T, A>(T callback(A a),
     return callback(a);
   };
 }
+
+final int reactMajorVersion = int.parse(React.version.split('.').first);
