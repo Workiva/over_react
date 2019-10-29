@@ -255,6 +255,7 @@ set to your additional store.
 
 ## Using Redux DevTools
 Redux DevTools can be set up easily by adding only a few lines of code.
+> These instructions and additional information can be found [here](https://github.com/MichaelMarner/dart-redux-remote-devtools#middleware-configuration)
 
 1. Add `redux_remote_devtools` and `redux_dev_tools` as dependencies in your `pubspec.yaml`.
     ```
