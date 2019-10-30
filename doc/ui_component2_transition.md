@@ -51,8 +51,8 @@ UiComponent2 results in:
   - initial renders that are 12% faster
   - rerenders that are 28% faster
  
-![initial mount](./component2-perf-initial-mount.png)
-![rerender](./component2-perf-rerender.png)
+<img height=250 src="./component2-perf-initial-mount.png" alt='Initial Mount Performance'>
+<img height=250 src="./component2-perf-rerender.png" alt='Rerender Performance'>
   
 ### JS-Backed Maps
 Props/state key-value pairs are stored directly on JS objects, instead of within Dart Maps which are opaque to React. Results in:
