@@ -24,6 +24,21 @@ class DecrementAction extends Action {
   DecrementAction([value]):super(type: 'DECREMENT', value:value);
 }
 
+/// A reducer that returns a new state object.
+///
+/// Note that this is a single reducer that takes in all actions for any state
+/// update. This differs from both the reducer below and the reducer in the simple
+/// example.
+CounterState smallCountReducer(CounterState oldState, dynamic action) {
+  if (action is DecrementAction) {
+    return CounterState.updateState(oldState, count: oldState.count - 1);
+  } else if (action is IncrementAction) {
+    return CounterState.updateState(oldState, count: oldState.count + 1);
+  } else {
+    return oldState;
+  }
+}
+
 /////////////////////////////// STORE 1 "Counter" ///////////////////////////////
 
 Store store1 = Store<CounterState>(smallCountReducer, initialState: CounterState.defaultState());
@@ -51,61 +66,10 @@ class CounterState {
   }
 }
 
-/// A reducer that returns a new state object.
-///
-/// Note that this is a single reducer that takes in all actions for any state
-/// update. This differs from both the reducer below and the reducer in the simple
-/// example.
-CounterState smallCountReducer(CounterState oldState, dynamic action) {
-  if (action is DecrementAction) {
-    return CounterState.updateState(oldState, count: oldState.count - 1);
-  } else if (action is IncrementAction) {
-    return CounterState.updateState(oldState, count: oldState.count + 1);
-  } else {
-    return oldState;
-  }
-}
-
 /////////////////////////////// STORE 2 "BigCounter" ///////////////////////////////
 
 /// A new context that is used to differentiate the second store from the first.
 final bigCounterContext = createContext();
 
 /// The second store
-Store store2 = Store<BigCounterState>(bigCounterStateReducer, initialState: BigCounterState(bigCount: 100));
-
-class BigCounterState {
-  final int bigCount;
-  final String name;
-  BigCounterState({
-    this.bigCount,
-    this.name = "BigCounter",
-  });
-
-  toJson() {
-    return {
-      'bigCount': this.bigCount,
-      'name': this.name
-    };
-  }
-}
-
-/// Reducers for the store that combined via [combineReducers].
-int _bigCounterDecrementReducer(int currentCount, DecrementAction action) {
-  return currentCount - (action?.value ?? 100);
-}
-
-int _bigCounterIncrementReducer(int currentCount, IncrementAction action) {
-  return currentCount + (action?.value ?? 100);
-}
-
-final bigCounterActionsReducer = combineReducers<int>([
-  TypedReducer<int, IncrementAction>(_bigCounterIncrementReducer),
-  TypedReducer<int, DecrementAction>(_bigCounterDecrementReducer),
-]);
-
-/// The reducer, composed of the smaller and more specific reducers, that
-/// returns the store state.
-BigCounterState bigCounterStateReducer(BigCounterState state, action) => BigCounterState(
-  bigCount: bigCounterActionsReducer(state.bigCount, action),
-);
+Store store2 = Store<CounterState>(smallCountReducer, initialState: CounterState.defaultState());

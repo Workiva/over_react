@@ -8,13 +8,8 @@ UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
     mapStateToProps: (state) => (Counter()..currentCount = state.count)
 )(Counter);
 
-UiFactory<CounterProps> ConnectedBigCounter = connect<BigCounterState, CounterProps>(
-  mapStateToProps: (state) => (Counter()..currentCount = state.bigCount),
-  mapDispatchToProps: (dispatch) => (
-      Counter()
-        ..increment = () { dispatch(IncrementAction(100)); }
-        ..decrement = () { dispatch(DecrementAction(100)); }
-  ),
+UiFactory<CounterProps> ConnectedCounterWithDifferentContext = connect<CounterState, CounterProps>(
+  mapStateToProps: (state) => (Counter()..currentCount = state.count),
   context: bigCounterContext,
 )(Counter);
 

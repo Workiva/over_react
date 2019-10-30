@@ -50,10 +50,10 @@ Store store = DevToolsStore<CounterState>(stateReducer, initialState: CounterSta
 var remoteDevtools = RemoteDevToolsMiddleware('127.0.0.1:8000');
 
 /// Method used to assign the store and connect the DevTools.
-Future initDevtools() async {
+Future<void> initDevtools() async {
   remoteDevtools.store = store;
   window.console.log('Navigate to 127.0.0.1:8000 in order to see Redux DevTools.');
-  return remoteDevtools.connect();
+  await remoteDevtools.connect();
 }
 
 class CounterState {

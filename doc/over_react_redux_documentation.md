@@ -81,14 +81,14 @@ ways to do this.
     ```
 1. Import OverReact Redux and your store into the file with your component.
 1. Update your component class.
-    - Add a new `UiFactory`, without the usual annotation, and wrap it with `connect()`.
-    - Add the `ConnectPropsMixin` to your props class if needed. This mixin is needed if either of the following are 
+    1. Add a new `UiFactory`, without the usual annotation, and wrap it with `connect()`.
+    1. Add the `ConnectPropsMixin` to your props class if needed. This mixin is needed if either of the following are 
     true:
         - You _do not_ use the `mapDispatchToProps` parameter on `connect`.
         - You _do_ use `mapDispatchToProps` but want access to the `props.dipsatch` function. When using 
         `mapDispatchToProps`, by default the `dispatch` property on `props` is removed. It can be added back 
         using `ConnectPropsToMixin`. 
-    ```
+    ```dart
     // AppState is a class that represents the application's state and can be defined in the same file as the store.
     UiFactory<FooProps> ConnectedFoo = connect<AppState, FooProps>()(Foo);
     
@@ -120,23 +120,26 @@ For this purpose, OverReact Redux has the `ReduxProvider` component. It is requi
 react_dom.render(
   (ReduxProvider()..store = fooStore)(
     // ... React component tree with connected components
-  )
-)
+  ),
+  mountNode,
+);
 ```
     
 ## `connect`
-### `Overview`
+### Overview
 A wrapper around the JS react-redux `connect` function that supports OverReact components.
 
+> See: <https://react-redux.js.org/api/connect>
+
 __Example:__
-```
+```dart
 UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
-        mapStateToProps: (state) => (
-          Counter()..count = state.count
-        ),
-        mapDispatchToProps: (dispatch) => (
-          Counter()..increment = () => dispatch(INCREMENT_ACTION())
-        ),
+    mapStateToProps: (state) => (
+      Counter()..count = state.count
+    ),
+    mapDispatchToProps: (dispatch) => (
+      Counter()..increment = () => dispatch(IncrementAction())
+    ),
 )(Counter);
 ```
 
@@ -167,15 +170,28 @@ If you do not provide `mergeProps`, the wrapped component receives the default:
         ```
 - #### `areStatesEqual` 
     - Does a simple `==` check by default.
+    - Takes a function with the signature `(next: TReduxState, prev: TReduxState) => bool`.
+    - When [pure](#pure), compares incoming store state to its previous value in order to access if this connected 
+    component should update. In the case that `mapStateToProps` is only concerned with a small piece of state but is 
+    also expensive to run, passing in a custom function may be beneficial to performance.
 - #### `areOwnPropsEqual` 
     - Does a shallow Map equality check by default.
+    - Takes a function with the signature `(next: TProps, prev: TProps) => bool`.
+    - When [pure](#pure), compares incoming props to its previous value. This comparison can be used to conduct 
+    operations such as being part of a process to whitelist certain props.
 - #### `areStatePropsEqual` 
     - Does a shallow Map equality check by default.
+    - Takes a function with the signature `(next: TProps, prev: TProps) => bool`.
+    - When [pure](#pure), compares the results of `mapStateToProps` with its previous value.
 - #### `areMergedPropsEqual` 
     - Does a shallow Map equality check by default.
+    - Takes a function with the signature `(next: TProps, prev: TProps) => bool`.
+    - Can be passed in for small performance improvements. Two possible cases are to implement `deepEqual` or 
+    `strictEqual`.
+        > See: <https://react-redux.js.org/api/connect#aremergedpropsequal-next-object-prev-object-boolean>
 - #### `context` 
     - Can be utilized to provide a custom context object created with `createContext`.
-  - `context` can be used to utilize multiple stores. 
+    - `context` can be used to utilize multiple stores. 
     > For more information on having multiple stores, see [Using Multiple Stores](#using-multiple-stores).
 - #### `pure` 
     - If `true` (default), connect performs several equality checks that are used to avoid unnecessary
@@ -202,29 +218,31 @@ Store store2 = new Store<BigCounterState>(bigCounterStateReducer, initialState: 
 
 UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
       mapStateToProps: (state) => (Counter()..count = state.count)
-    )(Counter);
-    UiFactory<CounterProps> ConnectedBigCounter = connect<BigCounterState, CounterProps>(
-      mapStateToProps: (state) => (Counter()..count = state.bigCount),
-      context: bigCounterContext,
-    )(Counter);
-    react_dom.render(
-      Dom.div()(
-        (ReduxProvider()..store = store1)(
-          (ReduxProvider()
-            ..store = store2
-            ..context = bigCounterContext
-          )(
-            Dom.div()(
-              Dom.h3()('ConnectedBigCounter Store2'),
-              ConnectedBigCounter()(
-                Dom.h4()('ConnectedCounter Store1'),
-                ConnectedCounter()(),
-              ),
-            ),
+)(Counter);
+
+UiFactory<CounterProps> ConnectedBigCounter = connect<BigCounterState, CounterProps>(
+  mapStateToProps: (state) => (Counter()..count = state.bigCount),
+  context: bigCounterContext,
+)(Counter);
+
+react_dom.render(
+  Dom.div()(
+    (ReduxProvider()..store = store1)(
+      (ReduxProvider()
+        ..store = store2
+        ..context = bigCounterContext
+      )(
+        Dom.div()(
+          Dom.h3()('ConnectedBigCounter Store2'),
+          ConnectedBigCounter()(
+            Dom.h4()('ConnectedCounter Store1'),
+            ConnectedCounter()(),
           ),
         ),
-      ), querySelector('#content')
-    );
+      ),
+    ),
+  ), querySelector('#content')
+);
 ```
 
 In the case that you need to have multiple stores, here are the steps to do so:
@@ -234,23 +252,23 @@ In the case that you need to have multiple stores, here are the steps to do so:
     ```
 1. In the `connect` function wrapping the component, pass in the context instance.
     ```dart
-       UiFactory<BarProps> ConnectedBar = connect<BarState, BarProps>(
-          // ... mapStateToProps
-          context: fooContext,
-       )(Bar);
+    UiFactory<BarProps> ConnectedBar = connect<BarState, BarProps>(
+      // ... mapStateToProps
+      context: fooContext,
+    )(Bar);
     ```
 1. Add an additional `ReduxProvider`, with its `context` prop set to the next Context instance and the `store` prop 
 set to your additional store.
     ```dart
-       // ... Wrapped in a reactDom.render()
-         (ReduxProvider()..store = store1)(
-           (ReduxProvider()
-             ..store = store2
-             ..context = bigCounterContext
-           )(
-             // ... connected componentry
-           ),
-         )
+    // ... Wrapped in a reactDom.render()
+     (ReduxProvider()..store = store1)(
+       (ReduxProvider()
+         ..store = store2
+         ..context = bigCounterContext
+       )(
+         // ... connected componentry
+       ),
+     )
     ```
 
 ## Using Redux DevTools
@@ -258,7 +276,7 @@ Redux DevTools can be set up easily by adding only a few lines of code.
 > These instructions and additional information can be found [here](https://github.com/MichaelMarner/dart-redux-remote-devtools#middleware-configuration)
 
 1. Add `redux_remote_devtools` and `redux_dev_tools` as dependencies in your `pubspec.yaml`.
-    ```
+    ```yaml
     dependencies:
       redux_dev_tools: 0.4.0
       redux_remote_devtools: ^0.0.11
@@ -266,28 +284,32 @@ Redux DevTools can be set up easily by adding only a few lines of code.
     > __NOTE:__ The dependency on `redux_remote_devtools` being `>=0.0.11` is a hard line, as prior to this version 
     the package was tailored to Flutter and reliant on `dart:io`.
 1. Import `redux_remote_devtools` and `redux_dev_tools` into your store file.
-    ```
+    ```dart
     import 'package:redux_remote_devtools/redux_remote_devtools.dart';
     import 'package:redux_dev_tools/redux_dev_tools.dart';
     ```
 1. Change your store to a `DevToolsStore` instance and add the `remoteDevtools` middleware.
-    ```
-    var store = new DevToolsStore<AppState>(/*ReducerName*/, initialState: /*Default App State Object*/, middleware: [remoteDevtools]);
+    ```dart
+    var store = new DevToolsStore<AppState>(
+      /*ReducerName*/, 
+      initialState: /*Default App State Object*/, 
+      middleware: [remoteDevtools],
+    );
     ```
     > __NOTE:__ This should be reverted back to a normal store prior to making your code public (via publishing a 
         package or deploying to production).
 1. Expose an `initDevtools()` function. This will be used to set up the devtools server.
-    ```
+    ```dart
     var remoteDevtools = RemoteDevToolsMiddleware('127.0.0.1:8000');
     
-    Future initDevtools() async {
+    Future<void> initDevtools() async {
       remoteDevtools.store = store;
       return remoteDevtools.connect();
     }
     ```
 1. Near the top of your main.dart file call your `initDevtools`.
     ```dart
-     initDevtools();
+    initDevtools();
     ```
 1. In addition to running your web server as normal to view your application, you will also need to run the following
  simultaneously:

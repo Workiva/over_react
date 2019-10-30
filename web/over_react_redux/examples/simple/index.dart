@@ -14,10 +14,17 @@ main() {
   react_dom.render(
     ErrorBoundary()(
       (ReduxProvider()..store = store)(
-        Dom.div()(
-          Dom.h2()('ConnectedBigCounter Store2'),
-          ConnectedBigCounter()(
-            Dom.h2()('ConnectedCounter Store1'),
+        (Dom.div()..style={'display': 'flex', 'flexDirection': 'row', 'justifyContent': 'space-evenly'})(
+          (Dom.div())(
+            Dom.h2()('ConnectedBigCounter'),
+            ConnectedBigCounter()(),
+            Dom.h2()('ConnectedCounter'),
+            ConnectedCounter()(),
+          ),
+          (Dom.div())(
+            Dom.h2()('ConnectedBigCounter'),
+            ConnectedBigCounter()(),
+            Dom.h2()('ConnectedCounter'),
             ConnectedCounter()(),
           ),
         ),

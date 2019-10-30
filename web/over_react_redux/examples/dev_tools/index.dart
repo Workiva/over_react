@@ -19,10 +19,9 @@ main() {
       (ReduxProvider()..store = store)(
         Dom.div()(
           Dom.h2()('ConnectedBigCounter Store2'),
-          ConnectedBigCounter()(
-            Dom.h2()('ConnectedCounter Store1'),
-            ConnectedCounter()(),
-          ),
+          ConnectedBigCounter()(),
+          Dom.h2()('ConnectedCounter Store1'),
+          ConnectedCounter()(),
         ),
       ),
     ), querySelector('#content')
