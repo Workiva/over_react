@@ -27,4 +27,3 @@ main() {
     ), querySelector('#content')
   );
 }
-
