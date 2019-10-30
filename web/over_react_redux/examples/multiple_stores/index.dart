@@ -29,4 +29,3 @@ main() {
     ), querySelector('#content')
   );
 }
-

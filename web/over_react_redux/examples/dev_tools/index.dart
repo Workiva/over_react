@@ -18,9 +18,9 @@ main() {
     ErrorBoundary()(
       (ReduxProvider()..store = store)(
         Dom.div()(
-          Dom.h2()('ConnectedBigCounter Store2'),
+          Dom.h2()('ConnectedBigCounter'),
           ConnectedBigCounter()(),
-          Dom.h2()('ConnectedCounter Store1'),
+          Dom.h2()('ConnectedCounter'),
           ConnectedCounter()(),
         ),
       ),
