@@ -67,23 +67,23 @@ ways to do this.
     import 'package:over_react/over_react_redux.dart';
     ```
 1. Wrap your component tree in a `ReduxProvider` and pass in the store.
-     ```dart
-     import 'package:over_react/over_react_redux.dart';
-     import 'package:over_react/react_dom.dart' as react_dom;
+    ```dart
+    import 'package:over_react/over_react_redux.dart';
+    import 'package:over_react/react_dom.dart' as react_dom;
 
-     main() {
-       react_dom.render(
-         (ReduxProvider()..store = fooStore)(
-           // ... React component tree with connected components
-         )
-       );
-     }
+    main() {
+      react_dom.render(
+        (ReduxProvider()..store = fooStore)(
+          // ... React component tree with connected components
+        ),
+        mountNode,
+      );
+    }
     ```
 1. Import OverReact Redux and your store into the file with your component.
 1. Update your component class.
     1. Add a new `UiFactory`, without the usual annotation, and wrap it with `connect()`.
-    1. Add the `ConnectPropsMixin` to your props class if needed. This mixin is needed if either of the following are 
-    true:
+    1. Add the `ConnectPropsMixin` to your props class if needed. This mixin is needed if either of the following are true:
         - You _do not_ use the `mapDispatchToProps` parameter on `connect`.
         - You _do_ use `mapDispatchToProps` but want access to the `props.dipsatch` function. When using 
         `mapDispatchToProps`, by default the `dispatch` property on `props` is removed. It can be added back 
@@ -171,9 +171,9 @@ If you do not provide `mergeProps`, the wrapped component receives the default:
 - #### `areStatesEqual` 
     - Does a simple `==` check by default.
     - Takes a function with the signature `(next: TReduxState, prev: TReduxState) => bool`.
-    - When [pure](#pure), compares incoming store state to its previous value in order to access if this connected 
+    - When [pure](#pure), compares the incoming store state to its previous value in order to assess if this connected 
     component should update. In the case that `mapStateToProps` is only concerned with a small piece of state but is 
-    also expensive to run, passing in a custom function may be beneficial to performance.
+    also expensive to run, passing in a custom function for `areStatesEqual` may be beneficial to performance.
 - #### `areOwnPropsEqual` 
     - Does a shallow Map equality check by default.
     - Takes a function with the signature `(next: TProps, prev: TProps) => bool`.
@@ -182,7 +182,8 @@ If you do not provide `mergeProps`, the wrapped component receives the default:
 - #### `areStatePropsEqual` 
     - Does a shallow Map equality check by default.
     - Takes a function with the signature `(next: TProps, prev: TProps) => bool`.
-    - When [pure](#pure), compares the results of `mapStateToProps` with its previous value.
+    - When [pure](#pure), compares the results of `mapStateToProps` with its previous value. Similar to other 
+    equality check callbacks, this provides the opportunity to optimize performance.
 - #### `areMergedPropsEqual` 
     - Does a shallow Map equality check by default.
     - Takes a function with the signature `(next: TProps, prev: TProps) => bool`.
@@ -304,10 +305,10 @@ Redux DevTools can be set up easily by adding only a few lines of code.
     
     Future<void> initDevtools() async {
       remoteDevtools.store = store;
-      return remoteDevtools.connect();
+      await remoteDevtools.connect();
     }
     ```
-1. Near the top of your main.dart file call your `initDevtools`.
+1. Near the top of your `main.dart` file call your `initDevtools`.
     ```dart
     initDevtools();
     ```
