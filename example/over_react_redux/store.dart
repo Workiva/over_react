@@ -1,5 +1,7 @@
+import 'package:over_react/src/over_react_redux/devtools/middleware.dart';
 import 'package:redux/redux.dart';
 import 'package:over_react/over_react.dart';
+import 'package:redux_dev_tools/redux_dev_tools.dart';
 
 var someContext = createContext('test');
 /////////////////////////////// SHARED ///////////////////////////////
@@ -23,7 +25,7 @@ class DecrementAction extends Action {
 }
 
 /////////////////////////////// STORE 1 "Counter" ///////////////////////////////
-Store store1 = Store<CounterState>(counterStateReducer, initialState: CounterState(count: 1));
+Store store1 = DevToolsStore<CounterState>(counterStateReducer, initialState: CounterState(count: 1), middleware: [overReactReduxDevToolsMiddleware]);
 
 class CounterState {
   final int count;
@@ -32,6 +34,12 @@ class CounterState {
     this.count,
     this.name = "Counter",
   });
+  // toJson() {
+  //   return {
+  //     'count': count,
+  //     'name': name
+  //   };
+  // }
 }
 
 int _counterDecrementReducer(int currentCount, DecrementAction action) {
