@@ -27,12 +27,12 @@ import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:platform_detect/platform_detect.dart';
 
 double _computeRootFontSize() {
-  return new CssValue.parse(document.documentElement.getComputedStyle().fontSize).number.toDouble();
+  return CssValue.parse(document.documentElement.getComputedStyle().fontSize).number.toDouble();
 }
 
 double _rootFontSize = _computeRootFontSize();
 
-var _changeSensor;
+dynamic _changeSensor;
 @visibleForTesting
 dynamic get changeSensor => _changeSensor;
 
@@ -49,7 +49,7 @@ Future<Null> initRemChangeSensor() {
   // a `toRem` call inside a component's `render`.
   // (React emits a warning and sometimes gets in a bad state
   // when mounting component from inside `render`).
-  return new Future(() {
+  return Future(() {
     // Short-circuit if destroyed during the async gap.
     if (!_shouldStillMountRemChangeSensor) {
       return;
@@ -62,9 +62,9 @@ Future<Null> initRemChangeSensor() {
     }
 
     // Force lazy-initialization of this variable if it hasn't happened already.
-    _rootFontSize;
+    _rootFontSize; // ignore: unnecessary_statements
 
-    _changeSensorMountNode = new DivElement()
+    _changeSensorMountNode = DivElement()
       ..id = 'rem_change_sensor';
 
     // Ensure the sensor doesn't interfere with the rest of the page.
@@ -87,16 +87,14 @@ Future<Null> initRemChangeSensor() {
         'height': '100rem',
       }
     )(
-      (ResizeSensor()..onResize = (ResizeSensorEvent e) {
+      (ResizeSensor()..onResize = (_) {
         recomputeRootFontSize();
       })()
     ), _changeSensorMountNode);
   });
 }
 
-final StreamController<double> _remChange = new StreamController.broadcast(onListen: () {
-  initRemChangeSensor();
-});
+final StreamController<double> _remChange = StreamController.broadcast(onListen: initRemChangeSensor);
 
 /// The latest component root font size (rem) value, in pixels.
 double get rootFontSize => _rootFontSize;
@@ -123,7 +121,7 @@ void recomputeRootFontSize() {
 /// Can be used, for example, to clean up the DOM in the `tearDown` of a unit test.
 // TODO make this a void function
 Future<Null> destroyRemChangeSensor() {
-  return new Future.sync(() {
+  return Future.sync(() {
     _shouldStillMountRemChangeSensor = false;
 
     if (_changeSensor != null) {
@@ -155,7 +153,7 @@ Future<Null> destroyRemChangeSensor() {
 ///     new CssValue(1.5, 'rem');
 ///
 /// > Related: [toPx]
-CssValue toRem(dynamic value, {bool treatNumAsRem: false, bool passThroughUnsupportedUnits: false}) {
+CssValue toRem(dynamic value, {bool treatNumAsRem = false, bool passThroughUnsupportedUnits = false}) {
   // Because Chrome changes the value of its root font size when zoomed out lower than 90%, we need
   // to automatically wire up the rem change sensor so that any calls to `toRem` when the viewport is
   // zoomed return an accurate value.
@@ -179,7 +177,7 @@ CssValue toRem(dynamic value, {bool treatNumAsRem: false, bool passThroughUnsupp
   if (value is num) {
     remValueNum = treatNumAsRem ? value : value / rootFontSize;
   } else {
-    var parsedValue = value is CssValue ? value : new CssValue.parse(value);
+    var parsedValue = value is CssValue ? value :  CssValue.parse(value);
 
     if (parsedValue?.unit == 'rem') {
       remValueNum = parsedValue.number;
@@ -188,11 +186,11 @@ CssValue toRem(dynamic value, {bool treatNumAsRem: false, bool passThroughUnsupp
     } else {
       if (passThroughUnsupportedUnits) return parsedValue;
 
-      throw new ArgumentError.value(value, 'value', 'must be a px num or a String px/rem value');
+      throw ArgumentError.value(value, 'value', 'must be a px num or a String px/rem value');
     }
   }
 
-  return new CssValue(remValueNum, 'rem');
+  return CssValue(remValueNum, 'rem');
 }
 
 /// Converts a rem [value] to its pixel (`px`) equivalent using the current font size
@@ -215,7 +213,7 @@ CssValue toRem(dynamic value, {bool treatNumAsRem: false, bool passThroughUnsupp
 ///     toPx(new CssValue(15, 'px'));
 ///
 /// > Related: [toRem]
-CssValue toPx(dynamic value, {bool treatNumAsPx: false, bool passThroughUnsupportedUnits: false}) {
+CssValue toPx(dynamic value, {bool treatNumAsPx = false, bool passThroughUnsupportedUnits = false}) {
   if (value == null) return null;
 
   num pxValueNum;
@@ -223,7 +221,7 @@ CssValue toPx(dynamic value, {bool treatNumAsPx: false, bool passThroughUnsuppor
   if (value is num) {
     pxValueNum = treatNumAsPx ? value : value * rootFontSize;
   } else {
-    var parsedValue = value is CssValue ? value : new CssValue.parse(value);
+    var parsedValue = value is CssValue ? value :  CssValue.parse(value);
 
     if (parsedValue?.unit == 'px') {
       pxValueNum = parsedValue.number;
@@ -232,9 +230,9 @@ CssValue toPx(dynamic value, {bool treatNumAsPx: false, bool passThroughUnsuppor
     } else {
       if (passThroughUnsupportedUnits) return parsedValue;
 
-      throw new ArgumentError.value(value, 'value', 'must be a rem num or a String px/rem value');
+      throw ArgumentError.value(value, 'value', 'must be a rem num or a String px/rem value');
     }
   }
 
-  return new CssValue(pxValueNum, 'px');
+  return CssValue(pxValueNum, 'px');
 }

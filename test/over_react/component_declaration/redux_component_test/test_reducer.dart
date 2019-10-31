@@ -6,7 +6,7 @@ import 'package:built_value/built_value.dart';
 part 'test_reducer.g.dart';
 
 abstract class BaseActions extends ReduxActions {
-  factory BaseActions() => new _$BaseActions();
+  factory BaseActions() =>  _$BaseActions();
   BaseActions._();
 
   ActionDispatcher<Null> trigger1;
@@ -14,7 +14,7 @@ abstract class BaseActions extends ReduxActions {
 }
 
 abstract class BaseState implements Built<BaseState, BaseStateBuilder> {
-  factory BaseState() => new _$BaseState._(count1: 0, count2: 0);
+  factory BaseState() =>  _$BaseState._(count1: 0, count2: 0);
   BaseState._();
 
   int get count1;

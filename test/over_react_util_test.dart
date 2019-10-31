@@ -29,15 +29,19 @@ import 'over_react/util/css_value_util_test.dart' as css_value_util_test;
 import 'over_react/util/dom_util_test.dart' as dom_util_test;
 import 'over_react/util/event_helpers_test.dart' as event_helpers_test;
 import 'over_react/util/guid_util_test.dart' as guid_util_test;
-import 'over_react/util/handler_chain_util_test.dart' as handler_chain_util_test;
+import 'over_react/util/handler_chain_util_test.dart'
+    as handler_chain_util_test;
 import 'over_react/util/map_util_test.dart' as map_util_test;
 import 'over_react/util/pretty_print_test.dart' as pretty_print_test;
-import 'over_react/util/prop_key_util_test_dart2.dart' as prop_key_util_test_dart2;
+import 'over_react/util/prop_key_util_test_dart2.dart'
+    as prop_key_util_test_dart2;
 import 'over_react/util/react_util_test.dart' as react_util_test;
 import 'over_react/util/react_wrappers_test.dart' as react_wrappers_test;
 import 'over_react/util/rem_util_test.dart' as rem_util_test;
-import 'over_react/util/safe_render_manager/safe_render_manager_test.dart' as safe_render_manager_test;
-import 'over_react/util/safe_render_manager/safe_render_manager_helper_test.dart' as safe_render_manager_helper_test;
+import 'over_react/util/safe_render_manager/safe_render_manager_test.dart'
+    as safe_render_manager_test;
+import 'over_react/util/safe_render_manager/safe_render_manager_helper_test.dart'
+    as safe_render_manager_helper_test;
 import 'over_react/util/string_util_test.dart' as string_util_test;
 import 'over_react/util/test_mode_test.dart' as test_mode_test;
 

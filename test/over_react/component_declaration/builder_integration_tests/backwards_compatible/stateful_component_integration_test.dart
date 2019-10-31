@@ -20,14 +20,17 @@ import '../../../../test_util/test_util.dart';
 part 'stateful_component_integration_test.over_react.g.dart';
 
 main() {
-  group('(backwards compatible with Dart 1) stateful component integration:', () {
+  group('(backwards compatible with Dart 1) stateful component integration:',
+      () {
     test('state class cannot be instantiated directly', () {
       expect(() {
-        new StatefulComponentTestState();
+        StatefulComponentTestState();
       }, throwsA(const TypeMatcher<IllegalInstantiationError>()));
     });
 
-    test('renders a component from end to end, successfully reading state via typed getters', () {
+    test(
+        'renders a component from end to end, successfully reading state via typed getters',
+        () {
       var renderedInstance = render(StatefulComponentTest()());
       expect(renderedInstance, isNotNull);
 
@@ -38,7 +41,8 @@ main() {
       expect(node.dataset, containsPair('state-untyped-state', '3'));
       expect(node.dataset, containsPair('state-custom-key-state', '4'));
       expect(node.dataset, containsPair('state-custom-namespace-state', '5'));
-      expect(node.dataset, containsPair('state-custom-key-and-namespace-state', '6'));
+      expect(node.dataset,
+          containsPair('state-custom-key-and-namespace-state', '6'));
     });
 
     group('generates state getters/setters with', () {
@@ -49,7 +53,9 @@ main() {
         component = getDartComponent(renderedInstance);
       });
 
-      test('prop keys using the props class name as a namespace and the prop name as the key by default', () {
+      test(
+          'prop keys using the props class name as a namespace and the prop name as the key by default',
+          () {
         expect(component.newState()..stringState = 'test',
             containsPair('StatefulComponentTestState.stringState', 'test'));
 
@@ -78,10 +84,10 @@ main() {
   });
 }
 
-
 @Factory()
 // ignore: undefined_identifier
-UiFactory<StatefulComponentTestProps> StatefulComponentTest = _$StatefulComponentTest;
+UiFactory<StatefulComponentTestProps> StatefulComponentTest =
+    _$StatefulComponentTest;
 
 @Props()
 class _$StatefulComponentTestProps extends UiProps {}
@@ -90,20 +96,21 @@ class _$StatefulComponentTestProps extends UiProps {}
 class _$StatefulComponentTestState extends UiState {
   String stringState;
   dynamic dynamicState;
-  var untypedState;
+  dynamic untypedState;
 
   @Accessor(key: 'custom key!')
-  var customKeyState;
+  dynamic customKeyState;
 
   @Accessor(keyNamespace: 'custom namespace~~')
-  var customNamespaceState;
+  dynamic customNamespaceState;
 
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  var customKeyAndNamespaceState;
+  dynamic customKeyAndNamespaceState;
 }
 
 @Component()
-class StatefulComponentTestComponent extends UiStatefulComponent<StatefulComponentTestProps, StatefulComponentTestState> {
+class StatefulComponentTestComponent extends UiStatefulComponent<
+    StatefulComponentTestProps, StatefulComponentTestState> {
   @override
   getInitialState() => (newState()
     ..stringState = '1'
@@ -111,8 +118,7 @@ class StatefulComponentTestComponent extends UiStatefulComponent<StatefulCompone
     ..untypedState = '3'
     ..customKeyState = '4'
     ..customNamespaceState = '5'
-    ..customKeyAndNamespaceState = '6'
-  );
+    ..customKeyAndNamespaceState = '6');
 
   @override
   render() => (Dom.div()
@@ -123,20 +129,22 @@ class StatefulComponentTestComponent extends UiStatefulComponent<StatefulCompone
     ..addProp('data-state-untyped-state', state.untypedState)
     ..addProp('data-state-custom-key-state', state.customKeyState)
     ..addProp('data-state-custom-namespace-state', state.customNamespaceState)
-    ..addProp('data-state-custom-key-and-namespace-state', state.customKeyAndNamespaceState)
-  )('rendered content');
+    ..addProp('data-state-custom-key-and-namespace-state',
+        state.customKeyAndNamespaceState))('rendered content');
 }
 
 // AF-3369 This will be removed once the transition to Dart 2 is complete.
 // ignore: mixin_of_non_class, undefined_class
-class StatefulComponentTestProps extends _$StatefulComponentTestProps with _$StatefulComponentTestPropsAccessorsMixin {
+class StatefulComponentTestProps extends _$StatefulComponentTestProps
+    with _$StatefulComponentTestPropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
   static const PropsMeta meta = _$metaForStatefulComponentTestProps;
 }
 
 // AF-3369 This will be removed once the transition to Dart 2 is complete.
 // ignore: mixin_of_non_class, undefined_class
-class StatefulComponentTestState extends _$StatefulComponentTestState with _$StatefulComponentTestStateAccessorsMixin {
+class StatefulComponentTestState extends _$StatefulComponentTestState
+    with _$StatefulComponentTestStateAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
   static const StateMeta meta = _$metaForStatefulComponentTestState;
 }

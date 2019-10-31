@@ -17,7 +17,8 @@
 part of prop_tyepdef_test_fixtures;
 
 @Factory()
-UiFactory<TestConsumingAbstractCustomRendererComponentProps> TestConsumingAbstractCustomRendererComponent =
+UiFactory<TestConsumingAbstractCustomRendererComponentProps>
+    TestConsumingAbstractCustomRendererComponent =
     _$TestConsumingAbstractCustomRendererComponent;
 
 @Props()
@@ -35,21 +36,14 @@ class TestConsumingAbstractCustomRendererComponentComponent
       ..somePropKey = props.propKeyValueToTest
       ..someInitialStateKeyValue = props.stateKeyValueToTest
       ..customRenderer = (props, state, component) {
-        return (Dom.div()
-          ..addTestId('customRendererContainer')
-        )(
-          'props.somePropKey: ${(props as TestCustomRendererFromAbstractComponentProps).somePropKey} \n'
-          'props.someStateKey: ${(state as TestCustomRendererFromAbstractComponentState).someStateKey}'
-        );
+        return (Dom.div()..addTestId('customRendererContainer'))(
+            'props.somePropKey: ${(props as TestCustomRendererFromAbstractComponentProps).somePropKey} \n'
+            'props.someStateKey: ${(state as TestCustomRendererFromAbstractComponentState).someStateKey}');
       }
       ..parameterizedCustomRenderer = (props, state, component) {
-        return (Dom.div()
-          ..addTestId('parameterizedCustomRendererContainer')
-        )(
-          'props.somePropKey: ${props.somePropKey} \n'
-          'props.someStateKey: ${state.someStateKey}'
-        );
-      }
-    )();
+        return (Dom.div()..addTestId('parameterizedCustomRendererContainer'))(
+            'props.somePropKey: ${props.somePropKey} \n'
+            'props.someStateKey: ${state.someStateKey}');
+      })();
   }
 }

@@ -35,13 +35,13 @@ class FlawedState extends _$FlawedState with _$FlawedStateAccessorsMixin {
 @Component()
 class FlawedComponent extends UiStatefulComponent<FlawedProps, FlawedState> {
   @override
-  Map getDefaultProps() => (newProps()..buttonTestIdPrefix = 'flawedComponent_');
+  Map getDefaultProps() =>
+      (newProps()..buttonTestIdPrefix = 'flawedComponent_');
 
   @override
   Map getInitialState() => (newState()
     ..errorCount = 0
-    ..differentTypeOfErrorCount = 0
-  );
+    ..differentTypeOfErrorCount = 0);
 
   @override
   void componentWillUpdate(_, Map nextState) {
@@ -50,7 +50,8 @@ class FlawedComponent extends UiStatefulComponent<FlawedProps, FlawedState> {
       throw FlawedComponentException();
     }
 
-    if (tNextState.differentTypeOfErrorCount > state.differentTypeOfErrorCount) {
+    if (tNextState.differentTypeOfErrorCount >
+        state.differentTypeOfErrorCount) {
       throw FlawedComponentException2();
     }
   }
@@ -62,16 +63,16 @@ class FlawedComponent extends UiStatefulComponent<FlawedProps, FlawedState> {
         ..addTestId('${props.buttonTestIdPrefix}flawedButton')
         ..onClick = (_) {
           setState(newState()..errorCount = state.errorCount + 1);
-        }
-      )(
+        })(
         'oh hai',
       ),
       (Dom.button()
-        ..addTestId('${props.buttonTestIdPrefix}flawedButtonThatThrowsADifferentError')
+        ..addTestId(
+            '${props.buttonTestIdPrefix}flawedButtonThatThrowsADifferentError')
         ..onClick = (_) {
-          setState(newState()..differentTypeOfErrorCount = state.differentTypeOfErrorCount + 1);
-        }
-      )(
+          setState(newState()
+            ..differentTypeOfErrorCount = state.differentTypeOfErrorCount + 1);
+        })(
         'oh hai',
       ),
       props.children,
@@ -81,10 +82,12 @@ class FlawedComponent extends UiStatefulComponent<FlawedProps, FlawedState> {
 
 class FlawedComponentException implements Exception {
   @override
-  String toString() => 'FlawedComponentException: I was thrown from inside FlawedComponent.componentWillUpdate!';
+  String toString() =>
+      'FlawedComponentException: I was thrown from inside FlawedComponent.componentWillUpdate!';
 }
 
 class FlawedComponentException2 implements Exception {
   @override
-  String toString() => 'FlawedComponentException2: I was thrown from inside FlawedComponent.componentWillUpdate!';
+  String toString() =>
+      'FlawedComponentException2: I was thrown from inside FlawedComponent.componentWillUpdate!';
 }

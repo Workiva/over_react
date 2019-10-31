@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
 library over_react.abstract_transition;
 
 import 'dart:async';
@@ -193,13 +194,13 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   /// Listens for the next `transitionend` event and invokes a callback after
   /// the event is dispatched.
   @mustCallSuper
-  void onNextTransitionEnd(complete()) {
+  void onNextTransitionEnd(Function() complete) {
     var transitionCount = isOrWillBeHidden ? transitionOutCount : transitionInCount;
 
     _cancelTransitionEventListener();
     _cancelTransitionEndTimer();
 
-    _transitionEndTimer = new Timer(transitionTimeout, () {
+    _transitionEndTimer = Timer(transitionTimeout, () {
       assert(ValidationUtil.warn(
           'The number of transitions expected to complete have not completed. Something is most likely wrong.',
           this
@@ -392,7 +393,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   Map<String, String> getTransitionTestAttributes() {
     if (!component_base.UiProps.testMode) return const {};
 
-    const enumToAttrValue = const <TransitionPhase, String>{
+    const enumToAttrValue = <TransitionPhase, String>{
       TransitionPhase.SHOWN: 'shown',
       TransitionPhase.HIDDEN: 'hidden',
       TransitionPhase.HIDING: 'hiding',

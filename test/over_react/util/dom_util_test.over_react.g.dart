@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'dom_util_test.dart';
 
 // **************************************************************************
@@ -9,8 +10,7 @@ part of 'dom_util_test.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $DomTestComponentFactory = registerComponent(
-    () => new _$DomTestComponent(),
+final $DomTestComponentFactory = registerComponent(() => _$DomTestComponent(),
     builderFactory: DomTest,
     componentClass: DomTestComponent,
     isWrapper: false,
@@ -23,11 +23,11 @@ abstract class _$DomTestPropsAccessorsMixin implements _$DomTestProps {
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForDomTestProps = const PropsMeta(
+const PropsMeta _$metaForDomTestProps = PropsMeta(
   fields: _$DomTestPropsAccessorsMixin.$props,
   keys: _$DomTestPropsAccessorsMixin.$propKeys,
 );
@@ -36,8 +36,7 @@ class DomTestProps extends _$DomTestProps with _$DomTestPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForDomTestProps;
 }
 
-_$$DomTestProps _$DomTest([Map backingProps]) =>
-    new _$$DomTestProps(backingProps);
+_$$DomTestProps _$DomTest([Map backingProps]) => _$$DomTestProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -57,11 +56,11 @@ class _$$DomTestProps extends _$DomTestProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory => $DomTestComponentFactory;
 
@@ -77,14 +76,14 @@ class _$$DomTestProps extends _$DomTestProps
 class _$DomTestComponent extends DomTestComponent {
   @override
   _$$DomTestProps typedPropsFactory(Map backingMap) =>
-      new _$$DomTestProps(backingMap);
+      _$$DomTestProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$DomTestProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForDomTestProps

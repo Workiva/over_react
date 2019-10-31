@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_generic_function_type_aliases
+
 import 'dart:async';
 import 'dart:js_util' as js_util;
 import 'dart:js_util';
@@ -8,7 +10,8 @@ import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_interop_helpers.dart';
-import 'package:react/react_client/react_interop.dart' show React, ReactClassConfig, throwErrorFromJS;
+import 'package:react/react_client/react_interop.dart'
+    show React, throwErrorFromJS;
 
 part 'error_boundary.over_react.g.dart';
 
@@ -34,7 +37,9 @@ part 'error_boundary.over_react.g.dart';
 /// via react-dart 5.1.0's `Component2` base class.
 ///
 /// TODO: Remove in 3.1.0
-final ReactElement Function([Map props, List children]) _jsErrorBoundaryComponentFactory = (() {
+final ReactElement Function([Map props, List children])
+    _jsErrorBoundaryComponentFactory = (() {
+  // ignore: deprecated_member_use
   var componentClass = React.createClass(jsifyAndAllowInterop({
     'displayName': 'JsErrorBoundary',
     'render': allowInteropCaptureThis((jsThis) {
@@ -47,7 +52,7 @@ final ReactElement Function([Map props, List children]) _jsErrorBoundaryComponen
       // To fix this we throw the error again from Dart to the JS side and catch it Dart side which re-dartifies it.
       try {
         throwErrorFromJS(error);
-      } catch (error, stack) {
+      } catch (error) {
         final callback = js_util.getProperty(jsProps, 'onComponentDidCatch');
 
         if (callback != null) {
@@ -62,20 +67,24 @@ final ReactElement Function([Map props, List children]) _jsErrorBoundaryComponen
   //
   // The tree will never get re-rendered after an error is caught unless both are defined.
   // ignore: argument_type_not_assignable
-  js_util.setProperty(componentClass, 'getDerivedStateFromError', allowInterop((_) => js_util.newObject()));
+  js_util.setProperty(componentClass, 'getDerivedStateFromError',
+      allowInterop((_) => js_util.newObject()));
 
   var reactFactory = React.createFactory(componentClass);
 
+  // ignore: avoid_types_on_closure_parameters
   return ([Map props = const {}, List children = const []]) {
     return reactFactory(jsifyAndAllowInterop(props), listifyChildren(children));
   };
 })();
 
 // TODO: Need to type the second argument once react-dart implements bindings for the ReactJS "errorInfo".
-typedef _ComponentDidCatchCallback(/*Error||Exception*/dynamic error, /*ComponentStack*/dynamic errorInfo);
+typedef _ComponentDidCatchCallback(
+    /*Error||Exception*/ dynamic error, /*ComponentStack*/ dynamic errorInfo);
 
 // TODO: Need to type the second argument once react-dart implements bindings for the ReactJS "errorInfo".
-typedef ReactElement _FallbackUiRenderer(/*Error||Exception*/dynamic error, /*ComponentStack*/dynamic errorInfo);
+typedef ReactElement _FallbackUiRenderer(
+    /*Error||Exception*/ dynamic error, /*ComponentStack*/ dynamic errorInfo);
 
 @visibleForTesting
 const String defaultErrorBoundaryLoggerName = 'over_react.ErrorBoundary';
@@ -204,20 +213,18 @@ class _$ErrorBoundaryState extends UiState {
 }
 
 @Component(isWrapper: true)
-class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBoundaryState>
-    extends UiStatefulComponent<T, S> {
+class ErrorBoundaryComponent<T extends ErrorBoundaryProps,
+    S extends ErrorBoundaryState> extends UiStatefulComponent<T, S> {
   @override
   Map getDefaultProps() => (newProps()
     ..identicalErrorFrequencyTolerance = Duration(seconds: 5)
     ..loggerName = defaultErrorBoundaryLoggerName
-    ..shouldLogErrors = true
-  );
+    ..shouldLogErrors = true);
 
   @override
   Map getInitialState() => (newState()
     ..hasError = false
-    ..showFallbackUIOnError = props.fallbackUIRenderer != null
-  );
+    ..showFallbackUIOnError = props.fallbackUIRenderer != null);
 
   @mustCallSuper
   /*@override*/
@@ -227,7 +234,8 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
 
   @mustCallSuper
   /*@override*/
-  void componentDidCatch(/*Error||Exception*/dynamic error, /*NativeJavascriptObject*/dynamic jsErrorInfo) {
+  void componentDidCatch(/*Error||Exception*/ dynamic error,
+      /*NativeJavascriptObject*/ dynamic jsErrorInfo) {
     if (props.onComponentDidCatch != null) {
       props.onComponentDidCatch(error, _getReadableErrorInfo(jsErrorInfo));
     }
@@ -251,13 +259,17 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   @override
   render() {
     // TODO: 3.1.0 - Remove the `_jsErrorBoundaryComponentFactory`, and restore just the children of it once this component is extending from `UiStatefulComponent2`.
-    return _jsErrorBoundaryComponentFactory({
-      'onComponentDidCatch': componentDidCatch,
-    },
-      state.hasError && state.showFallbackUIOnError
-          ? [(props.fallbackUIRenderer ?? _renderStringDomAfterUnrecoverableErrors)(_lastError, _lastErrorInfo)]
-          : props.children
-    );
+    return _jsErrorBoundaryComponentFactory(
+        {
+          'onComponentDidCatch': componentDidCatch,
+        },
+        state.hasError && state.showFallbackUIOnError
+            ? [
+                (props.fallbackUIRenderer ??
+                        _renderStringDomAfterUnrecoverableErrors)(
+                    _lastError, _lastErrorInfo)
+              ]
+            : props.children);
   }
 
   @mustCallSuper
@@ -267,9 +279,11 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
     final children = domProps(appliedProps).children;
 
     if (children.length != 1) {
-      throw new PropError.value(children, 'children', 'ErrorBoundary accepts only a single child.');
+      throw PropError.value(
+          children, 'children', 'ErrorBoundary accepts only a single child.');
     } else if (!isValidElement(children.single)) {
-      throw new PropError.value(children, 'children', 'ErrorBoundary accepts only a single ReactComponent child.');
+      throw PropError.value(children, 'children',
+          'ErrorBoundary accepts only a single ReactComponent child.');
     }
   }
 
@@ -282,8 +296,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
 
     setState(newState()
       ..hasError = false
-      ..showFallbackUIOnError = props.fallbackUIRenderer != null
-    );
+      ..showFallbackUIOnError = props.fallbackUIRenderer != null);
   }
 
   // ---------------------------------------------- \/ ----------------------------------------------
@@ -323,17 +336,19 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   // ---------------------------------------------- /\ ----------------------------------------------
 
   String _domAtTimeOfError;
-  /*Error||Exception*/dynamic _lastError;
+  /*Error||Exception*/ dynamic _lastError;
   String _lastErrorInfo;
   Timer _identicalErrorTimer;
 
   /// Called by [componentDidCatch].
-  void _handleErrorInComponentTree(/*Error||Exception*/dynamic error, /*NativeJavascriptObject*/dynamic jsErrorInfo) {
+  void _handleErrorInComponentTree(/*Error||Exception*/ dynamic error,
+      /*NativeJavascriptObject*/ dynamic jsErrorInfo) {
     // ----- [1] ----- //
     if (props.fallbackUIRenderer != null) {
       _lastError = error; // [1.1]
       _lastErrorInfo = _getReadableErrorInfo(jsErrorInfo); // [1.1]
-      _logErrorCaughtByErrorBoundary(error, _getReadableErrorInfo(jsErrorInfo)); // [3]
+      _logErrorCaughtByErrorBoundary(
+          error, _getReadableErrorInfo(jsErrorInfo)); // [3]
 
       setState(newState()..hasError = true); // [1]
       return;
@@ -341,28 +356,37 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
     // ----- [2] ----- //
     else {
       bool sameErrorWasThrownTwiceConsecutively =
-          error.toString() == _lastError?.toString() && _getReadableErrorInfo(jsErrorInfo) == _lastErrorInfo;
+          error.toString() == _lastError?.toString() &&
+              _getReadableErrorInfo(jsErrorInfo) == _lastErrorInfo;
 
-      if (sameErrorWasThrownTwiceConsecutively) { // [2.1]
-        try { // [2.2.2]
+      if (sameErrorWasThrownTwiceConsecutively) {
+        // [2.1]
+        try {
+          // [2.2.2]
           _domAtTimeOfError = findDomNode(this)?.innerHtml; // [2.2]
         } catch (_) {}
 
-        if (props.onComponentIsUnrecoverable != null) { // [2.2.1]
-          props.onComponentIsUnrecoverable(error, _getReadableErrorInfo(jsErrorInfo));
+        if (props.onComponentIsUnrecoverable != null) {
+          // [2.2.1]
+          props.onComponentIsUnrecoverable(
+              error, _getReadableErrorInfo(jsErrorInfo));
         }
 
-        _logErrorCaughtByErrorBoundary(error, _getReadableErrorInfo(jsErrorInfo), isRecoverable: false); // [3]
+        _logErrorCaughtByErrorBoundary(
+            error, _getReadableErrorInfo(jsErrorInfo),
+            isRecoverable: false); // [3]
       } else {
         _lastError = error;
         _lastErrorInfo = _getReadableErrorInfo(jsErrorInfo);
-        _logErrorCaughtByErrorBoundary(error, _getReadableErrorInfo(jsErrorInfo)); // [3]
+        _logErrorCaughtByErrorBoundary(
+            error, _getReadableErrorInfo(jsErrorInfo)); // [3]
       }
 
       setState(newState()
-        ..hasError = true
-        ..showFallbackUIOnError = sameErrorWasThrownTwiceConsecutively // [2.2]
-      );
+            ..hasError = true
+            ..showFallbackUIOnError =
+                sameErrorWasThrownTwiceConsecutively // [2.2]
+          );
 
       _startIdenticalErrorTimer();
     }
@@ -373,8 +397,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
     return (Dom.div()
       ..key = 'ohnoes'
       ..addTestId('ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode')
-      ..['dangerouslySetInnerHTML'] = {'__html': _domAtTimeOfError ?? ''}
-    )();
+      ..['dangerouslySetInnerHTML'] = {'__html': _domAtTimeOfError ?? ''})();
   }
 
   /// Called via [componentDidCatch] to start a `Timer` that will nullify the [_lastError] and [_lastErrorInfo]
@@ -391,7 +414,8 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   void _startIdenticalErrorTimer() {
     if (_identicalErrorTimer != null) return;
 
-    _identicalErrorTimer = getManagedTimer(props.identicalErrorFrequencyTolerance, _resetInternalErrorTracking);
+    _identicalErrorTimer = getManagedTimer(
+        props.identicalErrorFrequencyTolerance, _resetInternalErrorTracking);
   }
 
   /// Resets all the internal fields used by [_handleErrorInComponentTree], and cancels
@@ -410,7 +434,8 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   ///
   /// Also used to determine if multiple consecutive identical errors
   /// were thrown by the exact same component within the tree.
-  String _getReadableErrorInfo(/*NativeJavascriptObject*/dynamic jsErrorInfo) =>
+  String _getReadableErrorInfo(
+          /*NativeJavascriptObject*/ dynamic jsErrorInfo) =>
       getProperty(jsErrorInfo, 'componentStack');
 
   String get _loggerName {

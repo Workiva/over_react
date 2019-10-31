@@ -35,7 +35,8 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
   /// There is no strict rule on the [ActionsT] type. Depending on application
   /// structure, there may be [Action]s available directly on this object, or
   /// this object may represent a hierarchy of actions.
-  ActionsT get actions => props[_actionsPropKey] as ActionsT; // ignore: avoid_as
+  ActionsT get actions =>
+      props[_actionsPropKey] as ActionsT; // ignore: avoid_as
   set actions(ActionsT value) => props[_actionsPropKey] = value;
 
   /// The prop defined by [StoresT].
@@ -48,7 +49,7 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
   ///
   /// If this component only needs data from a single [Store], then [StoresT]
   /// should be an instance of [Store]. This allows the default implementation
-  /// of [redrawOn] to automatically subscribe to the store.
+  /// of `redrawOn` to automatically subscribe to the store.
   ///
   /// If this component needs data from multiple [Store] instances, then
   /// [StoresT] should be a class that provides access to these multiple stores.
@@ -68,7 +69,8 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
 /// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
 ///
 /// > Related: [FluxUiStatefulComponent]
-abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<TProps>
+abstract class FluxUiComponent<TProps extends FluxUiProps>
+    extends UiComponent<TProps>
     with _FluxComponentMixin<TProps>, BatchedRedraws {
   // Redeclare these lifecycle methods with `mustCallSuper`, since `mustCallSuper` added to methods within
   // mixins doesn't work. See https://github.com/dart-lang/sdk/issues/29861
@@ -108,8 +110,8 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
 /// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
 ///
 /// > Related: [FluxUiComponent]
-abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extends UiState>
-    extends UiStatefulComponent<TProps, TState>
+abstract class FluxUiStatefulComponent<TProps extends FluxUiProps,
+        TState extends UiState> extends UiStatefulComponent<TProps, TState>
     with _FluxComponentMixin<TProps>, BatchedRedraws {
   // Redeclare these lifecycle methods with `mustCallSuper`, since `mustCallSuper` added to methods within
   // mixins doesn't work. See https://github.com/dart-lang/sdk/issues/29861
@@ -142,8 +144,9 @@ abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extend
 /// Helper mixin to keep [FluxUiComponent] and [FluxUiStatefulComponent] clean/DRY.
 ///
 /// Private so it will only get used in this file, since having lifecycle methods in a mixin is risky.
-abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements BatchedRedraws {
-  static final Logger _logger = new Logger('over_react._FluxComponentMixin');
+abstract class _FluxComponentMixin<TProps extends FluxUiProps>
+    implements BatchedRedraws {
+  static final Logger _logger = Logger('over_react._FluxComponentMixin');
   TProps get props;
 
   /// List of store subscriptions created when the component mounts.
@@ -156,7 +159,9 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
 
     var isDisposedOrDisposing = store.isOrWillBeDisposed ?? false;
 
-    assert(!isDisposedOrDisposing, '$message This can be caused by BatchedRedraws '
+    assert(
+        !isDisposedOrDisposing,
+        '$message This can be caused by BatchedRedraws '
         'mounting the component asynchronously after the store has been disposed. If you are '
         'in a test environment, try adding an `await window.animationFrame;` before disposing your '
         'store.');
@@ -174,7 +179,8 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
     // Stores included in the `getStoreHandlers()` result will be listened to
     // and wired up to their respective handlers.
     final customStoreHandlers = getStoreHandlers();
-    final storesWithoutCustomHandlers = redrawOn().where((store) => !customStoreHandlers.containsKey(store));
+    final storesWithoutCustomHandlers =
+        redrawOn().where((store) => !customStoreHandlers.containsKey(store));
 
     customStoreHandlers.forEach((store, handler) {
       _validateStoreDisposalState(store);
@@ -215,7 +221,7 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
     shouldBatchRedraw = false;
 
     // Cancel all store subscriptions.
-    _subscriptions.forEach((StreamSubscription subscription) {
+    _subscriptions.forEach((subscription) {
       if (subscription != null) {
         subscription.cancel();
       }
@@ -227,11 +233,11 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
   /// When any of the returned [Store]s update their state, this component will
   /// redraw.
   ///
-  /// If [store] is of type [Store] (in other words, if this component has a
+  /// If `props.store` is of type [Store] (in other words, if this component has a
   /// single Store passed in), this will return a list with said store as the
   /// only element by default. Otherwise, an empty list is returned.
   ///
-  /// If [store] is actually a composite object with multiple stores, this
+  /// If `props.store` is actually a composite object with multiple stores, this
   /// method should be overridden to return a list with the stores that should
   /// be listened to.
   ///
@@ -260,7 +266,7 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
 
   /// Register a [subscription] that should be canceled when the component unmounts.
   ///
-  /// Cancellation will be handled automatically by [componentWillUnmount].
+  /// Cancellation will be handled automatically by `componentWillUnmount`.
   void addSubscription(StreamSubscription subscription) {
     _subscriptions.add(subscription);
   }

@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'list_group.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'list_group.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ListGroupComponentFactory = registerComponent(
-    () => new _$ListGroupComponent(),
+    () => _$ListGroupComponent(),
     builderFactory: ListGroup,
     componentClass: ListGroupComponent,
     isWrapper: false,
@@ -42,19 +43,17 @@ abstract class _$ListGroupPropsAccessorsMixin implements _$ListGroupProps {
       props[_$key__elementType___$ListGroupProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__elementType___$ListGroupProps =
-      const PropDescriptor(_$key__elementType___$ListGroupProps);
+      PropDescriptor(_$key__elementType___$ListGroupProps);
   static const String _$key__elementType___$ListGroupProps =
       'ListGroupProps.elementType';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__elementType___$ListGroupProps
   ];
-  static const List<String> $propKeys = const [
-    _$key__elementType___$ListGroupProps
-  ];
+  static const List<String> $propKeys = [_$key__elementType___$ListGroupProps];
 }
 
-const PropsMeta _$metaForListGroupProps = const PropsMeta(
+const PropsMeta _$metaForListGroupProps = PropsMeta(
   fields: _$ListGroupPropsAccessorsMixin.$props,
   keys: _$ListGroupPropsAccessorsMixin.$propKeys,
 );
@@ -65,7 +64,7 @@ class ListGroupProps extends _$ListGroupProps
 }
 
 _$$ListGroupProps _$ListGroup([Map backingProps]) =>
-    new _$$ListGroupProps(backingProps);
+    _$$ListGroupProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -85,11 +84,11 @@ class _$$ListGroupProps extends _$ListGroupProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory => $ListGroupComponentFactory;
 
@@ -105,14 +104,14 @@ class _$$ListGroupProps extends _$ListGroupProps
 class _$ListGroupComponent extends ListGroupComponent {
   @override
   _$$ListGroupProps typedPropsFactory(Map backingMap) =>
-      new _$$ListGroupProps(backingMap);
+      _$$ListGroupProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ListGroupProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForListGroupProps

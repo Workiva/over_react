@@ -21,14 +21,15 @@ import 'dart:collection';
 /// __Example:__
 ///
 ///     var valuePropKey = getPropKey((props) => props.value, TextInput);
-String getPropKey(void accessProp(Map keySpy), Map factory(Map props)) {
-  return _getKey((Map keySpy) {
+String getPropKey(
+    void Function(Map keySpy) accessProp, Map Function(Map props) factory) {
+  return _getKey((keySpy) {
     return accessProp(factory(keySpy));
   });
 }
 
-dynamic _getKey(void accessKey(Map keySpy)) {
-  var keySpy = new _SingleKeyAccessMapSpy(const {});
+dynamic _getKey(void Function(Map keySpy) accessKey) {
+  var keySpy = _SingleKeyAccessMapSpy(const {});
 
   accessKey(keySpy);
 
@@ -44,14 +45,14 @@ class _SingleKeyAccessMapSpy extends MapView {
   dynamic _key;
 
   dynamic get key {
-    if (!_hasBeenAccessed) throw new StateError('Key has not been accessed.');
+    if (!_hasBeenAccessed) throw StateError('Key has not been accessed.');
 
     return _key;
   }
 
   @override
-  operator[](key) {
-    if (_hasBeenAccessed) throw new StateError('A key has already been accessed.');
+  operator [](key) {
+    if (_hasBeenAccessed) throw StateError('A key has already been accessed.');
 
     _key = key;
     _hasBeenAccessed = true;

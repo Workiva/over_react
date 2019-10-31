@@ -12,7 +12,8 @@ class _$FlawedOnMountProps extends UiProps {}
 
 // AF-3369 This will be removed once the transition to Dart 2 is complete.
 // ignore: mixin_of_non_class, undefined_class
-class FlawedOnMountProps extends _$FlawedOnMountProps with _$FlawedOnMountPropsAccessorsMixin {
+class FlawedOnMountProps extends _$FlawedOnMountProps
+    with _$FlawedOnMountPropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
   static const PropsMeta meta = _$metaForFlawedOnMountProps;
 }

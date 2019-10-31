@@ -25,46 +25,53 @@ void requiredPropsIntegrationTest() {
   group('properly identifies required props by', () {
     group('throwing when a prop is required and not set', () {
       test('on mount', () {
-        expect(() => render(ComponentTest()..nullable = true),
-            throwsPropError_Required('ComponentTestProps.required', 'This Prop is Required for testing purposes.')
-        );
+        expect(
+            () => render(ComponentTest()..nullable = true),
+            throwsPropError_Required('ComponentTestProps.required',
+                'This Prop is Required for testing purposes.'));
       });
 
       test('on re-render', () {
-        var mountNode = new DivElement();
-        react_dom.render((ComponentTest()
-          ..required = true
-          ..nullable = true
-        )(), mountNode);
+        var mountNode = DivElement();
+        react_dom.render(
+            (ComponentTest()
+              ..required = true
+              ..nullable = true)(),
+            mountNode);
 
-        expect(() => react_dom.render((ComponentTest()..nullable = true)(), mountNode),
-            throwsPropError_Required('ComponentTestProps.required', 'This Prop is Required for testing purposes.')
-        );
+        expect(
+            () => react_dom.render(
+                (ComponentTest()..nullable = true)(), mountNode),
+            throwsPropError_Required('ComponentTestProps.required',
+                'This Prop is Required for testing purposes.'));
       });
     });
 
     group('throwing when a prop is required and set to null', () {
       test('on mount', () {
-        expect(() => render(ComponentTest()
-          ..required = null
-          ..nullable = true
-        ), throwsPropError_Required('ComponentTestProps.required'));
+        expect(
+            () => render(ComponentTest()
+              ..required = null
+              ..nullable = true),
+            throwsPropError_Required('ComponentTestProps.required'));
       });
 
       test('on re-render', () {
-        var mountNode = new DivElement();
-        react_dom.render((ComponentTest()
-          ..required = true
-          ..nullable = true
-        )(), mountNode);
+        var mountNode = DivElement();
+        react_dom.render(
+            (ComponentTest()
+              ..required = true
+              ..nullable = true)(),
+            mountNode);
 
         expect(
-            () => react_dom.render((ComponentTest()
-              ..required = null
-              ..nullable = true
-            )(), mountNode),
-            throwsPropError_Required('ComponentTestProps.required', 'This Prop is Required for testing purposes.')
-        );
+            () => react_dom.render(
+                (ComponentTest()
+                  ..required = null
+                  ..nullable = true)(),
+                mountNode),
+            throwsPropError_Required('ComponentTestProps.required',
+                'This Prop is Required for testing purposes.'));
       });
     });
 
@@ -75,59 +82,72 @@ void requiredPropsIntegrationTest() {
       });
 
       test('on re-render', () {
-        var mountNode = new DivElement();
-        react_dom.render((ComponentTest()
-          ..required = true
-          ..nullable = true
-        )(), mountNode);
+        var mountNode = DivElement();
+        react_dom.render(
+            (ComponentTest()
+              ..required = true
+              ..nullable = true)(),
+            mountNode);
 
-        expect(() => react_dom.render((ComponentTest()..required = true)(), mountNode),
-            throwsPropError_Required('ComponentTestProps.nullable', 'This prop can be set to null!')
-        );
+        expect(
+            () => react_dom.render(
+                (ComponentTest()..required = true)(), mountNode),
+            throwsPropError_Required('ComponentTestProps.nullable',
+                'This prop can be set to null!'));
       });
     });
 
     group('not throwing when a prop is required and set', () {
       test('on mount', () {
-        expect(() => render(ComponentTest()
-          ..nullable = true
-          ..required = true
-        ), returnsNormally);
+        expect(
+            () => render(ComponentTest()
+              ..nullable = true
+              ..required = true),
+            returnsNormally);
       });
 
       test('on re-render', () {
-        var mountNode = new DivElement();
-        react_dom.render((ComponentTest()
-          ..required = true
-          ..nullable = true
-        )(), mountNode);
+        var mountNode = DivElement();
+        react_dom.render(
+            (ComponentTest()
+              ..required = true
+              ..nullable = true)(),
+            mountNode);
 
-        expect(() => react_dom.render((ComponentTest()
-          ..required = true
-          ..nullable = true
-        )(), mountNode), returnsNormally);
+        expect(
+            () => react_dom.render(
+                (ComponentTest()
+                  ..required = true
+                  ..nullable = true)(),
+                mountNode),
+            returnsNormally);
       });
     });
 
     group('not throwing when a prop is nullable and set to null', () {
       test('on mount', () {
-        expect(() => render(ComponentTest()
-          ..nullable = null
-          ..required = true
-        ), returnsNormally);
+        expect(
+            () => render(ComponentTest()
+              ..nullable = null
+              ..required = true),
+            returnsNormally);
       });
 
       test('on re-render', () {
-        var mountNode = new DivElement();
-        react_dom.render((ComponentTest()
-          ..required = true
-          ..nullable = true
-        )(), mountNode);
+        var mountNode = DivElement();
+        react_dom.render(
+            (ComponentTest()
+              ..required = true
+              ..nullable = true)(),
+            mountNode);
 
-        expect(() => react_dom.render((ComponentTest()
-          ..required = true
-          ..nullable = null
-        )(), mountNode), returnsNormally);
+        expect(
+            () => react_dom.render(
+                (ComponentTest()
+                  ..required = true
+                  ..nullable = null)(),
+                mountNode),
+            returnsNormally);
       });
     });
   });
@@ -138,13 +158,13 @@ UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
 
 @Props()
 class _$ComponentTestProps extends UiProps {
-  // ignore: deprecated_member_use
+  // ignore: deprecated_member_use_from_same_package
   @Required(message: 'This Prop is Required for testing purposes.')
-  var required;
+  dynamic required;
 
-  // ignore: deprecated_member_use
+  // ignore: deprecated_member_use_from_same_package
   @Required(isNullable: true, message: 'This prop can be set to null!')
-  var nullable;
+  dynamic nullable;
 }
 
 @Component()
@@ -152,4 +172,3 @@ class ComponentTestComponent extends UiComponent<ComponentTestProps> {
   @override
   render() => Dom.div()();
 }
-

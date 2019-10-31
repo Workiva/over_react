@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library unmount_test;
 
 import 'dart:html';
@@ -27,7 +28,7 @@ main() {
     bool unmountComponentAtNodeReturnValue;
 
     setUp(() {
-      mountNode = new DivElement();
+      mountNode = DivElement();
       document.body.append(mountNode);
     });
 

@@ -45,34 +45,37 @@ main() {
         });
       });
 
-      test('returns the ReactClass type for a ReactDartComponentFactoryProxy', () {
+      test('returns the ReactClass type for a ReactDartComponentFactoryProxy',
+          () {
         var reactClass = createTestReactClass();
-        var factory = new ReactDartComponentFactoryProxy(reactClass);
+        var factory = ReactDartComponentFactoryProxy(reactClass);
         expect(getComponentTypeFromAlias(factory), same(reactClass));
       });
 
       test('returns the String type for a ReactDomComponentFactoryProxy', () {
-        var factory = new ReactDomComponentFactoryProxy('div');
+        var factory = ReactDomComponentFactoryProxy('div');
         expect(getComponentTypeFromAlias(factory), equals('div'));
       });
 
-      test('returns the ReactClass type for an aliased ReactDartComponentFactoryProxy', () {
+      test(
+          'returns the ReactClass type for an aliased ReactDartComponentFactoryProxy',
+          () {
         var reactClass = createTestReactClass();
-        var factory = new ReactDartComponentFactoryProxy(reactClass);
+        var factory = ReactDartComponentFactoryProxy(reactClass);
 
-        var typeAlias = new Object();
+        var typeAlias = Object();
         registerComponentTypeAlias(factory, typeAlias);
 
         expect(getComponentTypeFromAlias(typeAlias), same(reactClass));
       });
 
       test('returns null for an unregistered/invalid type alias', () {
-        var unregisteredTypeAlias = new Object();
+        var unregisteredTypeAlias = Object();
         expect(getComponentTypeFromAlias(unregisteredTypeAlias), isNull);
       });
 
       group('returns null and does not throw when passed', () {
-        var type;
+        dynamic type;
 
         test('null', () {
           expect(() {
@@ -113,7 +116,8 @@ main() {
           });
 
           test('that is empty for a component without parent types', () {
-            expect(getParentTypes(getComponentTypeFromAlias(TestParent)), isEmpty);
+            expect(
+                getParentTypes(getComponentTypeFromAlias(TestParent)), isEmpty);
           });
 
           test('that contains a component\'s parent type', () {
@@ -121,8 +125,7 @@ main() {
                 getParentTypes(getComponentTypeFromAlias(TestSubtype)),
                 orderedEquals([
                   getComponentTypeFromAlias(TestParent),
-                ])
-            );
+                ]));
           });
 
           test('that contains all of a component\'s parent types', () {
@@ -131,37 +134,36 @@ main() {
                 orderedEquals([
                   getComponentTypeFromAlias(TestSubtype),
                   getComponentTypeFromAlias(TestParent),
-                ])
-            );
+                ]));
           });
 
           test('that contains all of a component\'s parent abstract types', () {
             expect(
-                getParentTypes(getComponentTypeFromAlias(TestExtendtypeComponent)),
+                getParentTypes(
+                    getComponentTypeFromAlias(TestExtendtypeComponent)),
                 orderedEquals([
                   getComponentTypeFromAlias(TestAbstractComponent),
-                ])
-            );
+                ]));
           });
         });
 
         test('asserts that the input is a valid component type', () {
           expect(() {
             // Fully iterate the result by calling toList().
-            getParentTypes(new Object()).toList();
+            getParentTypes(Object()).toList();
           }, throwsA(const TypeMatcher<AssertionError>()));
         }, testOn: '!js');
       });
     });
 
     group('isComponentOfType()', () {
-      group('returns expected result when given', (){
+      group('returns expected result when given', () {
         test('null', () {
           expect(isComponentOfType(null, TestA), isFalse);
         });
 
         test('a component and an invalid/unregistered type alias', () {
-          expect(isComponentOfType(TestA()(), new Object()), isFalse);
+          expect(isComponentOfType(TestA()(), Object()), isFalse);
         });
 
         test('a component and its factory', () {
@@ -169,7 +171,8 @@ main() {
         });
 
         test('a component and its ReactComponentFactory', () {
-          expect(isComponentOfType(TestA()(), TestA().componentFactory), isTrue);
+          expect(
+              isComponentOfType(TestA()(), TestA().componentFactory), isTrue);
         });
 
         test('a component and its component class', () {
@@ -184,8 +187,11 @@ main() {
           expect(isComponentOfType(TestA()(), TestB), isFalse);
         });
 
-        test('a component and a ReactComponentFactory for a different component', () {
-          expect(isComponentOfType(TestA()(), TestB().componentFactory), isFalse);
+        test(
+            'a component and a ReactComponentFactory for a different component',
+            () {
+          expect(
+              isComponentOfType(TestA()(), TestB().componentFactory), isFalse);
         });
 
         test('a component and a component class for a different component', () {
@@ -205,17 +211,20 @@ main() {
         });
 
         test('a DOM component and its ReactComponentFactory', () {
-          expect(isComponentOfType(Dom.div()(), Dom.div().componentFactory), isTrue);
+          expect(isComponentOfType(Dom.div()(), Dom.div().componentFactory),
+              isTrue);
         });
 
         group('a subtype component', () {
           group('(matchParentTypes: true)', () {
             test('and its own factory', () {
-              expect(isComponentOfType(TestSubsubtype()(), TestSubsubtype), isTrue);
+              expect(isComponentOfType(TestSubsubtype()(), TestSubsubtype),
+                  isTrue);
             });
 
             test('and the factory of its parent', () {
-              expect(isComponentOfType(TestSubsubtype()(), TestSubtype), isTrue);
+              expect(
+                  isComponentOfType(TestSubsubtype()(), TestSubtype), isTrue);
             });
 
             test('and the factory of its grandparent', () {
@@ -225,15 +234,24 @@ main() {
 
           group('(matchParentTypes: false)', () {
             test('and its own factory', () {
-              expect(isComponentOfType(TestSubsubtype()(), TestSubsubtype, matchParentTypes: false), isTrue);
+              expect(
+                  isComponentOfType(TestSubsubtype()(), TestSubsubtype,
+                      matchParentTypes: false),
+                  isTrue);
             });
 
             test('and the factory of its parent', () {
-              expect(isComponentOfType(TestSubsubtype()(), TestSubtype, matchParentTypes: false), isFalse);
+              expect(
+                  isComponentOfType(TestSubsubtype()(), TestSubtype,
+                      matchParentTypes: false),
+                  isFalse);
             });
 
             test('and the factory of its grandparent', () {
-              expect(isComponentOfType(TestSubsubtype()(), TestParent, matchParentTypes: false), isFalse);
+              expect(
+                  isComponentOfType(TestSubsubtype()(), TestParent,
+                      matchParentTypes: false),
+                  isFalse);
             });
           });
         });
@@ -241,21 +259,30 @@ main() {
         group('a subtype, of an abstract component, component', () {
           group('(matchParentTypes: true)', () {
             test('and its own factory', () {
-              expect(isComponentOfType(TestExtendtype()(), TestExtendtype), isTrue);
+              expect(isComponentOfType(TestExtendtype()(), TestExtendtype),
+                  isTrue);
             });
 
             test('and the factory of its parent', () {
-              expect(isComponentOfType(TestExtendtype()(), TestAbstractComponent), isTrue);
+              expect(
+                  isComponentOfType(TestExtendtype()(), TestAbstractComponent),
+                  isTrue);
             });
           });
 
           group('(matchParentTypes: false)', () {
             test('and its own factory', () {
-              expect(isComponentOfType(TestExtendtype()(), TestExtendtype, matchParentTypes: false), isTrue);
+              expect(
+                  isComponentOfType(TestExtendtype()(), TestExtendtype,
+                      matchParentTypes: false),
+                  isTrue);
             });
 
             test('and the factory of its parent', () {
-              expect(isComponentOfType(TestExtendtype()(), TestAbstractComponent, matchParentTypes: false), isFalse);
+              expect(
+                  isComponentOfType(TestExtendtype()(), TestAbstractComponent,
+                      matchParentTypes: false),
+                  isFalse);
             });
           });
         });
@@ -267,47 +294,45 @@ main() {
         group('a component that nests the component factory', () {
           group('one level deep and traverseWrappers is', () {
             test('true', () {
-              expect(isComponentOfType(
-                  OneLevelWrapper()(TestA()()),
-                  TestA
-              ), isTrue);
+              expect(isComponentOfType(OneLevelWrapper()(TestA()()), TestA),
+                  isTrue);
             });
 
             test('false', () {
-              expect(isComponentOfType(
-                  OneLevelWrapper()(TestA()()),
-                  TestA,
-                  traverseWrappers: false
-              ), isFalse);
+              expect(
+                  isComponentOfType(OneLevelWrapper()(TestA()()), TestA,
+                      traverseWrappers: false),
+                  isFalse);
             });
           });
 
           group('two levels deep and traverseWrappers is', () {
             test('true', () {
-              expect(isComponentOfType(
-                  TwoLevelWrapper()(OneLevelWrapper()(TestA()())),
-                  TestA
-              ), isTrue);
+              expect(
+                  isComponentOfType(
+                      TwoLevelWrapper()(OneLevelWrapper()(TestA()())), TestA),
+                  isTrue);
             });
 
             test('false', () {
-              expect(isComponentOfType(
-                  TwoLevelWrapper()(OneLevelWrapper()(TestA()())),
-                  TestA,
-                  traverseWrappers: false
-              ), isFalse);
+              expect(
+                  isComponentOfType(
+                      TwoLevelWrapper()(OneLevelWrapper()(TestA()())), TestA,
+                      traverseWrappers: false),
+                  isFalse);
             });
           });
 
           test('and does not throw when children is null', () {
-            expect(() => isComponentOfType(OneLevelWrapper()(), TestA), returnsNormally);
+            expect(() => isComponentOfType(OneLevelWrapper()(), TestA),
+                returnsNormally);
           });
         });
       });
     });
 
     group('isValidElementOfType()', () {
-      group('returns expected result when given', (){
+      group('returns expected result when given', () {
         test('null', () {
           expect(isValidElementOfType(null, TestA), isFalse);
         });
@@ -321,7 +346,8 @@ main() {
         });
 
         test('a ReactComponent', () {
-          expect(isValidElementOfType(Dom.div()(), Dom.div().componentFactory), isTrue);
+          expect(isValidElementOfType(Dom.div()(), Dom.div().componentFactory),
+              isTrue);
         });
       });
     });
@@ -329,6 +355,7 @@ main() {
 }
 
 ReactClass createTestReactClass() {
-  return React.createClass(new ReactClassConfig(render: allowInterop(() => false)))
-      ..dartDefaultProps = const {};
+  // ignore: deprecated_member_use
+  return React.createClass(ReactClassConfig(render: allowInterop(() => false)))
+    ..dartDefaultProps = const {};
 }

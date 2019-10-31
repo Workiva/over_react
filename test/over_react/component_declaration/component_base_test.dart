@@ -12,16 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package, prefer_function_declarations_over_variables, avoid_types_on_closure_parameters
 library over_react.component_declaration.component_base_test;
 
 import 'dart:async';
 import 'dart:collection';
 import 'dart:html';
 
-import 'package:over_react/over_react.dart' show Dom, DummyComponent, ValidationUtil;
+import 'package:over_react/over_react.dart'
+    show Dom, DummyComponent, ValidationUtil;
 import 'package:over_react_test/over_react_test.dart';
 import 'package:over_react/src/component_declaration/component_base.dart';
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 import 'package:w_common/disposable.dart';
@@ -50,18 +53,14 @@ main() {
     });
 
     test('when a list with a non-invoked builder child passed in', () {
-      expect(() =>
-          builder([
-            Dom.div(),
-            Dom.p()(),
-            Dom.div()
-          ]), throwsArgumentError);
+      expect(() => builder([Dom.div(), Dom.p()(), Dom.div()]),
+          throwsArgumentError);
       verifyValidationWarning(contains(
           'It looks like you are trying to use a non-invoked builder as a child.'));
     });
 
-    test(
-        'except when an iterable with a non-invoked builder child passed in', () {
+    test('except when an iterable with a non-invoked builder child passed in',
+        () {
       var children = (() sync* {
         yield Dom.div();
         yield Dom.p()();
@@ -72,12 +71,8 @@ main() {
     });
 
     test('when non-invoked builder children are passed in variadically', () {
-      expect(() =>
-          builder(
-              Dom.div(),
-              Dom.p()(),
-              Dom.div()
-          ), throwsArgumentError);
+      expect(
+          () => builder(Dom.div(), Dom.p()(), Dom.div()), throwsArgumentError);
       verifyValidationWarning(contains(
           'It looks like you are trying to use a non-invoked builder as a child.'));
     });
@@ -99,20 +94,63 @@ main() {
 
       const firstGeneralCaseVariadicChildCount = 2;
       const maxSupportedVariadicChildCount = 40;
-      for (var i = firstGeneralCaseVariadicChildCount; i < maxSupportedVariadicChildCount; i++) {
+      for (var i = firstGeneralCaseVariadicChildCount;
+          i < maxSupportedVariadicChildCount;
+          i++) {
         final childrenCount = i;
         test('$childrenCount', () {
-          final expectedChildren = new List.generate(childrenCount, (i) => i + 1);
-          final arguments = <dynamic>[]..addAll(expectedChildren);
+          final expectedChildren = List.generate(childrenCount, (i) => i + 1);
+          final arguments = <dynamic>[...expectedChildren];
           final instance = Function.apply(builder, arguments);
           expect(getJsChildren(instance), expectedChildren);
         });
       }
 
       test('$maxSupportedVariadicChildCount (and passes static analysis)', () {
-        final instance = builder(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40);
+        final instance = builder(
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40);
         // Generate these instead of hard coding them to ensure the arguments passed into this test match maxSupportedVariadicChildCount
-        final expectedChildren = new List.generate(maxSupportedVariadicChildCount, (i) => i + 1);
+        final expectedChildren =
+            List.generate(maxSupportedVariadicChildCount, (i) => i + 1);
         expect(getJsChildren(instance), equals(expectedChildren));
       });
     });
@@ -128,7 +166,7 @@ main() {
         startRecordingValidationWarnings();
         var instance = render(TestComponent()());
         var component = getDartComponent(instance);
-        var changeProps = () => component.props['id'] = 'test';
+        changeProps() => component.props['id'] = 'test';
         changeProps();
         verifyValidationWarning(contains('Never mutate this.props directly'));
         stopRecordingValidationWarnings();
@@ -152,7 +190,8 @@ main() {
         test('a single child is passed in', () {
           var child = 'Only child';
           var renderedNode = renderAndGetDom(Dom.div()(child));
-          var children = new List<Text>.from(renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE));
+          var children = List<Text>.from(renderedNode.childNodes
+              .where((node) => node.nodeType != Node.COMMENT_NODE));
 
           expect(children.length, equals(1));
           expect(children[0].data, equals(child));
@@ -161,7 +200,9 @@ main() {
         test('children are set via a list', () {
           var children = ['First Child', 'Second Child'];
           var renderedNode = renderAndGetDom(Dom.div()(children));
-          var childNodes = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
+          var childNodes = renderedNode.childNodes
+              .where((node) => node.nodeType != Node.COMMENT_NODE)
+              .toList();
 
           expect(childNodes.length, equals(2));
           expect(childNodes[0].text, equals(children[0]));
@@ -174,7 +215,9 @@ main() {
             yield 'Second Child';
           })();
           var renderedNode = renderAndGetDom(Dom.div()(children));
-          var childNodes = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
+          var childNodes = renderedNode.childNodes
+              .where((node) => node.nodeType != Node.COMMENT_NODE)
+              .toList();
 
           expect(childNodes.length, equals(2));
           expect(childNodes[0].text, equals('First Child'));
@@ -184,8 +227,11 @@ main() {
         test('children are set variadically', () {
           var firstChild = 'First Child';
           var secondChild = 'Second Child';
-          var renderedNode = renderAndGetDom(Dom.div()(firstChild, secondChild));
-          var children = renderedNode.childNodes.where((node) => node.nodeType != Node.COMMENT_NODE).toList();
+          var renderedNode =
+              renderAndGetDom(Dom.div()(firstChild, secondChild));
+          var children = renderedNode.childNodes
+              .where((node) => node.nodeType != Node.COMMENT_NODE)
+              .toList();
 
           expect(children.length, equals(2));
           expect(children[0].text, equals('First Child'));
@@ -197,14 +243,15 @@ main() {
         _commonNonInvokedBuilderTests(Dom.div());
       }, testOn: '!js');
 
-      group('renders a composite Dart component with the correct children when', () {
+      group('renders a composite Dart component with the correct children when',
+          () {
         _commonVariadicChildrenTests(TestComponent());
 
         test('no children are passed in', () {
-
           var renderedInstance = render(TestComponent()());
 
-          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(),
+              reason: 'Should be a list because lists will be JSified');
           expect(getDartChildren(renderedInstance), isEmpty);
 
           expect(getJsChildren(renderedInstance), isNull);
@@ -213,7 +260,8 @@ main() {
         test('children is null', () {
           var renderedInstance = render(TestComponent()(null));
 
-          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(),
+              reason: 'Should be a list because lists will be JSified');
           expect(getDartChildren(renderedInstance), isEmpty);
 
           expect(getJsChildren(renderedInstance), isNull);
@@ -223,7 +271,8 @@ main() {
           var child = 'Only child';
           var renderedInstance = render(TestComponent()(child));
 
-          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(),
+              reason: 'Should be a list because lists will be JSified');
           expect(getDartChildren(renderedInstance), equals([child]));
 
           expect(getJsChildren(renderedInstance), equals(child));
@@ -233,10 +282,12 @@ main() {
           var children = ['First Child', 'Second Child'];
           var renderedInstance = render(TestComponent()(children));
 
-          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(),
+              reason: 'Should be a list because lists will be JSified');
           expect(getDartChildren(renderedInstance), equals(children));
 
-          expect(getJsChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getJsChildren(renderedInstance), const TypeMatcher<List>(),
+              reason: 'Should be a list because lists will be JSified');
           expect(getJsChildren(renderedInstance), equals(children));
         });
 
@@ -247,48 +298,57 @@ main() {
           })();
           var renderedInstance = render(TestComponent()(children));
 
-          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(),
+              reason: 'Should be a list because lists will be JSified');
           expect(getDartChildren(renderedInstance), orderedEquals(children));
 
-          expect(getJsChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
+          expect(getJsChildren(renderedInstance), const TypeMatcher<List>(),
+              reason: 'Should be a list because lists will be JSified');
           expect(getJsChildren(renderedInstance), orderedEquals(children));
         });
 
         test('children are set variadically', () {
           var firstChild = 'First Child';
           var secondChild = 'Second Child';
-          var renderedInstance = render(TestComponent()(firstChild, secondChild));
+          var renderedInstance =
+              render(TestComponent()(firstChild, secondChild));
 
-          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
-          expect(getDartChildren(renderedInstance), equals([firstChild, secondChild]));
+          expect(getDartChildren(renderedInstance), const TypeMatcher<List>(),
+              reason: 'Should be a list because lists will be JSified');
+          expect(getDartChildren(renderedInstance),
+              equals([firstChild, secondChild]));
 
-          expect(getJsChildren(renderedInstance), const TypeMatcher<List>(), reason: 'Should be a list because lists will be JSified');
-          expect(getJsChildren(renderedInstance), equals([firstChild, secondChild]));
+          expect(getJsChildren(renderedInstance), const TypeMatcher<List>(),
+              reason: 'Should be a list because lists will be JSified');
+          expect(getJsChildren(renderedInstance),
+              equals([firstChild, secondChild]));
         });
       });
 
       group('provides Map functionality:', () {
         test('is a Map', () {
-          expect(new TestComponentProps(), const TypeMatcher<Map>());
+          expect(TestComponentProps(), const TypeMatcher<Map>());
         });
 
-        test('toString() returns a user-friendly String that includes the key-value pairs', () {
-           expect(new TestComponentProps({'key': 'value'}).toString(),
-               contains('{key: value}'));
+        test(
+            'toString() returns a user-friendly String that includes the key-value pairs',
+            () {
+          expect(TestComponentProps({'key': 'value'}).toString(),
+              contains('{key: value}'));
         });
 
-        mapProxyTests((Map backingMap) => new TestComponentProps(backingMap));
+        mapProxyTests((backingMap) => TestComponentProps(backingMap));
       });
 
       group('addProp()', () {
         test('adds the given key-value pair', () {
-          var props = new TestComponentProps();
+          var props = TestComponentProps();
           props.addProp('key', 'value');
           expect(props, equals({'key': 'value'}));
         });
 
         test('does nothing when shouldAdd is false', () {
-          var props = new TestComponentProps();
+          var props = TestComponentProps();
           props.addProp('key', 'value', false);
 
           expect(props, equals({}));
@@ -297,22 +357,24 @@ main() {
 
       group('addProps()', () {
         test('merges in the given Map', () {
-          var props = new TestComponentProps();
+          var props = TestComponentProps();
           props['existingKey'] = 'existingValue';
 
           props.addProps({
             'newKey1': 'newValue1',
             'newKey2': 'newValue2',
           });
-          expect(props, equals({
-            'existingKey': 'existingValue',
-            'newKey1': 'newValue1',
-            'newKey2': 'newValue2',
-          }));
+          expect(
+              props,
+              equals({
+                'existingKey': 'existingValue',
+                'newKey1': 'newValue1',
+                'newKey2': 'newValue2',
+              }));
         });
 
         test('does nothing when passed null', () {
-          var props = new TestComponentProps();
+          var props = TestComponentProps();
           props.addProp('key', 'value');
 
           expect(() => props.addProps(null), returnsNormally);
@@ -321,7 +383,7 @@ main() {
         });
 
         test('does nothing when shouldAdd is false', () {
-          var props = new TestComponentProps();
+          var props = TestComponentProps();
           props.addProps({'newKey1': 'newValue1'}, false);
 
           expect(props, equals({}));
@@ -334,25 +396,25 @@ main() {
             props['className'] = 'modified-class-name';
           }
 
-          var props = new TestComponentProps()
+          var props = TestComponentProps()
             ..['className'] = 'original-class-name'
             ..['id'] = 'original-id';
 
-          expect(props, equals({
-            'className': 'original-class-name',
-            'id': 'original-id'
-          }));
+          expect(
+              props,
+              equals(
+                  {'className': 'original-class-name', 'id': 'original-id'}));
 
           props.modifyProps(modifier);
 
-          expect(props, equals({
-            'className': 'modified-class-name',
-            'id': 'original-id'
-          }));
+          expect(
+              props,
+              equals(
+                  {'className': 'modified-class-name', 'id': 'original-id'}));
         });
 
         test('does nothing when passed null', () {
-          var props = new TestComponentProps()
+          var props = TestComponentProps()
             ..['className'] = 'original-class-name';
 
           expect(() => props.modifyProps(null), returnsNormally);
@@ -365,31 +427,35 @@ main() {
             props['className'] = 'modified-class-name';
           }
 
-          var props = new TestComponentProps()
+          var props = TestComponentProps()
             ..['className'] = 'original-class-name'
             ..['id'] = 'original-id';
 
           props.modifyProps(modifier, false);
 
-          expect(props, equals({
-            'className': 'original-class-name',
-            'id': 'original-id'
-          }));
+          expect(
+              props,
+              equals(
+                  {'className': 'original-class-name', 'id': 'original-id'}));
         });
       });
 
       group('testId', () {
-        test('sets the correct value for the `data-test-id` key when setting the testId', () {
-          var props = new TestComponentProps();
+        test(
+            'sets the correct value for the `data-test-id` key when setting the testId',
+            () {
+          var props = TestComponentProps();
           props.addTestId('value');
 
           expect(props, equals({'data-test-id': 'value'}));
         });
 
-        test('does not set the value for the `data-test-id` when inTesting is false', () {
+        test(
+            'does not set the value for the `data-test-id` when inTesting is false',
+            () {
           UiProps.testMode = false;
 
-          var props = new TestComponentProps();
+          var props = TestComponentProps();
           props.addTestId('value');
 
           expect(props, equals({}));
@@ -397,25 +463,31 @@ main() {
           UiProps.testMode = true;
         });
 
-        test('sets the correct value for the `data-test-id` key when adding a testId', () {
-          var props = new TestComponentProps();
+        test(
+            'sets the correct value for the `data-test-id` key when adding a testId',
+            () {
+          var props = TestComponentProps();
           props.addTestId('value');
 
           expect(props, equals({'data-test-id': 'value'}));
         });
 
-        test('sets the correct value for the `data-test-id` key when adding multiple testIds through multiple calls to `addTestId`', () {
-          var props = new TestComponentProps();
+        test(
+            'sets the correct value for the `data-test-id` key when adding multiple testIds through multiple calls to `addTestId`',
+            () {
+          var props = TestComponentProps();
           props.addTestId('value1');
           props.addTestId('value2');
 
           expect(props, equals({'data-test-id': 'value1 value2'}));
         });
 
-        test('does not set a value for the `data-test-id` when adding a testId but inTesting is false', () {
+        test(
+            'does not set a value for the `data-test-id` when adding a testId but inTesting is false',
+            () {
           UiProps.testMode = false;
 
-          var props = new TestComponentProps();
+          var props = TestComponentProps();
           props.addTestId('value');
 
           expect(props, equals({}));
@@ -423,8 +495,10 @@ main() {
           UiProps.testMode = true;
         });
 
-        test('does not set a value for the `data-test-id` when adding a `null` testId', () {
-          var props = new TestComponentProps();
+        test(
+            'does not set a value for the `data-test-id` when adding a `null` testId',
+            () {
+          var props = TestComponentProps();
           props.addTestId(null);
 
           expect(props, equals({}));
@@ -435,15 +509,17 @@ main() {
     group('UiState', () {
       group('provides Map functionality:', () {
         test('is a Map', () {
-          expect(new TestStatefulComponentState(), const TypeMatcher<Map>());
+          expect(TestStatefulComponentState(), const TypeMatcher<Map>());
         });
 
-        test('toString() returns a user-friendly String that includes the key-value pairs', () {
-           expect(new TestStatefulComponentState({'key': 'value'}).toString(),
-               contains('{key: value}'));
+        test(
+            'toString() returns a user-friendly String that includes the key-value pairs',
+            () {
+          expect(TestStatefulComponentState({'key': 'value'}).toString(),
+              contains('{key: value}'));
         });
 
-        mapProxyTests((Map backingMap) => new TestStatefulComponentState(backingMap));
+        mapProxyTests((backingMap) => TestStatefulComponentState(backingMap));
       });
     });
 
@@ -453,7 +529,7 @@ main() {
     //
     // If these test classes cause trouble when running in the DDC, just disable these tests in the DDC.
     group('PropsMapViewMixin provides Map functionality:', () {
-      mapProxyTests((Map backingMap) => new TestPropsMapViewMixin(backingMap));
+      mapProxyTests((backingMap) => TestPropsMapViewMixin(backingMap));
     });
 
     // These tests are here to cover the StateMapViewMixin, which used to be covered when
@@ -462,14 +538,14 @@ main() {
     //
     // If these test classes cause trouble when running in the DDC, just disable these tests in the DDC.
     group('StateMapViewMixin provides Map functionality:', () {
-      mapProxyTests((Map backingMap) => new TestStateMapViewMixin(backingMap));
+      mapProxyTests((backingMap) => TestStateMapViewMixin(backingMap));
     });
 
     group('UiComponent', () {
       TestComponentComponent component;
 
       setUp(() {
-        component = new TestComponentComponent();
+        component = TestComponentComponent();
         component.unwrappedProps = {};
       });
 
@@ -478,6 +554,7 @@ main() {
           var renderedInstance = render(TestComponent()());
           TestComponentComponent component = getDartComponent(renderedInstance);
 
+          // ignore: deprecated_member_use
           expect(component.ref('foo'), isNotNull);
         });
       });
@@ -526,9 +603,11 @@ main() {
       });
 
       group('copyUnconsumedProps()', () {
-        test('copies props, omitting keys from `consumedProps`, as well as reserved react props', () {
-          component = new TestComponentComponent(testConsumedProps: [
-            const ConsumedProps(const [], const ['consumed1', 'consumed2'])
+        test(
+            'copies props, omitting keys from `consumedProps`, as well as reserved react props',
+            () {
+          component = TestComponentComponent(testConsumedProps: [
+            const ConsumedProps([], ['consumed1', 'consumed2'])
           ]);
 
           component.props = {
@@ -541,31 +620,37 @@ main() {
             'unconsumed2': true,
           };
 
-          expect(component.copyUnconsumedProps(), equals({
-            'unconsumed1': true,
-            'unconsumed2': true,
-          }));
+          expect(
+              component.copyUnconsumedProps(),
+              equals({
+                'unconsumed1': true,
+                'unconsumed2': true,
+              }));
         });
 
         test('copies all props when `consumedProps` is null', () {
-          component = new TestComponentComponent(testConsumedProps: null);
+          component = TestComponentComponent(testConsumedProps: null);
 
           component.props = {
             'prop1': true,
             'prop2': true,
           };
 
-          expect(component.copyUnconsumedProps(), equals({
-            'prop1': true,
-            'prop2': true,
-          }));
+          expect(
+              component.copyUnconsumedProps(),
+              equals({
+                'prop1': true,
+                'prop2': true,
+              }));
         });
       });
 
       group('copyUnconsumedDomProps()', () {
-        test('copies props, omitting keys from `consumedPropKeys`, as well as reserved react props', () {
-          component = new TestComponentComponent(testConsumedProps: [
-            const ConsumedProps(const [], const ['consumed1', 'consumed2'])
+        test(
+            'copies props, omitting keys from `consumedPropKeys`, as well as reserved react props',
+            () {
+          component = TestComponentComponent(testConsumedProps: [
+            const ConsumedProps([], ['consumed1', 'consumed2'])
           ]);
 
           component.props = {
@@ -580,14 +665,16 @@ main() {
             'className': true,
           };
 
-          expect(component.copyUnconsumedDomProps(), equals({
-            'tabIndex': true,
-            'className': true,
-          }));
+          expect(
+              component.copyUnconsumedDomProps(),
+              equals({
+                'tabIndex': true,
+                'className': true,
+              }));
         });
 
         test('copies all props when `consumedPropKeys` is null', () {
-          component = new TestComponentComponent(testConsumedProps: null);
+          component = TestComponentComponent(testConsumedProps: null);
 
           component.props = {
             'prop1': true,
@@ -596,14 +683,18 @@ main() {
             'className': true,
           };
 
-          expect(component.copyUnconsumedDomProps(), equals({
-            'tabIndex': true,
-            'className': true,
-          }));
+          expect(
+              component.copyUnconsumedDomProps(),
+              equals({
+                'tabIndex': true,
+                'className': true,
+              }));
         });
       });
 
-      test('forwardingClassNameBuilder() returns a new ClassNameBuilder based on the component\'s props', () {
+      test(
+          'forwardingClassNameBuilder() returns a new ClassNameBuilder based on the component\'s props',
+          () {
         component.props = {
           'className': 'class-1',
           'classNameBlacklist': 'blacklist-1',
@@ -617,9 +708,9 @@ main() {
       group('calls validateProps in', () {
         test('componentWillMount', () {
           var calls = [];
-          var appliedProps;
+          Map appliedProps;
           var initialProps = {
-            'onValidateProps': (Map propsMap) {
+            'onValidateProps': (propsMap) {
               appliedProps = propsMap;
               calls.add('onValidateProps');
             },
@@ -634,10 +725,10 @@ main() {
 
         test('componentWillReceiveProps', () {
           var calls = [];
-          var appliedProps;
+          Map appliedProps;
           var newProps = {'key': 'value'};
           component.props = {
-            'onValidateProps': (Map propsMap) {
+            'onValidateProps': (propsMap) {
               appliedProps = propsMap;
               calls.add('onValidateProps');
             },
@@ -664,43 +755,53 @@ main() {
         Future<Null> unmountAndDisposal() async {
           unmount(instance);
           // Provide timers a window to fire
-          await new Future.delayed(longDuration);
+          await Future.delayed(longDuration);
         }
 
         test('should await future before disposing', () async {
           // ignore: close_sinks
-          var streamController = new StreamController<String>.broadcast();
-          var completer = new Completer<String>();
+          var streamController = StreamController<String>.broadcast();
+          var completer = Completer<String>();
 
           // Manage pending future
-          component.awaitBeforeDispose(completer.future);
+          unawaited(component.awaitBeforeDispose(completer.future));
 
           // Add events to stream
-          component.manageDisposer(() async => streamController.add('disposalFuture')); // ignore: deprecated_member_use
-          completer.future.then(streamController.add);
+          component.manageDisposer(
+              () async => streamController.add('disposalFuture'));
+          unawaited(completer.future.then(streamController.add));
 
           // Perform events out of order
           await unmountAndDisposal();
           completer.complete('awaitedFuture');
 
           // Ensure events resolve in the correct order
-          expect(streamController.stream, emitsInOrder([
-            'awaitedFuture',
-            'disposalFuture',
-          ]));
+          expect(
+              streamController.stream,
+              emitsInOrder([
+                'awaitedFuture',
+                'disposalFuture',
+              ]));
         });
 
-        test('should complete delayed Future with ObjectDisposedException', () async {
-          expect(component.getManagedDelayedFuture(shortDuration,
-              expectAsync0(() {}, count: 0, reason: 'Did not expect callback to be invoked.')),
-            throwsA(const TypeMatcher<ObjectDisposedException>()));
+        test('should complete delayed Future with ObjectDisposedException',
+            () async {
+          expect(
+              component.getManagedDelayedFuture(
+                  shortDuration,
+                  expectAsync0(() {},
+                      count: 0,
+                      reason: 'Did not expect callback to be invoked.')),
+              throwsA(const TypeMatcher<ObjectDisposedException>()));
 
           await unmountAndDisposal();
         });
 
-        test('should call managed disposer returned by getManagedDisposer', () async {
+        test('should call managed disposer returned by getManagedDisposer',
+            () async {
           var disposerCalled = false;
-          var disposer = component.getManagedDisposer(() async => disposerCalled = true);
+          var disposer =
+              component.getManagedDisposer(() async => disposerCalled = true);
           expect(disposer, const TypeMatcher<ManagedDisposer>());
 
           expect(disposerCalled, isFalse);
@@ -710,8 +811,10 @@ main() {
         });
 
         test('should cancel periodic timer', () async {
-          var timer = component.getManagedPeriodicTimer(shortDuration,
-            expectAsync1((_) {}, count: 0, reason: 'Did not expect callback to be invoked.'));
+          var timer = component.getManagedPeriodicTimer(
+              shortDuration,
+              expectAsync1((_) {},
+                  count: 0, reason: 'Did not expect callback to be invoked.'));
 
           expect(timer.isActive, isTrue);
           await unmountAndDisposal();
@@ -719,43 +822,53 @@ main() {
         });
 
         test('should cancel timer', () async {
-          var timer = component.getManagedTimer(shortDuration,
-            expectAsync1((_){}, count: 0, reason: 'Did not expect callback to be invoked.'));
+          var timer = component.getManagedTimer(
+              shortDuration,
+              expectAsync1((_) {},
+                  count: 0, reason: 'Did not expect callback to be invoked.'));
 
           expect(timer.isActive, isTrue);
           await unmountAndDisposal();
           expect(timer.isActive, isFalse);
         });
 
-        test('should cancel stream subscription returned by listenToStream', () async{
-          var streamController = new StreamController<Null>.broadcast();
+        test('should cancel stream subscription returned by listenToStream',
+            () async {
+          var streamController = StreamController<Null>.broadcast();
           // ignore: cancel_subscriptions
-          var streamSubscription = component.listenToStream(streamController.stream, expectAsync1((_) {},
-              count: 0,
-              reason: 'Did not expect event after cancelling subscription'));
+          var streamSubscription = component.listenToStream(
+              streamController.stream,
+              expectAsync1((_) {},
+                  count: 0,
+                  reason:
+                      'Did not expect event after cancelling subscription'));
           expect(streamSubscription, const TypeMatcher<StreamSubscription>());
 
           await unmountAndDisposal();
 
-          streamController
-            ..add(null)
-            ..close();
+          streamController.add(null);
+          await streamController.close();
         });
 
-        test('should dispose managed Disposable returned by manageAndReturnDisposable', () async {
-          var disposable = new Disposable();
-          expect(component.manageAndReturnDisposable(disposable), same(disposable));
+        test(
+            'should dispose managed Disposable returned by manageAndReturnDisposable',
+            () async {
+          var disposable = Disposable();
+          expect(component.manageAndReturnDisposable(disposable),
+              same(disposable));
           expect(disposable.isDisposed, isFalse);
           await unmountAndDisposal();
           expect(disposable.isDisposed, isTrue);
         });
 
-        test('should complete uncompleted managed Completer with ObjectDisposedException', () async {
-          var completer = new Completer<Null>();
+        test(
+            'should complete uncompleted managed Completer with ObjectDisposedException',
+            () async {
+          var completer = Completer<Null>();
           component.manageCompleter(completer);
-          completer.future.catchError(expectAsync1((Object err) {
+          unawaited(completer.future.catchError(expectAsync1((err) {
             expect(err, const TypeMatcher<ObjectDisposedException>());
-          }));
+          })));
 
           expect(completer.isCompleted, isFalse);
           await unmountAndDisposal();
@@ -763,7 +876,7 @@ main() {
         });
 
         test('should dispose managed Disposable', () async {
-          var disposable = new Disposable();
+          var disposable = Disposable();
           component.manageDisposable(disposable);
           expect(disposable.isDisposed, isFalse);
           await unmountAndDisposal();
@@ -772,7 +885,7 @@ main() {
 
         test('should call managed disposers', () async {
           var disposerCalled = false;
-          component.manageDisposer(() async => disposerCalled = true); // ignore: deprecated_member_use
+          component.manageDisposer(() async => disposerCalled = true);
           expect(disposerCalled, isFalse);
           await unmountAndDisposal();
           expect(disposerCalled, isTrue);
@@ -780,48 +893,50 @@ main() {
 
         test('should close managed StreamController', () async {
           //ignore: close_sinks
-          var streamController = new StreamController<Null>.broadcast();
+          var streamController = StreamController<Null>.broadcast();
           component.manageStreamController(streamController);
           expect(streamController.isClosed, isFalse);
           await unmountAndDisposal();
           expect(streamController.isClosed, isTrue);
         });
 
-        test('should cancel managed StreamSubscription', () async{
-          var streamController = new StreamController<Null>.broadcast();
+        test('should cancel managed StreamSubscription', () async {
+          var streamController = StreamController<Null>.broadcast();
           // ignore: cancel_subscriptions
-          var streamSubscription = streamController.stream
-            .listen(expectAsync1((_) {},
+          var streamSubscription = streamController.stream.listen(expectAsync1(
+              (_) {},
               count: 0,
               reason: 'Did not expect event after cancelling subscription'));
 
-          component.manageStreamSubscription(streamSubscription); // ignore: deprecated_member_use
+          component.manageStreamSubscription(streamSubscription);
           await unmountAndDisposal();
 
-          streamController
-            ..add(null)
-            ..close();
+          streamController.add(null);
+          await streamController.close();
         });
-      }, timeout: new Timeout(const Duration(milliseconds: 250)));
+      }, timeout: Timeout(const Duration(milliseconds: 250)));
     });
 
     group('UiStatefulComponent', () {
       TestStatefulComponentComponent statefulComponent;
 
       setUp(() {
-        statefulComponent = new TestStatefulComponentComponent();
+        statefulComponent = TestStatefulComponentComponent();
         statefulComponent.unwrappedState = {'test': true};
       });
 
       group('`state`', () {
         group('getter:', () {
           test('returns a UiState view into the component\'s state map', () {
-            expect(statefulComponent.state, const TypeMatcher<TestStatefulComponentState>());
+            expect(statefulComponent.state,
+                const TypeMatcher<TestStatefulComponentState>());
 
-            expect(statefulComponent.state, isNot(same(statefulComponent.unwrappedState)));
+            expect(statefulComponent.state,
+                isNot(same(statefulComponent.unwrappedState)));
 
             statefulComponent.unwrappedState['testKey'] = 'testValue';
-            expect(statefulComponent.state, containsPair('testKey', 'testValue'));
+            expect(
+                statefulComponent.state, containsPair('testKey', 'testValue'));
           });
 
           test('caches the UiState object for the same map', () {
@@ -840,9 +955,10 @@ main() {
 
           test('warns against setting state directly', () {
             startRecordingValidationWarnings();
-            var changeState = () => statefulComponent.state['test'] = true;
+            changeState() => statefulComponent.state['test'] = true;
             changeState();
-            verifyValidationWarning(contains('Never mutate this.state directly'));
+            verifyValidationWarning(
+                contains('Never mutate this.state directly'));
             stopRecordingValidationWarnings();
           });
         });
@@ -867,93 +983,117 @@ main() {
 
     group('registerComponent()', () {
       group('attaches metadata to the specified component class:', () {
-        final ComponentFactory dummyComponentFactory = () => new DummyComponent();
+        final ComponentFactory dummyComponentFactory = () => DummyComponent();
 
         group('`isWrapper`:', () {
           test('true', () {
-            var reactComponentFactory = registerComponent(dummyComponentFactory, isWrapper: true);
+            var reactComponentFactory =
+                registerComponent(dummyComponentFactory, isWrapper: true);
             var meta = getComponentTypeMeta(reactComponentFactory.type);
 
-            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
+            expect(meta, isNot(same(const ComponentTypeMeta.none())),
+                reason: 'should have stored a new meta instance');
             expect(meta.isWrapper, isTrue);
           });
 
           test('false', () {
-            var reactComponentFactory = registerComponent(dummyComponentFactory, isWrapper: false);
+            var reactComponentFactory =
+                registerComponent(dummyComponentFactory, isWrapper: false);
             var meta = getComponentTypeMeta(reactComponentFactory.type);
 
-            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
+            expect(meta, isNot(same(const ComponentTypeMeta.none())),
+                reason: 'should have stored a new meta instance');
             expect(meta.isWrapper, isFalse);
           });
         });
 
         group('`parentType`:', () {
           test('not specified', () {
-            var reactComponentFactory = registerComponent(dummyComponentFactory);
+            var reactComponentFactory =
+                registerComponent(dummyComponentFactory);
             var meta = getComponentTypeMeta(reactComponentFactory.type);
 
-            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
+            expect(meta, isNot(same(const ComponentTypeMeta.none())),
+                reason: 'should have stored a new meta instance');
             expect(meta.parentType, isNull);
           });
 
           test('null', () {
-            var reactComponentFactory = registerComponent(dummyComponentFactory);
+            var reactComponentFactory =
+                registerComponent(dummyComponentFactory);
             var meta = getComponentTypeMeta(reactComponentFactory.type);
 
-            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
+            expect(meta, isNot(same(const ComponentTypeMeta.none())),
+                reason: 'should have stored a new meta instance');
             expect(meta.parentType, isNull);
           });
 
           test('another ReactComponentFactoryProxy', () {
             var parentFactory = registerComponent(dummyComponentFactory);
 
-            var reactComponentFactory = registerComponent(dummyComponentFactory, parentType: parentFactory);
+            var reactComponentFactory = registerComponent(dummyComponentFactory,
+                parentType: parentFactory);
             var meta = getComponentTypeMeta(reactComponentFactory.type);
 
-            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
+            expect(meta, isNot(same(const ComponentTypeMeta.none())),
+                reason: 'should have stored a new meta instance');
             expect(meta.parentType, equals(parentFactory));
           });
         });
 
         test('displayName', () {
-          var reactComponentFactory = registerComponent(dummyComponentFactory, displayName: 'testDisplayName');
-          expect(reactComponentFactory.type.displayName, equals('testDisplayName'));
+          var reactComponentFactory = registerComponent(dummyComponentFactory,
+              displayName: 'testDisplayName');
+          expect(reactComponentFactory.type.displayName,
+              equals('testDisplayName'));
         });
 
         group('registers a type alias for', () {
           test('`componentClass`', () {
             Type typeAlias = TestRegisterComponentClassAlias;
-            var reactComponentFactory = registerComponent(dummyComponentFactory, componentClass: typeAlias);
+            var reactComponentFactory = registerComponent(dummyComponentFactory,
+                componentClass: typeAlias);
 
-            expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias), equals(reactComponentFactory.type));
+            expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias),
+                equals(reactComponentFactory.type));
           });
 
           test('`factory`', () {
             UiFactory factoryAlias = ([_]) => null;
-            var reactComponentFactory = registerComponent(dummyComponentFactory, builderFactory: factoryAlias);
+            var reactComponentFactory = registerComponent(dummyComponentFactory,
+                builderFactory: factoryAlias);
 
-            expect(getComponentTypeFromAlias(factoryAlias), equals(reactComponentFactory.type));
+            expect(getComponentTypeFromAlias(factoryAlias),
+                equals(reactComponentFactory.type));
           });
         });
       });
     });
 
-    test('registerAbstractComponent registers a type alias for a componentClass', () {
+    test(
+        'registerAbstractComponent registers a type alias for a componentClass',
+        () {
       Type typeAlias = TestRegisterComponentClassAlias;
       var reactComponentFactory = registerAbstractComponent(typeAlias);
 
-      expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias), equals(reactComponentFactory.type));
+      expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias),
+          equals(reactComponentFactory.type));
     });
 
-    test('registerAbstractComponent registers a type alias for a componentClass and parentType', () {
+    test(
+        'registerAbstractComponent registers a type alias for a componentClass and parentType',
+        () {
       Type typeAlias = TestRegisterComponentClassAlias;
-      var parentFactory = registerComponent(() => new DummyComponent());
-      var reactComponentFactory = registerAbstractComponent(typeAlias, parentType: parentFactory);
+      var parentFactory = registerComponent(() => DummyComponent());
+      var reactComponentFactory =
+          registerAbstractComponent(typeAlias, parentType: parentFactory);
       var meta = getComponentTypeMeta(reactComponentFactory.type);
 
-      expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
+      expect(meta, isNot(same(const ComponentTypeMeta.none())),
+          reason: 'should have stored a new meta instance');
       expect(meta.parentType, equals(parentFactory));
-      expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias), equals(reactComponentFactory.type));
+      expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias),
+          equals(reactComponentFactory.type));
     });
   });
 }
@@ -965,27 +1105,35 @@ dynamic getDartChildren(var renderedInstance) {
   return getProps(renderedInstance)['children'];
 }
 
-UiFactory<TestComponentProps> TestComponent = ([Map props]) => new TestComponentProps(props);
+UiFactory<TestComponentProps> TestComponent =
+    ([Map props]) => TestComponentProps(props);
 
 class TestComponentProps extends UiProps {
-  @override final ReactComponentFactoryProxy componentFactory = _TestComponentComponentFactory;
-  @override final Map props;
+  @override
+  final ReactComponentFactoryProxy componentFactory =
+      _TestComponentComponentFactory;
+  @override
+  final Map props;
 
   TestComponentProps([Map props]) : this.props = props ?? ({});
 }
 
-final _TestComponentComponentFactory = registerComponent(() => new TestComponentComponent());
+final _TestComponentComponentFactory =
+    registerComponent(() => TestComponentComponent());
+
 class TestComponentComponent extends UiComponent<TestComponentProps> {
   @override
   final List<ConsumedProps> consumedProps;
 
-  TestComponentComponent({List<ConsumedProps> testConsumedProps}) : consumedProps = testConsumedProps;
+  TestComponentComponent({List<ConsumedProps> testConsumedProps})
+      : consumedProps = testConsumedProps;
 
   @override
   render() => (Dom.div()..ref = 'foo')();
 
   @override
-  TestComponentProps typedPropsFactory(Map propsMap) => new TestComponentProps(propsMap);
+  TestComponentProps typedPropsFactory(Map propsMap) =>
+      TestComponentProps(propsMap);
 
   @override
   void validateProps(Map appliedProps) {
@@ -995,43 +1143,56 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
   }
 }
 
-
-UiFactory<TestStatefulComponentProps> TestStatefulComponent = ([Map props]) => new TestStatefulComponentProps(props);
+UiFactory<TestStatefulComponentProps> TestStatefulComponent =
+    ([Map props]) => TestStatefulComponentProps(props);
 
 class TestStatefulComponentProps extends UiProps {
-  @override final ReactComponentFactoryProxy componentFactory = _TestStatefulComponentComponentFactory;
-  @override final Map props;
+  @override
+  final ReactComponentFactoryProxy componentFactory =
+      _TestStatefulComponentComponentFactory;
+  @override
+  final Map props;
 
   TestStatefulComponentProps([Map props]) : this.props = props ?? ({});
 }
 
 class TestStatefulComponentState extends UiState {
-  @override final Map state;
+  @override
+  final Map state;
 
   TestStatefulComponentState([Map state]) : this.state = state ?? ({});
 }
 
-final _TestStatefulComponentComponentFactory = registerComponent(() => new TestStatefulComponentComponent());
-class TestStatefulComponentComponent extends UiStatefulComponent<TestStatefulComponentProps, TestStatefulComponentState> {
+final _TestStatefulComponentComponentFactory =
+    registerComponent(() => TestStatefulComponentComponent());
+
+class TestStatefulComponentComponent extends UiStatefulComponent<
+    TestStatefulComponentProps, TestStatefulComponentState> {
   @override
   render() {}
 
   @override
-  TestStatefulComponentProps typedPropsFactory(Map propsMap) => new TestStatefulComponentProps(propsMap);
+  TestStatefulComponentProps typedPropsFactory(Map propsMap) =>
+      TestStatefulComponentProps(propsMap);
   @override
-  TestStatefulComponentState typedStateFactory(Map state) => new TestStatefulComponentState(state);
+  TestStatefulComponentState typedStateFactory(Map state) =>
+      TestStatefulComponentState(state);
 }
 
 abstract class TestRegisterComponentClassAlias {}
 
-class TestPropsMapViewMixin extends MapBase with MapViewMixin, PropsMapViewMixin implements Map {
+class TestPropsMapViewMixin extends MapBase
+    with MapViewMixin, PropsMapViewMixin
+    implements Map {
   @override
   final Map props;
 
   TestPropsMapViewMixin(this.props);
 }
 
-class TestStateMapViewMixin extends MapBase with MapViewMixin, StateMapViewMixin implements Map {
+class TestStateMapViewMixin extends MapBase
+    with MapViewMixin, StateMapViewMixin
+    implements Map {
   @override
   final Map state;
 

@@ -38,7 +38,7 @@ library over_react.string_util;
 ///       ))
 ///     )()
 String unindent(String multilineString) {
-  var indent = new RegExp(r'^( *)').firstMatch(multilineString)[1];
+  var indent = RegExp(r'^( *)').firstMatch(multilineString)[1];
   assert(indent != null && indent.isNotEmpty);
   return multilineString.trim().replaceAll('\n$indent', '\n');
 }

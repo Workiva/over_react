@@ -1,27 +1,33 @@
 import 'package:logging/logging.dart';
 import 'package:mockito/mockito.dart';
 
-const String factorySrc                  = '\n@Factory()\nUiFactory<FooProps> Foo = _\$Foo;\n';
-const String componentSrc                = '\n@Component()\nclass FooComponent {render() {return null;}}\n';
-const String abstractComponentSrc        = '\n@AbstractComponent()\nclass AbstractFooComponent {}\n';
+const String factorySrc = '\n@Factory()\nUiFactory<FooProps> Foo = _\$Foo;\n';
+const String componentSrc =
+    '\n@Component()\nclass FooComponent {render() {return null;}}\n';
+const String abstractComponentSrc =
+    '\n@AbstractComponent()\nclass AbstractFooComponent {}\n';
 
-const String propsSrc                    = '\n@Props()\nclass _\$FooProps {}\n';
-const String privatePropsSrc             = '\n@Props()\nclass _\$_FooProps {}\n';
-const String propsSrcDart1               = '\n@Props()\nclass FooProps {}\n';
-const String abstractPropsSrc            = '\n@AbstractProps()\nclass _\$AbstractFooProps {}\n';
-const String abstractPropsSrcDart1       = '\n@AbstractProps()\nclass AbstractFooProps {}\n';
-const String companionClassProps         = 'class FooProps {}';
+const String propsSrc = '\n@Props()\nclass _\$FooProps {}\n';
+const String privatePropsSrc = '\n@Props()\nclass _\$_FooProps {}\n';
+const String propsSrcDart1 = '\n@Props()\nclass FooProps {}\n';
+const String abstractPropsSrc =
+    '\n@AbstractProps()\nclass _\$AbstractFooProps {}\n';
+const String abstractPropsSrcDart1 =
+    '\n@AbstractProps()\nclass AbstractFooProps {}\n';
+const String companionClassProps = 'class FooProps {}';
 const String companionClassAbstractProps = 'class AbstractFooProps {}';
 
-const String stateSrc                    = '\n@State()\nclass _\$FooState {}\n';
-const String privateStateSrc             = '\n@State()\nclass _\$_FooState {}\n';
-const String stateSrcDart1               = '\n@State()\nclass FooState {}\n';
-const String abstractStateSrc            = '\n@AbstractState()\nclass _\$AbstractFooState {}\n';
-const String abstractStateSrcDart1       = '\n@AbstractState()\nclass AbstractFooState {}\n';
-const String companionClassState         = 'class FooState {}';
+const String stateSrc = '\n@State()\nclass _\$FooState {}\n';
+const String privateStateSrc = '\n@State()\nclass _\$_FooState {}\n';
+const String stateSrcDart1 = '\n@State()\nclass FooState {}\n';
+const String abstractStateSrc =
+    '\n@AbstractState()\nclass _\$AbstractFooState {}\n';
+const String abstractStateSrcDart1 =
+    '\n@AbstractState()\nclass AbstractFooState {}\n';
+const String companionClassState = 'class FooState {}';
 
-const String propsMixinSrc               = '@PropsMixin()\nabstract class FooPropsMixin {}\n';
-const String stateMixinSrc               = '@StateMixin()\nabstract class FooStateMixin {}\n';
+const String propsMixinSrc = '@PropsMixin()\nabstract class FooPropsMixin {}\n';
+const String stateMixinSrc = '@StateMixin()\nabstract class FooStateMixin {}\n';
 
 enum AnnotationType {
   props,
@@ -60,17 +66,16 @@ class OverReactSrc {
   ///
   /// Use [componentAnnotationArg] to add an argument to the `@Component()`
   /// annotation.
-  const OverReactSrc.abstractProps({
-    this.annotationArg: '',
-    this.backwardsCompatible: true,
-    this.body: '',
-    this.componentAnnotationArg: '',
-    this.componentBody: '',
-    this.needsComponent: false,
-    this.typeParameters: false,
-    isPrivate: false})
-      :
-        this.annotation = AnnotationType.abstractProps,
+  const OverReactSrc.abstractProps(
+      {this.annotationArg = '',
+      this.backwardsCompatible = true,
+      this.body = '',
+      this.componentAnnotationArg = '',
+      this.componentBody = '',
+      this.needsComponent = false,
+      this.typeParameters = false,
+      isPrivate = false})
+      : this.annotation = AnnotationType.abstractProps,
         this.baseName = '${isPrivate ? '_' : ''}AbstractFoo',
         this.numMixins = 0;
 
@@ -93,17 +98,16 @@ class OverReactSrc {
   ///
   /// Use [componentAnnotationArg] to add an argument to the `@Component()`
   /// annotation.
-  const OverReactSrc.abstractState({
-    this.annotationArg: '',
-    this.backwardsCompatible: true,
-    this.body: '',
-    this.componentAnnotationArg: '',
-    this.componentBody: '',
-    this.needsComponent: false,
-    this.typeParameters: false,
-    isPrivate: false})
-      :
-        this.annotation = AnnotationType.abstractState,
+  const OverReactSrc.abstractState(
+      {this.annotationArg = '',
+      this.backwardsCompatible = true,
+      this.body = '',
+      this.componentAnnotationArg = '',
+      this.componentBody = '',
+      this.needsComponent = false,
+      this.typeParameters = false,
+      isPrivate = false})
+      : this.annotation = AnnotationType.abstractState,
         this.baseName = '${isPrivate ? '_' : ''}AbstractFoo',
         this.numMixins = 0;
 
@@ -122,16 +126,15 @@ class OverReactSrc {
   ///
   /// Use [componentAnnotationArg] to add an argument to the `@Component()`
   /// annotation.
-  const OverReactSrc.props({
-    this.annotationArg: '',
-    this.backwardsCompatible: true,
-    this.body: '',
-    this.componentAnnotationArg: '',
-    this.componentBody: '',
-    this.typeParameters: false,
-    isPrivate: false})
-      :
-        this.annotation = AnnotationType.props,
+  const OverReactSrc.props(
+      {this.annotationArg = '',
+      this.backwardsCompatible = true,
+      this.body = '',
+      this.componentAnnotationArg = '',
+      this.componentBody = '',
+      this.typeParameters = false,
+      isPrivate = false})
+      : this.annotation = AnnotationType.props,
         this.baseName = '${isPrivate ? '_' : ''}Foo',
         this.needsComponent = true,
         this.numMixins = 0;
@@ -153,17 +156,16 @@ class OverReactSrc {
   /// annotation.
   ///
   /// Use [numMixins] to specify the number of mixins in the source.
-  const OverReactSrc.propsMixin({
-    this.annotationArg: '',
-    this.backwardsCompatible: true,
-    this.body: '',
-    this.componentAnnotationArg: '',
-    this.componentBody: '',
-    this.typeParameters: false,
-    this.numMixins: 1,
-    isPrivate: false})
-      :
-        this.annotation = AnnotationType.propsMixin,
+  const OverReactSrc.propsMixin(
+      {this.annotationArg = '',
+      this.backwardsCompatible = true,
+      this.body = '',
+      this.componentAnnotationArg = '',
+      this.componentBody = '',
+      this.typeParameters = false,
+      this.numMixins = 1,
+      isPrivate = false})
+      : this.annotation = AnnotationType.propsMixin,
         this.baseName = '${isPrivate ? '_' : ''}Foo',
         this.needsComponent = false;
 
@@ -183,16 +185,15 @@ class OverReactSrc {
   ///
   /// Use [componentAnnotationArg] to add an argument to the `@Component()`
   /// annotation.
-  const OverReactSrc.state({
-    this.annotationArg: '',
-    this.backwardsCompatible: true,
-    this.body: '',
-    this.componentAnnotationArg: '',
-    this.componentBody: '',
-    this.typeParameters: false,
-    isPrivate: false})
-      :
-        this.annotation = AnnotationType.state,
+  const OverReactSrc.state(
+      {this.annotationArg = '',
+      this.backwardsCompatible = true,
+      this.body = '',
+      this.componentAnnotationArg = '',
+      this.componentBody = '',
+      this.typeParameters = false,
+      isPrivate = false})
+      : this.annotation = AnnotationType.state,
         this.baseName = '${isPrivate ? '_' : ''}Foo',
         this.needsComponent = true,
         this.numMixins = 0;
@@ -215,17 +216,16 @@ class OverReactSrc {
   /// annotation.
   ///
   /// Use [numMixins] to specify the number of mixins in the source.
-  const OverReactSrc.stateMixin({
-    this.annotationArg: '',
-    this.backwardsCompatible: true,
-    this.body: '',
-    this.componentAnnotationArg: '',
-    this.componentBody: '',
-    this.typeParameters: false,
-    this.numMixins: 1,
-    isPrivate: false})
-      :
-        this.annotation = AnnotationType.stateMixin,
+  const OverReactSrc.stateMixin(
+      {this.annotationArg = '',
+      this.backwardsCompatible = true,
+      this.body = '',
+      this.componentAnnotationArg = '',
+      this.componentBody = '',
+      this.typeParameters = false,
+      this.numMixins = 1,
+      isPrivate = false})
+      : this.annotation = AnnotationType.stateMixin,
         this.baseName = '${isPrivate ? '_' : ''}Foo',
         this.needsComponent = false;
 
@@ -246,29 +246,33 @@ class OverReactSrc {
   String get keyListName => isProps(annotation) ? '\$propKeys' : '\$stateKeys';
   String get propsClassName => '${baseName}Props';
   String get propsMixinClassName => '${baseName}PropsMixin';
-  String get propsOrStateOrMixinClassName => _propsOrStateOrMixinClassName(isProps(annotation) ? 'Props' : 'State');
+  String get propsOrStateOrMixinClassName =>
+      _propsOrStateOrMixinClassName(isProps(annotation) ? 'Props' : 'State');
   String get stateClassName => '${baseName}State';
   String get stateMixinClassName => '${baseName}StateMixin';
   String get typeParamSrc => typeParameters ? '<T extends Iterable, U>' : '';
   String get typeParamSrcWithoutBounds => typeParameters ? '<T, U>' : '';
-
 
   String metaStructName(AnnotationType annotation) {
     return isProps(annotation) ? 'PropsMeta' : 'StateMeta';
   }
 
   String get source {
-    final buffer = new StringBuffer();
+    final buffer = StringBuffer();
 
     if (needsComponent) {
       if (!isAbstract(annotation)) {
-        buffer.writeln('\n@Factory()\nUiFactory<$propsClassName> $baseName = _\$$baseName;\n');
+        buffer.writeln(
+            '\n@Factory()\nUiFactory<$propsClassName> $baseName = _\$$baseName;\n');
       }
-      buffer.writeln('@${isAbstract(annotation) ? 'Abstract' : ''}Component($componentAnnotationArg) ${_classKeyword(annotation)} $componentName {$componentBody}');
+      buffer.writeln(
+          '@${isAbstract(annotation) ? 'Abstract' : ''}Component($componentAnnotationArg) ${_classKeyword(annotation)} $componentName {$componentBody}');
 
       // If we need a component, but we're not a props class, then we need to write a props class
       if (!isProps(this.annotation)) {
-        buffer.write(_propsOrStateSrc(isAbstract(annotation) ? AnnotationType.abstractProps : AnnotationType.props));
+        buffer.write(_propsOrStateSrc(isAbstract(annotation)
+            ? AnnotationType.abstractProps
+            : AnnotationType.props));
       }
     }
     if (isMixin(annotation)) {
@@ -289,17 +293,20 @@ class OverReactSrc {
     return buffer.toString();
   }
 
-  bool isAbstract(AnnotationType annotation) => annotation == AnnotationType.abstractProps ||
-        annotation == AnnotationType.abstractState ||
-        annotation == AnnotationType.propsMixin ||
-        annotation == AnnotationType.stateMixin;
+  bool isAbstract(AnnotationType annotation) =>
+      annotation == AnnotationType.abstractProps ||
+      annotation == AnnotationType.abstractState ||
+      annotation == AnnotationType.propsMixin ||
+      annotation == AnnotationType.stateMixin;
 
-  bool isProps(AnnotationType annotation) => annotation == AnnotationType.props ||
-        annotation == AnnotationType.propsMixin ||
-        annotation == AnnotationType.abstractProps;
+  bool isProps(AnnotationType annotation) =>
+      annotation == AnnotationType.props ||
+      annotation == AnnotationType.propsMixin ||
+      annotation == AnnotationType.abstractProps;
 
-  bool isMixin(AnnotationType annotation) => annotation == AnnotationType.propsMixin ||
-        annotation == AnnotationType.stateMixin;
+  bool isMixin(AnnotationType annotation) =>
+      annotation == AnnotationType.propsMixin ||
+      annotation == AnnotationType.stateMixin;
 
   String _propsOrStateOrMixinClassName(String type) {
     if (isMixin(annotation)) {
@@ -309,7 +316,8 @@ class OverReactSrc {
     }
   }
 
-  String _annotationSrc(AnnotationType annotation, {String annotationArg: ''}) {
+  String _annotationSrc(AnnotationType annotation,
+      {String annotationArg = ''}) {
     switch (annotation) {
       case AnnotationType.props:
         {
@@ -335,29 +343,36 @@ class OverReactSrc {
         {
           return '@StateMixin($annotationArg)';
         }
-      default: return '';
+      default:
+        return '';
     }
   }
 
-  String _classKeyword(AnnotationType annotation) => isAbstract(annotation) ? 'abstract class' : 'class';
+  String _classKeyword(AnnotationType annotation) =>
+      isAbstract(annotation) ? 'abstract class' : 'class';
 
-  String _metaSrc(String className, AnnotationType annotation) => '  static const ${metaStructName(annotation)} meta = _\$metaFor$className;';
+  String _metaSrc(String className, AnnotationType annotation) =>
+      '  static const ${metaStructName(annotation)} meta = _\$metaFor$className;';
 
-  String _propsGetterSrc(AnnotationType annotation) => isAbstract(annotation) ? '  Map get ${isProps(annotation) ? "props" : "state"};' : '';
+  String _propsGetterSrc(AnnotationType annotation) => isAbstract(annotation)
+      ? '  Map get ${isProps(annotation) ? "props" : "state"};'
+      : '';
 
-  String _propsOrStateSrc(AnnotationType annotation, {String body: '', String annotationArg: ''}) {
+  String _propsOrStateSrc(AnnotationType annotation,
+      {String body = '', String annotationArg = ''}) {
     if (isMixin(annotation)) {
       return '';
     }
 
     final className = isProps(annotation) ? propsClassName : stateClassName;
-    var buffer = StringBuffer();
-    buffer
-      ..writeln('${_annotationSrc(annotation, annotationArg: annotationArg)}\n${_classKeyword(annotation)} _\$$className$typeParamSrc {$body\n}\n');
+    var buffer = StringBuffer()
+      ..writeln(
+          '${_annotationSrc(annotation, annotationArg: annotationArg)}\n${_classKeyword(annotation)} _\$$className$typeParamSrc {$body\n}\n');
     if (backwardsCompatible) {
       buffer
         ..writeln('${_classKeyword(annotation)} $className$typeParamSrc')
-        ..writeln('    extends _\$$className$typeParamSrcWithoutBounds with _\$${className}AccessorsMixin$typeParamSrcWithoutBounds {')
+        ..writeln(
+            '    extends _\$$className$typeParamSrcWithoutBounds with _\$${className}AccessorsMixin$typeParamSrcWithoutBounds {')
         ..writeln(_propsGetterSrc(annotation))
         ..writeln(_metaSrc(className, annotation))
         ..writeln('}\n');
@@ -365,25 +380,25 @@ class OverReactSrc {
     return buffer.toString();
   }
 
-  String _propsOrStateMixinSrc(AnnotationType annotation, {String body: '', String annotationArg: '', int index}) {
+  String _propsOrStateMixinSrc(AnnotationType annotation,
+      {String body = '', String annotationArg = '', int index}) {
     if (!isMixin(annotation)) {
       return '';
     }
 
     final namePrefix = backwardsCompatible ? '' : '_\$';
-    final className = '$namePrefix${isProps(annotation) ? propsMixinClassName : stateMixinClassName}';
+    final className =
+        '$namePrefix${isProps(annotation) ? propsMixinClassName : stateMixinClassName}';
     var buffer = StringBuffer();
     final indexStr = '${index ?? ''}';
     buffer
-      ..writeln('${_annotationSrc(annotation, annotationArg: annotationArg)}\nabstract class $className$indexStr$typeParamSrc {')
+      ..writeln(
+          '${_annotationSrc(annotation, annotationArg: annotationArg)}\nabstract class $className$indexStr$typeParamSrc {')
       ..writeln(_propsGetterSrc(annotation));
     if (backwardsCompatible) {
       buffer.writeln(_metaSrc('$className$indexStr', annotation));
     }
-    return (buffer
-      ..writeln(body)
-      ..writeln('}')).toString();
-
+    return (buffer..writeln(body)..writeln('}')).toString();
   }
 }
 

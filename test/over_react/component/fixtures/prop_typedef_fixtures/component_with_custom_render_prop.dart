@@ -15,14 +15,16 @@
 part of prop_tyepdef_test_fixtures;
 
 @Factory()
-UiFactory<TestCustomRendererComponentProps> TestCustomRendererComponent = _$TestCustomRendererComponent;
+UiFactory<TestCustomRendererComponentProps> TestCustomRendererComponent =
+    _$TestCustomRendererComponent;
 
 @Props()
 class _$TestCustomRendererComponentProps extends UiProps {
   CustomRenderFunction customRenderer;
-  CustomRenderFunction<TestCustomRendererComponentProps,
-                       TestCustomRendererComponentState,
-                       TestCustomRendererComponentComponent> parameterizedCustomRenderer;
+  CustomRenderFunction<
+      TestCustomRendererComponentProps,
+      TestCustomRendererComponentState,
+      TestCustomRendererComponentComponent> parameterizedCustomRenderer;
   String somePropKey;
   String someInitialStateKeyValue;
 }
@@ -33,10 +35,11 @@ class _$TestCustomRendererComponentState extends UiState {
 }
 
 @Component()
-class TestCustomRendererComponentComponent
-    extends UiStatefulComponent<TestCustomRendererComponentProps, TestCustomRendererComponentState> {
+class TestCustomRendererComponentComponent extends UiStatefulComponent<
+    TestCustomRendererComponentProps, TestCustomRendererComponentState> {
   @override
-  Map getInitialState() => (newState()..someStateKey = props.someInitialStateKeyValue);
+  Map getInitialState() =>
+      (newState()..someStateKey = props.someInitialStateKeyValue);
 
   @override
   render() {

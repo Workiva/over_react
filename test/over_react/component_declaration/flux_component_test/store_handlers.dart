@@ -1,3 +1,4 @@
+// ignore_for_file: deprecated_member_use_from_same_package
 part of over_react.component_declaration.flux_component_test;
 
 @Factory()

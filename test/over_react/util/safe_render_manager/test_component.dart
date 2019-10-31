@@ -1,3 +1,4 @@
+// ignore_for_file: deprecated_member_use_from_same_package
 import 'package:over_react/over_react.dart';
 
 part 'test_component.over_react.g.dart';
@@ -48,4 +49,5 @@ class TestComponent extends UiComponent<TestProps> {
   }
 }
 
+// ignore: prefer_generic_function_type_aliases
 typedef void LifecycleCallback();

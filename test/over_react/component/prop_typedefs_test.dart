@@ -31,28 +31,34 @@ main() {
     void sharedTest() {
       final customRendererContainerNode =
           queryByTestId(jacket.getInstance(), 'customRendererContainer');
-      expect(customRendererContainerNode, isNotNull, reason: 'test setup sanity check');
-      final parameterizedCustomRendererContainerNode =
-          queryByTestId(jacket.getInstance(), 'parameterizedCustomRendererContainer');
-      expect(parameterizedCustomRendererContainerNode, isNotNull, reason: 'test setup sanity check');
+      expect(customRendererContainerNode, isNotNull,
+          reason: 'test setup sanity check');
+      final parameterizedCustomRendererContainerNode = queryByTestId(
+          jacket.getInstance(), 'parameterizedCustomRendererContainer');
+      expect(parameterizedCustomRendererContainerNode, isNotNull,
+          reason: 'test setup sanity check');
 
-      expect(customRendererContainerNode.text, 'props.somePropKey: foo \nprops.someStateKey: bar');
-      expect(parameterizedCustomRendererContainerNode.text, 'props.somePropKey: foo \nprops.someStateKey: bar');
+      expect(customRendererContainerNode.text,
+          'props.somePropKey: foo \nprops.someStateKey: bar');
+      expect(parameterizedCustomRendererContainerNode.text,
+          'props.somePropKey: foo \nprops.someStateKey: bar');
     }
 
-    test('works as expected when the custom render prop is defined in a concrete class', () {
+    test(
+        'works as expected when the custom render prop is defined in a concrete class',
+        () {
       jacket = mount((TestConsumingCustomRendererComponent()
         ..propKeyValueToTest = 'foo'
-        ..stateKeyValueToTest = 'bar'
-      )());
+        ..stateKeyValueToTest = 'bar')());
       sharedTest();
     });
 
-    test('works as expected when the custom render prop is defined in an abstract class', () {
+    test(
+        'works as expected when the custom render prop is defined in an abstract class',
+        () {
       jacket = mount((TestConsumingAbstractCustomRendererComponent()
         ..propKeyValueToTest = 'foo'
-        ..stateKeyValueToTest = 'bar'
-      )());
+        ..stateKeyValueToTest = 'bar')());
       sharedTest();
     });
   });

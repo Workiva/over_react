@@ -35,11 +35,9 @@ main() {
         });
 
         test('not omitted when specified', () {
-          var actual = getPropsToForward({
-            'key': 'my key',
-            'ref': 'my ref',
-            'other prop': 'my other prop'
-          }, omitReactProps: false);
+          var actual = getPropsToForward(
+              {'key': 'my key', 'ref': 'my ref', 'other prop': 'my other prop'},
+              omitReactProps: false);
 
           var expected = {
             'key': 'my key',
@@ -79,14 +77,8 @@ main() {
           'prop 5': 'my prop #5',
           'prop 6': 'my prop #6',
         }, keySetsToOmit: [
-          [
-            'prop 1',
-            'prop 3'
-          ],
-          [
-            'prop 4',
-            'prop 5'
-          ],
+          ['prop 1', 'prop 3'],
+          ['prop 4', 'prop 5'],
         ]);
 
         var expected = {
@@ -125,8 +117,7 @@ main() {
     group('newStyleFromProps() returns', () {
       test('a copy of the style map found in the specified props', () {
         var styles = {'color': 'red', 'width': '10rem'};
-        var props = domProps()
-          ..style = styles;
+        var props = domProps()..style = styles;
 
         expect(newStyleFromProps(props), equals(styles));
       });
