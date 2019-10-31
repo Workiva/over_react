@@ -46,6 +46,9 @@ To run and experiment with the demo:
 1. `pub get`
 1. `pub run build_runner serve web`
 1. Navigate to `localhost:8080/over_react_redux/`
+1. If you have the [React DevTools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en),
+you can view the isolated state updates based on the `mapStateToProps` when you turn on 
+["Highlight updates when components render."](https://github.com/facebook/react/pull/16989)
 
 If you would like to use the Redux DevTools (only in the dev_tools example), run the following in addition to 
 starting your server (as described above):
@@ -201,7 +204,7 @@ calls to `mapStateToProps`, `mapDispatchToProps`, `mergeProps`, and ultimately t
 While the defaults are probably appropriate 99% of the time, you may wish to override them with custom
 implementations for performance or other reasons.
 - #### `forwardRef` 
-    - If `true`, the `ref` prop provided to the connected component will be return the wrapped component.
+    - If `true`, the `ref` prop provided to the connected component will forward onto and return the wrapped component.
 
 > [More information about the `connect` function](https://react-redux.js.org/api/connect#connect)
   
