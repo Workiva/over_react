@@ -80,7 +80,7 @@ class _$ButtonState extends UiState {}
 @Component2()
 class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiStatefulComponent2<T, S> {
   @override
-  Map getDefaultProps() => (newProps()
+   get defaultProps => (newProps()
     ..skin = ButtonSkin.PRIMARY
     ..size = ButtonSize.DEFAULT
     ..isActive = false
@@ -100,7 +100,7 @@ class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiSt
     BuilderOnlyUiFactory<DomProps> factory = buttonDomNodeFactory;
 
     return (factory()
-      ..addProps(copyUnconsumedDomProps())
+      ..modifyProps(addUnconsumedDomProps)
       ..className = getButtonClasses().toClassName()
       ..href = props.href
       ..target = props.target
