@@ -6,6 +6,7 @@ class CounterActions {
   final Action<Null> smallDecrement = new Action();
   final Action<Null> bigIncrement = new Action();
   final Action<Null> bigDecrement = new Action();
+  final Action<Null> addItem = new Action();
 }
 
 class CounterStore extends Store {
@@ -13,9 +14,14 @@ class CounterStore extends Store {
 
   int _smallCount = 0;
   int _bigCount = 0;
+  List items = [];
 
   CounterStore(this.actions) {
-    triggerOnActionV2(actions.smallIncrement, (_) => _smallCount += 1);
+    triggerOnActionV2(actions.smallIncrement, (_) {
+      _smallCount += 1;
+      items.add('item');
+//      items = [...items, 'item'];
+    });
     triggerOnActionV2(actions.smallDecrement, (_) => _smallCount -= 1);
     triggerOnActionV2(actions.bigIncrement, (_) => _bigCount+= 10);
     triggerOnActionV2(actions.bigDecrement, (_) => _bigCount -= 10);

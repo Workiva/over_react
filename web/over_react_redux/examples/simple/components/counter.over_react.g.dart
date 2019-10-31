@@ -61,6 +61,15 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
   @override
   set decrement(void Function() value) =>
       props[_$key__decrement___$CounterProps] = value;
+
+  /// <!-- Generated from [_$CounterProps.items] -->
+  @override
+  List get items =>
+      props[_$key__items___$CounterProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$CounterProps.items] -->
+  @override
+  set items(List value) => props[_$key__items___$CounterProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__currentCount___$CounterProps =
       const PropDescriptor(_$key__currentCount___$CounterProps);
@@ -70,6 +79,8 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
       const PropDescriptor(_$key__increment___$CounterProps);
   static const PropDescriptor _$prop__decrement___$CounterProps =
       const PropDescriptor(_$key__decrement___$CounterProps);
+  static const PropDescriptor _$prop__items___$CounterProps =
+      const PropDescriptor(_$key__items___$CounterProps);
   static const String _$key__currentCount___$CounterProps =
       'CounterProps.currentCount';
   static const String _$key__wrapperStyles___$CounterProps =
@@ -78,18 +89,21 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
       'CounterProps.increment';
   static const String _$key__decrement___$CounterProps =
       'CounterProps.decrement';
+  static const String _$key__items___$CounterProps = 'CounterProps.items';
 
   static const List<PropDescriptor> $props = const [
     _$prop__currentCount___$CounterProps,
     _$prop__wrapperStyles___$CounterProps,
     _$prop__increment___$CounterProps,
-    _$prop__decrement___$CounterProps
+    _$prop__decrement___$CounterProps,
+    _$prop__items___$CounterProps
   ];
   static const List<String> $propKeys = const [
     _$key__currentCount___$CounterProps,
     _$key__wrapperStyles___$CounterProps,
     _$key__increment___$CounterProps,
-    _$key__decrement___$CounterProps
+    _$key__decrement___$CounterProps,
+    _$key__items___$CounterProps
   ];
 }
 

@@ -14,7 +14,11 @@ UiFactory<CounterProps> ConnectedCounter = connectFlux<CounterStore, CounterProp
     ..currentCount = state.smallCount
     ..increment = state.actions.smallIncrement
     ..decrement = state.actions.smallDecrement
+    ..items = state.items
   ),
+//  areStatePropsEqual: (_, __) => false,
+//  areMergedPropsEqual: (_, __) => false,
+//  pure: false,
 )(Counter);
 
 UiFactory<CounterProps> ConnectedBigCounter = connectFlux<CounterStore, CounterProps>(
@@ -22,7 +26,11 @@ UiFactory<CounterProps> ConnectedBigCounter = connectFlux<CounterStore, CounterP
     ..currentCount = state.bigCount
     ..increment = state.actions.bigIncrement
     ..decrement = state.actions.bigDecrement
+    ..items = state.items
   ),
+//  areStatePropsEqual: (_, __) => false,
+//  areMergedPropsEqual: (_, __) => false,
+//  pure: false,
 )(Counter);
 
 @Factory()
@@ -37,6 +45,8 @@ class _$CounterProps extends UiProps {
   void Function() increment;
 
   void Function() decrement;
+
+  List items;
 }
 
 @Component2()
@@ -51,7 +61,14 @@ class CounterComponent extends UiComponent2<CounterProps> {
         (Dom.button()..onClick = (_) {
           props.decrement();
         })('-'),
-        props.children
+        props.children,
+        'Items:',
+        _mapIndexed(props.items, (item, index) => (Dom.li()..key = index)(item)),
     );
   }
+}
+
+Iterable<T> _mapIndexed<T, E>(Iterable<E> iterable, T Function(E item, int index) mapper) {
+  var index = 0;
+  return iterable.map((item) => mapper(item, index++));
 }
