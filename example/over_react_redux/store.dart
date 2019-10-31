@@ -34,12 +34,12 @@ class CounterState {
     this.count,
     this.name = "Counter",
   });
-  // toJson() {
-  //   return {
-  //     'count': count,
-  //     'name': name
-  //   };
-  // }
+  toJson() {
+    return {
+      'count': count,
+      'name': name
+    };
+  }
 }
 
 int _counterDecrementReducer(int currentCount, DecrementAction action) {
