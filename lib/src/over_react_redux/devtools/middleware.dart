@@ -22,8 +22,18 @@ class ReduxDevToolsExtensionConnection {
 external ReduxDevToolsExtensionConnection reduxExtConnect([dynamic options]);
 
 class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
+  bool devToolsExtensionFound = false;
   Store _store;
-  ReduxDevToolsExtensionConnection devToolsExt = reduxExtConnect();
+  ReduxDevToolsExtensionConnection devToolsExt;
+  OverReactReduxDevToolsMiddleware() {
+    try {
+      devToolsExt = reduxExtConnect();
+      devToolsExtensionFound = true;
+    } catch(e) {
+      print('Unable to connect to the redux dev tools browser extension. \nPlease install it... \nChrome: https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en \nFirefox: https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools/');
+    }
+
+  }
 
   set store(Store v) {
     _store = v;
@@ -122,6 +132,7 @@ class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   @override
   call(Store store, dynamic action, NextDispatcher next) {
     next(action);
+    if (!devToolsExtensionFound) return;
     this.store ??= store;
     if (!(action is DevToolsAction)) {
       this._relay('ACTION', store.state, action);
