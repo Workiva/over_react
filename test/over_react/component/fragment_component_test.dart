@@ -12,7 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library fragment_component_test;
+
+import 'dart:html';
 
 import 'package:over_react/over_react.dart';
 import 'package:over_react_test/over_react_test.dart';
@@ -23,7 +26,7 @@ import 'fixtures/dummy_component.dart';
 void main() {
   group('Fragment', () {
     test('renders only its children', () {
-      var wrappingDivRef;
+      DivElement wrappingDivRef;
 
       renderAttachedToDocument(
         (Dom.div()

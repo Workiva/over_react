@@ -11,31 +11,31 @@ class ButtonType extends DebugFriendlyConstant {
   const ButtonType._(String name, this.typeName) : super(name);
 
   /// [typeName] value: 'button'
-  static const ButtonType BUTTON = const ButtonType._('BUTTON', 'button');
+  static const ButtonType BUTTON = ButtonType._('BUTTON', 'button');
 
   /// [typeName] value: 'submit'
-  static const ButtonType SUBMIT = const ButtonType._('SUBMIT', 'submit');
+  static const ButtonType SUBMIT = ButtonType._('SUBMIT', 'submit');
 
   /// [typeName] value: 'reset'
-  static const ButtonType RESET  = const ButtonType._('RESET', 'reset');
+  static const ButtonType RESET  = ButtonType._('RESET', 'reset');
 
   @override
   String get debugDescription => 'typeName: $typeName';
 }
 
-/// Toggle button behavior options for the children of a [ToggleButtonGroup].
+/// Toggle button behavior options for the children of a `ToggleButtonGroup`.
 class ToggleBehaviorType extends DebugFriendlyConstant {
   /// The HTML `type` attribute value that should be placed on the HTML `<input>` element rendered
-  /// by a [ToggleButton].
+  /// by a `ToggleButton`.
   final String typeName;
 
   const ToggleBehaviorType._(String name, this.typeName) : super(name);
 
   /// [typeName] value: 'radio'
-  static const ToggleBehaviorType RADIO = const ToggleBehaviorType._('RADIO', 'radio');
+  static const ToggleBehaviorType RADIO = ToggleBehaviorType._('RADIO', 'radio');
 
   /// [typeName] value: 'checkbox'
-  static const ToggleBehaviorType CHECKBOX = const ToggleBehaviorType._('CHECKBOX', 'checkbox');
+  static const ToggleBehaviorType CHECKBOX = ToggleBehaviorType._('CHECKBOX', 'checkbox');
 
   @override
   String get debugDescription => 'typeName: $typeName';

@@ -1,3 +1,4 @@
+// ignore_for_file: prefer_function_declarations_over_variables, avoid_types_on_closure_parameters
 import 'package:over_react/over_react.dart';
 
 part 'private_factory_public_component.over_react.g.dart';

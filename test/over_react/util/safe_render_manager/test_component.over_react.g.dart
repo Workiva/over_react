@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'test_component.dart';
 
 // **************************************************************************
@@ -9,7 +10,7 @@ part of 'test_component.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $TestComponentFactory = registerComponent(() => new _$TestComponent(),
+final $TestComponentFactory = registerComponent(() => _$TestComponent(),
     builderFactory: Test,
     componentClass: TestComponent,
     isWrapper: true,
@@ -81,17 +82,17 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
       props[_$key__onRender___$TestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__onComponentDidMount___$TestProps =
-      const PropDescriptor(_$key__onComponentDidMount___$TestProps);
+      PropDescriptor(_$key__onComponentDidMount___$TestProps);
   static const PropDescriptor _$prop__onComponentWillUpdate___$TestProps =
-      const PropDescriptor(_$key__onComponentWillUpdate___$TestProps);
+      PropDescriptor(_$key__onComponentWillUpdate___$TestProps);
   static const PropDescriptor _$prop__onComponentWillReceiveProps___$TestProps =
-      const PropDescriptor(_$key__onComponentWillReceiveProps___$TestProps);
+      PropDescriptor(_$key__onComponentWillReceiveProps___$TestProps);
   static const PropDescriptor _$prop__onComponentDidUpdate___$TestProps =
-      const PropDescriptor(_$key__onComponentDidUpdate___$TestProps);
+      PropDescriptor(_$key__onComponentDidUpdate___$TestProps);
   static const PropDescriptor _$prop__onComponentWillUnmount___$TestProps =
-      const PropDescriptor(_$key__onComponentWillUnmount___$TestProps);
+      PropDescriptor(_$key__onComponentWillUnmount___$TestProps);
   static const PropDescriptor _$prop__onRender___$TestProps =
-      const PropDescriptor(_$key__onRender___$TestProps);
+      PropDescriptor(_$key__onRender___$TestProps);
   static const String _$key__onComponentDidMount___$TestProps =
       'TestProps.onComponentDidMount';
   static const String _$key__onComponentWillUpdate___$TestProps =
@@ -104,7 +105,7 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
       'TestProps.onComponentWillUnmount';
   static const String _$key__onRender___$TestProps = 'TestProps.onRender';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__onComponentDidMount___$TestProps,
     _$prop__onComponentWillUpdate___$TestProps,
     _$prop__onComponentWillReceiveProps___$TestProps,
@@ -112,7 +113,7 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
     _$prop__onComponentWillUnmount___$TestProps,
     _$prop__onRender___$TestProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__onComponentDidMount___$TestProps,
     _$key__onComponentWillUpdate___$TestProps,
     _$key__onComponentWillReceiveProps___$TestProps,
@@ -122,7 +123,7 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
   ];
 }
 
-const PropsMeta _$metaForTestProps = const PropsMeta(
+const PropsMeta _$metaForTestProps = PropsMeta(
   fields: _$TestPropsAccessorsMixin.$props,
   keys: _$TestPropsAccessorsMixin.$propKeys,
 );
@@ -131,7 +132,7 @@ class TestProps extends _$TestProps with _$TestPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestProps;
 }
 
-_$$TestProps _$Test([Map backingProps]) => new _$$TestProps(backingProps);
+_$$TestProps _$Test([Map backingProps]) => _$$TestProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -154,7 +155,7 @@ class _$$TestProps extends _$TestProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestComponentFactory;
@@ -170,15 +171,14 @@ class _$$TestProps extends _$TestProps
 // generated for the associated props class.
 class _$TestComponent extends TestComponent {
   @override
-  _$$TestProps typedPropsFactory(Map backingMap) =>
-      new _$$TestProps(backingMap);
+  _$$TestProps typedPropsFactory(Map backingMap) => _$$TestProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestProps];
 }

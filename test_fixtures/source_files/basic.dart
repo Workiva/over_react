@@ -6,7 +6,7 @@ part 'basic.over_react.g.dart';
 UiFactory<BasicProps> Basic = _$Basic;
 
 @Props()
-//// ignore: mixin_of_non_class,undefined_class
+// ignore: mixin_of_non_class,undefined_class
 class _$BasicProps extends UiProps {
   /// Test that doc comment is copied over.
   @deprecated

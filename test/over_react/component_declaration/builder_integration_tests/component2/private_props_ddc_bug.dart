@@ -1,3 +1,5 @@
+@TestOn('browser')
+
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 

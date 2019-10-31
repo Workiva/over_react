@@ -40,7 +40,9 @@ main() {
       expect(parameterizedCustomRendererContainerNode.text, 'props.somePropKey: foo \nprops.someStateKey: bar');
     }
 
-    test('works as expected when the custom render prop is defined in a concrete class', () {
+    test(
+        'works as expected when the custom render prop is defined in a concrete class',
+        () {
       jacket = mount((TestConsumingCustomRendererComponent()
         ..propKeyValueToTest = 'foo'
         ..stateKeyValueToTest = 'bar'

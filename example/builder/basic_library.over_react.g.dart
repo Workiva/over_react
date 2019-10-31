@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'basic_library.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'basic_library.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $BasicPartOfLibComponentFactory = registerComponent2(
-  () => new _$BasicPartOfLibComponent(),
+  () => _$BasicPartOfLibComponent(),
   builderFactory: BasicPartOfLib,
   componentClass: BasicPartOfLibComponent,
   isWrapper: false,
@@ -84,17 +85,17 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
       props[_$key__basic5___$BasicPartOfLibProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__basicProp___$BasicPartOfLibProps =
-      const PropDescriptor(_$key__basicProp___$BasicPartOfLibProps);
+      PropDescriptor(_$key__basicProp___$BasicPartOfLibProps);
   static const PropDescriptor _$prop__basic1___$BasicPartOfLibProps =
-      const PropDescriptor(_$key__basic1___$BasicPartOfLibProps);
+      PropDescriptor(_$key__basic1___$BasicPartOfLibProps);
   static const PropDescriptor _$prop__basic2___$BasicPartOfLibProps =
-      const PropDescriptor(_$key__basic2___$BasicPartOfLibProps);
+      PropDescriptor(_$key__basic2___$BasicPartOfLibProps);
   static const PropDescriptor _$prop__basic3___$BasicPartOfLibProps =
-      const PropDescriptor(_$key__basic3___$BasicPartOfLibProps);
+      PropDescriptor(_$key__basic3___$BasicPartOfLibProps);
   static const PropDescriptor _$prop__basic4___$BasicPartOfLibProps =
-      const PropDescriptor(_$key__basic4___$BasicPartOfLibProps);
+      PropDescriptor(_$key__basic4___$BasicPartOfLibProps);
   static const PropDescriptor _$prop__basic5___$BasicPartOfLibProps =
-      const PropDescriptor(_$key__basic5___$BasicPartOfLibProps);
+      PropDescriptor(_$key__basic5___$BasicPartOfLibProps);
   static const String _$key__basicProp___$BasicPartOfLibProps =
       'BasicPartOfLibProps.basicProp';
   static const String _$key__basic1___$BasicPartOfLibProps =
@@ -108,7 +109,7 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
   static const String _$key__basic5___$BasicPartOfLibProps =
       'BasicPartOfLibProps.basic5';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__basicProp___$BasicPartOfLibProps,
     _$prop__basic1___$BasicPartOfLibProps,
     _$prop__basic2___$BasicPartOfLibProps,
@@ -116,7 +117,7 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
     _$prop__basic4___$BasicPartOfLibProps,
     _$prop__basic5___$BasicPartOfLibProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__basicProp___$BasicPartOfLibProps,
     _$key__basic1___$BasicPartOfLibProps,
     _$key__basic2___$BasicPartOfLibProps,
@@ -126,7 +127,7 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
   ];
 }
 
-const PropsMeta _$metaForBasicPartOfLibProps = const PropsMeta(
+const PropsMeta _$metaForBasicPartOfLibProps = PropsMeta(
   fields: _$BasicPartOfLibPropsAccessorsMixin.$props,
   keys: _$BasicPartOfLibPropsAccessorsMixin.$propKeys,
 );
@@ -138,8 +139,8 @@ class BasicPartOfLibProps extends _$BasicPartOfLibProps
 
 _$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) =>
     backingProps == null
-        ? new _$$BasicPartOfLibProps$JsMap(new JsBackedMap())
-        : new _$$BasicPartOfLibProps(backingProps);
+        ? _$$BasicPartOfLibProps$JsMap(JsBackedMap())
+        : _$$BasicPartOfLibProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -151,9 +152,9 @@ abstract class _$$BasicPartOfLibProps extends _$BasicPartOfLibProps
 
   factory _$$BasicPartOfLibProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$BasicPartOfLibProps$JsMap(backingMap);
+      return _$$BasicPartOfLibProps$JsMap(backingMap);
     } else {
-      return new _$$BasicPartOfLibProps$PlainMap(backingMap);
+      return _$$BasicPartOfLibProps$PlainMap(backingMap);
     }
   }
 
@@ -161,7 +162,7 @@ abstract class _$$BasicPartOfLibProps extends _$BasicPartOfLibProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $BasicPartOfLibComponentFactory;
@@ -193,9 +194,9 @@ class _$$BasicPartOfLibProps$JsMap extends _$$BasicPartOfLibProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$BasicPartOfLibProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -220,19 +221,19 @@ abstract class _$BasicPartOfLibStateAccessorsMixin
       state[_$key__basicState___$BasicPartOfLibState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__basicState___$BasicPartOfLibState =
-      const StateDescriptor(_$key__basicState___$BasicPartOfLibState);
+      StateDescriptor(_$key__basicState___$BasicPartOfLibState);
   static const String _$key__basicState___$BasicPartOfLibState =
       'BasicPartOfLibState.basicState';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__basicState___$BasicPartOfLibState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__basicState___$BasicPartOfLibState
   ];
 }
 
-const StateMeta _$metaForBasicPartOfLibState = const StateMeta(
+const StateMeta _$metaForBasicPartOfLibState = StateMeta(
   fields: _$BasicPartOfLibStateAccessorsMixin.$state,
   keys: _$BasicPartOfLibStateAccessorsMixin.$stateKeys,
 );
@@ -252,9 +253,9 @@ abstract class _$$BasicPartOfLibState extends _$BasicPartOfLibState
 
   factory _$$BasicPartOfLibState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$BasicPartOfLibState$JsMap(backingMap);
+      return _$$BasicPartOfLibState$JsMap(backingMap);
     } else {
-      return new _$$BasicPartOfLibState$PlainMap(backingMap);
+      return _$$BasicPartOfLibState$PlainMap(backingMap);
     }
   }
 
@@ -285,9 +286,9 @@ class _$$BasicPartOfLibState$JsMap extends _$$BasicPartOfLibState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$BasicPartOfLibState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -321,11 +322,11 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
 
   @override
   _$$BasicPartOfLibProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$BasicPartOfLibProps$JsMap(backingMap);
+      _$$BasicPartOfLibProps$JsMap(backingMap);
 
   @override
   _$$BasicPartOfLibProps typedPropsFactory(Map backingMap) =>
-      new _$$BasicPartOfLibProps(backingMap);
+      _$$BasicPartOfLibProps(backingMap);
 
   _$$BasicPartOfLibState$JsMap _cachedTypedState;
   @override
@@ -343,18 +344,18 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
 
   @override
   _$$BasicPartOfLibState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      new _$$BasicPartOfLibState$JsMap(backingMap);
+      _$$BasicPartOfLibState$JsMap(backingMap);
 
   @override
   _$$BasicPartOfLibState typedStateFactory(Map backingMap) =>
-      new _$$BasicPartOfLibState(backingMap);
+      _$$BasicPartOfLibState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$BasicPartOfLibProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForBasicPartOfLibProps
@@ -365,7 +366,7 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $SubPartOfLibComponentFactory = registerComponent(
-    () => new _$SubPartOfLibComponent(),
+    () => _$SubPartOfLibComponent(),
     builderFactory: SubPartOfLib,
     componentClass: SubPartOfLibComponent,
     isWrapper: false,
@@ -388,19 +389,17 @@ abstract class _$SubPartOfLibPropsAccessorsMixin
       props[_$key__subProp___$SubPartOfLibProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__subProp___$SubPartOfLibProps =
-      const PropDescriptor(_$key__subProp___$SubPartOfLibProps);
+      PropDescriptor(_$key__subProp___$SubPartOfLibProps);
   static const String _$key__subProp___$SubPartOfLibProps =
       'SubPartOfLibProps.subProp';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__subProp___$SubPartOfLibProps
   ];
-  static const List<String> $propKeys = const [
-    _$key__subProp___$SubPartOfLibProps
-  ];
+  static const List<String> $propKeys = [_$key__subProp___$SubPartOfLibProps];
 }
 
-const PropsMeta _$metaForSubPartOfLibProps = const PropsMeta(
+const PropsMeta _$metaForSubPartOfLibProps = PropsMeta(
   fields: _$SubPartOfLibPropsAccessorsMixin.$props,
   keys: _$SubPartOfLibPropsAccessorsMixin.$propKeys,
 );
@@ -411,7 +410,7 @@ class SubPartOfLibProps extends _$SubPartOfLibProps
 }
 
 _$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) =>
-    new _$$SubPartOfLibProps(backingProps);
+    _$$SubPartOfLibProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -434,7 +433,7 @@ class _$$SubPartOfLibProps extends _$SubPartOfLibProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $SubPartOfLibComponentFactory;
@@ -451,14 +450,14 @@ class _$$SubPartOfLibProps extends _$SubPartOfLibProps
 class _$SubPartOfLibComponent extends SubPartOfLibComponent {
   @override
   _$$SubPartOfLibProps typedPropsFactory(Map backingMap) =>
-      new _$$SubPartOfLibProps(backingMap);
+      _$$SubPartOfLibProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$SubPartOfLibProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForSubPartOfLibProps
@@ -481,19 +480,19 @@ abstract class _$SuperPartOfLibPropsAccessorsMixin
       props[_$key__superProp___$SuperPartOfLibProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__superProp___$SuperPartOfLibProps =
-      const PropDescriptor(_$key__superProp___$SuperPartOfLibProps);
+      PropDescriptor(_$key__superProp___$SuperPartOfLibProps);
   static const String _$key__superProp___$SuperPartOfLibProps =
       'SuperPartOfLibProps.superProp';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__superProp___$SuperPartOfLibProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__superProp___$SuperPartOfLibProps
   ];
 }
 
-const PropsMeta _$metaForSuperPartOfLibProps = const PropsMeta(
+const PropsMeta _$metaForSuperPartOfLibProps = PropsMeta(
   fields: _$SuperPartOfLibPropsAccessorsMixin.$props,
   keys: _$SuperPartOfLibPropsAccessorsMixin.$propKeys,
 );

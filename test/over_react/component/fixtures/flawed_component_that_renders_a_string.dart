@@ -17,8 +17,8 @@ class FlawedWithStringChildProps extends _$FlawedWithStringChildProps with _$Fla
   static const PropsMeta meta = _$metaForFlawedWithStringChildProps;
 }
 
-@Component()
-class FlawedWithStringChildComponent extends UiComponent<FlawedWithStringChildProps> {
+@Component2()
+class FlawedWithStringChildComponent extends UiComponent2<FlawedWithStringChildProps> {
   @override
   void componentDidMount() {
     throw FlawedWithStringChildComponentException();

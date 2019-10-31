@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'basic_child_component.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'basic_child_component.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $BasicChildComponentFactory = registerComponent2(
-  () => new _$BasicChildComponent(),
+  () => _$BasicChildComponent(),
   builderFactory: BasicChild,
   componentClass: BasicChildComponent,
   isWrapper: false,
@@ -24,11 +25,11 @@ abstract class _$BasicChildPropsAccessorsMixin implements _$BasicChildProps {
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForBasicChildProps = const PropsMeta(
+const PropsMeta _$metaForBasicChildProps = PropsMeta(
   fields: _$BasicChildPropsAccessorsMixin.$props,
   keys: _$BasicChildPropsAccessorsMixin.$propKeys,
 );
@@ -39,8 +40,8 @@ class BasicChildProps extends _$BasicChildProps
 }
 
 _$$BasicChildProps _$BasicChild([Map backingProps]) => backingProps == null
-    ? new _$$BasicChildProps$JsMap(new JsBackedMap())
-    : new _$$BasicChildProps(backingProps);
+    ? _$$BasicChildProps$JsMap(JsBackedMap())
+    : _$$BasicChildProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -52,9 +53,9 @@ abstract class _$$BasicChildProps extends _$BasicChildProps
 
   factory _$$BasicChildProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$BasicChildProps$JsMap(backingMap);
+      return _$$BasicChildProps$JsMap(backingMap);
     } else {
-      return new _$$BasicChildProps$PlainMap(backingMap);
+      return _$$BasicChildProps$PlainMap(backingMap);
     }
   }
 
@@ -62,7 +63,7 @@ abstract class _$$BasicChildProps extends _$BasicChildProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $BasicChildComponentFactory;
@@ -94,9 +95,9 @@ class _$$BasicChildProps$JsMap extends _$$BasicChildProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$BasicChildProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -130,18 +131,18 @@ class _$BasicChildComponent extends BasicChildComponent {
 
   @override
   _$$BasicChildProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$BasicChildProps$JsMap(backingMap);
+      _$$BasicChildProps$JsMap(backingMap);
 
   @override
   _$$BasicChildProps typedPropsFactory(Map backingMap) =>
-      new _$$BasicChildProps(backingMap);
+      _$$BasicChildProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$BasicChildProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForBasicChildProps

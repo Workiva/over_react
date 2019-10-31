@@ -70,10 +70,10 @@ main() {
       ParsedDeclarations declarations;
 
       void setUpAndParse(String source) {
-        logger = new MockLogger();
-        sourceFile = new SourceFile.fromString(source);
+        logger = MockLogger();
+        sourceFile = SourceFile.fromString(source);
         unit = parseCompilationUnit(source, suppressErrors: false, parseFunctionBodies: true);
-        declarations = new ParsedDeclarations(unit, sourceFile, logger);
+        declarations = ParsedDeclarations(unit, sourceFile, logger);
       }
 
       void verifyNoMoreErrorLogs() {
@@ -92,15 +92,15 @@ main() {
       });
 
       void expectEmptyDeclarations({
-        factory: true,
-        props: true,
-        state: true,
-        component: true,
-        component2: true,
-        abstractProps: true,
-        abstractState: true,
-        propsMixins: true,
-        stateMixins: true,
+        factory = true,
+        props = true,
+        state = true,
+        component = true,
+        component2 = true,
+        abstractProps = true,
+        abstractState = true,
+        propsMixins = true,
+        stateMixins = true,
         String reason
       }) {
         expect(declarations.factory,       factory       ? isNull  : isNotNull,  reason: reason);
@@ -128,10 +128,10 @@ main() {
 
         group('a component', () {
           void testDualClassSetup({
-            bool backwardsCompatible: true,
-            bool isPrivate: false,
-            bool isStatefulComponent: false,
-            int componentVersion: 1,
+            bool backwardsCompatible = true,
+            bool isPrivate = false,
+            bool isStatefulComponent = false,
+            int componentVersion = 1,
           }) {
             OverReactSrc ors;
             if (isStatefulComponent) {
@@ -174,9 +174,7 @@ main() {
           group('that is stateless', () {
             group('(v1 - deprecated)', () {
               group('with backwards compatible boilerplate', () {
-                test('with public consumable class', () {
-                  testDualClassSetup();
-                });
+                test('with public consumable class', testDualClassSetup);
                 test('with private consumable class', () {
                   testDualClassSetup(isPrivate: true);
                 });
@@ -308,19 +306,17 @@ main() {
         });
 
         group('abstract props class with builder-compatible dual-class setup', () {
-          void testAbstractPropsDualClassSetup({backwardsCompatible: true, isPrivate: false}) {
+          void testAbstractPropsDualClassSetup({backwardsCompatible = true, isPrivate = false}) {
             final ors = OverReactSrc.abstractProps(backwardsCompatible: backwardsCompatible, isPrivate: isPrivate);
             setUpAndParse(ors.source);
 
             expect(declarations.abstractProps, hasLength(1));
             expect(declarations.abstractProps[0].node?.name?.name, '_\$${ors.baseName}Props');
-            expect(declarations.abstractProps[0].meta, new TypeMatcher<annotations.AbstractProps>());
+            expect(declarations.abstractProps[0].meta,  TypeMatcher<annotations.AbstractProps>());
           }
 
           group('with backwards compatible boilerplate', () {
-            test('with public consumable class', () {
-              testAbstractPropsDualClassSetup();
-            });
+            test('with public consumable class', testAbstractPropsDualClassSetup);
             test('with private consumable class', () {
               testAbstractPropsDualClassSetup(isPrivate: true);
             });
@@ -337,19 +333,17 @@ main() {
         });
 
         group('abstract state class with builder-compatible dual-class setup', () {
-          void testAbstractStateDualClassSetup({backwardsCompatible: true, isPrivate: false}) {
+          void testAbstractStateDualClassSetup({backwardsCompatible = true, isPrivate = false}) {
             final ors = OverReactSrc.abstractState(backwardsCompatible: true, isPrivate: isPrivate);
             setUpAndParse(ors.source);
 
             expect(declarations.abstractState, hasLength(1));
             expect(declarations.abstractState[0].node?.name?.name, '_\$${ors.baseName}State');
-            expect(declarations.abstractState[0].meta, new TypeMatcher<annotations.AbstractState>());
+            expect(declarations.abstractState[0].meta,  TypeMatcher<annotations.AbstractState>());
           }
 
           group('with backwards compatible boilerplate', () {
-            test('with public consumable class', () {
-              testAbstractStateDualClassSetup();
-            });
+            test('with public consumable class', testAbstractStateDualClassSetup);
             test('with private consumable class', () {
               testAbstractStateDualClassSetup(isPrivate: true);
             });
@@ -618,12 +612,12 @@ main() {
         });
 
         group('non-static `meta` field is declared in', () {
-          final body = 'String meta;';
+          const body = 'String meta;';
           verifyMetaErrors(body);
         });
 
         group('non-static `meta` method is declared in', () {
-          final body = 'String get meta => \'do not do this\';';
+          const body = 'String get meta => \'do not do this\';';
           verifyMetaErrors(body);
         });
 
@@ -1137,12 +1131,12 @@ main() {
             }
 
             group('static `meta` field is declared in', () {
-              final body = 'static const String meta = "foo";';
+              const body = 'static const String meta = "foo";';
               verifyMetaWarnings(body);
             });
 
             group('static `meta` method is declared in', () {
-              final body = 'static String get meta => \'do not do this\';';
+              const body = 'static String get meta => \'do not do this\';';
               verifyMetaWarnings(body);
             });
           });

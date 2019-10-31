@@ -13,7 +13,6 @@
 // limitations under the License.
 
 // ignore_for_file: avoid_as
-
 part of prop_tyepdef_test_fixtures;
 
 @Factory()
@@ -26,25 +25,21 @@ class _$TestConsumingCustomRendererComponentProps extends UiProps {
   String stateKeyValueToTest;
 }
 
-@Component()
-class TestConsumingCustomRendererComponentComponent extends UiComponent<TestConsumingCustomRendererComponentProps> {
+@Component2()
+class TestConsumingCustomRendererComponentComponent extends UiComponent2<TestConsumingCustomRendererComponentProps> {
   @override
   render() {
     return (TestCustomRendererComponent()
       ..somePropKey = props.propKeyValueToTest
       ..someInitialStateKeyValue = props.stateKeyValueToTest
       ..customRenderer = (props, state, component) {
-        return (Dom.div()
-          ..addTestId('customRendererContainer')
-        )(
+        return (Dom.div()..addTestId('customRendererContainer'))(
           'props.somePropKey: ${(props as TestCustomRendererComponentProps).somePropKey} \n'
           'props.someStateKey: ${(state as TestCustomRendererComponentState).someStateKey}'
         );
       }
       ..parameterizedCustomRenderer = (props, state, component) {
-        return (Dom.div()
-          ..addTestId('parameterizedCustomRendererContainer')
-        )(
+        return (Dom.div()..addTestId('parameterizedCustomRendererContainer'))(
           'props.somePropKey: ${props.somePropKey} \n'
           'props.someStateKey: ${state.someStateKey}'
         );

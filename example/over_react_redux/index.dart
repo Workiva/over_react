@@ -11,11 +11,11 @@ import './store.dart';
 main() {
   setClientConfiguration();
 
-  UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
+  final UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
     mapStateToProps: (state) => (Counter()..currentCount = state.count)
   )(Counter);
 
-  UiFactory<CounterProps> ConnectedBigCounter = connect<BigCounterState, CounterProps>(
+  final UiFactory<CounterProps> ConnectedBigCounter = connect<BigCounterState, CounterProps>(
     mapStateToProps: (state) => (Counter()..currentCount = state.bigCount),
     mapDispatchToProps: (dispatch) => (
       Counter()

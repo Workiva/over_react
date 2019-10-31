@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'error_boundary_mixins.dart';
 
 // **************************************************************************
@@ -194,19 +195,17 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__onComponentDidCatch___$ErrorBoundaryPropsMixin =
-      const PropDescriptor(
-          _$key__onComponentDidCatch___$ErrorBoundaryPropsMixin);
+      PropDescriptor(_$key__onComponentDidCatch___$ErrorBoundaryPropsMixin);
   static const PropDescriptor
       _$prop__onComponentIsUnrecoverable___$ErrorBoundaryPropsMixin =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__onComponentIsUnrecoverable___$ErrorBoundaryPropsMixin);
   static const PropDescriptor
       _$prop__fallbackUIRenderer___$ErrorBoundaryPropsMixin =
-      const PropDescriptor(
-          _$key__fallbackUIRenderer___$ErrorBoundaryPropsMixin);
+      PropDescriptor(_$key__fallbackUIRenderer___$ErrorBoundaryPropsMixin);
   static const PropDescriptor
       _$prop__identicalErrorFrequencyTolerance___$ErrorBoundaryPropsMixin =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__identicalErrorFrequencyTolerance___$ErrorBoundaryPropsMixin);
   static const String _$key__onComponentDidCatch___$ErrorBoundaryPropsMixin =
       'ErrorBoundaryPropsMixin.onComponentDidCatch';
@@ -219,13 +218,13 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
       _$key__identicalErrorFrequencyTolerance___$ErrorBoundaryPropsMixin =
       'ErrorBoundaryPropsMixin.identicalErrorFrequencyTolerance';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__onComponentDidCatch___$ErrorBoundaryPropsMixin,
     _$prop__onComponentIsUnrecoverable___$ErrorBoundaryPropsMixin,
     _$prop__fallbackUIRenderer___$ErrorBoundaryPropsMixin,
     _$prop__identicalErrorFrequencyTolerance___$ErrorBoundaryPropsMixin
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__onComponentDidCatch___$ErrorBoundaryPropsMixin,
     _$key__onComponentIsUnrecoverable___$ErrorBoundaryPropsMixin,
     _$key__fallbackUIRenderer___$ErrorBoundaryPropsMixin,
@@ -233,7 +232,7 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ];
 }
 
-const PropsMeta _$metaForErrorBoundaryPropsMixin = const PropsMeta(
+const PropsMeta _$metaForErrorBoundaryPropsMixin = PropsMeta(
   fields: ErrorBoundaryPropsMixin.$props,
   keys: ErrorBoundaryPropsMixin.$propKeys,
 );
@@ -297,27 +296,26 @@ abstract class ErrorBoundaryStateMixin implements _$ErrorBoundaryStateMixin {
       state[_$key__showFallbackUIOnError___$ErrorBoundaryStateMixin] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__hasError___$ErrorBoundaryStateMixin =
-      const StateDescriptor(_$key__hasError___$ErrorBoundaryStateMixin);
+      StateDescriptor(_$key__hasError___$ErrorBoundaryStateMixin);
   static const StateDescriptor
       _$prop__showFallbackUIOnError___$ErrorBoundaryStateMixin =
-      const StateDescriptor(
-          _$key__showFallbackUIOnError___$ErrorBoundaryStateMixin);
+      StateDescriptor(_$key__showFallbackUIOnError___$ErrorBoundaryStateMixin);
   static const String _$key__hasError___$ErrorBoundaryStateMixin =
       'ErrorBoundaryStateMixin.hasError';
   static const String _$key__showFallbackUIOnError___$ErrorBoundaryStateMixin =
       'ErrorBoundaryStateMixin.showFallbackUIOnError';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__hasError___$ErrorBoundaryStateMixin,
     _$prop__showFallbackUIOnError___$ErrorBoundaryStateMixin
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__hasError___$ErrorBoundaryStateMixin,
     _$key__showFallbackUIOnError___$ErrorBoundaryStateMixin
   ];
 }
 
-const StateMeta _$metaForErrorBoundaryStateMixin = const StateMeta(
+const StateMeta _$metaForErrorBoundaryStateMixin = StateMeta(
   fields: ErrorBoundaryStateMixin.$state,
   keys: ErrorBoundaryStateMixin.$stateKeys,
 );

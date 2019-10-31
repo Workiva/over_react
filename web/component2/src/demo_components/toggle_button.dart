@@ -76,13 +76,13 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   InputElement inputRef;
 
   @override
-   get defaultProps => (newProps()
+  get defaultProps => (newProps()
     ..addProps(super.defaultProps)
     ..toggleType = ToggleBehaviorType.CHECKBOX
   );
 
   @override
-   get initialState => (newState()
+  get initialState => (newState()
     ..id = 'toggle_button_' + generateGuid()
     ..isFocused = props.autoFocus
     ..isChecked = props.checked ?? props.defaultChecked ?? false
@@ -96,18 +96,11 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   ];
 
   @override
-  void init() {
-    _validateProps(props);
-  }
+  Map getDerivedStateFromProps(Map nextProps, Map prevState) {
+    var tNextState = typedPropsFactory(nextProps);
 
-  @override
-  Map getDerivedStateFromProps(Map props, MapState) {
-    var tNewProps = typedPropsFactory(props);
-
-    _validateProps(tNewProps);
-
-    if (tNewProps.checked != null && this.props.checked != tNewProps.checked) {
-      return newState()..isChecked = tNewProps.checked;
+    if (tNextState.checked != null && this.props.checked != tNextState.checked) {
+      return newState()..isChecked = tNextState.checked;
     } else {
       return null;
     }
@@ -186,13 +179,6 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   /// (the component is a "controlled" component).
   void refreshState() {
     if (!_isControlled) setState(newState()..isChecked = inputRef.checked);
-  }
-
-  void _validateProps(ToggleButtonProps props) {
-    assert(
-        (props.toggleType == ToggleBehaviorType.RADIO && props.name != null) ||
-        props.toggleType == ToggleBehaviorType.CHECKBOX
-    );
   }
 
   /// Used to check if the `input` element is controlled or not.

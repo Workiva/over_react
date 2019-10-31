@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'test_a.dart';
 
 // **************************************************************************
@@ -9,7 +10,7 @@ part of 'test_a.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $TestAComponentFactory = registerComponent(() => new _$TestAComponent(),
+final $TestAComponentFactory = registerComponent(() => _$TestAComponent(),
     builderFactory: TestA,
     componentClass: TestAComponent,
     isWrapper: false,
@@ -22,11 +23,11 @@ abstract class _$TestAPropsAccessorsMixin implements _$TestAProps {
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForTestAProps = const PropsMeta(
+const PropsMeta _$metaForTestAProps = PropsMeta(
   fields: _$TestAPropsAccessorsMixin.$props,
   keys: _$TestAPropsAccessorsMixin.$propKeys,
 );
@@ -35,7 +36,7 @@ class TestAProps extends _$TestAProps with _$TestAPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestAProps;
 }
 
-_$$TestAProps _$TestA([Map backingProps]) => new _$$TestAProps(backingProps);
+_$$TestAProps _$TestA([Map backingProps]) => _$$TestAProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -58,7 +59,7 @@ class _$$TestAProps extends _$TestAProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestAComponentFactory;
@@ -74,15 +75,14 @@ class _$$TestAProps extends _$TestAProps
 // generated for the associated props class.
 class _$TestAComponent extends TestAComponent {
   @override
-  _$$TestAProps typedPropsFactory(Map backingMap) =>
-      new _$$TestAProps(backingMap);
+  _$$TestAProps typedPropsFactory(Map backingMap) => _$$TestAProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestAProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestAProps];
 }

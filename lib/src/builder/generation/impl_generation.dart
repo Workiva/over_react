@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:analyzer/analyzer.dart';
+// ignore_for_file: deprecated_member_use_from_same_package
+
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
@@ -49,7 +51,7 @@ class ImplGenerator {
   ImplGenerator(this.logger, this.sourceFile);
 
   Logger logger;
-  StringBuffer outputContentsBuffer = new StringBuffer();
+  StringBuffer outputContentsBuffer = StringBuffer();
 
   SourceFile sourceFile;
 
@@ -70,8 +72,8 @@ class ImplGenerator {
 
       final generatedComponentFactoryName = _componentFactoryName(componentClassName);
 
-      StringBuffer typedPropsFactoryImpl = new StringBuffer();
-      StringBuffer typedStateFactoryImpl = new StringBuffer();
+      StringBuffer typedPropsFactoryImpl = StringBuffer();
+      StringBuffer typedStateFactoryImpl = StringBuffer();
 
       // ----------------------------------------------------------------------
       //   Factory implementation
@@ -110,7 +112,7 @@ class ImplGenerator {
           ..writeln('// React component factory implementation.')
           ..writeln('//')
           ..writeln('// Registers component implementation and links type meta to builder factory.')
-          ..writeln('final $generatedComponentFactoryName = registerComponent2(() => new $componentClassImplMixinName(),')
+          ..writeln('final $generatedComponentFactoryName = registerComponent2(() => $componentClassImplMixinName(),')
           ..writeln('    builderFactory: $factoryName,')
           ..writeln('    componentClass: $componentClassName,')
           ..writeln('    isWrapper: ${componentDeclNode.meta.isWrapper},')
@@ -121,8 +123,7 @@ class ImplGenerator {
           // Override `skipMethods` as an empty list so that
           // the `componentDidCatch` and `getDerivedStateFromError`
           // lifecycle methods are included in the component's JS bindings.
-          outputContentsBuffer
-            ..writeln('    skipMethods: const [],');
+          outputContentsBuffer.writeln('    skipMethods: const [],');
         }
 
         outputContentsBuffer
@@ -133,7 +134,7 @@ class ImplGenerator {
           ..writeln('// React component factory implementation.')
           ..writeln('//')
           ..writeln('// Registers component implementation and links type meta to builder factory.')
-          ..writeln('final $generatedComponentFactoryName = registerComponent(() => new $componentClassImplMixinName(),')
+          ..writeln('final $generatedComponentFactoryName = registerComponent(() => $componentClassImplMixinName(),')
           ..writeln('    builderFactory: $factoryName,')
           ..writeln('    componentClass: $componentClassName,')
           ..writeln('    isWrapper: ${componentDeclNode.meta.isWrapper},')
@@ -160,14 +161,14 @@ class ImplGenerator {
           '$propsImplName $privateSourcePrefix$factoryName([Map backingProps]) => ');
 
       if (!isComponent2) {
-        /// _$$FooProps _$Foo([Map backingProps]) => new _$$FooProps(backingProps);
-        outputContentsBuffer.writeln('new $propsImplName(backingProps);');
+        /// _$$FooProps _$Foo([Map backingProps]) => _$$FooProps(backingProps);
+        outputContentsBuffer.writeln('$propsImplName(backingProps);');
       } else {
-        /// _$$FooProps _$Foo([Map backingProps]) => backingProps == null ? new $jsMapImplName(new JsBackedMap()) : new _$$FooProps(backingProps);
+        /// _$$FooProps _$Foo([Map backingProps]) => backingProps == null ? $jsMapImplName(JsBackedMap()) : _$$FooProps(backingProps);
         final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(propsImplName);
         // Optimize this case for when backingProps is null to promote inlining of `jsMapImplName` typing
         outputContentsBuffer.writeln(
-              'backingProps == null ? new $jsMapImplName(new JsBackedMap()) : new $propsImplName(backingProps);'
+              'backingProps == null ? $jsMapImplName(JsBackedMap()) : $propsImplName(backingProps);'
         );
       }
 
@@ -208,12 +209,12 @@ class ImplGenerator {
           ..writeln('  }')
           ..writeln()
           ..writeln('  @override ')
-          ..writeln('  $jsMapImplName typedPropsFactoryJs(JsBackedMap backingMap) => new $jsMapImplName(backingMap);')
+          ..writeln('  $jsMapImplName typedPropsFactoryJs(JsBackedMap backingMap) => $jsMapImplName(backingMap);')
           ..writeln();
       }
       typedPropsFactoryImpl
         ..writeln('  @override')
-        ..writeln('  $propsImplName typedPropsFactory(Map backingMap) => new $propsImplName(backingMap);')
+        ..writeln('  $propsImplName typedPropsFactory(Map backingMap) => $propsImplName(backingMap);')
         ..writeln();
 
 
@@ -266,12 +267,12 @@ class ImplGenerator {
             ..writeln()
             ..writeln('  @override ')
             // FIXME 3.0.0-wip: is this implementation still needed here to get good dart2js output, or can we do it in the superclass?
-            ..writeln('  $jsMapImplName typedStateFactoryJs(JsBackedMap backingMap) => new $jsMapImplName(backingMap);')
+            ..writeln('  $jsMapImplName typedStateFactoryJs(JsBackedMap backingMap) => $jsMapImplName(backingMap);')
             ..writeln();
         }
         typedStateFactoryImpl
           ..writeln('  @override')
-          ..writeln('  $stateImplName typedStateFactory(Map backingMap) => new $stateImplName(backingMap);')
+          ..writeln('  $stateImplName typedStateFactory(Map backingMap) => $stateImplName(backingMap);')
           ..writeln();
       }
 
@@ -390,7 +391,7 @@ class ImplGenerator {
     Map keyConstants = {};
     Map constants = {};
 
-    StringBuffer output = new StringBuffer();
+    StringBuffer output = StringBuffer();
 
     typedMap.node.members
         .where((member) => member is FieldDeclaration && !member.isStatic)
@@ -413,7 +414,7 @@ class ImplGenerator {
             return;
           }
 
-          field.fields.variables.forEach((VariableDeclaration variable) {
+          field.fields.variables.forEach((variable) {
             if (variable.initializer != null) {
               logger.severe(messageWithSpan(
                   'Fields are stubs for generated setters/getters and should not have initializers.\n'
@@ -481,7 +482,7 @@ class ImplGenerator {
 
             final typeSource = field.fields.type?.toSource();
             final typeString = typeSource == null ? '' : '$typeSource ';
-            final metadataSrc = new StringBuffer();
+            final metadataSrc = StringBuffer();
             for (final annotation in field.metadata) {
               metadataSrc.writeln('  ${annotation.toSource()}');
             }
@@ -541,8 +542,8 @@ class ImplGenerator {
           }
         });
 
-    var keyConstantsImpl;
-    var constantsImpl;
+    String keyConstantsImpl;
+    String constantsImpl;
 
     if (keyConstants.keys.isEmpty) {
       keyConstantsImpl = '';
@@ -573,7 +574,7 @@ class ImplGenerator {
     String staticVariablesImpl = '  /* GENERATED CONSTANTS */\n$constantsImpl$keyConstantsImpl\n$listImpl$keyListImpl';
 
     output.write(staticVariablesImpl);
-    return new AccessorOutput(output.toString());
+    return AccessorOutput(output.toString());
   }
 
   static String _getAccessorKeyNamespace(NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap) {
@@ -600,7 +601,7 @@ class ImplGenerator {
   ///   Output: '_$$_FooProps'
   static String _propsImplClassNameFromConsumerClassName(String className) {
     if (className == null) {
-      throw new ArgumentError.notNull(className);
+      throw ArgumentError.notNull(className);
     }
 
     return className.replaceFirst(privateSourcePrefix, '$privateSourcePrefix\$');
@@ -635,7 +636,7 @@ class ImplGenerator {
   ///   Output: '_FooProps'
   static String _publicPropsOrStateClassNameFromConsumerClassName(String className) {
     if (className == null) {
-      throw new ArgumentError.notNull(className);
+      throw ArgumentError.notNull(className);
     }
 
     return className.replaceFirst(privateSourcePrefix, '');
@@ -651,7 +652,7 @@ class ImplGenerator {
   /// factories from super components.
   static String _componentFactoryName(String componentClassName) {
     if (componentClassName == null) {
-      throw new ArgumentError.notNull(componentClassName);
+      throw ArgumentError.notNull(componentClassName);
     }
 
     return '$publicGeneratedPrefix${componentClassName}Factory';
@@ -666,7 +667,7 @@ class ImplGenerator {
   ///   Output: _$_FooPropsAccessorsMixin
   static String _accessorsMixinNameFromConsumerName(String className) {
     if (className == null) {
-      throw new ArgumentError.notNull(className);
+      throw ArgumentError.notNull(className);
     }
 
     return '${className}AccessorsMixin';
@@ -679,7 +680,7 @@ class ImplGenerator {
   ///   Output: $metaForFooProps
   static String _metaConstantName(String consumableClassName) {
     if (consumableClassName == null) {
-      throw new ArgumentError.notNull(consumableClassName);
+      throw ArgumentError.notNull(consumableClassName);
     }
 
     return '${privateSourcePrefix}metaFor$consumableClassName';
@@ -718,7 +719,7 @@ class ImplGenerator {
 
     final String metaInstanceName = _metaConstantName(_publicPropsOrStateClassNameFromConsumerClassName(className));
 
-    final output = new StringBuffer();
+    final output = StringBuffer();
     output.writeln('const $metaStructName $metaInstanceName = const $metaStructName(');
     output.writeln('  fields: $accessorsMixinName.$fieldListName,');
     output.writeln('  keys: $accessorsMixinName.$keyListName,');
@@ -732,7 +733,7 @@ class ImplGenerator {
     final typeParamsOnClass = typeParameters?.toSource() ?? '';
     final typeParamsOnSuper = removeBoundsFromTypeParameters(typeParameters);
 
-    StringBuffer generatedClass = new StringBuffer();
+    StringBuffer generatedClass = StringBuffer();
     final implementsClause = 'implements $consumerClassName$typeParamsOnSuper';
     generatedClass.writeln(
         'abstract class $accessorsMixinName$typeParamsOnClass $implementsClause {\n' +
@@ -792,7 +793,7 @@ class ImplGenerator {
   String _copyStaticMembers(NodeWithMeta<ClassDeclaration, annotations.TypedMap> node) {
     final buffer = StringBuffer();
     node.node.members
-        .where((member) => _isStaticFieldOrMethod(member))
+        .where(_isStaticFieldOrMethod)
         .forEach((member) {
           // Don't copy over anything named `meta`, since the static meta field is already going to be generated.
           if (!_memberHasName(member, 'meta')) {
@@ -858,7 +859,7 @@ class ImplGenerator {
     final typeParamsOnClass = node.node.typeParameters?.toSource() ?? '';
     final typeParamsOnSuper = removeBoundsFromTypeParameters(node.node.typeParameters);
 
-    final classDeclaration = new StringBuffer();
+    final classDeclaration = StringBuffer();
     if (isComponent2) {
       // This class will only have a factory constructor that instantiates one
       // of two subclasses.
@@ -872,7 +873,7 @@ class ImplGenerator {
     final propsOrState = type.isProps ? 'props' : 'state';
 
     // Class declaration
-    final buffer = new StringBuffer()
+    final buffer = StringBuffer()
       ..writeln('// Concrete $propsOrState implementation.')
       ..writeln('//')
       ..writeln('// Implements constructor and backing map${type.isProps ? ', and links up to generated component factory' : ''}.')
@@ -887,9 +888,9 @@ class ImplGenerator {
         ..writeln()
         ..writeln('  factory $implName(Map backingMap) {')
         ..writeln('    if (backingMap == null || backingMap is JsBackedMap) {')
-        ..writeln('      return new $jsMapImplName(backingMap);')
+        ..writeln('      return $jsMapImplName(backingMap);')
         ..writeln('    } else {')
-        ..writeln('      return new $plainMapImplName(backingMap);')
+        ..writeln('      return $plainMapImplName(backingMap);')
         ..writeln('    }')
         ..writeln('  }');
     } else {
@@ -958,8 +959,8 @@ class ImplGenerator {
         ..writeln('  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
         ..writeln('  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
         // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
-        ..writeln('  $jsMapImplName(JsBackedMap backingMap) : this._$propsOrState = new JsBackedMap(), super._() {')
-        ..writeln('     this._$propsOrState = backingMap ?? new JsBackedMap();')
+        ..writeln('  $jsMapImplName(JsBackedMap backingMap) : this._$propsOrState = JsBackedMap(), super._() {')
+        ..writeln('     this._$propsOrState = backingMap ?? JsBackedMap();')
         ..writeln('  }')
         ..writeln()
         ..writeln('  /// The backing $propsOrState map proxied by this class.')
@@ -1007,12 +1008,12 @@ class AccessorType {
   final bool isMixin;
   const AccessorType(this.isProps, this.isAbstract, this.isMixin);
 
-  static const AccessorType props = const AccessorType(true, false, false);
-  static const AccessorType state = const AccessorType(false, false, false);
-  static const AccessorType abstractProps = const AccessorType(true, true, false);
-  static const AccessorType abstractState = const AccessorType(false, true, false);
-  static const AccessorType propsMixin = const AccessorType(true, false, true);
-  static const AccessorType stateMixin = const AccessorType(false, false, true);
+  static const AccessorType props = AccessorType(true, false, false);
+  static const AccessorType state = AccessorType(false, false, false);
+  static const AccessorType abstractProps = AccessorType(true, true, false);
+  static const AccessorType abstractState = AccessorType(false, true, false);
+  static const AccessorType propsMixin = AccessorType(true, false, true);
+  static const AccessorType stateMixin = AccessorType(false, false, true);
 }
 
 class AccessorOutput {

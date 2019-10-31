@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'generic_inheritance_super.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'generic_inheritance_super.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $GenericSuperComponentFactory = registerComponent2(
-  () => new _$GenericSuperComponent(),
+  () => _$GenericSuperComponent(),
   builderFactory: GenericSuper,
   componentClass: GenericSuperComponent,
   isWrapper: false,
@@ -54,11 +55,11 @@ abstract class _$GenericSuperPropsAccessorsMixin
       props[_$key__superProp1___$GenericSuperProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__otherSuperProp___$GenericSuperProps =
-      const PropDescriptor(_$key__otherSuperProp___$GenericSuperProps);
+      PropDescriptor(_$key__otherSuperProp___$GenericSuperProps);
   static const PropDescriptor _$prop__superProp___$GenericSuperProps =
-      const PropDescriptor(_$key__superProp___$GenericSuperProps);
+      PropDescriptor(_$key__superProp___$GenericSuperProps);
   static const PropDescriptor _$prop__superProp1___$GenericSuperProps =
-      const PropDescriptor(_$key__superProp1___$GenericSuperProps);
+      PropDescriptor(_$key__superProp1___$GenericSuperProps);
   static const String _$key__otherSuperProp___$GenericSuperProps =
       'GenericSuperProps.otherSuperProp';
   static const String _$key__superProp___$GenericSuperProps =
@@ -66,19 +67,19 @@ abstract class _$GenericSuperPropsAccessorsMixin
   static const String _$key__superProp1___$GenericSuperProps =
       'GenericSuperProps.superProp1';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__otherSuperProp___$GenericSuperProps,
     _$prop__superProp___$GenericSuperProps,
     _$prop__superProp1___$GenericSuperProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__otherSuperProp___$GenericSuperProps,
     _$key__superProp___$GenericSuperProps,
     _$key__superProp1___$GenericSuperProps
   ];
 }
 
-const PropsMeta _$metaForGenericSuperProps = const PropsMeta(
+const PropsMeta _$metaForGenericSuperProps = PropsMeta(
   fields: _$GenericSuperPropsAccessorsMixin.$props,
   keys: _$GenericSuperPropsAccessorsMixin.$propKeys,
 );
@@ -89,8 +90,8 @@ class GenericSuperProps extends _$GenericSuperProps
 }
 
 _$$GenericSuperProps _$GenericSuper([Map backingProps]) => backingProps == null
-    ? new _$$GenericSuperProps$JsMap(new JsBackedMap())
-    : new _$$GenericSuperProps(backingProps);
+    ? _$$GenericSuperProps$JsMap(JsBackedMap())
+    : _$$GenericSuperProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -102,9 +103,9 @@ abstract class _$$GenericSuperProps extends _$GenericSuperProps
 
   factory _$$GenericSuperProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$GenericSuperProps$JsMap(backingMap);
+      return _$$GenericSuperProps$JsMap(backingMap);
     } else {
-      return new _$$GenericSuperProps$PlainMap(backingMap);
+      return _$$GenericSuperProps$PlainMap(backingMap);
     }
   }
 
@@ -112,7 +113,7 @@ abstract class _$$GenericSuperProps extends _$GenericSuperProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $GenericSuperComponentFactory;
@@ -144,9 +145,9 @@ class _$$GenericSuperProps$JsMap extends _$$GenericSuperProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$GenericSuperProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -171,19 +172,19 @@ abstract class _$GenericSuperStateAccessorsMixin
       state[_$key__superState___$GenericSuperState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__superState___$GenericSuperState =
-      const StateDescriptor(_$key__superState___$GenericSuperState);
+      StateDescriptor(_$key__superState___$GenericSuperState);
   static const String _$key__superState___$GenericSuperState =
       'GenericSuperState.superState';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__superState___$GenericSuperState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__superState___$GenericSuperState
   ];
 }
 
-const StateMeta _$metaForGenericSuperState = const StateMeta(
+const StateMeta _$metaForGenericSuperState = StateMeta(
   fields: _$GenericSuperStateAccessorsMixin.$state,
   keys: _$GenericSuperStateAccessorsMixin.$stateKeys,
 );
@@ -203,9 +204,9 @@ abstract class _$$GenericSuperState extends _$GenericSuperState
 
   factory _$$GenericSuperState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$GenericSuperState$JsMap(backingMap);
+      return _$$GenericSuperState$JsMap(backingMap);
     } else {
-      return new _$$GenericSuperState$PlainMap(backingMap);
+      return _$$GenericSuperState$PlainMap(backingMap);
     }
   }
 
@@ -236,9 +237,9 @@ class _$$GenericSuperState$JsMap extends _$$GenericSuperState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$GenericSuperState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -272,11 +273,11 @@ class _$GenericSuperComponent extends GenericSuperComponent {
 
   @override
   _$$GenericSuperProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$GenericSuperProps$JsMap(backingMap);
+      _$$GenericSuperProps$JsMap(backingMap);
 
   @override
   _$$GenericSuperProps typedPropsFactory(Map backingMap) =>
-      new _$$GenericSuperProps(backingMap);
+      _$$GenericSuperProps(backingMap);
 
   _$$GenericSuperState$JsMap _cachedTypedState;
   @override
@@ -294,18 +295,18 @@ class _$GenericSuperComponent extends GenericSuperComponent {
 
   @override
   _$$GenericSuperState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      new _$$GenericSuperState$JsMap(backingMap);
+      _$$GenericSuperState$JsMap(backingMap);
 
   @override
   _$$GenericSuperState typedStateFactory(Map backingMap) =>
-      new _$$GenericSuperState(backingMap);
+      _$$GenericSuperState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$GenericSuperProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForGenericSuperProps

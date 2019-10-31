@@ -30,7 +30,7 @@ class CounterState {
   final String name;
   CounterState({
     this.count,
-    this.name = "Counter",
+    this.name = 'Counter',
   });
 }
 
@@ -61,7 +61,7 @@ class BigCounterState {
   final String name;
   BigCounterState({
     this.bigCount,
-    this.name = "BigCounter",
+    this.name = 'BigCounter',
   });
 }
 

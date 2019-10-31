@@ -1,3 +1,4 @@
+// ignore_for_file: deprecated_member_use_from_same_package
 part of '../annotation_error_integration_test.dart';
 
 @Factory()
@@ -15,7 +16,7 @@ class AnnotationErrorStatefulDefaultPropsComponent extends UiStatefulComponent2<
     AnnotationErrorStatefulDefaultPropsProps,
     AnnotationErrorStatefulDefaultPropsState> {
   @override
-  Map getDefaultProps() => newProps()..id = 'testId';
+  Map get defaultProps => newProps()..id = 'testId';
 
   @override
   render() => props.children;

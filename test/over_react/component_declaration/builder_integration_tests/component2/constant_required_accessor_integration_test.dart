@@ -11,6 +11,9 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+@TestOn('browser')
+
 import 'dart:js';
 
 import 'package:over_react/over_react.dart';
@@ -34,7 +37,7 @@ void main() {
 
       originalConsoleError = context['console']['error'];
       consoleErrors = [];
-      context['console']['error'] = new JsFunction.withThis((self, message) {
+      context['console']['error'] = JsFunction.withThis((self, message) {
         consoleErrors.add(message);
         originalConsoleError.apply([message], thisArg: self);
       });
@@ -239,10 +242,10 @@ UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
 @Props()
 class _$ComponentTestProps extends UiProps {
   @requiredProp
-  var required;
+  dynamic required;
 
   @nullableRequiredProp
-  var nullable;
+  dynamic nullable;
 
   @requiredProp
   List requiredAndLengthLimited;
@@ -252,11 +255,11 @@ class _$ComponentTestProps extends UiProps {
 class ComponentTestComponent extends UiComponent2<ComponentTestProps> {
   @override
   get propTypes => {
-      getPropKey((ComponentTestProps props) => props.requiredAndLengthLimited, typedPropsFactory):
+      getPropKey<ComponentTestProps>((props) => props.requiredAndLengthLimited, typedPropsFactory):
           (props, propName, componentName, location, propFullName) {
         final length = props.requiredAndLengthLimited?.length;
         if (length != 2) {
-          return new PropError.value(length, propName, 'must have a length of 2');
+          return PropError.value(length, propName, 'must have a length of 2');
         }
         return null;
       },

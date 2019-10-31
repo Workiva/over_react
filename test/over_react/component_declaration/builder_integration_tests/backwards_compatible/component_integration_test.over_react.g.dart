@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'component_integration_test.dart';
 
 // **************************************************************************
@@ -9,13 +10,14 @@ part of 'component_integration_test.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $ComponentTestComponentFactory = registerComponent(
-    () => new _$ComponentTestComponent(),
-    builderFactory: ComponentTest,
-    componentClass: ComponentTestComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'ComponentTest');
+final $ComponentTestComponentFactory = registerComponent2(
+  () => _$ComponentTestComponent(),
+  builderFactory: ComponentTest,
+  componentClass: ComponentTestComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'ComponentTest',
+);
 
 abstract class _$ComponentTestPropsAccessorsMixin
     implements _$ComponentTestProps {
@@ -55,54 +57,53 @@ abstract class _$ComponentTestPropsAccessorsMixin
   /// <!-- Generated from [_$ComponentTestProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  get customKeyProp =>
+  dynamic get customKeyProp =>
       props[_$key__customKeyProp___$ComponentTestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$ComponentTestProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  set customKeyProp(value) =>
+  set customKeyProp(dynamic value) =>
       props[_$key__customKeyProp___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceProp =>
+  dynamic get customNamespaceProp =>
       props[_$key__customNamespaceProp___$ComponentTestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$ComponentTestProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceProp(value) =>
+  set customNamespaceProp(dynamic value) =>
       props[_$key__customNamespaceProp___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceProp =>
+  dynamic get customKeyAndNamespaceProp =>
       props[_$key__customKeyAndNamespaceProp___$ComponentTestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$ComponentTestProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceProp(value) =>
+  set customKeyAndNamespaceProp(dynamic value) =>
       props[_$key__customKeyAndNamespaceProp___$ComponentTestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__stringProp___$ComponentTestProps =
-      const PropDescriptor(_$key__stringProp___$ComponentTestProps);
+      PropDescriptor(_$key__stringProp___$ComponentTestProps);
   static const PropDescriptor _$prop__dynamicProp___$ComponentTestProps =
-      const PropDescriptor(_$key__dynamicProp___$ComponentTestProps);
+      PropDescriptor(_$key__dynamicProp___$ComponentTestProps);
   static const PropDescriptor _$prop__untypedProp___$ComponentTestProps =
-      const PropDescriptor(_$key__untypedProp___$ComponentTestProps);
+      PropDescriptor(_$key__untypedProp___$ComponentTestProps);
   static const PropDescriptor _$prop__customKeyProp___$ComponentTestProps =
-      const PropDescriptor(_$key__customKeyProp___$ComponentTestProps);
+      PropDescriptor(_$key__customKeyProp___$ComponentTestProps);
   static const PropDescriptor
       _$prop__customNamespaceProp___$ComponentTestProps =
-      const PropDescriptor(_$key__customNamespaceProp___$ComponentTestProps);
+      PropDescriptor(_$key__customNamespaceProp___$ComponentTestProps);
   static const PropDescriptor
       _$prop__customKeyAndNamespaceProp___$ComponentTestProps =
-      const PropDescriptor(
-          _$key__customKeyAndNamespaceProp___$ComponentTestProps);
+      PropDescriptor(_$key__customKeyAndNamespaceProp___$ComponentTestProps);
   static const String _$key__stringProp___$ComponentTestProps =
       'ComponentTestProps.stringProp';
   static const String _$key__dynamicProp___$ComponentTestProps =
@@ -116,7 +117,7 @@ abstract class _$ComponentTestPropsAccessorsMixin
   static const String _$key__customKeyAndNamespaceProp___$ComponentTestProps =
       'custom namespace~~custom key!';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__stringProp___$ComponentTestProps,
     _$prop__dynamicProp___$ComponentTestProps,
     _$prop__untypedProp___$ComponentTestProps,
@@ -124,7 +125,7 @@ abstract class _$ComponentTestPropsAccessorsMixin
     _$prop__customNamespaceProp___$ComponentTestProps,
     _$prop__customKeyAndNamespaceProp___$ComponentTestProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__stringProp___$ComponentTestProps,
     _$key__dynamicProp___$ComponentTestProps,
     _$key__untypedProp___$ComponentTestProps,
@@ -134,36 +135,37 @@ abstract class _$ComponentTestPropsAccessorsMixin
   ];
 }
 
-const PropsMeta _$metaForComponentTestProps = const PropsMeta(
+const PropsMeta _$metaForComponentTestProps = PropsMeta(
   fields: _$ComponentTestPropsAccessorsMixin.$props,
   keys: _$ComponentTestPropsAccessorsMixin.$propKeys,
 );
 
 _$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
-    new _$$ComponentTestProps(backingProps);
+    backingProps == null
+        ? _$$ComponentTestProps$JsMap(JsBackedMap())
+        : _$$ComponentTestProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$ComponentTestProps extends _$ComponentTestProps
+abstract class _$$ComponentTestProps extends _$ComponentTestProps
     with _$ComponentTestPropsAccessorsMixin
     implements ComponentTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ComponentTestProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$ComponentTestProps._();
 
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
+  factory _$$ComponentTestProps(Map backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$ComponentTestProps$JsMap(backingMap);
+    } else {
+      return _$$ComponentTestProps$PlainMap(backingMap);
+    }
+  }
 
   /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $ComponentTestComponentFactory;
@@ -173,21 +175,76 @@ class _$$ComponentTestProps extends _$ComponentTestProps
   String get propKeyNamespace => 'ComponentTestProps.';
 }
 
+// Concrete props implementation that can be backed by any [Map].
+class _$$ComponentTestProps$PlainMap extends _$$ComponentTestProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ComponentTestProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+class _$$ComponentTestProps$JsMap extends _$$ComponentTestProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ComponentTestProps$JsMap(JsBackedMap backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ComponentTestComponent extends ComponentTestComponent {
+  _$$ComponentTestProps$JsMap _cachedTypedProps;
+
+  @override
+  _$$ComponentTestProps$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+  }
+
+  @override
+  _$$ComponentTestProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$ComponentTestProps$JsMap(backingMap);
+
   @override
   _$$ComponentTestProps typedPropsFactory(Map backingMap) =>
-      new _$$ComponentTestProps(backingMap);
+      _$$ComponentTestProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ComponentTestProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForComponentTestProps

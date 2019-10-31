@@ -19,10 +19,8 @@ class _$PropTypesWrapState extends UiState {
 
 @Component2()
 class PropTypesWrapComponent extends UiStatefulComponent2<PropTypesWrapProps, PropTypesWrapState> {
-
   @override
-   get initialState => (newState()..twoObjects = [1,2]
-);
+  get initialState => newState()..twoObjects = [1,2];
 
   @override
   render() {

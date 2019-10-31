@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'button_group.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'button_group.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ButtonGroupComponentFactory = registerComponent2(
-  () => new _$ButtonGroupComponent(),
+  () => _$ButtonGroupComponent(),
   builderFactory: ButtonGroup,
   componentClass: ButtonGroupComponent,
   isWrapper: false,
@@ -80,29 +81,29 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
       props[_$key__isVertical___$ButtonGroupProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__size___$ButtonGroupProps =
-      const PropDescriptor(_$key__size___$ButtonGroupProps);
+      PropDescriptor(_$key__size___$ButtonGroupProps);
   static const PropDescriptor _$prop__skin___$ButtonGroupProps =
-      const PropDescriptor(_$key__skin___$ButtonGroupProps);
+      PropDescriptor(_$key__skin___$ButtonGroupProps);
   static const PropDescriptor _$prop__isVertical___$ButtonGroupProps =
-      const PropDescriptor(_$key__isVertical___$ButtonGroupProps);
+      PropDescriptor(_$key__isVertical___$ButtonGroupProps);
   static const String _$key__size___$ButtonGroupProps = 'ButtonGroupProps.size';
   static const String _$key__skin___$ButtonGroupProps = 'ButtonGroupProps.skin';
   static const String _$key__isVertical___$ButtonGroupProps =
       'ButtonGroupProps.isVertical';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__size___$ButtonGroupProps,
     _$prop__skin___$ButtonGroupProps,
     _$prop__isVertical___$ButtonGroupProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__size___$ButtonGroupProps,
     _$key__skin___$ButtonGroupProps,
     _$key__isVertical___$ButtonGroupProps
   ];
 }
 
-const PropsMeta _$metaForButtonGroupProps = const PropsMeta(
+const PropsMeta _$metaForButtonGroupProps = PropsMeta(
   fields: _$ButtonGroupPropsAccessorsMixin.$props,
   keys: _$ButtonGroupPropsAccessorsMixin.$propKeys,
 );
@@ -113,8 +114,8 @@ class ButtonGroupProps extends _$ButtonGroupProps
 }
 
 _$$ButtonGroupProps _$ButtonGroup([Map backingProps]) => backingProps == null
-    ? new _$$ButtonGroupProps$JsMap(new JsBackedMap())
-    : new _$$ButtonGroupProps(backingProps);
+    ? _$$ButtonGroupProps$JsMap(JsBackedMap())
+    : _$$ButtonGroupProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -126,9 +127,9 @@ abstract class _$$ButtonGroupProps extends _$ButtonGroupProps
 
   factory _$$ButtonGroupProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ButtonGroupProps$JsMap(backingMap);
+      return _$$ButtonGroupProps$JsMap(backingMap);
     } else {
-      return new _$$ButtonGroupProps$PlainMap(backingMap);
+      return _$$ButtonGroupProps$PlainMap(backingMap);
     }
   }
 
@@ -136,7 +137,7 @@ abstract class _$$ButtonGroupProps extends _$ButtonGroupProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $ButtonGroupComponentFactory;
@@ -168,9 +169,9 @@ class _$$ButtonGroupProps$JsMap extends _$$ButtonGroupProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ButtonGroupProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -185,11 +186,11 @@ abstract class _$ButtonGroupStateAccessorsMixin implements _$ButtonGroupState {
 
   /* GENERATED CONSTANTS */
 
-  static const List<StateDescriptor> $state = const [];
-  static const List<String> $stateKeys = const [];
+  static const List<StateDescriptor> $state = [];
+  static const List<String> $stateKeys = [];
 }
 
-const StateMeta _$metaForButtonGroupState = const StateMeta(
+const StateMeta _$metaForButtonGroupState = StateMeta(
   fields: _$ButtonGroupStateAccessorsMixin.$state,
   keys: _$ButtonGroupStateAccessorsMixin.$stateKeys,
 );
@@ -209,9 +210,9 @@ abstract class _$$ButtonGroupState extends _$ButtonGroupState
 
   factory _$$ButtonGroupState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ButtonGroupState$JsMap(backingMap);
+      return _$$ButtonGroupState$JsMap(backingMap);
     } else {
-      return new _$$ButtonGroupState$PlainMap(backingMap);
+      return _$$ButtonGroupState$PlainMap(backingMap);
     }
   }
 
@@ -242,9 +243,9 @@ class _$$ButtonGroupState$JsMap extends _$$ButtonGroupState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ButtonGroupState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -278,11 +279,11 @@ class _$ButtonGroupComponent extends ButtonGroupComponent {
 
   @override
   _$$ButtonGroupProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$ButtonGroupProps$JsMap(backingMap);
+      _$$ButtonGroupProps$JsMap(backingMap);
 
   @override
   _$$ButtonGroupProps typedPropsFactory(Map backingMap) =>
-      new _$$ButtonGroupProps(backingMap);
+      _$$ButtonGroupProps(backingMap);
 
   _$$ButtonGroupState$JsMap _cachedTypedState;
   @override
@@ -300,18 +301,18 @@ class _$ButtonGroupComponent extends ButtonGroupComponent {
 
   @override
   _$$ButtonGroupState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      new _$$ButtonGroupState$JsMap(backingMap);
+      _$$ButtonGroupState$JsMap(backingMap);
 
   @override
   _$$ButtonGroupState typedStateFactory(Map backingMap) =>
-      new _$$ButtonGroupState(backingMap);
+      _$$ButtonGroupState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ButtonGroupProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForButtonGroupProps

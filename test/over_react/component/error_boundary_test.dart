@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@Timeout(const Duration(seconds: 2))
+@Timeout(Duration(seconds: 2))
 library error_boundary_test;
 
 import 'package:over_react/over_react.dart';

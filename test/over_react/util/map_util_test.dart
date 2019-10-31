@@ -12,9 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library map_util_test;
-
-import 'dart:collection';
 
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
@@ -313,8 +312,8 @@ void sharedGetBackingMapTests({
 }
 
 class TestProps extends component_base.UiProps {
-  TestProps(JsBackedMap backingMap) : this._props = new JsBackedMap() {
-    this._props = backingMap ?? new JsBackedMap();
+  TestProps(JsBackedMap backingMap) : this._props = JsBackedMap() {
+    this._props = backingMap ??  JsBackedMap();
   }
 
   @override

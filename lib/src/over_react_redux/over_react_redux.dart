@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: avoid_classes_with_only_static_members
 @JS()
 library over_react_redux;
 
@@ -38,7 +39,8 @@ abstract class _$ConnectPropsMixin implements UiProps {
   dynamic Function(dynamic action) dispatch;
 }
 
-typedef dynamic Dispatcher(dynamic);
+// ignore: prefer_generic_function_type_aliases
+typedef dynamic Dispatcher(dynamic value);
 
 /// A wrapper around the JS react-redux `connect` function that supports OverReact components.
 ///
@@ -118,7 +120,7 @@ typedef dynamic Dispatcher(dynamic);
 /// ```
 ///
 /// - [pure] if `true` (default), connect performs several equality checks that are used to avoid unnecessary
-/// calls to [mapStateToProps], [mapDispatchToProps], [mergeProps], and ultimately to [render]. These include
+/// calls to [mapStateToProps], [mapDispatchToProps], [mergeProps], and ultimately to `render`. These include
 /// [areStatesEqual], [areOwnPropsEqual], [areStatePropsEqual], and [areMergedPropsEqual].
 /// While the defaults are probably appropriate 99% of the time, you may wish to override them with custom
 /// implementations for performance or other reasons.
@@ -146,11 +148,11 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
   areMergedPropsEqual ??= _shallowMapEquality;
 
   UiFactory<TProps> wrapWithConnect(UiFactory<TProps> factory) {
-    final dartComponentClass = (factory().componentFactory as ReactDartComponentFactoryProxy).reactClass;
+    final dartComponentClass = (factory().componentFactory as ReactDartComponentFactoryProxy2).reactClass;
 
     JsMap jsMapFromProps(Map props) => jsBackingMapOrJsCopy(props is UiProps ? props.props : props);
 
-    TProps jsPropsToTProps(JsMap jsProps) => factory(new JsBackedMap.backedBy(jsProps));
+    TProps jsPropsToTProps(JsMap jsProps) => factory(JsBackedMap.backedBy(jsProps));
 
     Function allowInteropWithArgCount(Function dartFunction, int count) {
       var interopFunction = allowInterop(dartFunction);
@@ -216,7 +218,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       mapStateToProps != null ? allowInteropWithArgCount(handleMapStateToProps, 1) : mapDispatchToPropsWithOwnProps != null ? allowInteropWithArgCount(handleMapStateToPropsWithOwnProps, 2) : null,
       mapDispatchToProps != null ? allowInteropWithArgCount(handleMapDispatchToProps, 1) : mapDispatchToPropsWithOwnProps != null ? allowInteropWithArgCount(handleMapDispatchToPropsWithOwnProps, 2) : null,
       mergeProps != null ? allowInterop(handleMergeProps) : null,
-      new JsConnectOptions(
+      JsConnectOptions(
         areStatesEqual: allowInterop(handleAreStatesEqual),
         areOwnPropsEqual: allowInterop(handleAreOwnPropsEqual),
         areStatePropsEqual: allowInterop(handleAreStatePropsEqual),
@@ -227,7 +229,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       ),
     )(dartComponentClass);
 
-    final hocJsFactoryProxy = new ReactJsComponentFactoryProxy(hoc, shouldConvertDomProps: false, alwaysReturnChildrenAsList: true);
+    final hocJsFactoryProxy = ReactJsComponentFactoryProxy(hoc, shouldConvertDomProps: false, alwaysReturnChildrenAsList: true);
 
     TProps connectedFactory([Map props]) {
       return (factory(props)..componentFactory = hocJsFactoryProxy);
@@ -282,7 +284,7 @@ class ReduxProviderProps extends component_base.UiProps
     implements
         builder_helpers.UiProps {
 
-  ReduxProviderProps([Map props]) : this.props = props ?? new JsBackedMap();
+  ReduxProviderProps([Map props]) : this.props = props ?? JsBackedMap();
 
   @override
   final Map props;
@@ -313,14 +315,14 @@ class ReduxProviderProps extends component_base.UiProps
 /// You cannot use a connected component unless it is nested inside of a ReduxProvider.
 ///
 /// See: <https://react-redux.js.org/api/provider>
-UiFactory<ReduxProviderProps> ReduxProvider = ([Map map]) => new ReduxProviderProps(map);
+UiFactory<ReduxProviderProps> ReduxProvider = ([Map map]) =>  ReduxProviderProps(map); // ignore: prefer_function_declarations_over_variables, avoid_types_on_closure_parameters
 
 class ReactJsReactReduxComponentFactoryProxy extends ReactJsContextComponentFactoryProxy {
   ReactJsReactReduxComponentFactoryProxy(
     ReactClass jsClass, {
-    shouldConvertDomProps: true,
-    isConsumer: false,
-    isProvider: false,
+    shouldConvertDomProps = true,
+    isConsumer = false,
+    isProvider = false,
   }) : super(jsClass, isProvider: isProvider, isConsumer: isConsumer, shouldConvertDomProps: shouldConvertDomProps);
 
   @override
@@ -330,7 +332,7 @@ class ReactJsReactReduxComponentFactoryProxy extends ReactJsContextComponentFact
 
   /// Returns a JsBackedMap version of the specified [props], preprocessed for consumption by react-redux.
   Map _generateReduxJsProps(Map props) {
-    JsBackedMap propsForJs = new JsBackedMap.from(props);
+    JsBackedMap propsForJs = JsBackedMap.from(props);
 
     if (propsForJs['store'] != null) {
       propsForJs['store'] = _reduxifyStore(propsForJs['store']);
@@ -350,8 +352,8 @@ JsReactReduxStore _reduxifyStore(Store store){
     getState: allowInterop(() {
       return wrapInteropValue(store.state);
     }),
-    subscribe: allowInterop((cb) {
-        return allowInterop(store.onChange.listen((_){cb();}).cancel);
+    subscribe: allowInterop((cb) { // ignore: void_checks
+      return allowInterop(store.onChange.listen((_){cb();}).cancel);
     }),
     dispatch: allowInterop((action) {
       store.dispatch(action);
@@ -410,5 +412,5 @@ T unwrapInteropValue<T>(ReactInteropValue value) {
 
 /// A helper function that wraps a [value] in a [ReactInteropValue].
 ReactInteropValue wrapInteropValue(dynamic value) {
-  return new ReactInteropValue()..value = value;
+  return ReactInteropValue()..value = value;
 }

@@ -13,7 +13,6 @@
 // limitations under the License.
 
 // ignore_for_file: deprecated_member_use_from_same_package
-
 library over_react.component_declaration.flux_component;
 
 import 'dart:async';
@@ -53,7 +52,7 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
   ///
   /// If this component only needs data from a single [Store], then [StoresT]
   /// should be an instance of [Store]. This allows the default implementation
-  /// of [redrawOn] to automatically subscribe to the store.
+  /// of `redrawOn` to automatically subscribe to the store.
   ///
   /// If this component needs data from multiple [Store] instances, then
   /// [StoresT] should be a class that provides access to these multiple stores.
@@ -163,12 +162,12 @@ abstract class FluxUiStatefulComponent2<TProps extends FluxUiProps, TState exten
 ///
 /// Private so it will only get used in this file, since having lifecycle methods in a mixin is risky.
 mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiComponent<TProps>, BatchedRedraws {
-  static final Logger _logger = new Logger('over_react._FluxComponentMixin');
+  static final Logger _logger = Logger('over_react._FluxComponentMixin');
 
   /// List of store subscriptions created when the component mounts.
   ///
   /// These subscriptions are canceled when the component is unmounted.
-  List<StreamSubscription> _subscriptions = [];
+  final List<StreamSubscription> _subscriptions = [];
 
   void _validateStoreDisposalState(Store store) {
     String message = 'Cannot listen to a disposed/disposing Store.';
@@ -237,10 +236,8 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
     shouldBatchRedraw = false;
 
     // Cancel all store subscriptions.
-    _subscriptions.forEach((StreamSubscription subscription) {
-      if (subscription != null) {
-        subscription.cancel();
-      }
+    _subscriptions.forEach((subscription) {
+      subscription?.cancel();
     });
   }
 
@@ -249,11 +246,11 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
   /// When any of the returned [Store]s update their state, this component will
   /// redraw.
   ///
-  /// If [store] is of type [Store] (in other words, if this component has a
+  /// If [FluxUiProps.store] is of type [Store] (in other words, if this component has a
   /// single Store passed in), this will return a list with said store as the
   /// only element by default. Otherwise, an empty list is returned.
   ///
-  /// If [store] is actually a composite object with multiple stores, this
+  /// If [FluxUiProps.store] is actually a composite object with multiple stores, this
   /// method should be overridden to return a list with the stores that should
   /// be listened to.
   ///

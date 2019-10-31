@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'progress.dart';
 
 // **************************************************************************
@@ -9,8 +10,7 @@ part of 'progress.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $ProgressComponentFactory = registerComponent(
-    () => new _$ProgressComponent(),
+final $ProgressComponentFactory = registerComponent(() => _$ProgressComponent(),
     builderFactory: Progress,
     componentClass: ProgressComponent,
     isWrapper: false,
@@ -222,27 +222,27 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
       props[_$key__rootNodeProps___$ProgressProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__value___$ProgressProps =
-      const PropDescriptor(_$key__value___$ProgressProps);
+      PropDescriptor(_$key__value___$ProgressProps);
   static const PropDescriptor _$prop__min___$ProgressProps =
-      const PropDescriptor(_$key__min___$ProgressProps);
+      PropDescriptor(_$key__min___$ProgressProps);
   static const PropDescriptor _$prop__max___$ProgressProps =
-      const PropDescriptor(_$key__max___$ProgressProps);
+      PropDescriptor(_$key__max___$ProgressProps);
   static const PropDescriptor _$prop__skin___$ProgressProps =
-      const PropDescriptor(_$key__skin___$ProgressProps);
+      PropDescriptor(_$key__skin___$ProgressProps);
   static const PropDescriptor _$prop__isStriped___$ProgressProps =
-      const PropDescriptor(_$key__isStriped___$ProgressProps);
+      PropDescriptor(_$key__isStriped___$ProgressProps);
   static const PropDescriptor _$prop__isAnimated___$ProgressProps =
-      const PropDescriptor(_$key__isAnimated___$ProgressProps);
+      PropDescriptor(_$key__isAnimated___$ProgressProps);
   static const PropDescriptor _$prop__caption___$ProgressProps =
-      const PropDescriptor(_$key__caption___$ProgressProps);
+      PropDescriptor(_$key__caption___$ProgressProps);
   static const PropDescriptor _$prop__captionProps___$ProgressProps =
-      const PropDescriptor(_$key__captionProps___$ProgressProps);
+      PropDescriptor(_$key__captionProps___$ProgressProps);
   static const PropDescriptor _$prop__showCaption___$ProgressProps =
-      const PropDescriptor(_$key__showCaption___$ProgressProps);
+      PropDescriptor(_$key__showCaption___$ProgressProps);
   static const PropDescriptor _$prop__showPercentComplete___$ProgressProps =
-      const PropDescriptor(_$key__showPercentComplete___$ProgressProps);
+      PropDescriptor(_$key__showPercentComplete___$ProgressProps);
   static const PropDescriptor _$prop__rootNodeProps___$ProgressProps =
-      const PropDescriptor(_$key__rootNodeProps___$ProgressProps);
+      PropDescriptor(_$key__rootNodeProps___$ProgressProps);
   static const String _$key__value___$ProgressProps = 'ProgressProps.value';
   static const String _$key__min___$ProgressProps = 'ProgressProps.min';
   static const String _$key__max___$ProgressProps = 'ProgressProps.max';
@@ -261,7 +261,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   static const String _$key__rootNodeProps___$ProgressProps =
       'ProgressProps.rootNodeProps';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__value___$ProgressProps,
     _$prop__min___$ProgressProps,
     _$prop__max___$ProgressProps,
@@ -274,7 +274,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
     _$prop__showPercentComplete___$ProgressProps,
     _$prop__rootNodeProps___$ProgressProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__value___$ProgressProps,
     _$key__min___$ProgressProps,
     _$key__max___$ProgressProps,
@@ -289,7 +289,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ];
 }
 
-const PropsMeta _$metaForProgressProps = const PropsMeta(
+const PropsMeta _$metaForProgressProps = PropsMeta(
   fields: _$ProgressPropsAccessorsMixin.$props,
   keys: _$ProgressPropsAccessorsMixin.$propKeys,
 );
@@ -299,7 +299,7 @@ class ProgressProps extends _$ProgressProps with _$ProgressPropsAccessorsMixin {
 }
 
 _$$ProgressProps _$Progress([Map backingProps]) =>
-    new _$$ProgressProps(backingProps);
+    _$$ProgressProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -322,7 +322,7 @@ class _$$ProgressProps extends _$ProgressProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $ProgressComponentFactory;
@@ -358,16 +358,14 @@ abstract class _$ProgressStateAccessorsMixin implements _$ProgressState {
   set id(String value) => state[_$key__id___$ProgressState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__id___$ProgressState =
-      const StateDescriptor(_$key__id___$ProgressState);
+      StateDescriptor(_$key__id___$ProgressState);
   static const String _$key__id___$ProgressState = 'ProgressState.id';
 
-  static const List<StateDescriptor> $state = const [
-    _$prop__id___$ProgressState
-  ];
-  static const List<String> $stateKeys = const [_$key__id___$ProgressState];
+  static const List<StateDescriptor> $state = [_$prop__id___$ProgressState];
+  static const List<String> $stateKeys = [_$key__id___$ProgressState];
 }
 
-const StateMeta _$metaForProgressState = const StateMeta(
+const StateMeta _$metaForProgressState = StateMeta(
   fields: _$ProgressStateAccessorsMixin.$state,
   keys: _$ProgressStateAccessorsMixin.$stateKeys,
 );
@@ -405,18 +403,18 @@ class _$$ProgressState extends _$ProgressState
 class _$ProgressComponent extends ProgressComponent {
   @override
   _$$ProgressProps typedPropsFactory(Map backingMap) =>
-      new _$$ProgressProps(backingMap);
+      _$$ProgressProps(backingMap);
 
   @override
   _$$ProgressState typedStateFactory(Map backingMap) =>
-      new _$$ProgressState(backingMap);
+      _$$ProgressState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ProgressProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForProgressProps

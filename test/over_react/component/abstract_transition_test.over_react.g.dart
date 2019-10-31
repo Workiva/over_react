@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'abstract_transition_test.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'abstract_transition_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TransitionerComponentFactory = registerComponent(
-    () => new _$TransitionerComponent(),
+    () => _$TransitionerComponent(),
     builderFactory: Transitioner,
     componentClass: TransitionerComponent,
     isWrapper: false,
@@ -123,25 +124,25 @@ abstract class _$TransitionerPropsAccessorsMixin
       props[_$key__transitionTimeout___$TransitionerProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__onHandlePreShowing___$TransitionerProps =
-      const PropDescriptor(_$key__onHandlePreShowing___$TransitionerProps);
+      PropDescriptor(_$key__onHandlePreShowing___$TransitionerProps);
   static const PropDescriptor _$prop__onHandleShowing___$TransitionerProps =
-      const PropDescriptor(_$key__onHandleShowing___$TransitionerProps);
+      PropDescriptor(_$key__onHandleShowing___$TransitionerProps);
   static const PropDescriptor _$prop__onHandleShown___$TransitionerProps =
-      const PropDescriptor(_$key__onHandleShown___$TransitionerProps);
+      PropDescriptor(_$key__onHandleShown___$TransitionerProps);
   static const PropDescriptor _$prop__onHandleHiding___$TransitionerProps =
-      const PropDescriptor(_$key__onHandleHiding___$TransitionerProps);
+      PropDescriptor(_$key__onHandleHiding___$TransitionerProps);
   static const PropDescriptor _$prop__onHandleHidden___$TransitionerProps =
-      const PropDescriptor(_$key__onHandleHidden___$TransitionerProps);
+      PropDescriptor(_$key__onHandleHidden___$TransitionerProps);
   static const PropDescriptor _$prop__onPrepareShow___$TransitionerProps =
-      const PropDescriptor(_$key__onPrepareShow___$TransitionerProps);
+      PropDescriptor(_$key__onPrepareShow___$TransitionerProps);
   static const PropDescriptor _$prop__onPrepareHide___$TransitionerProps =
-      const PropDescriptor(_$key__onPrepareHide___$TransitionerProps);
+      PropDescriptor(_$key__onPrepareHide___$TransitionerProps);
   static const PropDescriptor _$prop__hasTransition___$TransitionerProps =
-      const PropDescriptor(_$key__hasTransition___$TransitionerProps);
+      PropDescriptor(_$key__hasTransition___$TransitionerProps);
   static const PropDescriptor _$prop__initiallyShown___$TransitionerProps =
-      const PropDescriptor(_$key__initiallyShown___$TransitionerProps);
+      PropDescriptor(_$key__initiallyShown___$TransitionerProps);
   static const PropDescriptor _$prop__transitionTimeout___$TransitionerProps =
-      const PropDescriptor(_$key__transitionTimeout___$TransitionerProps);
+      PropDescriptor(_$key__transitionTimeout___$TransitionerProps);
   static const String _$key__onHandlePreShowing___$TransitionerProps =
       'TransitionerProps.onHandlePreShowing';
   static const String _$key__onHandleShowing___$TransitionerProps =
@@ -163,7 +164,7 @@ abstract class _$TransitionerPropsAccessorsMixin
   static const String _$key__transitionTimeout___$TransitionerProps =
       'TransitionerProps.transitionTimeout';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__onHandlePreShowing___$TransitionerProps,
     _$prop__onHandleShowing___$TransitionerProps,
     _$prop__onHandleShown___$TransitionerProps,
@@ -175,7 +176,7 @@ abstract class _$TransitionerPropsAccessorsMixin
     _$prop__initiallyShown___$TransitionerProps,
     _$prop__transitionTimeout___$TransitionerProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__onHandlePreShowing___$TransitionerProps,
     _$key__onHandleShowing___$TransitionerProps,
     _$key__onHandleShown___$TransitionerProps,
@@ -189,7 +190,7 @@ abstract class _$TransitionerPropsAccessorsMixin
   ];
 }
 
-const PropsMeta _$metaForTransitionerProps = const PropsMeta(
+const PropsMeta _$metaForTransitionerProps = PropsMeta(
   fields: _$TransitionerPropsAccessorsMixin.$props,
   keys: _$TransitionerPropsAccessorsMixin.$propKeys,
 );
@@ -200,7 +201,7 @@ class TransitionerProps extends _$TransitionerProps
 }
 
 _$$TransitionerProps _$Transitioner([Map backingProps]) =>
-    new _$$TransitionerProps(backingProps);
+    _$$TransitionerProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -223,7 +224,7 @@ class _$$TransitionerProps extends _$TransitionerProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TransitionerComponentFactory;
@@ -240,11 +241,11 @@ abstract class _$TransitionerStateAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<StateDescriptor> $state = const [];
-  static const List<String> $stateKeys = const [];
+  static const List<StateDescriptor> $state = [];
+  static const List<String> $stateKeys = [];
 }
 
-const StateMeta _$metaForTransitionerState = const StateMeta(
+const StateMeta _$metaForTransitionerState = StateMeta(
   fields: _$TransitionerStateAccessorsMixin.$state,
   keys: _$TransitionerStateAccessorsMixin.$stateKeys,
 );
@@ -283,18 +284,18 @@ class _$$TransitionerState extends _$TransitionerState
 class _$TransitionerComponent extends TransitionerComponent {
   @override
   _$$TransitionerProps typedPropsFactory(Map backingMap) =>
-      new _$$TransitionerProps(backingMap);
+      _$$TransitionerProps(backingMap);
 
   @override
   _$$TransitionerState typedStateFactory(Map backingMap) =>
-      new _$$TransitionerState(backingMap);
+      _$$TransitionerState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TransitionerProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTransitionerProps

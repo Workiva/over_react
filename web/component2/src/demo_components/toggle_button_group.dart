@@ -36,7 +36,7 @@ class _$ToggleButtonGroupState extends ButtonGroupState with
 class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupProps, ToggleButtonGroupState> {
   // Refs
 
-  Map<int, dynamic> _toggleButtonRefs = <int, dynamic>{};
+  final Map<int, dynamic> _toggleButtonRefs = <int, dynamic>{};
 
   /// The name to use for all children of a [ToggleButtonGroup].
   ///
@@ -45,13 +45,13 @@ class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupP
   String get name => props.name ?? state.name;
 
   @override
-   get defaultProps => (newProps()
+  get defaultProps => (newProps()
     ..addProps(super.defaultProps)
     ..toggleType = ToggleBehaviorType.CHECKBOX
   );
 
   @override
-   get initialState => (newState()
+  get initialState => (newState()
     ..addAll(super.initialState)
     ..name = 'toggle_button_group_' + generateGuid()
   );

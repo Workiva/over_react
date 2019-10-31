@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'test_a.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'test_a.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestA2ComponentFactory = registerComponent2(
-  () => new _$TestA2Component(),
+  () => _$TestA2Component(),
   builderFactory: TestA2,
   componentClass: TestA2Component,
   isWrapper: false,
@@ -24,11 +25,11 @@ abstract class _$TestA2PropsAccessorsMixin implements _$TestA2Props {
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForTestA2Props = const PropsMeta(
+const PropsMeta _$metaForTestA2Props = PropsMeta(
   fields: _$TestA2PropsAccessorsMixin.$props,
   keys: _$TestA2PropsAccessorsMixin.$propKeys,
 );
@@ -38,8 +39,8 @@ class TestA2Props extends _$TestA2Props with _$TestA2PropsAccessorsMixin {
 }
 
 _$$TestA2Props _$TestA2([Map backingProps]) => backingProps == null
-    ? new _$$TestA2Props$JsMap(new JsBackedMap())
-    : new _$$TestA2Props(backingProps);
+    ? _$$TestA2Props$JsMap(JsBackedMap())
+    : _$$TestA2Props(backingProps);
 
 // Concrete props implementation.
 //
@@ -51,9 +52,9 @@ abstract class _$$TestA2Props extends _$TestA2Props
 
   factory _$$TestA2Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestA2Props$JsMap(backingMap);
+      return _$$TestA2Props$JsMap(backingMap);
     } else {
-      return new _$$TestA2Props$PlainMap(backingMap);
+      return _$$TestA2Props$PlainMap(backingMap);
     }
   }
 
@@ -61,7 +62,7 @@ abstract class _$$TestA2Props extends _$TestA2Props
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestA2ComponentFactory;
@@ -93,9 +94,9 @@ class _$$TestA2Props$JsMap extends _$$TestA2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestA2Props$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -129,18 +130,18 @@ class _$TestA2Component extends TestA2Component {
 
   @override
   _$$TestA2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$TestA2Props$JsMap(backingMap);
+      _$$TestA2Props$JsMap(backingMap);
 
   @override
   _$$TestA2Props typedPropsFactory(Map backingMap) =>
-      new _$$TestA2Props(backingMap);
+      _$$TestA2Props(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestA2Props.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestA2Props

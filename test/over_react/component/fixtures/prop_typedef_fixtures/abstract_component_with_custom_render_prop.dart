@@ -29,7 +29,7 @@ abstract class _$TestAbstractCustomRendererComponentState extends UiState {
   String someStateKey;
 }
 
-@AbstractComponent()
+@AbstractComponent2()
 abstract class TestAbstractCustomRendererComponentComponent<T extends TestAbstractCustomRendererComponentProps,
                                                             S extends TestAbstractCustomRendererComponentState>
-    extends UiStatefulComponent<T, S> {}
+    extends UiStatefulComponent2<T, S> {}

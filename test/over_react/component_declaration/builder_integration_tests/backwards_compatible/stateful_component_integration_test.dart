@@ -11,6 +11,10 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+@TestOn('browser')
+
+// ignore_for_file: deprecated_member_use_from_same_package
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
@@ -23,7 +27,7 @@ main() {
   group('(backwards compatible with Dart 1) stateful component integration:', () {
     test('state class cannot be instantiated directly', () {
       expect(() {
-        new StatefulComponentTestState();
+         StatefulComponentTestState();
       }, throwsA(isA<IllegalInstantiationError>()));
     });
 
@@ -90,16 +94,16 @@ class _$StatefulComponentTestProps extends UiProps {}
 class _$StatefulComponentTestState extends UiState {
   String stringState;
   dynamic dynamicState;
-  var untypedState;
+  dynamic untypedState;
 
   @Accessor(key: 'custom key!')
-  var customKeyState;
+  dynamic customKeyState;
 
   @Accessor(keyNamespace: 'custom namespace~~')
-  var customNamespaceState;
+  dynamic customNamespaceState;
 
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  var customKeyAndNamespaceState;
+  dynamic customKeyAndNamespaceState;
 }
 
 @Component()

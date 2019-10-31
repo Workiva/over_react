@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@Timeout(const Duration(seconds: 2))
+@TestOn('browser')
+@Timeout(Duration(seconds: 2))
 library error_boundary_mixin_test;
 
 import 'package:test/test.dart';

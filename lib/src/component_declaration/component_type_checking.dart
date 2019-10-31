@@ -15,7 +15,6 @@
 /// Provides utilities around component type-checking.
 library over_react.component_declaration.component_type_checking;
 
-import 'dart:js';
 import 'dart:js_util';
 
 import 'package:over_react/src/component_declaration/component_base.dart' show UiFactory;
@@ -30,7 +29,7 @@ import 'package:react/react_client/react_interop.dart';
 
 
 // ignore: deprecated_member_use
-Expando<ReactDartComponentFactoryProxy> _typeAliasToFactory = new Expando<ReactDartComponentFactoryProxy>();
+Expando<ReactDartComponentFactoryProxy> _typeAliasToFactory = Expando<ReactDartComponentFactoryProxy>();
 
 /// Registers a type alias for the specified factory, so that [getComponentTypeFromAlias] can be
 /// called with [typeAlias] to retrieve [factory]'s [ReactClass] type.
@@ -56,7 +55,7 @@ void setComponentTypeMeta(ReactDartComponentFactoryProxy factory, {
     ReactDartComponentFactoryProxy parentType
 }) {
   // ignore: argument_type_not_assignable
-  setProperty(factory.type, _componentTypeMetaKey, new ComponentTypeMeta(isWrapper, parentType));
+  setProperty(factory.type, _componentTypeMetaKey, ComponentTypeMeta(isWrapper, parentType));
 }
 
 /// Returns the [ComponentTypeMeta] associated with the component type [type] in [setComponentTypeMeta],
@@ -200,7 +199,7 @@ Iterable<dynamic> getParentTypes(dynamic type) sync* {
       '`type` should be a valid component type (and not null or a type alias).' is String);
 
   var currentType = type;
-  var parentType;
+  dynamic parentType;
 
   while ((parentType = getComponentTypeMeta(currentType).parentType) != null) {
     currentType = getComponentTypeFromAlias(parentType);
@@ -224,8 +223,8 @@ Iterable<dynamic> getParentTypes(dynamic type) sync* {
 ///
 /// > Related: [isValidElementOfType]
 bool isComponentOfType(ReactElement instance, dynamic typeAlias, {
-    bool traverseWrappers: true,
-    bool matchParentTypes: true
+    bool traverseWrappers = true,
+    bool matchParentTypes = true
 }) {
   if (instance == null) {
     return false;

@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'custom_error_boundary.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'custom_error_boundary.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $CustomErrorBoundaryComponentFactory = registerComponent2(
-  () => new _$CustomErrorBoundaryComponent(),
+  () => _$CustomErrorBoundaryComponent(),
   builderFactory: CustomErrorBoundary,
   componentClass: CustomErrorBoundaryComponent,
   isWrapper: false,
@@ -26,11 +27,11 @@ abstract class _$CustomErrorBoundaryPropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForCustomErrorBoundaryProps = const PropsMeta(
+const PropsMeta _$metaForCustomErrorBoundaryProps = PropsMeta(
   fields: _$CustomErrorBoundaryPropsAccessorsMixin.$props,
   keys: _$CustomErrorBoundaryPropsAccessorsMixin.$propKeys,
 );
@@ -42,8 +43,8 @@ class CustomErrorBoundaryProps extends _$CustomErrorBoundaryProps
 
 _$$CustomErrorBoundaryProps _$CustomErrorBoundary([Map backingProps]) =>
     backingProps == null
-        ? new _$$CustomErrorBoundaryProps$JsMap(new JsBackedMap())
-        : new _$$CustomErrorBoundaryProps(backingProps);
+        ? _$$CustomErrorBoundaryProps$JsMap(JsBackedMap())
+        : _$$CustomErrorBoundaryProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -55,9 +56,9 @@ abstract class _$$CustomErrorBoundaryProps extends _$CustomErrorBoundaryProps
 
   factory _$$CustomErrorBoundaryProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$CustomErrorBoundaryProps$JsMap(backingMap);
+      return _$$CustomErrorBoundaryProps$JsMap(backingMap);
     } else {
-      return new _$$CustomErrorBoundaryProps$PlainMap(backingMap);
+      return _$$CustomErrorBoundaryProps$PlainMap(backingMap);
     }
   }
 
@@ -65,7 +66,7 @@ abstract class _$$CustomErrorBoundaryProps extends _$CustomErrorBoundaryProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $CustomErrorBoundaryComponentFactory;
@@ -97,9 +98,9 @@ class _$$CustomErrorBoundaryProps$JsMap extends _$$CustomErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$CustomErrorBoundaryProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -115,11 +116,11 @@ abstract class _$CustomErrorBoundaryStateAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<StateDescriptor> $state = const [];
-  static const List<String> $stateKeys = const [];
+  static const List<StateDescriptor> $state = [];
+  static const List<String> $stateKeys = [];
 }
 
-const StateMeta _$metaForCustomErrorBoundaryState = const StateMeta(
+const StateMeta _$metaForCustomErrorBoundaryState = StateMeta(
   fields: _$CustomErrorBoundaryStateAccessorsMixin.$state,
   keys: _$CustomErrorBoundaryStateAccessorsMixin.$stateKeys,
 );
@@ -139,9 +140,9 @@ abstract class _$$CustomErrorBoundaryState extends _$CustomErrorBoundaryState
 
   factory _$$CustomErrorBoundaryState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$CustomErrorBoundaryState$JsMap(backingMap);
+      return _$$CustomErrorBoundaryState$JsMap(backingMap);
     } else {
-      return new _$$CustomErrorBoundaryState$PlainMap(backingMap);
+      return _$$CustomErrorBoundaryState$PlainMap(backingMap);
     }
   }
 
@@ -172,9 +173,9 @@ class _$$CustomErrorBoundaryState$JsMap extends _$$CustomErrorBoundaryState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$CustomErrorBoundaryState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -209,11 +210,11 @@ class _$CustomErrorBoundaryComponent extends CustomErrorBoundaryComponent {
   @override
   _$$CustomErrorBoundaryProps$JsMap typedPropsFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$CustomErrorBoundaryProps$JsMap(backingMap);
+      _$$CustomErrorBoundaryProps$JsMap(backingMap);
 
   @override
   _$$CustomErrorBoundaryProps typedPropsFactory(Map backingMap) =>
-      new _$$CustomErrorBoundaryProps(backingMap);
+      _$$CustomErrorBoundaryProps(backingMap);
 
   _$$CustomErrorBoundaryState$JsMap _cachedTypedState;
   @override
@@ -232,18 +233,18 @@ class _$CustomErrorBoundaryComponent extends CustomErrorBoundaryComponent {
   @override
   _$$CustomErrorBoundaryState$JsMap typedStateFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$CustomErrorBoundaryState$JsMap(backingMap);
+      _$$CustomErrorBoundaryState$JsMap(backingMap);
 
   @override
   _$$CustomErrorBoundaryState typedStateFactory(Map backingMap) =>
-      new _$$CustomErrorBoundaryState(backingMap);
+      _$$CustomErrorBoundaryState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$CustomErrorBoundaryProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForCustomErrorBoundaryProps

@@ -11,10 +11,10 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-import 'dart:html';
+
+@TestOn('browser')
 
 import 'package:over_react/over_react.dart';
-import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:test/test.dart';
 
 import '../../../../test_util/test_util.dart';
@@ -25,7 +25,7 @@ main() {
   group('(Component2) stateful component integration:', () {
     test('state class cannot be instantiated directly', () {
       expect(() {
-        new StatefulComponentTestState();
+         StatefulComponentTestState();
       }, throwsA(isA<IllegalInstantiationError>()));
     });
 
@@ -101,16 +101,16 @@ class _$StatefulComponentTestProps extends UiProps {
 class _$StatefulComponentTestState extends UiState {
   String stringState;
   dynamic dynamicState;
-  var untypedState;
+  var untypedState; // ignore: prefer_typing_uninitialized_variables
 
   @Accessor(key: 'custom key!')
-  var customKeyState;
+  dynamic customKeyState;
 
   @Accessor(keyNamespace: 'custom namespace~~')
-  var customNamespaceState;
+  dynamic customNamespaceState;
 
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  var customKeyAndNamespaceState;
+  dynamic customKeyAndNamespaceState;
 }
 
 @Component2()
@@ -135,7 +135,7 @@ class StatefulComponentTestComponent extends UiStatefulComponent2<StatefulCompon
 
   @override
   render() => (Dom.div()
-    ..addProps(copyUnconsumedProps())
+    ..modifyProps(addUnconsumedProps)
     ..addProp('data-who', state.stringState)
     ..addProp('data-state-string-state', state.stringState)
     ..addProp('data-state-dynamic-state', state.dynamicState)

@@ -10,8 +10,6 @@ import 'package:over_react/src/builder/builder.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
-typedef void LogRecordFunction(LogRecord record);
-
 main() {
   group('overReactBuilder', () {
     final builder = overReactBuilder(null);
@@ -28,7 +26,7 @@ main() {
         rootPackage: 'over_react',
       );
 
-      writer = new InMemoryAssetWriter();
+      writer = InMemoryAssetWriter();
       writerSpy = AssetWriterSpy(writer);
 
       logSub = logger.onRecord.listen(logs.add);
@@ -48,10 +46,10 @@ main() {
           '\t${logs.join('\n\t')}');
     }
 
-    void checkBuildForFile(String assetPath, String expectedOutputAssetPath,
+    Future<Null> checkBuildForFile(String assetPath, String expectedOutputAssetPath,
         String pathToGoldFile) async {
       final inputAsset = makeAssetId(assetPath);
-      final expectedContent = new File(pathToGoldFile).readAsStringSync();
+      final expectedContent = File(pathToGoldFile).readAsStringSync();
 
       final expected = {
         expectedOutputAssetPath : expectedContent

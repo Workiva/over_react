@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'my_context_component.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'my_context_component.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $MyContextComponentComponentFactory = registerComponent2(
-  () => new _$MyContextComponentComponent(),
+  () => _$MyContextComponentComponent(),
   builderFactory: MyContextComponent,
   componentClass: MyContextComponentComponent,
   isWrapper: false,
@@ -25,11 +26,11 @@ abstract class _$MyContextComponentPropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForMyContextComponentProps = const PropsMeta(
+const PropsMeta _$metaForMyContextComponentProps = PropsMeta(
   fields: _$MyContextComponentPropsAccessorsMixin.$props,
   keys: _$MyContextComponentPropsAccessorsMixin.$propKeys,
 );
@@ -41,8 +42,8 @@ class MyContextComponentProps extends _$MyContextComponentProps
 
 _$$MyContextComponentProps _$MyContextComponent([Map backingProps]) =>
     backingProps == null
-        ? new _$$MyContextComponentProps$JsMap(new JsBackedMap())
-        : new _$$MyContextComponentProps(backingProps);
+        ? _$$MyContextComponentProps$JsMap(JsBackedMap())
+        : _$$MyContextComponentProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -54,9 +55,9 @@ abstract class _$$MyContextComponentProps extends _$MyContextComponentProps
 
   factory _$$MyContextComponentProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$MyContextComponentProps$JsMap(backingMap);
+      return _$$MyContextComponentProps$JsMap(backingMap);
     } else {
-      return new _$$MyContextComponentProps$PlainMap(backingMap);
+      return _$$MyContextComponentProps$PlainMap(backingMap);
     }
   }
 
@@ -64,7 +65,7 @@ abstract class _$$MyContextComponentProps extends _$MyContextComponentProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $MyContextComponentComponentFactory;
@@ -96,9 +97,9 @@ class _$$MyContextComponentProps$JsMap extends _$$MyContextComponentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$MyContextComponentProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -133,18 +134,18 @@ class _$MyContextComponentComponent extends MyContextComponentComponent {
   @override
   _$$MyContextComponentProps$JsMap typedPropsFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$MyContextComponentProps$JsMap(backingMap);
+      _$$MyContextComponentProps$JsMap(backingMap);
 
   @override
   _$$MyContextComponentProps typedPropsFactory(Map backingMap) =>
-      new _$$MyContextComponentProps(backingMap);
+      _$$MyContextComponentProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$MyContextComponentProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForMyContextComponentProps

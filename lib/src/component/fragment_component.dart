@@ -25,7 +25,7 @@ class FragmentProps extends component_base.UiProps
     implements builder_helpers.UiProps {
   // Initialize to a JsBackedMap so that copying can be optimized
   // when converting props during ReactElement creation.
-  FragmentProps([Map props]) : this.props = props ?? new JsBackedMap();
+  FragmentProps([Map props]) : this.props = props ?? JsBackedMap();
 
   @override
   ReactComponentFactoryProxy componentFactory = react.Fragment;
@@ -41,4 +41,4 @@ class FragmentProps extends component_base.UiProps
 /// an element that adds an additional layer to the DOM (div, span, etc).
 ///
 /// See: <https://reactjs.org/docs/fragments.html>
-FragmentProps Fragment() => new FragmentProps();
+FragmentProps Fragment() => FragmentProps();

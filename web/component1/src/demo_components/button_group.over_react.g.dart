@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'button_group.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'button_group.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ButtonGroupComponentFactory = registerComponent(
-    () => new _$ButtonGroupComponent(),
+    () => _$ButtonGroupComponent(),
     builderFactory: ButtonGroup,
     componentClass: ButtonGroupComponent,
     isWrapper: false,
@@ -79,29 +80,29 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
       props[_$key__isVertical___$ButtonGroupProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__size___$ButtonGroupProps =
-      const PropDescriptor(_$key__size___$ButtonGroupProps);
+      PropDescriptor(_$key__size___$ButtonGroupProps);
   static const PropDescriptor _$prop__skin___$ButtonGroupProps =
-      const PropDescriptor(_$key__skin___$ButtonGroupProps);
+      PropDescriptor(_$key__skin___$ButtonGroupProps);
   static const PropDescriptor _$prop__isVertical___$ButtonGroupProps =
-      const PropDescriptor(_$key__isVertical___$ButtonGroupProps);
+      PropDescriptor(_$key__isVertical___$ButtonGroupProps);
   static const String _$key__size___$ButtonGroupProps = 'ButtonGroupProps.size';
   static const String _$key__skin___$ButtonGroupProps = 'ButtonGroupProps.skin';
   static const String _$key__isVertical___$ButtonGroupProps =
       'ButtonGroupProps.isVertical';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__size___$ButtonGroupProps,
     _$prop__skin___$ButtonGroupProps,
     _$prop__isVertical___$ButtonGroupProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__size___$ButtonGroupProps,
     _$key__skin___$ButtonGroupProps,
     _$key__isVertical___$ButtonGroupProps
   ];
 }
 
-const PropsMeta _$metaForButtonGroupProps = const PropsMeta(
+const PropsMeta _$metaForButtonGroupProps = PropsMeta(
   fields: _$ButtonGroupPropsAccessorsMixin.$props,
   keys: _$ButtonGroupPropsAccessorsMixin.$propKeys,
 );
@@ -112,7 +113,7 @@ class ButtonGroupProps extends _$ButtonGroupProps
 }
 
 _$$ButtonGroupProps _$ButtonGroup([Map backingProps]) =>
-    new _$$ButtonGroupProps(backingProps);
+    _$$ButtonGroupProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -135,7 +136,7 @@ class _$$ButtonGroupProps extends _$ButtonGroupProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $ButtonGroupComponentFactory;
@@ -151,11 +152,11 @@ abstract class _$ButtonGroupStateAccessorsMixin implements _$ButtonGroupState {
 
   /* GENERATED CONSTANTS */
 
-  static const List<StateDescriptor> $state = const [];
-  static const List<String> $stateKeys = const [];
+  static const List<StateDescriptor> $state = [];
+  static const List<String> $stateKeys = [];
 }
 
-const StateMeta _$metaForButtonGroupState = const StateMeta(
+const StateMeta _$metaForButtonGroupState = StateMeta(
   fields: _$ButtonGroupStateAccessorsMixin.$state,
   keys: _$ButtonGroupStateAccessorsMixin.$stateKeys,
 );
@@ -194,18 +195,18 @@ class _$$ButtonGroupState extends _$ButtonGroupState
 class _$ButtonGroupComponent extends ButtonGroupComponent {
   @override
   _$$ButtonGroupProps typedPropsFactory(Map backingMap) =>
-      new _$$ButtonGroupProps(backingMap);
+      _$$ButtonGroupProps(backingMap);
 
   @override
   _$$ButtonGroupState typedStateFactory(Map backingMap) =>
-      new _$$ButtonGroupState(backingMap);
+      _$$ButtonGroupState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ButtonGroupProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForButtonGroupProps

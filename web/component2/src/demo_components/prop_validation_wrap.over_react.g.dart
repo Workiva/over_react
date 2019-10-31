@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'prop_validation_wrap.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'prop_validation_wrap.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $PropTypesWrapComponentFactory = registerComponent2(
-  () => new _$PropTypesWrapComponent(),
+  () => _$PropTypesWrapComponent(),
   builderFactory: PropTypesWrap,
   componentClass: PropTypesWrapComponent,
   isWrapper: false,
@@ -25,11 +26,11 @@ abstract class _$PropTypesWrapPropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForPropTypesWrapProps = const PropsMeta(
+const PropsMeta _$metaForPropTypesWrapProps = PropsMeta(
   fields: _$PropTypesWrapPropsAccessorsMixin.$props,
   keys: _$PropTypesWrapPropsAccessorsMixin.$propKeys,
 );
@@ -41,8 +42,8 @@ class PropTypesWrapProps extends _$PropTypesWrapProps
 
 _$$PropTypesWrapProps _$PropTypesWrap([Map backingProps]) =>
     backingProps == null
-        ? new _$$PropTypesWrapProps$JsMap(new JsBackedMap())
-        : new _$$PropTypesWrapProps(backingProps);
+        ? _$$PropTypesWrapProps$JsMap(JsBackedMap())
+        : _$$PropTypesWrapProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -54,9 +55,9 @@ abstract class _$$PropTypesWrapProps extends _$PropTypesWrapProps
 
   factory _$$PropTypesWrapProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$PropTypesWrapProps$JsMap(backingMap);
+      return _$$PropTypesWrapProps$JsMap(backingMap);
     } else {
-      return new _$$PropTypesWrapProps$PlainMap(backingMap);
+      return _$$PropTypesWrapProps$PlainMap(backingMap);
     }
   }
 
@@ -64,7 +65,7 @@ abstract class _$$PropTypesWrapProps extends _$PropTypesWrapProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $PropTypesWrapComponentFactory;
@@ -96,9 +97,9 @@ class _$$PropTypesWrapProps$JsMap extends _$$PropTypesWrapProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$PropTypesWrapProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -123,19 +124,19 @@ abstract class _$PropTypesWrapStateAccessorsMixin
       state[_$key__twoObjects___$PropTypesWrapState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__twoObjects___$PropTypesWrapState =
-      const StateDescriptor(_$key__twoObjects___$PropTypesWrapState);
+      StateDescriptor(_$key__twoObjects___$PropTypesWrapState);
   static const String _$key__twoObjects___$PropTypesWrapState =
       'PropTypesWrapState.twoObjects';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__twoObjects___$PropTypesWrapState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__twoObjects___$PropTypesWrapState
   ];
 }
 
-const StateMeta _$metaForPropTypesWrapState = const StateMeta(
+const StateMeta _$metaForPropTypesWrapState = StateMeta(
   fields: _$PropTypesWrapStateAccessorsMixin.$state,
   keys: _$PropTypesWrapStateAccessorsMixin.$stateKeys,
 );
@@ -155,9 +156,9 @@ abstract class _$$PropTypesWrapState extends _$PropTypesWrapState
 
   factory _$$PropTypesWrapState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$PropTypesWrapState$JsMap(backingMap);
+      return _$$PropTypesWrapState$JsMap(backingMap);
     } else {
-      return new _$$PropTypesWrapState$PlainMap(backingMap);
+      return _$$PropTypesWrapState$PlainMap(backingMap);
     }
   }
 
@@ -188,9 +189,9 @@ class _$$PropTypesWrapState$JsMap extends _$$PropTypesWrapState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$PropTypesWrapState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -224,11 +225,11 @@ class _$PropTypesWrapComponent extends PropTypesWrapComponent {
 
   @override
   _$$PropTypesWrapProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$PropTypesWrapProps$JsMap(backingMap);
+      _$$PropTypesWrapProps$JsMap(backingMap);
 
   @override
   _$$PropTypesWrapProps typedPropsFactory(Map backingMap) =>
-      new _$$PropTypesWrapProps(backingMap);
+      _$$PropTypesWrapProps(backingMap);
 
   _$$PropTypesWrapState$JsMap _cachedTypedState;
   @override
@@ -246,18 +247,18 @@ class _$PropTypesWrapComponent extends PropTypesWrapComponent {
 
   @override
   _$$PropTypesWrapState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      new _$$PropTypesWrapState$JsMap(backingMap);
+      _$$PropTypesWrapState$JsMap(backingMap);
 
   @override
   _$$PropTypesWrapState typedStateFactory(Map backingMap) =>
-      new _$$PropTypesWrapState(backingMap);
+      _$$PropTypesWrapState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$PropTypesWrapProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForPropTypesWrapProps

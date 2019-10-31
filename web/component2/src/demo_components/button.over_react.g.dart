@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'button.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'button.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ButtonComponentFactory = registerComponent2(
-  () => new _$ButtonComponent(),
+  () => _$ButtonComponent(),
   builderFactory: Button,
   componentClass: ButtonComponent,
   isWrapper: false,
@@ -201,21 +202,21 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   set type(ButtonType value) => props[_$key__type___$ButtonProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__skin___$ButtonProps =
-      const PropDescriptor(_$key__skin___$ButtonProps);
+      PropDescriptor(_$key__skin___$ButtonProps);
   static const PropDescriptor _$prop__size___$ButtonProps =
-      const PropDescriptor(_$key__size___$ButtonProps);
+      PropDescriptor(_$key__size___$ButtonProps);
   static const PropDescriptor _$prop__isActive___$ButtonProps =
-      const PropDescriptor(_$key__isActive___$ButtonProps);
+      PropDescriptor(_$key__isActive___$ButtonProps);
   static const PropDescriptor _$prop__isDisabled___$ButtonProps =
-      const PropDescriptor(_$key__isDisabled___$ButtonProps);
+      PropDescriptor(_$key__isDisabled___$ButtonProps);
   static const PropDescriptor _$prop__isBlock___$ButtonProps =
-      const PropDescriptor(_$key__isBlock___$ButtonProps);
+      PropDescriptor(_$key__isBlock___$ButtonProps);
   static const PropDescriptor _$prop__href___$ButtonProps =
-      const PropDescriptor(_$key__href___$ButtonProps);
+      PropDescriptor(_$key__href___$ButtonProps);
   static const PropDescriptor _$prop__target___$ButtonProps =
-      const PropDescriptor(_$key__target___$ButtonProps);
+      PropDescriptor(_$key__target___$ButtonProps);
   static const PropDescriptor _$prop__type___$ButtonProps =
-      const PropDescriptor(_$key__type___$ButtonProps);
+      PropDescriptor(_$key__type___$ButtonProps);
   static const String _$key__skin___$ButtonProps = 'ButtonProps.skin';
   static const String _$key__size___$ButtonProps = 'ButtonProps.size';
   static const String _$key__isActive___$ButtonProps = 'ButtonProps.isActive';
@@ -225,7 +226,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   static const String _$key__target___$ButtonProps = 'target';
   static const String _$key__type___$ButtonProps = 'ButtonProps.type';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__skin___$ButtonProps,
     _$prop__size___$ButtonProps,
     _$prop__isActive___$ButtonProps,
@@ -235,7 +236,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
     _$prop__target___$ButtonProps,
     _$prop__type___$ButtonProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__skin___$ButtonProps,
     _$key__size___$ButtonProps,
     _$key__isActive___$ButtonProps,
@@ -247,7 +248,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ];
 }
 
-const PropsMeta _$metaForButtonProps = const PropsMeta(
+const PropsMeta _$metaForButtonProps = PropsMeta(
   fields: _$ButtonPropsAccessorsMixin.$props,
   keys: _$ButtonPropsAccessorsMixin.$propKeys,
 );
@@ -257,8 +258,8 @@ class ButtonProps extends _$ButtonProps with _$ButtonPropsAccessorsMixin {
 }
 
 _$$ButtonProps _$Button([Map backingProps]) => backingProps == null
-    ? new _$$ButtonProps$JsMap(new JsBackedMap())
-    : new _$$ButtonProps(backingProps);
+    ? _$$ButtonProps$JsMap(JsBackedMap())
+    : _$$ButtonProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -270,9 +271,9 @@ abstract class _$$ButtonProps extends _$ButtonProps
 
   factory _$$ButtonProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ButtonProps$JsMap(backingMap);
+      return _$$ButtonProps$JsMap(backingMap);
     } else {
-      return new _$$ButtonProps$PlainMap(backingMap);
+      return _$$ButtonProps$PlainMap(backingMap);
     }
   }
 
@@ -280,7 +281,7 @@ abstract class _$$ButtonProps extends _$ButtonProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $ButtonComponentFactory;
@@ -312,9 +313,9 @@ class _$$ButtonProps$JsMap extends _$$ButtonProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ButtonProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -329,11 +330,11 @@ abstract class _$ButtonStateAccessorsMixin implements _$ButtonState {
 
   /* GENERATED CONSTANTS */
 
-  static const List<StateDescriptor> $state = const [];
-  static const List<String> $stateKeys = const [];
+  static const List<StateDescriptor> $state = [];
+  static const List<String> $stateKeys = [];
 }
 
-const StateMeta _$metaForButtonState = const StateMeta(
+const StateMeta _$metaForButtonState = StateMeta(
   fields: _$ButtonStateAccessorsMixin.$state,
   keys: _$ButtonStateAccessorsMixin.$stateKeys,
 );
@@ -352,9 +353,9 @@ abstract class _$$ButtonState extends _$ButtonState
 
   factory _$$ButtonState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ButtonState$JsMap(backingMap);
+      return _$$ButtonState$JsMap(backingMap);
     } else {
-      return new _$$ButtonState$PlainMap(backingMap);
+      return _$$ButtonState$PlainMap(backingMap);
     }
   }
 
@@ -385,9 +386,9 @@ class _$$ButtonState$JsMap extends _$$ButtonState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ButtonState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -421,11 +422,11 @@ class _$ButtonComponent extends ButtonComponent {
 
   @override
   _$$ButtonProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$ButtonProps$JsMap(backingMap);
+      _$$ButtonProps$JsMap(backingMap);
 
   @override
   _$$ButtonProps typedPropsFactory(Map backingMap) =>
-      new _$$ButtonProps(backingMap);
+      _$$ButtonProps(backingMap);
 
   _$$ButtonState$JsMap _cachedTypedState;
   @override
@@ -443,18 +444,18 @@ class _$ButtonComponent extends ButtonComponent {
 
   @override
   _$$ButtonState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      new _$$ButtonState$JsMap(backingMap);
+      _$$ButtonState$JsMap(backingMap);
 
   @override
   _$$ButtonState typedStateFactory(Map backingMap) =>
-      new _$$ButtonState(backingMap);
+      _$$ButtonState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ButtonProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForButtonProps

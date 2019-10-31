@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library abstract_transition2_test;
 
 import 'dart:async';
@@ -63,7 +64,7 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
 
-          await new Future.delayed(d2c.Duration.zero);
+          await Future.delayed(d2c.Duration.zero);
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING),
               reason: 'should still be waiting for a transition event');
 
@@ -95,7 +96,7 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING));
 
-          await new Future.delayed(d2c.Duration.zero);
+          await Future.delayed(d2c.Duration.zero);
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING),
               reason: 'should still be waiting for a transition event');
 
@@ -130,7 +131,7 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
 
-          await new Future.delayed(d2c.Duration.zero);
+          await Future.delayed(d2c.Duration.zero);
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING),
               reason: 'should still be waiting for a transition event');
 
@@ -142,7 +143,7 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING));
 
-          await new Future.delayed(d2c.Duration.zero);
+          await Future.delayed(d2c.Duration.zero);
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING),
               reason: 'should still be waiting for a transition event');
 
@@ -182,7 +183,7 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING));
 
-          await new Future.delayed(d2c.Duration.zero);
+          await Future.delayed(d2c.Duration.zero);
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING),
               reason: 'should still be waiting for a transition event');
 
@@ -205,7 +206,7 @@ main() {
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
 
-          await new Future.microtask(() {});
+          await Future.microtask(() {});
 
           expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDDEN),
               reason: 'Should have transitioned to HIDDEN in a microtask without waiting for a transitionend that may never occur');
@@ -214,8 +215,8 @@ main() {
 
       group('shows and hides the component properly, waiting for correct number of `onTransitionEnd` when the number of transitions', () {
         Future<Null> sharedTests(renderedInstance, {@required int expectedTransitionInCount, @required int expectedTransitionOutCount}) async {
-          if (expectedTransitionInCount < 0) throw new ArgumentError.value(expectedTransitionInCount, 'expectedTransitionInCount', 'must be greater than 0');
-          if (expectedTransitionOutCount < 0) throw new ArgumentError.value(expectedTransitionOutCount, 'expectedTransitionOutCount', 'must be greater than 0');
+          if (expectedTransitionInCount < 0) throw ArgumentError.value(expectedTransitionInCount, 'expectedTransitionInCount', 'must be greater than 0');
+          if (expectedTransitionOutCount < 0) throw ArgumentError.value(expectedTransitionOutCount, 'expectedTransitionOutCount', 'must be greater than 0');
 
           TransitionerComponent transitioner = getDartComponent(renderedInstance);
 
@@ -227,7 +228,7 @@ main() {
             expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING));
 
             for (var i = 0; i < expectedTransitionInCount; i++) {
-              await new Future.delayed(d2c.Duration.zero);
+              await Future.delayed(d2c.Duration.zero);
               expect(transitioner.state.transitionPhase, equals(TransitionPhase.SHOWING),
                   reason: 'should still be waiting for a transition event');
 
@@ -243,7 +244,7 @@ main() {
             expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING));
 
             for (var i = 0; i < expectedTransitionOutCount; i++) {
-              await new Future.delayed(d2c.Duration.zero);
+              await Future.delayed(d2c.Duration.zero);
               expect(transitioner.state.transitionPhase, equals(TransitionPhase.HIDING),
                   reason: 'should still be waiting for a transition event');
 
@@ -509,7 +510,7 @@ main() {
 
         expect(transitioner.state.transitionPhase, TransitionPhase.HIDING);
 
-        await new Future.delayed(d2c.Duration.zero);
+        await Future.delayed(d2c.Duration.zero);
 
         expect(transitioner.state.transitionPhase, TransitionPhase.HIDDEN);
 
@@ -531,7 +532,7 @@ main() {
 
         expect(transitioner.state.transitionPhase, TransitionPhase.HIDING);
 
-        await new Future.microtask(() {});
+        await Future.microtask(() {});
 
         expect(transitioner.state.transitionPhase, TransitionPhase.HIDDEN);
 
@@ -561,7 +562,7 @@ main() {
           var transitionAttrMutations = <List<String>>[];
 
           // List<dynamic> is being used to work around a Dart HTML internals issue in the DDC
-          var observer = new MutationObserver((List<dynamic> records, observer) {
+          var observer = MutationObserver((records, observer) {
             for (var record in records) {
               if (record.attributeName != transitionPhaseTestAttr) continue;
               transitionAttrMutations.add([
@@ -580,7 +581,7 @@ main() {
           component.setState(component.newState()..transitionPhase = TransitionPhase.PRE_SHOWING);
 
           // Wait for MutationObserver callback to fire.
-          await new Future(() {});
+          await Future(() {});
 
           expect(transitionAttrMutations, contains(equals(
               // We can't catch the overlay getting its attribute changed to `pre-showing` for some reason,
@@ -749,7 +750,7 @@ class TransitionerComponent extends AbstractTransitionComponent2<TransitionerPro
   List<TransitionPhase> transitionPhasesSet = [];
 
   @override
-  void setState(dynamic newState, [callback()]) {
+  void setState(dynamic newState, [Function() callback]) {
     super.setState(newState, callback);
     transitionPhasesSet.add(newState.transitionPhase);
   }

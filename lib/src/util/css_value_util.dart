@@ -51,19 +51,19 @@ class CssValue implements Comparable<CssValue> {
   ///     20
   ///     '1.25em'
   ///     '-15%'
-  factory CssValue.parse(dynamic source, {CssValue onError(value, error)}) {
+  factory CssValue.parse(dynamic source, {CssValue onError(value, error)}) { // ignore: use_function_type_syntax_for_parameters
     num number;
     String unit;
 
-    var error;
+    ArgumentError error;
 
     if (source == null) {
-      error = new ArgumentError.notNull('value');
+      error = ArgumentError.notNull('value');
     } else if (source is num) {
       number = source;
       unit = 'px';
     } else {
-      var unitMatch = new RegExp(r'(?:rem|em|ex|vh|vw|vmin|vmax|%|px|cm|mm|in|pt|pc|ch)?$').firstMatch(source.toString());
+      var unitMatch = RegExp(r'(?:rem|em|ex|vh|vw|vmin|vmax|%|px|cm|mm|in|pt|pc|ch)?$').firstMatch(source.toString());
         unit = unitMatch.group(0);
       if (unit == '') {
         unit = 'px';
@@ -71,16 +71,16 @@ class CssValue implements Comparable<CssValue> {
 
       number = double.tryParse(unitMatch.input.substring(0, unitMatch.start));
       if (number == null) {
-        error = new ArgumentError.value(source, 'value', 'Invalid number/unit for CSS value');
+        error = ArgumentError.value(source, 'value', 'Invalid number/unit for CSS value');
       }
     }
 
     if (number != null && !number.isFinite) {
       // Rule out -Infinity, Infinity, and NaN.
-      error = new ArgumentError.value(number, 'value', 'Number portion of CSS value ($source) must be finite');
+      error = ArgumentError.value(number, 'value', 'Number portion of CSS value ($source) must be finite');
     }
 
-    var result;
+    CssValue result;
     if (error != null) {
       if (onError == null) {
         result = null;
@@ -88,7 +88,7 @@ class CssValue implements Comparable<CssValue> {
         result = onError(source, error);
       }
     } else {
-      result = new CssValue(number, unit);
+      result = CssValue(number, unit);
     }
 
     return result;
@@ -99,25 +99,25 @@ class CssValue implements Comparable<CssValue> {
   /// Used internally to prevent calculations between incompatible units.
   void _checkMatchingUnits(CssValue other) {
     if (unit != other.unit) {
-      throw new ArgumentError('Cannot compare CSS unit values of units $unit and ${other.unit}');
+      throw ArgumentError('Cannot compare CSS unit values of units $unit and ${other.unit}');
     }
   }
 
   /// Returns the remainder of dividing this value's [number] by [other].
-  CssValue operator %(num other) => new CssValue(number % other, unit);
+  CssValue operator %(num other) => CssValue(number % other, unit);
 
   /// Returns the result of multiplying this value's [number] by [other].
-  CssValue operator *(num other) => new CssValue(number * other, unit);
+  CssValue operator *(num other) => CssValue(number * other, unit);
 
   /// Returns the result of dividing this value's [number] by [other].
-  CssValue operator /(num other) => new CssValue(number / other, unit);
+  CssValue operator /(num other) => CssValue(number / other, unit);
 
   /// Returns a new [CssValue] with the sum of the [number]s of this value and [other].
   ///
   /// Throws an error if the [unit] of this value and [other] do not match.
   CssValue operator +(CssValue other) {
     _checkMatchingUnits(other);
-    return new CssValue(number + other.number, unit);
+    return CssValue(number + other.number, unit);
   }
 
   /// Returns a new [CssValue] with the difference between the [number]s of this value and [other].
@@ -125,7 +125,7 @@ class CssValue implements Comparable<CssValue> {
   /// Throws an error if the [unit] of this value and [other] do not match.
   CssValue operator -(CssValue other) {
     _checkMatchingUnits(other);
-    return new CssValue(number - other.number, unit);
+    return CssValue(number - other.number, unit);
   }
 
   /// Returns whether this value's [number] is less than that of [other].
@@ -171,7 +171,7 @@ class CssValue implements Comparable<CssValue> {
 
   /// Returns a new [CssValue] with this value's [unit] and the negation of this value's [number].
   CssValue operator -() {
-    return new CssValue(-number, unit);
+    return CssValue(-number, unit);
   }
 
   /// Returns the result of comparing this value's [number] to that of [other].

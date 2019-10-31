@@ -32,11 +32,11 @@ class _$TestCustomRendererComponentState extends UiState {
   String someStateKey;
 }
 
-@Component()
+@Component2()
 class TestCustomRendererComponentComponent
-    extends UiStatefulComponent<TestCustomRendererComponentProps, TestCustomRendererComponentState> {
+    extends UiStatefulComponent2<TestCustomRendererComponentProps, TestCustomRendererComponentState> {
   @override
-  Map getInitialState() => (newState()..someStateKey = props.someInitialStateKeyValue);
+  get initialState => (newState()..someStateKey = props.someInitialStateKeyValue);
 
   @override
   render() {
