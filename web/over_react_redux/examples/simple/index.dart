@@ -13,7 +13,7 @@ main() {
 
   react_dom.render(
     ErrorBoundary()(
-      (ReduxProvider()..store = store)(
+      (ReduxProvider()..store = adaptedStore)(
         (Dom.div()..style={'display': 'flex', 'flexDirection': 'row', 'justifyContent': 'space-evenly'})(
           (Dom.div())(
             Dom.h2()('ConnectedBigCounter'),
