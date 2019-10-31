@@ -7,6 +7,18 @@ import 'package:over_react/over_react_redux.dart';
 import 'package:redux/redux.dart' as redux;
 import 'package:w_flux/w_flux_server.dart' as flux;
 
+
+part 'over_react_flux.over_react.g.dart';
+
+@PropsMixin(keyNamespace: '')
+abstract class _$ConnectFluxPropsMixin<TActions> implements UiProps {
+  @override
+  Map get props;
+
+  TActions actions;
+}
+
+
 class _FluxStoreUpdatedAction {}
 
 /// Adapts a Flux store to the interface of a Redux store.
@@ -15,10 +27,12 @@ class FluxToReduxAdapterStore<S extends flux.Store> extends redux.Store<S> {
 
   StreamSubscription _storeListener;
 
-  FluxToReduxAdapterStore(this.store) : super(_noopReducer, initialState: store, distinct: false) {
+  FluxToReduxAdapterStore(this.store, dynamic actions) : super(_noopReducer, initialState: store, distinct: false) {
     _storeListener = store.listen((_) {
       dispatch(new _FluxStoreUpdatedAction());
     });
+
+    _actionsForStore[store] = actions;
   }
 
   @override
@@ -30,10 +44,12 @@ class FluxToReduxAdapterStore<S extends flux.Store> extends redux.Store<S> {
 
 T _noopReducer<T>(T state, action) => state;
 
+final Expando<dynamic> _actionsForStore = new Expando();
 
-UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.Store, TProps extends UiProps>({
+UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.Store, TActions, TProps extends UiProps>({
   Map Function(TStore state) mapStateToProps,
   Map Function(TStore state, TProps ownProps) mapStateToPropsWithOwnProps,
+  Map Function(TActions actions) mapActionsToProps,
   Map Function(TProps stateProps, TProps dispatchProps, TProps ownProps) mergeProps,
   bool Function(TProps nextProps, TProps prevProps) areOwnPropsEqual,
   bool Function(TProps nextProps, TProps prevProps) areStatePropsEqual,
@@ -42,6 +58,23 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
   bool pure = true,
   bool forwardRef = false,
 }) {
+  mapActionsToProps ??= (actions) => {'actions': actions};
+
+  // Wrap mapStateToProps in order to implement mapActionsToProps.
+  // Use this instead of mapDispatchToProps since we can't get a reference back
+  // to the actions from the dispatcher.
+  if (mapStateToProps != null) {
+    final originalMapStateToProps = mapStateToProps;
+    Map wrappedMapStateToProps(TStore state) {
+      return {
+        ...originalMapStateToProps(state),
+        ...mapActionsToProps(_actionsForStore[state] as TActions),
+      };
+    }
+    mapStateToProps = wrappedMapStateToProps;
+  }
+  // todo mapStateToPropsWithOwnProps
+
   if (areStatePropsEqual == null) {
     const defaultAreStatePropsEqual = _shallowMapEquality;
     final Expando<int> _listLength = new Expando();

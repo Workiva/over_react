@@ -10,13 +10,11 @@ class CounterActions {
 }
 
 class CounterStore extends Store {
-  CounterActions actions;
-
   int _smallCount = 0;
   int _bigCount = 0;
   List items = [];
 
-  CounterStore(this.actions) {
+  CounterStore(CounterActions actions) {
     triggerOnActionV2(actions.smallIncrement, (_) {
       _smallCount += 1;
       items.add('item');
@@ -40,4 +38,4 @@ final fluxActions = CounterActions();
 final fluxStore = CounterStore(fluxActions);
 
 /// The application store, adapted to be a Redux store.
-final adaptedStore = FluxToReduxAdapterStore(fluxStore);
+final adaptedStore = FluxToReduxAdapterStore(fluxStore, fluxActions);

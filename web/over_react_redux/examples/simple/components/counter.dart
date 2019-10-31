@@ -9,24 +9,28 @@ part 'counter.over_react.g.dart';
 ///
 /// As shown in the example below, the same component can be connected to Redux in
 /// such a way that it behaves differently.
-UiFactory<CounterProps> ConnectedCounter = connectFlux<CounterStore, CounterProps>(
+UiFactory<CounterProps> ConnectedCounter = connectFlux<CounterStore, CounterActions, CounterProps>(
   mapStateToProps: (state) => (Counter()
     ..currentCount = state.smallCount
-    ..increment = state.actions.smallIncrement
-    ..decrement = state.actions.smallDecrement
     ..items = state.items
+  ),
+  mapActionsToProps: (actions) => (Counter()
+    ..increment = actions.smallIncrement
+    ..decrement = actions.smallDecrement
   ),
 //  areStatePropsEqual: (_, __) => false,
 //  areMergedPropsEqual: (_, __) => false,
 //  pure: false,
 )(Counter);
 
-UiFactory<CounterProps> ConnectedBigCounter = connectFlux<CounterStore, CounterProps>(
+UiFactory<CounterProps> ConnectedBigCounter = connectFlux<CounterStore, CounterActions, CounterProps>(
   mapStateToProps: (state) => (Counter()
     ..currentCount = state.bigCount
-    ..increment = state.actions.bigIncrement
-    ..decrement = state.actions.bigDecrement
     ..items = state.items
+  ),
+  mapActionsToProps: (actions) => (Counter()
+    ..increment = actions.bigIncrement
+    ..decrement = actions.bigDecrement
   ),
 //  areStatePropsEqual: (_, __) => false,
 //  areMergedPropsEqual: (_, __) => false,
@@ -37,7 +41,7 @@ UiFactory<CounterProps> ConnectedBigCounter = connectFlux<CounterStore, CounterP
 UiFactory<CounterProps> Counter = _$Counter;
 
 @Props()
-class _$CounterProps extends UiProps {
+class _$CounterProps extends UiProps with ConnectFluxPropsMixin<CounterActions> {
   int currentCount;
 
   Map<String, dynamic> wrapperStyles;
