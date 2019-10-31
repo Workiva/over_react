@@ -1,3 +1,4 @@
+// ignore_for_file: deprecated_member_use_from_same_package
 import 'package:over_react/over_react.dart';
 
 import '../demo_components.dart';
@@ -130,13 +131,13 @@ class ButtonGroupSize extends ClassNameConstant {
   const ButtonGroupSize._(String name, String className) : super(name, className);
 
   /// [className] value: 'btn-group-sm'
-  static const ButtonGroupSize SMALL   = const ButtonGroupSize._('SMALL', 'btn-group-sm');
+  static const ButtonGroupSize SMALL   = ButtonGroupSize._('SMALL', 'btn-group-sm');
 
   /// [className] value: ''
-  static const ButtonGroupSize DEFAULT = const ButtonGroupSize._('DEFAULT', '');
+  static const ButtonGroupSize DEFAULT = ButtonGroupSize._('DEFAULT', '');
 
   /// [className] value: 'btn-group-lg'
-  static const ButtonGroupSize LARGE   = const ButtonGroupSize._('LARGE', 'btn-group-lg');
+  static const ButtonGroupSize LARGE   = ButtonGroupSize._('LARGE', 'btn-group-lg');
 }
 
 /// Mapping from [ButtonSize] values to their analogous [ButtonGroupSize] values.
@@ -152,7 +153,7 @@ class ButtonGroupSize extends ClassNameConstant {
 ///     class MyComponent extends UiComponent<MyProps> {
 ///       ButtonGroupSize matchingButtonGroupSize = buttonToButtonGroupSize[props.size];
 ///     }
-final Map<ButtonSize, ButtonGroupSize> buttonToButtonGroupSize = const <ButtonSize, ButtonGroupSize>{
+const Map<ButtonSize, ButtonGroupSize> buttonToButtonGroupSize = {
   ButtonSize.SMALL:   ButtonGroupSize.SMALL,
   ButtonSize.DEFAULT: ButtonGroupSize.DEFAULT,
   ButtonSize.LARGE:   ButtonGroupSize.LARGE,

@@ -30,7 +30,7 @@ abstract class $TransitionPropsMixin {}
 /// that cannot extend directly from [AbstractTransitionComponent].
 @PropsMixin()
 abstract class _$TransitionPropsMixin {
-  static final TransitionPropsMapView defaultProps = new TransitionPropsMapView({})
+  static final TransitionPropsMapView defaultProps = TransitionPropsMapView({})
     ..transitionCount = 1;
 
   Map get props;

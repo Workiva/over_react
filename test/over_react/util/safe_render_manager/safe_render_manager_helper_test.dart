@@ -16,9 +16,7 @@ main() {
   group('SafeRenderManagerHelper component', () {
     test('renders with the single child initially mounted', () {
       var renderedInstance = render((SafeRenderManagerHelper()
-        ..getInitialContent = () {
-          return (Dom.div()..addTestId('singleChild'))();
-        }
+        ..getInitialContent = (Dom.div()..addTestId('singleChild'))
       )());
 
       expect(getByTestId(renderedInstance, 'singleChild'), isNotNull);
@@ -30,9 +28,7 @@ main() {
 
       setUp(() {
         renderedInstance = render((SafeRenderManagerHelper()
-          ..getInitialContent = () {
-            return (Dom.div()..addTestId('singleChild'))();
-          }
+          ..getInitialContent = (Dom.div()..addTestId('singleChild'))
         )());
         component = getDartComponent(renderedInstance);
       });
@@ -56,9 +52,7 @@ main() {
 
       setUp(() {
         renderedInstance = render((SafeRenderManagerHelper()
-          ..getInitialContent = () {
-            return (Dom.div()..addTestId('singleChild'))();
-          }
+          ..getInitialContent = (Dom.div()..addTestId('singleChild'))
         )());
         component = getDartComponent(renderedInstance);
       });
@@ -79,7 +73,7 @@ main() {
       test('causes a rerender and calls the specified callback', () async {
         expect(getByTestId(renderedInstance, 'singleChild'), isNotNull, reason: 'test setup sanity check');
 
-        final onUnmountCompleter = new Completer();
+        final onUnmountCompleter = Completer();
 
         storeZone();
         component.tryUnmountContent(onMaybeUnmounted: (isUnmounted) {
@@ -100,7 +94,7 @@ main() {
       test('calls the specified callback if no content is rendered', () async {
         expect(getByTestId(renderedInstance, 'singleChild'), isNotNull, reason: 'test setup sanity check');
 
-        final onUnmountCompleter = new Completer();
+        final onUnmountCompleter = Completer();
 
         storeZone();
         component.tryUnmountContent();

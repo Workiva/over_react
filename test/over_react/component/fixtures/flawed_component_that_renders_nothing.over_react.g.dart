@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'flawed_component_that_renders_nothing.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'flawed_component_that_renders_nothing.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $FlawedWithNoChildComponentFactory = registerComponent(
-    () => new _$FlawedWithNoChildComponent(),
+    () => _$FlawedWithNoChildComponent(),
     builderFactory: FlawedWithNoChild,
     componentClass: FlawedWithNoChildComponent,
     isWrapper: false,
@@ -24,17 +25,17 @@ abstract class _$FlawedWithNoChildPropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForFlawedWithNoChildProps = const PropsMeta(
+const PropsMeta _$metaForFlawedWithNoChildProps = PropsMeta(
   fields: _$FlawedWithNoChildPropsAccessorsMixin.$props,
   keys: _$FlawedWithNoChildPropsAccessorsMixin.$propKeys,
 );
 
 _$$FlawedWithNoChildProps _$FlawedWithNoChild([Map backingProps]) =>
-    new _$$FlawedWithNoChildProps(backingProps);
+    _$$FlawedWithNoChildProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -54,11 +55,11 @@ class _$$FlawedWithNoChildProps extends _$FlawedWithNoChildProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       $FlawedWithNoChildComponentFactory;
@@ -75,14 +76,14 @@ class _$$FlawedWithNoChildProps extends _$FlawedWithNoChildProps
 class _$FlawedWithNoChildComponent extends FlawedWithNoChildComponent {
   @override
   _$$FlawedWithNoChildProps typedPropsFactory(Map backingMap) =>
-      new _$$FlawedWithNoChildProps(backingMap);
+      _$$FlawedWithNoChildProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$FlawedWithNoChildProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForFlawedWithNoChildProps

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_generic_function_type_aliases, deprecated_member_use
+
 import 'dart:async';
 import 'dart:js_util' as js_util;
 import 'dart:js_util';
@@ -8,7 +10,7 @@ import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_interop_helpers.dart';
-import 'package:react/react_client/react_interop.dart' show React, ReactClassConfig, throwErrorFromJS;
+import 'package:react/react_client/react_interop.dart' show React, throwErrorFromJS;
 
 part 'error_boundary.over_react.g.dart';
 
@@ -47,7 +49,7 @@ final ReactElement Function([Map props, List children]) _jsErrorBoundaryComponen
       // To fix this we throw the error again from Dart to the JS side and catch it Dart side which re-dartifies it.
       try {
         throwErrorFromJS(error);
-      } catch (error, stack) {
+      } catch (error) {
         final callback = js_util.getProperty(jsProps, 'onComponentDidCatch');
 
         if (callback != null) {
@@ -66,7 +68,7 @@ final ReactElement Function([Map props, List children]) _jsErrorBoundaryComponen
 
   var reactFactory = React.createFactory(componentClass);
 
-  return ([Map props = const {}, List children = const []]) {
+  return ([props = const {}, children = const []]) {
     return reactFactory(jsifyAndAllowInterop(props), listifyChildren(children));
   };
 })();
@@ -267,9 +269,9 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
     final children = domProps(appliedProps).children;
 
     if (children.length != 1) {
-      throw new PropError.value(children, 'children', 'ErrorBoundary accepts only a single child.');
+      throw PropError.value(children, 'children', 'ErrorBoundary accepts only a single child.');
     } else if (!isValidElement(children.single)) {
-      throw new PropError.value(children, 'children', 'ErrorBoundary accepts only a single ReactComponent child.');
+      throw PropError.value(children, 'children', 'ErrorBoundary accepts only a single ReactComponent child.');
     }
   }
 

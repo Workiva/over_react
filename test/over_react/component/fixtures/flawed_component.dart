@@ -40,8 +40,7 @@ class FlawedComponent extends UiStatefulComponent<FlawedProps, FlawedState> {
   @override
   Map getInitialState() => (newState()
     ..errorCount = 0
-    ..differentTypeOfErrorCount = 0
-  );
+    ..differentTypeOfErrorCount = 0);
 
   @override
   void componentWillUpdate(_, Map nextState) {
@@ -67,7 +66,8 @@ class FlawedComponent extends UiStatefulComponent<FlawedProps, FlawedState> {
         'oh hai',
       ),
       (Dom.button()
-        ..addTestId('${props.buttonTestIdPrefix}flawedButtonThatThrowsADifferentError')
+        ..addTestId(
+            '${props.buttonTestIdPrefix}flawedButtonThatThrowsADifferentError')
         ..onClick = (_) {
           setState(newState()..differentTypeOfErrorCount = state.differentTypeOfErrorCount + 1);
         }

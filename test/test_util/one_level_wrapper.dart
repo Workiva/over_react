@@ -29,4 +29,3 @@ class OneLevelWrapperComponent extends UiComponent<OneLevelWrapperProps> {
   @override
   render() => Dom.div()(props.children.single);
 }
-

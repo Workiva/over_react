@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'parent.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'parent.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestParentComponentFactory = registerComponent(
-    () => new _$TestParentComponent(),
+    () => _$TestParentComponent(),
     builderFactory: TestParent,
     componentClass: TestParentComponent,
     isWrapper: false,
@@ -23,11 +24,11 @@ abstract class _$TestParentPropsAccessorsMixin implements _$TestParentProps {
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForTestParentProps = const PropsMeta(
+const PropsMeta _$metaForTestParentProps = PropsMeta(
   fields: _$TestParentPropsAccessorsMixin.$props,
   keys: _$TestParentPropsAccessorsMixin.$propKeys,
 );
@@ -38,7 +39,7 @@ class TestParentProps extends _$TestParentProps
 }
 
 _$$TestParentProps _$TestParent([Map backingProps]) =>
-    new _$$TestParentProps(backingProps);
+    _$$TestParentProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -58,11 +59,11 @@ class _$$TestParentProps extends _$TestParentProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       $TestParentComponentFactory;
@@ -79,14 +80,14 @@ class _$$TestParentProps extends _$TestParentProps
 class _$TestParentComponent extends TestParentComponent {
   @override
   _$$TestParentProps typedPropsFactory(Map backingMap) =>
-      new _$$TestParentProps(backingMap);
+      _$$TestParentProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestParentProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestParentProps

@@ -43,16 +43,15 @@ import 'package:react/react_dom.dart' as react_dom;
 //     `ReactComponent`, whereas DOM component instance will be of type
 //     `Element`.
 
-
 /// Returns internal data structure used by react-dart to maintain the native Dart component
 /// for a given react-dart [ReactElement] or [ReactComponent] [instance].
-ReactDartComponentInternal _getInternal(/* ReactElement|ReactComponent */  instance) =>
+ReactDartComponentInternal _getInternal(/* ReactElement|ReactComponent */ instance) =>
     (instance.props as InteropProps).internal; // ignore: avoid_as
 
 /// Returns the internal representation of a Dart component's props as maintained by react-dart.
 ///
 /// Similar to `ReactElement.props` in JS, but also includes `props.children`.
-Map _getExtendedProps(/* ReactElement|ReactComponent */  instance) {
+Map _getExtendedProps(/* ReactElement|ReactComponent */ instance) {
   return _getInternal(instance).props;
 }
 
@@ -79,12 +78,12 @@ bool isDartComponent(/* ReactElement|ReactComponent|Element */ instance) {
 /// - `true` for dart2js and Dart VM
 /// - `false` for DDC
 final bool _canUseExpandoOnReactElement = (() {
-  var expando = new Expando<bool>('_canUseExpandoOnReactElement test');
+  var expando = Expando<bool>('_canUseExpandoOnReactElement test');
   var reactElement = react.div({});
 
   try {
     expando[reactElement] = true;
-  } catch(_) {
+  } catch (_) {
     return false;
   }
 
@@ -96,7 +95,7 @@ final bool _canUseExpandoOnReactElement = (() {
 /// If caching isn't possible due to [_canUseExpandoOnReactElement] being false,
 /// then this will be initialized to `null`, and caching will be disabled.
 final Expando<UnmodifiableMapView> _elementPropsCache = _canUseExpandoOnReactElement
-    ? new Expando<UnmodifiableMapView>('_elementPropsCache')
+    ? Expando<UnmodifiableMapView>('_elementPropsCache')
     : null;
 
 /// Returns an unmodifiable Map view of props for a [ReactElement] or composite [ReactComponent] [instance].
@@ -108,7 +107,7 @@ final Expando<UnmodifiableMapView> _elementPropsCache = _canUseExpandoOnReactEle
 /// instance.
 ///
 /// Throws if [instance] is not a valid [ReactElement] or composite [ReactComponent] .
-Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers: false}) {
+Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers = false}) {
   var isCompositeComponent = _isCompositeComponent(instance);
 
   if (isValidElement(instance) || isCompositeComponent) {
@@ -121,7 +120,7 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers:
       } else if (isValidElement(instance)) {
         instanceTypeMeta = getComponentTypeMeta(instance.type);
       } else {
-        throw new ArgumentError.value(instance, 'instance',
+        throw ArgumentError.value(instance, 'instance',
             'must either be a Dart component ReactComponent or ReactElement when traverseWrappers is true.');
       }
 
@@ -142,7 +141,7 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers:
     }
 
     var propsMap = isDartComponent(instance) ? _getExtendedProps(instance) : unconvertJsProps(instance);
-    var view = new UnmodifiableMapView(propsMap);
+    var view = UnmodifiableMapView(propsMap);
 
     if (_elementPropsCache != null && !isCompositeComponent) {
       _elementPropsCache[instance] = view;
@@ -151,7 +150,7 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers:
     return view;
   }
 
-  throw new ArgumentError.value(instance, 'instance', 'must be a valid ReactElement or composite ReactComponent');
+  throw ArgumentError.value(instance, 'instance', 'must be a valid ReactElement or composite ReactComponent');
 }
 
 /// Returns the DOM node associated with a mounted React component [instance],
@@ -171,10 +170,11 @@ bool isValidElement(dynamic object) {
 
 /// Returns whether [instance] is a ReactElement for a DOM node.
 bool isDomElement(dynamic instance) {
-  return isValidElement(instance) && (instance as ReactElement).type is String; // ignore: avoid_as
+  return isValidElement(instance) &&
+      (instance as ReactElement).type is String; // ignore: avoid_as
 }
 
-/// Returns whether [instance] is a composite [ReactComponent].
+/// Returns whether [object] is a composite [ReactComponent].
 ///
 /// __Not for external use.__
 bool _isCompositeComponent(dynamic object) {
@@ -192,7 +192,7 @@ bool _isCompositeComponent(dynamic object) {
 /// * Children are likewise copied and potentially overwritten with [newChildren] as expected.
 /// * For JS components, a copy of [newProps] is returned, since React will merge the props without any special handling.
 dynamic preparePropsChangeset(ReactElement element, Map newProps, [Iterable newChildren]) {
-  var propsChangeset;
+  dynamic propsChangeset;
 
   final internal = _getInternal(element);
   if (internal == null) {
@@ -203,7 +203,7 @@ dynamic preparePropsChangeset(ReactElement element, Map newProps, [Iterable newC
       if (isDomElement(element)) {
         // Convert props for DOM components so that style Maps and event handlers
         // are properly converted.
-        Map convertedProps = new Map.from(newProps);
+        Map convertedProps = Map.from(newProps);
         ReactDomComponentFactoryProxy.convertProps(convertedProps);
         propsChangeset = jsifyAndAllowInterop(convertedProps);
       } else {
@@ -214,7 +214,7 @@ dynamic preparePropsChangeset(ReactElement element, Map newProps, [Iterable newC
     // react-dart component
     Map oldExtendedProps = internal.props;
 
-    Map extendedProps = new Map.from(oldExtendedProps);
+    Map extendedProps = Map.from(oldExtendedProps);
     if (newProps != null) {
       extendedProps.addAll(newProps);
     }
@@ -321,7 +321,7 @@ T getDartComponent<T extends react.Component>(/* ReactElement|ReactComponent|Ele
 ///     getFooNode() => findDomNode(_fooRef);
 ///
 /// See: <http://facebook.github.io/react/docs/more-about-refs.html#the-ref-callback-attribute>.
-typedef CallbackRef(ref);
+typedef CallbackRef(ref); // ignore: prefer_generic_function_type_aliases
 
 /// Returns a function that chains the callback ref of the provided [element] _(if one exists)_
 /// using [newCallbackRef].
@@ -336,12 +336,12 @@ CallbackRef chainRef(ReactElement element, CallbackRef newCallbackRef) {
   if (existingRef == null) return newCallbackRef;
 
   if (existingRef is String) {
-    throw new ArgumentError.value(existingRef, 'element.ref',
+    throw ArgumentError.value(existingRef, 'element.ref',
         'The existing ref is a String ref and cannot be chained');
   }
 
   if (existingRef is! Function) {
-    throw new ArgumentError.value(existingRef, 'element.ref',
+    throw ArgumentError.value(existingRef, 'element.ref',
         'The existing ref is invalid and cannot be chained');
   }
 

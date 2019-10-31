@@ -26,18 +26,15 @@ import 'package:over_react/src/component/prop_mixins.dart';
 ///
 /// Useful for prop forwarding.
 Map getPropsToForward(Map props, {
-    bool omitReactProps: true,
-    bool onlyCopyDomProps: false,
+    bool omitReactProps = true,
+    bool onlyCopyDomProps = false,
     Iterable keysToOmit,
     Iterable<Iterable> keySetsToOmit
 }) {
-  Map propsToForward = new Map.from(props);
+  Map propsToForward = Map.from(props);
 
   if (omitReactProps) {
-    propsToForward
-      ..remove('key')
-      ..remove('ref')
-      ..remove('children');
+    propsToForward..remove('key')..remove('ref')..remove('children');
   }
 
   if (keysToOmit != null) {
@@ -47,7 +44,7 @@ Map getPropsToForward(Map props, {
   }
 
   if (keySetsToOmit != null) {
-    keySetsToOmit.forEach((Iterable keySet) {
+    keySetsToOmit.forEach((keySet) {
       keySet.forEach((key) {
         propsToForward.remove(key);
       });
@@ -55,7 +52,7 @@ Map getPropsToForward(Map props, {
   }
 
   if (onlyCopyDomProps) {
-    new List<String>.from(propsToForward.keys).forEach((String key) {
+    List<String>.from(propsToForward.keys).forEach((key) {
       if (key.startsWith('aria-')) return;
       if (key.startsWith('data-')) return;
       if (_validDomProps.contains(key)) return;
@@ -74,9 +71,9 @@ Map<String, dynamic> newStyleFromProps(Map props) {
   if (props == null) return <String, dynamic>{};
 
   var existingStyle = domProps(props).style;
-  return existingStyle == null ? <String, dynamic>{} : new Map.from(existingStyle);
+  return existingStyle == null ? <String, dynamic>{} : Map.from(existingStyle);
 }
 
-SplayTreeSet _validDomProps = new SplayTreeSet()
+SplayTreeSet _validDomProps = SplayTreeSet()
   ..addAll(DomPropsMixin.meta.keys)
   ..addAll(SvgPropsMixin.meta.keys);

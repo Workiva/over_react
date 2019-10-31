@@ -91,7 +91,7 @@ String _prettyObj(Object obj) {
 
     final pairs = <String>[];
 
-    pairs.addAll(namespacedKeys.keys.map((String namespace) {
+    pairs.addAll(namespacedKeys.keys.map((namespace) {
       String renderSubKey(String subkey) {
         var key = '$namespace$subkey';
         var value = obj[key];
@@ -108,7 +108,7 @@ String _prettyObj(Object obj) {
       return '$key: ' + _prettyObj(obj[key]) + ',';
     }));
 
-    final RegExp trailingComma = new RegExp(r'\s*,\s*$');
+    final RegExp trailingComma = RegExp(r'\s*,\s*$');
 
     if (pairs.length > _maxKeyValuePairsPerLine || pairs.any((pair) => pair.contains('\n'))) {
       var inner = _indentString(pairs.join('\n')).replaceFirst(trailingComma, '');

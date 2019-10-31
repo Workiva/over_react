@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'error_boundary.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'error_boundary.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ErrorBoundaryComponentFactory = registerComponent(
-    () => new _$ErrorBoundaryComponent(),
+    () => _$ErrorBoundaryComponent(),
     builderFactory: ErrorBoundary,
     componentClass: ErrorBoundaryComponent,
     isWrapper: true,
@@ -253,23 +254,22 @@ abstract class _$ErrorBoundaryPropsAccessorsMixin
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__onComponentDidCatch___$ErrorBoundaryProps =
-      const PropDescriptor(_$key__onComponentDidCatch___$ErrorBoundaryProps);
+      PropDescriptor(_$key__onComponentDidCatch___$ErrorBoundaryProps);
   static const PropDescriptor
       _$prop__onComponentIsUnrecoverable___$ErrorBoundaryProps =
-      const PropDescriptor(
-          _$key__onComponentIsUnrecoverable___$ErrorBoundaryProps);
+      PropDescriptor(_$key__onComponentIsUnrecoverable___$ErrorBoundaryProps);
   static const PropDescriptor _$prop__fallbackUIRenderer___$ErrorBoundaryProps =
-      const PropDescriptor(_$key__fallbackUIRenderer___$ErrorBoundaryProps);
+      PropDescriptor(_$key__fallbackUIRenderer___$ErrorBoundaryProps);
   static const PropDescriptor
       _$prop__identicalErrorFrequencyTolerance___$ErrorBoundaryProps =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__identicalErrorFrequencyTolerance___$ErrorBoundaryProps);
   static const PropDescriptor _$prop__loggerName___$ErrorBoundaryProps =
-      const PropDescriptor(_$key__loggerName___$ErrorBoundaryProps);
+      PropDescriptor(_$key__loggerName___$ErrorBoundaryProps);
   static const PropDescriptor _$prop__shouldLogErrors___$ErrorBoundaryProps =
-      const PropDescriptor(_$key__shouldLogErrors___$ErrorBoundaryProps);
+      PropDescriptor(_$key__shouldLogErrors___$ErrorBoundaryProps);
   static const PropDescriptor _$prop__logger___$ErrorBoundaryProps =
-      const PropDescriptor(_$key__logger___$ErrorBoundaryProps);
+      PropDescriptor(_$key__logger___$ErrorBoundaryProps);
   static const String _$key__onComponentDidCatch___$ErrorBoundaryProps =
       'ErrorBoundaryProps.onComponentDidCatch';
   static const String _$key__onComponentIsUnrecoverable___$ErrorBoundaryProps =
@@ -286,7 +286,7 @@ abstract class _$ErrorBoundaryPropsAccessorsMixin
   static const String _$key__logger___$ErrorBoundaryProps =
       'ErrorBoundaryProps.logger';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__onComponentDidCatch___$ErrorBoundaryProps,
     _$prop__onComponentIsUnrecoverable___$ErrorBoundaryProps,
     _$prop__fallbackUIRenderer___$ErrorBoundaryProps,
@@ -295,7 +295,7 @@ abstract class _$ErrorBoundaryPropsAccessorsMixin
     _$prop__shouldLogErrors___$ErrorBoundaryProps,
     _$prop__logger___$ErrorBoundaryProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__onComponentDidCatch___$ErrorBoundaryProps,
     _$key__onComponentIsUnrecoverable___$ErrorBoundaryProps,
     _$key__fallbackUIRenderer___$ErrorBoundaryProps,
@@ -306,7 +306,7 @@ abstract class _$ErrorBoundaryPropsAccessorsMixin
   ];
 }
 
-const PropsMeta _$metaForErrorBoundaryProps = const PropsMeta(
+const PropsMeta _$metaForErrorBoundaryProps = PropsMeta(
   fields: _$ErrorBoundaryPropsAccessorsMixin.$props,
   keys: _$ErrorBoundaryPropsAccessorsMixin.$propKeys,
 );
@@ -317,7 +317,7 @@ class ErrorBoundaryProps extends _$ErrorBoundaryProps
 }
 
 _$$ErrorBoundaryProps _$ErrorBoundary([Map backingProps]) =>
-    new _$$ErrorBoundaryProps(backingProps);
+    _$$ErrorBoundaryProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -337,11 +337,11 @@ class _$$ErrorBoundaryProps extends _$ErrorBoundaryProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       $ErrorBoundaryComponentFactory;
@@ -409,26 +409,26 @@ abstract class _$ErrorBoundaryStateAccessorsMixin
       state[_$key__showFallbackUIOnError___$ErrorBoundaryState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__hasError___$ErrorBoundaryState =
-      const StateDescriptor(_$key__hasError___$ErrorBoundaryState);
+      StateDescriptor(_$key__hasError___$ErrorBoundaryState);
   static const StateDescriptor
       _$prop__showFallbackUIOnError___$ErrorBoundaryState =
-      const StateDescriptor(_$key__showFallbackUIOnError___$ErrorBoundaryState);
+      StateDescriptor(_$key__showFallbackUIOnError___$ErrorBoundaryState);
   static const String _$key__hasError___$ErrorBoundaryState =
       'ErrorBoundaryState.hasError';
   static const String _$key__showFallbackUIOnError___$ErrorBoundaryState =
       'ErrorBoundaryState.showFallbackUIOnError';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__hasError___$ErrorBoundaryState,
     _$prop__showFallbackUIOnError___$ErrorBoundaryState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__hasError___$ErrorBoundaryState,
     _$key__showFallbackUIOnError___$ErrorBoundaryState
   ];
 }
 
-const StateMeta _$metaForErrorBoundaryState = const StateMeta(
+const StateMeta _$metaForErrorBoundaryState = StateMeta(
   fields: _$ErrorBoundaryStateAccessorsMixin.$state,
   keys: _$ErrorBoundaryStateAccessorsMixin.$stateKeys,
 );
@@ -456,7 +456,7 @@ class _$$ErrorBoundaryState extends _$ErrorBoundaryState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -468,18 +468,18 @@ class _$$ErrorBoundaryState extends _$ErrorBoundaryState
 class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
   @override
   _$$ErrorBoundaryProps typedPropsFactory(Map backingMap) =>
-      new _$$ErrorBoundaryProps(backingMap);
+      _$$ErrorBoundaryProps(backingMap);
 
   @override
   _$$ErrorBoundaryState typedStateFactory(Map backingMap) =>
-      new _$$ErrorBoundaryState(backingMap);
+      _$$ErrorBoundaryState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ErrorBoundaryProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForErrorBoundaryProps

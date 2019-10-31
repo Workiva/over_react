@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:analyzer/analyzer.dart';
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:logging/logging.dart';
 import 'package:over_react/src/builder/util.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
@@ -140,7 +140,7 @@ class ParsedDeclarations {
       return (annotation == 'State' || annotation == 'AbstractState');
     }
 
-    unit.declarations.forEach((CompilationUnitMember _member) {
+    unit.declarations.forEach((_member) {
       _member.metadata.forEach((_annotation) {
         final annotation = _annotation.name.toString();
 
@@ -203,7 +203,7 @@ class ParsedDeclarations {
       });
 
       return topLevelVarDeclarations;
-    };
+    }
 
     List<ClassDeclaration> classesOnly(String annotationName, Iterable<CompilationUnitMember> declarations) {
       final classDeclarations = <ClassDeclaration>[];
@@ -220,7 +220,7 @@ class ParsedDeclarations {
       });
 
       return classDeclarations;
-    };
+    }
 
     declarationMap[key_factory] = topLevelVarsOnly(key_factory, declarationMap[key_factory]);
 
@@ -246,10 +246,10 @@ class ParsedDeclarations {
         key_allComponentOptional.map((annotationName) => declarationMap[annotationName]);
 
     bool oneOfEachRequiredDecl = requiredDecls.every((decls) => decls.length == 1);
-    bool noneOfAnyRequiredDecl = requiredDecls.every((decls) => decls.length == 0);
+    bool noneOfAnyRequiredDecl = requiredDecls.every((decls) => decls.isEmpty);
 
     bool atMostOneOfEachOptionalDecl = optionalDecls.every((decls) => decls.length <= 1);
-    bool noneOfAnyOptionalDecl       = optionalDecls.every((decls) => decls.length == 0);
+    bool noneOfAnyOptionalDecl       = optionalDecls.every((decls) => decls.isEmpty);
 
     bool areDeclarationsValid = (
         (oneOfEachRequiredDecl && atMostOneOfEachOptionalDecl) ||
@@ -262,7 +262,7 @@ class ParsedDeclarations {
       if (!noneOfAnyRequiredDecl) {
         key_allComponentRequired.forEach((annotationName) {
           final declarations = declarationMap[annotationName];
-          if (declarations.length == 0) {
+          if (declarations.isEmpty) {
             error(
                 'To define a component, there must also be a `@$annotationName` within the same file, '
                 'but none were found.'
@@ -354,7 +354,7 @@ class ParsedDeclarations {
       }
     }
 
-    return new ParsedDeclarations._(
+    return ParsedDeclarations._(
         factory:       singleOrNull(declarationMap[key_factory]),
         component:     singleOrNull(declarationMap[key_component]),
         props:         singleOrNull(declarationMap[key_props]),
@@ -395,16 +395,16 @@ class ParsedDeclarations {
       bool hasStateCompanionClass,
       bool hasAbstractStateCompanionClass,
   }) :
-      this.factory       = (factory   == null) ? null : new FactoryNode(factory),
-      this.component     = (component == null) ? null : new ComponentNode(component),
-      this.props         = (props     == null) ? null : new PropsNode(props, hasPropsCompanionClass),
-      this.state         = (state     == null) ? null : new StateNode(state, hasStateCompanionClass),
+      this.factory       = (factory   == null) ? null : FactoryNode(factory),
+      this.component     = (component == null) ? null : ComponentNode(component),
+      this.props         = (props     == null) ? null : PropsNode(props, hasPropsCompanionClass),
+      this.state         = (state     == null) ? null : StateNode(state, hasStateCompanionClass),
 
-      this.abstractProps = new List.unmodifiable(abstractProps.map((props) => new AbstractPropsNode(props, hasAbstractPropsCompanionClass))),
-      this.abstractState = new List.unmodifiable(abstractState.map((state) => new AbstractStateNode(state, hasAbstractStateCompanionClass))),
+      this.abstractProps = List.unmodifiable(abstractProps.map((props) => AbstractPropsNode(props, hasAbstractPropsCompanionClass))),
+      this.abstractState = List.unmodifiable(abstractState.map((state) => AbstractStateNode(state, hasAbstractStateCompanionClass))),
 
-      this.propsMixins   = new List.unmodifiable(propsMixins.map((propsMixin) => new PropsMixinNode(propsMixin))),
-      this.stateMixins   = new List.unmodifiable(stateMixins.map((stateMixin) => new StateMixinNode(stateMixin))),
+      this.propsMixins   = List.unmodifiable(propsMixins.map((propsMixin) => PropsMixinNode(propsMixin))),
+      this.stateMixins   = List.unmodifiable(stateMixins.map((stateMixin) => StateMixinNode(stateMixin))),
 
       this.declaresComponent = factory != null
   {
@@ -430,17 +430,17 @@ class ParsedDeclarations {
   static final String key_propsMixin        = getName(annotations.PropsMixin);
   static final String key_stateMixin        = getName(annotations.StateMixin);
 
-  static final List<String> key_allComponentRequired = new List.unmodifiable([
+  static final List<String> key_allComponentRequired = List.unmodifiable([
     key_factory,
     key_component,
     key_props,
   ]);
 
-  static final List<String> key_allComponentOptional = new List.unmodifiable([
+  static final List<String> key_allComponentOptional = List.unmodifiable([
     key_state,
   ]);
 
-  static  final RegExp key_any_annotation = new RegExp(
+  static  final RegExp key_any_annotation = RegExp(
       r'@(?:' +
       [
         key_factory,

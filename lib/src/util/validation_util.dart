@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: avoid_classes_with_only_static_members
 library over_react.validation_util;
 
 import 'dart:html';
@@ -19,6 +20,7 @@ import 'dart:html';
 import 'package:over_react/over_react.dart';
 import 'package:react/react.dart' as react;
 
+// ignore: prefer_generic_function_type_aliases
 typedef void ValidationUtilWarningCallback(String message);
 
 /// Utility for logging validation errors or warnings.
@@ -75,7 +77,7 @@ class ValidationUtil {
 
     if (WARNINGS_ENABLED) {
       if (THROW_ON_WARNING) {
-        throw new ValidationWarning(message);
+        throw ValidationWarning(message);
       }
 
       window.console.warn('VALIDATION WARNING: $message');
@@ -101,13 +103,13 @@ class ValidationUtil {
   ///
   /// Useful for verifying warnings in unit tests.
   ///
-  /// > See: [startRecordingValidationWarnings]
+  /// > See: `startRecordingValidationWarnings`
   static ValidationUtilWarningCallback onWarning;
 }
 
 class ValidationWarning extends Error {
   /// Message describing the problem.
-  final message;
+  String message;
 
   ValidationWarning([this.message]);
 }

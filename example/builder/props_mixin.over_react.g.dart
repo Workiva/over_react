@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'props_mixin.dart';
 
 // **************************************************************************
@@ -23,19 +24,19 @@ abstract class ExamplePropsMixinClass implements _$ExamplePropsMixinClass {
       props[_$key__propMixin1___$ExamplePropsMixinClass] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__propMixin1___$ExamplePropsMixinClass =
-      const PropDescriptor(_$key__propMixin1___$ExamplePropsMixinClass);
+      PropDescriptor(_$key__propMixin1___$ExamplePropsMixinClass);
   static const String _$key__propMixin1___$ExamplePropsMixinClass =
       'ExamplePropsMixinClass.propMixin1';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__propMixin1___$ExamplePropsMixinClass
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__propMixin1___$ExamplePropsMixinClass
   ];
 }
 
-const PropsMeta _$metaForExamplePropsMixinClass = const PropsMeta(
+const PropsMeta _$metaForExamplePropsMixinClass = PropsMeta(
   fields: ExamplePropsMixinClass.$props,
   keys: ExamplePropsMixinClass.$propKeys,
 );
@@ -58,19 +59,19 @@ abstract class MixesInOtherMixinMixin<T extends Iterable, U>
       props[_$key__otherPropMixin___$MixesInOtherMixinMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__otherPropMixin___$MixesInOtherMixinMixin =
-      const PropDescriptor(_$key__otherPropMixin___$MixesInOtherMixinMixin);
+      PropDescriptor(_$key__otherPropMixin___$MixesInOtherMixinMixin);
   static const String _$key__otherPropMixin___$MixesInOtherMixinMixin =
       'MixesInOtherMixinMixin.otherPropMixin';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__otherPropMixin___$MixesInOtherMixinMixin
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__otherPropMixin___$MixesInOtherMixinMixin
   ];
 }
 
-const PropsMeta _$metaForMixesInOtherMixinMixin = const PropsMeta(
+const PropsMeta _$metaForMixesInOtherMixinMixin = PropsMeta(
   fields: MixesInOtherMixinMixin.$props,
   keys: MixesInOtherMixinMixin.$propKeys,
 );

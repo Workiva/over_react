@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
 library over_react.builder_generation.helpers_test;
 
 import 'package:over_react/src/component_declaration/builder_helpers.dart';
@@ -22,7 +23,7 @@ final Matcher throwsIllegalInstantiationError = throwsA(const TypeMatcher<Illega
 
 main() {
   group('transformation generation helpers:', () {
-    void testStubbedMapMembers(Map mapFactory()) {
+    void testStubbedMapMembers(Map Function() mapFactory) {
       group('Map members:', () {
         Map map;
 
@@ -51,14 +52,14 @@ main() {
 
     group('UiProps', () {
       test('cannot be instantiated directly if not generated', () {
-        expect(() => new UngeneratedUiProps(), throwsIllegalInstantiationError);
+        expect(() =>  UngeneratedUiProps(), throwsIllegalInstantiationError);
       });
 
       group('throws errors when stubbed members are called that have not been generated:', () {
         UiProps unimplemented;
 
         setUp(() {
-          unimplemented = new UnimplementedUiProps();
+          unimplemented = UnimplementedUiProps();
         });
 
         test('props',            () {expect(() => unimplemented.props,            throwsUngeneratedError);});
@@ -67,20 +68,20 @@ main() {
 
         test('a map method',     () {expect(() => unimplemented.keys,             throwsUngeneratedError);});
 
-        testStubbedMapMembers(() => new UnimplementedUiProps());
+        testStubbedMapMembers(() =>  UnimplementedUiProps());
       });
     });
 
     group('UiComponent', () {
       test('cannot be instantiated directly if not generated', () {
-        expect(() => new UngeneratedUiComponent(), throwsIllegalInstantiationError);
+        expect(() =>  UngeneratedUiComponent(), throwsIllegalInstantiationError);
       });
 
       group('throws errors when stubbed members are called that have not been generated:', () {
         UiComponent unimplemented;
 
         setUp(() {
-          unimplemented = new UnimplementedUiComponent();
+          unimplemented = UnimplementedUiComponent();
         });
 
         test('\$defaultConsumedProps', () {expect(() => unimplemented.$defaultConsumedProps, throwsUngeneratedError);});
@@ -90,34 +91,34 @@ main() {
 
     group('UiState', () {
       test('cannot be instantiated directly if not generated', () {
-        expect(() => new UngeneratedUiState(), throwsIllegalInstantiationError);
+        expect(() =>  UngeneratedUiState(), throwsIllegalInstantiationError);
       });
 
       group('throws errors when stubbed members are called that have not been generated:', () {
         UiState unimplemented;
 
         setUp(() {
-          unimplemented = new UnimplementedUiState();
+          unimplemented = UnimplementedUiState();
         });
 
         test('typedPropsFactory', () {expect(() => unimplemented.state, throwsUngeneratedError);});
 
         test('a map method',      () {expect(() => unimplemented.keys,  throwsUngeneratedError);});
 
-        testStubbedMapMembers(() => new UnimplementedUiState());
+        testStubbedMapMembers(() =>  UnimplementedUiState());
       });
     });
 
     group('UiStatefulComponent', () {
       test('cannot be instantiated directly if not generated', () {
-        expect(() => new UngeneratedUiStatefulComponent(), throwsIllegalInstantiationError);
+        expect(() =>  UngeneratedUiStatefulComponent(), throwsIllegalInstantiationError);
       });
 
       group('throws errors when stubbed members are called that have not been generated:', () {
         UiStatefulComponent unimplemented;
 
         setUp(() {
-          unimplemented = new UnimplementedUiStatefulComponent();
+          unimplemented = UnimplementedUiStatefulComponent();
         });
 
         test('\$defaultConsumedProps', () {expect(() => unimplemented.$defaultConsumedProps, throwsUngeneratedError);});
@@ -128,13 +129,13 @@ main() {
 
     group('consumedProps getter proxies \$defaultConsumedProps', () {
       test('in UiComponent', () {
-        var component = new TestConsumedPropKeysUiComponent();
-        expect(component.consumedProps, equals([const ConsumedProps(const [], const ['prop1', 'prop2'])]));
+        var component = TestConsumedPropKeysUiComponent();
+        expect(component.consumedProps, equals([const ConsumedProps([], ['prop1', 'prop2'])]));
       });
 
       test('in UiStatefulComponent', () {
-        var component = new TestConsumedPropKeysUiStatefulComponent();
-        expect(component.consumedProps, equals([const ConsumedProps(const [], const ['prop1', 'prop2'])]));
+        var component = TestConsumedPropKeysUiStatefulComponent();
+        expect(component.consumedProps, equals([const ConsumedProps([], ['prop1', 'prop2'])]));
       });
     });
   });
@@ -192,7 +193,7 @@ class TestConsumedPropKeysUiComponent extends UiComponent {
   bool get $isClassGenerated => true;
 
   @override
-  get $defaultConsumedProps => [const ConsumedProps(const [], const ['prop1', 'prop2'])];
+  get $defaultConsumedProps => [const ConsumedProps([], ['prop1', 'prop2'])];
 
   @override
   render() {}
@@ -204,7 +205,7 @@ class TestConsumedPropKeysUiStatefulComponent extends UiStatefulComponent {
   bool get $isClassGenerated => true;
 
   @override
-  get $defaultConsumedProps => [const ConsumedProps(const [], const ['prop1', 'prop2'])];
+  get $defaultConsumedProps => [const ConsumedProps([], ['prop1', 'prop2'])];
 
   @override
   render() {}
