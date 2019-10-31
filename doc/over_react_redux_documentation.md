@@ -1,5 +1,5 @@
 # OverReact Redux
-> A Dart React Redux wrapper for targeted state updates.
+> A Dart wrapper for React Redux, providing targeted state updates.
 
 ---
 * __[Purpose](#purpose)__
@@ -93,7 +93,7 @@ ways to do this.
     UiFactory<FooProps> ConnectedFoo = connect<AppState, FooProps>()(Foo);
     
     @Factory()
-    UiFactory<FoodProps> Foo = _$Foo;
+    UiFactory<FooProps> Foo = _$Foo;
     
     // Use the ConnectPropsMixin to gain access to React Redux's dispatch function, which can be accessed via 
     // props.dispatch.
@@ -134,12 +134,12 @@ A wrapper around the JS react-redux `connect` function that supports OverReact c
 __Example:__
 ```dart
 UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
-    mapStateToProps: (state) => (
-      Counter()..count = state.count
-    ),
-    mapDispatchToProps: (dispatch) => (
-      Counter()..increment = () => dispatch(IncrementAction())
-    ),
+  mapStateToProps: (state) => (
+    Counter()..count = state.count
+  ),
+  mapDispatchToProps: (dispatch) => (
+    Counter()..increment = (() => dispatch(IncrementAction()))
+  ),
 )(Counter);
 ```
 
@@ -218,7 +218,7 @@ Store store1 = new Store<CounterState>(counterStateReducer, initialState: new Co
 Store store2 = new Store<BigCounterState>(bigCounterStateReducer, initialState: new BigCounterState(bigCount: 100));
 
 UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
-      mapStateToProps: (state) => (Counter()..count = state.count)
+  mapStateToProps: (state) => (Counter()..count = state.count)
 )(Counter);
 
 UiFactory<CounterProps> ConnectedBigCounter = connect<BigCounterState, CounterProps>(
