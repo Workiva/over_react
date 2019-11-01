@@ -14,8 +14,6 @@
 
 library abstract_transition_test;
 
-import 'dart:js';
-
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
 import 'package:test/test.dart';
