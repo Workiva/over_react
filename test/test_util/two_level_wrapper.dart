@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library test_util.two_level_wrapper;
-
 import 'package:over_react/over_react.dart';
 
 part 'two_level_wrapper.over_react.g.dart';

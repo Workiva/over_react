@@ -1203,13 +1203,6 @@ main() {
   });
 }
 
-dynamic getJsChildren(instance) => getProperty(instance.props, 'children');
-
-dynamic getDartChildren(var renderedInstance) {
-  assert(isDartComponent(renderedInstance));
-  return getProps(renderedInstance)['children'];
-}
-
 UiFactory<TestComponentProps> TestComponent = ([props]) => TestComponentProps(props);
 
 class TestComponentProps extends UiProps {

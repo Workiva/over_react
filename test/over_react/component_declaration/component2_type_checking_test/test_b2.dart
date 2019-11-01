@@ -12,19 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//library test_component2.test_b;
+
 import 'package:over_react/over_react.dart';
 
-part 'two_level_wrapper.over_react.g.dart';
+part 'test_b2.over_react.g.dart';
 
 @Factory()
-UiFactory<TwoLevelWrapper2Props> TwoLevelWrapper2 = _$TwoLevelWrapper2;
+UiFactory<TestB2Props> TestB2 = _$TestB2;
 
 @Props()
-class _$TwoLevelWrapper2Props extends UiProps {}
+class _$TestB2Props extends UiProps {}
 
-@Component2(isWrapper: true)
-class TwoLevelWrapper2Component extends UiComponent2<TwoLevelWrapper2Props> {
+@Component2()
+class TestB2Component extends UiComponent2<TestB2Props> {
   @override
-  render() => Dom.div()(props.children.single);
+  render() => Dom.div()();
 }
-

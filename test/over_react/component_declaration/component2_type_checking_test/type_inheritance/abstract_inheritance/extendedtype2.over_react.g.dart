@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
-part of 'subtype.dart';
+part of 'extendedtype2.dart';
 
 // **************************************************************************
 // OverReactBuilder (package:over_react/src/builder.dart)
@@ -10,18 +10,18 @@ part of 'subtype.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $TestSubtype2ComponentFactory = registerComponent2(
-  () => _$TestSubtype2Component(),
-  builderFactory: TestSubtype2,
-  componentClass: TestSubtype2Component,
+final $TestExtendtype2ComponentFactory = registerComponent2(
+  () => _$TestExtendtype2Component(),
+  builderFactory: TestExtendtype2,
+  componentClass: TestExtendtype2Component,
   isWrapper: false,
-  parentType: $TestParent2ComponentFactory,
-  /* from `subtypeOf: TestParent2Component` */
-  displayName: 'TestSubtype2',
+  parentType: $TestAbstract2ComponentFactory,
+  /* from `subtypeOf: TestAbstract2Component` */
+  displayName: 'TestExtendtype2',
 );
 
-abstract class _$TestSubtype2PropsAccessorsMixin
-    implements _$TestSubtype2Props {
+abstract class _$TestExtendtype2PropsAccessorsMixin
+    implements _$TestExtendtype2Props {
   @override
   Map get props;
 
@@ -31,33 +31,34 @@ abstract class _$TestSubtype2PropsAccessorsMixin
   static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForTestSubtype2Props = PropsMeta(
-  fields: _$TestSubtype2PropsAccessorsMixin.$props,
-  keys: _$TestSubtype2PropsAccessorsMixin.$propKeys,
+const PropsMeta _$metaForTestExtendtype2Props = PropsMeta(
+  fields: _$TestExtendtype2PropsAccessorsMixin.$props,
+  keys: _$TestExtendtype2PropsAccessorsMixin.$propKeys,
 );
 
-class TestSubtype2Props extends _$TestSubtype2Props
-    with _$TestSubtype2PropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForTestSubtype2Props;
+class TestExtendtype2Props extends _$TestExtendtype2Props
+    with _$TestExtendtype2PropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForTestExtendtype2Props;
 }
 
-_$$TestSubtype2Props _$TestSubtype2([Map backingProps]) => backingProps == null
-    ? _$$TestSubtype2Props$JsMap(JsBackedMap())
-    : _$$TestSubtype2Props(backingProps);
+_$$TestExtendtype2Props _$TestExtendtype2([Map backingProps]) =>
+    backingProps == null
+        ? _$$TestExtendtype2Props$JsMap(JsBackedMap())
+        : _$$TestExtendtype2Props(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$TestSubtype2Props extends _$TestSubtype2Props
-    with _$TestSubtype2PropsAccessorsMixin
-    implements TestSubtype2Props {
-  _$$TestSubtype2Props._();
+abstract class _$$TestExtendtype2Props extends _$TestExtendtype2Props
+    with _$TestExtendtype2PropsAccessorsMixin
+    implements TestExtendtype2Props {
+  _$$TestExtendtype2Props._();
 
-  factory _$$TestSubtype2Props(Map backingMap) {
+  factory _$$TestExtendtype2Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestSubtype2Props$JsMap(backingMap);
+      return _$$TestExtendtype2Props$JsMap(backingMap);
     } else {
-      return _$$TestSubtype2Props$PlainMap(backingMap);
+      return _$$TestExtendtype2Props$PlainMap(backingMap);
     }
   }
 
@@ -68,18 +69,18 @@ abstract class _$$TestSubtype2Props extends _$TestSubtype2Props
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestSubtype2ComponentFactory;
+      super.componentFactory ?? $TestExtendtype2ComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'TestSubtype2Props.';
+  String get propKeyNamespace => 'TestExtendtype2Props.';
 }
 
 // Concrete props implementation that can be backed by any [Map].
-class _$$TestSubtype2Props$PlainMap extends _$$TestSubtype2Props {
+class _$$TestExtendtype2Props$PlainMap extends _$$TestExtendtype2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestSubtype2Props$PlainMap(Map backingMap)
+  _$$TestExtendtype2Props$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -93,10 +94,10 @@ class _$$TestSubtype2Props$PlainMap extends _$$TestSubtype2Props {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestSubtype2Props$JsMap extends _$$TestSubtype2Props {
+class _$$TestExtendtype2Props$JsMap extends _$$TestExtendtype2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestSubtype2Props$JsMap(JsBackedMap backingMap)
+  _$$TestExtendtype2Props$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -112,11 +113,11 @@ class _$$TestSubtype2Props$JsMap extends _$$TestSubtype2Props {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$TestSubtype2Component extends TestSubtype2Component {
-  _$$TestSubtype2Props$JsMap _cachedTypedProps;
+class _$TestExtendtype2Component extends TestExtendtype2Component {
+  _$$TestExtendtype2Props$JsMap _cachedTypedProps;
 
   @override
-  _$$TestSubtype2Props$JsMap get props => _cachedTypedProps;
+  _$$TestExtendtype2Props$JsMap get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -132,21 +133,21 @@ class _$TestSubtype2Component extends TestSubtype2Component {
   }
 
   @override
-  _$$TestSubtype2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$TestSubtype2Props$JsMap(backingMap);
+  _$$TestExtendtype2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$TestExtendtype2Props$JsMap(backingMap);
 
   @override
-  _$$TestSubtype2Props typedPropsFactory(Map backingMap) =>
-      _$$TestSubtype2Props(backingMap);
+  _$$TestExtendtype2Props typedPropsFactory(Map backingMap) =>
+      _$$TestExtendtype2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$TestSubtype2Props.
+  /// The default consumed props, taken from _$TestExtendtype2Props.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestSubtype2Props
+    _$metaForTestExtendtype2Props
   ];
 }

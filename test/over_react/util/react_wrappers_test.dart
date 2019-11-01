@@ -28,9 +28,8 @@ import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:test/test.dart';
 
-import '../component_declaration/component_base_test.dart';
-import '../../test_util/component2/one_level_wrapper.dart';
-import '../../test_util/component2/two_level_wrapper.dart';
+import '../../test_util/component2/one_level_wrapper2.dart';
+import '../../test_util/component2/two_level_wrapper2.dart';
 import '../../test_util/one_level_wrapper.dart';
 import '../../test_util/test_util.dart';
 import '../../test_util/two_level_wrapper.dart';

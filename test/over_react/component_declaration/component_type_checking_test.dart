@@ -21,41 +21,41 @@ import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:test/test.dart';
 
-import '../../test_util/one_level_wrapper.dart' as component1_one_level_wrapper;
-import '../../test_util/two_level_wrapper.dart' as component1_two_level_wrapper;
-import 'component_type_checking_test/test_a.dart' as component1_test_a;
-import 'component_type_checking_test/test_b.dart' as component1_test_b;
-import 'component_type_checking_test/type_inheritance/abstract_inheritance/abstract.dart' as component1_abstract;
-import 'component_type_checking_test/type_inheritance/abstract_inheritance/extendedtype.dart' as component1_extendedtype;
-import 'component_type_checking_test/type_inheritance/parent.dart' as component1_parent;
-import 'component_type_checking_test/type_inheritance/subsubtype.dart' as component1_subsubtype;
-import 'component_type_checking_test/type_inheritance/subtype.dart' as component1_subtype;
+import '../../test_util/one_level_wrapper.dart';
+import '../../test_util/two_level_wrapper.dart';
+import 'component_type_checking_test/test_a.dart';
+import 'component_type_checking_test/test_b.dart';
+import 'component_type_checking_test/type_inheritance/abstract_inheritance/abstract.dart';
+import 'component_type_checking_test/type_inheritance/abstract_inheritance/extendedtype.dart';
+import 'component_type_checking_test/type_inheritance/parent.dart';
+import 'component_type_checking_test/type_inheritance/subsubtype.dart';
+import 'component_type_checking_test/type_inheritance/subtype.dart';
 
-import '../../test_util/component2/one_level_wrapper.dart';
-import '../../test_util/component2/two_level_wrapper.dart';
-import 'component2_type_checking_test/test_a.dart';
-import 'component2_type_checking_test/test_b.dart';
-import 'component2_type_checking_test/type_inheritance/abstract_inheritance/abstract.dart';
-import 'component2_type_checking_test/type_inheritance/abstract_inheritance/extendedtype.dart';
-import 'component2_type_checking_test/type_inheritance/parent.dart';
-import 'component2_type_checking_test/type_inheritance/subsubtype.dart';
-import 'component2_type_checking_test/type_inheritance/subtype.dart';
+import '../../test_util/component2/one_level_wrapper2.dart';
+import '../../test_util/component2/two_level_wrapper2.dart';
+import 'component2_type_checking_test/test_a2.dart';
+import 'component2_type_checking_test/test_b2.dart';
+import 'component2_type_checking_test/type_inheritance/abstract_inheritance/abstract2.dart';
+import 'component2_type_checking_test/type_inheritance/abstract_inheritance/extendedtype2.dart';
+import 'component2_type_checking_test/type_inheritance/parent2.dart';
+import 'component2_type_checking_test/type_inheritance/subsubtype2.dart';
+import 'component2_type_checking_test/type_inheritance/subtype2.dart';
 
 main() {
   group('Component1', () {
     testComponentTypeChecking(
-      TestParent: component1_parent.TestParent,
-      TestSubtype: component1_subtype.TestSubtype,
-      TestSubsubtype: component1_subsubtype.TestSubsubtype,
-      TestExtendtype: component1_extendedtype.TestExtendtype,
-      TestExtendtypeComponent: component1_extendedtype.TestExtendtypeComponent,
-      TestAbstractComponent: component1_abstract.TestAbstractComponent,
-      TestA: component1_test_a.TestA,
-      TestAComponent: component1_test_a.TestAComponent,
-      TestB: component1_test_b.TestB,
-      TestBComponent: component1_test_b.TestBComponent,
-      OneLevelWrapper: component1_one_level_wrapper.OneLevelWrapper,
-      TwoLevelWrapper: component1_two_level_wrapper.TwoLevelWrapper,
+      TestParent: TestParent,
+      TestSubtype: TestSubtype,
+      TestSubsubtype: TestSubsubtype,
+      TestExtendtype: TestExtendtype,
+      TestExtendtypeComponent: TestExtendtypeComponent,
+      TestAbstractComponent: TestAbstractComponent,
+      TestA: TestA,
+      TestAComponent: TestAComponent,
+      TestB: TestB,
+      TestBComponent: TestBComponent,
+      OneLevelWrapper: OneLevelWrapper,
+      TwoLevelWrapper: TwoLevelWrapper,
     );
   });
   group('Component2', () {

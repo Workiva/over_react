@@ -12,16 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library test_component2.type_inheritance.abstract;
+library test_component2.type_inheritance.parent;
 
 import 'package:over_react/over_react.dart';
 
-part 'abstract.over_react.g.dart';
+part 'parent2.over_react.g.dart';
 
-@AbstractProps()
-abstract class _$TestAbstract2Props extends UiProps {}
+@Factory()
+UiFactory<TestParent2Props> TestParent2 = _$TestParent2;
 
-var $TestAbstract2ComponentFactory = registerAbstractComponent2(TestAbstract2Component);
+@Props()
+class _$TestParent2Props extends UiProps {}
 
-@AbstractComponent2()
-abstract class TestAbstract2Component<T extends TestAbstract2Props> extends UiComponent2<T> {}
+@Component2()
+class TestParent2Component extends UiComponent2<TestParent2Props> {
+  @override
+  render() => Dom.div()();
+}

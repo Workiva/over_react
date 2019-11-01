@@ -14,7 +14,7 @@
 
 import 'package:over_react/over_react.dart';
 
-part 'one_level_wrapper.over_react.g.dart';
+part 'one_level_wrapper2.over_react.g.dart';
 
 @Factory()
 UiFactory<OneLevelWrapper2Props> OneLevelWrapper2 = _$OneLevelWrapper2;

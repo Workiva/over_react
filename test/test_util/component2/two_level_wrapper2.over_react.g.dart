@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
-part of 'test_b.dart';
+part of 'two_level_wrapper2.dart';
 
 // **************************************************************************
 // OverReactBuilder (package:over_react/src/builder.dart)
@@ -10,16 +10,17 @@ part of 'test_b.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $TestB2ComponentFactory = registerComponent2(
-  () => _$TestB2Component(),
-  builderFactory: TestB2,
-  componentClass: TestB2Component,
-  isWrapper: false,
+final $TwoLevelWrapper2ComponentFactory = registerComponent2(
+  () => _$TwoLevelWrapper2Component(),
+  builderFactory: TwoLevelWrapper2,
+  componentClass: TwoLevelWrapper2Component,
+  isWrapper: true,
   parentType: null,
-  displayName: 'TestB2',
+  displayName: 'TwoLevelWrapper2',
 );
 
-abstract class _$TestB2PropsAccessorsMixin implements _$TestB2Props {
+abstract class _$TwoLevelWrapper2PropsAccessorsMixin
+    implements _$TwoLevelWrapper2Props {
   @override
   Map get props;
 
@@ -29,32 +30,34 @@ abstract class _$TestB2PropsAccessorsMixin implements _$TestB2Props {
   static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForTestB2Props = PropsMeta(
-  fields: _$TestB2PropsAccessorsMixin.$props,
-  keys: _$TestB2PropsAccessorsMixin.$propKeys,
+const PropsMeta _$metaForTwoLevelWrapper2Props = PropsMeta(
+  fields: _$TwoLevelWrapper2PropsAccessorsMixin.$props,
+  keys: _$TwoLevelWrapper2PropsAccessorsMixin.$propKeys,
 );
 
-class TestB2Props extends _$TestB2Props with _$TestB2PropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForTestB2Props;
+class TwoLevelWrapper2Props extends _$TwoLevelWrapper2Props
+    with _$TwoLevelWrapper2PropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForTwoLevelWrapper2Props;
 }
 
-_$$TestB2Props _$TestB2([Map backingProps]) => backingProps == null
-    ? _$$TestB2Props$JsMap(JsBackedMap())
-    : _$$TestB2Props(backingProps);
+_$$TwoLevelWrapper2Props _$TwoLevelWrapper2([Map backingProps]) =>
+    backingProps == null
+        ? _$$TwoLevelWrapper2Props$JsMap(JsBackedMap())
+        : _$$TwoLevelWrapper2Props(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$TestB2Props extends _$TestB2Props
-    with _$TestB2PropsAccessorsMixin
-    implements TestB2Props {
-  _$$TestB2Props._();
+abstract class _$$TwoLevelWrapper2Props extends _$TwoLevelWrapper2Props
+    with _$TwoLevelWrapper2PropsAccessorsMixin
+    implements TwoLevelWrapper2Props {
+  _$$TwoLevelWrapper2Props._();
 
-  factory _$$TestB2Props(Map backingMap) {
+  factory _$$TwoLevelWrapper2Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestB2Props$JsMap(backingMap);
+      return _$$TwoLevelWrapper2Props$JsMap(backingMap);
     } else {
-      return _$$TestB2Props$PlainMap(backingMap);
+      return _$$TwoLevelWrapper2Props$PlainMap(backingMap);
     }
   }
 
@@ -65,18 +68,18 @@ abstract class _$$TestB2Props extends _$TestB2Props
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestB2ComponentFactory;
+      super.componentFactory ?? $TwoLevelWrapper2ComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'TestB2Props.';
+  String get propKeyNamespace => 'TwoLevelWrapper2Props.';
 }
 
 // Concrete props implementation that can be backed by any [Map].
-class _$$TestB2Props$PlainMap extends _$$TestB2Props {
+class _$$TwoLevelWrapper2Props$PlainMap extends _$$TwoLevelWrapper2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestB2Props$PlainMap(Map backingMap)
+  _$$TwoLevelWrapper2Props$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -90,10 +93,10 @@ class _$$TestB2Props$PlainMap extends _$$TestB2Props {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestB2Props$JsMap extends _$$TestB2Props {
+class _$$TwoLevelWrapper2Props$JsMap extends _$$TwoLevelWrapper2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestB2Props$JsMap(JsBackedMap backingMap)
+  _$$TwoLevelWrapper2Props$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -109,11 +112,11 @@ class _$$TestB2Props$JsMap extends _$$TestB2Props {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$TestB2Component extends TestB2Component {
-  _$$TestB2Props$JsMap _cachedTypedProps;
+class _$TwoLevelWrapper2Component extends TwoLevelWrapper2Component {
+  _$$TwoLevelWrapper2Props$JsMap _cachedTypedProps;
 
   @override
-  _$$TestB2Props$JsMap get props => _cachedTypedProps;
+  _$$TwoLevelWrapper2Props$JsMap get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -129,21 +132,21 @@ class _$TestB2Component extends TestB2Component {
   }
 
   @override
-  _$$TestB2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$TestB2Props$JsMap(backingMap);
+  _$$TwoLevelWrapper2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$TwoLevelWrapper2Props$JsMap(backingMap);
 
   @override
-  _$$TestB2Props typedPropsFactory(Map backingMap) =>
-      _$$TestB2Props(backingMap);
+  _$$TwoLevelWrapper2Props typedPropsFactory(Map backingMap) =>
+      _$$TwoLevelWrapper2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$TestB2Props.
+  /// The default consumed props, taken from _$TwoLevelWrapper2Props.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestB2Props
+    _$metaForTwoLevelWrapper2Props
   ];
 }

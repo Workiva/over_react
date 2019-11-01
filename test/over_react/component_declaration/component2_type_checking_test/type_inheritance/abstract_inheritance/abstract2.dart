@@ -1,4 +1,4 @@
-// Copyright 2019 Workiva Inc.
+// Copyright 2016 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,20 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library test_component2.test_a;
+library test_component2.type_inheritance.abstract;
 
 import 'package:over_react/over_react.dart';
 
-part 'test_a.over_react.g.dart';
+part 'abstract2.over_react.g.dart';
 
-@Factory()
-UiFactory<TestA2Props> TestA2 = _$TestA2;
+@AbstractProps()
+abstract class _$TestAbstract2Props extends UiProps {}
 
-@Props()
-class _$TestA2Props extends UiProps {}
+var $TestAbstract2ComponentFactory = registerAbstractComponent2(TestAbstract2Component);
 
-@Component2()
-class TestA2Component extends UiComponent2<TestA2Props> {
-  @override
-  render() => Dom.div()();
-}
+@AbstractComponent2()
+abstract class TestAbstract2Component<T extends TestAbstract2Props> extends UiComponent2<T> {}

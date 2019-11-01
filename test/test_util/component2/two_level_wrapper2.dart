@@ -12,20 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library test_component2.type_inheritance.parent;
-
 import 'package:over_react/over_react.dart';
 
-part 'parent.over_react.g.dart';
+part 'two_level_wrapper2.over_react.g.dart';
 
 @Factory()
-UiFactory<TestParent2Props> TestParent2 = _$TestParent2;
+UiFactory<TwoLevelWrapper2Props> TwoLevelWrapper2 = _$TwoLevelWrapper2;
 
 @Props()
-class _$TestParent2Props extends UiProps {}
+class _$TwoLevelWrapper2Props extends UiProps {}
 
-@Component2()
-class TestParent2Component extends UiComponent2<TestParent2Props> {
+@Component2(isWrapper: true)
+class TwoLevelWrapper2Component extends UiComponent2<TwoLevelWrapper2Props> {
   @override
-  render() => Dom.div()();
+  render() => Dom.div()(props.children.single);
 }
+
