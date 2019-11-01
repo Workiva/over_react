@@ -2,8 +2,10 @@
 library over_react_redux.devtools.middleware;
 
 import 'dart:convert';
+import 'dart:html';
 import 'dart:js_util';
 
+import 'package:logging/logging.dart';
 import 'package:react/react_client/js_backed_map.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_dev_tools/redux_dev_tools.dart';
@@ -13,26 +15,37 @@ import 'package:js/js.dart';
 @anonymous
 class ReduxDevToolsExtensionConnection {
   external factory ReduxDevToolsExtensionConnection();
-  external subscribe(Function listener);
-  external send([action, state]);
-  external init([initalState]);
+  external subscribe(dynamic Function(JsMap data) listener);
+  external send([dynamic action, dynamic state]);
+  external init([dynamic initialState]);
 }
 
 @JS('__REDUX_DEVTOOLS_EXTENSION__.connect')
 external ReduxDevToolsExtensionConnection reduxExtConnect([dynamic options]);
 
 class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
-  bool devToolsExtensionFound = false;
   Store _store;
   ReduxDevToolsExtensionConnection devToolsExt;
+  final Logger log = new Logger('OverReactReduxDevToolsMiddleware');
+
   OverReactReduxDevToolsMiddleware() {
+    log.onRecord.listen((LogRecord rec) {
+      if (rec.level == Level.WARNING) {
+        window.console.warn('${log.name} [${rec.level.name}]: ${rec.message}');
+      } else {
+        window.console.log('${log.name} [${rec.level.name}]: ${rec.message}');
+      }
+    });
     try {
       devToolsExt = reduxExtConnect();
-      devToolsExtensionFound = true;
     } catch(e) {
-      print('Unable to connect to the redux dev tools browser extension. \nPlease install it... \nChrome: https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en \nFirefox: https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools/');
+      log.warning(
+        'Unable to connect to the redux dev tools browser extension.\n'
+        'Please install it...\n'
+        'Chrome: https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en\n'
+        'Firefox: https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools/\n'
+      );
     }
-
   }
 
   set store(Store v) {
@@ -45,9 +58,9 @@ class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
 
   dynamic _encodeForTransit(dynamic content) {
     try {
-    return jsify(jsonDecode(jsonEncode(content)));
-    } catch (e) {
-      print('You must implement a `toJson` method in your state and actions in order to view state changes in the redux dev tools.');
+      return jsify(jsonDecode(jsonEncode(content)));
+    } catch (_) {
+      log.warning('You must implement a `toJson` method in your state and actions in order to view state changes in the redux dev tools.');
     }
   }
 
@@ -77,6 +90,7 @@ class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
         message['payload'] = 'Could not encode state. Ensure state is json encodable';
       }
     }
+
     if (type == 'ACTION') {
       message['action'] = _encodeActionForTransit(action);
       message['nextActionId'] = nextActionId;
@@ -101,13 +115,13 @@ class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
         _handleRemoteAction(data['action'] as String);
         break;
       default:
-        print('Unknown type:' + data['type'].toString());
+        log.warning('Unknown type:' + data['type'].toString());
     }
   }
 
   void _handleDispatch(dynamic action) {
     if (this._store == null) {
-      print('No store reference set, cannot dispatch remote action');
+      log.warning('No store reference set, cannot dispatch remote action');
       return;
     }
     switch (action['type'] as String) {
@@ -116,13 +130,13 @@ class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
         this._store.dispatch(new DevToolsAction.jumpToState(action['actionId'] as int));
         break;
       default:
-        print("Unknown command: ${action['type']}. Ignoring");
+        log.warning("Unknown command: ${action['type']}. Ignoring");
     }
   }
 
   void _handleRemoteAction(String action) {
     if (this._store == null) {
-      print('No store reference set, cannot dispatch remote action');
+      log.warning('No store reference set, cannot dispatch remote action');
       return;
     }
     this._store.dispatch(new DevToolsAction.perform(jsonDecode(action)));
@@ -132,7 +146,7 @@ class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   @override
   call(Store store, dynamic action, NextDispatcher next) {
     next(action);
-    if (!devToolsExtensionFound) return;
+    if (devToolsExt == null) return;
     this.store ??= store;
     if (!(action is DevToolsAction)) {
       this._relay('ACTION', store.state, action);
