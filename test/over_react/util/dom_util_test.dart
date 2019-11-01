@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library dom_util_test;
 
 import 'dart:html';
@@ -72,17 +73,17 @@ main() {
   group('closest', () {
     group('returns the closest node that matches the given selector', () {
       test('when the child matches the target selector in addition to its parent', () {
-        var parent = new DivElement()..className = 'target-class';
-        var child = new DivElement()..className = 'target-class';
+        var parent = DivElement()..className = 'target-class';
+        var child = DivElement()..className = 'target-class';
         parent.append(child);
 
         expect(closest(child, '.target-class'), child);
       });
 
       test('when the parent matches the target selector in addition to its grandparent', () {
-        var grandparent = new DivElement()..className = 'target-class';
-        var parent = new DivElement()..className = 'target-class';
-        var child = new DivElement();
+        var grandparent = DivElement()..className = 'target-class';
+        var parent = DivElement()..className = 'target-class';
+        var child = DivElement();
         grandparent.append(parent);
         parent.append(child);
 
@@ -90,9 +91,9 @@ main() {
       });
 
       test('when only the granparent matches the target selector', () {
-        var grandparent = new DivElement()..className = 'target-class';
-        var parent = new DivElement();
-        var child = new DivElement();
+        var grandparent = DivElement()..className = 'target-class';
+        var parent = DivElement();
+        var child = DivElement();
         grandparent.append(parent);
         parent.append(child);
 
@@ -100,9 +101,9 @@ main() {
       });
 
       test('when an `upperBound` is set that includes the matching ancestor', () {
-        var grandparent = new DivElement()..className = 'target-class';
-        var parent = new DivElement();
-        var child = new DivElement();
+        var grandparent = DivElement()..className = 'target-class';
+        var parent = DivElement();
+        var child = DivElement();
         grandparent.append(parent);
         parent.append(child);
 
@@ -110,16 +111,16 @@ main() {
       });
 
       test('when an `upperBound` is set the same as `lowerBound`, which matches', () {
-        var element = new DivElement()..className = 'target-class';
+        var element = DivElement()..className = 'target-class';
         expect(closest(element, '.target-class', upperBound: element), element);
       });
     });
 
     group('returns null', () {
       test('when there are no matching elements', () {
-        var grandparent = new DivElement();
-        var parent = new DivElement();
-        var child = new DivElement();
+        var grandparent = DivElement();
+        var parent = DivElement();
+        var child = DivElement();
         grandparent.append(parent);
         parent.append(child);
 
@@ -127,9 +128,9 @@ main() {
       });
 
       test('when an `upperBound` is set to exclude any matching elements', () {
-        var grandparent = new DivElement()..className = 'target-class';
-        var parent = new DivElement();
-        var child = new DivElement();
+        var grandparent = DivElement()..className = 'target-class';
+        var parent = DivElement();
+        var child = DivElement();
         grandparent.append(parent);
         parent.append(child);
 
@@ -140,7 +141,7 @@ main() {
 
   group('getActiveElement returns the correct value when the active element is', () {
     test('a valid element other than document.body', () async {
-      var activeElement = new DivElement()..tabIndex = 1;
+      var activeElement = DivElement()..tabIndex = 1;
       document.body.children.add(activeElement);
 
       await triggerFocus(activeElement);
@@ -158,18 +159,18 @@ main() {
 
   group('setSelectionRange', () {
     test('throws an ArgumentError if called on an unsupported Element type', () {
-      var invalidElement = new DivElement();
+      var invalidElement = DivElement();
       expect(() => setSelectionRange(invalidElement, 0, 0), throwsArgumentError);
     });
 
     test('throws an ArgumentError if called on an unsupported InputElement type', () {
-      var invalidElement = new CheckboxInputElement();
+      var invalidElement = CheckboxInputElement();
 
       // Note: For some unknown reason - when running the exact same expect() we use for DivElement above,
       // this one fails with "Invalid Object" - the stack trace never leaves test()
       //
       // ¯\_(ツ)_/¯
-      var error;
+      dynamic error;
 
       try {
         setSelectionRange(invalidElement, 0, 0);
@@ -181,7 +182,7 @@ main() {
     });
 
     group('correctly calls setSelectionRange', () {
-      var renderedInstance;
+      dynamic renderedInstance;
       InputElement inputElement;
       TextAreaElement textareaElement;
       const String testValue = 'foo';
@@ -247,13 +248,9 @@ main() {
           expect(() => setSelectionRange(inputElement, testValue.length, testValue.length), returnsNormally);
         }
 
-        setUp(() {
-          startRecordingValidationWarnings();
-        });
+        setUp(startRecordingValidationWarnings);
 
-        tearDown(() {
-          stopRecordingValidationWarnings();
-        });
+        tearDown(stopRecordingValidationWarnings);
 
         test('email', () {
           renderedInstance = renderAttachedToDocument((Dom.input()
@@ -278,7 +275,7 @@ main() {
 
   group('getSelectionStart', () {
     test('returns null if called on an unsupported Element type', () {
-      var invalidElement = new DivElement();
+      var invalidElement = DivElement();
 
       var selectionStart = getSelectionStart(invalidElement);
 
@@ -286,7 +283,7 @@ main() {
     });
 
     test('returns null if called on an unsupported InputElement type', () {
-      var invalidElement = new CheckboxInputElement();
+      var invalidElement = CheckboxInputElement();
 
       var selectionStart = getSelectionStart(invalidElement);
 
@@ -294,7 +291,7 @@ main() {
     });
 
     group('correctly accesses selectionStart', () {
-      var renderedInstance;
+      dynamic renderedInstance;
       InputElement inputElement;
       TextAreaElement textareaElement;
       const String testValue = 'foo';
@@ -307,7 +304,7 @@ main() {
       });
 
       group('for an `<input>` of type:', () {
-        void sharedInputGetSelectionStartTest(String type, {bool shouldReturnNull: false}) {
+        void sharedInputGetSelectionStartTest(String type, {bool shouldReturnNull = false}) {
           renderedInstance = renderAttachedToDocument((Dom.input()
             ..defaultValue = testValue
             ..type = type

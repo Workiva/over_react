@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'constant_required_accessor_integration_test.dart';
 
 // **************************************************************************
@@ -58,14 +59,12 @@ abstract class _$ComponentTestPropsAccessorsMixin
       props[_$key__requiredAndLengthLimited___$ComponentTestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__required___$ComponentTestProps =
-      const PropDescriptor(_$key__required___$ComponentTestProps,
-          isRequired: true);
+      PropDescriptor(_$key__required___$ComponentTestProps, isRequired: true);
   static const PropDescriptor _$prop__nullable___$ComponentTestProps =
-      const PropDescriptor(_$key__nullable___$ComponentTestProps,
+      PropDescriptor(_$key__nullable___$ComponentTestProps,
           isRequired: true, isNullable: true);
   static const PropDescriptor
-      _$prop__requiredAndLengthLimited___$ComponentTestProps =
-      const PropDescriptor(
+      _$prop__requiredAndLengthLimited___$ComponentTestProps = PropDescriptor(
           _$key__requiredAndLengthLimited___$ComponentTestProps,
           isRequired: true);
   static const String _$key__required___$ComponentTestProps =
@@ -75,19 +74,19 @@ abstract class _$ComponentTestPropsAccessorsMixin
   static const String _$key__requiredAndLengthLimited___$ComponentTestProps =
       'ComponentTestProps.requiredAndLengthLimited';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__required___$ComponentTestProps,
     _$prop__nullable___$ComponentTestProps,
     _$prop__requiredAndLengthLimited___$ComponentTestProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__required___$ComponentTestProps,
     _$key__nullable___$ComponentTestProps,
     _$key__requiredAndLengthLimited___$ComponentTestProps
   ];
 }
 
-const PropsMeta _$metaForComponentTestProps = const PropsMeta(
+const PropsMeta _$metaForComponentTestProps = PropsMeta(
   fields: _$ComponentTestPropsAccessorsMixin.$props,
   keys: _$ComponentTestPropsAccessorsMixin.$propKeys,
 );
@@ -122,7 +121,7 @@ abstract class _$$ComponentTestProps extends _$ComponentTestProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $ComponentTestComponentFactory;
@@ -196,12 +195,12 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   _$$ComponentTestProps typedPropsFactory(Map backingMap) =>
       new _$$ComponentTestProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ComponentTestProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForComponentTestProps

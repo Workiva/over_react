@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'abstract_transition.dart';
 
 // **************************************************************************
@@ -13,11 +14,11 @@ abstract class _$AbstractTransitionPropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForAbstractTransitionProps = const PropsMeta(
+const PropsMeta _$metaForAbstractTransitionProps = PropsMeta(
   fields: _$AbstractTransitionPropsAccessorsMixin.$props,
   keys: _$AbstractTransitionPropsAccessorsMixin.$propKeys,
 );
@@ -52,19 +53,19 @@ abstract class _$AbstractTransitionStateAccessorsMixin
   /* GENERATED CONSTANTS */
   static const StateDescriptor
       _$prop__transitionPhase___$AbstractTransitionState =
-      const StateDescriptor(_$key__transitionPhase___$AbstractTransitionState);
+      StateDescriptor(_$key__transitionPhase___$AbstractTransitionState);
   static const String _$key__transitionPhase___$AbstractTransitionState =
       'AbstractTransitionState.transitionPhase';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__transitionPhase___$AbstractTransitionState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__transitionPhase___$AbstractTransitionState
   ];
 }
 
-const StateMeta _$metaForAbstractTransitionState = const StateMeta(
+const StateMeta _$metaForAbstractTransitionState = StateMeta(
   fields: _$AbstractTransitionStateAccessorsMixin.$state,
   keys: _$AbstractTransitionStateAccessorsMixin.$stateKeys,
 );

@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'do_not_generate_accessor_integration_test.dart';
 
 // **************************************************************************
@@ -58,15 +59,13 @@ abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__generated1Prop___$DoNotGenerateAccessorTestProps =
-      const PropDescriptor(
-          _$key__generated1Prop___$DoNotGenerateAccessorTestProps);
+      PropDescriptor(_$key__generated1Prop___$DoNotGenerateAccessorTestProps);
   static const PropDescriptor
       _$prop__generated2Prop___$DoNotGenerateAccessorTestProps =
-      const PropDescriptor(
-          _$key__generated2Prop___$DoNotGenerateAccessorTestProps);
+      PropDescriptor(_$key__generated2Prop___$DoNotGenerateAccessorTestProps);
   static const PropDescriptor
       _$prop__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps);
   static const String _$key__generated1Prop___$DoNotGenerateAccessorTestProps =
       'DoNotGenerateAccessorTestProps.generated1Prop';
@@ -76,19 +75,19 @@ abstract class _$DoNotGenerateAccessorTestPropsAccessorsMixin
       _$key__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps =
       'DoNotGenerateAccessorTestProps.explicitlyGeneratedProp';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__generated1Prop___$DoNotGenerateAccessorTestProps,
     _$prop__generated2Prop___$DoNotGenerateAccessorTestProps,
     _$prop__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__generated1Prop___$DoNotGenerateAccessorTestProps,
     _$key__generated2Prop___$DoNotGenerateAccessorTestProps,
     _$key__explicitlyGeneratedProp___$DoNotGenerateAccessorTestProps
   ];
 }
 
-const PropsMeta _$metaForDoNotGenerateAccessorTestProps = const PropsMeta(
+const PropsMeta _$metaForDoNotGenerateAccessorTestProps = PropsMeta(
   fields: _$DoNotGenerateAccessorTestPropsAccessorsMixin.$props,
   keys: _$DoNotGenerateAccessorTestPropsAccessorsMixin.$propKeys,
 );
@@ -125,7 +124,7 @@ abstract class _$$DoNotGenerateAccessorTestProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $DoNotGenerateAccessorTestComponentFactory;
@@ -211,15 +210,13 @@ abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
   /* GENERATED CONSTANTS */
   static const StateDescriptor
       _$prop__generated1State___$DoNotGenerateAccessorTestState =
-      const StateDescriptor(
-          _$key__generated1State___$DoNotGenerateAccessorTestState);
+      StateDescriptor(_$key__generated1State___$DoNotGenerateAccessorTestState);
   static const StateDescriptor
       _$prop__generated2State___$DoNotGenerateAccessorTestState =
-      const StateDescriptor(
-          _$key__generated2State___$DoNotGenerateAccessorTestState);
+      StateDescriptor(_$key__generated2State___$DoNotGenerateAccessorTestState);
   static const StateDescriptor
       _$prop__explicitlyGeneratedState___$DoNotGenerateAccessorTestState =
-      const StateDescriptor(
+      StateDescriptor(
           _$key__explicitlyGeneratedState___$DoNotGenerateAccessorTestState);
   static const String _$key__generated1State___$DoNotGenerateAccessorTestState =
       'DoNotGenerateAccessorTestState.generated1State';
@@ -229,19 +226,19 @@ abstract class _$DoNotGenerateAccessorTestStateAccessorsMixin
       _$key__explicitlyGeneratedState___$DoNotGenerateAccessorTestState =
       'DoNotGenerateAccessorTestState.explicitlyGeneratedState';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__generated1State___$DoNotGenerateAccessorTestState,
     _$prop__generated2State___$DoNotGenerateAccessorTestState,
     _$prop__explicitlyGeneratedState___$DoNotGenerateAccessorTestState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__generated1State___$DoNotGenerateAccessorTestState,
     _$key__generated2State___$DoNotGenerateAccessorTestState,
     _$key__explicitlyGeneratedState___$DoNotGenerateAccessorTestState
   ];
 }
 
-const StateMeta _$metaForDoNotGenerateAccessorTestState = const StateMeta(
+const StateMeta _$metaForDoNotGenerateAccessorTestState = StateMeta(
   fields: _$DoNotGenerateAccessorTestStateAccessorsMixin.$state,
   keys: _$DoNotGenerateAccessorTestStateAccessorsMixin.$stateKeys,
 );
@@ -364,12 +361,12 @@ class _$DoNotGenerateAccessorTestComponent
   _$$DoNotGenerateAccessorTestState typedStateFactory(Map backingMap) =>
       new _$$DoNotGenerateAccessorTestState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$DoNotGenerateAccessorTestProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForDoNotGenerateAccessorTestProps

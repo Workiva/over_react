@@ -11,6 +11,9 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+@TestOn('browser')
+
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
@@ -117,7 +120,7 @@ main() {
       var shallowProps = getProps(shallowInstance);
       Iterable<String> shallowPropKeys = shallowProps.keys.map((key) => key as String); // ignore: avoid_as
 
-      expect(shallowPropKeys.where((String key) => !key.startsWith('data-prop-')), unorderedEquals(['id', 'extraneous', 'children']));
+      expect(shallowPropKeys.where((key) => !key.startsWith('data-prop-')), unorderedEquals(['id', 'extraneous', 'children']));
     });
   });
 }
@@ -131,16 +134,16 @@ UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
 class _$ComponentTestProps extends UiProps {
   String stringProp;
   dynamic dynamicProp;
-  var untypedProp;
+  var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
   @Accessor(key: 'custom key!')
-  var customKeyProp;
+  dynamic customKeyProp;
 
   @Accessor(keyNamespace: 'custom namespace~~')
-  var customNamespaceProp;
+  dynamic customNamespaceProp;
 
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  var customKeyAndNamespaceProp;
+  dynamic customKeyAndNamespaceProp;
 }
 
 @Component()

@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'flawed_component_on_mount.dart';
 
 // **************************************************************************
@@ -24,11 +25,11 @@ abstract class _$FlawedOnMountPropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForFlawedOnMountProps = const PropsMeta(
+const PropsMeta _$metaForFlawedOnMountProps = PropsMeta(
   fields: _$FlawedOnMountPropsAccessorsMixin.$props,
   keys: _$FlawedOnMountPropsAccessorsMixin.$propKeys,
 );
@@ -57,7 +58,7 @@ class _$$FlawedOnMountProps extends _$FlawedOnMountProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $FlawedOnMountComponentFactory;
@@ -76,12 +77,12 @@ class _$FlawedOnMountComponent extends FlawedOnMountComponent {
   _$$FlawedOnMountProps typedPropsFactory(Map backingMap) =>
       new _$$FlawedOnMountProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$FlawedOnMountProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForFlawedOnMountProps

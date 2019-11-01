@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'prop_typedef_fixtures.dart';
 
 // **************************************************************************
@@ -57,15 +58,15 @@ abstract class _$TestAbstractCustomRendererComponentPropsAccessorsMixin
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__customRenderer___$TestAbstractCustomRendererComponentProps =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__customRenderer___$TestAbstractCustomRendererComponentProps);
   static const PropDescriptor
       _$prop__parameterizedCustomRenderer___$TestAbstractCustomRendererComponentProps =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__parameterizedCustomRenderer___$TestAbstractCustomRendererComponentProps);
   static const PropDescriptor
       _$prop__somePropKey___$TestAbstractCustomRendererComponentProps =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__somePropKey___$TestAbstractCustomRendererComponentProps);
   static const String
       _$key__customRenderer___$TestAbstractCustomRendererComponentProps =
@@ -77,20 +78,19 @@ abstract class _$TestAbstractCustomRendererComponentPropsAccessorsMixin
       _$key__somePropKey___$TestAbstractCustomRendererComponentProps =
       'TestAbstractCustomRendererComponentProps.somePropKey';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__customRenderer___$TestAbstractCustomRendererComponentProps,
     _$prop__parameterizedCustomRenderer___$TestAbstractCustomRendererComponentProps,
     _$prop__somePropKey___$TestAbstractCustomRendererComponentProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__customRenderer___$TestAbstractCustomRendererComponentProps,
     _$key__parameterizedCustomRenderer___$TestAbstractCustomRendererComponentProps,
     _$key__somePropKey___$TestAbstractCustomRendererComponentProps
   ];
 }
 
-const PropsMeta _$metaForTestAbstractCustomRendererComponentProps =
-    const PropsMeta(
+const PropsMeta _$metaForTestAbstractCustomRendererComponentProps = PropsMeta(
   fields: _$TestAbstractCustomRendererComponentPropsAccessorsMixin.$props,
   keys: _$TestAbstractCustomRendererComponentPropsAccessorsMixin.$propKeys,
 );
@@ -120,22 +120,21 @@ abstract class _$TestAbstractCustomRendererComponentStateAccessorsMixin
   /* GENERATED CONSTANTS */
   static const StateDescriptor
       _$prop__someStateKey___$TestAbstractCustomRendererComponentState =
-      const StateDescriptor(
+      StateDescriptor(
           _$key__someStateKey___$TestAbstractCustomRendererComponentState);
   static const String
       _$key__someStateKey___$TestAbstractCustomRendererComponentState =
       'TestAbstractCustomRendererComponentState.someStateKey';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__someStateKey___$TestAbstractCustomRendererComponentState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__someStateKey___$TestAbstractCustomRendererComponentState
   ];
 }
 
-const StateMeta _$metaForTestAbstractCustomRendererComponentState =
-    const StateMeta(
+const StateMeta _$metaForTestAbstractCustomRendererComponentState = StateMeta(
   fields: _$TestAbstractCustomRendererComponentStateAccessorsMixin.$state,
   keys: _$TestAbstractCustomRendererComponentStateAccessorsMixin.$stateKeys,
 );
@@ -190,11 +189,11 @@ abstract class _$TestConsumingAbstractCustomRendererComponentPropsAccessorsMixin
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__propKeyValueToTest___$TestConsumingAbstractCustomRendererComponentProps =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__propKeyValueToTest___$TestConsumingAbstractCustomRendererComponentProps);
   static const PropDescriptor
       _$prop__stateKeyValueToTest___$TestConsumingAbstractCustomRendererComponentProps =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__stateKeyValueToTest___$TestConsumingAbstractCustomRendererComponentProps);
   static const String
       _$key__propKeyValueToTest___$TestConsumingAbstractCustomRendererComponentProps =
@@ -203,18 +202,18 @@ abstract class _$TestConsumingAbstractCustomRendererComponentPropsAccessorsMixin
       _$key__stateKeyValueToTest___$TestConsumingAbstractCustomRendererComponentProps =
       'TestConsumingAbstractCustomRendererComponentProps.stateKeyValueToTest';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__propKeyValueToTest___$TestConsumingAbstractCustomRendererComponentProps,
     _$prop__stateKeyValueToTest___$TestConsumingAbstractCustomRendererComponentProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__propKeyValueToTest___$TestConsumingAbstractCustomRendererComponentProps,
     _$key__stateKeyValueToTest___$TestConsumingAbstractCustomRendererComponentProps
   ];
 }
 
 const PropsMeta _$metaForTestConsumingAbstractCustomRendererComponentProps =
-    const PropsMeta(
+    PropsMeta(
   fields:
       _$TestConsumingAbstractCustomRendererComponentPropsAccessorsMixin.$props,
   keys: _$TestConsumingAbstractCustomRendererComponentPropsAccessorsMixin
@@ -255,7 +254,7 @@ class _$$TestConsumingAbstractCustomRendererComponentProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ??
@@ -278,12 +277,12 @@ class _$TestConsumingAbstractCustomRendererComponentComponent
           Map backingMap) =>
       new _$$TestConsumingAbstractCustomRendererComponentProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestConsumingAbstractCustomRendererComponentProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestConsumingAbstractCustomRendererComponentProps
@@ -332,11 +331,11 @@ abstract class _$TestConsumingCustomRendererComponentPropsAccessorsMixin
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__propKeyValueToTest___$TestConsumingCustomRendererComponentProps =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__propKeyValueToTest___$TestConsumingCustomRendererComponentProps);
   static const PropDescriptor
       _$prop__stateKeyValueToTest___$TestConsumingCustomRendererComponentProps =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__stateKeyValueToTest___$TestConsumingCustomRendererComponentProps);
   static const String
       _$key__propKeyValueToTest___$TestConsumingCustomRendererComponentProps =
@@ -345,18 +344,17 @@ abstract class _$TestConsumingCustomRendererComponentPropsAccessorsMixin
       _$key__stateKeyValueToTest___$TestConsumingCustomRendererComponentProps =
       'TestConsumingCustomRendererComponentProps.stateKeyValueToTest';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__propKeyValueToTest___$TestConsumingCustomRendererComponentProps,
     _$prop__stateKeyValueToTest___$TestConsumingCustomRendererComponentProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__propKeyValueToTest___$TestConsumingCustomRendererComponentProps,
     _$key__stateKeyValueToTest___$TestConsumingCustomRendererComponentProps
   ];
 }
 
-const PropsMeta _$metaForTestConsumingCustomRendererComponentProps =
-    const PropsMeta(
+const PropsMeta _$metaForTestConsumingCustomRendererComponentProps = PropsMeta(
   fields: _$TestConsumingCustomRendererComponentPropsAccessorsMixin.$props,
   keys: _$TestConsumingCustomRendererComponentPropsAccessorsMixin.$propKeys,
 );
@@ -395,7 +393,7 @@ class _$$TestConsumingCustomRendererComponentProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ??
@@ -417,12 +415,12 @@ class _$TestConsumingCustomRendererComponentComponent
           Map backingMap) =>
       new _$$TestConsumingCustomRendererComponentProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestConsumingCustomRendererComponentProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestConsumingCustomRendererComponentProps
@@ -460,22 +458,22 @@ abstract class _$TestCustomRendererFromAbstractComponentPropsAccessorsMixin
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__someInitialStateKeyValue___$TestCustomRendererFromAbstractComponentProps =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__someInitialStateKeyValue___$TestCustomRendererFromAbstractComponentProps);
   static const String
       _$key__someInitialStateKeyValue___$TestCustomRendererFromAbstractComponentProps =
       'TestCustomRendererFromAbstractComponentProps.someInitialStateKeyValue';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__someInitialStateKeyValue___$TestCustomRendererFromAbstractComponentProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__someInitialStateKeyValue___$TestCustomRendererFromAbstractComponentProps
   ];
 }
 
 const PropsMeta _$metaForTestCustomRendererFromAbstractComponentProps =
-    const PropsMeta(
+    PropsMeta(
   fields: _$TestCustomRendererFromAbstractComponentPropsAccessorsMixin.$props,
   keys: _$TestCustomRendererFromAbstractComponentPropsAccessorsMixin.$propKeys,
 );
@@ -514,7 +512,7 @@ class _$$TestCustomRendererFromAbstractComponentProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ??
@@ -533,12 +531,12 @@ abstract class _$TestCustomRendererFromAbstractComponentStateAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<StateDescriptor> $state = const [];
-  static const List<String> $stateKeys = const [];
+  static const List<StateDescriptor> $state = [];
+  static const List<String> $stateKeys = [];
 }
 
 const StateMeta _$metaForTestCustomRendererFromAbstractComponentState =
-    const StateMeta(
+    StateMeta(
   fields: _$TestCustomRendererFromAbstractComponentStateAccessorsMixin.$state,
   keys: _$TestCustomRendererFromAbstractComponentStateAccessorsMixin.$stateKeys,
 );
@@ -590,12 +588,12 @@ class _$TestCustomRendererFromAbstractComponentComponent
           Map backingMap) =>
       new _$$TestCustomRendererFromAbstractComponentState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestCustomRendererFromAbstractComponentProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestCustomRendererFromAbstractComponentProps
@@ -673,19 +671,17 @@ abstract class _$TestCustomRendererComponentPropsAccessorsMixin
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__customRenderer___$TestCustomRendererComponentProps =
-      const PropDescriptor(
-          _$key__customRenderer___$TestCustomRendererComponentProps);
+      PropDescriptor(_$key__customRenderer___$TestCustomRendererComponentProps);
   static const PropDescriptor
       _$prop__parameterizedCustomRenderer___$TestCustomRendererComponentProps =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__parameterizedCustomRenderer___$TestCustomRendererComponentProps);
   static const PropDescriptor
       _$prop__somePropKey___$TestCustomRendererComponentProps =
-      const PropDescriptor(
-          _$key__somePropKey___$TestCustomRendererComponentProps);
+      PropDescriptor(_$key__somePropKey___$TestCustomRendererComponentProps);
   static const PropDescriptor
       _$prop__someInitialStateKeyValue___$TestCustomRendererComponentProps =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__someInitialStateKeyValue___$TestCustomRendererComponentProps);
   static const String
       _$key__customRenderer___$TestCustomRendererComponentProps =
@@ -699,13 +695,13 @@ abstract class _$TestCustomRendererComponentPropsAccessorsMixin
       _$key__someInitialStateKeyValue___$TestCustomRendererComponentProps =
       'TestCustomRendererComponentProps.someInitialStateKeyValue';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__customRenderer___$TestCustomRendererComponentProps,
     _$prop__parameterizedCustomRenderer___$TestCustomRendererComponentProps,
     _$prop__somePropKey___$TestCustomRendererComponentProps,
     _$prop__someInitialStateKeyValue___$TestCustomRendererComponentProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__customRenderer___$TestCustomRendererComponentProps,
     _$key__parameterizedCustomRenderer___$TestCustomRendererComponentProps,
     _$key__somePropKey___$TestCustomRendererComponentProps,
@@ -713,7 +709,7 @@ abstract class _$TestCustomRendererComponentPropsAccessorsMixin
   ];
 }
 
-const PropsMeta _$metaForTestCustomRendererComponentProps = const PropsMeta(
+const PropsMeta _$metaForTestCustomRendererComponentProps = PropsMeta(
   fields: _$TestCustomRendererComponentPropsAccessorsMixin.$props,
   keys: _$TestCustomRendererComponentPropsAccessorsMixin.$propKeys,
 );
@@ -750,7 +746,7 @@ class _$$TestCustomRendererComponentProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestCustomRendererComponentComponentFactory;
@@ -777,20 +773,19 @@ abstract class _$TestCustomRendererComponentStateAccessorsMixin
   /* GENERATED CONSTANTS */
   static const StateDescriptor
       _$prop__someStateKey___$TestCustomRendererComponentState =
-      const StateDescriptor(
-          _$key__someStateKey___$TestCustomRendererComponentState);
+      StateDescriptor(_$key__someStateKey___$TestCustomRendererComponentState);
   static const String _$key__someStateKey___$TestCustomRendererComponentState =
       'TestCustomRendererComponentState.someStateKey';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__someStateKey___$TestCustomRendererComponentState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__someStateKey___$TestCustomRendererComponentState
   ];
 }
 
-const StateMeta _$metaForTestCustomRendererComponentState = const StateMeta(
+const StateMeta _$metaForTestCustomRendererComponentState = StateMeta(
   fields: _$TestCustomRendererComponentStateAccessorsMixin.$state,
   keys: _$TestCustomRendererComponentStateAccessorsMixin.$stateKeys,
 );
@@ -838,12 +833,12 @@ class _$TestCustomRendererComponentComponent
   _$$TestCustomRendererComponentState typedStateFactory(Map backingMap) =>
       new _$$TestCustomRendererComponentState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestCustomRendererComponentProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestCustomRendererComponentProps

@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'prop_validation_wrap.dart';
 
 // **************************************************************************
@@ -25,11 +26,11 @@ abstract class _$PropTypesWrapPropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForPropTypesWrapProps = const PropsMeta(
+const PropsMeta _$metaForPropTypesWrapProps = PropsMeta(
   fields: _$PropTypesWrapPropsAccessorsMixin.$props,
   keys: _$PropTypesWrapPropsAccessorsMixin.$propKeys,
 );
@@ -64,7 +65,7 @@ abstract class _$$PropTypesWrapProps extends _$PropTypesWrapProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $PropTypesWrapComponentFactory;
@@ -123,19 +124,19 @@ abstract class _$PropTypesWrapStateAccessorsMixin
       state[_$key__twoObjects___$PropTypesWrapState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__twoObjects___$PropTypesWrapState =
-      const StateDescriptor(_$key__twoObjects___$PropTypesWrapState);
+      StateDescriptor(_$key__twoObjects___$PropTypesWrapState);
   static const String _$key__twoObjects___$PropTypesWrapState =
       'PropTypesWrapState.twoObjects';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__twoObjects___$PropTypesWrapState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__twoObjects___$PropTypesWrapState
   ];
 }
 
-const StateMeta _$metaForPropTypesWrapState = const StateMeta(
+const StateMeta _$metaForPropTypesWrapState = StateMeta(
   fields: _$PropTypesWrapStateAccessorsMixin.$state,
   keys: _$PropTypesWrapStateAccessorsMixin.$stateKeys,
 );
@@ -252,12 +253,12 @@ class _$PropTypesWrapComponent extends PropTypesWrapComponent {
   _$$PropTypesWrapState typedStateFactory(Map backingMap) =>
       new _$$PropTypesWrapState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$PropTypesWrapProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForPropTypesWrapProps

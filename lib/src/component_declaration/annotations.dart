@@ -15,7 +15,7 @@
 // Dummy annotations that would be used by Pub code generator
 library over_react.component_declaration.annotations;
 
-/// Annotation used with the `over_react` builder to declare a [UiFactory] for a component.
+/// Annotation used with the `over_react` builder to declare a `UiFactory` for a component.
 ///
 ///     @Factory()
 ///     UiFactory<FooProps> Foo = _$Foo;
@@ -25,7 +25,7 @@ class Factory {
   const Factory();
 }
 
-/// Annotation used with the `over_react` builder to declare a [UiProps] class for a component.
+/// Annotation used with the `over_react` builder to declare a `UiProps` class for a component.
 ///
 /// Props are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -43,7 +43,7 @@ class Props implements TypedMap {
   const Props({this.keyNamespace});
 }
 
-/// Annotation used with the `over_react` builder to declare a [UiState] class for a component.
+/// Annotation used with the `over_react` builder to declare a `UiState` class for a component.
 ///
 /// State properties are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -61,7 +61,7 @@ class State implements TypedMap {
   const State({this.keyNamespace});
 }
 
-/// Annotation used with the `over_react` builder to declare a [UiComponent] class for a component.
+/// Annotation used with the `over_react` builder to declare a `UiComponent` class for a component.
 ///
 ///     @Component()
 ///     class FooComponent extends UiComponent<FooProps> {
@@ -74,12 +74,12 @@ class State implements TypedMap {
 @Deprecated('4.0.0')
 class Component {
   /// Whether the component clones or passes through its children and needs to be
-  /// treated as if it were the wrapped component when passed in to [over_react.isComponentOfType].
+  /// treated as if it were the wrapped component when passed in to `isComponentOfType`.
   final bool isWrapper;
 
   /// The component class of this component's "parent type".
   ///
-  /// Used to enable inheritance in component type-checking in [isComponentOfType].
+  /// Used to enable inheritance in component type-checking in `isComponentOfType`.
   ///
   /// E.g., if component `Bar` is a subtype of component `Foo`:
   ///
@@ -102,7 +102,7 @@ class Component {
   final Type subtypeOf;
 
   const Component({
-      this.isWrapper: false,
+      this.isWrapper = false,
       this.subtypeOf
   });
 }
@@ -168,7 +168,7 @@ class Component2 implements Component {
   });
 }
 
-/// Annotation used with the `over_react` builder to declare an abstract [UiProps] class for an abstract component.
+/// Annotation used with the `over_react` builder to declare an abstract `UiProps` class for an abstract component.
 ///
 /// Props are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -184,7 +184,7 @@ class AbstractProps implements TypedMap {
   const AbstractProps({this.keyNamespace});
 }
 
-/// Annotation used with the `over_react` builder to declare an abstract [UiProps] class for an abstract component.
+/// Annotation used with the `over_react` builder to declare an abstract `UiProps` class for an abstract component.
 ///
 /// State properties are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -200,7 +200,7 @@ class AbstractState implements TypedMap {
   const AbstractState({this.keyNamespace});
 }
 
-/// Annotation used with the `over_react` builder to declare an abstract [UiComponent] class for an abstract component.
+/// Annotation used with the `over_react` builder to declare an abstract `UiComponent` class for an abstract component.
 ///
 ///     @AbstractComponent()
 ///     abstract class QuxComponent<TProps extends QuxProps> extends UiComponent<TProps> {}
@@ -219,7 +219,7 @@ class AbstractComponent2 implements AbstractComponent {
   const AbstractComponent2();
 }
 
-/// Annotation used with the `over_react` builder to declare a mixin for use in a [UiProps] class.
+/// Annotation used with the `over_react` builder to declare a mixin for use in a `UiProps` class.
 ///
 /// Props are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -239,7 +239,7 @@ class PropsMixin implements TypedMap {
   const PropsMixin({this.keyNamespace});
 }
 
-/// Annotation used with the `over_react` builder to declare a mixin for use in a [UiState] class.
+/// Annotation used with the `over_react` builder to declare a mixin for use in a `UiState` class.
 ///
 /// State properties are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
@@ -269,7 +269,7 @@ class StateMixin implements TypedMap {
 ///       @requiredProp
 ///       String requiredProp;
 ///     }
-const Accessor requiredProp = const Accessor(isRequired: true);
+const Accessor requiredProp = Accessor(isRequired: true);
 
 /// Marks a `prop` as required to be set, but allowed to be set explicitly to `null`.
 ///
@@ -281,7 +281,7 @@ const Accessor requiredProp = const Accessor(isRequired: true);
 ///       @nullableRequiredProp
 ///       String nullableRequiredProp;
 ///     }
-const Accessor nullableRequiredProp = const Accessor(isRequired: true, isNullable: true);
+const Accessor nullableRequiredProp = Accessor(isRequired: true, isNullable: true);
 
 /// Annotation used with the `over_react` builder to customize individual accessors (props/state fields).
 ///

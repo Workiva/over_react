@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'prop_key_util_test_dart2.dart';
 
 // **************************************************************************
@@ -39,23 +40,23 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
   set bar(String value) => props[_$key__bar___$TestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__foo___$TestProps =
-      const PropDescriptor(_$key__foo___$TestProps);
+      PropDescriptor(_$key__foo___$TestProps);
   static const PropDescriptor _$prop__bar___$TestProps =
-      const PropDescriptor(_$key__bar___$TestProps);
+      PropDescriptor(_$key__bar___$TestProps);
   static const String _$key__foo___$TestProps = 'TestProps.foo';
   static const String _$key__bar___$TestProps = 'TestProps.bar';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__foo___$TestProps,
     _$prop__bar___$TestProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__foo___$TestProps,
     _$key__bar___$TestProps
   ];
 }
 
-const PropsMeta _$metaForTestProps = const PropsMeta(
+const PropsMeta _$metaForTestProps = PropsMeta(
   fields: _$TestPropsAccessorsMixin.$props,
   keys: _$TestPropsAccessorsMixin.$propKeys,
 );
@@ -87,7 +88,7 @@ class _$$TestProps extends _$TestProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestComponentFactory;
@@ -106,12 +107,12 @@ class _$TestComponent extends TestComponent {
   _$$TestProps typedPropsFactory(Map backingMap) =>
       new _$$TestProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestProps];
 }

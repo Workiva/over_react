@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'resize_sensor.dart';
 
 // **************************************************************************
@@ -24,11 +25,11 @@ abstract class _$ResizeSensorPropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForResizeSensorProps = const PropsMeta(
+const PropsMeta _$metaForResizeSensorProps = PropsMeta(
   fields: _$ResizeSensorPropsAccessorsMixin.$props,
   keys: _$ResizeSensorPropsAccessorsMixin.$propKeys,
 );
@@ -62,7 +63,7 @@ class _$$ResizeSensorProps extends _$ResizeSensorProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $ResizeSensorComponentFactory;
@@ -81,12 +82,12 @@ class _$ResizeSensorComponent extends ResizeSensorComponent {
   _$$ResizeSensorProps typedPropsFactory(Map backingMap) =>
       new _$$ResizeSensorProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ResizeSensorProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForResizeSensorProps
@@ -99,7 +100,7 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
 
   static const PropsMeta meta = _$metaForResizeSensorPropsMixin;
   static final ResizeSensorPropsMixinMapView defaultProps =
-      new ResizeSensorPropsMixinMapView({})
+      ResizeSensorPropsMixinMapView({})
         ..isFlexChild = false
         ..isFlexContainer = false
         ..shrink = false
@@ -336,24 +337,23 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
       props[_$key__onDidReset___$ResizeSensorPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__onInitialize___$ResizeSensorPropsMixin =
-      const PropDescriptor(_$key__onInitialize___$ResizeSensorPropsMixin);
+      PropDescriptor(_$key__onInitialize___$ResizeSensorPropsMixin);
   static const PropDescriptor _$prop__onResize___$ResizeSensorPropsMixin =
-      const PropDescriptor(_$key__onResize___$ResizeSensorPropsMixin);
+      PropDescriptor(_$key__onResize___$ResizeSensorPropsMixin);
   static const PropDescriptor _$prop__isFlexChild___$ResizeSensorPropsMixin =
-      const PropDescriptor(_$key__isFlexChild___$ResizeSensorPropsMixin);
+      PropDescriptor(_$key__isFlexChild___$ResizeSensorPropsMixin);
   static const PropDescriptor
       _$prop__isFlexContainer___$ResizeSensorPropsMixin =
-      const PropDescriptor(_$key__isFlexContainer___$ResizeSensorPropsMixin);
+      PropDescriptor(_$key__isFlexContainer___$ResizeSensorPropsMixin);
   static const PropDescriptor _$prop__shrink___$ResizeSensorPropsMixin =
-      const PropDescriptor(_$key__shrink___$ResizeSensorPropsMixin);
+      PropDescriptor(_$key__shrink___$ResizeSensorPropsMixin);
   static const PropDescriptor _$prop__quickMount___$ResizeSensorPropsMixin =
-      const PropDescriptor(_$key__quickMount___$ResizeSensorPropsMixin);
+      PropDescriptor(_$key__quickMount___$ResizeSensorPropsMixin);
   static const PropDescriptor
       _$prop__onDetachedMountCheck___$ResizeSensorPropsMixin =
-      const PropDescriptor(
-          _$key__onDetachedMountCheck___$ResizeSensorPropsMixin);
+      PropDescriptor(_$key__onDetachedMountCheck___$ResizeSensorPropsMixin);
   static const PropDescriptor _$prop__onDidReset___$ResizeSensorPropsMixin =
-      const PropDescriptor(_$key__onDidReset___$ResizeSensorPropsMixin);
+      PropDescriptor(_$key__onDidReset___$ResizeSensorPropsMixin);
   static const String _$key__onInitialize___$ResizeSensorPropsMixin =
       'ResizeSensorPropsMixin.onInitialize';
   static const String _$key__onResize___$ResizeSensorPropsMixin =
@@ -371,7 +371,7 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   static const String _$key__onDidReset___$ResizeSensorPropsMixin =
       'ResizeSensorPropsMixin.onDidReset';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__onInitialize___$ResizeSensorPropsMixin,
     _$prop__onResize___$ResizeSensorPropsMixin,
     _$prop__isFlexChild___$ResizeSensorPropsMixin,
@@ -381,7 +381,7 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
     _$prop__onDetachedMountCheck___$ResizeSensorPropsMixin,
     _$prop__onDidReset___$ResizeSensorPropsMixin
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__onInitialize___$ResizeSensorPropsMixin,
     _$key__onResize___$ResizeSensorPropsMixin,
     _$key__isFlexChild___$ResizeSensorPropsMixin,
@@ -393,7 +393,7 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   ];
 }
 
-const PropsMeta _$metaForResizeSensorPropsMixin = const PropsMeta(
+const PropsMeta _$metaForResizeSensorPropsMixin = PropsMeta(
   fields: ResizeSensorPropsMixin.$props,
   keys: ResizeSensorPropsMixin.$propKeys,
 );

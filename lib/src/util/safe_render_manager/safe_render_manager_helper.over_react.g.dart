@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'safe_render_manager_helper.dart';
 
 // **************************************************************************
@@ -25,13 +26,13 @@ abstract class _$SafeRenderManagerHelperPropsAccessorsMixin
   /// <!-- Generated from [_$SafeRenderManagerHelperProps.getInitialContent] -->
   @override
   @requiredProp
-  _GetInitialContent get getInitialContent =>
+  ReactElement Function() get getInitialContent =>
       props[_$key__getInitialContent___$SafeRenderManagerHelperProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$SafeRenderManagerHelperProps.getInitialContent] -->
   @override
   @requiredProp
-  set getInitialContent(_GetInitialContent value) =>
+  set getInitialContent(ReactElement Function() value) =>
       props[_$key__getInitialContent___$SafeRenderManagerHelperProps] = value;
 
   /// <!-- Generated from [_$SafeRenderManagerHelperProps.contentRef] -->
@@ -46,28 +47,27 @@ abstract class _$SafeRenderManagerHelperPropsAccessorsMixin
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__getInitialContent___$SafeRenderManagerHelperProps =
-      const PropDescriptor(
-          _$key__getInitialContent___$SafeRenderManagerHelperProps,
+      PropDescriptor(_$key__getInitialContent___$SafeRenderManagerHelperProps,
           isRequired: true);
   static const PropDescriptor
       _$prop__contentRef___$SafeRenderManagerHelperProps =
-      const PropDescriptor(_$key__contentRef___$SafeRenderManagerHelperProps);
+      PropDescriptor(_$key__contentRef___$SafeRenderManagerHelperProps);
   static const String _$key__getInitialContent___$SafeRenderManagerHelperProps =
       'SafeRenderManagerHelperProps.getInitialContent';
   static const String _$key__contentRef___$SafeRenderManagerHelperProps =
       'SafeRenderManagerHelperProps.contentRef';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__getInitialContent___$SafeRenderManagerHelperProps,
     _$prop__contentRef___$SafeRenderManagerHelperProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__getInitialContent___$SafeRenderManagerHelperProps,
     _$key__contentRef___$SafeRenderManagerHelperProps
   ];
 }
 
-const PropsMeta _$metaForSafeRenderManagerHelperProps = const PropsMeta(
+const PropsMeta _$metaForSafeRenderManagerHelperProps = PropsMeta(
   fields: _$SafeRenderManagerHelperPropsAccessorsMixin.$props,
   keys: _$SafeRenderManagerHelperPropsAccessorsMixin.$propKeys,
 );
@@ -96,7 +96,7 @@ class _$$SafeRenderManagerHelperProps extends _$SafeRenderManagerHelperProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $SafeRenderManagerHelperComponentFactory;
@@ -122,19 +122,19 @@ abstract class _$SafeRenderManagerHelperStateAccessorsMixin
       state[_$key__content___$SafeRenderManagerHelperState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__content___$SafeRenderManagerHelperState =
-      const StateDescriptor(_$key__content___$SafeRenderManagerHelperState);
+      StateDescriptor(_$key__content___$SafeRenderManagerHelperState);
   static const String _$key__content___$SafeRenderManagerHelperState =
       'SafeRenderManagerHelperState.content';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__content___$SafeRenderManagerHelperState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__content___$SafeRenderManagerHelperState
   ];
 }
 
-const StateMeta _$metaForSafeRenderManagerHelperState = const StateMeta(
+const StateMeta _$metaForSafeRenderManagerHelperState = StateMeta(
   fields: _$SafeRenderManagerHelperStateAccessorsMixin.$state,
   keys: _$SafeRenderManagerHelperStateAccessorsMixin.$stateKeys,
 );
@@ -175,12 +175,12 @@ class _$SafeRenderManagerHelperComponent
   _$$SafeRenderManagerHelperState typedStateFactory(Map backingMap) =>
       new _$$SafeRenderManagerHelperState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$SafeRenderManagerHelperProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForSafeRenderManagerHelperProps

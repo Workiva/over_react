@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'list_group_item.dart';
 
 // **************************************************************************
@@ -242,25 +243,25 @@ abstract class _$ListGroupItemPropsAccessorsMixin
       props[_$key__type___$ListGroupItemProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__elementType___$ListGroupItemProps =
-      const PropDescriptor(_$key__elementType___$ListGroupItemProps);
+      PropDescriptor(_$key__elementType___$ListGroupItemProps);
   static const PropDescriptor _$prop__header___$ListGroupItemProps =
-      const PropDescriptor(_$key__header___$ListGroupItemProps);
+      PropDescriptor(_$key__header___$ListGroupItemProps);
   static const PropDescriptor _$prop__headerSize___$ListGroupItemProps =
-      const PropDescriptor(_$key__headerSize___$ListGroupItemProps);
+      PropDescriptor(_$key__headerSize___$ListGroupItemProps);
   static const PropDescriptor _$prop__headerProps___$ListGroupItemProps =
-      const PropDescriptor(_$key__headerProps___$ListGroupItemProps);
+      PropDescriptor(_$key__headerProps___$ListGroupItemProps);
   static const PropDescriptor _$prop__skin___$ListGroupItemProps =
-      const PropDescriptor(_$key__skin___$ListGroupItemProps);
+      PropDescriptor(_$key__skin___$ListGroupItemProps);
   static const PropDescriptor _$prop__isActive___$ListGroupItemProps =
-      const PropDescriptor(_$key__isActive___$ListGroupItemProps);
+      PropDescriptor(_$key__isActive___$ListGroupItemProps);
   static const PropDescriptor _$prop__isDisabled___$ListGroupItemProps =
-      const PropDescriptor(_$key__isDisabled___$ListGroupItemProps);
+      PropDescriptor(_$key__isDisabled___$ListGroupItemProps);
   static const PropDescriptor _$prop__href___$ListGroupItemProps =
-      const PropDescriptor(_$key__href___$ListGroupItemProps);
+      PropDescriptor(_$key__href___$ListGroupItemProps);
   static const PropDescriptor _$prop__target___$ListGroupItemProps =
-      const PropDescriptor(_$key__target___$ListGroupItemProps);
+      PropDescriptor(_$key__target___$ListGroupItemProps);
   static const PropDescriptor _$prop__type___$ListGroupItemProps =
-      const PropDescriptor(_$key__type___$ListGroupItemProps);
+      PropDescriptor(_$key__type___$ListGroupItemProps);
   static const String _$key__elementType___$ListGroupItemProps =
       'ListGroupItemProps.elementType';
   static const String _$key__header___$ListGroupItemProps =
@@ -279,7 +280,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   static const String _$key__type___$ListGroupItemProps =
       'ListGroupItemProps.type';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__elementType___$ListGroupItemProps,
     _$prop__header___$ListGroupItemProps,
     _$prop__headerSize___$ListGroupItemProps,
@@ -291,7 +292,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
     _$prop__target___$ListGroupItemProps,
     _$prop__type___$ListGroupItemProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__elementType___$ListGroupItemProps,
     _$key__header___$ListGroupItemProps,
     _$key__headerSize___$ListGroupItemProps,
@@ -305,7 +306,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ];
 }
 
-const PropsMeta _$metaForListGroupItemProps = const PropsMeta(
+const PropsMeta _$metaForListGroupItemProps = PropsMeta(
   fields: _$ListGroupItemPropsAccessorsMixin.$props,
   keys: _$ListGroupItemPropsAccessorsMixin.$propKeys,
 );
@@ -339,7 +340,7 @@ class _$$ListGroupItemProps extends _$ListGroupItemProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $ListGroupItemComponentFactory;
@@ -358,12 +359,12 @@ class _$ListGroupItemComponent extends ListGroupItemComponent {
   _$$ListGroupItemProps typedPropsFactory(Map backingMap) =>
       new _$$ListGroupItemProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ListGroupItemProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForListGroupItemProps

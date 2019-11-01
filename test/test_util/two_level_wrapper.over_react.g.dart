@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'two_level_wrapper.dart';
 
 // **************************************************************************
@@ -24,11 +25,11 @@ abstract class _$TwoLevelWrapperPropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForTwoLevelWrapperProps = const PropsMeta(
+const PropsMeta _$metaForTwoLevelWrapperProps = PropsMeta(
   fields: _$TwoLevelWrapperPropsAccessorsMixin.$props,
   keys: _$TwoLevelWrapperPropsAccessorsMixin.$propKeys,
 );
@@ -62,7 +63,7 @@ class _$$TwoLevelWrapperProps extends _$TwoLevelWrapperProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TwoLevelWrapperComponentFactory;
@@ -81,12 +82,12 @@ class _$TwoLevelWrapperComponent extends TwoLevelWrapperComponent {
   _$$TwoLevelWrapperProps typedPropsFactory(Map backingMap) =>
       new _$$TwoLevelWrapperProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TwoLevelWrapperProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTwoLevelWrapperProps

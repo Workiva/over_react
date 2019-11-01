@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'my_context_component.dart';
 
 // **************************************************************************
@@ -25,11 +26,11 @@ abstract class _$MyContextComponentPropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForMyContextComponentProps = const PropsMeta(
+const PropsMeta _$metaForMyContextComponentProps = PropsMeta(
   fields: _$MyContextComponentPropsAccessorsMixin.$props,
   keys: _$MyContextComponentPropsAccessorsMixin.$propKeys,
 );
@@ -64,7 +65,7 @@ abstract class _$$MyContextComponentProps extends _$MyContextComponentProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $MyContextComponentComponentFactory;
@@ -139,12 +140,12 @@ class _$MyContextComponentComponent extends MyContextComponentComponent {
   _$$MyContextComponentProps typedPropsFactory(Map backingMap) =>
       new _$$MyContextComponentProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$MyContextComponentProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForMyContextComponentProps

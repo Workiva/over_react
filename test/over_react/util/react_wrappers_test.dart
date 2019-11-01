@@ -39,9 +39,9 @@ import '../../test_util/two_level_wrapper.dart';
 main() {
   group('Dart wrappers for React:', () {
     group('cloneElement()', () {
-      const List testChildren = const ['child1', 'child2'];
+      const List testChildren = ['child1', 'child2'];
 
-      const Map testProps = const {
+      const Map testProps = {
         'originalProp': 'original',
         'originalPropToOverride': 'original'
       };
@@ -72,8 +72,8 @@ main() {
           Map cloneProps = JsBackedMap.backedBy(clone.props);
 
           // Verify all props (including children, excluding react-dart internals) are equal.
-          Map originalShallowProps = new Map.from(originalProps);
-          Map clonePropsShallowProps = new Map.from(cloneProps);
+          Map originalShallowProps = Map.from(originalProps);
+          Map clonePropsShallowProps = Map.from(cloneProps);
           originalShallowProps.remove('internal');
           clonePropsShallowProps.remove('internal');
           expect(originalShallowProps, clonePropsShallowProps);
@@ -114,12 +114,12 @@ main() {
       });
 
       group('returns a clone with added/overridden props', () {
-        const Map testPropsToAdd = const {
+        const Map testPropsToAdd = {
           'originalPropToOverride': 'clone',
           'propToAdd': 'clone'
         };
 
-        const Map expectedPropsMerge = const {
+        const Map expectedPropsMerge = {
           'originalProp': 'original',
           'originalPropToOverride': 'clone',
           'propToAdd': 'clone',
@@ -162,8 +162,8 @@ main() {
 
       group('properly converts props for', () {
         group('style Maps', () {
-          const Map testPropsToAdd = const {
-            'style': const {'width': '100rem'}
+          const Map testPropsToAdd = {
+            'style': {'width': '100rem'}
           };
 
           test('for DOM components', () {
@@ -292,6 +292,7 @@ main() {
       });
 
       group('updates the "key" and "ref" props properly', () {
+        // ignore: unused_local_variable
         var originalRefCalled = false;
         var cloneRefCalled = false;
         Map originalKeyRefProps = {
@@ -370,7 +371,7 @@ main() {
       });
 
       group('returns a clone with replaced children', () {
-        const List testOverrideChildren = const ['child3', 'child4'];
+        const List testOverrideChildren = ['child3', 'child4'];
 
         test('for a plain React JS component', () {
           var original = (Dom.div()..addProps(testProps))(testChildren);
@@ -414,11 +415,11 @@ main() {
 
       test('preserves callback refs correctly', () {
         var flag = false;
-        var runtimeType;
-        var callbackRef = (instance) {
+        dynamic runtimeType;
+        callbackRef(instance) {
           flag = true;
           runtimeType = instance.runtimeType;
-        };
+        }
 
         // The 'ref' property can only be used from within a render() method, so use RenderingContainerComponent
         // to clone and render the test component.
@@ -615,8 +616,8 @@ main() {
     });
 
     group('getProps', () {
-      const List testChildren = const ['child1', 'child2'];
-      const Map<String, dynamic> testStyle = const {'background': 'white'};
+      const List testChildren = ['child1', 'child2'];
+      const Map<String, dynamic> testStyle = {'background': 'white'};
 
       test('returns props for a composite JS component ReactElement', () {
         ReactElement instance = testJsComponentFactory({
@@ -645,7 +646,7 @@ main() {
       });
 
       test('returns props for a composite JS ReactComponent, even when the props change', () {
-        var mountNode = new DivElement();
+        var mountNode = DivElement();
         ReactComponent renderedInstance = react_dom.render(testJsComponentFactory({
           'jsProp': 'js',
           'style': testStyle,
@@ -835,7 +836,7 @@ main() {
             });
 
             test('even when props change', () {
-              var mountNode = new DivElement();
+              var mountNode = DivElement();
               ReactComponent renderedInstance = react_dom.render(OneLevelWrapper()(
                 testJsComponentFactory({
                   'jsProp': 'js',
@@ -1318,7 +1319,7 @@ class PlainObjectStyleMap {
 }
 
 /// Helper component that renders whatever you tell it to. Necessary for rendering components with the 'ref' prop.
-final RenderingContainerComponentFactory = react.registerComponent(() => new RenderingContainerComponent()) as ReactDartComponentFactoryProxy; // ignore: deprecated_member_use
+final RenderingContainerComponentFactory = react.registerComponent(() => RenderingContainerComponent()) as ReactDartComponentFactoryProxy; // ignore: deprecated_member_use
 
 // ignore: deprecated_member_use
 class RenderingContainerComponent extends react.Component {

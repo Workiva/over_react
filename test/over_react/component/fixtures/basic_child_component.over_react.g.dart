@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'basic_child_component.dart';
 
 // **************************************************************************
@@ -24,11 +25,11 @@ abstract class _$BasicChildPropsAccessorsMixin implements _$BasicChildProps {
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForBasicChildProps = const PropsMeta(
+const PropsMeta _$metaForBasicChildProps = PropsMeta(
   fields: _$BasicChildPropsAccessorsMixin.$props,
   keys: _$BasicChildPropsAccessorsMixin.$propKeys,
 );
@@ -62,7 +63,7 @@ abstract class _$$BasicChildProps extends _$BasicChildProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $BasicChildComponentFactory;
@@ -136,12 +137,12 @@ class _$BasicChildComponent extends BasicChildComponent {
   _$$BasicChildProps typedPropsFactory(Map backingMap) =>
       new _$$BasicChildProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$BasicChildProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForBasicChildProps

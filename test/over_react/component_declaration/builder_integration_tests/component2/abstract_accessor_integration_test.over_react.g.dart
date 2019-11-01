@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'abstract_accessor_integration_test.dart';
 
 // **************************************************************************
@@ -78,19 +79,18 @@ abstract class _$TestAbstractPropsAccessorsMixin
       props[_$key__customKeyAndNamespaceProp___$TestAbstractProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__stringProp___$TestAbstractProps =
-      const PropDescriptor(_$key__stringProp___$TestAbstractProps);
+      PropDescriptor(_$key__stringProp___$TestAbstractProps);
   static const PropDescriptor _$prop__dynamicProp___$TestAbstractProps =
-      const PropDescriptor(_$key__dynamicProp___$TestAbstractProps);
+      PropDescriptor(_$key__dynamicProp___$TestAbstractProps);
   static const PropDescriptor _$prop__untypedProp___$TestAbstractProps =
-      const PropDescriptor(_$key__untypedProp___$TestAbstractProps);
+      PropDescriptor(_$key__untypedProp___$TestAbstractProps);
   static const PropDescriptor _$prop__customKeyProp___$TestAbstractProps =
-      const PropDescriptor(_$key__customKeyProp___$TestAbstractProps);
+      PropDescriptor(_$key__customKeyProp___$TestAbstractProps);
   static const PropDescriptor _$prop__customNamespaceProp___$TestAbstractProps =
-      const PropDescriptor(_$key__customNamespaceProp___$TestAbstractProps);
+      PropDescriptor(_$key__customNamespaceProp___$TestAbstractProps);
   static const PropDescriptor
       _$prop__customKeyAndNamespaceProp___$TestAbstractProps =
-      const PropDescriptor(
-          _$key__customKeyAndNamespaceProp___$TestAbstractProps);
+      PropDescriptor(_$key__customKeyAndNamespaceProp___$TestAbstractProps);
   static const String _$key__stringProp___$TestAbstractProps =
       'TestAbstractProps.stringProp';
   static const String _$key__dynamicProp___$TestAbstractProps =
@@ -104,7 +104,7 @@ abstract class _$TestAbstractPropsAccessorsMixin
   static const String _$key__customKeyAndNamespaceProp___$TestAbstractProps =
       'custom namespace~~custom key!';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__stringProp___$TestAbstractProps,
     _$prop__dynamicProp___$TestAbstractProps,
     _$prop__untypedProp___$TestAbstractProps,
@@ -112,7 +112,7 @@ abstract class _$TestAbstractPropsAccessorsMixin
     _$prop__customNamespaceProp___$TestAbstractProps,
     _$prop__customKeyAndNamespaceProp___$TestAbstractProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__stringProp___$TestAbstractProps,
     _$key__dynamicProp___$TestAbstractProps,
     _$key__untypedProp___$TestAbstractProps,
@@ -122,7 +122,7 @@ abstract class _$TestAbstractPropsAccessorsMixin
   ];
 }
 
-const PropsMeta _$metaForTestAbstractProps = const PropsMeta(
+const PropsMeta _$metaForTestAbstractProps = PropsMeta(
   fields: _$TestAbstractPropsAccessorsMixin.$props,
   keys: _$TestAbstractPropsAccessorsMixin.$propKeys,
 );
@@ -208,27 +208,23 @@ abstract class _$TestCustomNamespaceAbstractPropsAccessorsMixin
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__stringProp___$TestCustomNamespaceAbstractProps =
-      const PropDescriptor(
-          _$key__stringProp___$TestCustomNamespaceAbstractProps);
+      PropDescriptor(_$key__stringProp___$TestCustomNamespaceAbstractProps);
   static const PropDescriptor
       _$prop__dynamicProp___$TestCustomNamespaceAbstractProps =
-      const PropDescriptor(
-          _$key__dynamicProp___$TestCustomNamespaceAbstractProps);
+      PropDescriptor(_$key__dynamicProp___$TestCustomNamespaceAbstractProps);
   static const PropDescriptor
       _$prop__untypedProp___$TestCustomNamespaceAbstractProps =
-      const PropDescriptor(
-          _$key__untypedProp___$TestCustomNamespaceAbstractProps);
+      PropDescriptor(_$key__untypedProp___$TestCustomNamespaceAbstractProps);
   static const PropDescriptor
       _$prop__customKeyProp___$TestCustomNamespaceAbstractProps =
-      const PropDescriptor(
-          _$key__customKeyProp___$TestCustomNamespaceAbstractProps);
+      PropDescriptor(_$key__customKeyProp___$TestCustomNamespaceAbstractProps);
   static const PropDescriptor
       _$prop__customNamespaceProp___$TestCustomNamespaceAbstractProps =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__customNamespaceProp___$TestCustomNamespaceAbstractProps);
   static const PropDescriptor
       _$prop__customKeyAndNamespaceProp___$TestCustomNamespaceAbstractProps =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__customKeyAndNamespaceProp___$TestCustomNamespaceAbstractProps);
   static const String _$key__stringProp___$TestCustomNamespaceAbstractProps =
       'custom mixin namespace**stringProp';
@@ -245,7 +241,7 @@ abstract class _$TestCustomNamespaceAbstractPropsAccessorsMixin
       _$key__customKeyAndNamespaceProp___$TestCustomNamespaceAbstractProps =
       'custom namespace~~custom key!';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__stringProp___$TestCustomNamespaceAbstractProps,
     _$prop__dynamicProp___$TestCustomNamespaceAbstractProps,
     _$prop__untypedProp___$TestCustomNamespaceAbstractProps,
@@ -253,7 +249,7 @@ abstract class _$TestCustomNamespaceAbstractPropsAccessorsMixin
     _$prop__customNamespaceProp___$TestCustomNamespaceAbstractProps,
     _$prop__customKeyAndNamespaceProp___$TestCustomNamespaceAbstractProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__stringProp___$TestCustomNamespaceAbstractProps,
     _$key__dynamicProp___$TestCustomNamespaceAbstractProps,
     _$key__untypedProp___$TestCustomNamespaceAbstractProps,
@@ -263,7 +259,7 @@ abstract class _$TestCustomNamespaceAbstractPropsAccessorsMixin
   ];
 }
 
-const PropsMeta _$metaForTestCustomNamespaceAbstractProps = const PropsMeta(
+const PropsMeta _$metaForTestCustomNamespaceAbstractProps = PropsMeta(
   fields: _$TestCustomNamespaceAbstractPropsAccessorsMixin.$props,
   keys: _$TestCustomNamespaceAbstractPropsAccessorsMixin.$propKeys,
 );
@@ -346,20 +342,19 @@ abstract class _$TestAbstractStateAccessorsMixin
       state[_$key__customKeyAndNamespaceState___$TestAbstractState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__stringState___$TestAbstractState =
-      const StateDescriptor(_$key__stringState___$TestAbstractState);
+      StateDescriptor(_$key__stringState___$TestAbstractState);
   static const StateDescriptor _$prop__dynamicState___$TestAbstractState =
-      const StateDescriptor(_$key__dynamicState___$TestAbstractState);
+      StateDescriptor(_$key__dynamicState___$TestAbstractState);
   static const StateDescriptor _$prop__untypedState___$TestAbstractState =
-      const StateDescriptor(_$key__untypedState___$TestAbstractState);
+      StateDescriptor(_$key__untypedState___$TestAbstractState);
   static const StateDescriptor _$prop__customKeyState___$TestAbstractState =
-      const StateDescriptor(_$key__customKeyState___$TestAbstractState);
+      StateDescriptor(_$key__customKeyState___$TestAbstractState);
   static const StateDescriptor
       _$prop__customNamespaceState___$TestAbstractState =
-      const StateDescriptor(_$key__customNamespaceState___$TestAbstractState);
+      StateDescriptor(_$key__customNamespaceState___$TestAbstractState);
   static const StateDescriptor
       _$prop__customKeyAndNamespaceState___$TestAbstractState =
-      const StateDescriptor(
-          _$key__customKeyAndNamespaceState___$TestAbstractState);
+      StateDescriptor(_$key__customKeyAndNamespaceState___$TestAbstractState);
   static const String _$key__stringState___$TestAbstractState =
       'TestAbstractState.stringState';
   static const String _$key__dynamicState___$TestAbstractState =
@@ -373,7 +368,7 @@ abstract class _$TestAbstractStateAccessorsMixin
   static const String _$key__customKeyAndNamespaceState___$TestAbstractState =
       'custom namespace~~custom key!';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__stringState___$TestAbstractState,
     _$prop__dynamicState___$TestAbstractState,
     _$prop__untypedState___$TestAbstractState,
@@ -381,7 +376,7 @@ abstract class _$TestAbstractStateAccessorsMixin
     _$prop__customNamespaceState___$TestAbstractState,
     _$prop__customKeyAndNamespaceState___$TestAbstractState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__stringState___$TestAbstractState,
     _$key__dynamicState___$TestAbstractState,
     _$key__untypedState___$TestAbstractState,
@@ -391,7 +386,7 @@ abstract class _$TestAbstractStateAccessorsMixin
   ];
 }
 
-const StateMeta _$metaForTestAbstractState = const StateMeta(
+const StateMeta _$metaForTestAbstractState = StateMeta(
   fields: _$TestAbstractStateAccessorsMixin.$state,
   keys: _$TestAbstractStateAccessorsMixin.$stateKeys,
 );
@@ -477,27 +472,24 @@ abstract class _$TestCustomNamespaceAbstractStateAccessorsMixin
   /* GENERATED CONSTANTS */
   static const StateDescriptor
       _$prop__stringState___$TestCustomNamespaceAbstractState =
-      const StateDescriptor(
-          _$key__stringState___$TestCustomNamespaceAbstractState);
+      StateDescriptor(_$key__stringState___$TestCustomNamespaceAbstractState);
   static const StateDescriptor
       _$prop__dynamicState___$TestCustomNamespaceAbstractState =
-      const StateDescriptor(
-          _$key__dynamicState___$TestCustomNamespaceAbstractState);
+      StateDescriptor(_$key__dynamicState___$TestCustomNamespaceAbstractState);
   static const StateDescriptor
       _$prop__untypedState___$TestCustomNamespaceAbstractState =
-      const StateDescriptor(
-          _$key__untypedState___$TestCustomNamespaceAbstractState);
+      StateDescriptor(_$key__untypedState___$TestCustomNamespaceAbstractState);
   static const StateDescriptor
       _$prop__customKeyState___$TestCustomNamespaceAbstractState =
-      const StateDescriptor(
+      StateDescriptor(
           _$key__customKeyState___$TestCustomNamespaceAbstractState);
   static const StateDescriptor
       _$prop__customNamespaceState___$TestCustomNamespaceAbstractState =
-      const StateDescriptor(
+      StateDescriptor(
           _$key__customNamespaceState___$TestCustomNamespaceAbstractState);
   static const StateDescriptor
       _$prop__customKeyAndNamespaceState___$TestCustomNamespaceAbstractState =
-      const StateDescriptor(
+      StateDescriptor(
           _$key__customKeyAndNamespaceState___$TestCustomNamespaceAbstractState);
   static const String _$key__stringState___$TestCustomNamespaceAbstractState =
       'custom mixin namespace**stringState';
@@ -515,7 +507,7 @@ abstract class _$TestCustomNamespaceAbstractStateAccessorsMixin
       _$key__customKeyAndNamespaceState___$TestCustomNamespaceAbstractState =
       'custom namespace~~custom key!';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__stringState___$TestCustomNamespaceAbstractState,
     _$prop__dynamicState___$TestCustomNamespaceAbstractState,
     _$prop__untypedState___$TestCustomNamespaceAbstractState,
@@ -523,7 +515,7 @@ abstract class _$TestCustomNamespaceAbstractStateAccessorsMixin
     _$prop__customNamespaceState___$TestCustomNamespaceAbstractState,
     _$prop__customKeyAndNamespaceState___$TestCustomNamespaceAbstractState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__stringState___$TestCustomNamespaceAbstractState,
     _$key__dynamicState___$TestCustomNamespaceAbstractState,
     _$key__untypedState___$TestCustomNamespaceAbstractState,
@@ -533,7 +525,7 @@ abstract class _$TestCustomNamespaceAbstractStateAccessorsMixin
   ];
 }
 
-const StateMeta _$metaForTestCustomNamespaceAbstractState = const StateMeta(
+const StateMeta _$metaForTestCustomNamespaceAbstractState = StateMeta(
   fields: _$TestCustomNamespaceAbstractStateAccessorsMixin.$state,
   keys: _$TestCustomNamespaceAbstractStateAccessorsMixin.$stateKeys,
 );

@@ -11,6 +11,10 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+@TestOn('browser')
+
+// ignore_for_file: deprecated_member_use_from_same_package
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
@@ -31,7 +35,7 @@ void main() {
       });
 
       test('on re-render', () {
-        var mountNode = new DivElement();
+        var mountNode = DivElement();
         react_dom.render((ComponentTest()
           ..required = true
           ..nullable = true
@@ -52,7 +56,7 @@ void main() {
       });
 
       test('on re-render', () {
-        var mountNode = new DivElement();
+        var mountNode = DivElement();
         react_dom.render((ComponentTest()
           ..required = true
           ..nullable = true
@@ -75,7 +79,7 @@ void main() {
       });
 
       test('on re-render', () {
-        var mountNode = new DivElement();
+        var mountNode = DivElement();
         react_dom.render((ComponentTest()
           ..required = true
           ..nullable = true
@@ -96,7 +100,7 @@ void main() {
       });
 
       test('on re-render', () {
-        var mountNode = new DivElement();
+        var mountNode = DivElement();
         react_dom.render((ComponentTest()
           ..required = true
           ..nullable = true
@@ -118,7 +122,7 @@ void main() {
       });
 
       test('on re-render', () {
-        var mountNode = new DivElement();
+        var mountNode = DivElement();
         react_dom.render((ComponentTest()
           ..required = true
           ..nullable = true
@@ -139,10 +143,10 @@ UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
 @Props()
 class _$ComponentTestProps extends UiProps {
   @Accessor(isRequired: true, requiredErrorMessage: 'This Prop is Required for testing purposes.')
-  var required;
+  dynamic required;
 
   @Accessor(isRequired: true, isNullable: true, requiredErrorMessage: 'This prop can be set to null!')
-  var nullable;
+  dynamic nullable;
 }
 
 @Component()

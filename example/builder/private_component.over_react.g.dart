@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'private_component.dart';
 
 // **************************************************************************
@@ -32,16 +33,14 @@ abstract class _$_PrivatePropsAccessorsMixin implements _$_PrivateProps {
   set prop1(bool value) => props[_$key__prop1___$_PrivateProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__prop1___$_PrivateProps =
-      const PropDescriptor(_$key__prop1___$_PrivateProps);
+      PropDescriptor(_$key__prop1___$_PrivateProps);
   static const String _$key__prop1___$_PrivateProps = '_PrivateProps.prop1';
 
-  static const List<PropDescriptor> $props = const [
-    _$prop__prop1___$_PrivateProps
-  ];
-  static const List<String> $propKeys = const [_$key__prop1___$_PrivateProps];
+  static const List<PropDescriptor> $props = [_$prop__prop1___$_PrivateProps];
+  static const List<String> $propKeys = [_$key__prop1___$_PrivateProps];
 }
 
-const PropsMeta _$metaFor_PrivateProps = const PropsMeta(
+const PropsMeta _$metaFor_PrivateProps = PropsMeta(
   fields: _$_PrivatePropsAccessorsMixin.$props,
   keys: _$_PrivatePropsAccessorsMixin.$propKeys,
 );
@@ -74,7 +73,7 @@ abstract class _$$_PrivateProps extends _$_PrivateProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $PrivateComponentFactory;
@@ -131,16 +130,14 @@ abstract class _$_PrivateStateAccessorsMixin implements _$_PrivateState {
   set state1(bool value) => state[_$key__state1___$_PrivateState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__state1___$_PrivateState =
-      const StateDescriptor(_$key__state1___$_PrivateState);
+      StateDescriptor(_$key__state1___$_PrivateState);
   static const String _$key__state1___$_PrivateState = '_PrivateState.state1';
 
-  static const List<StateDescriptor> $state = const [
-    _$prop__state1___$_PrivateState
-  ];
-  static const List<String> $stateKeys = const [_$key__state1___$_PrivateState];
+  static const List<StateDescriptor> $state = [_$prop__state1___$_PrivateState];
+  static const List<String> $stateKeys = [_$key__state1___$_PrivateState];
 }
 
-const StateMeta _$metaFor_PrivateState = const StateMeta(
+const StateMeta _$metaFor_PrivateState = StateMeta(
   fields: _$_PrivateStateAccessorsMixin.$state,
   keys: _$_PrivateStateAccessorsMixin.$stateKeys,
 );
@@ -256,12 +253,12 @@ class _$PrivateComponent extends PrivateComponent {
   _$$_PrivateState typedStateFactory(Map backingMap) =>
       new _$$_PrivateState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$_PrivateProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaFor_PrivateProps

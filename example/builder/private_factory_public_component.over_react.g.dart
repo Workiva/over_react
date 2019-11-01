@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'private_factory_public_component.dart';
 
 // **************************************************************************
@@ -34,19 +35,17 @@ abstract class _$FormActionInputPropsAccessorsMixin
       props[_$key__prop1___$FormActionInputProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__prop1___$FormActionInputProps =
-      const PropDescriptor(_$key__prop1___$FormActionInputProps);
+      PropDescriptor(_$key__prop1___$FormActionInputProps);
   static const String _$key__prop1___$FormActionInputProps =
       'FormActionInputProps.prop1';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__prop1___$FormActionInputProps
   ];
-  static const List<String> $propKeys = const [
-    _$key__prop1___$FormActionInputProps
-  ];
+  static const List<String> $propKeys = [_$key__prop1___$FormActionInputProps];
 }
 
-const PropsMeta _$metaForFormActionInputProps = const PropsMeta(
+const PropsMeta _$metaForFormActionInputProps = PropsMeta(
   fields: _$FormActionInputPropsAccessorsMixin.$props,
   keys: _$FormActionInputPropsAccessorsMixin.$propKeys,
 );
@@ -81,7 +80,7 @@ abstract class _$$FormActionInputProps extends _$FormActionInputProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $FormActionInputComponentFactory;
@@ -155,12 +154,12 @@ class _$FormActionInputComponent extends FormActionInputComponent {
   _$$FormActionInputProps typedPropsFactory(Map backingMap) =>
       new _$$FormActionInputProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$FormActionInputProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForFormActionInputProps

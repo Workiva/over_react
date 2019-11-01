@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'basic_library.dart';
 
 // **************************************************************************
@@ -84,17 +85,17 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
       props[_$key__basic5___$BasicPartOfLibProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__basicProp___$BasicPartOfLibProps =
-      const PropDescriptor(_$key__basicProp___$BasicPartOfLibProps);
+      PropDescriptor(_$key__basicProp___$BasicPartOfLibProps);
   static const PropDescriptor _$prop__basic1___$BasicPartOfLibProps =
-      const PropDescriptor(_$key__basic1___$BasicPartOfLibProps);
+      PropDescriptor(_$key__basic1___$BasicPartOfLibProps);
   static const PropDescriptor _$prop__basic2___$BasicPartOfLibProps =
-      const PropDescriptor(_$key__basic2___$BasicPartOfLibProps);
+      PropDescriptor(_$key__basic2___$BasicPartOfLibProps);
   static const PropDescriptor _$prop__basic3___$BasicPartOfLibProps =
-      const PropDescriptor(_$key__basic3___$BasicPartOfLibProps);
+      PropDescriptor(_$key__basic3___$BasicPartOfLibProps);
   static const PropDescriptor _$prop__basic4___$BasicPartOfLibProps =
-      const PropDescriptor(_$key__basic4___$BasicPartOfLibProps);
+      PropDescriptor(_$key__basic4___$BasicPartOfLibProps);
   static const PropDescriptor _$prop__basic5___$BasicPartOfLibProps =
-      const PropDescriptor(_$key__basic5___$BasicPartOfLibProps);
+      PropDescriptor(_$key__basic5___$BasicPartOfLibProps);
   static const String _$key__basicProp___$BasicPartOfLibProps =
       'BasicPartOfLibProps.basicProp';
   static const String _$key__basic1___$BasicPartOfLibProps =
@@ -108,7 +109,7 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
   static const String _$key__basic5___$BasicPartOfLibProps =
       'BasicPartOfLibProps.basic5';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__basicProp___$BasicPartOfLibProps,
     _$prop__basic1___$BasicPartOfLibProps,
     _$prop__basic2___$BasicPartOfLibProps,
@@ -116,7 +117,7 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
     _$prop__basic4___$BasicPartOfLibProps,
     _$prop__basic5___$BasicPartOfLibProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__basicProp___$BasicPartOfLibProps,
     _$key__basic1___$BasicPartOfLibProps,
     _$key__basic2___$BasicPartOfLibProps,
@@ -126,7 +127,7 @@ abstract class _$BasicPartOfLibPropsAccessorsMixin
   ];
 }
 
-const PropsMeta _$metaForBasicPartOfLibProps = const PropsMeta(
+const PropsMeta _$metaForBasicPartOfLibProps = PropsMeta(
   fields: _$BasicPartOfLibPropsAccessorsMixin.$props,
   keys: _$BasicPartOfLibPropsAccessorsMixin.$propKeys,
 );
@@ -161,7 +162,7 @@ abstract class _$$BasicPartOfLibProps extends _$BasicPartOfLibProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $BasicPartOfLibComponentFactory;
@@ -220,19 +221,19 @@ abstract class _$BasicPartOfLibStateAccessorsMixin
       state[_$key__basicState___$BasicPartOfLibState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__basicState___$BasicPartOfLibState =
-      const StateDescriptor(_$key__basicState___$BasicPartOfLibState);
+      StateDescriptor(_$key__basicState___$BasicPartOfLibState);
   static const String _$key__basicState___$BasicPartOfLibState =
       'BasicPartOfLibState.basicState';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__basicState___$BasicPartOfLibState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__basicState___$BasicPartOfLibState
   ];
 }
 
-const StateMeta _$metaForBasicPartOfLibState = const StateMeta(
+const StateMeta _$metaForBasicPartOfLibState = StateMeta(
   fields: _$BasicPartOfLibStateAccessorsMixin.$state,
   keys: _$BasicPartOfLibStateAccessorsMixin.$stateKeys,
 );
@@ -349,12 +350,12 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
   _$$BasicPartOfLibState typedStateFactory(Map backingMap) =>
       new _$$BasicPartOfLibState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$BasicPartOfLibProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForBasicPartOfLibProps
@@ -388,19 +389,17 @@ abstract class _$SubPartOfLibPropsAccessorsMixin
       props[_$key__subProp___$SubPartOfLibProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__subProp___$SubPartOfLibProps =
-      const PropDescriptor(_$key__subProp___$SubPartOfLibProps);
+      PropDescriptor(_$key__subProp___$SubPartOfLibProps);
   static const String _$key__subProp___$SubPartOfLibProps =
       'SubPartOfLibProps.subProp';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__subProp___$SubPartOfLibProps
   ];
-  static const List<String> $propKeys = const [
-    _$key__subProp___$SubPartOfLibProps
-  ];
+  static const List<String> $propKeys = [_$key__subProp___$SubPartOfLibProps];
 }
 
-const PropsMeta _$metaForSubPartOfLibProps = const PropsMeta(
+const PropsMeta _$metaForSubPartOfLibProps = PropsMeta(
   fields: _$SubPartOfLibPropsAccessorsMixin.$props,
   keys: _$SubPartOfLibPropsAccessorsMixin.$propKeys,
 );
@@ -434,7 +433,7 @@ class _$$SubPartOfLibProps extends _$SubPartOfLibProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $SubPartOfLibComponentFactory;
@@ -453,12 +452,12 @@ class _$SubPartOfLibComponent extends SubPartOfLibComponent {
   _$$SubPartOfLibProps typedPropsFactory(Map backingMap) =>
       new _$$SubPartOfLibProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$SubPartOfLibProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForSubPartOfLibProps
@@ -481,19 +480,19 @@ abstract class _$SuperPartOfLibPropsAccessorsMixin
       props[_$key__superProp___$SuperPartOfLibProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__superProp___$SuperPartOfLibProps =
-      const PropDescriptor(_$key__superProp___$SuperPartOfLibProps);
+      PropDescriptor(_$key__superProp___$SuperPartOfLibProps);
   static const String _$key__superProp___$SuperPartOfLibProps =
       'SuperPartOfLibProps.superProp';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__superProp___$SuperPartOfLibProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__superProp___$SuperPartOfLibProps
   ];
 }
 
-const PropsMeta _$metaForSuperPartOfLibProps = const PropsMeta(
+const PropsMeta _$metaForSuperPartOfLibProps = PropsMeta(
   fields: _$SuperPartOfLibPropsAccessorsMixin.$props,
   keys: _$SuperPartOfLibPropsAccessorsMixin.$propKeys,
 );

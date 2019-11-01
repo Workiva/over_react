@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:analyzer/analyzer.dart';
+// ignore_for_file: deprecated_member_use_from_same_package
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
@@ -49,7 +50,7 @@ class ImplGenerator {
   ImplGenerator(this.logger, this.sourceFile);
 
   Logger logger;
-  StringBuffer outputContentsBuffer = new StringBuffer();
+  StringBuffer outputContentsBuffer = StringBuffer();
 
   SourceFile sourceFile;
 
@@ -286,12 +287,12 @@ class ImplGenerator {
         ..writeln('class $componentClassImplMixinName extends $componentClassName {')
         ..write(typedPropsFactoryImpl)
         ..write(typedStateFactoryImpl)
-        ..writeln('  /// Let [UiComponent] internals know that this class has been generated.')
+        ..writeln('  /// Let `UiComponent` internals know that this class has been generated.')
         ..writeln('  @override')
         ..writeln('  bool get \$isClassGenerated => true;')
         ..writeln()
         ..writeln('  /// The default consumed props, taken from $consumerPropsName.')
-        ..writeln('  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.')
+        ..writeln('  /// Used in `ConsumedProps` if [consumedProps] is not overridden.')
         ..writeln('  @override')
         ..writeln('  final List<ConsumedProps> \$defaultConsumedProps = '
                         'const [${_metaConstantName(consumablePropsName)}];')
@@ -390,7 +391,7 @@ class ImplGenerator {
     Map keyConstants = {};
     Map constants = {};
 
-    StringBuffer output = new StringBuffer();
+    StringBuffer output = StringBuffer();
 
     typedMap.node.members
         .where((member) => member is FieldDeclaration && !member.isStatic)
@@ -413,7 +414,7 @@ class ImplGenerator {
             return;
           }
 
-          field.fields.variables.forEach((VariableDeclaration variable) {
+          field.fields.variables.forEach((variable) {
             if (variable.initializer != null) {
               logger.severe(messageWithSpan(
                   'Fields are stubs for generated setters/getters and should not have initializers.\n'
@@ -438,7 +439,7 @@ class ImplGenerator {
             String keyValue = stringLiteral(individualKeyNamespace + individualKey);
 
             String constantName = '${privateSourcePrefix}prop__${accessorName}__$staticConstNamespace';
-            String constantValue = 'const $constConstructorName($keyConstantName';
+            String constantValue = '$constConstructorName($keyConstantName';
 
             var annotationCount = 0;
 
@@ -481,7 +482,7 @@ class ImplGenerator {
 
             final typeSource = field.fields.type?.toSource();
             final typeString = typeSource == null ? '' : '$typeSource ';
-            final metadataSrc = new StringBuffer();
+            final metadataSrc = StringBuffer();
             for (final annotation in field.metadata) {
               metadataSrc.writeln('  ${annotation.toSource()}');
             }
@@ -541,8 +542,8 @@ class ImplGenerator {
           }
         });
 
-    var keyConstantsImpl;
-    var constantsImpl;
+    String keyConstantsImpl;
+    String constantsImpl;
 
     if (keyConstants.keys.isEmpty) {
       keyConstantsImpl = '';
@@ -561,19 +562,19 @@ class ImplGenerator {
     }
 
     String keyListImpl =
-        '  static const List<String> $keyListName = const [' +
+        '  static const List<String> $keyListName = [' +
         keyConstants.keys.join(', ') +
         '];\n';
 
     String listImpl =
-        '  static const List<$constConstructorName> $constantListName = const [' +
+        '  static const List<$constConstructorName> $constantListName = [' +
         constants.keys.join(', ') +
         '];\n';
 
     String staticVariablesImpl = '  /* GENERATED CONSTANTS */\n$constantsImpl$keyConstantsImpl\n$listImpl$keyListImpl';
 
     output.write(staticVariablesImpl);
-    return new AccessorOutput(output.toString());
+    return AccessorOutput(output.toString());
   }
 
   static String _getAccessorKeyNamespace(NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap) {
@@ -600,7 +601,7 @@ class ImplGenerator {
   ///   Output: '_$$_FooProps'
   static String _propsImplClassNameFromConsumerClassName(String className) {
     if (className == null) {
-      throw new ArgumentError.notNull(className);
+      throw ArgumentError.notNull(className);
     }
 
     return className.replaceFirst(privateSourcePrefix, '$privateSourcePrefix\$');
@@ -635,7 +636,7 @@ class ImplGenerator {
   ///   Output: '_FooProps'
   static String _publicPropsOrStateClassNameFromConsumerClassName(String className) {
     if (className == null) {
-      throw new ArgumentError.notNull(className);
+      throw ArgumentError.notNull(className);
     }
 
     return className.replaceFirst(privateSourcePrefix, '');
@@ -651,7 +652,7 @@ class ImplGenerator {
   /// factories from super components.
   static String _componentFactoryName(String componentClassName) {
     if (componentClassName == null) {
-      throw new ArgumentError.notNull(componentClassName);
+      throw ArgumentError.notNull(componentClassName);
     }
 
     return '$publicGeneratedPrefix${componentClassName}Factory';
@@ -666,7 +667,7 @@ class ImplGenerator {
   ///   Output: _$_FooPropsAccessorsMixin
   static String _accessorsMixinNameFromConsumerName(String className) {
     if (className == null) {
-      throw new ArgumentError.notNull(className);
+      throw ArgumentError.notNull(className);
     }
 
     return '${className}AccessorsMixin';
@@ -679,7 +680,7 @@ class ImplGenerator {
   ///   Output: $metaForFooProps
   static String _metaConstantName(String consumableClassName) {
     if (consumableClassName == null) {
-      throw new ArgumentError.notNull(consumableClassName);
+      throw ArgumentError.notNull(consumableClassName);
     }
 
     return '${privateSourcePrefix}metaFor$consumableClassName';
@@ -718,8 +719,8 @@ class ImplGenerator {
 
     final String metaInstanceName = _metaConstantName(_publicPropsOrStateClassNameFromConsumerClassName(className));
 
-    final output = new StringBuffer();
-    output.writeln('const $metaStructName $metaInstanceName = const $metaStructName(');
+    final output = StringBuffer();
+    output.writeln('const $metaStructName $metaInstanceName = $metaStructName(');
     output.writeln('  fields: $accessorsMixinName.$fieldListName,');
     output.writeln('  keys: $accessorsMixinName.$keyListName,');
     output.writeln(');');
@@ -732,7 +733,7 @@ class ImplGenerator {
     final typeParamsOnClass = typeParameters?.toSource() ?? '';
     final typeParamsOnSuper = removeBoundsFromTypeParameters(typeParameters);
 
-    StringBuffer generatedClass = new StringBuffer();
+    StringBuffer generatedClass = StringBuffer();
     final implementsClause = 'implements $consumerClassName$typeParamsOnSuper';
     generatedClass.writeln(
         'abstract class $accessorsMixinName$typeParamsOnClass $implementsClause {\n' +
@@ -776,7 +777,7 @@ class ImplGenerator {
     }
 
     final buffer = StringBuffer();
-    node.node.members.where(isValidForCopying).forEach((member) => buffer.write(member.toSource()));
+    node.node.members.where(isValidForCopying).forEach((member) => buffer.write('@override\n' + member.toSource()));
     return buffer.toString();
   }
 
@@ -792,7 +793,7 @@ class ImplGenerator {
   String _copyStaticMembers(NodeWithMeta<ClassDeclaration, annotations.TypedMap> node) {
     final buffer = StringBuffer();
     node.node.members
-        .where((member) => _isStaticFieldOrMethod(member))
+        .where(_isStaticFieldOrMethod)
         .forEach((member) {
           // Don't copy over anything named `meta`, since the static meta field is already going to be generated.
           if (!_memberHasName(member, 'meta')) {
@@ -919,7 +920,7 @@ class ImplGenerator {
     if (type.isProps) {
       buffer
         ..writeln()
-        ..writeln('  /// The [ReactComponentFactory] associated with the component built by this class.')
+        ..writeln('  /// The `ReactComponentFactory` associated with the component built by this class.')
         ..writeln('  @override')
         ..writeln('  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $componentFactoryName;')
         ..writeln()
@@ -1005,14 +1006,15 @@ class AccessorType {
   final bool isProps;
   final bool isAbstract;
   final bool isMixin;
+  // ignore: avoid_positional_boolean_parameters
   const AccessorType(this.isProps, this.isAbstract, this.isMixin);
 
-  static const AccessorType props = const AccessorType(true, false, false);
-  static const AccessorType state = const AccessorType(false, false, false);
-  static const AccessorType abstractProps = const AccessorType(true, true, false);
-  static const AccessorType abstractState = const AccessorType(false, true, false);
-  static const AccessorType propsMixin = const AccessorType(true, false, true);
-  static const AccessorType stateMixin = const AccessorType(false, false, true);
+  static const AccessorType props = AccessorType(true, false, false);
+  static const AccessorType state = AccessorType(false, false, false);
+  static const AccessorType abstractProps = AccessorType(true, true, false);
+  static const AccessorType abstractState = AccessorType(false, true, false);
+  static const AccessorType propsMixin = AccessorType(true, false, true);
+  static const AccessorType stateMixin = AccessorType(false, false, true);
 }
 
 class AccessorOutput {

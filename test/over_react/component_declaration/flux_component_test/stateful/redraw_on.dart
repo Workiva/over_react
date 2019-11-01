@@ -1,3 +1,4 @@
+// ignore_for_file: deprecated_member_use_from_same_package
 part of over_react.component_declaration.flux_component_test;
 
 @Factory()
@@ -20,7 +21,7 @@ class TestStatefulRedrawOnComponent extends FluxUiStatefulComponent<TestStateful
   redrawOn() => [props.store.store1, props.store.store2];
 
   @override
-  void setState(_, [callback()]) {
+  void setState(_, [Function() callback]) {
     numberOfRedraws++;
     if (callback != null) callback();
   }

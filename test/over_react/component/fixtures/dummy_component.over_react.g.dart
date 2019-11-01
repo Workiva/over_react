@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'dummy_component.dart';
 
 // **************************************************************************
@@ -33,19 +34,19 @@ abstract class _$DummyPropsAccessorsMixin implements _$DummyProps {
       props[_$key__onComponentDidMount___$DummyProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__onComponentDidMount___$DummyProps =
-      const PropDescriptor(_$key__onComponentDidMount___$DummyProps);
+      PropDescriptor(_$key__onComponentDidMount___$DummyProps);
   static const String _$key__onComponentDidMount___$DummyProps =
       'DummyProps.onComponentDidMount';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__onComponentDidMount___$DummyProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__onComponentDidMount___$DummyProps
   ];
 }
 
-const PropsMeta _$metaForDummyProps = const PropsMeta(
+const PropsMeta _$metaForDummyProps = PropsMeta(
   fields: _$DummyPropsAccessorsMixin.$props,
   keys: _$DummyPropsAccessorsMixin.$propKeys,
 );
@@ -74,7 +75,7 @@ abstract class _$$DummyProps extends _$DummyProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $DummyComponentFactory;
@@ -148,12 +149,12 @@ class _$DummyComponent extends DummyComponent {
   _$$DummyProps typedPropsFactory(Map backingMap) =>
       new _$$DummyProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$DummyProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForDummyProps];
 }

@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'counter.dart';
 
 // **************************************************************************
@@ -63,13 +64,13 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
       props[_$key__decrement___$CounterProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__currentCount___$CounterProps =
-      const PropDescriptor(_$key__currentCount___$CounterProps);
+      PropDescriptor(_$key__currentCount___$CounterProps);
   static const PropDescriptor _$prop__wrapperStyles___$CounterProps =
-      const PropDescriptor(_$key__wrapperStyles___$CounterProps);
+      PropDescriptor(_$key__wrapperStyles___$CounterProps);
   static const PropDescriptor _$prop__increment___$CounterProps =
-      const PropDescriptor(_$key__increment___$CounterProps);
+      PropDescriptor(_$key__increment___$CounterProps);
   static const PropDescriptor _$prop__decrement___$CounterProps =
-      const PropDescriptor(_$key__decrement___$CounterProps);
+      PropDescriptor(_$key__decrement___$CounterProps);
   static const String _$key__currentCount___$CounterProps =
       'CounterProps.currentCount';
   static const String _$key__wrapperStyles___$CounterProps =
@@ -79,13 +80,13 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
   static const String _$key__decrement___$CounterProps =
       'CounterProps.decrement';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__currentCount___$CounterProps,
     _$prop__wrapperStyles___$CounterProps,
     _$prop__increment___$CounterProps,
     _$prop__decrement___$CounterProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__currentCount___$CounterProps,
     _$key__wrapperStyles___$CounterProps,
     _$key__increment___$CounterProps,
@@ -93,7 +94,7 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
   ];
 }
 
-const PropsMeta _$metaForCounterProps = const PropsMeta(
+const PropsMeta _$metaForCounterProps = PropsMeta(
   fields: _$CounterPropsAccessorsMixin.$props,
   keys: _$CounterPropsAccessorsMixin.$propKeys,
 );
@@ -126,7 +127,7 @@ abstract class _$$CounterProps extends _$CounterProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $CounterComponentFactory;
@@ -200,12 +201,12 @@ class _$CounterComponent extends CounterComponent {
   _$$CounterProps typedPropsFactory(Map backingMap) =>
       new _$$CounterProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$CounterProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForCounterProps

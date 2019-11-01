@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'prop_validation.dart';
 
 // **************************************************************************
@@ -121,26 +122,26 @@ abstract class _$PropTypesTestPropsAccessorsMixin
   set label(String value) => props[_$key__label___$PropTypesTestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__count___$PropTypesTestProps =
-      const PropDescriptor(_$key__count___$PropTypesTestProps);
+      PropDescriptor(_$key__count___$PropTypesTestProps);
   static const PropDescriptor _$prop__twoObjects___$PropTypesTestProps =
-      const PropDescriptor(_$key__twoObjects___$PropTypesTestProps);
+      PropDescriptor(_$key__twoObjects___$PropTypesTestProps);
   static const PropDescriptor _$prop__defaultCount___$PropTypesTestProps =
-      const PropDescriptor(_$key__defaultCount___$PropTypesTestProps);
+      PropDescriptor(_$key__defaultCount___$PropTypesTestProps);
   static const PropDescriptor _$prop__content___$PropTypesTestProps =
-      const PropDescriptor(_$key__content___$PropTypesTestProps);
+      PropDescriptor(_$key__content___$PropTypesTestProps);
   static const PropDescriptor _$prop__hideHeader___$PropTypesTestProps =
-      const PropDescriptor(_$key__hideHeader___$PropTypesTestProps);
+      PropDescriptor(_$key__hideHeader___$PropTypesTestProps);
   static const PropDescriptor _$prop__header___$PropTypesTestProps =
-      const PropDescriptor(_$key__header___$PropTypesTestProps);
+      PropDescriptor(_$key__header___$PropTypesTestProps);
   static const PropDescriptor
       _$prop__initiallyExpandedKeys___$PropTypesTestProps =
-      const PropDescriptor(_$key__initiallyExpandedKeys___$PropTypesTestProps);
+      PropDescriptor(_$key__initiallyExpandedKeys___$PropTypesTestProps);
   static const PropDescriptor _$prop__targetKey___$PropTypesTestProps =
-      const PropDescriptor(_$key__targetKey___$PropTypesTestProps);
+      PropDescriptor(_$key__targetKey___$PropTypesTestProps);
   static const PropDescriptor _$prop__hideLabel___$PropTypesTestProps =
-      const PropDescriptor(_$key__hideLabel___$PropTypesTestProps);
+      PropDescriptor(_$key__hideLabel___$PropTypesTestProps);
   static const PropDescriptor _$prop__label___$PropTypesTestProps =
-      const PropDescriptor(_$key__label___$PropTypesTestProps);
+      PropDescriptor(_$key__label___$PropTypesTestProps);
   static const String _$key__count___$PropTypesTestProps =
       'PropTypesTestProps.count';
   static const String _$key__twoObjects___$PropTypesTestProps =
@@ -162,7 +163,7 @@ abstract class _$PropTypesTestPropsAccessorsMixin
   static const String _$key__label___$PropTypesTestProps =
       'PropTypesTestProps.label';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__count___$PropTypesTestProps,
     _$prop__twoObjects___$PropTypesTestProps,
     _$prop__defaultCount___$PropTypesTestProps,
@@ -174,7 +175,7 @@ abstract class _$PropTypesTestPropsAccessorsMixin
     _$prop__hideLabel___$PropTypesTestProps,
     _$prop__label___$PropTypesTestProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__count___$PropTypesTestProps,
     _$key__twoObjects___$PropTypesTestProps,
     _$key__defaultCount___$PropTypesTestProps,
@@ -188,7 +189,7 @@ abstract class _$PropTypesTestPropsAccessorsMixin
   ];
 }
 
-const PropsMeta _$metaForPropTypesTestProps = const PropsMeta(
+const PropsMeta _$metaForPropTypesTestProps = PropsMeta(
   fields: _$PropTypesTestPropsAccessorsMixin.$props,
   keys: _$PropTypesTestPropsAccessorsMixin.$propKeys,
 );
@@ -223,7 +224,7 @@ abstract class _$$PropTypesTestProps extends _$PropTypesTestProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $PropTypesTestComponentFactory;
@@ -297,12 +298,12 @@ class _$PropTypesTestComponent extends PropTypesTestComponent {
   _$$PropTypesTestProps typedPropsFactory(Map backingMap) =>
       new _$$PropTypesTestProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$PropTypesTestProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForPropTypesTestProps

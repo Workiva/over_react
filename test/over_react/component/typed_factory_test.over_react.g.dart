@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'typed_factory_test.dart';
 
 // **************************************************************************
@@ -34,19 +35,19 @@ abstract class _$TypedFactoryTesterPropsAccessorsMixin
       props[_$key__testProp___$TypedFactoryTesterProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__testProp___$TypedFactoryTesterProps =
-      const PropDescriptor(_$key__testProp___$TypedFactoryTesterProps);
+      PropDescriptor(_$key__testProp___$TypedFactoryTesterProps);
   static const String _$key__testProp___$TypedFactoryTesterProps =
       'TypedFactoryTesterProps.testProp';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__testProp___$TypedFactoryTesterProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__testProp___$TypedFactoryTesterProps
   ];
 }
 
-const PropsMeta _$metaForTypedFactoryTesterProps = const PropsMeta(
+const PropsMeta _$metaForTypedFactoryTesterProps = PropsMeta(
   fields: _$TypedFactoryTesterPropsAccessorsMixin.$props,
   keys: _$TypedFactoryTesterPropsAccessorsMixin.$propKeys,
 );
@@ -81,7 +82,7 @@ abstract class _$$TypedFactoryTesterProps extends _$TypedFactoryTesterProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TypedFactoryTesterComponentFactory;
@@ -140,19 +141,19 @@ abstract class _$TypedFactoryTesterStateAccessorsMixin
       state[_$key__testState___$TypedFactoryTesterState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__testState___$TypedFactoryTesterState =
-      const StateDescriptor(_$key__testState___$TypedFactoryTesterState);
+      StateDescriptor(_$key__testState___$TypedFactoryTesterState);
   static const String _$key__testState___$TypedFactoryTesterState =
       'TypedFactoryTesterState.testState';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__testState___$TypedFactoryTesterState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__testState___$TypedFactoryTesterState
   ];
 }
 
-const StateMeta _$metaForTypedFactoryTesterState = const StateMeta(
+const StateMeta _$metaForTypedFactoryTesterState = StateMeta(
   fields: _$TypedFactoryTesterStateAccessorsMixin.$state,
   keys: _$TypedFactoryTesterStateAccessorsMixin.$stateKeys,
 );
@@ -271,12 +272,12 @@ class _$TypedFactoryTesterComponent extends TypedFactoryTesterComponent {
   _$$TypedFactoryTesterState typedStateFactory(Map backingMap) =>
       new _$$TypedFactoryTesterState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TypedFactoryTesterProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTypedFactoryTesterProps

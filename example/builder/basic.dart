@@ -1,3 +1,4 @@
+// ignore_for_file: deprecated_member_use_from_same_package
 import 'package:over_react/over_react.dart';
 
 part 'basic.over_react.g.dart';
@@ -7,7 +8,7 @@ UiFactory<BasicProps> Basic = _$Basic;
 
 @Props()
 class _$BasicProps extends UiProps {
-  @deprecated
+  @Deprecated('This is deprecated')
   @requiredProp
   String basicProp;
 
@@ -22,7 +23,7 @@ class _$BasicProps extends UiProps {
 class BasicComponent extends UiComponent2<BasicProps> {
   @override
   get defaultProps => newProps()..id = 'basic component'
-      ..basicProp = 'defaultBasicProps'; // ignore: deprecated_member_use
+      ..basicProp = 'defaultBasicProps';
 
 
   @override

@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'abstract_inheritance.dart';
 
 // **************************************************************************
@@ -32,16 +33,14 @@ abstract class _$SubPropsAccessorsMixin implements _$SubProps {
   set subProp(String value) => props[_$key__subProp___$SubProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__subProp___$SubProps =
-      const PropDescriptor(_$key__subProp___$SubProps);
+      PropDescriptor(_$key__subProp___$SubProps);
   static const String _$key__subProp___$SubProps = 'SubProps.subProp';
 
-  static const List<PropDescriptor> $props = const [
-    _$prop__subProp___$SubProps
-  ];
-  static const List<String> $propKeys = const [_$key__subProp___$SubProps];
+  static const List<PropDescriptor> $props = [_$prop__subProp___$SubProps];
+  static const List<String> $propKeys = [_$key__subProp___$SubProps];
 }
 
-const PropsMeta _$metaForSubProps = const PropsMeta(
+const PropsMeta _$metaForSubProps = PropsMeta(
   fields: _$SubPropsAccessorsMixin.$props,
   keys: _$SubPropsAccessorsMixin.$propKeys,
 );
@@ -74,7 +73,7 @@ abstract class _$$SubProps extends _$SubProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $SubComponentFactory;
@@ -131,16 +130,14 @@ abstract class _$SubStateAccessorsMixin implements _$SubState {
   set subState(String value) => state[_$key__subState___$SubState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__subState___$SubState =
-      const StateDescriptor(_$key__subState___$SubState);
+      StateDescriptor(_$key__subState___$SubState);
   static const String _$key__subState___$SubState = 'SubState.subState';
 
-  static const List<StateDescriptor> $state = const [
-    _$prop__subState___$SubState
-  ];
-  static const List<String> $stateKeys = const [_$key__subState___$SubState];
+  static const List<StateDescriptor> $state = [_$prop__subState___$SubState];
+  static const List<String> $stateKeys = [_$key__subState___$SubState];
 }
 
-const StateMeta _$metaForSubState = const StateMeta(
+const StateMeta _$metaForSubState = StateMeta(
   fields: _$SubStateAccessorsMixin.$state,
   keys: _$SubStateAccessorsMixin.$stateKeys,
 );
@@ -254,12 +251,12 @@ class _$SubComponent extends SubComponent {
   @override
   _$$SubState typedStateFactory(Map backingMap) => new _$$SubState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$SubProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForSubProps];
 }
@@ -278,16 +275,14 @@ abstract class _$SuperPropsAccessorsMixin implements _$SuperProps {
   set superProp(String value) => props[_$key__superProp___$SuperProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__superProp___$SuperProps =
-      const PropDescriptor(_$key__superProp___$SuperProps);
+      PropDescriptor(_$key__superProp___$SuperProps);
   static const String _$key__superProp___$SuperProps = 'SuperProps.superProp';
 
-  static const List<PropDescriptor> $props = const [
-    _$prop__superProp___$SuperProps
-  ];
-  static const List<String> $propKeys = const [_$key__superProp___$SuperProps];
+  static const List<PropDescriptor> $props = [_$prop__superProp___$SuperProps];
+  static const List<String> $propKeys = [_$key__superProp___$SuperProps];
 }
 
-const PropsMeta _$metaForSuperProps = const PropsMeta(
+const PropsMeta _$metaForSuperProps = PropsMeta(
   fields: _$SuperPropsAccessorsMixin.$props,
   keys: _$SuperPropsAccessorsMixin.$propKeys,
 );
@@ -311,18 +306,16 @@ abstract class _$SuperStateAccessorsMixin implements _$SuperState {
       state[_$key__superState___$SuperState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__superState___$SuperState =
-      const StateDescriptor(_$key__superState___$SuperState);
+      StateDescriptor(_$key__superState___$SuperState);
   static const String _$key__superState___$SuperState = 'SuperState.superState';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__superState___$SuperState
   ];
-  static const List<String> $stateKeys = const [
-    _$key__superState___$SuperState
-  ];
+  static const List<String> $stateKeys = [_$key__superState___$SuperState];
 }
 
-const StateMeta _$metaForSuperState = const StateMeta(
+const StateMeta _$metaForSuperState = StateMeta(
   fields: _$SuperStateAccessorsMixin.$state,
   keys: _$SuperStateAccessorsMixin.$stateKeys,
 );

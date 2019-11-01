@@ -24,10 +24,10 @@ class PropError extends Error {
   static const String combinationPrefix = 'InvalidPropCombinationError: ';
 
   final String _messagePrefix;
-  final invalidValue;
+  dynamic invalidValue;
   final String propName;
   final String prop2Name;
-  final message;
+  String message;
 
   /// Create a new [PropError], with the given [propName] and optional [message].
   PropError(this.propName, [this.message = ''])

@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'toggle_button.dart';
 
 // **************************************************************************
@@ -121,29 +122,29 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   set checked(bool value) => props[_$key__checked___$ToggleButtonProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__autoFocus___$ToggleButtonProps =
-      const PropDescriptor(_$key__autoFocus___$ToggleButtonProps);
+      PropDescriptor(_$key__autoFocus___$ToggleButtonProps);
   static const PropDescriptor _$prop__defaultChecked___$ToggleButtonProps =
-      const PropDescriptor(_$key__defaultChecked___$ToggleButtonProps);
+      PropDescriptor(_$key__defaultChecked___$ToggleButtonProps);
   static const PropDescriptor _$prop__checked___$ToggleButtonProps =
-      const PropDescriptor(_$key__checked___$ToggleButtonProps);
+      PropDescriptor(_$key__checked___$ToggleButtonProps);
   static const String _$key__autoFocus___$ToggleButtonProps = 'autoFocus';
   static const String _$key__defaultChecked___$ToggleButtonProps =
       'defaultChecked';
   static const String _$key__checked___$ToggleButtonProps = 'checked';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__autoFocus___$ToggleButtonProps,
     _$prop__defaultChecked___$ToggleButtonProps,
     _$prop__checked___$ToggleButtonProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__autoFocus___$ToggleButtonProps,
     _$key__defaultChecked___$ToggleButtonProps,
     _$key__checked___$ToggleButtonProps
   ];
 }
 
-const PropsMeta _$metaForToggleButtonProps = const PropsMeta(
+const PropsMeta _$metaForToggleButtonProps = PropsMeta(
   fields: _$ToggleButtonPropsAccessorsMixin.$props,
   keys: _$ToggleButtonPropsAccessorsMixin.$propKeys,
 );
@@ -177,7 +178,7 @@ class _$$ToggleButtonProps extends _$ToggleButtonProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $ToggleButtonComponentFactory;
@@ -231,25 +232,25 @@ abstract class _$ToggleButtonStateAccessorsMixin
       state[_$key__isChecked___$ToggleButtonState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__isFocused___$ToggleButtonState =
-      const StateDescriptor(_$key__isFocused___$ToggleButtonState);
+      StateDescriptor(_$key__isFocused___$ToggleButtonState);
   static const StateDescriptor _$prop__isChecked___$ToggleButtonState =
-      const StateDescriptor(_$key__isChecked___$ToggleButtonState);
+      StateDescriptor(_$key__isChecked___$ToggleButtonState);
   static const String _$key__isFocused___$ToggleButtonState =
       'ToggleButtonState.isFocused';
   static const String _$key__isChecked___$ToggleButtonState =
       'ToggleButtonState.isChecked';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__isFocused___$ToggleButtonState,
     _$prop__isChecked___$ToggleButtonState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__isFocused___$ToggleButtonState,
     _$key__isChecked___$ToggleButtonState
   ];
 }
 
-const StateMeta _$metaForToggleButtonState = const StateMeta(
+const StateMeta _$metaForToggleButtonState = StateMeta(
   fields: _$ToggleButtonStateAccessorsMixin.$state,
   keys: _$ToggleButtonStateAccessorsMixin.$stateKeys,
 );
@@ -294,12 +295,12 @@ class _$ToggleButtonComponent extends ToggleButtonComponent {
   _$$ToggleButtonState typedStateFactory(Map backingMap) =>
       new _$$ToggleButtonState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ToggleButtonProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForToggleButtonProps

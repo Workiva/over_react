@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'dummy_composite_component.dart';
 
 // **************************************************************************
@@ -55,15 +56,14 @@ abstract class _$TestCompositeComponentPropsAccessorsMixin
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__onComponentDidMount___$TestCompositeComponentProps =
-      const PropDescriptor(
-          _$key__onComponentDidMount___$TestCompositeComponentProps);
+      PropDescriptor(_$key__onComponentDidMount___$TestCompositeComponentProps);
   static const PropDescriptor
       _$prop__onComponentWillUnmount___$TestCompositeComponentProps =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__onComponentWillUnmount___$TestCompositeComponentProps);
   static const PropDescriptor
       _$prop__onComponentDidUpdate___$TestCompositeComponentProps =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__onComponentDidUpdate___$TestCompositeComponentProps);
   static const String
       _$key__onComponentDidMount___$TestCompositeComponentProps =
@@ -75,19 +75,19 @@ abstract class _$TestCompositeComponentPropsAccessorsMixin
       _$key__onComponentDidUpdate___$TestCompositeComponentProps =
       'TestCompositeComponentProps.onComponentDidUpdate';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__onComponentDidMount___$TestCompositeComponentProps,
     _$prop__onComponentWillUnmount___$TestCompositeComponentProps,
     _$prop__onComponentDidUpdate___$TestCompositeComponentProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__onComponentDidMount___$TestCompositeComponentProps,
     _$key__onComponentWillUnmount___$TestCompositeComponentProps,
     _$key__onComponentDidUpdate___$TestCompositeComponentProps
   ];
 }
 
-const PropsMeta _$metaForTestCompositeComponentProps = const PropsMeta(
+const PropsMeta _$metaForTestCompositeComponentProps = PropsMeta(
   fields: _$TestCompositeComponentPropsAccessorsMixin.$props,
   keys: _$TestCompositeComponentPropsAccessorsMixin.$propKeys,
 );
@@ -121,7 +121,7 @@ class _$$TestCompositeComponentProps extends _$TestCompositeComponentProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestCompositeComponentComponentFactory;
@@ -141,12 +141,12 @@ class _$TestCompositeComponentComponent
   _$$TestCompositeComponentProps typedPropsFactory(Map backingMap) =>
       new _$$TestCompositeComponentProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestCompositeComponentProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestCompositeComponentProps

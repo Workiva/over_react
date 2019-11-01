@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'tag.dart';
 
 // **************************************************************************
@@ -67,23 +68,23 @@ abstract class _$TagPropsAccessorsMixin implements _$TagProps {
   set isPill(bool value) => props[_$key__isPill___$TagProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__skin___$TagProps =
-      const PropDescriptor(_$key__skin___$TagProps);
+      PropDescriptor(_$key__skin___$TagProps);
   static const PropDescriptor _$prop__isPill___$TagProps =
-      const PropDescriptor(_$key__isPill___$TagProps);
+      PropDescriptor(_$key__isPill___$TagProps);
   static const String _$key__skin___$TagProps = 'TagProps.skin';
   static const String _$key__isPill___$TagProps = 'TagProps.isPill';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__skin___$TagProps,
     _$prop__isPill___$TagProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__skin___$TagProps,
     _$key__isPill___$TagProps
   ];
 }
 
-const PropsMeta _$metaForTagProps = const PropsMeta(
+const PropsMeta _$metaForTagProps = PropsMeta(
   fields: _$TagPropsAccessorsMixin.$props,
   keys: _$TagPropsAccessorsMixin.$propKeys,
 );
@@ -116,7 +117,7 @@ abstract class _$$TagProps extends _$TagProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TagComponentFactory;
@@ -189,12 +190,12 @@ class _$TagComponent extends TagComponent {
   @override
   _$$TagProps typedPropsFactory(Map backingMap) => new _$$TagProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TagProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTagProps];
 }

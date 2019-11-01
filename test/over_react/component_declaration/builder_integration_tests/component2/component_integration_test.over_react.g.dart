@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'component_integration_test.dart';
 
 // **************************************************************************
@@ -110,25 +111,24 @@ abstract class _$ComponentTestPropsAccessorsMixin
       props[_$key__customKeyAndNamespaceProp___$ComponentTestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__stringProp___$ComponentTestProps =
-      const PropDescriptor(_$key__stringProp___$ComponentTestProps);
+      PropDescriptor(_$key__stringProp___$ComponentTestProps);
   static const PropDescriptor
       _$prop__shouldSetPropsDirectly___$ComponentTestProps =
-      const PropDescriptor(_$key__shouldSetPropsDirectly___$ComponentTestProps);
+      PropDescriptor(_$key__shouldSetPropsDirectly___$ComponentTestProps);
   static const PropDescriptor _$prop__shouldUseJsFactory___$ComponentTestProps =
-      const PropDescriptor(_$key__shouldUseJsFactory___$ComponentTestProps);
+      PropDescriptor(_$key__shouldUseJsFactory___$ComponentTestProps);
   static const PropDescriptor _$prop__dynamicProp___$ComponentTestProps =
-      const PropDescriptor(_$key__dynamicProp___$ComponentTestProps);
+      PropDescriptor(_$key__dynamicProp___$ComponentTestProps);
   static const PropDescriptor _$prop__untypedProp___$ComponentTestProps =
-      const PropDescriptor(_$key__untypedProp___$ComponentTestProps);
+      PropDescriptor(_$key__untypedProp___$ComponentTestProps);
   static const PropDescriptor _$prop__customKeyProp___$ComponentTestProps =
-      const PropDescriptor(_$key__customKeyProp___$ComponentTestProps);
+      PropDescriptor(_$key__customKeyProp___$ComponentTestProps);
   static const PropDescriptor
       _$prop__customNamespaceProp___$ComponentTestProps =
-      const PropDescriptor(_$key__customNamespaceProp___$ComponentTestProps);
+      PropDescriptor(_$key__customNamespaceProp___$ComponentTestProps);
   static const PropDescriptor
       _$prop__customKeyAndNamespaceProp___$ComponentTestProps =
-      const PropDescriptor(
-          _$key__customKeyAndNamespaceProp___$ComponentTestProps);
+      PropDescriptor(_$key__customKeyAndNamespaceProp___$ComponentTestProps);
   static const String _$key__stringProp___$ComponentTestProps =
       'ComponentTestProps.stringProp';
   static const String _$key__shouldSetPropsDirectly___$ComponentTestProps =
@@ -146,7 +146,7 @@ abstract class _$ComponentTestPropsAccessorsMixin
   static const String _$key__customKeyAndNamespaceProp___$ComponentTestProps =
       'custom namespace~~custom key!';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__stringProp___$ComponentTestProps,
     _$prop__shouldSetPropsDirectly___$ComponentTestProps,
     _$prop__shouldUseJsFactory___$ComponentTestProps,
@@ -156,7 +156,7 @@ abstract class _$ComponentTestPropsAccessorsMixin
     _$prop__customNamespaceProp___$ComponentTestProps,
     _$prop__customKeyAndNamespaceProp___$ComponentTestProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__stringProp___$ComponentTestProps,
     _$key__shouldSetPropsDirectly___$ComponentTestProps,
     _$key__shouldUseJsFactory___$ComponentTestProps,
@@ -168,7 +168,7 @@ abstract class _$ComponentTestPropsAccessorsMixin
   ];
 }
 
-const PropsMeta _$metaForComponentTestProps = const PropsMeta(
+const PropsMeta _$metaForComponentTestProps = PropsMeta(
   fields: _$ComponentTestPropsAccessorsMixin.$props,
   keys: _$ComponentTestPropsAccessorsMixin.$propKeys,
 );
@@ -203,7 +203,7 @@ abstract class _$$ComponentTestProps extends _$ComponentTestProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $ComponentTestComponentFactory;
@@ -277,12 +277,12 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   _$$ComponentTestProps typedPropsFactory(Map backingMap) =>
       new _$$ComponentTestProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ComponentTestProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForComponentTestProps
@@ -309,11 +309,11 @@ abstract class _$IsErrorBoundaryPropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForIsErrorBoundaryProps = const PropsMeta(
+const PropsMeta _$metaForIsErrorBoundaryProps = PropsMeta(
   fields: _$IsErrorBoundaryPropsAccessorsMixin.$props,
   keys: _$IsErrorBoundaryPropsAccessorsMixin.$propKeys,
 );
@@ -348,7 +348,7 @@ abstract class _$$IsErrorBoundaryProps extends _$IsErrorBoundaryProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $IsErrorBoundaryComponentFactory;
@@ -422,12 +422,12 @@ class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
   _$$IsErrorBoundaryProps typedPropsFactory(Map backingMap) =>
       new _$$IsErrorBoundaryProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$IsErrorBoundaryProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForIsErrorBoundaryProps
@@ -453,11 +453,11 @@ abstract class _$IsNotErrorBoundaryPropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForIsNotErrorBoundaryProps = const PropsMeta(
+const PropsMeta _$metaForIsNotErrorBoundaryProps = PropsMeta(
   fields: _$IsNotErrorBoundaryPropsAccessorsMixin.$props,
   keys: _$IsNotErrorBoundaryPropsAccessorsMixin.$propKeys,
 );
@@ -492,7 +492,7 @@ abstract class _$$IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $IsNotErrorBoundaryComponentFactory;
@@ -567,12 +567,12 @@ class _$IsNotErrorBoundaryComponent extends IsNotErrorBoundaryComponent {
   _$$IsNotErrorBoundaryProps typedPropsFactory(Map backingMap) =>
       new _$$IsNotErrorBoundaryProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$IsNotErrorBoundaryProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForIsNotErrorBoundaryProps

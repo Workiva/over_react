@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'annotation_error_integration_test.dart';
 
 // **************************************************************************
@@ -24,11 +25,11 @@ abstract class _$AnnotationErrorDefaultPropsPropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForAnnotationErrorDefaultPropsProps = const PropsMeta(
+const PropsMeta _$metaForAnnotationErrorDefaultPropsProps = PropsMeta(
   fields: _$AnnotationErrorDefaultPropsPropsAccessorsMixin.$props,
   keys: _$AnnotationErrorDefaultPropsPropsAccessorsMixin.$propKeys,
 );
@@ -65,7 +66,7 @@ class _$$AnnotationErrorDefaultPropsProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $AnnotationErrorDefaultPropsComponentFactory;
@@ -85,12 +86,12 @@ class _$AnnotationErrorDefaultPropsComponent
   _$$AnnotationErrorDefaultPropsProps typedPropsFactory(Map backingMap) =>
       new _$$AnnotationErrorDefaultPropsProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$AnnotationErrorDefaultPropsProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForAnnotationErrorDefaultPropsProps
@@ -115,11 +116,11 @@ abstract class _$AnnotationErrorPropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForAnnotationErrorProps = const PropsMeta(
+const PropsMeta _$metaForAnnotationErrorProps = PropsMeta(
   fields: _$AnnotationErrorPropsAccessorsMixin.$props,
   keys: _$AnnotationErrorPropsAccessorsMixin.$propKeys,
 );
@@ -153,7 +154,7 @@ class _$$AnnotationErrorProps extends _$AnnotationErrorProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $AnnotationErrorComponentFactory;
@@ -172,12 +173,12 @@ class _$AnnotationErrorComponent extends AnnotationErrorComponent {
   _$$AnnotationErrorProps typedPropsFactory(Map backingMap) =>
       new _$$AnnotationErrorProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$AnnotationErrorProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForAnnotationErrorProps
@@ -202,11 +203,11 @@ abstract class _$AnnotationErrorStatefulPropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForAnnotationErrorStatefulProps = const PropsMeta(
+const PropsMeta _$metaForAnnotationErrorStatefulProps = PropsMeta(
   fields: _$AnnotationErrorStatefulPropsAccessorsMixin.$props,
   keys: _$AnnotationErrorStatefulPropsAccessorsMixin.$propKeys,
 );
@@ -240,7 +241,7 @@ class _$$AnnotationErrorStatefulProps extends _$AnnotationErrorStatefulProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $AnnotationErrorStatefulComponentFactory;
@@ -257,11 +258,11 @@ abstract class _$AnnotationErrorStatefulStateAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<StateDescriptor> $state = const [];
-  static const List<String> $stateKeys = const [];
+  static const List<StateDescriptor> $state = [];
+  static const List<String> $stateKeys = [];
 }
 
-const StateMeta _$metaForAnnotationErrorStatefulState = const StateMeta(
+const StateMeta _$metaForAnnotationErrorStatefulState = StateMeta(
   fields: _$AnnotationErrorStatefulStateAccessorsMixin.$state,
   keys: _$AnnotationErrorStatefulStateAccessorsMixin.$stateKeys,
 );
@@ -307,12 +308,12 @@ class _$AnnotationErrorStatefulComponent
   _$$AnnotationErrorStatefulState typedStateFactory(Map backingMap) =>
       new _$$AnnotationErrorStatefulState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$AnnotationErrorStatefulProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForAnnotationErrorStatefulProps
@@ -337,12 +338,11 @@ abstract class _$AnnotationErrorStatefulDefaultPropsPropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForAnnotationErrorStatefulDefaultPropsProps =
-    const PropsMeta(
+const PropsMeta _$metaForAnnotationErrorStatefulDefaultPropsProps = PropsMeta(
   fields: _$AnnotationErrorStatefulDefaultPropsPropsAccessorsMixin.$props,
   keys: _$AnnotationErrorStatefulDefaultPropsPropsAccessorsMixin.$propKeys,
 );
@@ -381,7 +381,7 @@ class _$$AnnotationErrorStatefulDefaultPropsProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ??
@@ -399,12 +399,11 @@ abstract class _$AnnotationErrorStatefulDefaultPropsStateAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<StateDescriptor> $state = const [];
-  static const List<String> $stateKeys = const [];
+  static const List<StateDescriptor> $state = [];
+  static const List<String> $stateKeys = [];
 }
 
-const StateMeta _$metaForAnnotationErrorStatefulDefaultPropsState =
-    const StateMeta(
+const StateMeta _$metaForAnnotationErrorStatefulDefaultPropsState = StateMeta(
   fields: _$AnnotationErrorStatefulDefaultPropsStateAccessorsMixin.$state,
   keys: _$AnnotationErrorStatefulDefaultPropsStateAccessorsMixin.$stateKeys,
 );
@@ -456,12 +455,12 @@ class _$AnnotationErrorStatefulDefaultPropsComponent
           Map backingMap) =>
       new _$$AnnotationErrorStatefulDefaultPropsState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$AnnotationErrorStatefulDefaultPropsProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForAnnotationErrorStatefulDefaultPropsProps

@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'subtype.dart';
 
 // **************************************************************************
@@ -26,11 +27,11 @@ abstract class _$TestSubtype2PropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForTestSubtype2Props = const PropsMeta(
+const PropsMeta _$metaForTestSubtype2Props = PropsMeta(
   fields: _$TestSubtype2PropsAccessorsMixin.$props,
   keys: _$TestSubtype2PropsAccessorsMixin.$propKeys,
 );
@@ -64,7 +65,7 @@ abstract class _$$TestSubtype2Props extends _$TestSubtype2Props
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestSubtype2ComponentFactory;
@@ -138,12 +139,12 @@ class _$TestSubtype2Component extends TestSubtype2Component {
   _$$TestSubtype2Props typedPropsFactory(Map backingMap) =>
       new _$$TestSubtype2Props(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestSubtype2Props.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestSubtype2Props

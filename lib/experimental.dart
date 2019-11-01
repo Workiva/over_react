@@ -14,7 +14,7 @@
 
 /// Experimental APIs that are not final and should be expected to change.
 @experimental
-@deprecated
+@Deprecated('These APIs are experimental and could change at any time.')
 library over_react.experimental;
 
 import 'package:meta/meta.dart';

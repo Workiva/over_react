@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'button.dart';
 
 // **************************************************************************
@@ -199,21 +200,21 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   set type(ButtonType value) => props[_$key__type___$ButtonProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__skin___$ButtonProps =
-      const PropDescriptor(_$key__skin___$ButtonProps);
+      PropDescriptor(_$key__skin___$ButtonProps);
   static const PropDescriptor _$prop__size___$ButtonProps =
-      const PropDescriptor(_$key__size___$ButtonProps);
+      PropDescriptor(_$key__size___$ButtonProps);
   static const PropDescriptor _$prop__isActive___$ButtonProps =
-      const PropDescriptor(_$key__isActive___$ButtonProps);
+      PropDescriptor(_$key__isActive___$ButtonProps);
   static const PropDescriptor _$prop__isDisabled___$ButtonProps =
-      const PropDescriptor(_$key__isDisabled___$ButtonProps);
+      PropDescriptor(_$key__isDisabled___$ButtonProps);
   static const PropDescriptor _$prop__isBlock___$ButtonProps =
-      const PropDescriptor(_$key__isBlock___$ButtonProps);
+      PropDescriptor(_$key__isBlock___$ButtonProps);
   static const PropDescriptor _$prop__href___$ButtonProps =
-      const PropDescriptor(_$key__href___$ButtonProps);
+      PropDescriptor(_$key__href___$ButtonProps);
   static const PropDescriptor _$prop__target___$ButtonProps =
-      const PropDescriptor(_$key__target___$ButtonProps);
+      PropDescriptor(_$key__target___$ButtonProps);
   static const PropDescriptor _$prop__type___$ButtonProps =
-      const PropDescriptor(_$key__type___$ButtonProps);
+      PropDescriptor(_$key__type___$ButtonProps);
   static const String _$key__skin___$ButtonProps = 'ButtonProps.skin';
   static const String _$key__size___$ButtonProps = 'ButtonProps.size';
   static const String _$key__isActive___$ButtonProps = 'ButtonProps.isActive';
@@ -223,7 +224,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   static const String _$key__target___$ButtonProps = 'target';
   static const String _$key__type___$ButtonProps = 'ButtonProps.type';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__skin___$ButtonProps,
     _$prop__size___$ButtonProps,
     _$prop__isActive___$ButtonProps,
@@ -233,7 +234,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
     _$prop__target___$ButtonProps,
     _$prop__type___$ButtonProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__skin___$ButtonProps,
     _$key__size___$ButtonProps,
     _$key__isActive___$ButtonProps,
@@ -245,7 +246,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ];
 }
 
-const PropsMeta _$metaForButtonProps = const PropsMeta(
+const PropsMeta _$metaForButtonProps = PropsMeta(
   fields: _$ButtonPropsAccessorsMixin.$props,
   keys: _$ButtonPropsAccessorsMixin.$propKeys,
 );
@@ -277,7 +278,7 @@ class _$$ButtonProps extends _$ButtonProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $ButtonComponentFactory;
@@ -293,11 +294,11 @@ abstract class _$ButtonStateAccessorsMixin implements _$ButtonState {
 
   /* GENERATED CONSTANTS */
 
-  static const List<StateDescriptor> $state = const [];
-  static const List<String> $stateKeys = const [];
+  static const List<StateDescriptor> $state = [];
+  static const List<String> $stateKeys = [];
 }
 
-const StateMeta _$metaForButtonState = const StateMeta(
+const StateMeta _$metaForButtonState = StateMeta(
   fields: _$ButtonStateAccessorsMixin.$state,
   keys: _$ButtonStateAccessorsMixin.$stateKeys,
 );
@@ -341,12 +342,12 @@ class _$ButtonComponent extends ButtonComponent {
   _$$ButtonState typedStateFactory(Map backingMap) =>
       new _$$ButtonState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ButtonProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForButtonProps

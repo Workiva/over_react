@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'accessor_mixin_integration_test.dart';
 
 // **************************************************************************
@@ -78,18 +79,18 @@ abstract class TestPropsMixin implements _$TestPropsMixin {
       props[_$key__customKeyAndNamespaceProp___$TestPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__stringProp___$TestPropsMixin =
-      const PropDescriptor(_$key__stringProp___$TestPropsMixin);
+      PropDescriptor(_$key__stringProp___$TestPropsMixin);
   static const PropDescriptor _$prop__dynamicProp___$TestPropsMixin =
-      const PropDescriptor(_$key__dynamicProp___$TestPropsMixin);
+      PropDescriptor(_$key__dynamicProp___$TestPropsMixin);
   static const PropDescriptor _$prop__untypedProp___$TestPropsMixin =
-      const PropDescriptor(_$key__untypedProp___$TestPropsMixin);
+      PropDescriptor(_$key__untypedProp___$TestPropsMixin);
   static const PropDescriptor _$prop__customKeyProp___$TestPropsMixin =
-      const PropDescriptor(_$key__customKeyProp___$TestPropsMixin);
+      PropDescriptor(_$key__customKeyProp___$TestPropsMixin);
   static const PropDescriptor _$prop__customNamespaceProp___$TestPropsMixin =
-      const PropDescriptor(_$key__customNamespaceProp___$TestPropsMixin);
+      PropDescriptor(_$key__customNamespaceProp___$TestPropsMixin);
   static const PropDescriptor
       _$prop__customKeyAndNamespaceProp___$TestPropsMixin =
-      const PropDescriptor(_$key__customKeyAndNamespaceProp___$TestPropsMixin);
+      PropDescriptor(_$key__customKeyAndNamespaceProp___$TestPropsMixin);
   static const String _$key__stringProp___$TestPropsMixin =
       'TestPropsMixin.stringProp';
   static const String _$key__dynamicProp___$TestPropsMixin =
@@ -103,7 +104,7 @@ abstract class TestPropsMixin implements _$TestPropsMixin {
   static const String _$key__customKeyAndNamespaceProp___$TestPropsMixin =
       'custom namespace~~custom key!';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__stringProp___$TestPropsMixin,
     _$prop__dynamicProp___$TestPropsMixin,
     _$prop__untypedProp___$TestPropsMixin,
@@ -111,7 +112,7 @@ abstract class TestPropsMixin implements _$TestPropsMixin {
     _$prop__customNamespaceProp___$TestPropsMixin,
     _$prop__customKeyAndNamespaceProp___$TestPropsMixin
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__stringProp___$TestPropsMixin,
     _$key__dynamicProp___$TestPropsMixin,
     _$key__untypedProp___$TestPropsMixin,
@@ -121,7 +122,7 @@ abstract class TestPropsMixin implements _$TestPropsMixin {
   ];
 }
 
-const PropsMeta _$metaForTestPropsMixin = const PropsMeta(
+const PropsMeta _$metaForTestPropsMixin = PropsMeta(
   fields: TestPropsMixin.$props,
   keys: TestPropsMixin.$propKeys,
 );
@@ -204,24 +205,23 @@ abstract class TestCustomNamespacePropsMixin
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__stringProp___$TestCustomNamespacePropsMixin =
-      const PropDescriptor(_$key__stringProp___$TestCustomNamespacePropsMixin);
+      PropDescriptor(_$key__stringProp___$TestCustomNamespacePropsMixin);
   static const PropDescriptor
       _$prop__dynamicProp___$TestCustomNamespacePropsMixin =
-      const PropDescriptor(_$key__dynamicProp___$TestCustomNamespacePropsMixin);
+      PropDescriptor(_$key__dynamicProp___$TestCustomNamespacePropsMixin);
   static const PropDescriptor
       _$prop__untypedProp___$TestCustomNamespacePropsMixin =
-      const PropDescriptor(_$key__untypedProp___$TestCustomNamespacePropsMixin);
+      PropDescriptor(_$key__untypedProp___$TestCustomNamespacePropsMixin);
   static const PropDescriptor
       _$prop__customKeyProp___$TestCustomNamespacePropsMixin =
-      const PropDescriptor(
-          _$key__customKeyProp___$TestCustomNamespacePropsMixin);
+      PropDescriptor(_$key__customKeyProp___$TestCustomNamespacePropsMixin);
   static const PropDescriptor
       _$prop__customNamespaceProp___$TestCustomNamespacePropsMixin =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__customNamespaceProp___$TestCustomNamespacePropsMixin);
   static const PropDescriptor
       _$prop__customKeyAndNamespaceProp___$TestCustomNamespacePropsMixin =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__customKeyAndNamespaceProp___$TestCustomNamespacePropsMixin);
   static const String _$key__stringProp___$TestCustomNamespacePropsMixin =
       'custom mixin namespace**stringProp';
@@ -238,7 +238,7 @@ abstract class TestCustomNamespacePropsMixin
       _$key__customKeyAndNamespaceProp___$TestCustomNamespacePropsMixin =
       'custom namespace~~custom key!';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__stringProp___$TestCustomNamespacePropsMixin,
     _$prop__dynamicProp___$TestCustomNamespacePropsMixin,
     _$prop__untypedProp___$TestCustomNamespacePropsMixin,
@@ -246,7 +246,7 @@ abstract class TestCustomNamespacePropsMixin
     _$prop__customNamespaceProp___$TestCustomNamespacePropsMixin,
     _$prop__customKeyAndNamespaceProp___$TestCustomNamespacePropsMixin
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__stringProp___$TestCustomNamespacePropsMixin,
     _$key__dynamicProp___$TestCustomNamespacePropsMixin,
     _$key__untypedProp___$TestCustomNamespacePropsMixin,
@@ -256,7 +256,7 @@ abstract class TestCustomNamespacePropsMixin
   ];
 }
 
-const PropsMeta _$metaForTestCustomNamespacePropsMixin = const PropsMeta(
+const PropsMeta _$metaForTestCustomNamespacePropsMixin = PropsMeta(
   fields: TestCustomNamespacePropsMixin.$props,
   keys: TestCustomNamespacePropsMixin.$propKeys,
 );
@@ -334,19 +334,18 @@ abstract class TestStateMixin implements _$TestStateMixin {
       state[_$key__customKeyAndNamespaceState___$TestStateMixin] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__stringState___$TestStateMixin =
-      const StateDescriptor(_$key__stringState___$TestStateMixin);
+      StateDescriptor(_$key__stringState___$TestStateMixin);
   static const StateDescriptor _$prop__dynamicState___$TestStateMixin =
-      const StateDescriptor(_$key__dynamicState___$TestStateMixin);
+      StateDescriptor(_$key__dynamicState___$TestStateMixin);
   static const StateDescriptor _$prop__untypedState___$TestStateMixin =
-      const StateDescriptor(_$key__untypedState___$TestStateMixin);
+      StateDescriptor(_$key__untypedState___$TestStateMixin);
   static const StateDescriptor _$prop__customKeyState___$TestStateMixin =
-      const StateDescriptor(_$key__customKeyState___$TestStateMixin);
+      StateDescriptor(_$key__customKeyState___$TestStateMixin);
   static const StateDescriptor _$prop__customNamespaceState___$TestStateMixin =
-      const StateDescriptor(_$key__customNamespaceState___$TestStateMixin);
+      StateDescriptor(_$key__customNamespaceState___$TestStateMixin);
   static const StateDescriptor
       _$prop__customKeyAndNamespaceState___$TestStateMixin =
-      const StateDescriptor(
-          _$key__customKeyAndNamespaceState___$TestStateMixin);
+      StateDescriptor(_$key__customKeyAndNamespaceState___$TestStateMixin);
   static const String _$key__stringState___$TestStateMixin =
       'TestStateMixin.stringState';
   static const String _$key__dynamicState___$TestStateMixin =
@@ -360,7 +359,7 @@ abstract class TestStateMixin implements _$TestStateMixin {
   static const String _$key__customKeyAndNamespaceState___$TestStateMixin =
       'custom namespace~~custom key!';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__stringState___$TestStateMixin,
     _$prop__dynamicState___$TestStateMixin,
     _$prop__untypedState___$TestStateMixin,
@@ -368,7 +367,7 @@ abstract class TestStateMixin implements _$TestStateMixin {
     _$prop__customNamespaceState___$TestStateMixin,
     _$prop__customKeyAndNamespaceState___$TestStateMixin
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__stringState___$TestStateMixin,
     _$key__dynamicState___$TestStateMixin,
     _$key__untypedState___$TestStateMixin,
@@ -378,7 +377,7 @@ abstract class TestStateMixin implements _$TestStateMixin {
   ];
 }
 
-const StateMeta _$metaForTestStateMixin = const StateMeta(
+const StateMeta _$metaForTestStateMixin = StateMeta(
   fields: TestStateMixin.$state,
   keys: TestStateMixin.$stateKeys,
 );
@@ -461,27 +460,23 @@ abstract class TestCustomNamespaceStateMixin
   /* GENERATED CONSTANTS */
   static const StateDescriptor
       _$prop__stringState___$TestCustomNamespaceStateMixin =
-      const StateDescriptor(
-          _$key__stringState___$TestCustomNamespaceStateMixin);
+      StateDescriptor(_$key__stringState___$TestCustomNamespaceStateMixin);
   static const StateDescriptor
       _$prop__dynamicState___$TestCustomNamespaceStateMixin =
-      const StateDescriptor(
-          _$key__dynamicState___$TestCustomNamespaceStateMixin);
+      StateDescriptor(_$key__dynamicState___$TestCustomNamespaceStateMixin);
   static const StateDescriptor
       _$prop__untypedState___$TestCustomNamespaceStateMixin =
-      const StateDescriptor(
-          _$key__untypedState___$TestCustomNamespaceStateMixin);
+      StateDescriptor(_$key__untypedState___$TestCustomNamespaceStateMixin);
   static const StateDescriptor
       _$prop__customKeyState___$TestCustomNamespaceStateMixin =
-      const StateDescriptor(
-          _$key__customKeyState___$TestCustomNamespaceStateMixin);
+      StateDescriptor(_$key__customKeyState___$TestCustomNamespaceStateMixin);
   static const StateDescriptor
       _$prop__customNamespaceState___$TestCustomNamespaceStateMixin =
-      const StateDescriptor(
+      StateDescriptor(
           _$key__customNamespaceState___$TestCustomNamespaceStateMixin);
   static const StateDescriptor
       _$prop__customKeyAndNamespaceState___$TestCustomNamespaceStateMixin =
-      const StateDescriptor(
+      StateDescriptor(
           _$key__customKeyAndNamespaceState___$TestCustomNamespaceStateMixin);
   static const String _$key__stringState___$TestCustomNamespaceStateMixin =
       'custom mixin namespace**stringState';
@@ -498,7 +493,7 @@ abstract class TestCustomNamespaceStateMixin
       _$key__customKeyAndNamespaceState___$TestCustomNamespaceStateMixin =
       'custom namespace~~custom key!';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__stringState___$TestCustomNamespaceStateMixin,
     _$prop__dynamicState___$TestCustomNamespaceStateMixin,
     _$prop__untypedState___$TestCustomNamespaceStateMixin,
@@ -506,7 +501,7 @@ abstract class TestCustomNamespaceStateMixin
     _$prop__customNamespaceState___$TestCustomNamespaceStateMixin,
     _$prop__customKeyAndNamespaceState___$TestCustomNamespaceStateMixin
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__stringState___$TestCustomNamespaceStateMixin,
     _$key__dynamicState___$TestCustomNamespaceStateMixin,
     _$key__untypedState___$TestCustomNamespaceStateMixin,
@@ -516,7 +511,7 @@ abstract class TestCustomNamespaceStateMixin
   ];
 }
 
-const StateMeta _$metaForTestCustomNamespaceStateMixin = const StateMeta(
+const StateMeta _$metaForTestCustomNamespaceStateMixin = StateMeta(
   fields: TestCustomNamespaceStateMixin.$state,
   keys: TestCustomNamespaceStateMixin.$stateKeys,
 );

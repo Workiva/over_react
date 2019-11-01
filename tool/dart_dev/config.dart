@@ -12,28 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@TestOn('browser')
-library string_util_test;
+import 'package:dart_dev/dart_dev.dart';
+import 'package:glob/glob.dart';
 
-import 'package:over_react/over_react.dart';
-import 'package:test/test.dart';
-
-/// Main entry point for StringUtil testing
-main() {
-  group('unindent', () {
-    test('unindents a multiline string correctly', () {
-      String testStr =
-          '''
-          Yo
-            How u doin'?
-          ''';
-
-      String expectedResult =
-'''
-Yo
-  How u doin'?''';
-
-      expect(unindent(testStr), expectedResult);
-    });
-  });
-}
+final config = {
+  'analyze': AnalyzeTool()
+    ..include = [
+      Glob('lib/**.dart'),
+      Glob('test/**.dart'),
+      Glob('tool/**.dart'),
+    ],
+  'format': FormatTool()
+    ..exclude = [
+      Glob('**/*.dart'), // We don't format this repo with dartfmt at this time.
+    ],
+  'test': TestTool(),
+};

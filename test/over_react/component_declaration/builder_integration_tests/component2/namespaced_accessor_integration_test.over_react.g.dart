@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'namespaced_accessor_integration_test.dart';
 
 // **************************************************************************
@@ -92,23 +93,22 @@ abstract class _$NamespacedAccessorTestPropsAccessorsMixin
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__stringProp___$NamespacedAccessorTestProps =
-      const PropDescriptor(_$key__stringProp___$NamespacedAccessorTestProps);
+      PropDescriptor(_$key__stringProp___$NamespacedAccessorTestProps);
   static const PropDescriptor
       _$prop__dynamicProp___$NamespacedAccessorTestProps =
-      const PropDescriptor(_$key__dynamicProp___$NamespacedAccessorTestProps);
+      PropDescriptor(_$key__dynamicProp___$NamespacedAccessorTestProps);
   static const PropDescriptor
       _$prop__untypedProp___$NamespacedAccessorTestProps =
-      const PropDescriptor(_$key__untypedProp___$NamespacedAccessorTestProps);
+      PropDescriptor(_$key__untypedProp___$NamespacedAccessorTestProps);
   static const PropDescriptor
       _$prop__customKeyProp___$NamespacedAccessorTestProps =
-      const PropDescriptor(_$key__customKeyProp___$NamespacedAccessorTestProps);
+      PropDescriptor(_$key__customKeyProp___$NamespacedAccessorTestProps);
   static const PropDescriptor
       _$prop__customNamespaceProp___$NamespacedAccessorTestProps =
-      const PropDescriptor(
-          _$key__customNamespaceProp___$NamespacedAccessorTestProps);
+      PropDescriptor(_$key__customNamespaceProp___$NamespacedAccessorTestProps);
   static const PropDescriptor
       _$prop__customKeyAndNamespaceProp___$NamespacedAccessorTestProps =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__customKeyAndNamespaceProp___$NamespacedAccessorTestProps);
   static const String _$key__stringProp___$NamespacedAccessorTestProps =
       'custom props class namespace**stringProp';
@@ -125,7 +125,7 @@ abstract class _$NamespacedAccessorTestPropsAccessorsMixin
       _$key__customKeyAndNamespaceProp___$NamespacedAccessorTestProps =
       'custom namespace~~custom key!';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__stringProp___$NamespacedAccessorTestProps,
     _$prop__dynamicProp___$NamespacedAccessorTestProps,
     _$prop__untypedProp___$NamespacedAccessorTestProps,
@@ -133,7 +133,7 @@ abstract class _$NamespacedAccessorTestPropsAccessorsMixin
     _$prop__customNamespaceProp___$NamespacedAccessorTestProps,
     _$prop__customKeyAndNamespaceProp___$NamespacedAccessorTestProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__stringProp___$NamespacedAccessorTestProps,
     _$key__dynamicProp___$NamespacedAccessorTestProps,
     _$key__untypedProp___$NamespacedAccessorTestProps,
@@ -143,7 +143,7 @@ abstract class _$NamespacedAccessorTestPropsAccessorsMixin
   ];
 }
 
-const PropsMeta _$metaForNamespacedAccessorTestProps = const PropsMeta(
+const PropsMeta _$metaForNamespacedAccessorTestProps = PropsMeta(
   fields: _$NamespacedAccessorTestPropsAccessorsMixin.$props,
   keys: _$NamespacedAccessorTestPropsAccessorsMixin.$propKeys,
 );
@@ -179,7 +179,7 @@ abstract class _$$NamespacedAccessorTestProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $NamespacedAccessorTestComponentFactory;
@@ -298,24 +298,23 @@ abstract class _$NamespacedAccessorTestStateAccessorsMixin
   /* GENERATED CONSTANTS */
   static const StateDescriptor
       _$prop__stringState___$NamespacedAccessorTestState =
-      const StateDescriptor(_$key__stringState___$NamespacedAccessorTestState);
+      StateDescriptor(_$key__stringState___$NamespacedAccessorTestState);
   static const StateDescriptor
       _$prop__dynamicState___$NamespacedAccessorTestState =
-      const StateDescriptor(_$key__dynamicState___$NamespacedAccessorTestState);
+      StateDescriptor(_$key__dynamicState___$NamespacedAccessorTestState);
   static const StateDescriptor
       _$prop__untypedState___$NamespacedAccessorTestState =
-      const StateDescriptor(_$key__untypedState___$NamespacedAccessorTestState);
+      StateDescriptor(_$key__untypedState___$NamespacedAccessorTestState);
   static const StateDescriptor
       _$prop__customKeyState___$NamespacedAccessorTestState =
-      const StateDescriptor(
-          _$key__customKeyState___$NamespacedAccessorTestState);
+      StateDescriptor(_$key__customKeyState___$NamespacedAccessorTestState);
   static const StateDescriptor
       _$prop__customNamespaceState___$NamespacedAccessorTestState =
-      const StateDescriptor(
+      StateDescriptor(
           _$key__customNamespaceState___$NamespacedAccessorTestState);
   static const StateDescriptor
       _$prop__customKeyAndNamespaceState___$NamespacedAccessorTestState =
-      const StateDescriptor(
+      StateDescriptor(
           _$key__customKeyAndNamespaceState___$NamespacedAccessorTestState);
   static const String _$key__stringState___$NamespacedAccessorTestState =
       'custom state class namespace**stringState';
@@ -332,7 +331,7 @@ abstract class _$NamespacedAccessorTestStateAccessorsMixin
       _$key__customKeyAndNamespaceState___$NamespacedAccessorTestState =
       'custom namespace~~custom key!';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__stringState___$NamespacedAccessorTestState,
     _$prop__dynamicState___$NamespacedAccessorTestState,
     _$prop__untypedState___$NamespacedAccessorTestState,
@@ -340,7 +339,7 @@ abstract class _$NamespacedAccessorTestStateAccessorsMixin
     _$prop__customNamespaceState___$NamespacedAccessorTestState,
     _$prop__customKeyAndNamespaceState___$NamespacedAccessorTestState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__stringState___$NamespacedAccessorTestState,
     _$key__dynamicState___$NamespacedAccessorTestState,
     _$key__untypedState___$NamespacedAccessorTestState,
@@ -350,7 +349,7 @@ abstract class _$NamespacedAccessorTestStateAccessorsMixin
   ];
 }
 
-const StateMeta _$metaForNamespacedAccessorTestState = const StateMeta(
+const StateMeta _$metaForNamespacedAccessorTestState = StateMeta(
   fields: _$NamespacedAccessorTestStateAccessorsMixin.$state,
   keys: _$NamespacedAccessorTestStateAccessorsMixin.$stateKeys,
 );
@@ -473,12 +472,12 @@ class _$NamespacedAccessorTestComponent
   _$$NamespacedAccessorTestState typedStateFactory(Map backingMap) =>
       new _$$NamespacedAccessorTestState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$NamespacedAccessorTestProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForNamespacedAccessorTestProps

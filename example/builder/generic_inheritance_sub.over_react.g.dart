@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'generic_inheritance_sub.dart';
 
 // **************************************************************************
@@ -32,19 +33,17 @@ abstract class _$GenericSubPropsAccessorsMixin implements _$GenericSubProps {
   set subProp(String value) => props[_$key__subProp___$GenericSubProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__subProp___$GenericSubProps =
-      const PropDescriptor(_$key__subProp___$GenericSubProps);
+      PropDescriptor(_$key__subProp___$GenericSubProps);
   static const String _$key__subProp___$GenericSubProps =
       'GenericSubProps.subProp';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__subProp___$GenericSubProps
   ];
-  static const List<String> $propKeys = const [
-    _$key__subProp___$GenericSubProps
-  ];
+  static const List<String> $propKeys = [_$key__subProp___$GenericSubProps];
 }
 
-const PropsMeta _$metaForGenericSubProps = const PropsMeta(
+const PropsMeta _$metaForGenericSubProps = PropsMeta(
   fields: _$GenericSubPropsAccessorsMixin.$props,
   keys: _$GenericSubPropsAccessorsMixin.$propKeys,
 );
@@ -78,7 +77,7 @@ abstract class _$$GenericSubProps extends _$GenericSubProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $GenericSubComponentFactory;
@@ -136,19 +135,17 @@ abstract class _$GenericSubStateAccessorsMixin implements _$GenericSubState {
       state[_$key__subState___$GenericSubState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__subState___$GenericSubState =
-      const StateDescriptor(_$key__subState___$GenericSubState);
+      StateDescriptor(_$key__subState___$GenericSubState);
   static const String _$key__subState___$GenericSubState =
       'GenericSubState.subState';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__subState___$GenericSubState
   ];
-  static const List<String> $stateKeys = const [
-    _$key__subState___$GenericSubState
-  ];
+  static const List<String> $stateKeys = [_$key__subState___$GenericSubState];
 }
 
-const StateMeta _$metaForGenericSubState = const StateMeta(
+const StateMeta _$metaForGenericSubState = StateMeta(
   fields: _$GenericSubStateAccessorsMixin.$state,
   keys: _$GenericSubStateAccessorsMixin.$stateKeys,
 );
@@ -265,12 +262,12 @@ class _$GenericSubComponent extends GenericSubComponent {
   _$$GenericSubState typedStateFactory(Map backingMap) =>
       new _$$GenericSubState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$GenericSubProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForGenericSubProps

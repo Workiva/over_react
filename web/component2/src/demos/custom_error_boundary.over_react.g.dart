@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'custom_error_boundary.dart';
 
 // **************************************************************************
@@ -26,11 +27,11 @@ abstract class _$CustomErrorBoundaryPropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForCustomErrorBoundaryProps = const PropsMeta(
+const PropsMeta _$metaForCustomErrorBoundaryProps = PropsMeta(
   fields: _$CustomErrorBoundaryPropsAccessorsMixin.$props,
   keys: _$CustomErrorBoundaryPropsAccessorsMixin.$propKeys,
 );
@@ -65,7 +66,7 @@ abstract class _$$CustomErrorBoundaryProps extends _$CustomErrorBoundaryProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $CustomErrorBoundaryComponentFactory;
@@ -115,11 +116,11 @@ abstract class _$CustomErrorBoundaryStateAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<StateDescriptor> $state = const [];
-  static const List<String> $stateKeys = const [];
+  static const List<StateDescriptor> $state = [];
+  static const List<String> $stateKeys = [];
 }
 
-const StateMeta _$metaForCustomErrorBoundaryState = const StateMeta(
+const StateMeta _$metaForCustomErrorBoundaryState = StateMeta(
   fields: _$CustomErrorBoundaryStateAccessorsMixin.$state,
   keys: _$CustomErrorBoundaryStateAccessorsMixin.$stateKeys,
 );
@@ -238,12 +239,12 @@ class _$CustomErrorBoundaryComponent extends CustomErrorBoundaryComponent {
   _$$CustomErrorBoundaryState typedStateFactory(Map backingMap) =>
       new _$$CustomErrorBoundaryState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$CustomErrorBoundaryProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForCustomErrorBoundaryProps

@@ -1,3 +1,4 @@
+// ignore_for_file: deprecated_member_use_from_same_package
 import 'package:over_react/over_react.dart';
 
 import '../demo_components.dart';
@@ -36,7 +37,7 @@ class _$ToggleButtonGroupState extends ButtonGroupState with
 class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupProps, ToggleButtonGroupState> {
   // Refs
 
-  Map<int, dynamic> _toggleButtonRefs = <int, dynamic>{};
+  final Map<int, dynamic> _toggleButtonRefs = <int, dynamic>{};
 
   /// The name to use for all children of a [ToggleButtonGroup].
   ///

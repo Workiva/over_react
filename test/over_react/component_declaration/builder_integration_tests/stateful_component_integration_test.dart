@@ -22,7 +22,7 @@ main() {
   group('stateful component integration:', () {
     test('state class cannot be instantiated directly', () {
       expect(() {
-        new StatefulComponentTestState();
+        StatefulComponentTestState();
       }, throwsA(isA<IllegalInstantiationError>()));
     });
 
@@ -88,16 +88,16 @@ class _$StatefulComponentTestProps extends UiProps {}
 class _$StatefulComponentTestState extends UiState {
   String stringState;
   dynamic dynamicState;
-  var untypedState;
+  dynamic untypedState;
 
   @Accessor(key: 'custom key!')
-  var customKeyState;
+  dynamic customKeyState;
 
   @Accessor(keyNamespace: 'custom namespace~~')
-  var customNamespaceState;
+  dynamic customNamespaceState;
 
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  var customKeyAndNamespaceState;
+  dynamic customKeyAndNamespaceState;
 }
 
 @Component()
@@ -124,4 +124,3 @@ class StatefulComponentTestComponent extends UiStatefulComponent<StatefulCompone
     ..addProp('data-state-custom-key-and-namespace-state', state.customKeyAndNamespaceState)
   )('rendered content');
 }
-

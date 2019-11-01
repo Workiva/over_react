@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'state_mixin.dart';
 
 // **************************************************************************
@@ -23,19 +24,19 @@ abstract class ExampleStateMixinClass implements _$ExampleStateMixinClass {
       state[_$key__stateMixin1___$ExampleStateMixinClass] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__stateMixin1___$ExampleStateMixinClass =
-      const StateDescriptor(_$key__stateMixin1___$ExampleStateMixinClass);
+      StateDescriptor(_$key__stateMixin1___$ExampleStateMixinClass);
   static const String _$key__stateMixin1___$ExampleStateMixinClass =
       'ExampleStateMixinClass.stateMixin1';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__stateMixin1___$ExampleStateMixinClass
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__stateMixin1___$ExampleStateMixinClass
   ];
 }
 
-const StateMeta _$metaForExampleStateMixinClass = const StateMeta(
+const StateMeta _$metaForExampleStateMixinClass = StateMeta(
   fields: ExampleStateMixinClass.$state,
   keys: ExampleStateMixinClass.$stateKeys,
 );

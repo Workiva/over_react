@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'context_provider_component.dart';
 
 // **************************************************************************
@@ -25,11 +26,11 @@ abstract class _$ContextProviderWrapperPropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForContextProviderWrapperProps = const PropsMeta(
+const PropsMeta _$metaForContextProviderWrapperProps = PropsMeta(
   fields: _$ContextProviderWrapperPropsAccessorsMixin.$props,
   keys: _$ContextProviderWrapperPropsAccessorsMixin.$propKeys,
 );
@@ -65,7 +66,7 @@ abstract class _$$ContextProviderWrapperProps
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $ContextProviderWrapperComponentFactory;
@@ -127,19 +128,19 @@ abstract class _$ContextProviderWrapperStateAccessorsMixin
   /* GENERATED CONSTANTS */
   static const StateDescriptor
       _$prop__latestValue___$ContextProviderWrapperState =
-      const StateDescriptor(_$key__latestValue___$ContextProviderWrapperState);
+      StateDescriptor(_$key__latestValue___$ContextProviderWrapperState);
   static const String _$key__latestValue___$ContextProviderWrapperState =
       'ContextProviderWrapperState.latestValue';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__latestValue___$ContextProviderWrapperState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__latestValue___$ContextProviderWrapperState
   ];
 }
 
-const StateMeta _$metaForContextProviderWrapperState = const StateMeta(
+const StateMeta _$metaForContextProviderWrapperState = StateMeta(
   fields: _$ContextProviderWrapperStateAccessorsMixin.$state,
   keys: _$ContextProviderWrapperStateAccessorsMixin.$stateKeys,
 );
@@ -262,12 +263,12 @@ class _$ContextProviderWrapperComponent
   _$$ContextProviderWrapperState typedStateFactory(Map backingMap) =>
       new _$$ContextProviderWrapperState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ContextProviderWrapperProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForContextProviderWrapperProps
