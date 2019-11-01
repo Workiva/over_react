@@ -41,6 +41,8 @@ dev_dependencies:
   glob: ^1.2.0
   mockito: ^4.1.1
   over_react_test: ^2.5.2
+  redux_dev_tools: ^0.4.0
+  redux_remote_devtools: ^0.0.7
   pedantic: ^1.8.0
   test: ^1.9.1
 

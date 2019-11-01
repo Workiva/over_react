@@ -46,7 +46,7 @@ typedef dynamic Dispatcher(dynamic);
 /// ```dart
 ///     UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
 ///         mapStateToProps: (state) => (
-///           Counter()..intProp = state.count
+///           Counter()..count = state.count
 ///         ),
 ///         mapDispatchToProps: (dispatch) => (
 ///           Counter()..increment = () => dispatch(INCREMENT_ACTION())
@@ -89,11 +89,11 @@ typedef dynamic Dispatcher(dynamic);
 ///     Store store2 = new Store<BigCounterState>(bigCounterStateReducer, initialState: new BigCounterState(bigCount: 100));
 ///
 ///     UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
-///       mapStateToProps: (state) => (Counter()..intProp = state.count)
+///       mapStateToProps: (state) => (Counter()..count = state.count)
 ///     )(Counter);
 ///
 ///     UiFactory<CounterProps> ConnectedBigCounter = connect<BigCounterState, CounterProps>(
-///       mapStateToProps: (state) => (Counter()..intProp = state.bigCount),
+///       mapStateToProps: (state) => (Counter()..count = state.bigCount),
 ///       context: bigCounterContext,
 ///     )(Counter);
 ///
