@@ -48,9 +48,7 @@ main() {
   );
 }
 
-typedef Map GetDefaultProps();
-
-final componentConstructorsByName = <String, GetDefaultProps>{
+final componentConstructorsByName = <String, Map Function()>{
   'BasicComponent': () => typedDefaultPropsFor(Basic),
   'SubComponent': () => typedDefaultPropsFor(Sub),
   'GenericSuperComponent': () => typedDefaultPropsFor(GenericSuper),

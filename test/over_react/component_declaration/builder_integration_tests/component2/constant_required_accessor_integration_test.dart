@@ -34,7 +34,7 @@ void main() {
 
       originalConsoleError = context['console']['error'];
       consoleErrors = [];
-      context['console']['error'] = new JsFunction.withThis((self, message) {
+      context['console']['error'] = JsFunction.withThis((self, message) {
         consoleErrors.add(message);
         originalConsoleError.apply([message], thisArg: self);
       });
@@ -239,10 +239,10 @@ UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
 @Props()
 class _$ComponentTestProps extends UiProps {
   @requiredProp
-  var required;
+  dynamic required;
 
   @nullableRequiredProp
-  var nullable;
+  dynamic nullable;
 
   @requiredProp
   List requiredAndLengthLimited;
@@ -252,11 +252,11 @@ class _$ComponentTestProps extends UiProps {
 class ComponentTestComponent extends UiComponent2<ComponentTestProps> {
   @override
   get propTypes => {
-      getPropKey((ComponentTestProps props) => props.requiredAndLengthLimited, typedPropsFactory):
+      getPropKey((props) => props.requiredAndLengthLimited, typedPropsFactory):
           (props, propName, componentName, location, propFullName) {
         final length = props.requiredAndLengthLimited?.length;
         if (length != 2) {
-          return new PropError.value(length, propName, 'must have a length of 2');
+          return PropError.value(length, propName, 'must have a length of 2');
         }
         return null;
       },

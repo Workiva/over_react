@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
+
 library test_util.one_level_wrapper;
 
 import 'package:over_react/over_react.dart';
@@ -29,4 +31,3 @@ class OneLevelWrapperComponent extends UiComponent<OneLevelWrapperProps> {
   @override
   render() => Dom.div()(props.children.single);
 }
-

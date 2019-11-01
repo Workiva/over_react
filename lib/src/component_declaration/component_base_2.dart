@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'dart:js';
 
 import 'package:meta/meta.dart';
@@ -37,7 +39,7 @@ import 'disposable_manager_proxy.dart';
 ///     var $`AbstractComponentClassName`Factory = registerAbstractComponent2(`AbstractComponentClassName`);
 ///
 ReactDartComponentFactoryProxy2 registerAbstractComponent2(Type abstractComponentClass, {ReactDartComponentFactoryProxy2 parentType}) =>
-    registerComponent2(() => new DummyComponent2(), componentClass: abstractComponentClass, parentType: parentType);
+    registerComponent2(() => DummyComponent2(), componentClass: abstractComponentClass, parentType: parentType);
 
 /// Helper function that wraps react.registerComponent2, and allows attachment of additional
 /// component factory metadata.
@@ -46,11 +48,11 @@ ReactDartComponentFactoryProxy2 registerAbstractComponent2(Type abstractComponen
 /// treated as if it were the wrapped component.
 ///
 /// * [builderFactory]/[componentClass]: the [UiFactory] and [UiComponent2] members to be potentially
-/// used as types for [isComponentOfType]/[getComponentFactory].
+/// used as types for [isComponentOfType]/`getComponentFactory`.
 ///
 /// * [displayName]: the name of the component for use when debugging.
-ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 dartComponentFactory(), {
-    bool isWrapper: false,
+ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 Function() dartComponentFactory, {
+    bool isWrapper = false,
     ReactDartComponentFactoryProxy2 parentType,
     UiFactory builderFactory,
     Type componentClass,
@@ -135,7 +137,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   TProps get props {
     // This needs to be a concrete implementation in Dart 2 for soundness;
     // without it, you get a confusing error. See: https://github.com/dart-lang/sdk/issues/36191
-    throw new UngeneratedError(member: #props,
+    throw UngeneratedError(member: #props,
         message: GeneratedErrorMessages.component1AnnotationOnComponent2);
   }
 
@@ -167,7 +169,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// Required to properly instantiate the generic [TProps] class.
   @override
   @toBeGenerated
-  TProps typedPropsFactory(Map propsMap)=> throw new UngeneratedError(member: #typedPropsFactory);
+  TProps typedPropsFactory(Map propsMap)=> throw UngeneratedError(member: #typedPropsFactory);
 
   /// Returns a typed props object backed by the specified [propsMap].
   ///
@@ -176,14 +178,14 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// This should be used where possible over [typedPropsFactory] to allow for
   /// more efficient dart2js output.
   @toBeGenerated
-  TProps typedPropsFactoryJs(JsBackedMap propsMap) => throw new UngeneratedError(member: #typedPropsFactoryJs,
+  TProps typedPropsFactoryJs(JsBackedMap propsMap) => throw UngeneratedError(member: #typedPropsFactoryJs,
       message: GeneratedErrorMessages.component1AnnotationOnComponent2);
 
-  /// Returns a typed props object backed by a new Map.
+  /// Returns a typed props object backed by a Map.
   ///
-  /// Convenient for use with [getDefaultProps].
+  /// Convenient for use with [defaultProps].
   @override
-  TProps newProps() => typedPropsFactoryJs(new JsBackedMap());
+  TProps newProps() => typedPropsFactoryJs(JsBackedMap());
 
   /// Allows usage of PropValidator functions to check the validity of a prop passed to it.
   /// When an invalid value is provided for a prop, a warning will be shown in the JavaScript console.
@@ -196,7 +198,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///               (props, propName, componentName, location, propFullName) {
   ///             final length = props.twoObjects?.length;
   ///             if (length != 2) {
-  ///               return new PropError.value(length, propName, 'must have a length of 2');
+  ///               return PropError.value(length, propName, 'must have a length of 2');
   ///             }
   ///             return null;
   ///           },
@@ -220,7 +222,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// The default consumed props, taken from the keys generated in the associated @[Props] class.
   @override
   @toBeGenerated
-  Iterable<ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
+  Iterable<ConsumedProps> get $defaultConsumedProps => throw UngeneratedError(member: #$defaultConsumedProps);
 
   /// The non-forwarding props defined in this component.
   ///
@@ -245,7 +247,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// > Related [addUnconsumedDomProps]
   void addUnconsumedProps(Map props) {
     // TODO: cache this value to avoid unnecessary looping
-    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys);
+    var consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys);
 
     forwardUnconsumedProps(this.props, propsToUpdate: props,
         keySetsToOmit: consumedPropKeys);
@@ -265,7 +267,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///
   /// > Related [addUnconsumedProps]
   void addUnconsumedDomProps(Map props) {
-    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys);
+    var consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys);
 
     forwardUnconsumedProps(this.props, propsToUpdate: props, keySetsToOmit:
         consumedPropKeys, onlyCopyDomProps: true);
@@ -275,8 +277,8 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// with the specified [keysToOmit] and [keySetsToOmit] omitted.
   @override
   Map copyProps(
-      {bool omitReservedReactProps: true,
-      bool onlyCopyDomProps: false,
+      {bool omitReservedReactProps = true,
+      bool onlyCopyDomProps = false,
       Iterable keysToOmit,
       Iterable<Iterable> keySetsToOmit}) {
     return getPropsToForward(this.props,
@@ -286,7 +288,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
         keySetsToOmit: keySetsToOmit);
   }
 
-  /// Returns a new ClassNameBuilder with className and blacklist values added from [CssClassPropsMixin.className] and
+  /// Returns a ClassNameBuilder with className and blacklist values added from [CssClassPropsMixin.className] and
   /// [CssClassPropsMixin.classNameBlacklist], if they are specified.
   ///
   /// This method should be used as the basis for the classNames of components receiving forwarded props.
@@ -294,7 +296,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// > Should be used alongside [copyUnconsumedProps] or [copyUnconsumedDomProps].
   @override
   ClassNameBuilder forwardingClassNameBuilder() {
-    return new ClassNameBuilder.fromProps(this.props);
+    return ClassNameBuilder.fromProps(this.props);
   }
 
   // ***************************************************************************
@@ -320,7 +322,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// > Related [copyUnconsumedDomProps]
   ///
   /// __Deprecated.__ Use [addUnconsumedProps] within
-  /// [modifyProps] (rather than [addProps]) instead.
+  /// `modifyProps` (rather than `addProps`) instead.
   ///
   /// Replace
   ///
@@ -335,7 +337,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   @Deprecated('4.0.0')
   Map copyUnconsumedProps() {
     var consumedPropKeys = consumedProps
-            ?.map((ConsumedProps consumedProps) => consumedProps.keys) ??
+            ?.map((consumedProps) => consumedProps.keys) ??
         const [];
 
     return copyProps(keySetsToOmit: consumedPropKeys);
@@ -348,13 +350,13 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// > Related [copyUnconsumedProps]
   ///
   /// __Deprecated.__ Use [addUnconsumedDomProps] within
-  /// [modifyProps] (rather than [addProps]) instead. Will be removed in the
+  /// `modifyProps` (rather than `addProps`) instead. Will be removed in the
   /// `4.0.0` release.
   @override
   @Deprecated('4.0.0')
   Map copyUnconsumedDomProps() {
     var consumedPropKeys = consumedProps
-            ?.map((ConsumedProps consumedProps) => consumedProps.keys) ??
+            ?.map((consumedProps) => consumedProps.keys) ??
         const [];
 
     return copyProps(onlyCopyDomProps: true, keySetsToOmit: consumedPropKeys);
@@ -379,7 +381,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///
   ///       var tProps = typedPropsFactory(appliedProps);
   ///       if (tProps.items.length.isOdd) {
-  ///         throw new PropError.value(tProps.items, 'items', 'must have an even number of items, because reasons');
+  ///         throw PropError.value(tProps.items, 'items', 'must have an even number of items, because reasons');
   ///       }
   ///     }
   /// __Deprecated.__ Use [propTypes] instead. Will be removed in the `4.0.0` release.
@@ -480,7 +482,7 @@ mixin UiStatefulMixin2<TProps extends UiProps, TState extends UiState> on UiComp
   TState get state {
     // This needs to be a concrete implementation in Dart 2 for soundness;
     // without it, you get a confusing error. See: https://github.com/dart-lang/sdk/issues/36191
-    throw new UngeneratedError(member: #state,
+    throw UngeneratedError(member: #state,
         message: GeneratedErrorMessages.component1AnnotationOnComponent2);
   }
 
@@ -488,7 +490,7 @@ mixin UiStatefulMixin2<TProps extends UiProps, TState extends UiState> on UiComp
   ///
   /// Required to properly instantiate the generic [TState] class.
   @toBeGenerated
-  TState typedStateFactory(Map stateMap) => throw new UngeneratedError(member: #typedStateFactory,
+  TState typedStateFactory(Map stateMap) => throw UngeneratedError(member: #typedStateFactory,
       message: GeneratedErrorMessages.typedStateFactory);
 
   /// Returns a typed state object backed by the specified [stateMap].
@@ -497,13 +499,13 @@ mixin UiStatefulMixin2<TProps extends UiProps, TState extends UiState> on UiComp
   ///
   /// This should be used where possible over [typedStateFactory] to allow for
   /// more efficient dart2js output.
-  TState typedStateFactoryJs(JsBackedMap stateMap) => throw new UngeneratedError(member: #typedStateFactoryJs,
+  TState typedStateFactoryJs(JsBackedMap stateMap) => throw UngeneratedError(member: #typedStateFactoryJs,
       message: '${GeneratedErrorMessages.typedStateFactory}${GeneratedErrorMessages.component1AnnotationOnComponent2}');
 
-  /// Returns a typed state object backed by a new Map.
+  /// Returns a typed state object backed by a Map.
   ///
   /// Convenient for use with [getInitialState] and [setState].
-  TState newState() => typedStateFactoryJs(new JsBackedMap());
+  TState newState() => typedStateFactoryJs(JsBackedMap());
 
   @override
   void setStateWithUpdater(covariant Map Function(TState prevState, TProps props) updater, [Function() callback]) {
@@ -535,6 +537,7 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
   /// Returns a const bridge instance suitable for use with any [UiComponent2].
   ///
   /// See [Component2BridgeFactory] for more info.
+  // ignore: prefer_constructors_over_static_methods
   static UiComponent2BridgeImpl bridgeFactory(react.Component2 component) {
     assert(component is UiComponent2, 'should not be used with non-UiComponent2 components');
     return const UiComponent2BridgeImpl();
@@ -557,8 +560,8 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
 
     // Add [PropValidator]s for props annotated as required.
     var newPropTypes = Map.from(propTypes);
-    component.consumedProps?.forEach((ConsumedProps consumedProps) {
-      consumedProps.props.forEach((PropDescriptor prop) {
+    component.consumedProps?.forEach((consumedProps) {
+      consumedProps.props.forEach((prop) {
         if (!prop.isRequired) return;
 
         Error requiredPropValidator(
@@ -587,7 +590,7 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
           if (!prop.isNullable && _props[prop.key] != null) return null;
 
           if (_props[_propName] == null) {
-            return new PropError.required(_propName, prop.errorMessage);
+            return PropError.required(_propName, prop.errorMessage);
           }
 
           return null;
@@ -599,14 +602,15 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
 
     // Wrap consumer-provided and required validators with ones that convert plain props maps into typed ones.
     return JsBackedMap.from(newPropTypes.map((_propKey, _validator) {
+        // ignore: prefer_function_declarations_over_variables
         JsPropValidator handlePropValidator = (
-          JsMap _props,
-          String _propName,
-          String _componentName,
-          String _location,
-          String _propFullName,
+          JsMap _props, // ignore: avoid_types_on_closure_parameters
+          String _propName, // ignore: avoid_types_on_closure_parameters
+          String _componentName, // ignore: avoid_types_on_closure_parameters
+          String _location, // ignore: avoid_types_on_closure_parameters
+          String _propFullName, // ignore: avoid_types_on_closure_parameters
           // This is a required argument of PropTypes validators but is hidden from the JS consumer.
-          String secret,
+          String secret, // ignore: avoid_types_on_closure_parameters
         ) {
           Error error = _getErrorFromConsumerValidator(
             _validator,
@@ -625,7 +629,7 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
 
   /// A version of [setStateWithTypedUpdater] whose updater is passed typed views
   /// into the `prevState` and `props` arguments, allowing them to be typed automatically
-  /// within [UiStatefulComponent2.setStateWithTypedUpdater].
+  /// within [UiStatefulComponent2.setStateWithUpdater].
   void setStateWithTypedUpdater<TState extends UiState, TProps extends UiProps>(
     UiStatefulMixin2<TProps, TState> component,
     Map Function(TState prevState, TProps props) updater,

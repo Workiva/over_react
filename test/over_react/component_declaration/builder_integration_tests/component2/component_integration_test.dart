@@ -160,7 +160,7 @@ main() {
         var shallowProps = getProps(shallowInstance);
         Iterable<String> shallowPropKeys = shallowProps.keys.map((key) => key as String); // ignore: avoid_as
 
-        expect(shallowPropKeys.where((String key) => !key.startsWith('data-prop-')), unorderedEquals(['id', 'extraneous', 'children']));
+        expect(shallowPropKeys.where((key) => !key.startsWith('data-prop-')), unorderedEquals(['id', 'extraneous', 'children']));
       });
     });
   });
@@ -175,16 +175,16 @@ class _$ComponentTestProps extends UiProps {
   bool shouldSetPropsDirectly;
   bool shouldUseJsFactory;
   dynamic dynamicProp;
-  var untypedProp;
+  dynamic untypedProp;
 
   @Accessor(key: 'custom key!')
-  var customKeyProp;
+  dynamic customKeyProp;
 
   @Accessor(keyNamespace: 'custom namespace~~')
-  var customNamespaceProp;
+  dynamic customNamespaceProp;
 
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  var customKeyAndNamespaceProp;
+  dynamic customKeyAndNamespaceProp;
 }
 
 @Component2()

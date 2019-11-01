@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'constants.dart';
 
 // **************************************************************************
@@ -11,6 +12,7 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   Map get props;
 
   static const PropsMeta meta = _$metaForAbstractInputPropsMixin;
+  @override
   String get id;
 
   /// The HTML `name` attribute to be applied to `<input>`.
@@ -88,29 +90,29 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
       props[_$key__toggleType___$AbstractInputPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__name___$AbstractInputPropsMixin =
-      const PropDescriptor(_$key__name___$AbstractInputPropsMixin);
+      PropDescriptor(_$key__name___$AbstractInputPropsMixin);
   static const PropDescriptor _$prop__value___$AbstractInputPropsMixin =
-      const PropDescriptor(_$key__value___$AbstractInputPropsMixin);
+      PropDescriptor(_$key__value___$AbstractInputPropsMixin);
   static const PropDescriptor _$prop__toggleType___$AbstractInputPropsMixin =
-      const PropDescriptor(_$key__toggleType___$AbstractInputPropsMixin);
+      PropDescriptor(_$key__toggleType___$AbstractInputPropsMixin);
   static const String _$key__name___$AbstractInputPropsMixin = 'name';
   static const String _$key__value___$AbstractInputPropsMixin = 'value';
   static const String _$key__toggleType___$AbstractInputPropsMixin =
       'AbstractInputPropsMixin.toggleType';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__name___$AbstractInputPropsMixin,
     _$prop__value___$AbstractInputPropsMixin,
     _$prop__toggleType___$AbstractInputPropsMixin
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__name___$AbstractInputPropsMixin,
     _$key__value___$AbstractInputPropsMixin,
     _$key__toggleType___$AbstractInputPropsMixin
   ];
 }
 
-const PropsMeta _$metaForAbstractInputPropsMixin = const PropsMeta(
+const PropsMeta _$metaForAbstractInputPropsMixin = PropsMeta(
   fields: AbstractInputPropsMixin.$props,
   keys: AbstractInputPropsMixin.$propKeys,
 );
@@ -165,25 +167,25 @@ abstract class AbstractInputStateMixin implements _$AbstractInputStateMixin {
       state[_$key__name___$AbstractInputStateMixin] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__id___$AbstractInputStateMixin =
-      const StateDescriptor(_$key__id___$AbstractInputStateMixin);
+      StateDescriptor(_$key__id___$AbstractInputStateMixin);
   static const StateDescriptor _$prop__name___$AbstractInputStateMixin =
-      const StateDescriptor(_$key__name___$AbstractInputStateMixin);
+      StateDescriptor(_$key__name___$AbstractInputStateMixin);
   static const String _$key__id___$AbstractInputStateMixin =
       'AbstractInputStateMixin.id';
   static const String _$key__name___$AbstractInputStateMixin =
       'AbstractInputStateMixin.name';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__id___$AbstractInputStateMixin,
     _$prop__name___$AbstractInputStateMixin
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__id___$AbstractInputStateMixin,
     _$key__name___$AbstractInputStateMixin
   ];
 }
 
-const StateMeta _$metaForAbstractInputStateMixin = const StateMeta(
+const StateMeta _$metaForAbstractInputStateMixin = StateMeta(
   fields: AbstractInputStateMixin.$state,
   keys: AbstractInputStateMixin.$stateKeys,
 );

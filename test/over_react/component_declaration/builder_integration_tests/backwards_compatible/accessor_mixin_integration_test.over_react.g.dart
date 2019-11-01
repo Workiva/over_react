@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'accessor_mixin_integration_test.dart';
 
 // **************************************************************************
@@ -44,52 +45,52 @@ abstract class $TestPropsMixin implements TestPropsMixin {
   /// <!-- Generated from [TestPropsMixin.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  get customKeyProp =>
+  dynamic get customKeyProp =>
       props[_$key__customKeyProp__TestPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [TestPropsMixin.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  set customKeyProp(value) =>
+  set customKeyProp(dynamic value) =>
       props[_$key__customKeyProp__TestPropsMixin] = value;
 
   /// <!-- Generated from [TestPropsMixin.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceProp =>
+  dynamic get customNamespaceProp =>
       props[_$key__customNamespaceProp__TestPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [TestPropsMixin.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceProp(value) =>
+  set customNamespaceProp(dynamic value) =>
       props[_$key__customNamespaceProp__TestPropsMixin] = value;
 
   /// <!-- Generated from [TestPropsMixin.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceProp =>
+  dynamic get customKeyAndNamespaceProp =>
       props[_$key__customKeyAndNamespaceProp__TestPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [TestPropsMixin.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceProp(value) =>
+  set customKeyAndNamespaceProp(dynamic value) =>
       props[_$key__customKeyAndNamespaceProp__TestPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__stringProp__TestPropsMixin =
-      const PropDescriptor(_$key__stringProp__TestPropsMixin);
+      PropDescriptor(_$key__stringProp__TestPropsMixin);
   static const PropDescriptor _$prop__dynamicProp__TestPropsMixin =
-      const PropDescriptor(_$key__dynamicProp__TestPropsMixin);
+      PropDescriptor(_$key__dynamicProp__TestPropsMixin);
   static const PropDescriptor _$prop__untypedProp__TestPropsMixin =
-      const PropDescriptor(_$key__untypedProp__TestPropsMixin);
+      PropDescriptor(_$key__untypedProp__TestPropsMixin);
   static const PropDescriptor _$prop__customKeyProp__TestPropsMixin =
-      const PropDescriptor(_$key__customKeyProp__TestPropsMixin);
+      PropDescriptor(_$key__customKeyProp__TestPropsMixin);
   static const PropDescriptor _$prop__customNamespaceProp__TestPropsMixin =
-      const PropDescriptor(_$key__customNamespaceProp__TestPropsMixin);
+      PropDescriptor(_$key__customNamespaceProp__TestPropsMixin);
   static const PropDescriptor
       _$prop__customKeyAndNamespaceProp__TestPropsMixin =
-      const PropDescriptor(_$key__customKeyAndNamespaceProp__TestPropsMixin);
+      PropDescriptor(_$key__customKeyAndNamespaceProp__TestPropsMixin);
   static const String _$key__stringProp__TestPropsMixin =
       'TestPropsMixin.stringProp';
   static const String _$key__dynamicProp__TestPropsMixin =
@@ -103,7 +104,7 @@ abstract class $TestPropsMixin implements TestPropsMixin {
   static const String _$key__customKeyAndNamespaceProp__TestPropsMixin =
       'custom namespace~~custom key!';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__stringProp__TestPropsMixin,
     _$prop__dynamicProp__TestPropsMixin,
     _$prop__untypedProp__TestPropsMixin,
@@ -111,7 +112,7 @@ abstract class $TestPropsMixin implements TestPropsMixin {
     _$prop__customNamespaceProp__TestPropsMixin,
     _$prop__customKeyAndNamespaceProp__TestPropsMixin
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__stringProp__TestPropsMixin,
     _$key__dynamicProp__TestPropsMixin,
     _$key__untypedProp__TestPropsMixin,
@@ -121,7 +122,7 @@ abstract class $TestPropsMixin implements TestPropsMixin {
   ];
 }
 
-const PropsMeta _$metaForTestPropsMixin = const PropsMeta(
+const PropsMeta _$metaForTestPropsMixin = PropsMeta(
   fields: $TestPropsMixin.$props,
   keys: $TestPropsMixin.$propKeys,
 );
@@ -166,59 +167,58 @@ abstract class $TestCustomNamespacePropsMixin
   /// <!-- Generated from [TestCustomNamespacePropsMixin.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  get customKeyProp =>
+  dynamic get customKeyProp =>
       props[_$key__customKeyProp__TestCustomNamespacePropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [TestCustomNamespacePropsMixin.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  set customKeyProp(value) =>
+  set customKeyProp(dynamic value) =>
       props[_$key__customKeyProp__TestCustomNamespacePropsMixin] = value;
 
   /// <!-- Generated from [TestCustomNamespacePropsMixin.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceProp =>
+  dynamic get customNamespaceProp =>
       props[_$key__customNamespaceProp__TestCustomNamespacePropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [TestCustomNamespacePropsMixin.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceProp(value) =>
+  set customNamespaceProp(dynamic value) =>
       props[_$key__customNamespaceProp__TestCustomNamespacePropsMixin] = value;
 
   /// <!-- Generated from [TestCustomNamespacePropsMixin.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceProp =>
+  dynamic get customKeyAndNamespaceProp =>
       props[_$key__customKeyAndNamespaceProp__TestCustomNamespacePropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [TestCustomNamespacePropsMixin.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceProp(value) =>
+  set customKeyAndNamespaceProp(dynamic value) =>
       props[_$key__customKeyAndNamespaceProp__TestCustomNamespacePropsMixin] =
           value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__stringProp__TestCustomNamespacePropsMixin =
-      const PropDescriptor(_$key__stringProp__TestCustomNamespacePropsMixin);
+      PropDescriptor(_$key__stringProp__TestCustomNamespacePropsMixin);
   static const PropDescriptor
       _$prop__dynamicProp__TestCustomNamespacePropsMixin =
-      const PropDescriptor(_$key__dynamicProp__TestCustomNamespacePropsMixin);
+      PropDescriptor(_$key__dynamicProp__TestCustomNamespacePropsMixin);
   static const PropDescriptor
       _$prop__untypedProp__TestCustomNamespacePropsMixin =
-      const PropDescriptor(_$key__untypedProp__TestCustomNamespacePropsMixin);
+      PropDescriptor(_$key__untypedProp__TestCustomNamespacePropsMixin);
   static const PropDescriptor
       _$prop__customKeyProp__TestCustomNamespacePropsMixin =
-      const PropDescriptor(_$key__customKeyProp__TestCustomNamespacePropsMixin);
+      PropDescriptor(_$key__customKeyProp__TestCustomNamespacePropsMixin);
   static const PropDescriptor
       _$prop__customNamespaceProp__TestCustomNamespacePropsMixin =
-      const PropDescriptor(
-          _$key__customNamespaceProp__TestCustomNamespacePropsMixin);
+      PropDescriptor(_$key__customNamespaceProp__TestCustomNamespacePropsMixin);
   static const PropDescriptor
       _$prop__customKeyAndNamespaceProp__TestCustomNamespacePropsMixin =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__customKeyAndNamespaceProp__TestCustomNamespacePropsMixin);
   static const String _$key__stringProp__TestCustomNamespacePropsMixin =
       'custom mixin namespace**stringProp';
@@ -235,7 +235,7 @@ abstract class $TestCustomNamespacePropsMixin
       _$key__customKeyAndNamespaceProp__TestCustomNamespacePropsMixin =
       'custom namespace~~custom key!';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__stringProp__TestCustomNamespacePropsMixin,
     _$prop__dynamicProp__TestCustomNamespacePropsMixin,
     _$prop__untypedProp__TestCustomNamespacePropsMixin,
@@ -243,7 +243,7 @@ abstract class $TestCustomNamespacePropsMixin
     _$prop__customNamespaceProp__TestCustomNamespacePropsMixin,
     _$prop__customKeyAndNamespaceProp__TestCustomNamespacePropsMixin
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__stringProp__TestCustomNamespacePropsMixin,
     _$key__dynamicProp__TestCustomNamespacePropsMixin,
     _$key__untypedProp__TestCustomNamespacePropsMixin,
@@ -253,7 +253,7 @@ abstract class $TestCustomNamespacePropsMixin
   ];
 }
 
-const PropsMeta _$metaForTestCustomNamespacePropsMixin = const PropsMeta(
+const PropsMeta _$metaForTestCustomNamespacePropsMixin = PropsMeta(
   fields: $TestCustomNamespacePropsMixin.$props,
   keys: $TestCustomNamespacePropsMixin.$propKeys,
 );
@@ -296,52 +296,52 @@ abstract class $TestStateMixin implements TestStateMixin {
   /// <!-- Generated from [TestStateMixin.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  get customKeyState =>
+  dynamic get customKeyState =>
       state[_$key__customKeyState__TestStateMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [TestStateMixin.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  set customKeyState(value) =>
+  set customKeyState(dynamic value) =>
       state[_$key__customKeyState__TestStateMixin] = value;
 
   /// <!-- Generated from [TestStateMixin.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceState =>
+  dynamic get customNamespaceState =>
       state[_$key__customNamespaceState__TestStateMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [TestStateMixin.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceState(value) =>
+  set customNamespaceState(dynamic value) =>
       state[_$key__customNamespaceState__TestStateMixin] = value;
 
   /// <!-- Generated from [TestStateMixin.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceState =>
+  dynamic get customKeyAndNamespaceState =>
       state[_$key__customKeyAndNamespaceState__TestStateMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [TestStateMixin.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceState(value) =>
+  set customKeyAndNamespaceState(dynamic value) =>
       state[_$key__customKeyAndNamespaceState__TestStateMixin] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__stringState__TestStateMixin =
-      const StateDescriptor(_$key__stringState__TestStateMixin);
+      StateDescriptor(_$key__stringState__TestStateMixin);
   static const StateDescriptor _$prop__dynamicState__TestStateMixin =
-      const StateDescriptor(_$key__dynamicState__TestStateMixin);
+      StateDescriptor(_$key__dynamicState__TestStateMixin);
   static const StateDescriptor _$prop__untypedState__TestStateMixin =
-      const StateDescriptor(_$key__untypedState__TestStateMixin);
+      StateDescriptor(_$key__untypedState__TestStateMixin);
   static const StateDescriptor _$prop__customKeyState__TestStateMixin =
-      const StateDescriptor(_$key__customKeyState__TestStateMixin);
+      StateDescriptor(_$key__customKeyState__TestStateMixin);
   static const StateDescriptor _$prop__customNamespaceState__TestStateMixin =
-      const StateDescriptor(_$key__customNamespaceState__TestStateMixin);
+      StateDescriptor(_$key__customNamespaceState__TestStateMixin);
   static const StateDescriptor
       _$prop__customKeyAndNamespaceState__TestStateMixin =
-      const StateDescriptor(_$key__customKeyAndNamespaceState__TestStateMixin);
+      StateDescriptor(_$key__customKeyAndNamespaceState__TestStateMixin);
   static const String _$key__stringState__TestStateMixin =
       'TestStateMixin.stringState';
   static const String _$key__dynamicState__TestStateMixin =
@@ -355,7 +355,7 @@ abstract class $TestStateMixin implements TestStateMixin {
   static const String _$key__customKeyAndNamespaceState__TestStateMixin =
       'custom namespace~~custom key!';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__stringState__TestStateMixin,
     _$prop__dynamicState__TestStateMixin,
     _$prop__untypedState__TestStateMixin,
@@ -363,7 +363,7 @@ abstract class $TestStateMixin implements TestStateMixin {
     _$prop__customNamespaceState__TestStateMixin,
     _$prop__customKeyAndNamespaceState__TestStateMixin
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__stringState__TestStateMixin,
     _$key__dynamicState__TestStateMixin,
     _$key__untypedState__TestStateMixin,
@@ -373,7 +373,7 @@ abstract class $TestStateMixin implements TestStateMixin {
   ];
 }
 
-const StateMeta _$metaForTestStateMixin = const StateMeta(
+const StateMeta _$metaForTestStateMixin = StateMeta(
   fields: $TestStateMixin.$state,
   keys: $TestStateMixin.$stateKeys,
 );
@@ -418,60 +418,59 @@ abstract class $TestCustomNamespaceStateMixin
   /// <!-- Generated from [TestCustomNamespaceStateMixin.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  get customKeyState =>
+  dynamic get customKeyState =>
       state[_$key__customKeyState__TestCustomNamespaceStateMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [TestCustomNamespaceStateMixin.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  set customKeyState(value) =>
+  set customKeyState(dynamic value) =>
       state[_$key__customKeyState__TestCustomNamespaceStateMixin] = value;
 
   /// <!-- Generated from [TestCustomNamespaceStateMixin.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceState =>
+  dynamic get customNamespaceState =>
       state[_$key__customNamespaceState__TestCustomNamespaceStateMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [TestCustomNamespaceStateMixin.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceState(value) =>
+  set customNamespaceState(dynamic value) =>
       state[_$key__customNamespaceState__TestCustomNamespaceStateMixin] = value;
 
   /// <!-- Generated from [TestCustomNamespaceStateMixin.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceState =>
+  dynamic get customKeyAndNamespaceState =>
       state[_$key__customKeyAndNamespaceState__TestCustomNamespaceStateMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [TestCustomNamespaceStateMixin.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceState(value) =>
+  set customKeyAndNamespaceState(dynamic value) =>
       state[_$key__customKeyAndNamespaceState__TestCustomNamespaceStateMixin] =
           value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor
       _$prop__stringState__TestCustomNamespaceStateMixin =
-      const StateDescriptor(_$key__stringState__TestCustomNamespaceStateMixin);
+      StateDescriptor(_$key__stringState__TestCustomNamespaceStateMixin);
   static const StateDescriptor
       _$prop__dynamicState__TestCustomNamespaceStateMixin =
-      const StateDescriptor(_$key__dynamicState__TestCustomNamespaceStateMixin);
+      StateDescriptor(_$key__dynamicState__TestCustomNamespaceStateMixin);
   static const StateDescriptor
       _$prop__untypedState__TestCustomNamespaceStateMixin =
-      const StateDescriptor(_$key__untypedState__TestCustomNamespaceStateMixin);
+      StateDescriptor(_$key__untypedState__TestCustomNamespaceStateMixin);
   static const StateDescriptor
       _$prop__customKeyState__TestCustomNamespaceStateMixin =
-      const StateDescriptor(
-          _$key__customKeyState__TestCustomNamespaceStateMixin);
+      StateDescriptor(_$key__customKeyState__TestCustomNamespaceStateMixin);
   static const StateDescriptor
       _$prop__customNamespaceState__TestCustomNamespaceStateMixin =
-      const StateDescriptor(
+      StateDescriptor(
           _$key__customNamespaceState__TestCustomNamespaceStateMixin);
   static const StateDescriptor
       _$prop__customKeyAndNamespaceState__TestCustomNamespaceStateMixin =
-      const StateDescriptor(
+      StateDescriptor(
           _$key__customKeyAndNamespaceState__TestCustomNamespaceStateMixin);
   static const String _$key__stringState__TestCustomNamespaceStateMixin =
       'custom mixin namespace**stringState';
@@ -488,7 +487,7 @@ abstract class $TestCustomNamespaceStateMixin
       _$key__customKeyAndNamespaceState__TestCustomNamespaceStateMixin =
       'custom namespace~~custom key!';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__stringState__TestCustomNamespaceStateMixin,
     _$prop__dynamicState__TestCustomNamespaceStateMixin,
     _$prop__untypedState__TestCustomNamespaceStateMixin,
@@ -496,7 +495,7 @@ abstract class $TestCustomNamespaceStateMixin
     _$prop__customNamespaceState__TestCustomNamespaceStateMixin,
     _$prop__customKeyAndNamespaceState__TestCustomNamespaceStateMixin
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__stringState__TestCustomNamespaceStateMixin,
     _$key__dynamicState__TestCustomNamespaceStateMixin,
     _$key__untypedState__TestCustomNamespaceStateMixin,
@@ -506,7 +505,7 @@ abstract class $TestCustomNamespaceStateMixin
   ];
 }
 
-const StateMeta _$metaForTestCustomNamespaceStateMixin = const StateMeta(
+const StateMeta _$metaForTestCustomNamespaceStateMixin = StateMeta(
   fields: $TestCustomNamespaceStateMixin.$state,
   keys: $TestCustomNamespaceStateMixin.$stateKeys,
 );

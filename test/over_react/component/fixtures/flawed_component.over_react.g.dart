@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'flawed_component.dart';
 
 // **************************************************************************
@@ -9,12 +10,14 @@ part of 'flawed_component.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $FlawedComponentFactory = registerComponent(() => new _$FlawedComponent(),
-    builderFactory: Flawed,
-    componentClass: FlawedComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'Flawed');
+final $FlawedComponentFactory = registerComponent2(
+  () => _$FlawedComponent(),
+  builderFactory: Flawed,
+  componentClass: FlawedComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'Flawed',
+);
 
 abstract class _$FlawedPropsAccessorsMixin implements _$FlawedProps {
   @override
@@ -31,47 +34,48 @@ abstract class _$FlawedPropsAccessorsMixin implements _$FlawedProps {
       props[_$key__buttonTestIdPrefix___$FlawedProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__buttonTestIdPrefix___$FlawedProps =
-      const PropDescriptor(_$key__buttonTestIdPrefix___$FlawedProps);
+      PropDescriptor(_$key__buttonTestIdPrefix___$FlawedProps);
   static const String _$key__buttonTestIdPrefix___$FlawedProps =
       'FlawedProps.buttonTestIdPrefix';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__buttonTestIdPrefix___$FlawedProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__buttonTestIdPrefix___$FlawedProps
   ];
 }
 
-const PropsMeta _$metaForFlawedProps = const PropsMeta(
+const PropsMeta _$metaForFlawedProps = PropsMeta(
   fields: _$FlawedPropsAccessorsMixin.$props,
   keys: _$FlawedPropsAccessorsMixin.$propKeys,
 );
 
-_$$FlawedProps _$Flawed([Map backingProps]) => new _$$FlawedProps(backingProps);
+_$$FlawedProps _$Flawed([Map backingProps]) => backingProps == null
+    ? _$$FlawedProps$JsMap(JsBackedMap())
+    : _$$FlawedProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$FlawedProps extends _$FlawedProps
+abstract class _$$FlawedProps extends _$FlawedProps
     with _$FlawedPropsAccessorsMixin
     implements FlawedProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FlawedProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
+  _$$FlawedProps._();
+
+  factory _$$FlawedProps(Map backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$FlawedProps$JsMap(backingMap);
+    } else {
+      return _$$FlawedProps$PlainMap(backingMap);
+    }
   }
 
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $FlawedComponentFactory;
@@ -79,6 +83,39 @@ class _$$FlawedProps extends _$FlawedProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'FlawedProps.';
+}
+
+// Concrete props implementation that can be backed by any [Map].
+class _$$FlawedProps$PlainMap extends _$$FlawedProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$FlawedProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+class _$$FlawedProps$JsMap extends _$$FlawedProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$FlawedProps$JsMap(JsBackedMap backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
 }
 
 abstract class _$FlawedStateAccessorsMixin implements _$FlawedState {
@@ -105,26 +142,26 @@ abstract class _$FlawedStateAccessorsMixin implements _$FlawedState {
       state[_$key__differentTypeOfErrorCount___$FlawedState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__errorCount___$FlawedState =
-      const StateDescriptor(_$key__errorCount___$FlawedState);
+      StateDescriptor(_$key__errorCount___$FlawedState);
   static const StateDescriptor
       _$prop__differentTypeOfErrorCount___$FlawedState =
-      const StateDescriptor(_$key__differentTypeOfErrorCount___$FlawedState);
+      StateDescriptor(_$key__differentTypeOfErrorCount___$FlawedState);
   static const String _$key__errorCount___$FlawedState =
       'FlawedState.errorCount';
   static const String _$key__differentTypeOfErrorCount___$FlawedState =
       'FlawedState.differentTypeOfErrorCount';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__errorCount___$FlawedState,
     _$prop__differentTypeOfErrorCount___$FlawedState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__errorCount___$FlawedState,
     _$key__differentTypeOfErrorCount___$FlawedState
   ];
 }
 
-const StateMeta _$metaForFlawedState = const StateMeta(
+const StateMeta _$metaForFlawedState = StateMeta(
   fields: _$FlawedStateAccessorsMixin.$state,
   keys: _$FlawedStateAccessorsMixin.$stateKeys,
 );
@@ -132,12 +169,31 @@ const StateMeta _$metaForFlawedState = const StateMeta(
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$FlawedState extends _$FlawedState
+abstract class _$$FlawedState extends _$FlawedState
     with _$FlawedStateAccessorsMixin
     implements FlawedState {
+  _$$FlawedState._();
+
+  factory _$$FlawedState(Map backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$FlawedState$JsMap(backingMap);
+    } else {
+      return _$$FlawedState$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiState` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+}
+
+// Concrete state implementation that can be backed by any [Map].
+class _$$FlawedState$PlainMap extends _$$FlawedState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FlawedState(Map backingMap) : this._state = {} {
+  _$$FlawedState$PlainMap(Map backingMap)
+      : this._state = {},
+        super._() {
     this._state = backingMap ?? {};
   }
 
@@ -145,10 +201,23 @@ class _$$FlawedState extends _$FlawedState
   @override
   Map get state => _state;
   Map _state;
+}
 
-  /// Let [UiState] internals know that this class has been generated.
+// Concrete state implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+class _$$FlawedState$JsMap extends _$$FlawedState {
+  // This initializer of `_state` to an empty map, as well as the reassignment
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$FlawedState$JsMap(JsBackedMap backingMap)
+      : this._state = JsBackedMap(),
+        super._() {
+    this._state = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing state map proxied by this class.
   @override
-  bool get $isClassGenerated => true;
+  JsBackedMap get state => _state;
+  JsBackedMap _state;
 }
 
 // Concrete component implementation mixin.
@@ -156,20 +225,60 @@ class _$$FlawedState extends _$FlawedState
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$FlawedComponent extends FlawedComponent {
+  _$$FlawedProps$JsMap _cachedTypedProps;
+
+  @override
+  _$$FlawedProps$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+  }
+
+  @override
+  _$$FlawedProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$FlawedProps$JsMap(backingMap);
+
   @override
   _$$FlawedProps typedPropsFactory(Map backingMap) =>
-      new _$$FlawedProps(backingMap);
+      _$$FlawedProps(backingMap);
+
+  _$$FlawedState$JsMap _cachedTypedState;
+  @override
+  _$$FlawedState$JsMap get state => _cachedTypedState;
+
+  @override
+  set state(Map value) {
+    assert(
+        value is JsBackedMap,
+        'Component2.state should only be set via '
+        'initialState or setState.');
+    super.state = value;
+    _cachedTypedState = typedStateFactoryJs(value);
+  }
+
+  @override
+  _$$FlawedState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
+      _$$FlawedState$JsMap(backingMap);
 
   @override
   _$$FlawedState typedStateFactory(Map backingMap) =>
-      new _$$FlawedState(backingMap);
+      _$$FlawedState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$FlawedProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForFlawedProps

@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'subtype.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'subtype.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestSubtypeComponentFactory =
-    registerComponent(() => new _$TestSubtypeComponent(),
+    registerComponent(() => _$TestSubtypeComponent(),
         builderFactory: TestSubtype,
         componentClass: TestSubtypeComponent,
         isWrapper: false,
@@ -24,11 +25,11 @@ abstract class _$TestSubtypePropsAccessorsMixin implements _$TestSubtypeProps {
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForTestSubtypeProps = const PropsMeta(
+const PropsMeta _$metaForTestSubtypeProps = PropsMeta(
   fields: _$TestSubtypePropsAccessorsMixin.$props,
   keys: _$TestSubtypePropsAccessorsMixin.$propKeys,
 );
@@ -39,7 +40,7 @@ class TestSubtypeProps extends _$TestSubtypeProps
 }
 
 _$$TestSubtypeProps _$TestSubtype([Map backingProps]) =>
-    new _$$TestSubtypeProps(backingProps);
+    _$$TestSubtypeProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -58,11 +59,11 @@ class _$$TestSubtypeProps extends _$TestSubtypeProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestSubtypeComponentFactory;
@@ -79,14 +80,14 @@ class _$$TestSubtypeProps extends _$TestSubtypeProps
 class _$TestSubtypeComponent extends TestSubtypeComponent {
   @override
   _$$TestSubtypeProps typedPropsFactory(Map backingMap) =>
-      new _$$TestSubtypeProps(backingMap);
+      _$$TestSubtypeProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestSubtypeProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestSubtypeProps

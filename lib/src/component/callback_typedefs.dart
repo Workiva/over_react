@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: prefer_generic_function_type_aliases
 library over_react.callback_typedefs;
 
 import 'dart:html';

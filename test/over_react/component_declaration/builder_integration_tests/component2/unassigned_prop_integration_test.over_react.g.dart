@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'unassigned_prop_integration_test.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'unassigned_prop_integration_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $FooComponentFactory = registerComponent2(
-  () => new _$FooComponent(),
+  () => _$FooComponent(),
   builderFactory: Foo,
   componentClass: FooComponent,
   isWrapper: false,
@@ -42,24 +43,24 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
       props[_$key__unassignedProp___$FooProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__stringProp___$FooProps =
-      const PropDescriptor(_$key__stringProp___$FooProps);
+      PropDescriptor(_$key__stringProp___$FooProps);
   static const PropDescriptor _$prop__unassignedProp___$FooProps =
-      const PropDescriptor(_$key__unassignedProp___$FooProps);
+      PropDescriptor(_$key__unassignedProp___$FooProps);
   static const String _$key__stringProp___$FooProps = 'FooProps.stringProp';
   static const String _$key__unassignedProp___$FooProps =
       'FooProps.unassignedProp';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__stringProp___$FooProps,
     _$prop__unassignedProp___$FooProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__stringProp___$FooProps,
     _$key__unassignedProp___$FooProps
   ];
 }
 
-const PropsMeta _$metaForFooProps = const PropsMeta(
+const PropsMeta _$metaForFooProps = PropsMeta(
   fields: _$FooPropsAccessorsMixin.$props,
   keys: _$FooPropsAccessorsMixin.$propKeys,
 );
@@ -69,8 +70,8 @@ class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
 }
 
 _$$FooProps _$Foo([Map backingProps]) => backingProps == null
-    ? new _$$FooProps$JsMap(new JsBackedMap())
-    : new _$$FooProps(backingProps);
+    ? _$$FooProps$JsMap(JsBackedMap())
+    : _$$FooProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -82,17 +83,17 @@ abstract class _$$FooProps extends _$FooProps
 
   factory _$$FooProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$FooProps$JsMap(backingMap);
+      return _$$FooProps$JsMap(backingMap);
     } else {
-      return new _$$FooProps$PlainMap(backingMap);
+      return _$$FooProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $FooComponentFactory;
@@ -124,9 +125,9 @@ class _$$FooProps$JsMap extends _$$FooProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$FooProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -160,17 +161,17 @@ class _$FooComponent extends FooComponent {
 
   @override
   _$$FooProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$FooProps$JsMap(backingMap);
+      _$$FooProps$JsMap(backingMap);
 
   @override
-  _$$FooProps typedPropsFactory(Map backingMap) => new _$$FooProps(backingMap);
+  _$$FooProps typedPropsFactory(Map backingMap) => _$$FooProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$FooProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForFooProps];
 }

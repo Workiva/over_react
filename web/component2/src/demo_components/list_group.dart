@@ -22,7 +22,7 @@ class _$ListGroupProps extends UiProps {
 @Component2()
 class ListGroupComponent extends UiComponent2<ListGroupProps> {
   @override
-  Map getDefaultProps() => (newProps()
+   get defaultProps => (newProps()
     ..elementType = ListGroupElementType.DIV
   );
 
@@ -32,22 +32,22 @@ class ListGroupComponent extends UiComponent2<ListGroupProps> {
       ..add('list-group');
 
     return (props.elementType.componentBuilderFactory()
-      ..addProps(copyUnconsumedDomProps())
+      ..modifyProps(addUnconsumedDomProps)
       ..className = classes.toClassName()
     )(props.children);
   }
 }
 
-/// Options for the [Element] that will be used when
+/// Options for the `Element` that will be used when
 /// rendering a [ListGroup] component.
 class ListGroupElementType {
   final BuilderOnlyUiFactory<DomProps> componentBuilderFactory;
   ListGroupElementType._internal(this.componentBuilderFactory);
 
   /// A [Dom.ul] (HTML `<ul>` element)
-  static final ListGroupElementType UL  = new ListGroupElementType._internal(Dom.ul);
+  static final ListGroupElementType UL  = ListGroupElementType._internal(Dom.ul);
 
   /// A [Dom.div] (HTML `<div>` element)
-  static final ListGroupElementType DIV = new ListGroupElementType._internal(Dom.div);
+  static final ListGroupElementType DIV = ListGroupElementType._internal(Dom.div);
 }
 

@@ -1,6 +1,6 @@
 // Copyright 2016 Workiva Inc.
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Licensed under the Apache License, Version 2.0 (the 'License');
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
@@ -56,7 +56,7 @@ abstract class _$AriaPropsMixin {
   /// Indicates whether assistive technologies will present all, or only parts of, the changed region
   /// based on the change notifications defined by the aria-relevant attribute. See related aria-relevant.
   ///
-  /// Both accessibility APIs and the Document Object Model [DOM] provide events to allow the assistive
+  /// Both accessibility APIs and the Document Object Model `DOM` provide events to allow the assistive
   /// technologies to determine changed areas of the document.
   ///
   /// When the content of a live region changes, user agents SHOULD examine the changed element
@@ -99,7 +99,7 @@ abstract class _$AriaPropsMixin {
   @Accessor(key: 'aria-busy')
   bool busy;
 
-  /// Indicates the current "checked" state of checkboxes, radio buttons, and other widgets. See
+  /// Indicates the current 'checked' state of checkboxes, radio buttons, and other widgets. See
   /// related aria-pressed and aria-selected.
   ///
   /// The aria-checked attribute indicates whether the element is checked (true), unchecked (false),
@@ -210,7 +210,7 @@ abstract class _$AriaPropsMixin {
   @Accessor(key: 'aria-flowto')
   dynamic flowto;
 
-  /// Indicates an element's "grabbed" state in a drag-and-drop operation.
+  /// Indicates an element's 'grabbed' state in a drag-and-drop operation.
   ///
   /// When it is set to true it has been selected for dragging, false indicates that the element
   /// can be grabbed for a drag-and-drop operation, but is not currently grabbed, and undefined
@@ -244,17 +244,17 @@ abstract class _$AriaPropsMixin {
   /// to true. When the element is presented, authors MUST set the aria-hidden attribute to false
   /// or remove the attribute, indicating that the element is visible. Some assistive technologies
   /// access WAI-ARIA information directly through the DOM and not through platform accessibility
-  /// supported by the browser. Authors MUST set aria-hidden="true" on content that is not displayed,
+  /// supported by the browser. Authors MUST set aria-hidden='true' on content that is not displayed,
   /// regardless of the mechanism used to hide it. This allows assistive technologies or user agents
   /// to properly skip hidden elements in the document.
   ///
   /// It is recommended that authors key visibility of elements off this attribute, rather than
   /// change visibility and separately have to remember to update this property. CSS 2 provides
-  /// a way to select on attribute values ([CSS]). The following CSS declaration makes content visible
+  /// a way to select on attribute values (`CSS`). The following CSS declaration makes content visible
   /// unless the aria-hidden attribute is true; scripts need only update the value of this attribute
   /// to change visibility:
   ///
-  /// [aria-hidden="true"] { visibility: hidden; }
+  /// [aria-hidden='true'] { visibility: hidden; }
   ///
   /// Note: Authors are reminded that visibility:hidden and display:none apply to all CSS media
   /// types; therefore, use of either will hide the content from assistive technologies that access
@@ -315,7 +315,7 @@ abstract class _$AriaPropsMixin {
   /// use aria-label. There may be instances where the name of an element cannot be determined programmatically
   /// from the content of the element, and there are cases where providing a visible label is not
   /// the desired user experience. Most host languages provide an attribute that could be used to
-  /// name the element (e.g., the title attribute in HTML [HTML]), yet this could present a browser
+  /// name the element (e.g., the title attribute in HTML `HTML`), yet this could present a browser
   /// tooltip. In the cases where a visible label or visible tooltip is undesirable, authors MAY
   /// set the accessible name of the element using aria-label. As required by the text alternative
   /// computation, user agents give precedence to aria-labelledby over aria-label when computing
@@ -342,7 +342,7 @@ abstract class _$AriaPropsMixin {
   /// is intended to provide more verbose information.
   ///
   /// Note: The expected spelling of this property in U.S. English is "labeledby." However, the
-  /// accessibility API features to which this property is mapped have established the "labelledby"
+  /// accessibility API features to which this property is mapped have established the 'labelledby'
   /// spelling. This property is spelled that way to match the convention and minimize the difficulty
   /// for developers.
   ///
@@ -424,7 +424,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// Note: In most user agent implementations, the default behavior of the ENTER or RETURN key
   /// is different between the single-line and multi-line text fields in HTML. When user has focus
-  /// in a single-line &lt;input type="text"&gt; element, the keystroke usually submits the form.
+  /// in a single-line &lt;input type='text'&gt; element, the keystroke usually submits the form.
   /// When user has focus in a multi-line &lt;textarea&gt; element, the keystroke inserts a line
   /// break. The WAI-ARIA textbox role differentiates these types of boxes with the aria-multiline
   /// attribute, so authors are advised to be aware of this distinction when designing the field.
@@ -486,7 +486,7 @@ abstract class _$AriaPropsMixin {
   @Accessor(key: 'aria-posinset')
   int posinset;
 
-  /// Indicates the current "pressed" state of toggle buttons. See related aria-checked and aria-selected.
+  /// Indicates the current 'pressed' state of toggle buttons. See related aria-checked and aria-selected.
   ///
   /// Toggle buttons require a full press-and-release cycle to change their value. Activating it
   /// once changes the value to true, and activating it another time changes the value back to false.
@@ -545,7 +545,7 @@ abstract class _$AriaPropsMixin {
   /// technologies, but assistive technologies are not required to present changes of all the relevant
   /// types.
   ///
-  /// Both accessibility APIs and Document Object Model Level 2 Events [DOM] provides events to
+  /// Both accessibility APIs and Document Object Model Level 2 Events `DOM` provides events to
   /// allow assistive technologies to determine changed areas of the document.
   ///
   /// When aria-relevant is not defined, an element's value is inherited from the nearest ancestor
@@ -587,7 +587,7 @@ abstract class _$AriaPropsMixin {
   /// See: <http://www.w3.org/TR/wai-aria/usage#usage_intro>
   String role;
 
-  /// Indicates the current "selected" state of various widgets. See related aria-checked and aria-pressed.
+  /// Indicates the current 'selected' state of various widgets. See related aria-checked and aria-pressed.
   ///
   /// This attribute is used with single-selection and multiple-selection widgets:
   ///
@@ -745,7 +745,7 @@ class Role {
   /// aria-atomic value of true.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#alert>
-  static const String alert = "alert";
+  static const String alert = 'alert';
 
   /// A type of dialog that contains an alert message, where initial focus goes to an element within
   /// the dialog. See related alert and dialog.
@@ -766,7 +766,7 @@ class Role {
   /// mechanism to determine the contents of an alert message.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#alertdialog>
-  static const String alertdialog = "alertdialog";
+  static const String alertdialog = 'alertdialog';
 
   /// A region declared as a web application, as opposed to a web document.
   ///
@@ -813,7 +813,7 @@ class Role {
   /// SHOULD switch to an interaction mode that passes keyboard events through to the web application.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#application>
-  static const String application = "application";
+  static const String application = 'application';
 
   /// A section of a page that consists of a composition that forms an independent part of a document,
   /// page, or site.
@@ -835,7 +835,7 @@ class Role {
   /// a feature allowing the user to navigate the hierarchy of any nested article elements.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#article>
-  static const String article = "article";
+  static const String article = 'article';
 
   /// A region that contains mostly site-oriented content, rather than page-specific content.
   ///
@@ -854,7 +854,7 @@ class Role {
   /// attribute.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#banner>
-  static const String banner = "banner";
+  static const String banner = 'banner';
 
   /// An input that allows for user-triggered actions when clicked or pressed. See related link.
   ///
@@ -862,12 +862,12 @@ class Role {
   /// the user's recognition of the widgets as buttons and allows for a more compact display in toolbars.
   ///
   /// Buttons support the optional attribute aria-pressed. Buttons with a non-empty aria-pressed
-  /// attribute are toggle buttons. When aria-pressed is true the button is in a "pressed" state,
+  /// attribute are toggle buttons. When aria-pressed is true the button is in a 'pressed' state,
   /// when aria-pressed is false it is not pressed. If the attribute is not present, the button is
   /// a simple command button.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#button>
-  static const String button = "button";
+  static const String button = 'button';
 
   /// A checkable input that has three possible values: true, false, or mixed.
   ///
@@ -877,7 +877,7 @@ class Role {
   ///
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#checkbox>
-  static const String checkbox = "checkbox";
+  static const String checkbox = 'checkbox';
 
   /// A cell containing header information for a column.
   ///
@@ -895,7 +895,7 @@ class Role {
   /// row containers.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#columnheader>
-  static const String columnheader = "columnheader";
+  static const String columnheader = 'columnheader';
 
   /// A presentation of a select; usually similar to a textbox where users can type ahead to select
   /// an option, or type to enter arbitrary text as a new item in the list. See related listbox.
@@ -915,7 +915,7 @@ class Role {
   ///  by speaking the text alternative of the new active descendant element. Authors SHOULD associate
   ///  the combobox textfield with its listbox using aria-owns.
   ///
-  /// Note: In XForms [XFORMS] the same select can have one of 3 appearances: combo-box, drop-down
+  /// Note: In XForms the same select can have one of 3 appearances: combo-box, drop-down
   /// box, or group of radio-buttons. Many browsers allow users to type ahead to existing choices
   /// in a drop-down select widget. This specification does not constrain the presentation of the
   /// combo box.
@@ -926,7 +926,7 @@ class Role {
   /// Note: Elements with the role combobox have an implicit aria-haspopup value of true.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#combobox>
-  static const String combobox = "combobox";
+  static const String combobox = 'combobox';
 
   /// A supporting section of the document, designed to be complementary to the main content at a
   /// similar level in the DOM hierarchy, but remains meaningful when separated from the main content.
@@ -941,7 +941,7 @@ class Role {
   ///
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#complementary>
-  static const String complementary = "complementary";
+  static const String complementary = 'complementary';
 
   /// A large perceivable region that contains information about the parent document.
   ///
@@ -959,7 +959,7 @@ class Role {
   /// attribute.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#contentinfo>
-  static const String contentinfo = "contentinfo";
+  static const String contentinfo = 'contentinfo';
 
   /// A definition of a term or concept.
   ///
@@ -970,7 +970,7 @@ class Role {
   /// of definition.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#definition>
-  static const String definition = "definition";
+  static const String definition = 'definition';
 
   /// A dialog is an application window that is designed to interrupt the current processing of an
   /// application in order to prompt the user to enter information or require a response. See related
@@ -981,7 +981,7 @@ class Role {
   /// a focused descendant element that has keyboard focus.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#dialog>
-  static const String dialog = "dialog";
+  static const String dialog = 'dialog';
 
   /// A list of references to members of a group, such as a static table of contents.
   ///
@@ -990,7 +990,7 @@ class Role {
   /// however, might use a tree role instead.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#directory>
-  static const String directory = "directory";
+  static const String directory = 'directory';
 
   /// A region containing related information that is declared as document content, as opposed to
   /// a web application.
@@ -1025,7 +1025,7 @@ class Role {
   /// using aria-labelledby.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#document>
-  static const String document = "document";
+  static const String document = 'document';
 
   /// A landmark region that contains a collection of items and objects that, as a whole, combine
   /// to create a form. See related search.
@@ -1042,7 +1042,7 @@ class Role {
   /// User agents SHOULD treat elements with the role of form as navigational landmarks.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#form>
-  static const String form = "form";
+  static const String form = 'form';
 
   /// A grid is an interactive control which contains cells of tabular data arranged in rows and
   /// columns, like a table.
@@ -1087,7 +1087,7 @@ class Role {
   /// this role, as described in Managing Focus.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#grid>
-  static const String grid = "grid";
+  static const String grid = 'grid';
 
   /// A cell in a grid or treegrid.
   ///
@@ -1107,7 +1107,7 @@ class Role {
   /// the role row.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#gridcell>
-  static const String gridcell = "gridcell";
+  static const String gridcell = 'gridcell';
 
   /// A set of user interface objects which are not intended to be included in a page summary or
   /// table of contents by assistive technologies.
@@ -1126,7 +1126,7 @@ class Role {
   /// a standard landmark role.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#group>
-  static const String group = "group";
+  static const String group = 'group';
 
   /// A heading for a section of the page.
   ///
@@ -1135,7 +1135,7 @@ class Role {
   /// attribute can be used to indicate the nesting level.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#heading>
-  static const String heading = "heading";
+  static const String heading = 'heading';
 
   /// A container for a collection of elements that form an image.
   ///
@@ -1146,12 +1146,12 @@ class Role {
   /// by the accessible name calculation.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#img>
-  static const String img = "img";
+  static const String img = 'img';
 
   /// A generic type of widget that allows user input.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#input>
-  static const String input = "input";
+  static const String input = 'input';
 
   /// An interactive reference to an internal or external resource that, when activated, causes the
   /// user agent to navigate to that resource. See related button.
@@ -1164,7 +1164,7 @@ class Role {
   /// authors are advised to consider using the button role instead of the link role.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#link>
-  static const String link = "link";
+  static const String link = 'link';
 
   /// A group of non-interactive list items. See related listbox.
   ///
@@ -1172,7 +1172,7 @@ class Role {
   /// contains children whose role is listitem.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#list>
-  static const String list = "list";
+  static const String list = 'list';
 
   /// A widget that allows the user to select one or more items from a list of choices. See related
   /// combobox and list.
@@ -1184,7 +1184,7 @@ class Role {
   /// this role, as described in Managing Focus.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#listbox>
-  static const String listbox = "listbox";
+  static const String listbox = 'listbox';
 
   /// A single item in a list or directory.
   ///
@@ -1192,7 +1192,7 @@ class Role {
   /// the role list or group.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#listitem>
-  static const String listitem = "listitem";
+  static const String listitem = 'listitem';
 
   /// A type of live region where new information is added in meaningful order and old information
   /// may disappear. See related marquee.
@@ -1205,7 +1205,7 @@ class Role {
   /// Note: Elements with the role log have an implicit aria-live value of polite.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#log>
-  static const String log = "log";
+  static const String log = 'log';
 
   /// The main content of a document.
   ///
@@ -1225,7 +1225,7 @@ class Role {
   /// attribute.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#main>
-  static const String main = "main";
+  static const String main = 'main';
 
   /// A type of live region where non-essential information changes frequently. See related log.
   ///
@@ -1236,16 +1236,16 @@ class Role {
   /// Note: Elements with the role marquee maintain the default aria-live value of off.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#marquee>
-  static const String marquee = "marquee";
+  static const String marquee = 'marquee';
 
   /// Content that represents a mathematical expression.
   ///
-  /// Content with the role math is intended to be marked up in an accessible format such as MathML
-  /// [MATHML], or with another type of textual representation such as TeX or LaTeX, which can be
+  /// Content with the role math is intended to be marked up in an accessible format such as MathML,
+  /// or with another type of textual representation such as TeX or LaTeX, which can be
   /// readily converted to an accessible format by assistive technologies.
   ///
   /// This role provides a hook whereby a plug-in mechanism can provide multi-modal access to compliant
-  /// MathML, as well as enabling support for MathML in "mainstream" user agents.
+  /// MathML, as well as enabling support for MathML in 'mainstream' user agents.
   ///
   /// While it is inappropriate to use an image of a mathematical expression in the math role, there
   /// exists a significant amount of legacy content where images are used to represent mathematical
@@ -1255,7 +1255,7 @@ class Role {
   /// be spoken, using the  aria-describedby attribute.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#math>
-  static const String math = "math";
+  static const String math = 'math';
 
   /// A type of widget that offers a list of choices to the user.
   ///
@@ -1267,7 +1267,7 @@ class Role {
   /// this role, as described in Managing Focus.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#menu>
-  static const String menu = "menu";
+  static const String menu = 'menu';
 
   /// A presentation of menu that usually remains visible and is usually presented horizontally.
   ///
@@ -1280,7 +1280,7 @@ class Role {
   /// this role, as described in Managing Focus.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#menubar>
-  static const String menubar = "menubar";
+  static const String menubar = 'menubar';
 
   /// An option in a set of choices contained by a menu or menubar.
   ///
@@ -1293,7 +1293,7 @@ class Role {
   /// of a separator or an element with an equivalent role from the native markup language.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#menuitem>
-  static const String menuitem = "menuitem";
+  static const String menuitem = 'menuitem';
 
   /// A menuitem with a checkable state whose possible values are true, false, or mixed.
   ///
@@ -1307,7 +1307,7 @@ class Role {
   ///
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#menuitemcheckbox>
-  static const String menuitemcheckbox = "menuitemcheckbox";
+  static const String menuitemcheckbox = 'menuitemcheckbox';
 
   /// A checkable menuitem in a set of elements with role menuitemradio, only one of which can be
   /// checked at a time.
@@ -1327,7 +1327,7 @@ class Role {
   /// from other menu items with an element using the separator role.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#menuitemradio>
-  static const String menuitemradio = "menuitemradio";
+  static const String menuitemradio = 'menuitemradio';
 
   /// A collection of navigational elements (usually links) for navigating the document or related
   /// documents.
@@ -1335,12 +1335,12 @@ class Role {
   /// User agents SHOULD treat elements with the role of navigation as navigational landmarks.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#navigation>
-  static const String navigation = "navigation";
+  static const String navigation = 'navigation';
 
   /// A section whose content is parenthetic or ancillary to the main content of the resource.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#note>
-  static const String note = "note";
+  static const String note = 'note';
 
   /// A selectable item in a select list.
   ///
@@ -1349,7 +1349,7 @@ class Role {
   /// accessibility API.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#option>
-  static const String option = "option";
+  static const String option = 'option';
 
   /// An element whose implicit native role semantics will not be mapped to the accessibility API.
   ///
@@ -1363,7 +1363,7 @@ class Role {
   /// or clearing element); An image that is in a container with the img role and where the full
   /// text
   /// alternative is available and is marked up with aria-labelledby and (if needed) aria-describedby;An
-  /// element used as an additional markup "hook" for CSS; orA layout table and/or any of its associated
+  /// element used as an additional markup 'hook' for CSS; orA layout table and/or any of its associated
   /// rows, cells, etc.
   /// For any element with a role of presentation and which is not focusable, the user agent MUST
   /// NOT expose the implicit native semantics of the element (the role and its states and properties)
@@ -1417,7 +1417,7 @@ class Role {
   /// has an explicit or inherited role of presentation.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#presentation>
-  static const String presentation = "presentation";
+  static const String presentation = 'presentation';
 
   /// An element that displays the progress status for tasks that take a long time.
   ///
@@ -1438,7 +1438,7 @@ class Role {
   /// Note: Elements with the role progressbar have an implicit aria-readonly value of true.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#progressbar>
-  static const String progressbar = "progressbar";
+  static const String progressbar = 'progressbar';
 
   /// A checkable input in a group of radio roles, only one of which can be checked at a time.
   ///
@@ -1449,7 +1449,7 @@ class Role {
   /// to its children.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#radio>
-  static const String radio = "radio";
+  static const String radio = 'radio';
 
   /// A group of radio buttons.
   ///
@@ -1459,7 +1459,7 @@ class Role {
   /// (its aria-checked attribute becomes false).
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#radiogroup>
-  static const String radiogroup = "radiogroup";
+  static const String radiogroup = 'radiogroup';
 
   /// A large perceivable section of a web page or document, that is important enough to be included
   /// in a page summary or table of contents, for example, an area of the page containing live sporting
@@ -1478,7 +1478,7 @@ class Role {
   /// role and provide the appropriate accessible name.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#region>
-  static const String region = "region";
+  static const String region = 'region';
 
   /// A row of cells in a grid.
   ///
@@ -1492,7 +1492,7 @@ class Role {
   /// role grid, rowgroup, treegrid.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#row>
-  static const String row = "row";
+  static const String row = 'row';
 
   /// A group containing one or more row elements in a grid.
   ///
@@ -1510,19 +1510,19 @@ class Role {
   /// but an issue has been raised for WAI-ARIA 2.0.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#rowgroup>
-  static const String rowgroup = "rowgroup";
+  static const String rowgroup = 'rowgroup';
 
   /// A cell containing header information for a row in a grid.
   ///
   /// Rowheader can be used as a row header in a table or grid. The rowheader establishes a relationship
   /// between it and all cells in the corresponding row. It is a structural equivalent to setting
-  /// scope="row" on an HTML th element.
+  /// scope='row' on an HTML th element.
   ///
   /// Authors MUST ensure elements with role rowheader are contained in, or owned by, an element
   /// with the role row.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#rowheader>
-  static const String rowheader = "rowheader";
+  static const String rowheader = 'rowheader';
 
   /// A landmark region that contains a collection of items and objects that, as a whole, combine
   /// to create a search facility. See related form.
@@ -1532,7 +1532,7 @@ class Role {
   /// User agents SHOULD treat elements with the role of search as navigational landmarks.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#search>
-  static const String search = "search";
+  static const String search = 'search';
 
   /// A divider that separates and distinguishes sections of content or groups of menuitems.
   ///
@@ -1541,7 +1541,7 @@ class Role {
   /// pane.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#separator>
-  static const String separator = "separator";
+  static const String separator = 'separator';
 
   /// A graphical object that controls the scrolling of content within a viewing area, regardless
   /// of whether the content is fully displayed within the viewing area.
@@ -1563,7 +1563,7 @@ class Role {
   /// in a manner that is appropriate for this calculation.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#scrollbar>
-  static const String scrollbar = "scrollbar";
+  static const String scrollbar = 'scrollbar';
 
   /// A user input where the user selects a value from within a given range.
   ///
@@ -1572,7 +1572,7 @@ class Role {
   /// directional keys such as arrow keys.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#slider>
-  static const String slider = "slider";
+  static const String slider = 'slider';
 
   /// A form of range that expects the user to select from among discrete choices.
   ///
@@ -1587,7 +1587,7 @@ class Role {
   /// would provide much better performance than a select widget representing the same values.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#spinbutton>
-  static const String spinbutton = "spinbutton";
+  static const String spinbutton = 'spinbutton';
 
   /// A container whose content is advisory information for the user but is not important enough
   /// to justify an alert, often but not necessarily presented as a status bar. See related alert.
@@ -1604,7 +1604,7 @@ class Role {
   /// aria-atomic value of true.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#status>
-  static const String status = "status";
+  static const String status = 'status';
 
   /// A grouping label providing a mechanism for selecting the tab content that is to be rendered
   /// to the user.
@@ -1634,7 +1634,7 @@ class Role {
   ///
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#tab>
-  static const String tab = "tab";
+  static const String tab = 'tab';
 
   /// A list of tab elements, which are references to tabpanel elements.
   ///
@@ -1651,7 +1651,7 @@ class Role {
   /// set design pattern.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#tablist>
-  static const String tablist = "tablist";
+  static const String tablist = 'tablist';
 
   /// A container for the resources associated with a tab, where each tab is contained in a tablist.
   ///
@@ -1664,7 +1664,7 @@ class Role {
   /// set design pattern.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#tabpanel>
-  static const String tabpanel = "tabpanel";
+  static const String tabpanel = 'tabpanel';
 
   /// Input that allows free-form text as its value.
   ///
@@ -1675,13 +1675,13 @@ class Role {
   ///
   /// Note: In most user agent implementations, the default behavior of the ENTER or RETURN key is
   /// different between the single-line and multi-line text fields in HTML. When user has focus in
-  /// a single-line &lt;input type="text"&gt; element, the keystroke usually submits the form. When
+  /// a single-line &lt;input type='text'&gt; element, the keystroke usually submits the form. When
   /// user has focus in a multi-line &lt;textarea&gt; element, the keystroke inserts a line break.
   /// The WAI-ARIA textbox role differentiates these types of boxes with the aria-multiline attribute,
   /// so authors are advised to be aware of this distinction when designing the field.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#textbox>
-  static const String textbox = "textbox";
+  static const String textbox = 'textbox';
 
   /// A type of live region containing a numerical counter which indicates an amount of elapsed time
   /// from a start point, or the time remaining until an end point.
@@ -1694,7 +1694,7 @@ class Role {
   /// Note: Elements with the role timer maintain the default aria-live value of off.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#timer>
-  static const String timer = "timer";
+  static const String timer = 'timer';
 
   /// A collection of commonly used function buttons or controls represented in compact visual form.
   ///
@@ -1706,7 +1706,7 @@ class Role {
   /// Focus.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#toolbar>
-  static const String toolbar = "toolbar";
+  static const String toolbar = 'toolbar';
 
   /// A contextual popup that displays a description for an element.
   ///
@@ -1721,7 +1721,7 @@ class Role {
   /// aria-describedby by the time the tooltip is displayed.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#tooltip>
-  static const String tooltip = "tooltip";
+  static const String tooltip = 'tooltip';
 
   /// A type of list that may contain sub-level nested groups that can be collapsed and expanded.
   ///
@@ -1729,7 +1729,7 @@ class Role {
   /// this role, as described in Managing Focus.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#tree>
-  static const String tree = "tree";
+  static const String tree = 'tree';
 
   /// A grid whose rows can be expanded and collapsed in the same manner as for a tree.
   ///
@@ -1743,7 +1743,7 @@ class Role {
   /// this role, as described in Managing Focus.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#treegrid>
-  static const String treegrid = "treegrid";
+  static const String treegrid = 'treegrid';
 
   /// An option item of a tree. This is an element within a tree that may be expanded or collapsed
   /// if it contains a sub-level group of treeitem elements.
@@ -1755,7 +1755,7 @@ class Role {
   /// the role group or tree.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/roles#treeitem>
-  static const String treeitem = "treeitem";
+  static const String treeitem = 'treeitem';
 }
 
 /// A MapView with the typed getters/setters for all aria props.
@@ -1781,4 +1781,4 @@ class AriaPropsMapView extends MapView with
 /// <!>  )
 /// </pre>
 /// <!-- use pre tags and HTML markup until WebStorm fully supports Dart doc comment markdown -->
-AriaPropsMapView ariaProps([Map backingMap]) => new AriaPropsMapView(backingMap == null ? {} : backingMap);
+AriaPropsMapView ariaProps([Map backingMap]) =>  AriaPropsMapView(backingMap ?? {});

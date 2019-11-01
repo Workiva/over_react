@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'dummy_component2.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'dummy_component2.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $_Dummy2ComponentFactory = registerComponent2(
-  () => new _$_Dummy2Component(),
+  () => _$_Dummy2Component(),
   builderFactory: _Dummy2,
   componentClass: _Dummy2Component,
   isWrapper: false,
@@ -24,11 +25,11 @@ abstract class _$_Dummy2PropsAccessorsMixin implements _$_Dummy2Props {
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaFor_Dummy2Props = const PropsMeta(
+const PropsMeta _$metaFor_Dummy2Props = PropsMeta(
   fields: _$_Dummy2PropsAccessorsMixin.$props,
   keys: _$_Dummy2PropsAccessorsMixin.$propKeys,
 );
@@ -38,8 +39,8 @@ class _Dummy2Props extends _$_Dummy2Props with _$_Dummy2PropsAccessorsMixin {
 }
 
 _$$_Dummy2Props _$_Dummy2([Map backingProps]) => backingProps == null
-    ? new _$$_Dummy2Props$JsMap(new JsBackedMap())
-    : new _$$_Dummy2Props(backingProps);
+    ? _$$_Dummy2Props$JsMap(JsBackedMap())
+    : _$$_Dummy2Props(backingProps);
 
 // Concrete props implementation.
 //
@@ -51,17 +52,17 @@ abstract class _$$_Dummy2Props extends _$_Dummy2Props
 
   factory _$$_Dummy2Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$_Dummy2Props$JsMap(backingMap);
+      return _$$_Dummy2Props$JsMap(backingMap);
     } else {
-      return new _$$_Dummy2Props$PlainMap(backingMap);
+      return _$$_Dummy2Props$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $_Dummy2ComponentFactory;
@@ -93,9 +94,9 @@ class _$$_Dummy2Props$JsMap extends _$$_Dummy2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$_Dummy2Props$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -129,18 +130,18 @@ class _$_Dummy2Component extends _Dummy2Component {
 
   @override
   _$$_Dummy2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$_Dummy2Props$JsMap(backingMap);
+      _$$_Dummy2Props$JsMap(backingMap);
 
   @override
   _$$_Dummy2Props typedPropsFactory(Map backingMap) =>
-      new _$$_Dummy2Props(backingMap);
+      _$$_Dummy2Props(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$_Dummy2Props.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaFor_Dummy2Props

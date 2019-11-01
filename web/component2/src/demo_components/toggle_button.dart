@@ -76,13 +76,13 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   InputElement inputRef;
 
   @override
-  Map getDefaultProps() => (newProps()
-    ..addProps(super.getDefaultProps())
+   get defaultProps => (newProps()
+    ..addProps(super.defaultProps)
     ..toggleType = ToggleBehaviorType.CHECKBOX
   );
 
   @override
-  Map getInitialState() => (newState()
+   get initialState => (newState()
     ..id = 'toggle_button_' + generateGuid()
     ..isFocused = props.autoFocus
     ..isChecked = props.checked ?? props.defaultChecked ?? false
@@ -96,13 +96,13 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   ];
 
   @override
-  void init() {
+  void componentDidMount() {
     _validateProps(props);
   }
 
   @override
-  Map getDerivedStateFromProps(Map props, MapState) {
-    var tNewProps = typedPropsFactory(props);
+  Map getDerivedStateFromProps(Map nextProps, Map prevState) {
+    var tNewProps = typedPropsFactory(nextProps);
 
     _validateProps(tNewProps);
 

@@ -2,6 +2,33 @@
 
 ## 3.0.0 (alpha)
 
+- __3.0.0-alpha.5__
+
+  * [#390] Add new SafeRenderManager utility
+  
+  > Complete `3.0.0-alpha.5` Changesets:
+  >
+  > - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0-alpha.4+dart2...3.0.0-alpha.5+dart2)
+  > - [Dart 1](https://github.com/Workiva/over_react/compare/3.0.0-alpha.4+dart1...3.0.0-alpha.5+dart1)
+
+- __3.0.0-alpha.4__
+
+  * [#383] Update prop typedef to work around [Dart 2.6 compiler regression](https://github.com/dart-lang/sdk/issues/38880)
+
+  > Complete `3.0.0-alpha.4` Changesets:
+  >
+  > - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0-alpha.3+dart2...3.0.0-alpha.4+dart2)
+  > - Dart 1 (no changes)
+
+- __3.0.0-alpha.3__
+
+  * [#370] Add error logging to ErrorBoundary
+
+  > Complete `3.0.0-alpha.3` Changesets:
+  >
+  > - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0-alpha.2+dart2...3.0.0-alpha.3+dart2)
+  > - [Dart 1](https://github.com/Workiva/over_react/compare/3.0.0-alpha.2+dart1...3.0.0-alpha.3+dart1)
+
 - __3.0.0-alpha.2__
 
   * [#363] Dart 2 Widen `analyzer` dependency range
@@ -39,6 +66,34 @@
   >
   > - [Dart 2](https://github.com/Workiva/over_react/compare/2.5.2+dart2...3.0.0-alpha.0+dart2)
   > - [Dart 1](https://github.com/Workiva/over_react/compare/2.5.0+dart1...3.0.0-alpha.0+dart1)
+
+## 2.7.0
+
+> Complete `2.7.0` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.6.1+dart2...2.7.0+dart2)
+> - [Dart 1](https://github.com/Workiva/over_react/compare/2.6.1+dart1...2.7.0+dart1)
+
+* This release brings in the `SafeRenderManager` utilities added to the 3.x alpha line-of-release via [#390]
+
+## 2.6.1
+
+> Complete `2.6.1` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.6.0+dart2...2.6.1+dart2)
+> - Dart 1 (No Changes)
+
+* [#382] Update prop typedef to work around [Dart 2.6 compiler regression](https://github.com/dart-lang/sdk/issues/38880)
+
+## 2.6.0
+
+> Complete `2.6.0` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.5.3+dart2...2.6.0+dart2)
+> - [Dart 1](https://github.com/Workiva/over_react/compare/2.5.3+dart1...2.6.0+dart1)
+
+* Adds a placeholder prop API to mirror the 3.x ErrorBoundary APIs ([#370]) added to configure logging. 
+  The API is not wired up in 2.x, but will make the transition for consumers to 3.x smoother.
 
 ## 2.5.3
 

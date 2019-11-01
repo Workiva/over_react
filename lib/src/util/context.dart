@@ -31,6 +31,7 @@ import 'package:react/react.dart' as react;
 ///
 /// Learn more at: https://reactjs.org/docs/context.html
 class Context<TValue> {
+  // ignore: avoid_types_as_parameter_names
   Context(this.Provider, this.Consumer, this.reactDartContext);
 
   /// The react.dart version of this context.
@@ -98,10 +99,11 @@ class Context<TValue> {
   final UiFactory<ConsumerProps<TValue>> Consumer;
 }
 
-/// [ProviderProps] is a typed props class for the [Provider] from a [Context] object created with [createContext].
+/// [ProviderProps] is a typed props class for the [Context.Provider] from a [Context] object created with [createContext].
 ///
 /// Props:
-/// [value] The value that you want to provide to all consumers.
+///
+/// * [value] The value that you want to provide to all consumers.
 ///
 /// See: <https://reactjs.org/docs/context.html#contextprovider>
 class ProviderProps<TValue> extends component_base.UiProps
@@ -111,8 +113,8 @@ class ProviderProps<TValue> extends component_base.UiProps
         builder_helpers.UiProps {
 
   ProviderProps(JsBackedMap backingMap)
-      : this._props = new JsBackedMap() {
-    this._props = backingMap ?? new JsBackedMap();
+      : this._props = JsBackedMap() {
+    this._props = backingMap ?? JsBackedMap();
   }
 
   @override
@@ -126,7 +128,7 @@ class ProviderProps<TValue> extends component_base.UiProps
   set value(TValue v) => props['value'] = v;
 }
 
-/// [ConsumerProps] is a typed props class for the [Consumer] from a [Context] object created with [createContext].
+/// [ConsumerProps] is a typed props class for the [Context.Consumer] from a [Context] object created with [createContext].
 ///
 /// See: <https://reactjs.org/docs/context.html#contextconsumer>
 class ConsumerProps<TValue> extends component_base.UiProps
@@ -137,7 +139,7 @@ class ConsumerProps<TValue> extends component_base.UiProps
   // Initialize to a JsBackedMap so that copying can be optimized
   // when converting props during ReactElement creation.
   // TODO 3.0.0-wip generate JsBackedMap-based implementation used when no backing map is provided, like we do for Component2
-  ConsumerProps([Map props]) : this.props = props ?? new JsBackedMap();
+  ConsumerProps([Map props]) : this.props = props ?? JsBackedMap();
 
   @override
   final Map props;
@@ -174,7 +176,7 @@ class ConsumerProps<TValue> extends component_base.UiProps
   }
 }
 
-const _nope = const _DO_NOT_USE_OR_YOU_WILL_BE_FIRED();
+const _nope = _DO_NOT_USE_OR_YOU_WILL_BE_FIRED();
 
 // ignore: camel_case_types
 class _DO_NOT_USE_OR_YOU_WILL_BE_FIRED {
@@ -225,7 +227,9 @@ class _DO_NOT_USE_OR_YOU_WILL_BE_FIRED {
 /// Learn more: <https://reactjs.org/docs/context.html#reactcreatecontext>
 Context<TValue> createContext<TValue>([TValue defaultValue, int Function(TValue, TValue) calculateChangedBits]) {
   react.Context reactDartContext = react.createContext(defaultValue, calculateChangedBits != null ? (dynamic arg1, dynamic arg2) => calculateChangedBits(arg1, arg2) : null);
-  UiFactory<ProviderProps> Provider = ([map]) => (new ProviderProps<TValue>(map)..componentFactory = reactDartContext.Provider);
-  UiFactory<ConsumerProps> Consumer = ([map]) => (new ConsumerProps<TValue>(map)..componentFactory = reactDartContext.Consumer);
+  // ignore: prefer_function_declarations_over_variables, avoid_types_on_closure_parameters
+  UiFactory<ProviderProps> Provider = ([Map map]) => (ProviderProps<TValue>(map)..componentFactory = reactDartContext.Provider);
+  // ignore: prefer_function_declarations_over_variables, avoid_types_on_closure_parameters
+  UiFactory<ConsumerProps> Consumer = ([Map map]) => (ConsumerProps<TValue>(map)..componentFactory = reactDartContext.Consumer);
   return Context<TValue>(Provider, Consumer, reactDartContext);
 }

@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'stateful_component_integration_test.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'stateful_component_integration_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $StatefulComponentTestComponentFactory = registerComponent2(
-  () => new _$StatefulComponentTestComponent(),
+  () => _$StatefulComponentTestComponent(),
   builderFactory: StatefulComponentTest,
   componentClass: StatefulComponentTestComponent,
   isWrapper: false,
@@ -39,20 +40,19 @@ abstract class _$StatefulComponentTestPropsAccessorsMixin
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__setStateDirectly___$StatefulComponentTestProps =
-      const PropDescriptor(
-          _$key__setStateDirectly___$StatefulComponentTestProps);
+      PropDescriptor(_$key__setStateDirectly___$StatefulComponentTestProps);
   static const String _$key__setStateDirectly___$StatefulComponentTestProps =
       'StatefulComponentTestProps.setStateDirectly';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__setStateDirectly___$StatefulComponentTestProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__setStateDirectly___$StatefulComponentTestProps
   ];
 }
 
-const PropsMeta _$metaForStatefulComponentTestProps = const PropsMeta(
+const PropsMeta _$metaForStatefulComponentTestProps = PropsMeta(
   fields: _$StatefulComponentTestPropsAccessorsMixin.$props,
   keys: _$StatefulComponentTestPropsAccessorsMixin.$propKeys,
 );
@@ -64,8 +64,8 @@ class StatefulComponentTestProps extends _$StatefulComponentTestProps
 
 _$$StatefulComponentTestProps _$StatefulComponentTest([Map backingProps]) =>
     backingProps == null
-        ? new _$$StatefulComponentTestProps$JsMap(new JsBackedMap())
-        : new _$$StatefulComponentTestProps(backingProps);
+        ? _$$StatefulComponentTestProps$JsMap(JsBackedMap())
+        : _$$StatefulComponentTestProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -78,17 +78,17 @@ abstract class _$$StatefulComponentTestProps
 
   factory _$$StatefulComponentTestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$StatefulComponentTestProps$JsMap(backingMap);
+      return _$$StatefulComponentTestProps$JsMap(backingMap);
     } else {
-      return new _$$StatefulComponentTestProps$PlainMap(backingMap);
+      return _$$StatefulComponentTestProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $StatefulComponentTestComponentFactory;
@@ -122,9 +122,9 @@ class _$$StatefulComponentTestProps$JsMap
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$StatefulComponentTestProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -160,71 +160,70 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
 
   /// <!-- Generated from [_$StatefulComponentTestState.untypedState] -->
   @override
-  get untypedState =>
+  dynamic get untypedState =>
       state[_$key__untypedState___$StatefulComponentTestState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$StatefulComponentTestState.untypedState] -->
   @override
-  set untypedState(value) =>
+  set untypedState(dynamic value) =>
       state[_$key__untypedState___$StatefulComponentTestState] = value;
 
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  get customKeyState =>
+  dynamic get customKeyState =>
       state[_$key__customKeyState___$StatefulComponentTestState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  set customKeyState(value) =>
+  set customKeyState(dynamic value) =>
       state[_$key__customKeyState___$StatefulComponentTestState] = value;
 
   /// <!-- Generated from [_$StatefulComponentTestState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceState =>
+  dynamic get customNamespaceState =>
       state[_$key__customNamespaceState___$StatefulComponentTestState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$StatefulComponentTestState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceState(value) =>
+  set customNamespaceState(dynamic value) =>
       state[_$key__customNamespaceState___$StatefulComponentTestState] = value;
 
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceState =>
+  dynamic get customKeyAndNamespaceState =>
       state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceState(value) =>
+  set customKeyAndNamespaceState(dynamic value) =>
       state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState] =
           value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor
       _$prop__stringState___$StatefulComponentTestState =
-      const StateDescriptor(_$key__stringState___$StatefulComponentTestState);
+      StateDescriptor(_$key__stringState___$StatefulComponentTestState);
   static const StateDescriptor
       _$prop__dynamicState___$StatefulComponentTestState =
-      const StateDescriptor(_$key__dynamicState___$StatefulComponentTestState);
+      StateDescriptor(_$key__dynamicState___$StatefulComponentTestState);
   static const StateDescriptor
       _$prop__untypedState___$StatefulComponentTestState =
-      const StateDescriptor(_$key__untypedState___$StatefulComponentTestState);
+      StateDescriptor(_$key__untypedState___$StatefulComponentTestState);
   static const StateDescriptor
       _$prop__customKeyState___$StatefulComponentTestState =
-      const StateDescriptor(
-          _$key__customKeyState___$StatefulComponentTestState);
+      StateDescriptor(_$key__customKeyState___$StatefulComponentTestState);
   static const StateDescriptor
       _$prop__customNamespaceState___$StatefulComponentTestState =
-      const StateDescriptor(
+      StateDescriptor(
           _$key__customNamespaceState___$StatefulComponentTestState);
   static const StateDescriptor
       _$prop__customKeyAndNamespaceState___$StatefulComponentTestState =
-      const StateDescriptor(
+      StateDescriptor(
           _$key__customKeyAndNamespaceState___$StatefulComponentTestState);
   static const String _$key__stringState___$StatefulComponentTestState =
       'StatefulComponentTestState.stringState';
@@ -241,7 +240,7 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
       _$key__customKeyAndNamespaceState___$StatefulComponentTestState =
       'custom namespace~~custom key!';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__stringState___$StatefulComponentTestState,
     _$prop__dynamicState___$StatefulComponentTestState,
     _$prop__untypedState___$StatefulComponentTestState,
@@ -249,7 +248,7 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
     _$prop__customNamespaceState___$StatefulComponentTestState,
     _$prop__customKeyAndNamespaceState___$StatefulComponentTestState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__stringState___$StatefulComponentTestState,
     _$key__dynamicState___$StatefulComponentTestState,
     _$key__untypedState___$StatefulComponentTestState,
@@ -259,7 +258,7 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   ];
 }
 
-const StateMeta _$metaForStatefulComponentTestState = const StateMeta(
+const StateMeta _$metaForStatefulComponentTestState = StateMeta(
   fields: _$StatefulComponentTestStateAccessorsMixin.$state,
   keys: _$StatefulComponentTestStateAccessorsMixin.$stateKeys,
 );
@@ -280,13 +279,13 @@ abstract class _$$StatefulComponentTestState
 
   factory _$$StatefulComponentTestState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$StatefulComponentTestState$JsMap(backingMap);
+      return _$$StatefulComponentTestState$JsMap(backingMap);
     } else {
-      return new _$$StatefulComponentTestState$PlainMap(backingMap);
+      return _$$StatefulComponentTestState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -315,9 +314,9 @@ class _$$StatefulComponentTestState$JsMap
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$StatefulComponentTestState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -352,11 +351,11 @@ class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
   @override
   _$$StatefulComponentTestProps$JsMap typedPropsFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$StatefulComponentTestProps$JsMap(backingMap);
+      _$$StatefulComponentTestProps$JsMap(backingMap);
 
   @override
   _$$StatefulComponentTestProps typedPropsFactory(Map backingMap) =>
-      new _$$StatefulComponentTestProps(backingMap);
+      _$$StatefulComponentTestProps(backingMap);
 
   _$$StatefulComponentTestState$JsMap _cachedTypedState;
   @override
@@ -375,18 +374,18 @@ class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
   @override
   _$$StatefulComponentTestState$JsMap typedStateFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$StatefulComponentTestState$JsMap(backingMap);
+      _$$StatefulComponentTestState$JsMap(backingMap);
 
   @override
   _$$StatefulComponentTestState typedStateFactory(Map backingMap) =>
-      new _$$StatefulComponentTestState(backingMap);
+      _$$StatefulComponentTestState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$StatefulComponentTestProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForStatefulComponentTestProps
