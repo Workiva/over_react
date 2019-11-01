@@ -27,24 +27,26 @@ abstract class _$ComponentTestPropsAccessorsMixin
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @requiredProp
-  get required =>
+  dynamic get required =>
       props[_$key__required___$ComponentTestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @requiredProp
-  set required(value) => props[_$key__required___$ComponentTestProps] = value;
+  set required(dynamic value) =>
+      props[_$key__required___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @nullableRequiredProp
-  get nullable =>
+  dynamic get nullable =>
       props[_$key__nullable___$ComponentTestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @nullableRequiredProp
-  set nullable(value) => props[_$key__nullable___$ComponentTestProps] = value;
+  set nullable(dynamic value) =>
+      props[_$key__nullable___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.requiredAndLengthLimited] -->
   @override

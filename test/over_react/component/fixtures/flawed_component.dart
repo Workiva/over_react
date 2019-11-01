@@ -32,24 +32,24 @@ class FlawedState extends _$FlawedState with _$FlawedStateAccessorsMixin {
   static const StateMeta meta = _$metaForFlawedState;
 }
 
-@Component()
-class FlawedComponent extends UiStatefulComponent<FlawedProps, FlawedState> {
+@Component2()
+class FlawedComponent extends UiStatefulComponent2<FlawedProps, FlawedState> {
   @override
-  Map getDefaultProps() => (newProps()..buttonTestIdPrefix = 'flawedComponent_');
+  get defaultProps => (newProps()..buttonTestIdPrefix = 'flawedComponent_');
 
   @override
-  Map getInitialState() => (newState()
+  get initialState => (newState()
     ..errorCount = 0
     ..differentTypeOfErrorCount = 0);
 
   @override
-  void componentWillUpdate(_, Map nextState) {
-    final tNextState = typedStateFactory(nextState);
-    if (tNextState.errorCount > state.errorCount) {
+  getSnapshotBeforeUpdate(Map prevProps, Map prevState) {
+    final tPrevState = typedStateFactory(prevState);
+    if (state.errorCount > tPrevState.errorCount) {
       throw FlawedComponentException();
     }
 
-    if (tNextState.differentTypeOfErrorCount > state.differentTypeOfErrorCount) {
+    if (state.differentTypeOfErrorCount > tPrevState.differentTypeOfErrorCount) {
       throw FlawedComponentException2();
     }
   }

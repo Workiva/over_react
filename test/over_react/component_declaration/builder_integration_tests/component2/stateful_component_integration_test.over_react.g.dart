@@ -160,48 +160,48 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
 
   /// <!-- Generated from [_$StatefulComponentTestState.untypedState] -->
   @override
-  get untypedState =>
+  dynamic get untypedState =>
       state[_$key__untypedState___$StatefulComponentTestState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$StatefulComponentTestState.untypedState] -->
   @override
-  set untypedState(value) =>
+  set untypedState(dynamic value) =>
       state[_$key__untypedState___$StatefulComponentTestState] = value;
 
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  get customKeyState =>
+  dynamic get customKeyState =>
       state[_$key__customKeyState___$StatefulComponentTestState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  set customKeyState(value) =>
+  set customKeyState(dynamic value) =>
       state[_$key__customKeyState___$StatefulComponentTestState] = value;
 
   /// <!-- Generated from [_$StatefulComponentTestState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceState =>
+  dynamic get customNamespaceState =>
       state[_$key__customNamespaceState___$StatefulComponentTestState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$StatefulComponentTestState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceState(value) =>
+  set customNamespaceState(dynamic value) =>
       state[_$key__customNamespaceState___$StatefulComponentTestState] = value;
 
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceState =>
+  dynamic get customKeyAndNamespaceState =>
       state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceState(value) =>
+  set customKeyAndNamespaceState(dynamic value) =>
       state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState] =
           value;
   /* GENERATED CONSTANTS */

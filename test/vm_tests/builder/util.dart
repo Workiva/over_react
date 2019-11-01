@@ -75,7 +75,7 @@ class OverReactSrc {
     this.componentBody = '',
     this.needsComponent = false,
     this.typeParameters = false,
-    this.componentVersion: 1,
+    this.componentVersion = 1,
     isPrivate = false})
       :
         this.annotation = AnnotationType.abstractProps,
@@ -109,7 +109,7 @@ class OverReactSrc {
     this.componentBody = '',
     this.needsComponent = false,
     this.typeParameters = false,
-    this.componentVersion: 1,
+    this.componentVersion = 1,
     isPrivate = false})
       :
         this.annotation = AnnotationType.abstractState,
@@ -138,7 +138,7 @@ class OverReactSrc {
     this.componentAnnotationArg = '',
     this.componentBody = '',
     this.typeParameters = false,
-    this.componentVersion: 1,
+    this.componentVersion = 1,
     isPrivate = false})
       :
         this.annotation = AnnotationType.props,
@@ -171,7 +171,7 @@ class OverReactSrc {
     this.componentBody = '',
     this.typeParameters = false,
     this.numMixins = 1,
-    this.componentVersion: 1,
+    this.componentVersion = 1,
     isPrivate = false})
       :
         this.annotation = AnnotationType.propsMixin,
@@ -201,7 +201,7 @@ class OverReactSrc {
     this.componentAnnotationArg = '',
     this.componentBody = '',
     this.typeParameters = false,
-    this.componentVersion: 1,
+    this.componentVersion = 1,
     isPrivate = false})
       :
         this.annotation = AnnotationType.state,
@@ -235,7 +235,7 @@ class OverReactSrc {
     this.componentBody = '',
     this.typeParameters = false,
     this.numMixins = 1,
-    this.componentVersion: 1,
+    this.componentVersion = 1,
     isPrivate = false})
       :
         this.annotation = AnnotationType.stateMixin,

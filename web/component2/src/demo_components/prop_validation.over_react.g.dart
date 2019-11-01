@@ -95,12 +95,13 @@ abstract class _$PropTypesTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$PropTypesTestProps.targetKey] -->
   @override
-  get targetKey =>
+  dynamic get targetKey =>
       props[_$key__targetKey___$PropTypesTestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$PropTypesTestProps.targetKey] -->
   @override
-  set targetKey(value) => props[_$key__targetKey___$PropTypesTestProps] = value;
+  set targetKey(dynamic value) =>
+      props[_$key__targetKey___$PropTypesTestProps] = value;
 
   /// <!-- Generated from [_$PropTypesTestProps.hideLabel] -->
   @override

@@ -20,7 +20,7 @@ library over_react.component_declaration.annotations;
 ///     @Factory()
 ///     UiFactory<FooProps> Foo = _$Foo;
 ///
-/// Must be accompanied by a [Props] and [Component] declaration.
+/// Must be accompanied by a [Props] and [Component2] declaration.
 class Factory {
   const Factory();
 }
@@ -34,7 +34,7 @@ class Factory {
 ///       String bar;
 ///     }
 ///
-/// Must be accompanied by a [Factory] and [Component] declaration.
+/// Must be accompanied by a [Factory] and [Component2] declaration.
 class Props implements TypedMap {
   /// A custom namespace for the keys of props defined in the annotated class,
   /// overriding the default of `'${propsClassName}.'`.
@@ -52,7 +52,7 @@ class Props implements TypedMap {
 ///       bool baz;
 ///     }
 ///
-/// Optional. Must be accompanied by a [Factory], [Props], and [Component] declaration.
+/// Optional. Must be accompanied by a [Factory], [Props], and [Component2] declaration.
 class State implements TypedMap {
   /// A custom namespace for the keys of state properties defined in the annotated class,
   /// overriding the default of `'${stateClassName}.'`.
@@ -115,7 +115,7 @@ class Component {
 ///     }
 ///
 /// Must be accompanied by a [Factory] and [Props] declaration.
-class Component2 implements Component {
+class Component2 implements Component { // ignore: deprecated_member_use_from_same_package
   /// Whether the component clones or passes through its children and needs to be
   /// treated as if it were the wrapped component when passed in to `isComponentOfType`.
   @override
@@ -123,13 +123,13 @@ class Component2 implements Component {
 
   /// Whether the component serves as a React error boundary.
   ///
-  /// When set to `true`, this component will be able to make use of 
+  /// When set to `true`, this component will be able to make use of
   /// the `componentDidCatch` and `getDerivedStateFromError` component lifecycle
   /// methods in order to "catch" ReactJS errors from within its child component tree.
   ///
   /// Check out the `ErrorBoundary` higher-order component for an example implementation.
   ///
-  ///  > TODO (CPLAT-5037): Add an example of how to utilize the 
+  ///  > TODO (CPLAT-5037): Add an example of how to utilize the
   ///   `ErrorBoundaryMixin`, `ErrorBoundaryPropsMixin` and `ErrorBoundaryStateMixin` classes
   ///   in order to add default error boundary component behaviors to custom error boundaries.
   ///
@@ -162,9 +162,9 @@ class Component2 implements Component {
   final Type subtypeOf;
 
   const Component2({
-      this.isWrapper: false,
+      this.isWrapper = false,
       this.subtypeOf,
-      this.isErrorBoundary: false,
+      this.isErrorBoundary = false,
   });
 }
 
@@ -215,7 +215,7 @@ class AbstractComponent {
 ///
 ///     @AbstractComponent2()
 ///     abstract class FooComponent<TProps extends QuxProps> extends UiComponent2<TProps> {}
-class AbstractComponent2 implements AbstractComponent {
+class AbstractComponent2 implements AbstractComponent { // ignore: deprecated_member_use_from_same_package
   const AbstractComponent2();
 }
 

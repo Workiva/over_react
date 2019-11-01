@@ -15,7 +15,6 @@
 library forward_ref_test;
 
 import 'dart:html';
-import 'dart:js_util';
 
 import 'package:test/test.dart';
 import 'package:over_react/over_react.dart';
@@ -58,7 +57,7 @@ main() {
   });
 }
 
-void forwardRefTest(dynamic factory, {void verifyRefValue(dynamic refValue)}) {
+void forwardRefTest(dynamic factory, {void Function(dynamic refValue) verifyRefValue}) {
   test('- passes a ref through the parent to its child', () {
     UiFactory<BasicProps> BasicForwarded = forwardRef<BasicProps>((props, ref) {
       return (factory()
@@ -76,7 +75,7 @@ void forwardRefTest(dynamic factory, {void verifyRefValue(dynamic refValue)}) {
 
     // component props are accessed differently depending on if it is a dom component
     // or a dart component
-    var idValue;
+    String idValue;
     if (refObject.current is Element) {
       idValue = refObject.current.id;
     } else {

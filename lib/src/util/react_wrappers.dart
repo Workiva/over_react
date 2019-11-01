@@ -45,6 +45,7 @@ import 'package:react/react_dom.dart' as react_dom;
 
 /// Returns internal data structure used by react-dart to maintain the native Dart component
 /// for a given react-dart [ReactElement] or [ReactComponent] [instance].
+// ignore: deprecated_member_use
 ReactDartComponentInternal _getInternal(/* ReactElement|ReactComponent */ instance) =>
     // ignore: deprecated_member_use
     (instance.props as InteropProps).internal;
@@ -180,7 +181,7 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers 
 }
 
 /// Returns the DOM node associated with a mounted React component [instance],
-/// which can be a [ReactComponent]/[Element] or [react.Component].
+/// which can be a [ReactComponent]/[Element] or [react.Component2].
 ///
 /// This method simply wraps react.findDOMNode with strong typing for the return value
 /// (and for the function itself, which is declared using `var` in react-dart).
@@ -222,8 +223,8 @@ bool _isCompositeComponent(dynamic instance) {
 ///
 /// Handles both Dart and JS React components, returning the appropriate props structure for each type:
 ///
-/// * For non-[react.Component2] Dart components, existing props are read from [InteropProps.internal], which are then merged with
-///   the new [newProps] and saved in a new [InteropProps] with the expected [ReactDartComponentInternal] structure.
+/// * For non-[react.Component2] Dart components, existing props are read from `InteropProps.internal`, which are then merged with
+///   the new [newProps] and saved in a new [InteropProps] with the expected `ReactDartComponentInternal` structure.
 /// * For [react.Component2] Dart components, [newProps] is passed through [ReactDartComponentFactoryProxy2.generateExtendedJsProps]
 ///   and then passed to React JS, which will merge the props normally.
 /// * Children are likewise copied and potentially overwritten with [newChildren] as expected.

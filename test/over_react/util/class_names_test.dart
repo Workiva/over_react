@@ -314,7 +314,7 @@ main() {
 
         test('accepts null input', () {
           expect(() {
-             ClassNameBuilder.fromProps(null);
+            ClassNameBuilder.fromProps(null);
           }, returnsNormally);
         });
       });

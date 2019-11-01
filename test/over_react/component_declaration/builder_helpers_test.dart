@@ -52,7 +52,7 @@ main() {
 
     group('UiProps', () {
       test('cannot be instantiated directly if not generated', () {
-        expect(() =>  UngeneratedUiProps(), throwsIllegalInstantiationError);
+        expect(() => UngeneratedUiProps(), throwsIllegalInstantiationError);
       });
 
       group('throws errors when stubbed members are called that have not been generated:', () {
@@ -66,13 +66,13 @@ main() {
         test('propKeyNamespace', () {expect(() => unimplemented.propKeyNamespace, throwsUngeneratedError);});
         test('a map method',     () {expect(() => unimplemented.keys,             throwsUngeneratedError);});
 
-        testStubbedMapMembers(() =>  UnimplementedUiProps());
+        testStubbedMapMembers(() => UnimplementedUiProps());
       });
     });
 
     group('UiComponent', () {
       test('cannot be instantiated directly if not generated', () {
-        expect(() =>  UngeneratedUiComponent(), throwsIllegalInstantiationError);
+        expect(() => UngeneratedUiComponent(), throwsIllegalInstantiationError);
       });
 
       group('throws errors when stubbed members are called that have not been generated:', () {
@@ -89,7 +89,7 @@ main() {
 
     group('UiState', () {
       test('cannot be instantiated directly if not generated', () {
-        expect(() =>  UngeneratedUiState(), throwsIllegalInstantiationError);
+        expect(() => UngeneratedUiState(), throwsIllegalInstantiationError);
       });
 
       group('throws errors when stubbed members are called that have not been generated:', () {
@@ -103,13 +103,13 @@ main() {
 
         test('a map method',      () {expect(() => unimplemented.keys,  throwsUngeneratedError);});
 
-        testStubbedMapMembers(() =>  UnimplementedUiState());
+        testStubbedMapMembers(() => UnimplementedUiState());
       });
     });
 
     group('UiStatefulComponent', () {
       test('cannot be instantiated directly if not generated', () {
-        expect(() =>  UngeneratedUiStatefulComponent(), throwsIllegalInstantiationError);
+        expect(() => UngeneratedUiStatefulComponent(), throwsIllegalInstantiationError);
       });
 
       group('throws errors when stubbed members are called that have not been generated:', () {

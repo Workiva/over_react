@@ -100,8 +100,8 @@ main() {
           Map cloneProps = JsBackedMap.backedBy(clone.props);
 
           // Verify all props (including children, excluding react-dart internals) are equal.
-          Map originalShallowProps = new Map.from(originalProps);
-          Map clonePropsShallowProps = new Map.from(cloneProps);
+          Map originalShallowProps = Map.from(originalProps);
+          Map clonePropsShallowProps = Map.from(cloneProps);
           expect(originalShallowProps, clonePropsShallowProps);
 
           var dartRendered = getDartComponent(render(original));
@@ -745,6 +745,7 @@ main() {
         group('and returns props for a', () {
           group('composite JS ReactElement', () {
             test('', () {
+              print(OneLevelWrapper);
               ReactElement instance = OneLevelWrapper()(
                 testJsComponentFactory({
                   'jsProp': 'js',
@@ -1142,7 +1143,7 @@ main() {
           jacket = null;
         });
 
-        void sharedTests(void _runExpectations()) {
+        void sharedTests(void Function() _runExpectations) {
           // _runExpectations needs to be called before the test block, and not in a tearDown,
           // so that component isn't unmounted by the time the expectations are called.
 
@@ -1290,7 +1291,7 @@ main() {
 }
 
 /// Helper component for testing a Dart (react-dart) React component with cloneElement.
-final TestComponentFactory = react.registerComponent(() => new TestComponent()) as ReactDartComponentFactoryProxy; // ignore: deprecated_member_use
+final TestComponentFactory = react.registerComponent(() => TestComponent()) as ReactDartComponentFactoryProxy; // ignore: deprecated_member_use
 // ignore: deprecated_member_use
 class TestComponent extends react.Component {
   @override
@@ -1298,7 +1299,7 @@ class TestComponent extends react.Component {
 }
 
 /// Helper component for testing a Dart (react-dart) React component (version 2) with cloneElement.
-final TestComponent2Factory = react.registerComponent2(() => new TestComponent2());
+final TestComponent2Factory = react.registerComponent2(() => TestComponent2());
 
 class TestComponent2 extends react.Component2 {
   @override

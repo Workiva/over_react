@@ -194,7 +194,7 @@ main() {
             });
 
             test('the compare() function', () {
-              expect(() => Comparable.compare(CssValue.parse('10px'),  CssValue.parse('10%')), throwsArgumentError);
+              expect(() => Comparable.compare(CssValue.parse('10px'), CssValue.parse('10%')), throwsArgumentError);
             });
           });
 

@@ -41,10 +41,12 @@ UiFactory<AnnotationErrorDefaultPropsProps>
 @Props()
 class _$AnnotationErrorDefaultPropsProps extends UiProps {}
 
+// ignore: deprecated_member_use_from_same_package
 @Component()
 class AnnotationErrorDefaultPropsComponent
     extends UiComponent2<AnnotationErrorDefaultPropsProps> {
   @override
+  // ignore: must_call_super
   Map getDefaultProps() => newProps()..id = 'testId';
 
   @override

@@ -48,7 +48,7 @@ class CounterState {
     this.name,
   });
 
-  CounterState.defaultState({this.count = 1, this.name = "Counter"});
+  CounterState.defaultState({this.count = 1, this.name = 'Counter'});
 
   CounterState.updateState(CounterState oldState, {int count, String name})
       : this.count = count ?? oldState.count,

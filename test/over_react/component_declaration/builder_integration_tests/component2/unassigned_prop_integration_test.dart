@@ -35,6 +35,7 @@ class _$FooProps extends UiProps {
 @Component2()
 class FooComponent extends UiComponent2<FooProps> {
   @override
+  // ignore: must_call_super
   Map getDefaultProps() => newProps()..id = 'testId';
 
   @override

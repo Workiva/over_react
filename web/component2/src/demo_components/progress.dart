@@ -124,7 +124,7 @@ class ProgressComponent extends UiStatefulComponent2<ProgressProps, ProgressStat
   }
 
   ReactElement renderCaptionNode() {
-    var captionClasses = new ClassNameBuilder.fromProps(props.captionProps)
+    var captionClasses = ClassNameBuilder.fromProps(props.captionProps)
       ..add('sr-only', !props.showCaption);
 
     var captionText = props.caption  ?? '';
@@ -141,7 +141,7 @@ class ProgressComponent extends UiStatefulComponent2<ProgressProps, ProgressStat
   }
 
   ClassNameBuilder _getProgressNodeClasses() {
-    return new ClassNameBuilder()
+    return ClassNameBuilder()
       ..add('progress')
       ..add('progress-striped', props.isStriped)
       ..add('progress-animated', props.isAnimated)
@@ -171,22 +171,22 @@ class ProgressSkin extends ClassNameConstant {
 
   /// [className] value: ''
   static const ProgressSkin DEFAULT =
-      const ProgressSkin._('DEFAULT', '');
+      ProgressSkin._('DEFAULT', '');
 
   /// [className] value: 'progress-danger'
   static const ProgressSkin DANGER =
-      const ProgressSkin._('DANGER', 'progress-danger');
+      ProgressSkin._('DANGER', 'progress-danger');
 
   /// [className] value: 'progress-success'
   static const ProgressSkin SUCCESS =
-      const ProgressSkin._('SUCCESS', 'progress-success');
+      ProgressSkin._('SUCCESS', 'progress-success');
 
   /// [className] value: 'progress-warning'
   static const ProgressSkin WARNING =
-      const ProgressSkin._('WARNING', 'progress-warning');
+      ProgressSkin._('WARNING', 'progress-warning');
 
   /// [className] value: 'progress-info'
   static const ProgressSkin INFO =
-      const ProgressSkin._('INFO', 'progress-info');
+      ProgressSkin._('INFO', 'progress-info');
 }
 

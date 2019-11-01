@@ -67,7 +67,7 @@ class CounterState {
     this.name,
   });
 
-  CounterState.defaultState({this.smallCount = 1, this.bigCount = 100, this.name = "Counter"});
+  CounterState.defaultState({this.smallCount = 1, this.bigCount = 100, this.name = 'Counter'});
 
   CounterState.updateState(CounterState oldState, {int smallCount, int bigCount, String name})
       : this.smallCount = smallCount ?? oldState.smallCount,

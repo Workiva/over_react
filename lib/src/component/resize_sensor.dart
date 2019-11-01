@@ -167,15 +167,15 @@ abstract class _$ResizeSensorPropsMixin {
 @Props()
 class _$ResizeSensorProps extends UiProps with ResizeSensorPropsMixin {}
 
-@Component()
-class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAnimationFrameMixin {
+@Component2()
+class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with _SafeAnimationFrameMixin {
   // Refs
 
   Element _expandSensorRef;
   Element _collapseSensorRef;
 
   @override
-  Map getDefaultProps() => (newProps()
+  get defaultProps => (newProps()
     ..addProps(ResizeSensorPropsMixin.defaultProps)
   );
 
@@ -259,7 +259,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
     mergedStyle = {}..addAll(wrapperStyles)..addAll(mergedStyle);
 
     return (Dom.div()
-      ..addProps(copyUnconsumedDomProps())
+      ..modifyProps(addUnconsumedDomProps)
       ..className = forwardingClassNameBuilder().toClassName()
       ..style = mergedStyle
     )(

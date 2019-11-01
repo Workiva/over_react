@@ -10,13 +10,14 @@ part of 'safe_render_manager_helper.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $SafeRenderManagerHelperComponentFactory = registerComponent(
-    () => _$SafeRenderManagerHelperComponent(),
-    builderFactory: SafeRenderManagerHelper,
-    componentClass: SafeRenderManagerHelperComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'SafeRenderManagerHelper');
+final $SafeRenderManagerHelperComponentFactory = registerComponent2(
+  () => _$SafeRenderManagerHelperComponent(),
+  builderFactory: SafeRenderManagerHelper,
+  componentClass: SafeRenderManagerHelperComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'SafeRenderManagerHelper',
+);
 
 abstract class _$SafeRenderManagerHelperPropsAccessorsMixin
     implements _$SafeRenderManagerHelperProps {
@@ -73,24 +74,26 @@ const PropsMeta _$metaForSafeRenderManagerHelperProps = PropsMeta(
 );
 
 _$$SafeRenderManagerHelperProps _$SafeRenderManagerHelper([Map backingProps]) =>
-    _$$SafeRenderManagerHelperProps(backingProps);
+    backingProps == null
+        ? _$$SafeRenderManagerHelperProps$JsMap(JsBackedMap())
+        : _$$SafeRenderManagerHelperProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$SafeRenderManagerHelperProps extends _$SafeRenderManagerHelperProps
+abstract class _$$SafeRenderManagerHelperProps
+    extends _$SafeRenderManagerHelperProps
     with _$SafeRenderManagerHelperPropsAccessorsMixin
     implements SafeRenderManagerHelperProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SafeRenderManagerHelperProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$SafeRenderManagerHelperProps._();
 
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
+  factory _$$SafeRenderManagerHelperProps(Map backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$SafeRenderManagerHelperProps$JsMap(backingMap);
+    } else {
+      return _$$SafeRenderManagerHelperProps$PlainMap(backingMap);
+    }
+  }
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -104,6 +107,41 @@ class _$$SafeRenderManagerHelperProps extends _$SafeRenderManagerHelperProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'SafeRenderManagerHelperProps.';
+}
+
+// Concrete props implementation that can be backed by any [Map].
+class _$$SafeRenderManagerHelperProps$PlainMap
+    extends _$$SafeRenderManagerHelperProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$SafeRenderManagerHelperProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+class _$$SafeRenderManagerHelperProps$JsMap
+    extends _$$SafeRenderManagerHelperProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$SafeRenderManagerHelperProps$JsMap(JsBackedMap backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
 }
 
 abstract class _$SafeRenderManagerHelperStateAccessorsMixin
@@ -142,12 +180,33 @@ const StateMeta _$metaForSafeRenderManagerHelperState = StateMeta(
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$SafeRenderManagerHelperState extends _$SafeRenderManagerHelperState
+abstract class _$$SafeRenderManagerHelperState
+    extends _$SafeRenderManagerHelperState
     with _$SafeRenderManagerHelperStateAccessorsMixin
     implements SafeRenderManagerHelperState {
+  _$$SafeRenderManagerHelperState._();
+
+  factory _$$SafeRenderManagerHelperState(Map backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$SafeRenderManagerHelperState$JsMap(backingMap);
+    } else {
+      return _$$SafeRenderManagerHelperState$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiState` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+}
+
+// Concrete state implementation that can be backed by any [Map].
+class _$$SafeRenderManagerHelperState$PlainMap
+    extends _$$SafeRenderManagerHelperState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SafeRenderManagerHelperState(Map backingMap) : this._state = {} {
+  _$$SafeRenderManagerHelperState$PlainMap(Map backingMap)
+      : this._state = {},
+        super._() {
     this._state = backingMap ?? {};
   }
 
@@ -155,10 +214,24 @@ class _$$SafeRenderManagerHelperState extends _$SafeRenderManagerHelperState
   @override
   Map get state => _state;
   Map _state;
+}
 
-  /// Let `UiState` internals know that this class has been generated.
+// Concrete state implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+class _$$SafeRenderManagerHelperState$JsMap
+    extends _$$SafeRenderManagerHelperState {
+  // This initializer of `_state` to an empty map, as well as the reassignment
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$SafeRenderManagerHelperState$JsMap(JsBackedMap backingMap)
+      : this._state = JsBackedMap(),
+        super._() {
+    this._state = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing state map proxied by this class.
   @override
-  bool get $isClassGenerated => true;
+  JsBackedMap get state => _state;
+  JsBackedMap _state;
 }
 
 // Concrete component implementation mixin.
@@ -167,9 +240,51 @@ class _$$SafeRenderManagerHelperState extends _$SafeRenderManagerHelperState
 // generated for the associated props class.
 class _$SafeRenderManagerHelperComponent
     extends SafeRenderManagerHelperComponent {
+  _$$SafeRenderManagerHelperProps$JsMap _cachedTypedProps;
+
+  @override
+  _$$SafeRenderManagerHelperProps$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+  }
+
+  @override
+  _$$SafeRenderManagerHelperProps$JsMap typedPropsFactoryJs(
+          JsBackedMap backingMap) =>
+      _$$SafeRenderManagerHelperProps$JsMap(backingMap);
+
   @override
   _$$SafeRenderManagerHelperProps typedPropsFactory(Map backingMap) =>
       _$$SafeRenderManagerHelperProps(backingMap);
+
+  _$$SafeRenderManagerHelperState$JsMap _cachedTypedState;
+  @override
+  _$$SafeRenderManagerHelperState$JsMap get state => _cachedTypedState;
+
+  @override
+  set state(Map value) {
+    assert(
+        value is JsBackedMap,
+        'Component2.state should only be set via '
+        'initialState or setState.');
+    super.state = value;
+    _cachedTypedState = typedStateFactoryJs(value);
+  }
+
+  @override
+  _$$SafeRenderManagerHelperState$JsMap typedStateFactoryJs(
+          JsBackedMap backingMap) =>
+      _$$SafeRenderManagerHelperState$JsMap(backingMap);
 
   @override
   _$$SafeRenderManagerHelperState typedStateFactory(Map backingMap) =>

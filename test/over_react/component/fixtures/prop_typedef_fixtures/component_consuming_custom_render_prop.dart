@@ -26,8 +26,8 @@ class _$TestConsumingCustomRendererComponentProps extends UiProps {
   String stateKeyValueToTest;
 }
 
-@Component()
-class TestConsumingCustomRendererComponentComponent extends UiComponent<TestConsumingCustomRendererComponentProps> {
+@Component2()
+class TestConsumingCustomRendererComponentComponent extends UiComponent2<TestConsumingCustomRendererComponentProps> {
   @override
   render() {
     return (TestCustomRendererComponent()

@@ -96,7 +96,7 @@ main() {
         props = true,
         state = true,
         component = true,
-        component2: true,
+        component2 = true,
         abstractProps = true,
         abstractState = true,
         propsMixins = true,
@@ -128,10 +128,10 @@ main() {
 
         group('a component', () {
           void testDualClassSetup({
-            bool backwardsCompatible: true,
-            bool isPrivate: false,
-            bool isStatefulComponent: false,
-            int componentVersion: 1,
+            bool backwardsCompatible = true,
+            bool isPrivate = false,
+            bool isStatefulComponent = false,
+            int componentVersion = 1,
           }) {
             OverReactSrc ors;
             if (isStatefulComponent) {
@@ -174,9 +174,7 @@ main() {
           group('that is stateless', () {
             group('(v1 - deprecated)', () {
               group('with backwards compatible boilerplate', () {
-                test('with public consumable class', () {
-                  testDualClassSetup();
-                });
+                test('with public consumable class', testDualClassSetup);
                 test('with private consumable class', () {
                   testDualClassSetup(isPrivate: true);
                 });

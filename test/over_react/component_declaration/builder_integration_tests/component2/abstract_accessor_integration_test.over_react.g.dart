@@ -34,48 +34,48 @@ abstract class _$TestAbstractPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestAbstractProps.untypedProp] -->
   @override
-  get untypedProp =>
+  dynamic get untypedProp =>
       props[_$key__untypedProp___$TestAbstractProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestAbstractProps.untypedProp] -->
   @override
-  set untypedProp(value) =>
+  set untypedProp(dynamic value) =>
       props[_$key__untypedProp___$TestAbstractProps] = value;
 
   /// <!-- Generated from [_$TestAbstractProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  get customKeyProp =>
+  dynamic get customKeyProp =>
       props[_$key__customKeyProp___$TestAbstractProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestAbstractProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  set customKeyProp(value) =>
+  set customKeyProp(dynamic value) =>
       props[_$key__customKeyProp___$TestAbstractProps] = value;
 
   /// <!-- Generated from [_$TestAbstractProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceProp =>
+  dynamic get customNamespaceProp =>
       props[_$key__customNamespaceProp___$TestAbstractProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestAbstractProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceProp(value) =>
+  set customNamespaceProp(dynamic value) =>
       props[_$key__customNamespaceProp___$TestAbstractProps] = value;
 
   /// <!-- Generated from [_$TestAbstractProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceProp =>
+  dynamic get customKeyAndNamespaceProp =>
       props[_$key__customKeyAndNamespaceProp___$TestAbstractProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestAbstractProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceProp(value) =>
+  set customKeyAndNamespaceProp(dynamic value) =>
       props[_$key__customKeyAndNamespaceProp___$TestAbstractProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__stringProp___$TestAbstractProps =
@@ -159,50 +159,50 @@ abstract class _$TestCustomNamespaceAbstractPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.untypedProp] -->
   @override
-  get untypedProp =>
+  dynamic get untypedProp =>
       props[_$key__untypedProp___$TestCustomNamespaceAbstractProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.untypedProp] -->
   @override
-  set untypedProp(value) =>
+  set untypedProp(dynamic value) =>
       props[_$key__untypedProp___$TestCustomNamespaceAbstractProps] = value;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  get customKeyProp =>
+  dynamic get customKeyProp =>
       props[_$key__customKeyProp___$TestCustomNamespaceAbstractProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.customKeyProp] -->
   @override
   @Accessor(key: 'custom key!')
-  set customKeyProp(value) =>
+  set customKeyProp(dynamic value) =>
       props[_$key__customKeyProp___$TestCustomNamespaceAbstractProps] = value;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceProp =>
+  dynamic get customNamespaceProp =>
       props[_$key__customNamespaceProp___$TestCustomNamespaceAbstractProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.customNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceProp(value) =>
+  set customNamespaceProp(dynamic value) =>
       props[_$key__customNamespaceProp___$TestCustomNamespaceAbstractProps] =
           value;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceProp =>
+  dynamic get customKeyAndNamespaceProp =>
       props[
           _$key__customKeyAndNamespaceProp___$TestCustomNamespaceAbstractProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.customKeyAndNamespaceProp] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceProp(value) => props[
+  set customKeyAndNamespaceProp(dynamic value) => props[
           _$key__customKeyAndNamespaceProp___$TestCustomNamespaceAbstractProps] =
       value;
   /* GENERATED CONSTANTS */
@@ -297,48 +297,48 @@ abstract class _$TestAbstractStateAccessorsMixin
 
   /// <!-- Generated from [_$TestAbstractState.untypedState] -->
   @override
-  get untypedState =>
+  dynamic get untypedState =>
       state[_$key__untypedState___$TestAbstractState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestAbstractState.untypedState] -->
   @override
-  set untypedState(value) =>
+  set untypedState(dynamic value) =>
       state[_$key__untypedState___$TestAbstractState] = value;
 
   /// <!-- Generated from [_$TestAbstractState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  get customKeyState =>
+  dynamic get customKeyState =>
       state[_$key__customKeyState___$TestAbstractState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestAbstractState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  set customKeyState(value) =>
+  set customKeyState(dynamic value) =>
       state[_$key__customKeyState___$TestAbstractState] = value;
 
   /// <!-- Generated from [_$TestAbstractState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceState =>
+  dynamic get customNamespaceState =>
       state[_$key__customNamespaceState___$TestAbstractState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestAbstractState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceState(value) =>
+  set customNamespaceState(dynamic value) =>
       state[_$key__customNamespaceState___$TestAbstractState] = value;
 
   /// <!-- Generated from [_$TestAbstractState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceState =>
+  dynamic get customKeyAndNamespaceState =>
       state[_$key__customKeyAndNamespaceState___$TestAbstractState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestAbstractState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceState(value) =>
+  set customKeyAndNamespaceState(dynamic value) =>
       state[_$key__customKeyAndNamespaceState___$TestAbstractState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__stringState___$TestAbstractState =
@@ -423,50 +423,50 @@ abstract class _$TestCustomNamespaceAbstractStateAccessorsMixin
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractState.untypedState] -->
   @override
-  get untypedState =>
+  dynamic get untypedState =>
       state[_$key__untypedState___$TestCustomNamespaceAbstractState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestCustomNamespaceAbstractState.untypedState] -->
   @override
-  set untypedState(value) =>
+  set untypedState(dynamic value) =>
       state[_$key__untypedState___$TestCustomNamespaceAbstractState] = value;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  get customKeyState =>
+  dynamic get customKeyState =>
       state[_$key__customKeyState___$TestCustomNamespaceAbstractState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestCustomNamespaceAbstractState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
-  set customKeyState(value) =>
+  set customKeyState(dynamic value) =>
       state[_$key__customKeyState___$TestCustomNamespaceAbstractState] = value;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  get customNamespaceState =>
+  dynamic get customNamespaceState =>
       state[_$key__customNamespaceState___$TestCustomNamespaceAbstractState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestCustomNamespaceAbstractState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceState(value) =>
+  set customNamespaceState(dynamic value) =>
       state[_$key__customNamespaceState___$TestCustomNamespaceAbstractState] =
           value;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  get customKeyAndNamespaceState =>
+  dynamic get customKeyAndNamespaceState =>
       state[
           _$key__customKeyAndNamespaceState___$TestCustomNamespaceAbstractState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestCustomNamespaceAbstractState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceState(value) => state[
+  set customKeyAndNamespaceState(dynamic value) => state[
           _$key__customKeyAndNamespaceState___$TestCustomNamespaceAbstractState] =
       value;
   /* GENERATED CONSTANTS */

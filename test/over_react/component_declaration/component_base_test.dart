@@ -18,7 +18,6 @@ library over_react.component_declaration.component_base_test;
 import 'dart:async';
 import 'dart:collection';
 import 'dart:html';
-import 'dart:js_util';
 
 import 'package:over_react/over_react.dart' show Dom, DummyComponent, DummyComponent2, JsBackedMap, UiComponent2, UiStatefulComponent2, ValidationUtil, registerComponent2;
 import 'package:over_react/over_react.dart' as over_react;
@@ -489,7 +488,7 @@ main() {
 
       group('`props`', () {
         group('getter:', () {
-          test('returns a UiProps view into the component\'s props map', () {
+          test('returns a new UiProps view into the component\'s props map', () {
             expect(component.props, isA<TestComponentProps>());
 
             expect(component.props, isNot(same(component.unwrappedProps)));
@@ -504,7 +503,7 @@ main() {
             expect(props1, same(props2));
           });
 
-          test('creates a UiProps object when the props map changes', () {
+          test('creates a new UiProps object when the props map changes', () {
             var propsBeforeChange = component.props;
             component.unwrappedProps = {};
             var propsAfterChange = component.props;
@@ -522,7 +521,7 @@ main() {
         });
       });
 
-      test('newProps() returns a UiProps instance backed by a Map', () {
+      test('newProps() returns a new UiProps instance backed by a Map', () {
         var newProps1 = component.newProps();
         var newProps2 = component.newProps();
         expect(newProps1, isA<TestComponentProps>());
@@ -608,7 +607,7 @@ main() {
         });
       });
 
-      test('forwardingClassNameBuilder() returns a ClassNameBuilder based on the component\'s props', () {
+      test('forwardingClassNameBuilder() returns a new ClassNameBuilder based on the component\'s props', () {
         component.props = {
           'className': 'class-1',
           'classNameBlacklist': 'blacklist-1',
@@ -757,9 +756,9 @@ main() {
         test('should complete uncompleted managed Completer with ObjectDisposedException', () async {
           var completer = Completer<Null>();
           component.manageCompleter(completer);
-          completer.future.catchError(expectAsync1((err) {
+          unawaited(completer.future.catchError(expectAsync1((err) {
             expect(err, isA<ObjectDisposedException>());
-          }));
+          })));
 
           expect(completer.isCompleted, isFalse);
           await unmountAndDisposal();
@@ -813,11 +812,11 @@ main() {
 
       group('copyUnconsumedProps()', () {
         test('copies props, omitting keys from `consumedProps`, as well as reserved react props', () {
-          component2 = new TestComponent2Component(testConsumedProps: [
-            const ConsumedProps(const [], const ['consumed1', 'consumed2'])
+          component2 = TestComponent2Component(testConsumedProps: [
+            const ConsumedProps([], ['consumed1', 'consumed2'])
           ]);
 
-          component2.props = new JsBackedMap.from({
+          component2.props = JsBackedMap.from({
             'key': 'testKey',
             'ref': 'testRef',
             'children': [],
@@ -834,9 +833,9 @@ main() {
         });
 
         test('copies all props when `consumedProps` is null', () {
-          component2 = new TestComponent2Component(testConsumedProps: null);
+          component2 = TestComponent2Component(testConsumedProps: null);
 
-          component2.props = new JsBackedMap.from({
+          component2.props = JsBackedMap.from({
             'prop1': true,
             'prop2': true,
           });
@@ -850,11 +849,11 @@ main() {
 
       group('copyUnconsumedDomProps()', () {
         test('copies props, omitting keys from `consumedPropKeys`, as well as reserved react props', () {
-          component2 = new TestComponent2Component(testConsumedProps: [
-            const ConsumedProps(const [], const ['consumed1', 'consumed2'])
+          component2 = TestComponent2Component(testConsumedProps: [
+            const ConsumedProps([], ['consumed1', 'consumed2'])
           ]);
 
-          component2.props = new JsBackedMap.from({
+          component2.props = JsBackedMap.from({
             'key': 'testKey',
             'ref': 'testRef',
             'children': [],
@@ -873,9 +872,9 @@ main() {
         });
 
         test('copies all props when `consumedPropKeys` is null', () {
-          component2 = new TestComponent2Component(testConsumedProps: null);
+          component2 = TestComponent2Component(testConsumedProps: null);
 
-          component2.props = new JsBackedMap.from({
+          component2.props = JsBackedMap.from({
             'prop1': true,
             'prop2': true,
             'tabIndex': true,
@@ -891,11 +890,11 @@ main() {
 
       group('addUnconsumedProps()', () {
         test('copies props, omitting keys from `consumedProps`, as well as reserved react props', () {
-          component2 = new TestComponent2Component(testConsumedProps: [
-            const ConsumedProps(const [], const ['consumed1', 'consumed2'])
+          component2 = TestComponent2Component(testConsumedProps: [
+            const ConsumedProps([], ['consumed1', 'consumed2'])
           ]);
 
-          component2.props = new JsBackedMap.from({
+          component2.props = JsBackedMap.from({
             'key': 'testKey',
             'ref': 'testRef',
             'children': [],
@@ -915,9 +914,9 @@ main() {
         });
 
         test('copies all props when `consumedProps` is null', () {
-          component2 = new TestComponent2Component(testConsumedProps: null);
+          component2 = TestComponent2Component(testConsumedProps: null);
 
-          component2.props = new JsBackedMap.from({
+          component2.props = JsBackedMap.from({
             'prop1': true,
             'prop2': true,
           });
@@ -934,8 +933,8 @@ main() {
 
       group('addUnconsumedDomProps()', () {
         test('copies props, omitting keys from `consumedPropKeys`, as well as reserved react props', () {
-          component2 = new TestComponent2Component(testConsumedProps: [
-            const ConsumedProps(const [], const ['consumed1', 'consumed2'])
+          component2 = TestComponent2Component(testConsumedProps: [
+            const ConsumedProps([], ['consumed1', 'consumed2'])
           ]);
 
           component2.props = JsBackedMap.from({
@@ -960,7 +959,7 @@ main() {
         });
 
         test('copies all props when `consumedPropKeys` is null', () {
-          component2 = new TestComponent2Component(testConsumedProps: null);
+          component2 = TestComponent2Component(testConsumedProps: null);
 
           component2.props = JsBackedMap.from({
             'prop1': true,
@@ -1031,7 +1030,7 @@ main() {
         });
       });
 
-      test('newState() returns a UiProps instance backed by a Map', () {
+      test('newState() returns a new UiProps instance backed by a Map', () {
         var newState1 = statefulComponent.newState();
         var newState2 = statefulComponent.newState();
         expect(newState1, isA<TestStatefulComponentState>());
@@ -1044,7 +1043,7 @@ main() {
       TestStatefulComponent2Component statefulComponent;
 
       setUp(() {
-        statefulComponent = new TestStatefulComponent2Component();
+        statefulComponent = TestStatefulComponent2Component();
         statefulComponent.state = JsBackedMap.from({'test': true});
       });
 
@@ -1101,7 +1100,7 @@ main() {
             var reactComponentFactory = registerComponent(dummyComponentFactory, isWrapper: true);
             var meta = getComponentTypeMeta(reactComponentFactory.type);
 
-            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a meta instance');
+            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
             expect(meta.isWrapper, isTrue);
           });
 
@@ -1109,7 +1108,7 @@ main() {
             var reactComponentFactory = registerComponent(dummyComponentFactory, isWrapper: false);
             var meta = getComponentTypeMeta(reactComponentFactory.type);
 
-            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a meta instance');
+            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
             expect(meta.isWrapper, isFalse);
           });
         });
@@ -1119,7 +1118,7 @@ main() {
             var reactComponentFactory = registerComponent(dummyComponentFactory);
             var meta = getComponentTypeMeta(reactComponentFactory.type);
 
-            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a meta instance');
+            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
             expect(meta.parentType, isNull);
           });
 
@@ -1127,7 +1126,7 @@ main() {
             var reactComponentFactory = registerComponent(dummyComponentFactory);
             var meta = getComponentTypeMeta(reactComponentFactory.type);
 
-            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a meta instance');
+            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
             expect(meta.parentType, isNull);
           });
 
@@ -1137,7 +1136,7 @@ main() {
             var reactComponentFactory = registerComponent(dummyComponentFactory, parentType: parentFactory);
             var meta = getComponentTypeMeta(reactComponentFactory.type);
 
-            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a meta instance');
+            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
             expect(meta.parentType, equals(parentFactory));
           });
         });
@@ -1178,7 +1177,7 @@ main() {
       var reactComponentFactory = registerAbstractComponent(typeAlias, parentType: parentFactory);
       var meta = getComponentTypeMeta(reactComponentFactory.type);
 
-      expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a meta instance');
+      expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
       expect(meta.parentType, equals(parentFactory));
       expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias), equals(reactComponentFactory.type));
     });
@@ -1236,8 +1235,8 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
 class TestComponent2Props extends over_react.UiProps {
   @override final ReactComponentFactoryProxy componentFactory = _TestComponentComponentFactory;
   TestComponent2Props(JsBackedMap backingMap)
-      : this._props = new JsBackedMap() {
-    this._props = backingMap ?? new JsBackedMap();
+      : this._props = JsBackedMap() {
+    this._props = backingMap ?? JsBackedMap();
   }
 
   @override
@@ -1270,20 +1269,20 @@ class TestComponent2Component extends UiComponent2<TestComponent2Props> {
   render() => (Dom.div()..ref = 'foo')();
 
   @override
-  TestComponent2Props typedPropsFactory(Map propsMap) => new TestComponent2Props(propsMap);
+  TestComponent2Props typedPropsFactory(Map propsMap) => TestComponent2Props(propsMap);
 
   @override
-  TestComponent2Props typedPropsFactoryJs(Map propsMap) => new TestComponent2Props(propsMap);
+  TestComponent2Props typedPropsFactoryJs(Map propsMap) => TestComponent2Props(propsMap);
 }
 
-UiFactory<TestStatefulComponent2Props> TestStatefulComponent2 = ([Map props]) => new TestStatefulComponent2Props(props);
+UiFactory<TestStatefulComponent2Props> TestStatefulComponent2 = ([props]) => TestStatefulComponent2Props(props);
 
 class TestStatefulComponent2Props extends over_react.UiProps {
   @override final ReactComponentFactoryProxy componentFactory = _TestStatefulComponent2ComponentFactory;
   @override Map props;
   TestStatefulComponent2Props(JsBackedMap backingMap)
-      : this.props = new JsBackedMap() {
-    this.props = getBackingMap(backingMap) ?? new JsBackedMap();
+      : this.props = JsBackedMap() {
+    this.props = getBackingMap(backingMap) ?? JsBackedMap();
   }
   @override
   bool get $isClassGenerated => true;
@@ -1296,14 +1295,14 @@ class TestStatefulComponent2State extends over_react.UiState {
   @override Map state;
 
   TestStatefulComponent2State(JsBackedMap backingMap)
-      : this.state = new JsBackedMap() {
-    this.state = getBackingMap(backingMap) ?? new JsBackedMap();
+      : this.state = JsBackedMap() {
+    this.state = getBackingMap(backingMap) ?? JsBackedMap();
   }
   @override
   bool get $isClassGenerated => true;
 }
 
-final _TestStatefulComponent2ComponentFactory = registerComponent2(() => new TestStatefulComponent2Component());
+final _TestStatefulComponent2ComponentFactory = registerComponent2(() => TestStatefulComponent2Component());
 class TestStatefulComponent2Component extends UiStatefulComponent2<TestStatefulComponent2Props, TestStatefulComponent2State> {
 
   @override
@@ -1355,16 +1354,16 @@ class TestStatefulComponent2Component extends UiStatefulComponent2<TestStatefulC
         consumedProps = testConsumedProps;
 
   @override
-  TestStatefulComponent2Props typedPropsFactory(Map propsMap) => new TestStatefulComponent2Props(propsMap);
+  TestStatefulComponent2Props typedPropsFactory(Map propsMap) => TestStatefulComponent2Props(propsMap);
 
   @override
-  TestStatefulComponent2Props typedPropsFactoryJs(Map propsMap) => new TestStatefulComponent2Props(propsMap);
+  TestStatefulComponent2Props typedPropsFactoryJs(Map propsMap) => TestStatefulComponent2Props(propsMap);
 
   @override
-  TestStatefulComponent2State typedStateFactory(Map state) => new TestStatefulComponent2State(state);
+  TestStatefulComponent2State typedStateFactory(Map state) => TestStatefulComponent2State(state);
 
   @override
-  TestStatefulComponent2State typedStateFactoryJs(Map propsMap) => new TestStatefulComponent2State(propsMap);
+  TestStatefulComponent2State typedStateFactoryJs(Map propsMap) => TestStatefulComponent2State(propsMap);
 }
 
 Map getBackingMap(Map map) {

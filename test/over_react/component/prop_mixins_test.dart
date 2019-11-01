@@ -28,7 +28,7 @@ main() {
     test('uses unnamespaced keys', () {
       // Test two keys to reduce the possibility that the key we picked might have a custom @Accessor annotation on it
       expect(
-           ReactPropMixinsTest({})
+          ReactPropMixinsTest({})
             ..ref = null
             ..key = null,
           {'ref': null, 'key': null});
@@ -71,7 +71,7 @@ main() {
     test('uses unnamespaced keys', () {
       // Test two keys to reduce the possibility that the key we picked might have a custom @Accessor annotation on it
       expect(
-           DomPropMixinsTest({})
+          DomPropMixinsTest({})
             ..style = null
             ..id = null,
           {'style': null, 'id': null});
@@ -83,7 +83,7 @@ main() {
     test('uses unnamespaced keys', () {
       // Test two keys to reduce the possibility that the key we picked might have a custom @Accessor annotation on it
       expect(
-           SvgPropMixinsTest({})
+          SvgPropMixinsTest({})
             ..clipPath = null
             ..cx= null,
           {'clipPath': null, 'cx': null});
@@ -95,7 +95,7 @@ main() {
     test('uses unnamespaced keys', () {
       // Test two keys to reduce the possibility that the key we picked might have a custom @Accessor annotation on it
       expect(
-           UbiquitousPropMixinsTest({})
+          UbiquitousPropMixinsTest({})
             ..tabIndex = null
             ..id = null,
           {'tabIndex': null, 'id': null});
@@ -128,7 +128,7 @@ main() {
     test('uses unnamespaced keys with \'aria-\' prefix', () {
       // Test two keys to reduce the possibility that the key we picked might have a custom @Accessor annotation on it
       expect(
-           AriaPropMixinsTest({})
+          AriaPropMixinsTest({})
             ..activedescendant = null
             ..atomic = null,
           {'aria-activedescendant': null, 'aria-atomic': null});

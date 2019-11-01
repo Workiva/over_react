@@ -43,8 +43,8 @@ class _$TestProps extends UiProps {
   String bar;
 }
 
-@Component()
-class TestComponent extends UiComponent<TestProps> {
+@Component2()
+class TestComponent extends UiComponent2<TestProps> {
   @override
   render() {}
 }

@@ -96,13 +96,13 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   ];
 
   @override
-  void init() {
+  void componentDidMount() {
     _validateProps(props);
   }
 
   @override
-  Map getDerivedStateFromProps(Map props, MapState) {
-    var tNewProps = typedPropsFactory(props);
+  Map getDerivedStateFromProps(Map nextProps, Map prevState) {
+    var tNewProps = typedPropsFactory(nextProps);
 
     _validateProps(tNewProps);
 

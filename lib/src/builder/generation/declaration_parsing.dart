@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:logging/logging.dart';
 import 'package:over_react/src/builder/util.dart';
@@ -254,7 +256,7 @@ class ParsedDeclarations {
 
     bool oneOfEachRequiredDecl2 = requiredDecls2.every((decls) => decls.length == 1);
     bool oneOfEachRequiredDecl = requiredDecls.every((decls) => decls.length == 1) || oneOfEachRequiredDecl2;
-    bool noneOfAnyRequiredDecl2 = requiredDecls2.every((decls) => decls.length == 0);
+    bool noneOfAnyRequiredDecl2 = requiredDecls2.every((decls) => decls.isEmpty);
     bool noneOfAnyRequiredDecl = requiredDecls.every((decls) => decls.isEmpty) && noneOfAnyRequiredDecl2;
 
     bool atMostOneOfEachOptionalDecl = optionalDecls.every((decls) => decls.length <= 1);
@@ -471,7 +473,7 @@ class ParsedDeclarations {
   }) :
       this.factory       = (factory   == null)  ? null : FactoryNode(factory),
       this.component     = (component == null)  ? null : ComponentNode(component),
-      this.component2    = (component2 == null) ? null : new Component2Node(component2),
+      this.component2    = (component2 == null) ? null : Component2Node(component2),
       this.props         = (props     == null)  ? null : PropsNode(props, hasPropsCompanionClass),
       this.state         = (state     == null)  ? null : StateNode(state, hasStateCompanionClass),
 
@@ -511,18 +513,18 @@ class ParsedDeclarations {
   static final String key_propsMixin        = getName(annotations.PropsMixin);
   static final String key_stateMixin        = getName(annotations.StateMixin);
 
-  static final List<String> key_allComponentVersionsRequired = new List.unmodifiable([
+  static final List<String> key_allComponentVersionsRequired = List.unmodifiable([
     key_factory,
     key_props,
   ]);
 
   // TODO: Remove when the `@Component` annotation is removed in the 4.0.0 release.
   @Deprecated('4.0.0')
-  static final List<String> key_allComponentRequired = new List.unmodifiable(
-      new List.from(key_allComponentVersionsRequired)..add(key_component));
+  static final List<String> key_allComponentRequired = List.unmodifiable(
+      List.from(key_allComponentVersionsRequired)..add(key_component));
 
-  static final List<String> key_allComponent2Required = new List.unmodifiable(
-      new List.from(key_allComponentVersionsRequired)..add(key_component2));
+  static final List<String> key_allComponent2Required = List.unmodifiable(
+      List.from(key_allComponentVersionsRequired)..add(key_component2));
 
   static final List<String> key_allComponentOptional = List.unmodifiable([
     key_state,

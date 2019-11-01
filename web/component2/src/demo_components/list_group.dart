@@ -38,16 +38,16 @@ class ListGroupComponent extends UiComponent2<ListGroupProps> {
   }
 }
 
-/// Options for the [Element] that will be used when
+/// Options for the `Element` that will be used when
 /// rendering a [ListGroup] component.
 class ListGroupElementType {
   final BuilderOnlyUiFactory<DomProps> componentBuilderFactory;
   ListGroupElementType._internal(this.componentBuilderFactory);
 
   /// A [Dom.ul] (HTML `<ul>` element)
-  static final ListGroupElementType UL  = new ListGroupElementType._internal(Dom.ul);
+  static final ListGroupElementType UL  = ListGroupElementType._internal(Dom.ul);
 
   /// A [Dom.div] (HTML `<div>` element)
-  static final ListGroupElementType DIV = new ListGroupElementType._internal(Dom.div);
+  static final ListGroupElementType DIV = ListGroupElementType._internal(Dom.div);
 }
 

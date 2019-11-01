@@ -23,10 +23,10 @@ class _$SafeRenderManagerHelperState extends UiState {
   ReactElement content;
 }
 
-@Component()
-class SafeRenderManagerHelperComponent extends UiStatefulComponent<SafeRenderManagerHelperProps, SafeRenderManagerHelperState> {
+@Component2()
+class SafeRenderManagerHelperComponent extends UiStatefulComponent2<SafeRenderManagerHelperProps, SafeRenderManagerHelperState> {
   @override
-  getInitialState() => (newState()..content = props.getInitialContent());
+  get initialState => (newState()..content = props.getInitialContent());
 
   void renderContent(ReactElement content) {
     setState(newState()..content = content);

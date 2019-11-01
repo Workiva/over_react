@@ -58,7 +58,6 @@ mixin _GeneratedUiComponentStubs<TProps extends UiProps>
 
   /// Returns a typed props object backed by the specified [propsMap].
   /// Required to properly instantiate the generic [TProps] class.
-  @override
   @toBeGenerated
   TProps typedPropsFactory(Map propsMap) => throw UngeneratedError(member: #typedPropsFactory);
 }
@@ -67,7 +66,7 @@ mixin _GeneratedUiComponentStubs<TProps extends UiProps>
 ///
 /// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
 ///
-/// __Deprecated.__ Use [UiComponent2] instead. Will be removed in the `4.0.0` release.
+/// __Deprecated.__ Use `UiComponent2` instead. Will be removed in the `4.0.0` release.
 @Deprecated('4.0.0')
 abstract class UiComponent<TProps extends UiProps>
     extends component_base.UiComponent<TProps>
@@ -84,7 +83,7 @@ abstract class UiComponent<TProps extends UiProps>
 ///
 /// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
 ///
-/// __Deprecated.__ Use [UiStatefulComponent2] instead. Will be removed in the `4.0.0` release.
+/// __Deprecated.__ Use `UiStatefulComponent2` instead. Will be removed in the `4.0.0` release.
 @Deprecated('4.0.0')
 abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState>
     extends component_base.UiStatefulComponent<TProps, TState>
@@ -98,7 +97,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 
   @override
   @toBeGenerated
-  TState typedStateFactory(Map stateMap) => throw new UngeneratedError(member: #typedStateFactory,
+  TState typedStateFactory(Map stateMap) => throw UngeneratedError(member: #typedStateFactory,
       message: GeneratedErrorMessages.typedStateFactory);
 }
 
@@ -115,9 +114,9 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
     _throwIfNotGenerated();
   }
 
-  @toBeGenerated String get propKeyNamespace => throw new UngeneratedError(member: #propKeyNamespace);
+  @toBeGenerated String get propKeyNamespace => throw UngeneratedError(member: #propKeyNamespace);
 
-  @override @toBeGenerated Map get props => throw new UngeneratedError(member: #props);
+  @override @toBeGenerated Map get props => throw UngeneratedError(member: #props);
 }
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.
@@ -157,8 +156,8 @@ class UngeneratedError extends Error implements UnimplementedError {
 
   @override
   String toString() =>
-      "UngeneratedError: ${message.trimRight()}.\n\n"
-      "Ensure that you're running a build via build_runner.";
+      'UngeneratedError: ${message.trimRight()}.\n\n'
+      'Ensure that you\'re running a build via build_runner.';
 }
 
 /// Thrown when a class is directly instantiated when it should not be.

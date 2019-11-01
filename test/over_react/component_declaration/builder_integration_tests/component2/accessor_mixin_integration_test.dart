@@ -21,60 +21,60 @@ main() {
     group('@PropsMixin()', () {
       group('generates prop getters/setters with', () {
         test('the props class name as a namespace and the prop name as the key by default', () {
-          var mixinsTest;
+          TestPropsMixinSubclass mixinsTest;
 
-          mixinsTest = new TestPropsMixinSubclass()..stringProp = 'test';
+          mixinsTest = TestPropsMixinSubclass()..stringProp = 'test';
           expect(mixinsTest.props, containsPair('TestPropsMixin.stringProp', 'test'));
 
-          mixinsTest = new TestPropsMixinSubclass()..dynamicProp = 2;
+          mixinsTest = TestPropsMixinSubclass()..dynamicProp = 2;
           expect(mixinsTest.props, containsPair('TestPropsMixin.dynamicProp', 2));
 
-          mixinsTest = new TestPropsMixinSubclass()..untypedProp = false;
+          mixinsTest = TestPropsMixinSubclass()..untypedProp = false;
           expect(mixinsTest.props, containsPair('TestPropsMixin.untypedProp', false));
         });
 
         test('custom prop keys', () {
-          var mixinsTest = new TestPropsMixinSubclass()..customKeyProp = 'test';
+          var mixinsTest = TestPropsMixinSubclass()..customKeyProp = 'test';
           expect(mixinsTest.props, containsPair('TestPropsMixin.custom key!', 'test'));
         });
 
         test('custom prop key namespaces', () {
-          var mixinsTest = new TestPropsMixinSubclass()..customNamespaceProp = 'test';
+          var mixinsTest = TestPropsMixinSubclass()..customNamespaceProp = 'test';
           expect(mixinsTest.props, containsPair('custom namespace~~customNamespaceProp', 'test'));
         });
 
         test('custom prop keys and namespaces', () {
-          var mixinsTest = new TestPropsMixinSubclass()..customKeyAndNamespaceProp = 'test';
+          var mixinsTest = TestPropsMixinSubclass()..customKeyAndNamespaceProp = 'test';
           expect(mixinsTest.props, containsPair('custom namespace~~custom key!', 'test'));
         });
       });
 
       group('generates prop getters/setters, when there is a custom key namespace, with', () {
         test('the custom namespace and the prop name as the key by default', () {
-          var mixinsTest;
+          TestCustomNamespacePropsMixinSubclass mixinsTest;
 
-          mixinsTest = new TestCustomNamespacePropsMixinSubclass()..stringProp = 'test';
+          mixinsTest = TestCustomNamespacePropsMixinSubclass()..stringProp = 'test';
           expect(mixinsTest.props, containsPair('custom mixin namespace**stringProp', 'test'));
 
-          mixinsTest = new TestCustomNamespacePropsMixinSubclass()..dynamicProp = 2;
+          mixinsTest = TestCustomNamespacePropsMixinSubclass()..dynamicProp = 2;
           expect(mixinsTest.props, containsPair('custom mixin namespace**dynamicProp', 2));
 
-          mixinsTest = new TestCustomNamespacePropsMixinSubclass()..untypedProp = false;
+          mixinsTest = TestCustomNamespacePropsMixinSubclass()..untypedProp = false;
           expect(mixinsTest.props, containsPair('custom mixin namespace**untypedProp', false));
         });
 
         test('custom prop keys', () {
-          var mixinsTest = new TestCustomNamespacePropsMixinSubclass()..customKeyProp = 'test';
+          var mixinsTest = TestCustomNamespacePropsMixinSubclass()..customKeyProp = 'test';
           expect(mixinsTest.props, containsPair('custom mixin namespace**custom key!', 'test'));
         });
 
         test('custom prop key namespaces', () {
-          var mixinsTest = new TestCustomNamespacePropsMixinSubclass()..customNamespaceProp = 'test';
+          var mixinsTest = TestCustomNamespacePropsMixinSubclass()..customNamespaceProp = 'test';
           expect(mixinsTest.props, containsPair('custom namespace~~customNamespaceProp', 'test'));
         });
 
         test('custom prop keys and namespaces', () {
-          var mixinsTest = new TestCustomNamespacePropsMixinSubclass()..customKeyAndNamespaceProp = 'test';
+          var mixinsTest = TestCustomNamespacePropsMixinSubclass()..customKeyAndNamespaceProp = 'test';
           expect(mixinsTest.props, containsPair('custom namespace~~custom key!', 'test'));
         });
       });
@@ -83,60 +83,60 @@ main() {
     group('@StateMixin()', () {
       group('generates state getters/setters with', () {
         test('the state class name as a namespace and the state name as the key by default', () {
-          var mixinsTest;
+          TestStateMixinSubclass mixinsTest;
 
-          mixinsTest = new TestStateMixinSubclass()..stringState = 'test';
+          mixinsTest = TestStateMixinSubclass()..stringState = 'test';
           expect(mixinsTest.state, containsPair('TestStateMixin.stringState', 'test'));
 
-          mixinsTest = new TestStateMixinSubclass()..dynamicState = 2;
+          mixinsTest = TestStateMixinSubclass()..dynamicState = 2;
           expect(mixinsTest.state, containsPair('TestStateMixin.dynamicState', 2));
 
-          mixinsTest = new TestStateMixinSubclass()..untypedState = false;
+          mixinsTest = TestStateMixinSubclass()..untypedState = false;
           expect(mixinsTest.state, containsPair('TestStateMixin.untypedState', false));
         });
 
         test('custom state keys', () {
-          var mixinsTest = new TestStateMixinSubclass()..customKeyState = 'test';
+          var mixinsTest = TestStateMixinSubclass()..customKeyState = 'test';
           expect(mixinsTest.state, containsPair('TestStateMixin.custom key!', 'test'));
         });
 
         test('custom state key namespaces', () {
-          var mixinsTest = new TestStateMixinSubclass()..customNamespaceState = 'test';
+          var mixinsTest = TestStateMixinSubclass()..customNamespaceState = 'test';
           expect(mixinsTest.state, containsPair('custom namespace~~customNamespaceState', 'test'));
         });
 
         test('custom state keys and namespaces', () {
-          var mixinsTest = new TestStateMixinSubclass()..customKeyAndNamespaceState = 'test';
+          var mixinsTest = TestStateMixinSubclass()..customKeyAndNamespaceState = 'test';
           expect(mixinsTest.state, containsPair('custom namespace~~custom key!', 'test'));
         });
       });
 
       group('generates state getters/setters, when there is a custom key namespace, with', () {
         test('the custom namespace and the state name as the key by default', () {
-          var mixinsTest;
+          TestCustomNamespaceStateMixinSubclass mixinsTest;
 
-          mixinsTest = new TestCustomNamespaceStateMixinSubclass()..stringState = 'test';
+          mixinsTest = TestCustomNamespaceStateMixinSubclass()..stringState = 'test';
           expect(mixinsTest.state, containsPair('custom mixin namespace**stringState', 'test'));
 
-          mixinsTest = new TestCustomNamespaceStateMixinSubclass()..dynamicState = 2;
+          mixinsTest = TestCustomNamespaceStateMixinSubclass()..dynamicState = 2;
           expect(mixinsTest.state, containsPair('custom mixin namespace**dynamicState', 2));
 
-          mixinsTest = new TestCustomNamespaceStateMixinSubclass()..untypedState = false;
+          mixinsTest = TestCustomNamespaceStateMixinSubclass()..untypedState = false;
           expect(mixinsTest.state, containsPair('custom mixin namespace**untypedState', false));
         });
 
         test('custom state keys', () {
-          var mixinsTest = new TestCustomNamespaceStateMixinSubclass()..customKeyState = 'test';
+          var mixinsTest = TestCustomNamespaceStateMixinSubclass()..customKeyState = 'test';
           expect(mixinsTest.state, containsPair('custom mixin namespace**custom key!', 'test'));
         });
 
         test('custom state key namespaces', () {
-          var mixinsTest = new TestCustomNamespaceStateMixinSubclass()..customNamespaceState = 'test';
+          var mixinsTest = TestCustomNamespaceStateMixinSubclass()..customNamespaceState = 'test';
           expect(mixinsTest.state, containsPair('custom namespace~~customNamespaceState', 'test'));
         });
 
         test('custom state keys and namespaces', () {
-          var mixinsTest = new TestCustomNamespaceStateMixinSubclass()..customKeyAndNamespaceState = 'test';
+          var mixinsTest = TestCustomNamespaceStateMixinSubclass()..customKeyAndNamespaceState = 'test';
           expect(mixinsTest.state, containsPair('custom namespace~~custom key!', 'test'));
         });
       });
@@ -151,19 +151,19 @@ abstract class _$TestPropsMixin {
 
   String stringProp;
   dynamic dynamicProp;
-  var untypedProp;
+  dynamic untypedProp;
 
   @Accessor(key: 'custom key!')
-  var customKeyProp;
+  dynamic customKeyProp;
 
   @Accessor(keyNamespace: 'custom namespace~~')
-  var customNamespaceProp;
+  dynamic customNamespaceProp;
 
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  var customKeyAndNamespaceProp;
+  dynamic customKeyAndNamespaceProp;
 }
 
-class TestPropsMixinSubclass extends Object with 
+class TestPropsMixinSubclass extends Object with
     TestPropsMixin {
   @override final Map props = {};
 }
@@ -175,19 +175,19 @@ abstract class _$TestCustomNamespacePropsMixin {
 
   String stringProp;
   dynamic dynamicProp;
-  var untypedProp;
+  dynamic untypedProp;
 
   @Accessor(key: 'custom key!')
-  var customKeyProp;
+  dynamic customKeyProp;
 
   @Accessor(keyNamespace: 'custom namespace~~')
-  var customNamespaceProp;
+  dynamic customNamespaceProp;
 
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  var customKeyAndNamespaceProp;
+  dynamic customKeyAndNamespaceProp;
 }
 
-class TestCustomNamespacePropsMixinSubclass extends Object with 
+class TestCustomNamespacePropsMixinSubclass extends Object with
     TestCustomNamespacePropsMixin {
   @override final Map props = {};
 }
@@ -199,19 +199,19 @@ abstract class _$TestStateMixin {
 
   String stringState;
   dynamic dynamicState;
-  var untypedState;
+  dynamic untypedState;
 
   @Accessor(key: 'custom key!')
-  var customKeyState;
+  dynamic customKeyState;
 
   @Accessor(keyNamespace: 'custom namespace~~')
-  var customNamespaceState;
+  dynamic customNamespaceState;
 
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  var customKeyAndNamespaceState;
+  dynamic customKeyAndNamespaceState;
 }
 
-class TestStateMixinSubclass extends Object with 
+class TestStateMixinSubclass extends Object with
     TestStateMixin {
   @override final Map state = {};
 }
@@ -223,19 +223,19 @@ abstract class _$TestCustomNamespaceStateMixin {
 
   String stringState;
   dynamic dynamicState;
-  var untypedState;
+  dynamic untypedState;
 
   @Accessor(key: 'custom key!')
-  var customKeyState;
+  dynamic customKeyState;
 
   @Accessor(keyNamespace: 'custom namespace~~')
-  var customNamespaceState;
+  dynamic customNamespaceState;
 
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  var customKeyAndNamespaceState;
+  dynamic customKeyAndNamespaceState;
 }
 
-class TestCustomNamespaceStateMixinSubclass extends Object with 
+class TestCustomNamespaceStateMixinSubclass extends Object with
     TestCustomNamespaceStateMixin {
   @override final Map state = {};
 }

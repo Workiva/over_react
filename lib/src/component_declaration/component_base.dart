@@ -48,10 +48,10 @@ export 'component_type_checking.dart' show isComponentOfType, isValidElementOfTy
 ///
 /// * [displayName]: the name of the component for use when debugging.
 ///
-/// __Deprecated.__ Use [registerComponent2] instead.
+/// __Deprecated.__ Use `registerComponent2` instead.
 @Deprecated('4.0.0')
-ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFactory(), {
-    bool isWrapper: false,
+ReactDartComponentFactoryProxy registerComponent(react.Component Function() dartComponentFactory, {
+    bool isWrapper = false,
     // ignore: deprecated_member_use
     ReactDartComponentFactoryProxy parentType,
     UiFactory builderFactory,
@@ -80,7 +80,7 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
 ///
 ///     var $`AbstractComponentClassName`Factory = registerAbstractComponent(`AbstractComponentClassName`);
 ///
-/// __Deprecated.__ Use [registerAbstractComponent2] instead. Will be removed in the `4.0.0` release.
+/// __Deprecated.__ Use `registerAbstractComponent2` instead. Will be removed in the `4.0.0` release.
 @Deprecated('4.0.0')
 ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentClass, {ReactDartComponentFactoryProxy parentType}) =>
     registerComponent(() => DummyComponent(), componentClass: abstractComponentClass, parentType: parentType);
@@ -142,7 +142,7 @@ typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 ///
 /// > Related: [UiStatefulComponent]
 ///
-/// __Deprecated.__ Use [UiComponent2] instead. Will be removed in the `4.0.0` release.
+/// __Deprecated.__ Use `UiComponent2` instead. Will be removed in the `4.0.0` release.
 @Deprecated('4.0.0')
 abstract class UiComponent<TProps extends UiProps> extends react.Component with DisposableManagerProxy {
   /// The props for the non-forwarding props defined in this component.
@@ -311,7 +311,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component with 
 ///       }
 ///     }
 ///
-/// __Deprecated.__ Use [UiStatefulComponent2] instead. Will be removed in the `4.0.0` release.
+/// __Deprecated.__ Use `UiStatefulComponent2` instead. Will be removed in the `4.0.0` release.
 @Deprecated('4.0.0')
 abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState> extends UiComponent<TProps> {
   // ----------------------------------------------------------------------
@@ -411,7 +411,7 @@ typedef PropsModifier(Map props);
 /// For use as a typed view into existing props [Map]s, or as a builder to create new component
 /// instances via a fluent-style interface.
 ///
-/// > Note: Implements [MapViewMixin] instead of extending it so that the abstract [Props] declarations
+/// > Note: Implements [MapViewMixin] instead of extending it so that the abstract `Props` declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
 abstract class UiProps extends MapBase
     with
@@ -735,13 +735,13 @@ abstract class AccessorMeta<T extends _Descriptor> {
 }
 
 /// Metadata for the prop fields declared in a specific props class--
-/// a class annotated with @[Props], @[PropsMixin], @[AbstractProps], etc.
+/// a class annotated with `@Props`, `@PropsMixin`, `@AbstractProps`, etc.
 /// for which prop accessors are generated.
 ///
 /// This metadata includes map key values corresponding to these fields, which
 /// is used in `consumedPropKeys`, as well as other prop
-/// configuration done via @[Accessor]/@[requiredProp]/etc., which is used to
-/// perform prop validation within [UiComponent] lifecycle methods.
+/// configuration done via `@Accessor`/`@requiredProp`/etc., which is used to
+/// perform prop validation within `UiComponent` lifecycle methods.
 ///
 /// This metadata is generated as part of the over_react builder, and should be
 /// exposed like so:
@@ -761,7 +761,7 @@ abstract class AccessorMeta<T extends _Descriptor> {
 ///       print(FooProps.meta.props.map((p) => p.isRequired); // (false, true))
 ///     }
 ///
-/// _See also: [getPropKey]_
+/// _See also: `getPropKey`_
 class PropsMeta implements ConsumedProps, AccessorMeta<PropDescriptor> {
   /// Rich views of prop field declarations.
   ///
@@ -780,11 +780,11 @@ class PropsMeta implements ConsumedProps, AccessorMeta<PropDescriptor> {
 }
 
 /// Metadata for the state fields declared in a specific state class--
-/// a class annotated with @[State], @[StateMixin], @[AbstractState], etc.
+/// a class annotated with `@State`, `@StateMixin`, `@AbstractState`, etc.
 /// for which state accessors are generated.
 ///
 /// This metadata includes map key values corresponding to these fields, which
-/// is used to perform state validation within [UiComponent] lifecycle methods.
+/// is used to perform state validation within `UiComponent` lifecycle methods.
 ///
 /// This metadata is generated as part of the over_react builder, and should be
 /// exposed like so:

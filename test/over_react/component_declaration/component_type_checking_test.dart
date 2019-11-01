@@ -78,7 +78,7 @@ main() {
 }
 
 testComponentTypeChecking({
-  bool isComponent2: false,
+  bool isComponent2 = false,
   UiFactory TestParent,
   UiFactory TestSubtype,
   UiFactory TestSubsubtype,
@@ -376,6 +376,5 @@ testComponentTypeChecking({
 
 ReactClass createTestReactClass() {
   // ignore: deprecated_member_use
-  return React.createClass(ReactClassConfig(render: allowInterop(() => false)))
-      ..dartDefaultProps = const {};
+  return React.createClass(ReactClassConfig(render: allowInterop(() => false)))..dartDefaultProps = const {};
 }
