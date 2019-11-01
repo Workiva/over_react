@@ -264,12 +264,12 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
       PropDescriptor(
           _$key__identicalErrorFrequencyTolerance___$ErrorBoundaryPropsMixin);
   static const PropDescriptor _$prop__loggerName___$ErrorBoundaryPropsMixin =
-      const PropDescriptor(_$key__loggerName___$ErrorBoundaryPropsMixin);
+      PropDescriptor(_$key__loggerName___$ErrorBoundaryPropsMixin);
   static const PropDescriptor
       _$prop__shouldLogErrors___$ErrorBoundaryPropsMixin =
-      const PropDescriptor(_$key__shouldLogErrors___$ErrorBoundaryPropsMixin);
+      PropDescriptor(_$key__shouldLogErrors___$ErrorBoundaryPropsMixin);
   static const PropDescriptor _$prop__logger___$ErrorBoundaryPropsMixin =
-      const PropDescriptor(_$key__logger___$ErrorBoundaryPropsMixin);
+      PropDescriptor(_$key__logger___$ErrorBoundaryPropsMixin);
   static const String _$key__onComponentDidCatch___$ErrorBoundaryPropsMixin =
       'ErrorBoundaryPropsMixin.onComponentDidCatch';
   static const String
