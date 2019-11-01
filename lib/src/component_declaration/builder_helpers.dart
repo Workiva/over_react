@@ -37,7 +37,7 @@ class GeneratedClass {
 
   void _throwIfNotGenerated() {
     if (!this.$isClassGenerated) {
-      throw new IllegalInstantiationError(runtimeType: this.runtimeType);
+      throw IllegalInstantiationError(runtimeType: this.runtimeType);
     }
   }
 }
@@ -48,7 +48,7 @@ mixin _GeneratedUiComponentStubs<TProps extends UiProps>
     implements GeneratedClass {
   /// The default consumed props, taken from the keys generated in the associated @[annotations.Props] class.
   @toBeGenerated
-  Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
+  Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw UngeneratedError(member: #$defaultConsumedProps);
 
   /// The keys for the non-forwarding props defined in this component.
   ///
@@ -60,7 +60,7 @@ mixin _GeneratedUiComponentStubs<TProps extends UiProps>
   /// Required to properly instantiate the generic [TProps] class.
   @override
   @toBeGenerated
-  TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedPropsFactory);
+  TProps typedPropsFactory(Map propsMap) => throw UngeneratedError(member: #typedPropsFactory);
 }
 
 /// See: [component_base.UiComponent]
@@ -129,9 +129,8 @@ abstract class UiState extends component_base.UiState with GeneratedClass {
     _throwIfNotGenerated();
   }
 
-  @override @toBeGenerated Map get state => throw new UngeneratedError(member: #state);
+  @override @toBeGenerated Map get state => throw UngeneratedError(member: #state);
 }
-
 
 // ----------------------------------------------------------------------
 //   Errors/annotations related to code generation
@@ -140,13 +139,13 @@ abstract class UiState extends component_base.UiState with GeneratedClass {
 /// Annotation that denotes that a given member will be implemented via code generation.
 ///
 /// Used in place of the `abstract` keyword so that subclasses don't have to be abstract.
-const toBeGenerated = const _ToBeGenerated();
+const toBeGenerated = _ToBeGenerated();
 
 class _ToBeGenerated {
   const _ToBeGenerated();
 }
 
-/// Thrown when stubbed code (usually annotated with [ToBeGenerated]) that expects to be
+/// Thrown when stubbed code (usually annotated with `ToBeGenerated`) that expects to be
 /// overridden by generated code is called unexpectedly.
 ///
 /// Usually this is due to improper usage of the code-generating builder.
@@ -166,16 +165,17 @@ class UngeneratedError extends Error implements UnimplementedError {
 class IllegalInstantiationError extends Error {
   final String message;
   IllegalInstantiationError({String message, Type runtimeType}) :
-      this.message = message ?? "`$runtimeType` cannot be instantated directly, but only indirectly via the UiFactory";
+      this.message = message ?? '`$runtimeType` cannot be instantated directly, but only indirectly via the UiFactory';
+
 
   @override
   String toString() =>
-      "IllegalInstantiationError: $message.\n\n"
-      "Be sure to follow usage instructions for over_react component classes.\n\n"
-      "If you need to do something extra custom and want to implement everything without code generation, "
-      "base classes are available by importing the "
-      "`package:over_react/src/component_declaration/component_base.dart` "
-      "library directly. ";
+      'IllegalInstantiationError: $message.\n\n'
+      'Be sure to follow usage instructions for over_react component classes.\n\n'
+      'If you need to do something extra custom and want to implement everything without code generation, '
+      'base classes are available by importing the '
+      '`package:over_react/src/component_declaration/component_base.dart` '
+      'library directly. ';
 }
 
 

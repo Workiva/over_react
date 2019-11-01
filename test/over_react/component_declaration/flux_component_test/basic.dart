@@ -1,3 +1,4 @@
+// ignore_for_file: deprecated_member_use_from_same_package
 part of over_react.component_declaration.flux_component_test;
 
 @Factory()
@@ -14,7 +15,7 @@ class TestBasicComponent extends FluxUiComponent<TestBasicProps> {
   render() => Dom.div()();
 
   @override
-  void setState(_, [callback()]) {
+  void setState(_, [Function() callback]) {
     numberOfRedraws++;
     if (callback != null) callback();
   }

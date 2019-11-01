@@ -12,18 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library over_react_tests.shared.map_proxy_tests;
 
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-void mapProxyTests(Map mapProxyFactory(Map proxiedMap)) {
+void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
   group('proxies the Map member:', () {
     Map proxy;
     MockMap backingMap;
 
     setUp(() {
-      backingMap = new MockMap();
+      backingMap = MockMap();
       proxy = mapProxyFactory(backingMap);
     });
 
@@ -33,7 +34,7 @@ void mapProxyTests(Map mapProxyFactory(Map proxiedMap)) {
     });
 
     test('map', () {
-      var callback = (key, value) {};
+      callback(key, value) {}
 
       proxy.map(callback);
       verify(backingMap.map(callback));
@@ -53,19 +54,19 @@ void mapProxyTests(Map mapProxyFactory(Map proxiedMap)) {
     });
 
     test('removeWhere', () {
-      var callback = (key, value) {};
+      callback(key, value) {}
       proxy.removeWhere(callback);
       verify(backingMap.removeWhere(callback));
     });
 
     test('update', () {
-      var updater = (value) {};
+      updater(value) {}
       proxy.update('key', updater);
       verify(backingMap.update('key', updater));
     });
 
     test('updateAll', () {
-      var updater = (key, value) {};
+      updater(key, value) {}
       proxy.updateAll(updater);
       verify(backingMap.updateAll(updater));
     });
@@ -104,7 +105,7 @@ void mapProxyTests(Map mapProxyFactory(Map proxiedMap)) {
     });
 
     test('putIfAbsent', () {
-      var ifAbsent = () => 'absent';
+      ifAbsent() => 'absent';
 
       expect(proxy.putIfAbsent('key', ifAbsent), isNull);
       verify(backingMap.putIfAbsent('key', ifAbsent));
@@ -125,7 +126,7 @@ void mapProxyTests(Map mapProxyFactory(Map proxiedMap)) {
     });
 
     test('forEach', () {
-      var callback = (key, value) {};
+      callback(key, value) {}
 
       proxy.forEach(callback);
       verify(backingMap.forEach(callback));

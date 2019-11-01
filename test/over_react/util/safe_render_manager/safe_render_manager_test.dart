@@ -1,5 +1,6 @@
+// ignore_for_file: deprecated_member_use
 @TestOn('browser')
-library top_level_render_manager_test;
+library safe_render_manager_test;
 
 import 'dart:async';
 import 'dart:html';
@@ -14,7 +15,7 @@ import 'package:w_common/disposable.dart';
 
 import 'test_component.dart';
 
-/// Main entry point for TopLevelRenderManager testing
+/// Main entry point for SafeRenderManager testing
 main() {
   setClientConfiguration();
   enableTestMode();
@@ -24,8 +25,8 @@ main() {
     SafeRenderManager renderManager;
 
     setUp(() {
-      mountNode = new DivElement();
-      renderManager = new SafeRenderManager(mountNode: mountNode);
+      mountNode = DivElement();
+      renderManager = SafeRenderManager(mountNode: mountNode);
     });
 
     tearDown(() async {
@@ -51,7 +52,7 @@ main() {
           renderManager.render(Wrapper()());
 
           expect(renderManager.contentRef, isNotNull);
-          expect(renderManager.contentRef, const isInstanceOf<WrapperComponent>());
+          expect(renderManager.contentRef, isA<WrapperComponent>());
         });
 
         test('by chaining any existing callback ref', () {
@@ -72,7 +73,7 @@ main() {
           expect(mountNode.children, isNotEmpty);
         });
 
-        test('', () async {
+        test('', () {
           renderManager.tryUnmount();
           expect(mountNode.children, isEmpty);
         });
@@ -82,7 +83,7 @@ main() {
 
           expect(mountNode.children, isNotEmpty);
 
-          final onUnmountCompleter = new Completer();
+          final onUnmountCompleter = Completer();
 
           renderManager.tryUnmount(onMaybeUnmounted: bind1Guarded((isUnmounted) {
             expect(mountNode.children, isEmpty);
@@ -95,7 +96,7 @@ main() {
         });
       });
 
-      test('invokes the provided callback immediately when nothing has been rendered', () async {
+      test('invokes the provided callback immediately when nothing has been rendered', () {
         expect(mountNode.children, isEmpty, reason: 'test setup sanity check');
 
         bool onUnmountCalledSynchronously = false;
@@ -109,7 +110,7 @@ main() {
       });
     });
 
-    group('automatically attaches and detached the mount node', () {
+    group('automatically attaches and detaches the mount node', () {
       setUp(() async {
         // Clean up the manager from the above setUp block.
         await renderManager?.dispose();
@@ -117,7 +118,7 @@ main() {
       });
 
       test('when autoAttachMountNode is true', () {
-        renderManager = new SafeRenderManager(autoAttachMountNode: true);
+        renderManager = SafeRenderManager(autoAttachMountNode: true);
         expect(document.contains(renderManager.mountNode), isFalse, reason: 'test setup check');
 
         renderManager.render(Dom.div()());
@@ -128,7 +129,7 @@ main() {
       });
 
       test('unless autoAttachMountNode is false', () {
-        renderManager = new SafeRenderManager(autoAttachMountNode: false);
+        renderManager = SafeRenderManager(autoAttachMountNode: false);
         expect(renderManager.mountNode.parent, isNull, reason: 'test setup check');
 
         renderManager.render(Dom.div()());
@@ -144,7 +145,7 @@ main() {
     });
 
     group('throws when the object is interacted with after disposal:', () {
-      final throwsObjectDisposedException = throwsA(const isInstanceOf<ObjectDisposedException>());
+      final throwsObjectDisposedException = throwsA(isA<ObjectDisposedException>());
 
       setUp(() async {
         await renderManager.dispose();
@@ -183,7 +184,7 @@ main() {
           try {
             renderManager.render((Test()
               ..onComponentDidMount = bind0(expectAsync0(() {
-                throw new TestExceptionThrownFromLifecycle();
+                throw TestExceptionThrownFromLifecycle();
               }, id: 'onComponentDidMount'))
             )());
           } on TestExceptionThrownFromLifecycle catch (_) {}
@@ -228,12 +229,13 @@ main() {
                   reason: 'should be able to dispose properly afterwards');
             });
 
+            // ignore: use_function_type_syntax_for_parameters
             Future<Null> sharedTest({@required void Function() setUpAndReturnTriggerRender(void doRenders()),
               @required bool verifyImmediateRender,
               @required bool verifyDeferredRender,
             }) async {
               if (verifyImmediateRender && verifyDeferredRender) {
-                throw new ArgumentError('verifyImmediateRender and verifyDeferredRender '
+                throw ArgumentError('verifyImmediateRender and verifyDeferredRender '
                     'are mutually exclusive and cannot both be set to true');
               }
 
@@ -430,7 +432,7 @@ main() {
         group('second render throws and', () {
           setUp(() {
             onRender = bind0(expectAsync0(() {
-              throw new TestExceptionThrownFromLifecycle();
+              throw TestExceptionThrownFromLifecycle();
             }, id: 'onRender', max: 2)); // `max: 2` since React will call this more than once for some reason.
           });
 
@@ -467,12 +469,13 @@ main() {
               onMaybeUnmountedCalled = false;
             });
 
+            // ignore: use_function_type_syntax_for_parameters
             Future<Null> sharedTest({@required void Function() setUpAndReturnUnmounter(void doUnmount()),
               @required bool verifyImmediateUnmount,
               @required bool verifyDeferredUnmount,
             }) async {
               if (verifyImmediateUnmount && verifyDeferredUnmount) {
-                throw new ArgumentError('verifyImmediateUnmount and verifyDeferredUnmount '
+                throw ArgumentError('verifyImmediateUnmount and verifyDeferredUnmount '
                     'are mutually exclusive and cannot both be set to true');
               }
 
@@ -675,7 +678,7 @@ main() {
         group('unmounting throws and', () {
           setUp(() {
             onComponentWillUnmount = bind0(expectAsync0(() {
-              throw new TestExceptionThrownFromLifecycle();
+              throw TestExceptionThrownFromLifecycle();
             }, id: 'onComponentWillUnmount'));
           });
 
@@ -683,7 +686,7 @@ main() {
         });
       });
     });
-  }, timeout: const Timeout(const Duration(seconds: 1)));
+  }, timeout: const Timeout(Duration(seconds: 1)));
 }
 
 /// Shorthand for [Zone.bindCallback] on the current zone.

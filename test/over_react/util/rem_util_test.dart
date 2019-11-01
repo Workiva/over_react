@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library rem_util_test;
 
 import 'dart:async';
@@ -20,6 +21,7 @@ import 'dart:html';
 import 'package:over_react/src/util/css_value_util.dart';
 import 'package:over_react/src/util/rem_util.dart';
 import 'package:over_react/src/util/test_mode.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:test/test.dart';
 
 import '../../test_util/test_util.dart';
@@ -47,34 +49,32 @@ main() {
         setRootFontSize('20px');
       });
 
-      tearDown(() {
-        unsetRootFontSize();
-      });
+      tearDown(unsetRootFontSize);
 
       test('converts a px CSS value String to rem', () {
-        expect(toRem('15px'), new CssValue(0.75, 'rem'));
+        expect(toRem('15px'), CssValue(0.75, 'rem'));
       });
 
       test('converts a px CssValue instance to rem', () {
-        expect(toRem(new CssValue.parse('15px')), new CssValue(0.75, 'rem'));
+        expect(toRem(CssValue.parse('15px')), CssValue(0.75, 'rem'));
       });
 
       test('converts nums (treated as px) to rem', () {
-        expect(toRem(15), new CssValue(0.75, 'rem'));
-        expect(toRem(20.2), new CssValue(1.01, 'rem'));
+        expect(toRem(15), CssValue(0.75, 'rem'));
+        expect(toRem(20.2), CssValue(1.01, 'rem'));
       });
 
       test('does not convert nums when `treatNumAsRem` is true', () {
-        expect(toRem(15, treatNumAsRem: true), new CssValue(15, 'rem'));
-        expect(toRem(20.2, treatNumAsRem: true), new CssValue(20.2, 'rem'));
+        expect(toRem(15, treatNumAsRem: true), CssValue(15, 'rem'));
+        expect(toRem(20.2, treatNumAsRem: true), CssValue(20.2, 'rem'));
       });
 
       test('gracefully handles a rem String, not doing any conversion', () {
-        expect(toRem('1334rem'), new CssValue(1334, 'rem'));
+        expect(toRem('1334rem'), CssValue(1334, 'rem'));
       });
 
       test('gracefully handles a rem CssValue, not doing any conversion', () {
-        expect(toRem(new CssValue(1334, 'rem')), new CssValue(1334, 'rem'));
+        expect(toRem(CssValue(1334, 'rem')), CssValue(1334, 'rem'));
       });
 
       test('gracefully passes through `null`', () {
@@ -82,7 +82,7 @@ main() {
       });
 
       test('throws when passed an invalid value', () {
-        expect(() => toRem(new Object()), allOf(
+        expect(() => toRem(Object()), allOf(
             throwsArgumentError,
             throwsA(hasToStringValue(contains('must be a px num or a String px/rem value'))))
         );
@@ -104,20 +104,20 @@ main() {
         });
 
         test('unless `passThroughUnsupportedUnits` is true', () {
-          expect(toRem('1em', passThroughUnsupportedUnits: true), new CssValue.parse('1em'));
+          expect(toRem('1em', passThroughUnsupportedUnits: true), CssValue.parse('1em'));
         });
       });
 
       group('throws when passed a CssValue instance with a unit other than px/rem', () {
         test('', () {
-          expect(() => toRem(new CssValue.parse('1em')), allOf(
+          expect(() => toRem(CssValue.parse('1em')), allOf(
               throwsArgumentError,
               throwsA(hasToStringValue(contains('must be a px num or a String px/rem value'))))
           );
         });
 
         test('unless `passThroughUnsupportedUnits` is true', () {
-          expect(toRem(new CssValue.parse('1em'), passThroughUnsupportedUnits: true), new CssValue.parse('1em'));
+          expect(toRem(CssValue.parse('1em'), passThroughUnsupportedUnits: true), CssValue.parse('1em'));
         });
       });
     });
@@ -127,34 +127,32 @@ main() {
         setRootFontSize('20px');
       });
 
-      tearDown(() {
-        unsetRootFontSize();
-      });
+      tearDown(unsetRootFontSize);
 
       test('converts a rem CSS value String to px', () {
-        expect(toPx('0.75rem'), new CssValue(15, 'px'));
+        expect(toPx('0.75rem'), CssValue(15, 'px'));
       });
 
       test('converts a rem CssValue instance to px', () {
-        expect(toPx(new CssValue.parse('0.75rem')), new CssValue(15, 'px'));
+        expect(toPx(CssValue.parse('0.75rem')), CssValue(15, 'px'));
       });
 
       test('converts nums (treated as rem) to px', () {
-        expect(toPx(3), new CssValue(60, 'px'));
-        expect(toPx(1.01), new CssValue(20.2, 'px'));
+        expect(toPx(3), CssValue(60, 'px'));
+        expect(toPx(1.01), CssValue(20.2, 'px'));
       });
 
       test('does not convert nums when `treatNumAsPx` is true', () {
-        expect(toPx(3, treatNumAsPx: true), new CssValue(3, 'px'));
-        expect(toPx(1.01, treatNumAsPx: true), new CssValue(1.01, 'px'));
+        expect(toPx(3, treatNumAsPx: true), CssValue(3, 'px'));
+        expect(toPx(1.01, treatNumAsPx: true), CssValue(1.01, 'px'));
       });
 
       test('gracefully handles a px String, not doing any conversion', () {
-        expect(toPx('1334px'), new CssValue(1334, 'px'));
+        expect(toPx('1334px'), CssValue(1334, 'px'));
       });
 
       test('gracefully handles a px CssValue, not doing any conversion', () {
-        expect(toPx(new CssValue(1334, 'px')), new CssValue(1334, 'px'));
+        expect(toPx(CssValue(1334, 'px')), CssValue(1334, 'px'));
       });
 
       test('gracefully passes through `null`', () {
@@ -162,7 +160,7 @@ main() {
       });
 
       test('throws when passed an invalid value', () {
-        expect(() => toPx(new Object()), allOf(
+        expect(() => toPx(Object()), allOf(
             throwsArgumentError,
             throwsA(hasToStringValue(contains('must be a rem num or a String px/rem value'))))
         );
@@ -184,20 +182,20 @@ main() {
         });
 
         test('unless `passThroughUnsupportedUnits` is true', () {
-          expect(toPx('1em', passThroughUnsupportedUnits: true), new CssValue.parse('1em'));
+          expect(toPx('1em', passThroughUnsupportedUnits: true), CssValue.parse('1em'));
         });
       });
 
       group('throws when passed a CssValue instance with a unit other than px/rem', () {
         test('', () {
-          expect(() => toPx(new CssValue.parse('1em')), allOf(
+          expect(() => toPx(CssValue.parse('1em')), allOf(
               throwsArgumentError,
               throwsA(hasToStringValue(contains('must be a rem num or a String px/rem value'))))
           );
         });
 
         test('unless `passThroughUnsupportedUnits` is true', () {
-          expect(toPx(new CssValue.parse('1em'), passThroughUnsupportedUnits: true), new CssValue.parse('1em'));
+          expect(toPx(CssValue.parse('1em'), passThroughUnsupportedUnits: true), CssValue.parse('1em'));
         });
       });
     });
@@ -217,7 +215,7 @@ main() {
         var listener = onRemChange.listen(calls.add);
 
         // Wait for the async mounting of the rem change sensor node.
-        await new Future(() {});
+        await Future(() {});
 
         expect(querySelector('#rem_change_sensor'), isNotNull);
         expect(calls, isEmpty);
@@ -229,7 +227,7 @@ main() {
 
         expect(calls, [17]);
 
-        listener.cancel();
+        await listener.cancel();
       });
 
       group('', () {
@@ -245,7 +243,7 @@ main() {
           var listener2 = onRemChange.listen(calls.add);
 
           // Wait for the async mounting of the rem change sensor node.
-          await new Future(() {});
+          await Future(() {});
 
           var nextChange = onRemChange.first;
           setRootFontSize('17px');
@@ -254,8 +252,8 @@ main() {
 
           expect(calls, hasLength(1));
 
-          listener1.cancel();
-          listener2.cancel();
+          await listener1.cancel();
+          await listener2.cancel();
         });
 
         test('does not dispatch events when recomputeRootFontSize is called and there is no change', () async {
@@ -263,7 +261,7 @@ main() {
           var listener = onRemChange.listen(calls.add);
 
           // Wait for the async mounting of the rem change sensor node.
-          await new Future(() {});
+          await Future(() {});
 
           recomputeRootFontSize();
 
@@ -274,7 +272,7 @@ main() {
 
           expect(calls, [17]);
 
-          listener.cancel();
+          await listener.cancel();
         });
       });
     });
@@ -357,7 +355,7 @@ main() {
 
           toRem('1rem');
           // Wait for the async mounting of the rem change sensor node.
-          await new Future(() {});
+          await Future(() {});
         });
 
         test('', () {
@@ -366,14 +364,14 @@ main() {
 
         test('that results in `toRem` returning the expected value when the root document font size changes', () async {
           setRootFontSize('20px');
-          await new Future.delayed(const Duration(milliseconds: 100));
+          await Future.delayed(const Duration(milliseconds: 100));
           expect(toRem('20px').number, 1);
         });
       }, testOn: 'chrome');
 
       test(', except in non-Chrome browsers', () async {
         toRem('1rem');
-        await new Future.delayed(const Duration(milliseconds: 100));
+        await Future.delayed(const Duration(milliseconds: 100));
         expect(querySelector('#rem_change_sensor'), isNull, reason: 'test setup sanity check');
       }, testOn: '!chrome');
     }, testOn: 'browser');
@@ -391,7 +389,7 @@ main() {
       test('multiple unawaited init calls in a row', () async {
         await initRemChangeSensor();
         await initRemChangeSensor();
-        await new Future(() {});
+        await Future(() {});
 
         expect(querySelectorAll('#rem_change_sensor'), hasLength(1),
             reason: 'inits the sensor properly wihtout creating duplicates');
@@ -402,7 +400,7 @@ main() {
       });
 
       test('destroy after unawaited init', () async {
-        initRemChangeSensor();
+        unawaited(initRemChangeSensor());
         await destroyRemChangeSensor();
 
         expect(querySelector('#rem_change_sensor'), isNull,
@@ -414,9 +412,9 @@ main() {
       });
 
       test('init after unawaited destroy', () async {
-        destroyRemChangeSensor();
+        unawaited(destroyRemChangeSensor());
         await initRemChangeSensor();
-        await new Future(() {});
+        await Future(() {});
 
         expect(querySelector('#rem_change_sensor'), isNotNull,
             reason: 'inits the sensor, since destruction should be sync');

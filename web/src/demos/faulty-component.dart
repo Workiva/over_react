@@ -40,7 +40,7 @@ class FaultyComponent extends UiStatefulComponent<FaultyProps, FaultyState> {
   void componentWillUpdate(_, Map nextState) {
     final tNextState = typedStateFactory(nextState);
     if (tNextState.hasErrored && !state.hasErrored) {
-      throw new Error();
+      throw Error();
     }
   }
 

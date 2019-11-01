@@ -21,10 +21,10 @@ String getName(Type type) {
 /// `lib/`.
 Uri idToPackageUri(AssetId id) {
   if (!id.path.startsWith('lib/')) {
-    return new Uri(path: id.path);
+    return Uri(path: id.path);
   }
 
-  return new Uri(scheme: 'package',
+  return Uri(scheme: 'package',
       path: p.url.join(id.package, id.path.replaceFirst('lib/', '')));
 }
 

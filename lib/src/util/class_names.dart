@@ -15,6 +15,7 @@
 /// Utilities for manipulating and generating CSS class names.
 library over_react.class_names;
 
+// ignore_for_file: deprecated_member_use_from_same_package
 import 'dart:collection';
 
 import 'package:over_react/over_react.dart' show
@@ -67,7 +68,7 @@ class CssClassPropsMapView extends MapView with
 /// A [StringBuffer]-backed CSS class builder optimized for adding classNames,
 /// with support for blacklisting CSS classes.
 class ClassNameBuilder {
-  StringBuffer _classNamesBuffer = new StringBuffer();
+  final StringBuffer _classNamesBuffer = StringBuffer();
   StringBuffer _blacklistBuffer;
 
   /// Creates a new, empty `ClassNameBuilder` instance.
@@ -85,15 +86,15 @@ class ClassNameBuilder {
   }
 
   /// Creates a new `ClassNameBuilder` with [_classNamesBuffer] and [_blacklistBuffer] merged from [a] and [b].
-  ///   
+  ///
   ///     ClassNameBuilder a = new ClassNameBuilder()
   ///       ..add('a');
-  /// 
+  ///
   ///     ClassNameBuilder b = new ClassNameBuilder()
   ///       ..add('b');
-  ///     
+  ///
   ///     ClassNameBuilder builder = new ClassNameBuilder.merged(a,b);
-  /// 
+  ///
   ///     print(builder.toClassName()); // 'a b'
   ClassNameBuilder.merged(ClassNameBuilder a, ClassNameBuilder b) {
     merge(a);
@@ -111,7 +112,7 @@ class ClassNameBuilder {
       return;
     }
 
-    var cssClassProps = new CssClassPropsMapView(props);
+    var cssClassProps = CssClassPropsMapView(props);
 
     this
       ..add(cssClassProps.className)
@@ -166,7 +167,7 @@ class ClassNameBuilder {
     }
 
     if (_blacklistBuffer == null) {
-      _blacklistBuffer = new StringBuffer();
+      _blacklistBuffer = StringBuffer();
     } else {
       if (_blacklistBuffer.isNotEmpty) {
         _blacklistBuffer.write(' ');
@@ -180,7 +181,7 @@ class ClassNameBuilder {
   /// Merges the classes and blacklists from [other] into this builder.
   void merge(ClassNameBuilder other) {
     if (_blacklistBuffer == null) {
-      _blacklistBuffer = new StringBuffer();
+      _blacklistBuffer = StringBuffer();
     } else {
       if (_blacklistBuffer.isNotEmpty) {
         _blacklistBuffer.write(' ');
@@ -222,7 +223,7 @@ class ClassNameBuilder {
       List blacklistedClasses = splitSpaceDelimitedString(_blacklistBuffer.toString());
 
       className = splitSpaceDelimitedString(className)
-          .where((String cssClass) => !blacklistedClasses.contains(cssClass))
+          .where((cssClass) => !blacklistedClasses.contains(cssClass))
           .join(' ');
     }
 
@@ -259,7 +260,7 @@ class ClassNameBuilder {
   ///
   /// > This method, along with [addFromProps], is useful for merging sets of className/blacklist props.
   Map toProps() {
-    return new CssClassPropsMapView({})
+    return CssClassPropsMapView({})
       ..className = toClassName()
       ..classNameBlacklist = toClassNameBlacklist();
   }
